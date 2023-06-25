@@ -1,0 +1,5 @@
+@import url(./styles/common.css);
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

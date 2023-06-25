@@ -1,0 +1,21 @@
+export const footerOptions = [
+    { photo: '/png/options/vezarat.png', href: 'https://irpsc.com/', alt: 'وزارت تعاون کار و رفاه اجتماع'},
+    { photo: '/png/options/qazaii.png', href: 'https://irpsc.com/', alt: 'ثبت اسناد و املاک کشور'},
+    { photo: '/png/options/video.png', href: 'https://video.irpsc.com/', alt: 'مرکز آموزش ویدئویی'},
+    { photo: '/png/options/faq.png', href: 'https://faq.irpsc.com/', alt: 'انجمن پرسش و پاسخ'},
+    { photo: '/png/options/shop.png', href: 'https://shop.irpsc.com/', alt: 'فروشگاه ملی'},
+    { photo: '/png/options/supply.png', href: 'https://supply.irpsc.com/', alt: 'تولید کنندگان'},
+    { photo: '/png/options/crm.png', href: 'https://crm.irpsc.com/', alt: 'مدیریت بر مدیران'},
+    { photo: '/png/options/target.png', href: 'https://target.irpsc.com/', alt: 'نگرش ملی'},
+    { photo: '/png/options/animal.png', href: 'https://animal.irpsc.com/', alt: 'حیوانات و دامپزشک'},
+    { photo: '/png/options/irpsc.png', href: 'https://irpsc.com/', alt: 'رسانه ملی'},
+    { photo: '/png/options/meta.png', href: 'https://meta.irpsc.com/', alt: 'اخبار متا'},
+    { photo: '/png/options/uni.png', href: 'https://uni.irpsc.com/', alt: 'دانشگاه متاورس'},
+    { photo: '/png/options/knowledge.png', href: 'https://knowledge.irpsc.com/', alt: 'استخدام|دانش محور'},
+    { photo: '/png/options/sale.png', href: 'https://sale.irpsc.com/', alt: 'فروشگاه مجازی حم'},
+    { photo: '/png/options/ad.png', href: 'https://ad.irpsc.com/', alt: 'تبلیغات ملی'},
+    { photo: '/png/options/nft.png', href: 'https://nft.irpsc.com/', alt: 'بازار NFT'},
+    { photo: '/gif/rgb.gif', href: 'https://rgb.irpsc.com/', alt: 'متاورس رنگ'},
+    { photo: '/png/options/home-soon.png', href: '/', alt: 'خانه'},
+
+  ];
