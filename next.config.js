@@ -4,10 +4,10 @@ const nextConfig = {
   "typescript": {
     "ignoreBuildErrors": true,
   },
-    assetPrefix: '/docs',
+    assetPrefix: '/nextjs',
     rewrites() {
       return [
-        { source: '/docs/_next/:path*', destination: '/_next/:path*' }
+        { source: '/nextjs/_next/:path*', destination: '/nextjs/_next/:path*' }
       ]
     },
   images: {
