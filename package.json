@@ -16,13 +16,12 @@
     "autoprefixer": "^10.4.14",
     "axios": "^1.4.0",
     "eslint": "8.39.0",
-    "eslint-config-next": "13.3.4",
     "gltf-loader": "^1.0.0",
     "lottie-react": "^2.4.0",
-    "next": "13.3.4",
+    "next": "^13.4.17",
     "postcss": "^8.4.23",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-modal": "^3.16.1",
     "react-player": "^2.12.0",
     "react-three-fiber": "^6.0.13",
@@ -37,6 +36,7 @@
     "@svgr/webpack": "^8.0.1",
     "@types/react-modal": "^3.16.0",
     "@types/three": "^0.152.1",
+    "eslint-config-next": "^13.4.17",
     "tailwindcss": "^3.3.2"
   }
 }
