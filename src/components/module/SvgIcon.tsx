@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import Image from "next/image";
 import {
   HomeIcon,
   Belongings,
@@ -14,11 +15,13 @@ import {
   Transaction,
   Language,
 } from "../svgs";
-Lang
- const {  selectedProfileData } = useContext(LangContext);
+import { LangContext } from "../context/LangContext";
+import { SideBarContext } from "../context/SidebarContext";;
 
+export default function SvgIcon({ name, color }: any) {
 
-export default function SvgIcon({ name,color }: any) {
+  const { languageSelected } = useContext(LangContext);
+  const { isCollapsed  } =useContext(SideBarContext);
   return (
     <>
       {name === "home" && (
@@ -57,9 +60,22 @@ export default function SvgIcon({ name,color }: any) {
       {name === "transaction" && (
         <Transaction className={` ${color} stroke-2 mx-[10px]`} />
       )}
-      {name === "language" && (
-        <Language className={` ${color} stroke-1 mx-[10px]`} />
+      {name === "language" &&  (
+        languageSelected.icon ?  
+        <Image src={languageSelected.icon} alt="" width={100} height={100} className={`${isCollapsed ? 'w-[60%] ':'w-10 h-7 ps-2'}`}/>
+         :
+         (<Language className={` ${color} stroke-1 mx-[10px]`} />)
+       
       )}
     </>
   );
 }
+
+
+  //  {name === "language" &&  (
+  //       languageSelected.icon ?  
+  //       <Image src={languageSelected.icon} alt="" width={100} height={100} className="w-10 h-7"/>
+  //        :
+  //        (<Language className={` ${color} stroke-1 mx-[10px]`} />)
+       
+  //     )}
