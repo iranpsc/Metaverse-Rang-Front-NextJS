@@ -59,7 +59,7 @@ export default function Profile(){
         <div className="dark:bg-dark-background transition-all duration-300 ease-linear flex flex-col mt-1 bg-white justify-center  items-center rounded-md">
           <section className="w-full   flex flex-nowrap justify-around px-4 md:px-1 max-lg:px-0 items-center">
             <Image
-              src={imgs0}
+              src={imgs0 || "/profile/lock.png"}
               width={100}
               height={100}
               alt="profile"
@@ -71,7 +71,7 @@ export default function Profile(){
             <hr className="xl:w-10 lg:w-10 md:w-4 inline-block mx-1  text-lightGray dark:text-dark-lightWhite" />
 
             <Image
-              src={profileData?.kyc?.nationality}
+              src={profileData?.kyc?.nationality || "/profile/lock.png"}
               width={100}
               height={100}
               alt="profile"
@@ -99,7 +99,7 @@ export default function Profile(){
         <section className="dark:bg-dark-background  relative bg-white transition-all duration-300 ease-linear mt-2 rounded-md flex flex-row max-lg:flex-col ">
           <div className=" dark:bg-dark-background bg-white  flex justify-center basis-3/4 items-center">
             <Image
-              src={imgs1}
+              src={imgs1 || "/profile/lock.png"}
               width={1000}
               height={1000}
               alt="profile"
@@ -115,7 +115,7 @@ export default function Profile(){
             />
             <div className="h-full flex flex-col max-lg:flex-row max-lg:w-full max-lg:gap-6 justify-center items-center">
               <Image
-                src={imgs0}
+                src={imgs0 || "/profile/lock.png"}
                 width={100}
                 height={100}
                 alt="profile"
@@ -126,7 +126,7 @@ export default function Profile(){
                 "
               />
               <Image
-                src={imgs0}
+                src={imgs0 || "/profile/lock.png"}
                 width={100}
                 height={100}
                 alt="profile"

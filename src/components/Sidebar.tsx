@@ -27,7 +27,7 @@ export default function Sidebar() {
 
   useEffect(() => {
     setActiveDropdown(false);
-  }, [languageSelected.name,isCollapsed]);
+  }, [languageSelected.name, isCollapsed]);
   const handleDirChange = (item: any) => {
     console.log("object:", item);
     // const [selectedId,selectedCode, selectedLangName,selectedDirection] = event.target.value.split(",");
@@ -76,7 +76,9 @@ export default function Sidebar() {
               width={20}
               height={20}
               className={`${
-                isCollapsed ? "hidden" : "visible cursor-pointer  xl:mx-10 lg:mx-10 mx-4"
+                isCollapsed
+                  ? "hidden"
+                  : "visible cursor-pointer  xl:mx-10 lg:mx-10 mx-4"
               }`}
               onClick={() =>
                 theme == "dark" ? setTheme("light") : setTheme("dark")
@@ -203,9 +205,9 @@ export default function Sidebar() {
                                     <path
                                       d="M1 7.25L4.81818 11L15 1"
                                       stroke="#0066FF"
-                                      stroke-width="2"
-                                      stroke-linecap="round"
-                                      stroke-linejoin="round"
+                                      strokeWidth="2"
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
                                     />
                                   </svg>
                                 )}
