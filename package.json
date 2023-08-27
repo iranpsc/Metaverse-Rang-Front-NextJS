@@ -16,7 +16,7 @@
     "@types/react": "18.2.0",
     "@types/react-dom": "18.2.1",
     "autoprefixer": "^10.4.14",
-    "axios": "^1.4.0",
+    "axios": "^1.5.0",
     "eslint": "8.39.0",
     "gltf-loader": "^1.0.0",
     "lottie-react": "^2.4.0",

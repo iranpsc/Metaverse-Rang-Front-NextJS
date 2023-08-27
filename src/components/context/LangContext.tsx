@@ -1,5 +1,6 @@
 import { createContext, ReactNode, useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import axios from "axios";
 
 interface LanguageSelected {
   id: number;
@@ -53,34 +54,35 @@ const LangProvider = ({ children }: Props) => {
 
   const router = useRouter();
 
-  const { lang,userId } = router.query;
+  const { lang, userId } = router.query;
 
   useEffect(() => {
     const fetchData = async () => {
-     
-      const res = await fetch("https://admin.rgb.irpsc.com/api/translations");
-      const data = await res.json();
-    
-      if (lang) {
-        const query = data.data.find((item: any) => item.code === lang);
-
-        if (query) {
-          setLanguagesSelected({
-            id: query.id,
-            code: query.code,
-            name: query.name,
-            dir: query.direction,
-            icon: query.icon,
-          });
-          //setLanguagesData(data.data.filter((item: any) => item.code !== lang));
-          setLanguagesData(data.data);
-        } else {
-          const urlEN = await data.data.find((item: any) => item.code === "EN");
-          router.push(`/${urlEN.code}/citizen/profile`);
-          setLanguagesData(data.data);
-
-          
+      try {
+        const res = await axios.get(
+          "https://admin.rgb.irpsc.com/api/translations"
+        );
+        if (lang) {
+          const query = res.data.data.find((item: any) => item.code === lang);
+          if (query) {
+            setLanguagesSelected({
+              id: query.id,
+              code: query.code,
+              name: query.name,
+              dir: query.direction,
+              icon: query.icon,
+            });
+            setLanguagesData(res.data.data);
+          } else {
+            const urlEN = await res.data.data.find(
+              (item: any) => item.code === "EN"
+            );
+            router.push(`/${urlEN.code}/citizen/profile`);
+            setLanguagesData(res.data.data);
+          }
         }
+      } catch (err) {
+        router.push("/404");
       }
     };
     fetchData();
@@ -88,56 +90,64 @@ const LangProvider = ({ children }: Props) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(
-        `https://api.rgb.irpsc.com/api/citizen/${userId}`
-      );
-      const data = await res.json();
-      if (data.message) {
+      try {
+        const res = await axios.get(
+          `https://api.rgb.irpsc.com/api/citizen/${userId}`
+        );
+       
+          setProfileData(res.data.data);
+      } catch (err) {
+        console.log(err)
         router.push("/404");
-      } else {
-        setProfileData(data.data);
-      }
+      }  
     };
-    fetchData();
+    if(userId){
+      fetchData();
+    }
   }, [userId]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(
-        `https://admin.rgb.irpsc.com/api/translations/${languageSelected.id}/modals`
-      );
-      const data = await res.json();
+      try {
+         const res = await axios.get(
+           `https://admin.rgb.irpsc.com/api/translations/${languageSelected.id}/modals`
+         );
 
-      const selectModals = data.data.find(
-        (item: any) => item.name === "Citizenship-profile"
-      );
-      //menu
-      const resMenu = await fetch(
-        `https://admin.rgb.irpsc.com/api/translations/${languageSelected?.id}/modals/${selectModals.id}/tabs`
-      );
-      const dataItemMenu = await resMenu.json();
-      const removeMenuName = "menu";
-      const newItem = dataItemMenu.data.filter(
-        (item: any) => item.name !== removeMenuName
-      );
-      const language = {
-        id: 9999132,
-        modal_id: selectModals,
-        name: "language",
-      };
-      const addLanguage: any = [...newItem, language];
-      setMenuData(addLanguage);
+         const selectModals = res.data.data.find(
+           (item: any) => item.name === "Citizenship-profile"
+         );
+         //menu
+         const resMenu = await axios.get(
+           `https://admin.rgb.irpsc.com/api/translations/${languageSelected?.id}/modals/${selectModals.id}/tabs`
+         );
+         const removeMenuName = "menu";
+         const newItem = resMenu.data.data.filter(
+           (item: any) => item.name !== removeMenuName
+         );
+         const language = {
+           id: 9999132,
+           modal_id: selectModals,
+           name: "language",
+         };
+         const addLanguage: any = [...newItem, language];
+         setMenuData(addLanguage);
 
-      const getTabs = await fetch(
-        `https://admin.rgb.irpsc.com/api/translations/${languageSelected.id}/modals/${selectModals.id}/tabs`
-      );
-      const tabs = await getTabs.json();
-      const selectTabs = tabs.data.find((item: any) => item.name === "home");
-      const getFields = await fetch(
-        `https://admin.rgb.irpsc.com/api/translations/${languageSelected.id}/modals/${selectModals.id}/tabs/${selectTabs.id}/fields`
-      );
-      const dataFields = await getFields.json();
-      setSelectedProfileData(dataFields.data);
+         const getTabs = await axios.get(
+           `https://admin.rgb.irpsc.com/api/translations/${languageSelected.id}/modals/${selectModals.id}/tabs`
+         );
+
+         const selectTabs = getTabs.data.data.find(
+           (item: any) => item.name === "home"
+         );
+         const getFields = await axios.get(
+           `https://admin.rgb.irpsc.com/api/translations/${languageSelected.id}/modals/${selectModals.id}/tabs/${selectTabs.id}/fields`
+         );
+
+         setSelectedProfileData(getFields.data.data);
+      } catch (err) {
+        router.push('/404')
+        console.log(err)
+      }
     };
     fetchData();
   }, [languageSelected.id]);
