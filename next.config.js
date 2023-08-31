@@ -9,7 +9,12 @@ module.exports = {
     return config;
   },
   images: {
-    domains: ["dl.qzparadise.ir", "api.rgb.irpsc.com"],
+    domains: [
+      "dl.qzparadise.ir",
+      "api.rgb.irpsc.com",
+      "admin.rgb.irpsc.com",
+      "localhost",
+    ],
   },
-  experimental: { esmExternals: true },
+  experimental: { esmExternals: true, serverActions: true },
 };
