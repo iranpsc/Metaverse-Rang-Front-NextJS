@@ -6,6 +6,7 @@ import { ThemeProvider } from "next-themes";
 
 import SidebarProvider from "@/components/context/SidebarContext";
 import LangProvider from "@/components/context/LangContext";
+import AuthProvider from "@/components/context/AuthContext";
 
 
 
@@ -60,11 +61,13 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider attribute="class">
       <LangProvider>
+        <AuthProvider>
         <main className={`${azarMehr.variable}`}>
           <SidebarProvider>
             <Component {...pageProps} />
           </SidebarProvider>
         </main>
+        </AuthProvider>
       </LangProvider>
     </ThemeProvider>
   );

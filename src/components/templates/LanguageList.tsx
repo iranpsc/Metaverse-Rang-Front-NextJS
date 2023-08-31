@@ -1,27 +1,28 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { LangContext } from "../context/LangContext";
 
-
-
 export default function LanguageList(){
-  
-
-  const { languagesData, selectedDir, setSelectedDir, setSelectedIdLang } =
+  const { languagesData, languageSelected,setLanguagesSelected } =
     useContext(LangContext);
- 
 
   const handleDirChange = (event: any) => {
     const [selectedId, selectedDirection] = event.target.value.split(",");
-    setSelectedDir(selectedDirection);
-    setSelectedIdLang(selectedId);
+   setLanguagesSelected({
+     id: parseInt(selectedId),
+     dir: selectedDirection,
+     code:"",
+     name:"",
+     icon:""
+    
+   });
   };
-
+  
   return (
     <>
       <select
         className=""
         onChange={handleDirChange}
-        value={selectedDir}
+        value={languageSelected.name}
       >
         <option selected>Language</option>
         {languagesData.map((item: any) => (

@@ -2,6 +2,9 @@ import { createContext, ReactNode, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 
+import {Language,LanguageResponse} from './../../types/api'
+
+
 interface LanguageSelected {
   id: number;
   name: string;
@@ -10,7 +13,7 @@ interface LanguageSelected {
   icon: string;
 }
 interface LangContextType {
-  languagesData: any[];
+  languagesData: Language[];
   languageSelected: LanguageSelected;
   menuData: any[];
   profileData: any;
@@ -42,7 +45,10 @@ interface Props {
 }
 
 const LangProvider = ({ children }: Props) => {
-  const [languagesData, setLanguagesData] = useState([]);
+  const [languagesData, setLanguagesData] = useState<Language[]>([]);
+
+
+
   const [languageSelected, setLanguagesSelected] = useState<LanguageSelected>(
     initialValue.languageSelected
   );
@@ -82,7 +88,7 @@ const LangProvider = ({ children }: Props) => {
           }
         }
       } catch (err) {
-        router.push("/404");
+        //router.push("/404");
       }
     };
     fetchData();
@@ -98,7 +104,7 @@ const LangProvider = ({ children }: Props) => {
           setProfileData(res.data.data);
       } catch (err) {
         console.log(err)
-        router.push("/404");
+        //router.push("/404");
       }  
     };
     if(userId){
@@ -117,20 +123,29 @@ const LangProvider = ({ children }: Props) => {
            (item: any) => item.name === "Citizenship-profile"
          );
          //menu
-         const resMenu = await axios.get(
+         const resModalMenu = await axios.get(
            `https://admin.rgb.irpsc.com/api/translations/${languageSelected?.id}/modals/${selectModals.id}/tabs`
+         );
+         const selectTabsMenu = resModalMenu.data.data.find(
+           (item: any) => item.name === "menu"
+         );
+       
+         const resMenu = await axios.get(
+           `https://admin.rgb.irpsc.com/api/translations/${languageSelected?.id}/modals/${selectModals.id}/tabs/${selectTabsMenu.id}/fields`
          );
          const removeMenuName = "menu";
          const newItem = resMenu.data.data.filter(
            (item: any) => item.name !== removeMenuName
          );
-         const language = {
-           id: 9999132,
-           modal_id: selectModals,
-           name: "language",
-         };
-         const addLanguage: any = [...newItem, language];
-         setMenuData(addLanguage);
+        //  const language = {
+        //    id: 9999132,
+        //    modal_id: selectModals,
+        //    name: "language",
+        //  };
+        //  const addLanguage: any = [...newItem, language];
+        //  setMenuData(addLanguage);
+      
+         setMenuData(newItem);
 
          const getTabs = await axios.get(
            `https://admin.rgb.irpsc.com/api/translations/${languageSelected.id}/modals/${selectModals.id}/tabs`
@@ -145,7 +160,7 @@ const LangProvider = ({ children }: Props) => {
 
          setSelectedProfileData(getFields.data.data);
       } catch (err) {
-        router.push('/404')
+      //  router.push('/404')
         console.log(err)
       }
     };

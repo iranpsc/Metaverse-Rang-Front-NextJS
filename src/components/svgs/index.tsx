@@ -14,3 +14,11 @@ export { default as CLoseIcon } from "./close.svg";
 export { default as MenuIcon } from "./menu.svg";
 export { default as ActiveMenuIcon } from "./darkactiveMenu.svg";
 export { default as Language } from "./Language.svg";
+export { default as LoginMenu } from "./login-menu.svg";
+//Auth
+export { default as CloseAuth} from "./auth/closeAuth.svg";
+export { default as EyeShow } from "./auth/eyeshow.svg";
+export { default as EyeHidden } from "./auth/eye-slash.svg";
+
+export { default as ProfileIcon } from "./auth/profile.svg";
+export { default as ProfileAddIcon } from "./auth/profile-add.svg";

@@ -48,7 +48,7 @@ export default function SvgIcon({ name, color }: any) {
       {name === "property" && (
         <Property className={` ${color} stroke-2 mx-[10px]`} />
       )}
-      {name === "real-estate" && (
+      {name === "real estate" && (
         <RealEstate className={` ${color} stroke-2 mx-[10px]`} />
       )}
       {name === "reward" && (
@@ -62,7 +62,7 @@ export default function SvgIcon({ name, color }: any) {
       )}
       {name === "language" &&  (
         languageSelected.icon ?  
-        <Image src={languageSelected.icon} alt="" width={100} height={100} className={`${isCollapsed ? 'w-[60%] ':'w-10 h-7 ps-2'}`}/>
+        <Image src={languageSelected.icon} alt="" width={100} height={100} className={`${isCollapsed ? 'w-[90%] ps-5':'w-10 h-7'}`}/>
          :
          (<Language className={` ${color} stroke-1 mx-[10px]`} />)
        
@@ -70,12 +70,3 @@ export default function SvgIcon({ name, color }: any) {
     </>
   );
 }
-
-
-  //  {name === "language" &&  (
-  //       languageSelected.icon ?  
-  //       <Image src={languageSelected.icon} alt="" width={100} height={100} className="w-10 h-7"/>
-  //        :
-  //        (<Language className={` ${color} stroke-1 mx-[10px]`} />)
-       
-  //     )}

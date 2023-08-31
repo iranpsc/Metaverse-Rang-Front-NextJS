@@ -11,6 +11,7 @@ import ModalCard from "@/components/templates/ModalCard";
 export default function Home() {
   const { languageSelected } = useContext(LangContext);
   const [showModal,setShowModal] = useState<boolean>(false);
+ 
 
   function addPageJsonLd() {
     return {
@@ -54,7 +55,7 @@ export default function Home() {
   return (
     <section
       dir={languageSelected.dir}
-      className=" overflow-clip h-screen max-lg:h-fit relative "
+      className=" overflow-clip h-screen max-lg:h-fit  relative "
     >
       <Head>
         <title>متاورس رنگ ایران</title>
@@ -66,16 +67,16 @@ export default function Home() {
         />
       </Head>
       <BaseLayout>
-        <div className="grid xl:grid-cols-12 lg:grid-cols-12   w-full relative   max-lg:flex max-lg:flex-col  ">
-          <section className="col-span-5  h-[100vh] max-lg:h-fit max-lg:col-span-6   dark:bg-black bg-[#e9eef8] px-1 ">
+        <div className="grid xl:grid-auto lg:grid-cols-12 w-full relative max-lg:flex max-lg:flex-col  ">
+          <section className="col-span-5  h-[100vh] max-lg:h-fit max-lg:col-span-6    dark:bg-black bg-[#e9eef8] ms-2">
             {showModal ? <ModalCard setShowModal={setShowModal} /> : null}
 
             <Profile />
           </section>
-          <div className="col-span-4 max-sm:col-span-6 h-screen max-lg:h-fit dark:bg-black bg-[#e9eef8] p-1">
+          <div className="col-span-4 max-sm:col-span-6 h-screen max-lg:h-fit dark:bg-black  bg-[#e9eef8] p-1">
             <ProfileDetails setShowModal={setShowModal} />
           </div>
-          <div className="col-span-3 h-screen dark:bg-black bg-[#e9eef8] p-1">
+          <div className="col-span-3 h-screen dark:bg-black  bg-[#e9eef8]  ">
             <ProfileAbout setShowModal={setShowModal} />
           </div>
         </div>
