@@ -30,7 +30,7 @@ export default function Profile(){
 
        
 
-        <section className="dark:bg-dark-background h-full xl:px-6 lg:px-6 md:px-2 max-sm:px-1  bg-white transition-all duration-300 ease-linear mt-2 relative  flex flex-col gap-4 justify-start items-center">
+        <section className="dark:bg-dark-background h-full xl:px-6 lg:px-6 md:px-2 max-sm:px-1  bg-white transition-all duration-300 ease-linear mt-2 relative  flex flex-col xl:gap-4 lg:gap-4 md:gap-2 max-sm:gap-4 justify-start items-center">
           <div className="flex flex-row   justify-between  w-full items-center mt-6">
             <p className="font-azarMehr font-bold xl:text-xl lg:text-xl md:text-md">
               {targetData(selectedProfileData, "citizenship id")}
@@ -40,22 +40,22 @@ export default function Profile(){
             </p>
           </div>
 
-          <div className="flex flex-nowrap  justify-between py-[2px] w-full items-center ">
-            <p className="font-azarMehr font-medium xl:text-sm lg:text-sm max-lg:text-md break-all max-sm:text-[13px]	 text-gray">
+          <div className="flex flex-nowrap  justify-between py-[2px] md:py-0 w-full items-center ">
+            <p className="font-azarMehr font-medium xl:text-sm lg:text-sm md:text-[13px] max-lg:text-md break-all max-sm:text-[13px]	 text-gray">
               {targetData(selectedProfileData, "citizenship name")}
             </p>
             <hr className="w-[40%] h-[1px] border border-dashed  text-lightGray dark:text-dark-lightWhite" />
-            <p className="dark:text-dark-gray font-azarMehr font-medium xl:text-sm lg:text-sm md:text-md break-all max-sm:text-[13px] text-black">
+            <p className="dark:text-dark-gray font-azarMehr font-medium md:text-[13px]  xl:text-sm lg:text-sm md:text-md break-all max-sm:text-[13px] text-black">
               {profileData?.name}
             </p>
           </div>
 
           <div className="flex flex-nowrap justify-between py-[2px] w-full items-center ">
-            <p className="font-azarMehr font-medium xl:text-sm lg:text-sm max-lg:text-md break-all text-gray max-sm:text-[13px]">
+            <p className="font-azarMehr font-medium xl:text-sm lg:text-sm md:text-[13px] max-lg:text-md break-all text-gray max-sm:text-[13px]">
               {targetData(selectedProfileData, "entry date")}
             </p>
             <hr className="w-[40%] h-[1px] border border-dashed  text-lightGray dark:text-dark-lightWhite" />
-            <p className="dark:text-dark-gray font-azarMehr font-medium xl:text-sm lg:text-sm md:text-xs break-all text-black max-sm:text-[13px]">
+            <p className="dark:text-dark-gray font-azarMehr font-medium xl:text-sm lg:text-sm md:text-[13px] break-all text-black max-sm:text-[13px]">
               {profileData?.registered_at}
             </p>
           </div>

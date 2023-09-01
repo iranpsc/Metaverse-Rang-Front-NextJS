@@ -25,13 +25,13 @@ const submitModalCart =(data:any)=>{
         </h1>
 
         <p className="font-azarMehr mt-2 max-sm:mx-3 max-sm:text-[13px] text-justify xl:leading-[30px] truncate- lg:leading-[20px] md:leading-[15px] mx-1 font-medium xl:text-[12px] lg:text-[10px] md:text-[10px]  text-gray">
-          {profileData?.customs?.about.slice(0, 125)}
+          {profileData?.customs?.about.slice(0, 127)}
           <span className="font-azarMehr font-medium xl:text-[12px]text-gray">
             {" "}
             ...
           </span>
           <span
-            className="dark:text-dark-yellow mx-2 text-blueLink font-azarMehr font-medium cursor-pointer  xl:text-md lg:text-md md:text-sm "
+            className="dark:text-dark-yellow mx-2 text-blueLink md:text-[12px] font-azarMehr font-medium cursor-pointer  xl:text-md lg:text-md"
             onClick={() => submitModalCart(profileData?.customs?.about)}
           >
             {targetData(selectedProfileData, "read more")}
@@ -41,13 +41,13 @@ const submitModalCart =(data:any)=>{
         <br />
         <br />
       </div>
-      <div className="dark:bg-dark-background min-h-screen bg-white transition-all duration-300 ease-linear  items-center flex flex-col justify-start mt-2 w-full rounded-md  p-2">
+      <div className="dark:bg-dark-background min-h-screen bg-white transition-all duration-300 ease-linear  items-center flex flex-col justify-start mt-2 md:mt-1 w-full rounded-md  p-2 md:p-0 ">
         <Image
           src="/profile/position.png"
           width={1000}
           height={1000}
           alt="profile"
-          className="w-[135px] mt-10 object-cover"
+          className="w-[135px] mt-10 md:mt-5 md:w-[100px] object-cover"
         />
       </div>
     </section>

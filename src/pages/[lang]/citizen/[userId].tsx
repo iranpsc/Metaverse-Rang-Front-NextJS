@@ -68,7 +68,7 @@ export default function Home() {
         />
       </Head>
       <BaseLayout>
-        <div className="grid xl:grid-auto lg:grid-cols-12 w-full relative max-lg:flex max-lg:flex-col">
+        <div className="grid xl:grid-auto lg:grid-cols-12 xl:grid-cols-12 w-full md:grid-flow-col md:auto-cols-fr  relative max-sm:flex max-sm:flex-col">
           <section className="col-span-5  h-[100vh] max-lg:h-fit max-lg:col-span-6    dark:bg-black bg-[#e9eef8] ms-2">
             {showModal ? (
               <ModalCard setShowModal={setShowModal} dataModal={dataModal} />
@@ -76,13 +76,13 @@ export default function Home() {
 
             <Profile />
           </section>
-          <div className="col-span-4 max-sm:col-span-6 h-screen max-lg:h-fit dark:bg-black  bg-[#e9eef8] max-sm:mt-2 ">
+          <div className="col-span-4 max-sm:col-span-6 h-screen max-lg:h-fit md:h-screen dark:bg-black  bg-[#e9eef8] max-sm:mt-2 ">
             <ProfileDetails
               setShowModal={setShowModal}
               setDataModal={setDataModal}
             />
           </div>
-          <div className="col-span-3 h-screen dark:bg-black  bg-[#e9eef8] max-sm:mt-2 ">
+          <div className="col-span-3 h-screen dark:bg-black md:h-screen  bg-[#e9eef8] max-sm:mt-2 ">
             <ProfileAbout
               setShowModal={setShowModal}
               setDataModal={setDataModal}

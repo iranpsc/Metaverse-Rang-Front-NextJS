@@ -26,12 +26,12 @@ export default function ProfileHeaderMobile() {
           )}
         </div>
 
-        <div className="flex flex-rows">
+        <div className="flex flex-rows justify-center items-center">
           <div className=" ml-1 ">
-            <p className="visible dark:text-white  block font-azarMehr  font-bold text-xl text-black">
+            <p className="visible dark:text-white md:text-[16px] block font-azarMehr  font-bold text-xl text-black">
               Meta Rgb
             </p>
-            <p className="dark: text-dark-gray visible font-normal text-mediumGray">
+            <p className="dark: text-dark-gray visible md:text-[11px] font-normal text-mediumGray">
               Metaverse Rang
             </p>
           </div>
@@ -40,7 +40,7 @@ export default function ProfileHeaderMobile() {
             width={1000}
             height={1000}
             alt=""
-            className=" w-[45px] h-[50px] rounded-[1rem]"
+            className=" w-[45px] h-[50px] md:mx-1 max-sm:mx-1 md:w-[35px] md:h-[35px]"
           />
         </div>
       </div>

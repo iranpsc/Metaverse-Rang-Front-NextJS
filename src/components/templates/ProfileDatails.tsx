@@ -69,7 +69,7 @@ export default function ProfileDetails({ setShowModal, setDataModal }: any) {
     },
   ];
   return (
-    <div className=" flex flex-col mx-1 justify-between xl:gap-0 lg:gap-2 h-full max-md:h-fit max-md:gap-3">
+    <div className=" flex flex-col mx-1 justify-between xl:gap-0 lg:gap-2 h-full  max-sm:h-fit max-sm:gap-3">
       <ProfileDetailsDetails itemsProfileDetails={itemsProfileDetails} />
 
       <ProfileDetailsInteresting

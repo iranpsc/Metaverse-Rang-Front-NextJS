@@ -31,7 +31,7 @@ export default function ProfileImages() {
           width={100}
           height={100}
           alt="profile"
-          className="inline-block rounded-full xl:w-11 xl:h-11 lg:w-10 lg:h-10 max-lg:w-12 max-lg:h-12"
+          className="inline-block rounded-full xl:w-11 xl:h-11 lg:w-10 lg:h-10  max-lg:w-12 max-lg:h-12"
           key={i}
         />
       );
@@ -60,18 +60,18 @@ export default function ProfileImages() {
             width={1000}
             height={1000}
             alt="profile"
-            className="  rounded-md w-full h-[280px]"
+            className="  rounded-md w-full xl:h-[280px] lg:h-[280px] md:h-[150px] md:object-cover"
           />
         </div>
 
-        <div className=" basis-1/4  flex flex-row max-lg:flex-col max-lg:mb-2  gap-2 justify-center items-center">
+        <div className=" basis-1/4 flex flex-row max-lg:flex-col max-lg:mb-2  gap-2 justify-center items-center">
           <hr
-            className="h-[90%] mx-3 w-[1.5px] border-none sd max-lg:w-[99%] max-lg:h-[1px] max-lg:mt-2 
+            className="h-[90%] mx-3 w-[1.5px] border-none max-lg:w-[99%] max-lg:h-[1px] max-lg:mt-2 max-sm:my-5 max-sm:w-[80%]
              
-              bg-gradient-to-b from-[#DADADA00] via-[#DADADA] to-[#DADADA00]"
+              bg-gradient-to-b max-sm:bg-gradient-to-l  from-[#DADADA00] via-[#DADADA] to-[#DADADA00]"
           />
 
-          <div className="h-full flex flex-col gap-2 max-lg:flex-row max-lg:w-full max-lg:gap-6 justify-center items-center">
+          <div className="h-full flex flex-col gap-2  max-lg:flex-row max-lg:w-full max-lg:gap-6 justify-center items-center max-sm:pb-3">
             {images}
           </div>
         </div>
