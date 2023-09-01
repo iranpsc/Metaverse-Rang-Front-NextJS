@@ -11,17 +11,17 @@ import CheckIp from "../module/CheckIp";
 import { LangContext } from '@/components/context/LangContext';
 
 export default function AuthCards({setShowAuthCard}:any) {
-  const { modalName, setModalName } = useContext(AuthContext);
+  const { modalName } = useContext(AuthContext);
   const { languageSelected } = useContext(LangContext);
   const lang = languageSelected.code;
  
   return (
-    <div className=" absolute  z-50  top-0 w-full h-full" dir="ltr">
+    <div className=" absolute  z-50  top-0 w-full h-full" dir={`${lang ==="IR" ?"rtl":"ltr"}`}>
       <div className=" flex  justify-center backdrop-blur-sm  bg-black/20  items-center w-full h-full">
         <div
           className={`absolute  z-50 w-[340px] 
           ${modalName.name === "ActiveEmailPage" && "h-[490px] w-[450px]"}
-          ${modalName.name === "AuthPage" && "h-[540px] w-[340px]"}
+          ${modalName.name === "AuthPage" && "h-[540px] w-[390px]"}
           ${modalName.name === "CheckIp" && "h-[490px] w-[450px]"}
           ${modalName.name === "IpPage" && "h-[490px] w-[450px]"}
            rounded-[10px]  bg-white dark:bg-dark-backgroundModules`}
@@ -97,8 +97,8 @@ export default function AuthCards({setShowAuthCard}:any) {
             ) : (
               <footer
                 className={`
-                ${modalName.name === "CheckIp" && "w-[85%] mb-1 h-[50px]"}
-                ${modalName.name === "IpPage" && "w-[80%] mb-1 h-[50px]"}
+                ${modalName.name === "CheckIp" && "w-[85%] mb-3 h-[50px]"}
+                ${modalName.name === "IpPage" && "w-[80%]  mb-3 h-[50px]"}
                 ${
                   modalName.name === "ActiveEmailPage" &&
                   "w-[80%] mb-3 h-[50px]"
@@ -108,7 +108,7 @@ export default function AuthCards({setShowAuthCard}:any) {
               >
                 {lang === "EN" ? (
                   <>
-                    <p className="w-full text-center text-[14px] font-azarMehr text-[#898989] font-medium">
+                    <p className="w-full text-center text-[14px] px-4 font-azarMehr text-[#898989] font-medium">
                       {selectLanguageAuthModule(lang).footer}
                       <span className="mx-1 text-[14px] font-azarMehr text-[#008BF8] cursor-pointer font-medium">
                         website.
@@ -117,19 +117,20 @@ export default function AuthCards({setShowAuthCard}:any) {
                   </>
                 ) : (
                   <>
-                    <p className="w-full text-center text-[14px] font-azarMehr text-[#898989] font-medium">
+                    <p className="w-full text-center text-[14px] px-4 font-azarMehr text-[#898989] font-medium">
                       {selectLanguageAuthModule(lang).footerBe}
-                      <span className="mx-1 text-[14px] font-azarMehr text-[#008BF8] cursor-pointer font-medium">
+                      <span className="mx-1 text-[14px] font-azarMehr  text-[#008BF8] cursor-pointer font-medium">
                         وبسایت
                       </span>
                     </p>
-                    <p className="w-full text-center text-[14px] font-azarMehr text-[#898989] font-medium">
+                    <p className="w-full text-center text-[14px]  font-azarMehr text-[#898989] font-medium">
                       {selectLanguageAuthModule(lang).footerَAf}
                     </p>
                   </>
                 )}
               </footer>
             )}
+         
           </section>
         </div>
       </div>

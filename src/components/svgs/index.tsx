@@ -22,3 +22,5 @@ export { default as EyeHidden } from "./auth/eye-slash.svg";
 
 export { default as ProfileIcon } from "./auth/profile.svg";
 export { default as ProfileAddIcon } from "./auth/profile-add.svg";
+export { default as  LogoRgb} from "./clogo.svg";
+export { default as  Shahrvand} from "./shahrvand.svg";

@@ -38,7 +38,7 @@ export const selectLanguageAuthModule = (language: string) => {
         ipTextDateailsBe: "اگر از",
         ipTextDateailsAf:
           "میکنید آن را خاموش کرده سپس صفحه را مجدد بارگذاری کنید در غیر این صورت روی گزینه زیر کلیک کنید",
-        ipTextButton: "رمز ورود",
+        ipTextButton: "مجاز سازی IP",
         //checkIp
         checkTextTitle: "بررسی وضعیت IP",
         checkTextTime: "زمان مورد نیاز 24 ساعت",
@@ -49,7 +49,7 @@ export const selectLanguageAuthModule = (language: string) => {
         checkTextErrorInputRequired: "آدرس ایمیل اجباری است",
         checkTextButton: "مراخبر کن",
         //footer
-        footerBe: "برای کسب اطلاعات بیشتر و پاسخ به سوالات ,از",
+        footerBe: "برای کسب اطلاعات بیشتر و پاسخ به سوالات, از",
         footerَAf: "دیدن نمایید.",
       };
     case "EN":

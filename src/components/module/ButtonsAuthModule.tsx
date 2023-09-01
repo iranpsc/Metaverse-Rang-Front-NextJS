@@ -26,8 +26,9 @@ const buttons = [
 
   return (
     <>
-      {buttons.map((button): any => (
+      {buttons.map((button, index): any => (
         <button
+          key={index}
           className={`${
             showModule === button.code
               ? "bg-activeButton w-[171px] text-activeTextButton dark:bg-dark-activeButton dark:text-black"

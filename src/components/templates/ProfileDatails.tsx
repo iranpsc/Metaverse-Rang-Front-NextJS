@@ -1,9 +1,21 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { LangContext } from "@/components/context/LangContext";
 import { targetData } from "@/components/utils/targetDataName";
+import ProfileDetailsDetails  from "@/components/module/profileDetails/ProfileDetailsDetails";
+import ProfileDetailsInteresting from "../module/profileDetails/ProfileDetailsInteresting";
 
-export default function ProfileDetails({ setShowModal }:any) {
+export default function ProfileDetails({ setShowModal, setDataModal }: any) {
   const { selectedProfileData, profileData } = useContext(LangContext);
+
+  const submitModalCard =(title:any,data:any)=>{
+    if (data === "passions"){
+        setDataModal({ title, desc: profileData?.customs?.passions });
+    }else{
+      setDataModal({ title, desc: data });
+    } 
+      
+    setShowModal(true)
+  }
 
   const itemsProfileDetails = [
     {
@@ -29,7 +41,8 @@ export default function ProfileDetails({ setShowModal }:any) {
     {
       id: 5,
       key: targetData(selectedProfileData, "job"),
-      value: profileData?.customs?.occupation || "--",
+      value: profileData?.customs?.occupation.slice(0, 30) || "--",
+      fValue: profileData?.customs?.occupation,
     },
     {
       id: 6,
@@ -56,96 +69,91 @@ export default function ProfileDetails({ setShowModal }:any) {
     },
   ];
   return (
-    <div className=" flex flex-col justify-between xl:gap-0 lg:gap-2 h-full max-md:h-fit max-md:gap-3">
-      <section className="dark:bg-dark-background xl:basis-0 lg:basis-2/5 md:basis-2/4 flex flex-col justify-evenly items-center max-md:gap-4 transition-all duration-300 ease-linear bg-white w-full rounded-md pb-5 lg:pb-3">
-        {itemsProfileDetails.map((item: any): any => (
-          <div
-            key={item.id}
-            className="flex flex-nowrap px-3 py-[3px] xl:mt-3 lg:mt-3  justify-between w-full items-center "
-          >
-            <p className="font-azarMehr font-medium xl:text-sm lg:text-[12px] md:text-[11px]  text-gray">
-              {item.key}
-            </p>
-            <hr className="xl:w-[30%] lg:w-[30%] md:w-[20%] h-[1px] border border-dashed text-lightGray dark:text-dark-lightWhite" />
-            <p className="dark:text-dark-gray text-end font-azarMehr font-semibold  xl:text-[12px] lg:lg:text-[12px] md:text-[11px]  text-black">
-              {item.value}
-            </p>
-          </div>
-        ))}
-      </section>
+    <div className=" flex flex-col mx-1 justify-between xl:gap-0 lg:gap-2 h-full max-md:h-fit max-md:gap-3">
+      <ProfileDetailsDetails itemsProfileDetails={itemsProfileDetails} />
 
-      <section className="dark:bg-dark-background lg:basis-3/12 md:basis-2/12 flex flex-col justify-evenly max-md:gap-4 transition-all duration-300 ease-linear bg-white w-full rounded-md">
-        {itemsInterestedProfileDetails.map((item: any): any => (
-          <div
-            key={item.id}
-            className="flex flex-nowrap px-3 py-[6px] xl:mt-3 lg:mt-1 xl:mb-3 lg:mb-0 md:mt-0 md:mb-0 justify-between items-center "
-          >
-            <p className="font-azarMehr font-medium  xl:text-sm lg:text-[12px] md:text-[12px] text-gray">
-              {item.key}
-            </p>
-            <hr className="xl:w-[20%] lg:w-[20%] md:w-[15%] h-[1px] border border-dashed  text-lightGray dark:text-dark-lightWhite" />
-            <p className="dark:text-dark-gray font-azarMehr font-semibold  xl:text-[12px] lg:text-[12px] md:text-[11px] text-black">
-              {item.value}
-            </p>
-          </div>
-        ))}
-      </section>
+      <ProfileDetailsInteresting
+        itemsInterestedProfileDetails={itemsInterestedProfileDetails}
+      />
 
       <section className="dark:bg-dark-background transition-all duration-300 ease-linear bg-white w-full rounded-md ">
         <div className="flex flex-nowrap xl:p-4 lg:p-4 md:py-2 max-md:p-4  justify-between w-full items-center ">
-          <p className="font-azarMehr font-medium text-gray  xl:text-[13px] lg:text-[11px] md:text-[10px]">
+          <p className="font-azarMehr font-medium text-gray max-sm:text-[13px] xl:text-[13px] lg:text-[11px] md:text-[10px]">
             {targetData(
               selectedProfileData,
               "if you had the ability to solve a problem, what would it be?"
             )}
           </p>
           <span
-            className="dark:text-dark-yellow font-azarMehr cursor-pointer text-blueLink font-medium  xl:text-sm lg:text-[12px] md:text-[13px] "
-            onClick={() => setShowModal(true)}
+            className="dark:text-dark-yellow font-azarMehr max-sm:text-[13px] cursor-pointer text-blueLink font-medium  xl:text-sm lg:text-[12px] md:text-[13px] "
+            onClick={() =>
+              submitModalCard(
+                targetData(
+                  selectedProfileData,
+                  "if you had the ability to solve a problem, what would it be?"
+                ),
+                ""
+              )
+            }
           >
-            view
+            {targetData(selectedProfileData, "view")}
           </span>
         </div>
       </section>
 
       <section className="dark:bg-dark-background transition-all duration-300 ease-linear bg-white   w-full rounded-md">
         <div className="flex flex-nowrap justify-between xl:p-4 lg:p-4 md:py-2 max-md:p-4 w-full items-center ">
-          <p className="font-azarMehr font-medium text-gray xl:text-sm lg:text-[12px] md:text-[10px]">
+          <p className="font-azarMehr font-medium max-sm:text-[13px] text-gray xl:text-sm lg:text-[12px] md:text-[10px]">
             {targetData(selectedProfileData, "forecast 2022")}
           </p>
           <span
-            className="dark:text-dark-yellow font-azarMehr cursor-pointer text-blueLink font-medium  xl:text-sm lg:text-[12px] md:text-[13px]"
-            onClick={() => setShowModal(true)}
+            className="dark:text-dark-yellow font-azarMehr max-sm:text-[13px] cursor-pointer text-blueLink font-medium  xl:text-sm lg:text-[12px] md:text-[13px]"
+            onClick={() =>
+              submitModalCard(
+                targetData(selectedProfileData, "forecast 2022"),
+                profileData?.customs?.prediction
+              )
+            }
           >
-            view
+            {targetData(selectedProfileData, "view")}
           </span>
         </div>
       </section>
 
       <section className="dark:bg-dark-background  transition-all duration-300 ease-linear bg-white  w-full rounded-md">
         <div className="flex flex-nowrap justify-between  xl:p-4 lg:p-4 md:py-2 max-md:p-4 w-full items-center  ">
-          <p className="font-azarMehr font-medium text-gray xl:text-sm lg:text-[12px] md:text-[10px] ">
+          <p className="font-azarMehr font-medium text-gray max-sm:text-[13px] xl:text-sm lg:text-[12px] md:text-[10px] ">
             {targetData(selectedProfileData, "pleasant memory")}
           </p>
           <span
-            className="dark:text-dark-yellow font-azarMehr cursor-pointer text-blueLink font-medium  xl:text-sm lg:text-[12px] md:text-[13px]"
-            onClick={() => setShowModal(true)}
+            className="dark:text-dark-yellow font-azarMehr max-sm:text-[13px] cursor-pointer text-blueLink font-medium  xl:text-sm lg:text-[12px] md:text-[13px]"
+            onClick={() =>
+              submitModalCard(
+                targetData(selectedProfileData, "pleasant memory"),
+                profileData?.customs?.memory
+              )
+            }
           >
-            view
+            {targetData(selectedProfileData, "view")}
           </span>
         </div>
       </section>
 
       <section className="dark:bg-dark-background bg-white  transition-all duration-300 ease-linear  w-full rounded-md">
         <div className="flex flex-nowrap justify-between  xl:p-4 lg:p-4 max-md:p-4 md:px-1 w-full items-center ">
-          <p className="font-azarMehr font-medium text-gray xl:text-sm lg:text-[12px] md:text-[10px]">
+          <p className="font-azarMehr font-medium text-gray max-sm:text-[13px] xl:text-sm lg:text-[12px] md:text-[10px]">
             {targetData(selectedProfileData, "favorites")}
           </p>
           <span
-            className="dark:text-dark-yellow cursor-pointer font-azarMehr text-blueLink font-medium xl:text-sm lg:text-[12px] md:text-[13px]"
-            onClick={() => setShowModal(true)}
+            className="dark:text-dark-yellow cursor-pointer max-sm:text-[13px] font-azarMehr text-blueLink font-medium xl:text-sm lg:text-[12px] md:text-[13px]"
+            onClick={() =>
+              submitModalCard(
+                targetData(selectedProfileData, "favorites"),
+                "passions"
+              )
+            }
           >
-            view
+            {targetData(selectedProfileData, "view")}
           </span>
         </div>
       </section>

@@ -49,8 +49,8 @@ export default function LoginModule() {
           validationSchema={LoginSchema(lang)}
         >
           {(props) => (
-            <Form>
-              <div className="form-group  pb-6 pt-3 ">
+            <Form className="">
+              <div className="form-group flex flex-col pb-6 pt-3 ">
                 <Field
                   type="text"
                   name="email"
@@ -67,7 +67,7 @@ export default function LoginModule() {
               </div>
 
               <div className="form-group">
-                <div className="relative flex">
+                <div className="relative flex ">
                   <Field
                     type={showPassword ? "text" : "password"}
                     name="password"
@@ -105,7 +105,7 @@ export default function LoginModule() {
 
                 <ErrorMessageComponent fieldName="password" lang={lang} />
                 {showErrorLoginAccess !== "" ? (
-                  <span className="text-error font-azarMehr font-medium text-[10px]">
+                  <span className="text-error font-azarMehr font-medium text-[9px]">
                     {showErrorLoginAccess}
                   </span>
                 ) : null}

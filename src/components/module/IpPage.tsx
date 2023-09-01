@@ -1,9 +1,10 @@
 import { useContext } from "react"
-//COmponents
+//COMPONENTS
 import { AuthContext } from "@/components/context/AuthContext"
 import { LangContext } from "@/components/context/LangContext";
 //UTILE
 import { selectLanguageAuthModule } from "@/components/utils/textsLanguage";
+import Persian from "persianjs";
 
 
 
@@ -14,25 +15,28 @@ export default function IpPage(){
     const lang = languageSelected.code;
 
     return (
-      <div className=" w-[70%] h-[65%]">
+      <div className=" w-[70%] h-[65%] ">
         <h1 className="text-center font-azarMehr font-extrabold text-[25px] text-[#FF3E3E]">
           {selectLanguageAuthModule(lang).ipTextTitle}
         </h1>
         <h2 className=" mt-4 text-center font-azarMehr font-bold text-[25px] text-[#757575] dark:text-white">
-          {myIp}
+          {languageSelected?.code !== "IR"
+            ? myIp
+            : Persian(myIp).englishNumber().toString()}
         </h2>
-        <p className="mt-4 text-center font-azarMehr font-medium text-[14px] text-[#0000005C] dark:text-[#5B5B5B] ">
+        <p className="mt-2 text-center font-azarMehr font-medium text-[14px] text-[#0000005C] dark:text-[#5B5B5B] ">
           {selectLanguageAuthModule(lang).ipTextP}
         </p>
-        <p className="mt-10 text-center font-azarMehr font-bold text-[14px] text-[#000000A1] dark:text-[#969696]">
+        <p className="mt-10 text-center font-azarMehr font-bold text-[15px] px-1 text-[#000000A1] dark:text-[#969696]">
           {selectLanguageAuthModule(lang).ipTextDateailsBe}
-          <span className="text-error font-azarMehr font-bold text-[14px]">
-            {" "}VPN{" "}
+          <span className="text-error font-azarMehr font-bold text-[15px] px-1">
+            {" "}
+            VPN{" "}
           </span>
           {selectLanguageAuthModule(lang).ipTextDateailsAf}
         </p>
         <button
-          className="relative mt-10 dark:bg-[#18C08F80] bg-[#D7FBF0] text-[#18C08F] border-[#18C08F] border-[1px] w-full h-[50px]  rounded-[5px] font-azarMehr font-normal"
+          className="relative mt-7 dark:bg-[#18C08F80] bg-[#D7FBF0] text-[#18C08F] border-[#18C08F] border-[1px] w-full h-[50px]  rounded-[5px] font-azarMehr font-normal"
           onClick={() => setModalName({ name: "CheckIp", data: myIp })}
         >
           {selectLanguageAuthModule(lang).ipTextButton}

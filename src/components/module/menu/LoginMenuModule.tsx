@@ -12,7 +12,7 @@ const filteredItems = menuData.filter((item:any) => namesToKeep.includes(item.na
         onClick={() => ""}
       >
         <div
-          className="bg-blueLink cursor-pointer dark:bg-dark-yellow rounded-[10px] w-[70%] h-[49px]  flex flex-row justify-around gap-5 items-center"
+          className="bg-blueLink cursor-pointer dark:bg-dark-yellow rounded-[10px] w-[70%] h-[44px]  flex flex-row justify-around gap-5 items-center"
           onClick={() => setShowAuthCard(true)}
         >
           <LoginMenu

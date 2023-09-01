@@ -3,23 +3,41 @@ import Image from "next/image";
 import { LangContext } from "@/components/context/LangContext";
 import { targetData } from "@/components/utils/targetDataName";
 
-export default function ProfileAbout({ setShowModal }: any) {
+export default function ProfileAbout({ setShowModal ,setDataModal}: any) {
   const { selectedProfileData, profileData } = useContext(LangContext);
+
+
+const submitModalCart =(data:any)=>{
+  setDataModal({
+    title: targetData(selectedProfileData, "about me"),
+    desc: data
+  });
+  setShowModal(true)
+
+}
+  
+
   return (
-    <section className=" flex flex-col justify-between  items-center h-fit">
+    <section className=" flex flex-col justify-between me-1 items-center h-fit">
       <div className="dark:bg-dark-background w-full h-[250px] transition-all duration-300 ease-linear bg-white px-1 rounded-md pb-3">
-        <h1 className="dark:text-white  font-azarMehr font-extrabold text-[20px] text-black mt-7 mx-2 xl:text-md lg:text-sm md:text-sm ">
+        <h1 className="dark:text-white max-sm:mx-3 max-sm:text-[16px]  font-azarMehr font-medium text-[20px] text-gray mt-7 mx-2 xl:text-md lg:text-sm md:text-sm ">
           {targetData(selectedProfileData, "about me")}
         </h1>
-        <p className=" font-azarMehr mt-2  xl:leading-[30px] lg:leading-[20px] md:leading-[15px] line-clamp-4 mx-1 text-justify font-medium xl:text-[12px] lg:text-[10px] md:text-[10px]  text-gray">
-          {profileData?.customs?.about}
+
+        <p className="font-azarMehr mt-2 max-sm:mx-3 max-sm:text-[13px] text-justify xl:leading-[30px] truncate- lg:leading-[20px] md:leading-[15px] mx-1 font-medium xl:text-[12px] lg:text-[10px] md:text-[10px]  text-gray">
+          {profileData?.customs?.about.slice(0, 125)}
+          <span className="font-azarMehr font-medium xl:text-[12px]text-gray">
+            {" "}
+            ...
+          </span>
+          <span
+            className="dark:text-dark-yellow mx-2 text-blueLink font-azarMehr font-medium cursor-pointer  xl:text-md lg:text-md md:text-sm "
+            onClick={() => submitModalCart(profileData?.customs?.about)}
+          >
+            {targetData(selectedProfileData, "read more")}
+          </span>
         </p>
-        <span
-          className="dark:text-dark-yellow mx-2 text-blueLink font-azarMehr font-medium cursor-pointer  xl:text-md lg:text-md md:text-sm "
-          onClick={() => setShowModal(true)}
-        >
-          Read More
-        </span>
+
         <br />
         <br />
       </div>

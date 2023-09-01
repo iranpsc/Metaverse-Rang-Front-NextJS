@@ -27,7 +27,7 @@ module.exports = {
       borderField: "#DADADA",
       Field: "#FCFCFC",
       dark: {
-        background: "#2C2C2C",
+        background: "#1E1E1E",
         backgroundModules: "#000000",
         defaultButton: "#332800",
         activeButton: "#FFC700",
@@ -40,8 +40,6 @@ module.exports = {
         borderFieldError: "#930000",
         bgFieldError: "#380000",
         textFieldError: "rgba(201, 0, 0, 1)",
-
-        
       },
     },
     extend: {

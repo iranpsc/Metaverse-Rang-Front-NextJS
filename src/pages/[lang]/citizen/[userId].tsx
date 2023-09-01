@@ -11,6 +11,7 @@ import ModalCard from "@/components/templates/ModalCard";
 export default function Home() {
   const { languageSelected } = useContext(LangContext);
   const [showModal,setShowModal] = useState<boolean>(false);
+  const [dataModal,setDataModal] = useState({title:"",desc:""});
  
 
   function addPageJsonLd() {
@@ -67,17 +68,25 @@ export default function Home() {
         />
       </Head>
       <BaseLayout>
-        <div className="grid xl:grid-auto lg:grid-cols-12 w-full relative max-lg:flex max-lg:flex-col  ">
+        <div className="grid xl:grid-auto lg:grid-cols-12 w-full relative max-lg:flex max-lg:flex-col">
           <section className="col-span-5  h-[100vh] max-lg:h-fit max-lg:col-span-6    dark:bg-black bg-[#e9eef8] ms-2">
-            {showModal ? <ModalCard setShowModal={setShowModal} /> : null}
+            {showModal ? (
+              <ModalCard setShowModal={setShowModal} dataModal={dataModal} />
+            ) : null}
 
             <Profile />
           </section>
-          <div className="col-span-4 max-sm:col-span-6 h-screen max-lg:h-fit dark:bg-black  bg-[#e9eef8] p-1">
-            <ProfileDetails setShowModal={setShowModal} />
+          <div className="col-span-4 max-sm:col-span-6 h-screen max-lg:h-fit dark:bg-black  bg-[#e9eef8] max-sm:mt-2 ">
+            <ProfileDetails
+              setShowModal={setShowModal}
+              setDataModal={setDataModal}
+            />
           </div>
-          <div className="col-span-3 h-screen dark:bg-black  bg-[#e9eef8]  ">
-            <ProfileAbout setShowModal={setShowModal} />
+          <div className="col-span-3 h-screen dark:bg-black  bg-[#e9eef8] max-sm:mt-2 ">
+            <ProfileAbout
+              setShowModal={setShowModal}
+              setDataModal={setDataModal}
+            />
           </div>
         </div>
       </BaseLayout>

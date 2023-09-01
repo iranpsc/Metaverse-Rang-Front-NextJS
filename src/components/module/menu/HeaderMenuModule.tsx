@@ -9,7 +9,7 @@ export default function HeaderMenuModule({ isCollapsed, toggleCollapseHandler }:
       <div className=" flex justify-between mt-2 flex-row items-center p-2 pb-4">
         {!isCollapsed ? (
           <CLoseIcon
-            className="fill-[#2B2B2B] dark:fill-gray  cursor-pointer w-[25px]"
+            className="fill-[#2B2B2B] dark:fill-gray ms-5  cursor-pointer w-[27px]"
             onClick={toggleCollapseHandler}
           />
         ) : (
