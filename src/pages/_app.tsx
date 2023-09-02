@@ -12,7 +12,7 @@ export default function App({ Component, pageProps}: AppProps) {
   return (
     <>
       <Head>
-        <link href="/fonts/BebasNeue-Regular.ttf" rel="preload" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link  href="/fonts/BebasNeue-Regular.ttf" rel="preload" as="font" type="font/woff2" crossOrigin="anonymous" />
         <link href="/fonts/BrunoAceSC-Regular.ttf" rel="preload" as="font" type="font/woff" crossOrigin="anonymous" />
         <link href="/fonts/DigiHamisheBold.ttf" rel="preload" as="font" type="font/woff" crossOrigin="anonymous" />
         <link href="/fonts/DigiHamisheRegular.ttf" rel="preload" as="font" type="font/woff" crossOrigin="anonymous" />
