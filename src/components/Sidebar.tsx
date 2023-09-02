@@ -1,22 +1,16 @@
 import { useContext, useEffect, useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
+
 import { SideBarContext } from "./context/SidebarContext";
 import { useTheme } from "next-themes";
-import {
-  ActiveMenuIcon,
-  CLoseIcon,
-  MenuIcon,
-} from "./svgs";
-import LanguageList from "./templates/LanguageList";
+
 import { LangContext } from "@/components/context/LangContext";
 import { useRouter } from "next/router";
-import AuthCard from "./layout/AuthCards";
 
 import LoginMenuModule from './module/menu/LoginMenuModule';
 import HeaderMenuModule from './module/menu/HeaderMenuModule';
 import TopMenuModule from './module/menu/TopMenuModule';
 import ListMenuModule from "./module/menu/ListMenuModule";
+import MenuProfileModule from "./module/menu/MenuProfileModule";
 
 
 
@@ -68,6 +62,8 @@ export default function Sidebar({ setShowAuthCard }:any) {
 
           <TopMenuModule isCollapsed={isCollapsed} menuData={menuData} />
         </div>
+
+        {/* <MenuProfileModule/> */}
 
         <ListMenuModule
           isCollapsed={isCollapsed}

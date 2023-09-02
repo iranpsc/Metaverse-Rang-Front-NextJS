@@ -21,7 +21,7 @@ export default function AuthCards({setShowAuthCard}:any) {
         <div
           className={`absolute  z-50 w-[340px] 
           ${modalName.name === "ActiveEmailPage" && "h-[490px] w-[450px]"}
-          ${modalName.name === "AuthPage" && "h-[540px] w-[390px]"}
+          ${modalName.name === "AuthPage" && "  w-[340px]"}
           ${modalName.name === "CheckIp" && "h-[490px] w-[450px]"}
           ${modalName.name === "IpPage" && "h-[490px] w-[450px]"}
            rounded-[10px]  bg-white dark:bg-dark-backgroundModules`}
@@ -70,7 +70,7 @@ export default function AuthCards({setShowAuthCard}:any) {
             )}
 
             {modalName.name === "AuthPage" ? (
-              <footer className="w-[95%]  mb-7 h-[50px]">
+              <footer className="w-[95%]  mb-4 mt-3 h-[50px]">
                 {lang === "EN" ? (
                   <>
                     <p className="w-full text-center text-[14px] font-azarMehr text-[#898989] font-medium">

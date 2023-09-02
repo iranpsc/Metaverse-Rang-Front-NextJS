@@ -16,13 +16,13 @@ const ErrorMessageComponent = ({ fieldName,lang }: { fieldName: string,lang:stri
    
       if (msg === selectLanguage(lang).required) {
         errorMessage = (
-          <span className="text-error font-azarMehr font-medium text-[10px]">
+          <span className="text-error w-full text-start  font-azarMehr font-medium text-[10px]">
             {selectLanguage(lang).required}
           </span>
         );
       } else if (msg === selectLanguage(lang).email && fieldName === "email") {
         errorMessage = (
-          <span className="text-error font-azarMehr font-medium text-[10px]">
+          <span className="text-error w-full text-start  font-azarMehr font-medium text-[10px]">
             {selectLanguage(lang).email}
           </span>
         );
@@ -31,7 +31,7 @@ const ErrorMessageComponent = ({ fieldName,lang }: { fieldName: string,lang:stri
         fieldName === "password"
       ) {
         errorMessage = (
-          <span className="text-error font-azarMehr font-medium text-[10px]">
+          <span className="text-error w-full text-start  font-azarMehr font-medium text-[10px]">
             {selectLanguage(lang).password}
           </span>
         );
@@ -40,7 +40,7 @@ const ErrorMessageComponent = ({ fieldName,lang }: { fieldName: string,lang:stri
         fieldName === "password"
       ) {
         errorMessage = (
-          <span className="text-error font-azarMehr font-medium text-[10px]">
+          <span className="text-error w-full text-start  font-azarMehr font-medium text-[10px]">
             {selectLanguage(lang).minLength}
           </span>
         );
@@ -49,7 +49,7 @@ const ErrorMessageComponent = ({ fieldName,lang }: { fieldName: string,lang:stri
         fieldName === "username"
       ) {
         errorMessage = (
-          <span className="text-error font-azarMehr font-medium text-[10px]">
+          <span className="text-error w-full text-start font-azarMehr font-medium text-[10px]">
             {selectLanguage(lang).username}
           </span>
         );

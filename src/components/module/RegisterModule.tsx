@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import dynamic from "next/dynamic";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field } from "formik";
 import { RegisterSchema, selectLanguage } from "../utils/validationAuth";
 //svgs
 import { EyeShow, EyeHidden } from "../svgs";
@@ -8,7 +8,7 @@ import { cssAuth } from "../utils/taiwindAuth";
 
 import ErrorMessageComponent from "./ErrorMessageComponent";
 import { useState } from "react";
-import Captcha from "../templates/Captcha";
+
 import { LangContext } from "@/components/context/LangContext";
 import { selectLanguageAuthModule } from "../utils/textsLanguage";
 
@@ -41,15 +41,15 @@ export default function RegisterModule() {
 
   return (
     <>
-      <div className=" h-[330px] flex flex-col justify-start items-center">
+      <div className=" h-fit flex flex-col justify-start items-center">
         <Formik
           initialValues={{ username: "", email: "", password: "" }}
           onSubmit={handleFormSubmit}
           validationSchema={RegisterSchema(lang)}
         >
           {(props) => (
-            <Form>
-              <div className="form-group  pb-2 pt-3 ">
+            <Form className="w-[95%]">
+              <div className="form-group flex flex-col items-center pb-2 pt-3 ">
                 <Field
                   type="text"
                   name="username"
@@ -60,7 +60,7 @@ export default function RegisterModule() {
                 <ErrorMessageComponent fieldName="username" lang={lang} />
               </div>
 
-              <div className="form-group  pb-2  ">
+              <div className="form-group flex flex-col items-center  pb-2  ">
                 <Field
                   type="text"
                   name="email"
@@ -72,16 +72,16 @@ export default function RegisterModule() {
               </div>
 
               <div className="form-group">
-                <div className="relative flex">
+                <div className=" flex flex-col items-center relative">
                   <Field
                     type={showPassword ? "text" : "password"}
                     name="password"
                     placeholder={selectLanguage(lang).placeholderPassword}
-                    className={cssAuth(props, "password")}
+                    className={`${cssAuth(props, "password")}`}
                   />
 
                   <span
-                    className="absolute end-3 top-1/2  transform -translate-y-1/2 cursor-pointer"
+                    className="absolute end-3 top-1/3 cursor-pointer"
                     onClick={() => setShowPassword(!showPassword)}
                   >
                     {showPassword ? (
@@ -111,8 +111,8 @@ export default function RegisterModule() {
                 <ErrorMessageComponent fieldName="password" lang={lang} />
               </div>
 
-              <button className="bg-[#D7FBF0] text-[#18C08F] dark:bg-[#004531] border-[#18C08F] border-[1px] w-full h-[50px] mt-5 rounded-[5px] font-azarMehr font-normal">
-                ورود{" "}
+              <button className="bg-[#D7FBF0] text-[#18C08F] dark:bg-[#004531] border-[#18C08F] border-[1px] w-full h-[50px] mt-1 rounded-[5px] font-azarMehr font-normal">
+                {selectLanguageAuthModule(lang).registerButton}
               </button>
             </Form>
           )}
@@ -130,7 +130,7 @@ export default function RegisterModule() {
           </div>
         )}
 
-        <div className="w-full mt-7 flex flex-col items-center">
+        <div className="w-full mt-4 mb-4 flex flex-col items-center">
           <label className="text-center dark:text-[#E1E1E1] flex items-center justify-center font-azarMehr text-[16px] text-[#00000073] font-medium">
             {selectLanguageAuthModule(lang).loginRemeber}
             <input

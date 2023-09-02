@@ -42,15 +42,15 @@ export default function LoginModule() {
 
   return (
     <>
-      <div className=" h-[330px] flex flex-col justify-start items-center">
+      <div className=" h-fit flex flex-col justify-start items-center">
         <Formik
           initialValues={{ email: "", password: "" }}
           onSubmit={handleFormSubmit}
           validationSchema={LoginSchema(lang)}
         >
           {(props) => (
-            <Form className="">
-              <div className="form-group flex flex-col pb-6 pt-3 ">
+            <Form className="w-[95%]">
+              <div className="form-group flex flex-col items-center pb-2 pt-3 ">
                 <Field
                   type="text"
                   name="email"
@@ -67,16 +67,16 @@ export default function LoginModule() {
               </div>
 
               <div className="form-group">
-                <div className="relative flex ">
+                <div className=" form-group flex flex-col items-center relative">
                   <Field
                     type={showPassword ? "text" : "password"}
                     name="password"
                     placeholder={selectLanguage(lang).placeholderPassword}
-                    className={cssAuth(props, "password")}
+                    className={`${cssAuth(props, "password")} ""`}
                   />
 
                   <span
-                    className="absolute end-3 top-1/2  transform -translate-y-1/2 cursor-pointer"
+                    className="absolute end-7 top-1/3 cursor-pointer"
                     onClick={() => setShowPassword(!showPassword)}
                   >
                     {showPassword ? (
@@ -84,8 +84,8 @@ export default function LoginModule() {
                         className={` stroke-[2px]
                        ${
                          props.errors.password
-                           ? "stroke-[#ff0000] dark:stroke-[#E85300]"
-                           : "stroke-[#4360EC] dark:stroke-[#5B5B5B]"
+                           ? "stroke-[#ff0000] dark:stroke-[#E85300] "
+                           : "stroke-[#4360EC] dark:stroke-[#5B5B5B"
                        }
                       `}
                       />
@@ -111,7 +111,7 @@ export default function LoginModule() {
                 ) : null}
               </div>
 
-              <button className="bg-[#D7FBF0] text-[#18C08F] border-[#18C08F] dark:bg-[#004531] border-[1px] w-full h-[50px] mt-5 rounded-[5px] font-azarMehr font-normal">
+              <button className="bg-[#D7FBF0] text-[#18C08F] border-[#18C08F] dark:bg-[#004531] mt-2 border-[1px] w-full h-[50px] rounded-[5px] font-azarMehr font-normal">
                 {selectLanguageAuthModule(lang).loginButton}
               </button>
             </Form>

@@ -19,7 +19,7 @@ export default function AuthCard() {
 
   return (
     <div className="  w-[100%] m-1 h-full ">
-      <div className="  flex flex-row justify-evenly items-center gap-4 mt-3">
+      <div className=" mx-2 flex flex-row justify-evenly items-center gap-4 mt-3">
         <ButtonsAuthModule
           showModule={showModule}
           setShowModule={setShowModule}
