@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { CLoseIcon } from "../svgs";
 export default function ModalCard({setShowModal,dataModal}:any){
-console.log(dataModal.desc);
+
     return (
       <div className="absolute backdrop-blur-sm bg-blackTransparent/30  z-50 top-0 w-full h-full">
         <div className=" flex justify-center items-center w-full h-full">

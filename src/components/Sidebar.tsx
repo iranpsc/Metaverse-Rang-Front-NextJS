@@ -63,7 +63,7 @@ export default function Sidebar({ setShowAuthCard }:any) {
           <TopMenuModule isCollapsed={isCollapsed} menuData={menuData} />
         </div>
 
-        {/* <MenuProfileModule/> */}
+        <MenuProfileModule/>
 
         <ListMenuModule
           isCollapsed={isCollapsed}

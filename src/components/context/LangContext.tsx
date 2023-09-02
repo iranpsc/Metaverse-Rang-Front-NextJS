@@ -103,8 +103,7 @@ const LangProvider = ({ children }: Props) => {
        
           setProfileData(res.data.data);
       } catch (err) {
-        console.log(err)
-        //router.push("/404");
+     
       }  
     };
     if(userId){
@@ -160,8 +159,7 @@ const LangProvider = ({ children }: Props) => {
 
          setSelectedProfileData(getFields.data.data);
       } catch (err) {
-      //  router.push('/404')
-        console.log(err)
+      
       }
     };
     fetchData();

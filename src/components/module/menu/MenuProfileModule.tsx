@@ -3,13 +3,13 @@ import Image from "next/image";
 export default function MenuProfileModule() {
   return (
     <>
-      <div className="w-full h-[45px] mt-2 items-center justify-start flex flex-row">
+      <div className="w-full h-[45px] mt-2 items-center justify-start flex flex-row gap-2">
         <Image
           src="/temp.png"
           alt=""
           width={100}
           height={100}
-          className=" rounded-full w-[40px] h-[40px] bg-white"
+          className=" rounded-full ms-5 w-[40px] h-[40px] bg-white"
         />
         <p>Test</p>
       </div>

@@ -40,13 +40,13 @@ export default function Captcha({
       );
       if (response.data) {
         seShowErrorLoginAccess("");
-        console.log(response.data);
+        
         setShowCaptcha(false);
       }
     } catch (err: any) {
       setShowCaptcha(false);
       seShowErrorLoginAccess(err.response.data.message);
-      console.log("err", err.response.data);
+ 
     }
   };
 
@@ -63,14 +63,12 @@ export default function Captcha({
       );
           setModalName({name:"ActiveEmailPage",data:requestData.email})
       if (response.data) {
-        //seShowErrorLoginAccess("");
-        console.log(response.data);
+  
         setShowCaptcha(false);
       }
     } catch (err: any) {
       setShowCaptcha(false);
-      //seShowErrorLoginAccess(err.response.data.message);
-      console.log("err", err.response.data);
+     
     }
   };
 

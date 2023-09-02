@@ -34,7 +34,7 @@ export default function LoginModule() {
 
   const handleFormSubmit = (values: any) => {
     if(values){
-      console.log(values);
+     
       setDataLogin(values)
       setShowCaptcha(true);
     }

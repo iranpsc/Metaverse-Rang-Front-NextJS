@@ -33,7 +33,7 @@ export default function RegisterModule() {
 
   const handleFormSubmit = (values: any) => {
     if (values) {
-      console.log(values);
+    
       setDataRegister(values);
       setShowCaptcha(true);
     }

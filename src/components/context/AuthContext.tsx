@@ -47,7 +47,7 @@ const AuthProvider = ({ children }: Props) => {
             );
             setMyIp(ip.data.ip);
           } catch (error) {
-            console.log(error)
+          
           }
         }
   
