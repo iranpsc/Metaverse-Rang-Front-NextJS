@@ -16,14 +16,29 @@ export default function AuthCards({setShowAuthCard}:any) {
   const lang = languageSelected.code;
  
   return (
-    <div className=" absolute  z-50  top-0 w-full h-full" dir={`${lang ==="IR" ?"rtl":"ltr"}`}>
+    <div
+      className=" absolute  z-50 max-sm:z-[110]  top-0 w-full h-full"
+      dir={`${lang === "IR" ? "rtl" : "ltr"}`}
+    >
       <div className=" flex  justify-center backdrop-blur-sm  bg-black/20  items-center w-full h-full">
         <div
-          className={`absolute  z-50 w-[340px] 
-          ${modalName.name === "ActiveEmailPage" && "h-[490px] w-[450px]"}
-          ${modalName.name === "AuthPage" && "  w-[340px]"}
-          ${modalName.name === "CheckIp" && "h-[490px] w-[450px]"}
-          ${modalName.name === "IpPage" && "h-[490px] w-[450px]"}
+          className={`absolute z-50
+          ${
+            modalName.name === "ActiveEmailPage" &&
+            "h-[490px] w-[340px] max-sm:w-[300px] "
+          }
+          ${
+            modalName.name === "AuthPage" &&
+            "  w-[340px] h-fit max-sm:w-[300px]"
+          }
+          ${
+            modalName.name === "CheckIp" &&
+            "h-[490px] w-[450px] max-sm:w-[300px]"
+          }
+          ${
+            modalName.name === "IpPage" &&
+            "h-[489px] w-[340px] max-sm:w-[300px]"
+          }
            rounded-[10px]  bg-white dark:bg-dark-backgroundModules`}
         >
           <section className=" w-full h-full flex flex-col justify-between items-center ">
@@ -38,8 +53,8 @@ export default function AuthCards({setShowAuthCard}:any) {
                 <HeaderAuth
                   setShowAuthCardHeader={setShowAuthCard}
                   title={{
-                    IR: "فعال سازی حساب شهروندی",
-                    EN: "Citizen Account Activation",
+                    IR: "فعال سازی حساب",
+                    EN: "Account Activation",
                   }}
                 />
                 <ActiveMailModule data={modalName.data} lang={lang} />
@@ -47,7 +62,8 @@ export default function AuthCards({setShowAuthCard}:any) {
             )}
             {modalName.name === "IpPage" && (
               <>
-                <HeaderAuth  setShowAuthCardHeader={setShowAuthCard}
+                <HeaderAuth
+                  setShowAuthCardHeader={setShowAuthCard}
                   title={{
                     IR: "سطح دسترسی",
                     EN: "َAccess Level",
@@ -59,7 +75,8 @@ export default function AuthCards({setShowAuthCard}:any) {
 
             {modalName.name === "CheckIp" && (
               <>
-                <HeaderAuth  setShowAuthCardHeader={setShowAuthCard}
+                <HeaderAuth
+                  setShowAuthCardHeader={setShowAuthCard}
                   title={{
                     IR: "سطح دسترسی",
                     EN: "َAccess Level",
@@ -69,7 +86,7 @@ export default function AuthCards({setShowAuthCard}:any) {
               </>
             )}
 
-            {modalName.name === "AuthPage" ? (
+            {/* {modalName.name === "AuthPage" ? (
               <footer className="w-[95%]  mb-4 mt-3 h-[50px]">
                 {lang === "EN" ? (
                   <>
@@ -129,8 +146,7 @@ export default function AuthCards({setShowAuthCard}:any) {
                   </>
                 )}
               </footer>
-            )}
-         
+            )} */}
           </section>
         </div>
       </div>

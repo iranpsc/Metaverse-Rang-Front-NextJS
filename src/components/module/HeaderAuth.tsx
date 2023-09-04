@@ -30,7 +30,7 @@ export default function HeaderAuth({ title, setShowAuthCardHeader }: any) {
           className="w-[40px] h-[38px]"
 
         />
-        <div className="flex-1  text-en">
+        <div className="flex-1">
           <p
             className="text-[#353535] text-end dark:text-[#E9E9E9] font-azarMehr font-normal text-[18px]"
             onClick={() =>

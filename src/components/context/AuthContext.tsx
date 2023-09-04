@@ -12,7 +12,7 @@ interface AuthContextType {
   modalName: {
     name: string;
     data: string | null;
-  };
+  }; 
   myIp:string;
   setModalName: React.Dispatch<
     React.SetStateAction<{ name: string; data: string | null }>
@@ -21,8 +21,8 @@ interface AuthContextType {
 
 const initialValue: AuthContextType = {
   modalName: {
-    name: ModalNames.ActiveEmailPage,
-    data: "ehsnmkz@gmail.com",
+    name: ModalNames.AuthPage,
+    data: "ehsnmkz@outlook.com",
   },
   myIp: "",
   setModalName: () => {},

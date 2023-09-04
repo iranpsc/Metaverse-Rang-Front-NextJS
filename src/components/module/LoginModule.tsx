@@ -40,6 +40,10 @@ export default function LoginModule() {
     }
   };
 
+  const getEmailValue =(e:any)=>{
+    console.log(e)
+  }
+
   return (
     <>
       <div className=" h-fit flex flex-col justify-start items-center">
@@ -57,6 +61,10 @@ export default function LoginModule() {
                   placeholder={selectLanguage(lang).placeholderEmail}
                   autoComplete="off"
                   className={cssAuth(props, "email")}
+                  onChange={(e: any) => {
+                    getEmailValue(e.target.value); // تابع برای نمایش مقدار ایمیل
+                    props.handleChange(e); // اجرای تغییرات استاندارد Formik
+                  }}
                 />
                 <ErrorMessageComponent fieldName="email" lang={lang} />
                 {showErrorLoginAccess !== "" ? (
@@ -76,7 +84,7 @@ export default function LoginModule() {
                   />
 
                   <span
-                    className="absolute end-7 top-1/3 cursor-pointer"
+                    className="absolute end-5 top-1/3 cursor-pointer"
                     onClick={() => setShowPassword(!showPassword)}
                   >
                     {showPassword ? (
@@ -145,6 +153,27 @@ export default function LoginModule() {
             {selectLanguageAuthModule(lang).loginForget}
           </p>
         </div>
+
+        {lang === "EN" ? (
+          <p className="text-center px-1 pb-8 mt-6 w-full text-[#000000A1] dark:text-[#FFFFFFA1] font-azarMehr text-[14px] font-normal">
+            {selectLanguageAuthModule(lang).footerLogin}
+            <span className="mx-1 text-[14px] font-azarMehr text-[#008BF8] cursor-pointer font-medium">
+              the terms and conditions of the service agreement.
+            </span>
+          </p>
+        ) : (
+          <>
+            <p className="w-ful text-center pb-8 mt-8 text-[14px] font-azarMehr text-[#898989] font-medium">
+              {selectLanguageAuthModule(lang).footerLoginBe}
+              <span className="mx-1 text-[14px] font-azarMehr  text-[#008BF8] cursor-pointer font-medium">
+                شرایط خدمات قرارداد
+              </span>
+            </p>
+            <p className="w-full text-center text-[14px]  font-azarMehr text-[#898989] font-medium">
+              {selectLanguageAuthModule(lang).footerLoginAf}
+            </p>
+          </>
+        )}
       </div>
     </>
   );

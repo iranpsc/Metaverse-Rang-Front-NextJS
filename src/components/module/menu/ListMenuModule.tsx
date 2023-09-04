@@ -1,9 +1,16 @@
+//Types
+import {
+  ListMenuModuleProps,
+  MenuDataItem,
+  LanguageDataItem,
+} from "@/types/listMenu";
+
 import { ActiveMenuIcon } from "./../../svgs/index";
 import SvgIcon from "./../SvgIcon";
 
-export default function ListMenuModule({
+const ListMenuModule: React.FC<ListMenuModuleProps> = ({
   menuData,
-  SetActiveItem,
+  setActiveItem,
   isCollapsed,
   activeItem,
   languageSelected,
@@ -11,8 +18,9 @@ export default function ListMenuModule({
   activeDropdown,
   languagesData,
   handleDirChange,
-}: any) {
-  const namesToDelete = [,
+}) => {
+  const namesToDelete = [
+    ,
     "meta rgb",
     "metaverse rang",
     "log in",
@@ -20,21 +28,20 @@ export default function ListMenuModule({
     "citizenship page",
     "enter the metaverse",
   ];
-
+  
   const filteredItems = menuData.filter(
-    (item:any) => !namesToDelete.includes(item.name)
+    (item: any) => !namesToDelete.includes(item.name)
   );
 
   return (
     <>
       <ul className="list-none relative pt-3 w-full bg-white dark:bg-dark-background  transition-all duration-300 ease-linear max-lg:w-fit   ">
-       
         {filteredItems &&
-          filteredItems.map((item: any) => (
+          filteredItems.map((item: MenuDataItem) => (
             <li
               key={item.id}
               className="flex relative font-[1rem] no-underline text-black py-[12px]"
-              onClick={() => SetActiveItem(item.id)}
+              onClick={() => setActiveItem(item.id)}
             >
               <div
                 className={`flex w-full   ${
@@ -97,7 +104,7 @@ export default function ListMenuModule({
                           activeDropdown ? "block" : "hidden"
                         }  text-gray pt-1`}
                       >
-                        {languagesData.map((item: any) => (
+                        {languagesData.map((item: LanguageDataItem) => (
                           <li
                             key={item.id}
                             className={`border-none font-azarMehr font-normal ${
@@ -154,4 +161,6 @@ export default function ListMenuModule({
       </ul>
     </>
   );
-}
+};
+
+export default ListMenuModule;

@@ -144,6 +144,26 @@ export default function RegisterModule() {
             {selectLanguageAuthModule(lang).loginForget}
           </p>
         </div>
+        {lang === "EN" ? (
+          <p className="text-center pb-8 px-1 mt-4 w-full text-[#000000A1] dark:text-[#FFFFFFA1] font-azarMehr text-[14px] font-normal">
+            {selectLanguageAuthModule(lang).footer}
+            <span className="mx-1 text-[14px] font-azarMehr text-[#008BF8] cursor-pointer font-medium">
+              website.
+            </span>
+          </p>
+        ) : (
+          <>
+            <p className="w-ful text-center pb-8 mt-4 text-[14px] font-azarMehr text-[#898989] font-medium">
+              {selectLanguageAuthModule(lang).footerBe}
+              <span className="mx-1 text-[14px] font-azarMehr  text-[#008BF8] cursor-pointer font-medium">
+                وبسایت
+              </span>
+            </p>
+            <p className="w-full text-center text-[14px]  font-azarMehr text-[#898989] font-medium">
+              {selectLanguageAuthModule(lang).footerَAf}
+            </p>
+          </>
+        )}
       </div>
     </>
   );

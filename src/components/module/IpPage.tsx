@@ -15,7 +15,7 @@ export default function IpPage(){
     const lang = languageSelected.code;
 
     return (
-      <div className=" w-[70%] h-[65%] ">
+      <div className=" w-[95%] h-[100%] mt-14">
         <h1 className="text-center font-azarMehr font-extrabold text-[25px] text-[#FF3E3E]">
           {selectLanguageAuthModule(lang).ipTextTitle}
         </h1>
@@ -41,6 +41,27 @@ export default function IpPage(){
         >
           {selectLanguageAuthModule(lang).ipTextButton}
         </button>
+
+        {lang === "EN" ? (
+          <p className="text-center px-1 mt-4 w-full text-[#000000A1] dark:text-[#FFFFFFA1] font-azarMehr text-[14px] font-normal">
+            {selectLanguageAuthModule(lang).footer}
+            <span className="mx-1 text-[14px] font-azarMehr text-[#008BF8] cursor-pointer font-medium">
+              website.
+            </span>
+          </p>
+        ) : (
+          <>
+            <p className="w-ful text-center mt-4 text-[14px] font-azarMehr text-[#898989] font-medium">
+              {selectLanguageAuthModule(lang).footerBe}
+              <span className="mx-1 text-[14px] font-azarMehr  text-[#008BF8] cursor-pointer font-medium">
+                وبسایت
+              </span>
+            </p>
+            <p className="w-full text-center text-[14px]  font-azarMehr text-[#898989] font-medium">
+              {selectLanguageAuthModule(lang).footerَAf}
+            </p>
+          </>
+        )}
       </div>
     );
 } 

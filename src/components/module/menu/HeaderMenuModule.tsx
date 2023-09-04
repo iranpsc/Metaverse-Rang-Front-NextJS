@@ -2,7 +2,13 @@ import Image from "next/image";
 import { useTheme } from "next-themes";
 import { CLoseIcon, MenuIcon } from "./../../svgs/index";
 
-export default function HeaderMenuModule({ isCollapsed, toggleCollapseHandler }: any) {
+interface HeaderMenuModuleProps {
+  isCollapsed: boolean;
+  toggleCollapseHandler: () => void;
+}
+
+
+const HeaderMenuModule:React.FC<HeaderMenuModuleProps>=({ isCollapsed, toggleCollapseHandler })=>{
   const { theme, setTheme } = useTheme();
   return (
     <>
@@ -34,3 +40,6 @@ export default function HeaderMenuModule({ isCollapsed, toggleCollapseHandler }:
     </>
   );
 }
+
+export default HeaderMenuModule;
+

@@ -26,11 +26,12 @@ export const selectLanguageAuthModule = (language: string) => {
         //Register
         registerButton: "ثبت نام",
         //ActiveMail
-        ActiveMailTextTitleBe:"یک ایمیل به آدرس",
-        ActiveMailTextTitleAf:"ارسال شده است.",
-        ActiveMailTextConfirm:"جهت فعال سازی حساب خودو برروی لینک موجود در ایمیل کلیک کنید",
-        ActiveMailTextButton:"مشاهده ایمیل",
-        ActiveMailResend:"ارسال مجدد ایمیل تایید حساب شهروندی",
+        ActiveMailTextTitleBe: "یک ایمیل به آدرس",
+        ActiveMailTextTitleAf: "ارسال شده است.",
+        ActiveMailTextConfirm: "جهت تایید و فعال سازی حساب خودو برروی",
+        ActiveMailTextConfirm2: "لینک موجود در ایمیل کلیک کنید",
+        ActiveMailTextButton: "مشاهده",
+        ActiveMailResend: "ارسال مجدد ایمیل تایید حساب شهروندی",
 
         //ip
         ipTextTitle: " آی پی غیر مجاز",
@@ -51,6 +52,8 @@ export const selectLanguageAuthModule = (language: string) => {
         //footer
         footerBe: "برای کسب اطلاعات بیشتر و پاسخ به سوالات, از",
         footerَAf: "دیدن نمایید.",
+        footerLoginBe: "با کلیک بر روی دکمه ورود با",
+        footerLoginAf: " سامانه موافقت میکنید",
       };
     case "EN":
     default:
@@ -66,8 +69,9 @@ export const selectLanguageAuthModule = (language: string) => {
               //ActiveMail
         ActiveMailTextTitleBe:"An Email Address",
         ActiveMailTextTitleAf:"Send.",
-        ActiveMailTextConfirm:"To confirm and activate your accound,click on the link in the email",
-        ActiveMailTextButton:"View Email",
+        ActiveMailTextConfirm:"To confirm and activate your accound,",
+        ActiveMailTextConfirm2:"click on the link in the email",
+        ActiveMailTextButton:"View",
         ActiveMailResend:"Re-send the citizenship accound confirmation email",
         //ip
         ipTextTitle: "Unauthorized IP",
@@ -87,6 +91,7 @@ export const selectLanguageAuthModule = (language: string) => {
         checkTextButton: "let me Know",
         //footer
         footer: "for more information and answers to questions,visit the",
+        footerLogin:"By clicking the Log In button, you agree to"
       };
   }
 }

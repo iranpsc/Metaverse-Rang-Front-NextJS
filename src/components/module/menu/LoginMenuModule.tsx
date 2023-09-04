@@ -1,10 +1,17 @@
+//Types
+import {MenuDataItem} from "@/types/listMenu";
 import { LoginMenu } from "./../../svgs/index";
-export default function LoginMenuModule({ isCollapsed, setShowAuthCard ,menuData}: any) {
-  
-   const namesToKeep = ['log in', 'logout'];
+export default function LoginMenuModule({
+  isCollapsed,
+  setShowAuthCard,
+  menuData,
+}: any) {
+  const namesToKeep = ["log in", "logout"];
 
-const filteredItems = menuData.filter((item:any) => namesToKeep.includes(item.name));
-  
+  const filteredItems = menuData.filter((item: MenuDataItem) =>
+    namesToKeep.includes(item.name)
+  );
+
   return (
     <>
       <div

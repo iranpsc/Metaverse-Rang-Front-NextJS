@@ -1,18 +1,23 @@
 import { useContext, useEffect, useState } from "react";
-
-import { SideBarContext } from "./context/SidebarContext";
-import { useTheme } from "next-themes";
-
-import { LangContext } from "@/components/context/LangContext";
 import { useRouter } from "next/router";
-
+//CONTEXT
+import { SideBarContext } from "./context/SidebarContext";
+//LANGUAGE
+import { LangContext } from "@/components/context/LangContext";
+//MODULES
 import LoginMenuModule from './module/menu/LoginMenuModule';
 import HeaderMenuModule from './module/menu/HeaderMenuModule';
 import TopMenuModule from './module/menu/TopMenuModule';
 import ListMenuModule from "./module/menu/ListMenuModule";
 import MenuProfileModule from "./module/menu/MenuProfileModule";
 
-
+interface LanguageItem {
+  id: number;
+  code: string;
+  name: string;
+  direction: string;
+  icon: string;
+}
 
 export default function Sidebar({ setShowAuthCard }:any) {
   const router = useRouter();
@@ -21,13 +26,12 @@ export default function Sidebar({ setShowAuthCard }:any) {
   const { isCollapsed, toggleCollapseHandler } = useContext(SideBarContext);
   const { menuData, languagesData, languageSelected, setLanguagesSelected } =
     useContext(LangContext);
-  const { systemTheme, theme, setTheme } = useTheme();
-  const { lang, userId } = router.query;
+  const {userId } = router.query;
 
   useEffect(() => {
     setActiveDropdown(false);
   }, [languageSelected.name, isCollapsed]);
-  const handleDirChange = (item: any) => {
+  const handleDirChange = (item: LanguageItem) => {
     setLanguagesSelected({
       id: item.id,
       code: item.code,
@@ -63,12 +67,12 @@ export default function Sidebar({ setShowAuthCard }:any) {
           <TopMenuModule isCollapsed={isCollapsed} menuData={menuData} />
         </div>
 
-        <MenuProfileModule/>
+        {/* <MenuProfileModule/> */}
 
         <ListMenuModule
           isCollapsed={isCollapsed}
           menuData={menuData}
-          SetActiveItem={SetActiveItem}
+          setActiveItem={SetActiveItem}
           activeItem={activeItem}
           languageSelected={languageSelected}
           setActiveDropdown={setActiveDropdown}
