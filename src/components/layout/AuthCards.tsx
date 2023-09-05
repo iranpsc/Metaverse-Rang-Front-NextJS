@@ -4,7 +4,7 @@ import AuthCard from "./../templates/AuthCard";
 import ActiveMailModule from "../module/ActiveMailModule";
 //CONTEXT
 import { AuthContext } from "./../context/AuthContext";
-import { selectLanguageAuthModule } from "@/components/utils/textsLanguage";
+
 
 import IpPage from '../module/IpPage';
 import CheckIp from "../module/CheckIp";

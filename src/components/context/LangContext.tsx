@@ -2,7 +2,7 @@ import { createContext, ReactNode, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 
-import {Language,LanguageResponse} from './../../types/api'
+import {Language} from './../../types/api'
 
 
 interface LanguageSelected {
@@ -136,14 +136,7 @@ const LangProvider = ({ children }: Props) => {
          const newItem = resMenu.data.data.filter(
            (item: any) => item.name !== removeMenuName
          );
-        //  const language = {
-        //    id: 9999132,
-        //    modal_id: selectModals,
-        //    name: "language",
-        //  };
-        //  const addLanguage: any = [...newItem, language];
-        //  setMenuData(addLanguage);
-      
+   
          setMenuData(newItem);
 
          const getTabs = await axios.get(

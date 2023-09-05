@@ -61,6 +61,10 @@ export default function Home() {
       <Head>
         <title>متاورس رنگ ایران</title>
         <meta name="description" content="job" key="desc" />
+        <meta
+          name="google-site-verification"
+          content="lmf8kBJQgLHew_wXcxGQwJQWiOSFy8odEBRTLOoX7Q4"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={addPageJsonLd()}

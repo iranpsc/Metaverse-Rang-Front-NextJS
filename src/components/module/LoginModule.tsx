@@ -41,7 +41,7 @@ export default function LoginModule() {
   };
 
   const getEmailValue =(e:any)=>{
-    console.log(e)
+  
   }
 
   return (
