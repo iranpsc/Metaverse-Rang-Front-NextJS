@@ -18,7 +18,7 @@ export default function ProfileImages() {
     const maxImages = 5;
 
     const images = [];
-    const [imgProfiles, setImgProfiles] = useState([]);
+    const [imgProfiles, setImgProfiles] = useState<any>([]);
 
     useEffect(() => {
       setImgProfiles(profileData.profilePhotos);
@@ -27,7 +27,7 @@ export default function ProfileImages() {
     for (let i = 0; i < Math.min(maxImages, (imgProfiles || []).length); i++) {
       images.push(
         <Image
-          src={imgProfiles[i]?.url || staticImageURL}
+          src={(imgProfiles[i]  && imgProfiles[i]?.url) || staticImageURL}
           width={100}
           height={100}
           alt="profile"

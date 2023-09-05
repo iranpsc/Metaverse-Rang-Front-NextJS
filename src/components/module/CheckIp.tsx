@@ -29,7 +29,7 @@ export default function CheckIp() {
       const handleEmailChange = (e:any) => {
         const newEmail = e.target.value;
         setEmail(newEmail);
-       validateEmail(newEmail);
+       validateEmail();
       };
 
     const handleSubmit = async () => {
