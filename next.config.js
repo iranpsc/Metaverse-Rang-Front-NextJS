@@ -1,40 +1,20 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  basePath: '/nextjs',
-  reactStrictMode: true,
-  "typescript": {
-    "ignoreBuildErrors": true,
+
+module.exports = {
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: [{ loader: "@svgr/webpack", options: { icon: true } }],
+    });
+    return config;
   },
-    assetPrefix: '/nextjs',
-    rewrites() {
-      return [
-        { source: '/nextjs/_next/:path*', destination: '/nextjs/_next/:path*' }
-      ]
-    },
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "api.rgb.irpsc.com",
-      },
-      {
-        protocol: "https",
-        hostname: "admin.rgb.irpsc.com",
-      },
-      {
-        protocol: "https",
-        hostname: "dl.qzparadise.ir"
-      },
-      {
-        protocol: "https",
-        hostname: "irpsc.com"
-      },
-      {
-        protocol: "https",
-        hostname: "dl.qzparadise.ir"
-      }
-    ]
+    domains: [
+      "dl.qzparadise.ir",
+      "api.rgb.irpsc.com",
+      "admin.rgb.irpsc.com",
+      "localhost",
+    ],
   },
-  
-}
-module.exports = nextConfig
+  experimental: { esmExternals: true, serverActions: true },
+};
