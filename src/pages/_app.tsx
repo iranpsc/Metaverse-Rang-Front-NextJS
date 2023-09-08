@@ -1,15 +1,65 @@
-import "@/styles/globals.css";
-import 'src/index.css'
-import Head from 'next/head'
-import { GetServerSideProps } from 'next';
-import axiosHelper from "@/helper/axios";
-import { API } from "@/types/api-routes/index"
-import { Video } from "@/types/api/index";
+import { useContext } from "react";
 import type { AppProps } from "next/app";
-import Layout from "../components/template/layout";
+import "./../styles/global.css";
+import localFont from "next/font/local";
+import { ThemeProvider } from "next-themes";
 
-export default function App({ Component, pageProps}: AppProps) {
+import SidebarProvider from "@/components/context/SidebarContext";
+import LangProvider from "@/components/context/LangContext";
+import AuthProvider from "@/components/context/AuthContext";
+
+
+
+const azarMehr = localFont({
+  src: [
+    {
+      path: "../../public/fonts/AzarMehr-DS2-Thin.woff2",
+      weight: "100",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/AzarMehr-DS2-Light.woff2",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/AzarMehr-DS2-Medium.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/AzarMehr-DS2-Medium.woff2",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/AzarMehr-DS2-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/AzarMehr-ExtraBold.woff2",
+      weight: "800",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/AzarMehr-DS2-Black.woff2",
+      weight: "900",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/AzarMehr-ExtraBlack.woff2",
+      weight: "950",
+      style: "normal",
+    },
+  ],
+  variable: "--font-font-azar",
+});
+
+export default function App({ Component, pageProps }: AppProps) {
+  
   return (
+<<<<<<< HEAD
     <>
       <Head>
         <link  href="/fonts/BebasNeue-Regular.ttf" rel="preload" as="font" type="font/woff2" crossOrigin="anonymous" />
@@ -21,5 +71,18 @@ export default function App({ Component, pageProps}: AppProps) {
       </Head>
       <Component {...pageProps} />
     </>
+=======
+    <ThemeProvider attribute="class">
+      <LangProvider>
+        <AuthProvider>
+        <main className={`${azarMehr.variable}`}>
+          <SidebarProvider>
+            <Component {...pageProps} />
+          </SidebarProvider>
+        </main>
+        </AuthProvider>
+      </LangProvider>
+    </ThemeProvider>
+>>>>>>> f1bc425b24d33901425b278d097fa688f9081c71
   );
 }

@@ -1,59 +1,55 @@
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
-  mode: 'jit', // or 'aot'
-  purge: ['./src/**/*.{js,jsx,ts,tsx}'], // path to your application files
-  darkMode: false, // or 'media' or 'class'
+  mode: "jit", // or 'aot'
+  purge: ["./src/**/*.{js,jsx,ts,tsx}"], // path to your application files
+  darkMode: "class",
   theme: {
-    extend: {
-      screens: {
-        'sm': '640px',
-        'md': '920px',
-        'lg': '1024px',
-        'xl': '1280px',
-        '2xl': '1536px',
-      },
-      fontFamily: {
-        'Bruno': ['BrunoAceSC-Regular', 'sans-serif'],
-        'Bebas': ['BebasNeue-Regular', 'sans-serif'],
-        'Digi': ['DigiHamisheRegular', 'sans-serif'],
-        'Jana': ['JannaLTBold', 'sans-serif'],
-        'IranSans': ['IranSans', 'sans-serif'],
-        'Orbitron': ['Orbitron-Bold', 'sans-serif'],
-        'JannaLTRegular': ['JannaLTRegular', 'sans-serif'],
-      },
-      colors: {
-        orange: '#FF8D29',
-        red: '#FF0000',
-        blue: {
-          DEFAULT:'#3E00FF',
-          light: '#D8FDFC',
-          link: '#265AFF',
-          linkdark: '#1E48B9'
-        },
-        gray: {
-          lighter: '#CCCCCC',
-          light: '#666666',
-          DEFAULT:'#333333',
-        },
-        red: '#FF0000',
-        purple: '#A637D9',
-        white: '#FFFFFF',
-        black: '#000000',
-        green: {
-          light:'#6EBE33',
-          DEFAULT:'#00AE40',
-          dark:'#005424',
-        },
+    screens: {
+      xs: { max: "639px" },
+      ...defaultTheme.screens,
+    },
+    colors: {
+      black: "rgba(0, 0, 0, 1)",
+      lightGray: "rgba(0, 0, 0, 0.09)",
+      mediumGray: "rgba(116, 116, 116, 0.58)",
+      gray: "rgba(133, 133, 133, 1)",
+      extraGray: "rgba(86, 89, 89, 1)",
+
+      white: "#ffffff",
+
+      blueLink: "#0000FF",
+
+      error: "#ff0000",
+
+      defaultButton: "#D4ECFF",
+      activeButton: "#008BF8",
+
+      defaultTextButton: "#008BF8",
+      activeTextButton: "#D4ECFF",
+
+      borderField: "#DADADA",
+      Field: "#FCFCFC",
+      dark: {
+        background: "#1E1E1E",
+        backgroundModules: "#000000",
+        defaultButton: "#332800",
+        activeButton: "#FFC700",
+        gray: "#9A9A9A",
+        yellow: "#FFC700",
+        lightWhite: "rgba(255, 255, 255, 0.09)",
+        borderField: "#282828",
+        Field: "#2C2C2C",
+
+        borderFieldError: "#930000",
+        bgFieldError: "#380000",
+        textFieldError: "#fa2323",
       },
     },
-    container: {
-      padding: {
-        DEFAULT: '1rem',
-        sm: '2rem',
-        lg: '4rem',
-        xl: '5rem',
-        '2xl': '6rem',
+    extend: {
+      fontFamily: {
+        azarMehr: ["var(--font-font-azar)"],
       },
     },
   },
@@ -61,5 +57,4 @@ module.exports = {
     extend: {},
   },
   plugins: [],
-}
-
+};

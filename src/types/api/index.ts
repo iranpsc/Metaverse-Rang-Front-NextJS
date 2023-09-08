@@ -173,3 +173,17 @@ export type CitizenData = {
 export type CitizenResponse = {
   data: CitizenData;
 }
+
+
+export type Language = {
+  id: number;
+  code: string;
+  name: string;
+  native_name: string;
+  direction: string;
+  icon: string;
+};
+
+export type LanguageResponse = {
+  data: Language[];
+}
