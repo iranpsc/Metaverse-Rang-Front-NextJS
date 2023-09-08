@@ -59,19 +59,6 @@ const azarMehr = localFont({
 export default function App({ Component, pageProps }: AppProps) {
   
   return (
-<<<<<<< HEAD
-    <>
-      <Head>
-        <link  href="/fonts/BebasNeue-Regular.ttf" rel="preload" as="font" type="font/woff2" crossOrigin="anonymous" />
-        <link href="/fonts/BrunoAceSC-Regular.ttf" rel="preload" as="font" type="font/woff" crossOrigin="anonymous" />
-        <link href="/fonts/DigiHamisheBold.ttf" rel="preload" as="font" type="font/woff" crossOrigin="anonymous" />
-        <link href="/fonts/DigiHamisheRegular.ttf" rel="preload" as="font" type="font/woff" crossOrigin="anonymous" />
-        <link href="/fonts/JannaLTBold.ttf" rel="preload" as="font" type="font/woff" crossOrigin="anonymous" />
-        <link href="/fonts/Sans.ttf" rel="preload" as="font" type="font/woff" crossOrigin="anonymous" />
-      </Head>
-      <Component {...pageProps} />
-    </>
-=======
     <ThemeProvider attribute="class">
       <LangProvider>
         <AuthProvider>
@@ -83,6 +70,5 @@ export default function App({ Component, pageProps }: AppProps) {
         </AuthProvider>
       </LangProvider>
     </ThemeProvider>
->>>>>>> f1bc425b24d33901425b278d097fa688f9081c71
   );
 }
