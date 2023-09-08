@@ -1,5 +1,4 @@
-import Image from "next/image";
-import { LoginMenu, LogoRgb } from "./../../svgs/index";
+import {  LogoRgb } from "./../../svgs/index";
 
 export default function TopMenuModule({ isCollapsed,menuData}:any) {
 
@@ -14,7 +13,7 @@ const filteredItems = menuData.filter((item:any) => namesToKeep.includes(item.na
           isCollapsed ? "ps-0" : "ps-5"
         } items-center gap-1 justify-center pb-3`}
       >
-        <LogoRgb className={`mx-1  ${isCollapsed ? "xl:w-[45px]  xl:h-[50px]" : "xl:w-[60px]  xl:h-[65px]"}  lg:w-[33px] lg:h-[33px] max-lg:w-[30px] max-lg:h-[30px] rounded-[1rem]`}  />
+        <LogoRgb className={`mx-1  ${isCollapsed ? "xl:w-[45px]  xl:h-[50px]" : "xl:w-[60px]  xl:h-[65px]"}  lg:w-[33px] lg:h-[33px] md:w-[30px] md:h-[30px] sm:w-[30px] sm:h-[30px] xs:w-[30px] xs:h-[30px] rounded-[1rem]`}  />
         {!isCollapsed ? (
           <div className="inline-block w-full mt-1 ">
             {filteredItems && filteredItems.length > 0 && (

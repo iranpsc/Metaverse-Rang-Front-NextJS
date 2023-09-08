@@ -72,7 +72,7 @@ export default function RegisterModule() {
               </div>
 
               <div className="form-group">
-                <div className=" flex flex-col items-center relative">
+                <div className=" flex flex-col items-center relative ">
                   <Field
                     type={showPassword ? "text" : "password"}
                     name="password"
@@ -106,9 +106,9 @@ export default function RegisterModule() {
                       />
                     )}
                   </span>
+                <ErrorMessageComponent fieldName="password" lang={lang} />
                 </div>
 
-                <ErrorMessageComponent fieldName="password" lang={lang} />
               </div>
 
               <button className="bg-[#D7FBF0] text-[#18C08F] dark:bg-[#004531] border-[#18C08F] border-[1px] w-full h-[50px] mt-1 rounded-[5px] font-azarMehr font-normal">
@@ -132,19 +132,19 @@ export default function RegisterModule() {
 
         <div className="w-full mt-4 mb-4 flex flex-col items-center">
           <label className="text-center dark:text-[#E1E1E1] flex items-center justify-center font-azarMehr text-[16px] text-[#00000073] font-medium">
-            {selectLanguageAuthModule(lang).loginRemeber}
             <input
               type="checkbox"
               checked={rememberMe}
               onChange={handleCheckboxChange}
-              className="mx-1 w-5 h-5"
-            />
+              className="mx-1 w-4 h-4"
+              />
+              {selectLanguageAuthModule(lang).loginRemeber}
           </label>
           <p className="text-center mt-2 font-azarMehr text-[#008BF8] text-[14px] font-bold">
             {selectLanguageAuthModule(lang).loginForget}
           </p>
         </div>
-        {lang === "EN" ? (
+        {lang === "en" ? (
           <p className="text-center pb-8 px-1 mt-4 w-full text-[#000000A1] dark:text-[#FFFFFFA1] font-azarMehr text-[14px] font-normal">
             {selectLanguageAuthModule(lang).footer}
             <span className="mx-1 text-[14px] font-azarMehr text-[#008BF8] cursor-pointer font-medium">

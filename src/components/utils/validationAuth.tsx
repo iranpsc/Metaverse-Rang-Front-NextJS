@@ -1,9 +1,8 @@
 import { object, string } from "yup";
-import { selectLanguageAuthModule } from "./textsLanguage";
 
 export const selectLanguage = (language: string) => {
   switch (language) {
-    case "IR":
+    case "fa":
       return {
         username: "نام کاربری دارای محدودیت hm_ می‌باشد",
         email: "ایمیل وارد شده صحیح نمیباشد",
@@ -15,7 +14,7 @@ export const selectLanguage = (language: string) => {
         required: "این فیلد الزامی است",
         minLength: "رمز عبور باید حداقل ۸ کاراکتر باشد",
       };
-    case "EN":
+    case "en":
     default:
       return {
         username: "The user name is limited to _hm.",
@@ -53,7 +52,7 @@ export const RegisterSchema = (language: string) => {
 
   return object().shape({
     username: string()
-      .matches(/^(?!.*_hm).*$/, languagePack.username)
+      .matches(/^(?!.*hm-)/, languagePack.username)
       .required(languagePack.required),
 
     email: string().email(languagePack.email).required(languagePack.required),

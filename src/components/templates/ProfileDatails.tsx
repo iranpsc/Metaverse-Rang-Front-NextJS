@@ -41,7 +41,7 @@ export default function ProfileDetails({ setShowModal, setDataModal }: any) {
     {
       id: 5,
       key: targetData(selectedProfileData, "job"),
-      value: profileData?.customs?.occupation.slice(0, 30) || "--",
+      value: profileData?.customs?.occupation.slice(0, 25) || "--",
       fValue: profileData?.customs?.occupation,
     },
     {
@@ -69,23 +69,23 @@ export default function ProfileDetails({ setShowModal, setDataModal }: any) {
     },
   ];
   return (
-    <div className=" flex flex-col mx-1 justify-between xl:gap-0 lg:gap-2 h-full  max-sm:h-fit max-sm:gap-3">
+    <div className=" flex relative flex-col mx-1 justify-between xl:gap-[6px] lg:gap-[6px] sm:h-fit xs:h-fit md:gap-[6px] sm:gap-[6px] xs:gap-[6px]  dark:bg-black  bg-[#e9eef8] ">
       <ProfileDetailsDetails itemsProfileDetails={itemsProfileDetails} />
 
       <ProfileDetailsInteresting
         itemsInterestedProfileDetails={itemsInterestedProfileDetails}
       />
 
-      <section className="dark:bg-dark-background transition-all duration-300 ease-linear bg-white w-full rounded-md ">
-        <div className="flex flex-nowrap xl:p-4 lg:p-4 md:py-2 max-md:p-4  justify-between w-full items-center ">
-          <p className="font-azarMehr font-medium text-gray max-sm:text-[13px] xl:text-[13px] lg:text-[11px] md:text-[10px]">
+      <section className="dark:bg-dark-background transition-all duration-300 ease-linear bg-white w-full rounded-[10px] ">
+        <div className="flex flex-nowrap xl:p-4 lg:p-4 md:py-4 my-[4px]  justify-between w-full items-center sm:py-5 xs:py-5">
+          <p className="font-azarMehr font-medium text-gray sm:text-[13px] xl:text-[13px] lg:text-[11px] md:text-[9px] sm:mx-[2px] md:mx-[1px] xs:mx-3">
             {targetData(
               selectedProfileData,
               "if you had the ability to solve a problem, what would it be?"
             )}
           </p>
           <span
-            className="dark:text-dark-yellow font-azarMehr max-sm:text-[13px] cursor-pointer text-blueLink font-medium  xl:text-sm lg:text-[12px] md:text-[13px] "
+            className="dark:text-dark-yellow font-azarMehr max-sm:text-[13px] cursor-pointer text-blueLink font-medium xl:text-[14px] lg:text-[14px] md:text-[13px] sm:mx-3 xs:mx-3 md:mx-[2px]"
             onClick={() =>
               submitModalCard(
                 targetData(
@@ -101,13 +101,13 @@ export default function ProfileDetails({ setShowModal, setDataModal }: any) {
         </div>
       </section>
 
-      <section className="dark:bg-dark-background transition-all duration-300 ease-linear bg-white   w-full rounded-md">
-        <div className="flex flex-nowrap justify-between xl:p-4 lg:p-4 md:py-2 max-md:p-4 w-full items-center ">
-          <p className="font-azarMehr font-medium max-sm:text-[13px] text-gray xl:text-sm lg:text-[12px] md:text-[10px]">
+      <section className="dark:bg-dark-background transition-all duration-300 ease-linear bg-white   w-full rounded-[10px] ">
+        <div className="flex flex-nowrap justify-between xl:p-4 lg:p-4 my-[4px] w-full items-center md:py-3 sm:py-5  xs:py-5 ">
+          <p className="font-azarMehr font-medium max-sm:text-[13px] text-gray xl:text-[14px] lg:text-[14px] md:text-[12px] md:mx-[2px] sm:mx-3 xs:mx-3">
             {targetData(selectedProfileData, "forecast 2022")}
           </p>
           <span
-            className="dark:text-dark-yellow font-azarMehr max-sm:text-[13px] cursor-pointer text-blueLink font-medium  xl:text-sm lg:text-[12px] md:text-[13px]"
+            className="dark:text-dark-yellow font-azarMehr max-sm:text-[13px] cursor-pointer text-blueLink font-medium xl:text-[14px] lg:text-[14px] md:text-[13px] md:mx-[2px] sm:mx-3 xs:mx-3"
             onClick={() =>
               submitModalCard(
                 targetData(selectedProfileData, "forecast 2022"),
@@ -120,13 +120,13 @@ export default function ProfileDetails({ setShowModal, setDataModal }: any) {
         </div>
       </section>
 
-      <section className="dark:bg-dark-background  transition-all duration-300 ease-linear bg-white  w-full rounded-md">
-        <div className="flex flex-nowrap justify-between  xl:p-4 lg:p-4 md:py-2 max-md:p-4 w-full items-center  ">
-          <p className="font-azarMehr font-medium text-gray max-sm:text-[13px] xl:text-sm lg:text-[12px] md:text-[10px] ">
+      <section className="dark:bg-dark-background  transition-all duration-300 ease-linear bg-white  w-full rounded-[10px]">
+        <div className="flex flex-nowrap justify-between  xl:p-4 lg:p-4 my-[4px] w-full items-center md:py-3 sm:py-5   xs:py-5 ">
+          <p className="font-azarMehr font-medium text-gray max-sm:text-[13px] xl:text-[14px] lg:text-[14px] md:text-[12px] md:mx-[2px] sm:mx-3 xs:mx-3">
             {targetData(selectedProfileData, "pleasant memory")}
           </p>
           <span
-            className="dark:text-dark-yellow font-azarMehr max-sm:text-[13px] cursor-pointer text-blueLink font-medium  xl:text-sm lg:text-[12px] md:text-[13px]"
+            className="dark:text-dark-yellow font-azarMehr max-sm:text-[13px] cursor-pointer text-blueLink font-medium xl:text-[14px] lg:text-[14px] md:text-[13px] md:mx-[2px] sm:mx-3 xs:mx-3"
             onClick={() =>
               submitModalCard(
                 targetData(selectedProfileData, "pleasant memory"),
@@ -139,13 +139,13 @@ export default function ProfileDetails({ setShowModal, setDataModal }: any) {
         </div>
       </section>
 
-      <section className="dark:bg-dark-background bg-white  transition-all duration-300 ease-linear  w-full rounded-md">
-        <div className="flex flex-nowrap justify-between  xl:p-4 lg:p-4 max-md:p-4 md:px-1 w-full items-center ">
-          <p className="font-azarMehr font-medium text-gray max-sm:text-[13px] xl:text-sm lg:text-[12px] md:text-[10px]">
+      <section className=" dark:bg-dark-background bg-white  transition-all duration-300 ease-linear  w-full rounded-[10px]">
+        <div className="flex flex-nowrap justify-between  xl:p-4 lg:p-4 my-[4px] md:px-1 w-full items-center md:py-3 sm:py-5 xs:py-5 ">
+          <p className="font-azarMehr font-medium text-gray max-sm:text-[13px] xl:text-[14px] lg:text-[14px] md:text-[12px] md:mx-[2px] sm:mx-3 xs:mx-3">
             {targetData(selectedProfileData, "favorites")}
           </p>
           <span
-            className="dark:text-dark-yellow cursor-pointer max-sm:text-[13px] font-azarMehr text-blueLink font-medium xl:text-sm lg:text-[12px] md:text-[13px]"
+            className="dark:text-dark-yellow cursor-pointer sm:text-[13px] font-azarMehr text-blueLink font-medium xl:text-[14px] lg:text-[14px] md:text-[13px] md:mx-[2px] sm:mx-3 xs:mx-3"
             onClick={() =>
               submitModalCard(
                 targetData(selectedProfileData, "favorites"),

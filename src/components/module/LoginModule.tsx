@@ -68,7 +68,7 @@ export default function LoginModule() {
                 />
                 <ErrorMessageComponent fieldName="email" lang={lang} />
                 {showErrorLoginAccess !== "" ? (
-                  <span className="text-error font-azarMehr font-medium text-[10px]">
+                  <span className="text-error font-azarMehr font-medium text-[10px] bg-error mt-2">
                     {showErrorLoginAccess}
                   </span>
                 ) : null}
@@ -80,40 +80,40 @@ export default function LoginModule() {
                     type={showPassword ? "text" : "password"}
                     name="password"
                     placeholder={selectLanguage(lang).placeholderPassword}
-                    className={`${cssAuth(props, "password")} ""`}
+                    className={`${cssAuth(props, "password")}`}
                   />
 
                   <span
-                    className="absolute end-5 top-1/3 cursor-pointer"
+                    className="absolute end-5 top-[33%] cursor-pointer "
                     onClick={() => setShowPassword(!showPassword)}
                   >
                     {showPassword ? (
                       <EyeShow
-                        className={` stroke-[2px]
+                        className={` stroke-[2px] h-5 w-5
                        ${
                          props.errors.password
-                           ? "stroke-[#ff0000] dark:stroke-[#E85300] "
-                           : "stroke-[#4360EC] dark:stroke-[#5B5B5B"
+                           ? "stroke-[#5B5B5B] dark:stroke-[#5B5B5B] "
+                           : "stroke-[#4360EC] dark:stroke-[#5B5B5B]"
                        }
                       `}
                       />
                     ) : (
                       <EyeHidden
-                        className={`stroke-[2px]
+                        className={`stroke-[2px] h-5 w-5
                        ${
                          props.errors.password
-                           ? "stroke-[#ff0000] dark:stroke-[#E85300]"
+                           ? "stroke-[#5B5B5B] dark:stroke-[#5B5B5B]"
                            : "stroke-[#4360EC] dark:stroke-[#5B5B5B]"
                        }
                       `}
                       />
                     )}
                   </span>
+                  <ErrorMessageComponent fieldName="password" lang={lang} />
                 </div>
 
-                <ErrorMessageComponent fieldName="password" lang={lang} />
                 {showErrorLoginAccess !== "" ? (
-                  <span className="text-error font-azarMehr font-medium text-[9px]">
+                  <span className="text-error font-azarMehr font-medium text-[9px] mt-10">
                     {showErrorLoginAccess}
                   </span>
                 ) : null}
@@ -141,35 +141,34 @@ export default function LoginModule() {
 
         <div className="w-full mt-7 flex flex-col items-center">
           <label className="text-center dark:text-[#E1E1E1] flex items-center justify-center font-azarMehr text-[16px] text-[#00000073] font-medium">
-            {selectLanguageAuthModule(lang).loginRemeber}
             <input
               type="checkbox"
               checked={rememberMe}
               onChange={handleCheckboxChange}
-              className="mx-1 w-5 h-5"
+              className="mx-1 w-4 h-4"
             />
+            {selectLanguageAuthModule(lang).loginRemeber}
           </label>
           <p className="text-center mt-2 font-azarMehr text-[#008BF8] text-[14px] font-bold">
             {selectLanguageAuthModule(lang).loginForget}
           </p>
         </div>
 
-        {lang === "EN" ? (
-          <p className="text-center px-1 pb-8 mt-6 w-full text-[#000000A1] dark:text-[#FFFFFFA1] font-azarMehr text-[14px] font-normal">
-            {selectLanguageAuthModule(lang).footerLogin}
+        {lang === "en" ? (
+          <p className="text-center px-1 pb-6 mt-6 w-full text-[#000000A1] dark:text-[#FFFFFFA1] font-azarMehr text-[14px] font-normal">
+            {selectLanguageAuthModule(lang).footerLoginBe}
             <span className="mx-1 text-[14px] font-azarMehr text-[#008BF8] cursor-pointer font-medium">
-              the terms and conditions of the service agreement.
+              the terms and conditions
             </span>
+              {selectLanguageAuthModule(lang).footerLoginAf}
           </p>
         ) : (
           <>
-            <p className="w-ful text-center pb-8 mt-8 text-[14px] font-azarMehr text-[#898989] font-medium">
+            <p className="w-ful text-center pb-6 mt-8 text-[14px] font-azarMehr text-[#898989] font-medium">
               {selectLanguageAuthModule(lang).footerLoginBe}
               <span className="mx-1 text-[14px] font-azarMehr  text-[#008BF8] cursor-pointer font-medium">
                 شرایط خدمات قرارداد
               </span>
-            </p>
-            <p className="w-full text-center text-[14px]  font-azarMehr text-[#898989] font-medium">
               {selectLanguageAuthModule(lang).footerLoginAf}
             </p>
           </>

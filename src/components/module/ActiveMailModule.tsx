@@ -15,7 +15,7 @@ export default function ActiveMailModule({ data, lang }: any) {
   const iconSrc = domain in domainIcons ? domainIcons[domain] : "";
 
   return (
-    <div className={`w-[95%] h-[100%] ${lang === "EN" ? "mt-20" : "mt-16"}`}>
+    <div className={`w-[95%] h-[100%] ${lang === "en" ? "mt-20" : "mt-16"}`}>
       <p className="text-[#4F4F4F] dark:text-white font-azarMehr text-[20px] font-bold text-center">
         {selectLanguageAuthModule(lang).ActiveMailTextTitleBe}
 
@@ -45,7 +45,7 @@ export default function ActiveMailModule({ data, lang }: any) {
       <p className="text-[#008BF8] font-azarMehr text-[14px] mt-3  font-normal text-center">
         {selectLanguageAuthModule(lang).ActiveMailResend}
       </p>
-      {lang === "EN" ? (
+      {lang === "en" ? (
         <p className="text-center px-1 mt-4 w-full text-[#000000A1] dark:text-[#FFFFFFA1] font-azarMehr text-[14px] font-normal">
           {selectLanguageAuthModule(lang).footer}
           <span className="mx-1 text-[14px] font-azarMehr text-[#008BF8] cursor-pointer font-medium">

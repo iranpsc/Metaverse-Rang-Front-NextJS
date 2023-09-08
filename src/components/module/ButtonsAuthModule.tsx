@@ -31,7 +31,7 @@ const buttons = [
           key={index}
           className={`${
             showModule === button.code
-              ? "bg-activeButton w-[171px] text-activeTextButton dark:bg-dark-activeButton dark:text-black"
+              ? "bg-activeButton w-[171px] text-activeTextButton dark:bg-dark-activeButton opacity-[100%] dark:text-black"
               : "bg-defaultButton text-defaultTextButton dark:bg-dark-defaultButton dark:text-dark-yellow"
           } w-[142px] h-[50px] rounded-[10px] flex items-center justify-center font-azarMehr font-medium`}
           onClick={() => setShowModule(button.code)}

@@ -1,6 +1,6 @@
 export const cssAuth = (props: any, fieldName: string) => {
   return `
-    w-full h-[50px] outline-borderField ps-[10px] rounded-[5px] bg-[#FCFCFC] border-[1px] 
+    w-full mx-3 h-[50px] outline-borderField ps-[10px] rounded-[5px] bg-[#FCFCFC] border-[1px] 
     dark:bg-dark-Field dark:border-dark-borderField dark:outline-none
     ${
       props.touched[fieldName] && props.errors[fieldName]

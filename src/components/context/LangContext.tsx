@@ -4,6 +4,9 @@ import axios from "axios";
 
 import {Language} from './../../types/api'
 
+interface Props {
+  children: ReactNode;
+}
 
 interface LanguageSelected {
   id: number;
@@ -26,7 +29,7 @@ const initialValue: LangContextType = {
   languagesData: [],
   languageSelected: {
     id: 7,
-    code: "EN",
+    code: "en",
     name: "English",
     dir: "ltr",
     icon: "",
@@ -40,14 +43,8 @@ const initialValue: LangContextType = {
 
 export const LangContext = createContext(initialValue);
 
-interface Props {
-  children: ReactNode;
-}
-
 const LangProvider = ({ children }: Props) => {
   const [languagesData, setLanguagesData] = useState<Language[]>([]);
-
-
 
   const [languageSelected, setLanguagesSelected] = useState<LanguageSelected>(
     initialValue.languageSelected
@@ -56,11 +53,11 @@ const LangProvider = ({ children }: Props) => {
   const [profileData, setProfileData] = useState([]);
   const [selectedProfileData, setSelectedProfileData] = useState([]);
   const [selectedUrlLang, setSelectedUrlLang] = useState("");
-  const [selectedLang, setSelectedLang] = useState<string>("");
 
   const router = useRouter();
 
   const { lang, userId } = router.query;
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -81,9 +78,9 @@ const LangProvider = ({ children }: Props) => {
             setLanguagesData(res.data.data);
           } else {
             const urlEN = await res.data.data.find(
-              (item: any) => item.code === "EN"
+              (item: any) => item.code === "en"
             );
-            router.push(`/${urlEN.code}/citizen/profile`);
+            router.push(`/${urlEN.code}/citizen/${userId}`);
             setLanguagesData(res.data.data);
           }
         }
