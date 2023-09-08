@@ -4,7 +4,8 @@ import AuthCard from "./../templates/AuthCard";
 import ActiveMailModule from "../module/ActiveMailModule";
 //CONTEXT
 import { AuthContext } from "./../context/AuthContext";
-
+//ANIMATION
+import { motion } from "framer-motion";
 
 import IpPage from '../module/IpPage';
 import CheckIp from "../module/CheckIp";
@@ -18,7 +19,7 @@ export default function AuthCards({setShowAuthCard}:any) {
   return (
     <div
       className=" absolute  z-50 max-sm:z-[110]  top-0 w-full h-full"
-      dir={`${lang === "IR" ? "rtl" : "ltr"}`}
+      dir={`${lang === "fa" ? "rtl" : "ltr"}`}
     >
       <div className=" flex  justify-center backdrop-blur-sm  bg-black/20  items-center w-full h-full">
         <div
@@ -41,7 +42,15 @@ export default function AuthCards({setShowAuthCard}:any) {
           }
            rounded-[10px]  bg-white dark:bg-dark-backgroundModules`}
         >
-          <section className=" w-full h-full flex flex-col justify-between items-center ">
+          <motion.section
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }} 
+            transition={{
+              duration: 0.5,
+              ease: "backInOut"
+            }}
+            className=" w-full h-full flex flex-col justify-between items-center "
+          >
             {modalName.name === "AuthPage" && (
               <>
                 <HeaderAuth setShowAuthCardHeader={setShowAuthCard} />
@@ -53,8 +62,8 @@ export default function AuthCards({setShowAuthCard}:any) {
                 <HeaderAuth
                   setShowAuthCardHeader={setShowAuthCard}
                   title={{
-                    IR: "فعال سازی حساب",
-                    EN: "Account Activation",
+                    fa: "فعال سازی حساب",
+                    en: "Account Activation",
                   }}
                 />
                 <ActiveMailModule data={modalName.data} lang={lang} />
@@ -65,8 +74,8 @@ export default function AuthCards({setShowAuthCard}:any) {
                 <HeaderAuth
                   setShowAuthCardHeader={setShowAuthCard}
                   title={{
-                    IR: "سطح دسترسی",
-                    EN: "َAccess Level",
+                    fa: "سطح دسترسی",
+                    en: "َAccess Level",
                   }}
                 />
                 <IpPage />
@@ -78,76 +87,14 @@ export default function AuthCards({setShowAuthCard}:any) {
                 <HeaderAuth
                   setShowAuthCardHeader={setShowAuthCard}
                   title={{
-                    IR: "سطح دسترسی",
-                    EN: "َAccess Level",
+                    fa: "سطح دسترسی",
+                    en: "َAccess Level",
                   }}
                 />
                 <CheckIp />
               </>
             )}
-
-            {/* {modalName.name === "AuthPage" ? (
-              <footer className="w-[95%]  mb-4 mt-3 h-[50px]">
-                {lang === "EN" ? (
-                  <>
-                    <p className="w-full text-center text-[14px] font-azarMehr text-[#898989] font-medium">
-                      {selectLanguageAuthModule(lang).loginFooter}
-                      <span className="mx-1 text-[14px] font-azarMehr text-[#008BF8] cursor-pointer font-medium">
-                        system's service contract.
-                      </span>
-                    </p>
-                  </>
-                ) : (
-                  <>
-                    <p className="w-full text-center text-[14px] font-azarMehr text-[#898989] font-medium">
-                      {selectLanguageAuthModule(lang).loginFooterBe}
-                      <span className="mx-1 text-[14px] font-azarMehr text-[#008BF8] cursor-pointer font-medium">
-                        با شرایط قرارداد خدمات
-                      </span>
-                    </p>
-                    <p className="w-full text-center text-[14px] font-azarMehr text-[#898989] font-medium">
-                      {selectLanguageAuthModule(lang).loginFooterAf}
-                    </p>
-                  </>
-                )}
-              </footer>
-            ) : (
-              <footer
-                className={`
-                ${modalName.name === "CheckIp" && "w-[85%] mb-3 h-[50px]"}
-                ${modalName.name === "IpPage" && "w-[80%]  mb-3 h-[50px]"}
-                ${
-                  modalName.name === "ActiveEmailPage" &&
-                  "w-[80%] mb-3 h-[50px]"
-                }
-               
-                 `}
-              >
-                {lang === "EN" ? (
-                  <>
-                    <p className="w-full text-center text-[14px] px-4 font-azarMehr text-[#898989] font-medium">
-                      {selectLanguageAuthModule(lang).footer}
-                      <span className="mx-1 text-[14px] font-azarMehr text-[#008BF8] cursor-pointer font-medium">
-                        website.
-                      </span>
-                    </p>
-                  </>
-                ) : (
-                  <>
-                    <p className="w-full text-center text-[14px] px-4 font-azarMehr text-[#898989] font-medium">
-                      {selectLanguageAuthModule(lang).footerBe}
-                      <span className="mx-1 text-[14px] font-azarMehr  text-[#008BF8] cursor-pointer font-medium">
-                        وبسایت
-                      </span>
-                    </p>
-                    <p className="w-full text-center text-[14px]  font-azarMehr text-[#898989] font-medium">
-                      {selectLanguageAuthModule(lang).footerَAf}
-                    </p>
-                  </>
-                )}
-              </footer>
-            )} */}
-          </section>
+          </motion.section>
         </div>
       </div>
     </div>

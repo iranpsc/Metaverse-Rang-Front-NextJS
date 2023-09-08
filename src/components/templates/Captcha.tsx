@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext } from "react";
+import React, {useRef, useContext } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useTheme } from "next-themes";
 import axios from "axios";

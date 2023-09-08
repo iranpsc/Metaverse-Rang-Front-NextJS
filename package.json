@@ -19,6 +19,7 @@
     "axios": "^1.5.0",
     "eslint": "8.39.0",
     "formik": "^2.4.3",
+    "framer-motion": "^10.16.4",
     "gltf-loader": "^1.0.0",
     "lottie-react": "^2.4.0",
     "next": "13.3.4",

@@ -4,6 +4,7 @@ import { LoginMenu } from "./../../svgs/index";
 export default function LoginMenuModule({
   isCollapsed,
   setShowAuthCard,
+  toggleCollapseHandler,
   menuData,
 }: any) {
   const namesToKeep = ["log in", "logout"];
@@ -11,6 +12,11 @@ export default function LoginMenuModule({
   const filteredItems = menuData.filter((item: MenuDataItem) =>
     namesToKeep.includes(item.name)
   );
+
+  const submit = ()=>{
+    setShowAuthCard(true)
+    toggleCollapseHandler();
+  }
 
   return (
     <>
@@ -20,7 +26,7 @@ export default function LoginMenuModule({
       >
         <div
           className="bg-blueLink cursor-pointer dark:bg-dark-yellow rounded-[10px] w-[70%] h-[44px]  flex flex-row justify-around gap-5 items-center"
-          onClick={() => setShowAuthCard(true)}
+          onClick={submit}
         >
           <LoginMenu
             className={`stroke-white stroke-2 dark:stroke-dark-background h-full w-5 ${

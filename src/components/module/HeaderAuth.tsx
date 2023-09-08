@@ -37,7 +37,7 @@ export default function HeaderAuth({ title, setShowAuthCardHeader }: any) {
               theme == "dark" ? setTheme("light") : setTheme("dark")
             }
           >
-            {lang === "IR" ? title?.IR : title?.EN}
+            {lang === "fa" ? title?.IR : title?.EN}
           </p>
         </div>
       </div>

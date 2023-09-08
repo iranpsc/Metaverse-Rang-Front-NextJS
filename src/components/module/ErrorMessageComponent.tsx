@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { ErrorMessage } from "formik";
 import { selectLanguage } from "../utils/validationAuth";
 
@@ -12,17 +12,30 @@ const ErrorMessageComponent = ({ fieldName,lang }: { fieldName: string,lang:stri
     
     {(msg: string) => {
       let errorMessage = null;
-    
+
+      console.log(msg)
    
-      if (msg === selectLanguage(lang).required) {
+      if (msg === selectLanguage(lang).required && fieldName==="username") {
         errorMessage = (
-          <span className="text-error w-full text-start  font-azarMehr font-medium text-[10px]">
+          <span className="text-error w-full text-start  font-azarMehr font-medium text-[10px] mt-1">
             {selectLanguage(lang).required}
           </span>
         );
+      } else if (msg === selectLanguage(lang).required && fieldName==="email") {
+        errorMessage = (
+          <span className="text-error w-full text-start  font-azarMehr font-medium text-[10px] mt-1">
+            {selectLanguage(lang).required}
+          </span>
+        );
+      }else if (msg === selectLanguage(lang).required && fieldName === "password") {
+         errorMessage = (
+           <span className="text-error w-full text-start  font-azarMehr font-medium text-[10px] mt-1">
+             {selectLanguage(lang).required}
+           </span>
+         );
       } else if (msg === selectLanguage(lang).email && fieldName === "email") {
         errorMessage = (
-          <span className="text-error w-full text-start  font-azarMehr font-medium text-[10px]">
+          <span className="text-error w-full text-start  font-azarMehr font-medium text-[10px] mt-1">
             {selectLanguage(lang).email}
           </span>
         );
@@ -31,7 +44,7 @@ const ErrorMessageComponent = ({ fieldName,lang }: { fieldName: string,lang:stri
         fieldName === "password"
       ) {
         errorMessage = (
-          <span className="text-error w-full text-start  font-azarMehr font-medium text-[10px]">
+          <span className="text-error w-full text-start  font-azarMehr font-medium text-[10px] mt-1">
             {selectLanguage(lang).password}
           </span>
         );
@@ -40,7 +53,7 @@ const ErrorMessageComponent = ({ fieldName,lang }: { fieldName: string,lang:stri
         fieldName === "password"
       ) {
         errorMessage = (
-          <span className="text-error w-full text-start  font-azarMehr font-medium text-[10px]">
+          <span className="text-error w-full text-start  font-azarMehr font-medium text-[10px] mt-1">
             {selectLanguage(lang).minLength}
           </span>
         );
@@ -49,7 +62,7 @@ const ErrorMessageComponent = ({ fieldName,lang }: { fieldName: string,lang:stri
         fieldName === "username"
       ) {
         errorMessage = (
-          <span className="text-error w-full text-start font-azarMehr font-medium text-[10px]">
+          <span className="text-error w-full text-start font-azarMehr font-medium text-[10px] mt-1">
             {selectLanguage(lang).username}
           </span>
         );

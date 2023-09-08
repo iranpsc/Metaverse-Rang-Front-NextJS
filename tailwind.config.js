@@ -1,10 +1,15 @@
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
   mode: "jit", // or 'aot'
   purge: ["./src/**/*.{js,jsx,ts,tsx}"], // path to your application files
   darkMode: "class",
   theme: {
+    screens: {
+      xs: { max: "639px" },
+      ...defaultTheme.screens,
+    },
     colors: {
       black: "rgba(0, 0, 0, 1)",
       lightGray: "rgba(0, 0, 0, 0.09)",
@@ -39,7 +44,7 @@ module.exports = {
 
         borderFieldError: "#930000",
         bgFieldError: "#380000",
-        textFieldError: "rgba(201, 0, 0, 1)",
+        textFieldError: "#fa2323",
       },
     },
     extend: {

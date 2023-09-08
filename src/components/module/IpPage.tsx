@@ -20,7 +20,7 @@ export default function IpPage(){
           {selectLanguageAuthModule(lang).ipTextTitle}
         </h1>
         <h2 className=" mt-4 text-center font-azarMehr font-bold text-[25px] text-[#757575] dark:text-white">
-          {languageSelected?.code !== "IR"
+          {languageSelected?.code !== "fa"
             ? myIp
             : Persian(myIp).englishNumber().toString()}
         </h2>
@@ -42,7 +42,7 @@ export default function IpPage(){
           {selectLanguageAuthModule(lang).ipTextButton}
         </button>
 
-        {lang === "EN" ? (
+        {lang === "en" ? (
           <p className="text-center px-1 mt-4 w-full text-[#000000A1] dark:text-[#FFFFFFA1] font-azarMehr text-[14px] font-normal">
             {selectLanguageAuthModule(lang).footer}
             <span className="mx-1 text-[14px] font-azarMehr text-[#008BF8] cursor-pointer font-medium">

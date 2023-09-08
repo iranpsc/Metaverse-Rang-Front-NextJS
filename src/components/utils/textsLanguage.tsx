@@ -15,7 +15,7 @@ export const textButtonEn="view email"
 export const selectLanguageAuthModule = (language: string) => {
   switch (language) {
 
-    case "IR":
+    case "fa":
       return {
         //login
         loginButton: "ورود",
@@ -55,7 +55,7 @@ export const selectLanguageAuthModule = (language: string) => {
         footerLoginBe: "با کلیک بر روی دکمه ورود با",
         footerLoginAf: " سامانه موافقت میکنید",
       };
-    case "EN":
+    case "en":
     default:
       return {
         //login
@@ -91,7 +91,8 @@ export const selectLanguageAuthModule = (language: string) => {
         checkTextButton: "let me Know",
         //footer
         footer: "for more information and answers to questions,visit the",
-        footerLogin:"By clicking the Log In button, you agree to"
+        footerLoginBe:"By clicking the Log In button, you agree to",
+        footerLoginAf:"of the service agreement."
       };
   }
 }

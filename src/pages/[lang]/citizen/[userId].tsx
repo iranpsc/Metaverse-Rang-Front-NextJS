@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useContext,useState } from "react";
+import { useContext,useEffect,useState } from "react";
 import BaseLayout from "@/components/BaseLayout";
 import Profile from "@/components/templates/Profile";
 import ProfileDetails from "@/components/templates/ProfileDatails";
@@ -12,7 +12,9 @@ export default function Home() {
   const { languageSelected } = useContext(LangContext);
   const [showModal,setShowModal] = useState<boolean>(false);
   const [dataModal,setDataModal] = useState({title:"",desc:""});
+
  
+
 
   function addPageJsonLd() {
     return {
@@ -46,7 +48,7 @@ export default function Home() {
       "addressLocality": "قزوین",
       "addressRegion": "Asia and the Pacific",
       "postalCode": "3415836589",
-      "addressCountry": "IR"
+      "addressCountry": "fa"
     }
   }
       }`,
@@ -56,7 +58,7 @@ export default function Home() {
   return (
     <section
       dir={languageSelected.dir}
-      className=" overflow-clip h-screen max-lg:h-fit  relative "
+      className=" overflow-clip h-screen relative "
     >
       <Head>
         <title>متاورس رنگ ایران</title>
@@ -72,21 +74,23 @@ export default function Home() {
         />
       </Head>
       <BaseLayout>
-        <div className="grid xl:grid-auto lg:grid-cols-12 xl:grid-cols-12 w-full md:grid-flow-col md:auto-cols-fr  relative max-sm:flex max-sm:flex-col">
-          <section className="col-span-5  h-[100vh] max-lg:h-fit max-lg:col-span-6    dark:bg-black bg-[#e9eef8] ms-2">
+        <div className="xl:grid lg:grid md:grid xl:grid-auto   lg:grid-cols-12 xl:grid-cols-12 w-full md:grid-flow-col md:auto-cols-fr  relative sm:flex sm:flex-col
+        sm:gap-5 xl:gap-0 lg:gap-0 md:gap-0
+        ">
+          <section className="col-span-5  xl:h-[100vh] lg:h-[100vh] md:h-[100vh] sm:h-fit dark:bg-black bg-[#e9eef8] ms-1">
             {showModal ? (
               <ModalCard setShowModal={setShowModal} dataModal={dataModal} />
             ) : null}
 
             <Profile />
           </section>
-          <div className="col-span-4 max-sm:col-span-6 h-screen max-lg:h-fit md:h-screen dark:bg-black  bg-[#e9eef8] max-sm:mt-2 ">
+          <div className="col-span-4 xl:h-screen lg:h-screen sm:h-fit md:h-screen dark:bg-black bg-[#e9eef8] ">
             <ProfileDetails
               setShowModal={setShowModal}
               setDataModal={setDataModal}
             />
           </div>
-          <div className="col-span-3 h-screen dark:bg-black md:h-screen  bg-[#e9eef8] max-sm:mt-2 ">
+          <div className="col-span-3 h-screen dark:bg-black md:h-screen  bg-[#e9eef8]">
             <ProfileAbout
               setShowModal={setShowModal}
               setDataModal={setDataModal}

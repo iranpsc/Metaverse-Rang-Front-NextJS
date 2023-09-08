@@ -9,7 +9,6 @@ import LoginMenuModule from './module/menu/LoginMenuModule';
 import HeaderMenuModule from './module/menu/HeaderMenuModule';
 import TopMenuModule from './module/menu/TopMenuModule';
 import ListMenuModule from "./module/menu/ListMenuModule";
-import MenuProfileModule from "./module/menu/MenuProfileModule";
 
 interface LanguageItem {
   id: number;
@@ -43,17 +42,17 @@ export default function Sidebar({ setShowAuthCard }:any) {
   };
   return (
     <div
-      className={`min-h-screen overflow-y-scroll  relative max-lg:h-[100px] ${
+      className={`xl:min-h-screen lg:min-h-screen md:min-h-screen overflow-y-scroll  relative sm:max-h-screen xs:max-h-screen ${
         isCollapsed
-          ? "max-lg:hidden "
+          ? "sm:hidden xs:hidden xl:block lg:block md:block "
           : "backdrop-blur-sm pe-10 bg-blackTransparent/30 "
-      }   max-lg:absolute  w-fit  z-[60] max-lg:w-full   no-scrollbar`}
+      }   sm:absolute xs:absolute xl:relative lg:relative md:relative xl:w-fit lg:w-fit md:w-fit z-[60] sm:w-full xs:w-full no-scrollbar`}
     >
       <aside
         className={`${
           isCollapsed
             ? "w-[70px] max-lg:hidden"
-            : "xl:w-[250px]  lg:w-[250px] max-lg:w-[175px] max-lg:bg-white max-lg:shadow-[#000000] visible"
+            : "xl:w-[250px]  lg:w-[250px] md:w-[250px] sm:w-[175px] xs:w-[175px] sm:bg-white xs:bg-white sm:shadow-[#000000] xs:sm:shadow-[#000000] visible"
         }  min-h-screen  dark:bg-dark-background   sm:z-50 transition-all duration-300 ease-linear p-0
         flex flex-col justify-between items-center sticky
         `}
@@ -83,6 +82,7 @@ export default function Sidebar({ setShowAuthCard }:any) {
 
         <LoginMenuModule
           isCollapsed={isCollapsed}
+          toggleCollapseHandler={toggleCollapseHandler}
           setShowAuthCard={setShowAuthCard}
           menuData={menuData}
         />
