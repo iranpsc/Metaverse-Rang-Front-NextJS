@@ -1,6 +1,6 @@
 //Types
 import {MenuDataItem} from "@/types/listMenu";
-import { LoginMenu } from "./../../svgs/index";
+import { LoginMenu } from "@/svgs/index";
 export default function LoginMenuModule({
   isCollapsed,
   setShowAuthCard,

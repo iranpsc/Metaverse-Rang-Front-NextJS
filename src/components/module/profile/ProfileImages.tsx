@@ -1,6 +1,6 @@
 import { useContext, useState,useEffect } from "react";
 import Image from "next/image";
-import { LangContext } from "@/components/context/LangContext";
+import { LangContext } from "@/context/LangContext";
 
 import { useTheme } from "next-themes";
 

@@ -1,19 +1,18 @@
 import Head from "next/head";
-import { useContext,useEffect,useState } from "react";
+import { useContext,useState } from "react";
 import BaseLayout from "@/components/BaseLayout";
-import Profile from "@/components/templates/Profile";
-import ProfileDetails from "@/components/templates/ProfileDatails";
-import ProfileAbout from "@/components/templates/ProfileAbout";
-import { LangContext } from "@/components/context/LangContext";
-import ModalCard from "@/components/templates/ModalCard";
+import Profile from "@/templates/Profile";
+import ProfileDetails from "@/templates/ProfileDatails";
+import ProfileAbout from "@/templates/ProfileAbout";
+import { LangContext } from "@/context/LangContext";
+import ModalCard from "@/templates/ModalCard";
+import axios from "axios";
 
 
-export default function Home() {
+export default function Home({data}:any) {
   const { languageSelected } = useContext(LangContext);
   const [showModal,setShowModal] = useState<boolean>(false);
   const [dataModal,setDataModal] = useState({title:"",desc:""});
-
- 
 
 
   function addPageJsonLd() {
@@ -101,3 +100,6 @@ export default function Home() {
     </section>
   );
 }
+
+
+

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { useTheme } from "next-themes";
-import { CLoseIcon, MenuIcon } from "./../../svgs/index";
+//SVGS
+import { CLoseIcon, MenuIcon } from "@/svgs/index";
 
 interface HeaderMenuModuleProps {
   isCollapsed: boolean;

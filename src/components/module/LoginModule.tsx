@@ -1,16 +1,16 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import dynamic from "next/dynamic";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { LoginSchema, selectLanguage } from "../utils/validationAuth";
+import { Formik, Form, Field} from "formik";
 //svgs
-import { EyeShow, EyeHidden } from "../svgs";
-import { cssAuth } from "../utils/taiwindAuth";
-
+import { EyeShow, EyeHidden } from "@/svgs/index";
+//ERROR
 import ErrorMessageComponent from "./ErrorMessageComponent";
-import { useState } from "react";
-import Captcha from "../templates/Captcha";
-import { LangContext } from "@/components/context/LangContext";
-import { selectLanguageAuthModule } from "../utils/textsLanguage";
+//CONTEXT
+import { LangContext } from "@/context/LangContext";
+//UTILS
+import { LoginSchema, selectLanguage } from "@/utils/validationAuth";
+import { cssAuth } from "../utils/taiwindAuth";
+import { selectLanguageAuthModule } from "@/utils/textsLanguage";
 
 
 
@@ -23,10 +23,27 @@ export default function LoginModule() {
   const [showErrorLoginAccess, seShowErrorLoginAccess] = useState<string>("");
   const [dataLogin,setDataLogin] = useState([]);
 
-   const { languageSelected } = useContext(LangContext);
+   const { languageSelected ,data} = useContext(LangContext);
    const lang = languageSelected.code;
 
  const [rememberMe, setRememberMe] = useState(false);
+
+  const footerText = data.data.loginPageLang.find(
+    (item: any) =>
+      item.name ===
+      "by clicking the login button, you agree to the terms of the service contract"
+  ).translation;
+  
+
+    const modifiedFooterTextEn = footerText.replace(
+      "terms of the service contract",
+      `<span class="mx-1 text-[14px] font-azarMehr text-[#008BF8] cursor-pointer font-medium"> terms of the service contract</span>`
+    );
+    const modifiedFooterTextFa = footerText.replace(
+      "شرایط قرارداد خدمات",
+      `<span class="mx-1 text-[14px] font-azarMehr text-[#008BF8] cursor-pointer font-medium">شرایط خدمات قرارداد</span>`
+    );
+
 
  const handleCheckboxChange = (e:any) => {
    setRememberMe(e.target.checked);
@@ -58,12 +75,16 @@ export default function LoginModule() {
                 <Field
                   type="text"
                   name="email"
-                  placeholder={selectLanguage(lang).placeholderEmail}
+                  placeholder={
+                    data.data.loginPageLang.find(
+                      (item: any) => item.name === "enter username or email"
+                    ).translation
+                  }
                   autoComplete="off"
-                  className={cssAuth(props, "email")}
+                  className={cssAuth(props, "email  ")}
                   onChange={(e: any) => {
-                    getEmailValue(e.target.value); // تابع برای نمایش مقدار ایمیل
-                    props.handleChange(e); // اجرای تغییرات استاندارد Formik
+                    getEmailValue(e.target.value);
+                    props.handleChange(e);
                   }}
                 />
                 <ErrorMessageComponent fieldName="email" lang={lang} />
@@ -79,17 +100,23 @@ export default function LoginModule() {
                   <Field
                     type={showPassword ? "text" : "password"}
                     name="password"
-                    placeholder={selectLanguage(lang).placeholderPassword}
+                    placeholder={
+                      data.data.loginPageLang.find(
+                        (item: any) => item.name === "enter your password"
+                      ).translation
+                    }
                     className={`${cssAuth(props, "password")}`}
                   />
 
                   <span
-                    className="absolute end-5 top-[33%] cursor-pointer "
+                    className={`absolute  end-3  ${
+                      props.errors.password ? "top-[25%]" : "top-1/3"
+                    }  cursor-pointer`}
                     onClick={() => setShowPassword(!showPassword)}
                   >
                     {showPassword ? (
                       <EyeShow
-                        className={` stroke-[2px] h-5 w-5
+                        className={` stroke-[2px] 
                        ${
                          props.errors.password
                            ? "stroke-[#5B5B5B] dark:stroke-[#5B5B5B] "
@@ -120,7 +147,11 @@ export default function LoginModule() {
               </div>
 
               <button className="bg-[#D7FBF0] text-[#18C08F] border-[#18C08F] dark:bg-[#004531] mt-2 border-[1px] w-full h-[50px] rounded-[5px] font-azarMehr font-normal">
-                {selectLanguageAuthModule(lang).loginButton}
+                {
+                  data.data.loginPageLang.find(
+                    (item: any) => item.name === "login"
+                  ).translation
+                }
               </button>
             </Form>
           )}
@@ -147,29 +178,35 @@ export default function LoginModule() {
               onChange={handleCheckboxChange}
               className="mx-1 w-4 h-4"
             />
-            {selectLanguageAuthModule(lang).loginRemeber}
+            {
+              data.data.loginPageLang.find(
+                (item: any) => item.name === "remember me"
+              ).translation
+            }
           </label>
           <p className="text-center mt-2 font-azarMehr text-[#008BF8] text-[14px] font-bold">
-            {selectLanguageAuthModule(lang).loginForget}
+            {
+              data.data.loginPageLang.find(
+                (item: any) => item.name === "forget password"
+              ).translation
+            }
           </p>
         </div>
 
         {lang === "en" ? (
           <p className="text-center px-1 pb-6 mt-6 w-full text-[#000000A1] dark:text-[#FFFFFFA1] font-azarMehr text-[14px] font-normal">
-            {selectLanguageAuthModule(lang).footerLoginBe}
-            <span className="mx-1 text-[14px] font-azarMehr text-[#008BF8] cursor-pointer font-medium">
-              the terms and conditions
-            </span>
-              {selectLanguageAuthModule(lang).footerLoginAf}
+            <span
+              className="text-center px-1 mt-4 w-full text-[#000000A1] dark:text-[#FFFFFFA1] font-azarMehr text-[14px] font-normal"
+              dangerouslySetInnerHTML={{ __html: modifiedFooterTextEn }}
+            ></span>
           </p>
         ) : (
           <>
-            <p className="w-ful text-center pb-6 mt-8 text-[14px] font-azarMehr text-[#898989] font-medium">
-              {selectLanguageAuthModule(lang).footerLoginBe}
-              <span className="mx-1 text-[14px] font-azarMehr  text-[#008BF8] cursor-pointer font-medium">
-                شرایط خدمات قرارداد
-              </span>
-              {selectLanguageAuthModule(lang).footerLoginAf}
+            <p className="text-center px-1 pb-6 mt-6 w-full text-[#000000A1] dark:text-[#FFFFFFA1] font-azarMehr text-[14px] font-normal">
+              <span
+                className="text-center px-1 mt-4 w-full text-[#000000A1] dark:text-[#FFFFFFA1] font-azarMehr text-[14px] font-normal"
+                dangerouslySetInnerHTML={{ __html: modifiedFooterTextFa }}
+              ></span>
             </p>
           </>
         )}

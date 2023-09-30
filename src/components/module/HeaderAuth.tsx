@@ -1,13 +1,9 @@
-import { useContext } from "react";
-import { CloseAuth } from "../svgs";
 import Image from "next/image";
 import { useTheme } from "next-themes";
-import { LangContext } from "./../../components/context/LangContext";
+import { CloseAuth } from "@/svgs/index";
 
 export default function HeaderAuth({ title, setShowAuthCardHeader }: any) {
   const { theme, setTheme } = useTheme();
-  const { languageSelected } = useContext(LangContext);
-  const lang = languageSelected.code;
   return (
     <>
       <div className="w-[95%] cursor-pointer mt-5 flex flex-row justify-start items-center gap-3">
@@ -37,7 +33,7 @@ export default function HeaderAuth({ title, setShowAuthCardHeader }: any) {
               theme == "dark" ? setTheme("light") : setTheme("dark")
             }
           >
-            {lang === "fa" ? title?.IR : title?.EN}
+            {title}
           </p>
         </div>
       </div>

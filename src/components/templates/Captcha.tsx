@@ -2,7 +2,7 @@ import React, {useRef, useContext } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useTheme } from "next-themes";
 import axios from "axios";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "@/context/AuthContext";
 
 export default function Captcha({
   position,

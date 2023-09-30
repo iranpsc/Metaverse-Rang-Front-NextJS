@@ -5,8 +5,8 @@ import {
   LanguageDataItem,
 } from "@/types/listMenu";
 
-import { ActiveMenuIcon } from "./../../svgs/index";
-import SvgIcon from "./../SvgIcon";
+import { ActiveMenuIcon } from "@/svgs/index";
+import SvgIcon from "@/module/SvgIcon";
 
 const ListMenuModule: React.FC<ListMenuModuleProps> = ({
   menuData,
@@ -19,6 +19,7 @@ const ListMenuModule: React.FC<ListMenuModuleProps> = ({
   languagesData,
   handleDirChange,
 }) => {
+
   const namesToDelete = [
     ,
     "meta rgb",
@@ -28,14 +29,16 @@ const ListMenuModule: React.FC<ListMenuModuleProps> = ({
     "citizenship page",
     "enter the metaverse",
   ];
-  
+
   const filteredItems = menuData.filter(
     (item: any) => !namesToDelete.includes(item.name)
   );
 
+
+
   return (
     <>
-      <ul className="list-none relative pt-3 w-full bg-white dark:bg-dark-background  transition-all duration-300 ease-linear max-lg:w-fit   ">
+      <ul className="list-none relative pt-3 w-full  bg-white dark:bg-dark-background  transition-all duration-300 ease-linear max-lg:w-fit   ">
         {filteredItems &&
           filteredItems.map((item: MenuDataItem) => (
             <li
@@ -43,6 +46,7 @@ const ListMenuModule: React.FC<ListMenuModuleProps> = ({
               className="flex relative font-[1rem] no-underline text-black py-[12px]"
               onClick={() => setActiveItem(item.id)}
             >
+             
               <div
                 className={`flex w-full   ${
                   isCollapsed ? "justify-center" : "justify-start"

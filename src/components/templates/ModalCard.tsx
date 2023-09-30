@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { CLoseIcon } from "../svgs";
+import { CLoseIcon } from "@/svgs/index";
 //ANIMATION
 import { motion } from "framer-motion";
 export default function ModalCard({setShowModal,dataModal}:any){

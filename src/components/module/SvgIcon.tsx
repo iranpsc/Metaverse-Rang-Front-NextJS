@@ -15,8 +15,8 @@ import {
   Transaction,
   Language,
 } from "../svgs";
-import { LangContext } from "../context/LangContext";
-import { SideBarContext } from "../context/SidebarContext";;
+import { LangContext } from "@/context/LangContext";
+import { SideBarContext } from "@/context/SidebarContext";;
 
 export default function SvgIcon({ name, color }: any) {
 

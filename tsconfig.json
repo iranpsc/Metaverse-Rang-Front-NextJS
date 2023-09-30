@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "target": "es5",
     "lib": [
       "dom",
@@ -23,9 +24,17 @@
       }
     ],
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+     "@/public/*":["public/*"],
+     "@/pages/*":["src/pages/*"],
+     "@/components/*":["src/components/*"],
+     "@/styles/*":["src/styles/*"],
+     "@/types/*":["src/types/*"],
+     "@/utils/*":["src/components/utils/*"],
+     "@/svgs/*":["src/components/svgs/*"],
+     "@/module/*":["src/components/module/*"],
+     "@/templates/*":["src/components/templates/*"],
+     "@/layout/*":["src/components/layout/*"],
+     "@/context/*":["src/components/context/*"],
     },
     "forceConsistentCasingInFileNames": true
   },

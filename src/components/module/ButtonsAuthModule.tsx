@@ -1,28 +1,32 @@
 import React,{useContext} from "react";
 //svgs
-import { ProfileIcon, ProfileAddIcon } from "../svgs";
-import { LangContext } from "@/components/context/LangContext";
-import { selectLanguageAuthModule } from "../utils/textsLanguage";
-
+import { ProfileIcon, ProfileAddIcon } from "@/svgs/index";
+import { LangContext } from "@/context/LangContext";
 
 type ButtonsAuthModuleProps = {
   showModule: string;
   setShowModule: React.Dispatch<React.SetStateAction<string>>;
 };
 
-
-
 const ButtonsAuthModule: React.FC<ButtonsAuthModuleProps> = ({
   showModule,
   setShowModule,
 }) => {
-   const { languageSelected } = useContext(LangContext);
-   const lang = languageSelected.code;
+   const {data } = useContext(LangContext);
 const buttons = [
-  { id: 1, name: selectLanguageAuthModule(lang).loginButton,code:"login" },
-  { id: 2, name: selectLanguageAuthModule(lang).registerButton,code:"register" },
-];
+  {
+    id: 1,
+     name: data.data.loginPageLang.find((item: any) => item.name === "login").translation,
 
+    code: "login",
+  },
+  {
+    id: 2,
+    name: data.data.registerPageLang.find((item: any) => item.name === "register").translation,
+  
+    code: "register",
+  },
+];
 
   return (
     <>

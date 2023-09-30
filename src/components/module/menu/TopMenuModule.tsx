@@ -1,6 +1,6 @@
-import {  LogoRgb } from "./../../svgs/index";
+import {  LogoRgb } from "@/svgs/index";
 
-export default function TopMenuModule({ isCollapsed,menuData}:any) {
+export default function TopMenuModule({ isCollapsed,menuData}:{isCollapsed:boolean,menuData:any[]}) {
 
   const namesToKeep = ['meta rgb', 'metaverse rang'];
 

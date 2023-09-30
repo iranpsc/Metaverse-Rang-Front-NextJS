@@ -21,7 +21,7 @@ interface AuthContextType {
 
 const initialValue: AuthContextType = {
   modalName: {
-    name: ModalNames.AuthPage,
+    name: ModalNames.IpPage,
     data: "ehsnmkz@outlook.com",
   },
   myIp: "",
@@ -42,10 +42,9 @@ const AuthProvider = ({ children }: Props) => {
     useEffect(()=>{
       const fetch_Api  = async()=>{
              try {
-            const ip = await axios.get(
-              "https://geo.ipify.org/api/v2/country?apiKey=at_ylwpKg0GexN3hVvFvFBKFYBoMgaMa"
-            );
+            const ip = await axios.get("https://api.rgb.irpsc.com/api/ip");
             setMyIp(ip.data.ip);
+                  
           } catch (error) {
           
           }

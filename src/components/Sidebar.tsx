@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 //CONTEXT
 import { SideBarContext } from "./context/SidebarContext";
 //LANGUAGE
-import { LangContext } from "@/components/context/LangContext";
+import { LangContext } from "@/context/LangContext";
 //MODULES
 import LoginMenuModule from './module/menu/LoginMenuModule';
 import HeaderMenuModule from './module/menu/HeaderMenuModule';
@@ -16,6 +16,7 @@ interface LanguageItem {
   name: string;
   direction: string;
   icon: string;
+  file_url:string
 }
 
 export default function Sidebar({ setShowAuthCard }:any) {
@@ -23,7 +24,7 @@ export default function Sidebar({ setShowAuthCard }:any) {
   const [activeItem, SetActiveItem] = useState<number>(0);
   const [activeDropdown, setActiveDropdown] = useState<boolean>(false);
   const { isCollapsed, toggleCollapseHandler } = useContext(SideBarContext);
-  const { menuData, languagesData, languageSelected, setLanguagesSelected } =
+  const { languagesData, languageSelected, setLanguagesSelected,data } =
     useContext(LangContext);
   const {userId } = router.query;
 
@@ -37,12 +38,13 @@ export default function Sidebar({ setShowAuthCard }:any) {
       name: item.name,
       dir: item.direction,
       icon: item.icon,
+      file_url: item.file_url,
     });
     router.push(`/${item.code}/citizen/${userId}`);
   };
   return (
     <div
-      className={`xl:min-h-screen lg:min-h-screen md:min-h-screen overflow-y-scroll  relative sm:max-h-screen xs:max-h-screen ${
+      className={`xl:min-h-screen lg:min-h-screen md:min-h-screen overflow-y-scroll bg-white dark:bg-dark-background relative sm:max-h-screen xs:max-h-screen ${
         isCollapsed
           ? "sm:hidden xs:hidden xl:block lg:block md:block "
           : "backdrop-blur-sm pe-10 bg-blackTransparent/30 "
@@ -52,8 +54,8 @@ export default function Sidebar({ setShowAuthCard }:any) {
         className={`${
           isCollapsed
             ? "w-[70px] max-lg:hidden"
-            : "xl:w-[250px]  lg:w-[250px] md:w-[250px] sm:w-[175px] xs:w-[175px] sm:bg-white xs:bg-white sm:shadow-[#000000] xs:sm:shadow-[#000000] visible"
-        }  min-h-screen  dark:bg-dark-background   sm:z-50 transition-all duration-300 ease-linear p-0
+            : "xl:w-[250px]  lg:w-[250px] md:w-[250px] sm:w-[175px] xs:w-[175px] sm:shadow-[#000000] xs:sm:shadow-[#000000] visible"
+        }  min-h-screen    sm:z-50 transition-all duration-300 ease-linear p-0
         flex flex-col justify-between items-center sticky
         `}
       >
@@ -63,14 +65,12 @@ export default function Sidebar({ setShowAuthCard }:any) {
             toggleCollapseHandler={toggleCollapseHandler}
           />
 
-          <TopMenuModule isCollapsed={isCollapsed} menuData={menuData} />
+          <TopMenuModule isCollapsed={isCollapsed} menuData={data.data.menu} />
         </div>
-
         {/* <MenuProfileModule/> */}
-
         <ListMenuModule
           isCollapsed={isCollapsed}
-          menuData={menuData}
+          menuData={data.data.menu}
           setActiveItem={SetActiveItem}
           activeItem={activeItem}
           languageSelected={languageSelected}
@@ -79,12 +79,11 @@ export default function Sidebar({ setShowAuthCard }:any) {
           languagesData={languagesData}
           handleDirChange={handleDirChange}
         />
-
         <LoginMenuModule
           isCollapsed={isCollapsed}
           toggleCollapseHandler={toggleCollapseHandler}
           setShowAuthCard={setShowAuthCard}
-          menuData={menuData}
+          menuData={data.data.menu}
         />
       </aside>
     </div>

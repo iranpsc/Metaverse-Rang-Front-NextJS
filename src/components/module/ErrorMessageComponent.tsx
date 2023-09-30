@@ -1,6 +1,6 @@
 import React from "react";
 import { ErrorMessage } from "formik";
-import { selectLanguage } from "../utils/validationAuth";
+import { selectLanguage } from "@/utils/validationAuth";
 
 
 

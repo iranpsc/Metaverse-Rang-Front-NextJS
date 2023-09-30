@@ -1,9 +1,14 @@
-import { createContext, ReactNode, useState, useEffect } from "react";
+import {
+  createContext,
+  ReactNode,
+  useState,
+  useEffect,
+  useReducer,
+} from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 
-import {Language} from './../../types/api'
-
+import { Language } from "@/types/api";
 interface Props {
   children: ReactNode;
 }
@@ -14,13 +19,13 @@ interface LanguageSelected {
   code: string;
   dir: string;
   icon: string;
+  file_url: any;
 }
 interface LangContextType {
   languagesData: Language[];
   languageSelected: LanguageSelected;
-  menuData: any[];
   profileData: any;
-  selectedProfileData: any[];
+  data: any;
   setLanguagesSelected: React.Dispatch<React.SetStateAction<LanguageSelected>>;
   setSelectedUrlLang: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -32,32 +37,66 @@ const initialValue: LangContextType = {
     code: "en",
     name: "English",
     dir: "ltr",
-    icon: "",
+    icon: "https://admin.rgb.irpsc.com/assets/images/flags/en.svg",
+    file_url: "https://rgb.irpsc.com/metaverse/lang/en.json",
   },
-  menuData: [],
   profileData: [],
-  selectedProfileData: [],
+
+  data: {},
   setLanguagesSelected: () => {},
   setSelectedUrlLang: () => {},
 };
+  const initialState = {
+    data: {
+      menu: [],
+      selectedProfileData: [],
+      checkIpLang: [],
+      checkIpPageLang: [],
+      loginPageLang: [],
+      registerPageLang: [],
+    },
+  };
+
 
 export const LangContext = createContext(initialValue);
 
 const LangProvider = ({ children }: Props) => {
+  const router = useRouter();
   const [languagesData, setLanguagesData] = useState<Language[]>([]);
-
   const [languageSelected, setLanguagesSelected] = useState<LanguageSelected>(
     initialValue.languageSelected
   );
-  const [menuData, setMenuData] = useState([]);
   const [profileData, setProfileData] = useState([]);
-  const [selectedProfileData, setSelectedProfileData] = useState([]);
   const [selectedUrlLang, setSelectedUrlLang] = useState("");
+  const reducer = (state: any, action: any) => {
+    switch (action.type) {
+      case "SUCCESS":
+        return {
+          data: {
+            menu: action.payload.menu,
+            selectedProfileData: action.payload.selectedProfileData,
+            //AUTH
+            checkIpLang: action.payload.checkIpLang,
+            checkIpPageLang: action.payload.checkIpPageLang,
+            loginPageLang: action.payload.loginPageLang,
+            registerPageLang: action.payload.registerPageLang
+          },
+        };
+      case "FAILED":
+        return {
+          data: {
+            menu: [],
+            selectedProfileData: [],
+          },
+        };
+      default:
+        return state;
+    }
+  };
 
-  const router = useRouter();
-
+  //USEREDUCER
+  const [data, dispatch] = useReducer(reducer, initialState);
   const { lang, userId } = router.query;
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -67,6 +106,7 @@ const LangProvider = ({ children }: Props) => {
         );
         if (lang) {
           const query = res.data.data.find((item: any) => item.code === lang);
+
           if (query) {
             setLanguagesSelected({
               id: query.id,
@@ -74,6 +114,7 @@ const LangProvider = ({ children }: Props) => {
               name: query.name,
               dir: query.direction,
               icon: query.icon,
+              file_url: query.file_url,
             });
             setLanguagesData(res.data.data);
           } else {
@@ -97,60 +138,69 @@ const LangProvider = ({ children }: Props) => {
         const res = await axios.get(
           `https://api.rgb.irpsc.com/api/citizen/${userId}`
         );
-       
-          setProfileData(res.data.data);
-      } catch (err) {
-     
-      }  
+
+        setProfileData(res.data.data);
+      } catch (err) {}
     };
-    if(userId){
+    if (userId) {
       fetchData();
     }
   }, [userId]);
 
+
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-         const res = await axios.get(
-           `https://admin.rgb.irpsc.com/api/translations/${languageSelected.id}/modals`
-         );
+         const res = await axios.get(`${languageSelected.file_url}`);
+    
+        const modalsProfile = res.data.modals.find(
+          (modal: any) => modal.name === "Citizenship-profile"
+        ).tabs;
 
-         const selectModals = res.data.data.find(
-           (item: any) => item.name === "Citizenship-profile"
-         );
-         //menu
-         const resModalMenu = await axios.get(
-           `https://admin.rgb.irpsc.com/api/translations/${languageSelected?.id}/modals/${selectModals.id}/tabs`
-         );
-         const selectTabsMenu = resModalMenu.data.data.find(
-           (item: any) => item.name === "menu"
-         );
-       
-         const resMenu = await axios.get(
-           `https://admin.rgb.irpsc.com/api/translations/${languageSelected?.id}/modals/${selectModals.id}/tabs/${selectTabsMenu.id}/fields`
-         );
-         const removeMenuName = "menu";
-         const newItem = resMenu.data.data.filter(
-           (item: any) => item.name !== removeMenuName
-         );
-   
-         setMenuData(newItem);
+        const tabsMenu = modalsProfile.find(
+          (item: any) => item.name === "menu"
+        );
+        const account = modalsProfile.find((tabs: any) => tabs.name === "home");
+        
+        const ip_checker = res.data.modals.find(
+          (modal: any) => modal.name === "ip-checker"
+        );
 
-         const getTabs = await axios.get(
-           `https://admin.rgb.irpsc.com/api/translations/${languageSelected.id}/modals/${selectModals.id}/tabs`
-         );
+        const accessErrorTab = ip_checker.tabs.find(
+          (tab: any) => tab.name === "access-error"
+        );
 
-         const selectTabs = getTabs.data.data.find(
-           (item: any) => item.name === "home"
-         );
-         const getFields = await axios.get(
-           `https://admin.rgb.irpsc.com/api/translations/${languageSelected.id}/modals/${selectModals.id}/tabs/${selectTabs.id}/fields`
-         );
+        const reviewNotificationTabs = ip_checker.tabs.find(
+          (tab: any) => tab.name === "review-and-notification"
+          );
+          const login = res.data.modals.find(
+          (modal: any) => modal.name === "login"
+        );
+        const loginTabs = login.tabs.find((tab: any) => tab.name === "login");
 
-         setSelectedProfileData(getFields.data.data);
-      } catch (err) {
-      
-      }
+         
+        const register = res.data.modals.find(
+          (modal: any) => modal.name === "register"
+        );
+
+        const registerTabs = register.tabs.find(
+          (tab: any) => tab.name === "register"
+        );
+
+          dispatch({
+            type: "SUCCESS",
+            payload: {
+              menu: tabsMenu.fields,
+              selectedProfileData: account.fields,
+              checkIpLang: accessErrorTab.fields,
+              checkIpPageLang: reviewNotificationTabs.fields,
+              loginPageLang: loginTabs.fields,
+              registerPageLang: registerTabs.fields,
+            },
+          });
+        
+      } catch (err) {}
     };
     fetchData();
   }, [languageSelected.id]);
@@ -160,9 +210,8 @@ const LangProvider = ({ children }: Props) => {
       value={{
         languagesData,
         languageSelected,
-        menuData,
         profileData,
-        selectedProfileData,
+        data,
         setLanguagesSelected,
         setSelectedUrlLang,
       }}

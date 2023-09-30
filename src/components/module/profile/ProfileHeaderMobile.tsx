@@ -3,13 +3,11 @@ import Image from "next/image";
 
 import { SideBarContext } from "@/components/context/SidebarContext";
 import { CLoseIcon, MenuIcon } from "@/components/svgs";
-import { LogoRgbMobile, LogoRgb, EyeHidden } from "./../../svgs/index";
 
 export default function ProfileHeaderMobile() {
 
     const { isCollapsed, toggleCollapseHandler } = useContext(SideBarContext);
    
-
   return (
     <>
       <div className=" dark:bg-dark-background xl:hidden lg:hidden md:hidden sm:flex xs:flex transition-all duration-300 ease-linear z-50 w-full h-[59px] bg-white flex-rows justify-between items-center">

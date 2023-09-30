@@ -4,16 +4,16 @@ import AuthCard from "./../templates/AuthCard";
 import ActiveMailModule from "../module/ActiveMailModule";
 //CONTEXT
 import { AuthContext } from "./../context/AuthContext";
+import { LangContext } from '@/context/LangContext';
 //ANIMATION
 import { motion } from "framer-motion";
-
-import IpPage from '../module/IpPage';
-import CheckIp from "../module/CheckIp";
-import { LangContext } from '@/components/context/LangContext';
+//MODULES
+import IpPage from '@/module/IpPage';
+import CheckIp from "@/module/CheckIp";
 
 export default function AuthCards({setShowAuthCard}:any) {
   const { modalName } = useContext(AuthContext);
-  const { languageSelected } = useContext(LangContext);
+  const { languageSelected,data } = useContext(LangContext);
   const lang = languageSelected.code;
  
   return (
@@ -34,7 +34,7 @@ export default function AuthCards({setShowAuthCard}:any) {
           }
           ${
             modalName.name === "CheckIp" &&
-            "h-[490px] w-[450px] max-sm:w-[300px]"
+            "h-[490px] w-[430px] max-sm:w-[300px]"
           }
           ${
             modalName.name === "IpPage" &&
@@ -44,10 +44,10 @@ export default function AuthCards({setShowAuthCard}:any) {
         >
           <motion.section
             initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }} 
+            animate={{ opacity: 1, scale: 1 }}
             transition={{
               duration: 0.5,
-              ease: "backInOut"
+              ease: "backInOut",
             }}
             className=" w-full h-full flex flex-col justify-between items-center "
           >
@@ -73,10 +73,10 @@ export default function AuthCards({setShowAuthCard}:any) {
               <>
                 <HeaderAuth
                   setShowAuthCardHeader={setShowAuthCard}
-                  title={{
-                    fa: "سطح دسترسی",
-                    en: "َAccess Level",
-                  }}
+                  title={
+                    data.data.checkIpLang.find((item:any) => item.name === "access level")
+                      .translation
+                  }
                 />
                 <IpPage />
               </>
@@ -86,10 +86,10 @@ export default function AuthCards({setShowAuthCard}:any) {
               <>
                 <HeaderAuth
                   setShowAuthCardHeader={setShowAuthCard}
-                  title={{
-                    fa: "سطح دسترسی",
-                    en: "َAccess Level",
-                  }}
+                  title={
+                    data.data.checkIpPageLang.find((item:any) => item.name === "access level")
+                      .translation
+                  }
                 />
                 <CheckIp />
               </>

@@ -9,8 +9,8 @@ import { cssAuth } from "../utils/taiwindAuth";
 import ErrorMessageComponent from "./ErrorMessageComponent";
 import { useState } from "react";
 
-import { LangContext } from "@/components/context/LangContext";
-import { selectLanguageAuthModule } from "../utils/textsLanguage";
+import { LangContext } from "@/context/LangContext";
+import { selectLanguageAuthModule } from "@/utils/textsLanguage";
 
 
 export default function RegisterModule() {
@@ -28,8 +28,21 @@ export default function RegisterModule() {
    };
 
 
-  const { languageSelected } = useContext(LangContext);
+  const { languageSelected,data } = useContext(LangContext);
   const lang = languageSelected.code;
+
+  
+  const footerText = data.data.registerPageLang.find(
+    (item: any) => item.name === "visit our website"
+  ).translation;
+  const modifiedFooterTextFa = footerText.replace(
+    "وبسایت",
+    `<span class="mx-1 text-[14px] font-azarMehr text-[#008BF8] cursor-pointer font-medium">وبسایت</span>`
+  );
+  const modifiedFooterTextEn = footerText.replace(
+    "website",
+    `<span class="mx-1 text-[14px] font-azarMehr text-[#008BF8] cursor-pointer font-medium">website</span>`
+  );
 
   const handleFormSubmit = (values: any) => {
     if (values) {
@@ -41,7 +54,7 @@ export default function RegisterModule() {
 
   return (
     <>
-      <div className=" h-fit flex flex-col justify-start items-center">
+      <div className=" h-fit pb-6 flex flex-col justify-start items-center">
         <Formik
           initialValues={{ username: "", email: "", password: "" }}
           onSubmit={handleFormSubmit}
@@ -53,7 +66,12 @@ export default function RegisterModule() {
                 <Field
                   type="text"
                   name="username"
-                  placeholder={selectLanguage(lang).placeholderUsername}
+                  placeholder={
+                    data.data.registerPageLang.find(
+                      (item: any) =>
+                        item.name === "username can be company or brand name"
+                    ).translation
+                  }
                   autoComplete="off"
                   className={cssAuth(props, "username")}
                 />
@@ -64,7 +82,11 @@ export default function RegisterModule() {
                 <Field
                   type="text"
                   name="email"
-                  placeholder={selectLanguage(lang).placeholderEmail}
+                  placeholder={
+                    data.data.registerPageLang.find(
+                      (item: any) => item.name === "enter your email"
+                    ).translation
+                  }
                   autoComplete="off"
                   className={cssAuth(props, "email")}
                 />
@@ -72,16 +94,22 @@ export default function RegisterModule() {
               </div>
 
               <div className="form-group">
-                <div className=" flex flex-col items-center relative ">
+                <div className=" flex flex-col items-center  relative ">
                   <Field
                     type={showPassword ? "text" : "password"}
                     name="password"
-                    placeholder={selectLanguage(lang).placeholderPassword}
-                    className={`${cssAuth(props, "password")}`}
+                    placeholder={
+                      data.data.registerPageLang.find(
+                        (item: any) => item.name === "enter your password"
+                      ).translation
+                    }
+                    className={`${cssAuth(props, "password ")}`}
                   />
 
                   <span
-                    className="absolute end-3 top-1/3 cursor-pointer"
+                    className={`absolute  end-3  ${
+                      props.errors.password ? "top-[25%]" : "top-1/3"
+                    }  cursor-pointer`}
                     onClick={() => setShowPassword(!showPassword)}
                   >
                     {showPassword ? (
@@ -106,13 +134,16 @@ export default function RegisterModule() {
                       />
                     )}
                   </span>
-                <ErrorMessageComponent fieldName="password" lang={lang} />
+                  <ErrorMessageComponent fieldName="password" lang={lang} />
                 </div>
-
               </div>
 
               <button className="bg-[#D7FBF0] text-[#18C08F] dark:bg-[#004531] border-[#18C08F] border-[1px] w-full h-[50px] mt-1 rounded-[5px] font-azarMehr font-normal">
-                {selectLanguageAuthModule(lang).registerButton}
+                {
+                  data.data.registerPageLang.find(
+                    (item: any) => item.name === "register"
+                  ).translation
+                }
               </button>
             </Form>
           )}
@@ -137,32 +168,44 @@ export default function RegisterModule() {
               checked={rememberMe}
               onChange={handleCheckboxChange}
               className="mx-1 w-4 h-4"
-              />
-              {selectLanguageAuthModule(lang).loginRemeber}
+            />
+            {
+              data.data.registerPageLanggeLang.find(
+                (item: any) => item.name === "register"
+              ).translation
+            }
           </label>
           <p className="text-center mt-2 font-azarMehr text-[#008BF8] text-[14px] font-bold">
             {selectLanguageAuthModule(lang).loginForget}
           </p>
         </div>
+
         {lang === "en" ? (
-          <p className="text-center pb-8 px-1 mt-4 w-full text-[#000000A1] dark:text-[#FFFFFFA1] font-azarMehr text-[14px] font-normal">
-            {selectLanguageAuthModule(lang).footer}
-            <span className="mx-1 text-[14px] font-azarMehr text-[#008BF8] cursor-pointer font-medium">
-              website.
-            </span>
+          <p className="text-center px-1 mt-4 w-full text-[#000000A1] dark:text-[#FFFFFFA1] font-azarMehr text-[14px] font-normal">
+            {
+              data.data.registerPageLang.find(
+                (item:any) =>
+                  item.name === "do you have a question or want to know more?"
+              ).translation
+            }{" "}
+            <span
+              className="text-center px-1 mt-4 w-full text-[#000000A1] dark:text-[#FFFFFFA1] font-azarMehr text-[14px] font-normal"
+              dangerouslySetInnerHTML={{ __html: modifiedFooterTextEn }}
+            ></span>
           </p>
         ) : (
-          <>
-            <p className="w-ful text-center pb-8 mt-4 text-[14px] font-azarMehr text-[#898989] font-medium">
-              {selectLanguageAuthModule(lang).footerBe}
-              <span className="mx-1 text-[14px] font-azarMehr  text-[#008BF8] cursor-pointer font-medium">
-                وبسایت
-              </span>
-            </p>
-            <p className="w-full text-center text-[14px]  font-azarMehr text-[#898989] font-medium">
-              {selectLanguageAuthModule(lang).footerَAf}
-            </p>
-          </>
+          <p className="text-center px-1 mt-4 w-full text-[#000000A1] dark:text-[#FFFFFFA1] font-azarMehr text-[14px] font-normal">
+            {
+              data.data.registerPageLang.find(
+                (item:any) =>
+                  item.name === "do you have a question or want to know more?"
+              ).translation
+            }{" "}
+            <span
+              className="text-center px-1 mt-4 w-full text-[#000000A1] dark:text-[#FFFFFFA1] font-azarMehr text-[14px] font-normal"
+              dangerouslySetInnerHTML={{ __html: modifiedFooterTextFa }}
+            ></span>
+          </p>
         )}
       </div>
     </>

@@ -1,10 +1,9 @@
 import { useContext } from "react";
 import Image from "next/image";
 
+import { LangContext } from "@/context/LangContext";
+import { Shahrvand } from "@/svgs/index";
 import Persian from "persianjs";
-
-import { LangContext } from "@/components/context/LangContext";
-import { Shahrvand } from "@/components/svgs";
 
 export default function ProfileTopMobile() {
 

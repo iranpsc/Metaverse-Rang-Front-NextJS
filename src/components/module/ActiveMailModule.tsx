@@ -1,7 +1,7 @@
 import Image from "next/image";
 import {
   selectLanguageAuthModule
-} from "../utils/textsLanguage";
+} from "@/utils/textsLanguage";
 
 
 export default function ActiveMailModule({ data, lang }: any) {
