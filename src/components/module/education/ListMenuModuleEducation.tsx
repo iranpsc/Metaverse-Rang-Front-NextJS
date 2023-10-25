@@ -2,14 +2,14 @@ import router from "next/router";
 //Types
 import {
   ListMenuModuleProps,
-  MenuDataItem,
+
   LanguageDataItem,
 } from "@/types/listMenu";
 
 import { ActiveMenuIcon } from "@/svgs/index";
 import SvgIcon from "@/module/SvgIcon";
 
-const ListMenuModule: React.FC<ListMenuModuleProps> = ({
+const ListMenuEducation: React.FC<ListMenuModuleProps> = ({
   menuData,
   setActiveItem,
   isCollapsed,
@@ -20,7 +20,9 @@ const ListMenuModule: React.FC<ListMenuModuleProps> = ({
   languagesData,
   handleDirChange,
 }) => {
-
+  
+  console.log(menuData);
+  
   const namesToDelete = [
     ,
     "meta rgb",
@@ -31,33 +33,6 @@ const ListMenuModule: React.FC<ListMenuModuleProps> = ({
     "enter the metaverse",
   ];
 
-const sortOrder = [
-  "home",
-  "news",
-  "articles",
-  "competitions",
-  "trainings",
-  "about",
-  "contact",
-  "version",
-  "calendar",
-  "citizens",
-  "overview",
-  "language",
-  "login",
-  "light",
-  "dark",
-  "exit",
-];
-
-
-const sortedData = menuData
-  .filter((item) => sortOrder.includes(item.name))
-  .sort((a, b) => sortOrder.indexOf(a.name) - sortOrder.indexOf(b.name));
-
-
-console.log(sortedData);
-     
 
   const filteredItems = menuData.filter(
     (item: any) => !namesToDelete.includes(item.name)
@@ -65,9 +40,9 @@ console.log(sortedData);
 
 
   const selectItemMenuRoute = ((item:any)=>{
-    console.log("object",item);
-     setActiveItem(item.id);
-         router.push(`/${item.code}/citizen/hm-2222/home`);
+    //console.log("object",item);
+     //setActiveItem(item.id);
+        // router.push(`/${item.code}/citizen/hm-2222/home`);
   })
 
 
@@ -75,13 +50,14 @@ console.log(sortedData);
   return (
     <>
       <ul className="list-none relative pt-3 w-full  bg-white dark:bg-dark-background  transition-all duration-300 ease-linear max-lg:w-fit   ">
-        {sortedData &&
-          sortedData.map((item: MenuDataItem) => (
+        {filteredItems &&
+          filteredItems.map((item) => (
             <li
               key={item.id}
               className="flex relative font-[1rem] no-underline text-black py-[12px]"
               onClick={() => selectItemMenuRoute(item)}
             >
+             
               <div
                 className={`flex w-full   ${
                   isCollapsed ? "justify-center" : "justify-start"
@@ -202,4 +178,4 @@ console.log(sortedData);
   );
 };
 
-export default ListMenuModule;
+export default ListMenuEducation;

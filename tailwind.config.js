@@ -46,6 +46,21 @@ module.exports = {
         bgFieldError: "#380000",
         textFieldError: "#fa2323",
       },
+      education: {
+        backWhite: "#FFFFFF",
+        back: "#F8F8F8",
+        blue200: "#0066FF",
+        blue100: "#157EFB",
+        primary200: "#4C4C4C",
+        primary100: "#515151",
+        dark: {
+          yellow: "#FFC700",
+          background: "#1A1A18",
+          primary300: "#FFFFFF",
+          primary200: "#C9C9C9",
+          primary100: "#868B90",
+        },
+      },
     },
     extend: {
       fontFamily: {

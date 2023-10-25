@@ -14,6 +14,15 @@ import {
   Structures,
   Transaction,
   Language,
+  News,
+  Articles,
+  Competitions,
+  Trainings,
+  About,
+  Contact,
+  Version,
+  Overview,
+  Calender,
 } from "../svgs";
 import { LangContext } from "@/context/LangContext";
 import { SideBarContext } from "@/context/SidebarContext";;
@@ -27,15 +36,67 @@ export default function SvgIcon({ name, color }: any) {
       {name === "home" && (
         <HomeIcon stroke="#ff0000" className={` ${color} stroke-2 mx-[10px]`} />
       )}
+      {name === "news" && (
+        <News stroke="#ff0000" className={` ${color} stroke-[1px] mx-[10px]`} />
+      )}
+      {name === "articles" && (
+        <Articles
+          stroke="#ff0000"
+          className={` ${color} stroke-[1px] mx-[10px]`}
+        />
+      )}
+      {name === "competitions" && (
+        <Competitions
+          stroke="#ff0000"
+          className={` ${color} stroke-[1px] mx-[10px]`}
+        />
+      )}
+      {name === "trainings" && (
+        <Trainings
+          stroke="#ff0000"
+          className={` ${color} stroke-[1px] mx-[10px]`}
+        />
+      )}
+      {name === "about" && (
+        <About
+          stroke="#ff0000"
+          className={` ${color} stroke-[1px] mx-[10px]`}
+        />
+      )}
+      {name === "contact" && (
+        <Contact
+          stroke="#ff0000"
+          className={` ${color} stroke-[1px] mx-[10px]`}
+        />
+      )}
+      {name === "calendar" && (
+        <Calender
+          stroke="#ff0000"
+          className={` ${color} stroke-[1px] mx-[10px]`}
+        />
+      )}
+      {name === "overview" && (
+        <Contact
+          stroke="#ff0000"
+          className={` ${color} stroke-[1px] mx-[10px]`}
+        />
+      )}
+      {name === "version" && (
+        <Version
+          stroke="#ff0000"
+          className={` ${color} stroke-[1px] mx-[10px]`}
+        />
+      )}
       {name === "belongings" && (
         <Belongings className={` ${color} stroke-2 mx-[10px]`} />
       )}
       {name === "connections" && (
         <Connections className={` ${color} stroke-2 mx-[10px]`} />
       )}
-      {name === "dynasty" && (
-        <Dynasty className={` ${color} stroke-2 mx-[10px]`} />
-      )}
+      {name === "dynasty" ||
+        (name === "citizens" && (
+          <Dynasty className={` ${color} stroke-2 mx-[10px]`} />
+        ))}
       {name === "crimes" && (
         <Infractions className={` ${color} stroke-2 mx-[10px]`} />
       )}

@@ -1,14 +1,16 @@
 import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import axios from "axios";
+
 //CONTEXT
-import { SideBarContext } from "./context/SidebarContext";
+import { SideBarContext } from "@/context/SidebarContext";
 //LANGUAGE
 import { LangContext } from "@/context/LangContext";
 //MODULES
-import LoginMenuModule from './module/menu/LoginMenuModule';
-import HeaderMenuModule from './module/menu/HeaderMenuModule';
-import TopMenuModule from './module/menu/TopMenuModule';
-import ListMenuModule from "./module/menu/ListMenuModule";
+import LoginMenuModule from "@/module/menu/LoginMenuModule";
+import HeaderMenuModule from "@/module/menu/HeaderMenuModule";
+import TopMenuModule from "@/module/menu/TopMenuModule";
+import ListMenuModule from "@/module/menu/ListMenuModule";
 
 interface LanguageItem {
   id: number;
@@ -16,21 +18,78 @@ interface LanguageItem {
   name: string;
   direction: string;
   icon: string;
-  file_url:string
+  file_url: string;
 }
 
-export default function Sidebar({ setShowAuthCard }:any) {
+export default function SideBarEducation({ setShowAuthCard }: any) {
   const router = useRouter();
   const [activeItem, SetActiveItem] = useState<number>(0);
+  const [data,setData] = useState<any>([]);
   const [activeDropdown, setActiveDropdown] = useState<boolean>(false);
   const { isCollapsed, toggleCollapseHandler } = useContext(SideBarContext);
-  const { languagesData, languageSelected, setLanguagesSelected,data } =
+  const { languagesData, languageSelected, setLanguagesSelected } =
     useContext(LangContext);
-  const {userId } = router.query;
+  const { userId } = router.query;
+
 
   useEffect(() => {
     setActiveDropdown(false);
   }, [languageSelected.name, isCollapsed]);
+
+
+  useEffect(()=>{
+    const fetchData = async ()=>{
+      try {
+       const res = await axios.get(
+         "https://play.irpsc.com/metaverse/lang/fa.json"
+       );
+           
+          const modalsCentralPage = res.data.modals.find(
+            (modal: any) => modal.name === "central-page"
+          ).tabs;
+
+          const tabsBeforeLogin = modalsCentralPage.find(
+            (item: any) => item.name === "before-login"
+          );
+          setData(tabsBeforeLogin.fields);
+          
+
+        
+      } catch (error) {
+        
+      }
+    }
+
+    fetchData();
+  },[])
+
+  useEffect(()=>{
+
+    if(data){
+
+    //  const sortOrder = ["home", "calendar", "news"];
+    //  const sortedData = [...data]; // کپی کردن داده‌ها تا داده اصلی تغییر نکند
+
+    //  sortedData.sort((a: any, b: any) => {
+    //    const nameA = a.name.toLowerCase();
+    //    const nameB = b.name.toLowerCase();
+
+    //    const indexA = sortOrder.indexOf(nameA);
+    //    const indexB = sortOrder.indexOf(nameB);
+
+    //    return indexA - indexB;
+    //  });
+
+    //  console.log(sortedData);
+     
+
+    }else{
+      console.log("ematy");
+    }
+
+  },[data])
+  
+
   const handleDirChange = (item: LanguageItem) => {
     setLanguagesSelected({
       id: item.id,
@@ -44,10 +103,10 @@ export default function Sidebar({ setShowAuthCard }:any) {
   };
   return (
     <div
-      className={`xl:min-h-screen lg:min-h-screen md:min-h-screen overflow-y-scroll bg-white dark:bg-dark-background relative sm:max-h-screen xs:max-h-screen ${
+      className={`xl:min-h-screen  lg:min-h-screen md:min-h-screen overflow-y-scroll bg-white dark:bg-dark-background relative sm:max-h-screen xs:max-h-screen ${
         isCollapsed
-          ? "sm:hidden xs:hidden xl:block lg:block md:block "
-          : "backdrop-blur-sm pe-20 bg-blackTransparent/30 "
+          ? "sm:hidden xs:hidden pe-[40px] xl:block lg:block md:block "
+          : "backdrop-blur-sm pe-[150px] bg-blackTransparent/30 "
       }   sm:absolute xs:absolute xl:relative lg:relative md:relative xl:w-fit lg:w-fit md:w-fit z-[60] sm:w-full xs:w-full no-scrollbar`}
     >
       <aside
@@ -65,12 +124,12 @@ export default function Sidebar({ setShowAuthCard }:any) {
             toggleCollapseHandler={toggleCollapseHandler}
           />
 
-          <TopMenuModule isCollapsed={isCollapsed} menuData={data.data.menu} />
+          <TopMenuModule isCollapsed={isCollapsed} menuData={data} />
         </div>
         {/* <MenuProfileModule/> */}
         <ListMenuModule
           isCollapsed={isCollapsed}
-          menuData={data.data.menu}
+          menuData={data}
           setActiveItem={SetActiveItem}
           activeItem={activeItem}
           languageSelected={languageSelected}
@@ -83,7 +142,7 @@ export default function Sidebar({ setShowAuthCard }:any) {
           isCollapsed={isCollapsed}
           toggleCollapseHandler={toggleCollapseHandler}
           setShowAuthCard={setShowAuthCard}
-          menuData={data.data.menu}
+          menuData={data}
         />
       </aside>
     </div>

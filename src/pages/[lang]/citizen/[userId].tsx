@@ -82,8 +82,8 @@ export default function Home({data}:any) {
             ) : null}
 
             <Profile />
-          </section>
-          <div className="col-span-4 xl:h-screen lg:h-screen sm:h-fit md:h-screen dark:bg-black bg-[#e9eef8] ">
+          </section> 
+           <div className="col-span-4 xl:h-screen lg:h-screen sm:h-fit md:h-screen dark:bg-black bg-[#e9eef8] ">
             <ProfileDetails
               setShowModal={setShowModal}
               setDataModal={setDataModal}

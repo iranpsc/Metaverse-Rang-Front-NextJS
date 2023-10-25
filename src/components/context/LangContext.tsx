@@ -46,17 +46,16 @@ const initialValue: LangContextType = {
   setLanguagesSelected: () => {},
   setSelectedUrlLang: () => {},
 };
-  const initialState = {
-    data: {
-      menu: [],
-      selectedProfileData: [],
-      checkIpLang: [],
-      checkIpPageLang: [],
-      loginPageLang: [],
-      registerPageLang: [],
-    },
-  };
-
+const initialState = {
+  data: {
+    menu: [],
+    selectedProfileData: [],
+    checkIpLang: [],
+    checkIpPageLang: [],
+    loginPageLang: [],
+    registerPageLang: [],
+  },
+};
 
 export const LangContext = createContext(initialValue);
 
@@ -79,7 +78,7 @@ const LangProvider = ({ children }: Props) => {
             checkIpLang: action.payload.checkIpLang,
             checkIpPageLang: action.payload.checkIpPageLang,
             loginPageLang: action.payload.loginPageLang,
-            registerPageLang: action.payload.registerPageLang
+            registerPageLang: action.payload.registerPageLang,
           },
         };
       case "FAILED":
@@ -147,13 +146,11 @@ const LangProvider = ({ children }: Props) => {
     }
   }, [userId]);
 
-
-
   useEffect(() => {
     const fetchData = async () => {
       try {
-         const res = await axios.get(`${languageSelected.file_url}`);
-    
+        const res = await axios.get(`${languageSelected.file_url}`);
+
         const modalsProfile = res.data.modals.find(
           (modal: any) => modal.name === "Citizenship-profile"
         ).tabs;
@@ -162,7 +159,7 @@ const LangProvider = ({ children }: Props) => {
           (item: any) => item.name === "menu"
         );
         const account = modalsProfile.find((tabs: any) => tabs.name === "home");
-        
+
         const ip_checker = res.data.modals.find(
           (modal: any) => modal.name === "ip-checker"
         );
@@ -173,13 +170,12 @@ const LangProvider = ({ children }: Props) => {
 
         const reviewNotificationTabs = ip_checker.tabs.find(
           (tab: any) => tab.name === "review-and-notification"
-          );
-          const login = res.data.modals.find(
+        );
+        const login = res.data.modals.find(
           (modal: any) => modal.name === "login"
         );
         const loginTabs = login.tabs.find((tab: any) => tab.name === "login");
 
-         
         const register = res.data.modals.find(
           (modal: any) => modal.name === "register"
         );
@@ -188,18 +184,25 @@ const LangProvider = ({ children }: Props) => {
           (tab: any) => tab.name === "register"
         );
 
-          dispatch({
-            type: "SUCCESS",
-            payload: {
-              menu: tabsMenu.fields,
-              selectedProfileData: account.fields,
-              checkIpLang: accessErrorTab.fields,
-              checkIpPageLang: reviewNotificationTabs.fields,
-              loginPageLang: loginTabs.fields,
-              registerPageLang: registerTabs.fields,
-            },
-          });
-        
+        const centralPage = res.data.modals.find(
+          (modal: any) => (modal.name === "central-page")
+        );
+        const centralPageTabs = centralPage.tabs.find(
+          (tab: any) => (tab.name === "before-login")
+        );
+
+        dispatch({
+          type: "SUCCESS",
+          payload: {
+            menu: tabsMenu.fields,
+            selectedProfileData: account.fields,
+            checkIpLang: accessErrorTab.fields,
+            checkIpPageLang: reviewNotificationTabs.fields,
+            loginPageLang: loginTabs.fields,
+            registerPageLang: registerTabs.fields,
+            centralPageLang:centralPageTabs.fields
+          },
+        });
       } catch (err) {}
     };
     fetchData();

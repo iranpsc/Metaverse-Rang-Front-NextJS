@@ -12,7 +12,8 @@ export default function LanguageList(){
      dir: selectedDirection,
      code:"",
      name:"",
-     icon:""
+     icon:"",
+     file_url:""
     
    });
   };
