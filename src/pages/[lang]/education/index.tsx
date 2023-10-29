@@ -10,15 +10,15 @@ type IndexProps = {};
 
 const Index: React.FC<IndexProps> = () => {
   return (
-    <section dir="rtl" className="overflow-auto relative">
+    <section dir="rtl" className="overflow-auto relative ">
       <BaseLayoutEducation>
-        <section className=" ms-2 flex flex-col justify-start overflow-y-auto overflow-x-hidden items-center">
+        <section className=" flex flex-col justify-start overflow-y-auto overflow-x-hidden items-center">
           <div className="mt-[94px] w-[724px] h-auto py-4 rounded-[67px] bg-white dark:bg-[#1A1A18] flex flex-row justify-between items-center">
             <Search className="ms-8 fill-blueLink dark:fill-dark-yellow" />
             <input
               placeholder="آموزش مورد نیاز خود را جستجو کنید"
               className="w-[80%]  outline-none border-none 
-             placeholder-[#868B90] font-medium  dark:placeholder-[##1A1A18] "
+             placeholder-[#868B90] font-medium dark:bg-[#1A1A18]  dark:placeholder-gray "
             />
             <span className="text-blueLink dark:text-dark-activeButton font-bold me-5">
               جستجو
@@ -26,7 +26,7 @@ const Index: React.FC<IndexProps> = () => {
           </div>
           <TopTrainers />
           <Categories />
-          <Categories />
+
           <ListEducation />
 
           <footer className="flex flex-col justify-center items-center">

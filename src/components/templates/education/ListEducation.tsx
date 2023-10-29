@@ -4,9 +4,9 @@ import {Like } from "@/components/svgs";
 export default function ListEducation() {
   return (
     <>
-      <div className="w-full h-[500px] mt-8 ms-5">
+      <div className="w-full h-[500px] mt-24 ms-5">
         <div className="grid grid-cols-3">
-          <div className="w-[450px] h-[485px] rounded-[10px] bg-white flex flex-col justify-between items-center">
+          <div className="w-[450px] h-[485px] rounded-[10px] bg-white dark:bg-[#1A1A18] flex flex-col justify-between items-center">
             <Image
               src="/bg-edu.png"
               alt="background"

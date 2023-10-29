@@ -13,7 +13,7 @@ const ErrorMessageComponent = ({ fieldName,lang }: { fieldName: string,lang:stri
     {(msg: string) => {
       let errorMessage = null;
 
-      console.log(msg)
+      
    
       if (msg === selectLanguage(lang).required && fieldName==="username") {
         errorMessage = (

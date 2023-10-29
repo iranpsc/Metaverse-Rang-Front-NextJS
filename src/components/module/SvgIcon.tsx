@@ -93,10 +93,12 @@ export default function SvgIcon({ name, color }: any) {
       {name === "connections" && (
         <Connections className={` ${color} stroke-2 mx-[10px]`} />
       )}
-      {name === "dynasty" ||
-        (name === "citizens" && (
-          <Dynasty className={` ${color} stroke-2 mx-[10px]`} />
-        ))}
+      {name === "dynasty" && (
+        <Dynasty className={` ${color} stroke-2 mx-[10px]`} />
+      )}
+      {name === "citizens" && (
+        <Dynasty className={` ${color} stroke-2 mx-[10px]`} />
+      )}
       {name === "crimes" && (
         <Infractions className={` ${color} stroke-2 mx-[10px]`} />
       )}
@@ -121,18 +123,9 @@ export default function SvgIcon({ name, color }: any) {
       {name === "transaction" && (
         <Transaction className={` ${color} stroke-2 mx-[10px]`} />
       )}
-      {name === "language" &&
-        (languageSelected.icon ? (
-          <Image
-            src={languageSelected.icon}
-            alt=""
-            width={100}
-            height={100}
-            className={`${isCollapsed ? "w-[90%] ps-5" : "w-10 h-7"}`}
-          />
-        ) : (
-          <Language className={` ${color} stroke-1 mx-[10px]`} />
-        ))}
+      {name === "language" && (
+        <Language className={` ${color} stroke-1 mx-[10px]`} />
+      )}
     </>
   );
 }

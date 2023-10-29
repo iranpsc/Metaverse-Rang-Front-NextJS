@@ -6,7 +6,7 @@ import { SideBarContext } from "./context/SidebarContext";
 import { LangContext } from "@/context/LangContext";
 //MODULES
 import LoginMenuModule from './module/menu/LoginMenuModule';
-import HeaderMenuModule from './module/menu/HeaderMenuModule';
+import HeaderMenuModule from './module/finalMenu/HeaderMenuModule';
 import TopMenuModule from './module/menu/TopMenuModule';
 import ListMenuModule from "./module/menu/ListMenuModule";
 
@@ -19,7 +19,7 @@ interface LanguageItem {
   file_url:string
 }
 
-export default function Sidebar({ setShowAuthCard }:any) {
+export default function Sidebar({ setShowAuthCard,page }:any) {
   const router = useRouter();
   const [activeItem, SetActiveItem] = useState<number>(0);
   const [activeDropdown, setActiveDropdown] = useState<boolean>(false);
@@ -27,6 +27,7 @@ export default function Sidebar({ setShowAuthCard }:any) {
   const { languagesData, languageSelected, setLanguagesSelected,data } =
     useContext(LangContext);
   const {userId } = router.query;
+
 
   useEffect(() => {
     setActiveDropdown(false);

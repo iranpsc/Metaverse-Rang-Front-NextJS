@@ -49,7 +49,7 @@ export default function Footer() {
 
   return (
     <>
-      <div className="h-fit  w-[90%] mt-[200px] flex flex-row rounded-[10px] p-3 items-center justify-between  bg-white">
+      <div className="h-fit  w-[90%] mt-[200px] flex flex-row rounded-[10px] p-3 items-center justify-between  bg-white dark:bg-[#1A1A18]">
         {item.map((item: ItemIcon) => (
           <Image
             src={item.img}
@@ -60,7 +60,7 @@ export default function Footer() {
           />
         ))}
       </div>
-      <div className="h-[400px] mt-20 w-[90%] bg-white grid grid-cols-4">
+      <div className="h-[400px] mt-20 w-[90%] bg-white dark:bg-[#1A1A18] grid grid-cols-4">
         <div className="col-span-3 mt-2">
           <div className="w-full h-[82px] mt-4 ms-6 flex flex-row justify-start items-center gap-5">
             <Image
@@ -70,13 +70,13 @@ export default function Footer() {
               height={1000}
               className="w-[71px] h-[71px] inline bg-balck"
             />
-            <h1 className="text-[22px] font-bold text-[#4C4C4C]">
+            <h1 className="text-[22px] font-bold text-[#4C4C4C] dark:text-white">
               متاورس ملی
               <br />
               رهبری جهانی در دنیای موازی
             </h1>
           </div>
-          <p className="ms-6 mt-6 font-normal text-[#4C4C4C] text-[20px] leading-9">
+          <p className="ms-6 mt-6 font-normal text-[#4C4C4C] dark:text-[#D4D4D4] text-[20px] leading-9">
             متاورس ملی، یک پروژه بزرگ و پیشرو در دنیای موازی متاورس رنگ است که
             توسط شرکت تعاونی زنجیره تامین بهشت به اجرا درآمده است. این پروژه، به
             واقعیت جدیدی در دنیای موازی و مجازی دست یافته و امکاناتی شگفت‌انگیز
@@ -107,7 +107,6 @@ export default function Footer() {
         </div>
       </div>
       <div className="h-[20px]"></div>
-      
     </>
   );
 }

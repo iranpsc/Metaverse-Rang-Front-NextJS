@@ -21,7 +21,7 @@ const ListMenuEducation: React.FC<ListMenuModuleProps> = ({
   handleDirChange,
 }) => {
   
-  console.log(menuData);
+  
   
   const namesToDelete = [
     ,

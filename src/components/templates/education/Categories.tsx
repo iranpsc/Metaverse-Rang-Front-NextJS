@@ -16,35 +16,35 @@ export default function Categories() {
             <Xxx className="w-[32px] h-[32px]" />
             <p className="text-[18px] font-bold">سرمایه گذاری</p>
           </div>
-          <div className="col-span-1  w-[270px] h-[80px] bg-white shadow-lg rounded-[20px] flex flex-row justify-center items-center gap-5">
+          <div className="col-span-1  w-[270px] h-[80px] bg-white dark:bg-[#1A1A18] shadow-lg rounded-[20px] flex flex-row justify-center items-center gap-5">
             <Xxx className="w-[32px] h-[32px]" />
             <p className="text-[18px] font-bold">سرمایه گذاری</p>
           </div>
-          <div className="col-span-1  w-[270px] h-[80px] bg-white shadow-lg rounded-[20px] flex flex-row justify-center items-center gap-5">
+          <div className="col-span-1  w-[270px] h-[80px] bg-white dark:bg-[#1A1A18] shadow-lg rounded-[20px] flex flex-row justify-center items-center gap-5">
             <Xxx className="w-[32px] h-[32px]" />
             <p className="text-[18px] font-bold">سرمایه گذاری</p>
           </div>
-          <div className="col-span-1  w-[270px] h-[80px] bg-white shadow-lg rounded-[20px] flex flex-row justify-center items-center gap-5">
+          <div className="col-span-1  w-[270px] h-[80px] bg-white dark:bg-[#1A1A18] shadow-lg rounded-[20px] flex flex-row justify-center items-center gap-5">
             <Xxx className="w-[32px] h-[32px]" />
             <p className="text-[18px] font-bold">سرمایه گذاری</p>
           </div>
-          <div className="col-span-1  w-[270px] h-[80px] bg-white shadow-lg rounded-[20px] flex flex-row justify-center items-center gap-5">
+          <div className="col-span-1  w-[270px] h-[80px] bg-white  dark:bg-[#1A1A18] shadow-lg rounded-[20px] flex flex-row justify-center items-center gap-5">
             <Xxx className="w-[32px] h-[32px]" />
             <p className="text-[18px] font-bold">سرمایه گذاری</p>
           </div>
-          <div className="col-span-1  w-[270px] h-[80px] bg-white shadow-lg rounded-[20px] flex flex-row justify-center items-center gap-5">
+          <div className="col-span-1  w-[270px] h-[80px] bg-white dark:bg-[#1A1A18] shadow-lg rounded-[20px] flex flex-row justify-center items-center gap-5">
             <Xxx className="w-[32px] h-[32px]" />
             <p className="text-[18px] font-bold">سرمایه گذاری</p>
           </div>
-          <div className="col-span-1  w-[270px] h-[80px] bg-white shadow-lg rounded-[20px] flex flex-row justify-center items-center gap-5">
+          <div className="col-span-1  w-[270px] h-[80px] bg-white dark:bg-[#1A1A18] shadow-lg rounded-[20px] flex flex-row justify-center items-center gap-5">
             <Xxx className="w-[32px] h-[32px]" />
             <p className="text-[18px] font-bold">سرمایه گذاری</p>
           </div>
-          <div className="col-span-1  w-[270px] h-[80px] bg-white shadow-lg rounded-[20px] flex flex-row justify-center items-center gap-5">
+          <div className="col-span-1  w-[270px] h-[80px] bg-white dark:bg-[#1A1A18] shadow-lg rounded-[20px] flex flex-row justify-center items-center gap-5">
             <Xxx className="w-[32px] h-[32px]" />
             <p className="text-[18px] font-bold">سرمایه گذاری</p>
           </div>
-          <div className="col-span-1  w-[270px] h-[80px] bg-white shadow-lg rounded-[20px] flex flex-row justify-center items-center gap-5">
+          <div className="col-span-1  w-[270px] h-[80px] bg-white dark:bg-[#1A1A18] shadow-lg rounded-[20px] flex flex-row justify-center items-center gap-5">
             <ShowAll className="w-[32px] h-[32px]" />
             <p className="text-[18px] font-bold text-[#0066FF]">مشاهده همه</p>
           </div>

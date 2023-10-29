@@ -17,7 +17,8 @@ export interface LanguageDataItem {
     code: string;
     name: string;
     native_name: string;
-    direction: string
+    direction: string;
+    icon: string;
 }
 
 

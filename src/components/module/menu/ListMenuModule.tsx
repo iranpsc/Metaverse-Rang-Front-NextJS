@@ -1,4 +1,6 @@
+import Image from "next/image";
 import router from "next/router";
+
 //Types
 import {
   ListMenuModuleProps,
@@ -20,63 +22,16 @@ const ListMenuModule: React.FC<ListMenuModuleProps> = ({
   languagesData,
   handleDirChange,
 }) => {
-
-  const namesToDelete = [
-    ,
-    "meta rgb",
-    "metaverse rang",
-    "log in",
-    "logout",
-    "citizenship page",
-    "enter the metaverse",
-  ];
-
-const sortOrder = [
-  "home",
-  "news",
-  "articles",
-  "competitions",
-  "trainings",
-  "about",
-  "contact",
-  "version",
-  "calendar",
-  "citizens",
-  "overview",
-  "language",
-  "login",
-  "light",
-  "dark",
-  "exit",
-];
-
-
-const sortedData = menuData
-  .filter((item) => sortOrder.includes(item.name))
-  .sort((a, b) => sortOrder.indexOf(a.name) - sortOrder.indexOf(b.name));
-
-
-console.log(sortedData);
-     
-
-  const filteredItems = menuData.filter(
-    (item: any) => !namesToDelete.includes(item.name)
-  );
-
-
-  const selectItemMenuRoute = ((item:any)=>{
-    console.log("object",item);
-     setActiveItem(item.id);
-         router.push(`/${item.code}/citizen/hm-2222/home`);
-  })
-
-
+  const selectItemMenuRoute = (item: any) => {
+    setActiveItem(item.id);
+    //  router.push(`/${item.code}/citizen/hm-2222/home`);
+  };
 
   return (
     <>
-      <ul className="list-none relative pt-3 w-full  bg-white dark:bg-dark-background  transition-all duration-300 ease-linear max-lg:w-fit   ">
-        {sortedData &&
-          sortedData.map((item: MenuDataItem) => (
+      <ul className="list-none relative pt-3 w-full  bg-white dark:bg-dark-background  transition-all duration-300 ease-linear max-lg:w-fit pb-10   ">
+        {menuData &&
+          menuData.map((item: MenuDataItem) => (
             <li
               key={item.id}
               className="flex relative font-[1rem] no-underline text-black py-[12px]"
@@ -108,21 +63,21 @@ console.log(sortedData);
                     color={`${
                       item.id == activeItem
                         ? "stroke-blueLink   dark:dark:stroke-dark-yellow"
-                        : "stroke-gray"
+                        : "stroke-gray "
                     }`}
                   />
                 </span>
                 {item.name === "language" ? (
-                  <div className="p-0 m-0 w-full ">
-                    <div className="dropdown inline-block  relative ">
+                  <div>
+                    <div className="dropdown relative">
                       <button
-                        className={`bg-gray-300  py-2  rounded inline-flex items-center ${
+                        className={`bg-gray-300 rounded inline-flex items-center ${
                           isCollapsed ? "hidden" : "visible"
                         }`}
                         onClick={() => setActiveDropdown(!activeDropdown)}
                       >
                         <span
-                          className={`font-medium mx-3 font-azarMehr no-underline ${
+                          className={`font-medium  font-azarMehr  no-underline ${
                             !activeDropdown
                               ? "text-gray"
                               : "text-[#0066FF] dark:text-dark-yellow"
@@ -130,55 +85,56 @@ console.log(sortedData);
                         >
                           {languageSelected.name}
                         </span>
-                        <svg
-                          className="fill-current h-4 w-4"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />{" "}
-                        </svg>
                       </button>
                       <ul
-                        className={`dropdown-menu absolute text-center ${
-                          activeDropdown ? "block" : "hidden"
+                        className={`dropdown-menu absolute start-[-35px] text-center ${
+                          activeDropdown ? "block " : "hidden"
                         }  text-gray pt-1`}
                       >
                         {languagesData.map((item: LanguageDataItem) => (
                           <li
                             key={item.id}
-                            className={`border-none font-azarMehr font-normal ${
+                            className={`border-none mt-4 font-azarMehr font-normal ${
                               languageSelected.name === item.name
                                 ? "text-[#0066FF] dark:text-dark-yellow"
                                 : ""
-                            } flex flex-row  items-center cursor-pointer hover:text-[#0066FF]`}
+                            } flex flex-row items-center cursor-pointer hover:text-[#0066FF]`}
                             onClick={() => handleDirChange(item)}
                           >
-                            <div className=" p-1 w-10 ">
+                            <div className=" p-1 w-10  ">
                               {languageSelected.name === item.name && (
-                                <svg
-                                  width="20"
-                                  height="20"
-                                  viewBox="0 0 16 12"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M1 7.25L4.81818 11L15 1"
-                                    stroke="#0066FF"
-                                    strokeWidth="2"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                  />
-                                </svg>
+                                // <svg
+                                //   width="20"
+                                //   height="20"
+                                //   viewBox="0 0 16 12"
+                                //   fill="none"
+                                //   xmlns="http://www.w3.org/2000/svg"
+                                // >
+                                //   <path
+                                //     d="M1 7.25L4.81818 11L15 1"
+                                //     stroke="#0066FF"
+                                //     strokeWidth="2"
+                                //     strokeLinecap="round"
+                                //     strokeLinejoin="round"
+                                //   />
+                                // </svg>
+                                <></>
                               )}
                             </div>
-
+                            <Image
+                              src={item.icon}
+                              alt=""
+                              width={100}
+                              height={100}
+                              className={"w-7 h-6 me-6"}
+                            />
                             {item.name}
                           </li>
                         ))}
                       </ul>
                     </div>
                   </div>
+                 
                 ) : (
                   <span
                     className={`   ${
