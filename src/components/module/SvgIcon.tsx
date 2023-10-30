@@ -76,7 +76,7 @@ export default function SvgIcon({ name, color }: any) {
         />
       )}
       {name === "overview" && (
-        <Contact
+        <Overview
           stroke="#ff0000"
           className={` ${color} stroke-[1px] mx-[10px]`}
         />

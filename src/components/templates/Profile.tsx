@@ -75,7 +75,7 @@ export default function Profile(){
                 style={{ width: `${percent}%` }}
               >
                 <span className="  end-[35%] absolute  xl:text-[18px] lg:text-md md:text-sm break-all font-medium text-[#0E0E0E] dark:text-white text-center">
-                  {languageSelected?.code !== "fa"
+                  {languageSelected?.code && languageSelected?.code !== "fa"
                     ? profileData?.score
                     : profileData &&
                       Persian(profileData?.score).englishNumber().toString()}

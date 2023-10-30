@@ -10,10 +10,9 @@ export default function HeaderMenuEducationModule({
   toggleCollapseHandler: () => void;
 }) {
  
-console.log(menuData);
   return (
     <>
-      <div className="flex flex-row justify-between items-center mt-2">
+      <div className="flex flex-row justify-between items-center ">
         <div
           className={`flex ${
             isCollapsed ? "ps-0" : "ps-5"

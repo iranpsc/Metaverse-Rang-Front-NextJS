@@ -55,7 +55,8 @@ export default function ProfileDetails({ setShowModal, setDataModal }: any) {
     {
       id: 1,
       key: targetData(data.data.selectedProfileData, "i love this city"),
-      value: profileData?.customs?.loved_city || "--",
+      //value: profileData?.customs?.loved_city || "--",
+      value: "Kohgiluyeh and Boyer-Ahmad " || "--",
     },
     {
       id: 2,
@@ -75,7 +76,7 @@ export default function ProfileDetails({ setShowModal, setDataModal }: any) {
     },
   ];
   return (
-    <div className=" flex relative flex-col mx-1 justify-between xl:gap-[6px] lg:gap-[6px] sm:h-fit xs:h-fit md:gap-[6px] sm:gap-[6px] xs:gap-[6px]  dark:bg-black  bg-[#e9eef8] ">
+    <div className=" flex relative flex-col h-screen mx-1 justify-between xl:gap-[6px] lg:gap-[6px] sm:h-fit xs:h-fit md:gap-[6px] sm:gap-[6px] xs:gap-[6px]  dark:bg-black  bg-[#e9eef8] ">
       <ProfileDetailsDetails itemsProfileDetails={itemsProfileDetails} />
 
       <ProfileDetailsInteresting

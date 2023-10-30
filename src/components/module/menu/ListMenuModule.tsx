@@ -29,7 +29,7 @@ const ListMenuModule: React.FC<ListMenuModuleProps> = ({
 
   return (
     <>
-      <ul className="list-none relative pt-3 w-full  bg-white dark:bg-dark-background  transition-all duration-300 ease-linear max-lg:w-fit pb-10   ">
+      <ul className={`list-none ${activeDropdown ?"pb-[50px] ":"pb-0"} relative pt-3 w-full  bg-white dark:bg-dark-background  transition-all duration-300 ease-linear max-lg:w-fit`}>
         {menuData &&
           menuData.map((item: MenuDataItem) => (
             <li
@@ -69,7 +69,7 @@ const ListMenuModule: React.FC<ListMenuModuleProps> = ({
                 </span>
                 {item.name === "language" ? (
                   <div>
-                    <div className="dropdown relative">
+                    <div className="dropdown relative ">
                       <button
                         className={`bg-gray-300 rounded inline-flex items-center ${
                           isCollapsed ? "hidden" : "visible"
@@ -87,14 +87,14 @@ const ListMenuModule: React.FC<ListMenuModuleProps> = ({
                         </span>
                       </button>
                       <ul
-                        className={`dropdown-menu absolute start-[-35px] text-center ${
+                        className={`dropdown-menu absolute start-[-35px] text-center  ${
                           activeDropdown ? "block " : "hidden"
                         }  text-gray pt-1`}
                       >
                         {languagesData.map((item: LanguageDataItem) => (
                           <li
                             key={item.id}
-                            className={`border-none mt-4 font-azarMehr font-normal ${
+                            className={`border-none mt-4 font-azarMehr font-normal  ${
                               languageSelected.name === item.name
                                 ? "text-[#0066FF] dark:text-dark-yellow"
                                 : ""
@@ -103,21 +103,7 @@ const ListMenuModule: React.FC<ListMenuModuleProps> = ({
                           >
                             <div className=" p-1 w-10  ">
                               {languageSelected.name === item.name && (
-                                // <svg
-                                //   width="20"
-                                //   height="20"
-                                //   viewBox="0 0 16 12"
-                                //   fill="none"
-                                //   xmlns="http://www.w3.org/2000/svg"
-                                // >
-                                //   <path
-                                //     d="M1 7.25L4.81818 11L15 1"
-                                //     stroke="#0066FF"
-                                //     strokeWidth="2"
-                                //     strokeLinecap="round"
-                                //     strokeLinejoin="round"
-                                //   />
-                                // </svg>
+                               
                                 <></>
                               )}
                             </div>

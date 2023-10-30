@@ -12,8 +12,8 @@ const Index: React.FC<IndexProps> = () => {
   return (
     <section dir="rtl" className="overflow-auto relative ">
       <BaseLayoutEducation>
-        <section className=" flex flex-col justify-start overflow-y-auto overflow-x-hidden items-center">
-          <div className="mt-[94px] w-[724px] h-auto py-4 rounded-[67px] bg-white dark:bg-[#1A1A18] flex flex-row justify-between items-center">
+        <section className=" flex flex-col justify-start overflow-y-auto overflow-x-hidden items-center bg-[#f8f8f8]">
+          <div className="mt-[50px] w-[724px] h-auto py-4 rounded-[67px] shadow-md hover:shodow-2xl bg-white dark:bg-[#1A1A18] flex flex-row justify-between items-center">
             <Search className="ms-8 fill-blueLink dark:fill-dark-yellow" />
             <input
               placeholder="آموزش مورد نیاز خود را جستجو کنید"

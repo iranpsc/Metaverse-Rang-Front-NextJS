@@ -49,7 +49,7 @@ export default function Footer() {
 
   return (
     <>
-      <div className="h-fit  w-[90%] mt-[200px] flex flex-row rounded-[10px] p-3 items-center justify-between  bg-white dark:bg-[#1A1A18]">
+      <div className="h-fit  w-[96%] mt-[200px] flex flex-row rounded-[10px] p-3 items-center justify-between  bg-white dark:bg-[#1A1A18]">
         {item.map((item: ItemIcon) => (
           <Image
             src={item.img}
@@ -60,15 +60,15 @@ export default function Footer() {
           />
         ))}
       </div>
-      <div className="h-[400px] mt-20 w-[90%] bg-white dark:bg-[#1A1A18] grid grid-cols-4">
-        <div className="col-span-3 mt-2">
+      <div className="h-[400px] mt-20 rounded-[10px] w-[96%] bg-white dark:bg-[#1A1A18] grid grid-cols-6">
+        <div className="col-span-4 mt-2">
           <div className="w-full h-[82px] mt-4 ms-6 flex flex-row justify-start items-center gap-5">
             <Image
               src="/logo.png"
               alt="logo"
               width={1000}
               height={1000}
-              className="w-[71px] h-[71px] inline bg-balck"
+              className="w-[60px] h-[60px] inline bg-balck"
             />
             <h1 className="text-[22px] font-bold text-[#4C4C4C] dark:text-white">
               متاورس ملی
@@ -89,18 +89,18 @@ export default function Footer() {
             در اختیار مردم قرار می‌دهد.
           </p>
         </div>
-        <div className="col-span-1 mt-6">
+        <div className="col-span-2 mt-6">
           <p className="text-center font-medium text-[20px] text-[#4C4C4C]">
             به شبکه های ما ملحق شوید.
           </p>
-          <div className="grid grid-cols-5 gap-y-4 gap-x-2 ms-2 mt-6">
+          <div className="flex flex-wrap gap-x-[27px] gap-y-3 justify-end me-3 mt-6">
             {socialItems.map((item: ItemIcon) => (
               <Image
                 src={item.img}
                 alt="rgb"
                 width={1000}
                 height={1000}
-                className="w-[60px] h-[60px] col-span-1"
+                className="w-[63px] h-[60px] col-span-1"
               />
             ))}
           </div>

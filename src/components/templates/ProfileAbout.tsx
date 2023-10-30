@@ -45,7 +45,7 @@ const submitModalCart =(data:any)=>{
         <br />
         <br />
       </div>
-      <div className="dark:bg-dark-background h-[65%] bg-white transition-all duration-300 ease-linear  items-center flex flex-col justify-center mt-[6px] md:mt-1 w-full rounded-[10px] p-2 md:p-0 ">
+      <div className="dark:bg-dark-background h-[60%] bg-white transition-all duration-300 ease-linear  items-center flex flex-col justify-center mt-[6px] md:mt-1 w-full rounded-[10px] p-2 md:p-0 ">
         <Image
           src="/profile/position.png"
           width={1000}
