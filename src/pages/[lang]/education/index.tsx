@@ -1,4 +1,6 @@
-import React from "react";
+import { useContext } from "react";
+import { useTheme } from "next-themes";
+import { LangContext } from "@/context/LangContext";
 import { Search } from "@/components/svgs";
 //COMPONENTS
 import TopTrainers from "@/components/templates/education/TopTrainers";
@@ -9,8 +11,17 @@ import BaseLayoutEducation from "@/components/layout/BaseLayoutEducation";
 type IndexProps = {};
 
 const Index: React.FC<IndexProps> = () => {
+    const { languageSelected } = useContext(LangContext);
+    const { theme } = useTheme();
+    console.log(languageSelected.dir);
   return (
-    <section dir="rtl" className="overflow-auto relative ">
+    <section
+      id="light-scrollbar"
+      dir={languageSelected.dir}
+      className={`overflow-auto relative ${
+        theme === "dark" ? "dark-scrollbar" : "light-scrollbar"
+      } `}
+    >
       <BaseLayoutEducation>
         <section className=" flex flex-col justify-start overflow-y-auto overflow-x-hidden items-center bg-[#f8f8f8]">
           <div className="mt-[50px] w-[724px] h-auto py-4 rounded-[67px] shadow-md hover:shodow-2xl bg-white dark:bg-[#1A1A18] flex flex-row justify-between items-center">

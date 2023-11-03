@@ -116,6 +116,7 @@ const LangProvider = ({ children }: Props) => {
               file_url: query.file_url,
             });
             setLanguagesData(res.data.data);
+            console.log(res.data.data);
           } else {
             const urlEN = await res.data.data.find(
               (item: any) => item.code === "en"

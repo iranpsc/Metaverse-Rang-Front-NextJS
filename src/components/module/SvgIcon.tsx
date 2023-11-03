@@ -124,7 +124,7 @@ export default function SvgIcon({ name, color }: any) {
         <Transaction className={` ${color} stroke-2 mx-[10px]`} />
       )}
       {name === "language" && (
-        <Language className={` ${color} stroke-1 mx-[10px]`} />
+        <Language className={` ${color} stroke-1 mx-[10px]  ms-4`} />
       )}
     </>
   );

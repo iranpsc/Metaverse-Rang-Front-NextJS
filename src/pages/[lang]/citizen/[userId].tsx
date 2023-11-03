@@ -6,8 +6,6 @@ import ProfileDetails from "@/templates/ProfileDatails";
 import ProfileAbout from "@/templates/ProfileAbout";
 import { LangContext } from "@/context/LangContext";
 import ModalCard from "@/templates/ModalCard";
-import axios from "axios";
-
 
 export default function Home({data}:any) {
   const { languageSelected } = useContext(LangContext);
@@ -73,17 +71,19 @@ export default function Home({data}:any) {
         />
       </Head>
       <BaseLayout>
-        <div className="xl:grid lg:grid md:grid xl:grid-auto   lg:grid-cols-12 xl:grid-cols-12 w-full md:grid-flow-col md:auto-cols-fr  relative sm:flex sm:flex-col
+        <div
+          className="xl:grid lg:grid md:grid xl:grid-auto   lg:grid-cols-12 xl:grid-cols-12 w-full md:grid-flow-col md:auto-cols-fr  relative sm:flex sm:flex-col
         sm:gap-5 xl:gap-0 lg:gap-0 md:gap-0
-        ">
-          <section className="col-span-5  xl:h-[100vh] lg:h-[100vh] md:h-[100vh] sm:h-fit dark:bg-black bg-[#e9eef8] ms-1">
+        "
+        >
+          <section className="col-span-5 xl:h-[100vh] lg:h-[100vh] md:h-[100vh] sm:h-fit dark:bg-black bg-[#e9eef8] ms-1">
             {showModal ? (
               <ModalCard setShowModal={setShowModal} dataModal={dataModal} />
             ) : null}
 
             <Profile />
-          </section> 
-           <div className="col-span-4 xl:h-screen lg:h-screen sm:h-fit md:h-screen dark:bg-black bg-[#e9eef8] ">
+          </section>
+          <div className="col-span-4 xl:h-screen lg:h-screen sm:h-fit md:h-screen dark:bg-black bg-[#e9eef8] ">
             <ProfileDetails
               setShowModal={setShowModal}
               setDataModal={setDataModal}

@@ -29,7 +29,11 @@ const ListMenuModule: React.FC<ListMenuModuleProps> = ({
 
   return (
     <>
-      <ul className={`list-none ${activeDropdown ?"pb-[50px] ":"pb-0"} relative pt-3 w-full  bg-white dark:bg-dark-background  transition-all duration-300 ease-linear max-lg:w-fit`}>
+      <ul
+        className={`list-none ${
+          activeDropdown ? "pb-[50px] " : "pb-0"
+        } relative pt-3 w-full  bg-white dark:bg-dark-background  transition-all duration-300 ease-linear max-lg:w-fit`}
+      >
         {menuData &&
           menuData.map((item: MenuDataItem) => (
             <li
@@ -49,7 +53,7 @@ const ListMenuModule: React.FC<ListMenuModuleProps> = ({
                           languageSelected.dir === "rtl"
                             ? "pr-[20px] w-[25px] rotate-180"
                             : "pr-[20px] w-[25px]"
-                        } visible  h-[35px] absolute start-0 fill-blueLink dark:fill-dark-yellow`
+                        } visible  h-[35px] absolute start-0 fill-blueLink dark:fill-dark-yellow `
                       : "hidden"
                   }
                 />
@@ -77,13 +81,13 @@ const ListMenuModule: React.FC<ListMenuModuleProps> = ({
                         onClick={() => setActiveDropdown(!activeDropdown)}
                       >
                         <span
-                          className={`font-medium  font-azarMehr  no-underline ${
+                          className={`font-medium  font-azarMehr  no-underline hover:text-[#0000ffd9] dark:hover:text-dark-yellow ${
                             !activeDropdown
                               ? "text-gray"
                               : "text-[#0066FF] dark:text-dark-yellow"
-                          } text-black`}
+                          }  `}
                         >
-                          {languageSelected.name}
+                          {item.translation}
                         </span>
                       </button>
                       <ul
@@ -94,7 +98,7 @@ const ListMenuModule: React.FC<ListMenuModuleProps> = ({
                         {languagesData.map((item: LanguageDataItem) => (
                           <li
                             key={item.id}
-                            className={`border-none mt-4 font-azarMehr font-normal  ${
+                            className={`border-none mt-4 font-azarMehr font-normal hover:text-[#0000ffd9] dark:hover:text-dark-yellow  ${
                               languageSelected.name === item.name
                                 ? "text-[#0066FF] dark:text-dark-yellow"
                                 : ""
@@ -102,10 +106,7 @@ const ListMenuModule: React.FC<ListMenuModuleProps> = ({
                             onClick={() => handleDirChange(item)}
                           >
                             <div className=" p-1 w-10  ">
-                              {languageSelected.name === item.name && (
-                               
-                                <></>
-                              )}
+                              {languageSelected.name === item.name && <></>}
                             </div>
                             <Image
                               src={item.icon}
@@ -120,14 +121,13 @@ const ListMenuModule: React.FC<ListMenuModuleProps> = ({
                       </ul>
                     </div>
                   </div>
-                 
                 ) : (
                   <span
                     className={`   ${
                       item.id === activeItem
-                        ? "text-blueLink dark:text-dark-yellow  "
+                        ? "text-blueLink dark:text-dark-yellow   "
                         : "text-gray dark:text-gray"
-                    }  capitalize font-azarMehr font-normal cursor-pointer hover:text-[#0000ffd9] ${
+                    }  capitalize font-azarMehr font-normal  cursor-pointer hover:text-[#0000ffd9] dark:hover:text-dark-yellow  ${
                       isCollapsed ? "hidden" : "visible"
                     } `}
                   >

@@ -15,13 +15,13 @@ export default function HeaderMenuEducationModule({
       <div className="flex flex-row justify-between items-center ">
         <div
           className={`flex ${
-            isCollapsed ? "ps-0" : "ps-5"
-          } items-center gap-1 justify-center pb-3`}
+            isCollapsed ? "ms-3" : "ms-5"
+          } items-center gap-1 justify-center my-1`}
         >
           <LogoRgb
-            className={`mx-1  ${
+            className={`${
               isCollapsed
-                ? "xl:w-[45px]  xl:h-[50px]"
+                ? "xl:w-[40px]  xl:h-[45px]"
                 : "xl:w-[60px]  xl:h-[65px]"
             }  lg:w-[33px] lg:h-[33px] md:w-[30px] md:h-[30px] sm:w-[30px] sm:h-[30px] xs:w-[30px] xs:h-[30px] rounded-[1rem]`}
           />
@@ -43,13 +43,13 @@ export default function HeaderMenuEducationModule({
         <div
           className={` ${
             isCollapsed ? "invisible" : "visible"
-          } w-[41px] h-[41px] cursor-pointer rounded-full bg-[#efefef] dark:bg-black flex justify-center items-center`}
+          } w-[41px] h-[41px] cursor-pointer rounded-full bg-[#efefef] dark:bg-black flex justify-center items-center me-5`}
           onClick={toggleCollapseHandler}
         >
           <ArrowMenu className="w-[7px] h-[13px] stroke-[#2C2F32] dark:stroke-white" />
         </div>
       </div>
-      <hr className="mx-7 border-[1px] border-[#00000017] dark:border-[#3F3F3F]" />
+     <hr className={`${isCollapsed ?"mx-5":"mx-2"} border-[1px] border-[#00000017] dark:border-[#3F3F3F]`} />
     </>
   );
 }

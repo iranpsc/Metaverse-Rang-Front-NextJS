@@ -5,17 +5,17 @@ export default function TopTrainers() {
 
     return (
       <>
-        <div className="w-full h-[500px] mt-20 ">
-          <div className="w-full flex flex-row justify-between items-center pe-10">
-            <h1 className="text-[24px] flex flex-col  font-bold text-gray ms-5">
+        <div className="w-full h-[500px] mt-20 flex flex-col justify-center items-center">
+          <div className="w-[95%] flex flex-row justify-between  items-center pe-10 pb-10">
+            <h1 className="text-[24px] flex flex-col  font-bold text-[#414040] ms-5">
               مربیان برتر
             </h1>
-            <p className="text-[15px] flex flex-col  font-bold text-[#426dae] ">
+            <p className="text-[17px] flex flex-col  font-bold text-[#426dae] ">
               مشاهده همه
             </p>
           </div>
 
-          <div className="relative w-full h-[400px] mt-20 flex flex-row gap-5 items-center justify-evenly">
+          <div className="relative w-[95%] h-[400px] mt-20 flex flex-row gap-5 items-center justify-evenly">
             <div className="w-[300px] h-full cursor-pointer transition-all duration-300 shadow-xl hover:shadow-2xl bg-white dark:bg-[#1A1A18] flex flex-col justify-evenly items-center rounded-[20px]">
               <Image
                 src="/profile/prof.png"

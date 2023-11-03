@@ -29,7 +29,7 @@ export default function LoginMenuModule({
   return (
     <>
       <div
-        className={`bg-white dark:bg-dark-background h-fit bottom-10  flex justify-center items-center w-full sticky`}
+        className={`bg-white dark:bg-dark-background h-fit  bottom-4 pb-14  flex justify-center items-center w-full sticky z-[100]`}
       >
         <div
           className={`${
@@ -85,6 +85,8 @@ export default function LoginMenuModule({
           </div>
         </div>
       </div>
+              
+     
     </>
   );
 }

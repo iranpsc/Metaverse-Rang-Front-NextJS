@@ -9,11 +9,14 @@ export default function ProfileAbout({ setShowModal ,setDataModal}: any) {
   const { data, profileData } = useContext(LangContext);
 
 
+
+
  
-const submitModalCart =(data:any)=>{
+const submitModalCart = (item:any)=>{
+    console.log(item);
   setDataModal({
     title: targetData(data.data.selectedProfileData, "about me"),
-    desc: data,
+    desc: item,
   });
   setShowModal(true)
 
@@ -23,12 +26,12 @@ const submitModalCart =(data:any)=>{
   
 
   return (
-    <section className="me-1 items-center h-screen xl:mt-0 lg:mt-0 md:mt-0 sm:mt-3 xs:mt-2">
-      <div className="dark:bg-dark-background w-full h-[35%] transition-all duration-300 ease-linear bg-white px-1 rounded-[10px] max-sm:mt-[6px]">
+    <section className="me-1 flex flex-col justify-start  gap-[1.5px]  items-center h-screen xl:mt-0 lg:mt-0 md:mt-0 sm:mt-3 xs:mt-2">
+      <div className="dark:bg-dark-background w-full h-[37%] transition-all duration-300 ease-linear bg-white px-1 rounded-[10px] max-sm:mt-[6px]">
         <h1 className="dark:text-white max-sm:mx-3 max-sm:text-[16px]  font-azarMehr font-medium text-[20px] text-gray mx-2 xl:text-md lg:text-sm md:text-sm py-5">
           {targetData(data.data.selectedProfileData, "about me")}
         </h1>
-        <p className="font-azarMehr max-sm:mx-3 max-sm:text-[13px] text-justify xl:leading-[30px] truncate- lg:leading-[20px] md:leading-[15px] mx-1 font-medium xl:text-[12px] lg:text-[10px] md:text-[10px]  text-gray">
+        <p className="font-azarMehr max-sm:mx-3 max-sm:text-[13px] text-justify xl:leading-[30px] truncate[20px] lg:leading-[20px] md:leading-[15px] mx-1 font-medium xl:text-[12px] lg:text-[10px] md:text-[10px]  text-gray">
           {profileData?.customs?.about.slice(0, 210)}
           <span className="font-azarMehr font-medium xl:text-[12px]text-gray">
             {" "}
@@ -45,13 +48,13 @@ const submitModalCart =(data:any)=>{
         <br />
         <br />
       </div>
-      <div className="dark:bg-dark-background h-[60%] bg-white transition-all duration-300 ease-linear  items-center flex flex-col justify-center mt-[6px] md:mt-1 w-full rounded-[10px] p-2 md:p-0 ">
+      <div className="dark:bg-dark-background h-[90%] bg-white transition-all duration-300 ease-linear  items-center flex flex-col justify-center mt-[6px] md:mt-1 w-full rounded-[10px] p-2 md:p-0 ">
         <Image
           src="/profile/position.png"
           width={1000}
           height={1000}
           alt="profile"
-          className="xl:w-[160px] lg:w-[150px] md:w-[110px] sm:w-[75px] xs:w-[150px]"
+          className="xl:w-[180px] lg:w-[150px] md:w-[110px] sm:w-[75px] xs:w-[150px]"
         />
       </div>
     </section>
