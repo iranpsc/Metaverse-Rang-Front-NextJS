@@ -9,7 +9,7 @@ export default function LoginMenuModule({
 }: any) {
 
   const [showFullModal,setShowFullModal] = useState(false);
-  console.log(showFullModal);
+  console.log(menuData);
 
   const submit = ()=>{
     if(isCollapsed){

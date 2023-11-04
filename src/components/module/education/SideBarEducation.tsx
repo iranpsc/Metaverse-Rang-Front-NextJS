@@ -46,10 +46,8 @@ export default function SideBarEducation({ setShowAuthCard, pageName }: any) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(
-          "https://play.irpsc.com/metaverse/lang/fa.json"
-        );
-      
+        const res = await axios.get(`${languageSelected.file_url}`);
+
         switch (pageName) {
           case "citizen":
             setData(
@@ -62,27 +60,29 @@ export default function SideBarEducation({ setShowAuthCard, pageName }: any) {
               sidebarFilteredData(res.data.modals, pageName)?.filteredHeader
             );
             break;
-              case 'education':
-                setData(
-                  sidebarFilteredData(res.data.modals, pageName)
-                    ?.filteredItemsEducation
-                );
-        setLoginData(
-          sidebarFilteredData(res.data.modals, pageName)?.filteredLoginEducation
-        );
-        setHeaderData(
-          sidebarFilteredData(res.data.modals, pageName)?.filteredHeaderEducation
-        );
+          case "education":
+            setData(
+              sidebarFilteredData(res.data.modals, pageName)
+                ?.filteredItemsEducation
+            );
+            setLoginData(
+              sidebarFilteredData(res.data.modals, pageName)
+                ?.filteredLoginEducation
+            );
+            setHeaderData(
+              sidebarFilteredData(res.data.modals, pageName)
+                ?.filteredHeaderEducation
+            );
           default:
             return [];
-        }  
+        }
       } catch (error) {
         console.log(error);
       }
     };
 
     fetchData();
-  }, []);
+  }, [languageSelected.file_url]);
 
   const handleDirChange = (item: LanguageItem) => {
     setLanguagesSelected({

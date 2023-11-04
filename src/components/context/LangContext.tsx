@@ -151,7 +151,8 @@ const LangProvider = ({ children }: Props) => {
     const fetchData = async () => {
       try {
         const res = await axios.get(`${languageSelected.file_url}`);
-        
+       
+        console.log(languageSelected.file_url)
 
         const modalsProfile = res.data.modals.find(
           (modal: any) => modal.name === "Citizenship-profile"
