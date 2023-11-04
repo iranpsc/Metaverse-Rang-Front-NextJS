@@ -9,7 +9,7 @@ export default function LoginMenuModule({
 }: any) {
 
   const [showFullModal,setShowFullModal] = useState(false);
-  console.log(menuData);
+ 
 
   const submit = ()=>{
     if(isCollapsed){
@@ -41,15 +41,15 @@ export default function LoginMenuModule({
           {showFullModal && (
             <div className=" flex flex-col gap-2 ">
               <p className="text-white dark:text-black text-[14px] font-medium">
-                صفحه مشخصات شهروند
+                {menuData[3] && menuData[3].translation}
               </p>
               <hr className=" text-white dark:text-[#2D2D2A38]" />
               <p className="text-white dark:text-black text-[14px] font-medium">
-                صفحه نخست
+                {menuData[2] && menuData[2].translation}
               </p>
               <hr className=" text-white dark:text-[#2D2D2A38]" />
               <p className="text-white dark:text-black text-[14px] font-medium">
-                خروج
+                {menuData[1] && menuData[1].translation}
               </p>
               <hr className=" text-white dark:text-[#2D2D2A38]" />
             </div>
@@ -61,14 +61,14 @@ export default function LoginMenuModule({
           >
             {showFullModal ? (
               <>
+                <p className="text-white dark:text-dark-background font-azarMehr font-medium text-center">
+                  HM-2000003
+                </p>
                 <ArrowMenu
                   className={`stroke-white stroke-2 dark:stroke-dark-background h-full w-[10px] rotate-90 ${
                     isCollapsed ? "hidden" : "visibale"
                   }`}
                 />
-                <p className="text-white dark:text-dark-background font-azarMehr font-medium text-center">
-                  HM-2000003
-                </p>
               </>
             ) : (
               <>
@@ -85,8 +85,6 @@ export default function LoginMenuModule({
           </div>
         </div>
       </div>
-              
-     
     </>
   );
 }

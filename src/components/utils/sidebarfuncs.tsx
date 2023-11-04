@@ -6,7 +6,7 @@ export const sidebarFilteredData = (data: any, page: string) => {
       ).tabs;
 
       const tabsMenu = modalsProfile.find((item: any) => item.name === "menu");
-
+      
       const namesToDelete = [
         "meta rgb",
         "metaverse rang",
@@ -22,12 +22,17 @@ export const sidebarFilteredData = (data: any, page: string) => {
         (item: any) => !namesToDelete.includes(item.name)
       );
 
-      const namesToKeep = ["log in", "logout"];
-
+      const namesToKeep = [
+        "log in",
+        "logout",
+        "enter the metaverse",
+        "home page",
+      ];
       const filteredLogin = tabsMenu.fields.filter((item: any) =>
-        namesToKeep.includes(item.name)
+      namesToKeep.includes(item.name)
       );
 
+      
       const namesToKeepHeader = ["meta rgb", "metaverse rang"];
 
       const filteredHeader = tabsMenu.fields.filter((item: any) =>
@@ -95,7 +100,7 @@ export const sidebarFilteredData = (data: any, page: string) => {
       const filteredHeaderEducation = tabsBeforeLogin.fields.filter(
         (item: any) => namesToKeepHeaderEducation.includes(item.name)
       );
-  console.log(filteredHeaderEducation);
+ 
       return {
         filteredItemsEducation,
         filteredHeaderEducation,

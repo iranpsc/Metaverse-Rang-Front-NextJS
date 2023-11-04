@@ -38,7 +38,7 @@ export default function Profile(){
             <p className="font-azarMehr dark:text-white font-medium xl:text-[14px] lg:text-[13px] md:text-[13px] max-lg:text-md break-all max-sm:text-[13px]	 text-gray">
               {targetData(data.data.selectedProfileData, "citizenship name")}
             </p>
-            <hr className="w-[40%] md:w-[30%] xl:block lg:block md:block sm:hidden xs:hidden h-[1px] border border-dashed  text-lightGray dark:text-dark-lightWhite" />
+            <hr className="w-[40%] md:w-[30%] xl:block lg:block md:block sm:hidden xs:hidden h-[1px] border border-dashed  text-[#bdbbbb] dark:text-[#6e6d6d]" />
             <p className="dark:text-dark-gray  font-azarMehr font-medium md:text-[13px]  medium xl:text-[14px] lg:text-[13px] md:text-md break-all max-sm:text-[13px] text-black">
               {profileData?.name}
             </p>
@@ -48,7 +48,7 @@ export default function Profile(){
             <p className="font-azarMehr dark:text-white font-medium medium xl:text-[14px] lg:text-[13px] md:text-[13px] max-lg:text-md break-all text-gray max-sm:text-[13px]">
               {targetData(data.data.selectedProfileData, "entry date")}
             </p>
-            <hr className="w-[40%]  md:w-[30%] xl:block lg:block md:block sm:hidden xs:hidden h-[1px] border border-dashed  text-lightGray dark:text-dark-lightWhite" />
+            <hr className="w-[40%]  md:w-[30%] xl:block lg:block md:block sm:hidden xs:hidden h-[1px] border border-dashed  text-[#bdbbbb] dark:text-[#6e6d6d]" />
             <p className="dark:text-dark-gray font-azarMehr font-medium medium xl:text-[14px] lg:text-[13px] md:text-[13px] break-all text-black max-sm:text-[13px]">
               {profileData?.registered_at}
             </p>
@@ -58,7 +58,7 @@ export default function Profile(){
             <p className=" dark:text-white font-azarMehr font-medium medium xl:text-[14px] lg:text-[13px] md:text-xs break-all text-gray max-sm:text-[13px]">
               {targetData(data.data.selectedProfileData, "responsibility")}
             </p>
-            <hr className="w-[40%] md:w-[30%] xl:block lg:block md:block sm:hidden xs:hidden h-[1px] border border-dashed   text-lightGray dark:text-dark-lightWhite" />
+            <hr className="w-[40%] md:w-[30%] xl:block lg:block md:block sm:hidden xs:hidden h-[1px] border border-dashed   text-[#bdbbbb] dark:text-[#6e6d6d]" />
             <p className="dark:text-dark-gray font-azarMehr font-medium medium xl:text-[14px] lg:text-[13px] md:text-xs break-all text-black max-sm:text-[13px]">
               {profileData?.position}
             </p>
@@ -68,7 +68,7 @@ export default function Profile(){
             <p className="font-azarMehr dark:text-white font-medium medium xl:text-[14px] lg:text-[13px] md:text-xs break-all text-gray max-sm:text-[13px]">
               {targetData(data.data.selectedProfileData, "achieved score")}
             </p>
-            <hr className="w-[30%] md:w-[30%] xl:block lg:block md:block sm:hidden xs:hidden h-[1px] border border-dashed  text-lightGray dark:text-dark-lightWhite " />
+            <hr className="w-[30%] md:w-[30%] xl:block lg:block md:block sm:hidden xs:hidden h-[1px] border border-dashed  text-[#bdbbbb] dark:text-[#6e6d6d] " />
             <div className="w-[40%] relative bg-[#E9EEF8] dark:bg-[#3F3F3F]  xl:h-[27px] lg:h-[32px] md:h-[26px]  rounded-full  flex justify-end">
               <div
                 className={`bg-[#ffa600] flex items-center  p-3 leading-none rounded-full`}

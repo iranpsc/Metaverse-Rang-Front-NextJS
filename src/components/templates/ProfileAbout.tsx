@@ -14,7 +14,7 @@ export default function ProfileAbout({ setShowModal ,setDataModal}: any) {
 
  
 const submitModalCart = (item:any)=>{
-    console.log(item);
+   
   setDataModal({
     title: targetData(data.data.selectedProfileData, "about me"),
     desc: item,

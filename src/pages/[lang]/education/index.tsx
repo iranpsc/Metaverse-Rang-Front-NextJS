@@ -13,7 +13,7 @@ type IndexProps = {};
 const Index: React.FC<IndexProps> = () => {
     const { languageSelected } = useContext(LangContext);
     const { theme } = useTheme();
-    console.log(languageSelected.dir);
+    
   return (
     <section
       id="light-scrollbar"

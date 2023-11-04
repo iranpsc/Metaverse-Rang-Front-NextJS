@@ -17,7 +17,7 @@ export default function ProfileDetailsDetails({ itemsProfileDetails }: any) {
             <p className="font-azarMehr font-medium xl:text-[14px] lg:text-[12px] md:text-[12px] text-gray dark:text-white max-sm:text-[13px]">
               {item.key}
             </p>
-            <hr className="xl:w-[40%] lg:w-[30%] max-md:w-[20%] h-[1px]  border border-dashed text-lightGray dark:text-dark-lightWhite" />
+            <hr className="xl:w-[40%] lg:w-[30%] max-md:w-[20%] h-[1px]  border border-dashed text-[#bdbbbb] dark:text-[#6e6d6d]" />
 
             <div className="group relative flex justify-center">
               <p className="dark:text-dark-gray text-end font-azarMehr font-semibold  xl:text-[14px] lg:lg:text-[12px] md:text-[12px] max-sm:text-[13px]  text-black">

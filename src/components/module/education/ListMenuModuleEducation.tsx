@@ -40,9 +40,7 @@ const ListMenuEducation: React.FC<ListMenuModuleProps> = ({
 
 
   const selectItemMenuRoute = ((item:any)=>{
-    //console.log("object",item);
-     //setActiveItem(item.id);
-        // router.push(`/${item.code}/citizen/hm-2222/home`);
+   
   })
 
 

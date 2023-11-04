@@ -11,7 +11,7 @@ export default function IpPage() {
   const { languageSelected, data } = useContext(LangContext);
   const lang = languageSelected.code;
 
-console.log("myIp",myIp);
+
   const footerText = data.data.checkIpLang.find(
     (item: any) => item.name === "visit our website"
   ).translation;
