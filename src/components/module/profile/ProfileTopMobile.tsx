@@ -26,7 +26,7 @@ export default function ProfileTopMobile() {
             </p>
           </div>
 
-          <hr className="xl:w-12 lg:w-12 md:w-4 inline-block mx-1  text-lightGray dark:text-dark-lightWhite" />
+          <hr className="xl:w-12 lg:w-12 md:w-4 inline-block mx-1 border border-dashed text-[#bdbbbb] dark:text-[#6e6d6d] " />
 
           <Image
             src={profileData?.kyc?.nationality || "/profile/lock.png"}
@@ -35,7 +35,7 @@ export default function ProfileTopMobile() {
             alt="profile"
             className="inline-block rounded-full xl:w-9 xl:h-9 lg:w-9 lg:h-9 md:w-7 md:h-7 sm:w-12 sm:h-12 xs:w-12 xs:h-12 object-cover"
           />
-          <hr className="xl:w-12 lg:w-12 md:w-4 inline-block mx-1  text-lightGray dark:text-dark-lightWhite" />
+          <hr className="xl:w-12 lg:w-12 md:w-4 inline-block mx-1 border border-dashed  text-[#bdbbbb] dark:text-[#6e6d6d] " />
           <p className=" dark:text-white sm:text-[15px] xs:text-[15px] md:text-[15px] lg:text-[15px] xl:text-[15px]  inline-block mx-1 font-bold font-azarMehr text-extraGray">
             {profileData?.level?.name}
           </p>
@@ -47,10 +47,12 @@ export default function ProfileTopMobile() {
               alt="profile"
               className="inline-block rounded-full xl:w-10 xl:h-10 lg:w-10 lg:h-10 md:w-7 sm:w-12 sm:h-12 xs:w-12 xs:h-12 "
             />
-            <p className="dark:text-black absolute md:text-xs text-white font-azarMehr font-black xl:text-lg sm:text-[14px] xs:text-[14px]">
+            <p className="dark:text-[#212121] absolute md:text-xs text-white font-azarMehr font-black xl:text-lg sm:text-[14px] xs:text-[14px]">
               {languageSelected.code === "fa"
-                ? Persian(profileData?.level?.slug).englishNumber().toString()
-                : profileData?.level?.slug}
+                ? Persian(profileData?.current_level?.slug)
+                    .englishNumber()
+                    .toString()
+                : profileData?.current_level?.slug}
             </p>
           </div>
         </section>

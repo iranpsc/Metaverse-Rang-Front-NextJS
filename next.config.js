@@ -13,6 +13,7 @@ module.exports = {
       "dl.qzparadise.ir",
       "api.rgb.irpsc.com",
       "admin.rgb.irpsc.com",
+      "admin.rgb.irpsc.comlevels",
       "localhost",
     ],
   },

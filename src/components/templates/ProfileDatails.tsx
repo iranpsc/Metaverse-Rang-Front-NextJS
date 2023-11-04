@@ -7,14 +7,16 @@ import ProfileDetailsInteresting from "@/module/profileDetails/ProfileDetailsInt
 export default function ProfileDetails({ setShowModal, setDataModal }: any) {
   const { data, profileData } = useContext(LangContext);
 
+  console.log(data);
   const submitModalCard =(title:any,data:any)=>{
-    if (data === "passions"){
-        setDataModal({ title, desc: profileData?.customs?.passions });
-    }else{
-      setDataModal({ title, desc: data });
+    if (profileData.customs?.passions) {
+      setDataModal({ title, desc: profileData?.customs?.passions });
+      setShowModal(true);
+    } else {
+      // setDataModal({ title:"", desc:"" });
     } 
       
-    setShowModal(true)
+    
   }
 
   const itemsProfileDetails = [
@@ -138,6 +140,7 @@ export default function ProfileDetails({ setShowModal, setDataModal }: any) {
           <p className="font-azarMehr font-medium text-gray dark:text-white max-sm:text-[13px] xl:text-[14px] lg:text-[12px] md:text-[12px] md:mx-[2px] sm:mx-3 xs:mx-3">
             {targetData(data.data.selectedProfileData, "pleasant memory")}
           </p>
+          
           <span
             className="dark:text-dark-yellow font-azarMehr max-sm:text-[13px] cursor-pointer text-blueLink font-medium xl:text-[14px] lg:text-[12px] md:text-[13px] md:mx-[2px] sm:mx-3 xs:mx-3"
             onClick={() =>

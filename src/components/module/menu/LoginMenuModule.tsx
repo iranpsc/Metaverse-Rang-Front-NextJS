@@ -72,14 +72,14 @@ export default function LoginMenuModule({
               </>
             ) : (
               <>
+                <p className="text-white dark:text-dark-background font-azarMehr font-medium text-center text-[15px]">
+                  {menuData[0] && menuData[0].translation}
+                </p>
                 <LoginMenu
                   className={`stroke-white stroke-2 dark:stroke-dark-background h-full w-5 ${
                     isCollapsed ? "hidden" : "visibale"
                   }`}
                 />
-                <p className="text-white dark:text-dark-background font-azarMehr font-medium text-center text-[15px]">
-                  {menuData[0] && menuData[0].translation}
-                </p>
               </>
             )}
           </div>

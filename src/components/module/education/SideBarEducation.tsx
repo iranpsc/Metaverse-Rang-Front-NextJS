@@ -15,7 +15,10 @@ import ListMenuModule from "@/module/menu/ListMenuModule";
 import HeaderMenuModule from "../menu/HeaderMenuModule";
 import HeaderMenuEducationModule from "./HeaderMenuEducationModule";
 //UTILS
-import { sidebarFilteredData } from "@/components/utils/sidebarfuncs";
+import {
+  sidebarFilteredData,
+ 
+} from "@/components/utils/sidebarfuncs";
 
 interface LanguageItem {
   id: number;
@@ -31,6 +34,7 @@ export default function SideBarEducation({ setShowAuthCard, pageName }: any) {
   const router = useRouter();
   const [loginData,setLoginData]=useState([]);
   const [headerData,setHeaderData]=useState([]);
+  const [themeData,setThemeData]=useState([]);
   const [activeItem, SetActiveItem] = useState<number>(0);
   const [data, setData] = useState<any>([]);
   const [activeDropdown, setActiveDropdown] = useState<boolean>(false);
@@ -59,6 +63,9 @@ export default function SideBarEducation({ setShowAuthCard, pageName }: any) {
             setHeaderData(
               sidebarFilteredData(res.data.modals, pageName)?.filteredHeader
             );
+            setThemeData(
+              sidebarFilteredData(res.data.modals, pageName)?.filteredThemeMode
+            );
             break;
           case "education":
             setData(
@@ -80,7 +87,7 @@ export default function SideBarEducation({ setShowAuthCard, pageName }: any) {
         console.log(error);
       }
     };
-
+console.log(themeData)
     fetchData();
   }, [languageSelected.file_url]);
 
@@ -214,7 +221,7 @@ setTheme("dark")
                   theme === "dark" ? "text-white" : "text-black"
                 } font-azarMehr font-medium text-[15px] mb-1`}
               >
-                روشن
+                "s"
               </p>
             </div>
 
@@ -234,7 +241,7 @@ setTheme("dark")
                   theme === "dark" ? "text-white" : "text-black"
                 } font-azarMehr text-[15px] font-medium mb-1`}
               >
-                تیره
+                "s"
               </p>
             </div>
           </div>

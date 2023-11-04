@@ -29,7 +29,7 @@ const HeaderMenuModule: React.FC<HeaderEducationModule> = ({
         )}
         <Image
           src={theme === "dark" ? "/light.png" : "/moon.png"}
-          alt=""
+          alt="img"
           width={20}
           height={20}
           className={`${

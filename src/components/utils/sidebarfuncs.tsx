@@ -16,6 +16,7 @@ export const sidebarFilteredData = (data: any, page: string) => {
         "dark",
         "citizenship page",
         "enter the metaverse",
+        "home page",
       ];
 
       const filteredItems = tabsMenu.fields.filter(
@@ -38,7 +39,20 @@ export const sidebarFilteredData = (data: any, page: string) => {
       const filteredHeader = tabsMenu.fields.filter((item: any) =>
         namesToKeepHeader.includes(item.name)
       );
-      return { filteredItems, filteredHeader, filteredLogin };
+
+      const namesToKeepsThemeMode = ["light","dark"];
+
+       const filteredThemeMode = tabsMenu.fields.filter((item: any) =>
+        namesToKeepsThemeMode.includes(item.name)
+        );
+        
+
+      return {
+        filteredItems,
+        filteredHeader,
+        filteredLogin,
+        filteredThemeMode,
+      };
 
     case "education":
       const modalsCentralPage = data.find(

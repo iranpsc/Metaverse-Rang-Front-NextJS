@@ -26,7 +26,7 @@ const HeaderMenuModule:React.FC<HeaderMenuModuleProps>=({ isCollapsed, toggleCol
         )}
         <Image
           src={theme === "dark" ? "/light.png" : "/moon.png"}
-          alt=""
+          alt="img"
           width={20}
           height={20}
           className={`${
