@@ -70,9 +70,10 @@ export default function Footer() {
               height={1000}
               className="w-[60px] h-[60px] inline bg-balck"
             />
-            <h1 className="text-[22px] font-bold text-[#4C4C4C] dark:text-white">
+            <h1 className="text-[22px]  font-bold text-[#4C4C4C] dark:text-white">
               متاورس ملی
-              <br />
+              
+              <div className="h-3"></div>
               رهبری جهانی در دنیای موازی
             </h1>
           </div>
@@ -90,10 +91,10 @@ export default function Footer() {
           </p>
         </div>
         <div className="col-span-2 mt-6">
-          <p className="text-center font-medium text-[20px] text-[#4C4C4C]">
+          <p className="text-center font-medium text-[20px] text-[#4C4C4C] dark:text-white">
             به شبکه های ما ملحق شوید.
           </p>
-          <div className="flex flex-wrap gap-x-[27px] gap-y-3 justify-end me-3 mt-6">
+          <div className="flex flex-wrap gap-x-[18px] gap-y-3 justify-end me-3 mt-6">
             {socialItems.map((item: ItemIcon) => (
               <Image
                 src={item.img}

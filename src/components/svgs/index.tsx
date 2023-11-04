@@ -32,6 +32,8 @@ export { default as  Shahrvand} from "./shahrvand.svg";
 export { default as  Search} from "./education/search.svg";
 export { default as  Arrow} from "./education/arrow.svg";
 export { default as  Like} from "./education/like.svg";
+export { default as  Dislike} from "./education/dislike.svg";
+export { default as  View} from "./education/view.svg";
 export { default as  Text} from "./education/text.svg";
 export { default as PropertyStatus } from "./education/property-status.svg";
 export { default as Xxx } from "./education/xxx.svg";

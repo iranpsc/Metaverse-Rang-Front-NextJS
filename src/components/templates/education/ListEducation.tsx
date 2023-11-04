@@ -1,11 +1,11 @@
 import Image from "next/image";
-import {Like } from "@/components/svgs";
+import { Like, Dislike, View } from "@/components/svgs";
 
 export default function ListEducation() {
   return (
     <>
       <div className="w-[95%] h-[500px] mt-24  flex flex-col justify-center items-center">
-        <div className="grid grid-cols-3 gap-5">
+        <div className="grid grid-cols-3 gap-10">
           <div className="w-[100%] h-[543px] rounded-[10px] bg-white dark:bg-[#1A1A18] flex flex-col justify-between items-center">
             <Image
               src="/bg-edu.png"
@@ -42,17 +42,17 @@ export default function ListEducation() {
               </span>
               <span>
                 10
-                <Like className="inline ms-2" />
+                <Dislike className="inline ms-2" />
               </span>
 
               <span>
                 600
-                <Like className="inline ms-2" />
+                <View className="inline ms-2" />
               </span>
             </div>
           </div>
 
-          <div className="w-[100%] h-[543px]  rounded-[10px] bg-white dark:bg-[#1A1A18] flex flex-col justify-between items-center">
+          <div className="w-[100%] h-[543px] rounded-[10px] bg-white dark:bg-[#1A1A18] flex flex-col justify-between items-center">
             <Image
               src="/bg-edu.png"
               alt="background"
@@ -88,17 +88,17 @@ export default function ListEducation() {
               </span>
               <span>
                 10
-                <Like className="inline ms-2" />
+                <Dislike className="inline ms-2" />
               </span>
 
               <span>
                 600
-                <Like className="inline ms-2" />
+                <View className="inline ms-2" />
               </span>
             </div>
           </div>
 
-          <div className="w-[100%] h-[543px]  rounded-[10px] bg-white dark:bg-[#1A1A18] flex flex-col justify-between items-center">
+          <div className="w-[100%] h-[543px] rounded-[10px] bg-white dark:bg-[#1A1A18] flex flex-col justify-between items-center">
             <Image
               src="/bg-edu.png"
               alt="background"
@@ -134,12 +134,12 @@ export default function ListEducation() {
               </span>
               <span>
                 10
-                <Like className="inline ms-2" />
+                <Dislike className="inline ms-2" />
               </span>
 
               <span>
                 600
-                <Like className="inline ms-2" />
+                <View className="inline ms-2" />
               </span>
             </div>
           </div>

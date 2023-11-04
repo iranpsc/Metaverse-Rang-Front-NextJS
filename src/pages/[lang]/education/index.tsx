@@ -23,7 +23,7 @@ const Index: React.FC<IndexProps> = () => {
       } `}
     >
       <BaseLayoutEducation>
-        <section className=" flex flex-col justify-start overflow-y-auto overflow-x-hidden items-center bg-[#f8f8f8]">
+        <section className=" flex flex-col justify-start overflow-y-auto overflow-x-hidden items-center bg-[#f8f8f8] dark:bg-[#000] bg-opacity20">
           <div className="mt-[50px] w-[724px] h-auto py-4 rounded-[67px] shadow-md hover:shodow-2xl bg-white dark:bg-[#1A1A18] flex flex-row justify-between items-center">
             <Search className="ms-8 fill-blueLink dark:fill-dark-yellow" />
             <input

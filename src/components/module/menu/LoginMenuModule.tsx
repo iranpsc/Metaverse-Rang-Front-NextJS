@@ -40,15 +40,15 @@ export default function LoginMenuModule({
         >
           {showFullModal && (
             <div className=" flex flex-col gap-2 ">
-              <p className="text-white dark:text-black text-[16px] font-bold">
+              <p className="text-white dark:text-black text-[14px] font-medium">
                 صفحه مشخصات شهروند
               </p>
               <hr className=" text-white dark:text-[#2D2D2A38]" />
-              <p className="text-white dark:text-black text-[16px] font-bold">
+              <p className="text-white dark:text-black text-[14px] font-medium">
                 صفحه نخست
               </p>
               <hr className=" text-white dark:text-[#2D2D2A38]" />
-              <p className="text-white dark:text-black text-[16px] font-bold">
+              <p className="text-white dark:text-black text-[14px] font-medium">
                 خروج
               </p>
               <hr className=" text-white dark:text-[#2D2D2A38]" />
@@ -77,7 +77,7 @@ export default function LoginMenuModule({
                     isCollapsed ? "hidden" : "visibale"
                   }`}
                 />
-                <p className="text-white dark:text-dark-background font-azarMehr font-medium text-center">
+                <p className="text-white dark:text-dark-background font-azarMehr font-medium text-center text-[15px]">
                   {menuData[0] && menuData[0].translation}
                 </p>
               </>
