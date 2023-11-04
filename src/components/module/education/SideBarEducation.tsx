@@ -34,7 +34,7 @@ export default function SideBarEducation({ setShowAuthCard, pageName }: any) {
   const router = useRouter();
   const [loginData,setLoginData]=useState([]);
   const [headerData,setHeaderData]=useState([]);
-  const [themeData,setThemeData]=useState([]);
+  const [themeData,setThemeData]=useState<any[]>([]);
   const [activeItem, SetActiveItem] = useState<number>(0);
   const [data, setData] = useState<any>([]);
   const [activeDropdown, setActiveDropdown] = useState<boolean>(false);
@@ -221,7 +221,7 @@ setTheme("dark")
                   theme === "dark" ? "text-white" : "text-black"
                 } font-azarMehr font-medium text-[15px] mb-1`}
               >
-                "s"
+                {themeData[0]?.name && themeData[0].translation}
               </p>
             </div>
 
@@ -241,7 +241,7 @@ setTheme("dark")
                   theme === "dark" ? "text-white" : "text-black"
                 } font-azarMehr text-[15px] font-medium mb-1`}
               >
-                "s"
+                {themeData[1]?.name && themeData[1].translation}
               </p>
             </div>
           </div>

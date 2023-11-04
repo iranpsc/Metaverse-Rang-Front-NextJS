@@ -39,7 +39,7 @@ export default function LoginMenuModule({
           } bg-blueLink dark:bg-dark-yellow rounded-2xl flex flex-col justify-evenly items-center transition-all duration-300 ease-linear`}
         >
           {showFullModal && (
-            <div className=" flex flex-col gap-2 ">
+            <div className=" flex flex-col gap-2 w-[90%]">
               <p className="text-white dark:text-black text-[14px] font-medium">
                 {menuData[3] && menuData[3].translation}
               </p>

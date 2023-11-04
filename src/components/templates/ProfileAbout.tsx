@@ -4,6 +4,7 @@ import Image from "next/image";
 import { LangContext } from "@/context/LangContext";
 import { targetData } from "@/utils/targetDataName";
 import ModalCard from "@/templates/ModalCard";
+import { motion } from "framer-motion";
 
 export default function ProfileAbout({ setShowModal, setDataModal }: any) {
   const { data, profileData } = useContext(LangContext);
