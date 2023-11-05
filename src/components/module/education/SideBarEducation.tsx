@@ -24,6 +24,7 @@ interface LanguageItem {
   id: number;
   code: string;
   name: string;
+  native_name:string;
   direction: string;
   icon: string;
   file_url: string;
@@ -87,7 +88,7 @@ export default function SideBarEducation({ setShowAuthCard, pageName }: any) {
         console.log(error);
       }
     };
-console.log(themeData)
+
     fetchData();
   }, [languageSelected.file_url]);
 
@@ -96,6 +97,7 @@ console.log(themeData)
       id: item.id,
       code: item.code,
       name: item.name,
+      native_name:item.native_name,
       dir: item.direction,
       icon: item.icon,
       file_url: item.file_url,
@@ -111,9 +113,9 @@ setTheme("dark")
     }
   }
   return (
-    <div className=" xl:relative lg:relative md:relative ">
+    <div className=" xl:relative lg:relative md:relative bg-white dark:bg-dark-background">
       <div
-        className={`xl:min-h-screen  lg:min-h-screen md:min-h-screen overflow-y-scroll bg-white dark:bg-dark-background relative sm:max-h-screen xs:max-h-screen ${
+        className={`xl:min-h-screen  lg:min-h-screen md:min-h-screen overflow-y-scroll  relative sm:max-h-screen xs:max-h-screen ${
           isCollapsed
             ? "sm:hidden xs:hidden  xl:block lg:block md:block "
             : "backdrop-blur-sm  bg-blackTransparent/30 "
@@ -124,8 +126,8 @@ setTheme("dark")
             isCollapsed
               ? "w-[70px] max-lg:hidden"
               : "xl:w-[250px]  lg:w-[175px] md:w-[250px] sm:w-[175px] xs:w-[175px] sm:shadow-[#000000] xs:sm:shadow-[#000000] visible"
-          }  min-h-screen    sm:z-50 transition-all duration-300 ease-linear p-0
-        flex flex-col justify-between items-center sticky pb-10
+          }  min-h-screen    sm:z-50 transition-all duration-300 ease-linear
+        flex flex-col justify-between items-center sticky
         `}
         >
           <div className="sticky w-full top-0 z-50 bg-white dark:bg-dark-background  transition-all duration-300 ease-linear ">

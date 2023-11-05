@@ -7,6 +7,7 @@ export const aboutMe = "about me";
 
 export const targetData = (data: any, targetName: any) => {
   const res = data.find((item: any) => item.name === targetName);
+
   return res ? res.translation : "";
 };
 

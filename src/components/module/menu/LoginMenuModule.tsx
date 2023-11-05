@@ -40,15 +40,15 @@ export default function LoginMenuModule({
         >
           {showFullModal && (
             <div className=" flex flex-col gap-2 w-[90%]">
-              <p className="text-white dark:text-black text-[14px] font-medium">
+              <p className="text-white dark:text-black text-[14px] font-normal">
                 {menuData[3] && menuData[3].translation}
               </p>
               <hr className=" text-white dark:text-[#2D2D2A38]" />
-              <p className="text-white dark:text-black text-[14px] font-medium">
+              <p className="text-white dark:text-black text-[14px] font-normal ">
                 {menuData[2] && menuData[2].translation}
               </p>
               <hr className=" text-white dark:text-[#2D2D2A38]" />
-              <p className="text-white dark:text-black text-[14px] font-medium">
+              <p className="text-white dark:text-black text-[14px] font-normal">
                 {menuData[1] && menuData[1].translation}
               </p>
               <hr className=" text-white dark:text-[#2D2D2A38]" />

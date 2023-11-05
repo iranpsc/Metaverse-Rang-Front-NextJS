@@ -102,24 +102,27 @@ const ListMenuModule: React.FC<ListMenuModuleProps> = ({
                         {languagesData.map((item: LanguageDataItem) => (
                           <li
                             key={item.id}
-                            className={`border-none mt-4 font-azarMehr font-normal hover:text-[#0000ffd9] dark:hover:text-dark-yellow  ${
+                            className={`   border-none mt-4   ${
                               languageSelected.name === item.name
                                 ? "text-[#0066FF] dark:text-dark-yellow"
                                 : ""
-                            } flex flex-row items-center cursor-pointer hover:text-[#0066FF]`}
+                            } flex flex-row items-center  cursor-pointer hover:text-[#0066FF]`}
                             onClick={() => handleDirChange(item)}
                           >
                             <div className=" p-1 w-10  ">
                               {languageSelected.name === item.name && <></>}
                             </div>
-                            <Image
+                            <div className="flex flex-row justify-evenly items-center w-full">
+                              <Image
                               src={item.icon}
                               alt=""
                               width={100}
                               height={100}
                               className={"w-7 h-6 me-6"}
                             />
-                            {item.name}
+                           <p className="font-azarMehr font-normal hover:text-[#0000ffd9] dark:hover:text-dark-yellow">{item.native_name}</p> 
+                            </div>
+                            
                           </li>
                         ))}
                       </ul>

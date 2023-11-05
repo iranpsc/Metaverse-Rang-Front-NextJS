@@ -18,16 +18,17 @@ export default function ProfileDetailsDetails({ itemsProfileDetails }: any) {
       lg:mt-0 md:mt-0 sm:mt-2 xs:mt-2
       "
       >
-        {itemsProfileDetails.map((item: any): any => (
+        {itemsProfileDetails.map((item: any,i:number): any => (
           <div
-            className="flex flex-nowrap px-3 xl:mt-3 lg:mt-3 md:mt-2 sm:mt-1 xs:mt-1 justify-between w-full items-center
+          key={i}
+            className="flex flex-row px-3 xl:mt-3 lg:mt-3 md:mt-2 sm:mt-1 xs:mt-1 justify-between w-full items-center
             xl:py-[4px] lg:py-[4px] md:py-[4px] sm:py-[5px] xs:py-[5px]
             "
           >
             <p className="font-azarMehr font-medium xl:text-[14px] lg:text-[12px] md:text-[12px] text-gray dark:text-white max-sm:text-[13px]">
               {item.key}
             </p>
-            <hr className="xl:w-[40%] lg:w-[30%] max-md:w-[20%] h-[1px]  border border-dashed text-[#bdbbbb] dark:text-[#6e6d6d]" />
+            <hr className="xl:w-[40%] lg:w-[30%] max-md:w-[20%] h-[1px] xl:visible lg:visible md:invisible sm:invisible xs:invisible border border-dashed text-[#bdbbbb] dark:text-[#6e6d6d]" />
 
             <div className="group relative flex justify-center">
               <p className="dark:text-dark-gray text-end font-azarMehr font-semibold  xl:text-[14px] lg:lg:text-[12px] md:text-[12px] max-sm:text-[13px]  text-black">

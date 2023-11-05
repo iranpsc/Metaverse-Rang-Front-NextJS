@@ -1,23 +1,25 @@
 import { useContext, useEffect } from "react";
 import { LangContext } from "@/context/LangContext";
 import { targetData } from "@/utils/targetDataName";
-import ProfileDetailsDetails  from "@/module/profileDetails/ProfileDetailsDetails";
+import ProfileDetailsDetails from "@/module/profileDetails/ProfileDetailsDetails";
 import ProfileDetailsInteresting from "@/module/profileDetails/ProfileDetailsInteresting";
 
 export default function ProfileDetails({ setShowModal, setDataModal }: any) {
   const { data, profileData } = useContext(LangContext);
-
-  console.log(data);
-  const submitModalCard =(title:any,data:any)=>{
-    if (profileData.customs?.passions) {
-      setDataModal({ title, desc: profileData?.customs?.passions });
+  
+  const submitModalCard = (title: any, data: any, type: string) => {
+    
+    if (data) {
+      setDataModal({
+        title,
+        desc: data,
+        type,
+      });
       setShowModal(true);
     } else {
       // setDataModal({ title:"", desc:"" });
-    } 
-      
-    
-  }
+    }
+  };
 
   const itemsProfileDetails = [
     {
@@ -57,7 +59,6 @@ export default function ProfileDetails({ setShowModal, setDataModal }: any) {
       fValue: profileData?.customs?.education,
     },
   ];
-
 
   const itemsInterestedProfileDetails = [
     {
@@ -107,6 +108,7 @@ export default function ProfileDetails({ setShowModal, setDataModal }: any) {
                   data.data.selectedProfileData,
                   "if you had the ability to solve a problem, what would it be?"
                 ),
+                "",
                 ""
               )
             }
@@ -126,7 +128,8 @@ export default function ProfileDetails({ setShowModal, setDataModal }: any) {
             onClick={() =>
               submitModalCard(
                 targetData(data.data.selectedProfileData, "forecast 2022"),
-                profileData?.customs?.prediction
+                profileData?.customs?.prediction,
+                "forecast 2022"
               )
             }
           >
@@ -140,13 +143,14 @@ export default function ProfileDetails({ setShowModal, setDataModal }: any) {
           <p className="font-azarMehr font-medium text-gray dark:text-white max-sm:text-[13px] xl:text-[14px] lg:text-[12px] md:text-[12px] md:mx-[2px] sm:mx-3 xs:mx-3">
             {targetData(data.data.selectedProfileData, "pleasant memory")}
           </p>
-          
+
           <span
             className="dark:text-dark-yellow font-azarMehr max-sm:text-[13px] cursor-pointer text-blueLink font-medium xl:text-[14px] lg:text-[12px] md:text-[13px] md:mx-[2px] sm:mx-3 xs:mx-3"
             onClick={() =>
               submitModalCard(
                 targetData(data.data.selectedProfileData, "pleasant memory"),
-                profileData?.customs?.memory
+                profileData?.customs?.memory,
+                "pleasant memory"
               )
             }
           >
@@ -165,7 +169,8 @@ export default function ProfileDetails({ setShowModal, setDataModal }: any) {
             onClick={() =>
               submitModalCard(
                 targetData(data.data.selectedProfileData, "favorites"),
-                "passions"
+                profileData?.customs?.passions,
+                "favorites",
               )
             }
           >

@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useContext,useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import BaseLayout from "@/components/BaseLayout";
 import Profile from "@/templates/Profile";
 import ProfileDetails from "@/templates/ProfileDatails";
@@ -9,9 +9,8 @@ import ModalCard from "@/templates/ModalCard";
 
 export default function Home({data}:any) {
   const { languageSelected } = useContext(LangContext);
-  const [showModal,setShowModal] = useState<boolean>(false);
-  const [dataModal,setDataModal] = useState({title:"",desc:""});
-
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [dataModal, setDataModal] = useState({ title: "", desc: "" });
 
   function addPageJsonLd() {
     return {

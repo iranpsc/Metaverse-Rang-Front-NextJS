@@ -18,6 +18,7 @@ export default function ProfileAbout({ setShowModal, setDataModal }: any) {
       desc: item,
     });
     setShowModal(true);
+     
   };
 
   const submitCart = (dataItem: any) => {
@@ -71,7 +72,7 @@ export default function ProfileAbout({ setShowModal, setDataModal }: any) {
               width={1000}
               height={1000}
               alt="profile"
-              className="xl:w-[150px] lg:w-[130px] md:w-[100px] sm:w-[55px] xs:w-[150px]"
+              className="xl:w-[145px] lg:w-[130px] md:w-[100px] sm:w-[100px] xs:w-[95px]"
             />
           </motion.div>
         ) : (
@@ -88,7 +89,7 @@ export default function ProfileAbout({ setShowModal, setDataModal }: any) {
               width={1000}
               height={1000}
               alt="profile"
-              className="xl:w-[180px] lg:w-[150px] md:w-[110px] sm:w-[75px] xs:w-[150px]"
+              className="xl:w-[145px] lg:w-[130px] md:w-[100px] sm:w-[100px] xs:w-[95px]"
             />
           </motion.div>
         )}

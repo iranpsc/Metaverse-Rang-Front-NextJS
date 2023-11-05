@@ -16,6 +16,7 @@ interface Props {
 interface LanguageSelected {
   id: number;
   name: string;
+  native_name:string;
   code: string;
   dir: string;
   icon: string;
@@ -36,6 +37,7 @@ const initialValue: LangContextType = {
     id: 7,
     code: "en",
     name: "English",
+    native_name:"English",
     dir: "ltr",
     icon: "https://admin.rgb.irpsc.com/assets/images/flags/en.svg",
     file_url: "https://rgb.irpsc.com/metaverse/lang/en.json",
@@ -111,6 +113,7 @@ const LangProvider = ({ children }: Props) => {
               id: query.id,
               code: query.code,
               name: query.name,
+              native_name:query.native_name,
               dir: query.direction,
               icon: query.icon,
               file_url: query.file_url,
