@@ -11,6 +11,7 @@ export default function LanguageList(){
      id: parseInt(selectedId),
      dir: selectedDirection,
      code:"",
+     native_name:"",
      name:"",
      icon:"",
      file_url:""

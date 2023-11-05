@@ -14,9 +14,10 @@ interface LanguageItem {
   id: number;
   code: string;
   name: string;
+  native_name:string;
   direction: string;
   icon: string;
-  file_url:string
+  file_url: string;
 }
 
 export default function Sidebar({ setShowAuthCard,page }:any) {
@@ -37,6 +38,7 @@ export default function Sidebar({ setShowAuthCard,page }:any) {
       id: item.id,
       code: item.code,
       name: item.name,
+      native_name: item.native_name,
       dir: item.direction,
       icon: item.icon,
       file_url: item.file_url,
