@@ -111,13 +111,13 @@ setTheme("dark")
     }
   }
   return (
-    <div className="relative">
+    <div className=" xl:relative lg:relative md:relative ">
       <div
         className={`xl:min-h-screen  lg:min-h-screen md:min-h-screen overflow-y-scroll bg-white dark:bg-dark-background relative sm:max-h-screen xs:max-h-screen ${
           isCollapsed
             ? "sm:hidden xs:hidden  xl:block lg:block md:block "
             : "backdrop-blur-sm  bg-blackTransparent/30 "
-        }   sm:absolute xs:absolute xl:relative lg:relative md:relative xl:w-fit lg:w-fit md:w-fit z-[60] sm:w-full xs:w-full no-scrollbar`}
+        }   sm:absolute xs:absolute   xl:relative lg:relative md:relative xl:w-fit lg:w-fit md:w-fit z-[60] sm:w-full xs:w-full no-scrollbar`}
       >
         <aside
           className={`${
@@ -162,7 +162,7 @@ setTheme("dark")
       </div>
 
       {isCollapsed ? (
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center xl:flex lg:flex md:flex sm:hidden xs:hidden">
           <div className="absolute bottom-3  w-[50px] h-[50px] flex flex-col justify-center items-center  z-[100]  bg-white dark:bg-dark-background ">
             <hr
               className={`${
@@ -196,11 +196,11 @@ setTheme("dark")
           </div>
         </div>
       ) : (
-        <div className="absolute bottom-3  w-full h-[50px] flex flex-col justify-center items-center  z-[100]  bg-white dark:bg-dark-background ">
+        <div className="xl:w-[250px]  lg:w-[175px] md:w-[250px] sm:w-[175px] xs:w-[175px] absolute xl:bottom-3  lg:bottom-3  md:bottom-3 sm:bottom-0 xs:bottom-0  w-full h-[50px] flex flex-col justify-center items-center  z-[100]  bg-white dark:bg-dark-background ">
           <hr
             className={`${
               isCollapsed ? "mx-5" : "mx-2"
-            } border-[1px] w-[90%] border-[#00000017] dark:border-[#3F3F3F] mb-3`}
+            } border-[1px] w-[90%] border-[#00000017] dark:border-[#3F3F3F] xl:mb-3`}
           />
           <div className="z-50 rounded-full w-[90%] cursor-pointer flex flex-row justify-evenly items-center bg-[#e8e8e8]  dark:bg-[#000] ">
             <div
@@ -219,7 +219,7 @@ setTheme("dark")
               <p
                 className={` ${
                   theme === "dark" ? "text-white" : "text-black"
-                } font-azarMehr font-medium text-[15px] mb-1`}
+                } font-azarMehr font-medium text-[15px] mb-1 `}
               >
                 {themeData[0]?.name && themeData[0].translation}
               </p>

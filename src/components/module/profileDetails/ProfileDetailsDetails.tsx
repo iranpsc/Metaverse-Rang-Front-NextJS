@@ -1,15 +1,25 @@
-
+import { motion } from "framer-motion";
 export default function ProfileDetailsDetails({ itemsProfileDetails }: any) {
+ 
+  
+
+
+
+ 
   return (
     <>
-      <section
+      <motion.section
+        transition={{
+          ease: "linear",
+          duration: 2,
+          x: { duration: 1 },
+        }}
         className="dark:bg-dark-background  xl:basis-2/5 lg:basis-2/5 md:basis-2/4 flex flex-col justify-evenly items-center gap-2 transition-all duration-300 ease-linear bg-white w-full rounded-[10px]  xl:pb-3  lg:pb-3 md:pb-3  xl:gap-2 lg:gap-2 md:gap-6 xl:mt-0
       lg:mt-0 md:mt-0 sm:mt-2 xs:mt-2
       "
       >
         {itemsProfileDetails.map((item: any): any => (
           <div
-            key={item.id}
             className="flex flex-nowrap px-3 xl:mt-3 lg:mt-3 md:mt-2 sm:mt-1 xs:mt-1 justify-between w-full items-center
             xl:py-[4px] lg:py-[4px] md:py-[4px] sm:py-[5px] xs:py-[5px]
             "
@@ -29,7 +39,7 @@ export default function ProfileDetailsDetails({ itemsProfileDetails }: any) {
             </div>
           </div>
         ))}
-      </section>
+      </motion.section>
     </>
   );
 }

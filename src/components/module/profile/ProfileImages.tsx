@@ -1,6 +1,7 @@
 import { useContext, useState,useEffect } from "react";
 import Image from "next/image";
 import { LangContext } from "@/context/LangContext";
+import { motion } from "framer-motion";
 
 import { useTheme } from "next-themes";
 
@@ -54,7 +55,10 @@ export default function ProfileImages() {
   return (
     <>
       <section className="dark:bg-dark-background  relative bg-white transition-all duration-300 ease-linear mt-[6px] rounded-[10px] flex xl:flex-row lg:flex-row md:flex-col sm:flex-col xs:flex-col md:gap-5">
-        <div className=" dark:bg-dark-background bg-white  flex justify-center basis-[80%] items-center rounded-[10px] ">
+        <div
+          
+          className=" dark:bg-dark-background bg-white  flex justify-center basis-[80%] items-center rounded-[10px] "
+        >
           <Image
             src={imgs0 || "/temp.png"}
             width={1000}
@@ -71,9 +75,17 @@ export default function ProfileImages() {
               xl:bg-gradient-to-b lg:bg-gradient-to-b md:bg-gradient-to-r mb-1 sm:bg-gradient-to-l xs:bg-gradient-to-l  from-[#DADADA00] via-[#b3b3b3] to-[#DADADA00]"
           />
 
-          <div className="h-full flex flex-col xl:flex-col lg:flex-col md:flex-row sm:flex-row xs:flex-row w-full xl:gap-2 lg:gap-2 md:gap-3 sm:gap-5 xs:gap-5  justify-center items-center md:pb-3 sm:pb-3 xs:pb-3">
+          <motion.div
+            initial={{ opacity: 0, scale: 0, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{
+              delayChildren: 0.9,
+              staggerChildren: 0.6,
+            }}
+            className="h-full flex flex-col xl:flex-col lg:flex-col md:flex-row sm:flex-row xs:flex-row w-full xl:gap-2 lg:gap-2 md:gap-3 sm:gap-5 xs:gap-5  justify-center items-center md:pb-3 sm:pb-3 xs:pb-3"
+          >
             {images}
-          </div>
+          </motion.div>
         </div>
       </section>
     </>

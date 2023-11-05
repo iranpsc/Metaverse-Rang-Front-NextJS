@@ -57,22 +57,40 @@ export default function ProfileAbout({ setShowModal, setDataModal }: any) {
         <br />
       </div>
       <div className="dark:bg-dark-background h-[90%] bg-white transition-all duration-300 ease-linear  items-center flex flex-col justify-center mt-[6px] md:mt-1 w-full rounded-[10px] p-2 md:p-0 ">
-        {userId === "hm-2000003" ? (
-          <Image
-            src="/profile/alizadeh.png"
-            width={1000}
-            height={1000}
-            alt="profile"
-            className="xl:w-[150px] lg:w-[130px] md:w-[100px] sm:w-[55px] xs:w-[150px]"
-          />
+        {userId && userId === "hm-2000003" ? (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{
+              duration: 0.5,
+              ease: "backInOut",
+            }}
+          >
+            <Image
+              src="/profile/alizadeh.png"
+              width={1000}
+              height={1000}
+              alt="profile"
+              className="xl:w-[150px] lg:w-[130px] md:w-[100px] sm:w-[55px] xs:w-[150px]"
+            />
+          </motion.div>
         ) : (
-          <Image
-            src="/profile/position.png"
-            width={1000}
-            height={1000}
-            alt="profile"
-            className="xl:w-[180px] lg:w-[150px] md:w-[110px] sm:w-[75px] xs:w-[150px]"
-          />
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{
+              duration: 0.5,
+              ease: "backInOut",
+            }}
+          >
+            <Image
+              src="/profile/position.png"
+              width={1000}
+              height={1000}
+              alt="profile"
+              className="xl:w-[180px] lg:w-[150px] md:w-[110px] sm:w-[75px] xs:w-[150px]"
+            />
+          </motion.div>
         )}
       </div>
     </section>

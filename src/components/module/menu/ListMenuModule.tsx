@@ -67,7 +67,11 @@ const ListMenuModule: React.FC<ListMenuModuleProps> = ({
                     color={`${
                       item.id == activeItem
                         ? "stroke-blueLink   dark:dark:stroke-dark-yellow"
-                        : "stroke-gray "
+                        : `   ${
+                            item.name === "home"
+                              ? "stroke-blueLink   dark:dark:stroke-dark-yellow "
+                              : "stroke-gray"
+                          }`
                     }`}
                   />
                 </span>
@@ -125,9 +129,13 @@ const ListMenuModule: React.FC<ListMenuModuleProps> = ({
                   <span
                     className={`   ${
                       item.id === activeItem
-                        ? "text-blueLink dark:text-dark-yellow   "
-                        : "text-gray dark:text-gray"
-                    }  capitalize font-azarMehr font-normal  cursor-pointer hover:text-[#0000ffd9] dark:hover:text-dark-yellow  ${
+                        ? "text-blueLink dark:text-dark-yellow "
+                        : `   ${
+                            item.name === "home"
+                              ? "text-[#0000ffd9] dark:text-dark-yellow "
+                              : "text-gray dark:text-gray "
+                          }`
+                    }  capitalize font-azarMehr font-normal  cursor-pointer hover:text-[#0000ffd9] dark:hover:text-dark-yellow ${
                       isCollapsed ? "hidden" : "visible"
                     } `}
                   >

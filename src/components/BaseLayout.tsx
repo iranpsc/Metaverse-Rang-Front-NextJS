@@ -1,6 +1,7 @@
 import { ReactNode, useState } from "react";
 import SideBarEducation from "./module/education/SideBarEducation";
 import AuthCards from "@/layout/AuthCards";
+import Sidebar from "./Sidebar";
 
 interface Props {
   children: ReactNode;

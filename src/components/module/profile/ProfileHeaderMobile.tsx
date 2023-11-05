@@ -27,7 +27,7 @@ export default function ProfileHeaderMobile() {
 
         <div className="flex flex-rows justify-center items-center">
           <div className=" ml-1">
-            <p className=" dark:text-white md:text-[16px] block font-azarMehr  font-bold text-xl text-black">
+            <p className=" dark:text-white md:text-[16px] block font-azarMehr  font-bold text-xl text-black sm:text-center">
               Meta Rgb
             </p>
             <p className="dark: text-dark-gray  md:text-[11px] font-normal text-mediumGray">
@@ -39,7 +39,7 @@ export default function ProfileHeaderMobile() {
             width={1000}
             height={1000}
             alt=""
-            className=" w-[45px] h-[50px] sm:mx-1 sm:w-[50px] sm:h-[50px] xs:w-[40px] xs:h-[40px] xs:mx-1"
+            className=" w-[45px] h-[50px] sm:mx-2 sm:w-[50px] sm:h-[50px] xs:w-[40px] xs:h-[40px] xs:mx-2"
           />
         </div>
       </div>
