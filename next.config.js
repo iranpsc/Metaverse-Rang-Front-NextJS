@@ -18,5 +18,17 @@ module.exports = {
     ],
   },
   experimental: { esmExternals: true, serverActions: true },
-
+  async rewrites() {
+    return [
+      {
+        source: "/en/citizen/:id",
+        destination: "https://play.irpsc.com/metaverse/lang/en.json",
+      },
+      {
+        source: "/fa/citizen/:id",
+        destination: "https://play.irpsc.com/metaverse/lang/fa.json",
+      },
+      
+    ];
+  },
 };
