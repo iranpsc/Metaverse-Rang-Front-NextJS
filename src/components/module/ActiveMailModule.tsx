@@ -5,6 +5,7 @@ import {
 
 
 export default function ActiveMailModule({ data, lang }: any) {
+  console.log(data);
   const domain = data.split("@")[1];
   const domainIcons: any = {
     "yahoo.com": "/mails/yahoo.png",

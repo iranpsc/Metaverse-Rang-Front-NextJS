@@ -12,10 +12,11 @@ import IpPage from '@/module/IpPage';
 import CheckIp from "@/module/CheckIp";
 
 export default function AuthCards({setShowAuthCard}:any) {
-  const { modalName } = useContext(AuthContext);
+  const { modalName,setModalName } = useContext(AuthContext);
   const { languageSelected,data } = useContext(LangContext);
   const lang = languageSelected.code;
 
+ 
  
   return (
     <div
@@ -63,8 +64,8 @@ export default function AuthCards({setShowAuthCard}:any) {
                 <HeaderAuth
                   setShowAuthCardHeader={setShowAuthCard}
                   title={{
-                    fa: "فعال سازی حساب",
-                    en: "Account Activation",
+                    fa: " شهروندی فعال سازی حساب",
+                    en: "Citizen Account Activation",
                   }}
                 />
                 <ActiveMailModule data={modalName.data} lang={lang} />
@@ -75,8 +76,9 @@ export default function AuthCards({setShowAuthCard}:any) {
                 <HeaderAuth
                   setShowAuthCardHeader={setShowAuthCard}
                   title={
-                    data.data.checkIpLang.find((item:any) => item.name === "access level")
-                      .translation
+                    data.data.checkIpLang.find(
+                      (item: any) => item.name === "access level"
+                    ).translation
                   }
                 />
                 <IpPage />
@@ -88,8 +90,9 @@ export default function AuthCards({setShowAuthCard}:any) {
                 <HeaderAuth
                   setShowAuthCardHeader={setShowAuthCard}
                   title={
-                    data.data.checkIpPageLang.find((item:any) => item.name === "access level")
-                      .translation
+                    data.data.checkIpPageLang.find(
+                      (item: any) => item.name === "access level"
+                    ).translation
                   }
                 />
                 <CheckIp />

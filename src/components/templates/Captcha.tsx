@@ -44,6 +44,7 @@ export default function Captcha({
         seShowErrorLoginAccess("");
         
         setShowCaptcha(false);
+      
       }
     } catch (err: any) {
       setShowCaptcha(false);
@@ -64,11 +65,15 @@ export default function Captcha({
         "https://api.rgb.irpsc.com/api/register",
         requestData
       );
-          setModalName({name:"ActiveEmailPage",data:requestData.email})
+         // setModalName({name:"ActiveEmailPage",data:requestData.email})
           console.log(response.data);
       if (response.data) {
   
         setShowCaptcha(false);
+                   setModalName({
+                     name: "ActiveEmailPage",
+                     data: requestData.email,
+                   });
       }
     } catch (err: any) {
       console.log(err);
