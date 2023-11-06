@@ -1,6 +1,10 @@
+import { useState, useEffect, useContext } from "react";
+import { LangContext } from "@/context/LangContext";
 import Image from "next/image";
-import { Search, Arrow, Like, Text, Xxx, ShowAll } from "@/components/svgs";
+import axios from "axios";
+
 export default function Footer() {
+    const { languageSelected } = useContext(LangContext);
   interface ItemIcon {
     img: string;
   }
@@ -47,11 +51,36 @@ export default function Footer() {
     { img: "/social/filo.png" },
   ];
 
+     useEffect(() => {
+       const fetchData = async () => {
+         try {
+           const res = await axios.get(`${languageSelected.file_url}`);
+
+           const modalsProfile = res.data.modals.find(
+             (modal: any) => modal.name === "footer-menu"
+           ).tabs;
+
+           const tabsMenu = modalsProfile.find(
+             (item: any) => item.name === "our-systems"
+           );
+
+         
+
+          console.log(tabsMenu.fields);
+   
+         } catch (err) {}
+       };
+       fetchData();
+     }, [languageSelected.id]);
+   
+
   return (
+    
     <>
       <div className="h-fit  w-[96%] mt-[200px] flex flex-row rounded-[10px] p-3 items-center justify-between  bg-white dark:bg-[#1A1A18]">
-        {item.map((item: ItemIcon) => (
+        {item.map((item: ItemIcon,i:number) => (
           <Image
+          key={i}
             src={item.img}
             alt="rgb"
             width={1000}
@@ -95,8 +124,9 @@ export default function Footer() {
             به شبکه های ما ملحق شوید.
           </p>
           <div className="flex flex-wrap gap-x-[18px] gap-y-3 justify-end me-3 mt-6">
-            {socialItems.map((item: ItemIcon) => (
+            {socialItems.map((item: ItemIcon,i:number) => (
               <Image
+              key={i}
                 src={item.img}
                 alt="rgb"
                 width={1000}

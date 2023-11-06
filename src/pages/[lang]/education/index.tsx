@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { useTheme } from "next-themes";
 import { LangContext } from "@/context/LangContext";
 import { Search } from "@/components/svgs";
+
 //COMPONENTS
 import TopTrainers from "@/components/templates/education/TopTrainers";
 import Categories from "./../../../components/templates/education/Categories";
@@ -13,6 +14,8 @@ type IndexProps = {};
 const Index: React.FC<IndexProps> = () => {
     const { languageSelected } = useContext(LangContext);
     const { theme } = useTheme();
+
+   
     
   return (
     <section

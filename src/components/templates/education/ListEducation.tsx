@@ -1,7 +1,28 @@
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Like, Dislike, View } from "@/components/svgs";
+import axios from "axios";
 
 export default function ListEducation() {
+   const [data, setData] = useState<any>([]);
+
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const res = await axios.get(
+            "https://api.rgb.irpsc.com/api/tutorials/categories"
+          );
+         
+          setData(res.data.data);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
+      fetchData();
+    }, []);
+
+  
   return (
     <>
       <div className="w-[95%] h-[500px] mt-24  flex flex-col justify-center items-center">

@@ -103,8 +103,13 @@ const LangProvider = ({ children }: Props) => {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          "https://admin.rgb.irpsc.com/api/translations"
-        );
+          "https://admin.rgb.irpsc.com/api/translations", {
+          headers: {
+            "Content-Type": "application/json",
+            
+          },
+        });
+        
         if (lang) {
           const query = res.data.data.find((item: any) => item.code === lang);
 
@@ -139,8 +144,13 @@ const LangProvider = ({ children }: Props) => {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          `https://api.rgb.irpsc.com/api/citizen/${userId}`
-        );
+          `https://api.rgb.irpsc.com/api/citizen/${userId}`, {
+          headers: {
+            "Content-Type": "application/json",
+            
+          },
+        });
+        
 
         setProfileData(res.data.data);
       } catch (err) {}
@@ -153,7 +163,13 @@ const LangProvider = ({ children }: Props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`${languageSelected.file_url}`);
+        const res = await axios.get(`${languageSelected.file_url}`, {
+          headers: {
+            "Content-Type": "application/json",
+            
+          },
+        });
+
      
 
         const modalsProfile = res.data.modals.find(
