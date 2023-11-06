@@ -163,12 +163,14 @@ const LangProvider = ({ children }: Props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`${languageSelected.file_url}`, {
-          headers: {
-            "Content-Type": "application/json",
-            
-          },
-        });
+        const res = await axios.get(
+          `https://play.irpsc.com/metaverse/lang/fa.json`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
 
      
 
@@ -225,7 +227,9 @@ const LangProvider = ({ children }: Props) => {
             centralPageLang:centralPageTabs.fields
           },
         });
-      } catch (err) {}
+      } catch (err) {
+        console.log("test",err);
+      }
     };
     fetchData();
   }, [languageSelected.id]);
