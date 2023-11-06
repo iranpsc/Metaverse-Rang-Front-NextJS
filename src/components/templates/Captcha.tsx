@@ -3,6 +3,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { useTheme } from "next-themes";
 import axios from "axios";
 import { AuthContext } from "@/context/AuthContext";
+import { useRouter } from "next/router";
 
 export default function Captcha({
   position,
@@ -12,7 +13,8 @@ export default function Captcha({
 }: any) {
   const { theme } = useTheme();
   const {setModalName } = useContext(AuthContext);
-
+  const router = useRouter();
+   const { lang, userId } = router.query;
   //localStorage.setItem(" ", response.data.token);
 
   const captchaRef = useRef<ReCAPTCHA>(null);
@@ -56,17 +58,20 @@ export default function Captcha({
         name: data.username,
         email: data.email,
         password: data.password,
+        referral: userId,
       };
       const response = await axios.post(
         "https://api.rgb.irpsc.com/api/register",
         requestData
       );
           setModalName({name:"ActiveEmailPage",data:requestData.email})
+          console.log(response.data);
       if (response.data) {
   
         setShowCaptcha(false);
       }
     } catch (err: any) {
+      console.log(err);
       setShowCaptcha(false);
      
     }

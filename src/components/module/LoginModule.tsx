@@ -30,19 +30,37 @@ export default function LoginModule() {
 
   const footerText = data.data.loginPageLang.find(
     (item: any) =>
-      item.name ===
-      "by clicking the login button, you agree to the terms of the service contract"
+      item.name === "for more information and answers to"
+  ).translation;
+  
+  const footerText2 = data.data.loginPageLang.find(
+    (item: any) =>
+      item.name === "visit-the"
+  ).translation;
+
+  const footerText3 = data.data.loginPageLang.find(
+    (item: any) =>
+      item.name === "website."
   ).translation;
   
 
-    const modifiedFooterTextEn = footerText.replace(
-      "terms of the service contract",
-      `<span class="mx-1 text-[14px] font-azarMehr text-[#008BF8] cursor-pointer font-medium"> terms of the service contract</span>`
-    );
-    const modifiedFooterTextFa = footerText.replace(
-      "شرایط قرارداد خدمات",
-      `<span class="mx-1 text-[14px] font-azarMehr text-[#008BF8] cursor-pointer font-medium">شرایط خدمات قرارداد</span>`
-    );
+console.log(footerText)
+
+   const modifiedFooterTextEn = "terms of the service contract"
+     
+   
+   const modifiedFooterTextFa ="شرایط قرارداد خدمات"
+     
+   
+
+    // const modifiedFooterTextEn = footerText.replace(
+    //   "terms of the service contract",
+    //   // `<span class="mx-1 text-[14px] font-azarMehr text-[#008BF8] cursor-pointer font-medium"> terms of the service contract</span>`
+    // );
+    // const modifiedFooterTextFa = footerText.replace(
+    //   "شرایط قرارداد خدمات",
+    //   // `<span class="mx-1 text-[14px] font-azarMehr text-[#008BF8] cursor-pointer font-medium">شرایط خدمات قرارداد</span>`
+    // );
 
 
  const handleCheckboxChange = (e:any) => {
@@ -61,6 +79,8 @@ export default function LoginModule() {
   
   }
 
+  console.log(data.data.loginPageLang);
+
   return (
     <>
       <div className=" h-fit flex flex-col justify-start items-center">
@@ -77,7 +97,7 @@ export default function LoginModule() {
                   name="email"
                   placeholder={
                     data.data.loginPageLang.find(
-                      (item: any) => item.name === "enter username or email"
+                      (item: any) => item.name === "enter-your-email"
                     ).translation
                   }
                   autoComplete="off"
@@ -102,7 +122,7 @@ export default function LoginModule() {
                     name="password"
                     placeholder={
                       data.data.loginPageLang.find(
-                        (item: any) => item.name === "enter your password"
+                        (item: any) => item.name === "password"
                       ).translation
                     }
                     className={`${cssAuth(props, "password")}`}
@@ -193,23 +213,13 @@ export default function LoginModule() {
           </p>
         </div>
 
-        {lang === "en" ? (
-          <p className="text-center px-1 pb-6 mt-6 w-full text-[#000000A1] dark:text-[#FFFFFFA1] font-azarMehr text-[14px] font-normal">
-            <span
-              className="text-center px-1 mt-4 w-full text-[#000000A1] dark:text-[#FFFFFFA1] font-azarMehr text-[14px] font-normal"
-              dangerouslySetInnerHTML={{ __html: modifiedFooterTextEn }}
-            ></span>
-          </p>
-        ) : (
-          <>
-            <p className="text-center px-1 pb-6 mt-6 w-full text-[#000000A1] dark:text-[#FFFFFFA1] font-azarMehr text-[14px] font-normal">
-              <span
-                className="text-center px-1 mt-4 w-full text-[#000000A1] dark:text-[#FFFFFFA1] font-azarMehr text-[14px] font-normal"
-                dangerouslySetInnerHTML={{ __html: modifiedFooterTextFa }}
-              ></span>
-            </p>
-          </>
-        )}
+        <p className="text-center px-1 pb-6 mt-6 w-full text-[#000000A1] dark:text-[#FFFFFFA1] font-azarMehr text-[14px] font-normal">
+          {footerText}
+          {footerText2}
+          <span className=" cursor-pointer text-center px-1 mt-4 w-full text-blueLink dark:text-blueLink font-azarMehr text-[14px] font-normal">
+            {footerText3}
+          </span>
+        </p>
       </div>
     </>
   );

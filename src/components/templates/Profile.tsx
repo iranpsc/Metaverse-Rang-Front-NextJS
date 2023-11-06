@@ -78,7 +78,7 @@ export default function Profile(){
                 <span className="  end-[35%] absolute  xl:text-[18px] lg:text-md md:text-sm break-all font-medium text-[#0E0E0E] dark:text-white text-center">
                   {languageSelected?.code && languageSelected?.code !== "fa"
                     ? profileData?.score
-                    : profileData &&
+                    : profileData?.score &&
                       Persian(profileData?.score).englishNumber().toString()}
                 </span>
               </div>
@@ -88,24 +88,24 @@ export default function Profile(){
           <hr className="h-[2px] w-[95%] xl:mt-5 lg:mt-1 bg-gradient-to-r from-[#DADADA00] via-[#b3b3b3] to-[#DADADA00] text-lightGray " />
 
           {profileData && profileData.current_level && (
-          <motion.div
-            initial={{ rotate: 180, scale: 0 }}
-            animate={{ rotate: 0, scale: 1 }}
-            transition={{
-              type: "spring",
-              stiffness: 260,
-              damping: 20,
-            }}
-            className=" w-[75%]  flex flex-nowrap xl:mt-2 lg:mt-2 md:mt-0 items-center justify-evenly pb-3 max-sm:pb-5"
-          >
-            {profileData?.achieved_levels?.map((item: any, index: any) => (
-              <Image
-                key={index}
-                src={item.image}
-                width={100}
-                height={100}
-                alt="profile"
-                className=" inline-block shadow hover:mt-[-10px] cursor-pointer 
+            <motion.div
+              initial={{ rotate: 180, scale: 0 }}
+              animate={{ rotate: 0, scale: 1 }}
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+              }}
+              className=" w-[75%]  flex flex-nowrap xl:mt-2 lg:mt-2 md:mt-0 items-center justify-evenly pb-3 max-sm:pb-5"
+            >
+              {profileData?.achieved_levels?.map((item: any, index: any) => (
+                <Image
+                  key={index}
+                  src={item.image}
+                  width={100}
+                  height={100}
+                  alt="profile"
+                  className=" inline-block shadow hover:mt-[-10px] cursor-pointer 
               xl:w-14 xl:h-14
               lg:w-14 
               md:w-12 
@@ -113,15 +113,15 @@ export default function Profile(){
               xs:w-14
               
               "
-              />
-            ))}
-            {profileData && profileData.current_level && (
-              <Image
-                src={profileData.current_level.image}
-                width={200}
-                height={200}
-                alt="profile"
-                className=" inline-block shadow hover:mt-[-10px] cursor-pointer 
+                />
+              ))}
+              {profileData && profileData.current_level && (
+                <Image
+                  src={profileData.current_level.image}
+                  width={200}
+                  height={200}
+                  alt="profile"
+                  className=" inline-block shadow hover:mt-[-10px] cursor-pointer 
               xl:w-14 xl:h-14
               lg:w-14 
               md:w-12 
@@ -129,10 +129,10 @@ export default function Profile(){
               xs:w-14
               
               "
-              />
-            )}
-          </motion.div>
-           )} 
+                />
+              )}
+            </motion.div>
+          )}
         </section>
       </>
     );

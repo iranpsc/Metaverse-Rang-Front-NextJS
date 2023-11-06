@@ -57,7 +57,7 @@ export default function LoginMenuModule({
 
           <div
             className="bg-blueLink cursor-pointer dark:bg-dark-yellow rounded-[10px] w-[80%] h-[44px]  flex flex-row justify-around gap-5 items-center"
-            onClick={submit}
+           onClick={()=>setShowAuthCard(true)}
           >
             {showFullModal ? (
               <>
@@ -72,7 +72,10 @@ export default function LoginMenuModule({
               </>
             ) : (
               <>
-                <p className="text-white dark:text-dark-background font-azarMehr font-medium text-center text-[15px]">
+                <p
+                  className="text-white dark:text-dark-background font-azarMehr font-medium text-center text-[15px]"
+                   
+                >
                   {menuData[0] && menuData[0].translation}
                 </p>
                 <LoginMenu

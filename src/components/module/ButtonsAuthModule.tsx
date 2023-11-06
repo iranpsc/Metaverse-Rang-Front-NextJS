@@ -12,17 +12,23 @@ const ButtonsAuthModule: React.FC<ButtonsAuthModuleProps> = ({
   showModule,
   setShowModule,
 }) => {
-   const {data } = useContext(LangContext);
+   const {data} = useContext(LangContext);
+   console.log(
+     data.data.loginPageLang.find((item: any) => item.name === "login")
+       .translation
+   );
 const buttons = [
   {
     id: 1,
      name: data.data.loginPageLang.find((item: any) => item.name === "login").translation,
+   
 
     code: "login",
   },
   {
     id: 2,
     name: data.data.registerPageLang.find((item: any) => item.name === "register").translation,
+   
   
     code: "register",
   },

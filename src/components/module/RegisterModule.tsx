@@ -31,18 +31,21 @@ export default function RegisterModule() {
   const { languageSelected,data } = useContext(LangContext);
   const lang = languageSelected.code;
 
+  console.log(data.data.registerPageLang);
+
+ const footerText = data.data.registerPageLang.find(
+   (item: any) => item.name === "for more information and answers to"
+ ).translation;
+
+ const footerText2 = data.data.registerPageLang.find(
+   (item: any) => item.name === "visit-the"
+ ).translation;
+
+ const footerText3 = data.data.registerPageLang.find(
+   (item: any) => item.name === "website."
+ ).translation;
+
   
-  const footerText = data.data.registerPageLang.find(
-    (item: any) => item.name === "visit our website"
-  ).translation;
-  const modifiedFooterTextFa = footerText.replace(
-    "وبسایت",
-    `<span class="mx-1 text-[14px] font-azarMehr text-[#008BF8] cursor-pointer font-medium">وبسایت</span>`
-  );
-  const modifiedFooterTextEn = footerText.replace(
-    "website",
-    `<span class="mx-1 text-[14px] font-azarMehr text-[#008BF8] cursor-pointer font-medium">website</span>`
-  );
 
   const handleFormSubmit = (values: any) => {
     if (values) {
@@ -68,8 +71,7 @@ export default function RegisterModule() {
                   name="username"
                   placeholder={
                     data.data.registerPageLang.find(
-                      (item: any) =>
-                        item.name === "username can be company or brand name"
+                      (item: any) => item.name === "username"
                     ).translation
                   }
                   autoComplete="off"
@@ -100,7 +102,7 @@ export default function RegisterModule() {
                     name="password"
                     placeholder={
                       data.data.registerPageLang.find(
-                        (item: any) => item.name === "enter your password"
+                        (item: any) => item.name === "password"
                       ).translation
                     }
                     className={`${cssAuth(props, "password ")}`}
@@ -170,43 +172,23 @@ export default function RegisterModule() {
               className="mx-1 w-4 h-4"
             />
             {
-              data.data.registerPageLanggeLang.find(
-                (item: any) => item.name === "register"
+              data.data.registerPageLang.find(
+                (item: any) => item.name === "remember-me"
               ).translation
             }
           </label>
-          <p className="text-center mt-2 font-azarMehr text-[#008BF8] text-[14px] font-bold">
+          {/* <p className="text-center mt-2 font-azarMehr text-[#008BF8] text-[14px] font-bold">
             {selectLanguageAuthModule(lang).loginForget}
-          </p>
+          </p> */}
         </div>
 
-        {lang === "en" ? (
-          <p className="text-center px-1 mt-4 w-full text-[#000000A1] dark:text-[#FFFFFFA1] font-azarMehr text-[14px] font-normal">
-            {
-              data.data.registerPageLang.find(
-                (item:any) =>
-                  item.name === "do you have a question or want to know more?"
-              ).translation
-            }{" "}
-            <span
-              className="text-center px-1 mt-4 w-full text-[#000000A1] dark:text-[#FFFFFFA1] font-azarMehr text-[14px] font-normal"
-              dangerouslySetInnerHTML={{ __html: modifiedFooterTextEn }}
-            ></span>
-          </p>
-        ) : (
-          <p className="text-center px-1 mt-4 w-full text-[#000000A1] dark:text-[#FFFFFFA1] font-azarMehr text-[14px] font-normal">
-            {
-              data.data.registerPageLang.find(
-                (item:any) =>
-                  item.name === "do you have a question or want to know more?"
-              ).translation
-            }{" "}
-            <span
-              className="text-center px-1 mt-4 w-full text-[#000000A1] dark:text-[#FFFFFFA1] font-azarMehr text-[14px] font-normal"
-              dangerouslySetInnerHTML={{ __html: modifiedFooterTextFa }}
-            ></span>
-          </p>
-        )}
+        <p className="text-center px-1 pb-6 mt-6 w-full text-[#000000A1] dark:text-[#FFFFFFA1] font-azarMehr text-[14px] font-normal">
+          {footerText}
+          {footerText2}
+          <span className=" cursor-pointer text-center px-1 mt-4 w-full text-blueLink dark:text-blueLink font-azarMehr text-[14px] font-normal">
+            {footerText3}
+          </span>
+        </p>
       </div>
     </>
   );

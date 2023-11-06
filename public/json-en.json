@@ -1,0 +1,3078 @@
+{
+  "code": "en",
+  "name": "English",
+  "native_name": "English",
+  "status": 1,
+  "direction": "ltr",
+  "version": 14,
+  "file_url": "https://play.irpsc.com/metaverse/lang/en.json",
+  "modals": [
+    {
+      "name": "login",
+      "tabs": [
+        {
+          "id": 3,
+          "modal_id": 5,
+          "name": "login",
+          "fields": [
+            {
+              "id": 5,
+              "tab_id": 3,
+              "name": "login to metargb",
+              "translation": "login to MetaRGB"
+            },
+            {
+              "id": 8,
+              "tab_id": 3,
+              "name": "enter-your-email",
+              "translation": "Enter your email"
+            },
+            {
+              "id": 11,
+              "tab_id": 3,
+              "name": "password",
+              "translation": "Password"
+            },
+            {
+              "id": 14,
+              "tab_id": 3,
+              "name": "login",
+              "translation": "login"
+            },
+            {
+              "id": 17,
+              "tab_id": 3,
+              "name": "remember me",
+              "translation": "Remember me"
+            },
+            {
+              "id": 20,
+              "tab_id": 3,
+              "name": "forget password",
+              "translation": "Forget password"
+            },
+            {
+              "id": 3449,
+              "tab_id": 3,
+              "name": "register",
+              "translation": "Register"
+            },
+            {
+              "id": 3463,
+              "tab_id": 3,
+              "name": "for more information and answers to",
+              "translation": "For more information and answers to"
+            },
+            {
+              "id": 3470,
+              "tab_id": 3,
+              "name": "visit-the",
+              "translation": "question, visit the"
+            },
+            {
+              "id": 3477,
+              "tab_id": 3,
+              "name": "website.",
+              "translation": "website"
+            },
+            {
+              "id": 3484,
+              "tab_id": 3,
+              "name": "email or password is not valid.",
+              "translation": "Email or password is not valid."
+            },
+            {
+              "id": 3491,
+              "tab_id": 3,
+              "name": "accounts are for single",
+              "translation": "Metarang citizen accounts are for single people and two people cannot log in at the same time."
+            },
+            {
+              "id": 3499,
+              "tab_id": 3,
+              "name": "you agree",
+              "translation": "You agree."
+            },
+            {
+              "id": 3862,
+              "tab_id": 3,
+              "name": "terms of service contract",
+              "translation": "Terms of service contract"
+            },
+            {
+              "id": 3883,
+              "tab_id": 3,
+              "name": "please specify",
+              "translation": "Please specify that you are not a robot"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "register",
+      "tabs": [
+        {
+          "id": 6,
+          "modal_id": 8,
+          "name": "register",
+          "fields": [
+            {
+              "id": 29,
+              "tab_id": 6,
+              "name": "register in meta rgb",
+              "translation": "Register in MetaRGB"
+            },
+            {
+              "id": 32,
+              "tab_id": 6,
+              "name": "username",
+              "translation": "User Name"
+            },
+            {
+              "id": 35,
+              "tab_id": 6,
+              "name": "enter your email",
+              "translation": "Enter your email"
+            },
+            {
+              "id": 41,
+              "tab_id": 6,
+              "name": "password",
+              "translation": "Password"
+            },
+            {
+              "id": 44,
+              "tab_id": 6,
+              "name": "register",
+              "translation": "Register"
+            },
+            {
+              "id": 47,
+              "tab_id": 6,
+              "name": "log-in",
+              "translation": "log in"
+            },
+            {
+              "id": 53,
+              "tab_id": 6,
+              "name": "remember-me",
+              "translation": "Remember Me"
+            },
+            {
+              "id": 3393,
+              "tab_id": 6,
+              "name": "visit-the",
+              "translation": "question, visit the"
+            },
+            {
+              "id": 3400,
+              "tab_id": 6,
+              "name": "website.",
+              "translation": "website"
+            },
+            {
+              "id": 3407,
+              "tab_id": 6,
+              "name": "the password must contain",
+              "translation": "The password must contain numbers, symbols, and English lowercase and uppercase letters."
+            },
+            {
+              "id": 3414,
+              "tab_id": 6,
+              "name": "the user name is limited to hm-",
+              "translation": "the user name is limited to hm-."
+            },
+            {
+              "id": 3421,
+              "tab_id": 6,
+              "name": "your email is not valid",
+              "translation": "Your email is not valid."
+            },
+            {
+              "id": 3428,
+              "tab_id": 6,
+              "name": "this email has already been registered",
+              "translation": "This email has already been registered."
+            },
+            {
+              "id": 3435,
+              "tab_id": 6,
+              "name": "this username is already registered",
+              "translation": "This username is already registered."
+            },
+            {
+              "id": 3456,
+              "tab_id": 6,
+              "name": "for more information and answers to",
+              "translation": "For more information and answers to questions,"
+            }
+          ]
+        },
+        {
+          "id": 304,
+          "modal_id": 8,
+          "name": "citizen-account-activation",
+          "fields": [
+            {
+              "id": 3505,
+              "tab_id": 304,
+              "name": "citizen account activation",
+              "translation": "Citizen Account Activation"
+            },
+            {
+              "id": 3512,
+              "tab_id": 304,
+              "name": "an email address",
+              "translation": "An Email Address"
+            },
+            {
+              "id": 3519,
+              "tab_id": 304,
+              "name": "sent",
+              "translation": "Sent."
+            },
+            {
+              "id": 3526,
+              "tab_id": 304,
+              "name": "to confirm and activate",
+              "translation": "To confirm and activate your account, click"
+            },
+            {
+              "id": 3533,
+              "tab_id": 304,
+              "name": "on the link in the email",
+              "translation": "on the link in the email"
+            },
+            {
+              "id": 3540,
+              "tab_id": 304,
+              "name": "view gmail",
+              "translation": "View gmail"
+            },
+            {
+              "id": 3547,
+              "tab_id": 304,
+              "name": "view email",
+              "translation": "View email"
+            },
+            {
+              "id": 3554,
+              "tab_id": 304,
+              "name": "view yahoo",
+              "translation": "View yahoo"
+            },
+            {
+              "id": 3561,
+              "tab_id": 304,
+              "name": "view outlook",
+              "translation": "View outlook"
+            },
+            {
+              "id": 3568,
+              "tab_id": 304,
+              "name": "re-send the email",
+              "translation": "Re-send the citizenship account confirmation email"
+            },
+            {
+              "id": 3575,
+              "tab_id": 304,
+              "name": "for more information",
+              "translation": "For more information and answers to questions,"
+            },
+            {
+              "id": 3582,
+              "tab_id": 304,
+              "name": "visit the",
+              "translation": "visit the"
+            },
+            {
+              "id": 3589,
+              "tab_id": 304,
+              "name": "website",
+              "translation": "website"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "training",
+      "tabs": [
+        {
+          "id": 137,
+          "modal_id": 11,
+          "name": "central-school",
+          "fields": [
+            {
+              "id": 2118,
+              "tab_id": 137,
+              "name": "description",
+              "translation": "An institute that presents fresh content daily with immersive features, offering a unique and engaging learning experience."
+            },
+            {
+              "id": 2122,
+              "tab_id": 137,
+              "name": "key phrase",
+              "translation": "metaverse training"
+            },
+            {
+              "id": 2126,
+              "tab_id": 137,
+              "name": "page title",
+              "translation": "Metaverse Video Tutorials: A New Realm of Experiential Learning"
+            },
+            {
+              "id": 2130,
+              "tab_id": 137,
+              "name": "search for the training you need",
+              "translation": "Search For The Training You Need"
+            },
+            {
+              "id": 2134,
+              "tab_id": 137,
+              "name": "top trainers",
+              "translation": "Top Trainers"
+            },
+            {
+              "id": 2138,
+              "tab_id": 137,
+              "name": "view other trainers",
+              "translation": "View Other Trainers"
+            },
+            {
+              "id": 2142,
+              "tab_id": 137,
+              "name": "explore more categories",
+              "translation": "Explore More Categories"
+            },
+            {
+              "id": 2146,
+              "tab_id": 137,
+              "name": "view all",
+              "translation": "View All"
+            },
+            {
+              "id": 4199,
+              "tab_id": 137,
+              "name": "cv teacher",
+              "translation": "CV Teacher"
+            },
+            {
+              "id": 4206,
+              "tab_id": 137,
+              "name": "categories",
+              "translation": "Categories"
+            },
+            {
+              "id": 4234,
+              "tab_id": 137,
+              "name": "view more",
+              "translation": "View More"
+            },
+            {
+              "id": 4241,
+              "tab_id": 137,
+              "name": "search",
+              "translation": "Search"
+            }
+          ]
+        },
+        {
+          "id": 145,
+          "modal_id": 11,
+          "name": "internal-training",
+          "fields": []
+        },
+        {
+          "id": 149,
+          "modal_id": 11,
+          "name": "categories",
+          "fields": []
+        },
+        {
+          "id": 165,
+          "modal_id": 11,
+          "name": "education-page",
+          "fields": [
+            {
+              "id": 2222,
+              "tab_id": 165,
+              "name": "latest tutorials",
+              "translation": "Latest Tutorials"
+            },
+            {
+              "id": 2226,
+              "tab_id": 165,
+              "name": "publication date",
+              "translation": "Publication Date"
+            },
+            {
+              "id": 2230,
+              "tab_id": 165,
+              "name": "enter your comment",
+              "translation": "Enter Your Comment"
+            },
+            {
+              "id": 2234,
+              "tab_id": 165,
+              "name": "submit report",
+              "translation": "Submit Report"
+            },
+            {
+              "id": 2238,
+              "tab_id": 165,
+              "name": "view all",
+              "translation": "See More"
+            },
+            {
+              "id": 2242,
+              "tab_id": 165,
+              "name": "related tutorials",
+              "translation": "Related Tutorials"
+            }
+          ]
+        },
+        {
+          "id": 169,
+          "modal_id": 11,
+          "name": "modal-tutorials",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "name": "store",
+      "tabs": [
+        {
+          "id": 12,
+          "modal_id": 14,
+          "name": "tools",
+          "fields": [
+            {
+              "id": 59,
+              "tab_id": 12,
+              "name": "toman",
+              "translation": "Toman"
+            },
+            {
+              "id": 62,
+              "tab_id": 12,
+              "name": "yellow",
+              "translation": "Yellow"
+            },
+            {
+              "id": 65,
+              "tab_id": 12,
+              "name": "red",
+              "translation": "Red"
+            },
+            {
+              "id": 68,
+              "tab_id": 12,
+              "name": "blue",
+              "translation": "Blue"
+            },
+            {
+              "id": 71,
+              "tab_id": 12,
+              "name": "number",
+              "translation": "Number"
+            },
+            {
+              "id": 161,
+              "tab_id": 12,
+              "name": "store",
+              "translation": "Store"
+            },
+            {
+              "id": 722,
+              "tab_id": 12,
+              "name": "tools",
+              "translation": "tools"
+            },
+            {
+              "id": 726,
+              "tab_id": 12,
+              "name": "currencies",
+              "translation": "Currencies"
+            }
+          ]
+        },
+        {
+          "id": 15,
+          "modal_id": 14,
+          "name": "currencies",
+          "fields": [
+            {
+              "id": 74,
+              "tab_id": 15,
+              "name": "toman",
+              "translation": "Toman"
+            },
+            {
+              "id": 77,
+              "tab_id": 15,
+              "name": "yellow",
+              "translation": "Yellow"
+            },
+            {
+              "id": 80,
+              "tab_id": 15,
+              "name": "red",
+              "translation": "Red"
+            },
+            {
+              "id": 83,
+              "tab_id": 15,
+              "name": "blue",
+              "translation": "Blue"
+            },
+            {
+              "id": 86,
+              "tab_id": 15,
+              "name": "number",
+              "translation": "Number"
+            },
+            {
+              "id": 164,
+              "tab_id": 15,
+              "name": "store",
+              "translation": "Store"
+            },
+            {
+              "id": 730,
+              "tab_id": 15,
+              "name": "tools",
+              "translation": "tools"
+            },
+            {
+              "id": 734,
+              "tab_id": 15,
+              "name": "currencies",
+              "translation": "Currencies"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "notification",
+      "tabs": [
+        {
+          "id": 18,
+          "modal_id": 17,
+          "name": "notification",
+          "fields": [
+            {
+              "id": 89,
+              "tab_id": 18,
+              "name": "incoming notifications",
+              "translation": "Incoming notifications"
+            },
+            {
+              "id": 92,
+              "tab_id": 18,
+              "name": "change the notification status to viewed",
+              "translation": "Change the notification status to viewed"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "report",
+      "tabs": [
+        {
+          "id": 21,
+          "modal_id": 20,
+          "name": "report",
+          "fields": [
+            {
+              "id": 95,
+              "tab_id": 21,
+              "name": "choose a topic",
+              "translation": "Choose a topic"
+            },
+            {
+              "id": 98,
+              "tab_id": 21,
+              "name": "display error",
+              "translation": "Display error"
+            },
+            {
+              "id": 101,
+              "tab_id": 21,
+              "name": "error in spelling",
+              "translation": "Error in spelling"
+            },
+            {
+              "id": 104,
+              "tab_id": 21,
+              "name": "error in coding",
+              "translation": "Error in coding"
+            },
+            {
+              "id": 107,
+              "tab_id": 21,
+              "name": "slow system fps",
+              "translation": "Slow system fps"
+            },
+            {
+              "id": 110,
+              "tab_id": 21,
+              "name": "respectful",
+              "translation": "Respectful"
+            },
+            {
+              "id": 113,
+              "tab_id": 21,
+              "name": "title",
+              "translation": "Title"
+            },
+            {
+              "id": 116,
+              "tab_id": 21,
+              "name": "the text of the report",
+              "translation": "The text of the report"
+            },
+            {
+              "id": 119,
+              "tab_id": 21,
+              "name": "drop files here or click to upload",
+              "translation": "Drop files here or click to upload"
+            },
+            {
+              "id": 122,
+              "tab_id": 21,
+              "name": "submit",
+              "translation": "Submit"
+            },
+            {
+              "id": 125,
+              "tab_id": 21,
+              "name": "list of reports",
+              "translation": "List of reports"
+            },
+            {
+              "id": 128,
+              "tab_id": 21,
+              "name": "title",
+              "translation": "Title"
+            },
+            {
+              "id": 131,
+              "tab_id": 21,
+              "name": "reports",
+              "translation": "Reports"
+            },
+            {
+              "id": 134,
+              "tab_id": 21,
+              "name": "issue",
+              "translation": "Issue"
+            },
+            {
+              "id": 137,
+              "tab_id": 21,
+              "name": "date of release",
+              "translation": "Date of Release"
+            },
+            {
+              "id": 140,
+              "tab_id": 21,
+              "name": "the operation",
+              "translation": "The operation"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hour-meter-profit",
+      "tabs": [
+        {
+          "id": 27,
+          "modal_id": 23,
+          "name": "property-interest",
+          "fields": [
+            {
+              "id": 149,
+              "tab_id": 27,
+              "name": "hourly profit absorption",
+              "translation": "Hourly profit absorption"
+            },
+            {
+              "id": 152,
+              "tab_id": 27,
+              "name": "property interest",
+              "translation": "Property interest"
+            },
+            {
+              "id": 155,
+              "tab_id": 27,
+              "name": "account type",
+              "translation": "Account Type"
+            },
+            {
+              "id": 158,
+              "tab_id": 27,
+              "name": "last collection",
+              "translation": "Last collection"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "account-security",
+      "tabs": [
+        {
+          "id": 30,
+          "modal_id": 26,
+          "name": "account-security",
+          "fields": [
+            {
+              "id": 167,
+              "tab_id": 30,
+              "name": "account security",
+              "translation": "Account security"
+            },
+            {
+              "id": 170,
+              "tab_id": 30,
+              "name": "how long you want your wallet to be off",
+              "translation": "How long you want your wallet to be off"
+            },
+            {
+              "id": 173,
+              "tab_id": 30,
+              "name": "minutes",
+              "translation": "minutes"
+            },
+            {
+              "id": 176,
+              "tab_id": 30,
+              "name": "if you have not received the confirmation code, you can send the confirmation code again in 00:00  minutes",
+              "translation": "If you have not received the confirmation code, you can send the confirmation code again in 00:00  minutes"
+            },
+            {
+              "id": 179,
+              "tab_id": 30,
+              "name": "confirmation",
+              "translation": "onfirmation"
+            },
+            {
+              "id": 182,
+              "tab_id": 30,
+              "name": "minutes left to relock user account security",
+              "translation": "Minutes left to relock user account security"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "search-in-metarang",
+      "tabs": [
+        {
+          "id": 33,
+          "modal_id": 29,
+          "name": "citizen-search",
+          "fields": [
+            {
+              "id": 185,
+              "tab_id": 33,
+              "name": "search in metaverse rang",
+              "translation": "Search in color metaverse"
+            },
+            {
+              "id": 188,
+              "tab_id": 33,
+              "name": "search for citizen name or id",
+              "translation": "Search for citizen name or ID"
+            },
+            {
+              "id": 191,
+              "tab_id": 33,
+              "name": "there is no information, search",
+              "translation": "There is no information, search"
+            },
+            {
+              "id": 194,
+              "tab_id": 33,
+              "name": "citizen id",
+              "translation": "Citizen ID"
+            },
+            {
+              "id": 197,
+              "tab_id": 33,
+              "name": "name of the citizen",
+              "translation": "Name of the citizen"
+            },
+            {
+              "id": 200,
+              "tab_id": 33,
+              "name": "level",
+              "translation": "level"
+            },
+            {
+              "id": 203,
+              "tab_id": 33,
+              "name": "followers",
+              "translation": "Followers"
+            },
+            {
+              "id": 206,
+              "tab_id": 33,
+              "name": "unity",
+              "translation": "Unity"
+            },
+            {
+              "id": 212,
+              "tab_id": 33,
+              "name": "citizen search",
+              "translation": "Citizen search"
+            },
+            {
+              "id": 362,
+              "tab_id": 33,
+              "name": "property search",
+              "translation": "Property search"
+            }
+          ]
+        },
+        {
+          "id": 36,
+          "modal_id": 29,
+          "name": "property-search",
+          "fields": [
+            {
+              "id": 209,
+              "tab_id": 36,
+              "name": "search in metaverse rang",
+              "translation": "Search in color metaverse"
+            },
+            {
+              "id": 215,
+              "tab_id": 36,
+              "name": "citizen search",
+              "translation": "Citizen search"
+            },
+            {
+              "id": 218,
+              "tab_id": 36,
+              "name": "property search",
+              "translation": "Property search"
+            },
+            {
+              "id": 221,
+              "tab_id": 36,
+              "name": "search for property address or id",
+              "translation": "Search for property address or ID"
+            },
+            {
+              "id": 224,
+              "tab_id": 36,
+              "name": "there is no information, search",
+              "translation": "There is no information, search"
+            },
+            {
+              "id": 227,
+              "tab_id": 36,
+              "name": "property id",
+              "translation": "Property ID"
+            },
+            {
+              "id": 230,
+              "tab_id": 36,
+              "name": "usage",
+              "translation": "usage"
+            },
+            {
+              "id": 233,
+              "tab_id": 36,
+              "name": "owner id",
+              "translation": "Owner ID"
+            },
+            {
+              "id": 236,
+              "tab_id": 36,
+              "name": "irr pricing",
+              "translation": "IRR pricing"
+            },
+            {
+              "id": 239,
+              "tab_id": 36,
+              "name": "psc pricing",
+              "translation": "PSC pricing"
+            },
+            {
+              "id": 242,
+              "tab_id": 36,
+              "name": "property address",
+              "translation": "property address"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "citizenship-account",
+      "tabs": [
+        {
+          "id": 42,
+          "modal_id": 35,
+          "name": "general",
+          "fields": [
+            {
+              "id": 245,
+              "tab_id": 42,
+              "name": "collection of assets",
+              "translation": "collection of assets"
+            },
+            {
+              "id": 248,
+              "tab_id": 42,
+              "name": "psc",
+              "translation": "psc"
+            },
+            {
+              "id": 251,
+              "tab_id": 42,
+              "name": "rial",
+              "translation": "Rial"
+            },
+            {
+              "id": 254,
+              "tab_id": 42,
+              "name": "blue color",
+              "translation": "Blue color"
+            },
+            {
+              "id": 257,
+              "tab_id": 42,
+              "name": "red color",
+              "translation": "Red color"
+            },
+            {
+              "id": 260,
+              "tab_id": 42,
+              "name": "yellow color",
+              "translation": "Yellow color"
+            },
+            {
+              "id": 263,
+              "tab_id": 42,
+              "name": "satisfaction",
+              "translation": "Satisfaction"
+            },
+            {
+              "id": 266,
+              "tab_id": 42,
+              "name": "Membership from",
+              "translation": "membership from"
+            },
+            {
+              "id": 269,
+              "tab_id": 42,
+              "name": "information",
+              "translation": "Information"
+            },
+            {
+              "id": 272,
+              "tab_id": 42,
+              "name": "level",
+              "translation": "level"
+            },
+            {
+              "id": 275,
+              "tab_id": 42,
+              "name": "followers",
+              "translation": "Followers"
+            },
+            {
+              "id": 278,
+              "tab_id": 42,
+              "name": "following",
+              "translation": "Following"
+            },
+            {
+              "id": 281,
+              "tab_id": 42,
+              "name": "citizenship account",
+              "translation": "Citizenship account"
+            },
+            {
+              "id": 311,
+              "tab_id": 42,
+              "name": "transactions",
+              "translation": "Transactions"
+            },
+            {
+              "id": 314,
+              "tab_id": 42,
+              "name": "general",
+              "translation": "General"
+            }
+          ]
+        },
+        {
+          "id": 45,
+          "modal_id": 35,
+          "name": "property",
+          "fields": [
+            {
+              "id": 284,
+              "tab_id": 45,
+              "name": "search",
+              "translation": "search"
+            },
+            {
+              "id": 287,
+              "tab_id": 45,
+              "name": "real estates",
+              "translation": "Real estates"
+            },
+            {
+              "id": 290,
+              "tab_id": 45,
+              "name": "followers",
+              "translation": "Followers"
+            },
+            {
+              "id": 293,
+              "tab_id": 45,
+              "name": "following",
+              "translation": "Following"
+            },
+            {
+              "id": 296,
+              "tab_id": 45,
+              "name": "address",
+              "translation": "Address"
+            },
+            {
+              "id": 302,
+              "tab_id": 45,
+              "name": "price",
+              "translation": "Price"
+            },
+            {
+              "id": 305,
+              "tab_id": 45,
+              "name": "usage",
+              "translation": "usage"
+            },
+            {
+              "id": 317,
+              "tab_id": 45,
+              "name": "citizenship account",
+              "translation": "Citizenship account"
+            },
+            {
+              "id": 323,
+              "tab_id": 45,
+              "name": "transactions",
+              "translation": "Transactions"
+            },
+            {
+              "id": 326,
+              "tab_id": 45,
+              "name": "general",
+              "translation": "General"
+            }
+          ]
+        },
+        {
+          "id": 48,
+          "modal_id": 35,
+          "name": "transactions",
+          "fields": [
+            {
+              "id": 329,
+              "tab_id": 48,
+              "name": "transaction id",
+              "translation": "Transaction ID"
+            },
+            {
+              "id": 332,
+              "tab_id": 48,
+              "name": "date and time of sending",
+              "translation": "Date and time of sending"
+            },
+            {
+              "id": 335,
+              "tab_id": 48,
+              "name": "condition",
+              "translation": "Condition"
+            },
+            {
+              "id": 338,
+              "tab_id": 48,
+              "name": "title",
+              "translation": "Title"
+            },
+            {
+              "id": 341,
+              "tab_id": 48,
+              "name": "issue",
+              "translation": "Issue"
+            },
+            {
+              "id": 344,
+              "tab_id": 48,
+              "name": "the amount of",
+              "translation": "The amount of"
+            },
+            {
+              "id": 347,
+              "tab_id": 48,
+              "name": "view-print",
+              "translation": "View/Print"
+            },
+            {
+              "id": 350,
+              "tab_id": 48,
+              "name": "citizenship account",
+              "translation": "Citizenship account"
+            },
+            {
+              "id": 356,
+              "tab_id": 48,
+              "name": "transactions",
+              "translation": "Transactions"
+            },
+            {
+              "id": 359,
+              "tab_id": 48,
+              "name": "general",
+              "translation": "General"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Citizenship-profile",
+      "tabs": [
+        {
+          "id": 65,
+          "modal_id": 48,
+          "name": "home",
+          "fields": [
+            {
+              "id": 542,
+              "tab_id": 65,
+              "name": "developer",
+              "translation": "Developer"
+            },
+            {
+              "id": 546,
+              "tab_id": 65,
+              "name": "inspector",
+              "translation": "inspector"
+            },
+            {
+              "id": 550,
+              "tab_id": 65,
+              "name": "businessman",
+              "translation": "Businessman"
+            },
+            {
+              "id": 554,
+              "tab_id": 65,
+              "name": "lawyer",
+              "translation": "Lawyer"
+            },
+            {
+              "id": 558,
+              "tab_id": 65,
+              "name": "city council",
+              "translation": "City Council"
+            },
+            {
+              "id": 562,
+              "tab_id": 65,
+              "name": "the mayor",
+              "translation": "the mayor"
+            },
+            {
+              "id": 566,
+              "tab_id": 65,
+              "name": "governor",
+              "translation": "Governor"
+            },
+            {
+              "id": 570,
+              "tab_id": 65,
+              "name": "minister",
+              "translation": "Minister"
+            },
+            {
+              "id": 574,
+              "tab_id": 65,
+              "name": "judge",
+              "translation": "Judge"
+            },
+            {
+              "id": 578,
+              "tab_id": 65,
+              "name": "legislator",
+              "translation": "Legislator"
+            },
+            {
+              "id": 582,
+              "tab_id": 65,
+              "name": "citizenship id",
+              "translation": "Citizenship ID"
+            },
+            {
+              "id": 586,
+              "tab_id": 65,
+              "name": "citizenship name",
+              "translation": "Citizenship name"
+            },
+            {
+              "id": 590,
+              "tab_id": 65,
+              "name": "entry date",
+              "translation": "entry date"
+            },
+            {
+              "id": 594,
+              "tab_id": 65,
+              "name": "responsibility",
+              "translation": "Responsibility"
+            },
+            {
+              "id": 598,
+              "tab_id": 65,
+              "name": "achieved score",
+              "translation": "achieved score"
+            },
+            {
+              "id": 602,
+              "tab_id": 65,
+              "name": "date of birth",
+              "translation": "Date of birth"
+            },
+            {
+              "id": 606,
+              "tab_id": 65,
+              "name": "phone number",
+              "translation": "Phone number"
+            },
+            {
+              "id": 610,
+              "tab_id": 65,
+              "name": "email",
+              "translation": "Email"
+            },
+            {
+              "id": 614,
+              "tab_id": 65,
+              "name": "address",
+              "translation": "Address"
+            },
+            {
+              "id": 618,
+              "tab_id": 65,
+              "name": "job",
+              "translation": "Job"
+            },
+            {
+              "id": 622,
+              "tab_id": 65,
+              "name": "trainings",
+              "translation": "Education"
+            },
+            {
+              "id": 626,
+              "tab_id": 65,
+              "name": "i love this city",
+              "translation": "I love this city"
+            },
+            {
+              "id": 630,
+              "tab_id": 65,
+              "name": "i am interested in this country",
+              "translation": "I am interested in this country"
+            },
+            {
+              "id": 634,
+              "tab_id": 65,
+              "name": "i am interested in this language",
+              "translation": "I am interested in this language"
+            },
+            {
+              "id": 638,
+              "tab_id": 65,
+              "name": "if you had the ability to solve a problem, what would it be?",
+              "translation": "If you had the ability to solve a problem, what would it be?"
+            },
+            {
+              "id": 642,
+              "tab_id": 65,
+              "name": "forecast 2022",
+              "translation": "Forecast 2022"
+            },
+            {
+              "id": 646,
+              "tab_id": 65,
+              "name": "pleasant memory",
+              "translation": "pleasant memory"
+            },
+            {
+              "id": 650,
+              "tab_id": 65,
+              "name": "favorites",
+              "translation": "Favorites"
+            },
+            {
+              "id": 654,
+              "tab_id": 65,
+              "name": "about me",
+              "translation": "About Me"
+            },
+            {
+              "id": 666,
+              "tab_id": 65,
+              "name": "art",
+              "translation": "art"
+            },
+            {
+              "id": 670,
+              "tab_id": 65,
+              "name": "music",
+              "translation": "music"
+            },
+            {
+              "id": 674,
+              "tab_id": 65,
+              "name": "sport health",
+              "translation": "sport health"
+            },
+            {
+              "id": 678,
+              "tab_id": 65,
+              "name": "language culture",
+              "translation": "language culture"
+            },
+            {
+              "id": 682,
+              "tab_id": 65,
+              "name": "philosophy",
+              "translation": "philosophy"
+            },
+            {
+              "id": 686,
+              "tab_id": 65,
+              "name": "animals nature",
+              "translation": "animals nature"
+            },
+            {
+              "id": 690,
+              "tab_id": 65,
+              "name": "aliens",
+              "translation": "aliens"
+            },
+            {
+              "id": 694,
+              "tab_id": 65,
+              "name": "food cooking",
+              "translation": "food cooking"
+            },
+            {
+              "id": 698,
+              "tab_id": 65,
+              "name": "travel leature",
+              "translation": "travel leature"
+            },
+            {
+              "id": 702,
+              "tab_id": 65,
+              "name": "manufacturing",
+              "translation": "manufacturing"
+            },
+            {
+              "id": 706,
+              "tab_id": 65,
+              "name": "science technology",
+              "translation": "science technology"
+            },
+            {
+              "id": 710,
+              "tab_id": 65,
+              "name": "space time",
+              "translation": "space time"
+            },
+            {
+              "id": 714,
+              "tab_id": 65,
+              "name": "history and civilization",
+              "translation": "History and civilization\t"
+            },
+            {
+              "id": 718,
+              "tab_id": 65,
+              "name": "politics economy",
+              "translation": "politics economy"
+            },
+            {
+              "id": 2591,
+              "tab_id": 65,
+              "name": "read more",
+              "translation": "Read more"
+            },
+            {
+              "id": 2596,
+              "tab_id": 65,
+              "name": "view",
+              "translation": "View"
+            }
+          ]
+        },
+        {
+          "id": 69,
+          "modal_id": 48,
+          "name": "property",
+          "fields": []
+        },
+        {
+          "id": 73,
+          "modal_id": 48,
+          "name": "real-estate",
+          "fields": []
+        },
+        {
+          "id": 77,
+          "modal_id": 48,
+          "name": "structures",
+          "fields": []
+        },
+        {
+          "id": 81,
+          "modal_id": 48,
+          "name": "belongings",
+          "fields": []
+        },
+        {
+          "id": 85,
+          "modal_id": 48,
+          "name": "permissions",
+          "fields": []
+        },
+        {
+          "id": 89,
+          "modal_id": 48,
+          "name": "invitations",
+          "fields": []
+        },
+        {
+          "id": 93,
+          "modal_id": 48,
+          "name": "transaction",
+          "fields": []
+        },
+        {
+          "id": 97,
+          "modal_id": 48,
+          "name": "reward",
+          "fields": []
+        },
+        {
+          "id": 101,
+          "modal_id": 48,
+          "name": "dynasty",
+          "fields": []
+        },
+        {
+          "id": 105,
+          "modal_id": 48,
+          "name": "connections",
+          "fields": []
+        },
+        {
+          "id": 109,
+          "modal_id": 48,
+          "name": "infractions",
+          "fields": []
+        },
+        {
+          "id": 133,
+          "modal_id": 48,
+          "name": "menu",
+          "fields": [
+            {
+              "id": 1834,
+              "tab_id": 133,
+              "name": "meta rgb",
+              "translation": "Meta RGB"
+            },
+            {
+              "id": 1842,
+              "tab_id": 133,
+              "name": "home",
+              "translation": "Home"
+            },
+            {
+              "id": 1846,
+              "tab_id": 133,
+              "name": "property",
+              "translation": "Property"
+            },
+            {
+              "id": 1850,
+              "tab_id": 133,
+              "name": "real estate",
+              "translation": "Real Estate"
+            },
+            {
+              "id": 1854,
+              "tab_id": 133,
+              "name": "structures",
+              "translation": "Structures"
+            },
+            {
+              "id": 1858,
+              "tab_id": 133,
+              "name": "belongings",
+              "translation": "Belongings"
+            },
+            {
+              "id": 1862,
+              "tab_id": 133,
+              "name": "permissions",
+              "translation": "Permissions"
+            },
+            {
+              "id": 1866,
+              "tab_id": 133,
+              "name": "invitations",
+              "translation": "Invitations"
+            },
+            {
+              "id": 1870,
+              "tab_id": 133,
+              "name": "transaction",
+              "translation": "Transaction"
+            },
+            {
+              "id": 1874,
+              "tab_id": 133,
+              "name": "reward",
+              "translation": "Reward"
+            },
+            {
+              "id": 1878,
+              "tab_id": 133,
+              "name": "dynasty",
+              "translation": "Dynasty"
+            },
+            {
+              "id": 1882,
+              "tab_id": 133,
+              "name": "connections",
+              "translation": "Connections"
+            },
+            {
+              "id": 1886,
+              "tab_id": 133,
+              "name": "crimes",
+              "translation": "Infractions"
+            },
+            {
+              "id": 1890,
+              "tab_id": 133,
+              "name": "log in",
+              "translation": "log in"
+            },
+            {
+              "id": 1894,
+              "tab_id": 133,
+              "name": "logout",
+              "translation": "logout"
+            },
+            {
+              "id": 1898,
+              "tab_id": 133,
+              "name": "citizenship page",
+              "translation": "Citizenship Page"
+            },
+            {
+              "id": 1902,
+              "tab_id": 133,
+              "name": "enter the metaverse",
+              "translation": "Enter the Metaverse"
+            },
+            {
+              "id": 1907,
+              "tab_id": 133,
+              "name": "language",
+              "translation": "Language"
+            },
+            {
+              "id": 4464,
+              "tab_id": 133,
+              "name": "home page",
+              "translation": "Home Page"
+            },
+            {
+              "id": 4625,
+              "tab_id": 133,
+              "name": "metaverse rang",
+              "translation": "Metaverse Rang"
+            },
+            {
+              "id": 4632,
+              "tab_id": 133,
+              "name": "light",
+              "translation": "Light"
+            },
+            {
+              "id": 4639,
+              "tab_id": 133,
+              "name": "dark",
+              "translation": "Dark"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dynasty",
+      "tabs": [
+        {
+          "id": 113,
+          "modal_id": 52,
+          "name": "establishment-of-a-dynasty",
+          "fields": [
+            {
+              "id": 1554,
+              "tab_id": 113,
+              "name": "family dynasty",
+              "translation": "Family Dynasty"
+            },
+            {
+              "id": 1566,
+              "tab_id": 113,
+              "name": "establishment of a dynasty",
+              "translation": "Establishment of a Dynasty"
+            },
+            {
+              "id": 1570,
+              "tab_id": 113,
+              "name": "members",
+              "translation": "Members"
+            },
+            {
+              "id": 1574,
+              "tab_id": 113,
+              "name": "submitted request",
+              "translation": "Submitted Request"
+            },
+            {
+              "id": 1578,
+              "tab_id": 113,
+              "name": "request received",
+              "translation": "Request Received"
+            },
+            {
+              "id": 1582,
+              "tab_id": 113,
+              "name": "establishment of dynasty and its characteristics",
+              "translation": "Establishment of Dynasty and its Characteristics"
+            },
+            {
+              "id": 1586,
+              "tab_id": 113,
+              "name": "by building a chain, enjoy huge rewards and outputs. The amount of increase in each entry.",
+              "translation": "By building a chain, enjoy huge rewards and outputs. The amount of increase in each entry."
+            },
+            {
+              "id": 1590,
+              "tab_id": 113,
+              "name": "father",
+              "translation": "Father"
+            },
+            {
+              "id": 1594,
+              "tab_id": 113,
+              "name": "mother",
+              "translation": "Mother"
+            },
+            {
+              "id": 1598,
+              "tab_id": 113,
+              "name": "sister",
+              "translation": "Sister"
+            },
+            {
+              "id": 1602,
+              "tab_id": 113,
+              "name": "brother",
+              "translation": "Brother"
+            },
+            {
+              "id": 1606,
+              "tab_id": 113,
+              "name": "child",
+              "translation": "Child"
+            },
+            {
+              "id": 1610,
+              "tab_id": 113,
+              "name": "husband",
+              "translation": "Husband"
+            },
+            {
+              "id": 1614,
+              "tab_id": 113,
+              "name": "female",
+              "translation": "Female"
+            },
+            {
+              "id": 1618,
+              "tab_id": 113,
+              "name": "choose a residential property to establish your dynasty.",
+              "translation": "Choose a residential property to establish your Dynasty."
+            },
+            {
+              "id": 1622,
+              "tab_id": 113,
+              "name": "vod id",
+              "translation": "VOD ID"
+            },
+            {
+              "id": 1626,
+              "tab_id": 113,
+              "name": "total area",
+              "translation": "Total Area"
+            },
+            {
+              "id": 1630,
+              "tab_id": 113,
+              "name": "selection and establishment",
+              "translation": "Selection and Establishment"
+            }
+          ]
+        },
+        {
+          "id": 117,
+          "modal_id": 52,
+          "name": "members",
+          "fields": [
+            {
+              "id": 1634,
+              "tab_id": 117,
+              "name": "citizenship id",
+              "translation": "Citizenship ID"
+            },
+            {
+              "id": 1638,
+              "tab_id": 117,
+              "name": "father",
+              "translation": "Father"
+            },
+            {
+              "id": 1642,
+              "tab_id": 117,
+              "name": "mother",
+              "translation": "Mother"
+            },
+            {
+              "id": 1646,
+              "tab_id": 117,
+              "name": "sister",
+              "translation": "Sister"
+            },
+            {
+              "id": 1650,
+              "tab_id": 117,
+              "name": "brother",
+              "translation": "Brother"
+            },
+            {
+              "id": 1654,
+              "tab_id": 117,
+              "name": "child",
+              "translation": "Child"
+            },
+            {
+              "id": 1658,
+              "tab_id": 117,
+              "name": "husband",
+              "translation": "Husband"
+            },
+            {
+              "id": 1662,
+              "tab_id": 117,
+              "name": "female",
+              "translation": "Female"
+            },
+            {
+              "id": 1666,
+              "tab_id": 117,
+              "name": "search for the name or id of the desired citizen",
+              "translation": "Search for the name or ID of the desired citizen"
+            },
+            {
+              "id": 1670,
+              "tab_id": 117,
+              "name": "ability to buy from metargb store",
+              "translation": "Ability to buy from META RGB store"
+            },
+            {
+              "id": 1674,
+              "tab_id": 117,
+              "name": "the possibility of selling real estate in meta rgb",
+              "translation": "The possibility of selling real estate in META RGB"
+            },
+            {
+              "id": 1678,
+              "tab_id": 117,
+              "name": "condition",
+              "translation": "Condition"
+            },
+            {
+              "id": 1682,
+              "tab_id": 117,
+              "name": "the possibility of withdrawing capital from meta rgb",
+              "translation": "The possibility of withdrawing capital from META RGB"
+            },
+            {
+              "id": 1686,
+              "tab_id": 117,
+              "name": "the possibility of joining the unity",
+              "translation": "The possibility of joining the Unity"
+            },
+            {
+              "id": 1690,
+              "tab_id": 117,
+              "name": "dynasty management capability",
+              "translation": "Dynasty Management Capability"
+            },
+            {
+              "id": 1694,
+              "tab_id": 117,
+              "name": "ability to participate in joint unity projects",
+              "translation": "Ability to participate in joint unity projects"
+            },
+            {
+              "id": 1698,
+              "tab_id": 117,
+              "name": "ability to participate in challenges",
+              "translation": "Ability to Participate in Challenges"
+            },
+            {
+              "id": 1702,
+              "tab_id": 117,
+              "name": "ability to participate in competitions",
+              "translation": "Ability to Participate in Competitions"
+            },
+            {
+              "id": 1706,
+              "tab_id": 117,
+              "name": "ability to establish a store or office",
+              "translation": "Ability to Establish a Store or Office"
+            },
+            {
+              "id": 1710,
+              "tab_id": 117,
+              "name": "ability to cooperate in construction",
+              "translation": "Ability to Cooperate in Construction"
+            },
+            {
+              "id": 1714,
+              "tab_id": 117,
+              "name": "level",
+              "translation": "Level"
+            },
+            {
+              "id": 1718,
+              "tab_id": 117,
+              "name": "family dynasty",
+              "translation": "Family Dynasty"
+            },
+            {
+              "id": 1722,
+              "tab_id": 117,
+              "name": "dynasty property",
+              "translation": "Dynasty Property"
+            },
+            {
+              "id": 1726,
+              "tab_id": 117,
+              "name": "members",
+              "translation": "Members"
+            },
+            {
+              "id": 1730,
+              "tab_id": 117,
+              "name": "submitted request",
+              "translation": "Submitted Request"
+            },
+            {
+              "id": 1734,
+              "tab_id": 117,
+              "name": "request received",
+              "translation": "Request Received"
+            },
+            {
+              "id": 1738,
+              "tab_id": 117,
+              "name": "establishment of a dynasty",
+              "translation": "Establishment of a Dynasty"
+            },
+            {
+              "id": 1743,
+              "tab_id": 117,
+              "name": "search",
+              "translation": "Search"
+            }
+          ]
+        },
+        {
+          "id": 121,
+          "modal_id": 52,
+          "name": "submitted-request",
+          "fields": [
+            {
+              "id": 1746,
+              "tab_id": 121,
+              "name": "family dynasty",
+              "translation": "Family Dynasty"
+            },
+            {
+              "id": 1750,
+              "tab_id": 121,
+              "name": "dynasty property",
+              "translation": "Dynasty Property"
+            },
+            {
+              "id": 1754,
+              "tab_id": 121,
+              "name": "members",
+              "translation": "Members"
+            },
+            {
+              "id": 1758,
+              "tab_id": 121,
+              "name": "submitted request",
+              "translation": "Submitted Request"
+            },
+            {
+              "id": 1762,
+              "tab_id": 121,
+              "name": "request received",
+              "translation": "Request Received"
+            },
+            {
+              "id": 1766,
+              "tab_id": 121,
+              "name": "establishment of a dynasty",
+              "translation": "Establishment of a Dynasty"
+            },
+            {
+              "id": 1770,
+              "tab_id": 121,
+              "name": "send to",
+              "translation": "Send to"
+            },
+            {
+              "id": 1774,
+              "tab_id": 121,
+              "name": "date and time of sending",
+              "translation": "Date and time of sending"
+            },
+            {
+              "id": 1778,
+              "tab_id": 121,
+              "name": "family relationship",
+              "translation": "Family Relationship"
+            },
+            {
+              "id": 1782,
+              "tab_id": 121,
+              "name": "application status",
+              "translation": "Application Status"
+            },
+            {
+              "id": 1786,
+              "tab_id": 121,
+              "name": "view",
+              "translation": "View"
+            }
+          ]
+        },
+        {
+          "id": 125,
+          "modal_id": 52,
+          "name": "request-received",
+          "fields": [
+            {
+              "id": 1790,
+              "tab_id": 125,
+              "name": "family dynasty",
+              "translation": "Family Dynasty"
+            },
+            {
+              "id": 1794,
+              "tab_id": 125,
+              "name": "dynasty property",
+              "translation": "Dynasty Property"
+            },
+            {
+              "id": 1798,
+              "tab_id": 125,
+              "name": "members",
+              "translation": "Members"
+            },
+            {
+              "id": 1802,
+              "tab_id": 125,
+              "name": "submitted request",
+              "translation": "Submitted Request"
+            },
+            {
+              "id": 1806,
+              "tab_id": 125,
+              "name": "request received",
+              "translation": "Request Received"
+            },
+            {
+              "id": 1810,
+              "tab_id": 125,
+              "name": "establishment of a dynasty",
+              "translation": "Establishment of a Dynasty"
+            },
+            {
+              "id": 1814,
+              "tab_id": 125,
+              "name": "send to",
+              "translation": "Receive From"
+            },
+            {
+              "id": 1818,
+              "tab_id": 125,
+              "name": "date and time of sending",
+              "translation": "Date and time of sending"
+            },
+            {
+              "id": 1822,
+              "tab_id": 125,
+              "name": "family relationship",
+              "translation": "Family Relationship"
+            },
+            {
+              "id": 1826,
+              "tab_id": 125,
+              "name": "application status",
+              "translation": "Application Status"
+            },
+            {
+              "id": 1830,
+              "tab_id": 125,
+              "name": "view",
+              "translation": "View"
+            }
+          ]
+        },
+        {
+          "id": 129,
+          "modal_id": 52,
+          "name": "dynasty-property",
+          "fields": [
+            {
+              "id": 1498,
+              "tab_id": 129,
+              "name": "family dynasty",
+              "translation": "Family Dynasty"
+            },
+            {
+              "id": 1502,
+              "tab_id": 129,
+              "name": "dynasty property",
+              "translation": "Dynasty Property"
+            },
+            {
+              "id": 1506,
+              "tab_id": 129,
+              "name": "members",
+              "translation": "Members"
+            },
+            {
+              "id": 1510,
+              "tab_id": 129,
+              "name": "submitted request",
+              "translation": "Submitted Request"
+            },
+            {
+              "id": 1514,
+              "tab_id": 129,
+              "name": "request received",
+              "translation": "Request Received"
+            },
+            {
+              "id": 1518,
+              "tab_id": 129,
+              "name": "dynasty characteristics",
+              "translation": "Dynasty Characteristics"
+            },
+            {
+              "id": 1522,
+              "tab_id": 129,
+              "name": "total area",
+              "translation": "Total Area"
+            },
+            {
+              "id": 1526,
+              "tab_id": 129,
+              "name": "density",
+              "translation": "Density"
+            },
+            {
+              "id": 1530,
+              "tab_id": 129,
+              "name": "increased profit from residential real estate",
+              "translation": "Increased profit from residential real estate"
+            },
+            {
+              "id": 1534,
+              "tab_id": 129,
+              "name": "number of family members",
+              "translation": "Number of family members"
+            },
+            {
+              "id": 1538,
+              "tab_id": 129,
+              "name": "ability to transfer property",
+              "translation": "Ability to transfer property"
+            },
+            {
+              "id": 1542,
+              "tab_id": 129,
+              "name": "vod id",
+              "translation": "VOD ID"
+            },
+            {
+              "id": 1546,
+              "tab_id": 129,
+              "name": "total area",
+              "translation": "Total Area"
+            },
+            {
+              "id": 1550,
+              "tab_id": 129,
+              "name": "dynasty transfer",
+              "translation": "Dynasty transfer"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "footer-menu",
+      "tabs": [
+        {
+          "id": 161,
+          "modal_id": 64,
+          "name": "our-systems",
+          "fields": [
+            {
+              "id": 2150,
+              "tab_id": 161,
+              "name": "ministry of cooperation license",
+              "translation": "Ministry of Cooperation License"
+            },
+            {
+              "id": 2154,
+              "tab_id": 161,
+              "name": "judiciary authority license",
+              "translation": "Judiciary Authority License"
+            },
+            {
+              "id": 2158,
+              "tab_id": 161,
+              "name": "video training center",
+              "translation": "Video Training Center"
+            },
+            {
+              "id": 2162,
+              "tab_id": 161,
+              "name": "q&q forum",
+              "translation": "Q&A Forum"
+            },
+            {
+              "id": 2166,
+              "tab_id": 161,
+              "name": "national store",
+              "translation": "National Store"
+            },
+            {
+              "id": 2170,
+              "tab_id": 161,
+              "name": "iranian producers",
+              "translation": "Iranian Producers"
+            },
+            {
+              "id": 2174,
+              "tab_id": 161,
+              "name": "management system for managers",
+              "translation": "Management System for Managers"
+            },
+            {
+              "id": 2178,
+              "tab_id": 161,
+              "name": "target system",
+              "translation": "Target System"
+            },
+            {
+              "id": 2182,
+              "tab_id": 161,
+              "name": "animal system",
+              "translation": "Animal System"
+            },
+            {
+              "id": 2186,
+              "tab_id": 161,
+              "name": "structure center",
+              "translation": "Structure Center"
+            },
+            {
+              "id": 2190,
+              "tab_id": 161,
+              "name": "meta news",
+              "translation": "Meta News"
+            },
+            {
+              "id": 2194,
+              "tab_id": 161,
+              "name": "metaverse university",
+              "translation": "Metaverse University"
+            },
+            {
+              "id": 2198,
+              "tab_id": 161,
+              "name": "knowledge-centric system",
+              "translation": "Knowledge-Centric System"
+            },
+            {
+              "id": 2202,
+              "tab_id": 161,
+              "name": "it services system",
+              "translation": "IT Services System"
+            },
+            {
+              "id": 2206,
+              "tab_id": 161,
+              "name": "national advertising",
+              "translation": "National Advertising"
+            },
+            {
+              "id": 2210,
+              "tab_id": 161,
+              "name": "nft marketplace",
+              "translation": "NFT Marketplace"
+            },
+            {
+              "id": 2214,
+              "tab_id": 161,
+              "name": "metaverse color",
+              "translation": "Metaverse Color"
+            },
+            {
+              "id": 2218,
+              "tab_id": 161,
+              "name": "real estate and properties",
+              "translation": "Real Estate and Properties"
+            },
+            {
+              "id": 4248,
+              "tab_id": 161,
+              "name": "national metaverse",
+              "translation": "National Metaverse"
+            },
+            {
+              "id": 4255,
+              "tab_id": 161,
+              "name": "global leadership in a parallel world",
+              "translation": "Global leadership in a parallel world"
+            },
+            {
+              "id": 4262,
+              "tab_id": 161,
+              "name": "footer description1",
+              "translation": "National Metaverse is a large and leading project in the parallel world of Color Metaverse, implemented by Behesht Supply Chain Cooperative. This project has achieved a new reality in the parallel and virtual world and offers amazing facilities to people all over the world to experience unique and fascinating experiences."
+            },
+            {
+              "id": 4269,
+              "tab_id": 161,
+              "name": "footer description2",
+              "translation": "Behesht supply chain cooperative, as the main founder of this project, has promoted the creation of a global virtual community by using advanced technologies and taking advantage of the metaverse concept. This project allows people to benefit from IoT technology, experience the 3D environment of virtual reality, and endless interactions."
+            },
+            {
+              "id": 4276,
+              "tab_id": 161,
+              "name": "join our networks",
+              "translation": "Join Our Networks"
+            },
+            {
+              "id": 4283,
+              "tab_id": 161,
+              "name": "facebook",
+              "translation": "Facebook"
+            },
+            {
+              "id": 4290,
+              "tab_id": 161,
+              "name": "feed",
+              "translation": "Feed"
+            },
+            {
+              "id": 4297,
+              "tab_id": 161,
+              "name": "instagram",
+              "translation": "Instagram"
+            },
+            {
+              "id": 4304,
+              "tab_id": 161,
+              "name": "linkedin",
+              "translation": "Linkedin"
+            },
+            {
+              "id": 4311,
+              "tab_id": 161,
+              "name": "pinterest",
+              "translation": "Pinterest"
+            },
+            {
+              "id": 4318,
+              "tab_id": 161,
+              "name": "whatsapp",
+              "translation": "Whatsapp"
+            },
+            {
+              "id": 4325,
+              "tab_id": 161,
+              "name": "youtube",
+              "translation": "Youtube"
+            },
+            {
+              "id": 4332,
+              "tab_id": 161,
+              "name": "rubika",
+              "translation": "Rubika"
+            },
+            {
+              "id": 4339,
+              "tab_id": 161,
+              "name": "telegram",
+              "translation": "Telegram"
+            },
+            {
+              "id": 4346,
+              "tab_id": 161,
+              "name": "virgool",
+              "translation": "Virgool"
+            },
+            {
+              "id": 4353,
+              "tab_id": 161,
+              "name": "add",
+              "translation": "Add"
+            },
+            {
+              "id": 4360,
+              "tab_id": 161,
+              "name": "aparat",
+              "translation": "Aparat"
+            },
+            {
+              "id": 4367,
+              "tab_id": 161,
+              "name": "dalfak",
+              "translation": "Dalfak"
+            },
+            {
+              "id": 4374,
+              "tab_id": 161,
+              "name": "discord",
+              "translation": "Discord"
+            },
+            {
+              "id": 4381,
+              "tab_id": 161,
+              "name": "faq",
+              "translation": "Faq"
+            },
+            {
+              "id": 4388,
+              "tab_id": 161,
+              "name": "filo",
+              "translation": "Filo"
+            },
+            {
+              "id": 4395,
+              "tab_id": 161,
+              "name": "jabeh",
+              "translation": "Jabeh"
+            },
+            {
+              "id": 4402,
+              "tab_id": 161,
+              "name": "medium",
+              "translation": "Medium"
+            },
+            {
+              "id": 4409,
+              "tab_id": 161,
+              "name": "mp4",
+              "translation": "MP4"
+            },
+            {
+              "id": 4416,
+              "tab_id": 161,
+              "name": "namasha",
+              "translation": "Namasha"
+            },
+            {
+              "id": 4429,
+              "tab_id": 161,
+              "name": "youtube-url",
+              "translation": "https://www.youtube.com/@Irpsc"
+            },
+            {
+              "id": 4436,
+              "tab_id": 161,
+              "name": "instagram-url",
+              "translation": "https://www.instagram.com/rgb.irpsc/"
+            },
+            {
+              "id": 4443,
+              "tab_id": 161,
+              "name": "ifilo-url",
+              "translation": "https://ifilo.net/MetaRang.iran"
+            },
+            {
+              "id": 4450,
+              "tab_id": 161,
+              "name": "mp4-url",
+              "translation": "https://www.mp4.ir/meta.rang"
+            },
+            {
+              "id": 4457,
+              "tab_id": 161,
+              "name": "dalfak-url",
+              "translation": "https://www.dalfak.com/metarang"
+            },
+            {
+              "id": 4471,
+              "tab_id": 161,
+              "name": "jabeh-url",
+              "translation": "https://jabeh.com/c/1nk44b"
+            },
+            {
+              "id": 4478,
+              "tab_id": 161,
+              "name": "namasha-url",
+              "translation": "https://www.namasha.com/qzparadise"
+            },
+            {
+              "id": 4485,
+              "tab_id": 161,
+              "name": "medium-url",
+              "translation": "https://medium.com/@metarang.iran"
+            },
+            {
+              "id": 4492,
+              "tab_id": 161,
+              "name": "rubika-url",
+              "translation": "https://rubika.ir/metaverse_iran"
+            },
+            {
+              "id": 4499,
+              "tab_id": 161,
+              "name": "faq-url",
+              "translation": "https://faq.irpsc.com/"
+            },
+            {
+              "id": 4506,
+              "tab_id": 161,
+              "name": "ad-url",
+              "translation": "https://ad.irpsc.com/"
+            },
+            {
+              "id": 4513,
+              "tab_id": 161,
+              "name": "aparat-url",
+              "translation": "https://www.aparat.com/Qzparadise.ir"
+            },
+            {
+              "id": 4520,
+              "tab_id": 161,
+              "name": "pinterest-url",
+              "translation": "https://www.pinterest.com/metarangiran/"
+            },
+            {
+              "id": 4527,
+              "tab_id": 161,
+              "name": "virgool-url",
+              "translation": "https://virgool.io/@metarang.iran"
+            },
+            {
+              "id": 4534,
+              "tab_id": 161,
+              "name": "video-url",
+              "translation": "https://video.irpsc.com"
+            },
+            {
+              "id": 4541,
+              "tab_id": 161,
+              "name": "faq-url",
+              "translation": "https://faq.irpsc.com"
+            },
+            {
+              "id": 4548,
+              "tab_id": 161,
+              "name": "shop-url",
+              "translation": "https://shop.irpsc.com"
+            },
+            {
+              "id": 4555,
+              "tab_id": 161,
+              "name": "supply-url",
+              "translation": "https://supply.irpsc.com"
+            },
+            {
+              "id": 4562,
+              "tab_id": 161,
+              "name": "crm-url",
+              "translation": "https://crm.irpsc.com"
+            },
+            {
+              "id": 4569,
+              "tab_id": 161,
+              "name": "target-url",
+              "translation": "https://target.irpsc.com"
+            },
+            {
+              "id": 4576,
+              "tab_id": 161,
+              "name": "animal-url",
+              "translation": "https://animal.irpsc.com"
+            },
+            {
+              "id": 4583,
+              "tab_id": 161,
+              "name": "meta-url",
+              "translation": "https://meta.irpsc.com"
+            },
+            {
+              "id": 4590,
+              "tab_id": 161,
+              "name": "uni-url",
+              "translation": "https://uni.irpsc.com"
+            },
+            {
+              "id": 4597,
+              "tab_id": 161,
+              "name": "knowledgebase-url",
+              "translation": "https://crm.irpsc.com/knowledgebase"
+            },
+            {
+              "id": 4604,
+              "tab_id": 161,
+              "name": "sale-url",
+              "translation": "https://sale.irpsc.com"
+            },
+            {
+              "id": 4611,
+              "tab_id": 161,
+              "name": "nft-url",
+              "translation": "https://nft.irpsc.com"
+            },
+            {
+              "id": 4618,
+              "tab_id": 161,
+              "name": "rgb-url",
+              "translation": "https://rgb.irpsc.com"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ip-checker",
+      "tabs": [
+        {
+          "id": 290,
+          "modal_id": 110,
+          "name": "access-error",
+          "fields": [
+            {
+              "id": 3344,
+              "tab_id": 290,
+              "name": "access level",
+              "translation": "Access level"
+            },
+            {
+              "id": 3351,
+              "tab_id": 290,
+              "name": "unauthorized ip",
+              "translation": "Unauthorized IP"
+            },
+            {
+              "id": 3358,
+              "tab_id": 290,
+              "name": "your IP is known",
+              "translation": "Your IP is known as non-iranian"
+            },
+            {
+              "id": 3365,
+              "tab_id": 290,
+              "name": "if you use a",
+              "translation": "If you use a"
+            },
+            {
+              "id": 3372,
+              "tab_id": 290,
+              "name": "vpn",
+              "translation": "VPN"
+            },
+            {
+              "id": 3603,
+              "tab_id": 290,
+              "name": "otherwise, click",
+              "translation": "Otherwise, click on the option below"
+            },
+            {
+              "id": 3610,
+              "tab_id": 290,
+              "name": "ip authorization",
+              "translation": "IP Authorization"
+            },
+            {
+              "id": 3617,
+              "tab_id": 290,
+              "name": "for more information",
+              "translation": "For more information and answers to questions."
+            },
+            {
+              "id": 3624,
+              "tab_id": 290,
+              "name": "visit the",
+              "translation": "visit the"
+            },
+            {
+              "id": 3631,
+              "tab_id": 290,
+              "name": "website",
+              "translation": "website."
+            },
+            {
+              "id": 3869,
+              "tab_id": 290,
+              "name": "turn it off",
+              "translation": ", turn it off"
+            },
+            {
+              "id": 3876,
+              "tab_id": 290,
+              "name": "then reload the page",
+              "translation": "Then reload the page"
+            }
+          ]
+        },
+        {
+          "id": 297,
+          "modal_id": 110,
+          "name": "review-and-notification",
+          "fields": [
+            {
+              "id": 3295,
+              "tab_id": 297,
+              "name": "access level",
+              "translation": "Access level"
+            },
+            {
+              "id": 3302,
+              "tab_id": 297,
+              "name": "check ip status",
+              "translation": "Check IP Status"
+            },
+            {
+              "id": 3309,
+              "tab_id": 297,
+              "name": "time required 24 hours",
+              "translation": "Time required 24 hours"
+            },
+            {
+              "id": 3316,
+              "tab_id": 297,
+              "name": "to inform about",
+              "translation": "To inform about the description of actions"
+            },
+            {
+              "id": 3638,
+              "tab_id": 297,
+              "name": "enter your email below",
+              "translation": "Enter your email below"
+            },
+            {
+              "id": 3645,
+              "tab_id": 297,
+              "name": "enter your email",
+              "translation": "Enter your email"
+            },
+            {
+              "id": 3652,
+              "tab_id": 297,
+              "name": "the email entered is not valid",
+              "translation": "The email entered is not valid"
+            },
+            {
+              "id": 3659,
+              "tab_id": 297,
+              "name": "let me know",
+              "translation": "Let me know"
+            },
+            {
+              "id": 3666,
+              "tab_id": 297,
+              "name": "for more information",
+              "translation": "For more information and answers to questions,"
+            },
+            {
+              "id": 3673,
+              "tab_id": 297,
+              "name": "visit the",
+              "translation": "visit the"
+            },
+            {
+              "id": 3680,
+              "tab_id": 297,
+              "name": "website",
+              "translation": "website"
+            },
+            {
+              "id": 3890,
+              "tab_id": 297,
+              "name": "your email has been registered",
+              "translation": "Your email has been registered"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "central-page",
+      "tabs": [
+        {
+          "id": 311,
+          "modal_id": 117,
+          "name": "central-page",
+          "fields": [
+            {
+              "id": 3687,
+              "tab_id": 311,
+              "name": "meta rgb",
+              "translation": "META RGB"
+            },
+            {
+              "id": 3701,
+              "tab_id": 311,
+              "name": "sign out",
+              "translation": "Sign Out"
+            },
+            {
+              "id": 3708,
+              "tab_id": 311,
+              "name": "account security",
+              "translation": "Account Security"
+            },
+            {
+              "id": 3715,
+              "tab_id": 311,
+              "name": "challenges",
+              "translation": "Challenges"
+            },
+            {
+              "id": 3722,
+              "tab_id": 311,
+              "name": "central search",
+              "translation": "Central Search"
+            },
+            {
+              "id": 3729,
+              "tab_id": 311,
+              "name": "global statistics",
+              "translation": "Global Statistics"
+            },
+            {
+              "id": 3736,
+              "tab_id": 311,
+              "name": "family tree",
+              "translation": "Family Tree"
+            },
+            {
+              "id": 3743,
+              "tab_id": 311,
+              "name": "vod guide",
+              "translation": "VOD Guide"
+            },
+            {
+              "id": 3750,
+              "tab_id": 311,
+              "name": "accumulated earnings",
+              "translation": "Accumulated Earnings"
+            },
+            {
+              "id": 3757,
+              "tab_id": 311,
+              "name": "identify verification",
+              "translation": "Identify Verification"
+            },
+            {
+              "id": 3771,
+              "tab_id": 311,
+              "name": "store",
+              "translation": "Store"
+            },
+            {
+              "id": 3778,
+              "tab_id": 311,
+              "name": "notifications",
+              "translation": "Notifications"
+            },
+            {
+              "id": 3785,
+              "tab_id": 311,
+              "name": "reports",
+              "translation": "Reports"
+            },
+            {
+              "id": 3792,
+              "tab_id": 311,
+              "name": "language",
+              "translation": "Language"
+            },
+            {
+              "id": 3799,
+              "tab_id": 311,
+              "name": "dark mode",
+              "translation": "Dark Mode"
+            },
+            {
+              "id": 3806,
+              "tab_id": 311,
+              "name": "light mode",
+              "translation": "Light Mode"
+            },
+            {
+              "id": 3813,
+              "tab_id": 311,
+              "name": "send document",
+              "translation": "Send Document"
+            },
+            {
+              "id": 3820,
+              "tab_id": 311,
+              "name": "chat",
+              "translation": "Chat"
+            },
+            {
+              "id": 3827,
+              "tab_id": 311,
+              "name": "profile",
+              "translation": "Profile"
+            },
+            {
+              "id": 3834,
+              "tab_id": 311,
+              "name": "share",
+              "translation": "Share"
+            },
+            {
+              "id": 3841,
+              "tab_id": 311,
+              "name": "dynasty",
+              "translation": "Dynasty"
+            },
+            {
+              "id": 3848,
+              "tab_id": 311,
+              "name": "unity",
+              "translation": "Unity"
+            },
+            {
+              "id": 3855,
+              "tab_id": 311,
+              "name": "visit portfolio",
+              "translation": "Visit Portfolio"
+            },
+            {
+              "id": 3953,
+              "tab_id": 311,
+              "name": "citizenship profile",
+              "translation": "Citizenship profile"
+            }
+          ]
+        },
+        {
+          "id": 318,
+          "modal_id": 117,
+          "name": "before-login",
+          "fields": [
+            {
+              "id": 3897,
+              "tab_id": 318,
+              "name": "complete list",
+              "translation": "complete list"
+            },
+            {
+              "id": 3904,
+              "tab_id": 318,
+              "name": "people online",
+              "translation": "People online"
+            },
+            {
+              "id": 3911,
+              "tab_id": 318,
+              "name": "entrance fee",
+              "translation": "entrance fee"
+            },
+            {
+              "id": 4002,
+              "tab_id": 318,
+              "name": "complete list",
+              "translation": "complete list"
+            },
+            {
+              "id": 4066,
+              "tab_id": 318,
+              "name": "home",
+              "translation": "Home"
+            },
+            {
+              "id": 4073,
+              "tab_id": 318,
+              "name": "news",
+              "translation": "News"
+            },
+            {
+              "id": 4080,
+              "tab_id": 318,
+              "name": "metaverse rang",
+              "translation": "METAVETSE RANG"
+            },
+            {
+              "id": 4087,
+              "tab_id": 318,
+              "name": "metargb",
+              "translation": "META RGB"
+            },
+            {
+              "id": 4094,
+              "tab_id": 318,
+              "name": "articles",
+              "translation": "Articles"
+            },
+            {
+              "id": 4101,
+              "tab_id": 318,
+              "name": "trainings",
+              "translation": "Trainings"
+            },
+            {
+              "id": 4108,
+              "tab_id": 318,
+              "name": "about",
+              "translation": "About"
+            },
+            {
+              "id": 4115,
+              "tab_id": 318,
+              "name": "contact",
+              "translation": "Contact"
+            },
+            {
+              "id": 4122,
+              "tab_id": 318,
+              "name": "version",
+              "translation": "Version"
+            },
+            {
+              "id": 4129,
+              "tab_id": 318,
+              "name": "calendar",
+              "translation": "Calendar"
+            },
+            {
+              "id": 4136,
+              "tab_id": 318,
+              "name": "citizens",
+              "translation": "Citizens"
+            },
+            {
+              "id": 4143,
+              "tab_id": 318,
+              "name": "overview",
+              "translation": "Overview"
+            },
+            {
+              "id": 4150,
+              "tab_id": 318,
+              "name": "language",
+              "translation": "Language"
+            },
+            {
+              "id": 4157,
+              "tab_id": 318,
+              "name": "login",
+              "translation": "Login"
+            },
+            {
+              "id": 4164,
+              "tab_id": 318,
+              "name": "light",
+              "translation": "Light"
+            },
+            {
+              "id": 4171,
+              "tab_id": 318,
+              "name": "dark",
+              "translation": "Dark"
+            },
+            {
+              "id": 4178,
+              "tab_id": 318,
+              "name": "citizen profile page",
+              "translation": "Citizen profile page"
+            },
+            {
+              "id": 4185,
+              "tab_id": 318,
+              "name": "enter the metaverse",
+              "translation": "Enter the Metaverse"
+            },
+            {
+              "id": 4192,
+              "tab_id": 318,
+              "name": "exit",
+              "translation": "Exit"
+            },
+            {
+              "id": 4423,
+              "tab_id": 318,
+              "name": "competitions",
+              "translation": "Competitions"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

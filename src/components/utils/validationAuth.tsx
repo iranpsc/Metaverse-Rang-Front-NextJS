@@ -23,7 +23,7 @@ export const selectLanguage = (language: string) => {
         placeholderEmail: "Enter your email",
         placeholderPassword: "Password",
         password:
-          "The password must contain numbers,symbols,and English lowercase and uppercase ;etters.",
+          "The password must contain numbers,symbols,and English lowercase and uppercase ;letters.",
         required: "This field is required",
         minLength: "Password must be at least 8 characters long",
       };

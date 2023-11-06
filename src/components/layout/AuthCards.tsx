@@ -15,6 +15,7 @@ export default function AuthCards({setShowAuthCard}:any) {
   const { modalName } = useContext(AuthContext);
   const { languageSelected,data } = useContext(LangContext);
   const lang = languageSelected.code;
+
  
   return (
     <div

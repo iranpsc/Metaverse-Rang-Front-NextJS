@@ -7,6 +7,8 @@ import {
 } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
+import fs from "fs";
+import path from "path";
 
 import { Language } from "@/types/api";
 interface Props {
@@ -110,6 +112,7 @@ const LangProvider = ({ children }: Props) => {
           },
         });
         
+
         if (lang) {
           const query = res.data.data.find((item: any) => item.code === lang);
 
@@ -163,15 +166,16 @@ const LangProvider = ({ children }: Props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(
-          `https://play.irpsc.com/metaverse/lang/fa.json`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        // const res = await axios.get(`${languageSelected.file_url}`, {
+        //   headers: {
+        //     "Content-Type": "application/json",
+            
+        //   },
+        // });
+      
 
+       const res = await axios.get(`/json-${languageSelected.code}.json`);
+        
      
 
         const modalsProfile = res.data.modals.find(
