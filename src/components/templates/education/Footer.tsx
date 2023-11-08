@@ -66,7 +66,7 @@ export default function Footer() {
 
          
 
-          console.log(tabsMenu.fields);
+ ;
    
          } catch (err) {}
        };
