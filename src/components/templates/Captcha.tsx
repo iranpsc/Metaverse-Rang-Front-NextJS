@@ -40,9 +40,9 @@ export default function Captcha({
         "https://api.rgb.irpsc.com/api/login",
         requestData
       );
+      console.log(response.data);
       if (response.data) {
         seShowErrorLoginAccess("");
-        
         setShowCaptcha(false);
       
       }
@@ -89,7 +89,7 @@ export default function Captcha({
           لطفا بررسی کنید که ربات نیستید
         </p>
         <ReCAPTCHA
-          sitekey="6LdhteYnAAAAAAyAGd2zI0BZrSNgqWnkbSJVnsxZ"
+          sitekey="6LdZAVYoAAAAAFrfDO0ok8FQZm7hJLZ1Y0zXvcna"
           ref={captchaRef}
           onChange={onChange}
           theme={`${theme === "dark" ? "dark" : "light"}`}
