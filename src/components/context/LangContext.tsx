@@ -42,7 +42,7 @@ const initialValue: LangContextType = {
     native_name: "English",
     dir: "ltr",
     icon: "https://admin.rgb.irpsc.com/assets/images/flags/en.svg",
-    file_url: "https://rgb.irpsc.com/citizen-profile/lang/en.json",
+    file_url: "https://rgb.irpsc.com/lang/en.json",
   },
   profileData: [],
 
@@ -166,19 +166,20 @@ const LangProvider = ({ children }: Props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // const res = await axios.get(`${languageSelected.file_url}`, {
-        //   headers: {
-        //     "Content-Type": "application/json",
+        const res = await axios.get(`${languageSelected.file_url}`, {
+          headers: {
+            "Content-Type": "application/json",
             
-        //   },
-        const res = await axios.get(
-          `https://rgb.irpsc.com/citizen-profile/lang/${languageSelected.code}.json`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
+          },
+        // const res = await axios.get(
+        //   `https://rgb.irpsc.com/citizen-profile/lang/${languageSelected.code}.json`,
+        //   {
+        //     headers: {
+        //       "Content-Type": "application/json",
+        //     },
+
           }
-        );
+         );
      
 
         const modalsProfile = res.data.modals.find(
