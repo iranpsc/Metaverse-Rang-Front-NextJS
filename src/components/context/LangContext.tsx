@@ -172,7 +172,7 @@ const LangProvider = ({ children }: Props) => {
             
         //   },
         const res = await axios.get(
-          "https://rgb.irpsc.com/citizen-profile/lang/fa.json",
+          `https://rgb.irpsc.com/citizen-profile/lang/${languageSelected.code}.json`,
           {
             headers: {
               "Content-Type": "application/json",
