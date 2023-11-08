@@ -116,7 +116,7 @@ export default function LoginModule() {
                 />
                 <ErrorMessageComponent fieldName="email" lang={lang} />
                 {showErrorLoginAccess !== "" ? (
-                  <span className="text-error font-azarMehr font-medium text-[10px] bg-error mt-2">
+                  <span className="text-error font-azarMehr font-medium text-[10px] mt-2">
                     {showErrorLoginAccess}
                   </span>
                 ) : null}

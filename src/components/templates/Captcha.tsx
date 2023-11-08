@@ -52,7 +52,7 @@ export default function Captcha({
  
     }
   };
-  loginUser()
+  
  
 
   const RegisterUser = async () => {
@@ -91,7 +91,7 @@ export default function Captcha({
           لطفا بررسی کنید که ربات نیستید
         </p>
         <ReCAPTCHA
-          sitekey="6LcwgwUpAAAAAIq2-1Ko97MeSg6DR3ssG80AY3J5"
+          sitekey="6Ld2bgYpAAAAAOEcMfGv-UZae2KJ2zvtgDkz8mA1"
           ref={captchaRef}
           onChange={onChange}
           theme={`${theme === "dark" ? "dark" : "light"}`}
