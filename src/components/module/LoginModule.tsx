@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import Link from "next/link";   
 import dynamic from "next/dynamic";
 import { Formik, Form, Field} from "formik";
 //svgs
@@ -37,14 +38,20 @@ export default function LoginModule() {
     (item: any) =>
       item.name === "visit-the"
   ).translation;
-
   const footerText3 = data.data.loginPageLang.find(
+    (item: any) => item.name === "terms of service contract"
+  ).translation;
+
+  const footerText4 = data.data.loginPageLang.find(
     (item: any) =>
       item.name === "website."
   ).translation;
+  const footerText5 = data.data.loginPageLang.find(
+    (item: any) => item.name === "you agree"
+  ).translation;
   
 
-console.log(footerText)
+
 
    const modifiedFooterTextEn = "terms of the service contract"
      
@@ -79,7 +86,7 @@ console.log(footerText)
   
   }
 
-  console.log(data.data.loginPageLang);
+
 
   return (
     <>
@@ -178,7 +185,7 @@ console.log(footerText)
         </Formik>
         {showCaptcha && (
           <div
-            className="absolute bg-black/60  top-0 w-[100%] h-[100%]"
+            className="absolute backdrop-blur-sm   top-0 w-[100%] h-[100%]"
             onClick={() => setShowCaptcha(false)}
           >
             <DynamicCaptcha
@@ -213,13 +220,42 @@ console.log(footerText)
           </p>
         </div>
 
-        <p className="text-center px-1 pb-6 mt-6 w-full text-[#000000A1] dark:text-[#FFFFFFA1] font-azarMehr text-[14px] font-normal">
-          {footerText}
-          {footerText2}
-          <span className=" cursor-pointer text-center px-1 mt-4 w-full text-blueLink dark:text-blueLink font-azarMehr text-[14px] font-normal">
-            {footerText3}
-          </span>
-        </p>
+        {languageSelected.code === "fa" && (
+          <p className="text-center px-1 pb-6 mt-6 w-full text-[#000000A1] dark:text-[#FFFFFFA1] font-azarMehr text-[14px] font-normal">
+            {footerText}
+            {footerText2}
+            {footerText3}{" "}
+            <Link
+              href="https://rgb.irpsc.com/overview"
+              passHref={true}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <span className=" cursor-pointer text-center px-1 mt-4 w-full text-blueLink dark:text-blueLink font-azarMehr text-[14px] font-normal">
+                {" "}
+                {footerText4} 
+              </span>
+            </Link>{" "}
+            {footerText5}
+          </p>
+        )}
+        {languageSelected.code === "en" && (
+          <p className="text-center px-1 pb-6 mt-6 w-full text-[#000000A1] dark:text-[#FFFFFFA1] font-azarMehr text-[14px] font-normal">
+            {footerText}{" "}
+
+            {footerText2}  
+            <Link
+              href="https://rgb.irpsc.com/overview"
+              passHref={true}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <span className=" cursor-pointer text-center px-1 mt-4 w-full text-blueLink dark:text-blueLink font-azarMehr text-[14px] font-normal">
+                {footerText4}{" "}
+              </span>
+            </Link>
+          </p>
+        )}
       </div>
     </>
   );

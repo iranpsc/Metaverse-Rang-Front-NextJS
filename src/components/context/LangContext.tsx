@@ -36,13 +36,13 @@ interface LangContextType {
 const initialValue: LangContextType = {
   languagesData: [],
   languageSelected: {
-    id: 7,
-    code: "en",
-    name: "English",
-    native_name: "English",
-    dir: "ltr",
-    icon: "https://admin.rgb.irpsc.com/assets/images/flags/en.svg",
-    file_url: "https://rgb.irpsc.com/lang/en.json",
+    id: 8,
+    code: "fa",
+    name: "Persian",
+    native_name: "فارسی",
+    dir: "rtl",
+    icon: "https://admin.rgb.irpsc.com/assets/images/flags/FA.svg",
+    file_url: "https://rgb.irpsc.com/lang/fa.json",
   },
   profileData: [],
 
@@ -165,6 +165,7 @@ const LangProvider = ({ children }: Props) => {
 
   useEffect(() => {
     const fetchData = async () => {
+     
       try {
         const res = await axios.get(`${languageSelected.file_url}`, {
           headers: {

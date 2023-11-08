@@ -8,13 +8,14 @@ import Persian from "persianjs";
 export default function ProfileTopMobile() {
 
   const {profileData, languageSelected } = useContext(LangContext);
-  const [numberCurrent_level,setNumberCurrent_level] = useState<number>(0)
+  const [numberCurrent_level,setNumberCurrent_level] = useState<number>(1)
   useEffect(()=>{
 
     if(profileData &&  profileData?.current_level && profileData?.current_level?.slug){
       setNumberCurrent_level(profileData?.current_level?.slug)
+        
     }else{
-       setNumberCurrent_level(0)
+       setNumberCurrent_level(1)
     }
 
   },[profileData])
@@ -60,9 +61,7 @@ export default function ProfileTopMobile() {
             />
             <p className="dark:text-[#212121] absolute md:text-xs text-white font-azarMehr font-black xl:text-lg sm:text-[14px] xs:text-[14px]">
               {languageSelected.code === "fa"
-                ? Persian(numberCurrent_level)
-                    .englishNumber()
-                    .toString()
+                ? Persian(numberCurrent_level).englishNumber().toString()
                 : profileData?.current_level?.slug}
             </p>
           </div>

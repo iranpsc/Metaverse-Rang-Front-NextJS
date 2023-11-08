@@ -40,9 +40,9 @@ export default function Captcha({
         "https://api.rgb.irpsc.com/api/login",
         requestData
       );
-      console.log(response.data);
       if (response.data) {
         seShowErrorLoginAccess("");
+
         setShowCaptcha(false);
       
       }
@@ -52,6 +52,8 @@ export default function Captcha({
  
     }
   };
+  loginUser()
+ 
 
   const RegisterUser = async () => {
     try {
@@ -66,7 +68,7 @@ export default function Captcha({
         requestData
       );
          // setModalName({name:"ActiveEmailPage",data:requestData.email})
-          console.log(response.data);
+          
       if (response.data) {
   
         setShowCaptcha(false);
@@ -89,7 +91,7 @@ export default function Captcha({
           لطفا بررسی کنید که ربات نیستید
         </p>
         <ReCAPTCHA
-          sitekey="6LdZAVYoAAAAAFrfDO0ok8FQZm7hJLZ1Y0zXvcna"
+          sitekey="6LcwgwUpAAAAAIq2-1Ko97MeSg6DR3ssG80AY3J5"
           ref={captchaRef}
           onChange={onChange}
           theme={`${theme === "dark" ? "dark" : "light"}`}

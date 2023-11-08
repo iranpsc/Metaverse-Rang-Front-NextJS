@@ -1,4 +1,6 @@
 import { useContext } from "react";
+import Link from "next/link";    
+
 import dynamic from "next/dynamic";
 import { Formik, Form, Field } from "formik";
 import { RegisterSchema, selectLanguage } from "../utils/validationAuth";
@@ -31,21 +33,21 @@ export default function RegisterModule() {
   const { languageSelected,data } = useContext(LangContext);
   const lang = languageSelected.code;
 
-  console.log(data.data.registerPageLang);
 
- const footerText = data.data.registerPageLang.find(
-   (item: any) => item.name === "for more information and answers to"
- ).translation;
 
- const footerText2 = data.data.registerPageLang.find(
-   (item: any) => item.name === "visit-the"
- ).translation;
+   const footerText = data.data.registerPageLang.find(
+     (item: any) => item.name === "for more information and answers to"
+   ).translation;
 
- const footerText3 = data.data.registerPageLang.find(
-   (item: any) => item.name === "website."
- ).translation;
+ 
 
-  
+   const footerText2 = data.data.registerPageLang.find(
+     (item: any) => item.name === "website."
+   ).translation;
+ 
+  const footerText3 = data.data.registerPageLang.find(
+    (item: any) => item.name === "visit-the"
+  ).translation;
 
   const handleFormSubmit = (values: any) => {
     if (values) {
@@ -182,14 +184,37 @@ export default function RegisterModule() {
           </p> */}
         </div>
 
-        <p className="text-center px-1 pb-6 mt-6 w-full text-[#000000A1] dark:text-[#FFFFFFA1] font-azarMehr text-[14px] font-normal">
-          {footerText}
-
-          <span className=" cursor-pointer text-center px-1 mt-4 w-full text-blueLink dark:text-blueLink font-azarMehr text-[14px] font-normal">
+        {languageSelected.code === "fa" && (
+          <p className="text-center px-1 pb-6 mt-6 w-full text-[#000000A1] dark:text-[#FFFFFFA1] font-azarMehr text-[14px] font-normal">
+            {footerText}
+            <Link
+              href="https://rgb.irpsc.com/overview"
+              passHref={true}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <span className=" cursor-pointer text-center px-1 mt-4 w-full text-blueLink dark:text-blueLink font-azarMehr text-[14px] font-normal">
+                {footerText2}{" "}
+              </span>{" "}
+            </Link>
             {footerText3}
-          </span>
-          {footerText2}
-        </p>
+          </p>
+        )}
+        {languageSelected.code === "en" && (
+          <p className="text-center px-1 pb-6 mt-6 w-full text-[#000000A1] dark:text-[#FFFFFFA1] font-azarMehr text-[14px] font-normal">
+            {footerText} visite The{" "}
+              <Link
+              href="https://rgb.irpsc.com/overview"
+              passHref={true}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+            <span className=" cursor-pointer text-center px-1 mt-4 w-full text-blueLink dark:text-blueLink font-azarMehr text-[14px] font-normal">
+              {footerText2}{" "}
+            </span>
+            </Link>
+          </p>
+        )}
       </div>
     </>
   );

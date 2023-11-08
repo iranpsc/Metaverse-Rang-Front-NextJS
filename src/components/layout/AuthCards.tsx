@@ -24,7 +24,13 @@ export default function AuthCards({setShowAuthCard}:any) {
       dir={`${lang === "fa" ? "rtl" : "ltr"}`}
     >
       <div className=" flex   justify-center backdrop-blur-sm  bg-black/20  items-center w-full h-full">
-        <div
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{
+            duration: 0.5,
+            ease: "backInOut",
+          }}
           className={`absolute z-50
           ${
             modalName.name === "ActiveEmailPage" &&
@@ -44,13 +50,8 @@ export default function AuthCards({setShowAuthCard}:any) {
           }
            rounded-[10px]  bg-white dark:bg-dark-backgroundModules`}
         >
-          <motion.section
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{
-              duration: 0.5,
-              ease: "backInOut",
-            }}
+          <section
+           
             className=" w-full h-full flex flex-col justify-between items-center "
           >
             {modalName.name === "AuthPage" && (
@@ -98,8 +99,8 @@ export default function AuthCards({setShowAuthCard}:any) {
                 <CheckIp />
               </>
             )}
-          </motion.section>
-        </div>
+          </section>
+        </motion.div>
       </div>
     </div>
   );
