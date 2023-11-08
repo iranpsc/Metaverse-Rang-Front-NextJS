@@ -39,10 +39,10 @@ const initialValue: LangContextType = {
     id: 7,
     code: "en",
     name: "English",
-    native_name:"English",
+    native_name: "English",
     dir: "ltr",
     icon: "https://admin.rgb.irpsc.com/assets/images/flags/en.svg",
-    file_url: "https://rgb.irpsc.com/metaverse/lang/en.json",
+    file_url: "https://rgb.irpsc.com/citizen-profile/lang/en.json",
   },
   profileData: [],
 
