@@ -166,12 +166,19 @@ const LangProvider = ({ children }: Props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`${languageSelected.file_url}`, {
-          headers: {
-            "Content-Type": "application/json",
+        // const res = await axios.get(`${languageSelected.file_url}`, {
+        //   headers: {
+        //     "Content-Type": "application/json",
             
-          },
-        });
+        //   },
+        const res = await axios.get(
+          "https://rgb.irpsc.com/citizen-profile/lang/fa.json",
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
      
 
         const modalsProfile = res.data.modals.find(
