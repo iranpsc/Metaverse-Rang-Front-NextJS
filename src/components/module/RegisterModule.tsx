@@ -105,32 +105,32 @@ export default function RegisterModule() {
                         (item: any) => item.name === "password"
                       ).translation
                     }
-                    className={`${cssAuth(props, "password ")}`}
+                    className={`${cssAuth(props, "password")}`}
                   />
 
                   <span
                     className={`absolute  end-3  ${
-                      props.errors.password ? "top-[25%]" : "top-1/3"
+                      props.errors.password ? "top-[23%]" : "top-[27%]"
                     }  cursor-pointer`}
                     onClick={() => setShowPassword(!showPassword)}
                   >
                     {showPassword ? (
                       <EyeShow
-                        className={` stroke-[2px]
+                        className={` stroke-[2px] h-5 w-5
                        ${
                          props.errors.password
                            ? "stroke-[#ff0000] dark:stroke-[#E85300]"
-                           : "stroke-[#4360EC] dark:stroke-[#5B5B5B]"
+                           : "stroke-[#DADADA] dark:stroke-[#5B5B5B]"
                        }
                       `}
                       />
                     ) : (
                       <EyeHidden
-                        className={`stroke-[2px]
+                        className={`stroke-[2px] h-5 w-5
                        ${
                          props.errors.password
                            ? "stroke-[#ff0000] dark:stroke-[#E85300]"
-                           : "stroke-[#4360EC] dark:stroke-[#5B5B5B]"
+                           : "stroke-[#DADADA] dark:stroke-[#5B5B5B]"
                        }
                       `}
                       />
@@ -140,7 +140,7 @@ export default function RegisterModule() {
                 </div>
               </div>
 
-              <button className="bg-[#D7FBF0] text-[#18C08F] dark:bg-[#004531] border-[#18C08F] border-[1px] w-full h-[50px] mt-1 rounded-[5px] font-azarMehr font-normal">
+              <button className="bg-[#D7FBF0]  text-[#18C08F] dark:bg-[#004531] border-[#18C08F] border-[1px] w-full h-[50px] mt-2 rounded-[5px] font-azarMehr font-normal">
                 {
                   data.data.registerPageLang.find(
                     (item: any) => item.name === "register"
@@ -152,7 +152,7 @@ export default function RegisterModule() {
         </Formik>
         {showCaptcha && (
           <div
-            className="absolute bg-black/60  top-0 w-[100%] h-[100%]"
+            className="absolute backdrop-blur-sm    top-0 w-[100%] h-[100%]"
             onClick={() => setShowCaptcha(false)}
           >
             <DynamicCaptcha
@@ -184,10 +184,11 @@ export default function RegisterModule() {
 
         <p className="text-center px-1 pb-6 mt-6 w-full text-[#000000A1] dark:text-[#FFFFFFA1] font-azarMehr text-[14px] font-normal">
           {footerText}
-          {footerText2}
+
           <span className=" cursor-pointer text-center px-1 mt-4 w-full text-blueLink dark:text-blueLink font-azarMehr text-[14px] font-normal">
             {footerText3}
           </span>
+          {footerText2}
         </p>
       </div>
     </>

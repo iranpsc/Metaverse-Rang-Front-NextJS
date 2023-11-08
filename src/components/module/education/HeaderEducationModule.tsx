@@ -28,7 +28,7 @@ const HeaderMenuModule: React.FC<HeaderEducationModule> = ({
           />
         )}
         <Image
-          src={theme === "dark" ? "/light.png" : "/moon.png"}
+          src={theme && theme === "dark" ? "/light.png" : "/moon.png"}
           alt="img"
           width={20}
           height={20}
@@ -36,7 +36,7 @@ const HeaderMenuModule: React.FC<HeaderEducationModule> = ({
             isCollapsed ? "hidden" : "visible cursor-pointer mx-4"
           }`}
           onClick={() =>
-            theme == "dark" ? setTheme("light") : setTheme("dark")
+            theme && theme == "dark" ? setTheme("light") : setTheme("dark")
           }
         />
       </div>

@@ -101,7 +101,7 @@ console.log(footerText)
                     ).translation
                   }
                   autoComplete="off"
-                  className={cssAuth(props, "email  ")}
+                  className={cssAuth(props, "email")}
                   onChange={(e: any) => {
                     getEmailValue(e.target.value);
                     props.handleChange(e);
@@ -136,11 +136,11 @@ console.log(footerText)
                   >
                     {showPassword ? (
                       <EyeShow
-                        className={` stroke-[2px] 
+                        className={` stroke-[2px] h-5 w-5
                        ${
                          props.errors.password
-                           ? "stroke-[#5B5B5B] dark:stroke-[#5B5B5B] "
-                           : "stroke-[#4360EC] dark:stroke-[#5B5B5B]"
+                           ? "stroke-[#ff0000] dark:stroke-[#E85300]"
+                           : "stroke-[#DADADA] dark:stroke-[#5B5B5B]"
                        }
                       `}
                       />
@@ -149,8 +149,8 @@ console.log(footerText)
                         className={`stroke-[2px] h-5 w-5
                        ${
                          props.errors.password
-                           ? "stroke-[#5B5B5B] dark:stroke-[#5B5B5B]"
-                           : "stroke-[#4360EC] dark:stroke-[#5B5B5B]"
+                           ? "stroke-[#ff0000] dark:stroke-[#E85300]"
+                           : "stroke-[#DADADA] dark:stroke-[#5B5B5B]"
                        }
                       `}
                       />

@@ -6,11 +6,14 @@ import ProfileDetails from "@/templates/ProfileDatails";
 import ProfileAbout from "@/templates/ProfileAbout";
 import { LangContext } from "@/context/LangContext";
 import ModalCard from "@/templates/ModalCard";
+import { targetData } from "@/components/utils/targetDataName";
 
-export default function Home({data}:any) {
-  const { languageSelected } = useContext(LangContext);
+export default function Home() {
+  const { profileData, languageSelected } = useContext(LangContext);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [dataModal, setDataModal] = useState({ title: "", desc: "" });
+  const [titleData, setTitleData] = useState("");
+
 
   function addPageJsonLd() {
     return {
@@ -50,6 +53,20 @@ export default function Home({data}:any) {
       }`,
     };
   }
+  
+  useEffect(()=>{
+
+    if(profileData.name){
+      setTitleData(profileData.name +" | "+profileData.code)
+    }else{
+      if(languageSelected.code==="en"){
+        setTitleData("Metaverse Rang")
+      }else{
+        setTitleData("متاورس رنگ")
+      }
+    }
+
+  },[profileData.name])
 
   return (
     <section
@@ -57,7 +74,13 @@ export default function Home({data}:any) {
       className=" overflow-clip h-screen relative "
     >
       <Head>
-        <title>متاورس رنگ ایران</title>
+        <title>
+          {titleData}
+        
+
+
+
+        </title>
         <meta name="description" content="job" key="desc" />
         <meta
           name="google-site-verification"

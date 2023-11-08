@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext,useEffect,useState } from "react";
 import Image from "next/image";
 
 import { LangContext } from "@/context/LangContext";
@@ -7,7 +7,18 @@ import Persian from "persianjs";
 
 export default function ProfileTopMobile() {
 
-      const {profileData, languageSelected } = useContext(LangContext);
+  const {profileData, languageSelected } = useContext(LangContext);
+  const [numberCurrent_level,setNumberCurrent_level] = useState<number>(0)
+  useEffect(()=>{
+
+    if(profileData &&  profileData?.current_level && profileData?.current_level?.slug){
+      setNumberCurrent_level(profileData?.current_level?.slug)
+    }else{
+       setNumberCurrent_level(0)
+    }
+
+  },[profileData])
+
        const imgs0 = profileData && profileData.profilePhotos && profileData.profilePhotos[0] && profileData?.profilePhotos[0]?.url;
   return (
     <>
@@ -49,7 +60,7 @@ export default function ProfileTopMobile() {
             />
             <p className="dark:text-[#212121] absolute md:text-xs text-white font-azarMehr font-black xl:text-lg sm:text-[14px] xs:text-[14px]">
               {languageSelected.code === "fa"
-                ? Persian(profileData?.current_level?.slug)
+                ? Persian(numberCurrent_level)
                     .englishNumber()
                     .toString()
                 : profileData?.current_level?.slug}

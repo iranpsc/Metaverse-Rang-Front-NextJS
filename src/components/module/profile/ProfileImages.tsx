@@ -63,7 +63,7 @@ export default function ProfileImages() {
             src={imgs0 || "/temp.png"}
             width={1000}
             height={1000}
-            alt="profile"
+            alt="profile || fa:farsiName && Hm-20001 en:eng name && hm-20001"
             className="w-full xl:h-[320px] lg:h-[250px] md:h-[200px] sm:h-[350px] md:object-cover rounded-[10px]"
           />
         </div>

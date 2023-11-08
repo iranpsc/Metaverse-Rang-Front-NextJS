@@ -23,7 +23,7 @@ export default function HeaderAuth({ title, setShowAuthCardHeader }: any) {
       <div className="w-[95%] cursor-pointer mt-5 flex flex-row justify-start items-center gap-3">
         <CloseAuth
           className="w-[40px] h-[38px]"
-          // onClick={()=>submit}
+           onClick={submit}
         />
         <Image
           src={theme === "dark" ? "/qIconDark.png" : "/qIconLight.png"}

@@ -23,7 +23,7 @@ export default function AuthCards({setShowAuthCard}:any) {
       className=" absolute  z-50 max-sm:z-[110]  top-0 w-full h-full"
       dir={`${lang === "fa" ? "rtl" : "ltr"}`}
     >
-      <div className=" flex  justify-center backdrop-blur-sm  bg-black/20  items-center w-full h-full">
+      <div className=" flex   justify-center backdrop-blur-sm  bg-black/20  items-center w-full h-full">
         <div
           className={`absolute z-50
           ${
