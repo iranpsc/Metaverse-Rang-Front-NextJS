@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext ,useState,useEffect} from "react";
 import Image from "next/image"
 
 import { motion } from "framer-motion";
@@ -11,9 +11,33 @@ import ProfileImages from "@/module/profile/ProfileImages";
 
 export default function Profile(){
   const { data, profileData, languageSelected } = useContext(LangContext);
-
+  const [profileName,setProfileName] = useState<string>("");
    
-     
+     useEffect(()=>{
+
+      if(languageSelected.code==="en"){
+
+        if(profileData.name){
+          setProfileName(profileData.name)
+        }else{
+          setProfileName("")
+        }
+      }else if(languageSelected.code==="fa"){
+            if (profileData.kyc?.fname) {
+        setProfileName(
+          profileData.kyc.fname +
+            " " +
+            profileData.kyc.lname
+        );
+        }else if (profileData.name) {
+           setProfileName(profileData.name)
+        }else{
+          setProfileName("")
+        
+        }
+      }
+
+     },[languageSelected.code,profileData])
     
     const numberScore = (100 - parseInt(profileData?.score_percentage_to_next_level))
     const percent = (numberScore/100) * 100;
@@ -21,9 +45,9 @@ export default function Profile(){
 
     return (
       <>
-        <ProfileHeaderMobile />
-        <ProfileTopMobile />
-        <ProfileImages />
+        <ProfileHeaderMobile menuData={data} />
+        <ProfileTopMobile profileName={profileName} />
+        <ProfileImages profileName={profileName} />
 
         <section className="dark:bg-dark-background  xl:h-[54%] lg:h-full xl:px-6 lg:px-6 md:px-2 sm:px-1 xs:px-3  bg-white transition-all duration-300 ease-linear mt-[6px] rounded-[10px] relative  flex flex-col xl:gap-3 lg:gap-3 md:gap-4 sm:gap-4 xs:gap-4 justify-start items-center ">
           <div className="flex flex-row justify-between  w-full items-center mt-6 xl:py-0 lg:py-0 md:py-0 sm:py-2 xs:py-2">
@@ -41,7 +65,7 @@ export default function Profile(){
             </p>
             <hr className="w-[40%] md:w-[30%] xl:block lg:block md:block sm:hidden xs:hidden h-[1px] border border-dashed  text-[#bdbbbb] dark:text-[#6e6d6d]" />
             <p className="dark:text-dark-gray  font-azarMehr font-medium md:text-[13px]  medium xl:text-[14px] lg:text-[13px] md:text-md break-all max-sm:text-[13px] text-black">
-              {profileData?.name}
+              {profileName}
             </p>
           </div>
 

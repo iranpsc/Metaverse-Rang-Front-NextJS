@@ -54,19 +54,30 @@ export default function Home() {
     };
   }
   
-  useEffect(()=>{
-
-    if(profileData.name){
-      setTitleData(profileData.name +" | "+profileData.code)
-    }else{
-      if(languageSelected.code==="en"){
-        setTitleData("Metaverse Rang")
-      }else{
-        setTitleData("متاورس رنگ")
+  useEffect(() => {
+    if (languageSelected.code === "fa") {
+      if (profileData.kyc?.fname) {
+        setTitleData(
+          profileData.kyc.fname +
+            " " +
+            profileData.kyc.lname +
+            " | " +
+            profileData.code
+        );
+      } else {
+        if (profileData.name) {
+          setTitleData(profileData.name + " | " + profileData.code);
+          setTitleData("متاورس رنگ");
+        }
+      }
+    } else if (languageSelected.code === "en") {
+      if (profileData.name) {
+        setTitleData(profileData.name + " | " + profileData.code);
+      } else {
+        setTitleData("Metaverse Rang");
       }
     }
-
-  },[profileData.name])
+  }, [languageSelected.code, profileData.kyc?.fname]);
 
   return (
     <section
@@ -74,17 +85,20 @@ export default function Home() {
       className=" overflow-clip h-screen relative "
     >
       <Head>
-        <title>
-          {titleData}
-        
-
-
-
-        </title>
+        <title>{titleData}</title>
         <meta name="description" content="job" key="desc" />
         <meta
           name="google-site-verification"
           content="lmf8kBJQgLHew_wXcxGQwJQWiOSFy8odEBRTLOoX7Q4"
+        />
+        <meta property="og:title" content=""/>
+        <meta
+          property="og:description"
+          content="And a social description for our cool page"
+        />
+        <meta
+          property="og:image"
+          content="https://example.com/images/cool-page.jpg"
         />
         <script
           type="application/ld+json"

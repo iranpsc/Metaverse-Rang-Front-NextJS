@@ -4,7 +4,6 @@ import axios from "axios";
 import { Dark, Light } from "@/svgs/index";
 import { useTheme } from "next-themes";
 
-
 //CONTEXT
 import { SideBarContext } from "@/context/SidebarContext";
 //LANGUAGE
@@ -29,6 +28,17 @@ interface LanguageItem {
   icon: string;
   file_url: string;
 }
+
+const menuVariants = {
+  open: {
+    opacity: 1,
+    x: 0,
+  },
+  closed: {
+    opacity: 0,
+    x: "-100%",
+  },
+};
 
 export default function SideBarEducation({ setShowAuthCard, pageName }: any) {
   const { theme, setTheme } = useTheme();
@@ -111,26 +121,26 @@ export default function SideBarEducation({ setShowAuthCard, pageName }: any) {
     }else{
 setTheme("dark")
     }
+    
   }
   return (
-    <div className=" xl:relative lg:relative md:relative bg-white dark:bg-dark-background">
+    <div className=" xl:relative lg:relative md:relative bg-white dark:bg-dark-background ">
       <div
-        className={`xl:min-h-screen  lg:min-h-screen md:min-h-screen overflow-y-scroll  relative sm:max-h-screen xs:max-h-screen ${
+        className={`xl:min-h-screen  lg:min-h-screen md:min-h-screen overflow-y-scroll  relative sm:h-screen xs:h-screen ${
           isCollapsed
-            ? "sm:hidden xs:hidden  xl:block lg:block md:block "
-            : "backdrop-blur-sm  bg-blackTransparent/30 "
-        }   sm:absolute xs:absolute   xl:relative lg:relative md:relative xl:w-fit lg:w-fit md:w-fit z-[60] sm:w-full xs:w-full no-scrollbar`}
+            ? "sm:hidden xs:hidden transition-2 xl:block lg:block md:block"
+            : "backdrop-blur-sm  bg-blackTransparent/30"
+        }   sm:absolute  xs:absolute  xl:relative lg:relative md:relative xl:w-fit lg:w-fit md:w-fit z-[60] sm:w-full xs:w-full no-scrollbar  `}
       >
         <aside
           className={`${
             isCollapsed
               ? "w-[70px] max-lg:hidden"
-              : "xl:w-[250px]  lg:w-[175px] md:w-[250px] sm:w-[175px] xs:w-[175px] sm:shadow-[#000000] xs:sm:shadow-[#000000] visible"
-          }  min-h-screen    sm:z-50 transition-all duration-300 ease-linear
-        flex flex-col justify-between items-center sticky
+              : "xl:w-[250px]   lg:w-[175px] md:w-[250px] sm:w-[175px] xs:w-[175px] sm:shadow-[#000000] xs:sm:shadow-[#000000] visible"
+          }  min-h-screen    sm:z-50 transition-all duration-300 ease-linear 
         `}
         >
-          <div className="sticky w-full top-0 z-50 bg-white dark:bg-dark-background  transition-all duration-300 ease-linear ">
+          <div className="sticky w-full top-0  z-50 bg-white dark:bg-dark-background   ">
             <HeaderMenuModule
               isCollapsed={isCollapsed}
               toggleCollapseHandler={toggleCollapseHandler}

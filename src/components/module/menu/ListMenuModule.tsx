@@ -95,7 +95,7 @@ const ListMenuModule: React.FC<ListMenuModuleProps> = ({
                         </span>
                       </button>
                       <ul
-                        className={`dropdown-menu absolute start-[-35px] text-center  ${
+                        className={`dropdown-menu absolute end-0  text-center  ${
                           activeDropdown ? "block " : "hidden"
                         }  text-gray pt-1`}
                       >
@@ -118,7 +118,7 @@ const ListMenuModule: React.FC<ListMenuModuleProps> = ({
                               alt=""
                               width={100}
                               height={100}
-                              className={"w-7 h-6 me-6"}
+                              className={"w-7 h-6 me-10"}
                             />
                            <p className="font-azarMehr font-normal hover:text-[#0000ffd9] dark:hover:text-dark-yellow">{item.native_name}</p> 
                             </div>

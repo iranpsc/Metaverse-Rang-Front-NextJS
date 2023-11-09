@@ -1,16 +1,32 @@
-import { useContext } from "react";
-import Image from "next/image";
-
+import { useContext ,useState,useEffect} from "react";
 import { SideBarContext } from "@/components/context/SidebarContext";
-import { CLoseIcon, MenuIcon } from "@/components/svgs";
+import { CLoseIcon, MenuIcon, LogoRgbMobile } from "@/components/svgs";
 
-export default function ProfileHeaderMobile() {
+export default function ProfileHeaderMobile({menuData}:any) {
 
     const { isCollapsed, toggleCollapseHandler } = useContext(SideBarContext);
-   
+    const [ title, SetTitle ] = useState<any>([]);
+    const [ desc, setDesc ] = useState<any>([]);
+
+      const namesToKeep = ["meta rgb", "metaverse rang"];
+      
+        useEffect(()=>{
+          if (menuData) {
+            SetTitle(
+              menuData.data.menu.find((item: any) => item.name === "meta rgb")
+            );
+            setDesc(
+              menuData.data.menu.find(
+                (item: any) => item.name === "metaverse rang"
+              )
+            );
+          }
+        },[menuData])
+
+  
   return (
     <>
-      <div className=" dark:bg-dark-background xl:hidden lg:hidden md:hidden sm:flex xs:flex transition-all duration-300 ease-linear z-50 w-full h-[59px] bg-white flex-rows justify-between items-center">
+      <div className=" dark:bg-dark-background xl:hidden lg:hidden md:hidden sm:flex xs:flex  z-50 w-full h-[59px] bg-white flex-rows justify-between items-center">
         <div className="">
           {!isCollapsed ? (
             <CLoseIcon
@@ -18,29 +34,25 @@ export default function ProfileHeaderMobile() {
               onClick={toggleCollapseHandler}
             />
           ) : (
-            <MenuIcon
-              className="stroke-[#2B2B2B] dark:stroke-gray cursor-pointer w-[35px]"
-              onClick={toggleCollapseHandler}
-            />
+            <>
+              <MenuIcon
+                className="stroke-[#2B2B2B] dark:stroke-gray cursor-pointer w-[35px]"
+                onClick={toggleCollapseHandler}
+              />
+            </>
           )}
         </div>
 
-        <div className="flex flex-rows justify-center items-center">
+        <div className="flex flex-rows justify-center items-center ">
           <div className=" ml-1">
             <p className=" dark:text-white md:text-[16px] block font-azarMehr  font-bold text-xl text-black sm:text-center">
-              Meta Rgb
+              {title?.translation}
             </p>
             <p className="dark: text-dark-gray  md:text-[11px] font-normal text-mediumGray">
-              Metaverse Rang
+              {desc?.translation}
             </p>
           </div>
-          <Image
-            src="/clogo.svg"
-            width={1000}
-            height={1000}
-            alt=""
-            className=" w-[45px] h-[50px] sm:mx-2 sm:w-[50px] sm:h-[50px] xs:w-[40px] xs:h-[40px] xs:mx-2"
-          />
+          <LogoRgbMobile className="w-[40px] h-[40px] mx-2 " />
         </div>
       </div>
     </>

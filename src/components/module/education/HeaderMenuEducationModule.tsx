@@ -12,7 +12,7 @@ export default function HeaderMenuEducationModule({
  
   return (
     <>
-      <div className="flex flex-row justify-between items-center ">
+      <div className="flex flex-row justify-between items-center  ">
         <div
           className={`flex ${
             isCollapsed ? "ms-3" : "ms-4"
@@ -23,7 +23,7 @@ export default function HeaderMenuEducationModule({
               isCollapsed
                 ? "xl:w-[40px]  xl:h-[45px]"
                 : "xl:w-[80px]  xl:h-[55px]"
-            }  lg:w-[33px] lg:h-[33px] md:w-[30px] md:h-[30px] sm:w-[45px] sm:h-[40px] xs:w-[30px] xs:h-[30px] rounded-[1rem]`}
+            }  lg:w-[33px] lg:h-[33px] md:w-[30px] md:h-[30px] sm:w-[45px] sm:h-[45px] xs:w-[50px] xs:h-[50px] rounded-[1rem]`}
           />
           {!isCollapsed ? (
             <div className="inline-block w-full  ">
