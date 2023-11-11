@@ -231,7 +231,7 @@ const LangProvider = ({ children }: Props) => {
           },
         });
       } catch (err) {
-        console.log("test", err);
+        
       }
     };
     fetchData();
