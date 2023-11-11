@@ -23,10 +23,10 @@ const HeaderMenuModule: React.FC<HeaderMenuModuleProps> = ({
   const router = useRouter();
   const { lang, userId } = router.query;
   const [HeaderTitleData, setHeaderTitleData] = useState("");
-  console.log(lang, HeaderTitleData);
 
 
-  console.log("titleData", titleData);
+
+
   return (
     <>
       <div className=" flex justify-between mt-2 flex-row items-center p-2 pb-4">
