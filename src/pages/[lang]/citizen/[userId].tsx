@@ -6,14 +6,18 @@ import ProfileDetails from "@/templates/ProfileDatails";
 import ProfileAbout from "@/templates/ProfileAbout";
 import { LangContext } from "@/context/LangContext";
 import ModalCard from "@/templates/ModalCard";
-import { targetData } from "@/components/utils/targetDataName";
+import { DefaultSeo } from "next-seo";
+import { useRouter } from "next/router";
+import axios from "axios";
 
-export default function Home() {
-  const { profileData, languageSelected } = useContext(LangContext);
+
+export default function Home({ profileData, titleData, error }: any) {
+  const { languageSelected } = useContext(LangContext);
+  const router = useRouter();
+  const { lang, userId } = router.query;
   const [showModal, setShowModal] = useState<boolean>(false);
   const [dataModal, setDataModal] = useState({ title: "", desc: "" });
-  const [titleData, setTitleData] = useState("");
-
+ 
 
   function addPageJsonLd() {
     return {
@@ -53,89 +57,154 @@ export default function Home() {
       }`,
     };
   }
-  
-  useEffect(() => {
-    if (languageSelected.code === "fa") {
-      if (profileData.kyc?.fname) {
-        setTitleData(
-          profileData.kyc.fname +
-            " " +
-            profileData.kyc.lname +
-            " | " +
-            profileData.code
-        );
-      } else {
-        if (profileData.name) {
-          setTitleData(profileData.name + " | " + profileData.code);
-          setTitleData("متاورس رنگ");
-        }
-      }
-    } else if (languageSelected.code === "en") {
-      if (profileData.name) {
-        setTitleData(profileData.name + " | " + profileData.code);
-      } else {
-        setTitleData("Metaverse Rang");
-      }
-    }
-  }, [languageSelected.code, profileData.kyc?.fname]);
+
 
   return (
-    <section
-      dir={languageSelected.dir}
-      className=" overflow-clip h-screen relative "
-    >
-      <Head>
-        <title>{titleData}</title>
-        <meta name="description" content="job" key="desc" />
-        <meta
-          name="google-site-verification"
-          content="lmf8kBJQgLHew_wXcxGQwJQWiOSFy8odEBRTLOoX7Q4"
-        />
-        <meta property="og:title" content=""/>
-        <meta
-          property="og:description"
-          content="And a social description for our cool page"
-        />
-        <meta
-          property="og:image"
-          content="https://example.com/images/cool-page.jpg"
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={addPageJsonLd()}
-          key="job-jsonld"
-        />
-      </Head>
-      <BaseLayout>
-        <div
-          className="xl:grid lg:grid md:grid xl:grid-auto   lg:grid-cols-12 xl:grid-cols-12 w-full md:grid-flow-col md:auto-cols-fr  relative sm:flex sm:flex-col
+    <>
+      <DefaultSeo
+        title={titleData}
+        description={titleData + profileData.name + profileData.code}
+        openGraph={{
+          type: "website",
+          url: `https://rgb.irpsc.com/en/citizen/${profileData.code}`,
+          title: `${titleData}`,
+          description: `${titleData + profileData.name + profileData.code}`,
+          images: [
+            {
+              url: `${
+                profileData &&
+                profileData.profilePhotos &&
+                profileData.profilePhotos[0] &&
+                profileData?.profilePhotos[0]?.url
+              }`,
+              alt: `${titleData}`,
+            },
+          ],
+        }}
+      />
+
+      <section
+        dir={languageSelected.dir}
+        className=" overflow-clip h-screen relative  "
+      >
+        <Head>
+          <title>{titleData}</title>
+          <meta name="description" content="job" key="desc" />
+          <meta
+            name="google-site-verification"
+            content="lmf8kBJQgLHew_wXcxGQwJQWiOSFy8odEBRTLOoX7Q4"
+          />
+          <meta property="og:title" content={titleData} />
+          <meta
+            property="og:description"
+            content={titleData + profileData.name + profileData.code}
+          />
+          <meta
+            property="og:url"
+            content={`http://localhost:5173/${lang}/citizen/${userId}`}
+          />
+          <meta
+            property="og:image"
+            content={profileData?.profilePhotos[0]?.url}
+          />
+
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={addPageJsonLd()}
+            key="job-jsonld"
+          />
+        </Head>
+
+        <BaseLayout
+          profileData={profileData}
+          error={error}
+          titleData={titleData}
+        >
+          <div
+            className="xl:grid lg:grid md:grid xl:grid-auto   lg:grid-cols-12 xl:grid-cols-12 w-full md:grid-flow-col md:auto-cols-fr  relative sm:flex sm:flex-col
         sm:gap-5 xl:gap-0 lg:gap-0 md:gap-0
         "
-        >
-          <section className="col-span-5 xl:h-[100vh] lg:h-[100vh] md:h-[100vh] sm:h-fit dark:bg-black bg-[#e9eef8] ms-1">
-            {showModal ? (
-              <ModalCard setShowModal={setShowModal} dataModal={dataModal} />
-            ) : null}
+          >
+            <section className="col-span-5 xl:h-[100vh] lg:h-[100vh] md:h-[100vh] sm:h-fit dark:bg-black bg-[#e9eef8] ms-1">
+              {showModal ? (
+                <ModalCard
+                  setShowModal={setShowModal}
+                  dataModal={dataModal}
+                  titleData={titleData}
+                />
+              ) : null}
 
-            <Profile />
-          </section>
-          <div className="col-span-4 xl:h-screen lg:h-screen sm:h-fit md:h-screen dark:bg-black bg-[#e9eef8] ">
-            <ProfileDetails
-              setShowModal={setShowModal}
-              setDataModal={setDataModal}
-            />
+              <Profile profileData={profileData} />
+            </section>
+            <div className="col-span-4 xl:h-screen lg:h-screen sm:h-fit md:h-screen dark:bg-black bg-[#e9eef8] ">
+              <ProfileDetails
+                setShowModal={setShowModal}
+                setDataModal={setDataModal}
+              />
+            </div>
+            <div className="col-span-3 h-screen dark:bg-black md:h-screen  bg-[#e9eef8]">
+              <ProfileAbout
+                setShowModal={setShowModal}
+                setDataModal={setDataModal}
+                profileData={profileData}
+              />
+            </div>
           </div>
-          <div className="col-span-3 h-screen dark:bg-black md:h-screen  bg-[#e9eef8]">
-            <ProfileAbout
-              setShowModal={setShowModal}
-              setDataModal={setDataModal}
-            />
-          </div>
-        </div>
-      </BaseLayout>
-    </section>
+        </BaseLayout>
+      </section>
+    </>
   );
 }
 
+
+
+export async function getServerSideProps(context:any) {
+  try {
+    const userId = context.query.userId;
+
+    // درخواست به API
+    const res = await axios.get(
+      `https://api.rgb.irpsc.com/api/citizen/${userId}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    // استخراج profileData
+    const profileData = res.data.data;
+
+    // تعیین زبان از URL
+    const path = context.req.url.split("/");
+    const languageCode = path[1]; // 'en' یا 'fa'
+
+    // تعریف متغیر برای عنوان
+    let titleData = "";
+
+    // تنظیم عنوان بر اساس زبان و داده‌ها
+    if (languageCode === "fa") {
+      if (profileData.kyc?.fname) {
+        titleData = `${profileData.kyc.fname} ${profileData.kyc.lname} | ${profileData.code}`;
+      } else if (profileData.name) {
+        titleData = `${profileData.name} | ${profileData.code}`;
+      } else {
+        titleData = "متاورس رنگ";
+      }
+    } else if (languageCode === "en") {
+      if (profileData.name) {
+        titleData = `${profileData.name} | ${profileData.code}`;
+      } else {
+        titleData = "Metaverse Rang";
+      }
+    }
+
+    // ارسال داده‌های دریافتی به کامپوننت صفحه
+    return { props: { profileData, titleData } };
+  } catch (err) {
+    // در صورت وجود خطا
+    return { props: { error: "خطا در دریافت داده‌ها" } };
+  }
+}
 
 

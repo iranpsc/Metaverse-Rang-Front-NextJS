@@ -2,28 +2,24 @@ import { useContext ,useState,useEffect} from "react";
 import { SideBarContext } from "@/components/context/SidebarContext";
 import { CLoseIcon, MenuIcon, LogoRgbMobile } from "@/components/svgs";
 
-export default function ProfileHeaderMobile({menuData}:any) {
+export default function ProfileHeaderMobile({ menuData, profileData, profileName }: any) {
+  const { isCollapsed, toggleCollapseHandler } = useContext(SideBarContext);
+  const [title, SetTitle] = useState<any>([]);
+  const [desc, setDesc] = useState<any>([]);
 
-    const { isCollapsed, toggleCollapseHandler } = useContext(SideBarContext);
-    const [ title, SetTitle ] = useState<any>([]);
-    const [ desc, setDesc ] = useState<any>([]);
+  const namesToKeep = ["meta rgb", "metaverse rang"];
 
-      const namesToKeep = ["meta rgb", "metaverse rang"];
-      
-        useEffect(()=>{
-          if (menuData) {
-            SetTitle(
-              menuData.data.menu.find((item: any) => item.name === "meta rgb")
-            );
-            setDesc(
-              menuData.data.menu.find(
-                (item: any) => item.name === "metaverse rang"
-              )
-            );
-          }
-        },[menuData])
+  useEffect(() => {
+    if (menuData) {
+      SetTitle(
+        menuData.data.menu.find((item: any) => item.name === "meta rgb")
+      );
+      setDesc(
+        menuData.data.menu.find((item: any) => item.name === "metaverse rang")
+      );
+    }
+  }, [menuData]);
 
-  
   return (
     <>
       <div className=" dark:bg-dark-background xl:hidden lg:hidden md:hidden sm:flex xs:flex  z-50 w-full h-[59px] bg-white flex-rows justify-between items-center">
@@ -32,12 +28,14 @@ export default function ProfileHeaderMobile({menuData}:any) {
             <CLoseIcon
               className="fill-[#2B2B2B] dark:fill-gray cursor-pointer w-[25px]"
               onClick={toggleCollapseHandler}
+              alt={profileName + profileData?.code}
             />
           ) : (
             <>
               <MenuIcon
                 className="stroke-[#2B2B2B] dark:stroke-gray cursor-pointer w-[35px]"
                 onClick={toggleCollapseHandler}
+                alt={profileName + profileData?.code}
               />
             </>
           )}
@@ -52,7 +50,10 @@ export default function ProfileHeaderMobile({menuData}:any) {
               {desc?.translation}
             </p>
           </div>
-          <LogoRgbMobile className="w-[40px] h-[40px] mx-2 " />
+          <LogoRgbMobile
+            className="w-[40px] h-[40px] mx- "
+            alt={profileName + profileData?.code}
+          />
         </div>
       </div>
     </>

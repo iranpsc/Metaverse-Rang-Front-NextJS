@@ -1,32 +1,45 @@
+import { useContext, useState, useEffect } from "react";
 import Image from "next/image";
 import { useTheme } from "next-themes";
+import axios from "axios";
 //SVGS
 import { CLoseIcon, MenuIcon } from "@/svgs/index";
-
+import { useRouter } from "next/router";
 interface HeaderMenuModuleProps {
   isCollapsed: boolean;
   toggleCollapseHandler: () => void;
+  profileData: any;
+  titleData: any;
 }
 
-
-const HeaderMenuModule:React.FC<HeaderMenuModuleProps>=({ isCollapsed, toggleCollapseHandler })=>{
+const HeaderMenuModule: React.FC<HeaderMenuModuleProps> = ({
+  isCollapsed,
+  toggleCollapseHandler,
+  profileData,
+  titleData,
+}) => {
+  
   const { theme, setTheme } = useTheme();
+  const router = useRouter();
+  const { lang, userId } = router.query;
+  const [HeaderTitleData, setHeaderTitleData] = useState("");
+  console.log(lang, HeaderTitleData);
+
+
+  console.log("titleData", titleData);
   return (
     <>
       <div className=" flex justify-between mt-2 flex-row items-center p-2 pb-4">
-        {!isCollapsed ? // <CLoseIcon
-        //   className="fill-[#2B2B2B] dark:fill-gray ms-5  cursor-pointer w-[27px]"
-        //   onClick={toggleCollapseHandler}
-        // />
-        null : (
+        {!isCollapsed ? null : ( // /> //   onClick={toggleCollapseHandler} //   className="fill-[#2B2B2B] dark:fill-gray ms-5  cursor-pointer w-[27px]" // <CLoseIcon
           <MenuIcon
             className="stroke-[#2B2B2B] dark:stroke-gray cursor-pointer w-full"
             onClick={toggleCollapseHandler}
+            alt={titleData}
           />
         )}
         <Image
           src={theme === "dark" ? "/light.png" : "/moon.png"}
-          alt="img"
+          alt={titleData}
           width={20}
           height={20}
           className={`${
@@ -39,7 +52,9 @@ const HeaderMenuModule:React.FC<HeaderMenuModuleProps>=({ isCollapsed, toggleCol
       </div>
     </>
   );
-}
+};
 
 export default HeaderMenuModule;
+
+
 

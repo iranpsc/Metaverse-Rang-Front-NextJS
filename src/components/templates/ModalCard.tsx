@@ -5,7 +5,7 @@ import { useTheme } from "next-themes";
 
 //ANIMATION
 import { motion } from "framer-motion";
-export default function ModalCard({ setShowModal, dataModal, type }: any) {
+export default function ModalCard({ setShowModal, dataModal, type ,titleData}: any) {
     const { theme } = useTheme();
 
   return (
@@ -23,13 +23,14 @@ export default function ModalCard({ setShowModal, dataModal, type }: any) {
           <div
             id="light-scrollbar"
             className={`${
-        theme === "dark" ? "dark-scrollbar" : "light-scrollbar"
-      }  w-full h-full overflow-auto flex flex-col justify-start  gap-4 top-0 absolute`}
+              theme === "dark" ? "dark-scrollbar" : "light-scrollbar"
+            }  w-full h-full overflow-auto flex flex-col justify-start  gap-4 top-0 absolute`}
           >
             <div className="flex flex-col justify-between items-start mx-3 mt-2 gap-5">
               <CLoseIcon
                 className="w-[15px] h-[15px] cursor-pointer stroke-2 m-2 stroke-gray"
                 onClick={() => setShowModal(false)}
+                alt={titleData}
               />
               <h1 className="font-azarMehr font-bold text-[16px] text-[#00000096] dark:text-gray">
                 {dataModal.title}
@@ -44,7 +45,7 @@ export default function ModalCard({ setShowModal, dataModal, type }: any) {
                     <Image
                       key={index}
                       src={dataModal.desc[item]}
-                      alt=""
+                      alt={titleData}
                       width={100}
                       height={100}
                       className="w-10 h-10"

@@ -105,13 +105,13 @@ const LangProvider = ({ children }: Props) => {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          "https://admin.rgb.irpsc.com/api/translations", {
-          headers: {
-            "Content-Type": "application/json",
-            
-          },
-        });
-        
+          "https://admin.rgb.irpsc.com/api/translations",
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
 
         if (lang) {
           const query = res.data.data.find((item: any) => item.code === lang);
@@ -121,13 +121,12 @@ const LangProvider = ({ children }: Props) => {
               id: query.id,
               code: query.code,
               name: query.name,
-              native_name:query.native_name,
+              native_name: query.native_name,
               dir: query.direction,
               icon: query.icon,
               file_url: query.file_url,
             });
             setLanguagesData(res.data.data);
-       
           } else {
             const urlEN = await res.data.data.find(
               (item: any) => item.code === "en"
@@ -147,13 +146,13 @@ const LangProvider = ({ children }: Props) => {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          `https://api.rgb.irpsc.com/api/citizen/${userId}`, {
-          headers: {
-            "Content-Type": "application/json",
-            
-          },
-        });
-        
+          `https://api.rgb.irpsc.com/api/citizen/${userId}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
 
         setProfileData(res.data.data);
       } catch (err) {}
@@ -165,23 +164,18 @@ const LangProvider = ({ children }: Props) => {
 
   useEffect(() => {
     const fetchData = async () => {
-     
       try {
         const res = await axios.get(`${languageSelected.file_url}`, {
           headers: {
             "Content-Type": "application/json",
-            
           },
-        // const res = await axios.get(
-        //   `https://rgb.irpsc.com/citizen-profile/lang/${languageSelected.code}.json`,
-        //   {
-        //     headers: {
-        //       "Content-Type": "application/json",
-        //     },
-
-          }
-         );
-     
+          // const res = await axios.get(
+          //   `https://rgb.irpsc.com/citizen-profile/lang/${languageSelected.code}.json`,
+          //   {
+          //     headers: {
+          //       "Content-Type": "application/json",
+          //     },
+        });
 
         const modalsProfile = res.data.modals.find(
           (modal: any) => modal.name === "Citizenship-profile"
@@ -190,7 +184,7 @@ const LangProvider = ({ children }: Props) => {
         const tabsMenu = modalsProfile.find(
           (item: any) => item.name === "menu"
         );
-       
+
         const account = modalsProfile.find((tabs: any) => tabs.name === "home");
 
         const ip_checker = res.data.modals.find(
@@ -218,10 +212,10 @@ const LangProvider = ({ children }: Props) => {
         );
 
         const centralPage = res.data.modals.find(
-          (modal: any) => (modal.name === "central-page")
+          (modal: any) => modal.name === "central-page"
         );
         const centralPageTabs = centralPage.tabs.find(
-          (tab: any) => (tab.name === "before-login")
+          (tab: any) => tab.name === "before-login"
         );
 
         dispatch({
@@ -233,11 +227,11 @@ const LangProvider = ({ children }: Props) => {
             checkIpPageLang: reviewNotificationTabs.fields,
             loginPageLang: loginTabs.fields,
             registerPageLang: registerTabs.fields,
-            centralPageLang:centralPageTabs.fields
+            centralPageLang: centralPageTabs.fields,
           },
         });
       } catch (err) {
-        console.log("test",err);
+        console.log("test", err);
       }
     };
     fetchData();
@@ -260,3 +254,5 @@ const LangProvider = ({ children }: Props) => {
 };
 
 export default LangProvider;
+
+

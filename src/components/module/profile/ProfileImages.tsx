@@ -5,8 +5,7 @@ import { motion } from "framer-motion";
 
 import { useTheme } from "next-themes";
 
-export default function ProfileImages({profileName}:any) {
-  const { profileData } = useContext(LangContext);
+export default function ProfileImages({ profileData, profileName }: any) {
   const { theme } = useTheme();
   const imgs0 =
     profileData &&
@@ -14,44 +13,42 @@ export default function ProfileImages({profileName}:any) {
     profileData.profilePhotos[0] &&
     profileData?.profilePhotos[0]?.url;
 
-    const staticImageURL =
-      theme === "dark" ? "/profile/lock-dark.png" : "/profile/lock.png"; //
-    const maxImages = 5;
+  const staticImageURL =
+    theme === "dark" ? "/profile/lock-dark.png" : "/profile/lock.png"; //
+  const maxImages = 5;
 
-    const images = [];
-    const [imgProfiles, setImgProfiles] = useState<any>([]);
-    console.log(profileName + profileData?.code);
+  const images = [];
+  const [imgProfiles, setImgProfiles] = useState<any>([]);
 
-    useEffect(() => {
-      setImgProfiles(profileData.profilePhotos);
-    }, [profileData]);
+  useEffect(() => {
+    setImgProfiles(profileData.profilePhotos);
+  }, [profileData]);
 
-    for (let i = 0; i < Math.min(maxImages, (imgProfiles || []).length); i++) {
-      images.push(
-        <Image
-          src={(imgProfiles[i] && imgProfiles[i]?.url) || staticImageURL}
-          width={100}
-          height={100}
-          alt="sdsdsd"
-          className="inline-block rounded-full xl:w-11 xl:h-11 lg:w-10 lg:h-10 md:w-10 md:h-10 sm:w-16 sm:h-16 xs:w-14 xs:h-14"
-          key={i}
-        />
-      );
-    }
+  for (let i = 0; i < Math.min(maxImages, (imgProfiles || []).length); i++) {
+    images.push(
+      <Image
+        src={(imgProfiles[i] && imgProfiles[i]?.url) || staticImageURL}
+        width={100}
+        height={100}
+        alt={profileName + profileData?.code}
+        className="inline-block rounded-full xl:w-11 xl:h-11 lg:w-10 lg:h-10 md:w-10 md:h-10 sm:w-16 sm:h-16 xs:w-14 xs:h-14"
+        key={i}
+      />
+    );
+  }
 
-    while (images.length < maxImages) {
-      images.push(
-        <Image
-          src={staticImageURL}
-          width={100}
-          height={100}
-          alt={profileName}
-          className="inline-block rounded-full xl:w-11 xl:h-11 lg:w-10 lg:h-10 md:w-10 md:h-10 sm:w-16 sm:h-16 xs:w-14 xs:h-14"
-          key={images.length}
-        />
-      );
-    }
-       
+  while (images.length < maxImages) {
+    images.push(
+      <Image
+        src={staticImageURL}
+        width={100}
+        height={100}
+        alt={profileName + profileData?.code}
+        className="inline-block rounded-full xl:w-11 xl:h-11 lg:w-10 lg:h-10 md:w-10 md:h-10 sm:w-16 sm:h-16 xs:w-14 xs:h-14"
+        key={images.length}
+      />
+    );
+  }
 
   return (
     <>
@@ -61,7 +58,7 @@ export default function ProfileImages({profileName}:any) {
             src={imgs0 || "/temp.png"}
             width={1000}
             height={1000}
-            alt={profileName}
+            alt={profileName + profileData?.code}
             className="w-full xl:h-[320px] lg:h-[250px] md:h-[200px] sm:h-[350px] md:object-cover rounded-[10px]"
           />
         </div>

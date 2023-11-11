@@ -48,7 +48,7 @@ export default function ProfileTopMobile({ profileName }:any) {
             src={profileData?.kyc?.nationality || "/profile/lock.png"}
             width={100}
             height={100}
-            alt="profile"
+            alt={profileName + profileData?.code}
             className="inline-block rounded-full xl:w-9 xl:h-9 lg:w-9 lg:h-9 md:w-7 md:h-7 sm:w-12 sm:h-12 xs:w-12 xs:h-12 object-cover"
           />
           <hr className="xl:w-12 lg:w-12 md:w-4  md:invisible  xl:visible lg:visible sm:invisible xs:invisible inline-block mx-1 border border-dashed  text-[#bdbbbb] dark:text-[#6e6d6d] " />
@@ -57,10 +57,9 @@ export default function ProfileTopMobile({ profileName }:any) {
           </p>
           <div className=" relative text-center flex items-center justify-center">
             <Shahrvand
-              src="/profile/citizennumber.svg"
               width={100}
               height={100}
-              alt="profile"
+              alt={profileName + profileData?.code}
               className="inline-block rounded-full xl:w-10 xl:h-10 lg:w-10 lg:h-10 md:w-7 sm:w-12 sm:h-12 xs:w-12 xs:h-12 "
             />
             <p className="dark:text-[#212121] absolute md:text-xs text-white font-azarMehr font-black xl:text-lg sm:text-[14px] xs:text-[14px]">

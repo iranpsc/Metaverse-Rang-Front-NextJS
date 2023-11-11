@@ -29,23 +29,18 @@ interface LanguageItem {
   file_url: string;
 }
 
-const menuVariants = {
-  open: {
-    opacity: 1,
-    x: 0,
-  },
-  closed: {
-    opacity: 0,
-    x: "-100%",
-  },
-};
 
-export default function SideBarEducation({ setShowAuthCard, pageName }: any) {
+export default function SideBarEducation({
+  setShowAuthCard,
+  pageName,
+  profileData,
+  titleData,
+}: any) {
   const { theme, setTheme } = useTheme();
   const router = useRouter();
-  const [loginData,setLoginData]=useState([]);
-  const [headerData,setHeaderData]=useState([]);
-  const [themeData,setThemeData]=useState<any[]>([]);
+  const [loginData, setLoginData] = useState([]);
+  const [headerData, setHeaderData] = useState([]);
+  const [themeData, setThemeData] = useState<any[]>([]);
   const [activeItem, SetActiveItem] = useState<number>(0);
   const [data, setData] = useState<any>([]);
   const [activeDropdown, setActiveDropdown] = useState<boolean>(false);
@@ -107,7 +102,7 @@ export default function SideBarEducation({ setShowAuthCard, pageName }: any) {
       id: item.id,
       code: item.code,
       name: item.name,
-      native_name:item.native_name,
+      native_name: item.native_name,
       dir: item.direction,
       icon: item.icon,
       file_url: item.file_url,
@@ -115,14 +110,13 @@ export default function SideBarEducation({ setShowAuthCard, pageName }: any) {
     router.push(`/${item.code}/citizen/${userId}`);
   };
 
-  const changeTheme =()=>{
-    if(theme === "dark"){
-      setTheme("light")
-    }else{
-setTheme("dark")
+  const changeTheme = () => {
+    if (theme === "dark") {
+      setTheme("light");
+    } else {
+      setTheme("dark");
     }
-    
-  }
+  };
   return (
     <div className=" xl:relative lg:relative md:relative bg-white dark:bg-dark-background ">
       <div
@@ -144,6 +138,8 @@ setTheme("dark")
             <HeaderMenuModule
               isCollapsed={isCollapsed}
               toggleCollapseHandler={toggleCollapseHandler}
+              profileData={profileData}
+              titleData={titleData}
             />
 
             <HeaderMenuEducationModule
@@ -169,6 +165,7 @@ setTheme("dark")
             toggleCollapseHandler={toggleCollapseHandler}
             setShowAuthCard={setShowAuthCard}
             menuData={loginData}
+            profileData={profileData}
           />
         </aside>
       </div>

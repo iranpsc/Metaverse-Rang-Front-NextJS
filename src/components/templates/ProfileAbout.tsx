@@ -71,7 +71,7 @@ export default function ProfileAbout({ setShowModal, setDataModal }: any) {
               src="/profile/alizadeh.png"
               width={1000}
               height={1000}
-              alt="profile"
+              alt={profileData?.code}
               className="xl:w-[145px] lg:w-[130px] md:w-[100px] sm:w-[100px] xs:w-[95px]"
             />
           </motion.div>
@@ -88,7 +88,7 @@ export default function ProfileAbout({ setShowModal, setDataModal }: any) {
               src="/profile/position.png"
               width={1000}
               height={1000}
-              alt="profile"
+              alt={profileData?.code}
               className="xl:w-[145px] lg:w-[130px] md:w-[100px] sm:w-[100px] xs:w-[95px]"
             />
           </motion.div>

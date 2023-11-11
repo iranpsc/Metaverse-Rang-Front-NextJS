@@ -6,25 +6,22 @@ export default function LoginMenuModule({
   setShowAuthCard,
   toggleCollapseHandler,
   menuData,
+  profileData,
 }: any) {
+  const [showFullModal, setShowFullModal] = useState(false);
 
-  const [showFullModal,setShowFullModal] = useState(false);
- 
-
-  const submit = ()=>{
-    if(isCollapsed){
+  const submit = () => {
+    if (isCollapsed) {
       toggleCollapseHandler();
       setShowFullModal(!showFullModal);
-    }else{
-      setShowFullModal(!showFullModal)
+    } else {
+      setShowFullModal(!showFullModal);
     }
-  }
+  };
 
-  useEffect(()=>{
-    
-    if(isCollapsed) setShowFullModal(false);
-
-  },[isCollapsed])
+  useEffect(() => {
+    if (isCollapsed) setShowFullModal(false);
+  }, [isCollapsed]);
 
   return (
     <>
