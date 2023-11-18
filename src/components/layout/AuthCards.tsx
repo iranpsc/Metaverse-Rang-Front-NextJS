@@ -50,14 +50,11 @@ export default function AuthCards({setShowAuthCard}:any) {
           }
            rounded-[10px]  bg-white dark:bg-dark-backgroundModules`}
         >
-          <section
-           
-            className=" w-full h-full flex flex-col justify-between items-center "
-          >
+          <section className=" w-full h-full flex flex-col justify-between items-center ">
             {modalName.name === "AuthPage" && (
               <>
                 <HeaderAuth setShowAuthCardHeader={setShowAuthCard} />
-                <AuthCard />
+                <AuthCard setShowAuthCard={setShowAuthCard} />
               </>
             )}
             {modalName.name === "ActiveEmailPage" && (

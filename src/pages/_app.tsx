@@ -14,14 +14,14 @@ import {azarMehr} from '@/utils/fonts'
 export default function App({ Component, pageProps }: AppProps) {
   
   return (
-    <ThemeProvider attribute="class">
+    <ThemeProvider defaultTheme="light" enableSystem={false} attribute="class">
       <LangProvider>
         <AuthProvider>
-        <main className={`${azarMehr.variable}`}>
-          <SidebarProvider>
-            <Component {...pageProps} />
-          </SidebarProvider>
-        </main>
+          <main className={`${azarMehr.variable}`}>
+            <SidebarProvider>
+              <Component {...pageProps} />
+            </SidebarProvider>
+          </main>
         </AuthProvider>
       </LangProvider>
     </ThemeProvider>

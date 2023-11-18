@@ -3,20 +3,33 @@ import {useState} from 'react'
 import LoginModule from '@/module/LoginModule';
 import RegisterModule from '@/module/RegisterModule';
 import ButtonsAuthModule from '@/module/ButtonsAuthModule';
+import ForgetPasswordModule from '../module/ForgetPasswordModule';
 
-export default function AuthCard() {
+export default function AuthCard({ setShowAuthCard}:any) {
   const [showModule,setShowModule] = useState<string>("login");
   return (
     <div className="  w-[100%] m-1 h-full ">
       <div className=" mx-2 flex flex-row justify-evenly items-center gap-4 mt-3">
-        <ButtonsAuthModule
-          showModule={showModule}
-          setShowModule={setShowModule}
-        />
+        {showModule != "forgetPassword" ? (
+          <ButtonsAuthModule
+            showModule={showModule}
+            setShowModule={setShowModule}
+          />
+        ) : null}
       </div>
 
-      {showModule === "login" && <LoginModule />}
-      {showModule === "register" && <RegisterModule />}
+      {showModule === "login" && (
+        <LoginModule
+          setShowModule={setShowModule}
+          setShowAuthCard={setShowAuthCard}
+        />
+      )}
+      {showModule === "register" && (
+        <RegisterModule setShowAuthCard={setShowAuthCard} />
+      )}
+      {showModule === "forgetPassword" && (
+        <ForgetPasswordModule setShowModule={setShowModule} />
+      )}
     </div>
   );
 }

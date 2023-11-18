@@ -9,6 +9,7 @@ import ModalCard from "@/templates/ModalCard";
 import { DefaultSeo } from "next-seo";
 import { useRouter } from "next/router";
 import axios from "axios";
+import StaticMobileMenu from "@/components/module/StaticMobileMenu";
 
 
 export default function Home({ profileData, titleData, error }: any) {
@@ -63,12 +64,12 @@ export default function Home({ profileData, titleData, error }: any) {
     <>
       <DefaultSeo
         title={titleData}
-        description={titleData + profileData.name + profileData.code}
+        description={titleData + profileData?.name + profileData?.code}
         openGraph={{
           type: "website",
-          url: `https://rgb.irpsc.com/en/citizen/${profileData.code}`,
+          url: `https://rgb.irpsc.com/en/citizen/${profileData?.code}`,
           title: `${titleData}`,
-          description: `${titleData + profileData.name + profileData.code}`,
+          description: `${titleData + profileData?.name + profileData?.code}`,
           images: [
             {
               url: `${
@@ -97,11 +98,11 @@ export default function Home({ profileData, titleData, error }: any) {
           <meta property="og:title" content={titleData} />
           <meta
             property="og:description"
-            content={titleData + profileData.name + profileData.code}
+            content={titleData + profileData?.name + profileData?.code}
           />
           <meta
             property="og:url"
-            content={`http://localhost:5173/${lang}/citizen/${userId}`}
+            content={`https://rgb.irpsc.com/${lang}/citizen/${userId}`}
           />
           <meta
             property="og:image"
@@ -120,6 +121,11 @@ export default function Home({ profileData, titleData, error }: any) {
           error={error}
           titleData={titleData}
         >
+          <div className=" xl:hidden lg:hidden md:hidden sm:visible xs:visible w-full h-fit  fixed bottom-0 z-40">
+            <div className="w-full h-fit dark:bg-black bg-[#fff] fixed bottom-0">
+              <StaticMobileMenu/>
+            </div>
+          </div>
           <div
             className="xl:grid lg:grid md:grid xl:grid-auto   lg:grid-cols-12 xl:grid-cols-12 w-full md:grid-flow-col md:auto-cols-fr  relative sm:flex sm:flex-col
         sm:gap-5 xl:gap-0 lg:gap-0 md:gap-0
@@ -134,7 +140,7 @@ export default function Home({ profileData, titleData, error }: any) {
                 />
               ) : null}
 
-              <Profile profileData={profileData} />
+              <Profile profileData={profileData} titleData={titleData} />
             </section>
             <div className="col-span-4 xl:h-screen lg:h-screen sm:h-fit md:h-screen dark:bg-black bg-[#e9eef8] ">
               <ProfileDetails

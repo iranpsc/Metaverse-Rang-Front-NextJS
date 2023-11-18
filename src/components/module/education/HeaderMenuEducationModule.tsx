@@ -1,5 +1,5 @@
 import { LogoRgb,ArrowMenu } from "@/svgs/index";
-
+import { CLoseIcon, MenuIcon } from "@/svgs/index";
 export default function HeaderMenuEducationModule({
   isCollapsed,
   menuData,
@@ -12,7 +12,14 @@ export default function HeaderMenuEducationModule({
  
   return (
     <>
-      <div className="flex flex-row justify-between items-center  ">
+      {!isCollapsed ? null : ( // /> //   onClick={toggleCollapseHandler} //   className="fill-[#2B2B2B] dark:fill-gray ms-5  cursor-pointer w-[27px]" // <CLoseIcon
+        <MenuIcon
+          className="stroke-[#2B2B2B] dark:stroke-gray cursor-pointer w-full mb-2"
+          onClick={toggleCollapseHandler}
+          alt="toggle"
+        />
+      )}
+      <div className="flex flex-row justify-between items-center ">
         <div
           className={`flex ${
             isCollapsed ? "ms-3" : "ms-4"
@@ -23,12 +30,12 @@ export default function HeaderMenuEducationModule({
               isCollapsed
                 ? "xl:w-[40px]  xl:h-[45px]"
                 : "xl:w-[80px]  xl:h-[55px]"
-            }  lg:w-[33px] lg:h-[33px] md:w-[30px] md:h-[30px] sm:w-[45px] sm:h-[45px] xs:w-[50px] xs:h-[50px] rounded-[1rem]`}
+            }  lg:w-[40px] lg:h-[35px] md:w-[30px] md:h-[30px] sm:w-[45px] sm:h-[45px] xs:w-[50px] xs:h-[50px] `}
           />
           {!isCollapsed ? (
             <div className="inline-block w-full  ">
               {menuData && menuData.length > 0 && (
-                <p className="visible dark:text-white block font-azarMehr font-bold xl:text-[16px] lg:text-[14px] md:text-[13px] sm:text-[12px] xs:text-[12px] text-black pb-[2px] ">
+                <p className="visible  dark:text-white block font-azarMehr font-bold xl:text-[16px] lg:text-[14px] md:text-[13px] sm:text-[12px] xs:text-[12px] text-black pb-[2px] ">
                   {menuData[0].translation}
                 </p>
               )}
@@ -41,9 +48,7 @@ export default function HeaderMenuEducationModule({
           ) : null}
         </div>
         <div
-          className={` ${
-            isCollapsed ? "invisible" : "visible"
-          }
+          className={` ${isCollapsed ? "invisible" : "visible"}
            xl:w-[35px] xl:h-[35px] 
            lg:w-[30px] lg:h-[30px] 
            md:w-[35px] md:h-[35px] 
@@ -51,7 +56,7 @@ export default function HeaderMenuEducationModule({
            xs:w-[30px] xs:h-[30px] 
           
           
-          cursor-pointer rounded-full bg-[#efefef] dark:bg-black flex justify-center items-center me-3`}
+          cursor-pointer rounded-full bg-[#efefef] dark:bg-black flex justify-center items-center me-2`}
           onClick={toggleCollapseHandler}
         >
           <ArrowMenu className="w-[7px] h-[13px] stroke-[#2C2F32] dark:stroke-white" />

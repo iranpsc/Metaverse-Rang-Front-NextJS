@@ -41,6 +41,7 @@ export default function SideBarEducation({
   const [loginData, setLoginData] = useState([]);
   const [headerData, setHeaderData] = useState([]);
   const [themeData, setThemeData] = useState<any[]>([]);
+  const [themeDataActive, setThemeDataActive] = useState<any>("light");
   const [activeItem, SetActiveItem] = useState<number>(0);
   const [data, setData] = useState<any>([]);
   const [activeDropdown, setActiveDropdown] = useState<boolean>(false);
@@ -110,6 +111,11 @@ export default function SideBarEducation({
     router.push(`/${item.code}/citizen/${userId}`);
   };
 
+    useEffect(() => {
+    setThemeDataActive(theme)
+    console.log('تم فعلی:', theme);
+  },[theme])
+
   const changeTheme = () => {
     if (theme === "dark") {
       setTheme("light");
@@ -125,23 +131,18 @@ export default function SideBarEducation({
             ? "sm:hidden xs:hidden transition-2 xl:block lg:block md:block"
             : "backdrop-blur-sm  bg-blackTransparent/30"
         }   sm:absolute  xs:absolute  xl:relative lg:relative md:relative xl:w-fit lg:w-fit md:w-fit z-[60] sm:w-full xs:w-full no-scrollbar  `}
+        onClick={toggleCollapseHandler}
       >
         <aside
           className={`${
             isCollapsed
               ? "w-[70px] max-lg:hidden"
               : "xl:w-[250px]   lg:w-[175px] md:w-[250px] sm:w-[175px] xs:w-[175px] sm:shadow-[#000000] xs:sm:shadow-[#000000] visible"
-          }  min-h-screen    sm:z-50 transition-all duration-300 ease-linear 
+          }  max-h-screen     transition-all duration-300 ease-linear 
         `}
+          onClick={toggleCollapseHandler}
         >
-          <div className="sticky w-full top-0  z-50 bg-white dark:bg-dark-background   ">
-            <HeaderMenuModule
-              isCollapsed={isCollapsed}
-              toggleCollapseHandler={toggleCollapseHandler}
-              profileData={profileData}
-              titleData={titleData}
-            />
-
+          <div className="sticky w-full top-0 pt-4 z-50 bg-white dark:bg-dark-background   ">
             <HeaderMenuEducationModule
               isCollapsed={isCollapsed}
               menuData={headerData}
@@ -181,20 +182,22 @@ export default function SideBarEducation({
             <div className="z-50 rounded-full w-[90%] cursor-pointer flex flex-row justify-evenly items-center bg-[#e8e8e8]  dark:bg-[#000] ">
               <div
                 className={`
-          ${theme === "dark" ? "bg-[#1A1A18]" : ""}
+          ${themeDataActive === "dark" ? "bg-[#1A1A18]" : ""}
           w-[30px] h-[30px] my-1 rounded-full flex flex-row  justify-center items-center `}
                 onClick={changeTheme}
               >
-                {theme === "dark" ? (
+                {themeDataActive === "dark" ? (
                   <Dark
                     className={` ${
-                      theme === "dark" ? "stroke-white" : "stroke-gray"
+                      themeDataActive === "dark"
+                        ? "stroke-white"
+                        : "stroke-gray"
                     }  stroke-[2px] `}
                   />
                 ) : (
                   <Light
                     className={` ${
-                      theme === "dark"
+                      themeDataActive === "dark"
                         ? "stroke-gray fill-gray"
                         : "stroke-black fill-black"
                     }`}
@@ -205,30 +208,30 @@ export default function SideBarEducation({
           </div>
         </div>
       ) : (
-        <div className="xl:w-[250px]  lg:w-[175px] md:w-[250px] sm:w-[175px] xs:w-[175px] absolute xl:bottom-3  lg:bottom-3  md:bottom-3 sm:bottom-0 xs:bottom-0  w-full h-[50px] flex flex-col justify-center items-center  z-[100]  bg-white dark:bg-dark-background ">
+        <div className="xl:w-[250px]  lg:w-[175px] md:w-[250px] sm:w-[175px] xs:w-[175px] absolute pb-4 bottom-0  w-full h-[50px] flex flex-col justify-center items-center  z-[100]  bg-white dark:bg-dark-background ">
           <hr
             className={`${
               isCollapsed ? "mx-5" : "mx-2"
-            } border-[1px] w-[90%] border-[#00000017] dark:border-[#3F3F3F] xl:mb-3`}
+            } border-[1px] mb-2 w-[90%] border-[#00000017] dark:border-[#3F3F3F] xl:mb-3`}
           />
           <div className="z-50 rounded-full w-[90%] cursor-pointer flex flex-row justify-evenly items-center bg-[#e8e8e8]  dark:bg-[#000] ">
             <div
               className={`
-          ${theme === "dark" ? "#1A1A18" : "bg-[#fcfcfc]"}
+          ${themeDataActive === "dark" ? "#1A1A18" : "bg-[#fcfcfc]"}
           w-[135px] h-[30px] my-1 ms-1 rounded-full flex flex-row  justify-center items-center gap-3`}
               onClick={() => setTheme("light")}
             >
               <Light
                 className={` ${
-                  theme === "dark"
+                  themeDataActive === "dark"
                     ? "stroke-gray fill-gray"
                     : "stroke-black fill-black"
                 }`}
               />
               <p
                 className={` ${
-                  theme === "dark" ? "text-white" : "text-black"
-                } font-azarMehr font-medium text-[15px] mb-1 `}
+                  themeDataActive === "dark" ? "text-white" : "text-black"
+                } font-azarMehr font-medium xl:text-[15px] lg:text-[15px] md:text-[15px] xs:text-[12px] sm:text-[12px] mb-1 `}
               >
                 {themeData[0]?.name && themeData[0].translation}
               </p>
@@ -236,19 +239,19 @@ export default function SideBarEducation({
 
             <div
               className={`
-          ${theme === "dark" ? "bg-[#1A1A18]" : ""}
+          ${themeDataActive === "dark" ? "bg-[#1A1A18]" : ""}
           w-[135px] h-[30px] my-1 rounded-full flex flex-row  justify-center items-center gap-3 me-1 `}
               onClick={() => setTheme("dark")}
             >
               <Dark
                 className={` ${
-                  theme === "dark" ? "stroke-white" : "stroke-gray"
+                  themeDataActive === "dark" ? "stroke-white" : "stroke-gray"
                 }  stroke-[2px] `}
               />
               <p
                 className={` ${
-                  theme === "dark" ? "text-white" : "text-black"
-                } font-azarMehr text-[15px] font-medium mb-1`}
+                  themeDataActive === "dark" ? "text-white" : "text-black"
+                } font-azarMehr xl:text-[15px] lg:text-[15px] md:text-[15px] xs:text-[12px] sm:text-[12px] font-medium mb-1`}
               >
                 {themeData[1]?.name && themeData[1].translation}
               </p>

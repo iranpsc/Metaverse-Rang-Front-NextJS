@@ -11,7 +11,7 @@ export default function ProfileDetailsInteresting({ itemsInterestedProfileDetail
             <p className="font-azarMehr font-medium  xl:text-[14px] lg:text-[13px] md:text-[12px] max-sm:text-[13px] text-gray dark:text-white">
               {item.key}
             </p>
-            <hr className="xl:w-[25%] lg:w-[25%] xl:visible lg:visible md:invisible sm:invisible xs:invisible h-[1px] border border-dashed  text-[#bdbbbb] dark:text-[#6e6d6d]" />
+            <hr className="flex-grow mx-3 xl:visible lg:visible md:invisible sm:invisible xs:invisible h-[1px] border border-dashed  text-[#ooo] opacity-10 dark:text-[#fff]" />
             <p className="dark:text-dark-gray font-azarMehr  font-semibold max-sm:text-[13px] xl:text-[14px] lg:text-[12px] md:text-[12px] text-black">
               {item.value}
             </p>

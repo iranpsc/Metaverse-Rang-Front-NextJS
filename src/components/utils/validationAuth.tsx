@@ -66,3 +66,14 @@ export const RegisterSchema = (language: string) => {
       .required(languagePack.required),
   });
 };
+
+
+export const ForgetPasswordSchema = (language: string) => {
+  const languagePack = selectLanguage(language);
+
+  return object().shape({
+    email: string().email(languagePack.email).required(languagePack.required),
+
+  });
+};
+

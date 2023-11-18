@@ -6,6 +6,9 @@ import ProfileDetailsInteresting from "@/module/profileDetails/ProfileDetailsInt
 
 export default function ProfileDetails({ setShowModal, setDataModal }: any) {
   const { data, profileData } = useContext(LangContext);
+
+   const x = profileData?.customs?.prediction;
+     console.log(x);
   
   const submitModalCard = (title: any, data: any, type: string) => {
     
@@ -54,7 +57,7 @@ export default function ProfileDetails({ setShowModal, setDataModal }: any) {
     },
     {
       id: 6,
-      key: targetData(data.data.selectedProfileData, "education"),
+      key: targetData(data.data.selectedProfileData, "trainings"),
       value: profileData?.customs?.education?.slice(0, 25) || "--",
       fValue: profileData?.customs?.education,
     },
@@ -101,7 +104,7 @@ export default function ProfileDetails({ setShowModal, setDataModal }: any) {
             )}
           </p>
           <span
-            className="dark:text-dark-yellow font-azarMehr max-sm:text-[13px] cursor-pointer text-blueLink font-medium xl:text-[14px] lg:text-[14px] md:text-[13px] sm:mx-3 xs:mx-3 md:mx-[2px]"
+            className="text-[#bfbdbd] dark:text-[#785e02] font-azarMehr max-sm:text-[13px] cursor-pointer  font-medium xl:text-[14px] lg:text-[14px] md:text-[13px] sm:mx-3 xs:mx-3 md:mx-[2px]"
             onClick={() =>
               submitModalCard(
                 targetData(
@@ -119,12 +122,16 @@ export default function ProfileDetails({ setShowModal, setDataModal }: any) {
       </section>
 
       <section className="dark:bg-dark-background transition-all duration-300 ease-linear bg-white   w-full rounded-[10px] ">
-        <div className="flex flex-nowrap justify-between xl:p-4 lg:p-2 my-[4px] w-full items-center md:py-3 sm:py-5  xs:py-5 ">
+        <div className="flex flex-row justify-between xl:p-4 lg:p-2 my-[4px] w-full items-center md:py-3 sm:py-5  xs:py-5 ">
           <p className="font-azarMehr font-medium max-sm:text-[13px] text-gray dark:text-white xl:text-[14px] lg:text-[12px] md:text-[12px] md:mx-[2px] sm:mx-3 xs:mx-3">
             {targetData(data.data.selectedProfileData, "forecast 2022")}
           </p>
           <span
-            className="dark:text-dark-yellow font-azarMehr max-sm:text-[13px] cursor-pointer text-blueLink font-medium xl:text-[14px] lg:text-[12px] md:text-[13px] md:mx-[2px] sm:mx-3 xs:mx-3"
+            className={` ${
+              profileData?.customs?.prediction
+                ? "dark:text-dark-yellow text-blueLink"
+                : "text-[#bfbdbd] dark:text-[#785e02]"
+            } font-azarMehr max-sm:text-[13px] cursor-pointer  font-medium xl:text-[14px] lg:text-[12px] md:text-[13px] md:mx-[2px] sm:mx-3 xs:mx-3`}
             onClick={() =>
               submitModalCard(
                 targetData(data.data.selectedProfileData, "forecast 2022"),
@@ -145,7 +152,11 @@ export default function ProfileDetails({ setShowModal, setDataModal }: any) {
           </p>
 
           <span
-            className="dark:text-dark-yellow font-azarMehr max-sm:text-[13px] cursor-pointer text-blueLink font-medium xl:text-[14px] lg:text-[12px] md:text-[13px] md:mx-[2px] sm:mx-3 xs:mx-3"
+            className={`${
+              profileData?.customs?.memory
+                ? "dark:text-dark-yellow text-blueLink "
+                : "dark:text-[#785e02] text-[#bfbdbd] "
+            }font-azarMehr max-sm:text-[13px] cursor-pointer  font-medium xl:text-[14px] lg:text-[12px] md:text-[13px] md:mx-[2px] sm:mx-3 xs:mx-3`}
             onClick={() =>
               submitModalCard(
                 targetData(data.data.selectedProfileData, "pleasant memory"),
@@ -165,12 +176,16 @@ export default function ProfileDetails({ setShowModal, setDataModal }: any) {
             {targetData(data.data.selectedProfileData, "favorites")}
           </p>
           <span
-            className="dark:text-dark-yellow cursor-pointer sm:text-[13px] font-azarMehr text-blueLink font-medium xl:text-[14px] lg:text-[12px] md:text-[13px] md:mx-[2px] sm:mx-3 xs:mx-3"
+            className={` ${
+              profileData?.customs?.passions
+                ? "dark:text-dark-yellow text-blueLink"
+                : "dark:text-[#785e02] text-[#bfbdbd]"
+            } cursor-pointer sm:text-[13px] font-azarMehr  font-medium xl:text-[14px] lg:text-[12px] md:text-[13px] md:mx-[2px] sm:mx-3 xs:mx-3`}
             onClick={() =>
               submitModalCard(
                 targetData(data.data.selectedProfileData, "favorites"),
                 profileData?.customs?.passions,
-                "favorites",
+                "favorites"
               )
             }
           >

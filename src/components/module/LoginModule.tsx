@@ -11,82 +11,67 @@ import { LangContext } from "@/context/LangContext";
 //UTILS
 import { LoginSchema, selectLanguage } from "@/utils/validationAuth";
 import { cssAuth } from "../utils/taiwindAuth";
-import { selectLanguageAuthModule } from "@/utils/textsLanguage";
 
 
 
-export default function LoginModule() {
+
+export default function LoginModule({ setShowModule, setShowAuthCard}: any) {
   const DynamicCaptcha = dynamic(() => import("../templates/Captcha"), {
     ssr: false,
   });
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [showCaptcha,setShowCaptcha] = useState<boolean>(false);
+  const [showCaptcha, setShowCaptcha] = useState<boolean>(false);
   const [showErrorLoginAccess, seShowErrorLoginAccess] = useState<string>("");
-  const [dataLogin,setDataLogin] = useState([]);
+  const [dataLogin, setDataLogin] = useState([]);
 
-   const { languageSelected ,data} = useContext(LangContext);
-   const lang = languageSelected.code;
+  const { languageSelected, data } = useContext(LangContext);
+  const lang = languageSelected.code;
 
- const [rememberMe, setRememberMe] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
 
   const footerText = data.data.loginPageLang.find(
-    (item: any) =>
-      item.name === "for more information and answers to"
+    (item: any) => item.name === "for more information and answers to"
   ).translation;
-  
+
   const footerText2 = data.data.loginPageLang.find(
-    (item: any) =>
-      item.name === "visit-the"
+    (item: any) => item.name === "visit-the"
   ).translation;
   const footerText3 = data.data.loginPageLang.find(
     (item: any) => item.name === "terms of service contract"
   ).translation;
 
   const footerText4 = data.data.loginPageLang.find(
-    (item: any) =>
-      item.name === "website."
+    (item: any) => item.name === "website."
   ).translation;
   const footerText5 = data.data.loginPageLang.find(
     (item: any) => item.name === "you agree"
   ).translation;
-  
 
+  const modifiedFooterTextEn = "terms of the service contract";
 
+  const modifiedFooterTextFa = "شرایط قرارداد خدمات";
 
-   const modifiedFooterTextEn = "terms of the service contract"
-     
-   
-   const modifiedFooterTextFa ="شرایط قرارداد خدمات"
-     
-   
+  // const modifiedFooterTextEn = footerText.replace(
+  //   "terms of the service contract",
+  //   // `<span class="mx-1 text-[14px] font-azarMehr text-[#008BF8] cursor-pointer font-medium"> terms of the service contract</span>`
+  // );
+  // const modifiedFooterTextFa = footerText.replace(
+  //   "شرایط قرارداد خدمات",
+  //   // `<span class="mx-1 text-[14px] font-azarMehr text-[#008BF8] cursor-pointer font-medium">شرایط خدمات قرارداد</span>`
+  // );
 
-    // const modifiedFooterTextEn = footerText.replace(
-    //   "terms of the service contract",
-    //   // `<span class="mx-1 text-[14px] font-azarMehr text-[#008BF8] cursor-pointer font-medium"> terms of the service contract</span>`
-    // );
-    // const modifiedFooterTextFa = footerText.replace(
-    //   "شرایط قرارداد خدمات",
-    //   // `<span class="mx-1 text-[14px] font-azarMehr text-[#008BF8] cursor-pointer font-medium">شرایط خدمات قرارداد</span>`
-    // );
-
-
- const handleCheckboxChange = (e:any) => {
-   setRememberMe(e.target.checked);
- };
+  const handleCheckboxChange = (e: any) => {
+    setRememberMe(e.target.checked);
+  };
 
   const handleFormSubmit = (values: any) => {
-    if(values){
-     
-      setDataLogin(values)
+    if (values) {
+      setDataLogin(values);
       setShowCaptcha(true);
     }
   };
 
-  const getEmailValue =(e:any)=>{
-  
-  }
-
-
+  const getEmailValue = (e: any) => {};
 
   return (
     <>
@@ -193,6 +178,7 @@ export default function LoginModule() {
               data={dataLogin}
               setShowCaptcha={setShowCaptcha}
               seShowErrorLoginAccess={seShowErrorLoginAccess}
+              setShowAuthCard={setShowAuthCard}
             />
           </div>
         )}
@@ -211,7 +197,10 @@ export default function LoginModule() {
               ).translation
             }
           </label>
-          <p className="text-center mt-2 font-azarMehr text-[#008BF8] text-[14px] font-bold">
+          <p
+            className="cursor-pointer text-center mt-2 font-azarMehr text-[#008BF8] text-[14px] font-bold"
+            onClick={() => setShowModule("forgetPassword")}
+          >
             {
               data.data.loginPageLang.find(
                 (item: any) => item.name === "forget password"
@@ -233,7 +222,7 @@ export default function LoginModule() {
             >
               <span className=" cursor-pointer text-center px-1 mt-4 w-full text-blueLink dark:text-blueLink font-azarMehr text-[14px] font-normal">
                 {" "}
-                {footerText4} 
+                {footerText4}
               </span>
             </Link>{" "}
             {footerText5}
@@ -241,9 +230,7 @@ export default function LoginModule() {
         )}
         {languageSelected.code === "en" && (
           <p className="text-center px-1 pb-6 mt-6 w-full text-[#000000A1] dark:text-[#FFFFFFA1] font-azarMehr text-[14px] font-normal">
-            {footerText}{" "}
-
-            {footerText2}  
+            {footerText} {footerText2}
             <Link
               href="https://rgb.irpsc.com/overview"
               passHref={true}

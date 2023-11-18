@@ -18,6 +18,7 @@ export { default as LoginMenu } from "./login-menu.svg";
 export { default as ArrowMenu } from "./arrow-right.svg";
 export { default as Dark } from "./dark.svg";
 export { default as Light } from "./light.svg";
+export { default as Dashet } from "./dashet.svg";
 //Auth
 export { default as CloseAuth} from "./auth/closeAuth.svg";
 export { default as EyeShow } from "./auth/eyeshow.svg";

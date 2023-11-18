@@ -15,6 +15,7 @@ export default function ProfileAbout({ setShowModal, setDataModal }: any) {
   const submitModalCart = (item: any) => {
     setDataModal({
       title: targetData(data.data.selectedProfileData, "about me"),
+    
       desc: item,
     });
     setShowModal(true);
@@ -34,7 +35,7 @@ export default function ProfileAbout({ setShowModal, setDataModal }: any) {
           {targetData(data.data.selectedProfileData, "about me")}
         </h1>
         {profileData?.customs?.about && (
-          <p className="font-azarMehr max-sm:mx-3 max-sm:text-[13px] text-justify xl:leading-[30px] truncate[20px] lg:leading-[20px] md:leading-[15px] mx-1 font-medium xl:text-[12px] lg:text-[10px] md:text-[10px]  text-gray">
+          <p className="font-azarMehr max-sm:mx-3 max-sm:text-[13px] text-justify xl:leading-[30px] truncate[20px] lg:leading-[20px] md:leading-[15px] xs:leading-[30px] sm:leading-[30px] mx-1 font-medium xl:text-[12px] lg:text-[10px] md:text-[10px]  text-gray">
             {profileData?.customs?.about.slice(0, 210)}
 
             {profileData?.customs?.about.length > 150 && (
@@ -89,7 +90,7 @@ export default function ProfileAbout({ setShowModal, setDataModal }: any) {
               width={1000}
               height={1000}
               alt={profileData?.code}
-              className="xl:w-[145px] lg:w-[130px] md:w-[100px] sm:w-[100px] xs:w-[95px]"
+              className="xl:w-[145px] lg:w-[130px] md:w-[100px] sm:w-[140px] xs:w-[140px]"
             />
           </motion.div>
         )}

@@ -37,7 +37,10 @@ export default function SvgIcon({ name, color }: any) {
         <HomeIcon stroke="#ff0000" className={` ${color} stroke-2 mx-[10px]`} />
       )}
       {name === "news" && (
-        <News stroke="#ff0000" className={` ${color} stroke-[1px] mx-[10px]`} />
+        <News
+          stroke="#ff0000"
+          className={` ${color} stroke-[1px] mx-[10px] hover:text-[#0000ffd9] dark:hover:text-dark-yellow`}
+        />
       )}
       {name === "articles" && (
         <Articles
@@ -112,7 +115,9 @@ export default function SvgIcon({ name, color }: any) {
         <Property className={` ${color} stroke-2 mx-[10px]`} />
       )}
       {name === "real estate" && (
-        <RealEstate className={` ${color} stroke-2 mx-[10px]`} />
+        <RealEstate
+          className={` ${color} stroke-2 mx-[10px] group`}
+        />
       )}
       {name === "reward" && (
         <Reward className={` ${color} stroke-2 mx-[10px]`} />
@@ -124,7 +129,7 @@ export default function SvgIcon({ name, color }: any) {
         <Transaction className={` ${color} stroke-2 mx-[10px]`} />
       )}
       {name === "language" && (
-        <Language className={` ${color} stroke-1 mx-[10px]  ms-4`} />
+        <Language className={` ${color} stroke-1 mx-[10px] `} />
       )}
     </>
   );

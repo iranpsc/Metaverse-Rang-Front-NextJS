@@ -6,14 +6,19 @@ enum ModalNames {
   IpPage = "IpPage",
   CheckIp = "CheckIp",
   AuthPage = "AuthPage",
+  none="none"
 }
 
 interface AuthContextType {
   modalName: {
     name: string;
     data: string | null;
-  }; 
-  myIp:string;
+  };
+  myIp: string;
+  codeUser: string;
+  setCodeUser: React.Dispatch<
+    React.SetStateAction<string>
+  >;
   setModalName: React.Dispatch<
     React.SetStateAction<{ name: string; data: string | null }>
   >;
@@ -25,6 +30,8 @@ const initialValue: AuthContextType = {
     data: "ehsnmkz@outlook.com",
   },
   myIp: "",
+  codeUser:"",
+  setCodeUser:()=>{},
   setModalName: () => {},
 };
 interface Props {
@@ -38,6 +45,7 @@ const AuthProvider = ({ children }: Props) => {
     data: string | null;
   }>(initialValue.modalName);
   const [myIp,setMyIp]  =useState('');
+  const [codeUser,setCodeUser]  =useState<string>('');
 
     useEffect(()=>{
       const fetch_Api  = async()=>{
@@ -56,7 +64,9 @@ const AuthProvider = ({ children }: Props) => {
 
 
   return (
-    <AuthContext.Provider value={{ modalName, setModalName, myIp }}>
+    <AuthContext.Provider
+      value={{ modalName, setModalName, myIp, codeUser, setCodeUser }}
+    >
       {children}
     </AuthContext.Provider>
   );

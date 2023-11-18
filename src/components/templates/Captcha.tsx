@@ -10,14 +10,17 @@ export default function Captcha({
   data,
   setShowCaptcha,
   seShowErrorLoginAccess,
+  setShowAuthCard,
 }: any) {
   const { theme } = useTheme();
-  const {setModalName } = useContext(AuthContext);
+  const { setModalName, setCodeUser } = useContext(AuthContext);
   const router = useRouter();
-   const { lang, userId } = router.query;
+  const { lang, userId } = router.query;
   //localStorage.setItem(" ", response.data.token);
 
   const captchaRef = useRef<ReCAPTCHA>(null);
+
+
 
   function onChange(value: any) {
     if (value) {
@@ -41,19 +44,17 @@ export default function Captcha({
         requestData
       );
       if (response.data) {
+        setCodeUser(response.data.data.code);
         seShowErrorLoginAccess("");
+      setShowAuthCard(false)
 
         setShowCaptcha(false);
-      
       }
     } catch (err: any) {
       setShowCaptcha(false);
       seShowErrorLoginAccess(err.response.data.message);
- 
     }
   };
-  
- 
 
   const RegisterUser = async () => {
     try {
@@ -67,20 +68,19 @@ export default function Captcha({
         "https://api.rgb.irpsc.com/api/register",
         requestData
       );
-         // setModalName({name:"ActiveEmailPage",data:requestData.email})
-          
+      // setModalName({name:"ActiveEmailPage",data:requestData.email})
+
       if (response.data) {
-  
+       setShowAuthCard(false);
         setShowCaptcha(false);
-                   setModalName({
-                     name: "ActiveEmailPage",
-                     data: requestData.email,
-                   });
+        setModalName({
+          name: "ActiveEmailPage",
+          data: requestData.email,
+        });
       }
     } catch (err: any) {
       console.log(err);
       setShowCaptcha(false);
-     
     }
   };
 

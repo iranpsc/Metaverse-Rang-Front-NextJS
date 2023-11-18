@@ -27,14 +27,14 @@ export default function HeaderAuth({ title, setShowAuthCardHeader }: any) {
         />
         <Image
           src={theme === "dark" ? "/qIconDark.png" : "/qIconLight.png"}
-          alt=""
+          alt="icon"
           width={1000}
           height={1000}
           className="w-[40px] h-[38px]"
         />
         <Image
           src={theme === "dark" ? "/eIconDark.png" : "/eIconLight.png"}
-          alt=""
+          alt="icon"
           width={1000}
           height={1000}
           className="w-[40px] h-[38px]"

@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 //Types
 import { LoginMenu ,ArrowMenu} from "@/svgs/index";
+import { AuthContext } from "@/components/context/AuthContext";
 export default function LoginMenuModule({
   isCollapsed,
   setShowAuthCard,
@@ -9,6 +10,9 @@ export default function LoginMenuModule({
   profileData,
 }: any) {
   const [showFullModal, setShowFullModal] = useState(false);
+  const {codeUser} = useContext(AuthContext);
+console.log(codeUser);
+
 
   const submit = () => {
     if (isCollapsed) {
@@ -18,6 +22,15 @@ export default function LoginMenuModule({
       setShowFullModal(!showFullModal);
     }
   };
+
+  const checkLogin =()=>{
+    console.log(codeUser);
+    if(codeUser.length>1){
+     submit()
+    }else{
+        setShowAuthCard(true);
+    }
+  }
 
   useEffect(() => {
     if (isCollapsed) setShowFullModal(false);
@@ -33,7 +46,7 @@ export default function LoginMenuModule({
             showFullModal
               ? "h-[210px] w-[90%]   start-[50px] z-[900]"
               : "h-fit w-[80%]"
-          } bg-blueLink dark:bg-dark-yellow rounded-2xl flex flex-col justify-evenly items-center transition-all duration-300 ease-linear`}
+          } bg-blueLink dark:bg-dark-yellow rounded-[15px] flex flex-col justify-evenly items-center transition-all duration-300 ease-linear`}
         >
           {showFullModal && (
             <div className=" flex flex-col gap-2 w-[90%]">
@@ -53,13 +66,15 @@ export default function LoginMenuModule({
           )}
 
           <div
-            className="bg-blueLink cursor-pointer dark:bg-dark-yellow rounded-[10px] w-[80%] h-[44px]  flex flex-row justify-around gap-5 items-center"
-            onClick={() => setShowAuthCard(true)}
+            className="bg-blueLink cursor-pointer dark:bg-dark-yellow rounded-[15px] w-[80%] h-[44px]  flex flex-row justify-around gap-5 items-center"
+            onClick={checkLogin}
           >
-            {showFullModal ? (
+            {codeUser.length > 1 ? (
               <>
                 <p className="text-white dark:text-dark-background font-azarMehr font-medium text-center">
-                  HM-2000003
+                 {isCollapsed ? "HM":codeUser}
+                 
+               
                 </p>
                 <ArrowMenu
                   className={`stroke-white stroke-2 dark:stroke-dark-background h-full w-[10px] rotate-90 ${

@@ -8,17 +8,22 @@ import { motion } from "framer-motion";
 export default function ModalCard({ setShowModal, dataModal, type ,titleData}: any) {
     const { theme } = useTheme();
 
+   console.log(dataModal.type);
   return (
     <div className="absolute  backdrop-blur-sm bg-blackTransparent/30 z-50 top-0 bottom-0 w-full xl:h-full lg:h-full md:h-full sm:min-h-max xs:min-h-max xl:pb-0 lg:pb-0 md:pb-0 sm:pb-[1000px] xs:pb-[1000px]">
-      <div className=" flex justify-center   items-center w-full h-full">
+      <div className=" flex flex-col justify-center   items-center w-full h-full">
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{
-            duration: 0.5,
-            ease: "backInOut",
+            duration: 0.3,
+            ease: "easeIn",
           }}
-          className=" xl:w-[40%] lg:w-[40%] md:w-[40%] min-h-[250px] max-h-fit  rounded-[10px] border-2 border-[#898989] flex relative me-[250px] sm:me-0 sm:w-[90%] xs:me-0 xs:w-[90%] justify-center xl:mt-0 lg:mt-0 md:mt-0 sm:mt-[1000px] xs:mt-[1500px] items-center shadow-md bg-white dark:bg-dark-background text-center"
+          className={` xl:w-[40%] lg:w-[40%] md:w-[40%] min-h-[250px] max-h-fit  rounded-[10px] border-2 border-[#898989] flex relative me-[250px] sm:me-0 sm:w-[90%] xs:me-0 xs:w-[90%] justify-center xl:mt-0 lg:mt-0 md:mt-0  ${
+            dataModal.title === "about me" || dataModal.title === "درباره من"
+              ? "sm:mt-[1500px] xs:mt-[1800px]"
+              : "sm:mt-[1200px] xs:mt-[1500px]"
+          } items-center shadow-md bg-white dark:bg-dark-background  `}
         >
           <div
             id="light-scrollbar"
@@ -56,7 +61,7 @@ export default function ModalCard({ setShowModal, dataModal, type ,titleData}: a
             ) : (
               <>
                 {" "}
-                <p className="pb-16 px-2 font-azarMehr font-medium text-[14px] text-[#00000096] dark:text-gray">
+                <p className="pb-16 px-2 font-azarMehr font-medium text-[14px] text-[#00000096] dark:text-gray text-justify">
                   {dataModal.desc}
                 </p>
               </>

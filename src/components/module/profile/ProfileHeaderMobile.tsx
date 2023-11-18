@@ -28,14 +28,14 @@ export default function ProfileHeaderMobile({ menuData, profileData, profileName
             <CLoseIcon
               className="fill-[#2B2B2B] dark:fill-gray cursor-pointer w-[25px]"
               onClick={toggleCollapseHandler}
-              alt={profileName + profileData?.code}
+              alt="closeIcon"
             />
           ) : (
             <>
               <MenuIcon
                 className="stroke-[#2B2B2B] dark:stroke-gray cursor-pointer w-[35px]"
                 onClick={toggleCollapseHandler}
-                alt={profileName + profileData?.code}
+                alt="menuIcon"
               />
             </>
           )}
@@ -51,8 +51,8 @@ export default function ProfileHeaderMobile({ menuData, profileData, profileName
             </p>
           </div>
           <LogoRgbMobile
-            className="w-[40px] h-[40px] mx- "
-            alt={profileName + profileData?.code}
+            className="w-[40px] h-[40px] mx-1 "
+            alt="rgb metaverse"
           />
         </div>
       </div>

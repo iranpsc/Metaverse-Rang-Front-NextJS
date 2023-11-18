@@ -15,7 +15,7 @@ import { LangContext } from "@/context/LangContext";
 import { selectLanguageAuthModule } from "@/utils/textsLanguage";
 
 
-export default function RegisterModule() {
+export default function RegisterModule({ setShowAuthCard }: any) {
   const DynamicCaptcha = dynamic(() => import("../templates/Captcha"), {
     ssr: false,
   });
@@ -23,35 +23,29 @@ export default function RegisterModule() {
   const [showCaptcha, setShowCaptcha] = useState<boolean>(false);
   const [dataRegister, setDataRegister] = useState([]);
 
-   const [rememberMe, setRememberMe] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
 
-   const handleCheckboxChange = (e: any) => {
-     setRememberMe(e.target.checked);
-   };
+  const handleCheckboxChange = (e: any) => {
+    setRememberMe(e.target.checked);
+  };
 
-
-  const { languageSelected,data } = useContext(LangContext);
+  const { languageSelected, data } = useContext(LangContext);
   const lang = languageSelected.code;
 
+  const footerText = data.data.registerPageLang.find(
+    (item: any) => item.name === "for more information and answers to"
+  ).translation;
 
+  const footerText2 = data.data.registerPageLang.find(
+    (item: any) => item.name === "website."
+  ).translation;
 
-   const footerText = data.data.registerPageLang.find(
-     (item: any) => item.name === "for more information and answers to"
-   ).translation;
-
- 
-
-   const footerText2 = data.data.registerPageLang.find(
-     (item: any) => item.name === "website."
-   ).translation;
- 
   const footerText3 = data.data.registerPageLang.find(
     (item: any) => item.name === "visit-the"
   ).translation;
 
   const handleFormSubmit = (values: any) => {
     if (values) {
-    
       setDataRegister(values);
       setShowCaptcha(true);
     }
@@ -203,15 +197,15 @@ export default function RegisterModule() {
         {languageSelected.code === "en" && (
           <p className="text-center px-1 pb-6 mt-6 w-full text-[#000000A1] dark:text-[#FFFFFFA1] font-azarMehr text-[14px] font-normal">
             {footerText} visite The{" "}
-              <Link
+            <Link
               href="https://rgb.irpsc.com/overview"
               passHref={true}
               rel="noopener noreferrer"
               target="_blank"
             >
-            <span className=" cursor-pointer text-center px-1 mt-4 w-full text-blueLink dark:text-blueLink font-azarMehr text-[14px] font-normal">
-              {footerText2}{" "}
-            </span>
+              <span className=" cursor-pointer text-center px-1 mt-4 w-full text-blueLink dark:text-blueLink font-azarMehr text-[14px] font-normal">
+                {footerText2}{" "}
+              </span>
             </Link>
           </p>
         )}
