@@ -126,7 +126,7 @@ useEffect(() => {
                       {languagesData.map((item: LanguageDataItem) => (
                         <li
                           key={item.id}
-                          className={`   border-none mt-4 w-full${
+                          className={` border-none mt-4 w-full${
                             languageSelected.name === item.name
                               ? "text-[#0066FF] dark:text-dark-yellow"
                               : ""

@@ -13,6 +13,7 @@ const ButtonsAuthModule: React.FC<ButtonsAuthModuleProps> = ({
   setShowModule,
 }) => {
    const {data} = useContext(LangContext);
+   console.log(data);
   
 const buttons = [
   {

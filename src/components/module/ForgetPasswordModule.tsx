@@ -20,6 +20,9 @@ export default function ForgetPasswordModule({ setShowModule }: any) {
   const { languageSelected, data } = useContext(LangContext);
   const lang = languageSelected.code;
 
+
+ console.log(data);
+
   
     const handleFormSubmit = async (values: any) => {
       if (values) {

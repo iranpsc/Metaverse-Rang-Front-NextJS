@@ -58,6 +58,7 @@ const initialState = {
     checkIpPageLang: [],
     loginPageLang: [],
     registerPageLang: [],
+    forgetPasswordPageLang: [],
   },
 };
 
@@ -83,6 +84,7 @@ const LangProvider = ({ children }: Props) => {
             checkIpPageLang: action.payload.checkIpPageLang,
             loginPageLang: action.payload.loginPageLang,
             registerPageLang: action.payload.registerPageLang,
+            forgetPasswordPageLang:action.payload.forgetPasswordPageLang
           },
         };
       case "FAILED":
@@ -217,6 +219,10 @@ const LangProvider = ({ children }: Props) => {
         const centralPageTabs = centralPage.tabs.find(
           (tab: any) => tab.name === "before-login"
         );
+       
+        const forgetPasswordTabs = login.tabs.find(
+          (tab: any) => tab.name === "forget-password"
+        );
 
         dispatch({
           type: "SUCCESS",
@@ -228,6 +234,7 @@ const LangProvider = ({ children }: Props) => {
             loginPageLang: loginTabs.fields,
             registerPageLang: registerTabs.fields,
             centralPageLang: centralPageTabs.fields,
+            forgetPasswordPageLang:forgetPasswordTabs.fields
           },
         });
       } catch (err) {

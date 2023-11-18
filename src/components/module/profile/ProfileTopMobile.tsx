@@ -65,7 +65,7 @@ export default function ProfileTopMobile({ profileName, titleData }: any) {
             {profileData?.level?.name}
           </p>
           <p className=" dark:text-white sm:text-[15px] xs:text-[15px] md:text-[15px] lg:text-[15px] xl:text-[15px]  inline-block mx-1 font-bold font-azarMehr text-extraGray">
-            {profileData?.position}
+            {profileData?.current_level?.name}
           </p>
           <div className=" relative text-center flex items-center justify-center">
             <Shahrvand
