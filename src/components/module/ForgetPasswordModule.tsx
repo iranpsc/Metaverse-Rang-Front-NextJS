@@ -23,11 +23,6 @@ const [showSuccess,setShowSuccess] = useState(false);
 
 
 
-console.log(
-  data.data.forgetPasswordPageLang.find((item: any) => item.name === "forgot password")
-   
-);
-
   
     const handleFormSubmit = async (values: any) => {
       if (values) {
