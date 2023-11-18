@@ -202,8 +202,8 @@ export default function LoginModule({ setShowModule, setShowAuthCard}: any) {
             onClick={() => setShowModule("forgetPassword")}
           >
             {
-              data.data.loginPageLang.find(
-                (item: any) => item.name === "forget password"
+              data.data.forgetPasswordPageLang.find(
+                (item: any) => item.name === "forgot your password"
               ).translation
             }
           </p>

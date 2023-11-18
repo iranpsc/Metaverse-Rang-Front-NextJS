@@ -28,7 +28,10 @@ export default function AuthCard({ setShowAuthCard}:any) {
         <RegisterModule setShowAuthCard={setShowAuthCard} />
       )}
       {showModule === "forgetPassword" && (
-        <ForgetPasswordModule setShowModule={setShowModule} />
+        <ForgetPasswordModule
+          setShowAuthCard={setShowAuthCard}
+          setShowModule={setShowModule}
+        />
       )}
     </div>
   );

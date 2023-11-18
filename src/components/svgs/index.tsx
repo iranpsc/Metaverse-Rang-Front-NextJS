@@ -48,3 +48,6 @@ export { default as Contact } from "./education/contact.svg";
 export { default as Version } from "./education/version.svg";
 export { default as Overview } from "./education/overview.svg";
 export { default as Calender } from "./education/calender.svg";
+
+
+export { default as Success } from "./success.svg";
