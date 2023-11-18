@@ -8,7 +8,7 @@ export default function ProfileDetails({ setShowModal, setDataModal }: any) {
   const { data, profileData } = useContext(LangContext);
 
    const x = profileData?.customs?.prediction;
-     console.log(x);
+  
   
   const submitModalCard = (title: any, data: any, type: string) => {
     

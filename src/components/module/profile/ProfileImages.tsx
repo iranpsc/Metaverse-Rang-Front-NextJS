@@ -33,7 +33,7 @@ export default function ProfileImages({ profileData, profileName, titleData }: a
 
   const changeMainImage = (newImageUrl: any) => {
     setMainImageUrl(newImageUrl);
-    console.log(newImageUrl);
+    
   };
 
   for (let i = 0; i < Math.min(maxImages, (imgProfiles || []).length); i++) {

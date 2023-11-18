@@ -21,7 +21,7 @@ export default function ForgetPasswordModule({ setShowModule }: any) {
   const lang = languageSelected.code;
 
 
- console.log(data);
+
 
   
     const handleFormSubmit = async (values: any) => {
@@ -36,7 +36,7 @@ export default function ForgetPasswordModule({ setShowModule }: any) {
           );
           if (response.data) {
             seShowErrorLoginAccess("");
-            console.log(response.data);
+           
           }
         } catch (err: any) {
           console.log(err.response.data.message);

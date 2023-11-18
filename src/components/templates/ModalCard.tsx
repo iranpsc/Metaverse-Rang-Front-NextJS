@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 export default function ModalCard({ setShowModal, dataModal, type ,titleData}: any) {
     const { theme } = useTheme();
 
-   console.log(dataModal.type);
+
   return (
     <div className="absolute  backdrop-blur-sm bg-blackTransparent/30 z-50 top-0 bottom-0 w-full xl:h-full lg:h-full md:h-full sm:min-h-max xs:min-h-max xl:pb-0 lg:pb-0 md:pb-0 sm:pb-[1000px] xs:pb-[1000px]">
       <div className=" flex flex-col justify-center   items-center w-full h-full">

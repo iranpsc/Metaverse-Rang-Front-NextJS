@@ -113,7 +113,7 @@ export default function SideBarEducation({
 
     useEffect(() => {
     setThemeDataActive(theme)
-    console.log('تم فعلی:', theme);
+   
   },[theme])
 
   const changeTheme = () => {

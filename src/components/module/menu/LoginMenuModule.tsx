@@ -11,7 +11,7 @@ export default function LoginMenuModule({
 }: any) {
   const [showFullModal, setShowFullModal] = useState(false);
   const {codeUser} = useContext(AuthContext);
-console.log(codeUser);
+
 
 
   const submit = () => {
@@ -24,7 +24,7 @@ console.log(codeUser);
   };
 
   const checkLogin =()=>{
-    console.log(codeUser);
+
     if(codeUser.length>1){
      submit()
     }else{
