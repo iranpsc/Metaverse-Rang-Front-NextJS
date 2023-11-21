@@ -24,13 +24,9 @@ import {
   Overview,
   Calender,
 } from "../svgs";
-import { LangContext } from "@/context/LangContext";
-import { SideBarContext } from "@/context/SidebarContext";;
 
 export default function SvgIcon({ name, color }: any) {
 
-  const { languageSelected } = useContext(LangContext);
-  const { isCollapsed  } =useContext(SideBarContext);
   return (
     <>
       {name === "home" && (
@@ -129,7 +125,7 @@ export default function SvgIcon({ name, color }: any) {
         <Transaction className={` ${color} stroke-2 mx-[10px]`} />
       )}
       {name === "language" && (
-        <Language className={` ${color} stroke-1 mx-[10px] `} />
+        <Language className={` ${color} stroke-1 mx-[10px] me-1 `} />
       )}
     </>
   );

@@ -97,7 +97,7 @@ export default function ProfileDetails({ setShowModal, setDataModal }: any) {
 
       <section className="dark:bg-dark-background transition-all duration-300 ease-linear bg-white w-full rounded-[10px] ">
         <div className="flex flex-nowrap xl:p-4 lg:p-2 md:py-4 my-[4px]  justify-between w-full items-center sm:py-5 xs:py-5">
-          <p className="font-azarMehr font-medium text-gray dark:text-white sm:text-[13px] xl:text-[13px] lg:text-[11px] md:text-[9px] sm:mx-[2px] md:mx-[1px] xs:mx-3">
+          <p className="font-azarMehr font-medium text-[#000] dark:text-white sm:text-[13px] xl:text-[13px] lg:text-[11px] md:text-[9px] sm:mx-[2px] md:mx-[1px] xs:mx-3">
             {targetData(
               data.data.selectedProfileData,
               "if you had the ability to solve a problem, what would it be?"
@@ -123,7 +123,7 @@ export default function ProfileDetails({ setShowModal, setDataModal }: any) {
 
       <section className="dark:bg-dark-background transition-all duration-300 ease-linear bg-white   w-full rounded-[10px] ">
         <div className="flex flex-row justify-between xl:p-4 lg:p-2 my-[4px] w-full items-center md:py-3 sm:py-5  xs:py-5 ">
-          <p className="font-azarMehr font-medium max-sm:text-[13px] text-gray dark:text-white xl:text-[14px] lg:text-[12px] md:text-[12px] md:mx-[2px] sm:mx-3 xs:mx-3">
+          <p className="font-azarMehr font-medium max-sm:text-[13px] text-[#000] dark:text-white xl:text-[14px] lg:text-[12px] md:text-[12px] md:mx-[2px] sm:mx-3 xs:mx-3">
             {targetData(data.data.selectedProfileData, "forecast 2022")}
           </p>
           <span
@@ -147,7 +147,7 @@ export default function ProfileDetails({ setShowModal, setDataModal }: any) {
 
       <section className="dark:bg-dark-background  transition-all duration-300 ease-linear bg-white  w-full rounded-[10px]">
         <div className="flex flex-nowrap justify-between  xl:p-4 lg:p-2 my-[4px] w-full items-center md:py-3 sm:py-5   xs:py-5 ">
-          <p className="font-azarMehr font-medium text-gray dark:text-white max-sm:text-[13px] xl:text-[14px] lg:text-[12px] md:text-[12px] md:mx-[2px] sm:mx-3 xs:mx-3">
+          <p className="font-azarMehr font-medium text-[#000] dark:text-white max-sm:text-[13px] xl:text-[14px] lg:text-[12px] md:text-[12px] md:mx-[2px] sm:mx-3 xs:mx-3">
             {targetData(data.data.selectedProfileData, "pleasant memory")}
           </p>
 
@@ -172,7 +172,7 @@ export default function ProfileDetails({ setShowModal, setDataModal }: any) {
 
       <section className=" dark:bg-dark-background bg-white  transition-all duration-300 ease-linear  w-full rounded-[10px]">
         <div className="flex flex-nowrap justify-between  xl:p-4 lg:p-2 my-[4px] md:px-1 w-full items-center md:py-3 sm:py-5 xs:py-5 ">
-          <p className="font-azarMehr font-medium text-gray dark:text-white max-sm:text-[13px] xl:text-[14px] lg:text-[12px] md:text-[12px] md:mx-[2px] sm:mx-3 xs:mx-3">
+          <p className="font-azarMehr font-medium text-[#000] dark:text-white max-sm:text-[13px] xl:text-[14px] lg:text-[12px] md:text-[12px] md:mx-[2px] sm:mx-3 xs:mx-3">
             {targetData(data.data.selectedProfileData, "favorites")}
           </p>
           <span

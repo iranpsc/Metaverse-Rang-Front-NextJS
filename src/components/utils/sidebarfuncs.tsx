@@ -17,6 +17,7 @@ export const sidebarFilteredData = (data: any, page: string) => {
         "citizenship page",
         "enter the metaverse",
         "home page",
+        "my profile page",
       ];
 
       const filteredItems = tabsMenu.fields.filter(
@@ -28,6 +29,7 @@ export const sidebarFilteredData = (data: any, page: string) => {
         "logout",
         "enter the metaverse",
         "home page",
+        "my profile page",
       ];
       const filteredLogin = tabsMenu.fields.filter((item: any) =>
       namesToKeep.includes(item.name)

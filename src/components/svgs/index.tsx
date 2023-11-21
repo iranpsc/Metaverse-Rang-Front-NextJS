@@ -51,3 +51,4 @@ export { default as Calender } from "./education/calender.svg";
 
 
 export { default as Success } from "./success.svg";
+export { default as CopyIcon } from "./copy-icon.svg";

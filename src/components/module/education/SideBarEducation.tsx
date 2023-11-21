@@ -116,6 +116,30 @@ export default function SideBarEducation({
    
   },[theme])
 
+  useEffect(() => {
+  const element = document.querySelector(".scroll"); 
+  if (element) {
+     console.log(element.scrollHeight);
+        setTimeout(() => {
+
+      const maxScroll = element.scrollHeight - element.clientHeight;
+      let currentScroll = element.scrollTop;
+
+      const scrollStep = () => {
+        currentScroll += 5; 
+        element.scrollTop = currentScroll;
+
+        if (currentScroll < maxScroll) {
+          setTimeout(scrollStep, 10); 
+        }
+      };
+
+      scrollStep();
+    }, 300); 
+
+  }
+}, [activeDropdown]);
+
   const changeTheme = () => {
     if (theme === "dark") {
       setTheme("light");
@@ -124,9 +148,9 @@ export default function SideBarEducation({
     }
   };
   return (
-    <div className=" xl:relative lg:relative md:relative bg-white dark:bg-dark-background ">
+    <div className="  xl:relative lg:relative md:relative bg-white dark:bg-dark-background ">
       <div
-        className={`xl:min-h-screen  lg:min-h-screen md:min-h-screen overflow-y-scroll  relative sm:h-screen xs:h-screen ${
+        className={`xl:min-h-screen scroll lg:min-h-screen md:min-h-screen overflow-y-scroll  relative sm:min-h-screen xs:min-h-screen ${
           isCollapsed
             ? "sm:hidden xs:hidden transition-2 xl:block lg:block md:block"
             : "backdrop-blur-sm  bg-blackTransparent/30"
@@ -138,7 +162,7 @@ export default function SideBarEducation({
             isCollapsed
               ? "w-[70px] max-lg:hidden"
               : "xl:w-[250px]   lg:w-[175px] md:w-[250px] sm:w-[175px] xs:w-[175px] sm:shadow-[#000000] xs:sm:shadow-[#000000] visible"
-          }  max-h-screen     transition-all duration-300 ease-linear 
+          }  h-screen  bg-white  dark:bg-dark-background   transition-all duration-300 ease-linear 
         `}
           onClick={toggleCollapseHandler}
         >
@@ -208,7 +232,7 @@ export default function SideBarEducation({
           </div>
         </div>
       ) : (
-        <div className="xl:w-[250px]  lg:w-[175px] md:w-[250px] sm:w-[175px] xs:w-[175px] absolute pb-4 bottom-0  w-full h-[50px] flex flex-col justify-center items-center  z-[100]  bg-white dark:bg-dark-background ">
+        <div className="xl:w-[250px]   lg:w-[175px] md:w-[250px] sm:w-[175px] xs:w-[175px] absolute pb-4 bottom-0  w-full h-[50px] flex flex-col justify-center items-center  z-[100]  bg-white dark:bg-dark-background ">
           <hr
             className={`${
               isCollapsed ? "mx-5" : "mx-2"
@@ -218,7 +242,7 @@ export default function SideBarEducation({
             <div
               className={`
           ${themeDataActive === "dark" ? "#1A1A18" : "bg-[#fcfcfc]"}
-          w-[135px] h-[30px] my-1 ms-1 rounded-full flex flex-row  justify-center items-center gap-3`}
+          w-[135px] h-[28px] my-1 ms-1 rounded-full flex flex-row  justify-center items-center gap-3`}
               onClick={() => setTheme("light")}
             >
               <Light
@@ -231,7 +255,7 @@ export default function SideBarEducation({
               <p
                 className={` ${
                   themeDataActive === "dark" ? "text-white" : "text-black"
-                } font-azarMehr font-medium xl:text-[15px] lg:text-[15px] md:text-[15px] xs:text-[12px] sm:text-[12px] mb-1 `}
+                } font-azarMehr font-medium xl:text-[14px] lg:text-[14px] md:text-[14px] xs:text-[12px] sm:text-[12px] mb-1 `}
               >
                 {themeData[0]?.name && themeData[0].translation}
               </p>
@@ -240,7 +264,7 @@ export default function SideBarEducation({
             <div
               className={`
           ${themeDataActive === "dark" ? "bg-[#1A1A18]" : ""}
-          w-[135px] h-[30px] my-1 rounded-full flex flex-row  justify-center items-center gap-3 me-1 `}
+          w-[135px] h-[28px] my-1 rounded-full flex flex-row  justify-center items-center gap-3 me-1 `}
               onClick={() => setTheme("dark")}
             >
               <Dark
@@ -251,7 +275,7 @@ export default function SideBarEducation({
               <p
                 className={` ${
                   themeDataActive === "dark" ? "text-white" : "text-black"
-                } font-azarMehr xl:text-[15px] lg:text-[15px] md:text-[15px] xs:text-[12px] sm:text-[12px] font-medium mb-1`}
+                } font-azarMehr xl:text-[14px] lg:text-[14px] md:text-[14px] xs:text-[12px] sm:text-[12px] font-medium mb-1`}
               >
                 {themeData[1]?.name && themeData[1].translation}
               </p>

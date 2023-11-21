@@ -2,6 +2,8 @@
  padding: 0;
  margin:0;
  font-weight: 200;
+ max-width: 1660px;
+ max-height: 800px;
 }
 
 /* .dropdown:hover .dropdown-menu {

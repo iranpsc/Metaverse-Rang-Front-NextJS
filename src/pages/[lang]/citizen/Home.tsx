@@ -8,19 +8,15 @@ import { LangContext } from "@/context/LangContext";
 import ModalCard from "@/templates/ModalCard";
 import { DefaultSeo } from "next-seo";
 import { useRouter } from "next/router";
-import axios from "axios";
 import StaticMobileMenu from "@/components/module/StaticMobileMenu";
-import ShredPage from "@/components/templates/ShredPage";
-import { AnimatePresence } from "framer-motion";
 
-export default function Home({ profileData, titleData,nameSite,localSite, error }: any) {
+export default function Home({ profileData, titleData, error }: any) {
   const { languageSelected } = useContext(LangContext);
   const router = useRouter();
   const { lang, userId } = router.query;
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showSharedPage, setShowSharedPage] = useState<boolean>(false);
   const [dataModal, setDataModal] = useState({ title: "", desc: "" });
- 
 
   function addPageJsonLd() {
     return {
@@ -61,19 +57,16 @@ export default function Home({ profileData, titleData,nameSite,localSite, error 
     };
   }
 
-
   return (
     <>
       <DefaultSeo
         title={titleData}
-        description={profileData?.customs?.about}
+        description={titleData + profileData?.name + profileData?.code}
         openGraph={{
-          title: titleData,
-          locale:localSite,
-          siteName:nameSite,
-          description: `${profileData?.customs?.about}`,
-          type: "Personal",
+          type: "website",
           url: `https://rgb.irpsc.com/en/citizen/${profileData?.code}`,
+          title: `${titleData}`,
+          description: `${titleData + profileData?.name + profileData?.code}`,
           images: [
             {
               url: `${
@@ -82,7 +75,7 @@ export default function Home({ profileData, titleData,nameSite,localSite, error 
                 profileData.profilePhotos[0] &&
                 profileData?.profilePhotos[0]?.url
               }`,
-              alt: titleData,
+              alt: `${titleData}`,
             },
           ],
         }}
@@ -99,7 +92,19 @@ export default function Home({ profileData, titleData,nameSite,localSite, error 
             name="google-site-verification"
             content="lmf8kBJQgLHew_wXcxGQwJQWiOSFy8odEBRTLOoX7Q4"
           />
-        
+          <meta property="og:title" content={titleData} />
+          <meta
+            property="og:description"
+            content={titleData + profileData?.name + profileData?.code}
+          />
+          <meta
+            property="og:url"
+            content={`https://rgb.irpsc.com/${lang}/citizen/${userId}`}
+          />
+          <meta
+            property="og:image"
+            content={profileData?.profilePhotos[0]?.url}
+          />
 
           <script
             type="application/ld+json"
@@ -124,8 +129,6 @@ export default function Home({ profileData, titleData,nameSite,localSite, error 
         "
           >
             <section className="col-span-5 xl:h-[100vh] lg:h-[100vh] md:h-[100vh] sm:h-fit dark:bg-black bg-[#e9eef8] ms-1">
-              
-                 <AnimatePresence>
               {showModal && (
                 <ModalCard
                   showModal={showModal}
@@ -134,22 +137,11 @@ export default function Home({ profileData, titleData,nameSite,localSite, error 
                   titleData={titleData}
                 />
               )}
-  </AnimatePresence>
+              {/* const [showSharedPage, setShowSharedPage] = useState<boolean>(false); */}
 
-             <AnimatePresence>
-              {showSharedPage && (
-                <ShredPage
-                showSharedPage={showSharedPage}
-                setShowSharedPage={setShowSharedPage}
-                />
-                )}
-                </AnimatePresence>
+              {showSharedPage && <SharedPage />}
 
-              <Profile
-                profileData={profileData}
-                titleData={titleData}
-                setShowSharedPage={setShowSharedPage}
-              />
+              <Profile profileData={profileData} titleData={titleData} />
             </section>
             <div className="col-span-4 xl:h-screen lg:h-screen sm:h-fit md:h-screen dark:bg-black bg-[#e9eef8] ">
               <ProfileDetails
@@ -170,62 +162,3 @@ export default function Home({ profileData, titleData,nameSite,localSite, error 
     </>
   );
 }
-
-
-
-export async function getServerSideProps(context:any) {
-  try {
-    const userId = context.query.userId;
-
-    // درخواست به API
-    const res = await axios.get(
-      `https://api.rgb.irpsc.com/api/citizen/${userId}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    // استخراج profileData
-    const profileData = res.data.data;
-
-    // تعیین زبان از URL
-    const path = context.req.url.split("/");
-    const languageCode = path[1]; // 'en' یا 'fa'
-
-    // تعریف متغیر برای عنوان
-    let titleData = "";
-    let nameSite="";
-    let localSite ="fa_IR";
-
-    // تنظیم عنوان بر اساس زبان و داده‌ها
-    if (languageCode === "fa") {
-      nameSite =  "متاورس رنگ";
-       localSite ="fa_IR";
-      if (profileData.kyc?.fname) {
-        titleData = `${profileData.kyc.fname} ${profileData.kyc.lname} | ${profileData.code}`;
-      } else if (profileData.name) {
-        titleData = `${profileData.name} | ${profileData.code}`;
-      } else {
-        titleData = "متاورس رنگ";
-      }
-    } else if (languageCode === "en") {
-       localSite ="en-US";
-      nameSite= "Metaverse Rgb";
-      if (profileData.name) {
-        titleData = `${profileData.name} | ${profileData.code}`;
-      } else {
-        titleData = "Metaverse Rgb";
-      }
-    }
-
-    // ارسال داده‌های دریافتی به کامپوننت صفحه
-    return { props: { profileData, titleData, nameSite,localSite } };
-  } catch (err) {
-    // در صورت وجود خطا
-    return { props: { error: "خطا در دریافت داده‌ها" } };
-  }
-}
-
-

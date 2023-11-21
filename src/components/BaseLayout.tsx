@@ -1,8 +1,7 @@
 import { ReactNode, useState } from "react";
 import SideBarEducation from "./module/education/SideBarEducation";
 import AuthCards from "@/layout/AuthCards";
-import Sidebar from "./Sidebar";
-import { useRouter } from "next/router";
+import { AnimatePresence  } from "framer-motion";
 import axios from "axios";
 
 
@@ -15,9 +14,14 @@ interface Props {
 }
 export default function BaseLayout({ children, profileData, error, titleData }: Props) {
   const [showAuthCard, setShowAuthCard] = useState<boolean>(false);
+
   return (
     <div className=" flex flex-row max-h-screen max-lg:h-full  max-lg:flex-col xl:overflow-clip lg:overflow-clip md:overflow-clip sm:overflow-auto xs:overflow-auto no-scrollbar">
-      {showAuthCard ? <AuthCards setShowAuthCard={setShowAuthCard} /> : null}
+      <AnimatePresence>
+     {showAuthCard && (
+    <AuthCards setShowAuthCard={setShowAuthCard} />
+    )}
+    </AnimatePresence>
       <section>
         <SideBarEducation
           setShowAuthCard={setShowAuthCard}

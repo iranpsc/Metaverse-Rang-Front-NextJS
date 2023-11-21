@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { LangContext } from "@/context/LangContext";
 import { targetData } from "@/utils/targetDataName";
-import ModalCard from "@/templates/ModalCard";
 import { motion } from "framer-motion";
 
 export default function ProfileAbout({ setShowModal, setDataModal }: any) {
@@ -31,7 +30,7 @@ export default function ProfileAbout({ setShowModal, setDataModal }: any) {
   return (
     <section className="me-1 flex flex-col justify-start  gap-[1.5px]  items-center h-screen xl:mt-0 lg:mt-0 md:mt-0 sm:mt-3 xs:mt-2">
       <div className="dark:bg-dark-background w-full h-[37%] transition-all duration-300 ease-linear bg-white px-1 rounded-[10px] max-sm:mt-[6px]">
-        <h1 className="dark:text-white max-sm:mx-3 max-sm:text-[16px]  font-azarMehr font-medium text-[20px] text-gray mx-2 xl:text-md lg:text-sm md:text-sm py-5">
+        <h1 className="dark:text-white max-sm:mx-3 max-sm:text-[16px]  font-azarMehr font-medium text-[20px] text-[#000] mx-2 xl:text-md lg:text-sm md:text-sm py-5">
           {targetData(data.data.selectedProfileData, "about me")}
         </h1>
         {profileData?.customs?.about && (

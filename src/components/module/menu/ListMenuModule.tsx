@@ -51,11 +51,12 @@ useEffect(() => {
   return () => window.removeEventListener("resize", handleResize);
 }, [menuData]);
 
+
   return (
     <>
       <ul
-        className={`list-none ${
-          activeDropdown ? "pb-[50px] " : "pb-0"
+        className={` list-none ${
+          activeDropdown ? "pb-[50px]  " : "pb-0 "
         } relative pt-3 w-full  bg-white dark:bg-dark-background  transition-all duration-300 ease-linear max-lg:w-fit`}
       >
         {menuData &&
@@ -95,19 +96,19 @@ useEffect(() => {
                                ? "stroke-blueLink   dark:dark:stroke-dark-yellow "
                                : "stroke-gray"
                            }
-                    group-hover:stroke-blueLink group-hover:dark:stroke-dark-yellow`}
+                    group-hover:stroke-blueLink group-hover:dark:stroke-dark-yellow w-[17px] h-[17px] `}
                   />
                 </span>
                 {item.name === "language" ? (
-                  <div className="dropdown relative cursor-pointer   ">
+                  <div className="dropdown relative cursor-pointer">
                     <span
-                      className={`me-1 relative rounded flex justify-center  items-center ${
+                      className={` relative rounded flex justify-center  items-center ${
                         isCollapsed ? "hidden" : "visible"
                       }`}
                       onClick={() => setActiveDropdown(!activeDropdown)}
                     >
                       <span
-                        className={`font-medium  font-azarMehr  no-underline hover:text-[#0000ffd9] dark:hover:text-dark-yellow ${
+                        className={`font-medium  font-azarMehr  no-underline group-hover:text-[#0000ffd9] dark:group-hover:text-dark-yellow ${
                           !activeDropdown
                             ? "text-gray"
                             : "text-[#0066FF] dark:text-dark-yellow"
@@ -117,9 +118,9 @@ useEffect(() => {
                       </span>
                     </span>
                     <ul
-                      className={`dropdown-menu absolute  w-full text-center  ${
+                      className={` dropdown-menu absolute  w-full text-center  ${
                         activeDropdown
-                          ? "flex flex-col justify-center items-center "
+                          ? "flex flex-col justify-center items-center  "
                           : "hidden"
                       }  text-gray pt-1`}
                     >
@@ -136,15 +137,15 @@ useEffect(() => {
                           <div className=" p-1 w-10   ">
                             {languageSelected.name === item.name && <></>}
                           </div>
-                          <div className="flex flex-row gap-4 justify-evenly items-center w-full">
+                          <div className="flex flex-row gap-4 justify-evenly items-center w-full ">
                             <Image
                               src={item.icon}
                               alt=""
                               width={100}
                               height={100}
-                              className={"w-7 h-6  "}
+                              className={"w-6 h-6"}
                             />
-                            <p className="font-azarMehr  font-normal hover:text-[#0000ffd9] dark:hover:text-dark-yellow">
+                            <p className="font-azarMehr  w-full  font-normal hover:text-[#0000ffd9] dark:hover:text-dark-yellow">
                               {item.native_name}
                             </p>
                           </div>
@@ -159,7 +160,7 @@ useEffect(() => {
                         ? "text-[#0000ffd9] dark:text-dark-yellow "
                         : "text-gray dark:text-gray "
                     }
-                     capitalize font-azarMehr font-normal  cursor-pointer hover:text-[#0000ffd9] dark:hover:text-dark-yellow ${
+                     capitalize font-azarMehr font-normal  cursor-pointer group-hover:text-[#0000ffd9] dark:group-hover:text-dark-yellow ${
                        isCollapsed ? "hidden" : "visible"
                      } `}
                   >

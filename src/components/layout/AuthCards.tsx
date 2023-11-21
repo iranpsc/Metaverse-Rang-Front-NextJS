@@ -16,6 +16,12 @@ export default function AuthCards({setShowAuthCard}:any) {
   const { languageSelected,data } = useContext(LangContext);
   const lang = languageSelected.code;
 
+
+    const modalVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { opacity: 1, scale: 1 },
+    exit: { opacity: 0, scale: 0.8 },
+  };
  
  
   return (
@@ -25,12 +31,14 @@ export default function AuthCards({setShowAuthCard}:any) {
     >
       <div className=" flex   justify-center backdrop-blur-sm  bg-black/20  items-center w-full h-full">
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{
-            duration: 0.5,
-            ease: "backInOut",
-          }}
+           variants={modalVariants}
+  initial="hidden"
+  animate="visible"
+  exit="exit"
+  transition={{
+    duration: 0.5,
+    ease: "backInOut",
+  }}
           className={`absolute z-50
           ${
             modalName.name === "ActiveEmailPage" &&
