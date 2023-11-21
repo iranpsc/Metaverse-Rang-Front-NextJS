@@ -16,7 +16,7 @@ const router = useRouter();
 
 
 
-  console.log("code",codeUser, "rout",router.query.userId);
+
 
   const submit = () => {
     if (isCollapsed) {

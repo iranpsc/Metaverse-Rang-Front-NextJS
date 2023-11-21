@@ -9,6 +9,8 @@ import ModalCard from "@/templates/ModalCard";
 import { DefaultSeo } from "next-seo";
 import { useRouter } from "next/router";
 import StaticMobileMenu from "@/components/module/StaticMobileMenu";
+import ShredPage from "@/components/templates/ShredPage";
+
 
 export default function Home({ profileData, titleData, error }: any) {
   const { languageSelected } = useContext(LangContext);
@@ -139,7 +141,7 @@ export default function Home({ profileData, titleData, error }: any) {
               )}
               {/* const [showSharedPage, setShowSharedPage] = useState<boolean>(false); */}
 
-              {showSharedPage && <SharedPage />}
+              {showSharedPage && <ShredPage />}
 
               <Profile profileData={profileData} titleData={titleData} />
             </section>

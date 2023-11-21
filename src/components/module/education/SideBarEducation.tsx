@@ -119,7 +119,7 @@ export default function SideBarEducation({
   useEffect(() => {
   const element = document.querySelector(".scroll"); 
   if (element) {
-     console.log(element.scrollHeight);
+ 
         setTimeout(() => {
 
       const maxScroll = element.scrollHeight - element.clientHeight;
