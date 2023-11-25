@@ -155,6 +155,7 @@ export default function RegisterModule({ setShowAuthCard }: any) {
               position="Register"
               data={dataRegister}
               setShowCaptcha={setShowCaptcha}
+              set
             />
           </div>
         )}

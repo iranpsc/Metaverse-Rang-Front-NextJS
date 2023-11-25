@@ -13,7 +13,7 @@ import StaticMobileMenu from "@/components/module/StaticMobileMenu";
 import ShredPage from "@/components/templates/ShredPage";
 import { AnimatePresence } from "framer-motion";
 
-export default function Home({ profileData, titleData,nameSite,localSite, error }: any) {
+export default function Home({ profileData, titleData,nameSite,localSite, error,nameUser }: any) {
   const { languageSelected } = useContext(LangContext);
   const router = useRouter();
   const { lang, userId } = router.query;
@@ -69,8 +69,8 @@ export default function Home({ profileData, titleData,nameSite,localSite, error 
         description={profileData?.customs?.about}
         openGraph={{
           title: titleData,
-          locale:localSite,
-          siteName:nameSite,
+          locale: localSite,
+          siteName: nameSite,
           description: `${profileData?.customs?.about}`,
           type: "Personal",
           url: `https://rgb.irpsc.com/en/citizen/${profileData?.code}`,
@@ -90,7 +90,7 @@ export default function Home({ profileData, titleData,nameSite,localSite, error 
 
       <section
         dir={languageSelected.dir}
-        className=" overflow-clip h-screen relative  "
+        className=" overflow-clip h-screen relative   "
       >
         <Head>
           <title>{titleData}</title>
@@ -99,7 +99,6 @@ export default function Home({ profileData, titleData,nameSite,localSite, error 
             name="google-site-verification"
             content="lmf8kBJQgLHew_wXcxGQwJQWiOSFy8odEBRTLOoX7Q4"
           />
-        
 
           <script
             type="application/ld+json"
@@ -119,36 +118,39 @@ export default function Home({ profileData, titleData,nameSite,localSite, error 
             </div>
           </div>
           <div
-            className="xl:grid lg:grid md:grid xl:grid-auto   lg:grid-cols-12 xl:grid-cols-12 w-full md:grid-flow-col md:auto-cols-fr  relative sm:flex sm:flex-col
+            className={`xl:grid lg:grid md:grid xl:grid-auto ${
+              showModal || showSharedPage ? "overflow-clip" : ""
+            }  lg:grid-cols-12 xl:grid-cols-12 w-full md:grid-flow-col md:auto-cols-fr  relative  sm:flex sm:flex-col
         sm:gap-5 xl:gap-0 lg:gap-0 md:gap-0
-        "
+        `}
           >
             <section className="col-span-5 xl:h-[100vh] lg:h-[100vh] md:h-[100vh] sm:h-fit dark:bg-black bg-[#e9eef8] ms-1">
-              
-                 <AnimatePresence>
-              {showModal && (
-                <ModalCard
-                  showModal={showModal}
-                  setShowModal={setShowModal}
-                  dataModal={dataModal}
-                  titleData={titleData}
-                />
-              )}
-  </AnimatePresence>
-
-             <AnimatePresence>
-              {showSharedPage && (
-                <ShredPage
-                showSharedPage={showSharedPage}
-                setShowSharedPage={setShowSharedPage}
-                />
+              <AnimatePresence>
+                {showModal && (
+                  <ModalCard
+                    showModal={showModal}
+                    setShowModal={setShowModal}
+                    dataModal={dataModal}
+                    titleData={titleData}
+                  />
                 )}
-                </AnimatePresence>
+              </AnimatePresence>
+
+              <AnimatePresence>
+                {showSharedPage && (
+                  <ShredPage
+                    showSharedPage={showSharedPage}
+                    setShowSharedPage={setShowSharedPage}
+                    profileData={profileData}
+                  />
+                )}
+              </AnimatePresence>
 
               <Profile
                 profileData={profileData}
                 titleData={titleData}
                 setShowSharedPage={setShowSharedPage}
+                nameUser={nameUser}
               />
             </section>
             <div className="col-span-4 xl:h-screen lg:h-screen sm:h-fit md:h-screen dark:bg-black bg-[#e9eef8] ">
@@ -196,6 +198,7 @@ export async function getServerSideProps(context:any) {
 
     // تعریف متغیر برای عنوان
     let titleData = "";
+    let nameUser="";
     let nameSite="";
     let localSite ="fa_IR";
 
@@ -204,9 +207,11 @@ export async function getServerSideProps(context:any) {
       nameSite =  "متاورس رنگ";
        localSite ="fa_IR";
       if (profileData.kyc?.fname) {
+        nameUser = `${profileData.kyc.fname} ${profileData.kyc.lname}`
         titleData = `${profileData.kyc.fname} ${profileData.kyc.lname} | ${profileData.code}`;
       } else if (profileData.name) {
         titleData = `${profileData.name} | ${profileData.code}`;
+         nameUser = `${profileData.name} `;
       } else {
         titleData = "متاورس رنگ";
       }
@@ -215,13 +220,12 @@ export async function getServerSideProps(context:any) {
       nameSite= "Metaverse Rgb";
       if (profileData.name) {
         titleData = `${profileData.name} | ${profileData.code}`;
+         nameUser = `${profileData.name} `;
       } else {
         titleData = "Metaverse Rgb";
       }
     }
-
-    // ارسال داده‌های دریافتی به کامپوننت صفحه
-    return { props: { profileData, titleData, nameSite,localSite } };
+    return { props: { profileData, titleData, nameSite, localSite, nameUser } };
   } catch (err) {
     // در صورت وجود خطا
     return { props: { error: "خطا در دریافت داده‌ها" } };

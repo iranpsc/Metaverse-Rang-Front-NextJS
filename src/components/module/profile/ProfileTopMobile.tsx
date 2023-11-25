@@ -5,7 +5,7 @@ import { LangContext } from "@/context/LangContext";
 import { Shahrvand } from "@/svgs/index";
 import Persian from "persianjs";
 
-export default function ProfileTopMobile({ profileName, titleData }: any) {
+export default function ProfileTopMobile({ profileName, titleData,nameUser }: any) {
   const { profileData, languageSelected } = useContext(LangContext);
   const [numberCurrent_level, setNumberCurrent_level] = useState<number>(1);
   const { theme } = useTheme();
@@ -47,7 +47,7 @@ export default function ProfileTopMobile({ profileName, titleData }: any) {
               className="  inline-block rounded-full p-1 xl:w-14 xl:h-14 lg:w-14 lg:h-14 md:w-10 md:h-10 sm:w-14 sm:h-14 xs:w-14 xs:h-14 object-cover"
             />
             <p className="sm:bottom-[-25px] xs:bottom-[-25px] sm:start-1 xs:start-1 rounded-sm bg-white dark:bg-dark-background  w-max p-1 sm:scale-100 xs:scale-100  text-xs  text-black dark:text-white group-hover:scale-100 break-all  inline-block xl:mx-1 lg:mx-1 md:mx-0 md:text-xs font-medium font-azarMehr xl:text-[18px] text-start">
-              {profileData?.name}
+              {nameUser}
             </p>
           </div>
 

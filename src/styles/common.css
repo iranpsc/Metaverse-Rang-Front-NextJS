@@ -2,13 +2,11 @@
  padding: 0;
  margin:0;
  font-weight: 200;
- max-width: 1660px;
- max-height: 800px;
+
+}
+.blur-until-end {
+  backdrop-filter: blur(10px);
+  height: 100vh;
+  /* تا انتهای صفحه بلور شود */
 }
 
-/* .dropdown:hover .dropdown-menu {
-  display: block;
-}
- */
-
-/* ایجاد کلاس CSS جدید */

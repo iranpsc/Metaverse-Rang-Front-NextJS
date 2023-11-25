@@ -42,11 +42,11 @@ export default function ProfileHeaderMobile({ menuData, profileData, profileName
         </div>
 
         <div className="flex flex-rows justify-center items-center ">
-          <div className=" ml-1">
-            <p className=" dark:text-white md:text-[16px] block font-azarMehr  font-bold text-xl text-black sm:text-center">
+          <div className=" ml-1 flex flex-col ">
+            <p className=" dark:text-white md:text-[16px] block font-azarMehr text-end  font-bold text-[18px] mt-1 text-black sm:text-center">
               {title?.translation}
             </p>
-            <p className="dark: text-dark-gray  md:text-[11px] font-normal text-mediumGray">
+            <p className="dark: text-dark-gray mt-[-5px] md:text-[11px] font-normal text-mediumGray ">
               {desc?.translation}
             </p>
           </div>

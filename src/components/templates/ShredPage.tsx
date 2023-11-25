@@ -3,12 +3,15 @@ import Image from "next/image";
 import { CLoseIcon } from "@/svgs/index";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/router";
+import { LangContext } from "@/context/LangContext";
+import {  targetData } from "@/utils/targetDataName";
 //ANIMATION
 import { motion } from "framer-motion";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 
 export default function ShredPage({ showSharedPage, setShowSharedPage }: any) {
       const [copied, setCopied] = useState(false);
+       const { data } = useContext(LangContext);
     const { theme } = useTheme();
   const router = useRouter();
   const lang = router.query.lang;
@@ -69,16 +72,15 @@ export default function ShredPage({ showSharedPage, setShowSharedPage }: any) {
      window.open(shareUrl, "_blank");
    };
 
+   
+
   return (
-    <div
-      className="absolute backdrop-blur-sm bg-blackTransparent/30 z-50 top-0 bottom-0 w-full xl:h-full lg:h-full md:h-full sm:min-h-full xs:min-h-full xl:pb-0 lg:pb-0 md:pb-0 sm:pb-[2300px] xs:pb-[2300px]"
-    >
+    <div className="absolute backdrop-blur-sm bg-blackTransparent/30 z-50 top-0  bottom-0 w-full xl:h-full lg:h-full md:h-full sm:min-h-full xs:min-h-full xl:pb-0 lg:pb-0 md:pb-0 sm:pb-[2300px] xs:pb-[2300px]">
       <div className="w-full h-full">
         <motion.div
-            initial={{ rotate: 0, scale: 0 }}
-            animate={{ rotate: 0, scale: 1 }}
-           exit= {{opacity: 1,scale:0}}
-         
+          initial={{ rotate: 0, scale: 0 }}
+          animate={{ rotate: 0, scale: 1 }}
+          exit={{ opacity: 1, scale: 0 }}
           transition={{
             duration: 0.5,
             ease: "backInOut",
@@ -86,11 +88,10 @@ export default function ShredPage({ showSharedPage, setShowSharedPage }: any) {
           className=" flex flex-col justify-center   items-center w-full h-full"
         >
           <div
-            className="xl:w-[40%] lg:w-[40%] md:w-[40%] min-h-[300px] max-h-fit  rounded-[15px] border-2 border-[#898989] flex relative me-[250px] sm:me-0 sm:w-[90%] xs:me-0 xs:w-[90%] justify-center xl:mt-0 lg:mt-0 md:mt-0 
-                 sm:mt-[1500px] xs:mt-[1500px] items-center shadow-md bg-white dark:bg-dark-background ">
-            <div
-            
-              className="w-full h-full overflow-clip flex flex-col justify-start mt-2 items-center  gap-10 top-0 absolute">
+            className="xl:w-[40%] lg:w-[40%] md:w-[40%] min-h-[350px] max-h-fit  rounded-[15px] border-2 border-[#898989] flex relative me-[250px] sm:me-0 sm:w-[90%] xs:me-0 xs:w-[90%] justify-center xl:mt-0 lg:mt-0 md:mt-0 
+                 sm:mt-[500px] xs:mt-[500px] items-center shadow-md bg-white dark:bg-dark-background "
+          >
+            <div className="w-full h-full overflow-clip flex flex-col justify-start mt-2 items-center  gap-10 top-0 absolute">
               <div className="w-[96%] flex flex-row justify-between items-center">
                 <CLoseIcon
                   className="w-[15px] h-[15px] cursor-pointer stroke-2 m-2 stroke-gray"
@@ -98,15 +99,17 @@ export default function ShredPage({ showSharedPage, setShowSharedPage }: any) {
                   alt="Close"
                 />
                 <h1 className="font-azarMehr font-bold text-[16px] text-[#00000096] dark:text-gray">
-                  {lang == "fa" ? "اشتراک گذاری" : "Share"}
+                  {targetData(data.data.selectedProfileData, "citizen sharing")}
                 </h1>
               </div>
 
-              <div className="flex flex-row justify-center items-center w-full gap-4">
+              <div className=" relative">
+                <div className="overflow-x-auto relative no-scrollbar   overflow-y-clip  flex flex-row justify-center items-center xl:gap-8 lg:gap-1 md:gap-0 sm:gap-4 xs:gap-4 py-2 w-full">
+
                 {items.map((item: any) => (
                   <div
                     key={item.id}
-                    className="transition-transform duration-500 ease-in-out hover:-translate-y-1 cursor-pointer hover flex flex-col justify-center items-center w-[70px]"
+                    className=" transition-transform duration-500 ease-in-out hover:-translate-y-1  cursor-pointer hover flex flex-col justify-center items-center xl:w-[70px] lg:w-[50px] :sm:w-[40px] xs:w-[40px]"
                     onClick={() => handleShare(item.title)}
                   >
                     <Image
@@ -114,24 +117,27 @@ export default function ShredPage({ showSharedPage, setShowSharedPage }: any) {
                       alt={item.img}
                       width={1000}
                       height={1000}
-                      className="w-[50px] h-[50px]"
+                      className="xl:w-[70px] xl:h-[70px] lg:w-[45px] lg:w-[45px] md:w-[40px] md:h-[40px]
+                      xs:w-[40px] h-[40px] sm:w-[40px] sm:h-[40px]
+                      "
                     />
-                    <p>{item.title}</p>
+                    <p className="font-azarMehr font-bold xl:text-[16px] lg:text-[16px] md:text-[12px] sm:text-[12px] xs:text-[12px] mt-3 px-5">{item.title}</p>
                   </div>
                 ))}
               </div>
 
+                  </div>
               <div
                 data-tooltip-id="unique-tooltip"
                 className="relative flex justify-end mt-10 w-[95%] rounded-[20px] px-4 py-1 shadow-md dark:bg-[#000] border border-gray"
               >
                 <p
-                  className="absolute start-2 cursor-pointer w-[75px] rounded-[40px] text-center  font-azarMehr text-[16px] font-bold  py-2 text-[#f9f9f9] bg-[#0000ffd9] dark:bg-dark-yellow dark:text-[#000]  "
+                  className="absolute start-2 cursor-pointer w-[75px] rounded-[40px] text-center  font-azarMehr text-[16px] sm:text-[14px] xs:text-[14px]  font-bold  py-2 text-[#f9f9f9] bg-[#0000ffd9] dark:bg-dark-yellow dark:text-[#000]  "
                   onClick={handleCopyClick}
                 >
-                  {lang == "fa" ? "کپی" : "Copy"}
+                  {targetData(data.data.selectedProfileData, "copy")}
                 </p>
-                <p className="py-2 text-[#000] dark:text-[#fff] font-azarMehr text-[16px] font-medium">{`https://rgb.irpsc.com/${router.query.lang}/citizen/${router.query.userId}`}</p>
+                <p className="py-2 text-[#000] dark:text-[#fff] font-azarMehr text-[16px] sm:text-[14px] xs:text-[14px] font-medium">{`https://rgb.irpsc.com/${router.query.lang}/citizen/${router.query.userId}`}</p>
               </div>
               {copied && (
                 <ReactTooltip id="unique-tooltip" place="bottom" isOpen={true}>

@@ -2,7 +2,7 @@ import Image from "next/image";
 import {
   selectLanguageAuthModule
 } from "@/utils/textsLanguage";
-
+import Link from "next/link";   
 
 export default function ActiveMailModule({ data, lang }: any) {
 
@@ -32,17 +32,24 @@ export default function ActiveMailModule({ data, lang }: any) {
       <p className="text-center mt-2 w-full text-[#000000A1] dark:text-[#FFFFFFA1] font-azarMehr text-[18px] font-normal">
         {selectLanguageAuthModule(lang).ActiveMailTextConfirm2}
       </p>
-      <button className="relative mt-8 dark:bg-[#18C08F80] bg-[#D7FBF0] text-[#18C08F] border-[#18C08F] border-[1px] w-full h-[50px]  rounded-[5px] font-azarMehr font-normal">
-        <Image
+       <Link
+              href="https://gmail.com"
+              passHref={true}
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+      <button className="relative mt-8 dark:bg-[#18C08F
+        80] bg-[#D7FBF0] text-[#18C08F] border-[#18C08F] border-[1px] w-full h-[50px]  rounded-[5px] font-azarMehr font-normal">        <Image
           src={iconSrc}
           alt="mail"
           width={1000}
           height={1000}
           className="absolute left-1/4 top-1/2 transform -translate-y-1/2 w-6 h-6"
         />
-        {selectLanguageAuthModule(lang).ActiveMailTextButton}{" "}
+        {selectLanguageAuthModule(lang).ActiveMailTextButton}
         {iconSrc === "/mails/gmail.png" ? "Gmail" : "Mail"}
       </button>
+        </Link>
       <p className="text-[#008BF8] font-azarMehr text-[14px] mt-3  font-normal text-center">
         {selectLanguageAuthModule(lang).ActiveMailResend}
       </p>

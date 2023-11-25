@@ -16,8 +16,6 @@ const router = useRouter();
 
 
 
-
-
   const submit = () => {
     if (isCollapsed) {
       toggleCollapseHandler();
@@ -54,16 +52,16 @@ const router = useRouter();
         >
           {showFullModal && (
             <div className=" flex flex-col gap-2 w-[80%] pt-2">
-              {codeUser == router.query.userId && (
+              {codeUser !== router.query.userId && (
                   <Link
               href={`https://rgb.irpsc.com/${router.query.lang}/citizen/${codeUser}`}
-            
+                
             >
-                  {" "}
+                  
                   <p className="text-white dark:text-black text-[14px] hover:text-[15px] font-azarMehr font-normal cursor-pointer">
                     {menuData[4] && menuData[4].translation}
                   </p>
-                  <hr className=" text-white dark:text-[#2D2D2A38]" />
+                  <hr className=" text-white dark:text-[#2D2D2A38] mt-1" />
                 </Link>
               )}
 

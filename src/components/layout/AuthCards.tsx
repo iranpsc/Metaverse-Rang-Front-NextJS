@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext,useEffect } from "react";
 import HeaderAuth from "../module/HeaderAuth";
 import AuthCard from "./../templates/AuthCard";
 import ActiveMailModule from "../module/ActiveMailModule";
@@ -16,6 +16,9 @@ export default function AuthCards({setShowAuthCard}:any) {
   const { languageSelected,data } = useContext(LangContext);
   const lang = languageSelected.code;
 
+  useEffect(()=>{
+
+  },[modalName])
 
     const modalVariants = {
     hidden: { opacity: 0, scale: 0.8 },

@@ -43,7 +43,10 @@ export default function ProfileImages({ profileData, profileName, titleData }: a
         width={100}
         height={100}
         alt={titleData}
-        className="cursor-pointer border-2 border-[#fff] inline-block rounded-full xl:w-12 xl:h-12 lg:w-10 lg:h-10 md:w-10 md:h-10 sm:w-16 sm:h-16 xs:w-16 xs:h-16"
+        className={`cursor-pointer border-2 border-[#fff] inline-block rounded-full 
+        ${imgProfiles[i]?.url == mainImageUrl?"w-14 h-14":"xl:w-12 xl:h-12 lg:w-10 lg:h-10 md:w-10 md:h-10 sm:w-16 sm:h-16 xs:w-16 xs:h-16"}
+        
+        `}
         key={i}
         onClick={() => changeMainImage(imgProfiles[i]?.url || staticImageURL)}
       />

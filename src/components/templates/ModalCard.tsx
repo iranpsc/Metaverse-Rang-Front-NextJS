@@ -1,17 +1,26 @@
-import {useEffect} from 'react';
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { CLoseIcon } from "@/svgs/index";
 import { useTheme } from "next-themes";
 
 //ANIMATION
 import { motion } from "framer-motion";
-export default function ModalCard({ setShowModal, dataModal, type ,titleData}: any) {
-    const { theme } = useTheme();
+export default function ModalCard({
+  setShowModal,
+  dataModal,
+  type,
+  titleData,
+}: any) {
+  const { theme } = useTheme();
+  const [pageHeight, setPageHeight] = useState(0);
 
+  useEffect(() => {
+    setPageHeight(window.innerHeight);
+  }, []);
 
   return (
     <div className="absolute  backdrop-blur-sm bg-blackTransparent/30 z-50 top-0 bottom-0 w-full xl:h-full lg:h-full md:h-full sm:min-h-max xs:min-h-max xl:pb-0 lg:pb-0 md:pb-0 sm:pb-[1000px] xs:pb-[1000px]">
-      <div className=" flex flex-col justify-center   items-center w-full h-full">
+      <div className=" flex flex-col justify-center  h-screen  items-center w-full ">
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -21,8 +30,7 @@ export default function ModalCard({ setShowModal, dataModal, type ,titleData}: a
           }}
           className={` xl:w-[40%] lg:w-[40%] md:w-[40%] min-h-[250px] max-h-fit  rounded-[10px] border-2 border-[#898989] flex relative me-[250px] sm:me-0 sm:w-[90%] xs:me-0 xs:w-[90%] justify-center xl:mt-0 lg:mt-0 md:mt-0  ${
             dataModal.title === "about me" || dataModal.title === "درباره من"
-              ? "sm:mt-[1500px] xs:mt-[1800px]"
-              : "sm:mt-[1200px] xs:mt-[1500px]"
+           
           } items-center shadow-md bg-white dark:bg-dark-background  `}
         >
           <div

@@ -71,7 +71,7 @@ export default function Captcha({
       // setModalName({name:"ActiveEmailPage",data:requestData.email})
 
       if (response.data) {
-       setShowAuthCard(false);
+       
         setShowCaptcha(false);
         setModalName({
           name: "ActiveEmailPage",

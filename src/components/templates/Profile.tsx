@@ -12,7 +12,7 @@ import { Tooltip as ReactTooltip } from "react-tooltip";
 import { CopyIcon } from "../svgs";
 
 
-export default function Profile({ profileData, titleData, setShowSharedPage }: any) {
+export default function Profile({ profileData, titleData, setShowSharedPage, nameUser }: any) {
   const { data, languageSelected } = useContext(LangContext);
   const [profileName, setProfileName] = useState<string>("");
   const [copied, setCopied] = useState(false);
@@ -23,8 +23,6 @@ export default function Profile({ profileData, titleData, setShowSharedPage }: a
     100 - parseInt(profileData?.score_percentage_to_next_level);
   const percent = (numberScore / 100) * 100;
 
-  
-
   return (
     <>
       <ProfileHeaderMobile
@@ -32,7 +30,11 @@ export default function Profile({ profileData, titleData, setShowSharedPage }: a
         profileData={profileData}
         profileName={profileName}
       />
-      <ProfileTopMobile profileName={profileName} titleData={titleData} />
+      <ProfileTopMobile
+        profileName={profileName}
+        titleData={titleData}
+        nameUser={nameUser}
+      />
       <ProfileImages
         profileData={profileData}
         profileName={profileName}
@@ -47,13 +49,16 @@ export default function Profile({ profileData, titleData, setShowSharedPage }: a
           <div
             className=" flex flex-row items-center justify-center gap-2 cursor-pointer"
             onClick={setShowSharedPage}
-          
           >
-            <CopyIcon className="dark:fill-[#fff] fill-[#000] w-[25px] h-[25px]" />
+            <div className="flex flex-row items-center gap-2 border border-gray rounded-full py-1 px-4">
+              <span className="font-azarMehr font-bold ">
+                {targetData(data.data.selectedProfileData, "share")}
+              </span>
+              <CopyIcon className="dark:fill-[#fff] fill-[#000] w-[20px] h-[20px]" />
+            </div>
             <p className="font-azarMehr font-bold  xl:text-xl lg:text-xl max-lg:text-md uppercase">
               {profileData?.code}
             </p>
-           
           </div>
         </div>
 
@@ -63,7 +68,7 @@ export default function Profile({ profileData, titleData, setShowSharedPage }: a
           </p>
           <hr className="flex-grow mx-[10px] xl:block lg:block md:block sm:hidden xs:hidden h-[1px] border border-dashed  text-[#000] opacity-10 dark:text-[#fff]" />
           <p className="dark:text-dark-gray  font-azarMehr font-medium md:text-[13px]  medium xl:text-[14px] lg:text-[13px] md:text-md break-all max-sm:text-[13px] text-gray">
-            {profileData?.name}
+            {nameUser}
           </p>
         </div>
 
