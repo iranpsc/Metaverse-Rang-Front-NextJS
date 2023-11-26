@@ -92,6 +92,25 @@ export default function Home({ profileData, titleData,nameSite,localSite, error,
         dir={languageSelected.dir}
         className=" overflow-clip h-screen relative   "
       >
+        <AnimatePresence>
+          {showSharedPage && (
+            <ShredPage
+              showSharedPage={showSharedPage}
+              setShowSharedPage={setShowSharedPage}
+              profileData={profileData}
+            />
+          )}
+        </AnimatePresence>
+        <AnimatePresence>
+          {showModal && (
+            <ModalCard
+              showModal={showModal}
+              setShowModal={setShowModal}
+              dataModal={dataModal}
+              titleData={titleData}
+            />
+          )}
+        </AnimatePresence>
         <Head>
           <title>{titleData}</title>
           <meta name="description" content="job" key="desc" />
@@ -119,33 +138,13 @@ export default function Home({ profileData, titleData,nameSite,localSite, error,
           </div>
           <div
             className={`xl:grid lg:grid md:grid xl:grid-auto ${
-              showModal || showSharedPage ? "overflow-clip" : ""
+              showModal || showSharedPage ? "" : ""
             }  lg:grid-cols-12 xl:grid-cols-12 w-full md:grid-flow-col md:auto-cols-fr  relative  sm:flex sm:flex-col
         sm:gap-5 xl:gap-0 lg:gap-0 md:gap-0
         `}
           >
-            <section className="col-span-5 xl:h-[100vh] lg:h-[100vh] md:h-[100vh] sm:h-fit dark:bg-black bg-[#e9eef8] ms-1">
-              <AnimatePresence>
-                {showModal && (
-                  <ModalCard
-                    showModal={showModal}
-                    setShowModal={setShowModal}
-                    dataModal={dataModal}
-                    titleData={titleData}
-                  />
-                )}
-              </AnimatePresence>
-
-              <AnimatePresence>
-                {showSharedPage && (
-                  <ShredPage
-                    showSharedPage={showSharedPage}
-                    setShowSharedPage={setShowSharedPage}
-                    profileData={profileData}
-                  />
-                )}
-              </AnimatePresence>
-
+            <section className="col-span-5 xl:h-[100vh] lg:h-[100vh] md:h-[100vh] sm:h-fit xs:h-fit dark:bg-black bg-[#e9eef8] ms-1">
+          
               <Profile
                 profileData={profileData}
                 titleData={titleData}

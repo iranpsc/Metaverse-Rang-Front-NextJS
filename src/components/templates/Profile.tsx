@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 import Image from "next/image"
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";
@@ -15,9 +15,11 @@ import { CopyIcon } from "../svgs";
 export default function Profile({ profileData, titleData, setShowSharedPage, nameUser }: any) {
   const { data, languageSelected } = useContext(LangContext);
   const [profileName, setProfileName] = useState<string>("");
-  const [copied, setCopied] = useState(false);
 
-  const router = useRouter();
+     const yourElementRef = useRef(null);
+
+
+   
 
   const numberScore =
     100 - parseInt(profileData?.score_percentage_to_next_level);
@@ -49,9 +51,12 @@ export default function Profile({ profileData, titleData, setShowSharedPage, nam
           <div
             className=" flex flex-row items-center justify-center gap-2 cursor-pointer"
             onClick={setShowSharedPage}
+            ref={yourElementRef}
           >
-            <div className="flex flex-row items-center gap-2 border border-gray rounded-full py-1 px-4">
-              <span className="font-azarMehr font-bold ">
+            <div
+              className="flex flex-row items-center gap-2 border border-gray rounded-full py-[3px]  px-4"
+            >
+              <span className="font-azarMehr font-bold text-[14px]">
                 {targetData(data.data.selectedProfileData, "share")}
               </span>
               <CopyIcon className="dark:fill-[#fff] fill-[#000] w-[20px] h-[20px]" />

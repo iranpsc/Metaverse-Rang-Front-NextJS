@@ -22,8 +22,11 @@ export default function RegisterModule({ setShowAuthCard }: any) {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showCaptcha, setShowCaptcha] = useState<boolean>(false);
   const [dataRegister, setDataRegister] = useState([]);
+    const [showErrorRegisterAccess, setShowErrorRegisterAccess] =
+      useState<string>("");
 
   const [rememberMe, setRememberMe] = useState(false);
+
 
   const handleCheckboxChange = (e: any) => {
     setRememberMe(e.target.checked);
@@ -89,6 +92,11 @@ export default function RegisterModule({ setShowAuthCard }: any) {
                   className={cssAuth(props, "email")}
                 />
                 <ErrorMessageComponent fieldName="email" lang={lang} />
+                  {showErrorRegisterAccess !== "" ? (
+                <span className="text-error w-full font-azarMehr font-medium text-[10px] mt-1 text-start ">
+                 {showErrorRegisterAccess}
+                </span>
+                  ):null}
               </div>
 
               <div className="form-group">
@@ -155,7 +163,7 @@ export default function RegisterModule({ setShowAuthCard }: any) {
               position="Register"
               data={dataRegister}
               setShowCaptcha={setShowCaptcha}
-              set
+              setShowErrorRegisterAccess={setShowErrorRegisterAccess}
             />
           </div>
         )}

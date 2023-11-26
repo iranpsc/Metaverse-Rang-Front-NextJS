@@ -10,6 +10,7 @@ export default function Captcha({
   data,
   setShowCaptcha,
   seShowErrorLoginAccess,
+  setShowErrorRegisterAccess,
   setShowAuthCard,
 }: any) {
   const { theme } = useTheme();
@@ -19,8 +20,6 @@ export default function Captcha({
   //localStorage.setItem(" ", response.data.token);
 
   const captchaRef = useRef<ReCAPTCHA>(null);
-
-
 
   function onChange(value: any) {
     if (value) {
@@ -46,13 +45,13 @@ export default function Captcha({
       if (response.data) {
         setCodeUser(response.data.data.code);
         seShowErrorLoginAccess("");
-      setShowAuthCard(false)
+        setShowAuthCard(false);
 
         setShowCaptcha(false);
       }
     } catch (err: any) {
       setShowCaptcha(false);
-      seShowErrorLoginAccess(err.response.data.message);
+      seShowErrorLoginAccess(err.response?.data?.message);
     }
   };
 
@@ -71,7 +70,6 @@ export default function Captcha({
       // setModalName({name:"ActiveEmailPage",data:requestData.email})
 
       if (response.data) {
-       
         setShowCaptcha(false);
         setModalName({
           name: "ActiveEmailPage",
@@ -81,6 +79,7 @@ export default function Captcha({
     } catch (err: any) {
       console.log(err);
       setShowCaptcha(false);
+      setShowErrorRegisterAccess(err.response?.data?.message);
     }
   };
 

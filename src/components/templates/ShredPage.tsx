@@ -1,21 +1,24 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect,useRef } from "react";
 import Image from "next/image";
 import { CLoseIcon } from "@/svgs/index";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/router";
 import { LangContext } from "@/context/LangContext";
 import {  targetData } from "@/utils/targetDataName";
+
 //ANIMATION
 import { motion } from "framer-motion";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 
 export default function ShredPage({ showSharedPage, setShowSharedPage }: any) {
       const [copied, setCopied] = useState(false);
+
+
        const { data } = useContext(LangContext);
     const { theme } = useTheme();
   const router = useRouter();
   const lang = router.query.lang;
-  
+
 
   const items = [
     { id: 1, img: "/shared/whatsapp.png", title: "WhatsApp" },
@@ -72,11 +75,13 @@ export default function ShredPage({ showSharedPage, setShowSharedPage }: any) {
      window.open(shareUrl, "_blank");
    };
 
+  
+
    
 
   return (
-    <div className="absolute backdrop-blur-sm bg-blackTransparent/30 z-50 top-0  bottom-0 w-full xl:h-full lg:h-full md:h-full sm:min-h-full xs:min-h-full xl:pb-0 lg:pb-0 md:pb-0 sm:pb-[2300px] xs:pb-[2300px]">
-      <div className="w-full h-full">
+    <div className="absolute backdrop-blur-sm bg-blackTransparent/30 z-50 top-0 w-full h-screen ">
+      <div className="w-full h-full overflow-clip">
         <motion.div
           initial={{ rotate: 0, scale: 0 }}
           animate={{ rotate: 0, scale: 1 }}
@@ -89,55 +94,55 @@ export default function ShredPage({ showSharedPage, setShowSharedPage }: any) {
         >
           <div
             className="xl:w-[40%] lg:w-[40%] md:w-[40%] min-h-[350px] max-h-fit  rounded-[15px] border-2 border-[#898989] flex relative me-[250px] sm:me-0 sm:w-[90%] xs:me-0 xs:w-[90%] justify-center xl:mt-0 lg:mt-0 md:mt-0 
-                 sm:mt-[500px] xs:mt-[500px] items-center shadow-md bg-white dark:bg-dark-background "
+              mt-[100px]    items-center shadow-md bg-white dark:bg-dark-background "
           >
             <div className="w-full h-full overflow-clip flex flex-col justify-start mt-2 items-center  gap-10 top-0 absolute">
-              <div className="w-[96%] flex flex-row justify-between items-center">
+           
                 <CLoseIcon
-                  className="w-[15px] h-[15px] cursor-pointer stroke-2 m-2 stroke-gray"
+                  className="w-[15px] h-[15px] cursor-pointer stroke-2 m-2 stroke-gray absolute start-3 top-1"
                   onClick={() => setShowSharedPage(false)}
                   alt="Close"
                 />
-                <h1 className="font-azarMehr font-bold text-[16px] text-[#00000096] dark:text-gray">
+                <h1 className="font-azarMehr font-bold text-[16px] text-[#00000096] dark:text-gray w-full text-center mt-1">
                   {targetData(data.data.selectedProfileData, "citizen sharing")}
                 </h1>
-              </div>
+           
 
-              <div className=" relative">
-                <div className="overflow-x-auto relative no-scrollbar   overflow-y-clip  flex flex-row justify-center items-center xl:gap-8 lg:gap-1 md:gap-0 sm:gap-4 xs:gap-4 py-2 w-full">
-
-                {items.map((item: any) => (
-                  <div
-                    key={item.id}
-                    className=" transition-transform duration-500 ease-in-out hover:-translate-y-1  cursor-pointer hover flex flex-col justify-center items-center xl:w-[70px] lg:w-[50px] :sm:w-[40px] xs:w-[40px]"
-                    onClick={() => handleShare(item.title)}
-                  >
-                    <Image
-                      src={item.img}
-                      alt={item.img}
-                      width={1000}
-                      height={1000}
-                      className="xl:w-[70px] xl:h-[70px] lg:w-[45px] lg:w-[45px] md:w-[40px] md:h-[40px]
-                      xs:w-[40px] h-[40px] sm:w-[40px] sm:h-[40px]
+              <div className=" overflow-x-auto overflow-y-clip no-scrollbar relative ">
+                <div className=" mx-16 sm:mx-5 flex flex-row justify-center items-center xl:gap-8 lg:gap-4 md:gap-4 sm:gap-2 xs:gap-2 py-2 w-full">
+                  {items.map((item: any) => (
+                    <div
+                      key={item.id}
+                      className=" transition-transform duration-500 ease-in-out hover:-translate-y-1  cursor-pointer hover flex flex-col justify-center items-center "
+                      onClick={() => handleShare(item.title)}
+                    >
+                      <Image
+                        src={item.img}
+                        alt={item.img}
+                        width={1000}
+                        height={1000}
+                        className="xl:w-[70px] xl:h-[70px] lg:w-[70px] lg:h-[70px] md:w-[60px] md:h-[60px]
+                      xs:w-[50px] h-[50px] sm:w-[50px] sm:h-[50px]
                       "
-                    />
-                    <p className="font-azarMehr font-bold xl:text-[16px] lg:text-[16px] md:text-[12px] sm:text-[12px] xs:text-[12px] mt-3 px-5">{item.title}</p>
-                  </div>
-                ))}
+                      />
+                      <p className="font-azarMehr font-bold xl:text-[16px] lg:text-[16px] md:text-[14px] sm:text-[14px] xs:text-[12px] mt-3 px-5">
+                        {item.title}
+                      </p>
+                    </div>
+                  ))}
+                </div>
               </div>
-
-                  </div>
               <div
                 data-tooltip-id="unique-tooltip"
-                className="relative flex justify-end mt-10 w-[95%] rounded-[20px] px-4 py-1 shadow-md dark:bg-[#000] border border-gray"
+                className="relative flex justify-end items-center mt-8 w-[95%] rounded-[20px] px-4 py-1 shadow-md dark:bg-[#000] border border-gray"
               >
                 <p
-                  className="absolute start-2 cursor-pointer w-[75px] rounded-[40px] text-center  font-azarMehr text-[16px] sm:text-[14px] xs:text-[14px]  font-bold  py-2 text-[#f9f9f9] bg-[#0000ffd9] dark:bg-dark-yellow dark:text-[#000]  "
+                  className="absolute start-2 cursor-pointer xl:w-[75px] lg:w-[75px] md:w-[65px] sm:w-[55px] xs:w-[55px] rounded-[40px] text-center  font-azarMehr text-[16px] sm:text-[14px] xs:text-[14px]  font-bold xl:py-2  lg:py-2 md:py-1 sm:py-2 xs:py-2 text-[#f9f9f9] bg-[#0000ffd9] dark:bg-dark-yellow dark:text-[#000]  "
                   onClick={handleCopyClick}
                 >
                   {targetData(data.data.selectedProfileData, "copy")}
                 </p>
-                <p className="py-2 text-[#000] dark:text-[#fff] font-azarMehr text-[16px] sm:text-[14px] xs:text-[14px] font-medium">{`https://rgb.irpsc.com/${router.query.lang}/citizen/${router.query.userId}`}</p>
+                <p className="py-2 text-[#000] dark:text-[#fff] font-azarMehr xl:text-[16px] lg:text-[16px] md:text-[10px] sm:text-[12px] xs:text-[12px] font-medium">{`https://rgb.irpsc.com/${router.query.lang}/citizen/${router.query.userId}`}</p>
               </div>
               {copied && (
                 <ReactTooltip id="unique-tooltip" place="bottom" isOpen={true}>

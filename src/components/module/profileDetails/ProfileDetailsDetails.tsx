@@ -14,7 +14,7 @@ export default function ProfileDetailsDetails({ itemsProfileDetails }: any) {
           duration: 2,
           x: { duration: 1 },
         }}
-        className="dark:bg-dark-background  xl:basis-2/5 lg:basis-2/5 md:basis-2/4 flex flex-col justify-evenly items-center gap-2 transition-all duration-300 ease-linear bg-white w-full rounded-[10px]  xl:pb-3  lg:pb-3 md:pb-3  xl:gap-2 lg:gap-2 md:gap-6 xl:mt-0
+        className=" dark:bg-dark-background bg-white xl:basis-2/5 lg:basis-2/5 md:basis-2/4 flex flex-col justify-evenly items-center gap-2 transition-all duration-300 ease-linear bg-white w-full rounded-[10px]  xl:pb-3  lg:pb-3 md:pb-3  xl:gap-2 lg:gap-2 md:gap-6 xl:mt-0
       lg:mt-0 md:mt-0 sm:mt-2 xs:mt-2
       "
       >

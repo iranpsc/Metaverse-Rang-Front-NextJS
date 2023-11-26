@@ -44,7 +44,7 @@ export default function ProfileImages({ profileData, profileName, titleData }: a
         height={100}
         alt={titleData}
         className={`cursor-pointer border-2 border-[#fff] inline-block rounded-full 
-        ${imgProfiles[i]?.url == mainImageUrl?"w-14 h-14":"xl:w-12 xl:h-12 lg:w-10 lg:h-10 md:w-10 md:h-10 sm:w-16 sm:h-16 xs:w-16 xs:h-16"}
+        ${imgProfiles[i]?.url == mainImageUrl?"xl:w-14 xl:h-14 lg:w-14px lg:h-14px sm:w-18 sm:h-16 xs:w-[70px] xs:h-[70px]":"xl:w-12 xl:h-12 lg:w-10 lg:h-10 md:w-10 md:h-10 sm:w-16 sm:h-16 xs:w-16 xs:h-16"}
         
         `}
         key={i}
@@ -93,7 +93,7 @@ export default function ProfileImages({ profileData, profileName, titleData }: a
               delayChildren: 0.9,
               staggerChildren: 0.6,
             }}
-            className="h-full flex flex-col xl:flex-col lg:flex-col md:flex-row sm:flex-row xs:flex-row w-full xl:gap-2 lg:gap-2 md:gap-3 sm:gap-5 xs:gap-5  justify-center items-center md:pb-3 sm:pb-3 xs:pb-3"
+            className="h-full flex flex-col xl:flex-col lg:flex-col md:flex-row sm:flex-row xs:flex-row w-full xl:gap-2 lg:gap-2 md:gap-3 sm:gap-5 xs:gap-3  justify-center items-center md:pb-3 sm:pb-3 xs:pb-3"
           >
             {images}
           </motion.div>

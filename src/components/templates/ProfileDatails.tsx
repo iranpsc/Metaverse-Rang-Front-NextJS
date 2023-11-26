@@ -52,7 +52,7 @@ export default function ProfileDetails({ setShowModal, setDataModal }: any) {
     {
       id: 5,
       key: targetData(data.data.selectedProfileData, "job"),
-      value: profileData?.customs?.occupation.slice(0, 25) || "--",
+      value: profileData?.customs?.occupation.slice(0, 23)+" ..." || "--",
       fValue: profileData?.customs?.occupation,
     },
     {

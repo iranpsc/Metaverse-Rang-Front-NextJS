@@ -46,7 +46,7 @@ export default function ProfileTopMobile({ profileName, titleData,nameUser }: an
               alt={titleData}
               className="  inline-block rounded-full p-1 xl:w-14 xl:h-14 lg:w-14 lg:h-14 md:w-10 md:h-10 sm:w-14 sm:h-14 xs:w-14 xs:h-14 object-cover"
             />
-            <p className="sm:bottom-[-25px] xs:bottom-[-25px] sm:start-1 xs:start-1 rounded-sm bg-white dark:bg-dark-background  w-max p-1 sm:scale-100 xs:scale-100  text-xs  text-black dark:text-white group-hover:scale-100 break-all  inline-block xl:mx-1 lg:mx-1 md:mx-0 md:text-xs font-medium font-azarMehr xl:text-[18px] text-start">
+            <p className="sm:bottom-[-25px] xs:bottom-[-25px] sm:start-1 xs:start-1 rounded-sm bg-white dark:bg-dark-background  w-max p-1 sm:scale-100 xs:scale-100  text-xs  text-black dark:text-white group-hover:scale-100 break-all  inline-block xl:mx-1 lg:mx-1 md:mx-0  font-medium font-azarMehr xl:text-[18px] lg:text-[18px] md:text-[16px] sm:text-[14px] xs:text-[12px] text-start">
               {nameUser}
             </p>
           </div>
@@ -64,7 +64,7 @@ export default function ProfileTopMobile({ profileName, titleData,nameUser }: an
           <p className=" dark:text-white sm:text-[15px] xs:text-[15px] md:text-[15px] lg:text-[15px] xl:text-[15px]  inline-block mx-1 font-bold font-azarMehr text-extraGray">
             {profileData?.level?.name}
           </p>
-          <p className=" dark:text-white sm:text-[15px] xs:text-[15px] md:text-[15px] lg:text-[15px] xl:text-[15px]  inline-block mx-1 font-bold font-azarMehr text-extraGray">
+          <p className=" dark:text-white sm:text-[12px] xs:text-[12px] md:text-[15px] lg:text-[15px] xl:text-[15px]  inline-block mx-1 font-bold font-azarMehr text-extraGray">
             {profileData?.current_level?.name}
           </p>
           <div className=" relative text-center flex items-center justify-center">
