@@ -3,6 +3,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { useTheme } from "next-themes";
 import axios from "axios";
 import { AuthContext } from "@/context/AuthContext";
+import { useToken } from "@/context/TokenContext";
 import { useRouter } from "next/router";
 
 export default function Captcha({
@@ -15,6 +16,8 @@ export default function Captcha({
 }: any) {
   const { theme } = useTheme();
   const { setModalName, setCodeUser } = useContext(AuthContext);
+  const { setTokenData} = useToken();
+
   const router = useRouter();
   const { lang, userId } = router.query;
   //localStorage.setItem(" ", response.data.token);
@@ -43,10 +46,9 @@ export default function Captcha({
         requestData
       );
       if (response.data) {
-        setCodeUser(response.data.data.code);
+         setTokenData(response.data.data.token, response.data.data.code);
         seShowErrorLoginAccess("");
         setShowAuthCard(false);
-
         setShowCaptcha(false);
       }
     } catch (err: any) {
@@ -71,6 +73,7 @@ export default function Captcha({
 
       if (response.data) {
         setShowCaptcha(false);
+          setTokenData(response.data.data.token, response.data.data.code);
         setModalName({
           name: "ActiveEmailPage",
           data: requestData.email,

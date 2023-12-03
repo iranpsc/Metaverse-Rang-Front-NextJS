@@ -14,11 +14,11 @@ interface AuthContextType {
     name: string;
     data: string | null;
   };
-  myIp: string;
+
   codeUser: string;
-  setCodeUser: React.Dispatch<
-    React.SetStateAction<string>
-  >;
+  token: string;
+  setCodeUser: React.Dispatch<React.SetStateAction<string>>;
+  setToken: React.Dispatch<React.SetStateAction<string>>;
   setModalName: React.Dispatch<
     React.SetStateAction<{ name: string; data: string | null }>
   >;
@@ -29,9 +29,11 @@ const initialValue: AuthContextType = {
     name: ModalNames.AuthPage,
     data: "ehsnmkz@outlook.com",
   },
-  myIp: "",
-  codeUser:"",
-  setCodeUser:()=>{},
+
+  token: "",
+  codeUser: "",
+  setToken: () => {},
+  setCodeUser: () => {},
   setModalName: () => {},
 };
 interface Props {
@@ -44,28 +46,15 @@ const AuthProvider = ({ children }: Props) => {
     name: string;
     data: string | null;
   }>(initialValue.modalName);
-  const [myIp,setMyIp]  =useState('');
+
   const [codeUser,setCodeUser]  =useState<string>('');
+   const [token, setToken] = useState<string>("");
 
-    useEffect(()=>{
-      const fetch_Api  = async()=>{
-             try {
-            const ip = await axios.get("https://api.rgb.irpsc.com/api/ip");
-            setMyIp(ip.data.ip);
-                  
-          } catch (error) {
-          
-          }
-        }
-  
-        fetch_Api();
-
-    },[])
-
+ 
 
   return (
     <AuthContext.Provider
-      value={{ modalName, setModalName, myIp, codeUser, setCodeUser }}
+      value={{ modalName, setModalName, codeUser,token,setToken, setCodeUser }}
     >
       {children}
     </AuthContext.Provider>

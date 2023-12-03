@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 //Types
 import { LoginMenu ,ArrowMenu} from "@/svgs/index";
-import { AuthContext } from "@/components/context/AuthContext";
+import { useToken } from "@/context/TokenContext";
 export default function LoginMenuModule({
   isCollapsed,
   setShowAuthCard,
@@ -11,7 +11,7 @@ export default function LoginMenuModule({
   menuData,
 }: any) {
   const [showFullModal, setShowFullModal] = useState(false);
-  const {codeUser} = useContext(AuthContext);
+ const { code, removeToken } = useToken();
 const router = useRouter();
 
 
@@ -27,16 +27,21 @@ const router = useRouter();
 
   const checkLogin =()=>{
 
-    if(codeUser.length>1){
-     submit()
-    }else{
-        setShowAuthCard(true);
+    if (code && code.length > 1) {
+      submit();
+    } else {
+      setShowAuthCard(true);
     }
   }
 
   useEffect(() => {
     if (isCollapsed) setShowFullModal(false);
   }, [isCollapsed]);
+
+  const logout = ()=>{
+    removeToken()
+    setShowFullModal(false);
+  }
 
   return (
     <>
@@ -52,9 +57,10 @@ const router = useRouter();
         >
           {showFullModal && (
             <div className=" flex flex-col gap-2 w-[80%] pt-2">
-              {codeUser !== router.query.userId && (
+              {code && code !== router.query.userId && (
                 <Link
-                  href={`https://rgb.irpsc.com/${router.query.lang}/citizen/${codeUser}`}
+                  href={`https://rgb.irpsc.com/${router.query.lang}/citizen/${code}`}
+                  target="_blank"
                 >
                   <p className="text-white dark:text-black text-[14px] hover:text-[15px] font-azarMehr font-normal cursor-pointer">
                     {menuData[4] && menuData[4].translation}
@@ -74,7 +80,10 @@ const router = useRouter();
                 </p>
               </Link>
               <hr className=" text-white dark:text-[#2D2D2A38]" />
-              <p className="text-white dark:text-black text-[14px]  hover:text-[15px] font-azarMehr font-normal cursor-pointer">
+              <p
+                className="text-white dark:text-black text-[14px]  hover:text-[15px] font-azarMehr font-normal cursor-pointer"
+                onClick={logout}
+              >
                 {menuData[1] && menuData[1].translation}
               </p>
               <hr className=" text-white dark:text-[#2D2D2A38]" />
@@ -85,10 +94,10 @@ const router = useRouter();
             className="bg-blueLink cursor-pointer dark:bg-dark-yellow rounded-[15px] w-[80%] h-[40px]  flex flex-row justify-around gap-5 items-center"
             onClick={checkLogin}
           >
-            {codeUser.length > 1 ? (
+            {code && code.length > 1 ? (
               <>
                 <p className="text-white dark:text-dark-background font-azarMehr uppercase font-medium text-center ">
-                  {isCollapsed ? "HM" : codeUser}
+                  {isCollapsed ? "HM" : code}
                 </p>
                 <ArrowMenu
                   className={`stroke-white stroke-2 dark:stroke-dark-background h-full w-[10px] rotate-90 ${
