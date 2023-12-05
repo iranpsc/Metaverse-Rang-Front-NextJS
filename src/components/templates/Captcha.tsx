@@ -73,7 +73,7 @@ export default function Captcha({
 
       if (response.data) {
         setShowCaptcha(false);
-          setTokenData(response.data.data.token, response.data.data.code);
+          setTokenData(response.data.data.token,null);
         setModalName({
           name: "ActiveEmailPage",
           data: requestData.email,

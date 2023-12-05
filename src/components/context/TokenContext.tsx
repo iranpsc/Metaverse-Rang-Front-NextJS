@@ -11,7 +11,7 @@ interface TokenContextType {
   token: string | null;
   code: string | null;
   setToken: (token: string) => void;
-  setTokenData:(token:string,code:string)=>void
+  setTokenData:(token:string,code:string|null)=>void
   setCode: (code: string) => void;
   checkToken: () => void;
   removeToken: () => void;
@@ -27,7 +27,7 @@ export const TokenProvider: React.FC<Props> = ({ children }: Props) => {
   const [token, setToken] = useState<string | null>(null);
   const [code, setCode] = useState<string | null>(null);
 
-  const setTokenData = (newToken: string, newCode: string) => {
+  const setTokenData = (newToken: string, newCode: string|null) => {
     setToken(newToken);
     setCode(newCode);
 
