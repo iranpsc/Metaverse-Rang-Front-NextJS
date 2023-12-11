@@ -24,7 +24,7 @@ export default function ActiveMailModule({ data, lang }: any) {
   const iconSrc = domain in domainIcons ? domainIcons[domain] : "";
 
   const sendMail= async()=>{
-    console.log(data);
+ 
     if (!activeTimer){
       const response = await axios.get(
         "https://api.rgb.irpsc.com/api/email/verification-notification",

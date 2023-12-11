@@ -18,7 +18,7 @@ export default function LoginMenuModule({
  const { code, removeToken,token } = useToken();
 const router = useRouter();
 
-console.log(token,code);
+
 
   const submit = () => {
     if (isCollapsed) {

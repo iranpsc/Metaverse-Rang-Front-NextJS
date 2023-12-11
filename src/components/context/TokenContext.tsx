@@ -40,7 +40,7 @@ export const TokenProvider: React.FC<Props> = ({ children }: Props) => {
 
   const checkToken = () => {
     const storedToken = localStorage.getItem("authToken");
-    console.log(storedToken);
+    
 
     if (storedToken) {
       const tokenData = JSON.parse(storedToken);
@@ -54,7 +54,7 @@ export const TokenProvider: React.FC<Props> = ({ children }: Props) => {
         setToken(null);
         setCode(null);
       } else {
-        console.log(tokenData);
+     
         setToken(tokenData.token);
         setCode(tokenData.code);
       }
@@ -70,7 +70,7 @@ export const TokenProvider: React.FC<Props> = ({ children }: Props) => {
   };
 
   useEffect(() => {
-     console.log("start");
+    
     checkToken();
   }, []);
 
