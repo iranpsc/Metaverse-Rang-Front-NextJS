@@ -7,7 +7,7 @@ import { LangContext } from "@/context/LangContext";
 //ANIMATION
 import { motion } from "framer-motion";
 import { SideBarContext } from "../context/SidebarContext";
-import MenuItemsCard from "../module/MenuItemsCard";
+
 
 
 export default function MenuItemPage() {
@@ -59,7 +59,7 @@ export default function MenuItemPage() {
 
             <div className="bg-white w-[99%] h-full overflow-y-scroll overflow-x-clip">
            
-              <MenuItemsCard/>
+              
                
             </div>
           </div>
