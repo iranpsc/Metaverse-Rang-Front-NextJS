@@ -12,7 +12,7 @@ import MenuItemsCard from "../module/MenuItemsCard";
 
 export default function MenuItemPage() {
   const { data } = useContext(LangContext);
-  const { ActiveItemMenu, setActiveItemMenu } = useContext(SideBarContext);
+  // const { ActiveItemMenu, setActiveItemMenu } = useContext(SideBarContext);
   const { theme } = useTheme();
   const router = useRouter();
   const lang = router.query.lang;
@@ -39,7 +39,7 @@ export default function MenuItemPage() {
             <div className=" bg-[#fff] w-full h-[75px] relative shadow-md rounded-[10px] flex flex-row justify-between items-center">
               <CLoseIcon
                 className="w-[15px] h-[15px] cursor-pointer stroke-2 m-2 stroke-gray ms-3"
-                onClick={() => setActiveItemMenu("")}
+                // onClick={() => setActiveItemMenu("")}
                 alt="Close"
               />
               <div>
@@ -52,7 +52,7 @@ export default function MenuItemPage() {
               </div>
               <LogoRgb
                 className="w-[40px] h-[40px] me-3"
-                onClick={() => setActiveItemMenu("")}
+                // onClick={() => setActiveItemMenu("")}
                 alt="Metaverse RGB"
               />
             </div>

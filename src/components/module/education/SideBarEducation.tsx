@@ -176,6 +176,7 @@ export default function SideBarEducation({
           </div>
           {/* <MenuProfileModule/> */}
           <ListMenuModule
+            isCollapsed={isCollapsed}
             menuData={data}
             setActiveItem={SetActiveItem}
             activeItem={activeItem}
