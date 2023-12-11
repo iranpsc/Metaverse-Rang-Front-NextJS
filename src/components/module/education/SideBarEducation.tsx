@@ -18,6 +18,7 @@ import {
   sidebarFilteredData,
  
 } from "@/components/utils/sidebarfuncs";
+import ThemeMenuModule from "../menu/ThemeMenuModule";
 
 interface LanguageItem {
   id: number;
@@ -52,7 +53,7 @@ export default function SideBarEducation({
 
   useEffect(() => {
     setActiveDropdown(false);
-  }, [languageSelected.name, isCollapsed]);
+  }, [languageSelected.name]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -148,25 +149,25 @@ export default function SideBarEducation({
     }
   };
   return (
-    <div className="  xl:relative lg:relative md:relative bg-white dark:bg-dark-background ">
+    <div className="  xl:relative lg:relative  bg-white dark:bg-dark-background ">
       <div
         className={`xl:min-h-screen scroll lg:min-h-screen md:min-h-screen overflow-y-scroll  relative sm:min-h-screen xs:min-h-screen ${
           isCollapsed
-            ? "sm:hidden xs:hidden transition-2 xl:block lg:block md:block"
+            ? "sm:hidden xs:hidden md:hidden transition-2 xl:block lg:block"
             : "backdrop-blur-sm  bg-blackTransparent/30"
-        }   sm:absolute  xs:absolute  xl:relative lg:relative md:relative xl:w-fit lg:w-fit md:w-fit z-[60] sm:w-full xs:w-full no-scrollbar  `}
+        }   sm:absolute  xs:absolute  xl:relative lg:relative md:absolute xl:w-fit lg:w-fit md:w-full z-[60] sm:w-full xs:w-full no-scrollbar  `}
         onClick={toggleCollapseHandler}
       >
         <aside
           className={`${
             isCollapsed
               ? "w-[70px] max-lg:hidden"
-              : "xl:w-[250px]   lg:w-[175px] md:w-[250px] sm:w-[175px] xs:w-[175px] sm:shadow-[#000000] xs:sm:shadow-[#000000] visible"
-          }  h-screen  bg-white  dark:bg-dark-background   transition-all duration-300 ease-linear 
+              : "xl:w-[250px]   lg:w-[150px] md:w-[250px] sm:w-[175px] xs:w-[175px] sm:shadow-[#000000] xs:sm:shadow-[#000000] visible"
+          }  h-screen relative   bg-white  dark:bg-dark-background transition-all duration-300 ease-linear 
         `}
           onClick={toggleCollapseHandler}
         >
-          <div className="sticky w-full top-0 pt-4 z-50 bg-white dark:bg-dark-background   ">
+          <div className="sticky w-full top-0 pt-4 z-50 bg-white dark:bg-dark-background">
             <HeaderMenuEducationModule
               isCollapsed={isCollapsed}
               menuData={headerData}
@@ -175,7 +176,6 @@ export default function SideBarEducation({
           </div>
           {/* <MenuProfileModule/> */}
           <ListMenuModule
-            isCollapsed={isCollapsed}
             menuData={data}
             setActiveItem={SetActiveItem}
             activeItem={activeItem}
@@ -185,104 +185,24 @@ export default function SideBarEducation({
             languagesData={languagesData}
             handleDirChange={handleDirChange}
           />
-          <LoginMenuModule
-            isCollapsed={isCollapsed}
-            toggleCollapseHandler={toggleCollapseHandler}
-            setShowAuthCard={setShowAuthCard}
-            menuData={loginData}
-            profileData={profileData}
-          />
         </aside>
       </div>
-
-      {isCollapsed ? (
-        <div className="flex justify-center items-center xl:flex lg:flex md:flex sm:hidden xs:hidden">
-          <div className="absolute bottom-3  w-[50px] h-[50px] flex flex-col justify-center items-center  z-[100]  bg-white dark:bg-dark-background ">
-            <hr
-              className={`${
-                isCollapsed ? "mx-5" : "mx-2"
-              } border-[1px] w-[90%] border-[#00000017] dark:border-[#3F3F3F] mb-3`}
-            />
-            <div className="z-50 rounded-full w-[90%] cursor-pointer flex flex-row justify-evenly items-center bg-[#e8e8e8]  dark:bg-[#000] ">
-              <div
-                className={`
-          ${themeDataActive === "dark" ? "bg-[#1A1A18]" : ""}
-          w-[30px] h-[30px] my-1 rounded-full flex flex-row  justify-center items-center `}
-                onClick={changeTheme}
-              >
-                {themeDataActive === "dark" ? (
-                  <Dark
-                    className={` ${
-                      themeDataActive === "dark"
-                        ? "stroke-white"
-                        : "stroke-gray"
-                    }  stroke-[2px] `}
-                  />
-                ) : (
-                  <Light
-                    className={` ${
-                      themeDataActive === "dark"
-                        ? "stroke-gray fill-gray"
-                        : "stroke-black fill-black"
-                    }`}
-                  />
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      ) : (
-        <div className="xl:w-[250px]   lg:w-[175px] md:w-[250px] sm:w-[175px] xs:w-[175px] absolute pb-4 bottom-0  w-full h-[50px] flex flex-col justify-center items-center  z-[100]  bg-white dark:bg-dark-background ">
-          <hr
-            className={`${
-              isCollapsed ? "mx-5" : "mx-2"
-            } border-[1px] mb-2 w-[90%] border-[#00000017] dark:border-[#3F3F3F] xl:mb-3`}
-          />
-          <div className="z-50 rounded-full w-[90%] cursor-pointer flex flex-row justify-evenly items-center bg-[#e8e8e8]  dark:bg-[#000] ">
-            <div
-              className={`
-          ${themeDataActive === "dark" ? "#1A1A18" : "bg-[#fcfcfc]"}
-          w-[135px] h-[28px] my-1 ms-1 rounded-full flex flex-row  justify-center items-center gap-3`}
-              onClick={() => setTheme("light")}
-            >
-              <Light
-                className={` ${
-                  themeDataActive === "dark"
-                    ? "stroke-gray fill-gray"
-                    : "stroke-black fill-black"
-                }`}
-              />
-              <p
-                className={` ${
-                  themeDataActive === "dark" ? "text-white" : "text-black"
-                } font-azarMehr font-medium xl:text-[14px] lg:text-[14px] md:text-[14px] xs:text-[12px] sm:text-[12px] mb-1 `}
-              >
-                {themeData[0]?.name && themeData[0].translation}
-              </p>
-            </div>
-
-            <div
-              className={`
-          ${themeDataActive === "dark" ? "bg-[#1A1A18]" : ""}
-          w-[135px] h-[28px] my-1 rounded-full flex flex-row  justify-center items-center gap-3 me-1 `}
-              onClick={() => setTheme("dark")}
-            >
-              <Dark
-                className={` ${
-                  themeDataActive === "dark" ? "stroke-white" : "stroke-gray"
-                }  stroke-[2px] `}
-              />
-              <p
-                className={` ${
-                  themeDataActive === "dark" ? "text-white" : "text-black"
-                } font-azarMehr xl:text-[14px] lg:text-[14px] md:text-[14px] xs:text-[12px] sm:text-[12px] font-medium mb-1`}
-              >
-                {themeData[1]?.name && themeData[1].translation}
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
+      <div
+        className={`${
+          isCollapsed
+            ? "w-[70px] sm:hidden xs:hidden md:hidden transition-2 xl:block lg:block"
+            : "xl:w-[250px]   lg:w-[150px] md:w-[250px] sm:w-[175px] xs:w-[175px]"
+        }  h-fit absolute  z-[100] transition-all duration-300 ease-linear  bg-white dark:bg-dark-background  bottom-0 py-5 flex flex-col items-center justify-center gap-3`}
+      >
+        <LoginMenuModule
+          isCollapsed={isCollapsed}
+          toggleCollapseHandler={toggleCollapseHandler}
+          setShowAuthCard={setShowAuthCard}
+          menuData={loginData}
+          profileData={profileData}
+        />
+        <ThemeMenuModule />
+      </div>
     </div>
   );
 }

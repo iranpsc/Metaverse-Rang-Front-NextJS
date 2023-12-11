@@ -24,7 +24,6 @@ export interface LanguageDataItem {
 
 export interface ListMenuModuleProps {
     menuData: MenuDataItem[];
-    isCollapsed:boolean;
     activeItem: number;
     setActiveItem: React.Dispatch<React.SetStateAction<number>>; 
     languageSelected: LanguageSelected;

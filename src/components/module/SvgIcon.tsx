@@ -30,7 +30,10 @@ export default function SvgIcon({ name, color }: any) {
   return (
     <>
       {name === "home" && (
-        <HomeIcon stroke="#ff0000" className={` ${color} stroke-2 mx-[10px]`} />
+        <HomeIcon
+          stroke="#ff0000"
+          className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`}
+        />
       )}
       {name === "news" && (
         <News
@@ -41,91 +44,95 @@ export default function SvgIcon({ name, color }: any) {
       {name === "articles" && (
         <Articles
           stroke="#ff0000"
-          className={` ${color} stroke-[1px] mx-[10px]`}
+          className={` ${color} stroke-[1px] mx-[10px] 3xl:w-7 3xl:h-7`}
         />
       )}
       {name === "competitions" && (
         <Competitions
           stroke="#ff0000"
-          className={` ${color} stroke-[1px] mx-[10px]`}
+          className={` ${color} stroke-[1px] mx-[10px] 3xl:w-7 3xl:h-7`}
         />
       )}
       {name === "trainings" && (
         <Trainings
           stroke="#ff0000"
-          className={` ${color} stroke-[1px] mx-[10px]`}
+          className={` ${color} stroke-[1px] mx-[10px] 3xl:w-7 3xl:h-7`}
         />
       )}
       {name === "about" && (
         <About
           stroke="#ff0000"
-          className={` ${color} stroke-[1px] mx-[10px]`}
+          className={` ${color} stroke-[1px] mx-[10px] 3xl:w-7 3xl:h-7`}
         />
       )}
       {name === "contact" && (
         <Contact
           stroke="#ff0000"
-          className={` ${color} stroke-[1px] mx-[10px]`}
+          className={` ${color} stroke-[1px] mx-[10px] 3xl:w-7 3xl:h-7`}
         />
       )}
       {name === "calendar" && (
         <Calender
           stroke="#ff0000"
-          className={` ${color} stroke-[1px] mx-[10px]`}
+          className={` ${color} stroke-[1px] mx-[10px] 3xl:w-7 3xl:h-7`}
         />
       )}
       {name === "overview" && (
         <Overview
           stroke="#ff0000"
-          className={` ${color} stroke-[1px] mx-[10px]`}
+          className={` ${color} stroke-[1px] mx-[10px] 3xl:w-7 3xl:h-7`}
         />
       )}
       {name === "version" && (
         <Version
           stroke="#ff0000"
-          className={` ${color} stroke-[1px] mx-[10px]`}
+          className={` ${color} stroke-[1px] mx-[10px] 3xl:w-7 3xl:h-7`}
         />
       )}
       {name === "belongings" && (
-        <Belongings className={` ${color} stroke-2 mx-[10px]`} />
+        <Belongings className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
       )}
       {name === "connections" && (
-        <Connections className={` ${color} stroke-2 mx-[10px]`} />
+        <Connections className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
       )}
       {name === "dynasty" && (
-        <Dynasty className={` ${color} stroke-2 mx-[10px]`} />
+        <Dynasty className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
       )}
       {name === "citizens" && (
-        <Dynasty className={` ${color} stroke-2 mx-[10px]`} />
+        <Dynasty className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
       )}
       {name === "crimes" && (
-        <Infractions className={` ${color} stroke-2 mx-[10px]`} />
+        <Infractions className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
       )}
       {name === "invitations" && (
-        <Invitations className={` ${color} stroke-2 mx-[10px]`} />
+        <Invitations className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
       )}
       {name === "permissions" && (
-        <Permissions className={` ${color} stroke-2 mx-[10px]`} />
+        <Permissions className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
       )}
       {name === "property" && (
-        <Property className={` ${color} stroke-2 mx-[10px]`} />
+        <Property className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
       )}
       {name === "real estate" && (
-        <RealEstate
-          className={` ${color} stroke-2 mx-[10px] group`}
-        />
+        <RealEstate className={` ${color} stroke-2 mx-[10px] group 3xl:w-7 3xl:h-7`} />
       )}
       {name === "reward" && (
-        <Reward className={` ${color} stroke-2 mx-[10px]`} />
+        <Reward className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
       )}
       {name === "structures" && (
-        <Structures className={` ${color} stroke-2 mx-[10px]`} />
+        <Structures
+          className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`}
+        />
       )}
       {name === "transaction" && (
-        <Transaction className={` ${color} stroke-2 mx-[10px]`} />
+        <Transaction
+          className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`}
+        />
       )}
       {name === "language" && (
-        <Language className={` ${color} stroke-1 mx-[10px] me-1 `} />
+        <Language
+          className={` ${color} stroke-1 mx-[10px] me-1 3xl:w-7 3xl:h-7`}
+        />
       )}
     </>
   );

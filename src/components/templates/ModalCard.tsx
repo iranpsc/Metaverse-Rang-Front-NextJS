@@ -12,39 +12,38 @@ export default function ModalCard({
   titleData,
 }: any) {
   const { theme } = useTheme();
-  const [pageHeight, setPageHeight] = useState(0);
-
-  useEffect(() => {
-    setPageHeight(window.innerHeight);
-  }, []);
 
   return (
     <div className="absolute  backdrop-blur-sm bg-blackTransparent/30 z-50 top-0 bottom-0 w-full xl:h-full lg:h-full md:h-full sm:min-h-max xs:min-h-max xl:pb-0 lg:pb-0 md:pb-0 sm:pb-[1000px] xs:pb-[1000px]">
-      <div className=" flex flex-col justify-center  h-screen  items-center w-full ">
+      <div 
+      
+      className=" flex flex-col justify-center  h-screen  items-center w-full ">
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
+          initial={{ rotate: 0, scale: 0 }}
+          animate={{ rotate: 0, scale: 1 }}
+          exit={{ opacity: 1, scale: 0 }}
           transition={{
-            duration: 0.3,
-            ease: "easeIn",
+            duration: 0.5,
+            ease: "backInOut",
           }}
           className={` xl:w-[40%] lg:w-[40%] md:w-[40%] min-h-[250px] max-h-fit  rounded-[10px] border-2 border-[#898989] flex relative me-[250px] sm:me-0 sm:w-[90%] xs:me-0 xs:w-[90%] justify-center xl:mt-0 lg:mt-0 md:mt-0  ${
             dataModal.title === "about me" || dataModal.title === "درباره من"
            
-          } items-center shadow-md bg-white dark:bg-dark-background  `}
+          } items-center relative shadow-md bg-white dark:bg-dark-background  `}
         >
+           <CLoseIcon
+                className=" absolute w-[15px] h-[15px] cursor-pointer stroke-2 m-2 stroke-gray top-2 start-2 z-50"
+                onClick={() => setShowModal(false)}
+                alt={titleData}
+              />
           <div
             id="light-scrollbar"
             className={`${
               theme === "dark" ? "dark-scrollbar" : "light-scrollbar"
             }  w-full h-full overflow-auto flex flex-col justify-start  gap-4 top-0 absolute`}
           >
-            <div className="flex flex-col justify-between items-start mx-3 mt-2 gap-5">
-              <CLoseIcon
-                className="w-[15px] h-[15px] cursor-pointer stroke-2 m-2 stroke-gray"
-                onClick={() => setShowModal(false)}
-                alt={titleData}
-              />
+            <div className="flex flex-row justify-center items-center mx-3 mt-2 gap-5">
+             
               <h1 className="font-azarMehr font-bold text-[16px] text-[#00000096] dark:text-gray">
                 {dataModal.title}
               </h1>

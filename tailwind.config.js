@@ -9,6 +9,7 @@ module.exports = {
     screens: {
       xs: { max: "639px" },
       ...defaultTheme.screens,
+      "3xl": "1600px",
     },
     colors: {
       black: "rgba(0, 0, 0, 1)",
@@ -66,6 +67,28 @@ module.exports = {
       fontFamily: {
         azarMehr: ["var(--font-font-azar)"],
       },
+    },
+    fontSize: {
+      //sm
+      smUser: ["15px"],
+      smTitle: ["12px"],
+      smDesc: ["12px"],
+      //md
+      mdUser: ["20px"],
+      mdTitle: ["18px"],
+      mdDesc: ["18px"],
+      //lg
+      lgUser: ["15px"],
+      lgTitle: ["12px"],
+      lgDesc: ["12px"],
+      //xl
+      xlUser: ["18px"],
+      xlTitle: ["14px"],
+      xlDesc: ["14px"],
+      //3xl
+      xl3User: ["24px"],
+      xl3Title: ["20px"],
+      xl3Desc: ["20px"],
     },
   },
   variants: {

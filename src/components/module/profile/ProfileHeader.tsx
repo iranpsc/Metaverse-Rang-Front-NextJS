@@ -5,7 +5,7 @@ import { LangContext } from "@/context/LangContext";
 import { Shahrvand } from "@/svgs/index";
 import Persian from "persianjs";
 
-export default function ProfileTopMobile({ profileName, titleData,nameUser }: any) {
+export default function ProfileHeader({ profileName, titleData,nameUser }: any) {
   const { profileData, languageSelected } = useContext(LangContext);
   const [numberCurrent_level, setNumberCurrent_level] = useState<number>(1);
   const { theme } = useTheme();
@@ -44,27 +44,27 @@ export default function ProfileTopMobile({ profileName, titleData,nameUser }: an
               width={100}
               height={100}
               alt={titleData}
-              className="  inline-block rounded-full p-1 3xl:w-14 3xl:h-14 xl:w-14 xl:h-14 lg:w-12 lg:h-12 md:w-16 md:h-16 sm:w-12 sm:h-12 xs:w-12 xs:h-12 object-cover"
+              className="  inline-block rounded-full p-1  md:w-10 md:h-10 sm:w-14 sm:h-14 xs:w-14 xs:h-14 object-cover"
             />
-            <p className="sm:bottom-[-25px] xs:bottom-[-25px] sm:start-1 xs:start-1 rounded-sm bg-white dark:bg-dark-background  w-max p-1 sm:scale-100 xs:scale-100  text-xs  text-black dark:text-white group-hover:scale-100 break-all  inline-block xl:mx-1 lg:mx-1 md:mx-0  font-medium font-azarMehr 3xl:text-xl3Title  xl:text-xlTitle lg:text-lgTitle md:text-mdTitle sm:text-smDesc xs:text-smDesc text-start">
+            <p className="sm:bottom-[-25px] xs:bottom-[-25px] sm:start-1 xs:start-1 rounded-sm bg-white dark:bg-dark-background  w-max p-1 sm:scale-100 xs:scale-100  text-xs  text-black dark:text-white group-hover:scale-100 break-all  inline-block xl:mx-1 lg:mx-1 md:mx-0  font-medium font-azarMehr xl:text-[18px] desktop1920:text-[18px]  desktop1024:text-[12px] md:text-[16px] sm:text-[14px] xs:text-[12px] text-start">
               {nameUser}
             </p>
           </div>
 
-          <hr className="flex-grow mx-3 h-[1px] xl:visible lg:visible md:invisible sm:invisible xs:invisible border border-dashed text-[#000] opacity-10 dark:text-[#fff]" />
+          <hr className="flex-grow mx-3 h-[1px] xl:visible desktop1024:invisible md:invisible sm:invisible xs:invisible border border-dashed text-[#000] opacity-10 dark:text-[#fff]" />
 
           <Image
             src={profileData?.kyc?.nationality || staticImageURL}
             width={100}
             height={100}
             alt={titleData}
-            className="inline-block rounded-full xl:w-9 xl:h-9 3xl:w-10 3xl:h-10  lg:w-10 lg:h-10 md:w-14 md:h-14 sm:w-10 sm:h-10 xs:w-10 xs:h-10 object-cover"
+            className="inline-block rounded-full xl:w-9 xl:h-9 desktop1920:w-10 desktop1920:h-10  desktop1024:w-9 desktop1024:h-9 md:w-7 md:h-7 sm:w-12 sm:h-12 xs:w-12 xs:h-12 object-cover"
           />
-          <hr className="flex-grow mx-3 h-[1px] xl:visible lg:visible md:invisible sm:invisible xs:invisible border border-dashed text-[#000] opacity-10 dark:text-[#fff]" />
-          <p className=" dark:text-white 3xl:text-[18px] xl:text-xlTitle lg:text-lgTitle md:text-mdDesc  sm:text-smDesc xs:text-smDesc inline-block mx-1 font-medium font-azarMehr text-extraGray">
+          <hr className="flex-grow mx-3 h-[1px] xl:visible desktop1024:invisible md:invisible sm:invisible xs:invisible border border-dashed text-[#000] opacity-10 dark:text-[#fff]" />
+          <p className=" dark:text-white sm:text-[15px] xs:text-[15px] md:text-[15px] lg:text-[15px] desktop1920:text-[18px] inline-block mx-1 font-bold font-azarMehr text-extraGray">
             {profileData?.level?.name}
           </p>
-          <p className=" dark:text-white 3xl:text-[18px] sm:text-smDesc xs:text-smDesc  lg:text-lgTitle xl:text-xlTitle md:text-mdTitle  inline-block mx-1 font-medium font-azarMehr text-extraGray">
+          <p className=" dark:text-white sm:text-[12px] xs:text-[12px] md:text-[15px] desktop1920:text-[18px] desktop1024:text-[12px] xl:text-[15px]  inline-block mx-1 font-bold font-azarMehr text-extraGray me-2">
             {profileData?.current_level?.name}
           </p>
           <div className=" relative text-center flex items-center justify-center">
@@ -72,9 +72,9 @@ export default function ProfileTopMobile({ profileName, titleData,nameUser }: an
               width={100}
               height={100}
               alt="shahrvand"
-              className="inline-block  xl:w-10 xl:h-10 lg:w-10 lg:h-10 md:w-14 md:h-14 sm:w-10 sm:h-10 xs:w-10 xs:h-10 "
+              className="inline-block  xl:w-10 xl:h-10 desktop1024:w-9 desktop1024:h-9 md:w-7 sm:w-12 sm:h-12 xs:w-12 xs:h-12 "
             />
-            <p className="dark:text-[#212121] absolute md:text-xs text-white font-azarMehr font-black xl:text-[19px] sm:text-smDesc xs:text-smDesc md:text-mdDesc">
+            <p className="dark:text-[#212121] absolute md:text-xs text-white font-azarMehr font-black xl:text-[19px] sm:text-[14px] xs:text-[14px]">
               {languageSelected.code === "fa"
                 ? Persian(numberCurrent_level).englishNumber().toString()
                 : profileData?.current_level?.slug}

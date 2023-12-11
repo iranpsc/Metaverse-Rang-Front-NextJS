@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import { useState,useEffect ,useContext} from "react";
 import Image from "next/image";
 import router from "next/router";
 
@@ -8,14 +8,13 @@ import {
   MenuDataItem,
   LanguageDataItem,
 } from "@/types/listMenu";
-
 import { ActiveMenuIcon } from "@/svgs/index";
 import SvgIcon from "@/module/SvgIcon";
+import { SideBarContext } from "@/components/context/SidebarContext";
 
 const ListMenuModule: React.FC<ListMenuModuleProps> = ({
   menuData,
   setActiveItem,
-  isCollapsed,
   activeItem,
   languageSelected,
   setActiveDropdown,
@@ -24,6 +23,7 @@ const ListMenuModule: React.FC<ListMenuModuleProps> = ({
   handleDirChange,
 }) => {
     const [data, setData] = useState(menuData);
+      const {isCollapsed, toggleCollapseHandler } = useContext(SideBarContext);
 
   const selectItemMenuRoute = (item: any) => {
     setActiveItem(item.id);
@@ -51,6 +51,15 @@ useEffect(() => {
   return () => window.removeEventListener("resize", handleResize);
 }, [menuData]);
 
+const submitLang = (name:string)=>{
+  if(name==="language"){
+    setActiveDropdown(!activeDropdown)
+    if(isCollapsed){
+      toggleCollapseHandler();
+    }else{}
+  }
+}
+
 
   return (
     <>
@@ -61,15 +70,17 @@ useEffect(() => {
       >
         {menuData &&
           data.map((item: MenuDataItem) => (
+          
             <li
               key={item.id}
-              className="flex relative font-[1rem] no-underline text-black py-[12px]"
+              className="flex relative font-[1rem] no-underline text-black py-[12px] 3xl:py-[16px]"
               onClick={() => selectItemMenuRoute(item)}
             >
               <div
-                className={`flex w-full group   ${
+                className={`flex w-full group  ${
                   isCollapsed ? "justify-center" : "justify-start"
                 } gap-2 items-center`}
+                 onClick={() => submitLang(item.name)}
               >
                 <ActiveMenuIcon
                   className={
@@ -85,7 +96,8 @@ useEffect(() => {
                 <span
                   className={`${
                     isCollapsed ? "ms-0" : "ms-5"
-                  }    inline-block xl:text-[16px] lg:text-[15px] max-lg:text-[15px] `}
+                  }    inline-block cursor-pointer xl:text-[16px] 3xl:text-[20px] lg:text-[15px] max-lg:text-[15px] `}
+                
                 >
                   <SvgIcon
                     name={item.name}
@@ -97,15 +109,16 @@ useEffect(() => {
                                : "stroke-gray"
                            }
                     group-hover:stroke-blueLink group-hover:dark:stroke-dark-yellow w-[17px] h-[17px] `}
+                    
                   />
                 </span>
                 {item.name === "language" ? (
                   <div className="dropdown relative cursor-pointer">
                     <span
-                      className={` relative rounded flex justify-center  items-center ${
+                      className={` relative rounded flex justify-center 3xl:text-[22px]  items-center ${
                         isCollapsed ? "hidden" : "visible"
                       }`}
-                      onClick={() => setActiveDropdown(!activeDropdown)}
+                    
                     >
                       <span
                         className={`font-medium  font-azarMehr  no-underline group-hover:text-[#0000ffd9] dark:group-hover:text-dark-yellow ${
@@ -143,9 +156,9 @@ useEffect(() => {
                               alt=""
                               width={100}
                               height={100}
-                              className={"w-6 h-6"}
+                              className={"w-6 h-6  3xl:w-7 3xl:h-7"}
                             />
-                            <p className="font-azarMehr  w-full  font-normal hover:text-[#0000ffd9] dark:hover:text-dark-yellow">
+                            <p className="font-azarMehr  w-full 3xl:text-[20px] font-normal hover:text-[#0000ffd9] dark:hover:text-dark-yellow">
                               {item.native_name}
                             </p>
                           </div>
@@ -160,7 +173,7 @@ useEffect(() => {
                         ? "text-[#0000ffd9] dark:text-dark-yellow "
                         : "text-gray dark:text-gray "
                     }
-                     capitalize font-azarMehr font-normal  cursor-pointer group-hover:text-[#0000ffd9] dark:group-hover:text-dark-yellow ${
+                     capitalize font-azarMehr font-normal 3xl:text-[22px] cursor-pointer group-hover:text-[#0000ffd9] dark:group-hover:text-dark-yellow ${
                        isCollapsed ? "hidden" : "visible"
                      } `}
                   >
@@ -170,8 +183,8 @@ useEffect(() => {
               </div>
             </li>
           ))}
-        <br />
-        <br />
+     
+         <div className=" h-[200px] w-full"></div>
       </ul>
     </>
   );

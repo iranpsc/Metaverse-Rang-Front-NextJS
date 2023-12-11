@@ -1,20 +1,24 @@
 import { useEffect, useState,useContext } from "react";
+import { useTheme } from "next-themes";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import Link from "next/link";
 //Types
 import { LoginMenu ,ArrowMenu} from "@/svgs/index";
 import { useToken } from "@/context/TokenContext";
+
 export default function LoginMenuModule({
   isCollapsed,
   setShowAuthCard,
   toggleCollapseHandler,
   menuData,
 }: any) {
+    const { theme } = useTheme();
   const [showFullModal, setShowFullModal] = useState(false);
- const { code, removeToken } = useToken();
+ const { code, removeToken,token } = useToken();
 const router = useRouter();
 
-
+console.log(token,code);
 
   const submit = () => {
     if (isCollapsed) {
@@ -27,10 +31,16 @@ const router = useRouter();
 
   const checkLogin =()=>{
 
+   
     if (code && code.length > 1) {
       submit();
     } else {
-      setShowAuthCard(true);
+      if(token && !code){
+        submit();
+      } else{
+
+        setShowAuthCard(true);
+      }
     }
   }
 
@@ -44,9 +54,9 @@ const router = useRouter();
   }
 
   return (
-    <>
+    
       <div
-        className={`bg-white dark:bg-dark-background h-fit  bottom-4 pb-14  flex justify-center   items-center xl:w-full xl:sticky xs:w-[170px] xs:fixed z-[100]`}
+        className={`w-full h-fit  flex justify-center items-center`}
       >
         <div
           className={`${
@@ -57,6 +67,17 @@ const router = useRouter();
         >
           {showFullModal && (
             <div className=" flex flex-col gap-2 w-[80%] pt-2">
+              {token && !code &&
+              <Link
+                  href={`https://gmail.com`}
+                  target="_blank"
+                >
+                  <p className="text-white dark:text-black text-[14px] hover:text-[15px] font-azarMehr font-normal cursor-pointer">
+                   فعال سازی حساب کاربری
+                  </p>
+                  <hr className=" text-white dark:text-[#2D2D2A38] mt-1" />
+                </Link>
+              }
               {code && code !== router.query.userId && (
                 <Link
                   href={`https://rgb.irpsc.com/${router.query.lang}/citizen/${code}`}
@@ -91,7 +112,7 @@ const router = useRouter();
           )}
 
           <div
-            className="bg-blueLink cursor-pointer dark:bg-dark-yellow rounded-[15px] w-[80%] h-[40px]  flex flex-row justify-around gap-5 items-center"
+            className="bg-blueLink cursor-pointer dark:bg-dark-yellow rounded-[15px] w-[95%] h-[40px]  flex flex-row justify-around gap-5 items-center"
             onClick={checkLogin}
           >
             {code && code.length > 1 ? (
@@ -107,19 +128,42 @@ const router = useRouter();
               </>
             ) : (
               <>
-                <LoginMenu
-                  className={`stroke-white stroke-2 dark:stroke-dark-background h-full w-5 ${
-                    isCollapsed ? "hidden" : "visibale"
-                  }`}
-                />
-                <p className="text-white dark:text-dark-background font-azarMehr font-medium text-center text-[15px]">
-                  {menuData[0] && menuData[0].translation}
-                </p>
+                {token && !code ? (
+                  <>
+                    {isCollapsed ? (
+                      <Image
+                        src={
+                          theme === "dark"
+                            ? "/mail-send-dark.png"
+                            : "/mail-send-light.png"
+                        }
+                        width={1000}
+                        height={1000}
+                        alt="active-mail"
+                        className="w-[35px] h-[35px]"
+                      />
+                    ) : (
+                      <p className="text-white dark:text-dark-background text-[13px] font-azarMehr  font-normal text-start ">
+                        حساب  خود را فعال کنید
+                      </p>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <LoginMenu
+                      className={`stroke-white stroke-2 dark:stroke-dark-background h-full w-5 ${
+                        isCollapsed ? "hidden" : "visibale"
+                      }`}
+                    />
+                    <p className="text-white dark:text-dark-background font-azarMehr font-medium text-center text-[15px]">
+                      {menuData[0] && menuData[0].translation}
+                    </p>
+                  </>
+                )}
               </>
             )}
           </div>
         </div>
       </div>
-    </>
   );
 }

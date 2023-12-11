@@ -7,7 +7,7 @@ import { selectLanguageAuthModule } from "@/utils/textsLanguage";
 import Persian from "persianjs";
 
 export default function IpPage() {
-  const { myIp, setModalName } = useContext(AuthContext);
+  const {  setModalName } = useContext(AuthContext);
   const { languageSelected, data } = useContext(LangContext);
   const lang = languageSelected.code;
 
@@ -97,7 +97,7 @@ export default function IpPage() {
       </p>
       <button
         className="relative mt-7 dark:bg-[#18C08F80] bg-[#D7FBF0] text-[#18C08F] border-[#18C08F] border-[1px] w-full h-[50px]  rounded-[5px] font-azarMehr font-normal"
-        onClick={() => setModalName({ name: "CheckIp", data: myIp })}
+        onClick={() => setModalName({ name: "CheckIp", data: "" })}
       >
         {
           data.data.checkIpLang.find(

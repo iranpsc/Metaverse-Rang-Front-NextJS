@@ -27,7 +27,7 @@ interface AuthContextType {
 const initialValue: AuthContextType = {
   modalName: {
     name: ModalNames.AuthPage,
-    data: "ehsnmkz@outlook.com",
+    data: "ehsanmarkazi73@gmail.com.com",
   },
 
   token: "",

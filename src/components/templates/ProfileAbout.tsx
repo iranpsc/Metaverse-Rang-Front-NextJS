@@ -28,13 +28,13 @@ export default function ProfileAbout({ setShowModal, setDataModal }: any) {
   };
 
   return (
-    <section className="me-1 flex flex-col justify-start  gap-[1.5px]  items-center h-screen xl:mt-0 lg:mt-0 md:mt-0 sm:mt-3 xs:mt-2">
-      <div className="dark:bg-dark-background w-full h-[37%] transition-all duration-300 ease-linear bg-white px-1 rounded-[10px] max-sm:mt-[6px]">
-        <h1 className="dark:text-white max-sm:mx-3 max-sm:text-[16px]  font-azarMehr font-medium text-[20px] text-[#000] mx-2 xl:text-md lg:text-sm md:text-sm py-5">
+    <section className="flex flex-col justify-start  gap-[1.5px]  items-center h-screen xl:mt-0 lg:mt-0 md:mt-0 sm:mt-[6px] xs:mt-[6px]">
+      <div className="dark:bg-dark-background w-full h-[37%] transition-all duration-300 ease-linear bg-white px-1 rounded-[10px]">
+        <h1 className="dark:text-white font-azarMehr font-medium  text-[#000] mx-2 3xl:text-xl3Title xl:text-xlTitle lg:text-lgTitle  md:text-mdTitle sm:text-smDesc xs:text-smDesc py-5">
           {targetData(data.data.selectedProfileData, "about me")}
         </h1>
         {profileData?.customs?.about && (
-          <p className="font-azarMehr max-sm:mx-3 max-sm:text-[13px] text-justify xl:leading-[30px] truncate[20px] lg:leading-[20px] md:leading-[15px] xs:leading-[30px] sm:leading-[30px] mx-1 font-medium xl:text-[12px] lg:text-[10px] md:text-[10px]  text-gray">
+          <p className="font-azarMehr  text-justify 3xl:text-xl3Title lg:text-lgTitle  md:text-mdTitle xl:leading-[30px] sm:text-smDesc xs:text-smDesc truncate[20px] lg:leading-[20px] md:leading-[35px] xs:leading-[30px] sm:leading-[30px] mx-1 font-medium text-[5px] xl:text-[16px]  text-gray">
             {profileData?.customs?.about.slice(0, 210)}
 
             {profileData?.customs?.about.length > 150 && (
@@ -44,7 +44,7 @@ export default function ProfileAbout({ setShowModal, setDataModal }: any) {
                   ...
                 </span>
                 <span
-                  className="dark:text-dark-yellow mx-2 text-blueLink md:text-[12px] font-azarMehr font-medium cursor-pointer  xl:text-md lg:text-md"
+                  className="dark:text-dark-yellow mx-2 text-blueLink font-azarMehr font-medium cursor-pointer 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgTitle  md:text-mdTitle sm:text-smTitle xs:text-smTitle"
                   onClick={() => submitCart(profileData?.customs?.about)}
                 >
                   {targetData(data.data.selectedProfileData, "read more")}
@@ -57,7 +57,7 @@ export default function ProfileAbout({ setShowModal, setDataModal }: any) {
         <br />
         <br />
       </div>
-      <div className="dark:bg-dark-background h-[90%] bg-white transition-all duration-300 ease-linear  items-center flex flex-col justify-center mt-[6px] md:mt-1 w-full rounded-[10px] p-2 md:p-0 ">
+      <div className="dark:bg-dark-background h-[90%] bg-white transition-all duration-300 ease-linear  items-center flex flex-col justify-center xl:mt-[6px] ms:mt-[6px] xs:mt-[6px]  md:mt-1 w-full rounded-[10px] p-2 md:p-0 ">
         {userId && userId === "hm-2000003" ? (
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
@@ -72,7 +72,7 @@ export default function ProfileAbout({ setShowModal, setDataModal }: any) {
               width={1000}
               height={1000}
               alt={profileData?.code}
-              className="xl:w-[145px] lg:w-[130px] md:w-[100px] sm:w-[100px] xs:w-[95px]"
+              className="xl:w-[145px] lg:w-[120px] md:w-[200px] sm:w-[120px] xs:w-[120px]"
             />
           </motion.div>
         ) : (
@@ -89,7 +89,7 @@ export default function ProfileAbout({ setShowModal, setDataModal }: any) {
               width={1000}
               height={1000}
               alt={profileData?.code}
-              className="xl:w-[145px] lg:w-[130px] md:w-[100px] sm:w-[140px] xs:w-[140px]"
+              className="xl:w-[145px] lg:w-[120px] md:w-[200px] sm:w-[120px] xs:w-[120px]"
             />
           </motion.div>
         )}
