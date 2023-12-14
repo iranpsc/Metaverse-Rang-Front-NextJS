@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect,useRef } from "react";
 import Image from "next/image";
-import { CLoseIcon } from "@/svgs/index";
+import { CLoseIcon,Arrow } from "@/svgs/index";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/router";
 import { LangContext } from "@/context/LangContext";
@@ -75,7 +75,23 @@ export default function ShredPage({ showSharedPage, setShowSharedPage }: any) {
      window.open(shareUrl, "_blank");
    };
 
+  const scrollContainer = useRef<HTMLDivElement>(null);
+
+
+
+const scrollRight = () => {
+  if (scrollContainer.current) {
+    scrollContainer.current.scrollBy({ left: 200, behavior: "smooth" });
+  }
+};
+
   
+const scrollLeft = () => {
+  if (scrollContainer.current) {
+    scrollContainer.current.scrollBy({ left: -200, behavior: "smooth" });
+  }
+};
+
 
    
 
@@ -93,23 +109,37 @@ export default function ShredPage({ showSharedPage, setShowSharedPage }: any) {
           className=" flex flex-col justify-center   items-center w-full h-full"
         >
           <div
-            className="xl:w-[40%] lg:w-[40%] md:w-[40%] min-h-[350px] max-h-fit  rounded-[15px] border-2 border-[#898989] flex relative me-[250px] sm:me-0 sm:w-[90%] xs:me-0 xs:w-[90%] justify-center xl:mt-0 lg:mt-0 md:mt-0 
+            className="xl:w-[50%] lg:w-[50%] md:w-[70%] min-h-[350px] max-h-fit  rounded-[15px] border-2 border-[#898989] flex relative me-[250px] sm:me-0 sm:w-[90%] xs:me-0 xs:w-[90%] justify-center xl:mt-0 lg:mt-0 md:mt-0 
               mt-[100px]    items-center shadow-md bg-white dark:bg-dark-background "
           >
             <div className="w-full h-full overflow-clip flex flex-col justify-start mt-2 items-center  gap-10 top-0 absolute">
-           
-                <CLoseIcon
-                  className="w-[15px] h-[15px] cursor-pointer stroke-2 m-2 stroke-gray absolute start-3 top-1"
-                  onClick={() => setShowSharedPage(false)}
-                  alt="Close"
-                />
-                <h1 className="font-azarMehr font-bold text-[16px] text-[#00000096] dark:text-gray w-full text-center mt-1">
-                  {targetData(data.data.selectedProfileData, "citizen sharing")}
-                </h1>
-           
+              <CLoseIcon
+                className="w-[15px] h-[15px] cursor-pointer stroke-2 m-2 stroke-gray absolute start-3 top-1"
+                onClick={() => setShowSharedPage(false)}
+                alt="Close"
+              />
+              <h1 className="font-azarMehr font-bold text-[16px] mt-2 text-[#00000096] dark:text-gray w-full text-center">
+                {targetData(data.data.selectedProfileData, "citizen sharing")}
+              </h1>
 
-              <div className=" overflow-x-auto overflow-y-clip no-scrollbar relative ">
-                <div className=" mx-16 sm:mx-5 flex flex-row justify-center items-center xl:gap-8 lg:gap-4 md:gap-4 sm:gap-2 xs:gap-2 py-2 w-full">
+              <div
+                className="rounded-full bg-gray dark:bg-black w-[50px] h-[50px] absolute xs:start-5 sm:start-5 md:start-5 lg:start-7 xl:start-10 3xl:start-10 top-[28%]  z-50 flex justify-center items-center"
+                onClick={scrollRight}
+              >
+                <Arrow className="stroke-white stroke-[5px] rotate-[180deg]" />
+              </div>
+              <div
+                className="rounded-full bg-gray dark:bg-black w-[50px] h-[50px] absolute xs:end-5 sm:end-5 md:end-5 lg:end-7 xl:end-10 3xl:end-10 top-[28%] z-50 flex justify-center items-center"
+                onClick={scrollLeft}
+              >
+                <Arrow className="stroke-white stroke-[5px]" />
+              </div>
+
+              <div
+                className=" overflow-x-auto overflow-y-clip no-scrollbar relative w-[80%]"
+                ref={scrollContainer}
+              >
+                <div className=" mx-20  flex flex-row justify-center items-center xl:gap-8 lg:gap-4 md:gap-4 sm:gap-2 xs:gap-2 py-2 w-full">
                   {items.map((item: any) => (
                     <div
                       key={item.id}

@@ -28,13 +28,15 @@ export default function ProfileDetailsDetails({ itemsProfileDetails }: any) {
             </p>
             <hr className="flex-grow mx-3 h-[1px] xl:visible lg:visible md:invisible sm:invisible xs:invisible border border-dashed text-[#000] opacity-10 dark:text-[#fff]" />
 
-            <div className="group relative flex justify-center">
+            <div className="group relative flex justify-center ">
               <p className="dark:text-dark-gray text-end font-azarMehr font-semibold 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc  md:text-mdDesc sm:text-smDesc xs:text-smDesc text-gray">
                 {item.value}
               </p>
-              <span className="absolute right-0 bg-dark-background rounded-sm text-center w-max p-2 top-6 scale-0 font-azarMehr font-semibold text-xs text-white group-hover:scale-100">
-                {item.fValue}
-              </span>
+              {item.fValue && item.fValue.length > 2 && (
+                <span className="absolute end-2  top-6 z-20 bg-black rounded-sm text-center w-max p-2 scale-0 font-azarMehr font-semibold text-xs text-white group-hover:scale-100">
+                  {item.fValue}
+                </span>
+              )}
             </div>
           </div>
         ))}

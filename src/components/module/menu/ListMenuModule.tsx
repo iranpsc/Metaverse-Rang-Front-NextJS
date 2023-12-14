@@ -8,7 +8,7 @@ import {
   MenuDataItem,
   LanguageDataItem,
 } from "@/types/listMenu";
-import { ActiveMenuIcon } from "@/svgs/index";
+import { ActiveMenuIcon, ArrowMenu } from "@/svgs/index";
 import SvgIcon from "@/module/SvgIcon";
 import { SideBarContext } from "@/components/context/SidebarContext";
 
@@ -25,10 +25,15 @@ const ListMenuModule: React.FC<ListMenuModuleProps> = ({
     const [data, setData] = useState(menuData);
       const {isCollapsed, toggleCollapseHandler } = useContext(SideBarContext);
 
-  const selectItemMenuRoute = (item: any) => {
-    setActiveItem(item.id);
+  const selectItemMenuRoute = (i: any,name:string) => {
+    if(name !=="language"){
+     
+      setActiveItem(i);
+      
+    }
     //  router.push(`/${item.code}/citizen/hm-2222/home`);
   };
+
 
 useEffect(() => {
   const handleResize = () => {
@@ -69,18 +74,17 @@ const submitLang = (name:string)=>{
         } relative pt-3 w-full  bg-white dark:bg-dark-background  transition-all duration-300 ease-linear max-lg:w-fit`}
       >
         {menuData &&
-          data.map((item: MenuDataItem) => (
-          
+          data.map((item: MenuDataItem, i: number) => (
             <li
               key={item.id}
               className="flex relative font-[1rem] no-underline text-black py-[12px] 3xl:py-[16px]"
-              onClick={() => selectItemMenuRoute(item)}
+              onClick={() => selectItemMenuRoute(i, item.name)}
             >
               <div
                 className={`flex w-full group  ${
                   isCollapsed ? "justify-center" : "justify-start"
                 } gap-2 items-center`}
-                 onClick={() => submitLang(item.name)}
+                onClick={() => submitLang(item.name)}
               >
                 <ActiveMenuIcon
                   className={
@@ -97,7 +101,6 @@ const submitLang = (name:string)=>{
                   className={`${
                     isCollapsed ? "ms-0" : "ms-5"
                   }    inline-block cursor-pointer xl:text-[16px] 3xl:text-[20px] lg:text-[15px] max-lg:text-[15px] `}
-                
                 >
                   <SvgIcon
                     name={item.name}
@@ -106,32 +109,44 @@ const submitLang = (name:string)=>{
                              item.name === "home" ||
                              (item.name === "language" && activeDropdown)
                                ? "stroke-blueLink   dark:dark:stroke-dark-yellow "
-                               : "stroke-gray"
+                               : ""
                            }
-                    group-hover:stroke-blueLink group-hover:dark:stroke-dark-yellow w-[17px] h-[17px] `}
-                    
+                    group-hover:stroke-blueLink group-hover:dark:stroke-dark-yellow ${
+                      activeItem == i
+                        ? " stroke-blueLink dark:stroke-dark-yellow"
+                        : "stroke-gray"
+                    } w-[17px] h-[17px] `}
                   />
                 </span>
                 {item.name === "language" ? (
-                  <div className="dropdown relative cursor-pointer">
+                  <div className="dropdown relative cursor-pointer ">
                     <span
-                      className={` relative rounded flex justify-center 3xl:text-[22px]  items-center ${
+                      className={` relative rounded flex justify-center  3xl:text-xl3Title xl:text-xlTitle lg:text-lgTitle md:text-mdTitle  sm:text-smTitle xs:text-smTitle  items-center ${
                         isCollapsed ? "hidden" : "visible"
                       }`}
-                    
                     >
                       <span
-                        className={`font-medium  font-azarMehr  no-underline group-hover:text-[#0000ffd9] dark:group-hover:text-dark-yellow ${
+                        className={`font-medium pe-2  font-azarMehr  no-underline group-hover:text-[#0000ffd9] dark:group-hover:text-dark-yellow ${
                           !activeDropdown
                             ? "text-gray"
                             : "text-[#0066FF] dark:text-dark-yellow"
-                        }  `}
+                        }  
+                       
+                        
+                        `}
                       >
                         {item.translation}
                       </span>
+                      <ArrowMenu
+                        className={`ms-1 stroke-gray 
+                        ${
+                          activeDropdown ? "rotate-[90deg]" : "rotate-[270deg]"
+                        }`}
+                      />
                     </span>
+
                     <ul
-                      className={` dropdown-menu absolute  w-full text-center  ${
+                      className={` dropdown-menu absolute w-full text-center start-[-20px] ${
                         activeDropdown
                           ? "flex flex-col justify-center items-center  "
                           : "hidden"
@@ -140,17 +155,17 @@ const submitLang = (name:string)=>{
                       {languagesData.map((item: LanguageDataItem) => (
                         <li
                           key={item.id}
-                          className={` border-none mt-4 w-full${
+                          className={` border-none mt-4 w-full  ${
                             languageSelected.name === item.name
                               ? "text-[#0066FF] dark:text-dark-yellow"
                               : ""
-                          } flex flex-row items-center  cursor-pointer hover:text-[#0066FF]`}
+                          } flex flex-col items-center justify-start    cursor-pointer hover:text-[#0066FF]`}
                           onClick={() => handleDirChange(item)}
                         >
-                          <div className=" p-1 w-10   ">
+                          <div className=" w-10">
                             {languageSelected.name === item.name && <></>}
                           </div>
-                          <div className="flex flex-row gap-4 justify-evenly items-center w-full ">
+                          <div className="flex flex-row gap-2 justify-end  items-center w-full ">
                             <Image
                               src={item.icon}
                               alt=""
@@ -158,7 +173,7 @@ const submitLang = (name:string)=>{
                               height={100}
                               className={"w-6 h-6  3xl:w-7 3xl:h-7"}
                             />
-                            <p className="font-azarMehr  w-full 3xl:text-[20px] font-normal hover:text-[#0000ffd9] dark:hover:text-dark-yellow">
+                            <p className="font-azarMehr w-full 3xl:text-[20px] font-normal hover:text-[#0000ffd9] dark:hover:text-dark-yellow">
                               {item.native_name}
                             </p>
                           </div>
@@ -171,9 +186,15 @@ const submitLang = (name:string)=>{
                     className={`${
                       item.name === "home"
                         ? "text-[#0000ffd9] dark:text-dark-yellow "
-                        : "text-gray dark:text-gray "
+                        : " "
                     }
-                     capitalize font-azarMehr font-normal 3xl:text-[22px] cursor-pointer group-hover:text-[#0000ffd9] dark:group-hover:text-dark-yellow ${
+                     capitalize 3xl:text-xl3Title xl:text-xlTitle lg:text-lgTitle md:text-mdTitle  sm:text-smTitle xs:text-smTitle
+                      ${
+                        activeItem === i
+                          ? "text-[#0066FF] dark:text-dark-yellow"
+                          : "text-gray dark:text-gray "
+                      }
+                     font-azarMehr font-normal 3xl:text-[22px] cursor-pointer  group-hover:text-[#0000ffd9] dark:group-hover:text-dark-yellow ${
                        isCollapsed ? "hidden" : "visible"
                      } `}
                   >
@@ -183,8 +204,8 @@ const submitLang = (name:string)=>{
               </div>
             </li>
           ))}
-     
-         <div className=" h-[200px] w-full"></div>
+
+        <div className=" h-[200px] w-full"></div>
       </ul>
     </>
   );

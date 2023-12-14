@@ -72,7 +72,7 @@ export default function ProfileAbout({ setShowModal, setDataModal }: any) {
               width={1000}
               height={1000}
               alt={profileData?.code}
-              className="xl:w-[145px] lg:w-[120px] md:w-[200px] sm:w-[120px] xs:w-[120px]"
+              className="3xl:w-[180px] xl:w-[150px] lg:w-[120px] md:w-[170px] sm:w-[150px] xs:w-[140px]"
             />
           </motion.div>
         ) : (
@@ -89,7 +89,7 @@ export default function ProfileAbout({ setShowModal, setDataModal }: any) {
               width={1000}
               height={1000}
               alt={profileData?.code}
-              className="xl:w-[145px] lg:w-[120px] md:w-[200px] sm:w-[120px] xs:w-[120px]"
+              className="3xl:w-[180px] xl:w-[150px] lg:w-[120px] md:w-[170px] sm:w-[150px] xs:w-[140px]"
             />
           </motion.div>
         )}

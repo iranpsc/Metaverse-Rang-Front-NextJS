@@ -12,8 +12,8 @@ const yourElementRef = useRef(null);
   const percent = (numberScore / 100) * 100;
 
   return (
-    <div className="flex flex-col justify-start items-center w-full 3xl:gap-10 xl:gap-4 lg:gap-4 md:gap-10 sm:gap-5 xs:gap-5">
-      <div className="flex flex-row justify-between w-full items-center mt-6 xl:py-0 lg:py-0 md:py-0 sm:py-2 xs:py-2 ">
+    <div className="flex flex-col justify-start items-center w-[98%] mt-2 3xl:gap-10 xl:gap-4 lg:gap-4 md:gap-10 sm:gap-5 xs:gap-5">
+      <div className="flex flex-row justify-between w-full items-center 3xl:mt-6 xl:mt-6 md:mt-6 sm:mt-6 xs:mt-2 xl:py-0 lg:py-0 md:py-0">
         <p className="font-azarMehr  font-bold xl:text-xlUser 3xl:text-xl3User lg:text-lgUser  md:text-mdUser sm:text-smUser xs:text-smUser">
           {targetData(data.data.selectedProfileData, "citizenship id")}
         </p>
@@ -23,7 +23,7 @@ const yourElementRef = useRef(null);
           ref={yourElementRef}
         >
           <div className=" dark:bg-dark-activeButton bg-blueLink flex flex-row items-center gap-2  rounded-[10px] 3xl:py-[3px] 3xl:px-4 lg:py-2 lg:px-2 md:py-2 md:px-4 sm:py-2 sm:px-4 xs:py-1 xs:px-2">
-            <span className="font-azarMehr dark:text-[#000] text-[#fff] font-medium 3xl:text-xl3Title xl:text-xlTitle  lg:text-lgTitle md:text-mdTitle">
+            <span className="font-azarMehr dark:text-[#000] text-[#fff] font-medium 3xl:text-xl3Title xl:text-xlTitle  lg:text-lgTitle md:text-mdTitle  sm:text-smTitle xs:text-smTitle">
               {targetData(data.data.selectedProfileData, "share")}
             </span>
             <CopyIcon className="dark:fill-[#000] fill-[#fff] 3xl:w-[20px] 3xl:h-[20px] md:w-[20px] md:h-[20px] " />
@@ -33,38 +33,38 @@ const yourElementRef = useRef(null);
           </p>
         </div>
       </div>
-      <div className="flex flex-row max-sm:px-1 justify-between  mt-3 w-full items-center max-sm:py-2">
-        <p className="font-azarMehr dark:text-white font-medium 3xl:text-xl3Title  xl:text-xlTitle  lg:text-lgTitle md:text-mdTitle break-all text-[#000]">
+      <div className="flex flex-row justify-between w-full items-center">
+        <p className="font-azarMehr dark:text-white font-medium 3xl:text-xl3Title  xl:text-xlTitle  lg:text-lgTitle md:text-mdTitle  sm:text-smTitle xs:text-smTitle break-all text-[#000]">
           {targetData(data.data.selectedProfileData, "citizenship name")}
         </p>
         <hr className="flex-grow mx-[10px] xl:block lg:block md:block sm:hidden xs:hidden h-[1px] border border-dashed  text-[#000] opacity-10 dark:text-[#fff]" />
-        <p className="dark:text-dark-gray  font-azarMehr font-medium medium 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc md:text-mdDesc break-all text-gray">
+        <p className="dark:text-dark-gray  font-azarMehr font-medium 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc md:text-mdDesc  sm:text-smTitle xs:text-smTitle break-all text-gray">
           {nameUser}
         </p>
       </div>
 
-      <div className="flex flex-row max-sm:px-1  justify-between mt-3 w-full items-center max-sm:py-2">
-        <p className="font-azarMehr dark:text-white font-medium medium 3xl:text-xl3Title xl:text-xlTitle lg:text-lgTitle e md:text-mdTitle  break-all text-[#000] max-sm:text-[13px]">
+      <div className="flex flex-row justify-between w-full items-center ">
+        <p className="font-azarMehr dark:text-white font-medium medium 3xl:text-xl3Title xl:text-xlTitle lg:text-lgTitle md:text-mdTitle sm:text-smTitle xs:text-smTitle break-all text-[#000] ">
           {targetData(data.data.selectedProfileData, "entry date")}
         </p>
         <hr className="flex-grow mx-[10px] xl:block lg:block md:block sm:hidden xs:hidden h-[1px] border border-dashed  text-[#000] opacity-10 dark:text-[#fff]" />
-        <p className="dark:text-dark-gray font-azarMehr font-medium medium 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc  md:text-mdTitle break-all text-gray max-sm:text-[13px]">
+        <p className="dark:text-dark-gray font-azarMehr font-medium medium 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc  md:text-mdTitle  sm:text-smTitle xs:text-smTitle break-all text-gray ">
           {profileData?.registered_at}
         </p>
       </div>
 
-      <div className="flex flex-row max-sm:px-1 justify-between mt-3 w-full items-center max-sm:py-2">
-        <p className=" dark:text-white font-azarMehr  font-medium medium 3xl:text-xl3Title  xl:text-xlTitle lg:text-lgTitle  md:text-mdTitle break-all text-[#000] max-sm:text-[13px]">
+      <div className="flex flex-row  justify-between w-full items-center">
+        <p className=" dark:text-white font-azarMehr  font-medium medium 3xl:text-xl3Title  xl:text-xlTitle lg:text-lgTitle  md:text-mdTitle sm:text-smTitle xs:text-smTitle  break-all text-[#000] ">
           {targetData(data.data.selectedProfileData, "responsibility")}
         </p>
         <hr className="flex-grow mx-[10px] md:w-[30%] xl:block lg:block md:block sm:hidden xs:hidden h-[1px] border border-dashed  text-[#000] opacity-10 dark:text-[#fff]" />
-        <p className="dark:text-dark-gray  font-azarMehr font-medium medium 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgTitle  md:text-mdDesc break-all text-gray max-sm:text-[13px]">
+        <p className="dark:text-dark-gray  font-azarMehr font-medium medium 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgTitle  md:text-mdDesc sm:text-smTitle xs:text-smTitle break-all text-gray ">
           {profileData?.position}
         </p>
       </div>
 
-      <div className="flex flex-row max-sm:px-1 justify-between xl:mt-3 lg:mt-0 w-full items-center max-sm:py-2">
-        <p className="font-azarMehr dark:text-white font-medium medium 3xl:text-xl3Title xl:text-xlTitle lg:text-lgTitle  md:text-mdTitle break-all text-[#000] ">
+      <div className="flex flex-row  justify-between xl:mt-3 lg:mt-0 w-full items-center">
+        <p className="font-azarMehr dark:text-white font-medium medium 3xl:text-xl3Title xl:text-xlTitle lg:text-lgTitle  md:text-mdTitle sm:text-smTitle xs:text-smTitle break-all text-[#000] ">
           {targetData(data.data.selectedProfileData, "achieved score")}
         </p>
         <hr className="flex-grow mx-[10px] md:w-[30%] xl:block lg:block md:block sm:hidden xs:hidden h-[1px] border border-dashed  text-[#000] opacity-10 dark:text-[#fff]" />
@@ -73,7 +73,7 @@ const yourElementRef = useRef(null);
             className={`bg-[#ffa600] flex items-center  p-3  leading-none rounded-full`}
             style={{ width: `${percent}%` }}
           >
-            <span className="  end-[35%] absolute 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgTitle  md:text-mdTitle break-all font-medium text-[#0E0E0E] dark:text-white text-center">
+            <span className="  end-[35%] absolute 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgTitle  md:text-mdTitle sm:text-smTitle xs:text-smTitle break-all font-medium text-[#0E0E0E] dark:text-white text-center">
               {languageSelected?.code && languageSelected?.code !== "fa"
                 ? profileData?.score
                 : profileData?.score &&

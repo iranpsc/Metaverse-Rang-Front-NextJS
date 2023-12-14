@@ -12,6 +12,7 @@ import axios from "axios";
 import StaticMobileMenu from "@/components/module/StaticMobileMenu";
 import ShredPage from "@/components/templates/ShredPage";
 import { AnimatePresence } from "framer-motion";
+import LogoutPage from "@/components/templates/LogoutPage";
 
 export default function Home({ profileData, titleData,nameSite,localSite, error,nameUser }: any) {
   const { languageSelected } = useContext(LangContext);
@@ -19,6 +20,7 @@ export default function Home({ profileData, titleData,nameSite,localSite, error,
   const { lang, userId } = router.query;
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showSharedPage, setShowSharedPage] = useState<boolean>(false);
+  const [showLogOut, setShowLogOut] = useState<boolean>(false);
   const [dataModal, setDataModal] = useState({ title: "", desc: "" });
  
 
@@ -93,6 +95,15 @@ export default function Home({ profileData, titleData,nameSite,localSite, error,
         className=" overflow-clip h-screen relative   "
       >
         <AnimatePresence>
+          {showLogOut && (
+            <LogoutPage
+              showLogOut={showLogOut}
+              setShowLogOut={setShowLogOut}
+            />
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
           {showSharedPage && (
             <ShredPage
               showSharedPage={showSharedPage}
@@ -101,7 +112,7 @@ export default function Home({ profileData, titleData,nameSite,localSite, error,
             />
           )}
         </AnimatePresence>
-        
+
         <AnimatePresence>
           {showModal && (
             <ModalCard
@@ -131,6 +142,7 @@ export default function Home({ profileData, titleData,nameSite,localSite, error,
           profileData={profileData}
           error={error}
           titleData={titleData}
+          setShowLogOut={setShowLogOut}
         >
           <div className=" xl:hidden lg:hidden md:visible sm:visible xs:visible w-full h-fit  fixed bottom-0 z-40">
             <div className="w-full h-fit dark:bg-black bg-[#fff] fixed bottom-0">
@@ -144,14 +156,16 @@ export default function Home({ profileData, titleData,nameSite,localSite, error,
         sm:gap-5 xs:gap-5 xl:gap-0 lg:gap-0 md:gap-0
         `}
           >
-            <section className="col-span-5 flex flex-col  3xl:h-screen xl:h-screen lg:h-screen md:h-fit sm:h-fit xs:h-fit dark:bg-black bg-[#e9eef8] 
+            <section
+              className="col-span-5 flex flex-col  3xl:h-screen xl:h-screen lg:h-screen md:h-fit sm:h-fit xs:h-fit dark:bg-black bg-[#e9eef8] 
             3xl:p-[12px]
             xl:p-[6px] 
             lg:p-[4px] 
             md:p-[6px]
             sm:p-[4px]
             xs:p-[4px]
-                   ">
+                   "
+            >
               <Profile
                 profileData={profileData}
                 titleData={titleData}
@@ -159,27 +173,31 @@ export default function Home({ profileData, titleData,nameSite,localSite, error,
                 nameUser={nameUser}
               />
             </section>
-            <div className="col-span-4 flex flex-col 3xl:h-screen xl:h-screen lg:h-screen sm:h-fit xs:h-fit md:h-fit dark:bg-black bg-[#e9eef8]
+            <div
+              className="col-span-4 flex flex-col 3xl:h-screen xl:h-screen lg:h-screen sm:h-fit xs:h-fit md:h-fit dark:bg-black bg-[#e9eef8]
              3xl:px-[0px] 3xl:py-[12px] 
              xl:px-[0px]   xl:py-[6px]
              lg:p-[4px]  
              md:p-[6px] 
              sm:p-[2px]
              xs:p-[2px]
-                 ">
+                 "
+            >
               <ProfileDetails
                 setShowModal={setShowModal}
                 setDataModal={setDataModal}
               />
             </div>
-            <div className="col-span-3 flex flex-col h-screen dark:bg-black md:h-screen  bg-[#e9eef8] 
+            <div
+              className="col-span-3 flex flex-col h-screen dark:bg-black md:h-screen  bg-[#e9eef8] 
             3xl:p-[12px]
             xl:p-[6px] 
             lg:p-[4px] 
             md:p-[6px]
             sm:p-[2px] 
             xs:p-[2px]
-            ">
+            "
+            >
               <ProfileAbout
                 setShowModal={setShowModal}
                 setDataModal={setDataModal}

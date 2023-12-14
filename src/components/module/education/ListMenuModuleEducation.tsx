@@ -6,7 +6,7 @@ import {
   LanguageDataItem,
 } from "@/types/listMenu";
 
-import { ActiveMenuIcon } from "@/svgs/index";
+import { ActiveMenuIcon, Arrow } from "@/svgs/index";
 import SvgIcon from "@/module/SvgIcon";
 
 const ListMenuEducation: React.FC<ListMenuModuleProps> = ({
@@ -75,7 +75,7 @@ const ListMenuEducation: React.FC<ListMenuModuleProps> = ({
                 <span
                   className={`${
                     isCollapsed ? "ms-0" : "ms-5"
-                  }  inline-block xl:text-[16px] lg:text-[15px] max-lg:text-[15px]`}
+                  }  inline-block xl:text-[16px]  lg:text-[15px] max-lg:text-[15px]`}
                 >
                   <SvgIcon
                     name={item.name}
@@ -87,7 +87,8 @@ const ListMenuEducation: React.FC<ListMenuModuleProps> = ({
                   />
                 </span>
                 {item.name === "language" ? (
-                  <div className="p-0 m-0 w-full ">
+                  <div className="p-0 m-0 w-full  ">
+                 
                     <div className="dropdown inline-block  relative ">
                       <button
                         className={`bg-gray-300  py-2  rounded inline-flex items-center ${
@@ -151,7 +152,7 @@ const ListMenuEducation: React.FC<ListMenuModuleProps> = ({
                           </li>
                         ))}
                       </ul>
-                    </div>
+                    A</div>
                   </div>
                 ) : (
                   <span

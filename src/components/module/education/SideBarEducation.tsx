@@ -36,6 +36,9 @@ export default function SideBarEducation({
   pageName,
   profileData,
   titleData,
+  setShowLogOut,
+  activeItem,
+  SetActiveItem,
 }: any) {
   const { theme, setTheme } = useTheme();
   const router = useRouter();
@@ -43,7 +46,6 @@ export default function SideBarEducation({
   const [headerData, setHeaderData] = useState([]);
   const [themeData, setThemeData] = useState<any[]>([]);
   const [themeDataActive, setThemeDataActive] = useState<any>("light");
-  const [activeItem, SetActiveItem] = useState<number>(0);
   const [data, setData] = useState<any>([]);
   const [activeDropdown, setActiveDropdown] = useState<boolean>(false);
   const { isCollapsed, toggleCollapseHandler } = useContext(SideBarContext);
@@ -112,34 +114,30 @@ export default function SideBarEducation({
     router.push(`/${item.code}/citizen/${userId}`);
   };
 
-    useEffect(() => {
-    setThemeDataActive(theme)
-   
-  },[theme])
+  useEffect(() => {
+    setThemeDataActive(theme);
+  }, [theme]);
 
   useEffect(() => {
-  const element = document.querySelector(".scroll"); 
-  if (element) {
- 
-        setTimeout(() => {
+    const element = document.querySelector(".scroll");
+    if (element) {
+      setTimeout(() => {
+        const maxScroll = element.scrollHeight - element.clientHeight;
+        let currentScroll = element.scrollTop;
 
-      const maxScroll = element.scrollHeight - element.clientHeight;
-      let currentScroll = element.scrollTop;
+        const scrollStep = () => {
+          currentScroll += 5;
+          element.scrollTop = currentScroll;
 
-      const scrollStep = () => {
-        currentScroll += 5; 
-        element.scrollTop = currentScroll;
+          if (currentScroll < maxScroll) {
+            setTimeout(scrollStep, 10);
+          }
+        };
 
-        if (currentScroll < maxScroll) {
-          setTimeout(scrollStep, 10); 
-        }
-      };
-
-      scrollStep();
-    }, 300); 
-
-  }
-}, [activeDropdown]);
+        scrollStep();
+      }, 300);
+    }
+  }, [activeDropdown]);
 
   const changeTheme = () => {
     if (theme === "dark") {
@@ -201,6 +199,7 @@ export default function SideBarEducation({
           setShowAuthCard={setShowAuthCard}
           menuData={loginData}
           profileData={profileData}
+          setShowLogOut={setShowLogOut}
         />
         <ThemeMenuModule />
       </div>

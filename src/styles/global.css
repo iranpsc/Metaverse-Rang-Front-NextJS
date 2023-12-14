@@ -25,21 +25,21 @@
 
 
 
-.dark-scrollbar {
+#dark-scrollbar {
 
     ::-webkit-scrollbar {
-        width: 15px;
+        width: 10px;
     }
 
     /* Track */
     ::-webkit-scrollbar-track {
-        box-shadow: inset 0 0 5px grey;
+        box-shadow: inset 0 0 0px grey;
         border-radius: 10px;
     }
 
     /* Handle */
     ::-webkit-scrollbar-thumb {
-        background: rgb(4, 44, 136);
+        background: #FFC700;
         border-radius: 10px;
     }
 }

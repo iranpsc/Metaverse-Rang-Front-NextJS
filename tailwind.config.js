@@ -9,7 +9,7 @@ module.exports = {
     screens: {
       xs: { max: "639px" },
       ...defaultTheme.screens,
-      "3xl": "1600px",
+      "3xl": "1900px",
     },
     colors: {
       black: "rgba(0, 0, 0, 1)",
@@ -71,12 +71,12 @@ module.exports = {
     fontSize: {
       //sm
       smUser: ["15px"],
-      smTitle: ["12px"],
-      smDesc: ["12px"],
+      smTitle: ["13px"],
+      smDesc: ["13px"],
       //md
-      mdUser: ["20px"],
-      mdTitle: ["18px"],
-      mdDesc: ["18px"],
+      mdUser: ["22px"],
+      mdTitle: ["20px"],
+      mdDesc: ["20px"],
       //lg
       lgUser: ["15px"],
       lgTitle: ["12px"],

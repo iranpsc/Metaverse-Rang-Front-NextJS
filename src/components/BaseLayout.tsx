@@ -3,6 +3,7 @@ import SideBarEducation from "./module/education/SideBarEducation";
 import AuthCards from "@/layout/AuthCards";
 import { AnimatePresence  } from "framer-motion";
 import axios from "axios";
+import MenuItemPage from "./templates/MenuItemPage";
 
 
 
@@ -11,14 +12,21 @@ interface Props {
   profileData:any;
   error:any
   titleData:any
+  setShowLogOut:any
 }
-export default function BaseLayout({ children, profileData, error, titleData }: Props) {
+export default function BaseLayout({ children, profileData, error, titleData,setShowLogOut }: Props) {
   const [showAuthCard, setShowAuthCard] = useState<boolean>(false);
+  const [activeItem, SetActiveItem] = useState<number>(0);
 
   return (
     <div className=" flex flex-row max-h-screen max-lg:h-full  max-lg:flex-col xl:overflow-clip lg:overflow-clip md:overflow-auto sm:overflow-auto xs:overflow-auto no-scrollbar">
       <AnimatePresence>
         {showAuthCard && <AuthCards setShowAuthCard={setShowAuthCard} />}
+      </AnimatePresence>
+      <AnimatePresence>
+        {activeItem !== 0 && (
+          <MenuItemPage activeItem={activeItem} SetActiveItem={SetActiveItem} />
+        )}
       </AnimatePresence>
       <section>
         <SideBarEducation
@@ -26,6 +34,9 @@ export default function BaseLayout({ children, profileData, error, titleData }: 
           pageName="citizen"
           profileData={profileData}
           titleData={titleData}
+          setShowLogOut={setShowLogOut}
+          activeItem={activeItem}
+          SetActiveItem={SetActiveItem}
         />
       </section>
       {children}

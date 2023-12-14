@@ -75,7 +75,7 @@ export default function ProfileImages({ profileData, profileName, titleData }: a
             width={1000}
             height={1000}
             alt={titleData}
-            className="w-full xl:h-full lg:h-[250px] md:h-[400px] sm:h-[350px] rounded-[10px]"
+            className="w-full xl:h-full lg:h-[250px] md:h-[550px] sm:h-[350px] rounded-[10px] object-cover"
           />
         </div>
 
