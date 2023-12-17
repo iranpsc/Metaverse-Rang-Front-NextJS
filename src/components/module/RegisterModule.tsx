@@ -35,7 +35,7 @@ export default function RegisterModule({ setShowAuthCard }: any) {
   const { languageSelected, data } = useContext(LangContext);
   const lang = languageSelected.code;
 
-  console.log(data.data.registerPageLang);
+
   const footerText = data.data.registerPageLang.find(
     (item: any) => item.name === "for more information and answers to"
   ).translation;

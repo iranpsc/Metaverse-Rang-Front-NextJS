@@ -27,7 +27,7 @@ export default function LoginModule({ setShowModule, setShowAuthCard}: any) {
   const { languageSelected, data } = useContext(LangContext);
   const lang = languageSelected.code;
 
-  console.log(data);
+
 
   const [rememberMe, setRememberMe] = useState(false);
 
