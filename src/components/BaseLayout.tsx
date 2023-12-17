@@ -9,14 +9,23 @@ import MenuItemPage from "./templates/MenuItemPage";
 
 interface Props {
   children: ReactNode;
-  profileData:any;
-  error:any
-  titleData:any
-  setShowLogOut:any
+  profileData: any;
+  error: any;
+  titleData: any;
+  setShowLogOut: any;
+  activeItem:any;
+  SetActiveItem:any;
 }
-export default function BaseLayout({ children, profileData, error, titleData,setShowLogOut }: Props) {
+export default function BaseLayout({
+  children,
+  profileData,
+  error,
+  titleData,
+  setShowLogOut,
+  activeItem,
+  SetActiveItem,
+}: Props) {
   const [showAuthCard, setShowAuthCard] = useState<boolean>(false);
-  const [activeItem, SetActiveItem] = useState<number>(0);
 
   return (
     <div className=" flex flex-row max-h-screen max-lg:h-full  max-lg:flex-col xl:overflow-clip lg:overflow-clip md:overflow-auto sm:overflow-auto xs:overflow-auto no-scrollbar">

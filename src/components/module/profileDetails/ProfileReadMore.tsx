@@ -20,7 +20,7 @@ const ProfileReadMore = ({ setShowModal, setDataModal }: any) => {
 
   return (
     <>
-      <section className="dark:bg-dark-background transition-all duration-300 ease-linear bg-white w-full rounded-[10px] 3xl:h-full xl:h-full lg:h-full md:h-[175px] sm:h-[75px] xs:h-[75px] px-3">
+      <section className="dark:bg-dark-background transition-all duration-300 ease-linear shadow-md bg-white w-full rounded-[10px] 3xl:h-full xl:h-full lg:h-full md:h-[175px] sm:h-[75px] xs:h-[75px] px-3">
         <div className="flex flex-nowrap p-1 justify-between w-full h-full items-center">
           <p className="font-azarMehr font-medium 3xl:text-xl3Title xl:text-xlTitle lg:text-lgTitle  md:text-mdTitle sm:text-smTitle xs:text-smTitle text-[#000] dark:text-white ">
             {targetData(
@@ -45,7 +45,7 @@ const ProfileReadMore = ({ setShowModal, setDataModal }: any) => {
           </span>
         </div>
       </section>
-      <section className="dark:bg-dark-background transition-all duration-300 ease-linear bg-white   w-full rounded-[10px]  3xl:h-full xl:h-full lg:h-full md:h-[175px] sm:h-[75px] xs:h-[75px] px-3">
+      <section className="dark:bg-dark-background transition-all duration-300 ease-linear shadow-md bg-white   w-full rounded-[10px]  3xl:h-full xl:h-full lg:h-full md:h-[175px] sm:h-[75px] xs:h-[75px] px-3">
         <div className="flex flex-row justify-between p-1 w-full h-full items-center ">
           <p className="font-azarMehr font-medium 3xl:text-xl3Title xl:text-xlTitle lg:text-lgTitle  md:text-mdTitle sm:text-smTitle xs:text-smTitle text-[#000] dark:text-white">
             {targetData(data.data.selectedProfileData, "forecast 2022")}
@@ -69,7 +69,7 @@ const ProfileReadMore = ({ setShowModal, setDataModal }: any) => {
         </div>
       </section>
 
-      <section className="dark:bg-dark-background  transition-all duration-300 ease-linear bg-white  w-full rounded-[10px] 3xl:h-full xl:h-full lg:h-full md:h-[175px] sm:h-[75px] xs:h-[75px] px-3">
+      <section className="dark:bg-dark-background  transition-all duration-300 ease-linear shadow-md bg-white  w-full rounded-[10px] 3xl:h-full xl:h-full lg:h-full md:h-[175px] sm:h-[75px] xs:h-[75px] px-3">
         <div className="flex flex-nowrap justify-between items-center h-full p-1  ">
           <p className="font-azarMehr font-medium 3xl:text-xl3Title xl:text-xlTitle lg:text-lgTitle  md:text-mdTitle sm:text-smTitle xs:text-smTitle text-[#000] dark:text-white ">
             {targetData(data.data.selectedProfileData, "pleasant memory")}
@@ -94,7 +94,7 @@ const ProfileReadMore = ({ setShowModal, setDataModal }: any) => {
         </div>
       </section>
 
-      <section className=" dark:bg-dark-background bg-white  transition-all duration-300 ease-linear  w-full rounded-[10px]  3xl:h-full xl:h-full lg:h-full md:h-[175px] sm:h-[75px] xs:h-[75px] px-3">
+      <section className=" dark:bg-dark-background bg-white  transition-all  shadow-md duration-300 ease-linear  w-full rounded-[10px]  3xl:h-full xl:h-full lg:h-full md:h-[175px] sm:h-[75px] xs:h-[75px] px-3">
         <div className="flex flex-nowrap justify-between w-full h-full items-center p-1 ">
           <p className="font-azarMehr font-medium   xl:text-xlTitle 3xl:text-xl3Title lg:text-lgTitle  md:text-mdTitle sm:text-smTitle xs:text-smTitle text-[#000] dark:text-white ">
             {targetData(data.data.selectedProfileData, "favorites")}

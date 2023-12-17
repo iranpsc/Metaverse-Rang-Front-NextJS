@@ -18,6 +18,9 @@ export const sidebarFilteredData = (data: any, page: string) => {
         "enter the metaverse",
         "home page",
         "my profile page",
+        "are you sure you want to exit",
+        "yes",
+        "no"
       ];
 
       const filteredItems = tabsMenu.fields.filter(

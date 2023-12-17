@@ -27,6 +27,8 @@ export default function LoginModule({ setShowModule, setShowAuthCard}: any) {
   const { languageSelected, data } = useContext(LangContext);
   const lang = languageSelected.code;
 
+  console.log(data);
+
   const [rememberMe, setRememberMe] = useState(false);
 
   const footerText = data.data.loginPageLang.find(
@@ -41,15 +43,14 @@ export default function LoginModule({ setShowModule, setShowAuthCard}: any) {
   ).translation;
 
   const footerText4 = data.data.loginPageLang.find(
-    (item: any) => item.name === "website."
-  ).translation;
-  const footerText5 = data.data.loginPageLang.find(
     (item: any) => item.name === "you agree"
   ).translation;
 
-  const modifiedFooterTextEn = "terms of the service contract";
+  const footerText5 = data.data.loginPageLang.find(
+    (item: any) => item.name === "terms of service contract"
+  ).translation;
 
-  const modifiedFooterTextFa = "شرایط قرارداد خدمات";
+ 
 
   // const modifiedFooterTextEn = footerText.replace(
   //   "terms of the service contract",
@@ -213,32 +214,32 @@ export default function LoginModule({ setShowModule, setShowAuthCard}: any) {
           <p className="text-center px-1 pb-6 mt-6 w-full text-[#000000A1] dark:text-[#FFFFFFA1] font-azarMehr text-[14px] font-normal">
             {footerText}
             {footerText2}
-            {footerText3}{" "}
+           
             <Link
-              href="https://rgb.irpsc.com/overview"
+              href="https://rgb.irpsc.com/terms"
               passHref={true}
               rel="noopener noreferrer"
               target="_blank"
             >
               <span className=" cursor-pointer text-center px-1 mt-4 w-full text-blueLink dark:text-blueLink font-azarMehr text-[14px] font-normal">
                 {" "}
-                {footerText4}
+                {footerText3}
               </span>
             </Link>{" "}
-            {footerText5}
+            {footerText4}
           </p>
         )}
         {languageSelected.code === "en" && (
           <p className="text-center px-1 pb-6 mt-6 w-full text-[#000000A1] dark:text-[#FFFFFFA1] font-azarMehr text-[14px] font-normal">
-            {footerText} {footerText2}
+            {footerText} {footerText2} {footerText4}
             <Link
-              href="https://rgb.irpsc.com/overview"
+              href="https://rgb.irpsc.com/terms"
               passHref={true}
               rel="noopener noreferrer"
               target="_blank"
             >
               <span className=" cursor-pointer text-center px-1 mt-4 w-full text-blueLink dark:text-blueLink font-azarMehr text-[14px] font-normal">
-                {footerText4}{" "}
+                {footerText5}{" "}
               </span>
             </Link>
           </p>

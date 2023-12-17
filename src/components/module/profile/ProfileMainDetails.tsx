@@ -12,7 +12,7 @@ const yourElementRef = useRef(null);
   const percent = (numberScore / 100) * 100;
 
   return (
-    <div className="flex flex-col justify-start items-center w-[98%] mt-2 3xl:gap-10 xl:gap-4 lg:gap-4 md:gap-10 sm:gap-5 xs:gap-5">
+    <div className="flex flex-col justify-start items-center w-[98%] mt-2 3xl:gap-7 xl:gap-4 lg:gap-4 md:gap-10 sm:gap-5 xs:gap-5">
       <div className="flex flex-row justify-between w-full items-center 3xl:mt-6 xl:mt-6 md:mt-6 sm:mt-6 xs:mt-2 xl:py-0 lg:py-0 md:py-0">
         <p className="font-azarMehr  font-bold xl:text-xlUser 3xl:text-xl3User lg:text-lgUser  md:text-mdUser sm:text-smUser xs:text-smUser">
           {targetData(data.data.selectedProfileData, "citizenship id")}
@@ -22,7 +22,7 @@ const yourElementRef = useRef(null);
           onClick={setShowSharedPage}
           ref={yourElementRef}
         >
-          <div className=" dark:bg-dark-activeButton bg-blueLink flex flex-row items-center gap-2  rounded-[10px] 3xl:py-[3px] 3xl:px-4 lg:py-2 lg:px-2 md:py-2 md:px-4 sm:py-2 sm:px-4 xs:py-1 xs:px-2">
+          <div className=" dark:bg-dark-yellow bg-blueLink flex flex-row items-center gap-2  rounded-[10px] 3xl:py-[3px] 3xl:px-4 lg:py-2 lg:px-2 md:py-2 md:px-4 sm:py-2 sm:px-4 xs:py-1 xs:px-2">
             <span className="font-azarMehr dark:text-[#000] text-[#fff] font-medium 3xl:text-xl3Title xl:text-xlTitle  lg:text-lgTitle md:text-mdTitle  sm:text-smTitle xs:text-smTitle">
               {targetData(data.data.selectedProfileData, "share")}
             </span>
@@ -70,7 +70,7 @@ const yourElementRef = useRef(null);
         <hr className="flex-grow mx-[10px] md:w-[30%] xl:block lg:block md:block sm:hidden xs:hidden h-[1px] border border-dashed  text-[#000] opacity-10 dark:text-[#fff]" />
         <div className="w-[40%] relative bg-[#E9EEF8] dark:bg-[#3F3F3F]  xl:h-[27px] lg:h-[25px] md:h-[26px]  rounded-full  flex justify-end">
           <div
-            className={`bg-[#ffa600] flex items-center  p-3  leading-none rounded-full`}
+            className={`bg-dark-yellow flex items-center  p-3  leading-none rounded-full`}
             style={{ width: `${percent}%` }}
           >
             <span className="  end-[35%] absolute 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgTitle  md:text-mdTitle sm:text-smTitle xs:text-smTitle break-all font-medium text-[#0E0E0E] dark:text-white text-center">

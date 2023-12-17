@@ -35,12 +35,14 @@ export default function RegisterModule({ setShowAuthCard }: any) {
   const { languageSelected, data } = useContext(LangContext);
   const lang = languageSelected.code;
 
+  console.log(data.data.registerPageLang);
   const footerText = data.data.registerPageLang.find(
     (item: any) => item.name === "for more information and answers to"
   ).translation;
 
+
   const footerText2 = data.data.registerPageLang.find(
-    (item: any) => item.name === "website."
+    (item: any) => item.name === "website"
   ).translation;
 
   const footerText3 = data.data.registerPageLang.find(
@@ -92,11 +94,11 @@ export default function RegisterModule({ setShowAuthCard }: any) {
                   className={cssAuth(props, "email")}
                 />
                 <ErrorMessageComponent fieldName="email" lang={lang} />
-                  {showErrorRegisterAccess !== "" ? (
-                <span className="text-error w-full font-azarMehr font-medium text-[10px] mt-1 text-start ">
-                 {showErrorRegisterAccess}
-                </span>
-                  ):null}
+                {showErrorRegisterAccess !== "" ? (
+                  <span className="text-error w-full font-azarMehr font-medium text-[10px] mt-1 text-start ">
+                    {showErrorRegisterAccess}
+                  </span>
+                ) : null}
               </div>
 
               <div className="form-group">
@@ -191,7 +193,7 @@ export default function RegisterModule({ setShowAuthCard }: any) {
           <p className="text-center px-1 pb-6 mt-6 w-full text-[#000000A1] dark:text-[#FFFFFFA1] font-azarMehr text-[14px] font-normal">
             {footerText}
             <Link
-              href="https://rgb.irpsc.com/overview"
+              href="https://faq.irpsc.com"
               passHref={true}
               rel="noopener noreferrer"
               target="_blank"
@@ -207,7 +209,7 @@ export default function RegisterModule({ setShowAuthCard }: any) {
           <p className="text-center px-1 pb-6 mt-6 w-full text-[#000000A1] dark:text-[#FFFFFFA1] font-azarMehr text-[14px] font-normal">
             {footerText} visite The{" "}
             <Link
-              href="https://rgb.irpsc.com/overview"
+              href="https://faq.irpsc.com"
               passHref={true}
               rel="noopener noreferrer"
               target="_blank"

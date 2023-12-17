@@ -29,7 +29,7 @@ export default function ProfileAbout({ setShowModal, setDataModal }: any) {
 
   return (
     <section className="flex flex-col justify-start  gap-[1.5px]  items-center h-screen xl:mt-0 lg:mt-0 md:mt-0 sm:mt-[6px] xs:mt-[6px]">
-      <div className="dark:bg-dark-background w-full h-[37%] transition-all duration-300 ease-linear bg-white px-1 rounded-[10px]">
+      <div className="dark:bg-dark-background w-full h-[37%] shadow-md transition-all duration-300 ease-linear bg-white px-1 rounded-[10px]">
         <h1 className="dark:text-white font-azarMehr font-medium  text-[#000] mx-2 3xl:text-xl3Title xl:text-xlTitle lg:text-lgTitle  md:text-mdTitle sm:text-smDesc xs:text-smDesc py-5">
           {targetData(data.data.selectedProfileData, "about me")}
         </h1>
@@ -57,7 +57,7 @@ export default function ProfileAbout({ setShowModal, setDataModal }: any) {
         <br />
         <br />
       </div>
-      <div className="dark:bg-dark-background h-[90%] bg-white transition-all duration-300 ease-linear  items-center flex flex-col justify-center xl:mt-[6px] ms:mt-[6px] xs:mt-[6px]  md:mt-1 w-full rounded-[10px] p-2 md:p-0 ">
+      <div className="dark:bg-dark-background h-[90%] shadow-md bg-white transition-all duration-300 ease-linear  items-center flex flex-col justify-center xl:mt-[6px] ms:mt-[6px] xs:mt-[6px]  md:mt-1 w-full rounded-[10px] p-2 md:p-0 ">
         {userId && userId === "hm-2000003" ? (
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}

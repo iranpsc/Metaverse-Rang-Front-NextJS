@@ -123,13 +123,13 @@ const scrollLeft = () => {
               </h1>
 
               <div
-                className="rounded-full bg-gray dark:bg-black w-[50px] h-[50px] absolute xs:start-5 sm:start-5 md:start-5 lg:start-7 xl:start-10 3xl:start-10 top-[28%]  z-50 flex justify-center items-center"
+                className="rounded-full bg-gray dark:bg-black 3xl:w-[50px] 3xl:h-[50px] xl:w-[50px] xl:h-[50px] lg:w-[50px] lg:h-[50px] md:w-[50px] md:h-[50px] sm:w-[40px] sm:h-[40px] xs:w-[40px] xs:h-[40px] absolute xs:right-5 sm:right-5 md:right-5 lg:right-7 xl:right-10 3xl:right-10 top-[28%]  z-50 flex justify-center items-center"
                 onClick={scrollRight}
               >
                 <Arrow className="stroke-white stroke-[5px] rotate-[180deg]" />
               </div>
               <div
-                className="rounded-full bg-gray dark:bg-black w-[50px] h-[50px] absolute xs:end-5 sm:end-5 md:end-5 lg:end-7 xl:end-10 3xl:end-10 top-[28%] z-50 flex justify-center items-center"
+                className="rounded-full bg-gray dark:bg-black 3xl:w-[50px] 3xl:h-[50px] xl:w-[50px] xl:h-[50px] lg:w-[50px] lg:h-[50px] md:w-[50px] md:h-[50px] sm:w-[40px] sm:h-[40px] xs:w-[40px] xs:h-[40px] absolute xs:left-5 sm:left-5 md:left-5 lg:left-7 xl:left-10 3xl:left-10 top-[28%] z-50 flex justify-center items-center"
                 onClick={scrollLeft}
               >
                 <Arrow className="stroke-white stroke-[5px]" />

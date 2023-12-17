@@ -22,7 +22,7 @@ export default function ProfileHeaderMobile({ menuData, profileData, profileName
 
   return (
     <>
-      <div className=" dark:bg-dark-background xl:hidden lg:hidden md:flex sm:flex xs:flex  z-50 w-full sm:h-[60px] xs:h-[60px] md:h-[150px] bg-white flex-rows justify-between items-center">
+      <div className=" dark:bg-dark-background shadow-md xl:hidden lg:hidden md:flex sm:flex xs:flex  z-50 w-full sm:h-[60px] xs:h-[60px] md:h-[150px] bg-white flex-rows justify-between items-center">
         <div className="">
           {!isCollapsed ? (
             <CLoseIcon
