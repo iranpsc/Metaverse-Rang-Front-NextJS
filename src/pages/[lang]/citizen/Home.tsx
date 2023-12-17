@@ -19,6 +19,7 @@ export default function Home({ profileData, titleData, error, setShowLogOut }: a
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showSharedPage, setShowSharedPage] = useState<boolean>(false);
   const [dataModal, setDataModal] = useState({ title: "", desc: "" });
+     const [activeItem, SetActiveItem] = useState<number>(0);
 
   function addPageJsonLd() {
     return {
@@ -120,10 +121,15 @@ export default function Home({ profileData, titleData, error, setShowLogOut }: a
           error={error}
           titleData={titleData}
           setShowLogOut={setShowLogOut}
+          activeItem={activeItem}
+          SetActiveItem={SetActiveItem}
         >
           <div className=" xl:hidden lg:hidden md:hidden sm:visible xs:visible w-full h-fit  fixed bottom-0 z-40">
             <div className="w-full h-fit dark:bg-black bg-[#fff] fixed bottom-0">
-              <StaticMobileMenu />
+              <StaticMobileMenu
+                activeItem={activeItem}
+                SetActiveItem={SetActiveItem}
+              />
             </div>
           </div>
           <div

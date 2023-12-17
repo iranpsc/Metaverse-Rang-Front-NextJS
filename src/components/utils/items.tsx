@@ -1,5 +1,4 @@
-
-export  const Items = [
+export const Items = [
   {
     id: 1,
     title: "دارایی (در حال توسعه)",
@@ -504,40 +503,39 @@ export const ItemsENG = [
 
   {
     id: 3,
-    title: "سازه‌ها (در حال توسعه)",
-    hello: "سلام به صفحه فوق‌العاده سازه‌ها خوش آمدید! 🏗️🌆",
-    desc: "در اینجا، ما در حال ایجاد یک مرجع جامع برای اطلاعات سازه‌های شگفت‌انگیز متاورس هستیم. این صفحه در حال توسعه است و به زودی به یک نقطه مرجعی برای همه اطلاعات سازه‌های شهروند تبدیل خواهد شد.",
-    subtitleItems: "چه اطلاعاتی در اینجا می‌یابید؟",
+    title: "Structures (Under Development)",
+    hello: "Welcome to the extraordinary world of structures! 🏗️🌆",
+    desc: "Here, we are in the process of creating a comprehensive reference for information about the amazing structures of Metaurus. This page is under development and will soon become a central hub for all citizen structure information.",
+    subtitleItems: "What information will you find here?",
     subItems: [
       {
         id: 1,
-        title: "🏰 طبقه‌بندی بر اساس کاربری",
-        desc: "سازه‌ها بر اساس کاربری‌های متنوع گردشگری، پارک، مراکز بهداشتی، فرهنگی، آموزشی، تجاری، نمایشگاه، مسکونی و سایر کاربری‌ها دسته‌بندی شده‌اند.",
+        title: "🏰 Classification Based on Usage",
+        desc: "Structures are categorized based on various uses such as tourism, parks, healthcare centers, cultural, educational, commercial, exhibition, residential, and other uses.",
       },
       {
         id: 2,
-        title: "🏢 جزئیات ساختمان",
-        desc: ": اطلاعات مرتبط با تراکم سازه، متراژ بنا، و تعداد ورودی‌های آنلاین زمان پایان ساخت و میزان رضایت لانچ شده ، و مشارکت کننده ها در ساخت برای هر سازه به نمایش درآمده است.",
+        title: "🏢 Building Details",
+        desc: "Information related to structure density, building area, the number of entrances, completion time, launched satisfaction level, and contributors to the construction for each structure is displayed.",
       },
       {
         id: 3,
-        title: "📈 نمودار تاریخچه سازه‌ها",
-        desc: "یک نمودار کاربردی وجود دارد که با استفاده از آن می‌توانید سازه‌ها را بر اساس تاریخ مشخص شده فیلتر کنید. این امکان به شما کمک می‌کند تا ببینید در چه بازه‌های زمانی ساخت و ساز بیشترین فعالیت را دارد.",
+        title: "📈 Structures History Chart",
+        desc: "There is a useful chart that allows you to filter structures based on specified dates. This feature helps you see in which time intervals construction activities are most active.",
       },
     ],
     time: [],
     howHelp: [
       {
         id: 1,
-        title: "چطور می‌توانید کمک کنید؟",
-        desc: "ما به دنبال همکاری شما برای بهبود اطلاعات هر سازه هستیم. اگر اطلاعات یا تصاویر اضافی دارید، با ما به اشتراک بگذارید تا این صفحه را هر روز بهتر کنیم.",
+        title: "How can you contribute?",
+        desc: "We are seeking your collaboration to improve the information for each structure. If you have additional information or images, share them with us to enhance this page every day.",
       },
     ],
-    end1: "همراه ما باشید!",
-    end2: "با افتخار به سوی آینده سازه‌های شگفت‌انگیز متاورس،",
-    end3: "تیم متاورس 🌇🏰",
+    end1: "Stay with us!",
+    end2: "Proudly towards the future of amazing structures in Metaurus,",
+    end3: "Metaurus Team 🌇🏰",
   },
-
   {
     id: 4,
     title: "Structures (Under Development)",
@@ -836,8 +834,3 @@ export const ItemsENG = [
     end3: "Metaurus Team ⚖️🚨",
   },
 ];
-
-
-
-
-

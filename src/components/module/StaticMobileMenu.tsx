@@ -1,10 +1,7 @@
 import { Property, HomeIcon, Transaction, Reward, Connections } from "../svgs";
 
-//data
-import { Items } from "../utils/items";
-
 const StaticMobileMenu: React.FC<any> = ({activeItem,SetActiveItem}:any) => {
-  const data: any = Items.filter((item: any) => item.id == activeItem);
+
   return (
     <div className="flex flex-row justify-evenly items-center md:h-[75px] xs:h-[50px] sm:h-[50px]  ">
       <Connections
