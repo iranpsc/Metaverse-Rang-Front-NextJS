@@ -29,20 +29,20 @@ export default function AuthCards({setShowAuthCard}:any) {
  
   return (
     <div
-      className=" absolute  xl:z-50 lg:z-50 md:z-50 xs:z-[100] sm:z-[100]   top-0 w-full h-full"
+      className=" absolute  xl:z-50 lg:z-50 md:z-50 xs:z-[900] sm:z-[900]   top-0 w-full h-screen"
       dir={`${lang === "fa" ? "rtl" : "ltr"}`}
     >
-      <div className=" flex   justify-center backdrop-blur-sm  bg-black/20  items-center w-full h-full">
+      <div className=" flex   justify-center backdrop-blur-sm  bg-black/20  items-center w-full h-screen">
         <motion.div
-           variants={modalVariants}
-  initial="hidden"
-  animate="visible"
-  exit="exit"
-  transition={{
-    duration: 0.5,
-    ease: "backInOut",
-  }}
-          className={`absolute z-50
+          variants={modalVariants}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          transition={{
+            duration: 0.5,
+            ease: "backInOut",
+          }}
+          className={`absolute z-[100]  rounded-[10px]  bg-white dark:bg-dark-background
           ${
             modalName.name === "ActiveEmailPage" &&
             "h-[490px] w-[340px] max-sm:w-[300px] "
@@ -59,9 +59,9 @@ export default function AuthCards({setShowAuthCard}:any) {
             modalName.name === "IpPage" &&
             "h-[489px] w-[340px] max-sm:w-[300px]"
           }
-           rounded-[10px]  bg-white dark:bg-dark-backgroundModules`}
+          `}
         >
-          <section className=" w-full h-full flex flex-col justify-between items-center ">
+          <section className="  bg-white dark:bg-dark-background flex flex-col justify-between items-center ">
             {modalName.name === "AuthPage" && (
               <>
                 <HeaderAuth setShowAuthCardHeader={setShowAuthCard} />

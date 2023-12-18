@@ -8,7 +8,7 @@ import ForgetPasswordModule from '../module/ForgetPasswordModule';
 export default function AuthCard({ setShowAuthCard}:any) {
   const [showModule,setShowModule] = useState<string>("login");
   return (
-    <div className="  w-[100%] m-1 h-full ">
+    <div className="   m-1  ">
       <div className=" mx-2 flex flex-row justify-evenly items-center gap-4 mt-3">
         {showModule != "forgetPassword" ? (
           <ButtonsAuthModule
