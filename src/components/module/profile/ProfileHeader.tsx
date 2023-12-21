@@ -36,26 +36,7 @@ export default function ProfileHeader({ profileName, titleData,nameUser }: any) 
     profileData.profilePhotos[0] &&
     profileData?.profilePhotos[0]?.url;
 
- const ChangeNameUser = () => {
-   let name = "ssss";
 
-  //  console.log(typeof nameUser);
-  //  console.log("xxxx");
-  //  if (nameUser) {
-  //    if (languageSelected.code === "fa") {
-  //      // اگر زبان فارسی باشد
-  //      name = "نام خالی";
-  //    } else {
-  //      // اگر زبان دیگری باشد
-  //      name = "Empty Name";
-  //    }
-  //  } else {
-  //    // اگر نام کاربری وجود داشته باشد
-  //    name = nameUser;
-  //  }
-
-   return name;
- };
 
   return (
     <>

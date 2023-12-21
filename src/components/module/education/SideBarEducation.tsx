@@ -112,7 +112,7 @@ export default function SideBarEducation({
       file_url: item.file_url,
     });
   const newUrl = `/${item.code}/citizen/${userId}`;
-  console.log(newUrl);
+
   router.push(newUrl);
   
    

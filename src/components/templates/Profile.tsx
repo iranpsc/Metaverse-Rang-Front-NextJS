@@ -19,10 +19,7 @@ export default function Profile({ profileData, titleData, setShowSharedPage, nam
   const [profileName, setProfileName] = useState<string>("");
 
      const yourElementRef = useRef(null);
-     console.log(nameUser);
-
-
-   
+ 
 
   const numberScore =
     100 - parseInt(profileData?.score_percentage_to_next_level);
