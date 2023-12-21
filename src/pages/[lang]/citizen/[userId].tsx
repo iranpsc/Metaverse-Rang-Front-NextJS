@@ -74,7 +74,7 @@ export default function Home({ profileData, titleData,nameSite,localSite, error,
           title: titleData,
           locale: localSite,
           siteName: nameSite,
-          description: `${profileData?.customs?.about}`,
+          description: `${profileData?.customs?.about.slice(0, 190)} ... `,
           type: "Personal",
           url: `https://rgb.irpsc.com/en/citizen/${profileData?.code}`,
           images: [
@@ -233,10 +233,9 @@ export async function getServerSideProps(context:any) {
     // استخراج profileData
     const profileData = res.data.data;
 
-    // تعیین زبان از URL
-    const path = context.req.url.split("/");
-    const languageCode = path[1]; // 'en' یا 'fa'
+    const languageCode = context.query.lang;
 
+   
     // تعریف متغیر برای عنوان
     let titleData = "";
     let nameUser="";

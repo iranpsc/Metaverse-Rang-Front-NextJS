@@ -54,7 +54,7 @@ useEffect(() => {
                 <h1 className="font-azarMehr text-center text-[18px] text-black dark:text-white font-bold">
                   {data && data[0].title}
                 </h1>
-                <p className="w-full text-center 3xl:text-[16px] xl:text-[16px] lg:text-[16px] md:text-[14px] sm:text-[12px] xs:text-[12px] text-black dark:text-white font-bold">
+                <p className="w-full text-center ms-[16px] 3xl:text-[16px] xl:text-[16px] lg:text-[16px] md:text-[14px] sm:text-[12px] xs:text-[12px] text-black dark:text-white font-bold">
                   {data && data[0].hello}
                 </p>
               </div>

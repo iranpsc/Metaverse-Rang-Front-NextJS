@@ -43,7 +43,7 @@ export default function ProfileImages({ profileData, profileName, titleData }: a
         width={100}
         height={100}
         alt={titleData}
-        className={`cursor-pointer border-2  border-[#D8D8D8] dark:border-[#fff] inline-block rounded-full 
+        className={`cursor-pointer border-2  border-[#b1b1b1] dark:border-[#fff] inline-block rounded-full 
         ${imgProfiles[i]?.url == mainImageUrl?"3xl:w-[70px] 3xl:h-[70px] xl:w-14 xl:h-14 lg:w-12 lg:h-12 md:w-20 md:h-20 sm:w-18 sm:h-16 xs:w-[70px] xs:h-[70px]":"3xl:w-[60px] 3xl:h-[60px] xl:w-12 xl:h-12 lg:w-10 lg:h-10 md:w-16 md:h-16 sm:w-16 sm:h-16 xs:w-16 xs:h-16"}
         
         `}
@@ -68,7 +68,7 @@ export default function ProfileImages({ profileData, profileName, titleData }: a
 
   return (
     <>
-      <section className="dark:bg-dark-background shadow-md 3xl:h-[400px] xl:h-[300px] lg:h-[250px] md:h-screen relative bg-white transition-all duration-300 ease-linear mt-[6px] rounded-[10px] flex xl:flex-row lg:flex-row md:flex-col sm:flex-col xs:flex-col md:gap-7">
+      <section className="dark:bg-dark-background shadow-md 3xl:h-[400px] xl:h-[40%] lg:h-[250px] md:h-screen relative bg-white transition-all duration-300 ease-linear mt-[6px] rounded-[10px] flex xl:flex-row lg:flex-row md:flex-col sm:flex-col xs:flex-col md:gap-7">
         <div className=" dark:bg-dark-background bg-white  flex justify-center basis-[80%] items-center rounded-[10px] ">
           <Image
             src={mainImageUrl || "/temp.png"}

@@ -6,7 +6,7 @@ import ProfileDetailsInteresting from "@/module/profileDetails/ProfileDetailsInt
 import ProfileReadMore from "../module/profileDetails/ProfileReadMore";
 
 export default function ProfileDetails({ setShowModal, setDataModal }: any) {
-  const { data, profileData } = useContext(LangContext);
+  const { data, profileData ,languageSelected} = useContext(LangContext);
 
    const x = profileData?.customs?.prediction;
   
@@ -47,13 +47,24 @@ export default function ProfileDetails({ setShowModal, setDataModal }: any) {
     {
       id: 4,
       key: targetData(data.data.selectedProfileData, "address"),
-      value: profileData?.kyc?.address?.slice(0, 25) || "--",
+      value:
+        languageSelected.code === "fa"
+          ? profileData?.kyc?.address
+            ? profileData.kyc.address.slice(0, 25) + " ... "
+            : "--"
+          : profileData?.kyc?.address
+          ? " ... " + profileData.kyc.address.slice(0, 25)
+          : "--",
       fValue: profileData?.kyc?.address,
     },
     {
       id: 5,
       key: targetData(data.data.selectedProfileData, "job"),
-      value: profileData?.customs?.occupation.slice(0, 23)+" ..." || "--",
+      value:
+        profileData?.customs?.occupation &&
+        profileData.customs.occupation.length > 23
+          ? profileData.customs.occupation.slice(0, 23) + " ... "
+          :" ... "+ profileData?.customs?.occupation || "--",
       fValue: profileData?.customs?.occupation,
     },
     {

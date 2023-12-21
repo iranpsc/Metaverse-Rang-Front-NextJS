@@ -111,7 +111,17 @@ export default function SideBarEducation({
       icon: item.icon,
       file_url: item.file_url,
     });
-    router.push(`/${item.code}/citizen/${userId}`);
+  const newUrl = `/${item.code}/citizen/${userId}`;
+  console.log(newUrl);
+  router.push(newUrl);
+  
+   
+    
+    
+       // window.location.reload();
+
+
+
   };
 
   useEffect(() => {

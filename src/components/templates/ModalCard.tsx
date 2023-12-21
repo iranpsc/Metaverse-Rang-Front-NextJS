@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState ,useContext} from "react";
 import Image from "next/image";
-import { CLoseIcon } from "@/svgs/index";
+import { Arrow, CLoseIcon } from "@/svgs/index";
 import { useTheme } from "next-themes";
+import { LangContext } from "@/context/LangContext";
+import { translateFavorites } from "@/utils/targetDataName";
 
 //ANIMATION
 import { motion } from "framer-motion";
@@ -12,6 +14,22 @@ export default function ModalCard({
   titleData,
 }: any) {
   const { theme } = useTheme();
+  const { data, profileData } = useContext(LangContext);
+    const scrollContainer = useRef<HTMLDivElement>(null);
+
+    
+
+    const scrollRight = () => {
+      if (scrollContainer.current) {
+        scrollContainer.current.scrollBy({ left: 200, behavior: "smooth" });
+      }
+    };
+
+    const scrollLeft = () => {
+      if (scrollContainer.current) {
+        scrollContainer.current.scrollBy({ left: -200, behavior: "smooth" });
+      }
+    };
 
   return (
     <div
@@ -44,21 +62,52 @@ export default function ModalCard({
             </div>
 
             {dataModal.type === "favorites" ? (
-              <>
-                {" "}
-                <div className="flex flex-row justify-center items-center gap-3 pb-10 mt-10 ">
-                  {Object.keys(dataModal.desc).map((item: any, index: any) => (
-                    <Image
-                      key={index}
-                      src={dataModal.desc[item]}
-                      alt={titleData}
-                      width={100}
-                      height={100}
-                      className="w-10 h-10"
-                    />
-                  ))}
+              <div className=" relative px-5 mt-20">
+                <div
+                  className="rounded-full cursor-pointer 3xl:w-[50px] 3xl:h-[10px] xl:w-[50px] xl:h-[50px] lg:w-[50px] lg:h-[50px] md:w-[50px] md:h-[50px] sm:w-[40px] sm:h-[40px] xs:w-[40px] xs:h-[40px] absolute right-1 top-[20%]  z-50 flex justify-center items-center"
+                  onClick={scrollRight}
+                >
+                  <Arrow className="stroke-gray stroke-[5px] rotate-[180deg] w-7 h-7" />
                 </div>
-              </>
+                <div
+                  className="rounded-full cursor-pointer  3xl:w-[50px] 3xl:h-[50px] xl:w-[50px] xl:h-[50px] lg:w-[50px] lg:h-[50px] md:w-[50px] md:h-[50px] sm:w-[40px] sm:h-[40px] xs:w-[40px] xs:h-[40px] absolute left-1 top-[20%] z-50 flex justify-center items-center"
+                  onClick={scrollLeft}
+                >
+                  <Arrow
+                    className="stroke-gray stroke-[5px] w-7 h-7"
+                    onClick={scrollLeft}
+                  />
+                </div>
+                <div
+                  className="  overflow-y-clip overflow-x-auto no-scrollbar relative w-full"
+                  ref={scrollContainer}
+                >
+                  <div className="  flex  flex-row justify-center gap-5 items-center  w-max">
+                    {Object.keys(dataModal.desc).map(
+                      (item: any, index: any) => (
+                        <div
+                          key={item.id}
+                          className="flex flex-col gap-3 justify-center items-center di"
+                        >
+                          <Image
+                            src={dataModal.desc[item]}
+                            alt="{item.img}"
+                            width={1000}
+                            height={1000}
+                            className="w-[75px] h-[50px] mx-10 "
+                          />
+                          <p className="font-azarMehr 3xl:text-xl3Title lg:text-lgTitle  xl:text-xlTitle  md:text-mdTitle sm:text-smTitle xs:text-smTitle font-medium  text-[#000] dark:text-white">
+                            {translateFavorites(
+                              data.data.selectedProfileData,
+                              item
+                            )}
+                          </p>
+                        </div>
+                      )
+                    )}
+                  </div>
+                </div>
+              </div>
             ) : (
               <>
                 {" "}

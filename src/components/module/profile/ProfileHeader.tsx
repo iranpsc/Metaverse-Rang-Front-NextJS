@@ -6,6 +6,7 @@ import { Shahrvand } from "@/svgs/index";
 import Persian from "persianjs";
 
 export default function ProfileHeader({ profileName, titleData,nameUser }: any) {
+
   const { profileData, languageSelected } = useContext(LangContext);
   const [numberCurrent_level, setNumberCurrent_level] = useState<number>(1);
   const { theme } = useTheme();
@@ -34,6 +35,28 @@ export default function ProfileHeader({ profileName, titleData,nameUser }: any) 
     profileData.profilePhotos &&
     profileData.profilePhotos[0] &&
     profileData?.profilePhotos[0]?.url;
+
+ const ChangeNameUser = () => {
+   let name = "ssss";
+
+  //  console.log(typeof nameUser);
+  //  console.log("xxxx");
+  //  if (nameUser) {
+  //    if (languageSelected.code === "fa") {
+  //      // اگر زبان فارسی باشد
+  //      name = "نام خالی";
+  //    } else {
+  //      // اگر زبان دیگری باشد
+  //      name = "Empty Name";
+  //    }
+  //  } else {
+  //    // اگر نام کاربری وجود داشته باشد
+  //    name = nameUser;
+  //  }
+
+   return name;
+ };
+
   return (
     <>
       <div className="dark:bg-dark-background px-1 transition-all  lg:mt-0 md:mt-1 duration-300 sm:mt-1 xs:mt-1 ease-linear flex flex-col bg-white justify-center  items-center rounded-[10px] ">
@@ -46,7 +69,7 @@ export default function ProfileHeader({ profileName, titleData,nameUser }: any) 
               alt={titleData}
               className="  inline-block rounded-full p-1  md:w-10 md:h-10 sm:w-14 sm:h-14 xs:w-14 xs:h-14 object-cover"
             />
-            <p className="sm:bottom-[-25px] xs:bottom-[-25px] sm:start-1 xs:start-1 rounded-sm bg-white dark:bg-dark-background  w-max p-1 sm:scale-100 xs:scale-100  text-xs  text-black dark:text-white group-hover:scale-100 break-all  inline-block xl:mx-1 lg:mx-1 md:mx-0  font-medium font-azarMehr xl:text-[18px] desktop1920:text-[18px]  desktop1024:text-[12px] md:text-[16px] sm:text-[14px] xs:text-[12px] text-start">
+            <p className="sm:bottom-[-25px] xs:bottom-[-25px] sm:start-1 xs:start-1 rounded-sm   w-max p-1 sm:scale-100 xs:scale-100  text-xs  text-black dark:text-white group-hover:scale-100 break-all  inline-block xl:mx-1 lg:mx-1 md:mx-0  font-medium font-azarMehr xl:text-[18px] desktop1920:text-[18px]  desktop1024:text-[12px] md:text-[16px] sm:text-[14px] xs:text-[12px] text-start">
               {nameUser}
             </p>
           </div>

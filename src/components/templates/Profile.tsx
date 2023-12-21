@@ -19,6 +19,7 @@ export default function Profile({ profileData, titleData, setShowSharedPage, nam
   const [profileName, setProfileName] = useState<string>("");
 
      const yourElementRef = useRef(null);
+     console.log(nameUser);
 
 
    

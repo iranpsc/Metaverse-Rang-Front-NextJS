@@ -155,11 +155,11 @@ const submitLang = (name:string)=>{
                       {languagesData.map((item: LanguageDataItem) => (
                         <li
                           key={item.id}
-                          className={` border-none mt-4 w-full  ${
+                          className={` border-none mt-4 w-full   ${
                             languageSelected.name === item.name
                               ? "text-[#0066FF] dark:text-dark-yellow"
                               : ""
-                          } flex flex-col items-center justify-start    cursor-pointer hover:text-[#0066FF]`}
+                          } ${isCollapsed?"hidden":"flex"} flex flex-col items-center justify-start    cursor-pointer hover:text-[#0066FF]`}
                           onClick={() => handleDirChange(item)}
                         >
                           <div className=" w-10">
@@ -173,7 +173,7 @@ const submitLang = (name:string)=>{
                               height={100}
                               className={"w-6 h-6  3xl:w-7 3xl:h-7"}
                             />
-                            <p className="font-azarMehr w-full 3xl:text-[20px] font-normal hover:text-[#0000ffd9] dark:hover:text-dark-yellow">
+                            <p className="font-azarMehr  w-full 3xl:text-[20px] font-normal hover:text-[#0000ffd9] dark:hover:text-dark-yellow">
                               {item.native_name}
                             </p>
                           </div>
