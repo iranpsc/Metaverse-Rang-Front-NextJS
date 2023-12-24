@@ -1,7 +1,5 @@
 import { useState,useEffect ,useContext} from "react";
 import Image from "next/image";
-import router from "next/router";
-
 //Types
 import {
   ListMenuModuleProps,
@@ -31,7 +29,6 @@ const ListMenuModule: React.FC<ListMenuModuleProps> = ({
       setActiveItem(i);
       
     }
-    //  router.push(`/${item.code}/citizen/hm-2222/home`);
   };
 
 
@@ -114,7 +111,7 @@ const submitLang = (name:string)=>{
                     group-hover:stroke-blueLink group-hover:dark:stroke-dark-yellow ${
                       activeItem == i
                         ? " stroke-blueLink dark:stroke-dark-yellow"
-                        : "stroke-gray"
+                        : "stroke-gray stroke-dark-gray"
                     } w-[17px] h-[17px] `}
                   />
                 </span>
@@ -128,7 +125,7 @@ const submitLang = (name:string)=>{
                       <span
                         className={`font-medium pe-2  font-azarMehr  no-underline group-hover:text-[#0000ffd9] dark:group-hover:text-dark-yellow ${
                           !activeDropdown
-                            ? "text-gray"
+                            ? "text-gray dark:text-dark-gray"
                             : "text-[#0066FF] dark:text-dark-yellow"
                         }  
                        
@@ -159,7 +156,9 @@ const submitLang = (name:string)=>{
                             languageSelected.name === item.name
                               ? "text-[#0066FF] dark:text-dark-yellow"
                               : ""
-                          } ${isCollapsed?"hidden":"flex"} flex flex-col items-center justify-start    cursor-pointer hover:text-[#0066FF]`}
+                          } ${
+                            isCollapsed ? "hidden" : "flex"
+                          } flex flex-col items-center justify-start    cursor-pointer hover:text-[#0066FF]`}
                           onClick={() => handleDirChange(item)}
                         >
                           <div className=" w-10">
@@ -192,7 +191,7 @@ const submitLang = (name:string)=>{
                       ${
                         activeItem === i
                           ? "text-[#0066FF] dark:text-dark-yellow"
-                          : "text-gray dark:text-gray "
+                          : "text-gray dark:text-dark-gray "
                       }
                      font-azarMehr font-normal 3xl:text-[22px] cursor-pointer  group-hover:text-[#0000ffd9] dark:group-hover:text-dark-yellow ${
                        isCollapsed ? "hidden" : "visible"
@@ -205,7 +204,7 @@ const submitLang = (name:string)=>{
             </li>
           ))}
 
-        <div className=" h-[200px] w-full"></div>
+        <li className=" h-[200px] w-full"></li>
       </ul>
     </>
   );

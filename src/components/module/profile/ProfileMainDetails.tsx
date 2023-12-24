@@ -38,7 +38,7 @@ const yourElementRef = useRef(null);
           {targetData(data.data.selectedProfileData, "citizenship name")}
         </p>
         <hr className="flex-grow mx-[10px] xl:block lg:block md:block sm:hidden xs:hidden h-[1px] border border-dashed  text-[#000] opacity-10 dark:text-[#fff]" />
-        <p className="dark:text-dark-gray  font-azarMehr font-medium 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc md:text-mdDesc  sm:text-smTitle xs:text-smTitle break-all text-gray">
+        <p className="dark:text-dark-gray text-gray  font-azarMehr font-medium 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc md:text-mdDesc  sm:text-smTitle xs:text-smTitle break-all ">
           {nameUser}
         </p>
       </div>

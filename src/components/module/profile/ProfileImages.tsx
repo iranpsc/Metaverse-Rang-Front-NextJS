@@ -72,9 +72,10 @@ export default function ProfileImages({ profileData, profileName, titleData }: a
         <div className=" dark:bg-dark-background bg-white  flex justify-center basis-[80%] items-center rounded-[10px] ">
           <Image
             src={mainImageUrl || "/temp.png"}
-            width={1000}
-            height={1000}
+            width={600}
+            height={600}
             alt={titleData}
+            loading="eager"
             className="w-full xl:h-full lg:h-[250px] md:h-[550px] sm:h-[350px] rounded-[10px] object-cover"
           />
         </div>

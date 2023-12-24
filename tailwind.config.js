@@ -15,7 +15,7 @@ module.exports = {
       black: "rgba(0, 0, 0, 1)",
       lightGray: "rgba(0, 0, 0, 0.09)",
       mediumGray: "rgba(116, 116, 116, 0.58)",
-      gray: "rgba(133, 133, 133, 1)",
+      gray: "#575757",
       extraGray: "rgba(86, 89, 89, 1)",
 
       white: "#ffffff",
@@ -37,7 +37,7 @@ module.exports = {
         backgroundModules: "#000000",
         defaultButton: "#332800",
         activeButton: "#FFC700",
-        gray: "#9A9A9A",
+        gray: "#ABABAB",
         yellow: "#FFC700",
         lightWhite: "rgba(255, 255, 255, 0.09)",
         borderField: "#282828",
@@ -94,10 +94,5 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [
-
-    require('tailwindcss'),
-    require('autoprefixer'),
-  
-  ],
+  plugins: [require("tailwindcss"), require("autoprefixer")],
 };

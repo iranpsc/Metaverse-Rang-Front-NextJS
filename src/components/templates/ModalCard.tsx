@@ -56,7 +56,7 @@ export default function ModalCard({
           />
           <div className="w-full h-full  flex flex-col justify-start  gap-4 top-0 absolute">
             <div className="flex flex-row justify-center items-center mt-3">
-              <h1 className="font-azarMehr font-bold 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc md:text-mdDesc  sm:text-smTitle xs:text-smTitle text-[#00000096] dark:text-gray">
+              <h1 className="font-azarMehr font-bold 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc md:text-mdDesc  sm:text-smTitle xs:text-smTitle text-[#00000096] dark:text-dark-gray">
                 {dataModal.title}
               </h1>
             </div>
@@ -111,7 +111,7 @@ export default function ModalCard({
             ) : (
               <>
                 {" "}
-                <p className="pb-16 px-2 pt-5 overflow-y-auto overflow-x-clip font-azarMehr font-medium 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc md:text-mdDesc  sm:text-smTitle xs:text-smTitle text-[#00000096] dark:text-gray text-justify">
+                <p className="pb-16 px-2 pt-5 overflow-y-auto overflow-x-clip font-azarMehr font-medium 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc md:text-mdDesc  sm:text-smTitle xs:text-smTitle text-[#00000096] dark:text-dark-gray text-justify">
                   {dataModal.desc}
                 </p>
               </>

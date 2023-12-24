@@ -115,11 +115,6 @@ export default function SideBarEducation({
 
   router.push(newUrl);
   
-   
-    
-    
-       // window.location.reload();
-
 
 
   };
