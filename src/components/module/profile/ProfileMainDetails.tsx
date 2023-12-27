@@ -16,12 +16,10 @@ setNumberScore(100 - parseInt(profileData?.score_percentage_to_next_level))
   }
   },[profileData?.score_percentage_to_next_level])
 
- 
 
     const yourElementRef = useRef(null);
   const percent = (numberScore / 100) * 100;
 
-  console.log(profileData?.score_percentage_to_next_level);
 
   return (
     <div className="flex flex-col justify-start items-center w-[98%] mt-2 3xl:gap-10 xl:gap-6  lg:gap-4 md:gap-10 sm:gap-5 xs:gap-5">
