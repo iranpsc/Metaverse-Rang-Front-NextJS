@@ -1,5 +1,3 @@
-/** @type {import('next').NextConfig} */
-
 module.exports = {
   webpack(config) {
     config.module.rules.push({
@@ -18,5 +16,12 @@ module.exports = {
     ],
   },
   experimental: { esmExternals: true, serverActions: true },
-  
+  async rewrites() {
+    return [
+      {
+        source: "/robots.txt",
+        destination: "/_next/static/robots.txt",
+      },
+    ];
+  },
 };

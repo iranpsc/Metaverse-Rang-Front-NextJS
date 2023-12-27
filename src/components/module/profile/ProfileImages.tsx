@@ -68,15 +68,15 @@ export default function ProfileImages({ profileData, profileName, titleData }: a
 
   return (
     <>
-      <section className="dark:bg-dark-background shadow-md 3xl:h-[400px] xl:h-[40%] lg:h-[250px] md:h-screen relative bg-white transition-all duration-300 ease-linear mt-[6px] rounded-[10px] flex xl:flex-row lg:flex-row md:flex-col sm:flex-col xs:flex-col md:gap-7">
+      <section className="dark:bg-dark-background shadow-md  3xl:h-[400px] xl:h-[300px] lg:h-full md:h-screen relative bg-white transition-all duration-300 ease-linear  rounded-[10px] flex xl:flex-row lg:flex-row md:flex-col sm:flex-col xs:flex-col md:gap-7">
         <div className=" dark:bg-dark-background bg-white  flex justify-center basis-[80%] items-center rounded-[10px] ">
           <Image
             src={mainImageUrl || "/temp.png"}
             width={600}
             height={600}
             alt={titleData}
-            loading="eager"
-            className="w-full xl:h-full lg:h-[250px] md:h-[550px] sm:h-[350px] rounded-[10px] object-cover"
+            priority={true}
+            className="w-full h-full rounded-[10px] object-cover"
           />
         </div>
 

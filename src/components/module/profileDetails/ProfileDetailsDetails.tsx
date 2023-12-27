@@ -29,7 +29,7 @@ export default function ProfileDetailsDetails({ itemsProfileDetails }: any) {
                 {item.value}
               </p>
               {item.fValue && item.fValue.length > 2 && (
-                <span className="absolute end-2  top-6 z-20 bg-gray rounded-md text-center w-max p-2 scale-0 font-azarMehr font-medium text-xs text-white group-hover:scale-100">
+                <span className="absolute end-2  top-6 z-20 bg-[#737272] rounded-md text-center w-max p-2 scale-0 font-azarMehr font-medium text-xs text-white group-hover:scale-100">
                   {item.fValue}
                 </span>
               )}

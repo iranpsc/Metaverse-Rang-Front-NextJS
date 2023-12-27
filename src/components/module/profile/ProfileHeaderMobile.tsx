@@ -46,7 +46,7 @@ export default function ProfileHeaderMobile({ menuData, profileData, profileName
             <p className=" dark:text-white md:text-[16px] block font-azarMehr text-end  font-bold text-[18px] mt-1 text-black sm:text-center">
               {title?.translation}
             </p>
-            <p className="dark:text-dark-gray mt-[-5px] md:text-[11px] font-normal text-mediumGray ">
+            <p className="dark:text-dark-gray mt-[-5px] md:text-[11px] font-normal text-[#5A5858] ">
               {desc?.translation}
             </p>
           </div>

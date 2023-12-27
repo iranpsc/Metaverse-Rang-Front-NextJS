@@ -29,7 +29,7 @@ const ProfileReadMore = ({ setShowModal, setDataModal }: any) => {
             )}
           </p>
           <span
-            className="text-[#bfbdbd] dark:text-[#785e02] 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc  md:text-mdDesc sm:text-smDesc xs:text-smDesc font-azarMehr  cursor-pointer  font-medium "
+            className="text-[#524C4C] dark:text-[#B8B2B2] 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc  md:text-mdDesc sm:text-smDesc xs:text-smDesc font-azarMehr  cursor-pointer  font-medium "
             onClick={() =>
               submitModalCard(
                 targetData(

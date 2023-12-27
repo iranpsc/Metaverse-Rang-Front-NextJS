@@ -26,31 +26,35 @@ export default function Profile({ profileData, titleData, setShowSharedPage, nam
   const percent = (numberScore / 100) * 100;
 
   return (
-    <div className="flex flex-col justify-between 3xl:h-screen xl:h-screen lg:h-screen md:h-[1300px] sm:h-fit xs:h-fit  w-full ">
+    <div className="flex flex-col justify-start gap-[6px] 3xl:h-screen xl:h-screen  lg:h-screen md:h-[1300px] sm:h-fit xs:h-fit w-full">
       <ProfileHeaderMobile
         menuData={data}
         profileData={profileData}
         profileName={profileName}
       />
-      <ProfileTopMobile
-        profileName={profileName}
-        titleData={titleData}
-        nameUser={nameUser}
-      />
-      <ProfileImages
-        profileData={profileData}
-        profileName={profileName}
-        titleData={titleData}
-      />
-      <section className="relative shadow-md dark:bg-dark-background 3xl:pb-1  xl:pb-0 lg:pb-0 mt-[6px] h-full  px-1 md:px-2 bg-white rounded-[10px] flex flex-col 3xl:gap-3 xl:gap-3 lg:gap-1 md:gap-3 sm:gap-4 xs:gap-4 justify-between items-center ">
+
+      <div className="w-full h-fit ">
+        <ProfileTopMobile
+          profileName={profileName}
+          titleData={titleData}
+          nameUser={nameUser}
+        />
+      </div>
+      <div className="w-full h-fit ">
+        <ProfileImages
+          profileData={profileData}
+          profileName={profileName}
+          titleData={titleData}
+        />
+      </div>
+      <div className="w-full h-full rounded-[10px] dark:bg-dark-background bg-white pb-3 ps-2 flex flex-col justify-between gap-5">
         <ProfileMainDetails
           nameUser={nameUser}
           profileData={profileData}
           setShowSharedPage={setShowSharedPage}
         />
-
         <ProfileGems profileData={profileData} />
-      </section>
+      </div>
     </div>
   );
 }

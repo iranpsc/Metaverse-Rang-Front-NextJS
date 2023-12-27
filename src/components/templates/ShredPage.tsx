@@ -1,24 +1,22 @@
-import { useContext, useState, useEffect,useRef } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { CLoseIcon,Arrow } from "@/svgs/index";
+import { CLoseIcon, Arrow } from "@/svgs/index";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/router";
 import { LangContext } from "@/context/LangContext";
-import {  targetData } from "@/utils/targetDataName";
+import { targetData } from "@/utils/targetDataName";
 
 //ANIMATION
 import { motion } from "framer-motion";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 
 export default function ShredPage({ showSharedPage, setShowSharedPage }: any) {
-      const [copied, setCopied] = useState(false);
+  const [copied, setCopied] = useState(false);
 
-
-       const { data } = useContext(LangContext);
-    const { theme } = useTheme();
+  const { data } = useContext(LangContext);
+  const { theme } = useTheme();
   const router = useRouter();
   const lang = router.query.lang;
-
 
   const items = [
     { id: 1, img: "/shared/whatsapp.png", title: "WhatsApp" },
@@ -28,72 +26,66 @@ export default function ShredPage({ showSharedPage, setShowSharedPage }: any) {
     { id: 5, img: "/shared/linkedin.png", title: "Linkedin" },
   ];
 
-   const handleCopyClick = async () => {
-     try {
-       const textToCopy = `https://rgb.irpsc.com/${router.query.lang}/citizen/${router.query.userId}`;
-       await navigator.clipboard.writeText(textToCopy);
+  const handleCopyClick = async () => {
+    try {
+      const textToCopy = `https://rgb.irpsc.com/${router.query.lang}/citizen/${router.query.userId}`;
+      await navigator.clipboard.writeText(textToCopy);
 
-       setCopied(true);
-       setTimeout(() => setCopied(false), 1000);
-     } catch (error) {
-       console.error("Error copying URL:", error);
-     }
-   };
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1000);
+    } catch (error) {
+      console.error("Error copying URL:", error);
+    }
+  };
 
-   const handleShare = (platform:any) => {
-     const urlToShare = `https://rgb.irpsc.com/${router.query.lang}/citizen/${router.query.userId}`;
-     let shareUrl = "";
+  const handleShare = (platform: any) => {
+    const urlToShare = `https://rgb.irpsc.com/${router.query.lang}/citizen/${router.query.userId}`;
+    let shareUrl = "";
 
-     switch (platform) {
-       case "WhatsApp":
-         shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(
-           urlToShare
-         )}`;
-         break;
-       case "Telegram":
-         shareUrl = `https://t.me/share/url?url=${encodeURIComponent(
-           urlToShare
-         )}`;
-         break;
-       case "Facebook":
-         shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-           urlToShare
-         )}`;
-         break;
-       case "Twitter":
-         shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(
-           urlToShare
-         )}&text=YourTextHere`;
-         break;
-       case "Linkedin":
-         shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-           urlToShare
-         )}`;
-         break;
-     }
+    switch (platform) {
+      case "WhatsApp":
+        shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(
+          urlToShare
+        )}`;
+        break;
+      case "Telegram":
+        shareUrl = `https://t.me/share/url?url=${encodeURIComponent(
+          urlToShare
+        )}`;
+        break;
+      case "Facebook":
+        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+          urlToShare
+        )}`;
+        break;
+      case "Twitter":
+        shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(
+          urlToShare
+        )}&text=YourTextHere`;
+        break;
+      case "Linkedin":
+        shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+          urlToShare
+        )}`;
+        break;
+    }
 
-     window.open(shareUrl, "_blank");
-   };
+    window.open(shareUrl, "_blank");
+  };
 
   const scrollContainer = useRef<HTMLDivElement>(null);
 
+  const scrollRight = () => {
+    if (scrollContainer.current) {
+      scrollContainer.current.scrollBy({ left: 100, behavior: "smooth" });
+    }
+  };
 
-
-const scrollRight = () => {
-  if (scrollContainer.current) {
-    scrollContainer.current.scrollBy({ left: 100, behavior: "smooth" });
-  }
-};
-
-  
-const scrollLeft = () => {
-  if (scrollContainer.current) {
-    scrollContainer.current.scrollBy({ left: -100, behavior: "smooth" });
-  }
-};
-
-
-   
+  const scrollLeft = () => {
+    if (scrollContainer.current) {
+      scrollContainer.current.scrollBy({ left: -100, behavior: "smooth" });
+    }
+  };
 
   return (
     <div className="absolute backdrop-blur-sm bg-blackTransparent/30 z-50 top-0 w-full h-screen ">
@@ -139,7 +131,7 @@ const scrollLeft = () => {
                 className=" overflow-x-auto overflow-y-clip no-scrollbar relative w-[80%]"
                 ref={scrollContainer}
               >
-                <div className=" mx-20  flex flex-row justify-center items-center xl:gap-8 lg:gap-4 md:gap-4 sm:gap-2 xs:gap-2 py-2 w-full">
+                <div className=" 3xl:mx-5 xl:mx-5 lg:mx-5 sm:mx-10 xs:mx-20 flex flex-row justify-center items-center xl:gap-8 lg:gap-4 md:gap-4 sm:gap-2 xs:gap-2 py-2 w-full">
                   {items.map((item: any) => (
                     <div
                       key={item.id}
@@ -175,7 +167,16 @@ const scrollLeft = () => {
                 <p className="py-2 text-[#000] dark:text-[#fff] font-azarMehr xl:text-[16px] lg:text-[16px] md:text-[10px] sm:text-[12px] xs:text-[12px] font-medium">{`https://rgb.irpsc.com/${router.query.lang}/citizen/${router.query.userId}`}</p>
               </div>
               {copied && (
-                <ReactTooltip id="unique-tooltip" place="bottom" isOpen={true}>
+                <ReactTooltip
+                  id="unique-tooltip"
+                  place="bottom"
+                  isOpen={true}
+                  style={{
+                    backgroundColor: "#737272",
+                    color: "#fff",
+                    fontWeight: "bold",
+                  }}
+                >
                   {router.query.lang === "fa" ? "کپی شد!" : "copied!"}
                 </ReactTooltip>
               )}

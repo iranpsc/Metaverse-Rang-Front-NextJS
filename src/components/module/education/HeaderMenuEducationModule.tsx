@@ -1,5 +1,4 @@
-import { LogoRgb,ArrowMenu } from "@/svgs/index";
-import { CLoseIcon, MenuIcon } from "@/svgs/index";
+import {  MenuIcon,LogoRgb,ArrowMenu  } from "@/svgs/index";
 export default function HeaderMenuEducationModule({
   isCollapsed,
   menuData,
@@ -28,8 +27,8 @@ export default function HeaderMenuEducationModule({
           <LogoRgb
             className={`${
               isCollapsed
-                ? "xl:w-[40px]  xl:h-[45px]"
-                : "xl:w-[80px]  xl:h-[55px]"
+                ? "xl:w-[40px] xl:h-[45px]"
+                : "xl:w-[80px] xl:h-[50px]"
             }  lg:w-[40px] lg:h-[35px] md:w-[30px] md:h-[30px] sm:w-[45px] sm:h-[45px] xs:w-[50px] xs:h-[50px] `}
           />
           {!isCollapsed ? (

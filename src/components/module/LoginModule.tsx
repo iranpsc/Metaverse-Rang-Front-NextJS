@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState,useEffect } from "react";
 import Link from "next/link";   
 import dynamic from "next/dynamic";
 import { Formik, Form, Field} from "formik";
@@ -29,6 +29,7 @@ export default function LoginModule({ setShowModule, setShowAuthCard}: any) {
 
 
 
+
   const [rememberMe, setRememberMe] = useState(false);
 
   const footerText = data.data.loginPageLang.find(
@@ -49,17 +50,6 @@ export default function LoginModule({ setShowModule, setShowAuthCard}: any) {
   const footerText5 = data.data.loginPageLang.find(
     (item: any) => item.name === "terms of service contract"
   ).translation;
-
- 
-
-  // const modifiedFooterTextEn = footerText.replace(
-  //   "terms of the service contract",
-  //   // `<span class="mx-1 text-[14px] font-azarMehr text-[#008BF8] cursor-pointer font-medium"> terms of the service contract</span>`
-  // );
-  // const modifiedFooterTextFa = footerText.replace(
-  //   "شرایط قرارداد خدمات",
-  //   // `<span class="mx-1 text-[14px] font-azarMehr text-[#008BF8] cursor-pointer font-medium">شرایط خدمات قرارداد</span>`
-  // );
 
   const handleCheckboxChange = (e: any) => {
     setRememberMe(e.target.checked);
@@ -94,7 +84,10 @@ export default function LoginModule({ setShowModule, setShowAuthCard}: any) {
                     ).translation
                   }
                   autoComplete="off"
-                  className={cssAuth(props, "email")}
+                  className={`${cssAuth(props, "email")} ${
+                    showErrorLoginAccess &&
+                    "border-error dark:border-error text-error"
+                  }`}
                   onChange={(e: any) => {
                     getEmailValue(e.target.value);
                     props.handleChange(e);
@@ -102,9 +95,11 @@ export default function LoginModule({ setShowModule, setShowAuthCard}: any) {
                 />
                 <ErrorMessageComponent fieldName="email" lang={lang} />
                 {showErrorLoginAccess !== "" ? (
-                  <span className="text-error font-azarMehr font-medium text-[10px] mt-2">
-                    {showErrorLoginAccess}
-                  </span>
+                  <>
+                    <span className="text-error font-azarMehr font-medium text-[10px] mt-2">
+                      {showErrorLoginAccess}
+                    </span>
+                  </>
                 ) : null}
               </div>
 
@@ -118,12 +113,15 @@ export default function LoginModule({ setShowModule, setShowAuthCard}: any) {
                         (item: any) => item.name === "password"
                       ).translation
                     }
-                    className={`${cssAuth(props, "password")}`}
+                    className={`${cssAuth(props, "password")} ${
+                      showErrorLoginAccess &&
+                      "border-error dark:border-error text-error"
+                    }`}
                   />
 
                   <span
                     className={`absolute  end-3  ${
-                      props.errors.password ? "top-[25%]" : "top-1/3"
+                      props.errors.password ? "top-[22%]" : "top-1/3"
                     }  cursor-pointer`}
                     onClick={() => setShowPassword(!showPassword)}
                   >
@@ -131,7 +129,7 @@ export default function LoginModule({ setShowModule, setShowAuthCard}: any) {
                       <EyeShow
                         className={` stroke-[2px] h-5 w-5
                        ${
-                         props.errors.password
+                         props.errors.password && props.touched.password
                            ? "stroke-[#ff0000] dark:stroke-[#E85300]"
                            : "stroke-[#DADADA] dark:stroke-[#5B5B5B]"
                        }
@@ -141,7 +139,7 @@ export default function LoginModule({ setShowModule, setShowAuthCard}: any) {
                       <EyeHidden
                         className={`stroke-[2px] h-5 w-5
                        ${
-                         props.errors.password
+                         props.errors.password && props.touched.password
                            ? "stroke-[#ff0000] dark:stroke-[#E85300]"
                            : "stroke-[#DADADA] dark:stroke-[#5B5B5B]"
                        }
@@ -152,11 +150,11 @@ export default function LoginModule({ setShowModule, setShowAuthCard}: any) {
                   <ErrorMessageComponent fieldName="password" lang={lang} />
                 </div>
 
-                {showErrorLoginAccess !== "" ? (
+                {/* {showErrorLoginAccess !== "" ? (
                   <span className="text-error font-azarMehr font-medium text-[9px] mt-10">
                     {showErrorLoginAccess}
                   </span>
-                ) : null}
+                ) : null} */}
               </div>
 
               <button className="bg-[#D7FBF0] text-[#18C08F] border-[#18C08F] dark:bg-[#004531] mt-2 border-[1px] w-full h-[50px] rounded-[5px] font-azarMehr font-normal">
@@ -214,7 +212,6 @@ export default function LoginModule({ setShowModule, setShowAuthCard}: any) {
           <p className="text-center px-1 pb-6 mt-6 w-full text-[#000000A1] dark:text-[#FFFFFFA1] font-azarMehr text-[14px] font-normal">
             {footerText}
             {footerText2}
-           
             <Link
               href="https://rgb.irpsc.com/terms"
               passHref={true}

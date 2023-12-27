@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 const ProfileGems=({profileData}:any)=>{
 
     return (
-      <div className=" w-full flex flex-col justify-center items-center 3xl:gap-10 xl:gap-5 md:gap-5 sm:gap-5 xs:gap-5">
+      <div className=" w-full  flex flex-col justify-start items-center 3xl:gap-10 xl:gap-0 md:gap-5 sm:gap-5 xs:gap-5">
         <hr className="h-[2px] w-[95%]  bg-gradient-to-r from-[#DADADA00] via-[#b3b3b3] to-[#DADADA00] text-lightGray " />
         {profileData && profileData.current_level && (
           <motion.div

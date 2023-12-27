@@ -12,8 +12,8 @@ const yourElementRef = useRef(null);
   const percent = (numberScore / 100) * 100;
 
   return (
-    <div className="flex flex-col justify-start items-center w-[98%] mt-2 3xl:gap-7 xl:gap-4 lg:gap-4 md:gap-10 sm:gap-5 xs:gap-5">
-      <div className="flex flex-row justify-between w-full items-center 3xl:mt-6 xl:mt-6 md:mt-6 sm:mt-6 xs:mt-2 xl:py-0 lg:py-0 md:py-0">
+    <div className="flex flex-col justify-start items-center w-[98%] mt-2 3xl:gap-10 xl:gap-6  lg:gap-4 md:gap-10 sm:gap-5 xs:gap-5">
+      <div className="flex flex-row justify-between w-full items-center 3xl:mt-6 xl:mt-0 md:mt-6 sm:mt-6 xs:mt-2 xl:py-0 lg:py-0 md:py-0">
         <p className="font-azarMehr  font-bold xl:text-xlUser 3xl:text-xl3User lg:text-lgUser  md:text-mdUser sm:text-smUser xs:text-smUser">
           {targetData(data.data.selectedProfileData, "citizenship id")}
         </p>

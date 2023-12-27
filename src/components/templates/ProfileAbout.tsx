@@ -5,7 +5,7 @@ import { LangContext } from "@/context/LangContext";
 import { targetData } from "@/utils/targetDataName";
 import { motion } from "framer-motion";
 
-export default function ProfileAbout({ setShowModal, setDataModal }: any) {
+export default function ProfileAbout({ setShowModal, setDataModal,titleData }: any) {
   const { data, profileData } = useContext(LangContext);
 
   const router = useRouter();
@@ -71,7 +71,7 @@ export default function ProfileAbout({ setShowModal, setDataModal }: any) {
               src="/profile/alizadeh.png"
               width={1000}
               height={1000}
-              alt={profileData?.code}
+              alt={titleData}
               className="3xl:w-[180px] xl:w-[130px] lg:w-[120px] md:w-[170px] sm:w-[150px] xs:w-[140px]"
             />
           </motion.div>
@@ -88,8 +88,8 @@ export default function ProfileAbout({ setShowModal, setDataModal }: any) {
               src="/profile/position.png"
               width={1000}
               height={1000}
-              alt={profileData?.code}
-              className="3xl:w-[180px] xl:w-[150px] lg:w-[120px] md:w-[170px] sm:w-[150px] xs:w-[140px]"
+             alt={titleData}
+              className="3xl:w-[180px] xl:w-[150px] lg:w-[120px] md:w-[170px] sm:w-[140px] xs:w-[130px]"
             />
           </motion.div>
         )}
