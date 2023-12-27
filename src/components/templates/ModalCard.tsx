@@ -62,7 +62,7 @@ export default function ModalCard({
             </div>
 
             {dataModal.type === "favorites" ? (
-              <div className=" relative px-5 mt-20">
+              <div className=" relative px-5 mt-10">
                 <div
                   className="rounded-full cursor-pointer 3xl:w-[50px] 3xl:h-[10px] xl:w-[50px] xl:h-[50px] lg:w-[50px] lg:h-[50px] md:w-[50px] md:h-[50px] sm:w-[40px] sm:h-[40px] xs:w-[40px] xs:h-[40px] absolute right-1 top-[20%]  z-50 flex justify-center items-center"
                   onClick={scrollRight}
@@ -82,16 +82,19 @@ export default function ModalCard({
                   className="  overflow-y-clip overflow-x-auto no-scrollbar relative w-full"
                   ref={scrollContainer}
                 >
-                  <div className="  flex  flex-row justify-center gap-5 items-center  w-max">
+                  <div className="  grid grid-cols-5 justify-center gap-x-1 gap-y-10 items-center  w-max">
                     {Object.keys(dataModal.desc).map(
                       (item: any, index: any) => (
                         <div
                           key={item.id}
-                          className="flex flex-col gap-3 justify-center items-center di"
+                          className=" col-span-1 flex flex-col gap-3 justify-center items-center di"
                         >
                           <Image
                             src={dataModal.desc[item]}
-                            alt="{item.img}"
+                            alt={translateFavorites(
+                              data.data.selectedProfileData,
+                              item
+                            )}
                             width={1000}
                             height={1000}
                             className="w-[75px] h-[50px] mx-10 "
