@@ -46,7 +46,7 @@ export default function ProfileTopMobile({ profileName, titleData,nameUser }: an
               alt={titleData}
               className="  inline-block rounded-full p-1 3xl:w-14 3xl:h-14 xl:w-14 xl:h-14 lg:w-12 lg:h-12 md:w-16 md:h-16 sm:w-12 sm:h-12 xs:w-12 xs:h-12 object-cover"
             />
-            <p className="sm:bottom-[-25px] xs:bottom-[-25px] sm:start-1 xs:start-1 rounded-sm bg-white dark:bg-dark-background  w-max p-1 sm:scale-100 xs:scale-100  text-xs  text-black dark:text-white group-hover:scale-100 break-all  inline-block xl:mx-1 lg:mx-1 md:mx-0  font-medium font-azarMehr 3xl:text-xl3Title  xl:text-xlTitle lg:text-lgTitle md:text-mdTitle sm:text-smDesc xs:text-smDesc text-start">
+            <p className="sm:bottom-[-25px] xs:bottom-[-25px] sm:start-1 xs:start-1 rounded-sm  w-max p-1 sm:scale-100 xs:scale-100  text-xs  text-black dark:text-white group-hover:scale-100 break-all  inline-block xl:mx-1 lg:mx-1 md:mx-0  font-medium font-azarMehr 3xl:text-xl3Title  xl:text-xlTitle lg:text-lgTitle md:text-mdTitle sm:text-smDesc xs:text-smDesc text-start">
               {nameUser}
             </p>
           </div>

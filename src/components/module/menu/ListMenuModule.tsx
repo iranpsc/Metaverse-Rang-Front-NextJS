@@ -164,7 +164,7 @@ const submitLang = (name:string)=>{
                           <div className=" w-10">
                             {languageSelected.name === item.name && <></>}
                           </div>
-                          <div className="flex flex-row gap-2 justify-end  items-center w-full ">
+                          <div className="flex flex-row gap-2 justify-start  items-center w-full ">
                             <Image
                               src={item.icon}
                               alt=""

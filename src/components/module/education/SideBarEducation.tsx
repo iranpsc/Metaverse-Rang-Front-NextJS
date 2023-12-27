@@ -170,7 +170,7 @@ export default function SideBarEducation({
         `}
           onClick={toggleCollapseHandler}
         >
-          <div className="sticky w-full top-0 pt-4 z-50 bg-white dark:bg-dark-background">
+          <div className="sticky w-full top-0 pt-4 z-50 bg-white dark:bg-dark-background transition-all duration-300 ease-linear">
             <HeaderMenuEducationModule
               isCollapsed={isCollapsed}
               menuData={headerData}
