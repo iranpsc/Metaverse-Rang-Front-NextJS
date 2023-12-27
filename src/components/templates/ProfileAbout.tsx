@@ -34,7 +34,7 @@ export default function ProfileAbout({ setShowModal, setDataModal,titleData }: a
           {targetData(data.data.selectedProfileData, "about me")}
         </h1>
         {profileData?.customs?.about && (
-          <p className="font-azarMehr  text-justify 3xl:text-xl3Title lg:text-lgTitle  md:text-mdTitle xl:leading-[30px] sm:text-smDesc xs:text-smDesc truncate[20px] lg:leading-[20px] md:leading-[35px] xs:leading-[30px] sm:leading-[30px] mx-1 font-medium text-[5px] xl:text-[16px]  text-gray  dark:text-dark-gray">
+          <p className="font-azarMehr  text-justify 3xl:text-xl3Title xl:text-xlTitle lg:text-lgTitle  md:text-mdTitle xl:leading-[30px] sm:text-smDesc xs:text-smDesc truncate[20px] lg:leading-[20px] md:leading-[35px] xs:leading-[30px] sm:leading-[30px] mx-1 font-medium text-[5px]  text-gray  dark:text-dark-gray">
             {profileData?.customs?.about.slice(0, 210)}
 
             {profileData?.customs?.about.length > 150 && (
