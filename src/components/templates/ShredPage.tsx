@@ -128,10 +128,10 @@ export default function ShredPage({ showSharedPage, setShowSharedPage }: any) {
               </div>
 
               <div
-                className=" overflow-x-auto overflow-y-clip no-scrollbar relative w-[80%]"
+                className=" overflow-x-auto  overflow-y-clip no-scrollbar relative w-[90%]"
                 ref={scrollContainer}
               >
-                <div className=" 3xl:mx-5 xl:mx-5 lg:mx-5 sm:mx-10 xs:mx-20 flex flex-row justify-center items-center xl:gap-8 lg:gap-4 md:gap-4 sm:gap-2 xs:gap-2 py-2 w-full">
+                <div className=" 3xl:mx-5 xl:mx-1 lg:mx-5 sm:mx-10 xs:mx-20  flex flex-row justify-center items-center xl:gap-8 lg:gap-4 md:gap-4 sm:gap-2 xs:gap-2 py-2 w-full">
                   {items.map((item: any) => (
                     <div
                       key={item.id}
