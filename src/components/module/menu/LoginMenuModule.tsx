@@ -84,7 +84,7 @@ export default function LoginMenuModule({
               </p>
             </Link>
             <hr className=" text-white dark:text-[#2D2D2A38]" />
-            <Link href="https://rgb.irpsc.com/metaverse/">
+            <Link href="https://rgb.irpsc.com/metaverse/" target="_blank">
               <p className="text-white dark:text-black text-[14px]  hover:text-[15px] font-azarMehr font-normal  cursor-pointer">
                 {menuData[2] && menuData[2].translation}
               </p>
