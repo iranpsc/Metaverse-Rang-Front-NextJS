@@ -44,7 +44,7 @@ export default function ProfileImages({ profileData, profileName, titleData }: a
         height={100}
         alt={titleData}
         className={`cursor-pointer border-2  border-[#b1b1b1] dark:border-[#fff] inline-block rounded-full 
-        ${imgProfiles[i]?.url == mainImageUrl?"3xl:w-[70px] 3xl:h-[70px] xl:w-14 xl:h-14 lg:w-12 lg:h-12 md:w-20 md:h-20 sm:w-18 sm:h-16 xs:w-[70px] xs:h-[70px]":"3xl:w-[60px] 3xl:h-[60px] xl:w-12 xl:h-12 lg:w-10 lg:h-10 md:w-16 md:h-16 sm:w-16 sm:h-16 xs:w-16 xs:h-16"}
+        ${imgProfiles[i]?.url == mainImageUrl?"3xl:w-[70px] 3xl:h-[70px] xl:w-14 xl:h-14 lg:w-12 lg:h-12 md:w-20 md:h-20 sm:w-18 sm:h-16 xs:w-[70px] xs:h-[70px]":"3xl:w-[60px] 3xl:h-[60px] xl:w-12 xl:h-12 lg:w-9 lg:h-9 md:w-16 md:h-16 sm:w-16 sm:h-16 xs:w-16 xs:h-16"}
         
         `}
         key={i}
@@ -60,7 +60,7 @@ export default function ProfileImages({ profileData, profileName, titleData }: a
         width={100}
         height={100}
         alt={titleData}
-        className="  inline-block rounded-full 3xl:w-12 3xl:h-12 xl:w-11 xl:h-11 lg:w-10 lg:h-10 md:w-14 md:h-14 sm:w-16 sm:h-16 xs:w-16 xs:h-16 "
+        className="  inline-block rounded-full 3xl:w-12 3xl:h-12 xl:w-11 xl:h-11 lg:w-9 lg:h-9 md:w-14 md:h-14 sm:w-16 sm:h-16 xs:w-16 xs:h-16 "
         key={images.length}
       />
     );
@@ -68,7 +68,7 @@ export default function ProfileImages({ profileData, profileName, titleData }: a
 
   return (
     <>
-      <section className="dark:bg-dark-background shadow-md  3xl:h-[400px] xl:h-[300px] lg:h-full md:h-screen relative bg-white transition-all duration-300 ease-linear  rounded-[10px] flex xl:flex-row lg:flex-row md:flex-col sm:flex-col xs:flex-col md:gap-7">
+      <section className="dark:bg-dark-background shadow-md  3xl:h-[400px] xl:h-[300px] lg:h-[230px] md:h-screen relative bg-white transition-all duration-300 ease-linear  rounded-[10px] flex xl:flex-row lg:flex-row md:flex-col sm:flex-col xs:flex-col md:gap-7">
         <div className=" dark:bg-dark-background bg-white  flex justify-center basis-[80%] items-center rounded-[10px] ">
           <Image
             src={mainImageUrl || "/temp.png"}
@@ -94,7 +94,7 @@ export default function ProfileImages({ profileData, profileName, titleData }: a
               delayChildren: 0.9,
               staggerChildren: 0.6,
             }}
-            className=" pt-3 h-full flex flex-col xl:flex-col lg:flex-col md:flex-row sm:flex-row xs:flex-row w-full 3xl:gap-4 xl:gap-2 lg:gap-2 md:gap-3 sm:gap-5 xs:gap-2  justify-center items-center md:pb-3 sm:pb-3 xs:pb-3"
+            className=" pt-3 h-full flex flex-col xl:flex-col lg:flex-col md:flex-row sm:flex-row xs:flex-row w-full 3xl:gap-4 xl:gap-2 lg:gap-1 md:gap-3 sm:gap-5 xs:gap-2  justify-center items-center md:pb-3 sm:pb-3 xs:pb-3"
           >
             {images}
           </motion.div>

@@ -26,7 +26,7 @@ export default function Profile({ profileData, titleData, setShowSharedPage, nam
   const percent = (numberScore / 100) * 100;
 
   return (
-    <div className="flex flex-col justify-start gap-[6px] 3xl:h-screen xl:h-screen  lg:h-screen md:h-[1300px] sm:h-fit xs:h-fit w-full">
+    <div className="flex flex-col justify-start 3xl:gap-[12px]  xl:gap-[6px] lg:gap-[4px] 3xl:h-screen xl:h-screen  lg:h-screen md:h-[1300px] sm:h-fit xs:h-fit w-full">
       <ProfileHeaderMobile
         menuData={data}
         profileData={profileData}
