@@ -26,7 +26,7 @@ const ProfileGems=({profileData}:any)=>{
                   width={100}
                   height={100}
                   alt={profileData?.code}
-                  className="inline-block shadow cursor-pointer transition-transform duration-500 ease-in-out hover:-translate-y-1
+                  className="inline-block  cursor-pointer transition-transform duration-500 ease-in-out hover:-translate-y-1
                 3xl:w-24 3xl:h-24
                   xl:w-14 xl:h-14
                 lg:w-14 
@@ -46,7 +46,7 @@ const ProfileGems=({profileData}:any)=>{
                   width={200}
                   height={200}
                   alt={profileData?.code}
-                  className=" inline-block shadow  cursor-pointer  transition-transform duration-500 ease-in-out hover:-translate-y-1
+                  className=" inline-block cursor-pointer  transition-transform duration-500 ease-in-out hover:-translate-y-1
                   3xl:w-24 3xl:h-24
                   xl:w-14 xl:h-14
                 lg:w-14 
