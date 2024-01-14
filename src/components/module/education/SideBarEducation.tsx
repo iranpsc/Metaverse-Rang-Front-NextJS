@@ -83,8 +83,7 @@ export default function SideBarEducation({
                 ?.filteredItemsEducation
             );
             setLoginData(
-              sidebarFilteredData(res.data.modals, pageName)
-                ?.filteredLoginEducation
+              sidebarFilteredData(res.data.modals, "citizen")?.filteredLogin
             );
             setHeaderData(
               sidebarFilteredData(res.data.modals, pageName)
@@ -179,6 +178,7 @@ export default function SideBarEducation({
           </div>
           {/* <MenuProfileModule/> */}
           <ListMenuModule
+            pageName={pageName}
             isCollapsed={isCollapsed}
             menuData={data}
             setActiveItem={SetActiveItem}

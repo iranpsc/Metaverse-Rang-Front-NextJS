@@ -42,7 +42,8 @@ export default function LoginMenuModule({
 
   useEffect(() => {
     if (isCollapsed) setShowFullModal(false);
-  }, [isCollapsed]);
+   
+  }, [isCollapsed,code]);
 
   const logout = () => {
     setShowLogOut(true)

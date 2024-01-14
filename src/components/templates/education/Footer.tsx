@@ -2,136 +2,354 @@ import { useState, useEffect, useContext } from "react";
 import { LangContext } from "@/context/LangContext";
 import Image from "next/image";
 import axios from "axios";
+import { Tooltip as ReactTooltip } from "react-tooltip";
+import { translateFooter } from "@/components/utils/education";
+import Link from "next/link";
 
-export default function Footer() {
-    const { languageSelected } = useContext(LangContext);
+
+export default function Footer({ footerTabs }: any) {
+  const { languageSelected } = useContext(LangContext);
+ 
   interface ItemIcon {
+    id:number;
     img: string;
+    translation:string
+    target:string
   }
-  const item: ItemIcon[] = [
-    { img: "/footer/supply.png" },
-    { img: "/footer/target.png" },
-    { img: "/footer/tenders-soon.png" },
-    { img: "/footer/tenders.png" },
-    { img: "/footer/tour-soon.png" },
-    { img: "/footer/tour.png" },
-    { img: "/footer/vezarat.png" },
-    { img: "/footer/video.png" },
-    { img: "/footer/waste-soon2.png" },
-    { img: "/footer/waste3.png" },
-    { img: "/footer/work-soon1.png" },
-    { img: "/footer/waste.png" },
-    { img: "/footer/work-soon.png" },
-    { img: "/footer/waste-soon1.png" },
-    { img: "/footer/work3.png" },
-    { img: "/footer/waste-soon.png" },
-    { img: "/footer/work.png" },
+  const imageSources: any = [
+    {
+      url: "https://irpsc.com/img-icon/vezarat.png",
+      target: "#",
+      translate: "ministry of cooperation license",
+    },
+    {
+      url: "https://irpsc.com/img-icon/enamad.png",
+      target: "#",
+      translate: "enamad",
+    },
+    {
+      url: "https://irpsc.com/img-icon/qazaii.png",
+      target: "#",
+      translate: "judiciary authority license",
+    },
+    {
+      url: "https://irpsc.com/img-icon/video.png",
+      target: "https://video.irpsc.com/",
+      translate: "video training center",
+    },
+    {
+      url: "https://irpsc.com/img-icon/faq.png",
+      target: "https://faq.irpsc.com/",
+      translate: "q&q forum",
+    },
+    {
+      url: "https://irpsc.com/img-icon/shop.png",
+      target: "https://shop.irpsc.com/",
+      translate: "national store",
+    },
+    {
+      url: "https://irpsc.com/img-icon/supply.png",
+      target: "https://supply.irpsc.com/",
+      translate: "iranian producers",
+    },
+    {
+      url: "https://irpsc.com/img-icon/crm.png",
+      target: "https://crm.irpsc.com/",
+      translate: "management system for managers",
+    },
+
+    {
+      url: "https://irpsc.com/img-icon/target.png",
+      target: "https://target.irpsc.com/",
+      translate: "hm",
+    },
+    {
+      url: "https://irpsc.com/img-icon/animal.png",
+      target: "https://animal.irpsc.com/",
+      translate: "animal system",
+    },
+    {
+      url: "https://irpsc.com/img-icon/irpsc.png",
+      target: "https://irpsc.com/",
+      translate: "national media",
+    },
+    {
+      url: "https://irpsc.com/img-icon/meta.png",
+      target: "https://meta.irpsc.com/",
+      translate: "meta news",
+    },
+    {
+      url: "https://irpsc.com/img-icon/uni.png",
+      target: "https://uni.irpsc.com/",
+      translate: "metaverse university",
+    },
+    {
+      url: "https://irpsc.com/img-icon/knowledge.png",
+      target: "https://crm.irpsc.com/knowledgebase",
+      translate: "knowledge-centric system",
+    },
+    {
+      url: "https://irpsc.com/img-icon/sale.png",
+      target: "https://sale.irpsc.com",
+      translate: "online store hm",
+    },
+    {
+      url: "https://irpsc.com/img-icon/ad.png",
+      target: "https://ad.irpsc.com/",
+      translate: "national advertising",
+    },
+    {
+      url: "https://irpsc.com/img-icon/nft.png",
+      target: "https://nft.irpsc.com/",
+      translate: "nft marketplace",
+    },
+    {
+      url: "https://irpsc.com/img-icon/rgb.png",
+      target: "https://rgb.irpsc.com/",
+      translate: "metaverse color",
+    },
+    {
+      url: "https://irpsc.com/img-icon/map.png",
+      target: "https://map.irpsc.com/",
+      translate: "national map",
+    },
+    {
+      url: "https://irpsc.com/img-icon/home-soon.png",
+      target: "https://home.irpsc.com/",
+      translate: "real estate and properties",
+    },
   ];
 
   const socialItems: ItemIcon[] = [
-    { img: "/social/printers.png" },
-    { img: "/social/linkedin.png" },
-    { img: "/social/instagram.png" },
-    { img: "/social/feed.png" },
-    { img: "/social/facebook.png" },
-    { img: "/social/virgool.png" },
-    { img: "/social/telegram.png" },
-    { img: "/social/rubika.png" },
-    { img: "/social/youtube.png" },
-    { img: "/social/whatsapp.png" },
-    { img: "/social/faq.png" },
-    { img: "/social/discord.png" },
-    { img: "/social/dalfak.png" },
-    { img: "/social/aparat.png" },
-    { img: "/social/add.png" },
-    { img: "/social/namasha.png" },
-    { img: "/social/mp4.png" },
-    { img: "/social/medium.png" },
-    { img: "/social/jabeh.png" },
-    { img: "/social/filo.png" },
+    {
+      id: 1,
+      img: "/social/facebook.png",
+      translation: translateFooter(footerTabs, "facebook"),
+      target: translateFooter(footerTabs, "facebook-url"),
+    },
+    {
+      id: 2,
+      img: "/social/feed.png",
+      translation: translateFooter(footerTabs, "feed"),
+      target: translateFooter(footerTabs, "fedd-url"),
+    },
+    {
+      id: 3,
+      img: "/social/instagram.png",
+      translation: translateFooter(footerTabs, "instagram"),
+      target: translateFooter(footerTabs, "instagram-url"),
+    },
+    {
+      id: 4,
+      img: "/social/linkedin.png",
+      translation: translateFooter(footerTabs, "linkedin"),
+      target: translateFooter(footerTabs, "linkedin-url"),
+    },
+    {
+      id: 5,
+      img: "/social/printers.png",
+      translation: translateFooter(footerTabs, "pinterest"),
+      target: translateFooter(footerTabs, "pinterest-url"),
+    },
+    {
+      id: 6,
+      img: "/social/whatsapp.png",
+      translation: translateFooter(footerTabs, "whatsapp"),
+      target: translateFooter(footerTabs, "whatsapp-url"),
+    },
+    {
+      id: 7,
+      img: "/social/youtube.png",
+      translation: translateFooter(footerTabs, "youtube"),
+      target: translateFooter(footerTabs, "youtube-url"),
+    },
+    {
+      id: 8,
+      img: "/social/rubika.png",
+      translation: translateFooter(footerTabs, "rubika"),
+      target: translateFooter(footerTabs, "rubika-url"),
+    },
+    {
+      id: 9,
+      img: "/social/telegram.png",
+      translation: translateFooter(footerTabs, "telegram"),
+      target: translateFooter(footerTabs, "telegram-url"),
+    },
+    {
+      id: 10,
+      img: "/social/virgool.png",
+      translation: translateFooter(footerTabs, "virgool"),
+      target: translateFooter(footerTabs, "virgool-url"),
+    },
+    {
+      id: 11,
+      img: "/social/add.png",
+      translation: translateFooter(footerTabs, "add"),
+      target: translateFooter(footerTabs, "add-url"),
+    },
+    {
+      id: 12,
+      img: "/social/aparat.png",
+      translation: translateFooter(footerTabs, "aparat"),
+      target: translateFooter(footerTabs, "aparat-url"),
+    },
+    {
+      id: 13,
+      img: "/social/dalfak.png",
+      translation: translateFooter(footerTabs, "dalfak"),
+      target: translateFooter(footerTabs, "dalfak-url"),
+    },
+    {
+      id: 14,
+      img: "/social/discord.png",
+      translation: translateFooter(footerTabs, "discord"),
+      target: translateFooter(footerTabs, "discord-url"),
+    },
+
+    {
+      id: 15,
+      img: "/social/faq.png",
+      translation: translateFooter(footerTabs, "faq"),
+      target: translateFooter(footerTabs, "faq-url"),
+    },
+    {
+      id: 16,
+      img: "/social/filo.png",
+      translation: translateFooter(footerTabs, "filo"),
+      target: translateFooter(footerTabs, "filo-url"),
+    },
+    {
+      id: 17,
+      img: "/social/jabeh.png",
+      translation: translateFooter(footerTabs, "jabeh"),
+      target: translateFooter(footerTabs, "jabeh-url"),
+    },
+    {
+      id: 18,
+      img: "/social/medium.png",
+      translation: translateFooter(footerTabs, "medium"),
+      target: translateFooter(footerTabs, "medium-url"),
+    },
+    {
+      id: 19,
+      img: "/social/mp4.png",
+      translation: translateFooter(footerTabs, "mp4"),
+      target: translateFooter(footerTabs, "mp4-url"),
+    },
+    {
+      id: 20,
+      img: "/social/namasha.png",
+      translation: translateFooter(footerTabs, "namasha"),
+      target: translateFooter(footerTabs, "namasha-url"),
+    },
+
+   
+  
   ];
 
-     useEffect(() => {
-       const fetchData = async () => {
-         try {
-           const res = await axios.get(`${languageSelected.file_url}`);
-
-           const modalsProfile = res.data.modals.find(
-             (modal: any) => modal.name === "footer-menu"
-           ).tabs;
-
-           const tabsMenu = modalsProfile.find(
-             (item: any) => item.name === "our-systems"
-           );
-
-         
-
- ;
-   
-         } catch (err) {}
-       };
-       fetchData();
-     }, [languageSelected.id]);
-   
+ 
 
   return (
     <>
-      <div className="h-fit  w-[96%] mt-[200px] flex flex-wrap gap-[15px] rounded-[10px] p-3 items-center justify-center bg-white dark:bg-[#1A1A18]">
-        {item.map((item: ItemIcon, i: number) => (
+      <div className="h-fit  w-[96%] mt-[200px] flex flex-wrap gap-[8px] rounded-[10px] p-3 items-center justify-center bg-white dark:bg-[#1A1A18]">
+        {imageSources.map((item: any, i: number) => (
           <div key={i}>
-            <Image
-              src={item.img}
-              alt="rgb"
-              width={1000}
-              height={1000}
-              className="w-[63px] h-[63px]"
+            <Link href={item.target} target="_blank">
+              <Image
+                data-tooltip-id={item.url}
+                src={item.url}
+                loading="lazy"
+              alt={item.translate}
+                width={1000}
+                height={1000}
+                className="w-[60px] h-[60px] cursor-pointer"
+              />
+            </Link>
+            <ReactTooltip
+              id={item.url}
+              place="top"
+              content={
+                (
+                  footerTabs.find(
+                    (itemData: any) => itemData.name === item.translate
+                  ) || {}
+                ).translation || "undefined"
+              }
             />
           </div>
         ))}
       </div>
       <div className="h-fit pb-5 mt-20 rounded-[10px] w-[96%] bg-white dark:bg-[#1A1A18] grid grid-cols-6">
         <div className="col-span-6  xl:col-span-4 mt-2 ">
-          <div className="w-full h-[82px] mt-4 ms-6 flex flex-row justify-start items-center gap-5">
+          <div className="w-full h-[82px] mt-4 ms-6 flex flex-row justify-start items-center gap-5 ">
             <Image
               src="/logo.png"
               alt="logo"
               width={1000}
               height={1000}
-              className="w-[60px] h-[60px] inline bg-balck"
+              className="w-[60px] h-[60px] inline "
             />
-            <h1 className="text-[22px]  font-bold text-[#4C4C4C] dark:text-white">
-              متاورس ملی
-              <div className="h-3"></div>
-              رهبری جهانی در دنیای موازی
-            </h1>
+            <div className="flex flex-col h-[60px]  justify-between items-start">
+
+            <h1 className="text-[22px] mt-[-5px] font-bold font-azarMehr text-[#4C4C4C] dark:text-white">
+              {(
+                footerTabs.find(
+                  (item: any) => item.name == "national metaverse"
+                ) || {}
+              ).translation || "undefined"}
+                </h1>
+              <h2 className="mb-[-3px] font-azarMehr font-normal">             
+              {(
+                footerTabs.find(
+                  (item: any) =>
+                  item.name == "global leadership in a parallel world"
+                  ) || {}
+                  ).translation || "undefined"}
+              </h2>
+                  </div>
           </div>
-          <p className="ms-6 mt-6 font-normal text-[#4C4C4C] dark:text-[#D4D4D4] text-[20px] leading-9">
-            متاورس ملی، یک پروژه بزرگ و پیشرو در دنیای موازی متاورس رنگ است که
-            توسط شرکت تعاونی زنجیره تامین بهشت به اجرا درآمده است. این پروژه، به
-            واقعیت جدیدی در دنیای موازی و مجازی دست یافته و امکاناتی شگفت‌انگیز
-            را به مردمان سرتاسر جهان ارائه می‌دهد تا تجربه‌هایی منحصر به فرد و
-            جذاب را تجربه نمایند. <br />
-            تعاونی زنجیره تامین بهشت، به عنوان بانی اصلی این پروژه، با استفاده
-            از تکنولوژی‌های پیشرفته و بهره‌گیری از مفهوم متاورس، به ایجاد یک
-            جوامع مجازی جهانی ارتقا داده است. این پروژه امکان بهره وری از
-            فناوریIoT، تجربه‌ی محیط سه بعدی واقعیت مجازی، و تعاملات بی‌پایان را
-            در اختیار مردم قرار می‌دهد.
+          <p className="ms-6 mt-6 font-normal font-azarMehr text-[#4C4C4C] dark:text-[#D4D4D4] text-[20px] leading-9">
+            {(
+              footerTabs.find(
+                (item: any) => item.name == "footer description1"
+              ) || {}
+            ).translation || "undefined"}{" "}
+            <br />
+            {(
+              footerTabs.find(
+                (item: any) => item.name == "footer description2"
+              ) || {}
+            ).translation || "undefined"}
           </p>
         </div>
-        <div className="xl:col-span-2 col-span-6 mt-6 w-full ">
-          <p className="text-center w-full font-medium text-[20px] text-[#4C4C4C] dark:text-white">
-            به شبکه های ما ملحق شوید.
+        <div className="xl:col-span-2 col-span-6 mt-6 w-full flex flex-col items-center">
+          <p className="text-center w-full font-medium font-azarMehr text-[20px] text-[#4C4C4C] dark:text-white">
+            {(
+              footerTabs.find(
+                (item: any) => item.name == "join our networks"
+              ) || {}
+            ).translation || "undefined"}
           </p>
-          <div className="flex flex-wrap gap-x-[18px] gap-y-3 justify-center me-3 mt-6 ">
-            {socialItems.map((item: ItemIcon, i: number) => (
-              <Image
-                key={i}
-                src={item.img}
-                alt="rgb"
-                width={1000}
-                height={1000}
-                className="w-[63px] h-[60px] col-span-1"
-              />
+          <div className="xl:grid xl:grid-cols-5 3xl:grid-cols-7  flex flex-wrap gap-3 max-w-fit lg:w-full  justify-center   mt-6 ">
+            {socialItems.map((item: ItemIcon) => (
+              <div key={item.id}>
+                <Link  href={item.target} target="_blank">
+                  <Image
+                    data-tooltip-id={`${item.id}`}
+                    key={item.id}
+                    src={item.img}
+                    alt={item.translation}
+                    width={1000}
+                    height={1000}
+                    className="w-[63px] h-[60px] col-span-1"
+                  />
+                </Link>
+                <ReactTooltip
+                  id={`${item.id}`}
+                  place="top"
+                  content={item.translation}
+                />
+              </div>
             ))}
           </div>
         </div>

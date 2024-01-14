@@ -1,112 +1,87 @@
 import { useContext } from "react";
-
+import Atropos from "atropos/react";
 import { LangContext } from "@/context/LangContext";
 import Image from "next/image";
 import { Arrow, Like, Text } from "@/components/svgs";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 export default function TopTrainers() {
         const { languageSelected } = useContext(LangContext);
+          const router = useRouter();
+          const itemsTrainers = [
+            {
+              id: 1,
+              name: "مرضیه ثاقب علیزاده",
+              img: "/profile/marziyeh-alizadeh.jpg",
+              code: "HM-2000003",
+              likes: "  1.3k",
+            },
+            {
+              id: 2,
+              name: "حسین قدیری",
+              img: "/profile/hossein-ghadiri.jpg",
+              code: "HM-2000001",
+              likes: "820",
+            },
+          ];
   return (
     <>
-      <div className="w-full h-[500px] mt-20 flex flex-col justify-center items-center">
-        <h1 className="w-full text-[24px] flex flex-col  font-bold text-[#414040] ps-10 pb-10">
+      <div className="w-full h-fit mt-20 flex flex-col justify-center items-center">
+        <h1 className="w-full text-[24px] flex flex-col  font-bold text-gray dark:text-dark-gray ps-10 pb-10">
           مربیان برتر
         </h1>
 
-        <div className="relative w-[95%] h-[400px] mt-20 flex flex-row gap-5 items-center justify-evenly">
-          <div className="w-[300px] h-full cursor-pointer shadow-xl hover:shadow-2xl bg-white dark:bg-[#1A1A18] flex flex-col justify-evenly pt-[70px]  items-center rounded-[20px]">
-            <Image
-              src="/profile/prof.png"
-              alt="profile"
-              width={1000}
-              height={1000}
-              className="w-[150px] h-[150px] absolute top-[-75px] shadow-md hover:top-[-88px] transition-all duration-300 shadow-gray rounded-full"
-            />
-            <h3 className="font-bold text-[20px]">مهدی قربانزاده</h3>
-            <span className="text-[#0066FF] font-medium">hm-20003</span>
+        <div className=" relative w-full min-h-[550px] pb-10 flex flex-wrap gap-5 items-center justify-center">
+          {itemsTrainers.map((item: any) => (
+            <Atropos shadow={false} key={item.id}>
+              <div className=" w-[300px] h-[400px]  mt-24 relative cursor-pointer  bg-white dark:bg-[#1A1A18] flex flex-col justify-evenly pt-[70px]  items-center rounded-[20px]">
+                <Image
+                  src={item.img}
+                  alt="profile"
+                  width={1000}
+                  height={1000}
+                  className="  w-[75px] h-[75px] md:w-[150px] md:h-[150px] sm:w-[120px] sm:h-[120px] xs:w-[100px] xs:h-[100px] absolute  top-[-75px] z-[999]  shadow-md hover:top-[-88px] transition-all duration-300 shadow-gray rounded-full"
+                />
+                <h3
+                  data-atropos-offset="-5"
+                  className="font-bold text-[20px]  font-azarMehr "
+                >
+                  {item.name}
+                </h3>
 
-            <span>
-              125
-              <Like className="inline ms-2" />
-            </span>
+                <Link
+                  href={`https://rgb.irpsc.com/${router.query.lang}/citizen/hm-2000003`}
+                  target="_blank"
+                >
+                  <span
+                    data-atropos-offset="-1"
+                    className="text-blueLink font-medium  font-azarMehr hover:font-bold"
+                  >
+                    {item.code}
+                  </span>
+                </Link>
 
-            <div className="w-[90%] h-[55px] bg-[#426dae] dark:bg-[#000000] px-2 rounded-[10px] flex flex-row justify-between items-center">
-              <span className="text-[#ffffff] font-medium text-[14px]">
-                رزمه مدرس
-              </span>
-              <Text className="w-[24px] h-[24px] stroke-white" />
-            </div>
-          </div>
-          <div className="w-[300px] h-full cursor-pointer shadow-xl hover:shadow-2xl bg-white dark:bg-[#1A1A18] flex flex-col justify-evenly pt-[70px]  items-center rounded-[20px]">
-            <Image
-              src="/profile/prof.png"
-              alt="profile"
-              width={1000}
-              height={1000}
-              className="w-[150px] h-[150px] absolute top-[-75px] shadow-md hover:top-[-88px] transition-all duration-300 shadow-gray rounded-full"
-            />
-            <h3 className="font-bold text-[20px]">مهدی قربانزاده</h3>
-            <span className="text-[#0066FF] font-medium">hm-20003</span>
+                <span>
+                  {item.likes}
+                  <Like className="inline ms-2" />
+                </span>
 
-            <span>
-              125
-              <Like className="inline ms-2" />
-            </span>
+                <div
+                  data-atropos-offset="5"
+                  className="w-[90%] h-[55px] bg-[#f5f9ff] dark:bg-[#000000] px-6 rounded-[10px] flex flex-row justify-between items-center"
+                >
+                  <span className="text-blueLink dark:text-dark-yellow font-azarMehr font-medium text-[14px]">
+                    رزومه مدرس
+                  </span>
+                  <Text className="w-[24px] h-[24px] stroke-blueLink dark:stroke-dark-yellow" />
+                </div>
+              </div>
+            </Atropos>
+          ))}
 
-            <div className="w-[90%] h-[55px] bg-[#426dae] dark:bg-[#000000] px-2 rounded-[10px] flex flex-row justify-between items-center">
-              <span className="text-[#ffffff] font-medium text-[14px]">
-                رزمه مدرس
-              </span>
-              <Text className="w-[24px] h-[24px] stroke-white" />
-            </div>
-          </div>
-          <div className="w-[300px] h-full cursor-pointer shadow-xl hover:shadow-2xl bg-white dark:bg-[#1A1A18] flex flex-col justify-evenly pt-[70px]  items-center rounded-[20px]">
-            <Image
-              src="/profile/prof.png"
-              alt="profile"
-              width={1000}
-              height={1000}
-              className="w-[150px] h-[150px] absolute top-[-75px] shadow-md hover:top-[-88px] transition-all duration-300 shadow-gray rounded-full"
-            />
-            <h3 className="font-bold text-[20px]">مهدی قربانزاده</h3>
-            <span className="text-[#0066FF] font-medium">hm-20003</span>
-
-            <span>
-              125
-              <Like className="inline ms-2" />
-            </span>
-
-            <div className="w-[90%] h-[55px] bg-[#426dae] dark:bg-[#000000] px-2 rounded-[10px] flex flex-row justify-between items-center">
-              <span className="text-[#ffffff] font-medium text-[14px]">
-                رزمه مدرس
-              </span>
-              <Text className="w-[24px] h-[24px] stroke-white" />
-            </div>
-          </div>
-          <div className="w-[300px] h-full cursor-pointer shadow-xl hover:shadow-2xl bg-white dark:bg-[#1A1A18] flex flex-col justify-evenly pt-[70px]  items-center rounded-[20px]">
-            <Image
-              src="/profile/prof.png"
-              alt="profile"
-              width={1000}
-              height={1000}
-              className="w-[150px] h-[150px] absolute top-[-75px] shadow-md hover:top-[-88px] transition-all duration-300 shadow-gray rounded-full"
-            />
-            <h3 className="font-bold text-[20px]">مهدی قربانزاده</h3>
-            <span className="text-[#0066FF] font-medium">hm-20003</span>
-
-            <span>
-              125
-              <Like className="inline ms-2" />
-            </span>
-
-            <div className="w-[90%] h-[55px] bg-[#426dae] dark:bg-[#000000] px-2 rounded-[10px] flex flex-row justify-between items-center">
-              <span className="text-[#ffffff] font-medium text-[14px]">
-                رزمه مدرس
-              </span>
-              <Text className="w-[24px] h-[24px] stroke-white" />
-            </div>
-          </div>
-          <div className="w-[300px] h-full cursor-pointer shadow-xl hover:shadow-2xl bg-white dark:bg-[#1A1A18] flex flex-col justify-center  items-center rounded-[20px]">
+            
+          <div className="mt-24 w-[300px] h-[400px] cursor-pointer  hover:shadow-md bg-white dark:bg-[#1A1A18] flex flex-col justify-center  items-center rounded-[20px]">
             <div className="w-[60px] h-[60px] bg-[#0066FF] dark:bg-[#FFC700] dark:bg-opacity-20 bg-opacity-20 rounded-full flex justify-center items-center">
               <Arrow
                 className={` ${
@@ -114,8 +89,9 @@ export default function TopTrainers() {
                 } ms-1 w-[10px] h-[20px] stroke-2 stroke-[#0066FF] dark:stroke-[#FFC700]`}
               />
             </div>
-            <h3 className="font-bold text-[16px] mt-3 text-[#0066FF] dark:text-[#FFC700]">
-              View other trainers
+            {/* /// join in tranlate */}
+            <h3 className="font-bold text-[16px]  mt-3 text-[#0066FF] dark:text-[#FFC700]">
+              مشاهده بیشتر
             </h3>
           </div>
         </div>

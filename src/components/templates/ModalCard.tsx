@@ -86,7 +86,7 @@ export default function ModalCard({
                     {Object.keys(dataModal.desc).map(
                       (item: any, index: any) => (
                         <div
-                          key={item.id}
+                          key={index}
                           className=" col-span-1 flex flex-col gap-3 justify-center items-center di"
                         >
                           <Image

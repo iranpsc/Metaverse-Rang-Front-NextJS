@@ -19,13 +19,14 @@ const ListMenuModule: React.FC<ListMenuModuleProps> = ({
   activeDropdown,
   languagesData,
   handleDirChange,
+  pageName
 }) => {
     const [data, setData] = useState(menuData);
       const {isCollapsed, toggleCollapseHandler } = useContext(SideBarContext);
 
   const selectItemMenuRoute = (i: any,name:string) => {
     if(name !=="language"){
-     
+     if(pageName!=="education")
       setActiveItem(i);
       
     }
@@ -111,7 +112,7 @@ const submitLang = (name:string)=>{
                     group-hover:stroke-blueLink group-hover:dark:stroke-dark-yellow ${
                       activeItem == i
                         ? " stroke-blueLink dark:stroke-dark-yellow"
-                        : "stroke-gray stroke-dark-gray"
+                        : "stroke-gray dark:stroke-dark-gray"
                     } w-[17px] h-[17px] `}
                   />
                 </span>

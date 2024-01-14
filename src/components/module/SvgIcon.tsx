@@ -1,5 +1,5 @@
-import { useContext } from "react";
-import Image from "next/image";
+import { useTheme } from "next-themes";
+
 import {
   HomeIcon,
   Belongings,
@@ -26,6 +26,7 @@ import {
 } from "../svgs";
 
 export default function SvgIcon({ name, color }: any) {
+  
 
   return (
     <>
@@ -37,63 +38,62 @@ export default function SvgIcon({ name, color }: any) {
       )}
       {name === "news" && (
         <News
-          stroke="#ff0000"
-          className={` ${color} stroke-[1px] mx-[10px] hover:text-[#0000ffd9] dark:hover:text-dark-yellow`}
+          className={` ${color} stroke-4 mx-[10px]  3xl:w-7 3xl:h-7`}
         />
       )}
       {name === "articles" && (
         <Articles
           stroke="#ff0000"
-          className={` ${color} stroke-[1px] mx-[10px] 3xl:w-7 3xl:h-7`}
+          className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`}
         />
       )}
       {name === "competitions" && (
         <Competitions
-          stroke="#ff0000"
-          className={` ${color} stroke-[1px] mx-[10px] 3xl:w-7 3xl:h-7`}
+          className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`}
         />
       )}
       {name === "trainings" && (
         <Trainings
           stroke="#ff0000"
-          className={` ${color} stroke-[1px] mx-[10px] 3xl:w-7 3xl:h-7`}
+          className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`}
         />
       )}
       {name === "about" && (
-        <About
-          stroke="#ff0000"
-          className={` ${color} stroke-[1px] mx-[10px] 3xl:w-7 3xl:h-7`}
-        />
+        <About className={` ${color} stroke-4 mx-[10px] 3xl:w-7 3xl:h-7`} />
       )}
       {name === "contact" && (
         <Contact
           stroke="#ff0000"
-          className={` ${color} stroke-[1px] mx-[10px] 3xl:w-7 3xl:h-7`}
+          className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`}
         />
       )}
       {name === "calendar" && (
         <Calender
           stroke="#ff0000"
-          className={` ${color} stroke-[1px] mx-[10px] 3xl:w-7 3xl:h-7`}
+          className={` ${color}   stroke-[1.5px] mx-[10px] 3xl:w-7 3xl:h-7`}
         />
       )}
       {name === "overview" && (
         <Overview
           stroke="#ff0000"
-          className={` ${color} stroke-[1px] mx-[10px] 3xl:w-7 3xl:h-7`}
+          className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`}
         />
       )}
       {name === "version" && (
         <Version
           stroke="#ff0000"
-          className={` ${color} stroke-[1px] mx-[10px] 3xl:w-7 3xl:h-7`}
+          className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`}
         />
       )}
       {name === "belongings" && (
-        <Belongings className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
+        <Belongings
+          className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`}
+        />
       )}
       {name === "connections" && (
-        <Connections className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
+        <Connections
+          className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`}
+        />
       )}
       {name === "dynasty" && (
         <Dynasty className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
@@ -102,19 +102,27 @@ export default function SvgIcon({ name, color }: any) {
         <Dynasty className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
       )}
       {name === "crimes" && (
-        <Infractions className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
+        <Infractions
+          className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`}
+        />
       )}
       {name === "invitations" && (
-        <Invitations className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
+        <Invitations
+          className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`}
+        />
       )}
       {name === "permissions" && (
-        <Permissions className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
+        <Permissions
+          className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`}
+        />
       )}
       {name === "property" && (
         <Property className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
       )}
       {name === "real estate" && (
-        <RealEstate className={` ${color} stroke-2 mx-[10px] group 3xl:w-7 3xl:h-7`} />
+        <RealEstate
+          className={` ${color} stroke-2 mx-[10px] group 3xl:w-7 3xl:h-7`}
+        />
       )}
       {name === "reward" && (
         <Reward className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />

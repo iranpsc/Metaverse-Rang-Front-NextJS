@@ -13,6 +13,7 @@ module.exports = {
       "admin.rgb.irpsc.com",
       "admin.rgb.irpsc.comlevels",
       "localhost",
+      "irpsc.com"
     ],
   },
   experimental: { esmExternals: true, serverActions: true },

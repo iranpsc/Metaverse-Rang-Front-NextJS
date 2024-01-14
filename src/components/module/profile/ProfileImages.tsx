@@ -68,7 +68,7 @@ export default function ProfileImages({ profileData, profileName, titleData }: a
 
   return (
     <>
-      <section className="dark:bg-dark-background shadow-md  3xl:h-[400px] xl:h-[350px] tall:h-[450px] lg:h-[230px] md:h-screen relative bg-white transition-all duration-300 ease-linear  rounded-[10px] flex xl:flex-row lg:flex-row md:flex-col sm:flex-col xs:flex-col md:gap-7">
+      <section className="dark:bg-dark-background shadow-md  3xl:h-[400px] xl:h-[300px] tall:h-[400px] lg:h-[230px] md:h-screen relative bg-white transition-all duration-300 ease-linear  rounded-[10px] flex xl:flex-row lg:flex-row md:flex-col sm:flex-col xs:flex-col md:gap-7">
         <div className=" dark:bg-dark-background bg-white  flex justify-center basis-[80%] items-center rounded-[10px] ">
           <Image
             src={mainImageUrl || "/temp.png"}

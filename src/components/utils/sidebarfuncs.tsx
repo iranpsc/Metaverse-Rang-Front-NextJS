@@ -68,6 +68,8 @@ export const sidebarFilteredData = (data: any, page: string) => {
         (item: any) => item.name === "before-login"
       );
 
+      
+
       const sortOrder = [
         "home",
         "news",
@@ -109,7 +111,13 @@ export const sidebarFilteredData = (data: any, page: string) => {
         (item: any) => !namesToDeleteEducation.includes(item.name)
       );
 
-      const namesToKeepEducation = ["login", "exist"];
+      const namesToKeepEducation = [
+        "log in",
+        "logout",
+        "enter the metaverse",
+        "home page",
+        "my profile page",
+      ];
 
       const filteredLoginEducation = tabsBeforeLogin.fields.filter(
         (item: any) => namesToKeepEducation.includes(item.name)

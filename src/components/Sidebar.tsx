@@ -72,6 +72,7 @@ export default function Sidebar({ setShowAuthCard,page }:any) {
         </div>
         {/* <MenuProfileModule/> */}
         <ListMenuModule
+        pageName="educaion"
           isCollapsed={isCollapsed}
           menuData={data.data.menu}
           setActiveItem={SetActiveItem}
