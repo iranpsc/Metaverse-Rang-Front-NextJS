@@ -80,7 +80,7 @@ export default function Captcha({
         });
       }
     } catch (err: any) {
-      console.log(err);
+      console.error(err);
       setShowCaptcha(false);
       setShowErrorRegisterAccess(err.response?.data?.message);
     }

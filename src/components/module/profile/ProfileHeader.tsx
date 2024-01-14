@@ -47,6 +47,7 @@ export default function ProfileHeader({ profileName, titleData,nameUser }: any) 
               src={imgs0 || "/temp.png"}
               width={100}
               height={100}
+              priority={true}
               alt={titleData}
               className="  inline-block rounded-full p-1  md:w-10 md:h-10 sm:w-14 sm:h-14 xs:w-14 xs:h-14 object-cover"
             />

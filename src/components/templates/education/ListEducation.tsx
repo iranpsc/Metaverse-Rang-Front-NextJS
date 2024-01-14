@@ -15,7 +15,7 @@ export default function ListEducation() {
          
           setData(res.data.data);
         } catch (error) {
-          console.log(error);
+          console.error(error);
         }
       };
 

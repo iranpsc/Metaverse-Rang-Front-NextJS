@@ -68,7 +68,7 @@ export default function ProfileImages({ profileData, profileName, titleData }: a
 
   return (
     <>
-      <section className="dark:bg-dark-background shadow-md  3xl:h-[400px] xl:h-[300px] lg:h-[230px] md:h-screen relative bg-white transition-all duration-300 ease-linear  rounded-[10px] flex xl:flex-row lg:flex-row md:flex-col sm:flex-col xs:flex-col md:gap-7">
+      <section className="dark:bg-dark-background shadow-md  3xl:h-[400px] xl:h-[350px] tall:h-[450px] lg:h-[230px] md:h-screen relative bg-white transition-all duration-300 ease-linear  rounded-[10px] flex xl:flex-row lg:flex-row md:flex-col sm:flex-col xs:flex-col md:gap-7">
         <div className=" dark:bg-dark-background bg-white  flex justify-center basis-[80%] items-center rounded-[10px] ">
           <Image
             src={mainImageUrl || "/temp.png"}
@@ -94,7 +94,7 @@ export default function ProfileImages({ profileData, profileName, titleData }: a
               delayChildren: 0.9,
               staggerChildren: 0.6,
             }}
-            className=" pt-3 h-full flex flex-col xl:flex-col lg:flex-col md:flex-row sm:flex-row xs:flex-row w-full 3xl:gap-4 xl:gap-2 lg:gap-1 md:gap-3 sm:gap-5 xs:gap-2  justify-center items-center md:pb-3 sm:pb-3 xs:pb-3"
+            className=" pt-3 h-full flex flex-col xl:flex-col lg:flex-col md:flex-row sm:flex-row xs:flex-row w-full 3xl:gap-4 tall:gap-6 xl:gap-2 lg:gap-1 md:gap-3 sm:gap-5 xs:gap-2  justify-center items-center md:pb-3 sm:pb-3 xs:pb-3"
           >
             {images}
           </motion.div>

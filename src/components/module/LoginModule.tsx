@@ -9,7 +9,7 @@ import ErrorMessageComponent from "./ErrorMessageComponent";
 //CONTEXT
 import { LangContext } from "@/context/LangContext";
 //UTILS
-import { LoginSchema, selectLanguage } from "@/utils/validationAuth";
+import { LoginSchema } from "@/utils/validationAuth";
 import { cssAuth } from "../utils/taiwindAuth";
 
 
@@ -70,7 +70,7 @@ export default function LoginModule({ setShowModule, setShowAuthCard}: any) {
         <Formik
           initialValues={{ email: "", password: "" }}
           onSubmit={handleFormSubmit}
-          validationSchema={LoginSchema(lang)}
+          validationSchema={LoginSchema()}
         >
           {(props) => (
             <Form className="w-[95%]">
@@ -93,7 +93,11 @@ export default function LoginModule({ setShowModule, setShowAuthCard}: any) {
                     props.handleChange(e);
                   }}
                 />
-                <ErrorMessageComponent fieldName="email" lang={lang} />
+                <ErrorMessageComponent
+                  fieldName="email"
+                  lang={lang}
+                  data={data.data.registerPageLang}
+                />
                 {showErrorLoginAccess !== "" ? (
                   <>
                     <span className="text-error font-azarMehr font-medium text-[10px] mt-2">
@@ -147,7 +151,11 @@ export default function LoginModule({ setShowModule, setShowAuthCard}: any) {
                       />
                     )}
                   </span>
-                  <ErrorMessageComponent fieldName="password" lang={lang} />
+                  <ErrorMessageComponent
+                    fieldName="password"
+                    lang={lang}
+                    data={data.data.registerPageLang}
+                  />
                 </div>
 
                 {/* {showErrorLoginAccess !== "" ? (

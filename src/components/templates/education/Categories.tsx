@@ -22,7 +22,7 @@ export default function Categories() {
 
       
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

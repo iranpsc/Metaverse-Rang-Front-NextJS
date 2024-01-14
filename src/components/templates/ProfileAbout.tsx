@@ -72,7 +72,7 @@ export default function ProfileAbout({ setShowModal, setDataModal,titleData }: a
               width={1000}
               height={1000}
               alt={titleData}
-              className="3xl:w-[180px] xl:w-[130px] lg:w-[120px] md:w-[170px] sm:w-[150px] xs:w-[140px]"
+              className="3xl:w-[180px] xl:w-[150px] lg:w-[120px] md:w-[170px] sm:w-[150px] xs:w-[140px]"
             />
           </motion.div>
         ) : (

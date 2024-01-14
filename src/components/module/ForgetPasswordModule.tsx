@@ -41,7 +41,7 @@ const [showSuccess,setShowSuccess] = useState(false);
            
           }
         } catch (err: any) {
-          console.log(err.response.data.message);
+          console.error(err.response.data.message);
           seShowErrorLoginAccess(err.response.data.message);
         }
       }
@@ -96,7 +96,7 @@ const [showSuccess,setShowSuccess] = useState(false);
           <Formik
             initialValues={{ email: "" }}
             onSubmit={handleFormSubmit}
-            validationSchema={ForgetPasswordSchema(lang)}
+            validationSchema={ForgetPasswordSchema()}
           >
             {(props) => (
               <Form className="w-[95%]">
@@ -116,7 +116,7 @@ const [showSuccess,setShowSuccess] = useState(false);
                       props.handleChange(e);
                     }}
                   />
-                  <ErrorMessageComponent fieldName="email" lang={lang} />
+                  <ErrorMessageComponent fieldName="email" lang={lang}                   data={data.data.registerPageLang} />
                   {showErrorLoginAccess !== "" ? (
                     <span className="text-error font-azarMehr font-medium text-[10px] mt-2">
                       {showErrorLoginAccess}

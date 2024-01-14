@@ -75,22 +75,22 @@ export default function Footer() {
    
 
   return (
-    
     <>
-      <div className="h-fit  w-[96%] mt-[200px] flex flex-row rounded-[10px] p-3 items-center justify-between  bg-white dark:bg-[#1A1A18]">
-        {item.map((item: ItemIcon,i:number) => (
-          <Image
-          key={i}
-            src={item.img}
-            alt="rgb"
-            width={1000}
-            height={1000}
-            className="w-[63px] h-[63px]"
-          />
+      <div className="h-fit  w-[96%] mt-[200px] flex flex-wrap gap-[15px] rounded-[10px] p-3 items-center justify-center bg-white dark:bg-[#1A1A18]">
+        {item.map((item: ItemIcon, i: number) => (
+          <div key={i}>
+            <Image
+              src={item.img}
+              alt="rgb"
+              width={1000}
+              height={1000}
+              className="w-[63px] h-[63px]"
+            />
+          </div>
         ))}
       </div>
-      <div className="h-[400px] mt-20 rounded-[10px] w-[96%] bg-white dark:bg-[#1A1A18] grid grid-cols-6">
-        <div className="col-span-4 mt-2">
+      <div className="h-fit pb-5 mt-20 rounded-[10px] w-[96%] bg-white dark:bg-[#1A1A18] grid grid-cols-6">
+        <div className="col-span-6  xl:col-span-4 mt-2 ">
           <div className="w-full h-[82px] mt-4 ms-6 flex flex-row justify-start items-center gap-5">
             <Image
               src="/logo.png"
@@ -101,7 +101,6 @@ export default function Footer() {
             />
             <h1 className="text-[22px]  font-bold text-[#4C4C4C] dark:text-white">
               متاورس ملی
-              
               <div className="h-3"></div>
               رهبری جهانی در دنیای موازی
             </h1>
@@ -119,14 +118,14 @@ export default function Footer() {
             در اختیار مردم قرار می‌دهد.
           </p>
         </div>
-        <div className="col-span-2 mt-6">
-          <p className="text-center font-medium text-[20px] text-[#4C4C4C] dark:text-white">
+        <div className="xl:col-span-2 col-span-6 mt-6 w-full ">
+          <p className="text-center w-full font-medium text-[20px] text-[#4C4C4C] dark:text-white">
             به شبکه های ما ملحق شوید.
           </p>
-          <div className="flex flex-wrap gap-x-[18px] gap-y-3 justify-end me-3 mt-6">
-            {socialItems.map((item: ItemIcon,i:number) => (
+          <div className="flex flex-wrap gap-x-[18px] gap-y-3 justify-center me-3 mt-6 ">
+            {socialItems.map((item: ItemIcon, i: number) => (
               <Image
-              key={i}
+                key={i}
                 src={item.img}
                 alt="rgb"
                 width={1000}

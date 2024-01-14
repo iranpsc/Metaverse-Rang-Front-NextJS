@@ -10,6 +10,8 @@ module.exports = {
       xs: { max: "639px" },
       ...defaultTheme.screens,
       "3xl": "1900px",
+      tall: { raw: "(min-height: 1000px)" },
+      tall2: { raw: "(min-height: 1200px)" },
     },
     colors: {
       black: "rgba(0, 0, 0, 1)",

@@ -6,6 +6,5 @@
 .blur-until-end {
   backdrop-filter: blur(10px);
   height: 100vh;
-  /* تا انتهای صفحه بلور شود */
 }
 

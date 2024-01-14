@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import dynamic from "next/dynamic";
 import { Formik, Form, Field } from "formik";
-import { RegisterSchema, selectLanguage } from "../utils/validationAuth";
+import { RegisterSchema } from "../utils/validationAuth";
 //svgs
 import { EyeShow, EyeHidden } from "../svgs";
 import { cssAuth } from "../utils/taiwindAuth";
@@ -12,7 +12,6 @@ import ErrorMessageComponent from "./ErrorMessageComponent";
 import { useState } from "react";
 
 import { LangContext } from "@/context/LangContext";
-import { selectLanguageAuthModule } from "@/utils/textsLanguage";
 
 
 export default function RegisterModule({ setShowAuthCard }: any) {
@@ -62,7 +61,7 @@ export default function RegisterModule({ setShowAuthCard }: any) {
         <Formik
           initialValues={{ username: "", email: "", password: "" }}
           onSubmit={handleFormSubmit}
-          validationSchema={RegisterSchema(lang)}
+          validationSchema={RegisterSchema()}
         >
           {(props) => (
             <Form className="w-[95%]">
@@ -78,7 +77,11 @@ export default function RegisterModule({ setShowAuthCard }: any) {
                   autoComplete="off"
                   className={cssAuth(props, "username")}
                 />
-                <ErrorMessageComponent fieldName="username" lang={lang} />
+                <ErrorMessageComponent
+                  fieldName="username"
+                  lang={lang}
+                  data={data.data.registerPageLang}
+                />
               </div>
 
               <div className="form-group flex flex-col items-center  pb-2  ">
@@ -93,7 +96,11 @@ export default function RegisterModule({ setShowAuthCard }: any) {
                   autoComplete="off"
                   className={cssAuth(props, "email")}
                 />
-                <ErrorMessageComponent fieldName="email" lang={lang} />
+                <ErrorMessageComponent
+                  fieldName="email"
+                  lang={lang}
+                  data={data.data.registerPageLang}
+                />
                 {showErrorRegisterAccess !== "" ? (
                   <span className="text-error w-full font-azarMehr font-medium text-[10px] mt-1 text-start ">
                     {showErrorRegisterAccess}
@@ -142,7 +149,11 @@ export default function RegisterModule({ setShowAuthCard }: any) {
                       />
                     )}
                   </span>
-                  <ErrorMessageComponent fieldName="password" lang={lang} />
+                  <ErrorMessageComponent
+                    fieldName="password"
+                    lang={lang}
+                    data={data.data.registerPageLang}
+                  />
                 </div>
               </div>
 
