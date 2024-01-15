@@ -53,7 +53,7 @@ export default function TopTrainers({translateData}:any) {
                 </h3>
 
                 <Link
-                  href={`https://rgb.irpsc.com/${router.query.lang}/citizen/hm-2000003`}
+                  href={`https://rgb.irpsc.com/${router.query.lang}/citizen/${item.code}`}
                   target="_blank"
                 >
                   <span
