@@ -117,6 +117,7 @@ const LangProvider = ({ children }: Props) => {
 
         if (lang) {
           const query = res.data.data.find((item: any) => item.code === lang);
+     
 
           if (query) {
             setLanguagesSelected({
@@ -133,6 +134,7 @@ const LangProvider = ({ children }: Props) => {
             const urlEN = await res.data.data.find(
               (item: any) => item.code === "en"
             );
+            
             router.push(`/${urlEN.code}/citizen/${userId}`);
             setLanguagesData(res.data.data);
           }

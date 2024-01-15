@@ -110,8 +110,9 @@ export default function SideBarEducation({
       icon: item.icon,
       file_url: item.file_url,
     });
-  const newUrl = `/${item.code}/citizen/${userId}`;
-
+const { lang } = router.query;
+    const secondPart = router.asPath.split(`/${lang}/`)[1];
+  const newUrl = `/${item.code}/${secondPart}`;  
   router.push(newUrl);
   
 

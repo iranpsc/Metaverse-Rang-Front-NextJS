@@ -1,125 +1,17 @@
-import { useState, useEffect, useContext } from "react";
-import { LangContext } from "@/context/LangContext";
+import dynamic from "next/dynamic";
 import Image from "next/image";
-import axios from "axios";
+import Link from "next/link";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import { translateFooter } from "@/components/utils/education";
-import Link from "next/link";
-
+import { imageSources } from "@/components/utils/items";
 
 export default function Footer({ footerTabs }: any) {
-  const { languageSelected } = useContext(LangContext);
- 
   interface ItemIcon {
-    id:number;
+    id: number;
     img: string;
-    translation:string
-    target:string
+    translation: string;
+    target: string;
   }
-  const imageSources: any = [
-    {
-      url: "https://irpsc.com/img-icon/vezarat.png",
-      target: "#",
-      translate: "ministry of cooperation license",
-    },
-    {
-      url: "https://irpsc.com/img-icon/enamad.png",
-      target: "#",
-      translate: "enamad",
-    },
-    {
-      url: "https://irpsc.com/img-icon/qazaii.png",
-      target: "#",
-      translate: "judiciary authority license",
-    },
-    {
-      url: "https://irpsc.com/img-icon/video.png",
-      target: "https://video.irpsc.com/",
-      translate: "video training center",
-    },
-    {
-      url: "https://irpsc.com/img-icon/faq.png",
-      target: "https://faq.irpsc.com/",
-      translate: "q&q forum",
-    },
-    {
-      url: "https://irpsc.com/img-icon/shop.png",
-      target: "https://shop.irpsc.com/",
-      translate: "national store",
-    },
-    {
-      url: "https://irpsc.com/img-icon/supply.png",
-      target: "https://supply.irpsc.com/",
-      translate: "iranian producers",
-    },
-    {
-      url: "https://irpsc.com/img-icon/crm.png",
-      target: "https://crm.irpsc.com/",
-      translate: "management system for managers",
-    },
-
-    {
-      url: "https://irpsc.com/img-icon/target.png",
-      target: "https://target.irpsc.com/",
-      translate: "hm",
-    },
-    {
-      url: "https://irpsc.com/img-icon/animal.png",
-      target: "https://animal.irpsc.com/",
-      translate: "animal system",
-    },
-    {
-      url: "https://irpsc.com/img-icon/irpsc.png",
-      target: "https://irpsc.com/",
-      translate: "national media",
-    },
-    {
-      url: "https://irpsc.com/img-icon/meta.png",
-      target: "https://meta.irpsc.com/",
-      translate: "meta news",
-    },
-    {
-      url: "https://irpsc.com/img-icon/uni.png",
-      target: "https://uni.irpsc.com/",
-      translate: "metaverse university",
-    },
-    {
-      url: "https://irpsc.com/img-icon/knowledge.png",
-      target: "https://crm.irpsc.com/knowledgebase",
-      translate: "knowledge-centric system",
-    },
-    {
-      url: "https://irpsc.com/img-icon/sale.png",
-      target: "https://sale.irpsc.com",
-      translate: "online store hm",
-    },
-    {
-      url: "https://irpsc.com/img-icon/ad.png",
-      target: "https://ad.irpsc.com/",
-      translate: "national advertising",
-    },
-    {
-      url: "https://irpsc.com/img-icon/nft.png",
-      target: "https://nft.irpsc.com/",
-      translate: "nft marketplace",
-    },
-    {
-      url: "https://irpsc.com/img-icon/rgb.png",
-      target: "https://rgb.irpsc.com/",
-      translate: "metaverse color",
-    },
-    {
-      url: "https://irpsc.com/img-icon/map.png",
-      target: "https://map.irpsc.com/",
-      translate: "national map",
-    },
-    {
-      url: "https://irpsc.com/img-icon/home-soon.png",
-      target: "https://home.irpsc.com/",
-      translate: "real estate and properties",
-    },
-  ];
-
   const socialItems: ItemIcon[] = [
     {
       id: 1,
@@ -242,12 +134,7 @@ export default function Footer({ footerTabs }: any) {
       translation: translateFooter(footerTabs, "namasha"),
       target: translateFooter(footerTabs, "namasha-url"),
     },
-
-   
-  
   ];
-
- 
 
   return (
     <>
@@ -259,7 +146,7 @@ export default function Footer({ footerTabs }: any) {
                 data-tooltip-id={item.url}
                 src={item.url}
                 loading="lazy"
-              alt={item.translate}
+                alt={item.translate}
                 width={1000}
                 height={1000}
                 className="w-[60px] h-[60px] cursor-pointer"
@@ -290,23 +177,22 @@ export default function Footer({ footerTabs }: any) {
               className="w-[60px] h-[60px] inline "
             />
             <div className="flex flex-col h-[60px]  justify-between items-start">
-
-            <h1 className="text-[22px] mt-[-5px] font-bold font-azarMehr text-[#4C4C4C] dark:text-white">
-              {(
-                footerTabs.find(
-                  (item: any) => item.name == "national metaverse"
-                ) || {}
-              ).translation || "undefined"}
-                </h1>
-              <h2 className="mb-[-3px] font-azarMehr font-normal">             
-              {(
-                footerTabs.find(
-                  (item: any) =>
-                  item.name == "global leadership in a parallel world"
+              <h1 className="text-[22px] mt-[-5px] font-bold font-azarMehr  dark:text-white">
+                {(
+                  footerTabs.find(
+                    (item: any) => item.name == "national metaverse"
                   ) || {}
-                  ).translation || "undefined"}
+                ).translation || "undefined"}
+              </h1>
+              <h2 className="mb-[-3px] font-azarMehr font-normal">
+                {(
+                  footerTabs.find(
+                    (item: any) =>
+                      item.name == "global leadership in a parallel world"
+                  ) || {}
+                ).translation || "undefined"}
               </h2>
-                  </div>
+            </div>
           </div>
           <p className="ms-6 mt-6 font-normal font-azarMehr text-[#4C4C4C] dark:text-[#D4D4D4] text-[20px] leading-9">
             {(
@@ -333,7 +219,7 @@ export default function Footer({ footerTabs }: any) {
           <div className="xl:grid xl:grid-cols-5 3xl:grid-cols-7  flex flex-wrap gap-3 max-w-fit lg:w-full  justify-center   mt-6 ">
             {socialItems.map((item: ItemIcon) => (
               <div key={item.id}>
-                <Link  href={item.target} target="_blank">
+                <Link href={item.target} target="_blank">
                   <Image
                     data-tooltip-id={`${item.id}`}
                     key={item.id}

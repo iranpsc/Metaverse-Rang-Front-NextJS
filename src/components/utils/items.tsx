@@ -1,3 +1,5 @@
+import { translateFooter } from "@/components/utils/education";
+
 export const Items = [
   {
     id: 1,
@@ -834,3 +836,109 @@ export const ItemsENG = [
     end3: "Metaurus Team ⚖️🚨",
   },
 ];
+
+export const imageSources: any = [
+    {
+      url: "https://irpsc.com/img-icon/vezarat.png",
+      target: "#",
+      translate: "ministry of cooperation license",
+    },
+    {
+      url: "https://irpsc.com/img-icon/enamad.png",
+      target: "#",
+      translate: "enamad",
+    },
+    {
+      url: "https://irpsc.com/img-icon/qazaii.png",
+      target: "#",
+      translate: "judiciary authority license",
+    },
+    {
+      url: "https://irpsc.com/img-icon/video.png",
+      target: "https://video.irpsc.com/",
+      translate: "video training center",
+    },
+    {
+      url: "https://irpsc.com/img-icon/faq.png",
+      target: "https://faq.irpsc.com/",
+      translate: "q&q forum",
+    },
+    {
+      url: "https://irpsc.com/img-icon/shop.png",
+      target: "https://shop.irpsc.com/",
+      translate: "national store",
+    },
+    {
+      url: "https://irpsc.com/img-icon/supply.png",
+      target: "https://supply.irpsc.com/",
+      translate: "iranian producers",
+    },
+    {
+      url: "https://irpsc.com/img-icon/crm.png",
+      target: "https://crm.irpsc.com/",
+      translate: "management system for managers",
+    },
+
+    {
+      url: "https://irpsc.com/img-icon/target.png",
+      target: "https://target.irpsc.com/",
+      translate: "hm",
+    },
+    {
+      url: "https://irpsc.com/img-icon/animal.png",
+      target: "https://animal.irpsc.com/",
+      translate: "animal system",
+    },
+    {
+      url: "https://irpsc.com/img-icon/irpsc.png",
+      target: "https://irpsc.com/",
+      translate: "national media",
+    },
+    {
+      url: "https://irpsc.com/img-icon/meta.png",
+      target: "https://meta.irpsc.com/",
+      translate: "meta news",
+    },
+    {
+      url: "https://irpsc.com/img-icon/uni.png",
+      target: "https://uni.irpsc.com/",
+      translate: "metaverse university",
+    },
+    {
+      url: "https://irpsc.com/img-icon/knowledge.png",
+      target: "https://crm.irpsc.com/knowledgebase",
+      translate: "knowledge-centric system",
+    },
+    {
+      url: "https://irpsc.com/img-icon/sale.png",
+      target: "https://sale.irpsc.com",
+      translate: "online store hm",
+    },
+    {
+      url: "https://irpsc.com/img-icon/ad.png",
+      target: "https://ad.irpsc.com/",
+      translate: "national advertising",
+    },
+    {
+      url: "https://irpsc.com/img-icon/nft.png",
+      target: "https://nft.irpsc.com/",
+      translate: "nft marketplace",
+    },
+    {
+      url: "https://irpsc.com/img-icon/rgb.png",
+      target: "https://rgb.irpsc.com/",
+      translate: "metaverse color",
+    },
+    {
+      url: "https://irpsc.com/img-icon/map.png",
+      target: "https://map.irpsc.com/",
+      translate: "national map",
+    },
+    {
+      url: "https://irpsc.com/img-icon/home-soon.png",
+      target: "https://home.irpsc.com/",
+      translate: "real estate and properties",
+    },
+  ];
+
+

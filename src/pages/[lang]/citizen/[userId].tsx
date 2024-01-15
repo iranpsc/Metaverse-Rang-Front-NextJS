@@ -128,7 +128,7 @@ export default function Home({ profileData, titleData,nameSite,localSite, error,
             name="google-site-verification"
             content="lmf8kBJQgLHew_wXcxGQwJQWiOSFy8odEBRTLOoX7Q4"
           />
-
+      <link rel="icon" href="/logo.png"  />
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={addPageJsonLd()}
@@ -237,13 +237,13 @@ export async function getServerSideProps(context:any) {
     const languageCode = context.query.lang;
 
    
-    // تعریف متغیر برای عنوان
+
     let titleData = "";
     let nameUser="";
     let nameSite="";
     let localSite ="fa_IR";
 
-    // تنظیم عنوان بر اساس زبان و داده‌ها
+  
     if (languageCode === "fa") {
       nameSite =  "متاورس رنگ";
        localSite ="fa_IR";
