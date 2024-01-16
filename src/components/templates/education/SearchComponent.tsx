@@ -75,19 +75,19 @@ export default function SearchComponent({ themeDataActive, translateData }: any)
             {translateFooter(translateData, "search")}
           </span>
         </div>
-        <div className="w-full bg-[#EFEFEF] dark:bg-black max-h-[600px] overflow-y-auto overflow-x-clip absolute mt-[53px]  flex flex-col justify-start items-center gap-3 z-10 rounded-2xl shadow-md ">
+        <div className="w-full  max-h-[600px]  overflow-y-auto overflow-x-clip absolute mt-[53px]  flex flex-col justify-start items-center gap-1 z-10  ">
           {searchData.length >= 1 &&
             searchData.map((item: any) => (
               <div
                 key={item.id}
-                className="w-[99%] h-[70px]  transition-all duration-300  bg-white dark:bg-[#1A1A18] shadow-md hover:shadow-xl  cursor-pointer rounded-full  flex flex-row justify-between items-center"
+                className="w-[99%] h-[50px] mt-2 hover:dark:shadow-dark transition-all duration-300  bg-white dark:bg-[#1A1A18] shadow-md hover:shadow-xl  cursor-pointer rounded-full  flex flex-row justify-between items-center"
               >
                 <p className="ms-2 font-azarMehr truncate  text-[16px] xs:text-[12px] font-medium ">
                   {item.title}
                 </p>
                 <div className="flex flex-row justify-between items-center gap-3 min-w-fit ">
-                  <div className="my-4  h-full flex flex-col gap-2 ">
-                    <p className="uppercase  font-azarMehr text-[14px] xs:text-[10px] font-bold  text-blueLink dark:text-dark-yellow">
+                  <div className="h-full flex flex-col gap-0 ">
+                    <p className="uppercase  font-azarMehr text-[14px] xs:text-[10px] font-bold  text-blueLink">
                       {item.creator_code}
                     </p>
                     <div className="flex flex-row items-center justify-end gap-1 ">

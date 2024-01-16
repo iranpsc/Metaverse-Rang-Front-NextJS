@@ -15,7 +15,7 @@ export default function Categories({ categoriesData,translateData }:any) {
             categoriesData.map((item: any) => (
               <div
                 key={item.id}
-                className="col-span-1 cursor-pointer shadow-sm hover:dark:shadow-dark 2xl:w-full xl:w-full lg:w-full md:w-full  sm:w-[200px] xs:w-[200px] h-[80px] bg-white dark:bg-[#1A1A18]  rounded-[20px] flex flex-row justify-center items-center gap-5 hover:shadow-md"
+                className="col-span-1 cursor-pointer shadow-sm hover:dark:shadow-dark  transition-all duration-300 2xl:w-full xl:w-full lg:w-full md:w-full  sm:w-[200px] xs:w-[200px] h-[80px] bg-white dark:bg-[#1A1A18]  rounded-[20px] flex flex-row justify-center items-center gap-5 hover:shadow-md"
               >
                 <Image
                   className="w-[32px] h-[32px]"
@@ -32,7 +32,7 @@ export default function Categories({ categoriesData,translateData }:any) {
 
           <div className="col-span-1 cursor-pointer 2xl:w-full xl:w-full lg:w-full md:w-full  sm:w-[200px] xs:w-[200px]   h-[80px] bg-white dark:bg-[#1A1A18] rounded-[20px] flex flex-row justify-center items-center gap-5 shadow-sm hover:shadow-md">
             <ShowAll className="w-[32px] h-[32px] stroke-blueLink   dark:dark:stroke-dark-yellow" />
-            <p className="text-[16px] font-medium text-blueLink dark:text-dark-yellow font-azarMehr w">
+            <p className="text-[16px] font-medium text-blueLink dark:text-dark-yellow font-azarMehr ">
               {translateFooter(translateData, "explore more categories")}
             </p>
           </div>

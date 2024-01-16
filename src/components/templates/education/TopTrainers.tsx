@@ -45,12 +45,12 @@ export default function TopTrainers({translateData}:any) {
                   loading="lazy"
                   className="  w-[75px] h-[75px] md:w-[150px] md:h-[150px] sm:w-[120px] sm:h-[120px] xs:w-[100px] xs:h-[100px] absolute  top-[-75px] z-[999]  shadow-md hover:top-[-88px] transition-all duration-300 shadow-gray rounded-full"
                 />
-                <h3
+                <p
                   data-atropos-offset="-5"
                   className="font-bold text-[20px]  font-azarMehr "
                 >
                   {item.name}
-                </h3>
+                </p>
 
                 <Link
                   href={`https://rgb.irpsc.com/${router.query.lang}/citizen/${item.code}`}
@@ -69,15 +69,22 @@ export default function TopTrainers({translateData}:any) {
                   <Like className="inline ms-2" />
                 </span>
 
-                <div
-                  data-atropos-offset="5"
-                  className="w-[90%] h-[55px] bg-[#f5f9ff] dark:bg-[#000000] px-6 rounded-[10px] flex flex-row justify-between items-center"
+                <Link
+                  href={`https://rgb.irpsc.com/${router.query.lang}/citizen/${item.code}`}
+                  target="_blank"
+                  className="w-[90%] h-[55px]"
                 >
-                  <span className="text-blueLink dark:text-dark-yellow font-azarMehr font-medium text-[14px]">
-                    {translateFooter(translateData, "cv teacher")}
-                  </span>
-                  <Text className="w-[24px] h-[24px] stroke-blueLink dark:stroke-dark-yellow" />
-                </div>
+                  <div
+                    data-atropos-offset="5"
+                    className="w-[90%] h-[55px] bg-[#f5f9ff] dark:bg-[#000000] px-6 rounded-[10px] flex flex-row justify-between items-center"
+                  >
+                    <span className="text-blueLink dark:text-dark-yellow font-azarMehr font-medium text-[14px]">
+                      {translateFooter(translateData, "cv teacher")}
+                    </span>
+
+                    <Text className="w-[24px] h-[24px] stroke-blueLink dark:stroke-dark-yellow" />
+                  </div>
+                </Link>
               </div>
             </Atropos>
           ))}

@@ -194,7 +194,7 @@ export default function Footer({ footerTabs }: any) {
               </h2>
             </div>
           </div>
-          <p className="ms-6 mt-6 font-normal font-azarMehr text-[#4C4C4C] dark:text-[#D4D4D4] text-[20px] leading-9">
+          <p className="ms-6 mt-6 font-normal text-justify font-azarMehr text-[#4C4C4C] dark:text-[#D4D4D4] text-[20px] leading-9">
             {(
               footerTabs.find(
                 (item: any) => item.name == "footer description1"

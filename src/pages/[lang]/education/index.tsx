@@ -191,9 +191,9 @@ const Index: React.FC<IndexProps> = ({
               loading={loading}
               translateData={translateData}
             />
-            <footer className="flex flex-col justify-center items-center">
+            <div className="flex flex-col justify-center items-center">
               <DynamicFooter footerTabs={footerTabs} />
-            </footer>
+            </div>
           </section>
         </BaseLayoutEducation>
       </section>

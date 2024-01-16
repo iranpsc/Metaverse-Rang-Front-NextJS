@@ -1,4 +1,5 @@
-import {  MenuIcon,LogoRgb,ArrowMenu  } from "@/svgs/index";
+import { useRouter } from "next/router";
+import { MenuIcon, LogoRgb, ArrowMenu } from "@/svgs/index";
 export default function HeaderMenuEducationModule({
   isCollapsed,
   menuData,
@@ -8,20 +9,21 @@ export default function HeaderMenuEducationModule({
   menuData: any[];
   toggleCollapseHandler: () => void;
 }) {
- 
+  const router = useRouter();
+   const {lang } = router.query;
   return (
     <>
-      {!isCollapsed ? null : ( // /> //   onClick={toggleCollapseHandler} //   className="fill-[#2B2B2B] dark:fill-gray ms-5  cursor-pointer w-[27px]" // <CLoseIcon
+      {!isCollapsed ? null : (
         <MenuIcon
           className="stroke-[#2B2B2B] dark:stroke-gray cursor-pointer w-full mb-2"
           onClick={toggleCollapseHandler}
           alt="toggle"
         />
       )}
-      <div className="flex flex-row justify-between items-center ">
+      <div className="flex flex-row justify-between items-center relative ">
         <div
           className={`flex ${
-            isCollapsed ? "ms-3" : "ms-4"
+            isCollapsed ? "ms-3" : "ms-[1px]"
           } items-center gap-3 justify-center my-1 pb-1`}
         >
           <LogoRgb
@@ -34,7 +36,7 @@ export default function HeaderMenuEducationModule({
           {!isCollapsed ? (
             <div className="inline-block w-full  ">
               {menuData && menuData.length > 0 && (
-                <p className="visible  dark:text-white block font-azarMehr font-bold xl:text-[16px] lg:text-[14px] md:text-[13px] sm:text-[12px] xs:text-[12px] text-black pb-[2px] ">
+                <p className="visible  dark:text-white whitespace-nowrap	 block font-azarMehr font-bold xl:text-[16px] lg:text-[14px] md:text-[13px] sm:text-[12px] xs:text-[12px] text-black pb-[2px] ">
                   {menuData[0].translation}
                 </p>
               )}
@@ -53,12 +55,13 @@ export default function HeaderMenuEducationModule({
            md:w-[35px] md:h-[35px] 
            sm:w-[30px] sm:h-[30px] 
            xs:w-[30px] xs:h-[30px] 
+           
           
           
-          cursor-pointer rounded-full bg-[#efefef] dark:bg-black flex justify-center items-center me-2`}
+        absolute end-0 cursor-pointer rounded-full bg-[#efefef] dark:bg-black flex justify-center items-center me-2`}
           onClick={toggleCollapseHandler}
         >
-          <ArrowMenu className="w-[7px] h-[13px] stroke-[#2C2F32] dark:stroke-white" />
+          <ArrowMenu className={`w-[7px] ${lang==="en"?"rotate-180":"rotate-0"} h-[13px] stroke-[#2C2F32] dark:stroke-white`} />
         </div>
       </div>
       <hr
@@ -69,5 +72,3 @@ export default function HeaderMenuEducationModule({
     </>
   );
 }
-
-
