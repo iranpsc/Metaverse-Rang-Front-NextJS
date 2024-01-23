@@ -33,6 +33,7 @@ export const sidebarFilteredData = (data: any, page: string) => {
         "enter the metaverse",
         "home page",
         "my profile page",
+        
       ];
       const filteredLogin = tabsMenu.fields.filter((item: any) =>
       namesToKeep.includes(item.name)
@@ -127,11 +128,12 @@ export const sidebarFilteredData = (data: any, page: string) => {
       const filteredHeaderEducation = tabsBeforeLogin.fields.filter(
         (item: any) => namesToKeepHeaderEducation.includes(item.name)
       );
- 
+      
       return {
         filteredItemsEducation,
         filteredHeaderEducation,
         filteredLoginEducation,
+      
       };
 
     default:"s"

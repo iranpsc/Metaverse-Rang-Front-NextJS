@@ -138,7 +138,7 @@ export default function Footer({ footerTabs }: any) {
 
   return (
     <>
-      <div className="h-fit  w-[96%] mt-[200px] flex flex-wrap gap-[8px] rounded-[10px] p-3 items-center justify-center bg-white dark:bg-[#1A1A18]">
+      <div className="h-fit  w-[96%] mt-[200px] flex flex-wrap gap-[15px] py-5 rounded-[10px]  items-center justify-center bg-white dark:bg-[#1A1A18]">
         {imageSources.map((item: any, i: number) => (
           <div key={i}>
             <Link href={item.target} target="_blank">

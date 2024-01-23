@@ -52,17 +52,17 @@ export default function ListEducation({ loadMore, videosData, loading , translat
                 </div>
                 <div className="flex flex-row justify-start items-center gap-1 w-[95%] mt-[-10px]">
                   <p
-                    className="text-start  font-medium font-azarMehr text-[14px] truncate 3xl:text-[16px] cursor-pointer hover:text-blueLink hover:dark:text-dark-yellow"
+                    className="text-start text-gray dark:text-dark-gray font-medium font-azarMehr text-[14px] truncate 3xl:text-[16px] cursor-pointer hover:text-blueLink hover:dark:text-dark-yellow"
                     onClick={() => pusher(item.category_slug)}
                   >
                     {item.category_name}
                   </p>
-                  <span className="font-azarMehr font-medium text-[14px] 3xl:text-[16px]">
+                  <span className="font-azarMehr text-start text-gray dark:text-dark-gray font-medium text-[14px] 3xl:text-[16px]">
                     /
                   </span>
 
                   <p
-                    className="text-start truncate  font-medium font-azarMehr text-[14px] 3xl:text-[16px] cursor-pointer hover:text-blueLink hover:dark:text-dark-yellow"
+                    className=" text-start text-gray dark:text-dark-gray truncate font-medium font-azarMehr text-[14px] 3xl:text-[16px] cursor-pointer hover:text-blueLink hover:dark:text-dark-yellow"
                     onClick={() =>
                       pusher(`${item.category_slug}/${item.sub_category_slug}`)
                     }
@@ -71,10 +71,10 @@ export default function ListEducation({ loadMore, videosData, loading , translat
                   </p>
                 </div>
 
-                <h1 className="text-start w-[95%] font-azarMehr truncate cursor-pointer font-bold mt-[-10px] text-[18px] 3xl:text-[22px] ">
+                <h1 className="text-start w-[95%] font-azarMehr truncate cursor-pointer font-bold mt-[-5px] text-[18px] 3xl:text-[22px] ">
                   {item.title}
                 </h1>
-                <div className="flex flex-row items-center justify-start  w-[98%]">
+                <div className="flex flex-row items-center justify-start  mt-[-8px] w-[98%]">
                   <p className="text-[16px] 3xl:text-[18px] font-azarMehr font-normal truncate text-start w-[95%] mt-1">
                     {item.description.slice(0, 40)}...
                     <span className="font-normal 3xl:text-[18px] whitespace-nowrap ms-1 font-azarMehr text-blueLink dark:text-dark-yellow cursor-pointer">
@@ -90,7 +90,7 @@ export default function ListEducation({ loadMore, videosData, loading , translat
                       width={1000}
                       height={1000}
                       loading="lazy"
-                      className="w-[50px] h-[50px] rounded-full object-cover cursor-pointer transition-all duration-150 ease-in-out"
+                      className="w-[45px] h-[45px] rounded-full object-cover cursor-pointer transition-all duration-150 ease-in-out"
                       onClick={() => pushRgb(item.creator_code)}
                     />
                     <span
@@ -100,17 +100,17 @@ export default function ListEducation({ loadMore, videosData, loading , translat
                       {item.creator_code}
                     </span>
                   </div>
-                  <div className="flex flex-row justify-start items-center gap-3">
-                    <span className=" whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px]">
+                  <div className="flex flex-row justify-start items-center gap-5">
+                    <span className=" whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray me-[-13px]">
                       {formatNumber(item.likes)}
                     </span>
-                    <Like />
-                    <span className="whitespace-nowrap font-azarMehr font-normal  3xl:text-[18px]">
+                    <Like className="stroke-[#969696] stroke-2 "/>
+                    <span className="whitespace-nowrap font-azarMehr font-normal  3xl:text-[18px] text-gray dark:text-dark-gray me-[-10px]">
                       {formatNumber(item.dislikes)}
                     </span>
                     <Dislike />
 
-                    <span className="whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px]">
+                    <span className="whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray me-[-13px]">
                       {formatNumber(item.views)}
                     </span>
                     <View />
@@ -136,3 +136,5 @@ export default function ListEducation({ loadMore, videosData, loading , translat
     </>
   );
 }
+
+

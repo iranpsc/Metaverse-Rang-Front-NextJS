@@ -49,18 +49,18 @@ const CategoryComponent = ({ videosData, translateData,  footerTabs, }: any) => 
       className="w-full h-fit flex flex-col justify-start items-center "
    
     >
-      <section className="w-full h-fit flex mt-[1px] flex-col justify-center items-center  bg-[#f8f8f8] dark:bg-[#000] bg-opacity20">
+      <section className=" mt-[70px] w-full h-fit flex  flex-col justify-center items-center  bg-[#f8f8f8] dark:bg-[#000] bg-opacity20">
         <Image
           src="/header.jpg"
           alt="img"
           width={500}
           height={500}
           loading="lazy"
-          className=" w-[90%] h-[300px] mx-3 rounded-xl"
+          className=" w-[90%] h-[300px] mx-3 rounded-xl object-cover blur-[3px] "
           style={{ filter: `brightness(${brightness}%)` }}
         />
 
-        <SubTitlesModule />
+       
 
         <div className="w-full h-fit bg-white">
           <div className="bg-white flex flex-col items-center justify-center">
@@ -82,3 +82,6 @@ const CategoryComponent = ({ videosData, translateData,  footerTabs, }: any) => 
 export default CategoryComponent;
 
 
+/// بیسترین لایک دیس لایک دیده شدن
+/// بیشترین سرچ
+/// مربیان

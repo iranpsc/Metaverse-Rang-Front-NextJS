@@ -89,6 +89,10 @@ export default function SideBarEducation({
               sidebarFilteredData(res.data.modals, pageName)
                 ?.filteredHeaderEducation
             );
+              setThemeData(
+                sidebarFilteredData(res.data.modals, "citizen")
+                  ?.filteredThemeMode
+              );
           default:
             return [];
         }
@@ -210,7 +214,7 @@ const { lang } = router.query;
         <div className="w-full pt-3 pb-1 flex flex-col items-center justify-center">
           <div className="h-[1px] bg-gray opacity-50 dark:bg-mediumGray w-[80%] " />
         </div>
-        <ThemeMenuModule />
+        <ThemeMenuModule themeData={themeData}/>
       </div>
     </div>
   );

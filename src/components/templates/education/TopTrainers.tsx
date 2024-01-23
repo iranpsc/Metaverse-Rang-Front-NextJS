@@ -111,7 +111,7 @@ export default function TopTrainers({translateData}:any) {
             <>
               {itemsTrainers.map((item: any) => (
                 <Atropos shadow={false} key={item.id} highlight={false}>
-                  <div className=" w-[300px] h-[400px] shadow-sm  hover:dark:shadow-dark  mt-24 relative cursor-pointer  bg-[#969696] dark:bg-[#1A1A18] flex flex-col justify-evenly pt-[70px]  items-center rounded-[20px]">
+                  <div className=" w-[300px] h-[400px] shadow-sm  hover:dark:shadow-dark  mt-24 relative cursor-pointer  bg-[#fff] dark:bg-[#1A1A18] flex flex-col justify-evenly pt-[70px]  items-center rounded-[20px]">
                     <Image
                       src={item.img}
                       alt={item.name}
@@ -141,7 +141,7 @@ export default function TopTrainers({translateData}:any) {
 
                     <span>
                       {item.likes}
-                      <Like className="inline ms-2" />
+                      <Like className="inline ms-2  stroke-gray dark:stroke-white mb-1" />
                     </span>
 
                     <Link
@@ -167,15 +167,15 @@ export default function TopTrainers({translateData}:any) {
           )}
 
           <div className="mt-24 w-[300px] h-[400px] shadow-sm pointer-events-none hover:shadow-md bg-white dark:bg-[#1A1A18] flex flex-col justify-center  items-center rounded-[20px]">
-            <div className="w-[60px] h-[60px] bg-[#0066FF] dark:bg-[#FFC700] dark:bg-opacity-20 bg-opacity-20 rounded-full flex justify-center items-center">
+            <div className="w-[60px] h-[60px] bg-[#f5f9ff] dark:bg-[#483D13]   rounded-full flex justify-center items-center">
               <Arrow
                 className={` ${
                   languageSelected.dir === "rtl" ? "" : "rotate-180"
-                } ms-1 w-[10px] h-[20px] stroke-2 stroke-[#0066FF] dark:stroke-[#FFC700]`}
+                } ms-1 w-[10px] h-[20px] stroke-2 stroke-[#0066FF] dark:stroke-dark-yellow`}
               />
             </div>
 
-            <h3 className="font-bold text-[16px]   mt-3 text-[#0066FF] dark:text-[#FFC700]">
+            <h3 className="font-medium font-azarMehr text-[16px]   mt-3 text-blueLink dark:text-[#FFC700]">
               {translateFooter(translateData, "view other trainers")}
             </h3>
           </div>
