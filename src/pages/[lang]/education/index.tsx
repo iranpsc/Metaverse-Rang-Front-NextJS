@@ -9,8 +9,6 @@ import { LangContext } from "@/context/LangContext";
 import ProfileHeaderMobile from "@/module/profile/ProfileHeaderMobile";
 import TopTrainers from "@/components/templates/education/TopTrainers";
 import Categories from "./../../../components/templates/education/Categories";
-import ListEducation from "@/components/templates/education/ListEducation";
-import Footer from "@/components/templates/education/Footer";
 import BaseLayoutEducation from "@/components/layout/BaseLayoutEducation";
 import { translateFooter } from "@/components/utils/education";
 import SearchComponent from "@/components/templates/education/SearchComponent";
@@ -170,12 +168,14 @@ const Index: React.FC<IndexProps> = ({
         className={`overflow-auto relative `}
       >
         <BaseLayoutEducation>
-          <section className="relative flex flex-col justify-start overflow-y-auto overflow-x-hidden items-center bg-[#f8f8f8] dark:bg-[#000] bg-opacity20">
+          <section className="relative flex  flex-col justify-start overflow-y-auto overflow-x-hidden items-center bg-[#f8f8f8] dark:bg-[#000] bg-opacity20">
             <ProfileHeaderMobile
               menuData={data}
               profileData={[]}
               profileName={[]}
             />
+            <h1 className="mt-10 text-center font-azarMehr font-bold 2xl:text-[26px] xl:text-[26px] lg:text-[22px] md:text-[20px] sm:text-[18px] xs:text-[16px] w-full text-black dark:text-white">{translateFooter(translateData, "page title")}</h1>
+            <p className=" 2xl:w-[30%] xl:w-[30%] lg:w-[40%] md:w-[40%] sm:w-[50%] xs:w-[50%] mt-5 font-azarMehr font-normal text-gray dark:text-dark-gray 2xl:text-[14px] xl:text-[14px] lg:text-[13px] md:text-[12px] sm:text-[12px] xs:text-[10px]   text-center">{translateFooter(translateData, "description")}</p>
             <SearchComponent
               themeDataActive={themeDataActive}
               translateData={translateData}

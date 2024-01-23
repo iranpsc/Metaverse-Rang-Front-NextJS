@@ -152,9 +152,9 @@ const { lang } = router.query;
     }
   };
   return (
-    <div className="  xl:relative lg:relative  bg-white dark:bg-dark-background ">
+    <div className="   xl:relative lg:relative   dark:bg-dark-background ">
       <div
-        className={`xl:min-h-screen scroll lg:min-h-screen md:min-h-screen overflow-y-scroll  relative sm:min-h-screen xs:min-h-screen ${
+        className={` shadow-left dark:shadow-leftDark xl:min-h-screen scroll lg:min-h-screen md:min-h-screen overflow-y-scroll  relative sm:min-h-screen xs:min-h-screen ${
           isCollapsed
             ? "sm:hidden xs:hidden md:hidden transition-2 xl:block lg:block"
             : "backdrop-blur-sm  bg-blackTransparent/30"

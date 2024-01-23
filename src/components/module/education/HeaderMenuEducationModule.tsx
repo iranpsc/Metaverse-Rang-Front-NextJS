@@ -31,7 +31,7 @@ export default function HeaderMenuEducationModule({
               isCollapsed
                 ? "xl:w-[40px] xl:h-[45px]"
                 : "xl:w-[80px] xl:h-[50px]"
-            }  lg:w-[40px] lg:h-[35px] md:w-[30px] md:h-[30px] sm:w-[45px] sm:h-[45px] xs:w-[50px] xs:h-[50px] `}
+            }  lg:w-[40px] lg:h-[35px] md:w-[30px] md:h-[30px] sm:w-[45px] sm:h-[45px] xs:w-[50px] xs:h-[50px] ms-2`}
           />
           {!isCollapsed ? (
             <div className="inline-block w-full  ">
@@ -41,7 +41,7 @@ export default function HeaderMenuEducationModule({
                 </p>
               )}
               {menuData && menuData.length > 1 && (
-                <p className="dark:text-dark-gray visible font-normal text-mediumGray xl:text-[14px] lg:text-[11px] md:text-[13px] sm:text-[10px] xs:text-[10px] ">
+                <p className="dark:text-dark-gray visible font-azarMehr font-normal text-gray xl:text-[14px] lg:text-[11px] md:text-[13px] sm:text-[10px] xs:text-[10px] ">
                   {menuData[1].translation}
                 </p>
               )}
@@ -61,7 +61,11 @@ export default function HeaderMenuEducationModule({
         absolute end-0 cursor-pointer rounded-full bg-[#efefef] dark:bg-black flex justify-center items-center me-2`}
           onClick={toggleCollapseHandler}
         >
-          <ArrowMenu className={`w-[7px] ${lang==="en"?"rotate-180":"rotate-0"} h-[13px] stroke-[#2C2F32] dark:stroke-white`} />
+          <ArrowMenu
+            className={`w-[7px] ${
+              lang === "en" ? "rotate-180" : "rotate-0"
+            } h-[13px] stroke-[#2C2F32] dark:stroke-white`}
+          />
         </div>
       </div>
       <hr

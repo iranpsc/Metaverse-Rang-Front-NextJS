@@ -12,7 +12,7 @@ export default function BaseLayoutEducation({ children }: Props) {
     const [showLogOut, setShowLogOut] = useState<boolean>(false);
 
   return (
-    <div className="flex flex-row max-h-screen max-lg:h-full max-lg:flex-col xl:overflow-clip lg:overflow-clip md:overflow-clip sm:overflow-auto xs:overflow-auto no-scrollbar">
+    <div className="flex flex-row max-h-screen max-lg:h-full  max-lg:flex-col xl:overflow-clip lg:overflow-clip md:overflow-clip sm:overflow-auto xs:overflow-auto no-scrollbar">
       <AnimatePresence>
         {showAuthCard && <AuthCards setShowAuthCard={setShowAuthCard} />}
       </AnimatePresence>
