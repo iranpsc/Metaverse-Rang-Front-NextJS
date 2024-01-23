@@ -5,7 +5,7 @@ import { Dark, Light } from "@/svgs/index";
 import { SideBarContext } from "@/context/SidebarContext";
 
 const ThemeMenuModule = ({themeData}:any) => {
-  console.log(themeData);
+  
   const { theme, setTheme } = useTheme();
   const { isCollapsed } = useContext(SideBarContext);
   
