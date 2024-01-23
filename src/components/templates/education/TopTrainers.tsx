@@ -62,7 +62,7 @@ export default function TopTrainers({translateData}:any) {
                     width={500}
                     height={500}
                     loading="lazy"
-                    className="  w-[75px] h-[75px] md:w-[150px] md:h-[150px] sm:w-[120px] sm:h-[120px] xs:w-[100px] xs:h-[100px] absolute  top-[-75px] z-[999]  shadow-md hover:top-[-88px] transition-all duration-300 shadow-gray rounded-full"
+                    className="  w-[75px] h-[75px] md:w-[150px] md:h-[150px] sm:w-[120px] sm:h-[120px] xs:w-[100px] xs:h-[100px] absolute  top-[-75px] z-10  shadow-md hover:top-[-88px] transition-all duration-300 shadow-gray rounded-full"
                   />
                   <p
                     data-atropos-offset="-5"
@@ -85,7 +85,7 @@ export default function TopTrainers({translateData}:any) {
 
                   <span>
                     {item.likes}
-                    <Like className="inline ms-2" />
+                    <Like className="inline ms-2  stroke-gray dark:stroke-white mb-1" />
                   </span>
 
                   <Link
@@ -175,9 +175,9 @@ export default function TopTrainers({translateData}:any) {
               />
             </div>
 
-            <h3 className="font-medium font-azarMehr text-[16px]   mt-3 text-blueLink dark:text-[#FFC700]">
+            <p className="font-medium font-azarMehr text-[16px]   mt-3 text-blueLink dark:text-[#FFC700]">
               {translateFooter(translateData, "view other trainers")}
-            </h3>
+            </p>
           </div>
         </div>
       </div>

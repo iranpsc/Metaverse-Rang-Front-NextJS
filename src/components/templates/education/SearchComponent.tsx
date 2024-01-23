@@ -91,7 +91,7 @@ export default function SearchComponent({ themeDataActive, translateData ,setAct
             {translateFooter(translateData, "search")}
           </span>
         </div>
-        <div className="w-full  bg-white dark:bg-dark-background rounded-xl max-h-[500px]  overflow-y-auto overflow-x-clip absolute mt-[53px]  flex flex-col justify-start items-center gap-1 z-10  ">
+        <div className="w-full  bg-white dark:bg-dark-background rounded-xl max-h-screen z-50  overflow-y-auto overflow-x-clip absolute mt-[53px]  flex flex-col justify-start items-center gap-1 ">
           {searchData.length >= 1 &&
             searchData.map((item: any) => (
               <div
