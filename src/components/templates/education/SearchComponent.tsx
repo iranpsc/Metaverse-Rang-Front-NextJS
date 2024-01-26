@@ -21,7 +21,7 @@ export default function SearchComponent({ themeDataActive, translateData ,setAct
         .post("https://api.rgb.irpsc.com/api/tutorials/search", formData)
         .then((response) => {
           setLoadingSearch(false);
-          setSearchData(response.data.data);
+          setSearchData(response.data.data[0]);
             
        
               
@@ -57,7 +57,7 @@ export default function SearchComponent({ themeDataActive, translateData ,setAct
       <div
         className={`${
           searchData.length >= 1 ? "visible" : "invisible"
-        }  w-full backdrop-blur-sm  bg-blackTransparent/30 h-screen absolute top-0 z-10 `}
+        }  w-full min-h-[1000px] backdrop-blur-sm  bg-blackTransparent/30 h-screen absolute top-0 z-10 `}
         onClick={removeSearch}
       ></div>
       <div
@@ -91,12 +91,12 @@ export default function SearchComponent({ themeDataActive, translateData ,setAct
             {translateFooter(translateData, "search")}
           </span>
         </div>
-        <div className="w-full  bg-white dark:bg-dark-background rounded-xl max-h-screen z-50  overflow-y-auto overflow-x-clip absolute mt-[53px]  flex flex-col justify-start items-center gap-1 ">
+        <div className="w-full  bg-white dark:bg-dark-background rounded-xl 2xl:max-h-[500px] xl:max-h-[500px] lg:max-h-[500px] md:2xl:max-h-[500px] sm:max-h-[300px] xs:max-h-[300px]  z-[100]  overflow-y-auto overflow-x-clip absolute mt-[53px]  flex flex-col justify-start items-center gap-1 ">
           {searchData.length >= 1 &&
             searchData.map((item: any) => (
               <div
                 key={item.id}
-                className="w-[99%] h-[65px] mt-2 hover:dark:shadow-dark transition-all duration-300  bg-white dark:bg-[#121210] shadow-md hover:shadow-xl  cursor-pointer rounded-full  flex flex-row justify-between items-center"
+                className="w-[99%] h-[65px] mt-2 hover:dark:shadow-darkSearch transition-all duration-300  bg-white dark:bg-dark-background border-b-[1px] border-mediumGray dark:border-mediumGray hover:shadow-md  cursor-pointer flex flex-row justify-between items-center"
               >
                 <p className="ms-7 font-azarMehr truncate  text-[16px] xs:text-[12px] font-medium ">
                   {item.title}
