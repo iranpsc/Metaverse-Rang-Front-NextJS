@@ -86,7 +86,7 @@ export default function ListEducation({ loadMore, videosData, loading , translat
                   <div className="flex flex-row justify-start items-center gap-2">
                     <Image
                       src={item.creator_image}
-                      alt={item.creator_image}
+                      alt={item.creator_code}
                       width={1000}
                       height={1000}
                       loading="lazy"
@@ -104,7 +104,7 @@ export default function ListEducation({ loadMore, videosData, loading , translat
                     <span className=" whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray me-[-13px]">
                       {formatNumber(item.likes)}
                     </span>
-                    <Like className="stroke-[#969696] stroke-2 "/>
+                    <Like className="stroke-[#969696] stroke-2 " />
                     <span className="whitespace-nowrap font-azarMehr font-normal  3xl:text-[18px] text-gray dark:text-dark-gray me-[-10px]">
                       {formatNumber(item.dislikes)}
                     </span>
