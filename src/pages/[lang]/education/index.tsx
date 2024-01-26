@@ -217,7 +217,7 @@ export async function getServerSideProps(context: any) {
     const languageCode = context.query.lang;
 
     const resCategories = await axios.get(
-      "https://api.rgb.irpsc.com/api/tutorials/categories"
+      "https://api.rgb.irpsc.com/api/tutorials/categories?count=9"
     );
 
     const categoriesData = resCategories.data.data;
