@@ -1,6 +1,7 @@
-import { useContext, useState, useEffect, useRef } from "react";
+import { useContext, useState, useRef } from "react";
 import Image from "next/image";
-import { CLoseIcon, Arrow } from "@/svgs/index";
+import { CLoseIcon } from "@/svgs/index";
+import { Arrow } from "@/svgs/SvgEducation";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/router";
 import { LangContext } from "@/context/LangContext";

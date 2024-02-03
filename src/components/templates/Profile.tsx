@@ -1,25 +1,28 @@
 import { useContext, useState, useEffect, useRef } from "react";
-import Image from "next/image"
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";
 import Persian from "persianjs";
 import { LangContext } from "@/context/LangContext";
-import {  targetData } from "@/utils/targetDataName";
+import { targetData } from "@/utils/targetDataName";
 import ProfileHeaderMobile from "@/module/profile/ProfileHeaderMobile";
 import ProfileTopMobile from "@/module/profile/ProfileTopMobile";
 import ProfileImages from "@/module/profile/ProfileImages";
 import { Tooltip as ReactTooltip } from "react-tooltip";
-import { CopyIcon } from "../svgs";
+import { CopyIcon } from "../svgs/SvgCategories";
 import ProfileMainDetails from "../module/profile/ProfileMainDetails";
 import ProfileGems from "../module/profile/ProfileGems";
 
-
-export default function Profile({ profileData, titleData, setShowSharedPage, nameUser }: any) {
+export default function Profile({
+  profileData,
+  titleData,
+  setShowSharedPage,
+  nameUser,
+}: any) {
   const { data, languageSelected } = useContext(LangContext);
   const [profileName, setProfileName] = useState<string>("");
 
-     const yourElementRef = useRef(null);
- 
+  const yourElementRef = useRef(null);
 
   const numberScore =
     100 - parseInt(profileData?.score_percentage_to_next_level);

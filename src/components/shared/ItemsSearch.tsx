@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 
 import { motion } from "framer-motion";
-import { Like } from "@/components/svgs";
+import { Like } from "@/components/svgs/SvgEducation";
 
 export const ItemsSearch = ({ searchData }: any) => {
   const [isDataReady, setIsDataReady] = useState(false);

@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Like, Dislike, View, Search, ArrowMenu } from "@/components/svgs";
+import { ArrowMenu } from "@/components/svgs";
+import { Like, Dislike, View, Search } from "@/components/svgs/SvgEducation";
 
-export const SortModule = ({ setShowFilterItems, showFilterItems }:any) => {
-      const [activeItem, setActiveItem] = useState<any>(0);
+export const SortModule = ({ setShowFilterItems, showFilterItems }: any) => {
+  const [activeItem, setActiveItem] = useState<any>(0);
   const changeHandlerFilterItems = (data: any) => {
     if (data === "sort") {
       setShowFilterItems("none");
@@ -32,29 +33,27 @@ export const SortModule = ({ setShowFilterItems, showFilterItems }:any) => {
       </div>
 
       {/* {showFilterItems === "sort" && ( */}
-        <div className="flex flex-col gap-2 items-center justify-evenly w-full  ">
-          {itemFilter.map((item) => (
-            <div
-              className={` w-[90%] py-3 px-2 rounded-xl ${
-                activeItem === item.id ? "bg-blueLink/30" : "bg-lightGray"
-              } cursor-pointer  flex items-center justify-between`}
-              key={item.id}
-              onClick={() =>
-                item.id === activeItem
-                  ? setActiveItem(0)
-                  : setActiveItem(item.id)
-              }
+      <div className="flex flex-col gap-2 items-center justify-evenly w-full  ">
+        {itemFilter.map((item) => (
+          <div
+            className={` w-[90%] py-3 px-2 rounded-xl ${
+              activeItem === item.id ? "bg-blueLink/30" : "bg-lightGray"
+            } cursor-pointer  flex items-center justify-between`}
+            key={item.id}
+            onClick={() =>
+              item.id === activeItem ? setActiveItem(0) : setActiveItem(item.id)
+            }
+          >
+            <p
+              className={`font-azarMehr  ${
+                activeItem === item.id ? "text-blueLink" : "text-gray"
+              } font-medium text-[13px]`}
             >
-              <p
-                className={`font-azarMehr  ${
-                  activeItem === item.id ? "text-blueLink" : "text-gray"
-                } font-medium text-[13px]`}
-              >
-                {item.title}
-              </p>
-            </div>
-          ))}
-        </div>
+              {item.title}
+            </p>
+          </div>
+        ))}
+      </div>
       {/* )} */}
     </>
   );

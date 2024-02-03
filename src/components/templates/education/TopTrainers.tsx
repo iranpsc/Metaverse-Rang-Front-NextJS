@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Atropos from "atropos/react";
 import { LangContext } from "@/context/LangContext";
-import { Arrow, Like, Text } from "@/components/svgs";
+import { Arrow, Like, Text } from "@/components/svgs/SvgEducation";
 import { translateFooter } from "@/components/utils/education";
 
 export default function TopTrainers({ translateData }: any) {

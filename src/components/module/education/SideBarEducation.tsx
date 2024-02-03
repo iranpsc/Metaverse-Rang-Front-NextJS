@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
-import { Dark, Light } from "@/svgs/index";
 import { useTheme } from "next-themes";
 
 //CONTEXT
@@ -11,7 +10,6 @@ import { LangContext } from "@/context/LangContext";
 //MODULES
 import LoginMenuModule from "@/module/menu/LoginMenuModule";
 import ListMenuModule from "@/module/menu/ListMenuModule";
-import HeaderMenuModule from "../menu/HeaderMenuModule";
 import HeaderMenuEducationModule from "./HeaderMenuEducationModule";
 //UTILS
 import { sidebarFilteredData } from "@/components/utils/sidebarfuncs";

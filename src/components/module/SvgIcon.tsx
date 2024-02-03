@@ -1,5 +1,3 @@
-import { useTheme } from "next-themes";
-
 import {
   HomeIcon,
   Belongings,
@@ -14,6 +12,9 @@ import {
   Structures,
   Transaction,
   Language,
+} from "../svgs";
+
+import {
   News,
   Articles,
   Competitions,
@@ -23,11 +24,9 @@ import {
   Version,
   Overview,
   Calender,
-} from "../svgs";
+} from "../svgs/SvgEducation";
 
 export default function SvgIcon({ name, color }: any) {
-  
-
   return (
     <>
       {name === "home" && (
@@ -37,9 +36,7 @@ export default function SvgIcon({ name, color }: any) {
         />
       )}
       {name === "news" && (
-        <News
-          className={` ${color} stroke-4 mx-[10px]  3xl:w-7 3xl:h-7`}
-        />
+        <News className={` ${color} stroke-4 mx-[10px]  3xl:w-7 3xl:h-7`} />
       )}
       {name === "articles" && (
         <Articles

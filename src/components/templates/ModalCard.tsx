@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState ,useContext} from "react";
+import { useRef, useContext } from "react";
 import Image from "next/image";
-import { Arrow, CLoseIcon } from "@/svgs/index";
+import { CLoseIcon } from "@/svgs/index";
+import { Arrow } from "@/svgs/SvgEducation";
 import { useTheme } from "next-themes";
 import { LangContext } from "@/context/LangContext";
 import { translateFavorites } from "@/utils/targetDataName";
@@ -15,21 +16,19 @@ export default function ModalCard({
 }: any) {
   const { theme } = useTheme();
   const { data, profileData } = useContext(LangContext);
-    const scrollContainer = useRef<HTMLDivElement>(null);
+  const scrollContainer = useRef<HTMLDivElement>(null);
 
-    
+  const scrollRight = () => {
+    if (scrollContainer.current) {
+      scrollContainer.current.scrollBy({ left: 200, behavior: "smooth" });
+    }
+  };
 
-    const scrollRight = () => {
-      if (scrollContainer.current) {
-        scrollContainer.current.scrollBy({ left: 200, behavior: "smooth" });
-      }
-    };
-
-    const scrollLeft = () => {
-      if (scrollContainer.current) {
-        scrollContainer.current.scrollBy({ left: -200, behavior: "smooth" });
-      }
-    };
+  const scrollLeft = () => {
+    if (scrollContainer.current) {
+      scrollContainer.current.scrollBy({ left: -200, behavior: "smooth" });
+    }
+  };
 
   return (
     <div

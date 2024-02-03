@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
-import { MenuIcon, LogoRgb, ArrowMenu } from "@/svgs/index";
+import { MenuIcon, ArrowMenu } from "@/svgs/index";
+import { LogoRgb } from "@/svgs/SvgLogoWeb";
 export default function HeaderMenuEducationModule({
   isCollapsed,
   menuData,

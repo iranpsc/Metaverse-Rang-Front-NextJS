@@ -1,4 +1,5 @@
-import { Search, CLoseIcon } from "@/components/svgs";
+import { CLoseIcon } from "@/components/svgs";
+import { Search } from "@/components/svgs/SvgEducation";
 import SyncLoader from "react-spinners/SyncLoader";
 import { translateFooter } from "@/components/utils/education";
 

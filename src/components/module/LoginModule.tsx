@@ -1,9 +1,9 @@
-import { useContext, useState,useEffect } from "react";
-import Link from "next/link";   
+import { useContext, useState } from "react";
+import Link from "next/link";
 import dynamic from "next/dynamic";
-import { Formik, Form, Field} from "formik";
+import { Formik, Form, Field } from "formik";
 //svgs
-import { EyeShow, EyeHidden } from "@/svgs/index";
+import { EyeShow, EyeHidden } from "@/svgs/SvgAuth";
 //ERROR
 import ErrorMessageComponent from "./ErrorMessageComponent";
 //CONTEXT
@@ -12,10 +12,7 @@ import { LangContext } from "@/context/LangContext";
 import { LoginSchema } from "@/utils/validationAuth";
 import { cssAuth } from "../utils/taiwindAuth";
 
-
-
-
-export default function LoginModule({ setShowModule, setShowAuthCard}: any) {
+export default function LoginModule({ setShowModule, setShowAuthCard }: any) {
   const DynamicCaptcha = dynamic(() => import("../templates/Captcha"), {
     ssr: false,
   });
@@ -26,9 +23,6 @@ export default function LoginModule({ setShowModule, setShowAuthCard}: any) {
 
   const { languageSelected, data } = useContext(LangContext);
   const lang = languageSelected.code;
-
-
-
 
   const [rememberMe, setRememberMe] = useState(false);
 

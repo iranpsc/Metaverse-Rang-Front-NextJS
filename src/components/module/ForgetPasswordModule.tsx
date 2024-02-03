@@ -9,55 +9,46 @@ import { LangContext } from "@/context/LangContext";
 import { ForgetPasswordSchema } from "@/utils/validationAuth";
 import { cssAuth } from "../utils/taiwindAuth";
 import axios from "axios";
-import { Success } from "../svgs";
+import { Success } from "../svgs/SvgCategories";
 
-
-
-
-
-export default function ForgetPasswordModule({ setShowAuthCard,setShowModule }: any) {
-const [showSuccess,setShowSuccess] = useState(false);
- const [showErrorLoginAccess, seShowErrorLoginAccess] = useState<string>("");
+export default function ForgetPasswordModule({
+  setShowAuthCard,
+  setShowModule,
+}: any) {
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showErrorLoginAccess, seShowErrorLoginAccess] = useState<string>("");
   const { languageSelected, data } = useContext(LangContext);
   const lang = languageSelected.code;
 
+  const handleFormSubmit = async (values: any) => {
+    if (values) {
+      try {
+        const requestData = {
+          email: values.email,
+        };
+        const response = await axios.post(
+          "https://api.rgb.irpsc.com/api/forgot-password",
+          requestData
+        );
+        if (response.data) {
+          changeShowSuccess();
 
-
-  
-    const handleFormSubmit = async (values: any) => {
-      if (values) {
-        try {
-          const requestData = {
-            email: values.email,
-          };
-          const response = await axios.post(
-            "https://api.rgb.irpsc.com/api/forgot-password",
-            requestData
-          );
-          if (response.data) {
-            changeShowSuccess()
-            
-            seShowErrorLoginAccess("");
-           
-          }
-        } catch (err: any) {
-          console.error(err.response.data.message);
-          seShowErrorLoginAccess(err.response.data.message);
+          seShowErrorLoginAccess("");
         }
+      } catch (err: any) {
+        console.error(err.response.data.message);
+        seShowErrorLoginAccess(err.response.data.message);
       }
-    };
+    }
+  };
 
-
-    const changeShowSuccess = () => {
-      setShowSuccess(true);
-      setTimeout(() => {
-       
-       setShowAuthCard(false)
-        setShowSuccess(false);
-      }, 2000);
-    };
-
- 
+  const changeShowSuccess = () => {
+    setShowSuccess(true);
+    setTimeout(() => {
+      setShowAuthCard(false);
+      setShowSuccess(false);
+    }, 2000);
+  };
 
   const getEmailValue = (e: any) => {};
   return (
@@ -72,7 +63,7 @@ const [showSuccess,setShowSuccess] = useState(false);
                 ).translation
               }
             </h3>
-            <Success className="w-[50px] h-[50px]"/>
+            <Success className="w-[50px] h-[50px]" />
           </div>
         </>
       ) : (
@@ -116,7 +107,11 @@ const [showSuccess,setShowSuccess] = useState(false);
                       props.handleChange(e);
                     }}
                   />
-                  <ErrorMessageComponent fieldName="email" lang={lang}                   data={data.data.registerPageLang} />
+                  <ErrorMessageComponent
+                    fieldName="email"
+                    lang={lang}
+                    data={data.data.registerPageLang}
+                  />
                   {showErrorLoginAccess !== "" ? (
                     <span className="text-error font-azarMehr font-medium text-[10px] mt-2">
                       {showErrorLoginAccess}

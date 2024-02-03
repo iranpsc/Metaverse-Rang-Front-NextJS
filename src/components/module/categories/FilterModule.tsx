@@ -1,28 +1,24 @@
 import Image from "next/image";
 import { useState } from "react";
-import { Like, Dislike, View, Search, ArrowMenu } from "@/components/svgs";
+import { Like, Dislike, View, Search } from "@/components/svgs/SvgEducation";
+import { ArrowMenu } from "@/components/svgs";
 
 import { motion } from "framer-motion";
 import { SortModule } from "./SortModule";
-import { SearchTrainersModule } from './SearchTrainersModule';
-
-
+import { SearchTrainersModule } from "./SearchTrainersModule";
 
 export const FilterModule = ({
   translateData,
   showFilterItems,
   setShowFilterItems,
   setShowFilter,
-  showFilter
+  showFilter,
 }: any) => {
-
- 
-
-   const modalVariants = {
-     hidden: { opacity: 0, x: 0 },
-     visible: { opacity: 1, x: 0 },
-     exit: { opacity: 0, x: "-100%" },
-   };
+  const modalVariants = {
+    hidden: { opacity: 0, x: 0 },
+    visible: { opacity: 1, x: 0 },
+    exit: { opacity: 0, x: "-100%" },
+  };
 
   return (
     <>
@@ -60,7 +56,9 @@ export const FilterModule = ({
           />
 
           <div className="w-[90%] rounded-xl bg-blueLink h-[50px] absolute bottom-3 flex items-center justify-center">
-            <p className="text-white font-azarMehr font-bold text-[16px]">اعمال فلیتر</p>
+            <p className="text-white font-azarMehr font-bold text-[16px]">
+              اعمال فلیتر
+            </p>
           </div>
         </motion.div>
       </div>

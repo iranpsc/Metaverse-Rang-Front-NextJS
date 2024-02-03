@@ -1,14 +1,14 @@
 import { useRouter } from "next/router";
 import Image from "next/image";
-import { ShowAll } from "@/components/svgs";
+import { ShowAll } from "@/components/svgs/SvgEducation";
 import { translateFooter } from "@/components/utils/education";
 
-export default function Categories({ categoriesData,translateData }:any) {
+export default function Categories({ categoriesData, translateData }: any) {
   const router = useRouter();
-  const {lang} = router.query;
-  const pusher=(link:string)=>{
-    router.push(`/${lang}/education/category/${link}`)
-  }
+  const { lang } = router.query;
+  const pusher = (link: string) => {
+    router.push(`/${lang}/education/category/${link}`);
+  };
   return (
     <>
       <div className="w-[95%] h-fit mt-36 flex flex-col justify-center items-center ">
@@ -50,6 +50,3 @@ export default function Categories({ categoriesData,translateData }:any) {
     </>
   );
 }
-
-
-

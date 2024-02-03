@@ -3,7 +3,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import Masonry from "react-masonry-css";
 
-import { Like, Dislike, View } from "@/components/svgs";
+import { Like, Dislike, View } from "@/components/svgs/SvgEducation";
 import { formatNumber } from "@/components/utils/education";
 import { useRouter } from "next/router";
 

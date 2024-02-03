@@ -1,8 +1,13 @@
-import { useContext ,useState,useEffect} from "react";
+import { useContext, useState, useEffect } from "react";
 import { SideBarContext } from "@/components/context/SidebarContext";
-import { CLoseIcon, MenuIcon, LogoRgbMobile } from "@/components/svgs";
+import { CLoseIcon, MenuIcon } from "@/components/svgs";
+import { LogoRgbMobile } from "@/components/svgs/SvgLogoMobile";
 
-export default function ProfileHeaderMobile({ menuData, profileData, profileName }: any) {
+export default function ProfileHeaderMobile({
+  menuData,
+  profileData,
+  profileName,
+}: any) {
   const { isCollapsed, toggleCollapseHandler } = useContext(SideBarContext);
   const [title, SetTitle] = useState<any>([]);
   const [desc, setDesc] = useState<any>([]);

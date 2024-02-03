@@ -1,25 +1,29 @@
-import { useContext, useRef, useState,useEffect } from "react";
+import { useContext, useRef, useState, useEffect } from "react";
 import { LangContext } from "@/context/LangContext";
 import { targetData } from "@/utils/targetDataName";
 import Persian from "persianjs";
-import { CopyIcon } from "@/components/svgs";
+import { CopyIcon } from "@/components/svgs/SvgCategories";
 
-const ProfileMainDetails = ({nameUser,profileData,setShowSharedPage}:any) => {
+const ProfileMainDetails = ({
+  nameUser,
+  profileData,
+  setShowSharedPage,
+}: any) => {
   const { data, languageSelected } = useContext(LangContext);
-  const [numberScore, setNumberScore]=useState<number>(0);
+  const [numberScore, setNumberScore] = useState<number>(0);
 
-  useEffect(()=>{
- if (profileData?.score_percentage_to_next_level){
-setNumberScore(100 - parseInt(profileData?.score_percentage_to_next_level))
-  }else{
-    setNumberScore(0)
-  }
-  },[profileData?.score_percentage_to_next_level])
+  useEffect(() => {
+    if (profileData?.score_percentage_to_next_level) {
+      setNumberScore(
+        100 - parseInt(profileData?.score_percentage_to_next_level)
+      );
+    } else {
+      setNumberScore(0);
+    }
+  }, [profileData?.score_percentage_to_next_level]);
 
-
-    const yourElementRef = useRef(null);
+  const yourElementRef = useRef(null);
   const percent = (numberScore / 100) * 100;
-
 
   return (
     <div className="flex flex-col justify-start items-center w-[98%] mt-2 3xl:gap-10 tall:gap-10 xl:gap-6  lg:gap-4 md:gap-10 sm:gap-5 xs:gap-5">

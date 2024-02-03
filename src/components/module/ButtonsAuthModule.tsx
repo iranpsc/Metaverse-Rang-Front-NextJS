@@ -1,6 +1,6 @@
-import React,{useContext} from "react";
+import React, { useContext } from "react";
 //svgs
-import { ProfileIcon, ProfileAddIcon } from "@/svgs/index";
+import { ProfileIcon, ProfileAddIcon } from "@/svgs/SvgAuth";
 import { LangContext } from "@/context/LangContext";
 
 type ButtonsAuthModuleProps = {
@@ -12,25 +12,25 @@ const ButtonsAuthModule: React.FC<ButtonsAuthModuleProps> = ({
   showModule,
   setShowModule,
 }) => {
-   const {data} = useContext(LangContext);
-  
-  
-const buttons = [
-  {
-    id: 1,
-     name: data.data.loginPageLang.find((item: any) => item.name === "login").translation,
-   
+  const { data } = useContext(LangContext);
 
-    code: "login",
-  },
-  {
-    id: 2,
-    name: data.data.registerPageLang.find((item: any) => item.name === "register").translation,
-   
-  
-    code: "register",
-  },
-];
+  const buttons = [
+    {
+      id: 1,
+      name: data.data.loginPageLang.find((item: any) => item.name === "login")
+        .translation,
+
+      code: "login",
+    },
+    {
+      id: 2,
+      name: data.data.registerPageLang.find(
+        (item: any) => item.name === "register"
+      ).translation,
+
+      code: "register",
+    },
+  ];
 
   return (
     <>

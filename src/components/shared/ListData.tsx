@@ -1,7 +1,8 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
 
-import { Like, Dislike, View, Folder, Video } from "@/components/svgs";
+import { Folder } from "@/components/svgs/SvgCategories";
+import { Like, Dislike, View, Video } from "@/components/svgs/SvgEducation";
 import { formatNumber } from "@/components/utils/education";
 import { translateFooter } from "@/components/utils/education";
 

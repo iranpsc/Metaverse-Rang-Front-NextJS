@@ -1,18 +1,17 @@
 import { useContext } from "react";
-import Link from "next/link";    
+import Link from "next/link";
 
 import dynamic from "next/dynamic";
 import { Formik, Form, Field } from "formik";
 import { RegisterSchema } from "../utils/validationAuth";
 //svgs
-import { EyeShow, EyeHidden } from "../svgs";
+import { EyeShow, EyeHidden } from "@/svgs/SvgAuth";
 import { cssAuth } from "../utils/taiwindAuth";
 
 import ErrorMessageComponent from "./ErrorMessageComponent";
 import { useState } from "react";
 
 import { LangContext } from "@/context/LangContext";
-
 
 export default function RegisterModule({ setShowAuthCard }: any) {
   const DynamicCaptcha = dynamic(() => import("../templates/Captcha"), {
@@ -21,11 +20,10 @@ export default function RegisterModule({ setShowAuthCard }: any) {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showCaptcha, setShowCaptcha] = useState<boolean>(false);
   const [dataRegister, setDataRegister] = useState([]);
-    const [showErrorRegisterAccess, setShowErrorRegisterAccess] =
-      useState<string>("");
+  const [showErrorRegisterAccess, setShowErrorRegisterAccess] =
+    useState<string>("");
 
   const [rememberMe, setRememberMe] = useState(false);
-
 
   const handleCheckboxChange = (e: any) => {
     setRememberMe(e.target.checked);
@@ -34,11 +32,9 @@ export default function RegisterModule({ setShowAuthCard }: any) {
   const { languageSelected, data } = useContext(LangContext);
   const lang = languageSelected.code;
 
-
   const footerText = data.data.registerPageLang.find(
     (item: any) => item.name === "for more information and answers to"
   ).translation;
-
 
   const footerText2 = data.data.registerPageLang.find(
     (item: any) => item.name === "website"

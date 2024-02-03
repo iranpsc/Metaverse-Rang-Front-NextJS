@@ -1,4 +1,4 @@
-import { Like, Dislike, View } from "@/components/svgs";
+import { Like, Dislike, View } from "@/components/svgs/SvgEducation";
 import { formatNumber } from "@/components/utils/education";
 
 export const DashboardHeaderModule = ({ shows, setShows }: any) => {

@@ -1,12 +1,9 @@
 import router from "next/router";
 //Types
-import {
-  ListMenuModuleProps,
+import { ListMenuModuleProps, LanguageDataItem } from "@/types/listMenu";
 
-  LanguageDataItem,
-} from "@/types/listMenu";
-
-import { ActiveMenuIcon, Arrow } from "@/svgs/index";
+import { ActiveMenuIcon } from "@/svgs/index";
+import { Arrow } from "@/svgs/SvgEducation";
 import SvgIcon from "@/module/SvgIcon";
 
 const ListMenuEducation: React.FC<ListMenuModuleProps> = ({
@@ -20,9 +17,6 @@ const ListMenuEducation: React.FC<ListMenuModuleProps> = ({
   languagesData,
   handleDirChange,
 }) => {
-  
-  
-  
   const namesToDelete = [
     ,
     "meta rgb",
@@ -33,17 +27,11 @@ const ListMenuEducation: React.FC<ListMenuModuleProps> = ({
     "enter the metaverse",
   ];
 
-
   const filteredItems = menuData.filter(
     (item: any) => !namesToDelete.includes(item.name)
   );
 
-
-  const selectItemMenuRoute = ((item:any)=>{
-   
-  })
-
-
+  const selectItemMenuRoute = (item: any) => {};
 
   return (
     <>
@@ -55,7 +43,6 @@ const ListMenuEducation: React.FC<ListMenuModuleProps> = ({
               className="flex relative font-[1rem] no-underline text-black py-[12px]"
               onClick={() => selectItemMenuRoute(item)}
             >
-             
               <div
                 className={`flex w-full   ${
                   isCollapsed ? "justify-center" : "justify-start"
@@ -88,7 +75,6 @@ const ListMenuEducation: React.FC<ListMenuModuleProps> = ({
                 </span>
                 {item.name === "language" ? (
                   <div className="p-0 m-0 w-full  ">
-                 
                     <div className="dropdown inline-block  relative ">
                       <button
                         className={`bg-gray-300  py-2  rounded inline-flex items-center ${
@@ -152,7 +138,8 @@ const ListMenuEducation: React.FC<ListMenuModuleProps> = ({
                           </li>
                         ))}
                       </ul>
-                    A</div>
+                      A
+                    </div>
                   </div>
                 ) : (
                   <span
