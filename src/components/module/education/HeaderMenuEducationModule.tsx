@@ -10,7 +10,7 @@ export default function HeaderMenuEducationModule({
   toggleCollapseHandler: () => void;
 }) {
   const router = useRouter();
-   const {lang } = router.query;
+  const { lang } = router.query;
   return (
     <>
       {!isCollapsed ? null : (
@@ -64,7 +64,7 @@ export default function HeaderMenuEducationModule({
           <ArrowMenu
             className={`w-[7px] ${
               lang === "en" ? "rotate-180" : "rotate-0"
-            } h-[13px] stroke-[#2C2F32] dark:stroke-white`}
+            } h-[13px] stroke-gray dark:stroke-white`}
           />
         </div>
       </div>

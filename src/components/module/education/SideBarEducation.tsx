@@ -14,22 +14,18 @@ import ListMenuModule from "@/module/menu/ListMenuModule";
 import HeaderMenuModule from "../menu/HeaderMenuModule";
 import HeaderMenuEducationModule from "./HeaderMenuEducationModule";
 //UTILS
-import {
-  sidebarFilteredData,
- 
-} from "@/components/utils/sidebarfuncs";
+import { sidebarFilteredData } from "@/components/utils/sidebarfuncs";
 import ThemeMenuModule from "../menu/ThemeMenuModule";
 
 interface LanguageItem {
   id: number;
   code: string;
   name: string;
-  native_name:string;
+  native_name: string;
   direction: string;
   icon: string;
   file_url: string;
 }
-
 
 export default function SideBarEducation({
   setShowAuthCard,
@@ -89,10 +85,9 @@ export default function SideBarEducation({
               sidebarFilteredData(res.data.modals, pageName)
                 ?.filteredHeaderEducation
             );
-              setThemeData(
-                sidebarFilteredData(res.data.modals, "citizen")
-                  ?.filteredThemeMode
-              );
+            setThemeData(
+              sidebarFilteredData(res.data.modals, "citizen")?.filteredThemeMode
+            );
           default:
             return [];
         }
@@ -114,13 +109,10 @@ export default function SideBarEducation({
       icon: item.icon,
       file_url: item.file_url,
     });
-const { lang } = router.query;
+    const { lang } = router.query;
     const secondPart = router.asPath.split(`/${lang}/`)[1];
-  const newUrl = `/${item.code}/${secondPart}`;  
-  router.push(newUrl);
-  
-
-
+    const newUrl = `/${item.code}/${secondPart}`;
+    router.push(newUrl);
   };
 
   useEffect(() => {
@@ -214,7 +206,7 @@ const { lang } = router.query;
         <div className="w-full pt-3 pb-1 flex flex-col items-center justify-center">
           <div className="h-[1px] bg-gray opacity-50 dark:bg-mediumGray w-[80%] " />
         </div>
-        <ThemeMenuModule themeData={themeData}/>
+        <ThemeMenuModule themeData={themeData} />
       </div>
     </div>
   );

@@ -1,10 +1,10 @@
-import { useEffect, useState,useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import Link from "next/link";
 //Types
-import { LoginMenu ,ArrowMenu} from "@/svgs/index";
+import { LoginMenu, ArrowMenu } from "@/svgs/index";
 import { useToken } from "@/context/TokenContext";
 
 export default function LoginMenuModule({
@@ -42,11 +42,10 @@ export default function LoginMenuModule({
 
   useEffect(() => {
     if (isCollapsed) setShowFullModal(false);
-   
-  }, [isCollapsed,code]);
+  }, [isCollapsed, code]);
 
   const logout = () => {
-    setShowLogOut(true)
+    setShowLogOut(true);
   };
 
   return (
@@ -85,7 +84,7 @@ export default function LoginMenuModule({
               </p>
             </a>
             <hr className=" text-white dark:text-[#2D2D2A38]" />
-            <a href="https://rgb.irpsc.com/metaverse" >
+            <a href="https://rgb.irpsc.com/metaverse">
               <p className="text-white dark:text-black text-[14px]  hover:text-[15px] font-azarMehr font-normal  cursor-pointer">
                 {menuData[2] && menuData[2].translation}
               </p>

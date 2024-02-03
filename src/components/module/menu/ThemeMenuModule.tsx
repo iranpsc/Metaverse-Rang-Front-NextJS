@@ -4,11 +4,10 @@ import { Dark, Light } from "@/svgs/index";
 //CONTEXT
 import { SideBarContext } from "@/context/SidebarContext";
 
-const ThemeMenuModule = ({themeData}:any) => {
-  
+const ThemeMenuModule = ({ themeData }: any) => {
   const { theme, setTheme } = useTheme();
   const { isCollapsed } = useContext(SideBarContext);
-  
+
   const [themeDataActive, setThemeDataActive] = useState<any>("light");
 
   useEffect(() => {

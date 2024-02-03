@@ -1,4 +1,4 @@
-import { useState,useEffect ,useContext} from "react";
+import { useState, useEffect, useContext } from "react";
 import Image from "next/image";
 //Types
 import {
@@ -19,57 +19,60 @@ const ListMenuModule: React.FC<ListMenuModuleProps> = ({
   activeDropdown,
   languagesData,
   handleDirChange,
-  pageName
+  pageName,
 }) => {
-    const [data, setData] = useState(menuData);
-      const {isCollapsed, toggleCollapseHandler } = useContext(SideBarContext);
+  const [data, setData] = useState(menuData);
+  const { isCollapsed, toggleCollapseHandler } = useContext(SideBarContext);
 
-  const selectItemMenuRoute = (i: any,name:string) => {
-    if(name !=="language"){
-     if(pageName!=="education")
-      setActiveItem(i);
-      
+  const selectItemMenuRoute = (i: any, name: string) => {
+    if (name !== "language") {
+      if (pageName !== "education") setActiveItem(i);
     }
   };
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 768) {
+        const filteredMenu = menuData.filter(
+          (item: any) =>
+            ![
+              "home",
+              "property",
+              "reward",
+              "transaction",
+              "connection",
+            ].includes(item.name)
+        );
+        setData(filteredMenu);
+      } else {
+        setData(menuData);
+      }
+    };
 
-useEffect(() => {
-  const handleResize = () => {
-    if (window.innerWidth <= 768) {
-      const filteredMenu = menuData.filter(
-        (item: any) =>
-          !["home", "property", "reward", "transaction", "connection"].includes(
-            item.name
-          )
-      );
-      setData(filteredMenu);
-    } else {
-      setData(menuData);
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, [menuData]);
+
+  const submitLang = (name: string) => {
+    if (name === "language") {
+      setActiveDropdown(!activeDropdown);
+      if (isCollapsed) {
+        toggleCollapseHandler();
+      } else {
+      }
     }
   };
-
-  window.addEventListener("resize", handleResize);
-  handleResize();
-
-  return () => window.removeEventListener("resize", handleResize);
-}, [menuData]);
-
-const submitLang = (name:string)=>{
-  if(name==="language"){
-    setActiveDropdown(!activeDropdown)
-    if(isCollapsed){
-      toggleCollapseHandler();
-    }else{}
-  }
-}
-
 
   return (
     <>
       <ul
-        className={` list-none ${
-          activeDropdown ? "pb-[50px]  " : "pb-0 "
-        } relative pt-3 w-full  bg-white dark:bg-dark-background  transition-all duration-300 ease-linear max-lg:w-fit`}
+        className={` list-none ${activeDropdown ? "pb-[50px]  " : "pb-0"} 
+      
+        
+        
+        relative pt-3 w-full   bg-white dark:bg-dark-background  transition-all duration-300 ease-linear max-lg:w-fit`}
       >
         {menuData &&
           data.map((item: MenuDataItem, i: number) => (

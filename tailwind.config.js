@@ -17,7 +17,7 @@ module.exports = {
       black: "rgba(0, 0, 0, 1)",
       lightGray: "rgba(0, 0, 0, 0.09)",
       mediumGray: "rgba(116, 116, 116, 0.58)",
-      gray: "#575757",
+      gray: "#151b30",
       extraGray: "rgba(86, 89, 89, 1)",
 
       white: "#ffffff",
@@ -71,9 +71,10 @@ module.exports = {
       },
       boxShadow: {
         "3xl": "0px 35px 60px 15px rgba(0, 0, 0, 0.6)",
-        "dark": "0px 0px 10px rgba(255, 255, 255, 0.1)",
-        "left": "-1px 0px 10px 0px rgba(75, 75, 75, 0.1)",
-        "leftDark": "-1px 0px 10px 0px rgba(255, 255, 255, 0.1)",
+        dark: "0px 0px 10px rgba(255, 255, 255, 0.1)",
+        darkSearch: "0px 0px 10px 0px rgba(255, 255, 255, 0.07)",
+        left: "-1px 0px 10px 0px rgba(75, 75, 75, 0.1)",
+        leftDark: "-1px 0px 10px 0px rgba(255, 255, 255, 0.1)",
       },
     },
     fontSize: {
@@ -100,7 +101,8 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+    },
   },
   plugins: [require("tailwindcss"), require("autoprefixer")],
 };

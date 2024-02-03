@@ -11,7 +11,7 @@ import TopTrainers from "@/components/templates/education/TopTrainers";
 import Categories from "./../../../components/templates/education/Categories";
 import BaseLayoutEducation from "@/components/layout/BaseLayoutEducation";
 import { translateFooter } from "@/components/utils/education";
-import SearchComponent from "@/components/templates/education/SearchComponent";
+import SearchComponent from "@/components/templates/categories/SearchComponent";
 import DynamicFooter from "@/components/templates/education/DynamicFooter";
 import DynamicListEducation from "@/components/templates/education/DynamicListEducation";
 type IndexProps = {};
@@ -107,7 +107,6 @@ const Index: React.FC<IndexProps> = ({
     };
   }
 
-  
   const loadMore = async () => {
     setLoading(true);
     const nextPage = page + 1;
@@ -169,7 +168,11 @@ const Index: React.FC<IndexProps> = ({
         className={`overflow-auto relative `}
       >
         <BaseLayoutEducation>
-          <section className={`relative flex  flex-col justify-start ${activeSearch ?"overflow-y-clip":"overflow-y-auto"} overflow-x-hidden items-center bg-[#f8f8f8] dark:bg-[#000] bg-opacity20`}>
+          <section
+            className={`relative flex  flex-col justify-start ${
+              activeSearch ? "overflow-y-clip" : "overflow-y-auto"
+            } overflow-x-hidden items-center bg-[#f8f8f8] dark:bg-[#000] bg-opacity20`}
+          >
             <ProfileHeaderMobile
               menuData={data}
               profileData={[]}

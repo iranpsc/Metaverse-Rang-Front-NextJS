@@ -25,16 +25,17 @@ export interface LanguageDataItem {
 export interface ListMenuModuleProps {
     menuData: MenuDataItem[];
     activeItem: number;
-    isCollapsed:boolean
-    setActiveItem: React.Dispatch<React.SetStateAction<number>>; 
+    isCollapsed: boolean
+    setActiveItem: React.Dispatch<React.SetStateAction<number>>;
     languageSelected: LanguageSelected;
-    activeDropdown:boolean;
-    pageName:string;
+    activeDropdown: boolean;
+    pageName: string;
     setActiveDropdown: React.Dispatch<React.SetStateAction<boolean>>;
     languagesData: LanguageDataItem[]
-    handleDirChange: React.Dispatch<React.SetStateAction<any>>; 
+    handleDirChange: React.Dispatch<React.SetStateAction<any>>;
 
 
 
-    
+
+
 }

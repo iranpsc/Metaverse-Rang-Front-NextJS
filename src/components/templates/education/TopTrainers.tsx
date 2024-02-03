@@ -1,4 +1,5 @@
-import { useContext, useState ,useEffect} from "react";
+import "atropos/css";
+import { useContext, useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -7,43 +8,42 @@ import { LangContext } from "@/context/LangContext";
 import { Arrow, Like, Text } from "@/components/svgs";
 import { translateFooter } from "@/components/utils/education";
 
-export default function TopTrainers({translateData}:any) {
-        const { languageSelected } = useContext(LangContext);
-         const [isMobile, setIsMobile] = useState(
-           typeof window !== "undefined" ? window.innerWidth <= 768 : false
-         );
+export default function TopTrainers({ translateData }: any) {
+  const { languageSelected } = useContext(LangContext);
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== "undefined" ? window.innerWidth <= 768 : false
+  );
 
-            useEffect(() => {
-              const handleResize = () => {
-                setIsMobile(window.innerWidth <= 768);
-              };
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
 
-              window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize);
 
-              // Clean up the event listener when the component is unmounted
-              return () => {
-                window.removeEventListener("resize", handleResize);
-              };
-            }, []);
+    // Clean up the event listener when the component is unmounted
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
-
-          const router = useRouter();
-          const itemsTrainers = [
-            {
-              id: 1,
-              name: "مرضیه ثاقب علیزاده",
-              img: "/profile/marziyeh-alizadeh.jpg",
-              code: "HM-2000003",
-              likes: "  1.3k",
-            },
-            {
-              id: 2,
-              name: "حسین قدیری",
-              img: "/profile/hossein-ghadiri.jpg",
-              code: "HM-2000001",
-              likes: "820",
-            },
-          ];
+  const router = useRouter();
+  const itemsTrainers = [
+    {
+      id: 1,
+      name: "مرضیه ثاقب علیزاده",
+      img: "/profile/marziyeh-alizadeh.jpg",
+      code: "HM-2000003",
+      likes: "  1.3k",
+    },
+    {
+      id: 2,
+      name: "حسین قدیری",
+      img: "/profile/hossein-ghadiri.jpg",
+      code: "HM-2000001",
+      likes: "820",
+    },
+  ];
   return (
     <>
       <div className="w-[95%] h-fit mt-20 flex flex-col justify-center items-center">
@@ -118,7 +118,7 @@ export default function TopTrainers({translateData}:any) {
                       width={500}
                       height={500}
                       loading="lazy"
-                      className="  w-[75px] h-[75px] md:w-[150px] md:h-[150px] sm:w-[120px] sm:h-[120px] xs:w-[100px] xs:h-[100px] absolute  top-[-75px] z-[999]  shadow-md hover:top-[-88px] transition-all duration-300 shadow-gray rounded-full"
+                      className="  w-[75px] h-[75px] md:w-[150px] md:h-[150px] sm:w-[120px] sm:h-[120px] xs:w-[100px] xs:h-[100px] absolute  top-[-75px] z-50  shadow-md hover:top-[-88px] transition-all duration-300 shadow-gray rounded-full"
                     />
                     <p
                       data-atropos-offset="-5"

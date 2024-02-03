@@ -1,4 +1,4 @@
-export {default as HomeIcon} from './home.svg';
+export { default as HomeIcon } from "./home.svg";
 export { default as Belongings } from "./belongings.svg";
 export { default as Connections } from "./connections.svg";
 export { default as Dynasty } from "./dynasty.svg";
@@ -20,22 +20,22 @@ export { default as Dark } from "./dark.svg";
 export { default as Light } from "./light.svg";
 export { default as Dashet } from "./dashet.svg";
 //Auth
-export { default as CloseAuth} from "./auth/closeAuth.svg";
+export { default as CloseAuth } from "./auth/closeAuth.svg";
 export { default as EyeShow } from "./auth/eyeshow.svg";
 export { default as EyeHidden } from "./auth/eye-slash.svg";
 
 export { default as ProfileIcon } from "./auth/profile.svg";
 export { default as ProfileAddIcon } from "./auth/profile-add.svg";
-export { default as  LogoRgb} from "./clogo.svg";
-export { default as  LogoRgbMobile} from "./clogo2.svg";
-export { default as  Shahrvand} from "./shahrvand.svg";
+export { default as LogoRgb } from "./clogo.svg";
+export { default as LogoRgbMobile } from "./clogo2.svg";
+export { default as Shahrvand } from "./shahrvand.svg";
 //Education
-export { default as  Search} from "./education/search.svg";
-export { default as  Arrow} from "./education/arrow.svg";
-export { default as  Like} from "./education/like.svg";
-export { default as  Dislike} from "./education/dislike.svg";
-export { default as  View} from "./education/view.svg";
-export { default as  Text} from "./education/text.svg";
+export { default as Search } from "./education/search.svg";
+export { default as Arrow } from "./education/arrow.svg";
+export { default as Like } from "./education/like.svg";
+export { default as Dislike } from "./education/dislike.svg";
+export { default as View } from "./education/view.svg";
+export { default as Text } from "./education/text.svg";
 export { default as PropertyStatus } from "./education/property-status.svg";
 export { default as Xxx } from "./education/xxx.svg";
 export { default as ShowAll } from "./education/show-all.svg";
@@ -43,12 +43,17 @@ export { default as News } from "./education/news.svg";
 export { default as Articles } from "./education/articles.svg";
 export { default as Trainings } from "./education/trainings.svg";
 export { default as Competitions } from "./education/competitions.svg";
+
+//Education
 export { default as About } from "./education/about.svg";
 export { default as Contact } from "./education/contact.svg";
 export { default as Version } from "./education/version.svg";
 export { default as Overview } from "./education/overview.svg";
 export { default as Calender } from "./education/calender.svg";
-
+export { default as Video } from "./education/video.svg";
+//Categories
+export { default as Filter } from "./categories/filter.svg";
+export { default as Folder } from "./categories/folder.svg";
 
 export { default as Success } from "./success.svg";
 export { default as CopyIcon } from "./copy-icon.svg";
