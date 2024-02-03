@@ -15,7 +15,7 @@ export default function ListSubCategories({
   return (
     <>
       <div className="w-full px-5 h-fit mt-5  flex flex-col justify-center items-center">
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-10 w-full h-fit">
           <ListData
             nameComponent="subCategories"
             videosData={videosData}

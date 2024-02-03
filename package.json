@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@next/bundle-analyzer": "^14.1.0",
     "@next/font": "^13.4.19",
     "@react-three/fiber": "^8.13.1",
     "@tailwindcss/typography": "^0.5.9",

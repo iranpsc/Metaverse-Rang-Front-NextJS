@@ -1,45 +1,28 @@
 import { useContext, useState } from "react";
 import { LangContext } from "@/context/LangContext";
-import { useRouter } from "next/router";
 import BaseLayoutEducation from "@/components/layout/BaseLayoutEducation";
-import ShowAllCategoriesComponent from "@/components/templates/categories/ShowAllCategoriesComponent";
 import CategoryComponent from "@/components/templates/categories/CategoryComponent";
 import axios from "axios";
 import { HeaderComponent } from "@/components/templates/categories/HeaderComponent";
 
-const Index = ({
-  videosData,
-  translateData,
-  categoriesData,
-  footerTabs,
-}: any) => {
+const Index = ({ videosData, translateData, footerTabs }: any) => {
   const { languageSelected } = useContext(LangContext);
-  const [showFilter, setShowFilter] = useState<boolean>(false);
-  const router = useRouter();
-  const { category } = router.query;
+
   return (
     <section
       dir={languageSelected.dir}
       className={`relative w-full`}
       id="light-scrollbar"
     >
-      <BaseLayoutEducation
-        translateData={translateData}
-        showFilter={showFilter}
-        setShowFilter={setShowFilter}
-      >
+      <BaseLayoutEducation translateData={translateData}>
         <div className="w-full overflow-y-auto overflow-x-clip relative">
           <HeaderComponent translateData={translateData} />
-          {category == "all" ? (
-            <ShowAllCategoriesComponent categoriesData={categoriesData} />
-          ) : (
-            <CategoryComponent
-              videosData={videosData}
-              translateData={translateData}
-              setShowFilter={setShowFilter}
-              footerTabs={footerTabs}
-            />
-          )}
+
+          <CategoryComponent
+            videosData={videosData}
+            translateData={translateData}
+            footerTabs={footerTabs}
+          />
         </div>
       </BaseLayoutEducation>
     </section>

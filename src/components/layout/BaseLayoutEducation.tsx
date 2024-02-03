@@ -8,12 +8,7 @@ import { FilterModule } from "../module/categories/FilterModule";
 interface Props {
   children: ReactNode;
 }
-export default function BaseLayoutEducation({
-  children,
-  translateData,
-  showFilter,
-  setShowFilter,
-}: any) {
+export default function BaseLayoutEducation({ children, translateData }: any) {
   const [showAuthCard, setShowAuthCard] = useState<boolean>(false);
   const [showLogOut, setShowLogOut] = useState<boolean>(false);
   //SEACRH
@@ -22,7 +17,7 @@ export default function BaseLayoutEducation({
   return (
     <div className="flex flex-row max-h-screen max-lg:h-full  max-lg:flex-col xl:overflow-clip lg:overflow-clip md:overflow-clip sm:overflow-auto xs:overflow-auto no-scrollbar">
       <AnimatePresence>
-        {showFilter && (
+        {/* {showFilter && (
           <FilterModule
             translateData={translateData}
             showFilterItems={showFilterItems}
@@ -30,7 +25,7 @@ export default function BaseLayoutEducation({
             setShowFilter={setShowFilter}
             showFilter={showFilter}
           />
-        )}
+        )} */}
       </AnimatePresence>
       <AnimatePresence>
         {showAuthCard && <AuthCards setShowAuthCard={setShowAuthCard} />}
