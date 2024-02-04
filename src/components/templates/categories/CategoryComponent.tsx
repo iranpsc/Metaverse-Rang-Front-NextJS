@@ -1,12 +1,16 @@
 import Image from "next/image";
 import { useState } from "react";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 import DynamicFooter from "@/components/templates/education/DynamicFooter";
 import ListSubCategories from "./ListSubCategories";
 import { DashboardHeaderModule } from "@/components/module/categories/DashboardHeaderModule";
 import SlugsModule from "@/components/module/categories/SlugsModule";
 const CategoryComponent = ({ videosData, translateData, footerTabs }: any) => {
+  const router = useRouter();
+  const { Category } = router.query;
+  console.log(Category);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState<boolean>(false);
   const [shows, setShows] = useState<boolean>(false);
@@ -38,9 +42,9 @@ const CategoryComponent = ({ videosData, translateData, footerTabs }: any) => {
             src="/header.jpg"
             alt="img"
             width={500}
-            height={500}
-            loading="lazy"
-            className=" w-full h-[400px] rounded-xl"
+            height={400}
+            priority={true}
+            className=" w-full h-[400px] rounded-xl object-cover"
           />
           <DashboardHeaderModule shows={shows} setShows={setShows} />
         </div>

@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import { SideBarContext } from "@/components/context/SidebarContext";
 import { CLoseIcon, MenuIcon } from "@/components/svgs";
-import { LogoRgbMobile } from "@/components/svgs/SvgLogoMobile";
+import Image from "next/image";
 
 export default function ProfileHeaderMobile({
   menuData,
@@ -55,7 +55,10 @@ export default function ProfileHeaderMobile({
               {desc?.translation}
             </p>
           </div>
-          <LogoRgbMobile
+          <Image
+            src="/logo.png"
+            width={500}
+            height={500}
             className="xs:w-[40px] xs:h-[40px] sm:w-[40px] sm:h-[40px] md:w-[50px] md:h-[50px] mx-1 "
             alt="rgb metaverse"
           />

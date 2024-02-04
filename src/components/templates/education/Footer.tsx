@@ -1,11 +1,11 @@
-import dynamic from "next/dynamic";
+import { memo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import { translateFooter } from "@/components/utils/education";
 import { imageSources } from "@/components/utils/items";
 
-export default function Footer({ footerTabs }: any) {
+function Footer({ footerTabs }: any) {
   interface ItemIcon {
     id: number;
     img: string;
@@ -140,18 +140,17 @@ export default function Footer({ footerTabs }: any) {
     <>
       <div className="h-fit  w-[96%] mt-[200px] flex flex-wrap gap-[15px] py-5 rounded-[10px]  items-center justify-center bg-white dark:bg-[#1A1A18]">
         {imageSources.map((item: any, i: number) => (
-          <div key={i}>
-            <Link href={item.target} target="_blank">
-              <Image
-                data-tooltip-id={item.url}
-                src={item.url}
-                loading="lazy"
-                alt={item.translate}
-                width={1000}
-                height={1000}
-                className="w-[60px] h-[60px] cursor-pointer"
-              />
-            </Link>
+          <Link key={i} href={item.target} target="_blank">
+            <Image
+              data-tooltip-id={item.url}
+              src={item.url}
+              loading="lazy"
+              alt={item.translate}
+              width={1000}
+              height={1000}
+              className="w-[60px] h-[60px] cursor-pointer"
+            />
+
             <ReactTooltip
               id={item.url}
               place="top"
@@ -163,7 +162,7 @@ export default function Footer({ footerTabs }: any) {
                 ).translation || "undefined"
               }
             />
-          </div>
+          </Link>
         ))}
       </div>
       <div className="h-fit pb-5 mt-20 rounded-[10px] w-[96%] bg-white dark:bg-[#1A1A18] grid grid-cols-6">
@@ -244,3 +243,5 @@ export default function Footer({ footerTabs }: any) {
     </>
   );
 }
+
+export default memo(Footer);

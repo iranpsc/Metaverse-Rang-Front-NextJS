@@ -1,6 +1,6 @@
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { MenuIcon, ArrowMenu } from "@/svgs/index";
-import { LogoRgb } from "@/svgs/SvgLogoWeb";
 export default function HeaderMenuEducationModule({
   isCollapsed,
   menuData,
@@ -27,10 +27,14 @@ export default function HeaderMenuEducationModule({
             isCollapsed ? "ms-3" : "ms-[1px]"
           } items-center gap-3 justify-center my-1 pb-1`}
         >
-          <LogoRgb
+          <Image
+            src="/logo.png"
+            alt="rgb metaverse"
+            width={500}
+            height={500}
             className={`${
               isCollapsed
-                ? "xl:w-[40px] xl:h-[45px]"
+                ? "xl:w-[45px] xl:h-[45px]"
                 : "xl:w-[80px] xl:h-[50px]"
             }  lg:w-[40px] lg:h-[35px] md:w-[30px] md:h-[30px] sm:w-[45px] sm:h-[45px] xs:w-[50px] xs:h-[50px] ms-2`}
           />

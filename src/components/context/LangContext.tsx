@@ -7,9 +7,6 @@ import {
 } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
-import fs from "fs";
-import path from "path";
-
 import { Language } from "@/types/api";
 interface Props {
   children: ReactNode;
@@ -18,7 +15,7 @@ interface Props {
 interface LanguageSelected {
   id: number;
   name: string;
-  native_name:string;
+  native_name: string;
   code: string;
   dir: string;
   icon: string;
@@ -84,7 +81,7 @@ const LangProvider = ({ children }: Props) => {
             checkIpPageLang: action.payload.checkIpPageLang,
             loginPageLang: action.payload.loginPageLang,
             registerPageLang: action.payload.registerPageLang,
-            forgetPasswordPageLang:action.payload.forgetPasswordPageLang
+            forgetPasswordPageLang: action.payload.forgetPasswordPageLang,
           },
         };
       case "FAILED":
@@ -117,7 +114,6 @@ const LangProvider = ({ children }: Props) => {
 
         if (lang) {
           const query = res.data.data.find((item: any) => item.code === lang);
-     
 
           if (query) {
             setLanguagesSelected({
@@ -134,7 +130,7 @@ const LangProvider = ({ children }: Props) => {
             const urlEN = await res.data.data.find(
               (item: any) => item.code === "en"
             );
-            
+
             router.push(`/${urlEN.code}/citizen/${userId}`);
             setLanguagesData(res.data.data);
           }
@@ -221,7 +217,7 @@ const LangProvider = ({ children }: Props) => {
         const centralPageTabs = centralPage.tabs.find(
           (tab: any) => tab.name === "before-login"
         );
-       
+
         const forgetPasswordTabs = login.tabs.find(
           (tab: any) => tab.name === "forget-password"
         );
@@ -236,12 +232,10 @@ const LangProvider = ({ children }: Props) => {
             loginPageLang: loginTabs.fields,
             registerPageLang: registerTabs.fields,
             centralPageLang: centralPageTabs.fields,
-            forgetPasswordPageLang:forgetPasswordTabs.fields
+            forgetPasswordPageLang: forgetPasswordTabs.fields,
           },
         });
-      } catch (err) {
-        
-      }
+      } catch (err) {}
     };
     fetchData();
   }, [languageSelected.id]);
@@ -263,5 +257,3 @@ const LangProvider = ({ children }: Props) => {
 };
 
 export default LangProvider;
-
-

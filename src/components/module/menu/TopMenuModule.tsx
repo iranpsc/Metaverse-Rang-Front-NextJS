@@ -1,4 +1,4 @@
-import { LogoRgb } from "@/svgs/SvgLogoWeb";
+import Image from "next/image";
 
 export default function TopMenuModule({
   isCollapsed,
@@ -20,7 +20,11 @@ export default function TopMenuModule({
           isCollapsed ? "ps-0" : "ps-5"
         } items-center gap-1 justify-center pb-3`}
       >
-        <LogoRgb
+        <Image
+          src="/logo.png"
+           alt="rgb metaverse"
+          width={500}
+          height={500}
           className={`mx-1  ${
             isCollapsed
               ? "xl:w-[45px]  xl:h-[50px]"

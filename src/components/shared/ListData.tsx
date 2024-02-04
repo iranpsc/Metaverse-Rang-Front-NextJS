@@ -35,7 +35,7 @@ export default function ListData({
                 alt={item.title}
                 width={600}
                 height={600}
-                loading="lazy"
+                priority={true}
                 className="w-full h-[250px]  2xl:h-[300px] brightness-75  transition-all duration-150 ease-in-out	   rounded-t-[10px]  object-cover"
               />
               <div className=" absolute xl:top-[260px] lg:top-[220px]  md:top-[215px] sm:top-[215px] xs:top-[210px] end-5 rounded-full h-[75px] z-50 w-[75px] flex justify-center items-center bg-white dark:bg-dark-background  shadow-md">
