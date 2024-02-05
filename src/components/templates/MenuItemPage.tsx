@@ -8,7 +8,11 @@ import { motion } from "framer-motion";
 //data
 import { Items, ItemsENG } from "../utils/items";
 
-export default function MenuItemPage({ activeItem, SetActiveItem }: any) {
+export default function MenuItemPage({
+  activeItem,
+  SetActiveItem,
+  setShowAuthCard,
+}: any) {
   const { theme } = useTheme();
   const { languageSelected } = useContext(LangContext);
   const [data, setData] = useState<any>([]);
@@ -21,10 +25,15 @@ export default function MenuItemPage({ activeItem, SetActiveItem }: any) {
     }
   }, [activeItem, languageSelected.code]);
 
+  useEffect(() => {
+    setShowAuthCard(false);
+  }, [activeItem !== 0]);
+
   return (
     <div
       id={`${theme === "dark" ? "dark-scrollbar" : "light-scrollbar"}`}
-      className="absolute backdrop-blur-sm bg-blackTransparent/30 3xl:z-50 xl:z-50 lg:z-50 md:z-[200] sm:z-[200] xs:z-[200] top-0 w-full h-screen  "
+      className="absolute backdrop-blur-sm bg-black/30 3xl:z-50 xl:z-50 lg:z-50 md:z-[200] sm:z-[200] xs:z-[200] top-0 w-full h-screen  "
+      onClick={() => SetActiveItem(0)}
     >
       {data.length > 0 && (
         <div className="w-full h-full overflow-clip">
@@ -41,6 +50,7 @@ export default function MenuItemPage({ activeItem, SetActiveItem }: any) {
             <div
               className="xl:w-[40%] lg:w-[40%] md:w-[70%]  min-h-[350px] h-[500px] shadow-xl  rounded-[15px] flex flex-col relative me-[250px] sm:me-0 sm:w-[90%] xs:me-0 xs:w-[90%] justify-start xl:mt-0 lg:mt-0 md:mt-0 
               mt-[100px] items-center bg-white dark:bg-dark-background "
+              onClick={(e) => e.stopPropagation()}
             >
               <div className=" w-full h-[75px] relative shadow-md rounded-t-[10px] flex flex-row justify-center items-center">
                 <CLoseIcon

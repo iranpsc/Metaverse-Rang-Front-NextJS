@@ -1,11 +1,9 @@
 import { ReactNode, useState } from "react";
 import SideBarEducation from "./module/education/SideBarEducation";
 import AuthCards from "@/layout/AuthCards";
-import { AnimatePresence  } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import axios from "axios";
 import MenuItemPage from "./templates/MenuItemPage";
-
-
 
 interface Props {
   children: ReactNode;
@@ -13,8 +11,8 @@ interface Props {
   error: any;
   titleData: any;
   setShowLogOut: any;
-  activeItem:any;
-  SetActiveItem:any;
+  activeItem: any;
+  SetActiveItem: any;
 }
 export default function BaseLayout({
   children,
@@ -30,11 +28,20 @@ export default function BaseLayout({
   return (
     <div className=" flex flex-row max-h-screen max-lg:h-full  max-lg:flex-col xl:overflow-clip lg:overflow-clip md:overflow-auto sm:overflow-auto xs:overflow-auto no-scrollbar">
       <AnimatePresence>
-        {showAuthCard && <AuthCards setShowAuthCard={setShowAuthCard} />}
+        {showAuthCard && (
+          <AuthCards
+            setShowAuthCard={setShowAuthCard}
+            SetActiveItem={SetActiveItem}
+          />
+        )}
       </AnimatePresence>
       <AnimatePresence>
         {activeItem !== 0 && (
-          <MenuItemPage activeItem={activeItem} SetActiveItem={SetActiveItem} />
+          <MenuItemPage
+            activeItem={activeItem}
+            SetActiveItem={SetActiveItem}
+            setShowAuthCard={setShowAuthCard}
+          />
         )}
       </AnimatePresence>
       <section>
@@ -52,7 +59,6 @@ export default function BaseLayout({
     </div>
   );
 }
-
 
 export async function getServerSideProps(context: any) {
   try {
@@ -76,4 +82,3 @@ export async function getServerSideProps(context: any) {
     return { props: { error: "خطا در دریافت داده‌ها" } };
   }
 }
-

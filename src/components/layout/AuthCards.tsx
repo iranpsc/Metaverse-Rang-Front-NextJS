@@ -1,32 +1,32 @@
-import { useContext,useEffect } from "react";
+import { useContext, useEffect } from "react";
 import HeaderAuth from "../module/HeaderAuth";
 import AuthCard from "./../templates/AuthCard";
 import ActiveMailModule from "../module/ActiveMailModule";
 //CONTEXT
 import { AuthContext } from "./../context/AuthContext";
-import { LangContext } from '@/context/LangContext';
+import { LangContext } from "@/context/LangContext";
 //ANIMATION
 import { motion } from "framer-motion";
 //MODULES
-import IpPage from '@/module/IpPage';
+import IpPage from "@/module/IpPage";
 import CheckIp from "@/module/CheckIp";
 
-export default function AuthCards({setShowAuthCard}:any) {
-  const { modalName,setModalName } = useContext(AuthContext);
-  const { languageSelected,data } = useContext(LangContext);
+export default function AuthCards({ setShowAuthCard, SetActiveItem }: any) {
+  const { modalName, setModalName } = useContext(AuthContext);
+  const { languageSelected, data } = useContext(LangContext);
   const lang = languageSelected.code;
 
-  useEffect(()=>{
+  useEffect(() => {}, [modalName]);
+  useEffect(() => {
+    SetActiveItem(0);
+  }, [setShowAuthCard]);
 
-  },[modalName])
-
-    const modalVariants = {
+  const modalVariants = {
     hidden: { opacity: 0, scale: 0.8 },
     visible: { opacity: 1, scale: 1 },
     exit: { opacity: 0, scale: 0.8 },
   };
- 
- 
+
   return (
     <div
       className=" absolute  xl:z-50 lg:z-50 md:z-50 xs:z-[900] sm:z-[900]   top-0 w-full h-screen"
