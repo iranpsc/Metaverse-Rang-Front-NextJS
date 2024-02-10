@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 
-export default function SlugsModule() {
+export default function SlugsModule({ categoryName }: any) {
   const router = useRouter();
   const { lang } = router.query;
   return (
@@ -15,8 +15,16 @@ export default function SlugsModule() {
         <span className="text-[#575757] font-normal font-azarMehr text-[15px]">
           /
         </span>
-        <p className="w-fit font-normal font-azarMehr text-[15px] text-start text-[#575757]">
+        <p className="w-fit font-normal font-azarMehr cursor-pointer text-[15px] text-start text-[#575757]"
+          onClick={() => router.push(`/${lang}/education/category/all`)}
+        >
           دسته بندی ها
+        </p>
+        <span className="text-[#575757] font-normal font-azarMehr text-[15px]">
+          /
+        </span>
+        <p className="w-fit font-normal font-azarMehr text-[15px] text-start text-blueLink dark:text-dark-yellow">
+          {categoryName}
         </p>
       </div>
     </>

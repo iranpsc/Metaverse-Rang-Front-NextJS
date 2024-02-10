@@ -1,34 +1,38 @@
-import { Like, Dislike, View } from "@/components/svgs/SvgEducation";
+import { Like, Dislike, View, Videos } from "@/components/svgs/SvgEducation";
 import { formatNumber } from "@/components/utils/education";
 
-export const DashboardHeaderModule = ({ shows, setShows }: any) => {
+export const DashboardHeaderModule = ({
+  categoryData,
+  shows,
+  setShows,
+}: any) => {
   return (
     <>
-      <div className="absolute top-[350px] start-[25%] xs:start-[13%] w-[50%] xs:w-[75%] min-h-[100px] pt-5 transition-all duration-300 easy-in-out rounded-2xl flex flex-col justify-center gap-10 items-center bg-white dark:bg-dark-background	shadow-xl">
+      <div className="absolute top-[350px] start-[25%] xs:start-[13%] w-[50%] xs:w-[75%] min-h-[100px] pt-5 transition-all duration-300 easy-in-out rounded-2xl flex flex-col justify-canter gap-10 items-center bg-white dark:bg-dark-background	shadow-xl">
         <div className="w-full flex flex-row justify-evenly gap-1 items-center">
           <div className="flex flex-row items-center justify-center gap-3">
-            <View className="w-[20px] h-[20px] xs:w-[17px] xs:h-[17px] stroke-gray dark:stroke-dark-gray" />
+            <Videos className="w-[20px] h-[20px] xs:w-[17px] xs:h-[17px] fill-gray dark:fill-dark-gray" />
             <span className=" whitespace-nowrap font-azarMehr font-normal text-[22px] xs:text-[16px] text-gray dark:text-dark-gray">
-              {formatNumber("1111")}
+              {formatNumber(categoryData ? categoryData.videos_count : 0)}
             </span>
           </div>
           <div className="flex flex-row items-center justify-center gap-3">
             <View className="w-[20px] h-[20px] xs:w-[17px] xs:h-[17px] stroke-gray dark:stroke-dark-gray" />
             <span className=" whitespace-nowrap font-azarMehr font-normal text-[22px] xs:text-[16px] text-gray dark:text-dark-gray">
-              {formatNumber("1111")}
+              {formatNumber(categoryData ? categoryData.views_count : 0)}
             </span>
           </div>
 
           <div className="flex flex-row items-center justify-center gap-3">
             <Like className="w-[20px] h-[20px] xs:w-[17px] xs:h-[17px] stroke-gray dark:stroke-dark-gray" />
             <span className=" whitespace-nowrap font-azarMehr font-medium text-[22px] xs:text-[16px] text-gray dark:text-dark-gray">
-              {formatNumber("3333")}
+              {formatNumber(categoryData ? categoryData.likes_count : 0)}
             </span>
           </div>
           <div className="flex flex-row items-center justify-center gap-3">
             <Dislike className="w-[20px] h-[20px] xs:w-[17px] xs:h-[17px] stroke-gray dark:stroke-dark-gray" />
             <span className=" whitespace-nowrap font-azarMehr font-normal text-[22px] xs:text-[16px] text-gray dark:text-dark-gray">
-              {formatNumber("2222")}
+              {formatNumber(categoryData ? categoryData.dislikes_count : 0)}
             </span>
           </div>
         </div>
@@ -54,13 +58,7 @@ export const DashboardHeaderModule = ({ shows, setShows }: any) => {
               shows ? "visible" : "invisible"
             }`}
           >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
+            {categoryData.description}
           </p>
         </div>
       </div>

@@ -5,7 +5,7 @@ import { useTheme } from "next-themes";
 import { ActiveSearchModule } from "@/components/shared/ActiveSearchModule";
 import SectionInputSearch from "@/components/shared/SectionInputSearch";
 
-export const HeaderComponent = ({ translateData }: any) => {
+export const HeaderComponent = ({ categoryData, translateData }: any) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [loadingSearch, setLoadingSearch] = useState<boolean>(false);
   const [searchData, setSearchData] = useState<any>([]);
@@ -46,7 +46,7 @@ export const HeaderComponent = ({ translateData }: any) => {
     <>
       <div className="w-full h-[75px] shadow-xl bg-white dark:bg-[#1A1A18] flex flex-row justify-center items-center relative">
         <h1 className="absolute font-azarMehr  font-bold 3xl:text-[28px] xl:text-[28px] lg:text-[24px] md:text-[22px] sm:text-[20px] xs:text-[18px] start-4">
-          آموزش متاورس
+          {categoryData.name}
         </h1>
 
         <SectionInputSearch

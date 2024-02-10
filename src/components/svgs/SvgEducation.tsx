@@ -17,3 +17,4 @@ export { default as Version } from "../../../public/svg/education/version.svg";
 export { default as Overview } from "../../../public/svg/education/overview.svg";
 export { default as Calender } from "../../../public/svg/education/calender.svg";
 export { default as Video } from "../../../public/svg/education/video.svg";
+export { default as Videos } from "../../../public/svg/education/videos.svg";

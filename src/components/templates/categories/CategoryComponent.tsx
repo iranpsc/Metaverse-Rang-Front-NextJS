@@ -7,14 +7,18 @@ import DynamicFooter from "@/components/templates/education/DynamicFooter";
 import ListSubCategories from "./ListSubCategories";
 import { DashboardHeaderModule } from "@/components/module/categories/DashboardHeaderModule";
 import SlugsModule from "@/components/module/categories/SlugsModule";
-const CategoryComponent = ({ videosData, translateData, footerTabs }: any) => {
+const CategoryComponent = ({
+  CategoryData,
+  translateData,
+  footerTabs,
+}: any) => {
   const router = useRouter();
   const { Category } = router.query;
-  console.log(Category);
+
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState<boolean>(false);
   const [shows, setShows] = useState<boolean>(false);
-  const [videos, setVideos] = useState(videosData);
+  const [videos, setVideos] = useState(CategoryData);
 
   const loadMore = async () => {
     setLoading(true);
@@ -39,24 +43,28 @@ const CategoryComponent = ({ videosData, translateData, footerTabs }: any) => {
           } bg-white dark:bg-black transition-all duration-300 easy-in-out`}
         >
           <Image
-            src="/header.jpg"
+            src={CategoryData.image}
             alt="img"
             width={500}
             height={400}
             priority={true}
             className=" w-full h-[400px] rounded-xl object-cover"
           />
-          <DashboardHeaderModule shows={shows} setShows={setShows} />
+          <DashboardHeaderModule
+            categoryData={CategoryData}
+            shows={shows}
+            setShows={setShows}
+          />
         </div>
 
         <div className="w-full h-fit pt-5 flex flex-col justify-center items-center bg-white dark:bg-black  transition-all duration-300 easy-in-out">
-          <SlugsModule />
+          <SlugsModule categoryName={CategoryData.name} />
           <h1 className="w-full ms-5 mt-10 font-bold font-azarMehr text-[22px] text-start">
-            لیست زیر دسته های مرتبط با "عنوان دسته مادر"
+            لیست زیر دسته های مرتبط با {CategoryData.name}
           </h1>
           <ListSubCategories
             loadMore={loadMore}
-            videosData={videos}
+            CategoryData={CategoryData}
             loading={loading}
             translateData={translateData}
           />

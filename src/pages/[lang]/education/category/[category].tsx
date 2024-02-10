@@ -1,31 +1,76 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
+import { DefaultSeo } from "next-seo";
+import Head from "next/head";
 import { LangContext } from "@/context/LangContext";
 import BaseLayoutEducation from "@/components/layout/BaseLayoutEducation";
 import CategoryComponent from "@/components/templates/categories/CategoryComponent";
 import axios from "axios";
 import { HeaderComponent } from "@/components/templates/categories/HeaderComponent";
 
-const Index = ({ videosData, translateData, footerTabs }: any) => {
+const Index = ({
+  CategoryData,
+  translateData,
+  footerTabs,
+  localSite,
+  nameSite,
+}: any) => {
   const { languageSelected } = useContext(LangContext);
 
   return (
-    <section
-      dir={languageSelected.dir}
-      className={`relative w-full`}
-      id="light-scrollbar"
-    >
-      <BaseLayoutEducation translateData={translateData}>
-        <div className="w-full overflow-y-auto overflow-x-clip relative">
-          <HeaderComponent translateData={translateData} />
+    <>
+      <DefaultSeo
+        title={nameSite + "|" + CategoryData.name}
+        description={CategoryData.description}
+        openGraph={{
+          title: nameSite + "|" + CategoryData.name,
+          locale: localSite,
+          siteName: nameSite,
+          description: CategoryData.description,
+          type: "website",
+          url: `http://localhost:5173/fa/education/category/${CategoryData.slug}`,
+          images: [
+            {
+              url: CategoryData.image,
+              alt: CategoryData.name,
+            },
+          ],
+        }}
+      />
+      <Head>
+        <title>{CategoryData.name}</title>
+        <meta
+          name="description"
+          content={CategoryData.description}
+          key="desc"
+        />
+        <meta
+          name="google-site-verification"
+          content="lmf8kBJQgLHew_wXcxGQwJQWiOSFy8odEBRTLOoX7Q4"
+        />
+        <link rel="icon" href="/logo.png" />
+      </Head>
 
-          <CategoryComponent
-            videosData={videosData}
-            translateData={translateData}
-            footerTabs={footerTabs}
-          />
-        </div>
-      </BaseLayoutEducation>
-    </section>
+      <section
+        dir={languageSelected.dir}
+        className={`relative w-full`}
+        id="light-scrollbar"
+      >
+        <BaseLayoutEducation translateData={translateData}>
+          <div className="w-full overflow-y-auto overflow-x-clip relative">
+            <HeaderComponent
+              categoryData={CategoryData}
+              translateData={translateData}
+            />
+
+            <CategoryComponent
+              CategoryData={CategoryData}
+              translateData={translateData}
+              footerTabs={footerTabs}
+            />
+          </div>
+        </BaseLayoutEducation>
+      </section>
+    </>
   );
 };
 
@@ -37,6 +82,7 @@ export async function getServerSideProps(context: any) {
   let localSite = "fa_IR";
   try {
     const languageCode = context.query.lang;
+    const slug = context.query.category;
 
     const resCategories = await axios.get(
       "https://api.rgb.irpsc.com/api/tutorials/categories?count=20"
@@ -44,8 +90,8 @@ export async function getServerSideProps(context: any) {
 
     const categoriesData = resCategories.data.data;
 
-    const resVideos = await axios.get(
-      `https://api.rgb.irpsc.com/api/tutorials?page=1`
+    const resCategory = await axios.get(
+      `https://api.rgb.irpsc.com/api/tutorials/categories/${slug}`
     );
     if (languageCode === "en") {
       localSite = "en-US";
@@ -74,11 +120,12 @@ export async function getServerSideProps(context: any) {
       (item: any) => item.name === "our-systems"
     ).fields;
 
-    const videosData = resVideos.data.data;
+    const CategoryData = resCategory.data.data;
+
     return {
       props: {
         categoriesData,
-        videosData,
+        CategoryData,
         footerTabs,
         translateData,
         localSite,

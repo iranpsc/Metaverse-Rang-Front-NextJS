@@ -1,7 +1,8 @@
 import { useTheme } from "next-themes";
 import SyncLoader from "react-spinners/SyncLoader";
 import { translateFooter } from "@/components/utils/education";
-import ListData from "@/components/shared/ListData";
+
+import ListDataEducation from "@/components/module/education/ListDataEducation";
 
 export default function ListEducation({
   loadMore,
@@ -13,11 +14,10 @@ export default function ListEducation({
 
   return (
     <>
-      <div className="w-[95%] h-fit mt-24  flex flex-col justify-center items-center">
+      <div className="w-[95%] h-fit mt-24  flex flex-col justify-center items-center ">
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-10">
-          <ListData
-            nameComponent="education"
-            videosData={videosData}
+          <ListDataEducation
+            data={videosData}
             translateData={translateData}
             loadMore={loadMore}
             loading={loading}
