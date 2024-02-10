@@ -9,7 +9,6 @@ export const ItemsSearch = ({ searchData }: any) => {
 
   useEffect(() => {
     if (searchData.length >= 1) {
-      console.log(searchData);
       setIsDataReady(true);
     } else {
       setIsDataReady(false);

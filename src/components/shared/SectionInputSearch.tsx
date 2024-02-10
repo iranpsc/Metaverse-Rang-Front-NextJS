@@ -13,7 +13,6 @@ export default function SectionInputSearch({
   searchData,
   removeSearch,
 }: any) {
-  console.log("CC", searchData.length);
   return (
     <>
       <div
