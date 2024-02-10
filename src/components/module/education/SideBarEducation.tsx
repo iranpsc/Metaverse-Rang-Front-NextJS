@@ -126,7 +126,7 @@ export default function SideBarEducation({
 
         const scrollStep = () => {
           currentScroll += 5;
-          element.scrollTop = currentScroll;
+          if (activeDropdown) element.scrollTop = currentScroll;
 
           if (currentScroll < maxScroll) {
             setTimeout(scrollStep, 10);
@@ -138,13 +138,6 @@ export default function SideBarEducation({
     }
   }, [activeDropdown]);
 
-  const changeTheme = () => {
-    if (theme === "dark") {
-      setTheme("light");
-    } else {
-      setTheme("dark");
-    }
-  };
   return (
     <div className="   xl:relative lg:relative   dark:bg-dark-background ">
       <div

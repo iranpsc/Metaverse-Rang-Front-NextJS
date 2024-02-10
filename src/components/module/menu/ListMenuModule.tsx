@@ -26,6 +26,7 @@ const ListMenuModule: React.FC<ListMenuModuleProps> = ({
 
   const selectItemMenuRoute = (i: any, name: string) => {
     if (name !== "language") {
+      console.log(name);
       if (pageName !== "education") setActiveItem(i);
     }
   };
@@ -87,17 +88,33 @@ const ListMenuModule: React.FC<ListMenuModuleProps> = ({
                 } gap-2 items-center`}
                 onClick={() => submitLang(item.name)}
               >
-                <ActiveMenuIcon
-                  className={
-                    item.name === "home"
-                      ? ` ${isCollapsed ? "w-[10px] pr-[17px]" : ""}  ${
-                          languageSelected.dir === "rtl"
-                            ? "pr-[20px] w-[25px] rotate-180"
-                            : "pr-[20px] w-[25px]"
-                        } visible  h-[35px] absolute start-0 fill-blueLink dark:fill-dark-yellow `
-                      : "hidden"
-                  }
-                />
+                {pageName === "education" && (
+                  <ActiveMenuIcon
+                    className={
+                      item.name === "trainings"
+                        ? ` ${isCollapsed ? "w-[10px] pr-[17px]" : ""}  ${
+                            languageSelected.dir === "rtl"
+                              ? "pr-[20px] w-[25px] rotate-180"
+                              : "pr-[20px] w-[25px]"
+                          } visible  h-[35px] absolute start-0 fill-blueLink dark:fill-dark-yellow `
+                        : "hidden"
+                    }
+                  />
+                )}
+                {pageName === "citizen" && (
+                  <ActiveMenuIcon
+                    className={
+                      item.name === "home"
+                        ? ` ${isCollapsed ? "w-[10px] pr-[17px]" : ""}  ${
+                            languageSelected.dir === "rtl"
+                              ? "pr-[20px] w-[25px] rotate-180"
+                              : "pr-[20px] w-[25px]"
+                          } visible  h-[35px] absolute start-0 fill-blueLink dark:fill-dark-yellow `
+                        : "hidden"
+                    }
+                  />
+                )}
+
                 <span
                   className={`${
                     isCollapsed ? "ms-0" : "ms-5"
@@ -107,13 +124,14 @@ const ListMenuModule: React.FC<ListMenuModuleProps> = ({
                     name={item.name}
                     color={`
                            ${
-                             item.name === "home" ||
-                             (item.name === "language" && activeDropdown)
+                             item.name === "home"
                                ? "stroke-blueLink   dark:dark:stroke-dark-yellow "
                                : ""
                            }
                     group-hover:stroke-blueLink group-hover:dark:stroke-dark-yellow ${
-                      activeItem == i
+                      activeItem == i ||
+                      item.name === "trainings" ||
+                      (item.name === "language" && activeDropdown)
                         ? " stroke-blueLink dark:stroke-dark-yellow"
                         : "stroke-gray dark:stroke-dark-gray"
                     } w-[17px] h-[17px] `}
@@ -193,7 +211,7 @@ const ListMenuModule: React.FC<ListMenuModuleProps> = ({
                     }
                      capitalize 3xl:text-xl3Title xl:text-xlTitle lg:text-lgTitle md:text-mdTitle  sm:text-smTitle xs:text-smTitle
                       ${
-                        activeItem === i
+                        activeItem === i || item.name === "trainings"
                           ? "text-[#0066FF] dark:text-dark-yellow"
                           : "text-gray dark:text-dark-gray "
                       }

@@ -22,7 +22,7 @@ export default function SearchComponent({
         .post("https://api.rgb.irpsc.com/api/tutorials/search", formData)
         .then((response) => {
           setLoadingSearch(false);
-          setSearchData(response.data.data[0]);
+          setSearchData(response.data.data);
         })
         .catch((error) => {
           setLoadingSearch(false);

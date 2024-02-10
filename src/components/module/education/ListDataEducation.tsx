@@ -38,14 +38,14 @@ export default function ListDataEducation({ data }: any) {
                 priority={true}
                 className=" w-full h-[250px]   2xl:h-[300px] brightness-75  transition-all duration-150 ease-in-out rounded-t-[10px]  object-cover"
               />
-              <div className=" absolute 3xl:top-[260px] 2xl:top-[260px] xl:top-[210px] lg:top-[210px]  md:top-[210px] sm:top-[215px] xs:top-[210px] end-5 rounded-full h-[75px] z-50 w-[75px] flex justify-center items-center bg-white dark:bg-dark-background  shadow-md">
+              <div className=" absolute z-0 3xl:top-[260px] 2xl:top-[260px] xl:top-[210px] lg:top-[210px]  md:top-[210px] sm:top-[215px] xs:top-[210px] end-5 rounded-full h-[75px]  w-[75px] flex justify-center items-center bg-white dark:bg-dark-background  shadow-md">
                 <Video className="w-[50px] h-[50px] fill-blueLink dark:fill-dark-yellow" />
               </div>
             </div>
 
-            <div className="flex flex-row justify-start items-center gap-1 w-[95%] mt-[-10px]">
+            <div className="flex flex-row justify-start items-center gap-1 w-[95%] mt-[-10px] pe-20">
               <p
-                className="text-start text-gray dark:text-dark-gray font-medium font-azarMehr text-[14px] truncate 3xl:text-[16px] cursor-pointer hover:text-blueLink hover:dark:text-dark-yellow"
+                className="text-start text-gray dark:text-dark-gray font-medium font-azarMehr text-[14px]  3xl:text-[16px] cursor-pointer hover:text-blueLink hover:dark:text-dark-yellow"
                 onClick={() => pusher(item.category.slug)}
               >
                 {item.category.name}

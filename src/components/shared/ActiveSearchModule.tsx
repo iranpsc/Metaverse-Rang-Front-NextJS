@@ -7,9 +7,11 @@ export const ActiveSearchModule = ({
 }: any) => {
   return (
     <>
-      {searchTerm && (
+      {searchTerm && searchData.length >= 1 && (
         <div
-          className="backdrop-blur-sm  bg-black/30 h-screen absolute top-[75px] z-50 w-full flex flex-col justify-start items-center"
+          className={`backdrop-blur-sm  bg-black/30 h-screen absolute ${
+            searchData.length >= 1 ? "visible" : "invisible"
+          }top-[75px] z-50 w-full flex flex-col justify-start items-center`}
           onClick={() => setSearchTerm("")}
         >
           <div className="w-[50%] overflow-y-scroll overflow-x-clip max-h-screen mb-[100px] bg-white  dark:bg-[#1A1A18] focus-within:border-gray rounded-mb mt-[1px]">

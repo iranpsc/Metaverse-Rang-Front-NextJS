@@ -34,9 +34,9 @@ export default function HeaderMenuEducationModule({
             height={500}
             className={`${
               isCollapsed
-                ? "xl:w-[45px] xl:h-[45px]"
-                : "xl:w-[80px] xl:h-[50px]"
-            }  lg:w-[40px] lg:h-[35px] md:w-[30px] md:h-[30px] sm:w-[45px] sm:h-[45px] xs:w-[50px] xs:h-[50px] ms-2`}
+                ? "xl:w-[45px] xl:h-[45px] ms-0"
+                : "xl:w-[80px] xl:h-[50px] ms-2"
+            }  lg:w-[40px] lg:h-[35px] md:w-[30px] md:h-[30px] sm:w-[45px] sm:h-[45px] xs:w-[50px] xs:h-[50px] `}
           />
           {!isCollapsed ? (
             <div className="inline-block w-full  ">

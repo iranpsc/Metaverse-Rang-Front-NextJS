@@ -36,25 +36,21 @@ export const DashboardHeaderModule = ({
             </span>
           </div>
         </div>
-
         <div
-          className={`absolute w-fit px-5 h-[50px] bg-blueLink dark:bg-dark-yellow  rounded-2xl  ${
-            shows ? "top-[370px]" : "top-[75px]"
-          } transition-all duration-300 easy-in-out flex justify-center items-center cursor-pointer`}
+          className={`absolute w-fit px-5 h-[50px] bg-blueLink dark:bg-dark-yellow  rounded-2xl bottom-[-25px] flex justify-center items-center cursor-pointer`}
           onClick={() => setShows(!shows)}
         >
           <p className="font-azarMehr text-[16px] text-white dark:text-black font-medium">
             توضیحات
           </p>
         </div>
-
         <div
           className={`w-full ${
-            shows ? "h-[300px]" : "h-0"
+            shows ? "h-fit pb-14" : "h-0"
           } flex flex-col justify-start px-3 items-center transition-all duration-300 easy-in-out`}
         >
           <p
-            className={`w-full  font-azarMehr font-normal text-[16px] text-justify transition-all duration-75 easy-in-out ${
+            className={`w-full  font-azarMehr font-normal text-[16px] text-justify  ${
               shows ? "visible" : "invisible"
             }`}
           >

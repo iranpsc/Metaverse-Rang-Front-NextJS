@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { DefaultSeo } from "next-seo";
 import Head from "next/head";
 import { LangContext } from "@/context/LangContext";
@@ -15,6 +15,7 @@ const Index = ({
   nameSite,
 }: any) => {
   const { languageSelected } = useContext(LangContext);
+  const [activeSearch, setActiveSearch] = useState<boolean>(false);
 
   return (
     <>
@@ -56,10 +57,15 @@ const Index = ({
         id="light-scrollbar"
       >
         <BaseLayoutEducation translateData={translateData}>
-          <div className="w-full overflow-y-auto overflow-x-clip relative">
+          <div
+            className={`w-full ${
+              activeSearch ? "overflow-y-clip" : "overflow-y-auto"
+            }  overflow-x-clip relative`}
+          >
             <HeaderComponent
               categoryData={CategoryData}
               translateData={translateData}
+              setActiveSearch={setActiveSearch}
             />
 
             <CategoryComponent

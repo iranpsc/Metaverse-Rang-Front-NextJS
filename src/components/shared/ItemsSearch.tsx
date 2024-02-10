@@ -9,6 +9,7 @@ export const ItemsSearch = ({ searchData }: any) => {
 
   useEffect(() => {
     if (searchData.length >= 1) {
+      console.log(searchData);
       setIsDataReady(true);
     } else {
       setIsDataReady(false);
@@ -54,7 +55,7 @@ export const ItemsSearch = ({ searchData }: any) => {
           <div className="flex flex-row justify-between items-center gap-3 min-w-fit ">
             <div className="h-full flex flex-col gap-0 ">
               <p className="uppercase  font-azarMehr text-[14px] xs:text-[10px] font-bold  text-blueLink">
-                {item.creator_code}
+                {item.creator.code}
               </p>
               <div className="flex flex-row items-center justify-end gap-1 ">
                 <span className=" whitespace-nowrap font-azarMehr font-light 3xl:text-[18px] xs:text-[12px]">
@@ -64,8 +65,8 @@ export const ItemsSearch = ({ searchData }: any) => {
               </div>
             </div>
             <Image
-              src={item.creator_image}
-              alt={item.creator_image}
+              src={item.creator.image}
+              alt={item.creator.title}
               loading="lazy"
               width={1000}
               height={1000}

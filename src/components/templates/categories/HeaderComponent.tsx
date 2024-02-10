@@ -5,7 +5,11 @@ import { useTheme } from "next-themes";
 import { ActiveSearchModule } from "@/components/shared/ActiveSearchModule";
 import SectionInputSearch from "@/components/shared/SectionInputSearch";
 
-export const HeaderComponent = ({ categoryData, translateData }: any) => {
+export const HeaderComponent = ({
+  categoryData,
+  translateData,
+  setActiveSearch,
+}: any) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [loadingSearch, setLoadingSearch] = useState<boolean>(false);
   const [searchData, setSearchData] = useState<any>([]);
@@ -26,20 +30,32 @@ export const HeaderComponent = ({ categoryData, translateData }: any) => {
         .post("https://api.rgb.irpsc.com/api/tutorials/search", formData)
         .then((response) => {
           setLoadingSearch(false);
-          setSearchData(response.data.data[0]);
+          setSearchData(response.data.data);
         })
         .catch((error) => {
           setLoadingSearch(false);
+          setActiveSearch(false);
         });
     } else {
       setSearchData([]);
       setLoadingSearch(false);
+      setActiveSearch(false);
     }
+    setActiveSearch(false);
   }, [searchTerm]);
+
+  useEffect(() => {
+    if (searchData.length >= 1) {
+      setActiveSearch(true);
+    } else {
+      setActiveSearch(false);
+    }
+  }, [searchData]);
 
   const removeSearch = () => {
     setSearchData([]);
     setSearchTerm("");
+    setActiveSearch(false);
   };
 
   return (

@@ -11,6 +11,7 @@ interface Props {
 export default function BaseLayoutEducation({ children, translateData }: any) {
   const [showAuthCard, setShowAuthCard] = useState<boolean>(false);
   const [showLogOut, setShowLogOut] = useState<boolean>(false);
+  const [activeItem, SetActiveItem] = useState<number>(0);
   //SEACRH
   const [showFilterItems, setShowFilterItems] = useState<string>("none");
 
@@ -28,7 +29,12 @@ export default function BaseLayoutEducation({ children, translateData }: any) {
         )} */}
       </AnimatePresence>
       <AnimatePresence>
-        {showAuthCard && <AuthCards setShowAuthCard={setShowAuthCard} />}
+        {showAuthCard && (
+          <AuthCards
+            setShowAuthCard={setShowAuthCard}
+            SetActiveItem={SetActiveItem}
+          />
+        )}
       </AnimatePresence>
       <AnimatePresence>
         {showLogOut && (

@@ -13,6 +13,7 @@ export default function SectionInputSearch({
   searchData,
   removeSearch,
 }: any) {
+  console.log("CC", searchData.length);
   return (
     <>
       <div
@@ -50,7 +51,7 @@ export default function SectionInputSearch({
           />
         )}
 
-        {searchData.length >= 1 ? (
+        {searchData && searchData.length >= 1 ? (
           <CLoseIcon
             className="stroke-error  cursor-pointer me-3"
             onClick={removeSearch}
