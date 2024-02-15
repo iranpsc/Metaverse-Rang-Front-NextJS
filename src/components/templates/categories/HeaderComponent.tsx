@@ -6,7 +6,7 @@ import { ActiveSearchModule } from "@/components/shared/ActiveSearchModule";
 import SectionInputSearch from "@/components/shared/SectionInputSearch";
 
 export const HeaderComponent = ({
-  categoryData,
+  TitleHeader,
   translateData,
   setActiveSearch,
 }: any) => {
@@ -60,9 +60,9 @@ export const HeaderComponent = ({
 
   return (
     <>
-      <div className="w-full h-[75px] shadow-xl bg-white dark:bg-[#1A1A18] flex flex-row justify-center items-center relative">
-        <h1 className="absolute font-azarMehr  font-bold 3xl:text-[28px] xl:text-[28px] lg:text-[24px] md:text-[22px] sm:text-[20px] xs:text-[18px] start-4">
-          {categoryData.name}
+      <div className="w-full min-h-[75px] shadow-xl bg-white dark:bg-[#1A1A18] flex flex-row justify-center gap-1  items-center relative">
+        <h1 className=" absolute start-2 xs:top-2 font-azarMehr whitespace-nowrap  font-bold 3xl:text-[24px] xl:text-[24px] lg:text-[22px] md:text-[20px] sm:text-[18px] xs:text-[14px] ms-2">
+          {TitleHeader}
         </h1>
 
         <SectionInputSearch

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 
@@ -7,9 +7,11 @@ import DynamicFooter from "@/components/templates/education/DynamicFooter";
 import ListSubCategories from "./ListSubCategories";
 import { DashboardHeaderModule } from "@/components/module/categories/DashboardHeaderModule";
 import SlugsModule from "@/components/module/categories/SlugsModule";
+import { motion, useAnimation } from "framer-motion";
 const CategoryComponent = ({
   CategoryData,
   translateData,
+  translates,
   footerTabs,
 }: any) => {
   const router = useRouter();
@@ -19,6 +21,24 @@ const CategoryComponent = ({
   const [loading, setLoading] = useState<boolean>(false);
   const [shows, setShows] = useState<boolean>(false);
   const [videos, setVideos] = useState(CategoryData);
+  const [height, setHeight] = useState(0);
+
+  const contentRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (contentRef.current) {
+      setHeight(shows ? contentRef.current.scrollHeight : 0);
+    }
+  }, [shows]);
+  const controls = useAnimation();
+
+  const handleToggle = () => {
+    controls.start({
+      height: shows ? "auto" : "500px", // مقدار ارتفاع مورد نظر خود را قرار دهید
+      transition: { duration: 0.3, ease: "easeInOut" },
+    });
+    setShows(!shows);
+  };
 
   const loadMore = async () => {
     setLoading(true);
@@ -35,12 +55,11 @@ const CategoryComponent = ({
   };
 
   return (
-    <section className="w-full h-fit flex flex-col justify-start items-center bg-[#f8f8f8] dark:bg-[#000] relative ">
+    <section className="w-full h-fit flex flex-col justify-start items-center relative mt-10 ">
       <section className="  w-full h-fit flex  flex-col justify-center items-center">
         <div
-          className={`relative w-full px-4 ${
-            shows ? "h-[800px]" : "h-[500px]"
-          } bg-white dark:bg-black transition-all duration-300 easy-in-out`}
+          className={`relative w-full px-4  bg-white dark:bg-black transition-all duration-300 ease-in-out`}
+          style={{ height: shows ? `${height + 500}px` : "500px" }}
         >
           <Image
             src={CategoryData.image}
@@ -51,9 +70,11 @@ const CategoryComponent = ({
             className=" w-full h-[400px] rounded-xl object-cover"
           />
           <DashboardHeaderModule
+            translates={translates}
             categoryData={CategoryData}
             shows={shows}
             setShows={setShows}
+            contentRef={contentRef}
           />
         </div>
 

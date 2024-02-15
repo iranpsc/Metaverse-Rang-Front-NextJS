@@ -8,7 +8,7 @@ export default function ProfileHeaderMobile({
   profileData,
   profileName,
 }: any) {
-  const { isCollapsed, toggleCollapseHandler } = useContext(SideBarContext);
+  const { state, toggleCollapseHandler } = useContext(SideBarContext);
   const [title, SetTitle] = useState<any>([]);
   const [desc, setDesc] = useState<any>([]);
 
@@ -29,7 +29,7 @@ export default function ProfileHeaderMobile({
     <>
       <div className=" dark:bg-dark-background shadow-md xl:hidden lg:hidden md:flex sm:flex xs:flex  z-50 w-full sm:h-[60px] xs:h-[60px] md:h-[150px] bg-white flex-rows justify-between items-center">
         <div className="">
-          {!isCollapsed ? (
+          {!state.isCollapsed ? (
             <CLoseIcon
               className="fill-[#2B2B2B] dark:fill-gray cursor-pointer sm:w-[25px] xs:w-[25px] md:w-[40px]"
               onClick={toggleCollapseHandler}

@@ -1,9 +1,10 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useContext, useState } from "react";
 import SideBarEducation from "./module/education/SideBarEducation";
 import AuthCards from "@/layout/AuthCards";
 import { AnimatePresence } from "framer-motion";
 import axios from "axios";
 import MenuItemPage from "./templates/MenuItemPage";
+import { SideBarContext } from "./context/SidebarContext";
 
 interface Props {
   children: ReactNode;
@@ -11,8 +12,6 @@ interface Props {
   error: any;
   titleData: any;
   setShowLogOut: any;
-  activeItem: any;
-  SetActiveItem: any;
 }
 export default function BaseLayout({
   children,
@@ -20,28 +19,18 @@ export default function BaseLayout({
   error,
   titleData,
   setShowLogOut,
-  activeItem,
-  SetActiveItem,
 }: Props) {
   const [showAuthCard, setShowAuthCard] = useState<boolean>(false);
+  const { state } = useContext(SideBarContext);
 
   return (
     <div className=" flex flex-row max-h-screen max-lg:h-full  max-lg:flex-col xl:overflow-clip lg:overflow-clip md:overflow-auto sm:overflow-auto xs:overflow-auto no-scrollbar">
       <AnimatePresence>
-        {showAuthCard && (
-          <AuthCards
-            setShowAuthCard={setShowAuthCard}
-            SetActiveItem={SetActiveItem}
-          />
-        )}
+        {showAuthCard && <AuthCards setShowAuthCard={setShowAuthCard} />}
       </AnimatePresence>
       <AnimatePresence>
-        {activeItem !== 0 && (
-          <MenuItemPage
-            activeItem={activeItem}
-            SetActiveItem={SetActiveItem}
-            setShowAuthCard={setShowAuthCard}
-          />
+        {state.showMenuItem !== 0 && (
+          <MenuItemPage setShowAuthCard={setShowAuthCard} />
         )}
       </AnimatePresence>
       <section>
@@ -51,8 +40,6 @@ export default function BaseLayout({
           profileData={profileData}
           titleData={titleData}
           setShowLogOut={setShowLogOut}
-          activeItem={activeItem}
-          SetActiveItem={SetActiveItem}
         />
       </section>
       {children}

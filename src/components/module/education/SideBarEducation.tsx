@@ -1,19 +1,16 @@
 import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
-import { useTheme } from "next-themes";
-
 //CONTEXT
 import { SideBarContext } from "@/context/SidebarContext";
 //LANGUAGE
 import { LangContext } from "@/context/LangContext";
 //MODULES
 import LoginMenuModule from "@/module/menu/LoginMenuModule";
-import ListMenuModule from "@/module/menu/ListMenuModule";
 import HeaderMenuEducationModule from "./HeaderMenuEducationModule";
 //UTILS
-import { sidebarFilteredData } from "@/components/utils/sidebarfuncs";
 import ThemeMenuModule from "../menu/ThemeMenuModule";
+import NewListModule from "../menu/NewListModule";
 
 interface LanguageItem {
   id: number;
@@ -29,26 +26,15 @@ export default function SideBarEducation({
   setShowAuthCard,
   pageName,
   profileData,
-  titleData,
   setShowLogOut,
-  activeItem,
-  SetActiveItem,
 }: any) {
-  const { theme, setTheme } = useTheme();
   const router = useRouter();
-  const [loginData, setLoginData] = useState([]);
-  const [headerData, setHeaderData] = useState([]);
-  const [themeData, setThemeData] = useState<any[]>([]);
-  const [themeDataActive, setThemeDataActive] = useState<any>("light");
-  const [data, setData] = useState<any>([]);
-  const [activeDropdown, setActiveDropdown] = useState<boolean>(false);
-  const { isCollapsed, toggleCollapseHandler } = useContext(SideBarContext);
+  const { state, dispatch } = useContext(SideBarContext);
   const { languagesData, languageSelected, setLanguagesSelected } =
     useContext(LangContext);
-  const { userId } = router.query;
 
   useEffect(() => {
-    setActiveDropdown(false);
+    dispatch({ type: "CLEAR_ACTIVE_DROPDOWN" });
   }, [languageSelected.name]);
 
   useEffect(() => {
@@ -56,39 +42,26 @@ export default function SideBarEducation({
       try {
         const res = await axios.get(`${languageSelected.file_url}`);
 
-        switch (pageName) {
-          case "citizen":
-            setData(
-              sidebarFilteredData(res.data.modals, pageName)?.filteredItems
-            );
-            setLoginData(
-              sidebarFilteredData(res.data.modals, pageName)?.filteredLogin
-            );
-            setHeaderData(
-              sidebarFilteredData(res.data.modals, pageName)?.filteredHeader
-            );
-            setThemeData(
-              sidebarFilteredData(res.data.modals, pageName)?.filteredThemeMode
-            );
-            break;
-          case "education":
-            setData(
-              sidebarFilteredData(res.data.modals, pageName)
-                ?.filteredItemsEducation
-            );
-            setLoginData(
-              sidebarFilteredData(res.data.modals, "citizen")?.filteredLogin
-            );
-            setHeaderData(
-              sidebarFilteredData(res.data.modals, pageName)
-                ?.filteredHeaderEducation
-            );
-            setThemeData(
-              sidebarFilteredData(res.data.modals, "citizen")?.filteredThemeMode
-            );
-          default:
-            return [];
-        }
+        dispatch({
+          type: "SET_DATA_HEADER",
+          payload: { pageName, dataHeader: res.data.modals },
+        });
+        dispatch({
+          type: "SET_DATA_ITEMS",
+          payload: { pageName, dataMenu: res.data.modals },
+        });
+        dispatch({
+          type: "SET_DATA_THEME",
+          payload: { dataTheme: res.data.modals },
+        });
+        dispatch({
+          type: "SET_DATA_LOGIN",
+          payload: { dataLogin: res.data.modals },
+        });
+        dispatch({
+          type: "SUB_ITEMS_MENU_DATA",
+          payload: { dataSubItems: res.data.modals },
+        });
       } catch (error) {
         console.error(error);
       }
@@ -114,10 +87,6 @@ export default function SideBarEducation({
   };
 
   useEffect(() => {
-    setThemeDataActive(theme);
-  }, [theme]);
-
-  useEffect(() => {
     const element = document.querySelector(".scroll");
     if (element) {
       setTimeout(() => {
@@ -126,8 +95,13 @@ export default function SideBarEducation({
 
         const scrollStep = () => {
           currentScroll += 5;
-          if (activeDropdown) element.scrollTop = currentScroll;
-
+          if (state.activeDropdown.length >= 1)
+            element.scrollTop = currentScroll;
+          if (state.showFullModal) {
+            element.scrollTop = currentScroll;
+          } else {
+            window.scrollTo(0, currentScroll);
+          }
           if (currentScroll < maxScroll) {
             setTimeout(scrollStep, 10);
           }
@@ -136,44 +110,37 @@ export default function SideBarEducation({
         scrollStep();
       }, 300);
     }
-  }, [activeDropdown]);
+  }, [
+    state.activeDropdown.some((item) => item.key === "language"),
+    state.showFullModal,
+  ]);
 
   return (
     <div className="   xl:relative lg:relative   dark:bg-dark-background ">
       <div
         className={` shadow-left dark:shadow-leftDark xl:min-h-screen scroll lg:min-h-screen md:min-h-screen overflow-y-scroll  relative sm:min-h-screen xs:min-h-screen ${
-          isCollapsed
+          state.isCollapsed
             ? "sm:hidden xs:hidden md:hidden transition-2 xl:block lg:block"
             : "backdrop-blur-sm  bg-blackTransparent/30"
         }   sm:absolute  xs:absolute  xl:relative lg:relative md:absolute xl:w-fit lg:w-fit md:w-full z-[60] sm:w-full xs:w-full no-scrollbar  `}
-        onClick={toggleCollapseHandler}
+        onClick={() => dispatch({ type: "TOGGLE_COLLAPSE" })}
       >
         <aside
           className={`${
-            isCollapsed
+            state.isCollapsed
               ? "w-[70px] max-lg:hidden"
               : "xl:w-[250px]   lg:w-[150px] md:w-[250px] sm:w-[175px] xs:w-[175px] sm:shadow-[#000000] xs:sm:shadow-[#000000] visible"
           }  h-screen relative   bg-white  dark:bg-dark-background transition-all duration-300 ease-linear 
         `}
-          onClick={toggleCollapseHandler}
+          onClick={() => dispatch({ type: "TOGGLE_COLLAPSE" })}
         >
           <div className="sticky w-full top-0 pt-4 z-50 bg-white dark:bg-dark-background transition-all duration-300 ease-linear">
-            <HeaderMenuEducationModule
-              isCollapsed={isCollapsed}
-              menuData={headerData}
-              toggleCollapseHandler={toggleCollapseHandler}
-            />
+            <HeaderMenuEducationModule />
           </div>
           {/* <MenuProfileModule/> */}
-          <ListMenuModule
+          <NewListModule
             pageName={pageName}
-            isCollapsed={isCollapsed}
-            menuData={data}
-            setActiveItem={SetActiveItem}
-            activeItem={activeItem}
             languageSelected={languageSelected}
-            setActiveDropdown={setActiveDropdown}
-            activeDropdown={activeDropdown}
             languagesData={languagesData}
             handleDirChange={handleDirChange}
           />
@@ -181,23 +148,20 @@ export default function SideBarEducation({
       </div>
       <div
         className={`${
-          isCollapsed
+          state.isCollapsed
             ? "w-[70px] sm:hidden xs:hidden md:hidden transition-2 xl:block lg:block"
             : "xl:w-[250px]   lg:w-[150px] md:w-[250px] sm:w-[175px] xs:w-[175px]"
         }  h-fit absolute  z-[100] transition-all duration-300 ease-linear  bg-white dark:bg-dark-background bottom-0 py-5 flex flex-col items-center justify-center gap-3`}
       >
         <LoginMenuModule
-          isCollapsed={isCollapsed}
-          toggleCollapseHandler={toggleCollapseHandler}
           setShowAuthCard={setShowAuthCard}
-          menuData={loginData}
           profileData={profileData}
           setShowLogOut={setShowLogOut}
         />
         <div className="w-full pt-3 pb-1 flex flex-col items-center justify-center">
           <div className="h-[1px] bg-gray opacity-50 dark:bg-mediumGray w-[80%] " />
         </div>
-        <ThemeMenuModule themeData={themeData} />
+        <ThemeMenuModule />
       </div>
     </div>
   );

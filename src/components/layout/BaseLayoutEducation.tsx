@@ -8,7 +8,7 @@ import { FilterModule } from "../module/categories/FilterModule";
 interface Props {
   children: ReactNode;
 }
-export default function BaseLayoutEducation({ children, translateData }: any) {
+export default function BaseLayoutEducation({ children }: any) {
   const [showAuthCard, setShowAuthCard] = useState<boolean>(false);
   const [showLogOut, setShowLogOut] = useState<boolean>(false);
   const [activeItem, SetActiveItem] = useState<number>(0);

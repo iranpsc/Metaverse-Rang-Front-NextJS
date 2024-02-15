@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useContext } from "react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -6,25 +6,24 @@ import Link from "next/link";
 //Types
 import { LoginMenu, ArrowMenu } from "@/svgs/index";
 import { useToken } from "@/context/TokenContext";
+import { SideBarContext } from "@/components/context/SidebarContext";
 
 export default function LoginMenuModule({
-  isCollapsed,
   setShowAuthCard,
-  toggleCollapseHandler,
-  menuData,
   setShowLogOut,
 }: any) {
+  const { state, showFullModalHandler, toggleCollapseHandler } =
+    useContext(SideBarContext);
   const { theme } = useTheme();
-  const [showFullModal, setShowFullModal] = useState(false);
-  const { code, removeToken, token } = useToken();
+  const { code, token } = useToken();
   const router = useRouter();
 
   const submit = () => {
-    if (isCollapsed) {
+    if (state.isCollapsed) {
       toggleCollapseHandler();
-      setShowFullModal(!showFullModal);
+      showFullModalHandler();
     } else {
-      setShowFullModal(!showFullModal);
+      showFullModalHandler();
     }
   };
 
@@ -41,8 +40,11 @@ export default function LoginMenuModule({
   };
 
   useEffect(() => {
-    if (isCollapsed) setShowFullModal(false);
-  }, [isCollapsed, code]);
+    if (state.isCollapsed && state.showFullModal) {
+      showFullModalHandler();
+    } else {
+    }
+  }, [state.isCollapsed, code]);
 
   const logout = () => {
     setShowLogOut(true);
@@ -52,12 +54,12 @@ export default function LoginMenuModule({
     <div className={`w-full h-fit  flex justify-center items-center`}>
       <div
         className={`${
-          showFullModal
+          state.showFullModal
             ? "h-[200px] w-[80%]   start-[50px] z-[900]"
             : "h-fit w-[80%]"
         } bg-blueLink dark:bg-dark-yellow rounded-[10px] flex flex-col justify-evenly items-center transition-all duration-300 ease-linear`}
       >
-        {showFullModal && (
+        {state.showFullModal && (
           <div className=" flex flex-col gap-2 w-[80%] pt-2">
             {token && !code && (
               <Link href={`https://gmail.com`} target="_blank">
@@ -73,20 +75,20 @@ export default function LoginMenuModule({
                 target="_blank"
               >
                 <p className="text-white dark:text-black text-[14px] hover:text-[15px] font-azarMehr font-normal cursor-pointer">
-                  {menuData[4] && menuData[4].translation}
+                  {state.dataLogin[4] && state.dataLogin[4].translation}
                 </p>
                 <hr className=" text-white dark:text-[#2D2D2A38] mt-1" />
               </Link>
             )}
             <a href="https://rgb.irpsc.com/">
               <p className="text-white dark:text-black text-[14px] hover:text-[15px] font-azarMehr font-normal cursor-pointer">
-                {menuData[3] && menuData[3].translation}
+                {state.dataLogin[3] && state.dataLogin[3].translation}
               </p>
             </a>
             <hr className=" text-white dark:text-[#2D2D2A38]" />
             <a href="https://rgb.irpsc.com/metaverse">
               <p className="text-white dark:text-black text-[14px]  hover:text-[15px] font-azarMehr font-normal  cursor-pointer">
-                {menuData[2] && menuData[2].translation}
+                {state.dataLogin[2] && state.dataLogin[2].translation}
               </p>
             </a>
             <hr className=" text-white dark:text-[#2D2D2A38]" />
@@ -94,7 +96,7 @@ export default function LoginMenuModule({
               className="text-white dark:text-black text-[14px]  hover:text-[15px] font-azarMehr font-normal cursor-pointer"
               onClick={logout}
             >
-              {menuData[1] && menuData[1].translation}
+              {state.dataLogin[1] && state.dataLogin[1].translation}
             </p>
             <hr className=" text-white dark:text-[#2D2D2A38]" />
           </div>
@@ -107,19 +109,19 @@ export default function LoginMenuModule({
           {code && code.length > 1 ? (
             <>
               <p className="text-white dark:text-dark-background font-azarMehr uppercase font-medium text-center ">
-                {isCollapsed ? "HM" : code}
+                {state.isCollapsed ? "HM" : code}
               </p>
               <ArrowMenu
-                className={`stroke-white stroke-2 dark:stroke-dark-background h-full w-[10px] rotate-90 ${
-                  isCollapsed ? "hidden" : "visibale"
-                }`}
+                className={`stroke-white stroke-2 dark:stroke-dark-background h-full w-[10px] ${
+                  state.showFullModal ? "rotate-90" : "-rotate-90"
+                } ${state.isCollapsed ? "hidden" : "visibale"}`}
               />
             </>
           ) : (
             <>
               {token && !code ? (
                 <>
-                  {isCollapsed ? (
+                  {state.isCollapsed ? (
                     <Image
                       src={
                         theme === "dark"
@@ -141,11 +143,11 @@ export default function LoginMenuModule({
                 <>
                   <LoginMenu
                     className={`stroke-white stroke-2 dark:stroke-dark-background h-full w-5 ${
-                      isCollapsed ? "hidden" : "visibale"
+                      state.isCollapsed ? "hidden" : "visibale"
                     }`}
                   />
                   <p className="text-white dark:text-dark-background font-azarMehr font-medium text-center text-[15px]">
-                    {menuData[0] && menuData[0].translation}
+                    {state.dataLogin[0] && state.dataLogin[0].translation}
                   </p>
                 </>
               )}

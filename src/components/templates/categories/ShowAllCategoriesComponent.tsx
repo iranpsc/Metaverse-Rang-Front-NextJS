@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { motion } from "framer-motion";
 import Masonry from "react-masonry-css";
 
 import { Like, Dislike, View } from "@/components/svgs/SvgEducation";
 import { formatNumber } from "@/components/utils/education";
-import { useRouter } from "next/router";
 
 const ShowAllCategoriesComponent = ({ categoriesData }: any) => {
   const [randomHeights, setRandomHeights] = useState([]);
@@ -25,7 +25,7 @@ const ShowAllCategoriesComponent = ({ categoriesData }: any) => {
   }, [categoriesData]);
 
   const breakpointColumnsObj = {
-    default: 5,
+    default: 3,
     1100: 3,
     700: 2,
     500: 1,
@@ -56,11 +56,28 @@ const ShowAllCategoriesComponent = ({ categoriesData }: any) => {
       variants={container}
       initial="hidden"
       animate="visible"
-      className="p-2 overflow-x-clip bg-[#e1e1e1] dark:bg-black "
+      className="p-2   "
     >
+      <div className="w-full py-5 ms-2 flex flex-row justify-start gap-2">
+        <p
+          className="w-fit ms-5 font-normal font-azarMehr text-[15px] text-start text-[#575757] cursor-pointer"
+          onClick={() => router.push(`/${lang}/education`)}
+        >
+          آموزش
+        </p>
+        <span className="text-[#575757] font-normal font-azarMehr text-[15px]">
+          /
+        </span>
+        <p
+          className="w-fit font-normal font-azarMehr cursor-pointer text-[15px] text-start  text-blueLink dark:text-dark-yellow"
+          onClick={() => router.push(`/${lang}/education/category/all`)}
+        >
+          دسته بندی ها
+        </p>
+      </div>
       <Masonry
         breakpointCols={breakpointColumnsObj}
-        className="my-masonry-grid "
+        className="my-masonry-grid mt-5"
         columnClassName="my-masonry-grid_column"
       >
         {categoriesData &&
@@ -69,7 +86,7 @@ const ShowAllCategoriesComponent = ({ categoriesData }: any) => {
               variants={items}
               key={index}
               className="flex flex-col justify-start items-center gap-2 shadow-xl rounded-md bg-white dark:bg-dark-background cursor-pointer hover:shadow-2xl"
-              onClick={() => pusher(category.name)}
+              onClick={() => pusher(category.slug)}
             >
               <Image
                 style={{ height: randomHeights[index] }}

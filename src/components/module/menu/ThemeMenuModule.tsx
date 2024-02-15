@@ -4,9 +4,9 @@ import { Dark, Light } from "@/svgs/index";
 //CONTEXT
 import { SideBarContext } from "@/context/SidebarContext";
 
-const ThemeMenuModule = ({ themeData }: any) => {
+const ThemeMenuModule = () => {
   const { theme, setTheme } = useTheme();
-  const { isCollapsed } = useContext(SideBarContext);
+  const { state } = useContext(SideBarContext);
 
   const [themeDataActive, setThemeDataActive] = useState<any>("light");
 
@@ -24,10 +24,10 @@ const ThemeMenuModule = ({ themeData }: any) => {
   return (
     <div
       className={`${
-        isCollapsed ? "w-[70px]" : "w-[90%]"
+        state.isCollapsed ? "w-[70px]" : "w-[90%]"
       } h-[50px]  flex justify-center items-center `}
     >
-      {isCollapsed ? (
+      {state.isCollapsed ? (
         <>
           <div
             className={` ${
@@ -72,7 +72,7 @@ const ThemeMenuModule = ({ themeData }: any) => {
                 themeDataActive === "dark" ? "text-[#F8F8F8]" : "text-black"
               } font-azarMehr font-medium xl:text-[14px] lg:text-[14px] md:text-[14px] xs:text-[12px] sm:text-[12px] mb-1  ms-2 `}
             >
-              {themeData[0]?.name && themeData[0].translation}
+              {state.dataTheme[0]?.name && state.dataTheme[0].translation}
             </p>
           </div>
 
@@ -92,7 +92,7 @@ const ThemeMenuModule = ({ themeData }: any) => {
                 themeDataActive === "dark" ? "text-[#F8F8F8]" : "text-black"
               } font-azarMehr xl:text-[14px] lg:text-[14px] md:text-[14px] xs:text-[12px] sm:text-[12px] font-medium  `}
             >
-              {themeData[1]?.name && themeData[1].translation}
+              {state.dataTheme[1]?.name && state.dataTheme[1].translation}
             </p>
           </div>
         </div>

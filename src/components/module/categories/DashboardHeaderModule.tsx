@@ -4,11 +4,13 @@ import { formatNumber } from "@/components/utils/education";
 export const DashboardHeaderModule = ({
   categoryData,
   shows,
+  translates,
   setShows,
+  contentRef,
 }: any) => {
   return (
     <>
-      <div className="absolute top-[350px] start-[25%] xs:start-[13%] w-[50%] xs:w-[75%] min-h-[100px] pt-5 transition-all duration-300 easy-in-out rounded-2xl flex flex-col justify-canter gap-10 items-center bg-white dark:bg-dark-background	shadow-xl">
+      <div className=" relative z-10 mt-[-50px] ms-[25%] xs:ms-[13%] w-[50%] xs:w-[75%] min-h-[100px] pt-5  rounded-2xl flex flex-col justify-canter gap-10 items-center bg-white dark:bg-dark-background	shadow-xl">
         <div className="w-full flex flex-row justify-evenly gap-1 items-center">
           <div className="flex flex-row items-center justify-center gap-3">
             <Videos className="w-[20px] h-[20px] xs:w-[17px] xs:h-[17px] fill-gray dark:fill-dark-gray" />
@@ -41,21 +43,25 @@ export const DashboardHeaderModule = ({
           onClick={() => setShows(!shows)}
         >
           <p className="font-azarMehr text-[16px] text-white dark:text-black font-medium">
-            توضیحات
+            {
+              translates.find((item: any) => item.name === "description")
+                .translation
+            }
           </p>
         </div>
         <div
-          className={`w-full ${
-            shows ? "h-fit pb-14" : "h-0"
-          } flex flex-col justify-start px-3 items-center transition-all duration-300 easy-in-out`}
+          ref={contentRef}
+          className={`w-full h-fit ${
+            shows ? "pb-14" : "pb-0"
+          } flex flex-col justify-start px-3 items-center `}
         >
-          <p
-            className={`w-full  font-azarMehr font-normal text-[16px] text-justify  ${
-              shows ? "visible" : "invisible"
-            }`}
-          >
-            {categoryData.description}
-          </p>
+          {shows && (
+            <p
+              className={`w-full  font-azarMehr font-normal text-[16px] text-justify `}
+            >
+              {categoryData.description}
+            </p>
+          )}
         </div>
       </div>
     </>

@@ -14,7 +14,14 @@ import ShredPage from "@/components/templates/ShredPage";
 import { AnimatePresence } from "framer-motion";
 import LogoutPage from "@/components/templates/LogoutPage";
 
-export default function Home({ profileData, titleData,nameSite,localSite, error,nameUser }: any) {
+export default function Home({
+  profileData,
+  titleData,
+  nameSite,
+  localSite,
+  error,
+  nameUser,
+}: any) {
   const { languageSelected } = useContext(LangContext);
   const router = useRouter();
   const { lang, userId } = router.query;
@@ -22,8 +29,6 @@ export default function Home({ profileData, titleData,nameSite,localSite, error,
   const [showSharedPage, setShowSharedPage] = useState<boolean>(false);
   const [showLogOut, setShowLogOut] = useState<boolean>(false);
   const [dataModal, setDataModal] = useState({ title: "", desc: "" });
-   const [activeItem, SetActiveItem] = useState<number>(0);
-
 
   function addPageJsonLd() {
     return {
@@ -63,7 +68,6 @@ export default function Home({ profileData, titleData,nameSite,localSite, error,
       }`,
     };
   }
-
 
   return (
     <>
@@ -128,7 +132,7 @@ export default function Home({ profileData, titleData,nameSite,localSite, error,
             name="google-site-verification"
             content="lmf8kBJQgLHew_wXcxGQwJQWiOSFy8odEBRTLOoX7Q4"
           />
-      <link rel="icon" href="/logo.png"  />
+          <link rel="icon" href="/logo.png" />
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={addPageJsonLd()}
@@ -141,15 +145,10 @@ export default function Home({ profileData, titleData,nameSite,localSite, error,
           error={error}
           titleData={titleData}
           setShowLogOut={setShowLogOut}
-          activeItem={activeItem}
-          SetActiveItem={SetActiveItem}
         >
           <div className=" xl:hidden lg:hidden md:visible sm:visible xs:visible w-full h-fit fixed bottom-0 z-40">
             <div className="w-full h-fit dark:bg-black bg-white fixed bottom-0 shadow-3xl">
-              <StaticMobileMenu
-                activeItem={activeItem}
-                SetActiveItem={SetActiveItem}
-              />
+              <StaticMobileMenu />
             </div>
           </div>
           <div
@@ -215,9 +214,7 @@ export default function Home({ profileData, titleData,nameSite,localSite, error,
   );
 }
 
-
-
-export async function getServerSideProps(context:any) {
+export async function getServerSideProps(context: any) {
   try {
     const userId = context.query.userId;
 
@@ -236,32 +233,29 @@ export async function getServerSideProps(context:any) {
 
     const languageCode = context.query.lang;
 
-   
-
     let titleData = "";
-    let nameUser="";
-    let nameSite="";
-    let localSite ="fa_IR";
+    let nameUser = "";
+    let nameSite = "";
+    let localSite = "fa_IR";
 
-  
     if (languageCode === "fa") {
-      nameSite =  "متاورس رنگ";
-       localSite ="fa_IR";
+      nameSite = "متاورس رنگ";
+      localSite = "fa_IR";
       if (profileData.kyc?.fname) {
-        nameUser = `${profileData.kyc.fname} ${profileData.kyc.lname}`
+        nameUser = `${profileData.kyc.fname} ${profileData.kyc.lname}`;
         titleData = `${profileData.kyc.fname} ${profileData.kyc.lname} | ${profileData.code}`;
       } else if (profileData.name) {
         titleData = `${profileData.name} | ${profileData.code}`;
-         nameUser = `${profileData.name} `;
+        nameUser = `${profileData.name} `;
       } else {
         titleData = "متاورس رنگ";
       }
     } else if (languageCode === "en") {
-       localSite ="en-US";
-      nameSite= "Metaverse Rgb";
+      localSite = "en-US";
+      nameSite = "Metaverse Rgb";
       if (profileData.name) {
         titleData = `${profileData.name} | ${profileData.code}`;
-         nameUser = `${profileData.name} `;
+        nameUser = `${profileData.name} `;
       } else {
         titleData = "Metaverse Rgb";
       }
@@ -272,5 +266,3 @@ export async function getServerSideProps(context:any) {
     return { props: { error: "خطا در دریافت داده‌ها" } };
   }
 }
-
-

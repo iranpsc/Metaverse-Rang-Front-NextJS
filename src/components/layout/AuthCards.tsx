@@ -10,15 +10,17 @@ import { motion } from "framer-motion";
 //MODULES
 import IpPage from "@/module/IpPage";
 import CheckIp from "@/module/CheckIp";
+import { SideBarContext } from "../context/SidebarContext";
 
-export default function AuthCards({ setShowAuthCard, SetActiveItem }: any) {
+export default function AuthCards({ setShowAuthCard }: any) {
   const { modalName, setModalName } = useContext(AuthContext);
   const { languageSelected, data } = useContext(LangContext);
+  const { dispatch } = useContext(SideBarContext);
   const lang = languageSelected.code;
 
   useEffect(() => {}, [modalName]);
   useEffect(() => {
-    SetActiveItem(0);
+    dispatch({ type: "SET_SHOW_MENU_ITEM", payload: 0 });
   }, [setShowAuthCard]);
 
   const modalVariants = {

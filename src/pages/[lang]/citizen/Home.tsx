@@ -11,15 +11,19 @@ import { useRouter } from "next/router";
 import StaticMobileMenu from "@/components/module/StaticMobileMenu";
 import ShredPage from "@/components/templates/ShredPage";
 
-
-export default function Home({ profileData, titleData, error, setShowLogOut }: any) {
+export default function Home({
+  profileData,
+  titleData,
+  error,
+  setShowLogOut,
+}: any) {
   const { languageSelected } = useContext(LangContext);
   const router = useRouter();
   const { lang, userId } = router.query;
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showSharedPage, setShowSharedPage] = useState<boolean>(false);
   const [dataModal, setDataModal] = useState({ title: "", desc: "" });
-     const [activeItem, SetActiveItem] = useState<number>(0);
+  const [activeItem, SetActiveItem] = useState<number>(0);
 
   function addPageJsonLd() {
     return {
@@ -121,15 +125,10 @@ export default function Home({ profileData, titleData, error, setShowLogOut }: a
           error={error}
           titleData={titleData}
           setShowLogOut={setShowLogOut}
-          activeItem={activeItem}
-          SetActiveItem={SetActiveItem}
         >
           <div className=" xl:hidden lg:hidden md:hidden sm:visible xs:visible w-full h-fit  fixed bottom-0 z-40">
             <div className="w-full h-fit dark:bg-black bg-[#fff] fixed bottom-0">
-              <StaticMobileMenu
-                activeItem={activeItem}
-                SetActiveItem={SetActiveItem}
-              />
+              <StaticMobileMenu />
             </div>
           </div>
           <div

@@ -7,33 +7,35 @@ import { LangContext } from "@/context/LangContext";
 import { motion } from "framer-motion";
 //data
 import { Items, ItemsENG } from "../utils/items";
+import { SideBarContext } from "../context/SidebarContext";
 
-export default function MenuItemPage({
-  activeItem,
-  SetActiveItem,
-  setShowAuthCard,
-}: any) {
+export default function MenuItemPage({ setShowAuthCard }: any) {
   const { theme } = useTheme();
   const { languageSelected } = useContext(LangContext);
+  const { dispatch, state } = useContext(SideBarContext);
   const [data, setData] = useState<any>([]);
 
   useEffect(() => {
     if (languageSelected.code === "fa") {
-      setData(Items.filter((item: any) => item.id == activeItem));
+      setData(Items.filter((item: any) => item.id == state.showMenuItem));
     } else {
-      setData(ItemsENG.filter((item: any) => item.id == activeItem));
+      setData(ItemsENG.filter((item: any) => item.id == state.showMenuItem));
     }
-  }, [activeItem, languageSelected.code]);
+  }, [state.showMenuItem, languageSelected.code]);
 
   useEffect(() => {
     setShowAuthCard(false);
-  }, [activeItem !== 0]);
+  }, [state.showMenuItem !== 0]);
+
+  const setActiveItemMenu = (value: number) => {
+    dispatch({ type: "SET_SHOW_MENU_ITEM", payload: value });
+  };
 
   return (
     <div
       id={`${theme === "dark" ? "dark-scrollbar" : "light-scrollbar"}`}
       className="absolute backdrop-blur-sm bg-black/30 3xl:z-50 xl:z-50 lg:z-50 md:z-[200] sm:z-[200] xs:z-[200] top-0 w-full h-screen  "
-      onClick={() => SetActiveItem(0)}
+      onClick={() => setActiveItemMenu(0)}
     >
       {data.length > 0 && (
         <div className="w-full h-full overflow-clip">
@@ -54,8 +56,8 @@ export default function MenuItemPage({
             >
               <div className=" w-full h-[75px] relative shadow-md rounded-t-[10px] flex flex-row justify-center items-center">
                 <CLoseIcon
-                  className="absolute z-50  w-[15px] h-[15px] cursor-pointer stroke-2 m-2 stroke-gray start-2"
-                  onClick={() => SetActiveItem(0)}
+                  className="absolute z-50  w-[15px] h-[15px] cursor-pointer stroke-2 m-2 stroke-gray dark:stroke-white start-2"
+                  onClick={() => setActiveItemMenu(0)}
                   alt="Close"
                 />
                 <div>

@@ -9,25 +9,6 @@ import { Arrow, Like, Text } from "@/components/svgs/SvgEducation";
 import { translateFooter } from "@/components/utils/education";
 
 export default function TopTrainers({ translateData }: any) {
-  const { languageSelected } = useContext(LangContext);
-  const [isMobile, setIsMobile] = useState(
-    typeof window !== "undefined" ? window.innerWidth <= 768 : false
-  );
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    // Clean up the event listener when the component is unmounted
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  const router = useRouter();
   const itemsTrainers = [
     {
       id: 1,
@@ -44,6 +25,28 @@ export default function TopTrainers({ translateData }: any) {
       likes: "820",
     },
   ];
+  const { languageSelected } = useContext(LangContext);
+  const [data, setData] = useState(itemsTrainers);
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== "undefined" ? window.innerWidth <= 768 : false
+  );
+
+  useEffect(() => {
+    setData(itemsTrainers);
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    // Clean up the event listener when the component is unmounted
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const router = useRouter();
+
   return (
     <>
       <div className="w-[95%] h-fit mt-20 flex flex-col justify-center items-center">
@@ -54,8 +57,11 @@ export default function TopTrainers({ translateData }: any) {
         <div className=" relative w-full min-h-[550px] pb-10 flex flex-wrap gap-5 items-center justify-center">
           {isMobile ? (
             <>
-              {itemsTrainers.map((item: any) => (
-                <div className=" w-[300px] h-[400px] shadow-sm  hover:dark:shadow-dark  mt-24 relative cursor-pointer  bg-white dark:bg-[#1A1A18] flex flex-col justify-evenly pt-[70px]  items-center rounded-[20px]">
+              {data.map((item: any) => (
+                <div
+                  key={item.id}
+                  className=" w-[300px] h-[400px] shadow-sm  hover:dark:shadow-dark  mt-24 relative cursor-pointer  bg-white dark:bg-[#1A1A18] flex flex-col justify-evenly pt-[70px]  items-center rounded-[20px]"
+                >
                   <Image
                     src={item.img}
                     alt={item.name}

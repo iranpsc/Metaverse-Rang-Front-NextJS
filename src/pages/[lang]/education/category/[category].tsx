@@ -6,15 +6,18 @@ import BaseLayoutEducation from "@/components/layout/BaseLayoutEducation";
 import CategoryComponent from "@/components/templates/categories/CategoryComponent";
 import axios from "axios";
 import { HeaderComponent } from "@/components/templates/categories/HeaderComponent";
+import ProfileHeaderMobile from "@/components/module/profile/ProfileHeaderMobile";
+import SearchComponent from "@/components/templates/categories/SearchComponent";
 
 const Index = ({
   CategoryData,
   translateData,
   footerTabs,
+  translates,
   localSite,
   nameSite,
 }: any) => {
-  const { languageSelected } = useContext(LangContext);
+  const { data, languageSelected } = useContext(LangContext);
   const [activeSearch, setActiveSearch] = useState<boolean>(false);
 
   return (
@@ -60,15 +63,29 @@ const Index = ({
           <div
             className={`w-full ${
               activeSearch ? "overflow-y-clip" : "overflow-y-auto"
-            }  overflow-x-clip relative`}
+            }  overflow-x-clip relative flex flex-col justify-start items-center bg-white dark:bg-black`}
           >
-            <HeaderComponent
-              categoryData={CategoryData}
+            <ProfileHeaderMobile
+              menuData={data}
+              profileData={[]}
+              profileName={[]}
+            />
+            <h1 className=" mt-10 font-azarMehr whitespace-nowrap  font-bold 3xl:text-[24px] xl:text-[24px] lg:text-[22px] md:text-[20px] sm:text-[18px] xs:text-[14px]">
+              {
+                translates.find(
+                  (item: any) =>
+                    item.name === "all categories of metaverse training"
+                ).translation
+              }
+            </h1>
+
+            <SearchComponent
+              themeDataActive={"dark"}
               translateData={translateData}
               setActiveSearch={setActiveSearch}
             />
-
             <CategoryComponent
+              translates={translates}
               CategoryData={CategoryData}
               translateData={translateData}
               footerTabs={footerTabs}
@@ -126,6 +143,10 @@ export async function getServerSideProps(context: any) {
       (item: any) => item.name === "our-systems"
     ).fields;
 
+    const translates = translateRes.find(
+      (item: any) => item.name === "categories"
+    ).fields;
+
     const CategoryData = resCategory.data.data;
 
     return {
@@ -134,6 +155,7 @@ export async function getServerSideProps(context: any) {
         CategoryData,
         footerTabs,
         translateData,
+        translates,
         localSite,
         nameSite,
       },

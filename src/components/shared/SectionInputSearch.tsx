@@ -20,15 +20,14 @@ export default function SectionInputSearch({
          ${
            SectionName === "education"
              ? "w-[724px] xs:w-[300px] h-[50px] py-4 rounded-[67px] shadow-md hover:shadow-2xl"
-             : "w-[35%] h-[50px] xs:ms-10 active:w-[50%] focus-within:w-[50%] xs:active:w-[40%] xs:focus-within:w-[40%] focus-within:border-gray rounded-2xl  border-[1px] border-mediumGray"
-         }
-         
+             : "w-[25%] h-[50px] me-2 xs:mt-[50px] xs:mb-5 active:w-[30%] focus-within:w-[30%] focus-within:border-gray rounded-2xl  border-[1px] border-mediumGray"
+         }         
          transition-all duration-300 easy-in-out 
          bg-white dark:bg-[#1A1A18] flex flex-row justify-evenly  items-center`}
       >
         <Search
           className={`${
-            SectionName === "education" ? "ms-8" : "ms-0"
+            SectionName === "education" ? "ms-8" : "ms-0 xs:ms-3"
           } fill-blueLink dark:fill-dark-yellow`}
         />
         <input

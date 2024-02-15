@@ -57,10 +57,10 @@ export const ItemsSearch = ({ searchData }: any) => {
                 {item.creator.code}
               </p>
               <div className="flex flex-row items-center justify-end gap-1 ">
-                <span className=" whitespace-nowrap font-azarMehr font-light 3xl:text-[18px] xs:text-[12px]">
-                  {item.likes}
+                <span className=" whitespace-nowrap font-azarMehr font-normal text-black dark:text-white 3xl:text-[18px] xs:text-[12px]">
+                  {item.likes_count}
                 </span>
-                <Like />
+                <Like className="w-[15px] h-[15px] stroke-gray dark:stroke-dark-gray" />
               </div>
             </div>
             <Image
