@@ -35,7 +35,7 @@ export default function MenuItemPage({ setShowAuthCard }: any) {
     <div
       id={`${theme === "dark" ? "dark-scrollbar" : "light-scrollbar"}`}
       className="absolute backdrop-blur-sm bg-black/30 3xl:z-50 xl:z-50 lg:z-50 md:z-[200] sm:z-[200] xs:z-[200] top-0 w-full h-screen  "
-      onClick={() => setActiveItemMenu(0)}
+      onClick={() => setActiveItemMenu(-10)}
     >
       {data.length > 0 && (
         <div className="w-full h-full overflow-clip">
@@ -57,7 +57,7 @@ export default function MenuItemPage({ setShowAuthCard }: any) {
               <div className=" w-full h-[75px] relative shadow-md rounded-t-[10px] flex flex-row justify-center items-center">
                 <CLoseIcon
                   className="absolute z-50  w-[15px] h-[15px] cursor-pointer stroke-2 m-2 stroke-gray dark:stroke-white start-2"
-                  onClick={() => setActiveItemMenu(0)}
+                  onClick={() => setActiveItemMenu(-10)}
                   alt="Close"
                 />
                 <div>

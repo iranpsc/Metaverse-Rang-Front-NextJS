@@ -29,7 +29,7 @@ export default function BaseLayout({
         {showAuthCard && <AuthCards setShowAuthCard={setShowAuthCard} />}
       </AnimatePresence>
       <AnimatePresence>
-        {state.showMenuItem !== 0 && (
+        {state.showMenuItem !== -10 && (
           <MenuItemPage setShowAuthCard={setShowAuthCard} />
         )}
       </AnimatePresence>

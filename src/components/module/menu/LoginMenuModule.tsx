@@ -74,26 +74,26 @@ export default function LoginMenuModule({
                 href={`https://rgb.irpsc.com/${router.query.lang}/citizen/${code}`}
                 target="_blank"
               >
-                <p className="text-white dark:text-black text-[14px] hover:text-[15px] font-azarMehr font-normal cursor-pointer">
+                <p className="text-white dark:text-black text-[14px] hover:text-[15px] font-azarMehr font-normal cursor-pointer xs:text-[12px] whitespace-nowrap">
                   {state.dataLogin[4] && state.dataLogin[4].translation}
                 </p>
                 <hr className=" text-white dark:text-[#2D2D2A38] mt-1" />
               </Link>
             )}
             <a href="https://rgb.irpsc.com/">
-              <p className="text-white dark:text-black text-[14px] hover:text-[15px] font-azarMehr font-normal cursor-pointer">
+              <p className="text-white dark:text-black text-[14px] hover:text-[15px] font-azarMehr font-normal cursor-pointer xs:text-[12px] whitespace-nowrap">
                 {state.dataLogin[3] && state.dataLogin[3].translation}
               </p>
             </a>
             <hr className=" text-white dark:text-[#2D2D2A38]" />
             <a href="https://rgb.irpsc.com/metaverse">
-              <p className="text-white dark:text-black text-[14px]  hover:text-[15px] font-azarMehr font-normal  cursor-pointer">
+              <p className="text-white dark:text-black text-[14px]  hover:text-[15px] font-azarMehr font-normal  cursor-pointer xs:text-[12px] whitespace-nowrap">
                 {state.dataLogin[2] && state.dataLogin[2].translation}
               </p>
             </a>
             <hr className=" text-white dark:text-[#2D2D2A38]" />
             <p
-              className="text-white dark:text-black text-[14px]  hover:text-[15px] font-azarMehr font-normal cursor-pointer"
+              className="text-white dark:text-black text-[14px]  hover:text-[15px] font-azarMehr font-normal cursor-pointer xs:text-[12px] whitespace-nowrap"
               onClick={logout}
             >
               {state.dataLogin[1] && state.dataLogin[1].translation}
@@ -103,12 +103,12 @@ export default function LoginMenuModule({
         )}
 
         <div
-          className="bg-blueLink cursor-pointer dark:bg-dark-yellow rounded-[15px] w-[95%] h-[40px]  flex flex-row justify-around gap-5 items-center"
+          className="bg-blueLink cursor-pointer dark:bg-dark-yellow rounded-[15px] w-[95%] h-[40px]  flex flex-row xs:px-2 justify-around gap-5 items-center"
           onClick={checkLogin}
         >
           {code && code.length > 1 ? (
             <>
-              <p className="text-white dark:text-dark-background font-azarMehr uppercase font-medium text-center ">
+              <p className="text-white dark:text-dark-background font-azarMehr uppercase font-medium text-center xs:text-[13px] whitespace-nowrap">
                 {state.isCollapsed ? "HM" : code}
               </p>
               <ArrowMenu

@@ -23,7 +23,10 @@ const DropdownTrainingsModule = () => {
   };
 
   return (
-    <div className="h-fit py-2 ps-12  " onClick={(e) => e.stopPropagation()}>
+    <div
+      className="h-fit py-2 ps-12 xs:ps-7 "
+      onClick={(e) => e.stopPropagation()}
+    >
       <ul className="flex flex-col justify-start items-start gap-3">
         {state.dataSubItems.map((item: any) => (
           <li
@@ -47,8 +50,8 @@ const DropdownTrainingsModule = () => {
               className={`font-azarMehr text-[14px] font-medium w-full   ${
                 isCategoryAll && item.name === "categories"
                   ? "text-[#0000ffd9] dark:text-dark-yellow "
-                  : ""
-              }text-start text-gray dark:text-dark-gray`}
+                  : "text-gray dark:text-dark-gray dark:text-dark-gray"
+              }text-start `}
             >
               {item.translation}
             </p>

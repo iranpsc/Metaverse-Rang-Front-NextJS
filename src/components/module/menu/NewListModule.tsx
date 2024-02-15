@@ -74,7 +74,7 @@ const NewListModule: React.FC<any> = ({
     <>
       <ul
         className={` list-none ${
-          state.showFullModal ? "pb-[350px]  " : "pb-[200px]"
+          state.showFullModal ? "pb-[350px] xs:pb-[400px] " : "pb-[200px]"
         } 
         relative pt-3 w-full   bg-white dark:bg-dark-background  transition-all duration-300 ease-linear max-lg:w-fit`}
       >
@@ -90,8 +90,8 @@ const NewListModule: React.FC<any> = ({
                   item={item}
                   languageSelected={languageSelected}
                 />
-                <ListMenuSvgModule item={item} i={i} />
-                <ListMenuTitleModule item={item} i={i} />
+                <ListMenuSvgModule item={item} i={i} pageName={pageName} />
+                <ListMenuTitleModule item={item} i={i} pageName={pageName} />
                 <ListMenuArrow item={item} />
               </div>
               {item.name === "trainings" &&

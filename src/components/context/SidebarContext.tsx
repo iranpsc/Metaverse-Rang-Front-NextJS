@@ -1,4 +1,3 @@
-import { useTheme } from "next-themes";
 import { Action, State } from "@/types/reducerTypes";
 import { createContext, ReactNode, useReducer } from "react";
 import {
@@ -19,7 +18,7 @@ const initialValue: State = {
   showFullModal: false,
   activeItem: "",
   pageName: "",
-  showMenuItem: 0,
+  showMenuItem: -10,
   dataHeader: [],
   dataMenu: [],
   dataTheme: [],
