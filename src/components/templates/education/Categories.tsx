@@ -15,7 +15,7 @@ export default function Categories({ categoriesData, translateData }: any) {
         <h1 className="w-full   text-center xl:text-start text-[30px]  font-bold font-azarMehr text-gray dark:text-dark-gray">
           {translateFooter(translateData, "categories")}
         </h1>
-        <div className="mt-10 grid 2xl:grid-cols-5 xl:grid-cols-5 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 xs:grid-cols-1 sm:place-items-center xs:place-items-center   w-full gap-3">
+        <div className="mt-10 grid 2xl:grid-cols-5 xl:grid-cols-5 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 xs:grid-cols-2 sm:place-items-center xs:place-items-center   w-full gap-3">
           {categoriesData &&
             categoriesData.map((item: any) => (
               <div
@@ -30,7 +30,7 @@ export default function Categories({ categoriesData, translateData }: any) {
                   width={1000}
                   height={1000}
                 />
-                <p className="text-[18px] font-medium font-azarMehr">
+                <p className="text-[18px] xs:text-[15px] font-medium font-azarMehr whitespace-nowrap">
                   {item.name}
                 </p>
               </div>
@@ -40,8 +40,8 @@ export default function Categories({ categoriesData, translateData }: any) {
             className="col-span-1 cursor-pointer 2xl:w-full xl:w-full lg:w-full md:w-full  sm:w-[200px] xs:w-[200px]   h-[80px] bg-white dark:bg-[#1A1A18] rounded-[20px] flex flex-row justify-center items-center gap-5 shadow-sm hover:shadow-md"
             onClick={() => pusher("all")}
           >
-            <ShowAll className="w-[32px] h-[32px] stroke-blueLink   dark:dark:stroke-dark-yellow" />
-            <p className="text-[16px] font-medium text-blueLink dark:text-dark-yellow font-azarMehr ">
+            <ShowAll className="w-[18px] h-[18px] stroke-blueLink   dark:dark:stroke-dark-yellow" />
+            <p className="text-[16px]  xs:text-[13px] font-medium text-blueLink dark:text-dark-yellow font-azarMehr whitespace-nowrap">
               {translateFooter(translateData, "explore more categories")}
             </p>
           </div>

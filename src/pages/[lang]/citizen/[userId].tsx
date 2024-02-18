@@ -146,8 +146,8 @@ export default function Home({
           titleData={titleData}
           setShowLogOut={setShowLogOut}
         >
-          <div className=" xl:hidden lg:hidden md:visible sm:visible xs:visible w-full h-fit fixed bottom-0 z-40">
-            <div className="w-full h-fit dark:bg-black bg-white fixed bottom-0 shadow-3xl">
+          <div className=" xl:hidden lg:hidden md:visible sm:visible xs:visible w-full h-fit absolute bottom-0 z-40">
+            <div className="w-full h-fit dark:bg-black bg-white absolute bottom-0 shadow-3xl">
               <StaticMobileMenu />
             </div>
           </div>

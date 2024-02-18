@@ -27,19 +27,19 @@ export default function ListDataEducation({ data }: any) {
         data.map((item: any) => (
           <div
             key={item.id}
-            className="w-[100%] min-h-[240px] shadow-md hover:shadow-xl hover:dark:shadow-dark  rounded-[10px] bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-6 items-center"
+            className="w-[100%] min-h-[240px]  shadow-md hover:shadow-xl hover:dark:shadow-dark  rounded-[10px] bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-6 items-center"
           >
-            <div className=" group w-full h-[250px] 2xl:h-[300px] relative rounded-t-[10px]  ">
+            <div className=" group w-full h-[266px]   rounded-t-[10px] relative">
               <Image
                 src={item.image_url}
                 alt={item.title}
                 width={600}
                 height={600}
                 priority={true}
-                className=" w-full h-[250px]   2xl:h-[300px] brightness-75  transition-all duration-150 ease-in-out rounded-t-[10px]  object-cover"
+                className=" w-full h-full hover:blur-none transition-all duration-150 ease-in-out rounded-t-[10px]  object-cover"
               />
-              <div className=" absolute z-0 3xl:top-[260px] 2xl:top-[260px] xl:top-[210px] lg:top-[210px]  md:top-[210px] sm:top-[215px] xs:top-[210px] end-5 rounded-full h-[75px]  w-[75px] flex justify-center items-center bg-white dark:bg-dark-background  shadow-md">
-                <Video className="w-[50px] h-[50px] fill-blueLink dark:fill-dark-yellow" />
+              <div className="w-full h-full backdrop-blur-[3px] bg-black/20 hover:backdrop-blur-none xs:backdrop-blur-none absolute z-0 top-0">
+                <Video className="w-[78px] h-[78px] p-3 fill-blueLink dark:fill-dark-yellow absolute z-0 top-[100px] right-[43%] rounded-full bg-white/80" />
               </div>
             </div>
 
@@ -56,9 +56,7 @@ export default function ListDataEducation({ data }: any) {
 
               <p
                 className=" text-start text-gray dark:text-dark-gray truncate font-medium font-azarMehr text-[14px] 3xl:text-[16px] cursor-pointer hover:text-blueLink hover:dark:text-dark-yellow"
-                onClick={() =>
-                  pusher(`${item.category.slug}/${item.sub_category.slug}`)
-                }
+                onClick={() => pusher(`${item.category.slug}}`)}
               >
                 {item.sub_category.name}
               </p>

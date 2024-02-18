@@ -171,7 +171,7 @@ const Index: React.FC<IndexProps> = ({
           <section
             className={`relative flex  flex-col justify-start ${
               activeSearch ? "overflow-y-clip" : "overflow-y-auto"
-            } overflow-x-hidden items-center bg-[#f8f8f8] dark:bg-[#000] bg-opacity20`}
+            } overflow-x-clip items-center bg-[#f8f8f8] dark:bg-[#000] bg-opacity20 w-full`}
           >
             <ProfileHeaderMobile
               menuData={data}
@@ -196,6 +196,7 @@ const Index: React.FC<IndexProps> = ({
             />
             <DynamicListEducation
               loadMore={loadMore}
+              P
               videosData={videos}
               loading={loading}
               translateData={translateData}

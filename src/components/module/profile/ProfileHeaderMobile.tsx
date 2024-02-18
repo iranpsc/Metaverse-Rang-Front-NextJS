@@ -31,14 +31,14 @@ export default function ProfileHeaderMobile({
         <div className="">
           {!state.isCollapsed ? (
             <CLoseIcon
-              className="fill-[#2B2B2B] dark:fill-gray cursor-pointer sm:w-[25px] xs:w-[25px] md:w-[40px]"
+              className="fill-[#2B2B2B] dark:fill-dark-gray cursor-pointer sm:w-[25px] xs:w-[25px] md:w-[40px]"
               onClick={toggleCollapseHandler}
               alt="closeIcon"
             />
           ) : (
             <>
               <MenuIcon
-                className="stroke-[#2B2B2B] dark:stroke-gray cursor-pointer sm:w-[35px] sm:h-[20px] xs:w-[35px] xs:h-[20px] md:w-[50px] md:h-[30px]"
+                className="stroke-[#2B2B2B] dark:stroke-white cursor-pointer sm:w-[35px] sm:h-[20px] xs:w-[35px] xs:h-[20px] md:w-[50px] md:h-[30px]"
                 onClick={toggleCollapseHandler}
                 alt="menuIcon"
               />

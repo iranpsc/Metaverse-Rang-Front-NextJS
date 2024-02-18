@@ -11,8 +11,8 @@ const ListMenuArrow = ({ item }: any) => {
         <ArrowMenu
           className={`ms-1 w-3 h-3 stroke-gray dark:stroke-dark-gray transition-all duration-300 ease-in-out ${
             state.activeDropdown.some((active) => active.key === item.name)
-              ? "rotate-[90deg]"
-              : "rotate-[270deg]"
+              ? "rotate-[270deg]"
+              : "rotate-[90deg]"
           }`}
         />
       )}
