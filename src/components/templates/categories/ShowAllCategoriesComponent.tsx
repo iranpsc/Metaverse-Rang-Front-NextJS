@@ -58,7 +58,7 @@ const ShowAllCategoriesComponent = ({ categoriesData }: any) => {
       animate="visible"
       className="p-2   "
     >
-      <div className="w-full py-5 ms-2 flex flex-row justify-start gap-2">
+      <div className="w-[95%] xs:w-[90%] py-5 ms-2 flex flex-row justify-start gap-2">
         <p
           className="w-fit ms-5 font-normal font-azarMehr text-[15px] text-start text-[#575757] cursor-pointer"
           onClick={() => router.push(`/${lang}/education`)}
@@ -77,7 +77,7 @@ const ShowAllCategoriesComponent = ({ categoriesData }: any) => {
       </div>
       <Masonry
         breakpointCols={breakpointColumnsObj}
-        className="my-masonry-grid mt-5"
+        className="my-masonry-grid mt-5  "
         columnClassName="my-masonry-grid_column"
       >
         {categoriesData &&
@@ -85,7 +85,7 @@ const ShowAllCategoriesComponent = ({ categoriesData }: any) => {
             <motion.div
               variants={items}
               key={index}
-              className="flex flex-col justify-start items-center gap-2 shadow-xl rounded-md bg-white dark:bg-dark-background cursor-pointer hover:shadow-2xl"
+              className=" flex flex-col justify-start items-center gap-2 shadow-xl rounded-md bg-white dark:bg-dark-background cursor-pointer hover:shadow-2xl"
               onClick={() => pusher(category.slug)}
             >
               <Image

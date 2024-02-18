@@ -75,7 +75,7 @@ export default function SearchComponent({
           removeSearch={removeSearch}
         />
 
-        <div className="w-full  bg-white dark:bg-dark-background  transition-all duration-300 easy-in-out rounded-xl 2xl:max-h-[500px] xl:max-h-[500px] lg:max-h-[500px] md:2xl:max-h-[500px] sm:max-h-[300px] xs:max-h-[300px]  z-[999]  overflow-y-auto overflow-x-clip absolute  mt-[53px]  flex flex-col justify-start items-center gap-1 ">
+        <div className="w-full  bg-white dark:bg-dark-background  transition-all duration-300 easy-in-out rounded-xl 2xl:max-h-[500px] xl:max-h-[500px] lg:max-h-[500px] md:2xl:max-h-[500px] sm:max-h-[350px] xs:max-h-[350px]  z-[999]  overflow-y-auto overflow-x-clip absolute  mt-[53px]  flex flex-col justify-start items-center gap-1 ">
           <ItemsSearch searchData={searchData} />
         </div>
       </div>

@@ -14,7 +14,7 @@ export default function ListEducation({
 
   return (
     <>
-      <div className="w-[95%] xs:w-[85%] h-fit mt-24  flex flex-col justify-center items-center ">
+      <div className="w-[95%] xs:w-[90%] h-fit mt-24  flex flex-col justify-center items-center ">
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-10">
           <ListDataEducation
             data={videosData}
