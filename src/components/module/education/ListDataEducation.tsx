@@ -45,17 +45,17 @@ export default function ListDataEducation({ data }: any) {
 
             <div className="flex flex-row justify-start items-center gap-1 w-[95%] mt-[-10px] pe-20">
               <p
-                className="text-start text-gray dark:text-dark-gray font-medium font-azarMehr text-[14px]  3xl:text-[16px] cursor-pointer hover:text-blueLink hover:dark:text-dark-yellow"
+                className="text-start text-gray dark:text-dark-gray font-medium font-azarMehr text-[16px]  3xl:text-[18px] cursor-pointer hover:text-blueLink hover:dark:text-dark-yellow"
                 onClick={() => pusher(item.category.slug)}
               >
                 {item.category.name}
               </p>
-              <span className="font-azarMehr text-start text-gray dark:text-dark-gray font-medium text-[14px] 3xl:text-[16px]">
+              <span className="font-azarMehr text-start text-gray dark:text-dark-gray font-medium text-[16px] 3xl:text-[18px]">
                 /
               </span>
 
               <p
-                className=" text-start text-gray dark:text-dark-gray truncate font-medium font-azarMehr text-[14px] 3xl:text-[16px] cursor-pointer hover:text-blueLink hover:dark:text-dark-yellow"
+                className=" text-start text-gray dark:text-dark-gray truncate font-medium font-azarMehr text-[16px] 3xl:text-[18px] cursor-pointer hover:text-blueLink hover:dark:text-dark-yellow"
                 onClick={() => pusher(`${item.category.slug}}`)}
               >
                 {item.sub_category.name}
