@@ -20,7 +20,7 @@ export default function Categories({ categoriesData, translateData }: any) {
             categoriesData.map((item: any) => (
               <div
                 key={item.id}
-                className="col-span-1 cursor-pointer shadow-sm hover:dark:shadow-dark  transition-all duration-300 2xl:w-full xl:w-full lg:w-full md:w-full  sm:w-[200px] xs:w-[170px] h-[80px] bg-[#fff] dark:bg-[#1A1A18]  rounded-[20px] flex flex-row justify-center items-center gap-5 hover:shadow-md"
+                className="col-span-1 cursor-pointer shadow-sm hover:dark:shadow-dark  transition-all duration-300 2xl:w-full xl:w-full lg:w-full md:w-full  sm:w-[200px] xs:w-[170px] h-[80px] bg-[#fff] dark:bg-[#1A1A18]  rounded-[20px] flex flex-row justify-center items-center gap-5 xs:gap-1 hover:shadow-md"
                 onClick={() => pusher(item.slug)}
               >
                 <Image
@@ -30,7 +30,7 @@ export default function Categories({ categoriesData, translateData }: any) {
                   width={1000}
                   height={1000}
                 />
-                <p className="text-[18px] xs:text-[15px] font-medium font-azarMehr ">
+                <p className="text-[18px] xs:text-[15px] font-medium font-azarMehr xs:max-w-[85px] text-center">
                   {item.name}
                 </p>
               </div>
@@ -41,7 +41,7 @@ export default function Categories({ categoriesData, translateData }: any) {
             onClick={() => pusher("all")}
           >
             <ShowAll className="w-[18px] h-[18px] stroke-blueLink   dark:dark:stroke-dark-yellow" />
-            <p className="text-[18px]  xs:text-[15px] font-medium text-blueLink dark:text-dark-yellow font-azarMehr ">
+            <p className="text-[18px]  xs:text-[15px] font-medium text-blueLink dark:text-dark-yellow font-azarMehr xs:max-w-[85px] text-center">
               {translateFooter(translateData, "explore more categories")}
             </p>
           </div>
