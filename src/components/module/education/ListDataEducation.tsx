@@ -55,8 +55,8 @@ export default function ListDataEducation({ data }: any) {
               </span>
 
               <p
-                className=" text-start text-gray dark:text-dark-gray truncate font-medium font-azarMehr text-[16px] 3xl:text-[18px] cursor-pointer hover:text-blueLink hover:dark:text-dark-yellow"
-                onClick={() => pusher(`${item.category.slug}}`)}
+                className=" text-start  text-gray dark:text-dark-gray truncate font-medium font-azarMehr text-[16px] 3xl:text-[18px] cursor-pointer hover:text-blueLink hover:dark:text-dark-yellow"
+                onClick={() => pusher(item.category.slug)}
               >
                 {item.sub_category.name}
               </p>
