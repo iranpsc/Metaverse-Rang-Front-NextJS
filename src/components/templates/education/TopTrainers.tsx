@@ -53,7 +53,7 @@ export default function TopTrainers({ translateData }: any) {
           <h1 className="text-start text-[30px] xs:text-[24px]  font-bold font-azarMehr text-gray dark:text-dark-gray">
             {translateFooter(translateData, "top trainers")}
           </h1>
-          <p className="font-bold font-azarMehr text-gray dark:text-dark-gray">
+          <p className="font-bold font-azarMehr text-gray dark:text-dark-gray cursor-pointer">
             {translateFooter(translateData, "view all")}
           </p>
         </div>
