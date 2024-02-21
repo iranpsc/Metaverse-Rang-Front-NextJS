@@ -20,7 +20,7 @@ export default function AuthCards({ setShowAuthCard }: any) {
 
   useEffect(() => {}, [modalName]);
   useEffect(() => {
-    dispatch({ type: "SET_SHOW_MENU_ITEM", payload: 0 });
+    dispatch({ type: "SET_SHOW_MENU_ITEM", payload: -10 });
   }, [setShowAuthCard]);
 
   const modalVariants = {
