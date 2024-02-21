@@ -2,6 +2,7 @@ export default function Citizen() {
   return (
     <div className="grid grid-cols-12 gap-1 overflow-clip w-full h-screen">
       <div className="col-span-5 bg-white h-full flex flex-col pb-1 justify-between items-center gap-2">
+        <h1>TESTTS</h1>
         <div className="bg-black/50 w-full  h-[10%]">Header</div>
         <div className=" w-full flex flex-col justify-between items-center gap-2 h-[70%] bg-dark-yellow">
           <div className=" h-[50%]  bg-blueLink w-full">Title</div>
@@ -14,6 +15,7 @@ export default function Citizen() {
           <div className="w-20 h-20 bg-error rounded-xl"></div>
           <div className="w-20 h-20 bg-error rounded-xl"></div>
         </div>
+        H
       </div>
       <div className="col-span-4 bg-white h-full flex flex-col pb-1 justify-between items-center gap-2">
         <div className="bg-black/50 w-full  h-[10%]">Header</div>

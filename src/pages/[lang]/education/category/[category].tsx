@@ -148,7 +148,6 @@ export async function getServerSideProps(context: any) {
     ).fields;
 
     const CategoryData = resCategory.data.data;
-
     return {
       props: {
         categoriesData,
