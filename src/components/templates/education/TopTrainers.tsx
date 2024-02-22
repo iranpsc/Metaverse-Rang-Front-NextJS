@@ -6,6 +6,7 @@ import Link from "next/link";
 import Atropos from "atropos/react";
 import { Like, Text } from "@/components/svgs/SvgEducation";
 import { translateFooter } from "@/components/utils/education";
+import { ArrowMenu } from "@/components/svgs";
 
 export default function TopTrainers({ translateData }: any) {
   const itemsTrainers = [
@@ -180,6 +181,14 @@ export default function TopTrainers({ translateData }: any) {
               ))}
             </>
           )}
+          <div className=" min-w-[270px] h-[439px] shadow-sm hover:dark:shadow-dark hover:shadow-md mt-10 pt-7  bg-white dark:bg-[#1A1A18] flex flex-col gap-4 justify-center items-center rounded-[20px]">
+            <div className="flex justify-center items-center w-[60px] h-[60px] bg-[#CFE2FF] dark:bg-[#483D13] rounded-full">
+              <ArrowMenu className="w-[20px] h-[20px] stroke-2 rounded-full stroke-blueLink dark:stroke-dark-yellow rotate-180" />
+            </div>
+            <p className="font-bold font-azarMehr text-blueLink dark:text-dark-yellow dark:text-dark-gray cursor-pointer">
+              {translateFooter(translateData, "view other trainers")}
+            </p>
+          </div>
         </div>
       </div>
     </>
