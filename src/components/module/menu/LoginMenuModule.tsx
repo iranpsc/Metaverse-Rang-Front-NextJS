@@ -12,16 +12,20 @@ export default function LoginMenuModule({
   setShowAuthCard,
   setShowLogOut,
 }: any) {
-  const { state, showFullModalHandler, toggleCollapseHandler } =
-    useContext(SideBarContext);
+  const {
+    state,
+    showFullModalHandler,
+    toggleCollapseHandler,
+    showFullModalOutMenuHandler,
+  } = useContext(SideBarContext);
   const { theme } = useTheme();
   const { code, token } = useToken();
   const router = useRouter();
 
   const submit = () => {
     if (state.isCollapsed) {
-      toggleCollapseHandler();
-      showFullModalHandler();
+      // toggleCollapseHandler();
+      showFullModalOutMenuHandler();
     } else {
       showFullModalHandler();
     }

@@ -16,6 +16,7 @@ const initialValue: State = {
   isCollapsed: true,
   activeDropdown: [],
   showFullModal: false,
+  showFullModalOutMenu: false,
   activeItem: "",
   pageName: "",
   showMenuItem: -10,
@@ -31,11 +32,13 @@ export const SideBarContext = createContext<{
   dispatch: React.Dispatch<Action>;
   toggleCollapseHandler: () => void;
   showFullModalHandler: () => void;
+  showFullModalOutMenuHandler: () => void;
 }>({
   state: initialValue,
   dispatch: () => null,
   toggleCollapseHandler: () => null,
   showFullModalHandler: () => null,
+  showFullModalOutMenuHandler: () => null,
 });
 
 interface Props {
@@ -57,6 +60,8 @@ const reducer = (state: State, action: Action) => {
       };
     case "SET_SHOW_FULL_MODAL":
       return { ...state, showFullModal: !state.showFullModal };
+    case "SET_SHOW_FULL_MODAL_OUT_MENU":
+      return { ...state, showFullModalOutMenu: !state.showFullModalOutMenu };
 
     case "SET_ITEM_ACTIVE":
       return setActiveItem(state, action.payload.pageName);
@@ -94,10 +99,19 @@ const SidebarProvider = ({ children }: Props) => {
   const showFullModalHandler = () => {
     dispatch({ type: "SET_SHOW_FULL_MODAL" });
   };
+  const showFullModalOutMenuHandler = () => {
+    dispatch({ type: "SET_SHOW_FULL_MODAL_OUT_MENU" });
+  };
 
   return (
     <SideBarContext.Provider
-      value={{ state, dispatch, toggleCollapseHandler, showFullModalHandler }}
+      value={{
+        state,
+        dispatch,
+        toggleCollapseHandler,
+        showFullModalHandler,
+        showFullModalOutMenuHandler,
+      }}
     >
       {children}
     </SideBarContext.Provider>

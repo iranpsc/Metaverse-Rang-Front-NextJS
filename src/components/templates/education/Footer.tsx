@@ -166,7 +166,7 @@ function Footer({ footerTabs }: any) {
         ))}
       </div>
       <div className="h-fit pb-5 mt-20 rounded-[10px] w-[96%] bg-white dark:bg-[#1A1A18] grid grid-cols-6">
-        <div className="col-span-6  xl:col-span-4 mt-2 ">
+        <div className="col-span-6  xl:col-span-4 mt-2  pe-2">
           <div className="w-full h-[82px] mt-4 ms-6 flex flex-row justify-start items-center gap-5 ">
             <Image
               src="/logo.png"
@@ -207,7 +207,7 @@ function Footer({ footerTabs }: any) {
             ).translation || "undefined"}
           </p>
         </div>
-        <div className="xl:col-span-2 col-span-6 mt-6 w-full flex flex-col items-center">
+        <div className="xl:col-span-2 col-span-6 mt-6 w-full flex flex-col items-center ">
           <p className="text-center w-full font-medium font-azarMehr text-[20px] text-[#4C4C4C] dark:text-white">
             {(
               footerTabs.find(
@@ -215,7 +215,7 @@ function Footer({ footerTabs }: any) {
               ) || {}
             ).translation || "undefined"}
           </p>
-          <div className="xl:grid xl:grid-cols-5 3xl:grid-cols-7  flex flex-wrap gap-3 max-w-fit lg:w-full  justify-center   mt-6 ">
+          <div className="xl:grid xl:grid-cols-5 3xl:grid-cols-7  flex flex-wrap gap-3 max-w-fit lg:w-full  justify-center mt-6 ">
             {socialItems.map((item: ItemIcon) => (
               <div key={item.id}>
                 <Link href={item.target} target="_blank">

@@ -73,7 +73,8 @@ const NewListModule: React.FC<any> = ({
   return (
     <>
       <ul
-        className={` list-none ${
+        id="light-scrollbar"
+        className={` list-none overflow-y-visible ${
           state.showFullModal ? "pb-[350px] xs:pb-[400px] " : "pb-[200px]"
         } 
         relative pt-3 w-full   bg-white dark:bg-dark-background  transition-all duration-300 ease-linear max-lg:w-fit`}

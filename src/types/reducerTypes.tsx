@@ -7,6 +7,7 @@ export type State = {
   isCollapsed: boolean;
   activeDropdown: DropdownItem[];
   showFullModal: boolean;
+  showFullModalOutMenu: boolean;
   activeItem: string;
   pageName: string;
   showMenuItem: number;
@@ -24,6 +25,7 @@ export type Action =
   | { type: "REMOVE_FROM_ACTIVE_DROPDOWN"; payload: DropdownItem }
   | { type: "CLEAR_ACTIVE_DROPDOWN" }
   | { type: "SET_SHOW_FULL_MODAL" }
+  | { type: "SET_SHOW_FULL_MODAL_OUT_MENU" }
   | {
       type: "SET_ITEM_ACTIVE";
       payload: { pageName: string; activeItem: string };

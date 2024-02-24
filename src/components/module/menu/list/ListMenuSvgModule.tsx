@@ -12,7 +12,7 @@ const ListMenuSvgModule = ({ item, i, pageName }: any) => {
           ? "stroke-blueLink dark:dark:stroke-dark-yellow"
           : ""
       }
-    group-hover:stroke-blueLink group-hover:dark:stroke-dark-yellow
+    group-hover:stroke-blueLink group-hover:dark:stroke-dark-yellow  
     ${
       pageName === "citizen" && item.name === "home"
         ? "stroke-blueLink dark:stroke-dark-yellow"
