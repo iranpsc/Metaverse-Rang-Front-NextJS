@@ -1,24 +1,25 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
-import {
-  Like,
-  Dislike,
-  View,
-  Video,
-  Videos,
-} from "@/components/svgs/SvgEducation";
+import { Like, Dislike, View, Video } from "@/components/svgs/SvgEducation";
 import { formatNumber } from "@/components/utils/education";
+import { Tooltip as ReactTooltip } from "react-tooltip";
+import { useTheme } from "next-themes";
+import Link from "next/link";
 
 export default function ListDataEducation({ data }: any) {
   const router = useRouter();
   const { lang } = router.query;
+  const { theme } = useTheme();
 
   const pusher = (data: any) => {
     router.push(`/${lang}/education/category/${data}`);
   };
 
   const pushRgb = (data: any) => {
-    router.push(`https://rgb.irpsc.com/${lang}/citizen/${data}`);
+    // // router.push(`https://rgb.irpsc.com/${lang}/citizen/${data}`);
+    // <Link href="https://rgb.irpsc.com/${lang}/citizen/${data}" target="_blank">
+    //   https://rgb.irpsc.com/${lang}/citizen/${data}
+    // </Link>;
   };
 
   return (
@@ -43,7 +44,7 @@ export default function ListDataEducation({ data }: any) {
               </div>
             </div>
 
-            <div className="flex flex-row justify-start items-center gap-1 w-[95%] mt-[-10px] pe-20">
+            <div className="flex flex-row justify-start items-center gap-1 w-full mt-[-10px] pe-16">
               <p
                 className="text-start text-gray dark:text-dark-gray font-medium font-azarMehr text-[16px]  3xl:text-[18px] cursor-pointer hover:text-blueLink hover:dark:text-dark-yellow"
                 onClick={() => pusher(item.category.slug)}
@@ -55,11 +56,24 @@ export default function ListDataEducation({ data }: any) {
               </span>
 
               <p
-                className=" text-start  text-gray dark:text-dark-gray truncate font-medium font-azarMehr text-[16px] 3xl:text-[18px] cursor-pointer hover:text-blueLink hover:dark:text-dark-yellow"
+                className=" text-start  text-gray dark:text-dark-gray  whitespace-nowrap font-medium font-azarMehr text-[16px] 3xl:text-[18px] cursor-pointer hover:text-blueLink hover:dark:text-dark-yellow"
                 onClick={() => pusher(item.category.slug)}
+                data-tooltip-id={item.sub_category.name}
               >
-                {item.sub_category.name}
+                {item.sub_category.name.length > 30
+                  ? item.sub_category.name.slice(0, 25) + "..."
+                  : item.sub_category.name}
               </p>
+              <ReactTooltip
+                id={item.sub_category.name}
+                place="bottom"
+                content={item.sub_category.name}
+                style={{
+                  backgroundColor: "#737272",
+                  color: "#fff",
+                  fontWeight: "bold",
+                }}
+              />
             </div>
 
             <h1 className="text-start w-[95%] font-azarMehr truncate cursor-pointer font-bold mt-[15px] text-[18px] 3xl:text-[22px] ">
@@ -68,24 +82,28 @@ export default function ListDataEducation({ data }: any) {
             <div className="flex flex-row items-center justify-start  mt-[-8px] w-[98%]"></div>
             <div className="w-[95%] pb-2 flex flex-row justify-between  items-center">
               <>
-                <div className="flex flex-row justify-start items-center gap-2">
-                  <Image
-                    src={item.creator.image}
-                    alt={item.creator.code}
-                    width={1000}
-                    height={1000}
-                    loading="lazy"
-                    className="w-[45px] h-[45px] rounded-full object-cover cursor-pointer transition-all duration-150 ease-in-out"
-                    onClick={() => pushRgb(item.creator.code)}
-                  />
-                  <span
-                    className="text-blueLink  cursor-pointer text-[16px] 3xl:text-[22px] whitespace-nowrap font-medium hover:font-bold uppercase "
-                    onClick={() => pushRgb(item.creator.code)}
-                  >
-                    {item.creator.code}
-                  </span>
-                </div>
-
+                <Link
+                  href={`https://rgb.irpsc.com/${lang}/citizen/${item.creator.code}`}
+                  target="_blank"
+                >
+                  <div className="flex flex-row justify-start items-center gap-2">
+                    <Image
+                      src={item.creator.image}
+                      alt={item.creator.code}
+                      width={1000}
+                      height={1000}
+                      loading="lazy"
+                      className="w-[45px] h-[45px] rounded-full object-cover cursor-pointer transition-all duration-150 ease-in-out"
+                      // onClick={() => pushRgb(item.creator.code)}
+                    />
+                    <span
+                      className="text-blueLink  cursor-pointer text-[16px] 3xl:text-[22px] whitespace-nowrap font-medium hover:font-bold uppercase "
+                      // onClick={() => pushRgb(item.creator.code)}
+                    >
+                      {item.creator.code}
+                    </span>
+                  </div>
+                </Link>
                 <div className="flex flex-row justify-start items-center gap-5">
                   <span className=" whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray me-[-13px]">
                     {formatNumber(item.dislikes_count)}
