@@ -1,4 +1,4 @@
-import React, {useRef, useContext } from "react";
+import React, { useRef, useContext } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useTheme } from "next-themes";
 import axios from "axios";
@@ -16,7 +16,7 @@ export default function Captcha({
 }: any) {
   const { theme } = useTheme();
   const { setModalName, setCodeUser } = useContext(AuthContext);
-  const { setTokenData} = useToken();
+  const { setTokenData } = useToken();
 
   const router = useRouter();
   const { lang, userId } = router.query;
@@ -46,7 +46,7 @@ export default function Captcha({
         requestData
       );
       if (response.data) {
-         setTokenData(response.data.data.token, response.data.data.code);
+        setTokenData(response.data.data.token, response.data.data.code);
         seShowErrorLoginAccess("");
         setShowAuthCard(false);
         setShowCaptcha(false);
@@ -56,6 +56,8 @@ export default function Captcha({
       seShowErrorLoginAccess(err.response?.data?.message);
     }
   };
+
+  loginUser();
 
   const RegisterUser = async () => {
     try {
@@ -73,7 +75,7 @@ export default function Captcha({
 
       if (response.data) {
         setShowCaptcha(false);
-          setTokenData(response.data.data.token,null);
+        setTokenData(response.data.data.token, null);
         setModalName({
           name: "ActiveEmailPage",
           data: requestData.email,
@@ -92,13 +94,13 @@ export default function Captcha({
         <p className="py-5 text-center font-azarMeh text-[14px] font-bold dark:text-white text-[#00000073]">
           لطفا بررسی کنید که ربات نیستید
         </p>
-        <ReCAPTCHA
+        {/* <ReCAPTCHA
           sitekey="6Ld2bgYpAAAAAOEcMfGv-UZae2KJ2zvtgDkz8mA1"
           ref={captchaRef}
           onChange={onChange}
           theme={`${theme === "dark" ? "dark" : "light"}`}
           className="px-2 pb-3 "
-        />
+        /> */}
       </div>
     </div>
   );

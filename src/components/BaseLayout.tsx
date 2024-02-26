@@ -1,4 +1,4 @@
-import { ReactNode, useContext, useState } from "react";
+import { ReactNode, useContext, useEffect, useState } from "react";
 import SideBarEducation from "./module/education/SideBarEducation";
 import AuthCards from "@/layout/AuthCards";
 import { AnimatePresence } from "framer-motion";
@@ -67,7 +67,7 @@ export default function BaseLayout({
             />
           </div>
 
-          {state.showFullModalOutMenu && state.isCollapsed && (
+          {state.showFullModalOutMenu && state.isCollapsed && token && (
             <div className=" w-[90%] relative">
               <ArrowMenu
                 className={` absolute h-[20px] w-[20px] fill-blueLink start-[-10px] stroke-blueLink ${
@@ -85,7 +85,7 @@ export default function BaseLayout({
                     <hr className=" text-white dark:text-[#2D2D2A38] mt-1" />
                   </Link>
                 )}
-                {code && code !== router.query.userId && (
+                {token && code && code !== router.query.userId && (
                   <Link
                     href={`https://rgb.irpsc.com/${router.query.lang}/citizen/${code}`}
                     target="_blank"
@@ -107,13 +107,18 @@ export default function BaseLayout({
                     {state.dataLogin[2] && state.dataLogin[2].translation}
                   </p>
                 </a>
-                <hr className=" text-white dark:text-[#2D2D2A38]" />
-                <p
-                  className="text-white dark:text-black text-[14px]  hover:text-[15px] font-azarMehr font-normal cursor-pointer xs:text-[12px] whitespace-nowrap"
-                  onClick={() => setShowLogOut(true)}
-                >
-                  {state.dataLogin[1] && state.dataLogin[1].translation}
-                </p>
+                {token && (
+                  <>
+                    {" "}
+                    <hr className=" text-white dark:text-[#2D2D2A38]" />
+                    <p
+                      className="text-white dark:text-black text-[14px]  hover:text-[15px] font-azarMehr font-normal cursor-pointer xs:text-[12px] whitespace-nowrap"
+                      onClick={() => setShowLogOut(true)}
+                    >
+                      {state.dataLogin[1] && state.dataLogin[1].translation}
+                    </p>
+                  </>
+                )}
               </div>
             </div>
           )}

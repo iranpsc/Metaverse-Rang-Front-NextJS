@@ -58,12 +58,12 @@ export default function LoginMenuModule({
     <div className={`w-full h-fit  flex justify-center items-center`}>
       <div
         className={`${
-          state.showFullModal
+          state.showFullModal && token
             ? "h-[200px] w-[80%]   start-[50px] z-[900]"
             : "h-fit w-[80%]"
         } bg-blueLink dark:bg-dark-yellow rounded-[10px] flex flex-col justify-evenly items-center transition-all duration-300 ease-linear`}
       >
-        {state.showFullModal && (
+        {state.showFullModal && token && (
           <div className=" flex flex-col gap-2 w-[80%] pt-2">
             {token && !code && (
               <Link href={`https://gmail.com`} target="_blank">
