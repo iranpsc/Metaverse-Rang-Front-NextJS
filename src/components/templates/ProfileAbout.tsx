@@ -5,7 +5,11 @@ import { LangContext } from "@/context/LangContext";
 import { targetData } from "@/utils/targetDataName";
 import { motion } from "framer-motion";
 
-export default function ProfileAbout({ setShowModal, setDataModal,titleData }: any) {
+export default function ProfileAbout({
+  setShowModal,
+  setDataModal,
+  titleData,
+}: any) {
   const { data, profileData } = useContext(LangContext);
 
   const router = useRouter();
@@ -14,11 +18,10 @@ export default function ProfileAbout({ setShowModal, setDataModal,titleData }: a
   const submitModalCart = (item: any) => {
     setDataModal({
       title: targetData(data.data.selectedProfileData, "about me"),
-    
+
       desc: item,
     });
     setShowModal(true);
-     
   };
 
   const submitCart = (dataItem: any) => {
@@ -88,8 +91,8 @@ export default function ProfileAbout({ setShowModal, setDataModal,titleData }: a
               src="/profile/position.png"
               width={1000}
               height={1000}
-             alt={titleData}
-              className="3xl:w-[180px] xl:w-[150px] lg:w-[120px] md:w-[170px] sm:w-[140px] xs:w-[130px]"
+              alt={titleData}
+              className="3xl:w-[175px] xl:w-[145px] lg:w-[120px] md:w-[170px] sm:w-[140px] xs:w-[130px]"
             />
           </motion.div>
         )}

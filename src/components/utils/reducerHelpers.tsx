@@ -146,6 +146,8 @@ export const setDataItems = (state: State, action: any) => {
     (item: Field) => !namesToDelete[pageName].includes(item.name)
   );
 
+  console.log(filteredItems);
+
   if (pageName === "education") {
     const sortedData = filteredItems
       .filter((item: Field) => sortOrder.includes(item.name))

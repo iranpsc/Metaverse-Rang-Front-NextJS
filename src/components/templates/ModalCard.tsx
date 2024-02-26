@@ -49,7 +49,7 @@ export default function ModalCard({
           } items-center relative shadow-md bg-white dark:bg-dark-background  `}
         >
           <CLoseIcon
-            className=" absolute w-[15px] h-[15px]  cursor-pointer stroke-2 m-2    stroke-gray top-2 start-2 z-50"
+            className=" absolute w-[15px] h-[15px]  cursor-pointer stroke-2 m-2    stroke-gray dark:stroke-dark-gray top-2 start-2 z-50"
             onClick={() => setShowModal(false)}
             alt={titleData}
           />
@@ -61,32 +61,14 @@ export default function ModalCard({
             </div>
 
             {dataModal.type === "favorites" ? (
-              <div className=" relative px-5 mt-10">
-                <div
-                  className="rounded-full cursor-pointer 3xl:w-[50px] 3xl:h-[10px] xl:w-[50px] xl:h-[50px] lg:w-[50px] lg:h-[50px] md:w-[50px] md:h-[50px] sm:w-[40px] sm:h-[40px] xs:w-[40px] xs:h-[40px] absolute right-1 top-[20%]  z-50 flex justify-center items-center"
-                  onClick={scrollRight}
-                >
-                  <Arrow className="stroke-gray stroke-[5px] rotate-[180deg] w-7 h-7" />
-                </div>
-                <div
-                  className="rounded-full cursor-pointer  3xl:w-[50px] 3xl:h-[50px] xl:w-[50px] xl:h-[50px] lg:w-[50px] lg:h-[50px] md:w-[50px] md:h-[50px] sm:w-[40px] sm:h-[40px] xs:w-[40px] xs:h-[40px] absolute left-1 top-[20%] z-50 flex justify-center items-center"
-                  onClick={scrollLeft}
-                >
-                  <Arrow
-                    className="stroke-gray stroke-[5px] w-7 h-7"
-                    onClick={scrollLeft}
-                  />
-                </div>
-                <div
-                  className="  overflow-y-clip overflow-x-auto no-scrollbar relative w-full"
-                  ref={scrollContainer}
-                >
-                  <div className="  grid grid-cols-5 justify-center gap-x-1 gap-y-10 items-center  w-max">
+              <div className="  px-5 mt-7 ">
+                <div className="  w-full flex justify-center items-center">
+                  <div className="  grid grid-cols-5 justify-center gap-x-1 gap-y-10 items-center  w-full">
                     {Object.keys(dataModal.desc).map(
                       (item: any, index: any) => (
                         <div
                           key={index}
-                          className=" col-span-1 flex flex-col gap-3 justify-center items-center di"
+                          className=" flex flex-col  gap-3 justify-center items-center"
                         >
                           <Image
                             src={dataModal.desc[item]}
@@ -96,7 +78,7 @@ export default function ModalCard({
                             )}
                             width={1000}
                             height={1000}
-                            className="w-[75px] h-[50px] mx-10 "
+                            className="size-[50px] md:size-[40px] mx-5 "
                           />
                           <p className="font-azarMehr 3xl:text-xl3Title lg:text-lgTitle  xl:text-xlTitle  md:text-mdTitle sm:text-smTitle xs:text-smTitle font-medium  text-[#000] dark:text-white">
                             {translateFavorites(

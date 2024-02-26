@@ -17,6 +17,7 @@ module.exports = {
       black: "rgba(0, 0, 0, 1)",
       lightGray: "rgba(0, 0, 0, 0.09)",
       mediumGray: "rgba(116, 116, 116, 0.58)",
+      mediumGrayFull: "rgba(116, 116, 116)",
       gray: "#151b30",
       extraGray: "rgba(86, 89, 89, 1)",
 
@@ -101,8 +102,7 @@ module.exports = {
     },
   },
   variants: {
-    extend: {
-    },
+    extend: {},
   },
   plugins: [require("tailwindcss"), require("autoprefixer")],
 };

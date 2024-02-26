@@ -2,7 +2,7 @@ import { translateFooter } from "@/components/utils/education";
 
 export const Items = [
   {
-    id: 1,
+    id: 1847,
     title: "دارایی (در حال توسعه)",
     hello: "با سلام به دنیای دارایی شهروندان! 🌟",
     desc: "اینجا یک نگاه سریع به آینده دارایی‌هاست، این صفحه در حال توسعه و پرورش است تا به شما اطلاعات جذاب و کاربردی در مورد دارایی‌های شگفت‌انگیز شهروندان متاورس ارائه دهد.",
@@ -49,7 +49,7 @@ export const Items = [
   },
 
   {
-    id: 2,
+    id: 1851,
     title: "املاک (در حال توسعه)",
     hello: "با سلام به دنیایی از املاک شهروندان! 🏠✨",
     desc: "در اینجا، ما در حال ایجاد یک تجربه‌ی منحصر به فرد برای شما هستیم. صفحه املاک در حال توسعه است و به زودی به یک مرجع جامع برای اطلاعات املاک شهروندان متاورس تبدیل می‌شود.",
@@ -85,7 +85,7 @@ export const Items = [
   },
 
   {
-    id: 3,
+    id: 1855,
     title: "سازه‌ها (در حال توسعه)",
     hello: "سلام به صفحه فوق‌العاده سازه‌ها خوش آمدید! 🏗️🌆",
     desc: "در اینجا، ما در حال ایجاد یک مرجع جامع برای اطلاعات سازه‌های شگفت‌انگیز متاورس هستیم. این صفحه در حال توسعه است و به زودی به یک نقطه مرجعی برای همه اطلاعات سازه‌های شهروند تبدیل خواهد شد.",
@@ -121,7 +121,7 @@ export const Items = [
   },
 
   {
-    id: 4,
+    id: 1859,
     title: "متعلقات (در حال توسعه)",
     hello: "خوش آمدید به دنیای متعلقات شگفت‌انگیز! 🗝️🎮",
     desc: "در اینجا، ما در حال ایجاد یک صفحه جذاب و خاص برای نمایش متعلقات شهروندان متاورس هستیم. این صفحه در حال توسعه است و به زودی به یک نمایشگاه مرجع برای کلیدها و مدل‌های سه‌بعدی متاورس تبدیل خواهد شد.",
@@ -157,7 +157,7 @@ export const Items = [
   },
 
   {
-    id: 5,
+    id: 1863,
     title: "مجوزات (در حال توسعه)",
     hello: "به دنیای مجوزات متاورس خوش آمدید! 📜💼",
     desc: "در اینجا، ما در حال ایجاد یک صفحه جامع برای نمایش اطلاعات مربوط به مجوزات شهروندان متاورس هستیم. این صفحه در حال توسعه است و به زودی به یک مرجع جامع برای دریافت اطلاعات مجوزات تبدیل می شود.",
@@ -193,7 +193,7 @@ export const Items = [
   },
 
   {
-    id: 6,
+    id: 1867,
     title: "دعوتی‌ها (در حال توسعه)",
     hello: "به دنیای دعوتی‌ها و پاداش‌های متاورس خوش آمدید! 💌🎉",
     desc: "در اینجا، ما در حال ایجاد یک صفحه پویا برای نمایش اطلاعات دعوت‌ها و پاداش‌های شهروندان متاورس هستیم. این صفحه در حال توسعه است و به زودی به یک مرجع جامع برای دعوت‌ها و پاداش‌ها تبدیل خواهد شد.",
@@ -229,7 +229,7 @@ export const Items = [
   },
 
   {
-    id: 7,
+    id: 1871,
     title: ": تراکنش‌ها (در حال توسعه)",
     hello: "به دنیای تراکنش‌های شگفت‌انگیز متاورس خوش آمدید! 💸📊",
     desc: "در اینجا، ما در حال ایجاد یک صفحه جامع برای نمایش اطلاعات مربوط به تراکنش‌های شهروندان متاورس هستیم. این صفحه در حال توسعه است و به زودی به یک مرجع کامل برای تاریخچه تراکنش‌ها تبدیل خواهد شد.",
@@ -275,7 +275,7 @@ export const Items = [
   },
 
   {
-    id: 8,
+    id: 1875,
     title: "پاداش‌ها (در حال توسعه)",
     hello: "به دنیای پاداش‌های خارق‌العاده متاورس خوش آمدید! 🎁📆",
     desc: "در اینجا، ما در حال ایجاد یک صفحه جذاب و جامع برای نمایش اطلاعات پاداش‌های کسب شده در متاورس هستیم. این صفحه در حال توسعه است و به زودی به یک منبع غنی برای مشاهده تمام جوایز و تقدیرها تبدیل خواهد شد.",
@@ -311,7 +311,7 @@ export const Items = [
   },
 
   {
-    id: 9,
+    id: 1879,
     title: ": سلسله (در حال توسعه)",
     hello: "به دنیای گسترده سلسله خانوادگی متاورس خوش آمدید! 👨‍👩‍👧‍👦🏡",
     desc: "در اینجا، ما در حال ایجاد یک صفحه دلنشین و اطلاعاتی برای نمایش سلسله خانوادگی شهروندان متاورس هستیم. این صفحه در حال توسعه است و به زودی به یک راهنمای کامل برای اطلاعات خانوادگی تبدیل خواهد شد.",
@@ -347,7 +347,7 @@ export const Items = [
   },
 
   {
-    id: 10,
+    id: 1883,
     title: "ارتباطات (در حال توسعه)",
     hello: "به دنیای پر از ارتباطات شگفت‌انگیز متاورس خوش آمدید! 🤝🌐",
     desc: "در صفحه ارتباطات، ما قصد داریم یک فضای اجتماعی برای شهروندان متاورس ایجاد کنیم. این صفحه هم اکنون در حال توسعه است و به‌زودی به یک مرکز ارتباطات فعّال تبدیل خواهد شد.",
@@ -383,7 +383,7 @@ export const Items = [
   },
 
   {
-    id: 11,
+    id: 1887,
     title: ": جرایم (در حال توسعه)",
     hello: "به دنیای قوانین و انضباط متاورس خوش آمدید! ⚖️🚨",
     desc: "صفحه جرایم در حال حاضر در حال توسعه است و به زودی یک مرجع کامل برای نمایش تخلفات و مباحث قانونی متاورس خواهد شد.",
@@ -421,7 +421,7 @@ export const Items = [
 
 export const ItemsENG = [
   {
-    id: 1,
+    id: 1846,
     title: "Asset (Under Development)",
     hello: "Hello to the world of citizens' assets! 🌟",
     desc: "Here's a quick look into the future of assets—this page is under development and expansion to provide you with fascinating and practical information about the amazing assets of Metaurus citizens.",
@@ -468,7 +468,7 @@ export const ItemsENG = [
   },
 
   {
-    id: 2,
+    id: 1850,
     title: "Real Estate (Under Development)",
     hello: "Hello to the world of citizens' real estate! 🏠✨",
     desc: "Here, we are creating a unique experience for you. The real estate page is under development and will soon become a comprehensive reference for information on Metaurus citizens' real estate.",
@@ -504,7 +504,7 @@ export const ItemsENG = [
   },
 
   {
-    id: 3,
+    id: 1854,
     title: "Structures (Under Development)",
     hello: "Welcome to the extraordinary world of structures! 🏗️🌆",
     desc: "Here, we are in the process of creating a comprehensive reference for information about the amazing structures of Metaurus. This page is under development and will soon become a central hub for all citizen structure information.",
@@ -539,7 +539,7 @@ export const ItemsENG = [
     end3: "Metaurus Team 🌇🏰",
   },
   {
-    id: 4,
+    id: 1858,
     title: "Structures (Under Development)",
     hello: "Welcome to the extraordinary world of structures! 🗝️🎮",
     desc: "Here, we are creating a comprehensive reference for information on the amazing structures of Metaurus. This page is under development and will soon become a central point for all citizen structure information.",
@@ -575,7 +575,7 @@ export const ItemsENG = [
   },
 
   {
-    id: 5,
+    id: 1862,
     title: "Licenses (Under Development)",
     hello: "Welcome to the fascinating world of licenses! 📜💼",
     desc: "Here, we are in the process of creating an engaging and special page to showcase the licenses of Metaurus citizens. This page is under development and will soon become an exhibition reference for license information.",
@@ -611,7 +611,7 @@ export const ItemsENG = [
   },
 
   {
-    id: 6,
+    id: 1866,
     title: "Invitations (Under Development)",
     hello: "Welcome to the world of invitations and rewards in Metaurus! 💌🎉",
     desc: "Here, we are in the process of creating a dynamic page to showcase information about invitations and rewards for Metaurus citizens. This page is under development and will soon become a comprehensive reference for invitations and rewards.",
@@ -647,7 +647,7 @@ export const ItemsENG = [
   },
 
   {
-    id: 7,
+    id: 1870,
     title: "Transactions (Under Development)",
     hello: "Welcome to the fascinating world of Metaurus transactions! 💸📊",
     desc: "Here, we are in the process of creating a comprehensive page to display information related to transactions of Metaurus citizens. This page is under development and will soon become a complete reference for transaction history.",
@@ -693,7 +693,7 @@ export const ItemsENG = [
   },
 
   {
-    id: 8,
+    id: 1874,
     title: "Rewards (Under Development)",
     hello: "Welcome to the world of extraordinary Metaurus rewards! 🎁📆",
     desc: "Here, we are in the process of creating an engaging and comprehensive page to display information about rewards earned in Metaurus. This page is under development and will soon become a rich resource for viewing all awards and recognitions.",
@@ -729,7 +729,7 @@ export const ItemsENG = [
   },
 
   {
-    id: 9,
+    id: 1878,
     title: "Family Tree (Under Development)",
     hello: "Welcome to the expansive world of Metaurus family trees! 👨‍👩‍👧‍👦🏡",
     desc: "Here, we are in the process of creating a delightful and informative page to display the family trees of Metaurus citizens. This page is under development and will soon become a complete guide for family information.",
@@ -765,7 +765,7 @@ export const ItemsENG = [
   },
 
   {
-    id: 10,
+    id: 1882,
     title: "Communications (Under Development)",
     hello: "Welcome to the world of amazing Metaurus communications! 🤝🌐",
     desc: "On the Communications page, we intend to create a social space for Metaurus citizens. This page is currently under development and will soon transform into an active communications center.",
@@ -801,7 +801,7 @@ export const ItemsENG = [
   },
 
   {
-    id: 11,
+    id: 1886,
     title: "Crimes (Under Development)",
     hello: "Welcome to the world of laws and discipline in Metaurus! ⚖️🚨",
     desc: "The Crimes page is currently under development and will soon become a comprehensive reference for displaying offenses and legal matters in Metaurus.",
@@ -940,5 +940,3 @@ export const imageSources: any = [
     translate: "real estate and properties",
   },
 ];
-
-

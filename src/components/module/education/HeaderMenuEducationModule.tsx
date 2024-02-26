@@ -58,7 +58,9 @@ export default function HeaderMenuEducationModule() {
            
           
           
-        absolute end-0 cursor-pointer rounded-full bg-[#efefef] dark:bg-mediumGray flex justify-center items-center me-2`}
+        absolute ${
+          lang === "en" ? "end-[-7px]" : "end-0"
+        }  cursor-pointer rounded-full bg-[#efefef] dark:bg-mediumGray flex justify-center items-center me-2`}
           onClick={toggleCollapseHandler}
         >
           <ArrowMenu

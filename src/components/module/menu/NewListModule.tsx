@@ -81,7 +81,10 @@ const NewListModule: React.FC<any> = ({
       >
         {state.dataMenu &&
           data.map((item: MenuDataItem, i: number) => (
-            <li key={item.id} onClick={() => selectItemHandler(item.name, i)}>
+            <li
+              key={item.id}
+              onClick={() => selectItemHandler(item.name, item.id)}
+            >
               <div
                 className={`w-full flex flex-row ${
                   state.isCollapsed ? "ms-4" : "ms-5"

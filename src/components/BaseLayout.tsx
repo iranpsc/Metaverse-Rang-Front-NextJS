@@ -57,13 +57,13 @@ export default function BaseLayout({
            md:w-[35px] md:h-[35px] 
            sm:w-[30px] sm:h-[30px] 
            xs:w-[30px] xs:h-[30px] 
-            mt-2 bg-[#efefef] dark:bg-mediumGray  flex justify-center items-center"
+            mt-2 bg-[#efefef] dark:bg-mediumGrayFull  flex justify-center items-center cursor-pointer"
             onClick={toggleCollapseHandler}
           >
             <ArrowMenu
               className={`size-[15px] ${
                 lang === "en" ? "rotate-0" : "rotate-180"
-              } stroke-gray dark:stroke-white`}
+              } stroke-gray dark:stroke-white `}
             />
           </div>
 
@@ -71,6 +71,8 @@ export default function BaseLayout({
             <div className=" w-[90%] relative">
               <ArrowMenu
                 className={` absolute h-[20px] w-[20px] fill-blueLink start-[-10px] stroke-blueLink ${
+                  lang === "en" ? "rotate-180" : "rotate-0"
+                } ${
                   code && code !== router.query.userId ? "top-10" : "top-3"
                 } `}
               />

@@ -1,7 +1,5 @@
 import { motion } from "framer-motion";
 export default function ProfileDetailsDetails({ itemsProfileDetails }: any) {
-
- 
   return (
     <>
       <motion.section
@@ -25,7 +23,7 @@ export default function ProfileDetailsDetails({ itemsProfileDetails }: any) {
             <hr className="flex-grow mx-3 h-[1px] xl:visible lg:visible md:invisible sm:invisible xs:invisible border border-dashed text-[#000] opacity-10 dark:text-[#fff]" />
 
             <div className="group relative flex justify-center ">
-              <p className="dark:text-dark-gray text-end font-azarMehr font-semibold 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc  md:text-mdDesc sm:text-smDesc xs:text-smDesc text-gray">
+              <p className="dark:text-dark-gray text-end font-azarMehr font-medium 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc  md:text-mdDesc sm:text-smDesc xs:text-smDesc text-gray">
                 {item.value}
               </p>
               {item.fValue && item.fValue.length > 2 && (

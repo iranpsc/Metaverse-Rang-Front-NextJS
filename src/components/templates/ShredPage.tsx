@@ -107,7 +107,7 @@ export default function ShredPage({ showSharedPage, setShowSharedPage }: any) {
           >
             <div className="w-full h-full overflow-clip flex flex-col justify-start mt-2 items-center  gap-10 top-0 absolute">
               <CLoseIcon
-                className="w-[15px] h-[15px] cursor-pointer stroke-2 m-2 stroke-gray absolute start-3 top-1"
+                className="w-[15px] h-[15px] cursor-pointer stroke-2 m-2 stroke-gray dark:stroke-dark-gray absolute start-3 top-1"
                 onClick={() => setShowSharedPage(false)}
                 alt="Close"
               />
@@ -119,13 +119,13 @@ export default function ShredPage({ showSharedPage, setShowSharedPage }: any) {
                 className="rounded-full cursor-pointer 3xl:w-[50px] 3xl:h-[50px] xl:w-[50px] xl:h-[50px] lg:w-[50px] lg:h-[50px] md:w-[50px] md:h-[50px] sm:w-[40px] sm:h-[40px] xs:w-[40px] xs:h-[40px] absolute right-1 top-[28%]  z-50 flex justify-center items-center"
                 onClick={scrollRight}
               >
-                <Arrow className="stroke-gray stroke-[5px] w-7 h-7 rotate-[180deg]" />
+                <Arrow className="stroke-gray dark:stroke-dark-gray stroke-[5px] w-7 h-7 rotate-[180deg]" />
               </div>
               <div
                 className="rounded-full cursor-pointer 3xl:w-[50px] 3xl:h-[50px] xl:w-[50px] xl:h-[50px] lg:w-[50px] lg:h-[50px] md:w-[50px] md:h-[50px] sm:w-[40px] sm:h-[40px] xs:w-[40px] xs:h-[40px] absolute left-1 top-[28%] z-50 flex justify-center items-center"
                 onClick={scrollLeft}
               >
-                <Arrow className="stroke-gray stroke-[5px] w-7 h-7" />
+                <Arrow className="stroke-gray dark:stroke-dark-gray stroke-[5px] w-7 h-7" />
               </div>
 
               <div
