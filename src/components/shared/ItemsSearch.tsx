@@ -3,10 +3,11 @@ import Image from "next/image";
 
 import { motion } from "framer-motion";
 import { Like } from "@/components/svgs/SvgEducation";
-import router from "next/router";
+import { useRouter } from "next/router";
 
 export const ItemsSearch = ({ searchData }: any) => {
   const [isDataReady, setIsDataReady] = useState(false);
+  const router = useRouter();
   const { lang } = router.query;
 
   const pusherRgb = (code: any) => {

@@ -119,6 +119,10 @@ const Index = ({
               />
             </div>
 
+            <h1 className="w-full ms-5 mt-10 font-bold font-azarMehr text-[22px] text-start">
+              لیست زیر دسته های مرتبط با {CategoryData.name}
+            </h1>
+
             <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-10 w-full h-fit px-5 mt-10">
               {CategoryData &&
                 CategoryData.videos.map((item: any) => (
