@@ -3,9 +3,15 @@ import Image from "next/image";
 
 import { motion } from "framer-motion";
 import { Like } from "@/components/svgs/SvgEducation";
+import router from "next/router";
 
 export const ItemsSearch = ({ searchData }: any) => {
   const [isDataReady, setIsDataReady] = useState(false);
+  const { lang } = router.query;
+
+  const pusherRgb = (code: any) => {
+    router.push(`/${lang}/citizen/${code}`);
+  };
 
   useEffect(() => {
     if (searchData.length >= 1) {
@@ -53,7 +59,10 @@ export const ItemsSearch = ({ searchData }: any) => {
           </p>
           <div className="flex flex-row justify-between items-center gap-3 min-w-fit ">
             <div className="h-full flex flex-col gap-0 ">
-              <p className="uppercase  font-azarMehr text-[14px] xs:text-[10px] font-bold  text-blueLink">
+              <p
+                className="uppercase  font-azarMehr text-[14px] xs:text-[10px] font-bold  text-blueLink"
+                onClick={() => pusherRgb(item.creator.code)}
+              >
                 {item.creator.code}
               </p>
               <div className="flex flex-row items-center justify-end gap-1 ">

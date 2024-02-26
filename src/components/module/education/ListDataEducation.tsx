@@ -14,12 +14,10 @@ export default function ListDataEducation({ data }: any) {
   const pusher = (data: any) => {
     router.push(`/${lang}/education/category/${data}`);
   };
-
-  const pushRgb = (data: any) => {
-    // // router.push(`https://rgb.irpsc.com/${lang}/citizen/${data}`);
-    // <Link href="https://rgb.irpsc.com/${lang}/citizen/${data}" target="_blank">
-    //   https://rgb.irpsc.com/${lang}/citizen/${data}
-    // </Link>;
+  const pusherSubcategory = (category: any, subcategory: any) => {
+    router.push(
+      `/${lang}/education/category/${category}/subcategory/${subcategory}`
+    );
   };
 
   return (
@@ -57,7 +55,9 @@ export default function ListDataEducation({ data }: any) {
 
               <p
                 className=" text-start  text-gray dark:text-dark-gray  whitespace-nowrap font-medium font-azarMehr text-[16px] 3xl:text-[18px] cursor-pointer hover:text-blueLink hover:dark:text-dark-yellow"
-                onClick={() => pusher(item.category.slug)}
+                onClick={() =>
+                  pusherSubcategory(item.category.slug, item.sub_category.slug)
+                }
                 data-tooltip-id={item.sub_category.name}
               >
                 {item.sub_category.name.length > 30

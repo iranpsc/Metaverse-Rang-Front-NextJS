@@ -46,7 +46,7 @@ export default function SvgIcon({ name, color }: any) {
       )}
       {name === "competitions" && (
         <Competitions
-          className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`}
+          className={` ${color} stroke-2 mx-[10px]  3xl:w-7 3xl:h-7 `}
         />
       )}
       {name === "trainings" && (
