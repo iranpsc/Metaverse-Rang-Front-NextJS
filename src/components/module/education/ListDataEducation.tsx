@@ -15,9 +15,7 @@ export default function ListDataEducation({ data }: any) {
     router.push(`/${lang}/education/category/${data}`);
   };
   const pusherSubcategory = (category: any, subcategory: any) => {
-    router.push(
-      `/${lang}/education/category/${category}/subcategory/${subcategory}`
-    );
+    router.push(`/${lang}/education/category/${category}/${subcategory}`);
   };
 
   return (

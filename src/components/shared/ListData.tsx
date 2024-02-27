@@ -17,7 +17,7 @@ export default function ListData({ nameComponent, data }: any) {
   const router = useRouter();
   const { lang, category } = router.query;
   const pusher = (data: any) => {
-    router.push(`/${lang}/education/category/${category}/subcategory/${data}`);
+    router.push(`/${lang}/education/category/${category}/${data}`);
   };
 
   const pushRgb = (data: any) => {

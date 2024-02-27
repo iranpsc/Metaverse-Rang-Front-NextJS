@@ -70,13 +70,13 @@ export default function BaseLayout({
           {state.showFullModalOutMenu && state.isCollapsed && token && (
             <div className=" w-[90%] relative">
               <ArrowMenu
-                className={` absolute h-[20px] w-[20px] fill-blueLink start-[-10px] stroke-blueLink ${
+                className={` absolute h-[20px] w-[20px] fill-blueLink dark:fill-dark-yellow start-[-10px] stroke-blueLink dark:stroke-dark-yellow ${
                   lang === "en" ? "rotate-180" : "rotate-0"
                 } ${
                   code && code !== router.query.userId ? "top-10" : "top-3"
                 } `}
               />
-              <div className=" flex flex-col gap-2 w-full ps-2 py-2 mb-[15px] rounded-md bg-blueLink">
+              <div className=" flex flex-col gap-2 w-full ps-2 py-2 mb-[15px] rounded-md bg-blueLink dark:bg-dark-yellow">
                 {token && !code && (
                   <Link href={`https://gmail.com`} target="_blank">
                     <p className="text-white dark:text-black text-[14px] hover:text-[15px] font-azarMehr font-normal cursor-pointer">

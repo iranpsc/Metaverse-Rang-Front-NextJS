@@ -13,6 +13,8 @@ import { Dislike, Like, View, Video } from "@/components/svgs/SvgEducation";
 import { DashboardHeaderModule } from "@/components/module/categories/DashboardHeaderModule";
 import { useAnimation } from "framer-motion";
 import DynamicFooter from "@/components/templates/education/DynamicFooter";
+import router from "next/router";
+import { useRouter } from "next/router";
 
 const Index = ({
   CategoryData,
@@ -27,6 +29,8 @@ const Index = ({
   const [shows, setShows] = useState<boolean>(false);
   const [height, setHeight] = useState(0);
   const contentRef = useRef<HTMLDivElement | null>(null);
+  const router = useRouter();
+  const { lang, category, subcategory } = router.query;
 
   useEffect(() => {
     if (contentRef.current) {
@@ -117,6 +121,36 @@ const Index = ({
                 setShows={setShows}
                 contentRef={contentRef}
               />
+            </div>
+
+            <div className="flex flex-row justify-start items-center gap-2 w-full  relative z-50">
+              <p
+                className="w-fit ms-5 font-normal font-azarMehr text-[15px] text-start text-[#575757] cursor-pointer"
+                onClick={() => router.push(`/${lang}/education`)}
+              >
+                آموزش
+              </p>
+              <span className="text-[#575757] font-normal font-azarMehr text-[15px]">
+                /
+              </span>
+              <p
+                className="w-fit font-normal font-azarMehr cursor-pointer text-[15px] text-start text-[#575757]"
+                onClick={() => router.push(`/${lang}/education/category/all`)}
+              >
+                دسته بندی ها
+              </p>
+              <span className="text-[#575757] font-normal font-azarMehr text-[15px]">
+                /
+              </span>
+              <p className="w-fit font-normal font-azarMehr text-[15px] text-start #text-[575757] ">
+                {category}
+              </p>
+              <span className="text-[#575757] font-normal font-azarMehr text-[15px]">
+                /
+              </span>
+              <p className="w-fit font-normal font-azarMehr text-[15px] text-start text-blueLink dark:text-dark-yellow">
+                {CategoryData.name}
+              </p>
             </div>
 
             <h1 className="w-full ms-5 mt-10 font-bold font-azarMehr text-[22px] text-start">

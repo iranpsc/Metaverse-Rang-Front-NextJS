@@ -5,23 +5,19 @@ import { useToken } from "../context/TokenContext";
 import { LangContext } from "@/context/LangContext";
 
 export default function Log({ showLogOut, setShowLogOut }: any) {
-
-   const {removeToken} = useToken();
+  const { removeToken } = useToken();
   const logout = () => {
     removeToken();
     setShowLogOut(false);
   };
-const { data } = useContext(LangContext);
- const title = data.data.menu.find(
-   (item: any) => item.name === "are you sure you want to exit"
- ).translation;
- const yes = data.data.menu.find(
-   (item: any) => item.name === "yes"
- ).translation;
- const no = data.data.menu.find(
-   (item: any) => item.name === "no"
- ).translation;
-
+  const { data } = useContext(LangContext);
+  const title = data.data.menu.find(
+    (item: any) => item.name === "are you sure you want to exit"
+  ).translation;
+  const yes = data.data.menu.find(
+    (item: any) => item.name === "yes"
+  ).translation;
+  const no = data.data.menu.find((item: any) => item.name === "no").translation;
 
   return (
     <div className="absolute backdrop-blur-sm bg-blackTransparent/30  top-0 w-full h-screen z-[900]">
@@ -41,8 +37,8 @@ const { data } = useContext(LangContext);
               mt-[100px]    items-center shadow-md bg-white dark:bg-dark-background "
           >
             <div className="w-full h-full flex flex-col justify-center items-center ">
-              <h1 className="font-azarMehr font-bold 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc md:text-mdDesc  sm:text-smTitle xs:text-smTitle mt-2 text-[#00000096] dark:text-gray w-full text-center gap-5">
-               {title}
+              <h1 className="font-azarMehr font-bold 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc md:text-mdDesc  sm:text-smTitle xs:text-smTitle mt-2 text-[#00000096] dark:text-dark-gray w-full text-center gap-5">
+                {title}
               </h1>
 
               <div className="flex flex-row items-center justify-between mt-10 gap-[10] 3xl:w-[40%] xl:w-[40%] lg:w-[30%] md:w-[70%] sm:w-[70%] xs:w-[70%] ">
@@ -52,8 +48,9 @@ const { data } = useContext(LangContext);
                 >
                   {no}
                 </button>
-                <button className="border px-10 py-4 rounded-[20px] text-white bg-blueLink dark:text-black  dark:bg-dark-yellow  font-azarMehr font-medium medium 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc md:text-mdDesc  sm:text-smTitle xs:text-smTitle"
-               onClick={logout}
+                <button
+                  className="border px-10 py-4 rounded-[20px] text-white bg-blueLink dark:text-black  dark:bg-dark-yellow  font-azarMehr font-medium medium 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc md:text-mdDesc  sm:text-smTitle xs:text-smTitle"
+                  onClick={logout}
                 >
                   {yes}
                 </button>

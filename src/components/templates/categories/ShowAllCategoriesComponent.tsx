@@ -60,12 +60,15 @@ const ShowAllCategoriesComponent = ({ categoriesData }: any) => {
     >
       <div className="w-[95%] xs:w-[90%] py-5 ms-2 flex flex-row justify-start gap-2">
         <p
-          className="w-fit ms-5 font-normal font-azarMehr text-[15px] text-start text-[#575757] cursor-pointer"
+          className="w-fit ms-5 font-normal font-azarMehr  text-[15px] text-start text-[#575757] cursor-pointer relative z-50"
           onClick={() => router.push(`/${lang}/education`)}
         >
           آموزش
         </p>
-        <span className="text-[#575757] font-normal font-azarMehr text-[15px]">
+        <span
+          className="text-[#575757] font-normal font-azarMehr text-[15px]"
+          onClick={() => router.push(`/${lang}/education`)}
+        >
           /
         </span>
         <p

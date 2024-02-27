@@ -5,7 +5,7 @@ export default function SlugsModule({ categoryName }: any) {
   const { lang } = router.query;
   return (
     <>
-      <div className="flex flex-row justify-start items-center gap-2 w-full">
+      <div className="flex flex-row justify-start items-center gap-2 w-full  relative z-50">
         <p
           className="w-fit ms-5 font-normal font-azarMehr text-[15px] text-start text-[#575757] cursor-pointer"
           onClick={() => router.push(`/${lang}/education`)}
@@ -15,7 +15,8 @@ export default function SlugsModule({ categoryName }: any) {
         <span className="text-[#575757] font-normal font-azarMehr text-[15px]">
           /
         </span>
-        <p className="w-fit font-normal font-azarMehr cursor-pointer text-[15px] text-start text-[#575757]"
+        <p
+          className="w-fit font-normal font-azarMehr cursor-pointer text-[15px] text-start text-[#575757]"
           onClick={() => router.push(`/${lang}/education/category/all`)}
         >
           دسته بندی ها
