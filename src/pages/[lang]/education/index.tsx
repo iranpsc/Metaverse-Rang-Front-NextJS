@@ -239,6 +239,7 @@ export async function getServerSideProps(context: any) {
       languageSelectedUrl = "https://rgb.irpsc.com/lang/fa.json";
     }
     const res = await axios.get(languageSelectedUrl);
+    console.log(res);
 
     const translateRes = res.data.modals.find(
       (modal: any) => modal.name === "training"
