@@ -9,7 +9,8 @@ const DropdownLanguageModule = ({
   languageSelected,
   handleDirChange,
 }: any) => {
-  const { state } = useContext(SideBarContext);
+  const { state, toggleCollapseHandler } = useContext(SideBarContext);
+
   return (
     <>
       <div className="dropdown relative cursor-pointer ">
@@ -30,18 +31,24 @@ const DropdownLanguageModule = ({
                 {languageSelected.name === item.name && <></>}
               </div>
               <div className="flex flex-row gap-2 justify-start  items-center w-full ms-16">
-                {/* <Image
+                <Image
                   src={item.icon}
                   alt=""
                   width={100}
                   height={100}
                   className={"w-6 h-6  3xl:w-7 3xl:h-7"}
-                /> */}
-                {languageSelected.name === item.name && (
+                />
+                {/* {languageSelected.name === item.name && (
                   <Tick className=" size-6 stroke-blueLink dark:stroke-dark-yellow" />
-                )}
+                )} */}
 
-                <p className="font-azarMehr text-start w-full 3xl:text-[20px] text-gray dark:text-dark-gray font-normal hover:text-[#0000ffd9] dark:hover:text-dark-yellow">
+                <p
+                  className={`font-azarMehr text-start w-full 3xl:text-[20px] ${
+                    languageSelected.name === item.name
+                      ? "text-blueLink dark:text-dark-yellow"
+                      : "text-gray dark:text-dark-gray"
+                  }  font-normal hover:text-[#0000ffd9] dark:hover:text-dark-yellow`}
+                >
                   {item.native_name}
                 </p>
               </div>

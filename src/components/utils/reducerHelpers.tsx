@@ -146,8 +146,6 @@ export const setDataItems = (state: State, action: any) => {
     (item: Field) => !namesToDelete[pageName].includes(item.name)
   );
 
-  console.log(filteredItems);
-
   if (pageName === "education") {
     const sortedData = filteredItems
       .filter((item: Field) => sortOrder.includes(item.name))
@@ -198,6 +196,7 @@ export const setDataLogin = (state: State, action: any) => {
   const filteredLogin = tabsMenu.fields.filter((item: any) =>
     namesToKeep.includes(item.name)
   );
+
   return { ...state, dataLogin: filteredLogin };
 };
 

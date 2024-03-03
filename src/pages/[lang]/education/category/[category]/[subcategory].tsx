@@ -15,6 +15,7 @@ import { useAnimation } from "framer-motion";
 import DynamicFooter from "@/components/templates/education/DynamicFooter";
 import router from "next/router";
 import { useRouter } from "next/router";
+import { useTheme } from "next-themes";
 
 const Index = ({
   CategoryData,
@@ -31,6 +32,8 @@ const Index = ({
   const contentRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
   const { lang, category, subcategory } = router.query;
+  const [themeDataActive, setThemeDataActive] = useState<any>("light");
+  const { theme } = useTheme();
 
   useEffect(() => {
     if (contentRef.current) {
@@ -38,6 +41,14 @@ const Index = ({
     }
   }, [shows]);
   const controls = useAnimation();
+
+  const pushRgb = (data: any) => {
+    router.push(`https://rgb.irpsc.com/${lang}/citizen/${data}`);
+  };
+
+  useEffect(() => {
+    setThemeDataActive(theme);
+  }, [theme]);
 
   return (
     <>
@@ -76,7 +87,9 @@ const Index = ({
       <section
         dir={languageSelected.dir}
         className={`relative w-full`}
-        id="light-scrollbar"
+        id={`${
+          themeDataActive == "dark" ? "dark-scrollbar" : "light-scrollbar"
+        }`}
       >
         <BaseLayoutEducation translateData={translateData}>
           <div
@@ -90,12 +103,7 @@ const Index = ({
               profileName={[]}
             />
             <h1 className=" mt-10 font-azarMehr whitespace-nowrap  font-bold 3xl:text-[24px] xl:text-[24px] lg:text-[22px] md:text-[20px] sm:text-[18px] xs:text-[14px]">
-              {
-                translates.find(
-                  (item: any) =>
-                    item.name === "all categories of metaverse training"
-                ).translation
-              }
+              {CategoryData.name}
             </h1>
             <SearchComponent
               themeDataActive={"dark"}
@@ -134,7 +142,7 @@ const Index = ({
                 /
               </span>
               <p
-                className="w-fit font-normal font-azarMehr cursor-pointer text-[15px] text-start text-[#575757]"
+                className="w-fit font-normal font-azarMehr cursor-pointer text-[15px] text-start text-[#575757] whitespace-nowrap"
                 onClick={() => router.push(`/${lang}/education/category/all`)}
               >
                 دسته بندی ها
@@ -142,19 +150,24 @@ const Index = ({
               <span className="text-[#575757] font-normal font-azarMehr text-[15px]">
                 /
               </span>
-              <p className="w-fit font-normal font-azarMehr text-[15px] text-start #text-[575757] ">
-                {category}
+              <p className="w-fit font-normal font-azarMehr text-[15px] text-start #text-[575757] whitespace-nowrap">
+                {CategoryData.name}
               </p>
               <span className="text-[#575757] font-normal font-azarMehr text-[15px]">
                 /
               </span>
-              <p className="w-fit font-normal font-azarMehr text-[15px] text-start text-blueLink dark:text-dark-yellow">
+              <p className="w-fit font-normal font-azarMehr text-[15px] text-start text-blueLink dark:text-dark-yellow whitespace-nowrap">
                 {CategoryData.name}
               </p>
             </div>
 
             <h1 className="w-full ms-5 mt-10 font-bold font-azarMehr text-[22px] text-start">
-              لیست زیر دسته های مرتبط با {CategoryData.name}
+              {
+                translates.find(
+                  (item: any) => item.name === "training related to"
+                ).translation
+              }{" "}
+              {CategoryData.name}
             </h1>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-10 w-full h-fit px-5 mt-10">
@@ -162,7 +175,7 @@ const Index = ({
                 CategoryData.videos.map((item: any) => (
                   <div
                     key={item.id}
-                    className="w-[100%] min-h-[240px]  shadow-md hover:shadow-xl hover:dark:shadow-dark  rounded-[10px] bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-6 items-center"
+                    className="w-[100%]   min-h-[240px]  shadow-md hover:shadow-xl hover:dark:shadow-dark  rounded-[10px] bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-6 items-center"
                   >
                     <div className=" group w-full h-[266px]   rounded-t-[10px] relative">
                       <Image
@@ -196,11 +209,11 @@ const Index = ({
                               height={1000}
                               loading="lazy"
                               className="w-[45px] h-[45px] rounded-full object-cover cursor-pointer transition-all duration-150 ease-in-out"
-                              // onClick={() => pushRgb(item.creator.code)}
+                              onClick={() => pushRgb(item.creator.code)}
                             />
                             <span
                               className="text-blueLink  cursor-pointer text-[16px] 3xl:text-[22px] whitespace-nowrap font-medium hover:font-bold uppercase "
-                              // onClick={() => pushRgb(item.creator.code)}
+                              onClick={() => pushRgb(item.creator.code)}
                             >
                               {item.creator.code}
                             </span>

@@ -81,7 +81,12 @@ const CategoryComponent = ({
         <div className="w-full h-fit pt-5 flex flex-col justify-center items-center bg-white dark:bg-black  transition-all duration-300 easy-in-out">
           <SlugsModule categoryName={CategoryData.name} />
           <h1 className="w-full ms-5 mt-10 font-bold font-azarMehr text-[22px] text-start">
-            لیست زیر دسته های مرتبط با {CategoryData.name}
+            {
+              translates.find(
+                (item: any) => item.name === "list of subcategories related to"
+              ).translation
+            }{" "}
+            {CategoryData.name}
           </h1>
           <ListSubCategories
             loadMore={loadMore}

@@ -134,7 +134,7 @@ export default function SideBarEducation({
         `}
           onClick={() => dispatch({ type: "TOGGLE_COLLAPSE" })}
         >
-          <div className="sticky w-full top-0 pt-1 z-50 bg-white dark:bg-dark-background transition-all duration-300 ease-linear">
+          <div className="sticky w-full top-4 z-50 bg-white dark:bg-dark-background transition-all duration-300 ease-linear">
             <HeaderMenuEducationModule />
           </div>
           {/* <MenuProfileModule/> */}

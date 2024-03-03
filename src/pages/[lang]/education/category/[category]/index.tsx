@@ -8,6 +8,7 @@ import axios from "axios";
 import { HeaderComponent } from "@/components/templates/categories/HeaderComponent";
 import ProfileHeaderMobile from "@/components/module/profile/ProfileHeaderMobile";
 import SearchComponent from "@/components/templates/categories/SearchComponent";
+import { useTheme } from "next-themes";
 
 const Index = ({
   CategoryData,
@@ -19,7 +20,7 @@ const Index = ({
 }: any) => {
   const { data, languageSelected } = useContext(LangContext);
   const [activeSearch, setActiveSearch] = useState<boolean>(false);
-
+  const { theme } = useTheme();
   return (
     <>
       <DefaultSeo
@@ -57,7 +58,7 @@ const Index = ({
       <section
         dir={languageSelected.dir}
         className={`relative w-full`}
-        id="light-scrollbar"
+        id={`${theme == "dark" ? "dark-scrollbar" : "light-scrollbar"}`}
       >
         <BaseLayoutEducation translateData={translateData}>
           <div
@@ -73,10 +74,10 @@ const Index = ({
             <h1 className=" mt-10 font-azarMehr whitespace-nowrap  font-bold 3xl:text-[24px] xl:text-[24px] lg:text-[22px] md:text-[20px] sm:text-[18px] xs:text-[14px]">
               {
                 translates.find(
-                  (item: any) =>
-                    item.name === "all categories of metaverse training"
+                  (item: any) => item.name === "training categories"
                 ).translation
-              }
+              }{" "}
+              {CategoryData.name}
             </h1>
 
             <SearchComponent

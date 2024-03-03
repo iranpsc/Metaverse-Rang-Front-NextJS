@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import axios from "axios";
 import { DefaultSeo } from "next-seo";
 import Head from "next/head";
+import { useTheme } from "next-themes";
 
 import BaseLayoutEducation from "@/components/layout/BaseLayoutEducation";
 import ShowAllCategoriesComponent from "@/components/templates/categories/ShowAllCategoriesComponent";
@@ -20,7 +21,7 @@ export default function xxx({
 }: any) {
   const { data, languageSelected } = useContext(LangContext);
   const [activeSearch, setActiveSearch] = useState<boolean>(false);
-
+  const { theme } = useTheme();
   return (
     <>
       <DefaultSeo
@@ -89,7 +90,11 @@ export default function xxx({
         <link rel="icon" href="/logo.png" />
       </Head>
 
-      <div dir={languageSelected.dir} id="light-scrollbar" className="w-full">
+      <div
+        dir={languageSelected.dir}
+        id={`${theme == "dark" ? "dark-scrollbar" : "light-scrollbar"}`}
+        className="w-full"
+      >
         <BaseLayoutEducation translateData={translateData}>
           <div
             className={`w-full ${

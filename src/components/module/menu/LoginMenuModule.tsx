@@ -79,20 +79,28 @@ export default function LoginMenuModule({
                 target="_blank"
               >
                 <p className="text-white dark:text-black text-[14px] hover:text-[15px] font-azarMehr font-normal cursor-pointer xs:text-[12px] whitespace-nowrap">
-                  {state.dataLogin[4] && state.dataLogin[4].translation}
+                  {state.dataLogin[3] &&
+                    state.dataLogin.find(
+                      (item: any) => item.name === "my profile page"
+                    ).translation}
                 </p>
                 <hr className=" text-white dark:text-[#2D2D2A38] mt-1" />
               </Link>
             )}
             <a href="https://rgb.irpsc.com/">
               <p className="text-white dark:text-black text-[14px] hover:text-[15px] font-azarMehr font-normal cursor-pointer xs:text-[12px] whitespace-nowrap">
-                {state.dataLogin[3] && state.dataLogin[3].translation}
+                {state.dataLogin[1] &&
+                  state.dataLogin.find(
+                    (item: any) => item.name === "enter the metaverse"
+                  ).translation}
               </p>
             </a>
             <hr className=" text-white dark:text-[#2D2D2A38]" />
             <a href="https://rgb.irpsc.com/metaverse">
               <p className="text-white dark:text-black text-[14px]  hover:text-[15px] font-azarMehr font-normal  cursor-pointer xs:text-[12px] whitespace-nowrap">
-                {state.dataLogin[2] && state.dataLogin[2].translation}
+                {state.dataLogin[2] &&
+                  state.dataLogin.find((item: any) => item.name === "home page")
+                    .translation}
               </p>
             </a>
             <hr className=" text-white dark:text-[#2D2D2A38]" />
@@ -100,7 +108,9 @@ export default function LoginMenuModule({
               className="text-white dark:text-black text-[14px]  hover:text-[15px] font-azarMehr font-normal cursor-pointer xs:text-[12px] whitespace-nowrap"
               onClick={logout}
             >
-              {state.dataLogin[1] && state.dataLogin[1].translation}
+              {state.dataLogin[2] &&
+                state.dataLogin.find((item: any) => item.name === "logout")
+                  .translation}
             </p>
             <hr className=" text-white dark:text-[#2D2D2A38]" />
           </div>
@@ -151,7 +161,10 @@ export default function LoginMenuModule({
                     }`}
                   />
                   <p className="text-white dark:text-dark-background font-azarMehr font-medium text-center text-[15px]">
-                    {state.dataLogin[0] && state.dataLogin[0].translation}
+                    {state.dataLogin[0] &&
+                      state.dataLogin.find(
+                        (item: any) => item.name === "logout"
+                      ).translation}
                   </p>
                 </>
               )}

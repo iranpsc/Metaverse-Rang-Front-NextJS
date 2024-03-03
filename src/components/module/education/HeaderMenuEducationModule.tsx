@@ -9,13 +9,13 @@ export default function HeaderMenuEducationModule() {
   const { lang } = router.query;
   return (
     <>
-      {/* {!state.isCollapsed ? null : (
+      {!state.isCollapsed ? null : (
         <MenuIcon
           className="stroke-[#2B2B2B] dark:stroke-white cursor-pointer w-full mb-2"
           onClick={toggleCollapseHandler}
           alt="toggle"
         />
-      )} */}
+      )}
       <div className="flex flex-row justify-between items-center relative ">
         <div
           className={`flex ${
@@ -73,7 +73,7 @@ export default function HeaderMenuEducationModule() {
       <hr
         className={`${
           state.isCollapsed ? "mx-5" : "mx-2"
-        } border-[1px] border-[#00000017] dark:border-[#3F3F3F] mt-1`}
+        } border-[1px] border-[#00000017] dark:border-[#3F3F3F] my-1`}
       />
     </>
   );

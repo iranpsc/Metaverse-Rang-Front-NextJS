@@ -19,7 +19,7 @@ const NewListModule: React.FC<any> = ({
   handleDirChange,
   pageName,
 }) => {
-  const { state, dispatch } = useContext(SideBarContext);
+  const { state, dispatch, toggleCollapseHandler } = useContext(SideBarContext);
   const [data, setData] = useState(state.dataMenu);
 
   useEffect(() => {
@@ -67,6 +67,9 @@ const NewListModule: React.FC<any> = ({
       dispatch({ type: "REMOVE_FROM_ACTIVE_DROPDOWN", payload: selectedItem });
     } else {
       dispatch({ type: "ADD_TO_ACTIVE_DROPDOWN", payload: selectedItem });
+      if (state.isCollapsed) {
+        toggleCollapseHandler();
+      }
     }
   };
 

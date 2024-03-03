@@ -17,7 +17,7 @@ const ButtonsAuthModule: React.FC<ButtonsAuthModuleProps> = ({
   const buttons = [
     {
       id: 1,
-      name: data.data.loginPageLang.find((item: any) => item.name === "login")
+      name: data.data.loginPageLang.find((item: any) => item.name === "log in")
         .translation,
 
       code: "login",
