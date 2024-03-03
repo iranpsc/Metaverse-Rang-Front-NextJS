@@ -42,23 +42,23 @@ export default function SideBarEducation({
       try {
         const res = await axios.get(`${languageSelected.file_url}`);
 
-        dispatch({
+        await dispatch({
           type: "SET_DATA_HEADER",
           payload: { pageName, dataHeader: res.data.modals },
         });
-        dispatch({
+        await dispatch({
           type: "SET_DATA_ITEMS",
           payload: { pageName, dataMenu: res.data.modals },
         });
-        dispatch({
+        await dispatch({
           type: "SET_DATA_THEME",
           payload: { dataTheme: res.data.modals },
         });
-        dispatch({
+        await dispatch({
           type: "SET_DATA_LOGIN",
           payload: { dataLogin: res.data.modals },
         });
-        dispatch({
+        await dispatch({
           type: "SUB_ITEMS_MENU_DATA",
           payload: { dataSubItems: res.data.modals },
         });
