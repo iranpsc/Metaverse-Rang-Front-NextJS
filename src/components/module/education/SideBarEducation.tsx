@@ -29,6 +29,7 @@ export default function SideBarEducation({
   setShowLogOut,
 }: any) {
   const router = useRouter();
+  const [testy, setTesty] = useState<any>();
   const { state, dispatch } = useContext(SideBarContext);
   const { languagesData, languageSelected, setLanguagesSelected } =
     useContext(LangContext);
@@ -38,10 +39,11 @@ export default function SideBarEducation({
   }, [languageSelected.name]);
 
   useEffect(() => {
+    setTesty("before-start");
     const fetchData = async () => {
       try {
         const res = await axios.get(`${languageSelected.file_url}`);
-
+        setTesty("start");
         await dispatch({
           type: "SET_DATA_HEADER",
           payload: { pageName, dataHeader: res.data.modals },
@@ -64,8 +66,10 @@ export default function SideBarEducation({
         });
 
         console.log(res.data.modals);
+        setTesty("end");
       } catch (error) {
         console.error(error);
+        setTesty(error);
       }
     };
 
@@ -124,6 +128,7 @@ export default function SideBarEducation({
           ? state.dataHeader[1].translation
           : state.dataHeader.length}
       </h1>
+      <h1>{testy}</h1>
       <div
         className={` shadow-left dark:shadow-leftDark xl:min-h-screen scroll lg:min-h-screen md:min-h-screen overflow-y-scroll  relative sm:min-h-screen xs:min-h-screen ${
           state.isCollapsed
@@ -152,7 +157,7 @@ export default function SideBarEducation({
             handleDirChange={handleDirChange}
           />
         </aside>
-        h
+        h h
       </div>
       <div
         className={`${
