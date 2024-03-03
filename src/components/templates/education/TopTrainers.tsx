@@ -26,22 +26,22 @@ export default function TopTrainers({ translateData }: any) {
     },
   ];
 
-  const [data, setData] = useState(itemsTrainers);
-  const [isMobile, setIsMobile] = useState<any>();
+  // const [data, setData] = useState(itemsTrainers);
+  // const [isMobile, setIsMobile] = useState<any>();
 
-  useEffect(() => {
-    setData(itemsTrainers);
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
+  // useEffect(() => {
+  //   setData(itemsTrainers);
+  //   const handleResize = () => {
+  //     setIsMobile(window.innerWidth <= 768);
+  //   };
 
-    window.addEventListener("resize", handleResize);
+  //   window.addEventListener("resize", handleResize);
 
-    // Clean up the event listener when the component is unmounted
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  //   // Clean up the event listener when the component is unmounted
+  //   return () => {
+  //     window.removeEventListener("resize", handleResize);
+  //   };
+  // }, []);
 
   const router = useRouter();
 
@@ -58,127 +58,59 @@ export default function TopTrainers({ translateData }: any) {
         </div>
 
         <div className=" relative w-full min-h-[550px] pb-10 flex flex-row gap-5 items-center  xl:justify-center no-scrollbar overflow-x-scroll px-10 ">
-          {isMobile ? (
-            <>
-              {data.map((item: any) => (
-                <div
-                  key={item.id}
-                  className=" min-w-[270px] h-[439px] shadow-sm hover:dark:shadow-dark hover:shadow-md mt-10 pt-7 cursor-pointer  bg-white dark:bg-[#1A1A18] flex flex-col justify-start items-center gap-4 rounded-[20px]"
+          {itemsTrainers.map((item: any) => (
+            <div className=" min-w-[270px] h-[439px] shadow-sm  hover:dark:shadow-dark mt-10  relative cursor-pointer  bg-[#fff] dark:bg-[#1A1A18] flex flex-col justify-start gap-4 pt-7  items-center rounded-[20px]">
+              <Image
+                src={item.img}
+                alt={item.name}
+                width={500}
+                height={500}
+                loading="lazy"
+                className="  xl:w-[170px] xl:h-[170px] md:w-[150px] md:h-[150px] sm:w-[120px] sm:h-[120px] xs:w-[100px] xs:h-[100px] shadow-md hover:top-[-88px] transition-all duration-300 shadow-gray rounded-full"
+              />
+              <p
+                data-atropos-offset="-5"
+                className="font-bold text-[20px]  font-azarMehr mt-7"
+              >
+                {item.name}
+              </p>
+
+              <Link
+                href={`https://rgb.irpsc.com/${router.query.lang}/citizen/${item.code}`}
+                target="_blank"
+              >
+                <span
+                  data-atropos-offset="-1"
+                  className="text-blueLink font-medium  font-azarMehr hover:font-bold"
                 >
-                  <Image
-                    src={item.img}
-                    alt={item.name}
-                    width={500}
-                    height={500}
-                    loading="lazy"
-                    className=" w-[170px] h-[170px] shadow-md transition-all duration-300 shadow-gray rounded-full"
-                  />
-                  <p
-                    data-atropos-offset="-5"
-                    className="font-bold text-[20px]  font-azarMehr mt-7"
-                  >
-                    {item.name}
-                  </p>
+                  {item.code}
+                </span>
+              </Link>
 
-                  <Link
-                    href={`https://rgb.irpsc.com/${router.query.lang}/citizen/${item.code}`}
-                    target="_blank"
-                  >
-                    <span
-                      data-atropos-offset="-1"
-                      className="text-blueLink font-medium  font-azarMehr hover:font-bold"
-                    >
-                      {item.code}
-                    </span>
-                  </Link>
+              <span>
+                {item.likes}
+                <Like className="inline ms-2  stroke-gray dark:stroke-white mb-1" />
+              </span>
 
-                  <span>
-                    {item.likes}
-                    <Like className="inline ms-2  stroke-gray dark:stroke-white mb-1" />
+              <Link
+                href={`https://rgb.irpsc.com/${router.query.lang}/citizen/${item.code}`}
+                target="_blank"
+                className="w-[90%] h-[55px]"
+              >
+                <div
+                  data-atropos-offset="5"
+                  className="w-full h-[55px] bg-[#f5f9ff] dark:bg-[#000000] px-6 rounded-[10px] flex flex-row justify-between items-center"
+                >
+                  <span className="text-blueLink dark:text-dark-yellow font-azarMehr font-medium text-[14px]">
+                    {translateFooter(translateData, "cv teacher")}
                   </span>
 
-                  <Link
-                    href={`https://rgb.irpsc.com/${router.query.lang}/citizen/${item.code}`}
-                    target="_blank"
-                    className="w-[90%] h-[55px]"
-                  >
-                    <div
-                      data-atropos-offset="5"
-                      className="w-full h-[55px] bg-[#f5f9ff] dark:bg-[#000000] px-6 rounded-[10px] flex flex-row justify-between items-center"
-                    >
-                      <span className="text-blueLink dark:text-dark-yellow font-azarMehr font-medium text-[14px]">
-                        {translateFooter(translateData, "cv teacher")}
-                      </span>
-
-                      <Text className="w-[24px] h-[24px] stroke-blueLink dark:stroke-dark-yellow" />
-                    </div>
-                  </Link>
+                  <Text className="w-[24px] h-[24px] stroke-blueLink dark:stroke-dark-yellow" />
                 </div>
-              ))}
-            </>
-          ) : (
-            <>
-              {itemsTrainers.map((item: any) => (
-                <Atropos
-                  shadow={false}
-                  key={item.id}
-                  highlight={false}
-                  aria-disabled
-                >
-                  <div className=" min-w-[270px] h-[439px] shadow-sm  hover:dark:shadow-dark mt-10  relative cursor-pointer  bg-[#fff] dark:bg-[#1A1A18] flex flex-col justify-start gap-4 pt-7  items-center rounded-[20px]">
-                    <Image
-                      src={item.img}
-                      alt={item.name}
-                      width={500}
-                      height={500}
-                      loading="lazy"
-                      className="  xl:w-[170px] xl:h-[170px] md:w-[150px] md:h-[150px] sm:w-[120px] sm:h-[120px] xs:w-[100px] xs:h-[100px] shadow-md hover:top-[-88px] transition-all duration-300 shadow-gray rounded-full"
-                    />
-                    <p
-                      data-atropos-offset="-5"
-                      className="font-bold text-[20px]  font-azarMehr mt-7"
-                    >
-                      {item.name}
-                    </p>
+              </Link>
+            </div>
+          ))}
 
-                    <Link
-                      href={`https://rgb.irpsc.com/${router.query.lang}/citizen/${item.code}`}
-                      target="_blank"
-                    >
-                      <span
-                        data-atropos-offset="-1"
-                        className="text-blueLink font-medium  font-azarMehr hover:font-bold"
-                      >
-                        {item.code}
-                      </span>
-                    </Link>
-
-                    <span>
-                      {item.likes}
-                      <Like className="inline ms-2  stroke-gray dark:stroke-white mb-1" />
-                    </span>
-
-                    <Link
-                      href={`https://rgb.irpsc.com/${router.query.lang}/citizen/${item.code}`}
-                      target="_blank"
-                      className="w-[90%] h-[55px]"
-                    >
-                      <div
-                        data-atropos-offset="5"
-                        className="w-full h-[55px] bg-[#f5f9ff] dark:bg-[#000000] px-6 rounded-[10px] flex flex-row justify-between items-center"
-                      >
-                        <span className="text-blueLink dark:text-dark-yellow font-azarMehr font-medium text-[14px]">
-                          {translateFooter(translateData, "cv teacher")}
-                        </span>
-
-                        <Text className="w-[24px] h-[24px] stroke-blueLink dark:stroke-dark-yellow" />
-                      </div>
-                    </Link>
-                  </div>
-                </Atropos>
-              ))}
-            </>
-          )}
           <div className=" min-w-[270px] h-[439px] shadow-sm hover:dark:shadow-dark hover:shadow-md mt-10 pt-7  bg-white dark:bg-[#1A1A18] flex flex-col gap-4 justify-center items-center rounded-[20px]">
             <div className="flex justify-center items-center w-[60px] h-[60px] bg-[#CFE2FF] dark:bg-[#483D13] rounded-full">
               <ArrowMenu className="w-[20px] h-[20px] stroke-2 rounded-full stroke-blueLink dark:stroke-dark-yellow rotate-180" />
