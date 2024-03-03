@@ -43,7 +43,7 @@ export default function SideBarEducation({
     const fetchData = async () => {
       try {
         // const res = await axios.get(`${languageSelected.file_url}`);
-        const res = await axios.get("https://rgbz.irpsc.com/lang/fa.json");
+        const res = await axios.get("https://rgb.irpsc.com/lang/fa.json");
         console.log(res);
         //setTesty(res);
         // await dispatch({
