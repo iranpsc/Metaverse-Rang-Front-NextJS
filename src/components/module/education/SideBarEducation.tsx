@@ -42,9 +42,10 @@ export default function SideBarEducation({
     setTesty("before-start");
     const fetchData = async () => {
       try {
-        const res = await axios.get(`${languageSelected.file_url}`);
-        //const res = await axios.get("https://rgbz.irpsc.com/lang/fa.json");
-        setTesty(res);
+        // const res = await axios.get(`${languageSelected.file_url}`);
+        const res = await axios.get("https://rgbz.irpsc.com/lang/fa.json");
+        console.log(res);
+        //setTesty(res);
         // await dispatch({
         //   type: "SET_DATA_HEADER",
         //   payload: { pageName, dataHeader: res.data.modals },
@@ -69,8 +70,7 @@ export default function SideBarEducation({
         console.log(res.data.modals);
         setTesty("end");
       } catch (error: any) {
-        console.error(error.config);
-        setTesty(error.config.url);
+        console.error(error.config.url);
       }
     };
 
