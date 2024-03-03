@@ -257,6 +257,7 @@ export async function getServerSideProps(context: any) {
     ).fields;
 
     const videosData = resVideos.data.data;
+    console.log(translateData);
     return {
       props: {
         categoriesData,

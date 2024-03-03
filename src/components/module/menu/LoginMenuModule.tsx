@@ -163,7 +163,7 @@ export default function LoginMenuModule({
                   <p className="text-white dark:text-dark-background font-azarMehr font-medium text-center text-[15px]">
                     {state.dataLogin[0] &&
                       state.dataLogin.find(
-                        (item: any) => item.name === "logout"
+                        (item: any) => item.name === "log in"
                       ).translation}
                   </p>
                 </>
