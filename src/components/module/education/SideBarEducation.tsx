@@ -67,9 +67,9 @@ export default function SideBarEducation({
 
         console.log(res.data.modals);
         setTesty("end");
-      } catch (error) {
+      } catch (error: any) {
         console.error(error);
-        setTesty(error);
+        setTesty(error.message);
       }
     };
 
