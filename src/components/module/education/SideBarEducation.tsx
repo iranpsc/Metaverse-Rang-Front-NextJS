@@ -28,11 +28,11 @@ export default function SideBarEducation({
   profileData,
   setShowLogOut,
 }: any) {
+  const { languagesData, languageSelected, setLanguagesSelected } =
+    useContext(LangContext);
   const router = useRouter();
   const [testy, setTesty] = useState<any>();
   const { state, dispatch } = useContext(SideBarContext);
-  const { languagesData, languageSelected, setLanguagesSelected } =
-    useContext(LangContext);
 
   useEffect(() => {
     dispatch({ type: "CLEAR_ACTIVE_DROPDOWN" });
@@ -69,7 +69,7 @@ export default function SideBarEducation({
         setTesty("end");
       } catch (error: any) {
         console.error(error);
-        setTesty(error.code);
+        setTesty(error);
       }
     };
 
@@ -123,11 +123,7 @@ export default function SideBarEducation({
 
   return (
     <div className="   xl:relative lg:relative   dark:bg-dark-background  overflow-y-clip">
-      <h1>
-        {state.dataHeader && state.dataHeader.length > 1
-          ? state.dataHeader[1].translation
-          : state.dataHeader.length}
-      </h1>
+      <h1>{languageSelected.file_url}</h1>
       <h1>{testy}</h1>
       <div
         className={` shadow-left dark:shadow-leftDark xl:min-h-screen scroll lg:min-h-screen md:min-h-screen overflow-y-scroll  relative sm:min-h-screen xs:min-h-screen ${
@@ -179,22 +175,22 @@ export default function SideBarEducation({
     </div>
   );
 }
-export async function getServerSideProps(context: any) {
-  let languageSelectedUrl = "";
-  try {
-    const languageCode = context.query.lang;
-    if (languageCode === "en") {
-      languageSelectedUrl = "https://rgb.irpsc.com/lang/en.json";
-    } else {
-      languageSelectedUrl = "https://rgb.irpsc.com/lang/fa.json";
-    }
-    const res = await axios.get(languageSelectedUrl);
-    console.log(res);
+// export async function getServerSideProps(context: any) {
+//   let languageSelectedUrl = "";
+//   try {
+//     const languageCode = context.query.lang;
+//     if (languageCode === "en") {
+//       languageSelectedUrl = "https://rgb.irpsc.com/lang/en.json";
+//     } else {
+//       languageSelectedUrl = "https://rgb.irpsc.com/lang/fa.json";
+//     }
+//     const res = await axios.get(languageSelectedUrl);
+//     console.log(res);
 
-    return {
-      props: {},
-    };
-  } catch (error) {
-    console.log(error);
-  }
-}
+//     return {
+//       props: {},
+//     };
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
