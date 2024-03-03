@@ -179,3 +179,22 @@ export default function SideBarEducation({
     </div>
   );
 }
+export async function getServerSideProps(context: any) {
+  let languageSelectedUrl = "";
+  try {
+    const languageCode = context.query.lang;
+    if (languageCode === "en") {
+      languageSelectedUrl = "https://rgb.irpsc.com/lang/en.json";
+    } else {
+      languageSelectedUrl = "https://rgb.irpsc.com/lang/fa.json";
+    }
+    const res = await axios.get(languageSelectedUrl);
+    console.log(res);
+
+    return {
+      props: {},
+    };
+  } catch (error) {
+    console.log(error);
+  }
+}
