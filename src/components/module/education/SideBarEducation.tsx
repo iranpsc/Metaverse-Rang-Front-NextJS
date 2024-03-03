@@ -124,6 +124,7 @@ export default function SideBarEducation({
 
   return (
     <div className="   xl:relative lg:relative   dark:bg-dark-background  overflow-y-clip">
+      <h1>{testy}</h1>
       <div
         className={` shadow-left dark:shadow-leftDark xl:min-h-screen scroll lg:min-h-screen md:min-h-screen overflow-y-scroll  relative sm:min-h-screen xs:min-h-screen ${
           state.isCollapsed
@@ -152,7 +153,7 @@ export default function SideBarEducation({
             handleDirChange={handleDirChange}
           />
         </aside>
-        h h
+        h h h
       </div>
       <div
         className={`${
