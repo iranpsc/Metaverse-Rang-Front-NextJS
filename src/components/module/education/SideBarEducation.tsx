@@ -42,7 +42,8 @@ export default function SideBarEducation({
     setTesty("before-start");
     const fetchData = async () => {
       try {
-        const res = await axios.get(`${languageSelected.file_url}`);
+        //  const res = await axios.get(`${languageSelected.file_url}`);
+        const res = await axios.get("https://rgb.irpsc.com/lang/fa.json");
         setTesty("start");
         await dispatch({
           type: "SET_DATA_HEADER",
@@ -69,7 +70,7 @@ export default function SideBarEducation({
         setTesty("end");
       } catch (error: any) {
         console.error(error);
-        setTesty(error.name);
+        setTesty(error.message);
       }
     };
 
