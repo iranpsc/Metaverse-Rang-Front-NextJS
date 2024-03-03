@@ -69,7 +69,7 @@ export default function SideBarEducation({
         setTesty("end");
       } catch (error: any) {
         console.error(error);
-        setTesty(error.message);
+        setTesty(error.code);
       }
     };
 
