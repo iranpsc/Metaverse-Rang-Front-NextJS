@@ -27,9 +27,7 @@ export default function TopTrainers({ translateData }: any) {
   ];
 
   const [data, setData] = useState(itemsTrainers);
-  const [isMobile, setIsMobile] = useState(
-    typeof window !== "undefined" ? window.innerWidth <= 768 : false
-  );
+  const [isMobile, setIsMobile] = useState<any>();
 
   useEffect(() => {
     setData(itemsTrainers);
