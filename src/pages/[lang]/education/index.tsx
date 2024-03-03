@@ -42,10 +42,10 @@ const Index: React.FC<IndexProps> = ({
     const fetchData = async () => {
       try {
         // const res = await axios.get(`${languageSelected.file_url}`);
-        const res = await axios.get(
-          "https://admin.rgb.irpsc.com/api/translations"
-        );
-        console.log(res);
+        // const res = await axios.get(
+        //   "https://admin.rgb.irpsc.com/api/translations"
+        // );
+        // console.log(res);
         const res2 = await axios.get(
           "https://api.rgb.irpsc.com/api/citizen/hm-2000003"
         );
@@ -71,8 +71,6 @@ const Index: React.FC<IndexProps> = ({
         //   type: "SUB_ITEMS_MENU_DATA",
         //   payload: { dataSubItems: res.data.modals },
         // });
-
-        console.log(res);
       } catch (error: any) {
         console.error(error);
       }
