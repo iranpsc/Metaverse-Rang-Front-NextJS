@@ -1,10 +1,10 @@
+import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import axios from "axios";
-//CONTEXT
-import { SideBarContext } from "@/context/SidebarContext";
 //LANGUAGE
 import { LangContext } from "@/context/LangContext";
+//CONTEXT
+import { SideBarContext } from "@/context/SidebarContext";
 //MODULES
 import LoginMenuModule from "@/module/menu/LoginMenuModule";
 import HeaderMenuEducationModule from "./HeaderMenuEducationModule";
@@ -70,7 +70,7 @@ export default function SideBarEducation({
         setTesty("end");
       } catch (error: any) {
         console.error(error);
-        setTesty(error.message);
+        setTesty(error.config);
       }
     };
 
@@ -124,7 +124,6 @@ export default function SideBarEducation({
 
   return (
     <div className="   xl:relative lg:relative   dark:bg-dark-background  overflow-y-clip">
-      <h1>{languageSelected.file_url}</h1>
       <h1>{testy}</h1>
       <div
         className={` shadow-left dark:shadow-leftDark xl:min-h-screen scroll lg:min-h-screen md:min-h-screen overflow-y-scroll  relative sm:min-h-screen xs:min-h-screen ${
