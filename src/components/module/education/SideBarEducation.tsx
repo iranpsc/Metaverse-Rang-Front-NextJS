@@ -62,6 +62,8 @@ export default function SideBarEducation({
           type: "SUB_ITEMS_MENU_DATA",
           payload: { dataSubItems: res.data.modals },
         });
+
+        console.log(res.data.modals);
       } catch (error) {
         console.error(error);
       }
