@@ -26,7 +26,7 @@ export default function TopTrainers({ translateData }: any) {
     },
   ];
 
-  // const [data, setData] = useState(itemsTrainers);
+  const [data, setData] = useState(itemsTrainers);
   // const [isMobile, setIsMobile] = useState<any>();
 
   // useEffect(() => {
@@ -59,7 +59,10 @@ export default function TopTrainers({ translateData }: any) {
 
         <div className=" relative w-full min-h-[550px] pb-10 flex flex-row gap-5 items-center  xl:justify-center no-scrollbar overflow-x-scroll px-10 ">
           {itemsTrainers.map((item: any) => (
-            <div className=" min-w-[270px] h-[439px] shadow-sm  hover:dark:shadow-dark mt-10  relative cursor-pointer  bg-[#fff] dark:bg-[#1A1A18] flex flex-col justify-start gap-4 pt-7  items-center rounded-[20px]">
+            <div
+              key={item.id}
+              className=" min-w-[270px] h-[439px] shadow-sm  hover:dark:shadow-dark mt-10  relative cursor-pointer  bg-[#fff] dark:bg-[#1A1A18] flex flex-col justify-start gap-4 pt-7  items-center rounded-[20px]"
+            >
               <Image
                 src={item.img}
                 alt={item.name}
@@ -69,7 +72,7 @@ export default function TopTrainers({ translateData }: any) {
                 className="  xl:w-[170px] xl:h-[170px] md:w-[150px] md:h-[150px] sm:w-[120px] sm:h-[120px] xs:w-[100px] xs:h-[100px] shadow-md hover:top-[-88px] transition-all duration-300 shadow-gray rounded-full"
               />
               <p
-                data-atropos-offset="-5"
+                // data-atropos-offset="-5"
                 className="font-bold text-[20px]  font-azarMehr mt-7"
               >
                 {item.name}
@@ -80,7 +83,7 @@ export default function TopTrainers({ translateData }: any) {
                 target="_blank"
               >
                 <span
-                  data-atropos-offset="-1"
+                  // data-atropos-offset="-1"
                   className="text-blueLink font-medium  font-azarMehr hover:font-bold"
                 >
                   {item.code}
@@ -98,7 +101,7 @@ export default function TopTrainers({ translateData }: any) {
                 className="w-[90%] h-[55px]"
               >
                 <div
-                  data-atropos-offset="5"
+                  // data-atropos-offset="5"
                   className="w-full h-[55px] bg-[#f5f9ff] dark:bg-[#000000] px-6 rounded-[10px] flex flex-row justify-between items-center"
                 >
                   <span className="text-blueLink dark:text-dark-yellow font-azarMehr font-medium text-[14px]">
