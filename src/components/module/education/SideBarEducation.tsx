@@ -42,30 +42,30 @@ export default function SideBarEducation({
     setTesty("before-start");
     const fetchData = async () => {
       try {
-        // const res = await axios.get(`${languageSelected.file_url}`);
-        const res = await axios.get("https://rgb.irpsc.com/lang/fa.json");
+        const res = await axios.get(`${languageSelected.file_url}`);
+        // const res = await axios.get("https://rgb.irpsc.com/lang/fa.json");
         console.log(res);
-        //setTesty(res);
-        // await dispatch({
-        //   type: "SET_DATA_HEADER",
-        //   payload: { pageName, dataHeader: res.data.modals },
-        // });
-        // await dispatch({
-        //   type: "SET_DATA_ITEMS",
-        //   payload: { pageName, dataMenu: res.data.modals },
-        // });
-        // await dispatch({
-        //   type: "SET_DATA_THEME",
-        //   payload: { dataTheme: res.data.modals },
-        // });
-        // await dispatch({
-        //   type: "SET_DATA_LOGIN",
-        //   payload: { dataLogin: res.data.modals },
-        // });
-        // await dispatch({
-        //   type: "SUB_ITEMS_MENU_DATA",
-        //   payload: { dataSubItems: res.data.modals },
-        // });
+        setTesty(res);
+        await dispatch({
+          type: "SET_DATA_HEADER",
+          payload: { pageName, dataHeader: res.data.modals },
+        });
+        await dispatch({
+          type: "SET_DATA_ITEMS",
+          payload: { pageName, dataMenu: res.data.modals },
+        });
+        await dispatch({
+          type: "SET_DATA_THEME",
+          payload: { dataTheme: res.data.modals },
+        });
+        await dispatch({
+          type: "SET_DATA_LOGIN",
+          payload: { dataLogin: res.data.modals },
+        });
+        await dispatch({
+          type: "SUB_ITEMS_MENU_DATA",
+          payload: { dataSubItems: res.data.modals },
+        });
 
         console.log(res.data.modals);
         setTesty("end");
