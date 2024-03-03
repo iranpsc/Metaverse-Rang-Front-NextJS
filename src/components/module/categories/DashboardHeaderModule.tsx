@@ -10,7 +10,7 @@ export const DashboardHeaderModule = ({
 }: any) => {
   return (
     <>
-      <div className=" relative z-10 mt-[-50px] ms-[25%] xs:ms-[13%] w-[50%] xs:w-[75%] min-h-[100px] pt-5  rounded-2xl flex flex-col justify-canter gap-10 items-center bg-white dark:bg-dark-background	shadow-xl">
+      <div className=" relative z-10 mt-[-50px] ms-[25%] xs:ms-[8%] w-[50%] xs:w-[85%] min-h-[100px] pt-5  rounded-2xl flex flex-col justify-canter gap-10 items-center bg-white dark:bg-dark-background	shadow-xl">
         <div className="w-full flex flex-row justify-evenly gap-1 items-center">
           {categoryData.videos_count && (
             <div className="flex flex-row items-center justify-center gap-3">

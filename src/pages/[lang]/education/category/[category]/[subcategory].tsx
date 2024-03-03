@@ -131,7 +131,7 @@ const Index = ({
               />
             </div>
 
-            <div className="flex flex-row justify-start items-center gap-2 w-full  relative z-50">
+            <div className="flex flex-wrap justify-start items-center gap-2 w-full  relative z-50">
               <p
                 className="w-fit ms-5 font-normal font-azarMehr text-[15px] text-start text-[#575757] cursor-pointer"
                 onClick={() => router.push(`/${lang}/education`)}
