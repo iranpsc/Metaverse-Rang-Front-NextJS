@@ -70,7 +70,7 @@ export default function SideBarEducation({
         setTesty("end");
       } catch (error: any) {
         console.error(error);
-        setTesty(error.config);
+        setTesty(error);
       }
     };
 
@@ -124,7 +124,7 @@ export default function SideBarEducation({
 
   return (
     <div className="   xl:relative lg:relative   dark:bg-dark-background  overflow-y-clip">
-      <h1>{testy}</h1>
+      <h1>{testy[0]}</h1>
       <div
         className={` shadow-left dark:shadow-leftDark xl:min-h-screen scroll lg:min-h-screen md:min-h-screen overflow-y-scroll  relative sm:min-h-screen xs:min-h-screen ${
           state.isCollapsed
