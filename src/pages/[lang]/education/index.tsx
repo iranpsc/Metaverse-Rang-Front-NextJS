@@ -42,8 +42,14 @@ const Index: React.FC<IndexProps> = ({
     const fetchData = async () => {
       try {
         // const res = await axios.get(`${languageSelected.file_url}`);
-        const res = await axios.get("https://rgb.irpsc.com/lang/fa.json");
+        const res = await axios.get(
+          "https://admin.rgb.irpsc.com/api/translations"
+        );
         console.log(res);
+        const res2 = await axios.get(
+          "https://api.rgb.irpsc.com/api/citizen/hm-2000003"
+        );
+        console.log(res2);
         //setTesty(res);
         // await dispatch({
         //   type: "SET_DATA_HEADER",
