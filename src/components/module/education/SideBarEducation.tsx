@@ -119,6 +119,11 @@ export default function SideBarEducation({
 
   return (
     <div className="   xl:relative lg:relative   dark:bg-dark-background  overflow-y-clip">
+      <h1>
+        {state.dataHeader && state.dataHeader.length > 1
+          ? state.dataHeader[1].translation
+          : state.dataHeader.length}
+      </h1>
       <div
         className={` shadow-left dark:shadow-leftDark xl:min-h-screen scroll lg:min-h-screen md:min-h-screen overflow-y-scroll  relative sm:min-h-screen xs:min-h-screen ${
           state.isCollapsed
@@ -147,6 +152,7 @@ export default function SideBarEducation({
             handleDirChange={handleDirChange}
           />
         </aside>
+        h
       </div>
       <div
         className={`${
