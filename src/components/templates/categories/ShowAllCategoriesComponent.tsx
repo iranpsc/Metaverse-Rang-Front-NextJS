@@ -6,9 +6,11 @@ import Masonry from "react-masonry-css";
 
 import { Like, Dislike, View } from "@/components/svgs/SvgEducation";
 import { formatNumber } from "@/components/utils/education";
+import randomcolor from "randomcolor";
 
 const ShowAllCategoriesComponent = ({ categoriesData }: any) => {
   const [randomHeights, setRandomHeights] = useState([]);
+  const [colors, setColors] = useState([]);
 
   const router = useRouter();
   const { lang } = router.query;
@@ -51,6 +53,21 @@ const ShowAllCategoriesComponent = ({ categoriesData }: any) => {
     },
   };
 
+  useEffect(() => {
+    const generateRandomColors = () => {
+      const newColors = categoriesData.map(() =>
+        randomcolor({
+          format: "rgba",
+          alpha: 0.1,
+          luminosity: "bright",
+        })
+      );
+      setColors(newColors);
+    };
+
+    generateRandomColors();
+  }, [categoriesData]);
+
   return (
     <motion.div
       variants={container}
@@ -92,38 +109,38 @@ const ShowAllCategoriesComponent = ({ categoriesData }: any) => {
               onClick={() => pusher(category.slug)}
             >
               <Image
-                style={{ height: randomHeights[index] }}
-                className="max-w-full h-auto rounded-md  bg-error/30"
+                style={{ backgroundColor: colors[index] }}
+                className="max-w-full max-h-auto rounded-md"
                 src={category.image}
                 alt={category.name}
                 width={1000}
                 height={1000}
               />
-              <p className="font-azarMehr font-bold  w-full text-start ms-3">
+              <p className="font-azarMehr font-bold  w-full text-center my-3">
                 {category.name}
               </p>
               <div className=" px-3  flex flex-row justify-evenly items-center w-full h-fit pb-3">
                 <div className="flex flex-row items-center justify-center gap-2">
-                  <View className="w-[18px] h-[18px] stroke-gray" />
-                  <span className=" whitespace-nowrap font-azarMehr font-normal text-[14px] text-gray">
+                  <View className="stroke-gray dark:stroke-dark-gray stroke-2 w-[18px] h-[18px]" />
+                  <span className=" whitespace-nowrap font-azarMehr font-normal text-[14px] text-gray dark:text-dark">
                     {formatNumber("2222")}
                   </span>
                 </div>
                 <div className="flex flex-row items-center justify-center gap-2">
-                  <Like className="w-[18px] h-[18px] stroke-gray" />
-                  <span className=" whitespace-nowrap font-azarMehr font-normal text-[14px] text-gray">
+                  <Like className="stroke-gray dark:stroke-dark-gray stroke-2 w-[18px] h-[18px] " />
+                  <span className=" whitespace-nowrap font-azarMehr font-normal text-[14px] text-gray dark:text-dark">
                     {formatNumber("2222")}
                   </span>
                 </div>
                 <div className="flex flex-row items-center justify-center gap-2">
-                  <Dislike className="w-[18px] h-[18px] stroke-gray" />
-                  <span className=" whitespace-nowrap font-azarMehr font-normal text-[14px] text-gray">
+                  <Dislike className="stroke-gray dark:stroke-dark-gray stroke-2 w-[18px] h-[18px] " />
+                  <span className=" whitespace-nowrap font-azarMehr font-normal text-[14px] text-gray dark:text-dark">
                     {formatNumber("2222")}
                   </span>
                 </div>
                 <div className="flex flex-row items-center justify-center gap-3">
-                  <View className="w-[18px] h-[18px] stroke-gray" />
-                  <span className=" whitespace-nowrap font-azarMehr font-normal text-[14px] text-gray">
+                  <View className="stroke-gray dark:stroke-dark-gray stroke-2 w-[18px] h-[18px] " />
+                  <span className=" whitespace-nowrap font-azarMehr font-normal text-[14px] text-gray dark:text-dark">
                     {formatNumber("2222")}
                   </span>
                 </div>

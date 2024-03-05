@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { DefaultSeo } from "next-seo";
 import Head from "next/head";
@@ -22,6 +22,9 @@ export default function xxx({
   const { data, languageSelected } = useContext(LangContext);
   const [activeSearch, setActiveSearch] = useState<boolean>(false);
   const { theme } = useTheme();
+ 
+
+   
   return (
     <>
       <DefaultSeo

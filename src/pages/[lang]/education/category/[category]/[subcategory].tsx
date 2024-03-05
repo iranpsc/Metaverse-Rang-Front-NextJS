@@ -142,7 +142,7 @@ const Index = ({
                 /
               </span>
               <p
-                className="w-fit font-normal font-azarMehr cursor-pointer text-[15px] text-start text-[#575757] whitespace-nowrap"
+                className="w-fit font-normal font-azarMehr cursor-pointer text-[15px] text-start text-[#575757] whitespace-nowrap  hover:text-blueLink hover:dark:text-dark-yellow"
                 onClick={() => router.push(`/${lang}/education/category/all`)}
               >
                 دسته بندی ها
@@ -150,8 +150,15 @@ const Index = ({
               <span className="text-[#575757] font-normal font-azarMehr text-[15px]">
                 /
               </span>
-              <p className="w-fit font-normal font-azarMehr text-[15px] text-start #text-[575757] whitespace-nowrap">
-                {CategoryData.name}
+              <p
+                className="w-fit font-normal font-azarMehr text-[15px] text-start text-[#575757] whitespace-nowrap cursor-pointer hover:text-blueLink hover:dark:text-dark-yellow"
+                onClick={() =>
+                  router.push(
+                    `/${lang}/education/category/${CategoryData.category.slug}`
+                  )
+                }
+              >
+                {CategoryData.category.name}
               </p>
               <span className="text-[#575757] font-normal font-azarMehr text-[15px]">
                 /
@@ -191,7 +198,7 @@ const Index = ({
                       </div>
                     </div>
 
-                    <h1 className="text-start w-[95%] font-azarMehr truncate cursor-pointer font-bold mt-[15px] text-[18px] 3xl:text-[22px] ">
+                    <h1 className="text-start w-[95%] font-azarMehr truncate cursor-pointer font-bold mt-[15px] text-[16px] 3xl:text-[20px] ">
                       {item.title}
                     </h1>
                     <div className="flex flex-row items-center justify-start  mt-[-8px] w-[98%]"></div>
@@ -212,7 +219,7 @@ const Index = ({
                               onClick={() => pushRgb(item.creator.code)}
                             />
                             <span
-                              className="text-blueLink  cursor-pointer text-[16px] 3xl:text-[22px] whitespace-nowrap font-medium hover:font-bold uppercase "
+                              className="text-blueLink  cursor-pointer text-[14px] 3xl:text-[18px] whitespace-nowrap font-medium hover:font-bold uppercase "
                               onClick={() => pushRgb(item.creator.code)}
                             >
                               {item.creator.code}

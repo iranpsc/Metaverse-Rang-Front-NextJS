@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import { translateFooter } from "@/components/utils/education";
 import { imageSources } from "@/components/utils/items";
+import { useTheme } from "next-themes";
 
 function Footer({ footerTabs }: any) {
   interface ItemIcon {
@@ -136,6 +137,8 @@ function Footer({ footerTabs }: any) {
     },
   ];
 
+  const { theme } = useTheme();
+
   return (
     <>
       <div className="h-fit  w-[96%] mt-[200px] flex flex-wrap gap-[15px] py-5 rounded-[10px]  items-center justify-center bg-white dark:bg-[#1A1A18]">
@@ -161,6 +164,12 @@ function Footer({ footerTabs }: any) {
                   ) || {}
                 ).translation || "undefined"
               }
+              style={{
+                backgroundColor: `${theme === "dark" ? "#000" : "#e9eef8"}`,
+                color: `${theme === "dark" ? "#fff" : "#000"}`,
+                fontSize: "16px",
+                fontWeight: "bold",
+              }}
             />
           </Link>
         ))}
@@ -233,6 +242,12 @@ function Footer({ footerTabs }: any) {
                   id={`${item.id}`}
                   place="top"
                   content={item.translation}
+                  style={{
+                    backgroundColor: `${theme === "dark" ? "#000" : "#e9eef8"}`,
+                    color: `${theme === "dark" ? "#fff" : "#000"}`,
+                    fontSize: "16px",
+                    fontWeight: "bold",
+                  }}
                 />
               </div>
             ))}

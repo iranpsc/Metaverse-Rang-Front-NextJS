@@ -7,7 +7,7 @@ export default function SlugsModule({ categoryName }: any) {
     <>
       <div className="flex flex-row justify-start items-center gap-2 w-full  relative z-50">
         <p
-          className="w-fit ms-5 font-normal font-azarMehr text-[15px] text-start text-[#575757] cursor-pointer"
+          className="w-fit ms-5 font-normal font-azarMehr text-[15px] text-start text-[#575757] cursor-pointer  hover:text-blueLink hover:dark:text-dark-yellow"
           onClick={() => router.push(`/${lang}/education`)}
         >
           آموزش
@@ -16,7 +16,7 @@ export default function SlugsModule({ categoryName }: any) {
           /
         </span>
         <p
-          className="w-fit font-normal font-azarMehr cursor-pointer text-[15px] text-start text-[#575757]"
+          className="w-fit font-normal font-azarMehr cursor-pointer text-[15px] text-start text-[#575757]  hover:text-blueLink hover:dark:text-dark-yellow"
           onClick={() => router.push(`/${lang}/education/category/all`)}
         >
           دسته بندی ها

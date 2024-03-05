@@ -57,8 +57,6 @@ export default function Captcha({
     }
   };
 
-  loginUser();
-
   const RegisterUser = async () => {
     try {
       const requestData = {
@@ -94,13 +92,13 @@ export default function Captcha({
         <p className="py-5 text-center font-azarMeh text-[14px] font-bold dark:text-white text-[#00000073]">
           لطفا بررسی کنید که ربات نیستید
         </p>
-        {/* <ReCAPTCHA
+        <ReCAPTCHA
           sitekey="6Ld2bgYpAAAAAOEcMfGv-UZae2KJ2zvtgDkz8mA1"
           ref={captchaRef}
           onChange={onChange}
           theme={`${theme === "dark" ? "dark" : "light"}`}
           className="px-2 pb-3 "
-        /> */}
+        />
       </div>
     </div>
   );

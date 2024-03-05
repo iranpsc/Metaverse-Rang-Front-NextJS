@@ -47,7 +47,7 @@ export default function ListData({ nameComponent, data }: any) {
         data.subcategories.map((item: any, index: number) => (
           <div
             key={item.id}
-            className="w-[100%] min-h-[240px] cursor-pointer shadow-md hover:shadow-xl hover:dark:shadow-dark  rounded-[10px] bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-4 items-center"
+            className="w-[90%] min-h-[240px] cursor-pointer shadow-md hover:shadow-xl hover:dark:shadow-dark  rounded-[10px] bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-4 items-center"
             onClick={() => pusher(item.slug)}
           >
             <div className=" group w-full h-[250px] 2xl:h-[300px] relative rounded-t-[10px]  ">
@@ -65,7 +65,7 @@ export default function ListData({ nameComponent, data }: any) {
               </div>
             </div>
 
-            <h1 className="text-start w-[95%] font-azarMehr truncate cursor-pointer font-bold mt-[15px] text-[18px] 3xl:text-[22px] ">
+            <h1 className="text-start w-[95%] font-azarMehr truncate cursor-pointer font-bold mt-[15px] text-[16px] 3xl:text-[20px] ">
               {item.name}
             </h1>
             <div className="flex flex-row items-center justify-start  mt-[-8px] w-[98%]"></div>
