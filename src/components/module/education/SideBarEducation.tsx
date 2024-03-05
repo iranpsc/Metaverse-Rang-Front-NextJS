@@ -44,7 +44,7 @@ export default function SideBarEducation({
       try {
         const res = await axios.get(`${languageSelected.file_url}`);
         // const res = await axios.get("https://rgb.irpsc.com/lang/fa.json");
-        console.log(res);
+
         setTesty(res);
         await dispatch({
           type: "SET_DATA_HEADER",
@@ -67,7 +67,6 @@ export default function SideBarEducation({
           payload: { dataSubItems: res.data.modals },
         });
 
-        console.log(res.data.modals);
         setTesty("end");
       } catch (error: any) {
         console.error(error.config.url);
