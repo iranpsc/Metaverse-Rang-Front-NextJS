@@ -151,7 +151,6 @@ export default function SideBarEducation({
             handleDirChange={handleDirChange}
           />
         </aside>
-        h h h
       </div>
       <div
         className={`${
