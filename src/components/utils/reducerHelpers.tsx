@@ -31,7 +31,7 @@ const namesToDelete: Record<string, string[]> = {
   citizen: [
     "meta rgb",
     "metaverse rang",
-    "log in",
+    "login",
     "logout",
     "light",
     "dark",

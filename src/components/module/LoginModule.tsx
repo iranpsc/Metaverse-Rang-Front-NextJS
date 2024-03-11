@@ -160,11 +160,13 @@ export default function LoginModule({ setShowModule, setShowAuthCard }: any) {
               </div>
 
               <button className="bg-[#D7FBF0] text-[#18C08F] border-[#18C08F] dark:bg-[#004531] mt-2 border-[1px] w-full h-[50px] rounded-[5px] font-azarMehr font-normal">
-                {
+                {(data.data.loginPageLang.find(
+                  (item: any) => item.name === "login"
+                ) &&
                   data.data.loginPageLang.find(
-                    (item: any) => item.name === "log in"
-                  ).translation
-                }
+                    (item: any) => item.name === "login"
+                  ).translation) ||
+                  "undefine"}
               </button>
             </Form>
           )}
