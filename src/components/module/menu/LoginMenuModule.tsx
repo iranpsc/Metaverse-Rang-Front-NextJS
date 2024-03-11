@@ -12,12 +12,8 @@ export default function LoginMenuModule({
   setShowAuthCard,
   setShowLogOut,
 }: any) {
-  const {
-    state,
-    showFullModalHandler,
-    toggleCollapseHandler,
-    showFullModalOutMenuHandler,
-  } = useContext(SideBarContext);
+  const { state, showFullModalHandler, showFullModalOutMenuHandler } =
+    useContext(SideBarContext);
   const { theme } = useTheme();
   const { code, token } = useToken();
   const router = useRouter();
@@ -162,11 +158,10 @@ export default function LoginMenuModule({
                   />
                   <p className="text-white dark:text-dark-background font-azarMehr font-medium text-center text-[15px]">
                     {(state.dataLogin.find(
-                      (item: any) => item.name === "log in"
+                      (item: any) => item.name === "login"
                     ) &&
-                      state.dataLogin.find(
-                        (item: any) => item.name === "log in"
-                      ).translation) ||
+                      state.dataLogin.find((item: any) => item.name === "login")
+                        .translation) ||
                       "undefine"}
                   </p>
                 </>

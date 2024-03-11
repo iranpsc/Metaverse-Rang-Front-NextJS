@@ -187,7 +187,7 @@ export const setDataLogin = (state: State, action: any) => {
   const tabsMenu = modalsProfile.find((item: any) => item.name === "menu");
 
   const namesToKeep = [
-    "log in",
+    "login",
     "logout",
     "enter the metaverse",
     "home page",
