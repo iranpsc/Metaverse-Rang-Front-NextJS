@@ -65,6 +65,16 @@ module.exports = {
           primary100: "#868B90",
         },
       },
+
+      singleVideo: {
+        gray: "#414040",
+        backgroundInput: "#ECECEC",
+        textInput: "#868B90",
+        dark: {
+          background: "#080807",
+          text: "868B90",
+        },
+      },
     },
     extend: {
       fontFamily: {
@@ -99,6 +109,9 @@ module.exports = {
       xl3User: ["24px"],
       xl3Title: ["20px"],
       xl3Desc: ["20px"],
+
+      singleVideo_medium: ["16px"],
+      singleVideo_title: ["32px"],
     },
   },
   variants: {

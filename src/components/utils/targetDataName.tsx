@@ -1,4 +1,3 @@
-
 export const abilitySolveProblem =
   "if you had the ability to solve a problem, what would it be?";
 export const forecast = "forecast 2022";
@@ -10,7 +9,8 @@ export const targetData = (data: any, targetName: any) => {
 
   return res ? res.translation : "";
 };
-
+export const checkData = (data: any) =>
+  data !== undefined ? data : "undefined";
 
 export const translateFavorites = (data: any, targetName: any) => {
   let res: any = "";

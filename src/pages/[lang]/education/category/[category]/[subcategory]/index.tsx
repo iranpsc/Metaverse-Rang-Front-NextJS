@@ -198,9 +198,14 @@ const Index = ({
                       </div>
                     </div>
 
-                    <h1 className="text-start w-[95%] font-azarMehr truncate cursor-pointer font-bold mt-[15px] text-[16px] 3xl:text-[20px] ">
-                      {item.title}
-                    </h1>
+                    <Link
+                      className="w-[95%]"
+                      href={`/${lang}/education/category/${CategoryData.category.slug}/${CategoryData.slug}/${item.slug}`}
+                    >
+                      <h1 className="text-start  w-full font-azarMehr truncate cursor-pointer font-bold mt-[8px] text-[18px] 3xl:text-[22px] ">
+                        {item.title}
+                      </h1>
+                    </Link>
                     <div className="flex flex-row items-center justify-start  mt-[-8px] w-[98%]"></div>
                     <div className="w-[95%] pb-2 flex flex-row justify-between  items-center">
                       <>

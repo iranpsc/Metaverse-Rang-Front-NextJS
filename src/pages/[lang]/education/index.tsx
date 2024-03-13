@@ -237,7 +237,6 @@ const Index: React.FC<IndexProps> = ({
             />
             <DynamicListEducation
               loadMore={loadMore}
-              P
               videosData={videos}
               loading={loading}
               translateData={translateData}
