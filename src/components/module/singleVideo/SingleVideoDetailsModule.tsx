@@ -40,7 +40,7 @@ const SingleVideoDetailsModule = ({ DataVideo }: any) => {
               className="dark:text-dark-yellow mx-2 text-blueLink font-azarMehr font-medium cursor-pointer 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgTitle  md:text-mdTitle sm:text-smTitle xs:text-smTitle"
               onClick={() => setIsComplete(!isComplete)}
             >
-              zzzz
+              مشاهده بیشتر
             </span>
           </>
         )}
