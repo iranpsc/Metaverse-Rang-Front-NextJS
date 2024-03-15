@@ -1,11 +1,8 @@
-import ListData from "@/components/shared/ListData";
-import ListDataEducation from "../../education/ListDataEducation";
-import axios from "axios";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { Like, Dislike, View, Video } from "@/components/svgs/SvgEducation";
 import { formatNumber } from "@/components/utils/education";
-import { Tooltip as ReactTooltip } from "react-tooltip";
+
 import { useTheme } from "next-themes";
 import Link from "next/link";
 
@@ -13,16 +10,12 @@ const ListVideos = ({ DataVideos }: any) => {
   const router = useRouter();
   const { lang, category, subcategory } = router.query;
   console.log(category, subcategory);
-  const pusher = (data: any) => {
-    router.push(`/${lang}/education/category/${data}`);
-  };
+
   const pusherSubcategory = (slugVideo: any) => {
     router.push(
       `/${lang}/education/category/${category}/${subcategory}/${slugVideo}`
     );
   };
-
-  const { theme } = useTheme();
 
   return (
     <div className="grid md:grid-cols-2 lg:grid-cols-2 sm:grid-cols-2 xl:grid-cols-3 gap-10 w-[95%] h-fit pt-16 xs:flex xs:justify-center xs:items-center">
