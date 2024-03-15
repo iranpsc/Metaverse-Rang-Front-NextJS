@@ -11,6 +11,7 @@ import HeaderMenuEducationModule from "./HeaderMenuEducationModule";
 //UTILS
 import ThemeMenuModule from "../menu/ThemeMenuModule";
 import NewListModule from "../menu/NewListModule";
+import { AuthContext } from "@/components/context/AuthContext";
 
 interface LanguageItem {
   id: number;
@@ -23,7 +24,6 @@ interface LanguageItem {
 }
 
 export default function SideBarEducation({
-  setShowAuthCard,
   pageName,
   profileData,
   setShowLogOut,
@@ -33,6 +33,7 @@ export default function SideBarEducation({
   const router = useRouter();
   const [testy, setTesty] = useState<any>();
   const { state, dispatch } = useContext(SideBarContext);
+  const { showAuthCard, setShowAuthCard } = useContext(AuthContext);
 
   useEffect(() => {
     dispatch({ type: "CLEAR_ACTIVE_DROPDOWN" });

@@ -1,15 +1,16 @@
 import { Like } from "@/components/svgs/SvgEducation";
 import { checkData } from "@/components/utils/targetDataName";
 import axios from "axios";
+import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
-
-const ListNewEducationModule = ({ videos }: any) => {
+import { Tooltip as ReactTooltip } from "react-tooltip";
+const ListNewEducationModule = ({ videos, translateSingleVideo }: any) => {
   const router = useRouter();
   const { lang } = router.query;
-  // console.log(videos.category.slug);
+  const { theme } = useTheme();
 
   return (
     <>
@@ -30,19 +31,40 @@ const ListNewEducationModule = ({ videos }: any) => {
                 // onClick={() => pushRgb(item.creator.code)}
               />
               <Link
+                className="w-full truncate"
                 href={`/${lang}/education/category/${item.category.slug}/${item.sub_category.slug}/${item.slug}`}
                 //href="/kk"
                 target="_blank"
               >
-                <p className="w-full font-azarMehr font-medium text-singleVideo-gray dark:text-white text-[18px] truncate">
+                <p
+                  className="w-full font-azarMehr font-medium text-singleVideo-gray dark:text-white text-[16px] text-start truncate"
+                  data-tooltip-id={item.title}
+                >
                   {item.title}
                 </p>
+                <ReactTooltip
+                  id={item.title}
+                  place="bottom"
+                  content={item.title}
+                  style={{
+                    backgroundColor: `${theme === "dark" ? "#000" : "#e9eef8"}`,
+                    color: `${theme === "dark" ? "#fff" : "#000"}`,
+                    fontSize: "13px",
+                    fontWeight: "normal",
+                  }}
+                />
               </Link>
             </div>
 
-            <div className="w-[90%]  flex flex-row justify-between items-center">
+            <div className="w-[95%]  flex flex-row justify-between items-center">
               <p className="w-full font-azarMehr text-blueLink  font-medium text-singleVideo_medium ">
-                {checkData(item.creator.name)}
+                {checkData(
+                  translateSingleVideo.find(
+                    (item: any) => item.name === "citizen id"
+                  )?.translation
+                )}
+                {" : "}
+                {checkData(item.creator.code)}
               </p>
               <div className="flex flex-row justify-center items-center gap-0">
                 <p className="w-full font-azarMehr text-singleVideo-gray dark:text-white font-normal text-[14px] ">

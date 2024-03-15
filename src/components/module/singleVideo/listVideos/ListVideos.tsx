@@ -11,12 +11,15 @@ import Link from "next/link";
 
 const ListVideos = ({ DataVideos }: any) => {
   const router = useRouter();
-  const { lang } = router.query;
+  const { lang, category, subcategory } = router.query;
+  console.log(category, subcategory);
   const pusher = (data: any) => {
     router.push(`/${lang}/education/category/${data}`);
   };
-  const pusherSubcategory = (category: any, subcategory: any) => {
-    router.push(`/${lang}/education/category/${category}/${subcategory}`);
+  const pusherSubcategory = (slugVideo: any) => {
+    router.push(
+      `/${lang}/education/category/${category}/${subcategory}/${slugVideo}`
+    );
   };
 
   const { theme } = useTheme();
@@ -28,6 +31,7 @@ const ListVideos = ({ DataVideos }: any) => {
           <div
             key={item.id}
             className="w-[100%] min-h-[240px]  shadow-md hover:shadow-xl hover:dark:shadow-dark  rounded-[10px] bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-6 items-center"
+            onClick={() => pusherSubcategory(item.slug)}
           >
             <div className=" group w-full   h-[266px] cursor-pointer  rounded-t-[10px] relative">
               <Image

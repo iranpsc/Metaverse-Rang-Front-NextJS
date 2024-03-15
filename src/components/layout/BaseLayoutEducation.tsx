@@ -9,16 +9,18 @@ import { useToken } from "../context/TokenContext";
 import { useRouter } from "next/router";
 import { ArrowMenu } from "../svgs";
 import Link from "next/link";
+import { AuthContext } from "../context/AuthContext";
 
 interface Props {
   children: ReactNode;
 }
 export default function BaseLayoutEducation({ children }: any) {
-  const [showAuthCard, setShowAuthCard] = useState<boolean>(false);
   const [showLogOut, setShowLogOut] = useState<boolean>(false);
   const [activeItem, SetActiveItem] = useState<number>(0);
   const { state, toggleCollapseHandler } = useContext(SideBarContext);
+  const { toggleShowAuthCard, showAuthCard } = useContext(AuthContext);
   const { code, token } = useToken();
+  toggleShowAuthCard
   const router = useRouter();
   const { lang } = router.query;
   //SEACRH
@@ -40,7 +42,6 @@ export default function BaseLayoutEducation({ children }: any) {
       <AnimatePresence>
         {showAuthCard && (
           <AuthCards
-            setShowAuthCard={setShowAuthCard}
             SetActiveItem={SetActiveItem}
           />
         )}
@@ -54,7 +55,6 @@ export default function BaseLayoutEducation({ children }: any) {
       <section className=" xl:relative flex flex-row ">
         <SideBarEducation
           setShowLogOut={setShowLogOut}
-          setShowAuthCard={setShowAuthCard}
           pageName="education"
         />
         <div className="  h-fit  bg-error w-[200px] ps-2 absolute start-[75px] bottom-0  z-[999] xs:hidden  flex flex-col justify-between items-start ">

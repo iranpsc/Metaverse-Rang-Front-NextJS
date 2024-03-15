@@ -1,4 +1,4 @@
-
+import axios from "axios";
 import React, {
   createContext,
   ReactNode,
@@ -11,7 +11,7 @@ interface TokenContextType {
   token: string | null;
   code: string | null;
   setToken: (token: string) => void;
-  setTokenData:(token:string,code:string|null)=>void
+  setTokenData: (token: string, code: string | null) => void;
   setCode: (code: string) => void;
   checkToken: () => void;
   removeToken: () => void;
@@ -27,50 +27,65 @@ export const TokenProvider: React.FC<Props> = ({ children }: Props) => {
   const [token, setToken] = useState<string | null>(null);
   const [code, setCode] = useState<string | null>(null);
 
-  const setTokenData = (newToken: string, newCode: string|null) => {
+  const setTokenData = (newToken: string, newCode: string | null) => {
     setToken(newToken);
     setCode(newCode);
 
     const expire = Date.now() + 60 * 60 * 1000;
-   // const expire = Date.now() + 60 * 1000; 
+    // const expire = Date.now() + 60 * 1000;
 
     const tokenData = { token: newToken, code: newCode, expire };
     localStorage.setItem("authToken", JSON.stringify(tokenData));
   };
 
+  const handlerLogOut = async () => {
+    try {
+      const requestData = {
+        data: " ",
+      };
+      const response = await axios.post(
+        `https://api.rgb.irpsc.com/api/logout`,
+        requestData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(response.data);
+    } catch (error: any) {
+      console.error("خطا:", error?.response?.status);
+    }
+  };
+
   const checkToken = () => {
     const storedToken = localStorage.getItem("authToken");
-    
 
     if (storedToken) {
       const tokenData = JSON.parse(storedToken);
 
-     
       if (tokenData.expire && tokenData.expire < Date.now()) {
-       
+        handlerLogOut();
+
         localStorage.removeItem("authToken");
 
-      
         setToken(null);
         setCode(null);
       } else {
-     
         setToken(tokenData.token);
         setCode(tokenData.code);
       }
     }
   };
 
-  
   const removeToken = () => {
-    
+    handlerLogOut();
     localStorage.removeItem("authToken");
     setToken(null);
     setCode(null);
   };
 
   useEffect(() => {
-    
     checkToken();
   }, []);
 

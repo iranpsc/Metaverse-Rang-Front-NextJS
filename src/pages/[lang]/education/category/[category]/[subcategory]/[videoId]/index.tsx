@@ -14,15 +14,18 @@ import VideoSection from "@/components/templates/singleVideo/VideoSection";
 import SingleVideoSlugModule from "@/components/module/singleVideo/SingleVideoSlugModule";
 import SharedPageVideos from "@/components/module/singleVideo/SharedPageVideos";
 import { AnimatePresence } from "framer-motion";
+import ListVideos from "@/components/module/singleVideo/listVideos/ListVideos";
 
 export default function xxx({
   DataVideo,
   translateData,
+  translateSingleVideo,
   footerTabs,
   localSite,
   nameSite,
   DataVideos,
   newEducationsVideos,
+  dataCommentsVideo,
 }: any) {
   const { data, languageSelected } = useContext(LangContext);
   const [openSharedPage, setOpenSharedPage] = useState<boolean>(false);
@@ -50,11 +53,12 @@ export default function xxx({
               <SharedPageVideos
                 setOpenSharedPage={setOpenSharedPage}
                 DataVideo={DataVideo}
+                translateSingleVideo={translateSingleVideo}
               />
             )}
           </AnimatePresence>
           <section
-            className={`w-full relative overflow-y-auto flex flex-col justify-start items-center bg-[#F5F5F5] dark:bg-black`}
+            className={`w-full relative overflow-y-auto overflow-x-clip flex flex-col justify-start items-center bg-[#F5F5F5] dark:bg-black`}
           >
             <ProfileHeaderMobile
               menuData={data}
@@ -63,11 +67,15 @@ export default function xxx({
             />
 
             <VideoSection
+              translateSingleVideo={translateSingleVideo}
               setOpenSharedPage={setOpenSharedPage}
               DataVideo={DataVideo}
               DataVideos={DataVideos}
               newEducationsVideos={newEducationsVideos}
+              dataCommentsVideo={dataCommentsVideo}
             />
+
+            <ListVideos DataVideos={DataVideos} />
 
             <DynamicFooter footerTabs={footerTabs} />
           </section>
@@ -109,22 +117,31 @@ export async function getServerSideProps(context: any) {
     const resVideos = await axios.get(
       `https://api.rgb.irpsc.com/api/tutorials/categories/${category}/${subcategory}`
     );
+    const DataVideos = resVideos.data.data;
 
     const newEducations = await axios.get(
       "https://api.rgb.irpsc.com/api/tutorials?page=1"
     );
 
-    const newEducationsVideos = newEducations.data.data;
+    const comments = await axios.get(
+      `https://api.rgb.irpsc.com/api/tutorials/${DataVideo.id}/comments?page=1`
+    );
+    const dataCommentsVideo = comments.data;
 
-    const DataVideos = resVideos.data.data;
+    const newEducationsVideos = newEducations.data.data;
 
     const translateRes = res.data.modals.find(
       (modal: any) => modal.name === "training"
     ).tabs;
 
+    const translateSingleVideo = translateRes.find(
+      (item: any) => item.name === "education-page"
+    ).fields;
+
     const translateData = translateRes.find(
       (item: any) => item.name === "central-school"
     ).fields;
+
     const translateHeader = translateRes.find(
       (item: any) => item.name === "categories"
     ).fields;
@@ -141,12 +158,14 @@ export async function getServerSideProps(context: any) {
       props: {
         DataVideo,
         translateData,
+        translateSingleVideo,
         translateHeader,
         footerTabs,
         localSite,
         nameSite,
         DataVideos,
         newEducationsVideos,
+        dataCommentsVideo,
       },
     };
   } catch (error) {}

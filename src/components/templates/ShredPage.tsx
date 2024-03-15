@@ -111,7 +111,7 @@ export default function ShredPage({ showSharedPage, setShowSharedPage }: any) {
                 onClick={() => setShowSharedPage(false)}
                 alt="Close"
               />
-              <h1 className="font-azarMehr font-bold text-[16px] mt-2 text-[#00000096] dark:text-gray w-full text-center">
+              <h1 className="font-azarMehr font-bold text-[16px] mt-2 text-[#00000096] dark:text-white w-full text-center">
                 {targetData(data.data.selectedProfileData, "citizen sharing")}
               </h1>
 

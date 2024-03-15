@@ -10,6 +10,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useToken } from "./context/TokenContext";
 import { ArrowMenu } from "./svgs";
+import { AuthContext } from "./context/AuthContext";
 
 interface Props {
   children: ReactNode;
@@ -25,8 +26,9 @@ export default function BaseLayout({
   titleData,
   setShowLogOut,
 }: Props) {
-  const [showAuthCard, setShowAuthCard] = useState<boolean>(false);
   const { state, toggleCollapseHandler } = useContext(SideBarContext);
+  const { toggleShowAuthCard, showAuthCard, setShowAuthCard } =
+    useContext(AuthContext);
   const { code, token } = useToken();
   const router = useRouter();
   const { lang } = router.query;

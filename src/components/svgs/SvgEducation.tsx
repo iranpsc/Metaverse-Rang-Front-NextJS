@@ -38,3 +38,4 @@ export { default as VolumeMuteIcon } from "../../../public/svg/education/volume-
 export { default as MenuCommentIcon } from "../../../public/svg/education/menu-comment.svg";
 
 export { default as EditIcon } from "../../../public/svg/education/edit.svg";
+export { default as FullScreenIcon } from "../../../public/svg/education/fullScreen.svg";

@@ -5,7 +5,7 @@ import { Arrow } from "@/svgs/SvgEducation";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/router";
 import { LangContext } from "@/context/LangContext";
-import { targetData } from "@/utils/targetDataName";
+import { checkData, targetData } from "@/utils/targetDataName";
 
 //ANIMATION
 import { motion } from "framer-motion";
@@ -14,6 +14,7 @@ import { Tooltip as ReactTooltip } from "react-tooltip";
 export default function SharedPageVideos({
   setOpenSharedPage,
   DataVideo,
+  translateSingleVideo,
 }: any) {
   const [copied, setCopied] = useState(false);
 
@@ -114,8 +115,12 @@ export default function SharedPageVideos({
                 onClick={() => setOpenSharedPage(false)}
                 alt="Close"
               />
-              <h1 className="font-azarMehr font-bold text-[16px] mt-2 text-[#00000096] dark:text-gray w-full text-center">
-                {targetData(data.data.selectedProfileData, "citizen sharing")}
+              <h1 className="font-azarMehr font-bold text-[16px] mt-2 text-[#00000096] dark:text-white w-full text-center">
+                {checkData(
+                  translateSingleVideo.find(
+                    (item: any) => item.name === "share"
+                  )?.translation
+                )}
               </h1>
 
               <div
@@ -168,7 +173,7 @@ export default function SharedPageVideos({
                 >
                   {targetData(data.data.selectedProfileData, "copy")}
                 </p>
-                <p className="py-2 text-[#000] dark:text-[#fff] font-azarMehr xl:text-[16px] lg:text-[16px] md:text-[10px] sm:text-[9px] xs:text-[9px] font-medium">{`https://rgb.irpsc.com/${router.query.lang}/education/category/${DataVideo.category.slug}/${DataVideo.sub_category.slug}/${DataVideo.slug}`}</p>
+                <p className="py-2 text-[#000] dark:text-[#fff] font-azarMehr xl:text-[12px] lg:text-[12px] md:text-[8px] sm:text-[5px]  whitespace-nowrap  xs:text-[9px] font-medium">{`https://rgb.irpsc.com/${router.query.lang}/education/category/${DataVideo.category.slug}/${DataVideo.sub_category.slug}/${DataVideo.slug}`}</p>
               </div>
               {copied && (
                 <ReactTooltip

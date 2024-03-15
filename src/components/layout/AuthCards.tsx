@@ -12,8 +12,9 @@ import IpPage from "@/module/IpPage";
 import CheckIp from "@/module/CheckIp";
 import { SideBarContext } from "../context/SidebarContext";
 
-export default function AuthCards({ setShowAuthCard }: any) {
-  const { modalName, setModalName } = useContext(AuthContext);
+export default function AuthCards({ SetActiveItem }: any) {
+  const { modalName, setModalName, showAuthCard, setShowAuthCard } =
+    useContext(AuthContext);
   const { languageSelected, data } = useContext(LangContext);
   const { dispatch } = useContext(SideBarContext);
   const lang = languageSelected.code;

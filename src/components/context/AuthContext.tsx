@@ -1,12 +1,11 @@
-import { createContext, ReactNode, useState, useEffect } from "react";
-import axios from "axios";
+import { createContext, ReactNode, useState } from "react";
 
 enum ModalNames {
   ActiveEmailPage = "ActiveEmailPage",
   IpPage = "IpPage",
   CheckIp = "CheckIp",
   AuthPage = "AuthPage",
-  none="none"
+  none = "none",
 }
 
 interface AuthContextType {
@@ -17,11 +16,14 @@ interface AuthContextType {
 
   codeUser: string;
   token: string;
+  showAuthCard: boolean;
   setCodeUser: React.Dispatch<React.SetStateAction<string>>;
   setToken: React.Dispatch<React.SetStateAction<string>>;
+  setShowAuthCard: React.Dispatch<React.SetStateAction<boolean>>;
   setModalName: React.Dispatch<
     React.SetStateAction<{ name: string; data: string | null }>
   >;
+  toggleShowAuthCard: () => void;
 }
 
 const initialValue: AuthContextType = {
@@ -32,9 +34,12 @@ const initialValue: AuthContextType = {
 
   token: "",
   codeUser: "",
+  showAuthCard: false,
   setToken: () => {},
   setCodeUser: () => {},
   setModalName: () => {},
+  toggleShowAuthCard: () => null,
+  setShowAuthCard: () => null,
 };
 interface Props {
   children: ReactNode;
@@ -47,14 +52,27 @@ const AuthProvider = ({ children }: Props) => {
     data: string | null;
   }>(initialValue.modalName);
 
-  const [codeUser,setCodeUser]  =useState<string>('');
-   const [token, setToken] = useState<string>("");
+  const [codeUser, setCodeUser] = useState<string>("");
+  const [token, setToken] = useState<string>("");
+  const [showAuthCard, setShowAuthCard] = useState<boolean>(false);
 
- 
+  const toggleShowAuthCard = () => {
+    setShowAuthCard(!showAuthCard);
+  };
 
   return (
     <AuthContext.Provider
-      value={{ modalName, setModalName, codeUser,token,setToken, setCodeUser }}
+      value={{
+        modalName,
+        setModalName,
+        codeUser,
+        token,
+        setToken,
+        setCodeUser,
+        showAuthCard,
+        setShowAuthCard,
+        toggleShowAuthCard,
+      }}
     >
       {children}
     </AuthContext.Provider>

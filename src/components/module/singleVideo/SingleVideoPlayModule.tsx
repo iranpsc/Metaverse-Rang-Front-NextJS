@@ -6,6 +6,7 @@ import {
   PauseIcon,
   VolumeIcon,
   VolumeMuteIcon,
+  FullScreenIcon,
 } from "@/components/svgs/SvgEducation";
 
 const SingleVideoPlayModule = ({ DataVideo }: any) => {
@@ -15,6 +16,7 @@ const SingleVideoPlayModule = ({ DataVideo }: any) => {
   const [showIconPlaying, setShowIconPlaying] = useState<boolean>(true);
   const [progress, setProgress] = useState<number>(0);
   const [isMute, setIsMute] = useState<boolean>(false);
+  const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
 
   const updateProgress = () => {
     if (videoRef.current) {
@@ -95,6 +97,19 @@ const SingleVideoPlayModule = ({ DataVideo }: any) => {
     }
   };
 
+  const toggleFullScreen = () => {
+    if (!isFullscreen) {
+      if (videoRef.current?.requestFullscreen) {
+        videoRef.current.requestFullscreen();
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }
+    }
+    setIsFullscreen(!isFullscreen);
+  };
+
   return (
     <div className="w-full relative  pt-5 bg-white dark:bg-singleVideo-dark-background flex justify-center items-center">
       <div className="relative w-full flex justify-center items-center ">
@@ -143,12 +158,16 @@ const SingleVideoPlayModule = ({ DataVideo }: any) => {
         </div>
       </div>
 
-      <div className="w-[80%] xs:w-[95%] bg-white/80 dark:bg-singleVideo-dark-background/90 flex flex-row justify-center items-center gap-4 h-[65px] xs:h-[45px] absolute bottom-7 rounded-[20px] select-none z-50">
+      <div className="xl:w-[80%] lg:w-[80%] md:w-[90%] sm:w-[95%] xs:w-[95%] bg-white/80 dark:bg-singleVideo-dark-background/90 flex flex-row justify-center items-center xl:gap-4 lg:gap-4 md:gap-4 sm:gap-1 xs:gap-1 h-[65px] xs:h-[45px] absolute bottom-7 rounded-[20px] select-none z-50">
+        <div className="size-[25px]" onClick={toggleFullScreen}>
+          <FullScreenIcon className="size-[24px]  fill-singleVideo-gray dark:fill-white cursor-pointer" />
+        </div>
+
         <p className="font-azarMehr text-singleVideo_medium text-singleVideo-gray dark:text-white font-medium">
           {videoRef.current && formatDuration(videoRef.current.duration)}
         </p>
         <input
-          className="w-[70%] accent-blueLink dark:accent-dark-yellow  border-none outline-none ring-0"
+          className="xl:w-[70%] lg:w-[70%] md:w-[70%] sm:w-[65%] xs:w-[60%] accent-blueLink dark:accent-dark-yellow  border-none outline-none ring-0"
           type="range"
           min={0}
           max={100}

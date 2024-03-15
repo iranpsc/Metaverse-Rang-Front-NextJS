@@ -1,9 +1,48 @@
+import { useContext, useState } from "react";
+import { AuthContext } from "@/components/context/AuthContext";
+import { useToken } from "@/components/context/TokenContext";
 import { SendIcon, View } from "@/components/svgs/SvgEducation";
 import { checkData } from "@/components/utils/targetDataName";
-import { useState } from "react";
+import axios from "axios";
 
-const SingleVideoDetailsModule = ({ DataVideo }: any) => {
+const SingleVideoDetailsModule = ({
+  DataVideo,
+  translateSingleVideo,
+  setRefreshComment,
+}: any) => {
   const [isComplete, setIsComplete] = useState(false);
+  const [comment, SetComment] = useState("");
+  const { code, token } = useToken();
+  const { setShowAuthCard } = useContext(AuthContext);
+  const handlerCreateComment = async (videoId: any) => {
+    if (comment.length > 5) {
+      if (token) {
+        try {
+          const requestData = {
+            content: comment,
+          };
+          const response = await axios.post(
+            `https://api.rgb.irpsc.com/api/tutorials/${videoId}/comments`,
+            requestData,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
+          SetComment("");
+          setRefreshComment(
+            (prevRefreshComment: boolean) => !prevRefreshComment
+          );
+        } catch (error: any) {
+          console.error("خطا:", error?.response?.status);
+        }
+      } else {
+        setShowAuthCard(true);
+      }
+    }
+  };
   return (
     <div className="w-full pt-6 bg-white dark:bg-singleVideo-dark-background rounded-b-[20px] pb-10 ps-5">
       <h1 className="w-full text-start  text-singleVideo_title xs:text-[16px] text-singleVideo-gray dark:text-white font-azarMehr font-bold ">
@@ -12,7 +51,11 @@ const SingleVideoDetailsModule = ({ DataVideo }: any) => {
       <div className="w-full xl:hidden flex flex-row justify-start gap-5 mt-4 items-center bg-white dark:bg-singleVideo-dark-background relative">
         <div className=" flex flex-row justify-center items-center gap-2">
           <p className="font-azarMehr font-normal text-singleVideo_medium  xs:text-[12px]">
-            تاریخ انتشار :{" "}
+            {checkData(
+              translateSingleVideo.find(
+                (item: any) => item.name === "publication date"
+              )?.translation
+            )}
           </p>
           <p className="font-azarMehr font-normal text-singleVideo_medium xs:text-[12px]">
             {checkData(DataVideo.created_at)}
@@ -32,15 +75,19 @@ const SingleVideoDetailsModule = ({ DataVideo }: any) => {
 
         {DataVideo?.description.length > 500 && (
           <>
-            <span className="font-azarMehr font-medium xl:text-[12px]text-gray">
+            <span className="font-azarMehr font-medium xl:text-[12px] text-singleVideo-gray dark:text-white">
               {" "}
               ...
             </span>
             <span
-              className="dark:text-dark-yellow mx-2 text-blueLink font-azarMehr font-medium cursor-pointer 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgTitle  md:text-mdTitle sm:text-smTitle xs:text-smTitle"
+              className="dark:text-dark-yellow mx-2 text-blueLink font-azarMehr font-medium cursor-pointer text-[18px]"
               onClick={() => setIsComplete(!isComplete)}
             >
-              مشاهده بیشتر
+              {checkData(
+                translateSingleVideo.find(
+                  (item: any) => item.name === "view all"
+                )?.translation
+              )}
             </span>
           </>
         )}
@@ -50,9 +97,18 @@ const SingleVideoDetailsModule = ({ DataVideo }: any) => {
         <input
           type="text"
           className="w-full h-full ps-2 pe-[50px] bg-singleVideo-backgroundInput dark:bg-dark-background rounded-[12px] placeholder-singleVideo-textInput focus:outline-none focus:shadow-md"
-          placeholder={checkData(DataVideo?.titles)}
+          placeholder={checkData(
+            translateSingleVideo.find(
+              (item: any) => item.name === "your point of view"
+            )?.translation
+          )}
+          value={comment}
+          onChange={(e) => SetComment(e.target.value)}
         />
-        <SendIcon className="absolute end-8 top-1/4 w-[24px] h-[24px]" />
+        <SendIcon
+          className="absolute end-8 top-1/4 size-[24px] cursor-pointer"
+          onClick={() => handlerCreateComment(DataVideo.id)}
+        />
       </div>
     </div>
   );

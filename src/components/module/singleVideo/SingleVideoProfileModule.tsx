@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { checkData } from "@/components/utils/targetDataName";
 
-const SingleVideoProfileModule = ({ DataVideo }: any) => {
+const SingleVideoProfileModule = ({ DataVideo, translateSingleVideo }: any) => {
   const router = useRouter();
   const { lang } = router.query;
   return (
@@ -33,7 +33,11 @@ const SingleVideoProfileModule = ({ DataVideo }: any) => {
               className="text-blueLink  cursor-pointer text-[14px] xs:text-[12px] 3xl:text-[18px] whitespace-nowrap font-medium hover:font-bold uppercase "
               // onClick={() => pushRgb(item.creator.code)}
             >
-              {checkData(DataVideo.creator.code)}
+              {checkData(
+                translateSingleVideo.find(
+                  (item: any) => item.name === "citizen id"
+                )?.translation
+              )}
               {" : "}
               {checkData(DataVideo.creator.code)}
             </span>
