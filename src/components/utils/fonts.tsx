@@ -45,3 +45,14 @@ export const azarMehr = localFont({
   ],
   variable: "--font-font-azar",
 });
+
+export const rokh = localFont({
+  src: [
+    {
+      path: "./../../../public/fonts/Rokh-Bold.woff2",
+      weight: "950",
+      style: "bold",
+    },
+  ],
+  variable: "--font-font-rokh",
+});

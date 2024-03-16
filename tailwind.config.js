@@ -79,6 +79,7 @@ module.exports = {
     extend: {
       fontFamily: {
         azarMehr: ["var(--font-font-azar)"],
+        rokh: ["var(--font-font-rokh)"],
       },
       boxShadow: {
         "3xl": "0px 35px 60px 15px rgba(0, 0, 0, 0.6)",

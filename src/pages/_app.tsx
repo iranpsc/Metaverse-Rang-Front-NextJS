@@ -8,6 +8,7 @@ import AuthProvider from "@/context/AuthContext";
 import { TokenProvider } from "@/components/context/TokenContext";
 //FONTS
 import { azarMehr } from "@/utils/fonts";
+import { rokh } from "@/utils/fonts";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -15,7 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <LangProvider>
         <TokenProvider>
           <AuthProvider>
-            <main className={`${azarMehr.variable}`}>
+            <main className={`${azarMehr.variable} ${rokh.variable}`}>
               <SidebarProvider>
                 <Component {...pageProps} />
               </SidebarProvider>

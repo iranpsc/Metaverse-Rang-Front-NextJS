@@ -17,12 +17,22 @@ import LastContent from "@/components/templates/firstpage/LastContent";
 import DetailsEducationSection from "@/components/templates/firstpage/DetailsEducationSection";
 import VersionSection from "@/components/templates/firstpage/VersionSection";
 import Image from "next/image";
+import BaseLayout from "@/components/BaseLayout";
 
 type IndexProps = {};
 
-const Index: React.FC<IndexProps> = ({ footerTabs }: any) => {
+const Index: React.FC<IndexProps> = ({
+  profileData,
+  titleData,
+  nameSite,
+  localSite,
+  error,
+  nameUser,
+  footerTabs,
+}: any) => {
   const { languageSelected } = useContext(LangContext);
   const [themeDataActive, setThemeDataActive] = useState<any>("dark");
+  const [showLogOut, setShowLogOut] = useState<boolean>(false);
 
   return (
     <>
@@ -33,7 +43,12 @@ const Index: React.FC<IndexProps> = ({ footerTabs }: any) => {
         dir={languageSelected.dir}
         className={`overflow-auto relative `}
       >
-        <BaseLayoutEducation>
+        <BaseLayout
+          profileData={profileData}
+          error={error}
+          titleData={titleData}
+          setShowLogOut={setShowLogOut}
+        >
           <section
             className={`w-full relative flex  flex-col justify-start overflow-x-clip overflow-y-auto items-center bg-[#f8f8f8] dark:bg-[#2F2D28] bg-opacity20 `}
           >
@@ -132,7 +147,7 @@ const Index: React.FC<IndexProps> = ({ footerTabs }: any) => {
               <DynamicFooter footerTabs={footerTabs} />
             </div>
           </section>
-        </BaseLayoutEducation>
+        </BaseLayout>
       </section>
     </>
   );

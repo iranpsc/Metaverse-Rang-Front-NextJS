@@ -13,9 +13,9 @@ const HeaderFirstPage = () => {
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.3, delay: 0.3 }}
-          className="w-[50%] text-center font-bold text-[56px] text-dark-yellow mt-0 whitespace-nowrap"
+          className="w-[50%] text-center font-bold text-[56px] text-dark-yellow whitespace-nowrap font-rokh mt-5"
         >
-          متاورس رنک
+          متاورس رنگ
         </motion.h1>
         <motion.div
           initial={{ opacity: 0, scale: 0 }}
