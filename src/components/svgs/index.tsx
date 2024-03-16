@@ -22,3 +22,11 @@ export { default as Dashet } from "../../../public/svg/dashet.svg";
 export { default as Tick } from "../../../public/menu/tick-lang.svg";
 
 export { default as Shahrvand } from "../../../public/svg/shahrvand.svg";
+
+export { default as Vector } from "../../../public/svg/firstpage/vector.svg";
+export { default as Arrow } from "../../../public/svg/firstpage/arrow.svg";
+export { default as Frame1 } from "../../../public/svg/firstpage/frame1.svg";
+export { default as Frame2 } from "../../../public/svg/firstpage/frame2.svg";
+export { default as ArrowRight } from "../../../public/svg/firstpage/arrow-right.svg";
+export { default as ButtonClick } from "../../../public/svg/firstpage/button.svg";
+export { default as Discord } from "../../../public/svg/firstpage/discord.svg";

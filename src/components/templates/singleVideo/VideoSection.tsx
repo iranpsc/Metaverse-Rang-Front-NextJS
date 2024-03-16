@@ -9,6 +9,7 @@ import NewEducationSectionTemp from "./NewEducationSectionTemp";
 import SingleVideoSlugModule from "@/components/module/singleVideo/SingleVideoSlugModule";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import DynamicDetails from "@/components/module/singleVideo/DynamicDetails";
 
 const VideoSection = ({
   translateSingleVideo,
@@ -51,7 +52,7 @@ const VideoSection = ({
             DataVideo={DataVideo}
             translateSingleVideo={translateSingleVideo}
           />
-          <SingleVideoDetailsModule
+          <DynamicDetails
             DataVideo={DataVideo}
             translateSingleVideo={translateSingleVideo}
             setRefreshComment={setRefreshComment}

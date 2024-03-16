@@ -83,7 +83,16 @@ const CommentList = ({
                     onChange={(e) => handleChange(e, setEditedText)}
                     className="pe-10 w-fit h-fit"
                   />
-                  <button type="submit">ذخیره</button>
+                  <button
+                    className="bg-dark-yellow px-3 py-1 ms-4 rounded-xl text-black"
+                    type="submit"
+                  >
+                    {checkData(
+                      translateSingleVideo.find(
+                        (item: any) => item.name === "edit"
+                      )?.translation
+                    )}
+                  </button>
                 </form>
               ) : (
                 <p className="text-[#1A1A18] dark:text-white  text-start cursor-pointer font-azarMehr text-[16px] xs:text-[12px] font-normal ">

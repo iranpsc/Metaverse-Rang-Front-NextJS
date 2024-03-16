@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,memo } from "react";
 import { checkData } from "@/components/utils/targetDataName";
 import CommentList from "./CommentList";
 import SyncLoader from "react-spinners/SyncLoader";

@@ -67,10 +67,9 @@ export const DashboardHeaderModule = ({
         >
           {shows && (
             <p
-              className={`w-full  font-azarMehr font-normal text-[16px] text-justify `}
-            >
-              {categoryData.description}
-            </p>
+              className={`w-full font-azarMehr font-normal text-[16px] text-justify `}
+              dangerouslySetInnerHTML={{ __html: categoryData.description }}
+            />
           )}
         </div>
       </div>
