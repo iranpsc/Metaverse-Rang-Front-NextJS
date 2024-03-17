@@ -115,7 +115,7 @@ const SingleVideoPlayModule = ({ DataVideo }: any) => {
       <div className="relative w-full flex justify-center items-center ">
         <video
           ref={videoRef}
-          className="w-full h-[700px] xs:h-[500px]  rounded-xl mx-10 object-fill z-30"
+          className="w-full xl:h-[700px] lg:h-[600px] md:h-[500px] sm:h-[300px] xs:h-[300px]  rounded-xl mx-10 object-fill z-30"
           src={DataVideo.video_url}
           poster={DataVideo.image_url}
           onPlay={startProgressLoop}
@@ -164,9 +164,12 @@ const SingleVideoPlayModule = ({ DataVideo }: any) => {
         </div>
 
         <p className="font-azarMehr text-singleVideo_medium text-singleVideo-gray dark:text-white font-medium">
-          {videoRef.current && formatDuration(videoRef.current.duration)}
+          {videoRef.current
+            ? formatDuration(videoRef.current.duration)
+            : "00:00"}
         </p>
         <input
+          dir="ltr"
           className="xl:w-[70%] lg:w-[70%] md:w-[70%] sm:w-[65%] xs:w-[60%] accent-blueLink dark:accent-dark-yellow  border-none outline-none ring-0"
           type="range"
           min={0}

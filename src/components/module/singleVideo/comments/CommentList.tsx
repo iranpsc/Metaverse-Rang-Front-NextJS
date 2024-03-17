@@ -27,6 +27,7 @@ const CommentList = ({
   const { setShowAuthCard } = useContext(AuthContext);
   const [editMode, setEditMode] = useState(0);
   const [editedText, setEditedText] = useState("");
+  const [edited, setEdited] = useState(false);
 
   return (
     <>
@@ -57,12 +58,15 @@ const CommentList = ({
                   translateSingleVideo={translateSingleVideo}
                   setEditMode={setEditMode}
                   setEditedText={setEditedText}
+                  setEdited={setEdited}
                 />
               )}
             </div>
             {/* Edit Module */}
             <div className="w-full mt-5">
-              {editMode === itemComment.id && code === itemComment.user.code ? (
+              {!edited &&
+              editMode === itemComment.id &&
+              code === itemComment.user.code ? (
                 <form
                   onSubmit={(e: any) =>
                     handleSubmit(

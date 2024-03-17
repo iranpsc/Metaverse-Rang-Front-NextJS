@@ -36,7 +36,12 @@ export default function ListDataEducation({ data }: any) {
                 className=" w-full h-full hover:blur-none transition-all duration-150 ease-in-out rounded-t-[10px]  object-cover"
               />
               <div className="w-full h-full backdrop-blur-[3px] bg-black/20 hover:backdrop-blur-none xs:backdrop-blur-none absolute z-0 top-0 flex justify-center items-center">
-                <Video className="w-[78px] h-[78px] p-3 fill-blueLink dark:fill-dark-yellow  rounded-full bg-white/80" />
+                <Link
+                  className="w-fit"
+                  href={`/${lang}/education/category/${item.category.slug}/${item.sub_category.slug}/${item.slug}`}
+                >
+                  <Video className="w-[78px] h-[78px] p-3 fill-blueLink dark:fill-dark-yellow  rounded-full bg-white/80" />
+                </Link>
               </div>
             </div>
 

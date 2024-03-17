@@ -40,7 +40,7 @@ const VideoSection = ({
   return (
     <>
       <div className="w-full bg-[#F5F5F5] dark:bg-black grid grid-cols-12   xs:flex xs:flex-col select-none ">
-        <div className="w-auto xl:max-h-[2050px] lg:max-h-[2050px] md:h-full sm:h-full xs:h-full  xl:mx-10 lg:mx-5 md:md-2 xs:mx-1 xl:col-span-9 lg:col-span-9 sm:col-span-12 h-fit flex flex-col justify-start items-center">
+        <div className="w-auto xl:max-h-fit lg:max-h-fit md:h-full sm:h-full xs:h-full  xl:mx-10 lg:mx-5 md:md-2 xs:mx-1 xl:col-span-9 lg:col-span-9 sm:col-span-12 h-fit flex flex-col justify-start items-center">
           <SingleVideoSlugModule DataVideo={DataVideo} />
           <DynamicVideoPlayer DataVideo={DataVideo} />
           <SingleVideoDashboardModule

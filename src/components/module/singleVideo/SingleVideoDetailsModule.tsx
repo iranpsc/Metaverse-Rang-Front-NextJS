@@ -68,41 +68,40 @@ const SingleVideoDetailsModule = ({
           <View className="stroke-singleVideo-gray dark:stroke-white  xs:size-[24px]" />
         </div>
       </div>
-      <p className="w-full text-start h-fit transition-all duration-300 ease-in-out text-[22px] xs:text-[16px] text-singleVideo-gray dark:text-white font-azarMehr font-normal mt-5">
-        {!isComplete ? (
-          <span
-            dangerouslySetInnerHTML={{
-              __html: checkData(DataVideo.description.slice(0, 500)),
-            }}
-          />
-        ) : (
-          <span
-            dangerouslySetInnerHTML={{
-              __html: checkData(DataVideo.description),
-            }}
-          />
-        )}
 
-        {DataVideo?.description.length > 500 && (
-          <>
-            <span className="font-azarMehr font-medium xl:text-[12px] text-singleVideo-gray dark:text-white">
-              {" "}
-              ...
-            </span>
-            <span
-              className="dark:text-dark-yellow mx-2 text-blueLink font-azarMehr font-medium cursor-pointer text-[18px]"
-              onClick={() => setIsComplete(!isComplete)}
-              dangerouslySetInnerHTML={{
-                __html: checkData(
-                  translateSingleVideo.find(
-                    (item: any) => item.name === "view all"
-                  )?.translation
-                ),
-              }}
-            />
-          </>
-        )}
-      </p>
+      {!isComplete ? (
+        <p
+          className="w-full text-start h-fit transition-all duration-300 ease-in-out text-[22px] xs:text-[16px] text-singleVideo-gray dark:text-white font-azarMehr font-normal mt-5"
+          dangerouslySetInnerHTML={{
+            __html: checkData(DataVideo.description.slice(0, 500)),
+          }}
+        />
+      ) : (
+        <p
+          className="w-full text-start h-fit  transition-all duration-300 ease-in-out text-[22px] xs:text-[16px] text-singleVideo-gray dark:text-white font-azarMehr font-normal mt-5"
+          dangerouslySetInnerHTML={{
+            __html: checkData(DataVideo.description),
+          }}
+        />
+      )}
+
+      {!isComplete && DataVideo?.description.length > 500 && (
+        <>
+          <span className="font-azarMehr font-medium xl:text-[12px] text-singleVideo-gray dark:text-white">
+            ...
+          </span>
+          <span
+            className="dark:text-dark-yellow mx-2 text-blueLink font-azarMehr font-medium cursor-pointer text-[18px]"
+            onClick={() => setIsComplete(!isComplete)}
+          >
+            {checkData(
+              translateSingleVideo.find((item: any) => item.name === "view all")
+                ?.translation
+            )}
+          </span>
+        </>
+      )}
+
       <div className="relative mt-10 px-3 w-[640px] xs:w-[95%] h-[48px]">
         <input
           type="text"

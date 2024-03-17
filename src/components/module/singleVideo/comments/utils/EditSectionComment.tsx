@@ -15,6 +15,7 @@ const EditSectionComment = ({
   translateSingleVideo,
   setEditMode,
   setEditedText,
+  setEdited,
 }: any) => {
   const { code, token } = useToken();
 

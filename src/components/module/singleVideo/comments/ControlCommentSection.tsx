@@ -3,7 +3,6 @@ import { checkData } from "@/components/utils/targetDataName";
 import { handleClick, handlerDeleteComments } from "./utils/helper";
 import { useToken } from "@/components/context/TokenContext";
 
-
 const ControlCommentSection = ({
   itemComment,
   setRefreshComment,
@@ -57,6 +56,5 @@ const ControlCommentSection = ({
     </>
   );
 };
-
 
 export default ControlCommentSection;
