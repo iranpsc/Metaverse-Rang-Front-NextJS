@@ -1,9 +1,8 @@
-"use client";
 import { Arrow, Discord, Vector } from "@/components/svgs";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-export default function HeaderFirstPage() {
+const HeaderFirstPage = () => {
   return (
     <>
       <div
@@ -81,4 +80,6 @@ export default function HeaderFirstPage() {
       </div>
     </>
   );
-}
+};
+
+export default HeaderFirstPage;

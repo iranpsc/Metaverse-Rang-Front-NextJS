@@ -1,9 +1,7 @@
-"use client";
+import React, { useState, useEffect } from "react";
+import { azarMehr } from "./../../utils/fonts";
 
-import { azarMehr } from "@/components/utils/fonts";
-import { useState, useEffect } from "react";
-
-export default function TimerSection() {
+function TimerSection() {
   const [timeRemaining, setTimeRemaining] = useState(calculateTimeRemaining());
 
   function calculateTimeRemaining() {
@@ -74,3 +72,5 @@ export default function TimerSection() {
     </div>
   );
 }
+
+export default TimerSection;
