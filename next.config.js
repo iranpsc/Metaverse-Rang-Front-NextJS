@@ -16,7 +16,7 @@ module.exports = {
       "irpsc.com",
     ],
   },
-  experimental: { esmExternals: true, serverActions: true },
+ experimental: { esmExternals: true, serverActions: true,appDir: true },
   async rewrites() {
     return [
       {

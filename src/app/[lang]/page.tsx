@@ -28,7 +28,7 @@ export default async function LangPage({
   const mainData = await getMainFile(langData);
   return (
     // <>
-    <div className="flex">
+    <div className="flex" dir={selectedLangDir}>
       <SideBar
         languageSelected={languageSelected}
         langData={langData}
