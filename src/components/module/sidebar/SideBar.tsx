@@ -26,7 +26,6 @@ export default function SideBar({
   const tabsMenu = modalsProfile.find(
     (item: any) => item.name === "menu"
   ).fields;
-  console.log("tabsMenu", tabsMenu);
 
   return (
     <>

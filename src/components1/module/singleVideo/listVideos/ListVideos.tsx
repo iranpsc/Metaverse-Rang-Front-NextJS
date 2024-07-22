@@ -9,7 +9,6 @@ import Link from "next/link";
 const ListVideos = ({ DataVideos }: any) => {
   const router = useRouter();
   const { lang, category, subcategory } = router.query;
-  console.log(category, subcategory);
 
   const pusherSubcategory = (slugVideo: any) => {
     router.push(

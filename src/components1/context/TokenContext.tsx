@@ -52,7 +52,6 @@ export const TokenProvider: React.FC<Props> = ({ children }: Props) => {
           },
         }
       );
-      console.log(response.data);
     } catch (error: any) {
       console.error("خطا:", error?.response?.status);
     }

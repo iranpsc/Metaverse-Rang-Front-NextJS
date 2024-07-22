@@ -6,13 +6,11 @@ import ProfileDetailsInteresting from "@/module/profileDetails/ProfileDetailsInt
 import ProfileReadMore from "../module/profileDetails/ProfileReadMore";
 
 export default function ProfileDetails({ setShowModal, setDataModal }: any) {
-  const { data, profileData ,languageSelected} = useContext(LangContext);
+  const { data, profileData, languageSelected } = useContext(LangContext);
 
-   const x = profileData?.customs?.prediction;
-  
-  
+  const x = profileData?.customs?.prediction;
+
   const submitModalCard = (title: any, data: any, type: string) => {
-    
     if (data) {
       setDataModal({
         title,
@@ -64,7 +62,7 @@ export default function ProfileDetails({ setShowModal, setDataModal }: any) {
         profileData?.customs?.occupation &&
         profileData.customs.occupation.length > 23
           ? profileData.customs.occupation.slice(0, 23) + " ... "
-          :" ... "+ profileData?.customs?.occupation || "--",
+          : " ... " + profileData?.customs?.occupation || "--",
       fValue: profileData?.customs?.occupation,
     },
     {

@@ -8,7 +8,6 @@ export const handlerLikeComments = async (
   setShowAuthCard: any
 ) => {
   if (token) {
-    console.log(token);
     try {
       const requestData = {
         data: " ",

@@ -183,12 +183,10 @@ export default function SideBarEducation({
 //       languageSelectedUrl = "https://rgb.irpsc.com/lang/fa.json";
 //     }
 //     const res = await axios.get(languageSelectedUrl);
-//     console.log(res);
 
 //     return {
 //       props: {},
 //     };
 //   } catch (error) {
-//     console.log(error);
 //   }
 // }

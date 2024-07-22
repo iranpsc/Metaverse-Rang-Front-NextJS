@@ -12,39 +12,20 @@ import LastContent from "@/components/templates/firstpage/LastContent";
 import DetailsEducationSection from "@/components/templates/firstpage/DetailsEducationSection";
 import VersionSection from "@/components/templates/firstpage/VersionSection";
 import SideBar from "@/components/module/sidebar/SideBar";
-
+import { getTransletion, getMainFile } from "@/components/utils/actions";
 export default async function LangPage({
   params,
 }: {
-  params: { lang: String };
+  params: { lang: "en" | "fa" };
 }) {
-  async function getTransletion() {
-    const res = await fetch("https://admin.rgb.irpsc.com/api/translations", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await res.json();
-
-    return data.data.find((item: any) => item.code === languageSelected);
-  }
-  async function getMainFile() {
-    const res = await fetch(langData.file_url, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await res.json();
-    return data;
-  }
   //
   const languageSelected = params.lang === "en" ? "en" : "fa";
   const lang = params.lang;
   const selectedLangDir = lang === "en" ? "ltr" : "rtl";
 
   //
-  const langData = await getTransletion();
-  const mainData = await getMainFile();
+  const langData = await getTransletion(languageSelected);
+  const mainData = await getMainFile(langData);
   return (
     // <>
     <div className="flex">
