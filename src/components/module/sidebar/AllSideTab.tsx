@@ -32,7 +32,7 @@ export default function SideBarContent({
 }) {
   const [modalShow, setModalShow] = useState(false);
   const [modalData, setModalData] = useState({});
-  const [activeNav, setActiveNav] = useState(-1);
+  const [activeNav, setActiveNav] = useState(1);
   const closeModal = () => {
     setModalShow(false);
   };
