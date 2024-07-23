@@ -13,6 +13,7 @@ export default function ProfileDetails({
   languageSelected,
 }: any) {
   // const { data, profileData.data, languageSelected } = useContext(LangContext);
+  console.log("profileDataprofileDataprofileData", profileData);
 
   const x = profileData.data?.customs?.prediction;
 
@@ -98,7 +99,7 @@ export default function ProfileDetails({
     },
   ];
   return (
-    <div className=" 3xl:h-screen xl:h-screen lg:h-screen md:h-fit sm:h-fit xs:h-fit relative flex flex-col justify-between 3xl:gap-[10px] xl:gap-[6px] lg:gap-[4px] sm:gap-[10px] xs:gap-[10px] items-center dark:bg-black bg-[#e9eef8] ">
+    <div className=" 3xl:h-screen xl:h-screen lg:h-screen md:h-fit sm:h-fit xs:h-fit flex flex-col justify-between 3xl:gap-[10px] xl:gap-[6px] lg:gap-[4px] sm:gap-[10px] xs:gap-[10px] items-center dark:bg-black bg-[#e9eef8] ">
       <SecondDetails itemsProfileDetails={itemsProfileDetails} />
 
       <DetailsInterest

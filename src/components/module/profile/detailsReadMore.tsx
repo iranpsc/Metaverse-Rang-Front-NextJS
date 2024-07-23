@@ -1,23 +1,25 @@
-// import { LangContext } from "@/context/LangContext";
+"use client";
+import ModalCard from "@/components/templates/ModalCard";
 import { targetData } from "@/utils/targetDataName";
-import { useContext } from "react";
+import { AnimatePresence } from "framer-motion";
+import { useState } from "react";
 
 const ProfileReadMore = ({
-  setShowModal,
-  setDataModal,
+  // setShowModal,
+  // setDataModal,
   profileData,
   userProperty,
 }: any) => {
-  // const { data, profileData.data } = useContext(LangContext);
-
+  const [showModal, setShowModal] = useState<Boolean>(false);
+  const [dataModal, setDataModal] = useState({});
   const submitModalCard = (title: any, data: any, type: string) => {
     if (data) {
-      setDataModal({
-        title,
-        desc: data,
-        type,
-      });
       setShowModal(true);
+      setDataModal({
+        data: data,
+        type: type,
+        title: title,
+      });
     } else {
     }
   };
@@ -121,6 +123,16 @@ const ProfileReadMore = ({
           </span>
         </div>
       </section>
+      <AnimatePresence>
+        {showModal && (
+          <ModalCard
+            dataModal={dataModal}
+            setShowModal={setShowModal}
+            profileData={profileData}
+            userProperty={userProperty}
+          />
+        )}
+      </AnimatePresence>
     </>
   );
 };

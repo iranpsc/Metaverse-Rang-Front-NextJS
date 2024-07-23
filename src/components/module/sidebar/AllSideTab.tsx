@@ -63,7 +63,7 @@ export default function SideBarContent({
       {modalShow && <Modal dataObject={modalData} close={closeModal} />}
       <ul
         id="light-scrollbar"
-        className={`h-full list-none overflow-y-scroll no-scrollbar relative pt-3 w-full bg-white dark:bg-dark-background transition-all duration-300 ease-linear max-lg:w-fit`}
+        className={`h-full z-[1] list-none overflow-y-scroll no-scrollbar relative pt-3 w-full bg-white dark:bg-dark-background transition-all duration-300 ease-linear max-lg:w-fit`}
       >
         {tabsMenu &&
           tabsMenu.map((item: MenuDataItem, i: number) => (

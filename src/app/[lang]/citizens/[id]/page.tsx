@@ -52,12 +52,7 @@ export default async function citizenSinglePage({
     (tabs: any) => tabs.name === "home"
   ).fields;
 
-  console.log("profileData________1", profileData);
-
-  //   const [showModal, setShowModal] = useState<boolean>(false);
-  //   const [showSharedPage, setShowSharedPage] = useState<boolean>(false);
-  // const [showLogOut, setShowLogOut] = useState<boolean>(false);
-  //   const [dataModal, setDataModal] = useState({ title: "", desc: "" });
+  console.log("userProperty---------------------------1111", userProperty);
 
   let titleData = "";
   let nameUser = "";
@@ -67,21 +62,21 @@ export default async function citizenSinglePage({
   if (languageSelected === "fa") {
     nameSite = "متاورس رنگ";
     localSite = "fa_IR";
-    if (profileData.kyc?.fname) {
-      nameUser = `${profileData.kyc.fname} ${profileData.kyc.lname}`;
-      titleData = `${profileData.kyc.fname} ${profileData.kyc.lname} | ${profileData.code}`;
-    } else if (profileData.name) {
-      titleData = `${profileData.name} | ${profileData.code}`;
-      nameUser = `${profileData.name} `;
+    if (profileData.data.kyc?.fname) {
+      nameUser = `${profileData.data.kyc.fname} ${profileData.data.kyc.lname}`;
+      titleData = `${profileData.data.kyc.fname} ${profileData.data.kyc.lname} | ${profileData.data.code}`;
+    } else if (profileData.data.name) {
+      titleData = `${profileData.data.name} | ${profileData.data.code}`;
+      nameUser = `${profileData.data.name} `;
     } else {
       titleData = "متاورس رنگ";
     }
   } else if (languageSelected === "en") {
     localSite = "en-US";
     nameSite = "Metaverse Rgb";
-    if (profileData.name) {
-      titleData = `${profileData.name} | ${profileData.code}`;
-      nameUser = `${profileData.name} `;
+    if (profileData.data.name) {
+      titleData = `${profileData.data.name} | ${profileData.data.code}`;
+      nameUser = `${profileData.data.name} `;
     } else {
       titleData = "Metaverse Rgb";
     }
@@ -139,7 +134,7 @@ export default async function citizenSinglePage({
           <ShredPage
                 showSharedPage={showSharedPage}
                 setShowSharedPage={setShowSharedPage}
-                profileData={profileData}
+                profileData.data={profileData.data}
             />
           )}
         </AnimatePresence> */}
@@ -194,10 +189,10 @@ export default async function citizenSinglePage({
             <Profile
               profileData={profileData}
               titleData={titleData}
-              // setShowSharedPage={setShowSharedPage}
               langData={langData}
               nameUser={nameUser}
               userProperty={userProperty}
+              params={params}
             />
           </section>
           <div
@@ -211,8 +206,6 @@ export default async function citizenSinglePage({
                  "
           >
             <ProfileDetails
-              // setShowModal={setShowModal}
-              // setDataModal={setDataModal}
               profileData={profileData}
               userProperty={userProperty}
             />
@@ -228,8 +221,6 @@ export default async function citizenSinglePage({
             "
           >
             <ProfileAbout
-              // setShowModal={setShowModal}
-              // setDataModal={setDataModal}
               profileData={profileData}
               userProperty={userProperty}
               titleData={titleData}

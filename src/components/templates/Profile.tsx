@@ -10,6 +10,7 @@ import { Tooltip as ReactTooltip } from "react-tooltip";
 import { CopyIcon } from "../svgs/SvgCategories";
 import ProfileMainDetails from "../module/profile/ProfileMainDetails";
 import ProfileGems from "../module/profile/ProfileGems";
+import ProfileHeaderMobile from "../module/profile/ProfileHeaderMobile";
 
 export default async function Profile({
   profileData,
@@ -48,13 +49,14 @@ export default async function Profile({
         profileData={profileData}
         profileName={profileName}
       /> */}
-      {/*   <div className="w-full h-fit ">
+      <div className="w-full h-fit ">
         <ProfileTopMobile
-          profileName={profileName}
           titleData={titleData}
           nameUser={nameUser}
+          profileData={profileData}
+          params={params}
         />
-      </div> */}
+      </div>
       <div className="w-full h-fit ">
         <ProfileImages
           profileData={profileData}

@@ -1,30 +1,25 @@
 "use client";
-// import { useContext } from "react";
-// import { useRouter } from "next/router";
+import ModalCard from "@/components/templates/ModalCard";
 import Image from "next/image";
-// import { LangContext } from "@/context/LangContext";
+
 import { targetData } from "@/utils/targetDataName";
 import { motion } from "framer-motion";
-
+import { AnimatePresence } from "framer-motion";
+import { useState } from "react";
 export default function ProfileAbout({
-  setShowModal,
-  setDataModal,
   titleData,
   userProperty,
   profileData,
   params,
 }: any) {
-  // const { data, profileData.data } = useContext(LangContext);
-
-  // const router = useRouter();
-  // const { lang, userId } = router.query;
   const userId = params.id;
+  const [showModal, setShowModal] = useState<Boolean>(false);
+  const [dataModal, setDataModal] = useState({});
 
   const submitModalCart = (item: any) => {
     setDataModal({
       title: targetData(userProperty, "about me"),
-
-      desc: item,
+      data: item,
     });
     setShowModal(true);
   };
@@ -102,6 +97,16 @@ export default function ProfileAbout({
           </motion.div>
         )}
       </div>
+      <AnimatePresence>
+        {showModal && (
+          <ModalCard
+            dataModal={dataModal}
+            setShowModal={setShowModal}
+            profileData={profileData}
+            userProperty={userProperty}
+          />
+        )}
+      </AnimatePresence>
     </section>
   );
 }
