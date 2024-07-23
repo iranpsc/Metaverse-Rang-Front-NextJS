@@ -1,10 +1,11 @@
 import Head from "next/head";
 import { translateFooter } from "@/components/utils/education";
-import TopTrainers from "src/components/templates/education/TopTrainers";
-import DynamicFooter from "@/components/templates/education/DynamicFooter";
-import DynamicListEducation from "@/components/templates/education/DynamicListEducation";
-import Categories from "@/components/templates/education/Categories";
-import SearchComponent from "@/components/templates/education/categories/SearchComponent";
+import TopTrainers from "src/components/module/education/TopTrainers";
+import DynamicFooter from "@/components/module/education/DynamicFooter";
+// import DynamicListEducation from "@/components/module/education/DynamicListEducation";
+import DynamicListEducation from "@/components/module/education/ListEducation";
+import Categories from "@/components/module/education/Categories";
+import SearchComponent from "@/components/module/education/categories/SearchComponent";
 
 export default async function EducationPage({
   params,
@@ -24,9 +25,7 @@ export default async function EducationPage({
 
       const categoriesData = await resCategories.json();
 
-      const resVideos = await fetch(
-        `https://api.rgb.irpsc.com/api/tutorials?page=1`
-      );
+    
       if (languageSelected === "en") {
         localSite = "en-US";
         nameSite = "Metaverse Rgb";
@@ -54,11 +53,11 @@ export default async function EducationPage({
         (item: any) => item.name === "our-systems"
       ).fields;
 
-      const videosData = await resVideos.json();
+    
 
       return {
         categoriesData,
-        videosData,
+    
         footerTabs,
         translateData,
         localSite,
@@ -66,10 +65,17 @@ export default async function EducationPage({
       };
     } catch (error) {}
   }
+ async function getVideos(page:any| 1){
+  const resVideos = await fetch(
+    `https://api.rgb.irpsc.com/api/tutorials?page=${page}`
+  );
+  const videosData = await resVideos.json();
+  return videosData
+  }
   const data = await fetchData();
 
   const categoriesData = data?.categoriesData.data;
-  const videosData = data?.videosData;
+  const videosData = await getVideos(1)
   const translateData = data?.translateData;
   const footerTabs = data?.footerTabs;
   const localSite = data?.localSite;
@@ -201,12 +207,12 @@ export default async function EducationPage({
             translateData={translateData}
             languageSelected={languageSelected}
           />
-          {/* <DynamicListEducation
-              loadMore={loadMore}
-              videosData={videos}
-              loading={loading}
+          <DynamicListEducation
+              //  getVideos={getVideos}
               translateData={translateData}
-            /> */}
+              videosData={videosData}
+              languageSelected={languageSelected}
+            />
           <div className="flex flex-col justify-center items-center">
             <DynamicFooter footerTabs={footerTabs} />
           </div>
