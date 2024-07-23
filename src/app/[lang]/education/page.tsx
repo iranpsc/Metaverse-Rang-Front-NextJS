@@ -2,7 +2,6 @@ import Head from "next/head";
 import { translateFooter } from "@/components/utils/education";
 import TopTrainers from "src/components/module/education/TopTrainers";
 import DynamicFooter from "@/components/module/education/DynamicFooter";
-// import DynamicListEducation from "@/components/module/education/DynamicListEducation";
 import DynamicListEducation from "@/components/module/education/ListEducation";
 import Categories from "@/components/module/education/Categories";
 import SearchComponent from "@/components/module/education/categories/SearchComponent";
@@ -57,7 +56,6 @@ export default async function EducationPage({
 
       return {
         categoriesData,
-    
         footerTabs,
         translateData,
         localSite,
