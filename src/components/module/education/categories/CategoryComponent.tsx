@@ -1,21 +1,20 @@
+"use client"
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { useRouter } from "next/router";
 
-import DynamicFooter from "@/components/templates/education/DynamicFooter";
+import DynamicFooter from "@/components/module/education/DynamicFooter";
 import ListSubCategories from "./ListSubCategories";
-import { DashboardHeaderModule } from "@/components/module/categories/DashboardHeaderModule";
-import SlugsModule from "@/components/module/categories/SlugsModule";
+import { DashboardHeaderModule } from "@/components/module/education/categories/DashboardHeaderModule";
+import SlugsModule from "@/components/module/education/categories/SlugsModule";
 import { motion, useAnimation } from "framer-motion";
 const CategoryComponent = ({
   CategoryData,
   translateData,
   translates,
   footerTabs,
+  params,
 }: any) => {
-  const router = useRouter();
-  const { Category } = router.query;
 
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState<boolean>(false);
@@ -79,7 +78,7 @@ const CategoryComponent = ({
         </div>
 
         <div className="w-full h-fit pt-5 flex flex-col justify-center items-center bg-white dark:bg-black  transition-all duration-300 easy-in-out">
-          <SlugsModule categoryName={CategoryData.name} />
+          <SlugsModule categoryName={CategoryData.name} params={params} />
           <h1 className="w-full ms-5 mt-10 font-bold font-azarMehr text-[22px] text-start">
             {
               translates.find(
@@ -93,6 +92,7 @@ const CategoryComponent = ({
             CategoryData={CategoryData}
             loading={loading}
             translateData={translateData}
+            
           />
           <DynamicFooter footerTabs={footerTabs} />
         </div>

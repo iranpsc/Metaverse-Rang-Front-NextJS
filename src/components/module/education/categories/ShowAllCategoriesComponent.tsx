@@ -1,6 +1,7 @@
+"use client"
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import Masonry from "react-masonry-css";
 
@@ -8,23 +9,16 @@ import { Like, Dislike, View } from "@/components/svgs/SvgEducation";
 import { formatNumber } from "@/components/utils/education";
 import randomcolor from "randomcolor";
 
-const ShowAllCategoriesComponent = ({ categoriesData }: any) => {
-  const [randomHeights, setRandomHeights] = useState([]);
+export default function ShowAllCategoriesComponent({ categoriesData ,languageSelected }: any){
   const [colors, setColors] = useState([]);
 
   const router = useRouter();
-  const { lang } = router.query;
+  const  lang  = languageSelected;
   const pusher = (link: string) => {
     router.push(`/${lang}/education/category/${link}`);
   };
 
-  useEffect(() => {
-    const heights = ["566px", "598px", "388px", "520px", "422px", "464px"];
-    const randomHeights = categoriesData.map(
-      () => heights[Math.floor(Math.random() * heights.length)]
-    );
-    setRandomHeights(randomHeights);
-  }, [categoriesData]);
+
 
   const breakpointColumnsObj = {
     default: 3,
@@ -152,4 +146,4 @@ const ShowAllCategoriesComponent = ({ categoriesData }: any) => {
   );
 };
 
-export default ShowAllCategoriesComponent;
+
