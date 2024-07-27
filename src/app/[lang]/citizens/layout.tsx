@@ -1,5 +1,6 @@
 import SideBar from "@/components/module/sidebar/SideBar";
 import { getTransletion, getMainFile } from "@/components/utils/actions";
+import useServerDarkMode from "src/hooks/use-server-dark-mode";
 
 export default async function CitizensLayout({
   children,
@@ -11,6 +12,7 @@ export default async function CitizensLayout({
   const languageSelected = params.lang === "en" ? "en" : "fa";
   const lang = params.lang;
   const selectedLangDir = lang === "en" ? "ltr" : "rtl";
+  const defaultTheme = useServerDarkMode();
 
   //
   const langData = await getTransletion(languageSelected);
@@ -21,6 +23,7 @@ export default async function CitizensLayout({
         languageSelected={languageSelected}
         langData={langData}
         mainData={mainData}
+        defaultTheme={defaultTheme}
       />
       <div className={`no-scrollbar h-screen overflow-y-auto relative`}>
         {children}

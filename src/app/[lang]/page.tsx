@@ -13,6 +13,9 @@ import DetailsEducationSection from "@/components/templates/firstpage/DetailsEdu
 import VersionSection from "@/components/templates/firstpage/VersionSection";
 import SideBar from "@/components/module/sidebar/SideBar";
 import { getTransletion, getMainFile } from "@/components/utils/actions";
+import DynamicFooter from "@/components/module/footer/DynamicFooter";
+import useServerDarkMode from "src/hooks/use-server-dark-mode";
+
 export default async function LangPage({
   params,
 }: {
@@ -26,6 +29,37 @@ export default async function LangPage({
   //
   const langData = await getTransletion(languageSelected);
   const mainData = await getMainFile(langData);
+  const defaultTheme = useServerDarkMode();
+
+  async function fetchData() {
+    let languageSelectedUrl = "";
+    let nameSite = "";
+    let localSite = "fa_IR";
+    try {
+      if (languageSelected === "en") {
+        localSite = "en-US";
+        nameSite = "Metaverse Rgb";
+        languageSelectedUrl = "https://rgb.irpsc.com/lang/en.json";
+      } else {
+        nameSite = "متاورس رنگ";
+        localSite = "fa_IR";
+        languageSelectedUrl = "https://rgb.irpsc.com/lang/fa.json";
+      }
+      const res = await fetch(languageSelectedUrl);
+      const resJson = await res.json();
+      const footerData = resJson.modals.find(
+        (modal: any) => modal.name === "footer-menu"
+      ).tabs;
+
+      const footerTabs = footerData.find(
+        (item: any) => item.name === "our-systems"
+      ).fields;
+
+      return footerTabs;
+    } catch (error) {}
+  }
+  const footerTabs = await fetchData();
+
   return (
     // <>
     <div className="flex" dir={selectedLangDir}>
@@ -33,6 +67,7 @@ export default async function LangPage({
         languageSelected={languageSelected}
         langData={langData}
         mainData={mainData}
+        defaultTheme={defaultTheme}
       />
       <section
         // id={`${
@@ -134,7 +169,7 @@ export default async function LangPage({
           </div>
 
           <div className="flex flex-col justify-center items-center">
-            {/* <DynamicFooter footerTabs={footerTabs} /> */}
+            <DynamicFooter footerTabs={footerTabs} />
           </div>
         </section>
       </section>

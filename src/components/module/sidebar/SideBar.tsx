@@ -1,7 +1,6 @@
 "use client";
 // import MenuProfileModule from "./MenuProfileModule";
 import Header from "./Header";
-import DarkMode from "@/components/dark-mode";
 import AllSideTab from "./AllSideTab";
 import { useState } from "react";
 import LoginMenuModule from "./LoginMenuModule";
@@ -11,16 +10,19 @@ export default function SideBar({
   languageSelected,
   mainData,
   langData,
+  defaultTheme,
 }: {
   languageSelected: String;
   mainData: any;
   langData: any;
+  defaultTheme: any;
 }) {
   //
   const [isClosed, setisClosed] = useState(true);
   const toggleSide = () => {
     setisClosed(!isClosed);
   };
+
   //
   const modalsProfile = mainData.modals.find(
     (modal: any) => modal.name === "Citizenship-profile"
@@ -74,11 +76,10 @@ export default function SideBar({
             <div className="w-full pt-3 pb-1 flex flex-col items-center justify-center">
               <div className="h-[1px] bg-gray opacity-50 dark:bg-mediumGray w-[80%] " />
             </div>
-            <ThemeMenuModule isClosed={isClosed} />
+            <ThemeMenuModule isClosed={isClosed} defaultTheme={defaultTheme} />
           </div>
         </aside>
         {/* </div> */}
-        <DarkMode />
       </div>
     </>
   );

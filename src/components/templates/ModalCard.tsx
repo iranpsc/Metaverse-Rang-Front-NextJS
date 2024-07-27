@@ -31,7 +31,7 @@ export default function ModalCard({
   return (
     <div
       id={`${theme === "dark" ? "dark-scrollbar" : "light-scrollbar"}`}
-      className="absolute top-0 left-0  backdrop-blur-sm bg-blackTransparent/30 z-50  w-screen h-screen"
+      className="absolute top-0 left-0  backdrop-blur-sm bg-blackTransparent/30 z-50  w-screen h-screen text-gray dark:text-dark-gray"
     >
       <div className=" flex flex-col justify-center w-screen h-screen  items-center w-full ">
         <motion.div

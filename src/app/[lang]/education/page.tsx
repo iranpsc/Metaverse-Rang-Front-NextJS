@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { translateFooter } from "@/components/utils/education";
 import TopTrainers from "src/components/module/education/TopTrainers";
-import DynamicFooter from "@/components/module/education/DynamicFooter";
+import DynamicFooter from "@/components/module/footer/DynamicFooter";
 // import DynamicListEducation from "@/components/module/education/DynamicListEducation";
 import DynamicListEducation from "@/components/module/education/ListEducation";
 import Categories from "@/components/module/education/Categories";
@@ -25,7 +25,6 @@ export default async function EducationPage({
 
       const categoriesData = await resCategories.json();
 
-    
       if (languageSelected === "en") {
         localSite = "en-US";
         nameSite = "Metaverse Rgb";
@@ -53,11 +52,9 @@ export default async function EducationPage({
         (item: any) => item.name === "our-systems"
       ).fields;
 
-    
-
       return {
         categoriesData,
-    
+
         footerTabs,
         translateData,
         localSite,
@@ -65,17 +62,17 @@ export default async function EducationPage({
       };
     } catch (error) {}
   }
- async function getVideos(page:any| 1){
-  const resVideos = await fetch(
-    `https://api.rgb.irpsc.com/api/tutorials?page=${page}`
-  );
-  const videosData = await resVideos.json();
-  return videosData
+  async function getVideos(page: any | 1) {
+    const resVideos = await fetch(
+      `https://api.rgb.irpsc.com/api/tutorials?page=${page}`
+    );
+    const videosData = await resVideos.json();
+    return videosData;
   }
   const data = await fetchData();
 
   const categoriesData = data?.categoriesData.data;
-  const videosData = await getVideos(1)
+  const videosData = await getVideos(1);
   const translateData = data?.translateData;
   const footerTabs = data?.footerTabs;
   const localSite = data?.localSite;
@@ -208,11 +205,11 @@ export default async function EducationPage({
             languageSelected={languageSelected}
           />
           <DynamicListEducation
-              //  getVideos={getVideos}
-              translateData={translateData}
-              videosData={videosData}
-              languageSelected={languageSelected}
-            />
+            //  getVideos={getVideos}
+            translateData={translateData}
+            videosData={videosData}
+            languageSelected={languageSelected}
+          />
           <div className="flex flex-col justify-center items-center">
             <DynamicFooter footerTabs={footerTabs} />
           </div>

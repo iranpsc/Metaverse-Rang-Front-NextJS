@@ -1,12 +1,17 @@
 import { useState } from "react";
+import { useCookies } from "react-cookie"
 
-const UseDarkMode = (defaultTheme = "dark") => {
+const UseDarkMode = (defaultTheme:any) => {
   const [theme, setTheme] = useState(defaultTheme);
-  const setAndSaveTheme = (themes: any) => {
-    setTheme(themes);
+  const [_,setCookies] = useCookies(['theme'])
+  // 
+  const setAndSaveTheme = (theme: any) => {
+    setTheme(theme);
     document.documentElement.classList.remove("light", "dark");
-    document.documentElement.classList.add(themes);
+    document.documentElement.classList.add(theme);
+    setCookies('theme', theme)
   };
+  // 
   const toggoleTheme = () => {
     setAndSaveTheme(theme === "dark" ? "light" : "dark");
   };

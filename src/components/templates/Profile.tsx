@@ -64,7 +64,7 @@ export default async function Profile({
           titleData={titleData}
         />
       </div>
-      <div className="w-full h-full shadow-md rounded-[10px] dark:bg-dark-background bg-white pb-3 ps-2 flex flex-col justify-between gap-5  transition-all duration-300 ease-linear">
+      <div className="w-full h-full shadow-md rounded-[10px] dark:bg-dark-background text-gray dark:text-dark-gray bg-white pb-3 ps-2 flex flex-col justify-between gap-5  transition-all duration-300 ease-linear">
         <ProfileMainDetails
           nameUser={nameUser}
           profileData={profileData}
