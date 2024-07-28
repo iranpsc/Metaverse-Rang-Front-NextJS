@@ -5,25 +5,26 @@ import Head from "next/head";
 import ShowAllCategoriesComponent from "@/components/module/education/categories/ShowAllCategoriesComponent";
 import ProfileHeaderMobile from "@/components/module/profile/ProfileHeaderMobile";
 import SearchComponent from "@/components/module/education/categories/SearchComponent";
-import DynamicFooter from "@/components/module/education/DynamicFooter";
+import DynamicFooter from "@/components/module/footer/DynamicFooter";
 
 export default async function CateAllPage({
-  params
-}: {params:{lang: "en" | "fa"}}) {
- 
+  params,
+}: {
+  params: { lang: "en" | "fa" };
+}) {
   const languageSelected = params.lang === "en" ? "en" : "fa";
- async function fetchData() {
+  async function fetchData() {
     let languageSelectedUrl = "";
     let nameSite = "";
     let localSite = "fa_IR";
     try {
       const languageCode = languageSelected;
-  
+
       const resCategories = await fetch(
         "https://api.rgb.irpsc.com/api/tutorials/categories?count=20"
       );
       const categoriesData = await resCategories.json();
-  
+
       if (languageCode === "en") {
         localSite = "en-US";
         nameSite = "Metaverse Rgb";
@@ -33,37 +34,35 @@ export default async function CateAllPage({
         localSite = "fa_IR";
         languageSelectedUrl = "https://rgb.irpsc.com/lang/fa.json";
       }
-  
+
       const res = await fetch(languageSelectedUrl);
       const resJson = await res.json();
       const translateRes = resJson.modals.find(
         (modal: any) => modal.name === "training"
       ).tabs;
-  
+
       const translateData = translateRes.find(
         (item: any) => item.name === "central-school"
       ).fields;
       const translateHeader = translateRes.find(
         (item: any) => item.name === "categories"
       ).fields;
-  
+
       const footerData = resJson.modals.find(
         (modal: any) => modal.name === "footer-menu"
       ).tabs;
-  
+
       const footerTabs = footerData.find(
         (item: any) => item.name === "our-systems"
       ).fields;
-  
+
       return {
-        
-          categoriesData,
-          translateData,
-          translateHeader,
-          footerTabs,
-          localSite,
-          nameSite,
-        
+        categoriesData,
+        translateData,
+        translateHeader,
+        footerTabs,
+        localSite,
+        nameSite,
       };
     } catch (error) {}
   }
@@ -71,7 +70,7 @@ export default async function CateAllPage({
 
   const categoriesData = data?.categoriesData.data;
   const translateData = data?.translateData;
-  const translateHeader =data?.translateHeader;
+  const translateHeader = data?.translateHeader;
   const footerTabs = data?.footerTabs;
   const localSite = data?.localSite;
   const nameSite = data?.nameSite;
@@ -144,47 +143,44 @@ export default async function CateAllPage({
       </Head>
 
       {/* id={`${theme == "dark" ? "dark-scrollbar" : "light-scrollbar"}`} */}
-      <div
-        className="w-full"
-      >
+      <div className="w-full">
         {/* <BaseLayoutEducation translateData={translateData}> */}
 
-
         {/* ${ activeSearch ? "overflow-y-clip" : "overflow-y-auto" } */}
-          <div
-            className={`w-full  overflow-x-clip relative flex flex-col justify-start items-center bg-white dark:bg-black
+        <div
+          className={`w-full  overflow-x-clip relative flex flex-col justify-start items-center bg-white dark:bg-black
               `}
-          >
-            {/* <ProfileHeaderMobile
+        >
+          {/* <ProfileHeaderMobile
               menuData={data}
               profileData={[]}
               profileName={[]}
             /> */}
 
-            <h1 className=" mt-10 font-azarMehr whitespace-nowrap  font-bold 3xl:text-[24px] xl:text-[24px] lg:text-[22px] md:text-[20px] sm:text-[18px] xs:text-[14px]">
-              {
-                translateHeader.find(
-                  (item: any) =>
-                    item.name === "all categories of metaverse training"
-                ).translation
-              }
-            </h1>
-            <SearchComponent
+          <h1 className=" mt-10 font-azarMehr whitespace-nowrap  font-bold 3xl:text-[24px] xl:text-[24px] lg:text-[22px] md:text-[20px] sm:text-[18px] xs:text-[14px]">
+            {
+              translateHeader.find(
+                (item: any) =>
+                  item.name === "all categories of metaverse training"
+              ).translation
+            }
+          </h1>
+          <SearchComponent
             // themeDataActive={themeDataActive}
             translateData={translateData}
             // setActiveSearch={setActiveSearch}
             params={params}
           />
-       
 
-            <ShowAllCategoriesComponent categoriesData={categoriesData} languageSelected={languageSelected} />
+          <ShowAllCategoriesComponent
+            categoriesData={categoriesData}
+            languageSelected={languageSelected}
+          />
 
-            <DynamicFooter footerTabs={footerTabs} />
-          </div>
+          <DynamicFooter footerTabs={footerTabs} />
+        </div>
         {/* </BaseLayoutEducation> */}
       </div>
     </>
   );
 }
-
-
