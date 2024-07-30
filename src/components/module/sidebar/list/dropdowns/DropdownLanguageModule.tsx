@@ -1,6 +1,6 @@
-import { useContext } from "react";
+// import { useContext } from "react";
 import Image from "next/image";
-import { SideBarContext } from "@/components/context/SidebarContext";
+// import { SideBarContext } from "@/components/context/SidebarContext";
 import { LanguageDataItem } from "@/types/listMenu";
 import { Tick } from "@/components/svgs";
 
@@ -9,7 +9,7 @@ const DropdownLanguageModule = ({
   languageSelected,
   handleDirChange,
 }: any) => {
-  const { state, toggleCollapseHandler } = useContext(SideBarContext);
+  // const { state, toggleCollapseHandler } = useContext(SideBarContext);
 
   return (
     <>
@@ -23,7 +23,8 @@ const DropdownLanguageModule = ({
                   ? "text-[#0066FF] dark:text-dark-yellow"
                   : ""
               } ${
-                state.isCollapsed ? "hidden" : "flex"
+                // state.isCollapsed ? "hidden" : "flex"
+                false ? "hidden" : "flex"
               } flex flex-col items-center justify-start    cursor-pointer hover:text-[#0066FF]`}
               onClick={() => handleDirChange(item)}
             >

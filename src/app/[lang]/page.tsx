@@ -22,12 +22,9 @@ export default async function LangPage({
   params: { lang: "en" | "fa" };
 }) {
   //
-  const languageSelected = params.lang === "en" ? "en" : "fa";
-  const lang = params.lang;
-  const selectedLangDir = lang === "en" ? "ltr" : "rtl";
 
   //
-  const langData = await getTransletion(languageSelected);
+  const langData = await getTransletion(params.lang);
   const mainData = await getMainFile(langData);
   const defaultTheme = useServerDarkMode();
 
@@ -36,7 +33,7 @@ export default async function LangPage({
     let nameSite = "";
     let localSite = "fa_IR";
     try {
-      if (languageSelected === "en") {
+      if (params.lang === "en") {
         localSite = "en-US";
         nameSite = "Metaverse Rgb";
         languageSelectedUrl = "https://rgb.irpsc.com/lang/en.json";
@@ -62,12 +59,13 @@ export default async function LangPage({
 
   return (
     // <>
-    <div className="flex" dir={selectedLangDir}>
+    <div className="flex" dir={langData.direction}>
       <SideBar
-        languageSelected={languageSelected}
+        languageSelected={params.lang}
         langData={langData}
         mainData={mainData}
         defaultTheme={defaultTheme}
+        params={params}
       />
       <section
         // id={`${

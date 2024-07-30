@@ -1,5 +1,9 @@
 import SideBar from "@/components/module/sidebar/SideBar";
-import { getTransletion, getMainFile } from "@/components/utils/actions";
+import {
+  getTransletion,
+  getMainFile,
+  getLangArray,
+} from "@/components/utils/actions";
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
 
 export default async function CitizensLayout({
@@ -9,23 +13,27 @@ export default async function CitizensLayout({
   children: React.ReactNode;
   params: { lang: "en" | "fa" };
 }) {
-  const languageSelected = params.lang === "en" ? "en" : "fa";
-  const lang = params.lang;
-  const selectedLangDir = lang === "en" ? "ltr" : "rtl";
   const defaultTheme = useServerDarkMode();
 
   //
-  const langData = await getTransletion(languageSelected);
+  const langData = await getTransletion(params.lang);
   const mainData = await getMainFile(langData);
+  const langArray = await getLangArray();
+
+  console.log("langData.direction", langData.direction);
+
   return (
-    <main className="flex" dir={selectedLangDir}>
+    <main className="flex" dir={langData.direction}>
       <SideBar
-        languageSelected={languageSelected}
+        languageSelected={params.lang}
         langData={langData}
         mainData={mainData}
         defaultTheme={defaultTheme}
+        params={params}
       />
-      <div className={`no-scrollbar h-screen overflow-y-auto relative`}>
+      <div
+        className={`no-scrollbar h-screen overflow-y-auto relative xs:pt-14 sm:pt-14 lg:pt-[0]`}
+      >
         {children}
       </div>
     </main>

@@ -17,7 +17,6 @@ export default function ProfileTopMobile({
   const { theme } = useTheme();
   const [staticImageURL, setStaticImageURL] =
     useState<string>("/profile/lock.png");
-  console.log("profileDataprofileData", profileData.data);
 
   useEffect(() => {
     if (
@@ -47,13 +46,15 @@ export default function ProfileTopMobile({
       <div className="dark:bg-dark-background px-1 transition-all  lg:mt-0 md:mt-1 duration-300 sm:mt-1 xs:mt-1 ease-linear flex flex-col bg-white justify-center  items-center rounded-[10px] ">
         <section className="w-full  flex flex-row justify-around px-4 md:px-1 sm:px-0 xs:px-0 items-center">
           <div className="group relative flex justify-center items-center">
-            <Image
-              src={imgs0 || "/temp.png"}
-              width={100}
-              height={100}
-              alt={titleData}
-              className="  inline-block rounded-full p-1 3xl:w-14 3xl:h-14 xl:w-14 xl:h-14 lg:w-12 lg:h-12 md:w-16 md:h-16 sm:w-12 sm:h-12 xs:w-12 xs:h-12 object-cover"
-            />
+            <div className="w-[48px]	h-[48px] my-1">
+              <Image
+                src={imgs0 || "/temp.png"}
+                width={100}
+                height={100}
+                alt={titleData}
+                className="object-contain  inline-block rounded-full"
+              />
+            </div>
             <p className="sm:bottom-[-25px] xs:bottom-[-25px] sm:start-1 xs:start-1 rounded-sm  w-max p-1 sm:scale-100 xs:scale-100  text-xs  text-black dark:text-white group-hover:scale-100 break-all  inline-block xl:mx-1 lg:mx-1 md:mx-0  font-medium font-azarMehr 3xl:text-xl3Title  xl:text-xlTitle lg:text-lgTitle md:text-mdTitle sm:text-smDesc xs:text-smDesc text-start">
               {nameUser}
             </p>

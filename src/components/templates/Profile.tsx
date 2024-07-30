@@ -10,33 +10,18 @@ import { Tooltip as ReactTooltip } from "react-tooltip";
 import { CopyIcon } from "../svgs/SvgCategories";
 import ProfileMainDetails from "../module/profile/ProfileMainDetails";
 import ProfileGems from "../module/profile/ProfileGems";
-import ProfileHeaderMobile from "../module/profile/ProfileHeaderMobile";
 
 export default async function Profile({
   profileData,
   titleData,
-  setShowSharedPage,
   nameUser,
   userProperty,
   langData,
   params,
-}: {
-  profileData: any;
-  titleData: any;
-  setShowSharedPage: any;
-  nameUser: any;
-  params: { lang: "en" | "fa" };
-  userProperty: any;
-  langData: any;
-}) {
+}: any) {
   // const [profileName, setProfileName] = useState<string>("");
 
   // const yourElementRef = useRef(null);
-
-  // console.log("params", params);
-  // console.log("languageSelected", languageSelected);
-
-  // console.log("langData", langData);
 
   const numberScore =
     100 - parseInt(profileData?.score_percentage_to_next_level);
@@ -44,11 +29,6 @@ export default async function Profile({
 
   return (
     <div className="flex flex-col justify-start 3xl:gap-[12px]  xl:gap-[6px] lg:gap-[4px] 3xl:h-screen xl:h-screen  lg:h-screen md:h-[1300px] sm:h-fit xs:h-fit w-full">
-      {/* <ProfileHeaderMobile
-        menuData={data}
-        profileData={profileData}
-        profileName={profileName}
-      /> */}
       <div className="w-full h-fit ">
         <ProfileTopMobile
           titleData={titleData}

@@ -1,3 +1,6 @@
+const nextConfig = {
+  output:'export',
+}
 module.exports = {
   webpack(config) {
     config.module.rules.push({

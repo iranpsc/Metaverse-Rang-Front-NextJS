@@ -13,7 +13,6 @@ export default function ProfileDetails({
   languageSelected,
 }: any) {
   // const { data, profileData.data, languageSelected } = useContext(LangContext);
-  console.log("profileDataprofileDataprofileData", profileData);
 
   const x = profileData.data?.customs?.prediction;
 

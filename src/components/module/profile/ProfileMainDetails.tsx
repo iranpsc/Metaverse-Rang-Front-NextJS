@@ -19,7 +19,6 @@ const ProfileMainDetails = ({
     },
   };
   const [numberScore, setNumberScore] = useState<number>(0);
-  console.log("profileData__________2", profileData.data);
 
   useEffect(() => {
     if (profileData.data?.score_percentage_to_next_level) {

@@ -31,7 +31,7 @@ export default function MenuItemPage({ dataObject, close }: any) {
   return (
     <div
       id={`${theme === "dark" ? "dark-scrollbar" : "light-scrollbar"}`}
-      className="fixed w-screen h-screen backdrop-blur-sm bg-black/30 z-[1] top-0 w-full h-screen  text-gray dark:text-dark-gray"
+      className="fixed w-screen h-screen backdrop-blur-sm bg-black/30 xs:z-[110] sm:z-[110] lg:z-[1]  top-0 w-full h-screen  text-gray dark:text-dark-gray"
     >
       {dataObject && (
         <div className="w-full h-full overflow-clip">
