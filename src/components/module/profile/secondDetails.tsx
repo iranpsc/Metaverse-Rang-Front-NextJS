@@ -8,7 +8,7 @@ export default function ProfileDetailsDetails({ itemsProfileDetails }: any) {
           duration: 2,
           x: { duration: 1 },
         }}
-        className=" dark:bg-dark-background flex flex-col shadow-md justify-evenly items-center 3xl:gap-3 xl:gap-3 lg:gap-3 sm:gap-4 xs:gap-4 3xl:py-3 sm:py-3 xs:py-3  transition-all duration-300 ease-linear bg-white w-full  rounded-[10px]"
+        className="dark:bg-dark-background flex flex-col shadow-md justify-evenly items-center 3xl:gap-3 xl:gap-3 lg:gap-3 sm:gap-4 xs:gap-4 3xl:py-3 sm:py-3 xs:py-3  transition-all duration-300 ease-linear bg-white w-full  rounded-[10px]"
       >
         {itemsProfileDetails.map((item: any, i: number): any => (
           <div
@@ -27,7 +27,7 @@ export default function ProfileDetailsDetails({ itemsProfileDetails }: any) {
                 {item.value}
               </p>
               {item.fValue && item.fValue.length > 2 && (
-                <span className="absolute end-2  top-6 z-20 bg-[#737272] rounded-md text-center w-max p-2 scale-0 font-azarMehr font-medium text-xs text-white group-hover:scale-100">
+                <span className="absolute end-2  top-6 z-20 bg-[#868b90] rounded-md text-center w-max p-2 scale-0 font-azarMehr font-medium text-xs text-white group-hover:scale-100">
                   {item.fValue}
                 </span>
               )}

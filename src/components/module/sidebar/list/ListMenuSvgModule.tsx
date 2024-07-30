@@ -4,7 +4,14 @@ export default function ListMenuSvgModule({ item, i, activeNav }: any) {
   return (
     <SvgIcon
       name={item.name}
-      color={"stroke-gray dark:stroke-dark-gray"}
+      // activeNav == i
+      // ? "text-[#0066FF] dark:text-[#FFC700]"
+      // : "text-[#888888] dark:text-[#888888]"
+      color={`${
+        activeNav == i
+          ? "stroke-[#0066FF] dark:stroke-[#FFC700]"
+          : "stroke-[#888888] dark:stroke-[#888888]"
+      }`}
       //   color={`${
       //     item.name === "trainings"
       //       ? "stroke-blueLink dark:dark:stroke-dark-yellow"

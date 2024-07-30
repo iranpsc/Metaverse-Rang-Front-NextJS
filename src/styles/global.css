@@ -18,7 +18,10 @@
     scrollbar-width: none;
     /* Firefox */
 }
-
+.tooltip-bg-color{
+    background-color: #868b90 !important              
+    ;
+}
 #dark-scrollbar {
     ::-webkit-scrollbar {
         width: 10px;

@@ -20,8 +20,6 @@ export default async function CitizensLayout({
   const mainData = await getMainFile(langData);
   const langArray = await getLangArray();
 
-  console.log("langData.direction", langData.direction);
-
   return (
     <main className="flex" dir={langData.direction}>
       <SideBar

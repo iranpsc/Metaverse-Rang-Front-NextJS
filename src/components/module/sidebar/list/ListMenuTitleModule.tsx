@@ -16,10 +16,14 @@ const ListMenuTitleModule = ({ item, activeNav, i }: any) => {
 
     <span
       className={`
-    ${activeNav == i ? "text-[#0000ffd9] dark:text-dark-yellow" : ""}
+    ${
+      activeNav == i
+        ? "text-[#0066FF] dark:text-[#FFC700]"
+        : "text-[#888888] dark:text-[#888888]"
+    }
     capitalize 3xl:text-xl3Title xl:text-xlTitle lg:text-lgTitle md:text-mdTitle sm:text-smTitle xs:text-smTitle
-    font-azarMehr font-normal 3xl:text-[22px] cursor-pointer group-hover:text-[#0000ffd9] dark:group-hover:text-dark-yellow
-    visible  text-gray dark:text-dark-gray
+    font-azarMehr font-normal 3xl:text-[22px] cursor-pointer group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700]
+    visible
       `}
     >
       {item.translation}

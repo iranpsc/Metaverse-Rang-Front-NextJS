@@ -87,7 +87,7 @@ export default function ModalCard({
             ) : (
               <>
                 {" "}
-                <p className="pb-16 px-2 pt-5 leading-[35px]  overflow-y-auto overflow-x-clip font-azarMehr font-medium 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc md:text-mdDesc  sm:text-smTitle xs:text-smTitle text-gray dark:text-dark-gray text-justify">
+                <p className="pb-16 px-4 pt-5 leading-[35px]  overflow-y-auto overflow-x-clip font-azarMehr font-medium 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc md:text-mdDesc  sm:text-smTitle xs:text-smTitle text-gray dark:text-dark-gray text-justify">
                   {dataModal.data}
                 </p>
               </>

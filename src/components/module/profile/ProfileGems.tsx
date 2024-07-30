@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import { motion } from "framer-motion";
+
 const ProfileGems = ({ profileData }: any) => {
   return (
     <div className=" w-full  flex flex-col justify-start items-center 3xl:gap-6 xl:gap-0 md:gap-5 sm:gap-5 xs:gap-5">
@@ -34,7 +35,12 @@ const ProfileGems = ({ profileData }: any) => {
                 xs:w-14
                 "
               />
-              <ReactTooltip id={item.name} place="top" content={item.name} />
+              <ReactTooltip
+                id={item.name}
+                place="top"
+                className="tooltip-bg-color"
+                content={item.name}
+              />
             </div>
           ))}
           {profileData.data && profileData.data.current_level && (
@@ -57,6 +63,7 @@ const ProfileGems = ({ profileData }: any) => {
               <ReactTooltip
                 id={profileData.data.current_level.name}
                 place="top"
+                className="tooltip-bg-color"
                 content={profileData.data.current_level.name}
               />
             </>

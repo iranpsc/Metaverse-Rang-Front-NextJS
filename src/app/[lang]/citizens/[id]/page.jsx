@@ -11,6 +11,7 @@ import { AnimatePresence } from "framer-motion";
 import ProfileDetails from "@/components/module/profile/ProfileDatails";
 // import LogoutPage from "@/components/templates/LogoutPage";
 import { getTransletion, getMainFile } from "@/components/utils/actions";
+import { log } from "console";
 
 export default async function citizenSinglePage({
   params,

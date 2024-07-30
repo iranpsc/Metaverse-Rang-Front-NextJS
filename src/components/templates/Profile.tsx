@@ -28,7 +28,7 @@ export default async function Profile({
   const percent = (numberScore / 100) * 100;
 
   return (
-    <div className="flex flex-col justify-start 3xl:gap-[12px]  xl:gap-[6px] lg:gap-[4px] 3xl:h-screen xl:h-screen  lg:h-screen md:h-[1300px] sm:h-fit xs:h-fit w-full">
+    <div className="flex flex-col h-full flex-nowrap justify-start 3xl:gap-[12px]  xl:gap-[6px] lg:gap-[4px]  w-full">
       <div className="w-full h-fit ">
         <ProfileTopMobile
           titleData={titleData}
@@ -37,14 +37,14 @@ export default async function Profile({
           params={params}
         />
       </div>
-      <div className="w-full h-fit ">
+      <div className="w-full h-full">
         <ProfileImages
           profileData={profileData}
           // profileName={profileName}
           titleData={titleData}
         />
       </div>
-      <div className="w-full h-full shadow-md rounded-[10px] dark:bg-dark-background text-gray dark:text-dark-gray bg-white pb-3 ps-2 flex flex-col justify-between gap-5  transition-all duration-300 ease-linear">
+      <div className="w-full shadow-md rounded-[10px] dark:bg-dark-background text-gray dark:text-dark-gray bg-white pb-3 px-3 flex flex-col justify-between gap-5  transition-all duration-300 ease-linear">
         <ProfileMainDetails
           nameUser={nameUser}
           profileData={profileData}

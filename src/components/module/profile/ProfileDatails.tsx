@@ -51,24 +51,36 @@ export default function ProfileDetails({
     {
       id: 4,
       key: targetData(userProperty, "address"),
-      value:
-        languageSelected === "fa"
-          ? profileData.data?.kyc?.address
-            ? profileData.data.kyc.address.slice(0, 25) + " ... "
-            : "--"
-          : profileData.data?.kyc?.address
-          ? " ... " + profileData.data.kyc.address.slice(0, 25)
-          : "--",
+
+      value: profileData.data?.kyc?.address
+        ? profileData.data?.kyc?.address.slice(0, 23) +
+          (profileData.data?.kyc?.address.length > 23 ? "..." : "")
+        : "--",
       fValue: profileData.data?.kyc?.address,
     },
     {
       id: 5,
       key: targetData(userProperty, "job"),
-      value:
-        profileData.data?.customs?.occupation &&
-        profileData.data.customs.occupation.length > 23
-          ? profileData.data.customs.occupation.slice(0, 23) + " ... "
-          : " ... " + profileData.data?.customs?.occupation || "--",
+      value: profileData.data?.customs?.occupation
+        ? profileData.data.customs?.occupation.slice(0, 23) +
+          (profileData.data.customs?.occupation.length > 23 ? "..." : "")
+        : "--",
+      // languageSelected === "fa"
+      //   ? profileData.data?.customs?.occupation
+      //     ? `${profileData.data.customs?.occupation.slice(0, 23)}
+      //       `
+      // : // profileData.data.customs?.occupation.slice(0, 23) + profileData.data.customs?.occupation.length >
+      // 23
+      // ? " ... "
+      // : ""
+      // "--"
+      // : "", // en
+      // profileData.data?.customs?.occupation
+      // ? profileData.data.customs?.occupation.length > 23
+      //   ? " ... "
+      //   : "" + profileData.data.customs?.occupation.slice(0, 23)
+      // : "--",
+
       fValue: profileData.data?.customs?.occupation,
     },
     {
