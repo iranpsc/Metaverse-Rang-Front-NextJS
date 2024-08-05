@@ -21,7 +21,7 @@ export default async function CitizensLayout({
   const langArray = await getLangArray();
 
   return (
-    <main className="flex" dir={langData.direction}>
+    <main className="flex dark:bg-black bg-[##F8F8F8]" dir={langData.direction}>
       <SideBar
         languageSelected={params.lang}
         langData={langData}

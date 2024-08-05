@@ -30,3 +30,6 @@ export { default as Frame2 } from "../../../public/svg/firstpage/frame2.svg";
 export { default as ArrowRight } from "../../../public/svg/firstpage/arrow-right.svg";
 export { default as ButtonClick } from "../../../public/svg/firstpage/button.svg";
 export { default as Discord } from "../../../public/svg/firstpage/discord.svg";
+export { default as FlagSatar } from "../../../public/svg/flag-star.svg";
+export { default as StairsUp } from "../../../public/svg/stairs-up.svg";
+export { default as Check } from "../../../public/svg/check.svg";
