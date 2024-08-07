@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { targetData } from "@/components/utils/targetDataName";
-import { trace } from 'console';
 
 export default function TabSelector ({params,levelsTranslatePage}:any){
     const id = params.levelId
@@ -15,7 +14,7 @@ export default function TabSelector ({params,levelsTranslatePage}:any){
 
 
     return (
-        <div className="dark:bg-darkGray dark:textwhite rounded-[12px]">
+        <div className="dark:bg-darkGray dark:textwhite rounded-[12px] font[700]">
             <ul className="flex justify-around flex-wrap -mb-px text-sm font-medium">
                 <li className="me-2">
                   <ButtonLink title={targetData(levelsTranslatePage, "basic level information")} link="general-info" />

@@ -35,3 +35,7 @@ export { default as StairsUp } from "../../../public/svg/stairs-up.svg";
 export { default as Check } from "../../../public/svg/check.svg";
 export { default as ChevronUp } from "../../../public/svg/chevron-up.svg";
 export { default as ChevronDown } from "../../../public/svg/chevron-down.svg";
+export { default as Update } from "../../../public/svg/update.svg";
+export { default as Development } from "../../../public/svg/development.svg";
+export { default as Orders } from "../../../public/svg/orders.svg";
+export { default as Income } from "../../../public/svg/income.svg";

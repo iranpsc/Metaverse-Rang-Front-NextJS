@@ -7,7 +7,7 @@ import { useState } from 'react'
 export default function Accordion({ title, value }: { title: string, value: any }) {
 
     const [open, setOpen] = useState<boolean>(false)
-console.log('value', value);
+
 
     return (
         <div className={`w-full flex flex-col transition-all duration-300 border-b-2 border-[#ECECEC] dark:border-[#1A1A18] ${open ? 'gap-4' : 'gap-0'}`}>

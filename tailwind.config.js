@@ -95,6 +95,7 @@ module.exports = {
         borderField: "#DADADA",
         Field: "#FCFCFC",
         darkGray: "#1A1A18",
+        darkGray_1:"#10100F",
         // *** this project custome END
         light: {
           test: "#2503f1",
@@ -140,6 +141,7 @@ module.exports = {
               yellow: "#FFC107",
               menuBg: "#FFFFFF",
               themeBtn: "#F4F4F4",
+              textBtn:"#868B90",
             },
           },
         },

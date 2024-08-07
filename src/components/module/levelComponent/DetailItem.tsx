@@ -17,8 +17,8 @@ export default function DetailItem({ title, value, isLink,showCheck=false ,fullB
     }
     return (
         <div className={`flex flex-row gap-2 justify-between p-3  border-b-2 border-[#ECECEC] dark:border-[#1A1A18] items-center font-bold w-full ${fullBox ? "w-full" : "sm:w-[48%]" }`}>
-            <span className=' text-ellipsis text-[#414040] dark:text-white' title={title}>{title}</span>
-            <span className='text-[#868B90] dark:text-[#C4C4C4]'>
+            <span className=' text-ellipsis text-[#414040] dark:text-white font[700]' title={title}>{title}</span>
+            <span className='text-[#868B90] dark:text-[#C4C4C4] font[700]'>
             {generateValue()}
             </span>
         </div>

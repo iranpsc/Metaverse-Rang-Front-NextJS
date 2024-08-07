@@ -8,7 +8,7 @@ const permissions = await getLevelTabs(params)
 console.log('permissions----------1',permissions);
 
     return(<>
-    <div className="w-4/5 flex flex-wrap justify-between">
+    <div className="w-full sm:w-4/5 flex flex-wrap justify-between">
     <DetailItem showCheck={true}  title={targetData(levelsTranslatePage,"license to establish an alliance")} value={permissions.data.create_union} />
     <DetailItem showCheck={true}  title={targetData(levelsTranslatePage,"the ability to register public positions of the level")} value={permissions.data.inter_level_general_points} />
     <DetailItem showCheck={true}  title={targetData(levelsTranslatePage,"to join the alliance")} value={permissions.data.add_memeber_to_union} />
