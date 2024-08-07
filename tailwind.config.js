@@ -94,6 +94,7 @@ module.exports = {
         activeTextButton: "#D4ECFF",
         borderField: "#DADADA",
         Field: "#FCFCFC",
+        darkGray: "#1A1A18",
         // *** this project custome END
         light: {
           test: "#2503f1",

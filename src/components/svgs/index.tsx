@@ -33,3 +33,5 @@ export { default as Discord } from "../../../public/svg/firstpage/discord.svg";
 export { default as FlagSatar } from "../../../public/svg/flag-star.svg";
 export { default as StairsUp } from "../../../public/svg/stairs-up.svg";
 export { default as Check } from "../../../public/svg/check.svg";
+export { default as ChevronUp } from "../../../public/svg/chevron-up.svg";
+export { default as ChevronDown } from "../../../public/svg/chevron-down.svg";
