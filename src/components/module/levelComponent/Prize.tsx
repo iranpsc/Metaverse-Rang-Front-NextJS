@@ -8,7 +8,7 @@ const prize = await getLevelTabs(params)
 console.log('prize----------1',prize);
 
     return(<>
-    <div className="w-4/5 flex flex-wrap justify-between">
+    <div className="w-full sm:w-4/5 flex flex-wrap justify-between">
     <DetailItem title={targetData(levelsTranslatePage,"license to establish an alliance")} value={prize.data.psc} />
     <DetailItem title={targetData(levelsTranslatePage,"get red color")} value={prize.data.red} />
     <DetailItem title={targetData(levelsTranslatePage,"get blue color")} value={prize.data.blue} />

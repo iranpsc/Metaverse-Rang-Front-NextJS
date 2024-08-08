@@ -6,6 +6,7 @@ import  Permission  from "@/components/module/levelComponent/Permissions";
 import  Prize  from "@/components/module/levelComponent/Prize";
 import {  getFooterData , getTransletion , getMainFile, } from "@/components/utils/actions";
 import DynamicFooter from "@/components/module/footer/DynamicFooter";
+import { Features } from "@/components/module/levelComponent/Features";
 
 
 
@@ -21,9 +22,9 @@ export default async function lavelSingelPage({
     
 
 return(<>
-        <div className="px-7 w-full font-azarMehr">
+        <div className="px-7 w-full font-azarMehr ">
           <div className=" w-auto dark:bg-[#080807] rounded-[20px] p-3">
-            <div className="w-4/5 ">
+            <div className="w-full sm:w-4/5 ">
               <TabSelector params={params} levelsTranslatePage={levelsTranslatePage}/>
             </div>
             {params.tabs == 'general-info' && <GeneralInfo levelsTranslatePage={levelsTranslatePage} params={params}/>}
@@ -31,6 +32,10 @@ return(<>
             {params.tabs == 'gift' && <Gift levelsTranslatePage={levelsTranslatePage} params={params}/>}
             {params.tabs == 'licenses' && <Permission levelsTranslatePage={levelsTranslatePage} params={params}/>}
             {params.tabs == 'prize' && <Prize levelsTranslatePage={levelsTranslatePage} params={params}/>}
+         
+          </div>
+          <div>
+            <Features levelsTranslatePage={levelsTranslatePage}/>
           </div>
         </div>
         <div className="flex flex-col justify-center items-center">
