@@ -1,7 +1,8 @@
 "use client"
 import Image from "next/image";
 import { useState } from "react";
-
+import { Sample3D } from "./Sample3D";
+import  ErrorBoundary  from "@/components/utils/ErrorBoundary";
 
 export default function ImageBox({item}:any){
 
@@ -42,6 +43,10 @@ console.log('mode',mode);
                    className=" w-full"
                  />:""
           }
+            { mode =='fbx' ?
+            <ErrorBoundary>
+                            <Sample3D url={srcFbx as any} />
+            </ErrorBoundary> :""}
          </div>
          <div className="w-full flex flex-wrap justify-around">
          {
