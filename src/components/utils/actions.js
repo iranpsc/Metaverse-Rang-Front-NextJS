@@ -2,7 +2,7 @@
 
 
 //return selected language object
-export async function getTransletion(lang) {
+  export async function getTransletion(lang) {
     const res = await fetch("https://admin.rgb.irpsc.com/api/translations", {
       headers: {
         "Content-Type": "application/json",
@@ -25,8 +25,8 @@ export async function getTransletion(lang) {
     return data.data
   }
 
-// return our main file(.json) according to selected lang
- export async function getMainFile(langData) {
+  // return our main file(.json) according to selected lang
+  export async function getMainFile(langData) {
     const res = await fetch(langData.file_url, {
       headers: {
         "Content-Type": "application/json",
@@ -42,7 +42,13 @@ export async function getTransletion(lang) {
 
     return temp
   }
- export async function getFooterData(params) {
+
+  export async function getAllCitizen(){
+    const res = await fetch("https://api.rgbdev.irpsc.com/api/users")
+    let temp = await res.json()
+    return temp.data
+  }
+  export async function getFooterData(params) {
     try {
       const langObj =await getTransletion(params.lang)
       const res = await fetch(langObj.file_url);

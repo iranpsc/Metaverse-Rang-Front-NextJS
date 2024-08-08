@@ -30,7 +30,7 @@ export default async function CitizensLayout({
         params={params}
       />
       <div
-        className={`no-scrollbar h-screen overflow-y-auto relative xs:pt-14 sm:pt-14 lg:pt-[0]`}
+        className={`flex flex-row flex-wrap justify-evenly w-full no-scrollbar h-screen overflow-y-auto relative xs:pt-14 sm:pt-14 lg:pt-[0]`}
       >
         {children}
       </div>
