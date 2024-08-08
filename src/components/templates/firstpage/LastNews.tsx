@@ -9,6 +9,25 @@ const LastNews = ({ firstPageArrayContent }: any) => {
     return firstPageArrayContent.find((item: any) => item.name == _name)
       .translation;
   }
+  const staticData = [
+    {
+      title:
+        "کسب درآمد از اولین متاورس ایران متاورس رنگ، فرصتی نوین برای کارآفرینان دیجیتال",
+      desc: "در حال حاضر هیچ قانونی وجود ندارد که به طور خاص متاورس یا سایر دنیای مجازی را تنظیم کند. با این حال، همان قوانین کلی که در مورد اینترنت اعمال می شود، در مورد Metaverse نیز اعمال می شود، از جمله قانون کپی رایت، قانون افترا، قانون قرارداد و غیره است.",
+      url: "https://meta.irpsc.com/2024/07/12/earning-income-from-the-first-metaverse-iran-metaverse-rang/",
+    },
+    {
+      title:
+        "بازپس گیری جزیره آریانا در اولین متاورس ایران متاورس رنگ با اهدای 963 قطعه زمین(VOD) رایگان به ارزش 50371200000 ریال",
+      desc: "فضای مجازی ممکن است جملات زیادی از زبان مدیران اجرایی مانند مارک زاکربرگ یا ساتیا نادلا در مورد متاورس شنیده باشید متاورس آینده اینترنت است",
+      url: "https://meta.irpsc.com/2024/07/17/%d8%a8%d8%a7%d8%b2%d9%be%d8%b3-%da%af%db%8c%d8%b1%db%8c-%d8%ac%d8%b2%db%8c%d8%b1%d9%87-%d8%a2%d8%b1%db%8c%d8%a7%d9%86%d8%a7-%d8%af%d8%b1-%d8%a7%d9%88%d9%84%db%8c%d9%86-%d9%85%d8%aa%d8%a7%d9%88%d8%b1/",
+    },
+    {
+      title: "VOD تجاری دارای بنا چیست؟ |متاورس",
+      desc: "متاورس رنگ اولین متاورس ایران با هدف توسعه تاورس ملی اهداف زیادی از قبیل عدم خروج ارز از کشور و در فازهای بعدی ورود ارز به کشور را دارد که این ها همه بخشی کوچکی از اهداف متاورس ملی می باشد",
+      url: "https://video.irpsc.com/watch/F2x6VMfXJK8xhhT",
+    },
+  ];
   return (
     <>
       <div className="w-full flex flex-row justify-between items-center ">
@@ -25,14 +44,14 @@ const LastNews = ({ firstPageArrayContent }: any) => {
       </div>
 
       <div className="grid  lg:grid-cols-2 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 xs:grid-cols-1 gap-10 mt-12">
-        {[...Array(3)].map((_, index) => (
+        {staticData.map((item, index) => (
           <div
             key={index}
             className="w-[100%] min-h-[240px]  shadow-md hover:shadow-xl hover:dark:shadow-dark  rounded-[10px] bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-6 items-center"
           >
             <div className=" group w-full h-[266px]   rounded-t-[10px] relative">
               <Image
-                src={`/firstpage/img-l-${index}.jpg`}
+                src={`/firstpage/static-news-${index}.jpg`}
                 alt="/firstpage/img2.jpg"
                 width={600}
                 height={600}
@@ -53,11 +72,11 @@ const LastNews = ({ firstPageArrayContent }: any) => {
               </p>
             </div>
 
-            <Link className="w-[95%]" href={"#"}>
+            <a className="w-[95%]" href={item.url}>
               <h1 className="text-start  w-full font-azarMehr truncate cursor-pointer font-bold mt-[8px] text-[18px] 3xl:text-[22px] ">
-                زمین های خالی سندباکس
+                {item.title}
               </h1>
-            </Link>
+            </a>
 
             <div className="w-[95%] pb-2 flex flex-row justify-between  items-center">
               <Link href="#" target="_blank">

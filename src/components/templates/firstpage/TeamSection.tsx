@@ -76,9 +76,11 @@ const SectionTeam = ({ firstPageArrayContent }: any) => {
             {localFind("metarang team")}
           </p>
         </div>
-        <p className="w-fit rounded-[24px] py-3 px-10 mt-5 text-center text-[20px] text-white bg-[#343434]  font-azarMehr font-medium ">
-          بیشتر بخوانید
-        </p>
+        <a href="https://rgb.irpsc.com/about">
+          <p className="w-fit rounded-[24px] py-3 px-10 mt-5 text-center text-[20px] text-white bg-[#343434]  font-azarMehr font-medium ">
+            بیشتر بخوانید
+          </p>
+        </a>
       </div>
     </>
   );

@@ -8,6 +8,22 @@ const TopTrainersFirstPage = ({ firstPageArrayContent, params }: any) => {
     return firstPageArrayContent.find((item: any) => item.name == _name)
       .translation;
   }
+  const staticData = [
+    {
+      id: 1,
+      name: "مرضیه ثاقب علیزاده",
+      img: "/profile/marziyeh-alizadeh.jpg",
+      code: "HM-2000003",
+      likes: "  1.3k",
+    },
+    {
+      id: 2,
+      name: "حسین قدیری",
+      img: "/profile/hossein-ghadiri.jpg",
+      code: "HM-2000001",
+      likes: "820",
+    },
+  ];
   return (
     <>
       <div className="w-full flex flex-row justify-between items-center">
@@ -24,28 +40,28 @@ const TopTrainersFirstPage = ({ firstPageArrayContent, params }: any) => {
         </Link>
       </div>
       <div className="w-full relative flex flex-row xl:justify-center items-center gap-6 mt-12 overflow-x-auto h-[500px]">
-        {[...Array(5)].map((_, index) => (
+        {staticData.map((item, index) => (
           <div
             key={index}
             className="min-w-[258px] min-h-[150px] shadow-xl flex flex-col justify-start items-center gap-10 py-5 bg-[#1A1A18] rounded-[24px]"
           >
             <Image
               className="size-[170px] rounded-full border-none"
-              src="/firstpage/img2.jpg"
+              src={item.img}
               alt="header"
               width={1000}
               height={1000}
             />
             <div className="flex flex-col justify-start items-center gap-6">
               <p className="font-azarMehr font-medium text-[20px] text-white">
-                بهراد جهانی
+                {item.name}
               </p>
               <p className="font-azarMehr font-medium text-[18px] text-dark-yellow">
                 شهروندان پیشرو
               </p>
               <div className="flex justify-center items-center">
                 <p className="font-azarMehr font-medium text-[20px] text-[#808080]">
-                  125
+                  {item.likes}
                 </p>
                 <Like className="size-[15px] stroke-[#808080]" />
               </div>

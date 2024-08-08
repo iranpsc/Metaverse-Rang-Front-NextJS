@@ -9,6 +9,24 @@ const EducationFirstPage = ({ firstPageArrayContent }: any) => {
     return firstPageArrayContent.find((item: any) => item.name == _name)
       .translation;
   }
+
+  const staticData = [
+    {
+      title: "ورود به متاورس ایرانی چگونه است؟ |متاورس",
+      desc: "در حال حاضر هیچ قانونی وجود ندارد که به طور خاص متاورس یا سایر دنیای مجازی را تنظیم کند. با این حال، همان قوانین کلی که در مورد اینترنت اعمال می شود، در مورد Metaverse نیز اعمال می شود، از جمله قانون کپی رایت، قانون افترا، قانون قرارداد و غیره است.",
+      url: "https://video.irpsc.com/watch/SyNzKDuIfWvYfJX",
+    },
+    {
+      title: "خانواده در متاورس چه تعریفی دارد؟",
+      desc: "فضای مجازی ممکن است جملات زیادی از زبان مدیران اجرایی مانند مارک زاکربرگ یا ساتیا نادلا در مورد متاورس شنیده باشید متاورس آینده اینترنت است",
+      url: "https://video.irpsc.com/watch/QoIGOoEJFpwpYKC",
+    },
+    {
+      title: "VOD تجاری دارای بنا چیست؟ |متاورس",
+      desc: "متاورس رنگ اولین متاورس ایران با هدف توسعه تاورس ملی اهداف زیادی از قبیل عدم خروج ارز از کشور و در فازهای بعدی ورود ارز به کشور را دارد که این ها همه بخشی کوچکی از اهداف متاورس ملی می باشد",
+      url: "https://video.irpsc.com/watch/F2x6VMfXJK8xhhT",
+    },
+  ];
   return (
     <>
       <div className="w-full flex flex-row justify-between items-center ">
@@ -16,23 +34,25 @@ const EducationFirstPage = ({ firstPageArrayContent }: any) => {
           {localFind("trainings")}
         </p>
 
-        <div className="flex justify-center items-center gap-4">
-          <p className="font-azarMehr font-medium text-[20px]">
-            {localFind("view all")}
-          </p>
-          <ArrowRight className="stroke-white rotate-180 w-[24px] h-full" />
-        </div>
+        <a href="https://video.irpsc.com/videos/category/1036?page_id=1">
+          <div className="flex justify-center items-center gap-4">
+            <p className="font-azarMehr font-medium text-[20px]">
+              {localFind("view all")}
+            </p>
+            <ArrowRight className="stroke-white rotate-180 w-[24px] h-full" />
+          </div>
+        </a>
       </div>
 
       <div className="grid  lg:grid-cols-2 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 xs:grid-cols-1 gap-10 mt-12">
-        {[...Array(3)].map((_, index) => (
+        {staticData.map((item, index) => (
           <div
             key={index}
             className="w-[100%] min-h-[240px]  shadow-dark rounded-[10px] bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-6 items-center"
           >
             <div className=" group w-full h-[266px]   rounded-t-[10px] relative">
               <Image
-                src={`/firstpage/img-l-${index}.jpg`}
+                src={`/firstpage/static-education-${index}.jpg`}
                 alt="/firstpage/img2.jpg"
                 width={600}
                 height={600}
@@ -55,11 +75,11 @@ const EducationFirstPage = ({ firstPageArrayContent }: any) => {
               </p>
             </div>
 
-            <Link className="w-[95%]" href={"#"}>
+            <a className="w-[95%]" href={item.url}>
               <h1 className="text-start  w-full font-azarMehr truncate cursor-pointer font-bold mt-[8px] text-[18px] 3xl:text-[22px] ">
-                زمین های خالی سندباکس
+                {item.title}
               </h1>
-            </Link>
+            </a>
 
             <div className="w-[95%] pb-2 flex flex-row justify-between  items-center">
               <Link href="#" target="_blank">
