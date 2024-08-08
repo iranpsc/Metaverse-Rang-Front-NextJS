@@ -12,7 +12,11 @@ import LastContent from "@/components/templates/firstpage/LastContent";
 import DetailsEducationSection from "@/components/templates/firstpage/DetailsEducationSection";
 import VersionSection from "@/components/templates/firstpage/VersionSection";
 import SideBar from "@/components/module/sidebar/SideBar";
-import { getTransletion, getMainFile } from "@/components/utils/actions";
+import {
+  getTransletion,
+  getMainFile,
+  findByModalName,
+} from "@/components/utils/actions";
 import DynamicFooter from "@/components/module/footer/DynamicFooter";
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
 
@@ -26,6 +30,18 @@ export default async function LangPage({
   //
   const langData = await getTransletion(params.lang);
   const mainData = await getMainFile(langData);
+  // find specific modal
+  const centralPageModal = await findByModalName(mainData, "central-page");
+  // find inside modal and return its fields(result is array)
+  const firstPageArrayContent = centralPageModal.find(
+    (item: any) => item.name === "first-page"
+  ).fields;
+  // to find in an array with key(_name)
+  function localFind(_name: any) {
+    return firstPageArrayContent.find((item: any) => item.name == _name)
+      .translation;
+  }
+
   const defaultTheme = useServerDarkMode();
 
   async function fetchData() {
@@ -78,59 +94,58 @@ export default async function LangPage({
           className={`w-full relative flex  flex-col justify-start overflow-x-clip overflow-y-auto items-center bg-[#f8f8f8] dark:bg-[#2F2D28] bg-opacity20 `}
         >
           <div className="relative w-full xl:min-h-screen xs:min-h-max grid grid-cols-12  bg-[#2F2D28]">
-            <HeaderFirstPage />
-
-            <div className="w-full xl:h-[230px] xs:min-h-fit col-span-12 bg-[#303030]/60 backdrop-blur-md xl:absolute lg:absolute md:relative sm:relative xs:relative bottom-0  order-3 grid grid-cols-12">
-              <div
-                className="xl:col-span-6 lg:col-span-6 md:col-span-12 sm:col-span-12 xs:col-span-12 flex flex-col justify-start items-start gap-4 mt-10 ps-32
+            <HeaderFirstPage firstPageArrayContent={firstPageArrayContent} />
+          </div>
+          <div className="w-full xl:h-[230px] xs:min-h-fit col-span-12 bg-[#303030]/60 backdrop-blur-md mt-0 xl:mt-[-10%] grid grid-cols-12">
+            <div
+              className="xl:col-span-6 lg:col-span-6 md:col-span-12 sm:col-span-12 xs:col-span-12 flex flex-col justify-start items-start gap-4 mt-10 ps-32
                     lg:ps-32 md:ps-0 sm:ps-0 xs:ps-0
                     "
-              >
-                <Frame1 className="size-[36px]" />
-                <h5 className="text-white font-bold text-[18px] font-azarMehr">
-                  مسابقات متفاوت
-                </h5>
-                <p className="w-full   text-justify   text-white font-azarMehr font-medium ">
-                  با استفاده از فناوری‌های پیشرفته واقعیت مجازی و افزوده،
-                  می‌توانید با دیگران در دنیای متافرم به گفتگو بپردازید، محیط را
-                  کاوش کنید و تجربه‌های نزدیک به واقعیت را در دستان داشته باشید
-                </p>
-              </div>
+            >
+              <Frame1 className="size-[36px]" />
+              <h5 className="text-white font-bold text-[18px] font-azarMehr">
+                {localFind("different competitions")}
+              </h5>
+              <p className="w-full  text-justify   text-white font-azarMehr font-medium ">
+                {localFind(
+                  "metaverse rang invites you to an exciting world of competition"
+                )}
+              </p>
+            </div>
 
-              <div
-                className="xl:col-span-6 lg:col-span-6 md:col-span-12 sm:col-span-12 xs:col-span-12 flex flex-col justify-start items-start gap-4 mt-10 xl:ps-32
+            <div
+              className="xl:col-span-6 lg:col-span-6 md:col-span-12 sm:col-span-12 xs:col-span-12 flex flex-col justify-start items-start gap-4 mt-10 xl:ps-32
                     lg:ps-32 md:ps-0 sm:ps-0 xs:ps-0
                     "
-              >
-                <Frame2 className="size-[36px]" />
-                <h5 className="text-white font-bold text-[18px] font-azarMehr">
-                  تعاملات واقعی
-                </h5>
-                <p className="w-full   text-justify   text-white font-azarMehr font-medium ">
-                  با استفاده از فناوری‌های پیشرفته واقعیت مجازی و افزوده،
-                  می‌توانید با دیگران در دنیای متافرم به گفتگو بپردازید، محیط را
-                  کاوش کنید و تجربه‌های نزدیک به واقعیت را در دستان داشته باشید
-                </p>
-              </div>
+            >
+              <Frame2 className="size-[36px]" />
+              <h5 className="text-white font-bold text-[18px] font-azarMehr">
+                {localFind("real interactions")}
+              </h5>
+              <p className="w-full   text-justify   text-white font-azarMehr font-medium ">
+                {localFind(
+                  "metaverse rang invites you to an exciting world of real interactions"
+                )}
+              </p>
             </div>
           </div>
 
           <div className="w-full relative h-fit ">
             <div className="absolute top-0 left-0 w-full h-full bg-cover bg-no-repeat bg-center filter blur-sm "></div>
-            <SectionTimer />
+            <SectionTimer firstPageArrayContent={firstPageArrayContent} />
           </div>
 
           <div className="relative w-full h-fit grid grid-cols-12  mt-36 ">
             <div className="absolute bg-dark-yellow/10 z-0 size-[250px] start-[0px] bottom-[0px] rounded-xl blur-3xl filter"></div>
-            <SectionTeam />
+            <SectionTeam firstPageArrayContent={firstPageArrayContent} />
           </div>
 
           <div className="w-[90%] h-fit mt-[300px]">
-            <TopCitizen />
+            <TopCitizen firstPageArrayContent={firstPageArrayContent} />
           </div>
 
           <div className="w-[90%] h-fit mt-[300px]">
-            <LastNews />
+            <LastNews firstPageArrayContent={firstPageArrayContent} />
           </div>
 
           <div className="relative w-[100%] h-fit  mt-[300px] flex items-center justify-center">
@@ -144,26 +159,31 @@ export default async function LangPage({
             <Section3D />
           </div>
 
-          <div className="w-[100%] h-fit mt-[300px]">
-            <TopTrainersFirstPage />
+          <div className="w-[90%] h-fit mt-[300px]">
+            <TopTrainersFirstPage
+              firstPageArrayContent={firstPageArrayContent}
+              params={params}
+            />
           </div>
 
           <div className="w-[90%] h-fit mt-[300px]">
-            <EducationFirstPage />
+            <EducationFirstPage firstPageArrayContent={firstPageArrayContent} />
           </div>
 
           <div className="w-[90%] h-fit mt-[300px]">
-            <LastContent />
+            <LastContent firstPageArrayContent={firstPageArrayContent} />
           </div>
 
           <div className="relative w-[90%] h-fit mt-[300px]">
             <div className="absolute bg-dark-yellow/10 z-0 size-[250px] end-[0px] top-[-30px] rounded-xl blur-2xl filter"></div>
-            <DetailsEducationSection />
+            <DetailsEducationSection
+              firstPageArrayContent={firstPageArrayContent}
+            />
           </div>
 
           <div className="relative w-[90%] h-fit mt-[300px]">
             <div className="absolute bg-dark-white/10 z-0 size-[250px] start-[0px] top-[0px] rounded-xl blur-2xl filter"></div>
-            <VersionSection />
+            <VersionSection firstPageArrayContent={firstPageArrayContent} />
           </div>
 
           <div className="flex flex-col justify-center items-center">

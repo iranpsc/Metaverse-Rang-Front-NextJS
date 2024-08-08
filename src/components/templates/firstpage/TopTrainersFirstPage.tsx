@@ -1,17 +1,27 @@
 import { ArrowRight } from "@/components/svgs";
 import Image from "next/image";
 import { Like, Text } from "@/components/svgs/SvgEducation";
+import Link from "next/link";
 
-const TopTrainersFirstPage = () => {
+const TopTrainersFirstPage = ({ firstPageArrayContent, params }: any) => {
+  function localFind(_name: any) {
+    return firstPageArrayContent.find((item: any) => item.name == _name)
+      .translation;
+  }
   return (
     <>
       <div className="w-full flex flex-row justify-between items-center">
-        <p className="font-azarMehr font-medium text-[32px]">مربیان برتر</p>
-
-        <div className="flex justify-center items-center gap-4">
-          <p className="font-azarMehr font-medium text-[20px]"> مشاهده همه</p>
-          <ArrowRight className="stroke-white rotate-180 w-[24px] h-full" />
-        </div>
+        <p className="font-azarMehr font-medium text-[32px]">
+          {localFind("top trainers")}
+        </p>
+        <Link href={`/${params.lang}/citizen`}>
+          <div className="flex justify-center items-center gap-4">
+            <p className="font-azarMehr font-medium text-[20px]">
+              {localFind("view all")}
+            </p>
+            <ArrowRight className="stroke-white rotate-180 w-[24px] h-full" />
+          </div>
+        </Link>
       </div>
       <div className="w-full relative flex flex-row xl:justify-center items-center gap-6 mt-12 overflow-x-auto h-[500px]">
         {[...Array(5)].map((_, index) => (
@@ -42,7 +52,7 @@ const TopTrainersFirstPage = () => {
             </div>
             <div className="w-[90%] h-[55px] bg-[#f5f9ff] dark:bg-[#000000] px-6 rounded-[10px] flex flex-row justify-between items-center">
               <span className="text-blueLink dark:text-dark-yellow font-azarMehr font-medium text-[14px]">
-                رزمه مدرس
+                {localFind("coach resume")}
               </span>
 
               <Text className="w-[24px] h-[24px] stroke-blueLink dark:stroke-dark-yellow" />

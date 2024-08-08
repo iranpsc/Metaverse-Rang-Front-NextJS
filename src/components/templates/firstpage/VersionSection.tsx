@@ -1,4 +1,8 @@
-const VersionSection = () => {
+const VersionSection = ({ firstPageArrayContent }: any) => {
+  function localFind(_name: any) {
+    return firstPageArrayContent.find((item: any) => item.name == _name)
+      .translation;
+  }
   const data = [
     { id: 1, text: " ورژن 1.1.5" },
     { id: 2, text: " ورژن 1.1.4" },
@@ -7,7 +11,12 @@ const VersionSection = () => {
   ];
   return (
     <>
-      <div className="border-4 border-[#343434] rounded-[56px] flex flex-col justify-start items-start xl:gap-10 lg:gap-10 md:gap-7 sm:gap-5 xs:gap-3 p-10 bg-gradient-to-l from-[#343434] to-[#2E2D28]">
+      <div className="w-full flex flex-row justify-between items-center ">
+        <p className="font-azarMehr font-medium text-[32px]">
+          {localFind("The latest versions")}
+        </p>
+      </div>
+      <div className="border-4 border-[#343434] rounded-[56px] flex flex-col justify-start items-start xl:gap-10 lg:gap-10 md:gap-7 sm:gap-5 xs:gap-3 p-10 bg-gradient-to-l from-[#343434] to-[#2E2D28] mt-12">
         <div className="w-full flex flex-wrap justify-between items-center gap-3 ">
           {data.map((item: any) => (
             <p

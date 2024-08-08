@@ -2,7 +2,11 @@ import { Like, Text } from "@/components/svgs/SvgEducation";
 import { translateFooter } from "@/components/utils/education";
 import Image from "next/image";
 import Link from "next/link";
-import { getTransletion, getMainFile } from "@/components/utils/actions";
+import {
+  getTransletion,
+  getMainFile,
+  findByModalName,
+} from "@/components/utils/actions";
 
 export default async function CitizensPage({
   params,
@@ -11,12 +15,12 @@ export default async function CitizensPage({
 }) {
   const langData = await getTransletion(params.lang);
   const mainData = await getMainFile(langData);
-
-  const modalsProfile = mainData.modals.find(
-    (modal: any) => modal.name === "Citizenship-profile"
-  ).tabs;
-
-  console.log("data____4", mainData);
+  // find specific modal
+  const footerMenuModal = await findByModalName(mainData, "footer-menu");
+  // find inside modal and return its fields(result is array)
+  const footerMenuArrayContent = footerMenuModal.find(
+    (item: any) => item.name === "our-systems"
+  ).fields;
 
   const citizensArray = [
     {
@@ -39,7 +43,7 @@ export default async function CitizensPage({
       {citizensArray.map((item) => (
         <Link
           className="p-5 border-2"
-          href={`/${params.lang}/citizens/${item.code}`}
+          href={`/${params.lang}/citizen/${item.code}`}
         >
           {item.id}
           <div
@@ -88,7 +92,7 @@ export default async function CitizensPage({
                 className="w-full h-[55px] bg-[#f5f9ff] dark:bg-[#000000] px-6 rounded-[10px] flex flex-row justify-between items-center"
               >
                 <span className="text-blueLink dark:text-dark-yellow font-azarMehr font-medium text-[14px]">
-                  {translateFooter(mainData, "cv teacher")}
+                  {translateFooter(footerMenuArrayContent, "cv teacher")}
                 </span>
 
                 <Text className="w-[24px] h-[24px] stroke-blueLink dark:stroke-dark-yellow" />

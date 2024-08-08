@@ -3,7 +3,12 @@ import { Arrow, Discord, Vector } from "@/components/svgs";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-export default function HeaderFirstPage() {
+export default function HeaderFirstPage({ firstPageArrayContent }: any) {
+  function localFind(_name: any) {
+    return firstPageArrayContent.find((item: any) => item.name == _name)
+      .translation;
+  }
+
   return (
     <>
       <div
@@ -33,7 +38,7 @@ export default function HeaderFirstPage() {
           transition={{ duration: 0.3, delay: 0.5 }}
           className="text-white text-[36px] text-start  w-[50%] font-bold "
         >
-          ادغام ایده و خلاقیت
+          {localFind("integration of ideas and creativity")}
         </motion.h3>
 
         <motion.p
@@ -42,26 +47,24 @@ export default function HeaderFirstPage() {
           transition={{ duration: 0.4 }}
           className="w-full   text-justify   text-white font-azarMehr font-medium "
         >
-          متاورس رنگ یک پلتفرم دنیای متاورس است که به کاربران امکان می‌دهد تا در
-          یک فضای مجازی منحصربه‌فرد، به ارتباط با دیگر افراد بپردازند و تعاملات
-          واقعی را تجربه کنند. با این وبسایت، شما می‌توانید جهان‌های دیجیتال را
-          ایجاد کنید، با دوستان خود در ارتباط باشید، آثار خلاقانه خود را به
-          اشتراک بگذارید و در مسابقات و بازی‌ها شرکت کنید.
+          {localFind("metaverse rang is a metaverse world platform")}
         </motion.p>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.3 }}
-          className="border-[1px] border-white rounded-full w-[305px] h-[77px] flex flex-row justify-between items-center ps-6 pe-1"
-        >
-          <p className="w-fit text-start text-[20px] text-white font-azarMehr font-medium ">
-            ورود به دنیای متاورس
-          </p>
-          <div className="bg-dark-yellow size-[70px] rounded-full flex justify-center items-center">
-            <Arrow className="size-[36px]" />
-          </div>
-        </motion.div>
+        <a href="https://rgb.irpsc.com/metaverse/">
+          <motion.div
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3 }}
+            className="border-[1px] border-white rounded-full w-[305px] h-[77px] flex flex-row justify-between items-center ps-6 pe-1"
+          >
+            <p className="w-fit text-start text-[20px] text-white font-azarMehr font-medium ">
+              {localFind("entering the metaverse world")}
+            </p>
+            <div className="bg-dark-yellow size-[70px] rounded-full flex justify-center items-center">
+              <Arrow className="size-[36px]" />
+            </div>
+          </motion.div>
+        </a>
         <Discord className="size-[50px]" />
       </div>
 

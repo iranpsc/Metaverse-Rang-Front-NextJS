@@ -34,6 +34,14 @@ export async function getTransletion(lang) {
     });
     return await res.json();
   }
+  // return selected modal according to _selectedName from _mainData(.json)
+  export async function findByModalName(_mainData, _selectedName){
+    const temp = _mainData.modals.find(
+      (modal) => modal.name === `${_selectedName}`
+    ).tabs;
+
+    return temp
+  }
  export async function getFooterData(params) {
     try {
       const langObj =await getTransletion(params.lang)

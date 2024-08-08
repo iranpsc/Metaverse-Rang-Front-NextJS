@@ -3,7 +3,11 @@ import Image from "next/image";
 import TimerSection from "./Timer";
 import DynamicTimer from "./DynamicTimer";
 
-const SectionTimer = () => {
+const SectionTimer = ({ firstPageArrayContent }: any) => {
+  function localFind(_name: any) {
+    return firstPageArrayContent.find((item: any) => item.name == _name)
+      .translation;
+  }
   return (
     <div className="w-full flex flex-wrap justify-evenly xl:gap-1 lg:gap-1 md:gap-5 sm:gap-5 xs:gap-5 items-center mt-36 min-h-[300px]">
       <div className="w-full  h-[50px] xl:hidden lg:hidden md:flex sm:flex xs:flex justify-center items-center gap-10">

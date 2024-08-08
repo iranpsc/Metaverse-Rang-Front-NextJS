@@ -2,14 +2,22 @@ import { ArrowRight } from "@/components/svgs";
 import { Like } from "@/components/svgs/SvgEducation";
 import Image from "next/image";
 
-const TopCitizen = () => {
+const TopCitizen = ({ firstPageArrayContent }: any) => {
+  function localFind(_name: any) {
+    return firstPageArrayContent.find((item: any) => item.name == _name)
+      .translation;
+  }
   return (
     <>
       <div className="w-full flex flex-row justify-between items-center">
-        <p className="font-azarMehr font-medium text-[32px]">شهروندان پیشرو</p>
+        <p className="font-azarMehr font-medium text-[32px]">
+          {localFind("leading citizens")}
+        </p>
 
         <div className="flex justify-center items-center gap-4">
-          <p className="font-azarMehr font-medium text-[20px]"> مشاهده همه</p>
+          <p className="font-azarMehr font-medium text-[20px]">
+            {localFind("view all")}
+          </p>
           <ArrowRight className="stroke-white rotate-180 w-[24px] h-full" />
         </div>
       </div>

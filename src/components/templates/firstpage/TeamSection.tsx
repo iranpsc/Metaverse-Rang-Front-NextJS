@@ -1,7 +1,11 @@
 import { Vector } from "@/components/svgs";
 import Image from "next/image";
 
-const SectionTeam = () => {
+const SectionTeam = ({ firstPageArrayContent }: any) => {
+  function localFind(_name: any) {
+    return firstPageArrayContent.find((item: any) => item.name == _name)
+      .translation;
+  }
   return (
     <>
       <div className="xl:col-span-5 lg:col-span-5 md:col-span-12 sm:col-span-12 xs:col-span-12">
@@ -21,13 +25,11 @@ const SectionTeam = () => {
         <Vector className="w-[20%] h-10" />
 
         <h3 className="text-white text-[36px] text-start  w-[50%] font-bold ">
-          انقلابی در پلتفرم های مجازی ایرانی
+          {localFind("a revolution in virtual platforms")}
         </h3>
 
         <p className="w-full   text-justify   text-white font-azarMehr font-medium text-[24px] ">
-          تصور کنید که در اینترنت بجای دیدن اشیا و افراد بر روی یک صفحه، آن ها
-          را به صورت سه بعدی ببینید. به عنوان مثال شما به جای تماشای یک بازی در
-          داخل مانیتور، می‌توانید به آن دنیا وارد شوید.
+          {localFind("imagine seeing objects and people in 3d on the internet")}
         </p>
 
         <div className="w-fit flex flex-row justify-start items-center">
@@ -71,7 +73,7 @@ const SectionTeam = () => {
 
           <p className="w-full   text-justify   text-dark-yellow font-azarMehr font-medium text-[24px] ms-[100px]">
             + 5 <br />
-            تیم متاورس
+            {localFind("metarang team")}
           </p>
         </div>
         <p className="w-fit rounded-[24px] py-3 px-10 mt-5 text-center text-[20px] text-white bg-[#343434]  font-azarMehr font-medium ">
