@@ -4,7 +4,7 @@ import { targetData } from "@/components/utils/targetDataName";
 import Accordion from "@/components/module/levelComponent/Accordion";
 import ImageBox from "@/components/module/levelComponent/ImageBox";
 
-export default async function Gem({params,levelsTranslatePage}:any){
+export default async function Gem({params,levelsTranslatePage ,langData}:any){
 const gem = await getLevelTabs(params)
 console.log('gem----------1',gem);
 
@@ -15,18 +15,18 @@ console.log('gem----------1',gem);
         <DetailItem  title={targetData(levelsTranslatePage,"gem chip")} value={gem.data.thread} />
         <DetailItem  title={targetData(levelsTranslatePage,"gem color")} value={gem.data.color} />
         <DetailItem  title={targetData(levelsTranslatePage,"the volume of the 3d stone model")} value={gem.data.volume} />
-        <DetailItem  title={targetData(levelsTranslatePage,"gem png file")} value={gem.data.png_file} />
+        <DetailItem  title={targetData(levelsTranslatePage,"gem png file")} value={''} />
         <DetailItem  title={targetData(levelsTranslatePage,"the number of points of the 3d stone model")} value={gem.data.subcategories} />
-        <DetailItem  title={targetData(levelsTranslatePage,"gem fbx file")} value={gem.data.fbx_file} />
+        <DetailItem  title={targetData(levelsTranslatePage,"gem fbx file")} value={''} />
         <DetailItem  title={targetData(levelsTranslatePage,"the number of lines of the 3d stone model")} value={gem.data.lines} />
         <DetailItem  title={targetData(levelsTranslatePage,"central encryption")} value={gem.data.encryption} />
         <DetailItem  title={targetData(levelsTranslatePage,"animation")} value={gem.data.has_animation} />
         <DetailItem  title={targetData(levelsTranslatePage,"gem designer")} value={gem.data.designer} />
     
         </div>
-        <div className="w-full sm:w-1/5 flex">
-        <ImageBox item={gem.data}/>
-        </div>
+       
+        <ImageBox item={gem.data} langData={langData}/>
+        
     </div>
    
     </>)
