@@ -150,48 +150,48 @@ export default async function LangPage({
             <SectionTeam firstPageArrayContent={firstPageArrayContent} />
           </div>
 
-          <div className="w-[90%] h-fit mt-[300px]">
+          <div className="w-full h-fit  mt-[180px]">
             <TopCitizen firstPageArrayContent={firstPageArrayContent} />
           </div>
 
-          <div className="w-[90%] h-fit mt-[300px]">
+          <div className="w-full h-fit  mt-[180px]">
             <LastNews firstPageArrayContent={firstPageArrayContent} />
           </div>
 
-          <div className="relative w-[100%] h-fit  mt-[300px] flex items-center justify-center">
-            <Image
+          <div className="relative w-full h-fit   mt-[180px] flex items-center justify-center">
+            {/* <Image
               src={`/firstpage/circle.png`}
               alt="/firstpage/img2.jpg"
               width={1000}
               height={1000}
-              className=" w-fit h-[850px] absolute z-0 top-0 end-0"
-            />
+              className=" w-fit h-[850px] absolute z-[1000] top-[50%] start-[50%] translate-x-1/2 translate-y-1/2"
+            /> */}
             <Section3D />
           </div>
 
-          <div className="w-[90%] h-fit mt-[300px]">
+          <div className="w-full h-fit  mt-[180px]">
             <TopTrainersFirstPage
               firstPageArrayContent={firstPageArrayContent}
               params={params}
             />
           </div>
 
-          <div className="w-[90%] h-fit mt-[300px]">
+          <div className="w-full h-fit  mt-[180px]">
             <EducationFirstPage firstPageArrayContent={firstPageArrayContent} />
           </div>
 
-          <div className="w-[90%] h-fit mt-[300px]">
+          <div className="w-full h-fit  mt-[180px]">
             <LastContent firstPageArrayContent={firstPageArrayContent} />
           </div>
 
-          <div className="relative w-[90%] h-fit mt-[300px]">
+          <div className="w-full relative h-fit  mt-[180px]">
             <div className="absolute bg-dark-yellow/10 z-0 size-[250px] end-[0px] top-[-30px] rounded-xl blur-2xl filter"></div>
             <DetailsEducationSection
               firstPageArrayContent={firstPageArrayContent}
             />
           </div>
 
-          <div className="relative w-[90%] h-fit mt-[300px]">
+          <div className="w-full relative h-fit  mt-[180px]">
             <div className="absolute bg-dark-white/10 z-0 size-[250px] start-[0px] top-[0px] rounded-xl blur-2xl filter"></div>
             <VersionSection firstPageArrayContent={firstPageArrayContent} />
           </div>
