@@ -1,5 +1,6 @@
 import { Like, Text } from "@/components/svgs/SvgEducation";
 import { translateFooter } from "@/components/utils/education";
+import DynamicFooter from "@/components/module/footer/DynamicFooter";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -7,6 +8,7 @@ import {
   getMainFile,
   findByModalName,
   getAllCitizen,
+  getFooterData,
 } from "@/components/utils/actions";
 
 export default async function CitizensPage({
@@ -14,14 +16,23 @@ export default async function CitizensPage({
 }: {
   params: { lang: "en" | "fa" };
 }) {
+  // to find in an array with key(_name)
+  // function localFind(_name: any) {
+  //   return footerMenuArrayContent.find((item: any) => item.name == _name)
+  //     .translation;
+  // }
+
+  const footerTabs = await getFooterData(params);
   const langData = await getTransletion(params.lang);
   const mainData = await getMainFile(langData);
   // find specific modal
   const footerMenuModal = await findByModalName(mainData, "footer-menu");
+
   // find inside modal and return its fields(result is array)
   const footerMenuArrayContent = footerMenuModal.find(
     (item: any) => item.name === "our-systems"
   ).fields;
+  console.log("footerMenuArrayContent__!", footerMenuArrayContent);
 
   const allCitizenArray = await getAllCitizen();
   // console.log("allCitizenArray___2", allCitizenArray);
@@ -47,7 +58,7 @@ export default async function CitizensPage({
       {allCitizenArray.map((item: any) => (
         <div
           key={item.id}
-          className=" min-w-[270px] w-full sm:w-full lg:w-[48%] xl:w-[32%] h-[439px] shadow-sm  hover:dark:shadow-dark mt-10  relative cursor-pointer  bg-[#fff] dark:bg-[#1A1A18] flex flex-col justify-start gap-4 pt-7  items-center rounded-[20px]"
+          className=" min-w-[200px] w-full sm:w-full md:w-[48%] lg:w-[24%] xl:w-[19%] h-[439px] shadow-sm  hover:dark:shadow-dark mt-10  relative cursor-pointer  bg-[#fff] dark:bg-[#1A1A18] flex flex-col justify-start gap-4 pt-7  items-center rounded-[20px]"
         >
           <Link href={`/${params.lang}/citizen/${item.code}`}>
             <img
@@ -94,6 +105,7 @@ export default async function CitizensPage({
             >
               <span className="text-blueLink dark:text-dark-yellow font-azarMehr font-medium text-[14px]">
                 {translateFooter(footerMenuArrayContent, "cv teacher")}
+                test
               </span>
 
               <Text className="w-[24px] h-[24px] stroke-blueLink dark:stroke-dark-yellow" />
@@ -101,6 +113,9 @@ export default async function CitizensPage({
           </Link>
         </div>
       ))}
+      <div className="flex flex-col justify-center items-center">
+        <DynamicFooter footerTabs={footerTabs} />
+      </div>
     </>
   );
 }

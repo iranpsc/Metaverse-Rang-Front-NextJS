@@ -19,6 +19,7 @@ import {
 } from "@/components/utils/actions";
 import DynamicFooter from "@/components/module/footer/DynamicFooter";
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
+import UseDarkMode from "src/hooks/use-dark-mode";
 
 export default async function LangPage({
   params,
@@ -30,19 +31,21 @@ export default async function LangPage({
   //
   const langData = await getTransletion(params.lang);
   const mainData = await getMainFile(langData);
+  const defaultTheme = useServerDarkMode();
+
   // find specific modal
   const centralPageModal = await findByModalName(mainData, "central-page");
+
   // find inside modal and return its fields(result is array)
   const firstPageArrayContent = centralPageModal.find(
     (item: any) => item.name === "first-page"
   ).fields;
+
   // to find in an array with key(_name)
   function localFind(_name: any) {
     return firstPageArrayContent.find((item: any) => item.name == _name)
       .translation;
   }
-
-  const defaultTheme = useServerDarkMode();
 
   async function fetchData() {
     let languageSelectedUrl = "";
@@ -84,14 +87,13 @@ export default async function LangPage({
         params={params}
       />
       <section
-        // id={`${
-        //   themeDataActive == "dark" ? "dark-scrollbar" : "light-scrollbar"
-        // }`}
-
-        className={`h-screen overflow-y-auto relative`}
+        // id={`${defaultTheme == "dark" ? "dark-scrollbar" : "light-scrollbar"}`}
+        className={`h-screen overflow-y-auto relative no-scrollbar`}
       >
         <section
-          className={`w-full relative flex  flex-col justify-start overflow-x-clip overflow-y-auto items-center bg-[#f8f8f8] dark:bg-[#2F2D28] bg-opacity20 `}
+          className={`w-full relative flex  flex-col justify-start overflow-x-clip overflow-y-auto items-center bg-[#f8f8f8] dark:bg-[#2F2D28] bg-opacity20 
+            xl:pe-32 lg:pe-32 md:pe-5 sm:pe-5 xs:pe-5
+            xl:ps-32 lg:ps-32 md:ps-5 sm:ps-5 xs:ps-5`}
         >
           <div className="relative w-full xl:min-h-screen xs:min-h-max grid grid-cols-12  bg-[#2F2D28]">
             <HeaderFirstPage firstPageArrayContent={firstPageArrayContent} />
