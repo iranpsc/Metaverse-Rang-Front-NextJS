@@ -29,16 +29,16 @@ export default async function lavelSingelPage({
       return await res.json();
     }     
     const level = await singleLevel()
-    console.log('singel',level);
     
 return(<>
         <div className="px-7 w-full font-azarMehr ">
+         
+          <div className=" w-auto dark:bg-[#080807] rounded-[20px] p-3 relative">
           <div className="flex w-full font-bold sm:w-4/5 py-3 dark:text-white text-lg sm:text-xl lg:text-2xl 2xl:text-3xl 3xl:text-4xl">
             <h1>
               {level.data.name}
             </h1>
           </div>
-          <div className=" w-auto dark:bg-[#080807] rounded-[20px] p-3 relative">
             <div className="w-full sm:w-4/5 ">
               <TabSelector params={params} levelsTranslatePage={levelsTranslatePage}/>
             </div>

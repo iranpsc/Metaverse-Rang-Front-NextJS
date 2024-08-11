@@ -2,6 +2,7 @@
 // import MenuProfileModule from "./MenuProfileModule";
 import Header from "./Header";
 import AllSideTab from "./AllSideTab";
+import LevelSideTab from './LevelSideTab'
 import { useState } from "react";
 import LoginMenuModule from "./LoginMenuModule";
 import ThemeMenuModule from "@/components/module/sidebar/ThemeMenuModule";
@@ -13,6 +14,7 @@ export default function SideBar({
   langData,
   defaultTheme,
   params,
+  pageSide
 }) {
   //
   const [isClosed, setisClosed] = useState(true);
@@ -21,17 +23,13 @@ export default function SideBar({
   };
 
   //
-  const modalsProfile = mainData.modals.find(
-    (modal) => modal.name === "Citizenship-profile"
-  ).tabs;
-  const tabsMenu = modalsProfile.find(
-    (item) => item.name === "menu"
-  ).fields;
+console.log('mainData',mainData);
+
 
   return (
     <>
       <HeaderMobile
-        tabsMenu={tabsMenu}
+        tabsMenu={mainData}
         isClosed={isClosed}
         toggleSide={toggleSide}
       />
@@ -57,17 +55,27 @@ export default function SideBar({
             <div className="sticky w-full top-0 pt-4 z-50 bg-white dark:bg-dark-background transition-all duration-300 ease-linear">
               <Header
                 isClosed={isClosed}
-                tabsMenu={tabsMenu}
+                tabsMenu={mainData}
                 toggleSide={toggleSide}
               />
             </div>
             {/* <MenuProfileModule /> */}
+            {pageSide == 'citizen' &&
             <AllSideTab
-              tabsMenu={tabsMenu}
+              tabsMenu={mainData}
               languageSelected={languageSelected}
               isClosed={isClosed}
               toggleSide={toggleSide}
             />
+          }
+          {pageSide == 'level' && 
+           <LevelSideTab
+            tabsMenu={mainData}
+            languageSelected={languageSelected}
+            isClosed={isClosed}
+            params={params}
+            toggleSide={toggleSide}/>
+            }
             <div
               className={`${
                 isClosed

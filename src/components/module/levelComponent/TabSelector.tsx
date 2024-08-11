@@ -7,7 +7,7 @@ export default function TabSelector ({params,levelsTranslatePage}:any){
 
     const ButtonLink = ({ title, link }: { title: string, link: string }) => {
         return <Link prefetch={false} href={`/${lang}/levels/${id}/${link}`}
-        className={`inline-flex items-center justify-center w-full sm:w-auto ${link === params.tabs ? 'dark:text-dark-yellow border-b-2 border-dark-active-btn p-3 pb-2.5 font-bold' : 'dark:text-white border-b-2 border-transparent p-3 pb-2.5'}`} >
+        className={`inline-flex items-center justify-center w-full sm:w-auto ${link === params.tabs ? 'dark:text-dark-yellow border-b-2 border-dark-active-btn p-3 pb-2.5 font-bold' : 'dark:text-white font-[400] border-b-2 border-transparent p-3 pb-2.5'}`} >
             {title}
         </Link>
     }

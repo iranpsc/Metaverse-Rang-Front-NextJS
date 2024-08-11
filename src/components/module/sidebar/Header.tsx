@@ -33,12 +33,12 @@ export default function SideBarHeader({ isClosed, toggleSide, tabsMenu }: any) {
             <div className="inline-block w-full  ">
               {tabsMenu && (
                 <p className="visible  dark:text-white whitespace-nowrap	 block font-azarMehr font-bold xl:text-[16px] lg:text-[14px] md:text-[13px] sm:text-[12px] xs:text-[12px] text-black pb-[2px] ">
-                  {tabsMenu[0].translation}
+                  {tabsMenu.find((item:any)=>item.name == "meta rgb").translation}
                 </p>
               )}
               {tabsMenu && (
                 <p className="dark:text-dark-gray visible font-azarMehr font-normal text-gray xl:text-[14px] lg:text-[11px] md:text-[13px] sm:text-[10px] xs:text-[10px] ">
-                  {tabsMenu[17].translation}
+                  {tabsMenu.find((item:any)=>item.name == "metaverse rang").translation}
                 </p>
               )}
             </div>

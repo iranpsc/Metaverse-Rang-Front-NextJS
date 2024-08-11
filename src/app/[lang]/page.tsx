@@ -30,6 +30,13 @@ export default async function LangPage({
   //
   const langData = await getTransletion(params.lang);
   const mainData = await getMainFile(langData);
+  const modalsProfile = mainData.modals.find(
+    (modal:any) => modal.name === "Citizenship-profile"
+  ).tabs;
+  const tabsMenu = modalsProfile.find(
+    (item:any) => item.name === "menu"
+  ).fields;
+
   // find specific modal
   const centralPageModal = await findByModalName(mainData, "central-page");
   // find inside modal and return its fields(result is array)
@@ -79,9 +86,10 @@ export default async function LangPage({
       <SideBar
         languageSelected={params.lang}
         langData={langData}
-        mainData={mainData}
+        mainData={tabsMenu}
         defaultTheme={defaultTheme}
         params={params}
+        pageSide ='citizen'
       />
       <section
         // id={`${
