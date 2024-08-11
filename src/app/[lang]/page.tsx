@@ -33,6 +33,13 @@ export default async function LangPage({
   const mainData = await getMainFile(langData);
   const defaultTheme = useServerDarkMode();
 
+  const modalsProfile = mainData.modals.find(
+    (modal: any) => modal.name === "Citizenship-profile"
+  ).tabs;
+  const tabsMenu = modalsProfile.find(
+    (item: any) => item.name === "menu"
+  ).fields;
+
   // find specific modal
   const centralPageModal = await findByModalName(mainData, "central-page");
 
@@ -82,9 +89,10 @@ export default async function LangPage({
       <SideBar
         languageSelected={params.lang}
         langData={langData}
-        mainData={mainData}
+        mainData={tabsMenu}
         defaultTheme={defaultTheme}
         params={params}
+        pageSide="citizen"
       />
       <section
         // id={`${defaultTheme == "dark" ? "dark-scrollbar" : "light-scrollbar"}`}

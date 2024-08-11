@@ -39,3 +39,24 @@ export { default as Update } from "../../../public/svg/update.svg";
 export { default as Development } from "../../../public/svg/development.svg";
 export { default as Orders } from "../../../public/svg/orders.svg";
 export { default as Income } from "../../../public/svg/income.svg";
+export { default as Businessman } from "../../../public/svg/level/businessman.png";
+export { default as Citizen } from "../../../public/svg/level/citizen.png";
+export { default as CityCouncil } from "../../../public/svg/level/city-council.png";
+export { default as Developer } from "../../../public/svg/level/developer.png";
+export { default as Governor } from "../../../public/svg/level/governor.png";
+export { default as Inspector } from "../../../public/svg/level/inspector.png";
+export { default as Lawyer } from "../../../public/svg/level/lawyer.png";
+export { default as Participation } from "../../../public/svg/level/participation.png";
+export { default as Reporter } from "../../../public/svg/level/reporter.png";
+export { default as Mayor } from "../../../public/svg/level/the-mayor.png";
+export { default as Minister } from "../../../public/svg/level/minister.png";
+export { default as Legislator } from "../../../public/svg/level/legislator.png";
+export { default as Judge } from "../../../public/svg/level/judge.png";
+
+
+
+
+
+
+
+

@@ -7,7 +7,7 @@ export default function TabSelector ({params,levelsTranslatePage}:any){
 
     const ButtonLink = ({ title, link }: { title: string, link: string }) => {
         return <Link prefetch={false} href={`/${lang}/levels/${id}/${link}`}
-        className={`inline-flex items-center justify-center ${link === params.tabs ? 'dark:text-dark-yellow border-b-2 border-dark-active-btn p-3 pb-2.5 font-bold' : 'dark:text-white border-b-2 border-transparent p-3 pb-2.5'}`} >
+        className={`inline-flex items-center justify-center w-full sm:w-auto ${link === params.tabs ? 'dark:text-dark-yellow border-b-2 border-dark-active-btn p-3 pb-2.5 font-bold' : 'dark:text-white font-[400] border-b-2 border-transparent p-3 pb-2.5'}`} >
             {title}
         </Link>
     }
@@ -15,14 +15,14 @@ export default function TabSelector ({params,levelsTranslatePage}:any){
 
     return (
         <div className="dark:bg-darkGray dark:textwhite rounded-[12px] font[700]">
-            <ul className="flex justify-around flex-wrap -mb-px text-sm font-medium">
-                <li className="me-2">
+            <ul className="flex flex-col sm:flex-row  sm:justify-around flex-wrap -mb-px text-sm font-medium">
+                <li className="me-2 w-100 sm:w-auto">
                   <ButtonLink title={targetData(levelsTranslatePage, "basic level information")} link="general-info" />
                 </li>
-                <li className="me-2"><ButtonLink title={targetData(levelsTranslatePage,"permissions and access")} link="licenses" /></li>
-                <li className="me-2"> <ButtonLink title={targetData(levelsTranslatePage,"surface gem")} link="gem" /></li>
-                <li className="me-2"><ButtonLink title={targetData(levelsTranslatePage,"accompanying gift")} link="gift" /></li>
-                <li className="me-2"><ButtonLink title={targetData(levelsTranslatePage,"reward for reaching the level")} link="prize" /></li>
+                <li className="me-2 w-100 sm:w-auto"><ButtonLink title={targetData(levelsTranslatePage,"permissions and access")} link="licenses" /></li>
+                <li className="me-2 w-100 sm:w-auto"> <ButtonLink title={targetData(levelsTranslatePage,"surface gem")} link="gem" /></li>
+                <li className="me-2 w-100 sm:w-auto"><ButtonLink title={targetData(levelsTranslatePage,"accompanying gift")} link="gift" /></li>
+                <li className="me-2 w-100 sm:w-auto"><ButtonLink title={targetData(levelsTranslatePage,"reward for reaching the level")} link="prize" /></li>
             </ul>
         </div>
 

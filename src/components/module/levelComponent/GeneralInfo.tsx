@@ -8,7 +8,7 @@ const generalInfo = await getLevelTabs(params)
 console.log('generalInfo----------1',generalInfo);
 
     return(<>
-    <div className="w-4/5 flex flex-wrap justify-between">
+    <div className="w-full sm:w-4/5 flex flex-wrap justify-between">
     <Accordion title={targetData(levelsTranslatePage,"description")} value={generalInfo.data.description}/>
     <DetailItem  title={targetData(levelsTranslatePage,"required points")} value={generalInfo.data.score.toLocaleString()} />
     <DetailItem  title={targetData(levelsTranslatePage,"surface model file size")} value={generalInfo.data.file_volume} />
@@ -24,8 +24,6 @@ console.log('generalInfo----------1',generalInfo);
     <DetailItem  title={targetData(levelsTranslatePage,"3d model designer")} value={generalInfo.data.model_designer} />
     <DetailItem fullBox={true} title={targetData(levelsTranslatePage,"colors used")} value={generalInfo.data.used_colors} />
     </div>
-    <div className="w-4/5 flex flex-col flex-wrap justify-between">
-
-    </div>
+    
     </>)
 }

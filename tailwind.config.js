@@ -96,6 +96,7 @@ module.exports = {
         Field: "#FCFCFC",
         darkGray: "#1A1A18",
         darkGray_1:"#10100F",
+        grayLight:"#F8F8F8",
         // *** this project custome END
         light: {
           test: "#2503f1",

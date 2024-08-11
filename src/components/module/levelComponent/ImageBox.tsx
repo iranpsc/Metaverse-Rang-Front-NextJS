@@ -1,9 +1,10 @@
 "use client"
 import Image from "next/image";
 import { useState } from "react";
+import { Sample3D } from "./Sample3D";
+import  ErrorBoundary  from "@/components/utils/ErrorBoundary";
 
-
-export default function ImageBox({item}:any){
+export default function ImageBox({item,langData}:any){
 
     const srcPng = item?.png_file ? item?.png_file :""
     const srcFbx = item?.fbx_file ? item?.fbx_file :""
@@ -15,11 +16,11 @@ export default function ImageBox({item}:any){
     setMode(event)
     
 }
-console.log('mode',mode);
+console.log('langData={langData',langData);
     return(
     <>
-    <div className="w-full flex flex-col flex-wrap">
-    <div className="w-full">
+    <div className={`w-full sm:w-1/5 sm:absolute top-0 ${langData.direction =="rtl"? "left-0":"right-0"}  flex flex-col flex-wrap`}>
+         <div className="w-full  h-[200px] xl:h-[300px] flex items-center justify-center">
          
          {
              mode =='png' ?
@@ -27,8 +28,8 @@ console.log('mode',mode);
                    src={srcPng}
                    alt='png'
                    width={100}
-                   height={1000}
-                   className=" w-full"
+                   height={180}
+                   className=" w-full h-full object-contain"
                  />:""
          }
           
@@ -38,10 +39,14 @@ console.log('mode',mode);
                    src={srcGif}
                    alt="gif"
                    width={100}
-                   height={1000}
-                   className=" w-full"
+                   height={180}
+                   className=" h-full w-full  object-contain"
                  />:""
           }
+            { mode =='fbx' ?
+            <ErrorBoundary>
+                            <Sample3D url={srcFbx as any} />
+            </ErrorBoundary> :""}
          </div>
          <div className="w-full flex flex-wrap justify-around">
          {
