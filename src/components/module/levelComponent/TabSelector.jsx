@@ -1,11 +1,11 @@
 import Link from 'next/link'
 import { targetData } from "@/components/utils/targetDataName";
 
-export default function TabSelector ({params,levelsTranslatePage}:any){
+export default function TabSelector ({params,levelsTranslatePage}){
     const id = params.levelId
     const lang = params.lang
 
-    const ButtonLink = ({ title, link }: { title: string, link: string }) => {
+    const ButtonLink = ({ title, link }) => {
         return <Link prefetch={false} href={`/${lang}/levels/${id}/${link}`}
         className={`inline-flex items-center justify-center w-full sm:w-auto ${link === params.tabs ? 'dark:text-dark-yellow border-b-2 border-dark-active-btn p-3 pb-2.5 font-bold' : 'dark:text-white font-[400] border-b-2 border-transparent p-3 pb-2.5'}`} >
             {title}
