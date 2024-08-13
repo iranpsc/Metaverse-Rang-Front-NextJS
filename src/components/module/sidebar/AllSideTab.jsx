@@ -63,6 +63,7 @@ export default function SideBarContent({
               {i !== 0 && (
                 <div
                   className={`w-full flex flex-row items-center gap-2 group py-[12px] 3xl:py-[16px]
+                  group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer
                   ${isClosed ? "justify-center" : "justify-start"}`}
                 >
                   <ListMenuActiveIconModule

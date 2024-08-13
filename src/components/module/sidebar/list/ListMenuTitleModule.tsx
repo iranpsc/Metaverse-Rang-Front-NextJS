@@ -22,7 +22,7 @@ const ListMenuTitleModule = ({ item, activeNav, i }: any) => {
         : "text-[#888888] dark:text-[#888888]"
     }
     capitalize 3xl:text-xl3Title xl:text-xlTitle lg:text-lgTitle md:text-mdTitle sm:text-smTitle xs:text-smTitle
-    font-azarMehr font-normal 3xl:text-[22px] cursor-pointer group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700]
+    font-azarMehr font-normal 3xl:text-[22px]  
     visible
       `}
     >
