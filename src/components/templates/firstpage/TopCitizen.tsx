@@ -10,18 +10,18 @@ const TopCitizen = ({ firstPageArrayContent }: any) => {
   return (
     <>
       <div className="w-full flex flex-row justify-between items-center">
-        <p className="font-azarMehr font-medium text-[32px]">
+        <p className="font-azarMehr font-medium  text-[16px] md:text-[20px] lg:text-[28px] xl:text-[32px] dark:text-white">
           {localFind("leading citizens")}
         </p>
 
         <div className="flex justify-center items-center gap-4">
-          <p className="font-azarMehr font-medium text-[20px]">
+          <p className="font-azarMehr font-medium text-[12px] md:text-[16px] lg:text-[18px] xl:text-[20px] dark:text-white">
             {localFind("view all")}
           </p>
           <ArrowRight className="stroke-white rotate-180 w-[24px] h-full" />
         </div>
       </div>
-      <div className="w-full relative flex flex-row  xl:justify-center items-center overflow-x-auto gap-6 mt-12">
+      <div className="w-full relative flex flex-row  xl:justify-center items-center overflow-x-auto gap-6 mt-4 md:mt-12">
         {[...Array(5)].map((_, index) => (
           <div
             key={index}

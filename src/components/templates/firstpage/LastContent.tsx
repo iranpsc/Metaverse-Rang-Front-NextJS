@@ -31,13 +31,13 @@ const LastContent = ({ firstPageArrayContent }: any) => {
   return (
     <>
       <div className="w-full flex flex-row justify-between items-center ">
-        <p className="font-azarMehr font-medium text-[32px]">
+        <p className="font-azarMehr font-medium text-[16px] md:text-[20px] lg:text-[28px] xl:text-[32px] dark:text-white">
           {localFind("latest content")}
         </p>
 
         <a href="https://rgb.irpsc.com/home-blogs">
           <div className="flex justify-center items-center gap-4">
-            <p className="font-azarMehr font-medium text-[20px]">
+            <p className="font-azarMehr font-medium text-[12px] md:text-[16px] lg:text-[18px] xl:text-[20px] dark:text-white">
               {localFind("view all")}
             </p>
             <ArrowRight className="stroke-white rotate-180 w-[24px] h-full" />
@@ -45,7 +45,7 @@ const LastContent = ({ firstPageArrayContent }: any) => {
         </a>
       </div>
 
-      <div className="grid  lg:grid-cols-2 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 xs:grid-cols-1 gap-10 mt-12">
+      <div className="grid  lg:grid-cols-2 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 xs:grid-cols-1 gap-10 mt-4 md:mt-12">
         {staticData.map((item, index) => (
           <div
             key={index}
@@ -75,7 +75,7 @@ const LastContent = ({ firstPageArrayContent }: any) => {
             </div>
 
             <a className="w-[95%]" href={staticData[index].url}>
-              <h1 className="text-start  w-full font-azarMehr truncate cursor-pointer font-bold mt-[8px] text-[18px] 3xl:text-[22px] ">
+              <h1 className="text-start  w-full font-azarMehr truncate cursor-pointer font-bold mt-[8px]  text-[18px] xl:text-[20px] 3xl:text-[22px] dark:text-white text-gray">
                 {staticData[index].title}
               </h1>
             </a>

@@ -9,8 +9,8 @@ const SectionTimer = ({ firstPageArrayContent }: any) => {
       .translation;
   }
   return (
-    <div className="w-full flex flex-wrap justify-evenly xl:gap-1 lg:gap-1 md:gap-5 sm:gap-5 xs:gap-5 items-center mt-36 min-h-[300px]">
-      <div className="w-full  h-[50px] xl:hidden lg:hidden md:flex sm:flex xs:flex justify-center items-center gap-10">
+    <div className="w-full flex flex-wrap md:flex-nowrap justify-evenly xl:gap-1 lg:gap-1 md:gap-5 sm:gap-5 xs:gap-5 items-center min-h-[300px]">
+      <div className="w-full  h-[50px] xl:hidden md:hidden  sm:flex xs:flex justify-center items-center gap-10">
         <div className="bg-dark-yellow rounded-full size-[50px] flex justify-center items-center  ">
           <ArrowRight className=" stroke-[#1b1b1b] size-[24px]" />
         </div>
@@ -19,7 +19,7 @@ const SectionTimer = ({ firstPageArrayContent }: any) => {
         </div>
       </div>
 
-      <div className="bg-dark-yellow rounded-full size-[50px] xl:flex lg:flex md:hidden sm:hidden xs:hidden justify-center items-center  ">
+      <div className="bg-dark-yellow rounded-full size-[50px] xl:flex md:flex sm:hidden xs:hidden justify-center items-center  ">
         <ArrowRight className=" stroke-[#1b1b1b] size-[24px]" />
       </div>
 
@@ -30,17 +30,17 @@ const SectionTimer = ({ firstPageArrayContent }: any) => {
       >
         <div className="absolute bg-white/10 z-0 size-[150px] top-[10px] end-[20%] blur-3xl  filter"></div>
         <Image
-          className="w-full h-full rounded-[32px] border-none"
+          className=" w-full md:w-2/5 lg:w-full lg:h-full rounded-[32px] border-none"
           src="/firstpage/img1.jpg"
           alt="header"
           width={1000}
           height={1000}
         />
         <div className="">
-          <h6 className="w-fit text-start text-[32px] text-white font-azarMehr font-medium ms-5">
+          <h6 className="w-fit text-start text-[23px] lg:text-[32px] text-gray dark:text-white font-azarMehr font-medium ms-5">
             خانه سه بعدی جدید با معماری Brutalism
           </h6>
-          <p className="w-fit text-start text-[20px] text-white font-azarMehr font-medium mt-10 ms-5">
+          <p className="w-fit text-start text-lg lg:text-[20px] text-gray dark:text-white font-azarMehr font-medium mt-5 lg:mt-10 ms-5">
             ساختمان‌های این سبک از معماری به ظاهر خشن و رویدادگرا هستند و دارای
             ضخامت و جرات بصری قوی می‌باشند. و ......
           </p>
@@ -53,15 +53,15 @@ const SectionTimer = ({ firstPageArrayContent }: any) => {
       >
         <div className="absolute bg-white/10 z-0 size-[150px] top-[-10px] end-[-20px] rounded-xl blur-3xl  filter"></div>
         <DynamicTimer />
-        <p className="w-full rounded-[28px] py-3 z-50 text-center text-[20px] text-black bg-dark-yellow  font-azarMehr font-medium mt-5 ">
+        <p className="w-full rounded-[28px] py-3 z-50 text-center text-lg lg:text-[20px] text-black bg-dark-yellow  font-azarMehr font-medium mt-5 ">
           پیش خرید
         </p>
-        <p className="w-full rounded-[28px] py-3 mt-5 text-center text-[20px] text-white bg-[#343434]  font-azarMehr font-medium ">
+        <p className="w-full rounded-[28px] py-3 mt-5 text-center text-lg lg:text-[20px] text-white bg-[#343434]  font-azarMehr font-medium ">
           مشاهده آبجکت
         </p>
       </div>
 
-      <div className="bg-dark-yellow rounded-full size-[50px] flex justify-center items-center xl:flex lg:flex md:hidden sm:hidden xs:hidden">
+      <div className="bg-dark-yellow rounded-full size-[50px] flex justify-center items-center xl:flex md:flex  sm:hidden xs:hidden">
         <ArrowRight className="stroke-[#1b1b1b] size-[24px] rotate-180" />
       </div>
     </div>

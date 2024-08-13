@@ -7,19 +7,19 @@ import Link from "next/link";
 const Section3D = () => {
   return (
     <>
-      <div className="relative w-full flex justify-center items-center mt-[100px]">
+      <div className="relative w-full flex justify-center items-center ">
         {/* <ButtonClick className="z-50 absolute size-[130px] m-auto" /> */}
         <div className="absolute bottom-12 start-5 w-fit z-10 h-fit gap-5 flex flex-row justify-center items-center">
-          <div className="bg-white px-10 py-3 rounded-full">
-            <p className="font-azarMehr font-medium text-[20px] text-black whitespace-nowrap">
+          <div className="bg-white px-10 py-2 sm:py-3 rounded-full">
+            <p className="font-azarMehr font-medium text-[8px] sm:text-[16px] md:text-[18px] lg:text-[20px] text-black whitespace-nowrap">
               معرفی متاورس رنگ
             </p>
           </div>
-          <p className="font-azarMehr font-medium text-[20px] text-white">
+          <p className="font-azarMehr font-medium text-[10px] sm:text-[16px] md:text-[18px] lg:text-[20px] text-white">
             انقلابی در پلتفرم های مجازی ایرانی
           </p>
         </div>
-        <div className="h-[400px] rounded-[72px] overflow-hidden">
+        <div className="md:h-[400px] rounded-[32px] sm:rounded-[72px] overflow-hidden">
           {/* VIDEO */}
           <video
             className="w-full"

@@ -37,7 +37,7 @@ export default function TimerSection() {
       dir="ltr"
     >
       <div className="flex flex-col justify-center items-center">
-        <span className="text-[48px] text-dark-yellow text-azarMehr font-bold">
+        <span className="text-[28px] lg:text-[48px] text-dark-yellow text-azarMehr font-bold">
           {timeRemaining.days.toString().padStart(2, "0")} {" : "}
         </span>
         <span className="text-[16px] text-dark-yellow text-azarMehr font-bold text-center w-full pe-5">
@@ -46,7 +46,7 @@ export default function TimerSection() {
       </div>
 
       <div className="flex flex-col justify-center items-center">
-        <span className="text-[48px] text-dark-yellow text-azarMehr font-bold">
+        <span className="text-[28px] lg:text-[48px] text-dark-yellow text-azarMehr font-bold">
           {timeRemaining.hours.toString().padStart(2, "0")} {" : "}
         </span>
         <span className="text-[16px] text-dark-yellow text-azarMehr font-bold text-center w-full pe-5">
@@ -55,7 +55,7 @@ export default function TimerSection() {
       </div>
 
       <div className="flex flex-col justify-center items-center">
-        <span className="text-[48px] text-dark-yellow text-azarMehr font-bold">
+        <span className="text-[28px] lg:text-[48px] text-dark-yellow text-azarMehr font-bold">
           {timeRemaining.minutes.toString().padStart(2, "0")} {" : "}
         </span>
         <span className="text-[16px] text-dark-yellow text-azarMehr font-bold text-center text-center w-full pe-5">
@@ -64,7 +64,7 @@ export default function TimerSection() {
       </div>
 
       <div className="flex flex-col justify-center items-center">
-        <span className="text-[48px] text-dark-yellow text-azarMehr font-bold">
+        <span className="text-[28px] lg:text-[48px] text-dark-yellow text-azarMehr font-bold">
           {timeRemaining.seconds.toString().padStart(2, "0")}
         </span>
         <span className="text-[16px] text-dark-yellow text-azarMehr font-bold text-center w-full pe-5">
