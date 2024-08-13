@@ -7,7 +7,6 @@ export default async function Permissions({
   levelsTranslatePage,
 }: any) {
   const permissions = await getLevelTabs(params);
-  console.log("permissions----------1", permissions);
 
   return (
     <>

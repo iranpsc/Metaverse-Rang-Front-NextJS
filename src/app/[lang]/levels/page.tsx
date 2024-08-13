@@ -22,51 +22,48 @@ export default async function LevelsPage({
   const langData = await getTransletion(params.lang);
   const mainData = await getMainFile(langData);
   const levels = mainData.modals.find((x: any) => x.name == "levels");
-  console.log('levelslevels',levels);
   const levelsTranslatePage = levels.tabs.find(
     (x: any) => x.name == "levels-page"
   ).fields;
-  
+
   const modalsProfile = mainData.modals.find(
-    (modal:any) => modal.name === "Citizenship-profile"
+    (modal: any) => modal.name === "Citizenship-profile"
   ).tabs;
   const tabsMenu = modalsProfile.find(
-    (item:any) => item.name === "menu"
+    (item: any) => item.name === "menu"
   ).fields;
-  
+
   return (
     <>
-    
-    <div className={`flex dark:bg-black `} dir={langData.direction} >
+      <div className={`flex dark:bg-black `} dir={langData.direction}>
+        <SideBar
+          languageSelected={params.lang}
+          langData={langData}
+          mainData={tabsMenu}
+          defaultTheme={defaultTheme}
+          params={params}
+          pageSide="citizen"
+        />
+        <section
+          // id={`${
+          //   themeDataActive == "dark" ? "dark-scrollbar" : "light-scrollbar"
+          // }`}
 
-      <SideBar
-        languageSelected={params.lang}
-        langData={langData}
-        mainData={tabsMenu}
-        defaultTheme={defaultTheme}
-        params={params}
-        pageSide ='citizen'
-      />
-      <section
-        // id={`${
-        //   themeDataActive == "dark" ? "dark-scrollbar" : "light-scrollbar"
-        // }`}
-
-        className={`h-screen overflow-y-auto relative pt-[60px] sm:pt-10`}
-      >
-      <div className="flex justify-center flex-wrap ">
-        {levelArray.data.map((item: any) => (
-          <LevelCard
-            item={item}
-            levelsTranslatePage={levelsTranslatePage}
-            params={params}
-          />
-        ))}
-      </div>
-      <div className="flex flex-col justify-center items-center">
-        <DynamicFooter footerTabs={footerTabs} />
-      </div>
-      </section>
+          className={`h-screen overflow-y-auto relative pt-[60px] sm:pt-10`}
+        >
+          <div className="flex justify-center flex-wrap ">
+            {levelArray.data.map((item: any) => (
+              <LevelCard
+                item={item}
+                levelsTranslatePage={levelsTranslatePage}
+                params={params}
+              />
+            ))}
+          </div>
+          <div className="flex flex-col justify-center items-center">
+            <DynamicFooter footerTabs={footerTabs} />
+          </div>
+        </section>
       </div>
     </>
   );

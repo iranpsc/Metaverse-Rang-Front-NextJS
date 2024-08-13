@@ -32,10 +32,8 @@ export default async function CitizensPage({
   const footerMenuArrayContent = footerMenuModal.find(
     (item: any) => item.name === "our-systems"
   ).fields;
-  console.log("footerMenuArrayContent__!", footerMenuArrayContent);
 
   const allCitizenArray = await getAllCitizen();
-  // console.log("allCitizenArray___2", allCitizenArray);
   // const allCitizenArray = [
   //   {
   //     id: 1,

@@ -12,7 +12,7 @@ const VersionSection = ({ firstPageArrayContent }: any) => {
   return (
     <>
       <div className="w-full flex flex-row justify-between items-center ">
-        <p className="font-azarMehr font-medium text-[32px]">
+        <p className="font-azarMehr font-medium text-[16px] md:text-[20px] lg:text-[28px] xl:text-[32px] dark:text-white">
           {localFind("The latest versions")}
         </p>
       </div>

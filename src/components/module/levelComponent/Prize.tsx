@@ -4,7 +4,6 @@ import { targetData } from "@/components/utils/targetDataName";
 
 export default async function Prize({ params, levelsTranslatePage }: any) {
   const prize = await getLevelTabs(params);
-  console.log("prize----------1", prize);
 
   return (
     <>

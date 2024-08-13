@@ -20,7 +20,6 @@ export default function SideBarContent({
   isClosed,
   params
 }) {
- console.log('tabsMenu',tabsMenu);
  const [activeNav, setActiveNav] = useState(params.levelId);
 
  const onTabClick = (item, tabNumber) => {

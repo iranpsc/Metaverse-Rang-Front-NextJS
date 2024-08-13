@@ -9,7 +9,6 @@ export default async function GeneralInfo({
   levelsTranslatePage,
 }: any) {
   const generalInfo = await getLevelTabs(params);
-  console.log("generalInfo----------1", generalInfo);
 
   return (
     <>

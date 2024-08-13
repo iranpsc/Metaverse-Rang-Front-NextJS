@@ -1,60 +1,59 @@
-
 import Image from "next/image";
 import Link from "next/link";
-import { FlagSatar , StairsUp } from "@/components/svgs";
+import { FlagSatar, StairsUp } from "@/components/svgs";
 import { targetData } from "@/components/utils/targetDataName";
 
-export default function LevelCard({ item, levelsTranslatePage, params }:
-     {item:any;
-      levelsTranslatePage:any;
-      params:any
-    }) {
-
+export default function LevelCard({
+  item,
+  levelsTranslatePage,
+  params,
+}: {
+  item: any;
+  levelsTranslatePage: any;
+  params: any;
+}) {
   return (
-  
     <div className="w-full  sm:w-1/2 md:w-1/3 xl:w-1/4 py-[10px] px-[14px] lg:px-[16px] 2xl:px-[25px] 3xl:px-[50px] ">
-          <Link
-              className="hoverCardLevel flex  flex-col items-center rounded-[20px] box-border hover:border hover:border-[#0066FF] dark:hover:bg-[#1A1A18]  dark:hover:border-[#FFC700]"
-              href={`/${params.lang}/levels/${item.id}/general-info`}
-          >
-            <Image 
-              src={item.png_file}
-              alt="/firstpage/img2.jpg"
-              width={180}
-              height={170}
-              className="z-[2]"
-            />
-            <div className="boxDataLevel w-full pt-[60px]  rounded-[20px] flex flex-col  justify-center bg-white border border-[rgba(0,0,0,0.14)]   dark:bg-[#1A1A18] mt-[-50px]">
-              <span className="text-center  dark:text-white font-azarMehr font-medium  text-[#33353B] mx-2 lg:text-2xl  ">
-                  {item.name}
+      <Link
+        className="hoverCardLevel flex  flex-col items-center rounded-[20px] box-border hover:border hover:border-[#0066FF] dark:hover:bg-[#1A1A18]  dark:hover:border-[#FFC700]"
+        href={`/${params.lang}/levels/${item.id}/general-info`}
+      >
+        <Image
+          src={item.png_file}
+          alt="/firstpage/img2.jpg"
+          width={180}
+          height={170}
+          className="z-[2]"
+        />
+        <div className="boxDataLevel w-full pt-[60px]  rounded-[20px] flex flex-col  justify-center bg-white border border-[rgba(0,0,0,0.14)]   dark:bg-[#1A1A18] mt-[-50px]">
+          <span className="text-center  dark:text-white font-azarMehr font-medium  text-[#33353B] mx-2 lg:text-2xl  ">
+            {item.name}
+          </span>
+          <span className="text-center  dark:text-[#84858F] font-azarMehr font-medium  text-[#484950] mx-2 xs:text-[10px] sm:text-[11px] lg:text-[11px] xl:text-[14px] py-2">
+            {targetData(levelsTranslatePage, "required points")}
+          </span>
+          <span className="mb-3 w-full flex justify-evenly font-azarMehr font-medium  xs:text-[11px] sm:text-[12px] lg:text-[13px] xl:text-[14px]">
+            <span className="flex items-center dark:bg-black bg-[#F6F6F6] rounded-[20px] p-[4px] w-5/12">
+              <StairsUp className="stroke-[#0066FF] dark:stroke-[#FFC700]" />
+              <span className="dark:text-[#868B90] text-[#84858F] px-1">
+                {targetData(levelsTranslatePage, "level")}:
               </span>
-              <span className="text-center  dark:text-[#84858F] font-azarMehr font-medium  text-[#484950] mx-2 xs:text-[10px] sm:text-[11px] lg:text-[11px] xl:text-[14px] py-2">
-                  {targetData(levelsTranslatePage, "required points")}
+              <span className="dark:text-[#fff] text-[#33353B]">
+                {item.slug}
               </span>
-              <span className="mb-3 w-full flex justify-evenly font-azarMehr font-medium  xs:text-[11px] sm:text-[12px] lg:text-[13px] xl:text-[14px]">
-                <span className="flex items-center dark:bg-black bg-[#F6F6F6] rounded-[20px] p-[4px] w-5/12">
-                  <StairsUp className="stroke-[#0066FF] dark:stroke-[#FFC700]"/>
-                  <span className="dark:text-[#868B90] text-[#84858F] px-1">
-                    {targetData(levelsTranslatePage, "level")}:
-                  </span>
-                  <span className="dark:text-[#fff] text-[#33353B]">
-                    {item.slug}
-                  </span>
-                </span>
-                <span className="flex items-center dark:bg-black bg-[#F6F6F6] rounded-[20px] p-[4px] w-5/12">
-                  <FlagSatar className="stroke-[#0066FF] dark:stroke-[#FFC700]"/>
-                  <span className="dark:text-[#868B90] text-[#84858F] px-1">
-                    {targetData(levelsTranslatePage, "level rank")}
-                  </span>
-                  <span className="dark:text-[#fff] text-[#33353B]">
-                    {targetData(levelsTranslatePage, "one")}
-                  </span>
-                </span>
-              </span>   
-                
-            </div>
-          </Link>
-       
+            </span>
+            <span className="flex items-center dark:bg-black bg-[#F6F6F6] rounded-[20px] p-[4px] w-5/12">
+              <FlagSatar className="stroke-[#0066FF] dark:stroke-[#FFC700]" />
+              <span className="dark:text-[#868B90] text-[#84858F] px-1">
+                {targetData(levelsTranslatePage, "level rank")}
+              </span>
+              <span className="dark:text-[#fff] text-[#33353B]">
+                {targetData(levelsTranslatePage, "one")}
+              </span>
+            </span>
+          </span>
         </div>
-    )
-  }
+      </Link>
+    </div>
+  );
+}

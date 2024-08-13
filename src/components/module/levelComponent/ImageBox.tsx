@@ -9,12 +9,10 @@ export default function ImageBox({ item, langData }: any) {
   const srcFbx = item?.fbx_file ? item?.fbx_file : "";
   const srcGif = item?.gif_file ? item?.gif_file : "";
   const [mode, setMode] = useState("png");
-  console.log("gif_file", item.gif_file);
 
   const changeMode = (event: any) => {
     setMode(event);
   };
-  console.log("langData={langData", langData);
   return (
     <>
       <div

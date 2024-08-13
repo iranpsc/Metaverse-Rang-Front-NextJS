@@ -119,7 +119,7 @@ export default async function citizenSinglePage({
 
   return (
     <>
-      <section className=" h-screen relative">
+      <section className=" h-screen relative w-full">
         {/* <AnimatePresence>
           {showLogOut && (
           <LogoutPage showLogOut={showLogOut} setShowLogOut={setShowLogOut} />

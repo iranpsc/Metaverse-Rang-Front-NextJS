@@ -10,7 +10,6 @@ export default async function Gem({
   langData,
 }: any) {
   const gem = await getLevelTabs(params);
-  console.log("gem----------1", gem);
 
   return (
     <>

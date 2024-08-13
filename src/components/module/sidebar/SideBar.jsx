@@ -22,8 +22,6 @@ export default function SideBar({
     setisClosed(!isClosed);
   };
 
-  //
-console.log('mainData',mainData);
 
 
   return (
