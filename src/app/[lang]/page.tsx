@@ -98,17 +98,18 @@ export default async function LangPage({
         // id={`${defaultTheme == "dark" ? "dark-scrollbar" : "light-scrollbar"}`}
         className={`h-screen overflow-y-auto relative no-scrollbar`}
       >
-        <section
-          className={`w-full relative flex  flex-col justify-start overflow-x-clip overflow-y-auto items-center bg-[#f8f8f8] dark:bg-[#2F2D28] bg-opacity20 
-            xl:pe-32 lg:pe-32 md:pe-5 sm:pe-5 xs:pe-5
-            xl:ps-32 lg:ps-32 md:ps-5 sm:ps-5 xs:ps-5`}
-        >
-          <div className="relative w-full xl:min-h-screen xs:min-h-max grid grid-cols-12  bg-[#2F2D28]">
+        <section className="flex flex-col">
+          <div className="relative w-full xl:min-h-screen xs:min-h-max grid grid-cols-12 
+             xl:pe-32 lg:pe-32 md:pe-5 sm:pe-5 xs:pe-5
+            xl:ps-32 lg:ps-32 md:ps-5 sm:ps-5 xs:ps-5  bg-[#2F2D28]">
             <HeaderFirstPage firstPageArrayContent={firstPageArrayContent} />
           </div>
-          <div className="w-full xl:h-[230px] xs:min-h-fit col-span-12 bg-[#303030]/60 backdrop-blur-md mt-0 xl:mt-[-10%] grid grid-cols-12">
+          <div className="w-full xl:h-[230px] xs:min-h-fit col-span-12
+            xl:pe-32 lg:pe-32 md:pe-5 sm:pe-5 xs:pe-5
+            xl:ps-32 lg:ps-32 md:ps-5 sm:ps-5 xs:ps-5 
+            bg-[#303030]/60 backdrop-blur-md py-10 grid grid-cols-12">
             <div
-              className="xl:col-span-6 lg:col-span-6 md:col-span-12 sm:col-span-12 xs:col-span-12 flex flex-col justify-start items-start gap-4 mt-10 ps-32
+              className="xl:col-span-6 lg:col-span-6 md:col-span-12 sm:col-span-12 xs:col-span-12 flex flex-col justify-start items-start gap-4  ps-32
                     lg:ps-32 md:ps-0 sm:ps-0 xs:ps-0
                     "
             >
@@ -139,6 +140,13 @@ export default async function LangPage({
               </p>
             </div>
           </div>
+        </section>
+        <section
+          className={`w-full relative flex  flex-col justify-start overflow-x-clip overflow-y-auto items-center bg-[#f8f8f8] dark:bg-[#2F2D28] bg-opacity20 
+            xl:pe-32 lg:pe-32 md:pe-5 sm:pe-5 xs:pe-5
+            xl:ps-32 lg:ps-32 md:ps-5 sm:ps-5 xs:ps-5`}
+        >
+       
 
           <div className="w-full relative h-fit mt-10 md:mt-36">
             <div className="absolute top-0 left-0 w-full h-full bg-cover bg-no-repeat bg-center filter blur-sm "></div>

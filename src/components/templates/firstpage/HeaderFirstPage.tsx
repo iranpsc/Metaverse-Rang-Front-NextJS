@@ -16,7 +16,7 @@ export default function HeaderFirstPage({ firstPageArrayContent }: any) {
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.3, delay: 0.3 }}
-          className="w-[50%] text-center font-bold text-[56px] text-dark-yellow whitespace-nowrap font-rokh mt-5"
+          className="w-[50%] md:text-center font-bold text-[28px] sm:text-[32px] md:text-[38px] lg:test-[46px]  xl:text-[56px] text-dark-yellow whitespace-nowrap font-rokh mt-5"
         >
           متاورس رنگ
         </motion.h1>
@@ -33,7 +33,7 @@ export default function HeaderFirstPage({ firstPageArrayContent }: any) {
           initial={{ opacity: 0, x: 100 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.3, delay: 0.5 }}
-          className="text-white text-[36px] text-start  w-[50%] font-bold "
+          className="text-white text-[16px] sm:text-[18px] md:text-[24px] lg:text-[30px] xl:text-[36px] text-start  xl:w-[50%] font-bold "
         >
           {localFind("integration of ideas and creativity")}
         </motion.h3>
@@ -42,7 +42,7 @@ export default function HeaderFirstPage({ firstPageArrayContent }: any) {
           initial={{ opacity: 0, y: -100 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="w-full   text-justify   text-white font-azarMehr font-medium "
+          className="w-full   text-justify   text-white font-azarMehr font-medium text-[12px] sm:text-[14px] md:text-[16px]"
         >
           {localFind("metaverse rang is a metaverse world platform")}
         </motion.p>
@@ -52,17 +52,17 @@ export default function HeaderFirstPage({ firstPageArrayContent }: any) {
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.3 }}
-            className="border-[1px] border-white rounded-full w-[305px] h-[77px] flex flex-row justify-between items-center ps-6 pe-1"
+            className="border-[1px] border-white rounded-full w-[200px] sm:w-[220px] md:w-[250px] lg:w-[280px] xl:w-[305px] h-[50px] md:h-[55px] lg:h-[60px] xl:h-[77px] flex flex-row justify-between items-center ps-6 pe-1"
           >
-            <p className="w-fit text-start text-[20px] text-white font-azarMehr font-medium ">
+            <p className="w-fit text-start text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px] text-white font-azarMehr font-medium ">
               {localFind("entering the metaverse world")}
             </p>
-            <div className="bg-dark-yellow size-[70px] rounded-full flex justify-center items-center">
-              <Arrow className="size-[36px]" />
+            <div className="bg-dark-yellow size-[42px] md:size-[47px] lg:size-[53px]  xl:size-[70px] rounded-full flex justify-center items-center">
+              <Arrow className="size-[20px] sm:size-[23px] md:size-[28px] lg:size-[32px]  xl:size-[36px]" />
             </div>
           </motion.div>
         </a>
-        <Discord className="size-[50px]" />
+        <Discord className="size-[50px] mb-10 lg:mb-0" />
       </div>
 
       <div
@@ -71,7 +71,7 @@ export default function HeaderFirstPage({ firstPageArrayContent }: any) {
       "
       >
         <Image
-          className="size-full"
+          className="size-full object-contain"
           src="/firstpage/header.png"
           alt="header"
           width={1000}
