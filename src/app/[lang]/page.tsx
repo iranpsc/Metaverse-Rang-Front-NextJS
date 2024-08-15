@@ -96,26 +96,26 @@ export default async function LangPage({
       />
       <section
         // id={`${defaultTheme == "dark" ? "dark-scrollbar" : "light-scrollbar"}`}
-        className={`h-screen overflow-y-auto relative no-scrollbar`}
+        className={`h-screen overflow-y-auto relative no-scrollbar bg-[#2F2D28]`}
       >
-        <section
-          className={`w-full relative flex  flex-col justify-start overflow-x-clip overflow-y-auto items-center bg-[#f8f8f8] dark:bg-[#2F2D28] bg-opacity20`}
-        >
+        <section className="flex flex-col">
           <div
-            className="relative w-full xl:min-h-screen xs:min-h-max grid grid-cols-12 bg-[#2F2D28]
-                      xs:ps-3 sm:ps-3 md:ps-3 lg:ps-16 xl:ps-16"
+            className="relative w-full xs:min-h-max grid grid-cols-12 
+             md:pe-0 sm:pe-5 xs:pe-5
+            xl:ps-32 lg:ps-32 md:ps-5 sm:ps-5 xs:ps-5  bg-[#2F2D28] "
           >
             <HeaderFirstPage firstPageArrayContent={firstPageArrayContent} />
           </div>
-
           <div
-            className="w-full h-auto xl:h-[300px] xs:min-h-fit col-span-12 bg-[#303030]/60 backdrop-blur-md 
-            mt-0 pb-3 xl:mt-[-10%] grid grid-cols-12"
+            className="w-full  xs:min-h-fit col-span-12 md:mt-[-200px] 2xl:mt-[-250px] 4xl:mt-[-300px]
+            xl:pe-32 lg:pe-32 md:pe-5 sm:pe-5 xs:pe-5
+            xl:ps-32 lg:ps-32 md:ps-5 sm:ps-5 xs:ps-5 
+            bg-[#151515] bg-opacity-40   py-10 grid grid-cols-12 z-[1]"
           >
             <div
-              className="xl:col-span-6 lg:col-span-6 md:col-span-12 sm:col-span-12 xs:col-span-12
-                            flex flex-col justify-start items-start gap-4 mt-10
-                            xs:px-3 sm:px-3 md:px-3 lg:px-16 xl:px-16"
+              className="xl:col-span-6 lg:col-span-6 md:col-span-12 sm:col-span-12 xs:col-span-12 flex flex-col justify-start items-start gap-4  ps-32
+                    lg:ps-32 md:ps-0 sm:ps-0 xs:ps-0
+                    "
             >
               <Frame1 className="size-[36px]" />
               <h5 className="text-white font-bold text-[18px] font-azarMehr">
@@ -129,8 +129,9 @@ export default async function LangPage({
             </div>
 
             <div
-              className="xl:col-span-6 lg:col-span-6 md:col-span-12 sm:col-span-12 xs:col-span-12 flex flex-col justify-start items-start gap-4 mt-10
-              xs:px-3 sm:px-3 md:px-3 lg:px-16 xl:px-16"
+              className="xl:col-span-6 lg:col-span-6 md:col-span-12 sm:col-span-12 xs:col-span-12 flex flex-col justify-start items-start gap-4 mt-10 md:mt-0 xl:ps-32
+                    lg:ps-32 md:ps-0 sm:ps-0 xs:ps-0
+                    "
             >
               <Frame2 className="size-[36px]" />
               <h5 className="text-white font-bold text-[18px] font-azarMehr">
@@ -143,8 +144,13 @@ export default async function LangPage({
               </p>
             </div>
           </div>
-
-          <div className="w-[90%] relative h-fit mt-10 md:mt-36">
+        </section>
+        <section
+          className={`w-full relative flex  flex-col justify-start overflow-x-clip overflow-y-auto items-center bg-[#f8f8f8] dark:bg-[#2F2D28] bg-opacity20 
+            xl:pe-32 lg:pe-32 md:pe-5 sm:pe-5 xs:pe-5
+            xl:ps-32 lg:ps-32 md:ps-5 sm:ps-5 xs:ps-5`}
+        >
+          <div className="w-full relative h-fit mt-10 md:mt-36">
             <div className="absolute top-0 left-0 w-full h-full bg-cover bg-no-repeat bg-center filter blur-sm "></div>
             <SectionTimer firstPageArrayContent={firstPageArrayContent} />
           </div>

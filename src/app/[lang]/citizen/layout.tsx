@@ -26,7 +26,7 @@ export default async function CitizensLayout({
     (item:any) => item.name === "menu"
   ).fields;
   return (
-    <main className="flex" dir={langData.direction}>
+    <main className="flex dark:bg-black" dir={langData.direction}>
       <SideBar
         languageSelected={params.lang}
         langData={langData}
