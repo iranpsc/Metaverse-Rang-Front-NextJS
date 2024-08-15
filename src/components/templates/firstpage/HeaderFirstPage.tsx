@@ -11,12 +11,12 @@ export default function HeaderFirstPage({ firstPageArrayContent }: any) {
 
   return (
     <>
-      <div className="xl:col-span-6 lg:col-span-6 md:col-span-12 sm:col-span-12  xl:order-1 lg:order-1 md:order-2  sm:order-2 xs:order-2 xs:col-span-12 w-full flex flex-col justify-start items-start gap-5">
+      <div className="xl:col-span-6 md:col-span-6  sm:col-span-12 pt-[500px] md:pt-[80px] lg:pt-0 xl:order-1 md:order-1   sm:order-2 xs:order-2 xs:col-span-12 w-full flex flex-col justify-start 3xl:justify-center items-start gap-5 md:gap-2 lg:gap-5 2xl:gap-11 3xl:gap-40 md:pb-[200px] lg:pb-[200px] xl:pb-0">
         <motion.h1
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.3, delay: 0.3 }}
-          className="w-[50%] md:text-center font-bold text-[28px] sm:text-[32px] md:text-[38px] lg:test-[46px]  xl:text-[56px] text-dark-yellow whitespace-nowrap font-rokh mt-5"
+          className="w-[50%] md:text-center font-bold text-[28px] sm:text-[32px] md:text-[38px] lg:test-[46px]  2xl:text-[56px] text-dark-yellow whitespace-nowrap font-rokh mt-5"
         >
           متاورس رنگ
         </motion.h1>
@@ -26,14 +26,14 @@ export default function HeaderFirstPage({ firstPageArrayContent }: any) {
           transition={{ duration: 0.3, delay: 0.3 }}
           className=" w-full outline-none border-none"
         >
-          <Vector className="w-[50%] h-10" />
+          <Vector className="w-[50%] h-10 md:h-5 lg:h-10" />
         </motion.div>
 
         <motion.h3
           initial={{ opacity: 0, x: 100 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.3, delay: 0.5 }}
-          className="text-white text-[16px] sm:text-[18px] md:text-[24px] lg:text-[30px] xl:text-[36px] text-start  xl:w-[50%] font-bold "
+          className="text-white text-[16px] sm:text-[18px] md:text-[24px] lg:text-[30px] 2xl:text-[36px] text-start  2xl:w-[50%] font-bold "
         >
           {localFind("integration of ideas and creativity")}
         </motion.h3>
@@ -62,17 +62,25 @@ export default function HeaderFirstPage({ firstPageArrayContent }: any) {
             </div>
           </motion.div>
         </a>
-        <Discord className="size-[50px] mb-10 lg:mb-0" />
+        <Discord className="size-[50px] mb-10 lg:mb-0 3xl:mb-60" />
       </div>
 
       <div
-        className="xl:col-span-6 lg:col-span-6 md:col-span-12 sm:col-span-12 xs:col-span-12 w-full flex justify-center items-center 
-       xl:order-2 lg:order-2 md:order-1  sm:order-1 xs:order-1
+        className="xl:col-span-6 md:col-span-6  sm:col-span-12 xs:col-span-12 w-full flex justify-center items-center 
+       xl:order-2 md:order-2   sm:order-1 xs:order-1 absolute top-0 md:relative
       "
       >
         <Image
-          className="size-full object-contain"
+          className="size-full object-contain hidden md:block md:pt-[80px] lg:pt-0"
           src="/firstpage/header.png"
+          alt="header"
+          width={1000}
+          height={1000}
+          priority={true}
+        />
+         <Image
+          className="size-full object-contain pt-[40px] md:hidden"
+          src="/firstpage/header1.png"
           alt="header"
           width={1000}
           height={1000}

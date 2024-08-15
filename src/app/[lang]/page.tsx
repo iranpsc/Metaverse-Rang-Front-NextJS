@@ -96,18 +96,18 @@ export default async function LangPage({
       />
       <section
         // id={`${defaultTheme == "dark" ? "dark-scrollbar" : "light-scrollbar"}`}
-        className={`h-screen overflow-y-auto relative no-scrollbar`}
+        className={`h-screen overflow-y-auto relative no-scrollbar bg-[#2F2D28]`}
       >
         <section className="flex flex-col">
-          <div className="relative w-full xl:min-h-screen xs:min-h-max grid grid-cols-12 
-             xl:pe-32 lg:pe-32 md:pe-5 sm:pe-5 xs:pe-5
-            xl:ps-32 lg:ps-32 md:ps-5 sm:ps-5 xs:ps-5  bg-[#2F2D28]">
+          <div className="relative w-full xs:min-h-max grid grid-cols-12 
+             md:pe-0 sm:pe-5 xs:pe-5
+            xl:ps-32 lg:ps-32 md:ps-5 sm:ps-5 xs:ps-5  bg-[#2F2D28] ">
             <HeaderFirstPage firstPageArrayContent={firstPageArrayContent} />
           </div>
-          <div className="w-full xl:h-[230px] xs:min-h-fit col-span-12
+          <div className="w-full  xs:min-h-fit col-span-12 md:mt-[-200px] 2xl:mt-[-250px] 4xl:mt-[-300px]
             xl:pe-32 lg:pe-32 md:pe-5 sm:pe-5 xs:pe-5
             xl:ps-32 lg:ps-32 md:ps-5 sm:ps-5 xs:ps-5 
-            bg-[#303030]/60 backdrop-blur-md py-10 grid grid-cols-12">
+            bg-[#151515] bg-opacity-40   py-10 grid grid-cols-12 z-[1]">
             <div
               className="xl:col-span-6 lg:col-span-6 md:col-span-12 sm:col-span-12 xs:col-span-12 flex flex-col justify-start items-start gap-4  ps-32
                     lg:ps-32 md:ps-0 sm:ps-0 xs:ps-0
@@ -125,7 +125,7 @@ export default async function LangPage({
             </div>
 
             <div
-              className="xl:col-span-6 lg:col-span-6 md:col-span-12 sm:col-span-12 xs:col-span-12 flex flex-col justify-start items-start gap-4 mt-10 xl:ps-32
+              className="xl:col-span-6 lg:col-span-6 md:col-span-12 sm:col-span-12 xs:col-span-12 flex flex-col justify-start items-start gap-4 mt-10 md:mt-0 xl:ps-32
                     lg:ps-32 md:ps-0 sm:ps-0 xs:ps-0
                     "
             >
