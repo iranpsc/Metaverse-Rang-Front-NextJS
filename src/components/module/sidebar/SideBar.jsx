@@ -1,5 +1,7 @@
 "use client";
 // import MenuProfileModule from "./MenuProfileModule";
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
 import Header from "./Header";
 import AllSideTab from "./AllSideTab";
 import LevelSideTab from './LevelSideTab'
@@ -14,15 +16,29 @@ export default function SideBar({
   langData,
   defaultTheme,
   params,
-  pageSide
+  pageSide,
 }) {
   //
   const [isClosed, setisClosed] = useState(true);
+  const router = useRouter()
   const toggleSide = () => {
     setisClosed(!isClosed);
   };
-
-
+  const handleLogin = async () => {
+    // try {
+      const res = await axios.get('https://api.rgb.irpsc.com/api/auth/redirect',{
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (res) {
+        const redirectUrl = res.data.url
+        console.log('redirectUrl', redirectUrl)
+        router.push(`${redirectUrl}`)
+      }else{
+        throw new Error('Failed to fetch redirectUrl, client');
+      }
+  }
 
   return (
     <>
@@ -46,9 +62,8 @@ export default function SideBar({
               isClosed
                 ? "w-[70px] max-lg:hidden"
                 : "xl:w-[250px]  lg:w-[150px] md:w-[250px] sm:w-[175px] xs:w-[175px] sm:shadow-[#000000] xs:sm:shadow-[#000000] visible"
-            }  
-            flex flex-col h-screen relative bg-white  dark:bg-dark-background transition-all duration-300 ease-linear 
-        `}
+              }  
+              flex flex-col h-screen relative bg-white  dark:bg-dark-background transition-all duration-300 ease-linear`}
           >
             <div className="sticky w-full top-0 pt-4 z-50 bg-white dark:bg-dark-background transition-all duration-300 ease-linear">
               <Header
@@ -64,16 +79,14 @@ export default function SideBar({
               languageSelected={languageSelected}
               isClosed={isClosed}
               toggleSide={toggleSide}
-            />
-          }
-          {pageSide == 'level' && 
-           <LevelSideTab
-            tabsMenu={mainData}
-            languageSelected={languageSelected}
-            isClosed={isClosed}
-            params={params}
-            toggleSide={toggleSide}/>
-            }
+            />}
+            {pageSide == 'level' && 
+            <LevelSideTab
+              tabsMenu={mainData}
+              languageSelected={languageSelected}
+              isClosed={isClosed}
+              params={params}
+              toggleSide={toggleSide}/>}
             <div
               className={`${
                 isClosed
@@ -82,6 +95,17 @@ export default function SideBar({
               }  h-fit absolute  z-[100] transition-all duration-300 ease-linear  bg-white dark:bg-dark-background bottom-0 py-5 flex flex-col items-center justify-center gap-3`}
             >
               {/* <LoginMenuModule /> */}
+              {/*_________ login BTN __________*/}
+              <div
+                className="bg-blueLink cursor-pointer dark:bg-dark-yellow rounded-[15px]
+                          w-[95%] h-[40px]  flex flex-row xs:px-2 justify-around gap-5 items-center"
+                          onClick={handleLogin}>
+                {/* <LoginMenu className={`stroke-white stroke-2 dark:stroke-dark-background h-full w-5 
+                                    ${tate.isCollapsed ? "hidden" : "visibale"}`}/> */}
+                  <p className="text-white dark:text-dark-background font-azarMehr font-medium text-center text-[15px]">
+                    login
+                  </p>
+              </div>
               <div className="w-full pt-3 pb-1 flex flex-col items-center justify-center">
                 <div className="h-[1px] bg-gray opacity-50 dark:bg-mediumGray w-[80%] " />
               </div>

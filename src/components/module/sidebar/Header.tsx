@@ -33,12 +33,18 @@ export default function SideBarHeader({ isClosed, toggleSide, tabsMenu }: any) {
             <div className="inline-block w-full  ">
               {tabsMenu && (
                 <p className="visible  dark:text-white whitespace-nowrap	 block font-azarMehr font-bold xl:text-[16px] lg:text-[14px] md:text-[13px] sm:text-[12px] xs:text-[12px] text-black pb-[2px] ">
-                  {tabsMenu.find((item:any)=>item.name == "meta rgb").translation}
+                  {
+                    tabsMenu.find((item: any) => item.name == "meta rgb")
+                      .translation
+                  }
                 </p>
               )}
               {tabsMenu && (
                 <p className="dark:text-dark-gray visible font-azarMehr font-normal text-gray xl:text-[14px] lg:text-[11px] md:text-[13px] sm:text-[10px] xs:text-[10px] ">
-                  {tabsMenu.find((item:any)=>item.name == "metaverse rang").translation}
+                  {
+                    tabsMenu.find((item: any) => item.name == "metaverse rang")
+                      .translation
+                  }
                 </p>
               )}
             </div>
@@ -51,12 +57,9 @@ export default function SideBarHeader({ isClosed, toggleSide, tabsMenu }: any) {
            md:w-[35px] md:h-[35px] 
            sm:w-[30px] sm:h-[30px] 
            xs:w-[30px] xs:h-[30px] 
-           
-          
-          
-        absolute ${
-          lang === "en" ? "end-[-7px]" : "end-0"
-        }  cursor-pointer rounded-full bg-[#efefef] dark:bg-mediumGray flex justify-center items-center me-2`}
+           absolute ${
+             lang === "en" ? "end-[-7px]" : "end-0"
+           }  cursor-pointer rounded-full bg-[#efefef] dark:bg-mediumGray flex justify-center items-center me-3`}
           onClick={toggleSide}
         >
           <ArrowMenu
