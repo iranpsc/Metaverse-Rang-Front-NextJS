@@ -76,21 +76,25 @@ export default function ProfileImages({
 
   return (
     <>
-      <section className="dark:bg-dark-background shadow-md  relative bg-white transition-all duration-300 ease-linear  rounded-[10px] flex xl:flex-row lg:flex-row md:flex-col sm:flex-col xs:flex-col md:gap-7">
-        <div className="dark:bg-dark-background bg-white overflow-clip  flex justify-center basis-[80%] items-center rounded-[10px] ">
+      <section
+        className="h-full dark:bg-dark-background shadow-md relative bg-white transition-all duration-300 ease-linear 
+        rounded-[10px] flex xl:flex-row lg:flex-row md:flex-col sm:flex-col xs:flex-col md:gap-2
+        xs:items-center sm:items-center lg:items-stretch md:justify-between"
+      >
+        <div className="dark:bg-dark-background bg-white overflow-clip  flex justify-center w-[70%] items-center rounded-r-[10px] ">
           <Image
             src={mainImageUrl || "/temp.png"}
             width={100}
             height={100}
             alt={titleData}
             priority={true}
-            className="w-full h-full rounded-[10px] object-contain"
+            className="w-full h-full rounded-r-[10px] object-cover"
           />
         </div>
 
-        <div className=" basis-[20%]  flex xl:flex-row lg:flex-row md:flex-col sm:flex-col xs:flex-col max-lg:mb-2  gap-2 justify-center items-center">
+        <div className="w-[25%] flex xl:flex-row lg:flex-row md:flex-col sm:flex-col xs:flex-col max-lg:mb-2  gap-2 justify-center items-center">
           <hr
-            className="xl:h-[90%]    lg:h-[90%] xl:w-[1.5px] lg:w-[1.5px] md:w-[95%] sm:w-[95%] xs:w-[95%] sm:mt-[1px] xs:mt-[1px] mx-1 border-none  h-[1px] xl:mt-2 lg:mt-2 max-sm:mt-5 max-sm:w-[80%]
+            className="xl:h-[90%] lg:h-[90%] xl:w-[1.5px] lg:w-[1.5px] md:w-[95%] sm:w-[95%] xs:w-[95%] sm:mt-[1px] xs:mt-[1px] mx-1 border-none  h-[1px] xl:mt-2 lg:mt-2 max-sm:mt-5 max-sm:w-[80%]
              
               xl:bg-gradient-to-b lg:bg-gradient-to-b md:bg-gradient-to-r mb-1 sm:bg-gradient-to-l xs:bg-gradient-to-l  from-[#DADADA00] via-[#b3b3b3] to-[#DADADA00]"
           />

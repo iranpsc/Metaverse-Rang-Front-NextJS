@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Header from "./Header";
 import AllSideTab from "./AllSideTab";
 import LevelSideTab from './LevelSideTab'
-import { useState } from "react";
+import { useState, useCallback  } from "react";
 import LoginMenuModule from "./LoginMenuModule";
 import ThemeMenuModule from "@/components/module/sidebar/ThemeMenuModule";
 import HeaderMobile from "@/components/module/sidebar/HeaderMobile";
@@ -21,9 +21,10 @@ export default function SideBar({
   //
   const [isClosed, setisClosed] = useState(true);
   const router = useRouter()
-  const toggleSide = () => {
-    setisClosed(!isClosed);
-  };
+  const toggleSide = useCallback(() => {
+    setisClosed((prev) => !prev);
+    console.log('maindata', mainData)
+  }, []);
   const handleLogin = async () => {
     // try {
       const res = await axios.get('https://api.rgb.irpsc.com/api/auth/redirect',{

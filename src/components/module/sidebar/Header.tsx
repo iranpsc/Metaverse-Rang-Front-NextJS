@@ -1,8 +1,20 @@
 "use client";
 import Image from "next/image";
 import { MenuIcon, ArrowMenu } from "@/svgs/index";
-export default function SideBarHeader({ isClosed, toggleSide, tabsMenu }: any) {
+import React, { useMemo } from "react";
+function SideBarHeader({ isClosed, toggleSide, tabsMenu }: any) {
   const lang = "en";
+  const { metaRGBTranslation, metaverseRangTranslation } = useMemo(() => {
+    const metaRGB = tabsMenu.find((item: any) => item.name === "meta rgb");
+    const metaverseRang = tabsMenu.find(
+      (item: any) => item.name === "metaverse rang"
+    );
+
+    return {
+      metaRGBTranslation: metaRGB?.translation,
+      metaverseRangTranslation: metaverseRang?.translation,
+    };
+  }, [tabsMenu]);
   return (
     <>
       {!isClosed ? null : (
@@ -29,7 +41,7 @@ export default function SideBarHeader({ isClosed, toggleSide, tabsMenu }: any) {
                 : "xl:w-[80px] xl:h-[50px] ms-2"
             }  lg:w-[40px] lg:h-[35px] md:w-[30px] md:h-[30px] sm:w-[45px] sm:h-[45px] xs:w-[50px] xs:h-[50px] `}
           />
-          {!isClosed ? (
+          {/* {!isClosed ? (
             <div className="inline-block w-full  ">
               {tabsMenu && (
                 <p className="visible  dark:text-white whitespace-nowrap	 block font-azarMehr font-bold xl:text-[16px] lg:text-[14px] md:text-[13px] sm:text-[12px] xs:text-[12px] text-black pb-[2px] ">
@@ -45,6 +57,20 @@ export default function SideBarHeader({ isClosed, toggleSide, tabsMenu }: any) {
                     tabsMenu.find((item: any) => item.name == "metaverse rang")
                       .translation
                   }
+                </p>
+              )}
+            </div>
+          ) : null} */}
+          {!isClosed ? (
+            <div className="inline-block w-full">
+              {metaRGBTranslation && (
+                <p className="visible dark:text-white whitespace-nowrap block font-azarMehr font-bold xl:text-[16px] lg:text-[14px] md:text-[13px] sm:text-[12px] xs:text-[12px] text-black pb-[2px]">
+                  {metaRGBTranslation}
+                </p>
+              )}
+              {metaverseRangTranslation && (
+                <p className="dark:text-dark-gray visible font-azarMehr font-normal text-gray xl:text-[14px] lg:text-[11px] md:text-[13px] sm:text-[10px] xs:text-[10px]">
+                  {metaverseRangTranslation}
                 </p>
               )}
             </div>
@@ -77,3 +103,4 @@ export default function SideBarHeader({ isClosed, toggleSide, tabsMenu }: any) {
     </>
   );
 }
+export default React.memo(SideBarHeader);

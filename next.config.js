@@ -1,6 +1,4 @@
-const nextConfig = {
-  output:'export',
-}
+
 module.exports = {
   webpack(config) {
     config.module.rules.push({
@@ -19,7 +17,8 @@ module.exports = {
       "irpsc.com",
     ],
   },
- experimental: { esmExternals: true, serverActions: true,appDir: true },
+//  experimental: { esmExternals: true, serverActions: true,appDir: true },
+ experimental: { appDir: true },
   async rewrites() {
     return [
       {
