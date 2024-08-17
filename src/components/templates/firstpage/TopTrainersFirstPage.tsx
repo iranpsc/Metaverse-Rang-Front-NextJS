@@ -42,7 +42,7 @@ const TopTrainersFirstPage = async ({ firstPageArrayContent, params }: any) => {
           </div>
         </Link>
       </div>
-      <div className="w-full relative flex flex-row xl:justify-center items-center gap-6  mt-4 md:mt-12 overflow-x-auto h-[500px]">
+      <div className="w-full relative flex flex-row xl:justify-center items-center gap-6  mt-4 md:mt-12 dark:dark-scrollbar light-scrollbar overflow-x-auto h-[500px]">
         {allCitizenArray.map((item: any, index: any) => (
           <div
             key={index}

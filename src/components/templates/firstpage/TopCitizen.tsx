@@ -21,7 +21,7 @@ const TopCitizen = ({ firstPageArrayContent }: any) => {
           <ArrowRight className="dark:stroke-white stroke-black rotate-180 w-[24px] h-full " />
         </div>
       </div>
-      <div className="w-full relative flex flex-row  xl:justify-center items-center overflow-x-auto gap-6 mt-4 md:mt-12">
+      <div className="w-full relative flex flex-row  xl:justify-center items-center dark:dark-scrollbar light-scrollbar overflow-x-auto gap-6 mt-4 md:mt-12">
         {[...Array(5)].map((_, index) => (
           <div
             key={index}
