@@ -57,7 +57,12 @@ const SectionTimer = ({ firstPageArrayContent }: any) => {
           پیش خرید
         </p>
         <p className="w-full rounded-[28px] py-3 mt-5 text-center text-lg lg:text-[20px] text-white bg-[#343434]  font-azarMehr font-medium ">
-          مشاهده آبجکت
+          <a
+            href="https://meta.irpsc.com/2024/07/19/ariana/"
+            className="w-full h-full inline-block"
+          >
+            مشاهده آبجکت
+          </a>
         </p>
       </div>
 

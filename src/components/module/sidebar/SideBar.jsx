@@ -1,7 +1,7 @@
 "use client";
 // import MenuProfileModule from "./MenuProfileModule";
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 import Header from "./Header";
 import AllSideTab from "./AllSideTab";
 import LevelSideTab from './LevelSideTab'
@@ -20,10 +20,9 @@ export default function SideBar({
 }) {
   //
   const [isClosed, setisClosed] = useState(true);
-  const router = useRouter()
+  // const router = useRouter()
   const toggleSide = useCallback(() => {
     setisClosed((prev) => !prev);
-    console.log('maindata', mainData)
   }, []);
   const handleLogin = async () => {
     // try {
@@ -34,8 +33,8 @@ export default function SideBar({
       });
       if (res) {
         const redirectUrl = res.data.url
-        console.log('redirectUrl', redirectUrl)
-        router.push(`${redirectUrl}`)
+        console.log('redirect link', redirectUrl)
+        window.location.href= redirectUrl
       }else{
         throw new Error('Failed to fetch redirectUrl, client');
       }

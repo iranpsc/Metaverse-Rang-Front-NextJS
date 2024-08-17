@@ -59,16 +59,16 @@ export default async function CitizensPage({
             key={item.id}
             className=" h-[250px] sm:h-[350px] md:h-[400px] xl:h-[411px] cursor-pointer shadow-lg hover:border  hover:border-[#0066FF]  hover:dark:border-dark-primary mt-10  relative   bg-[#fff] dark:bg-[#1A1A18] flex flex-col justify-between gap-1 sm:gap-3 py-3 sm:py-4 md:py-5  items-center rounded-[20px]"
           >
-            <Link href={`/${params.lang}/citizen/${item.code}`}>
-              <img
-                src={item.profile_photo || "/temp.png"}
-                alt={"citizen image"}
-                width={120}
-                height={120}
-                loading="lazy"
-                className="w-[70px] h-[70px] sm:w-[100px] sm:h-[100px] md:w-[120px] md:h-[120px] shadow-md hover:top-[-88px] transition-all duration-300 shadow-gray rounded-full"
-              />
-            </Link>
+            {/* <Link href={`/${params.lang}/citizen/${item.code}`}> */}
+            <img
+              src={item.profile_photo || "/temp.png"}
+              alt={"citizen image"}
+              width={120}
+              height={120}
+              loading="lazy"
+              className="w-[70px] h-[70px] sm:w-[100px] sm:h-[100px] md:w-[120px] md:h-[120px] shadow-md hover:top-[-88px] transition-all duration-300 shadow-gray rounded-full"
+            />
+            {/* </Link> */}
             <p
               // data-atropos-offset="-5"
               className="font-bold text-[14px] sm:text-16 md:text-[18px] 2xl:text-[20px] dark:text-white font-azarMehr sm:mt-2"
@@ -76,17 +76,17 @@ export default async function CitizensPage({
               {item.name}
             </p>
 
-            <Link
+            {/* <Link
               href={`https://rgb.irpsc.com/${params.lang}/citizen/${item.code}`}
               target="_blank"
+            > */}
+            <span
+              // data-atropos-offset="-1"
+              className="text-blueLink font-medium  font-azarMehr hover:font-bold text-[12px] sm:text-[16px]"
             >
-              <span
-                // data-atropos-offset="-1"
-                className="text-blueLink font-medium  font-azarMehr hover:font-bold text-[12px] sm:text-[16px]"
-              >
-                {item.code}
-              </span>
-            </Link>
+              {item.code}
+            </span>
+            {/* </Link> */}
 
             <span className="dark:text-[#969696] text-[12px] sm:text-[14px] md:text-[16px] 2xl:text-[18px]">
               سطح توسعه دهنده
@@ -100,13 +100,13 @@ export default async function CitizensPage({
                   width={27}
                   height={27}
                   alt={el.name}
+                  title={el.name}
                   className="w-[20px] h-[20px] sm:w-[27px] sm:h-[27px]"
                 />
               ))}
             </div>
             <Link
-              href={`https://rgb.irpsc.com/${params.lang}/citizen/${item.code}`}
-              target="_blank"
+              href={`/${params.lang}/citizen/${item.code}`}
               className="w-[80%]"
             >
               <div

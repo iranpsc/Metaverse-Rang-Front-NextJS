@@ -116,7 +116,6 @@ export default async function citizenSinglePage({
       }`,
     };
   }
-console.log('profileData1111',profileData);
 
   return (
     <>

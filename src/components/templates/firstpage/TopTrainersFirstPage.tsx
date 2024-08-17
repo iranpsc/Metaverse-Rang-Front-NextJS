@@ -2,28 +2,31 @@ import { ArrowRight } from "@/components/svgs";
 import Image from "next/image";
 import { Like, Text } from "@/components/svgs/SvgEducation";
 import Link from "next/link";
+import { getAllCitizen } from "@/components/utils/actions";
 
-const TopTrainersFirstPage = ({ firstPageArrayContent, params }: any) => {
+const TopTrainersFirstPage = async ({ firstPageArrayContent, params }: any) => {
   function localFind(_name: any) {
     return firstPageArrayContent.find((item: any) => item.name == _name)
       .translation;
   }
-  const staticData = [
-    {
-      id: 1,
-      name: "مرضیه ثاقب علیزاده",
-      img: "/profile/marziyeh-alizadeh.jpg",
-      code: "HM-2000003",
-      likes: "  1.3k",
-    },
-    {
-      id: 2,
-      name: "حسین قدیری",
-      img: "/profile/hossein-ghadiri.jpg",
-      code: "HM-2000001",
-      likes: "820",
-    },
-  ];
+  const allCitizenArray = await getAllCitizen();
+
+  // const staticData = [
+  //   {
+  //     id: 1,
+  //     name: "مرضیه ثاقب علیزاده",
+  //     img: "/profile/marziyeh-alizadeh.jpg",
+  //     code: "HM-2000003",
+  //     likes: "  1.3k",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "حسین قدیری",
+  //     img: "/profile/hossein-ghadiri.jpg",
+  //     code: "HM-2000001",
+  //     likes: "820",
+  //   },
+  // ];
   return (
     <>
       <div className="w-full flex flex-row justify-between items-center">
@@ -35,19 +38,19 @@ const TopTrainersFirstPage = ({ firstPageArrayContent, params }: any) => {
             <p className="font-azarMehr font-medium text-[12px] md:text-[16px] lg:text-[18px] xl:text-[20px] dark:text-white">
               {localFind("view all")}
             </p>
-            <ArrowRight className="stroke-white rotate-180 w-[24px] h-full" />
+            <ArrowRight className="dark:stroke-white stroke-black rotate-180 w-[24px] h-full " />
           </div>
         </Link>
       </div>
       <div className="w-full relative flex flex-row xl:justify-center items-center gap-6  mt-4 md:mt-12 overflow-x-auto h-[500px]">
-        {staticData.map((item, index) => (
+        {allCitizenArray.map((item: any, index: any) => (
           <div
             key={index}
             className="min-w-[258px] min-h-[150px] shadow-xl flex flex-col justify-start items-center gap-10 py-5 bg-[#1A1A18] rounded-[24px]"
           >
             <Image
               className="size-[170px] rounded-full border-none"
-              src={item.img}
+              src={item.profile_photo || "/temp.png"}
               alt="header"
               width={1000}
               height={1000}

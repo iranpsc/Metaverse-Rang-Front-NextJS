@@ -32,15 +32,17 @@ const LastNews = ({ firstPageArrayContent }: any) => {
     <>
       <div className="w-full flex flex-row justify-between items-center ">
         <p className="font-azarMehr font-medium text-[16px] md:text-[20px] lg:text-[28px] xl:text-[32px] dark:text-white">
-          {localFind("latest news")} 
+          {localFind("latest news")}
         </p>
 
-        <div className="flex justify-center items-center gap-4">
-          <p className="font-azarMehr font-medium text-[12px] md:text-[16px] lg:text-[18px] xl:text-[20px] dark:text-white">
-            {localFind("view all")}
-          </p>
-          <ArrowRight className="stroke-white rotate-180 w-[24px] h-full" />
-        </div>
+        <a href="https://meta.irpsc.com/">
+          <div className="flex justify-center items-center gap-4">
+            <p className="font-azarMehr font-medium text-[12px] md:text-[16px] lg:text-[18px] xl:text-[20px] dark:text-white">
+              {localFind("view all")}
+            </p>
+            <ArrowRight className="dark:stroke-white stroke-black rotate-180 w-[24px] h-full " />
+          </div>
+        </a>
       </div>
 
       <div className="grid  lg:grid-cols-2 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 xs:grid-cols-1 gap-10 mt-4 md:mt-12">
@@ -79,7 +81,7 @@ const LastNews = ({ firstPageArrayContent }: any) => {
             </a>
 
             <div className="w-[95%] pb-2 flex flex-row justify-between  items-center">
-              <Link href="#" target="_blank" >
+              <Link href="#" target="_blank">
                 <div className="flex flex-row justify-start items-center gap-2">
                   <Image
                     src="/firstpage/img2.jpg"

@@ -19,13 +19,8 @@ import {
 } from "@/components/utils/actions";
 import DynamicFooter from "@/components/module/footer/DynamicFooter";
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
-import UseDarkMode from "src/hooks/use-dark-mode";
 
-export default async function LangPage({
-  params,
-}: {
-  params: { lang: "en" | "fa" };
-}) {
+export default async function LangPage({params}) {
   //
 
   //
@@ -34,10 +29,10 @@ export default async function LangPage({
   const defaultTheme = useServerDarkMode();
 
   const modalsProfile = mainData.modals.find(
-    (modal: any) => modal.name === "Citizenship-profile"
+    (modal) => modal.name === "Citizenship-profile"
   ).tabs;
   const tabsMenu = modalsProfile.find(
-    (item: any) => item.name === "menu"
+    (item) => item.name === "menu"
   ).fields;
 
   // find specific modal
@@ -45,12 +40,12 @@ export default async function LangPage({
 
   // find inside modal and return its fields(result is array)
   const firstPageArrayContent = centralPageModal.find(
-    (item: any) => item.name === "first-page"
+    (item) => item.name === "first-page"
   ).fields;
 
   // to find in an array with key(_name)
-  function localFind(_name: any) {
-    return firstPageArrayContent.find((item: any) => item.name == _name)
+  function localFind(_name) {
+    return firstPageArrayContent.find((item) => item.name == _name)
       .translation;
   }
 
@@ -71,11 +66,11 @@ export default async function LangPage({
       const res = await fetch(languageSelectedUrl);
       const resJson = await res.json();
       const footerData = resJson.modals.find(
-        (modal: any) => modal.name === "footer-menu"
+        (modal) => modal.name === "footer-menu"
       ).tabs;
 
       const footerTabs = footerData.find(
-        (item: any) => item.name === "our-systems"
+        (item) => item.name === "our-systems"
       ).fields;
 
       return footerTabs;
@@ -107,7 +102,7 @@ export default async function LangPage({
             <HeaderFirstPage firstPageArrayContent={firstPageArrayContent} />
           </div>
           <div
-            className="w-full  xs:min-h-fit col-span-12 md:mt-[-200px] 2xl:mt-[-250px] 4xl:mt-[-300px]
+            className="w-full  xs:min-h-fit col-span-12 md:mt-[-200px] 2xl:mt-[-200px] 4xl:mt-[-300px]
             xl:pe-32 lg:pe-32 md:pe-5 sm:pe-5 xs:pe-5
             xl:ps-32 lg:ps-32 md:ps-5 sm:ps-5 xs:ps-5 
             bg-[#151515] bg-opacity-40   py-10 grid grid-cols-12 z-[1]"

@@ -28,7 +28,7 @@ const ProfileGems = ({ profileData }: any) => {
                 alt={profileData.data?.code}
                 className="inline-block  cursor-pointer transition-transform duration-500 ease-in-out hover:-translate-y-1
                 3xl:w-24 3xl:h-24
-                  xl:w-14 xl:h-14
+                xl:w-14 xl:h-14
                 lg:w-14 
                 md:w-14 
                 sm:w-14

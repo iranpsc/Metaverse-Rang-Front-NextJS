@@ -8,7 +8,7 @@ export default function TimerSection() {
 
   function calculateTimeRemaining() {
     const now: any = new Date();
-    const targetDate: any = new Date("2024-03-18T02:06:22");
+    const targetDate: any = new Date("2024-08-19T01:31:22");
     const difference = targetDate - now;
 
     if (difference <= 0) {

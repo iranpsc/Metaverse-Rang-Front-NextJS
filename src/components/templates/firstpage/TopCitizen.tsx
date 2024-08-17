@@ -18,7 +18,7 @@ const TopCitizen = ({ firstPageArrayContent }: any) => {
           <p className="font-azarMehr font-medium text-[12px] md:text-[16px] lg:text-[18px] xl:text-[20px] dark:text-white">
             {localFind("view all")}
           </p>
-          <ArrowRight className="stroke-white rotate-180 w-[24px] h-full" />
+          <ArrowRight className="dark:stroke-white stroke-black rotate-180 w-[24px] h-full " />
         </div>
       </div>
       <div className="w-full relative flex flex-row  xl:justify-center items-center overflow-x-auto gap-6 mt-4 md:mt-12">
