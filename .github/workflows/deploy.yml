@@ -1,0 +1,51 @@
+name: Deploy to production
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Deploy to Self-Hosted Server
+        env:
+          SSH_PRIVATE_KEY: 'SHA256:sNWJn78radNW6ErUdZ5R0Hgdeb7rsZ06YXII85MJ5Nw'
+          SSH_HOST: 'https://server.irpsc.com'
+          SSH_USERNAME: 'frdevelop2'
+          REMOTE_DEPLOY_PATH: '/home/frdevelop2/public_html'
+          SSH_PORT: 4041
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -p $SSH_PORT $SSH_HOST >> ~/.ssh/known_hosts
+          rsync -avz --delete ./build/ $SSH_USERNAME@$SSH_HOST:$REMOTE_DEPLOY_PATH
+
+          # Set the name of the application
+          APP_NAME="frdevelop2"
+
+          # Check if the application is already running
+          if ssh -p $SSH_PORT $SSH_USERNAME@$SSH_HOST "pm2 show $APP_NAME &> /dev/null"; then
+            # Restart the application
+            ssh -p $SSH_PORT $SSH_USERNAME@$SSH_HOST "pm2 restart $APP_NAME"
+          else
+            # Start the application
+            ssh -p $SSH_PORT $SSH_USERNAME@$SSH_HOST "pm2 start npm start --name $APP_NAME"
+          fi
