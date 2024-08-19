@@ -32,12 +32,6 @@ jobs:
           REMOTE_DEPLOY_PATH: '/home/frdevelop2/public_html'
           SSH_PORT: 4041
         run: |
-          mkdir -p ~/.ssh
-          echo -e "$SSH_PASSWORD\n" > ~/.ssh/password
-          chmod 600 ~/.ssh/password
-          sshpass -f ~/.ssh/password ssh-copy-id -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_HOST -p $SSH_PORT
-          rsync -avz -e "sshpass -f ~/.ssh/password ssh -p $SSH_PORT" --delete ./build/ $SSH_USERNAME@$SSH_HOST:$REMOTE_DEPLOY_PATH
-
           # Set the name of the application
           APP_NAME="frdevelop2"
 
