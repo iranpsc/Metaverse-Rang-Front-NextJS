@@ -26,26 +26,24 @@ jobs:
 
       - name: Deploy to Self-Hosted Server
         env:
-          SSH_PRIVATE_KEY: SHA256:sNWJn78radNW6ErUdZ5R0Hgdeb7rsZ06YXII85MJ5Nw	
+          SSH_PASSWORD: 'mEbmfPpsZABA7bVwv4eJ'
           SSH_HOST: '2.187.100.51'
           SSH_USERNAME: 'frdevelop2'
           REMOTE_DEPLOY_PATH: '/home/frdevelop2/public_html'
           SSH_PORT: 4041
         run: |
           mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -p $SSH_PORT $SSH_HOST >> ~/.ssh/known_hosts
-          rsync -avz -e "ssh -p $SSH_PORT" --delete ./build/ $SSH_USERNAME@$SSH_HOST:$REMOTE_DEPLOY_PATH
+          echo -e "$SSH_PASSWORD\n" | sshpass -p "$SSH_PASSWORD" ssh-copy-id -f -i ~/.ssh/id_rsa.pub -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_HOST -p $SSH_PORT
+          rsync -avz -e "sshpass -p '$SSH_PASSWORD' ssh -p $SSH_PORT" --delete ./build/ $SSH_USERNAME@$SSH_HOST:$REMOTE_DEPLOY_PATH
 
           # Set the name of the application
           APP_NAME="frdevelop2"
 
           # Check if the application is already running
-          if ssh -p $SSH_PORT $SSH_USERNAME@$SSH_HOST "pm2 show $APP_NAME &> /dev/null"; then
+          if sshpass -p "$SSH_PASSWORD" ssh -p $SSH_PORT $SSH_USERNAME@$SSH_HOST "pm2 show $APP_NAME &> /dev/null"; then
             # Restart the application
-            ssh -p $SSH_PORT $SSH_USERNAME@$SSH_HOST "pm2 restart $APP_NAME"
+            sshpass -p "$SSH_PASSWORD" ssh -p $SSH_PORT $SSH_USERNAME@$SSH_HOST "pm2 restart $APP_NAME"
           else
             # Start the application
-            ssh -p $SSH_PORT $SSH_USERNAME@$SSH_HOST "pm2 start npm start --name $APP_NAME"
+            sshpass -p "$SSH_PASSWORD" ssh -p $SSH_PORT $SSH_USERNAME@$SSH_HOST "pm2 start npm start --name $APP_NAME"
           fi
