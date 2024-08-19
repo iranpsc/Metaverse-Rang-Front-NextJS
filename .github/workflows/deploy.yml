@@ -27,7 +27,7 @@ jobs:
       - name: Deploy to Self-Hosted Server
         env:
           SSH_PRIVATE_KEY: 'SHA256:sNWJn78radNW6ErUdZ5R0Hgdeb7rsZ06YXII85MJ5Nw'
-          SSH_HOST: 'https://server.irpsc.com'
+          SSH_HOST: '2.187.100.51'
           SSH_USERNAME: 'frdevelop2'
           REMOTE_DEPLOY_PATH: '/home/frdevelop2/public_html'
           SSH_PORT: 4041
