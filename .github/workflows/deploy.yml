@@ -36,7 +36,7 @@ jobs:
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -p $SSH_PORT $SSH_HOST >> ~/.ssh/known_hosts
-          rsync -avz --delete ./build/ $SSH_USERNAME@$SSH_HOST:$REMOTE_DEPLOY_PATH
+          rsync -avz -e "ssh -p $SSH_PORT" --delete ./build/ $SSH_USERNAME@$SSH_HOST:$REMOTE_DEPLOY_PATH
 
           # Set the name of the application
           APP_NAME="frdevelop2"
