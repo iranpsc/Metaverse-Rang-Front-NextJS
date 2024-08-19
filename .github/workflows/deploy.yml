@@ -30,7 +30,7 @@ jobs:
           SSH_HOST: '2.187.100.51'
           SSH_USERNAME: 'frdevelop2'
           REMOTE_DEPLOY_PATH: '/home/frdevelop2/public_html'
-          SSH_PORT: 22
+          SSH_PORT: 4041
         run: |
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
