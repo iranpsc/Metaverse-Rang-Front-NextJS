@@ -16,6 +16,7 @@ import {
   getTransletion,
   getMainFile,
   findByModalName,
+  findByTabName,
 } from "@/components/utils/actions";
 import DynamicFooter from "@/components/module/footer/DynamicFooter";
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
@@ -28,20 +29,22 @@ export default async function LangPage({params}) {
   const mainData = await getMainFile(langData);
   const defaultTheme = useServerDarkMode();
 
-  const modalsProfile = mainData.modals.find(
-    (modal) => modal.name === "Citizenship-profile"
-  ).tabs;
-  const tabsMenu = modalsProfile.find(
-    (item) => item.name === "menu"
-  ).fields;
+  const citizenModals = await findByModalName(mainData, "Citizenship-profile");
+  // const modalsProfile = mainData.modals.find(
+  //   (modal) => modal.name === "Citizenship-profile"
+  // ).tabs;
+  const tabsMenu = await findByTabName(citizenModals, "menu");
+  
+  // const tabsMenu = modalsProfile.find(
+  //   (item) => item.name === "menu"
+  // ).fields;
 
-  // find specific modal
   const centralPageModal = await findByModalName(mainData, "central-page");
+  const firstPageArrayContent = await findByTabName(centralPageModal, "first-page");
 
-  // find inside modal and return its fields(result is array)
-  const firstPageArrayContent = centralPageModal.find(
-    (item) => item.name === "first-page"
-  ).fields;
+  // const firstPageArrayContent = centralPageModal.find(
+  //   (item) => item.name === "first-page"
+  // ).fields;
 
   // to find in an array with key(_name)
   function localFind(_name) {

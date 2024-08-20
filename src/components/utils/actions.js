@@ -9,7 +9,6 @@
       },
     });
     const data = await res.json();
-
     return data.data.find((item) => item.code === lang);
   }
 
@@ -40,6 +39,15 @@
       (modal) => modal.name === `${_selectedName}`
     ).tabs;
 
+    return temp
+  }
+// return selected tab according to _tabs from answer of findByModalName func
+  export async function findByTabName(_tabs, _selectedTab){
+    console.log('_tabs', _tabs)
+    console.log('_selectedTab', _selectedTab)
+    const temp = _tabs.find(
+      (tab) => tab.name === `${_selectedTab}`
+    ).fields;
     return temp
   }
 
