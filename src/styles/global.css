@@ -6,39 +6,34 @@
 
 /* for costum class in taiwind (Using Tailwind’s Arbitrary Values) */
 @layer utilities {
+    /* dark scrollbar */
     .dark-scrollbar::-webkit-scrollbar {
         width: 10px;
     }
-
-    /* Track */
     .dark-scrollbar::-webkit-scrollbar-track {
         box-shadow: inset 0 0 0px grey;
         border-radius: 10px;
     }
-
-    /* Handle */
     .dark-scrollbar::-webkit-scrollbar-thumb {
         background: #FFC700;
         border-radius: 10px;
     }
-    /* dark scrollbar */
+    /* light scrollbar */
     .light-scrollbar::-webkit-scrollbar {
         width: 10px;
     }
-
-    /* Track */
     .light-scrollbar::-webkit-scrollbar-track {
         box-shadow: inset 0 0 0px #fff;
         border-radius: 10px;
-
     }
-
-    /* Handle */
     .light-scrollbar::-webkit-scrollbar-thumb {
         background: #426dae;
-
         border-radius: 20px;
 
+    }
+    /* custom transition */
+    .base-transition-1{
+        transition: 0.2s;
     }
   }
 

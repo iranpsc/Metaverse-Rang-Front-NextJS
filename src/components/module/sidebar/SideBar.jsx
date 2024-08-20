@@ -33,7 +33,6 @@ export default function SideBar({
       });
       if (res) {
         const redirectUrl = res.data.url
-        console.log('redirect link', redirectUrl)
         window.location.href= redirectUrl
       }else{
         throw new Error('Failed to fetch redirectUrl, client');
@@ -91,21 +90,22 @@ export default function SideBar({
               className={`${
                 isClosed
                   ? "w-[70px] sm:hidden xs:hidden md:hidden transition-2 xl:block lg:block"
-                  : "xl:w-[250px]   lg:w-[150px] md:w-[250px] sm:w-[175px] xs:w-[175px]"
+                  : "xl:w-[250px] lg:w-[150px] md:w-[250px] sm:w-[175px] xs:w-[175px]"
               }  h-fit absolute  z-[100] transition-all duration-300 ease-linear  bg-white dark:bg-dark-background bottom-0 py-5 flex flex-col items-center justify-center gap-3`}
             >
               {/* <LoginMenuModule /> */}
               {/*_________ login BTN __________*/}
-              <div
-                className="bg-blueLink cursor-pointer dark:bg-dark-yellow rounded-[15px]
-                          w-[95%] h-[40px]  flex flex-row xs:px-2 justify-around gap-5 items-center"
+              <button
+                className="w-[80%] bg-blueLink cursor-pointer dark:bg-dark-yellow rounded-[15px]
+                           h-[40px]  flex flex-row xs:px-2 justify-around gap-5 items-center
+                           text-white dark:text-dark-background font-azarMehr font-medium text-center text-[15px] m-auto"
                           onClick={handleLogin}>
                 {/* <LoginMenu className={`stroke-white stroke-2 dark:stroke-dark-background h-full w-5 
                                     ${tate.isCollapsed ? "hidden" : "visibale"}`}/> */}
-                  <p className="text-white dark:text-dark-background font-azarMehr font-medium text-center text-[15px]">
+                  {/* <p className="text-white dark:text-dark-background font-azarMehr font-medium text-center text-[15px]"> */}
                     login
-                  </p>
-              </div>
+                  {/* </p> */}
+              </button>
               <div className="w-full pt-3 pb-1 flex flex-col items-center justify-center">
                 <div className="h-[1px] bg-gray opacity-50 dark:bg-mediumGray w-[80%] " />
               </div>

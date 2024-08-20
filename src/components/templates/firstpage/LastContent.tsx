@@ -100,20 +100,28 @@ const LastContent = ({ firstPageArrayContent }: any) => {
                   </span>
                 </div>
               </Link>
-              <div className="flex flex-row justify-start items-center gap-5">
-                <span className=" whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray me-[-13px]">
-                  125
+              <div className="flex flex-row justify-end items-center gap-4 md:gap-3 xl:gap-4">
+                {/* 1 */}
+                <span className="flex items-center">
+                  <span className=" whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray">
+                    125
+                  </span>
+                  <Like className="stroke-gray dark:stroke-dark-gray stroke-2 w-[18px] h-[18px] " />
                 </span>
-                <Like className="stroke-gray dark:stroke-dark-gray stroke-2 w-[18px] h-[18px] " />
-                <span className="whitespace-nowrap font-azarMehr font-normal  3xl:text-[18px] text-gray dark:text-dark-gray me-[-10px]">
-                  10
+                {/* 2 */}
+                <span className="flex items-center">
+                  <span className="whitespace-nowrap font-azarMehr font-normal  3xl:text-[18px] text-gray dark:text-dark-gray">
+                    10
+                  </span>
+                  <Dislike className="stroke-gray  dark:stroke-dark-gray stroke-2 " />
                 </span>
-                <Dislike className="stroke-gray  dark:stroke-dark-gray stroke-2 " />
-
-                <span className="whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray me-[-13px]">
-                  610
+                {/* 3 */}
+                <span className="flex items-center">
+                  <span className="whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray">
+                    610
+                  </span>
+                  <View className="stroke-gray dark:stroke-dark-gray stroke-2 ms-1" />
                 </span>
-                <View className="stroke-gray dark:stroke-dark-gray stroke-2 " />
               </div>
             </div>
           </div>
