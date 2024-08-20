@@ -80,7 +80,7 @@ export default async function LangPage({params}) {
 
   return (
     // <>
-    <div className="flex" dir={langData.direction}>
+    <div className="flex border-4" dir={langData.direction}>
       <SideBar
         languageSelected={params.lang}
         langData={langData}
