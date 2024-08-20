@@ -1,6 +1,4 @@
 import { ArrowRight } from "@/components/svgs";
-import { Like } from "@/components/svgs/SvgEducation";
-import Image from "next/image";
 import { getAllCitizen } from "@/components/utils/actions";
 import Link from "next/link";
 import UserCard from "@/components/shared/UserCard";
@@ -16,7 +14,7 @@ const TopCitizen = async ({ firstPageArrayContent, params }: any) => {
   return (
     <>
       <div className="w-full flex flex-row justify-between items-center">
-        <p className="font-azarMehr font-medium  text-[16px] md:text-[20px] lg:text-[28px] xl:text-[32px] dark:text-white">
+        <p className="font-azarMehr font-medium text-[16px] md:text-[20px] lg:text-[28px] xl:text-[32px] dark:text-white">
           {localFind("leading citizens")}
         </p>
         <Link href={`/${params.lang}/citizen`}>
@@ -28,7 +26,7 @@ const TopCitizen = async ({ firstPageArrayContent, params }: any) => {
           </div>
         </Link>
       </div>
-      <div className="w-full relative flex flex-row dark:dark-scrollbar light-scrollbar  overflow-x-auto mt-4 md:mt-12 py-3">
+      <div className="w-full relative flex flex-row dark:dark-scrollbar light-scrollbar overflow-x-auto mt-4 md:mt-12 py-3">
         {allCitizenArray.map((item: any, index: any) => (
           <UserCard item={item} index={index} params={params} />
         ))}

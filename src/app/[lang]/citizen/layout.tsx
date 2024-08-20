@@ -20,10 +20,10 @@ export default async function CitizensLayout({
   const mainData = await getMainFile(langData);
   const langArray = await getLangArray();
   const modalsProfile = mainData.modals.find(
-    (modal:any) => modal.name === "Citizenship-profile"
+    (modal: any) => modal.name === "Citizenship-profile"
   ).tabs;
   const tabsMenu = modalsProfile.find(
-    (item:any) => item.name === "menu"
+    (item: any) => item.name === "menu"
   ).fields;
   return (
     <main className="flex dark:bg-black" dir={langData.direction}>
@@ -33,14 +33,9 @@ export default async function CitizensLayout({
         mainData={tabsMenu}
         defaultTheme={defaultTheme}
         params={params}
-        pageSide ='citizen'
-
+        pageSide="citizen"
       />
-      <div
-        className={`flex flex-row flex-wrap justify-evenly w-full no-scrollbar h-screen overflow-y-auto relative xs:pt-14 sm:pt-14 lg:pt-[0]`}
-      >
-        {children}
-      </div>
+      <div className={`relative xs:pt-14 sm:pt-14 lg:pt-[0]`}>{children}</div>
     </main>
   );
 }

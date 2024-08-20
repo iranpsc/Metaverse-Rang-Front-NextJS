@@ -31,20 +31,20 @@
         "Content-Type": "application/json",
       },
     });
+    
     return await res.json();
   }
   // return selected modal according to _selectedName from _mainData(.json)
   export async function findByModalName(_mainData, _selectedName){
     const temp = _mainData.modals.find(
-      (modal) => modal.name === `${_selectedName}`
-    ).tabs;
+        (modal) => modal.name === `${_selectedName}`
+      ).tabs;
+      // console.log("_mainData", _mainData.modals);
 
     return temp
   }
 // return selected tab according to _tabs from answer of findByModalName func
   export async function findByTabName(_tabs, _selectedTab){
-    console.log('_tabs', _tabs)
-    console.log('_selectedTab', _selectedTab)
     const temp = _tabs.find(
       (tab) => tab.name === `${_selectedTab}`
     ).fields;

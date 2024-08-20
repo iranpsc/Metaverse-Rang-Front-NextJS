@@ -1,8 +1,6 @@
 import { ArrowRight } from "@/components/svgs";
 import Image from "next/image";
 import { Like, Text } from "@/components/svgs/SvgEducation";
-import Link from "next/link";
-import UserCard from "@/components/shared/UserCard";
 
 const TopTrainersFirstPage = async ({ firstPageArrayContent, params }: any) => {
   function localFind(_name: any) {
@@ -39,12 +37,11 @@ const TopTrainersFirstPage = async ({ firstPageArrayContent, params }: any) => {
           <ArrowRight className="dark:stroke-white stroke-black rotate-180 w-[24px] h-full " />
         </div>
       </div>
-      <div className="w-full relative flex flex-row items-center gap-6  mt-4 md:mt-12 dark:dark-scrollbar light-scrollbar overflow-x-auto h-[500px]">
+      <div className="w-full relative flex flex-row dark:dark-scrollbar light-scrollbar overflow-x-auto mt-4 md:mt-12 py-3">
         {staticData.map((item: any, index: any) => (
-          // <UserCard />
           <div
             key={index}
-            className="min-w-[258px] min-h-[150px] shadow-xl flex flex-col justify-start items-center gap-10 py-5 bg-[#1A1A18] rounded-[24px]"
+            className="min-w-[258px] min-h-[150px] shadow-xl flex flex-col justify-start items-center gap-10 py-5 bg-[#1A1A18] rounded-[24px] hover:scale-105 base-transition-1 py-3 mx-3"
           >
             <Image
               className="size-[170px] rounded-full border-none"
