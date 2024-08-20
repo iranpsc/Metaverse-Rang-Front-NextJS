@@ -47,9 +47,10 @@ const LastNews = ({ firstPageArrayContent }: any) => {
 
       <div className="grid  lg:grid-cols-2 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 xs:grid-cols-1 gap-10 mt-4 md:mt-12">
         {staticData.map((item, index) => (
-          <div
+          <Link
+            href={item.url}
             key={index}
-            className="w-[100%] min-h-[240px]  shadow-md hover:shadow-xl hover:dark:shadow-dark  rounded-[10px] bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-6 items-center"
+            className="w-[100%] min-h-[240px] base-transition-1 cursor-pointer shadow-md hover:shadow-xl hover:dark:shadow-dark  rounded-[10px] bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-6 items-center"
           >
             <div className=" group w-full h-[266px]   rounded-t-[10px] relative">
               <Image
@@ -74,49 +75,57 @@ const LastNews = ({ firstPageArrayContent }: any) => {
               </p>
             </div>
 
-            <a className="w-[95%]" href={item.url}>
+            <div className="w-[95%]">
               <h1 className="text-start dark:text-white text-gray  w-full font-azarMehr truncate cursor-pointer font-bold mt-[8px] text-[18px] xl:text-[20px] 3xl:text-[22px] ">
                 {item.title}
               </h1>
-            </a>
+            </div>
 
             <div className="w-[95%] pb-2 flex flex-row justify-between  items-center">
-              <Link href="#" target="_blank">
-                <div className="flex flex-row justify-start items-center gap-2">
-                  <Image
-                    src="/firstpage/img2.jpg"
-                    alt="/firstpage/img2.jpg"
-                    width={1000}
-                    height={1000}
-                    loading="lazy"
-                    className="w-[45px] h-[45px] rounded-full object-cover cursor-pointer transition-all duration-150 ease-in-out"
-                    // onClick={() => pushRgb(item.creator.code)}
-                  />
-                  <span
-                    className="text-blueLink  cursor-pointer text-[14px] 3xl:text-[18px] whitespace-nowrap font-medium hover:font-bold uppercase "
-                    // onClick={() => pushRgb(item.creator.code)}
-                  >
-                    Hm-2000003
+              {/* <Link href="#" target="_blank"> */}
+              <div className="flex flex-row justify-start items-center gap-2">
+                <Image
+                  src="/firstpage/img2.jpg"
+                  alt="/firstpage/img2.jpg"
+                  width={1000}
+                  height={1000}
+                  loading="lazy"
+                  className="w-[45px] h-[45px] rounded-full object-cover cursor-pointer transition-all duration-150 ease-in-out"
+                  // onClick={() => pushRgb(item.creator.code)}
+                />
+                <span
+                  className="text-blueLink  cursor-pointer text-[14px] 3xl:text-[18px] whitespace-nowrap font-medium hover:font-bold uppercase "
+                  // onClick={() => pushRgb(item.creator.code)}
+                >
+                  Hm-2000003
+                </span>
+              </div>
+              {/* </Link> */}
+              <div className="flex flex-row justify-end items-center gap-4 md:gap-3 xl:gap-4">
+                {/* 1 */}
+                <span className="flex items-center">
+                  <span className=" whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray">
+                    125
                   </span>
-                </div>
-              </Link>
-              <div className="flex flex-row justify-start items-center gap-5">
-                <span className=" whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray me-[-13px]">
-                  125
+                  <Like className="stroke-gray dark:stroke-dark-gray stroke-2 w-[18px] h-[18px] " />
                 </span>
-                <Like className="stroke-gray dark:stroke-dark-gray stroke-2 w-[18px] h-[18px] " />
-                <span className="whitespace-nowrap font-azarMehr font-normal  3xl:text-[18px] text-gray dark:text-dark-gray me-[-10px]">
-                  10
+                {/* 2 */}
+                <span className="flex items-center">
+                  <span className="whitespace-nowrap font-azarMehr font-normal  3xl:text-[18px] text-gray dark:text-dark-gray">
+                    10
+                  </span>
+                  <Dislike className="stroke-gray  dark:stroke-dark-gray stroke-2 " />
                 </span>
-                <Dislike className="stroke-gray  dark:stroke-dark-gray stroke-2 " />
-
-                <span className="whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray me-[-13px]">
-                  610
+                {/* 3 */}
+                <span className="flex items-center">
+                  <span className="whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray">
+                    610
+                  </span>
+                  <View className="stroke-gray dark:stroke-dark-gray stroke-2 ms-1" />
                 </span>
-                <View className="stroke-gray dark:stroke-dark-gray stroke-2 " />
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </>

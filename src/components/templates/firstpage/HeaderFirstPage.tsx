@@ -11,7 +11,7 @@ export default function HeaderFirstPage({ firstPageArrayContent }: any) {
 
   return (
     <>
-      <div className="xl:col-span-6 md:col-span-6 sm:col-span-12 pt-[500px] md:pt-[80px] lg:pt-0 xl:order-1 md:order-1 sm:order-2 xs:order-2 xs:col-span-12 w-full flex flex-col justify-start 3xl:justify-center items-start gap-5 md:gap-2 lg:gap-5 2xl:gap-10 3xl:gap-40 md:pb-[200px] lg:pb-[200px] xl:pb-[250px] xl:pb-0">
+      <div className="xl:col-span-6 md:col-span-6 sm:col-span-12 pt-[52vh] md:pt-[80px] lg:pt-0 xl:order-1 md:order-1 sm:order-2 xs:order-2 xs:col-span-12 w-full flex flex-col justify-start 3xl:justify-center items-start gap-3 md:gap-2 lg:gap-5 2xl:gap-10 3xl:gap-40 md:pb-[200px] lg:pb-[200px] xl:pb-[250px] xl:pb-0">
         <motion.h1
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}

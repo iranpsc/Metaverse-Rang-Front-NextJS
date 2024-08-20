@@ -9,7 +9,7 @@ const SectionTimer = ({ firstPageArrayContent }: any) => {
       .translation;
   }
   return (
-    <div className="w-full flex flex-wrap md:flex-nowrap justify-evenly xl:gap-1 lg:gap-1 md:gap-5 sm:gap-5 xs:gap-5 items-center min-h-[300px]">
+    <div className="w-full h-full flex flex-wrap md:flex-nowrap justify-evenly xl:gap-1 lg:gap-1 md:gap-5 sm:gap-5 xs:gap-5 items-center min-h-[300px]">
       <div className="w-full  h-[50px] xl:hidden md:hidden  sm:flex xs:flex justify-center items-center gap-10">
         <div className="bg-dark-yellow rounded-full size-[50px] flex justify-center items-center  ">
           <ArrowRight className=" stroke-[#1b1b1b] size-[24px]" />
@@ -22,33 +22,35 @@ const SectionTimer = ({ firstPageArrayContent }: any) => {
       <div className="bg-dark-yellow rounded-full size-[50px] xl:flex md:flex sm:hidden xs:hidden justify-center items-center  ">
         <ArrowRight className=" stroke-[#1b1b1b] size-[24px]" />
       </div>
-
+      {/* FIRST BOX */}
       <div
-        className="relative max-w-[660px] h-fit  p-4 border-2 border-[#343434] rounded-[50px]
-      flex xl:flex-row lg:flex-row md:flex-nowrap sm:flex-wrap xs:flex-wrap xl:gap-0 lg:gap-0 md:gap-0 sm:gap-5  xs:gap-5 justify-center items-center"
+        className="relative h-full p-4 border-2 border-[#343434] rounded-[50px]
+        flex xl:flex-row lg:flex-row md:flex-nowrap sm:flex-wrap xs:flex-wrap xl:gap-0 lg:gap-0 md:gap-0 sm:gap-5  xs:gap-5 justify-center items-center"
         style={{ borderColor: "linear-gradient(to right, #000, #fff)" }}
       >
         <div className="absolute bg-white/10 z-0 size-[150px] top-[10px] end-[20%] blur-3xl  filter"></div>
-        <Image
-          className=" w-full md:w-2/5 lg:w-full lg:h-full rounded-[32px] border-none"
-          src="/firstpage/img1.jpg"
-          alt="header"
-          width={1000}
-          height={1000}
-        />
-        <div className="">
-          <h6 className="w-fit text-start text-[23px] lg:text-[32px] text-gray dark:text-white font-azarMehr font-medium ms-5">
-            خانه سه بعدی جدید با معماری Brutalism
+        <div className="w-full md:w-2/5 lg:w-full lg:h-full rounded-[32px] border-none overflow-hidden">
+          <Image
+            className="w-fill h-full object-contain"
+            src="/firstpage/img1-1.jpg"
+            alt="header"
+            width={1000}
+            height={1000}
+          />
+        </div>
+        <div className="w-3/5">
+          <h6 className="text-start text-[23px] lg:text-[28px] text-gray dark:text-white font-azarMehr font-medium ms-5">
+            اهدای 963 قطعه زمین(VOD) رایگان
           </h6>
-          <p className="w-fit text-start text-lg lg:text-[20px] text-gray dark:text-white font-azarMehr font-medium mt-5 lg:mt-10 ms-5">
-            ساختمان‌های این سبک از معماری به ظاهر خشن و رویدادگرا هستند و دارای
-            ضخامت و جرات بصری قوی می‌باشند. و ......
+          <p className="w-fit text-start text-lg xl:text-[20px] text-gray dark:text-white font-azarMehr font-medium mt-5 lg:mt-10 ms-5">
+            اهدای 963 قطعه زمین(VOD) رایگان به ارزش 50,371,200,000 ریال برای
+            آزادسازی جزیره آریایی در اولین متاورس ایران متاورس رنگ
           </p>
         </div>
       </div>
-
+      {/* SECOND BOX */}
       <div
-        className="xl:max-w-[410px] lg:max-w-[410px] md:w-full sm:w-full xs:w-full h-[300px] rounded-[50px] border-2 border-[#343434] p-4
+        className="w-full xl:w-[35%] h-full rounded-[50px] border-2 border-[#343434] p-4
       flex flex-col justify-between items-center relative "
       >
         <div className="absolute bg-white/10 z-0 size-[150px] top-[-10px] end-[-20px] rounded-xl blur-3xl  filter"></div>

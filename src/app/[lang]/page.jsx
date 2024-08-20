@@ -80,7 +80,7 @@ export default async function LangPage({params}) {
 
   return (
     // <>
-    <div className="flex border-4" dir={langData.direction}>
+    <div className="flex" dir={langData.direction}>
       <SideBar
         languageSelected={params.lang}
         langData={langData}
@@ -142,21 +142,20 @@ export default async function LangPage({params}) {
         </section>
         <section
           className={`w-full relative flex  flex-col justify-start overflow-x-clip overflow-y-auto items-center bg-[#f8f8f8] dark:bg-[#2F2D28] bg-opacity20 
-            xl:pe-32 lg:pe-32 md:pe-5 sm:pe-5 xs:pe-5
-            xl:ps-32 lg:ps-32 md:ps-5 sm:ps-5 xs:ps-5`}
+            xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1`}
         >
-          <div className="w-full relative h-fit mt-10 md:mt-36">
-            <div className="absolute top-0 left-0 w-full h-full bg-cover bg-no-repeat bg-center filter blur-sm "></div>
+          <div className="w-full relative md:h-[350px] 2xl:h-[400px] mt-10 md:mt-36">
+            {/* <div className="absolute top-0 left-0 w-full h-full bg-cover bg-no-repeat bg-center filter blur-sm "></div> */}
             <SectionTimer firstPageArrayContent={firstPageArrayContent} />
           </div>
 
           <div className="relative w-[90%] h-fit grid grid-cols-12 mt-10 md:mt-36 ">
-            <div className="absolute bg-dark-yellow/10 z-0 size-[250px] start-[0px] bottom-[0px] rounded-xl blur-3xl filter"></div>
+            {/* <div className="absolute bg-dark-yellow/10 z-0 size-[250px] start-[0px] bottom-[0px] rounded-xl blur-3xl filter"></div> */}
             <SectionTeam firstPageArrayContent={firstPageArrayContent} />
           </div>
 
           <div className="w-[90%] h-fit  mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
-            <TopCitizen firstPageArrayContent={firstPageArrayContent} />
+            <TopCitizen firstPageArrayContent={firstPageArrayContent} params={params} />
           </div>
 
           <div className="w-[90%] h-fit  mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
@@ -174,7 +173,7 @@ export default async function LangPage({params}) {
             <Section3D />
           </div>
 
-          <div className="w-[90%] h-fit  mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
+          <div className="w-[90%] h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
             <TopTrainersFirstPage
               firstPageArrayContent={firstPageArrayContent}
               params={params}
@@ -190,14 +189,14 @@ export default async function LangPage({params}) {
           </div>
 
           <div className="w-[90%] relative h-fit  mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
-            <div className="absolute bg-dark-yellow/10 z-0 size-[250px] end-[0px] top-[-30px] rounded-xl blur-2xl filter"></div>
+            {/* <div className="absolute bg-dark-yellow/10 z-0 size-[250px] end-[0px] top-[-30px] rounded-xl blur-2xl filter"></div> */}
             <DetailsEducationSection
               firstPageArrayContent={firstPageArrayContent}
             />
           </div>
 
           <div className="w-[90%] relative h-fit  mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
-            <div className="absolute bg-dark-white/10 z-0 size-[250px] start-[0px] top-[0px] rounded-xl blur-2xl filter"></div>
+            {/* <div className="absolute bg-dark-white/10 z-0 size-[250px] start-[0px] top-[0px] rounded-xl blur-2xl filter"></div> */}
             <VersionSection firstPageArrayContent={firstPageArrayContent} />
           </div>
 

@@ -33,21 +33,28 @@ export default function TimerSection() {
 
   return (
     <div
-      className="flex flex-row justify-center items-center gap-2 z-50"
+      className="flex flex-row justify-center items-center gap-1 z-50"
       dir="ltr"
     >
       <div className="flex flex-col justify-center items-center">
-        <span className="text-[28px] lg:text-[48px] text-dark-yellow text-azarMehr font-bold">
-          {timeRemaining.days.toString().padStart(2, "0")} {" : "}
+        <span className="flex items-center text-[28px] lg:text-[38px] xl:text-[42px] 2xl:text-[48px] text-dark-yellow text-azarMehr">
+          <span className="font-bold">
+            {timeRemaining.days.toString().padStart(2, "0")}
+          </span>
+          <span className="font-bold ps-1">{" : "}</span>
         </span>
+
         <span className="text-[16px] text-dark-yellow text-azarMehr font-bold text-center w-full pe-5">
           روز
         </span>
       </div>
 
       <div className="flex flex-col justify-center items-center">
-        <span className="text-[28px] lg:text-[48px] text-dark-yellow text-azarMehr font-bold">
-          {timeRemaining.hours.toString().padStart(2, "0")} {" : "}
+        <span className="flex items-center text-[28px] lg:text-[38px] xl:text-[42px] 2xl:text-[48px] text-dark-yellow text-azarMehr">
+          <span className="font-bold">
+            {timeRemaining.hours.toString().padStart(2, "0")}
+          </span>
+          <span className="font-bold ps-1">{" : "}</span>
         </span>
         <span className="text-[16px] text-dark-yellow text-azarMehr font-bold text-center w-full pe-5">
           ساعت
@@ -55,8 +62,11 @@ export default function TimerSection() {
       </div>
 
       <div className="flex flex-col justify-center items-center">
-        <span className="text-[28px] lg:text-[48px] text-dark-yellow text-azarMehr font-bold">
-          {timeRemaining.minutes.toString().padStart(2, "0")} {" : "}
+        <span className="flex items-center text-[28px] lg:text-[38px] xl:text-[42px] 2xl:text-[48px] text-dark-yellow text-azarMehr">
+          <span className="font-bold">
+            {timeRemaining.minutes.toString().padStart(2, "0")}
+          </span>
+          <span className="font-bold ps-1">{" : "}</span>
         </span>
         <span className="text-[16px] text-dark-yellow text-azarMehr font-bold text-center text-center w-full pe-5">
           دقیقه
@@ -64,9 +74,12 @@ export default function TimerSection() {
       </div>
 
       <div className="flex flex-col justify-center items-center">
-        <span className="text-[28px] lg:text-[48px] text-dark-yellow text-azarMehr font-bold">
-          {timeRemaining.seconds.toString().padStart(2, "0")}
+        <span className="flex items-center text-[28px] lg:text-[38px] xl:text-[42px] 2xl:text-[48px] text-dark-yellow text-azarMehr">
+          <span className="font-bold">
+            {timeRemaining.seconds.toString().padStart(2, "0")}
+          </span>
         </span>
+
         <span className="text-[16px] text-dark-yellow text-azarMehr font-bold text-center w-full pe-5">
           ثانیه
         </span>

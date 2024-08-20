@@ -58,6 +58,8 @@ export default function SideBarContent({
         {tabsMenu &&
           tabsMenu.map((item, i) => (
             //*HINT*the way to pass parameters to function in nextjs "onTabClick(item)"
+            //*HINT*i<=12 is not a good solution,array must be change
+            (i <=12) &&
             <li key={item.id} onClick={() => onTabClick(item, i)}>
               {/* (i == 0) for hiding first element of array"متاورس" */}
               {i !== 0 && (

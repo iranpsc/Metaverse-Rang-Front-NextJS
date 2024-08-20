@@ -2,55 +2,53 @@ import { ArrowRight } from "@/components/svgs";
 import Image from "next/image";
 import { Like, Text } from "@/components/svgs/SvgEducation";
 import Link from "next/link";
-import { getAllCitizen } from "@/components/utils/actions";
+import UserCard from "@/components/shared/UserCard";
 
 const TopTrainersFirstPage = async ({ firstPageArrayContent, params }: any) => {
   function localFind(_name: any) {
     return firstPageArrayContent.find((item: any) => item.name == _name)
       .translation;
   }
-  const allCitizenArray = await getAllCitizen();
 
-  // const staticData = [
-  //   {
-  //     id: 1,
-  //     name: "مرضیه ثاقب علیزاده",
-  //     img: "/profile/marziyeh-alizadeh.jpg",
-  //     code: "HM-2000003",
-  //     likes: "  1.3k",
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "حسین قدیری",
-  //     img: "/profile/hossein-ghadiri.jpg",
-  //     code: "HM-2000001",
-  //     likes: "820",
-  //   },
-  // ];
+  const staticData = [
+    {
+      id: 1,
+      name: "مرضیه ثاقب علیزاده",
+      img: "/profile/marziyeh-alizadeh.jpg",
+      code: "HM-2000003",
+      likes: "  1.3k",
+    },
+    {
+      id: 2,
+      name: "حسین قدیری",
+      img: "/profile/hossein-ghadiri.jpg",
+      code: "HM-2000001",
+      likes: "820",
+    },
+  ];
   return (
     <>
       <div className="w-full flex flex-row justify-between items-center">
         <p className="font-azarMehr font-medium  text-[16px] md:text-[20px] lg:text-[28px] xl:text-[32px] dark:text-white">
           {localFind("top trainers")}
         </p>
-        <Link href={`/${params.lang}/citizen`}>
-          <div className="flex justify-center items-center gap-4">
-            <p className="font-azarMehr font-medium text-[12px] md:text-[16px] lg:text-[18px] xl:text-[20px] dark:text-white">
-              {localFind("view all")}
-            </p>
-            <ArrowRight className="dark:stroke-white stroke-black rotate-180 w-[24px] h-full " />
-          </div>
-        </Link>
+        <div className="flex justify-center items-center gap-4">
+          <p className="font-azarMehr font-medium text-[12px] md:text-[16px] lg:text-[18px] xl:text-[20px] dark:text-white">
+            {localFind("view all")}
+          </p>
+          <ArrowRight className="dark:stroke-white stroke-black rotate-180 w-[24px] h-full " />
+        </div>
       </div>
-      <div className="w-full relative flex flex-row xl:justify-center items-center gap-6  mt-4 md:mt-12 dark:dark-scrollbar light-scrollbar overflow-x-auto h-[500px]">
-        {allCitizenArray.map((item: any, index: any) => (
+      <div className="w-full relative flex flex-row items-center gap-6  mt-4 md:mt-12 dark:dark-scrollbar light-scrollbar overflow-x-auto h-[500px]">
+        {staticData.map((item: any, index: any) => (
+          // <UserCard />
           <div
             key={index}
             className="min-w-[258px] min-h-[150px] shadow-xl flex flex-col justify-start items-center gap-10 py-5 bg-[#1A1A18] rounded-[24px]"
           >
             <Image
               className="size-[170px] rounded-full border-none"
-              src={item.profile_photo || "/temp.png"}
+              src={item.img || "/temp.png"}
               alt="header"
               width={1000}
               height={1000}
@@ -60,7 +58,7 @@ const TopTrainersFirstPage = async ({ firstPageArrayContent, params }: any) => {
                 {item.name}
               </p>
               <p className="font-azarMehr font-medium text-[18px] text-dark-yellow">
-                شهروندان پیشرو
+                {localFind("leading citizens")}
               </p>
               <div className="flex justify-center items-center">
                 <p className="font-azarMehr font-medium text-[20px] text-[#808080]">
