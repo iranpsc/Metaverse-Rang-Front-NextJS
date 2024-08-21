@@ -14,11 +14,11 @@ import { useState } from "react";
 import Modal from "@/components/templates/modal";
 import ListMenuActiveIconModule from "./list/ListMenuActiveIconModule";
 // import ListMenuActiveIconModule from "./list/ListMenuActiveIconModule";
-
+import { Tooltip as ReactTooltip } from "react-tooltip";
 
 export default function SideBarContent({
   tabsMenu,
-  languageSelected,
+ langData,
   isClosed,
 }) {
   const [modalShow, setModalShow] = useState(false);
@@ -29,7 +29,7 @@ export default function SideBarContent({
   };
   const onTabClick = (item, tabNumber) => {
     setActiveNav(tabNumber);
-    if (languageSelected === "fa") {
+    if (langData.code === "fa") {
       const temp = Modals_fa.find((x) => x.id == item.id);
 
       if (temp) {
@@ -44,6 +44,7 @@ export default function SideBarContent({
       }
     }
   };
+console.log('tabsMenu',tabsMenu);
 
   return (
     <>
@@ -59,8 +60,9 @@ export default function SideBarContent({
           tabsMenu.map((item, i) => (
             //*HINT*the way to pass parameters to function in nextjs "onTabClick(item)"
             //*HINT*i<=12 is not a good solution,array must be change
-            (i <=12) &&
-            <li key={item.id} onClick={() => onTabClick(item, i)}>
+          <div key={item.id}>
+            { (i <=12) &&
+            <li  onClick={() => onTabClick(item, i)} data-tooltip-id={item.name}>
               {/* (i == 0) for hiding first element of array"متاورس" */}
               {i !== 0 && (
                 <div
@@ -70,7 +72,7 @@ export default function SideBarContent({
                 >
                   <ListMenuActiveIconModule
                     item={item}
-                    languageSelected={languageSelected}
+                    languageSelected={langData.code}
                     isClosed={isClosed}
                     activeNav={activeNav}
                     i={i}
@@ -104,6 +106,14 @@ export default function SideBarContent({
                 //   )
               }
             </li>
+           }
+             <ReactTooltip
+             id={item.name}
+             place={langData.direction === "rtl"?"left" :"right"}
+             className="tooltip-bg-color"
+             content={item.translation}
+           />
+            </div>
           ))}
       </ul>
     </>

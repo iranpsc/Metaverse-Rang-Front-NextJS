@@ -75,17 +75,18 @@ export default function SideBar({
             {pageSide == 'citizen' &&
             <AllSideTab
               tabsMenu={mainData}
-              languageSelected={languageSelected}
               isClosed={isClosed}
               toggleSide={toggleSide}
+              langData={langData}
             />}
             {pageSide == 'level' && 
             <LevelSideTab
               tabsMenu={mainData}
-              languageSelected={languageSelected}
               isClosed={isClosed}
               params={params}
-              toggleSide={toggleSide}/>}
+              toggleSide={toggleSide}
+              langData={langData}
+              />}
             <div
               className={`${
                 isClosed
