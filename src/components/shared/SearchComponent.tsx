@@ -5,9 +5,9 @@ import SectionInputSearch from "@/components/shared/SectionInputSearch";
 import { ItemsSearch } from "@/components/shared/ItemsSearch";
 
 export default function SearchComponent({
-  themeDataActive,
-  translateData,
-  setActiveSearch,
+  citizenListArrayContent,
+  // setActiveSearch,
+  params,
 }: any) {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchData, setSearchData] = useState<any>([]);
@@ -20,35 +20,43 @@ export default function SearchComponent({
       formData.append("searchTerm", searchTerm);
 
       axios
-        .post("https://api.rgb.irpsc.com/api/tutorials/search", formData)
+        .post("https://api.rgb.irpsc.com/api/search/users", formData)
         .then((response) => {
           setLoadingSearch(false);
           setSearchData(response.data.data);
+          // console.log("typeOFffff", typeof response.data.data);
+          console.log("response.data.data", response.data.data);
+          // searchData.map((item: any) => console.log("item", item));
         })
-        .catch((error) => {
+        .catch((error) => {})
+        .finally(() => {
           setLoadingSearch(false);
-          setActiveSearch(false);
+          // setActiveSearch(false);
         });
     } else {
       setSearchData([]);
       setLoadingSearch(false);
 
-      setActiveSearch(false);
+      // setActiveSearch(false);
     }
   }, [searchTerm]);
 
+  // useEffect(() => {
+  //   console.log("Updated searchData", searchData);
+  // }, [searchData]);
+
   useEffect(() => {
     if (searchData.length >= 1) {
-      setActiveSearch(true);
+      // setActiveSearch(true);
     } else {
-      setActiveSearch(false);
+      // setActiveSearch(false);
     }
   }, [searchData]);
 
   const removeSearch = () => {
     setSearchData([]);
     setSearchTerm("");
-    setActiveSearch(false);
+    // setActiveSearch(false);
   };
 
   return (
@@ -60,24 +68,26 @@ export default function SearchComponent({
         onClick={removeSearch}
       ></div>
       <div
-        id={`${
-          themeDataActive === "dark" ? "dark-scrollbar" : "light-scrollbar"
-        }`}
-        className="mt-[50px] flex flex-col  relative z-20 "
+        // id={`${
+        //   themeDataActive === "dark" ? "dark-scrollbar" : "light-scrollbar"
+        // }`}
+        className="mt-[50px] flex flex-col items-center w-full relative z-20 dark:dark-scrollbar light-scrollbar"
       >
         <SectionInputSearch
           SectionName="education"
-          translateData={translateData}
+          citizenListArrayContent={citizenListArrayContent}
           loadingSearch={loadingSearch}
-          themeDataActive={themeDataActive}
+          // themeDataActive={themeDataActive}
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
           searchData={searchData}
           removeSearch={removeSearch}
         />
 
-        <div className="w-full  bg-white dark:bg-dark-background  transition-all duration-300 easy-in-out rounded-xl 2xl:max-h-[500px] xl:max-h-[500px] lg:max-h-[500px] md:2xl:max-h-[500px] sm:max-h-[350px] xs:max-h-[350px]  z-[999]  overflow-y-auto overflow-x-clip absolute  mt-[53px]  flex flex-col justify-start items-center gap-1 ">
-          <ItemsSearch searchData={searchData} />
+        <div className="w-full bg-white dark:bg-dark-background transition-all duration-300 easy-in-out rounded-xl 2xl:max-h-[500px] xl:max-h-[500px] lg:max-h-[500px] md:2xl:max-h-[500px] sm:max-h-[350px] xs:max-h-[350px] z-[999] overflow-y-auto overflow-x-clip absolute mt-[53px]  flex flex-col justify-start items-center gap-1 light-scrollbar dark:dark-scrollbar">
+          {searchData && searchData.length > 0 && (
+            <ItemsSearch searchData={searchData} params={params} />
+          )}
         </div>
       </div>
     </>

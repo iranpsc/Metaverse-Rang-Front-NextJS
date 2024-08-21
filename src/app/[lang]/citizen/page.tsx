@@ -49,15 +49,20 @@ export default async function CitizensPage({
         <p className="text-lightGray font-azarMehr font-normal text-[24px] text-center">
           {localFind("description citizen list")}
         </p>
-        <div>{/* <SearchComponent /> */}</div>
+        <div className="flex justify-center w-full">
+          <SearchComponent
+            citizenListArrayContent={citizenListArrayContent}
+            params={params}
+          />{" "}
+        </div>
       </div>
       {/* CITIZEN box Container */}
       <div className="flex flex-row flex-wrap justify-evenly w-full no-scrollbar overflow-y-auto py-[20px]">
         {allCitizenArray.map((item: any) => (
-          <div className="w-1/2 md:w-1/3 lg:w-1/4 2xl:w-1/5 3xl:w-1/6 hover:scale-105 base-transition-1 mx-3">
+          <div className="w-[280px] sm:w-1/3 lg:w-1/4 2xl:w-1/5 3xl:w-1/6 hover:scale-105 base-transition-1 mx-3">
             <div
               key={item.id}
-              className=" h-[250px] sm:h-[350px] md:h-[400px] xl:h-[411px] cursor-pointer shadow-lg mt-10  relative   bg-[#fff] dark:bg-[#1A1A18] flex flex-col justify-between gap-1 sm:gap-3 py-3 sm:py-4 md:py-5  items-center rounded-[20px]"
+              className="cursor-pointer shadow-lg mt-10 relative bg-[#fff] dark:bg-[#1A1A18] flex flex-col justify-between gap-1 sm:gap-3 py-3 sm:py-4 md:py-5 items-center rounded-[20px]"
             >
               <img
                 src={item.profile_photo || "/temp.png"}
@@ -90,10 +95,12 @@ export default async function CitizensPage({
                 سطح توسعه دهنده
               </span>
 
-              <div className="flex w-full">
-                {item.levels?.previous?.map((item: any) => (
-                  <GemImage item={item} />
-                ))}
+              <div className="w-full overflow-auto no-scrollbar">
+                <div className="w-fit flex m-auto">
+                  {item.levels?.previous?.map((item: any) => (
+                    <GemImage item={item} />
+                  ))}
+                </div>
               </div>
               <Link
                 href={`/${params.lang}/citizen/${item.code}`}

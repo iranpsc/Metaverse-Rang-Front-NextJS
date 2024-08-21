@@ -10,7 +10,7 @@ export default function CitizenClientImage({ item }: any) {
       height={27}
       alt={item.name}
       title={item.name}
-      className="w-[60px] sm:w-[27px] md:w-[30px] lg:w-[35px] xl:w-[40px] 2xl:w-[45px]"
+      className="w-[30px] xl:w-[45px] 2xl:w-[50px] inline"
     />
   );
 }
