@@ -55,6 +55,7 @@ const ProfileMainDetails = ({
           </p>
         </div>
       </div>
+
       <div className="flex flex-row justify-between w-full items-center">
         <p className="font-azarMehr dark:text-white font-medium 3xl:text-xl3Title  xl:text-xlTitle  lg:text-lgTitle md:text-mdTitle  sm:text-smTitle xs:text-smTitle break-all text-[#000]">
           {targetData(userProperty, "citizenship name")}
