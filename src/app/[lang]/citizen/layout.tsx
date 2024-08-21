@@ -35,7 +35,9 @@ export default async function CitizensLayout({
         params={params}
         pageSide="citizen"
       />
-      <div className={`relative xs:pt-14 sm:pt-14 lg:pt-[0]`}>{children}</div>
+      <div className={`relative xs:pt-14 sm:pt-14 lg:pt-[0]  w-full`}>
+        {children}
+      </div>
     </main>
   );
 }

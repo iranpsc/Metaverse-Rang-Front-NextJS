@@ -166,14 +166,13 @@ export default async function citizenSinglePage({
             {/* <StaticMobileMenu /> */}
           </div>
         </div>
+
         {/* ${showModal || showSharedPage ? "" : ""} DOWNNN  */}
         <div
-          className={`xl:grid lg:grid xl:grid-auto 
-          lg:grid-cols-12 xl:grid-cols-12  w-full md:flex md:flex-col relative sm:flex sm:flex-col
-          sm:gap-5 xs:gap-5 xl:gap-0 lg:gap-0 md:gap-0`}>
+          className={`flex flex-col lg:flex-row`}>
+            {/* FIRST */}
           <section
-            className="col-span-5 flex flex-col 3xl:h-screen no-scrollbar overflow-auto xl:h-screen lg:h-screen md:h-fit sm:h-fit xs:h-fit dark:bg-black bg-[#e9eef8]
-            3xl:p-[12px] xl:p-[6px] lg:p-[4px] md:p-[6px] sm:p-[4px] xs:p-[4px]"
+            className="w-full lg:w-[40%] flex flex-col no-scrollbar overflow-auto lg:h-screen md:h-fit sm:h-fit xs:h-fit dark:bg-black bg-[#e9eef8] 3xl:p-[12px] xl:p-[6px] lg:p-[4px] md:p-[6px] sm:p-[4px] xs:p-[4px] gap-2"
           >
             <Profile
               profileData={profileData}
@@ -184,31 +183,18 @@ export default async function citizenSinglePage({
               params={params}
             />
           </section>
-
+          {/* SECOND */}
           <section
-            className="col-span-4 flex flex-col no-scrollbar overflow-auto 3xl:h-screen xl:h-screen lg:h-screen sm:h-fit xs:h-fit md:h-fit dark:bg-black bg-[#e9eef8]
-             3xl:px-[0px] 3xl:py-[12px] 
-             xl:px-[0px] xl:py-[6px]
-             lg:p-[4px]  
-             md:p-[6px] 
-             sm:p-[2px]
-             xs:p-[2px]"
+            className="w-full lg:w-[30%] flex flex-col no-scrollbar overflow-auto 3xl:h-screen xl:h-screen lg:h-screen sm:h-fit xs:h-fit md:h-fit dark:bg-black bg-[#e9eef8] 3xl:px-[0px] 3xl:py-[12px] xl:px-[0px] xl:py-[6px] lg:p-[4px] md:p-[6px] sm:p-[2px] xs:p-[2px]"
           >
             <ProfileDetails
               profileData={profileData}
               userProperty={userProperty}
             />
           </section>
-
+          {/* THIRD */}
           <section
-            className="col-span-3 flex flex-col no-scrollbar overflow-auto h-screen dark:bg-black md:h-screen  bg-[#e9eef8] 
-            3xl:p-[12px]
-            xl:p-[6px] 
-            lg:p-[4px] 
-            md:p-[6px]
-            sm:p-[2px] 
-            xs:p-[2px]
-            "
+            className="w-full lg:w-[30%] flex flex-col no-scrollbar overflow-auto h-screen dark:bg-black md:h-screen bg-[#e9eef8] 3xl:p-[12px] xl:p-[6px] lg:p-[4px] md:p-[6px] sm:p-[2px] xs:p-[2px]"
           >
             <ProfileAbout
               profileData={profileData}

@@ -23,13 +23,19 @@ export default async function Profile({
 
   // const yourElementRef = useRef(null);
 
+  const concatGems = profileData.data?.achieved_levels.concat(
+    profileData.data.current_level
+  );
+  console.log("concatGems", concatGems);
+
   const numberScore =
     100 - parseInt(profileData?.score_percentage_to_next_level);
   const percent = (numberScore / 100) * 100;
 
   return (
-    <div className="flex flex-col h-full flex-nowrap justify-start 3xl:gap-[12px] xs:gap-2 sm:gap-2 xl:gap-[6px] lg:gap-[4px] w-full">
-      <div className="w-full h-fit ">
+    <>
+      {/* TOP */}
+      <div className="w-full">
         <ProfileTopMobile
           titleData={titleData}
           nameUser={nameUser}
@@ -37,14 +43,16 @@ export default async function Profile({
           params={params}
         />
       </div>
-      <div className="w-full h-full">
+      {/* MID */}
+      <div className="w-full">
         <ProfileImages
           profileData={profileData}
           // profileName={profileName}
           titleData={titleData}
         />
       </div>
-      <div className="w-full shadow-md rounded-[10px] dark:bg-dark-background text-gray dark:text-dark-gray bg-white px-3 flex flex-col justify-between gap-5  transition-all duration-300 ease-linear">
+      {/* BOT */}
+      <div className="w-full h-full shadow-md rounded-[10px] dark:bg-dark-background text-gray dark:text-dark-gray bg-white px-3 flex flex-col justify-between gap-5  transition-all duration-300 ease-linear">
         <ProfileMainDetails
           nameUser={nameUser}
           profileData={profileData}
@@ -52,8 +60,8 @@ export default async function Profile({
           langData={langData}
           // setShowSharedPage={setShowSharedPage}
         />
-        <ProfileGems profileData={profileData} />
+        <ProfileGems profileData={concatGems} />
       </div>
-    </div>
+    </>
   );
 }
