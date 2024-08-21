@@ -78,8 +78,8 @@
         "Content-Type": "application/json",
       },
     });
-    return await res.json();
- 
+    const temp = await res.json();
+    return temp.data
   }
   export async function getLevelTabs(params) {
 
