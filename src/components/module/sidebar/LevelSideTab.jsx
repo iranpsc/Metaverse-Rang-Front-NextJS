@@ -1,6 +1,7 @@
 "use client";
 
 import { MenuDataItem } from "@/types/listMenu";
+import { Tooltip as ReactTooltip } from "react-tooltip";
 
 import ListMenuSvgModule from "./list/ListMenuSvgModule";
 import ListMenuTitleModule from "./list/ListMenuTitleModule";
@@ -16,10 +17,12 @@ import Link from "next/link";
 
 export default function SideBarContent({
   tabsMenu,
-  languageSelected,
   isClosed,
-  params
+  params,
+  langData
 }) {
+console.log(tabsMenu);
+
  const [activeNav, setActiveNav] = useState(params.levelId);
 
  const onTabClick = (item, tabNumber) => {
@@ -27,7 +30,6 @@ export default function SideBarContent({
 
   return (
     <>
- 
       <ul
         id="light-scrollbar"
         className={`h-full z-[1] list-none overflow-y-scroll no-scrollbar relative pt-3 w-full bg-white dark:bg-dark-background transition-all duration-300 ease-linear max-lg:w-fit`}
@@ -35,11 +37,13 @@ export default function SideBarContent({
         {tabsMenu &&
           tabsMenu.map((item, i) => (
             //*HINT*the way to pass parameters to function in nextjs "onTabClick(item)"
-            <li key={item.id} onClick={() => onTabClick(item, i)}>
+           item.tab_id === 389 &&
+           <div key={item.id}>
+            <li onClick={() => onTabClick(item, i)} data-tooltip-id={item.name}>
               {i!==0 ?
                <Link
               className={`px-2 flex  flex-col items-center  box-border `}
-              href={`/${languageSelected}/levels/${i}/general-info`}
+              href={`/${langData.code}/levels/${i}/general-info`}
           >
                 <div
                   className={`${activeNav == i ? "bg-grayLight dark:bg-black":''} w-full flex flex-row items-center gap-2 group py-[5px]
@@ -60,20 +64,12 @@ export default function SideBarContent({
               :
               <Link
               className={`px-2 flex  flex-col items-center box-border`}
-              href={`/${languageSelected}/levels`}
+              href={`/${langData.code}/levels`}
           >
                 <div
                   className={`w-full flex flex-row items-center gap-2 group py-[5px]
                   ${isClosed ? "justify-center" : "justify-start"} rounded-[10px] hover:border hover:border-[#0066FF] dark:hover:bg-[#1A1A18]  dark:hover:border-[#FFC700]`}
                 >
-                  {/* <Image
-                   src={item}
-                   alt='png'
-                   width={100}
-                   height={180}
-                   className=" w-full h-full object-contain"
-                 />
-          */}
                   <ListMenuSvgModule item={item} i={i} activeNav={activeNav} />
                   {!isClosed && (
                     <ListMenuTitleModule
@@ -87,6 +83,12 @@ export default function SideBarContent({
               </Link>
               }
             </li>
+             <ReactTooltip
+             id={item.name}
+             className="tooltip-bg-color"
+             content={item.translation}
+           />
+           </div>
           ))}
       </ul>
     </>

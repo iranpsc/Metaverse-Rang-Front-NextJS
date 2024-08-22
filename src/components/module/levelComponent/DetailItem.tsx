@@ -40,12 +40,12 @@ export default function DetailItem({
   };
   return (
     <div
-      className={`flex flex-row gap-2 justify-between p-3  border-b-2 border-[#ECECEC] dark:border-[#1A1A18] items-center font-bold w-full text-sm lg:text-lg 2xl:text-xl ${
+      className={`flex flex-row gap-2 justify-between p-3  border-b-2 border-[#ECECEC] dark:border-[#1A1A18] items-center w-full text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] ${
         fullBox ? "w-full" : "sm:w-[48%]"
       }`}
     >
       <span
-        className=" text-ellipsis text-[#414040] dark:text-white font-[700]"
+        className=" text-ellipsis text-[#414040] dark:text-white font-[500] 2xl:font-[700]"
         title={title}
       >
         {title}

@@ -43,7 +43,7 @@ export default async function CitizensPage({
   return (
     <>
       <div className="px-5">
-        <h2 className="font-rokh font-bold text-[32px] text-center dark:text-white mt-[64px] mb-[16px]">
+        <h2 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[64px] mb-[16px]">
           {localFind("citizens of the metaverse")}
         </h2>
         <p className="text-lightGrey font-azarMehr font-normal text-[24px] text-center">

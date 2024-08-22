@@ -21,7 +21,8 @@ export default function Accordion({
         className="p-3 flex flex-row gap-3 font-bold items-center cursor-pointer text-[#414040] dark:text-white"
         onClick={() => setOpen(!open)}
       >
-        <span className="font-bold">{title}</span>
+        <span className="text-ellipsis text-[#414040] dark:text-white font-[500] 2xl:font-[700] 
+        text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px]">{title}</span>
         <ChevronDown
           width={12}
           height={12}
@@ -30,7 +31,7 @@ export default function Accordion({
       </div>
 
       <div
-        className={` transition-all flex flex-col gap-6 duration-300 text-[#868B90] dark:text-[#C4C4C4] ${
+        className={` transition-all flex flex-col gap-6 duration-300 text-[#868B90] dark:text-[#C4C4C4] text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] ${
           open
             ? "font-[400] max-h-[10000px] opacity-1 px-3 pb-3"
             : "max-h-0 overflow-hidden opacity-0"
