@@ -18,8 +18,8 @@ const ListMenuTitleModule = ({ item, activeNav, i }: any) => {
       className={`
     ${
       activeNav == i
-        ? "text-[#0066FF] dark:text-[#FFC700]"
-        : "text-[#888888] dark:text-[#888888]"
+        ? "text-activeGrey dark:text-white"
+        : "text-lightGrey dark:text-lightGrey"
     }
     capitalize 3xl:text-xl3Title xl:text-xlTitle lg:text-lgTitle md:text-mdTitle sm:text-smTitle xs:text-smTitle
     font-azarMehr font-normal 3xl:text-[22px]  

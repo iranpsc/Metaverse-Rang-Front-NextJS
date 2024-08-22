@@ -16,7 +16,7 @@ module.exports = {
     },
     // colors: {
     //   black: "rgba(0, 0, 0, 1)",
-    //   lightGray: "rgba(0, 0, 0, 0.09)",
+    //   lightGrey: "rgba(0, 0, 0, 0.09)",
     //   mediumGray: "rgba(116, 116, 116, 0.58)",
     //   mediumGrayFull: "rgba(116, 116, 116)",
     //   gray: "#151b30",*
@@ -96,9 +96,10 @@ module.exports = {
         activeTextButton: "#D4ECFF",
         borderField: "#DADADA",
         Field: "#FCFCFC",
-        darkGray: "#1A1A18",
-        darkGray_1:"#10100F",
+        darkGrey: "#1A1A18",
+        darkGrey_1:"#10100F",
         grayLight:"#F8F8F8",
+        activeGrey:"#626262",
         // *** this project custome END
         light: {
           test: "#2503f1",

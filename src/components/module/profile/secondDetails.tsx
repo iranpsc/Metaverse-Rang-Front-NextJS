@@ -8,7 +8,7 @@ export default function ProfileDetailsDetails({ itemsProfileDetails }: any) {
           duration: 2,
           x: { duration: 1 },
         }}
-        className="h-full dark:bg-dark-background flex flex-col shadow-md justify-evenly items-center 3xl:py-3 sm:py-3 xs:py-3  transition-all duration-300 ease-linear bg-white w-full rounded-[10px]"
+        className="h-[70%] dark:bg-dark-background flex flex-col shadow-md justify-evenly items-center 3xl:py-3 sm:py-3 xs:py-3  transition-all duration-300 ease-linear bg-white w-full rounded-[10px]"
       >
         {itemsProfileDetails.map((item: any, i: number): any => (
           <div

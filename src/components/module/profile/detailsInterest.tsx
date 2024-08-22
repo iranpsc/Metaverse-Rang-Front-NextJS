@@ -3,7 +3,7 @@ export default function ProfileDetailsInteresting({
 }: any) {
   return (
     <>
-      <section className="dark:bg-dark-background flex flex-col shadow-md 3xl:gap-3 xl:gap-1 lg:gap-1 sm:gap-5 xs:gap-5 justify-evenly transition-all duration-300 ease-linear bg-white w-full rounded-[10px] 3xl:py-3 xl:py-1 lg:py-1 md:py-1 sm:py-1 xs:py-1 ">
+      <section className="h-[40%] dark:bg-dark-background flex flex-col shadow-md 3xl:gap-3 xl:gap-1 lg:gap-1 sm:gap-5 xs:gap-5 justify-evenly transition-all duration-300 ease-linear bg-white w-full rounded-[10px] 3xl:py-3 xl:py-1 lg:py-1 md:py-1 sm:py-1 xs:py-1 ">
         {itemsInterestedProfileDetails.map((item: any): any => (
           <div
             key={item.id}
