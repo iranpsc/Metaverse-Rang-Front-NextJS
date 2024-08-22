@@ -39,6 +39,7 @@ export default async function LevelsPage({
     {
       url: "/svg/level/citizen.png",
       id:1
+
     },
     {
       url: "/svg/level/reporter.png",
@@ -93,6 +94,7 @@ export default async function LevelsPage({
     staticData.forEach((el2:any)=>{
       if(el1.id == el2.id){
         el1.photo = el2.url
+        el1.rank = 1
       }
     })
   })

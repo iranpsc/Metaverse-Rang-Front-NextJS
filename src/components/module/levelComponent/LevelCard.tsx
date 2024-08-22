@@ -54,7 +54,7 @@ export default function LevelCard({
                 {localFind("rank")}
               </span>
               <span className="dark:text-[#fff] text-[#33353B]">
-                {localFind("one")}
+                {item.rank}
               </span>
             </span>
           </span>

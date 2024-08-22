@@ -37,7 +37,7 @@ console.log(tabsMenu);
         {tabsMenu &&
           tabsMenu.map((item, i) => (
             //*HINT*the way to pass parameters to function in nextjs "onTabClick(item)"
-           item.tab_id === 388 &&
+           item.tab_id === 389 &&
            <div key={item.id}>
             <li onClick={() => onTabClick(item, i)} data-tooltip-id={item.name}>
               {i!==0 ?
