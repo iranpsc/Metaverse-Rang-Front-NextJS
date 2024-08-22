@@ -6,7 +6,7 @@ export const Features = ({ levelsTranslatePage }: any) => {
   return (
     <div className="pt-8 flex flex-col flex-wrap lg:flex-nowrap sm:flex-row justify-between dark:text-white">
       <div className="flex flex-col items-center py-3 px-2 w-full sm:w-1/2  lg:w-1/4 2xl:w-[340px] 3xl:w-[380px]">
-        <div className="mb-[-65px] w-[80px] h-[80px] lg:w-[100px] lg:h-[100px]  box-content  p-4 text-center dark:bg-darkGray_1 rounded-full z-[1]">
+        <div className="mb-[-65px] w-[80px] h-[80px] lg:w-[100px] lg:h-[100px]  box-content  p-4 text-center dark:bg-darkGrey_1 rounded-full z-[1]">
           <Income className="w-full h-full" />
         </div>
         <div className="w-full rounded-[20px] cursor-cell p-3 pt-[65px] h-[195px]  flex flex-col  justify-center items-center bg-[#080807] hover:shadow-[2px_2px_20.7px-0_rgba(f,f,f,0.3)] border border-black hover:border-yellow-500 hover:shadow-[2px_2px_20.7px-0_rgba(f,f,f,0.3)]">
@@ -23,7 +23,7 @@ export const Features = ({ levelsTranslatePage }: any) => {
       </div>
 
       <div className="flex flex-col items-center py-3 px-2 w-full sm:w-1/2 lg:w-1/4 xl:w-[300px] 2xl:w-[340px] 3xl:w-[380px]">
-        <div className="mb-[-65px] w-[80px] h-[80px] lg:w-[100px] lg:h-[100px] box-content p-4 text-center dark:bg-darkGray_1 rounded-full z-[1]">
+        <div className="mb-[-65px] w-[80px] h-[80px] lg:w-[100px] lg:h-[100px] box-content p-4 text-center dark:bg-darkGrey_1 rounded-full z-[1]">
           <Orders className="w-full h-full" />
         </div>
         <div className="w-full rounded-[20px] cursor-cell p-3 pt-[65px] h-[195px]  flex flex-col justify-center items-center bg-[#080807] hover:shadow-[2px_2px_20.7px-0_rgba(f,f,f,0.3)] border border-black hover:border-yellow-500 hover:shadow-[2px_2px_20.7px-0_rgba(f,f,f,0.3)]">
@@ -39,7 +39,7 @@ export const Features = ({ levelsTranslatePage }: any) => {
         </div>
       </div>
       <div className="flex flex-col items-center py-3 px-2 w-full sm:w-1/2  lg:w-1/4 xl:w-[300px] 2xl:w-[340px] 3xl:w-[380px]">
-        <div className="mb-[-65px] w-[80px] h-[80px] lg:w-[100px] lg:h-[100px]  box-content  p-4 text-center dark:bg-darkGray_1 rounded-full z-[1]">
+        <div className="mb-[-65px] w-[80px] h-[80px] lg:w-[100px] lg:h-[100px]  box-content  p-4 text-center dark:bg-darkGrey_1 rounded-full z-[1]">
           <Development className="w-full h-full" />
         </div>
         <div className="w-full rounded-[20px] cursor-cell p-3 pt-[65px] h-[195px]  flex flex-col  justify-center items-center bg-[#080807]   hover:shadow-[2px_2px_20.7px-0_rgba(f,f,f,0.3)] border border-black hover:border-yellow-500 hover:shadow-[2px_2px_20.7px-0_rgba(f,f,f,0.3)]">
@@ -55,7 +55,7 @@ export const Features = ({ levelsTranslatePage }: any) => {
         </div>
       </div>
       <div className="flex flex-col items-center py-3 px-2 w-full sm:w-1/2  lg:w-1/4 xl:w-[300px] 2xl:w-[340px] 3xl:w-[380px]">
-        <div className="mb-[-65px] w-[80px] h-[80px] lg:w-[100px] lg:h-[100px]  box-content  p-4 text-center dark:bg-darkGray_1 rounded-full z-[1]">
+        <div className="mb-[-65px] w-[80px] h-[80px] lg:w-[100px] lg:h-[100px]  box-content  p-4 text-center dark:bg-darkGrey_1 rounded-full z-[1]">
           <Update className="w-full h-full" />
         </div>
         <div className="w-full rounded-[20px] cursor-cell p-3 pt-[65px] h-[195px]  flex flex-col  justify-center items-center bg-[#080807]   hover:shadow-[2px_2px_20.7px-0_rgba(f,f,f,0.3)]  border border-black hover:border-yellow-500 hover:shadow-[2px_2px_20.7px-0_rgba(f,f,f,0.3)]">

@@ -57,8 +57,8 @@ export default function ImageBox({ item, langData }: any) {
             <button
               className={`px-5 py-2 mb-2 rounded font-[700] ${
                 mode == "png"
-                  ? "dark:bg-dark-yellow dark:text-darkGray bg-light-primary text-white"
-                  : "dark:bg-darkGray bg-light-newColors-otherColors-themeBtn text-light-newColors-otherColors-themeBtn"
+                  ? "dark:bg-dark-yellow dark:text-darkGrey bg-light-primary text-white"
+                  : "dark:bg-darkGrey bg-light-newColors-otherColors-themeBtn text-light-newColors-otherColors-themeBtn"
               }`}
               onClick={() => changeMode("png")}
             >
@@ -70,8 +70,8 @@ export default function ImageBox({ item, langData }: any) {
             <button
               className={`px-5 py-2 mb-2 rounded font-[700] ${
                 mode == "fbx"
-                  ? "dark:bg-dark-yellow dark:text-darkGray bg-light-primary text-white"
-                  : "dark:bg-darkGray bg-light-newColors-otherColors-themeBtn text-light-newColors-otherColors-themeBtn"
+                  ? "dark:bg-dark-yellow dark:text-darkGrey bg-light-primary text-white"
+                  : "dark:bg-darkGrey bg-light-newColors-otherColors-themeBtn text-light-newColors-otherColors-themeBtn"
               }`}
               onClick={() => changeMode("fbx")}
             >
@@ -83,8 +83,8 @@ export default function ImageBox({ item, langData }: any) {
               className={`  
                 px-5 py-2 mb-2 rounded font-[700] ${
                   mode == "gif"
-                    ? "dark:bg-dark-yellow dark:text-darkGray bg-light-primary text-white"
-                    : "dark:bg-darkGray bg-light-newColors-otherColors-themeBtn text-light-newColors-otherColors-themeBtn"
+                    ? "dark:bg-dark-yellow dark:text-darkGrey bg-light-primary text-white"
+                    : "dark:bg-darkGrey bg-light-newColors-otherColors-themeBtn text-light-newColors-otherColors-themeBtn"
                 }`}
               onClick={() => changeMode("gif")}
             >

@@ -53,7 +53,7 @@ export default function SideBar({
           className={`shadow-left dark:shadow-leftDark xl:min-h-screen scroll lg:min-h-screen md:min-h-screen relative sm:min-h-screen xs:min-h-screen ${
             isClosed
               ? "sm:hidden xs:hidden md:hidden transition-2 xl:block lg:block"
-              : "sm:block xs:block backdrop-blur-sm bg-blackTransparent/30"
+              : "sm:block xs:block bg-blackTransparent/30"
           }   sm:absolute  xs:absolute  xl:relative lg:relative md:absolute xl:w-fit lg:w-fit md:w-full z-[60] sm:w-full xs:w-full no-scrollbar  `}
         >
           <aside

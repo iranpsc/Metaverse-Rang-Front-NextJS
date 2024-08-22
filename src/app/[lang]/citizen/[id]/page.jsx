@@ -172,7 +172,7 @@ export default async function citizenSinglePage({
           className={`flex flex-col lg:flex-row`}>
             {/* FIRST */}
           <section
-            className="w-full lg:w-[40%] flex flex-col no-scrollbar overflow-auto lg:h-screen md:h-fit sm:h-fit xs:h-fit dark:bg-black bg-[#e9eef8] 3xl:p-[12px] xl:p-[6px] lg:p-[4px] md:p-[6px] sm:p-[4px] xs:p-[4px] gap-2"
+            className="w-full lg:w-[40%] flex flex-col no-scrollbar overflow-auto lg:h-screen md:h-fit sm:h-fit xs:h-fit dark:bg-black bg-[#e9eef8] 3xl:p-[12px] xl:p-[6px] lg:p-[4px] md:p-[6px] sm:p-[4px] xs:p-[4px] gap-[6px]"
           >
             <Profile
               profileData={profileData}

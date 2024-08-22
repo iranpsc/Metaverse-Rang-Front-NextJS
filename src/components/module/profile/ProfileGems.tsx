@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 const ProfileGems = ({ profileData }: any) => {
   return (
     <div className=" w-full  flex flex-col justify-start items-center 3xl:gap-6 xl:gap-0 md:gap-0 sm:gap-5 xs:gap-5">
-      <hr className="h-[2px] w-[95%]  bg-gradient-to-r from-[#DADADA00] via-[#b3b3b3] to-[#DADADA00] text-lightGray " />
+      <hr className="h-[2px] w-[95%]  bg-gradient-to-r from-[#DADADA00] via-[#b3b3b3] to-[#DADADA00] text-lightGrey " />
       {profileData && (
         <motion.div
           initial={{ rotate: 180, scale: 0 }}
