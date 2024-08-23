@@ -38,55 +38,68 @@ export default async function LevelsPage({
   const staticData = [
     {
       url: "/svg/level/citizen.png",
+      score:10,
       id:1
 
     },
     {
       url: "/svg/level/reporter.png",
+      score:990,
       id:2
     },
     {
       url: "/svg/level/participation.png",
+      score:3000,
       id:3
     },
     {
       url: "/svg/level/developer.png",
+      score:8000,
       id:4
     },
     {
       url: "/svg/level/inspector.png",
+      score:18000,
       id:5
     },
     {
       url: "/svg/level/businessman.png",
+      score:36000,
       id:6
     },
     {
       url: "/svg/level/lawyer.png",
+      score:76000,
       id:7
     },
     {
       url: "/svg/level/city-council.png",
+      score:166000,
       id:8
     },
     {
       url: "/svg/level/the-mayor.png",
+      score:366000,
       id:9
     },
     {
       url: "/svg/level/governor.png",
+      score:796000,
       id:10
     },
     {
       url: "/svg/level/minister.png",
+      score:1696000,
       id:11
     },
     {
       url: "/svg/level/judge.png",
+      score:3696000,
       id:12
     },
     {
       url: "/svg/level/legislator.png",
+      score:7896000,
       id:13
     },
   ];
@@ -95,6 +108,7 @@ export default async function LevelsPage({
       if(el1.id == el2.id){
         el1.photo = el2.url
         el1.rank = 1
+        el1.score = el2.score
       }
     })
   })

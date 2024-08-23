@@ -1,6 +1,5 @@
 import { getLevelTabs } from "@/components/utils/actions";
 import DetailItem from "@/components/module/levelComponent/DetailItem";
-import { targetData } from "@/components/utils/targetDataName";
 import Accordion from "@/components/module/levelComponent/Accordion";
 import ImageBox from "@/components/module/levelComponent/ImageBox";
 
@@ -10,62 +9,56 @@ export default async function Gem({
   langData,
 }: any) {
   const gem = await getLevelTabs(params);
-
+  function localFind(_name: any) {
+    return levelsTranslatePage.find((item: any) => item.name == _name)
+      ?.translation;
+  }  
   return (
     <>
       <div className="flex flex-col-reverse sm:flex-row flex-wrap">
         <div className="w-full sm:w-4/5 flex flex-wrap justify-between">
           <Accordion
-            title={targetData(levelsTranslatePage, "description")}
+            title={localFind("description")}
             value={gem.data.description}
           />
           <DetailItem
-            title={targetData(levelsTranslatePage, "gem chip")}
+            title={localFind("gem chip")}
             value={gem.data.thread}
           />
           <DetailItem
-            title={targetData(levelsTranslatePage, "gem color")}
+            title={localFind("gem color")}
             value={gem.data.color}
           />
           <DetailItem
-            title={targetData(
-              levelsTranslatePage,
-              "the volume of the 3d stone model"
-            )}
+            title={localFind("the volume of the 3d stone model")}
             value={gem.data.volume}
           />
           <DetailItem
-            title={targetData(levelsTranslatePage, "gem png file")}
+            title={localFind("gem png file")}
             value={""}
           />
           <DetailItem
-            title={targetData(
-              levelsTranslatePage,
-              "the number of points of the 3d stone model"
-            )}
+            title={localFind("the number of points of the 3d stone model")}
             value={gem.data.subcategories}
           />
           <DetailItem
-            title={targetData(levelsTranslatePage, "gem fbx file")}
+            title={localFind("gem fbx file")}
             value={""}
           />
           <DetailItem
-            title={targetData(
-              levelsTranslatePage,
-              "the number of lines of the 3d stone model"
-            )}
+            title={localFind("the number of lines of the 3d stone model")}
             value={gem.data.lines}
           />
           <DetailItem
-            title={targetData(levelsTranslatePage, "central encryption")}
+            title={localFind("central encryption")}
             value={gem.data.encryption}
           />
           <DetailItem
-            title={targetData(levelsTranslatePage, "animation")}
+            title={localFind("animation")}
             value={gem.data.has_animation}
           />
           <DetailItem
-            title={targetData(levelsTranslatePage, "gem designer")}
+            title={localFind("gem designer")}
             value={gem.data.designer}
           />
         </div>

@@ -1,34 +1,34 @@
 import { getLevelTabs } from "@/components/utils/actions";
 import DetailItem from "@/components/module/levelComponent/DetailItem";
-import { targetData } from "@/components/utils/targetDataName";
 
 export default async function Prize({ params, levelsTranslatePage }: any) {
   const prize = await getLevelTabs(params);
-
+            
+  function localFind(_name: any) {
+    return levelsTranslatePage.find((item: any) => item.name == _name)
+      ?.translation;
+  }  
   return (
     <>
       <div className="w-full sm:w-4/5 flex flex-wrap justify-between">
         <DetailItem
-          title={targetData(
-            levelsTranslatePage,
-            "license to establish an alliance"
-          )}
+          title={localFind("get psc")}
           value={prize.data.psc}
         />
         <DetailItem
-          title={targetData(levelsTranslatePage, "get red color")}
+          title={localFind("get red color")}
           value={prize.data.red}
         />
         <DetailItem
-          title={targetData(levelsTranslatePage, "get blue color")}
+          title={localFind("get blue color")}
           value={prize.data.blue}
         />
         <DetailItem
-          title={targetData(levelsTranslatePage, "satisfaction unit")}
+          title={localFind("satisfaction unit")}
           value={prize.data.satisfaction}
         />
         <DetailItem
-          title={targetData(levelsTranslatePage, "receive yellow color")}
+          title={localFind("receive yellow color")}
           value={prize.data.yellow}
         />
       </div>
