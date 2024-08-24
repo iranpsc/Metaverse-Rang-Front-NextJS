@@ -7,12 +7,13 @@ export default async function Gift({
   params,
   levelsTranslatePage,
   langData,
+  levelId,
 }: any) {
-  const gift = await getLevelTabs(params);
+  const gift = await getLevelTabs(params, levelId);
   function localFind(_name: any) {
     return levelsTranslatePage.find((item: any) => item.name == _name)
       ?.translation;
-  }  
+  }
   return (
     <>
       <div className="w-full flex flex-col-reverse sm:flex-row flex-wrap">
@@ -42,7 +43,9 @@ export default async function Gift({
             value={gift.data.sell}
           />
           <DetailItem
-            title={localFind("the number of points of the accompanying gift model")}
+            title={localFind(
+              "the number of points of the accompanying gift model"
+            )}
             value={gift.data.three_d_model_points}
           />
           <DetailItem
@@ -50,7 +53,9 @@ export default async function Gift({
             value={gift.data.rent}
           />
           <DetailItem
-            title={localFind("the number of lines of the accompanying gift model")}
+            title={localFind(
+              "the number of lines of the accompanying gift model"
+            )}
             value={gift.data.three_d_model_lines}
           />
           <DetailItem
@@ -70,14 +75,8 @@ export default async function Gift({
             title={localFind("ability to store capacity")}
             value={gift.data.store_capacity}
           />
-          <DetailItem
-            title={localFind("gift png file")}
-            value={""}
-          />
-          <DetailItem
-            title={localFind("gift fbx file")}
-            value={""}
-          />
+          <DetailItem title={localFind("gift png file")} value={""} />
+          <DetailItem title={localFind("gift fbx file")} value={""} />
         </div>
         <ImageBox item={gift.data} langData={langData} />
       </div>

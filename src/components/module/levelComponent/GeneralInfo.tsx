@@ -4,16 +4,16 @@ import Accordion from "@/components/module/levelComponent/Accordion";
 
 export default async function GeneralInfo({
   langData,
+  levelId,
   params,
   levelsTranslatePage,
 }: any) {
-  const generalInfo = await getLevelTabs(params);
+  const generalInfo = await getLevelTabs(params, levelId);
   function localFind(_name: any) {
     return levelsTranslatePage.find((item: any) => item.name == _name)
       ?.translation;
-  }  
-  console.log('generalInfo',generalInfo);
-  
+  }
+
   return (
     <>
       <div className="w-full sm:w-4/5 flex flex-wrap justify-between">

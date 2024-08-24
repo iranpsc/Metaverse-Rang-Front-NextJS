@@ -26,7 +26,6 @@ export default async function Profile({
   const concatGems = profileData.data?.achieved_levels.concat(
     profileData.data.current_level
   );
-  console.log("concatGems", concatGems);
 
   const numberScore =
     100 - parseInt(profileData?.score_percentage_to_next_level);

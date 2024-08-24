@@ -7,12 +7,13 @@ export default async function Gem({
   params,
   levelsTranslatePage,
   langData,
+  levelId,
 }: any) {
-  const gem = await getLevelTabs(params);
+  const gem = await getLevelTabs(params, levelId);
   function localFind(_name: any) {
     return levelsTranslatePage.find((item: any) => item.name == _name)
       ?.translation;
-  }  
+  }
   return (
     <>
       <div className="flex flex-col-reverse sm:flex-row flex-wrap">
@@ -21,30 +22,18 @@ export default async function Gem({
             title={localFind("description")}
             value={gem.data.description}
           />
-          <DetailItem
-            title={localFind("gem chip")}
-            value={gem.data.thread}
-          />
-          <DetailItem
-            title={localFind("gem color")}
-            value={gem.data.color}
-          />
+          <DetailItem title={localFind("gem chip")} value={gem.data.thread} />
+          <DetailItem title={localFind("gem color")} value={gem.data.color} />
           <DetailItem
             title={localFind("the volume of the 3d stone model")}
             value={gem.data.volume}
           />
-          <DetailItem
-            title={localFind("gem png file")}
-            value={""}
-          />
+          <DetailItem title={localFind("gem png file")} value={""} />
           <DetailItem
             title={localFind("the number of points of the 3d stone model")}
             value={gem.data.subcategories}
           />
-          <DetailItem
-            title={localFind("gem fbx file")}
-            value={""}
-          />
+          <DetailItem title={localFind("gem fbx file")} value={""} />
           <DetailItem
             title={localFind("the number of lines of the 3d stone model")}
             value={gem.data.lines}

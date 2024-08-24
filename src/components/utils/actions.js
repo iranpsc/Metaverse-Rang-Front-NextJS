@@ -39,7 +39,6 @@
     const temp = _mainData.modals.find(
         (modal) => modal.name === `${_selectedName}`
       ).tabs;
-      // console.log("_mainData", _mainData.modals);
 
     return temp
   }
@@ -81,9 +80,9 @@
     const temp = await res.json();
     return temp.data
   }
-  export async function getLevelTabs(params) {
+  export async function getLevelTabs(params,levelId) {
 
-    const res = await fetch(`https://api.rgb.irpsc.com/api/levels/${params.levelId}/${params.tabs}`, {
+    const res = await fetch(`https://api.rgb.irpsc.com/api/levels/${levelId}/${params.tabs}`, {
       headers: {
         "Content-Type": "application/json",
       },

@@ -10,7 +10,6 @@ import Link from "next/link";
 export const ItemsSearch = ({ searchData, params }: any) => {
   const [isDataReady, setIsDataReady] = useState(false);
   const router = useRouter();
-  console.log("searchData", searchData);
 
   // const pusherRgb = (code: any) => {
   //   router.push(`/${params.lang}/citizen/${code}`);

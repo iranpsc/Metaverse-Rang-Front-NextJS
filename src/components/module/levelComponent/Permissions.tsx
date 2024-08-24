@@ -4,12 +4,13 @@ import DetailItem from "@/components/module/levelComponent/DetailItem";
 export default async function Permissions({
   params,
   levelsTranslatePage,
+  levelId,
 }: any) {
-  const permissions = await getLevelTabs(params);
+  const permissions = await getLevelTabs(params, levelId);
   function localFind(_name: any) {
     return levelsTranslatePage.find((item: any) => item.name == _name)
       ?.translation;
-  }  
+  }
   return (
     <>
       <div className="w-full sm:w-4/5 flex flex-wrap justify-between">
@@ -20,7 +21,9 @@ export default async function Permissions({
         />
         <DetailItem
           showCheck={true}
-          title={localFind("the ability to register public positions of the level")}
+          title={localFind(
+            "the ability to register public positions of the level"
+          )}
           value={permissions.data.inter_level_general_points}
         />
         <DetailItem
@@ -30,7 +33,9 @@ export default async function Permissions({
         />
         <DetailItem
           showCheck={true}
-          title={localFind("access to the section for answering citizens' questions")}
+          title={localFind(
+            "access to the section for answering citizens' questions"
+          )}
           value={permissions.data.access_to_answer_questions_unit}
         />
         <DetailItem
@@ -40,7 +45,9 @@ export default async function Permissions({
         />
         <DetailItem
           showCheck={true}
-          title={localFind("the ability to ask questions in the question challenge")}
+          title={localFind(
+            "the ability to ask questions in the question challenge"
+          )}
           value={permissions.data.create_challenge_questions}
         />
         <DetailItem
@@ -75,7 +82,9 @@ export default async function Permissions({
         />
         <DetailItem
           showCheck={true}
-          title={localFind("license to establish a special residential property")}
+          title={localFind(
+            "license to establish a special residential property"
+          )}
           value={permissions.data.establish_special_residential_property}
         />
         <DetailItem

@@ -44,7 +44,6 @@ export default function SideBarContent({
       }
     }
   };
-console.log('tabsMenu',tabsMenu);
 
   return (
     <>

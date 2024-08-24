@@ -21,9 +21,31 @@ export default function SideBarContent({
   params,
   langData
 }) {
-console.log(tabsMenu);
 
- const [activeNav, setActiveNav] = useState(params.levelId);
+ const [activeNav, setActiveNav] = useState(params.levelName);
+ const staticRouteNames = [
+  { id: 5360, route_name: "citizen-baguette" },
+  { id: 5367, route_name: "reporter-baguette" },
+  { id: 5374, route_name: "participation-baguette" },
+  { id: 5381, route_name: "developer-baguette" },
+  { id: 5388, route_name: "inspector-baguette" },
+  { id: 5395, route_name: "businessman-baguette" },
+  { id: 5402, route_name: "lawyer-baguette" },
+  { id: 5409, route_name: "city-council-baguette" },
+  { id: 5416, route_name: "the-mayor-baguette" },
+  { id: 5423, route_name: "governor-baguette" },
+  { id: 5430, route_name: "minister-baguette" },
+  { id: 5437, route_name: "judge-baguette" },
+  { id: 5444, route_name: "legislator-baguette" },
+];
+tabsMenu.forEach((el1) => {
+  staticRouteNames.forEach((el2) => {
+    if (el1.id == el2.id) {
+      el1.route_name = el2.route_name;
+    }
+  });
+});
+
 
  const onTabClick = (item, tabNumber) => {
   setActiveNav(tabNumber);}
@@ -37,16 +59,17 @@ console.log(tabsMenu);
         {tabsMenu &&
           tabsMenu.map((item, i) => (
             //*HINT*the way to pass parameters to function in nextjs "onTabClick(item)"
+            // 389 is levels tab id
            item.tab_id === 389 &&
            <div key={item.id}>
             <li onClick={() => onTabClick(item, i)} data-tooltip-id={item.name}>
-              {i!==0 ?
+              {item.route_name ?
                <Link
               className={`px-2 flex  flex-col items-center  box-border `}
-              href={`/${langData.code}/levels/${i}/general-info`}
+              href={`/${langData.code}/levels/citizen/${item?.route_name}/general-info`}
           >
                 <div
-                  className={`${activeNav == i ? "bg-grayLight dark:bg-black":''} w-full flex flex-row items-center gap-2 group py-[5px]
+                  className={`${activeNav == item?.route_name ? "bg-grayLight dark:bg-black":''} w-full flex flex-row items-center gap-2 group py-[5px]
                   ${isClosed ? "justify-center" : "justify-start"} rounded-[10px] hover:border hover:border-[#0066FF] dark:hover:bg-[#1A1A18]  dark:hover:border-[#FFC700]`}
                 >
           
@@ -64,7 +87,7 @@ console.log(tabsMenu);
               :
               <Link
               className={`px-2 flex  flex-col items-center box-border`}
-              href={`/${langData.code}/levels`}
+              href={`/${langData.code}`}
           >
                 <div
                   className={`w-full flex flex-row items-center gap-2 group py-[5px]

@@ -12,8 +12,6 @@ export default function LevelCard({
   allLevelArrayContent: any;
   params: any;
 }) {
-
-  
   function localFind(_name: any) {
     return allLevelArrayContent.find((item: any) => item.name == _name)
       ?.translation;
@@ -22,7 +20,7 @@ export default function LevelCard({
     <div className="w-4/5 sm:w-2/5 md:w-1/3 xl:w-1/4 3xl:w-1/5 py-[10px] px-[14px] lg:px-[16px] 2xl:px-[25px] 3xl:px-[50px] ">
       <Link
         className="hoverCardLevel flex  flex-col items-center rounded-[20px] box-border hover:border hover:border-[#0066FF] dark:hover:bg-[#1A1A18]  dark:hover:border-[#FFC700]"
-        href={`/${params.lang}/levels/${item.id}/general-info`}
+        href={`/${params.lang}/levels/citizen/${item.route_name}/general-info`}
       >
         <Image
           src={item.photo}
@@ -37,9 +35,7 @@ export default function LevelCard({
           </span>
           <span className="text-center  dark:text-[#84858F] font-azarMehr font-medium  text-[#484950] mx-2 xs:text-[10px] sm:text-[11px] lg:text-[11px] xl:text-[14px] 2xl:text-[16px] py-2">
             {localFind("required points")}
-            <span className="ps-1 font-medium">
-                {item.score}
-              </span>
+            <span className="ps-1 font-medium">{item.score}</span>
           </span>
           <span className="mb-3 w-full flex justify-evenly font-azarMehr xs:text-[11px] sm:text-[12px] lg:text-[13px] xl:text-[14px] 2xl:text-[16px]">
             <span className="flex items-center dark:bg-black bg-[#F6F6F6] rounded-[20px] p-[4px] w-5/12">

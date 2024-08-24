@@ -24,9 +24,6 @@ export default function SearchComponent({
         .then((response) => {
           setLoadingSearch(false);
           setSearchData(response.data.data);
-          // console.log("typeOFffff", typeof response.data.data);
-          console.log("response.data.data", response.data.data);
-          // searchData.map((item: any) => console.log("item", item));
         })
         .catch((error) => {})
         .finally(() => {
@@ -42,7 +39,6 @@ export default function SearchComponent({
   }, [searchTerm]);
 
   // useEffect(() => {
-  //   console.log("Updated searchData", searchData);
   // }, [searchData]);
 
   useEffect(() => {
