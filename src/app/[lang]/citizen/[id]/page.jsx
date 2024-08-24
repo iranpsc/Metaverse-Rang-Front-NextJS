@@ -119,7 +119,7 @@ export default async function citizenSinglePage({
 
   return (
     <>
-      <section className=" h-screen relative w-full">
+      <section className="h-fit lg:h-screen relative w-full bg-[#e9eef8] dark:bg-black">
         {/* <AnimatePresence>
           {showLogOut && (
           <LogoutPage showLogOut={showLogOut} setShowLogOut={setShowLogOut} />
@@ -161,18 +161,18 @@ export default async function citizenSinglePage({
           />
         </Head>
 
-        <div className=" xl:hidden lg:hidden md:visible sm:visible xs:visible w-full h-fit absolute bottom-0 z-40">
+        {/* <div className=" xl:hidden lg:hidden md:visible sm:visible xs:visible w-full h-fit absolute bottom-0 z-40">
           <div className="w-full h-fit dark:bg-black bg-white absolute bottom-0 shadow-3xl">
-            {/* <StaticMobileMenu /> */}
+            <StaticMobileMenu />
           </div>
-        </div>
+        </div> */}
 
         {/* ${showModal || showSharedPage ? "" : ""} DOWNNN  */}
         <div
-          className={`flex flex-col lg:flex-row`}>
+          className={`flex flex-col lg:flex-row h-fit lg:h-full gap-[6px] p-[6px]`}>
             {/* FIRST */}
           <section
-            className="w-full lg:w-[40%] flex flex-col no-scrollbar overflow-auto lg:h-screen md:h-fit sm:h-fit xs:h-fit dark:bg-black bg-[#e9eef8] 3xl:p-[12px] xl:p-[6px] lg:p-[4px] md:p-[6px] sm:p-[4px] xs:p-[4px] gap-[6px]"
+            className="w-full h-fit lg:h-full gap-[6px] lg:w-[40%] flex flex-col no-scrollbar overflow-auto"
           >
             <Profile
               profileData={profileData}
@@ -185,7 +185,7 @@ export default async function citizenSinglePage({
           </section>
           {/* SECOND */}
           <section
-            className="w-full lg:w-[30%] flex flex-col no-scrollbar overflow-auto 3xl:h-screen xl:h-screen lg:h-screen sm:h-fit xs:h-fit md:h-fit dark:bg-black bg-[#e9eef8] 3xl:px-[0px] 3xl:py-[12px] xl:px-[0px] xl:py-[6px] lg:p-[4px] md:p-[6px] sm:p-[2px] xs:p-[2px]"
+            className="w-full h-fit lg:h-full lg:w-[30%] flex flex-col no-scrollbar overflow-auto sm:h-fit xs:h-fit md:h-fit"
           >
             <ProfileDetails
               profileData={profileData}
@@ -194,7 +194,7 @@ export default async function citizenSinglePage({
           </section>
           {/* THIRD */}
           <section
-            className="w-full lg:w-[30%] flex flex-col no-scrollbar overflow-auto h-screen dark:bg-black md:h-screen bg-[#e9eef8] 3xl:p-[12px] xl:p-[6px] lg:p-[4px] md:p-[6px] sm:p-[2px] xs:p-[2px]"
+            className="w-full h-fit lg:h-full lg:w-[30%] flex flex-col no-scrollbar overflow-auto"
           >
             <ProfileAbout
               profileData={profileData}
