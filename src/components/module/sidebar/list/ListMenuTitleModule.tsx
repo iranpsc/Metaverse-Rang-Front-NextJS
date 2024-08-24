@@ -1,7 +1,7 @@
 // import { SideBarContext } from "@/components/context/SidebarContext";
 // import { useContext } from "react";
 
-const ListMenuTitleModule = ({ item, activeNav, i }: any) => {
+const ListMenuTitleModule = ({ item, activeNav, i, isClosed }: any) => {
   // const { state } = useContext(SideBarContext);
   return (
     //   ${
@@ -14,20 +14,18 @@ const ListMenuTitleModule = ({ item, activeNav, i }: any) => {
     //   font-azarMehr font-normal 3xl:text-[22px] cursor-pointer group-hover:text-[#0000ffd9] dark:group-hover:text-dark-yellow
     //   ${state.isCollapsed ? "hidden" : "visible"}
 
-    <span
+    <div
       className={`
     ${
       activeNav == i
         ? "text-activeGrey dark:text-white"
         : "text-lightGrey dark:text-lightGrey"
     }
-    capitalize 3xl:text-xl3Title xl:text-xlTitle lg:text-lgTitle md:text-mdTitle sm:text-smTitle xs:text-smTitle
-    font-azarMehr font-normal 3xl:text-[22px]  
-    visible
-      `}
+    ${isClosed ? "invisible w-0" : "visible w-fit"}
+    capitalize 3xl:text-xl3Title xl:text-xlTitle lg:text-lgTitle md:text-mdTitle sm:text-smTitle xs:text-smTitle font-azarMehr font-normal 3xl:text-[22px]`}
     >
       {item.translation}
-    </span>
+    </div>
   );
 };
 

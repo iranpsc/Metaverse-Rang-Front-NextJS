@@ -54,7 +54,7 @@ tabsMenu.forEach((el1) => {
     <>
       <ul
         id="light-scrollbar"
-        className={`h-full z-[1] list-none overflow-y-scroll no-scrollbar relative pt-3 w-full bg-white dark:bg-dark-background transition-all duration-300 ease-linear max-lg:w-fit`}
+        className={`h-full z-[1] list-none overflow-y-scroll no-scrollbar relative pt-3 w-full menu-transition max-lg:w-fit`}
       >
         {tabsMenu &&
           tabsMenu.map((item, i) => (
@@ -70,30 +70,32 @@ tabsMenu.forEach((el1) => {
           >
                 <div
                   className={`${activeNav == item?.route_name ? "bg-grayLight dark:bg-black":''} w-full flex flex-row items-center gap-2 group py-[5px]
-                  ${isClosed ? "justify-center" : "justify-start"} rounded-[10px] hover:border hover:border-[#0066FF] dark:hover:bg-[#1A1A18]  dark:hover:border-[#FFC700]`}
+                  ${isClosed ? "justify-start" : "justify-start"} rounded-[10px] hover:border hover:border-[#0066FF] dark:hover:bg-[#1A1A18]  dark:hover:border-[#FFC700]`}
                 >
-          
-                  <ListMenuSvgModule item={item} i={i} activeNav={activeNav} />
-                  {!isClosed && (
+                  <span className="ps-[8px]">
+                    <ListMenuSvgModule item={item} i={i} activeNav={activeNav} />
+                  </span>
                     <ListMenuTitleModule
+                      isClosed={isClosed}
                       item={item}
                       i={i}
                       activeNav={activeNav}
                     />
-                  )}
                   <ListMenuArrow item={item} />
                 </div>
               </Link>
               :
               <Link
-              className={`px-2 flex  flex-col items-center box-border`}
-              href={`/${langData.code}`}
-          >
+                className={`px-2 flex  flex-col items-center box-border`}
+                href={`/${langData.code}`}
+              >
                 <div
                   className={`w-full flex flex-row items-center gap-2 group py-[5px]
-                  ${isClosed ? "justify-center" : "justify-start"} rounded-[10px] hover:border hover:border-[#0066FF] dark:hover:bg-[#1A1A18]  dark:hover:border-[#FFC700]`}
+                  ${isClosed ? "justify-start" : "justify-start"} rounded-[10px] hover:border hover:border-[#0066FF] dark:hover:bg-[#1A1A18]  dark:hover:border-[#FFC700]`}
                 >
-                  <ListMenuSvgModule item={item} i={i} activeNav={activeNav} />
+                  <span className="ps-[8px]">
+                    <ListMenuSvgModule item={item} i={i} activeNav={activeNav} />
+                  </span>
                   {!isClosed && (
                     <ListMenuTitleModule
                       item={item}

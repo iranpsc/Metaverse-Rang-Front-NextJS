@@ -19,7 +19,7 @@ const Section3D = () => {
             انقلابی در پلتفرم های مجازی ایرانی
           </p>
         </div>
-        <div className="md:h-[400px] rounded-[32px] sm:rounded-[72px] overflow-hidden">
+        <div className="md:h-[400px] rounded-[32px] sm:rounded-[72px] overflow-hidden flex items-center">
           {/* VIDEO */}
           <video
             className="w-full"
@@ -27,12 +27,9 @@ const Section3D = () => {
             loop
             muted
             playsInline
-            style={{ display: "block", margin: "auto" }}
+            style={{ display: "block" }}
           >
-            <source
-              src="/firstpage/3129671-uhd_3840_2160_30fps.mp4"
-              type="video/mp4"
-            />
+            <source src="/firstpage/3d-rgb.irpsc.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>

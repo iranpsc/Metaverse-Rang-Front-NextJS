@@ -9,8 +9,8 @@ const SectionTimer = ({ firstPageArrayContent }: any) => {
       .translation;
   }
   return (
-    <div className="w-full h-full flex flex-wrap md:flex-nowrap justify-evenly xl:gap-1 lg:gap-1 md:gap-5 sm:gap-5 xs:gap-5 items-center min-h-[300px]">
-      <div className="w-full  h-[50px] xl:hidden md:hidden  sm:flex xs:flex justify-center items-center gap-10">
+    <div className="w-full h-full flex flex-wrap lg:flex-nowrap justify-evenly xl:gap-1 lg:gap-1 md:gap-5 sm:gap-5 xs:gap-5 items-center min-h-[300px]">
+      <div className="w-full  h-[50px] flex lg:hidden justify-center items-center gap-10">
         <div className="bg-dark-yellow rounded-full size-[50px] flex justify-center items-center  ">
           <ArrowRight className=" stroke-[#1b1b1b] size-[24px]" />
         </div>
@@ -19,17 +19,17 @@ const SectionTimer = ({ firstPageArrayContent }: any) => {
         </div>
       </div>
 
-      <div className="bg-dark-yellow rounded-full size-[50px] xl:flex md:flex sm:hidden xs:hidden justify-center items-center  ">
+      <div className="bg-dark-yellow rounded-full p-[10px] hidden lg:flex justify-center items-center  ">
         <ArrowRight className=" stroke-[#1b1b1b] size-[24px]" />
       </div>
       {/* FIRST BOX */}
       <div
-        className="relative h-full p-4 border-2 border-[#343434] rounded-[50px]
+        className="relative  h-full p-4 border-2 border-[#343434] rounded-[50px]
         flex xl:flex-row lg:flex-row md:flex-nowrap sm:flex-wrap xs:flex-wrap xl:gap-0 lg:gap-0 md:gap-0 sm:gap-5  xs:gap-5 justify-center items-center"
         style={{ borderColor: "linear-gradient(to right, #000, #fff)" }}
       >
         <div className="absolute bg-white/10 z-0 size-[150px] top-[10px] end-[20%] blur-3xl  filter"></div>
-        <div className="w-full md:w-2/5 lg:w-full lg:h-full rounded-[32px] border-none overflow-hidden">
+        <div className="w-full md:w-2/5 lg:h-full rounded-[32px] border-none overflow-hidden">
           <Image
             className="w-fill h-full object-contain"
             src="/firstpage/img1-1.jpg"
@@ -68,7 +68,7 @@ const SectionTimer = ({ firstPageArrayContent }: any) => {
         </p>
       </div>
 
-      <div className="bg-dark-yellow rounded-full size-[50px] flex justify-center items-center xl:flex md:flex  sm:hidden xs:hidden">
+      <div className="bg-dark-yellow rounded-full p-[10px] flex justify-center items-center hidden lg:flex xs:hidden">
         <ArrowRight className="stroke-[#1b1b1b] size-[24px] rotate-180" />
       </div>
     </div>

@@ -193,7 +193,7 @@ function Footer({ footerTabs }: any) {
                   ) || {}
                 ).translation || "undefined"}
               </h1>
-              <h2 className="mb-[-3px] font-azarMehr font-normal">
+              <h2 className="mb-[-3px] font-azarMehr font-normal dark:text-white">
                 {(
                   footerTabs.find(
                     (item: any) =>

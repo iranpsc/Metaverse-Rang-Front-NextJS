@@ -17,19 +17,19 @@ function SideBarHeader({ isClosed, toggleSide, tabsMenu }: any) {
   }, [tabsMenu]);
   return (
     <>
-      {!isClosed ? null : (
-        <MenuIcon
-          className="stroke-[#2B2B2B] dark:stroke-white cursor-pointer w-full mb-2"
-          alt="toggle"
-          onClick={toggleSide}
-        />
-      )}
-      <div
-        className={`flex flex-row  items-center relative  ${
-          isClosed ? "justify-center" : "justify-between"
-        }`}
-      >
-        <div className={`flex items-center gap-3 justify-center my-1 pb-1 `}>
+      <MenuIcon
+        className={`${isClosed ? "visible" : "invisible h-0"}
+            stroke-[#2B2B2B] dark:stroke-white cursor-pointer w-full mb-2 menu-transition`}
+        alt="toggle"
+        onClick={toggleSide}
+      />
+
+      <div className={`${isClosed ? "" : "flex items-center justify-between"}`}>
+        <div
+          className={`${
+            isClosed ? "w-full justify-center" : "justify-start"
+          } flex items-center gap-3 my-1 pb-1 `}
+        >
           <Image
             src="/logo.png"
             alt="rgb metaverse"
@@ -39,28 +39,8 @@ function SideBarHeader({ isClosed, toggleSide, tabsMenu }: any) {
               isClosed
                 ? "xl:w-[45px] xl:h-[45px] ms-0"
                 : "xl:w-[80px] xl:h-[50px] ms-2"
-            }  lg:w-[40px] lg:h-[35px] md:w-[30px] md:h-[30px] sm:w-[45px] sm:h-[45px] xs:w-[50px] xs:h-[50px] `}
+            }  lg:w-[40px] lg:h-[35px] md:w-[30px] md:h-[30px] sm:w-[45px] sm:h-[45px] xs:w-[50px] xs:h-[50px]`}
           />
-          {/* {!isClosed ? (
-            <div className="inline-block w-full  ">
-              {tabsMenu && (
-                <p className="visible  dark:text-white whitespace-nowrap	 block font-azarMehr font-bold xl:text-[16px] lg:text-[14px] md:text-[13px] sm:text-[12px] xs:text-[12px] text-black pb-[2px] ">
-                  {
-                    tabsMenu.find((item: any) => item.name == "meta rgb")
-                      .translation
-                  }
-                </p>
-              )}
-              {tabsMenu && (
-                <p className="dark:text-dark-gray visible font-azarMehr font-normal text-gray xl:text-[14px] lg:text-[11px] md:text-[13px] sm:text-[10px] xs:text-[10px] ">
-                  {
-                    tabsMenu.find((item: any) => item.name == "metaverse rang")
-                      .translation
-                  }
-                </p>
-              )}
-            </div>
-          ) : null} */}
           {!isClosed ? (
             <div className="inline-block w-full">
               {metaRGBTranslation && (
@@ -76,16 +56,14 @@ function SideBarHeader({ isClosed, toggleSide, tabsMenu }: any) {
             </div>
           ) : null}
         </div>
+
         <div
-          className={` ${isClosed ? "invisible" : "visible"}
-           xl:w-[35px] xl:h-[35px] 
-           lg:w-[30px] lg:h-[30px] 
-           md:w-[35px] md:h-[35px] 
-           sm:w-[30px] sm:h-[30px] 
-           xs:w-[30px] xs:h-[30px] 
-           absolute ${
-             lang === "en" ? "end-[-7px]" : "end-0"
-           }  cursor-pointer rounded-full bg-[#efefef] dark:bg-mediumGray flex justify-center items-center me-3`}
+          className={` ${
+            isClosed ? "invisible h-0 w-0" : "visible h-[30px] w-[30px]"
+          }
+            ${
+              lang === "en" ? "end-[-7px]" : "end-0"
+            }  cursor-pointer rounded-full bg-[#efefef] dark:bg-mediumGray flex justify-center items-center me-3`}
           onClick={toggleSide}
         >
           <ArrowMenu

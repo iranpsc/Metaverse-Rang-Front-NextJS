@@ -53,7 +53,7 @@ export default function SideBarContent({
       {modalShow && <Modal dataObject={modalData} close={closeModal} />}
       <ul
         id="light-scrollbar"
-        className={`h-full z-[1] list-none overflow-y-scroll no-scrollbar relative pt-3 w-full bg-white dark:bg-dark-background transition-all duration-300 ease-linear max-lg:w-fit`}
+        className={`h-full z-[1] list-none overflow-y-scroll no-scrollbar relative pt-3 w-full menu-transition max-lg:w-fit`}
       >
         {tabsMenu &&
           tabsMenu.map((item, i) => (
@@ -66,24 +66,25 @@ export default function SideBarContent({
               {i !== 0 && (
                 <div
                   className={`w-full flex flex-row items-center gap-2 group py-[12px] 3xl:py-[16px]
-                  group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer
-                  ${isClosed ? "justify-center" : "justify-start"}`}
+                  group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer base-transition-1
+                  ${isClosed ? "justify-start" : "justify-start"}`}
                 >
-                  <ListMenuActiveIconModule
-                    item={item}
-                    languageSelected={langData.code}
-                    isClosed={isClosed}
-                    activeNav={activeNav}
-                    i={i}
-                  />
-                  <ListMenuSvgModule item={item} i={i} activeNav={activeNav} />
-                  {!isClosed && (
+                    <ListMenuActiveIconModule
+                      item={item}
+                      languageSelected={langData.code}
+                      isClosed={isClosed}
+                      activeNav={activeNav}
+                      i={i}
+                      />
+                  <span className="ps-[15px]">
+                    <ListMenuSvgModule item={item} i={i} activeNav={activeNav} />
+                  </span>
                     <ListMenuTitleModule
                       item={item}
+                      isClosed={isClosed}
                       i={i}
                       activeNav={activeNav}
                     />
-                  )}
                   <ListMenuArrow item={item} />
                 </div>
               )}

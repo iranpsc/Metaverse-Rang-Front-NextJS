@@ -4,7 +4,7 @@ import { Dislike, Like, View, Video } from "@/components/svgs/SvgEducation";
 import Image from "next/image";
 import Link from "next/link";
 
-const LastNews = ({ firstPageArrayContent }: any) => {
+const LastNews = ({ firstPageArrayContent, params }: any) => {
   function localFind(_name: any) {
     return firstPageArrayContent.find((item: any) => item.name == _name)
       .translation;
@@ -47,12 +47,14 @@ const LastNews = ({ firstPageArrayContent }: any) => {
 
       <div className="grid  lg:grid-cols-2 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 xs:grid-cols-1 gap-10 mt-4 md:mt-12">
         {staticData.map((item, index) => (
-          <Link
-            href={item.url}
+          <div
             key={index}
-            className="w-[100%] min-h-[240px] base-transition-1 cursor-pointer shadow-md hover:shadow-xl hover:dark:shadow-dark  rounded-[10px] bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-6 items-center"
+            className="w-[100%] min-h-[240px] base-transition-1 shadow-md hover:shadow-xl hover:dark:shadow-dark  rounded-[10px] bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-6 items-center"
           >
-            <div className=" group w-full h-[266px]   rounded-t-[10px] relative">
+            <Link
+              href={item.url}
+              className=" group w-full h-[266px]   rounded-t-[10px] relative"
+            >
               <Image
                 src={`/firstpage/static-news-${index}.jpg`}
                 alt="/firstpage/img2.jpg"
@@ -64,26 +66,29 @@ const LastNews = ({ firstPageArrayContent }: any) => {
               <div className="w-full h-full backdrop-blur-[3px] bg-black/20 hover:backdrop-blur-none xs:backdrop-blur-none absolute z-0 top-0 flex justify-center items-center rounded-t-[10px]">
                 <Video className="w-[78px] h-[78px] p-3 fill-blueLink dark:fill-dark-yellow  rounded-full bg-white/80" />
               </div>
-            </div>
+            </Link>
 
             <div className=" w-[95%] flex flex-row justify-start items-center gap-1  mt-[-10px] pe-16">
               <p
-                className="text-start text-gray dark:text-dark-gray font-medium font-azarMehr text-[13px]  3xl:text-[16px] cursor-pointer hover:text-blueLink hover:dark:text-dark-yellow"
+                className="text-start text-gray dark:text-dark-gray font-medium font-azarMehr text-[13px]  3xl:text-[16px]"
                 //   onClick={() => pusher(item.category.slug)}
               >
                 27 اسفند 1402
               </p>
             </div>
 
-            <div className="w-[95%]">
+            <a className="w-[95%]" href={item.url}>
               <h1 className="text-start dark:text-white text-gray  w-full font-azarMehr truncate cursor-pointer font-bold mt-[8px] text-[18px] xl:text-[20px] 3xl:text-[22px] ">
                 {item.title}
               </h1>
-            </div>
+            </a>
 
             <div className="w-[95%] pb-2 flex flex-row justify-between  items-center">
               {/* <Link href="#" target="_blank"> */}
-              <div className="flex flex-row justify-start items-center gap-2">
+              <Link
+                href={`/${params.lang}/citizen/Hm-2000003`}
+                className="flex flex-row justify-start items-center gap-2"
+              >
                 <Image
                   src="/firstpage/img2.jpg"
                   alt="/firstpage/img2.jpg"
@@ -93,13 +98,10 @@ const LastNews = ({ firstPageArrayContent }: any) => {
                   className="w-[45px] h-[45px] rounded-full object-cover cursor-pointer transition-all duration-150 ease-in-out"
                   // onClick={() => pushRgb(item.creator.code)}
                 />
-                <span
-                  className="text-blueLink  cursor-pointer text-[14px] 3xl:text-[18px] whitespace-nowrap font-medium hover:font-bold uppercase "
-                  // onClick={() => pushRgb(item.creator.code)}
-                >
+                <span className="text-blueLink  cursor-pointer text-[14px] 3xl:text-[18px] whitespace-nowrap font-medium hover:font-bold uppercase ">
                   Hm-2000003
                 </span>
-              </div>
+              </Link>
               {/* </Link> */}
               <div className="flex flex-row justify-end items-center gap-4 md:gap-3 xl:gap-4">
                 {/* 1 */}
@@ -125,7 +127,7 @@ const LastNews = ({ firstPageArrayContent }: any) => {
                 </span>
               </div>
             </div>
-          </Link>
+          </div>
         ))}
       </div>
     </>

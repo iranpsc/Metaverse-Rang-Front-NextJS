@@ -4,7 +4,7 @@ import { Dislike, Like, View, Video } from "@/components/svgs/SvgEducation";
 import Image from "next/image";
 import Link from "next/link";
 
-const LastContent = ({ firstPageArrayContent }: any) => {
+const LastContent = ({ firstPageArrayContent, params }: any) => {
   function localFind(_name: any) {
     return firstPageArrayContent.find((item: any) => item.name == _name)
       .translation;
@@ -81,7 +81,7 @@ const LastContent = ({ firstPageArrayContent }: any) => {
             </a>
 
             <div className="w-[95%] pb-2 flex flex-row justify-between  items-center">
-              <Link href="#" target="_blank">
+              <Link href={`/${params.lang}/citizen/Hm-2000003`} target="_blank">
                 <div className="flex flex-row justify-start items-center gap-2">
                   <Image
                     src="/firstpage/img2.jpg"
