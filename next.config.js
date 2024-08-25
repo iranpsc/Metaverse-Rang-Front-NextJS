@@ -8,17 +8,35 @@ module.exports = {
     return config;
   },
   images: {
-    domains: [
-      "dl.qzparadise.ir",
-      "api.rgb.irpsc.com",
-      "admin.rgb.irpsc.com",
-      "admin.rgb.irpsc.comlevels",
-      "localhost",
-      "irpsc.com",
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'dl.qzparadise.ir',
+      },
+      {
+        protocol: 'https',
+        hostname: 'api.rgb.irpsc.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'admin.rgb.irpsc.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'admin.rgb.irpsc.comlevels',
+      },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+      },
+      {
+        protocol: 'https',
+        hostname: 'irpsc.com',
+      },
     ],
   },
 //  experimental: { esmExternals: true, serverActions: true,appDir: true },
- experimental: { appDir: true },
+//  experimental: { appDir: true },
   async rewrites() {
     return [
       {

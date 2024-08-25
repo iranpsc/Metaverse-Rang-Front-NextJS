@@ -41,7 +41,7 @@
     "react-spinners": "^0.13.8",
     "react-three-fiber": "^6.0.13",
     "react-tooltip": "^5.23.0",
-    "three": "^0.153.0",
+    "three": "^0.167.1",
     "typescript": "5.0.4",
     "webpack": "^5.82.0",
     "yup": "^1.2.0"
