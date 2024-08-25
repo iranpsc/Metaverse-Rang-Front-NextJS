@@ -1,4 +1,8 @@
 
+// const withBundleAnalyzer = require('@next/bundle-analyzer')({
+//   enabled: process.env.ANALYZE === 'true',
+// });
+
 module.exports = {
   webpack(config) {
     config.module.rules.push({
@@ -23,7 +27,7 @@ module.exports = {
       },
       {
         protocol: 'https',
-        hostname: 'admin.rgb.irpsc.comlevels',
+        hostname: 'admin.rgb.irpsc.com',
       },
       {
         protocol: 'http',
