@@ -24,11 +24,15 @@ function SideBarHeader({ isClosed, toggleSide, tabsMenu }: any) {
         onClick={toggleSide}
       />
 
-      <div className={`${isClosed ? "" : "flex items-center justify-between"}`}>
+      <div
+        className={`${
+          isClosed ? "" : "flex items-center justify-between"
+        } relative`}
+      >
         <div
           className={`${
             isClosed ? "w-full justify-center" : "justify-start"
-          } flex items-center gap-3 my-1 pb-1 `}
+          } flex items-center gap-3 my-1 pb-1 menu-transition`}
         >
           <Image
             src="/logo.png"
@@ -36,40 +40,42 @@ function SideBarHeader({ isClosed, toggleSide, tabsMenu }: any) {
             width={500}
             height={500}
             className={`${
-              isClosed
-                ? "xl:w-[45px] xl:h-[45px] ms-0"
-                : "xl:w-[80px] xl:h-[50px] ms-2"
-            }  lg:w-[40px] lg:h-[35px] md:w-[30px] md:h-[30px] sm:w-[45px] sm:h-[45px] xs:w-[50px] xs:h-[50px]`}
+              isClosed ? "ms-2" : "ms-4"
+            } w-[40px] h-[40px] menu-transition`}
           />
-          {!isClosed ? (
-            <div className="inline-block w-full">
-              {metaRGBTranslation && (
-                <p className="visible dark:text-white whitespace-nowrap block font-azarMehr font-bold xl:text-[16px] lg:text-[14px] md:text-[13px] sm:text-[12px] xs:text-[12px] text-black pb-[2px]">
-                  {metaRGBTranslation}
-                </p>
-              )}
-              {metaverseRangTranslation && (
-                <p className="dark:text-dark-gray visible font-azarMehr font-normal text-gray xl:text-[14px] lg:text-[11px] md:text-[13px] sm:text-[10px] xs:text-[10px]">
-                  {metaverseRangTranslation}
-                </p>
-              )}
-            </div>
-          ) : null}
+
+          <div
+            className={`${
+              isClosed ? "w-0 overflow-hidden" : "w-full"
+            } menu-transition`}
+          >
+            {metaRGBTranslation && (
+              <p
+                className={`visible dark:text-white whitespace-nowrap block font-azarMehr font-bold xl:text-[16px] lg:text-[14px] md:text-[13px] sm:text-[12px] xs:text-[12px] text-black pb-[2px]`}
+              >
+                {metaRGBTranslation}
+              </p>
+            )}
+            {metaverseRangTranslation && (
+              <p
+                className={`dark:text-dark-gray visible font-azarMehr font-normal text-gray xl:text-[14px] lg:text-[11px] md:text-[13px] sm:text-[10px] xs:text-[10px] `}
+              >
+                {metaverseRangTranslation}
+              </p>
+            )}
+          </div>
         </div>
 
         <div
           className={` ${
-            isClosed ? "invisible h-0 w-0" : "visible h-[30px] w-[30px]"
-          }
-            ${
-              lang === "en" ? "end-[-7px]" : "end-0"
-            }  cursor-pointer rounded-full bg-[#efefef] dark:bg-mediumGray flex justify-center items-center me-3`}
+            isClosed
+              ? "invisible opacity-0"
+              : "visible opacity-100 menu-transition"
+          } h-[30px] w-[30px] cursor-pointer rounded-full bg-[#efefef] dark:bg-mediumGray flex justify-center items-center me-3 rtl:end-0 ltr:end-[-7px] absolute right-[102%]`}
           onClick={toggleSide}
         >
           <ArrowMenu
-            className={`w-[7px] ${
-              lang === "en" ? "rotate-180" : "rotate-0"
-            } h-[13px] stroke-gray dark:stroke-white`}
+            className={`w-[7px] h-[13px] stroke-gray dark:stroke-white ltr:rotate-180 rtl:rotate-0`}
           />
         </div>
       </div>

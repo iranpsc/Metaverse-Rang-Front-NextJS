@@ -62,7 +62,7 @@ export default function SideBar({
                 ? "w-[70px] max-lg:hidden"
                 : "xl:w-[250px]  lg:w-[150px] md:w-[250px] sm:w-[175px] xs:w-[175px] sm:shadow-[#000000] xs:sm:shadow-[#000000] visible"
               }  
-              flex flex-col h-screen relative bg-white  dark:bg-dark-background menu-transition overflow-hidden`}
+              flex flex-col h-screen relative bg-white  dark:bg-dark-background menu-transition`}
           >
             <div className="sticky w-full top-0 pt-4 z-50 bg-white dark:bg-dark-background menu-transition">
               <Header
@@ -90,15 +90,15 @@ export default function SideBar({
             <div
               className={`${
                 isClosed
-                  ? "w-[70px] sm:hidden xs:hidden md:hidden transition-2 xl:block lg:block"
+                  ? "w-[70px] sm:hidden xs:hidden md:hidden xl:block lg:block"
                   : "xl:w-[250px] lg:w-[150px] md:w-[250px] sm:w-[175px] xs:w-[175px]"
-              }  h-fit z-[100] transition-all duration-300 ease-linear  bg-white dark:bg-dark-background bottom-0 py-5 flex flex-col items-center justify-center gap-3`}
+              }  h-fit z-[100] transition-all duration-300 ease-linear  bg-white dark:bg-dark-background bottom-0 py-5 flex flex-col items-center justify-center gap-3 menu-transition`}
             >
               {/* <LoginMenuModule /> */}
               {/*_________ login BTN __________*/}
               <button
                 className="w-[80%] bg-blueLink cursor-pointer dark:bg-dark-yellow rounded-[15px]
-                           h-[40px]  flex flex-row xs:px-2 justify-around gap-5 items-center
+                           h-[40px] flex flex-row xs:px-2 justify-around gap-5 items-center
                            text-white dark:text-dark-background font-azarMehr font-medium text-center text-[15px] m-auto"
                           onClick={handleLogin}>
                 {/* <LoginMenu className={`stroke-white stroke-2 dark:stroke-dark-background h-full w-5 

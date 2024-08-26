@@ -44,6 +44,22 @@ export default function SideBarContent({
       }
     }
   };
+  const staticMenuToShow = [
+    "home",
+    "property",
+    "real estate",
+    "structures",
+    "belongings",
+    "permissions",
+    "invitations",
+    "transaction",
+    "reward",
+    "",
+    "",
+    "",
+    'language'
+  ]
+  console.log('tabsss1', tabsMenu)
 
   return (
     <>
@@ -60,13 +76,13 @@ export default function SideBarContent({
             //*HINT*the way to pass parameters to function in nextjs "onTabClick(item)"
             //*HINT*i<=12 is not a good solution,array must be change
           <div key={item.id}>
-            { (i <=12) &&
+            { (staticMenuToShow.some(x => x == `${item.name}`)) &&
             <li  onClick={() => onTabClick(item, i)} data-tooltip-id={item.name}>
               {/* (i == 0) for hiding first element of array"متاورس" */}
-              {i !== 0 && (
+              
                 <div
                   className={`w-full flex flex-row items-center gap-2 group py-[12px] 3xl:py-[16px]
-                  group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer base-transition-1
+                  group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer menu-transition
                   ${isClosed ? "justify-start" : "justify-start"}`}
                 >
                     <ListMenuActiveIconModule
@@ -87,25 +103,12 @@ export default function SideBarContent({
                     />
                   <ListMenuArrow item={item} />
                 </div>
-              )}
+              
               {/* {item.name === "trainings" &&
                 state.activeDropdown.some((item) => item.key === "trainings") &&
                 !state.isCollapsed && <DropdownTrainingsModule />} */}
-              {
-                item.name === "language"
-                //  &&
-                //   !state.isCollapsed &&
-                //   state.activeDropdown.some(
-                //     (item) => item.key === "language"
-                //   ) && (
-                //     <DropdownLanguageModule
-                //       languagesData={languagesData}
-                //       languageSelected={languageSelected}
-                //       handleDirChange={handleDirChange}
-                //     />
-                //   )
-              }
             </li>
+            
            }
              <ReactTooltip
              id={item.name}

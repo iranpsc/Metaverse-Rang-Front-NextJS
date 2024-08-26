@@ -21,8 +21,8 @@ const ListMenuTitleModule = ({ item, activeNav, i, isClosed }: any) => {
         ? "text-activeGrey dark:text-white"
         : "text-lightGrey dark:text-lightGrey"
     }
-    ${isClosed ? "invisible w-0" : "visible w-fit"}
-    capitalize 3xl:text-xl3Title xl:text-xlTitle lg:text-lgTitle md:text-mdTitle sm:text-smTitle xs:text-smTitle font-azarMehr font-normal 3xl:text-[22px]`}
+    ${isClosed ? "w-0 overflow-hidden" : "w-full"}
+    capitalize 3xl:text-xl3Title xl:text-xlTitle lg:text-lgTitle md:text-mdTitle sm:text-smTitle xs:text-smTitle font-azarMehr font-normal 3xl:text-[22px] menu-transition`}
     >
       {item.translation}
     </div>
