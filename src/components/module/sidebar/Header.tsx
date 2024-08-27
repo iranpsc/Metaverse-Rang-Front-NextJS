@@ -71,7 +71,7 @@ function SideBarHeader({ isClosed, toggleSide, tabsMenu }: any) {
             isClosed
               ? "invisible opacity-0"
               : "visible opacity-100 menu-transition"
-          } h-[30px] w-[30px] cursor-pointer rounded-full bg-[#efefef] dark:bg-mediumGray flex justify-center items-center me-3 rtl:end-0 ltr:end-[-7px] absolute right-[102%]`}
+          } h-[30px] w-[30px] cursor-pointer rounded-full bg-[#efefef] dark:bg-mediumGray flex justify-center items-center me-3 rtl:end-0 ltr:end-[-7px] absolute right-[102%] ltr:left-[102%]`}
           onClick={toggleSide}
         >
           <ArrowMenu

@@ -17,30 +17,24 @@ import {
   getMainFile,
   findByModalName,
   findByTabName,
+  getLangArray
 } from "@/components/utils/actions";
 import DynamicFooter from "@/components/module/footer/DynamicFooter";
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
 
 export default async function LangPage({params}) {
-  //
 
-  //
+  const langArray = await getLangArray();
   const langData = await getTransletion(params.lang);
   const mainData = await getMainFile(langData);
   const defaultTheme = useServerDarkMode();
 
-  const citizenModals = await findByModalName(mainData, "Citizenship-profile");
-  // const modalsProfile = mainData.modals.find(
-  //   (modal) => modal.name === "Citizenship-profile"
-  // ).tabs;
-  const tabsMenu = await findByTabName(citizenModals, "menu");
-  
-  // const tabsMenu = modalsProfile.find(
-  //   (item) => item.name === "menu"
-  // ).fields;
-
   const centralPageModal = await findByModalName(mainData, "central-page");
   const firstPageArrayContent = await findByTabName(centralPageModal, "first-page");
+  const tabsMenu = await findByTabName(centralPageModal, "before-login");
+  console.log('tabsMenu',tabsMenu);
+  
+
 
   // const firstPageArrayContent = centralPageModal.find(
   //   (item) => item.name === "first-page"
@@ -85,8 +79,8 @@ export default async function LangPage({params}) {
     // <>
     <div className="flex h-screen" dir={langData.direction}>
       <SideBar
-        languageSelected={params.lang}
         langData={langData}
+        langArray={langArray}
         mainData={tabsMenu}
         defaultTheme={defaultTheme}
         params={params}

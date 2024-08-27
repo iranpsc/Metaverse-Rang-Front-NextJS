@@ -33,7 +33,7 @@
     }
     /* custom transition */
     .base-transition-1{
-        transition: 0.2s;
+        transition: all 0.2s;
     }
     /* menu transition */
     .menu-transition{

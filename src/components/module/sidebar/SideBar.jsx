@@ -11,9 +11,9 @@ import ThemeMenuModule from "@/components/module/sidebar/ThemeMenuModule";
 import HeaderMobile from "@/components/module/sidebar/HeaderMobile";
 
 export default function SideBar({
-  languageSelected,
   mainData,
   langData,
+  langArray,
   defaultTheme,
   params,
   pageSide,
@@ -24,20 +24,6 @@ export default function SideBar({
   const toggleSide = useCallback(() => {
     setisClosed((prev) => !prev);
   }, []);
-  const handleLogin = async () => {
-    // try {
-      const res = await axios.get('https://api.rgb.irpsc.com/api/auth/redirect',{
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      if (res) {
-        const redirectUrl = res.data.url
-        window.location.href= redirectUrl
-      }else{
-        throw new Error('Failed to fetch redirectUrl, client');
-      }
-  }
 
   return (
     <>
@@ -78,6 +64,8 @@ export default function SideBar({
               isClosed={isClosed}
               toggleSide={toggleSide}
               langData={langData}
+              langArray={langArray}
+              params={params}
             />}
             {pageSide == 'level' && 
             <LevelSideTab
@@ -94,19 +82,9 @@ export default function SideBar({
                   : "xl:w-[250px] lg:w-[150px] md:w-[250px] sm:w-[175px] xs:w-[175px]"
               }  h-fit z-[100] transition-all duration-300 ease-linear  bg-white dark:bg-dark-background bottom-0 py-5 flex flex-col items-center justify-center gap-3 menu-transition`}
             >
-              {/* <LoginMenuModule /> */}
               {/*_________ login BTN __________*/}
-              <button
-                className="w-[80%] bg-blueLink cursor-pointer dark:bg-dark-yellow rounded-[15px]
-                           h-[40px] flex flex-row xs:px-2 justify-around gap-5 items-center
-                           text-white dark:text-dark-background font-azarMehr font-medium text-center text-[15px] m-auto"
-                          onClick={handleLogin}>
-                {/* <LoginMenu className={`stroke-white stroke-2 dark:stroke-dark-background h-full w-5 
-                                    ${tate.isCollapsed ? "hidden" : "visibale"}`}/> */}
-                  {/* <p className="text-white dark:text-dark-background font-azarMehr font-medium text-center text-[15px]"> */}
-                    login
-                  {/* </p> */}
-              </button>
+              <LoginMenuModule />
+
               <div className="w-full pt-3 pb-1 flex flex-col items-center justify-center">
                 <div className="h-[1px] bg-gray opacity-50 dark:bg-mediumGray w-[80%] " />
               </div>

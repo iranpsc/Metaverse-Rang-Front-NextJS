@@ -1,176 +1,153 @@
-import { useEffect, useContext } from "react";
-import { useTheme } from "next-themes";
-import Image from "next/image";
-import { useRouter } from "next/router";
-import Link from "next/link";
-//Types
-import { LoginMenu, ArrowMenu } from "@/svgs/index";
-// import { useToken } from "@/context/TokenContext";
-// import { SideBarContext } from "@/components/context/SidebarContext";
+"use client";
 
-export default function LoginMenuModule({
-  setShowAuthCard,
-  setShowLogOut,
-}: any) {
-  // const { state, showFullModalHandler, showFullModalOutMenuHandler } =
-  //   useContext(SideBarContext);
-  const { theme } = useTheme();
-  // const { code, token } = useToken();
-  const router = useRouter();
+import axios from "axios";
+import { useState } from "react";
 
-  // const submit = () => {
-  //   if (state.isCollapsed) {
-  //     // toggleCollapseHandler();
-  //     showFullModalOutMenuHandler();
-  //   } else {
-  //     showFullModalHandler();
-  //   }
-  // };
-
-  // const checkLogin = () => {
-  //   if (code && code.length > 1) {
-  //     submit();
-  //   } else {
-  //     if (token && !code) {
-  //       submit();
-  //     } else {
-  //       setShowAuthCard(true);
-  //     }
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   if (state.isCollapsed && state.showFullModal) {
-  //     showFullModalHandler();
-  //   } else {
-  //   }
-  // }, [state.isCollapsed, code]);
-
-  // const logout = () => {
-  //   setShowLogOut(true);
-  // };
-
+export default function LoginMenu() {
+  const [isLogin, setIsLogin] = useState(true);
+  const handleLogin = async () => {
+    // try {
+    const res = await axios.get("https://api.rgb.irpsc.com/api/auth/redirect", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (res) {
+      const redirectUrl = res.data.url;
+      window.location.href = redirectUrl;
+    } else {
+      throw new Error("Failed to fetch redirectUrl, client");
+    }
+  };
   return (
-    <div>empty for now</div>
-    // <div className={`w-full h-fit  flex justify-center items-center`}>
-    //   <div
-    //     className={`${
-    //       state.showFullModal && token
-    //         ? "h-[200px] w-[80%]   start-[50px] z-[900]"
-    //         : "h-fit w-[80%]"
-    //     } bg-blueLink dark:bg-dark-yellow rounded-[10px] flex flex-col justify-evenly items-center transition-all duration-300 ease-linear`}
-    //   >
-    //     {state.showFullModal && token && (
-    //       <div className=" flex flex-col gap-2 w-[80%] pt-2">
-    //         {token && !code && (
-    //           <Link href={`https://gmail.com`} target="_blank">
-    //             <p className="text-white dark:text-black text-[14px] hover:text-[15px] font-azarMehr font-normal cursor-pointer">
-    //               فعال سازی حساب کاربری
-    //             </p>
-    //             <hr className=" text-white dark:text-[#2D2D2A38] mt-1" />
-    //           </Link>
-    //         )}
-    //         {code && code !== router.query.userId && (
-    //           <Link
-    //             href={`https://rgb.irpsc.com/${router.query.lang}/citizen/${code}`}
-    //             target="_blank"
-    //           >
-    //             <p className="text-white dark:text-black text-[14px] hover:text-[15px] font-azarMehr font-normal cursor-pointer xs:text-[12px] whitespace-nowrap">
-    //               {state.dataLogin[3] &&
-    //                 state.dataLogin.find(
-    //                   (item: any) => item.name === "my profile page"
-    //                 ).translation}
-    //             </p>
-    //             <hr className=" text-white dark:text-[#2D2D2A38] mt-1" />
-    //           </Link>
-    //         )}
-    //         <a href="https://rgb.irpsc.com/">
-    //           <p className="text-white dark:text-black text-[14px] hover:text-[15px] font-azarMehr font-normal cursor-pointer xs:text-[12px] whitespace-nowrap">
-    //             {state.dataLogin[1] &&
-    //               state.dataLogin.find(
-    //                 (item: any) => item.name === "enter the metaverse"
-    //               ).translation}
-    //           </p>
-    //         </a>
-    //         <hr className=" text-white dark:text-[#2D2D2A38]" />
-    //         <a href="https://rgb.irpsc.com/metaverse">
-    //           <p className="text-white dark:text-black text-[14px]  hover:text-[15px] font-azarMehr font-normal  cursor-pointer xs:text-[12px] whitespace-nowrap">
-    //             {state.dataLogin[2] &&
-    //               state.dataLogin.find((item: any) => item.name === "home page")
-    //                 .translation}
-    //           </p>
-    //         </a>
-    //         <hr className=" text-white dark:text-[#2D2D2A38]" />
-    //         <p
-    //           className="text-white dark:text-black text-[14px]  hover:text-[15px] font-azarMehr font-normal cursor-pointer xs:text-[12px] whitespace-nowrap"
-    //           onClick={logout}
-    //         >
-    //           {state.dataLogin[2] &&
-    //             state.dataLogin.find((item: any) => item.name === "logout")
-    //               .translation}
-    //         </p>
-    //         <hr className=" text-white dark:text-[#2D2D2A38]" />
-    //       </div>
-    //     )}
+    <>
+      {/* login */}
+      <button
+        className={`${isLogin ? "block" : "hidden"}
+          w-[80%] bg-blueLink cursor-pointer dark:bg-dark-yellow rounded-[15px]
+          h-[40px] flex flex-row xs:px-2 justify-around gap-5 items-center
+          text-white dark:text-dark-background font-azarMehr font-medium text-center text-[15px] m-auto`}
+        onClick={handleLogin}
+      >
+        login
+      </button>
+      {/* logout */}
+      <div>
+        <button
+          className={`${isLogin ? "block" : "hidden"}
+            w-[80%] bg-blueLink cursor-pointer dark:bg-dark-yellow rounded-[15px]
+            h-[40px] flex flex-row xs:px-2 justify-around gap-5 items-center
+            text-white dark:text-dark-background font-azarMehr font-medium text-center text-[15px] m-auto`}
+          onClick={handleLogin}
+        >
+          login
+        </button>
+      </div>
+      <div className="relative inline-block text-left">
+        <div>
+          <button
+            type="button"
+            className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+            id="menu-button"
+            aria-expanded="true"
+            aria-haspopup="true"
+          >
+            Options
+            <svg
+              className="-mr-1 h-5 w-5 text-gray-400"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </button>
+        </div>
 
-    //     <div
-    //       className="bg-blueLink cursor-pointer dark:bg-dark-yellow rounded-[15px] w-[95%] h-[40px]  flex flex-row xs:px-2 justify-around gap-5 items-center"
-    //       onClick={checkLogin}
-    //     >
-    //       {code && code.length > 1 ? (
-    //         <>
-    //           <p className="text-white dark:text-dark-background font-azarMehr uppercase font-medium text-center xs:text-[13px] whitespace-nowrap">
-    //             {state.isCollapsed ? "HM" : code}
-    //           </p>
-    //           <ArrowMenu
-    //             className={`stroke-white stroke-2 dark:stroke-dark-background h-full w-[10px] ${
-    //               state.showFullModal ? "rotate-90" : "-rotate-90"
-    //             } ${state.isCollapsed ? "hidden" : "visibale"}`}
-    //           />
-    //         </>
-    //       ) : (
-    //         <>
-    //           {token && !code ? (
-    //             <>
-    //               {state.isCollapsed ? (
-    //                 <Image
-    //                   src={
-    //                     theme === "dark"
-    //                       ? "/mail-send-dark.png"
-    //                       : "/mail-send-light.png"
-    //                   }
-    //                   width={1000}
-    //                   height={1000}
-    //                   alt="active-mail"
-    //                   className="w-[35px] h-[35px]"
-    //                 />
-    //               ) : (
-    //                 <p className="text-white dark:text-dark-background text-[13px] font-azarMehr  font-normal text-start ">
-    //                   حساب خود را فعال کنید
-    //                 </p>
-    //               )}
-    //             </>
-    //           ) : (
-    //             <>
-    //               <LoginMenu
-    //                 className={`stroke-white stroke-2 dark:stroke-dark-background h-full w-5 ${
-    //                   state.isCollapsed ? "hidden" : "visibale"
-    //                 }`}
-    //               />
-    //               <p className="text-white dark:text-dark-background font-azarMehr font-medium text-center text-[15px]">
-    //                 {(state.dataLogin.find(
-    //                   (item: any) => item.name === "login"
-    //                 ) &&
-    //                   state.dataLogin.find((item: any) => item.name === "login")
-    //                     .translation) ||
-    //                   "undefine"}
-    //               </p>
-    //             </>
-    //           )}
-    //         </>
-    //       )}
-    //     </div>
-    //   </div>
-    // </div>
+        <div
+          className="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+          role="menu"
+          aria-orientation="vertical"
+          aria-labelledby="menu-button"
+          tabIndex={-1}
+        >
+          <div className="py-1" role="none">
+            <a
+              href="#"
+              className="block px-4 py-2 text-sm text-gray-700"
+              role="menuitem"
+              tabIndex={-1}
+              id="menu-item-0"
+            >
+              Edit
+            </a>
+            <a
+              href="#"
+              className="block px-4 py-2 text-sm text-gray-700"
+              role="menuitem"
+              tabIndex={-1}
+              id="menu-item-1"
+            >
+              Duplicate
+            </a>
+          </div>
+          <div className="py-1" role="none">
+            <a
+              href="#"
+              className="block px-4 py-2 text-sm text-gray-700"
+              role="menuitem"
+              tabIndex={-1}
+              id="menu-item-2"
+            >
+              Archive
+            </a>
+            <a
+              href="#"
+              className="block px-4 py-2 text-sm text-gray-700"
+              role="menuitem"
+              tabIndex={-1}
+              id="menu-item-3"
+            >
+              Move
+            </a>
+          </div>
+          <div className="py-1" role="none">
+            <a
+              href="#"
+              className="block px-4 py-2 text-sm text-gray-700"
+              role="menuitem"
+              tabIndex={-1}
+              id="menu-item-4"
+            >
+              Share
+            </a>
+            <a
+              href="#"
+              className="block px-4 py-2 text-sm text-gray-700"
+              role="menuitem"
+              tabIndex={-1}
+              id="menu-item-5"
+            >
+              Add to favorites
+            </a>
+          </div>
+          <div className="py-1" role="none">
+            <a
+              href="#"
+              className="block px-4 py-2 text-sm text-gray-700"
+              role="menuitem"
+              tabIndex={-1}
+              id="menu-item-6"
+            >
+              Delete
+            </a>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }

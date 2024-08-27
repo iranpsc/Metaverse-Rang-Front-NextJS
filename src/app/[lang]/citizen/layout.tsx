@@ -28,8 +28,8 @@ export default async function CitizensLayout({
   return (
     <main className="flex dark:bg-black" dir={langData.direction}>
       <SideBar
-        languageSelected={params.lang}
         langData={langData}
+        langArray={langArray}
         mainData={tabsMenu}
         defaultTheme={defaultTheme}
         params={params}
