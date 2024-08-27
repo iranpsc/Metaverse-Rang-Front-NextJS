@@ -6,8 +6,7 @@ import Image from "next/image";
 import { LanguageDataItem } from "@/types/listMenu";
 import { Tick } from "@/components/svgs";
 
-const DropdownLanguageModule = ({ languagesData, langArray, params }: any) => {
-  console.log("languagesData", languagesData);
+const DropdownLanguageModule = ({ langArray, params, isClosed }: any) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -16,8 +15,6 @@ const DropdownLanguageModule = ({ languagesData, langArray, params }: any) => {
   const handleDirChange = (item: any) => {
     // Split the current path into segments
     const segments = pathname.split("/");
-    console.log("item", item);
-    console.log("segments", segments);
 
     // Update the [lang] segment (assumes it's the first segment)
     segments[1] = item.code;
@@ -30,12 +27,12 @@ const DropdownLanguageModule = ({ languagesData, langArray, params }: any) => {
   return (
     <>
       <div className="dropdown relative cursor-pointer ">
-        <ul className=" dropdown-menu w-[50%] text-center ps-7 flex flex-col justify-start gap-4 items-center text-gray pt-2">
+        <ul className=" dropdown-menu text-center ps-7 flex flex-col justify-start items-center text-gray pt-2">
           {langArray &&
             langArray.map((item: LanguageDataItem) => (
               <li
                 key={item.id}
-                className={` border-none w-full   ${
+                className={` border-none w-full py-[12px] ${
                   params.lang === item.name
                     ? "text-[#0066FF] dark:text-dark-yellow"
                     : ""
@@ -45,8 +42,12 @@ const DropdownLanguageModule = ({ languagesData, langArray, params }: any) => {
                 } flex flex-col items-center justify-start    cursor-pointer hover:text-[#0066FF]`}
                 onClick={() => handleDirChange(item)}
               >
-                <div className="w-10">{params.lang === item.name && <></>}</div>
-                <div className="flex flex-row gap-2 justify-start items-center w-full ms-16">
+                {/* <div className="w-10">{params.lang === item.name && <></>}</div> */}
+                <div
+                  className={`${
+                    isClosed ? "justify-center" : "justify-start ms-[20%]"
+                  } flex flex-row gap-2 items-center w-full`}
+                >
                   <Image
                     src={item.icon}
                     alt=""
@@ -59,11 +60,12 @@ const DropdownLanguageModule = ({ languagesData, langArray, params }: any) => {
                 )} */}
 
                   <p
-                    className={`font-azarMehr text-start w-full 3xl:text-[20px] ${
-                      params.lang === item.name
-                        ? "text-blueLink dark:text-dark-yellow"
-                        : "text-gray dark:text-dark-gray"
-                    }  font-normal hover:text-[#0000ffd9] dark:hover:text-dark-yellow`}
+                    className={`${isClosed ? "max-w-0" : "max-w-150"} 
+                      ${
+                        params.lang === item.name
+                          ? "text-blueLink dark:text-dark-yellow"
+                          : "text-gray dark:text-dark-gray"
+                      }  font-normal hover:text-[#0000ffd9] dark:hover:text-dark-yellow font-azarMehr text-start w-full 3xl:text-[20px] menu-transition overflow-hidden`}
                   >
                     {item.native_name}
                   </p>

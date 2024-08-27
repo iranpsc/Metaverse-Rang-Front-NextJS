@@ -5,6 +5,7 @@ import { useState } from "react";
 import { ArrowMenu } from "@/svgs/index";
 
 export default function LoginMenuModule({ isClosed, tabsMenu }: any) {
+  console.log("tabsMenu1234", tabsMenu);
   const [isLogin, setIsLogin] = useState(true);
   const [dropDown, setDropDown] = useState(false);
   const handleLogin = async () => {
@@ -26,7 +27,11 @@ export default function LoginMenuModule({ isClosed, tabsMenu }: any) {
   };
 
   function localFind(_name: any) {
-    return tabsMenu.find((item: any) => item.name == _name).translation;
+    return tabsMenu.map((x: any) => {
+      if (x.name == _name) {
+        return x.translation;
+      }
+    });
   }
 
   return (

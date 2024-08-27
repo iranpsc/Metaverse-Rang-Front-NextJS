@@ -20,6 +20,7 @@ export default async function CitizensLayout({
   const langData = await getTransletion(params.lang);
   const mainData = await getMainFile(langData);
   const levelArray = await getAllLevels();
+  const langArray = await getLangArray();
 
   const levels = mainData.modals.find((x: any) => x.name == "levels");
 
@@ -39,9 +40,9 @@ export default async function CitizensLayout({
     <main className="flex dark:bg-black" dir={langData.direction}>
       <SideBar
         pageSide="level"
-        languageSelected={params.lang}
+        langArray={langArray}
         langData={langData}
-        mainData={tabsMenu}
+        tabsMenu={tabsMenu}
         defaultTheme={defaultTheme}
         params={params}
       />

@@ -4,7 +4,6 @@ import SectionTimer from "@/components/templates/firstpage/SectionTimer";
 import SectionTeam from "@/components/templates/firstpage/TeamSection";
 import TopCitizen from "@/components/templates/firstpage/TopCitizen";
 import LastNews from "@/components/templates/firstpage/LastNews";
-import Image from "next/image";
 import Section3D from "@/components/templates/firstpage/Section3D";
 import TopTrainersFirstPage from "@/components/templates/firstpage/TopTrainersFirstPage";
 import EducationFirstPage from "@/components/templates/firstpage/EducationFirstPage";
@@ -32,13 +31,9 @@ export default async function LangPage({params}) {
   const centralPageModal = await findByModalName(mainData, "central-page");
   const firstPageArrayContent = await findByTabName(centralPageModal, "first-page");
   const tabsMenu = await findByTabName(centralPageModal, "before-login");
-  console.log('tabsMenu',tabsMenu);
-  
-
-
-  // const firstPageArrayContent = centralPageModal.find(
-  //   (item) => item.name === "first-page"
-  // ).fields;
+  // console.log('centralPageModal',centralPageModal)
+  // console.log('firstPageArrayContent',firstPageArrayContent)
+  // console.log('tabsMenu',tabsMenu)
 
   // to find in an array with key(_name)
   function localFind(_name) {
@@ -79,9 +74,9 @@ export default async function LangPage({params}) {
     // <>
     <div className="flex h-screen" dir={langData.direction}>
       <SideBar
+        tabsMenu={tabsMenu}
         langData={langData}
         langArray={langArray}
-        mainData={tabsMenu}
         defaultTheme={defaultTheme}
         params={params}
         pageSide="citizen"
@@ -97,7 +92,7 @@ export default async function LangPage({params}) {
             <HeaderFirstPage firstPageArrayContent={firstPageArrayContent} />
           </div>
           <div
-            className="w-full flex flex-col lg:flex-row gap-4 lg:gap-10 lg:absolute bottom-0 xl:pe-32 lg:pe-32 md:pe-5 sm:pe-5 xs:pe-5 xl:ps-32 lg:ps-32 md:ps-5 sm:ps-5 xs:ps-5 bg-[#151515] bg-opacity-40 py-10 z-[1]"
+            className="w-full flex flex-col lg:flex-row gap-4 lg:gap-10 lg:absolute bottom-0 xl:pe-32 lg:pe-32 md:pe-5 sm:pe-5 xs:pe-5 xl:ps-32 lg:ps-32 md:ps-5 sm:ps-5 xs:ps-5 bg-[#151515] bg-opacity-40 py-3 xl:py-6 2xl:py-10 z-[1]"
           >
             <div
               className="lg:w-1/2 flex flex-col justify-start items-start gap-4"

@@ -5,6 +5,7 @@ import {
   getMainFile,
   findByModalName,
   findByTabName,
+  getLangArray,
 } from "@/components/utils/actions";
 import DynamicFooter from "@/components/module/footer/DynamicFooter";
 import LevelCard from "@/components/module/levelComponent/LevelCard";
@@ -102,6 +103,8 @@ export default async function LevelsPage({
 
   const footerTabs = await getFooterData(params);
 
+  const langArray = await getLangArray();
+
   const langData = await getTransletion(params.lang);
   const mainData = await getMainFile(langData);
   const levels = await findByModalName(mainData, "levels");
@@ -133,9 +136,9 @@ export default async function LevelsPage({
     <>
       <div className={`flex dark:bg-black `} dir={langData.direction}>
         <SideBar
-          languageSelected={params.lang}
+          langArray={langArray}
           langData={langData}
-          mainData={tabsMenu}
+          tabsMenu={tabsMenu}
           defaultTheme={defaultTheme}
           params={params}
           pageSide="citizen"

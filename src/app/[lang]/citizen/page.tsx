@@ -1,7 +1,6 @@
-import { Like, Text } from "@/components/svgs/SvgEducation";
+import { Text } from "@/components/svgs/SvgEducation";
 import { translateFooter } from "@/components/utils/education";
 import DynamicFooter from "@/components/module/footer/DynamicFooter";
-import Image from "next/image";
 import Link from "next/link";
 import {
   getTransletion,
@@ -32,10 +31,11 @@ export default async function CitizensPage({
     Citizenship,
     "list-citizen"
   );
+
   // to find in an array with key(_name)
   function localFind(_name: any) {
     return citizenListArrayContent.find((item: any) => item.name == _name)
-      .translation;
+      ?.translation;
   }
 
   const allCitizenArray = await getAllCitizen();

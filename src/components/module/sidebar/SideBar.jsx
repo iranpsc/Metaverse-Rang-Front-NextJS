@@ -11,14 +11,13 @@ import ThemeMenuModule from "@/components/module/sidebar/ThemeMenuModule";
 import HeaderMobile from "@/components/module/sidebar/HeaderMobile";
 
 export default function SideBar({
-  mainData,
+  tabsMenu,
   langData,
   langArray,
   defaultTheme,
   params,
   pageSide,
 }) {
-  console.log('mainData',mainData)
   //
   const [isClosed, setisClosed] = useState(true);
   // const router = useRouter()
@@ -29,7 +28,7 @@ export default function SideBar({
   return (
     <>
       <HeaderMobile
-        tabsMenu={mainData}
+        tabsMenu={tabsMenu}
         isClosed={isClosed}
         toggleSide={toggleSide}
       />
@@ -54,14 +53,14 @@ export default function SideBar({
             <div className="sticky w-full top-0 pt-4 z-50 bg-white dark:bg-dark-background menu-transition">
               <Header
                 isClosed={isClosed}
-                tabsMenu={mainData}
+                tabsMenu={tabsMenu}
                 toggleSide={toggleSide}
               />
             </div>
             {/* <MenuProfileModule /> */}
             {pageSide == 'citizen' &&
             <AllSideTab
-              tabsMenu={mainData}
+              tabsMenu={tabsMenu}
               isClosed={isClosed}
               toggleSide={toggleSide}
               langData={langData}
@@ -70,7 +69,7 @@ export default function SideBar({
             />}
             {pageSide == 'level' && 
             <LevelSideTab
-              tabsMenu={mainData}
+              tabsMenu={tabsMenu}
               isClosed={isClosed}
               params={params}
               toggleSide={toggleSide}
@@ -85,7 +84,7 @@ export default function SideBar({
             >
               {/*_________ login BTN __________*/}
               <div className='w-[80%] m-auto'>
-              <LoginMenuModule isClosed={isClosed} tabsMenu={mainData} />
+              <LoginMenuModule isClosed={isClosed} tabsMenu={tabsMenu} />
               </div>
 
               <div className="w-full pt-3 pb-1 flex flex-col items-center justify-center">

@@ -40,7 +40,7 @@ module.exports = {
     ],
   },
 //  experimental: { esmExternals: true, serverActions: true,appDir: true },
-//  experimental: { appDir: true },
+ experimental: { appDir: true },
   async rewrites() {
     return [
       {
