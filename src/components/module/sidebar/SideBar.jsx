@@ -80,7 +80,7 @@ export default function SideBar({
                 isClosed
                   ? "w-[70px] sm:hidden xs:hidden md:hidden xl:block lg:block"
                   : "xl:w-[250px] lg:w-[150px] md:w-[250px] sm:w-[175px] xs:w-[175px]"
-              }  h-fit z-[100] transition-all duration-300 ease-linear  bg-white dark:bg-dark-background bottom-0 py-5 flex flex-col items-center justify-center gap-3 menu-transition`}
+              }  h-fit z-[100] transition-all duration-300 ease-linear bg-white dark:bg-dark-background bottom-0 py-5 flex flex-col items-stretch justify-center gap-3 menu-transition`}
             >
               {/*_________ login BTN __________*/}
               <LoginMenuModule />
