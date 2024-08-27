@@ -18,6 +18,7 @@ export default function SideBar({
   params,
   pageSide,
 }) {
+  console.log('mainData',mainData)
   //
   const [isClosed, setisClosed] = useState(true);
   // const router = useRouter()
@@ -46,7 +47,7 @@ export default function SideBar({
             className={`${
               isClosed
                 ? "w-[70px] max-lg:hidden"
-                : "xl:w-[250px]  lg:w-[150px] md:w-[250px] sm:w-[175px] xs:w-[175px] sm:shadow-[#000000] xs:sm:shadow-[#000000] visible"
+                : "w-[175px] lg:w-[320px] sm:shadow-[#000000] xs:sm:shadow-[#000000] visible"
               }  
               flex flex-col h-screen relative bg-white  dark:bg-dark-background menu-transition`}
           >
@@ -78,12 +79,14 @@ export default function SideBar({
             <div
               className={`${
                 isClosed
-                  ? "w-[70px] sm:hidden xs:hidden md:hidden xl:block lg:block"
-                  : "xl:w-[250px] lg:w-[150px] md:w-[250px] sm:w-[175px] xs:w-[175px]"
-              }  h-fit z-[100] transition-all duration-300 ease-linear bg-white dark:bg-dark-background bottom-0 py-5 flex flex-col items-stretch justify-center gap-3 menu-transition`}
+                  ? "sm:hidden xs:hidden md:hidden xl:block lg:block"
+                  : ""
+              } w-full h-fit z-[100] transition-all duration-300 ease-linear bg-white dark:bg-dark-background bottom-0 py-5 flex flex-col items-center justify-center gap-3 menu-transition`}
             >
               {/*_________ login BTN __________*/}
-              <LoginMenuModule />
+              <div className='w-[80%] m-auto'>
+              <LoginMenuModule isClosed={isClosed} tabsMenu={mainData} />
+              </div>
 
               <div className="w-full pt-3 pb-1 flex flex-col items-center justify-center">
                 <div className="h-[1px] bg-gray opacity-50 dark:bg-mediumGray w-[80%] " />

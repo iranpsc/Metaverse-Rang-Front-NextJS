@@ -100,6 +100,7 @@ module.exports = {
         darkGrey_1:"#10100F",
         grayLight:"#F8F8F8",
         activeGrey:"#626262",
+        divider:"#2d2d2a38",
         // *** this project custome END
         light: {
           test: "#2503f1",
