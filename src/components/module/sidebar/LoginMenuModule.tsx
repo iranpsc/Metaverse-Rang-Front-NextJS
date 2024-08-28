@@ -5,7 +5,6 @@ import { useState } from "react";
 import { ArrowMenu } from "@/svgs/index";
 
 export default function LoginMenuModule({ isClosed, tabsMenu }: any) {
-  console.log("tabsMenu1234", tabsMenu);
   const [isLogin, setIsLogin] = useState(true);
   const [dropDown, setDropDown] = useState(false);
   const handleLogin = async () => {

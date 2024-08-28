@@ -31,9 +31,6 @@ export default async function LangPage({params}) {
   const centralPageModal = await findByModalName(mainData, "central-page");
   const firstPageArrayContent = await findByTabName(centralPageModal, "first-page");
   const tabsMenu = await findByTabName(centralPageModal, "before-login");
-  // console.log('centralPageModal',centralPageModal)
-  // console.log('firstPageArrayContent',firstPageArrayContent)
-  // console.log('tabsMenu',tabsMenu)
 
   // to find in an array with key(_name)
   function localFind(_name) {

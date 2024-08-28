@@ -26,7 +26,6 @@ export default async function CitizensLayout({
     "Citizenship-profile"
   );
   const tabsMenu = await findByTabName(citizenProfileModals, "menu");
-  console.log("tabsMenu/citizen", tabsMenu);
 
   return (
     <main className="flex h-screen dark:bg-black" dir={langData.direction}>

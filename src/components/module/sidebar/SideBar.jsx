@@ -46,7 +46,7 @@ export default function SideBar({
             className={`${
               isClosed
                 ? "w-[70px] max-lg:hidden"
-                : "w-[175px] lg:w-[320px] sm:shadow-[#000000] xs:sm:shadow-[#000000] visible"
+                : "w-[260px] lg:w-[320px] sm:shadow-[#000000] xs:sm:shadow-[#000000] visible"
               }  
               flex flex-col h-screen relative bg-white  dark:bg-dark-background menu-transition`}
           >
