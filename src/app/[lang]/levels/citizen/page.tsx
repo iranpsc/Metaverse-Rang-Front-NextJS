@@ -148,7 +148,7 @@ export default async function LevelsPage({
           //   themeDataActive == "dark" ? "dark-scrollbar" : "light-scrollbar"
           // }`}
 
-          className={`h-screen overflow-y-auto relative`}
+          className={`h-screen overflow-y-auto relative light-scrollbar dark:dark-scrollbar`}
         >
           <div className="px-5 pb-10 lg:pb-20">
             <h2 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[110px] lg:mt-[64px] mb-[16px]">

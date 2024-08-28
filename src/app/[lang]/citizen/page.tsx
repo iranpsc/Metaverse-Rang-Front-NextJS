@@ -53,7 +53,8 @@ export default async function CitizensPage({
           <SearchComponent
             citizenListArrayContent={citizenListArrayContent}
             params={params}
-          />{" "}
+          />
+          {""}
         </div>
       </div>
       {/* CITIZEN box Container */}
