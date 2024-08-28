@@ -77,7 +77,7 @@ export default function ProfileImages({
   return (
     <>
       <section className="dark:bg-dark-background shadow-md relative bg-white transition-all duration-300 ease-linear rounded-[10px] flex flex-col justify-center items-center lg:flex-row lg:justify-between">
-        <div className="w-[100%] md:w-[80%] xl:w-[50vh] 2xl:w-[45vh] h-[65vh] lg:h-[40vh] 2xl:h-[45vh] dark:bg-dark-background bg-white overflow-clip flex justify-center items-center rounded-[10px]  lg:rounded-l-[0px] lg:rounded-r-[10px] ">
+        <div className="w-[100%] md:w-[80%] xl:w-[50vh] 2xl:w-[45vh] tall0:h-[100vh] lg:h-[40vh] 2xl:h-[45vh] dark:bg-dark-background bg-white overflow-clip flex justify-center items-center rounded-[10px]  lg:rounded-l-[0px] lg:rounded-r-[10px] ">
           <Image
             src={mainImageUrl || "/temp.png"}
             width={100}

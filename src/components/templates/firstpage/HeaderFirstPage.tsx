@@ -34,7 +34,7 @@ export default function HeaderFirstPage({ firstPageArrayContent }: any) {
           initial={{ opacity: 0, x: 100 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.3, delay: 0.5 }}
-          className="w-full text-white text-[16px] sm:text-[18px] md:text-[24px] 2xl:text-[38px] text-start font-bold "
+          className="w-full text-white text-[16px] sm:text-[18px] md:text-[24px] 2xl:text-[36px] 3xl:text-[48px] text-start font-bold "
         >
           {localFind("integration of ideas and creativity")}
         </motion.h3>

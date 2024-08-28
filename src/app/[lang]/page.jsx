@@ -95,10 +95,10 @@ export default async function LangPage({params}) {
               className="lg:w-1/2 flex flex-col justify-start items-start gap-4"
             >
               <Frame1 className="size-[36px]" />
-              <h5 className="text-white font-bold text-[18px] font-azarMehr">
+              <h5 className="text-white font-bold text-[18px] 3xl:text-[28px] font-azarMehr">
                 {localFind("different competitions")}
               </h5>
-              <p className="w-full  text-justify   text-white font-azarMehr font-medium ">
+              <p className="w-full  text-justify text-[16px] 3xl:text-[22px] text-white font-azarMehr font-medium ">
                 {localFind(
                   "metaverse rang invites you to an exciting world of competition"
                 )}
@@ -109,10 +109,10 @@ export default async function LangPage({params}) {
               className="lg:w-1/2 xl:col-span-6 lg:col-span-6 md:col-span-12 sm:col-span-12 xs:col-span-12 flex flex-col justify-start items-start gap-4 mt-10 md:mt-0"
             >
               <Frame2 className="size-[36px]" />
-              <h5 className="text-white font-bold text-[18px] font-azarMehr">
+              <h5 className="text-white font-bold text-[18px] 3xl:text-[28px] font-azarMehr">
                 {localFind("real interactions")}
               </h5>
-              <p className="w-full   text-justify   text-white font-azarMehr font-medium ">
+              <p className="w-full text-justify text-[16px] 3xl:text-[22px] text-white font-azarMehr font-medium ">
                 {localFind(
                   "metaverse rang invites you to an exciting world of real interactions"
                 )}

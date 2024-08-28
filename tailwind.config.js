@@ -11,6 +11,7 @@ module.exports = {
       ...defaultTheme.screens,
       "3xl": "1900px",
       "4xl": "2500px",
+      tall0: { raw: "(max-height: 500px)" },
       tall: { raw: "(min-height: 1000px)" },
       tall2: { raw: "(min-height: 1200px)" },
     },
