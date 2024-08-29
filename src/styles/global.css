@@ -33,7 +33,7 @@
     }
     /* custom transition */
     .base-transition-1{
-        transition: 0.2s;
+        transition: all 0.2s;
     }
     /* menu transition */
     .menu-transition{
@@ -44,7 +44,6 @@
         box-shadow: 0 20px 70px -10px rgb(0 0 0 / 0.2);
     }
   }
-
 
 
 /* Hide scrollbar for Chrome, Safari, and Opera */

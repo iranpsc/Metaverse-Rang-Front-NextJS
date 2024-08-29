@@ -12,6 +12,7 @@ export { default as Structures } from "../../../public/svg/structures.svg";
 export { default as Transaction } from "../../../public/svg/transaction.svg";
 export { default as CLoseIcon } from "../../../public/svg/close.svg";
 export { default as MenuIcon } from "../../../public/svg/menu.svg";
+export { default as LoginIcon } from "../../../public/svg/login-icon-1.svg";
 export { default as ActiveMenuIcon } from "../../../public/svg/darkactiveMenu.svg";
 export { default as Language } from "../../../public/svg/Language.svg";
 export { default as LoginMenu } from "../../../public/svg/login-menu.svg";
@@ -52,11 +53,3 @@ export { default as Mayor } from "../../../public/svg/level/the-mayor.png";
 export { default as Minister } from "../../../public/svg/level/minister.png";
 export { default as Legislator } from "../../../public/svg/level/legislator.png";
 export { default as Judge } from "../../../public/svg/level/judge.png";
-
-
-
-
-
-
-
-

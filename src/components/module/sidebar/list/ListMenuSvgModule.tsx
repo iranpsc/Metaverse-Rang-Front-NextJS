@@ -10,7 +10,7 @@ export default function ListMenuSvgModule({ item, i, activeNav }: any) {
       color={`${
         activeNav == i
           ? "stroke-[#0066FF] dark:stroke-[#FFC700]"
-          : "stroke-[#888888] dark:stroke-[#888888]"
+          : "stroke-[#888888] dark:stroke-[#868B90]"
       }`}
       //   color={`${
       //     item.name === "trainings"

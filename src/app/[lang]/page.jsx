@@ -4,7 +4,6 @@ import SectionTimer from "@/components/templates/firstpage/SectionTimer";
 import SectionTeam from "@/components/templates/firstpage/TeamSection";
 import TopCitizen from "@/components/templates/firstpage/TopCitizen";
 import LastNews from "@/components/templates/firstpage/LastNews";
-import Image from "next/image";
 import Section3D from "@/components/templates/firstpage/Section3D";
 import TopTrainersFirstPage from "@/components/templates/firstpage/TopTrainersFirstPage";
 import EducationFirstPage from "@/components/templates/firstpage/EducationFirstPage";
@@ -17,34 +16,21 @@ import {
   getMainFile,
   findByModalName,
   findByTabName,
+  getLangArray
 } from "@/components/utils/actions";
 import DynamicFooter from "@/components/module/footer/DynamicFooter";
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
 
 export default async function LangPage({params}) {
-  //
 
-  //
+  const langArray = await getLangArray();
   const langData = await getTransletion(params.lang);
   const mainData = await getMainFile(langData);
   const defaultTheme = useServerDarkMode();
 
-  const citizenModals = await findByModalName(mainData, "Citizenship-profile");
-  // const modalsProfile = mainData.modals.find(
-  //   (modal) => modal.name === "Citizenship-profile"
-  // ).tabs;
-  const tabsMenu = await findByTabName(citizenModals, "menu");
-  
-  // const tabsMenu = modalsProfile.find(
-  //   (item) => item.name === "menu"
-  // ).fields;
-
   const centralPageModal = await findByModalName(mainData, "central-page");
   const firstPageArrayContent = await findByTabName(centralPageModal, "first-page");
-
-  // const firstPageArrayContent = centralPageModal.find(
-  //   (item) => item.name === "first-page"
-  // ).fields;
+  const tabsMenu = await findByTabName(centralPageModal, "before-login");
 
   // to find in an array with key(_name)
   function localFind(_name) {
@@ -85,9 +71,9 @@ export default async function LangPage({params}) {
     // <>
     <div className="flex h-screen" dir={langData.direction}>
       <SideBar
-        languageSelected={params.lang}
+        tabsMenu={tabsMenu}
         langData={langData}
-        mainData={tabsMenu}
+        langArray={langArray}
         defaultTheme={defaultTheme}
         params={params}
         pageSide="citizen"
@@ -103,16 +89,16 @@ export default async function LangPage({params}) {
             <HeaderFirstPage firstPageArrayContent={firstPageArrayContent} />
           </div>
           <div
-            className="w-full flex flex-col lg:flex-row gap-4 lg:gap-10 lg:absolute bottom-0 xl:pe-32 lg:pe-32 md:pe-5 sm:pe-5 xs:pe-5 xl:ps-32 lg:ps-32 md:ps-5 sm:ps-5 xs:ps-5 bg-[#151515] bg-opacity-40 py-10 z-[1]"
+            className="w-full flex flex-col lg:flex-row gap-4 lg:gap-10 lg:absolute bottom-0 xl:pe-32 lg:pe-32 md:pe-5 sm:pe-5 xs:pe-5 xl:ps-32 lg:ps-32 md:ps-5 sm:ps-5 xs:ps-5 bg-[#151515] bg-opacity-40 py-3 xl:py-6 2xl:py-10 z-[1]"
           >
             <div
               className="lg:w-1/2 flex flex-col justify-start items-start gap-4"
             >
               <Frame1 className="size-[36px]" />
-              <h5 className="text-white font-bold text-[18px] font-azarMehr">
+              <h5 className="text-white font-bold text-[18px] 3xl:text-[28px] font-azarMehr">
                 {localFind("different competitions")}
               </h5>
-              <p className="w-full  text-justify   text-white font-azarMehr font-medium ">
+              <p className="w-full  text-justify text-[16px] 3xl:text-[22px] text-white font-azarMehr font-medium ">
                 {localFind(
                   "metaverse rang invites you to an exciting world of competition"
                 )}
@@ -123,10 +109,10 @@ export default async function LangPage({params}) {
               className="lg:w-1/2 xl:col-span-6 lg:col-span-6 md:col-span-12 sm:col-span-12 xs:col-span-12 flex flex-col justify-start items-start gap-4 mt-10 md:mt-0"
             >
               <Frame2 className="size-[36px]" />
-              <h5 className="text-white font-bold text-[18px] font-azarMehr">
+              <h5 className="text-white font-bold text-[18px] 3xl:text-[28px] font-azarMehr">
                 {localFind("real interactions")}
               </h5>
-              <p className="w-full   text-justify   text-white font-azarMehr font-medium ">
+              <p className="w-full text-justify text-[16px] 3xl:text-[22px] text-white font-azarMehr font-medium ">
                 {localFind(
                   "metaverse rang invites you to an exciting world of real interactions"
                 )}

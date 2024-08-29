@@ -46,7 +46,6 @@ tabsMenu.forEach((el1) => {
   });
 });
 
-
  const onTabClick = (item, tabNumber) => {
   setActiveNav(tabNumber);}
 
@@ -60,7 +59,7 @@ tabsMenu.forEach((el1) => {
           tabsMenu.map((item, i) => (
             //*HINT*the way to pass parameters to function in nextjs "onTabClick(item)"
             // 389 is levels tab id
-           item.tab_id === 389 &&
+           item.menuItem === true &&
            <div key={item.id}>
             <li onClick={() => onTabClick(item, i)} data-tooltip-id={item.name}>
               {item.route_name ?

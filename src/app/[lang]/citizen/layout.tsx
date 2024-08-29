@@ -3,6 +3,8 @@ import {
   getTransletion,
   getMainFile,
   getLangArray,
+  findByModalName,
+  findByTabName,
 } from "@/components/utils/actions";
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
 
@@ -19,23 +21,25 @@ export default async function CitizensLayout({
   const langData = await getTransletion(params.lang);
   const mainData = await getMainFile(langData);
   const langArray = await getLangArray();
-  const modalsProfile = mainData.modals.find(
-    (modal: any) => modal.name === "Citizenship-profile"
-  ).tabs;
-  const tabsMenu = modalsProfile.find(
-    (item: any) => item.name === "menu"
-  ).fields;
+  const citizenProfileModals = await findByModalName(
+    mainData,
+    "Citizenship-profile"
+  );
+  const tabsMenu = await findByTabName(citizenProfileModals, "menu");
+
   return (
-    <main className="flex dark:bg-black" dir={langData.direction}>
+    <main className="flex h-screen dark:bg-black" dir={langData.direction}>
       <SideBar
-        languageSelected={params.lang}
+        tabsMenu={tabsMenu}
         langData={langData}
-        mainData={tabsMenu}
+        langArray={langArray}
         defaultTheme={defaultTheme}
         params={params}
         pageSide="citizen"
       />
-      <div className={`relative xs:pt-14 sm:pt-14 lg:pt-[0]  w-full`}>
+      <div
+        className={`overflow-y-auto relative light-scrollbar dark:dark-scrollbar xs:pt-14 sm:pt-14 lg:pt-[0] w-full`}
+      >
         {children}
       </div>
     </main>

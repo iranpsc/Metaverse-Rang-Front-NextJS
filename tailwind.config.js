@@ -11,6 +11,7 @@ module.exports = {
       ...defaultTheme.screens,
       "3xl": "1900px",
       "4xl": "2500px",
+      tall0: { raw: "(max-height: 500px)" },
       tall: { raw: "(min-height: 1000px)" },
       tall2: { raw: "(min-height: 1200px)" },
     },
@@ -100,6 +101,7 @@ module.exports = {
         darkGrey_1:"#10100F",
         grayLight:"#F8F8F8",
         activeGrey:"#626262",
+        divider:"#2d2d2a38",
         // *** this project custome END
         light: {
           test: "#2503f1",

@@ -5,6 +5,7 @@ import {
   getMainFile,
   findByModalName,
   findByTabName,
+  getLangArray,
 } from "@/components/utils/actions";
 import DynamicFooter from "@/components/module/footer/DynamicFooter";
 import LevelCard from "@/components/module/levelComponent/LevelCard";
@@ -102,6 +103,8 @@ export default async function LevelsPage({
 
   const footerTabs = await getFooterData(params);
 
+  const langArray = await getLangArray();
+
   const langData = await getTransletion(params.lang);
   const mainData = await getMainFile(langData);
   const levels = await findByModalName(mainData, "levels");
@@ -133,9 +136,9 @@ export default async function LevelsPage({
     <>
       <div className={`flex dark:bg-black `} dir={langData.direction}>
         <SideBar
-          languageSelected={params.lang}
+          langArray={langArray}
           langData={langData}
-          mainData={tabsMenu}
+          tabsMenu={tabsMenu}
           defaultTheme={defaultTheme}
           params={params}
           pageSide="citizen"
@@ -145,7 +148,7 @@ export default async function LevelsPage({
           //   themeDataActive == "dark" ? "dark-scrollbar" : "light-scrollbar"
           // }`}
 
-          className={`h-screen overflow-y-auto relative`}
+          className={`h-screen overflow-y-auto relative light-scrollbar dark:dark-scrollbar`}
         >
           <div className="px-5 pb-10 lg:pb-20">
             <h2 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[110px] lg:mt-[64px] mb-[16px]">

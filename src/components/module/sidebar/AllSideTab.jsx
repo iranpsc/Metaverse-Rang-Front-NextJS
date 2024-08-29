@@ -8,7 +8,7 @@ import ListMenuTitleModule from "./list/ListMenuTitleModule";
 // import ListMenuActiveIconModule from "./list/ListMenuActiveIconModule";
 import ListMenuArrow from "./list/ListMenuArrow";
 // import DropdownTrainingsModule from "./list/dropdowns/DropdownTrainingsModule";
-// import DropdownLanguageModule from "./list/dropdowns/DropdownLanguageModule";
+import DropdownLanguageModule from "./list/dropdowns/DropdownLanguageModule";
 import { Modals_fa, Modals_en } from "@/components/utils/modals-content";
 import { useState } from "react";
 import Modal from "@/components/templates/modal";
@@ -18,12 +18,15 @@ import { Tooltip as ReactTooltip } from "react-tooltip";
 
 export default function SideBarContent({
   tabsMenu,
- langData,
+  langData,
   isClosed,
+  langArray,
+  params
 }) {
   const [modalShow, setModalShow] = useState(false);
   const [modalData, setModalData] = useState({});
   const [activeNav, setActiveNav] = useState(1);
+  const [langDropDown, setLangDropDown] = useState(false);
   const closeModal = () => {
     setModalShow(false);
   };
@@ -44,6 +47,31 @@ export default function SideBarContent({
       }
     }
   };
+  const handleLangBtn = () => {
+    setLangDropDown(!langDropDown)
+  }
+  const staticMenuToShow = [
+    "home",
+    "property",
+    "real estate",
+    "structures",
+    "belongings",
+    "permissions",
+    "invitations",
+    "transaction",
+    "reward",
+    "dynasty",
+    "connections",
+    "crimes",
+    "news",
+    "articles",
+    "trainings",
+    "about",
+    "contact",
+    "version",
+    "calendar",
+    "overview",
+  ]
 
   return (
     <>
@@ -60,13 +88,13 @@ export default function SideBarContent({
             //*HINT*the way to pass parameters to function in nextjs "onTabClick(item)"
             //*HINT*i<=12 is not a good solution,array must be change
           <div key={item.id}>
-            { (i <=12) &&
+            { (staticMenuToShow.some(x => x == `${item.name}`)) &&
             <li  onClick={() => onTabClick(item, i)} data-tooltip-id={item.name}>
               {/* (i == 0) for hiding first element of array"متاورس" */}
-              {i !== 0 && (
+              
                 <div
                   className={`w-full flex flex-row items-center gap-2 group py-[12px] 3xl:py-[16px]
-                  group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer base-transition-1
+                  group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer menu-transition
                   ${isClosed ? "justify-start" : "justify-start"}`}
                 >
                     <ListMenuActiveIconModule
@@ -86,27 +114,48 @@ export default function SideBarContent({
                       activeNav={activeNav}
                     />
                   <ListMenuArrow item={item} />
-                </div>
-              )}
-              {/* {item.name === "trainings" &&
-                state.activeDropdown.some((item) => item.key === "trainings") &&
-                !state.isCollapsed && <DropdownTrainingsModule />} */}
-              {
-                item.name === "language"
-                //  &&
-                //   !state.isCollapsed &&
-                //   state.activeDropdown.some(
-                //     (item) => item.key === "language"
-                //   ) && (
-                //     <DropdownLanguageModule
-                //       languagesData={languagesData}
-                //       languageSelected={languageSelected}
-                //       handleDirChange={handleDirChange}
-                //     />
-                //   )
-              }
+                </div>              
             </li>
-           }
+            }
+            
+            {item.name === "language" && 
+                <>
+                  <li onClick={handleLangBtn} data-tooltip-id={item.name}>
+                    <div
+                      className={`w-full flex flex-row items-center gap-2 group py-[12px] 3xl:py-[16px]
+                      group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer menu-transition
+                      ${isClosed ? "justify-start" : "justify-start"}`}
+                      >
+                        <ListMenuActiveIconModule
+                          item={item}
+                          languageSelected={langData.code}
+                          isClosed={isClosed}
+                          activeNav={activeNav}
+                          i={i}
+                          />
+                      <span className="ps-[15px]">
+                        <ListMenuSvgModule item={item} i={i} activeNav={activeNav} />
+                      </span>
+                        <ListMenuTitleModule
+                          item={item}
+                          isClosed={isClosed}
+                          i={i}
+                          activeNav={activeNav}
+                        />
+                      <ListMenuArrow item={item} isOpen={langDropDown} />
+                    </div>              
+                  </li>
+                  <div className={`${langDropDown ? "h-full" : 'h-0 overflow-hidden'}
+                    base-transition-1 bg-Field dark:bg-darkGrey`}>
+                    <DropdownLanguageModule
+                      languagesData={langData}
+                      langArray={langArray}
+                      params={params}
+                      isClosed={isClosed}
+                      />
+                  </div>
+                </>
+                }
              <ReactTooltip
              id={item.name}
              place={langData.direction === "rtl"?"left" :"right"}

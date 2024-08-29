@@ -16,13 +16,9 @@ const ListMenuTitleModule = ({ item, activeNav, i, isClosed }: any) => {
 
     <div
       className={`
-    ${
-      activeNav == i
-        ? "text-activeGrey dark:text-white"
-        : "text-lightGrey dark:text-lightGrey"
-    }
-    ${isClosed ? "invisible w-0" : "visible w-fit"}
-    capitalize 3xl:text-xl3Title xl:text-xlTitle lg:text-lgTitle md:text-mdTitle sm:text-smTitle xs:text-smTitle font-azarMehr font-normal 3xl:text-[22px]`}
+    ${activeNav == i ? "text-blueLink" : ""}
+    ${isClosed ? "w-0 h-0 overflow-hidden" : "w-full h-fit"}
+    capitalize 3xl:text-xl3Title xl:text-xlTitle lg:text-lgTitle md:text-mdTitle sm:text-smTitle xs:text-smTitle font-azarMehr font-normal 3xl:text-[22px] menu-transition text-black dark:text-lightGray`}
     >
       {item.translation}
     </div>
