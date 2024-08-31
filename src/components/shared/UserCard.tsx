@@ -18,14 +18,14 @@ export default function UserCard({ item, index, params }: any) {
           loading="lazy"
         />
         <p className="font-azarMehr font-medium text-[20px] text-white">
-          بهراد جهانی
+          {item.name}
         </p>
         <p className="font-azarMehr font-medium text-[18px] text-dark-yellow">
           شهروندان پیشرو
         </p>
         <div className="flex justify-center items-center">
           <p className="font-azarMehr font-medium text-[20px] text-[#808080]">
-            125
+            {item.like}
           </p>
           <Like className="size-[15px] stroke-[#808080]" />
         </div>

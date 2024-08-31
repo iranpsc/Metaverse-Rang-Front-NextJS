@@ -89,7 +89,7 @@ module.exports = {
         gray: "#151b30",
         extraGray: "rgba(86, 89, 89, 1)",
         white: "#ffffff",
-        blueLink: "#0000FF",
+        blueLink: "#0066ff",
         error: "#ff0000",
         defaultButton: "#D4ECFF",
         activeButton: "#008BF8",

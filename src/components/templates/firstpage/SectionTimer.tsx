@@ -29,9 +29,9 @@ const SectionTimer = ({ firstPageArrayContent }: any) => {
         style={{ borderColor: "linear-gradient(to right, #000, #fff)" }}
       >
         <div className="absolute bg-white/10 z-0 size-[150px] top-[10px] end-[20%] blur-3xl  filter"></div>
-        <div className="w-full md:w-2/5 lg:h-full rounded-[32px] border-none overflow-hidden">
+        <div className="w-[20vw] h-[20vw] md:w-2/5 rounded-[32px] border-none overflow-hidden">
           <Image
-            className="w-fill h-full object-contain"
+            className="w-fill h-full object-cover"
             src="/firstpage/img1-1.jpg"
             alt="header"
             width={1000}
@@ -51,21 +51,23 @@ const SectionTimer = ({ firstPageArrayContent }: any) => {
       {/* SECOND BOX */}
       <div
         className="w-full xl:w-[35%] h-full rounded-[50px] border-2 border-[#343434] p-4
-      flex flex-col justify-between items-center relative "
+      flex flex-col justify-around items-center relative "
       >
         <div className="absolute bg-white/10 z-0 size-[150px] top-[-10px] end-[-20px] rounded-xl blur-3xl  filter"></div>
         <DynamicTimer />
-        <p className="w-full rounded-[28px] py-3 z-50 text-center text-lg lg:text-[20px] text-black bg-dark-yellow  font-azarMehr font-medium mt-5 ">
-          پیش خرید
-        </p>
-        <p className="w-full rounded-[28px] py-3 mt-5 text-center text-lg lg:text-[20px] text-white bg-[#343434]  font-azarMehr font-medium ">
-          <a
-            href="https://meta.irpsc.com/2024/07/19/ariana/"
-            className="w-full h-full inline-block"
-          >
-            مشاهده آبجکت
-          </a>
-        </p>
+        <div className="w-full">
+          <p className="w-full rounded-[28px] py-3 z-50 text-center text-lg lg:text-[20px] text-black bg-dark-yellow  font-azarMehr font-medium mt-5 ">
+            پیش خرید
+          </p>
+          <p className="w-full rounded-[28px] py-3 mt-5 text-center text-lg lg:text-[20px] text-white bg-[#343434]  font-azarMehr font-medium ">
+            <a
+              href="https://meta.irpsc.com/2024/07/19/ariana/"
+              className="w-full h-full inline-block"
+            >
+              مشاهده آبجکت
+            </a>
+          </p>
+        </div>
       </div>
 
       <div className="bg-dark-yellow rounded-full p-[10px] flex justify-center items-center hidden lg:flex xs:hidden">
