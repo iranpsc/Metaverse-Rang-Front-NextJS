@@ -1,9 +1,3 @@
-import { ArrowRight, ButtonClick } from "@/components/svgs";
-import { Dislike, Like, View, Video } from "@/components/svgs/SvgEducation";
-
-import Image from "next/image";
-import Link from "next/link";
-
 const Section3D = () => {
   return (
     <>
@@ -28,10 +22,8 @@ const Section3D = () => {
             muted
             playsInline
             style={{ display: "block" }}
-          >
-            <source src="/firstpage/3d-rgb.irpsc.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+            src="/firstpage/3129671-uhd_3840_2160_30fps.mp4"
+          />
         </div>
         {/* <Image
           src={`/firstpage/frame.jpg`}

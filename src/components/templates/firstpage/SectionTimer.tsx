@@ -24,7 +24,7 @@ const SectionTimer = ({ firstPageArrayContent }: any) => {
       </div>
       {/* FIRST BOX */}
       <div
-        className="relative  h-full p-4 border-2 border-[#343434] rounded-[50px]
+        className="relative border-2 border-[#343434] rounded-[50px] p-3
         flex xl:flex-row lg:flex-row md:flex-nowrap sm:flex-wrap xs:flex-wrap xl:gap-0 lg:gap-0 md:gap-0 sm:gap-5  xs:gap-5 justify-center items-center"
         style={{ borderColor: "linear-gradient(to right, #000, #fff)" }}
       >
@@ -32,7 +32,7 @@ const SectionTimer = ({ firstPageArrayContent }: any) => {
         <div className="w-[20vw] h-[20vw] md:w-2/5 rounded-[32px] border-none overflow-hidden">
           <Image
             className="w-fill h-full object-cover"
-            src="/firstpage/img1-1.jpg"
+            src="/firstpage/ariai.rgb.irpsc.jpg"
             alt="header"
             width={1000}
             height={1000}
@@ -50,7 +50,7 @@ const SectionTimer = ({ firstPageArrayContent }: any) => {
       </div>
       {/* SECOND BOX */}
       <div
-        className="w-full xl:w-[35%] h-full rounded-[50px] border-2 border-[#343434] p-4
+        className="w-full xl:w-[35%] rounded-[50px] border-2 border-[#343434] p-3
       flex flex-col justify-around items-center relative "
       >
         <div className="absolute bg-white/10 z-0 size-[150px] top-[-10px] end-[-20px] rounded-xl blur-3xl  filter"></div>

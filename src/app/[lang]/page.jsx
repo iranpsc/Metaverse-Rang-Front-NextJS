@@ -80,16 +80,28 @@ export default async function LangPage({params}) {
       />
       <section
         // id={`${defaultTheme == "dark" ? "dark-scrollbar" : "light-scrollbar"}`}
-        className={`overflow-y-auto relative no-scrollbar bg-[#2F2D28]`}
+        className={`overflow-y-auto relative no-scrollbar pt-[60px] lg:pt-0`}
       >
-        <section className="flex flex-col h-fit lg:h-screen relative">
+        <section className="flex flex-col h-fit min-h-[calc(100vh-60px)] lg:h-screen relative">
+
+        {/* lazy loaded video which have poster (shown before loading) */}
+        <video
+          src='/firstpage/3d-rgb.irpsc.mp4'
+          poster="/firstpage/3d-rgb.irpsc.png"
+          autoPlay
+          muted
+          loop
+          playsInline
+          loading="lazy"
+          className="absolute w-full h-full object-cover object-[-115px] sm:object-left"
+        />
           <div
-            className="w-full h-full flex flex-col-reverse lg:flex-row px-5 lg:ps-[32px] lg:pe-0 bg-[#2F2D28] "
+            className="w-full h-full flex flex-col-reverse lg:flex-row px-5 lg:ps-[32px] lg:pe-0 z-[1]"
           >
             <HeaderFirstPage firstPageArrayContent={firstPageArrayContent} />
           </div>
           <div
-            className="w-full tall0:max-h-[50vh] max-h-[35vh] flex flex-col lg:flex-row gap-4 xl:gap-10 lg:absolute bottom-0 xl:pe-32 lg:pe-32 md:pe-5 sm:pe-5 xs:pe-5 xl:ps-32 lg:ps-32 md:ps-5 sm:ps-5 xs:ps-5 bg-[#151515] bg-opacity-40 py-3 xl:py-6 2xl:py-10 z-[1]"
+            className="w-full max-h-[50vh] overflow-y-auto light-scrollbar dark:dark-scrollbar tall0:max-h-[50vh] lg:max-h-[35vh] flex flex-col lg:flex-row gap-4 xl:gap-10 absolute bottom-0 xl:pe-32 lg:pe-32 xs:pe-5 xl:ps-32 lg:ps-32 md:ps-5 sm:ps-5 xs:ps-5 bg-[#151515] bg-opacity-40 py-3 xl:py-6 2xl:py-10 z-[1] mt-4"
           >
             <div
               className="lg:w-1/2 flex flex-col justify-start items-start gap-4"
@@ -100,7 +112,7 @@ export default async function LangPage({params}) {
                   {localFind("different competitions")}
                 </h5>
               </div>
-              <p className="w-full text-justify text-[14px] 3xl:text-[22px] text-white font-azarMehr font-medium ">
+              <p className="w-full text-justify text-white font-azarMehr font-medium text-[12px] sm:text-[14px] md:text-[16px] 2xl:text-[24px]">
                 {localFind(
                   "metaverse rang invites you to an exciting world of competition"
                 )}
@@ -116,7 +128,7 @@ export default async function LangPage({params}) {
                   {localFind("real interactions")}
                 </h5>
               </div>
-              <p className="w-full text-justify text-[14px] 3xl:text-[22px] text-white font-azarMehr font-medium ">
+              <p className="w-full text-justify text-white font-azarMehr font-medium text-[12px] sm:text-[14px] md:text-[16px] 2xl:text-[24px]">
                 {localFind(
                   "metaverse rang invites you to an exciting world of real interactions"
                 )}
@@ -129,17 +141,17 @@ export default async function LangPage({params}) {
           className={`w-full relative flex  flex-col justify-start overflow-x-clip overflow-y-auto items-center bg-[#f8f8f8] dark:bg-[#2F2D28] bg-opacity20 
             xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1`}
         >
-          <div className="w-full relative lg:h-[350px] 2xl:h-[400px] mt-10 md:mt-36">
+          <div className="w-full relative lg:h-[350px] 2xl:h-[400px] mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
             {/* <div className="absolute top-0 left-0 w-full h-full bg-cover bg-no-repeat bg-center filter blur-sm "></div> */}
             <SectionTimer firstPageArrayContent={firstPageArrayContent} />
           </div>
 
-          <div className="relative w-[90%] h-fit grid grid-cols-12 mt-10 md:mt-36 ">
+          <div className="relative w-[90%] h-fit grid grid-cols-12 mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
             {/* <div className="absolute bg-dark-yellow/10 z-0 size-[250px] start-[0px] bottom-[0px] rounded-xl blur-3xl filter"></div> */}
             <SectionTeam firstPageArrayContent={firstPageArrayContent} />
           </div>
 
-          <div className="w-[90%] h-fit  mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
+          <div className="w-[90%] h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
             <TopCitizen firstPageArrayContent={firstPageArrayContent} params={params} />
           </div>
 
