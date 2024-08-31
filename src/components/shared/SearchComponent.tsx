@@ -67,7 +67,7 @@ export default function SearchComponent({
         // id={`${
         //   themeDataActive === "dark" ? "dark-scrollbar" : "light-scrollbar"
         // }`}
-        className="mt-[50px] flex flex-col items-center w-full relative z-20 dark:dark-scrollbar light-scrollbar"
+        className="w-[100%] md:w-[70%] lg:w-[50%] mt-[50px] flex flex-col items-center w-full relative z-20 dark:dark-scrollbar light-scrollbar"
       >
         <SectionInputSearch
           SectionName="education"

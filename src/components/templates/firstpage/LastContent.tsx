@@ -15,16 +15,19 @@ const LastContent = ({ firstPageArrayContent, params }: any) => {
       title: "استاندارد های متاورس",
       desc: "در حال حاضر هیچ قانونی وجود ندارد که به طور خاص متاورس یا سایر دنیای مجازی را تنظیم کند. با این حال، همان قوانین کلی که در مورد اینترنت اعمال می شود، در مورد Metaverse نیز اعمال می شود، از جمله قانون کپی رایت، قانون افترا، قانون قرارداد و غیره است.",
       url: "https://rgb.irpsc.com/blogs/metaverse-standards.html",
+      categories: "مقالات",
     },
     {
       title: "متاورس چیست",
       desc: "فضای مجازی ممکن است جملات زیادی از زبان مدیران اجرایی مانند مارک زاکربرگ یا ساتیا نادلا در مورد متاورس شنیده باشید متاورس آینده اینترنت است",
       url: "https://rgb.irpsc.com/blogs/metaverse.html",
+      categories: "مقالات",
     },
     {
       title: "متاورس ملی",
       desc: "متاورس رنگ اولین متاورس ایران با هدف توسعه تاورس ملی اهداف زیادی از قبیل عدم خروج ارز از کشور و در فازهای بعدی ورود ارز به کشور را دارد که این ها همه بخشی کوچکی از اهداف متاورس ملی می باشد",
       url: "https://rgb.irpsc.com/blogs/national-metaverse.html",
+      categories: "مقالات",
     },
   ];
 
@@ -63,14 +66,7 @@ const LastContent = ({ firstPageArrayContent, params }: any) => {
 
             <div className=" w-[95%] flex flex-row justify-start items-center gap-1  mt-[-10px] pe-16">
               <p className="text-start text-gray dark:text-dark-gray font-medium font-azarMehr text-[13px]  3xl:text-[16px] cursor-pointer hover:text-blueLink hover:dark:text-dark-yellow">
-                توسعه وب
-              </p>
-              <span className="font-azarMehr text-start text-gray dark:text-dark-gray font-medium text-[13px] 3xl:text-[16px]">
-                /
-              </span>
-
-              <p className=" text-start  text-gray dark:text-dark-gray  whitespace-nowrap font-medium font-azarMehr text-[13px] 3xl:text-[16px] cursor-pointer hover:text-blueLink hover:dark:text-dark-yellow">
-                لورم اپیسوم
+                {item.categories}
               </p>
             </div>
 
