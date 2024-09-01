@@ -142,7 +142,7 @@ function Footer({ footerTabs }: any) {
 
   return (
     <>
-      <div className="h-fit  w-[96%] mt-[200px] flex flex-wrap gap-[15px] py-5 rounded-[10px]  items-center justify-center bg-white dark:bg-[#1A1A18]">
+      <div className="h-fit  w-full mt-[200px] flex flex-wrap gap-[15px] py-5 rounded-[10px]  items-center justify-center bg-white dark:bg-[#1A1A18]">
         {imageSources.map((item: any, i: number) => (
           <Link key={i} href={item.target} target="_blank">
             <Image
@@ -175,7 +175,7 @@ function Footer({ footerTabs }: any) {
           </Link>
         ))}
       </div>
-      <div className="h-fit pb-5 mt-20 rounded-[10px] w-[96%] bg-white dark:bg-[#1A1A18] grid grid-cols-6">
+      <div className="h-fit pb-5 mt-20 rounded-[10px] w-full bg-white dark:bg-[#1A1A18] grid grid-cols-6">
         <div className="col-span-6  xl:col-span-4 mt-2  pe-2">
           <div className="w-full h-[82px] mt-4 ms-6 flex flex-row justify-start items-center gap-5 ">
             <Image

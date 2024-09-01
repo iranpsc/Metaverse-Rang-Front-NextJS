@@ -81,7 +81,7 @@ export default function SideBarContent({
       {modalShow && <Modal dataObject={modalData} close={closeModal} />}
       <ul
         id="light-scrollbar"
-        className={`h-full z-[1] list-none overflow-y-scroll no-scrollbar relative pt-3 w-full menu-transition max-lg:w-fit`}
+        className={`h-full z-[1000] list-none overflow-y-scroll relative no-scrollbar relative pt-3 w-full menu-transition max-lg:w-fit`}
       >
         {tabsMenu &&
           tabsMenu.map((item, i) => (
@@ -158,8 +158,8 @@ export default function SideBarContent({
                 }
              <ReactTooltip
              id={item.name}
-             place={langData.direction === "rtl"?"left" :"right"}
-             className="tooltip-bg-color"
+             place="top"
+             className="max-w-[90%] tooltip-bg-color text-center"
              content={item.translation}
            />
             </div>

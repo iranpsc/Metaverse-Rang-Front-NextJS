@@ -12,7 +12,7 @@ export default function HeaderFirstPage({ firstPageArrayContent }: any) {
   return (
     <>
       {/* FIRST BOX */}
-      <div className="w-full lg:w-1/2 flex flex-col justify-start items-start gap-1 md:gap-2 lg:gap-1 xl:gap-3">
+      <div className="w-full lg:w-1/2 flex flex-col justify-start items-start gap-1">
         <motion.h1
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}

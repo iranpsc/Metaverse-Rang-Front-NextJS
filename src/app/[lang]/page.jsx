@@ -101,18 +101,18 @@ export default async function LangPage({params}) {
             <HeaderFirstPage firstPageArrayContent={firstPageArrayContent} />
           </div>
           <div
-            className="w-full max-h-[50vh] overflow-y-auto light-scrollbar dark:dark-scrollbar tall0:max-h-[50vh] lg:max-h-[35vh] flex flex-col lg:flex-row gap-4 xl:gap-10 absolute bottom-0 xl:pe-32 lg:pe-32 xs:pe-5 xl:ps-32 lg:ps-32 md:ps-5 sm:ps-5 xs:ps-5 bg-[#151515] bg-opacity-40 py-3 xl:py-6 2xl:py-10 z-[1] mt-4"
+            className="w-full max-h-[50vh] overflow-y-auto light-scrollbar dark:dark-scrollbar tall0:max-h-[50vh] lg:max-h-[35vh] flex flex-col lg:flex-row gap-4 xl:gap-10 absolute bottom-0 xl:pe-32 lg:pe-32 xs:pe-5 xl:ps-32 lg:ps-32 md:ps-5 sm:ps-5 xs:ps-5 bg-[#151515] bg-opacity-40 py-3 z-[1] mt-4"
           >
             <div
               className="lg:w-1/2 flex flex-col justify-start items-start gap-4"
             >
               <div className="flex items-center">
                 <Frame1 className="size-[36px]" />
-                <h5 className="text-white font-bold text-[16px] 3xl:text-[28px] ps-2 font-azarMehr">
+                <h5 className="text-white font-bold text-[16px] 2xl:text-[24px] 3xl:text-[28px] ps-2 font-azarMehr">
                   {localFind("different competitions")}
                 </h5>
               </div>
-              <p className="w-full text-justify text-white font-azarMehr font-medium text-[12px] sm:text-[14px] md:text-[16px] 2xl:text-[24px]">
+              <p className="w-full text-justify text-white font-azarMehr font-medium text-[12px] sm:text-[14px] md:text-[16px] 2xl:text-[18px]">
                 {localFind(
                   "metaverse rang invites you to an exciting world of competition"
                 )}
@@ -124,11 +124,11 @@ export default async function LangPage({params}) {
             >
               <div className="flex items-center">
                 <Frame2 className="size-[36px]" />
-                <h5 className="text-white font-bold text-[16px] 3xl:text-[28px] ps-2 font-azarMehr">
+                <h5 className="text-white font-bold text-[16px] 2xl:text-[24px] 3xl:text-[28px] ps-2 font-azarMehr">
                   {localFind("real interactions")}
                 </h5>
               </div>
-              <p className="w-full text-justify text-white font-azarMehr font-medium text-[12px] sm:text-[14px] md:text-[16px] 2xl:text-[24px]">
+              <p className="w-full text-justify text-white font-azarMehr font-medium text-[12px] sm:text-[14px] md:text-[16px] 2xl:text-[18px]">
                 {localFind(
                   "metaverse rang invites you to an exciting world of real interactions"
                 )}

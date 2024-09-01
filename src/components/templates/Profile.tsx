@@ -22,10 +22,14 @@ export default async function Profile({
   // const [profileName, setProfileName] = useState<string>("");
 
   // const yourElementRef = useRef(null);
-
-  const concatGems = profileData.data?.achieved_levels.concat(
-    profileData.data.current_level
-  );
+  let concatGems = [];
+  if (profileData.data?.current_level && profileData.data?.achieved_levels) {
+    concatGems = profileData.data?.achieved_levels.concat(
+      profileData.data.current_level
+    );
+  } else {
+    concatGems = profileData.data?.achieved_levels;
+  }
 
   const numberScore =
     100 - parseInt(profileData?.score_percentage_to_next_level);
