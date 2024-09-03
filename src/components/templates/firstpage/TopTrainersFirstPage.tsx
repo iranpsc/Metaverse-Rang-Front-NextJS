@@ -45,7 +45,7 @@ const TopTrainersFirstPage = async ({ firstPageArrayContent, params }: any) => {
           >
             <Image
               className="size-[170px] rounded-full border-none"
-              src={item.img || "/temp.png"}
+              src={item.img || "/temp-1.png"}
               alt="header"
               width={1000}
               height={1000}

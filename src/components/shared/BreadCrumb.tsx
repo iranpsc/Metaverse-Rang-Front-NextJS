@@ -33,7 +33,6 @@ export default function () {
       if (y.name == x) buildedArray.push(y);
     });
   });
-  console.log("buildedArray", buildedArray);
 
   return (
     <div className="flex font-azarMehr text-[16px] lg:text-[18px] 2xl:text-[20px] py-[20px]">

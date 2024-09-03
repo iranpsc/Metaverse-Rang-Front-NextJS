@@ -5,7 +5,7 @@ export default function MenuProfileModule() {
     <>
       <div className="w-full h-[45px] mt-2 items-center justify-start flex flex-row gap-2">
         <Image
-          src="/temp.png"
+          src="/temp-1.png"
           alt=""
           width={100}
           height={100}

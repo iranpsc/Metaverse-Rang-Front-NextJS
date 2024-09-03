@@ -11,7 +11,7 @@ export default function UserCard({ item, index, params }: any) {
       >
         <Image
           className="size-[170px] rounded-full border-none"
-          src={item.profile_photo || "/temp.png"}
+          src={item.profile_photo || "/temp-1.png"}
           alt="header"
           width={1000}
           height={1000}

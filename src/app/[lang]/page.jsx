@@ -16,7 +16,8 @@ import {
   getMainFile,
   findByModalName,
   findByTabName,
-  getLangArray
+  getLangArray,
+  getAllVersions
 } from "@/components/utils/actions";
 import DynamicFooter from "@/components/module/footer/DynamicFooter";
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
@@ -26,7 +27,8 @@ export default async function LangPage({params}) {
   const langArray = await getLangArray();
   const langData = await getTransletion(params.lang);
   const mainData = await getMainFile(langData);
-  const defaultTheme = useServerDarkMode();
+  const defaultTheme = await useServerDarkMode();
+  const allVersionList = await getAllVersions();
 
   const centralPageModal = await findByModalName(mainData, "central-page");
   const firstPageArrayContent = await findByTabName(centralPageModal, "first-page");
@@ -80,20 +82,20 @@ export default async function LangPage({params}) {
       />
       <section
         // id={`${defaultTheme == "dark" ? "dark-scrollbar" : "light-scrollbar"}`}
-        className={`overflow-y-auto relative no-scrollbar pt-[60px] lg:pt-0`}
+        className={`overflow-y-auto relative light-scrollbar dark:dark-scrollbar pt-[60px] lg:pt-0`}
       >
         <section className="flex flex-col h-fit min-h-[calc(100vh-60px)] lg:h-screen relative">
 
         {/* lazy loaded video which have poster (shown before loading) */}
         <video
           src='/firstpage/3d-rgb.irpsc.mp4'
-          poster="/firstpage/3d-rgb.irpsc.png"
+          poster="/firstpage/replaced-pic.png"
           autoPlay
           muted
           loop
           playsInline
           loading="lazy"
-          className="absolute w-full h-full object-cover object-[-115px] sm:object-left"
+          className="absolute w-full h-full ltr:rotate-y-180 object-cover object-[-115px] sm:object-left"
         />
           <div
             className="w-full h-full flex flex-col-reverse lg:flex-row px-5 lg:ps-[32px] lg:pe-0 z-[1]"
@@ -194,7 +196,7 @@ export default async function LangPage({params}) {
 
           <div className="w-[90%] relative h-fit  mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
             {/* <div className="absolute bg-dark-white/10 z-0 size-[250px] start-[0px] top-[0px] rounded-xl blur-2xl filter"></div> */}
-            <VersionSection firstPageArrayContent={firstPageArrayContent} />
+            <VersionSection firstPageArrayContent={firstPageArrayContent} allVersionList={allVersionList} />
           </div>
 
           <div className="flex flex-col justify-center items-center">
