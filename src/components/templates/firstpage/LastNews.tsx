@@ -15,17 +15,20 @@ const LastNews = ({ firstPageArrayContent, params }: any) => {
         "کسب درآمد از اولین متاورس ایران متاورس رنگ، فرصتی نوین برای کارآفرینان دیجیتال",
       desc: "در حال حاضر هیچ قانونی وجود ندارد که به طور خاص متاورس یا سایر دنیای مجازی را تنظیم کند. با این حال، همان قوانین کلی که در مورد اینترنت اعمال می شود، در مورد Metaverse نیز اعمال می شود، از جمله قانون کپی رایت، قانون افترا، قانون قرارداد و غیره است.",
       url: "https://meta.irpsc.com/2024/07/12/earning-income-from-the-first-metaverse-iran-metaverse-rang/",
+      date: "22/تیر/1403",
     },
     {
       title:
         "بازپس گیری جزیره آریانا در اولین متاورس ایران متاورس رنگ با اهدای 963 قطعه زمین(VOD) رایگان به ارزش 50371200000 ریال",
       desc: "فضای مجازی ممکن است جملات زیادی از زبان مدیران اجرایی مانند مارک زاکربرگ یا ساتیا نادلا در مورد متاورس شنیده باشید متاورس آینده اینترنت است",
       url: "https://meta.irpsc.com/2024/07/17/%d8%a8%d8%a7%d8%b2%d9%be%d8%b3-%da%af%db%8c%d8%b1%db%8c-%d8%ac%d8%b2%db%8c%d8%b1%d9%87-%d8%a2%d8%b1%db%8c%d8%a7%d9%86%d8%a7-%d8%af%d8%b1-%d8%a7%d9%88%d9%84%db%8c%d9%86-%d9%85%d8%aa%d8%a7%d9%88%d8%b1/",
+      date: "27/تیر/1403",
     },
     {
       title: "VOD تجاری دارای بنا چیست؟ |متاورس",
       desc: "متاورس رنگ اولین متاورس ایران با هدف توسعه تاورس ملی اهداف زیادی از قبیل عدم خروج ارز از کشور و در فازهای بعدی ورود ارز به کشور را دارد که این ها همه بخشی کوچکی از اهداف متاورس ملی می باشد",
       url: "https://video.irpsc.com/watch/F2x6VMfXJK8xhhT",
+      date: "6/مرداد/1403",
     },
   ];
   return (
@@ -73,7 +76,7 @@ const LastNews = ({ firstPageArrayContent, params }: any) => {
                 className="text-start text-gray dark:text-dark-gray font-medium font-azarMehr text-[13px]  3xl:text-[16px]"
                 //   onClick={() => pusher(item.category.slug)}
               >
-                27 اسفند 1402
+                {item.date}
               </p>
             </div>
 
@@ -86,7 +89,7 @@ const LastNews = ({ firstPageArrayContent, params }: any) => {
             <div className="w-[95%] pb-2 flex flex-row justify-between  items-center">
               {/* <Link href="#" target="_blank"> */}
               <Link
-                href={`/${params.lang}/citizen/Hm-2000003`}
+                href={`/${params.lang}/citizen/Hm-2000001`}
                 className="flex flex-row justify-start items-center gap-2"
               >
                 <Image
@@ -99,7 +102,7 @@ const LastNews = ({ firstPageArrayContent, params }: any) => {
                   // onClick={() => pushRgb(item.creator.code)}
                 />
                 <span className="text-blueLink  cursor-pointer text-[14px] 3xl:text-[18px] whitespace-nowrap font-medium hover:font-bold uppercase ">
-                  Hm-2000003
+                  Hm-2000001
                 </span>
               </Link>
               {/* </Link> */}

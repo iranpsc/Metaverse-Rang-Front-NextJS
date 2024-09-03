@@ -12,12 +12,12 @@ export default function HeaderFirstPage({ firstPageArrayContent }: any) {
   return (
     <>
       {/* FIRST BOX */}
-      <div className="w-full w-full flex flex-col justify-start items-start gap-3 md:gap-2 lg:gap-5 2xl:gap-10 3xl:gap-40">
+      <div className="w-full lg:w-1/2 flex flex-col justify-start items-start gap-1">
         <motion.h1
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.3, delay: 0.3 }}
-          className="w-[50%] md:text-center font-bold text-[28px] sm:text-[32px] md:text-[38px] xl:text-[56px] 2xl:text-[96px] 3xl:text-[108px] text-dark-yellow whitespace-nowrap font-rokh mt-5"
+          className="w-[50%] font-bold text-[28px] sm:text-[32px] md:text-[38px] xl:text-[56px] 2xl:text-[78px] 3xl:text-[108px] text-dark-yellow whitespace-nowrap font-rokh mt-2 xl:mt-5"
         >
           متاورس رنگ
         </motion.h1>
@@ -27,7 +27,7 @@ export default function HeaderFirstPage({ firstPageArrayContent }: any) {
           transition={{ duration: 0.3, delay: 0.3 }}
           className=" w-full outline-none border-none"
         >
-          <Vector className="w-[50%] h-10 md:h-5 2xl:h-10" />
+          <Vector className="w-[50%] h-2 md:h-5 2xl:h-10" />
         </motion.div>
 
         <motion.h3
@@ -66,8 +66,8 @@ export default function HeaderFirstPage({ firstPageArrayContent }: any) {
       </div>
       {/* LAST BOX */}
 
-      <div className="w-full flex justify-center items-center">
-        {/* desktop */}
+      {/* <div className="w-full flex justify-center items-center">
+        // desktop
         <Image
           className="size-full object-cover hidden lg:block pt-[2vh] ltr:rotate-180"
           src="/firstpage/header.png"
@@ -76,7 +76,7 @@ export default function HeaderFirstPage({ firstPageArrayContent }: any) {
           height={1000}
           priority={true}
         />
-        {/* mobile */}
+        // mobile
         <Image
           className="w-full pt-[40px] lg:hidden"
           src="/firstpage/header1.png"
@@ -85,7 +85,7 @@ export default function HeaderFirstPage({ firstPageArrayContent }: any) {
           height={1000}
           priority={true}
         />
-      </div>
+      </div> */}
     </>
   );
 }

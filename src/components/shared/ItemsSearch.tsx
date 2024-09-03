@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 
 import { motion } from "framer-motion";
-import { Like } from "@/components/svgs/SvgEducation";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -14,6 +13,7 @@ export const ItemsSearch = ({ searchData, params }: any) => {
   // const pusherRgb = (code: any) => {
   //   router.push(`/${params.lang}/citizen/${code}`);
   // };
+  console.log("searchData", searchData);
 
   useEffect(() => {
     if (searchData.length >= 1) {
@@ -66,9 +66,8 @@ export const ItemsSearch = ({ searchData, params }: any) => {
                 </p>
                 <div className="flex flex-row items-center justify-end gap-1 ">
                   <span className=" whitespace-nowrap font-azarMehr font-normal text-black dark:text-white 3xl:text-[18px] xs:text-[12px]">
-                    {item?.followers}
+                    {item.level ? item.level : "--"}
                   </span>
-                  <Like className="w-[15px] h-[15px] stroke-gray dark:stroke-dark-gray" />
                 </div>
               </div>
               <Image

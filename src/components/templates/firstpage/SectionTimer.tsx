@@ -24,15 +24,15 @@ const SectionTimer = ({ firstPageArrayContent }: any) => {
       </div>
       {/* FIRST BOX */}
       <div
-        className="relative  h-full p-4 border-2 border-[#343434] rounded-[50px]
+        className="relative border-2 border-[#343434] rounded-[50px] p-3
         flex xl:flex-row lg:flex-row md:flex-nowrap sm:flex-wrap xs:flex-wrap xl:gap-0 lg:gap-0 md:gap-0 sm:gap-5  xs:gap-5 justify-center items-center"
         style={{ borderColor: "linear-gradient(to right, #000, #fff)" }}
       >
         <div className="absolute bg-white/10 z-0 size-[150px] top-[10px] end-[20%] blur-3xl  filter"></div>
-        <div className="w-full md:w-2/5 lg:h-full rounded-[32px] border-none overflow-hidden">
+        <div className="w-[20vw] h-[20vw] md:w-2/5 rounded-[32px] border-none overflow-hidden">
           <Image
-            className="w-fill h-full object-contain"
-            src="/firstpage/img1-1.jpg"
+            className="w-fill h-full object-cover"
+            src="/firstpage/ariai.rgb.irpsc.jpg"
             alt="header"
             width={1000}
             height={1000}
@@ -50,22 +50,24 @@ const SectionTimer = ({ firstPageArrayContent }: any) => {
       </div>
       {/* SECOND BOX */}
       <div
-        className="w-full xl:w-[35%] h-full rounded-[50px] border-2 border-[#343434] p-4
-      flex flex-col justify-between items-center relative "
+        className="w-full xl:w-[35%] rounded-[50px] border-2 border-[#343434] p-3
+      flex flex-col justify-around items-center relative "
       >
         <div className="absolute bg-white/10 z-0 size-[150px] top-[-10px] end-[-20px] rounded-xl blur-3xl  filter"></div>
         <DynamicTimer />
-        <p className="w-full rounded-[28px] py-3 z-50 text-center text-lg lg:text-[20px] text-black bg-dark-yellow  font-azarMehr font-medium mt-5 ">
-          پیش خرید
-        </p>
-        <p className="w-full rounded-[28px] py-3 mt-5 text-center text-lg lg:text-[20px] text-white bg-[#343434]  font-azarMehr font-medium ">
-          <a
-            href="https://meta.irpsc.com/2024/07/19/ariana/"
-            className="w-full h-full inline-block"
-          >
-            مشاهده آبجکت
-          </a>
-        </p>
+        <div className="w-full">
+          <p className="w-full rounded-[28px] py-3 z-50 text-center text-lg lg:text-[20px] text-black bg-dark-yellow  font-azarMehr font-medium mt-5 ">
+            پیش خرید
+          </p>
+          <p className="w-full rounded-[28px] py-3 mt-5 text-center text-lg lg:text-[20px] text-white bg-[#343434]  font-azarMehr font-medium ">
+            <a
+              href="https://meta.irpsc.com/2024/07/19/ariana/"
+              className="w-full h-full inline-block"
+            >
+              مشاهده آبجکت
+            </a>
+          </p>
+        </div>
       </div>
 
       <div className="bg-dark-yellow rounded-full p-[10px] flex justify-center items-center hidden lg:flex xs:hidden">
