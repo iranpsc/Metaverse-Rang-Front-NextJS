@@ -3,7 +3,6 @@ import Image from "next/image";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 
 export default function CitizenClientImage({ item }: any) {
-  console.log("item", item);
   return (
     <>
       <Image

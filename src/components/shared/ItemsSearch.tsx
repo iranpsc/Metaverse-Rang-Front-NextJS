@@ -13,7 +13,6 @@ export const ItemsSearch = ({ searchData, params }: any) => {
   // const pusherRgb = (code: any) => {
   //   router.push(`/${params.lang}/citizen/${code}`);
   // };
-  console.log("searchData", searchData);
 
   useEffect(() => {
     if (searchData.length >= 1) {
@@ -71,7 +70,7 @@ export const ItemsSearch = ({ searchData, params }: any) => {
                 </div>
               </div>
               <Image
-                src={item.photo || "/temp.png"}
+                src={item.photo || "/temp-1.png"}
                 alt={item?.name}
                 loading="lazy"
                 width={1000}

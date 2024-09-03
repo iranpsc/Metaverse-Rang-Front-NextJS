@@ -90,3 +90,23 @@
     return await res.json();
  
   }
+
+  export async function getAllVersions(){
+    const res = await fetch(`https://api.rgb.irpsc.com/api/calendar/versions`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    let temp = await res.json()
+    return temp.data;
+  }
+
+  // export async function getSingleVersion(_id){
+  //   const res = await fetch(`https://api.rgb.irpsc.com/api/calendar/versions/${_id}`, {
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   });
+  //   let temp = await res.json()
+  //   return temp.data;
+  // }

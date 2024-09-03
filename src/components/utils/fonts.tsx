@@ -8,7 +8,8 @@ export const azarMehr = localFont({
       style: "normal",
     },
     {
-      path: "./../../../public/fonts/AzarMehr-DS2-Light.woff2",
+      // path: "./../../../public/fonts/AzarMehr-DS1-FD-Light.ttf",
+      path: "./../../../public/fonts/AzarMehr-DS1-FD-Medium.ttf",
       weight: "300",
       style: "normal",
     },

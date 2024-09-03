@@ -64,7 +64,7 @@ export default async function CitizensPage({
         </div>
       </div>
       {/* CITIZEN box Container */}
-      <div className="flex flex-row flex-wrap justify-start w-full no-scrollbar overflow-y-auto py-[20px]">
+      <div className="flex flex-row flex-wrap justify-center md:justify-start w-full no-scrollbar overflow-y-auto py-[20px]">
         {allCitizenArray.map((item: any) => (
           <div className="w-[280px] sm:w-1/3 lg:w-1/4 2xl:w-1/5 3xl:w-1/6 hover:scale-105 base-transition-1 px-2">
             <div
@@ -72,7 +72,7 @@ export default async function CitizensPage({
               className="shadow-lg mt-10 relative bg-[#fff] dark:bg-[#1A1A18] flex flex-col justify-between gap-1 sm:gap-3 py-3 sm:py-4 md:py-5 items-center rounded-[20px]"
             >
               <img
-                src={item.profile_photo || "/temp.png"}
+                src={item.profile_photo || "/temp-1.png"}
                 alt={"citizen image"}
                 width={120}
                 height={120}
