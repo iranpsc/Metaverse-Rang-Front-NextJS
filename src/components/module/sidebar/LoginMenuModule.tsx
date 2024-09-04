@@ -11,7 +11,10 @@ export default function LoginMenuModule({ isClosed, tabsMenu }: any) {
   const [dropDown, setDropDown] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(["auth"]);
   const [isMounted, setIsMounted] = useState(false);
-  const [loggedInUserData, setLoggedInUserData] = useState({});
+  const [loggedInUserData, setLoggedInUserData] = useState({
+    token: "",
+    code: "",
+  });
 
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -26,21 +29,43 @@ export default function LoginMenuModule({ isClosed, tabsMenu }: any) {
     if (isMounted) {
       let params = searchParams.toString();
       if (params) {
+        const expires_at = Number(parsAuthCookieByName("expires_at", params));
+
+        const now = new Date();
+        // Add "expires_at" hour ("expires_at" minutes * 60 seconds * 1000 milliseconds) to the current time
+        const realExpireTime = now.getTime() + expires_at * 60 * 1000;
+        params += `&realExpireTime=${realExpireTime}`;
         setCookie("auth", params);
       }
+
+      //remove auth data in URL and push to new
       const urlToUse = `${window.location.origin}${pathname.toString()}`;
       router.push(urlToUse);
     }
   }, [isMounted]);
 
+  // parse value in auth cookie to use
+  function parsAuthCookieByName(
+    _propName: string,
+    _paramsString: string = cookies.auth
+  ) {
+    // Parse the auth string
+    const params = new URLSearchParams(_paramsString);
+    return params.get(_propName);
+  }
+
   useEffect(() => {
     const fetchUserData = async () => {
-      const authString = cookies.auth; // Get the full auth string
+      const realExpireTime = Number(parsAuthCookieByName("realExpireTime"));
 
-      // Parse the auth string
-      const params = new URLSearchParams(authString);
-      const token = params.get("token");
-
+      // check to logout by realExpireTime(expires_at)
+      if (realExpireTime && realExpireTime !== 0) {
+        if (new Date().getTime() >= realExpireTime) {
+          handleLogout();
+        }
+      }
+      // if no token, no user data fetch
+      const token = parsAuthCookieByName("token");
       if (!token) {
         return;
       }
@@ -93,8 +118,6 @@ export default function LoginMenuModule({ isClosed, tabsMenu }: any) {
         },
       }
     );
-    console.log("onLogOut res", res);
-    console.log("tooken for logout", `Bearer ${loggedInUserData?.token}`);
 
     if (res.status === 204) {
       removeCookie("auth");
@@ -129,16 +152,31 @@ export default function LoginMenuModule({ isClosed, tabsMenu }: any) {
                 : ""
             } base-transition-1 overflow-hidden bg-blueLink dark:bg-dark-primary rounded-t-[15px] px-4`}
           >
+            {/* decide to show according to pathname (if user is in own citizen page)*/}
+            {pathname != `/fa/citizen/${loggedInUserData?.code}` ? (
+              <li className="border-b border-white dark:border-divider">
+                <Link href={`/fa/citizen/${loggedInUserData?.code}`}>
+                  <p className="h-[30px] w-full block font-medium">
+                    {localFind("citizen profile page")}
+                  </p>
+                </Link>
+              </li>
+            ) : (
+              <li className="border-b border-white dark:border-divider">
+                <Link href={`/fa/citizen/`}>
+                  <p className="h-[30px] w-full block font-medium">
+                    همه شهروندان
+                    {/* {localFind("citizens")} */}
+                  </p>
+                </Link>
+              </li>
+            )}
             <li className="border-b border-white dark:border-divider">
-              <Link href={`/fa/citizen/${loggedInUserData?.code}`}>
-                <p className="h-[30px] w-full block font-medium">
-                  {localFind("citizen profile page")}
-                </p>
-              </Link>
-            </li>
-            <li className="border-b border-white dark:border-divider">
-              <Link href="/fa" className="h-[30px] w-full block font-medium">
-                {localFind("home")}
+              <Link
+                href="https://rgb.irpsc.com/metaverse/"
+                className="h-[30px] w-full block font-medium"
+              >
+                {localFind("enter the metaverse")}
               </Link>
             </li>
             <li className="border-b border-white dark:border-divider">
@@ -171,13 +209,13 @@ export default function LoginMenuModule({ isClosed, tabsMenu }: any) {
       ) : (
         <button
           className={`${
-            isClosed ? "justify-center" : "justify-between"
+            isClosed ? "justify-center" : "justify-center"
           } w-full bg-blueLink cursor-pointer dark:bg-dark-yellow rounded-[15px]
           h-[40px] flex flex-row xs:px-2 px-4 gap-5 items-center
           text-white dark:text-dark-background font-azarMehr font-medium text-center text-[15px] m-auto`}
           onClick={handleLogin}
         >
-          login
+          {localFind("login")}
         </button>
       )}
     </>

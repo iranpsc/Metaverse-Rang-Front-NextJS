@@ -1,20 +1,25 @@
 "use client";
 import Image from "next/image";
 import { MenuIcon, ArrowMenu } from "@/svgs/index";
-import React, { useMemo } from "react";
+// import React, { useMemo } from "react";
 function SideBarHeader({ isClosed, toggleSide, tabsMenu }: any) {
-  const lang = "en";
-  const { metaRGBTranslation, metaverseRangTranslation } = useMemo(() => {
-    const metaRGB = tabsMenu.find((item: any) => item.name === "meta rgb");
-    const metaverseRang = tabsMenu.find(
-      (item: any) => item.name === "metaverse rang"
-    );
+  // const { metaRGBTranslation, metaverseRangTranslation } = useMemo(() => {
+  //   const metaRGB = tabsMenu.find((item: any) => item.name === "meta rgb");
+  //   const metaverseRang = tabsMenu.find(
+  //     (item: any) => item.name === "metaverse rang"
+  //   );
 
-    return {
-      metaRGBTranslation: metaRGB?.translation,
-      metaverseRangTranslation: metaverseRang?.translation,
-    };
-  }, [tabsMenu]);
+  //   return {
+  //     metaRGBTranslation: metaRGB?.translation,
+  //     metaverseRangTranslation: metaverseRang?.translation,
+  //   };
+  // }, [tabsMenu]);
+
+  // to find in an array with key(_name)
+
+  function localFind(_name: any) {
+    return tabsMenu.find((item: any) => item.name == _name)?.translation;
+  }
   return (
     <>
       <MenuIcon
@@ -49,7 +54,17 @@ function SideBarHeader({ isClosed, toggleSide, tabsMenu }: any) {
               isClosed ? "w-0 overflow-hidden" : "w-full"
             } menu-transition`}
           >
-            {metaRGBTranslation && (
+            <p
+              className={`visible dark:text-white whitespace-nowrap block font-azarMehr font-bold text-[14px] md:text-[16px] lg:text-[18px] text-black pb-[2px]`}
+            >
+              {localFind("metargb") || "متارنگ"}
+            </p>
+            <p
+              className={`dark:text-dark-gray visible font-azarMehr font-normal text-gray text-[14px] md:text-[16px] lg:text-[18px] `}
+            >
+              {localFind("metaverse rang")}
+            </p>
+            {/* {metaRGBTranslation && (
               <p
                 className={`visible dark:text-white whitespace-nowrap block font-azarMehr font-bold xl:text-[16px] lg:text-[14px] md:text-[13px] sm:text-[12px] xs:text-[12px] text-black pb-[2px]`}
               >
@@ -62,7 +77,7 @@ function SideBarHeader({ isClosed, toggleSide, tabsMenu }: any) {
               >
                 {metaverseRangTranslation}
               </p>
-            )}
+            )} */}
           </div>
         </div>
 
@@ -87,4 +102,5 @@ function SideBarHeader({ isClosed, toggleSide, tabsMenu }: any) {
     </>
   );
 }
-export default React.memo(SideBarHeader);
+export default SideBarHeader;
+// export default React.memo(SideBarHeader);

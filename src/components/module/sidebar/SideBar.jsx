@@ -32,7 +32,7 @@ export default function SideBar({
         isClosed={isClosed}
         toggleSide={toggleSide}
       />
-      <div className={`z-[60] h-screen dark:bg-dark-background fixed top-0 right-0 z-[1] lg:relative lg:top-0 lg:right-0 ${
+      <div className={`z-[60] h-screen dark:bg-dark-background fixed top-0 rtl:right-0 ltr:left-0 z-[1] lg:relative lg:top-0 lg:right-0 ${
         isClosed ? "" : ""
       }`}>
         <div
@@ -40,7 +40,7 @@ export default function SideBar({
             isClosed
               ? "sm:hidden xs:hidden md:hidden menu-transition xl:block lg:block"
               : "sm:block xs:block bg-blackTransparent/30"
-          }   sm:absolute  xs:absolute  xl:relative lg:relative md:absolute xl:w-fit lg:w-fit md:w-full z-[60] sm:w-full xs:w-full no-scrollbar  `}
+          }   absolute xl:relative lg:relative xl:w-fit lg:w-fit md:w-full z-[60] sm:w-full xs:w-full no-scrollbar  `}
         >
           <aside
             className={`${
