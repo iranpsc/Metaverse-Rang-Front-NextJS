@@ -4,7 +4,7 @@ import GemImage from "@/components/templates/citizen/gemImage";
 import Link from "next/link";
 import { Text } from "@/components/svgs/SvgEducation";
 import { getAllCitizen } from "@/components/utils/actions";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function CitizenList({
   allCitizenArray,
@@ -17,9 +17,21 @@ export default function CitizenList({
     return levelListArrayContent.find((item: any) => item.name == _name)
       ?.translation;
   }
-  const [localCitizenArray, setLocalCitizenArray] = useState(allCitizenArray);
+  const [localCitizenArray, setLocalCitizenArray] = useState([]);
   const [isDisabled, setIsDisabled] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    // fetch for first time and only first time
+    if (isMounted) {
+      handleLoadMore();
+    }
+  }, [isMounted]);
 
   const handleLoadMore = async () => {
     if (currentPage >= lastPage) {
