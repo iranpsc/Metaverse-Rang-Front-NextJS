@@ -88,8 +88,8 @@ export default async function LangPage({params}) {
 
         {/* lazy loaded video which have poster (shown before loading) */}
         <video
-          src='/firstpage/3d-rgb.irpsc.mp4'
-          poster="/firstpage/replaced-pic.png"
+          src='/firstpage/3d_rgb.irpsc.mp4'
+          poster="/firstpage/replaced_pic.png"
           autoPlay
           muted
           loop
