@@ -55,6 +55,7 @@ export default function () {
             <a
               href=""
               className={`${x.color} dark:${x.darkColor} ${x.font} flex items-center`}
+              key={index}
             >
               {x.en}
               {buildedArray.length - 1 != index && (

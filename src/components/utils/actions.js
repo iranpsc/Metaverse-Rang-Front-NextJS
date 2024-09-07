@@ -51,8 +51,10 @@
   }
 
   export async function getAllCitizen(_page){
+    
     const res = await fetch(`https://api.rgbdev.irpsc.com/api/users?page=${_page}`)
     let temp = await res.json()
+    
     return temp
   }
   export async function getFooterData(params) {

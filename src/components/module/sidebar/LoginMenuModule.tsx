@@ -7,7 +7,7 @@ import { useCookies } from "react-cookie";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 
-export default function LoginMenuModule({ isClosed, tabsMenu }: any) {
+export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
   const [dropDown, setDropDown] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(["auth"]);
   const [isMounted, setIsMounted] = useState(false);
@@ -153,9 +153,11 @@ export default function LoginMenuModule({ isClosed, tabsMenu }: any) {
             } base-transition-1 overflow-hidden bg-blueLink dark:bg-dark-primary rounded-t-[15px] px-4`}
           >
             {/* decide to show according to pathname (if user is in own citizen page)*/}
-            {pathname != `/fa/citizen/${loggedInUserData?.code}` ? (
+            {pathname != `/${params.lang}/citizen/${loggedInUserData?.code}` ? (
               <li className="border-b border-white dark:border-divider">
-                <Link href={`/fa/citizen/${loggedInUserData?.code}`}>
+                <Link
+                  href={`/${params.lang}/citizen/${loggedInUserData?.code}`}
+                >
                   <p className="h-[30px] w-full block font-medium">
                     {localFind("citizen profile page")}
                   </p>
@@ -163,10 +165,9 @@ export default function LoginMenuModule({ isClosed, tabsMenu }: any) {
               </li>
             ) : (
               <li className="border-b border-white dark:border-divider">
-                <Link href={`/fa/citizen/`}>
+                <Link href={`/${params.lang}`}>
                   <p className="h-[30px] w-full block font-medium">
-                    همه شهروندان
-                    {/* {localFind("citizens")} */}
+                    {localFind("home")}
                   </p>
                 </Link>
               </li>

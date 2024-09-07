@@ -11,11 +11,7 @@ import SearchComponent from "@/components/shared/SearchComponent";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import CitizenList from "@/components/templates/citizen/citizenList";
 
-export default async function CitizensPage({
-  params,
-}: {
-  params: { lang: "en" | "fa" };
-}) {
+export default async function CitizensPage({ params }: any) {
   const footerTabs = await getFooterData(params);
   const langData = await getTransletion(params.lang);
   const mainData = await getMainFile(langData);

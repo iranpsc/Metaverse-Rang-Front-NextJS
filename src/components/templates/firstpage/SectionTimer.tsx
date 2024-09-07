@@ -24,7 +24,7 @@ const SectionTimer = ({ firstPageArrayContent }: any) => {
       </div>
       {/* FIRST BOX */}
       <div
-        className="h-[90%] relative border-2 border-[#343434] rounded-[50px] p-[20px]
+        className="h-[90%] lg:me-5 relative border-2 border-[#343434] rounded-[50px] p-[20px]
         flex flex-col lg:flex-row md:gap-0 sm:gap-5 gap-5 justify-center items-center"
         style={{ borderColor: "linear-gradient(to right, #000, #fff)" }}
       >

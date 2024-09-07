@@ -34,6 +34,7 @@ export default async function LangPage({params}) {
   const firstPageArrayContent = await findByTabName(centralPageModal, "first-page");
   const tabsMenu = await findByTabName(centralPageModal, "before-login");
 
+
   // to find in an array with key(_name)
   function localFind(_name) {
     return firstPageArrayContent.find((item) => item.name == _name)
@@ -82,7 +83,7 @@ export default async function LangPage({params}) {
       />
       <section
         // id={`${defaultTheme == "dark" ? "dark-scrollbar" : "light-scrollbar"}`}
-        className={`overflow-y-auto relative light-scrollbar dark:dark-scrollbar pt-[60px] lg:pt-0`}
+        className={`overflow-y-auto relative light-scrollbar dark:dark-scrollbar pt-[60px] lg:pt-0 bg-[#f8f8f8] dark:bg-[#2F2D28] bg-opacity20`}
       >
         <section className="flex flex-col h-fit min-h-[calc(100vh-60px)] lg:h-screen relative">
 
@@ -140,7 +141,7 @@ export default async function LangPage({params}) {
         </section>
 
         <section
-          className={`w-full relative flex  flex-col justify-start overflow-x-clip overflow-y-auto items-center bg-[#f8f8f8] dark:bg-[#2F2D28] bg-opacity20 
+          className={`w-full relative flex  flex-col justify-start overflow-x-clip overflow-y-auto items-center 
             xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1`}
         >
           <div className="w-full relative lg:h-[350px] 2xl:h-[400px] mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">

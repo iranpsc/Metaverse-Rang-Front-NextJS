@@ -15,6 +15,7 @@ import Modal from "@/components/templates/modal";
 import ListMenuActiveIconModule from "./list/ListMenuActiveIconModule";
 // import ListMenuActiveIconModule from "./list/ListMenuActiveIconModule";
 import { Tooltip as ReactTooltip } from "react-tooltip";
+import { useRouter } from 'next/navigation';
 
 export default function SideBarContent({
   tabsMenu,
@@ -23,6 +24,7 @@ export default function SideBarContent({
   langArray,
   params
 }) {
+  const router = useRouter();
   const [modalShow, setModalShow] = useState(false);
   const [modalData, setModalData] = useState({});
   const [activeNav, setActiveNav] = useState(1);
@@ -32,18 +34,24 @@ export default function SideBarContent({
   };
   const onTabClick = (item, tabNumber) => {
     setActiveNav(tabNumber);
-    if (langData.code === "fa") {
-      const temp = Modals_fa.find((x) => x.id == item.id);
+    // if there is no Url in staticMenuToShow, open modal
+    let haveUrl = staticMenuToShow.find(staticVal => staticVal.name == item.name)
+    if(haveUrl){
+      router.push(`/${params.lang}${haveUrl.url}`)
+    }else{
+      if (langData.code === "fa") {
+        const temp = Modals_fa.find((x) => x.id == item.id);
 
-      if (temp) {
-        setModalShow(true);
-        setModalData(temp);
-      }
-    } else {
-      const temp = Modals_en.find((x) => x.id == item.id);
-      if (temp) {
-        setModalShow(true);
-        setModalData(temp);
+        if (temp) {
+          setModalShow(true);
+          setModalData(temp);
+        }
+      } else {
+        const temp = Modals_en.find((x) => x.id == item.id);
+        if (temp) {
+          setModalShow(true);
+          setModalData(temp);
+        }
       }
     }
   };
@@ -51,26 +59,27 @@ export default function SideBarContent({
     setLangDropDown(!langDropDown)
   }
   const staticMenuToShow = [
-    "home",
-    "property",
-    "real estate",
-    "structures",
-    "belongings",
-    "permissions",
-    "invitations",
-    "transaction",
-    "reward",
-    "dynasty",
-    "connections",
-    "crimes",
-    "news",
-    "articles",
-    "trainings",
-    "about",
-    "contact",
-    "version",
-    "calendar",
-    "overview",
+    {name:'home', url:''},
+    {name:'citizens', url:'/citizen'},
+    {name:'property', url:''},
+    {name:'real estate', url:''},
+    {name:'structures', url:''},
+    {name:'belongings', url:''},
+    {name:'permissions', url:''},
+    {name:'invitations', url:''},
+    {name:'transaction', url:''},
+    {name:'reward', url:''},
+    {name:'dynasty', url:''},
+    {name:'connections', url:''},
+    {name:'crimes', url:''},
+    {name:'news', url:''},
+    {name:'articles', url:''},
+    {name:'trainings', url:''},
+    {name:'about', url:''},
+    {name:'contact', url:''},
+    {name:'version', url:''},
+    {name:'calendar', url:''},
+    {name:'overview', url:''},
   ]
 
   return (
@@ -88,7 +97,7 @@ export default function SideBarContent({
             //*HINT*the way to pass parameters to function in nextjs "onTabClick(item)"
             //*HINT*i<=12 is not a good solution,array must be change
           <div key={item.id}>
-            { (staticMenuToShow.some(x => x == `${item.name}`)) &&
+            { (staticMenuToShow.some(x => x.name == `${item.name}`)) &&
             <li  onClick={() => onTabClick(item, i)} data-tooltip-id={item.name}>
               {/* (i == 0) for hiding first element of array"متاورس" */}
               

@@ -5,21 +5,21 @@ import Link from "next/link";
 import { Text } from "@/components/svgs/SvgEducation";
 import { getAllCitizen } from "@/components/utils/actions";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 export default function CitizenList({
-  allCitizenArray,
   levelListArrayContent,
   params,
   citizenListArrayContent,
-  lastPage,
-}: any) {
-  function localFind2(_name: any) {
-    return levelListArrayContent.find((item: any) => item.name == _name)
+}) {
+  function localFind2(_name) {
+    return levelListArrayContent.find((item) => item.name == _name)
       ?.translation;
   }
   const [localCitizenArray, setLocalCitizenArray] = useState([]);
   const [isDisabled, setIsDisabled] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [lastPage, setLastPage] = useState(2);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -34,23 +34,34 @@ export default function CitizenList({
   }, [isMounted]);
 
   const handleLoadMore = async () => {
+    setCurrentPage(currentPage + 1);
+    let oldArray = localCitizenArray;
+    console.log("oldArray", oldArray);
+    let newArray = await getAllCitizen(currentPage);
+
+    setLastPage(newArray.meta.to);
+    newArray?.data.map((item) => {oldArray.push(item)})
+    setLocalCitizenArray(oldArray);
     if (currentPage >= lastPage) {
       setIsDisabled(true);
     }
-    setCurrentPage(currentPage + 1);
-    let oldArray = localCitizenArray;
-    let newArray = await getAllCitizen(currentPage);
-    setLocalCitizenArray(oldArray.concat(newArray.data));
+
+    console.log(
+      "Route",
+      `https://api.rgbdev.irpsc.com/api/users?page=${currentPage}`
+    );
+    console.log("newArray", newArray.data);
+    console.log("concat array", localCitizenArray);
   };
   return (
     <>
-      {localCitizenArray.map((item: any, index: any) => (
+      {localCitizenArray.map((item, index) => (
         <div
           key={index}
           className="w-[280px] sm:w-1/3 lg:w-1/4 2xl:w-1/5 3xl:w-1/6 hover:scale-105 base-transition-1 px-2"
         >
           <div className="shadow-lg mt-10 relative bg-[#fff] dark:bg-[#1A1A18] flex flex-col justify-between gap-3 py-3 sm:py-4 md:py-5 items-center rounded-[20px]">
-            <img
+            <Image
               src={item.profile_photo || "/temp-1.png"}
               alt={"citizen image"}
               width={120}
@@ -81,9 +92,9 @@ export default function CitizenList({
               {localFind2("developer")}
             </span>
 
-            <div className="w-[95%] min-h-[60px] overflow-auto light-scrollbar dark:dark-scrollbar pb-2">
+            <div className="w-[95%] min-h-[75px] overflow-auto light-scrollbar dark:dark-scrollbar pb-2">
               <div className="w-max flex m-auto">
-                {item.levels?.previous?.map((item2: any, index2: any) => (
+                {item.levels?.previous?.map((item2, index2) => (
                   <GemImage key={index2} item={item2} />
                 ))}
               </div>

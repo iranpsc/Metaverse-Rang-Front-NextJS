@@ -1,8 +1,9 @@
 "use client";
 import Image from "next/image";
 import { MenuIcon, ArrowMenu } from "@/svgs/index";
+import Link from "next/link";
 // import React, { useMemo } from "react";
-function SideBarHeader({ isClosed, toggleSide, tabsMenu }: any) {
+function SideBarHeader({ isClosed, toggleSide, tabsMenu, params }: any) {
   // const { metaRGBTranslation, metaverseRangTranslation } = useMemo(() => {
   //   const metaRGB = tabsMenu.find((item: any) => item.name === "meta rgb");
   //   const metaverseRang = tabsMenu.find(
@@ -29,7 +30,8 @@ function SideBarHeader({ isClosed, toggleSide, tabsMenu }: any) {
         onClick={toggleSide}
       />
 
-      <div
+      <Link
+        href={`/${params.lang}`}
         className={`${
           isClosed ? "" : "flex items-center justify-between"
         } relative`}
@@ -93,7 +95,7 @@ function SideBarHeader({ isClosed, toggleSide, tabsMenu }: any) {
             className={`w-[7px] h-[13px] stroke-gray dark:stroke-white ltr:rotate-180 rtl:rotate-0`}
           />
         </div>
-      </div>
+      </Link>
       <hr
         className={`${
           isClosed ? "mx-5" : "mx-2"

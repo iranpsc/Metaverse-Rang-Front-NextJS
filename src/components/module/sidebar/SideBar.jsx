@@ -55,6 +55,7 @@ export default function SideBar({
                 isClosed={isClosed}
                 tabsMenu={tabsMenu}
                 toggleSide={toggleSide}
+                params={params}
               />
             </div>
             {/* <MenuProfileModule /> */}
@@ -84,7 +85,7 @@ export default function SideBar({
             >
               {/*_________ login BTN __________*/}
               <div className='w-[80%] m-auto'>
-              <LoginMenuModule isClosed={isClosed} tabsMenu={tabsMenu} />
+              <LoginMenuModule isClosed={isClosed} tabsMenu={tabsMenu} params={params} />
               </div>
 
               <div className="w-full pt-3 pb-1 flex flex-col items-center justify-center">
