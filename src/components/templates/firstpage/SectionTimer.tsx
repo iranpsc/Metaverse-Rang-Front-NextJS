@@ -39,7 +39,7 @@ const SectionTimer = ({ firstPageArrayContent }: any) => {
           />
         </div>
         <div className="w-full mt-4 lg:mt-0">
-          <h6 className="text-start text-[23px] lg:text-[28px] text-white font-azarMehr font-medium ms-5">
+          <h6 className="text-start text-[23px] lg:text-[28px] text-black dark:text-white font-azarMehr font-medium ms-5">
             اهدای 963 قطعه زمین(VOD) رایگان
           </h6>
           <p className="w-fit text-start text-lg xl:text-[20px] text-lightGray font-azarMehr font-medium mt-5 lg:mt-10 ms-5">

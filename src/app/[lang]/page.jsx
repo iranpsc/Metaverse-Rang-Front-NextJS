@@ -85,7 +85,7 @@ export default async function LangPage({params}) {
         // id={`${defaultTheme == "dark" ? "dark-scrollbar" : "light-scrollbar"}`}
         className={`overflow-y-auto relative light-scrollbar dark:dark-scrollbar pt-[60px] lg:pt-0 bg-[#f8f8f8] dark:bg-[#2F2D28] bg-opacity20`}
       >
-        <section className="flex flex-col h-fit min-h-[calc(100vh-60px)] lg:h-screen relative">
+        <section className="flex flex-col h-fit tall0:min-h-[600px] min-h-[calc(100vh-60px)] lg:h-screen relative">
 
         {/* lazy loaded video which have poster (shown before loading) */}
         <video
