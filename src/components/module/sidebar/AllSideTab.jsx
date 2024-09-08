@@ -10,7 +10,7 @@ import ListMenuArrow from "./list/ListMenuArrow";
 // import DropdownTrainingsModule from "./list/dropdowns/DropdownTrainingsModule";
 import DropdownLanguageModule from "./list/dropdowns/DropdownLanguageModule";
 import { Modals_fa, Modals_en } from "@/components/utils/modals-content";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "@/components/templates/modal";
 import ListMenuActiveIconModule from "./list/ListMenuActiveIconModule";
 // import ListMenuActiveIconModule from "./list/ListMenuActiveIconModule";
@@ -29,16 +29,35 @@ export default function SideBarContent({
   const [modalData, setModalData] = useState({});
   const [activeNav, setActiveNav] = useState(1);
   const [langDropDown, setLangDropDown] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+    console.log('tabs3', tabsMenu);
+    
+  }, []);
+
   const closeModal = () => {
     setModalShow(false);
   };
+  // useEffect(()=>{
+  //   if(isMounted){
+  //     tabsMenu.forEach((tab) => {
+  //       let findInStatic = staticMenuToShow.find(val => tab.name == val.name)
+  //       if(findInStatic){
+  //         tab.url = findInStatic.url
+  //         tab.order = findInStatic.order
+  //       }
+  //     })
+  //   }
+  // },[isMounted])
   const onTabClick = (item, tabNumber) => {
     setActiveNav(tabNumber);
     // if there is no Url in staticMenuToShow, open modal
-    let haveUrl = staticMenuToShow.find(staticVal => staticVal.name == item.name)
-    if(haveUrl){
-      router.push(`/${params.lang}${haveUrl.url}`)
+    if(item.url){
+      router.push(`/${params.lang}${item.url}`)
     }else{
+
       if (langData.code === "fa") {
         const temp = Modals_fa.find((x) => x.id == item.id);
 
@@ -58,29 +77,7 @@ export default function SideBarContent({
   const handleLangBtn = () => {
     setLangDropDown(!langDropDown)
   }
-  const staticMenuToShow = [
-    {name:'home', url:''},
-    {name:'citizens', url:'/citizen'},
-    {name:'property', url:''},
-    {name:'real estate', url:''},
-    {name:'structures', url:''},
-    {name:'belongings', url:''},
-    {name:'permissions', url:''},
-    {name:'invitations', url:''},
-    {name:'transaction', url:''},
-    {name:'reward', url:''},
-    {name:'dynasty', url:''},
-    {name:'connections', url:''},
-    {name:'crimes', url:''},
-    {name:'news', url:''},
-    {name:'articles', url:''},
-    {name:'trainings', url:''},
-    {name:'about', url:''},
-    {name:'contact', url:''},
-    {name:'version', url:''},
-    {name:'calendar', url:''},
-    {name:'overview', url:''},
-  ]
+
 
   return (
     <>
@@ -90,14 +87,14 @@ export default function SideBarContent({
       {modalShow && <Modal dataObject={modalData} close={closeModal} />}
       <ul
         id="light-scrollbar"
-        className={`h-full z-[1000] list-none overflow-y-scroll relative no-scrollbar relative pt-3 w-full menu-transition max-lg:w-fit`}
+        className={`h-full z-[100] flex flex-col list-none overflow-y-scroll relative no-scrollbar relative pt-3 w-full menu-transition max-lg:w-fit`}
       >
         {tabsMenu &&
           tabsMenu.map((item, i) => (
             //*HINT*the way to pass parameters to function in nextjs "onTabClick(item)"
             //*HINT*i<=12 is not a good solution,array must be change
-          <div key={item.id}>
-            { (staticMenuToShow.some(x => x.name == `${item.name}`)) &&
+          <div key={item.id} style={{order:item.order}}>
+            { item.toShow &&
             <li  onClick={() => onTabClick(item, i)} data-tooltip-id={item.name}>
               {/* (i == 0) for hiding first element of array"متاورس" */}
               

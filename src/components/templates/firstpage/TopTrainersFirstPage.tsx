@@ -41,7 +41,7 @@ const TopTrainersFirstPage = async ({ firstPageArrayContent, params }: any) => {
         {staticData.map((item: any, index: any) => (
           <div
             key={index}
-            className="min-w-[258px] min-h-[150px] shadow-xl flex flex-col justify-start items-center gap-10 py-5 bg-[#1A1A18] rounded-[24px] hover:scale-105 base-transition-1 py-3 mx-3"
+            className="min-w-[258px] min-h-[150px] shadow-xl flex flex-col justify-start items-center gap-10 py-5 bg-white dark:bg-darkGrey rounded-[24px] hover:scale-105 base-transition-1 py-3 mx-3"
           >
             <Image
               className="size-[170px] rounded-full border-none"
@@ -51,10 +51,10 @@ const TopTrainersFirstPage = async ({ firstPageArrayContent, params }: any) => {
               height={1000}
             />
             <div className="flex flex-col justify-start items-center gap-6">
-              <p className="font-azarMehr font-medium text-[20px] text-white">
+              <p className="font-azarMehr font-medium text-[20px] text-black dark:text-white">
                 {item.name}
               </p>
-              <p className="font-azarMehr font-medium text-[18px] text-dark-yellow">
+              <p className="font-azarMehr font-medium text-[18px] text-blueLink dark:text-dark-yellow">
                 {localFind("leading citizens")}
               </p>
               <div className="flex justify-center items-center">

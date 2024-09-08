@@ -10,7 +10,7 @@ const SectionTeam = ({ firstPageArrayContent }: any) => {
     <>
       <div className="xl:col-span-5 lg:col-span-5 md:col-span-5 sm:col-span-12 xs:col-span-12">
         <Image
-          className=" w-full h-full sm:h-[360px] md:h-auto object-cover origin-center rounded-[12px] border-none"
+          className=" w-full h-full sm:h-[360px] md:h-auto object-cover origin-center rounded-[64px] border-none"
           src="/firstpage/img2.jpg"
           alt="header"
           width={1000}

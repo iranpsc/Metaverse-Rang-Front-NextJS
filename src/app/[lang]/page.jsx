@@ -34,6 +34,41 @@ export default async function LangPage({params}) {
   const firstPageArrayContent = await findByTabName(centralPageModal, "first-page");
   const tabsMenu = await findByTabName(centralPageModal, "before-login");
 
+  const staticMenuToShow = [
+    {name:'home', url:'', order:'-1'},
+    {name:'citizens', url:'/citizen', order:'-1'},
+    // {name:'list of levels', url:'/levels/citizen', order:'-1'},
+    {name:'property', url:''},
+    {name:'real estate', url:''},
+    {name:'structures', url:''},
+    {name:'belongings', url:''},
+    {name:'permissions', url:''},
+    {name:'invitations', url:''},
+    {name:'transaction', url:''},
+    {name:'reward', url:''},
+    {name:'dynasty', url:''},
+    {name:'connections', url:''},
+    {name:'crimes', url:''},
+    {name:'news', url:''},
+    {name:'articles', url:''},
+    {name:'trainings', url:''},
+    {name:'about', url:''},
+    {name:'contact', url:''},
+    {name:'version', url:''},
+    {name:'calendar', url:''},
+    {name:'overview', url:''},
+  ]
+
+  // add staticMenuToShow values to siblings tabsMenu values
+  tabsMenu.forEach((tab) => {
+    let findInStatic = staticMenuToShow.find(val => tab.name == val.name)
+    if(findInStatic){
+      tab.url = findInStatic.url
+      tab.order = findInStatic.order
+      tab.toShow = true
+    }
+  })
+
 
   // to find in an array with key(_name)
   function localFind(_name) {
@@ -104,7 +139,7 @@ export default async function LangPage({params}) {
             <HeaderFirstPage firstPageArrayContent={firstPageArrayContent} />
           </div>
           <div
-            className="w-full max-h-[50vh] overflow-y-auto light-scrollbar dark:dark-scrollbar tall0:max-h-[50vh] lg:max-h-[35vh] flex flex-col lg:flex-row gap-4 xl:gap-10 absolute bottom-0 xl:pe-32 lg:pe-32 xs:pe-5 xl:ps-32 lg:ps-32 md:ps-5 sm:ps-5 xs:ps-5 bg-[#151515] bg-opacity-40 py-3 z-[1] mt-4"
+            className="w-full max-h-[40vh] overflow-y-auto light-scrollbar dark:dark-scrollbar tall0:max-h-[50vh] lg:max-h-[35vh] flex flex-col lg:flex-row gap-4 xl:gap-10 absolute bottom-0 xl:pe-32 lg:pe-32 xs:pe-5 xl:ps-32 lg:ps-32 md:ps-5 sm:ps-5 xs:ps-5 bg-[#151515] bg-opacity-40 py-3 z-[1] mt-4"
           >
             <div
               className="lg:w-1/2 flex flex-col justify-start items-start gap-4"
@@ -115,7 +150,7 @@ export default async function LangPage({params}) {
                   {localFind("different competitions")}
                 </h5>
               </div>
-              <p className="w-full text-justify text-white font-azarMehr font-medium text-[12px] sm:text-[14px] md:text-[16px] 2xl:text-[18px]">
+              <p className="w-full text-justify text-white font-azarMehr font-medium text-[14px] md:text-[16px] 2xl:text-[18px]">
                 {localFind(
                   "metaverse rang invites you to an exciting world of competition"
                 )}
@@ -131,7 +166,7 @@ export default async function LangPage({params}) {
                   {localFind("real interactions")}
                 </h5>
               </div>
-              <p className="w-full text-justify text-white font-azarMehr font-medium text-[12px] sm:text-[14px] md:text-[16px] 2xl:text-[18px]">
+              <p className="w-full text-justify text-white font-azarMehr font-medium text-[14px] md:text-[16px] 2xl:text-[18px]">
                 {localFind(
                   "metaverse rang invites you to an exciting world of real interactions"
                 )}

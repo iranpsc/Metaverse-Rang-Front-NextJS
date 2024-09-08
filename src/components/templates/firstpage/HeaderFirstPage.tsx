@@ -43,7 +43,7 @@ export default function HeaderFirstPage({ firstPageArrayContent }: any) {
           initial={{ opacity: 0, y: -100 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="w-full text-justify text-white font-azarMehr font-medium text-[12px] sm:text-[14px] md:text-[16px] 2xl:text-[24px]"
+          className="w-full text-justify text-white font-azarMehr font-medium text-[14px] md:text-[16px] 2xl:text-[24px]"
         >
           {localFind("metaverse rang is a metaverse world platform")}
         </motion.p>
@@ -53,7 +53,7 @@ export default function HeaderFirstPage({ firstPageArrayContent }: any) {
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.3 }}
-            className="border-[1px] border-white rounded-full w-[200px] sm:w-[220px] md:w-[250px] lg:w-[280px] xl:w-[305px] h-[50px] md:h-[55px] lg:h-[60px] xl:h-[77px] flex flex-row justify-between items-center ps-6 pe-1"
+            className="border-[1px] mt-3 border-white rounded-full w-[200px] sm:w-[220px] md:w-[250px] lg:w-[280px] xl:w-[305px] h-[50px] md:h-[55px] lg:h-[60px] xl:h-[77px] flex flex-row justify-between items-center ps-6 pe-1"
           >
             <p className="w-fit text-start text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px] text-white font-azarMehr font-medium ">
               {localFind("entering the metaverse world")}

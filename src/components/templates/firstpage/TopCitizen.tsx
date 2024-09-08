@@ -26,7 +26,7 @@ const TopCitizen = async ({ firstPageArrayContent, params }: any) => {
           </div>
         </Link>
       </div>
-      <div className="w-full relative flex flex-row dark:dark-scrollbar light-scrollbar overflow-x-auto mt-4 md:mt-12 py-3">
+      <div className="w-full relative flex flex-row sm:no-scrollbar1 lg:show-scrollbar1 dark:dark-scrollbar light-scrollbar overflow-x-auto mt-4 md:mt-12 py-3">
         {allCitizenArray.data.map((item: any, index: any) => (
           <UserCard item={item} index={index} params={params} key={index} />
         ))}

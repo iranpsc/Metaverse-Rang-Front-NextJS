@@ -51,18 +51,36 @@
   }
 
 
-/* Hide scrollbar for Chrome, Safari, and Opera */
+/* Hide scrollbar */
 .no-scrollbar::-webkit-scrollbar {
     display: none;
 }
-
-/* Hide scrollbar for IE, Edge, and Firefox */
 .no-scrollbar {
     -ms-overflow-style: none;
     /* IE and Edge */
     scrollbar-width: none;
     /* Firefox */
 }
+
+/* Hide and show scrollbar on lg: */
+.no-scrollbar1::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar1 {
+    -ms-overflow-style: none; 
+    scrollbar-width: none;
+}
+
+.show-scrollbar1::-webkit-scrollbar {
+    display: block;
+}
+
+.show-scrollbar1 {
+    -ms-overflow-style: auto;
+    scrollbar-width: auto;
+}
+/*  */
 .tooltip-bg-color{
     background-color: #868b90 !important              
     ;

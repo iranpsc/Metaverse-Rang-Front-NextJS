@@ -26,6 +26,40 @@ export default async function CitizensLayout({
     "Citizenship-profile"
   );
   const tabsMenu = await findByTabName(citizenProfileModals, "menu");
+  const staticMenuToShow = [
+    { name: "home", url: "", order: "-1" },
+    { name: "citizens", url: "/citizen", order: "-1" },
+    // { name: "list of levels", url: "/levels/citizen", order: "-1" },
+    { name: "property", url: "" },
+    { name: "real estate", url: "" },
+    { name: "structures", url: "" },
+    { name: "belongings", url: "" },
+    { name: "permissions", url: "" },
+    { name: "invitations", url: "" },
+    { name: "transaction", url: "" },
+    { name: "reward", url: "" },
+    { name: "dynasty", url: "" },
+    { name: "connections", url: "" },
+    { name: "crimes", url: "" },
+    { name: "news", url: "" },
+    { name: "articles", url: "" },
+    { name: "trainings", url: "" },
+    { name: "about", url: "" },
+    { name: "contact", url: "" },
+    { name: "version", url: "" },
+    { name: "calendar", url: "" },
+    { name: "overview", url: "" },
+  ];
+
+  // add staticMenuToShow values to siblings tabsMenu values
+  tabsMenu.forEach((tab: any) => {
+    let findInStatic = staticMenuToShow.find((val) => tab.name == val.name);
+    if (findInStatic) {
+      tab.url = findInStatic.url;
+      tab.order = findInStatic.order;
+      tab.toShow = true;
+    }
+  });
 
   return (
     <main className="flex h-screen dark:bg-black" dir={langData.direction}>
