@@ -31,7 +31,7 @@ export default async function CitizensPage({ params }: any) {
   const levelModals = await findByModalName(mainData, "levels");
   const levelListArrayContent = await findByTabName(levelModals, "level-list");
 
-  // let allCitizenArray = await getAllCitizen("1");
+  let allCitizenArray = await getAllCitizen("1");
 
   return (
     <>
@@ -55,7 +55,7 @@ export default async function CitizensPage({ params }: any) {
       {/* CITIZEN box Container */}
       <div className="flex flex-row flex-wrap justify-center md:justify-start w-full no-scrollbar overflow-y-auto py-[20px]">
         <CitizenList
-          // allCitizenArray={allCitizenArray?.data}
+          allCitizenArray={allCitizenArray.data}
           // lastPage={allCitizenArray.meta.to}
           levelListArrayContent={levelListArrayContent}
           params={params}

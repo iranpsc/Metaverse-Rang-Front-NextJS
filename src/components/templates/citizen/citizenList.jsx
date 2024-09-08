@@ -3,24 +3,31 @@ import { translateFooter } from "@/components/utils/education";
 import GemImage from "@/components/templates/citizen/gemImage";
 import Link from "next/link";
 import { Text } from "@/components/svgs/SvgEducation";
-import { getAllCitizen } from "@/components/utils/actions";
+// import { getAllCitizen } from "@/components/utils/actions";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import axios from "axios";
+
 
 export default function CitizenList({
   levelListArrayContent,
   params,
   citizenListArrayContent,
+  allCitizenArray,
 }) {
   function localFind2(_name) {
     return levelListArrayContent.find((item) => item.name == _name)
       ?.translation;
   }
-  const [localCitizenArray, setLocalCitizenArray] = useState([]);
+
+  console.log("allCitizenArray", allCitizenArray);
+
+  const [localCitizenArray, setLocalCitizenArray] = useState(allCitizenArray);
   const [isDisabled, setIsDisabled] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [lastPage, setLastPage] = useState(2);
   const [isMounted, setIsMounted] = useState(false);
+  
 
   useEffect(() => {
     setIsMounted(true);
@@ -28,30 +35,32 @@ export default function CitizenList({
 
   useEffect(() => {
     // fetch for first time and only first time
-    if (isMounted) {
-      handleLoadMore();
-    }
+    // if (isMounted) {
+    //   handleLoadMore();
+    // }
   }, [isMounted]);
 
   const handleLoadMore = async () => {
     setCurrentPage(currentPage + 1);
     let oldArray = localCitizenArray;
     console.log("oldArray", oldArray);
-    let newArray = await getAllCitizen(currentPage);
+    axios.get(`https://api.rgbdev.irpsc.com/api/users?page=${currentPage}`).then((res) => {
+      console.log('RESSSS', res)
+      setLastPage(res.data.meta.to);
+      res.data.data.map((item) => {oldArray.push(item)})
+      setLocalCitizenArray(oldArray);
+      if (currentPage >= lastPage) {
+        setIsDisabled(true);
+      }
+  
+      console.log(
+        "Route",
+        `https://api.rgbdev.irpsc.com/api/users?page=${currentPage}`
+      );
+      console.log("newArray", res.data.data);
+      console.log("concat array", localCitizenArray);
+    }).catch()
 
-    setLastPage(newArray.meta.to);
-    newArray?.data.map((item) => {oldArray.push(item)})
-    setLocalCitizenArray(oldArray);
-    if (currentPage >= lastPage) {
-      setIsDisabled(true);
-    }
-
-    console.log(
-      "Route",
-      `https://api.rgbdev.irpsc.com/api/users?page=${currentPage}`
-    );
-    console.log("newArray", newArray.data);
-    console.log("concat array", localCitizenArray);
   };
   return (
     <>
