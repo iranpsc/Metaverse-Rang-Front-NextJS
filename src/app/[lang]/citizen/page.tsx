@@ -36,7 +36,7 @@ export default async function CitizensPage({ params }: any) {
   return (
     <>
       {/* Breadcrumb */}
-      <BreadCrumb />
+      <BreadCrumb params={params} />
       <div className="">
         <h2 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[64px] mb-[16px]">
           {localFind("citizens of the metaverse")}
@@ -63,7 +63,7 @@ export default async function CitizensPage({ params }: any) {
         />
       </div>
 
-      <div className="flex flex-col justify-center items-center">
+      <div className="">
         <DynamicFooter footerTabs={footerTabs} />
       </div>
     </>

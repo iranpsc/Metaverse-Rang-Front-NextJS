@@ -21,13 +21,11 @@ export default async function CitizensLayout({
   const langData = await getTransletion(params.lang);
   const mainData = await getMainFile(langData);
   const langArray = await getLangArray();
-  const citizenProfileModals = await findByModalName(
-    mainData,
-    "Citizenship-profile"
-  );
-  const tabsMenu = await findByTabName(citizenProfileModals, "menu");
+  const centralPageModal = await findByModalName(mainData, "central-page");
+  const tabsMenu = await findByTabName(centralPageModal, "before-login");
+
   const staticMenuToShow = [
-    { name: "home", url: "", order: "-1" },
+    { name: "home", url: `/`, order: "-1" },
     { name: "citizens", url: "/citizen", order: "-1" },
     // { name: "list of levels", url: "/levels/citizen", order: "-1" },
     { name: "property", url: "" },
@@ -72,7 +70,7 @@ export default async function CitizensLayout({
         pageSide="citizen"
       />
       <div
-        className={`overflow-y-auto relative light-scrollbar dark:dark-scrollbar xs:pt-14 sm:pt-14 lg:pt-[0] w-full xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1`}
+        className={`overflow-y-auto relative light-scrollbar dark:dark-scrollbar w-full xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1 mt-[60px] lg:mt-0`}
       >
         {children}
       </div>

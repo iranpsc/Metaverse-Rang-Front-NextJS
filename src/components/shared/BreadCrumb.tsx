@@ -1,8 +1,9 @@
 "use client";
 import { usePathname } from "next/navigation";
 import { ArrowMenu } from "@/svgs/index";
+import Link from "next/link";
 
-export default function () {
+export default function ({ params }: any) {
   const staticData = [
     {
       name: "citizen",
@@ -11,14 +12,19 @@ export default function () {
       color: "text-black",
       darkColor: "text-white",
       font: "font-bold",
+      link: ``,
     },
   ];
   const pathname = usePathname();
   let temp = pathname.split("/");
   // delete empty string in array
   temp.shift();
+  // delete last string in array (page weare in it now)
+  temp.pop();
   let direction = temp[0] == "fa" ? "rtl" : "ltr";
+
   let buildedArray: any[] = [
+    // always show in breadCrumb
     {
       name: "home",
       en: "Home",
@@ -26,6 +32,7 @@ export default function () {
       color: "text-blueLink",
       darkColor: "text-dark-yellow",
       font: "font-normal",
+      link: `/${params.lang}`,
     },
   ];
   temp.map((x) => {
@@ -38,8 +45,8 @@ export default function () {
     <div className="flex font-azarMehr text-[16px] lg:text-[18px] 2xl:text-[20px] py-[20px]">
       {direction == "rtl"
         ? buildedArray.map((x, index) => (
-            <a
-              href=""
+            <Link
+              href={x.link}
               className={`${x.color} dark:${x.darkColor} ${x.font} flex items-center`}
               key={index}
             >
@@ -49,11 +56,11 @@ export default function () {
                   className={`w-[7px] h-[13px] stroke-gray dark:stroke-white mx-2 rotate-180`}
                 />
               )}
-            </a>
+            </Link>
           ))
         : buildedArray.map((x, index) => (
-            <a
-              href=""
+            <Link
+              href={x.link}
               className={`${x.color} dark:${x.darkColor} ${x.font} flex items-center`}
               key={index}
             >
@@ -63,7 +70,7 @@ export default function () {
                   className={`w-[7px] h-[13px] stroke-gray dark:stroke-white mx-2 rotate-0`}
                 />
               )}
-            </a>
+            </Link>
           ))}
     </div>
   );

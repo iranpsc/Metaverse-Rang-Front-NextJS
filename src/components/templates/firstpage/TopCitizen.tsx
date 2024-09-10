@@ -3,11 +3,25 @@ import { getAllCitizen } from "@/components/utils/actions";
 import Link from "next/link";
 import UserCard from "@/components/shared/UserCard";
 
-const TopCitizen = async ({ firstPageArrayContent, params }: any) => {
+const TopCitizen = async ({
+  firstPageArrayContent,
+  params,
+  citizenListArrayContent,
+  levelListArrayContent,
+}: any) => {
   function localFind(_name: any) {
     return firstPageArrayContent.find((item: any) => item.name == _name)
       .translation;
   }
+  function localFind1(_name: any) {
+    return citizenListArrayContent.find((item: any) => item.name == _name)
+      ?.translation;
+  }
+  function localFind2(_name: any) {
+    return levelListArrayContent.find((item: any) => item.name == _name)
+      ?.translation;
+  }
+  console.log("firstPageArrayContent", firstPageArrayContent);
 
   const allCitizenArray = await getAllCitizen();
 
@@ -28,7 +42,15 @@ const TopCitizen = async ({ firstPageArrayContent, params }: any) => {
       </div>
       <div className="w-full relative flex flex-row sm:no-scrollbar1 lg:show-scrollbar1 dark:dark-scrollbar light-scrollbar overflow-x-auto mt-4 md:mt-12 py-3">
         {allCitizenArray.data.map((item: any, index: any) => (
-          <UserCard item={item} index={index} params={params} key={index} />
+          <UserCard
+            key={index}
+            item={item}
+            index={index}
+            params={params}
+            minWidth={`260px`}
+            levelText={localFind2("developer")}
+            buttonText={localFind1("citizen page")}
+          />
         ))}
       </div>
     </>

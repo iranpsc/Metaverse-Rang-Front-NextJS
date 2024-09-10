@@ -8,10 +8,10 @@ export default function CitizenClientImage({ item }: any) {
       <Image
         data-tooltip-id={item.name}
         src={item.image}
-        width={27}
-        height={27}
+        width={64}
+        height={64}
         alt={item.name}
-        className="w-[30px] xl:w-[45px] 2xl:w-[50px] inline"
+        className="w-[30px] xl:w-[40px] 2xl:w-[50px] inline"
       />
       <ReactTooltip
         id={item.name}

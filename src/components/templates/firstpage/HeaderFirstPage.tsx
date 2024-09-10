@@ -3,7 +3,12 @@ import { Arrow, Vector } from "@/components/svgs";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-export default function HeaderFirstPage({ firstPageArrayContent }: any) {
+export default function HeaderFirstPage({
+  firstPageArrayContent,
+  params,
+}: any) {
+  console.log("first page arraycontent", firstPageArrayContent);
+
   function localFind(_name: any) {
     return firstPageArrayContent.find((item: any) => item.name == _name)
       .translation;
@@ -19,7 +24,7 @@ export default function HeaderFirstPage({ firstPageArrayContent }: any) {
           transition={{ duration: 0.3, delay: 0.3 }}
           className="w-[50%] font-bold text-[28px] sm:text-[32px] md:text-[38px] xl:text-[56px] 2xl:text-[78px] 3xl:text-[108px] text-dark-yellow whitespace-nowrap font-rokh mt-2 xl:mt-5"
         >
-          متاورس رنگ
+          {params.lang == "fa" ? "متاورس رنگ" : "Color Metaverse"}
         </motion.h1>
         <motion.div
           initial={{ opacity: 0, scale: 0 }}

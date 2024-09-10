@@ -1,21 +1,16 @@
 "use client";
-// import { useState, useEffect, useContext } from "react";
 //Types
 import { MenuDataItem } from "@/types/listMenu";
-// import { SideBarContext } from "@/components/context/SidebarContext";
 import ListMenuSvgModule from "./list/ListMenuSvgModule";
 import ListMenuTitleModule from "./list/ListMenuTitleModule";
-// import ListMenuActiveIconModule from "./list/ListMenuActiveIconModule";
 import ListMenuArrow from "./list/ListMenuArrow";
-// import DropdownTrainingsModule from "./list/dropdowns/DropdownTrainingsModule";
 import DropdownLanguageModule from "./list/dropdowns/DropdownLanguageModule";
 import { Modals_fa, Modals_en } from "@/components/utils/modals-content";
 import { useEffect, useState } from "react";
 import Modal from "@/components/templates/modal";
 import ListMenuActiveIconModule from "./list/ListMenuActiveIconModule";
-// import ListMenuActiveIconModule from "./list/ListMenuActiveIconModule";
-import { Tooltip as ReactTooltip } from "react-tooltip";
 import { useRouter } from 'next/navigation';
+import Tooltip from '@mui/material/Tooltip';
 
 export default function SideBarContent({
   tabsMenu,
@@ -33,7 +28,7 @@ export default function SideBarContent({
 
   useEffect(() => {
     setIsMounted(true);
-    console.log('tabs3', tabsMenu);
+    console.log('tabsMenu',tabsMenu);
     
   }, []);
 
@@ -93,81 +88,99 @@ export default function SideBarContent({
           tabsMenu.map((item, i) => (
             //*HINT*the way to pass parameters to function in nextjs "onTabClick(item)"
             //*HINT*i<=12 is not a good solution,array must be change
-          <div key={item.id} style={{order:item.order}}>
-            { item.toShow &&
-            <li  onClick={() => onTabClick(item, i)} data-tooltip-id={item.name}>
-              {/* (i == 0) for hiding first element of array"متاورس" */}
-              
-                <div
-                  className={`w-full flex flex-row items-center gap-2 group py-[12px] 3xl:py-[16px]
-                  group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer menu-transition
-                  ${isClosed ? "justify-start" : "justify-start"}`}
-                >
-                    <ListMenuActiveIconModule
-                      item={item}
-                      languageSelected={langData.code}
-                      isClosed={isClosed}
-                      activeNav={activeNav}
-                      i={i}
-                      />
-                  <span className="ps-[15px]">
-                    <ListMenuSvgModule item={item} i={i} activeNav={activeNav} />
-                  </span>
-                    <ListMenuTitleModule
-                      item={item}
-                      isClosed={isClosed}
-                      i={i}
-                      activeNav={activeNav}
-                    />
-                  <ListMenuArrow item={item} />
-                </div>              
-            </li>
-            }
-            
-            {item.name === "language" && 
-                <>
-                  <li onClick={handleLangBtn} data-tooltip-id={item.name}>
-                    <div
-                      className={`w-full flex flex-row items-center gap-2 group py-[12px] 3xl:py-[16px]
-                      group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer menu-transition
-                      ${isClosed ? "justify-start" : "justify-start"}`}
+            <div key={i} style={{order:item.order}}>
+              <Tooltip title={item.translation} placement={langData.direction == 'rtl'?'left-end':'right-end'}
+                  // slotProps is used to apply custom styles and props to the internal elements (slots)
+                  slotProps={{
+                    tooltip: {
+                      // Applies Tailwind classes to the tooltip container
+                      className: "bg-white dark:bg-dark-background font-azarMehr font-medium text-black dark:text-white text-[14px] lg:text-[16px]",
+                    },
+                  }}
+                  // PopperProps is used to configure the behavior and positioning
+                  PopperProps={{
+                    modifiers: [
+                      {
+                        name: 'offset',
+                        options: {
+                          offset: [0, -13], // Adjusts tooltip offset
+                        },
+                      },
+                    ],
+                  }}
+              >
+              <div style={{order:item.order}}>
+                { item.toShow &&
+                  <li  onClick={() => onTabClick(item, i)} data-tooltip-id={item.name}>
+                    {/* (i == 0) for hiding first element of array"متاورس" */}
+                    
+                      <div
+                        className={`w-full flex flex-row items-center gap-2 group py-[12px] 3xl:py-[16px]
+                        group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer menu-transition
+                        ${isClosed ? "justify-start" : "justify-start"}`}
                       >
-                        <ListMenuActiveIconModule
-                          item={item}
-                          languageSelected={langData.code}
-                          isClosed={isClosed}
-                          activeNav={activeNav}
-                          i={i}
+                          <ListMenuActiveIconModule
+                            item={item}
+                            languageSelected={langData.code}
+                            isClosed={isClosed}
+                            activeNav={activeNav}
+                            i={i}
+                            />
+                        <span className="ps-[15px]">
+                          <ListMenuSvgModule item={item} i={i} activeNav={activeNav} />
+                        </span>
+                          <ListMenuTitleModule
+                            item={item}
+                            isClosed={isClosed}
+                            i={i}
+                            activeNav={activeNav}
                           />
-                      <span className="ps-[15px]">
-                        <ListMenuSvgModule item={item} i={i} activeNav={activeNav} />
-                      </span>
-                        <ListMenuTitleModule
-                          item={item}
-                          isClosed={isClosed}
-                          i={i}
-                          activeNav={activeNav}
-                        />
-                      <ListMenuArrow item={item} isOpen={langDropDown} />
-                    </div>              
+                        <ListMenuArrow item={item} />
+                      </div>              
                   </li>
-                  <div className={`${langDropDown ? "h-full" : 'h-0 overflow-hidden'}
-                    base-transition-1 bg-Field dark:bg-darkGrey`}>
-                    <DropdownLanguageModule
-                      languagesData={langData}
-                      langArray={langArray}
-                      params={params}
-                      isClosed={isClosed}
-                      />
-                  </div>
-                </>
+              
                 }
-             <ReactTooltip
-             id={item.name}
-             place="top"
-             className="max-w-[90%] tooltip-bg-color text-center"
-             content={item.translation}
-           />
+                {item.name === "language" && 
+                  <>
+                    <li onClick={handleLangBtn} data-tooltip-id={item.name}>
+                      <div
+                        className={`w-full flex flex-row items-center gap-2 group py-[12px] 3xl:py-[16px]
+                        group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer menu-transition
+                        ${isClosed ? "justify-start" : "justify-start"}`}
+                        >
+                          <ListMenuActiveIconModule
+                            item={item}
+                            languageSelected={langData.code}
+                            isClosed={isClosed}
+                            activeNav={activeNav}
+                            i={i}
+                            />
+                        <span className="ps-[15px]">
+                          <ListMenuSvgModule item={item} i={i} activeNav={activeNav} />
+                        </span>
+                          <ListMenuTitleModule
+                            item={item}
+                            isClosed={isClosed}
+                            i={i}
+                            activeNav={activeNav}
+                          />
+                        <ListMenuArrow item={item} isOpen={langDropDown} />
+                      </div>              
+                    </li>
+                    <div className={`${langDropDown ? "h-full" : 'h-0 overflow-hidden'}
+                      base-transition-1 bg-Field dark:bg-darkGrey`}>
+                      <DropdownLanguageModule
+                        languagesData={langData}
+                        langArray={langArray}
+                        params={params}
+                        isClosed={isClosed}
+                        />
+                    </div>
+                  </>
+                }
+              </div>
+              </Tooltip>
+
             </div>
           ))}
       </ul>
