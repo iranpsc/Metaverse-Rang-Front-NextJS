@@ -6,7 +6,7 @@ import Permission from "@/components/module/levelComponent/Permissions";
 import Prize from "@/components/module/levelComponent/Prize";
 import {
   getFooterData,
-  getTransletion,
+  getTranslation,
   getMainFile,
 } from "@/components/utils/actions";
 import DynamicFooter from "@/components/module/footer/DynamicFooter";
@@ -14,7 +14,7 @@ import { Features } from "@/components/module/levelComponent/Features";
 
 export default async function lavelSingelPage({ params }) {
   const footerTabs = await getFooterData(params);
-  const langData = await getTransletion(params.lang);
+  const langData = await getTranslation(params.lang);
   const mainData = await getMainFile(langData);
   const levels = mainData.modals.find((x) => x.name == "levels");
   const levelsTranslatePage = levels.tabs.find(

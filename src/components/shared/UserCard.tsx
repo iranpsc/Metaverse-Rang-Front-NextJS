@@ -12,8 +12,8 @@ export default function UserCard({
 }: any) {
   return (
     <div
-      className={`hover:scale-105 base-transition-1 px-2 w-[280px] sm:w-1/3 lg:w-1/4 2xl:w-1/5 3xl:w-1/6`}
-      style={minWidth ? { minWidth: minWidth } : {}}
+      className={`hover:scale-105 base-transition-1 px-2`}
+      style={minWidth ? { width: minWidth, minWidth: minWidth } : {}}
     >
       <div
         className={`shadow-lg mt-10 relative bg-[#fff] dark:bg-[#1A1A18] flex flex-col justify-between gap-3 py-3 sm:py-4 md:py-5 items-center rounded-[20px]`}

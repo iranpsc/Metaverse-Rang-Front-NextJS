@@ -1,6 +1,6 @@
 import DynamicFooter from "@/components/module/footer/DynamicFooter";
 import {
-  getTransletion,
+  getTranslation,
   getMainFile,
   findByModalName,
   findByTabName,
@@ -13,7 +13,7 @@ import CitizenList from "@/components/templates/citizen/citizenList";
 
 export default async function CitizensPage({ params }: any) {
   const footerTabs = await getFooterData(params);
-  const langData = await getTransletion(params.lang);
+  const langData = await getTranslation(params.lang);
   const mainData = await getMainFile(langData);
 
   const Citizenship = await findByModalName(mainData, "Citizenship-profile");
@@ -53,7 +53,7 @@ export default async function CitizensPage({ params }: any) {
         </div>
       </div>
       {/* CITIZEN box Container */}
-      <div className="flex flex-row flex-wrap justify-center md:justify-start w-full no-scrollbar overflow-y-auto py-[20px]">
+      <div className="flex flex-row flex-wrap justify-center md:justify-center w-full no-scrollbar overflow-y-auto py-[20px]">
         <CitizenList
           allCitizenArray={allCitizenArray.data}
           // lastPage={allCitizenArray.meta.to}

@@ -12,7 +12,7 @@ import DetailsEducationSection from "@/components/templates/firstpage/DetailsEdu
 import VersionSection from "@/components/templates/firstpage/VersionSection";
 import SideBar from "@/components/module/sidebar/SideBar";
 import {
-  getTransletion,
+  getTranslation,
   getMainFile,
   findByModalName,
   findByTabName,
@@ -25,7 +25,7 @@ import useServerDarkMode from "src/hooks/use-server-dark-mode";
 export default async function LangPage({params}) {
 
   const langArray = await getLangArray();
-  const langData = await getTransletion(params.lang);
+  const langData = await getTranslation(params.lang);
   const mainData = await getMainFile(langData);
   const defaultTheme = await useServerDarkMode();
   const allVersionList = await getAllVersions();

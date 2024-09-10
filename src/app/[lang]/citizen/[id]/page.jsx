@@ -10,7 +10,7 @@ import { DefaultSeo } from "next-seo";
 import { AnimatePresence } from "framer-motion";
 import ProfileDetails from "@/components/module/profile/ProfileDatails";
 // import LogoutPage from "@/components/templates/LogoutPage";
-import { getTransletion, getMainFile } from "@/components/utils/actions";
+import { getTranslation, getMainFile } from "@/components/utils/actions";
 import { log } from "console";
 
 export default async function citizenSinglePage({
@@ -39,7 +39,7 @@ export default async function citizenSinglePage({
 
   const profileData = await getUserData();
 
-  const langData = await getTransletion(params.lang);
+  const langData = await getTranslation(params.lang);
   const mainData = await getMainFile(langData);
 
   const modalsProfile = mainData.modals.find(

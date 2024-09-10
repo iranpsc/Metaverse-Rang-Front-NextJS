@@ -1,6 +1,6 @@
 import SideBar from "@/components/module/sidebar/SideBar";
 import {
-  getTransletion,
+  getTranslation,
   getMainFile,
   getLangArray,
   findByTabName,
@@ -18,7 +18,7 @@ export default async function CitizensLayout({
   const defaultTheme = useServerDarkMode();
 
   //
-  const langData = await getTransletion(params.lang);
+  const langData = await getTranslation(params.lang);
   const mainData = await getMainFile(langData);
   const levels = await findByModalName(mainData, "levels");
   const langArray = await getLangArray();

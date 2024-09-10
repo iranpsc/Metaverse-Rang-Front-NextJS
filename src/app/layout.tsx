@@ -11,7 +11,7 @@ export default function RootLayout({
 }) {
   const theme = useServerDarkMode();
   return (
-    <html lang="en" className={theme}>
+    <html lang={params.lang} className={theme}>
       <body className={`${azarMehr.variable} ${rokh.variable}`}>
         {children}
       </body>

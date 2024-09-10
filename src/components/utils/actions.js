@@ -2,14 +2,16 @@
 
 
 //return selected language object
-  export async function getTransletion(lang) {
+  export async function getTranslation(lang) {
     const res = await fetch("https://admin.rgb.irpsc.com/api/translations", {
       headers: {
         "Content-Type": "application/json",
       },
     });
     const data = await res.json();
-    return data.data.find((item) => item.code === lang);
+    let temp = await data.data.find((item) => item.code === lang)
+
+    return temp;
   }
 
   //return whole language array
@@ -31,8 +33,10 @@
         "Content-Type": "application/json",
       },
     });
+    let temp = await res.json()
+    console.log('await res.json()', temp)
     
-    return await res.json();
+    return temp;
   }
   // return selected modal according to _selectedName from _mainData(.json)
   export async function findByModalName(_mainData, _selectedName){
@@ -59,7 +63,7 @@
   }
   export async function getFooterData(params) {
     try {
-      const langObj =await getTransletion(params.lang)
+      const langObj =await getTranslation(params.lang)
       const res = await fetch(langObj.file_url);
       const resJson = await res.json();
       const footerData = resJson.modals.find(

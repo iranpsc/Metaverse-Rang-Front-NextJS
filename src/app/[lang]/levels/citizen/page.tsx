@@ -1,7 +1,7 @@
 import {
   getAllLevels,
   getFooterData,
-  getTransletion,
+  getTranslation,
   getMainFile,
   findByModalName,
   findByTabName,
@@ -105,7 +105,7 @@ export default async function LevelsPage({
 
   const langArray = await getLangArray();
 
-  const langData = await getTransletion(params.lang);
+  const langData = await getTranslation(params.lang);
   const mainData = await getMainFile(langData);
   const levels = await findByModalName(mainData, "levels");
 

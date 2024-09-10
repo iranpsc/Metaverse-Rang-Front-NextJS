@@ -3,7 +3,7 @@
 // import { SideBarContext } from "@/components/context/SidebarContext";
 import { CLoseIcon, MenuIcon } from "@/components/svgs";
 import Image from "next/image";
-import { getTransletion, getMainFile } from "@/components/utils/actions";
+import { getTranslation, getMainFile } from "@/components/utils/actions";
 
 export default function ProfileHeaderMobile({ tabsMenu, isClosed, toggleSide }) {
   // const { state, toggleCollapseHandler } = useContext(SideBarContext);

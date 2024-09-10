@@ -66,6 +66,7 @@ export default function CitizenList({
     <>
       {localCitizenArray.map((item, index) => (
         <UserCard
+        minWidth='260px'
         key={index}
         item={item}
         index={index}
