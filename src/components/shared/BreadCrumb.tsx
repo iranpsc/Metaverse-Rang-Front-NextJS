@@ -12,15 +12,13 @@ export default function ({ params }: any) {
       color: "text-black",
       darkColor: "text-white",
       font: "font-bold",
-      link: ``,
+      link: `/${params.lang}/citizen`,
     },
   ];
   const pathname = usePathname();
   let temp = pathname.split("/");
   // delete empty string in array
   temp.shift();
-  // delete last string in array (page weare in it now)
-  temp.pop();
   let direction = temp[0] == "fa" ? "rtl" : "ltr";
 
   let buildedArray: any[] = [

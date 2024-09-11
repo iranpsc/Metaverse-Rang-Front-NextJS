@@ -82,20 +82,20 @@ function SideBarHeader({ isClosed, toggleSide, tabsMenu, params }: any) {
             )} */}
           </div>
         </div>
-
-        <div
-          className={` ${
-            isClosed
-              ? "invisible opacity-0"
-              : "visible opacity-100 menu-transition"
-          } h-[30px] w-[30px] cursor-pointer rounded-full bg-[#efefef] dark:bg-mediumGray flex justify-center items-center me-3 rtl:end-0 ltr:end-[-7px] absolute right-[102%] ltr:left-[102%]`}
-          onClick={toggleSide}
-        >
-          <ArrowMenu
-            className={`w-[7px] h-[13px] stroke-gray dark:stroke-white ltr:rotate-180 rtl:rotate-0`}
-          />
-        </div>
       </Link>
+
+      <div
+        className={` ${
+          isClosed
+            ? "invisible opacity-0"
+            : "visible opacity-100 menu-transition"
+        } h-[30px] w-[30px] cursor-pointer rounded-full bg-[#efefef] dark:bg-mediumGray flex justify-center items-center me-3 rtl:end-0 ltr:end-[-7px] absolute top-[50%] right-[102%] ltr:left-[102%]`}
+        onClick={toggleSide}
+      >
+        <ArrowMenu
+          className={`w-[7px] h-[13px] stroke-gray dark:stroke-white ltr:rotate-180 rtl:rotate-0`}
+        />
+      </div>
       <hr
         className={`${
           isClosed ? "mx-5" : "mx-2"
