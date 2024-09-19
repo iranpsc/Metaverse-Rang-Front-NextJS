@@ -32,7 +32,6 @@ export async function generateMetadata({ params }) {
   const mainData = await getMainFile(langData);
   const centralPageModal = await findByModalName(mainData, "central-page");
   const firstPageArrayContent = await findByTabName(centralPageModal, "first-page");
-  console.log('firstPageArrayContent',firstPageArrayContent)
   // ***
   const headersList = headers();
   const host = headersList.get('host');
@@ -47,24 +46,24 @@ export async function generateMetadata({ params }) {
     }
 
   return {
-    title: localFind('metaverse rang'),
-    description: localFind('metaverse rang is a metaverse world platform'),
+    // title: localFind('metaverse rang'),
+    // description: localFind('metaverse rang is a metaverse world platform'),
     openGraph: {
-      // type: 'article',
-      // url: `https://yourwebsite.com/posts/${params.id}`,
-      title: localFind('metaverse rang'),
-      description: localFind('metaverse rang is a metaverse world platform'),
-      locale: params.code == 'fa'? 'fa_IR' : 'en_US',
       site_name:'metaverseTest',
-      url: `${fullUrl}`,
-      images: [
-        {
-          url: '/logo.png',
-          width: 800,
-          height: 600,
-          // alt: post.title,
-        },
-      ],
+      type: 'article',
+      // url: `https://yourwebsite.com/posts/${params.id}`,
+      // title: localFind('metaverse rang'),
+      // description: localFind('metaverse rang is a metaverse world platform'),
+      // locale: params.code == 'fa'? 'fa_IR' : 'en_US',
+      // url: `${fullUrl}`,
+      // images: [
+      //   {
+      //     url: '/logo.png',
+      //     width: 800,
+      //     height: 600,
+      //     alt: localFind('metaverse rang'),
+      //   },
+      // ],
     },
     // twitter: {
     //   card: 'summary_large_image',
@@ -195,6 +194,7 @@ export default async function LangPage({params}) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(landingSchema) }}
       />
       {/* schema END */}
+
       <div className="flex h-screen" dir={langData.direction}>
         <SideBar
           tabsMenu={tabsMenu}

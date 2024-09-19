@@ -41,24 +41,14 @@ export default function CitizenList({
   const handleLoadMore = async () => {
     setCurrentPage(currentPage + 1);
     let oldArray = localCitizenArray;
-    console.log("oldArray", oldArray);
-    console.log("currentPage", currentPage);
 
     axios.get(`https://api.rgbdev.irpsc.com/api/users?page=${currentPage}`).then((res) => {
-      console.log('RESSSS', res)
       setLastPage(res.data.meta.to);
       res.data.data.map((item) => {oldArray.push(item)})
       setLocalCitizenArray(oldArray);
       if (currentPage >= lastPage) {
         setIsDisabled(true);
       }
-  
-      console.log(
-        "Route",
-        `https://api.rgbdev.irpsc.com/api/users?page=${currentPage}`
-      );
-      console.log("newArray", res.data.data);
-      console.log("concat array", localCitizenArray);
     }).catch()
 
   };

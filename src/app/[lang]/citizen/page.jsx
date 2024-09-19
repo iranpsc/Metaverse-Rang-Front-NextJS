@@ -14,7 +14,6 @@ import CitizenList from "@/components/templates/citizen/citizenList";
 // SEO**
 export async function generateMetadata({ params }) {
   const langData = await getTranslation(params.lang);
-  console.log("langData", langData);
 
   const mainData = await getMainFile(langData);
   // const centralPageModal = await findByModalName(mainData, "central-page");
@@ -74,7 +73,6 @@ export default async function CitizensPage({ params }) {
     "list-citizen"
   );
 
-  console.log("citizenListArrayContent", citizenListArrayContent);
 
   // to find in an array with key(_name)
   function localFind(_name) {

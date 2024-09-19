@@ -28,8 +28,6 @@ export default function SideBarContent({
 
   useEffect(() => {
     setIsMounted(true);
-    console.log('tabsMenu',tabsMenu);
-    
   }, []);
 
   const closeModal = () => {

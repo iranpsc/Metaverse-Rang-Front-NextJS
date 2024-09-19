@@ -34,7 +34,6 @@
       },
     });
     let temp = await res.json()
-    console.log('await res.json()', temp)
     
     return temp;
   }

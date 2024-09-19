@@ -7,8 +7,6 @@ export default function HeaderFirstPage({
   firstPageArrayContent,
   params,
 }: any) {
-  console.log("first page arraycontent", firstPageArrayContent);
-
   function localFind(_name: any) {
     return firstPageArrayContent.find((item: any) => item.name == _name)
       .translation;

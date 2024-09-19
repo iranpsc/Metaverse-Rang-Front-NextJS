@@ -21,7 +21,6 @@ const TopCitizen = async ({
     return levelListArrayContent.find((item: any) => item.name == _name)
       ?.translation;
   }
-  console.log("firstPageArrayContent", firstPageArrayContent);
 
   const allCitizenArray = await getAllCitizen();
 
