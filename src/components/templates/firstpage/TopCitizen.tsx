@@ -43,12 +43,11 @@ const TopCitizen = async ({
       <div className="w-full relative flex flex-row sm:no-scrollbar1 lg:show-scrollbar1 dark:dark-scrollbar light-scrollbar overflow-x-auto mt-4 md:mt-12 py-3">
         {allCitizenArray.data.map((item: any, index: any) => (
           <UserCard
-            key={index}
+            key={item.id}
             item={item}
             index={index}
             params={params}
             minWidth={`260px`}
-            levelText={localFind2("developer")}
             buttonText={localFind1("citizen page")}
           />
         ))}

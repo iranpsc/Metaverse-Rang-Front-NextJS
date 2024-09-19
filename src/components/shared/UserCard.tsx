@@ -3,13 +3,7 @@ import GemImage from "@/components/templates/citizen/gemImage";
 import Link from "next/link";
 import { Text } from "../svgs/SvgEducation";
 
-export default function UserCard({
-  item,
-  params,
-  levelText,
-  buttonText,
-  minWidth,
-}: any) {
+export default function UserCard({ item, params, buttonText, minWidth }: any) {
   return (
     <div
       className={`hover:scale-105 base-transition-1 px-2`}
@@ -46,7 +40,11 @@ export default function UserCard({
         {/* </Link> */}
 
         <span className="dark:text-[#969696] text-[12px] sm:text-[14px] md:text-[16px] 2xl:text-[18px]">
-          {levelText}
+          {item.levels?.current
+            ? item.levels.current.name
+            : params.lang == "fa"
+            ? "تازه وارد"
+            : "Newcomer"}
         </span>
 
         <div className="w-[95%] min-h-[75px] overflow-auto light-scrollbar dark:dark-scrollbar pb-2">
