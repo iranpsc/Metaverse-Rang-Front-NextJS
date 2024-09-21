@@ -70,7 +70,7 @@ export default async function CitizensLayout({
         pageSide="citizen"
       />
       <div
-        className={`overflow-y-auto relative light-scrollbar dark:dark-scrollbar w-full xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1 mt-[60px] lg:mt-0`}
+        className={`overflow-y-auto relative light-scrollbar dark:dark-scrollbar w-full xs:px-1 mt-[60px] lg:mt-0`}
       >
         {children}
       </div>

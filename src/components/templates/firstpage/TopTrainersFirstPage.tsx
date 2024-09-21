@@ -29,6 +29,7 @@ const TopTrainersFirstPage = async ({
       profile_photo: "/profile/marziyeh-alizadeh.jpg",
       code: "HM-2000003",
       score: "",
+      levels: { current: { name: "شهروند" } },
     },
     {
       id: 2,
@@ -36,6 +37,7 @@ const TopTrainersFirstPage = async ({
       profile_photo: "/profile/hossein-ghadiri.jpg",
       code: "HM-2000001",
       score: "",
+      levels: { current: { name: "مشارکت کننده" } },
     },
   ];
   return (

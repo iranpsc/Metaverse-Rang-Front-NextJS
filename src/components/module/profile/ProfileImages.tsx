@@ -77,20 +77,20 @@ export default function ProfileImages({
   return (
     <>
       <section className="dark:bg-dark-background shadow-md relative bg-white transition-all duration-300 ease-linear rounded-[10px] flex flex-col justify-center items-center lg:flex-row lg:justify-between">
-        <div className="w-[100%] md:w-[80%] xl:w-[50vh] 2xl:w-[45vh] tall0:h-[100vh] lg:h-[40vh] 2xl:h-[45vh] dark:bg-dark-background bg-white overflow-clip flex justify-center items-center rounded-[10px]  lg:rounded-l-[0px] lg:rounded-r-[10px] ">
+        <div className="w-[100%] md:w-[80%] tall0:h-[100vh] lg:h-[40vh] 2xl:h-[45vh] dark:bg-dark-background bg-white overflow-clip flex justify-center items-center rounded-[10px] ">
           <Image
             src={mainImageUrl || "/temp-1.png"}
-            width={100}
-            height={100}
+            width={1000}
+            height={1000}
             alt={titleData}
             priority={true}
             className="w-full h-full rounded-r-[10px] object-cover"
           />
         </div>
 
-        <hr className="h-[1.5px] w-[35vh] lg:w-[1.5px] lg:h-[35vh] mt-2 border-none xl:bg-gradient-to-b lg:bg-gradient-to-b md:bg-gradient-to-r mb-1 sm:bg-gradient-to-l xs:bg-gradient-to-l from-[#DADADA00] via-[#b3b3b3] to-[#DADADA00]" />
+        <hr className="ms-5 h-[1.5px] w-[35vh] lg:w-[1.5px] lg:h-[35vh] mt-2 border-none xl:bg-gradient-to-b lg:bg-gradient-to-b md:bg-gradient-to-r mb-1 sm:bg-gradient-to-l xs:bg-gradient-to-l from-[#DADADA00] via-[#b3b3b3] to-[#DADADA00]" />
 
-        <div className="w-[100%] lg:w-[25%] flex xl:flex-row lg:flex-row md:flex-col sm:flex-col xs:flex-col max-lg:mb-2  gap-2 justify-center items-center">
+        <div className="w-[100%] lg:w-[20%] flex xl:flex-row lg:flex-row md:flex-col sm:flex-col xs:flex-col max-lg:mb-2  gap-2 justify-center items-center">
           <motion.div
             initial={{ opacity: 0, scale: 0, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
