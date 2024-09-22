@@ -40,7 +40,7 @@ export default function ({ params }: any) {
   });
 
   return (
-    <div className="flex font-azarMehr text-[16px] lg:text-[18px] 2xl:text-[20px] py-[20px]">
+    <div className="flex font-azarMehr text-[16px] lg:text-[18px] 2xl:text-[20px] py-[20px] xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
       {direction == "rtl"
         ? buildedArray.map((x, index) => (
             <Link

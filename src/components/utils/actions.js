@@ -13,6 +13,7 @@
 
     return temp;
   }
+  
 
   //return whole language array
   export async function getLangArray() {

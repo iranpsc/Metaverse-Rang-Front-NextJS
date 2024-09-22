@@ -1,17 +1,8 @@
-import Head from "next/head";
 
 import Profile from "@/components/templates/Profile";
 import ProfileAbout from "@/components/module/profile/ProfileAbout";
-// import { LangContext } from "@/context/LangContext";
-// import ModalCard from "@/templates/ModalCard";
-import { DefaultSeo } from "next-seo";
-// import StaticMobileMenu from "@/components/module/StaticMobileMenu";
-// import ShredPage from "@/components/templates/ShredPage";
-import { AnimatePresence } from "framer-motion";
 import ProfileDetails from "@/components/module/profile/ProfileDatails";
-// import LogoutPage from "@/components/templates/LogoutPage";
 import { getTranslation, getMainFile } from "@/components/utils/actions";
-import { log } from "console";
 
 export default async function citizenSinglePage({
   params,
@@ -38,6 +29,7 @@ export default async function citizenSinglePage({
   }
 
   const profileData = await getUserData();
+  
 
   const langData = await getTranslation(params.lang);
   const mainData = await getMainFile(langData);
@@ -78,47 +70,27 @@ export default async function citizenSinglePage({
       titleData = "Metaverse Rgb";
     }
   }
-  function addPageJsonLd() {
-    return {
-      __html: `{
-        "@context": "http://schema.org",
-  "@type": "JobPosting",
-  "title": "سطح 4",
-  "image": "https://uni.irpsc.com/wp-content/uploads/2022/01/gem4.jpg",
-  "description": "توسعه دهنده",
-  "datePosted": "2023-02-01",
-  "validThrough": "2023-02-01",
-  "employmentType": "Full-Time",
-  "baseSalary": {
-    "@type": "MonetaryAmount",
-    "currency": "PSC",
-    "value": {
-      "@type": "QuantitativeValue",
-      "value": 10,
-      "unitText": "PSC"
-    }
-  },
-  "hiringOrganization": {
-    "@type": "Organization",
-    "name": "سازمان متاورس ملی | متارنگ"
-  },
-  "jobLocation": {
-    "@type": "Place",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "استان قزوین، قزوین، میرداماد، 824H+JG2،",
-      "addressLocality": "قزوین",
-      "addressRegion": "Asia and the Pacific",
-      "postalCode": "3415836589",
-      "addressCountry": "fa"
-    }
-  }
-      }`,
-    };
+
+  const singleCitizenSchema = {
+    "@context": "https://schema.org/",
+    "@type": "Person",
+    "name": `${profileData.data.name}`,
+    "image": `${profileData.data.profilePhotos[0].url}`,
+    "url": `http://rgb.irpsc.com/fa/citizen/${params.id}`,
+    "jobTitle": `${profileData.data.customs.occupation}`,
+    "description": `${profileData.data.customs.about}`,
+    "birthDate": `${profileData.data.kyc.birth_date}`,
+    "email": `${profileData.data.kyc.email}`
   }
 
   return (
     <>
+      {/* SCHEMA** */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(singleCitizenSchema) }}
+      />
+      {/* schema END */}
       <section className="h-fit lg:h-screen relative w-full bg-[#e9eef8] dark:bg-black">
         {/* <AnimatePresence>
           {showLogOut && (
@@ -146,20 +118,6 @@ export default async function citizenSinglePage({
           />
           )}
         </AnimatePresence> */}
-        <Head>
-          {/* <title>{titleData}</title> */}
-          <meta name="description" content="job" key="desc" />
-          <meta
-            name="google-site-verification"
-            content="lmf8kBJQgLHew_wXcxGQwJQWiOSFy8odEBRTLOoX7Q4"
-          />
-          <link rel="icon" href="/logo.png" />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={addPageJsonLd()}
-            key="job-jsonld"
-          />
-        </Head>
 
         {/* <div className=" xl:hidden lg:hidden md:visible sm:visible xs:visible w-full h-fit absolute bottom-0 z-40">
           <div className="w-full h-fit dark:bg-black bg-white absolute bottom-0 shadow-3xl">
@@ -207,4 +165,80 @@ export default async function citizenSinglePage({
       </section>
     </>
   );
+}
+
+// SEO**
+export async function generateMetadata({ params }) {
+  // const langData = await getTranslation(params.lang);
+  // const mainData = await getMainFile(langData);
+  // const centralPageModal = await findByModalName(mainData, "central-page");
+  // const firstPageArrayContent = await findByTabName(centralPageModal, "first-page");
+  
+  // ***
+  // const headersList = headers();
+  // const host = headersList.get('host');
+  // const protocol ='https';
+  
+  // const fullUrl = `${protocol}://${host}/${params.lang}`;
+
+    // to find in an array with key(_name)
+    // async function localFind(_name) {
+      
+    //   return await firstPageArrayContent.find((item) => item.name == _name)
+    //     .translation;
+    // }
+
+    async function getUserData() {
+      try {
+        const res = await fetch(
+          `https://api.rgb.irpsc.com/api/citizen/${params.id}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        const temp = await res.json();
+  
+        return temp;
+      } catch (err) {
+        // در صورت وجود خطا
+        return { props: { error: "خطا در دریافت داده‌ها" } };
+      }
+    }
+
+  const profileData = await getUserData();
+  console.log('profileData11111',profileData);
+  
+
+
+  return {
+    // title: localFind('metaverse rang'),
+    // description: localFind('metaverse rang is a metaverse world platform'),
+    openGraph: {
+      // site_name:'',
+      type: 'profile',
+      // url: `https://yourwebsite.com/posts/${params.id}`,
+      title: `${profileData.data.name}`,
+      description: `${profileData.data.customs.about}`,
+      locale: params.code == 'fa'? 'fa_IR' : 'en_US',
+      url: `http://rgb.irpsc.com/fa/citizen/${params.id}`,
+      profile: {
+        first_name: `${profileData.data.name}`, // optional: user's first name
+      },
+      images: [
+        {
+          url: `${profileData.data.profilePhotos[0].url}`,
+          width: 800,
+          height: 600
+        },
+      ],
+    },
+    // twitter: {
+    //   card: 'summary_large_image',
+    //   title: post.title,
+    //   description: post.description,
+    //   images: [post.imageUrl],
+    // },
+  };
 }
