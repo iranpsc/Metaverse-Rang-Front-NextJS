@@ -39,14 +39,12 @@ module.exports = {
       },
     ],
   },
-//  experimental: { esmExternals: true, serverActions: true,appDir: true },
- experimental: { appDir: true },
-  async rewrites() {
-    return [
-      {
-        source: "/robots.txt",
-        destination: "/_next/static/robots.txt",
-      },
-    ];
-  },
+  // async rewrites() {
+  //   return [
+  //     {
+  //       source: "/robots.txt",
+  //       destination: "/_next/static/robots.txt",
+  //     },
+  //   ];
+  // },
 };

@@ -22,7 +22,6 @@ import {
 import DynamicFooter from "@/components/module/footer/DynamicFooter";
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
 import { headers } from 'next/headers';
-import Head from 'next/head';
 
 
 
@@ -32,6 +31,8 @@ export async function generateMetadata({ params }) {
   const mainData = await getMainFile(langData);
   const centralPageModal = await findByModalName(mainData, "central-page");
   const firstPageArrayContent = await findByTabName(centralPageModal, "first-page");
+  console.log('firstPageArrayContent',firstPageArrayContent);
+  
   // ***
   const headersList = headers();
   const host = headersList.get('host');
@@ -40,30 +41,31 @@ export async function generateMetadata({ params }) {
   const fullUrl = `${protocol}://${host}/${params.lang}`;
 
     // to find in an array with key(_name)
-    function localFind(_name) {
-      return firstPageArrayContent.find((item) => item.name == _name)
+    async function localFind(_name) {
+      
+      return await firstPageArrayContent.find((item) => item.name == _name)
         .translation;
     }
 
   return {
-    // title: localFind('metaverse rang'),
-    // description: localFind('metaverse rang is a metaverse world platform'),
+    title: localFind('metaverse rang'),
+    description: localFind('metaverse rang is a metaverse world platform'),
     openGraph: {
       site_name:'metaverseTest',
       type: 'article',
       // url: `https://yourwebsite.com/posts/${params.id}`,
-      // title: localFind('metaverse rang'),
-      // description: localFind('metaverse rang is a metaverse world platform'),
-      // locale: params.code == 'fa'? 'fa_IR' : 'en_US',
-      // url: `${fullUrl}`,
-      // images: [
-      //   {
-      //     url: '/logo.png',
-      //     width: 800,
-      //     height: 600,
-      //     alt: localFind('metaverse rang'),
-      //   },
-      // ],
+      title: localFind('metaverse rang'),
+      description: localFind('metaverse rang is a metaverse world platform'),
+      locale: params.code == 'fa'? 'fa_IR' : 'en_US',
+      url: `${fullUrl}`,
+      images: [
+        {
+          url: '/logo.png',
+          width: 800,
+          height: 600,
+          alt: localFind('metaverse rang'),
+        },
+      ],
     },
     // twitter: {
     //   card: 'summary_large_image',
@@ -133,8 +135,8 @@ export default async function LangPage({params}) {
 
 
   // to find in an array with key(_name)
-  function localFind(_name) {
-    return firstPageArrayContent.find((item) => item.name == _name)
+  async function localFind(_name) {
+    return await firstPageArrayContent.find((item) => item.name == _name)
       .translation;
   }
 
