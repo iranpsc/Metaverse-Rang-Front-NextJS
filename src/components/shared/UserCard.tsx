@@ -27,17 +27,16 @@ export default function UserCard({ item, params, buttonText, minWidth }: any) {
           {item.name}
         </p>
 
-        {/* <Link
-        href={`https://rgb.irpsc.com/${params.lang}/citizen/${item.code}`}
-        target="_blank"
-      > */}
-        <span
-          // data-atropos-offset="-1"
-          className="text-blueLink font-medium font-azarMehr text-[12px] sm:text-[16px]"
+        <Link
+          href={`https://rgb.irpsc.com/${params.lang}/citizen/${item.code}`}
         >
-          {item.code}
-        </span>
-        {/* </Link> */}
+          <span
+            // data-atropos-offset="-1"
+            className="uppercase text-blueLink font-medium font-azarMehr text-[12px] sm:text-[16px] cursor-pointer"
+          >
+            {item.code}
+          </span>
+        </Link>
 
         <span className="dark:text-[#969696] text-[12px] sm:text-[14px] md:text-[16px] 2xl:text-[18px]">
           {item.levels?.current
