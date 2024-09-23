@@ -31,7 +31,6 @@ export async function generateMetadata({ params }) {
   const mainData = await getMainFile(langData);
   const centralPageModal = await findByModalName(mainData, "central-page");
   const firstPageArrayContent = await findByTabName(centralPageModal, "first-page");
-  console.log('firstPageArrayContent',firstPageArrayContent);
   
   // ***
   const headersList = headers();

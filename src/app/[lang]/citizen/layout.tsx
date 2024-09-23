@@ -21,8 +21,13 @@ export default async function CitizensLayout({
   const langData = await getTranslation(params.lang);
   const mainData = await getMainFile(langData);
   const langArray = await getLangArray();
-  const centralPageModal = await findByModalName(mainData, "central-page");
-  const tabsMenu = await findByTabName(centralPageModal, "before-login");
+  // const centralPageModal = await findByModalName(mainData, "central-page");
+  // const tabsMenu = await findByTabName(centralPageModal, "before-login");
+  const citizenshipProfileModal = await findByModalName(
+    mainData,
+    "Citizenship-profile"
+  );
+  const tabsMenu = await findByTabName(citizenshipProfileModal, "menu");
 
   const staticMenuToShow = [
     { name: "home", url: `/`, order: "-1" },

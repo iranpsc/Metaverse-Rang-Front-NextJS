@@ -208,7 +208,6 @@ export async function generateMetadata({ params }) {
     }
 
   const profileData = await getUserData();
-  console.log('profileData11111',profileData);
   
 
 
