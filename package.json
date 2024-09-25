@@ -1,12 +1,13 @@
 {
   "name": "paradiseapp",
-  "version": "0.1.0",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev -p 5175",
     "build": "next build",
     "start": "next start -p 5175",
-    "lint": "next lint"
+    "lint": "next lint",
+    "release": "standard-version"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
@@ -61,6 +62,7 @@
     "autoprefixer": "^10.4.16",
     "eslint-config-next": "^13.3.4",
     "postcss-nesting": "^12.0.2",
+    "standard-version": "^9.5.0",
     "tailwindcss": "^3.4.1",
     "webpack-bundle-analyzer": "^4.10.2"
   }

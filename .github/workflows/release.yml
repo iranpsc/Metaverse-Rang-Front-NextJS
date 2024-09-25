@@ -1,0 +1,75 @@
+name: CI/CD for MetaRang Frontend
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16.x"
+
+      # Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Set Git user for commits
+      - name: Configure Git user
+        run: |
+          git config --global user.name "Awmin"
+          git config --global user.email "awmin.dn@gmail.com"
+
+      # Run standard-version to bump version, generate changelog, and tag the release
+      - name: Bump version using standard-version
+        run: |
+          npx standard-version
+
+      # Push changes including version bump and changelog
+      - name: Push changes
+        run: |
+          git push --follow-tags origin main
+
+      # Build the project
+      - name: Build the project
+        run: npm run build
+
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the code again
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Generate tag name based on updated version from package.json
+      - name: Generate tag name from package.json
+        id: generate_tag
+        run: |
+          VERSION=$(jq -r ".version" package.json)
+          echo "TAG_NAME=v$VERSION" >> $GITHUB_ENV
+
+      # Create GitHub Release
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ env.TAG_NAME }}
+          release_name: "Release ${{ env.TAG_NAME }}"
+          body: ${{ github.event.head_commit.message }} # استفاده از متن کامیت
+          draft: false
+          prerelease: false

@@ -1,38 +1,113 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# MetaRang Frontend Project
 
-First, run the development server:
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [Running the Project](#running-the-project)
+- [Contribution](#contribution)
+- [Development Rules](#development-rules)
+- [FAQ](#faq)
+
+## Introduction
+
+This project is designed as part of the national Iranian metaverse known as **MetaRang**. The goal of this project is to develop a frontend platform that provides users with access to the features of the Iranian national metaverse through an optimized and user-friendly interface. This project is a part of the Behesht Supply Chain and aims to create a unique and innovative user experience for users in virtual and parallel worlds.
+
+## Installation
+
+### 1. Clone the Repository
+
+First, you need to clone the repository to your system. Run the following command in your terminal:
+
+```bash
+git clone https://github.com/iranpsc/Metaverse-Rang-Front-NextJS.git
+```
+
+### 2. Navigate to the Project Directory
+
+Once you have cloned the repository, navigate to the project directory:
+
+```bash
+cd Metaverse-Rang-Front-NextJS
+```
+
+### 3. Install Dependencies
+
+To install the required dependencies, use the following commands:
+
+```bash
+npm install
+```
+
+## Running the Project
+
+### 4. Run the Project
+
+To start the project, use the following command based on your development environment:
+
+- **Development mode:**
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This will run the development server on port `5175`.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+- **Production mode:**
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+```bash
+npm run build
+npm run start
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+The production server will also run on port `5175`.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### 5. View the Project in the Browser
 
-## Learn More
+Instead of accessing the default address `http://localhost:3000`, you need to navigate to the following URLs to access the pages:
 
-To learn more about Next.js, take a look at the following resources:
+- **English version:**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+http://localhost:5175/en
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- **Persian version:**
 
-## Deploy on Vercel
+```
+http://localhost:5175/fa
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Contribution
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+We welcome your contributions to improve the project. To contribute to the project, follow these steps:
+
+1. **Fork the Project:** Fork the repository and work on your own copy.
+2. **Create a New Branch:** For each feature or change, create a separate branch:
+
+   ```bash
+   git checkout -b feature-name
+   ```
+
+3. **Regular Commits:** Save your changes with detailed and meaningful commit messages:
+
+   ```bash
+   git commit -m "Complete explanation of the change"
+   ```
+
+4. **Submit a Pull Request:** After making changes and ensuring everything works properly, submit a pull request for review.
+
+## Development Rules
+
+For project developers, the following guidelines must be followed:
+
+1. **Use Separate Branches:** Each new feature or bug fix must be implemented in a separate branch. The branch name should correspond to the change (e.g., `feature-branch`).
+2. **Regular and Clear Commits:** Changes should be saved as regular commits with clear, descriptive messages.
+3. **Review and Approval:** Before merging any pull request, it must be reviewed by the development team.
+4. **Adherence to Coding Standards:** Use linting tools like ESLint to maintain code quality and follow project standards.
+5. **Code Cleanup:** Before submitting a pull request, ensure that no unnecessary or test code remains in the project.
+
+## FAQ
+
+If you encounter any problems or have any questions, feel free to contact us through the Issues section on GitHub and submit bug reports or requests.
