@@ -33,14 +33,21 @@ export async function generateMetadata({ params }) {
       ?.translation;
   }
 
+  //to make description less than 200 character
+  async function makeLessCharacter(){
+    let temp = await localFind("description citizen list")
+    temp = temp.slice(0,200)
+    return temp
+  }
+
   return {
-    title: localFind("citizens of the metaverse"),
-    description: localFind("description citizen list"),
+    title: await localFind("citizens of the metaverse"),
+    description: await makeLessCharacter(),
     openGraph: {
       // type: 'article',
       // url: `https://yourwebsite.com/posts/${params.id}`,
-      title: localFind("citizens of the metaverse"),
-      description: localFind("description citizen list"),
+      title: await localFind("citizens of the metaverse"),
+      description: await makeLessCharacter(),
       locale: params.code == "fa" ? "fa_IR" : "en_US",
       // site_name: متاورس رنگ,
       url: "",
@@ -86,10 +93,17 @@ export default async function CitizensPage({ params }) {
 
   let allCitizenArray = await getAllCitizen("1");
 
+  //to make description less than 200 character
+  async function makeLessCharacter(){
+    let temp = await localFind("description citizen list")
+    temp = temp.slice(0,200)
+    return temp
+  }
+
   const citizenListSchema = {
     "@context": "https://schema.org/",
     "@type": "ProfessionalService",
-    "name": `${localFind('citizens of the metaverse')}`,
+    "name": `${await makeLessCharacter()}`,
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "میرداماد، 824H+JG2",
@@ -102,7 +116,7 @@ export default async function CitizensPage({ params }) {
     "url": `https://rgb.irpsc.com/${params.lang}/citizen`,
     "logo": `https://rgb.irpsc.com/logo.png`,
     "email": "info@rgb.irpsc.com",
-    "description": localFind('description citizen list'),
+    "description": await makeLessCharacter(),
     "alternateName": "MetaRGB"
   }
 

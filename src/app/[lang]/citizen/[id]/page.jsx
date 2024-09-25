@@ -29,6 +29,9 @@ export default async function citizenSinglePage({
   }
 
   const profileData = await getUserData();
+
+  console.log('profileDat1111a',profileData);
+  
   
 
   const langData = await getTranslation(params.lang);
@@ -71,16 +74,26 @@ export default async function citizenSinglePage({
     }
   }
 
+  //to make description less than 200 character
+  async function makeLessCharacter(){
+    let temp = profileData.data.customs.about
+    temp = temp.slice(0,200)
+    return temp
+  }
+
   const singleCitizenSchema = {
     "@context": "https://schema.org/",
     "@type": "Person",
     "name": `${profileData.data.name}`,
-    "image": `${profileData.data.profilePhotos[0].url}`,
+    "image": profileData.data.profilePhotos.map(item=>{
+      return item.url
+    }),
     "url": `http://rgb.irpsc.com/fa/citizen/${params.id}`,
     "jobTitle": `${profileData.data.customs.occupation}`,
-    "description": `${profileData.data.customs.about}`,
+    "description": `${await makeLessCharacter()}`,
     "birthDate": `${profileData.data.kyc.birth_date}`,
-    "email": `${profileData.data.kyc.email}`
+    "email": `${profileData.data.kyc.email}`,
+    "alternateName": `${profileData.data.code}`,
   }
 
   return (
@@ -209,7 +222,12 @@ export async function generateMetadata({ params }) {
 
   const profileData = await getUserData();
   
-
+  //to make description less than 200 character
+  async function makeLessCharacter(){
+    let temp = profileData.data.customs.about
+    temp = temp.slice(0,200)
+    return temp
+  }
 
   return {
     // title: localFind('metaverse rang'),
@@ -219,7 +237,7 @@ export async function generateMetadata({ params }) {
       type: 'profile',
       // url: `https://yourwebsite.com/posts/${params.id}`,
       title: `${profileData.data.name}`,
-      description: `${profileData.data.customs.about}`,
+      description: `${await makeLessCharacter()}`,
       locale: params.code == 'fa'? 'fa_IR' : 'en_US',
       url: `http://rgb.irpsc.com/fa/citizen/${params.id}`,
       profile: {
@@ -232,12 +250,10 @@ export async function generateMetadata({ params }) {
           height: 600
         },
       ],
+        // Adding the google-site-verification meta tag
     },
-    // twitter: {
-    //   card: 'summary_large_image',
-    //   title: post.title,
-    //   description: post.description,
-    //   images: [post.imageUrl],
-    // },
+    other: {
+      'google-site-verification': 'lmf8kBJQgLHew_wXcxGQwJQWiOSFy8odEBRTLOoX7Q4',
+    },
   };
 }

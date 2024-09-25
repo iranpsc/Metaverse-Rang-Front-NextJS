@@ -31,6 +31,7 @@ export async function generateMetadata({ params }) {
   const mainData = await getMainFile(langData);
   const centralPageModal = await findByModalName(mainData, "central-page");
   const firstPageArrayContent = await findByTabName(centralPageModal, "first-page");
+  console.log('firstPageArrayContent',firstPageArrayContent);
   
   // ***
   const headersList = headers();
@@ -41,20 +42,26 @@ export async function generateMetadata({ params }) {
 
     // to find in an array with key(_name)
     async function localFind(_name) {
-      
       return await firstPageArrayContent.find((item) => item.name == _name)
         .translation;
     }
+    //to make description less than 200 character
+    async function makeLessCharacter(){
+      let temp = await localFind('metaverse rang is a metaverse world platform')
+      temp = temp.slice(0,200)
+      return temp
+    }
+
 
   return {
-    title: localFind('metaverse rang'),
-    description: localFind('metaverse rang is a metaverse world platform'),
+    title: await localFind('metaverse rang'),
+    description: await makeLessCharacter(),
     openGraph: {
       site_name:'metaverseTest',
       type: 'article',
       // url: `https://yourwebsite.com/posts/${params.id}`,
-      title: localFind('metaverse rang'),
-      description: localFind('metaverse rang is a metaverse world platform'),
+      title: await localFind('metaverse rang'),
+      description: await makeLessCharacter(),
       locale: params.code == 'fa'? 'fa_IR' : 'en_US',
       url: `${fullUrl}`,
       images: [
@@ -168,10 +175,18 @@ export default async function LangPage({params}) {
   }
   const footerTabs = await fetchData();
 
+
+  //to make description less than 200 character
+  async function makeLessCharacter(){
+    let temp = await localFind('metaverse rang is a metaverse world platform')
+    temp = temp.slice(0,200)
+    return temp
+  }
+
   const landingSchema = {
     "@context": "https://schema.org/",
     "@type": "ProfessionalService",
-    "name": `${localFind('metaverse rang')}`,
+    "name": `${await localFind('metaverse rang')}`,
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "میرداماد، 824H+JG2",
@@ -184,7 +199,7 @@ export default async function LangPage({params}) {
     "url": `https://rgb.irpsc.com/${params.lang}`,
     "logo": `https://rgb.irpsc.com/logo.png`,
     "email": "info@rgb.irpsc.com",
-    "description": localFind('metaverse rang is a metaverse world platform'),
+    "description": await makeLessCharacter(),
     "alternateName": "MetaRGB"
   }
   return (
