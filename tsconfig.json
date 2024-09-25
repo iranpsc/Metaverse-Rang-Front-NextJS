@@ -35,6 +35,7 @@
      "@/templates/*":["src/components/templates/*"],
      "@/layout/*":["src/components/layout/*"],
      "@/context/*":["src/components/context/*"],
+     "react": [ "./node_modules/@types/react" ]
     },
     "forceConsistentCasingInFileNames": true
   },

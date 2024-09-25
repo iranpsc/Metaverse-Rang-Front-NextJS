@@ -1,13 +1,17 @@
-import { useContext,useEffect,useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import { useTheme } from "next-themes";
-import { LangContext } from "@/context/LangContext";
+// import { LangContext } from "@/context/LangContext";
 import { Shahrvand } from "@/svgs/index";
 import Persian from "persianjs";
 
-export default function ProfileHeader({ profileName, titleData,nameUser }: any) {
-
-  const { profileData, languageSelected } = useContext(LangContext);
+export default function ProfileHeader({
+  profileName,
+  profileData,
+  titleData,
+  nameUser,
+}: any) {
+  // const { profileData, languageSelected } = useContext(LangContext);
   const [numberCurrent_level, setNumberCurrent_level] = useState<number>(1);
   const { theme } = useTheme();
   const [staticImageURL, setStaticImageURL] =
@@ -36,15 +40,13 @@ export default function ProfileHeader({ profileName, titleData,nameUser }: any) 
     profileData.profilePhotos[0] &&
     profileData?.profilePhotos[0]?.url;
 
-
-
   return (
     <>
       <div className="dark:bg-dark-background px-1 transition-all  lg:mt-0 md:mt-1 duration-300 sm:mt-1 xs:mt-1 ease-linear flex flex-col bg-white justify-center  items-center rounded-[10px] ">
         <section className="w-full  flex flex-row justify-around px-4 md:px-1 sm:px-0 xs:px-0 items-center">
           <div className="group relative flex justify-center items-center">
             <Image
-              src={imgs0 || "/temp.png"}
+              src={imgs0 || "/temp-1.png"}
               width={100}
               height={100}
               priority={true}
@@ -79,11 +81,11 @@ export default function ProfileHeader({ profileName, titleData,nameUser }: any) 
               alt="shahrvand"
               className="inline-block  xl:w-10 xl:h-10 desktop1024:w-9 desktop1024:h-9 md:w-7 sm:w-12 sm:h-12 xs:w-12 xs:h-12 "
             />
-            <p className="dark:text-[#212121] absolute md:text-xs text-white font-azarMehr font-black xl:text-[19px] sm:text-[14px] xs:text-[14px]">
+            {/* <p className="dark:text-[#212121] absolute md:text-xs text-white font-azarMehr font-black xl:text-[19px] sm:text-[14px] xs:text-[14px]">
               {languageSelected.code === "fa"
                 ? Persian(numberCurrent_level).englishNumber().toString()
                 : profileData?.current_level?.slug}
-            </p>
+            </p> */}
           </div>
         </section>
       </div>

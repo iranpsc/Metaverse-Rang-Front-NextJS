@@ -1,11 +1,9 @@
-import { useContext, useState, useEffect, useRef } from "react";
+// import { useContext, useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { useRouter } from "next/router";
-import { motion } from "framer-motion";
+
 import Persian from "persianjs";
-import { LangContext } from "@/context/LangContext";
 import { targetData } from "@/utils/targetDataName";
-import ProfileHeaderMobile from "@/module/profile/ProfileHeaderMobile";
+// import ProfileHeaderMobile from "@/module/profile/ProfileHeaderMobile";
 import ProfileTopMobile from "@/module/profile/ProfileTopMobile";
 import ProfileImages from "@/module/profile/ProfileImages";
 import { Tooltip as ReactTooltip } from "react-tooltip";
@@ -13,51 +11,60 @@ import { CopyIcon } from "../svgs/SvgCategories";
 import ProfileMainDetails from "../module/profile/ProfileMainDetails";
 import ProfileGems from "../module/profile/ProfileGems";
 
-export default function Profile({
+export default async function Profile({
   profileData,
   titleData,
-  setShowSharedPage,
   nameUser,
+  userProperty,
+  langData,
+  params,
 }: any) {
-  const { data, languageSelected } = useContext(LangContext);
-  const [profileName, setProfileName] = useState<string>("");
+  // const [profileName, setProfileName] = useState<string>("");
 
-  const yourElementRef = useRef(null);
+  // const yourElementRef = useRef(null);
+  let concatGems = [];
+  if (profileData.data?.current_level && profileData.data?.achieved_levels) {
+    concatGems = profileData.data?.achieved_levels.concat(
+      profileData.data.current_level
+    );
+  } else {
+    concatGems = profileData.data?.achieved_levels;
+  }
 
   const numberScore =
     100 - parseInt(profileData?.score_percentage_to_next_level);
   const percent = (numberScore / 100) * 100;
 
   return (
-    <div className="flex flex-col justify-start 3xl:gap-[12px]  xl:gap-[6px] lg:gap-[4px] 3xl:h-screen xl:h-screen  lg:h-screen md:h-[1300px] sm:h-fit xs:h-fit w-full">
-      <ProfileHeaderMobile
-        menuData={data}
-        profileData={profileData}
-        profileName={profileName}
-      />
-
-      <div className="w-full h-fit ">
+    <>
+      {/* TOP */}
+      <div className="w-full">
         <ProfileTopMobile
-          profileName={profileName}
           titleData={titleData}
           nameUser={nameUser}
+          profileData={profileData}
+          params={params}
         />
       </div>
-      <div className="w-full h-fit ">
+      {/* MID */}
+      <div className="w-full">
         <ProfileImages
           profileData={profileData}
-          profileName={profileName}
+          // profileName={profileName}
           titleData={titleData}
         />
       </div>
-      <div className="w-full h-full shadow-md rounded-[10px] dark:bg-dark-background bg-white pb-3 ps-2 flex flex-col justify-between gap-5  transition-all duration-300 ease-linear">
+      {/* BOT */}
+      <div className="w-full h-full shadow-md rounded-[10px] dark:bg-dark-background text-gray dark:text-dark-gray bg-white px-3 flex flex-col justify-between gap-5  transition-all duration-300 ease-linear">
         <ProfileMainDetails
           nameUser={nameUser}
           profileData={profileData}
-          setShowSharedPage={setShowSharedPage}
+          userProperty={userProperty}
+          langData={langData}
+          // setShowSharedPage={setShowSharedPage}
         />
-        <ProfileGems profileData={profileData} />
+        <ProfileGems profileData={concatGems} />
       </div>
-    </div>
+    </>
   );
 }

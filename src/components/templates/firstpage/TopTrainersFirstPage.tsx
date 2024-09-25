@@ -1,53 +1,69 @@
 import { ArrowRight } from "@/components/svgs";
 import Image from "next/image";
 import { Like, Text } from "@/components/svgs/SvgEducation";
+import UserCard from "@/components/shared/UserCard";
 
-const TopTrainersFirstPage = () => {
+const TopTrainersFirstPage = async ({
+  firstPageArrayContent,
+  params,
+  citizenListArrayContent,
+  levelListArrayContent,
+}: any) => {
+  function localFind(_name: any) {
+    return firstPageArrayContent.find((item: any) => item.name == _name)
+      .translation;
+  }
+  function localFind1(_name: any) {
+    return citizenListArrayContent.find((item: any) => item.name == _name)
+      ?.translation;
+  }
+  function localFind2(_name: any) {
+    return levelListArrayContent.find((item: any) => item.name == _name)
+      ?.translation;
+  }
+
+  const staticData = [
+    {
+      id: 1,
+      name: "مرضیه ثاقب علیزاده",
+      profile_photo: "/profile/marziyeh-alizadeh.jpg",
+      code: "HM-2000003",
+      score: "",
+      levels: { current: { name: "شهروند" } },
+    },
+    {
+      id: 2,
+      name: "حسین قدیری",
+      profile_photo: "/profile/hossein-ghadiri.jpg",
+      code: "HM-2000001",
+      score: "",
+      levels: { current: { name: "مشارکت کننده" } },
+    },
+  ];
   return (
     <>
       <div className="w-full flex flex-row justify-between items-center">
-        <p className="font-azarMehr font-medium text-[32px]">مربیان برتر</p>
-
+        <p className="font-azarMehr font-medium  text-[16px] md:text-[20px] lg:text-[28px] xl:text-[32px] dark:text-white">
+          {localFind("top trainers")}
+        </p>
         <div className="flex justify-center items-center gap-4">
-          <p className="font-azarMehr font-medium text-[20px]"> مشاهده همه</p>
-          <ArrowRight className="stroke-white rotate-180 w-[24px] h-full" />
+          <p className="font-azarMehr font-medium text-[12px] md:text-[16px] lg:text-[18px] xl:text-[20px] dark:text-white">
+            {localFind("view all")}
+          </p>
+          <ArrowRight className="dark:stroke-white stroke-black rotate-180 w-[24px] h-full " />
         </div>
       </div>
-      <div className="w-full relative flex flex-row xl:justify-center items-center gap-6 mt-12 overflow-x-auto h-[500px]">
-        {[...Array(5)].map((_, index) => (
-          <div
+      <div className="w-full relative flex flex-row dark:dark-scrollbar light-scrollbar overflow-x-auto mt-4 md:mt-12 py-3">
+        {staticData.map((item: any, index: any) => (
+          <UserCard
             key={index}
-            className="min-w-[258px] min-h-[150px] shadow-xl flex flex-col justify-start items-center gap-10 py-5 bg-[#1A1A18] rounded-[24px]"
-          >
-            <Image
-              className="size-[170px] rounded-full border-none"
-              src="/firstpage/img2.jpg"
-              alt="header"
-              width={1000}
-              height={1000}
-            />
-            <div className="flex flex-col justify-start items-center gap-6">
-              <p className="font-azarMehr font-medium text-[20px] text-white">
-                بهراد جهانی
-              </p>
-              <p className="font-azarMehr font-medium text-[18px] text-dark-yellow">
-                شهروندان پیشرو
-              </p>
-              <div className="flex justify-center items-center">
-                <p className="font-azarMehr font-medium text-[20px] text-[#808080]">
-                  125
-                </p>
-                <Like className="size-[15px] stroke-[#808080]" />
-              </div>
-            </div>
-            <div className="w-[90%] h-[55px] bg-[#f5f9ff] dark:bg-[#000000] px-6 rounded-[10px] flex flex-row justify-between items-center">
-              <span className="text-blueLink dark:text-dark-yellow font-azarMehr font-medium text-[14px]">
-                رزمه مدرس
-              </span>
-
-              <Text className="w-[24px] h-[24px] stroke-blueLink dark:stroke-dark-yellow" />
-            </div>
-          </div>
+            item={item}
+            index={index}
+            params={params}
+            minWidth={`260px`}
+            levelText={localFind2("developer")}
+            buttonText={localFind1("citizen page")}
+          />
         ))}
       </div>
     </>

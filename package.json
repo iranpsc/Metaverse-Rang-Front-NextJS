@@ -3,15 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 5174",
-    "build": "next build ",
-    "start": "next start -p 5174",
+    "dev": "next dev -p 5175",
+    "build": "next build",
+    "start": "next start -p 5175",
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@mui/material": "^6.0.2",
     "@next/bundle-analyzer": "^14.1.0",
     "@next/font": "^13.4.19",
-    "@react-three/fiber": "^8.13.1",
+    "@react-three/drei": "^9.109.4",
+    "@react-three/fiber": "^8.16.8",
     "@tailwindcss/typography": "^0.5.9",
     "@types/node": "18.16.3",
     "@types/react": "18.2.0",
@@ -23,7 +27,7 @@
     "framer-motion": "^10.16.4",
     "gltf-loader": "^1.0.0",
     "lottie-react": "^2.4.0",
-    "next": "13.3.4",
+    "next": "^14.2.5",
     "next-seo": "^6.4.0",
     "next-themes": "^0.2.1",
     "persianjs": "^0.4.0",
@@ -31,6 +35,7 @@
     "postcss-nested": "^6.0.1",
     "randomcolor": "^0.6.2",
     "react": "^18.2.0",
+    "react-cookie": "^7.2.0",
     "react-dom": "^18.2.0",
     "react-google-recaptcha": "^3.1.0",
     "react-masonry-css": "^1.0.16",
@@ -39,7 +44,7 @@
     "react-spinners": "^0.13.8",
     "react-three-fiber": "^6.0.13",
     "react-tooltip": "^5.23.0",
-    "three": "^0.153.0",
+    "three": "^0.167.1",
     "typescript": "5.0.4",
     "webpack": "^5.82.0",
     "yup": "^1.2.0"
@@ -56,6 +61,7 @@
     "autoprefixer": "^10.4.16",
     "eslint-config-next": "^13.3.4",
     "postcss-nesting": "^12.0.2",
-    "tailwindcss": "^3.4.1"
+    "tailwindcss": "^3.4.1",
+    "webpack-bundle-analyzer": "^4.10.2"
   }
 }

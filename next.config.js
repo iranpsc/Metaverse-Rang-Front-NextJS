@@ -1,3 +1,8 @@
+
+// const withBundleAnalyzer = require('@next/bundle-analyzer')({
+//   enabled: process.env.ANALYZE === 'true',
+// });
+
 module.exports = {
   webpack(config) {
     config.module.rules.push({
@@ -7,22 +12,39 @@ module.exports = {
     return config;
   },
   images: {
-    domains: [
-      "dl.qzparadise.ir",
-      "api.rgb.irpsc.com",
-      "admin.rgb.irpsc.com",
-      "admin.rgb.irpsc.comlevels",
-      "localhost",
-      "irpsc.com",
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'dl.qzparadise.ir',
+      },
+      {
+        protocol: 'https',
+        hostname: 'api.rgb.irpsc.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'admin.rgb.irpsc.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'admin.rgb.irpsc.com',
+      },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+      },
+      {
+        protocol: 'https',
+        hostname: 'irpsc.com',
+      },
     ],
   },
-  experimental: { esmExternals: true, serverActions: true },
-  async rewrites() {
-    return [
-      {
-        source: "/robots.txt",
-        destination: "/_next/static/robots.txt",
-      },
-    ];
-  },
+  // async rewrites() {
+  //   return [
+  //     {
+  //       source: "/robots.txt",
+  //       destination: "/_next/static/robots.txt",
+  //     },
+  //   ];
+  // },
 };
