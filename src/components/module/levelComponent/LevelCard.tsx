@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FlagSatar, StairsUp } from "@/components/svgs";
-import { targetData } from "@/components/utils/targetDataName";
 
 export default function LevelCard({
   item,
@@ -12,14 +11,16 @@ export default function LevelCard({
   allLevelArrayContent: any;
   params: any;
 }) {
+  console.log("itemssssss", item);
+
   function localFind(_name: any) {
     return allLevelArrayContent.find((item: any) => item.name == _name)
       ?.translation;
   }
   return (
-    <div className="w-4/5 sm:w-2/5 md:w-1/3 xl:w-1/4 3xl:w-1/5 py-[10px] px-[14px] lg:px-[16px] 2xl:px-[25px] 3xl:px-[50px] ">
+    <div className="w-4/5 sm:w-2/5 md:w-1/3 xl:w-1/4 py-[10px] px-[14px] lg:px-[16px] 2xl:px-[25px] 3xl:px-[50px] ">
       <Link
-        className="hoverCardLevel flex  flex-col items-center rounded-[20px] box-border hover:border hover:border-[#0066FF] dark:hover:bg-[#1A1A18]  dark:hover:border-[#FFC700]"
+        className="py-[25px] hoverCardLevel flex flex-col items-center rounded-[20px] box-border border border-transparent hover:border hover:border-[#0066FF] dark:hover:bg-[#1A1A18] dark:hover:border-[#FFC700]"
         href={`/${params.lang}/levels/citizen/${item.route_name}/general-info`}
       >
         <Image
@@ -39,7 +40,7 @@ export default function LevelCard({
           </span>
           <span className="mb-3 w-full flex justify-evenly font-azarMehr xs:text-[11px] sm:text-[12px] lg:text-[13px] xl:text-[14px] 2xl:text-[16px]">
             <span className="flex items-center dark:bg-black bg-[#F6F6F6] rounded-[20px] p-[4px] w-5/12">
-              <FlagSatar className="stroke-[#0066FF] dark:stroke-[#FFC700]" />
+              <FlagSatar className="stroke-[#0066FF] dark:stroke-[#FFC700] text-[24px]" />
               <span className="dark:text-[#868B90] text-[#84858F] px-1 font-medium">
                 {localFind("rank")}
               </span>
@@ -48,7 +49,7 @@ export default function LevelCard({
               </span>
             </span>
             <span className="flex items-center dark:bg-black bg-[#F6F6F6] rounded-[20px] p-[4px] w-5/12">
-              <StairsUp className="stroke-[#0066FF] dark:stroke-[#FFC700]" />
+              <StairsUp className="stroke-[#0066FF] dark:stroke-[#FFC700] text-[24px]" />
               <span className="dark:text-[#868B90] text-[#84858F] px-1 font-medium">
                 {localFind("level")}:
               </span>

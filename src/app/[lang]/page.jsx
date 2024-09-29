@@ -31,7 +31,6 @@ export async function generateMetadata({ params }) {
   const mainData = await getMainFile(langData);
   const centralPageModal = await findByModalName(mainData, "central-page");
   const firstPageArrayContent = await findByTabName(centralPageModal, "first-page");
-  console.log('firstPageArrayContent',firstPageArrayContent);
   
   // ***
   const headersList = headers();
@@ -106,7 +105,7 @@ export default async function LangPage({params}) {
   const staticMenuToShow = [
     {name:'home', url:`/`, order:'-1'},
     {name:'citizens', url:'/citizen', order:'-1'},
-    // {name:'list of levels', url:'/levels/citizen', order:'-1'},
+    {name: "list of levels", url: "/levels/citizen", order: "-1" },
     {name:'property', url:''},
     {name:'real estate', url:''},
     {name:'structures', url:''},

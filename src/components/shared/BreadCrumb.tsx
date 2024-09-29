@@ -6,13 +6,31 @@ import Link from "next/link";
 export default function ({ params }: any) {
   const staticData = [
     {
-      name: "citizen",
-      en: "citizen",
+      name: "citizens",
+      en: "citizens",
       fa: "شهروندان",
       color: "text-black",
       darkColor: "text-white",
       font: "font-bold",
-      link: `/${params.lang}/citizen`,
+      link: `/${params.lang}/citizens`,
+    },
+    {
+      name: "levels",
+      en: "levels",
+      fa: "سطح",
+      color: "text-black",
+      darkColor: "text-white",
+      font: "font-bold",
+      link: `/${params.lang}/levels/citizen`,
+    },
+    {
+      name: "citizen",
+      en: "citizen",
+      fa: "شهروند",
+      color: "text-black",
+      darkColor: "text-white",
+      font: "font-bold",
+      link: `/${params.lang}/levels/citizen`,
     },
   ];
   const pathname = usePathname();

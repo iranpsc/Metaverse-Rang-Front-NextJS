@@ -26,7 +26,7 @@ import {
   Businessman,
   Judge,
   Legislator,
-  Minister
+  Minister,
 } from "@/components/svgs";
 
 import {
@@ -154,140 +154,54 @@ export default function SvgIcon({ name, color }: any) {
           className={` ${color} stroke-1 mx-[10px] me-1 3xl:w-7 3xl:h-7`}
         />
       )}
-       {name === "home page" && (
-        <HomeIcon
-          className={` ${color} stroke-1 mx-[7px]  3xl:w-7 3xl:h-7`}
+      {name === "home page" && (
+        <HomeIcon className={` ${color} stroke-1 mx-[7px]  3xl:w-7 3xl:h-7`} />
+      )}
+      {name === "citizen" && (
+        <Image src={Citizen} alt="" width={30} height={30} loading="lazy" />
+      )}
+      {name === "journalist" && (
+        <Image src={Reporter} alt="" width={30} height={30} loading="lazy" />
+      )}
+      {name === "participant" && (
+        <Image
+          src={Participation}
+          alt=""
+          width={30}
+          height={30}
+          loading="lazy"
         />
-      )}
-         {name === "citizen" && (
-           <Image
-           src={Citizen}
-           alt=""
-           width={30}
-           height={30}
-           loading="lazy"
-           />
-    
-      )}
-       {name === "journalist" && (
-         <Image
-         src={Reporter}
-         alt=""
-         width={30}
-         height={30}
-         loading="lazy"
-         />
-      
-      )}
-       {name === "participant" && (
-         <Image
-         src={Participation}
-         alt=""
-         width={30}
-         height={30}
-         loading="lazy"
-         />
-     
       )}
       {name === "developer" && (
-         <Image
-         src={Developer}
-         alt=""
-         width={30}
-         height={30}
-         loading="lazy"
-         />
-     
+        <Image src={Developer} alt="" width={30} height={30} loading="lazy" />
       )}
       {name === "inspector" && (
-         <Image
-         src={Inspector}
-         alt=""
-         width={30}
-         height={30}
-         loading="lazy"
-         />
-     
+        <Image src={Inspector} alt="" width={30} height={30} loading="lazy" />
       )}
-       {name === "businessman" && (
-         <Image
-         src={Businessman}
-         alt=""
-         width={30}
-         height={30}
-         loading="lazy"
-         />
-   
+      {name === "businessman" && (
+        <Image src={Businessman} alt="" width={30} height={30} loading="lazy" />
       )}
-       {name === "lawyer" && (
-         <Image
-         src={Lawyer}
-         alt=""
-         width={30}
-         height={30}
-         loading="lazy"
-         />
-       
+      {name === "lawyer" && (
+        <Image src={Lawyer} alt="" width={30} height={30} loading="lazy" />
       )}
-       {name === "city council" && (
-         <Image
-         src={CityCouncil}
-         alt=""
-         width={30}
-         height={30}
-         loading="lazy"
-         />
-     
+      {name === "city council" && (
+        <Image src={CityCouncil} alt="" width={30} height={30} loading="lazy" />
       )}
-       {name === "the mayor" && (
-         <Image
-         src={Mayor}
-         alt=""
-         width={30}
-         height={30}
-         loading="lazy"
-         />
-
+      {name === "the mayor" && (
+        <Image src={Mayor} alt="" width={30} height={30} loading="lazy" />
       )}
-       {name === "governor" && (
-          <Image
-          src={Governor}
-          alt=""
-          width={30}
-          height={30}
-          loading="lazy"
-          />
-     
+      {name === "governor" && (
+        <Image src={Governor} alt="" width={30} height={30} loading="lazy" />
       )}
       {name === "minister" && (
-          <Image
-          src={Minister}
-          alt=""
-          width={30}
-          height={30}
-          loading="lazy"
-          />
-     
-      )}   {name === "legislator" && (
-        <Image
-        src={Legislator}
-        alt=""
-        width={30}
-        height={30}
-        loading="lazy"
-        />
-   
-    )}   {name === "judge" && (
-      <Image
-      src={Judge}
-      alt=""
-      width={30}
-      height={30}
-      loading="lazy"
-      />
- 
-  )}
-      
+        <Image src={Minister} alt="" width={30} height={30} loading="lazy" />
+      )}{" "}
+      {name === "legislator" && (
+        <Image src={Legislator} alt="" width={30} height={30} loading="lazy" />
+      )}{" "}
+      {name === "judge" && (
+        <Image src={Judge} alt="" width={30} height={30} loading="lazy" />
+      )}
     </>
   );
 }
