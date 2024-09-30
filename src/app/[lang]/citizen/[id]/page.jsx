@@ -235,11 +235,10 @@ export async function generateMetadata({ params }) {
     openGraph: {
       // site_name:'',
       type: 'profile',
-      // url: `https://yourwebsite.com/posts/${params.id}`,
       title: `${profileData.data.name}`,
       description: `${await makeLessCharacter()}`,
       locale: params.code == 'fa'? 'fa_IR' : 'en_US',
-      url: `http://rgb.irpsc.com/fa/citizen/${params.id}`,
+      url: `https://rgb.irpsc.com/${params.lang}/citizen/${params.id}`,
       profile: {
         first_name: `${profileData.data.name}`, // optional: user's first name
       },

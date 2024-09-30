@@ -26,12 +26,6 @@ export async function generateMetadata({ params }: any) {
   const concatArrayContent = levelPageArrayContent.concat(
     levelListArrayContent
   );
-  // ***
-  const headersList = headers();
-  const host = headersList.get("host");
-  const protocol = "https";
-
-  const fullUrl = `${protocol}://${host}/${params.lang}`;
 
   // to find in an array with key(_name)
   async function localFind(_name: any) {
@@ -57,7 +51,7 @@ export async function generateMetadata({ params }: any) {
       title: await localFind("levels of citizens of the metaverse"),
       description: await makeLessCharacter(),
       locale: params.code == "fa" ? "fa_IR" : "en_US",
-      url: `${fullUrl}`,
+      url: `https://rgb.irpsc.com/${params.lang}/levels/citizen`,
       images: [
         {
           url: `${levelArray[0].image}`,

@@ -50,7 +50,7 @@ export async function generateMetadata({ params }) {
       description: await makeLessCharacter(),
       locale: params.code == "fa" ? "fa_IR" : "en_US",
       // site_name: متاورس رنگ,
-      url: "",
+      url: `https://rgb.irpsc.com/${params.lang}/citizen`,
       images: [
         {
           url: "/logo.png",

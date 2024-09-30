@@ -21,7 +21,6 @@ import {
 } from "@/components/utils/actions";
 import DynamicFooter from "@/components/module/footer/DynamicFooter";
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
-import { headers } from 'next/headers';
 
 
 
@@ -33,11 +32,10 @@ export async function generateMetadata({ params }) {
   const firstPageArrayContent = await findByTabName(centralPageModal, "first-page");
   
   // ***
-  const headersList = headers();
-  const host = headersList.get('host');
-  const protocol ='https';
-  
-  const fullUrl = `${protocol}://${host}/${params.lang}`;
+  // const headersList = headers();
+  // const host = headersList.get('host');
+  // const protocol ='https';
+  // const fullUrl = `${protocol}://${host}/${params.lang}`;
 
     // to find in an array with key(_name)
     async function localFind(_name) {
@@ -62,7 +60,7 @@ export async function generateMetadata({ params }) {
       title: await localFind('metaverse rang'),
       description: await makeLessCharacter(),
       locale: params.code == 'fa'? 'fa_IR' : 'en_US',
-      url: `${fullUrl}`,
+      url: `https://rgb.irpsc.com/${params.lang}`,
       images: [
         {
           url: '/logo.png',
