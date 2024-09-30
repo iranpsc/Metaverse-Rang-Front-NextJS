@@ -71,7 +71,8 @@ export default function SideBarContent({
     setLangDropDown(!langDropDown)
   }
 
-
+  console.log('tabssssss', tabsMenu);
+  
 
   return (
     <>

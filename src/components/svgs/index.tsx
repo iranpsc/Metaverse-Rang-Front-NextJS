@@ -1,5 +1,5 @@
 export { default as HomeIcon } from "../../../public/svg/home.svg";
-// export { default as LevelIcon } from "../../../public/svg/levels.svg";
+export { default as LevelIcon } from "../../../public/svg/levels.svg";
 export { default as Belongings } from "../../../public/svg/belongings.svg";
 export { default as Connections } from "../../../public/svg/connections.svg";
 export { default as Dynasty } from "../../../public/svg/dynasty.svg";

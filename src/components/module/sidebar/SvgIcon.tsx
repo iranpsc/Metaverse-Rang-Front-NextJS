@@ -2,6 +2,7 @@ import Image from "next/image";
 
 import {
   HomeIcon,
+  LevelIcon,
   Belongings,
   Connections,
   Dynasty,
@@ -46,6 +47,12 @@ export default function SvgIcon({ name, color }: any) {
     <>
       {name === "home" && (
         <HomeIcon
+          stroke="#ff0000"
+          className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`}
+        />
+      )}
+      {name === "list of levels" && (
+        <LevelIcon
           stroke="#ff0000"
           className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`}
         />

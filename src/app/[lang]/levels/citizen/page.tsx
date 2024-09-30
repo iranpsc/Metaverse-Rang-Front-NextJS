@@ -14,6 +14,7 @@ import useServerDarkMode from "src/hooks/use-server-dark-mode";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import { headers } from "next/headers";
 
+// SEO**
 export async function generateMetadata({ params }: any) {
   const levelArray = await getAllLevels();
   const langData = await getTranslation(params.lang);
@@ -51,7 +52,7 @@ export async function generateMetadata({ params }: any) {
     description: await makeLessCharacter(),
     openGraph: {
       site_name: "metaverseTest",
-      type: "article",
+      type: "website",
       // url: `https://yourwebsite.com/posts/${params.id}`,
       title: await localFind("levels of citizens of the metaverse"),
       description: await makeLessCharacter(),
