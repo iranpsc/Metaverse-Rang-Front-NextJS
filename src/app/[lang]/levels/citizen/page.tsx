@@ -277,7 +277,7 @@ export default async function LevelsPage({
               {localFind(`the levels of "metaverse rang" in the parallel`)}
             </p>
           </div>
-          <div className="flex justify-center flex-wrap ">
+          <div className="flex justify-center flex-wrap mt-[20px]">
             {levelArray.map((item: any, index: any) => (
               <LevelCard
                 key={index}

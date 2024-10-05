@@ -4,7 +4,7 @@ import useDarkMode from "src/hooks/use-dark-mode";
 import { Dark, Light } from "@/svgs/index";
 //CONTEXT
 
-const ThemeMenuModule = ({ isClosed, defaultTheme }: any) => {
+const ThemeMenuModule = ({ isClosed, defaultTheme, params }: any) => {
   const { theme, toggoleTheme } = useDarkMode(defaultTheme);
 
   return (
@@ -57,7 +57,7 @@ const ThemeMenuModule = ({ isClosed, defaultTheme }: any) => {
               } font-azarMehr font-medium xl:text-[14px] lg:text-[14px] md:text-[14px] xs:text-[12px] sm:text-[12px] mb-1  ms-2 `}
             >
               {/* {state.dataTheme[0]?.name && state.dataTheme[0].translation} */}
-              {"روشن"}
+              {params.lang == "fa" ? "روشن" : "on"}
             </p>
           </div>
 
@@ -78,7 +78,7 @@ const ThemeMenuModule = ({ isClosed, defaultTheme }: any) => {
               } font-azarMehr xl:text-[14px] lg:text-[14px] md:text-[14px] xs:text-[12px] sm:text-[12px] font-medium  `}
             >
               {/* {state.dataTheme[1]?.name && state.dataTheme[1].translation} */}
-              {"تاریک"}
+              {params.lang == "fa" ? "تاریک" : "off"}
             </p>
           </div>
         </div>

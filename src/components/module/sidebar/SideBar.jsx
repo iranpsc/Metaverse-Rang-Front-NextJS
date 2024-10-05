@@ -91,6 +91,7 @@ export default function SideBar({
               <ThemeMenuModule
                 isClosed={isClosed}
                 defaultTheme={defaultTheme}
+                params={params}
               />
             </div>
           </aside>

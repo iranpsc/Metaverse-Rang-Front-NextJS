@@ -31,29 +31,29 @@ export default function LevelCard({
           className="z-[2] w-2/3 "
         />
         <div className="boxDataLevel w-full pt-[70px]  rounded-[20px] flex flex-col  justify-center bg-white border border-[rgba(0,0,0,0.14)]   dark:bg-[#1A1A18] mt-[-65px]">
-          <span className="text-center  dark:text-white font-azarMehr font-medium  text-[#33353B] mx-2 lg:text-2xl  ">
+          <span className="text-center  dark:text-white font-azarMehr font-medium  text-[#33353B] mx-2 font-semibold text-[20px] lg:text-[24px]">
             {item.name}
           </span>
-          <span className="text-center  dark:text-[#84858F] font-azarMehr font-medium  text-[#484950] mx-2 xs:text-[10px] sm:text-[11px] lg:text-[11px] xl:text-[14px] 2xl:text-[16px] py-2">
+          <span className="text-center  dark:text-[#84858F] font-azarMehr font-normal text-[#484950] mx-2 text-[16px] lg:text-[20px] py-2">
             {localFind("required points")}
             <span className="ps-1 font-medium">{item.score}</span>
           </span>
-          <span className="mb-3 w-full flex justify-evenly font-azarMehr xs:text-[11px] sm:text-[12px] lg:text-[13px] xl:text-[14px] 2xl:text-[16px]">
+          <span className="mb-3 w-full flex justify-evenly font-azarMehr text-[16px] lg:text-[20px]">
             <span className="flex items-center dark:bg-black bg-[#F6F6F6] rounded-[20px] p-[4px] w-5/12">
               <FlagSatar className="stroke-[#0066FF] dark:stroke-[#FFC700] text-[24px]" />
-              <span className="dark:text-[#868B90] text-[#84858F] px-1 font-medium">
+              <span className="dark:text-[#868B90] text-[#84858F] px-1 font-normal">
                 {localFind("rank")}
               </span>
-              <span className="dark:text-[#fff] text-[#33353B] font-medium">
+              <span className="dark:text-[#fff] text-[#33353B] font-normal">
                 {item.rank}
               </span>
             </span>
             <span className="flex items-center dark:bg-black bg-[#F6F6F6] rounded-[20px] p-[4px] w-5/12">
               <StairsUp className="stroke-[#0066FF] dark:stroke-[#FFC700] text-[24px]" />
-              <span className="dark:text-[#868B90] text-[#84858F] px-1 font-medium">
+              <span className="dark:text-[#868B90] text-[#84858F] px-1 font-normal text-[16px] lg:text-[20px]">
                 {localFind("level")}:
               </span>
-              <span className="dark:text-[#fff] text-[#33353B] font-medium">
+              <span className="dark:text-[#fff] text-[#33353B] font-normal text-[16px] lg:text-[20px]">
                 {item.slug}
               </span>
             </span>
