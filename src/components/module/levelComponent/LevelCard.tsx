@@ -18,9 +18,9 @@ export default function LevelCard({
       ?.translation;
   }
   return (
-    <div className="w-4/5 sm:w-2/5 md:w-1/3 xl:w-1/4 py-[10px] px-[14px] lg:px-[16px] 2xl:px-[25px] 3xl:px-[50px] ">
+    <div className="w-full sm:w-2/5 md:w-1/3 xl:w-1/4 py-[10px] px-[14px] lg:px-[16px] 2xl:px-[25px] 3xl:px-[50px] ">
       <Link
-        className="py-[25px] hoverCardLevel flex flex-col items-center rounded-[20px] box-border border border-transparent hover:border hover:border-[#0066FF] dark:hover:bg-[#1A1A18] dark:hover:border-[#FFC700]"
+        className="py-[25px] base-transition-1 hoverCardLevel flex flex-col items-center rounded-[20px] box-border border border-transparent hover:border hover:border-[#0066FF] dark:hover:bg-[#1A1A18] dark:hover:border-[#FFC700]"
         href={`/${params.lang}/levels/citizen/${item.route_name}/general-info`}
       >
         <Image

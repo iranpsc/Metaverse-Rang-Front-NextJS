@@ -176,28 +176,28 @@ export default async function LevelsPage({
   const tabsMenu = await findByTabName(centralPageModal, "before-login");
 
   const staticMenuToShow = [
-    { name: "home", url: "", order: "-1" },
-    { name: "citizens", url: "/citizen", order: "-1" },
-    { name: "list of levels", url: "/levels/citizen", order: "-1" },
-    { name: "property", url: "" },
-    { name: "real estate", url: "" },
-    { name: "structures", url: "" },
-    { name: "belongings", url: "" },
-    { name: "permissions", url: "" },
-    { name: "invitations", url: "" },
-    { name: "transaction", url: "" },
-    { name: "reward", url: "" },
-    { name: "dynasty", url: "" },
-    { name: "connections", url: "" },
-    { name: "crimes", url: "" },
-    { name: "news", url: "" },
-    { name: "articles", url: "" },
-    { name: "trainings", url: "" },
-    { name: "about", url: "" },
-    { name: "contact", url: "" },
-    { name: "version", url: "" },
-    { name: "calendar", url: "" },
-    { name: "overview", url: "" },
+    { name: "home", url: ``, order: "-1" },
+    { name: "citizens", url: "citizens", order: "-1" },
+    { name: "list of levels", url: "levels/citizen", order: "-1" },
+    { name: "property" },
+    { name: "real estate" },
+    { name: "structures" },
+    { name: "belongings" },
+    { name: "permissions" },
+    { name: "invitations" },
+    { name: "transaction" },
+    { name: "reward" },
+    { name: "dynasty" },
+    { name: "connections" },
+    { name: "crimes" },
+    { name: "news" },
+    { name: "articles" },
+    { name: "trainings" },
+    { name: "about" },
+    { name: "contact" },
+    { name: "version" },
+    { name: "calendar" },
+    { name: "overview" },
   ];
 
   // add staticMenuToShow values to siblings tabsMenu values
@@ -269,11 +269,11 @@ export default async function LevelsPage({
         >
           <BreadCrumb params={params} />
 
-          <div className="px-5 pb-10 lg:pb-20">
-            <h2 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[110px] lg:mt-[64px] mb-[16px]">
+          <div className="mt-[60px] lg:mt-[40px] xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
+            <h2 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mb-[16px]">
               {localFind("levels of citizens of the metaverse")}
             </h2>
-            <p className="text-lightGray font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center text-justify">
+            <p className="text-lightGrey dark:text-darkGray font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center text-justify">
               {localFind(`the levels of "metaverse rang" in the parallel`)}
             </p>
           </div>

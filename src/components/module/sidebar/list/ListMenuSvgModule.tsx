@@ -1,6 +1,6 @@
 import SvgIcon from "../SvgIcon";
 
-export default function ListMenuSvgModule({ item, i, activeNav }: any) {
+export default function ListMenuSvgModule({ item }: any) {
   return (
     <SvgIcon
       name={item.name}
@@ -8,7 +8,7 @@ export default function ListMenuSvgModule({ item, i, activeNav }: any) {
       // ? "text-[#0066FF] dark:text-[#FFC700]"
       // : "text-[#888888] dark:text-[#888888]"
       color={`${
-        activeNav == i
+        item.active
           ? "text-[#0066FF] dark:text-[#FFC700] stroke-[#0066FF] dark:stroke-[#FFC700]"
           : "text-[#888888] dark:text-[#868B90] stroke-[#888888] dark:stroke-[#868B90]"
       }`}

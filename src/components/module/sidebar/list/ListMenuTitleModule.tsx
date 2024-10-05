@@ -1,7 +1,7 @@
 // import { SideBarContext } from "@/components/context/SidebarContext";
 // import { useContext } from "react";
 
-const ListMenuTitleModule = ({ item, activeNav, i, isClosed }: any) => {
+const ListMenuTitleModule = ({ item, isClosed }: any) => {
   // const { state } = useContext(SideBarContext);
   return (
     //   ${
@@ -16,9 +16,13 @@ const ListMenuTitleModule = ({ item, activeNav, i, isClosed }: any) => {
 
     <div
       className={`
-    ${activeNav == i ? "text-blueLink" : ""}
+    ${
+      item.active
+        ? "text-blueLink dark:text-dark-primary"
+        : "text-black dark:text-lightGray"
+    }
     ${isClosed ? "w-0 h-0 overflow-hidden" : "w-full h-fit"}
-    capitalize 3xl:text-xl3Title xl:text-xlTitle lg:text-lgTitle md:text-mdTitle sm:text-smTitle xs:text-smTitle font-azarMehr font-normal 3xl:text-[22px] menu-transition text-black dark:text-lightGray`}
+    capitalize 3xl:text-xl3Title xl:text-xlTitle lg:text-lgTitle md:text-mdTitle sm:text-smTitle xs:text-smTitle font-azarMehr font-normal 3xl:text-[22px] menu-transition `}
     >
       {item.translation}
     </div>
