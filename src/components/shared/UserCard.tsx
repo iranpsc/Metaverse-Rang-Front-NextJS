@@ -28,7 +28,7 @@ export default function UserCard({ item, params, buttonText, minWidth }: any) {
         </p>
 
         <Link
-          href={`https://rgb.irpsc.com/${params.lang}/citizen/${item.code}`}
+          href={`https://rgb.irpsc.com/${params.lang}/citizens/${item.code}`}
         >
           <span
             // data-atropos-offset="-1"
@@ -53,7 +53,7 @@ export default function UserCard({ item, params, buttonText, minWidth }: any) {
             ))}
           </div>
         </div>
-        <Link href={`/${params.lang}/citizen/${item.code}`} className="w-[80%]">
+        <Link href={`/${params.lang}/citizens/${item.code}`} className="w-[80%]">
           <div
             // data-atropos-offset="5"
             className="w-full h-[40px] sm:h-[50px] md:h-[55px] bg-[#f5f9ff] dark:bg-[#000000] px-3 sm:px-6 rounded-[10px] flex flex-row justify-between items-center"
