@@ -162,7 +162,7 @@ export default function SvgIcon({ name, color }: any) {
         />
       )}
       {name === "home page" && (
-        <HomeIcon className={` ${color} stroke-1 mx-[7px]  3xl:w-7 3xl:h-7`} />
+        <HomeIcon className={` ${color} stroke-1 mx-[7px] w-[20px] h-[30px]`} />
       )}
       {name === "citizen" && (
         <Image src={Citizen} alt="" width={30} height={30} loading="lazy" />

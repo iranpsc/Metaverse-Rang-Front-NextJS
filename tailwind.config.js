@@ -84,7 +84,7 @@ module.exports = {
         black: "rgba(0, 0, 0, 1)",
         lightGray: "#868B90",
         darkGray:"#484950",
-        bgLightGrey:"#ECECEC",
+        bgLightGrey:"#E9E9E9",
         mediumGray: "rgba(116, 116, 116, 0.58)",
         mediumGrayFull: "rgba(116, 116, 116)",
         gray: "#151b30",

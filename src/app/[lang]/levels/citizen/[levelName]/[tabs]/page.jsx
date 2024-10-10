@@ -8,9 +8,14 @@ import {
   getFooterData,
   getTranslation,
   getMainFile,
+  getSingleLevel,
+  getLevelTabs,
 } from "@/components/utils/actions";
 import DynamicFooter from "@/components/module/footer/DynamicFooter";
 import { Features } from "@/components/module/levelComponent/Features";
+import BreadCrumb from "@/components/shared/BreadCrumb";
+import ImageBox from "@/components/module/levelComponent/ImageBox";
+
 
 export default async function lavelSingelPage({ params }) {
   const footerTabs = await getFooterData(params);
@@ -37,65 +42,72 @@ export default async function lavelSingelPage({ params }) {
   ];
   const levelId = staticRouteNames.find(x => x.route_name === params.levelName)?.id
 
-  async function singleLevel() {
-    const res = await fetch(`https://api.rgb.irpsc.com/api/levels/${levelId}`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    return await res.json();
-  }
-  const level = await singleLevel();
+
+  const level = await getSingleLevel(levelId);
+
+  const levelTabs = await getLevelTabs(params, levelId);
+  console.log('122333333', level);
+  
 
   return (
     <>
-      <div className="px-7 w-full font-azarMehr ">
-        <div className=" w-auto dark:bg-[#080807] rounded-[20px] p-3 relative">
-          <div className="flex w-full font-bold sm:w-4/5 py-3 dark:text-white text-lg sm:text-xl lg:text-2xl 2xl:text-3xl 3xl:text-4xl">
-            <h1>{level.data.name}</h1>
+      <div className="px-6 w-full font-azarMehr ">
+        <div className="px-6">
+          <BreadCrumb params={params} />
+        </div>
+        <div className="flex flex-col flex-nowrap md:flex-row  dark:bg-[#080807] rounded-[20px] p-3 relative">
+          <div className="w-full md:w-[60vw] xl:w-[65vw]">
+            <div className="flex font-bold py-3 dark:text-white text-lg sm:text-xl lg:text-2xl 2xl:text-3xl 3xl:text-4xl mx-3">
+              <h1>{level.data.name}</h1>
+            </div>
+
+            <div className="">
+              <TabSelector
+                levelId={levelId}
+                params={params}
+                levelsTranslatePage={levelsTranslatePage}
+              />
+            </div>
+
+            {params.tabs == "general-info" && (
+              <GeneralInfo
+                levelId={levelId}
+                langData={langData}
+                levelsTranslatePage={levelsTranslatePage}
+                params={params}
+              />
+            )}
+            {params.tabs == "gem" && (
+              <Gem
+                levelId={levelId}
+                levelsTranslatePage={levelsTranslatePage}
+                params={params}
+                levelTabs={levelTabs}
+
+              />
+            )}
+            {params.tabs == "gift" && (
+              <Gift
+                levelId={levelId}
+                levelsTranslatePage={levelsTranslatePage}
+                levelTabs={levelTabs}
+              />
+            )}
+            {params.tabs == "licenses" && (
+              <Permission
+                levelId={levelId}
+                levelsTranslatePage={levelsTranslatePage}
+                params={params}
+              />
+            )}
+            {params.tabs == "prize" && (
+              <Prize
+                levelId={levelId} levelsTranslatePage={levelsTranslatePage} params={params} />
+            )}
           </div>
-          <div className="w-full sm:w-4/5 ">
-            <TabSelector
-              levelId={levelId}
-              params={params}
-              levelsTranslatePage={levelsTranslatePage}
-            />
+          <div className="flex-1">
+            <ImageBox item={levelTabs.data} langData={langData} />
           </div>
-          {params.tabs == "general-info" && (
-            <GeneralInfo
-              levelId={levelId}
-              langData={langData}
-              levelsTranslatePage={levelsTranslatePage}
-              params={params}
-            />
-          )}
-          {params.tabs == "gem" && (
-            <Gem
-              levelId={levelId}
-              langData={langData}
-              levelsTranslatePage={levelsTranslatePage}
-              params={params}
-            />
-          )}
-          {params.tabs == "gift" && (
-            <Gift
-              levelId={levelId}
-              langData={langData}
-              levelsTranslatePage={levelsTranslatePage}
-              params={params}
-            />
-          )}
-          {params.tabs == "licenses" && (
-            <Permission
-              levelId={levelId}
-              levelsTranslatePage={levelsTranslatePage}
-              params={params}
-            />
-          )}
-          {params.tabs == "prize" && (
-            <Prize
-              levelId={levelId} levelsTranslatePage={levelsTranslatePage} params={params} />
-          )}
         </div>
         <div>
           <Features levelsTranslatePage={levelsTranslatePage} />

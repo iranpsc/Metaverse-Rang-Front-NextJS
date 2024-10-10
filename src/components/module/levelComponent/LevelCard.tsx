@@ -18,9 +18,9 @@ export default function LevelCard({
       ?.translation;
   }
   return (
-    <div className="w-full sm:w-2/5 md:w-1/3 xl:w-1/4 py-[10px] px-[14px] lg:px-[16px] 2xl:px-[25px] 3xl:px-[50px] ">
+    <div className="py-[10px] px-[14px] w-full md:w-1/2 lg:w-1/3 2xl:w-1/4 flex justify-center">
       <Link
-        className="py-[25px] base-transition-1 hoverCardLevel flex flex-col items-center rounded-[20px] box-border border border-transparent hover:border hover:border-[#0066FF] dark:hover:bg-[#1A1A18] dark:hover:border-[#FFC700]"
+        className="w-full max-w-[296px] lg:max-w-[333px] py-[25px] base-transition-1 hoverCardLevel flex flex-col items-center rounded-[20px] box-border border border-transparent hover:border hover:border-[#0066FF] dark:hover:bg-[#1A1A18] dark:hover:border-[#FFC700]"
         href={`/${params.lang}/levels/citizen/${item.route_name}/general-info`}
       >
         <Image
@@ -28,9 +28,9 @@ export default function LevelCard({
           alt={item.name}
           width={180}
           height={170}
-          className="z-[2] w-2/3 "
+          className="z-[2] w-[147px] h-[147px] lg:w-[180px] lg:h-[180px] translate-y-2 lg:translate-y-6"
         />
-        <div className="boxDataLevel w-full pt-[70px]  rounded-[20px] flex flex-col  justify-center bg-white border border-[rgba(0,0,0,0.14)]   dark:bg-[#1A1A18] mt-[-65px]">
+        <div className="boxDataLevel w-full h-[216px] lg:h-[239px] rounded-[20px] flex flex-col  justify-end bg-white border border-[rgba(0,0,0,0.14)] dark:bg-[#1A1A18] mt-[-65px]">
           <span className="text-center  dark:text-white font-azarMehr font-medium  text-[#33353B] mx-2 font-semibold text-[20px] lg:text-[24px]">
             {item.name}
           </span>
