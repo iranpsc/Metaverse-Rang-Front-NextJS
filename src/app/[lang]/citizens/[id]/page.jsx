@@ -29,8 +29,6 @@ export default async function citizenSinglePage({
   }
 
   const profileData = await getUserData();
-
-  console.log('profileDat1111a',profileData);
   
   
 

@@ -13,7 +13,7 @@ export default async function Permissions({
   }
   return (
     <>
-      <div className="flex flex-wrap justify-between px-3">
+      <div className="flex flex-wrap justify-between">
         <DetailItem
           showCheck={true}
           title={localFind("license to establish an alliance")}

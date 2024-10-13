@@ -17,6 +17,7 @@ import { headers } from "next/headers";
 // SEO**
 export async function generateMetadata({ params }: any) {
   const levelArray = await getAllLevels();
+
   const langData = await getTranslation(params.lang);
   const mainData = await getMainFile(langData);
   const levels = await findByModalName(mainData, "levels");
@@ -70,11 +71,7 @@ export async function generateMetadata({ params }: any) {
   };
 }
 
-export default async function LevelsPage({
-  params,
-}: {
-  params: { lang: "en" | "fa" };
-}) {
+export default async function LevelsPage({ params }: any) {
   const staticData = [
     {
       url: "/svg/level/citizen.png",
@@ -169,6 +166,8 @@ export default async function LevelsPage({
 
   const levelPageArrayContent = await findByTabName(levels, "levels-page");
   const levelListArrayContent = await findByTabName(levels, "level-list");
+  console.log("levelListArrayContent", levelListArrayContent);
+
   const concatArrayContent = levelPageArrayContent.concat(
     levelListArrayContent
   );
@@ -267,7 +266,7 @@ export default async function LevelsPage({
 
           className={`h-screen overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0`}
         >
-          <div className="px-3 mx-3">
+          <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
             <BreadCrumb params={params} />
           </div>
 
@@ -289,7 +288,7 @@ export default async function LevelsPage({
               />
             ))}
           </div>
-          <div className="flex flex-col justify-center items-center">
+          <div className="flex flex-col justify-center items-center xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
             <DynamicFooter footerTabs={footerTabs} />
           </div>
         </section>

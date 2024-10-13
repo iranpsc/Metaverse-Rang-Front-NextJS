@@ -9,7 +9,7 @@ export default async function Gift({ levelsTranslatePage, levelTabs }: any) {
   return (
     <>
       <div className="flex flex-col-reverse sm:flex-row flex-nowrap">
-        <div className="flex flex-wrap justify-between px-3">
+        <div className="flex flex-wrap justify-between">
           <Accordion
             title={localFind("description")}
             value={levelTabs.data.description}

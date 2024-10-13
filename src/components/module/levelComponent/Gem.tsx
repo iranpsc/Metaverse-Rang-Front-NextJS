@@ -10,7 +10,7 @@ export default async function Gem({ levelsTranslatePage, levelTabs }: any) {
   }
   return (
     <>
-      <div className="flex flex-col-reverse sm:flex-row flex-wrap px-3 ">
+      <div className="flex flex-col-reverse sm:flex-row flex-wrap">
         <div className="flex flex-wrap justify-between">
           <Accordion
             title={localFind("description")}

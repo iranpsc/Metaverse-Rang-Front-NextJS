@@ -11,8 +11,9 @@ export default function LevelCard({
   allLevelArrayContent: any;
   params: any;
 }) {
-  console.log("itemssssss", item);
+  // console.log("item333", item);
 
+  // console.log("allLevelArrayContent11333", allLevelArrayContent);
   function localFind(_name: any) {
     return allLevelArrayContent.find((item: any) => item.name == _name)
       ?.translation;

@@ -46,18 +46,17 @@ export default async function lavelSingelPage({ params }) {
   const level = await getSingleLevel(levelId);
 
   const levelTabs = await getLevelTabs(params, levelId);
-  console.log('122333333', level);
   
 
   return (
     <>
-      <div className="px-6 w-full font-azarMehr ">
-        <div className="px-6">
+      <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1 w-full font-azarMehr ">
+        <div className="">
           <BreadCrumb params={params} />
         </div>
-        <div className="flex flex-col flex-nowrap md:flex-row  dark:bg-[#080807] rounded-[20px] p-3 relative">
+        <div className="flex flex-col flex-nowrap md:flex-row  dark:bg-[#080807] rounded-[20px] py-3 relative">
           <div className="w-full md:w-[60vw] xl:w-[65vw]">
-            <div className="flex font-bold py-3 dark:text-white text-lg sm:text-xl lg:text-2xl 2xl:text-3xl 3xl:text-4xl mx-3">
+            <div className="flex font-bold py-3 dark:text-white text-lg sm:text-xl lg:text-2xl 2xl:text-3xl 3xl:text-4xl">
               <h1>{level.data.name}</h1>
             </div>
 
@@ -113,7 +112,7 @@ export default async function lavelSingelPage({ params }) {
           <Features levelsTranslatePage={levelsTranslatePage} />
         </div>
       </div>
-      <div className="flex flex-col justify-center items-center">
+      <div className="flex flex-col justify-center items-center xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
         <DynamicFooter footerTabs={footerTabs} />
       </div>
     </>

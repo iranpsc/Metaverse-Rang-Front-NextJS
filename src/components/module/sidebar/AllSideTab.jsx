@@ -58,8 +58,6 @@ export default function SideBarContent({
   const handleLangBtn = () => {
     setLangDropDown(!langDropDown)
   }
-
-  console.log('tabssssss', tabsMenu);
   
   // *selected nav item (add item.active property to own obj)
   const pathName = usePathname()

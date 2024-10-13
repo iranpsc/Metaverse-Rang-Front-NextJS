@@ -16,7 +16,7 @@ export default async function GeneralInfo({
 
   return (
     <>
-      <div className="flex flex-wrap justify-between px-3">
+      <div className="flex flex-wrap justify-between">
         <Accordion
           title={localFind("description")}
           value={generalInfo.data.description}
