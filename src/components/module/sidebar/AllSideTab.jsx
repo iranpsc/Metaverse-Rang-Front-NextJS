@@ -65,17 +65,14 @@ export default function SideBarContent({
   tabsMenu.forEach((item)=>{
     // convert url to match pathName
     let urlThemp = `/${params.lang}${item.url?"/"+item.url:''}`
-
-    // console.log('urlThemp',urlThemp);
-
     
     // home has url but its "empty", not "undefined"
     if(item.url != undefined && urlThemp && pathName.endsWith(urlThemp)){
       item.active = true;
-      console.log('urlThemp',urlThemp);
-      console.log('pathName',pathName);
     }
   })
+
+  
 
   return (
     <>
@@ -114,7 +111,7 @@ export default function SideBarContent({
               >
               <div style={{order:item.order}}>
                 { item.toShow &&
-                  <li onClick={() => onTabClick(item, i)} data-tooltip-id={item.name}>
+                  <li onClick={() => onTabClick(item, i)}>
                     {/* (i == 0) for hiding first element of array"متاورس" */}
                     
                       <div

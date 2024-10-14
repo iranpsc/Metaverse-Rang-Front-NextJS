@@ -167,8 +167,6 @@ export default async function LevelsPage({ params }: any) {
     item.slug = convertPersianToEnglishNumber(item.slug);
   });
 
-  console.log("arraraaaaaa", levelArray);
-
   const footerTabs = await getFooterData(params);
 
   const langArray = await getLangArray();

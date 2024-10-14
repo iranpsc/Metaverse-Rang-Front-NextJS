@@ -63,7 +63,6 @@ export default async function CitizensLayout({
       tab.toShow = true;
     }
   });
-  console.log("params4", params);
 
   return (
     <main className="flex h-screen dark:bg-black" dir={langData.direction}>

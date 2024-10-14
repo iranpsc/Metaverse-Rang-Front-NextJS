@@ -162,10 +162,10 @@ export default function SvgIcon({ name, color }: any) {
       {name === "home page" && (
         <HomeIcon className={` ${color} stroke-1 mx-[7px] w-[20px] h-[30px]`} />
       )}
-      {name === "citizen" && (
+      {name === "1" && (
         <Image src={Citizen} alt="" width={30} height={30} loading="lazy" />
       )}
-      {name === "journalist" && (
+      {name === "2" && (
         <Image src={Reporter} alt="" width={30} height={30} loading="lazy" />
       )}
       {name === "participant" && (
@@ -177,16 +177,16 @@ export default function SvgIcon({ name, color }: any) {
           loading="lazy"
         />
       )}
-      {name === "developer" && (
+      {name === "4" && (
         <Image src={Developer} alt="" width={30} height={30} loading="lazy" />
       )}
-      {name === "inspector" && (
+      {name === "5" && (
         <Image src={Inspector} alt="" width={30} height={30} loading="lazy" />
       )}
       {name === "businessman" && (
         <Image src={Businessman} alt="" width={30} height={30} loading="lazy" />
       )}
-      {name === "lawyer" && (
+      {name === "7" && (
         <Image src={Lawyer} alt="" width={30} height={30} loading="lazy" />
       )}
       {name === "city council" && (
@@ -195,16 +195,16 @@ export default function SvgIcon({ name, color }: any) {
       {name === "the mayor" && (
         <Image src={Mayor} alt="" width={30} height={30} loading="lazy" />
       )}
-      {name === "governor" && (
+      {name === "10" && (
         <Image src={Governor} alt="" width={30} height={30} loading="lazy" />
       )}
-      {name === "minister" && (
+      {name === "11" && (
         <Image src={Minister} alt="" width={30} height={30} loading="lazy" />
       )}{" "}
-      {name === "legislator" && (
+      {name === "12" && (
         <Image src={Legislator} alt="" width={30} height={30} loading="lazy" />
       )}{" "}
-      {name === "judge" && (
+      {name === "13" && (
         <Image src={Judge} alt="" width={30} height={30} loading="lazy" />
       )}
     </>

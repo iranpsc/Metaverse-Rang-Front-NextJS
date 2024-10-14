@@ -89,10 +89,10 @@ export default async function lavelSingelPage({ params }) {
     });
     return await res.json();
   }
-  console.log('tessssssssssssssssst', await singleLeveldefaultInfo());
   
 
   const level = await getSingleLevel(levelId);
+  console.log('level111',level)
 
   const levelTabs = await getLevelTabs(params, levelId);
   
@@ -115,7 +115,15 @@ export default async function lavelSingelPage({ params }) {
     // "description": await makeLessCharacter(),
     "alternateName": "MetaRGB"
   }
+  function localFind2(_slug) {
+    // HIN not good
+    //item.name and _slug have fa/en number string
+    //convert
 
+    return allLevelArrayContent.find(
+      (item) => Number(item.name) == Number(_slug)
+    )?.translation;
+  }
   return (
     <>
       {/* SCHEMA** */}
