@@ -157,9 +157,7 @@ export default function SvgIcon({ name, color }: any) {
         />
       )}
       {name === "language" && (
-        <Language
-          className={` ${color} stroke-1 mx-[10px] me-1 3xl:w-7 3xl:h-7`}
-        />
+        <Language className={` ${color} stroke-1 mx-[10px] 3xl:w-7 3xl:h-7`} />
       )}
       {name === "home page" && (
         <HomeIcon className={` ${color} stroke-1 mx-[7px] w-[20px] h-[30px]`} />

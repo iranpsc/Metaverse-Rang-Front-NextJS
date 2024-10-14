@@ -11,12 +11,21 @@ export default function LevelCard({
   allLevelArrayContent: any;
   params: any;
 }) {
-  // console.log("item333", item);
+  console.log("item333", item);
 
   // console.log("allLevelArrayContent11333", allLevelArrayContent);
   function localFind(_name: any) {
     return allLevelArrayContent.find((item: any) => item.name == _name)
       ?.translation;
+  }
+  function localFind2(_slug: any) {
+    // HIN not good
+    //item.name and _slug have fa/en number string
+    //convert
+
+    return allLevelArrayContent.find(
+      (item: any) => Number(item.name) == Number(_slug)
+    )?.translation;
   }
   return (
     <div className="py-[10px] px-[14px] w-full md:w-1/2 lg:w-1/3 2xl:w-1/4 flex justify-center">
@@ -33,7 +42,7 @@ export default function LevelCard({
         />
         <div className="boxDataLevel w-full h-[216px] lg:h-[239px] rounded-[20px] flex flex-col  justify-end bg-white border border-[rgba(0,0,0,0.14)] dark:bg-[#1A1A18] mt-[-65px]">
           <span className="text-center  dark:text-white font-azarMehr font-medium  text-[#33353B] mx-2 font-semibold text-[20px] lg:text-[24px]">
-            {item.name}
+            {localFind2(`${item.slug}`)}
           </span>
           <span className="text-center  dark:text-[#84858F] font-azarMehr font-normal text-[#484950] mx-2 text-[16px] lg:text-[20px] py-2">
             {localFind("required points")}

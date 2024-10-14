@@ -10,12 +10,51 @@ import {
   getMainFile,
   getSingleLevel,
   getLevelTabs,
+  findByModalName,
+  findByTabName,
 } from "@/components/utils/actions";
 import DynamicFooter from "@/components/module/footer/DynamicFooter";
 import { Features } from "@/components/module/levelComponent/Features";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import ImageBox from "@/components/module/levelComponent/ImageBox";
 
+// SEO**
+export async function generateMetadata({ params }) {
+  const langData = await getTranslation(params.lang);
+  const mainData = await getMainFile(langData);
+  const centralPageModal = await findByModalName(mainData, "central-page");
+  const firstPageArrayContent = await findByTabName(centralPageModal, "first-page");
+
+
+
+  return {
+    // title: await localFind('metaverse rang'),
+    // description: await makeLessCharacter(),
+    // openGraph: {
+    //   site_name:'metaverseTest',
+    //   type: 'website',
+    //   // url: `https://yourwebsite.com/posts/${params.id}`,
+    //   title: await localFind('metaverse rang'),
+    //   description: await makeLessCharacter(),
+    //   locale: params.code == 'fa'? 'fa_IR' : 'en_US',
+    //   url: `https://rgb.irpsc.com/${params.lang}`,
+    //   images: [
+    //     {
+    //       url: '/logo.png',
+    //       width: 800,
+    //       height: 600,
+    //       alt: localFind('metaverse rang'),
+    //     },
+    //   ],
+    // },
+    // twitter: {
+    //   card: 'summary_large_image',
+    //   title: post.title,
+    //   description: post.description,
+    //   images: [post.imageUrl],
+    // },
+  };
+}
 
 export default async function lavelSingelPage({ params }) {
   const footerTabs = await getFooterData(params);
@@ -42,14 +81,50 @@ export default async function lavelSingelPage({ params }) {
   ];
   const levelId = staticRouteNames.find(x => x.route_name === params.levelName)?.id
 
+  async function singleLeveldefaultInfo() {
+    const res = await fetch(`https://api.rgb.irpsc.com/api/levels/1`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return await res.json();
+  }
+  console.log('tessssssssssssssssst', await singleLeveldefaultInfo());
+  
 
   const level = await getSingleLevel(levelId);
 
   const levelTabs = await getLevelTabs(params, levelId);
   
+  const singleLevelSchema = {
+    "@context": "https://schema.org/",
+    "@type": "ProfessionalService",
+    // "name": `${await localFind('metaverse rang')}`,
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "میرداماد، 824H+JG2",
+      "addressCountry": "ایران",
+      "addressRegion": "استان قزوین",
+      "addressLocality": "قزوین"
+    },
+    "image": 'https://rgb.irpsc.com/logo.png',
+    "telephone": "09120820120",
+    "url": `https://rgb.irpsc.com/${params.lang}`,
+    "logo": `https://rgb.irpsc.com/logo.png`,
+    "email": "info@rgb.irpsc.com",
+    // "description": await makeLessCharacter(),
+    "alternateName": "MetaRGB"
+  }
 
   return (
     <>
+      {/* SCHEMA** */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(singleLevelSchema) }}
+      />
+      {/* schema END */}
+
       <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1 w-full font-azarMehr ">
         <div className="">
           <BreadCrumb params={params} />

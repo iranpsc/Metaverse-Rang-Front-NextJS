@@ -64,11 +64,16 @@ export default function SideBarContent({
 
   tabsMenu.forEach((item)=>{
     // convert url to match pathName
-    let urlThemp = `${params.lang}${item.url?"/"+item.url:''}`
+    let urlThemp = `/${params.lang}${item.url?"/"+item.url:''}`
+
+    // console.log('urlThemp',urlThemp);
+
     
     // home has url but its "empty", not "undefined"
     if(item.url != undefined && urlThemp && pathName.endsWith(urlThemp)){
       item.active = true;
+      console.log('urlThemp',urlThemp);
+      console.log('pathName',pathName);
     }
   })
 
@@ -113,9 +118,9 @@ export default function SideBarContent({
                     {/* (i == 0) for hiding first element of array"متاورس" */}
                     
                       <div
-                        className={`w-full flex flex-row items-center gap-2 group py-[12px] 3xl:py-[16px]
+                        className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px]
                         group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer menu-transition
-                        ${isClosed ? "justify-start" : "justify-start"}`}
+                        ${isClosed ? "justify-start gap-0" : "justify-start gap-2"}`}
                       >
                           <ListMenuActiveIconModule
                             item={item}
@@ -125,11 +130,13 @@ export default function SideBarContent({
                         <span className="ps-[15px]">
                           <ListMenuSvgModule item={item} />
                         </span>
+                        <div className={`w-full flex justify-between items-center`}>
                           <ListMenuTitleModule
                             item={item}
                             isClosed={isClosed}
                           />
-                        <ListMenuArrow item={item} />
+                          <ListMenuArrow item={item} />
+                        </div>
                       </div>              
                   </li>
               
@@ -138,9 +145,9 @@ export default function SideBarContent({
                   <>
                     <li onClick={handleLangBtn} data-tooltip-id={item.name}>
                       <div
-                        className={`w-full flex flex-row items-center gap-2 group py-[12px] 3xl:py-[16px]
+                        className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px]
                         group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer menu-transition
-                        ${isClosed ? "justify-start" : "justify-start"}`}
+                        ${isClosed ? "justify-start gap-0" : "justify-start gap-2"}`}
                         >
                           <ListMenuActiveIconModule
                             item={item}
@@ -150,11 +157,13 @@ export default function SideBarContent({
                         <span className="ps-[15px]">
                           <ListMenuSvgModule item={item} />
                         </span>
+                        <div className="w-full flex justify-between items-center">
                           <ListMenuTitleModule
                             item={item}
                             isClosed={isClosed}
-                          />
-                        <ListMenuArrow item={item} isOpen={langDropDown} />
+                            />
+                          <ListMenuArrow item={item} isOpen={langDropDown} />
+                        </div>
                       </div>              
                     </li>
                     <div className={`${langDropDown ? "h-full" : 'h-0 overflow-hidden'}

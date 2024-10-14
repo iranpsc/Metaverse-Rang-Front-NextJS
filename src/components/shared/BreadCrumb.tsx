@@ -36,7 +36,7 @@ export default function ({ params }: any) {
     {
       name: "citizen-baguette",
       en: "citizen rank-1",
-      fa: "شهروند سطح-۱",
+      fa: "رنک-1",
       color: "text-black",
       darkColor: "text-white",
       font: "font-bold",

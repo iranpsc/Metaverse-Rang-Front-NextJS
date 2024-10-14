@@ -58,7 +58,8 @@
     
     const res = await fetch(`https://api.rgbdev.irpsc.com/api/users?page=${_page}`)
     let temp = await res.json()
-    
+
+  
     return temp
   }
   export async function getFooterData(params) {
@@ -84,6 +85,8 @@
       },
     });
     const temp = await res.json();
+    console.log('getAllLevels', temp);
+    
     return temp.data
   }
   export async function getLevelTabs(params,levelId) {

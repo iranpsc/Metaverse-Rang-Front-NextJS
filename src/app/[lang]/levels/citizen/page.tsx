@@ -152,9 +152,22 @@ export default async function LevelsPage({ params }: any) {
       route_name: "legislator-baguette",
     },
   ];
+  function convertPersianToEnglishNumber(slug: any) {
+    // Replace Persian/Arabic digits with English digits using regex
+    return Number(
+      slug.replace(/[۰-۹]/g, (char: any) => char.charCodeAt(0) - 1776)
+    );
+  }
+
   const defaultTheme = useServerDarkMode();
 
   const levelArray = await getAllLevels();
+  // convert persian digit to eng digit in DATA
+  levelArray.forEach((item: any) => {
+    item.slug = convertPersianToEnglishNumber(item.slug);
+  });
+
+  console.log("arraraaaaaa", levelArray);
 
   const footerTabs = await getFooterData(params);
 
@@ -166,7 +179,6 @@ export default async function LevelsPage({ params }: any) {
 
   const levelPageArrayContent = await findByTabName(levels, "levels-page");
   const levelListArrayContent = await findByTabName(levels, "level-list");
-  console.log("levelListArrayContent", levelListArrayContent);
 
   const concatArrayContent = levelPageArrayContent.concat(
     levelListArrayContent
