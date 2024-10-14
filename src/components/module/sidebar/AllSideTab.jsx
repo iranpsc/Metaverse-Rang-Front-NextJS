@@ -9,7 +9,7 @@ import { Modals_fa, Modals_en } from "@/components/utils/modals-content";
 import { useEffect, useState } from "react";
 import Modal from "@/components/templates/modal";
 import ListMenuActiveIconModule from "./list/ListMenuActiveIconModule";
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname  } from 'next/navigation';
 import Tooltip from '@mui/material/Tooltip';
 
 export default function SideBarContent({
@@ -22,7 +22,6 @@ export default function SideBarContent({
   const router = useRouter();
   const [modalShow, setModalShow] = useState(false);
   const [modalData, setModalData] = useState({});
-  const [activeNav, setActiveNav] = useState(1);
   const [langDropDown, setLangDropDown] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
 
@@ -33,22 +32,11 @@ export default function SideBarContent({
   const closeModal = () => {
     setModalShow(false);
   };
-  // useEffect(()=>{
-  //   if(isMounted){
-  //     tabsMenu.forEach((tab) => {
-  //       let findInStatic = staticMenuToShow.find(val => tab.name == val.name)
-  //       if(findInStatic){
-  //         tab.url = findInStatic.url
-  //         tab.order = findInStatic.order
-  //       }
-  //     })
-  //   }
-  // },[isMounted])
-  const onTabClick = (item, tabNumber) => {
-    setActiveNav(tabNumber);
+
+  const onTabClick = (item) => {
     // if there is no Url in staticMenuToShow, open modal
-    if(item.url){
-      router.push(`/${params.lang}${item.url}`)
+    if(item.url != undefined){
+      router.push(`/${params.lang}/${item.url}`)
     }else{
 
       if (langData.code === "fa") {
@@ -70,7 +58,24 @@ export default function SideBarContent({
   const handleLangBtn = () => {
     setLangDropDown(!langDropDown)
   }
+  
+  // *selected nav item (add item.active property to own obj)
+  const pathName = usePathname()
 
+  tabsMenu.forEach((item)=>{
+    // convert url to match pathName
+    let urlThemp = `/${params.lang}${item.url?"/"+item.url:''}`
+
+    // console.log('urlThemp',urlThemp);
+
+    
+    // home has url but its "empty", not "undefined"
+    if(item.url != undefined && urlThemp && pathName.endsWith(urlThemp)){
+      item.active = true;
+      console.log('urlThemp',urlThemp);
+      console.log('pathName',pathName);
+    }
+  })
 
   return (
     <>
@@ -109,31 +114,29 @@ export default function SideBarContent({
               >
               <div style={{order:item.order}}>
                 { item.toShow &&
-                  <li  onClick={() => onTabClick(item, i)} data-tooltip-id={item.name}>
+                  <li onClick={() => onTabClick(item, i)} data-tooltip-id={item.name}>
                     {/* (i == 0) for hiding first element of array"متاورس" */}
                     
                       <div
-                        className={`w-full flex flex-row items-center gap-2 group py-[12px] 3xl:py-[16px]
+                        className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px]
                         group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer menu-transition
-                        ${isClosed ? "justify-start" : "justify-start"}`}
+                        ${isClosed ? "justify-start gap-0" : "justify-start gap-2"}`}
                       >
                           <ListMenuActiveIconModule
                             item={item}
                             languageSelected={langData.code}
                             isClosed={isClosed}
-                            activeNav={activeNav}
-                            i={i}
                             />
                         <span className="ps-[15px]">
-                          <ListMenuSvgModule item={item} i={i} activeNav={activeNav} />
+                          <ListMenuSvgModule item={item} />
                         </span>
+                        <div className={`w-full flex justify-between items-center`}>
                           <ListMenuTitleModule
                             item={item}
                             isClosed={isClosed}
-                            i={i}
-                            activeNav={activeNav}
                           />
-                        <ListMenuArrow item={item} />
+                          <ListMenuArrow item={item} />
+                        </div>
                       </div>              
                   </li>
               
@@ -142,27 +145,25 @@ export default function SideBarContent({
                   <>
                     <li onClick={handleLangBtn} data-tooltip-id={item.name}>
                       <div
-                        className={`w-full flex flex-row items-center gap-2 group py-[12px] 3xl:py-[16px]
+                        className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px]
                         group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer menu-transition
-                        ${isClosed ? "justify-start" : "justify-start"}`}
+                        ${isClosed ? "justify-start gap-0" : "justify-start gap-2"}`}
                         >
                           <ListMenuActiveIconModule
                             item={item}
                             languageSelected={langData.code}
                             isClosed={isClosed}
-                            activeNav={activeNav}
-                            i={i}
                             />
                         <span className="ps-[15px]">
-                          <ListMenuSvgModule item={item} i={i} activeNav={activeNav} />
+                          <ListMenuSvgModule item={item} />
                         </span>
+                        <div className="w-full flex justify-between items-center">
                           <ListMenuTitleModule
                             item={item}
                             isClosed={isClosed}
-                            i={i}
-                            activeNav={activeNav}
-                          />
-                        <ListMenuArrow item={item} isOpen={langDropDown} />
+                            />
+                          <ListMenuArrow item={item} isOpen={langDropDown} />
+                        </div>
                       </div>              
                     </li>
                     <div className={`${langDropDown ? "h-full" : 'h-0 overflow-hidden'}

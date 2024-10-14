@@ -6,11 +6,10 @@ const ListMenuActiveIconModule = ({
   item,
   languageSelected,
   isClosed,
-  activeNav,
   i,
 }) => {
   return (
-    activeNav === i && (
+    item.active && (
       <ActiveMenuIcon
         className={` ${isClosed ? "w-[10px] pr-[17px]" : ""}  ${
           languageSelected === "fa"

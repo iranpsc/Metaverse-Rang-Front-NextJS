@@ -44,13 +44,13 @@ export async function generateMetadata({ params }) {
     title: await localFind("citizens of the metaverse"),
     description: await makeLessCharacter(),
     openGraph: {
-      // type: 'article',
+      type: 'website',
       // url: `https://yourwebsite.com/posts/${params.id}`,
       title: await localFind("citizens of the metaverse"),
       description: await makeLessCharacter(),
       locale: params.code == "fa" ? "fa_IR" : "en_US",
       // site_name: متاورس رنگ,
-      url: "",
+      url: `https://rgb.irpsc.com/${params.lang}/citizen`,
       images: [
         {
           url: "/logo.png",
@@ -131,12 +131,14 @@ export default async function CitizensPage({ params }) {
       />
 
       {/* Breadcrumb */}
-      <BreadCrumb params={params} />
-      <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
+      <div className="px-12">
+          <BreadCrumb params={params} />
+        </div>
+      <div className="mt-[60px] lg:mt-[40px] xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
         <h2 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[64px] mb-[16px]">
           {localFind("citizens of the metaverse")}
         </h2>
-        <p className="text-lightGrey dark:text-lightGray font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center text-justify">
+        <p className="text-lightGrey dark:text-darkGray font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center text-justify">
           {localFind("description citizen list")}
         </p>
         <div className="flex justify-center w-full">

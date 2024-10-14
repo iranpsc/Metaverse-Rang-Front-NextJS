@@ -13,7 +13,7 @@ export default async function CitizensLayout({
   params,
 }: {
   children: React.ReactNode;
-  params: { lang: "en" | "fa" };
+  params: any;
 }) {
   const defaultTheme = useServerDarkMode();
 

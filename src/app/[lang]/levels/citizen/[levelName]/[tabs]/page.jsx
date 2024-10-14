@@ -8,9 +8,53 @@ import {
   getFooterData,
   getTranslation,
   getMainFile,
+  getSingleLevel,
+  getLevelTabs,
+  findByModalName,
+  findByTabName,
 } from "@/components/utils/actions";
 import DynamicFooter from "@/components/module/footer/DynamicFooter";
 import { Features } from "@/components/module/levelComponent/Features";
+import BreadCrumb from "@/components/shared/BreadCrumb";
+import ImageBox from "@/components/module/levelComponent/ImageBox";
+
+// SEO**
+export async function generateMetadata({ params }) {
+  const langData = await getTranslation(params.lang);
+  const mainData = await getMainFile(langData);
+  const centralPageModal = await findByModalName(mainData, "central-page");
+  const firstPageArrayContent = await findByTabName(centralPageModal, "first-page");
+
+
+
+  return {
+    // title: await localFind('metaverse rang'),
+    // description: await makeLessCharacter(),
+    // openGraph: {
+    //   site_name:'metaverseTest',
+    //   type: 'website',
+    //   // url: `https://yourwebsite.com/posts/${params.id}`,
+    //   title: await localFind('metaverse rang'),
+    //   description: await makeLessCharacter(),
+    //   locale: params.code == 'fa'? 'fa_IR' : 'en_US',
+    //   url: `https://rgb.irpsc.com/${params.lang}`,
+    //   images: [
+    //     {
+    //       url: '/logo.png',
+    //       width: 800,
+    //       height: 600,
+    //       alt: localFind('metaverse rang'),
+    //     },
+    //   ],
+    // },
+    // twitter: {
+    //   card: 'summary_large_image',
+    //   title: post.title,
+    //   description: post.description,
+    //   images: [post.imageUrl],
+    // },
+  };
+}
 
 export default async function lavelSingelPage({ params }) {
   const footerTabs = await getFooterData(params);
@@ -37,71 +81,113 @@ export default async function lavelSingelPage({ params }) {
   ];
   const levelId = staticRouteNames.find(x => x.route_name === params.levelName)?.id
 
-  async function singleLevel() {
-    const res = await fetch(`https://api.rgb.irpsc.com/api/levels/${levelId}`, {
+  async function singleLeveldefaultInfo() {
+    const res = await fetch(`https://api.rgb.irpsc.com/api/levels/1`, {
       headers: {
         "Content-Type": "application/json",
       },
     });
     return await res.json();
   }
-  const level = await singleLevel();
+  console.log('tessssssssssssssssst', await singleLeveldefaultInfo());
+  
+
+  const level = await getSingleLevel(levelId);
+
+  const levelTabs = await getLevelTabs(params, levelId);
+  
+  const singleLevelSchema = {
+    "@context": "https://schema.org/",
+    "@type": "ProfessionalService",
+    // "name": `${await localFind('metaverse rang')}`,
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "میرداماد، 824H+JG2",
+      "addressCountry": "ایران",
+      "addressRegion": "استان قزوین",
+      "addressLocality": "قزوین"
+    },
+    "image": 'https://rgb.irpsc.com/logo.png',
+    "telephone": "09120820120",
+    "url": `https://rgb.irpsc.com/${params.lang}`,
+    "logo": `https://rgb.irpsc.com/logo.png`,
+    "email": "info@rgb.irpsc.com",
+    // "description": await makeLessCharacter(),
+    "alternateName": "MetaRGB"
+  }
 
   return (
     <>
-      <div className="px-7 w-full font-azarMehr ">
-        <div className=" w-auto dark:bg-[#080807] rounded-[20px] p-3 relative">
-          <div className="flex w-full font-bold sm:w-4/5 py-3 dark:text-white text-lg sm:text-xl lg:text-2xl 2xl:text-3xl 3xl:text-4xl">
-            <h1>{level.data.name}</h1>
+      {/* SCHEMA** */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(singleLevelSchema) }}
+      />
+      {/* schema END */}
+
+      <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1 w-full font-azarMehr ">
+        <div className="">
+          <BreadCrumb params={params} />
+        </div>
+        <div className="flex flex-col flex-nowrap md:flex-row  dark:bg-[#080807] rounded-[20px] py-3 relative">
+          <div className="w-full md:w-[60vw] xl:w-[65vw]">
+            <div className="flex font-bold py-3 dark:text-white text-lg sm:text-xl lg:text-2xl 2xl:text-3xl 3xl:text-4xl">
+              <h1>{level.data.name}</h1>
+            </div>
+
+            <div className="">
+              <TabSelector
+                levelId={levelId}
+                params={params}
+                levelsTranslatePage={levelsTranslatePage}
+              />
+            </div>
+
+            {params.tabs == "general-info" && (
+              <GeneralInfo
+                levelId={levelId}
+                langData={langData}
+                levelsTranslatePage={levelsTranslatePage}
+                params={params}
+              />
+            )}
+            {params.tabs == "gem" && (
+              <Gem
+                levelId={levelId}
+                levelsTranslatePage={levelsTranslatePage}
+                params={params}
+                levelTabs={levelTabs}
+
+              />
+            )}
+            {params.tabs == "gift" && (
+              <Gift
+                levelId={levelId}
+                levelsTranslatePage={levelsTranslatePage}
+                levelTabs={levelTabs}
+              />
+            )}
+            {params.tabs == "licenses" && (
+              <Permission
+                levelId={levelId}
+                levelsTranslatePage={levelsTranslatePage}
+                params={params}
+              />
+            )}
+            {params.tabs == "prize" && (
+              <Prize
+                levelId={levelId} levelsTranslatePage={levelsTranslatePage} params={params} />
+            )}
           </div>
-          <div className="w-full sm:w-4/5 ">
-            <TabSelector
-              levelId={levelId}
-              params={params}
-              levelsTranslatePage={levelsTranslatePage}
-            />
+          <div className="flex-1">
+            <ImageBox item={levelTabs.data} langData={langData} />
           </div>
-          {params.tabs == "general-info" && (
-            <GeneralInfo
-              levelId={levelId}
-              langData={langData}
-              levelsTranslatePage={levelsTranslatePage}
-              params={params}
-            />
-          )}
-          {params.tabs == "gem" && (
-            <Gem
-              levelId={levelId}
-              langData={langData}
-              levelsTranslatePage={levelsTranslatePage}
-              params={params}
-            />
-          )}
-          {params.tabs == "gift" && (
-            <Gift
-              levelId={levelId}
-              langData={langData}
-              levelsTranslatePage={levelsTranslatePage}
-              params={params}
-            />
-          )}
-          {params.tabs == "licenses" && (
-            <Permission
-              levelId={levelId}
-              levelsTranslatePage={levelsTranslatePage}
-              params={params}
-            />
-          )}
-          {params.tabs == "prize" && (
-            <Prize
-              levelId={levelId} levelsTranslatePage={levelsTranslatePage} params={params} />
-          )}
         </div>
         <div>
           <Features levelsTranslatePage={levelsTranslatePage} />
         </div>
       </div>
-      <div className="flex flex-col justify-center items-center">
+      <div className="flex flex-col justify-center items-center xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
         <DynamicFooter footerTabs={footerTabs} />
       </div>
     </>

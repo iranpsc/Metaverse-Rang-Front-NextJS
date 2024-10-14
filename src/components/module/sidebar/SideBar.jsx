@@ -1,7 +1,4 @@
 "use client";
-// import MenuProfileModule from "./MenuProfileModule";
-import axios from 'axios';
-// import { useRouter } from 'next/navigation';
 import Header from "./Header";
 import AllSideTab from "./AllSideTab";
 import LevelSideTab from './LevelSideTab'
@@ -24,7 +21,8 @@ export default function SideBar({
   const toggleSide = useCallback(() => {
     setisClosed((prev) => !prev);
   }, []);
-
+  console.log('params3', params);
+  
   return (
     <>
       <HeaderMobile
@@ -94,6 +92,7 @@ export default function SideBar({
               <ThemeMenuModule
                 isClosed={isClosed}
                 defaultTheme={defaultTheme}
+                params={params}
               />
             </div>
           </aside>

@@ -29,8 +29,8 @@ export default async function citizenSinglePage({
   }
 
   const profileData = await getUserData();
-
-  console.log('profileDat1111a',profileData);
+  console.log('profileData123',profileData.data);
+  
   
   
 
@@ -76,8 +76,13 @@ export default async function citizenSinglePage({
 
   //to make description less than 200 character
   async function makeLessCharacter(){
-    let temp = profileData.data.customs.about
-    temp = temp.slice(0,200)
+    let temp;
+    if(profileData.data?.customs?.about){
+      temp = profileData.data.customs.about
+      temp = temp.slice(0,200)
+    }else(
+      temp = ""
+    )
     return temp
   }
 
@@ -89,7 +94,7 @@ export default async function citizenSinglePage({
       return item.url
     }),
     "url": `http://rgb.irpsc.com/fa/citizen/${params.id}`,
-    "jobTitle": `${profileData.data.customs.occupation}`,
+    "jobTitle": `${profileData.data?.customs?.occupation}`,
     "description": `${await makeLessCharacter()}`,
     "birthDate": `${profileData.data.kyc.birth_date}`,
     "email": `${profileData.data.kyc.email}`,
@@ -224,8 +229,13 @@ export async function generateMetadata({ params }) {
   
   //to make description less than 200 character
   async function makeLessCharacter(){
-    let temp = profileData.data.customs.about
-    temp = temp.slice(0,200)
+    let temp;
+    if(profileData.data?.customs?.about){
+      temp = profileData.data.customs.about
+      temp = temp.slice(0,200)
+    }else(
+      temp = ""
+    )
     return temp
   }
 
@@ -235,11 +245,10 @@ export async function generateMetadata({ params }) {
     openGraph: {
       // site_name:'',
       type: 'profile',
-      // url: `https://yourwebsite.com/posts/${params.id}`,
       title: `${profileData.data.name}`,
       description: `${await makeLessCharacter()}`,
       locale: params.code == 'fa'? 'fa_IR' : 'en_US',
-      url: `http://rgb.irpsc.com/fa/citizen/${params.id}`,
+      url: `https://rgb.irpsc.com/${params.lang}/citizen/${params.id}`,
       profile: {
         first_name: `${profileData.data.name}`, // optional: user's first name
       },

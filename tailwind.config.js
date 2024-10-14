@@ -83,7 +83,8 @@ module.exports = {
         // *** this project custome START
         black: "rgba(0, 0, 0, 1)",
         lightGray: "#868B90",
-        bgLightGrey:"#ECECEC",
+        darkGray:"#484950",
+        bgLightGrey:"#E9E9E9",
         mediumGray: "rgba(116, 116, 116, 0.58)",
         mediumGrayFull: "rgba(116, 116, 116)",
         gray: "#151b30",

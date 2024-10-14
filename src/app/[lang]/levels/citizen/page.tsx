@@ -11,12 +11,67 @@ import DynamicFooter from "@/components/module/footer/DynamicFooter";
 import LevelCard from "@/components/module/levelComponent/LevelCard";
 import SideBar from "@/components/module/sidebar/SideBar";
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
+import BreadCrumb from "@/components/shared/BreadCrumb";
+import { headers } from "next/headers";
 
-export default async function LevelsPage({
-  params,
-}: {
-  params: { lang: "en" | "fa" };
-}) {
+// SEO**
+export async function generateMetadata({ params }: any) {
+  const levelArray = await getAllLevels();
+
+  const langData = await getTranslation(params.lang);
+  const mainData = await getMainFile(langData);
+  const levels = await findByModalName(mainData, "levels");
+
+  const levelPageArrayContent = await findByTabName(levels, "levels-page");
+  const levelListArrayContent = await findByTabName(levels, "level-list");
+  const concatArrayContent = levelPageArrayContent.concat(
+    levelListArrayContent
+  );
+
+  // to find in an array with key(_name)
+  async function localFind(_name: any) {
+    return await concatArrayContent.find((item: any) => item.name == _name)
+      .translation;
+  }
+  //to make description less than 200 character
+  async function makeLessCharacter() {
+    let temp = await localFind(
+      'the levels of "metaverse rang" in the parallel'
+    );
+    temp = temp.slice(0, 200);
+    return temp;
+  }
+
+  return {
+    title: await localFind("levels of citizens of the metaverse"),
+    description: await makeLessCharacter(),
+    openGraph: {
+      site_name: "metaverseTest",
+      type: "website",
+      // url: `https://yourwebsite.com/posts/${params.id}`,
+      title: await localFind("levels of citizens of the metaverse"),
+      description: await makeLessCharacter(),
+      locale: params.code == "fa" ? "fa_IR" : "en_US",
+      url: `https://rgb.irpsc.com/${params.lang}/levels/citizen`,
+      images: [
+        {
+          url: `${levelArray[0].image}`,
+          width: 800,
+          height: 600,
+          alt: await localFind("levels of citizens of the metaverse"),
+        },
+      ],
+    },
+    // twitter: {
+    //   card: 'summary_large_image',
+    //   title: post.title,
+    //   description: post.description,
+    //   images: [post.imageUrl],
+    // },
+  };
+}
+
+export default async function LevelsPage({ params }: any) {
   const staticData = [
     {
       url: "/svg/level/citizen.png",
@@ -97,9 +152,22 @@ export default async function LevelsPage({
       route_name: "legislator-baguette",
     },
   ];
+  function convertPersianToEnglishNumber(slug: any) {
+    // Replace Persian/Arabic digits with English digits using regex
+    return Number(
+      slug.replace(/[۰-۹]/g, (char: any) => char.charCodeAt(0) - 1776)
+    );
+  }
+
   const defaultTheme = useServerDarkMode();
 
   const levelArray = await getAllLevels();
+  // convert persian digit to eng digit in DATA
+  levelArray.forEach((item: any) => {
+    item.slug = convertPersianToEnglishNumber(item.slug);
+  });
+
+  console.log("arraraaaaaa", levelArray);
 
   const footerTabs = await getFooterData(params);
 
@@ -111,35 +179,36 @@ export default async function LevelsPage({
 
   const levelPageArrayContent = await findByTabName(levels, "levels-page");
   const levelListArrayContent = await findByTabName(levels, "level-list");
+
   const concatArrayContent = levelPageArrayContent.concat(
     levelListArrayContent
   );
-  const modalsProfile = await findByModalName(mainData, "Citizenship-profile");
+  const centralPageModal = await findByModalName(mainData, "central-page");
+  const tabsMenu = await findByTabName(centralPageModal, "before-login");
 
-  const tabsMenu = await findByTabName(modalsProfile, "menu");
   const staticMenuToShow = [
-    { name: "home", url: "", order: "-1" },
-    { name: "citizens", url: "/citizen", order: "-1" },
-    // { name: "list of levels", url: "/levels/citizen", order: "-1" },
-    { name: "property", url: "" },
-    { name: "real estate", url: "" },
-    { name: "structures", url: "" },
-    { name: "belongings", url: "" },
-    { name: "permissions", url: "" },
-    { name: "invitations", url: "" },
-    { name: "transaction", url: "" },
-    { name: "reward", url: "" },
-    { name: "dynasty", url: "" },
-    { name: "connections", url: "" },
-    { name: "crimes", url: "" },
-    { name: "news", url: "" },
-    { name: "articles", url: "" },
-    { name: "trainings", url: "" },
-    { name: "about", url: "" },
-    { name: "contact", url: "" },
-    { name: "version", url: "" },
-    { name: "calendar", url: "" },
-    { name: "overview", url: "" },
+    { name: "home", url: ``, order: "-1" },
+    { name: "citizens", url: "citizens", order: "-1" },
+    { name: "list of levels", url: "levels/citizen", order: "-1" },
+    { name: "property" },
+    { name: "real estate" },
+    { name: "structures" },
+    { name: "belongings" },
+    { name: "permissions" },
+    { name: "invitations" },
+    { name: "transaction" },
+    { name: "reward" },
+    { name: "dynasty" },
+    { name: "connections" },
+    { name: "crimes" },
+    { name: "news" },
+    { name: "articles" },
+    { name: "trainings" },
+    { name: "about" },
+    { name: "contact" },
+    { name: "version" },
+    { name: "calendar" },
+    { name: "overview" },
   ];
 
   // add staticMenuToShow values to siblings tabsMenu values
@@ -168,8 +237,31 @@ export default async function LevelsPage({
     });
   });
 
+  const levelsSchema = {
+    "@context": "https://schema.org/",
+    "@type": "ItemList",
+    itemListElement: levelArray.map((item: any) => {
+      return {
+        "@type": "ListItem",
+        position: `${item.id}`,
+        name: `${item.name}`,
+        url: `${item.image}`,
+      };
+    }),
+    // {
+    //   "@type": "ListItem",
+    //   position: "1",
+    //   name: "",
+    // },
+  };
   return (
     <>
+      {/* SCHEMA** */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(levelsSchema) }}
+      />
+      {/* schema END */}
       <div className={`flex dark:bg-black `} dir={langData.direction}>
         <SideBar
           langArray={langArray}
@@ -184,26 +276,31 @@ export default async function LevelsPage({
           //   themeDataActive == "dark" ? "dark-scrollbar" : "light-scrollbar"
           // }`}
 
-          className={`h-screen overflow-y-auto relative light-scrollbar dark:dark-scrollbar`}
+          className={`h-screen overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0`}
         >
-          <div className="px-5 pb-10 lg:pb-20">
-            <h2 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[110px] lg:mt-[64px] mb-[16px]">
+          <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
+            <BreadCrumb params={params} />
+          </div>
+
+          <div className="mt-[60px] lg:mt-[40px] xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
+            <h2 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mb-[16px]">
               {localFind("levels of citizens of the metaverse")}
             </h2>
-            <p className="text-lightGray font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center">
+            <p className="text-lightGrey dark:text-darkGray font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center text-justify">
               {localFind(`the levels of "metaverse rang" in the parallel`)}
             </p>
           </div>
-          <div className="flex justify-center flex-wrap ">
-            {levelArray.map((item: any) => (
+          <div className="flex justify-center flex-wrap mt-[20px]">
+            {levelArray.map((item: any, index: any) => (
               <LevelCard
+                key={index}
                 item={item}
                 allLevelArrayContent={concatArrayContent}
                 params={params}
               />
             ))}
           </div>
-          <div className="flex flex-col justify-center items-center">
+          <div className="flex flex-col justify-center items-center xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
             <DynamicFooter footerTabs={footerTabs} />
           </div>
         </section>

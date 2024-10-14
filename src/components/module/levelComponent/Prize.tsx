@@ -14,7 +14,7 @@ export default async function Prize({
   }
   return (
     <>
-      <div className="w-full sm:w-4/5 flex flex-wrap justify-between">
+      <div className="flex flex-wrap justify-between">
         <DetailItem title={localFind("get psc")} value={prize.data.psc} />
         <DetailItem title={localFind("get red color")} value={prize.data.red} />
         <DetailItem
