@@ -13,7 +13,7 @@ export default async function CitizensLayout({
   params,
 }: {
   children: React.ReactNode;
-  params: { lang: "en" | "fa" };
+  params: any;
 }) {
   const defaultTheme = useServerDarkMode();
 
@@ -63,6 +63,7 @@ export default async function CitizensLayout({
       tab.toShow = true;
     }
   });
+  console.log("params4", params);
 
   return (
     <main className="flex h-screen dark:bg-black" dir={langData.direction}>

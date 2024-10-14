@@ -21,7 +21,8 @@ export default function SideBar({
   const toggleSide = useCallback(() => {
     setisClosed((prev) => !prev);
   }, []);
-
+  console.log('params3', params);
+  
   return (
     <>
       <HeaderMobile
