@@ -1,19 +1,12 @@
 "use client";
 
-import { MenuDataItem } from "@/types/listMenu";
+// import { MenuDataItem } from "@/types/listMenu";
 import Tooltip from '@mui/material/Tooltip';
-
-
 import ListMenuSvgModule from "./list/ListMenuSvgModule";
 import ListMenuTitleModule from "./list/ListMenuTitleModule";
-
 import ListMenuArrow from "./list/ListMenuArrow";
-
-import { Modals_fa, Modals_en } from "@/components/utils/modals-content";
 import { useState } from "react";
-import Modal from "@/components/templates/modal";
-import ListMenuActiveIconModule from "./list/ListMenuActiveIconModule";
-import Image from "next/image";
+
 import Link from "next/link";
 
 export default function SideBarContent({
@@ -25,19 +18,32 @@ export default function SideBarContent({
 
  const [activeNav, setActiveNav] = useState(params.levelName);
  const staticRouteNames = [
-  { name: 'citizen', route_name: "citizen-baguette" },
-  { name: 'journalist', route_name: "reporter-baguette" },
+  { name: '1', route_name: "citizen-baguette" },
+  { name: '2', route_name: "reporter-baguette" },
   { name: 'participant', route_name: "participation-baguette" },
-  { name: 'developer', route_name: "developer-baguette" },
-  { name: 'inspector', route_name: "inspector-baguette" },
+  { name: '4', route_name: "developer-baguette" },
+  { name: '5', route_name: "inspector-baguette" },
   { name: 'businessman', route_name: "businessman-baguette" },
-  { name: 'lawyer', route_name: "lawyer-baguette" },
+  { name: '7', route_name: "lawyer-baguette" },
   { name: 'city council', route_name: "city-council-baguette" },
   { name: 'the mayor', route_name: "the-mayor-baguette" },
-  { name: 'governor', route_name: "governor-baguette" },
-  { name: 'minister', route_name: "minister-baguette" },
-  { name: 'judge', route_name: "judge-baguette" },
-  { name: 'legislator', route_name: "legislator-baguette" },
+  { name: '10', route_name: "governor-baguette" },
+  { name: '11', route_name: "minister-baguette" },
+  { name: '12', route_name: "judge-baguette" },
+  { name: '13', route_name: "legislator-baguette" },
+  // { name: 'citizen', route_name: "citizen-baguette" },
+  // { name: 'journalist', route_name: "reporter-baguette" },
+  // { name: 'participant', route_name: "participation-baguette" },
+  // { name: 'developer', route_name: "developer-baguette" },
+  // { name: 'inspector', route_name: "inspector-baguette" },
+  // { name: 'businessman', route_name: "businessman-baguette" },
+  // { name: 'lawyer', route_name: "lawyer-baguette" },
+  // { name: 'city council', route_name: "city-council-baguette" },
+  // { name: 'the mayor', route_name: "the-mayor-baguette" },
+  // { name: 'governor', route_name: "governor-baguette" },
+  // { name: 'minister', route_name: "minister-baguette" },
+  // { name: 'judge', route_name: "judge-baguette" },
+  // { name: 'legislator', route_name: "legislator-baguette" },
 ];
 tabsMenu.forEach((el1) => {
   staticRouteNames.forEach((el2) => {
@@ -50,8 +56,6 @@ tabsMenu.forEach((el1) => {
  const onTabClick = (item, tabNumber) => {
   setActiveNav(tabNumber);
 }
-
-console.log('hereeeeee122', tabsMenu);
 
 
   return (
@@ -85,59 +89,59 @@ console.log('hereeeeee122', tabsMenu);
                       },
                     ],
                   }}
-              >
-            <li onClick={() => onTabClick(item, i)} data-tooltip-id={item.name}>
-              {item.route_name ?
-               <Link
-              className={`px-2 flex  flex-col items-center  box-border menu-transition`}
-              href={`/${langData.code}/levels/citizen/${item?.route_name}/general-info`}
                 >
-                <div
-                  className={`${activeNav == item?.route_name ? "bg-grayLight dark:bg-black":''} w-full flex flex-row items-center  group py-2
-                  ${isClosed ? "justify-center" : "justify-start"} rounded-[10px] menu-transition border border-transparent hover:border-[#0066FF] dark:hover:bg-[#1A1A18]  dark:hover:border-[#FFC700]`}
-                >
-                  <span className="">
-                    <ListMenuSvgModule item={item} i={i} activeNav={activeNav} />
-                  </span>
-                    <ListMenuTitleModule
-                      isClosed={isClosed}
-                      item={item}
-                      i={i}
-                      activeNav={activeNav}
-                    />
-                  <ListMenuArrow item={item} />
-                </div>
-              </Link>
-              :
-              <Link
-                className={`px-2 flex  flex-col items-center box-border`}
-                href={`/${langData.code}`}
-              >
-                <div
-                  className={`w-full flex flex-row items-center  group py-[5px]
-                  ${isClosed ? "justify-center" : "justify-start"} rounded-[10px] border border-transparent hover:border-[#0066FF] dark:hover:bg-[#1A1A18]  dark:hover:border-[#FFC700]`}
-                >
-                  <span className="">
-                    <ListMenuSvgModule item={item} i={i} activeNav={activeNav} />
-                  </span>
-                  {!isClosed && (
-                    <ListMenuTitleModule
-                      item={item}
-                      i={i}
-                      activeNav={activeNav}
-                    />
-                  )}
-                  <ListMenuArrow item={item} />
-                </div>
-              </Link>
-              }
-            </li>
-             {/* <ReactTooltip
-             id={item.name}
-             className="tooltip-bg-color"
-             content={item.translation}
-           /> */}
-           </Tooltip>
+                  <li onClick={() => onTabClick(item, i)}>
+                    {item.route_name ?
+                    <Link
+                    className={`px-2 flex  flex-col items-center  box-border menu-transition`}
+                    href={`/${langData.code}/levels/citizen/${item?.route_name}/general-info`}
+                      >
+                      <div
+                        className={`${activeNav == item?.route_name ? "bg-grayLight dark:bg-black":''} w-full flex flex-row items-center  group py-2
+                        ${isClosed ? "justify-center" : "justify-start"} rounded-[10px] menu-transition border border-transparent hover:border-[#0066FF] dark:hover:bg-[#1A1A18]  dark:hover:border-[#FFC700]`}
+                      >
+                        <span className="">
+                          <ListMenuSvgModule item={item} i={i} activeNav={activeNav} />
+                        </span>
+                          <ListMenuTitleModule
+                            isClosed={isClosed}
+                            item={item}
+                            i={i}
+                            activeNav={activeNav}
+                          />
+                        <ListMenuArrow item={item} />
+                      </div>
+                    </Link>
+                    :
+                    <Link
+                      className={`px-2 flex  flex-col items-center box-border`}
+                      href={`/${langData.code}`}
+                    >
+                      <div
+                        className={`w-full flex flex-row items-center  group py-[5px]
+                        ${isClosed ? "justify-center" : "justify-start"} rounded-[10px] border border-transparent hover:border-[#0066FF] dark:hover:bg-[#1A1A18]  dark:hover:border-[#FFC700]`}
+                      >
+                        <span className="">
+                          <ListMenuSvgModule item={item} i={i} activeNav={activeNav} />
+                        </span>
+                        {!isClosed && (
+                          <ListMenuTitleModule
+                            item={item}
+                            i={i}
+                            activeNav={activeNav}
+                          />
+                        )}
+                        <ListMenuArrow item={item} />
+                      </div>
+                    </Link>
+                    }
+                  </li>
+                  {/* <ReactTooltip
+                  id={item.name}
+                  className="tooltip-bg-color"
+                  content={item.translation}
+                /> */}
+              </Tooltip>
            </div>
           ))}
       </ul>

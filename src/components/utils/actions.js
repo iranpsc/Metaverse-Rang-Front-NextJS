@@ -85,7 +85,6 @@
       },
     });
     const temp = await res.json();
-    console.log('getAllLevels', temp);
     
     return temp.data
   }

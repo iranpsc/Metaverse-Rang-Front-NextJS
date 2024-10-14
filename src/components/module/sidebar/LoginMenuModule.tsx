@@ -223,7 +223,11 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
           text-white dark:text-dark-background font-azarMehr font-medium text-center text-[15px] m-auto`}
           onClick={handleLogin}
         >
-          {localFind("login")}
+          {localFind("login") == ""
+            ? ""
+            : params.lang == "fa"
+            ? "ورود"
+            : "Login"}
         </button>
       )}
     </>
