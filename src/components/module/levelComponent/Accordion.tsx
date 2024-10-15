@@ -9,7 +9,7 @@ export default function Accordion({
   title: string;
   value: any;
 }) {
-  const [open, setOpen] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(true);
 
   return (
     <div

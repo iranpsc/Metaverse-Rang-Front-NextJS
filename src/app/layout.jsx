@@ -2,7 +2,6 @@ import "./../styles/global.css";
 import { azarMehr } from "@/components/utils/fonts";
 import { rokh } from "@/components/utils/fonts";
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
-import Head from "next/head";
 
 export const metadata = {
   // SEO** adding to all pages

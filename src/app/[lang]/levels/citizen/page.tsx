@@ -12,7 +12,6 @@ import LevelCard from "@/components/module/levelComponent/LevelCard";
 import SideBar from "@/components/module/sidebar/SideBar";
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
 import BreadCrumb from "@/components/shared/BreadCrumb";
-import { headers } from "next/headers";
 
 // SEO**
 export async function generateMetadata({ params }: any) {

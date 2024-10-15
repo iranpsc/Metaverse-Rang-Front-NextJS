@@ -92,28 +92,56 @@ export default async function lavelSingelPage({ params }) {
   
 
   const level = await getSingleLevel(levelId);
-  console.log('level111',level)
+  console.log("level123456", level);
 
+  
   const levelTabs = await getLevelTabs(params, levelId);
+  console.log("123123", levelTabs);
+
+  //to make description less than 200 character
+  async function makeLessCharacter(){
+    let temp;
+    if(levelTabs.data?.description){
+      temp = levelTabs.data.description
+      temp = temp.slice(0,200)
+    }else(
+      temp = ""
+    )
+    return temp
+  }
+  
   
   const singleLevelSchema = {
-    "@context": "https://schema.org/",
-    "@type": "ProfessionalService",
-    // "name": `${await localFind('metaverse rang')}`,
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "میرداماد، 824H+JG2",
-      "addressCountry": "ایران",
-      "addressRegion": "استان قزوین",
-      "addressLocality": "قزوین"
-    },
-    "image": 'https://rgb.irpsc.com/logo.png',
-    "telephone": "09120820120",
-    "url": `https://rgb.irpsc.com/${params.lang}`,
-    "logo": `https://rgb.irpsc.com/logo.png`,
-    "email": "info@rgb.irpsc.com",
-    // "description": await makeLessCharacter(),
-    "alternateName": "MetaRGB"
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "MetaRang Level citizen Information",
+    "description": await makeLessCharacter(levelTabs.data.description),
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": levelTabs.data.rank,
+        "levelName": "test",
+        "description": "پس از ثبت‌نام در متاورس رنگ، کاربران می‌توانند اولین سطح که سطح شهروندی است را به دست آورند. با بیش از 10 ساعت فعالیت در محیط متارنگ، خرید و فروش VOD، افزایش دنبال‌کنندگان و کسب ورودی ارزی، امتیاز کسب می‌کنید. این سطح دارای 6 رتبه مختلف است و با کسب رتبه اول، یک هدیه دریافت خواهید کرد که به شما کمک می‌کند درب‌های جدیدی را باز کنید.",
+        "requiredPoints": 10,
+        "levelModelSize": "37.5 MB",
+        "levelRank": 1,
+        "pointsUsedInLevelModel": 1033890,
+        "subCategories": 5,
+        "levelModelLines": 2055911,
+        "creationDate": "1401-08-15",
+        "animation": 0,
+        "persianFont": "LMN Alex Normal",
+        "levelDesigner": "HM-2000001",
+        "englishFont": "Bell MT Italic.010",
+        "3DModelDesigner": "HM-2000003",
+        "usedColors": [
+          "#092003",
+          "#CCC800",
+          "#C0FF3E",
+          "#F7FF92"
+        ]
+      }
+    ]
   }
   function localFind2(_slug) {
     // HIN not good

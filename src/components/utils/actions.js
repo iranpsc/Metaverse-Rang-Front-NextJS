@@ -95,7 +95,9 @@
         "Content-Type": "application/json",
       },
     });
-    return await res.json();
+    let temp = await res.json()
+    
+    return temp;
  
   }
 
