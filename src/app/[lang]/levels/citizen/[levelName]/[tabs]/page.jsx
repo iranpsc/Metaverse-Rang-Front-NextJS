@@ -119,30 +119,83 @@ export default async function lavelSingelPage({ params }) {
     "itemListElement": [
       {
         "@type": "ListItem",
-        "position": levelTabs.data.rank,
-        "levelName": "test",
-        "description": "پس از ثبت‌نام در متاورس رنگ، کاربران می‌توانند اولین سطح که سطح شهروندی است را به دست آورند. با بیش از 10 ساعت فعالیت در محیط متارنگ، خرید و فروش VOD، افزایش دنبال‌کنندگان و کسب ورودی ارزی، امتیاز کسب می‌کنید. این سطح دارای 6 رتبه مختلف است و با کسب رتبه اول، یک هدیه دریافت خواهید کرد که به شما کمک می‌کند درب‌های جدیدی را باز کنید.",
-        "requiredPoints": 10,
-        "levelModelSize": "37.5 MB",
-        "levelRank": 1,
-        "pointsUsedInLevelModel": 1033890,
-        "subCategories": 5,
-        "levelModelLines": 2055911,
-        "creationDate": "1401-08-15",
-        "animation": 0,
-        "persianFont": "LMN Alex Normal",
-        "levelDesigner": "HM-2000001",
-        "englishFont": "Bell MT Italic.010",
-        "3DModelDesigner": "HM-2000003",
-        "usedColors": [
-          "#092003",
-          "#CCC800",
-          "#C0FF3E",
-          "#F7FF92"
-        ]
+        "url": `https://rgb.irpsc.com/${params.lang}/levels/citizen/${params.levelName}/general-info`,
+        "position": 1,
+        "description": await makeLessCharacter(levelTabs.data.description),
+        "additionalProperty": [ 
+          { 
+            "@type": "PropertyValue",
+            "name": "levelName",
+            "value": levelTabs.data.name },
+          {
+            "@type": "PropertyValue",
+            "name": "requiredPoints",
+            "value": levelTabs.data.score
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "levelModelSize",
+            "value": levelTabs.data.file_volume,
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "levelRank",
+            "value": levelTabs.data.rank,
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "pointsUsedInLevelModel",
+            "value": levelTabs.data.points,
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "subCategories",
+            "value": levelTabs.data.subcategories
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "levelModelLines",
+            "value": levelTabs.data.lines,
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "creationDate",
+            "value": levelTabs.data.creation_date,
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "animation",
+            "value": levelTabs.data.has_animation,
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "persianFont",
+            "value": levelTabs.data.persian_font,
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "levelDesigner",
+            "value": levelTabs.data.designer
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "englishFont",
+            "value": levelTabs.data.english_font,
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "3DModelDesigner",
+            "value": levelTabs.data.model_designer,
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "usedColors",
+            "value": levelTabs.data.used_colors?.split(',')
+          }
+        ],
       }
     ]
-  }
+  }  
   function localFind2(_slug) {
     // HIN not good
     //item.name and _slug have fa/en number string
