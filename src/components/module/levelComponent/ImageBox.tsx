@@ -4,7 +4,7 @@ import { useState } from "react";
 // import { Sample3D } from "./Sample3D";
 import ErrorBoundary from "@/components/utils/ErrorBoundary";
 
-export default function ImageBox({ item, langData }: any) {
+export default function ImageBox({ item, singleLevel }: any) {
   const srcPng = item?.png_file ? item?.png_file : "";
   const srcFbx = item?.fbx_file ? item?.fbx_file : "";
   const srcGif = item?.gif_file ? item?.gif_file : "";
@@ -15,12 +15,12 @@ export default function ImageBox({ item, langData }: any) {
   };
   return (
     <>
-      {(srcPng || srcFbx || srcGif) && (
+      {(srcPng || srcFbx || srcGif || singleLevel) && (
         <div className={`w-full sm:w-full flex flex-col flex-wrap`}>
           <div className="w-full h-[200px] xl:h-[300px] flex items-center justify-center">
             {mode == "png" ? (
               <Image
-                src={srcPng}
+                src={srcPng || singleLevel.data.general_info.png_file}
                 alt="png"
                 width={250}
                 height={350}

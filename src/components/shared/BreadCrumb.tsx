@@ -201,7 +201,12 @@ export default function ({ params }: any) {
         : buildedArray.map((x, index) => (
             <Link
               href={x.link}
-              className={`${x.color} dark:${x.darkColor} ${x.font} flex items-center`}
+              className={`${
+                index == temp.length - 1 ? "text-black" : "text-blueLink"
+              } 
+            dark:${
+              index == temp.length - 1 ? "text-white" : "text-dark-yellow"
+            } ${x.font} flex items-center`}
               key={index}
             >
               {x.en}

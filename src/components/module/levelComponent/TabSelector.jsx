@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { targetData } from "@/components/utils/targetDataName";
 
-export default function TabSelector ({params,levelsTranslatePage,levelId}){
+export default function TabSelector ({params,levelsTranslatePage}){
     const lang = params.lang
 
     const ButtonLink = ({ title, link }) => {

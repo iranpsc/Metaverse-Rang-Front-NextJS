@@ -17,53 +17,30 @@ import DynamicFooter from "@/components/module/footer/DynamicFooter";
 import { Features } from "@/components/module/levelComponent/Features";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import ImageBox from "@/components/module/levelComponent/ImageBox";
-
-// SEO**
-export async function generateMetadata({ params }) {
-  const langData = await getTranslation(params.lang);
-  const mainData = await getMainFile(langData);
-  const centralPageModal = await findByModalName(mainData, "central-page");
-  const firstPageArrayContent = await findByTabName(centralPageModal, "first-page");
+import { targetData } from "@/components/utils/targetDataName";
 
 
-
-  return {
-    // title: await localFind('metaverse rang'),
-    // description: await makeLessCharacter(),
-    // openGraph: {
-    //   site_name:'metaverseTest',
-    //   type: 'website',
-    //   // url: `https://yourwebsite.com/posts/${params.id}`,
-    //   title: await localFind('metaverse rang'),
-    //   description: await makeLessCharacter(),
-    //   locale: params.code == 'fa'? 'fa_IR' : 'en_US',
-    //   url: `https://rgb.irpsc.com/${params.lang}`,
-    //   images: [
-    //     {
-    //       url: '/logo.png',
-    //       width: 800,
-    //       height: 600,
-    //       alt: localFind('metaverse rang'),
-    //     },
-    //   ],
-    // },
-    // twitter: {
-    //   card: 'summary_large_image',
-    //   title: post.title,
-    //   description: post.description,
-    //   images: [post.imageUrl],
-    // },
-  };
-}
 
 export default async function lavelSingelPage({ params }) {
+
   const footerTabs = await getFooterData(params);
+
   const langData = await getTranslation(params.lang);
   const mainData = await getMainFile(langData);
-  const levels = mainData.modals.find((x) => x.name == "levels");
-  const levelsTranslatePage = levels.tabs.find(
+  const levelsOld = mainData.modals.find((x) => x.name == "levels");
+  const levelsTranslatePage = levelsOld.tabs.find(
     (x) => x.name == "levels-page"
   ).fields;
+
+  const levels = await findByModalName(mainData, "levels");
+  const levelPageArrayContent = await findByTabName(levels, "levels-page");
+  const levelListArrayContent = await findByTabName(levels, "level-list");
+  const concatArrayContent = levelPageArrayContent.concat(
+    levelListArrayContent
+  );
+
+  console.log('translate1234123', concatArrayContent);
+  
   const staticRouteNames = [
     { id: 1, route_name: "citizen-baguette" },
     { id: 2, route_name: "reporter-baguette" },
@@ -81,138 +58,59 @@ export default async function lavelSingelPage({ params }) {
   ];
   const levelId = staticRouteNames.find(x => x.route_name === params.levelName)?.id
 
-  async function singleLeveldefaultInfo() {
-    const res = await fetch(`https://api.rgb.irpsc.com/api/levels/1`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    return await res.json();
-  }
-  
-
-  const level = await getSingleLevel(levelId);
-  console.log("level123456", level);
+  const singleLevel = await getSingleLevel(levelId);
+  console.log("level123456", singleLevel);
 
   
   const levelTabs = await getLevelTabs(params, levelId);
-  console.log("123123", levelTabs);
+  console.log("hereeeeeeeee123", levelTabs);
 
-  //to make description less than 200 character
-  async function makeLessCharacter(){
-    let temp;
-    if(levelTabs.data?.description){
-      temp = levelTabs.data.description
-      temp = temp.slice(0,200)
-    }else(
-      temp = ""
-    )
-    return temp
-  }
-  
-  
-  const singleLevelSchema = {
+  const secondSchema = {
     "@context": "https://schema.org",
-    "@type": "ItemList",
-    "name": "MetaRang Level citizen Information",
-    "description": await makeLessCharacter(levelTabs.data.description),
+    "@type": "BreadcrumbList",
     "itemListElement": [
       {
         "@type": "ListItem",
-        "url": `https://rgb.irpsc.com/${params.lang}/levels/citizen/${params.levelName}/general-info`,
         "position": 1,
-        "description": await makeLessCharacter(levelTabs.data.description),
-        "additionalProperty": [ 
-          { 
-            "@type": "PropertyValue",
-            "name": "levelName",
-            "value": levelTabs.data.name },
-          {
-            "@type": "PropertyValue",
-            "name": "requiredPoints",
-            "value": levelTabs.data.score
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "levelModelSize",
-            "value": levelTabs.data.file_volume,
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "levelRank",
-            "value": levelTabs.data.rank,
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "pointsUsedInLevelModel",
-            "value": levelTabs.data.points,
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "subCategories",
-            "value": levelTabs.data.subcategories
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "levelModelLines",
-            "value": levelTabs.data.lines,
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "creationDate",
-            "value": levelTabs.data.creation_date,
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "animation",
-            "value": levelTabs.data.has_animation,
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "persianFont",
-            "value": levelTabs.data.persian_font,
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "levelDesigner",
-            "value": levelTabs.data.designer
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "englishFont",
-            "value": levelTabs.data.english_font,
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "3DModelDesigner",
-            "value": levelTabs.data.model_designer,
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "usedColors",
-            "value": levelTabs.data.used_colors?.split(',')
-          }
-        ],
+        "name": await targetData(levelsTranslatePage, "basic level information"),
+        "item": `https://rgb.irpsc.com/${params.lang}/levels/citizen/${params.levelName}/general-info`
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": targetData(levelsTranslatePage,"permissions and access"),
+        "item": `https://rgb.irpsc.com/${params.lang}/levels/citizen/${params.levelName}/licenses`
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": targetData(levelsTranslatePage,"surface gem"),
+        "item": `https://rgb.irpsc.com/${params.lang}/levels/citizen/${params.levelName}/gem`
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": targetData(levelsTranslatePage,"accompanying gift"),
+        "item": `https://rgb.irpsc.com/${params.lang}/levels/citizen/${params.levelName}/gift`
+      },
+      {
+        "@type": "ListItem",
+        "position": 5,
+        "name": targetData(levelsTranslatePage,"reward for reaching the level"),
+        "item": `https://rgb.irpsc.com/${params.lang}/levels/citizen/${params.levelName}/prize`
       }
     ]
-  }  
-  function localFind2(_slug) {
-    // HIN not good
-    //item.name and _slug have fa/en number string
-    //convert
-
-    return allLevelArrayContent.find(
-      (item) => Number(item.name) == Number(_slug)
-    )?.translation;
   }
+
   return (
     <>
-      {/* SCHEMA** */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(singleLevelSchema) }}
-      />
-      {/* schema END */}
+
+        {/* SCHEMA** */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(secondSchema) }}
+        />
+        {/* schema END */}
 
       <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1 w-full font-azarMehr ">
         <div className="">
@@ -221,12 +119,11 @@ export default async function lavelSingelPage({ params }) {
         <div className="flex flex-col flex-nowrap md:flex-row  dark:bg-[#080807] rounded-[20px] py-3 relative">
           <div className="w-full md:w-[60vw] xl:w-[65vw]">
             <div className="flex font-bold py-3 dark:text-white text-lg sm:text-xl lg:text-2xl 2xl:text-3xl 3xl:text-4xl">
-              <h1>{level.data.name}</h1>
+              <h1>{singleLevel.data.name}</h1>
             </div>
 
             <div className="">
               <TabSelector
-                levelId={levelId}
                 params={params}
                 levelsTranslatePage={levelsTranslatePage}
               />
@@ -234,42 +131,52 @@ export default async function lavelSingelPage({ params }) {
 
             {params.tabs == "general-info" && (
               <GeneralInfo
-                levelId={levelId}
-                langData={langData}
+                levelTabs={levelTabs}
                 levelsTranslatePage={levelsTranslatePage}
+                singleLevel={singleLevel}
                 params={params}
+                concatArrayContent={concatArrayContent}
               />
             )}
             {params.tabs == "gem" && (
               <Gem
-                levelId={levelId}
                 levelsTranslatePage={levelsTranslatePage}
-                params={params}
                 levelTabs={levelTabs}
-
+                singleLevel={singleLevel}
+                params={params}
+                concatArrayContent={concatArrayContent}
               />
             )}
             {params.tabs == "gift" && (
               <Gift
-                levelId={levelId}
                 levelsTranslatePage={levelsTranslatePage}
                 levelTabs={levelTabs}
+                singleLevel={singleLevel}
+                params={params}
+                concatArrayContent={concatArrayContent}
               />
             )}
             {params.tabs == "licenses" && (
               <Permission
-                levelId={levelId}
+                levelTabs={levelTabs}
                 levelsTranslatePage={levelsTranslatePage}
+                singleLevel={singleLevel}
                 params={params}
+                concatArrayContent={concatArrayContent}
               />
             )}
             {params.tabs == "prize" && (
               <Prize
-                levelId={levelId} levelsTranslatePage={levelsTranslatePage} params={params} />
+                levelsTranslatePage={levelsTranslatePage}
+                levelTabs={levelTabs} 
+                singleLevel={singleLevel}
+                params={params}
+                concatArrayContent={concatArrayContent}
+              />
             )}
           </div>
           <div className="flex-1">
-            <ImageBox item={levelTabs.data} langData={langData} />
+            <ImageBox item={levelTabs.data} singleLevel={singleLevel} />
           </div>
         </div>
         <div>
