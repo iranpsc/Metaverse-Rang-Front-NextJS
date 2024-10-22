@@ -59,7 +59,7 @@ export async function generateMetadata({ params }) {
       // url: `https://yourwebsite.com/posts/${params.id}`,
       title: await localFind('metaverse rang'),
       description: await makeLessCharacter(),
-      locale: params.code == 'fa'? 'fa_IR' : 'en_US',
+      locale: params.lang == 'fa'? 'fa_IR' : 'en_US',
       url: `https://rgb.irpsc.com/${params.lang}`,
       images: [
         {

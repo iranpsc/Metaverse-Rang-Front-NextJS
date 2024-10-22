@@ -246,7 +246,7 @@ export async function generateMetadata({ params }) {
       type: 'profile',
       title: `${profileData.data.name}`,
       description: `${await makeLessCharacter()}`,
-      locale: params.code == 'fa'? 'fa_IR' : 'en_US',
+      locale: params.lang == 'fa'? 'fa_IR' : 'en_US',
       url: `https://rgb.irpsc.com/${params.lang}/citizen/${params.id}`,
       profile: {
         first_name: `${profileData.data.name}`, // optional: user's first name
