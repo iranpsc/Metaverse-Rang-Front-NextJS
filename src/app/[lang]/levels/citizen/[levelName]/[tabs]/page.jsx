@@ -59,14 +59,21 @@ export async function generateMetadata({ params }) {
     return temp;
   }
 
-  function localFind2(_slug) {
+  const levels = await findByModalName(mainData, "levels");
+  const levelPageArrayContent = await findByTabName(levels, "levels-page");
+  const levelListArrayContent = await findByTabName(levels, "level-list");
+  const concatArrayContent = levelPageArrayContent.concat(
+    levelListArrayContent
+  );
+
+  function localFind2() {
     // HIN not good
     //item.name and _slug have fa/en number string
     //convert
-
-    // return concatArrayContent.find(
-    //   (item) => Number(item.name) == Number(_slug)
-    // )?.translation;
+    
+    return concatArrayContent.find(
+      (item) => Number(item.name) == Number(levelId)
+    )?.translation;
   }
 
   async function tabNameConver(_tabName){
@@ -91,7 +98,7 @@ export async function generateMetadata({ params }) {
       type: 'website',
       description: await makeLessCharacter(levelTabs.data.description || singleLevel.data.general_info.description),      
       locale: params.lang == 'fa'? 'fa_IR' : 'en_US',
-      title: `${await targetData(levelsTranslatePage,await tabNameConver(params.tabs))}`,
+      title: `${await targetData(levelsTranslatePage,await tabNameConver(params.tabs))} ${localFind2()}`,
       url: `https://rgb.irpsc.com/${params.lang}/levels/citizen${params.levelName ? "/" + params.levelName:""}${params.tabs ? "/" + params.tabs:""}`,
       // keywords: `${await targetData(levelsTranslatePage,await tabNameConver(params.tabs))}، متاورس ایران، شهروند متاورس`,
       images: [
@@ -128,8 +135,6 @@ export default async function lavelSingelPage({ params }) {
   const concatArrayContent = levelPageArrayContent.concat(
     levelListArrayContent
   );
-  
-  console.log('concatArrayContent123',concatArrayContent);
 
   function localFind2() {
     // HIN not good
