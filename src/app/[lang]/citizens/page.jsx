@@ -48,7 +48,7 @@ export async function generateMetadata({ params }) {
       // url: `https://yourwebsite.com/posts/${params.id}`,
       title: await localFind("citizens of the metaverse"),
       description: await makeLessCharacter(),
-      locale: params.code == "fa" ? "fa_IR" : "en_US",
+      locale: params.lang == "fa" ? "fa_IR" : "en_US",
       // site_name: متاورس رنگ,
       url: `https://rgb.irpsc.com/${params.lang}/citizen`,
       images: [
