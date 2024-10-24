@@ -140,6 +140,8 @@ function Footer({ footerTabs }: any) {
 
   const { theme } = useTheme();
 
+  console.log("imageSources123", imageSources);
+  console.log("footerTabs123", footerTabs);
   return (
     <>
       <div className="h-fit w-full mt-[200px] flex flex-wrap gap-[15px] py-5 rounded-[10px]  items-center justify-center bg-white dark:bg-[#1A1A18]">

@@ -6,10 +6,13 @@ import {
   findByTabName,
   getAllCitizen,
   getFooterData,
+  getLangArray
 } from "@/components/utils/actions";
 import SearchComponent from "@/components/shared/SearchComponent";
 import BreadCrumb from "@/components/shared/BreadCrumb";
+import SideBar from "@/components/module/sidebar/SideBar";
 import CitizenList from "@/components/templates/citizen/citizenList";
+import useServerDarkMode from "src/hooks/use-server-dark-mode";
 
 // SEO**
 export async function generateMetadata({ params }) {
@@ -73,6 +76,9 @@ export default async function CitizensPage({ params }) {
   const footerTabs = await getFooterData(params);
   const langData = await getTranslation(params.lang);
   const mainData = await getMainFile(langData);
+  const langArray = await getLangArray();
+  const defaultTheme = useServerDarkMode();
+
 
   const Citizenship = await findByModalName(mainData, "Citizenship-profile");
   const citizenListArrayContent = await findByTabName(
@@ -99,6 +105,49 @@ export default async function CitizensPage({ params }) {
     temp = temp.slice(0,200)
     return temp
   }
+  
+  const centralPageModal = await findByModalName(mainData, "central-page");
+  const tabsMenu = await findByTabName(centralPageModal, "before-login");
+
+  const staticMenuToShow = [
+    { name: "home", url: ``, order: "-1" },
+    { name: "citizens", url: "citizens", order: "-1" },
+    { name: "list of levels", url: "levels/citizen", order: "-1" },
+    {
+      name: "citizen information",
+      url: `citizens${params.id ? "/" + params.id : ""}`,
+      order: "-1",
+    },
+    { name: "property" },
+    { name: "real estate" },
+    { name: "structures" },
+    { name: "belongings" },
+    { name: "permissions" },
+    { name: "invitations" },
+    { name: "transaction" },
+    { name: "reward" },
+    { name: "dynasty" },
+    { name: "connections" },
+    { name: "crimes" },
+    { name: "news" },
+    { name: "articles" },
+    { name: "trainings" },
+    { name: "about" },
+    { name: "contact" },
+    { name: "version" },
+    { name: "calendar" },
+    { name: "overview" },
+  ];
+
+  // add staticMenuToShow values to siblings tabsMenu values
+  tabsMenu.forEach((tab) => {
+    let findInStatic = staticMenuToShow.find((val) => tab.name == val.name);
+    if (findInStatic) {
+      tab.url = findInStatic.url;
+      tab.order = findInStatic.order;
+      tab.toShow = true;
+    }
+  });
 
   const citizenListSchema = {
     "@context": "https://schema.org/",
@@ -129,38 +178,51 @@ export default async function CitizensPage({ params }) {
           __html: JSON.stringify(citizenListSchema),
         }}
       />
-
-      {/* Breadcrumb */}
-      <div className="px-12">
-          <BreadCrumb params={params} />
-        </div>
-      <div className="mt-[60px] lg:mt-[40px] xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
-        <h2 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[64px] mb-[16px]">
-          {localFind("citizens of the metaverse")}
-        </h2>
-        <p className="text-lightGrey dark:text-darkGray font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center text-justify">
-          {localFind("description citizen list")}
-        </p>
-        <div className="flex justify-center w-full">
-          <SearchComponent
-            citizenListArrayContent={citizenListArrayContent}
-            params={params}
-          />
-        </div>
-      </div>
-      {/* CITIZEN box Container */}
-      <div className="flex flex-row flex-wrap justify-center md:justify-center w-full no-scrollbar overflow-y-auto py-[20px]">
-        <CitizenList
-          allCitizenArray={allCitizenArray.data}
-          // lastPage={allCitizenArray.meta.to}
-          levelListArrayContent={levelListArrayContent}
+      <div className="flex h-screen" dir={langData.direction}>
+        <SideBar
+          tabsMenu={tabsMenu}
+          langData={langData}
+          langArray={langArray}
+          defaultTheme={defaultTheme}
           params={params}
-          citizenListArrayContent={citizenListArrayContent}
+          pageSide="citizen"
         />
-      </div>
+        <section
+          className={`overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-[#2F2D28] bg-opacity20`}
+        >
+          {/* Breadcrumb */}
+          <div className="px-12">
+              <BreadCrumb params={params} />
+            </div>
+          <div className="mt-[60px] lg:mt-[40px] xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
+            <h2 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[64px] mb-[16px]">
+              {localFind("citizens of the metaverse")}
+            </h2>
+            <p className="text-lightGrey dark:text-darkGray font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center text-justify">
+              {localFind("description citizen list")}
+            </p>
+            <div className="flex justify-center w-full">
+              <SearchComponent
+                citizenListArrayContent={citizenListArrayContent}
+                params={params}
+              />
+            </div>
+          </div>
+          {/* CITIZEN box Container */}
+          <div className="flex flex-row flex-wrap justify-center md:justify-center w-full no-scrollbar overflow-y-auto py-[20px]">
+            <CitizenList
+              allCitizenArray={allCitizenArray.data}
+              // lastPage={allCitizenArray.meta.to}
+              levelListArrayContent={levelListArrayContent}
+              params={params}
+              citizenListArrayContent={citizenListArrayContent}
+            />
+          </div>
 
-      <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
-        <DynamicFooter footerTabs={footerTabs} />
+          <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
+            <DynamicFooter footerTabs={footerTabs} />
+          </div>
+        </section>
       </div>
     </>
   );

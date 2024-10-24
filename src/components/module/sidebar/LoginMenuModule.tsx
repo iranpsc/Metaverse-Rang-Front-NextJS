@@ -8,6 +8,8 @@ import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
+  console.log("tabsMenu", tabsMenu);
+
   const [dropDown, setDropDown] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(["auth"]);
   const [isMounted, setIsMounted] = useState(false);
@@ -139,6 +141,8 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
     return tabsMenu.map((x: any) => {
       if (x.name === _name) {
         return x.translation;
+      } else {
+        return undefined;
       }
     });
   }
@@ -166,7 +170,9 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
                   href={`/${params.lang}/citizen/${loggedInUserData?.code}`}
                 >
                   <p className="h-[30px] w-full block font-medium">
-                    {localFind("citizen profile page")}
+                    {localFind("citizen profile page") && params.lang == "fa"
+                      ? "صفحه مشخصات شهروند"
+                      : "Citizen profile page"}
                   </p>
                 </Link>
               </li>
@@ -184,7 +190,9 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
                 href="https://rgb.irpsc.com/metaverse/"
                 className="h-[30px] w-full block font-medium"
               >
-                {localFind("enter the metaverse")}
+                {localFind("enter the metaverse") && params.lang == "fa"
+                  ? "ورود به متاورس"
+                  : "Enter the Metaverse"}
               </Link>
             </li>
             <li className="border-b border-white dark:border-divider">
@@ -192,7 +200,7 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
                 onClick={handleLogout}
                 className="cursor-pointer h-[30px] w-full block font-medium"
               >
-                {localFind("exit")}
+                {localFind("exit") && params.lang == "fa" ? "خروج" : "Exit"}
               </span>
             </li>
           </ul>
