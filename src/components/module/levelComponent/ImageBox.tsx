@@ -49,10 +49,10 @@ export default function ImageBox({ item, singleLevel }: any) {
               ""
             )}
           </div>
-          <div className="w-full flex flex-nowrap justify-around mt-3 mb-5 gap-x-2">
+          <div className="w-full flex justify-around flex-wrap mt-3 mb-5 gap-x-2">
             {
               <button
-                className={`w-full px-5 py-2 mb-2 rounded font-[700] ${
+                className={`basis-1/4 px-5 py-2 mb-2 rounded font-[700] ${
                   mode == "png"
                     ? "dark:bg-dark-yellow dark:text-darkGrey bg-light-primary text-white"
                     : "dark:bg-darkGrey bg-light-newColors-otherColors-themeBtn dark:text-light-newColors-otherColors-themeBtn"
@@ -65,7 +65,7 @@ export default function ImageBox({ item, singleLevel }: any) {
 
             {
               <button
-                className={`w-full px-5 py-2 mb-2 rounded font-[700] ${
+                className={`basis-1/4 px-5 py-2 mb-2 rounded font-[700] ${
                   mode == "fbx"
                     ? "dark:bg-dark-yellow dark:text-darkGrey bg-light-primary text-white"
                     : "dark:bg-darkGrey bg-light-newColors-otherColors-themeBtn dark:text-light-newColors-otherColors-themeBtn"
@@ -78,7 +78,7 @@ export default function ImageBox({ item, singleLevel }: any) {
             {
               <button
                 className={`  
-                w-full px-5 py-2 mb-2 rounded font-[700] ${
+                basis-1/4 px-5 py-2 mb-2 rounded font-[700] ${
                   mode == "gif"
                     ? "dark:bg-dark-yellow dark:text-darkGrey bg-light-primary text-white"
                     : "dark:bg-darkGrey bg-light-newColors-otherColors-themeBtn dark:text-light-newColors-otherColors-themeBtn"
