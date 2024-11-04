@@ -21,7 +21,7 @@ export default function SectionInputSearch({
   return (
     <>
       <div
-        className={`w-full h-[50px] me-2 xs:mt-[50px] xs:mb-5 focus-within:border-gray rounded-2xl border-[1px] border-mediumGray transition-all duration-300 easy-in-out bg-white dark:bg-[#1A1A18] flex flex-row justify-evenly dark:text-white items-center`}
+        className={`w-full h-[50px] xs:mt-[50px] xs:mb-5 focus-within:border-gray rounded-2xl border-[1px] border-mediumGray transition-all duration-300 easy-in-out bg-white dark:bg-[#1A1A18] flex flex-row justify-evenly dark:text-white items-center`}
       >
         <Search
           className={`${

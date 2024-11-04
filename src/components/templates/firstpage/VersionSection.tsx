@@ -34,13 +34,13 @@ const VersionSection = ({ firstPageArrayContent, allVersionList }: any) => {
         </p>
       </div>
       <div className="border-4 border-[#343434] rounded-[32px] md:rounded-[40px] lg:rounded-[50px] xl:rounded-[56px] flex flex-col justify-start items-start xl:gap-10 lg:gap-10 md:gap-7 sm:gap-5 xs:gap-3 p-5 sm:p-6 md:p-8 xl:p-10 bg-gradient-to-l from-[#343434] to-[#2E2D28] mt-12">
-        <div className="w-full flex flex-wrap justify-between items-center gap-2 sm:gap-3 ">
+        <div className="w-full flex flex-nowrap overflow-x-scroll justify-between items-center gap-2 sm:gap-3 ">
           {allVersionList.map(
             (item: any, index: any) =>
               index < 5 && (
                 <p
                   key={item.id}
-                  className={`py-[20px] px-[40px] w-fit text-center font-azarMehr text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px] cursor-pointer font-light ${
+                  className={`p-[10px] w-fit text-center font-azarMehr text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px] cursor-pointer font-light ${
                     item.id == activeTabId
                       ? "dark:bg-dark-yellow bg-blueLink text-white dark:text-black"
                       : "bg-[#343434] text-white"

@@ -134,6 +134,7 @@ export default async function Gem({
           <DetailItem
             title={localFind("gem png file")}
             value={levelTabs.data.png_file}
+            isLink
           />
           <DetailItem
             title={localFind("the number of points of the 3d stone model")}
@@ -142,6 +143,7 @@ export default async function Gem({
           <DetailItem
             title={localFind("gem fbx file")}
             value={levelTabs.data.fbx_file}
+            isLink
           />
           <DetailItem
             title={localFind("the number of lines of the 3d stone model")}

@@ -35,6 +35,8 @@ export default async function citizenSinglePage({
   }
 
   const profileData = await getUserData();
+  console.log('profileData2222',profileData);
+  
 
   const langData = await getTranslation(params.lang);
   const mainData = await getMainFile(langData);
@@ -139,14 +141,14 @@ export default async function citizenSinglePage({
     "@context": "https://schema.org/",
     "@type": "Person",
     "name": `${profileData.data.name}`,
-    "image": profileData.data.profilePhotos.map(item=>{
+    "image": profileData.data?.profilePhotos?.map(item=>{
       return item.url
     }),
     "url": `http://rgb.irpsc.com/fa/citizen/${params.id}`,
     "jobTitle": `${profileData.data?.customs?.occupation}`,
     "description": `${await makeLessCharacter()}`,
-    "birthDate": `${profileData.data.kyc.birth_date}`,
-    "email": `${profileData.data.kyc.email}`,
+    "birthDate": `${profileData.data?.kyc?.birth_date}`,
+    "email": `${profileData.data?.kyc?.email}`,
     "alternateName": `${profileData.data.code}`,
   }
 
@@ -313,7 +315,7 @@ export async function generateMetadata({ params }) {
       },
       images: [
         {
-          url: `${profileData.data.profilePhotos[0].url}`,
+          url: `${profileData.data?.profilePhotos[0]?.url}`,
           width: 800,
           height: 600
         },

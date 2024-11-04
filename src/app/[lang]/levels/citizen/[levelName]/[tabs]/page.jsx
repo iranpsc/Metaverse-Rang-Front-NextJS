@@ -40,6 +40,7 @@ export async function generateMetadata({ params }) {
   ];
   const levelId = staticRouteNames.find(x => x.route_name === params.levelName)?.id
   const singleLevel = await getSingleLevel(levelId);
+  
   const levelTabs = await getLevelTabs(params, levelId);
 
   const langData = await getTranslation(params.lang);
@@ -135,7 +136,12 @@ export default async function lavelSingelPage({ params }) {
   const concatArrayContent = levelPageArrayContent.concat(
     levelListArrayContent
   );
-
+  function localFind(_slug) {
+    
+    return concatArrayContent.find(
+      (item) => item.name == _slug
+    )?.translation;
+  }
   function localFind2() {
     // HIN not good
     //item.name and _slug have fa/en number string
@@ -145,6 +151,8 @@ export default async function lavelSingelPage({ params }) {
       (item) => Number(item.name) == Number(levelId)
     )?.translation;
   }
+  console.log('concatArrayContent123',concatArrayContent);
+  
 
   const staticRouteNames = [
     { id: 1, route_name: "citizen-baguette" },
@@ -214,22 +222,28 @@ export default async function lavelSingelPage({ params }) {
       />
       {/* schema END */}
 
-      <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1 w-full font-azarMehr ">
+      <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-3 w-full font-azarMehr bg-bgGray dark:bg-black">
         <div className="">
           <BreadCrumb params={params} />
         </div>
-        <div className="flex flex-col flex-nowrap md:flex-row  dark:bg-[#080807] rounded-[20px] py-3 relative">
-          <div className="w-full md:w-[60vw] xl:w-[65vw]">
-            <div className="flex font-bold py-3 dark:text-white text-lg sm:text-xl lg:text-2xl 2xl:text-3xl 3xl:text-4xl">
-              <h1>{localFind2()}</h1>
-            </div>
+        
+        <div className="grid-container gap-x-4 bg-white dark:bg-[#080807] rounded-[20px] px-2 lg:px-3 py-3 relative">
+          {/* __________1 Btn + Title*/}
+          <div className="grid-first self-start md:order-none w-full md:min-w-[65vw] xl:min-w-[65vw] flex items-center justify-between font-bold py-3 dark:text-white text-lg sm:text-xl  lg:text-2xl 2xl:text-3xl 3xl:text-4xl">
+            <h1>{localFind2()}</h1>
+            <button className="min-w-[167px] w-max h-[48px] px-5 text-[14px] dark:bg-bgLightGrey2 bg-bgLightGrey dark:text-white font-bold text-textGray rounded-[12px]">{localFind('list of recipients')}</button>
+          </div>
+          {/* __________2 Tab Selector*/}
 
-            <div className="">
-              <TabSelector
-                params={params}
-                levelsTranslatePage={levelsTranslatePage}
-              />
-            </div>
+          <div className="grid-second overflow-hidden mb-5 self-start w-full md:min-w-[65vw] xl:min-w-[65vw]">
+            <TabSelector
+              params={params}
+              levelsTranslatePage={levelsTranslatePage}
+            />
+          </div>
+          {/* __________3 Content*/}
+
+          <div className="grid-third w-full md:min-w-[65vw] xl:min-w-[65vw]">
 
             {params.tabs == "general-info" && (
               <GeneralInfo
@@ -277,7 +291,8 @@ export default async function lavelSingelPage({ params }) {
               />
             )}
           </div>
-          <div className="flex-1">
+          {/* __________4 Image*/}
+          <div className="grid-forth flex-1">
             <ImageBox item={levelTabs.data} singleLevel={singleLevel} />
           </div>
         </div>

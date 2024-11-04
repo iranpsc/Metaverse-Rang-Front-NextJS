@@ -98,7 +98,7 @@ tabsMenu.forEach((el1) => {
                       >
                       <div
                         className={`${activeNav == item?.route_name ? "bg-grayLight dark:bg-black":''} w-full flex flex-row items-center  group py-2
-                        ${isClosed ? "justify-center" : "justify-start"} rounded-[10px] menu-transition border border-transparent hover:border-[#0066FF] dark:hover:bg-[#1A1A18]  dark:hover:border-[#FFC700]`}
+                        ${isClosed ? "justify-center" : "justify-start"} rounded-[10px]`}
                       >
                         <span className="">
                           <ListMenuSvgModule item={item} i={i} activeNav={activeNav} />
@@ -119,7 +119,7 @@ tabsMenu.forEach((el1) => {
                     >
                       <div
                         className={`w-full flex flex-row items-center  group py-[5px]
-                        ${isClosed ? "justify-center" : "justify-start"} rounded-[10px] border border-transparent hover:border-[#0066FF] dark:hover:bg-[#1A1A18]  dark:hover:border-[#FFC700]`}
+                        ${isClosed ? "justify-center" : "justify-start"} rounded-[10px]`}
                       >
                         <span className="">
                           <ListMenuSvgModule item={item} i={i} activeNav={activeNav} />

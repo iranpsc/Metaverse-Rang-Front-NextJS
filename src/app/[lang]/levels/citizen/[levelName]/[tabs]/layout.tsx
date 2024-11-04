@@ -43,7 +43,7 @@ export default async function CitizensLayout({
         params={params}
       />
       <div
-        className={`light-scrollbar dark:dark-scrollbar h-screen overflow-y-auto relative xs:pt-14 sm:pt-14 lg:pt-[0]`}
+        className={`light-scrollbar dark:dark-scrollbar h-[calc(100vh-60px)] overflow-y-auto relative mt-[60px] lg:mt-0 lg:pt-0 lg:pt-[0]`}
       >
         {children}
       </div>

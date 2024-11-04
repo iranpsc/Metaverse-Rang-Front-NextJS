@@ -188,7 +188,7 @@ export default async function CitizensPage({ params }) {
           pageSide="citizen"
         />
         <section
-          className={`overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-[#2F2D28] bg-opacity20`}
+          className={`overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20`}
         >
           {/* Breadcrumb */}
           <div className="px-12">
@@ -198,7 +198,7 @@ export default async function CitizensPage({ params }) {
             <h2 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[64px] mb-[16px]">
               {localFind("citizens of the metaverse")}
             </h2>
-            <p className="text-lightGrey dark:text-darkGray font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center text-justify">
+            <p className="text-lightGray dark:text-lightGray font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center text-justify">
               {localFind("description citizen list")}
             </p>
             <div className="flex justify-center w-full">

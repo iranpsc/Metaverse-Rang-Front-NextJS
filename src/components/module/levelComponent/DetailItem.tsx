@@ -17,7 +17,9 @@ export default function DetailItem({
     if (showCheck == true && value == 0)
       return <CLoseIcon width={14} height={14} className="stroke-red-500" />;
     else if (showCheck == true && value == 1 && value)
-      return <Check width={14} height={14} className="text-green-500" />;
+      return (
+        <Check width={14} height={14} className="scale-[1.5] text-green-500" />
+      );
     else if (isLink)
       return (
         <a
@@ -45,12 +47,12 @@ export default function DetailItem({
       }`}
     >
       <span
-        className=" text-ellipsis text-[#414040] dark:text-white font-[500] 2xl:font-[700]"
+        className="whitespace-nowrap text-ellipsis text-[#414040] dark:text-white font-[500] 2xl:font-[700]"
         title={title}
       >
         {title}
       </span>
-      {generateValue()}
+      <span className="flex justify-end w-[21px]">{generateValue()}</span>
     </div>
   );
 }

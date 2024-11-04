@@ -13,15 +13,15 @@ export default function TabSelector ({params,levelsTranslatePage}){
 
 
     return (
-        <div className="bg-bgLightGrey dark:bg-darkGrey dark:textwhite rounded-[12px] font[700]">
-            <ul className="flex flex-col sm:flex-row sm:justify-around flex-wrap -mb-px text-sm font-medium">
-                <li className="me-2 w-100 sm:w-auto">
+        <div className="overflow-x-scroll no-scrollbar bg-bgLightGrey dark:bg-darkGrey dark:textwhite rounded-[12px] font[700]">
+            <ul className="flex justify-between text-sm font-medium">
+                <li className="me-2 w-100 sm:w-auto whitespace-nowrap">
                   <ButtonLink title={targetData(levelsTranslatePage, "basic level information")} link="general-info" />
                 </li>
-                <li className="me-2 w-100 sm:w-auto"><ButtonLink title={targetData(levelsTranslatePage,"permissions and access")} link="licenses" /></li>
-                <li className="me-2 w-100 sm:w-auto"> <ButtonLink title={targetData(levelsTranslatePage,"surface gem")} link="gem" /></li>
-                <li className="me-2 w-100 sm:w-auto"><ButtonLink title={targetData(levelsTranslatePage,"accompanying gift")} link="gift" /></li>
-                <li className="me-2 w-100 sm:w-auto"><ButtonLink title={targetData(levelsTranslatePage,"reward for reaching the level")} link="prize" /></li>
+                <li className="me-2 w-100 sm:w-auto whitespace-nowrap"><ButtonLink title={targetData(levelsTranslatePage,"permissions and access")} link="licenses" /></li>
+                <li className="me-2 w-100 sm:w-auto whitespace-nowrap"> <ButtonLink title={targetData(levelsTranslatePage,"surface gem")} link="gem" /></li>
+                <li className="me-2 w-100 sm:w-auto whitespace-nowrap"><ButtonLink title={targetData(levelsTranslatePage,"accompanying gift")} link="gift" /></li>
+                <li className="me-2 w-100 sm:w-auto whitespace-nowrap"><ButtonLink title={targetData(levelsTranslatePage,"reward for reaching the level")} link="prize" /></li>
             </ul>
         </div>
 

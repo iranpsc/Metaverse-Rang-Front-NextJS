@@ -18,11 +18,11 @@ export default function UserCard({ item, params, buttonText, minWidth }: any) {
           width={120}
           height={120}
           loading="lazy"
-          className="w-[70px] h-[70px] sm:w-[100px] sm:h-[100px] md:w-[120px] md:h-[120px] shadow-md transition-all duration-300 shadow-gray rounded-full"
+          className="w-[120px] h-[120px] shadow-md transition-all duration-300 shadow-gray rounded-full"
         />
         <p
           // data-atropos-offset="-5"
-          className="font-bold text-[14px] sm:text-16 md:text-[18px] 2xl:text-[20px] dark:text-white font-azarMehr sm:mt-2"
+          className="font-bold text-[20px] dark:text-white font-azarMehr sm:mt-2"
         >
           {item.name}
         </p>
@@ -32,13 +32,13 @@ export default function UserCard({ item, params, buttonText, minWidth }: any) {
         >
           <span
             // data-atropos-offset="-1"
-            className="uppercase text-blueLink font-medium font-azarMehr text-[12px] sm:text-[16px] cursor-pointer"
+            className="uppercase text-blueLink font-medium font-azarMehr text-[16px] cursor-pointer"
           >
             {item.code}
           </span>
         </Link>
 
-        <span className="dark:text-[#969696] text-[12px] sm:text-[14px] md:text-[16px] 2xl:text-[18px]">
+        <span className="dark:text-[#969696] text-[18px]">
           {item.levels?.current
             ? item.levels.current.name
             : params.lang == "fa"
@@ -53,16 +53,19 @@ export default function UserCard({ item, params, buttonText, minWidth }: any) {
             ))}
           </div>
         </div>
-        <Link href={`/${params.lang}/citizens/${item.code}`} className="w-[80%]">
+        <Link
+          href={`/${params.lang}/citizens/${item.code}`}
+          className="w-[80%]"
+        >
           <div
             // data-atropos-offset="5"
-            className="w-full h-[40px] sm:h-[50px] md:h-[55px] bg-[#f5f9ff] dark:bg-[#000000] px-3 sm:px-6 rounded-[10px] flex flex-row justify-between items-center"
+            className="w-full h-[55px] bg-[#f5f9ff] dark:bg-[#000000] px-3 sm:px-6 rounded-[10px] flex flex-row justify-between items-center"
           >
-            <span className="text-blueLink dark:text-dark-yellow font-azarMehr font-medium text-[10px] sm:text-[14px]">
+            <span className="text-blueLink dark:text-dark-yellow font-azarMehr font-medium text-[14px]">
               {buttonText}
             </span>
 
-            <Text className="w-[14px] h-[14px] sm:w-[24px] sm:h-[24px] stroke-blueLink dark:stroke-dark-yellow" />
+            <Text className="h-[24px] stroke-blueLink dark:stroke-dark-yellow" />
           </div>
         </Link>
       </div>

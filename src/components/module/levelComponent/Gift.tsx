@@ -199,10 +199,12 @@ export default async function Gift({
           <DetailItem
             title={localFind("gift png file")}
             value={levelTabs.data.png_file}
+            isLink
           />
           <DetailItem
             title={localFind("gift fbx file")}
             value={levelTabs.data.fbx_file}
+            isLink
           />
         </div>
       </div>

@@ -283,7 +283,7 @@ export default async function LevelsPage({ params }: any) {
             <h2 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mb-[16px]">
               {localFind("levels of citizens of the metaverse")}
             </h2>
-            <p className="text-lightGrey dark:text-darkGray font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center text-justify">
+            <p className="text-lightGrey dark:text-lightGray font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center text-justify">
               {localFind(`the levels of "metaverse rang" in the parallel`)}
             </p>
           </div>
