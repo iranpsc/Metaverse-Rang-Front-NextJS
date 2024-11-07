@@ -42,6 +42,8 @@ export async function generateMetadata({ params }) {
   const singleLevel = await getSingleLevel(levelId);
   
   const levelTabs = await getLevelTabs(params, levelId);
+  console.log('levelTabs.data123', levelTabs.data);
+  
 
   const langData = await getTranslation(params.lang);
   const mainData = await getMainFile(langData);

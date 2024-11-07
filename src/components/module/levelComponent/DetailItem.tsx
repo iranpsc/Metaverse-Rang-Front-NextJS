@@ -52,7 +52,7 @@ export default function DetailItem({
       >
         {title}
       </span>
-      <span className="flex justify-end w-[21px]">{generateValue()}</span>
+      <span className="flex justify-end min-w-max">{generateValue()}</span>
     </div>
   );
 }

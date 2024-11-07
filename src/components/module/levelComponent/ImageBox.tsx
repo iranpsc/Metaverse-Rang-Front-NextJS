@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
-// import { Sample3D } from "./Sample3D";
+import Sample3D from "./Sample3D";
 import ErrorBoundary from "@/components/utils/ErrorBoundary";
 
 export default function ImageBox({ item, singleLevel }: any) {
@@ -43,7 +43,7 @@ export default function ImageBox({ item, singleLevel }: any) {
             )}
             {mode == "fbx" ? (
               <ErrorBoundary>
-                {/* <Sample3D url={srcFbx as any} /> */}
+                <Sample3D url={srcFbx} />
               </ErrorBoundary>
             ) : (
               ""
