@@ -47,7 +47,7 @@ export default function CitizenList({
       res.data.data.map((item) => {oldArray.push(item)})
       setLocalCitizenArray(oldArray);
       if (currentPage >= lastPage) {
-        setIsDisabled(true);
+        // setIsDisabled(true);
       }
     }).catch()
 
