@@ -169,7 +169,7 @@ export default async function citizenSinglePage({
           params={params}
           pageSide="citizen"
         />
-        <section className="h-fit lg:h-screen relative w-full bg-[#e9eef8] dark:bg-black">
+        <section className="h-fit lg:h-screen relative w-full bg-[#e9eef8] mt-[60px] lg:mt-0 dark:bg-black">
           {/* <AnimatePresence>
             {showLogOut && (
             <LogoutPage showLogOut={showLogOut} setShowLogOut={setShowLogOut} />
