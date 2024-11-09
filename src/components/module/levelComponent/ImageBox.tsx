@@ -25,6 +25,7 @@ export default function ImageBox({ item, singleLevel }: any) {
                 width={512}
                 height={512}
                 className="absolute top-1/2 left-1/2 w-full h-[105%] object-cover transform -translate-x-1/2 -translate-y-1/2"
+                unoptimized
               />
             ) : (
               ""
@@ -37,6 +38,7 @@ export default function ImageBox({ item, singleLevel }: any) {
                 width={512}
                 height={512}
                 className="absolute top-1/2 left-1/2 w-full h-[105%] object-cover transform -translate-x-1/2 -translate-y-1/2"
+                unoptimized
               />
             ) : (
               ""

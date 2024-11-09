@@ -52,7 +52,7 @@ export const ItemsSearch = ({ searchData, params }: any) => {
       {searchData.map((item: any, index: any) => (
         <motion.div key={item?.id} variants={items}>
           <Link
-            href={`/${params.lang}/citizen/${item.code}`}
+            href={`/${params.lang}/citizens/${item.code}`}
             className="w-[99%] h-[65px] mt-2 hover:dark:shadow-darkSearch transition-all duration-300  bg-white dark:bg-dark-background border-b-[1px] border-mediumGray dark:border-mediumGray hover:shadow-md  cursor-pointer flex flex-row justify-between items-center dark:text-white"
           >
             <p className="ms-7 font-azarMehr truncate  text-[16px] xs:text-[12px] font-medium ">

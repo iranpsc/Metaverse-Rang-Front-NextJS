@@ -4,7 +4,6 @@ import { Canvas, useFrame, extend, useThree } from "@react-three/fiber";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import * as THREE from "three";
-import { Ray } from "three";
 
 // Extend OrbitControls to be usable in @react-three/fiber
 extend({ OrbitControls });
@@ -109,9 +108,21 @@ interface CanvasPreviewProps {
 const CanvasPreview: React.FC<CanvasPreviewProps> = ({ url }) => {
   return (
     <Canvas>
-      <ambientLight />
+      {/* <ambientLight /> */}
       <Axes />
-      <hemisphereLight args={["#ffffff", "#60666C"]} />
+      <hemisphereLight
+        color={"#ffffff"} // top color of the sky
+        groundColor={"#60666C"} // color of the ground
+        position={[0, 50, 0]} // position in the scene
+      />
+
+      {/* Directional light to simulate sunlight */}
+      {/* <directionalLight
+        color="#ffffff"
+        intensity={0.8}
+        position={[5, 10, 7.5]} // position of the light source
+        castShadow // enable shadow casting
+      /> */}
       <Model link={`https://middle.irpsc.com/app/?url=${url}`} />
     </Canvas>
   );

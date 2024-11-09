@@ -85,7 +85,7 @@
       
         .grid-forth {
           grid-column: 2 / 4; /* Span the second and third columns */
-          grid-row: 1 / span 3;
+          grid-row: 1 / span 4;
         }
       }
     /* .grid-first {
