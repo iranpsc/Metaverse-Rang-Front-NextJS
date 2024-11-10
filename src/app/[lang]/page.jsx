@@ -59,7 +59,7 @@ export async function generateMetadata({ params }) {
       // url: `https://yourwebsite.com/posts/${params.id}`,
       title: await localFind('metaverse rang'),
       description: await makeLessCharacter(),
-      locale: params.code == 'fa'? 'fa_IR' : 'en_US',
+      locale: params.lang == 'fa'? 'fa_IR' : 'en_US',
       url: `https://rgb.irpsc.com/${params.lang}`,
       images: [
         {
@@ -219,7 +219,7 @@ export default async function LangPage({params}) {
         />
         <section
           // id={`${defaultTheme == "dark" ? "dark-scrollbar" : "light-scrollbar"}`}
-          className={`overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-[#2F2D28] bg-opacity20`}
+          className={`overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20`}
         >
           <section className="flex flex-col h-fit tall0:min-h-[600px] min-h-[calc(100vh-60px)] lg:h-screen relative">
 
@@ -239,8 +239,9 @@ export default async function LangPage({params}) {
             >
               <HeaderFirstPage firstPageArrayContent={firstPageArrayContent} params={params} />
             </div>
+            {/* MD to larg shown-1 */}
             <div
-              className="w-full max-h-[40vh] overflow-y-auto light-scrollbar dark:dark-scrollbar tall0:max-h-[50vh] lg:max-h-[35vh] flex flex-col lg:flex-row gap-4 xl:gap-10 absolute bottom-0 xl:pe-32 lg:pe-32 xs:pe-5 xl:ps-32 lg:ps-32 md:ps-5 sm:ps-5 xs:ps-5 bg-[#151515] bg-opacity-40 py-3 z-[1] mt-4"
+              className="w-full max-h-[40vh] overflow-y-auto light-scrollbar dark:dark-scrollbar tall0:max-h-[50vh] lg:max-h-[35vh] hidden lg:flex flex-col lg:flex-row gap-4 xl:gap-10 absolute bottom-0 xl:pe-32 lg:pe-32 xs:pe-5 xl:ps-32 lg:ps-32 md:ps-5 sm:ps-5 xs:ps-5 bg-[#151515] bg-opacity-40 py-3 z-[1] mt-4"
             >
               <div
                 className="lg:w-1/2 flex flex-col justify-start items-start gap-4"
@@ -275,7 +276,42 @@ export default async function LangPage({params}) {
               </div>
             </div>
           </section>
+            {/* small to MD shown-1 */}
+            <div
+              className="w-full overflow-y-auto light-scrollbar dark:dark-scrollbar flex flex-col md:flex-row lg:hidden gap-4 xl:gap-10 px-5 lg:px-32 bg-[#151515] bg-opacity-40 py-3 z-[1] mt-4"
+            >
+              <div
+                className="lg:w-1/2 flex flex-col justify-start items-start gap-4"
+              >
+                <div className="flex items-center">
+                  <Frame1 className="size-[36px]" />
+                  <h5 className="text-white font-bold text-[16px] 2xl:text-[24px] 3xl:text-[28px] ps-2 font-azarMehr">
+                    {localFind("different competitions")}
+                  </h5>
+                </div>
+                <p className="w-full text-justify text-white font-azarMehr font-medium text-[14px] md:text-[16px] 2xl:text-[18px]">
+                  {localFind(
+                    "metaverse rang invites you to an exciting world of competition"
+                  )}
+                </p>
+              </div>
 
+              <div
+                className="lg:w-1/2 xl:col-span-6 lg:col-span-6 md:col-span-12 sm:col-span-12 xs:col-span-12 flex flex-col justify-start items-start gap-4 mt-10 md:mt-0"
+              >
+                <div className="flex items-center">
+                  <Frame2 className="size-[36px]" />
+                  <h5 className="text-white font-bold text-[16px] 2xl:text-[24px] 3xl:text-[28px] ps-2 font-azarMehr">
+                    {localFind("real interactions")}
+                  </h5>
+                </div>
+                <p className="w-full text-justify text-white font-azarMehr font-medium text-[14px] md:text-[16px] 2xl:text-[18px]">
+                  {localFind(
+                    "metaverse rang invites you to an exciting world of real interactions"
+                  )}
+                </p>
+              </div>
+            </div>
           <section
             className={`w-full relative flex  flex-col justify-start overflow-x-clip overflow-y-auto items-center 
               xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1`}

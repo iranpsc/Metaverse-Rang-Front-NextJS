@@ -1,51 +1,131 @@
-// 'use client'
+"use client";
+import React, { useRef, useState, useEffect } from "react";
+import { Canvas, useFrame, extend, useThree } from "@react-three/fiber";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
+import * as THREE from "three";
 
-// import React, { Suspense, useRef } from 'react'
-// import { Canvas, useFrame, useThree } from '@react-three/fiber';
-// import { OrbitControls, PerspectiveCamera, useFBX, OrthographicCamera } from '@react-three/drei';
+// Extend OrbitControls to be usable in @react-three/fiber
+extend({ OrbitControls });
 
-// export const Sample3D = ({url}:{url:string}) => {
+interface ModelProps {
+  link: string;
+}
 
-//     const bugget = useFBX(url);
+// Create a scene
+// const scene = new THREE.Scene();
 
-//     const ref = useRef<any>();
+const Model: React.FC<ModelProps> = ({ link }) => {
+  const fbxRef = useRef<THREE.Group | null>(null);
+  const [model, setModel] = useState<THREE.Group | null>(null);
 
-//     const cameraRef = useRef<any>()
+  // Load the FBX model
+  useEffect(() => {
+    const loader = new FBXLoader();
+    loader.load(
+      link,
+      (fbx) => {
+        // Calculate the bounding box and center of the model
+        const box = new THREE.Box3().setFromObject(fbx);
+        const center = box.getCenter(new THREE.Vector3());
 
-//     const Box = () => {
+        // Offset the model's position so its center is at (0, 0, 0)
+        fbx.position.sub(center);
 
-//         // useFrame(() => (ref?.current?.rotation?.y ? ref.current.rotation.y += 0.05 : undefined));
+        // Create a new group to act as a pivot and add the model to it
+        const pivotGroup = new THREE.Group();
+        pivotGroup.position.set(0, 0, 0); // Ensure the group is at the world origin
+        pivotGroup.add(fbx); // Add the model to the group
 
-//         useThree(({ camera }) => {
-//             // return camera.rotateY(90)
-//             // camera.position.y = 0;
-//             // camera.lookAt(0, 1.8, 0)
-//             // camera.lookAt(0, -200, 0)
-//         });
+        // Add an AxesHelper to the group for visualization
+        // const axesHelper = new THREE.AxesHelper(2);
+        // pivotGroup.add(axesHelper);
 
-//         return <primitive ref={ref} object={bugget} scale={4.1} />
-//     }
+        // Set the model to be positioned at the world center
+        pivotGroup.position.set(0, 0, 0);
 
-//     return <Canvas className="cursor-pointer" >
-//         <Suspense fallback={<span className='text-white '>Loading...</span>}>
-//             <ambientLight />
-//             <OrbitControls enableZoom={true}
-//                 // maxPolarAngle={Math.PI / 2} //To Curve
-//                 // minPolarAngle={Math.PI / 2} //To Curve
-//                 target={[-100, 180, 0]} //Key To Solve
-//                 enablePan
-//                 enableRotate
-//             />
-//             <Box />
-//             <OrthographicCamera
-//                 makeDefault
-//                 // fov={10}
-//                 // far={10}
-//                 // aspect={2/3}
-//                 position={[300, 100, 0]}
-//                 ref={cameraRef}
-//             />
-//         </Suspense>
-//     </Canvas>
+        setModel(pivotGroup);
+        fbxRef.current = pivotGroup;
+      },
+      undefined,
+      (error) => {
+        console.error("An error occurred while loading the FBX model:", error);
+      }
+    );
+  }, [link]);
 
-// }
+  // Set up orbit controls
+  const { camera, gl } = useThree();
+  useEffect(() => {
+    const controls = new OrbitControls(camera, gl.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.25;
+    controls.enableZoom = true;
+    controls.autoRotate = false;
+    controls.autoRotateSpeed = 0.09;
+    controls.rotateSpeed = 0.5;
+    controls.maxPolarAngle = Math.PI / 2; // Limit vertical rotation
+    controls.minDistance = 1; // Minimum zoom distance
+    controls.maxDistance = 10; // Maximum zoom distance
+    return () => {
+      controls.dispose();
+    };
+  }, [camera, gl]);
+
+  // Rotate the model
+  useFrame(() => {
+    if (fbxRef.current) {
+      // fbxRef.current.rotation.y += 0.01;
+      // fbxRef.current.rotation.x += 0.01;
+      // fbxRef.current.rotation.z += 0.01;
+      // fbxRef.current.scale.x += 0.0001;
+      // fbxRef.current.scale.y += 0.0001;
+      // fbxRef.current.scale.z += 0.0001;
+      // if (fbxRef.current.scale.x >= 0.3) {
+      //   fbxRef.current.scale.x = 0.2;
+      //   fbxRef.current.scale.y = 0.2;
+      //   fbxRef.current.scale.z = 0.2;
+      // }
+    }
+  });
+
+  // Create a vector representing the point (0, 0, 0)
+  const zeroVector = new THREE.Vector3(0, 0, 0);
+
+  return model ? (
+    <primitive ref={fbxRef} object={model} scale={0.2} position={[0, 0, 0]} />
+  ) : null;
+};
+
+const Axes = () => {
+  return <axesHelper args={[0]} />; // The size of the axes is 5 units
+};
+
+interface CanvasPreviewProps {
+  url: string;
+}
+
+const CanvasPreview: React.FC<CanvasPreviewProps> = ({ url }) => {
+  return (
+    <Canvas>
+      {/* <ambientLight /> */}
+      <Axes />
+      <hemisphereLight
+        color={"#ffffff"} // top color of the sky
+        groundColor={"#60666C"} // color of the ground
+        position={[0, 50, 0]} // position in the scene
+      />
+
+      {/* Directional light to simulate sunlight */}
+      {/* <directionalLight
+        color="#ffffff"
+        intensity={0.8}
+        position={[5, 10, 7.5]} // position of the light source
+        castShadow // enable shadow casting
+      /> */}
+      <Model link={`https://middle.irpsc.com/app/?url=${url}`} />
+    </Canvas>
+  );
+};
+
+export default CanvasPreview;

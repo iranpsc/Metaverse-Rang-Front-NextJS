@@ -36,6 +36,8 @@ export default function CitizenList({
   }, []);
 
   useEffect(() => {
+    console.log('localCitizenArray', localCitizenArray);
+    
   }, [isMounted]);
 
   const handleLoadMore = async () => {
@@ -47,7 +49,7 @@ export default function CitizenList({
       res.data.data.map((item) => {oldArray.push(item)})
       setLocalCitizenArray(oldArray);
       if (currentPage >= lastPage) {
-        setIsDisabled(true);
+        // setIsDisabled(true);
       }
     }).catch()
 

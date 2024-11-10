@@ -12,7 +12,6 @@ import LevelCard from "@/components/module/levelComponent/LevelCard";
 import SideBar from "@/components/module/sidebar/SideBar";
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
 import BreadCrumb from "@/components/shared/BreadCrumb";
-import { headers } from "next/headers";
 
 // SEO**
 export async function generateMetadata({ params }: any) {
@@ -51,7 +50,7 @@ export async function generateMetadata({ params }: any) {
       // url: `https://yourwebsite.com/posts/${params.id}`,
       title: await localFind("levels of citizens of the metaverse"),
       description: await makeLessCharacter(),
-      locale: params.code == "fa" ? "fa_IR" : "en_US",
+      locale: params.lang == "fa" ? "fa_IR" : "en_US",
       url: `https://rgb.irpsc.com/${params.lang}/levels/citizen`,
       images: [
         {
@@ -284,7 +283,7 @@ export default async function LevelsPage({ params }: any) {
             <h2 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mb-[16px]">
               {localFind("levels of citizens of the metaverse")}
             </h2>
-            <p className="text-lightGrey dark:text-darkGray font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center text-justify">
+            <p className="text-lightGrey dark:text-lightGray font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center text-justify">
               {localFind(`the levels of "metaverse rang" in the parallel`)}
             </p>
           </div>

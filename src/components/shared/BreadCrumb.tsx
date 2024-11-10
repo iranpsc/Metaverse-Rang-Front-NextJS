@@ -9,17 +9,13 @@ export default function ({ params }: any) {
       name: "citizens",
       en: "citizens",
       fa: "شهروندان",
-      color: "text-black",
-      darkColor: "text-white",
       font: "font-bold",
       link: `/${params.lang}/citizens`,
     },
     {
       name: "levels",
       en: "levels",
-      fa: "سطح",
-      color: "text-black",
-      darkColor: "text-white",
+      fa: "سطوح",
       font: "font-bold",
       link: `/${params.lang}/levels/citizen`,
     },
@@ -27,126 +23,98 @@ export default function ({ params }: any) {
       name: "citizen",
       en: "citizen",
       fa: "شهروند",
-      color: "text-black",
-      darkColor: "text-white",
       font: "font-bold",
       link: `/${params.lang}/levels/citizen`,
     },
     // -baguette is a key
     {
       name: "citizen-baguette",
-      en: "rank-1",
-      fa: "رنک-۱",
-      color: "text-black",
-      darkColor: "text-white",
+      en: "citizen rank-1",
+      fa: "شهروند رنک-۱",
       font: "font-bold",
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
     {
       name: "reporter-baguette",
-      en: "rank-1",
-      fa: "رنک-۱",
-      color: "text-black",
-      darkColor: "text-white",
+      en: "reporter rank-1",
+      fa: "ژورنالیست رنک-۱",
       font: "font-bold",
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
     {
       name: "participation-baguette",
-      en: "rank-1",
-      fa: "رنک-۱",
-      color: "text-black",
-      darkColor: "text-white",
+      en: "participation rank-1",
+      fa: "مشارکت کننده رنک-۱",
       font: "font-bold",
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
     {
       name: "developer-baguette",
-      en: "rank-1",
-      fa: "رنک-۱",
-      color: "text-black",
-      darkColor: "text-white",
+      en: "developer rank-1",
+      fa: "توسعه دهنده رنک-۱",
       font: "font-bold",
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
     {
       name: "inspector-baguette",
-      en: "rank-1",
-      fa: "رنک-۱",
-      color: "text-black",
-      darkColor: "text-white",
+      en: "inspector rank-1",
+      fa: "بازرس رنک-۱",
       font: "font-bold",
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
     {
       name: "businessman-baguette",
-      en: "rank-1",
-      fa: "رنک-۱",
-      color: "text-black",
-      darkColor: "text-white",
+      en: "businessman rank-1",
+      fa: "بازرگان رنک-۱",
       font: "font-bold",
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
     {
       name: "lawyer-baguette",
-      en: "rank-1",
-      fa: "رنک-۱",
-      color: "text-black",
-      darkColor: "text-white",
+      en: "lawyer rank-1",
+      fa: "وکیل رنک-۱",
       font: "font-bold",
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
     {
       name: "city-council-baguette",
-      en: "rank-1",
-      fa: "رنک-۱",
-      color: "text-black",
-      darkColor: "text-white",
+      en: "city council rank-1",
+      fa: "شورای شهر رنک-۱",
       font: "font-bold",
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
     {
       name: "the-mayor-baguette",
-      en: "rank-1",
-      fa: "رنک-۱",
-      color: "text-black",
-      darkColor: "text-white",
+      en: "the mayor rank-1",
+      fa: "شهردار رنک-۱",
       font: "font-bold",
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
     {
       name: "governor-baguette",
-      en: "rank-1",
-      fa: "رنک-۱",
-      color: "text-black",
-      darkColor: "text-white",
+      en: "governor rank-1",
+      fa: "استاندار رنک-۱",
       font: "font-bold",
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
     {
       name: "minister-baguette",
-      en: "rank-1",
-      fa: "رنک-۱",
-      color: "text-black",
-      darkColor: "text-white",
+      en: "minister rank-1",
+      fa: "وزیر رنک-۱",
       font: "font-bold",
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
     {
       name: "judge-baguette",
-      en: "rank-1",
-      fa: "رنک-۱",
-      color: "text-black",
-      darkColor: "text-white",
+      en: "judge rank-1",
+      fa: "قاضی رنک-۱",
       font: "font-bold",
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
     {
       name: "legislator-baguette",
-      en: "rank-1",
-      fa: "رنک-۱",
-      color: "text-black",
-      darkColor: "text-white",
+      en: "legislator rank-1",
+      fa: "قانون گذار رنک-۱",
       font: "font-bold",
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
@@ -154,8 +122,6 @@ export default function ({ params }: any) {
       name: "general-info",
       en: "general info",
       fa: "اطلاعات اولیه سطح",
-      color: "text-black",
-      darkColor: "text-white",
       font: "font-bold",
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
@@ -163,8 +129,6 @@ export default function ({ params }: any) {
       name: "licenses",
       en: "licenses",
       fa: "مجوزها و دسترسی ها",
-      color: "text-black",
-      darkColor: "text-white",
       font: "font-bold",
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
@@ -172,8 +136,6 @@ export default function ({ params }: any) {
       name: "gem",
       en: "gem",
       fa: "نگین سطح",
-      color: "text-black",
-      darkColor: "text-white",
       font: "font-bold",
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
@@ -181,8 +143,6 @@ export default function ({ params }: any) {
       name: "gift",
       en: "gift",
       fa: "هدیه همراه",
-      color: "text-black",
-      darkColor: "text-white",
       font: "font-bold",
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
@@ -190,8 +150,6 @@ export default function ({ params }: any) {
       name: "prize",
       en: "prize",
       fa: "پاداش رسیدن به سطح",
-      color: "text-black",
-      darkColor: "text-white",
       font: "font-bold",
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
@@ -208,9 +166,7 @@ export default function ({ params }: any) {
       name: "home",
       en: "Home",
       fa: "صفحه نخست",
-      color: "text-blueLink",
-      darkColor: "text-dark-yellow",
-      font: "font-normal",
+      font: "font-bold",
       link: `/${params.lang}`,
     },
   ];
@@ -221,12 +177,17 @@ export default function ({ params }: any) {
   });
 
   return (
-    <div className="flex flex-wrap font-azarMehr text-[16px] lg:text-[18px] 2xl:text-[20px] py-[20px]">
+    <div className="flex flex-wrap font-azarMehr text-[16px] lg:text-[18px] 2xl:text-[20px] py-[20px] capitalize">
       {direction == "rtl"
         ? buildedArray.map((x, index) => (
             <Link
               href={x.link}
-              className={`${x.color} dark:${x.darkColor} ${x.font} flex items-center`}
+              className={`${
+                index == temp.length - 1 ? "text-black" : "text-blueLink"
+              } 
+              dark:${
+                index == temp.length - 1 ? "text-white" : "text-dark-yellow"
+              } ${x.font} flex items-center`}
               key={index}
             >
               {x.fa}
@@ -240,7 +201,12 @@ export default function ({ params }: any) {
         : buildedArray.map((x, index) => (
             <Link
               href={x.link}
-              className={`${x.color} dark:${x.darkColor} ${x.font} flex items-center`}
+              className={`${
+                index == temp.length - 1 ? "text-black" : "text-blueLink"
+              } 
+            dark:${
+              index == temp.length - 1 ? "text-white" : "text-dark-yellow"
+            } ${x.font} flex items-center`}
               key={index}
             >
               {x.en}

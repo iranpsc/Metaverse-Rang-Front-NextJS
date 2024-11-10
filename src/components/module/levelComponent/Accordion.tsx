@@ -9,7 +9,7 @@ export default function Accordion({
   title: string;
   value: any;
 }) {
-  const [open, setOpen] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(true);
 
   return (
     <div
@@ -35,7 +35,7 @@ export default function Accordion({
       </div>
 
       <div
-        className={` transition-all flex flex-col gap-6 duration-300 text-[#868B90] dark:text-[#C4C4C4] text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] ${
+        className={`transition-all flex flex-col gap-6 duration-300 text-textGray dark:text-lightGray text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] ${
           open
             ? "font-[400] max-h-[10000px] opacity-1 px-3 pb-3"
             : "max-h-0 overflow-hidden opacity-0"

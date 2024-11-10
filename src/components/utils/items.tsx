@@ -935,6 +935,26 @@ export const imageSources: any = [
     translate: "national map",
   },
   {
+    url: "https://irpsc.com/img-icon/3d.png",
+    target: "https://3d.irpsc.com/",
+    translate: "threed meta",
+  },
+  {
+    url: "https://irpsc.com/img-icon/accounts.png",
+    target: "https://accounts.irpsc.com/",
+    translate: "time tunnel",
+  },
+  {
+    url: "https://irpsc.com/img-icon/art.png",
+    target: "https://art.irpsc.com/",
+    translate: "meta art",
+  },
+  {
+    url: "https://irpsc.com/img-icon/web.png",
+    target: "https://web.irpsc.com/",
+    translate: "web rang",
+  },
+  {
     url: "https://irpsc.com/img-icon/home-soon.png",
     target: "https://home.irpsc.com/",
     translate: "real estate and properties",

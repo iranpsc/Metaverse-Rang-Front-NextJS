@@ -30,7 +30,7 @@ const TopCitizen = async ({
         <p className="font-azarMehr font-medium text-[16px] md:text-[20px] lg:text-[28px] xl:text-[32px] dark:text-white">
           {localFind("leading citizens")}
         </p>
-        <Link href={`/${params.lang}/citizen`}>
+        <Link href={`/${params.lang}/citizens`}>
           <div className="flex justify-center items-center gap-4">
             <p className="font-azarMehr font-medium text-[12px] md:text-[16px] lg:text-[18px] xl:text-[20px] dark:text-white">
               {localFind("view all")}
