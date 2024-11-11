@@ -28,7 +28,8 @@ export default function UserCard({ item, params, buttonText, minWidth }: any) {
         </p>
 
         <Link
-          href={`https://rgb.irpsc.com/${params.lang}/citizens/${item.code}`}
+          className="min-h-[30px] "
+          href={`/${params.lang}/citizens/${item.code}`}
         >
           <span
             // data-atropos-offset="-1"
