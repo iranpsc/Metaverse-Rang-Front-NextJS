@@ -26,6 +26,13 @@ export default function ({ params }: any) {
       font: "font-bold",
       link: `/${params.lang}/levels/citizen`,
     },
+    {
+      name: "about",
+      en: "about us",
+      fa: "درباره ما",
+      font: "font-bold",
+      link: `/${params.lang}/about`,
+    },
     // -baguette is a key
     {
       name: "citizen-baguette",

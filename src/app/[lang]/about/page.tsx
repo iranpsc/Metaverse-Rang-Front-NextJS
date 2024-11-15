@@ -8,93 +8,12 @@ import {
   getLangArray,
 } from "@/components/utils/actions";
 import DynamicFooter from "@/components/module/footer/DynamicFooter";
-import LevelCard from "@/components/module/levelComponent/LevelCard";
 import SideBar from "@/components/module/sidebar/SideBar";
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import UserCard from "@/components/shared/UserCard";
 
 export default async function AboutPage({ params }: any) {
-  const staticData = [
-    {
-      url: "/svg/level/citizen.png",
-      score: 10,
-      id: 1,
-      route_name: "citizen-baguette",
-    },
-    {
-      url: "/svg/level/reporter.png",
-      score: 990,
-      id: 2,
-      route_name: "reporter-baguette",
-    },
-    {
-      url: "/svg/level/participation.png",
-      score: 3000,
-      id: 3,
-      route_name: "participation-baguette",
-    },
-    {
-      url: "/svg/level/developer.png",
-      score: 8000,
-      id: 4,
-      route_name: "developer-baguette",
-    },
-    {
-      url: "/svg/level/inspector.png",
-      score: 18000,
-      id: 5,
-      route_name: "inspector-baguette",
-    },
-    {
-      url: "/svg/level/businessman.png",
-      score: 36000,
-      id: 6,
-      route_name: "businessman-baguette",
-    },
-    {
-      url: "/svg/level/lawyer.png",
-      score: 76000,
-      id: 7,
-      route_name: "lawyer-baguette",
-    },
-    {
-      url: "/svg/level/city-council.png",
-      score: 166000,
-      id: 8,
-      route_name: "city-council-baguette",
-    },
-    {
-      url: "/svg/level/the-mayor.png",
-      score: 366000,
-      id: 9,
-      route_name: "the-mayor-baguette",
-    },
-    {
-      url: "/svg/level/governor.png",
-      score: 796000,
-      id: 10,
-      route_name: "governor-baguette",
-    },
-    {
-      url: "/svg/level/minister.png",
-      score: 1696000,
-      id: 11,
-      route_name: "minister-baguette",
-    },
-    {
-      url: "/svg/level/judge.png",
-      score: 3696000,
-      id: 12,
-      route_name: "judge-baguette",
-    },
-    {
-      url: "/svg/level/legislator.png",
-      score: 7896000,
-      id: 13,
-      route_name: "legislator-baguette",
-    },
-  ];
   function convertPersianToEnglishNumber(slug: any) {
     // Replace Persian/Arabic digits with English digits using regex
     return Number(
@@ -126,6 +45,8 @@ export default async function AboutPage({ params }: any) {
     Citizenship,
     "list-citizen"
   );
+
+  console.log("citizenListArrayContent123", citizenListArrayContent);
 
   const levelModals = await findByModalName(mainData, "levels");
   const levelListArrayContent = await findByTabName(levelModals, "level-list");
@@ -176,7 +97,7 @@ export default async function AboutPage({ params }: any) {
     {
       id: 2,
       name: "امیر مدنی فر",
-      profile_photo: "/profile/",
+      profile_photo: "",
       code: "HM-2000002",
       score: "",
       levels: { current: { name: "بنیان گذار" } },
@@ -184,7 +105,7 @@ export default async function AboutPage({ params }: any) {
     {
       id: 3,
       name: "عباس آجرلو",
-      profile_photo: "/profile/",
+      profile_photo: "",
       code: "HM-2000005",
       score: "",
       levels: { current: { name: "توسعه دهنده" } },
@@ -192,7 +113,7 @@ export default async function AboutPage({ params }: any) {
     {
       id: 4,
       name: "مهدی غلام حسینی",
-      profile_photo: "/profile/",
+      profile_photo: "",
       code: "HM-2000008",
       score: "",
       levels: { current: { name: "توسعه دهنده" } },
@@ -200,7 +121,7 @@ export default async function AboutPage({ params }: any) {
     {
       id: 5,
       name: "نازنین حشمتی",
-      profile_photo: "/profile/",
+      profile_photo: "",
       code: "",
       score: "",
       levels: { current: { name: "توسعه دهنده" } },
@@ -208,7 +129,7 @@ export default async function AboutPage({ params }: any) {
     {
       id: 6,
       name: "امیر محسنی",
-      profile_photo: "/profile/",
+      profile_photo: "",
       code: "",
       score: "",
       levels: { current: { name: "توسعه دهنده" } },
@@ -216,7 +137,7 @@ export default async function AboutPage({ params }: any) {
     {
       id: 7,
       name: "امین دهقان نژاد",
-      profile_photo: "/profile/",
+      profile_photo: "",
       code: "",
       score: "",
       levels: { current: { name: "توسعه دهنده" } },
@@ -224,7 +145,7 @@ export default async function AboutPage({ params }: any) {
     {
       id: 8,
       name: "فاطمه نصیری",
-      profile_photo: "/profile/",
+      profile_photo: "",
       code: "",
       score: "",
       levels: { current: { name: "توسعه دهنده" } },
@@ -232,7 +153,7 @@ export default async function AboutPage({ params }: any) {
     {
       id: 9,
       name: "بنیامین نوری",
-      profile_photo: "/profile/",
+      profile_photo: "",
       code: "HM-2000011",
       score: "",
       levels: { current: { name: "توسعه دهنده" } },
@@ -240,7 +161,7 @@ export default async function AboutPage({ params }: any) {
     {
       id: 10,
       name: "مصطفی قدیری",
-      profile_photo: "/profile/",
+      profile_photo: "",
       code: "",
       score: "",
       levels: { current: { name: "توسعه دهنده" } },
@@ -248,7 +169,7 @@ export default async function AboutPage({ params }: any) {
     {
       id: 11,
       name: "محمدجواد گرئی",
-      profile_photo: "/profile/",
+      profile_photo: "",
       code: "",
       score: "",
       levels: { current: { name: "توسعه دهنده" } },
@@ -256,7 +177,7 @@ export default async function AboutPage({ params }: any) {
     {
       id: 12,
       name: "امیر حسین امینی",
-      profile_photo: "/profile/",
+      profile_photo: "",
       code: "HM-2000010",
       score: "",
       levels: { current: { name: "توسعه دهنده" } },
@@ -264,7 +185,7 @@ export default async function AboutPage({ params }: any) {
     {
       id: 13,
       name: "آی تای ملکی",
-      profile_photo: "/profile/",
+      profile_photo: "",
       code: "",
       score: "",
       levels: { current: { name: "توسعه دهنده" } },
@@ -272,7 +193,7 @@ export default async function AboutPage({ params }: any) {
     {
       id: 14,
       name: "یوسف خدری",
-      profile_photo: "/profile/",
+      profile_photo: "",
       code: "",
       score: "",
       levels: { current: { name: "توسعه دهنده" } },
@@ -280,7 +201,7 @@ export default async function AboutPage({ params }: any) {
     {
       id: 15,
       name: "پرهام امین لو",
-      profile_photo: "/profile/",
+      profile_photo: "",
       code: "",
       score: "",
       levels: { current: { name: "توسعه دهنده" } },
@@ -288,7 +209,7 @@ export default async function AboutPage({ params }: any) {
     {
       id: 16,
       name: "محمدرضا اصغری",
-      profile_photo: "/profile/",
+      profile_photo: "",
       code: "",
       score: "",
       levels: { current: { name: "توسعه دهنده" } },
@@ -296,7 +217,7 @@ export default async function AboutPage({ params }: any) {
     {
       id: 17,
       name: "مرضیه ثاقب علیزاده",
-      profile_photo: "/profile/",
+      profile_photo: "",
       code: "HM-2000003",
       score: "",
       levels: { current: { name: "توسعه دهنده" } },
@@ -304,7 +225,7 @@ export default async function AboutPage({ params }: any) {
     {
       id: 18,
       name: "سعید زاجکانی",
-      profile_photo: "/profile/",
+      profile_photo: "",
       code: "HM-2000009",
       score: "",
       levels: { current: { name: "توسعه دهنده" } },
@@ -312,7 +233,7 @@ export default async function AboutPage({ params }: any) {
     {
       id: 19,
       name: "پارسا بهرامی",
-      profile_photo: "/profile/",
+      profile_photo: "",
       code: "HM-2000491",
       score: "",
       levels: { current: { name: "توسعه دهنده" } },
@@ -329,9 +250,79 @@ export default async function AboutPage({ params }: any) {
     }
   });
 
+  const aboutSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: await localFind1("metaverse rang"),
+    url: `https://rgb.irpsc.com/${params.lang}/about`,
+    logo: `https://rgb.irpsc.com/logo.png`,
+    description: "???",
+    brand: "متارنگ",
+    foundingDate: "2021-11-06",
+    location: {
+      "@type": "Place",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "میرداماد، 824H+JG2",
+        addressLocality: "قزوین",
+        addressRegion: "استان قزوین",
+        addressCountry: "ایران",
+      },
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: "36.2811",
+        longitude: "50.0000",
+      },
+    },
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        telephone: "+989120820120",
+        contactType: "customer service",
+        availableLanguage: ["Persian", "English"],
+      },
+      {
+        "@type": "ContactPoint",
+        telephone: "02833647125",
+        contactType: "office",
+      },
+    ],
+    sameAs: ["https://www.instagram.com/rgb.irpsc"],
+    founders: [
+      {
+        "@type": "Organization",
+        name: "شرکت تعاونی زنجیره تامین بهشت",
+      },
+      {
+        "@type": "Person",
+        name: "امیر مدنی فر",
+      },
+    ],
+    mission: "توسعه زیرساخت های دنیای مجازی و موازی بر پایه ارائه خدمات منسجم",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "میرداماد، 824H+JG2",
+      addressLocality: "قزوین",
+      addressRegion: "استان قزوین",
+      addressCountry: "ایران",
+    },
+    telephone: "+989127855049",
+    email: "hq@irpsc.com",
+  };
+
   return (
     <>
-      <div className={`flex dark:bg-black `} dir={langData.direction}>
+      {/* SCHEMA** */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(aboutSchema),
+        }}
+      />
+      <div
+        className={`flex dark:bg-black bg-grayLight`}
+        dir={langData.direction}
+      >
         <SideBar
           langArray={langArray}
           langData={langData}
@@ -347,23 +338,28 @@ export default async function AboutPage({ params }: any) {
 
           className={`h-[calc(100vh-60px)] lg:h-screen overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0`}
         >
-          <section className="mx-auto p-4 lg:p-9">
+          {/* Breadcrumb */}
+          <div className="px-12">
+            <BreadCrumb params={params} />
+          </div>
+          <section className="mx-auto px-4 lg:px-9">
+            <h1 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[64px] mb-[16px]">
+              درباره ما
+            </h1>
             <div className="flex flex-col gap-10 ">
               <div>
-                <h1 className="text-[#414040] dark:text-gray-200 text-lg md:text-2xl font-bold font-rohk">
-                  {" "}
-                  درباره ما
-                </h1>
-                <p className="text-[#52545C] dark:text-[#A0A0AB] text-justify text-sm md:text-lg mt-5  leading-10">
-                  پروژه متاورس رنگ** یا همان **متارنگ**، به عنوان نخستین پروژه‌ی
-                  متاورسی ایران، با هدف خلق یک جهان مجازی و موازی مبتنی بر
-                  چشم‌اندازی قوی ایرانی آغاز به کار کرده است. این پروژه با
-                  بهره‌گیری از تکنولوژی‌هایی فراتر از باور، دریچه‌ای نو به سوی
-                  آینده‌ای دیجیتالی گشوده است که امکان زندگی، تعامل و کسب و کار
-                  در دنیایی موازی را برای کاربران فراهم می‌کند.
+                <h3 className="dark:text-white text-black text-lg md:text-2xl font-bold font-rohk">
+                  پروژه متاورس رنگ (متارنگ)
+                </h3>
+                <p className="text-lightGray font-medium text-justify text-sm md:text-lg mt-5 leading-10">
+                  ** متارنگ، نخستین پروژه متاورسی ایران، با هدف ایجاد جهانی
+                  مجازی و موازی با تأکید بر فرهنگ و اصالت ایرانی آغاز به کار
+                  کرده است. این پلتفرم با بهره‌گیری از فناوری‌های پیشرفته،
+                  دریچه‌ای به سوی آینده‌ای دیجیتالی می‌گشاید که امکان زندگی،
+                  تعامل و کسب‌وکار در دنیایی موازی را برای کاربران فراهم می‌کند.
                 </p>
               </div>
-              <div className="w-full flex items-center  bg-[#FFFFFF] dark:bg-[#1A1A18] text-[#6A6A6A] dark:text-[#FFFFFF] rounded-[30px] p-6 py-10 leading-10 text-sm md:text-lg text-justify">
+              <div className="w-full text-center bg-white dark:bg-dark-background text-[#6A6A6A] dark:text-[#FFFFFF] rounded-[30px] p-6 py-10 leading-10 text-sm md:text-lg text-justify">
                 <p>
                   **متارنگ** با تأکید بر نوآوری و کارآفرینی، بستری را فراهم کرده
                   است که افراد می‌توانند از طریق آن به توسعه‌ی کسب و کارها و
@@ -378,11 +374,78 @@ export default async function AboutPage({ params }: any) {
                   بین‌المللی سهم داشته باشید.
                 </p>
               </div>
+
               <div>
-                <h3 className="dark:text-[#FFFFFF] text-lg md:text-2xl font-bold font-rohk">
-                  تیم متاورس{" "}
+                <h3 className="dark:text-white text-black text-lg md:text-2xl font-bold font-rohk">
+                  ویژگی‌های برجسته متارنگ:
                 </h3>
-                <p className="text-[#52545C] dark:text-[#A0A0AB] text-justify text-sm md:text-lg mt-5  leading-10">
+                <ul className="text-lightGray font-medium text-justify text-sm md:text-lg mt-5 leading-10 ">
+                  <li>
+                    <span className="font-bold text-white">
+                      نوآوری و کارآفرینی:
+                    </span>{" "}
+                    متارنگ بستری را فراهم کرده است که افراد می‌توانند
+                    کسب‌وکارهای خود را توسعه داده و در اقتصاد دیجیتال مشارکت
+                    کنند. این پلتفرم با ایجاد درگاه‌های بین‌المللی، امکان
+                    تعاملات هدفمند و سازنده با دیگر کشورها و فرهنگ‌ها را فراهم
+                    می‌کند.
+                  </li>
+                  <li>
+                    <span className="font-bold text-white">زندگی موازی:</span>{" "}
+                    در متارنگ، کاربران می‌توانند زندگی جدیدی را آغاز کرده، از
+                    ایده‌های خلاقانه بهره‌برداری کنند و در توسعه اقتصاد دیجیتال
+                    و بین‌المللی سهم داشته باشند.
+                  </li>
+                  <li>
+                    <span className="font-bold text-white">
+                      تأکید بر اصالت ایرانی:
+                    </span>{" "}
+                    این پروژه با تکیه بر فرهنگ و اصالت ایرانی، فضایی مجازی و
+                    منحصر به فرد ایجاد کرده است که افراد را قادر می‌سازد به
+                    گونه‌ای متفاوت و نوآورانه در این جهان جدید مشارکت کنند.
+                  </li>
+                </ul>
+              </div>
+
+              <div className="w-full text-center bg-[#FFFFFF] dark:bg-[#1A1A18] text-[#6A6A6A] dark:text-[#FFFFFF] rounded-[30px] p-6 py-10 leading-10 text-sm md:text-lg text-justify">
+                <h3 className="dark:text-[#FFFFFF] text-lg md:text-2xl font-bold font-rohk">
+                  اهداف متارنگ:
+                </h3>
+                <ul className="text-[#52545C] dark:text-[#A0A0AB] text-sm md:text-lg mt-5 leading-10 ">
+                  <li>
+                    <span className="font-bold text-white">
+                      ارتقای تعاملات بین‌المللی:&nbsp;
+                    </span>
+                    متارنگ با ایجاد درگاه‌های بین‌المللی، فرصت‌های جدیدی برای
+                    رشد و گسترش فعالیت‌های کاربران در دنیای مجازی فراهم می‌کند.
+                  </li>
+                  <li>
+                    <span className="font-bold text-white">
+                      ایجاد فرصت‌های کارآفرینی:&nbsp;
+                    </span>
+                    این پلتفرم با تمرکز بر نوآوری، بستری مناسب برای توسعه
+                    کسب‌وکارها و اقتصاد بین‌المللی فراهم کرده است.
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="dark:text-white text-black text-lg md:text-2xl font-bold font-rohk">
+                  چشم‌انداز متارنگ:&nbsp;
+                </h3>
+                <p className="text-lightGray font-medium text-justify text-sm md:text-lg mt-5 leading-10">
+                  متارنگ با تکیه بر اصالت ایرانی و فناوری پیشرفته، به دنبال
+                  ایجاد فضایی مجازی و منحصر به فرد است که افراد را قادر می‌سازد
+                  به گونه‌ای متفاوت و نوآورانه در این جهان جدید مشارکت کنند. با
+                  تمرکز بر ارتقای تعاملات بین‌المللی و ایجاد فرصت‌های کارآفرینی،
+                  متارنگ به سوی خلق آینده‌ای روشن و باشکوه برای همگان گام
+                  برمی‌دارد.
+                </p>
+              </div>
+              <div className="w-full text-center bg-[#FFFFFF] dark:bg-[#1A1A18] text-[#6A6A6A] dark:text-[#FFFFFF] rounded-[30px] p-6 py-10 leading-10 text-sm md:text-lg text-justify">
+                <h3 className="dark:text-white text-black text-lg md:text-2xl font-bold font-rohk">
+                  تیم متاورس&nbsp;
+                </h3>
+                <p className="text-lightGray font-medium text-justify text-sm md:text-lg mt-5 leading-10">
                   **پروژه متاورس رنگ** با تکیه بر اصالت ایرانی و تکنولوژی
                   پیشرفته، به دنبال ایجاد یک فضای مجازی منحصر به فرد است که
                   افراد را قادر می‌سازد تا به گونه‌ای متفاوت و نوآورانه در این
@@ -407,6 +470,9 @@ export default async function AboutPage({ params }: any) {
               ))}
             </div>
           </section>
+          <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
+            <DynamicFooter footerTabs={footerTabs} />
+          </div>
         </section>
       </div>
     </>

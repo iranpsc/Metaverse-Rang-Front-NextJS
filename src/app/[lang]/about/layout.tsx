@@ -11,7 +11,7 @@ export default async function CitizensLayout({
   const langData = await getTranslation(params.lang);
 
   return (
-    <main className="flex h-screen dark:bg-black" dir={langData.direction}>
+    <main className="flex h-screen" dir={langData.direction}>
       <div
         className={`overflow-y-auto relative light-scrollbar dark:dark-scrollbar w-full xs:px-1 lg:mt-0`}
       >
