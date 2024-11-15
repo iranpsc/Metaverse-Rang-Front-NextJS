@@ -13,6 +13,7 @@ import BreadCrumb from "@/components/shared/BreadCrumb";
 import SideBar from "@/components/module/sidebar/SideBar";
 import CitizenList from "@/components/templates/citizen/citizenList";
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
+import { staticMenuToShow as MenuStaticData } from "@/components/utils/constants";
 
 // SEO**
 export async function generateMetadata({ params }) {
@@ -109,35 +110,7 @@ export default async function CitizensPage({ params }) {
   const centralPageModal = await findByModalName(mainData, "central-page");
   const tabsMenu = await findByTabName(centralPageModal, "before-login");
 
-  const staticMenuToShow = [
-    { name: "home", url: ``, order: "-1" },
-    { name: "citizens", url: "citizens", order: "-1" },
-    { name: "list of levels", url: "levels/citizen", order: "-1" },
-    {
-      name: "citizen information",
-      url: `citizens${params.id ? "/" + params.id : ""}`,
-      order: "-1",
-    },
-    { name: "property" },
-    { name: "real estate" },
-    { name: "structures" },
-    { name: "belongings" },
-    { name: "permissions" },
-    { name: "invitations" },
-    { name: "transaction" },
-    { name: "reward" },
-    { name: "dynasty" },
-    { name: "connections" },
-    { name: "crimes" },
-    { name: "news" },
-    { name: "articles" },
-    { name: "trainings" },
-    { name: "about" },
-    { name: "contact" },
-    { name: "version" },
-    { name: "calendar" },
-    { name: "overview" },
-  ];
+  const staticMenuToShow = MenuStaticData;
 
   // add staticMenuToShow values to siblings tabsMenu values
   tabsMenu.forEach((tab) => {

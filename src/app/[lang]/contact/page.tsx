@@ -220,9 +220,7 @@ export default async function AboutPage({ params }: any) {
 
   // add staticMenuToShow values to siblings tabsMenu values
   tabsMenu.forEach((tab: any) => {
-    let findInStatic = staticMenuToShow.find(
-      (val: any) => tab.name == val.name
-    );
+    let findInStatic = staticMenuToShow.find((val) => tab.name == val.name);
     if (findInStatic) {
       tab.url = findInStatic.url;
       tab.order = findInStatic.order;
@@ -339,7 +337,7 @@ export default async function AboutPage({ params }: any) {
                   تعامل و کسب‌وکار در دنیایی موازی را برای کاربران فراهم می‌کند.
                 </p>
               </div>
-              <div className="w-full text-center bg-white dark:bg-dark-background font-medium text-[#6A6A6A] dark:text-[#FFFFFF] rounded-[30px] p-6 py-10 leading-10 text-sm md:text-lg text-justify">
+              <div className="w-full text-center bg-white dark:bg-dark-background text-[#6A6A6A] dark:text-[#FFFFFF] rounded-[30px] p-6 py-10 leading-10 text-sm md:text-lg text-justify">
                 <p>
                   **متارنگ** با تأکید بر نوآوری و کارآفرینی، بستری را فراهم کرده
                   است که افراد می‌توانند از طریق آن به توسعه‌ی کسب و کارها و
@@ -361,7 +359,7 @@ export default async function AboutPage({ params }: any) {
                 </h3>
                 <ul className="text-lightGray font-medium text-justify text-sm md:text-lg mt-5 leading-10 ">
                   <li>
-                    <span className="font-bold text-black dark:text-white">
+                    <span className="font-bold text-white">
                       نوآوری و کارآفرینی:
                     </span>{" "}
                     متارنگ بستری را فراهم کرده است که افراد می‌توانند
@@ -371,15 +369,13 @@ export default async function AboutPage({ params }: any) {
                     می‌کند.
                   </li>
                   <li>
-                    <span className="font-bold text-black dark:text-white">
-                      زندگی موازی:
-                    </span>{" "}
+                    <span className="font-bold text-white">زندگی موازی:</span>{" "}
                     در متارنگ، کاربران می‌توانند زندگی جدیدی را آغاز کرده، از
                     ایده‌های خلاقانه بهره‌برداری کنند و در توسعه اقتصاد دیجیتال
                     و بین‌المللی سهم داشته باشند.
                   </li>
                   <li>
-                    <span className="font-bold text-black dark:text-white">
+                    <span className="font-bold text-white">
                       تأکید بر اصالت ایرانی:
                     </span>{" "}
                     این پروژه با تکیه بر فرهنگ و اصالت ایرانی، فضایی مجازی و
@@ -390,19 +386,19 @@ export default async function AboutPage({ params }: any) {
               </div>
 
               <div className="w-full text-center bg-[#FFFFFF] dark:bg-[#1A1A18] text-[#6A6A6A] dark:text-[#FFFFFF] rounded-[30px] p-6 py-10 leading-10 text-sm md:text-lg text-justify">
-                <h3 className="dark:text-white text-black text-lg md:text-2xl font-bold font-rohk">
+                <h3 className="dark:text-[#FFFFFF] text-lg md:text-2xl font-bold font-rohk">
                   اهداف متارنگ:
                 </h3>
                 <ul className="text-[#52545C] dark:text-[#A0A0AB] text-sm md:text-lg mt-5 leading-10 ">
-                  <li className="">
-                    <span className="font-bold text-black dark:text-white">
+                  <li>
+                    <span className="font-bold text-white">
                       ارتقای تعاملات بین‌المللی:&nbsp;
                     </span>
                     متارنگ با ایجاد درگاه‌های بین‌المللی، فرصت‌های جدیدی برای
                     رشد و گسترش فعالیت‌های کاربران در دنیای مجازی فراهم می‌کند.
                   </li>
-                  <li className="">
-                    <span className="font-bold text-black dark:text-white">
+                  <li>
+                    <span className="font-bold text-white">
                       ایجاد فرصت‌های کارآفرینی:&nbsp;
                     </span>
                     این پلتفرم با تمرکز بر نوآوری، بستری مناسب برای توسعه
