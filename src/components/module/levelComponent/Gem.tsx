@@ -18,7 +18,6 @@ export default async function Gem({
     //item.name and _slug have fa/en number string
     //convert
 
-    console.log("_slug", Number(_slug));
     return concatArrayContent.find(
       (item: any) => Number(item.name) == Number(_slug)
     )?.translation;

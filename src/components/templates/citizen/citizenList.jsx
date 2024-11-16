@@ -36,7 +36,6 @@ export default function CitizenList({
   }, []);
 
   useEffect(() => {
-    console.log('localCitizenArray', localCitizenArray);
     
   }, [isMounted]);
 

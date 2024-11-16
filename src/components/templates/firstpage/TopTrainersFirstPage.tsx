@@ -22,7 +22,7 @@ const TopTrainersFirstPage = async ({
       ?.translation;
   }
 
-  const staticData = [
+  const staticUsers = [
     {
       id: 1,
       name: "مرضیه ثاقب علیزاده",
@@ -54,7 +54,7 @@ const TopTrainersFirstPage = async ({
         </div>
       </div>
       <div className="w-full relative flex flex-row dark:dark-scrollbar light-scrollbar overflow-x-auto mt-4 md:mt-12 py-3">
-        {staticData.map((item: any, index: any) => (
+        {staticUsers.map((item: any, index: any) => (
           <UserCard
             key={index}
             item={item}

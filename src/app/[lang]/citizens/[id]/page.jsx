@@ -5,6 +5,7 @@ import ProfileDetails from "@/components/module/profile/ProfileDatails";
 import { getTranslation, getMainFile, findByModalName, findByTabName, getLangArray } from "@/components/utils/actions";
 import SideBar from "@/components/module/sidebar/SideBar";
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
+import { staticMenuToShow as MenuStaticData } from "@/components/utils/constants";
 
 
 
@@ -35,7 +36,6 @@ export default async function citizenSinglePage({
   }
 
   const profileData = await getUserData();
-  console.log('profileData2222',profileData);
   
 
   const langData = await getTranslation(params.lang);
@@ -97,35 +97,7 @@ export default async function citizenSinglePage({
   );
   const tabsMenu = await findByTabName(centralPageModal, "menu");
 
-  const staticMenuToShow = [
-    { name: "home", url: ``, order: "-1" },
-    { name: "citizens", url: "citizens", order: "-1" },
-    { name: "list of levels", url: "levels/citizen", order: "-1" },
-    {
-      name: "citizen information",
-      url: `citizens${params.id ? "/" + params.id : ""}`,
-      order: "-1",
-    },
-    { name: "property" },
-    { name: "real estate" },
-    { name: "structures" },
-    { name: "belongings" },
-    { name: "permissions" },
-    { name: "invitations" },
-    { name: "transaction" },
-    { name: "reward" },
-    { name: "dynasty" },
-    { name: "connections" },
-    { name: "crimes" },
-    { name: "news" },
-    { name: "articles" },
-    { name: "trainings" },
-    { name: "about" },
-    { name: "contact" },
-    { name: "version" },
-    { name: "calendar" },
-    { name: "overview" },
-  ];
+  const staticMenuToShow = MenuStaticData;
 
   // add staticMenuToShow values to siblings tabsMenu values
   tabsMenu.forEach((tab) => {

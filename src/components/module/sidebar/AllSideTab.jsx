@@ -71,7 +71,6 @@ export default function SideBarContent({
       item.active = true;
     }
   })
-console.log('tabsMenu1234', tabsMenu)
   
 
   return (

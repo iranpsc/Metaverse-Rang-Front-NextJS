@@ -8,8 +8,6 @@ import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
-  console.log("tabsMenu", tabsMenu);
-
   const [dropDown, setDropDown] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(["auth"]);
   const [isMounted, setIsMounted] = useState(false);
