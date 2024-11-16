@@ -4,6 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 /* for costum class in taiwind (Using Tailwind’s Arbitrary Values) */
 @layer utilities {
     /* dark scrollbar */

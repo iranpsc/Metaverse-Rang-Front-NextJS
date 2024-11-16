@@ -42,7 +42,6 @@ export async function generateMetadata({ params }) {
   const singleLevel = await getSingleLevel(levelId);
   
   const levelTabs = await getLevelTabs(params, levelId);
-  console.log('levelTabs.data123', levelTabs.data);
   
 
   const langData = await getTranslation(params.lang);
@@ -153,7 +152,6 @@ export default async function lavelSingelPage({ params }) {
       (item) => Number(item.name) == Number(levelId)
     )?.translation;
   }
-  console.log('concatArrayContent123',concatArrayContent);
   
 
   const staticRouteNames = [

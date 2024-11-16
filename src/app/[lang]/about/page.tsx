@@ -47,8 +47,6 @@ export default async function AboutPage({ params }: any) {
     "list-citizen"
   );
 
-  console.log("citizenListArrayContent123", citizenListArrayContent);
-
   const levelModals = await findByModalName(mainData, "levels");
   const levelListArrayContent = await findByTabName(levelModals, "level-list");
 
@@ -299,10 +297,7 @@ export default async function AboutPage({ params }: any) {
           __html: JSON.stringify(aboutSchema),
         }}
       />
-      <div
-        className={`flex dark:bg-black bg-grayLight`}
-        dir={langData.direction}
-      >
+      <div className={`flex`} dir={langData.direction}>
         <SideBar
           langArray={langArray}
           langData={langData}
@@ -339,7 +334,7 @@ export default async function AboutPage({ params }: any) {
                   تعامل و کسب‌وکار در دنیایی موازی را برای کاربران فراهم می‌کند.
                 </p>
               </div>
-              <div className="w-full text-center bg-white dark:bg-dark-background font-medium text-[#6A6A6A] dark:text-[#FFFFFF] rounded-[30px] p-6 py-10 leading-10 text-sm md:text-lg text-justify">
+              <div className="w-full text-center bg-white dark:bg-dark-background font-medium text-[#6A6A6A] dark:text-white rounded-[30px] p-6 py-10 leading-10 text-sm md:text-lg text-justify">
                 <p>
                   **متارنگ** با تأکید بر نوآوری و کارآفرینی، بستری را فراهم کرده
                   است که افراد می‌توانند از طریق آن به توسعه‌ی کسب و کارها و
@@ -389,11 +384,11 @@ export default async function AboutPage({ params }: any) {
                 </ul>
               </div>
 
-              <div className="w-full text-center bg-[#FFFFFF] dark:bg-[#1A1A18] text-[#6A6A6A] dark:text-[#FFFFFF] rounded-[30px] p-6 py-10 leading-10 text-sm md:text-lg text-justify">
+              <div className="w-full text-center bg-white dark:bg-[#1A1A18] text-[#6A6A6A] dark:text-white rounded-[30px] p-6 py-10 leading-10 text-sm md:text-lg text-justify">
                 <h3 className="dark:text-white text-black text-lg md:text-2xl font-bold font-rohk">
                   اهداف متارنگ:
                 </h3>
-                <ul className="text-[#52545C] dark:text-[#A0A0AB] text-sm md:text-lg mt-5 leading-10 ">
+                <ul className="text-[#52545C] dark:text-[#A0A0AB] text-sm md:text-lg mt-5 leading-10">
                   <li className="">
                     <span className="font-bold text-black dark:text-white">
                       ارتقای تعاملات بین‌المللی:&nbsp;
@@ -423,11 +418,11 @@ export default async function AboutPage({ params }: any) {
                   برمی‌دارد.
                 </p>
               </div>
-              <div className="w-full text-center bg-[#FFFFFF] dark:bg-[#1A1A18] text-[#6A6A6A] dark:text-[#FFFFFF] rounded-[30px] p-6 py-10 leading-10 text-sm md:text-lg text-justify">
+              <div className="w-full text-center bg-white dark:bg-[#1A1A18] text-[#6A6A6A] dark:text-white rounded-[30px] p-6 py-10 leading-10 text-sm md:text-lg text-justify">
                 <h3 className="dark:text-white text-black text-lg md:text-2xl font-bold font-rohk">
                   تیم متاورس&nbsp;
                 </h3>
-                <p className="text-lightGray font-medium text-justify text-sm md:text-lg mt-5 leading-10">
+                <p className="text-lightGray dark:text-white font-medium text-justify text-sm md:text-lg mt-5 leading-10">
                   **پروژه متاورس رنگ** با تکیه بر اصالت ایرانی و تکنولوژی
                   پیشرفته، به دنبال ایجاد یک فضای مجازی منحصر به فرد است که
                   افراد را قادر می‌سازد تا به گونه‌ای متفاوت و نوآورانه در این

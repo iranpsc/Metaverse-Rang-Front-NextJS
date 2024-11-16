@@ -14,6 +14,7 @@ export default async function Gift({
       ?.translation;
   }
 
+  console.log("levelsTranslatePage12345", levelTabs.data.features);
   function localFind2(_slug: any) {
     // HIN not good
     //item.name and _slug have fa/en number string

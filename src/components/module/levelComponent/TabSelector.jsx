@@ -36,7 +36,7 @@ export default function TabSelector({ params, levelsTranslatePage }) {
 
     return (
         <div className="overflow-x-scroll no-scrollbar bg-bgLightGrey dark:bg-darkGrey dark:textwhite rounded-[12px] font[700]">
-            <ul className="flex justify-between text-sm font-medium">
+            <ul className="flex justify-between text-sm font-medium list-none">
                 <li className="me-2 w-100 sm:w-auto whitespace-nowrap">
                     <ButtonLink title={targetData(levelsTranslatePage, "basic level information")} link="general-info" />
                 </li>

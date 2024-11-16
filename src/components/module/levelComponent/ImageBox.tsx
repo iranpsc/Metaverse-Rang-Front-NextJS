@@ -16,8 +16,8 @@ export default function ImageBox({ item, singleLevel }: any) {
   return (
     <>
       {(srcPng || srcFbx || srcGif || singleLevel) && (
-        <div className={`w-full sm:w-full flex flex-col flex-wrap`}>
-          <div className="relative w-full overflow-hidden aspect-[5/5] md:aspect-[5/7]">
+        <div className={`w-full flex flex-col flex-wrap items-center`}>
+          <div className="relative w-full sm:w-3/5 md:w-full overflow-hidden aspect-[5/7] md:aspect-[5/7]">
             {mode == "png" ? (
               <Image
                 src={srcPng || singleLevel.data.general_info.png_file}

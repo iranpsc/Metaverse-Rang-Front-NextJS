@@ -47,8 +47,6 @@ export default async function AboutPage({ params }: any) {
     "list-citizen"
   );
 
-  console.log("citizenListArrayContent123", citizenListArrayContent);
-
   const levelModals = await findByModalName(mainData, "levels");
   const levelListArrayContent = await findByTabName(levelModals, "level-list");
 
@@ -297,10 +295,7 @@ export default async function AboutPage({ params }: any) {
           __html: JSON.stringify(aboutSchema),
         }}
       />
-      <div
-        className={`flex dark:bg-black bg-grayLight`}
-        dir={langData.direction}
-      >
+      <div className={`flex`} dir={langData.direction}>
         <SideBar
           langArray={langArray}
           langData={langData}

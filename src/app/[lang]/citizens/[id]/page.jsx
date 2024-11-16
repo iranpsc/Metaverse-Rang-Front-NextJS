@@ -36,7 +36,6 @@ export default async function citizenSinglePage({
   }
 
   const profileData = await getUserData();
-  console.log('profileData2222',profileData);
   
 
   const langData = await getTranslation(params.lang);

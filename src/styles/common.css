@@ -2,9 +2,25 @@
  padding: 0;
  margin:0;
  font-weight: 400;
+ box-sizing: border-box;
 }
 .blur-until-end {
   backdrop-filter: blur(10px);
   height: 100vh;
+}
+ol{
+  list-style-type: decimal ;
+  list-style-position: inside;
+}
+ul{
+  list-style-type: disc;
+  list-style-position: inside;
+}
+a{
+  text-decoration: none;
+}
+button{
+  border: none;
+  cursor: pointer;
 }
 
