@@ -317,7 +317,7 @@ export default async function AboutPage({ params }: any) {
           <div className="px-12">
             <BreadCrumb params={params} />
           </div>
-          <section className="mx-auto px-4 lg:px-9">
+          <section className="mx-auto px-4 lg:px-9 font-azarMehr">
             <h1 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[64px] mb-[16px]">
               درباره ما
             </h1>

@@ -39,7 +39,7 @@ export default function UserCard({ item, params, buttonText, minWidth }: any) {
           </span>
         </Link>
 
-        <span className="dark:text-[#969696] text-[18px]">
+        <span className="dark:text-[#969696] text-[18px] font-azarMehr">
           {item.levels?.current
             ? item.levels.current.name
             : params.lang == "fa"
