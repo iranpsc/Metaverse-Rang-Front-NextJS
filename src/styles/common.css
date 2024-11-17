@@ -1,12 +1,15 @@
+.blur-until-end {
+  backdrop-filter: blur(10px);
+  height: 100vh;
+}
+
+/* some default style for tags, to fix issue after disabling preflight in tailwind.config */
 * {
  padding: 0;
  margin:0;
  font-weight: 400;
  box-sizing: border-box;
-}
-.blur-until-end {
-  backdrop-filter: blur(10px);
-  height: 100vh;
+ font-family: var(--font-font-azar), sans-serif;
 }
 ol{
   list-style-type: decimal ;
@@ -23,4 +26,7 @@ button{
   border: none;
   cursor: pointer;
 }
-
+img, video {
+  max-width: 100%;
+  height: auto;
+}

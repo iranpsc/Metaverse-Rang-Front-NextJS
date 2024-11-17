@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 
-export default function CitizenClientImage({ item }: any) {
+export default function CitizenClientImage({ item, params }: any) {
   const [urlForGem, setUrlForGem] = useState<string | undefined>(undefined);
 
   const staticRouteNames = [
@@ -31,7 +31,7 @@ export default function CitizenClientImage({ item }: any) {
   }, [item]);
   return (
     <>
-      <Link href={`levels/citizen/${urlForGem}/general-info`}>
+      <Link href={`/${params.lang}/levels/citizen/${urlForGem}/general-info`}>
         <Image
           data-tooltip-id={item.name}
           src={item.image}

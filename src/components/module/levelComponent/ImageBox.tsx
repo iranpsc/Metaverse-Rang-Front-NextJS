@@ -17,14 +17,14 @@ export default function ImageBox({ item, singleLevel }: any) {
     <>
       {(srcPng || srcFbx || srcGif || singleLevel) && (
         <div className={`w-full flex flex-col flex-wrap items-center`}>
-          <div className="relative w-full sm:w-3/5 md:w-full overflow-hidden aspect-[5/7] md:aspect-[5/7]">
+          <div className="relative w-full sm:w-3/5 md:w-full aspect-[5/7] md:aspect-[5/7]">
             {mode == "png" ? (
               <Image
                 src={srcPng || singleLevel.data.general_info.png_file}
                 alt="png"
-                width={512}
-                height={512}
-                className="absolute top-1/2 left-1/2 w-full h-[105%] object-cover transform -translate-x-1/2 -translate-y-1/2"
+                width={500}
+                height={700}
+                className="absolute top-1/2 left-1/2 w-full h-[100%] object-cover transform -translate-x-1/2 -translate-y-1/2"
                 unoptimized
               />
             ) : (
@@ -33,11 +33,11 @@ export default function ImageBox({ item, singleLevel }: any) {
 
             {mode == "gif" ? (
               <Image
-                src={srcGif || singleLevel.data.general_info.png_file}
+                src={srcGif || singleLevel.data.general_info.gif_file}
                 alt="gif"
-                width={512}
-                height={512}
-                className="absolute top-1/2 left-1/2 w-full h-[105%] object-cover transform -translate-x-1/2 -translate-y-1/2"
+                width={500}
+                height={700}
+                className="absolute top-1/2 left-1/2 w-full h-[100%] object-cover transform -translate-x-1/2 -translate-y-1/2"
                 unoptimized
               />
             ) : (
@@ -54,7 +54,7 @@ export default function ImageBox({ item, singleLevel }: any) {
           <div className="w-full flex justify-around flex-wrap mt-3 mb-5 gap-x-2">
             {
               <button
-                className={`basis-1/4 px-5 py-2 mb-2 rounded font-[700] ${
+                className={`basis-1/4 min-w-[70px] px-5 py-2 mb-2 rounded font-[700] ${
                   mode == "png"
                     ? "dark:bg-dark-yellow dark:text-darkGrey bg-light-primary text-white"
                     : "dark:bg-darkGrey bg-light-newColors-otherColors-themeBtn dark:text-light-newColors-otherColors-themeBtn"
@@ -67,7 +67,7 @@ export default function ImageBox({ item, singleLevel }: any) {
 
             {
               <button
-                className={`basis-1/4 px-5 py-2 mb-2 rounded font-[700] ${
+                className={`basis-1/4 min-w-[70px] px-5 py-2 mb-2 rounded font-[700] ${
                   mode == "fbx"
                     ? "dark:bg-dark-yellow dark:text-darkGrey bg-light-primary text-white"
                     : "dark:bg-darkGrey bg-light-newColors-otherColors-themeBtn dark:text-light-newColors-otherColors-themeBtn"
@@ -80,7 +80,7 @@ export default function ImageBox({ item, singleLevel }: any) {
             {
               <button
                 className={`  
-                basis-1/4 px-5 py-2 mb-2 rounded font-[700] ${
+                basis-1/4 min-w-[70px] px-5 py-2 mb-2 rounded font-[700] ${
                   mode == "gif"
                     ? "dark:bg-dark-yellow dark:text-darkGrey bg-light-primary text-white"
                     : "dark:bg-darkGrey bg-light-newColors-otherColors-themeBtn dark:text-light-newColors-otherColors-themeBtn"

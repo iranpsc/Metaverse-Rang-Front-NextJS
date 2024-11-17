@@ -161,8 +161,6 @@ export default async function Gem({
             value={levelTabs.data.designer}
           />
         </div>
-
-        {/* <ImageBox item={levelTabs.data} langData={langData} /> */}
       </div>
     </>
   );
