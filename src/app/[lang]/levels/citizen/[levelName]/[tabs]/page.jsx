@@ -230,7 +230,7 @@ export default async function lavelSingelPage({ params }) {
         
         <div className="grid-container gap-x-4 bg-white dark:bg-[#080807] rounded-[20px] px-2 lg:px-3 py-3 relative">
           {/* __________1 Btn + Title*/}
-          <div className="grid-first self-start md:order-none w-full md:min-w-[65vw] xl:min-w-[65vw] flex items-center justify-between font-bold pb-5 dark:text-white text-lg sm:text-xl  lg:text-2xl 2xl:text-3xl 3xl:text-4xl">
+          <div className="grid-first self-start md:order-none w-full md:min-w-[65vw] xl:min-w-[65vw] flex items-center justify-between font-bold pt-[3px] pb-5 dark:text-white text-lg sm:text-xl lg:text-2xl 2xl:text-3xl 3xl:text-4xl">
             <h1>{localFind2()}</h1>
             <button className="min-w-[167px] w-max h-[48px] px-5 text-[14px] dark:bg-bgLightGrey2 bg-bgLightGrey dark:text-white font-bold text-textGray rounded-[12px]">{localFind('list of recipients')}</button>
           </div>

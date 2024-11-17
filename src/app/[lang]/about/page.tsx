@@ -228,13 +228,17 @@ export default async function AboutPage({ params }: any) {
     }
   });
 
+  // Determine the base URL for the logo dynamically
+  const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
+  const logoURL = `${baseURL}/logo.png`;
   const aboutSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: await localFind1("metaverse rang"),
     url: `https://rgb.irpsc.com/${params.lang}/about`,
-    logo: `https://rgb.irpsc.com/logo.png`,
-    description: "???",
+    logo: logoURL,
+    description:
+      "متارنگ، نخستین پروژه متاورسی ایران، با هدف ایجاد جهانی مجازی و موازی با تأکید بر فرهنگ و اصالت ایرانی آغاز به کار کرده است. این پلتفرم با بهره‌گیری از فناوری‌های پیشرفته، دریچه‌ای به سوی آینده‌ای دیجیتالی می‌گشاید که امکان زندگی، تعامل و کسب‌وکار در دنیایی موازی را برای کاربران فراهم می‌کند.",
     brand: "متارنگ",
     foundingDate: "2021-11-06",
     location: {

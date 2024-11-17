@@ -301,7 +301,7 @@ export default async function LangPage({params}) {
 
             <div className="relative w-[90%] h-fit grid grid-cols-12 mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
               {/* <div className="absolute bg-dark-yellow/10 z-0 size-[250px] start-[0px] bottom-[0px] rounded-xl blur-3xl filter"></div> */}
-              <SectionTeam firstPageArrayContent={firstPageArrayContent} />
+              <SectionTeam firstPageArrayContent={firstPageArrayContent} params={params} />
             </div>
 
             <div className="w-[90%] h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">

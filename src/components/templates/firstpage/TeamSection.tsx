@@ -1,7 +1,8 @@
 import { Vector } from "@/components/svgs";
 import Image from "next/image";
+import Link from "next/link";
 
-const SectionTeam = ({ firstPageArrayContent }: any) => {
+const SectionTeam = ({ firstPageArrayContent, params }: any) => {
   function localFind(_name: any) {
     return firstPageArrayContent.find((item: any) => item.name == _name)
       .translation;
@@ -72,15 +73,15 @@ const SectionTeam = ({ firstPageArrayContent }: any) => {
           </div>
 
           <p className="ps-2 text-justify text-dark-yellow font-azarMehr font-medium text-[12px] md:text-[18px] lg:text-[24px]">
-            + 5 <br />
+            + 40 &nbsp;
             {localFind("metarang team")}
           </p>
         </div>
-        <a href="https://rgb.irpsc.com/about">
+        <Link href={`/${params.lang}/about`}>
           <p className="w-fit rounded-[24px] py-3 px-10 mt-5 text-center text-[14px] md:text-[16px] lg:text-[20px] text-white bg-[#343434]  font-azarMehr font-medium ">
             بیشتر بخوانید
           </p>
-        </a>
+        </Link>
       </div>
     </>
   );
