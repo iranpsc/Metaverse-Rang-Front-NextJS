@@ -53,8 +53,8 @@ function SideBarHeader({ isClosed, toggleSide, tabsMenu, params }: any) {
 
           <div
             className={`${
-              isClosed ? "w-0 overflow-hidden" : "w-full"
-            } menu-transition`}
+              isClosed ? "w-0 h-0" : "w-full h-full"
+            } menu-transition overflow-hidden`}
           >
             <p
               className={`visible dark:text-white whitespace-nowrap block font-azarMehr font-bold text-[14px] md:text-[16px] lg:text-[18px] text-black pb-[2px]`}

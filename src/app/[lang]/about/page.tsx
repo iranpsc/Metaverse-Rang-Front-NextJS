@@ -343,12 +343,11 @@ export default async function AboutPage({ params }: any) {
               </div>
               <figure>
                 <Image
-                  src="/team.jpg"
+                  src={"/team.jpg"}
                   alt="Metarang Team"
                   width={980}
                   height={730}
                   className="w-full"
-                  unoptimized
                 />
               </figure>
               <div className="w-full text-center bg-white dark:bg-dark-background font-medium text-[#6A6A6A] dark:text-white rounded-[30px] p-6 py-10 leading-10 text-sm md:text-lg text-justify">
