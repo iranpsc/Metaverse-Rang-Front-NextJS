@@ -4,6 +4,7 @@ import { useContext, useRef, useState, useEffect } from "react";
 import { targetData } from "@/utils/targetDataName";
 import Persian from "persianjs";
 import { CopyIcon } from "@/components/svgs/SvgCategories";
+import ShredPage from "@/components/shared/ShredPage";
 
 const ProfileMainDetails = ({
   nameUser,
@@ -11,8 +12,10 @@ const ProfileMainDetails = ({
   setShowSharedPage,
   userProperty,
   langData,
+  params,
 }: any) => {
-  // const { data, languageSelected } = useContext(LangContext);
+  const [showSocial, setShowSocial] = useState<Boolean>(false);
+
   const data = {
     data: {
       selectedProfileData: "",
@@ -41,7 +44,9 @@ const ProfileMainDetails = ({
         </p>
         <div
           className=" flex flex-row items-center justify-center gap-2 cursor-pointer"
-          onClick={setShowSharedPage}
+          onClick={() => {
+            setShowSocial(true);
+          }}
           ref={yourElementRef}
         >
           <div className=" dark:bg-dark-yellow bg-blueLink flex flex-row items-center gap-2  rounded-[10px] 3xl:py-[3px] 3xl:px-4 lg:py-2 lg:px-2 md:py-2 md:px-4 sm:py-2 sm:px-4 xs:py-1 xs:px-2">
@@ -55,7 +60,13 @@ const ProfileMainDetails = ({
           </p>
         </div>
       </div>
-
+      {showSocial && (
+        <ShredPage
+          params={params}
+          userProperty={userProperty}
+          setShowSocial={setShowSocial}
+        />
+      )}
       <div className="flex flex-row justify-between w-full items-center">
         <p className="font-azarMehr dark:text-white font-medium 3xl:text-xl3Title  xl:text-xlTitle  lg:text-lgTitle md:text-mdTitle  sm:text-smTitle xs:text-smTitle break-all text-[#000]">
           {targetData(userProperty, "citizenship name")}
@@ -65,7 +76,6 @@ const ProfileMainDetails = ({
           {nameUser}
         </p>
       </div>
-
       <div className="flex flex-row justify-between w-full items-center ">
         <p className="font-azarMehr dark:text-white font-medium medium 3xl:text-xl3Title xl:text-xlTitle lg:text-lgTitle md:text-mdTitle sm:text-smTitle xs:text-smTitle break-all text-[#000] ">
           {targetData(userProperty, "entry date")}
@@ -75,7 +85,6 @@ const ProfileMainDetails = ({
           {profileData.data?.registered_at}
         </p>
       </div>
-
       <div className="flex flex-row  justify-between w-full items-center">
         <p className=" dark:text-white font-azarMehr  font-medium medium 3xl:text-xl3Title  xl:text-xlTitle lg:text-lgTitle  md:text-mdTitle sm:text-smTitle xs:text-smTitle  break-all text-[#000] ">
           {targetData(userProperty, "responsibility")}
@@ -85,7 +94,6 @@ const ProfileMainDetails = ({
           {profileData.data?.position}
         </p>
       </div>
-
       <div className="flex flex-row  justify-between xl:mt-3 lg:mt-0 w-full items-center">
         <p className="font-azarMehr dark:text-white font-medium medium 3xl:text-xl3Title xl:text-xlTitle lg:text-lgTitle  md:text-mdTitle sm:text-smTitle xs:text-smTitle break-all text-[#000] ">
           {targetData(userProperty, "achieved score")}

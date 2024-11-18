@@ -6,6 +6,10 @@ import ListMenuSvgModule from "./list/ListMenuSvgModule";
 import ListMenuTitleModule from "./list/ListMenuTitleModule";
 import ListMenuArrow from "./list/ListMenuArrow";
 import { useState } from "react";
+import ListMenuActiveIconModule from "./list/ListMenuActiveIconModule";
+import DropdownLanguageModule from "./list/dropdowns/DropdownLanguageModule";
+
+
 
 import Link from "next/link";
 
@@ -13,9 +17,10 @@ export default function SideBarContent({
   tabsMenu,
   isClosed,
   params,
-  langData
+  langData,
+  langArray
 }) {
-
+ const [langDropDown, setLangDropDown] = useState(false);
  const [activeNav, setActiveNav] = useState(params.levelName);
  const staticRouteNames = [
   { name: '1', route_name: "citizen-baguette" },
@@ -55,6 +60,9 @@ tabsMenu.forEach((el1) => {
 
  const onTabClick = (item, tabNumber) => {
   setActiveNav(tabNumber);
+}
+const handleLangBtn = () => {
+  setLangDropDown(!langDropDown)
 }
 
 
@@ -136,11 +144,43 @@ tabsMenu.forEach((el1) => {
                     </Link>
                     }
                   </li>
-                  {/* <ReactTooltip
-                  id={item.name}
-                  className="tooltip-bg-color"
-                  content={item.translation}
-                /> */}
+                  {
+                  item.name === "language" && 
+                  <>
+                    <li onClick={handleLangBtn} data-tooltip-id={item.name}>
+                      <div
+                        className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px]
+                        group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer menu-transition
+                        ${isClosed ? "justify-start gap-0" : "justify-start gap-2"}`}
+                        >
+                          <ListMenuActiveIconModule
+                            item={item}
+                            languageSelected={langData.code}
+                            isClosed={isClosed}
+                            />
+                        <span className="ps-[15px]">
+                          <ListMenuSvgModule item={item} />
+                        </span>
+                        <div className="w-full flex justify-between items-center">
+                          <ListMenuTitleModule
+                            item={item}
+                            isClosed={isClosed}
+                            />
+                          <ListMenuArrow item={item} isOpen={langDropDown} />
+                        </div>
+                      </div>              
+                    </li>
+                    <div className={`${langDropDown ? "h-full" : 'h-0 overflow-hidden'}
+                      base-transition-1 bg-Field dark:bg-darkGrey`}>
+                      <DropdownLanguageModule
+                        languagesData={langData}
+                        langArray={langArray}
+                        params={params}
+                        isClosed={isClosed}
+                        />
+                    </div>
+                  </>
+                }
               </Tooltip>
            </div>
           ))}

@@ -15,6 +15,8 @@ export default function SideBar({
   params,
   pageSide,
 }) {
+  console.log('tabsMenu in sidebar',tabsMenu);
+  
   //
   const [isClosed, setisClosed] = useState(true);
   // const router = useRouter()
@@ -71,6 +73,7 @@ export default function SideBar({
               isClosed={isClosed}
               params={params}
               toggleSide={toggleSide}
+              langArray={langArray}
               langData={langData}
               />}
             <div
