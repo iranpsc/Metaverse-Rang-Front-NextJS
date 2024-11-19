@@ -177,7 +177,7 @@ function Footer({ footerTabs }: any) {
       </div>
       <div className="h-fit pb-5 mt-20 rounded-[10px] w-full bg-white dark:bg-[#1A1A18] grid grid-cols-6">
         <div className="col-span-6  xl:col-span-4 mt-2  pe-2">
-          <div className="w-full h-[82px] pt-4 ps-6 flex flex-row justify-start items-center gap-5 ">
+          <div className="w-full pt-4 ps-6 flex flex-row justify-start items-center gap-5 ">
             <Image
               src="/logo.png"
               alt="logo"

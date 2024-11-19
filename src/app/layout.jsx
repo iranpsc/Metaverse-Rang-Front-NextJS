@@ -25,7 +25,7 @@ export default function RootLayout({
   const theme = useServerDarkMode();
   return (
     <html lang={params.lang} className={theme}>
-      <body className={`${azarMehr.variable} ${rokh.variable}`}>
+      <body className={`${azarMehr.variable} ${rokh.variable} h-screen light-scrollbar dark:dark-scrollbar`}>
         {children}
       </body>
     </html>
