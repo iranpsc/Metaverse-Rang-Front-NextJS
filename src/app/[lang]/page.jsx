@@ -186,7 +186,7 @@ export default async function LangPage({params}) {
       />
       {/* schema END */}
 
-      <div className="flex h-screen" dir={langData.direction}>
+      <div className="flex h-screen overflow-hidden" dir={langData.direction}>
         <SideBar
           tabsMenu={tabsMenu}
           langData={langData}

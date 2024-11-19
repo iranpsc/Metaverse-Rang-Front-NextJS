@@ -151,7 +151,7 @@ export default async function CitizensPage({ params }) {
           __html: JSON.stringify(citizenListSchema),
         }}
       />
-      <div className="flex h-screen" dir={langData.direction}>
+      <div className="flex h-screen overflow-hidden" dir={langData.direction}>
         <SideBar
           tabsMenu={tabsMenu}
           langData={langData}

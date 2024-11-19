@@ -49,7 +49,7 @@ export default function SideBar({
               }  
               flex flex-col h-screen relative bg-white  dark:bg-dark-background menu-transition`}
           >
-            <div className="sticky w-full top-0 pt-4 z-50 bg-white dark:bg-dark-background menu-transition">
+            <div className="sticky w-full h-fit top-0 pt-4 z-50 bg-white dark:bg-dark-background menu-transition">
               <Header
                 isClosed={isClosed}
                 tabsMenu={tabsMenu}

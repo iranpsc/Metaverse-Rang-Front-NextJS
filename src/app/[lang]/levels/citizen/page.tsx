@@ -237,7 +237,10 @@ export default async function LevelsPage({ params }: any) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(levelsSchema) }}
       />
       {/* schema END */}
-      <div className={`flex h-screen dark:bg-black `} dir={langData.direction}>
+      <div
+        className={`flex h-screen dark:bg-black overflow-hidden`}
+        dir={langData.direction}
+      >
         <SideBar
           langArray={langArray}
           langData={langData}
@@ -251,7 +254,7 @@ export default async function LevelsPage({ params }: any) {
           //   themeDataActive == "dark" ? "dark-scrollbar" : "light-scrollbar"
           // }`}
 
-          className={`h-[calc(100vh-60px)] overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0`}
+          className={`h-[calc(100vh-60px)] lg:h-screen overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0`}
         >
           <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
             <BreadCrumb params={params} />

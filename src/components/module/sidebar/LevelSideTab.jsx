@@ -108,7 +108,7 @@ const handleLangBtn = () => {
                         className={`${activeNav == item?.route_name ? "bg-grayLight dark:bg-black":''} w-full flex flex-row items-center  group py-2
                         ${isClosed ? "justify-center" : "justify-start"} rounded-[10px]`}
                       >
-                        <span className="">
+                        <span className="flex">
                           <ListMenuSvgModule item={item} i={i} activeNav={activeNav} />
                         </span>
                           <ListMenuTitleModule
