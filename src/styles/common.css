@@ -23,8 +23,8 @@ a{
   text-decoration: none;
 }
 button{
-  border: none;
   cursor: pointer;
+  border-color: transparent;
 }
 img, video {
   max-width: 100%;
