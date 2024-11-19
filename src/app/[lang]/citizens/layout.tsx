@@ -13,7 +13,7 @@ export default async function CitizensLayout({
   return (
     <main className="flex h-screen dark:bg-black" dir={langData.direction}>
       <div
-        className={`overflow-y-auto relative light-scrollbar dark:dark-scrollbar w-full xs:px-1 lg:mt-0`}
+        className={`overflow-y-auto relative light-scrollbar dark:dark-scrollbar w-full xs:px-1 mt-[60px] lg:mt-0`}
       >
         {children}
       </div>
