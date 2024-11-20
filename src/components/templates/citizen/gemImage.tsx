@@ -31,7 +31,7 @@ export default function CitizenClientImage({ item, params }: any) {
   }, [item]);
   return (
     <>
-      <Link href={`/${params.lang}/levels/citizen/${urlForGem}/general-info`}>
+      <Link href={`/${params.lang}/levels/citizen/${urlForGem}/gem`}>
         <Image
           data-tooltip-id={item.name}
           src={item.image}
