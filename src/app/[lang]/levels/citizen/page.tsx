@@ -46,7 +46,6 @@ export async function generateMetadata({ params }: any) {
     title: await localFind("levels of citizens of the metaverse"),
     description: await makeLessCharacter(),
     openGraph: {
-      site_name: "metaverseTest",
       type: "website",
       // url: `https://yourwebsite.com/posts/${params.id}`,
       title: await localFind("levels of citizens of the metaverse"),

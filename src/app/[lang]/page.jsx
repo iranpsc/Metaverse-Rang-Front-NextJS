@@ -55,7 +55,6 @@ export async function generateMetadata({ params }) {
     title: await localFind('metaverse rang'),
     description: await makeLessCharacter(),
     openGraph: {
-      site_name:'metaverseTest',
       type: 'website',
       // url: `https://yourwebsite.com/posts/${params.id}`,
       title: await localFind('metaverse rang'),

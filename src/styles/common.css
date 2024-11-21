@@ -23,15 +23,15 @@ a{
   text-decoration: none;
 }
 a:visited {
-  color: inherit;
+  color: none;
 }
 
 a:hover {
-  color: inherit; 
+  color: none; 
 }
 
 a:active {
-  color: inherit; 
+  color: none; 
 }
 button{
   cursor: pointer;

@@ -317,130 +317,35 @@ export default async function AboutPage({ params }: any) {
           </div>
           <section className="mx-auto px-4 lg:px-9">
             <h1 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[64px] mb-[16px]">
-              درباره ما
+              تماس با ما
             </h1>
             <div className="flex flex-col gap-10 ">
               <div>
                 <h3 className="dark:text-white text-black text-lg md:text-2xl font-bold font-rohk">
-                  پروژه متاورس رنگ (متارنگ)
+                  تماس با ما - متاورس رنگ (متارنگ)
                 </h3>
                 <p className="text-lightGray font-medium text-justify text-sm md:text-lg mt-5 leading-10">
-                  ** متارنگ، نخستین پروژه متاورسی ایران، با هدف ایجاد جهانی
-                  مجازی و موازی با تأکید بر فرهنگ و اصالت ایرانی آغاز به کار
-                  کرده است. این پلتفرم با بهره‌گیری از فناوری‌های پیشرفته،
-                  دریچه‌ای به سوی آینده‌ای دیجیتالی می‌گشاید که امکان زندگی،
-                  تعامل و کسب‌وکار در دنیایی موازی را برای کاربران فراهم می‌کند.
-                </p>
-              </div>
-              <div className="w-full text-center bg-white dark:bg-dark-background text-[#6A6A6A] dark:text-[#FFFFFF] rounded-[30px] p-6 py-10 leading-10 text-sm md:text-lg text-justify">
-                <p>
-                  **متارنگ** با تأکید بر نوآوری و کارآفرینی، بستری را فراهم کرده
-                  است که افراد می‌توانند از طریق آن به توسعه‌ی کسب و کارها و
-                  اقتصاد بین‌المللی بپردازند. این پلتفرم با ایجاد درگاه‌های
-                  بین‌المللی، امکان تعاملات هدفمند و سازنده را با دیگر کشورها و
-                  فرهنگ‌ها فراهم می‌کند، و به این ترتیب، کاربران قادر خواهند بود
-                  تا فرصت‌های جدیدی برای رشد و گسترش فعالیت‌های خود در دنیای
-                  مجازی بیابند. زندگی در متارنگ، نه تنها یک تجربه مجازی است،
-                  بلکه به عنوان یک زندگی موازی با جهان واقعی تعریف می‌شود. در
-                  این جهان مجازی، شما می‌توانید زندگی جدیدی را آغاز کنید، از
-                  ایده‌های خلاقانه بهره ببرید و در توسعه‌ی اقتصاد دیجیتال و
-                  بین‌المللی سهم داشته باشید.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="dark:text-white text-black text-lg md:text-2xl font-bold font-rohk">
-                  ویژگی‌های برجسته متارنگ:
-                </h3>
-                <ul className="text-lightGray font-medium text-justify text-sm md:text-lg mt-5 leading-10 ">
-                  <li>
-                    <span className="font-bold text-white">
-                      نوآوری و کارآفرینی:
-                    </span>{" "}
-                    متارنگ بستری را فراهم کرده است که افراد می‌توانند
-                    کسب‌وکارهای خود را توسعه داده و در اقتصاد دیجیتال مشارکت
-                    کنند. این پلتفرم با ایجاد درگاه‌های بین‌المللی، امکان
-                    تعاملات هدفمند و سازنده با دیگر کشورها و فرهنگ‌ها را فراهم
-                    می‌کند.
-                  </li>
-                  <li>
-                    <span className="font-bold text-white">زندگی موازی:</span>{" "}
-                    در متارنگ، کاربران می‌توانند زندگی جدیدی را آغاز کرده، از
-                    ایده‌های خلاقانه بهره‌برداری کنند و در توسعه اقتصاد دیجیتال
-                    و بین‌المللی سهم داشته باشند.
-                  </li>
-                  <li>
-                    <span className="font-bold text-white">
-                      تأکید بر اصالت ایرانی:
-                    </span>{" "}
-                    این پروژه با تکیه بر فرهنگ و اصالت ایرانی، فضایی مجازی و
-                    منحصر به فرد ایجاد کرده است که افراد را قادر می‌سازد به
-                    گونه‌ای متفاوت و نوآورانه در این جهان جدید مشارکت کنند.
-                  </li>
-                </ul>
-              </div>
-
-              <div className="w-full text-center bg-[#FFFFFF] dark:bg-[#1A1A18] text-[#6A6A6A] dark:text-[#FFFFFF] rounded-[30px] p-6 py-10 leading-10 text-sm md:text-lg text-justify">
-                <h3 className="dark:text-[#FFFFFF] text-lg md:text-2xl font-bold font-rohk">
-                  اهداف متارنگ:
-                </h3>
-                <ul className="text-[#52545C] dark:text-[#A0A0AB] text-sm md:text-lg mt-5 leading-10 ">
-                  <li>
-                    <span className="font-bold text-white">
-                      ارتقای تعاملات بین‌المللی:&nbsp;
-                    </span>
-                    متارنگ با ایجاد درگاه‌های بین‌المللی، فرصت‌های جدیدی برای
-                    رشد و گسترش فعالیت‌های کاربران در دنیای مجازی فراهم می‌کند.
-                  </li>
-                  <li>
-                    <span className="font-bold text-white">
-                      ایجاد فرصت‌های کارآفرینی:&nbsp;
-                    </span>
-                    این پلتفرم با تمرکز بر نوآوری، بستری مناسب برای توسعه
-                    کسب‌وکارها و اقتصاد بین‌المللی فراهم کرده است.
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="dark:text-white text-black text-lg md:text-2xl font-bold font-rohk">
-                  چشم‌انداز متارنگ:&nbsp;
-                </h3>
-                <p className="text-lightGray font-medium text-justify text-sm md:text-lg mt-5 leading-10">
-                  متارنگ با تکیه بر اصالت ایرانی و فناوری پیشرفته، به دنبال
-                  ایجاد فضایی مجازی و منحصر به فرد است که افراد را قادر می‌سازد
-                  به گونه‌ای متفاوت و نوآورانه در این جهان جدید مشارکت کنند. با
-                  تمرکز بر ارتقای تعاملات بین‌المللی و ایجاد فرصت‌های کارآفرینی،
-                  متارنگ به سوی خلق آینده‌ای روشن و باشکوه برای همگان گام
-                  برمی‌دارد.
-                </p>
-              </div>
-              <div className="w-full text-center bg-[#FFFFFF] dark:bg-[#1A1A18] text-[#6A6A6A] dark:text-[#FFFFFF] rounded-[30px] p-6 py-10 leading-10 text-sm md:text-lg text-justify">
-                <h3 className="dark:text-white text-black text-lg md:text-2xl font-bold font-rohk">
-                  تیم متاورس&nbsp;
-                </h3>
-                <p className="text-lightGray font-medium text-justify text-sm md:text-lg mt-5 leading-10">
-                  **پروژه متاورس رنگ** با تکیه بر اصالت ایرانی و تکنولوژی
-                  پیشرفته، به دنبال ایجاد یک فضای مجازی منحصر به فرد است که
-                  افراد را قادر می‌سازد تا به گونه‌ای متفاوت و نوآورانه در این
-                  جهان جدید مشارکت کنند. با تمرکز بر ارتقای تعاملات بین‌المللی و
-                  ایجاد فرصت‌های کارآفرینی، متارنگ به سوی خلق آینده‌ای روشن و
-                  باشکوه برای همگان گام برمی‌دارد.
+                  ما در متاورس رنگ معتقدیم که توسعه این دنیای موازی و مجازی تنها
+                  با مشارکت و همفکری عمومی امکان‌پذیر است. زیرساخت‌های این جهان
+                  بر پایه‌ی واحد حدتاثیر بنا شده‌اند تا بتوانند نظرات و ایده‌های
+                  شما را به بهترین شکل در مسیر توسعه هدایت کنند. ارتباط با انجمن
+                  متاورس ایران و دانشگاه متاورس ایران از طریق این پلتفرم به
+                  راحتی امکان‌پذیر است. همچنین، شما می‌توانید با تیم پیشرو در
+                  توسعه زیرساخت‌های مشارکت همگانی در ارتباط باشید تا با
+                  هم‌افزایی و همکاری، آینده‌ای بهتر برای این جهان مجازی بسازیم.
+                  نظرات و پیشنهادات شما، نیروی محرکه‌ی این تحول عظیم است و به ما
+                  در ایجاد جهانی بهتر و نوآورانه کمک می‌کند.
                 </p>
               </div>
             </div>
+            <div>
+              <main className="flex">
+                <div></div>
 
-            <div className="flex flex-row flex-wrap justify-center md:justify-center w-full no-scrollbar overflow-y-auto py-[20px]">
-              {staticUsers.map((item: any, index: any) => (
-                <UserCard
-                  key={index}
-                  item={item}
-                  index={index}
-                  params={params}
-                  minWidth={`260px`}
-                  levelText={localFind2("developer")}
-                  buttonText={localFind1("citizen page")}
-                />
-              ))}
+                <div></div>
+
+                <div></div>
+              </main>
             </div>
           </section>
           <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">

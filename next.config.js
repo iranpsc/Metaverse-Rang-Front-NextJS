@@ -4,6 +4,21 @@
 // });
 
 module.exports = {
+  async redirects() {
+    return [
+      // Auto redirect
+      {
+        source: '/:lang/citizen',
+        destination: '/:lang/citizens',
+        permanent: true,
+      },
+      {
+        source: '/:lang/citizen/:id',
+        destination: '/:lang/citizens/:id',
+        permanent: true,
+      },
+    ];
+  },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,

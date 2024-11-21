@@ -15,6 +15,30 @@ import UserCard from "@/components/shared/UserCard";
 import { staticMenuToShow as MenuStaticData } from "@/components/utils/constants";
 import Image from "next/image";
 
+// SEO**
+export async function generateMetadata({ params }: any) {
+  return {
+    openGraph: {
+      type: "website",
+      url: `https://rgb.irpsc.com/${params.lang}/about`,
+      title: params.lang.toLowerCase() == "fa" ? "درباره ما" : "About Us",
+      description:
+        params.lang.toLowerCase() == "fa"
+          ? "متارنگ با تأکید بر نوآوری و کارآفرینی، بستری را فراهم کرده است که افراد می‌توانند از طریق آن به توسعه‌ی کسب و کارها و اقتصاد بین‌المللی بپردازند."
+          : "With a focus on innovation and entrepreneurship, MetaRang provides a foundation for individuals to develop businesses and contribute to the international economy.",
+      locale: params.lang.toLowerCase() == "fa" ? "fa_IR" : "en_US",
+      images: [
+        {
+          url: "/team.jpg",
+          width: 800,
+          height: 600,
+          alt: "متاورس رنگ Logo",
+        },
+      ],
+    },
+  };
+}
+
 export default async function AboutPage({ params }: any) {
   function convertPersianToEnglishNumber(slug: any) {
     // Replace Persian/Arabic digits with English digits using regex
@@ -233,66 +257,24 @@ export default async function AboutPage({ params }: any) {
   const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
   const logoURL = `${baseURL}/logo.png`;
   const aboutSchema = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: await localFind1("metaverse rang"),
-    url: `https://rgb.irpsc.com/${params.lang}/about`,
-    logo: logoURL,
-    description:
-      params.lang.toLowerCase() == "fa"
-        ? "متارنگ، نخستین پروژه متاورسی ایران، با هدف ایجاد جهانی مجازی و موازی با تأکید بر فرهنگ و اصالت ایرانی آغاز به کار کرده است. این پلتفرم با بهره‌گیری از فناوری‌های پیشرفته، دریچه‌ای به سوی آینده‌ای دیجیتالی می‌گشاید که امکان زندگی، تعامل و کسب‌وکار در دنیایی موازی را برای کاربران فراهم می‌کند."
-        : "the first metaverse project in Iran, has been initiated with the goal of creating a parallel virtual world that emphasizes Iranian culture and heritage. This platform, leveraging advanced technologies, opens a gateway to a digital future where users can live, interact, and conduct business in a parallel universe.",
-    brand: "متارنگ",
-    foundingDate: "2021-11-06",
-    location: {
-      "@type": "Place",
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: "میرداماد، 824H+JG2",
-        addressLocality: "قزوین",
-        addressRegion: "استان قزوین",
-        addressCountry: "ایران",
-      },
-      geo: {
-        "@type": "GeoCoordinates",
-        latitude: "36.2811",
-        longitude: "50.0000",
-      },
+    "@context": "https://schema.org/",
+    "@type": "AboutPage",
+    about: {
+      "@type": "Thing",
+      sameAs: "https://www.instagram.com/rgb.irpsc",
+      url: "https://rgb.irpsc.com/fa/about",
+      image: "https://rgb.irpsc.com/logo.png",
+      additionalType: "https://schema.org/WebPage",
+      name: 'متاورس رنگ - متارنگ"',
+      identifier: "https://rgb.irpsc.com/about",
+      mainEntityOfPage: "https://rgb.irpsc.com/fa/about",
+      disambiguatingDescription: "صفحه‌ای برای معرفی متاورس رنگ و ماموریت آن",
+      description:
+        params.lang.toLowerCase() == "fa"
+          ? "متارنگ با تأکید بر نوآوری و کارآفرینی، بستری را فراهم کرده است که افراد می‌توانند از طریق آن به توسعه‌ی کسب و کارها و اقتصاد بین‌المللی بپردازند."
+          : "With a focus on innovation and entrepreneurship, MetaRang provides a foundation for individuals to develop businesses and contribute to the international economy.",
+      alternateName: "Metaverse Rang - MetaRang About Page",
     },
-    contactPoint: [
-      {
-        "@type": "ContactPoint",
-        telephone: "+989120820120",
-        contactType: "customer service",
-        availableLanguage: ["Persian", "English"],
-      },
-      {
-        "@type": "ContactPoint",
-        telephone: "02833647125",
-        contactType: "office",
-      },
-    ],
-    sameAs: ["https://www.instagram.com/rgb.irpsc"],
-    founders: [
-      {
-        "@type": "Organization",
-        name: "شرکت تعاونی زنجیره تامین بهشت",
-      },
-      {
-        "@type": "Person",
-        name: "امیر مدنی فر",
-      },
-    ],
-    mission: "توسعه زیرساخت های دنیای مجازی و موازی بر پایه ارائه خدمات منسجم",
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "میرداماد، 824H+JG2",
-      addressLocality: "قزوین",
-      addressRegion: "استان قزوین",
-      addressCountry: "ایران",
-    },
-    telephone: "+989127855049",
-    email: "hq@irpsc.com",
   };
 
   return (

@@ -1,12 +1,24 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Section3D = () => {
   const [useAparat, setUseAparat] = useState(false);
 
-  const handleYouTubeError = () => {
-    setUseAparat(true);
-  };
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setUseAparat(true);
+    }, 1000); // Wait 5 seconds to determine if YouTube fails to load
+
+    const iframe = document.getElementById("youtube-iframe");
+    iframe?.addEventListener("load", () => {
+      clearTimeout(timeout); // Clear the timeout if YouTube loads successfully
+    });
+
+    return () => {
+      clearTimeout(timeout);
+      iframe?.removeEventListener("load", () => {});
+    };
+  }, []);
 
   return (
     <div className="relative w-full flex justify-center items-center">
@@ -17,20 +29,20 @@ const Section3D = () => {
         {useAparat ? (
           <iframe
             className="w-full h-full"
-            src="https://www.aparat.com/video/video/embed/videohash/0yAc0hUeF8Y/vt/frame"
+            src="https://www.aparat.com/video/video/embed/videohash/nkl2c42/vt/frame"
             title="Aparat Video Player"
             frameBorder="0"
             allowFullScreen
           ></iframe>
         ) : (
           <iframe
+            id="youtube-iframe"
             className="w-full h-full"
             src="https://www.youtube.com/embed/0yAc0hUeF8Y"
             title="YouTube Video Player"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
-            onError={handleYouTubeError}
           ></iframe>
         )}
       </div>
