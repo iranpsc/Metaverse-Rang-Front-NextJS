@@ -61,6 +61,7 @@ export default async function Profile({
           profileData={profileData}
           userProperty={userProperty}
           langData={langData}
+          params={params}
           // setShowSharedPage={setShowSharedPage}
         />
         <ProfileGems profileData={concatGems} />

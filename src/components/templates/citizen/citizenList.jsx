@@ -36,7 +36,6 @@ export default function CitizenList({
   }, []);
 
   useEffect(() => {
-    console.log('localCitizenArray', localCitizenArray);
     
   }, [isMounted]);
 
@@ -72,7 +71,7 @@ export default function CitizenList({
           title={isDisabled ? "صفحه آخر" : ""}
           className={`${
             isDisabled ? "cursor-not-allowed" : ""
-          } text-black dark:text-dark-yellow rounded-[10px] px-[40px] py-[20px] border-2 border-transparent hover:border-2 hover:border-dark-yellow base-transition-1`}
+          } bg-transparent text-black dark:text-dark-yellow rounded-[10px] px-[40px] py-[20px] base-transition-1 border-2 border-transparent hover:border-black hover:dark:border-dark-yellow`}
           onClick={handleLoadMore}
         >
           {params.lang == "fa"? 'مشاهده بیشتر' : 'View More'}

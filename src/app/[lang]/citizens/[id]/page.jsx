@@ -5,6 +5,7 @@ import ProfileDetails from "@/components/module/profile/ProfileDatails";
 import { getTranslation, getMainFile, findByModalName, findByTabName, getLangArray } from "@/components/utils/actions";
 import SideBar from "@/components/module/sidebar/SideBar";
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
+import { staticMenuToShow as MenuStaticData } from "@/components/utils/constants";
 
 
 
@@ -35,8 +36,6 @@ export default async function citizenSinglePage({
   }
 
   const profileData = await getUserData();
-  console.log('profileData2222',profileData);
-  
 
   const langData = await getTranslation(params.lang);
   const mainData = await getMainFile(langData);
@@ -97,35 +96,7 @@ export default async function citizenSinglePage({
   );
   const tabsMenu = await findByTabName(centralPageModal, "menu");
 
-  const staticMenuToShow = [
-    { name: "home", url: ``, order: "-1" },
-    { name: "citizens", url: "citizens", order: "-1" },
-    { name: "list of levels", url: "levels/citizen", order: "-1" },
-    {
-      name: "citizen information",
-      url: `citizens${params.id ? "/" + params.id : ""}`,
-      order: "-1",
-    },
-    { name: "property" },
-    { name: "real estate" },
-    { name: "structures" },
-    { name: "belongings" },
-    { name: "permissions" },
-    { name: "invitations" },
-    { name: "transaction" },
-    { name: "reward" },
-    { name: "dynasty" },
-    { name: "connections" },
-    { name: "crimes" },
-    { name: "news" },
-    { name: "articles" },
-    { name: "trainings" },
-    { name: "about" },
-    { name: "contact" },
-    { name: "version" },
-    { name: "calendar" },
-    { name: "overview" },
-  ];
+  const staticMenuToShow = MenuStaticData;
 
   // add staticMenuToShow values to siblings tabsMenu values
   tabsMenu.forEach((tab) => {
@@ -160,88 +131,95 @@ export default async function citizenSinglePage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(singleCitizenSchema) }}
       />
       {/* schema END */}
-      <div className="flex h-screen" dir={langData.direction}>
-        <SideBar
-          tabsMenu={tabsMenu}
-          langData={langData}
-          langArray={langArray}
-          defaultTheme={defaultTheme}
-          params={params}
-          pageSide="citizen"
-        />
-        <section className="h-fit lg:h-screen relative w-full bg-[#e9eef8] mt-[60px] lg:mt-0 dark:bg-black">
-          {/* <AnimatePresence>
-            {showLogOut && (
-            <LogoutPage showLogOut={showLogOut} setShowLogOut={setShowLogOut} />
-            )}
-          </AnimatePresence> */}
-
-          {/* <AnimatePresence>
-            {showSharedPage && (
-            <ShredPage
-                  showSharedPage={showSharedPage}
-                  setShowSharedPage={setShowSharedPage}
-                  profileData.data={profileData.data}
-              />
-            )}
-          </AnimatePresence> */}
-
-          {/* <AnimatePresence>
-            {showModal && (
-            <ModalCard
-              showModal={showModal}
-              setShowModal={setShowModal}
-              dataModal={dataModal}
-              titleData={titleData}
+      <main className="flex h-screen dark:bg-black" dir={langData.direction}>
+        <div
+          className={`relative overflow-y-scroll lg:overflow-hidden light-scrollbar dark:dark-scrollbar w-full xs:px-1 mt-[60px] lg:mt-0`}
+        >
+          <div className="flex h-full" dir={langData.direction}>
+            <SideBar
+              tabsMenu={tabsMenu}
+              langData={langData}
+              langArray={langArray}
+              defaultTheme={defaultTheme}
+              params={params}
+              pageSide="citizen"
             />
-            )}
-          </AnimatePresence> */}
+            <section className="relative w-full bg-[#e9eef8] dark:bg-black">
+              {/* <AnimatePresence>
+                {showLogOut && (
+                <LogoutPage showLogOut={showLogOut} setShowLogOut={setShowLogOut} />
+                )}
+              </AnimatePresence> */}
 
-          {/* <div className=" xl:hidden lg:hidden md:visible sm:visible xs:visible w-full h-fit absolute bottom-0 z-40">
-            <div className="w-full h-fit dark:bg-black bg-white absolute bottom-0 shadow-3xl">
-              <StaticMobileMenu />
-            </div>
-          </div> */}
+              {/* <AnimatePresence>
+                {showSharedPage && (
+                <ShredPage
+                      showSharedPage={showSharedPage}
+                      setShowSharedPage={setShowSharedPage}
+                      profileData.data={profileData.data}
+                  />
+                )}
+              </AnimatePresence> */}
 
-          {/* ${showModal || showSharedPage ? "" : ""} DOWNNN  */}
-          <div
-            className={`flex flex-col lg:flex-row h-fit lg:h-full gap-[6px] p-[6px]`}>
-              {/* FIRST */}
-            <section
-              className="w-full h-fit lg:h-full gap-[6px] lg:w-[40%] flex flex-col no-scrollbar overflow-auto"
-            >
-              <Profile
-                profileData={profileData}
-                titleData={titleData}
-                langData={langData}
-                nameUser={nameUser}
-                userProperty={userProperty}
-                params={params}
-              />
-            </section>
-            {/* SECOND */}
-            <section
-              className="w-full h-fit lg:h-full lg:w-[30%] flex flex-col no-scrollbar overflow-auto sm:h-fit xs:h-fit md:h-fit"
-            >
-              <ProfileDetails
-                profileData={profileData}
-                userProperty={userProperty}
-              />
-            </section>
-            {/* THIRD */}
-            <section
-              className="w-full h-fit lg:h-full lg:w-[30%] flex flex-col no-scrollbar overflow-auto"
-            >
-              <ProfileAbout
-                profileData={profileData}
-                userProperty={userProperty}
-                titleData={titleData}
-                params={params}
-              />
+              {/* <AnimatePresence>
+                {showModal && (
+                <ModalCard
+                  showModal={showModal}
+                  setShowModal={setShowModal}
+                  dataModal={dataModal}
+                  titleData={titleData}
+                />
+                )}
+              </AnimatePresence> */}
+
+              {/* <div className=" xl:hidden lg:hidden md:visible sm:visible xs:visible w-full h-fit absolute bottom-0 z-40">
+                <div className="w-full h-fit dark:bg-black bg-white absolute bottom-0 shadow-3xl">
+                  <StaticMobileMenu />
+                </div>
+              </div> */}
+
+              {/* ${showModal || showSharedPage ? "" : ""} DOWNNN  */}
+              <div
+                className={`flex flex-col lg:flex-row h-fit lg:h-full gap-[6px] p-[6px]`}>
+                  {/* FIRST */}
+                <section
+                  className="w-full h-fit lg:h-full gap-[6px] lg:w-[40%] flex flex-col no-scrollbar overflow-auto"
+                >
+                  <Profile
+                    profileData={profileData}
+                    titleData={titleData}
+                    langData={langData}
+                    nameUser={nameUser}
+                    userProperty={userProperty}
+                    params={params}
+                  />
+                </section>
+                {/* SECOND */}
+                <section
+                  className="w-full h-fit lg:h-full lg:w-[30%] flex flex-col no-scrollbar overflow-auto sm:h-fit xs:h-fit md:h-fit"
+                >
+                  <ProfileDetails
+                    profileData={profileData}
+                    userProperty={userProperty}
+                  />
+                </section>
+                {/* THIRD */}
+                <section
+                  className="w-full h-fit lg:h-full lg:w-[30%] flex flex-col no-scrollbar overflow-auto"
+                >
+                  <ProfileAbout
+                    profileData={profileData}
+                    userProperty={userProperty}
+                    titleData={titleData}
+                    params={params}
+                  />
+                </section>
+              </div>
             </section>
           </div>
-        </section>
-      </div>
+        </div>
+      </main>
+
     </>
   );
 }

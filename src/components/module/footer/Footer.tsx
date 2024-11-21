@@ -140,8 +140,6 @@ function Footer({ footerTabs }: any) {
 
   const { theme } = useTheme();
 
-  console.log("imageSources123", imageSources);
-  console.log("footerTabs123", footerTabs);
   return (
     <>
       <div className="h-fit w-full mt-[200px] flex flex-wrap gap-[15px] py-5 rounded-[10px]  items-center justify-center bg-white dark:bg-[#1A1A18]">
@@ -179,7 +177,7 @@ function Footer({ footerTabs }: any) {
       </div>
       <div className="h-fit pb-5 mt-20 rounded-[10px] w-full bg-white dark:bg-[#1A1A18] grid grid-cols-6">
         <div className="col-span-6  xl:col-span-4 mt-2  pe-2">
-          <div className="w-full h-[82px] pt-4 ps-6 flex flex-row justify-start items-center gap-5 ">
+          <div className="w-full pt-4 px-5 flex flex-row justify-start items-center gap-5 ">
             <Image
               src="/logo.png"
               alt="logo"
@@ -205,7 +203,7 @@ function Footer({ footerTabs }: any) {
               </h2>
             </div>
           </div>
-          <p className="ps-6 pt-6 font-normal text-justify font-azarMehr text-[#4C4C4C] dark:text-[#D4D4D4] text-[20px] leading-9">
+          <p className="px-5 pt-6 font-normal text-justify font-azarMehr text-[#4C4C4C] dark:text-[#D4D4D4] text-[20px] leading-9">
             {(
               footerTabs.find(
                 (item: any) => item.name == "footer description1"

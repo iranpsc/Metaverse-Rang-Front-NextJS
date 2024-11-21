@@ -64,9 +64,9 @@ const LastNews = ({ firstPageArrayContent, params }: any) => {
                 width={600}
                 height={600}
                 priority={true}
-                className=" w-full h-full hover:blur-none transition-all duration-150 ease-in-out rounded-t-[10px]  object-cover"
+                className=" w-full h-full transition-all duration-150 ease-in-out rounded-t-[10px]  object-cover"
               />
-              <div className="w-full h-full backdrop-blur-[3px] bg-black/20 hover:backdrop-blur-none xs:backdrop-blur-none absolute z-0 top-0 flex justify-center items-center rounded-t-[10px]">
+              <div className="w-full h-full bg-black/20 absolute z-0 top-0 flex justify-center items-center rounded-t-[10px]">
                 <Video className="w-[78px] h-[78px] p-3 fill-blueLink dark:fill-dark-yellow  rounded-full bg-white/80" />
               </div>
             </Link>

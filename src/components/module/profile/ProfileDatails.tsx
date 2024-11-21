@@ -16,18 +16,18 @@ export default function ProfileDetails({
 
   const x = profileData.data?.customs?.prediction;
 
-  const submitModalCard = (title: any, data: any, type: string) => {
-    if (data) {
-      setDataModal({
-        title,
-        desc: data,
-        type,
-      });
-      setShowModal(true);
-    } else {
-      // setDataModal({ title:"", desc:"" });
-    }
-  };
+  // const submitModalCard = (title: any, data: any, type: string) => {
+  //   if (data) {
+  //     setDataModal({
+  //       title,
+  //       desc: data,
+  //       type,
+  //     });
+  //     setShowModal(true);
+  //   } else {
+  //     // setDataModal({ title:"", desc:"" });
+  //   }
+  // };
 
   const itemsProfileDetails = [
     {

@@ -1,40 +1,52 @@
+"use client";
+import { useState, useEffect } from "react";
+
 const Section3D = () => {
+  const [useAparat, setUseAparat] = useState(false);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setUseAparat(true);
+    }, 1000); // Wait 5 seconds to determine if YouTube fails to load
+
+    const iframe = document.getElementById("youtube-iframe");
+    iframe?.addEventListener("load", () => {
+      clearTimeout(timeout); // Clear the timeout if YouTube loads successfully
+    });
+
+    return () => {
+      clearTimeout(timeout);
+      iframe?.removeEventListener("load", () => {});
+    };
+  }, []);
+
   return (
-    <>
-      <div className="relative w-full flex justify-center items-center ">
-        {/* <ButtonClick className="z-50 absolute size-[130px] m-auto" /> */}
-        <div className="absolute bottom-12 start-5 w-fit z-10 h-fit gap-5 flex flex-row justify-center items-center">
-          <div className="bg-white px-10 py-2 sm:py-3 rounded-full">
-            <p className="font-azarMehr font-medium text-[8px] sm:text-[16px] md:text-[18px] lg:text-[20px] text-black whitespace-nowrap">
-              معرفی متاورس رنگ
-            </p>
-          </div>
-          <p className="font-azarMehr font-medium text-[10px] sm:text-[16px] md:text-[18px] lg:text-[20px] text-white">
-            انقلابی در پلتفرم های مجازی ایرانی
-          </p>
-        </div>
-        <div className="md:h-[400px] rounded-[32px] sm:rounded-[72px] overflow-hidden flex items-center">
-          {/* VIDEO */}
-          <video
-            className="w-full"
-            autoPlay
-            loop
-            muted
-            playsInline
-            style={{ display: "block" }}
-            src="/firstpage/3129671-uhd_3840_2160_30fps.mp4"
-          />
-        </div>
-        {/* <Image
-          src={`/firstpage/frame.jpg`}
-          alt="/firstpage/img2.jpg"
-          width={1000}
-          height={1000}
-          priority={true}
-          className=" w-full h-full absolute z-0 top-0 start-0  object-cover rounded-[72px]"
-        /> */}
+    <div className="relative w-full flex justify-center items-center">
+      <div className="absolute bottom-12 start-5 w-fit z-10 h-fit gap-5 flex flex-row justify-center items-center">
+        {/* Additional content can be added here */}
       </div>
-    </>
+      <div className="w-full aspect-video overflow-hidden flex items-center">
+        {useAparat ? (
+          <iframe
+            className="w-full h-full"
+            src="https://www.aparat.com/video/video/embed/videohash/nkl2c42/vt/frame"
+            title="Aparat Video Player"
+            frameBorder="0"
+            allowFullScreen
+          ></iframe>
+        ) : (
+          <iframe
+            id="youtube-iframe"
+            className="w-full h-full"
+            src="https://www.youtube.com/embed/0yAc0hUeF8Y"
+            title="YouTube Video Player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+        )}
+      </div>
+    </div>
   );
 };
 

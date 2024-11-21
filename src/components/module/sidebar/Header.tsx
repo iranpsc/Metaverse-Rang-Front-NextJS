@@ -34,7 +34,7 @@ function SideBarHeader({ isClosed, toggleSide, tabsMenu, params }: any) {
         href={`/${params.lang}`}
         className={`${
           isClosed ? "" : "flex items-center justify-between"
-        } relative`}
+        } relative overflow-hidden`}
       >
         <div
           className={`${
@@ -53,16 +53,16 @@ function SideBarHeader({ isClosed, toggleSide, tabsMenu, params }: any) {
 
           <div
             className={`${
-              isClosed ? "w-0 overflow-hidden" : "w-full"
-            } menu-transition`}
+              isClosed ? "w-0 h-0" : "w-[100%] h-[100%]"
+            } overflow-hidden`}
           >
             <p
-              className={`visible dark:text-white whitespace-nowrap block font-azarMehr font-bold text-[14px] md:text-[16px] lg:text-[18px] text-black pb-[2px]`}
+              className={`whitespace-nowrap visible dark:text-white whitespace-nowrap block font-azarMehr font-bold text-[14px] md:text-[16px] lg:text-[18px] text-black pb-[2px]`}
             >
               {localFind("metargb") || "متارنگ"}
             </p>
             <p
-              className={`dark:text-dark-gray visible font-azarMehr font-normal text-gray text-[14px] md:text-[16px] lg:text-[18px] `}
+              className={`whitespace-nowrap dark:text-dark-gray visible font-azarMehr font-normal text-gray text-[14px] md:text-[16px] lg:text-[18px] `}
             >
               {localFind("metaverse rang")}
             </p>

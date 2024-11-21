@@ -28,7 +28,8 @@ export default function UserCard({ item, params, buttonText, minWidth }: any) {
         </p>
 
         <Link
-          href={`https://rgb.irpsc.com/${params.lang}/citizens/${item.code}`}
+          className="min-h-[30px] "
+          href={`/${params.lang}/citizens/${item.code}`}
         >
           <span
             // data-atropos-offset="-1"
@@ -38,7 +39,7 @@ export default function UserCard({ item, params, buttonText, minWidth }: any) {
           </span>
         </Link>
 
-        <span className="dark:text-[#969696] text-[18px]">
+        <span className="dark:text-[#969696] text-[18px] font-azarMehr">
           {item.levels?.current
             ? item.levels.current.name
             : params.lang == "fa"
@@ -49,7 +50,7 @@ export default function UserCard({ item, params, buttonText, minWidth }: any) {
         <div className="w-[95%] min-h-[75px] overflow-auto light-scrollbar dark:dark-scrollbar pb-2">
           <div className="w-max flex m-auto">
             {item.levels?.previous?.map((item2: any, index2: any) => (
-              <GemImage key={index2} item={item2} />
+              <GemImage key={index2} item={item2} params={params} />
             ))}
           </div>
         </div>

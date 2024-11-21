@@ -1,10 +1,43 @@
-* {
- padding: 0;
- margin:0;
- font-weight: 400;
-}
 .blur-until-end {
   backdrop-filter: blur(10px);
   height: 100vh;
 }
 
+/* some default style for tags, to fix issue after disabling preflight in tailwind.config */
+* {
+ padding: 0;
+ margin:0;
+ font-weight: 400;
+ box-sizing: border-box;
+ font-family: var(--font-font-azar), sans-serif;
+}
+ol{
+  list-style-type: decimal ;
+  list-style-position: inside;
+}
+ul{
+  list-style-type: disc;
+  list-style-position: inside;
+}
+a{
+  text-decoration: none;
+}
+a:visited {
+  color: none;
+}
+
+a:hover {
+  color: none; 
+}
+
+a:active {
+  color: none; 
+}
+button{
+  cursor: pointer;
+  border-color: transparent;
+}
+img, video {
+  max-width: 100%;
+  height: auto;
+}
