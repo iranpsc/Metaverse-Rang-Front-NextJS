@@ -21,9 +21,13 @@ ul{
 }
 a{
   text-decoration: none;
+  /* disable :visited :hover :active */
+  all: unset;
+  cursor: pointer;
 }
 a:visited {
-  color: none;
+  /* color: inherit; */
+  text-decoration: none;
 }
 
 a:hover {
@@ -31,7 +35,7 @@ a:hover {
 }
 
 a:active {
-  color: none; 
+  color: inherit; 
 }
 button{
   cursor: pointer;

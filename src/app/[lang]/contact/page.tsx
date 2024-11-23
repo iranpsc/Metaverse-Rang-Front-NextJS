@@ -11,8 +11,10 @@ import DynamicFooter from "@/components/module/footer/DynamicFooter";
 import SideBar from "@/components/module/sidebar/SideBar";
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
 import BreadCrumb from "@/components/shared/BreadCrumb";
-import UserCard from "@/components/shared/UserCard";
 import { staticMenuToShow as MenuStaticData } from "@/components/utils/constants";
+import { WhatsAppIcon, ContactDownArrow } from "@/components/svgs";
+import Form from "./components/form";
+import Social from "./components/social";
 
 export default async function AboutPage({ params }: any) {
   function convertPersianToEnglishNumber(slug: any) {
@@ -339,16 +341,63 @@ export default async function AboutPage({ params }: any) {
               </div>
             </div>
             <div>
-              <main className="flex">
-                <div></div>
+              <main className="overflow-x-hidden w-[85%] m-auto bg-white dark:bg-[#1A1A18] rounded-xl dark:text-white p-5 lg:p-7 mt-10">
+                <h1 className="text-lg md:text-xl text-black dark:text-white font-bold py-5 text-center lg:text-right">
+                  تماس باما
+                </h1>
 
-                <div></div>
+                <div className="flex-col flex gap-7 lg:flex-row w-full">
+                  <div className="flex flex-col gap-2 md:gap-7 w-full lg:w-1/2 justify-center lg:justify-start">
+                    <div>
+                      <p className="text-darkGray dark:text-Field py-1 text-center lg:text-right text-sm md:text-base">
+                        پیام شما میتواند شروع یک مکالمه سازنده باشد.
+                      </p>
+                    </div>
 
-                <div></div>
+                    <div>
+                      <Form />
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-7 w-full lg:w-1/2 justify-center lg:justify-start ">
+                    <div className="flex flex-col lg:flex-row lg:flex-wrap w-full items-center justify-between gap-6 ">
+                      <div className="flex gap-3">
+                        <WhatsAppIcon width={27} height={27} />
+                        <a
+                          className="font-bold text-2xl leading-[40px] text-black dark:text-light-newColors-shades-bg2 font-rokh"
+                          href="tel:۰۹۳۳۷۸۵۰۴۲۴"
+                        >
+                          ۰۹۳۳۷۸۵۰۴۲۴
+                        </a>
+                      </div>
+                      <div className="flex gap-3 text-center lg:text-right">
+                        <a
+                          className="text-light-newColors-shades-50 dark:text-white font-medium text-[16px] md:text-[25px] leading-[32px] font-rokh"
+                          href="mailto:3dmeta.irpsc@gmail.com"
+                        >
+                          3dmeta.irpsc@gmail.com
+                        </a>
+                        <ContactDownArrow width={27} height={27} />
+                      </div>
+                    </div>
+                    <div className="aspect-[5/4]">
+                      <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12860.972378290073!2d50.0287883!3d36.3064114!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f8b5551db33af95%3A0xa19dc982418e7204!2sMetaRgb!5e0!3m2!1sen!2s!4v1732341818636!5m2!1sen!2s"
+                        style={{ border: "0" }}
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                        className="w-full h-full"
+                      ></iframe>
+                    </div>
+                  </div>
+                </div>
+                <div className="w-full h-[1px] bg-dark-newColors-shades-100 mt-[38px] mb-[28px]"></div>
+                <div className="flex flex-wrap justify-center gap-[5px]">
+                  <Social />
+                </div>
               </main>
             </div>
           </section>
-          <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
+          <div className="lg:px-32 md:px-5 sm:px-5 xs:px-1">
             <DynamicFooter footerTabs={footerTabs} />
           </div>
         </section>
