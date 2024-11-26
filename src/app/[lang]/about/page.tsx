@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: any) {
           url: "/team.jpg",
           width: 800,
           height: 600,
-          alt: "متاورس رنگ Logo",
+          alt: "تیم متاورس رنگ",
         },
       ],
     },
