@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -25,6 +26,7 @@ export default function ContactForm() {
     console.log("SMTP_PASS:", process.env.SMTP_PASS);
     console.log("NEXT_PUBLIC_EMAIL_TO:", process.env.NEXT_PUBLIC_EMAIL_TO);
     try {
+      // nextjs request/response (api) handling
       const response = await fetch("/api/sendEmail", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -46,7 +48,7 @@ export default function ContactForm() {
       });
 
       const result = await response.json();
-      alert(result.message);
+      toast.success(result.message);
     } catch (error) {
       console.error("Error submitting form:", error);
       alert("There was an error submitting the form. Please try again later.");

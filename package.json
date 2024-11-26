@@ -46,6 +46,7 @@
     "react-player": "^2.15.1",
     "react-spinners": "^0.13.8",
     "react-three-fiber": "^6.0.13",
+    "react-toastify": "^10.0.6",
     "react-tooltip": "^5.23.0",
     "three": "^0.169.0",
     "typescript": "5.0.4",

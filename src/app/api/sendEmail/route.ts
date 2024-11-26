@@ -25,10 +25,10 @@ export async function POST(req: NextRequest) {
       html: message.html,
     });
 
-    return NextResponse.json({ message: 'Email sent successfully', info }, { status: 200 });
+    return NextResponse.json({ message: 'با موفقیت ارسال شد', info }, { status: 200 });
   } catch (error: any) {
     return NextResponse.json(
-      { message: 'Failed to send email', error: error.message },
+      { message: 'لطفا دوباره تلاش کنید', error: error.message },
       { status: 500 }
     );
   }
