@@ -13,33 +13,15 @@ export default function ContactSocial() {
       </a>
       <a href="">
         {" "}
-        <Image
-          width={37}
-          height={37}
-          src="/youtube-circle.png"
-          alt=""
-          unoptimized
-        />
+        <Image width={37} height={37} src="/social/youtube-circle.png" alt="" />
       </a>
       <a href="">
         {" "}
-        <Image
-          width={37}
-          height={37}
-          src="/social/aparat-circle.png"
-          alt=""
-          unoptimized
-        />
+        <Image width={37} height={37} src="/social/aparat-circle.png" alt="" />
       </a>
       <a href="">
         {" "}
-        <Image
-          width={37}
-          height={37}
-          src="/social/x-circle.png"
-          alt=""
-          unoptimized
-        />
+        <Image width={37} height={37} src="/social/x-circle.png" alt="" />
       </a>
       <a href="">
         {" "}
@@ -48,7 +30,6 @@ export default function ContactSocial() {
           height={37}
           src="/social/facebook-circle.png"
           alt=""
-          unoptimized
         />
       </a>
       <a href="">
@@ -58,7 +39,6 @@ export default function ContactSocial() {
           height={37}
           src="/social/telegram-circle.png"
           alt=""
-          unoptimized
         />
       </a>
       <a href="">
@@ -68,7 +48,6 @@ export default function ContactSocial() {
           height={37}
           src="/social/instagram-circle.png"
           alt=""
-          unoptimized
         />
       </a>
       <a href="">
@@ -78,7 +57,6 @@ export default function ContactSocial() {
           height={37}
           src="/social/whatsapp-circle.png"
           alt=""
-          unoptimized
         />
       </a>
       <a href="">
@@ -88,7 +66,6 @@ export default function ContactSocial() {
           height={37}
           src="/social/envelope-circle.png"
           alt=""
-          unoptimized
         />
       </a>
       <a href="">
@@ -97,7 +74,6 @@ export default function ContactSocial() {
           height={37}
           src="/social/linkedin-circle.png"
           alt=""
-          unoptimized
         />
       </a>
     </>
