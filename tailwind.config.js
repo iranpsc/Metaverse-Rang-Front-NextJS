@@ -106,10 +106,15 @@ module.exports = {
         grayLight:"#F8F8F8",
         activeGrey:"#626262",
         divider:"#2d2d2a38",
+        // Add flat aliases for placeholder colors
+        'light-placeholder': '#BEBFC9', // Alias for light mode placeholder
+        'dark-placeholder': '#84858F', // Alias for dark mode placeholder
+        // USAGE:placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder
         // *** this project custome END
         light: {
           test: "#2503f1",
           primary: "#0066FF",
+          placeholder: "#BEBFC9",
           shades: {
             100: "#FFFFFF",
             99: "#FDFAFF",
@@ -159,6 +164,7 @@ module.exports = {
           test: "#ff0000",
           primary: "#FFC700",
           // *** this project custome START
+          placeholder: "#84858F",
           background: "#1E1E1E",
           backgroundModules: "#000000",
           defaultButton: "#332800",

@@ -129,7 +129,7 @@ export default async function AboutPage({ params }: any) {
       // Slogan for your company/organization
       slogan: "Transforming the Virtual World Together",
       // Maps to (provide a URL pointing to a map, could be a digital map link)
-      maps: "https://www.google.com/maps?q=میرداماد،+824H+JG2,+قزوین",
+      maps: "https://maps.app.goo.gl/63ayLgtcRGZEBhmf7",
       // Fax Number (if applicable)
       faxNumber: "+02833647126",
     },
@@ -189,64 +189,81 @@ export default async function AboutPage({ params }: any) {
           </div>
           <section className="mx-auto px-4 lg:px-9">
             <h1 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[64px] mb-[16px]">
-              تماس با ما
+              {params.lang.toLowerCase() == "fa" ? "تماس با ما" : "Contact Us"}
             </h1>
             <div className="flex flex-col gap-10 ">
               <div>
                 <h3 className="dark:text-white text-black text-lg md:text-2xl font-bold font-rohk">
-                  تماس با ما - متاورس رنگ (متارنگ)
+                  {params.lang.toLowerCase() == "fa"
+                    ? "تماس با ما - متاورس رنگ (متارنگ)"
+                    : "Contact Us - Metaverse Rang (MetaRang)"}
                 </h3>
                 <p className="text-lightGray font-medium text-justify text-sm md:text-lg mt-5 leading-10">
-                  ما در متاورس رنگ معتقدیم که توسعه این دنیای موازی و مجازی تنها
-                  با مشارکت و همفکری عمومی امکان‌پذیر است. زیرساخت‌های این جهان
-                  بر پایه‌ی واحد حدتاثیر بنا شده‌اند تا بتوانند نظرات و ایده‌های
-                  شما را به بهترین شکل در مسیر توسعه هدایت کنند. ارتباط با انجمن
-                  متاورس ایران و دانشگاه متاورس ایران از طریق این پلتفرم به
-                  راحتی امکان‌پذیر است. همچنین، شما می‌توانید با تیم پیشرو در
-                  توسعه زیرساخت‌های مشارکت همگانی در ارتباط باشید تا با
-                  هم‌افزایی و همکاری، آینده‌ای بهتر برای این جهان مجازی بسازیم.
-                  نظرات و پیشنهادات شما، نیروی محرکه‌ی این تحول عظیم است و به ما
-                  در ایجاد جهانی بهتر و نوآورانه کمک می‌کند.
+                  {params.lang.toLowerCase() == "fa"
+                    ? "ما در متاورس رنگ معتقدیم که توسعه این دنیای موازی و مجازی تنها با مشارکت و همفکری عمومی امکان‌پذیر است. زیرساخت‌های این جهان بر پایه‌ی واحد حدتاثیر بنا شده‌اند تا بتوانند نظرات و ایده‌های شما را به بهترین شکل در مسیر توسعه هدایت کنند. ارتباط با انجمن متاورس ایران و دانشگاه متاورس ایران از طریق این پلتفرم به راحتی امکان‌پذیر است. همچنین، شما می‌توانید با تیم پیشرو در توسعه زیرساخت‌های مشارکت همگانی در ارتباط باشید تا با هم‌افزایی و همکاری، آینده‌ای بهتر برای این جهان مجازی بسازیم. نظرات و پیشنهادات شما، نیروی محرکه‌ی این تحول عظیم است و به ما در ایجاد جهانی بهتر و نوآورانه کمک می‌کند."
+                    : 'At Metaverse Rang, we believe that the development of this parallel and virtual world is only possible through public participation and collaboration. The infrastructure of this world is built on the concept of the "unity of influence," designed to guide your opinions and ideas in the most effective way possible towards the development process. Connecting with the Metaverse Iran community and the Metaverse Iran University is easily achievable through this platform. Furthermore, you can also get in touch with the leading team in the development of infrastructure for collective participation. Through synergy and cooperation, we aim to create a better future for this virtual world. Your feedback and suggestions are the driving force behind this great transformation and help us in creating a better and more innovative world.'}
                 </p>
               </div>
             </div>
             <div>
               <main className="overflow-x-hidden w-[85%] m-auto bg-white dark:bg-[#1A1A18] rounded-xl dark:text-white p-5 lg:p-7 mt-10">
-                <h1 className="text-lg md:text-xl text-black dark:text-white font-bold py-5 text-center lg:text-right">
+                <h1
+                  className={`${
+                    params.lang.toLowerCase() == "fa"
+                      ? "lg:text-right"
+                      : "lg:text-left"
+                  } text-lg md:text-xl text-black dark:text-white font-bold py-5 text-center`}
+                >
                   تماس باما
                 </h1>
 
                 <div className="flex-col flex gap-7 lg:flex-row w-full">
                   <div className="flex flex-col gap-2 md:gap-7 w-full lg:w-1/2 justify-center lg:justify-start">
                     <div>
-                      <p className="text-darkGray dark:text-Field py-1 text-center lg:text-right text-sm md:text-base">
-                        پیام شما میتواند شروع یک مکالمه سازنده باشد.
+                      <p
+                        className={`${
+                          params.lang.toLowerCase() == "fa"
+                            ? "lg:text-right"
+                            : "lg:text-left"
+                        } text-darkGray dark:text-Field py-1 text-center text-sm md:text-base`}
+                      >
+                        {params.lang.toLowerCase() == "fa"
+                          ? "پیام شما میتواند شروع یک مکالمه سازنده باشد."
+                          : "Your message can be the start of a productive conversation."}
                       </p>
                     </div>
 
                     <div>
-                      <Form />
+                      <Form params={params} />
                     </div>
                   </div>
                   <div className="flex flex-col gap-7 w-full lg:w-1/2 justify-center lg:justify-start ">
                     <div className="flex flex-col lg:flex-row lg:flex-wrap w-full items-center justify-between gap-6 ">
                       <div className="flex gap-3">
-                        <WhatsAppIcon width={27} height={27} />
+                        <WhatsAppIcon
+                          width={27}
+                          height={27}
+                          className="text-light-placeholder dark:text-dark-placeholder"
+                        />
                         <a
                           className="font-bold text-2xl leading-[40px] text-black dark:text-light-newColors-shades-bg2 font-rokh"
-                          href="tel:۰۹۳۳۷۸۵۰۴۲۴"
+                          href="tel:09120820120"
                         >
-                          ۰۹۳۳۷۸۵۰۴۲۴
+                          ۰۹۱۲۰۸۲۰۱۲۰
                         </a>
                       </div>
                       <div className="flex gap-3 text-center lg:text-right">
                         <a
                           className="text-light-newColors-shades-50 dark:text-white font-medium text-[16px] md:text-[25px] leading-[32px] font-rokh"
-                          href="mailto:3dmeta.irpsc@gmail.com"
+                          href="mailto:info@rgb.irpsc.com"
                         >
-                          3dmeta.irpsc@gmail.com
+                          info@rgb.irpsc.com
                         </a>
-                        <ContactDownArrow width={27} height={27} />
+                        <ContactDownArrow
+                          width={27}
+                          height={27}
+                          className="text-light-placeholder dark:text-dark-placeholder"
+                        />
                       </div>
                     </div>
                     <div className="aspect-[5/4]">

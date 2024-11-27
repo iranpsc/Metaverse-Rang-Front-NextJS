@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 
-export default function ContactForm() {
+export default function ContactForm({ params }: any) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -61,11 +61,15 @@ export default function ContactForm() {
           <div className="flex flex-col gap-5">
             <input
               type="text"
-              className="w-full h-[50px] bg-grayLight dark:bg-black rounded-[10px] p-4 border-0 placeholder:text-[#BEBFC9] dark:placeholder:text-colors-light-shades-matn2"
+              className="w-full rtl:text-right ltr:text-left h-[50px] bg-grayLight dark:bg-black rounded-[10px] p-4 border-0 dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder"
               name="name"
               value={formData.name}
               id="name"
-              placeholder="نام و نام خانوادگی"
+              placeholder={
+                params.lang.toLowerCase() == "fa"
+                  ? "نام و نام خانوادگی"
+                  : "Name and Family"
+              }
               onChange={handleChange}
             />
           </div>
@@ -74,11 +78,15 @@ export default function ContactForm() {
           <div className="flex flex-col gap-5">
             <input
               type="tel"
-              className="w-full h-[50px] bg-grayLight dark:bg-black rounded-[10px] p-4 border-0 placeholder:text-[#BEBFC9] dark:placeholder:text-colors-light-shades-matn2 "
+              className={`w-full rtl:text-right ltr:text-left h-[50px] bg-grayLight dark:bg-black rounded-[10px] p-4 border-0 dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder`}
               name="phoneNo"
               value={formData.phoneNo}
               id="phoneNo"
-              placeholder="شماره تلفن"
+              placeholder={
+                params.lang.toLowerCase() == "fa"
+                  ? "شماره تلفن"
+                  : "Phone number"
+              }
               onChange={handleChange}
             />
           </div>
@@ -88,11 +96,13 @@ export default function ContactForm() {
           <div className="flex flex-col gap-5">
             <input
               type="text"
-              className="w-full h-[50px] bg-grayLight dark:bg-black rounded-[10px] p-4 border-0 placeholder:text-[#BEBFC9] dark:placeholder:text-colors-light-shades-matn2 "
+              className="w-full rtl:text-right ltr:text-left h-[50px] bg-grayLight dark:bg-black rounded-[10px] p-4 border-0 dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder"
               name="email"
               value={formData.email}
               id="email"
-              placeholder="پست الکترونیک"
+              placeholder={
+                params.lang.toLowerCase() == "fa" ? "پست الکترونیک" : "E-mail"
+              }
               onChange={handleChange}
             />
           </div>
@@ -102,11 +112,15 @@ export default function ContactForm() {
           <div className="flex flex-col gap-5">
             <input
               type="text"
-              className="w-full h-[50px] bg-grayLight dark:bg-black rounded-[10px] p-4 border-0 placeholder:text-[#BEBFC9] dark:placeholder:text-colors-light-shades-matn2 "
+              className="w-full rtl:text-right ltr:text-left h-[50px] bg-grayLight dark:bg-black rounded-[10px] p-4 border-0 dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder"
               name="title"
               value={formData.title}
               id="title"
-              placeholder="موضوع پیام"
+              placeholder={
+                params.lang.toLowerCase() == "fa"
+                  ? "موضوع پیام"
+                  : "Message title"
+              }
               onChange={handleChange}
             />
           </div>
@@ -115,10 +129,14 @@ export default function ContactForm() {
       <div className="flex flex-col gap-3 md:gap-5 w-full mt-2 md:mt-5">
         <div className="flex flex-col">
           <textarea
-            className="w-full bg-grayLight dark:bg-black rounded-[10px] p-4 border-0 placeholder:text-[#BEBFC9] dark:placeholder:text-colors-light-shades-matn2 "
+            className="w-full rtl:text-right ltr:text-left bg-grayLight dark:bg-black rounded-[10px] p-4 border-0 dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder"
             id="message"
             rows={5}
-            placeholder="پیام خود را اینجا بنویسید..."
+            placeholder={
+              params.lang.toLowerCase() == "fa"
+                ? "پیام خود را اینجا بنویسید..."
+                : "Please type your message here..."
+            }
             onChange={handleChange}
             name="message"
             value={formData.message}
@@ -128,7 +146,7 @@ export default function ContactForm() {
           type="submit"
           className="mt-[4px] bg-blueLink dark:bg-dark-yellow dark:text-black w-full text-white font-bold text-center p-4 rounded-[10px] active:scale-105"
         >
-          ارسال پیام
+          {params.lang.toLowerCase() == "fa" ? "ارسال پیام" : "Send"}
         </button>
       </div>
     </form>
