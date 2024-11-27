@@ -9,7 +9,6 @@ export default function ContactSocial() {
           height={37}
           src="/social/linkedin-circle.png"
           alt=""
-          unoptimized
         />
       </a>
       <a href="">
@@ -17,7 +16,7 @@ export default function ContactSocial() {
         <Image
           width={37}
           height={37}
-          src="/social/youtube-circle.png"
+          src="/youtube-circle.png"
           alt=""
           unoptimized
         />
