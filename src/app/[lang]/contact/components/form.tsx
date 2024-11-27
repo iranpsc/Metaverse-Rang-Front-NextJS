@@ -144,7 +144,7 @@ export default function ContactForm({ params }: any) {
         </div>
         <button
           type="submit"
-          className="mt-[4px] bg-blueLink dark:bg-dark-yellow dark:text-black w-full text-white font-bold text-center p-4 rounded-[10px] active:scale-105"
+          className="mt-[4px] text-[19px] bg-blueLink dark:bg-dark-yellow dark:text-black w-full text-white font-bold text-center p-4 rounded-[10px] active:scale-105"
         >
           {params.lang.toLowerCase() == "fa" ? "ارسال پیام" : "Send"}
         </button>

@@ -214,7 +214,9 @@ export default async function AboutPage({ params }: any) {
                       : "lg:text-left"
                   } text-lg md:text-xl text-black dark:text-white font-bold py-5 text-center`}
                 >
-                  تماس باما
+                  {params.lang.toLowerCase() == "fa"
+                    ? "تماس باما"
+                    : "Contact us"}
                 </h1>
 
                 <div className="flex-col flex gap-7 lg:flex-row w-full">
@@ -249,7 +251,9 @@ export default async function AboutPage({ params }: any) {
                           className="font-bold text-2xl leading-[40px] text-black dark:text-light-newColors-shades-bg2 font-rokh"
                           href="tel:09120820120"
                         >
-                          ۰۹۱۲۰۸۲۰۱۲۰
+                          {params.lang.toLowerCase() == "fa"
+                            ? "۰۹۱۲۰۸۲۰۱۲۰"
+                            : "09120820120"}
                         </a>
                       </div>
                       <div className="flex gap-3 text-center lg:text-right">
