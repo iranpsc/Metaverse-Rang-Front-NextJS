@@ -7,11 +7,11 @@ const Section3D = () => {
   useEffect(() => {
     const timeout = setTimeout(() => {
       setUseAparat(true);
-    }, 1000); // Wait 5 seconds to determine if YouTube fails to load
+    }, 2500);
 
     const iframe = document.getElementById("youtube-iframe");
     iframe?.addEventListener("load", () => {
-      clearTimeout(timeout); // Clear the timeout if YouTube loads successfully
+      clearTimeout(timeout);
     });
 
     return () => {
@@ -22,9 +22,7 @@ const Section3D = () => {
 
   return (
     <div className="relative w-full flex justify-center items-center">
-      <div className="absolute bottom-12 start-5 w-fit z-10 h-fit gap-5 flex flex-row justify-center items-center">
-        {/* Additional content can be added here */}
-      </div>
+      <div className="absolute bottom-12 start-5 w-fit z-10 h-fit gap-5 flex flex-row justify-center items-center"></div>
       <div className="w-full aspect-video overflow-hidden flex items-center">
         {useAparat ? (
           <iframe

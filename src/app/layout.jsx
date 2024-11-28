@@ -2,6 +2,7 @@ import "./../styles/global.css";
 import { azarMehr } from "@/components/utils/fonts";
 import { rokh } from "@/components/utils/fonts";
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
+import ToastProvider from '../components/shared/toastProvider';
 
 export const metadata = {
   // SEO** adding to all pages
@@ -26,6 +27,7 @@ export default function RootLayout({
   return (
     <html lang={params.lang} className={theme}>
       <body className={`${azarMehr.variable} ${rokh.variable} h-screen light-scrollbar dark:dark-scrollbar`}>
+      <ToastProvider />
         {children}
       </body>
     </html>

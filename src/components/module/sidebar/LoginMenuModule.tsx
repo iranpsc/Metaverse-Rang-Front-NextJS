@@ -159,7 +159,7 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
               isClosed
                 ? "min-w-[250px] rtl:rounded-l-[15px] ltr:rounded-r-[15px]"
                 : ""
-            } base-transition-1 overflow-hidden bg-blueLink dark:bg-dark-primary rounded-t-[15px] px-4`}
+            } base-transition-1 overflow-hidden bg-blueLink dark:bg-dark-primary rounded-t-[15px] px-4 list-none`}
           >
             {/* decide to show according to pathname (if user is in own citizen page)*/}
             {pathname != `/${params.lang}/citizen/${loggedInUserData?.code}` ? (

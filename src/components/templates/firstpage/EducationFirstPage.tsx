@@ -53,7 +53,10 @@ const EducationFirstPage = ({ firstPageArrayContent, params }: any) => {
             key={index}
             className="w-[100%] shadow-md rounded-[10px] bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-6 items-center"
           >
-            <div className="group w-full rounded-t-[10px] relative">
+            <Link
+              href={item.url}
+              className="group w-full rounded-t-[10px] relative"
+            >
               <Image
                 src={`/firstpage/static-education-${index}.jpg`}
                 alt="/firstpage/img2.jpg"
@@ -63,7 +66,7 @@ const EducationFirstPage = ({ firstPageArrayContent, params }: any) => {
                 loading={"lazy"}
                 className="w-full h-full rounded-t-[10px] object-cover"
               />
-            </div>
+            </Link>
 
             <div className=" w-[95%] flex flex-row justify-start items-center gap-1  mt-[-10px] pe-16">
               <p className="text-start text-gray dark:text-dark-gray font-medium font-azarMehr text-[13px]  3xl:text-[16px] cursor-pointer hover:text-blueLink hover:dark:text-dark-yellow">
@@ -81,8 +84,8 @@ const EducationFirstPage = ({ firstPageArrayContent, params }: any) => {
               <Link href={`/${params.lang}/citizen/Hm-2000003`} target="_blank">
                 <div className="flex flex-row justify-start items-center gap-2">
                   <Image
-                    src="/firstpage/img2.jpg"
-                    alt="/firstpage/img2.jpg"
+                    src="/firstpage/alizadeh.jpg"
+                    alt="/firstpage/alizadeh.jpg"
                     width={1000}
                     height={1000}
                     loading="lazy"

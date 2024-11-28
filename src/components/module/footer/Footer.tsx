@@ -175,6 +175,7 @@ function Footer({ footerTabs }: any) {
           </Link>
         ))}
       </div>
+
       <div className="h-fit pb-5 mt-20 rounded-[10px] w-full bg-white dark:bg-[#1A1A18] grid grid-cols-6">
         <div className="col-span-6  xl:col-span-4 mt-2  pe-2">
           <div className="w-full pt-4 px-5 flex flex-row justify-start items-center gap-5 ">
@@ -255,7 +256,20 @@ function Footer({ footerTabs }: any) {
           </div>
         </div>
       </div>
-      <div className="h-[20px]"></div>
+
+      <div className="my-3 text-center text-black dark:text-white">
+        {translateFooter(footerTabs, "update")}&nbsp;|&nbsp;
+        {translateFooter(footerTabs, "design and development")}&nbsp;
+        <a href="https://web.irpsc.com/" target="_blank">
+          {translateFooter(footerTabs, "webrang")}&nbsp;|&nbsp;
+        </a>
+        <a
+          href="https://github.com/iranpsc/Metaverse-Rang-Front-NextJS"
+          target="_blank"
+        >
+          {translateFooter(footerTabs, "version")}&nbsp;
+        </a>
+      </div>
     </>
   );
 }

@@ -55,3 +55,5 @@ export { default as Mayor } from "../../../public/svg/level/the-mayor.png";
 export { default as Minister } from "../../../public/svg/level/minister.png";
 export { default as Legislator } from "../../../public/svg/level/legislator.png";
 export { default as Judge } from "../../../public/svg/level/judge.png";
+export { default as WhatsAppIcon } from "../../../public/svg/whatsapp.svg";
+export { default as ContactDownArrow } from "../../../public/svg/contactDownArrow.svg";

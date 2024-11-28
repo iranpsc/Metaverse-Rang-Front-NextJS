@@ -11,8 +11,34 @@ import DynamicFooter from "@/components/module/footer/DynamicFooter";
 import SideBar from "@/components/module/sidebar/SideBar";
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
 import BreadCrumb from "@/components/shared/BreadCrumb";
-import UserCard from "@/components/shared/UserCard";
 import { staticMenuToShow as MenuStaticData } from "@/components/utils/constants";
+import { WhatsAppIcon, ContactDownArrow } from "@/components/svgs";
+import Form from "./components/form";
+import Social from "./components/social";
+
+// SEO**
+export async function generateMetadata({ params }: any) {
+  return {
+    openGraph: {
+      type: "website",
+      title: params.lang.toLowerCase() == "fa" ? "تماس با ما" : "Contact Us",
+      description:
+        params.lang.toLowerCase() == "fa"
+          ? "ما در متاورس رنگ معتقدیم که توسعه این دنیای موازی و مجازی تنها با مشارکت و همفکری عمومی امکان‌پذیر است. زیرساخت‌های این جهان بر پایه‌ی واحد حدتاثیر بنا شده‌اند تا بتوانند نظرات و ایده‌های شما را به بهترین شکل در مسیر توسعه هدایت کنند. ارتباط با انجمن متاورس ایران و دانشگاه متاورس ایران از طریق این پلتفرم به راحتی امکان‌پذیر است."
+          : "",
+      url: `https://rgb.irpsc.com/${params.lang}/contact`,
+      images: [
+        {
+          url: "/team.jpg",
+          width: 800,
+          height: 600,
+          alt: "تیم متاورس رنگ",
+        },
+      ],
+      locale: params.lang.toLowerCase() == "fa" ? "fa_IR" : "en_US",
+    },
+  };
+}
 
 export default async function AboutPage({ params }: any) {
   function convertPersianToEnglishNumber(slug: any) {
@@ -61,161 +87,6 @@ export default async function AboutPage({ params }: any) {
 
   const staticMenuToShow = MenuStaticData;
 
-  const staticUsers = [
-    {
-      id: 1,
-      name: "حسین قدیری",
-      profile_photo: "/profile/hossein-ghadiri.jpg",
-      code: "HM-2000001",
-      score: "",
-      levels: { current: { name: "بنیان گذار" } },
-    },
-    {
-      id: 2,
-      name: "امیر مدنی فر",
-      profile_photo: "",
-      code: "HM-2000002",
-      score: "",
-      levels: { current: { name: "بنیان گذار" } },
-    },
-    {
-      id: 3,
-      name: "عباس آجرلو",
-      profile_photo: "",
-      code: "HM-2000005",
-      score: "",
-      levels: { current: { name: "توسعه دهنده" } },
-    },
-    {
-      id: 4,
-      name: "مهدی غلام حسینی",
-      profile_photo: "",
-      code: "HM-2000008",
-      score: "",
-      levels: { current: { name: "توسعه دهنده" } },
-    },
-    {
-      id: 5,
-      name: "نازنین حشمتی",
-      profile_photo: "",
-      code: "",
-      score: "",
-      levels: { current: { name: "توسعه دهنده" } },
-    },
-    {
-      id: 6,
-      name: "امیر محسنی",
-      profile_photo: "",
-      code: "",
-      score: "",
-      levels: { current: { name: "توسعه دهنده" } },
-    },
-    {
-      id: 7,
-      name: "امین دهقان نژاد",
-      profile_photo: "",
-      code: "",
-      score: "",
-      levels: { current: { name: "توسعه دهنده" } },
-    },
-    {
-      id: 8,
-      name: "فاطمه نصیری",
-      profile_photo: "",
-      code: "",
-      score: "",
-      levels: { current: { name: "توسعه دهنده" } },
-    },
-    {
-      id: 9,
-      name: "بنیامین نوری",
-      profile_photo: "",
-      code: "HM-2000011",
-      score: "",
-      levels: { current: { name: "توسعه دهنده" } },
-    },
-    {
-      id: 10,
-      name: "مصطفی قدیری",
-      profile_photo: "",
-      code: "",
-      score: "",
-      levels: { current: { name: "توسعه دهنده" } },
-    },
-    {
-      id: 11,
-      name: "محمدجواد گرئی",
-      profile_photo: "",
-      code: "",
-      score: "",
-      levels: { current: { name: "توسعه دهنده" } },
-    },
-    {
-      id: 12,
-      name: "امیر حسین امینی",
-      profile_photo: "",
-      code: "HM-2000010",
-      score: "",
-      levels: { current: { name: "توسعه دهنده" } },
-    },
-    {
-      id: 13,
-      name: "آی تای ملکی",
-      profile_photo: "",
-      code: "",
-      score: "",
-      levels: { current: { name: "توسعه دهنده" } },
-    },
-    {
-      id: 14,
-      name: "یوسف خدری",
-      profile_photo: "",
-      code: "",
-      score: "",
-      levels: { current: { name: "توسعه دهنده" } },
-    },
-    {
-      id: 15,
-      name: "پرهام امین لو",
-      profile_photo: "",
-      code: "",
-      score: "",
-      levels: { current: { name: "توسعه دهنده" } },
-    },
-    {
-      id: 16,
-      name: "محمدرضا اصغری",
-      profile_photo: "",
-      code: "",
-      score: "",
-      levels: { current: { name: "توسعه دهنده" } },
-    },
-    {
-      id: 17,
-      name: "مرضیه ثاقب علیزاده",
-      profile_photo: "",
-      code: "HM-2000003",
-      score: "",
-      levels: { current: { name: "توسعه دهنده" } },
-    },
-    {
-      id: 18,
-      name: "سعید زاجکانی",
-      profile_photo: "",
-      code: "HM-2000009",
-      score: "",
-      levels: { current: { name: "توسعه دهنده" } },
-    },
-    {
-      id: 19,
-      name: "پارسا بهرامی",
-      profile_photo: "",
-      code: "HM-2000491",
-      score: "",
-      levels: { current: { name: "توسعه دهنده" } },
-    },
-  ];
-
   // add staticMenuToShow values to siblings tabsMenu values
   tabsMenu.forEach((tab: any) => {
     let findInStatic = staticMenuToShow.find((val) => tab.name == val.name);
@@ -225,18 +96,47 @@ export default async function AboutPage({ params }: any) {
       tab.toShow = true;
     }
   });
-
   const aboutSchema = {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    name: await localFind1("metaverse rang"),
-    url: `https://rgb.irpsc.com/${params.lang}/about`,
-    logo: `https://rgb.irpsc.com/logo.png`,
-    description: "???",
-    brand: "متارنگ",
-    foundingDate: "2021-11-06",
-    location: {
+    "@type": "ContactPage",
+    name: params.lang.toLowerCase() === "fa" ? "تماس با ما" : "Contact Us",
+    description:
+      params.lang.toLowerCase() === "fa"
+        ? "ما در متاورس رنگ معتقدیم که توسعه این دنیای موازی و مجازی تنها با مشارکت و همفکری عمومی امکان‌پذیر است. زیرساخت‌های این جهان بر پایه‌ی واحد حدتاثیر بنا شده‌اند تا بتوانند نظرات و ایده‌های شما را به بهترین شکل در مسیر توسعه هدایت کنند. ارتباط با انجمن متاورس ایران و دانشگاه متاورس ایران از طریق این پلتفرم به راحتی امکان‌پذیر است."
+        : "", // Add English description if needed
+    url: `https://rgb.irpsc.com/${params.lang}/contact`,
+
+    contentLocation: {
       "@type": "Place",
+      // Name of the location (e.g., Organization name)
+      name: "Metaverse Rang",
+      // Alternate Name (e.g., other business or location name)
+      alternateName: "Metaverse Rang Headquarters",
+      // URL that points to the same entity
+      sameAs: "https://rgb.irpsc.com",
+      // Global Location Number (use a valid GLN if you have one)
+      globalLocationNumber: "1234567890", // Replace with actual GLN
+      // Maximum Attendee Capacity (could be used for events or location capacity)
+      maximumAttendeeCapacity: 100, // This is an example; replace with actual number
+      // Map URL for location
+      map: "https://www.google.com/maps?q=میرداماد،+824H+JG2,+قزوین",
+      // Branch Code (if applicable, e.g., for sub-branches)
+      branchCode: "RGB-QV01",
+      // Telephone associated with the content location (branch or office)
+      telephone: "+02833647125",
+      // ISIC V4 code (International Standard Industry Classification)
+      isicV4: "6201", // Example, you can replace with the appropriate ISIC code for your business
+      // Slogan for your company/organization
+      slogan: "Transforming the Virtual World Together",
+      // Maps to (provide a URL pointing to a map, could be a digital map link)
+      maps: "https://maps.app.goo.gl/63ayLgtcRGZEBhmf7",
+      // Fax Number (if applicable)
+      faxNumber: "+02833647126",
+    },
+
+    mainEntity: {
+      "@type": "Organization",
+      // Postal Address
       address: {
         "@type": "PostalAddress",
         streetAddress: "میرداماد، 824H+JG2",
@@ -244,46 +144,18 @@ export default async function AboutPage({ params }: any) {
         addressRegion: "استان قزوین",
         addressCountry: "ایران",
       },
-      geo: {
-        "@type": "GeoCoordinates",
-        latitude: "36.2811",
-        longitude: "50.0000",
-      },
-    },
-    contactPoint: [
-      {
+
+      // Contact Point (Customer Service)
+      contactPoint: {
         "@type": "ContactPoint",
         telephone: "+989120820120",
         contactType: "customer service",
         availableLanguage: ["Persian", "English"],
       },
-      {
-        "@type": "ContactPoint",
-        telephone: "02833647125",
-        contactType: "office",
-      },
-    ],
-    sameAs: ["https://www.instagram.com/rgb.irpsc"],
-    founders: [
-      {
-        "@type": "Organization",
-        name: "شرکت تعاونی زنجیره تامین بهشت",
-      },
-      {
-        "@type": "Person",
-        name: "امیر مدنی فر",
-      },
-    ],
-    mission: "توسعه زیرساخت های دنیای مجازی و موازی بر پایه ارائه خدمات منسجم",
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "میرداماد، 824H+JG2",
-      addressLocality: "قزوین",
-      addressRegion: "استان قزوین",
-      addressCountry: "ایران",
     },
-    telephone: "+989127855049",
-    email: "hq@irpsc.com",
+
+    // Optional: General contact number
+    telephone: "+02833647125",
   };
 
   return (
@@ -317,38 +189,106 @@ export default async function AboutPage({ params }: any) {
           </div>
           <section className="mx-auto px-4 lg:px-9">
             <h1 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[64px] mb-[16px]">
-              تماس با ما
+              {params.lang.toLowerCase() == "fa" ? "تماس با ما" : "Contact Us"}
             </h1>
             <div className="flex flex-col gap-10 ">
               <div>
                 <h3 className="dark:text-white text-black text-lg md:text-2xl font-bold font-rohk">
-                  تماس با ما - متاورس رنگ (متارنگ)
+                  {params.lang.toLowerCase() == "fa"
+                    ? "تماس با ما - متاورس رنگ (متارنگ)"
+                    : "Contact Us - Metaverse Rang (MetaRang)"}
                 </h3>
                 <p className="text-lightGray font-medium text-justify text-sm md:text-lg mt-5 leading-10">
-                  ما در متاورس رنگ معتقدیم که توسعه این دنیای موازی و مجازی تنها
-                  با مشارکت و همفکری عمومی امکان‌پذیر است. زیرساخت‌های این جهان
-                  بر پایه‌ی واحد حدتاثیر بنا شده‌اند تا بتوانند نظرات و ایده‌های
-                  شما را به بهترین شکل در مسیر توسعه هدایت کنند. ارتباط با انجمن
-                  متاورس ایران و دانشگاه متاورس ایران از طریق این پلتفرم به
-                  راحتی امکان‌پذیر است. همچنین، شما می‌توانید با تیم پیشرو در
-                  توسعه زیرساخت‌های مشارکت همگانی در ارتباط باشید تا با
-                  هم‌افزایی و همکاری، آینده‌ای بهتر برای این جهان مجازی بسازیم.
-                  نظرات و پیشنهادات شما، نیروی محرکه‌ی این تحول عظیم است و به ما
-                  در ایجاد جهانی بهتر و نوآورانه کمک می‌کند.
+                  {params.lang.toLowerCase() == "fa"
+                    ? "ما در متاورس رنگ معتقدیم که توسعه این دنیای موازی و مجازی تنها با مشارکت و همفکری عمومی امکان‌پذیر است. زیرساخت‌های این جهان بر پایه‌ی واحد حدتاثیر بنا شده‌اند تا بتوانند نظرات و ایده‌های شما را به بهترین شکل در مسیر توسعه هدایت کنند. ارتباط با انجمن متاورس ایران و دانشگاه متاورس ایران از طریق این پلتفرم به راحتی امکان‌پذیر است. همچنین، شما می‌توانید با تیم پیشرو در توسعه زیرساخت‌های مشارکت همگانی در ارتباط باشید تا با هم‌افزایی و همکاری، آینده‌ای بهتر برای این جهان مجازی بسازیم. نظرات و پیشنهادات شما، نیروی محرکه‌ی این تحول عظیم است و به ما در ایجاد جهانی بهتر و نوآورانه کمک می‌کند."
+                    : 'At Metaverse Rang, we believe that the development of this parallel and virtual world is only possible through public participation and collaboration. The infrastructure of this world is built on the concept of the "unity of influence," designed to guide your opinions and ideas in the most effective way possible towards the development process. Connecting with the Metaverse Iran community and the Metaverse Iran University is easily achievable through this platform. Furthermore, you can also get in touch with the leading team in the development of infrastructure for collective participation. Through synergy and cooperation, we aim to create a better future for this virtual world. Your feedback and suggestions are the driving force behind this great transformation and help us in creating a better and more innovative world.'}
                 </p>
               </div>
             </div>
             <div>
-              <main className="flex">
-                <div></div>
+              <main className="overflow-x-hidden w-[85%] m-auto bg-white dark:bg-[#1A1A18] rounded-xl dark:text-white p-5 lg:p-7 mt-10">
+                <h1
+                  className={`${
+                    params.lang.toLowerCase() == "fa"
+                      ? "lg:text-right"
+                      : "lg:text-left"
+                  } text-lg md:text-xl text-black dark:text-white font-bold py-5 text-center`}
+                >
+                  {params.lang.toLowerCase() == "fa"
+                    ? "تماس باما"
+                    : "Contact us"}
+                </h1>
 
-                <div></div>
+                <div className="flex-col flex gap-7 lg:flex-row w-full">
+                  <div className="flex flex-col gap-2 md:gap-7 w-full lg:w-1/2 justify-center lg:justify-start">
+                    <div>
+                      <p
+                        className={`${
+                          params.lang.toLowerCase() == "fa"
+                            ? "lg:text-right"
+                            : "lg:text-left"
+                        } text-darkGray dark:text-Field py-1 text-center text-sm md:text-base`}
+                      >
+                        {params.lang.toLowerCase() == "fa"
+                          ? "پیام شما میتواند شروع یک مکالمه سازنده باشد."
+                          : "Your message can be the start of a productive conversation."}
+                      </p>
+                    </div>
 
-                <div></div>
+                    <div>
+                      <Form params={params} />
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-7 w-full lg:w-1/2 justify-center lg:justify-start ">
+                    <div className="flex flex-col lg:flex-row lg:flex-wrap w-full items-center justify-between gap-6 ">
+                      <div className="flex gap-3">
+                        <WhatsAppIcon
+                          width={27}
+                          height={27}
+                          className="text-light-placeholder dark:text-dark-placeholder"
+                        />
+                        <a
+                          className="font-bold text-2xl leading-[40px] text-black dark:text-light-newColors-shades-bg2 font-rokh"
+                          href="tel:09120820120"
+                        >
+                          {params.lang.toLowerCase() == "fa"
+                            ? "۰۹۱۲۰۸۲۰۱۲۰"
+                            : "09120820120"}
+                        </a>
+                      </div>
+                      <div className="flex gap-3 text-center lg:text-right">
+                        <a
+                          className="text-light-newColors-shades-50 dark:text-white font-medium text-[16px] md:text-[25px] leading-[32px] font-rokh"
+                          href="mailto:info@rgb.irpsc.com"
+                        >
+                          info@rgb.irpsc.com
+                        </a>
+                        <ContactDownArrow
+                          width={27}
+                          height={27}
+                          className="text-light-placeholder dark:text-dark-placeholder"
+                        />
+                      </div>
+                    </div>
+                    <div className="aspect-[5/4]">
+                      <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12860.972378290073!2d50.0287883!3d36.3064114!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f8b5551db33af95%3A0xa19dc982418e7204!2sMetaRgb!5e0!3m2!1sen!2s!4v1732341818636!5m2!1sen!2s"
+                        style={{ border: "0" }}
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                        className="w-full h-full"
+                      ></iframe>
+                    </div>
+                  </div>
+                </div>
+                <div className="w-full h-[1px] bg-dark-newColors-shades-100 mt-[38px] mb-[28px]"></div>
+                <div className="flex flex-wrap justify-center gap-[5px]">
+                  <Social />
+                </div>
               </main>
             </div>
           </section>
-          <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
+          <div className="lg:px-32 md:px-5 sm:px-5 xs:px-1">
             <DynamicFooter footerTabs={footerTabs} />
           </div>
         </section>
