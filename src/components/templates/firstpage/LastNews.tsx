@@ -56,7 +56,7 @@ const LastNews = ({ firstPageArrayContent, params }: any) => {
           >
             <Link
               href={item.url}
-              className=" group w-full h-[266px]   rounded-t-[10px] relative"
+              className=" group w-full h-[266px] rounded-t-[10px] relative"
             >
               <Image
                 src={`/firstpage/static-news-${index}.jpg`}
@@ -93,8 +93,8 @@ const LastNews = ({ firstPageArrayContent, params }: any) => {
                 className="flex flex-row justify-start items-center gap-2"
               >
                 <Image
-                  src="/firstpage/img2.jpg"
-                  alt="/firstpage/img2.jpg"
+                  src="/profile/hossein-ghadiri.jpg"
+                  alt="/profile/hossein-ghadiri.jpg"
                   width={1000}
                   height={1000}
                   loading="lazy"

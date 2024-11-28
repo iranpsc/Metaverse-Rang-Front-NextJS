@@ -257,20 +257,18 @@ function Footer({ footerTabs }: any) {
         </div>
       </div>
 
-      <div className="h-[20px] text-center">
+      <div className="my-3 text-center text-black dark:text-white">
         {translateFooter(footerTabs, "update")}&nbsp;|&nbsp;
         {translateFooter(footerTabs, "design and development")}&nbsp;
         <a href="https://web.irpsc.com/" target="_blank">
           {translateFooter(footerTabs, "webrang")}&nbsp;|&nbsp;
         </a>
-        {/* link to https://web.irpsc.com/ */}
         <a
           href="https://github.com/iranpsc/Metaverse-Rang-Front-NextJS"
           target="_blank"
         >
           {translateFooter(footerTabs, "version")}&nbsp;
         </a>
-        {/* link to https://github.com/iranpsc/Metaverse-Rang-Front-NextJS */}
       </div>
     </>
   );

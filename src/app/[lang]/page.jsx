@@ -290,7 +290,7 @@ export default async function LangPage({params}) {
               </div>
             </div>
           <section
-            className={`w-full relative flex  flex-col justify-start overflow-x-clip overflow-y-auto items-center 
+            className={`w-full relative flex no-scrollbar flex-col justify-start overflow-x-clip overflow-y-auto items-center 
               xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1`}
           >
             <div className="w-full relative lg:h-[350px] 2xl:h-[400px] mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
