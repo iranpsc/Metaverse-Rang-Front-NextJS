@@ -1,24 +1,26 @@
 "use client";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 const Section3D = () => {
   const [useAparat, setUseAparat] = useState(false);
+  const [youtubeLoaded, setYouTubeLoaded] = useState(false);
 
   useEffect(() => {
+    // Timeout to fallback to Aparat after 5 seconds if YouTube is not loaded
     const timeout = setTimeout(() => {
-      setUseAparat(true);
-    }, 2500);
+      if (!youtubeLoaded) {
+        setUseAparat(true); // Switch to Aparat after timeout if YouTube didn't load
+      }
+    }, 5000); // 5 seconds to wait for YouTube to load
 
-    const iframe = document.getElementById("youtube-iframe");
-    iframe?.addEventListener("load", () => {
-      clearTimeout(timeout);
-    });
+    return () => clearTimeout(timeout);
+  }, [youtubeLoaded]);
 
-    return () => {
-      clearTimeout(timeout);
-      iframe?.removeEventListener("load", () => {});
-    };
-  }, []);
+  const handleYouTubeLoad = () => {
+    // If the iframe loads successfully, set youtubeLoaded to true
+    console.log("YouTube loaded");
+    setYouTubeLoaded(true);
+  };
 
   return (
     <div className="relative w-full flex justify-center items-center">
@@ -34,13 +36,13 @@ const Section3D = () => {
           ></iframe>
         ) : (
           <iframe
-            id="youtube-iframe"
             className="w-full h-full"
             src="https://www.youtube.com/embed/0yAc0hUeF8Y"
             title="YouTube Video Player"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
+            onLoad={handleYouTubeLoad} // Track successful load
           ></iframe>
         )}
       </div>
