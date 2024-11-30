@@ -9,9 +9,9 @@ const Section3D = () => {
     // Timeout to fallback to Aparat after 5 seconds if YouTube is not loaded
     const timeout = setTimeout(() => {
       if (!youtubeLoaded) {
-        setUseAparat(true); // Switch to Aparat after timeout if YouTube didn't load
+        setUseAparat(true);
       }
-    }, 5000); // 5 seconds to wait for YouTube to load
+    }, 5000);
 
     return () => clearTimeout(timeout);
   }, [youtubeLoaded]);
