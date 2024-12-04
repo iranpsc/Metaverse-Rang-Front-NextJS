@@ -3,7 +3,6 @@ import HeaderFirstPage from "@/components/templates/firstpage/HeaderFirstPage";
 import SectionTimer from "@/components/templates/firstpage/SectionTimer";
 import SectionTeam from "@/components/templates/firstpage/TeamSection";
 import TopCitizen from "@/components/templates/firstpage/TopCitizen";
-import TopVideo from "@/components/templates/firstpage/TopVideo";
 import LastNews from "@/components/templates/firstpage/LastNews";
 import Section3D from "@/components/templates/firstpage/Section3D";
 import TopTrainersFirstPage from "@/components/templates/firstpage/TopTrainersFirstPage";
@@ -24,6 +23,8 @@ import DynamicFooter from "@/components/module/footer/DynamicFooter";
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
 import { staticMenuToShow as MenuStaticData } from "@/components/utils/constants";
 import { Suspense } from 'react';
+import Head from 'next/head';
+
 
 
 
@@ -180,6 +181,10 @@ export default async function LangPage({params}) {
   }
   return (
     <>
+      <Head>
+        {/* Preload poster image for video */}
+        <link rel="preload" href="/firstpage/replaced_pic.png" as="image" />
+      </Head>
       {/* SCHEMA** */}
       <script
         type="application/ld+json"
@@ -205,7 +210,16 @@ export default async function LangPage({params}) {
           <section className="flex flex-col h-fit tall0:min-h-[600px] min-h-[calc(100vh-60px)] lg:h-screen relative">
 
           {/* lazy loaded video which have poster (shown before loading) */}
-          <TopVideo />
+          <video
+            // src='/firstpage/3d_rgb.irpsc.mp4'
+            poster="/firstpage/replaced_pic.png"
+            autoPlay
+            muted
+            loop
+            playsInline
+            loading="lazy"
+            className="absolute w-full h-full ltr:rotate-y-180 object-cover object-[-115px] sm:object-left"
+          />
             <div
               className="w-full h-full flex flex-col-reverse lg:flex-row px-5 lg:ps-[32px] lg:pe-0 z-[1]"
             >
