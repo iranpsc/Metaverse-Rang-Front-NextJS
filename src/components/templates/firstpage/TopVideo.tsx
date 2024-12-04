@@ -10,7 +10,7 @@ export default function LazyLoadVideo() {
     const timer = setTimeout(() => {
       setShowVideo(true);
       clearTimeout(timer);
-    }, 2000); // 2000ms = 2 seconds
+    }, 10000); // 2000ms = 2 seconds
 
     // Clear the timer if the component is unmounted
     return () => clearTimeout(timer);
