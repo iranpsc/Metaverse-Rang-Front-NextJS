@@ -22,6 +22,7 @@ import {
 import DynamicFooter from "@/components/module/footer/DynamicFooter";
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
 import { staticMenuToShow as MenuStaticData } from "@/components/utils/constants";
+import { Suspense } from 'react';
 
 
 
@@ -186,14 +187,16 @@ export default async function LangPage({params}) {
       {/* schema END */}
 
       <div className="flex h-screen overflow-hidden" dir={langData.direction}>
-        <SideBar
-          tabsMenu={tabsMenu}
-          langData={langData}
-          langArray={langArray}
-          defaultTheme={defaultTheme}
-          params={params}
-          pageSide="citizen"
-        />
+        <Suspense>
+          <SideBar
+            tabsMenu={tabsMenu}
+            langData={langData}
+            langArray={langArray}
+            defaultTheme={defaultTheme}
+            params={params}
+            pageSide="citizen"
+            />
+        </Suspense>
         <section
           // id={`${defaultTheme == "dark" ? "dark-scrollbar" : "light-scrollbar"}`}
           className={`overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20`}
