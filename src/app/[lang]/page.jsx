@@ -3,6 +3,7 @@ import HeaderFirstPage from "@/components/templates/firstpage/HeaderFirstPage";
 import SectionTimer from "@/components/templates/firstpage/SectionTimer";
 import SectionTeam from "@/components/templates/firstpage/TeamSection";
 import TopCitizen from "@/components/templates/firstpage/TopCitizen";
+import TopVideo from "@/components/templates/firstpage/TopVideo";
 import LastNews from "@/components/templates/firstpage/LastNews";
 import Section3D from "@/components/templates/firstpage/Section3D";
 import TopTrainersFirstPage from "@/components/templates/firstpage/TopTrainersFirstPage";
@@ -204,16 +205,7 @@ export default async function LangPage({params}) {
           <section className="flex flex-col h-fit tall0:min-h-[600px] min-h-[calc(100vh-60px)] lg:h-screen relative">
 
           {/* lazy loaded video which have poster (shown before loading) */}
-          <video
-            src='/firstpage/3d_rgb.irpsc.mp4'
-            poster="/firstpage/replaced_pic.png"
-            autoPlay
-            muted
-            loop
-            playsInline
-            loading="lazy"
-            className="absolute w-full h-full ltr:rotate-y-180 object-cover object-[-115px] sm:object-left"
-          />
+          <TopVideo />
             <div
               className="w-full h-full flex flex-col-reverse lg:flex-row px-5 lg:ps-[32px] lg:pe-0 z-[1]"
             >
