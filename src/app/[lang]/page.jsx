@@ -1,16 +1,31 @@
 import { Discord, Frame1, Frame2 } from "@/components/svgs";
-import HeaderFirstPage from "@/components/templates/firstpage/HeaderFirstPage";
-import SectionTimer from "@/components/templates/firstpage/SectionTimer";
-import SectionTeam from "@/components/templates/firstpage/TeamSection";
-import TopCitizen from "@/components/templates/firstpage/TopCitizen";
-import LastNews from "@/components/templates/firstpage/LastNews";
-import Section3D from "@/components/templates/firstpage/Section3D";
-import TopTrainersFirstPage from "@/components/templates/firstpage/TopTrainersFirstPage";
-import EducationFirstPage from "@/components/templates/firstpage/EducationFirstPage";
-import LastContent from "@/components/templates/firstpage/LastContent";
-import DetailsEducationSection from "@/components/templates/firstpage/DetailsEducationSection";
-import VersionSection from "@/components/templates/firstpage/VersionSection";
-import SideBar from "@/components/module/sidebar/SideBar";
+// import HeaderFirstPage from "@/components/templates/firstpage/HeaderFirstPage";
+// import SectionTimer from "@/components/templates/firstpage/SectionTimer";
+// import SectionTeam from "@/components/templates/firstpage/TeamSection";
+// import TopCitizen from "@/components/templates/firstpage/TopCitizen";
+// import LastNews from "@/components/templates/firstpage/LastNews";
+// import Section3D from "@/components/templates/firstpage/Section3D";
+// import TopTrainersFirstPage from "@/components/templates/firstpage/TopTrainersFirstPage";
+// import EducationFirstPage from "@/components/templates/firstpage/EducationFirstPage";
+// import LastContent from "@/components/templates/firstpage/LastContent";
+// import DetailsEducationSection from "@/components/templates/firstpage/DetailsEducationSection";
+// import VersionSection from "@/components/templates/firstpage/VersionSection";
+// import SideBar from "@/components/module/sidebar/SideBar";
+import React, { Suspense } from 'react';
+
+// Lazy load components
+const HeaderFirstPage = React.lazy(() => import('@/components/templates/firstpage/HeaderFirstPage'));
+const SectionTimer = React.lazy(() => import('@/components/templates/firstpage/SectionTimer'));
+const SectionTeam = React.lazy(() => import('@/components/templates/firstpage/TeamSection'));
+const TopCitizen = React.lazy(() => import('@/components/templates/firstpage/TopCitizen'));
+const LastNews = React.lazy(() => import('@/components/templates/firstpage/LastNews'));
+const Section3D = React.lazy(() => import('@/components/templates/firstpage/Section3D'));
+const TopTrainersFirstPage = React.lazy(() => import('@/components/templates/firstpage/TopTrainersFirstPage'));
+const EducationFirstPage = React.lazy(() => import('@/components/templates/firstpage/EducationFirstPage'));
+const LastContent = React.lazy(() => import('@/components/templates/firstpage/LastContent'));
+const DetailsEducationSection = React.lazy(() => import('@/components/templates/firstpage/DetailsEducationSection'));
+const VersionSection = React.lazy(() => import('@/components/templates/firstpage/VersionSection'));
+const SideBar = React.lazy(() => import('@/components/module/sidebar/SideBar'));
 import {
   getTranslation,
   getMainFile,
@@ -19,10 +34,9 @@ import {
   getLangArray,
   getAllVersions
 } from "@/components/utils/actions";
-import DynamicFooter from "@/components/module/footer/DynamicFooter";
+const DynamicFooter = React.lazy(() => import("@/components/module/footer/DynamicFooter"  ))
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
 import { staticMenuToShow as MenuStaticData } from "@/components/utils/constants";
-import { Suspense } from 'react';
 import Head from 'next/head';
 
 
@@ -211,7 +225,7 @@ export default async function LangPage({params}) {
 
           {/* lazy loaded video which have poster (shown before loading) */}
           <video
-            // src='/firstpage/3d_rgb.irpsc.mp4'
+            src='/firstpage/3d_rgb.irpsc.mp4'
             poster="/firstpage/replaced_pic.png"
             autoPlay
             muted
@@ -223,7 +237,9 @@ export default async function LangPage({params}) {
             <div
               className="w-full h-full flex flex-col-reverse lg:flex-row px-5 lg:ps-[32px] lg:pe-0 z-[1]"
             >
-              <HeaderFirstPage firstPageArrayContent={firstPageArrayContent} params={params} />
+              <Suspense fallback={<div>Loading Header...</div>}>
+                <HeaderFirstPage firstPageArrayContent={firstPageArrayContent} params={params} />
+              </Suspense>
             </div>
             {/* MD to larg shown-1 */}
             <div
@@ -304,36 +320,38 @@ export default async function LangPage({params}) {
           >
             <div className="w-full relative lg:h-[350px] 2xl:h-[400px] mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
               {/* <div className="absolute top-0 left-0 w-full h-full bg-cover bg-no-repeat bg-center filter blur-sm "></div> */}
-              <SectionTimer firstPageArrayContent={firstPageArrayContent} />
+              <Suspense fallback={<div>Loading Header...</div>}>
+                <SectionTimer firstPageArrayContent={firstPageArrayContent} />
+              </Suspense>
             </div>
 
             <div className="relative w-[90%] h-fit grid grid-cols-12 mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
-              {/* <div className="absolute bg-dark-yellow/10 z-0 size-[250px] start-[0px] bottom-[0px] rounded-xl blur-3xl filter"></div> */}
+            <Suspense fallback={<div>Loading Header...</div>}>
               <SectionTeam firstPageArrayContent={firstPageArrayContent} params={params} />
+            </Suspense>
             </div>
 
             <div className="w-[90%] h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
-              <TopCitizen
-              firstPageArrayContent={firstPageArrayContent}
-              params={params}
-              citizenListArrayContent={citizenListArrayContent}
-              levelListArrayContent={levelListArrayContent}
-              />
+              <Suspense fallback={<div>Loading Header...</div>}>
+                <TopCitizen
+                firstPageArrayContent={firstPageArrayContent}
+                params={params}
+                citizenListArrayContent={citizenListArrayContent}
+                levelListArrayContent={levelListArrayContent}
+                />
+              </Suspense>
             </div>
 
             <div className="w-[90%] h-fit  mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
-              <LastNews firstPageArrayContent={firstPageArrayContent} params={params} />
+              <Suspense fallback={<div>Loading Header...</div>}>
+                <LastNews firstPageArrayContent={firstPageArrayContent} params={params} />
+              </Suspense>
             </div>
 
             <div className="relative w-[90%] h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px] flex items-center justify-center">
-              {/* <Image
-                src={`/firstpage/circle.png`}
-                alt="/firstpage/img2.jpg"
-                width={1000}
-                height={1000}
-                className=" w-fit h-[850px] absolute z-[1000] top-[50%] start-[50%] translate-x-1/2 translate-y-1/2"
-              /> */}
-              <Section3D />
+              <Suspense fallback={<div>Loading Header...</div>}>
+                <Section3D />
+              </Suspense>
             </div>
 
             <div className="w-[90%] h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
@@ -346,27 +364,35 @@ export default async function LangPage({params}) {
             </div>
 
             <div className="w-[90%] h-fit  mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
-              <EducationFirstPage params={params} firstPageArrayContent={firstPageArrayContent} />
+              <Suspense fallback={<div>Loading Header...</div>}>
+                <EducationFirstPage params={params} firstPageArrayContent={firstPageArrayContent} />
+              </Suspense>
             </div>
 
             <div className="w-[90%] h-fit  mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
-              <LastContent firstPageArrayContent={firstPageArrayContent} params={params}/>
+              <Suspense fallback={<div>Loading Header...</div>}>
+                <LastContent firstPageArrayContent={firstPageArrayContent} params={params}/>
+              </Suspense>
             </div>
 
             <div className="w-[90%] relative h-fit  mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
-              {/* <div className="absolute bg-dark-yellow/10 z-0 size-[250px] end-[0px] top-[-30px] rounded-xl blur-2xl filter"></div> */}
-              <DetailsEducationSection
-                firstPageArrayContent={firstPageArrayContent}
-              />
+              <Suspense fallback={<div>Loading Header...</div>}>
+                <DetailsEducationSection
+                  firstPageArrayContent={firstPageArrayContent}
+                />
+              </Suspense>
             </div>
 
             <div className="w-[90%] relative h-fit  mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
-              {/* <div className="absolute bg-dark-white/10 z-0 size-[250px] start-[0px] top-[0px] rounded-xl blur-2xl filter"></div> */}
-              <VersionSection firstPageArrayContent={firstPageArrayContent} allVersionList={allVersionList} />
+              <Suspense fallback={<div>Loading Header...</div>}>
+                <VersionSection firstPageArrayContent={firstPageArrayContent} allVersionList={allVersionList} />
+              </Suspense>
             </div>
 
             <div className="flex flex-col justify-center items-center">
-              <DynamicFooter footerTabs={footerTabs} />
+              <Suspense fallback={<div>Loading Header...</div>}>
+                <DynamicFooter footerTabs={footerTabs} />
+              </Suspense>
             </div>
           </section>
         </section>
