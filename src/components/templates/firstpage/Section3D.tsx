@@ -1,51 +1,58 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 const Section3D = () => {
-  const [useAparat, setUseAparat] = useState(false);
-  const [youtubeLoaded, setYouTubeLoaded] = useState(false);
+  const [inView, setInView] = useState(false);
+  const iframeContainerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    // Timeout to fallback to Aparat after 5 seconds if YouTube is not loaded
-    const timeout = setTimeout(() => {
-      if (!youtubeLoaded) {
-        setUseAparat(true);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        console.log("Intersection entry:", entry); // Debug log
+        if (entry.isIntersecting) {
+          console.log("Iframe is in view - Setting state to load iframe");
+          setInView(true); // Trigger iframe load when in view
+        } else {
+          console.log("Iframe is not in view");
+        }
+      },
+      {
+        rootMargin: "0px",
+        threshold: 0.5, // Trigger when 50% of the iframe is in view
       }
-    }, 5000);
+    );
 
-    return () => clearTimeout(timeout);
-  }, [youtubeLoaded]);
+    if (iframeContainerRef.current) {
+      observer.observe(iframeContainerRef.current); // Observe the iframe container
+    }
 
-  const handleYouTubeLoad = () => {
-    // If the iframe loads successfully, set youtubeLoaded to true
-    console.log("YouTube loaded");
-    setYouTubeLoaded(true);
-  };
+    return () => {
+      if (iframeContainerRef.current) {
+        observer.unobserve(iframeContainerRef.current); // Cleanup observer on component unmount
+      }
+    };
+  }, []);
 
   return (
-    <div className="relative w-full flex justify-center items-center">
-      <div className="absolute bottom-12 start-5 w-fit z-10 h-fit gap-5 flex flex-row justify-center items-center"></div>
-      <div className="w-full aspect-video overflow-hidden flex items-center">
-        {useAparat ? (
-          <iframe
-            className="w-full h-full"
-            src="https://www.aparat.com/video/video/embed/videohash/nkl2c42/vt/frame"
-            title="Aparat Video Player"
-            frameBorder="0"
-            allowFullScreen
-          ></iframe>
-        ) : (
-          <iframe
-            className="w-full h-full"
-            src="https://www.youtube.com/embed/0yAc0hUeF8Y"
-            title="YouTube Video Player"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            onLoad={handleYouTubeLoad} // Track successful load
-          ></iframe>
-        )}
-      </div>
+    <div
+      ref={iframeContainerRef}
+      className="relative w-full flex justify-center items-center"
+      style={{ height: "500px" }} // Ensure container has height for detection
+    >
+      {inView ? (
+        <iframe
+          className="w-full h-full"
+          src="https://www.youtube.com/embed/0yAc0hUeF8Y"
+          title="YouTube Video Player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          style={{ height: "100%", width: "100%" }}
+        ></iframe>
+      ) : (
+        <p>Loading iframe...</p> // Show loading text while iframe isn't loaded
+      )}
     </div>
   );
 };
