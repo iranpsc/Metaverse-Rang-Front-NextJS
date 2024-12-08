@@ -18,7 +18,7 @@ const Section3D = () => {
           console.log("YouTube failed to load. Switching to Aparat...");
           setUseAparat(true); // Fallback
         }
-      }, 5000); // 5 seconds timeout
+      }, 4000); // 4 seconds timeout
     }
 
     // Cleanup timeout accordingly
