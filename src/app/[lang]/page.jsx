@@ -25,6 +25,7 @@ const EducationFirstPage = React.lazy(() => import('@/components/templates/first
 const LastContent = React.lazy(() => import('@/components/templates/firstpage/LastContent'));
 const DetailsEducationSection = React.lazy(() => import('@/components/templates/firstpage/DetailsEducationSection'));
 const VersionSection = React.lazy(() => import('@/components/templates/firstpage/VersionSection'));
+const TopVideo = React.lazy(() => import('@/components/templates/firstpage/TopVideo'));
 const SideBar = React.lazy(() => import('@/components/module/sidebar/SideBar'));
 import {
   getTranslation,
@@ -225,16 +226,16 @@ export default async function LangPage({params}) {
           <section className="flex flex-col h-fit tall0:min-h-[600px] min-h-[calc(100vh-60px)] lg:h-screen relative">
 
           {/* lazy loaded video which have poster (shown before loading) */}
-          <video
+          <TopVideo />
+          {/* <video
             src='/firstpage/3d_rgb.irpsc.mp4'
             poster="/firstpage/replaced_pic.png"
             autoPlay
             muted
             loop
             playsInline
-            loading="lazy"
             className="absolute w-full h-full ltr:rotate-y-180 object-cover object-[-115px] sm:object-left"
-          />
+          /> */}
             <div
               className="w-full h-full flex flex-col-reverse lg:flex-row px-5 lg:ps-[32px] lg:pe-0 z-[1]"
             >

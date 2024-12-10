@@ -10,10 +10,8 @@ export default function LangLayout({ children, params }: any) {
   return (
     <html className={theme} lang={params.lang}>
       <head>
-        {/* Preload the poster image */}
+        {/* PRE-load */}
         <link rel="preload" as="image" href="/firstpage/replaced_pic.png" />
-
-        {/* Preload the video */}
         <link
           rel="preload"
           as="video"
