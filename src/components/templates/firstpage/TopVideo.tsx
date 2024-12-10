@@ -17,12 +17,10 @@ export default function LandingTopVideo() {
           layout="fill"
           objectFit="cover"
           quality={50}
-          priority // Ensures the image loads immediately for LCP
+          priority
         />
       )}
-
-      {/* Video Element to Replace the Image */}
-      <video
+      {/* <video
         src="/firstpage/3d_rgb.irpsc.mp4"
         autoPlay
         muted
@@ -31,9 +29,8 @@ export default function LandingTopVideo() {
         className={`absolute w-full h-full object-cover ${
           videoLoaded ? "visible opacity-100" : "invisible opacity-0"
         }`}
-        onCanPlayThrough={handleVideoLoad} // Trigger replacement when video is ready
-        preload="auto" // Preload video for better experience
-      />
+        onCanPlayThrough={handleVideoLoad}
+      /> */}
     </>
   );
 }
