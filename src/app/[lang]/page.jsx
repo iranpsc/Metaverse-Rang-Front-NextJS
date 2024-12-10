@@ -227,15 +227,19 @@ export default async function LangPage({params}) {
 
           {/* lazy loaded video which have poster (shown before loading) */}
           {/* <TopVideo /> */}
-          <video
-            src='/firstpage/3d_rgb.irpsc.mp4'
-            poster="/firstpage/replaced_pic.png"
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="absolute w-full h-full ltr:rotate-y-180 object-cover object-[-115px] sm:object-left"
-          />
+            <video
+              // src='/firstpage/3d_rgb.irpsc.webm'
+              poster="/firstpage/replaced_pic.webp"
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="absolute w-full h-full ltr:rotate-y-180 object-cover object-[-115px] sm:object-left"
+              >
+                <source src="/firstpage/3d_rgb.irpsc.webm" type="video/webm" />
+                <source src="/firstpage/3d_rgb.irpsc.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
             <div
               className="w-full h-full flex flex-col-reverse lg:flex-row px-5 lg:ps-[32px] lg:pe-0 z-[1]"
             >
