@@ -61,8 +61,8 @@ const LastNews = ({ firstPageArrayContent, params }: any) => {
               <Image
                 src={`/firstpage/static-news-${index}.jpg`}
                 alt="/firstpage/img2.jpg"
-                width={600}
-                height={600}
+                width={822}
+                height={450}
                 // priority={true}
                 loading="lazy"
                 className=" w-full h-full transition-all duration-150 ease-in-out rounded-t-[10px]  object-cover"

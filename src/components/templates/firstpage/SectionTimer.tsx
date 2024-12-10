@@ -34,8 +34,8 @@ const SectionTimer = ({ firstPageArrayContent }: any) => {
             className="w-fill h-full object-cover"
             src="/firstpage/ariai.rgb.irpsc.jpg"
             alt="header"
-            width={1000}
-            height={1000}
+            width={212}
+            height={212}
           />
         </div>
         <div className="w-full mt-4 lg:mt-0">

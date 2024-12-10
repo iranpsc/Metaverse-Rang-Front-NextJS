@@ -62,8 +62,8 @@ const LastContent = ({ firstPageArrayContent, params }: any) => {
               <Image
                 src={`/firstpage/img-N-${index}.jpg`}
                 alt="/firstpage/img2.jpg"
-                width={600}
-                height={600}
+                width={822}
+                height={450}
                 loading="lazy"
                 className=" w-full h-full rounded-t-[10px] object-cover"
               />
