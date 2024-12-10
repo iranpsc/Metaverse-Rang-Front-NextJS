@@ -15,6 +15,7 @@ const SectionTeam = ({ firstPageArrayContent, params }: any) => {
           src="/firstpage/img2.jpg"
           alt="header"
           width={1000}
+          loading="lazy"
           height={1000}
         />
       </div>

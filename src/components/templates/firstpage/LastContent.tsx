@@ -64,6 +64,7 @@ const LastContent = ({ firstPageArrayContent, params }: any) => {
                 alt="/firstpage/img2.jpg"
                 width={600}
                 height={600}
+                loading="lazy"
                 className=" w-full h-full rounded-t-[10px] object-cover"
               />
             </Link>

@@ -45,6 +45,7 @@ const DetailsEducationSection = ({ firstPageArrayContent }: any) => {
           alt="/firstpage/img2.jpg"
           width={600}
           height={600}
+          loading="lazy"
           className=" w-full h-full absolute z-0 top-0 start-0  object-cover rounded-[20px] md:rounded-[40px] lg:rounded-[50px] xl:rounded-[72px]"
         />
       </div>

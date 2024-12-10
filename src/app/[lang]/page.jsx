@@ -198,6 +198,7 @@ export default async function LangPage({params}) {
       <Head>
         {/* Preload poster image for video */}
         <link rel="preload" href="/firstpage/replaced_pic.png" as="image" />
+        <link rel="preload" href="/firstpage/3d_rgb.irpsc.mp4" as="video" type="video/mp4" />
       </Head>
       {/* SCHEMA** */}
       <script

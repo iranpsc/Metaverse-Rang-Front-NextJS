@@ -63,7 +63,8 @@ const LastNews = ({ firstPageArrayContent, params }: any) => {
                 alt="/firstpage/img2.jpg"
                 width={600}
                 height={600}
-                priority={true}
+                // priority={true}
+                loading="lazy"
                 className=" w-full h-full transition-all duration-150 ease-in-out rounded-t-[10px]  object-cover"
               />
               <div className="w-full h-full bg-black/20 absolute z-0 top-0 flex justify-center items-center rounded-t-[10px]">
