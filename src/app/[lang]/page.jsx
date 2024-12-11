@@ -402,8 +402,8 @@ export default async function LangPage({params}) {
             </div>
           </section>
         </section>
-        <a href="https://discord.gg/sW6XCY96hh" alt='discord' className="fixed rtl:left-[20px] ltr:right-[20px] bottom-[20px] z-[2]">
-          <Discord className="size-[50px] " />
+        <a href="https://discord.gg/sW6XCY96hh" aria-label="Join us on Discord" title='Discord' className="fixed rtl:left-[20px] ltr:right-[20px] bottom-[20px] z-[2]">
+          <Discord className="size-[50px]" />
         </a>
         
       </div>

@@ -20,9 +20,9 @@ const SectionTeam = ({ firstPageArrayContent, params }: any) => {
         />
       </div>
       <div className="xl:col-span-7 lg:col-span-7 md:col-span-7 sm:col-span-12 xs:col-span-12 flex flex-col justify-between items-start md:ps-10 gap-1">
-        <h1 className="w-full text-start font-bold text-[20px] md:text-[26px] lg:text-[32px] text-gray dark:text-white mt-5 font-azarMehr">
+        <h2 className="w-full text-start font-bold text-[20px] md:text-[26px] lg:text-[32px] text-gray dark:text-white mt-5 font-azarMehr">
           متاورس رنگ
-        </h1>
+        </h2>
 
         <Vector className="w-[20%] h-10" />
 

@@ -82,9 +82,9 @@ const LastNews = ({ firstPageArrayContent, params }: any) => {
             </div>
 
             <a className="w-[95%]" href={item.url}>
-              <h1 className="text-start dark:text-white text-gray  w-full font-azarMehr truncate cursor-pointer font-bold mt-[8px] text-[18px] xl:text-[20px] 3xl:text-[22px] ">
+              <h4 className="text-start dark:text-white text-gray  w-full font-azarMehr truncate cursor-pointer font-bold mt-[8px] text-[18px] xl:text-[20px] 3xl:text-[22px] ">
                 {item.title}
-              </h1>
+              </h4>
             </a>
 
             <div className="w-[95%] pb-2 flex flex-row justify-between  items-center">

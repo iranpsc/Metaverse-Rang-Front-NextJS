@@ -187,21 +187,21 @@ function Footer({ footerTabs }: any) {
               className="w-[60px] h-[60px] inline "
             />
             <div className="flex flex-col h-[60px]  justify-between items-start">
-              <h1 className="text-[22px] mt-[-5px] font-bold font-azarMehr  dark:text-white">
+              <h4 className="text-[22px] mt-[-5px] font-bold font-azarMehr  dark:text-white">
                 {(
                   footerTabs.find(
                     (item: any) => item.name == "national metaverse"
                   ) || {}
                 ).translation || "undefined"}
-              </h1>
-              <h2 className="mb-[-3px] font-azarMehr font-normal dark:text-white">
+              </h4>
+              <h4 className="mb-[-3px] font-azarMehr font-normal dark:text-white">
                 {(
                   footerTabs.find(
                     (item: any) =>
                       item.name == "global leadership in a parallel world"
                   ) || {}
                 ).translation || "undefined"}
-              </h2>
+              </h4>
             </div>
           </div>
           <p className="px-5 pt-6 font-normal text-justify font-azarMehr text-[#4C4C4C] dark:text-[#D4D4D4] text-[20px] leading-9">

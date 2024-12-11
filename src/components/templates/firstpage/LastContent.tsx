@@ -76,9 +76,9 @@ const LastContent = ({ firstPageArrayContent, params }: any) => {
             </div>
 
             <a className="w-[95%]" href={staticData[index].url}>
-              <h1 className="text-start  w-full font-azarMehr truncate cursor-pointer font-bold mt-[8px]  text-[18px] xl:text-[20px] 3xl:text-[22px] dark:text-white text-gray">
+              <h4 className="text-start  w-full font-azarMehr truncate cursor-pointer font-bold mt-[8px]  text-[18px] xl:text-[20px] 3xl:text-[22px] dark:text-white text-gray">
                 {staticData[index].title}
-              </h1>
+              </h4>
             </a>
 
             <div className="w-[95%] pb-2 flex flex-row justify-between  items-center">

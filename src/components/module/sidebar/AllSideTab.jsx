@@ -88,7 +88,8 @@ export default function SideBarContent({
             //*HINT*the way to pass parameters to function in nextjs "onTabClick(item)"
             //*HINT*i<=12 is not a good solution,array must be change
             
-            item.toShow && <div key={i} style={{order:item.order}}>
+            item.toShow && 
+            <li key={i} style={{order:item.order}}>
               <Tooltip title={item.translation} placement={langData.direction == 'rtl'?'left-end':'right-end'}
                   // slotProps is used to apply custom styles and props to the internal elements (slots)
                   slotProps={{
@@ -111,7 +112,7 @@ export default function SideBarContent({
               >
               <span style={{order:item.order}}>
                 {/* { item.toShow && */}
-                  <li onClick={() => onTabClick(item, i)}>
+                  <div onClick={() => onTabClick(item, i)}>
                     {/* (i == 0) for hiding first element of array"متاورس" */}
                     
                       <div
@@ -135,12 +136,12 @@ export default function SideBarContent({
                           <ListMenuArrow item={item} />
                         </div>
                       </div>              
-                  </li>
+                  </div>
               
                 {/* } */}
                 {item.name === "language" && 
                   <>
-                    <li onClick={handleLangBtn} data-tooltip-id={item.name}>
+                    <div onClick={handleLangBtn} data-tooltip-id={item.name}>
                       <div
                         className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px]
                         group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer menu-transition
@@ -162,7 +163,7 @@ export default function SideBarContent({
                           <ListMenuArrow item={item} isOpen={langDropDown} />
                         </div>
                       </div>              
-                    </li>
+                    </div>
                     <div className={`${langDropDown ? "h-full" : 'h-0 overflow-hidden'}
                       base-transition-1 bg-Field dark:bg-darkGrey`}>
                       <DropdownLanguageModule
@@ -176,7 +177,7 @@ export default function SideBarContent({
                 }
               </span>
               </Tooltip>
-            </div>
+            </li>
           ))}
       </ul>
     </>
