@@ -1,7 +1,6 @@
 "use client";
 import { Arrow, Vector } from "@/components/svgs";
 import { motion } from "framer-motion";
-import Image from "next/image";
 
 export default function HeaderFirstPage({
   firstPageArrayContent,

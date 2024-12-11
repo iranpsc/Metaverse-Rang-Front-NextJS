@@ -87,7 +87,8 @@ export default function SideBarContent({
           tabsMenu.map((item, i) => (
             //*HINT*the way to pass parameters to function in nextjs "onTabClick(item)"
             //*HINT*i<=12 is not a good solution,array must be change
-            <div key={i} style={{order:item.order}}>
+            
+            item.toShow && <div key={i} style={{order:item.order}}>
               <Tooltip title={item.translation} placement={langData.direction == 'rtl'?'left-end':'right-end'}
                   // slotProps is used to apply custom styles and props to the internal elements (slots)
                   slotProps={{
@@ -108,8 +109,8 @@ export default function SideBarContent({
                     ],
                   }}
               >
-              <div style={{order:item.order}}>
-                { item.toShow &&
+              <span style={{order:item.order}}>
+                {/* { item.toShow && */}
                   <li onClick={() => onTabClick(item, i)}>
                     {/* (i == 0) for hiding first element of array"متاورس" */}
                     
@@ -136,7 +137,7 @@ export default function SideBarContent({
                       </div>              
                   </li>
               
-                }
+                {/* } */}
                 {item.name === "language" && 
                   <>
                     <li onClick={handleLangBtn} data-tooltip-id={item.name}>
@@ -173,9 +174,8 @@ export default function SideBarContent({
                     </div>
                   </>
                 }
-              </div>
+              </span>
               </Tooltip>
-
             </div>
           ))}
       </ul>

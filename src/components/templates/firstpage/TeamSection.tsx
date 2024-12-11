@@ -26,9 +26,9 @@ const SectionTeam = ({ firstPageArrayContent, params }: any) => {
 
         <Vector className="w-[20%] h-10" />
 
-        <h3 className="w-full text-gray dark:text-white text-[20px] md:text-[24px] lg:text-[28px] text-start pb-2 font-bold ">
+        <h4 className="w-full text-gray dark:text-white text-[20px] md:text-[24px] lg:text-[28px] text-start pb-2 font-bold ">
           {localFind("a revolution in virtual platforms")}
-        </h3>
+        </h4>
 
         <p className="w-full  pt-5 md:pt-0 text-justify   text-black dark:text-lightGray font-azarMehr font-medium text-[14px] md:text-[16px] lg:text-[22px]">
           {localFind("imagine seeing objects and people in 3d on the internet")}
