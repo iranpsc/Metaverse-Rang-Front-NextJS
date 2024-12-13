@@ -4,12 +4,17 @@
 }
 
 /* some default style for tags, to fix issue after disabling preflight in tailwind.config */
+:root {
+  --font-font-azar: "AzarMehr", Arial, sans-serif;
+  --font-font-rokh: "Rokh", Georgia, serif;
+}
 * {
  padding: 0;
  margin:0;
  font-weight: 400;
  box-sizing: border-box;
- font-family: var(--font-font-azar), sans-serif;
+ /* fallback font Arial */
+ font-family: var(--font-font-azar,Arial, sans-serif);
 }
 ol{
   list-style-type: decimal ;

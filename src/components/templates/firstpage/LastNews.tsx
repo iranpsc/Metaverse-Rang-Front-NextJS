@@ -60,10 +60,13 @@ const LastNews = ({ firstPageArrayContent, params }: any) => {
             >
               <Image
                 src={`/firstpage/static-news-${index}.jpg`}
-                alt="/firstpage/img2.jpg"
-                width={600}
-                height={600}
-                priority={true}
+                alt=""
+                width={1069}
+                height={800}
+                // priority={true}
+                loading="lazy"
+                layout="responsive"
+                quality={50}
                 className=" w-full h-full transition-all duration-150 ease-in-out rounded-t-[10px]  object-cover"
               />
               <div className="w-full h-full bg-black/20 absolute z-0 top-0 flex justify-center items-center rounded-t-[10px]">
@@ -81,9 +84,9 @@ const LastNews = ({ firstPageArrayContent, params }: any) => {
             </div>
 
             <a className="w-[95%]" href={item.url}>
-              <h1 className="text-start dark:text-white text-gray  w-full font-azarMehr truncate cursor-pointer font-bold mt-[8px] text-[18px] xl:text-[20px] 3xl:text-[22px] ">
+              <h4 className="text-start dark:text-white text-gray  w-full font-azarMehr truncate cursor-pointer font-bold mt-[8px] text-[18px] xl:text-[20px] 3xl:text-[22px] ">
                 {item.title}
-              </h1>
+              </h4>
             </a>
 
             <div className="w-[95%] pb-2 flex flex-row justify-between  items-center">
