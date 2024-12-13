@@ -59,9 +59,11 @@ const EducationFirstPage = ({ firstPageArrayContent, params }: any) => {
             >
               <Image
                 src={`/firstpage/static-education-${index}.jpg`}
-                alt="/firstpage/img2.jpg"
-                width={822}
-                height={450}
+                alt=""
+                width={1076}
+                height={604}
+                layout="responsive"
+                quality={75}
                 property="true"
                 loading={"lazy"}
                 className="w-full h-full rounded-t-[10px] object-cover"

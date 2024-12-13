@@ -32,14 +32,14 @@ export default function HeaderFirstPage({
           <Vector className="w-[50%] h-2 md:h-5 2xl:h-10" />
         </motion.div>
 
-        <motion.h3
+        <motion.h2
           initial={{ opacity: 0, x: 100 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.3, delay: 0.5 }}
           className="w-full text-white text-[16px] sm:text-[18px] md:text-[24px] 2xl:text-[36px] 3xl:text-[48px] text-start font-bold "
         >
           {localFind("integration of ideas and creativity")}
-        </motion.h3>
+        </motion.h2>
 
         <motion.p
           initial={{ opacity: 0, y: -100 }}

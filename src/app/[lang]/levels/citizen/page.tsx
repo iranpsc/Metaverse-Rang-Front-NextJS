@@ -30,8 +30,9 @@ export async function generateMetadata({ params }: any) {
 
   // to find in an array with key(_name)
   async function localFind(_name: any) {
-    return await concatArrayContent.find((item: any) => item.name == _name)
-      .translation;
+    let temp = await concatArrayContent.find((item: any) => item.name == _name);
+    if (temp) return temp.translation;
+    else return "";
   }
   //to make description less than 200 character
   async function makeLessCharacter() {
@@ -196,8 +197,9 @@ export default async function LevelsPage({ params }: any) {
   });
 
   function localFind(_name: any) {
-    return concatArrayContent.find((item: any) => item.name == _name)
-      .translation;
+    let temp = concatArrayContent.find((item: any) => item.name == _name);
+    if (temp) return temp.translation;
+    else return "";
   }
 
   levelArray.forEach((el1: any) => {

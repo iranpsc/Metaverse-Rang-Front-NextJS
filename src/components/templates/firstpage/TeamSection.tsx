@@ -14,9 +14,11 @@ const SectionTeam = ({ firstPageArrayContent, params }: any) => {
           className=" w-full h-full sm:h-[360px] md:h-auto object-cover origin-center rounded-[64px] border-none"
           src="/firstpage/img2.jpg"
           alt="header"
-          width={1000}
+          width={539}
+          height={509}
           loading="lazy"
-          height={1000}
+          layout="responsive"
+          quality={75}
         />
       </div>
       <div className="xl:col-span-7 lg:col-span-7 md:col-span-7 sm:col-span-12 xs:col-span-12 flex flex-col justify-between items-start md:ps-10 gap-1">

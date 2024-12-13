@@ -256,9 +256,9 @@ export default async function LangPage({params}) {
               >
                 <div className="flex items-center">
                   <Frame1 className="size-[36px]" />
-                  <h4 className="text-white font-bold text-[16px] 2xl:text-[24px] 3xl:text-[28px] ps-2 font-azarMehr">
+                  <h3 className="text-white font-bold text-[16px] 2xl:text-[24px] 3xl:text-[28px] ps-2 font-azarMehr">
                     {localFind("different competitions")}
-                  </h4>
+                  </h3>
                 </div>
                 <p className="w-full text-justify text-white font-azarMehr font-medium text-[14px] md:text-[16px] 2xl:text-[18px]">
                   {localFind(
@@ -272,9 +272,9 @@ export default async function LangPage({params}) {
               >
                 <div className="flex items-center">
                   <Frame2 className="size-[36px]" />
-                  <h4 className="text-white font-bold text-[16px] 2xl:text-[24px] 3xl:text-[28px] ps-2 font-azarMehr">
+                  <h3 className="text-white font-bold text-[16px] 2xl:text-[24px] 3xl:text-[28px] ps-2 font-azarMehr">
                     {localFind("real interactions")}
-                  </h4>
+                  </h3>
                 </div>
                 <p className="w-full text-justify text-white font-azarMehr font-medium text-[14px] md:text-[16px] 2xl:text-[18px]">
                   {localFind(
@@ -293,9 +293,9 @@ export default async function LangPage({params}) {
               >
                 <div className="flex items-center">
                   <Frame1 className="size-[36px]" />
-                  <h4 className="text-white font-bold text-[16px] 2xl:text-[24px] 3xl:text-[28px] ps-2 font-azarMehr">
+                  <h3 className="text-white font-bold text-[16px] 2xl:text-[24px] 3xl:text-[28px] ps-2 font-azarMehr">
                     {localFind("different competitions")}
-                  </h4>
+                  </h3>
                 </div>
                 <p className="w-full text-justify text-white font-azarMehr font-medium text-[14px] md:text-[16px] 2xl:text-[18px]">
                   {localFind(
@@ -309,9 +309,9 @@ export default async function LangPage({params}) {
               >
                 <div className="flex items-center">
                   <Frame2 className="size-[36px]" />
-                  <h4 className="text-white font-bold text-[16px] 2xl:text-[24px] 3xl:text-[28px] ps-2 font-azarMehr">
+                  <h3 className="text-white font-bold text-[16px] 2xl:text-[24px] 3xl:text-[28px] ps-2 font-azarMehr">
                     {localFind("real interactions")}
-                  </h4>
+                  </h3>
                 </div>
                 <p className="w-full text-justify text-white font-azarMehr font-medium text-[14px] md:text-[16px] 2xl:text-[18px]">
                   {localFind(
