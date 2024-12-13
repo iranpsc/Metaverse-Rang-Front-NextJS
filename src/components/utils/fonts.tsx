@@ -45,6 +45,7 @@ export const azarMehr = localFont({
     // },
   ],
   variable: "--font-font-azar",
+  // fallback font while loading local fonts
   display: "swap",
 });
 

@@ -1,14 +1,49 @@
+"use client";
+import React, { useEffect, useRef, useState } from "react";
 import { Vector } from "@/components/svgs";
 import Image from "next/image";
 import Link from "next/link";
 
 const SectionTeam = ({ firstPageArrayContent, params }: any) => {
+  const [isInView, setInView] = useState(false);
+  const sectionRef = useRef(null);
+
   function localFind(_name: any) {
     return firstPageArrayContent.find((item: any) => item.name == _name)
       .translation;
   }
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry.isIntersecting) {
+          setInView(true);
+        }
+      },
+      {
+        rootMargin: "0px",
+        threshold: 0.01, // Trigger
+      }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
+
+  // If not in view, render a placeholder (or null to defer rendering entirely)
+  if (!isInView) {
+    return <div ref={sectionRef} style={{ minHeight: "500px" }} />;
+  }
   return (
-    <>
+    <div ref={sectionRef} className="flex">
       <div className="xl:col-span-5 lg:col-span-5 md:col-span-5 sm:col-span-12 xs:col-span-12">
         <Image
           className=" w-full h-full sm:h-[360px] md:h-auto object-cover origin-center rounded-[64px] border-none"
@@ -42,36 +77,36 @@ const SectionTeam = ({ firstPageArrayContent, params }: any) => {
               className="xl:size-[60px] lg:size-[50px] md:size-[70px] sm:size-[50px] xs:size-[44px] rounded-full border-2 border-white z-50"
               src="/firstpage/ghadiri.jpg"
               alt="header"
-              width={1000}
-              height={1000}
+              width={512}
+              height={512}
             />
             <Image
               className="xl:size-[60px] lg:size-[50px] md:size-[70px] sm:size-[50px] xs:size-[44px] rounded-full border-2 border-white ms-[-20px] z-40"
               src="/firstpage/alizadeh.jpg"
               alt="header"
-              width={1000}
-              height={1000}
+              width={400}
+              height={400}
             />
             <Image
               className="xl:size-[60px] lg:size-[50px] md:size-[70px] sm:size-[50px] xs:size-[44px] rounded-full border-2 border-white ms-[-20px] z-30"
               src="/firstpage/person3.jpg"
               alt="header"
-              width={1000}
-              height={1000}
+              width={400}
+              height={400}
             />
             <Image
               className="xl:size-[60px] lg:size-[50px] md:size-[70px] sm:size-[50px] xs:size-[44px] rounded-full border-2 border-white ms-[-20px] z-20"
               src="/firstpage/person4.jpg"
               alt="header"
-              width={1000}
-              height={1000}
+              width={225}
+              height={225}
             />
             <Image
-              className="xl:size-[60px] lg:size-[50px] md:size-[70px] sm:size-[50px] xs:size-[44px] rounded-full border-2 border-white ms-[-20px] z-10"
+              className="xl:size-[60px] lg:size-[50px] md:size-[70px] sm:size-[50px] xs:size-[44px] rounded-full border-2 border-white ms-[-20px] z-10 object-cover"
               src="/firstpage/person5.jpg"
               alt="header"
-              width={1000}
-              height={1000}
+              width={263}
+              height={192}
             />
           </div>
 
@@ -86,7 +121,7 @@ const SectionTeam = ({ firstPageArrayContent, params }: any) => {
           </p>
         </Link>
       </div>
-    </>
+    </div>
   );
 };
 

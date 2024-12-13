@@ -25,7 +25,7 @@ const EducationFirstPage = React.lazy(() => import('@/components/templates/first
 const LastContent = React.lazy(() => import('@/components/templates/firstpage/LastContent'));
 const DetailsEducationSection = React.lazy(() => import('@/components/templates/firstpage/DetailsEducationSection'));
 const VersionSection = React.lazy(() => import('@/components/templates/firstpage/VersionSection'));
-const TopVideo = React.lazy(() => import('@/components/templates/firstpage/TopVideo'));
+// const TopVideo = React.lazy(() => import('@/components/templates/firstpage/TopVideo'));
 const SideBar = React.lazy(() => import('@/components/module/sidebar/SideBar'));
 import {
   getTranslation,
@@ -327,11 +327,11 @@ export default async function LangPage({params}) {
             <div className="w-full relative lg:h-[350px] 2xl:h-[400px] mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
               {/* <div className="absolute top-0 left-0 w-full h-full bg-cover bg-no-repeat bg-center filter blur-sm "></div> */}
               <Suspense fallback={<div>Loading Header...</div>}>
-                <SectionTimer firstPageArrayContent={firstPageArrayContent} />
+                <SectionTimer />
               </Suspense>
             </div>
 
-            <div className="relative w-[90%] h-fit grid grid-cols-12 mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
+            <div className="relative w-[90%] h-fit flex mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
             <Suspense fallback={<div>Loading Header...</div>}>
               <SectionTeam firstPageArrayContent={firstPageArrayContent} params={params} />
             </Suspense>
