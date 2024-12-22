@@ -15,7 +15,6 @@ export default function SideBar({
   params,
   pageSide,
 }) {
-  console.log('tabsMenu in sidebar',tabsMenu);
   
   //
   const [isClosed, setisClosed] = useState(true);
