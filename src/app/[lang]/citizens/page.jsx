@@ -74,10 +74,13 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function CitizensPage({ params }) {
-  const footerTabs = await getFooterData(params);
-  const langData = await getTranslation(params.lang);
+  const [footerTabs, langData, langArray] = await Promise.all([
+  getFooterData(params), // Independent
+  getTranslation(params.lang), // Independent
+  getLangArray(), // Independent
+]);
+  
   const mainData = await getMainFile(langData);
-  const langArray = await getLangArray();
   const defaultTheme = useServerDarkMode();
 
 
