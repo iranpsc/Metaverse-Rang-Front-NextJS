@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
+import Head from "next/head";
 
 export default function ProfileImages({
   profileData,
@@ -76,14 +77,28 @@ export default function ProfileImages({
 
   return (
     <>
+      {/* Preload the main image */}
+      <Head>
+        {mainImageUrl && (
+          <link
+            rel="preload"
+            href={mainImageUrl}
+            as="image"
+            type="image/avif, image/webp, image/jpeg"
+            imageSrcSet={mainImageUrl}
+            crossOrigin="anonymous"
+          />
+        )}
+      </Head>
       <section className="dark:bg-dark-background shadow-md relative bg-white transition-all duration-300 ease-linear rounded-[10px] flex flex-col justify-center items-center lg:flex-row lg:justify-between">
         <div className="w-[100%] md:w-[80%] tall0:h-[100vh] lg:h-[40vh] 2xl:h-[45vh] dark:bg-dark-background bg-white overflow-clip flex justify-center items-center rounded-[10px] ">
           <Image
             src={mainImageUrl || "/temp-1.png"}
-            width={1000}
-            height={1000}
+            width={500}
+            height={500}
             alt={titleData}
             priority={true}
+            decoding="async"
             className="w-full h-full rounded-r-[10px] object-cover"
           />
         </div>

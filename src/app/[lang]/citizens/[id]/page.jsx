@@ -16,7 +16,6 @@ export default async function citizenSinglePage({
     getUserData(params.id),
     getTranslation(params.lang)
   ])
-  console.log('profileDATA', profileData);
   
   // const profileData = await getUserData();
   // const langData = await getTranslation(params.lang);
@@ -250,8 +249,6 @@ export async function generateMetadata({ params }) {
     }
 
   const profileData = await getUserData();
-  console.log('profileData',profileData);
-  
   
   //to make description less than 200 character
   async function makeLessCharacter(){

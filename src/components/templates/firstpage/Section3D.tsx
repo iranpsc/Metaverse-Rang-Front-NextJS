@@ -15,7 +15,6 @@ const Section3D = () => {
       // Start the timeout
       timeoutRef.current = setTimeout(() => {
         if (!youtubeLoaded) {
-          console.log("YouTube failed to load. Switching to Aparat...");
           setUseAparat(true); // Fallback
         }
       }, 4000); // 4 seconds timeout
@@ -56,7 +55,6 @@ const Section3D = () => {
   }, []);
 
   const handleYouTubeLoad = () => {
-    console.log("YouTube loaded successfully");
     setYouTubeLoaded(true);
 
     if (timeoutRef.current) {
