@@ -14,6 +14,8 @@ import SideBar from "@/components/module/sidebar/SideBar";
 import CitizenList from "@/components/templates/citizen/citizenList";
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
 import { staticMenuToShow as MenuStaticData } from "@/components/utils/constants";
+import React, { Suspense } from 'react';
+
 
 // SEO**
 export async function generateMetadata({ params }) {
@@ -186,6 +188,7 @@ export default async function CitizensPage({ params }) {
           </div>
           {/* CITIZEN box Container */}
           <div className="flex flex-row flex-wrap justify-center md:justify-center w-full no-scrollbar overflow-y-auto py-[20px]">
+          <Suspense fallback={<div>Loading citizens...</div>}>
             <CitizenList
               allCitizenArray={allCitizenArray.data}
               // lastPage={allCitizenArray.meta.to}
@@ -193,6 +196,7 @@ export default async function CitizensPage({ params }) {
               params={params}
               citizenListArrayContent={citizenListArrayContent}
             />
+            </Suspense>
           </div>
 
           <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">

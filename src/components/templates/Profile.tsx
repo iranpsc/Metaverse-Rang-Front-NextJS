@@ -10,6 +10,7 @@ import { Tooltip as ReactTooltip } from "react-tooltip";
 import { CopyIcon } from "../svgs/SvgCategories";
 import ProfileMainDetails from "../module/profile/ProfileMainDetails";
 import ProfileGems from "../module/profile/ProfileGems";
+import GemImage from "@/components/templates/citizen/gemImage";
 
 export default async function Profile({
   profileData,
@@ -55,7 +56,7 @@ export default async function Profile({
         />
       </div>
       {/* BOT */}
-      <div className="w-full h-full shadow-md rounded-[10px] dark:bg-dark-background text-gray dark:text-dark-gray bg-white px-3 flex flex-col justify-between gap-5  transition-all duration-300 ease-linear">
+      <div className="w-full h-full border border-red-500 shadow-md rounded-[10px] dark:bg-dark-background text-gray dark:text-dark-gray bg-white px-3 flex flex-col justify-between gap-5  transition-all duration-300 ease-linear">
         <ProfileMainDetails
           nameUser={nameUser}
           profileData={profileData}
@@ -64,7 +65,12 @@ export default async function Profile({
           params={params}
           // setShowSharedPage={setShowSharedPage}
         />
-        <ProfileGems profileData={concatGems} />
+        {/* <ProfileGems profileData={concatGems} /> */}
+        <div className="flex justify-evenly">
+          {concatGems.map((item: any, index: any) => (
+            <GemImage key={index} item={item} params={params} />
+          ))}
+        </div>
       </div>
     </>
   );
