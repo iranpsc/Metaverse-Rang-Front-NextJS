@@ -1,16 +1,9 @@
-// import { useContext, useState, useEffect, useRef } from "react";
-import Image from "next/image";
-
-import Persian from "persianjs";
-import { targetData } from "@/utils/targetDataName";
-// import ProfileHeaderMobile from "@/module/profile/ProfileHeaderMobile";
+"use client";
 import ProfileTopMobile from "@/module/profile/ProfileTopMobile";
 import ProfileImages from "@/module/profile/ProfileImages";
-import { Tooltip as ReactTooltip } from "react-tooltip";
-import { CopyIcon } from "../svgs/SvgCategories";
 import ProfileMainDetails from "../module/profile/ProfileMainDetails";
-import ProfileGems from "../module/profile/ProfileGems";
 import GemImage from "@/components/templates/citizen/gemImage";
+import React, { useState, useEffect, useRef } from "react";
 
 export default async function Profile({
   profileData,
@@ -20,9 +13,35 @@ export default async function Profile({
   langData,
   params,
 }: any) {
-  // const [profileName, setProfileName] = useState<string>("");
+  const [inView, setInView] = useState(false);
+  const iframeContainerRef3 = useRef<HTMLDivElement | null>(null);
 
-  // const yourElementRef = useRef(null);
+  // IntersectionObserver to load iframe when it's in view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry.isIntersecting) {
+          setInView(true); // Trigger iframe load when in view
+        }
+      },
+      {
+        rootMargin: "0px",
+        threshold: 0.1, // Trigger when 10% of the iframe is in view
+      }
+    );
+
+    if (iframeContainerRef3.current) {
+      observer.observe(iframeContainerRef3.current); // Observe the iframe container
+    }
+
+    return () => {
+      if (iframeContainerRef3.current) {
+        observer.unobserve(iframeContainerRef3.current); // Cleanup observer
+      }
+    };
+  }, []);
+
   let concatGems = [];
   if (profileData.data?.current_level && profileData.data?.achieved_levels) {
     concatGems = profileData.data?.achieved_levels.concat(
@@ -66,10 +85,11 @@ export default async function Profile({
           // setShowSharedPage={setShowSharedPage}
         />
         {/* <ProfileGems profileData={concatGems} /> */}
-        <div className="flex justify-evenly">
-          {concatGems.map((item: any, index: any) => (
-            <GemImage key={index} item={item} params={params} />
-          ))}
+        <div ref={iframeContainerRef3} className="flex justify-evenly">
+          {inView &&
+            concatGems.map((item: any, index: any) => (
+              <GemImage key={index} item={item} params={params} />
+            ))}
         </div>
       </div>
     </>
