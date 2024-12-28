@@ -265,6 +265,8 @@ export async function generateMetadata({ params }) {
     }
 
   const profileData = await getUserData();
+  console.log('profileData',profileData);
+  
   
   //to make description less than 200 character
   async function makeLessCharacter(){
@@ -279,7 +281,7 @@ export async function generateMetadata({ params }) {
   }
 
   return {
-    // title: localFind('metaverse rang'),
+    title: `${profileData.data.kyc.fname} ${profileData.data.kyc.lname}`,
     // description: localFind('metaverse rang is a metaverse world platform'),
     openGraph: {
       // site_name:'',
