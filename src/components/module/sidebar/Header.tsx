@@ -44,8 +44,8 @@ function SideBarHeader({ isClosed, toggleSide, tabsMenu, params }: any) {
           <Image
             src="/logo.png"
             alt="rgb metaverse"
-            width={500}
-            height={500}
+            width={71}
+            height={70}
             className={`${
               isClosed ? "ms-2" : "ms-4"
             } w-[40px] h-[40px] menu-transition`}

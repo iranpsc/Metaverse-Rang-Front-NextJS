@@ -52,7 +52,6 @@ const SectionTeam = ({ firstPageArrayContent, params }: any) => {
           width={539}
           height={509}
           loading="lazy"
-          layout="responsive"
           quality={75}
         />
       </div>

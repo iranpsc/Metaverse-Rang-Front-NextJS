@@ -99,6 +99,7 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function LangPage({params}) {
+  // if we are in mobile or not
   const headersList = headers();
   const viewportWidth = headersList.get('viewport-width');
   const userAgent = headersList.get('user-agent') || '';
@@ -108,10 +109,12 @@ export default async function LangPage({params}) {
     ? parseInt(viewportWidth, 10) < 1024
     : /mobile|android|iphone|ipad|phone/i.test(userAgent);
 
-    console.log('isMobile',isMobile)
-
-  const langArray = await getLangArray();
-  const langData = await getTranslation(params.lang);
+  const [langArray, langData] = await Promise.all([
+    getLangArray(),
+    getTranslation(params.lang)
+  ])
+  // const langArray = await getLangArray();
+  // const langData = await getTranslation(params.lang);
   const mainData = await getMainFile(langData);
   const defaultTheme = await useServerDarkMode();
   const allVersionList = await getAllVersions();

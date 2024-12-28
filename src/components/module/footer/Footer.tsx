@@ -182,26 +182,26 @@ function Footer({ footerTabs }: any) {
             <Image
               src="/logo.png"
               alt="logo"
-              width={1000}
-              height={1000}
+              width={71}
+              height={70}
               className="w-[60px] h-[60px] inline "
             />
             <div className="flex flex-col h-[60px]  justify-between items-start">
-              <h4 className="text-[22px] mt-[-5px] font-bold font-azarMehr  dark:text-white">
+              <p className="text-[22px] mt-[-5px] font-bold font-azarMehr  dark:text-white">
                 {(
                   footerTabs.find(
                     (item: any) => item.name == "national metaverse"
                   ) || {}
                 ).translation || "undefined"}
-              </h4>
-              <h4 className="mb-[-3px] font-azarMehr font-normal dark:text-white">
+              </p>
+              <p className="mb-[-3px] font-azarMehr font-normal dark:text-white">
                 {(
                   footerTabs.find(
                     (item: any) =>
                       item.name == "global leadership in a parallel world"
                   ) || {}
                 ).translation || "undefined"}
-              </h4>
+              </p>
             </div>
           </div>
           <p className="px-5 pt-6 font-normal text-justify font-azarMehr text-[#4C4C4C] dark:text-[#D4D4D4] text-[20px] leading-9">
