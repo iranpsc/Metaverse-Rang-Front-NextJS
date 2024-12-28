@@ -229,26 +229,11 @@ export async function generateMetadata({ params }) {
     //     .translation;
     // }
 
-    async function getUserData() {
-      try {
-        const res = await fetch(
-          `https://api.rgb.irpsc.com/api/citizen/${params.id}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        const temp = await res.json();
-  
-        return temp;
-      } catch (err) {
-        // در صورت وجود خطا
-        return { props: { error: "خطا در دریافت داده‌ها" } };
-      }
-    }
 
-  const profileData = await getUserData();
+  const profileData = await getUserData(params.id);
+
+  console.log('profileData123',profileData.data.customs?.about);
+  
   
   //to make description less than 200 character
   async function makeLessCharacter(){
@@ -264,7 +249,7 @@ export async function generateMetadata({ params }) {
 
   return {
     title: `${profileData.data.kyc.fname} ${profileData.data.kyc.lname}`,
-    // description: localFind('metaverse rang is a metaverse world platform'),
+    description: await makeLessCharacter(profileData.data.customs?.about),
     openGraph: {
       // site_name:'',
       type: 'profile',
