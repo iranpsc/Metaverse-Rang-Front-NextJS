@@ -120,6 +120,25 @@
     return await res.json();
   }
 
+  export async function getUserData(_userId) {
+    try {
+      const res = await fetch(
+        `https://api.rgb.irpsc.com/api/citizen/${_userId}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const temp = await res.json();
+
+      return temp;
+    } catch (err) {
+      // در صورت وجود خطا
+      return { props: { error: "خطا در دریافت داده‌ها" } };
+    }
+  }
+
   // export async function getSingleVersion(_id){
   //   const res = await fetch(`https://api.rgb.irpsc.com/api/calendar/versions/${_id}`, {
   //     headers: {
