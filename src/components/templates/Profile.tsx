@@ -5,7 +5,7 @@ import ProfileMainDetails from "../module/profile/ProfileMainDetails";
 import GemImage from "@/components/templates/citizen/gemImage";
 import React, { useState, useEffect, useRef } from "react";
 
-export default async function Profile({
+export default function Profile({
   profileData,
   titleData,
   nameUser,
@@ -87,6 +87,7 @@ export default async function Profile({
         {/* <ProfileGems profileData={concatGems} /> */}
         <div ref={iframeContainerRef3} className="flex justify-evenly">
           {inView &&
+            concatGems &&
             concatGems.map((item: any, index: any) => (
               <GemImage key={index} item={item} params={params} />
             ))}
