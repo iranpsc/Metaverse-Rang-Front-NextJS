@@ -19,6 +19,7 @@ import { Features } from "@/components/module/levelComponent/Features";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import ImageBox from "@/components/module/levelComponent/ImageBox";
 import { targetData } from "@/components/utils/targetDataName";
+import Head from "next/head";
 
 // SEO**
 export async function generateMetadata({ params }) {
@@ -222,6 +223,16 @@ export default async function lavelSingelPage({ params }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(secondSchema) }}
       />
       {/* schema END */}
+
+      <Head>
+        <link
+          rel="preload"
+          href={singleLevel.data.general_info.png_file || ""}
+          as="image"
+          type="image/png"
+          crossorigin="anonymous"
+        />
+      </Head>
 
       <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-3 w-full font-azarMehr bg-bgGray dark:bg-black">
         <div className="">
