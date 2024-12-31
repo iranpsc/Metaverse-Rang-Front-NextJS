@@ -293,7 +293,7 @@ export default async function lavelSingelPage({ params }) {
             )}
           </div>
           {/* __________4 Image*/}
-          <div className="grid-forth flex-1">
+          <div className="grid-forth flex-1 relative">
             <ImageBox item={levelTabs.data} singleLevel={singleLevel} />
           </div>
         </div>
