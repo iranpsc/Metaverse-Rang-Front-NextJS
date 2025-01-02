@@ -80,6 +80,7 @@ export async function generateMetadata({ params }) {
     )?.translation;
   }
 
+
   async function tabNameConver(_tabName){
     switch (_tabName) {
       case "general-info":
@@ -98,6 +99,8 @@ export async function generateMetadata({ params }) {
   }
 
   return {
+    title:`${await targetData(levelsTranslatePage,await tabNameConver(params.tabs))} ${localFind2()}`,
+    description:await makeLessCharacter(levelTabs.data.description || singleLevel.data.general_info.description),
     openGraph: {
       type: 'website',
       description: await makeLessCharacter(levelTabs.data.description || singleLevel.data.general_info.description),      
