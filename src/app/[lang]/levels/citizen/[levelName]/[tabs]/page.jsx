@@ -124,9 +124,10 @@ export async function generateMetadata({ params }) {
 
 export default async function lavelSingelPage({ params }) {
 
+  
+  const langData = await getTranslation(params.lang);
   const footerTabs = await getFooterData(params);
 
-  const langData = await getTranslation(params.lang);
   const mainData = await getMainFile(langData);
   const levelsOld = mainData.modals.find((x) => x.name == "levels");
   const levelsTranslatePage = levelsOld.tabs.find(
@@ -134,11 +135,14 @@ export default async function lavelSingelPage({ params }) {
   ).fields;
 
   const levels = await findByModalName(mainData, "levels");
+
   const levelPageArrayContent = await findByTabName(levels, "levels-page");
   const levelListArrayContent = await findByTabName(levels, "level-list");
+
   const concatArrayContent = levelPageArrayContent.concat(
     levelListArrayContent
   );
+
   function localFind(_slug) {
     
     return concatArrayContent.find(
@@ -149,7 +153,6 @@ export default async function lavelSingelPage({ params }) {
     // HIN not good
     //item.name and _slug have fa/en number string
     //convert
-    
     return concatArrayContent.find(
       (item) => Number(item.name) == Number(levelId)
     )?.translation;
