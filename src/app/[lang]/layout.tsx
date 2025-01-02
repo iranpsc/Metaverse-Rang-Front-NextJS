@@ -39,7 +39,7 @@ export default function LangLayout({ children, params }: any) {
       >
         <ToastProvider />
         <Suspense
-          fallback={<div className="text-center text-[20px]">Loading...</div>}
+          fallback={<div className="text-center text-[20px]">Loading...1</div>}
         >
           {children}
         </Suspense>

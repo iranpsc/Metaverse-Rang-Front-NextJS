@@ -6,6 +6,7 @@ import {
   findByTabName,
   findByModalName,
 } from "@/components/utils/actions";
+import { Suspense } from "react";
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
 
 export default async function CitizensLayout({
@@ -52,23 +53,27 @@ export default async function CitizensLayout({
   tabsMenu.push(tabsMenu1.find((item: any) => item.name === "metaverse rang"));
 
   return (
-    <main
-      className="flex dark:bg-black overflow-hidden"
-      dir={langData.direction}
+    <Suspense
+      fallback={<div className="text-center text-[20px]">Loading...2</div>}
     >
-      <SideBar
-        pageSide="level"
-        langArray={langArray}
-        langData={langData}
-        tabsMenu={tabsMenu}
-        defaultTheme={defaultTheme}
-        params={params}
-      />
-      <div
-        className={`light-scrollbar dark:dark-scrollbar w-full h-[calc(100vh-60px)] lg:h-screen overflow-y-auto relative mt-[60px] lg:mt-0 lg:pt-0 lg:pt-[0]`}
+      <main
+        className="flex dark:bg-black overflow-hidden"
+        dir={langData.direction}
       >
-        {children}
-      </div>
-    </main>
+        <SideBar
+          pageSide="level"
+          langArray={langArray}
+          langData={langData}
+          tabsMenu={tabsMenu}
+          defaultTheme={defaultTheme}
+          params={params}
+        />
+        <div
+          className={`light-scrollbar dark:dark-scrollbar w-full h-[calc(100vh-60px)] lg:h-screen overflow-y-auto relative mt-[60px] lg:mt-0 lg:pt-0 lg:pt-[0]`}
+        >
+          {children}
+        </div>
+      </main>
+    </Suspense>
   );
 }
