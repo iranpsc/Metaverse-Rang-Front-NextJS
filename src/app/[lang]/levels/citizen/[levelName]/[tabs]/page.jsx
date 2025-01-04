@@ -40,13 +40,16 @@ export async function generateMetadata({ params }) {
     { id: 13, route_name: "legislator-baguette" },
   ];
   const levelId = staticRouteNames.find(x => x.route_name === params.levelName)?.id
-  const singleLevel = await getSingleLevel(levelId);
-
   
-  const levelTabs = await getLevelTabs(params, levelId);
-  
+  // const singleLevel = await getSingleLevel(levelId);
+  // const levelTabs = await getLevelTabs(params, levelId);
+  // const langData = await getTranslation(params.lang);
+  const [singleLevel, levelTabs, langData] = await Promise.all([
+    getSingleLevel(levelId),
+    getLevelTabs(params, levelId),
+    getTranslation(params.lang)
+  ])
 
-  const langData = await getTranslation(params.lang);
   const mainData = await getMainFile(langData);
   const levelsOld = mainData.modals.find((x) => x.name == "levels");
   const levelsTranslatePage = levelsOld.tabs.find(
@@ -64,8 +67,14 @@ export async function generateMetadata({ params }) {
   }
 
   const levels = await findByModalName(mainData, "levels");
-  const levelPageArrayContent = await findByTabName(levels, "levels-page");
-  const levelListArrayContent = await findByTabName(levels, "level-list");
+
+  // const levelPageArrayContent = await findByTabName(levels, "levels-page");
+  // const levelListArrayContent = await findByTabName(levels, "level-list");
+  const [levelPageArrayContent, levelListArrayContent] = await Promise.all([
+    findByTabName(levels, "levels-page"),
+    findByTabName(levels, "level-list")
+  ])
+
   const concatArrayContent = levelPageArrayContent.concat(
     levelListArrayContent
   );
@@ -243,7 +252,7 @@ export default async function lavelSingelPage({ params }) {
       <Head>
         <link
           rel="preload"
-          href={singleLevel.data.general_info.png_file || ""}
+          href={singleLevel.data.general_info.png_file}
           as="image"
           type="image/png"
           crossorigin="anonymous"

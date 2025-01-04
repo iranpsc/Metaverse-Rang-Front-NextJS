@@ -27,6 +27,7 @@ export default function ImageBox({ item, singleLevel }: any) {
                 width={500}
                 height={700}
                 priority={true}
+                fetchPriority="high"
                 className="absolute top-1/2 left-1/2 w-full h-[100%] object-cover transform -translate-x-1/2 -translate-y-1/2"
               />
             ) : (
