@@ -30,8 +30,8 @@ export default function SectionInputSearch({
         />
         <input
           placeholder={localFind("search for citizenship name")}
-          className="w-[80%]  outline-none border-none 
-              placeholder-[#868B90]   text-[14px] xs:text-[10px] ms-2  font-azarMehr font-medium  dark:bg-[#1A1A18]  dark:placeholder-dark-gray "
+          className="w-[80%] outline-none border-none 
+              placeholder-[#868B90] dark:text-white text-[14px] xs:text-[10px] ms-2 font-azarMehr font-medium dark:bg-[#1A1A18] dark:placeholder-dark-gray"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />

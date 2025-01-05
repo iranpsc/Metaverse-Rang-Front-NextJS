@@ -19,6 +19,7 @@ export default function SideBarContent({
   langArray,
   params
 }) {
+  
   const router = useRouter();
   const [modalShow, setModalShow] = useState(false);
   const [modalData, setModalData] = useState({});
@@ -72,7 +73,6 @@ export default function SideBarContent({
     }
   })
   
-
   return (
     <>
       {/* ${
@@ -164,6 +164,7 @@ export default function SideBarContent({
                         </div>
                       </div>              
                     </div>
+
                     <div className={`${langDropDown ? "h-full" : 'h-0 overflow-hidden'}
                       base-transition-1 bg-Field dark:bg-darkGrey`}>
                       <DropdownLanguageModule

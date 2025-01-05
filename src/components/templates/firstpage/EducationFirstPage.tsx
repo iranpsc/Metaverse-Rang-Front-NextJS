@@ -62,7 +62,6 @@ const EducationFirstPage = ({ firstPageArrayContent, params }: any) => {
                 alt=""
                 width={1076}
                 height={604}
-                layout="responsive"
                 quality={50}
                 property="true"
                 loading={"lazy"}

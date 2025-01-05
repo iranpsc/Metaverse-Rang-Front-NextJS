@@ -1,5 +1,5 @@
 "use client";
-import { useContext, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { targetData } from "@/utils/targetDataName";
 import SecondDetails from "@/components/module/profile/secondDetails";
 import DetailsInterest from "@/components/module/profile/detailsInterest";
@@ -13,8 +13,35 @@ export default function ProfileDetails({
   languageSelected,
 }: any) {
   // const { data, profileData.data, languageSelected } = useContext(LangContext);
-
+  const [inView, setInView] = useState(false);
+  const iframeContainerRef = useRef<HTMLDivElement | null>(null);
   const x = profileData.data?.customs?.prediction;
+
+  // IntersectionObserver to load iframe when it's in view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry.isIntersecting) {
+          setInView(true); // Trigger iframe load when in view
+        }
+      },
+      {
+        rootMargin: "0px",
+        threshold: 0.1, // Trigger when 10% of the iframe is in view
+      }
+    );
+
+    if (iframeContainerRef.current) {
+      observer.observe(iframeContainerRef.current); // Observe the iframe container
+    }
+
+    return () => {
+      if (iframeContainerRef.current) {
+        observer.unobserve(iframeContainerRef.current); // Cleanup observer
+      }
+    };
+  }, []);
 
   // const submitModalCard = (title: any, data: any, type: string) => {
   //   if (data) {
@@ -110,19 +137,26 @@ export default function ProfileDetails({
     },
   ];
   return (
-    <div className=" 3xl:h-screen xl:h-screen lg:h-screen md:h-fit sm:h-fit xs:h-fit flex flex-col justify-between gap-[6px] items-center dark:bg-black bg-[#e9eef8] ">
-      <SecondDetails itemsProfileDetails={itemsProfileDetails} />
+    <div
+      ref={iframeContainerRef}
+      className=" 3xl:h-screen xl:h-screen lg:h-screen md:h-fit sm:h-fit xs:h-fit flex flex-col justify-between gap-[6px] items-center dark:bg-black bg-[#e9eef8] "
+    >
+      {inView && (
+        <>
+          <SecondDetails itemsProfileDetails={itemsProfileDetails} />
 
-      <DetailsInterest
-        itemsInterestedProfileDetails={itemsInterestedProfileDetails}
-      />
+          <DetailsInterest
+            itemsInterestedProfileDetails={itemsInterestedProfileDetails}
+          />
 
-      <ReadMore
-        setShowModal={setShowModal}
-        setDataModal={setDataModal}
-        profileData={profileData}
-        userProperty={userProperty}
-      />
+          <ReadMore
+            setShowModal={setShowModal}
+            setDataModal={setDataModal}
+            profileData={profileData}
+            userProperty={userProperty}
+          />
+        </>
+      )}
     </div>
   );
 }

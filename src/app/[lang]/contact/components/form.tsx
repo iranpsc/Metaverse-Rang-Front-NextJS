@@ -20,11 +20,11 @@ export default function ContactForm({ params }: any) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("SMTP_HOST:", process.env.SMTP_HOST);
-    console.log("SMTP_PORT:", process.env.SMTP_PORT);
-    console.log("SMTP_USER:", process.env.SMTP_USER);
-    console.log("SMTP_PASS:", process.env.SMTP_PASS);
-    console.log("NEXT_PUBLIC_EMAIL_TO:", process.env.NEXT_PUBLIC_EMAIL_TO);
+    // console.log("SMTP_HOST:", process.env.SMTP_HOST);
+    // console.log("SMTP_PORT:", process.env.SMTP_PORT);
+    // console.log("SMTP_USER:", process.env.SMTP_USER);
+    // console.log("SMTP_PASS:", process.env.SMTP_PASS);
+    // console.log("NEXT_PUBLIC_EMAIL_TO:", process.env.NEXT_PUBLIC_EMAIL_TO);
     try {
       // nextjs request/response (api) handling
       const response = await fetch("/api/sendEmail", {

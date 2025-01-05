@@ -2,7 +2,7 @@
 import Profile from "@/components/templates/Profile";
 import ProfileAbout from "@/components/module/profile/ProfileAbout";
 import ProfileDetails from "@/components/module/profile/ProfileDatails";
-import { getTranslation, getMainFile, findByModalName, findByTabName, getLangArray } from "@/components/utils/actions";
+import { getTranslation, getMainFile, findByModalName, findByTabName, getLangArray, getUserData } from "@/components/utils/actions";
 import SideBar from "@/components/module/sidebar/SideBar";
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
 import { staticMenuToShow as MenuStaticData } from "@/components/utils/constants";
@@ -12,34 +12,18 @@ import { staticMenuToShow as MenuStaticData } from "@/components/utils/constants
 export default async function citizenSinglePage({
   params,
 }) {
-  const userId = params.id;
-  const defaultTheme = useServerDarkMode();
+  const [profileData, langData] = await Promise.all([
+    getUserData(params.id),
+    getTranslation(params.lang)
+  ])
+  
+  // const profileData = await getUserData();
+  // const langData = await getTranslation(params.lang);
 
-  //FETCH::
-  async function getUserData() {
-    try {
-      const res = await fetch(
-        `https://api.rgb.irpsc.com/api/citizen/${userId}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const temp = await res.json();
-
-      return temp;
-    } catch (err) {
-      // در صورت وجود خطا
-      return { props: { error: "خطا در دریافت داده‌ها" } };
-    }
-  }
-
-  const profileData = await getUserData();
-
-  const langData = await getTranslation(params.lang);
   const mainData = await getMainFile(langData);
   const langArray = await getLangArray();
+  
+  const defaultTheme = useServerDarkMode();
 
   const modalsProfile = mainData.modals.find(
     (modal) => modal.name === "Citizenship-profile"
@@ -58,7 +42,7 @@ export default async function citizenSinglePage({
   if (params.lang === "fa") {
     nameSite = "متاورس رنگ";
     localSite = "fa_IR";
-    if (profileData.data.kyc?.fname) {
+    if (profileData.data?.kyc?.fname) {
       nameUser = `${profileData.data.kyc.fname} ${profileData.data.kyc.lname}`;
       titleData = `${profileData.data.kyc.fname} ${profileData.data.kyc.lname} | ${profileData.data.code}`;
     } else if (profileData.data.name) {
@@ -245,26 +229,11 @@ export async function generateMetadata({ params }) {
     //     .translation;
     // }
 
-    async function getUserData() {
-      try {
-        const res = await fetch(
-          `https://api.rgb.irpsc.com/api/citizen/${params.id}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        const temp = await res.json();
-  
-        return temp;
-      } catch (err) {
-        // در صورت وجود خطا
-        return { props: { error: "خطا در دریافت داده‌ها" } };
-      }
-    }
 
-  const profileData = await getUserData();
+  const profileData = await getUserData(params.id);
+
+  console.log('profileData123',profileData.data.customs?.about);
+  
   
   //to make description less than 200 character
   async function makeLessCharacter(){
@@ -279,8 +248,8 @@ export async function generateMetadata({ params }) {
   }
 
   return {
-    // title: localFind('metaverse rang'),
-    // description: localFind('metaverse rang is a metaverse world platform'),
+    title: `${profileData.data.kyc.fname} ${profileData.data.kyc.lname}`,
+    description: await makeLessCharacter(profileData.data.customs?.about),
     openGraph: {
       // site_name:'',
       type: 'profile',

@@ -1,9 +1,27 @@
-import GeneralInfo from "@/components/module/levelComponent/GeneralInfo"
-import TabSelector from "@/components/module/levelComponent/TabSelector";
-import Gem from "@/components/module/levelComponent/Gem";
-import Gift from "@/components/module/levelComponent/Gift";
-import Permission from "@/components/module/levelComponent/Permissions";
-import Prize from "@/components/module/levelComponent/Prize";
+import React, { Suspense } from "react";
+import dynamic from "next/dynamic";
+
+// import GeneralInfo from "@/components/module/levelComponent/GeneralInfo"
+const GeneralInfo = dynamic(() => import('@/components/module/levelComponent/GeneralInfo'))
+const TabSelector = dynamic(() => import('@/components/module/levelComponent/TabSelector'))
+const Gem = dynamic(() => import('@/components/module/levelComponent/Gem'))
+const Gift = dynamic(() => import('@/components/module/levelComponent/Gift'))
+const Permission = dynamic(() => import('@/components/module/levelComponent/Permissions'))
+const Prize = dynamic(() => import('@/components/module/levelComponent/Prize'))
+const DynamicFooter = dynamic(() => import('@/components/module/footer/DynamicFooter'))
+const BreadCrumb = dynamic(() => import('@/components/shared/BreadCrumb'))
+const ImageBox = dynamic(() => import('@/components/module/levelComponent/ImageBox'))
+
+// import TabSelector from "@/components/module/levelComponent/TabSelector";
+// import Gem from "@/components/module/levelComponent/Gem";
+// import Gift from "@/components/module/levelComponent/Gift";
+// import Permission from "@/components/module/levelComponent/Permissions";
+// import Prize from "@/components/module/levelComponent/Prize";
+// import DynamicFooter from "@/components/module/footer/DynamicFooter";
+// import BreadCrumb from "@/components/shared/BreadCrumb";
+// import ImageBox from "@/components/module/levelComponent/ImageBox";
+
+import { targetData } from "@/components/utils/targetDataName";
 import {
   getFooterData,
   getTranslation,
@@ -12,13 +30,9 @@ import {
   getLevelTabs,
   findByModalName,
   findByTabName,
-  getAllLevels
 } from "@/components/utils/actions";
-import DynamicFooter from "@/components/module/footer/DynamicFooter";
 import { Features } from "@/components/module/levelComponent/Features";
-import BreadCrumb from "@/components/shared/BreadCrumb";
-import ImageBox from "@/components/module/levelComponent/ImageBox";
-import { targetData } from "@/components/utils/targetDataName";
+import Head from "next/head";
 
 // SEO**
 export async function generateMetadata({ params }) {
@@ -39,13 +53,16 @@ export async function generateMetadata({ params }) {
     { id: 13, route_name: "legislator-baguette" },
   ];
   const levelId = staticRouteNames.find(x => x.route_name === params.levelName)?.id
-  const singleLevel = await getSingleLevel(levelId);
-
   
-  const levelTabs = await getLevelTabs(params, levelId);
-  
+  // const singleLevel = await getSingleLevel(levelId);
+  // const levelTabs = await getLevelTabs(params, levelId);
+  // const langData = await getTranslation(params.lang);
+  const [singleLevel, levelTabs, langData] = await Promise.all([
+    getSingleLevel(levelId),
+    getLevelTabs(params, levelId),
+    getTranslation(params.lang)
+  ])
 
-  const langData = await getTranslation(params.lang);
   const mainData = await getMainFile(langData);
   const levelsOld = mainData.modals.find((x) => x.name == "levels");
   const levelsTranslatePage = levelsOld.tabs.find(
@@ -63,8 +80,12 @@ export async function generateMetadata({ params }) {
   }
 
   const levels = await findByModalName(mainData, "levels");
-  const levelPageArrayContent = await findByTabName(levels, "levels-page");
-  const levelListArrayContent = await findByTabName(levels, "level-list");
+
+  const [levelPageArrayContent, levelListArrayContent] = await Promise.all([
+    findByTabName(levels, "levels-page"),
+    findByTabName(levels, "level-list")
+  ])
+
   const concatArrayContent = levelPageArrayContent.concat(
     levelListArrayContent
   );
@@ -78,6 +99,7 @@ export async function generateMetadata({ params }) {
       (item) => Number(item.name) == Number(levelId)
     )?.translation;
   }
+
 
   async function tabNameConver(_tabName){
     switch (_tabName) {
@@ -97,6 +119,8 @@ export async function generateMetadata({ params }) {
   }
 
   return {
+    title:`${await targetData(levelsTranslatePage,await tabNameConver(params.tabs))} ${localFind2()}`,
+    description:await makeLessCharacter(levelTabs.data.description || singleLevel.data.general_info.description),
     openGraph: {
       type: 'website',
       description: await makeLessCharacter(levelTabs.data.description || singleLevel.data.general_info.description),      
@@ -122,39 +146,6 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function lavelSingelPage({ params }) {
-
-  const footerTabs = await getFooterData(params);
-
-  const langData = await getTranslation(params.lang);
-  const mainData = await getMainFile(langData);
-  const levelsOld = mainData.modals.find((x) => x.name == "levels");
-  const levelsTranslatePage = levelsOld.tabs.find(
-    (x) => x.name == "levels-page"
-  ).fields;
-
-  const levels = await findByModalName(mainData, "levels");
-  const levelPageArrayContent = await findByTabName(levels, "levels-page");
-  const levelListArrayContent = await findByTabName(levels, "level-list");
-  const concatArrayContent = levelPageArrayContent.concat(
-    levelListArrayContent
-  );
-  function localFind(_slug) {
-    
-    return concatArrayContent.find(
-      (item) => item.name == _slug
-    )?.translation;
-  }
-  function localFind2() {
-    // HIN not good
-    //item.name and _slug have fa/en number string
-    //convert
-    
-    return concatArrayContent.find(
-      (item) => Number(item.name) == Number(levelId)
-    )?.translation;
-  }
-  
-
   const staticRouteNames = [
     { id: 1, route_name: "citizen-baguette" },
     { id: 2, route_name: "reporter-baguette" },
@@ -170,11 +161,57 @@ export default async function lavelSingelPage({ params }) {
     { id: 12, route_name: "judge-baguette" },
     { id: 13, route_name: "legislator-baguette" },
   ];
+
   const levelId = staticRouteNames.find(x => x.route_name === params.levelName)?.id
 
-  const singleLevel = await getSingleLevel(levelId);
+  
+  // const langData = await getTranslation(params.lang);
+  // const footerTabs = await getFooterData(params);
+  // const singleLevel = await getSingleLevel(levelId);
+  // const levelTabs = await getLevelTabs(params, levelId);
 
-  const levelTabs = await getLevelTabs(params, levelId);
+  const [langData, footerTabs, singleLevel, levelTabs] = await Promise.all([
+    getTranslation(params.lang),
+    getFooterData(params),
+    getSingleLevel(levelId),
+    getLevelTabs(params, levelId)
+  ]);
+
+
+  const mainData = await getMainFile(langData);
+  const levelsOld = mainData.modals.find((x) => x.name == "levels");
+  const levelsTranslatePage = levelsOld.tabs.find(
+    (x) => x.name == "levels-page"
+  ).fields;
+
+  const levels = await findByModalName(mainData, "levels");
+
+  // const levelPageArrayContent = await findByTabName(levels, "levels-page");
+  // const levelListArrayContent = await findByTabName(levels, "level-list");
+
+  const [levelPageArrayContent, levelListArrayContent] = await Promise.all([
+    findByTabName(levels, "levels-page"),
+    findByTabName(levels, "level-list"),
+  ]);
+
+  const concatArrayContent = levelPageArrayContent.concat(
+    levelListArrayContent
+  );
+
+  function localFind(_slug) {
+    
+    return concatArrayContent.find(
+      (item) => item.name == _slug
+    )?.translation;
+  }
+  function localFind2() {
+    // HIN not good
+    //item.name and _slug have fa/en number string
+    //convert
+    return concatArrayContent.find(
+      (item) => Number(item.name) == Number(levelId)
+    )?.translation;
+  }
 
   // another schema for this page are on this page's components(tabs)
   const secondSchema = {
@@ -223,6 +260,16 @@ export default async function lavelSingelPage({ params }) {
       />
       {/* schema END */}
 
+      <Head>
+        <link
+          rel="preload"
+          href={singleLevel.data.general_info.png_file}
+          as="image"
+          type="image/png"
+          crossorigin="anonymous"
+        />
+      </Head>
+
       <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-3 w-full font-azarMehr bg-bgGray dark:bg-black">
         <div className="">
           <BreadCrumb params={params} />
@@ -245,7 +292,6 @@ export default async function lavelSingelPage({ params }) {
           {/* __________3 Content*/}
 
           <div className="grid-third w-full md:min-w-[65vw] xl:min-w-[65vw]">
-
             {params.tabs == "general-info" && (
               <GeneralInfo
                 levelTabs={levelTabs}
@@ -293,7 +339,7 @@ export default async function lavelSingelPage({ params }) {
             )}
           </div>
           {/* __________4 Image*/}
-          <div className="grid-forth flex-1">
+          <div className="grid-forth flex-1 relative">
             <ImageBox item={levelTabs.data} singleLevel={singleLevel} />
           </div>
         </div>

@@ -65,7 +65,6 @@ const LastNews = ({ firstPageArrayContent, params }: any) => {
                 height={800}
                 // priority={true}
                 loading="lazy"
-                layout="responsive"
                 quality={50}
                 className=" w-full h-full transition-all duration-150 ease-in-out rounded-t-[10px]  object-cover"
               />

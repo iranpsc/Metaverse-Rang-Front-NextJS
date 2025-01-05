@@ -60,8 +60,8 @@ export default function ProfileHeaderMobile({ tabsMenu, isClosed, toggleSide }) 
           </div>
           <Image
             src="/logo.png"
-            width={500}
-            height={500}
+            width={71}
+            height={70}
             className="xs:w-[40px] xs:h-[40px] sm:w-[40px] sm:h-[40px] md:w-[50px] md:h-[50px] mx-1 "
             alt="rgb metaverse"
           />

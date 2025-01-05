@@ -12,6 +12,7 @@ import { Discord, Frame1, Frame2 } from "@/components/svgs";
 // import VersionSection from "@/components/templates/firstpage/VersionSection";
 // import SideBar from "@/components/module/sidebar/SideBar";
 import React, { Suspense } from 'react';
+import { headers } from 'next/headers';
 
 // Lazy load components
 const HeaderFirstPage = React.lazy(() => import('@/components/templates/firstpage/HeaderFirstPage'));
@@ -98,9 +99,22 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function LangPage({params}) {
+  // if we are in mobile or not
+  const headersList = headers();
+  const viewportWidth = headersList.get('viewport-width');
+  const userAgent = headersList.get('user-agent') || '';
 
-  const langArray = await getLangArray();
-  const langData = await getTranslation(params.lang);
+  // Check if it's mobile using viewport width or user agent
+  const isMobile = viewportWidth
+    ? parseInt(viewportWidth, 10) < 1024
+    : /mobile|android|iphone|ipad|phone/i.test(userAgent);
+
+  const [langArray, langData] = await Promise.all([
+    getLangArray(),
+    getTranslation(params.lang)
+  ])
+  // const langArray = await getLangArray();
+  // const langData = await getTranslation(params.lang);
   const mainData = await getMainFile(langData);
   const defaultTheme = await useServerDarkMode();
   const allVersionList = await getAllVersions();
@@ -227,19 +241,37 @@ export default async function LangPage({params}) {
 
           {/* lazy loaded video which have poster (shown before loading) */}
           {/* <TopVideo /> */}
+          {/* Desktop */}
+          {!isMobile && (
             <video
-              // src='/firstpage/3d_rgb.irpsc.webm'
               poster="/firstpage/replaced_pic.webp"
               autoPlay
               muted
               loop
               playsInline
-              className="absolute w-full h-full ltr:rotate-y-180 object-cover object-[-115px] sm:object-left"
-              >
-                <source src="/firstpage/3d_rgb.irpsc.webm" type="video/webm" />
-                <source src="/firstpage/3d_rgb.irpsc.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
+              className="hidden lg:block absolute w-full h-full ltr:rotate-y-180 object-cover object-[-115px] sm:object-left"
+            >
+              <source src="/firstpage/3d_rgb.irpsc.webm" type="video/webm" />
+              <source src="/firstpage/3d_rgb.irpsc.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            )}
+          {/* Mobile */}
+
+          {isMobile && (
+            <video
+              poster="/firstpage/mobile_replaced_pic.webp"
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="block lg:hidden absolute w-full h-full ltr:rotate-y-180 object-cover"
+            >
+              <source src="/firstpage/mobile_3d_rgb.irpsc.webm" type="video/webm" />
+              <source src="/firstpage/mobile_3d_rgb.irpsc.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          )}
             <div
               className="w-full h-full flex flex-col-reverse lg:flex-row px-5 lg:ps-[32px] lg:pe-0 z-[1]"
             >

@@ -14,6 +14,8 @@ import SideBar from "@/components/module/sidebar/SideBar";
 import CitizenList from "@/components/templates/citizen/citizenList";
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
 import { staticMenuToShow as MenuStaticData } from "@/components/utils/constants";
+import React, { Suspense } from 'react';
+
 
 // SEO**
 export async function generateMetadata({ params }) {
@@ -74,10 +76,13 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function CitizensPage({ params }) {
-  const footerTabs = await getFooterData(params);
-  const langData = await getTranslation(params.lang);
+  const [footerTabs, langData, langArray] = await Promise.all([
+  getFooterData(params), // Independent
+  getTranslation(params.lang), // Independent
+  getLangArray(), // Independent
+]);
+  
   const mainData = await getMainFile(langData);
-  const langArray = await getLangArray();
   const defaultTheme = useServerDarkMode();
 
 
@@ -168,9 +173,9 @@ export default async function CitizensPage({ params }) {
               <BreadCrumb params={params} />
             </div>
           <div className="mt-[60px] lg:mt-[40px] xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
-            <h2 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[64px] mb-[16px]">
+            <h1 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[64px] mb-[16px]">
               {localFind("citizens of the metaverse")}
-            </h2>
+            </h1>
             <p className="text-lightGray dark:text-lightGray font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center text-justify">
               {localFind("description citizen list")}
             </p>
@@ -183,6 +188,7 @@ export default async function CitizensPage({ params }) {
           </div>
           {/* CITIZEN box Container */}
           <div className="flex flex-row flex-wrap justify-center md:justify-center w-full no-scrollbar overflow-y-auto py-[20px]">
+          <Suspense fallback={<div>Loading citizens...</div>}>
             <CitizenList
               allCitizenArray={allCitizenArray.data}
               // lastPage={allCitizenArray.meta.to}
@@ -190,6 +196,7 @@ export default async function CitizensPage({ params }) {
               params={params}
               citizenListArrayContent={citizenListArrayContent}
             />
+            </Suspense>
           </div>
 
           <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
