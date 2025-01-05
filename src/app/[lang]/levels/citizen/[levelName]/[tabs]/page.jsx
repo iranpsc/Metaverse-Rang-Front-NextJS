@@ -253,120 +253,103 @@ export default async function lavelSingelPage({ params }) {
 
   return (
     <>
-      {/* SCHEMA */}
+      {/* SCHEMA** */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(secondSchema) }}
       />
-      {/* SCHEMA END */}
-  
+      {/* schema END */}
+
       <Head>
         <link
           rel="preload"
           href={singleLevel.data.general_info.png_file}
           as="image"
           type="image/png"
-          crossOrigin="anonymous"
+          crossorigin="anonymous"
         />
       </Head>
-  
+
       <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-3 w-full font-azarMehr bg-bgGray dark:bg-black">
-        <div>
-          <Suspense fallback={<div className="text-center text-[20px]">Loading Breadcrumb...</div>}>
-            <BreadCrumb params={params} />
-          </Suspense>
+        <div className="">
+          <BreadCrumb params={params} />
         </div>
-  
+        
         <div className="grid-container gap-x-4 bg-white dark:bg-[#080807] rounded-[20px] px-2 lg:px-3 py-3 relative">
-          {/* __________1. Button and Title */}
+          {/* __________1 Btn + Title*/}
           <div className="grid-first self-start md:order-none w-full md:min-w-[65vw] xl:min-w-[65vw] flex items-center justify-between font-bold pt-[3px] pb-5 dark:text-white text-lg sm:text-xl lg:text-2xl 2xl:text-3xl 3xl:text-4xl">
             <h1 className="text-[36px]">{localFind2()}</h1>
-            <button className="min-w-[167px] w-max h-[48px] px-5 text-[14px] dark:bg-bgLightGrey2 bg-bgLightGrey dark:text-white font-bold text-textGray rounded-[12px]">
-              {localFind("list of recipients")}
-            </button>
+            <button className="min-w-[167px] w-max h-[48px] px-5 text-[14px] dark:bg-bgLightGrey2 bg-bgLightGrey dark:text-white font-bold text-textGray rounded-[12px]">{localFind('list of recipients')}</button>
           </div>
-  
-          {/* __________2. Tab Selector */}
+          {/* __________2 Tab Selector*/}
+
           <div className="grid-second overflow-hidden mb-5 self-start w-full md:min-w-[65vw] xl:min-w-[65vw]">
-            <Suspense fallback={<div className="text-center text-[20px]">Loading Tabs...</div>}>
-              <TabSelector params={params} levelsTranslatePage={levelsTranslatePage} />
-            </Suspense>
+            <TabSelector
+              params={params}
+              levelsTranslatePage={levelsTranslatePage}
+            />
           </div>
-  
-          {/* __________3. Content */}
+          {/* __________3 Content*/}
+
           <div className="grid-third w-full md:min-w-[65vw] xl:min-w-[65vw]">
-            <Suspense fallback={<div className="text-center text-[20px]">Loading Content...</div>}>
-              {params.tabs === "general-info" && (
-                <GeneralInfo
-                  levelTabs={levelTabs}
-                  levelsTranslatePage={levelsTranslatePage}
-                  singleLevel={singleLevel}
-                  params={params}
-                  concatArrayContent={concatArrayContent}
-                />
-              )}
-              {params.tabs === "gem" && (
-                <Gem
-                  levelsTranslatePage={levelsTranslatePage}
-                  levelTabs={levelTabs}
-                  singleLevel={singleLevel}
-                  params={params}
-                  concatArrayContent={concatArrayContent}
-                />
-              )}
-              {params.tabs === "gift" && (
-                <Gift
-                  levelsTranslatePage={levelsTranslatePage}
-                  levelTabs={levelTabs}
-                  singleLevel={singleLevel}
-                  params={params}
-                  concatArrayContent={concatArrayContent}
-                />
-              )}
-              {params.tabs === "licenses" && (
-                <Permission
-                  levelTabs={levelTabs}
-                  levelsTranslatePage={levelsTranslatePage}
-                  singleLevel={singleLevel}
-                  params={params}
-                  concatArrayContent={concatArrayContent}
-                />
-              )}
-              {params.tabs === "prize" && (
-                <Prize
-                  levelsTranslatePage={levelsTranslatePage}
-                  levelTabs={levelTabs}
-                  singleLevel={singleLevel}
-                  params={params}
-                  concatArrayContent={concatArrayContent}
-                />
-              )}
-            </Suspense>
+            {params.tabs == "general-info" && (
+              <GeneralInfo
+                levelTabs={levelTabs}
+                levelsTranslatePage={levelsTranslatePage}
+                singleLevel={singleLevel}
+                params={params}
+                concatArrayContent={concatArrayContent}
+              />
+            )}
+            {params.tabs == "gem" && (
+              <Gem
+                levelsTranslatePage={levelsTranslatePage}
+                levelTabs={levelTabs}
+                singleLevel={singleLevel}
+                params={params}
+                concatArrayContent={concatArrayContent}
+              />
+            )}
+            {params.tabs == "gift" && (
+              <Gift
+                levelsTranslatePage={levelsTranslatePage}
+                levelTabs={levelTabs}
+                singleLevel={singleLevel}
+                params={params}
+                concatArrayContent={concatArrayContent}
+              />
+            )}
+            {params.tabs == "licenses" && (
+              <Permission
+                levelTabs={levelTabs}
+                levelsTranslatePage={levelsTranslatePage}
+                singleLevel={singleLevel}
+                params={params}
+                concatArrayContent={concatArrayContent}
+              />
+            )}
+            {params.tabs == "prize" && (
+              <Prize
+                levelsTranslatePage={levelsTranslatePage}
+                levelTabs={levelTabs} 
+                singleLevel={singleLevel}
+                params={params}
+                concatArrayContent={concatArrayContent}
+              />
+            )}
           </div>
-  
-          {/* __________4. Image */}
+          {/* __________4 Image*/}
           <div className="grid-forth flex-1 relative">
-            <Suspense fallback={<div className="text-center text-[20px]">Loading Image...</div>}>
-              <ImageBox item={levelTabs.data} singleLevel={singleLevel} />
-            </Suspense>
+            <ImageBox item={levelTabs.data} singleLevel={singleLevel} />
           </div>
         </div>
-  
-        {/* __________5. Features */}
         <div>
-          <Suspense fallback={<div className="text-center text-[20px]">Loading Features...</div>}>
-            <Features levelsTranslatePage={levelsTranslatePage} />
-          </Suspense>
+          <Features levelsTranslatePage={levelsTranslatePage} />
         </div>
       </div>
-  
-      {/* Footer */}
       <div className="flex flex-col justify-center items-center xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
-        <Suspense fallback={<div className="text-center text-[20px]">Loading Footer...</div>}>
-          <DynamicFooter footerTabs={footerTabs} />
-        </Suspense>
+        <DynamicFooter footerTabs={footerTabs} />
       </div>
     </>
   );
-  
 }
