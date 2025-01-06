@@ -1,10 +1,11 @@
-import dynamic from "next/dynamic";
-const SideBar = dynamic(() => import("@/components/module/sidebar/SideBar"), {
-  ssr: false, // Load on the client side
-  loading: () => (
-    <div className="text-center text-[20px]">Loading SideBar...</div>
-  ),
-});
+// import dynamic from "next/dynamic";
+// const SideBar = dynamic(() => import("@/components/module/sidebar/SideBar"), {
+//   ssr: false, // Load on the client side
+//   loading: () => (
+//     <div className="text-center text-[20px]">Loading SideBar...</div>
+//   ),
+// });
+import SideBar from "@/components/module/sidebar/SideBar";
 import {
   getTranslation,
   getMainFile,
