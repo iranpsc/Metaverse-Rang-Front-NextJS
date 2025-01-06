@@ -9,6 +9,7 @@ import { useState } from "react";
 import ListMenuActiveIconModule from "./list/ListMenuActiveIconModule";
 import DropdownLanguageModule from "./list/dropdowns/DropdownLanguageModule";
 import { useRouter } from 'next/navigation';
+import React from 'react';
 import Link from "next/link";
 
 export default function SideBarContent({
@@ -77,117 +78,130 @@ const handleLangBtn = () => {
       >
         {tabsMenu &&
           tabsMenu.map((item, i) => (
-            //*HINT*the way to pass parameters to function in nextjs "onTabClick(item)"
-            // 389 is levels tab id
-           item.menuItem === true &&
-           <div key={item.id}>
-              <li onClick={() => onTabClick(item, i)}>
-                <Tooltip title={item.translation} placement={langData.direction == 'rtl'?'left-end':'right-end'}
-                  // slotProps is used to apply custom styles and props to the internal elements (slots)
-                  slotProps={{
-                    tooltip: {
-                      // Applies Tailwind classes to the tooltip container
-                      className: "bg-white dark:bg-dark-background font-azarMehr font-medium text-black dark:text-white text-[14px] lg:text-[16px]",
-                    },
-                  }}
-                  // PopperProps is used to configure the behavior and positioning
-                  PopperProps={{
-                    modifiers: [
-                      {
-                        name: 'offset',
-                        options: {
-                          offset: [0, -13], // Adjusts tooltip offset
-                        },
+            <React.Fragment key={item.id || `menu-item-${i}`}>
+              {/* First Condition */}
+              {item.menuItem === true && (
+                <li onClick={() => onTabClick(item, i)}>
+                  <Tooltip
+                    title={item.translation}
+                    placement={langData.direction === "rtl" ? "left-end" : "right-end"}
+                    slotProps={{
+                      tooltip: {
+                        className:
+                          "bg-white dark:bg-dark-background font-azarMehr font-medium text-black dark:text-white text-[14px] lg:text-[16px]",
                       },
-                    ],
-                  }}
+                    }}
+                    PopperProps={{
+                      modifiers: [
+                        {
+                          name: "offset",
+                          options: {
+                            offset: [0, -13], // Adjusts tooltip offset
+                          },
+                        },
+                      ],
+                    }}
                   >
-                  {item.route_name 
-                  ?
-                  <div
-                  className={`px-2 flex cursor-pointer flex-col items-center  box-border menu-transition`}
-                  // href={`/${langData.code}/levels/citizen/${item?.route_name}/general-info`}
-                    >
+                    {item.route_name ? (
+                      <div
+                        className={`px-2 flex cursor-pointer flex-col items-center  box-border menu-transition`}
+                      >
+                        <div
+                          className={`${
+                            activeNav == item?.route_name
+                              ? "bg-grayLight dark:bg-black"
+                              : ""
+                          } w-full flex flex-row items-center  group py-2 ${
+                            isClosed ? "justify-center" : "justify-start"
+                          } rounded-[10px]`}
+                        >
+                          <span className="flex">
+                            <ListMenuSvgModule
+                              item={item}
+                              i={i}
+                              activeNav={activeNav}
+                            />
+                          </span>
+                          <ListMenuTitleModule
+                            isClosed={isClosed}
+                            item={item}
+                            i={i}
+                            activeNav={activeNav}
+                          />
+                          <ListMenuArrow item={item} />
+                        </div>
+                      </div>
+                    ) : (
+                      <div
+                        className={`px-2 flex cursor-pointer flex-col items-center box-border`}
+                      >
+                        <div
+                          className={`w-full flex flex-row items-center  group py-[5px] ${
+                            isClosed ? "justify-center" : "justify-start"
+                          } rounded-[10px]`}
+                        >
+                          <span className="">
+                            <ListMenuSvgModule
+                              item={item}
+                              i={i}
+                              activeNav={activeNav}
+                            />
+                          </span>
+                          {!isClosed && (
+                            <ListMenuTitleModule
+                              item={item}
+                              i={i}
+                              activeNav={activeNav}
+                            />
+                          )}
+                          <ListMenuArrow item={item} />
+                        </div>
+                      </div>
+                    )}
+                  </Tooltip>
+                </li>
+              )}
+
+              {/* Second Condition */}
+              {item.name == "language" && (
+                <>
+                  <li onClick={handleLangBtn} data-tooltip-id={item.name}>
                     <div
-                      className={`${activeNav == item?.route_name ? "bg-grayLight dark:bg-black":''} w-full flex flex-row items-center  group py-2
-                      ${isClosed ? "justify-center" : "justify-start"} rounded-[10px]`}
-                    >
-                      <span className="flex">
-                        <ListMenuSvgModule item={item} i={i} activeNav={activeNav} />
-                      </span>
-                        <ListMenuTitleModule
-                          isClosed={isClosed}
-                          item={item}
-                          i={i}
-                          activeNav={activeNav}
-                        />
-                      <ListMenuArrow item={item} />
-                    </div>
-                  </div>
-                  :
-                  <div
-                    className={`px-2 flex cursor-pointer flex-col items-center box-border`}
-                    // href={`/${langData.code}`}
-                  >
-                    <div
-                      className={`w-full flex flex-row items-center  group py-[5px]
-                      ${isClosed ? "justify-center" : "justify-start"} rounded-[10px]`}
-                    >
-                      <span className="">
-                        <ListMenuSvgModule item={item} i={i} activeNav={activeNav} />
-                      </span>
-                      {!isClosed && (
-                        <ListMenuTitleModule
-                          item={item}
-                          i={i}
-                          activeNav={activeNav}
-                        />
-                      )}
-                      <ListMenuArrow item={item} />
-                    </div>
-                  </div>
-                  }
-                </Tooltip>
-              </li>
-              {
-              item.name == "language" && 
-              <>
-                <li onClick={handleLangBtn} data-tooltip-id={item.name}>
-                  <div
-                    className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px]
-                    group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer menu-transition
-                    ${isClosed ? "justify-start gap-0" : "justify-start gap-2"}`}
+                      className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px]
+                            group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer menu-transition
+                            ${isClosed ? "justify-start gap-0" : "justify-start gap-2"}`}
                     >
                       <ListMenuActiveIconModule
                         item={item}
                         languageSelected={langData.code}
                         isClosed={isClosed}
-                        />
-                    <span className="ps-[15px]">
-                      <ListMenuSvgModule item={item} />
-                    </span>
-                    <div className="w-full flex justify-between items-center">
-                      <ListMenuTitleModule
-                        item={item}
-                        isClosed={isClosed}
-                        />
-                      <ListMenuArrow item={item} isOpen={langDropDown} />
+                      />
+                      <span className="ps-[15px]">
+                        <ListMenuSvgModule item={item} />
+                      </span>
+                      <div className="w-full flex justify-between items-center">
+                        <ListMenuTitleModule item={item} isClosed={isClosed} />
+                        <ListMenuArrow item={item} isOpen={langDropDown} />
+                      </div>
                     </div>
-                  </div>              
-                </li>
-                <div className={`${langDropDown ? "h-full" : 'h-0 overflow-hidden'}
-                  base-transition-1 bg-Field dark:bg-darkGrey`}>
-                  <DropdownLanguageModule
-                    languagesData={langData}
-                    langArray={langArray}
-                    params={params}
-                    isClosed={isClosed}
+                  </li>
+                  <div
+                    className={`${
+                      langDropDown ? "h-full" : "h-0 overflow-hidden"
+                    } base-transition-1 bg-Field dark:bg-darkGrey`}
+                  >
+                    <DropdownLanguageModule
+                      languagesData={langData}
+                      langArray={langArray}
+                      params={params}
+                      isClosed={isClosed}
                     />
-                </div>
-              </>
-              }
-           </div>
+                  </div>
+                </>
+              )}
+            </React.Fragment>
           ))}
+
       </ul>
     </>
   );
