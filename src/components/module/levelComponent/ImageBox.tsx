@@ -1,8 +1,11 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
-import Sample3D from "./Sample3D";
-import ErrorBoundary from "@/components/utils/ErrorBoundary";
+import dynamic from "next/dynamic";
+const Sample3D = dynamic(() => import("./Sample3D"));
+// import Sample3D from "./Sample3D";
+const ErrorBoundary = dynamic(() => import("@/components/utils/ErrorBoundary"));
+// import ErrorBoundary from "@/components/utils/ErrorBoundary";
 
 export default function ImageBox({ item, singleLevel }: any) {
   const srcPng = item?.png_file ? item?.png_file : "";
