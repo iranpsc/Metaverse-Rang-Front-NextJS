@@ -18,6 +18,8 @@ export default function SideBarContent({
   langData,
   langArray
 }) {
+  console.log('tabsMenu',tabsMenu);
+  
  const router = useRouter();
  const [langDropDown, setLangDropDown] = useState(false);
  const [activeNav, setActiveNav] = useState(params.levelName);
@@ -79,7 +81,8 @@ const handleLangBtn = () => {
             // 389 is levels tab id
            item.menuItem === true &&
            <div key={item.id}>
-              <Tooltip title={item.translation} placement={langData.direction == 'rtl'?'left-end':'right-end'}
+              <li onClick={() => onTabClick(item, i)}>
+                <Tooltip title={item.translation} placement={langData.direction == 'rtl'?'left-end':'right-end'}
                   // slotProps is used to apply custom styles and props to the internal elements (slots)
                   slotProps={{
                     tooltip: {
@@ -98,92 +101,91 @@ const handleLangBtn = () => {
                       },
                     ],
                   }}
-                >
-                  <li onClick={() => onTabClick(item, i)}>
-                    {item.route_name 
-                    ?
-                    <div
-                    className={`px-2 flex cursor-pointer flex-col items-center  box-border menu-transition`}
-                    // href={`/${langData.code}/levels/citizen/${item?.route_name}/general-info`}
-                      >
-                      <div
-                        className={`${activeNav == item?.route_name ? "bg-grayLight dark:bg-black":''} w-full flex flex-row items-center  group py-2
-                        ${isClosed ? "justify-center" : "justify-start"} rounded-[10px]`}
-                      >
-                        <span className="flex">
-                          <ListMenuSvgModule item={item} i={i} activeNav={activeNav} />
-                        </span>
-                          <ListMenuTitleModule
-                            isClosed={isClosed}
-                            item={item}
-                            i={i}
-                            activeNav={activeNav}
-                          />
-                        <ListMenuArrow item={item} />
-                      </div>
-                    </div>
-                    :
-                    <div
-                      className={`px-2 flex cursor-pointer  x  flex-col items-center box-border`}
-                      // href={`/${langData.code}`}
+                  >
+                  {item.route_name 
+                  ?
+                  <div
+                  className={`px-2 flex cursor-pointer flex-col items-center  box-border menu-transition`}
+                  // href={`/${langData.code}/levels/citizen/${item?.route_name}/general-info`}
                     >
-                      <div
-                        className={`w-full flex flex-row items-center  group py-[5px]
-                        ${isClosed ? "justify-center" : "justify-start"} rounded-[10px]`}
-                      >
-                        <span className="">
-                          <ListMenuSvgModule item={item} i={i} activeNav={activeNav} />
-                        </span>
-                        {!isClosed && (
-                          <ListMenuTitleModule
-                            item={item}
-                            i={i}
-                            activeNav={activeNav}
-                          />
-                        )}
-                        <ListMenuArrow item={item} />
-                      </div>
+                    <div
+                      className={`${activeNav == item?.route_name ? "bg-grayLight dark:bg-black":''} w-full flex flex-row items-center  group py-2
+                      ${isClosed ? "justify-center" : "justify-start"} rounded-[10px]`}
+                    >
+                      <span className="flex">
+                        <ListMenuSvgModule item={item} i={i} activeNav={activeNav} />
+                      </span>
+                        <ListMenuTitleModule
+                          isClosed={isClosed}
+                          item={item}
+                          i={i}
+                          activeNav={activeNav}
+                        />
+                      <ListMenuArrow item={item} />
                     </div>
-                    }
-                  </li>
-                  {
-                  item.name === "language" && 
-                  <>
-                    <li onClick={handleLangBtn} data-tooltip-id={item.name}>
-                      <div
-                        className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px]
-                        group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer menu-transition
-                        ${isClosed ? "justify-start gap-0" : "justify-start gap-2"}`}
-                        >
-                          <ListMenuActiveIconModule
-                            item={item}
-                            languageSelected={langData.code}
-                            isClosed={isClosed}
-                            />
-                        <span className="ps-[15px]">
-                          <ListMenuSvgModule item={item} />
-                        </span>
-                        <div className="w-full flex justify-between items-center">
-                          <ListMenuTitleModule
-                            item={item}
-                            isClosed={isClosed}
-                            />
-                          <ListMenuArrow item={item} isOpen={langDropDown} />
-                        </div>
-                      </div>              
-                    </li>
-                    <div className={`${langDropDown ? "h-full" : 'h-0 overflow-hidden'}
-                      base-transition-1 bg-Field dark:bg-darkGrey`}>
-                      <DropdownLanguageModule
-                        languagesData={langData}
-                        langArray={langArray}
-                        params={params}
+                  </div>
+                  :
+                  <div
+                    className={`px-2 flex cursor-pointer flex-col items-center box-border`}
+                    // href={`/${langData.code}`}
+                  >
+                    <div
+                      className={`w-full flex flex-row items-center  group py-[5px]
+                      ${isClosed ? "justify-center" : "justify-start"} rounded-[10px]`}
+                    >
+                      <span className="">
+                        <ListMenuSvgModule item={item} i={i} activeNav={activeNav} />
+                      </span>
+                      {!isClosed && (
+                        <ListMenuTitleModule
+                          item={item}
+                          i={i}
+                          activeNav={activeNav}
+                        />
+                      )}
+                      <ListMenuArrow item={item} />
+                    </div>
+                  </div>
+                  }
+                </Tooltip>
+              </li>
+              {
+              item.name == "language" && 
+              <>
+                <li onClick={handleLangBtn} data-tooltip-id={item.name}>
+                  <div
+                    className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px]
+                    group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer menu-transition
+                    ${isClosed ? "justify-start gap-0" : "justify-start gap-2"}`}
+                    >
+                      <ListMenuActiveIconModule
+                        item={item}
+                        languageSelected={langData.code}
                         isClosed={isClosed}
                         />
+                    <span className="ps-[15px]">
+                      <ListMenuSvgModule item={item} />
+                    </span>
+                    <div className="w-full flex justify-between items-center">
+                      <ListMenuTitleModule
+                        item={item}
+                        isClosed={isClosed}
+                        />
+                      <ListMenuArrow item={item} isOpen={langDropDown} />
                     </div>
-                  </>
-                }
-              </Tooltip>
+                  </div>              
+                </li>
+                <div className={`${langDropDown ? "h-full" : 'h-0 overflow-hidden'}
+                  base-transition-1 bg-Field dark:bg-darkGrey`}>
+                  <DropdownLanguageModule
+                    languagesData={langData}
+                    langArray={langArray}
+                    params={params}
+                    isClosed={isClosed}
+                    />
+                </div>
+              </>
+              }
            </div>
           ))}
       </ul>
