@@ -8,9 +8,7 @@ import ListMenuArrow from "./list/ListMenuArrow";
 import { useState } from "react";
 import ListMenuActiveIconModule from "./list/ListMenuActiveIconModule";
 import DropdownLanguageModule from "./list/dropdowns/DropdownLanguageModule";
-
-
-
+import { useRouter } from 'next/navigation';
 import Link from "next/link";
 
 export default function SideBarContent({
@@ -20,6 +18,7 @@ export default function SideBarContent({
   langData,
   langArray
 }) {
+ const router = useRouter();
  const [langDropDown, setLangDropDown] = useState(false);
  const [activeNav, setActiveNav] = useState(params.levelName);
  const staticRouteNames = [
@@ -60,6 +59,8 @@ tabsMenu.forEach((el1) => {
 
  const onTabClick = (item, tabNumber) => {
   setActiveNav(tabNumber);
+  let href = item?.route_name ? `/${langData.code}/levels/citizen/${item?.route_name}/general-info` : `/${langData.code}`
+  router.push(href);
 }
 const handleLangBtn = () => {
   setLangDropDown(!langDropDown)
@@ -99,10 +100,11 @@ const handleLangBtn = () => {
                   }}
                 >
                   <li onClick={() => onTabClick(item, i)}>
-                    {item.route_name ?
-                    <Link
-                    className={`px-2 flex  flex-col items-center  box-border menu-transition`}
-                    href={`/${langData.code}/levels/citizen/${item?.route_name}/general-info`}
+                    {item.route_name 
+                    ?
+                    <div
+                    className={`px-2 flex cursor-pointer flex-col items-center  box-border menu-transition`}
+                    // href={`/${langData.code}/levels/citizen/${item?.route_name}/general-info`}
                       >
                       <div
                         className={`${activeNav == item?.route_name ? "bg-grayLight dark:bg-black":''} w-full flex flex-row items-center  group py-2
@@ -119,11 +121,11 @@ const handleLangBtn = () => {
                           />
                         <ListMenuArrow item={item} />
                       </div>
-                    </Link>
+                    </div>
                     :
-                    <Link
-                      className={`px-2 flex  flex-col items-center box-border`}
-                      href={`/${langData.code}`}
+                    <div
+                      className={`px-2 flex cursor-pointer  x  flex-col items-center box-border`}
+                      // href={`/${langData.code}`}
                     >
                       <div
                         className={`w-full flex flex-row items-center  group py-[5px]
@@ -141,7 +143,7 @@ const handleLangBtn = () => {
                         )}
                         <ListMenuArrow item={item} />
                       </div>
-                    </Link>
+                    </div>
                     }
                   </li>
                   {
