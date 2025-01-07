@@ -63,13 +63,14 @@ const SectionTimer = () => {
         style={{ borderColor: "linear-gradient(to right, #000, #fff)" }}
       >
         <div className="absolute bg-white/10 z-0 size-[150px] top-[10px] end-[20%] blur-3xl filter"></div>
-        <div className="w-full lg:max-w-[360px] max-h-[100%] rounded-[32px] border-none overflow-hidden">
+        <div className="w-full flex justify-center lg:max-w-[360px] max-h-[100%] rounded-[32px] border-none overflow-hidden">
           <Image
             className="w-fill h-full object-cover"
-            src="/firstpage/ariai.rgb.irpsc.jpg"
+            src="/firstpage/free.webp"
             alt="header"
-            width={212}
-            height={212}
+            width={500}
+            height={357}
+            quality={75}
           />
         </div>
         <div className="w-full mt-4 lg:mt-0">
@@ -85,8 +86,8 @@ const SectionTimer = () => {
 
       {/* SECOND BOX */}
       <div
-        className="h-[90%] w-full xl:w-[35%] rounded-[50px] border-2 border-[#343434] p-[20px]
-      flex flex-col justify-around items-center relative"
+        className="h-[90%] w-full lg:w-[45%] rounded-[50px] border-2 border-[#343434] p-[20px]
+        flex flex-col justify-around items-center relative"
       >
         <div className="absolute bg-white/10 z-0 size-[150px] top-[-10px] end-[-20px] rounded-xl blur-3xl filter"></div>
         <DynamicTimer />

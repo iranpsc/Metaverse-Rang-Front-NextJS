@@ -66,7 +66,7 @@ const Section3D = () => {
     <div
       ref={iframeContainerRef}
       className="relative w-full flex justify-center items-center"
-      style={{ height: "500px" }} // Ensure the container has height for detection
+      style={{ minHeight: "100px" }} // Ensure the container has height for detection
     >
       {inView ? (
         useAparat ? (

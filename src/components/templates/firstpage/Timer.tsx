@@ -36,51 +36,57 @@ export default function TimerSection() {
       className="w-full flex flex-row justify-between lg:justify-center items-center gap-1 z-50"
       dir="ltr"
     >
-      <div className="flex flex-col justify-center items-center w-full">
+      <div className="flex flex-col justify-center items-center relative min-w-[25%]">
         <span className="flex items-center text-[28px] lg:text-[38px] xl:text-[42px] 2xl:text-[48px] text-dark-yellow text-azarMehr">
           <span className="font-bold">
             {timeRemaining.days.toString().padStart(2, "0")}
           </span>
-          <span className="font-bold ps-[120%] lg:ps-1">{" : "}</span>
+          <span className="font-bold lg:ps-1 absolute right-[-5px]">
+            {" : "}
+          </span>
         </span>
 
-        <span className="text-[16px] text-dark-yellow text-azarMehr font-bold text-center w-full pe-0 lg:pe-5">
+        <span className="text-[16px] text-dark-yellow text-azarMehr font-bold text-center w-full pe-0">
           روز
         </span>
       </div>
 
-      <div className="flex flex-col justify-center items-center w-full">
+      <div className="flex flex-col justify-center items-center relative min-w-[25%]">
         <span className="flex items-center text-[28px] lg:text-[38px] xl:text-[42px] 2xl:text-[48px] text-dark-yellow text-azarMehr">
           <span className="font-bold">
             {timeRemaining.hours.toString().padStart(2, "0")}
           </span>
-          <span className="font-bold ps-[120%] lg:ps-1">{" : "}</span>
+          <span className="font-bold lg:ps-1 absolute right-[-5px]">
+            {" : "}
+          </span>
         </span>
-        <span className="text-[16px] text-dark-yellow text-azarMehr font-bold text-center w-full pe-0 lg:pe-5">
+        <span className="text-[16px] text-dark-yellow text-azarMehr font-bold text-center w-full pe-0">
           ساعت
         </span>
       </div>
 
-      <div className="flex flex-col justify-center items-center w-full">
+      <div className="flex flex-col justify-center items-center relative min-w-[25%]">
         <span className="flex items-center text-[28px] lg:text-[38px] xl:text-[42px] 2xl:text-[48px] text-dark-yellow text-azarMehr">
           <span className="font-bold">
             {timeRemaining.minutes.toString().padStart(2, "0")}
           </span>
-          <span className="font-bold ps-[120%] lg:ps-1">{" : "}</span>
+          <span className="font-bold lg:ps-1 absolute right-[-5px]">
+            {" : "}
+          </span>
         </span>
-        <span className="text-[16px] text-dark-yellow text-azarMehr font-bold text-center text-center w-full pe-0 lg:pe-5">
+        <span className="text-[16px] text-dark-yellow text-azarMehr font-bold text-center text-center w-full pe-0">
           دقیقه
         </span>
       </div>
 
-      <div className="flex flex-col justify-center items-center w-full">
+      <div className="flex flex-col justify-center items-center relative min-w-[25%]">
         <span className="flex items-center text-[28px] lg:text-[38px] xl:text-[42px] 2xl:text-[48px] text-dark-yellow text-azarMehr">
           <span className="font-bold">
             {timeRemaining.seconds.toString().padStart(2, "0")}
           </span>
         </span>
 
-        <span className="text-[16px] text-dark-yellow text-azarMehr font-bold text-center w-full pe-0 lg:pe-5">
+        <span className="text-[16px] text-dark-yellow text-azarMehr font-bold text-center w-full pe-0">
           ثانیه
         </span>
       </div>

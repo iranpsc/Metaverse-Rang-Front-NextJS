@@ -58,11 +58,11 @@ const EducationFirstPage = ({ firstPageArrayContent, params }: any) => {
               className="group w-full rounded-t-[10px] relative"
             >
               <Image
-                src={`/firstpage/static-education-${index}.jpg`}
+                src={`/firstpage/static-education-${index}.webp`}
                 alt="education pic"
-                width={1076}
-                height={604}
-                quality={50}
+                width={500}
+                height={357}
+                quality={75}
                 property="true"
                 loading={"lazy"}
                 className="w-full h-full rounded-t-[10px] object-cover"
@@ -85,7 +85,7 @@ const EducationFirstPage = ({ firstPageArrayContent, params }: any) => {
               <Link href={`/${params.lang}/citizen/Hm-2000003`} target="_blank">
                 <div className="flex flex-row justify-start items-center gap-2">
                   <Image
-                    src="/firstpage/alizadeh.jpg"
+                    src="/firstpage/alizadeh.webp"
                     alt="citizen image"
                     width={1000}
                     height={1000}

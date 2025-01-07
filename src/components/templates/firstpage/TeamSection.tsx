@@ -47,10 +47,10 @@ const SectionTeam = ({ firstPageArrayContent, params }: any) => {
       <div className="xl:col-span-5 lg:col-span-5 md:col-span-5 sm:col-span-12 xs:col-span-12">
         <Image
           className=" w-full h-full sm:h-[360px] md:h-auto object-cover origin-center rounded-[64px] border-none"
-          src="/firstpage/img2.jpg"
+          src="/firstpage/img2.webp"
           alt="header"
-          width={539}
-          height={509}
+          width={500}
+          height={357}
           loading="lazy"
           quality={75}
         />
@@ -74,38 +74,45 @@ const SectionTeam = ({ firstPageArrayContent, params }: any) => {
           <div className="relative flex flex-row justify-start items-start ">
             <Image
               className="xl:size-[60px] lg:size-[50px] md:size-[70px] sm:size-[50px] xs:size-[44px] rounded-full border-2 border-white z-50"
-              src="/firstpage/ghadiri.jpg"
+              src="/firstpage/person1.webp"
               alt="header"
-              width={512}
-              height={512}
+              width={64}
+              height={64}
             />
             <Image
               className="xl:size-[60px] lg:size-[50px] md:size-[70px] sm:size-[50px] xs:size-[44px] rounded-full border-2 border-white ms-[-20px] z-40"
-              src="/firstpage/alizadeh.jpg"
+              src="/firstpage/person2.webp"
               alt="header"
-              width={400}
-              height={400}
+              width={64}
+              height={64}
             />
             <Image
               className="xl:size-[60px] lg:size-[50px] md:size-[70px] sm:size-[50px] xs:size-[44px] rounded-full border-2 border-white ms-[-20px] z-30"
-              src="/firstpage/person3.jpg"
+              src="/firstpage/person3.webp"
               alt="header"
-              width={400}
-              height={400}
+              width={64}
+              height={64}
             />
             <Image
               className="xl:size-[60px] lg:size-[50px] md:size-[70px] sm:size-[50px] xs:size-[44px] rounded-full border-2 border-white ms-[-20px] z-20"
-              src="/firstpage/person4.jpg"
+              src="/firstpage/person4.webp"
               alt="header"
-              width={225}
-              height={225}
+              width={64}
+              height={64}
             />
             <Image
               className="xl:size-[60px] lg:size-[50px] md:size-[70px] sm:size-[50px] xs:size-[44px] rounded-full border-2 border-white ms-[-20px] z-10 object-cover"
-              src="/firstpage/person5.jpg"
+              src="/firstpage/person5.webp"
               alt="header"
-              width={263}
-              height={192}
+              width={64}
+              height={64}
+            />
+            <Image
+              className="xl:size-[60px] lg:size-[50px] md:size-[70px] sm:size-[50px] xs:size-[44px] rounded-full border-2 border-white ms-[-20px] z-1 object-cover"
+              src="/firstpage/person6.webp"
+              alt="header"
+              width={64}
+              height={64}
             />
           </div>
 

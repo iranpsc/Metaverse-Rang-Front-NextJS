@@ -38,7 +38,7 @@ const LastContent = ({ firstPageArrayContent, params }: any) => {
           {localFind("latest content")}
         </p>
 
-        <a href="https://rgb.irpsc.com/home-blogs">
+        <a href="https://uni.irpsc.com/category/blogs/">
           <div className="flex justify-center items-center gap-4">
             <p className="font-azarMehr font-medium text-[12px] md:text-[16px] lg:text-[18px] xl:text-[20px] dark:text-white">
               {localFind("view all")}
@@ -61,13 +61,13 @@ const LastContent = ({ firstPageArrayContent, params }: any) => {
               aria-label=""
             >
               <Image
-                src={`/firstpage/img-N-${index}.jpg`}
+                src={`/firstpage/img-N-${index}.webp`}
                 alt="latest content"
-                width={696}
-                height={469}
+                width={500}
+                height={357}
                 quality={50}
                 loading="lazy"
-                className="w-full h-full rounded-t-[10px] object-cover"
+                className="w-full h-full rounded-t-[10px] object-contain"
               />
             </Link>
 
@@ -84,13 +84,13 @@ const LastContent = ({ firstPageArrayContent, params }: any) => {
             </a>
 
             <div className="w-[95%] pb-2 flex flex-row justify-between  items-center">
-              <Link href={`/${params.lang}/citizen/Hm-2000003`} target="_blank">
+              <Link href={`/${params.lang}/citizen/Hm-2000001`} target="_blank">
                 <div className="flex flex-row justify-start items-center gap-2">
                   <Image
-                    src="/firstpage/alizadeh.jpg"
-                    alt="/firstpage/alizadeh.jpg"
-                    width={1000}
-                    height={1000}
+                    src="/firstpage/person1.webp"
+                    alt="hossein ghadiri"
+                    width={64}
+                    height={64}
                     loading={"lazy"}
                     className="w-[45px] h-[45px] rounded-full object-cover cursor-pointer transition-all duration-150 ease-in-out"
                     // onClick={() => pushRgb(item.creator.code)}
@@ -99,7 +99,7 @@ const LastContent = ({ firstPageArrayContent, params }: any) => {
                     className="text-blueLink  cursor-pointer text-[14px] 3xl:text-[18px] whitespace-nowrap font-medium hover:font-bold uppercase "
                     // onClick={() => pushRgb(item.creator.code)}
                   >
-                    Hm-2000003
+                    Hm-2000001
                   </span>
                 </div>
               </Link>
