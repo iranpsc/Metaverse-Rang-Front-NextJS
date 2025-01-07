@@ -19,7 +19,6 @@ export default function SideBarContent({
   langData,
   langArray
 }) {
-  console.log('tabsMenu',tabsMenu);
   
  const router = useRouter();
  const [langDropDown, setLangDropDown] = useState(false);
@@ -79,9 +78,8 @@ const handleLangBtn = () => {
         {tabsMenu &&
           tabsMenu.map((item, i) => (
             <React.Fragment key={item.id || `menu-item-${i}`}>
-              {/* First Condition */}
               {item.menuItem === true && (
-                <li onClick={() => onTabClick(item, i)}>
+                <li key={i} onClick={() => onTabClick(item, i)}>
                   <Tooltip
                     title={item.translation}
                     placement={langData.direction === "rtl" ? "left-end" : "right-end"}
@@ -162,43 +160,42 @@ const handleLangBtn = () => {
                 </li>
               )}
 
-              {/* Second Condition */}
-              {item.name == "language" && (
-                <>
-                  <li onClick={handleLangBtn} data-tooltip-id={item.name}>
-                    <div
-                      className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px]
-                            group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer menu-transition
-                            ${isClosed ? "justify-start gap-0" : "justify-start gap-2"}`}
+              {item.name == "language" ?
+              <li key={i}>
+                <div onClick={handleLangBtn} data-tooltip-id={item.name}>
+                  <div
+                    className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px]
+                    group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer menu-transition
+                    ${isClosed ? "justify-start gap-0" : "justify-start gap-2"}`}
                     >
                       <ListMenuActiveIconModule
                         item={item}
                         languageSelected={langData.code}
                         isClosed={isClosed}
-                      />
-                      <span className="ps-[15px]">
-                        <ListMenuSvgModule item={item} />
-                      </span>
-                      <div className="w-full flex justify-between items-center">
-                        <ListMenuTitleModule item={item} isClosed={isClosed} />
-                        <ListMenuArrow item={item} isOpen={langDropDown} />
-                      </div>
+                        />
+                    <span className="ps-[15px]">
+                      <ListMenuSvgModule item={item} />
+                    </span>
+                    <div className="w-full flex justify-between items-center">
+                      <ListMenuTitleModule
+                        item={item}
+                        isClosed={isClosed}
+                        />
+                      <ListMenuArrow item={item} isOpen={langDropDown} />
                     </div>
-                  </li>
-                  <div
-                    className={`${
-                      langDropDown ? "h-full" : "h-0 overflow-hidden"
-                    } base-transition-1 bg-Field dark:bg-darkGrey`}
-                  >
-                    <DropdownLanguageModule
-                      languagesData={langData}
-                      langArray={langArray}
-                      params={params}
-                      isClosed={isClosed}
+                  </div>              
+                </div>
+
+                <div className={`${langDropDown ? "h-fit" : 'h-0 overflow-hidden'}
+                  base-transition-1 bg-Field dark:bg-darkGrey`}>
+                  <DropdownLanguageModule
+                    languagesData={langData}
+                    langArray={langArray}
+                    params={params}
+                    isClosed={isClosed}
                     />
-                  </div>
-                </>
-              )}
+                </div>
+              </li>:''}
             </React.Fragment>
           ))}
 
