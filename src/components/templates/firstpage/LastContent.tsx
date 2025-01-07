@@ -58,15 +58,16 @@ const LastContent = ({ firstPageArrayContent, params }: any) => {
               href={item.url}
               target="_blank"
               className=" group w-full h-[266px] rounded-t-[10px] relative"
+              aria-label=""
             >
               <Image
                 src={`/firstpage/img-N-${index}.jpg`}
-                alt="/firstpage/img2.jpg"
+                alt="latest content"
                 width={696}
                 height={469}
                 quality={50}
                 loading="lazy"
-                className=" w-full h-full rounded-t-[10px] object-cover"
+                className="w-full h-full rounded-t-[10px] object-cover"
               />
             </Link>
 

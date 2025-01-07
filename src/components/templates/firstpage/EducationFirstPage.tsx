@@ -59,7 +59,7 @@ const EducationFirstPage = ({ firstPageArrayContent, params }: any) => {
             >
               <Image
                 src={`/firstpage/static-education-${index}.jpg`}
-                alt=""
+                alt="education pic"
                 width={1076}
                 height={604}
                 quality={50}
@@ -86,7 +86,7 @@ const EducationFirstPage = ({ firstPageArrayContent, params }: any) => {
                 <div className="flex flex-row justify-start items-center gap-2">
                   <Image
                     src="/firstpage/alizadeh.jpg"
-                    alt="/firstpage/alizadeh.jpg"
+                    alt="citizen image"
                     width={1000}
                     height={1000}
                     loading="lazy"

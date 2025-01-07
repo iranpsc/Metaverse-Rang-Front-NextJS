@@ -54,9 +54,6 @@ export async function generateMetadata({ params }) {
   ];
   const levelId = staticRouteNames.find(x => x.route_name === params.levelName)?.id
   
-  // const singleLevel = await getSingleLevel(levelId);
-  // const levelTabs = await getLevelTabs(params, levelId);
-  // const langData = await getTranslation(params.lang);
   const [singleLevel, levelTabs, langData] = await Promise.all([
     getSingleLevel(levelId),
     getLevelTabs(params, levelId),
@@ -163,12 +160,6 @@ export default async function lavelSingelPage({ params }) {
   ];
 
   const levelId = staticRouteNames.find(x => x.route_name === params.levelName)?.id
-
-  
-  // const langData = await getTranslation(params.lang);
-  // const footerTabs = await getFooterData(params);
-  // const singleLevel = await getSingleLevel(levelId);
-  // const levelTabs = await getLevelTabs(params, levelId);
 
   const [langData, footerTabs, singleLevel, levelTabs] = await Promise.all([
     getTranslation(params.lang),
@@ -340,7 +331,9 @@ export default async function lavelSingelPage({ params }) {
           </div>
           {/* __________4 Image*/}
           <div className="grid-forth flex-1 relative">
-            <ImageBox item={levelTabs.data} singleLevel={singleLevel} />
+            <Suspense fallback={<div>image box loading ...</div>} >
+              <ImageBox item={levelTabs.data} singleLevel={singleLevel} />
+            </Suspense>
           </div>
         </div>
         <div>

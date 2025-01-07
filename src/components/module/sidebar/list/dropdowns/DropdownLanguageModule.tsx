@@ -27,7 +27,7 @@ const DropdownLanguageModule = ({ langArray, params, isClosed }: any) => {
   return (
     <>
       <div className="dropdown relative cursor-pointer ">
-        <ul className=" dropdown-menu text-center ps-7 flex flex-col justify-start items-center text-gray pt-2">
+        <ul className=" dropdown-menu text-center flex flex-col justify-start items-center text-gray pt-2">
           {langArray &&
             langArray.map((item: LanguageDataItem) => (
               <li
@@ -46,7 +46,7 @@ const DropdownLanguageModule = ({ langArray, params, isClosed }: any) => {
                 <div
                   className={`${
                     isClosed ? "justify-center" : "justify-start ms-[20%]"
-                  } flex flex-row gap-2 items-center w-full`}
+                  } flex flex-row items-center w-full`}
                 >
                   <Image
                     src={item.icon}
@@ -60,7 +60,7 @@ const DropdownLanguageModule = ({ langArray, params, isClosed }: any) => {
                 )} */}
 
                   <p
-                    className={`${isClosed ? "max-w-0" : "max-w-150"} 
+                    className={`${isClosed ? "max-w-0" : "max-w-max ps-3"} 
                       ${
                         params.lang === item.name
                           ? "text-blueLink dark:text-dark-yellow"
