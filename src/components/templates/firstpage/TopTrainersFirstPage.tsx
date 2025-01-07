@@ -26,7 +26,7 @@ const TopTrainersFirstPage = async ({
     {
       id: 1,
       name: "مرضیه ثاقب علیزاده",
-      profile_photo: "/profile/marziyeh-alizadeh.jpg",
+      profile_photo: "/firstpage/alizadeh.webp",
       code: "HM-2000003",
       score: "",
       levels: { current: { name: "شهروند" } },
@@ -34,7 +34,7 @@ const TopTrainersFirstPage = async ({
     {
       id: 2,
       name: "حسین قدیری",
-      profile_photo: "/profile/hossein-ghadiri.jpg",
+      profile_photo: "/firstpage/ghadiri.webp",
       code: "HM-2000001",
       score: "",
       levels: { current: { name: "مشارکت کننده" } },

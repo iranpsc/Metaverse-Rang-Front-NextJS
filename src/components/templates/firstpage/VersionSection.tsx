@@ -33,7 +33,7 @@ const VersionSection = ({ firstPageArrayContent, allVersionList }: any) => {
           {localFind("The latest versions")}
         </p>
       </div>
-      <div className="border-4 border-[#343434] rounded-[32px] md:rounded-[40px] lg:rounded-[50px] xl:rounded-[56px] flex flex-col justify-start items-start xl:gap-10 lg:gap-10 md:gap-7 sm:gap-5 xs:gap-3 p-5 sm:p-6 md:p-8 xl:p-10 bg-gradient-to-l from-[#343434] to-[#2E2D28] mt-12">
+      <div className="border-4 border-[#343434] rounded-[32px] md:rounded-[40px] lg:rounded-[50px] xl:rounded-[56px] flex flex-col justify-start items-start xl:gap-10 lg:gap-10 md:gap-7 sm:gap-5 xs:gap-3 p-5 sm:p-6 md:p-[20px] bg-gradient-to-l from-[#343434] to-[#2E2D28] mt-12">
         <div className="w-full flex flex-nowrap overflow-x-scroll no-scrollbar justify-between items-center gap-2 sm:gap-3 ">
           {allVersionList.map(
             (item: any, index: any) =>

@@ -41,10 +41,10 @@ const DetailsEducationSection = ({ firstPageArrayContent }: any) => {
           </p>
         </div>
         <Image
-          src={`/firstpage/details.png`}
+          src={`/firstpage/details.webp`}
           alt=""
-          width={1297}
-          height={613}
+          width={700}
+          height={500}
           loading="lazy"
           className=" w-full h-full absolute z-0 top-0 start-0  object-cover rounded-[20px] md:rounded-[40px] lg:rounded-[50px] xl:rounded-[72px]"
         />

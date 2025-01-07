@@ -50,7 +50,12 @@ export default function UserCard({ item, params, buttonText, minWidth }: any) {
         <div className="w-[95%] min-h-[75px] overflow-auto light-scrollbar dark:dark-scrollbar pb-2">
           <div className="w-max flex m-auto">
             {item.levels?.previous?.map((item2: any, index2: any) => (
-              <GemImage key={index2} item={item2} params={params} />
+              <GemImage
+                key={index2}
+                item={item2}
+                params={params}
+                picSize={50}
+              />
             ))}
           </div>
         </div>

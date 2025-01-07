@@ -363,7 +363,7 @@ export default async function LangPage({params}) {
               </Suspense>
             </div>
 
-            <div className="relative w-[90%] h-fit flex mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
+            <div className="relative w-full h-fit flex mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
             <Suspense fallback={<div>Loading Header...</div>}>
               <SectionTeam firstPageArrayContent={firstPageArrayContent} params={params} />
             </Suspense>

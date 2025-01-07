@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 
-export default function CitizenClientImage({ item, params }: any) {
+export default function CitizenClientImage({ item, params, picSize }: any) {
   const [urlForGem, setUrlForGem] = useState<string | undefined>(undefined);
 
   const staticRouteNames = [
@@ -35,10 +35,10 @@ export default function CitizenClientImage({ item, params }: any) {
         <Image
           data-tooltip-id={item.name}
           src={item.image}
-          width={50}
-          height={50}
+          width={picSize}
+          height={picSize}
           alt={item.name}
-          className="object-contain xl:w-[40px] 2xl:w-[50px] inline"
+          className="object-contain inline"
         />
         <ReactTooltip
           id={item.name}

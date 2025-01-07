@@ -38,7 +38,7 @@ const LastNews = ({ firstPageArrayContent, params }: any) => {
           {localFind("latest news")}
         </p>
 
-        <a href="https://meta.irpsc.com/">
+        <a href="https://metatimes.ir/" target="_blank">
           <div className="flex justify-center items-center gap-4">
             <p className="font-azarMehr font-medium text-[12px] md:text-[16px] lg:text-[18px] xl:text-[20px] dark:text-white">
               {localFind("view all")}
@@ -59,14 +59,14 @@ const LastNews = ({ firstPageArrayContent, params }: any) => {
               className=" group w-full h-[266px] rounded-t-[10px] relative"
             >
               <Image
-                src={`/firstpage/static-news-${index}.jpg`}
+                src={`/firstpage/static-news-${index}.webp`}
                 alt="latest news"
-                width={1069}
-                height={800}
+                width={500}
+                height={375}
                 // priority={true}
                 loading="lazy"
-                quality={50}
-                className=" w-full h-full transition-all duration-150 ease-in-out rounded-t-[10px]  object-cover"
+                quality={75}
+                className=" w-full h-full transition-all duration-150 ease-in-out rounded-t-[10px] object-contain"
               />
               <div className="w-full h-full bg-black/20 absolute z-0 top-0 flex justify-center items-center rounded-t-[10px]">
                 <Video className="w-[78px] h-[78px] p-3 fill-blueLink dark:fill-dark-yellow  rounded-full bg-white/80" />
@@ -95,8 +95,8 @@ const LastNews = ({ firstPageArrayContent, params }: any) => {
                 className="flex flex-row justify-start items-center gap-2"
               >
                 <Image
-                  src="/profile/hossein-ghadiri.jpg"
-                  alt="/profile/hossein-ghadiri.jpg"
+                  src="/firstpage/person1.webp"
+                  alt="hossein ghadiri"
                   width={1000}
                   height={1000}
                   loading="lazy"
