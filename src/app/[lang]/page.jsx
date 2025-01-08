@@ -144,7 +144,7 @@ export default async function LangPage({params}) {
       tab.toShow = true
     }
   })
-
+  
 
   // to find in an array with key(_name)
   async function localFind(_name) {
@@ -413,7 +413,7 @@ export default async function LangPage({params}) {
               </Suspense>
             </div>
 
-            <div className="w-[90%] relative h-fit  mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
+            <div className="w-[90%] relative h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
               <Suspense fallback={<div>Loading Header...</div>}>
                 <DetailsEducationSection
                   firstPageArrayContent={firstPageArrayContent}
