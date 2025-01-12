@@ -56,7 +56,7 @@
 
   export async function getAllCitizen(_page){
     
-    const res = await fetch(`https://api.rgbdev.irpsc.com/api/users?page=${_page}`)
+    const res = await fetch(`https://api.rgb.irpsc.com/api/users?page=${_page}`)
     let temp = await res.json()
 
   
