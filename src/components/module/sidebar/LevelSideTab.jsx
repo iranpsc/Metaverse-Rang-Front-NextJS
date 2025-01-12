@@ -79,7 +79,7 @@ const handleLangBtn = () => {
           tabsMenu.map((item, i) => (
             <React.Fragment key={item.id || `menu-item-${i}`}>
               {item.menuItem === true && (
-                <li key={i} onClick={() => onTabClick(item, i)}>
+                <li key={item.id} onClick={() => onTabClick(item, i)}>
                   <Tooltip
                     title={item.translation}
                     placement={langData.direction === "rtl" ? "left-end" : "right-end"}
@@ -161,7 +161,7 @@ const handleLangBtn = () => {
               )}
 
               {item.name == "language" ?
-              <li key={i}>
+              <li key={item.id}>
                 <div onClick={handleLangBtn} data-tooltip-id={item.name}>
                   <div
                     className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px]

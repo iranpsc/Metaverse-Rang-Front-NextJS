@@ -138,13 +138,3 @@
       return { props: { error: "خطا در دریافت داده‌ها" } };
     }
   }
-
-  // export async function getSingleVersion(_id){
-  //   const res = await fetch(`https://api.rgb.irpsc.com/api/calendar/versions/${_id}`, {
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   });
-  //   let temp = await res.json()
-  //   return temp.data;
-  // }

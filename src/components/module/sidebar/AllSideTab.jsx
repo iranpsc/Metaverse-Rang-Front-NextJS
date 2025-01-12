@@ -11,6 +11,7 @@ import Modal from "@/components/templates/modal";
 import ListMenuActiveIconModule from "./list/ListMenuActiveIconModule";
 import { useRouter, usePathname  } from 'next/navigation';
 import Tooltip from '@mui/material/Tooltip';
+import React from "react";
 
 export default function SideBarContent({
   tabsMenu,
@@ -35,14 +36,18 @@ export default function SideBarContent({
   };
 
   const onTabClick = (item) => {
-    // if there is no Url in staticMenuToShow, open modal
-    if(item.url != undefined){
-      router.push(`/${params.lang}/${item.url}`)
-    }else{
-
+    if (item.url != undefined) {
+      // external LINKs
+      if (item.url.startsWith("http://") || item.url.startsWith("https://")) {
+        window.open(item.url, "_blank")
+      } else {
+        router.push(`/${params.lang}/${item.url}`);
+      }
+    } else {
+      // internal LINKs
       if (langData.code === "fa") {
         const temp = Modals_fa.find((x) => x.id == item.id);
-
+  
         if (temp) {
           setModalShow(true);
           setModalData(temp);
@@ -56,6 +61,7 @@ export default function SideBarContent({
       }
     }
   };
+  
   const handleLangBtn = () => {
     setLangDropDown(!langDropDown)
   }
@@ -90,9 +96,9 @@ export default function SideBarContent({
           tabsMenu.map((item, i) => (
             //*HINT*the way to pass parameters to function in nextjs "onTabClick(item)"
             //*HINT*i<=12 is not a good solution,array must be change
-            <>
+            <React.Fragment key={`fragment-${item.id}`}>
               {item.toShow && 
-              <li key={i} style={{order:item.order}}>
+              <li style={{order:item.order}}>
                 <Tooltip title={item.translation} placement={langData.direction == 'rtl'?'left-end':'right-end'}
                     // slotProps is used to apply custom styles and props to the internal elements (slots)
                     slotProps={{
@@ -116,8 +122,6 @@ export default function SideBarContent({
                 <span style={{order:item.order}}>
                   {/* { item.toShow && */}
                     <div onClick={() => onTabClick(item, i)}>
-                      {/* (i == 0) for hiding first element of array"متاورس" */}
-                      
                         <div
                           className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px]
                           group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer menu-transition
@@ -140,11 +144,6 @@ export default function SideBarContent({
                           </div>
                         </div>              
                     </div>
-                
-                  {/* } */}
-                  {/* {item.name === "language" && 
-
-                  } */}
                 </span>
                 </Tooltip>
               </li>}
@@ -184,7 +183,7 @@ export default function SideBarContent({
                     />
                 </div>
               </li>:''}
-            </>
+              </React.Fragment>
           ))}
       </ul>
     </>

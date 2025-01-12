@@ -10,6 +10,14 @@ import {
 } from "@/components/svgs/SvgLevels";
 
 export const Features = ({ levelsTranslatePage }: any) => {
+  levelsTranslatePage.map((item: any) => {
+    if (
+      item.name ==
+      "recording citizens criticisms and suggestions regarding performance and capabilities"
+    )
+      console.log(item);
+  });
+
   const [inView, setInView] = useState(false);
   // *HINT* useRef WON'T trigger re-render unlike useState.
   const featuresRef = useRef<HTMLDivElement | null>(null);
@@ -100,7 +108,7 @@ export const Features = ({ levelsTranslatePage }: any) => {
           <p className="text-center text-base 2xl:text-xl font-[400]">
             {targetData(
               levelsTranslatePage,
-              "recording citizens' criticisms and suggestions regarding performance and capabilities"
+              "recording citizens criticisms and suggestions regarding performance and capabilities"
             )}
           </p>
         </div>
