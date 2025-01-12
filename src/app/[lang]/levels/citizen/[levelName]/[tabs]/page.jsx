@@ -12,15 +12,6 @@ const DynamicFooter = dynamic(() => import('@/components/module/footer/DynamicFo
 const BreadCrumb = dynamic(() => import('@/components/shared/BreadCrumb'))
 const ImageBox = dynamic(() => import('@/components/module/levelComponent/ImageBox'))
 
-// import TabSelector from "@/components/module/levelComponent/TabSelector";
-// import Gem from "@/components/module/levelComponent/Gem";
-// import Gift from "@/components/module/levelComponent/Gift";
-// import Permission from "@/components/module/levelComponent/Permissions";
-// import Prize from "@/components/module/levelComponent/Prize";
-// import DynamicFooter from "@/components/module/footer/DynamicFooter";
-// import BreadCrumb from "@/components/shared/BreadCrumb";
-// import ImageBox from "@/components/module/levelComponent/ImageBox";
-
 import { targetData } from "@/components/utils/targetDataName";
 import {
   getFooterData,
