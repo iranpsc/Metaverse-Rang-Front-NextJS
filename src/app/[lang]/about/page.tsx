@@ -323,13 +323,17 @@ export default async function AboutPage({ params }: any) {
                     : "MetaRang, the first metaverse project in Iran, has been initiated with the goal of creating a parallel virtual world that emphasizes Iranian culture and heritage. This platform, leveraging advanced technologies, opens a gateway to a digital future where users can live, interact, and conduct business in a parallel universe."}
                 </p>
               </div>
-              <figure>
+              <figure
+                className="relative w-full"
+                style={{ aspectRatio: "4 / 3" }}
+              >
                 <Image
-                  src={"/team.jpg"}
+                  src="/team.webp"
                   alt="Metarang Team"
-                  width={980}
-                  height={730}
-                  className="w-full"
+                  fill
+                  sizes="(max-width: 1920px) 60vw, 1920px"
+                  className="object-cover"
+                  priority
                 />
               </figure>
               <div className="w-full text-center bg-white dark:bg-dark-background font-medium text-[#6A6A6A] dark:text-white rounded-[30px] p-6 py-10 leading-10 text-sm md:text-lg text-justify">
