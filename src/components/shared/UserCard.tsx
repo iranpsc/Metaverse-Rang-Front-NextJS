@@ -30,7 +30,8 @@ export default function UserCard({ item, params, buttonText, minWidth }: any) {
         <Link
           className="min-h-[30px] uppercase text-blueLink font-medium font-azarMehr text-[16px] cursor-pointer"
           href={`/${params.lang}/citizens/${item.code}`}
-          title={item.code}
+          title={`Go to citizen ${item.code}`} // Optional
+          aria-label={`Go to citizen ${item.code}`}
         >
           {item.code}
           {/* <span
