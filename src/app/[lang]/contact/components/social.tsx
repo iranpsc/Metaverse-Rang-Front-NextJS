@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function ContactSocial() {
   return (
     <>
-      <a href="">
+      <a href="#" aria-label="linkedin">
         <Image
           width={37}
           height={37}
@@ -11,19 +11,19 @@ export default function ContactSocial() {
           alt=""
         />
       </a>
-      <a href="">
+      <a href="#" aria-label="youtube">
         {" "}
         <Image width={37} height={37} src="/social/youtube-circle.png" alt="" />
       </a>
-      <a href="">
+      <a href="#" aria-label="aparat">
         {" "}
         <Image width={37} height={37} src="/social/aparat-circle.png" alt="" />
       </a>
-      <a href="">
+      <a href="#" aria-label="x">
         {" "}
         <Image width={37} height={37} src="/social/x-circle.png" alt="" />
       </a>
-      <a href="">
+      <a href="#" aria-label="facebook">
         {" "}
         <Image
           width={37}
@@ -32,7 +32,7 @@ export default function ContactSocial() {
           alt=""
         />
       </a>
-      <a href="">
+      <a href="#" aria-label="telegram">
         {" "}
         <Image
           width={37}
@@ -41,7 +41,7 @@ export default function ContactSocial() {
           alt=""
         />
       </a>
-      <a href="">
+      <a href="#" aria-label="instagram">
         {" "}
         <Image
           width={37}
@@ -50,7 +50,7 @@ export default function ContactSocial() {
           alt=""
         />
       </a>
-      <a href="">
+      <a href="#" aria-label="whatsapp">
         {" "}
         <Image
           width={37}
@@ -59,7 +59,7 @@ export default function ContactSocial() {
           alt=""
         />
       </a>
-      <a href="">
+      <a href="#" aria-label="envelope">
         {" "}
         <Image
           width={37}
@@ -68,7 +68,7 @@ export default function ContactSocial() {
           alt=""
         />
       </a>
-      <a href="">
+      <a href="#" aria-label="linkedin">
         <Image
           width={37}
           height={37}
