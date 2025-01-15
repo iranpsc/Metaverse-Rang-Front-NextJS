@@ -248,7 +248,7 @@ export async function generateMetadata({ params }) {
   }
 
   return {
-    title: `${profileData.data.kyc.fname || ""} ${profileData.data.kyc.lname || ""}`,
+    title: `${profileData.data.kyc?.fname || ""} ${profileData.data.kyc?.lname || ""}`,
     description: await makeLessCharacter(profileData.data.customs?.about),
     openGraph: {
       // site_name:'',
