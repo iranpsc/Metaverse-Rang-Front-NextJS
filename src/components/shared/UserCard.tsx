@@ -30,6 +30,7 @@ export default function UserCard({ item, params, buttonText, minWidth }: any) {
         <Link
           className="min-h-[30px] "
           href={`/${params.lang}/citizens/${item.code}`}
+          title={item.code}
         >
           <span
             // data-atropos-offset="-1"
