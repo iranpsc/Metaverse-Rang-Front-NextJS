@@ -354,7 +354,8 @@ export default async function AboutPage({ params }: any) {
                   src="/team.webp"
                   alt="Metarang Team"
                   fill
-                  sizes="(max-width: 1920px) 60vw, 1920px"
+                  sizes="(max-width: 1920px) 70vw, 1920px"
+                  quality={100}
                   className="object-cover"
                   priority
                 />
