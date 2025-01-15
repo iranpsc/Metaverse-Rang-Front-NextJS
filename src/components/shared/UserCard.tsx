@@ -28,16 +28,17 @@ export default function UserCard({ item, params, buttonText, minWidth }: any) {
         </p>
 
         <Link
-          className="min-h-[30px] "
+          className="min-h-[30px] uppercase text-blueLink font-medium font-azarMehr text-[16px] cursor-pointer"
           href={`/${params.lang}/citizens/${item.code}`}
           title={item.code}
         >
-          <span
+          {item.code}
+          {/* <span
             // data-atropos-offset="-1"
             className="uppercase text-blueLink font-medium font-azarMehr text-[16px] cursor-pointer"
           >
             {item.code}
-          </span>
+          </span> */}
         </Link>
 
         <span className="dark:text-[#969696] text-[18px] font-azarMehr">
