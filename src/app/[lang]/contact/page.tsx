@@ -192,7 +192,7 @@ export default async function AboutPage({ params }: any) {
           <div className="px-12">
             <BreadCrumb params={params} />
           </div>
-          <section className="mx-auto px-4 lg:px-9">
+          <section className="mx-auto px-3 lg:px-9">
             <h1 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[64px] mb-[16px]">
               {params.lang.toLowerCase() == "fa" ? "تماس با ما" : "Contact Us"}
             </h1>
@@ -211,7 +211,7 @@ export default async function AboutPage({ params }: any) {
               </div>
             </div>
             <div>
-              <main className="overflow-x-hidden w-[85%] m-auto bg-white dark:bg-[#1A1A18] rounded-xl dark:text-white p-5 lg:p-7 mt-10">
+              <main className="overflow-x-hidden w-full bg-white dark:bg-[#1A1A18] rounded-xl dark:text-white py-5 px-2 md:px-4 lg:p-7 mt-10">
                 <h2
                   className={`${
                     params.lang.toLowerCase() == "fa"
@@ -245,7 +245,7 @@ export default async function AboutPage({ params }: any) {
                     </div>
                   </div>
                   <div className="flex flex-col gap-7 w-full lg:w-1/2 justify-center lg:justify-start ">
-                    <div className="flex flex-col lg:flex-row lg:flex-wrap w-full items-center justify-between gap-6 ">
+                    <div className="flex flex-col md:flex-row md:flex-wrap w-full items-center justify-between gap-6 ">
                       <div className="flex gap-3">
                         <WhatsAppIcon
                           width={27}
@@ -290,7 +290,7 @@ export default async function AboutPage({ params }: any) {
                   </div>
                 </div>
                 <div className="w-full h-[1px] bg-dark-newColors-shades-100 mt-[38px] mb-[28px]"></div>
-                <div className="flex flex-wrap justify-center gap-[5px]">
+                <div className="flex justify-center gap-[5px]">
                   <Social />
                 </div>
               </main>

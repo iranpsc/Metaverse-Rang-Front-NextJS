@@ -69,6 +69,9 @@ export async function generateMetadata({ params }) {
       return temp
     }
 
+    console.log('firstPageArrayContent',firstPageArrayContent);
+    
+
 
   return {
     title: await localFind('metaverse rang'),

@@ -12,14 +12,14 @@ export default function UserCard({ item, params, buttonText, minWidth }: any) {
       <div
         className={`shadow-lg mt-10 relative bg-[#fff] dark:bg-[#1A1A18] flex flex-col justify-between gap-3 py-3 sm:py-4 md:py-5 items-center rounded-[20px]`}
       >
-        <Image
-          src={item.profile_photo || "/temp-1.png"}
-          alt={"citizen image"}
-          width={120}
-          height={120}
-          loading="lazy"
-          className="w-[120px] h-[120px] shadow-md transition-all duration-300 shadow-gray rounded-full"
-        />
+        <figure className="w-[120px] h-[120px] relative overflow-hidden">
+          <img
+            src={item.profile_photo || "/temp-1.png"}
+            alt={"citizen image"}
+            loading="lazy"
+            className="absolute object-cover shadow-md transition-all duration-300 shadow-gray top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]"
+          />
+        </figure>
         <p
           // data-atropos-offset="-5"
           className="font-bold text-[20px] dark:text-white font-azarMehr sm:mt-2"
