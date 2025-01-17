@@ -70,7 +70,7 @@ export const ItemsSearch = ({ searchData, params }: any) => {
                 </div>
               </div>
               <Image
-                src={item.photo || "/shared/temp-1.webp"}
+                src={item.photo || "/firstpage/temp-1.webp"}
                 alt={item?.name}
                 loading="lazy"
                 width={1000}
