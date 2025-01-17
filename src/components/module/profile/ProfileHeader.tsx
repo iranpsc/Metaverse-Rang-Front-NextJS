@@ -46,7 +46,7 @@ export default function ProfileHeader({
         <section className="w-full  flex flex-row justify-around px-4 md:px-1 sm:px-0 xs:px-0 items-center">
           <div className="group relative flex justify-center items-center">
             <Image
-              src={imgs0 || "/shared/temp-1.png"}
+              src={imgs0 || "/shared/temp-1.webp"}
               width={100}
               height={100}
               priority={true}

@@ -14,7 +14,7 @@ export default function UserCard({ item, params, buttonText, minWidth }: any) {
       >
         <figure className="w-[120px] h-[120px] relative overflow-hidden rounded-full">
           <img
-            src={item.profile_photo || "/shared/temp-1.png"}
+            src={item.profile_photo || "/shared/temp-1.webp"}
             alt={"citizen image"}
             loading="lazy"
             className="absolute object-cover shadow-md transition-all duration-300 shadow-gray top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]"
@@ -86,7 +86,7 @@ export default function UserCard({ item, params, buttonText, minWidth }: any) {
     //   >
     //     <Image
     //       className="size-[170px] rounded-full border-none"
-    //       src={item.profile_photo || "/shared/temp-1.png"}
+    //       src={item.profile_photo || "/shared/temp-1.webp"}
     //       alt="header"
     //       width={1000}
     //       height={1000}

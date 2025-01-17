@@ -48,7 +48,7 @@ export default function ProfileTopMobile({
           <div className="group relative flex justify-center items-center">
             <div className="w-[48px]	h-[48px] my-1">
               <Image
-                src={imgs0 || "/shared/temp-1.png"}
+                src={imgs0 || "/shared/temp-1.webp"}
                 width={100}
                 height={100}
                 alt={titleData}
