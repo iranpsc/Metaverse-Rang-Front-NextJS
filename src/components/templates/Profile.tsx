@@ -13,34 +13,34 @@ export default function Profile({
   langData,
   params,
 }: any) {
-  const [inView, setInView] = useState(false);
+  const [inView, setInView] = useState(true);
   const iframeContainerRef3 = useRef<HTMLDivElement | null>(null);
 
   // IntersectionObserver to load iframe when it's in view
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0];
-        if (entry.isIntersecting) {
-          setInView(true); // Trigger iframe load when in view
-        }
-      },
-      {
-        rootMargin: "0px",
-        threshold: 0.1, // Trigger when 10% of the iframe is in view
-      }
-    );
+  // useEffect(() => {
+  //   const observer = new IntersectionObserver(
+  //     (entries) => {
+  //       const entry = entries[0];
+  //       if (entry.isIntersecting) {
+  //         setInView(true); // Trigger iframe load when in view
+  //       }
+  //     },
+  //     {
+  //       rootMargin: "0px",
+  //       threshold: 0.1, // Trigger when 10% of the iframe is in view
+  //     }
+  //   );
 
-    if (iframeContainerRef3.current) {
-      observer.observe(iframeContainerRef3.current); // Observe the iframe container
-    }
+  //   if (iframeContainerRef3.current) {
+  //     observer.observe(iframeContainerRef3.current); // Observe the iframe container
+  //   }
 
-    return () => {
-      if (iframeContainerRef3.current) {
-        observer.unobserve(iframeContainerRef3.current); // Cleanup observer
-      }
-    };
-  }, []);
+  //   return () => {
+  //     if (iframeContainerRef3.current) {
+  //       observer.unobserve(iframeContainerRef3.current); // Cleanup observer
+  //     }
+  //   };
+  // }, []);
 
   let concatGems = [];
   if (profileData.data?.current_level && profileData.data?.achieved_levels) {

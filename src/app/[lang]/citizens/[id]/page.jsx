@@ -20,8 +20,13 @@ export default async function citizenSinglePage({
   // const profileData = await getUserData();
   // const langData = await getTranslation(params.lang);
 
-  const mainData = await getMainFile(langData);
-  const langArray = await getLangArray();
+  const [mainData, langArray] = await Promise.all([
+    getMainFile(langData),
+    getLangArray()
+  ])
+
+  // const mainData = await getMainFile(langData);
+  // const langArray = await getLangArray();
   
   const defaultTheme = useServerDarkMode();
 

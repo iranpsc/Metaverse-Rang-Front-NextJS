@@ -17,34 +17,34 @@ export default function ProfileAbout({
   const [showModal, setShowModal] = useState<Boolean>(false);
   const [dataModal, setDataModal] = useState({});
 
-  const [inView, setInView] = useState(false);
+  const [inView, setInView] = useState(true);
   const iframeContainerRef2 = useRef<HTMLDivElement | null>(null);
 
   // IntersectionObserver to load iframe when it's in view
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0];
-        if (entry.isIntersecting) {
-          setInView(true); // Trigger iframe load when in view
-        }
-      },
-      {
-        rootMargin: "0px",
-        threshold: 0.1, // Trigger when 10% of the iframe is in view
-      }
-    );
+  // useEffect(() => {
+  //   const observer = new IntersectionObserver(
+  //     (entries) => {
+  //       const entry = entries[0];
+  //       if (entry.isIntersecting) {
+  //         setInView(true); // Trigger iframe load when in view
+  //       }
+  //     },
+  //     {
+  //       rootMargin: "0px",
+  //       threshold: 0.1, // Trigger when 10% of the iframe is in view
+  //     }
+  //   );
 
-    if (iframeContainerRef2.current) {
-      observer.observe(iframeContainerRef2.current); // Observe the iframe container
-    }
+  //   if (iframeContainerRef2.current) {
+  //     observer.observe(iframeContainerRef2.current); // Observe the iframe container
+  //   }
 
-    return () => {
-      if (iframeContainerRef2.current) {
-        observer.unobserve(iframeContainerRef2.current); // Cleanup observer
-      }
-    };
-  }, []);
+  //   return () => {
+  //     if (iframeContainerRef2.current) {
+  //       observer.unobserve(iframeContainerRef2.current); // Cleanup observer
+  //     }
+  //   };
+  // }, []);
 
   const submitModalCart = (item: any) => {
     setDataModal({
