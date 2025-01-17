@@ -253,8 +253,8 @@ export async function generateMetadata({ params }) {
   }
 
   return {
-    title: `${profileData.data.kyc?.fname || ""} ${profileData.data.kyc?.lname || ""}`,
-    description: await makeLessCharacter(profileData.data.customs?.about),
+    title: `${profileData.data.kyc?.fname || ""} ${profileData.data.kyc?.lname || "citizen"}`,
+    description: await makeLessCharacter(profileData.data.customs?.about) || "about citizen",
     openGraph: {
       // site_name:'',
       type: 'profile',
