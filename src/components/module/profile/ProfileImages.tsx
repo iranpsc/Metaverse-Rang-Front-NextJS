@@ -45,22 +45,22 @@ export default function ProfileImages({
 
   for (let i = 0; i < Math.min(maxImages, (imgProfiles || []).length); i++) {
     images.push(
-      <Image
-        src={(imgProfiles[i] && imgProfiles[i]?.url) || staticImageURL}
-        width={100}
-        height={100}
-        alt={titleData}
-        className={`cursor-pointer border-2 border-[#b1b1b1] dark:border-[#fff] inline-block rounded-full 
-        ${
+      <figure
+        className={`rounded-full overflow-hidden ${
           imgProfiles[i]?.url == mainImageUrl
             ? "w-[70px] h-[70px] 3xl:w-[70px] 3xl:h-[70px]"
             : "w-32 h-32 3xl:w-[60px] 3xl:h-[60px]"
-        }
-        
+        }`}
+      >
+        <img
+          src={(imgProfiles[i] && imgProfiles[i]?.url) || staticImageURL}
+          alt={titleData}
+          className={`cursor-pointer border-2 border-[#b1b1b1] dark:border-[#fff] inline-block object-cover
         `}
-        key={i}
-        onClick={() => changeMainImage(imgProfiles[i]?.url || staticImageURL)}
-      />
+          key={i}
+          onClick={() => changeMainImage(imgProfiles[i]?.url || staticImageURL)}
+        />
+      </figure>
     );
   }
 

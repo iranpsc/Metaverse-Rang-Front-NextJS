@@ -215,30 +215,7 @@ export default async function citizenSinglePage({
 
 // SEO**
 export async function generateMetadata({ params }) {
-  // const langData = await getTranslation(params.lang);
-  // const mainData = await getMainFile(langData);
-  // const centralPageModal = await findByModalName(mainData, "central-page");
-  // const firstPageArrayContent = await findByTabName(centralPageModal, "first-page");
-  
-  // ***
-  // const headersList = headers();
-  // const host = headersList.get('host');
-  // const protocol ='https';
-  
-  // const fullUrl = `${protocol}://${host}/${params.lang}`;
-
-    // to find in an array with key(_name)
-    // async function localFind(_name) {
-      
-    //   return await firstPageArrayContent.find((item) => item.name == _name)
-    //     .translation;
-    // }
-
-
   const profileData = await getUserData(params.id);
-
-  console.log('profileData123',profileData.data.customs?.about);
-  
   
   //to make description less than 200 character
   async function makeLessCharacter(){
