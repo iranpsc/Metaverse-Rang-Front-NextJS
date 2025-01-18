@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import {
   getAllLevels,
   getFooterData,
@@ -7,17 +8,30 @@ import {
   findByTabName,
   getLangArray,
 } from "@/components/utils/actions";
-import DynamicFooter from "@/components/module/footer/DynamicFooter";
-import SideBar from "@/components/module/sidebar/SideBar";
+// import DynamicFooter from "@/components/module/footer/DynamicFooter";
+// import SideBar from "@/components/module/sidebar/SideBar";
+// import BreadCrumb from "@/components/shared/BreadCrumb";
+// import UserCard from "@/components/shared/UserCard";
+const DynamicFooter = dynamic(
+  () => import("@/components/module/footer/DynamicFooter")
+);
+const SideBar = dynamic(() => import("@/components/module/sidebar/SideBar"));
+const BreadCrumb = dynamic(() => import("@/components/shared/BreadCrumb"));
+const AboutList = dynamic(() => import("./components/list"));
+
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
-import BreadCrumb from "@/components/shared/BreadCrumb";
-import UserCard from "@/components/shared/UserCard";
 import { staticMenuToShow as MenuStaticData } from "@/components/utils/constants";
 import Image from "next/image";
+import Head from "next/head";
 
 // SEO**
 export async function generateMetadata({ params }: any) {
   return {
+    title: params.lang.toLowerCase() == "fa" ? "درباره ما" : "About Us",
+    description:
+      params.lang.toLowerCase() == "fa"
+        ? "متارنگ با تأکید بر نوآوری و کارآفرینی، بستری را فراهم کرده است که افراد می‌توانند از طریق آن به توسعه‌ی کسب و کارها و اقتصاد بین‌المللی بپردازند."
+        : "With a focus on innovation and entrepreneurship, MetaRang provides a foundation for individuals to develop businesses and contribute to the international economy.",
     openGraph: {
       type: "website",
       url: `https://rgb.irpsc.com/${params.lang}/about`,
@@ -29,9 +43,9 @@ export async function generateMetadata({ params }: any) {
       locale: params.lang.toLowerCase() == "fa" ? "fa_IR" : "en_US",
       images: [
         {
-          url: "/team.jpg",
-          width: 800,
-          height: 600,
+          url: "/team.webp",
+          width: 1920,
+          height: 1440,
           alt: "تیم متاورس رنگ",
         },
       ],
@@ -49,197 +63,43 @@ export default async function AboutPage({ params }: any) {
 
   const defaultTheme = useServerDarkMode();
 
-  const levelArray = await getAllLevels();
+  // const levelArray = await getAllLevels();
+  // const footerTabs = await getFooterData(params);
+  // const langArray = await getLangArray();
+  // const langData = await getTranslation(params.lang);
+
+  const [levelArray, footerTabs, langArray, langData] = await Promise.all([
+    getAllLevels(),
+    getFooterData(params),
+    getLangArray(),
+    getTranslation(params.lang),
+  ]);
 
   // convert persian digit to eng digit in DATA
   levelArray.forEach((item: any) => {
     item.slug = convertPersianToEnglishNumber(item.slug);
   });
 
-  const footerTabs = await getFooterData(params);
-
-  const langArray = await getLangArray();
-
-  const langData = await getTranslation(params.lang);
   const mainData = await getMainFile(langData);
 
-  const centralPageModal = await findByModalName(mainData, "central-page");
-  const tabsMenu = await findByTabName(centralPageModal, "before-login");
+  // const centralPageModal = await findByModalName(mainData, "central-page");
+  // const Citizenship = await findByModalName(mainData, "Citizenship-profile");
+  // const levelModals = await findByModalName(mainData, "levels");
 
-  const Citizenship = await findByModalName(mainData, "Citizenship-profile");
+  const [centralPageModal, Citizenship, levelModals] = await Promise.all([
+    findByModalName(mainData, "central-page"),
+    findByModalName(mainData, "Citizenship-profile"),
+    findByModalName(mainData, "levels"),
+  ]);
+
+  const tabsMenu = await findByTabName(centralPageModal, "before-login");
   const citizenListArrayContent = await findByTabName(
     Citizenship,
     "list-citizen"
   );
-
-  const levelModals = await findByModalName(mainData, "levels");
   const levelListArrayContent = await findByTabName(levelModals, "level-list");
 
-  function localFind1(_name: any) {
-    return citizenListArrayContent.find((item: any) => item.name == _name)
-      ?.translation;
-  }
-  function localFind2(_name: any) {
-    return levelListArrayContent.find((item: any) => item.name == _name)
-      ?.translation;
-  }
-
   const staticMenuToShow = MenuStaticData;
-
-  const staticUsers = [
-    {
-      id: 1,
-      name: "حسین قدیری",
-      profile_photo: "/profile/hossein-ghadiri.jpg",
-      code: "HM-2000001",
-      score: "",
-      levels: { current: { name: "بنیان گذار" } },
-    },
-    {
-      id: 2,
-      name: "امیر مدنی فر",
-      profile_photo: "",
-      code: "HM-2000002",
-      score: "",
-      levels: { current: { name: "بنیان گذار" } },
-    },
-    {
-      id: 3,
-      name: "عباس آجرلو",
-      profile_photo: "",
-      code: "HM-2000005",
-      score: "",
-      levels: { current: { name: "توسعه دهنده" } },
-    },
-    {
-      id: 4,
-      name: "مهدی غلام حسینی",
-      profile_photo: "",
-      code: "HM-2000008",
-      score: "",
-      levels: { current: { name: "توسعه دهنده" } },
-    },
-    {
-      id: 5,
-      name: "نازنین حشمتی",
-      profile_photo: "",
-      code: "",
-      score: "",
-      levels: { current: { name: "توسعه دهنده" } },
-    },
-    {
-      id: 6,
-      name: "امیر محسنی",
-      profile_photo: "",
-      code: "",
-      score: "",
-      levels: { current: { name: "توسعه دهنده" } },
-    },
-    {
-      id: 7,
-      name: "امین دهقان نژاد",
-      profile_photo: "",
-      code: "",
-      score: "",
-      levels: { current: { name: "توسعه دهنده" } },
-    },
-    {
-      id: 8,
-      name: "فاطمه نصیری",
-      profile_photo: "",
-      code: "",
-      score: "",
-      levels: { current: { name: "توسعه دهنده" } },
-    },
-    {
-      id: 9,
-      name: "بنیامین نوری",
-      profile_photo: "",
-      code: "HM-2000011",
-      score: "",
-      levels: { current: { name: "توسعه دهنده" } },
-    },
-    {
-      id: 10,
-      name: "مصطفی قدیری",
-      profile_photo: "",
-      code: "",
-      score: "",
-      levels: { current: { name: "توسعه دهنده" } },
-    },
-    {
-      id: 11,
-      name: "محمدجواد گرئی",
-      profile_photo: "",
-      code: "",
-      score: "",
-      levels: { current: { name: "توسعه دهنده" } },
-    },
-    {
-      id: 12,
-      name: "امیر حسین امینی",
-      profile_photo: "",
-      code: "HM-2000010",
-      score: "",
-      levels: { current: { name: "توسعه دهنده" } },
-    },
-    {
-      id: 13,
-      name: "آی تای ملکی",
-      profile_photo: "",
-      code: "",
-      score: "",
-      levels: { current: { name: "توسعه دهنده" } },
-    },
-    {
-      id: 14,
-      name: "یوسف خدری",
-      profile_photo: "",
-      code: "",
-      score: "",
-      levels: { current: { name: "توسعه دهنده" } },
-    },
-    {
-      id: 15,
-      name: "پرهام امین لو",
-      profile_photo: "",
-      code: "",
-      score: "",
-      levels: { current: { name: "توسعه دهنده" } },
-    },
-    {
-      id: 16,
-      name: "محمدرضا اصغری",
-      profile_photo: "",
-      code: "",
-      score: "",
-      levels: { current: { name: "توسعه دهنده" } },
-    },
-    {
-      id: 17,
-      name: "مرضیه ثاقب علیزاده",
-      profile_photo: "",
-      code: "HM-2000003",
-      score: "",
-      levels: { current: { name: "توسعه دهنده" } },
-    },
-    {
-      id: 18,
-      name: "سعید زاجکانی",
-      profile_photo: "",
-      code: "HM-2000009",
-      score: "",
-      levels: { current: { name: "توسعه دهنده" } },
-    },
-    {
-      id: 19,
-      name: "پارسا بهرامی",
-      profile_photo: "",
-      code: "HM-2000491",
-      score: "",
-      levels: { current: { name: "توسعه دهنده" } },
-    },
-  ];
 
   // add staticMenuToShow values to siblings tabsMenu values
   tabsMenu.forEach((tab: any) => {
@@ -279,6 +139,10 @@ export default async function AboutPage({ params }: any) {
 
   return (
     <>
+      <Head>
+        {/* Preload */}
+        <link rel="preload" href="/team.webp" as="image" />
+      </Head>
       {/* SCHEMA** */}
       <script
         type="application/ld+json"
@@ -312,24 +176,29 @@ export default async function AboutPage({ params }: any) {
             </h1>
             <div className="flex flex-col gap-10 ">
               <div>
-                <h3 className="dark:text-white text-black text-lg md:text-2xl font-bold font-rohk">
+                <h2 className="dark:text-white text-black text-lg md:text-2xl font-bold font-rohk">
                   {params.lang.toLowerCase() == "fa"
                     ? "پروژه متاورس رنگ (متارنگ)"
                     : "Metaverse Rang Project (MetaRang)"}
-                </h3>
+                </h2>
                 <p className="text-lightGray font-medium text-justify text-sm md:text-lg mt-5 leading-10">
                   {params.lang.toLowerCase() == "fa"
                     ? "متارنگ، نخستین پروژه متاورسی ایران، با هدف ایجاد جهانی مجازی و موازی با تأکید بر فرهنگ و اصالت ایرانی آغاز به کار کرده است. این پلتفرم با بهره‌گیری از فناوری‌های پیشرفته، دریچه‌ای به سوی آینده‌ای دیجیتالی می‌گشاید که امکان زندگی، تعامل و کسب‌وکار در دنیایی موازی را برای کاربران فراهم می‌کند."
                     : "MetaRang, the first metaverse project in Iran, has been initiated with the goal of creating a parallel virtual world that emphasizes Iranian culture and heritage. This platform, leveraging advanced technologies, opens a gateway to a digital future where users can live, interact, and conduct business in a parallel universe."}
                 </p>
               </div>
-              <figure>
+              <figure
+                className="relative w-full"
+                style={{ aspectRatio: "4 / 3" }}
+              >
                 <Image
-                  src={"/team.jpg"}
+                  src="/team.webp"
                   alt="Metarang Team"
-                  width={980}
-                  height={730}
-                  className="w-full"
+                  fill
+                  sizes="(max-width: 1920px) 70vw, 1920px"
+                  quality={100}
+                  className="object-cover"
+                  priority
                 />
               </figure>
               <div className="w-full text-center bg-white dark:bg-dark-background font-medium text-[#6A6A6A] dark:text-white rounded-[30px] p-6 py-10 leading-10 text-sm md:text-lg text-justify">
@@ -341,11 +210,11 @@ export default async function AboutPage({ params }: any) {
               </div>
 
               <div>
-                <h3 className="dark:text-white text-black text-lg md:text-2xl font-bold font-rohk">
+                <h2 className="dark:text-white text-black text-lg md:text-2xl font-bold font-rohk">
                   {params.lang.toLowerCase() == "fa"
                     ? "ویژگی‌های برجسته متارنگ:"
                     : "Key Features of MetaRang:"}
-                </h3>
+                </h2>
                 <ul className="text-lightGray font-medium text-justify text-sm md:text-lg mt-5 leading-10 ">
                   <li>
                     <span className="font-bold text-black dark:text-white">
@@ -384,11 +253,11 @@ export default async function AboutPage({ params }: any) {
               </div>
 
               <div className="w-full text-center bg-white dark:bg-[#1A1A18] text-[#6A6A6A] dark:text-white rounded-[30px] p-6 py-10 leading-10 text-sm md:text-lg text-justify">
-                <h3 className="dark:text-white text-black text-lg md:text-2xl font-bold font-rohk">
+                <h2 className="dark:text-white text-black text-lg md:text-2xl font-bold font-rohk">
                   {params.lang.toLowerCase() == "fa"
                     ? "اهداف متارنگ:"
                     : "Goals of MetaRang:"}
-                </h3>
+                </h2>
                 <ul className="text-[#52545C] dark:text-[#A0A0AB] text-sm md:text-lg mt-5 leading-10">
                   <li className="">
                     <span className="font-bold text-black dark:text-white">
@@ -415,12 +284,12 @@ export default async function AboutPage({ params }: any) {
                 </ul>
               </div>
               <div>
-                <h3 className="dark:text-white text-black text-lg md:text-2xl font-bold font-rohk">
+                <h2 className="dark:text-white text-black text-lg md:text-2xl font-bold font-rohk">
                   {params.lang.toLowerCase() == "fa"
                     ? "چشم‌انداز متارنگ:"
                     : "Vision of MetaRang:"}
                   &nbsp;
-                </h3>
+                </h2>
                 <p className="text-lightGray font-medium text-justify text-sm md:text-lg mt-5 leading-10">
                   {params.lang.toLowerCase() == "fa"
                     ? "متارنگ با تکیه بر اصالت ایرانی و فناوری پیشرفته، به دنبال ایجاد فضایی مجازی و منحصر به فرد است که افراد را قادر می‌سازد به گونه‌ای متفاوت و نوآورانه در این جهان جدید مشارکت کنند. با تمرکز بر ارتقای تعاملات بین‌المللی و ایجاد فرصت‌های کارآفرینی، متارنگ به سوی خلق آینده‌ای روشن و باشکوه برای همگان گام برمی‌دارد"
@@ -428,12 +297,12 @@ export default async function AboutPage({ params }: any) {
                 </p>
               </div>
               <div className="w-full text-center bg-white dark:bg-[#1A1A18] text-[#6A6A6A] dark:text-white rounded-[30px] p-6 py-10 leading-10 text-sm md:text-lg text-justify">
-                <h3 className="dark:text-white text-black text-lg md:text-2xl font-bold font-rohk">
+                <h2 className="dark:text-white text-black text-lg md:text-2xl font-bold font-rohk">
                   {params.lang.toLowerCase() == "fa"
                     ? "تیم متاورس"
                     : "Metaverse Team"}
                   &nbsp;
-                </h3>
+                </h2>
                 <p className="text-lightGray dark:text-white font-medium text-justify text-sm md:text-lg mt-5 leading-10">
                   {params.lang.toLowerCase() == "fa"
                     ? "پروژه متاورس رنگ با تکیه بر اصالت ایرانی و تکنولوژی پیشرفته، به دنبال ایجاد یک فضای مجازی منحصر به فرد است که افراد را قادر می‌سازد تا به گونه‌ای متفاوت و نوآورانه در این جهان جدید مشارکت کنند. با تمرکز بر ارتقای تعاملات بین‌المللی و ایجاد فرصت‌های کارآفرینی، متارنگ به سوی خلق آینده‌ای روشن و باشکوه برای همگان گام برمی‌دارد."
@@ -441,20 +310,11 @@ export default async function AboutPage({ params }: any) {
                 </p>
               </div>
             </div>
-
-            <div className="flex flex-row flex-wrap justify-center md:justify-center w-full no-scrollbar overflow-y-auto py-[20px]">
-              {staticUsers.map((item: any, index: any) => (
-                <UserCard
-                  key={index}
-                  item={item}
-                  index={index}
-                  params={params}
-                  minWidth={`260px`}
-                  levelText={localFind2("developer")}
-                  buttonText={localFind1("citizen page")}
-                />
-              ))}
-            </div>
+            <AboutList
+              params={params}
+              citizenListArrayContent={citizenListArrayContent}
+              levelListArrayContent={levelListArrayContent}
+            />
           </section>
           <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
             <DynamicFooter footerTabs={footerTabs} />

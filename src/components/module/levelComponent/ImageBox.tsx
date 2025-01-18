@@ -20,7 +20,11 @@ export default function ImageBox({ item, singleLevel }: any) {
   return (
     <div className={`w-full flex flex-col flex-wrap items-center sticky top-0`}>
       {srcPng && mode === "png" && (
-        <div className="relative w-full sm:w-3/5 md:w-full aspect-[5/7] md:aspect-[5/7]">
+        <div
+          className={`relative w-full sm:w-3/5 md:w-full aspect-[5/7] md:aspect-[5/7] ${
+            !item?.png_file ? "hidden md:block" : "block"
+          }`}
+        >
           <Image
             src={srcPng}
             alt="png"
@@ -34,19 +38,23 @@ export default function ImageBox({ item, singleLevel }: any) {
         </div>
       )}
       {mode === "fbx" && srcFbx && (
-        <ErrorBoundary>
-          <Sample3D url={srcFbx} />
-        </ErrorBoundary>
+        <div className="relative w-full sm:w-3/5 md:w-full aspect-[5/7] md:aspect-[5/7]">
+          <ErrorBoundary>
+            <Sample3D url={srcFbx} />
+          </ErrorBoundary>
+        </div>
       )}
       {mode === "gif" && srcGif && (
-        <Image
-          src={srcGif}
-          alt="gif"
-          width={500}
-          height={700}
-          unoptimized
-          className="absolute top-1/2 left-1/2 w-full h-[100%] object-cover transform -translate-x-1/2 -translate-y-1/2"
-        />
+        <div className="relative w-full sm:w-3/5 md:w-full aspect-[5/7] md:aspect-[5/7]">
+          <Image
+            src={srcGif}
+            alt="gif"
+            width={500}
+            height={700}
+            unoptimized
+            className="absolute top-1/2 left-1/2 w-full h-[100%] object-cover transform -translate-x-1/2 -translate-y-1/2"
+          />
+        </div>
       )}
       <div className="w-full flex justify-around flex-wrap mt-3 mb-5 gap-x-2">
         {["png", "fbx", "gif"].map((type) => (

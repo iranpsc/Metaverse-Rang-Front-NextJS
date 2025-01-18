@@ -13,35 +13,35 @@ export default function ProfileDetails({
   languageSelected,
 }: any) {
   // const { data, profileData.data, languageSelected } = useContext(LangContext);
-  const [inView, setInView] = useState(false);
+  const [inView, setInView] = useState(true);
   const iframeContainerRef = useRef<HTMLDivElement | null>(null);
   const x = profileData.data?.customs?.prediction;
 
   // IntersectionObserver to load iframe when it's in view
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0];
-        if (entry.isIntersecting) {
-          setInView(true); // Trigger iframe load when in view
-        }
-      },
-      {
-        rootMargin: "0px",
-        threshold: 0.1, // Trigger when 10% of the iframe is in view
-      }
-    );
+  // useEffect(() => {
+  //   const observer = new IntersectionObserver(
+  //     (entries) => {
+  //       const entry = entries[0];
+  //       if (entry.isIntersecting) {
+  //         setInView(true); // Trigger iframe load when in view
+  //       }
+  //     },
+  //     {
+  //       rootMargin: "0px",
+  //       threshold: 0.1, // Trigger when 10% of the iframe is in view
+  //     }
+  //   );
 
-    if (iframeContainerRef.current) {
-      observer.observe(iframeContainerRef.current); // Observe the iframe container
-    }
+  //   if (iframeContainerRef.current) {
+  //     observer.observe(iframeContainerRef.current); // Observe the iframe container
+  //   }
 
-    return () => {
-      if (iframeContainerRef.current) {
-        observer.unobserve(iframeContainerRef.current); // Cleanup observer
-      }
-    };
-  }, []);
+  //   return () => {
+  //     if (iframeContainerRef.current) {
+  //       observer.unobserve(iframeContainerRef.current); // Cleanup observer
+  //     }
+  //   };
+  // }, []);
 
   // const submitModalCard = (title: any, data: any, type: string) => {
   //   if (data) {

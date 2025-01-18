@@ -19,13 +19,18 @@ import Social from "./components/social";
 // SEO**
 export async function generateMetadata({ params }: any) {
   return {
+    title: params.lang.toLowerCase() == "fa" ? "تماس با ما" : "Contact Us",
+    description:
+      params.lang.toLowerCase() == "fa"
+        ? "ما در متاورس رنگ معتقدیم که توسعه این دنیای موازی و مجازی تنها با مشارکت و همفکری عمومی امکان‌پذیر است. زیرساخت‌های این جهان بر پایه‌ی واحد حدتاثیر بنا شده‌اند تا بتوانند نظرات و ایده‌های شما را به بهترین شکل در مسیر توسعه هدایت کنند. ارتباط با انجمن متاورس ایران و دانشگاه متاورس ایران از طریق این پلتفرم به راحتی امکان‌پذیر است."
+        : "We at Metaverse Rang believe that the development of this parallel and virtual world is only possible with public participation and consensus. The infrastructure of this world is built on the basis of the Haddtashtir unit so that it can best guide your opinions and ideas on the path of development. Communication with the Iranian Metaverse Association and the Iranian Metaverse University is easily possible through this platform.",
     openGraph: {
       type: "website",
       title: params.lang.toLowerCase() == "fa" ? "تماس با ما" : "Contact Us",
       description:
         params.lang.toLowerCase() == "fa"
           ? "ما در متاورس رنگ معتقدیم که توسعه این دنیای موازی و مجازی تنها با مشارکت و همفکری عمومی امکان‌پذیر است. زیرساخت‌های این جهان بر پایه‌ی واحد حدتاثیر بنا شده‌اند تا بتوانند نظرات و ایده‌های شما را به بهترین شکل در مسیر توسعه هدایت کنند. ارتباط با انجمن متاورس ایران و دانشگاه متاورس ایران از طریق این پلتفرم به راحتی امکان‌پذیر است."
-          : "",
+          : "We at Metaverse Rang believe that the development of this parallel and virtual world is only possible with public participation and consensus. The infrastructure of this world is built on the basis of the Haddtashtir unit so that it can best guide your opinions and ideas on the path of development. Communication with the Iranian Metaverse Association and the Iranian Metaverse University is easily possible through this platform.",
       url: `https://rgb.irpsc.com/${params.lang}/contact`,
       images: [
         {
@@ -187,17 +192,17 @@ export default async function AboutPage({ params }: any) {
           <div className="px-12">
             <BreadCrumb params={params} />
           </div>
-          <section className="mx-auto px-4 lg:px-9">
+          <section className="mx-auto px-3 lg:px-9">
             <h1 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[64px] mb-[16px]">
               {params.lang.toLowerCase() == "fa" ? "تماس با ما" : "Contact Us"}
             </h1>
             <div className="flex flex-col gap-10 ">
               <div>
-                <h3 className="dark:text-white text-black text-lg md:text-2xl font-bold font-rohk">
+                <h2 className="dark:text-white text-black text-lg md:text-2xl font-bold font-rohk">
                   {params.lang.toLowerCase() == "fa"
                     ? "تماس با ما - متاورس رنگ (متارنگ)"
                     : "Contact Us - Metaverse Rang (MetaRang)"}
-                </h3>
+                </h2>
                 <p className="text-lightGray font-medium text-justify text-sm md:text-lg mt-5 leading-10">
                   {params.lang.toLowerCase() == "fa"
                     ? "ما در متاورس رنگ معتقدیم که توسعه این دنیای موازی و مجازی تنها با مشارکت و همفکری عمومی امکان‌پذیر است. زیرساخت‌های این جهان بر پایه‌ی واحد حدتاثیر بنا شده‌اند تا بتوانند نظرات و ایده‌های شما را به بهترین شکل در مسیر توسعه هدایت کنند. ارتباط با انجمن متاورس ایران و دانشگاه متاورس ایران از طریق این پلتفرم به راحتی امکان‌پذیر است. همچنین، شما می‌توانید با تیم پیشرو در توسعه زیرساخت‌های مشارکت همگانی در ارتباط باشید تا با هم‌افزایی و همکاری، آینده‌ای بهتر برای این جهان مجازی بسازیم. نظرات و پیشنهادات شما، نیروی محرکه‌ی این تحول عظیم است و به ما در ایجاد جهانی بهتر و نوآورانه کمک می‌کند."
@@ -206,8 +211,8 @@ export default async function AboutPage({ params }: any) {
               </div>
             </div>
             <div>
-              <main className="overflow-x-hidden w-[85%] m-auto bg-white dark:bg-[#1A1A18] rounded-xl dark:text-white p-5 lg:p-7 mt-10">
-                <h1
+              <main className="overflow-x-hidden w-full bg-white dark:bg-[#1A1A18] rounded-xl dark:text-white py-5 px-2 md:px-4 lg:p-7 mt-10">
+                <h2
                   className={`${
                     params.lang.toLowerCase() == "fa"
                       ? "lg:text-right"
@@ -217,7 +222,7 @@ export default async function AboutPage({ params }: any) {
                   {params.lang.toLowerCase() == "fa"
                     ? "تماس باما"
                     : "Contact us"}
-                </h1>
+                </h2>
 
                 <div className="flex-col flex gap-7 lg:flex-row w-full">
                   <div className="flex flex-col gap-2 md:gap-7 w-full lg:w-1/2 justify-center lg:justify-start">
@@ -240,7 +245,7 @@ export default async function AboutPage({ params }: any) {
                     </div>
                   </div>
                   <div className="flex flex-col gap-7 w-full lg:w-1/2 justify-center lg:justify-start ">
-                    <div className="flex flex-col lg:flex-row lg:flex-wrap w-full items-center justify-between gap-6 ">
+                    <div className="flex flex-col md:flex-row md:flex-wrap w-full items-center justify-between gap-6 ">
                       <div className="flex gap-3">
                         <WhatsAppIcon
                           width={27}
@@ -277,12 +282,15 @@ export default async function AboutPage({ params }: any) {
                         loading="lazy"
                         referrerPolicy="no-referrer-when-downgrade"
                         className="w-full h-full"
+                        title={
+                          params.lang.toLowerCase() == "fa" ? "نقشه" : "map"
+                        }
                       ></iframe>
                     </div>
                   </div>
                 </div>
                 <div className="w-full h-[1px] bg-dark-newColors-shades-100 mt-[38px] mb-[28px]"></div>
-                <div className="flex flex-wrap justify-center gap-[5px]">
+                <div className="flex justify-center gap-[5px]">
                   <Social />
                 </div>
               </main>

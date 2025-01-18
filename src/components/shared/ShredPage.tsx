@@ -91,7 +91,7 @@ export default function ShredPage({
   };
 
   return (
-    <div className="absolute backdrop-blur-sm bg-blackTransparent/30 z-50 top-0 left-0 w-full h-screen ">
+    <div className="fixed backdrop-blur-sm bg-blackTransparent/30 z-50 top-0 left-0 w-full h-screen ">
       <div className="w-full h-full overflow-clip">
         <motion.div
           initial={{ rotate: 0, scale: 0 }}
