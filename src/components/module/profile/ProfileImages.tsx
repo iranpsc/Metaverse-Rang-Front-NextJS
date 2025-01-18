@@ -93,7 +93,7 @@ export default function ProfileImages({
         )}
       </Head>
       <section className="dark:bg-dark-background shadow-md relative bg-white transition-all duration-300 ease-linear rounded-[10px] flex flex-col justify-center items-center lg:flex-row lg:justify-between">
-        <div className="w-[100%] md:w-[80%] tall0:h-[100vh] lg:h-[40vh] 2xl:h-[45vh] dark:bg-dark-background bg-white overflow-clip flex justify-center items-center rounded-[10px] ">
+        <div className="w-[100%] h-[80vw] md:w-[80%] md:h-[75vw] tall0:h-[100vh] lg:h-[40vh] 2xl:h-[45vh] dark:bg-dark-background bg-white overflow-clip flex justify-center items-center rounded-[10px] ">
           <Image
             src={mainImageUrl || "/firstpage/temp-1.webp"}
             width={500}

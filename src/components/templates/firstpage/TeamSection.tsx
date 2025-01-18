@@ -43,10 +43,10 @@ const SectionTeam = ({ firstPageArrayContent, params }: any) => {
     return <div ref={sectionRef} style={{ minHeight: "500px" }} />;
   }
   return (
-    <div ref={sectionRef} className="flex">
-      <div className="xl:col-span-5 lg:col-span-5 md:col-span-5 sm:col-span-12 xs:col-span-12">
+    <div ref={sectionRef} className="flex flex-column justify-center flex-wrap">
+      <div className="w-[full] md:w-[50%] lg:w-[30%]">
         <Image
-          className=" w-full h-full sm:h-[360px] md:h-auto object-cover origin-center rounded-[64px] border-none"
+          className="w-full h-full sm:h-[360px] md:h-auto object-cover lg:rounded-[32px] origin-center border-none"
           src="/firstpage/img2.webp"
           alt="header"
           width={500}
@@ -55,7 +55,8 @@ const SectionTeam = ({ firstPageArrayContent, params }: any) => {
           quality={75}
         />
       </div>
-      <div className="xl:col-span-7 lg:col-span-7 md:col-span-7 sm:col-span-12 xs:col-span-12 flex flex-col justify-between items-start md:ps-10 gap-1">
+
+      <div className="lg:w-[70%] flex flex-col justify-between items-start md:ps-10 gap-1">
         <h2 className="w-full text-start font-bold text-[20px] md:text-[26px] lg:text-[32px] text-gray dark:text-white mt-5 font-azarMehr">
           متاورس رنگ
         </h2>

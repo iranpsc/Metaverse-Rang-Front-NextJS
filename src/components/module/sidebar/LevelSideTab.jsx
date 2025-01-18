@@ -68,6 +68,7 @@ const handleLangBtn = () => {
   setLangDropDown(!langDropDown)
 }
 
+console.log('levelsidetab', tabsMenu);
 
   return (
     <>
@@ -77,9 +78,9 @@ const handleLangBtn = () => {
       >
         {tabsMenu &&
           tabsMenu.map((item, i) => (
-            <React.Fragment key={item.id || `menu-item-${i}`}>
+            <React.Fragment key={item.id + i || `menu-item-${i}`}>
               {item.menuItem === true && (
-                <li key={item.id} onClick={() => onTabClick(item, i)}>
+                <li key={item.id + i} onClick={() => onTabClick(item, i)}>
                   <Tooltip
                     title={item.translation}
                     placement={langData.direction === "rtl" ? "left-end" : "right-end"}
@@ -100,7 +101,7 @@ const handleLangBtn = () => {
                       ],
                     }}
                   >
-                    {item.route_name ? (
+                    {item.route_name && item.name != "language" ? (
                       <div
                         className={`px-2 flex cursor-pointer flex-col items-center  box-border menu-transition`}
                       >
@@ -130,31 +131,32 @@ const handleLangBtn = () => {
                         </div>
                       </div>
                     ) : (
-                      <div
-                        className={`px-2 flex cursor-pointer flex-col items-center box-border`}
-                      >
-                        <div
-                          className={`w-full flex flex-row items-center  group py-[5px] ${
-                            isClosed ? "justify-center" : "justify-start"
-                          } rounded-[10px]`}
-                        >
-                          <span className="">
-                            <ListMenuSvgModule
-                              item={item}
-                              i={i}
-                              activeNav={activeNav}
-                            />
-                          </span>
-                          {!isClosed && (
-                            <ListMenuTitleModule
-                              item={item}
-                              i={i}
-                              activeNav={activeNav}
-                            />
-                          )}
-                          <ListMenuArrow item={item} />
-                        </div>
-                      </div>
+                      ""
+                      // <div
+                      //   className={`px-2 flex cursor-pointer flex-col items-center box-border`}
+                      // >
+                      //   <div
+                      //     className={`w-full flex flex-row items-center  group py-[5px] ${
+                      //       isClosed ? "justify-center" : "justify-start"
+                      //     } rounded-[10px]`}
+                      //   >
+                      //     <span className="">
+                      //       <ListMenuSvgModule
+                      //         item={item}
+                      //         i={i}
+                      //         activeNav={activeNav}
+                      //       />
+                      //     </span>
+                      //     {!isClosed && (
+                      //       <ListMenuTitleModule
+                      //         item={item}
+                      //         i={i}
+                      //         activeNav={activeNav}
+                      //       />
+                      //     )}
+                      //     <ListMenuArrow item={item} />
+                      //   </div>
+                      // </div>
                     )}
                   </Tooltip>
                 </li>

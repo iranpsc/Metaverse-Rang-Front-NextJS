@@ -60,7 +60,7 @@ export default function SearchComponent({
       <div
         className={`${
           searchData.length >= 1 ? "visible" : "invisible"
-        }  w-full min-h-[1000px] backdrop-blur-sm  bg-blackTransparent/30 h-screen absolute top-0 z-20 `}
+        }  w-full min-h-[1000px] h-full backdrop-blur-sm  bg-blackTransparent/30 h-screen absolute top-0 z-20 `}
         onClick={removeSearch}
       ></div>
       <div
@@ -80,7 +80,7 @@ export default function SearchComponent({
           removeSearch={removeSearch}
         />
 
-        <div className="w-full bg-white dark:bg-dark-background transition-all duration-300 easy-in-out rounded-xl 2xl:max-h-[500px] xl:max-h-[500px] lg:max-h-[500px] md:2xl:max-h-[500px] sm:max-h-[350px] xs:max-h-[350px] z-[999] overflow-y-auto overflow-x-clip absolute mt-[53px]  flex flex-col justify-start items-center gap-1 light-scrollbar dark:dark-scrollbar">
+        <div className="w-full bg-white dark:bg-dark-background transition-all duration-300 easy-in-out rounded-xl 2xl:max-h-[500px] xl:max-h-[500px] lg:max-h-[500px] md:2xl:max-h-[500px] sm:max-h-[350px] xs:max-h-[350px] z-[999] overflow-y-auto overflow-x-clip absolute top-0 flex flex-col justify-start items-center gap-1 light-scrollbar dark:dark-scrollbar">
           {searchData && searchData.length > 0 && (
             <ItemsSearch searchData={searchData} params={params} />
           )}
