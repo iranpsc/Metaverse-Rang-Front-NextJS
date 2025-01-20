@@ -27,6 +27,9 @@ module.exports = {
     return config;
   },
   images: {
+    deviceSizes: [640, 750, 828, 1080, 1200], // Keep default sizes for other images
+    imageSizes: [50,120, 320, 640, 750, 1080], // Add 120px for specific use cases like the one you're targeting
+    formats: ['image/webp'], // Support webp and jpg
     remotePatterns: [
       {
         protocol: 'https',
