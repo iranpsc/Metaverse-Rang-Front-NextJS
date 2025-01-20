@@ -21,19 +21,19 @@ export default function ImageBox({ item, singleLevel }: any) {
     <div className={`w-full flex flex-col flex-wrap items-center sticky top-0`}>
       {srcPng && mode === "png" && (
         <div
-          className={`relative w-full sm:w-3/5 md:w-full aspect-[5/7] md:aspect-[5/7] ${
+          className={`relative w-[60%] sm:w-[40%] md:w-full aspect-[5/7] md:aspect-[5/7] ${
             !item?.png_file ? "hidden md:block" : "block"
           }`}
         >
           <Image
             src={srcPng}
             alt="png"
-            width={500}
-            height={700}
+            fill
+            sizes="(max-width: 400px) 220px,(max-width: 768px) 320px, 320px"
             priority={true}
             fetchPriority="high"
-            sizes="(max-width: 768px) 100vw, (min-width: 769px) 50vw"
-            className="absolute top-1/2 left-1/2 w-full h-[100%] object-cover transform -translate-x-1/2 -translate-y-1/2"
+            quality={100}
+            className="object-cover"
           />
         </div>
       )}
