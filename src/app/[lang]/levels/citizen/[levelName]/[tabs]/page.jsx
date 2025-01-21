@@ -250,6 +250,13 @@ export default async function lavelSingelPage({ params }) {
           type="image/png"
           crossorigin="anonymous"
         />
+        {levelTabs.data.png_file && <link
+          rel="preload"
+          href={levelTabs.data.png_file}
+          as="image"
+          type="image/png"
+          crossorigin="anonymous"
+        />}
       </Head>
 
       <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-3 w-full font-azarMehr bg-bgGray dark:bg-black">
