@@ -46,11 +46,11 @@ export default function ProfileTopMobile({
       <div className="dark:bg-dark-background px-1 transition-all  lg:mt-0 md:mt-1 duration-300 sm:mt-1 xs:mt-1 ease-linear flex flex-col bg-white justify-center  items-center rounded-[10px] ">
         <section className="w-full  flex flex-row justify-around px-4 md:px-1 sm:px-0 xs:px-0 items-center">
           <div className="group relative flex justify-center items-center">
-            <div className="w-[48px]	h-[48px] my-1 rounded-full overflow-hidden">
+            <div className="relative w-[48px] h-[48px] my-1 rounded-full overflow-hidden">
               <Image
                 src={imgs0 || "/firstpage/temp-1.webp"}
-                width={100}
-                height={100}
+                fill
+                sizes="50px"
                 alt={titleData}
                 className="object-contain  inline-block"
               />

@@ -46,14 +46,14 @@ export default function ProfileImages({
   for (let i = 0; i < Math.min(maxImages, (imgProfiles || []).length); i++) {
     images.push(
       <figure
-        className={`rounded-full overflow-hidden ${
-          imgProfiles[i]?.url == mainImageUrl
-            ? "w-[70px] h-[70px] 3xl:w-[70px] 3xl:h-[70px]"
-            : "w-32 h-32 3xl:w-[60px] 3xl:h-[60px]"
+        className={`relative rounded-full overflow-hidden aspect-square ${
+          imgProfiles[i]?.url == mainImageUrl ? "w-[50px]" : "w-32"
         }`}
       >
-        <img
+        <Image
           src={(imgProfiles[i] && imgProfiles[i]?.url) || staticImageURL}
+          fill
+          sizes="50px"
           alt={titleData}
           className={`cursor-pointer border-2 border-[#b1b1b1] dark:border-[#fff] inline-block object-cover
         `}
@@ -93,11 +93,11 @@ export default function ProfileImages({
         )}
       </Head>
       <section className="dark:bg-dark-background shadow-md relative bg-white transition-all duration-300 ease-linear rounded-[10px] flex flex-col justify-center items-center lg:flex-row lg:justify-between">
-        <div className="w-[100%] h-[80vw] md:w-[80%] md:h-[75vw] tall0:h-[100vh] lg:h-[40vh] 2xl:h-[45vh] dark:bg-dark-background bg-white overflow-clip flex justify-center items-center rounded-[10px] ">
+        <div className="relative w-[100%] md:w-[80%] aspect-square tall0:h-[100vh] dark:bg-dark-background bg-white overflow-clip flex justify-center items-center rounded-[10px] ">
           <Image
             src={mainImageUrl || "/firstpage/temp-1.webp"}
-            width={500}
-            height={500}
+            fill
+            sizes="(max-width: 400px) 320px,(max-width: 1024px) 640px, 320px"
             alt={titleData}
             priority={true}
             decoding="async"

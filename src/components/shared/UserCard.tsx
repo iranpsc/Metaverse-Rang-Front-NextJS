@@ -13,13 +13,17 @@ export default function UserCard({ item, params, buttonText, minWidth }: any) {
         className={`shadow-lg mt-10 relative bg-[#fff] dark:bg-[#1A1A18] flex flex-col justify-between gap-3 py-3 sm:py-4 md:py-5 items-center rounded-[20px]`}
       >
         <figure className="w-[120px] h-[120px] relative overflow-hidden rounded-full">
-          <img
+          <Image
             src={item.profile_photo || "/firstpage/temp-1.webp"}
-            alt={"citizen image"}
+            alt="citizen image"
+            fill
             loading="lazy"
-            className="absolute object-cover shadow-md transition-all duration-300 shadow-gray top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]"
+            sizes="120px"
+            quality={100}
+            className="object-cover shadow-md transition-all duration-300 shadow-gray"
           />
         </figure>
+
         <p
           // data-atropos-offset="-5"
           className="font-bold text-[20px] dark:text-white font-azarMehr sm:mt-2"

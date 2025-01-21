@@ -36,11 +36,12 @@ export default function ContactForm({ params }: any) {
           bcc: [],
           message: {
             subject: `Contact Form Submission from ${formData.name}`,
-            text: `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phoneNo}\nMessage: ${formData.message}`,
+            text: `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phoneNo}\nTitle: ${formData.title}\nMessage: ${formData.message}`,
             html: `
                 <p><strong>Name:</strong> ${formData.name}</p>
                 <p><strong>Email:</strong> ${formData.email}</p>
                 <p><strong>Phone:</strong> ${formData.phoneNo}</p>
+                <p><strong>Title:</strong> ${formData.title}</p>
                 <p><strong>Message:</strong> ${formData.message}</p>
               `,
           },
@@ -49,6 +50,13 @@ export default function ContactForm({ params }: any) {
 
       const result = await response.json();
       toast.success(result.message);
+      setFormData({
+        name: "",
+        email: "",
+        phoneNo: "",
+        title: "",
+        message: "",
+      });
     } catch (error) {
       console.error("Error submitting form:", error);
       alert("There was an error submitting the form. Please try again later.");
