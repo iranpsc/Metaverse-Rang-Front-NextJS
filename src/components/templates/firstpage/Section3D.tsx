@@ -2,49 +2,51 @@
 import React, { useState, useEffect, useRef } from "react";
 
 const Section3D = () => {
-  const [useAparat, setUseAparat] = useState(false);
-  const [youtubeLoaded, setYouTubeLoaded] = useState(false);
-  const [inView, setInView] = useState(false);
-  // *HINT* useRef WON'T trigger re-render unlike useState.
+  const [useAparat, setUseAparat] = useState(false); // Fallback state
+  const [youtubeLoaded, setYouTubeLoaded] = useState(false); // YouTube iframe load state
+  const [inView, setInView] = useState(false); // Visibility state
   const iframeContainerRef = useRef<HTMLDivElement | null>(null);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null); // Timeout reference
 
-  // Handle YouTube load state and fallback after a timeout
   useEffect(() => {
+    // Start a fallback timeout to switch to Aparat
     if (inView && !youtubeLoaded) {
-      // Start the timeout
       timeoutRef.current = setTimeout(() => {
         if (!youtubeLoaded) {
-          setUseAparat(true); // Fallback
+          console.log(
+            "YouTube did not load successfully within the timeout. Switching to Aparat."
+          );
+          setUseAparat(true); // Switch to Aparat
         }
-      }, 4000); // 4 seconds timeout
+      }, 4000); // Timeout: 4 seconds
     }
 
-    // Cleanup timeout accordingly
     return () => {
+      // Cleanup timeout when dependencies change or component unmounts
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
     };
-  }, [youtubeLoaded, inView]);
+  }, [inView, youtubeLoaded]);
 
-  // IntersectionObserver to load iframe when it's in view
   useEffect(() => {
+    // Use IntersectionObserver to detect when the section is in view
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
         if (entry.isIntersecting) {
-          setInView(true); // Trigger iframe load when in view
+          console.log("Section3D is in view. Loading iframe.");
+          setInView(true); // Trigger iframe load
         }
       },
       {
         rootMargin: "0px",
-        threshold: 0.1, // Trigger when 10% of the iframe is in view
+        threshold: 0.1, // Trigger when 10% of the section is in view
       }
     );
 
     if (iframeContainerRef.current) {
-      observer.observe(iframeContainerRef.current); // Observe the iframe container
+      observer.observe(iframeContainerRef.current); // Observe the container
     }
 
     return () => {
@@ -55,18 +57,27 @@ const Section3D = () => {
   }, []);
 
   const handleYouTubeLoad = () => {
-    setYouTubeLoaded(true);
+    console.log("YouTube iframe onLoad fired.");
 
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
+    // Simulate stricter check for YouTube load success
+    setTimeout(() => {
+      if (!useAparat) {
+        console.log("Confirmed: YouTube iframe loaded successfully.");
+        setYouTubeLoaded(true);
+
+        // Clear the fallback timeout
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current);
+        }
+      }
+    }, 500); // 0.5 second delay to simulate stricter check
   };
 
   return (
     <div
       ref={iframeContainerRef}
       className="relative w-full flex justify-center items-center"
-      style={{ minHeight: "100px" }} // Ensure the container has height for detection
+      style={{ minHeight: "100px" }}
     >
       {inView ? (
         useAparat ? (
@@ -83,7 +94,7 @@ const Section3D = () => {
             title="YouTube Video Player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
-            onLoad={handleYouTubeLoad}
+            onLoad={handleYouTubeLoad} // Triggered when the iframe loads
           ></iframe>
         )
       ) : (

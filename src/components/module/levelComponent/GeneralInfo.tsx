@@ -1,15 +1,17 @@
+"use client";
 import DetailItem from "@/components/module/levelComponent/DetailItem";
 import Accordion from "@/components/module/levelComponent/Accordion";
 import { targetData } from "@/components/utils/targetDataName";
 
-export default async function GeneralInfo({
+export default function GeneralInfo({
   levelsTranslatePage,
   levelTabs,
   singleLevel,
   params,
   concatArrayContent,
 }: any) {
-  // const levelTabs = await getLevelTabs(params, levelId);
+  console.log("levelTabsGeneral", levelTabs);
+
   function localFind(_name: any) {
     return levelsTranslatePage.find((item: any) => item.name == _name)
       ?.translation;
@@ -26,7 +28,7 @@ export default async function GeneralInfo({
   }
 
   //to make description less than 200 character
-  async function makeLessCharacter(_desc: any) {
+  function makeLessCharacter(_desc: any) {
     let temp;
     if (_desc) {
       temp = _desc;
@@ -39,18 +41,16 @@ export default async function GeneralInfo({
     "@context": "https://schema.org",
     "@type": "ItemList",
     // https://api.rgb.irpsc.com/api/levels/1
-    name: await localFind2(singleLevel.data.slug),
+    name: localFind2(singleLevel.data.slug),
     // https://api.rgb.irpsc.com/api/levels/1
-    description: await makeLessCharacter(
-      singleLevel.data.general_info.description
-    ),
+    description: makeLessCharacter(singleLevel.data.general_info.description),
     itemListElement: [
       {
         "@type": "ListItem",
         url: `https://rgb.irpsc.com/${params.lang}/levels/citizen/${params.levelName}/general-info`,
         position: 1,
-        description: await makeLessCharacter(levelTabs.data.description),
-        name: await targetData(levelsTranslatePage, "basic level information"),
+        description: makeLessCharacter(levelTabs.data.description),
+        name: targetData(levelsTranslatePage, "basic level information"),
         additionalProperty: [
           {
             "@type": "PropertyValue",

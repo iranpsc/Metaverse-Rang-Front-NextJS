@@ -7,8 +7,6 @@ import { Dark, Light } from "@/svgs/index";
 const ThemeMenuModule = ({ isClosed, defaultTheme, params }: any) => {
   const { theme, toggoleTheme } = useDarkMode(defaultTheme);
 
-  console.log("THEMEEEE", theme);
-
   return (
     <div
       className={`${
