@@ -68,7 +68,6 @@ const handleLangBtn = () => {
   setLangDropDown(!langDropDown)
 }
 
-console.log('levelsidetab', tabsMenu);
 
   return (
     <>

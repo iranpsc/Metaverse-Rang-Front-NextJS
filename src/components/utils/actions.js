@@ -1,6 +1,5 @@
 'use server'
 
-
 //return selected language object
   export async function getTranslation(lang) {
     const res = await fetch("https://admin.rgb.irpsc.com/api/translations", {

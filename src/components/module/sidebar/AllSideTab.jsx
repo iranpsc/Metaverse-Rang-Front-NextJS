@@ -78,8 +78,6 @@ export default function SideBarContent({
       item.active = true;
     }
   })
-
-  console.log('allSideTab', tabsMenu);
   
   
   return (
