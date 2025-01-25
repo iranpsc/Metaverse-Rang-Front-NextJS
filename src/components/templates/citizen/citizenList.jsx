@@ -43,7 +43,7 @@ export default function CitizenList({
     setCurrentPage(currentPage + 1);
     let oldArray = localCitizenArray;
 
-    axios.get(`https://api.rgbdev.irpsc.com/api/users?page=${currentPage}`).then((res) => {
+    axios.get(`https://api.rgb.irpsc.com/api/users?page=${currentPage}`).then((res) => {
       setLastPage(res.data.meta.to);
       res.data.data.map((item) => {oldArray.push(item)})
       setLocalCitizenArray(oldArray);
