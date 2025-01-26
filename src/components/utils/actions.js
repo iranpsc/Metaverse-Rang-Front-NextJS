@@ -92,6 +92,7 @@
     const res = await fetch(`https://api.rgb.irpsc.com/api/levels/${levelId}/${params.tabs}`, {
       headers: {
         "Content-Type": "application/json",
+        "Cache-Control": "no-store", // Disable caching
       },
     });
     let temp = await res.json()
