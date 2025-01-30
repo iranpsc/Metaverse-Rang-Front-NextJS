@@ -1,0 +1,774 @@
+
+/* all page css*/
+
+
+/* @font-face {
+    font-family: 'AzarMehr';
+    src: url('fonts/AzarMehr-DS2-Medium.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'AzarMehrFD';
+    src: url('fonts/AzarMehr-FD[DSTY\,KSHD\,wght].woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'Rokh';
+    src: url('fonts/Rokh-Medium.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Vazir';
+    src: url('fonts/Vazir.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('fonts/Montserrat-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+} */
+
+.searchWrite::placeholder {
+    font-family: 'AzarMehrFD';
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 80%;
+padding-left: 45px;
+
+    font-size: 110%;
+    color: #868B90;
+
+}
+/* all page css*/
+
+
+
+
+/* celendar css*/
+/* celendar css*/
+/* celendar css*/
+/* celendar css*/
+
+.hale {
+    text-shadow: 2px 2px 15px rgba(251, 214, 7, 0.828); /* هاله زرد رنگ */
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+.like, .dislike {
+    transition: transform 0.2s;
+}
+
+.like.active, .dislike.active {
+    animation: bounce 0.5s ease-in-out;
+}
+/* celendar css*/
+/* celendar css*/
+/* celendar css*/
+/* celendar css*/
+
+
+
+
+
+
+
+
+/* version css*/
+/* version css*/
+/* version css*/
+/* version css*/
+
+
+.versionInfo {
+    background-color: rgb(69, 65, 65);
+    height: 100%;
+    display: none;
+
+}
+
+/*  نسخه موبایل است */
+
+/* پنهان کردن متن آکاردئون به طور پیش‌فرض */
+.infoBoxBottom.collapsed .accordion-content {
+    transition: max-height 0.3s ease;
+
+    max-height: 0;
+}
+
+.infoBoxBottom.expanded {
+    transition: max-height 0.3s ease;
+
+    max-height: 1000px;
+    /* حداکثر ارتفاع برای زمانی که باز است */
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+/* تنظیمات برای زمانی که آکاردئون باز است */
+
+
+
+.mainContainer {
+    width: 100%;
+    height: auto;
+    background-color: #000;
+    display: flex;
+    flex-direction: column;
+    font-family: 'AzarMehrFD';
+    gap: 10px;
+}
+
+/*  سایدبار است */
+
+
+.menuButton {
+    width: auto;
+    background-color: yellow;
+    padding: 10px;
+    padding-right: 20px;
+}
+
+.menu {
+    cursor: pointer;
+
+}
+
+.sidebarP {
+    padding-left: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.metaP {
+    height: 20px;
+    color: #FFFFFF;
+
+}
+
+.metarangP {
+    color: #ffffff81;
+}
+
+
+
+
+
+/*  باکس سرچ است*/
+.searchAndVersionHistory {
+    align-self: flex-start;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+
+/*  باکس نمایش اطلاعات ورژن و تاریخچه آن*/
+
+
+
+
+.versionHistoryInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 20px;
+    transition: width 0.3s ease, margin-right 0.3s ease;
+    background-color: #080807;
+    width: 95%;
+    height: auto;
+    gap: 12px;
+}
+
+.historyVersionP {
+    font-size: 120%;
+    z-index: 1;
+    align-self: flex-start;
+    font-weight: 550;
+    padding-top: 4%;
+    padding-bottom: 4%;
+    padding-right: 6%;
+    display: inline;
+    color: #FCF9FE;
+}
+
+/*باکس زرد اول */
+.infoBox {
+    display: flex;
+    flex-direction: row;
+    background-color: #ffc80022;
+    width: 92%;
+    height: 90px;
+    border-radius: 10px;
+
+}
+
+.logo {
+    padding-top: 10px;
+    padding-right: 10px;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.circle {
+    z-index: 1;
+    width: 2%;
+    height: 2%;
+    background-color: transparent;
+    border-radius: 50%;
+    border: 6px solid #FFC700;
+    box-sizing: border-box;
+}
+
+.line {
+    width: 1px;
+    height: 95px;
+    background-color: #1A1A18;
+    border-radius: 1px;
+    align-self: center;
+
+}
+
+.insideParagraph {
+
+    display: flex;
+    flex-direction: row;
+}
+
+.topParagraph {
+    padding-top: 7px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-right: 8px;
+
+}
+
+.moreInfo {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+
+.textName {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+    font-size: 90%;
+    color: #FCF9FE;
+}
+
+.textVersion {
+    display: inline-block;
+
+    white-space: nowrap;
+    padding-left: 15px;
+    font-size: 90%;
+    color: #868B90;
+}
+
+.textDate {
+    font-weight: 600;
+    padding-top: 20px;
+
+    padding-bottom: 20px;
+    padding-right: 8px;
+    font-size: 100%;
+    color: #4C4C4C;
+
+
+}
+
+/*باکس ورژن و خط  */
+
+
+.lineBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #b4b46d;
+    width: 100%;
+    min-height: 48px;
+
+}
+
+.versionP {
+    margin: 0;
+
+    font-weight: 600;
+    z-index: 1;
+    color: #FFC700;
+    font-size: 100%;
+
+}
+
+.dottedLine {
+    flex-grow: 1;
+    background-color: transparent;
+    border: none;
+    color: #000;
+    height: 2px;
+    margin: 2px 0;
+    background-image: linear-gradient(to right, #000 40%, #ffffff13 0%);
+    background-position: bottom;
+    background-size: 15px;
+    background-repeat: repeat-x;
+}
+
+.displayVersion {
+    margin: 0;
+
+    z-index: 1;
+    direction: ltr;
+    float: left;
+    font-size: 90%;
+    font-weight: 600;
+    color: #FFC700;
+
+
+}
+
+
+
+/* باکس توضیحات    */
+
+.description {
+    transition: max-height 0.3s ease;
+
+    font-family: "Vazir";
+
+    align-self: flex-start;
+    color: #FFFFFF;
+
+}
+
+.descriptionParagraph {
+    line-height: 37px;
+    transition: max-height 0.3s ease;
+    font-size: 90%;
+    width: 100%;
+    padding-bottom: 20px;
+    height: auto;
+    background-color: transparent;
+    color: #C4C4C4;
+}
+
+/* باکس نمایش اپدیت هایی که تا به حال منتشر شده    */
+
+.historyUpdated {
+    padding-top: 15px;
+
+    display: flex;
+    flex-direction: column;
+    width: 92%;
+    gap: 4px;
+}
+
+
+
+.infoBoxBottom {
+    transition: max-height 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    background-color: #0000;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+
+}
+
+.lineBottom {
+    width: 1px;
+    height: 100%;
+    background-color: #1A1A18;
+    border-radius: 1px;
+    align-self: center;
+
+
+}
+
+
+/* دکمه نمایش بیشتر*/
+
+
+.displayMore {
+    padding-top: 30px;
+    padding-bottom: 50px;
+    border: none;
+    background-color: transparent;
+    color: #FFC700;
+    cursor: pointer;
+}
+
+
+
+
+/*   کلاس تغییر رنگ برای اینکه کلیک شد ایتم ها تغییر رنگ بدهند*/
+
+.selected {
+    background-color: #ffc80022;
+}
+
+.selectedVersion {
+    color: #FFFFFF;
+}
+
+.selectedDate {
+    color: #868B90;
+}
+
+
+
+
+
+
+
+
+
+
+
+@media(min-width: 1024px) {
+
+    .displayMore {
+        display: none;
+    }
+
+    .mainContainer {
+        flex-direction: row;
+        background-color: #000;
+
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        flex-direction: row;
+        align-items: start;
+        justify-content: space-between;
+    }
+
+    /*ساید بار سمت راست*/
+
+
+
+
+
+    /*  کانتینر اصلی دسکتاپ*/
+
+
+    /*   بخش سایدبار */
+
+
+
+    .open-sidebar {
+
+        width: 18%;
+        transition: width 0.3s ease, margin-right 0.3s ease;
+
+
+    }
+
+    .metaP {
+        display: none;
+
+    }
+
+    .metarangP {
+        display: none;
+
+    }
+
+    .menuButton {
+
+        align-self: flex-start;
+    }
+
+    /*    شامل بخش تاریخچه ورژن ها و توضیحات ورژن ها */
+
+
+
+    /*   بخش سمت راست که شامل سرچ باکس و تاریخچه ورژن میشود */
+
+
+    .searchAndVersionHistory {
+        flex-direction: column;
+        display: flex;
+        transition: width 0.3s ease, margin-left 0.3s ease;
+        background-color: #000000;
+        width: 35%;
+        min-width: 350px;
+        height: 100%;
+        flex-shrink: 0;
+        align-items: center;
+        border-radius: 20px;
+        gap: 5px;
+
+    }
+
+    /*   بخش    سرچ باکس */
+
+
+
+
+    /*   بخش    تاریخچه هپدیت ها  */
+
+
+
+    .historyVersionP {
+        padding-top: 30px;
+        padding-right: 33px;
+        font-size: 140%;
+        font-family: "Rokh";
+
+    }
+
+    .infoBoxBottom {
+        justify-content: center;
+        width: 99%;
+        padding-top: 2px;
+
+
+    }
+
+    .circle {
+        z-index: 1;
+        width: 2%;
+        height: 2%;
+        background-color: transparent;
+        border-radius: 50%;
+        border: 6px solid #FFC700;
+        box-sizing: border-box;
+
+    }
+
+    .versionHistoryInfo {
+        background-color: #080807;
+        overflow: auto;
+        height: 100%;
+        border-radius: 20px;
+        width: 100%;
+        overflow: auto;
+        display: flex;
+        direction: ltr;
+    }
+
+    .versionHistoryInfo::-webkit-scrollbar {
+
+        width: 3px;
+        /* عرض اسکرول‌بار */
+        background-color: transparent;
+
+    }
+
+
+    .versionHistoryInfo::-webkit-scrollbar-thumb {
+        border-radius: 2px;
+        /* گرد کردن گوشه‌های دستگیره */
+        border: 3px solid#868B90;
+        /* رنگ حاشیه دستگیره */
+
+    }
+
+
+
+    .historyUpdated {
+        height: 650px;
+        direction: rtl;
+        align-content: center;
+
+
+    }
+
+
+    .textName {
+        padding-top: 0px;
+        display: inline-block;
+        font-size: 90%;
+        width: 70%;
+    }
+
+    .textVersion {
+        font-size: 100%;
+
+    }
+
+    .textDate {
+        padding-bottom: 15px;
+        font-size: 100%;
+
+    }
+
+
+
+
+
+
+
+
+
+    /* بخش سمت چپ اطلاعات مربوط به جزعیات ورژن ها   */
+
+
+
+
+    .versionInfo {
+
+
+
+        height: 100%;
+        display: inline;
+
+
+
+        align-self: flex-start;
+
+        padding-left: 15px;
+        padding-right: 15px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: width 0.3s ease, margin-left 0.3s ease;
+        width: 100%;
+        background-color: #080807;
+        padding-top: 15px;
+        border-radius: 20px;
+
+
+    }
+
+    .displayVersionDes {
+        font-size: 170%;
+        font-weight: 700;
+        z-index: 2;
+        color: #FFC700;
+
+
+    }
+
+    .versionP {
+        font-family: "Rokh";
+        font-weight: 600;
+        font-size: 200%;
+
+    }
+
+    .toseVbehbod {
+        font-family: 'Rokh';
+        color: #FCF9FE;
+        z-index: 1;
+        text-wrap: nowrap;
+        font-size: 140%;
+
+    }
+
+    .toseVbehbodDate {
+
+        color: #868B90;
+        z-index: 1;
+        text-wrap: nowrap;
+        font-size: 120%;
+    }
+
+    .lineBox {
+        background-color: #080807;
+
+    }
+
+
+
+
+    .dottedLineTose {
+        flex: 1;
+        background-color: transparent;
+        border: none;
+        color: #000;
+        height: 2px;
+        background-image: linear-gradient(to right, #000 40%, #ffffff13 0%);
+        background-position: bottom;
+        background-size: 15px;
+        background-repeat: repeat-x;
+
+    }
+
+    .displayVersionTose {
+        font-weight: 600;
+        font-size: 110%;
+        z-index: 2;
+        color: #868B90;
+
+    }
+
+    .descriptionBox {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #080807;
+        width: 100%;
+        min-height: 48px;
+
+    }
+
+    .description {
+        width: 100%;
+        font-size: 110%;
+        align-self: flex-end;
+
+        padding: 0;
+
+    }
+
+    .descriptionParagraph {
+        color: #868B90;
+        overflow: auto;
+        height: 40%;
+
+    }
+
+    .descriptionParagraph::-webkit-scrollbar {
+        display: none;
+        width: 3px;
+        background-color: #000;
+
+    }
+
+
+}
+
+
+/* version css*/
+/* version css*/
+/* version css*/
+/* version css*/
