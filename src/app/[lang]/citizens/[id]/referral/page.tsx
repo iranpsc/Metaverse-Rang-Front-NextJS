@@ -8,6 +8,7 @@ import {
   findByTabName,
   getLangArray,
   getFooterData,
+  getAllReferral,
 } from "@/components/utils/actions";
 import { staticMenuToShow as MenuStaticData } from "@/components/utils/constants";
 import DynamicFooter from "@/components/module/footer/DynamicFooter";
@@ -16,9 +17,10 @@ import Image from "next/image";
 
 import "./style/style.css";
 import InviteList from "./components/invite-list";
+import InviteChart from "./components/invite-chart.js";
 // import "./style/output.css";
 
-export default async function CitizenRefferal({ params }: { params: any }) {
+export default async function CitizenReferral({ params }: { params: any }) {
   // THEME
   const defaultTheme = useServerDarkMode();
   const [langData] = await Promise.all([
@@ -26,9 +28,10 @@ export default async function CitizenRefferal({ params }: { params: any }) {
     getTranslation(params.lang),
   ]);
 
-  const [mainData, langArray, footerTabs] = await Promise.all([
+  const [mainData, langArray, initInviteList, footerTabs] = await Promise.all([
     getMainFile(langData),
     getLangArray(),
+    getAllReferral(params.id),
     getFooterData(params),
   ]);
   const centralPageModal = await findByModalName(
@@ -50,12 +53,7 @@ export default async function CitizenRefferal({ params }: { params: any }) {
       tab.toShow = true;
     }
   });
-  const positions: [number, number, number][] = [
-    [-5, 0, 24],
-    [-3, -3, 12],
-    [-5, -5, 10],
-    [-3, 5, 8],
-  ];
+
   return (
     <>
       <div className="flex h-screen overflow-hidden" dir={langData.direction}>
@@ -76,7 +74,8 @@ export default async function CitizenRefferal({ params }: { params: any }) {
           </div>
 
           <InviteBox />
-          <InviteList />
+          <InviteList initInviteList={initInviteList.data} params={params} />
+          <InviteChart params={params} />
 
           <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
             <DynamicFooter footerTabs={footerTabs} />

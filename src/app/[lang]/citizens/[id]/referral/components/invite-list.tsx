@@ -1,6 +1,29 @@
+"use client";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { getAllReferral } from "@/components/utils/actions";
+import InviteChart from "./invite-chart";
+import InviteListCard from "./invite-list-card";
 
-export default function InviteList() {
+export default function InviteList({
+  initInviteList,
+  params,
+}: {
+  initInviteList: any;
+  params: any;
+}) {
+  const [isMounted, setIsMounted] = useState(false);
+  const [referralList, setReferralList] = useState(null);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    // const referralList = getAllReferral();
+    // setReferralList(initInviteList.data);
+    console.log("initInviteList", initInviteList);
+  }, [isMounted]);
   return (
     <>
       <div className="flex flex-col py-8 leading-[24px] gap-4 w-full lg:w-[49%]  lg:self-start">
@@ -39,32 +62,19 @@ export default function InviteList() {
         </div>
       </div>
 
-      <div
-        className="grid grid-cols-1 sm:grid-cols-2  gap-4 w-full"
-        id="card-container"
-      >
-        <div className="bg-[#0C0D0F] p-3 rounded-xl flex  items-center w-full h-14 lg:h-28">
-          <div className="relative w-[50px] h-[50px] lg:w-[100px] lg:h-[100px]">
-            <Image
-              fill
-              className="w-full h-full"
-              src="/firstpage/temp-1.webp"
-              alt="example"
-            />
-          </div>
-
-          <div className="flex-1 mx-4">
-            <div className="text-white lg:text-xl">حسین قدیری</div>
-            <div className="text-[#0066FF] text-sm lg:text-base">
-              HM-2000003
-            </div>
-          </div>
-          <p className="text-[#FFC700] ml-1 lg:text-2xl">100 +</p>
-          <div className="relative w-[32px] h-[32px]">
-            <Image fill src="/referral/psc-D2J8hrjF.gif" alt="Coin" />
-          </div>
-        </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2  gap-4 w-full">
+        {/* CARD */}
+        {initInviteList &&
+          initInviteList.map((item: any, index: any) => (
+            <InviteListCard key={index} item={item} params={params} />
+          ))}
       </div>
+      <p
+        className="w-[150px] text-[#FFC700] pt-7 cursor-pointer m-auto"
+        id="load-more"
+      >
+        مشاهده بیشتر
+      </p>
     </>
   );
 }

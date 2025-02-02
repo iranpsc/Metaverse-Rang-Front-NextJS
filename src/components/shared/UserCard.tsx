@@ -38,12 +38,6 @@ export default function UserCard({ item, params, buttonText, minWidth }: any) {
           aria-label={`Go to citizen ${item.code}`}
         >
           {item.code}
-          {/* <span
-            // data-atropos-offset="-1"
-            className="uppercase text-blueLink font-medium font-azarMehr text-[16px] cursor-pointer"
-          >
-            {item.code}
-          </span> */}
         </Link>
 
         <span className="dark:text-[#969696] text-[18px] font-azarMehr">

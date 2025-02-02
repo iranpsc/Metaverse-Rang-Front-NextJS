@@ -1,9 +1,6 @@
 "use client";
-import Link from "next/link";
-import { Text } from "@/components/svgs/SvgEducation";
 // import { getAllCitizen } from "@/components/utils/actions";
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import axios from "axios";
 import UserCard from "@/components/shared/UserCard";
 

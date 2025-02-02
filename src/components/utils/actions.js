@@ -150,3 +150,25 @@
       return { props: { error: "خطا در دریافت داده‌ها" } };
     }
   }
+
+  export async function getAllReferral(_userId, _searchParam = ""){
+    const res = await fetch(`https://api.rgb.irpsc.com/api/citizen/${_userId}/referrals?search=${_searchParam}`,{
+      headers: {
+        "Content-Type": "application/json",
+        "Cache-Control": "public, max-age=3600", 
+      },}
+    )
+    let temp = await res.json()
+    return temp
+  }
+
+  export async function getChartReferral(_userId, _searchParam = ""){
+    const res = await fetch(`https://api.rgb.irpsc.com/api/citizen/${_userId}/referrals/chart?range=${_searchParam}`,{
+      headers: {
+        "Content-Type": "application/json",
+        "Cache-Control": "public, max-age=3600", 
+      },}
+    )
+    let temp = await res.json()
+    return temp.data
+  }
