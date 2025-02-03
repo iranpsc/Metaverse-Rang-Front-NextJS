@@ -65,33 +65,16 @@ export default function InviteChart({params,referralPageArrayContent}) {
     return _array.reduce((sum, current) => sum + current, 0)
   }
 
-  const fetchChartData = async () => {
+  const fetchChartData = async (_searchParam) => {
     try {
       const response = await axios.get(
-        `https://api.rgb.irpsc.com/api/citizen/${params.id}/referrals/chart?range=daily`,{
+        `https://api.rgb.irpsc.com/api/citizen/${params.id}/referrals/chart?range=${_searchParam}`,{
           headers: {
             "Content-Type": "application/json" 
           },}
       );
 
-      console.log('response',response);
-      
-      
-      const initialData = response.data.data; // Axios response contains data in the `data` property
-
-      const myLabels = initialData.chart_data.map((label) => convertToPersianDigits(label.hour));
-      const referralsCount = initialData.chart_data.map((label) => label.referrals_count);
-      const referralsAmount = initialData.chart_data.map((label) => label.referral_orders_amount);
-
-      let newData = { labels: [], data: [] };
-      newData.labels = myLabels;
-      newData.data[0] = referralsCount;
-      newData.data[1] = referralsAmount;
-
-      console.log('newData',newData);
-      
-
-      setCurrentData(newData); // Update the state with fetched data
+      return response
     } 
     catch (error) {
       console.error("Error fetching chart data:", error);
@@ -100,23 +83,29 @@ export default function InviteChart({params,referralPageArrayContent}) {
 
   // Fetch initial data from the API on component mount
   useEffect(() => {
-    // const fetchInitialData = async () => {
-    //   // const initialData = await getChartReferral(params.id, "daily");
+    const fetchData = async () => {
+      try {
+        const response = await fetchChartData("daily");
 
+        const initialData = response.data.data; // Axios response contains data in the `data` property
 
-    //   const myLabels = initialData.chart_data.map((label) => convertToPersianDigits(label.hour));
-    //   const referralsCount = initialData.chart_data.map((label) => label.referrals_count);
-    //   const referralsAmount = initialData.chart_data.map((label) => label.referral_orders_amount);
+        const myLabels = initialData.chart_data.map((label) => convertToPersianDigits(label.hour));
+        const referralsCount = initialData.chart_data.map((label) => label.referrals_count);
+        const referralsAmount = initialData.chart_data.map((label) => label.referral_orders_amount);
+    
+        let newData = { labels: [], data: [] };
+        newData.labels = myLabels;
+        newData.data[0] = referralsCount;
+        newData.data[1] = referralsAmount;
+    
+        setCurrentData(newData); // Update the state with fetched data
+      } catch (error) {
+        console.log('Error in fetching chart data', error);
+      }
+    };
+    fetchData();
+      
 
-    //   let newData = {labels:[],data:[]}
-    //   newData.labels = myLabels
-    //   newData.data[0] =  referralsCount
-    //   newData.data[1] =  referralsAmount
-
-    //   setCurrentData(newData);
-    // };
-
-    fetchChartData();
   }, [params.id]); 
 
   // Create the chart and store it in chartRef
@@ -221,50 +210,55 @@ export default function InviteChart({params,referralPageArrayContent}) {
 
   // Function to update the chart data based on the selected timeframe
   const handleTimeframeClick = async (timeframe) => {
-    const chartData = await getChartReferral(params.id, timeframe)
-    console.log('chartData',chartData);
+    const fetchData = async () => {
+      try {
+        const chartData = await fetchChartData(timeframe);
+        
+        let myLabels
+        let referralsCount
+        let referralsAmount
+        let newData = {labels:[],data:[]}
     
-    let myLabels
-    let referralsCount
-    let referralsAmount
-    let newData = {labels:[],data:[]}
+        switch (timeframe) {
+          case "daily":
+            myLabels = await chartData.data.data.chart_data.map((label) => convertToPersianDigits(label.hour))
+            referralsCount = chartData.data.data.chart_data.map((label) => label.referrals_count)
+            referralsAmount = chartData.data.data.chart_data.map((label) => label.referral_orders_amount)
+            break;
+          case "weekly":
+            myLabels = await chartData.data.data.chart_data.map((label) => convertToPersianDigits(label.day))
+            referralsCount = chartData.data.data.chart_data.map((label) => label.referrals_count)
+            referralsAmount = chartData.data.data.chart_data.map((label) => label.referral_orders_amount)
+            break;
+          case "monthly":
+            myLabels = await chartData.data.data.chart_data.map((label) => convertToPersianDigits(label.month))
+            referralsCount = chartData.data.data.chart_data.map((label) => label.referrals_count)
+            referralsAmount = chartData.data.data.chart_data.map((label) => label.referral_orders_amount)
+    
+            break;
+          case "yearly":
+            myLabels = await chartData.data.data.chart_data.map((label) => convertToPersianDigits(label.year))
+            referralsCount = chartData.data.data.chart_data.map((label) => label.total_referrals_count)
+            referralsAmount = chartData.data.data.chart_data.map((label) => label.total_referral_orders_amount)
+            break;
+          default:
+            break;
+        }
+        // creating new data for chart
+    
+        newData.labels = myLabels
+        newData.data[0] =  referralsCount
+        newData.data[1] =  referralsAmount
+    
+        setCurrentData(newData); // Update the current data based on the selected timeframe
+    
+        setCurrentData(newData); // Update the state with fetched data
+      } catch (error) {
+        console.log('Error in fetching chart data', error);
+      }
+    };
+    fetchData()
 
-    switch (timeframe) {
-      case "daily":
-        myLabels = await chartData.chart_data.map((label) => convertToPersianDigits(label.hour))
-        referralsCount = chartData.chart_data.map((label) => label.referrals_count)
-        referralsAmount = chartData.chart_data.map((label) => label.referral_orders_amount)
-        break;
-      case "weekly":
-        myLabels = await chartData.chart_data.map((label) => convertToPersianDigits(label.day))
-        referralsCount = chartData.chart_data.map((label) => label.referrals_count)
-        referralsAmount = chartData.chart_data.map((label) => label.referral_orders_amount)
-        break;
-      case "monthly":
-        myLabels = await chartData.chart_data.map((label) => convertToPersianDigits(label.month))
-        referralsCount = chartData.chart_data.map((label) => label.referrals_count)
-        referralsAmount = chartData.chart_data.map((label) => label.referral_orders_amount)
-
-        break;
-      case "yearly":
-        myLabels = await chartData.chart_data.map((label) => convertToPersianDigits(label.year))
-        referralsCount = chartData.chart_data.map((label) => label.total_referrals_count)
-        referralsAmount = chartData.chart_data.map((label) => label.total_referral_orders_amount)
-        break;
-      default:
-        break;
-    }
-    // creating new data for chart
-
-    newData.labels = myLabels
-    newData.data[0] =  referralsCount
-    newData.data[1] =  referralsAmount
-    // console.log('myLabels',myLabels);
-    // console.log('referralsAmount',referralsAmount);
-    // console.log('referralsCount',referralsCount);
-    console.log('newData',newData);
-
-    setCurrentData(newData); // Update the current data based on the selected timeframe
   };
 
   return (
