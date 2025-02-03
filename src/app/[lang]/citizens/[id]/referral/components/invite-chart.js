@@ -2,6 +2,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import Chart from "chart.js/auto"; // Import Chart.js
 import { getChartReferral } from "@/components/utils/actions"
+import axios from "axios";
 
 // داده‌ها و برچسب‌های مختلف برای هر بازه زمانی
 // const dailyData = {
@@ -64,25 +65,59 @@ export default function InviteChart({params,referralPageArrayContent}) {
     return _array.reduce((sum, current) => sum + current, 0)
   }
 
-  // Fetch initial data from the API on component mount
-  useEffect(() => {
-    const fetchInitialData = async () => {
-      const initialData = await getChartReferral(params.id, "daily");
+  const fetchChartData = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.rgb.irpsc.com/api/citizen/${params.id}/referrals/chart?range=daily`,{
+          headers: {
+            "Content-Type": "application/json" 
+          },}
+      );
+
+      console.log('response',response);
+      
+      
+      const initialData = response.data.data; // Axios response contains data in the `data` property
 
       const myLabels = initialData.chart_data.map((label) => convertToPersianDigits(label.hour));
       const referralsCount = initialData.chart_data.map((label) => label.referrals_count);
       const referralsAmount = initialData.chart_data.map((label) => label.referral_orders_amount);
 
-      let newData = {labels:[],data:[]}
-      newData.labels = myLabels
-      newData.data[0] =  referralsCount
-      newData.data[1] =  referralsAmount
+      let newData = { labels: [], data: [] };
+      newData.labels = myLabels;
+      newData.data[0] = referralsCount;
+      newData.data[1] = referralsAmount;
 
-      setCurrentData(newData);
-    };
+      console.log('newData',newData);
+      
 
-    fetchInitialData();
-  }, [isMounted]); 
+      setCurrentData(newData); // Update the state with fetched data
+    } 
+    catch (error) {
+      console.error("Error fetching chart data:", error);
+    }
+  };
+
+  // Fetch initial data from the API on component mount
+  useEffect(() => {
+    // const fetchInitialData = async () => {
+    //   // const initialData = await getChartReferral(params.id, "daily");
+
+
+    //   const myLabels = initialData.chart_data.map((label) => convertToPersianDigits(label.hour));
+    //   const referralsCount = initialData.chart_data.map((label) => label.referrals_count);
+    //   const referralsAmount = initialData.chart_data.map((label) => label.referral_orders_amount);
+
+    //   let newData = {labels:[],data:[]}
+    //   newData.labels = myLabels
+    //   newData.data[0] =  referralsCount
+    //   newData.data[1] =  referralsAmount
+
+    //   setCurrentData(newData);
+    // };
+
+    fetchChartData();
+  }, [params.id]); 
 
   // Create the chart and store it in chartRef
   useEffect(() => {
@@ -193,7 +228,7 @@ export default function InviteChart({params,referralPageArrayContent}) {
     let referralsCount
     let referralsAmount
     let newData = {labels:[],data:[]}
-    
+
     switch (timeframe) {
       case "daily":
         myLabels = await chartData.chart_data.map((label) => convertToPersianDigits(label.hour))
