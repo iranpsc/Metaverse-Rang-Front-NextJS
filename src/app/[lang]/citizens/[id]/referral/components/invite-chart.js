@@ -193,6 +193,7 @@ export default function InviteChart({params,referralPageArrayContent}) {
     let referralsCount
     let referralsAmount
     let newData = {labels:[],data:[]}
+    
     switch (timeframe) {
       case "daily":
         myLabels = await chartData.chart_data.map((label) => convertToPersianDigits(label.hour))

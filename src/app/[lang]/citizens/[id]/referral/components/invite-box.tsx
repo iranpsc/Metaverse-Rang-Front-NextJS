@@ -34,7 +34,7 @@ export default function InviteBox({
       <div
         className="absolute inset-20 lg:inset-5 opacity-10 bg-no-repeat  rotate-[25deg] z-10 w-44 h-44 "
         style={{
-          backgroundImage: "url('/referral/1.png')",
+          backgroundImage: "url('/firstpage/referral/1.png')",
           backgroundSize: "contain",
         }}
       ></div>
@@ -237,7 +237,7 @@ export default function InviteBox({
         <div className="relative lg:absolute lg:top-[-30px] rtl:lg:left-0 ltr:lg:right-0 h-[300px] w-full lg:w-[35%]">
           <Image
             className="object-contain"
-            src="/referral/invite.svg"
+            src="/firstpage/referral/invite.svg"
             fill
             alt=""
           />
