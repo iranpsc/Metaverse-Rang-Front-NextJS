@@ -3,9 +3,20 @@
 import Image from "next/image";
 import { useRef, useState } from "react";
 
-export default function InviteBox() {
+export default function InviteBox({
+  referralPageArrayContent,
+}: {
+  referralPageArrayContent: any;
+}) {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [copied, setCopied] = useState(false);
+
+  console.log("referralPageArrayContent", referralPageArrayContent);
+
+  function localFind(_name: any) {
+    return referralPageArrayContent.find((item: any) => item.name == _name)
+      .translation;
+  }
 
   const copyToClipboard = () => {
     if (inputRef.current) {
@@ -32,9 +43,7 @@ export default function InviteBox() {
       <div className="flex flex-wrap min-h-[260px]">
         <div className="w-full lg:w-3/4 p-6">
           <p className="text-lg font-bold leading-[45px] text-justify lg:text-xl ">
-            با دعوت کردن دوستان خود به مجموعه متارنگ میتوانید مشمول دریافت 100
-            پاداش برای شما و 100 پاداش برای دوستانتان شوید . همین حالا و توی
-            سریع ترین زمان ممکن دوستتو دعوت کن تا از پاداشش جا نمونی...!
+            {localFind("description of invitations")}
           </p>
 
           <div className="my-6 flex flex-col w-full lg:flex-row xl:mt-16">
@@ -43,14 +52,14 @@ export default function InviteBox() {
                 htmlFor="invite-link1"
                 className="block mb-2 lg:mb-8 text-white"
               >
-                کپی لینک :
+                {localFind("copy link")}
               </label>
               <div className=" h-12 lg:h-13 xl:h-14 rounded-xl border border-solid border-[#484950] flex flex-row-reverse items-center  px-2 relative">
                 <button
                   onClick={copyToClipboard}
                   className="text-[#FFBC00] text-sm whitespace-nowrap bg-transparent"
                 >
-                  {copied ? "کپی شد" : "کپی لینک دعوت"}
+                  {copied ? "کپی شد" : localFind("copy the invitation link")}
                 </button>
                 <input
                   ref={inputRef}
@@ -89,7 +98,7 @@ export default function InviteBox() {
 
             <div className=" flex flex-col justify-between items-center lg:justify-center lg:gap-3 lg:pr-2 xl:pr-9 lg:w-[25%] xl:w-[30%] ">
               <span className="my-5 self-start lg:my-0 lg:mb-8">
-                اشتراک گذاری از طریق:
+                {localFind("share via")}
               </span>
               <div className="flex flex-row w-full justify-between gap-1 sm:px-24 lg:p-0 ">
                 {/* لینک تلگرام */}

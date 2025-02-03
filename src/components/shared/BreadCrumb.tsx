@@ -2,9 +2,35 @@
 import { usePathname } from "next/navigation";
 import { ArrowMenu } from "@/svgs/index";
 import Link from "next/link";
+import { getUserData } from "@/components/utils/actions";
+import { useEffect, useState } from "react";
 
 export default function ({ params }: any) {
+  const [userName, setUserName] = useState("");
+  // retrive name according to userId
+  useEffect(() => {
+    const fetchUserData = async () => {
+      let temp = await getUserData(params.id);
+      let firstName = temp.data?.kyc?.fname ? temp.data?.kyc?.fname : "";
+      let lastName = temp.data?.kyc?.lname ? temp.data?.kyc?.lname : "";
+      if (params.lang.toLowerCase() == "fa") {
+        setUserName(`${firstName} ${lastName}`);
+      } else if (params.lang.toLowerCase() == "en") {
+        setUserName(
+          temp.data.name ? temp.data.name : `${firstName} ${lastName}`
+        );
+      }
+    };
+    fetchUserData();
+  }, [params.id]);
   const staticData = [
+    {
+      name: `${params.id}`,
+      en: `${userName}'s invite list`,
+      fa: `لیست دعوتی های ${userName}`,
+      font: "font-bold",
+      link: `/${params.lang}/citizens/${params.id}`,
+    },
     {
       name: "citizens",
       en: "citizens",

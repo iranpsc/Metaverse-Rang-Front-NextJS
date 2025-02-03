@@ -8,29 +8,48 @@ import InviteListCard from "./invite-list-card";
 export default function InviteList({
   initInviteList,
   params,
+  referralPageArrayContent,
 }: {
   initInviteList: any;
   params: any;
+  referralPageArrayContent: any;
 }) {
   const [isMounted, setIsMounted] = useState(false);
-  const [referralList, setReferralList] = useState(null);
+  const [referralList, setReferralList] = useState(initInviteList.data);
+  const [searchTerm, setSearchTerm] = useState(""); // Track the search term
+
+  function localFind(_name: any) {
+    return referralPageArrayContent.find((item: any) => item.name == _name)
+      .translation;
+  }
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
-  useEffect(() => {
-    // const referralList = getAllReferral();
-    // setReferralList(initInviteList.data);
-    console.log("initInviteList", initInviteList);
-  }, [isMounted]);
+  useEffect(() => {}, [isMounted]);
+
+  const searchFetch = async () => {
+    let temp = getAllReferral(params.id, searchTerm);
+
+    try {
+      // Call the API with the search term
+      const filteredReferralList = await getAllReferral(params.id, searchTerm);
+
+      // Update the referral list with the filtered results from the API
+      setReferralList(filteredReferralList.data);
+    } catch (error) {
+      console.error("Error fetching referral list:", error);
+    }
+  };
   return (
     <>
       <div className="flex flex-col py-8 leading-[24px] gap-4 w-full lg:w-[49%]  lg:self-start">
-        <p className="text-white font-black lg:text-2xl">لیست دعوتی ها</p>
+        <p className="text-white font-black lg:text-2xl">
+          {localFind("invitation list")}
+        </p>
         <p className="text-[#A0A0AB] lg:text-lg">
-          لیست دوستانی که تا به الان از طریق شما به جمع متاورس رنگ اضافه شدن و
-          مقدار پاداشی که گرفتید.
+          {localFind("the list of friends who have been")}
         </p>
 
         <div className="searchBoxContainer  transition-[right,width] duration-300 ease-in-out flex items-center flex-row justify-between bg-[#1A1A18] w-full h-[50px] rounded-[12px] ">
@@ -53,10 +72,15 @@ export default function InviteList({
           <input
             type="text"
             id="searchBox"
-            className="searchWrite pr-2 pl-5 text-white bg-transparent flex-1 w-[90%] h-[90%] border-none outline-none text-sm text-aliceblue"
-            placeholder=" دعوت شده  خود را جستجو کنید.."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="searchWrite pr-2 pl-5 text-white bg-transparent flex-1 w-[90%] h-[90%] border-none outline-none text-sm text-aliceblue font-azarMehr"
+            placeholder={localFind("search for your invitee")}
           />
-          <button className="searchButton font-normal text-[95%] pl-5  border-none bg-transparent text-[#FFBC00] cursor-pointer">
+          <button
+            onClick={searchFetch}
+            className="searchButton font-normal text-[95%] pl-5  border-none bg-transparent text-[#FFBC00] cursor-pointer"
+          >
             جستجو
           </button>
         </div>
@@ -64,15 +88,15 @@ export default function InviteList({
 
       <div className="grid grid-cols-1 sm:grid-cols-2  gap-4 w-full">
         {/* CARD */}
-        {initInviteList &&
-          initInviteList.map((item: any, index: any) => (
+        {referralList &&
+          referralList.map((item: any, index: any) => (
             <InviteListCard key={index} item={item} params={params} />
           ))}
       </div>
-      <p
-        className="w-[150px] text-[#FFC700] pt-7 cursor-pointer m-auto"
-        id="load-more"
-      >
+      {referralList.length == 0 && (
+        <p className="w-full text-center text-white">موردی یافت نشد.</p>
+      )}
+      <p className="w-[150px] text-[#FFC700] pt-7 cursor-pointer m-auto text-center">
         مشاهده بیشتر
       </p>
     </>

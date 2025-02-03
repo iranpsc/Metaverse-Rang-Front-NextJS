@@ -38,19 +38,38 @@ import { getChartReferral } from "@/components/utils/actions"
 // };
 
 
-export default function InviteChart({params}) {
+export default function InviteChart({params,referralPageArrayContent}) {
+  const [isMounted, setIsMounted] = useState(false);
   const canvasRef = useRef(null); // useRef to reference the canvas
   const chartRef = useRef(null);
   const [currentData, setCurrentData] = useState({labels:[],data:[]}); // Default to daily data
   const [invBtn, setInvBtn  ] = useState(true)
   const [giftBtn, setGiftBtn] = useState(true)
 
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  function localFind(_name) {
+    return referralPageArrayContent.find((item) => item.name == _name)
+      .translation;
+  }
+
+  // Convert all digits to Persian digits
+  const convertToPersianDigits = (str) => {
+    return str.replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
+  };
+
+  const sumation = (_array)=>{
+    return _array.reduce((sum, current) => sum + current, 0)
+  }
+
   // Fetch initial data from the API on component mount
   useEffect(() => {
     const fetchInitialData = async () => {
-      const initialData = await getChartReferral(params.id, "daily"); // You can use the default timeframe here
+      const initialData = await getChartReferral(params.id, "daily");
 
-      const myLabels = initialData.chart_data.map((label) => label.hour);
+      const myLabels = initialData.chart_data.map((label) => convertToPersianDigits(label.hour));
       const referralsCount = initialData.chart_data.map((label) => label.referrals_count);
       const referralsAmount = initialData.chart_data.map((label) => label.referral_orders_amount);
 
@@ -59,11 +78,11 @@ export default function InviteChart({params}) {
       newData.data[0] =  referralsCount
       newData.data[1] =  referralsAmount
 
-      setCurrentData(newData); // Set the initial data
+      setCurrentData(newData);
     };
 
     fetchInitialData();
-  }, [params.id]); // The dependency is `params.id`, which you can change if needed
+  }, [isMounted]); 
 
   // Create the chart and store it in chartRef
   useEffect(() => {
@@ -176,23 +195,23 @@ export default function InviteChart({params}) {
     let newData = {labels:[],data:[]}
     switch (timeframe) {
       case "daily":
-        myLabels = await chartData.chart_data.map((label) => label.hour)
+        myLabels = await chartData.chart_data.map((label) => convertToPersianDigits(label.hour))
         referralsCount = chartData.chart_data.map((label) => label.referrals_count)
         referralsAmount = chartData.chart_data.map((label) => label.referral_orders_amount)
         break;
       case "weekly":
-        myLabels = await chartData.chart_data.map((label) => label.day)
+        myLabels = await chartData.chart_data.map((label) => convertToPersianDigits(label.day))
         referralsCount = chartData.chart_data.map((label) => label.referrals_count)
         referralsAmount = chartData.chart_data.map((label) => label.referral_orders_amount)
         break;
       case "monthly":
-        myLabels = await chartData.chart_data.map((label) => label.month)
+        myLabels = await chartData.chart_data.map((label) => convertToPersianDigits(label.month))
         referralsCount = chartData.chart_data.map((label) => label.referrals_count)
         referralsAmount = chartData.chart_data.map((label) => label.referral_orders_amount)
 
         break;
       case "yearly":
-        myLabels = await chartData.chart_data.map((label) => label.year)
+        myLabels = await chartData.chart_data.map((label) => convertToPersianDigits(label.year))
         referralsCount = chartData.chart_data.map((label) => label.total_referrals_count)
         referralsAmount = chartData.chart_data.map((label) => label.total_referral_orders_amount)
         break;
@@ -215,11 +234,11 @@ export default function InviteChart({params}) {
   return (
     <div className="bg-black w-full pt-7 text-right flex flex-col gap-3">
       <div className="w-full md:max-w-[50%] lg:max-w-[30%] pt-7 text-right flex flex-col gap-3">
-        <h2 className="text-white text-lg font-black font-['Rokh'] lg:text-2xl">
-          جدول تاریخچه پاداش‌ها
+        <h2 className="text-white text-lg font-black font-azarMehr lg:text-2xl">
+         {localFind("reward history table")}
         </h2>
         <p className="text-[#A0A0AB] text-lg">
-          در این جدول مقدار پاداش و تعداد دعوتی‌های خود را مشاهده می‌کنید.
+          {localFind("in this table, you can see the am")}
         </p>
 
         <div className="flex justify-between gap-4 w-full h-[64px]">
@@ -227,25 +246,25 @@ export default function InviteChart({params}) {
             onClick={() => handleTimeframeClick("daily")}
             className="moment bg-[#0C0D0F] text-[#84858F] p-2 rounded-xl w-full border border-[#33353B]"
           >
-            روزانه
+            {localFind('daily')}
           </button>
           <button
             onClick={() => handleTimeframeClick("weekly")}
             className="moment bg-[#0C0D0F] text-[#84858F] p-2 rounded-xl w-full border border-[#33353B]"
           >
-            هفتگی
+            {localFind('weekly')}
           </button>
           <button
             onClick={() => handleTimeframeClick("monthly")}
             className="moment bg-[#0C0D0F] text-[#84858F] p-2 rounded-xl w-full border border-[#33353B]"
           >
-            ماهانه
+            {localFind('monthly')}
           </button>
           <button
             onClick={() => handleTimeframeClick("yearly")}
             className="moment bg-[#0C0D0F] text-[#84858F] p-2 rounded-xl w-full border border-[#33353B]"
           >
-            سالانه
+            {localFind('annually')}
           </button>
         </div>
       </div>
@@ -286,11 +305,11 @@ export default function InviteChart({params}) {
           </div>
 
           <div className="text-right flex flex-col gap-2 mt-2 ">
-            <p className="text-white text-sm lg:text-base">تعداد کل دعوتی‌ها</p>
+            <p className="text-white text-sm lg:text-base">{localFind("the total number of invitations")}</p>
             <p
               id="invite"
               className="text-white text-3xl font-semibold lg:text-5xl"
-            ></p>
+            >{currentData.data[0] && currentData.data[0].length > 0 ? sumation(currentData.data[0]) : ""}</p>
           </div>
           <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2">
             <svg
@@ -402,13 +421,12 @@ export default function InviteChart({params}) {
 
           <div className="text-right flex flex-col gap-2 mt-2">
             <p className="text-white text-sm lg:text-base">
-              {" "}
-              تعداد کل پاداش ها ( pcs ){" "}
+              {localFind("bonus received per unit (psc)")}
             </p>
             <p
               id="reward"
               className="text-white text-3xl font-semibold lg:text-5xl"
-            ></p>
+            >{currentData.data[1] && currentData.data[1].length > 0 ? sumation(currentData.data[1]) : ""}</p>
           </div>
           <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2">
             <svg
@@ -464,12 +482,12 @@ export default function InviteChart({params}) {
       <div className="flex justify-center gap-6 text-right mt-6">
         <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleLegendClick(0)}>
           <div className="w-2 h-2 lg:w-3 lg:h-3 rounded-full bg-[#0066FF]"></div>
-          <span className={`text-[#0066FF] ${invBtn?"":"line-through"}`}>دعوتی ها</span>
+          <span className={`text-[#0066FF] ${invBtn?"":"line-through"}`}>{localFind("invitations")}</span>
         </div>
 
         <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleLegendClick(1)}>
           <div className="w-2 h-2 lg:w-3 lg:h-3 rounded-full bg-[#FFC700]"></div>
-          <span className={`text-[#FFC700] ${giftBtn?"":"line-through"}`}>پاداش ها</span>
+          <span className={`text-[#FFC700] ${giftBtn?"":"line-through"}`}>{localFind("-rewards")}</span>
         </div>
       </div>
 

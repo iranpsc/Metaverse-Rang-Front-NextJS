@@ -40,6 +40,11 @@ export default async function CitizenReferral({ params }: { params: any }) {
   );
   const tabsMenu = await findByTabName(centralPageModal, "menu");
 
+  const referralPageArrayContent = await findByTabName(
+    centralPageModal,
+    "referral"
+  );
+
   const staticMenuToShow = MenuStaticData;
 
   // add staticMenuToShow values to siblings tabsMenu values
@@ -73,9 +78,18 @@ export default async function CitizenReferral({ params }: { params: any }) {
             <BreadCrumb params={params} />
           </div>
 
-          <InviteBox />
-          <InviteList initInviteList={initInviteList.data} params={params} />
-          <InviteChart params={params} />
+          <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
+            <InviteBox referralPageArrayContent={referralPageArrayContent} />
+            <InviteList
+              initInviteList={initInviteList}
+              params={params}
+              referralPageArrayContent={referralPageArrayContent}
+            />
+            <InviteChart
+              params={params}
+              referralPageArrayContent={referralPageArrayContent}
+            />
+          </div>
 
           <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
             <DynamicFooter footerTabs={footerTabs} />
