@@ -132,9 +132,10 @@
   }
 
   export async function getUserData(_userId) {
+    let id = _userId.replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]).toLowerCase()
     try {
       const res = await fetch(
-        `https://api.rgb.irpsc.com/api/citizen/${_userId}`,
+        `https://api.rgb.irpsc.com/api/citizen/${id}`,
         {
           headers: {
             "Content-Type": "application/json",
