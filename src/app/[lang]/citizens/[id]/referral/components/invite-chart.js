@@ -1,7 +1,6 @@
 "use client";
 import React, { useRef, useEffect, useState } from "react";
 import Chart from "chart.js/auto"; // Import Chart.js
-import { getChartReferral } from "@/components/utils/actions"
 import axios from "axios";
 
 // داده‌ها و برچسب‌های مختلف برای هر بازه زمانی
@@ -40,16 +39,11 @@ import axios from "axios";
 
 
 export default function InviteChart({params,referralPageArrayContent}) {
-  const [isMounted, setIsMounted] = useState(false);
   const canvasRef = useRef(null); // useRef to reference the canvas
   const chartRef = useRef(null);
   const [currentData, setCurrentData] = useState({labels:[],data:[]}); // Default to daily data
   const [invBtn, setInvBtn  ] = useState(true)
   const [giftBtn, setGiftBtn] = useState(true)
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   function localFind(_name) {
     return referralPageArrayContent.find((item) => item.name == _name)
@@ -73,8 +67,7 @@ export default function InviteChart({params,referralPageArrayContent}) {
             "Content-Type": "application/json" 
           },}
       );
-
-      return response
+      return response.data.data
     } 
     catch (error) {
       console.error("Error fetching chart data:", error);
@@ -87,11 +80,9 @@ export default function InviteChart({params,referralPageArrayContent}) {
       try {
         const response = await fetchChartData("daily");
 
-        const initialData = response.data.data; // Axios response contains data in the `data` property
-
-        const myLabels = initialData.chart_data.map((label) => convertToPersianDigits(label.hour));
-        const referralsCount = initialData.chart_data.map((label) => label.referrals_count);
-        const referralsAmount = initialData.chart_data.map((label) => label.referral_orders_amount);
+        const myLabels = response.chart_data.map((label) => convertToPersianDigits(label.hour));
+        const referralsCount = response.chart_data.map((label) => label.referrals_count);
+        const referralsAmount = response.chart_data.map((label) => label.referral_orders_amount);
     
         let newData = { labels: [], data: [] };
         newData.labels = myLabels;
@@ -104,8 +95,6 @@ export default function InviteChart({params,referralPageArrayContent}) {
       }
     };
     fetchData();
-      
-
   }, [params.id]); 
 
   // Create the chart and store it in chartRef
@@ -113,8 +102,6 @@ export default function InviteChart({params,referralPageArrayContent}) {
     if (!canvasRef.current) return;
     const ctx = canvasRef.current.getContext("2d");
     if (!ctx) return;
-
-    
 
     const newChart = new Chart(ctx, {
       type: "line",
@@ -221,25 +208,25 @@ export default function InviteChart({params,referralPageArrayContent}) {
     
         switch (timeframe) {
           case "daily":
-            myLabels = await chartData.data.data.chart_data.map((label) => convertToPersianDigits(label.hour))
-            referralsCount = chartData.data.data.chart_data.map((label) => label.referrals_count)
-            referralsAmount = chartData.data.data.chart_data.map((label) => label.referral_orders_amount)
+            myLabels = await chartData.chart_data.map((label) => convertToPersianDigits(label.hour))
+            referralsCount = chartData.chart_data.map((label) => label.referrals_count)
+            referralsAmount = chartData.chart_data.map((label) => label.referral_orders_amount)
             break;
           case "weekly":
-            myLabels = await chartData.data.data.chart_data.map((label) => convertToPersianDigits(label.day))
-            referralsCount = chartData.data.data.chart_data.map((label) => label.referrals_count)
-            referralsAmount = chartData.data.data.chart_data.map((label) => label.referral_orders_amount)
+            myLabels = await chartData.chart_data.map((label) => convertToPersianDigits(label.day))
+            referralsCount = chartData.chart_data.map((label) => label.referrals_count)
+            referralsAmount = chartData.chart_data.map((label) => label.referral_orders_amount)
             break;
           case "monthly":
-            myLabels = await chartData.data.data.chart_data.map((label) => convertToPersianDigits(label.month))
-            referralsCount = chartData.data.data.chart_data.map((label) => label.referrals_count)
-            referralsAmount = chartData.data.data.chart_data.map((label) => label.referral_orders_amount)
+            myLabels = await chartData.chart_data.map((label) => convertToPersianDigits(label.month))
+            referralsCount = chartData.chart_data.map((label) => label.referrals_count)
+            referralsAmount = chartData.chart_data.map((label) => label.referral_orders_amount)
     
             break;
           case "yearly":
-            myLabels = await chartData.data.data.chart_data.map((label) => convertToPersianDigits(label.year))
-            referralsCount = chartData.data.data.chart_data.map((label) => label.total_referrals_count)
-            referralsAmount = chartData.data.data.chart_data.map((label) => label.total_referral_orders_amount)
+            myLabels = await chartData.chart_data.map((label) => convertToPersianDigits(label.year))
+            referralsCount = chartData.chart_data.map((label) => label.total_referrals_count)
+            referralsAmount = chartData.chart_data.map((label) => label.total_referral_orders_amount)
             break;
           default:
             break;
@@ -260,6 +247,7 @@ export default function InviteChart({params,referralPageArrayContent}) {
     fetchData()
 
   };
+
 
   return (
     <div className="bg-black w-full pt-7 text-right flex flex-col gap-3">
