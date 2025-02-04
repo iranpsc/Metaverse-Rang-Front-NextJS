@@ -9,6 +9,7 @@ import {
   getLangArray,
   getFooterData,
   getAllReferral,
+  getUserData,
 } from "@/components/utils/actions";
 import { staticMenuToShow as MenuStaticData } from "@/components/utils/constants";
 import DynamicFooter from "@/components/module/footer/DynamicFooter";
@@ -59,8 +60,70 @@ export default async function CitizenReferral({ params }: { params: any }) {
     }
   });
 
+  //to make description less than 200 character
+  async function makeLessCharacter() {
+    let temp;
+    if (profileData.data?.customs?.about) {
+      temp = profileData.data.customs.about;
+      temp = temp.slice(0, 200);
+    } else temp = "";
+    return temp;
+  }
+  const profileData = await getUserData(params.id);
+  const citizenReferralSchema = {
+    "@context": "https://schema.org/",
+    "@type": "Person",
+    name: `${profileData.data.name} || ${profileData.data?.kyc.fname} ${profileData.data?.kyc.lname}`,
+    image: profileData.data?.profilePhotos?.map((item: any) => {
+      return item.url;
+    }),
+    url: `http://rgb.irpsc.com/fa/citizen/${params.id}`,
+    jobTitle: `${profileData.data?.customs?.occupation}`,
+    description: `${await makeLessCharacter()}`,
+    birthDate: `${profileData.data?.kyc?.birth_date}`,
+    email: `${profileData.data?.kyc?.email}`,
+    alternateName: `${profileData.data.code}`,
+  };
+
+  // const itemList = initInviteList.data.map((user: any, index: any) => ({
+  //   "@context": "https://schema.org",
+  //   "@type": "ItemList",
+  //   position: index + 1,
+  //   item: {
+  //     "@type": "Person",
+  //     name: user.name,
+  //     identifier: user.code,
+  //     referrerOrders: user.referrerOrders.map((order: any) => ({
+  //       "@type": "Offer",
+  //       priceCurrency: "IRR",
+  //       price: order.amount,
+  //       description: "Referral Amount",
+  //     })),
+  //   },
+  // }));
+
+  // const itemListSchema = {
+  //   "@context": "https://schema.org",
+  //   "@type": "ItemList",
+  //   itemListElement: itemList,
+  // };
+
   return (
     <>
+      {/* SCHEMA** */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(citizenReferralSchema),
+        }}
+      />
+      {/* <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(itemListSchema),
+        }}
+      /> */}
+      {/* schema END */}
       <div className="flex h-screen overflow-hidden" dir={langData.direction}>
         <SideBar
           tabsMenu={tabsMenu}
@@ -98,4 +161,70 @@ export default async function CitizenReferral({ params }: { params: any }) {
       </div>
     </>
   );
+}
+
+// SEO**
+export async function generateMetadata({ params }: { params: any }) {
+  const profileData = await getUserData(params.id);
+
+  const [langData] = await Promise.all([
+    // getUserData(params.id),
+    getTranslation(params.lang),
+  ]);
+
+  const [mainData] = await Promise.all([getMainFile(langData)]);
+  const centralPageModal = await findByModalName(
+    mainData,
+    "Citizenship-profile"
+  );
+
+  const referralPageArrayContent = await findByTabName(
+    centralPageModal,
+    "referral"
+  );
+
+  console.log("referralPageArrayContent", referralPageArrayContent);
+
+  function localFind(_name: any) {
+    return referralPageArrayContent.find((item: any) => item.name == _name)
+      .translation;
+  }
+
+  //to make description less than 200 character
+  async function makeLessCharacter() {
+    let temp = await localFind("description of invitations");
+    temp = temp.slice(0, 200);
+    return temp;
+  }
+
+  return {
+    title: `${profileData.data.kyc?.fname || ""} ${
+      profileData.data.kyc?.lname || "referral"
+    }`,
+    description:
+      (await localFind("the list of friends who have been")) ||
+      "citizen referral page",
+    openGraph: {
+      // site_name:'',
+      type: "profile",
+      title: `${localFind("invitation list")}`,
+      description: `${await makeLessCharacter()}`,
+      locale: params.lang == "fa" ? "fa_IR" : "en_US",
+      url: `https://rgb.irpsc.com/${params.lang}/citizen/${params.id}/referral`,
+      profile: {
+        first_name: `${profileData.data.name}`,
+      },
+      images: [
+        {
+          url: `${profileData.data?.profilePhotos[0]?.url}`,
+          width: 800,
+          height: 600,
+        },
+      ],
+      // Adding the google-site-verification meta tag
+    },
+    other: {
+      "google-site-verification": "lmf8kBJQgLHew_wXcxGQwJQWiOSFy8odEBRTLOoX7Q4",
+    },
+  };
 }
