@@ -67,7 +67,7 @@ export default function InviteChart({params,referralPageArrayContent}) {
             "Content-Type": "application/json" 
           },}
       );
-      return response.data.data
+      return response.data.dataawait 
     } 
     catch (error) {
       console.error("Error fetching chart data:", error);
@@ -80,9 +80,9 @@ export default function InviteChart({params,referralPageArrayContent}) {
       try {
         const response = await fetchChartData("daily");
 
-        const myLabels = response.chart_data.map((label) => convertToPersianDigits(label.hour));
-        const referralsCount = response.chart_data.map((label) => label.referrals_count);
-        const referralsAmount = response.chart_data.map((label) => label.referral_orders_amount);
+        const myLabels = await response.chart_data.map((label) => convertToPersianDigits(label.hour));
+        const referralsCount = await response.chart_data.map((label) => label.referrals_count);
+        const referralsAmount = await response.chart_data.map((label) => label.referral_orders_amount);
     
         let newData = { labels: [], data: [] };
         newData.labels = myLabels;

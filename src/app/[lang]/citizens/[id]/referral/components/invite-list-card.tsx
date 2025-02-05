@@ -18,6 +18,7 @@ export default function InviteListCard({
       <div className="relative w-[50px] h-[50px] lg:w-[100px] lg:h-[100px]">
         <Image
           fill
+          sizes="50px"
           className="w-full h-full"
           src="/firstpage/temp-1.webp"
           alt="example"

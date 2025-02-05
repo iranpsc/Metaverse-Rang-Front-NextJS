@@ -237,6 +237,7 @@ export default function InviteBox({
             className="object-contain"
             src="/firstpage/referral/invite.svg"
             fill
+            sizes="320px"
             alt=""
           />
         </div>

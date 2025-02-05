@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import { getAllReferral } from "@/components/utils/actions";
 import InviteChart from "./invite-chart";
