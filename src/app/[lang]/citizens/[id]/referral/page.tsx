@@ -10,6 +10,7 @@ import {
   getFooterData,
   getAllReferral,
   getUserData,
+  getChartReferral,
 } from "@/components/utils/actions";
 import { staticMenuToShow as MenuStaticData } from "@/components/utils/constants";
 import DynamicFooter from "@/components/module/footer/DynamicFooter";
@@ -25,12 +26,29 @@ export default async function CitizenReferral({ params }: { params: any }) {
   const defaultTheme = useServerDarkMode();
   const langData = await getTranslation(params.lang);
 
-  const [mainData, langArray, initInviteList, footerTabs] = await Promise.all([
-    getMainFile(langData),
-    getLangArray(),
-    getAllReferral(params.id),
-    getFooterData(params),
-  ]);
+  const [mainData, langArray, initInviteList, footerTabs, chartDataFetch] =
+    await Promise.all([
+      getMainFile(langData),
+      getLangArray(),
+      getAllReferral(params.id),
+      getFooterData(params),
+      getChartReferral(params.id, "daily"),
+    ]);
+
+  // Convert all digits to Persian digits
+  const convertToPersianDigits = (str: any) => {
+    return str.replace(/\d/g, (d: any) => "۰۱۲۳۴۵۶۷۸۹"[d]);
+  };
+  let initChartData = { labels: [], data: [[], []] };
+  initChartData.labels = await chartDataFetch.chart_data.map((label: any) =>
+    convertToPersianDigits(label.hour)
+  );
+  initChartData.data[0] = await chartDataFetch.chart_data.map(
+    (label: any) => label.referrals_count
+  );
+  initChartData.data[1] = await chartDataFetch.chart_data.map(
+    (label: any) => label.referral_orders_amount
+  );
 
   const centralPageModal = await findByModalName(
     mainData,
@@ -175,6 +193,7 @@ export default async function CitizenReferral({ params }: { params: any }) {
             <InviteChart
               params={params}
               referralPageArrayContent={referralPageArrayContent}
+              initChartData={initChartData}
             />
           </div>
 

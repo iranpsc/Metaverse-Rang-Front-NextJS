@@ -3,47 +3,16 @@ import React, { useRef, useEffect, useState } from "react";
 import Chart from "chart.js/auto"; // Import Chart.js
 import axios from "axios";
 
-// داده‌ها و برچسب‌های مختلف برای هر بازه زمانی
-// const dailyData = {
-//   labels: [
-//     "00:00",
-//     "01:00",
-//     "02:00",
-//     "03:00",
-//     "04:00",
-//     "05:00",
-//     "06:00",
-//     "07:00",
-//     "08:00",
-//     "09:00",
-//     "10:00",
-//     "11:00",
-//     "12:00",
-//     "13:00",
-//     "14:00",
-//     "15:00",
-//     "16:00",
-//     "17:00",
-//     "18:00",
-//     "19:00",
-//     "20:00",
-//     "21:00",
-//     "22:00",
-//     "23:00",
-//   ].map((date) => date.replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d])),
-//   data: [
-//     [10, 15, 20, 25, 30, 35, 40, 55, 88, 99],
-//     [5, 10, 15, 20, 25, 30, 35, 35, 35, 35],
-//   ],
-// };
 
 
-export default function InviteChart({params,referralPageArrayContent}) {
+export default function InviteChart({params,referralPageArrayContent,initChartData}) {
   const canvasRef = useRef(null); // useRef to reference the canvas
   const chartRef = useRef(null);
-  const [currentData, setCurrentData] = useState({labels:[],data:[]}); // Default to daily data
+  const [currentData, setCurrentData] = useState(initChartData); // Default to daily data
   const [invBtn, setInvBtn  ] = useState(true)
   const [giftBtn, setGiftBtn] = useState(true)
+  const [timePeriodBtns, setTimePeriodBtns] = useState('daily')
+  
 
   function localFind(_name) {
     return referralPageArrayContent.find((item) => item.name == _name)
@@ -67,35 +36,13 @@ export default function InviteChart({params,referralPageArrayContent}) {
             "Content-Type": "application/json" 
           },}
       );
-      return response.data.dataawait 
+      return response.data.data
     } 
     catch (error) {
       console.error("Error fetching chart data:", error);
     }
   };
 
-  // Fetch initial data from the API on component mount
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetchChartData("daily");
-
-        const myLabels = await response.chart_data.map((label) => convertToPersianDigits(label.hour));
-        const referralsCount = await response.chart_data.map((label) => label.referrals_count);
-        const referralsAmount = await response.chart_data.map((label) => label.referral_orders_amount);
-    
-        let newData = { labels: [], data: [] };
-        newData.labels = myLabels;
-        newData.data[0] = referralsCount;
-        newData.data[1] = referralsAmount;
-    
-        setCurrentData(newData); // Update the state with fetched data
-      } catch (error) {
-        console.log('Error in fetching chart data', error);
-      }
-    };
-    fetchData();
-  }, [params.id]); 
 
   // Create the chart and store it in chartRef
   useEffect(() => {
@@ -197,6 +144,7 @@ export default function InviteChart({params,referralPageArrayContent}) {
 
   // Function to update the chart data based on the selected timeframe
   const handleTimeframeClick = async (timeframe) => {
+    setTimePeriodBtns(timeframe)
     const fetchData = async () => {
       try {
         const chartData = await fetchChartData(timeframe);
@@ -262,25 +210,25 @@ export default function InviteChart({params,referralPageArrayContent}) {
         <div className="flex justify-between gap-4 w-full h-[64px]">
           <button
             onClick={() => handleTimeframeClick("daily")}
-            className="moment bg-[#0C0D0F] text-[#84858F] p-2 rounded-xl w-full border border-[#33353B]"
+            className={`moment bg-[#0C0D0F] text-[#84858F] p-2 rounded-xl w-full ${timePeriodBtns == 'daily'?"border border-[#33353B]":''}`}
           >
             {localFind('daily')}
           </button>
           <button
             onClick={() => handleTimeframeClick("weekly")}
-            className="moment bg-[#0C0D0F] text-[#84858F] p-2 rounded-xl w-full border border-[#33353B]"
+            className={`moment bg-[#0C0D0F] text-[#84858F] p-2 rounded-xl w-full ${timePeriodBtns == 'weekly'?"border border-[#33353B]":''}`}
           >
             {localFind('weekly')}
           </button>
           <button
             onClick={() => handleTimeframeClick("monthly")}
-            className="moment bg-[#0C0D0F] text-[#84858F] p-2 rounded-xl w-full border border-[#33353B]"
+            className={`moment bg-[#0C0D0F] text-[#84858F] p-2 rounded-xl w-full ${timePeriodBtns == 'monthly'?"border border-[#33353B]":''}`}
           >
             {localFind('monthly')}
           </button>
           <button
             onClick={() => handleTimeframeClick("yearly")}
-            className="moment bg-[#0C0D0F] text-[#84858F] p-2 rounded-xl w-full border border-[#33353B]"
+            className={`moment bg-[#0C0D0F] text-[#84858F] p-2 rounded-xl w-full ${timePeriodBtns == 'yearly'?"border border-[#33353B]":''}`}
           >
             {localFind('annually')}
           </button>

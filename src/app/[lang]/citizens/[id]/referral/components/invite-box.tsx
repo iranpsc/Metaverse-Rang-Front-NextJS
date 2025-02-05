@@ -61,6 +61,7 @@ export default function InviteBox({
                 </button>
                 <input
                   ref={inputRef}
+                  id="invite-link1"
                   type="text"
                   value="EYFcAda/occHk3ExampleFullLink"
                   className="text-[#868B90] px-1 bg-transparent w-full overflow-hidden border-none whitespace-nowrap overflow-ellipsis outline-none cursor-pointer"
