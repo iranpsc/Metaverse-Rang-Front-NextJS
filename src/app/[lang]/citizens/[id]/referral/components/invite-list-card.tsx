@@ -18,7 +18,7 @@ export default function InviteListCard({
       <div className="relative w-[50px] h-[50px] lg:w-[100px] lg:h-[100px]">
         <Image
           fill
-          sizes="50px"
+          sizes="(max-width: 1024px) 50px,(min-width: 1025px) 100px"
           className="w-full h-full"
           src="/firstpage/temp-1.webp"
           alt="example"
@@ -41,12 +41,7 @@ export default function InviteListCard({
         {totalAmount.toLocaleString()} +
       </p>
       <div className="relative w-[32px] h-[32px]">
-        <Image
-          fill
-          sizes="50px"
-          src="/firstpage/referral/psc-D2J8hrjF.gif"
-          alt="Coin"
-        />
+        <img src="/firstpage/referral/psc-D2J8hrjF.gif" alt="Coin" />
       </div>
     </div>
   );

@@ -47,6 +47,7 @@ export default function ({ params }: any) {
     // };
     fetchUserData();
   }, [params.id]);
+
   const staticData = [
     {
       name: `${params.id}`,
