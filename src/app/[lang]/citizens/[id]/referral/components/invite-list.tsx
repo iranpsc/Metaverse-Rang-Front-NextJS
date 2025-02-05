@@ -14,11 +14,10 @@ export default function InviteList({
   params: any;
   referralPageArrayContent: any;
 }) {
+  console.log("initInviteList||||||||||||", initInviteList);
   const [isMounted, setIsMounted] = useState(false);
   const [referralList, setReferralList] = useState(initInviteList.data);
   const [searchTerm, setSearchTerm] = useState(""); // Track the search term
-
-  console.log("initInviteList", initInviteList.data);
 
   function localFind(_name: any) {
     return referralPageArrayContent.find((item: any) => item.name == _name)

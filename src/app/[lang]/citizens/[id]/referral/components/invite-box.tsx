@@ -11,8 +11,6 @@ export default function InviteBox({
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [copied, setCopied] = useState(false);
 
-  console.log("referralPageArrayContent", referralPageArrayContent);
-
   function localFind(_name: any) {
     return referralPageArrayContent.find((item: any) => item.name == _name)
       .translation;

@@ -14,7 +14,6 @@ import {
 import { staticMenuToShow as MenuStaticData } from "@/components/utils/constants";
 import DynamicFooter from "@/components/module/footer/DynamicFooter";
 import InviteBox from "./components/invite-box";
-import Image from "next/image";
 
 import "./style/style.css";
 import InviteList from "./components/invite-list";
@@ -24,10 +23,7 @@ import InviteChart from "./components/invite-chart.js";
 export default async function CitizenReferral({ params }: { params: any }) {
   // THEME
   const defaultTheme = useServerDarkMode();
-  const [langData] = await Promise.all([
-    // getUserData(params.id),
-    getTranslation(params.lang),
-  ]);
+  const langData = await getTranslation(params.lang);
 
   const [mainData, langArray, initInviteList, footerTabs] = await Promise.all([
     getMainFile(langData),
@@ -35,10 +31,12 @@ export default async function CitizenReferral({ params }: { params: any }) {
     getAllReferral(params.id),
     getFooterData(params),
   ]);
+
   const centralPageModal = await findByModalName(
     mainData,
     "Citizenship-profile"
   );
+
   const tabsMenu = await findByTabName(centralPageModal, "menu");
 
   const referralPageArrayContent = await findByTabName(
@@ -70,6 +68,7 @@ export default async function CitizenReferral({ params }: { params: any }) {
     return temp;
   }
   const profileData = await getUserData(params.id);
+
   const citizenReferralSchema = {
     "@context": "https://schema.org/",
     "@type": "Person",
@@ -84,28 +83,47 @@ export default async function CitizenReferral({ params }: { params: any }) {
     email: `${profileData.data?.kyc?.email}`,
     alternateName: `${profileData.data.code}`,
   };
+  // ***********************
 
-  // const itemList = initInviteList.data.map((user: any, index: any) => ({
-  //   "@context": "https://schema.org",
-  //   "@type": "ItemList",
-  //   position: index + 1,
-  //   item: {
-  //     "@type": "Person",
-  //     name: user.name,
-  //     identifier: user.code,
-  //     referrerOrders: user.referrerOrders.map((order: any) => ({
-  //       "@type": "Offer",
-  //       priceCurrency: "IRR",
-  //       price: order.amount,
-  //       description: "Referral Amount",
-  //     })),
-  //   },
-  // }));
+  const itemListSchema = {
+    "@context": "https://schema.org/",
+    "@type": "ItemList",
 
-  // const itemListSchema = {
-  //   "@context": "https://schema.org",
-  //   "@type": "ItemList",
-  //   itemListElement: itemList,
+    itemListElement: initInviteList.data.map((invited: any, index: any) => {
+      return {
+        // "@type": "PropertyValue",
+        // name: localFind("gem chip"),
+        // value: levelTabs.data.thread,
+
+        "@type": "Person",
+        position: index + 1,
+        name: invited.name,
+        identifier: invited.code,
+        url: invited.image || "https://api.rgb.irpsc.com/",
+      };
+    }),
+  };
+
+  // const referralStatsSchema = {
+  //   "@context": "https://schema.org/",
+  //   "@type": "Offer",
+  //   name: "Referral Program Statistics",
+  //   description:
+  //     "Total statistics for the referral program, including total reward points and total number of invited persons.",
+  //   additionalProperty: [
+  //     {
+  //       "@type": "PropertyValue",
+  //       name: "Total Reward",
+  //       value: 3000,
+  //       unitText: "points",
+  //     },
+  //     {
+  //       "@type": "PropertyValue",
+  //       name: "Total Invited",
+  //       value: 20,
+  //       unitText: "persons",
+  //     },
+  //   ],
   // };
 
   return (
@@ -117,10 +135,16 @@ export default async function CitizenReferral({ params }: { params: any }) {
           __html: JSON.stringify(citizenReferralSchema),
         }}
       />
-      {/* <script
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(itemListSchema),
+        }}
+      />
+      {/* <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(referralStatsSchema),
         }}
       /> */}
       {/* schema END */}
@@ -182,8 +206,6 @@ export async function generateMetadata({ params }: { params: any }) {
     centralPageModal,
     "referral"
   );
-
-  console.log("referralPageArrayContent", referralPageArrayContent);
 
   function localFind(_name: any) {
     return referralPageArrayContent.find((item: any) => item.name == _name)
