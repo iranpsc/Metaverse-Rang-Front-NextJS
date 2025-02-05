@@ -90,15 +90,18 @@ export default async function CitizenReferral({ params }: { params: any }) {
   const citizenReferralSchema = {
     "@context": "https://schema.org/",
     "@type": "Person",
-    name: `${profileData.data.name} || ${profileData.data?.kyc.fname} ${profileData.data?.kyc.lname}`,
+    name: `${
+      profileData.data.name ||
+      profileData.data?.kyc.fname + " " + profileData.data?.kyc.lname
+    }`,
     image: profileData.data?.profilePhotos?.map((item: any) => {
       return item.url;
     }),
     url: `http://rgb.irpsc.com/fa/citizen/${params.id}`,
     jobTitle: `${profileData.data?.customs?.occupation}`,
     description: `${await makeLessCharacter()}`,
-    birthDate: `${profileData.data?.kyc?.birth_date}`,
-    email: `${profileData.data?.kyc?.email}`,
+    birthDate: `${profileData.data?.kyc?.birth_date || ""}`,
+    email: `${profileData.data?.kyc?.email || ""}`,
     alternateName: `${profileData.data.code}`,
   };
   // ***********************
@@ -184,17 +187,23 @@ export default async function CitizenReferral({ params }: { params: any }) {
           </div>
 
           <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
-            <InviteBox referralPageArrayContent={referralPageArrayContent} />
-            <InviteList
-              initInviteList={initInviteList}
-              params={params}
-              referralPageArrayContent={referralPageArrayContent}
-            />
-            <InviteChart
-              params={params}
-              referralPageArrayContent={referralPageArrayContent}
-              initChartData={initChartData}
-            />
+            {referralPageArrayContent && (
+              <InviteBox referralPageArrayContent={referralPageArrayContent} />
+            )}
+            {initInviteList && referralPageArrayContent && (
+              <InviteList
+                initInviteList={initInviteList}
+                params={params}
+                referralPageArrayContent={referralPageArrayContent}
+              />
+            )}
+            {referralPageArrayContent && initChartData && (
+              <InviteChart
+                params={params}
+                referralPageArrayContent={referralPageArrayContent}
+                initChartData={initChartData}
+              />
+            )}
           </div>
 
           <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">

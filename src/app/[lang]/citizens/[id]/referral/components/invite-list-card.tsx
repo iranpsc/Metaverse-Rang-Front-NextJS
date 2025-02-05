@@ -41,7 +41,12 @@ export default function InviteListCard({
         {totalAmount.toLocaleString()} +
       </p>
       <div className="relative w-[32px] h-[32px]">
-        <Image fill src="/firstpage/referral/psc-D2J8hrjF.gif" alt="Coin" />
+        <Image
+          fill
+          sizes="50px"
+          src="/firstpage/referral/psc-D2J8hrjF.gif"
+          alt="Coin"
+        />
       </div>
     </div>
   );
