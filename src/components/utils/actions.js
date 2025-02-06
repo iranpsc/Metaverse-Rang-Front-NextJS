@@ -5,6 +5,7 @@
     const res = await fetch("https://admin.rgb.irpsc.com/api/translations", {
       headers: {
         "Content-Type": "application/json",
+        "Cache-Control": "public, max-age=3600", 
       },
     });
     const data = await res.json();
@@ -19,6 +20,7 @@
     const res = await fetch("https://admin.rgb.irpsc.com/api/translations", {
       headers: {
         "Content-Type": "application/json",
+        "Cache-Control": "public, max-age=3600", 
       },
     });
     const data = await res.json();
@@ -31,6 +33,7 @@
     const res = await fetch(langData.file_url, {
       headers: {
         "Content-Type": "application/json",
+        "Cache-Control": "public, max-age=3600", 
       },
     });
     let temp = await res.json()
@@ -55,7 +58,12 @@
 
   export async function getAllCitizen(_page){
     
-    const res = await fetch(`https://api.rgb.irpsc.com/api/users?page=${_page}`)
+    const res = await fetch(`https://api.rgb.irpsc.com/api/users?page=${_page}`,{
+      headers: {
+        "Content-Type": "application/json",
+        "Cache-Control": "public, max-age=3600", 
+      },}
+    )
     let temp = await res.json()
 
   
@@ -81,6 +89,7 @@
     const res = await fetch("https://api.rgb.irpsc.com/api/levels", {
       headers: {
         "Content-Type": "application/json",
+        "Cache-Control": "public, max-age=3600", 
       },
     });
     const temp = await res.json();
@@ -92,7 +101,7 @@
     const res = await fetch(`https://api.rgb.irpsc.com/api/levels/${levelId}/${params.tabs}`, {
       headers: {
         "Content-Type": "application/json",
-        "Cache-Control": "no-store", // Disable caching
+        "Cache-Control": "public, max-age=3600", 
       },
     });
     let temp = await res.json()
@@ -105,6 +114,7 @@
     const res = await fetch(`https://api.rgb.irpsc.com/api/calendar/versions`, {
       headers: {
         "Content-Type": "application/json",
+        "Cache-Control": "public, max-age=3600", 
       },
     });
     let temp = await res.json()
@@ -115,18 +125,21 @@
     const res = await fetch(`https://api.rgb.irpsc.com/api/levels/${levelId}`, {
       headers: {
         "Content-Type": "application/json",
+        "Cache-Control": "public, max-age=3600", 
       },
     });
     return await res.json();
   }
 
   export async function getUserData(_userId) {
+    let id = _userId.replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]).toLowerCase()
     try {
       const res = await fetch(
-        `https://api.rgb.irpsc.com/api/citizen/${_userId}`,
+        `https://api.rgb.irpsc.com/api/citizen/${id}`,
         {
           headers: {
             "Content-Type": "application/json",
+            "Cache-Control": "public, max-age=3600", 
           },
         }
       );
@@ -137,4 +150,26 @@
       // در صورت وجود خطا
       return { props: { error: "خطا در دریافت داده‌ها" } };
     }
+  }
+
+  export async function getAllReferral(_userId, _searchParam = ""){
+    const res = await fetch(`https://api.rgb.irpsc.com/api/citizen/${_userId}/referrals?search=${_searchParam}`,{
+      headers: {
+        "Content-Type": "application/json",
+        "Cache-Control": "public, max-age=3600", 
+      },}
+    )
+    let temp = await res.json()
+    return temp
+  }
+
+  export async function getChartReferral(_userId, _searchParam = ""){
+    const res = await fetch(`https://api.rgb.irpsc.com/api/citizen/${_userId}/referrals/chart?range=${_searchParam}`,{
+      headers: {
+        "Content-Type": "application/json",
+        "Cache-Control": "public, max-age=3600", 
+      },}
+    )
+    let temp = await res.json()
+    return temp.data
   }

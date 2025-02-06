@@ -149,22 +149,22 @@ function Footer({ footerTabs }: any) {
       (entries) => {
         const entry = entries[0];
         if (entry.isIntersecting) {
-          setInView(true); // Trigger iframe load when in view
+          setInView(true);
         }
       },
       {
         rootMargin: "0px",
-        threshold: 0.1, // Trigger when 10% of the iframe is in view
+        threshold: 0.1,
       }
     );
 
     if (footerRef.current) {
-      observer.observe(footerRef.current); // Observe the iframe container
+      observer.observe(footerRef.current);
     }
 
     return () => {
       if (footerRef.current) {
-        observer.unobserve(footerRef.current); // Cleanup observer
+        observer.unobserve(footerRef.current);
       }
     };
   }, []);

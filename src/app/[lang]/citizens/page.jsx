@@ -77,9 +77,9 @@ export async function generateMetadata({ params }) {
 
 export default async function CitizensPage({ params }) {
   const [footerTabs, langData, langArray] = await Promise.all([
-  getFooterData(params), // Independent
-  getTranslation(params.lang), // Independent
-  getLangArray(), // Independent
+  getFooterData(params), 
+  getTranslation(params.lang), 
+  getLangArray(),
 ]);
   
   const mainData = await getMainFile(langData);

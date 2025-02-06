@@ -160,10 +160,6 @@ export default async function AboutPage({ params }: any) {
           pageSide="citizen"
         />
         <section
-          // id={`${
-          //   themeDataActive == "dark" ? "dark-scrollbar" : "light-scrollbar"
-          // }`}
-
           className={`h-[calc(100vh-60px)] lg:h-screen overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0`}
         >
           {/* Breadcrumb */}

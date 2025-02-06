@@ -2,9 +2,60 @@
 import { usePathname } from "next/navigation";
 import { ArrowMenu } from "@/svgs/index";
 import Link from "next/link";
+import { getUserData } from "@/components/utils/actions";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function ({ params }: any) {
+  const [userName, setUserName] = useState("");
+  // retrive name according to userId
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get(
+          `https://api.rgb.irpsc.com/api/citizen/${params.id}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        let temp = response.data.data;
+        let firstName = temp?.kyc?.fname ? temp?.kyc?.fname : "";
+        let lastName = temp?.kyc?.lname ? temp?.kyc?.lname : "";
+        if (params.lang.toLowerCase() == "fa") {
+          setUserName(`${firstName} ${lastName}`);
+        } else if (params.lang.toLowerCase() == "en") {
+          setUserName(temp.name ? temp.name : `${firstName} ${lastName}`);
+        }
+      } catch (error) {
+        console.error("fetch user data", error);
+      }
+    };
+    // const fetchUserData = async () => {
+    //   let temp = await getUserData(params.id);
+    //   let firstName = temp.data?.kyc?.fname ? temp.data?.kyc?.fname : "";
+    //   let lastName = temp.data?.kyc?.lname ? temp.data?.kyc?.lname : "";
+    //   if (params.lang.toLowerCase() == "fa") {
+    //     setUserName(`${firstName} ${lastName}`);
+    //   } else if (params.lang.toLowerCase() == "en") {
+    //     setUserName(
+    //       temp.data.name ? temp.data.name : `${firstName} ${lastName}`
+    //     );
+    //   }
+    // };
+    fetchUserData();
+  }, [params.id]);
+
   const staticData = [
+    {
+      name: `${params.id}`,
+      en: `${userName}'s invite list`,
+      fa: `لیست دعوتی های ${userName}`,
+      font: "font-bold",
+      link: `/${params.lang}/citizens/${params.id}`,
+    },
     {
       name: "citizens",
       en: "citizens",
