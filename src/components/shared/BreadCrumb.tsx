@@ -51,8 +51,8 @@ export default function ({ params }: any) {
   const staticData = [
     {
       name: `${params.id}`,
-      en: `${userName}'s invite list`,
-      fa: `لیست دعوتی های ${userName}`,
+      en: `${userName}'s invites`,
+      fa: `دعوتی های ${userName}`,
       font: "font-bold",
       link: `/${params.lang}/citizens/${params.id}`,
     },

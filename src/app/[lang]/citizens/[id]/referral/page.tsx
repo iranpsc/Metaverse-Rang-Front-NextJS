@@ -35,6 +35,8 @@ export default async function CitizenReferral({ params }: { params: any }) {
       getChartReferral(params.id, "daily"),
     ]);
 
+  console.log("initInviteList", initInviteList);
+
   // Convert all digits to Persian digits
   const convertToPersianDigits = (str: any) => {
     return str.replace(/\d/g, (d: any) => "۰۱۲۳۴۵۶۷۸۹"[d]);
@@ -110,42 +112,42 @@ export default async function CitizenReferral({ params }: { params: any }) {
     "@context": "https://schema.org/",
     "@type": "ItemList",
 
-    itemListElement: initInviteList.data.map((invited: any, index: any) => {
-      return {
-        // "@type": "PropertyValue",
-        // name: localFind("gem chip"),
-        // value: levelTabs.data.thread,
-
+    itemListElement: [
+      // Static item for Total Invited
+      {
+        "@type": "ListItem",
+        position: "total invited",
+        name: "Total Invited",
+        value: initInviteList.data.length,
+        url: `https://rgb.irpsc.com/fa/citizens/${params.id}/referral`,
+      },
+      // Static item for Total Reward
+      {
+        "@type": "ListItem",
+        position: "total reward",
+        name: "Total Reward",
+        value: initInviteList.data.reduce((sum: any, person: any) => {
+          // Sum the amounts of all referrerOrders for the current person
+          const personTotal = person.referrerOrders.reduce(
+            (orderSum: any, order: any) => orderSum + order.amount,
+            0
+          );
+          return sum + personTotal;
+        }, 0),
+        url: `https://rgb.irpsc.com/fa/citizens/${params.id}/referral`,
+      },
+      // Dynamic items for each invite
+      ...initInviteList.data.map((invited: any, index: any) => ({
         "@type": "Person",
-        position: index + 1,
+        position: index + 3, // Start after the static items
         name: invited.name,
         identifier: invited.code,
-        url: invited.image || "https://api.rgb.irpsc.com/",
-      };
-    }),
+        url:
+          invited.image ||
+          `https://rgb.irpsc.com/fa/citizens/${params.id}/referral`,
+      })),
+    ],
   };
-
-  // const referralStatsSchema = {
-  //   "@context": "https://schema.org/",
-  //   "@type": "Offer",
-  //   name: "Referral Program Statistics",
-  //   description:
-  //     "Total statistics for the referral program, including total reward points and total number of invited persons.",
-  //   additionalProperty: [
-  //     {
-  //       "@type": "PropertyValue",
-  //       name: "Total Reward",
-  //       value: 3000,
-  //       unitText: "points",
-  //     },
-  //     {
-  //       "@type": "PropertyValue",
-  //       name: "Total Invited",
-  //       value: 20,
-  //       unitText: "persons",
-  //     },
-  //   ],
-  // };
 
   return (
     <>
@@ -162,12 +164,6 @@ export default async function CitizenReferral({ params }: { params: any }) {
           __html: JSON.stringify(itemListSchema),
         }}
       />
-      {/* <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(referralStatsSchema),
-        }}
-      /> */}
       {/* schema END */}
       <div className="flex h-screen overflow-hidden" dir={langData.direction}>
         <SideBar
@@ -248,16 +244,18 @@ export async function generateMetadata({ params }: { params: any }) {
   }
 
   return {
-    title: `${profileData.data.kyc?.fname || ""} ${
-      profileData.data.kyc?.lname || "referral"
-    }`,
+    title: `${
+      params.lang.toLowerCase() == "fa" ? "دعوتی های" : "invite list of"
+    } ${profileData.data.kyc?.fname} ${profileData.data.kyc?.lname}`,
     description:
       (await localFind("the list of friends who have been")) ||
       "citizen referral page",
     openGraph: {
       // site_name:'',
       type: "profile",
-      title: `${localFind("invitation list")}`,
+      title: `${
+        params.lang.toLowerCase() == "fa" ? "دعوتی های" : "invite list of"
+      } ${profileData.data.kyc?.fname} ${profileData.data.kyc?.lname} `,
       description: `${await makeLessCharacter()}`,
       locale: params.lang == "fa" ? "fa_IR" : "en_US",
       url: `https://rgb.irpsc.com/${params.lang}/citizen/${params.id}/referral`,

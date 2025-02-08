@@ -134,40 +134,6 @@ export default async function citizenSinglePage({
               pageSide="citizen"
             />
             <section className="relative w-full bg-[#e9eef8] dark:bg-black">
-              {/* <AnimatePresence>
-                {showLogOut && (
-                <LogoutPage showLogOut={showLogOut} setShowLogOut={setShowLogOut} />
-                )}
-              </AnimatePresence> */}
-
-              {/* <AnimatePresence>
-                {showSharedPage && (
-                <ShredPage
-                      showSharedPage={showSharedPage}
-                      setShowSharedPage={setShowSharedPage}
-                      profileData.data={profileData.data}
-                  />
-                )}
-              </AnimatePresence> */}
-
-              {/* <AnimatePresence>
-                {showModal && (
-                <ModalCard
-                  showModal={showModal}
-                  setShowModal={setShowModal}
-                  dataModal={dataModal}
-                  titleData={titleData}
-                />
-                )}
-              </AnimatePresence> */}
-
-              {/* <div className=" xl:hidden lg:hidden md:visible sm:visible xs:visible w-full h-fit absolute bottom-0 z-40">
-                <div className="w-full h-fit dark:bg-black bg-white absolute bottom-0 shadow-3xl">
-                  <StaticMobileMenu />
-                </div>
-              </div> */}
-
-              {/* ${showModal || showSharedPage ? "" : ""} DOWNNN  */}
               <div
                 className={`flex flex-col lg:flex-row h-fit lg:h-full gap-[6px] p-[6px]`}>
                   {/* FIRST */}

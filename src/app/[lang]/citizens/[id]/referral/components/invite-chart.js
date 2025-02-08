@@ -144,6 +144,8 @@ export default function InviteChart({params,referralPageArrayContent,initChartDa
 
   // Function to update the chart data based on the selected timeframe
   const handleTimeframeClick = async (timeframe) => {
+    setInvBtn(true)
+    setGiftBtn(true)
     setTimePeriodBtns(timeframe)
     const fetchData = async () => {
       try {
@@ -234,7 +236,18 @@ export default function InviteChart({params,referralPageArrayContent,initChartDa
           </button>
         </div>
       </div>
+      {/* LEGENDARY buttons */}
+      <div className="flex justify-start md:justify-end gap-6 text-right mt-6">
+        <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleLegendClick(0)}>
+          <div className="w-2 h-2 lg:w-3 lg:h-3 rounded-full bg-[#0066FF]"></div>
+          <span className={`text-[#0066FF] ${invBtn?"":"line-through"}`}>{localFind("invitations")}</span>
+        </div>
 
+        <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleLegendClick(1)}>
+          <div className="w-2 h-2 lg:w-3 lg:h-3 rounded-full bg-[#FFC700]"></div>
+          <span className={`text-[#FFC700] ${giftBtn?"":"line-through"}`}>{localFind("-rewards")}</span>
+        </div>
+      </div>
       {/* BIG CARDS - 1 */}
 
       <div className=" w-full pt-2  text-right flex flex-col gap-3 md:flex-row">
@@ -442,18 +455,6 @@ export default function InviteChart({params,referralPageArrayContent,initChartDa
               />
             </svg>
           </div>
-        </div>
-      </div>
-
-      <div className="flex justify-center gap-6 text-right mt-6">
-        <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleLegendClick(0)}>
-          <div className="w-2 h-2 lg:w-3 lg:h-3 rounded-full bg-[#0066FF]"></div>
-          <span className={`text-[#0066FF] ${invBtn?"":"line-through"}`}>{localFind("invitations")}</span>
-        </div>
-
-        <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleLegendClick(1)}>
-          <div className="w-2 h-2 lg:w-3 lg:h-3 rounded-full bg-[#FFC700]"></div>
-          <span className={`text-[#FFC700] ${giftBtn?"":"line-through"}`}>{localFind("-rewards")}</span>
         </div>
       </div>
 
