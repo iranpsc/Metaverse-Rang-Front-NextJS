@@ -43,7 +43,7 @@ export default function InviteList({
   };
   return (
     <>
-      <div className="flex flex-col py-8 leading-[24px] gap-4 w-full lg:w-[49%]  lg:self-start">
+      <div className="flex flex-col py-8 leading-[24px] gap-4 w-full lg:w-[49%]  lg:self-start my-4">
         <p className="text-white font-black lg:text-2xl">
           {localFind("invitation list")}
         </p>
@@ -73,8 +73,9 @@ export default function InviteList({
             id="searchBox"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="searchWrite pr-2 pl-5 text-white bg-transparent flex-1 w-[90%] h-[90%] border-none outline-none text-sm text-aliceblue font-azarMehr"
+            className="searchWrite pr-2 pl-5 text-white bg-transparent flex-1 w-[90%] h-[90%] border-none outline-none text-sm text-aliceblue font-azarMehr text-[20px]"
             placeholder={localFind("search for your invitee")}
+            style={{ fontSize: "18px" }}
           />
           <button
             onClick={searchFetch}

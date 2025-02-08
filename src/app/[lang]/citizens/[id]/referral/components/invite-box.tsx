@@ -10,11 +10,50 @@ export default function InviteBox({
 }) {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [copied, setCopied] = useState(false);
+  const [inviteLink, setInviteLink] = useState("EYFcAda/occHk3ExampleFullLink");
 
   function localFind(_name: any) {
     return referralPageArrayContent.find((item: any) => item.name == _name)
       .translation;
   }
+
+  const redirectTo = (e: any, _input: string) => {
+    e.preventDefault();
+    switch (_input) {
+      case "telegram":
+        const telegramURL = `https://t.me/share/url?url=${encodeURIComponent(
+          inviteLink
+        )}`;
+        window.open(telegramURL, "_blank");
+        return;
+      case "whatsapp":
+        const whatsAppURL = `https://api.whatsapp.com/send?text=${encodeURIComponent(
+          inviteLink
+        )}`;
+        window.open(whatsAppURL, "_blank");
+        return;
+      case "facebook":
+        const faceBookLinkURL = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+          inviteLink
+        )}`;
+        window.open(faceBookLinkURL, "_blank");
+        return;
+      case "linkedin":
+        const linkedinLinkURL = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+          inviteLink
+        )}`;
+        window.open(linkedinLinkURL, "_blank");
+        return;
+      case "x":
+        const xURL = `https://twitter.com/intent/tweet?url=${encodeURIComponent(
+          inviteLink
+        )}`;
+        window.open(xURL, "_blank");
+        return;
+      default:
+        break;
+    }
+  };
 
   const copyToClipboard = () => {
     if (inputRef.current) {
@@ -63,7 +102,7 @@ export default function InviteBox({
                   ref={inputRef}
                   id="invite-link1"
                   type="text"
-                  value="EYFcAda/occHk3ExampleFullLink"
+                  value={inviteLink}
                   className="text-[#868B90] px-1 bg-transparent w-full overflow-hidden border-none whitespace-nowrap overflow-ellipsis outline-none cursor-pointer"
                   readOnly
                   onClick={copyToClipboard}
@@ -101,7 +140,11 @@ export default function InviteBox({
               </span>
               <div className="flex flex-row w-full justify-between gap-1 sm:px-24 lg:p-0 ">
                 {/* لینک تلگرام */}
-                <a id="telegram-share" className="text-gray-400 cursor-pointer">
+                <a
+                  onClick={(e) => redirectTo(e, "telegram")}
+                  id="telegram-share"
+                  className="text-gray-400 cursor-pointer"
+                >
                   <svg
                     className="xl:w-10 xl:h-10 2xl:w-11 2xl:h-11"
                     width="32"
@@ -130,7 +173,11 @@ export default function InviteBox({
 
                 {/* لینک واتساپ */}
 
-                <a id="whatsApp-share" className="text-gray-400 cursor-pointer">
+                <a
+                  onClick={(e) => redirectTo(e, "whatsapp")}
+                  id="whatsApp-share"
+                  className="text-gray-400 cursor-pointer"
+                >
                   <svg
                     className="xl:w-10 xl:h-10 2xl:w-11 2xl:h-11"
                     width="32"
@@ -157,7 +204,11 @@ export default function InviteBox({
                   </svg>
                 </a>
                 {/* لینک فیس بوک */}
-                <a id="faceBook-share" className="text-gray-400 cursor-pointer">
+                <a
+                  onClick={(e) => redirectTo(e, "facebook")}
+                  id="faceBook-share"
+                  className="text-gray-400 cursor-pointer"
+                >
                   <svg
                     className="xl:w-10 xl:h-10 2xl:w-11 2xl:h-11"
                     width="32"
@@ -185,7 +236,11 @@ export default function InviteBox({
                 </a>
                 {/* لینک لینکدین */}
 
-                <a id="linkedin-share" className="text-gray-400 cursor-pointer">
+                <a
+                  onClick={(e) => redirectTo(e, "linkedin")}
+                  id="linkedin-share"
+                  className="text-gray-400 cursor-pointer"
+                >
                   <svg
                     className="xl:w-10 xl:h-10 2xl:w-11 2xl:h-11"
                     width="32"
@@ -209,7 +264,11 @@ export default function InviteBox({
                 </a>
 
                 {/* لینک ایکس */}
-                <a id="x-share" className="text-gray-400 cursor-pointer">
+                <a
+                  onClick={(e) => redirectTo(e, "x")}
+                  id="x-share"
+                  className="text-gray-400 cursor-pointer"
+                >
                   <svg
                     className="xl:w-10 xl:h-10 2xl:w-11 2xl:h-11"
                     width="32"
