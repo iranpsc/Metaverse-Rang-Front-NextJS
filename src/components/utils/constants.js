@@ -7,7 +7,7 @@ export const staticMenuToShow = [
     { name: "structures" },
     { name: "belongings" },
     { name: "permissions" },
-    { name: "invitations" },
+    { name: "invitations",url:"referral" },
     { name: "transaction" },
     { name: "reward" },
     { name: "dynasty" },

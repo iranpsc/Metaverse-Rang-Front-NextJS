@@ -67,7 +67,7 @@ export default function InviteBox({
     }
   };
   return (
-    <div className="bg-white dark:bg-darkGray lg:overflow-visible h-auto flex flex-col w-full justify-start items-center text-white rounded-3xl relative overflow-hidden lg:flex-row">
+    <div className="bg-white dark:bg-darkGray lg:overflow-visible h-auto flex flex-col w-full justify-start items-center text-white rounded-3xl relative overflow-hidden lg:flex-row mt-[64px]">
       <div
         className="absolute inset-20 lg:inset-5 opacity-10 bg-no-repeat  rotate-[25deg] z-10 w-44 h-44 "
         style={{
@@ -134,11 +134,11 @@ export default function InviteBox({
               </div>
             </div>
 
-            <div className=" flex flex-col justify-between items-center lg:justify-center lg:gap-3 lg:pr-2 xl:pr-9 lg:w-[25%] xl:w-[30%] ">
+            <div className=" flex flex-col justify-between lg:w-[60%] items-center lg:justify-center lg:gap-3 lg:pr-2 xl:pr-9">
               <span className="text-black dark:text-white my-5 self-start lg:my-0 lg:mb-8">
                 {localFind("share via")}
               </span>
-              <div className="flex flex-row w-full justify-between gap-1 sm:px-24 lg:p-0 ">
+              <div className="flex flex-row w-full justify-evenly gap-1 sm:px-24 lg:p-0">
                 {/* لینک تلگرام */}
                 <a
                   onClick={(e) => redirectTo(e, "telegram")}
