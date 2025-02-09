@@ -200,37 +200,37 @@ export default function InviteChart({params,referralPageArrayContent,initChartDa
 
 
   return (
-    <div className="bg-black w-full pt-7 text-right flex flex-col gap-3">
-      <div className="w-full md:max-w-[50%] lg:max-w-[30%] pt-7 text-right flex flex-col gap-3">
-        <h2 className="text-white text-lg font-black font-azarMehr lg:text-2xl">
+    <div className="w-full pt-7 text-right flex flex-col gap-3">
+      <div className="w-full pt-7 text-right flex flex-col gap-3">
+        <h2 className="text-black dark:text-white text-lg font-black font-azarMehr lg:text-2xl">
          {localFind("reward history table")}
         </h2>
-        <p className="text-[#A0A0AB] text-lg">
+        <p className="text-[#A0A0AB] text-lg my-3">
           {localFind("in this table, you can see the am")}
         </p>
 
-        <div className="flex justify-between gap-4 w-full h-[64px]">
+        <div className="flex justify-between gap-4 md:max-w-[50%] lg:max-w-[30%] h-[64px]">
           <button
             onClick={() => handleTimeframeClick("daily")}
-            className={`moment bg-[#0C0D0F] text-[#84858F] p-2 rounded-xl w-full ${timePeriodBtns == 'daily'?"border border-[#33353B]":''}`}
+            className={`moment bg-white dark:bg-darkGray text-[#84858F] p-2 rounded-xl w-full ${timePeriodBtns == 'daily'?"border border-[#33353B]":''}`}
           >
             {localFind('daily')}
           </button>
           <button
             onClick={() => handleTimeframeClick("weekly")}
-            className={`moment bg-[#0C0D0F] text-[#84858F] p-2 rounded-xl w-full ${timePeriodBtns == 'weekly'?"border border-[#33353B]":''}`}
+            className={`moment bg-white dark:bg-darkGray text-[#84858F] p-2 rounded-xl w-full ${timePeriodBtns == 'weekly'?"border border-[#33353B]":''}`}
           >
             {localFind('weekly')}
           </button>
           <button
             onClick={() => handleTimeframeClick("monthly")}
-            className={`moment bg-[#0C0D0F] text-[#84858F] p-2 rounded-xl w-full ${timePeriodBtns == 'monthly'?"border border-[#33353B]":''}`}
+            className={`moment bg-white dark:bg-darkGray text-[#84858F] p-2 rounded-xl w-full ${timePeriodBtns == 'monthly'?"border border-[#33353B]":''}`}
           >
             {localFind('monthly')}
           </button>
           <button
             onClick={() => handleTimeframeClick("yearly")}
-            className={`moment bg-[#0C0D0F] text-[#84858F] p-2 rounded-xl w-full ${timePeriodBtns == 'yearly'?"border border-[#33353B]":''}`}
+            className={`moment bg-white dark:bg-darkGray text-[#84858F] p-2 rounded-xl w-full ${timePeriodBtns == 'yearly'?"border border-[#33353B]":''}`}
           >
             {localFind('annually')}
           </button>

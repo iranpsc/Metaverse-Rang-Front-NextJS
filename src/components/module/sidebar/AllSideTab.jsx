@@ -172,7 +172,7 @@ export default function SideBarContent({
                 </div>
 
                 <div className={`${langDropDown ? "h-fit" : 'h-0 overflow-hidden'}
-                  base-transition-1 bg-Field dark:bg-darkGrey`}>
+                  base-transition-1 bg-Field dark:bg-darkGray`}>
                   <DropdownLanguageModule
                     languagesData={langData}
                     langArray={langArray}

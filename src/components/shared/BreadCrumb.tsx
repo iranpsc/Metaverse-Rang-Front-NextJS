@@ -241,6 +241,8 @@ export default function ({ params }: any) {
     });
   });
 
+  console.log("builded arrayyyy", buildedArray.length);
+
   return (
     <div className="flex flex-wrap font-azarMehr text-[16px] lg:text-[18px] 2xl:text-[20px] py-[20px] capitalize">
       {direction == "rtl"
@@ -248,14 +250,20 @@ export default function ({ params }: any) {
             <Link
               href={x.link}
               className={`${
-                index == temp.length - 1 ? "text-black" : "text-blueLink"
+                index == buildedArray.length - 1
+                  ? "text-black"
+                  : "text-blueLink"
               } 
               dark:${
-                index == temp.length - 1 ? "text-white" : "text-dark-yellow"
+                index == buildedArray.length - 1
+                  ? "text-white"
+                  : "text-dark-yellow"
               } ${x.font} flex items-center`}
               key={index}
             >
+              {/* TEXT */}
               {x.fa}
+
               {buildedArray.length - 1 != index && (
                 <ArrowMenu
                   className={`w-[7px] h-[13px] stroke-gray dark:stroke-white mx-2 rotate-180`}
@@ -267,10 +275,14 @@ export default function ({ params }: any) {
             <Link
               href={x.link}
               className={`${
-                index == temp.length - 1 ? "text-black" : "text-blueLink"
+                index == buildedArray.length - 1
+                  ? "text-black"
+                  : "text-blueLink"
               } 
             dark:${
-              index == temp.length - 1 ? "text-white" : "text-dark-yellow"
+              index == buildedArray.length - 1
+                ? "text-white"
+                : "text-dark-yellow"
             } ${x.font} flex items-center`}
               key={index}
             >

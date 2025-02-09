@@ -39,17 +39,11 @@
 } */
 
 .searchWrite::placeholder {
-    font-family: 'AzarMehrFD';
-
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
     width: 80%;
-padding-left: 45px;
-
-    font-size: 110%;
-    color: #868B90;
-
+    padding-left: 45px;
 }
 /* all page css*/
 
@@ -141,7 +135,6 @@ padding-left: 45px;
     background-color: #000;
     display: flex;
     flex-direction: column;
-    font-family: 'AzarMehrFD';
     gap: 10px;
 }
 
@@ -367,9 +360,6 @@ padding-left: 45px;
 
 .description {
     transition: max-height 0.3s ease;
-
-    font-family: "Vazir";
-
     align-self: flex-start;
     color: #FFFFFF;
 
@@ -550,7 +540,6 @@ padding-left: 45px;
         padding-top: 30px;
         padding-right: 33px;
         font-size: 140%;
-        font-family: "Rokh";
 
     }
 
@@ -679,14 +668,12 @@ padding-left: 45px;
     }
 
     .versionP {
-        font-family: "Rokh";
         font-weight: 600;
         font-size: 200%;
 
     }
 
     .toseVbehbod {
-        font-family: 'Rokh';
         color: #FCF9FE;
         z-index: 1;
         text-wrap: nowrap;

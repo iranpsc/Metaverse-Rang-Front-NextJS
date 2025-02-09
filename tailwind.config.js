@@ -83,7 +83,6 @@ module.exports = {
         // *** this project custome START
         black: "#000000ff",
         lightGray: "#868B90",
-        darkGray:"#484950",
         bgLightGrey:"#E9E9E9",
         textGray:'#33353B',
         bgGray:'#F4F4F4',
@@ -101,7 +100,7 @@ module.exports = {
         activeTextButton: "#D4ECFF",
         borderField: "#DADADA",
         Field: "#FCFCFC",
-        darkGrey: "#1A1A18",
+        darkGray: "#1A1A18",
         darkGrey_1:"#10100F",
         grayLight:"#F8F8F8",
         activeGrey:"#626262",
