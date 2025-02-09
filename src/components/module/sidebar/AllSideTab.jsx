@@ -79,7 +79,6 @@ export default function SideBarContent({
       // convert url to match pathName
       urlThemp = `/${params.lang}${item.url?"/"+item.url:''}`
     }
-    console.log('urlThemp::',urlThemp)
 
     
     // home has url but its "empty", not "undefined"

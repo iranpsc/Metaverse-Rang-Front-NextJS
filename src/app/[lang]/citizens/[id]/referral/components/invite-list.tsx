@@ -101,7 +101,7 @@ export default function InviteList({
       {referralList.length == 0 && (
         <p className="w-full text-center text-white">موردی یافت نشد.</p>
       )}
-      <p className="w-[150px] text-[#FFC700] pt-7 cursor-pointer m-auto text-center">
+      <p className="w-[150px] text-blueLink dark:text-dark-primary pt-7 cursor-pointer m-auto text-center">
         مشاهده بیشتر
       </p>
     </>
