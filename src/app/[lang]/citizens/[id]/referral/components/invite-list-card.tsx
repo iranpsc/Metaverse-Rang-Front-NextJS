@@ -15,12 +15,12 @@ export default function InviteListCard({
   );
   return (
     <div className="dark:bg-darkGray bg-white p-3 rounded-xl flex  items-center w-full h-[56px] lg:h-[112px]">
-      <div className="relative w-[50px] h-[50px] lg:w-[100px] lg:h-[100px]">
+      <div className="relative w-[50px] h-[50px] lg:w-[100px] lg:h-[100px] rounded-full overflow-hidden">
         <Image
           fill
           sizes="(max-width: 1024px) 50px,(min-width: 1025px) 100px"
           className="w-full h-full"
-          src="/firstpage/temp-1.webp"
+          src={item.image || "/firstpage/temp-1.webp"}
           alt="example"
         />
       </div>
