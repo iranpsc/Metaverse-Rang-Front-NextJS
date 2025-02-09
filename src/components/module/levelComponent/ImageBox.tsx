@@ -62,8 +62,8 @@ export default function ImageBox({ item, singleLevel }: any) {
             key={type}
             className={`basis-1/4 min-w-[70px] px-5 py-2 mb-2 rounded font-[700] ${
               mode === type
-                ? "dark:bg-dark-yellow dark:text-darkGrey bg-light-primary text-white"
-                : "dark:bg-darkGrey bg-light-newColors-otherColors-themeBtn dark:text-light-newColors-otherColors-themeBtn"
+                ? "dark:bg-dark-yellow dark:text-darkGray bg-light-primary text-white"
+                : "dark:bg-darkGray bg-light-newColors-otherColors-themeBtn dark:text-light-newColors-otherColors-themeBtn"
             }`}
             onClick={() => changeMode(type)}
           >

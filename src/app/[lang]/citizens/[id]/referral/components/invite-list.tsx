@@ -44,14 +44,14 @@ export default function InviteList({
   return (
     <>
       <div className="flex flex-col py-8 leading-[24px] gap-4 w-full lg:w-[49%]  lg:self-start my-4">
-        <p className="text-white font-black lg:text-2xl">
+        <p className="text-black dark:text-white font-black lg:text-2xl">
           {localFind("invitation list")}
         </p>
-        <p className="text-[#A0A0AB] lg:text-lg">
+        <p className="text-lightGray dark:text-lightGray lg:text-lg">
           {localFind("the list of friends who have been")}
         </p>
 
-        <div className="searchBoxContainer  transition-[right,width] duration-300 ease-in-out flex items-center flex-row justify-between bg-[#1A1A18] w-full h-[50px] rounded-[12px] ">
+        <div className="transition-[right,width] duration-300 ease-in-out flex items-center flex-row justify-between bg-white dark:bg-darkGray w-full h-[50px] rounded-[12px] ">
           <div className="searchIcon flex justify-center pr-7">
             <svg
               width="19"
@@ -70,16 +70,15 @@ export default function InviteList({
           </div>
           <input
             type="text"
-            id="searchBox"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="searchWrite pr-2 pl-5 text-white bg-transparent flex-1 w-[90%] h-[90%] border-none outline-none text-sm text-aliceblue font-azarMehr text-[20px]"
+            className="pr-2 pl-5 text-white bg-transparent flex-1 w-[90%] h-[90%] border-none outline-none text-sm text-aliceblue font-azarMehr text-[16px]"
             placeholder={localFind("search for your invitee")}
             style={{ fontSize: "18px" }}
           />
           <button
             onClick={searchFetch}
-            className="searchButton font-normal text-[95%] pl-5  border-none bg-transparent text-[#FFBC00] cursor-pointer"
+            className="searchButton font-normal text-[95%] pl-5 border-none bg-transparent text-blueLink dark:text-dark-primary cursor-pointer"
           >
             جستجو
           </button>

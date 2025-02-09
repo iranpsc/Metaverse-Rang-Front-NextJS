@@ -67,7 +67,7 @@ export default function InviteBox({
     }
   };
   return (
-    <div className="bg-[#1A1A18] lg:overflow-visible h-auto flex flex-col w-full justify-start items-center text-white rounded-3xl relative overflow-hidden lg:flex-row">
+    <div className="bg-white dark:bg-darkGray lg:overflow-visible h-auto flex flex-col w-full justify-start items-center text-white rounded-3xl relative overflow-hidden lg:flex-row">
       <div
         className="absolute inset-20 lg:inset-5 opacity-10 bg-no-repeat  rotate-[25deg] z-10 w-44 h-44 "
         style={{
@@ -79,7 +79,7 @@ export default function InviteBox({
       {/* محتوای دیو */}
       <div className="flex flex-wrap min-h-[260px]">
         <div className="w-full lg:w-3/4 p-6">
-          <p className="text-lg font-bold leading-[45px] text-justify lg:text-xl ">
+          <p className="text-black dark:text-white text-lg font-bold leading-[45px] text-justify lg:text-xl ">
             {localFind("description of invitations")}
           </p>
 
@@ -87,14 +87,14 @@ export default function InviteBox({
             <div className="lg:w-[30%] ">
               <label
                 htmlFor="invite-link1"
-                className="block mb-2 lg:mb-8 text-white"
+                className="block mb-2 lg:mb-8 text-black dark:text-white"
               >
                 {localFind("copy link")}
               </label>
               <div className=" h-12 lg:h-13 xl:h-14 rounded-xl border border-solid border-[#484950] flex flex-row-reverse items-center  px-2 relative">
                 <button
                   onClick={copyToClipboard}
-                  className="text-[#FFBC00] text-sm whitespace-nowrap bg-transparent"
+                  className="dark:text-dark-primary text-blueLink text-sm whitespace-nowrap bg-transparent"
                 >
                   {copied ? "کپی شد" : localFind("copy the invitation link")}
                 </button>
@@ -135,7 +135,7 @@ export default function InviteBox({
             </div>
 
             <div className=" flex flex-col justify-between items-center lg:justify-center lg:gap-3 lg:pr-2 xl:pr-9 lg:w-[25%] xl:w-[30%] ">
-              <span className="my-5 self-start lg:my-0 lg:mb-8">
+              <span className="text-black dark:text-white my-5 self-start lg:my-0 lg:mb-8">
                 {localFind("share via")}
               </span>
               <div className="flex flex-row w-full justify-between gap-1 sm:px-24 lg:p-0 ">
