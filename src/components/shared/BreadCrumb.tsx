@@ -241,8 +241,6 @@ export default function ({ params }: any) {
     });
   });
 
-  console.log("builded arrayyyy", buildedArray.length);
-
   return (
     <div className="flex flex-wrap font-azarMehr text-[16px] lg:text-[18px] 2xl:text-[20px] py-[20px] capitalize">
       {direction == "rtl"

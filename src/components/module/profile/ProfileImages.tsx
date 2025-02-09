@@ -46,6 +46,7 @@ export default function ProfileImages({
   for (let i = 0; i < Math.min(maxImages, (imgProfiles || []).length); i++) {
     images.push(
       <figure
+        key={i}
         className={`relative rounded-full overflow-hidden aspect-square ${
           imgProfiles[i]?.url == mainImageUrl ? "w-[50px]" : "w-32"
         }`}
@@ -57,7 +58,6 @@ export default function ProfileImages({
           alt={titleData}
           className={`cursor-pointer border-2 border-[#b1b1b1] dark:border-[#fff] inline-block object-cover
         `}
-          key={i}
           onClick={() => changeMainImage(imgProfiles[i]?.url || staticImageURL)}
         />
       </figure>

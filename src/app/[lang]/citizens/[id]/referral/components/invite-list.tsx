@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { getAllReferral } from "@/components/utils/actions";
 import InviteChart from "./invite-chart";
 import InviteListCard from "./invite-list-card";
+import axios from "axios";
 
 export default function InviteList({
   initInviteList,
@@ -29,21 +30,26 @@ export default function InviteList({
   useEffect(() => {}, [isMounted]);
 
   const searchFetch = async () => {
-    let temp = getAllReferral(params.id, searchTerm);
-
     try {
       // Call the API with the search term
-      const filteredReferralList = await getAllReferral(params.id, searchTerm);
+      const filteredReferralList = await axios.get(
+        `https://api.rgb.irpsc.com/api/citizen/${params.id}/referrals?search=${searchTerm}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       // Update the referral list with the filtered results from the API
-      setReferralList(filteredReferralList.data);
+      setReferralList(filteredReferralList.data.data);
     } catch (error) {
       console.error("Error fetching referral list:", error);
     }
   };
   return (
     <>
-      <div className="flex flex-col py-8 leading-[24px] gap-4 w-full lg:w-[49%]  lg:self-start my-4">
+      <div className="flex flex-col py-8 leading-[24px] gap-4 w-full lg:self-start mt-[64px] mb-[32px]">
         <p className="text-black dark:text-white font-black lg:text-2xl">
           {localFind("invitation list")}
         </p>
@@ -51,7 +57,7 @@ export default function InviteList({
           {localFind("the list of friends who have been")}
         </p>
 
-        <div className="transition-[right,width] duration-300 ease-in-out flex items-center flex-row justify-between bg-white dark:bg-darkGray w-full h-[50px] rounded-[12px] ">
+        <div className="transition-[right,width] lg:w-[49%] duration-300 ease-in-out flex items-center flex-row justify-between bg-white dark:bg-darkGray w-full h-[50px] rounded-[12px] ">
           <div className="searchIcon flex justify-center pr-7">
             <svg
               width="19"

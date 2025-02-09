@@ -70,8 +70,17 @@ export default function SideBarContent({
   const pathName = usePathname()
 
   tabsMenu.forEach((item)=>{
-    // convert url to match pathName
-    let urlThemp = `/${params.lang}${item.url?"/"+item.url:''}`
+    let urlThemp
+    // referral route creating
+    if(item.url == "referral"){
+      urlThemp = `/${params.lang}/citizens/${params.id}/referral`
+      item.url = `/citizens/${params.id}/referral`
+    }else{
+      // convert url to match pathName
+      urlThemp = `/${params.lang}${item.url?"/"+item.url:''}`
+    }
+    console.log('urlThemp::',urlThemp)
+
     
     // home has url but its "empty", not "undefined"
     if(item.url != undefined && urlThemp && pathName.endsWith(urlThemp)){
