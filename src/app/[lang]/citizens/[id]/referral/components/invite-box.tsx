@@ -2,12 +2,16 @@
 
 import Image from "next/image";
 import { useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 
 export default function InviteBox({
   referralPageArrayContent,
+  params,
 }: {
   referralPageArrayContent: any;
+  params: any;
 }) {
+  const pathname = usePathname();
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [copied, setCopied] = useState(false);
   const [inviteLink, setInviteLink] = useState("EYFcAda/occHk3ExampleFullLink");
@@ -17,51 +21,53 @@ export default function InviteBox({
       .translation;
   }
 
-  const redirectTo = (e: any, _input: string) => {
-    e.preventDefault();
-    switch (_input) {
-      case "telegram":
-        const telegramURL = `https://t.me/share/url?url=${encodeURIComponent(
-          inviteLink
+  const handleShare = (platform: any) => {
+    const urlToShare = `https://rgb.irpsc.com/${params.lang}/citizen/${params.id}`;
+    let shareUrl = "";
+
+    switch (platform) {
+      case "WhatsApp":
+        shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(
+          urlToShare
         )}`;
-        window.open(telegramURL, "_blank");
-        return;
-      case "whatsapp":
-        const whatsAppURL = `https://api.whatsapp.com/send?text=${encodeURIComponent(
-          inviteLink
+        break;
+      case "Telegram":
+        shareUrl = `https://t.me/share/url?url=${encodeURIComponent(
+          urlToShare
         )}`;
-        window.open(whatsAppURL, "_blank");
-        return;
-      case "facebook":
-        const faceBookLinkURL = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-          inviteLink
+        break;
+      case "Facebook":
+        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+          urlToShare
         )}`;
-        window.open(faceBookLinkURL, "_blank");
-        return;
-      case "linkedin":
-        const linkedinLinkURL = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-          inviteLink
+        break;
+      case "Twitter":
+        shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(
+          urlToShare
+        )}&text=YourTextHere`;
+        break;
+      case "Linkedin":
+        shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+          urlToShare
         )}`;
-        window.open(linkedinLinkURL, "_blank");
-        return;
-      case "x":
-        const xURL = `https://twitter.com/intent/tweet?url=${encodeURIComponent(
-          inviteLink
-        )}`;
-        window.open(xURL, "_blank");
-        return;
-      default:
         break;
     }
+
+    window.open(shareUrl, "_blank");
   };
 
   const copyToClipboard = () => {
+    let fullUrl;
+    if (typeof window !== "undefined") {
+      fullUrl = `${window.location.origin}${pathname}`;
+    }
+
     if (inputRef.current) {
       navigator.clipboard
-        .writeText(inputRef.current.value)
+        .writeText(fullUrl + "/" + inputRef.current.value)
         .then(() => {
           setCopied(true); // Update button text to "Copied"
-          setTimeout(() => setCopied(false), 5000); // Reset text after 2 seconds
+          setTimeout(() => setCopied(false), 5000); // Reset text after 5 seconds
         })
         .catch((err) => console.error("Failed to copy text:", err));
     }
@@ -79,7 +85,7 @@ export default function InviteBox({
       {/* محتوای دیو */}
       <div className="flex flex-wrap min-h-[260px]">
         <div className="w-full lg:w-3/4 p-6">
-          <p className="text-black dark:text-white text-lg font-bold leading-[45px] text-justify lg:text-xl ">
+          <p className="text-black dark:text-white text-lg leading-[36px] text-justify lg:text-[20px] ">
             {localFind("description of invitations")}
           </p>
 
@@ -141,7 +147,7 @@ export default function InviteBox({
               <div className="flex flex-row w-full justify-evenly gap-1 sm:px-24 lg:p-0">
                 {/* لینک تلگرام */}
                 <a
-                  onClick={(e) => redirectTo(e, "telegram")}
+                  onClick={(e) => handleShare("Telegram")}
                   id="telegram-share"
                   className="text-gray-400 cursor-pointer"
                 >
@@ -174,7 +180,7 @@ export default function InviteBox({
                 {/* لینک واتساپ */}
 
                 <a
-                  onClick={(e) => redirectTo(e, "whatsapp")}
+                  onClick={(e) => handleShare("Whatsapp")}
                   id="whatsApp-share"
                   className="text-gray-400 cursor-pointer"
                 >
@@ -205,7 +211,7 @@ export default function InviteBox({
                 </a>
                 {/* لینک فیس بوک */}
                 <a
-                  onClick={(e) => redirectTo(e, "facebook")}
+                  onClick={(e) => handleShare("Facebook")}
                   id="faceBook-share"
                   className="text-gray-400 cursor-pointer"
                 >
@@ -237,7 +243,7 @@ export default function InviteBox({
                 {/* لینک لینکدین */}
 
                 <a
-                  onClick={(e) => redirectTo(e, "linkedin")}
+                  onClick={(e) => handleShare("Linkedin")}
                   id="linkedin-share"
                   className="text-gray-400 cursor-pointer"
                 >
@@ -265,7 +271,7 @@ export default function InviteBox({
 
                 {/* لینک ایکس */}
                 <a
-                  onClick={(e) => redirectTo(e, "x")}
+                  onClick={(e) => handleShare("Twitter")}
                   id="x-share"
                   className="text-gray-400 cursor-pointer"
                 >
@@ -292,7 +298,7 @@ export default function InviteBox({
           </div>
         </div>
 
-        <div className="relative lg:absolute lg:top-[-30px] rtl:lg:left-0 ltr:lg:right-0 h-[300px] w-full lg:w-[35%]">
+        <div className="relative lg:absolute lg:top-[-30px] rtl:lg:left-0 ltr:lg:right-0 h-[300px] lg:h-[110%] w-full lg:w-[35%]">
           <Image
             className="object-contain"
             src="/firstpage/referral/invite.svg"
