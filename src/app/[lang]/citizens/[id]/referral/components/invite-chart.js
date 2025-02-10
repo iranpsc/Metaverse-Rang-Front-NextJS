@@ -2,6 +2,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import Chart from "chart.js/auto"; // Import Chart.js
 import axios from "axios";
+import useDarkMode from "src/hooks/use-dark-mode";
 
 
 
@@ -12,43 +13,41 @@ export default function InviteChart({params,referralPageArrayContent,initChartDa
   const [invBtn, setInvBtn  ] = useState(true)
   const [giftBtn, setGiftBtn] = useState(true)
   const [timePeriodBtns, setTimePeriodBtns] = useState('daily')
-  
+  const [theme, setTheme] = useState(
+    'dark'
+  );
 
-  function localFind(_name) {
-    return referralPageArrayContent.find((item) => item.name == _name)
-      .translation;
-  }
-
-  // Convert all digits to Persian digits
-  const convertToPersianDigits = (str) => {
-    return str.replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
+  // Function to check the current theme from <html> tag
+  const getThemeFromHTML = () => {
+    return document.documentElement.classList.contains("dark") ? "dark" : "light";
   };
 
-  const sumation = (_array)=>{
-    return _array.reduce((sum, current) => sum + current, 0)
-  }
-
-  const fetchChartData = async (_searchParam) => {
-    try {
-      const response = await axios.get(
-        `https://api.rgb.irpsc.com/api/citizen/${params.id}/referrals/chart?range=${_searchParam}`,{
-          headers: {
-            "Content-Type": "application/json" 
-          },}
-      );
-      return response.data.data
-    } 
-    catch (error) {
-      console.error("Error fetching chart data:", error);
-    }
-  };
-
-
-  // Create the chart and store it in chartRef
   useEffect(() => {
+    // Listen for changes to the <html> tag
+    const observer = new MutationObserver(() => {
+      const newTheme = getThemeFromHTML();
+      setTheme(newTheme); // Update state only if theme changes
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"], // Detect class changes on <html>
+    });
+
+    return () => observer.disconnect(); // Cleanup observer on unmount
+  }, [theme]); // Keep dependency array stable
+
+  useEffect(() => {
+    console.log("Current Theme:", theme); // Debugging
+
     if (!canvasRef.current) return;
     const ctx = canvasRef.current.getContext("2d");
     if (!ctx) return;
+
+    // Destroy previous chart instance if it exists
+    if (chartRef.current) {
+      chartRef.current.destroy();
+    }
 
     const newChart = new Chart(ctx, {
       type: "line",
@@ -85,7 +84,7 @@ export default function InviteChart({params,referralPageArrayContent,initChartDa
         scales: {
           x: {
             ticks: {
-              color: "white",
+              color: theme === "dark" ? "white" : "black", // Dynamically change color
               font: {
                 size: 14,
                 family: "AzarMehrFD",
@@ -104,7 +103,7 @@ export default function InviteChart({params,referralPageArrayContent,initChartDa
           y: {
             beginAtZero: true,
             ticks: {
-              color: "white",
+              color: theme === "dark" ? "white" : "black", // Dynamically change color
             },
             grid: {
               color: "#484850",
@@ -128,7 +127,40 @@ export default function InviteChart({params,referralPageArrayContent,initChartDa
     return () => {
       newChart.destroy();
     };
-  }, [currentData]);
+  }, [JSON.stringify(currentData), theme]); // Use JSON.stringify for currentData
+  
+
+  function localFind(_name) {
+    return referralPageArrayContent.find((item) => item.name == _name)
+      .translation;
+  }
+
+  // Convert all digits to Persian digits
+  const convertToPersianDigits = (str) => {
+    return str.replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
+  };
+
+  const sumation = (_array)=>{
+    return _array.reduce((sum, current) => sum + current, 0)
+  }
+
+  const fetchChartData = async (_searchParam) => {
+    try {
+      const response = await axios.get(
+        `https://api.rgb.irpsc.com/api/citizen/${params.id}/referrals/chart?range=${_searchParam}`,{
+          headers: {
+            "Content-Type": "application/json" 
+          },}
+      );
+      return response.data.data
+    } 
+    catch (error) {
+      console.error("Error fetching chart data:", error);
+    }
+  };
+
+
+
 
     // Handle dataset toggle visibility on legend click
     const handleLegendClick = (datasetIndex) => {
@@ -200,8 +232,8 @@ export default function InviteChart({params,referralPageArrayContent,initChartDa
 
 
   return (
-    <div className="w-full pt-7 text-right flex flex-col gap-3">
-      <div className="w-full pt-7 text-right flex flex-col gap-3">
+    <div className="w-full pt-7 flex flex-col gap-3">
+      <div className="w-full pt-7 flex flex-col gap-3">
         <h2 className="text-black dark:text-white text-lg font-black font-azarMehr lg:text-2xl">
          {localFind("reward history table")}
         </h2>
@@ -212,32 +244,32 @@ export default function InviteChart({params,referralPageArrayContent,initChartDa
         <div className="flex justify-between gap-4 md:max-w-[50%] lg:max-w-[30%] h-[64px]">
           <button
             onClick={() => handleTimeframeClick("daily")}
-            className={`moment bg-white dark:bg-darkGray text-[#84858F] p-2 rounded-xl w-full ${timePeriodBtns == 'daily'?"border border-[#33353B]":''}`}
+            className={`moment bg-white dark:bg-darkGray text-[#84858F] p-2 rounded-xl w-full ${timePeriodBtns == 'daily'?"border border-[#33353B] dark:text-white text-black":''}`}
           >
             {localFind('daily')}
           </button>
           <button
             onClick={() => handleTimeframeClick("weekly")}
-            className={`moment bg-white dark:bg-darkGray text-[#84858F] p-2 rounded-xl w-full ${timePeriodBtns == 'weekly'?"border border-[#33353B]":''}`}
+            className={`moment bg-white dark:bg-darkGray text-[#84858F] p-2 rounded-xl w-full ${timePeriodBtns == 'weekly'?"border border-[#33353B] dark:text-white text-black":''}`}
           >
             {localFind('weekly')}
           </button>
           <button
             onClick={() => handleTimeframeClick("monthly")}
-            className={`moment bg-white dark:bg-darkGray text-[#84858F] p-2 rounded-xl w-full ${timePeriodBtns == 'monthly'?"border border-[#33353B]":''}`}
+            className={`moment bg-white dark:bg-darkGray text-[#84858F] p-2 rounded-xl w-full ${timePeriodBtns == 'monthly'?"border border-[#33353B] dark:text-white text-black":''}`}
           >
             {localFind('monthly')}
           </button>
           <button
             onClick={() => handleTimeframeClick("yearly")}
-            className={`moment bg-white dark:bg-darkGray text-[#84858F] p-2 rounded-xl w-full ${timePeriodBtns == 'yearly'?"border border-[#33353B]":''}`}
+            className={`moment bg-white dark:bg-darkGray text-[#84858F] p-2 rounded-xl w-full ${timePeriodBtns == 'yearly'?"border border-[#33353B] dark:text-white text-black":''}`}
           >
             {localFind('annually')}
           </button>
         </div>
       </div>
       {/* LEGENDARY buttons */}
-      <div className="flex justify-start md:justify-end gap-6 text-right mt-6">
+      <div className="flex justify-start md:justify-end gap-6 mt-6">
         <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleLegendClick(0)}>
           <div className="w-2 h-2 lg:w-3 lg:h-3 rounded-full bg-[#0066FF]"></div>
           <span className={`text-[#0066FF] ${invBtn?"":"line-through"}`}>{localFind("invitations")}</span>
@@ -458,8 +490,10 @@ export default function InviteChart({params,referralPageArrayContent,initChartDa
         </div>
       </div>
 
-      <div className="relative flex justify-center md:justify-end gap-6 text-right">
-        <canvas ref={canvasRef} id="myChart" height='300'></canvas>
+      <div className="overflow-x-auto light-scrollbar dark:dark-scrollbar">
+        <div className="relative flex justify-center md:justify-end gap-6 text-right min-w-[800px]">
+            <canvas ref={canvasRef} id="myChart" height='300'></canvas> 
+        </div>
       </div>
     </div>
   );

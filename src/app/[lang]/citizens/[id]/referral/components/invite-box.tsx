@@ -15,8 +15,7 @@ export default function InviteBox({
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [copied, setCopied] = useState(false);
   const [inviteLink, setInviteLink] = useState(
-    `${window.location.origin}${pathname}` ||
-      `rgb.irpsc.com/${params.lang}/citizens/${params.id}/referral`
+    `rgb.irpsc.com/${params.lang}/citizens/${params.id}/referral`
   );
 
   function localFind(_name: any) {
@@ -108,7 +107,11 @@ export default function InviteBox({
                   onClick={copyToClipboard}
                   className="dark:text-dark-primary text-blueLink text-sm whitespace-nowrap bg-transparent"
                 >
-                  {copied ? "کپی شد" : localFind("copy the invitation link")}
+                  {copied
+                    ? params.lang.toLowerCase() == "fa"
+                      ? "کپی شد"
+                      : "copied"
+                    : localFind("copy the invitation link")}
                 </button>
                 <input
                   ref={inputRef}
@@ -119,7 +122,10 @@ export default function InviteBox({
                   readOnly
                   onClick={copyToClipboard}
                 />
-                <div id="iconbutton" className="w-auto h-auto cursor-pointer">
+                <div
+                  id="iconbutton"
+                  className="w-auto h-auto cursor-pointer dark:text-white text-darkGray"
+                >
                   <svg
                     width="30"
                     height="30"
@@ -129,14 +135,14 @@ export default function InviteBox({
                   >
                     <path
                       d="M13.0601 10.9375C15.3101 13.1875 15.3101 16.8275 13.0601 19.0675C10.8101 21.3075 7.17009 21.3175 4.93009 19.0675C2.69009 16.8175 2.68009 13.1775 4.93009 10.9375"
-                      stroke="white"
+                      stroke="currentColor"
                       strokeWidth="1.5"
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     />
                     <path
                       d="M10.59 13.4128C8.24996 11.0728 8.24996 7.27281 10.59 4.92281C12.93 2.57281 16.73 2.58281 19.08 4.92281C21.43 7.26281 21.42 11.0628 19.08 13.4128"
-                      stroke="white"
+                      stroke="currentColor"
                       strokeWidth="1.5"
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -146,7 +152,7 @@ export default function InviteBox({
               </div>
             </div>
 
-            <div className=" flex flex-col justify-between lg:w-[60%] items-center lg:justify-center lg:gap-3 lg:pr-2 xl:pr-9">
+            <div className=" flex flex-col justify-between lg:w-[60%] items-center lg:justify-center lg:gap-3 lg:ps-2 xl:ps-9">
               <span className="text-black dark:text-white my-5 self-start lg:my-0 lg:mb-8">
                 {localFind("share via")}
               </span>
@@ -304,7 +310,7 @@ export default function InviteBox({
           </div>
         </div>
 
-        <div className="relative lg:absolute lg:top-[-30px] rtl:lg:left-0 ltr:lg:right-0 h-[300px] lg:h-[110%] w-full lg:w-[35%]">
+        <div className="relative lg:absolute lg:top-[-30px] rtl:lg:left-0 ltr:lg:right-0 h-[300px] lg:h-[110%] w-full lg:w-[35%] ltr:rotate-y-180">
           <Image
             className="object-contain"
             src="/firstpage/referral/invite.svg"

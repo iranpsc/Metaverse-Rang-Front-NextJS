@@ -26,10 +26,12 @@ export default function InviteListCard({
       </div>
 
       <div className="flex-1 mx-4">
-        <div className="text-black dark:text-white lg:text-xl">{item.name}</div>
+        <div className="text-black dark:text-white text-[10px] lg:text-xl font-bold">
+          {item.name}
+        </div>
         {/* <div className="text-[#0066FF] text-sm lg:text-base">{item.code}</div> */}
         <Link
-          className="min-h-[30px] uppercase text-blueLink font-medium font-azarMehr text-[16px] cursor-pointer"
+          className="min-h-[30px] uppercase text-blueLink font-medium font-azarMehr text-[10px] lg:text-[16px] cursor-pointer"
           href={`/${params.lang}/citizens/${item.code}`}
           title={`Go to citizen ${item.code}`} // Optional
           aria-label={`Go to citizen ${item.code}`}
@@ -37,7 +39,7 @@ export default function InviteListCard({
           {item.code}
         </Link>
       </div>
-      <p className="text-[#FFC700] ml-1 lg:text-2xl">
+      <p className="dark:text-dark-primary text-blueLink me-1 text-[16px] lg:text-2xl">
         {totalAmount.toLocaleString()} +
       </p>
       <div className="relative w-[32px] h-[32px]">
