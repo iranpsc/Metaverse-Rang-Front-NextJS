@@ -12,7 +12,7 @@ export default function InviteChart({params,referralPageArrayContent,initChartDa
   const [currentData, setCurrentData] = useState(initChartData); // Default to daily data
   const [invBtn, setInvBtn  ] = useState(true)
   const [giftBtn, setGiftBtn] = useState(true)
-  const [timePeriodBtns, setTimePeriodBtns] = useState('daily')
+  const [timePeriodBtns, setTimePeriodBtns] = useState('yearly')
   const [theme, setTheme] = useState(
     'dark'
   );
