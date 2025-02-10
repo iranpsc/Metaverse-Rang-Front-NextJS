@@ -32,7 +32,7 @@ export default async function CitizenReferral({ params }: { params: any }) {
       getLangArray(),
       getAllReferral(params.id),
       getFooterData(params),
-      getChartReferral(params.id, "daily"),
+      getChartReferral(params.id, "yearly"),
     ]);
 
   console.log("initInviteList", initInviteList);
@@ -43,13 +43,13 @@ export default async function CitizenReferral({ params }: { params: any }) {
   };
   let initChartData = { labels: [], data: [[], []] };
   initChartData.labels = await chartDataFetch.chart_data.map((label: any) =>
-    convertToPersianDigits(label.hour)
+    convertToPersianDigits(label.year)
   );
   initChartData.data[0] = await chartDataFetch.chart_data.map(
-    (label: any) => label.referrals_count
+    (label: any) => label.total_referrals_count
   );
   initChartData.data[1] = await chartDataFetch.chart_data.map(
-    (label: any) => label.referral_orders_amount
+    (label: any) => label.total_referral_orders_amount
   );
 
   const centralPageModal = await findByModalName(
