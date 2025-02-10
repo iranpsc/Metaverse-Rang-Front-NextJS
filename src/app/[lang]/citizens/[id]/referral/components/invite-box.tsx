@@ -14,7 +14,10 @@ export default function InviteBox({
   const pathname = usePathname();
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [copied, setCopied] = useState(false);
-  const [inviteLink, setInviteLink] = useState("EYFcAda/occHk3ExampleFullLink");
+  const [inviteLink, setInviteLink] = useState(
+    `${window.location.origin}${pathname}` ||
+      `rgb.irpsc.com/${params.lang}/citizens/${params.id}/referral`
+  );
 
   function localFind(_name: any) {
     return referralPageArrayContent.find((item: any) => item.name == _name)
@@ -64,7 +67,10 @@ export default function InviteBox({
 
     if (inputRef.current) {
       navigator.clipboard
-        .writeText(fullUrl + "/" + inputRef.current.value)
+        .writeText(
+          fullUrl ||
+            `https://rgb.irpsc.com/${params.lang}/citizens/${params.id}/referral`
+        )
         .then(() => {
           setCopied(true); // Update button text to "Copied"
           setTimeout(() => setCopied(false), 5000); // Reset text after 5 seconds
