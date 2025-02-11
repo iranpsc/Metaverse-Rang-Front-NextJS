@@ -81,6 +81,8 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
             },
           }
         );
+        console.log("setLoggedInUserData", response.data.data);
+
         setLoggedInUserData(response.data.data);
       } catch (err) {}
     };
@@ -127,6 +129,8 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
     );
 
     if (res.status === 204) {
+      removeCookie("auth");
+    } else {
       removeCookie("auth");
     }
   };

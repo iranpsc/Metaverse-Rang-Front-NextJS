@@ -35,7 +35,10 @@ export default async function CitizenReferral({ params }: { params: any }) {
       getChartReferral(params.id, "yearly"),
     ]);
 
-  console.log("initInviteList", initInviteList);
+  function localFind(_name: any) {
+    return referralPageArrayContent.find((item: any) => item.name == _name)
+      .translation;
+  }
 
   // Convert all digits to Persian digits
   const convertToPersianDigits = (str: any) => {
@@ -99,7 +102,7 @@ export default async function CitizenReferral({ params }: { params: any }) {
     image: profileData.data?.profilePhotos?.map((item: any) => {
       return item.url;
     }),
-    url: `http://rgb.irpsc.com/fa/citizen/${params.id}`,
+    url: `http://rgb.irpsc.com/${params.lang}/citizen/${params.id}`,
     jobTitle: `${profileData.data?.customs?.occupation}`,
     description: `${await makeLessCharacter()}`,
     birthDate: `${profileData.data?.kyc?.birth_date || ""}`,
@@ -116,16 +119,16 @@ export default async function CitizenReferral({ params }: { params: any }) {
       // Static item for Total Invited
       {
         "@type": "ListItem",
-        position: "total invited",
-        name: "Total Invited",
+        position: 1,
+        name: localFind("the total number of invitations"),
         value: initInviteList.data.length,
         url: `https://rgb.irpsc.com/fa/citizens/${params.id}/referral`,
       },
       // Static item for Total Reward
       {
         "@type": "ListItem",
-        position: "total reward",
-        name: "Total Reward",
+        position: 2,
+        name: localFind("-rewards"),
         value: initInviteList.data.reduce((sum: any, person: any) => {
           // Sum the amounts of all referrerOrders for the current person
           const personTotal = person.referrerOrders.reduce(
@@ -139,12 +142,10 @@ export default async function CitizenReferral({ params }: { params: any }) {
       // Dynamic items for each invite
       ...initInviteList.data.map((invited: any, index: any) => ({
         "@type": "Person",
-        position: index + 3, // Start after the static items
+        position: index + 3,
         name: invited.name,
-        identifier: invited.code,
-        url:
-          invited.image ||
-          `https://rgb.irpsc.com/fa/citizens/${params.id}/referral`,
+        identifier: `https://rgb.irpsc.com/${params.lang}/citizens/${invited.code}`,
+        url: `https://rgb.irpsc.com/${params.lang}/citizens/${params.id}`,
       })),
     ],
   };
