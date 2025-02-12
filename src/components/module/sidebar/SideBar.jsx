@@ -16,22 +16,26 @@ export default function SideBar({
   pageSide,
 }) {
   
-  // Retrieve the sidebar state from localStorage (default to true if not found)
-  const [isClosed, setIsClosed] = useState(() => {
-    if (typeof window !== "undefined") {
-      return localStorage.getItem("sidebarClosed") === "true";
-    }
-    return true;
-  });
+  const [isClosed, setIsClosed] = useState(true); // Start with true (default for SSR)
+  const [hydrated, setHydrated] = useState(false); // Track hydration
 
-  // Update localStorage whenever isClosed changes
   useEffect(() => {
-    localStorage.setItem("sidebarClosed", isClosed);
-  }, [isClosed]);
+    setIsClosed(localStorage.getItem("sidebarClosed") === "true");
+    setHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (hydrated) {
+      localStorage.setItem("sidebarClosed", isClosed);
+    }
+  }, [isClosed, hydrated]);
 
   const toggleSide = useCallback(() => {
     setIsClosed((prev) => !prev);
   }, []);
+
+  // Prevent rendering until hydration completes
+  if (!hydrated) return null;
   
   return (
     <>
