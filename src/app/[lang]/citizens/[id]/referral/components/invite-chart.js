@@ -315,11 +315,11 @@ export default function InviteChart({params,referralPageArrayContent,initChartDa
             </svg>
           </div>
 
-          <div className="text-right flex flex-col gap-2 mt-2 ">
+          <div className="z-40 flex flex-col gap-2 mt-2 ">
             <p className="text-white text-sm lg:text-base">{localFind("the total number of invitations")}</p>
             <p
               id="invite"
-              className="text-white text-3xl font-semibold lg:text-5xl"
+              className="text-white text-3xl font-semibold lg:text-5xl rtl:text-right ltr:text-left"
             >{currentData.data[0] && currentData.data[0].length > 0 ? sumation(currentData.data[0]) : ""}</p>
           </div>
           <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2">
@@ -430,13 +430,13 @@ export default function InviteChart({params,referralPageArrayContent,initChartDa
             </svg>
           </div>
 
-          <div className="text-right flex flex-col gap-2 mt-2">
+          <div className="z-40 flex flex-col gap-2 mt-2">
             <p className="text-white text-sm lg:text-base">
               {localFind("bonus received per unit (psc)")}
             </p>
             <p
               id="reward"
-              className="text-white text-3xl font-semibold lg:text-5xl"
+              className="text-white text-3xl font-semibold lg:text-5xl rtl:text-right ltr:text-left"
             >{currentData.data[1] && currentData.data[1].length > 0 ? sumation(currentData.data[1]) : ""}</p>
           </div>
           <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2">

@@ -31,6 +31,7 @@ export default function InviteListCard({
         </div>
         {/* <div className="text-[#0066FF] text-sm lg:text-base">{item.code}</div> */}
         <Link
+          target="_blank"
           className="min-h-[30px] uppercase text-blueLink font-medium font-azarMehr text-[10px] lg:text-[16px] cursor-pointer"
           href={`/${params.lang}/citizens/${item.code}`}
           title={`Go to citizen ${item.code}`} // Optional

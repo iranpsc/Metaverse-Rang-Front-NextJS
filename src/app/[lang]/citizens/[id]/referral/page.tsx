@@ -141,11 +141,15 @@ export default async function CitizenReferral({ params }: { params: any }) {
       },
       // Dynamic items for each invite
       ...initInviteList.data.map((invited: any, index: any) => ({
-        "@type": "Person",
+        "@type": "ListItem",
         position: index + 3,
         name: invited.name,
-        identifier: `https://rgb.irpsc.com/${params.lang}/citizens/${invited.code}`,
-        url: `https://rgb.irpsc.com/${params.lang}/citizens/${params.id}`,
+        identifier: `${invited.code}`,
+        value: invited.referrerOrders.reduce(
+          (acc: any, item: any) => acc + item.amount,
+          0
+        ),
+        url: `https://rgb.irpsc.com/${params.lang}/citizens/${invited.code}`,
       })),
     ],
   };

@@ -2,7 +2,7 @@
 import Header from "./Header";
 import AllSideTab from "./AllSideTab";
 import LevelSideTab from './LevelSideTab'
-import { useState, useCallback  } from "react";
+import { useState, useCallback, useEffect  } from "react";
 import LoginMenuModule from "./LoginMenuModule";
 import ThemeMenuModule from "@/components/module/sidebar/ThemeMenuModule";
 import HeaderMobile from "@/components/module/sidebar/HeaderMobile";
@@ -16,11 +16,21 @@ export default function SideBar({
   pageSide,
 }) {
   
-  //
-  const [isClosed, setisClosed] = useState(true);
-  // const router = useRouter()
+  // Retrieve the sidebar state from localStorage (default to true if not found)
+  const [isClosed, setIsClosed] = useState(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("sidebarClosed") === "true";
+    }
+    return true;
+  });
+
+  // Update localStorage whenever isClosed changes
+  useEffect(() => {
+    localStorage.setItem("sidebarClosed", isClosed);
+  }, [isClosed]);
+
   const toggleSide = useCallback(() => {
-    setisClosed((prev) => !prev);
+    setIsClosed((prev) => !prev);
   }, []);
   
   return (
