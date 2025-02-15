@@ -2,7 +2,7 @@
 import Header from "./Header";
 import AllSideTab from "./AllSideTab";
 import LevelSideTab from './LevelSideTab'
-import { useState, useCallback  } from "react";
+import { useState, useCallback, useEffect  } from "react";
 import LoginMenuModule from "./LoginMenuModule";
 import ThemeMenuModule from "@/components/module/sidebar/ThemeMenuModule";
 import HeaderMobile from "@/components/module/sidebar/HeaderMobile";
@@ -16,12 +16,26 @@ export default function SideBar({
   pageSide,
 }) {
   
-  //
-  const [isClosed, setisClosed] = useState(true);
-  // const router = useRouter()
-  const toggleSide = useCallback(() => {
-    setisClosed((prev) => !prev);
+  const [isClosed, setIsClosed] = useState(true); // Start with true (default for SSR)
+  const [hydrated, setHydrated] = useState(false); // Track hydration
+
+  useEffect(() => {
+    setIsClosed(localStorage.getItem("sidebarClosed") === "true");
+    setHydrated(true);
   }, []);
+
+  useEffect(() => {
+    if (hydrated) {
+      localStorage.setItem("sidebarClosed", isClosed);
+    }
+  }, [isClosed, hydrated]);
+
+  const toggleSide = useCallback(() => {
+    setIsClosed((prev) => !prev);
+  }, []);
+
+  // Prevent rendering until hydration completes
+  if (!hydrated) return null;
   
   return (
     <>

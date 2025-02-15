@@ -115,11 +115,9 @@ export default async function LangPage({params}) {
     getLangArray(),
     getTranslation(params.lang)
   ])
-  // const langArray = await getLangArray();
-  // const langData = await getTranslation(params.lang);
   const mainData = await getMainFile(langData);
   const defaultTheme = await useServerDarkMode();
-  const allVersionList = await getAllVersions();
+  // const allVersionList = await getAllVersions();
 
   const Citizenship = await findByModalName(mainData, "Citizenship-profile");
   const citizenListArrayContent = await findByTabName(
@@ -424,9 +422,9 @@ export default async function LangPage({params}) {
             </div>
 
             <div className="w-[90%] relative h-fit  mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
-              <Suspense fallback={<div>Loading Header...</div>}>
+              {/*<Suspense fallback={<div>Loading Header...</div>}>
                 <VersionSection firstPageArrayContent={firstPageArrayContent} allVersionList={allVersionList} />
-              </Suspense>
+              </Suspense>*/}
             </div>
 
             <div className="flex flex-col justify-center items-center">

@@ -15,6 +15,7 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
     token: "",
     code: "",
   });
+  console.log("tabsMenu||||", tabsMenu);
 
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -25,17 +26,22 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
     setIsMounted(true);
   }, []);
 
+  // Returning from external login (SSO)
   useEffect(() => {
     if (isMounted) {
       let params = searchParams.toString();
+      console.log("searchParams:", searchParams.get("expires_at"));
+      console.log("expires_at:", searchParams.get("expires_at"));
       if (params) {
-        const expires_at = Number(parsAuthCookieByName("expires_at", params));
+        // const expires_at = Number(parsAuthCookieByName("expires_at", params));
+        const expires_at = Number(searchParams.get("expires_at"));
 
         const now = new Date();
         // Add "expires_at" hour ("expires_at" minutes * 60 seconds * 1000 milliseconds) to the current time
         const realExpireTime = now.getTime() + expires_at * 60 * 1000;
         params += `&realExpireTime=${realExpireTime}`;
         setCookie("auth", params);
+        console.log("expires_at:", searchParams.get("expires_at"));
       }
 
       //remove auth data in URL and push to new
