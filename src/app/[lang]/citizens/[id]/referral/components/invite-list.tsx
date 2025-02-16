@@ -18,8 +18,6 @@ export default function InviteList({
   const [referralList, setReferralList] = useState(initInviteList.data);
   const [searchTerm, setSearchTerm] = useState(""); // Track the search term
 
-  console.log("initInviteList", initInviteList);
-
   function localFind(_name: any) {
     return referralPageArrayContent.find((item: any) => item.name == _name)
       .translation;

@@ -11,8 +11,7 @@ import {
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import SideBar from "@/components/module/sidebar/SideBar";
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
-import { staticMenuToShow as MenuStaticData } from "@/components/utils/constants";
-
+import { getStaticMenu } from "@/components/utils/constants";
 export default async function CitizensPage({ params }: { params: any }) {
   const [footerTabs, langData, langArray] = await Promise.all([
     getFooterData(params),
@@ -26,22 +25,30 @@ export default async function CitizensPage({ params }: { params: any }) {
   const centralPageModal = await findByModalName(mainData, "central-page");
   const tabsMenu = await findByTabName(centralPageModal, "before-login");
 
-  const staticMenuToShow = MenuStaticData;
+  const staticMenuToShow = getStaticMenu(params.id);
   // add staticMenuToShow values to siblings tabsMenu values
-  tabsMenu.forEach((tab: any) => {
-    let findInStatic = staticMenuToShow.find((val) => tab.name == val.name);
+  const updatedTabsMenu = tabsMenu.map((tab: any) => {
+    let findInStatic = staticMenuToShow.find((val) => tab.name === val.name);
+
     if (findInStatic) {
-      tab.url = findInStatic.url;
-      tab.order = findInStatic.order;
-      tab.toShow = true;
+      // Return a new tab object with updated properties
+      return {
+        ...tab, // Spread the original tab properties
+        url: findInStatic.url,
+        order: findInStatic.order,
+        toShow: true,
+      };
     }
+
+    // If no match found, return the original tab
+    return tab;
   });
 
   return (
     <>
       <div className="flex h-screen overflow-hidden" dir={langData.direction}>
         <SideBar
-          tabsMenu={tabsMenu}
+          tabsMenu={updatedTabsMenu}
           langData={langData}
           langArray={langArray}
           defaultTheme={defaultTheme}

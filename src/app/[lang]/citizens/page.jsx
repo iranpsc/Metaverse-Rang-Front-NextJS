@@ -13,7 +13,7 @@ import BreadCrumb from "@/components/shared/BreadCrumb";
 import SideBar from "@/components/module/sidebar/SideBar";
 import CitizenList from "@/components/templates/citizen/citizenList";
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
-import { staticMenuToShow as MenuStaticData } from "@/components/utils/constants";
+import { getStaticMenu } from "@/components/utils/constants";
 import React, { Suspense } from 'react';
 
 
@@ -115,16 +115,24 @@ export default async function CitizensPage({ params }) {
   const centralPageModal = await findByModalName(mainData, "central-page");
   const tabsMenu = await findByTabName(centralPageModal, "before-login");
 
-  const staticMenuToShow = MenuStaticData;
+  const staticMenuToShow = getStaticMenu(params.id);
 
   // add staticMenuToShow values to siblings tabsMenu values
-  tabsMenu.forEach((tab) => {
-    let findInStatic = staticMenuToShow.find((val) => tab.name == val.name);
+  const updatedTabsMenu = tabsMenu.map((tab) => {
+    let findInStatic = staticMenuToShow.find((val) => tab.name === val.name);
+    
     if (findInStatic) {
-      tab.url = findInStatic.url;
-      tab.order = findInStatic.order;
-      tab.toShow = true;
+      // Return a new tab object with updated properties
+      return {
+        ...tab, // Spread the original tab properties
+        url: findInStatic.url,
+        order: findInStatic.order,
+        toShow: true,
+      };
     }
+  
+    // If no match found, return the original tab
+    return tab;
   });
 
   const citizenListSchema = {
@@ -158,7 +166,7 @@ export default async function CitizensPage({ params }) {
       />
       <div className="flex h-screen overflow-hidden" dir={langData.direction}>
         <SideBar
-          tabsMenu={tabsMenu}
+          tabsMenu={updatedTabsMenu}
           langData={langData}
           langArray={langArray}
           defaultTheme={defaultTheme}

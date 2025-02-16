@@ -1,6 +1,5 @@
 "use client";
 //Types
-import { MenuDataItem } from "@/types/listMenu";
 import ListMenuSvgModule from "./list/ListMenuSvgModule";
 import ListMenuTitleModule from "./list/ListMenuTitleModule";
 import ListMenuArrow from "./list/ListMenuArrow";
@@ -40,7 +39,8 @@ export default function SideBarContent({
       // external LINKs
       if (item.url.startsWith("http://") || item.url.startsWith("https://")) {
         window.open(item.url, "_blank")
-      } else {
+      }
+      else {
         router.push(`/${params.lang}/${item.url}`);
       }
     } else {
@@ -69,17 +69,20 @@ export default function SideBarContent({
   // *selected nav item (add item.active property to own obj)
   const pathName = usePathname()
 
+
   tabsMenu.forEach((item)=>{
     let urlThemp
     // referral route creating
     if(item.url == "referral"){
       urlThemp = `/${params.lang}/citizens/${params.id}/referral`
       item.url = `/citizens/${params.id}/referral`
-    }else{
+    }else if(item.name == 'citizen information'){
+      urlThemp = `/${params.lang}/citizens/${params.id}`
+    }
+    else{
       // convert url to match pathName
       urlThemp = `/${params.lang}${item.url?"/"+item.url:''}`
     }
-
     
     // home has url but its "empty", not "undefined"
     if(item.url != undefined && urlThemp && pathName.endsWith(urlThemp)){

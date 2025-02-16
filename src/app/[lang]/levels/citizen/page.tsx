@@ -12,8 +12,7 @@ import LevelCard from "@/components/module/levelComponent/LevelCard";
 import SideBar from "@/components/module/sidebar/SideBar";
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
 import BreadCrumb from "@/components/shared/BreadCrumb";
-import { staticMenuToShow as MenuStaticData } from "@/components/utils/constants";
-
+import { getStaticMenu } from "@/components/utils/constants";
 // SEO**
 export async function generateMetadata({ params }: any) {
   const levelArray = await getAllLevels();
@@ -184,16 +183,24 @@ export default async function LevelsPage({ params }: any) {
   const centralPageModal = await findByModalName(mainData, "central-page");
   const tabsMenu = await findByTabName(centralPageModal, "before-login");
 
-  const staticMenuToShow = MenuStaticData;
+  const staticMenuToShow = getStaticMenu(params.id);
 
   // add staticMenuToShow values to siblings tabsMenu values
-  tabsMenu.forEach((tab: any) => {
-    let findInStatic = staticMenuToShow.find((val) => tab.name == val.name);
+  const updatedTabsMenu = tabsMenu.map((tab: any) => {
+    let findInStatic = staticMenuToShow.find((val) => tab.name === val.name);
+
     if (findInStatic) {
-      tab.url = findInStatic.url;
-      tab.order = findInStatic.order;
-      tab.toShow = true;
+      // Return a new tab object with updated properties
+      return {
+        ...tab, // Spread the original tab properties
+        url: findInStatic.url,
+        order: findInStatic.order,
+        toShow: true,
+      };
     }
+
+    // If no match found, return the original tab
+    return tab;
   });
 
   function localFind(_name: any) {
@@ -245,7 +252,7 @@ export default async function LevelsPage({ params }: any) {
         <SideBar
           langArray={langArray}
           langData={langData}
-          tabsMenu={tabsMenu}
+          tabsMenu={updatedTabsMenu}
           defaultTheme={defaultTheme}
           params={params}
           pageSide="citizen"

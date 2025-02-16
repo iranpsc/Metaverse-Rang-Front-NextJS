@@ -20,7 +20,8 @@ const BreadCrumb = dynamic(() => import("@/components/shared/BreadCrumb"));
 const AboutList = dynamic(() => import("./components/list"));
 
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
-import { staticMenuToShow as MenuStaticData } from "@/components/utils/constants";
+import { getStaticMenu } from "@/components/utils/constants";
+
 import Image from "next/image";
 import Head from "next/head";
 
@@ -99,18 +100,24 @@ export default async function AboutPage({ params }: any) {
   );
   const levelListArrayContent = await findByTabName(levelModals, "level-list");
 
-  const staticMenuToShow = MenuStaticData;
+  const staticMenuToShow = getStaticMenu(params.id);
 
   // add staticMenuToShow values to siblings tabsMenu values
-  tabsMenu.forEach((tab: any) => {
-    let findInStatic = staticMenuToShow.find(
-      (val: any) => tab.name == val.name
-    );
+  const updatedTabsMenu = tabsMenu.map((tab: any) => {
+    let findInStatic = staticMenuToShow.find((val) => tab.name === val.name);
+
     if (findInStatic) {
-      tab.url = findInStatic.url;
-      tab.order = findInStatic.order;
-      tab.toShow = true;
+      // Return a new tab object with updated properties
+      return {
+        ...tab, // Spread the original tab properties
+        url: findInStatic.url,
+        order: findInStatic.order,
+        toShow: true,
+      };
     }
+
+    // If no match found, return the original tab
+    return tab;
   });
 
   // Determine the base URL for the logo dynamically
@@ -154,7 +161,7 @@ export default async function AboutPage({ params }: any) {
         <SideBar
           langArray={langArray}
           langData={langData}
-          tabsMenu={tabsMenu}
+          tabsMenu={updatedTabsMenu}
           defaultTheme={defaultTheme}
           params={params}
           pageSide="citizen"
