@@ -38,7 +38,7 @@ import {
 } from "@/components/utils/actions";
 const DynamicFooter = React.lazy(() => import("@/components/module/footer/DynamicFooter"  ))
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
-import { staticMenuToShow as MenuStaticData } from "@/components/utils/constants";
+import { getStaticMenu } from "@/components/utils/constants";
 import Head from 'next/head';
 
 
@@ -132,18 +132,25 @@ export default async function LangPage({params}) {
   const firstPageArrayContent = await findByTabName(centralPageModal, "first-page");
   const tabsMenu = await findByTabName(centralPageModal, "before-login");
 
-  const staticMenuToShow = MenuStaticData;
+  const staticMenuToShow = getStaticMenu(params.id);
 
   // add staticMenuToShow values to siblings tabsMenu values
-  tabsMenu.forEach((tab) => {
-    let findInStatic = staticMenuToShow.find(val => tab.name == val.name)
-
-    if(findInStatic){
-      tab.url = findInStatic.url
-      tab.order = findInStatic.order
-      tab.toShow = true
+  const updatedTabsMenu = tabsMenu.map((tab) => {
+    let findInStatic = staticMenuToShow.find((val) => tab.name === val.name);
+    
+    if (findInStatic) {
+      // Return a new tab object with updated properties
+      return {
+        ...tab, // Spread the original tab properties
+        url: findInStatic.url,
+        order: findInStatic.order,
+        toShow: true,
+      };
     }
-  })
+  
+    // If no match found, return the original tab
+    return tab;
+  });
   
 
   // to find in an array with key(_name)
@@ -225,7 +232,7 @@ export default async function LangPage({params}) {
       <div className="flex h-screen overflow-hidden" dir={langData.direction}>
         <Suspense>
           <SideBar
-            tabsMenu={tabsMenu}
+            tabsMenu={updatedTabsMenu}
             langData={langData}
             langArray={langArray}
             defaultTheme={defaultTheme}

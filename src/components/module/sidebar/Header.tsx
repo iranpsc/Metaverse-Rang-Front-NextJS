@@ -24,8 +24,9 @@ function SideBarHeader({ isClosed, toggleSide, tabsMenu, params }: any) {
   return (
     <>
       <MenuIcon
-        className={`${isClosed ? "visible" : "invisible h-0"}
-            stroke-[#2B2B2B] dark:stroke-white cursor-pointer w-full mb-2 menu-transition`}
+        className={`${
+          isClosed ? "visible my-2" : "invisible h-0 my-0"
+        } stroke-[#2B2B2B] dark:stroke-white cursor-pointer w-full menu-transition`}
         alt="toggle"
         onClick={toggleSide}
       />
@@ -57,12 +58,12 @@ function SideBarHeader({ isClosed, toggleSide, tabsMenu, params }: any) {
             } overflow-hidden`}
           >
             <p
-              className={`whitespace-nowrap visible dark:text-white whitespace-nowrap block font-azarMehr font-bold text-[14px] md:text-[16px] lg:text-[18px] text-black pb-[2px]`}
+              className={`whitespace-nowrap leading-[25px] visible dark:text-white whitespace-nowrap block font-azarMehr font-bold text-[14px] md:text-[16px] lg:text-[18px] text-black pb-[2px]`}
             >
               {localFind("metargb") || "متارنگ"}
             </p>
             <p
-              className={`whitespace-nowrap dark:text-dark-gray visible font-azarMehr font-normal text-gray text-[14px] md:text-[16px] lg:text-[18px] `}
+              className={`whitespace-nowrap leading-[25px] dark:text-dark-gray visible font-azarMehr font-normal text-gray text-[14px] md:text-[16px] lg:text-[18px] `}
             >
               {localFind("metaverse rang")}
             </p>

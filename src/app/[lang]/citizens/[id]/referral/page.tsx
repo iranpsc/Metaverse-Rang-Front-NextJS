@@ -12,7 +12,7 @@ import {
   getUserData,
   getChartReferral,
 } from "@/components/utils/actions";
-import { staticMenuToShow as MenuStaticData } from "@/components/utils/constants";
+import { getStaticMenu } from "@/components/utils/constants";
 import DynamicFooter from "@/components/module/footer/DynamicFooter";
 import InviteBox from "./components/invite-box";
 
@@ -67,18 +67,28 @@ export default async function CitizenReferral({ params }: { params: any }) {
     "referral"
   );
 
-  const staticMenuToShow = MenuStaticData;
+  console.log("params.idddd", params.id);
+
+  const staticMenuToShow = getStaticMenu(params);
+
+  console.log("staticMenuToShow", staticMenuToShow);
 
   // add staticMenuToShow values to siblings tabsMenu values
-  tabsMenu.forEach((tab: any) => {
-    let findInStatic = staticMenuToShow.find(
-      (val: any) => tab.name == val.name
-    );
+  const updatedTabsMenu = tabsMenu.map((tab: any) => {
+    let findInStatic = staticMenuToShow.find((val) => tab.name === val.name);
+
     if (findInStatic) {
-      tab.url = findInStatic.url;
-      tab.order = findInStatic.order;
-      tab.toShow = true;
+      // Return a new tab object with updated properties
+      return {
+        ...tab, // Spread the original tab properties
+        url: findInStatic.url,
+        order: findInStatic.order,
+        toShow: true,
+      };
     }
+
+    // If no match found, return the original tab
+    return tab;
   });
 
   //to make description less than 200 character
@@ -172,7 +182,7 @@ export default async function CitizenReferral({ params }: { params: any }) {
       {/* schema END */}
       <div className="flex h-screen overflow-hidden" dir={langData.direction}>
         <SideBar
-          tabsMenu={tabsMenu}
+          tabsMenu={updatedTabsMenu}
           langData={langData}
           langArray={langArray}
           defaultTheme={defaultTheme}

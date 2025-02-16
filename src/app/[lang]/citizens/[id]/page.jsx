@@ -5,8 +5,7 @@ import ProfileDetails from "@/components/module/profile/ProfileDatails";
 import { getTranslation, getMainFile, findByModalName, findByTabName, getLangArray, getUserData } from "@/components/utils/actions";
 import SideBar from "@/components/module/sidebar/SideBar";
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
-import { staticMenuToShow as MenuStaticData } from "@/components/utils/constants";
-
+import { getStaticMenu } from "@/components/utils/constants";
 
 
 export default async function citizenSinglePage({
@@ -84,17 +83,27 @@ export default async function citizenSinglePage({
     "Citizenship-profile"
   );
   const tabsMenu = await findByTabName(centralPageModal, "menu");
+  console.log('tabsMenu last', tabsMenu);
+  
 
-  const staticMenuToShow = MenuStaticData;
+  const staticMenuToShow = getStaticMenu(params.id);
 
   // add staticMenuToShow values to siblings tabsMenu values
-  tabsMenu.forEach((tab) => {
-    let findInStatic = staticMenuToShow.find((val) => tab.name == val.name);
+  const updatedTabsMenu = tabsMenu.map((tab) => {
+    let findInStatic = staticMenuToShow.find((val) => tab.name === val.name);
+    
     if (findInStatic) {
-      tab.url = findInStatic.url;
-      tab.order = findInStatic.order;
-      tab.toShow = true;
+      // Return a new tab object with updated properties
+      return {
+        ...tab, // Spread the original tab properties
+        url: findInStatic.url,
+        order: findInStatic.order,
+        toShow: true,
+      };
     }
+  
+    // If no match found, return the original tab
+    return tab;
   });
 
   const singleCitizenSchema = {
@@ -126,7 +135,7 @@ export default async function citizenSinglePage({
         >
           <div className="flex h-full" dir={langData.direction}>
             <SideBar
-              tabsMenu={tabsMenu}
+              tabsMenu={updatedTabsMenu}
               langData={langData}
               langArray={langArray}
               defaultTheme={defaultTheme}
