@@ -83,10 +83,8 @@ export default async function citizenSinglePage({
     "Citizenship-profile"
   );
   const tabsMenu = await findByTabName(centralPageModal, "menu");
-  console.log('tabsMenu last', tabsMenu);
-  
 
-  const staticMenuToShow = getStaticMenu(params.id);
+  const staticMenuToShow = getStaticMenu(params);
 
   // add staticMenuToShow values to siblings tabsMenu values
   const updatedTabsMenu = tabsMenu.map((tab) => {

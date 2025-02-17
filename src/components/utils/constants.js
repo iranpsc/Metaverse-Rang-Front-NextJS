@@ -6,7 +6,7 @@ export const getStaticMenu = (params) => {
     // Handle citizen profilee URL dynamically
     { 
       name: "citizen information", 
-      url: params?.id ? `citizens/${params.id}` : "citizens/", 
+      url: params?.id ? `citizens/${params.id}` : "", 
       order: "-2" 
     },
     { name: "property" },
