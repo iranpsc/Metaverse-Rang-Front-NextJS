@@ -67,11 +67,7 @@ export default async function CitizenReferral({ params }: { params: any }) {
     "referral"
   );
 
-  console.log("params.idddd", params.id);
-
   const staticMenuToShow = getStaticMenu(params);
-
-  console.log("staticMenuToShow", staticMenuToShow);
 
   // add staticMenuToShow values to siblings tabsMenu values
   const updatedTabsMenu = tabsMenu.map((tab: any) => {
