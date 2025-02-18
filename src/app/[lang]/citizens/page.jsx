@@ -203,6 +203,7 @@ export default async function CitizensPage({ params }) {
               levelListArrayContent={levelListArrayContent}
               params={params}
               citizenListArrayContent={citizenListArrayContent}
+              defaultTheme={defaultTheme}
             />
             </Suspense>
           </div>

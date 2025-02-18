@@ -5,9 +5,10 @@ import { translateFooter } from "@/components/utils/education";
 
 export default function SectionInputSearch({
   SectionName,
+  searchLevel,
   citizenListArrayContent,
   loadingSearch,
-  // themeDataActive,
+  defaultTheme,
   searchTerm,
   setSearchTerm,
   searchData,
@@ -29,7 +30,11 @@ export default function SectionInputSearch({
           } fill-blueLink dark:fill-dark-yellow`}
         />
         <input
-          placeholder={localFind("search for citizenship name")}
+          placeholder={
+            searchLevel == "citizen"
+              ? localFind("search for citizenship name")
+              : localFind("search for the training you need")
+          }
           className="w-[80%] outline-none border-none 
               placeholder-[#868B90] dark:text-white text-[14px] ms-2 font-azarMehr font-medium dark:bg-[#1A1A18] dark:placeholder-dark-gray"
           value={searchTerm}
@@ -37,7 +42,7 @@ export default function SectionInputSearch({
         />
         {loadingSearch && (
           <SyncLoader
-            // color={`${themeDataActive == "dark" ? "#FFC700" : "#0000FF"}`}
+            color={`${defaultTheme == "dark" ? "#FFC700" : "#0000FF"}`}
             className="me-1 "
             size={5}
             speedMultiplier={0.5}

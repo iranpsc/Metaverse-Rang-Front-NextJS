@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Like, Text } from "@/components/svgs/SvgEducation";
 import UserCard from "@/components/shared/UserCard";
 
-const TopTrainersFirstPage = async ({
+const TopTrainersFirstPage = ({
   firstPageArrayContent,
   params,
   citizenListArrayContent,

@@ -6,21 +6,30 @@ import { ItemsSearch } from "@/components/shared/ItemsSearch";
 
 export default function SearchComponent({
   citizenListArrayContent,
-  // setActiveSearch,
+  searchLevel = "citizen",
+  defaultTheme,
   params,
 }: any) {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchData, setSearchData] = useState<any>([]);
   const [loadingSearch, setLoadingSearch] = useState<boolean>(false);
 
+  console.log("citizenListArrayContent", citizenListArrayContent);
+
   useEffect(() => {
     if (searchTerm.length >= 4) {
       setLoadingSearch(true);
       const formData = new FormData();
       formData.append("searchTerm", searchTerm);
-
+      // switch url
+      let selectedURL = "";
+      if (searchLevel == "citizen") {
+        selectedURL = "https://api.rgb.irpsc.com/api/search/users";
+      } else if (searchLevel == "education") {
+        selectedURL = "https://api.rgb.irpsc.com/api/tutorials/search";
+      }
       axios
-        .post("https://api.rgb.irpsc.com/api/search/users", formData)
+        .post(selectedURL, formData)
         .then((response) => {
           setLoadingSearch(false);
           setSearchData(response.data.data);
@@ -71,18 +80,23 @@ export default function SearchComponent({
       >
         <SectionInputSearch
           SectionName="education"
+          searchLevel={searchLevel}
           citizenListArrayContent={citizenListArrayContent}
           loadingSearch={loadingSearch}
-          // themeDataActive={themeDataActive}
+          defaultTheme={defaultTheme}
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
           searchData={searchData}
           removeSearch={removeSearch}
         />
 
-        <div className="w-full bg-white dark:bg-dark-background transition-all duration-300 easy-in-out rounded-xl 2xl:max-h-[500px] xl:max-h-[500px] lg:max-h-[500px] md:2xl:max-h-[500px] sm:max-h-[350px] xs:max-h-[350px] z-[999] overflow-y-auto overflow-x-clip absolute top-0 flex flex-col justify-start items-center gap-1 light-scrollbar dark:dark-scrollbar">
+        <div className="w-full bg-white dark:bg-dark-background transition-all duration-300 easy-in-out rounded-xl 2xl:max-h-[500px] xl:max-h-[500px] lg:max-h-[500px] md:2xl:max-h-[500px] sm:max-h-[350px] xs:max-h-[350px] z-[999] overflow-y-auto overflow-x-clip absolute top-[100%] flex flex-col justify-start items-center gap-1 light-scrollbar dark:dark-scrollbar">
           {searchData && searchData.length > 0 && (
-            <ItemsSearch searchData={searchData} params={params} />
+            <ItemsSearch
+              searchLevel={searchLevel}
+              searchData={searchData}
+              params={params}
+            />
           )}
         </div>
       </div>
