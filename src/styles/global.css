@@ -7,88 +7,116 @@
 
 /* for costum class in taiwind (Using Tailwind’s Arbitrary Values) */
 @layer utilities {
+
     /* dark scrollbar */
     .dark-scrollbar::-webkit-scrollbar {
         width: 10px;
     }
+
     .dark-scrollbar::-webkit-scrollbar-track {
         box-shadow: inset 0 0 0px grey;
         border-radius: 10px;
     }
+
     .dark-scrollbar::-webkit-scrollbar-thumb {
         background: #FFC700;
         border-radius: 10px;
     }
+
     /* light scrollbar */
     .light-scrollbar::-webkit-scrollbar {
         width: 10px;
     }
+
     .light-scrollbar::-webkit-scrollbar-track {
         box-shadow: inset 0 0 0px #fff;
         border-radius: 10px;
     }
+
     .light-scrollbar::-webkit-scrollbar-thumb {
         background: #426dae;
         border-radius: 20px;
 
     }
+
     /* custom transition */
-    .base-transition-1{
+    .base-transition-1 {
         transition: all 0.2s;
     }
+
     /* menu transition */
-    .menu-transition{
+    .menu-transition {
         transition: all 0.4s ease-in-out;
     }
+
     /* base shadow box */
-    .base-shadow-1{
+    .base-shadow-1 {
         box-shadow: 0 20px 70px -10px rgb(0 0 0 / 0.2);
     }
 
     /* transform:rotateY(180deg) */
-    .rotate-y-180{
+    .rotate-y-180 {
         transform: rotateY(180deg);
     }
+
     /* grid-area for single level pages layout */
 
     @media (max-width: 767px) {
         .grid-container {
-          display: flex;
-          flex-direction: column;
+            display: flex;
+            flex-direction: column;
         }
-        .grid-first { order: 1; }
-        .grid-forth { order: 2; }
-        .grid-second { order: 1; }
-        .grid-third { order: 4; }
-      }
-      
-      @media (min-width: 768px) {
-        .grid-container {
-          display: grid;
-          grid-template-columns: minmax(0, 65vw) repeat(2, 1fr); /* First 65vw for first 3 boxes, remaining columns flexible */
-          grid-template-rows: auto auto auto;
-        }
-      
+
         .grid-first {
-          grid-column: 1 / 2; /* Span the first column */
-          grid-row: 1;
+            order: 1;
         }
-      
-        .grid-second {
-          grid-column: 1 / 2; /* Remain in the first column */
-          grid-row: 2;
-        }
-      
-        .grid-third {
-          grid-column: 1 / 2; /* Remain in the first column */
-          grid-row: 3;
-        }
-      
+
         .grid-forth {
-          grid-column: 2 / 4; /* Span the second and third columns */
-          grid-row: 1 / span 4;
+            order: 2;
         }
-      }
+
+        .grid-second {
+            order: 1;
+        }
+
+        .grid-third {
+            order: 4;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .grid-container {
+            display: grid;
+            grid-template-columns: minmax(0, 65vw) repeat(2, 1fr);
+            /* First 65vw for first 3 boxes, remaining columns flexible */
+            grid-template-rows: auto auto auto;
+        }
+
+        .grid-first {
+            grid-column: 1 / 2;
+            /* Span the first column */
+            grid-row: 1;
+        }
+
+        .grid-second {
+            grid-column: 1 / 2;
+            /* Remain in the first column */
+            grid-row: 2;
+        }
+
+        .grid-third {
+            grid-column: 1 / 2;
+            /* Remain in the first column */
+            grid-row: 3;
+        }
+
+        .grid-forth {
+            grid-column: 2 / 4;
+            /* Span the second and third columns */
+            grid-row: 1 / span 4;
+        }
+    }
+
     /* .grid-first {
         grid-column: 1 / span 2;
         grid-row: 1;
@@ -109,13 +137,14 @@
         grid-column: 3;
         grid-row: 1 / span 3;
     } */
-  }
+}
 
 
 /* Hide scrollbar */
 .no-scrollbar::-webkit-scrollbar {
     display: none;
 }
+
 .no-scrollbar {
     -ms-overflow-style: none;
     /* IE and Edge */
@@ -129,7 +158,7 @@
 }
 
 .no-scrollbar1 {
-    -ms-overflow-style: none; 
+    -ms-overflow-style: none;
     scrollbar-width: none;
 }
 
@@ -141,11 +170,12 @@
     -ms-overflow-style: auto;
     scrollbar-width: auto;
 }
+
 /*  */
-.tooltip-bg-color{
-    background-color: #868b90 !important              
-    ;
+.tooltip-bg-color {
+    background-color: #868b90 !important;
 }
+
 #dark-scrollbar {
     ::-webkit-scrollbar {
         width: 10px;
@@ -186,6 +216,20 @@
 }
 
 
-.hoverCardLevel:hover .boxDataLevel{
+.hoverCardLevel:hover .boxDataLevel {
     border: none;
+}
+
+
+.versionHistoryInfo::-webkit-scrollbar {
+
+    width: 3px;
+}
+
+.versionHistoryInfo::-webkit-scrollbar-thumb {
+    /* گرد کردن گوشه‌های دستگیره */
+    border: 3px solid#868B90;
+    /* رنگ حاشیه دستگیره */
+    border-radius: 10px;
+
 }

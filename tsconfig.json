@@ -24,18 +24,42 @@
       }
     ],
     "paths": {
-     "@/public/*":["public/*"],
-     "@/pages/*":["src/pages/*"],
-     "@/components/*":["src/components/*"],
-     "@/styles/*":["src/styles/*"],
-     "@/types/*":["src/types/*"],
-     "@/utils/*":["src/components/utils/*"],
-     "@/svgs/*":["src/components/svgs/*"],
-     "@/module/*":["src/components/module/*"],
-     "@/templates/*":["src/components/templates/*"],
-     "@/layout/*":["src/components/layout/*"],
-     "@/context/*":["src/components/context/*"],
-     "react": [ "./node_modules/@types/react" ]
+      "@/public/*": [
+        "public/*"
+      ],
+      "@/pages/*": [
+        "src/pages/*"
+      ],
+      "@/components/*": [
+        "src/components/*"
+      ],
+      "@/styles/*": [
+        "src/styles/*"
+      ],
+      "@/types/*": [
+        "src/types/*"
+      ],
+      "@/utils/*": [
+        "src/components/utils/*"
+      ],
+      "@/svgs/*": [
+        "src/components/svgs/*"
+      ],
+      "@/module/*": [
+        "src/components/module/*"
+      ],
+      "@/templates/*": [
+        "src/components/templates/*"
+      ],
+      "@/layout/*": [
+        "src/components/layout/*"
+      ],
+      "@/context/*": [
+        "src/components/context/*"
+      ],
+      "react": [
+        "./node_modules/@types/react"
+      ]
     },
     "forceConsistentCasingInFileNames": true
   },
@@ -43,7 +67,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts",
+    ".next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"

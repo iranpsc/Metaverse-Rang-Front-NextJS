@@ -1,3 +1,4 @@
+//"use client";
 import DynamicFooter from "@/components/module/footer/DynamicFooter";
 import {
   getTranslation,
@@ -12,7 +13,8 @@ import BreadCrumb from "@/components/shared/BreadCrumb";
 import SideBar from "@/components/module/sidebar/SideBar";
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
 import { staticMenuToShow as MenuStaticData } from "@/components/utils/constants";
-
+import VersionBox from "./components/versionBox";
+import DescriptionBox from "./components/descriptionBox";
 export default async function CitizensPage({ params }: { params: any }) {
   const [footerTabs, langData, langArray] = await Promise.all([
     getFooterData(params),
@@ -57,7 +59,20 @@ export default async function CitizensPage({ params }: { params: any }) {
           </div>
 
           {/* PLZ code here without container */}
+          <div className="mainContainer w-full  lg:h-auto dark:bg-black flex flex-col  gap-[10px] lg:flex-row lg:items-start lg:justify-between">
+            <div className="centerItem w-[100%] h-[90%] lg:px-7">
+              <div className="self-start justify-between flex pt-8 w-full h-full gap-8">
+                {/*sssssssssssssssssssss*/}
+                <div
+                  className="searchAndVersionHistory w-full mx-[20px] self-start flex flex-col items-center lg:w-[35%] lg:min-w-[350px] lg:h-full lg:flex-shrink-0 lg:rounded-[20px]"
+                >
+                  <VersionBox />
+                </div>
 
+                <DescriptionBox />
+              </div>
+            </div>
+          </div>
           <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
             <DynamicFooter footerTabs={footerTabs} />
           </div>
