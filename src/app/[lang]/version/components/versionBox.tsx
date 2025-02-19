@@ -1,10 +1,26 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Search } from "@/components/svgs/SvgEducation";
-function VersionBox() {
+
+interface Version {
+  id: number;
+  title: string;
+  version: string;
+  date: string;
+  description: string;
+}
+
+// تعریف نوع `props` برای کامپوننت
+interface VersionBoxProps {
+  versions: Version[];
+}
+
+const VersionBox: React.FC<VersionBoxProps> = ({ versions }) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [visibleCount, setVisibleCount] = useState<number>(10);
+  const loadMoreRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const checkScreenWidth = () => {
@@ -20,37 +36,42 @@ function VersionBox() {
     setOpenIndex((prevIndex) => (prevIndex === index ? null : index));
   };
 
-  // داده‌های استاتیک
-  const versions = [
-    {
-      id: 1,
-      title: "بهبود رابط کاربری",
-      version: "V 1.1.1.32",
-      date: "1402/03/01",
-      description:
-        "تغییرات اساسی در طراحی و بهینه‌سازی عملکرد سیستم جهت تجربه بهتر کاربران.",
-    },
-    {
-      id: 2,
-      title: "افزودن قابلیت جستجو",
-      version: "V 1.1.2.10",
-      date: "1402/04/15",
-      description:
-        "افزودن امکان جستجو برای دسترسی سریع‌تر به اطلاعات و افزایش کارایی سیستم.",
-    },
-  ];
+  const handleShowMore = () => {
+    setVisibleCount((prevCount) => prevCount + 10);
+  };
 
   // فیلتر کردن داده‌ها بر اساس مقدار جستجو
   const filteredVersions = versions.filter(
     (item) =>
-      item.title.includes(searchTerm) ||
-      item.version.includes(searchTerm)
+      item.title.includes(searchTerm) || item.version.includes(searchTerm)
   );
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!containerRef.current) return;
+      
+      const { scrollTop, scrollHeight, clientHeight } = containerRef.current;
+  
+      if (scrollHeight - scrollTop - clientHeight < 10) {
+        setVisibleCount((prevCount) => prevCount + 10);
+      }
+    };
+  
+    if (!isMobile && containerRef.current) {
+      containerRef.current.addEventListener("scroll", handleScroll);
+    }
+  
+    return () => {
+      if (containerRef.current) {
+        containerRef.current.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, [isMobile]);
   return (
-   <>
+    <>
       {/* باکس جستجو */}
-      <div className="searchBoxContainer w-full flex items-center border-solid  border-[#00000024] border-[1px] justify-between  bg-[#FFFFFF] dark:bg-[#1A1A18] lg:w-full h-[50px] rounded-[12px]">
+      <div className="searchBoxContainer w-full flex items-center border-solid border-[#00000024] border-[1px] justify-between bg-[#FFFFFF] dark:bg-[#1A1A18] lg:w-full h-[50px] rounded-[12px]">
         <div className="searchIcon flex justify-center p-2">
           <Search className={` fill-blueLink dark:fill-dark-yellow`} />
         </div>
@@ -66,22 +87,20 @@ function VersionBox() {
         </button>
       </div>
       <div className="bg-[#FFFFFF] mt-[20px] rounded-[20px] w-full dark:bg-[#080807]">
-        <p className="historyVersionP font-rokh text-[120%] self-start font-[550] pt-[4%] pb-[4%] p-[6%] dark:text-[#FCF9FE] lg:pt-[30px]  lg:text-[140%]">
+        <p className="historyVersionP font-rokh text-[120%] self-start font-[550] pt-[4%] pb-[4%] p-[6%] dark:text-[#FCF9FE] lg:pt-[30px] lg:text-[140%]">
           تاریخچه ورژن ها
         </p>
 
         {/* لیست ورژن‌ها */}
-        <div className="versionHistoryInfo flex overflow-auto flex-col items-center rounded-[20px]  w-full lg:w-full lg:h-full ">
-          <div className="historyUpdated pt-4 flex flex-col w-[92%] gap-1 lg:h-[650px] ">
+        <div ref={containerRef} className="versionHistoryInfo flex overflow-auto flex-col items-center rounded-[20px] w-full lg:w-full lg:h-full">
+          <div  className="historyUpdated pt-4 flex flex-col w-[92%] gap-1 lg:h-[650px]">
             {filteredVersions.length > 0 ? (
-              filteredVersions.map((item, index: number) => (
+              filteredVersions.slice(0, visibleCount).map((item, index: number) => (
                 <div
                   key={item.id}
                   onClick={() => handleClick(index)}
                   className={`versionbox cursor-pointer flex flex-row w-full rounded-[10px] pt-[2px] ${
-                    openIndex === index
-                      ? "bg-[#0066FF1A] dark:bg-[#ffc8002f]"
-                      : ""
+                    openIndex === index ? "bg-[#0066FF1A] dark:bg-[#ffc8002f]" : ""
                   }`}
                 >
                   <div className="logo pt-[10px] p-[10px] flex flex-col">
@@ -95,9 +114,7 @@ function VersionBox() {
                       </p>
                       <p
                         className={`textVersion whitespace-nowrap pl-[15px] text-[90%] ${
-                          openIndex === index
-                            ? "dark:text-[#ffff]"
-                            : "text-[#868B90]"
+                          openIndex === index ? "dark:text-[#ffff]" : "text-[#868B90]"
                         }`}
                       >
                         {item.version}
@@ -105,9 +122,7 @@ function VersionBox() {
                     </div>
                     <p
                       className={`textDate font-[600] pt-[20px] pb-[20px] pr-[8px] text-[100%] ${
-                        openIndex === index
-                          ? "text-[#868B90]"
-                          : "text-[#868B90] dark:text-[#4C4C4C]"
+                        openIndex === index ? "text-[#868B90]" : "text-[#868B90] dark:text-[#4C4C4C]"
                       }`}
                     >
                       {item.date}
@@ -115,9 +130,7 @@ function VersionBox() {
 
                     <div
                       className={`accordion-content overflow-hidden transition-all duration-300 ease-in-out flex flex-col items-start gap-3 px-2.5 ${
-                        isMobile && openIndex === index
-                          ? "max-h-[1000px]"
-                          : "max-h-0"
+                        isMobile && openIndex === index ? "max-h-[1000px]" : "max-h-0"
                       }`}
                     >
                       <p className="description dark:text-white">توضیحات :</p>
@@ -129,18 +142,28 @@ function VersionBox() {
                 </div>
               ))
             ) : (
-              <p className="dark:text-white text-center py-4">
-                موردی برای نمایش یافت نشد 😞
-              </p>
+              <p className="dark:text-white text-center py-4">موردی برای نمایش یافت نشد 😞</p>
             )}
           </div>
-          <button className="displayMore py-[30px] bg-transparent text-[#0066FF] dark:text-[#FFC700] cursor-pointer lg:hidden">
-            مشاهده بیشتر
-          </button>
+
+          {/* عنصر مخفی برای تشخیص رسیدن به انتهای اسکرول در دسکتاپ */}
+          {!isMobile && visibleCount < filteredVersions.length && (
+            <div ref={loadMoreRef} className="h-10 w-full"></div>
+          )}
+
+          {/* دکمه‌ی مشاهده بیشتر فقط برای موبایل */}
+          {isMobile && visibleCount < filteredVersions.length && (
+            <button
+              onClick={handleShowMore}
+              className="displayMore py-[30px] bg-transparent text-[#0066FF] dark:text-[#FFC700] cursor-pointer lg:hidden"
+            >
+              مشاهده بیشتر
+            </button>
+          )}
         </div>
       </div>
-      </>
+    </>
   );
-}
+};
 
 export default VersionBox;
