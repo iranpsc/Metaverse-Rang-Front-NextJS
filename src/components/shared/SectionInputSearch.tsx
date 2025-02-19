@@ -42,7 +42,7 @@ export default function SectionInputSearch({
         />
         {loadingSearch && (
           <SyncLoader
-            color={`${defaultTheme == "dark" ? "#FFC700" : "#0000FF"}`}
+            color={`${defaultTheme == "dark" ? "#FFC700" : "#0066FF"}`}
             className="me-1 "
             size={5}
             speedMultiplier={0.5}

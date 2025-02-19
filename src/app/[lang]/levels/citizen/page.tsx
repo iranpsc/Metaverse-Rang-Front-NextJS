@@ -10,7 +10,6 @@ import {
 import DynamicFooter from "@/components/module/footer/DynamicFooter";
 import LevelCard from "@/components/module/levelComponent/LevelCard";
 import SideBar from "@/components/module/sidebar/SideBar";
-import useServerDarkMode from "src/hooks/use-server-dark-mode";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import { getStaticMenu } from "@/components/utils/constants";
 // SEO**
@@ -158,8 +157,6 @@ export default async function LevelsPage({ params }: any) {
     );
   }
 
-  const defaultTheme = useServerDarkMode();
-
   const levelArray = await getAllLevels();
   // convert persian digit to eng digit in DATA
   levelArray.forEach((item: any) => {
@@ -253,7 +250,6 @@ export default async function LevelsPage({ params }: any) {
           langArray={langArray}
           langData={langData}
           tabsMenu={updatedTabsMenu}
-          defaultTheme={defaultTheme}
           params={params}
           pageSide="citizen"
         />

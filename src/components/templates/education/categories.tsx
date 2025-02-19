@@ -13,6 +13,7 @@ export default function EducationCategories({
   const pusher = (link: string) => {
     // router.push(`/${lang}/education/category/${link}`);
   };
+
   return (
     <>
       <div className="w-[95%] h-fit mt-36 flex flex-col justify-center items-center ">

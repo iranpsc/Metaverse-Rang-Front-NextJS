@@ -19,7 +19,6 @@ const SideBar = dynamic(() => import("@/components/module/sidebar/SideBar"));
 const BreadCrumb = dynamic(() => import("@/components/shared/BreadCrumb"));
 const AboutList = dynamic(() => import("./components/list"));
 
-import useServerDarkMode from "src/hooks/use-server-dark-mode";
 import { getStaticMenu } from "@/components/utils/constants";
 
 import Image from "next/image";
@@ -61,8 +60,6 @@ export default async function AboutPage({ params }: any) {
       slug.replace(/[۰-۹]/g, (char: any) => char.charCodeAt(0) - 1776)
     );
   }
-
-  const defaultTheme = useServerDarkMode();
 
   // const levelArray = await getAllLevels();
   // const footerTabs = await getFooterData(params);
@@ -162,7 +159,6 @@ export default async function AboutPage({ params }: any) {
           langArray={langArray}
           langData={langData}
           tabsMenu={updatedTabsMenu}
-          defaultTheme={defaultTheme}
           params={params}
           pageSide="citizen"
         />

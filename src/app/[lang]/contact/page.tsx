@@ -9,7 +9,6 @@ import {
 } from "@/components/utils/actions";
 import DynamicFooter from "@/components/module/footer/DynamicFooter";
 import SideBar from "@/components/module/sidebar/SideBar";
-import useServerDarkMode from "src/hooks/use-server-dark-mode";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import { getStaticMenu } from "@/components/utils/constants";
 import { WhatsAppIcon, ContactDownArrow } from "@/components/svgs";
@@ -52,8 +51,6 @@ export default async function AboutPage({ params }: any) {
       slug.replace(/[۰-۹]/g, (char: any) => char.charCodeAt(0) - 1776)
     );
   }
-
-  const defaultTheme = useServerDarkMode();
 
   const levelArray = await getAllLevels();
 
@@ -185,7 +182,6 @@ export default async function AboutPage({ params }: any) {
           langArray={langArray}
           langData={langData}
           tabsMenu={updatedTabsMenu}
-          defaultTheme={defaultTheme}
           params={params}
           pageSide="citizen"
         />

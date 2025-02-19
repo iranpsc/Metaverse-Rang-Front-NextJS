@@ -37,7 +37,6 @@ import {
   getAllVersions
 } from "@/components/utils/actions";
 const DynamicFooter = React.lazy(() => import("@/components/module/footer/DynamicFooter"  ))
-import useServerDarkMode from "src/hooks/use-server-dark-mode";
 import { getStaticMenu } from "@/components/utils/constants";
 import Head from 'next/head';
 
@@ -116,7 +115,6 @@ export default async function LangPage({params}) {
     getTranslation(params.lang)
   ])
   const mainData = await getMainFile(langData);
-  const defaultTheme = await useServerDarkMode();
   // const allVersionList = await getAllVersions();
 
   const Citizenship = await findByModalName(mainData, "Citizenship-profile");
@@ -235,7 +233,6 @@ export default async function LangPage({params}) {
             tabsMenu={updatedTabsMenu}
             langData={langData}
             langArray={langArray}
-            defaultTheme={defaultTheme}
             params={params}
             pageSide="citizen"
             />

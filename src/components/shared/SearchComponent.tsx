@@ -3,18 +3,21 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import SectionInputSearch from "@/components/shared/SectionInputSearch";
 import { ItemsSearch } from "@/components/shared/ItemsSearch";
+import { useCookies } from "react-cookie";
 
 export default function SearchComponent({
   citizenListArrayContent,
   searchLevel = "citizen",
-  defaultTheme,
   params,
 }: any) {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchData, setSearchData] = useState<any>([]);
   const [loadingSearch, setLoadingSearch] = useState<boolean>(false);
 
-  console.log("citizenListArrayContent", citizenListArrayContent);
+  console.log("training translate", citizenListArrayContent);
+
+  const [cookies] = useCookies(["theme"]);
+  const theme = cookies.theme || "dark";
 
   useEffect(() => {
     if (searchTerm.length >= 4) {
@@ -83,7 +86,7 @@ export default function SearchComponent({
           searchLevel={searchLevel}
           citizenListArrayContent={citizenListArrayContent}
           loadingSearch={loadingSearch}
-          defaultTheme={defaultTheme}
+          defaultTheme={theme}
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
           searchData={searchData}

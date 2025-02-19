@@ -3,12 +3,13 @@ import { useTheme } from "next-themes";
 import SyncLoader from "react-spinners/SyncLoader";
 import { formatNumber, translateFooter } from "@/components/utils/education";
 import ListDataEducation from "./ListDataEducation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import { Dislike, Like, Video, View } from "@/components/svgs/SvgEducation";
 import axios from "axios";
+import { useCookies } from "react-cookie";
 
 export default function EducationList({
   loadMore,
@@ -17,12 +18,16 @@ export default function EducationList({
   translateData,
   params,
 }: any) {
-  const { theme } = useTheme();
+  console.log("allCatVideos", allCatVideos);
+
   const [videoToShow, setVideoToShow] = useState(allCatVideos);
   const [isDisabled, setIsDisabled] = useState(false);
   const [loading, setLoading] = useState(false);
   const [lastPage, setLastPage] = useState(2);
   const [currentPage, setCurrentPage] = useState(2);
+
+  const [cookies] = useCookies(["theme"]);
+  const theme = cookies.theme || "dark";
 
   const handleLoadMore = async () => {
     try {
@@ -72,9 +77,9 @@ export default function EducationList({
                     priority={true}
                     className=" w-full h-full hover:blur-none transition-all duration-150 ease-in-out rounded-t-[10px]  object-cover"
                   />
-                  <div className="w-full h-full backdrop-blur-[3px] bg-black/20 hover:backdrop-blur-none xs:backdrop-blur-none absolute z-0 top-0 flex justify-center items-center">
+                  <div className="w-full h-full bg-black/20 absolute z-0 top-0 flex justify-center items-center">
                     <Link
-                      className="w-fit"
+                      className="w-fit hover:scale-105 duration-100"
                       href={`/${params.lang}/education/category/${item.category.slug}/${item.sub_category.slug}/${item.slug}`}
                     >
                       <Video className="w-[78px] h-[78px] p-3 fill-blueLink dark:fill-dark-yellow  rounded-full bg-white/80" />
@@ -126,9 +131,9 @@ export default function EducationList({
                   className="w-[95%]"
                   href={`/${params.lang}/education/category/${item.category.slug}/${item.sub_category.slug}/${item.slug}`}
                 >
-                  <h1 className="text-start  w-full font-azarMehr truncate cursor-pointer font-bold mt-[8px] text-[18px] 3xl:text-[22px] ">
+                  <p className="dark:text-white text-blac text-start w-full font-azarMehr truncate cursor-pointer font-bold mt-[8px] text-[18px] 3xl:text-[22px] ">
                     {item.title}
-                  </h1>
+                  </p>
                 </Link>
 
                 <div className="w-[95%] pb-2 flex flex-row justify-between  items-center">
@@ -140,8 +145,8 @@ export default function EducationList({
                       <Image
                         src={item.creator.image}
                         alt={item.creator.code}
-                        width={1000}
-                        height={1000}
+                        width={100}
+                        height={100}
                         loading="lazy"
                         className="w-[45px] h-[45px] rounded-full object-cover cursor-pointer transition-all duration-150 ease-in-out"
                         // onClick={() => pushRgb(item.creator.code)}
@@ -188,7 +193,7 @@ export default function EducationList({
             </button>
           ) : (
             <SyncLoader
-              color={`${defaultTheme == "dark" ? "#FFC700" : "#0066ff"}`}
+              color={`${theme == "dark" ? "#FFC700" : "#0066ff"}`}
               size={10}
             />
           )}
