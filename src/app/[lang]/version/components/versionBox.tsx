@@ -10,7 +10,6 @@ interface Version {
   description: string;
 }
 
-// تعریف نوع `props` برای کامپوننت
 interface VersionBoxProps {
   versions: Version[];
 }
@@ -40,7 +39,6 @@ const VersionBox: React.FC<VersionBoxProps> = ({ versions }) => {
     setVisibleCount((prevCount) => prevCount + 10);
   };
 
-  // فیلتر کردن داده‌ها بر اساس مقدار جستجو
   const filteredVersions = versions.filter(
     (item) =>
       item.title.includes(searchTerm) || item.version.includes(searchTerm)
@@ -70,7 +68,6 @@ const VersionBox: React.FC<VersionBoxProps> = ({ versions }) => {
   }, [isMobile]);
   return (
     <>
-      {/* باکس جستجو */}
       <div className="searchBoxContainer w-full flex items-center border-solid border-[#00000024] border-[1px] justify-between bg-[#FFFFFF] dark:bg-[#1A1A18] lg:w-full h-[50px] rounded-[12px]">
         <div className="searchIcon flex justify-center p-2">
           <Search className={` fill-blueLink dark:fill-dark-yellow`} />
@@ -91,7 +88,6 @@ const VersionBox: React.FC<VersionBoxProps> = ({ versions }) => {
           تاریخچه ورژن ها
         </p>
 
-        {/* لیست ورژن‌ها */}
         <div ref={containerRef} className="versionHistoryInfo flex overflow-auto flex-col items-center rounded-[20px] w-full lg:w-full lg:h-full">
           <div  className="historyUpdated pt-4 flex flex-col w-[92%] gap-1 lg:h-[650px]">
             {filteredVersions.length > 0 ? (
@@ -146,12 +142,10 @@ const VersionBox: React.FC<VersionBoxProps> = ({ versions }) => {
             )}
           </div>
 
-          {/* عنصر مخفی برای تشخیص رسیدن به انتهای اسکرول در دسکتاپ */}
           {!isMobile && visibleCount < filteredVersions.length && (
             <div ref={loadMoreRef} className="h-10 w-full"></div>
           )}
 
-          {/* دکمه‌ی مشاهده بیشتر فقط برای موبایل */}
           {isMobile && visibleCount < filteredVersions.length && (
             <button
               onClick={handleShowMore}
