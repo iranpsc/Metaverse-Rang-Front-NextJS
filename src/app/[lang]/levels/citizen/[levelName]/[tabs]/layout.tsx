@@ -13,8 +13,6 @@ import {
   findByTabName,
   findByModalName,
 } from "@/components/utils/actions";
-import { Suspense } from "react";
-import useServerDarkMode from "src/hooks/use-server-dark-mode";
 
 export default async function CitizensLayout({
   children,
@@ -23,8 +21,6 @@ export default async function CitizensLayout({
   children: React.ReactNode;
   params: any;
 }) {
-  const defaultTheme = useServerDarkMode();
-
   const [langData, langArray] = await Promise.all([
     getTranslation(params.lang),
     getLangArray(),
@@ -66,7 +62,6 @@ export default async function CitizensLayout({
         langArray={langArray}
         langData={langData}
         tabsMenu={tabsMenu}
-        defaultTheme={defaultTheme}
         params={params}
       />
       <div

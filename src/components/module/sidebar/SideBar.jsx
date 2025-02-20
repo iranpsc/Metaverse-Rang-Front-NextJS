@@ -6,18 +6,20 @@ import { useState, useCallback, useEffect  } from "react";
 import LoginMenuModule from "./LoginMenuModule";
 import ThemeMenuModule from "@/components/module/sidebar/ThemeMenuModule";
 import HeaderMobile from "@/components/module/sidebar/HeaderMobile";
+import { useCookies } from "react-cookie";
 
 export default function SideBar({
   tabsMenu,
   langData,
   langArray,
-  defaultTheme,
   params,
   pageSide,
 }) {
   
   const [isClosed, setIsClosed] = useState(true); // Start with true (default for SSR)
   const [hydrated, setHydrated] = useState(false); // Track hydration
+  const [cookies] = useCookies(["theme"]);
+  const theme = cookies.theme || "dark";
 
   useEffect(() => {
     setIsClosed(localStorage.getItem("sidebarClosed") === "true");
@@ -106,7 +108,7 @@ export default function SideBar({
               </div>
               <ThemeMenuModule
                 isClosed={isClosed}
-                defaultTheme={defaultTheme}
+                defaultTheme={theme}
                 params={params}
               />
             </div>

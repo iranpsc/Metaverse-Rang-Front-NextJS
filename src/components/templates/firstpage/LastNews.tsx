@@ -97,8 +97,8 @@ const LastNews = ({ firstPageArrayContent, params }: any) => {
                 <Image
                   src="/firstpage/person1.webp"
                   alt="hossein ghadiri"
-                  width={1000}
-                  height={1000}
+                  width={100}
+                  height={100}
                   loading="lazy"
                   className="w-[45px] h-[45px] rounded-full object-cover cursor-pointer transition-all duration-150 ease-in-out"
                   // onClick={() => pushRgb(item.creator.code)}

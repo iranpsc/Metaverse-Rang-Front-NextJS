@@ -1,6 +1,5 @@
 import SideBar from "@/components/module/sidebar/SideBar";
 import BreadCrumb from "@/components/shared/BreadCrumb";
-import useServerDarkMode from "src/hooks/use-server-dark-mode";
 import {
   getTranslation,
   getMainFile,
@@ -22,8 +21,6 @@ import InviteChart from "./components/invite-chart.js";
 // import "./style/output.css";
 
 export default async function CitizenReferral({ params }: { params: any }) {
-  // THEME
-  const defaultTheme = useServerDarkMode();
   const langData = await getTranslation(params.lang);
 
   const [mainData, langArray, initInviteList, footerTabs, chartDataFetch] =
@@ -181,7 +178,6 @@ export default async function CitizenReferral({ params }: { params: any }) {
           tabsMenu={updatedTabsMenu}
           langData={langData}
           langArray={langArray}
-          defaultTheme={defaultTheme}
           params={params}
           pageSide="citizen"
         />

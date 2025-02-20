@@ -4,7 +4,6 @@ import ProfileAbout from "@/components/module/profile/ProfileAbout";
 import ProfileDetails from "@/components/module/profile/ProfileDatails";
 import { getTranslation, getMainFile, findByModalName, findByTabName, getLangArray, getUserData } from "@/components/utils/actions";
 import SideBar from "@/components/module/sidebar/SideBar";
-import useServerDarkMode from "src/hooks/use-server-dark-mode";
 import { getStaticMenu } from "@/components/utils/constants";
 
 
@@ -23,11 +22,6 @@ export default async function citizenSinglePage({
     getMainFile(langData),
     getLangArray()
   ])
-
-  // const mainData = await getMainFile(langData);
-  // const langArray = await getLangArray();
-  
-  const defaultTheme = useServerDarkMode();
 
   const modalsProfile = mainData.modals.find(
     (modal) => modal.name === "Citizenship-profile"
@@ -136,7 +130,6 @@ export default async function citizenSinglePage({
               tabsMenu={updatedTabsMenu}
               langData={langData}
               langArray={langArray}
-              defaultTheme={defaultTheme}
               params={params}
               pageSide="citizen"
             />

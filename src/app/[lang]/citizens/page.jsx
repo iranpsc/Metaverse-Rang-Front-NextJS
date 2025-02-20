@@ -169,7 +169,6 @@ export default async function CitizensPage({ params }) {
           tabsMenu={updatedTabsMenu}
           langData={langData}
           langArray={langArray}
-          defaultTheme={defaultTheme}
           params={params}
           pageSide="citizen"
         />
@@ -177,7 +176,7 @@ export default async function CitizensPage({ params }) {
           className={`overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20`}
         >
           {/* Breadcrumb */}
-          <div className="px-12">
+          <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
               <BreadCrumb params={params} />
             </div>
           <div className="mt-[60px] lg:mt-[40px] xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
@@ -203,6 +202,7 @@ export default async function CitizensPage({ params }) {
               levelListArrayContent={levelListArrayContent}
               params={params}
               citizenListArrayContent={citizenListArrayContent}
+              defaultTheme={defaultTheme}
             />
             </Suspense>
           </div>

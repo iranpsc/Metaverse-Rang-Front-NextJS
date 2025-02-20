@@ -10,7 +10,6 @@ import {
 } from "@/components/utils/actions";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import SideBar from "@/components/module/sidebar/SideBar";
-import useServerDarkMode from "src/hooks/use-server-dark-mode";
 import { getStaticMenu } from "@/components/utils/constants";
 export default async function CitizensPage({ params }: { params: any }) {
   const [footerTabs, langData, langArray] = await Promise.all([
@@ -20,7 +19,6 @@ export default async function CitizensPage({ params }: { params: any }) {
   ]);
 
   const mainData = await getMainFile(langData);
-  const defaultTheme = useServerDarkMode();
 
   const centralPageModal = await findByModalName(mainData, "central-page");
   const tabsMenu = await findByTabName(centralPageModal, "before-login");
@@ -51,7 +49,6 @@ export default async function CitizensPage({ params }: { params: any }) {
           tabsMenu={updatedTabsMenu}
           langData={langData}
           langArray={langArray}
-          defaultTheme={defaultTheme}
           params={params}
           pageSide="citizen"
         />

@@ -2,7 +2,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import Chart from "chart.js/auto"; // Import Chart.js
 import axios from "axios";
-import useDarkMode from "src/hooks/use-dark-mode";
+import { useCookies } from "react-cookie";
 
 
 
@@ -13,29 +13,8 @@ export default function InviteChart({params,referralPageArrayContent,initChartDa
   const [invBtn, setInvBtn  ] = useState(true)
   const [giftBtn, setGiftBtn] = useState(true)
   const [timePeriodBtns, setTimePeriodBtns] = useState('yearly')
-  const [theme, setTheme] = useState(
-    'dark'
-  );
-
-  // Function to check the current theme from <html> tag
-  const getThemeFromHTML = () => {
-    return document.documentElement.classList.contains("dark") ? "dark" : "light";
-  };
-
-  useEffect(() => {
-    // Listen for changes to the <html> tag
-    const observer = new MutationObserver(() => {
-      const newTheme = getThemeFromHTML();
-      setTheme(newTheme); // Update state only if theme changes
-    });
-
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"], // Detect class changes on <html>
-    });
-
-    return () => observer.disconnect(); // Cleanup observer on unmount
-  }, [theme]); // Keep dependency array stable
+  const [cookies] = useCookies(["theme"]);
+  const theme = cookies.theme || "dark";
 
   useEffect(() => {
     console.log("Current Theme:", theme); // Debugging
