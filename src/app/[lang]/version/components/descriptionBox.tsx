@@ -1,15 +1,24 @@
 "use client";
 import React from "react";
 
-export default function DescriptionBox(){
+interface Version {
+  id: number;
+  title: string;
+  version: string;
+  date: string;
+  description: string;
+}
+interface DescriptionBoxProps {
+  selectedVersion: Version | null;
+}
+const DescriptionBox: React.FC<DescriptionBoxProps> = ({ selectedVersion }) => {
 
-
+console.log(selectedVersion);
 
 return (
 
     <div
-    id="versionInfo"
-    className="versionInfo hidden lg:bg-[#FFFFFF] dark:bg-[#080807] lg:h-[804px] lg:self-start lg:px-[15px] lg:flex lg:flex-col lg:items-center 
+    className="versionInfo h-[844px] hidden lg:bg-[#FFFFFF] dark:bg-[#080807]  lg:self-start lg:px-[15px] lg:flex lg:flex-col lg:items-center 
     lg:transition-[width,margin-left] lg:duration-300 lg:ease-in-out lg:w-full lg:dark:bg-[#080807] lg:pt-[15px] lg:rounded-[20px]"
   >
     <div className="lineBox flex justify-between items-center w-full min-h-[48px]">
@@ -25,8 +34,8 @@ return (
         id="displayVersionDes"
         className="displayVersionDes text-[170%] font-[700] z-[2] text-[#0066FF] dark:text-[#FFC700]"
       >
-        V 1. 1.1. 21
-      </p>
+{selectedVersion?.version}    
+  </p>
     </div>
 
     <div className="lineBox flex justify-between items-center w-full min-h-[48px]">
@@ -39,8 +48,8 @@ return (
         id="textVersion inline-block whitespace-nowrap pl-[15px] text-[90%] text-[#868B90] lg:text-[100%]Des"
         className="toseVbehbodDate text-[#868B90] z-[1] whitespace-nowrap text-[120%]"
       >
-        1402/03/16
-      </p>
+{selectedVersion?.date}    
+</p>
     </div>
 
     <div className="descriptionBox flex justify-between items-center  w-full min-h-[48px]">
@@ -54,12 +63,7 @@ return (
       className="descriptionParagraph   leading-[37px] transition-[max-height] duration-300 ease-in-out text-[90%] w-full pb-[20px] h-auto bg-transparent text-[#C4C4C4] lg:text-[#908986] lg:overflow-auto lg:h-[40%]"
     >
       <p className="justify-between pt-[10px] text-justify ">
-        رندر با نقطه دید Z از نگین های سطوح کارت شهروند متارنگ
-        ریدیزاین تب حساب کاربری 3. تولید محتوا برای متاورس 4.
-        ریدیزاین تب حساب کاربری 3. تولید محتوا برای متاورس 4.
-        محدودیت در خرید زمین متارنگ حل تمامی مشکلات فاز یک متاورس
-        محدودیت در خرید زمین متارنگ حل تمامی مشکلات فاز یک متاورس
-        رنگ بخش فرانت
+      {selectedVersion?.description}    
       </p>
     </div>
   </div>
@@ -68,3 +72,4 @@ return (
 )
 
 }
+export default DescriptionBox;
