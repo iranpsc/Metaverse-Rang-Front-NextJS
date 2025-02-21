@@ -55,7 +55,11 @@ export default async function citizenSinglePage({
     if (profileData.data.name) {
       titleData = `${profileData.data.name} | ${profileData.data.code}`;
       nameUser = `${profileData.data.name} `;
-    } else {
+    }else if (profileData.data?.kyc?.fname) {
+      nameUser = `${profileData.data.kyc.fname} ${profileData.data.kyc.lname}`;
+      titleData = `${profileData.data.kyc.fname} ${profileData.data.kyc.lname} | ${profileData.data.code}`;
+    }
+     else {
       titleData = "Metaverse Rgb";
     }
   }
@@ -145,7 +149,8 @@ export default async function citizenSinglePage({
                     titleData={titleData}
                     langData={langData}
                     nameUser={nameUser}
-                    userProperty={userProperty}
+                    // userProperty={userProperty}
+                    mainData={mainData}
                     params={params}
                   />
                 </section>
@@ -155,7 +160,8 @@ export default async function citizenSinglePage({
                 >
                   <ProfileDetails
                     profileData={profileData}
-                    userProperty={userProperty}
+                    // userProperty={userProperty}
+                    mainData={mainData}
                   />
                 </section>
                 {/* THIRD */}
@@ -164,7 +170,8 @@ export default async function citizenSinglePage({
                 >
                   <ProfileAbout
                     profileData={profileData}
-                    userProperty={userProperty}
+                    // userProperty={userProperty}
+                    mainData={mainData}
                     titleData={titleData}
                     params={params}
                   />

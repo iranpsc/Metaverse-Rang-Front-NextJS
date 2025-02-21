@@ -9,12 +9,11 @@ export default function SearchComponent({
   citizenListArrayContent,
   searchLevel = "citizen",
   params,
+  mainData,
 }: any) {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchData, setSearchData] = useState<any>([]);
   const [loadingSearch, setLoadingSearch] = useState<boolean>(false);
-
-  console.log("training translate", citizenListArrayContent);
 
   const [cookies] = useCookies(["theme"]);
   const theme = cookies.theme || "dark";

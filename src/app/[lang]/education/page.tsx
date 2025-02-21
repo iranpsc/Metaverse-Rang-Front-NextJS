@@ -143,6 +143,7 @@ export default async function CitizensPage({ params }: { params: any }) {
             <SearchComponent
               searchLevel="education"
               citizenListArrayContent={trainingArrayContent}
+              mainData={mainData}
             />
           </div>
 

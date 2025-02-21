@@ -15,6 +15,7 @@ import CitizenList from "@/components/templates/citizen/citizenList";
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
 import { getStaticMenu } from "@/components/utils/constants";
 import React, { Suspense } from 'react';
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 
 // SEO**
@@ -22,6 +23,8 @@ export async function generateMetadata({ params }) {
   const langData = await getTranslation(params.lang);
 
   const mainData = await getMainFile(langData);
+  
+  
   // const centralPageModal = await findByModalName(mainData, "central-page");
   // const firstPageArrayContent = await findByTabName(
   //   centralPageModal,
@@ -33,26 +36,21 @@ export async function generateMetadata({ params }) {
     Citizenship,
     "list-citizen"
   );
-  // to find in an array with key(_name)
-  function localFind(_name) {
-    return citizenListArrayContent.find((item) => item.name == _name)
-      ?.translation;
-  }
+
 
   //to make description less than 200 character
   async function makeLessCharacter(){
-    let temp = await localFind("description citizen list")
-    temp = temp.slice(0,200)
-    return temp
+    let temp = findByUniqueId(mainData, 596)
+    return await temp.slice(0,200)
   }
 
   return {
-    title: await localFind("citizens of the metaverse"),
+    title: findByUniqueId(mainData, 593),
     description: await makeLessCharacter(),
     openGraph: {
       type: 'website',
       // url: `https://yourwebsite.com/posts/${params.id}`,
-      title: await localFind("citizens of the metaverse"),
+      title: findByUniqueId(mainData, 593),
       description: await makeLessCharacter(),
       locale: params.lang == "fa" ? "fa_IR" : "en_US",
       // site_name: متاورس رنگ,
@@ -92,13 +90,6 @@ export default async function CitizensPage({ params }) {
     "list-citizen"
   );
 
-
-  // to find in an array with key(_name)
-  function localFind(_name) {
-    return citizenListArrayContent.find((item) => item.name == _name)
-      ?.translation;
-  }
-
   // ****
   const levelModals = await findByModalName(mainData, "levels");
   const levelListArrayContent = await findByTabName(levelModals, "level-list");
@@ -107,9 +98,8 @@ export default async function CitizensPage({ params }) {
 
   //to make description less than 200 character
   async function makeLessCharacter(){
-    let temp = await localFind("description citizen list")
-    temp = temp.slice(0,200)
-    return temp
+    let temp = findByUniqueId(mainData, 596)
+    return await temp.slice(0,200)
   }
   
   const centralPageModal = await findByModalName(mainData, "central-page");
@@ -181,10 +171,10 @@ export default async function CitizensPage({ params }) {
             </div>
           <div className="mt-[60px] lg:mt-[40px] xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
             <h1 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[64px] mb-[16px]">
-              {localFind("citizens of the metaverse")}
+              {findByUniqueId(mainData, 593)}
             </h1>
             <p className="text-lightGray dark:text-lightGray font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center text-justify">
-              {localFind("description citizen list")}
+              {findByUniqueId(mainData, 596)}
             </p>
             <div className="flex justify-center w-full">
               <SearchComponent
@@ -198,10 +188,8 @@ export default async function CitizensPage({ params }) {
           <Suspense fallback={<div>Loading citizens...</div>}>
             <CitizenList
               allCitizenArray={allCitizenArray.data}
-              // lastPage={allCitizenArray.meta.to}
-              levelListArrayContent={levelListArrayContent}
               params={params}
-              citizenListArrayContent={citizenListArrayContent}
+              mainData={mainData}
               defaultTheme={defaultTheme}
             />
             </Suspense>
