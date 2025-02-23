@@ -1,24 +1,18 @@
 import Image from "next/image";
 import { ShowAll } from "@/components/svgs/SvgEducation";
-import { translateFooter } from "@/components/utils/education";
 import Link from "next/link";
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 export default function EducationCategories({
   categoriesData,
-  categoriesTranslateData,
+  mainData,
   params,
 }: any) {
-  //   const router = useRouter();
-  //   const { lang } = router.query;
-  const pusher = (link: string) => {
-    // router.push(`/${lang}/education/category/${link}`);
-  };
-
   return (
     <>
       <div className="w-[95%] h-fit mt-36 flex flex-col justify-center items-center ">
         <h1 className="w-full   text-center xl:text-start text-[30px]  font-bold font-azarMehr text-gray dark:text-dark-gray">
-          {translateFooter(categoriesTranslateData, "categories")}
+          {findByUniqueId(mainData, 270)}
         </h1>
         <div className="mt-10 grid 2xl:grid-cols-5 xl:grid-cols-5 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 xs:grid-cols-2 sm:place-items-center xs:place-items-center  xs:gap-x-1 w-full gap-3">
           {categoriesData &&
@@ -49,10 +43,7 @@ export default function EducationCategories({
           >
             <ShowAll className="w-[18px] h-[18px] stroke-blueLink   dark:dark:stroke-dark-yellow" />
             <p className="text-[18px]  xs:text-[15px] font-medium text-blueLink dark:text-dark-yellow font-azarMehr xs:max-w-[85px] text-center">
-              {translateFooter(
-                categoriesTranslateData,
-                "explore more categories"
-              )}
+              {findByUniqueId(mainData, 170)}
             </p>
           </Link>
         </div>

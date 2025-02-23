@@ -10,16 +10,9 @@ import { Tooltip as ReactTooltip } from "react-tooltip";
 import { Dislike, Like, Video, View } from "@/components/svgs/SvgEducation";
 import axios from "axios";
 import { useCookies } from "react-cookie";
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
-export default function EducationList({
-  loadMore,
-  allCatVideos,
-  videosData,
-  translateData,
-  params,
-}: any) {
-  console.log("allCatVideos", allCatVideos);
-
+export default function EducationList({ mainData, allCatVideos, params }: any) {
   const [videoToShow, setVideoToShow] = useState(allCatVideos);
   const [isDisabled, setIsDisabled] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -189,7 +182,7 @@ export default function EducationList({
               } bg-transparent text-black dark:text-dark-yellow rounded-[10px] px-[40px] py-[20px] base-transition-1 border-2 border-transparent hover:border-black hover:dark:border-dark-yellow`}
               onClick={handleLoadMore}
             >
-              {params.lang == "fa" ? "مشاهده بیشتر" : "View More"}
+              {findByUniqueId(mainData, 271)}
             </button>
           ) : (
             <SyncLoader

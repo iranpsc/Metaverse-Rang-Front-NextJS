@@ -78,14 +78,14 @@ export default async function AboutPage({ params }: any) {
   const levelModals = await findByModalName(mainData, "levels");
   const levelListArrayContent = await findByTabName(levelModals, "level-list");
 
-  function localFind1(_name: any) {
-    return citizenListArrayContent.find((item: any) => item.name == _name)
-      ?.translation;
-  }
-  function localFind2(_name: any) {
-    return levelListArrayContent.find((item: any) => item.name == _name)
-      ?.translation;
-  }
+  // function localFind1(_name: any) {
+  //   return citizenListArrayContent.find((item: any) => item.name == _name)
+  //     ?.translation;
+  // }
+  // function localFind2(_name: any) {
+  //   return levelListArrayContent.find((item: any) => item.name == _name)
+  //     ?.translation;
+  // }
 
   const staticMenuToShow = getStaticMenu(params.id);
 
@@ -301,7 +301,7 @@ export default async function AboutPage({ params }: any) {
             </div>
           </section>
           <div className="lg:px-32 md:px-5 sm:px-5 xs:px-1">
-            <DynamicFooter footerTabs={footerTabs} />
+            <DynamicFooter footerTabs={footerTabs} mainData={mainData} />
           </div>
         </section>
       </div>

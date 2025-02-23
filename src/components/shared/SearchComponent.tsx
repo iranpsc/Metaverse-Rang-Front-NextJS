@@ -6,7 +6,6 @@ import { ItemsSearch } from "@/components/shared/ItemsSearch";
 import { useCookies } from "react-cookie";
 
 export default function SearchComponent({
-  citizenListArrayContent,
   searchLevel = "citizen",
   params,
   mainData,
@@ -49,9 +48,6 @@ export default function SearchComponent({
     }
   }, [searchTerm]);
 
-  // useEffect(() => {
-  // }, [searchData]);
-
   useEffect(() => {
     if (searchData.length >= 1) {
       // setActiveSearch(true);
@@ -83,7 +79,7 @@ export default function SearchComponent({
         <SectionInputSearch
           SectionName="education"
           searchLevel={searchLevel}
-          citizenListArrayContent={citizenListArrayContent}
+          mainData={mainData}
           loadingSearch={loadingSearch}
           defaultTheme={theme}
           searchTerm={searchTerm}

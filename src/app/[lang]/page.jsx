@@ -433,7 +433,7 @@ export default async function LangPage({params}) {
 
             <div className="flex flex-col justify-center items-center">
               <Suspense fallback={<div>Loading Header...</div>}>
-                <DynamicFooter footerTabs={footerTabs} />
+                <DynamicFooter footerTabs={footerTabs} mainData={mainData} />
               </Suspense>
             </div>
           </section>

@@ -283,7 +283,7 @@ export default async function LevelsPage({ params }: any) {
             ))}
           </div>
           <div className="flex flex-col justify-center items-center xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
-            <DynamicFooter footerTabs={footerTabs} />
+            <DynamicFooter footerTabs={footerTabs} mainData={mainData} />
           </div>
         </section>
       </div>

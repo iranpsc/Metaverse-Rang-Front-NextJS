@@ -63,7 +63,7 @@ export default async function CitizensPage({ params }: { params: any }) {
           {/* PLZ code here without container */}
 
           <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
-            <DynamicFooter footerTabs={footerTabs} />
+            <DynamicFooter footerTabs={footerTabs} mainData={mainData} />
           </div>
         </section>
       </div>
