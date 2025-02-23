@@ -85,7 +85,7 @@ const VersionBox: React.FC<VersionBoxProps> = ({
   }, [isMobile]);
 
   return (
-    <div className="w-full mx-[20px] self-start flex flex-col items-center lg:w-[35%] lg:min-w-[380px] lg:h-full lg:flex-shrink-0 lg:rounded-[20px]">
+    <div className="w-full mx-[20px] self-start flex flex-col items-center lg:w-[35%] lg:min-w-[370px] lg:h-full lg:flex-shrink-0 lg:rounded-[20px]">
       <div className="searchBoxContainer w-full flex items-center border-solid border-[#00000024] border-[1px] justify-between bg-[#FFFF] dark:bg-[#1A1A18] lg:w-full h-[50px] rounded-[12px]">
         <div className="searchIcon flex justify-center p-2">
           <Search className={`fill-blueLink dark:fill-dark-yellow`} />
@@ -189,6 +189,9 @@ const VersionBox: React.FC<VersionBoxProps> = ({
             </button>
           )}
         </div>
+
+
+        
       </div>
     </div>
   );

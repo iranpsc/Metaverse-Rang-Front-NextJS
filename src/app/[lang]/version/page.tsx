@@ -1,4 +1,5 @@
 //"use client";
+import { Search } from "@/components/svgs/SvgEducation";
 import DynamicFooter from "@/components/module/footer/DynamicFooter";
 import {
   getTranslation,
