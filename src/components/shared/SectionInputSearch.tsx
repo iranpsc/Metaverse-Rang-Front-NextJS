@@ -2,11 +2,12 @@ import { CLoseIcon } from "@/components/svgs";
 import { Search } from "@/components/svgs/SvgEducation";
 import SyncLoader from "react-spinners/SyncLoader";
 import { translateFooter } from "@/components/utils/education";
+import { findByUniqueId } from "../utils/findByUniqueId";
 
 export default function SectionInputSearch({
   SectionName,
   searchLevel,
-  citizenListArrayContent,
+  mainData,
   loadingSearch,
   defaultTheme,
   searchTerm,
@@ -14,11 +15,6 @@ export default function SectionInputSearch({
   searchData,
   removeSearch,
 }: any) {
-  // to find in an array with key(_name)
-  function localFind(_name: any) {
-    return citizenListArrayContent.find((item: any) => item.name == _name)
-      .translation;
-  }
   return (
     <>
       <div
@@ -32,8 +28,8 @@ export default function SectionInputSearch({
         <input
           placeholder={
             searchLevel == "citizen"
-              ? localFind("search for citizenship name")
-              : localFind("search for the training you need")
+              ? findByUniqueId(mainData, 594)
+              : findByUniqueId(mainData, 167)
           }
           className="w-[80%] outline-none border-none 
               placeholder-[#868B90] dark:text-white text-[14px] ms-2 font-azarMehr font-medium dark:bg-[#1A1A18] dark:placeholder-dark-gray"
@@ -57,7 +53,7 @@ export default function SectionInputSearch({
         ) : (
           SectionName === "education" && (
             <span className="text-blueLink dark:text-dark-activeButton  me-5  font-azarMehr font-medium">
-              {localFind("search")}
+              {findByUniqueId(mainData, 57)}
             </span>
           )
         )}

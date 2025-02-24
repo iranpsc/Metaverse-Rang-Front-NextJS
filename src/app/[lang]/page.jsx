@@ -1,16 +1,4 @@
 import { Discord, Frame1, Frame2 } from "@/components/svgs";
-// import HeaderFirstPage from "@/components/templates/firstpage/HeaderFirstPage";
-// import SectionTimer from "@/components/templates/firstpage/SectionTimer";
-// import SectionTeam from "@/components/templates/firstpage/TeamSection";
-// import TopCitizen from "@/components/templates/firstpage/TopCitizen";
-// import LastNews from "@/components/templates/firstpage/LastNews";
-// import Section3D from "@/components/templates/firstpage/Section3D";
-// import TopTrainersFirstPage from "@/components/templates/firstpage/TopTrainersFirstPage";
-// import EducationFirstPage from "@/components/templates/firstpage/EducationFirstPage";
-// import LastContent from "@/components/templates/firstpage/LastContent";
-// import DetailsEducationSection from "@/components/templates/firstpage/DetailsEducationSection";
-// import VersionSection from "@/components/templates/firstpage/VersionSection";
-// import SideBar from "@/components/module/sidebar/SideBar";
 import React, { Suspense } from 'react';
 import { headers } from 'next/headers';
 
@@ -39,9 +27,7 @@ import {
 const DynamicFooter = React.lazy(() => import("@/components/module/footer/DynamicFooter"  ))
 import { getStaticMenu } from "@/components/utils/constants";
 import Head from 'next/head';
-
-
-
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 // SEO**
 export async function generateMetadata({ params }) {
@@ -50,20 +36,9 @@ export async function generateMetadata({ params }) {
   const centralPageModal = await findByModalName(mainData, "central-page");
   const firstPageArrayContent = await findByTabName(centralPageModal, "first-page");
   
-  // ***
-  // const headersList = headers();
-  // const host = headersList.get('host');
-  // const protocol ='https';
-  // const fullUrl = `${protocol}://${host}/${params.lang}`;
-
-    // to find in an array with key(_name)
-    async function localFind(_name) {
-      return await firstPageArrayContent.find((item) => item.name == _name)
-        .translation;
-    }
     //to make description less than 200 character
     async function makeLessCharacter(){
-      let temp = await localFind('metaverse rang is a metaverse world platform')
+      let temp = findByUniqueId(mainData,482)
       temp = temp.slice(0,200)
       return temp
     }
@@ -72,12 +47,12 @@ export async function generateMetadata({ params }) {
 
 
   return {
-    title: await localFind('metaverse rang'),
+    title: findByUniqueId(mainData,256),
     description: await makeLessCharacter(),
     openGraph: {
       type: 'website',
       // url: `https://yourwebsite.com/posts/${params.id}`,
-      title: await localFind('metaverse rang'),
+      title: findByUniqueId(mainData,256),
       description: await makeLessCharacter(),
       locale: params.lang == 'fa'? 'fa_IR' : 'en_US',
       url: `https://rgb.irpsc.com/${params.lang}`,
@@ -86,7 +61,7 @@ export async function generateMetadata({ params }) {
           url: '/logo.png',
           width: 800,
           height: 600,
-          alt: localFind('metaverse rang'),
+          alt: findByUniqueId(mainData,256),
         },
       ],
     },
@@ -134,7 +109,7 @@ export default async function LangPage({params}) {
 
   // add staticMenuToShow values to siblings tabsMenu values
   const updatedTabsMenu = tabsMenu.map((tab) => {
-    let findInStatic = staticMenuToShow.find((val) => tab.name === val.name);
+    let findInStatic = staticMenuToShow.find((val) => tab.unique_id === val.unique_id);
     
     if (findInStatic) {
       // Return a new tab object with updated properties
@@ -150,12 +125,6 @@ export default async function LangPage({params}) {
     return tab;
   });
   
-
-  // to find in an array with key(_name)
-  async function localFind(_name) {
-    return await firstPageArrayContent.find((item) => item.name == _name)
-      .translation;
-  }
 
   async function fetchData() {
     let languageSelectedUrl = "";
@@ -189,7 +158,7 @@ export default async function LangPage({params}) {
 
   //to make description less than 200 character
   async function makeLessCharacter(){
-    let temp = await localFind('metaverse rang is a metaverse world platform')
+    let temp = findByUniqueId(mainData,482)
     temp = temp.slice(0,200)
     return temp
   }
@@ -197,7 +166,7 @@ export default async function LangPage({params}) {
   const landingSchema = {
     "@context": "https://schema.org/",
     "@type": "ProfessionalService",
-    "name": `${await localFind('metaverse rang')}`,
+    "name": `${findByUniqueId(mainData,256)}`,
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "میرداماد، 824H+JG2",
@@ -280,7 +249,7 @@ export default async function LangPage({params}) {
               className="w-full h-full flex flex-col-reverse lg:flex-row px-5 lg:ps-[32px] lg:pe-0 z-[1]"
             >
               <Suspense fallback={<div>Loading Header...</div>}>
-                <HeaderFirstPage firstPageArrayContent={firstPageArrayContent} params={params} />
+                <HeaderFirstPage mainData={mainData} params={params} />
               </Suspense>
             </div>
             {/* MD to larg shown-1 */}
@@ -293,13 +262,16 @@ export default async function LangPage({params}) {
                 <div className="flex items-center">
                   <Frame1 className="size-[36px]" />
                   <h3 className="text-white font-bold text-[16px] 2xl:text-[24px] 3xl:text-[28px] ps-2 font-azarMehr">
-                    {localFind("different competitions")}
+                    {/* {localFind("different competitions")} */}
+                    {findByUniqueId(mainData,484)}
                   </h3>
                 </div>
                 <p className="w-full text-justify text-white font-azarMehr font-medium text-[14px] md:text-[16px] 2xl:text-[18px]">
-                  {localFind(
+                  {/* {localFind(
                     "metaverse rang invites you to an exciting world of competition"
-                  )}
+                  )} */}
+                    {findByUniqueId(mainData,485)}
+
                 </p>
               </div>
 
@@ -309,13 +281,16 @@ export default async function LangPage({params}) {
                 <div className="flex items-center">
                   <Frame2 className="size-[36px]" />
                   <h3 className="text-white font-bold text-[16px] 2xl:text-[24px] 3xl:text-[28px] ps-2 font-azarMehr">
-                    {localFind("real interactions")}
+                    {/* {localFind("real interactions")} */}
+                    {findByUniqueId(mainData,486)}
+                    {findByUniqueId(mainData,486)}
                   </h3>
                 </div>
                 <p className="w-full text-justify text-white font-azarMehr font-medium text-[14px] md:text-[16px] 2xl:text-[18px]">
-                  {localFind(
+                  {/* {localFind(
                     "metaverse rang invites you to an exciting world of real interactions"
-                  )}
+                  )} */}
+                    {findByUniqueId(mainData,487)}
                 </p>
               </div>
             </div>
@@ -330,13 +305,17 @@ export default async function LangPage({params}) {
                 <div className="flex items-center">
                   <Frame1 className="size-[36px]" />
                   <h3 className="text-white font-bold text-[16px] 2xl:text-[24px] 3xl:text-[28px] ps-2 font-azarMehr">
-                    {localFind("different competitions")}
+                    {/* {localFind("different competitions")} */}
+                    {findByUniqueId(mainData,484)}
+
                   </h3>
                 </div>
                 <p className="w-full text-justify text-white font-azarMehr font-medium text-[14px] md:text-[16px] 2xl:text-[18px]">
-                  {localFind(
+                  {/* {localFind(
                     "metaverse rang invites you to an exciting world of competition"
-                  )}
+                  )} */}
+                    {findByUniqueId(mainData,485)}
+
                 </p>
               </div>
 
@@ -346,13 +325,17 @@ export default async function LangPage({params}) {
                 <div className="flex items-center">
                   <Frame2 className="size-[36px]" />
                   <h3 className="text-white font-bold text-[16px] 2xl:text-[24px] 3xl:text-[28px] ps-2 font-azarMehr">
-                    {localFind("real interactions")}
+                    {/* {localFind("real interactions")} */}
+                    {findByUniqueId(mainData,486)}
+
                   </h3>
                 </div>
                 <p className="w-full text-justify text-white font-azarMehr font-medium text-[14px] md:text-[16px] 2xl:text-[18px]">
-                  {localFind(
+                  {/* {localFind(
                     "metaverse rang invites you to an exciting world of real interactions"
-                  )}
+                  )} */}
+                    {findByUniqueId(mainData,487)}
+
                 </p>
               </div>
             </div>
@@ -369,24 +352,25 @@ export default async function LangPage({params}) {
 
             <div className="relative w-full h-fit flex mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
             <Suspense fallback={<div>Loading Header...</div>}>
-              <SectionTeam firstPageArrayContent={firstPageArrayContent} params={params} />
+              <SectionTeam mainData={mainData} params={params} />
             </Suspense>
             </div>
 
             <div className="w-[90%] h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
               <Suspense fallback={<div>Loading Header...</div>}>
                 <TopCitizen
-                firstPageArrayContent={firstPageArrayContent}
+                // firstPageArrayContent={firstPageArrayContent}
                 params={params}
-                citizenListArrayContent={citizenListArrayContent}
-                levelListArrayContent={levelListArrayContent}
+                mainData={mainData}
+                // citizenListArrayContent={citizenListArrayContent}
+                // levelListArrayContent={levelListArrayContent}
                 />
               </Suspense>
             </div>
 
             <div className="w-[90%] h-fit  mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
               <Suspense fallback={<div>Loading Header...</div>}>
-                <LastNews firstPageArrayContent={firstPageArrayContent} params={params} />
+                <LastNews mainData={mainData} params={params} />
               </Suspense>
             </div>
 
@@ -398,29 +382,27 @@ export default async function LangPage({params}) {
 
             <div className="w-[90%] h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
               <TopTrainersFirstPage
-                firstPageArrayContent={firstPageArrayContent}
                 params={params}
-                citizenListArrayContent={citizenListArrayContent}
-                levelListArrayContent={levelListArrayContent}
+                mainData={mainData}
               />
             </div>
 
             <div className="w-[90%] h-fit  mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
               <Suspense fallback={<div>Loading Header...</div>}>
-                <EducationFirstPage params={params} firstPageArrayContent={firstPageArrayContent} />
+                <EducationFirstPage params={params} mainData={mainData} />
               </Suspense>
             </div>
 
             <div className="w-[90%] h-fit  mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
               <Suspense fallback={<div>Loading Header...</div>}>
-                <LastContent firstPageArrayContent={firstPageArrayContent} params={params}/>
+                <LastContent mainData={mainData} params={params}/>
               </Suspense>
             </div>
 
             <div className="w-[90%] relative h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
               <Suspense fallback={<div>Loading Header...</div>}>
                 <DetailsEducationSection
-                  firstPageArrayContent={firstPageArrayContent}
+                  mainData={mainData}
                 />
               </Suspense>
             </div>
@@ -433,7 +415,7 @@ export default async function LangPage({params}) {
 
             <div className="flex flex-col justify-center items-center">
               <Suspense fallback={<div>Loading Header...</div>}>
-                <DynamicFooter footerTabs={footerTabs} />
+                <DynamicFooter footerTabs={footerTabs} mainData={mainData} />
               </Suspense>
             </div>
           </section>

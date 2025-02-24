@@ -1,14 +1,11 @@
 import { ArrowRight } from "@/components/svgs";
 import { Dislike, Like, View, Video } from "@/components/svgs/SvgEducation";
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 import Image from "next/image";
 import Link from "next/link";
 
-const LastNews = ({ firstPageArrayContent, params }: any) => {
-  function localFind(_name: any) {
-    return firstPageArrayContent.find((item: any) => item.name == _name)
-      .translation;
-  }
+const LastNews = ({ mainData, params }: any) => {
   const staticData = [
     {
       title:
@@ -35,13 +32,15 @@ const LastNews = ({ firstPageArrayContent, params }: any) => {
     <>
       <div className="w-full flex flex-row justify-between items-center ">
         <p className="font-azarMehr font-medium text-[16px] md:text-[20px] lg:text-[28px] xl:text-[32px] dark:text-white">
-          {localFind("latest news")}
+          {/* {localFind("latest news")} */}
+          {findByUniqueId(mainData, 494)}
         </p>
 
         <a href="https://metatimes.ir/" target="_blank">
           <div className="flex justify-center items-center gap-4">
             <p className="font-azarMehr font-medium text-[12px] md:text-[16px] lg:text-[18px] xl:text-[20px] dark:text-white">
-              {localFind("view all")}
+              {/* {localFind("view all")} */}
+              {findByUniqueId(mainData, 171)}
             </p>
             <ArrowRight className="dark:stroke-white stroke-black rotate-180 w-[24px] h-full " />
           </div>

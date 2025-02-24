@@ -78,20 +78,22 @@ export default async function AboutPage({ params }: any) {
   const levelModals = await findByModalName(mainData, "levels");
   const levelListArrayContent = await findByTabName(levelModals, "level-list");
 
-  function localFind1(_name: any) {
-    return citizenListArrayContent.find((item: any) => item.name == _name)
-      ?.translation;
-  }
-  function localFind2(_name: any) {
-    return levelListArrayContent.find((item: any) => item.name == _name)
-      ?.translation;
-  }
+  // function localFind1(_name: any) {
+  //   return citizenListArrayContent.find((item: any) => item.name == _name)
+  //     ?.translation;
+  // }
+  // function localFind2(_name: any) {
+  //   return levelListArrayContent.find((item: any) => item.name == _name)
+  //     ?.translation;
+  // }
 
   const staticMenuToShow = getStaticMenu(params.id);
 
   // add staticMenuToShow values to siblings tabsMenu values
   const updatedTabsMenu = tabsMenu.map((tab: any) => {
-    let findInStatic = staticMenuToShow.find((val) => tab.name === val.name);
+    let findInStatic = staticMenuToShow.find(
+      (val) => tab.unique_id === val.unique_id
+    );
 
     if (findInStatic) {
       // Return a new tab object with updated properties
@@ -301,7 +303,7 @@ export default async function AboutPage({ params }: any) {
             </div>
           </section>
           <div className="lg:px-32 md:px-5 sm:px-5 xs:px-1">
-            <DynamicFooter footerTabs={footerTabs} />
+            <DynamicFooter footerTabs={footerTabs} mainData={mainData} />
           </div>
         </section>
       </div>

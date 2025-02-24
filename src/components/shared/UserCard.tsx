@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import GemImage from "@/components/templates/citizen/gemImage";
 import Link from "next/link";
@@ -77,32 +78,5 @@ export default function UserCard({ item, params, buttonText, minWidth }: any) {
         </Link>
       </div>
     </div>
-    // <Link href={`/${params.lang}/citizen/${item.code}`}>
-    //   <div
-    //     key={index}
-    //     className="min-w-[258px] min-h-[150px] shadow-xl flex flex-col justify-start items-center gap-10 py-5 bg-white dark:bg-[#1A1A18] rounded-[24px] mx-3 hover:scale-105 base-transition-1"
-    //   >
-    //     <Image
-    //       className="size-[170px] rounded-full border-none"
-    //       src={item.profile_photo || "/firstpage/temp-1.webp"}
-    //       alt="header"
-    //       width={1000}
-    //       height={1000}
-    //       loading="lazy"
-    //     />
-    //     <p className="font-azarMehr font-medium text-[20px] text-black dark:text-white">
-    //       {item.name}
-    //     </p>
-    //     <p className="font-azarMehr font-medium text-[18px] text-blueLink dark:text-dark-yellow">
-    //       شهروندان پیشرو
-    //     </p>
-    //     <div className="flex justify-center items-center">
-    //       <p className="font-azarMehr font-medium text-[20px] text-[#808080]">
-    //         {item.like}
-    //       </p>
-    //       <Like className="size-[15px] stroke-[#808080]" />
-    //     </div>
-    //   </div>
-    // </Link>
   );
 }

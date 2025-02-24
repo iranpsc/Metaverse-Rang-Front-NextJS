@@ -1,4 +1,5 @@
 "use client";
+import { switchDigits } from "@/components/utils/DigitSwitch";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -38,7 +39,12 @@ export default function TestPage() {
   }, []); // Runs only once when the component mounts
 
   return (
-    <div className="relative w-full flex justify-center items-center">
+    <div className="relative w-full">
+      <div>
+        <p>persian:::{switchDigits(11112, "fa")}</p>
+        <p>persian:::{switchDigits("1111", "fa")}</p>
+        <p>latin:::{switchDigits("۵۵۵", "en")}</p>
+      </div>
       <div
         className="description"
         dangerouslySetInnerHTML={{ __html: description }}

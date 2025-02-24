@@ -5,23 +5,17 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import UserCard from "@/components/shared/UserCard";
 import SyncLoader from "react-spinners/SyncLoader";
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 
 export default function CitizenList({
-  levelListArrayContent,
   params,
-  citizenListArrayContent,
   allCitizenArray,
   defaultTheme,
+  mainData
 }) {
-  function localFind1(_name) {
-    return citizenListArrayContent.find((item) => item.name == _name)
-      ?.translation;
-  }
-  function localFind2(_name) {
-    return levelListArrayContent.find((item) => item.name == _name)
-      ?.translation;
-  }
+
+  
 
   const [localCitizenArray, setLocalCitizenArray] = useState(allCitizenArray);
   const [isDisabled, setIsDisabled] = useState(false);
@@ -29,6 +23,17 @@ export default function CitizenList({
   const [lastPage, setLastPage] = useState(2);
   const [isMounted, setIsMounted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [buttonText, setButtonText] = useState("");
+
+  useEffect(() => {
+    const fetchButtonText = async () => {
+      const text = await findByUniqueId(mainData, 600);
+      setButtonText(text);
+      setLoading(false);  // Set loading to false when data is fetched
+    };
+  
+    fetchButtonText();
+  }, [mainData]);
 
   
 
@@ -73,8 +78,8 @@ export default function CitizenList({
         item={item}
         index={index}
         params={params}
-        levelText={localFind2("developer")}
-        buttonText={localFind1("citizen page")} />
+        buttonText={buttonText} 
+        />
       ))}
       <div className="w-full flex justify-center mt-[40px]">
       {!loading ? (
