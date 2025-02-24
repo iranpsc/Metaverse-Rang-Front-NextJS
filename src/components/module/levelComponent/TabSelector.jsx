@@ -2,9 +2,10 @@
 
 import { useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { targetData } from "@/components/utils/targetDataName";
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
-export default function TabSelector({ params, levelsTranslatePage }) {
+
+export default function TabSelector({ params, mainData }) {
     const lang = params.lang;
     const selectedTabRef = useRef(null);
 
@@ -24,7 +25,6 @@ export default function TabSelector({ params, levelsTranslatePage }) {
     };
 
     useEffect(() => {
-        // This ensures that the code inside the if block only runs if the referenced element is available
         if (selectedTabRef.current) {
             selectedTabRef.current.scrollIntoView({
                 behavior: 'smooth',
@@ -38,19 +38,24 @@ export default function TabSelector({ params, levelsTranslatePage }) {
         <div className="overflow-x-scroll no-scrollbar bg-bgLightGrey dark:bg-darkGray dark:textwhite rounded-[12px] font[700]">
             <ul className="flex justify-between text-sm font-medium list-none">
                 <li className="me-2 w-100 sm:w-auto whitespace-nowrap">
-                    <ButtonLink title={targetData(levelsTranslatePage, "basic level information")} link="general-info" />
+                    {/* <ButtonLink title={targetData(levelsTranslatePage, "basic level information")} link="general-info" /> */}                    
+                    <ButtonLink title={findByUniqueId(mainData,387)} link="general-info" />
                 </li>
                 <li className="me-2 w-100 sm:w-auto whitespace-nowrap">
-                    <ButtonLink title={targetData(levelsTranslatePage, "permissions and access")} link="licenses" />
+                    {/* <ButtonLink title={targetData(levelsTranslatePage, "permissions and access")} link="licenses" /> */}                    
+                    <ButtonLink title={findByUniqueId(mainData,388)} link="licenses" />
                 </li>
                 <li className="me-2 w-100 sm:w-auto whitespace-nowrap">
-                    <ButtonLink title={targetData(levelsTranslatePage, "surface gem")} link="gem" />
+                    {/* <ButtonLink title={targetData(levelsTranslatePage, "surface gem")} link="gem" /> */}                    
+                    <ButtonLink title={findByUniqueId(mainData,389)} link="gem" />
                 </li>
                 <li className="me-2 w-100 sm:w-auto whitespace-nowrap">
-                    <ButtonLink title={targetData(levelsTranslatePage, "accompanying gift")} link="gift" />
+                    {/* <ButtonLink title={targetData(levelsTranslatePage, "accompanying gift")} link="gift" /> */}                    
+                    <ButtonLink title={findByUniqueId(mainData,390)} link="gift" />
                 </li>
                 <li className="me-2 w-100 sm:w-auto whitespace-nowrap">
-                    <ButtonLink title={targetData(levelsTranslatePage, "reward for reaching the level")} link="prize" />
+                    {/* <ButtonLink title={targetData(levelsTranslatePage, "reward for reaching the level")} link="prize" /> */}                    
+                    <ButtonLink title={findByUniqueId(mainData,391)} link="prize" />
                 </li>
             </ul>
         </div>

@@ -91,7 +91,9 @@ export default async function AboutPage({ params }: any) {
 
   // add staticMenuToShow values to siblings tabsMenu values
   const updatedTabsMenu = tabsMenu.map((tab: any) => {
-    let findInStatic = staticMenuToShow.find((val) => tab.name === val.name);
+    let findInStatic = staticMenuToShow.find(
+      (val) => tab.unique_id === val.unique_id
+    );
 
     if (findInStatic) {
       // Return a new tab object with updated properties

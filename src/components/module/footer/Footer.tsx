@@ -10,8 +10,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 function Footer({ footerTabs, mainData }: any) {
-  console.log("footerTabs", footerTabs);
-
   interface ItemIcon {
     id: number;
     img: string;

@@ -24,26 +24,29 @@ import {
 } from "@/components/utils/actions";
 import { Features } from "@/components/module/levelComponent/Features";
 import Head from "next/head";
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
+
 
 // SEO**
 export async function generateMetadata({ params }) {
 
   const staticRouteNames = [
-    { id: 1, route_name: "citizen-baguette" },
-    { id: 2, route_name: "reporter-baguette" },
-    { id: 3, route_name: "participation-baguette" },
-    { id: 4, route_name: "developer-baguette" },
-    { id: 5, route_name: "inspector-baguette" },
-    { id: 6, route_name: "businessman-baguette" },
-    { id: 7, route_name: "lawyer-baguette" },
-    { id: 8, route_name: "city-council-baguette" },
-    { id: 9, route_name: "the-mayor-baguette" },
-    { id: 10, route_name: "governor-baguette" },
-    { id: 11, route_name: "minister-baguette" },
-    { id: 12, route_name: "judge-baguette" },
-    { id: 13, route_name: "legislator-baguette" },
+    { id: 1,unique_id:382, route_name: "citizen-baguette" },
+    { id: 2,unique_id:383, route_name: "reporter-baguette" },
+    { id: 3,unique_id:589, route_name: "participation-baguette" },
+    { id: 4,unique_id:68, route_name: "developer-baguette" },
+    { id: 5,unique_id:69, route_name: "inspector-baguette" },
+    { id: 6,unique_id:590, route_name: "businessman-baguette" },
+    { id: 7,unique_id:71, route_name: "lawyer-baguette" },
+    { id: 8,unique_id:591, route_name: "city-council-baguette" },
+    { id: 9,unique_id:592, route_name: "the-mayor-baguette" },
+    { id: 10,unique_id:74, route_name: "governor-baguette" },
+    { id: 11,unique_id:75, route_name: "minister-baguette" },
+    { id: 12,unique_id:76, route_name: "judge-baguette" },
+    { id: 13,unique_id:77, route_name: "legislator-baguette" },
   ];
   const levelId = staticRouteNames.find(x => x.route_name === params.levelName)?.id
+  const levelUniqueId = staticRouteNames.find(x => x.route_name === params.levelName)?.unique_id
   
   const [singleLevel, levelTabs, langData] = await Promise.all([
     getSingleLevel(levelId),
@@ -52,10 +55,6 @@ export async function generateMetadata({ params }) {
   ])
 
   const mainData = await getMainFile(langData);
-  const levelsOld = mainData.modals.find((x) => x.name == "levels");
-  const levelsTranslatePage = levelsOld.tabs.find(
-    (x) => x.name == "levels-page"
-  ).fields;
 
   //to make description less than 200 character
   async function makeLessCharacter(_desc) {
@@ -82,40 +81,46 @@ export async function generateMetadata({ params }) {
     // HIN not good
     //item.name and _slug have fa/en number string
     //convert
+    let temp = concatArrayContent.find(
+      (item) => Number(item.unique_id) == Number(levelUniqueId)
+    );
     
-    return concatArrayContent.find(
-      (item) => Number(item.name) == Number(levelId)
-    )?.translation;
+    return temp?.translation
   }
 
 
-  async function tabNameConver(_tabName){
+  async function tabNameConvert(_tabName){
     switch (_tabName) {
       case "general-info":
-        return "basic level information"
+        // return "basic level information"
+        return 387
       case "licenses":
-        return "permissions and access"
+        // return "permissions and access"
+        return 388
       case "gem":
-        return "surface gem"
+        // return "surface gem"
+        return 389
       case "gift":
-        return "accompanying gift"
+        // return "accompanying gift"
+        return 390
       case "prize":
-        return "reward for reaching the level"
+        // return "reward for reaching the level"
+        return 391
       default:
         break;
     }
   }
 
   return {
-    title:`${await targetData(levelsTranslatePage,await tabNameConver(params.tabs))} ${localFind2()}`,
+    title:`${localFind2()}`,
     description:await makeLessCharacter(levelTabs.data.description || singleLevel.data.general_info.description),
     openGraph: {
       type: 'website',
       description: await makeLessCharacter(levelTabs.data.description || singleLevel.data.general_info.description),      
       locale: params.lang == 'fa'? 'fa_IR' : 'en_US',
-      title: `${await targetData(levelsTranslatePage,await tabNameConver(params.tabs))} ${localFind2()}`,
+      title: `${localFind2()}`,
       url: `https://rgb.irpsc.com/${params.lang}/levels/citizen${params.levelName ? "/" + params.levelName:""}${params.tabs ? "/" + params.tabs:""}`,
-      // keywords: `${await targetData(levelsTranslatePage,await tabNameConver(params.tabs))}، متاورس ایران، شهروند متاورس`,
+      // keywords: `${await targetData(levelsTranslatePage,await tabNameConvert(params.tabs))}، متاورس ایران، شهروند متاورس`,
       images: [
         {
           url: levelTabs.data.png_file || singleLevel.data.general_info.png_file,
@@ -134,23 +139,25 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function lavelSingelPage({ params }) {
-  const staticRouteNames = [
-    { id: 1, route_name: "citizen-baguette" },
-    { id: 2, route_name: "reporter-baguette" },
-    { id: 3, route_name: "participation-baguette" },
-    { id: 4, route_name: "developer-baguette" },
-    { id: 5, route_name: "inspector-baguette" },
-    { id: 6, route_name: "businessman-baguette" },
-    { id: 7, route_name: "lawyer-baguette" },
-    { id: 8, route_name: "city-council-baguette" },
-    { id: 9, route_name: "the-mayor-baguette" },
-    { id: 10, route_name: "governor-baguette" },
-    { id: 11, route_name: "minister-baguette" },
-    { id: 12, route_name: "judge-baguette" },
-    { id: 13, route_name: "legislator-baguette" },
+   const staticRouteNames = [
+    { id: 1,unique_id:382, route_name: "citizen-baguette" },
+    { id: 2,unique_id:383, route_name: "reporter-baguette" },
+    { id: 3,unique_id:589, route_name: "participation-baguette" },
+    { id: 4,unique_id:68, route_name: "developer-baguette" },
+    { id: 5,unique_id:69, route_name: "inspector-baguette" },
+    { id: 6,unique_id:590, route_name: "businessman-baguette" },
+    { id: 7,unique_id:71, route_name: "lawyer-baguette" },
+    { id: 8,unique_id:591, route_name: "city-council-baguette" },
+    { id: 9,unique_id:592, route_name: "the-mayor-baguette" },
+    { id: 10,unique_id:74, route_name: "governor-baguette" },
+    { id: 11,unique_id:75, route_name: "minister-baguette" },
+    { id: 12,unique_id:76, route_name: "judge-baguette" },
+    { id: 13,unique_id:77, route_name: "legislator-baguette" },
   ];
 
   const levelId = staticRouteNames.find(x => x.route_name === params.levelName)?.id
+  const levelUniqueId = staticRouteNames.find(x => x.route_name === params.levelName)?.unique_id
+
 
   const [langData, footerTabs, singleLevel, levelTabs] = await Promise.all([
     getTranslation(params.lang),
@@ -158,13 +165,22 @@ export default async function lavelSingelPage({ params }) {
     getSingleLevel(levelId),
     getLevelTabs(params, levelId)
   ]);
-
+  
+  // add unique_id according to staticRouteNames to use in component for translate
+  staticRouteNames.map((item)=>{
+    if(item.id == singleLevel.data.slug){
+      console.log('matchedd');
+      singleLevel.data.unique_id = item.unique_id
+    }
+  })
 
   const mainData = await getMainFile(langData);
   const levelsOld = mainData.modals.find((x) => x.name == "levels");
+  
   const levelsTranslatePage = levelsOld.tabs.find(
     (x) => x.name == "levels-page"
   ).fields;
+
 
   const levels = await findByModalName(mainData, "levels");
 
@@ -191,7 +207,7 @@ export default async function lavelSingelPage({ params }) {
     //item.name and _slug have fa/en number string
     //convert
     return concatArrayContent.find(
-      (item) => Number(item.name) == Number(levelId)
+      (item) => Number(item.unique_id) == Number(levelUniqueId)
     )?.translation;
   }
 
@@ -203,31 +219,36 @@ export default async function lavelSingelPage({ params }) {
       {
         "@type": "ListItem",
         "position": 1,
-        "name": await targetData(levelsTranslatePage, "basic level information"),
+        // "name": await targetData(levelsTranslatePage, "basic level information"),
+        name: findByUniqueId(mainData,387),
         "item": `https://rgb.irpsc.com/${params.lang}/levels/citizen/${params.levelName}/general-info`
       },
       {
         "@type": "ListItem",
         "position": 2,
-        "name": targetData(levelsTranslatePage,"permissions and access"),
+        // "name": targetData(levelsTranslatePage,"permissions and access"),
+        name: findByUniqueId(mainData,388),
         "item": `https://rgb.irpsc.com/${params.lang}/levels/citizen/${params.levelName}/licenses`
       },
       {
         "@type": "ListItem",
         "position": 3,
-        "name": targetData(levelsTranslatePage,"surface gem"),
+        // "name": targetData(levelsTranslatePage,"surface gem"),
+        name: findByUniqueId(mainData,389),
         "item": `https://rgb.irpsc.com/${params.lang}/levels/citizen/${params.levelName}/gem`
       },
       {
         "@type": "ListItem",
         "position": 4,
-        "name": targetData(levelsTranslatePage,"accompanying gift"),
+        // "name": targetData(levelsTranslatePage,"accompanying gift"),
+        name: findByUniqueId(mainData,390),
         "item": `https://rgb.irpsc.com/${params.lang}/levels/citizen/${params.levelName}/gift`
       },
       {
         "@type": "ListItem",
         "position": 5,
-        "name": targetData(levelsTranslatePage,"reward for reaching the level"),
+        // "name": targetData(levelsTranslatePage,"reward for reaching the level"),
+        name: findByUniqueId(mainData,391),
         "item": `https://rgb.irpsc.com/${params.lang}/levels/citizen/${params.levelName}/prize`
       }
     ]
@@ -268,14 +289,18 @@ export default async function lavelSingelPage({ params }) {
           {/* __________1 Btn + Title*/}
           <div className="grid-first self-start md:order-none w-full md:min-w-[65vw] xl:min-w-[65vw] flex items-center justify-between font-bold pt-[3px] pb-5 dark:text-white text-lg sm:text-xl lg:text-2xl 2xl:text-3xl 3xl:text-4xl">
             <h1 className="text-[36px]">{localFind2()}</h1>
-            <button className="min-w-[167px] w-max h-[48px] px-5 text-[14px] dark:bg-bgLightGrey2 bg-bgLightGrey dark:text-white font-bold text-textGray rounded-[12px]">{localFind('list of recipients')}</button>
+            <button className="min-w-[167px] w-max h-[48px] px-5 text-[14px] dark:bg-bgLightGrey2 bg-bgLightGrey dark:text-white font-bold text-textGray rounded-[12px]">
+              {/* {localFind('list of recipients')} */}
+              {findByUniqueId(mainData,392)}
+            </button>
           </div>
           {/* __________2 Tab Selector*/}
 
           <div className="grid-second overflow-hidden mb-5 self-start w-full md:min-w-[65vw] xl:min-w-[65vw]">
             <TabSelector
               params={params}
-              levelsTranslatePage={levelsTranslatePage}
+              // levelsTranslatePage={levelsTranslatePage}
+              mainData={mainData}
             />
           </div>
           {/* __________3 Content*/}
@@ -283,8 +308,9 @@ export default async function lavelSingelPage({ params }) {
           <div className="grid-third w-full md:min-w-[65vw] xl:min-w-[65vw]">
             {params.tabs == "general-info" && (
               <GeneralInfo
+                mainData={mainData}
                 levelTabs={levelTabs}
-                levelsTranslatePage={levelsTranslatePage}
+                // levelsTranslatePage={levelsTranslatePage}
                 singleLevel={singleLevel}
                 params={params}
                 concatArrayContent={concatArrayContent}
@@ -292,7 +318,8 @@ export default async function lavelSingelPage({ params }) {
             )}
             {params.tabs == "gem" && (
               <Gem
-                levelsTranslatePage={levelsTranslatePage}
+                mainData={mainData}
+                // levelsTranslatePage={levelsTranslatePage}
                 levelTabs={levelTabs}
                 singleLevel={singleLevel}
                 params={params}
@@ -301,7 +328,8 @@ export default async function lavelSingelPage({ params }) {
             )}
             {params.tabs == "gift" && (
               <Gift
-                levelsTranslatePage={levelsTranslatePage}
+                mainData={mainData}
+                // levelsTranslatePage={levelsTranslatePage}
                 levelTabs={levelTabs}
                 singleLevel={singleLevel}
                 params={params}
@@ -310,15 +338,16 @@ export default async function lavelSingelPage({ params }) {
             )}
             {params.tabs == "licenses" && (
               <Permission
+                mainData={mainData}
                 levelTabs={levelTabs}
-                levelsTranslatePage={levelsTranslatePage}
+                // levelsTranslatePage={levelsTranslatePage}
                 singleLevel={singleLevel}
                 params={params}
-                concatArrayContent={concatArrayContent}
               />
             )}
             {params.tabs == "prize" && (
               <Prize
+                mainData={mainData}
                 levelsTranslatePage={levelsTranslatePage}
                 levelTabs={levelTabs} 
                 singleLevel={singleLevel}

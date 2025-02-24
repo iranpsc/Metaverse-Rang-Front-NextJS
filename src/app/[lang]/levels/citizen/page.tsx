@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: any) {
     //   'the levels of "metaverse rang" in the parallel'
     // );
     let temp = findByUniqueId(mainData, 1417);
-    temp = temp.slice(0, 200);
+    if (temp) temp = temp.slice(0, 200);
     return temp;
   }
 
@@ -187,7 +187,9 @@ export default async function LevelsPage({ params }: any) {
 
   // add staticMenuToShow values to siblings tabsMenu values
   const updatedTabsMenu = tabsMenu.map((tab: any) => {
-    let findInStatic = staticMenuToShow.find((val) => tab.name === val.name);
+    let findInStatic = staticMenuToShow.find(
+      (val) => tab.unique_id === val.unique_id
+    );
 
     if (findInStatic) {
       // Return a new tab object with updated properties
