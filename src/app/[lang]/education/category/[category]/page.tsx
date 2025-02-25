@@ -7,7 +7,7 @@ import {
   getAllCategoryVideos,
   getFooterData,
   getLangArray,
-  getAllCategories,
+  getEducationSingleCategory,
 } from "@/components/utils/actions";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import SideBar from "@/components/module/sidebar/SideBar";
@@ -17,15 +17,17 @@ import TopTrainersFirstPage from "@/components/templates/firstpage/TopTrainersFi
 import EducationCategories from "@/components/templates/education/categories";
 import EducationList from "@/components/templates/education/EducationList";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import ShowAllCategoriesComponent from "@/components/templates/categories/ShowAllCategoriesComponent";
+import CategoryComponent from "@/components/templates/categories/CategoryComponent";
 
-export default async function CitizensPage({ params }: { params: any }) {
-  const [footerTabs, langData, langArray, allCatVideos, categoriesData] =
+export default async function EducationCategory({ params }: { params: any }) {
+  const [footerTabs, langData, langArray, allCatVideos, CategoryData] =
     await Promise.all([
       getFooterData(params),
       getTranslation(params.lang),
       getLangArray(),
       getAllCategoryVideos("1"),
-      getAllCategories(),
+      getEducationSingleCategory(params.category),
     ]);
 
   const mainData = await getMainFile(langData);
@@ -54,7 +56,7 @@ export default async function CitizensPage({ params }: { params: any }) {
     return tab;
   });
 
-  const educationVideoSchema = {
+  const educationAllCategorySchema = {
     "@context": "http://schema.org",
     "@type": "WebPage",
     mainEntity: allCatVideos.map((video: any) => ({
@@ -91,12 +93,12 @@ export default async function CitizensPage({ params }: { params: any }) {
   return (
     <>
       {/* SCHEMA** */}
-      <script
+      {/* <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(educationVideoSchema),
+          __html: JSON.stringify(educationAllCategorySchema),
         }}
-      />
+      /> */}
       <div className="flex h-screen overflow-hidden" dir={langData.direction}>
         <SideBar
           tabsMenu={updatedTabsMenu}
@@ -113,37 +115,21 @@ export default async function CitizensPage({ params }: { params: any }) {
             <BreadCrumb params={params} />
           </div>
 
-          <h1 className="mt-[70px] text-center  text-gray dark:text-dark-gray font-azarMehr font-bold 2xl:text-[26px] xl:text-[26px] lg:text-[22px] md:text-[20px] sm:text-[18px] xs:text-[16px] w-full">
-            {/* {localFind("page title")} */}
-            {findByUniqueId(mainData, 166)}
+          <h1 className="text-center mt-10 font-azarMehr dark:text-white text-black whitespace-nowrap font-bold 3xl:text-[24px] xl:text-[24px] lg:text-[22px] md:text-[20px] sm:text-[18px] xs:text-[14px]">
+            {findByUniqueId(mainData, 455)} {CategoryData.name}
           </h1>
-          <div className="flex flex-col items-center justify-center">
-            <p className=" 2xl:w-[30%] xl:w-[30%] lg:w-[40%] md:w-[40%] sm:w-[50%] xs:w-[50%] mt-5 font-azarMehr font-normal text-gray dark:text-dark-gray 2xl:text-[14px] xl:text-[14px] lg:text-[13px] md:text-[12px] sm:text-[12px] xs:text-[10px]   text-center">
-              {/* {localFind("description")} */}
-              {findByUniqueId(mainData, 164)}
-            </p>
 
-            <SearchComponent
-              searchLevel="education"
-              mainData={mainData}
-              params={params}
-            />
-          </div>
-
-          <div className="h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
-            <TopTrainersFirstPage params={params} mainData={mainData} />
-          </div>
-
-          <EducationCategories
-            categoriesData={categoriesData}
+          <SearchComponent
+            searchLevel="education"
             mainData={mainData}
             params={params}
           />
-
-          <EducationList
-            allCatVideos={allCatVideos}
+          <CategoryComponent
+            // translates={translates}
             params={params}
+            CategoryData={CategoryData}
             mainData={mainData}
+            // translateData={translateData}
           />
 
           <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
@@ -158,33 +144,31 @@ export default async function CitizensPage({ params }: { params: any }) {
 // SEO**
 export async function generateMetadata({ params }: { params: any }) {
   const langData = await getTranslation(params.lang);
-
   const mainData = await getMainFile(langData);
 
-  //to make description less than 200 character
-  async function makeLessCharacter() {
-    let temp = findByUniqueId(mainData, 164);
-    temp = temp.slice(0, 200);
+  const CategoryData = await getEducationSingleCategory(params.category);
 
-    return temp;
+  //to make description less than 200 character
+  async function makeLessCharacter(_input: string) {
+    return _input.slice(0, 200);
   }
 
   return {
-    title: await findByUniqueId(mainData, 165),
-    description: await makeLessCharacter(),
+    title: findByUniqueId(mainData, 455) + " " + CategoryData.name,
+    description: await makeLessCharacter(CategoryData.description),
     openGraph: {
       type: "website",
       // url: `https://yourwebsite.com/posts/${params.id}`,
-      title: findByUniqueId(mainData, 593),
-      description: await makeLessCharacter(),
+      title: findByUniqueId(mainData, 455) + " " + CategoryData.name,
+      description: await makeLessCharacter(CategoryData.description),
       locale: params.lang == "fa" ? "fa_IR" : "en_US",
       // site_name: متاورس رنگ,
-      url: `https://rgb.irpsc.com/${params.lang}/education`,
+      url: `https://rgb.irpsc.com/${params.lang}/education/category/${params.category}`,
       images: [
         {
-          url: "/logo.png",
+          url: CategoryData.image,
           width: 800,
-          height: 600,
+          height: 400,
           // alt: post.title,
         },
       ],

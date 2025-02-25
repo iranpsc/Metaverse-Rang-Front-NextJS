@@ -198,9 +198,23 @@
       },}
     )
     let temp = await res.json()
-
-    console.log('allvideoes111', temp.data);
     
+
+    return temp.data
+  }
+
+  export async function getEducationSingleCategory(_category){
+
+    console.log('sluggg',_category);
+    
+    
+    const res = await fetch(`https://api.rgb.irpsc.com/api/tutorials/categories/${_category}`,{
+      headers: {
+        "Content-Type": "application/json",
+        "Cache-Control": "public, max-age=3600", 
+      },}
+    )
+    let temp = await res.json()
 
     return temp.data
   }

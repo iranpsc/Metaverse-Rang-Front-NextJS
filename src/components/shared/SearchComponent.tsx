@@ -67,14 +67,14 @@ export default function SearchComponent({
       <div
         className={`${
           searchData.length >= 1 ? "visible" : "invisible"
-        }  w-full min-h-[1000px] h-full backdrop-blur-sm  bg-blackTransparent/30 h-screen absolute top-0 z-20 `}
+        }  w-full min-h-[1000px] h-full backdrop-blur-sm  bg-blackTransparent/30 h-screen absolute right-0 top-0 z-20 `}
         onClick={removeSearch}
       ></div>
       <div
         // id={`${
         //   themeDataActive === "dark" ? "dark-scrollbar" : "light-scrollbar"
         // }`}
-        className="w-[100%] md:w-[70%] lg:w-[50%] mt-[50px] flex flex-col items-center w-full relative z-20 dark:dark-scrollbar light-scrollbar"
+        className="w-[100%] md:w-[70%] lg:w-[50%] mt-[50px] flex flex-col items-center w-full m-auto relative z-20 dark:dark-scrollbar light-scrollbar"
       >
         <SectionInputSearch
           SectionName="education"

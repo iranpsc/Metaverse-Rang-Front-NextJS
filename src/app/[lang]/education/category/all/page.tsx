@@ -17,16 +17,19 @@ import TopTrainersFirstPage from "@/components/templates/firstpage/TopTrainersFi
 import EducationCategories from "@/components/templates/education/categories";
 import EducationList from "@/components/templates/education/EducationList";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import ShowAllCategoriesComponent from "@/components/templates/categories/ShowAllCategoriesComponent";
 
-export default async function CitizensPage({ params }: { params: any }) {
-  const [footerTabs, langData, langArray, allCatVideos, categoriesData] =
-    await Promise.all([
-      getFooterData(params),
-      getTranslation(params.lang),
-      getLangArray(),
-      getAllCategoryVideos("1"),
-      getAllCategories(),
-    ]);
+export default async function EducationCategoryAll({
+  params,
+}: {
+  params: any;
+}) {
+  const [footerTabs, langData, langArray, categoriesData] = await Promise.all([
+    getFooterData(params),
+    getTranslation(params.lang),
+    getLangArray(),
+    getAllCategories(),
+  ]);
 
   const mainData = await getMainFile(langData);
 
@@ -54,38 +57,26 @@ export default async function CitizensPage({ params }: { params: any }) {
     return tab;
   });
 
-  const educationVideoSchema = {
-    "@context": "http://schema.org",
-    "@type": "WebPage",
-    mainEntity: allCatVideos.map((video: any) => ({
-      "@type": "VideoObject",
-      name: video.title,
-      // description: video.description,
-      thumbnailUrl: video.image_url,
-      contentUrl: `https://rgb.irpsc.com/${params.lang}/education/category/${video.sub_category.slug}`,
-      uploadDate: "",
-      publisher: {
-        "@type": "Organization",
-        name: video.creator.name || video.creator.code,
-      },
-      interactionStatistic: [
-        {
-          "@type": "InteractionCounter",
-          interactionType: "http://schema.org/LikeAction",
-          userInteractionCount: video.likes_count,
-        },
-        {
-          "@type": "InteractionCounter",
-          interactionType: "http://schema.org/DislikeAction",
-          userInteractionCount: video.dislikes_count,
-        },
-        {
-          "@type": "InteractionCounter",
-          interactionType: "http://schema.org/WatchAction",
-          userInteractionCount: video.views_count,
-        },
-      ],
-    })),
+  console.log("categoriesData", categoriesData);
+
+  const educationAllCategorySchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    url: `https://rgb.irpsc.com/${params.lang}/education/category/all`,
+    name: findByUniqueId(mainData, 340),
+    description: findByUniqueId(mainData, 340),
+    mainEntityOfPage: `https://rgb.irpsc.com/${params.lang}/education/category/all`,
+    hasPart: {
+      "@type": "ItemList",
+      itemListElement: categoriesData.map((item: any, index: any) => ({
+        "@type": "ListItem",
+        position: index + 1, // Dynamically set the position based on the index
+        url: `https://rgb.irpsc.com/${params.lang}/education/category/${item.slug}`,
+        name: params.lang.toLowerCase() == "fa" ? item.name : item.slug,
+        // there is no description for each subcategory
+        description: params.lang.toLowerCase() == "fa" ? item.name : item.slug,
+      })),
+    },
   };
 
   return (
@@ -94,7 +85,7 @@ export default async function CitizensPage({ params }: { params: any }) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(educationVideoSchema),
+          __html: JSON.stringify(educationAllCategorySchema),
         }}
       />
       <div className="flex h-screen overflow-hidden" dir={langData.direction}>
@@ -113,37 +104,19 @@ export default async function CitizensPage({ params }: { params: any }) {
             <BreadCrumb params={params} />
           </div>
 
-          <h1 className="mt-[70px] text-center  text-gray dark:text-dark-gray font-azarMehr font-bold 2xl:text-[26px] xl:text-[26px] lg:text-[22px] md:text-[20px] sm:text-[18px] xs:text-[16px] w-full">
-            {/* {localFind("page title")} */}
-            {findByUniqueId(mainData, 166)}
+          <h1 className="mt-10 text-center font-azarMehr whitespace-nowrap dark:text-white text-black font-bold 3xl:text-[24px] xl:text-[24px] lg:text-[22px] md:text-[20px] sm:text-[18px] xs:text-[14px]">
+            {findByUniqueId(mainData, 340)}
           </h1>
-          <div className="flex flex-col items-center justify-center">
-            <p className=" 2xl:w-[30%] xl:w-[30%] lg:w-[40%] md:w-[40%] sm:w-[50%] xs:w-[50%] mt-5 font-azarMehr font-normal text-gray dark:text-dark-gray 2xl:text-[14px] xl:text-[14px] lg:text-[13px] md:text-[12px] sm:text-[12px] xs:text-[10px]   text-center">
-              {/* {localFind("description")} */}
-              {findByUniqueId(mainData, 164)}
-            </p>
 
-            <SearchComponent
-              searchLevel="education"
-              mainData={mainData}
-              params={params}
-            />
-          </div>
-
-          <div className="h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
-            <TopTrainersFirstPage params={params} mainData={mainData} />
-          </div>
-
-          <EducationCategories
-            categoriesData={categoriesData}
+          <SearchComponent
+            searchLevel="education"
             mainData={mainData}
             params={params}
           />
 
-          <EducationList
-            allCatVideos={allCatVideos}
+          <ShowAllCategoriesComponent
             params={params}
-            mainData={mainData}
+            categoriesData={categoriesData}
           />
 
           <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
@@ -170,16 +143,16 @@ export async function generateMetadata({ params }: { params: any }) {
   }
 
   return {
-    title: await findByUniqueId(mainData, 165),
-    description: await makeLessCharacter(),
+    title: findByUniqueId(mainData, 340),
+    description: findByUniqueId(mainData, 340),
     openGraph: {
       type: "website",
       // url: `https://yourwebsite.com/posts/${params.id}`,
-      title: findByUniqueId(mainData, 593),
-      description: await makeLessCharacter(),
+      title: findByUniqueId(mainData, 340),
+      description: findByUniqueId(mainData, 340),
       locale: params.lang == "fa" ? "fa_IR" : "en_US",
       // site_name: متاورس رنگ,
-      url: `https://rgb.irpsc.com/${params.lang}/education`,
+      url: `https://rgb.irpsc.com/${params.lang}/education/category/all`,
       images: [
         {
           url: "/logo.png",

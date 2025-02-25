@@ -1,5 +1,6 @@
+"use client";
 import Image from "next/image";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import randomcolor from "randomcolor";
 
 import { Folder } from "@/components/svgs/SvgCategories";
@@ -13,15 +14,16 @@ import {
 import { formatNumber } from "@/components/utils/education";
 import { useEffect, useState } from "react";
 
-export default function ListData({ nameComponent, data }: any) {
+export default function ListData({ nameComponent, data, params }: any) {
   const router = useRouter();
-  const { lang, category } = router.query;
   const pusher = (data: any) => {
-    router.push(`/${lang}/education/category/${category}/${data}`);
+    router.push(
+      `/${params.lang}/education/category/${params.category}/${data}`
+    );
   };
 
   const pushRgb = (data: any) => {
-    router.push(`https://rgb.irpsc.com/${lang}/citizen/${data}`);
+    router.push(`https://rgb.irpsc.com/${params.lang}/citizen/${data}`);
   };
 
   const [colors, setColors] = useState([]);
@@ -65,9 +67,9 @@ export default function ListData({ nameComponent, data }: any) {
               </div>
             </div>
 
-            <h1 className="text-start w-[95%] font-azarMehr truncate cursor-pointer font-bold mt-[15px] text-[16px] 3xl:text-[20px] ">
+            <p className="text-start w-[95%] font-azarMehr truncate cursor-pointer font-bold mt-[15px] text-[16px] 3xl:text-[20px] dark:text-white text-black">
               {item.name}
-            </h1>
+            </p>
             <div className="flex flex-row items-center justify-start  mt-[-8px] w-[98%]"></div>
             <div className="w-[95%] pb-2 flex flex-row justify-between  items-center">
               <div className=" px-3  flex flex-row justify-evenly items-center w-full h-fit pb-3">
