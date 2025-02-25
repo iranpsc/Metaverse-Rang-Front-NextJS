@@ -66,13 +66,15 @@ export default async function EducationCategoryAll({
     name: findByUniqueId(mainData, 340),
     description: findByUniqueId(mainData, 340),
     mainEntityOfPage: `https://rgb.irpsc.com/${params.lang}/education/category/all`,
-    itemListElement: categoriesData.map((item: any, index: any) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      url: `https://rgb.irpsc.com/${params.lang}/education/category/${item.slug}`,
-      name: params.lang.toLowerCase() === "fa" ? item.name : item.slug,
-      description: "", // If no description, leave blank
-    })),
+    itemListElement: categoriesData.map((item: any, index: any) => {
+      return {
+        "@type": "ListItem",
+        position: index + 1,
+        url: `https://rgb.irpsc.com/${params.lang}/education/category/${item.slug}`,
+        name: params.lang.toLowerCase() === "fa" ? item.name : item.slug,
+        description: "", // If no description, leave blank
+      };
+    }),
   };
 
   return (
