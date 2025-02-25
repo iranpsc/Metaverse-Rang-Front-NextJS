@@ -104,7 +104,6 @@ export default function SideBarContent({
         {tabsMenu &&
           tabsMenu.map((item, i) => (
             //*HINT*the way to pass parameters to function in nextjs "onTabClick(item)"
-            //*HINT*i<=12 is not a good solution,array must be change
             <React.Fragment key={`fragment-${item.id}`}>
               {item.toShow && 
               <li style={{order:item.order}}>

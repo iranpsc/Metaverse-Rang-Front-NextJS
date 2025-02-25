@@ -123,7 +123,11 @@ export default async function CitizensPage({ params }: { params: any }) {
               {findByUniqueId(mainData, 164)}
             </p>
 
-            <SearchComponent searchLevel="education" mainData={mainData} />
+            <SearchComponent
+              searchLevel="education"
+              mainData={mainData}
+              params={params}
+            />
           </div>
 
           <div className="h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">

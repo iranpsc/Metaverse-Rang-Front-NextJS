@@ -178,7 +178,8 @@ export default async function CitizensPage({ params }) {
             </p>
             <div className="flex justify-center w-full">
               <SearchComponent
-                citizenListArrayContent={citizenListArrayContent}
+                searchLevel='citizen'
+                mainData={mainData}
                 params={params}
               />
             </div>
