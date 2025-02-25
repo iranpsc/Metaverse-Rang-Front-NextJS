@@ -61,7 +61,7 @@ export default async function EducationCategoryAll({
 
   const educationAllCategorySchema = {
     "@context": "https://schema.org",
-    "@type": "WebSite",
+    "@type": "ItemList",
     url: `https://rgb.irpsc.com/${params.lang}/education/category/all`,
     name: findByUniqueId(mainData, 340),
     description: findByUniqueId(mainData, 340),
