@@ -56,7 +56,7 @@ export default async function CitizensPage({ params }: { params: any }) {
 
   const educationVideoSchema = {
     "@context": "http://schema.org",
-    "@type": "WebPage",
+    "@type": "WebSite",
     mainEntity: allCatVideos.map((video: any) => ({
       "@type": "VideoObject",
       name: video.title,

@@ -61,22 +61,18 @@ export default async function EducationCategoryAll({
 
   const educationAllCategorySchema = {
     "@context": "https://schema.org",
-    "@type": "WebPage",
+    "@type": "WebSite",
     url: `https://rgb.irpsc.com/${params.lang}/education/category/all`,
     name: findByUniqueId(mainData, 340),
     description: findByUniqueId(mainData, 340),
     mainEntityOfPage: `https://rgb.irpsc.com/${params.lang}/education/category/all`,
-    hasPart: {
-      "@type": "ItemList",
-      itemListElement: categoriesData.map((item: any, index: any) => ({
-        "@type": "ListItem",
-        position: index + 1, // Dynamically set the position based on the index
-        url: `https://rgb.irpsc.com/${params.lang}/education/category/${item.slug}`,
-        name: params.lang.toLowerCase() == "fa" ? item.name : item.slug,
-        // there is no description for each subcategory
-        description: params.lang.toLowerCase() == "fa" ? item.name : item.slug,
-      })),
-    },
+    itemListElement: categoriesData.map((item: any, index: any) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      url: `https://rgb.irpsc.com/${params.lang}/education/category/${item.slug}`,
+      name: params.lang.toLowerCase() === "fa" ? item.name : item.slug,
+      description: "", // If no description, leave blank
+    })),
   };
 
   return (
