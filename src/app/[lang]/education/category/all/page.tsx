@@ -32,7 +32,7 @@ export default async function EducationCategoryAll({
   const centralPageModal = await findByModalName(mainData, "central-page");
   const tabsMenu = await findByTabName(centralPageModal, "before-login");
 
-  const staticMenuToShow = getStaticMenu(params.id);
+  const staticMenuToShow = getStaticMenu(params);
   // add staticMenuToShow values to siblings tabsMenu values
   const updatedTabsMenu = tabsMenu.map((tab: any) => {
     let findInStatic = staticMenuToShow.find(

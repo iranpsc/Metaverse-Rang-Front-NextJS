@@ -13,11 +13,7 @@ import BreadCrumb from "@/components/shared/BreadCrumb";
 import SideBar from "@/components/module/sidebar/SideBar";
 import { getStaticMenu } from "@/components/utils/constants";
 import SearchComponent from "@/components/shared/SearchComponent";
-import TopTrainersFirstPage from "@/components/templates/firstpage/TopTrainersFirstPage";
-import EducationCategories from "@/components/templates/education/categories";
-import EducationList from "@/components/templates/education/EducationList";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import ShowAllCategoriesComponent from "@/components/templates/categories/ShowAllCategoriesComponent";
 import CategoryComponent from "@/components/templates/categories/CategoryComponent";
 
 export default async function EducationCategory({ params }: { params: any }) {
