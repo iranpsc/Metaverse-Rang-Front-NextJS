@@ -106,17 +106,21 @@ const ShowAllCategoriesComponent = ({ categoriesData, params }: any) => {
             <motion.div
               variants={items}
               key={index}
-              className=" flex flex-col justify-start items-center gap-2 shadow-xl rounded-md bg-white dark:bg-dark-background cursor-pointer hover:shadow-2xl"
+              className="flex flex-col justify-start items-center gap-2 shadow-xl rounded-md bg-white dark:bg-dark-background cursor-pointer hover:shadow-2xl"
               onClick={() => pusher(category.slug)}
             >
-              <Image
-                style={{ backgroundColor: colors[index] }}
-                className="max-w-full max-h-auto rounded-md"
-                src={category.image}
-                alt={category.name}
-                width={1000}
-                height={1000}
-              />
+              <figure>
+                <Image
+                  style={{ backgroundColor: colors[index] }}
+                  className="max-w-full max-h-auto rounded-md"
+                  src={category.image}
+                  alt={category.name}
+                  width={1000}
+                  height={1000}
+                  // fill
+                  // sizes="(max-width: 768px) 320px,(max-width: 1200px) 220px, 320px"
+                />
+              </figure>
               <p className="font-azarMehr font-bold w-full text-center my-3 dark:text-white text-black">
                 {category.name}
               </p>

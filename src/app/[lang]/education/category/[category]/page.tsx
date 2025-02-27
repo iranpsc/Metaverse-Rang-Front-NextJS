@@ -56,49 +56,44 @@ export default async function EducationCategory({ params }: { params: any }) {
     return tab;
   });
 
-  const educationAllCategorySchema = {
-    "@context": "http://schema.org",
-    "@type": "WebPage",
-    mainEntity: allCatVideos.map((video: any) => ({
-      "@type": "VideoObject",
-      name: video.title,
-      // description: video.description,
-      thumbnailUrl: video.image_url,
-      contentUrl: `https://rgb.irpsc.com/${params.lang}/education/category/${video.sub_category.slug}`,
-      uploadDate: "",
-      publisher: {
-        "@type": "Organization",
-        name: video.creator.name || video.creator.code,
-      },
-      interactionStatistic: [
-        {
-          "@type": "InteractionCounter",
-          interactionType: "http://schema.org/LikeAction",
-          userInteractionCount: video.likes_count,
-        },
-        {
-          "@type": "InteractionCounter",
-          interactionType: "http://schema.org/DislikeAction",
-          userInteractionCount: video.dislikes_count,
-        },
-        {
-          "@type": "InteractionCounter",
-          interactionType: "http://schema.org/WatchAction",
-          userInteractionCount: video.views_count,
-        },
-      ],
-    })),
+  //to make description less than 200 character
+  async function makeLessCharacter(_desc: any) {
+    let temp;
+    if (_desc) {
+      temp = _desc;
+      temp = temp.slice(0, 200);
+    } else temp = "";
+    return temp;
+  }
+
+  const educationSingleCategorySchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    url: `https://rgb.irpsc.com/${params.lang}/education/category/${CategoryData.slug}`,
+    name: findByUniqueId(mainData, 455) + " " + CategoryData.name,
+    description: await makeLessCharacter(CategoryData.description),
+    mainEntityOfPage: `https://rgb.irpsc.com/${params.lang}/education/category/${CategoryData.slug}`,
+    itemListElement: CategoryData.subcategories.map((item: any, index: any) => {
+      return {
+        "@type": "ListItem",
+        position: index + 1,
+        url: `https://rgb.irpsc.com/${params.lang}/education/category/${params.category}/${item.slug}`,
+        name: params.lang.toLowerCase() === "fa" ? item.name : item.slug,
+        description: "", // If no description, leave blank
+      };
+    }),
   };
+  console.log("category dynamic", params.category);
 
   return (
     <>
       {/* SCHEMA** */}
-      {/* <script
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(educationAllCategorySchema),
+          __html: JSON.stringify(educationSingleCategorySchema),
         }}
-      /> */}
+      />
       <div className="flex h-screen overflow-hidden" dir={langData.direction}>
         <SideBar
           tabsMenu={updatedTabsMenu}

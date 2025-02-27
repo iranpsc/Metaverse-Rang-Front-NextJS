@@ -4,7 +4,6 @@ import {
   getMainFile,
   findByModalName,
   findByTabName,
-  getAllCategoryVideos,
   getFooterData,
   getLangArray,
   getAllCategories,
@@ -13,9 +12,6 @@ import BreadCrumb from "@/components/shared/BreadCrumb";
 import SideBar from "@/components/module/sidebar/SideBar";
 import { getStaticMenu } from "@/components/utils/constants";
 import SearchComponent from "@/components/shared/SearchComponent";
-import TopTrainersFirstPage from "@/components/templates/firstpage/TopTrainersFirstPage";
-import EducationCategories from "@/components/templates/education/categories";
-import EducationList from "@/components/templates/education/EducationList";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import ShowAllCategoriesComponent from "@/components/templates/categories/ShowAllCategoriesComponent";
 
@@ -56,8 +52,6 @@ export default async function EducationCategoryAll({
     // If no match found, return the original tab
     return tab;
   });
-
-  console.log("categoriesData", categoriesData);
 
   const educationAllCategorySchema = {
     "@context": "https://schema.org",
@@ -129,7 +123,6 @@ export default async function EducationCategoryAll({
 // SEO**
 export async function generateMetadata({ params }: { params: any }) {
   const langData = await getTranslation(params.lang);
-
   const mainData = await getMainFile(langData);
 
   //to make description less than 200 character

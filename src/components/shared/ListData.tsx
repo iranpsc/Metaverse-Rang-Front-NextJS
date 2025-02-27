@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import randomcolor from "randomcolor";
 
 import { Folder } from "@/components/svgs/SvgCategories";
@@ -13,18 +13,19 @@ import {
 } from "@/components/svgs/SvgEducation";
 import { formatNumber } from "@/components/utils/education";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 export default function ListData({ nameComponent, data, params }: any) {
-  const router = useRouter();
-  const pusher = (data: any) => {
-    router.push(
-      `/${params.lang}/education/category/${params.category}/${data}`
-    );
-  };
+  // const router = useRouter();
+  // const pusher = (data: any) => {
+  //   router.push(
+  //     `/${params.lang}/education/category/${params.category}/${data}`
+  //   );
+  // };
 
-  const pushRgb = (data: any) => {
-    router.push(`https://rgb.irpsc.com/${params.lang}/citizen/${data}`);
-  };
+  // const pushRgb = (data: any) => {
+  //   router.push(`https://rgb.irpsc.com/${params.lang}/citizen/${data}`);
+  // };
 
   const [colors, setColors] = useState([]);
 
@@ -47,10 +48,13 @@ export default function ListData({ nameComponent, data, params }: any) {
     <>
       {data &&
         data.subcategories.map((item: any, index: number) => (
-          <div
+          <Link
+            // stop encoding "&" character in "a&q" params to see like %26 with decodeURIComponent()
+            href={`/${params.lang}/education/category/${decodeURIComponent(
+              params.category
+            )}/${item.slug}`}
             key={item.id}
             className="w-[90%] min-h-[240px] cursor-pointer shadow-md hover:shadow-xl hover:dark:shadow-dark  rounded-[10px] bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-4 items-center"
-            onClick={() => pusher(item.slug)}
           >
             <div className=" group w-full h-[250px] 2xl:h-[300px] relative rounded-t-[10px]  ">
               <Image
@@ -99,7 +103,7 @@ export default function ListData({ nameComponent, data, params }: any) {
                 </div>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
     </>
   );
