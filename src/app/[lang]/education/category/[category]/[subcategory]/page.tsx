@@ -7,6 +7,7 @@ import {
   getFooterData,
   getLangArray,
   getSubcategoryData,
+  getEducationSingleCategory,
 } from "@/components/utils/actions";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import SideBar from "@/components/module/sidebar/SideBar";
@@ -163,42 +164,45 @@ export default async function EducationCategory({ params }: { params: any }) {
 }
 
 // SEO**
-// export async function generateMetadata({ params }: { params: any }) {
-//   const langData = await getTranslation(params.lang);
-//   const mainData = await getMainFile(langData);
+export async function generateMetadata({ params }: { params: any }) {
+  const langData = await getTranslation(params.lang);
+  const mainData = await getMainFile(langData);
 
-//   const subCategoryData = await getEducationSingleCategory(params.category);
+  const subCategoryData = await getSubcategoryData(
+    params.category,
+    params.subcategory
+  );
 
-//   //to make description less than 200 character
-//   async function makeLessCharacter(_input: string) {
-//     return _input.slice(0, 200);
-//   }
+  //to make description less than 200 character
+  async function makeLessCharacter(_input: string) {
+    return _input.slice(0, 200);
+  }
 
-//   return {
-//     title: findByUniqueId(mainData, 455) + " " + subCategoryData.name,
-//     description: await makeLessCharacter(subCategoryData.description),
-//     openGraph: {
-//       type: "website",
-//       // url: `https://yourwebsite.com/posts/${params.id}`,
-//       title: findByUniqueId(mainData, 455) + " " + subCategoryData.name,
-//       description: await makeLessCharacter(subCategoryData.description),
-//       locale: params.lang == "fa" ? "fa_IR" : "en_US",
-//       // site_name: متاورس رنگ,
-//       url: `https://rgb.irpsc.com/${params.lang}/education/category/${params.category}`,
-//       images: [
-//         {
-//           url: subCategoryData.image,
-//           width: 800,
-//           height: 400,
-//           // alt: post.title,
-//         },
-//       ],
-//     },
-//     // twitter: {
-//     //   card: 'summary_large_image',
-//     //   title: post.title,
-//     //   description: post.description,
-//     //   images: [post.imageUrl],
-//     // },
-//   };
-// }
+  return {
+    title: findByUniqueId(mainData, 455) + " " + subCategoryData.name,
+    description: await makeLessCharacter(subCategoryData.description),
+    openGraph: {
+      type: "website",
+      // url: `https://yourwebsite.com/posts/${params.id}`,
+      title: findByUniqueId(mainData, 455) + " " + subCategoryData.name,
+      description: await makeLessCharacter(subCategoryData.description),
+      locale: params.lang == "fa" ? "fa_IR" : "en_US",
+      // site_name: متاورس رنگ,
+      url: `https://rgb.irpsc.com/${params.lang}/education/category/${params.category}`,
+      images: [
+        {
+          url: subCategoryData.image,
+          width: 800,
+          height: 400,
+          // alt: post.title,
+        },
+      ],
+    },
+    // twitter: {
+    //   card: 'summary_large_image',
+    //   title: post.title,
+    //   description: post.description,
+    //   images: [post.imageUrl],
+    // },
+  };
+}

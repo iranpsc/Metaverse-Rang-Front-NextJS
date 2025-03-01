@@ -5,7 +5,7 @@ import ListMenuTitleModule from "./list/ListMenuTitleModule";
 import ListMenuArrow from "./list/ListMenuArrow";
 import DropdownLanguageModule from "./list/dropdowns/DropdownLanguageModule";
 import { Modals_fa, Modals_en } from "@/components/utils/modals-content";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Modal from "@/components/templates/modal";
 import ListMenuActiveIconModule from "./list/ListMenuActiveIconModule";
 import { useRouter, usePathname  } from 'next/navigation';
@@ -25,6 +25,7 @@ export default function SideBarContent({
   const [modalData, setModalData] = useState({});
   const [langDropDown, setLangDropDown] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const dropdownRef = useRef(null);
 
   useEffect(() => {
     setIsMounted(true);
@@ -65,30 +66,52 @@ export default function SideBarContent({
   const handleLangBtn = () => {
     setLangDropDown(!langDropDown)
   }
+
+  // scroll to bot when langDropDown is true
+  useEffect(() => {
+    if (langDropDown && dropdownRef.current) {
+      setTimeout(() => {
+        dropdownRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
+      }, 100);
+    }
+  }, [langDropDown]); 
   
   // *selected nav item (add item.active property to own obj)
   const pathName = usePathname()
 
+console.log('tabsMenu',tabsMenu)
+tabsMenu.forEach((item) => {
+  let urlThemp;
 
-  tabsMenu.forEach((item)=>{
-    let urlThemp
-    // referral route creating
-    if(item.url == "referral"){
-      urlThemp = `/${params.lang}/citizens/${params.id}/referral`
-      item.url = `/citizens/${params.id}/referral`
-    }else if(item.name == 'citizen information'){
-      urlThemp = `/${params.lang}/citizens/${params.id}`
-    }
-    else{
-      // convert url to match pathName
-      urlThemp = `/${params.lang}${item.url?"/"+item.url:''}`
-    }
-    
-    // home has url but its "empty", not "undefined"
-    if(item.url != undefined && urlThemp && pathName.endsWith(urlThemp)){
-      item.active = true;
-    }
-  })
+  // Referral route handling
+  if (item.url == "referral") {
+    urlThemp = `/${params.lang}/citizens/${params.id}/referral`;
+    item.url = `/citizens/${params.id}/referral`;
+  } else if (item.unique_id == '1374') {
+    // 1374 = Citizen Information
+    urlThemp = `/${params.lang}/citizens/${params.id}`;
+  } else if (item.unique_id == '149') {
+    // 149 = Home (Set explicitly)
+    urlThemp = `/${params.lang}`;
+  } else {
+    // Convert URL to match pathName
+    urlThemp = `/${params.lang}${item.url ? "/" + item.url : ""}`;
+  }
+
+  //  Only mark home as active if it's exactly `/fa`
+  if (item.unique_id == '149') {
+    item.active = pathName === `/${params.lang}`;
+  }
+  // Mark "trainings" as active for `/education` and `/education/category/....`
+  else if (item.unique_id == '87' && pathName.startsWith(`/${params.lang}/education`)) {
+    item.active = true;
+  }
+  // ✅ General case for other items (excluding home & trainings)
+  else if (urlThemp && pathName.includes(urlThemp)) {
+    item.active = true;
+  }
+});
+
   
   
   return (
@@ -181,7 +204,7 @@ export default function SideBarContent({
                   </div>              
                 </div>
 
-                <div className={`${langDropDown ? "h-fit" : 'h-0 overflow-hidden'}
+                <div ref={dropdownRef} className={`${langDropDown ? "h-fit" : 'h-0 overflow-hidden'}
                   base-transition-1 bg-Field dark:bg-darkGray`}>
                   <DropdownLanguageModule
                     languagesData={langData}

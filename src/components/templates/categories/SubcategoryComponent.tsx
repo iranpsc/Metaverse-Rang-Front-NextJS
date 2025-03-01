@@ -33,7 +33,7 @@ export default function SubcategoryComponent({
   return (
     <>
       <div
-        className={`relative w-full px-4  bg-white dark:bg-black transition-all duration-300 ease-in-out`}
+        className={`relative w-full px-4 mt-10 bg-white dark:bg-black transition-all duration-300 ease-in-out`}
         style={{ height: shows ? `${height + 500}px` : "500px" }}
       >
         <Image
@@ -97,16 +97,16 @@ export default function SubcategoryComponent({
               key={item.id}
               className="w-[100%]   min-h-[240px]  shadow-md hover:shadow-xl hover:dark:shadow-dark  rounded-[10px] bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-6 items-center"
             >
-              <div className=" group w-full h-[266px]   rounded-t-[10px] relative">
+              <div className=" group w-full h-[266px] rounded-t-[10px] relative">
                 <Image
                   src={item.image_url}
                   alt={item.title}
                   width={600}
                   height={600}
                   priority={true}
-                  className=" w-full h-full hover:blur-none transition-all duration-150 ease-in-out rounded-t-[10px]  object-cover"
+                  className=" w-full h-full transition-all duration-150 ease-in-out rounded-t-[10px]  object-cover"
                 />
-                <div className="w-full h-full backdrop-blur-[3px] bg-black/20 hover:backdrop-blur-none xs:backdrop-blur-none absolute z-0 top-0 flex justify-center items-center">
+                <div className="w-full h-full bg-black/20 absolute z-0 top-0 flex justify-center items-center">
                   <Link
                     className="w-fit"
                     href={`/${params.lang}/education/category/${subCategoryData.category.slug}/${subCategoryData.slug}/${item.slug}`}
@@ -120,9 +120,9 @@ export default function SubcategoryComponent({
                 className="w-[95%]"
                 href={`/${params.lang}/education/category/${subCategoryData.category.slug}/${subCategoryData.slug}/${item.slug}`}
               >
-                <h1 className="text-start  w-full font-azarMehr truncate cursor-pointer font-bold mt-[8px] text-[18px] 3xl:text-[22px] ">
+                <p className="text-start  w-full font-azarMehr truncate cursor-pointer font-bold mt-[8px] text-[18px] 3xl:text-[22px] dark:text-white text-black">
                   {item.title}
-                </h1>
+                </p>
               </Link>
               <div className="flex flex-row items-center justify-start  mt-[-8px] w-[98%]"></div>
               <div className="w-[95%] pb-2 flex flex-row justify-between  items-center">
