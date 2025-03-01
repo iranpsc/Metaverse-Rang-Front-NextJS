@@ -63,67 +63,48 @@ export default async function EducationCategory({ params }: { params: any }) {
   }
 
   const subCategorySchema = {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    name: ` ${subCategoryData.name}`,
     url: `https://rgb.irpsc.com/${
       params.lang
     }/education/category/${decodeURIComponent(params.category)}/${
       params.subcategory
     }`,
-    name: subCategoryData.name,
     description: await makeLessCharacter(subCategoryData.description),
-    mainEntityOfPage: `https://rgb.irpsc.com/${
-      params.lang
-    }/education/category/${decodeURIComponent(params.category)}/${
-      subCategoryData.slug
-    }`,
-    itemListElement: subCategoryData.videos.map((video: any, index: any) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      url: `https://rgb.irpsc.com/${
+    mainEntity: subCategoryData.videos.map((video: any) => ({
+      "@type": "VideoObject",
+      name: video.title,
+      thumbnailUrl: video.image_url,
+      contentUrl: `https://rgb.irpsc.com/${
         params.lang
       }/education/category/${decodeURIComponent(params.category)}/${
         params.subcategory
       }/video/${video.slug}`,
-      name: video.title,
-      description: video.description || "",
-      item: {
-        "@type": "VideoObject",
-        name: video.title,
-        description: video.description || "",
-        thumbnailUrl: video.image_url,
-        contentUrl: `https://rgb.irpsc.com/${
-          params.lang
-        }/education/category/${decodeURIComponent(params.category)}/${
-          params.subcategory
-        }/video/${video.slug}`,
-        uploadDate: video.upload_date || "",
-        publisher: {
-          "@type": "Organization",
-          name: video.creator.name || video.creator.code,
-        },
-        interactionStatistic: [
-          {
-            "@type": "InteractionCounter",
-            interactionType: "http://schema.org/LikeAction",
-            userInteractionCount: video.likes_count,
-          },
-          {
-            "@type": "InteractionCounter",
-            interactionType: "http://schema.org/DislikeAction",
-            userInteractionCount: video.dislikes_count,
-          },
-          {
-            "@type": "InteractionCounter",
-            interactionType: "http://schema.org/WatchAction",
-            userInteractionCount: video.views_count,
-          },
-        ],
+      uploadDate: video.upload_date || "",
+      publisher: {
+        "@type": "Organization",
+        name: video.creator.name || video.creator.code,
       },
+      interactionStatistic: [
+        {
+          "@type": "InteractionCounter",
+          interactionType: "http://schema.org/LikeAction",
+          userInteractionCount: video.likes_count,
+        },
+        {
+          "@type": "InteractionCounter",
+          interactionType: "http://schema.org/DislikeAction",
+          userInteractionCount: video.dislikes_count,
+        },
+        {
+          "@type": "InteractionCounter",
+          interactionType: "http://schema.org/WatchAction",
+          userInteractionCount: video.views_count,
+        },
+      ],
     })),
   };
-
-  console.log("subCategorySchema", subCategorySchema);
 
   return (
     <>
