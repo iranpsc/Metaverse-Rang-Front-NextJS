@@ -8,6 +8,7 @@ import { imageSources } from "@/components/utils/items";
 import { useTheme } from "next-themes";
 import React, { useState, useEffect, useRef } from "react";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import { usePathname } from "next/navigation";
 
 function Footer({ footerTabs, mainData }: any) {
   interface ItemIcon {
@@ -16,129 +17,156 @@ function Footer({ footerTabs, mainData }: any) {
     translation: string;
     target: string;
   }
-  const socialItems: ItemIcon[] = [
-    {
-      id: 1,
-      img: "/social/facebook.png",
-      translation: findByUniqueId(mainData, 277),
-      target: translateFooter(footerTabs, "facebook-url"),
-    },
-    {
-      id: 2,
-      img: "/social/feed.png",
-      translation: findByUniqueId(mainData, 278),
-      target: translateFooter(footerTabs, "fedd-url"),
-    },
-    {
-      id: 3,
-      img: "/social/instagram.png",
-      translation: findByUniqueId(mainData, 279),
-      target: findByUniqueId(mainData, 299),
-    },
-    {
-      id: 4,
-      img: "/social/linkedin.png",
-      translation: findByUniqueId(mainData, 280),
-      target: findByUniqueId(mainData, 313),
-    },
-    {
-      id: 5,
-      img: "/social/printers.png",
-      translation: findByUniqueId(mainData, 281),
-      target: findByUniqueId(mainData, 311),
-    },
-    {
-      id: 6,
-      img: "/social/whatsapp.png",
-      translation: findByUniqueId(mainData, 282),
-      target: translateFooter(footerTabs, "whatsapp-url"),
-    },
-    {
-      id: 7,
-      img: "/social/youtube.png",
-      translation: findByUniqueId(mainData, 283),
-      target: findByUniqueId(mainData, 298),
-    },
-    {
-      id: 8,
-      img: "/social/rubika.png",
-      translation: findByUniqueId(mainData, 284),
-      target: findByUniqueId(mainData, 307),
-    },
-    {
-      id: 9,
-      img: "/social/telegram.png",
-      translation: findByUniqueId(mainData, 285),
-      target: translateFooter(footerTabs, "telegram-url"),
-    },
-    {
-      id: 10,
-      img: "/social/virgool.png",
-      translation: findByUniqueId(mainData, 286),
-      target: findByUniqueId(mainData, 312),
-    },
-    {
-      id: 11,
-      img: "/social/add.png",
-      translation: findByUniqueId(mainData, 287),
-      target: translateFooter(footerTabs, "add-url"),
-    },
-    {
-      id: 12,
-      img: "/social/aparat.png",
-      translation: findByUniqueId(mainData, 288),
-      target: findByUniqueId(mainData, 310),
-    },
-    {
-      id: 13,
-      img: "/social/dalfak.png",
-      translation: findByUniqueId(mainData, 289),
-      target: findByUniqueId(mainData, 302),
-    },
-    {
-      id: 14,
-      img: "/social/discord.png",
-      translation: findByUniqueId(mainData, 290),
-      target: translateFooter(footerTabs, "discord-url"),
-    },
 
-    {
-      id: 15,
-      img: "/social/faq.png",
-      translation: findByUniqueId(mainData, 291),
-      target: findByUniqueId(mainData, 308),
-    },
-    {
-      id: 16,
-      img: "/social/filo.png",
-      translation: findByUniqueId(mainData, 292),
-      target: findByUniqueId(mainData, 300),
-    },
-    {
-      id: 17,
-      img: "/social/jabeh.png",
-      translation: findByUniqueId(mainData, 293),
-      target: findByUniqueId(mainData, 304),
-    },
-    {
-      id: 18,
-      img: "/social/medium.png",
-      translation: findByUniqueId(mainData, 294),
-      target: findByUniqueId(mainData, 306),
-    },
-    {
-      id: 19,
-      img: "/social/mp4.png",
-      translation: findByUniqueId(mainData, 295),
-      target: findByUniqueId(mainData, 301),
-    },
-    {
-      id: 20,
-      img: "/social/namasha.png",
-      translation: findByUniqueId(mainData, 296),
-      target: findByUniqueId(mainData, 305),
-    },
-  ];
+  const [socialItems, setSocialItems] = useState<ItemIcon[]>([]);
+  const [isLoaded, setIsLoaded] = useState(false); // Track if data is available
+  const pathname = usePathname(); // Get current route
+
+  // Function to update `socialItems`
+  const updateSocialItems = () => {
+    if (!footerTabs || !mainData) return; // Prevent errors
+
+    const items = [
+      {
+        id: 1,
+        img: "/social/facebook.png",
+        translation: findByUniqueId(mainData, 277),
+        target: translateFooter(footerTabs, "facebook-url"),
+      },
+      {
+        id: 2,
+        img: "/social/feed.png",
+        translation: findByUniqueId(mainData, 278),
+        target: translateFooter(footerTabs, "fedd-url"),
+      },
+      {
+        id: 3,
+        img: "/social/instagram.png",
+        translation: findByUniqueId(mainData, 279),
+        target: findByUniqueId(mainData, 299),
+      },
+      {
+        id: 4,
+        img: "/social/linkedin.png",
+        translation: findByUniqueId(mainData, 280),
+        target: findByUniqueId(mainData, 313),
+      },
+      {
+        id: 5,
+        img: "/social/printers.png",
+        translation: findByUniqueId(mainData, 281),
+        target: findByUniqueId(mainData, 311),
+      },
+      {
+        id: 6,
+        img: "/social/whatsapp.png",
+        translation: findByUniqueId(mainData, 282),
+        target: translateFooter(footerTabs, "whatsapp-url"),
+      },
+      {
+        id: 7,
+        img: "/social/youtube.png",
+        translation: findByUniqueId(mainData, 283),
+        target: findByUniqueId(mainData, 298),
+      },
+      {
+        id: 8,
+        img: "/social/rubika.png",
+        translation: findByUniqueId(mainData, 284),
+        target: findByUniqueId(mainData, 307),
+      },
+      {
+        id: 9,
+        img: "/social/telegram.png",
+        translation: findByUniqueId(mainData, 285),
+        target: translateFooter(footerTabs, "telegram-url"),
+      },
+      {
+        id: 10,
+        img: "/social/virgool.png",
+        translation: findByUniqueId(mainData, 286),
+        target: findByUniqueId(mainData, 312),
+      },
+      {
+        id: 11,
+        img: "/social/add.png",
+        translation: findByUniqueId(mainData, 287),
+        target: translateFooter(footerTabs, "add-url"),
+      },
+      {
+        id: 12,
+        img: "/social/aparat.png",
+        translation: findByUniqueId(mainData, 288),
+        target: findByUniqueId(mainData, 310),
+      },
+      {
+        id: 13,
+        img: "/social/dalfak.png",
+        translation: findByUniqueId(mainData, 289),
+        target: findByUniqueId(mainData, 302),
+      },
+      {
+        id: 14,
+        img: "/social/discord.png",
+        translation: findByUniqueId(mainData, 290),
+        target: translateFooter(footerTabs, "discord-url"),
+      },
+
+      {
+        id: 15,
+        img: "/social/faq.png",
+        translation: findByUniqueId(mainData, 291),
+        target: findByUniqueId(mainData, 308),
+      },
+      {
+        id: 16,
+        img: "/social/filo.png",
+        translation: findByUniqueId(mainData, 292),
+        target: findByUniqueId(mainData, 300),
+      },
+      {
+        id: 17,
+        img: "/social/jabeh.png",
+        translation: findByUniqueId(mainData, 293),
+        target: findByUniqueId(mainData, 304),
+      },
+      {
+        id: 18,
+        img: "/social/medium.png",
+        translation: findByUniqueId(mainData, 294),
+        target: findByUniqueId(mainData, 306),
+      },
+      {
+        id: 19,
+        img: "/social/mp4.png",
+        translation: findByUniqueId(mainData, 295),
+        target: findByUniqueId(mainData, 301),
+      },
+      {
+        id: 20,
+        img: "/social/namasha.png",
+        translation: findByUniqueId(mainData, 296),
+        target: findByUniqueId(mainData, 305),
+      },
+    ];
+
+    setSocialItems(items);
+    setIsLoaded(true);
+  };
+
+  // **1️⃣ Run once when component mounts**
+  useEffect(() => {
+    if (footerTabs && mainData) {
+      updateSocialItems();
+    }
+  }, [footerTabs, mainData]);
+
+  // **2️⃣ Ensure socialItems update when navigating**
+  useEffect(() => {
+    if (footerTabs && mainData) {
+      updateSocialItems();
+    }
+  }, [pathname]); // Re-run when route changes
 
   const [inView, setInView] = useState(false);
   // *HINT* useRef WON'T trigger re-render unlike useState.
@@ -173,7 +201,7 @@ function Footer({ footerTabs, mainData }: any) {
   const { theme } = useTheme();
 
   // If not in view, render a placeholder (or null to defer rendering entirely)
-  if (!inView) {
+  if (!inView || !isLoaded || !footerTabs || !mainData) {
     return <div ref={footerRef} style={{ minHeight: "500px" }} />;
   }
 
@@ -254,32 +282,36 @@ function Footer({ footerTabs, mainData }: any) {
               .translation || "undefined"}
           </p>
           <div className="xl:grid xl:grid-cols-5 3xl:grid-cols-7  flex flex-wrap gap-3 max-w-fit lg:w-full  justify-center mt-6 ">
-            {socialItems.map((item: ItemIcon) => (
-              <div key={item.id}>
-                <Link href={item.target} target="_blank">
-                  <Image
-                    data-tooltip-id={`${item.id}`}
-                    key={item.id}
-                    src={item.img}
-                    alt={item.translation}
-                    width={1000}
-                    height={1000}
-                    className="w-[63px] h-[60px] col-span-1"
+            {socialItems.length > 0 ? (
+              socialItems.map((item: ItemIcon) => (
+                <div key={item.id}>
+                  <Link href={item.target} target="_blank">
+                    <Image
+                      data-tooltip-id={`${item.id}`}
+                      key={item.id}
+                      src={item.img}
+                      alt={item.translation}
+                      width={1000}
+                      height={1000}
+                      className="w-[63px] h-[60px] col-span-1"
+                    />
+                  </Link>
+                  <ReactTooltip
+                    id={`${item.id}`}
+                    place="top"
+                    content={item.translation}
+                    style={{
+                      backgroundColor: "#e9eef8",
+                      color: "#000",
+                      fontSize: "16px",
+                      fontWeight: "bold",
+                    }}
                   />
-                </Link>
-                <ReactTooltip
-                  id={`${item.id}`}
-                  place="top"
-                  content={item.translation}
-                  style={{
-                    backgroundColor: `${theme === "dark" ? "#000" : "#e9eef8"}`,
-                    color: `${theme === "dark" ? "#fff" : "#000"}`,
-                    fontSize: "16px",
-                    fontWeight: "bold",
-                  }}
-                />
-              </div>
-            ))}
+                </div>
+              ))
+            ) : (
+              <p>No social links available</p>
+            )}
           </div>
         </div>
       </div>
