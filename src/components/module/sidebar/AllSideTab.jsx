@@ -106,8 +106,8 @@ tabsMenu.forEach((item) => {
   else if (item.unique_id == '87' && pathName.startsWith(`/${params.lang}/education`)) {
     item.active = true;
   }
-  // ✅ General case for other items (excluding home & trainings)
-  else if (urlThemp && pathName.includes(urlThemp)) {
+  // ✅ General case for other items (excluding home & trainings), 1414 is language
+  else if (urlThemp && pathName.includes(urlThemp) && item.unique_id != 1414) {
     item.active = true;
   }
 });
