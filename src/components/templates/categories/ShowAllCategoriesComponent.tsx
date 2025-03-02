@@ -115,8 +115,8 @@ const ShowAllCategoriesComponent = ({ categoriesData, params }: any) => {
                   className="max-w-full max-h-auto rounded-md"
                   src={category.image}
                   alt={category.name}
-                  width={1000}
-                  height={1000}
+                  width={300}
+                  height={300}
                   // fill
                   // sizes="(max-width: 768px) 320px,(max-width: 1200px) 220px, 320px"
                 />

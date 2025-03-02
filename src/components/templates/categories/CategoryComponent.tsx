@@ -72,7 +72,7 @@ const CategoryComponent = ({ CategoryData, mainData, params }: any) => {
         </div>
 
         <div className="w-full h-fit pt-5 flex flex-col justify-center items-center bg-white dark:bg-black  transition-all duration-300 easy-in-out">
-          <SlugsModule params={params} categoryName={CategoryData.name} />
+          {/* <SlugsModule params={params} categoryName={CategoryData.name} /> */}
           <h1 className="w-full ms-5 mt-10 font-bold font-azarMehr text-[22px] text-start dark:text-white text-black">
             {findByUniqueId(mainData, 339)} {CategoryData.name}
           </h1>

@@ -53,7 +53,7 @@ export default function SubcategoryComponent({
         />
       </div>
 
-      <div className="flex flex-wrap justify-start items-center gap-2 w-full  relative z-50">
+      {/* <div className="flex flex-wrap justify-start items-center gap-2 w-full  relative z-50">
         <Link
           href={`/${params.lang}/education`}
           className="w-fit ms-5 font-normal font-azarMehr text-[15px] text-start text-[#575757] cursor-pointer"
@@ -84,7 +84,7 @@ export default function SubcategoryComponent({
         <p className="w-fit font-normal font-azarMehr text-[15px] text-start text-blueLink dark:text-dark-yellow whitespace-nowrap">
           {subCategoryData.name}
         </p>
-      </div>
+      </div> */}
 
       <p className="w-full text-black dark:text-white ps-5 mt-10 font-bold font-azarMehr text-[22px] text-start">
         {findByUniqueId(mainData, 344)} {subCategoryData.name}
