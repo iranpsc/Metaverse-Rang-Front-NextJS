@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
+import Head from "next/head";
 
 // Dynamically Import Components
 const DynamicFooter = dynamic(
@@ -18,7 +19,7 @@ const SearchComponent = dynamic(
 );
 const ShowAllCategoriesComponent = dynamic(
   () => import("@/components/templates/categories/ShowAllCategoriesComponent"),
-  { suspense: true }
+  { ssr: false, suspense: true }
 );
 
 import {
@@ -99,6 +100,10 @@ export default async function EducationCategoryAll({
           __html: JSON.stringify(educationAllCategorySchema),
         }}
       />
+
+      <Head>
+        <link rel="preload" as="image" href={categoriesData[0]?.image} />
+      </Head>
       <div className="flex h-screen overflow-hidden" dir={langData.direction}>
         <Suspense
           fallback={<div className="text-center text-[20px]">loading...</div>}
