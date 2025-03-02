@@ -1,6 +1,5 @@
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
-import Head from "next/head";
 
 // Dynamically Import Components
 const DynamicFooter = dynamic(
@@ -101,9 +100,6 @@ export default async function EducationCategoryAll({
         }}
       />
 
-      <Head>
-        <link rel="preload" as="image" href={categoriesData[0]?.image} />
-      </Head>
       <div className="flex h-screen overflow-hidden" dir={langData.direction}>
         <Suspense
           fallback={<div className="text-center text-[20px]">loading...</div>}
