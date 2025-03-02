@@ -18,233 +18,162 @@ function Footer({ footerTabs, mainData }: any) {
     target: string;
   }
 
-  const [socialItems, setSocialItems] = useState<ItemIcon[]>([]);
-  const [isLoaded, setIsLoaded] = useState(false); // Track if data is available
-  const pathname = usePathname(); // Get current route
+  const socialItems = [
+    {
+      id: 1,
+      img: "/social/facebook.png",
+      translation: findByUniqueId(mainData, 277),
+      target: translateFooter(footerTabs, "facebook-url"),
+    },
+    {
+      id: 2,
+      img: "/social/feed.png",
+      translation: findByUniqueId(mainData, 278),
+      target: translateFooter(footerTabs, "fedd-url"),
+    },
+    {
+      id: 3,
+      img: "/social/instagram.png",
+      translation: findByUniqueId(mainData, 279),
+      target: findByUniqueId(mainData, 299),
+    },
+    {
+      id: 4,
+      img: "/social/linkedin.png",
+      translation: findByUniqueId(mainData, 280),
+      target: findByUniqueId(mainData, 313),
+    },
+    {
+      id: 5,
+      img: "/social/printers.png",
+      translation: findByUniqueId(mainData, 281),
+      target: findByUniqueId(mainData, 311),
+    },
+    {
+      id: 6,
+      img: "/social/whatsapp.png",
+      translation: findByUniqueId(mainData, 282),
+      target: translateFooter(footerTabs, "whatsapp-url"),
+    },
+    {
+      id: 7,
+      img: "/social/youtube.png",
+      translation: findByUniqueId(mainData, 283),
+      target: findByUniqueId(mainData, 298),
+    },
+    {
+      id: 8,
+      img: "/social/rubika.png",
+      translation: findByUniqueId(mainData, 284),
+      target: findByUniqueId(mainData, 307),
+    },
+    {
+      id: 9,
+      img: "/social/telegram.png",
+      translation: findByUniqueId(mainData, 285),
+      target: translateFooter(footerTabs, "telegram-url"),
+    },
+    {
+      id: 10,
+      img: "/social/virgool.png",
+      translation: findByUniqueId(mainData, 286),
+      target: findByUniqueId(mainData, 312),
+    },
+    {
+      id: 11,
+      img: "/social/add.png",
+      translation: findByUniqueId(mainData, 287),
+      target: translateFooter(footerTabs, "add-url"),
+    },
+    {
+      id: 12,
+      img: "/social/aparat.png",
+      translation: findByUniqueId(mainData, 288),
+      target: findByUniqueId(mainData, 310),
+    },
+    {
+      id: 13,
+      img: "/social/dalfak.png",
+      translation: findByUniqueId(mainData, 289),
+      target: findByUniqueId(mainData, 302),
+    },
+    {
+      id: 14,
+      img: "/social/discord.png",
+      translation: findByUniqueId(mainData, 290),
+      target: translateFooter(footerTabs, "discord-url"),
+    },
 
-  // Function to update `socialItems`
-  const updateSocialItems = () => {
-    if (!footerTabs || !mainData) return; // Prevent errors
-
-    const items = [
-      {
-        id: 1,
-        img: "/social/facebook.png",
-        translation: findByUniqueId(mainData, 277),
-        target: translateFooter(footerTabs, "facebook-url"),
-      },
-      {
-        id: 2,
-        img: "/social/feed.png",
-        translation: findByUniqueId(mainData, 278),
-        target: translateFooter(footerTabs, "fedd-url"),
-      },
-      {
-        id: 3,
-        img: "/social/instagram.png",
-        translation: findByUniqueId(mainData, 279),
-        target: findByUniqueId(mainData, 299),
-      },
-      {
-        id: 4,
-        img: "/social/linkedin.png",
-        translation: findByUniqueId(mainData, 280),
-        target: findByUniqueId(mainData, 313),
-      },
-      {
-        id: 5,
-        img: "/social/printers.png",
-        translation: findByUniqueId(mainData, 281),
-        target: findByUniqueId(mainData, 311),
-      },
-      {
-        id: 6,
-        img: "/social/whatsapp.png",
-        translation: findByUniqueId(mainData, 282),
-        target: translateFooter(footerTabs, "whatsapp-url"),
-      },
-      {
-        id: 7,
-        img: "/social/youtube.png",
-        translation: findByUniqueId(mainData, 283),
-        target: findByUniqueId(mainData, 298),
-      },
-      {
-        id: 8,
-        img: "/social/rubika.png",
-        translation: findByUniqueId(mainData, 284),
-        target: findByUniqueId(mainData, 307),
-      },
-      {
-        id: 9,
-        img: "/social/telegram.png",
-        translation: findByUniqueId(mainData, 285),
-        target: translateFooter(footerTabs, "telegram-url"),
-      },
-      {
-        id: 10,
-        img: "/social/virgool.png",
-        translation: findByUniqueId(mainData, 286),
-        target: findByUniqueId(mainData, 312),
-      },
-      {
-        id: 11,
-        img: "/social/add.png",
-        translation: findByUniqueId(mainData, 287),
-        target: translateFooter(footerTabs, "add-url"),
-      },
-      {
-        id: 12,
-        img: "/social/aparat.png",
-        translation: findByUniqueId(mainData, 288),
-        target: findByUniqueId(mainData, 310),
-      },
-      {
-        id: 13,
-        img: "/social/dalfak.png",
-        translation: findByUniqueId(mainData, 289),
-        target: findByUniqueId(mainData, 302),
-      },
-      {
-        id: 14,
-        img: "/social/discord.png",
-        translation: findByUniqueId(mainData, 290),
-        target: translateFooter(footerTabs, "discord-url"),
-      },
-
-      {
-        id: 15,
-        img: "/social/faq.png",
-        translation: findByUniqueId(mainData, 291),
-        target: findByUniqueId(mainData, 308),
-      },
-      {
-        id: 16,
-        img: "/social/filo.png",
-        translation: findByUniqueId(mainData, 292),
-        target: findByUniqueId(mainData, 300),
-      },
-      {
-        id: 17,
-        img: "/social/jabeh.png",
-        translation: findByUniqueId(mainData, 293),
-        target: findByUniqueId(mainData, 304),
-      },
-      {
-        id: 18,
-        img: "/social/medium.png",
-        translation: findByUniqueId(mainData, 294),
-        target: findByUniqueId(mainData, 306),
-      },
-      {
-        id: 19,
-        img: "/social/mp4.png",
-        translation: findByUniqueId(mainData, 295),
-        target: findByUniqueId(mainData, 301),
-      },
-      {
-        id: 20,
-        img: "/social/namasha.png",
-        translation: findByUniqueId(mainData, 296),
-        target: findByUniqueId(mainData, 305),
-      },
-    ];
-
-    setSocialItems(items);
-    setIsLoaded(true);
-  };
-
-  // **1️⃣ Run once when component mounts**
-  useEffect(() => {
-    if (footerTabs && mainData) {
-      updateSocialItems();
-    }
-  }, [footerTabs, mainData]);
-
-  // **2️⃣ Ensure socialItems update when navigating**
-  useEffect(() => {
-    if (footerTabs && mainData) {
-      updateSocialItems();
-    }
-  }, [pathname]); // Re-run when route changes
-
-  const [inView, setInView] = useState(false);
-  // *HINT* useRef WON'T trigger re-render unlike useState.
-  const footerRef = useRef<HTMLDivElement | null>(null);
-
-  // IntersectionObserver to load iframe when it's in view
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0];
-        if (entry.isIntersecting) {
-          setInView(true);
-        }
-      },
-      {
-        rootMargin: "0px",
-        threshold: 0.1,
-      }
-    );
-
-    if (footerRef.current) {
-      observer.observe(footerRef.current);
-    }
-
-    return () => {
-      if (footerRef.current) {
-        observer.unobserve(footerRef.current);
-      }
-    };
-  }, []);
-
-  const { theme } = useTheme();
-
-  // If not in view, render a placeholder (or null to defer rendering entirely)
-  if (!inView || !isLoaded || !footerTabs || !mainData) {
-    return <div ref={footerRef} style={{ minHeight: "500px" }} />;
-  }
+    {
+      id: 15,
+      img: "/social/faq.png",
+      translation: findByUniqueId(mainData, 291),
+      target: findByUniqueId(mainData, 308),
+    },
+    {
+      id: 16,
+      img: "/social/filo.png",
+      translation: findByUniqueId(mainData, 292),
+      target: findByUniqueId(mainData, 300),
+    },
+    {
+      id: 17,
+      img: "/social/jabeh.png",
+      translation: findByUniqueId(mainData, 293),
+      target: findByUniqueId(mainData, 304),
+    },
+    {
+      id: 18,
+      img: "/social/medium.png",
+      translation: findByUniqueId(mainData, 294),
+      target: findByUniqueId(mainData, 306),
+    },
+    {
+      id: 19,
+      img: "/social/mp4.png",
+      translation: findByUniqueId(mainData, 295),
+      target: findByUniqueId(mainData, 301),
+    },
+    {
+      id: 20,
+      img: "/social/namasha.png",
+      translation: findByUniqueId(mainData, 296),
+      target: findByUniqueId(mainData, 305),
+    },
+  ];
 
   return (
-    <div ref={footerRef}>
-      <div className="h-fit w-full mt-[200px] flex flex-wrap gap-[15px] py-5 rounded-[10px]  items-center justify-center bg-white dark:bg-[#1A1A18]">
-        {imageSources.map((item: any, i: number) => (
-          <Link key={i} href={item.target} target="_blank">
-            <Image
-              data-tooltip-id={item.url}
-              src={item.url}
-              loading="lazy"
-              alt={
-                (
-                  footerTabs.find(
-                    (footerItem: any) => footerItem.unique_id === item.unique_id
-                  ) || {}
-                ).translation || "undefined"
-              }
-              width={1000}
-              height={1000}
-              className="w-[60px] h-[60px] cursor-pointer"
-            />
-
-            <ReactTooltip
-              id={item.url}
-              place="top"
-              content={
-                (
-                  footerTabs.find(
-                    (footerItem: any) => footerItem.unique_id === item.unique_id
-                  ) || {}
-                ).translation || "undefined"
-              }
-              style={{
-                backgroundColor: `${theme === "dark" ? "#000" : "#e9eef8"}`,
-                color: `${theme === "dark" ? "#fff" : "#000"}`,
-                fontSize: "16px",
-                fontWeight: "bold",
-              }}
-            />
-          </Link>
-        ))}
+    <div>
+      {/* 🔹 Social Media Icons (Final CLS Fix) */}
+      <div className="w-full flex flex-wrap gap-[15px] py-5 rounded-[10px] items-center justify-center bg-white dark:bg-[#1A1A18] min-h- [80px]">
+        {false ? (
+          <div className="flex items-center justify-center w-full h-[285px] sm:h-[210px] md:h-[135px]">
+            <p className="text-gray-500">Loading icons...</p>
+          </div>
+        ) : (
+          socialItems.map((item, index) => (
+            <div
+              key={item.id}
+              className="w-[60px] h-[60px] flex justify-center items-center"
+            >
+              <Link
+                href={item.target}
+                target="_blank"
+                className="w-full h-full"
+              >
+                <Image
+                  src={item.img}
+                  alt={item.translation}
+                  width={60}
+                  height={60}
+                  priority={index === 0} // ✅ Load first image instantly to prevent CLS
+                  loading={index === 0 ? "eager" : "lazy"} // ✅ Lazy-load remaining images
+                  className="w-[60px] h-[60px] object-contain cursor-pointer"
+                />
+              </Link>
+            </div>
+          ))
+        )}
       </div>
 
       <div className="h-fit pb-5 mt-20 rounded-[10px] w-full bg-white dark:bg-[#1A1A18] grid grid-cols-6">

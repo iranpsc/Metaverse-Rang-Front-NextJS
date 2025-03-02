@@ -22,8 +22,10 @@ export default function SideBar({
   const theme = cookies.theme || "dark";
 
   useEffect(() => {
-    setIsClosed(localStorage.getItem("sidebarClosed") === "true");
-    setHydrated(true);
+    if (typeof window !== "undefined") {
+      setIsClosed(localStorage.getItem("sidebarClosed") === "true");
+      setHydrated(true);
+    }
   }, []);
 
   useEffect(() => {
@@ -37,7 +39,7 @@ export default function SideBar({
   }, []);
 
   // Prevent rendering until hydration completes
-  if (!hydrated) return null;
+  // if (!hydrated) return null;
   
   return (
     <>
@@ -54,7 +56,7 @@ export default function SideBar({
             isClosed
               ? "sm:hidden xs:hidden md:hidden menu-transition xl:block lg:block"
               : "sm:block xs:block bg-blackTransparent/30"
-          }   absolute xl:relative lg:relative xl:w-fit lg:w-fit md:w-full z-[60] sm:w-full xs:w-full no-scrollbar  `}
+          }   absolute xl:relative lg:relative md:w-full z-[60] sm:w-full xs:w-full no-scrollbar  `}
         >
           <aside
             className={`${
@@ -63,6 +65,7 @@ export default function SideBar({
                 : "w-[260px] lg:w-[16.5vw] sm:shadow-[#000000] xs:sm:shadow-[#000000] visible"
               }  
               flex flex-col h-screen relative bg-white  dark:bg-dark-background menu-transition`}
+              style={{ minWidth: isClosed ? "70px" : "260px" }} // Prevent shift(CLS)
           >
             <div className="flex flex-col sticky w-full h-fit top-0 pt-1 z-50 bg-white dark:bg-dark-background menu-transition">
               <Header
@@ -96,7 +99,9 @@ export default function SideBar({
                 isClosed
                   ? "sm:hidden xs:hidden md:hidden xl:block lg:block"
                   : ""
-              } w-full h-fit z-[100] transition-all duration-300 ease-linear bg-white dark:bg-dark-background bottom-0 py-5 flex flex-col items-center justify-center gap-3 menu-transition`}
+              } w-full h-fit z-[100] transition-all duration-300 ease-linear bg-white dark:bg-dark-background bottom-0 py-5 flex flex-col items-center justify-center gap-3 menu-transition ${
+                hydrated ? "opacity-100" : "opacity-0"
+              }`}
             >
               {/*_________ login BTN __________*/}
               <div className='w-[80%] m-auto'>

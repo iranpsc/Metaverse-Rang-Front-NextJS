@@ -376,7 +376,7 @@ export default async function LangPage({params}) {
 
             <div className="relative w-[90%] h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px] flex items-center justify-center">
               <Suspense fallback={<div>Loading Header...</div>}>
-                <Section3D />
+                <Section3D params={params} />
               </Suspense>
             </div>
 

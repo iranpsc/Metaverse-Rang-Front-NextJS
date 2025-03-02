@@ -1,40 +1,40 @@
 "use client";
 import React, { useState, useEffect } from "react";
 
-const Section3D = () => {
+const Section3D = ({ params }: any) => {
   const [useAparat, setUseAparat] = useState(false); // State to track fallback
   const timeoutRef = React.useRef<NodeJS.Timeout | null>(null); // Timeout reference
 
-  useEffect(() => {
-    // Set a timeout to switch to Aparat if YouTube iframe doesn't load
-    timeoutRef.current = setTimeout(() => {
-      setUseAparat(true); // Switch to Aparat
-    }, 4000); // 4-second timeout
+  // useEffect(() => {
+  //   // Set a timeout to switch to Aparat if YouTube iframe doesn't load
+  //   timeoutRef.current = setTimeout(() => {
+  //     setUseAparat(true); // Switch to Aparat
+  //   }, 4000); // 4-second timeout
 
-    return () => {
-      // Clear the timeout when the component unmounts
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-    };
-  }, []);
+  //   return () => {
+  //     // Clear the timeout when the component unmounts
+  //     if (timeoutRef.current) {
+  //       clearTimeout(timeoutRef.current);
+  //     }
+  //   };
+  // }, []);
 
-  const handleYouTubeLoad = () => {
-    // Clear the fallback timeout
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-      timeoutRef.current = null; // Ensure the timeout is nullified
-    }
+  // const handleYouTubeLoad = () => {
+  //   // Clear the fallback timeout
+  //   if (timeoutRef.current) {
+  //     clearTimeout(timeoutRef.current);
+  //     timeoutRef.current = null; // Ensure the timeout is nullified
+  //   }
 
-    setUseAparat(false); // Ensure YouTube is used
-  };
+  //   setUseAparat(false); // Ensure YouTube is used
+  // };
 
   return (
     <div
       className="relative w-full flex justify-center items-center"
       style={{ minHeight: "100px" }}
     >
-      {useAparat ? (
+      {params.lang.toLowerCase() == "fa" ? (
         <iframe
           className="w-full h-full aspect-video"
           src="https://www.aparat.com/video/video/embed/videohash/nkl2c42/vt/frame"
@@ -48,7 +48,7 @@ const Section3D = () => {
           title="YouTube Video Player"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
-          onLoad={handleYouTubeLoad} // Triggered when the iframe loads
+          // onLoad={handleYouTubeLoad} // Triggered when the iframe loads
         ></iframe>
       )}
     </div>
