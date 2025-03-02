@@ -1,4 +1,26 @@
-import DynamicFooter from "@/components/module/footer/DynamicFooter";
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
+
+// Dynamically Import Components
+const DynamicFooter = dynamic(
+  () => import("@/components/module/footer/DynamicFooter"),
+  { suspense: true }
+);
+const SideBar = dynamic(() => import("@/components/module/sidebar/SideBar"), {
+  suspense: true,
+});
+const BreadCrumb = dynamic(() => import("@/components/shared/BreadCrumb"), {
+  suspense: true,
+});
+const SearchComponent = dynamic(
+  () => import("@/components/shared/SearchComponent"),
+  { suspense: true }
+);
+const SubcategoryComponent = dynamic(
+  () => import("@/components/templates/categories/SubcategoryComponent"),
+  { suspense: true }
+);
+
 import {
   getTranslation,
   getMainFile,
@@ -7,17 +29,16 @@ import {
   getFooterData,
   getLangArray,
   getSubcategoryData,
-  getEducationSingleCategory,
 } from "@/components/utils/actions";
-import BreadCrumb from "@/components/shared/BreadCrumb";
-import SideBar from "@/components/module/sidebar/SideBar";
-import { getStaticMenu } from "@/components/utils/constants";
-import SearchComponent from "@/components/shared/SearchComponent";
-import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import CategoryComponent from "@/components/templates/categories/CategoryComponent";
-import SubcategoryComponent from "@/components/templates/categories/SubcategoryComponent";
 
-export default async function EducationCategory({ params }: { params: any }) {
+import { getStaticMenu } from "@/components/utils/constants";
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
+
+export default async function EducationSubcategory({
+  params,
+}: {
+  params: any;
+}) {
   const [footerTabs, langData, langArray, subCategoryData] = await Promise.all([
     getFooterData(params),
     getTranslation(params.lang),
@@ -117,45 +138,62 @@ export default async function EducationCategory({ params }: { params: any }) {
         }}
       />
       <div className="flex h-screen overflow-hidden" dir={langData.direction}>
-        <SideBar
-          tabsMenu={updatedTabsMenu}
-          langData={langData}
-          langArray={langArray}
-          params={params}
-          pageSide="citizen"
-        />
+        <Suspense
+          fallback={<div className="text-center text-[20px]">loading...</div>}
+        >
+          <SideBar
+            tabsMenu={updatedTabsMenu}
+            langData={langData}
+            langArray={langArray}
+            params={params}
+            pageSide="citizen"
+          />
+        </Suspense>
         <section
           className={`w-full overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20 xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1`}
         >
           {/* Breadcrumb */}
           <div className="">
-            <BreadCrumb params={params} />
+            <Suspense
+              fallback={
+                <div className="text-center text-[20px]">loading...</div>
+              }
+            >
+              <BreadCrumb params={params} />
+            </Suspense>
           </div>
 
-          <h1 className="text-center mt-10 font-azarMehr dark:text-white text-black whitespace-nowrap font-bold 3xl:text-[24px] xl:text-[24px] lg:text-[22px] md:text-[20px] sm:text-[18px] xs:text-[14px]">
+          <p className="text-center mt-10 font-azarMehr dark:text-white text-black font-bold 3xl:text-[24px] xl:text-[24px] lg:text-[22px] md:text-[20px] sm:text-[18px] xs:text-[14px]">
             {findByUniqueId(mainData, 455)} {subCategoryData.name}
-          </h1>
+          </p>
+          <Suspense
+            fallback={<div className="text-center text-[20px]">loading...</div>}
+          >
+            <SearchComponent
+              searchLevel="education"
+              mainData={mainData}
+              params={params}
+            />
+          </Suspense>
 
-          <SearchComponent
-            searchLevel="education"
-            mainData={mainData}
-            params={params}
-          />
-          {/* <CategoryComponent
-            // translates={translates}
-            params={params}
-            subCategoryData={subCategoryData}
-            mainData={mainData}
-            // translateData={translateData}
-          /> */}
-          <SubcategoryComponent
-            subCategoryData={subCategoryData}
-            params={params}
-            mainData={mainData}
-          />
+          <Suspense
+            fallback={<div className="text-center text-[20px]">loading...</div>}
+          >
+            <SubcategoryComponent
+              subCategoryData={subCategoryData}
+              params={params}
+              mainData={mainData}
+            />
+          </Suspense>
 
           <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
-            <DynamicFooter footerTabs={footerTabs} mainData={mainData} />
+            <Suspense
+              fallback={
+                <div className="text-center text-[20px]">loading...</div>
+              }
+            >
+              <DynamicFooter footerTabs={footerTabs} mainData={mainData} />
+            </Suspense>
           </div>
         </section>
       </div>

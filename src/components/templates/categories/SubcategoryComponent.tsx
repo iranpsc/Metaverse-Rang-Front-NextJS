@@ -109,6 +109,7 @@ export default function SubcategoryComponent({
                 <div className="w-full h-full bg-black/20 absolute z-0 top-0 flex justify-center items-center">
                   <Link
                     className="w-fit"
+                    aria-label="Watch video"
                     href={`/${params.lang}/education/category/${subCategoryData.category.slug}/${subCategoryData.slug}/${item.slug}`}
                   >
                     <Video className="w-[78px] h-[78px] p-3 fill-blueLink dark:fill-dark-yellow  rounded-full bg-white/80" />
@@ -135,8 +136,8 @@ export default function SubcategoryComponent({
                       <Image
                         src={item.creator.image}
                         alt={item.creator.code}
-                        width={1000}
-                        height={1000}
+                        width={100}
+                        height={100}
                         loading="lazy"
                         className="w-[45px] h-[45px] rounded-full object-cover cursor-pointer transition-all duration-150 ease-in-out"
                         onClick={() => pushRgb(item.creator.code)}
