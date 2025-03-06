@@ -59,13 +59,15 @@ export default async function VersionPage({ params }: { params: any }) {
           className={`w-full overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20`}
         >
           {/* Breadcrumb */}
-          <div className="px-12">{/* <BreadCrumb params={params} /> */}</div>
+          <div className="px-12">
+            <BreadCrumb params={params} />
+          </div>
 
           {/* PLZ code here without container */}
 
           <div className="w-full xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
             {/* <DynamicFooter footerTabs={footerTabs} mainData={mainData} /> */}
-            {/* <Footer footerTabs={footerTabs} mainData={mainData} /> */}
+            <Footer footerTabs={footerTabs} mainData={mainData} />
           </div>
         </section>
       </div>
