@@ -15,8 +15,6 @@ export default function ModalCard({
   // userProperty,
   mainData,
 }: any) {
-  console.log("dataModal", dataModal);
-
   const { theme } = useTheme();
   const scrollContainer = useRef<HTMLDivElement>(null);
 

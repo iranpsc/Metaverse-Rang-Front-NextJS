@@ -82,7 +82,6 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
             },
           }
         );
-        console.log("setLoggedInUserData", response.data.data);
 
         setLoggedInUserData({
           token: response.data.data.token,
@@ -103,8 +102,6 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
       referral = last;
     }
 
-    console.log("referral", referral);
-
     const urlToUse = `${window.location.origin}${pathname.toString()}`;
     const res = await axios.get(
       `https://api.rgb.irpsc.com/api/auth/redirect?redirect_to=${urlToUse}&referral=${referral}`,
@@ -114,7 +111,6 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
         },
       }
     );
-    console.log("ressss2", res);
 
     // debugger;
     if (res) {
@@ -126,8 +122,6 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
   };
 
   const handleLogout = async () => {
-    console.log("BEAREER", `Bearer ${loggedInUserData?.token}`);
-
     const res = await axios.post(
       "https://api.rgb.irpsc.com/api/auth/logout",
       null,
@@ -138,12 +132,7 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
         },
       }
     );
-
-    console.log("RESSSS", res);
-
-    console.log("Before removing cookie:", cookies.auth); // Log before removing
     removeCookie("auth", { path: "/" });
-    console.log("After removing cookie:", cookies.auth); // Log after removing
   };
 
   const handleDropDown = () => {

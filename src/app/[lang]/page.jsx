@@ -90,19 +90,20 @@ export default async function LangPage({params}) {
     getTranslation(params.lang)
   ])
   const mainData = await getMainFile(langData);
+
   // const allVersionList = await getAllVersions();
 
-  const Citizenship = await findByModalName(mainData, "Citizenship-profile");
-  const citizenListArrayContent = await findByTabName(
-    Citizenship,
-    "list-citizen"
-  );
+  // const Citizenship = await findByModalName(mainData, "Citizenship-profile");
+  // const citizenListArrayContent = await findByTabName(
+  //   Citizenship,
+  //   "list-citizen"
+  // );
 
-  const levelModals = await findByModalName(mainData, "levels");
-  const levelListArrayContent = await findByTabName(levelModals, "level-list");
+  // const levelModals = await findByModalName(mainData, "levels");
+  // const levelListArrayContent = await findByTabName(levelModals, "level-list");
 
   const centralPageModal = await findByModalName(mainData, "central-page");
-  const firstPageArrayContent = await findByTabName(centralPageModal, "first-page");
+  // const firstPageArrayContent = await findByTabName(centralPageModal, "first-page");
   const tabsMenu = await findByTabName(centralPageModal, "before-login");
 
   const staticMenuToShow = getStaticMenu(params.id);

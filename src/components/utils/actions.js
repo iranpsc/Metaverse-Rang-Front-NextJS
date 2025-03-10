@@ -2,16 +2,27 @@
 
 //return selected language object
   export async function getTranslation(lang) {
-    const res = await fetch("https://admin.rgb.irpsc.com/api/translations", {
-      headers: {
-        "Content-Type": "application/json",
-        "Cache-Control": "public, max-age=3600", 
-      },
-    });
-    const data = await res.json();
-    let temp = await data.data.find((item) => item.code === lang)
+    
+    try{
+      const res = await fetch("https://admin.rgb.irpsc.com/api/translations", {
+        headers: {
+          "Content-Type": "application/json",
+          "Cache-Control": "public, max-age=3600", 
+        },
+      });
+      const data = await res.json();
+      let temp = await data.data.find((item) => item.code == lang)
 
-    return temp;
+
+      return temp;
+    }catch(err){
+      console.error("Error fetching main file: Amir", err);
+      // Optionally, return a default response instead of breaking the app
+      // return {
+      //   success: false,
+      //   message: err.message || "An unknown error occurred",
+      // };
+    }
   }
   
 
@@ -24,22 +35,45 @@
       },
     });
     const data = await res.json();
-
     return data.data
   }
 
-  // return our main file(.json) according to selected lang
+
   export async function getMainFile(langData) {
-    const res = await fetch(langData.file_url, {
-      headers: {
-        "Content-Type": "application/json",
-        "Cache-Control": "public, max-age=3600", 
-      },
-    });
-    let temp = await res.json()
-    
-    return temp;
+    try {
+      const res = await fetch(langData.file_url, {
+        headers: {
+          "Content-Type": "application/json",
+          "Cache-Control": "public, max-age=3600",
+        },
+      });
+      
+  
+      // Parse JSON response
+      const data = await res.json();
+      return data;
+    } catch (error) {
+      console.error("Error fetching mainData file:", error);
+  
+      // Optionally, return a default response instead of breaking the app
+      // return {
+      //   success: false,
+      //   message: error.message || "An unknown error occurred",
+      // };
+    }
   }
+  // return our main file(.json) according to selected lang
+  // export async function getMainFile(langData) {
+  //   const res = await fetch(langData.file_url, {
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       "Cache-Control": "public, max-age=3600", 
+  //     },
+  //   });
+  //   let temp = await res.json()
+    
+  //   return temp;
+  // }
   // return selected modal according to _selectedName from _mainData(.json)
   export async function findByModalName(_mainData, _selectedName){
     const temp = _mainData.modals.find(
@@ -117,7 +151,6 @@
         "Cache-Control": "public, max-age=3600", 
       },
     });
-    console.log('versionRESSS', res);
     
     let temp = await res.json()
     return temp.data;
@@ -227,4 +260,54 @@
     let temp = await res.json()
 
     return temp.data
+  }
+  export async function getSingleVideoData(_videoSlug){
+    try{
+      const res = await fetch(`https://api.rgb.irpsc.com/api/tutorials/${_videoSlug}`,{
+        headers: {
+          "Content-Type": "application/json",
+          "Cache-Control": "public, max-age=3600", 
+        },}
+      )
+      let temp = await res.json()
+  
+      return temp.data
+    }catch(err){
+      console.error('error while getting single video data', err)
+    }
+
+  }
+  export async function getVideoComments(_videoId){
+    try{
+      const res = await fetch(`https://api.rgb.irpsc.com/api/tutorials/${_videoId}/comments?page=1`,{
+        headers: {
+          "Content-Type": "application/json",
+          "Cache-Control": "public, max-age=3600", 
+        },}
+      )
+      let temp = await res.json()
+  
+      return temp
+    }catch(err){
+      console.error('error while getting single video data', err)
+    }
+
+  }
+  
+
+  export async function getEducationNewVideos(_videoSlug){
+    try{
+      const res = await fetch(`https://api.rgb.irpsc.com/api/tutorials?page=1`,{
+        headers: {
+          "Content-Type": "application/json",
+          "Cache-Control": "public, max-age=3600", 
+        },}
+      )
+      let temp = await res.json()
+  
+      return temp.data
+    }catch(err){
+      console.error('error while getting single video data', err)
+    }
+
   }

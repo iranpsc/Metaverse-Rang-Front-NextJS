@@ -96,7 +96,6 @@ export default async function EducationCategory({ params }: { params: any }) {
       };
     }),
   };
-  console.log("category dynamic", params.category);
 
   return (
     <>

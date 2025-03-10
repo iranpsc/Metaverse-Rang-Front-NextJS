@@ -46,8 +46,6 @@ export default async function EducationSubcategory({
     getSubcategoryData(params.category, params.subcategory),
   ]);
 
-  console.log("subCategoryData", subCategoryData);
-
   const mainData = await getMainFile(langData);
 
   const centralPageModal = await findByModalName(mainData, "central-page");

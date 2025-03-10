@@ -169,7 +169,6 @@ export default async function lavelSingelPage({ params }) {
   // add unique_id according to staticRouteNames to use in component for translate
   staticRouteNames.map((item)=>{
     if(item.id == singleLevel.data.slug){
-      console.log('matchedd');
       singleLevel.data.unique_id = item.unique_id
     }
   })

@@ -78,8 +78,6 @@ export default function SideBarContent({
   
   // *selected nav item (add item.active property to own obj)
   const pathName = usePathname()
-
-console.log('tabsMenu',tabsMenu)
 tabsMenu.forEach((item) => {
   let urlThemp;
 

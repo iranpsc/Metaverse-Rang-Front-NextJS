@@ -18,8 +18,6 @@ export default function SubcategoryComponent({
   const contentRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
 
-  console.log("CategoryData", subCategoryData);
-
   useEffect(() => {
     if (contentRef.current) {
       setHeight(shows ? contentRef.current.scrollHeight : 0);
