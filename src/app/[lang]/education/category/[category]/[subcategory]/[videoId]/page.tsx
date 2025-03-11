@@ -22,7 +22,7 @@ import {
   getLangArray,
   getSubcategoryData,
   getSingleVideoData,
-  getEducationNewVideos,
+  getAllCategoryVideos,
   getVideoComments,
 } from "@/components/utils/actions";
 
@@ -45,8 +45,7 @@ export default async function EducationVideo({ params }: { params: any }) {
 
   const DataVideo = await getSingleVideoData(params.videoId);
 
-  const newEducationsVideos = await getEducationNewVideos();
-  //   console.log("newEducationsVideos", newEducationsVideos);
+  const newEducationsVideos = await getAllCategoryVideos();
 
   const dataCommentsVideo = await getVideoComments(DataVideo.id);
 
@@ -54,7 +53,6 @@ export default async function EducationVideo({ params }: { params: any }) {
     params.category,
     params.subcategory
   );
-  console.log("DataVideos11111", DataVideos);
 
   const staticMenuToShow = getStaticMenu(params.id);
   // add staticMenuToShow values to siblings tabsMenu values
