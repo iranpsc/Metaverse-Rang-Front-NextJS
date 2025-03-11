@@ -10,6 +10,8 @@ const SingleVideoProfileModule = ({
   mainData,
   params,
 }: any) => {
+  console.log("DataVideo88888", DataVideo);
+
   return (
     <div className="w-full pb-2 flex flex-row justify-between  items-center pt-10 bg-white dark:bg-dark-background ps-5 ">
       <Link
@@ -19,7 +21,7 @@ const SingleVideoProfileModule = ({
         <div className="flex flex-row justify-start items-center gap-2">
           <Image
             src={DataVideo.creator.image}
-            alt={DataVideo.creator.code}
+            alt={DataVideo.creator.name || "creator name"}
             width={100}
             height={100}
             loading="lazy"

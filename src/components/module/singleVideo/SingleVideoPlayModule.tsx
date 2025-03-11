@@ -176,6 +176,7 @@ const SingleVideoPlayModule = ({ DataVideo }: any) => {
           max={100}
           value={progress}
           onChange={handleSeek}
+          aria-label="player input"
         />
         {isMute ? (
           <VolumeIcon

@@ -299,19 +299,4 @@
   }
   
 
-  export async function getEducationNewVideos(_videoSlug){
-    try{
-      const res = await fetch(`https://api.rgb.irpsc.com/api/tutorials?page=1`,{
-        headers: {
-          "Content-Type": "application/json",
-          "Cache-Control": "public, max-age=3600", 
-        },}
-      )
-      let temp = await res.json()
-  
-      return temp.data
-    }catch(err){
-      console.error('error while getting single video data', err)
-    }
 
-  }

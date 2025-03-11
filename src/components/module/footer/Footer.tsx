@@ -8,16 +8,8 @@ import { imageSources } from "@/components/utils/items";
 import { useTheme } from "next-themes";
 import React, { useState, useEffect, useRef } from "react";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import { usePathname } from "next/navigation";
 
 function Footer({ footerTabs, mainData }: any) {
-  interface ItemIcon {
-    id: number;
-    img: string;
-    translation: string;
-    target: string;
-  }
-
   const socialItems = [
     {
       id: 1,
@@ -142,38 +134,78 @@ function Footer({ footerTabs, mainData }: any) {
     },
   ];
 
+  const [inView, setInView] = useState(false);
+  // *HINT* useRef WON'T trigger re-render unlike useState.
+  const footerRef = useRef<HTMLDivElement | null>(null);
+
+  // IntersectionObserver to load iframe when it's in view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry.isIntersecting) {
+          setInView(true); // Trigger iframe load when in view
+        }
+      },
+      {
+        rootMargin: "0px",
+        threshold: 0.1, // Trigger when 10% of the iframe is in view
+      }
+    );
+
+    if (footerRef.current) {
+      observer.observe(footerRef.current); // Observe the iframe container
+    }
+
+    return () => {
+      if (footerRef.current) {
+        observer.unobserve(footerRef.current); // Cleanup observer
+      }
+    };
+  }, []);
+
+  const { theme } = useTheme();
+
+  // If not in view, render a placeholder (or null to defer rendering entirely)
+  if (!inView) {
+    return <div ref={footerRef} style={{ minHeight: "500px" }} />;
+  }
+
   return (
-    <div>
-      {/* 🔹 Social Media Icons (Final CLS Fix) */}
-      <div className="w-full flex flex-wrap gap-[15px] py-5 rounded-[10px] items-center justify-center bg-white dark:bg-[#1A1A18] min-h- [80px]">
-        {false ? (
-          <div className="flex items-center justify-center w-full h-[285px] sm:h-[210px] md:h-[135px]">
-            <p className="text-gray-500">Loading icons...</p>
-          </div>
-        ) : (
-          socialItems.map((item, index) => (
-            <div
-              key={item.id}
-              className="w-[60px] h-[60px] flex justify-center items-center"
-            >
-              <Link
-                href={item.target}
-                target="_blank"
-                className="w-full h-full"
-              >
-                <Image
-                  src={item.img}
-                  alt={item.translation}
-                  width={60}
-                  height={60}
-                  priority={index === 0} // ✅ Load first image instantly to prevent CLS
-                  loading={index === 0 ? "eager" : "lazy"} // ✅ Lazy-load remaining images
-                  className="w-[60px] h-[60px] object-contain cursor-pointer"
-                />
-              </Link>
-            </div>
-          ))
-        )}
+    <div ref={footerRef}>
+      <div className="h-fit w-full mt-[200px] flex flex-wrap gap-[15px] py-5 rounded-[10px]  items-center justify-center bg-white dark:bg-[#1A1A18]">
+        {imageSources.map((item: any, i: number) => (
+          <Link key={i} href={item.target} target="_blank">
+            <Image
+              data-tooltip-id={item.url}
+              src={item.url}
+              loading="lazy"
+              alt={findByUniqueId(mainData, item.unique_id)}
+              width={1000}
+              height={1000}
+              className="w-[60px] h-[60px] cursor-pointer"
+            />
+
+            <ReactTooltip
+              id={item.url}
+              place="top"
+              content={
+                // (
+                //   footerTabs.find(
+                //     (itemData: any) => itemData.name == item.unique_id
+                //   ) || {}
+                // ).translation || "undefined"
+                findByUniqueId(mainData, item.unique_id)
+              }
+              style={{
+                backgroundColor: `${theme === "dark" ? "#000" : "#e9eef8"}`,
+                color: `${theme === "dark" ? "#fff" : "#000"}`,
+                fontSize: "16px",
+                fontWeight: "bold",
+              }}
+            />
+          </Link>
+        ))}
       </div>
 
       <div className="h-fit pb-5 mt-20 rounded-[10px] w-full bg-white dark:bg-[#1A1A18] grid grid-cols-6">
@@ -188,59 +220,75 @@ function Footer({ footerTabs, mainData }: any) {
             />
             <div className="flex flex-col h-[60px]  justify-between items-start">
               <p className="text-[22px] mt-[-5px] font-bold font-azarMehr  dark:text-white">
-                {(footerTabs.find((item: any) => item.unique_id == 272) || {})
-                  .translation || "undefined"}
+                {/* {(
+                  footerTabs.find(
+                    (item: any) => item.name == "national metaverse"
+                  ) || {}
+                ).translation || "undefined"} */}
+                {findByUniqueId(mainData, 272)}
               </p>
               <p className="mb-[-3px] font-azarMehr font-normal dark:text-white">
-                {(footerTabs.find((item: any) => item.unique_id == 273) || {})
-                  .translation || "undefined"}
+                {/* {(
+                  footerTabs.find(
+                    (item: any) =>
+                      item.name == "global leadership in a parallel world"
+                  ) || {}
+                ).translation || "undefined"} */}
+                {findByUniqueId(mainData, 273)}
               </p>
             </div>
           </div>
           <p className="px-5 pt-6 font-normal text-justify font-azarMehr text-[#4C4C4C] dark:text-[#D4D4D4] text-[20px] leading-9">
-            {(footerTabs.find((item: any) => item.unique_id == 274) || {})
-              .translation || "undefined"}{" "}
-            <br className="w-full" />
-            {(footerTabs.find((item: any) => item.unique_id == 275) || {})
-              .translation || "undefined"}
+            {/* {(
+              footerTabs.find(
+                (item: any) => item.name == "footer description1"
+              ) || {}
+            ).translation || "undefined"} */}
+            {findByUniqueId(mainData, 273)} <br />
+            {/* {(
+              footerTabs.find(
+                (item: any) => item.name == "footer description2"
+              ) || {}
+            ).translation || "undefined"} */}
+            {findByUniqueId(mainData, 274)}
           </p>
         </div>
         <div className="xl:col-span-2 col-span-6 mt-6 w-full flex flex-col items-center ">
           <p className="text-center w-full font-medium font-azarMehr text-[20px] text-[#4C4C4C] dark:text-white">
-            {(footerTabs.find((item: any) => item.unique_id == 276) || {})
-              .translation || "undefined"}
+            {/* {(
+              footerTabs.find(
+                (item: any) => item.name == "join our networks"
+              ) || {}
+            ).translation || "undefined"} */}
+            {findByUniqueId(mainData, 276)}
           </p>
           <div className="xl:grid xl:grid-cols-5 3xl:grid-cols-7  flex flex-wrap gap-3 max-w-fit lg:w-full  justify-center mt-6 ">
-            {socialItems.length > 0 ? (
-              socialItems.map((item: ItemIcon) => (
-                <div key={item.id}>
-                  <Link href={item.target} target="_blank">
-                    <Image
-                      data-tooltip-id={`${item.id}`}
-                      key={item.id}
-                      src={item.img}
-                      alt={item.translation}
-                      width={1000}
-                      height={1000}
-                      className="w-[63px] h-[60px] col-span-1"
-                    />
-                  </Link>
-                  <ReactTooltip
-                    id={`${item.id}`}
-                    place="top"
-                    content={item.translation}
-                    style={{
-                      backgroundColor: "#e9eef8",
-                      color: "#000",
-                      fontSize: "16px",
-                      fontWeight: "bold",
-                    }}
+            {socialItems.map((item: any) => (
+              <div key={item.id}>
+                <Link href={item.target} target="_blank">
+                  <Image
+                    data-tooltip-id={`${item.id}`}
+                    key={item.id}
+                    src={item.img}
+                    alt={item.translation}
+                    width={1000}
+                    height={1000}
+                    className="w-[63px] h-[60px] col-span-1"
                   />
-                </div>
-              ))
-            ) : (
-              <p>No social links available</p>
-            )}
+                </Link>
+                <ReactTooltip
+                  id={`${item.id}`}
+                  place="top"
+                  content={item.translation}
+                  style={{
+                    backgroundColor: `${theme === "dark" ? "#000" : "#e9eef8"}`,
+                    color: `${theme === "dark" ? "#fff" : "#000"}`,
+                    fontSize: "16px",
+                    fontWeight: "bold",
+                  }}
+                />
+              </div>
+            ))}
           </div>
         </div>
       </div>
