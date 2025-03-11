@@ -44,18 +44,17 @@ export default async function EducationVideo({ params }: { params: any }) {
   const tabsMenu = await findByTabName(centralPageModal, "before-login");
 
   const DataVideo = await getSingleVideoData(params.videoId);
-  console.log("videoData11", DataVideo);
 
   const newEducationsVideos = await getEducationNewVideos();
   //   console.log("newEducationsVideos", newEducationsVideos);
 
   const dataCommentsVideo = await getVideoComments(DataVideo.id);
-  console.log("dataCommentsVideo222222", dataCommentsVideo);
 
   const DataVideos = await getSubcategoryData(
     params.category,
     params.subcategory
   );
+  console.log("DataVideos11111", DataVideos);
 
   const staticMenuToShow = getStaticMenu(params.id);
   // add staticMenuToShow values to siblings tabsMenu values
@@ -88,59 +87,83 @@ export default async function EducationVideo({ params }: { params: any }) {
     return temp;
   }
 
-  //   const subCategorySchema = {
-  //     "@context": "http://schema.org",
-  //     "@type": "WebSite",
-  //     name: ` ${subCategoryData.name}`,
-  //     url: `https://rgb.irpsc.com/${
-  //       params.lang
-  //     }/education/category/${decodeURIComponent(params.category)}/${
-  //       params.subcategory
-  //     }`,
-  //     description: await makeLessCharacter(subCategoryData.description),
-  //     mainEntity: subCategoryData.videos.map((video: any) => ({
-  //       "@type": "VideoObject",
-  //       name: video.title,
-  //       thumbnailUrl: video.image_url,
-  //       contentUrl: `https://rgb.irpsc.com/${
-  //         params.lang
-  //       }/education/category/${decodeURIComponent(params.category)}/${
-  //         params.subcategory
-  //       }/video/${video.slug}`,
-  //       uploadDate: video.upload_date || "",
-  //       publisher: {
-  //         "@type": "Organization",
-  //         name: video.creator.name || video.creator.code,
-  //       },
-  //       interactionStatistic: [
-  //         {
-  //           "@type": "InteractionCounter",
-  //           interactionType: "http://schema.org/LikeAction",
-  //           userInteractionCount: video.likes_count,
-  //         },
-  //         {
-  //           "@type": "InteractionCounter",
-  //           interactionType: "http://schema.org/DislikeAction",
-  //           userInteractionCount: video.dislikes_count,
-  //         },
-  //         {
-  //           "@type": "InteractionCounter",
-  //           interactionType: "http://schema.org/WatchAction",
-  //           userInteractionCount: video.views_count,
-  //         },
-  //       ],
-  //     })),
-  //   };
+  const singleVideoSchema = {
+    "@context": "http://schema.org",
+    "@type": "VideoObject",
+    name: DataVideo.title,
+    description: await makeLessCharacter(DataVideo.description),
+    thumbnailUrl: DataVideo.image_url,
+    contentUrl: `https://rgb.irpsc.com/${
+      params.lang
+    }/education/category/${decodeURIComponent(params.category)}/${
+      params.subcategory
+    }/${DataVideo.slug}`,
+    uploadDate: DataVideo.upload_date || "",
+    publisher: {
+      "@type": "Organization",
+      name: DataVideo.creator.name || DataVideo.creator.code,
+    },
+    interactionStatistic: [
+      {
+        "@type": "InteractionCounter",
+        interactionType: "http://schema.org/LikeAction",
+        userInteractionCount: DataVideo.likes_count,
+      },
+      {
+        "@type": "InteractionCounter",
+        interactionType: "http://schema.org/DislikeAction",
+        userInteractionCount: DataVideo.dislikes_count,
+      },
+      {
+        "@type": "InteractionCounter",
+        interactionType: "http://schema.org/WatchAction",
+        userInteractionCount: DataVideo.views_count,
+      },
+    ],
+    // Optional
+    hasPart: DataVideos.videos.map((video: any) => ({
+      "@type": "VideoObject",
+      name: video.title,
+      thumbnailUrl: video.image_url,
+      contentUrl: `https://rgb.irpsc.com/${
+        params.lang
+      }/education/category/${decodeURIComponent(params.category)}/${
+        params.subcategory
+      }/${video.slug}`,
+      uploadDate: video.upload_date || "",
+      publisher: {
+        "@type": "Organization",
+        name: video.creator.name || video.creator.code,
+      },
+      interactionStatistic: [
+        {
+          "@type": "InteractionCounter",
+          interactionType: "http://schema.org/LikeAction",
+          userInteractionCount: video.likes_count,
+        },
+        {
+          "@type": "InteractionCounter",
+          interactionType: "http://schema.org/DislikeAction",
+          userInteractionCount: video.dislikes_count,
+        },
+        {
+          "@type": "InteractionCounter",
+          interactionType: "http://schema.org/WatchAction",
+          userInteractionCount: video.views_count,
+        },
+      ],
+    })),
+  };
 
   return (
     <>
       {/* SCHEMA** */}
-      {/* <script
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(subCategorySchema),
+          __html: JSON.stringify(singleVideoSchema),
         }}
-      /> */}
+      />
       <div className="flex h-screen overflow-hidden" dir={langData.direction}>
         <Suspense
           fallback={<div className="text-center text-[20px]">loading...</div>}
@@ -205,45 +228,38 @@ export default async function EducationVideo({ params }: { params: any }) {
 }
 
 // // SEO**
-// export async function generateMetadata({ params }: { params: any }) {
-//   const langData = await getTranslation(params.lang);
-//   const mainData = await getMainFile(langData);
+export async function generateMetadata({ params }: { params: any }) {
+  const DataVideo = await getSingleVideoData(params.videoId);
 
-//   const subCategoryData = await getSubcategoryData(
-//     params.category,
-//     params.subcategory
-//   );
+  //to make description less than 200 character
+  async function makeLessCharacter(_input: string) {
+    return _input.slice(0, 200);
+  }
 
-//   //to make description less than 200 character
-//   async function makeLessCharacter(_input: string) {
-//     return _input.slice(0, 200);
-//   }
-
-//   return {
-//     title: findByUniqueId(mainData, 455) + " " + subCategoryData.name,
-//     description: await makeLessCharacter(subCategoryData.description),
-//     openGraph: {
-//       type: "website",
-//       // url: `https://yourwebsite.com/posts/${params.id}`,
-//       title: findByUniqueId(mainData, 455) + " " + subCategoryData.name,
-//       description: await makeLessCharacter(subCategoryData.description),
-//       locale: params.lang == "fa" ? "fa_IR" : "en_US",
-//       // site_name: متاورس رنگ,
-//       url: `https://rgb.irpsc.com/${params.lang}/education/category/${params.category}`,
-//       images: [
-//         {
-//           url: subCategoryData.image,
-//           width: 800,
-//           height: 400,
-//           // alt: post.title,
-//         },
-//       ],
-//     },
-//     // twitter: {
-//     //   card: 'summary_large_image',
-//     //   title: post.title,
-//     //   description: post.description,
-//     //   images: [post.imageUrl],
-//     // },
-//   };
-// }
+  return {
+    title: DataVideo.title,
+    description: await makeLessCharacter(DataVideo.description),
+    openGraph: {
+      type: "website",
+      title: DataVideo.title,
+      description: await makeLessCharacter(DataVideo.description),
+      locale: params.lang.toLowerCase() == "fa" ? "fa_IR" : "en_US",
+      // site_name: متاورس رنگ,
+      url: `https://rgb.irpsc.com/${params.lang}/education/category/${params.category}/${params.subcategory}/${params.videoId}`,
+      images: [
+        {
+          url: DataVideo.image_url,
+          width: 400,
+          height: 400,
+          // alt: post.title,
+        },
+      ],
+    },
+    // twitter: {
+    //   card: 'summary_large_image',
+    //   title: post.title,
+    //   description: post.description,
+    //   images: [post.imageUrl],
+    // },
+  };
+}
