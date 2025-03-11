@@ -18,8 +18,6 @@ const CommentSection = ({
   const [loading, setLoading] = useState<boolean>(false);
   const { theme } = useTheme();
 
-  console.log("dataCommentsVideo33333", dataCommentsVideo);
-
   const loadMore = async () => {
     setLoading(true);
     const nextPage = page + 1;

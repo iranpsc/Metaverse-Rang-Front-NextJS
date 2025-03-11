@@ -50,14 +50,18 @@ const CommentList = ({
             },
           }
         );
+        setCode(response.data.data.code);
 
         // setLoggedInUserData({
         //   token: response.data.data.token,
         //   code: response.data.data.code,
         // })
-      } catch (err) {}
+      } catch (err) {
+        console.error("خطا", err);
+      }
     };
-  });
+    fetchUserData();
+  }, []);
 
   return (
     <>
@@ -67,7 +71,7 @@ const CommentList = ({
             key={itemComment.id}
             className={`relative min-h-fit bg-singleVideo-backgroundInput dark:bg-dark-background rounded-[20px] xl:p-7 lg:p-7 md:p-5 sm:p-4 xs:p-3 mb-10 flex flex-col justify-between items-center
           ${
-            itemComment.user.code == "2000001"
+            itemComment.user.code == code
               ? "xl:ms-[50px] lg:ms-[50px] xs:ms-0 w-[95%] xs:w-full"
               : "ms-0 w-full"
           }`}
@@ -85,6 +89,7 @@ const CommentList = ({
                 <EditSectionComment
                   itemComment={itemComment}
                   setRefreshComment={setRefreshComment}
+                  code={code}
                   // setShowAuthCard={setShowAuthCard}
                   // translateSingleVideo={translateSingleVideo}
                   mainData={mainData}
@@ -132,7 +137,7 @@ const CommentList = ({
                   </button>
                 </form>
               ) : (
-                <p className="text-[#1A1A18] dark:text-white  text-start cursor-pointer font-azarMehr text-[16px] xs:text-[12px] font-normal ">
+                <p className="text-[#1A1A18] dark:text-white text-start cursor-pointer font-azarMehr text-[16px] xs:text-[12px] font-normal ">
                   {checkData(itemComment.content)}
                 </p>
               )}

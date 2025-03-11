@@ -12,7 +12,7 @@ export default function HeaderFirstPage({ mainData, params }: any) {
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.3, delay: 0.3 }}
-          className="w-[50%] font-bold text-[28px] sm:text-[32px] md:text-[38px] xl:text-[56px] 2xl:text-[78px] 3xl:text-[108px] text-dark-yellow whitespace-nowrap font-rokh mt-2 xl:mt-5"
+          className="w-[50%] font-bold text-[28px] sm:text-[32px] md:text-[38px] xl:text-[56px] 2xl:text-[68px] 3xl:text-[108px] text-dark-yellow whitespace-nowrap font-rokh mt-2 xl:mt-5"
         >
           {params.lang == "fa" ? "متاورس رنگ" : "Color Metaverse"}
         </motion.h1>
@@ -29,7 +29,7 @@ export default function HeaderFirstPage({ mainData, params }: any) {
           initial={{ opacity: 0, x: 100 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.3, delay: 0.5 }}
-          className="w-full text-white text-[16px] sm:text-[18px] md:text-[24px] 2xl:text-[36px] 3xl:text-[48px] text-start font-bold "
+          className="w-full text-white text-[16px] sm:text-[18px] md:text-[24px] 2xl:text-[36px] 3xl:text-[42px] text-start font-bold "
         >
           {/* {localFind("integration of ideas and creativity")} */}
           {findByUniqueId(mainData, 481)}
@@ -39,7 +39,7 @@ export default function HeaderFirstPage({ mainData, params }: any) {
           initial={{ opacity: 0, y: -100 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="w-full text-justify text-white font-azarMehr font-medium text-[14px] md:text-[16px] 2xl:text-[24px]"
+          className="w-full text-justify text-white font-azarMehr font-medium text-[14px] md:text-[16px] 2xl:text-[22px]"
         >
           {/* {localFind("metaverse rang is a metaverse world platform")} */}
           {findByUniqueId(mainData, 482)}

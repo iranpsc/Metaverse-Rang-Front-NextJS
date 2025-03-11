@@ -19,6 +19,7 @@ const EditSectionComment = ({
   setEditMode,
   setEditedText,
   setEdited,
+  code,
 }: any) => {
   // const { code, token } = useToken();
   const token = getAuthData("token");
@@ -60,7 +61,7 @@ const EditSectionComment = ({
               )
             }
           >
-            <p className="font-azarMehr font-normal text-[12px]">
+            <p className="font-azarMehr text-white font-normal text-[12px]">
               {/* {checkData(
                 translateSingleVideo.find((item: any) => item.name === "edit")
                   ?.translation

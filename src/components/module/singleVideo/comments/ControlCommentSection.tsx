@@ -50,7 +50,7 @@ const ControlCommentSection = ({
           )
         }
       >
-        <p className="font-azarMehr font-normal text-[12px]">
+        <p className="font-azarMehr text-black dark:text-white font-normal text-[12px]">
           {/* {checkData(
             translateSingleVideo.find((item: any) => item.name === "edit")
               ?.translation

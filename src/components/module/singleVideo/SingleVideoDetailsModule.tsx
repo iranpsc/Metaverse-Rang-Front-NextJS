@@ -31,8 +31,6 @@ const SingleVideoDetailsModule = ({
   const handlerCreateComment = async (videoId: any) => {
     if (comment.length > 5) {
       if (parsAuthCookieByName("token")) {
-        console.log("TOOOOKEN", parsAuthCookieByName("token"));
-
         try {
           const requestData = {
             content: comment,
@@ -46,8 +44,6 @@ const SingleVideoDetailsModule = ({
               },
             }
           );
-
-          console.log("send comment response9999", response);
 
           SetComment("");
           setRefreshComment(
