@@ -34,45 +34,46 @@ const CommentSection = ({
     setLoading(false);
   };
   return (
-    <div className="w-full xl:max-h-[730px] lg:max-h-[730px] md:h-full sm:h-full xs:h-full mt-10 pt-5 px-5 bg-white dark:bg-dark-background rounded-[20px] xl:overflow-y-scroll lg:overflow-y-scroll no-scrollbar  overflow-x-clip flex flex-col justify-start items-center gap-10">
-      <p className="w-full text-start  text-singleVideo_title text-singleVideo-gray dark:text-white font-azarMehr font-bold ">
+    <div className="w-full mt-10 pt-5 bg-white dark:bg-dark-background rounded-[20px]">
+      <p className="w-full text-start px-5 text-singleVideo_title text-singleVideo-gray dark:text-white font-azarMehr font-bold ">
         {checkData(findByUniqueId(mainData, 457))}
       </p>
-
-      {dataCommentsVideo.length > 0 ? (
-        <CommentList
-          DataItem={dataCommentsVideo}
-          // translateSingleVideo={translateSingleVideo}
-          mainData={mainData}
-          setRefreshComment={setRefreshComment}
-        />
-      ) : (
-        <div className="text-black dark:text-white">
-          {params.lang.toLowerCase() == "fa"
-            ? "دیدگاهی وجود ندارد."
-            : "No review"}
-        </div>
-      )}
-      {/* VIEW ALL BTN */}
-      {dataCommentsVideo.length > 5 && (
-        <button
-          className=" text-center rounded-full mb-10 flex items-center justify-center mt-10 py-5  px-10 shadow-sm hover:shadow-md  dark:bg-[#1A1A18] text-blueLink dark:text-dark-yellow font-azarMehr font-semibold hover:opacity-90"
-          onClick={loadMore}
-        >
-          {!loading ? (
-            // checkData(
-            //   translateSingleVideo.find((item: any) => item.name === "view all")
-            //     ?.translation
-            // )
-            findByUniqueId(mainData, 171)
-          ) : (
-            <SyncLoader
-              color={`${theme == "dark" ? "#FFC700" : "#0000FF"}`}
-              size={10}
-            />
-          )}
-        </button>
-      )}
+      <div className="light-scrollbar dark:dark-scrollbar w-full xl:max-h-[730px] lg:max-h-[730px] md:h-full sm:h-full xs:h-full xl:overflow-y-scroll lg:overflow-y-scroll  overflow-x-clip flex flex-col justify-start items-center gap-10">
+        {dataCommentsVideo.data.length > 0 ? (
+          <CommentList
+            DataItem={dataCommentsVideo}
+            // translateSingleVideo={translateSingleVideo}
+            mainData={mainData}
+            setRefreshComment={setRefreshComment}
+          />
+        ) : (
+          <div className="text-black dark:text-white">
+            {params.lang.toLowerCase() == "fa"
+              ? "دیدگاهی وجود ندارد."
+              : "No review"}
+          </div>
+        )}
+        {/* VIEW ALL BTN */}
+        {dataCommentsVideo.length > 5 && (
+          <button
+            className=" text-center rounded-full mb-10 flex items-center justify-center mt-10 py-5  px-10 shadow-sm hover:shadow-md  dark:bg-[#1A1A18] text-blueLink dark:text-dark-yellow font-azarMehr font-semibold hover:opacity-90"
+            onClick={loadMore}
+          >
+            {!loading ? (
+              // checkData(
+              //   translateSingleVideo.find((item: any) => item.name === "view all")
+              //     ?.translation
+              // )
+              findByUniqueId(mainData, 171)
+            ) : (
+              <SyncLoader
+                color={`${theme == "dark" ? "#FFC700" : "#0000FF"}`}
+                size={10}
+              />
+            )}
+          </button>
+        )}
+      </div>
     </div>
   );
 };

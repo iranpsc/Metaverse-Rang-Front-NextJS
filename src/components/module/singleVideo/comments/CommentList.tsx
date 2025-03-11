@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // import { AuthContext } from "@/components/context/AuthContext";
 // import { useToken } from "@/components/context/TokenContext";
 import { MessageRepeat, Like, Dislike } from "@/components/svgs/SvgEducation";
@@ -7,9 +7,9 @@ import { checkData } from "@/components/utils/targetDataName";
 
 import {
   handleChange,
-  handleSubmit,
+  // handleSubmit,
   handlerDisLikeComments,
-  handlerLikeComments,
+  // handlerLikeComments,
   handlerReportComments,
 } from "./utils/helper";
 import ProfileComment from "./ProfileComment";
@@ -19,6 +19,7 @@ import RepeatCommentSection from "./RepeatCommentSection";
 import { motion } from "framer-motion";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import GetAuthData from "@/components/utils/getAuthData";
+import axios from "axios";
 
 const CommentList = ({
   DataItem,
@@ -32,8 +33,31 @@ const CommentList = ({
   const [editMode, setEditMode] = useState(0);
   const [editedText, setEditedText] = useState("");
   const [edited, setEdited] = useState(false);
+  const [code, setCode] = useState(null);
 
   const token = GetAuthData("token");
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.post(
+          "https://api.rgb.irpsc.com/api/auth/me",
+          null, // No body data needed
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        // setLoggedInUserData({
+        //   token: response.data.data.token,
+        //   code: response.data.data.code,
+        // })
+      } catch (err) {}
+    };
+  });
 
   return (
     <>
@@ -61,7 +85,7 @@ const CommentList = ({
                 <EditSectionComment
                   itemComment={itemComment}
                   setRefreshComment={setRefreshComment}
-                  setShowAuthCard={setShowAuthCard}
+                  // setShowAuthCard={setShowAuthCard}
                   // translateSingleVideo={translateSingleVideo}
                   mainData={mainData}
                   setEditMode={setEditMode}
@@ -76,18 +100,18 @@ const CommentList = ({
               editMode === itemComment.id &&
               code === itemComment.user.code ? (
                 <form
-                  onSubmit={(e: any) =>
-                    handleSubmit(
-                      e,
-                      itemComment.video_id,
-                      itemComment.id,
-                      token,
-                      editedText,
-                      setEditMode,
-                      setShowAuthCard,
-                      setRefreshComment
-                    )
-                  }
+                // onSubmit={(e: any) =>
+                //   handleSubmit(
+                //     e,
+                //     itemComment.video_id,
+                //     itemComment.id,
+                //     token,
+                //     editedText,
+                //     setEditMode,
+                //     setShowAuthCard,
+                //     setRefreshComment
+                //   )
+                // }
                 >
                   <input
                     type="text"
@@ -120,7 +144,7 @@ const CommentList = ({
                   <ControlCommentSection
                     itemComment={itemComment}
                     setRefreshComment={setRefreshComment}
-                    setShowAuthCard={setShowAuthCard}
+                    // setShowAuthCard={setShowAuthCard}
                     // translateSingleVideo={translateSingleVideo}
                     mainData={mainData}
                     setEditMode={setEditMode}
@@ -129,42 +153,42 @@ const CommentList = ({
                 )}
 
                 <div className="flex flex-row justify-center items-center gap-1 cursor-pointer">
-                  <p className="font-azarMehr font-normal text-singleVideo_medium">
+                  <p className="font-azarMehr font-normal text-black dark:text-white text-singleVideo_medium">
                     {checkData(itemComment?.likes)}
                   </p>
                   <motion.div
                     className=" xs:size-[24px] outline-none border-none stroke-singleVideo-gray dark:stroke-white cursor-pointer"
                     whileTap={{ scale: 1.2 }}
-                    onClick={() =>
-                      handlerLikeComments(
-                        token,
-                        itemComment.id,
-                        itemComment.video_id,
-                        setRefreshComment,
-                        setShowAuthCard
-                      )
-                    }
+                    // onClick={() =>
+                    //   handlerLikeComments(
+                    //     token,
+                    //     itemComment.id,
+                    //     itemComment.video_id,
+                    //     setRefreshComment,
+                    //     setShowAuthCard
+                    //   )
+                    // }
                   >
                     <Like className="stroke-[#414040] dark:stroke-white cursor-pointer" />
                   </motion.div>
                 </div>
 
                 <div className="flex flex-row justify-center items-center gap-1 cursor-pointer">
-                  <p className="font-azarMehr font-normal text-singleVideo_medium">
+                  <p className="font-azarMehr font-normal text-singleVideo_medium text-black dark:text-white">
                     {checkData(itemComment?.dislikes)}
                   </p>
                   <motion.div
                     className=" xs:size-[24px] outline-none border-none stroke-singleVideo-gray dark:stroke-white cursor-pointer"
                     whileTap={{ scale: 1.2 }}
-                    onClick={() =>
-                      handlerDisLikeComments(
-                        token,
-                        itemComment.id,
-                        itemComment.video_id,
-                        setRefreshComment,
-                        setShowAuthCard
-                      )
-                    }
+                    // onClick={() =>
+                    //   handlerDisLikeComments(
+                    //     token,
+                    //     itemComment.id,
+                    //     itemComment.video_id,
+                    //     setRefreshComment,
+                    //     setShowAuthCard
+                    //   )
+                    // }
                   >
                     <Dislike className="stroke-[#414040] dark:stroke-white cursor-pointer" />
                   </motion.div>
@@ -172,16 +196,16 @@ const CommentList = ({
                 {itemComment.user.code !== code && (
                   <div
                     className="flex flex-row justify-center items-center gap-1 cursor-pointer xs:hidden"
-                    onClick={() =>
-                      handlerReportComments(
-                        token,
-                        itemComment.id,
-                        itemComment.video_id,
-                        setShowAuthCard
-                      )
-                    }
+                    // onClick={() =>
+                    //   handlerReportComments(
+                    //     token,
+                    //     itemComment.id,
+                    //     itemComment.video_id,
+                    //     setShowAuthCard
+                    //   )
+                    // }
                   >
-                    <p className="font-azarMehr font-normal text-singleVideo_medium">
+                    <p className="font-azarMehr font-normal text-black dark:text-white text-singleVideo_medium">
                       {/* {checkData(
                         translateSingleVideo.find(
                           (item: any) => item.name === "submit report"

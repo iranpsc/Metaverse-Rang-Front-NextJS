@@ -280,9 +280,10 @@
   export async function getVideoComments(_videoId){
     try{
       const res = await fetch(`https://api.rgb.irpsc.com/api/tutorials/${_videoId}/comments?page=1`,{
+        cache: 'no-store',
         headers: {
           "Content-Type": "application/json",
-          "Cache-Control": "public, max-age=3600", 
+          // "Cache-Control": "public, max-age=3600", 
         },}
       )
       let temp = await res.json()

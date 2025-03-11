@@ -31,6 +31,8 @@ const SingleVideoDetailsModule = ({
   const handlerCreateComment = async (videoId: any) => {
     if (comment.length > 5) {
       if (parsAuthCookieByName("token")) {
+        console.log("TOOOOKEN", parsAuthCookieByName("token"));
+
         try {
           const requestData = {
             content: comment,
@@ -45,6 +47,8 @@ const SingleVideoDetailsModule = ({
             }
           );
 
+          console.log("send comment response9999", response);
+
           SetComment("");
           setRefreshComment(
             (prevRefreshComment: boolean) => !prevRefreshComment
@@ -53,7 +57,7 @@ const SingleVideoDetailsModule = ({
           console.error("خطا:", error?.response?.status);
         }
       } else {
-        setShowAuthCard(true);
+        alert("you are not logged in");
       }
     }
   };
@@ -118,10 +122,10 @@ const SingleVideoDetailsModule = ({
         </>
       )}
 
-      <div className="relative mt-10 px-3 w-[640px] xs:w-[95%] h-[48px]">
+      <div className="relative mt-10 px-3 w-full xs:w-[95%] h-[48px]">
         <input
           type="text"
-          className="w-full h-full ps-2 pe-[50px] bg-grayLight dark:bg-black border-none rounded-[12px] placeholder-textInput focus:outline-none focus:shadow-md"
+          className="w-full h-full ps-2 pe-[50px] text-black dark:text-white bg-grayLight dark:bg-black border-none rounded-[12px] placeholder-textInput focus:outline-none focus:shadow-md"
           placeholder={findByUniqueId(mainData, 457)}
           // placeholder={checkData(
           //   translateSingleVideo.find(
