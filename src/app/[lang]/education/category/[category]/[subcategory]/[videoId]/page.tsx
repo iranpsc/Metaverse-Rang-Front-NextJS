@@ -89,70 +89,87 @@ export default async function EducationVideo({ params }: { params: any }) {
 
   const singleVideoSchema = {
     "@context": "http://schema.org",
-    "@type": "VideoObject",
+    "@type": "WebSite",
     name: DataVideo.title,
-    description: await makeLessCharacter(DataVideo.description),
-    thumbnailUrl: DataVideo.image_url,
-    contentUrl: `https://rgb.irpsc.com/${
+    url: `https://rgb.irpsc.com/${
       params.lang
     }/education/category/${decodeURIComponent(params.category)}/${
       params.subcategory
     }/${DataVideo.slug}`,
-    uploadDate: DataVideo.upload_date || "",
-    publisher: {
-      "@type": "Organization",
-      name: DataVideo.creator.name || DataVideo.creator.code,
-    },
-    interactionStatistic: [
-      {
-        "@type": "InteractionCounter",
-        interactionType: "http://schema.org/LikeAction",
-        userInteractionCount: DataVideo.likes_count,
-      },
-      {
-        "@type": "InteractionCounter",
-        interactionType: "http://schema.org/DislikeAction",
-        userInteractionCount: DataVideo.dislikes_count,
-      },
-      {
-        "@type": "InteractionCounter",
-        interactionType: "http://schema.org/WatchAction",
-        userInteractionCount: DataVideo.views_count,
-      },
-    ],
-    // Optional
-    hasPart: DataVideos.videos.map((video: any) => ({
+    description: await makeLessCharacter(DataVideo.description),
+    mainEntity: {
       "@type": "VideoObject",
-      name: video.title,
-      thumbnailUrl: video.image_url,
+      name: DataVideo.title,
+      thumbnailUrl: DataVideo.image_url,
       contentUrl: `https://rgb.irpsc.com/${
         params.lang
       }/education/category/${decodeURIComponent(params.category)}/${
         params.subcategory
-      }/${video.slug}`,
-      uploadDate: video.upload_date || "",
+      }/${DataVideo.slug}`,
+      uploadDate: DataVideo.upload_date || "",
       publisher: {
         "@type": "Organization",
-        name: video.creator.name || video.creator.code,
+        name: DataVideo.creator.name || DataVideo.creator.code,
       },
       interactionStatistic: [
         {
           "@type": "InteractionCounter",
           interactionType: "http://schema.org/LikeAction",
-          userInteractionCount: video.likes_count,
+          userInteractionCount: DataVideo.likes_count,
         },
         {
           "@type": "InteractionCounter",
           interactionType: "http://schema.org/DislikeAction",
-          userInteractionCount: video.dislikes_count,
+          userInteractionCount: DataVideo.dislikes_count,
         },
         {
           "@type": "InteractionCounter",
           interactionType: "http://schema.org/WatchAction",
-          userInteractionCount: video.views_count,
+          userInteractionCount: DataVideo.views_count,
         },
       ],
-    })),
+    },
+  };
+
+  const relatedVideosSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Related Videos",
+    itemListElement: DataVideos.videos.map((video: any, index: number) => {
+      return {
+        "@type": "VideoObject",
+        position: index + 1,
+        name: video.title,
+        thumbnailUrl: video.image_url,
+        contentUrl: `https://rgb.irpsc.com/${
+          params.lang
+        }/education/category/${decodeURIComponent(params.category)}/${
+          params.subcategory
+        }/${video.slug}`,
+        uploadDate: video.upload_date || "",
+        publisher: {
+          "@type": "Organization",
+          name: video.creator.name || video.creator.code,
+        },
+        interactionStatistic: [
+          {
+            "@type": "InteractionCounter",
+            interactionType: "http://schema.org/LikeAction",
+            userInteractionCount: video.likes_count,
+          },
+          {
+            "@type": "InteractionCounter",
+            interactionType: "http://schema.org/DislikeAction",
+            userInteractionCount: video.dislikes_count,
+          },
+          {
+            "@type": "InteractionCounter",
+            interactionType: "http://schema.org/WatchAction",
+            userInteractionCount: video.views_count,
+          },
+        ],
+      };
+    }),
   };
 
   return (
@@ -162,6 +179,13 @@ export default async function EducationVideo({ params }: { params: any }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(singleVideoSchema),
+        }}
+      />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(relatedVideosSchema),
         }}
       />
       <div className="flex h-screen overflow-hidden" dir={langData.direction}>
