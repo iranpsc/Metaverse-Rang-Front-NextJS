@@ -12,8 +12,6 @@ const ProfileReadMore = ({
   // userProperty,
   mainData,
 }: any) => {
-  console.log("profileData", profileData);
-
   const [showModal, setShowModal] = useState<Boolean>(false);
   const [dataModal, setDataModal] = useState({});
   const submitModalCard = (title: any, data: any, type: string, id: number) => {

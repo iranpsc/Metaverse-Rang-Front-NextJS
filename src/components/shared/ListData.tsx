@@ -1,5 +1,6 @@
+"use client";
 import Image from "next/image";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/navigation";
 import randomcolor from "randomcolor";
 
 import { Folder } from "@/components/svgs/SvgCategories";
@@ -12,17 +13,19 @@ import {
 } from "@/components/svgs/SvgEducation";
 import { formatNumber } from "@/components/utils/education";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
-export default function ListData({ nameComponent, data }: any) {
-  const router = useRouter();
-  const { lang, category } = router.query;
-  const pusher = (data: any) => {
-    router.push(`/${lang}/education/category/${category}/${data}`);
-  };
+export default function ListData({ nameComponent, data, params }: any) {
+  // const router = useRouter();
+  // const pusher = (data: any) => {
+  //   router.push(
+  //     `/${params.lang}/education/category/${params.category}/${data}`
+  //   );
+  // };
 
-  const pushRgb = (data: any) => {
-    router.push(`https://rgb.irpsc.com/${lang}/citizen/${data}`);
-  };
+  // const pushRgb = (data: any) => {
+  //   router.push(`https://rgb.irpsc.com/${params.lang}/citizen/${data}`);
+  // };
 
   const [colors, setColors] = useState([]);
 
@@ -45,10 +48,13 @@ export default function ListData({ nameComponent, data }: any) {
     <>
       {data &&
         data.subcategories.map((item: any, index: number) => (
-          <div
+          <Link
+            // stop encoding "&" character in "a&q" params to see like %26 with decodeURIComponent()
+            href={`/${params.lang}/education/category/${decodeURIComponent(
+              params.category
+            )}/${item.slug}`}
             key={item.id}
             className="w-[90%] min-h-[240px] cursor-pointer shadow-md hover:shadow-xl hover:dark:shadow-dark  rounded-[10px] bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-4 items-center"
-            onClick={() => pusher(item.slug)}
           >
             <div className=" group w-full h-[250px] 2xl:h-[300px] relative rounded-t-[10px]  ">
               <Image
@@ -65,9 +71,9 @@ export default function ListData({ nameComponent, data }: any) {
               </div>
             </div>
 
-            <h1 className="text-start w-[95%] font-azarMehr truncate cursor-pointer font-bold mt-[15px] text-[16px] 3xl:text-[20px] ">
+            <p className="text-start w-[95%] font-azarMehr truncate cursor-pointer font-bold mt-[15px] text-[16px] 3xl:text-[20px] dark:text-white text-black">
               {item.name}
-            </h1>
+            </p>
             <div className="flex flex-row items-center justify-start  mt-[-8px] w-[98%]"></div>
             <div className="w-[95%] pb-2 flex flex-row justify-between  items-center">
               <div className=" px-3  flex flex-row justify-evenly items-center w-full h-fit pb-3">
@@ -97,7 +103,7 @@ export default function ListData({ nameComponent, data }: any) {
                 </div>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
     </>
   );

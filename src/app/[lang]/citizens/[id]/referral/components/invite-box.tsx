@@ -18,8 +18,6 @@ export default function InviteBox({
     `rgb.irpsc.com/${params.lang}/citizens/${params.id}/referral`
   );
 
-  console.log("referralPageArrayContent", referralPageArrayContent);
-
   function localFind(_name: any) {
     return referralPageArrayContent.find((item: any) => item.name == _name)
       .translation;

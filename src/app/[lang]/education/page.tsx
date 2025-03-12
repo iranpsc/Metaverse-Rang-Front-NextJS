@@ -54,9 +54,9 @@ export default async function CitizensPage({ params }: { params: any }) {
     return tab;
   });
 
-  const educationAllCategorySchema = {
+  const educationVideoSchema = {
     "@context": "http://schema.org",
-    "@type": "WebPage",
+    "@type": "WebSite",
     mainEntity: allCatVideos.map((video: any) => ({
       "@type": "VideoObject",
       name: video.title,
@@ -94,7 +94,7 @@ export default async function CitizensPage({ params }: { params: any }) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(educationAllCategorySchema),
+          __html: JSON.stringify(educationVideoSchema),
         }}
       />
       <div className="flex h-screen overflow-hidden" dir={langData.direction}>
@@ -123,7 +123,11 @@ export default async function CitizensPage({ params }: { params: any }) {
               {findByUniqueId(mainData, 164)}
             </p>
 
-            <SearchComponent searchLevel="education" mainData={mainData} />
+            <SearchComponent
+              searchLevel="education"
+              mainData={mainData}
+              params={params}
+            />
           </div>
 
           <div className="h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">

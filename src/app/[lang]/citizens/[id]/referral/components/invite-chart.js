@@ -17,7 +17,6 @@ export default function InviteChart({params,referralPageArrayContent,initChartDa
   const theme = cookies.theme || "dark";
 
   useEffect(() => {
-    console.log("Current Theme:", theme); // Debugging
 
     if (!canvasRef.current) return;
     const ctx = canvasRef.current.getContext("2d");

@@ -89,26 +89,6 @@
           grid-row: 1 / span 4;
         }
       }
-    /* .grid-first {
-        grid-column: 1 / span 2;
-        grid-row: 1;
-    }
-
-    .grid-second {
-        grid-column: 1 / span 2;
-        grid-row: 2;
-    }
-
-    .grid-third {
-        grid-column: 1;
-        grid-row: 3;
-
-    }
-
-    .grid-forth {
-        grid-column: 3;
-        grid-row: 1 / span 3;
-    } */
   }
 
 

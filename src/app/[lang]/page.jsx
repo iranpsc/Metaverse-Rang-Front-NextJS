@@ -90,19 +90,20 @@ export default async function LangPage({params}) {
     getTranslation(params.lang)
   ])
   const mainData = await getMainFile(langData);
+
   // const allVersionList = await getAllVersions();
 
-  const Citizenship = await findByModalName(mainData, "Citizenship-profile");
-  const citizenListArrayContent = await findByTabName(
-    Citizenship,
-    "list-citizen"
-  );
+  // const Citizenship = await findByModalName(mainData, "Citizenship-profile");
+  // const citizenListArrayContent = await findByTabName(
+  //   Citizenship,
+  //   "list-citizen"
+  // );
 
-  const levelModals = await findByModalName(mainData, "levels");
-  const levelListArrayContent = await findByTabName(levelModals, "level-list");
+  // const levelModals = await findByModalName(mainData, "levels");
+  // const levelListArrayContent = await findByTabName(levelModals, "level-list");
 
   const centralPageModal = await findByModalName(mainData, "central-page");
-  const firstPageArrayContent = await findByTabName(centralPageModal, "first-page");
+  // const firstPageArrayContent = await findByTabName(centralPageModal, "first-page");
   const tabsMenu = await findByTabName(centralPageModal, "before-login");
 
   const staticMenuToShow = getStaticMenu(params.id);
@@ -376,7 +377,7 @@ export default async function LangPage({params}) {
 
             <div className="relative w-[90%] h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px] flex items-center justify-center">
               <Suspense fallback={<div>Loading Header...</div>}>
-                <Section3D />
+                <Section3D params={params} />
               </Suspense>
             </div>
 

@@ -30,11 +30,10 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
     if (isMounted) {
       let params = searchParams.toString();
       if (params) {
-        // const expires_at = Number(parsAuthCookieByName("expires_at", params));
         const expires_at = Number(searchParams.get("expires_at"));
 
         const now = new Date();
-        // Add "expires_at" hour ("expires_at" minutes * 60 seconds * 1000 milliseconds) to the current time
+        // Add "expires_at" hour to the current time
         const realExpireTime = now.getTime() + expires_at * 60 * 1000;
         params += `&realExpireTime=${realExpireTime}`;
         setCookie("auth", params);
@@ -83,9 +82,11 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
             },
           }
         );
-        console.log("setLoggedInUserData", response.data.data);
 
-        setLoggedInUserData(response.data.data);
+        setLoggedInUserData({
+          token: response.data.data.token,
+          code: response.data.data.code,
+        });
       } catch (err) {}
     };
     if (isMounted) {
@@ -110,6 +111,8 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
         },
       }
     );
+
+    // debugger;
     if (res) {
       const redirectUrl = res.data.url;
       window.location.href = redirectUrl;
@@ -129,12 +132,7 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
         },
       }
     );
-
-    if (res.status === 204) {
-      removeCookie("auth");
-    } else {
-      removeCookie("auth");
-    }
+    removeCookie("auth", { path: "/" });
   };
 
   const handleDropDown = () => {

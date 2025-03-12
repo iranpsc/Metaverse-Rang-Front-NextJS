@@ -10,13 +10,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 function Footer({ footerTabs, mainData }: any) {
-  interface ItemIcon {
-    id: number;
-    img: string;
-    translation: string;
-    target: string;
-  }
-  const socialItems: ItemIcon[] = [
+  const socialItems = [
     {
       id: 1,
       img: "/social/facebook.png",
@@ -150,22 +144,22 @@ function Footer({ footerTabs, mainData }: any) {
       (entries) => {
         const entry = entries[0];
         if (entry.isIntersecting) {
-          setInView(true);
+          setInView(true); // Trigger iframe load when in view
         }
       },
       {
         rootMargin: "0px",
-        threshold: 0.1,
+        threshold: 0.1, // Trigger when 10% of the iframe is in view
       }
     );
 
     if (footerRef.current) {
-      observer.observe(footerRef.current);
+      observer.observe(footerRef.current); // Observe the iframe container
     }
 
     return () => {
       if (footerRef.current) {
-        observer.unobserve(footerRef.current);
+        observer.unobserve(footerRef.current); // Cleanup observer
       }
     };
   }, []);
@@ -186,13 +180,7 @@ function Footer({ footerTabs, mainData }: any) {
               data-tooltip-id={item.url}
               src={item.url}
               loading="lazy"
-              alt={
-                (
-                  footerTabs.find(
-                    (footerItem: any) => footerItem.unique_id === item.unique_id
-                  ) || {}
-                ).translation || "undefined"
-              }
+              alt={findByUniqueId(mainData, item.unique_id)}
               width={1000}
               height={1000}
               className="w-[60px] h-[60px] cursor-pointer"
@@ -202,11 +190,12 @@ function Footer({ footerTabs, mainData }: any) {
               id={item.url}
               place="top"
               content={
-                (
-                  footerTabs.find(
-                    (footerItem: any) => footerItem.unique_id === item.unique_id
-                  ) || {}
-                ).translation || "undefined"
+                // (
+                //   footerTabs.find(
+                //     (itemData: any) => itemData.name == item.unique_id
+                //   ) || {}
+                // ).translation || "undefined"
+                findByUniqueId(mainData, item.unique_id)
               }
               style={{
                 backgroundColor: `${theme === "dark" ? "#000" : "#e9eef8"}`,
@@ -231,30 +220,50 @@ function Footer({ footerTabs, mainData }: any) {
             />
             <div className="flex flex-col h-[60px]  justify-between items-start">
               <p className="text-[22px] mt-[-5px] font-bold font-azarMehr  dark:text-white">
-                {(footerTabs.find((item: any) => item.unique_id == 272) || {})
-                  .translation || "undefined"}
+                {/* {(
+                  footerTabs.find(
+                    (item: any) => item.name == "national metaverse"
+                  ) || {}
+                ).translation || "undefined"} */}
+                {findByUniqueId(mainData, 272)}
               </p>
               <p className="mb-[-3px] font-azarMehr font-normal dark:text-white">
-                {(footerTabs.find((item: any) => item.unique_id == 273) || {})
-                  .translation || "undefined"}
+                {/* {(
+                  footerTabs.find(
+                    (item: any) =>
+                      item.name == "global leadership in a parallel world"
+                  ) || {}
+                ).translation || "undefined"} */}
+                {findByUniqueId(mainData, 273)}
               </p>
             </div>
           </div>
           <p className="px-5 pt-6 font-normal text-justify font-azarMehr text-[#4C4C4C] dark:text-[#D4D4D4] text-[20px] leading-9">
-            {(footerTabs.find((item: any) => item.unique_id == 274) || {})
-              .translation || "undefined"}{" "}
-            <br className="w-full" />
-            {(footerTabs.find((item: any) => item.unique_id == 275) || {})
-              .translation || "undefined"}
+            {/* {(
+              footerTabs.find(
+                (item: any) => item.name == "footer description1"
+              ) || {}
+            ).translation || "undefined"} */}
+            {findByUniqueId(mainData, 273)} <br />
+            {/* {(
+              footerTabs.find(
+                (item: any) => item.name == "footer description2"
+              ) || {}
+            ).translation || "undefined"} */}
+            {findByUniqueId(mainData, 274)}
           </p>
         </div>
         <div className="xl:col-span-2 col-span-6 mt-6 w-full flex flex-col items-center ">
           <p className="text-center w-full font-medium font-azarMehr text-[20px] text-[#4C4C4C] dark:text-white">
-            {(footerTabs.find((item: any) => item.unique_id == 276) || {})
-              .translation || "undefined"}
+            {/* {(
+              footerTabs.find(
+                (item: any) => item.name == "join our networks"
+              ) || {}
+            ).translation || "undefined"} */}
+            {findByUniqueId(mainData, 276)}
           </p>
           <div className="xl:grid xl:grid-cols-5 3xl:grid-cols-7  flex flex-wrap gap-3 max-w-fit lg:w-full  justify-center mt-6 ">
-            {socialItems.map((item: ItemIcon) => (
+            {socialItems.map((item: any) => (
               <div key={item.id}>
                 <Link href={item.target} target="_blank">
                   <Image
