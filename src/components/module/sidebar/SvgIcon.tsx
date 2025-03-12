@@ -41,11 +41,22 @@ import {
   Version,
   Overview,
   Calender,
+  Categories,
+  Trainers,
 } from "@/components/svgs/SvgEducation";
 
 export default function SvgIcon({ name, color }: any) {
   return (
     <>
+      {name === "trainers" && (
+        <Trainers className={`${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
+      )}
+      {name === "categories" && (
+        <Categories
+          stroke="#ff0000"
+          className={` ${color} stroke-1 mx-[10px] 3xl:w-7 3xl:h-7`}
+        />
+      )}
       {name === "home" && (
         <HomeIcon
           stroke="#ff0000"

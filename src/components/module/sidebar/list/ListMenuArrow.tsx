@@ -6,8 +6,8 @@ const ListMenuArrow = ({ item, isOpen }: any) => {
   // const { state } = useContext(SideBarContext);
   return (
     <>
-      {/* {(item.name === "trainings" || item.name === "language") && ( */}
-      {item.name === "language" && (
+      {(item.name === "trainings" || item.name === "language") && (
+        // {item.name === "language" && (
         <ArrowMenu
           className={`${
             isOpen ? "rotate-90" : "rotate-0"
