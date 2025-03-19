@@ -273,7 +273,7 @@ function Footer({ footerTabs, mainData }: any) {
                     alt={item.translation}
                     width={1000}
                     height={1000}
-                    className="w-[63px] h-[664px] col-span-1"
+                    className="w-[63px] h-[64px] col-span-1"
                   />
                 </Link>
                 <ReactTooltip
