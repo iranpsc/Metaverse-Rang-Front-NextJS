@@ -4,9 +4,7 @@ import ProfileAbout from "@/components/module/profile/ProfileAbout";
 import ProfileDetails from "@/components/module/profile/ProfileDatails";
 import { getTranslation, getMainFile, findByModalName, findByTabName, getLangArray, getUserData } from "@/components/utils/actions";
 import SideBar from "@/components/module/sidebar/SideBar";
-import useServerDarkMode from "src/hooks/use-server-dark-mode";
-import { staticMenuToShow as MenuStaticData } from "@/components/utils/constants";
-
+import { getStaticMenu } from "@/components/utils/constants";
 
 
 export default async function citizenSinglePage({
@@ -24,11 +22,6 @@ export default async function citizenSinglePage({
     getMainFile(langData),
     getLangArray()
   ])
-
-  // const mainData = await getMainFile(langData);
-  // const langArray = await getLangArray();
-  
-  const defaultTheme = useServerDarkMode();
 
   const modalsProfile = mainData.modals.find(
     (modal) => modal.name === "Citizenship-profile"
@@ -62,7 +55,11 @@ export default async function citizenSinglePage({
     if (profileData.data.name) {
       titleData = `${profileData.data.name} | ${profileData.data.code}`;
       nameUser = `${profileData.data.name} `;
-    } else {
+    }else if (profileData.data?.kyc?.fname) {
+      nameUser = `${profileData.data.kyc.fname} ${profileData.data.kyc.lname}`;
+      titleData = `${profileData.data.kyc.fname} ${profileData.data.kyc.lname} | ${profileData.data.code}`;
+    }
+     else {
       titleData = "Metaverse Rgb";
     }
   }
@@ -85,16 +82,24 @@ export default async function citizenSinglePage({
   );
   const tabsMenu = await findByTabName(centralPageModal, "menu");
 
-  const staticMenuToShow = MenuStaticData;
+  const staticMenuToShow = getStaticMenu(params);
 
   // add staticMenuToShow values to siblings tabsMenu values
-  tabsMenu.forEach((tab) => {
-    let findInStatic = staticMenuToShow.find((val) => tab.name == val.name);
+  const updatedTabsMenu = tabsMenu.map((tab) => {
+    let findInStatic = staticMenuToShow.find((val) => tab.name === val.name);
+    
     if (findInStatic) {
-      tab.url = findInStatic.url;
-      tab.order = findInStatic.order;
-      tab.toShow = true;
+      // Return a new tab object with updated properties
+      return {
+        ...tab, // Spread the original tab properties
+        url: findInStatic.url,
+        order: findInStatic.order,
+        toShow: true,
+      };
     }
+  
+    // If no match found, return the original tab
+    return tab;
   });
 
   const singleCitizenSchema = {
@@ -126,10 +131,9 @@ export default async function citizenSinglePage({
         >
           <div className="flex h-full" dir={langData.direction}>
             <SideBar
-              tabsMenu={tabsMenu}
+              tabsMenu={updatedTabsMenu}
               langData={langData}
               langArray={langArray}
-              defaultTheme={defaultTheme}
               params={params}
               pageSide="citizen"
             />
@@ -145,7 +149,8 @@ export default async function citizenSinglePage({
                     titleData={titleData}
                     langData={langData}
                     nameUser={nameUser}
-                    userProperty={userProperty}
+                    // userProperty={userProperty}
+                    mainData={mainData}
                     params={params}
                   />
                 </section>
@@ -155,7 +160,8 @@ export default async function citizenSinglePage({
                 >
                   <ProfileDetails
                     profileData={profileData}
-                    userProperty={userProperty}
+                    // userProperty={userProperty}
+                    mainData={mainData}
                   />
                 </section>
                 {/* THIRD */}
@@ -164,7 +170,8 @@ export default async function citizenSinglePage({
                 >
                   <ProfileAbout
                     profileData={profileData}
-                    userProperty={userProperty}
+                    // userProperty={userProperty}
+                    mainData={mainData}
                     titleData={titleData}
                     params={params}
                   />

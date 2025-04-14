@@ -111,12 +111,14 @@
   }
 
   export async function getAllVersions(){
-    const res = await fetch(`https://api.rgb.irpsc.com/api/calendar/versions`, {
+    const res = await fetch(`https://api.rgb.irpsc.com/api/calendar?type=version`, {
       headers: {
         "Content-Type": "application/json",
         "Cache-Control": "public, max-age=3600", 
       },
     });
+    console.log('versionRESSS', res);
+    
     let temp = await res.json()
     return temp.data;
   }
@@ -171,5 +173,34 @@
       },}
     )
     let temp = await res.json()
+    return temp.data
+  }
+
+  export async function getAllCategories(){
+    
+    const res = await fetch(`https://api.rgb.irpsc.com/api/tutorials/categories?count=9`,{
+      headers: {
+        "Content-Type": "application/json",
+        "Cache-Control": "public, max-age=3600", 
+      },}
+    )
+    let temp = await res.json()
+
+    return temp.data
+  }
+
+  export async function getAllCategoryVideos(_page){
+    
+    const res = await fetch(`https://api.rgb.irpsc.com/api/tutorials?page=${_page}`,{
+      headers: {
+        "Content-Type": "application/json",
+        "Cache-Control": "public, max-age=3600", 
+      },}
+    )
+    let temp = await res.json()
+
+    console.log('allvideoes111', temp.data);
+    
+
     return temp.data
   }

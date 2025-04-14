@@ -1,28 +1,23 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import { FlagSatar, StairsUp } from "@/components/svgs";
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 export default function LevelCard({
   item,
   allLevelArrayContent,
   params,
+  mainData,
 }: {
   item: any;
   allLevelArrayContent: any;
   params: any;
+  mainData: any;
 }) {
-  function localFind(_name: any) {
-    return allLevelArrayContent.find((item: any) => item.name == _name)
-      ?.translation;
-  }
   function localFind2(_slug: any) {
-    // HIN not good
-    //item.name and _slug have fa/en number string
-    //convert
-
-    return allLevelArrayContent.find(
-      (item: any) => Number(item.name) == Number(_slug)
-    )?.translation;
+    return allLevelArrayContent.find((item: any) => item.unique_id == _slug)
+      ?.translation;
   }
   return (
     <div className="py-[10px] px-[14px] w-full md:w-1/2 lg:w-1/3 2xl:w-1/4 flex justify-center">
@@ -39,17 +34,19 @@ export default function LevelCard({
         />
         <div className="boxDataLevel w-full h-[216px] lg:h-[239px] rounded-[20px] flex flex-col  justify-end bg-white border border-[rgba(0,0,0,0.14)] dark:bg-[#1A1A18] mt-[-65px]">
           <span className="text-center  dark:text-white font-azarMehr font-medium  text-[#33353B] mx-2 font-semibold text-[20px] lg:text-[24px]">
-            {localFind2(`${item.slug}`)}
+            {localFind2(`${item.unique_id}`)}
           </span>
           <span className="text-center  dark:text-[#84858F] font-azarMehr font-normal text-[#484950] mx-2 text-[16px] lg:text-[20px] py-2">
-            {localFind("required points")}
+            {/* {localFind("required points")} */}
+            {findByUniqueId(mainData, 393)}
             <span className="ps-1 font-medium">{item.score}</span>
           </span>
           <span className="mb-3 w-full flex justify-evenly font-azarMehr text-[16px] lg:text-[20px]">
             <span className="flex items-center dark:bg-black bg-[#F6F6F6] rounded-[20px] p-[4px] w-5/12">
               <FlagSatar className="stroke-[#0066FF] dark:stroke-[#FFC700] text-[24px]" />
               <span className="dark:text-[#868B90] text-[#84858F] px-1 font-normal">
-                {localFind("rank")}
+                {/* {localFind("rank")} */}
+                {findByUniqueId(mainData, 534)}
               </span>
               <span className="dark:text-[#fff] text-[#33353B] font-normal">
                 {item.rank}
@@ -58,7 +55,8 @@ export default function LevelCard({
             <span className="flex items-center dark:bg-black bg-[#F6F6F6] rounded-[20px] p-[4px] w-5/12">
               <StairsUp className="stroke-[#0066FF] dark:stroke-[#FFC700] text-[24px]" />
               <span className="dark:text-[#868B90] text-[#84858F] px-1 font-normal text-[16px] lg:text-[20px]">
-                {localFind("level")}:
+                {/* {localFind("level")}: */}
+                {findByUniqueId(mainData, 724)}
               </span>
               <span className="dark:text-[#fff] text-[#33353B] font-normal text-[16px] lg:text-[20px]">
                 {item.slug}

@@ -2,22 +2,19 @@ import { CLoseIcon } from "@/components/svgs";
 import { Search } from "@/components/svgs/SvgEducation";
 import SyncLoader from "react-spinners/SyncLoader";
 import { translateFooter } from "@/components/utils/education";
+import { findByUniqueId } from "../utils/findByUniqueId";
 
 export default function SectionInputSearch({
   SectionName,
-  citizenListArrayContent,
+  searchLevel,
+  mainData,
   loadingSearch,
-  // themeDataActive,
+  defaultTheme,
   searchTerm,
   setSearchTerm,
   searchData,
   removeSearch,
 }: any) {
-  // to find in an array with key(_name)
-  function localFind(_name: any) {
-    return citizenListArrayContent.find((item: any) => item.name == _name)
-      .translation;
-  }
   return (
     <>
       <div
@@ -29,7 +26,11 @@ export default function SectionInputSearch({
           } fill-blueLink dark:fill-dark-yellow`}
         />
         <input
-          placeholder={localFind("search for citizenship name")}
+          placeholder={
+            searchLevel == "citizen"
+              ? findByUniqueId(mainData, 594)
+              : findByUniqueId(mainData, 167)
+          }
           className="w-[80%] outline-none border-none 
               placeholder-[#868B90] dark:text-white text-[14px] ms-2 font-azarMehr font-medium dark:bg-[#1A1A18] dark:placeholder-dark-gray"
           value={searchTerm}
@@ -37,7 +38,7 @@ export default function SectionInputSearch({
         />
         {loadingSearch && (
           <SyncLoader
-            // color={`${themeDataActive == "dark" ? "#FFC700" : "#0000FF"}`}
+            color={`${defaultTheme == "dark" ? "#FFC700" : "#0066FF"}`}
             className="me-1 "
             size={5}
             speedMultiplier={0.5}
@@ -52,7 +53,7 @@ export default function SectionInputSearch({
         ) : (
           SectionName === "education" && (
             <span className="text-blueLink dark:text-dark-activeButton  me-5  font-azarMehr font-medium">
-              {localFind("search")}
+              {findByUniqueId(mainData, 57)}
             </span>
           )
         )}

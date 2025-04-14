@@ -1,4 +1,4 @@
-import { translateFooter } from "@/components/utils/education";
+// import { translateFooter } from "@/components/utils/education";
 
 export const Items = [
   {
@@ -841,122 +841,122 @@ export const imageSources: any = [
   {
     url: "https://irpsc.com/img-icon/vezarat.png",
     target: "#",
-    translate: "ministry of cooperation license",
+    unique_id: 172,
   },
   {
     url: "https://irpsc.com/img-icon/enamad.png",
     target: "#",
-    translate: "enamad",
+    unique_id: 338,
   },
   {
     url: "https://irpsc.com/img-icon/qazaii.png",
     target: "#",
-    translate: "judiciary authority license",
+    unique_id: 173,
   },
   {
     url: "https://irpsc.com/img-icon/video.png",
     target: "https://video.irpsc.com/",
-    translate: "video training center",
+    unique_id: 174,
   },
   {
     url: "https://irpsc.com/img-icon/faq.png",
     target: "https://faq.irpsc.com/",
-    translate: "q&q forum",
+    unique_id: 291,
   },
   {
     url: "https://irpsc.com/img-icon/shop.png",
     target: "https://shop.irpsc.com/",
-    translate: "national store",
+    unique_id: 176,
   },
   {
     url: "https://irpsc.com/img-icon/supply.png",
     target: "https://supply.irpsc.com/",
-    translate: "iranian producers",
+    unique_id: 177,
   },
   {
     url: "https://irpsc.com/img-icon/crm.png",
     target: "https://crm.irpsc.com/",
-    translate: "management system for managers",
+    unique_id: 178,
   },
 
   {
     url: "https://irpsc.com/img-icon/target.png",
     target: "https://target.irpsc.com/",
-    translate: "hm",
+    unique_id: 333,
   },
   {
     url: "https://irpsc.com/img-icon/animal.png",
     target: "https://animal.irpsc.com/",
-    translate: "animal system",
+    unique_id: 180,
   },
   {
     url: "https://irpsc.com/img-icon/irpsc.png",
     target: "https://irpsc.com/",
-    translate: "national media",
+    unique_id: 336,
   },
   {
     url: "https://irpsc.com/img-icon/meta.png",
     target: "https://meta.irpsc.com/",
-    translate: "meta news",
+    unique_id: 182,
   },
   {
     url: "https://irpsc.com/img-icon/uni.png",
     target: "https://uni.irpsc.com/",
-    translate: "metaverse university",
+    unique_id: 183,
   },
   {
     url: "https://irpsc.com/img-icon/knowledge.png",
     target: "https://crm.irpsc.com/knowledgebase",
-    translate: "knowledge-centric system",
+    unique_id: 184,
   },
   {
     url: "https://irpsc.com/img-icon/sale.png",
     target: "https://sale.irpsc.com",
-    translate: "online store hm",
+    unique_id: 334,
   },
   {
     url: "https://irpsc.com/img-icon/ad.png",
     target: "https://ad.irpsc.com/",
-    translate: "national advertising",
+    unique_id: 186,
   },
   {
     url: "https://irpsc.com/img-icon/nft.png",
     target: "https://nft.irpsc.com/",
-    translate: "nft marketplace",
+    unique_id: 187,
   },
   {
     url: "https://irpsc.com/img-icon/rgb.gif",
     target: "https://rgb.irpsc.com/",
-    translate: "metaverse color",
+    unique_id: 188,
   },
   {
     url: "https://irpsc.com/img-icon/map.png",
     target: "https://map.irpsc.com/",
-    translate: "national map",
+    unique_id: 335,
   },
   {
     url: "https://irpsc.com/img-icon/3d.png",
     target: "https://3d.irpsc.com/",
-    translate: "threed meta",
+    unique_id: 465,
   },
   {
     url: "https://irpsc.com/img-icon/accounts.png",
     target: "https://accounts.irpsc.com/",
-    translate: "time tunnel",
+    unique_id: 466,
   },
   {
     url: "https://irpsc.com/img-icon/art.png",
     target: "https://art.irpsc.com/",
-    translate: "meta art",
+    unique_id: 96,
   },
   {
     url: "https://irpsc.com/img-icon/web.png",
     target: "https://web.irpsc.com/",
-    translate: "web rang",
+    unique_id: 1363,
   },
   {
     url: "https://irpsc.com/img-icon/home-soon.png",
     target: "https://home.irpsc.com/",
-    translate: "real estate and properties",
+    unique_id: 189,
   },
 ];

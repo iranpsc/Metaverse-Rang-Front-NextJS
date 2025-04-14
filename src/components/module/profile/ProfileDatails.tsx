@@ -4,13 +4,15 @@ import { targetData } from "@/utils/targetDataName";
 import SecondDetails from "@/components/module/profile/secondDetails";
 import DetailsInterest from "@/components/module/profile/detailsInterest";
 import ReadMore from "@/components/module/profile/detailsReadMore";
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 export default function ProfileDetails({
   setShowModal,
   setDataModal,
   profileData,
-  userProperty,
+  // userProperty,
   languageSelected,
+  mainData,
 }: any) {
   // const { data, profileData.data, languageSelected } = useContext(LangContext);
   const [inView, setInView] = useState(true);
@@ -59,26 +61,29 @@ export default function ProfileDetails({
   const itemsProfileDetails = [
     {
       id: 1,
-      key: targetData(userProperty, "date of birth"),
+      // key: targetData(userProperty, "date of birth"),
+      key: findByUniqueId(mainData, 83),
       value: profileData.data?.kyc?.birth_date || "--",
       fValue: profileData.data?.kyc?.birth_date || "--",
     },
     {
       id: 2,
-      key: targetData(userProperty, "phone number"),
+      // key: targetData(userProperty, "phone number"),
+      key: findByUniqueId(mainData, 84),
       value: profileData.data?.kyc?.phone?.slice(0, 25) || "--",
       fValue: profileData.data?.kyc?.phone || "--",
     },
     {
       id: 3,
-      key: targetData(userProperty, "email"),
+      // key: targetData(userProperty, "email"),
+      key: findByUniqueId(mainData, 85),
       value: profileData.data?.kyc?.email?.slice(0, 25) || "--",
       fValue: profileData.data?.kyc?.email,
     },
     {
       id: 4,
-      key: targetData(userProperty, "address"),
-
+      // key: targetData(userProperty, "address"),
+      key: findByUniqueId(mainData, 59),
       value: profileData.data?.kyc?.address
         ? profileData.data?.kyc?.address.slice(0, 23) +
           (profileData.data?.kyc?.address.length > 23 ? "..." : "")
@@ -87,7 +92,8 @@ export default function ProfileDetails({
     },
     {
       id: 5,
-      key: targetData(userProperty, "job"),
+      // key: targetData(userProperty, "job"),
+      key: findByUniqueId(mainData, 86),
       value: profileData.data?.customs?.occupation
         ? profileData.data.customs?.occupation.slice(0, 23) +
           (profileData.data.customs?.occupation.length > 23 ? "..." : "")
@@ -112,7 +118,8 @@ export default function ProfileDetails({
     },
     {
       id: 6,
-      key: targetData(userProperty, "trainings"),
+      // key: targetData(userProperty, "trainings"),
+      key: findByUniqueId(mainData, 87),
       value: profileData.data?.customs?.education?.slice(0, 25) || "--",
       fValue: profileData.data?.customs?.education,
     },
@@ -121,18 +128,21 @@ export default function ProfileDetails({
   const itemsInterestedProfileDetails = [
     {
       id: 1,
-      key: targetData(userProperty, "i love this city"),
+      // key: targetData(userProperty, "i love this city"),
+      key: findByUniqueId(mainData, 88),
       value: profileData.data?.customs?.loved_city || "--",
       // value: "Kohgiluyeh and Boyer-Ahmad Kohgiluyeh" || "--",
     },
     {
       id: 2,
-      key: targetData(userProperty, "i am interested in this country"),
+      // key: targetData(userProperty, "i am interested in this country"),
+      key: findByUniqueId(mainData, 89),
       value: profileData.data?.customs?.loved_country || "--",
     },
     {
       id: 3,
-      key: targetData(userProperty, "i am interested in this language"),
+      // key: targetData(userProperty, "i am interested in this language"),
+      key: findByUniqueId(mainData, 90),
       value: profileData.data?.customs?.loved_language || "--",
     },
   ];
@@ -153,7 +163,8 @@ export default function ProfileDetails({
             setShowModal={setShowModal}
             setDataModal={setDataModal}
             profileData={profileData}
-            userProperty={userProperty}
+            // userProperty={userProperty}
+            mainData={mainData}
           />
         </>
       )}

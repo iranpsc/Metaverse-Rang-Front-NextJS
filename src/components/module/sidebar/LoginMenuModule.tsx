@@ -25,11 +25,13 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
     setIsMounted(true);
   }, []);
 
+  // Returning from external login (SSO)
   useEffect(() => {
     if (isMounted) {
       let params = searchParams.toString();
       if (params) {
-        const expires_at = Number(parsAuthCookieByName("expires_at", params));
+        // const expires_at = Number(parsAuthCookieByName("expires_at", params));
+        const expires_at = Number(searchParams.get("expires_at"));
 
         const now = new Date();
         // Add "expires_at" hour ("expires_at" minutes * 60 seconds * 1000 milliseconds) to the current time
@@ -81,7 +83,6 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
             },
           }
         );
-        console.log("setLoggedInUserData", response.data.data);
 
         setLoggedInUserData(response.data.data);
       } catch (err) {}

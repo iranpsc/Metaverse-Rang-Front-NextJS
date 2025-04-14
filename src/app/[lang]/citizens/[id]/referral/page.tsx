@@ -1,6 +1,5 @@
 import SideBar from "@/components/module/sidebar/SideBar";
 import BreadCrumb from "@/components/shared/BreadCrumb";
-import useServerDarkMode from "src/hooks/use-server-dark-mode";
 import {
   getTranslation,
   getMainFile,
@@ -12,7 +11,7 @@ import {
   getUserData,
   getChartReferral,
 } from "@/components/utils/actions";
-import { staticMenuToShow as MenuStaticData } from "@/components/utils/constants";
+import { getStaticMenu } from "@/components/utils/constants";
 import DynamicFooter from "@/components/module/footer/DynamicFooter";
 import InviteBox from "./components/invite-box";
 
@@ -22,8 +21,6 @@ import InviteChart from "./components/invite-chart.js";
 // import "./style/output.css";
 
 export default async function CitizenReferral({ params }: { params: any }) {
-  // THEME
-  const defaultTheme = useServerDarkMode();
   const langData = await getTranslation(params.lang);
 
   const [mainData, langArray, initInviteList, footerTabs, chartDataFetch] =
@@ -67,18 +64,24 @@ export default async function CitizenReferral({ params }: { params: any }) {
     "referral"
   );
 
-  const staticMenuToShow = MenuStaticData;
+  const staticMenuToShow = getStaticMenu(params);
 
   // add staticMenuToShow values to siblings tabsMenu values
-  tabsMenu.forEach((tab: any) => {
-    let findInStatic = staticMenuToShow.find(
-      (val: any) => tab.name == val.name
-    );
+  const updatedTabsMenu = tabsMenu.map((tab: any) => {
+    let findInStatic = staticMenuToShow.find((val) => tab.name === val.name);
+
     if (findInStatic) {
-      tab.url = findInStatic.url;
-      tab.order = findInStatic.order;
-      tab.toShow = true;
+      // Return a new tab object with updated properties
+      return {
+        ...tab, // Spread the original tab properties
+        url: findInStatic.url,
+        order: findInStatic.order,
+        toShow: true,
+      };
     }
+
+    // If no match found, return the original tab
+    return tab;
   });
 
   //to make description less than 200 character
@@ -141,11 +144,15 @@ export default async function CitizenReferral({ params }: { params: any }) {
       },
       // Dynamic items for each invite
       ...initInviteList.data.map((invited: any, index: any) => ({
-        "@type": "Person",
+        "@type": "ListItem",
         position: index + 3,
         name: invited.name,
-        identifier: `https://rgb.irpsc.com/${params.lang}/citizens/${invited.code}`,
-        url: `https://rgb.irpsc.com/${params.lang}/citizens/${params.id}`,
+        identifier: `${invited.code}`,
+        value: invited.referrerOrders.reduce(
+          (acc: any, item: any) => acc + item.amount,
+          0
+        ),
+        url: `https://rgb.irpsc.com/${params.lang}/citizens/${invited.code}`,
       })),
     ],
   };
@@ -168,10 +175,9 @@ export default async function CitizenReferral({ params }: { params: any }) {
       {/* schema END */}
       <div className="flex h-screen overflow-hidden" dir={langData.direction}>
         <SideBar
-          tabsMenu={tabsMenu}
+          tabsMenu={updatedTabsMenu}
           langData={langData}
           langArray={langArray}
-          defaultTheme={defaultTheme}
           params={params}
           pageSide="citizen"
         />
@@ -207,7 +213,7 @@ export default async function CitizenReferral({ params }: { params: any }) {
           </div>
 
           <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
-            <DynamicFooter footerTabs={footerTabs} />
+            <DynamicFooter footerTabs={footerTabs} mainData={mainData} />
           </div>
         </section>
       </div>

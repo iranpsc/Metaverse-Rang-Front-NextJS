@@ -68,7 +68,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-  ],
+, "src/components/utils/formatDate.js"  ],
   "exclude": [
     "node_modules"
   ]

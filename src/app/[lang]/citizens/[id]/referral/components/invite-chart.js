@@ -2,7 +2,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import Chart from "chart.js/auto"; // Import Chart.js
 import axios from "axios";
-import useDarkMode from "src/hooks/use-dark-mode";
+import { useCookies } from "react-cookie";
 
 
 
@@ -13,29 +13,8 @@ export default function InviteChart({params,referralPageArrayContent,initChartDa
   const [invBtn, setInvBtn  ] = useState(true)
   const [giftBtn, setGiftBtn] = useState(true)
   const [timePeriodBtns, setTimePeriodBtns] = useState('yearly')
-  const [theme, setTheme] = useState(
-    'dark'
-  );
-
-  // Function to check the current theme from <html> tag
-  const getThemeFromHTML = () => {
-    return document.documentElement.classList.contains("dark") ? "dark" : "light";
-  };
-
-  useEffect(() => {
-    // Listen for changes to the <html> tag
-    const observer = new MutationObserver(() => {
-      const newTheme = getThemeFromHTML();
-      setTheme(newTheme); // Update state only if theme changes
-    });
-
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"], // Detect class changes on <html>
-    });
-
-    return () => observer.disconnect(); // Cleanup observer on unmount
-  }, [theme]); // Keep dependency array stable
+  const [cookies] = useCookies(["theme"]);
+  const theme = cookies.theme || "dark";
 
   useEffect(() => {
     console.log("Current Theme:", theme); // Debugging
@@ -315,11 +294,11 @@ export default function InviteChart({params,referralPageArrayContent,initChartDa
             </svg>
           </div>
 
-          <div className="text-right flex flex-col gap-2 mt-2 ">
+          <div className="z-40 flex flex-col gap-2 mt-2 ">
             <p className="text-white text-sm lg:text-base">{localFind("the total number of invitations")}</p>
             <p
               id="invite"
-              className="text-white text-3xl font-semibold lg:text-5xl"
+              className="text-white text-3xl font-semibold lg:text-5xl rtl:text-right ltr:text-left"
             >{currentData.data[0] && currentData.data[0].length > 0 ? sumation(currentData.data[0]) : ""}</p>
           </div>
           <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2">
@@ -430,13 +409,13 @@ export default function InviteChart({params,referralPageArrayContent,initChartDa
             </svg>
           </div>
 
-          <div className="text-right flex flex-col gap-2 mt-2">
+          <div className="z-40 flex flex-col gap-2 mt-2">
             <p className="text-white text-sm lg:text-base">
               {localFind("bonus received per unit (psc)")}
             </p>
             <p
               id="reward"
-              className="text-white text-3xl font-semibold lg:text-5xl"
+              className="text-white text-3xl font-semibold lg:text-5xl rtl:text-right ltr:text-left"
             >{currentData.data[1] && currentData.data[1].length > 0 ? sumation(currentData.data[1]) : ""}</p>
           </div>
           <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2">

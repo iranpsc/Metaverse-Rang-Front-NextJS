@@ -1,16 +1,9 @@
 "use client";
 import { Arrow, Vector } from "@/components/svgs";
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { motion } from "framer-motion";
 
-export default function HeaderFirstPage({
-  firstPageArrayContent,
-  params,
-}: any) {
-  function localFind(_name: any) {
-    return firstPageArrayContent.find((item: any) => item.name == _name)
-      .translation;
-  }
-
+export default function HeaderFirstPage({ mainData, params }: any) {
   return (
     <>
       {/* FIRST BOX */}
@@ -38,7 +31,8 @@ export default function HeaderFirstPage({
           transition={{ duration: 0.3, delay: 0.5 }}
           className="w-full text-white text-[16px] sm:text-[18px] md:text-[24px] 2xl:text-[36px] 3xl:text-[48px] text-start font-bold "
         >
-          {localFind("integration of ideas and creativity")}
+          {/* {localFind("integration of ideas and creativity")} */}
+          {findByUniqueId(mainData, 481)}
         </motion.h2>
 
         <motion.p
@@ -47,7 +41,8 @@ export default function HeaderFirstPage({
           transition={{ duration: 0.4 }}
           className="w-full text-justify text-white font-azarMehr font-medium text-[14px] md:text-[16px] 2xl:text-[24px]"
         >
-          {localFind("metaverse rang is a metaverse world platform")}
+          {/* {localFind("metaverse rang is a metaverse world platform")} */}
+          {findByUniqueId(mainData, 482)}
         </motion.p>
 
         <a href="https://rgb.irpsc.com/metaverse/">
@@ -58,7 +53,8 @@ export default function HeaderFirstPage({
             className="border-[1px] mt-3 border-white rounded-full w-[200px] sm:w-[220px] md:w-[250px] lg:w-[280px] xl:w-[305px] h-[50px] md:h-[55px] lg:h-[60px] xl:h-[77px] flex flex-row justify-between items-center ps-6 pe-1"
           >
             <p className="w-fit text-start text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px] text-white font-azarMehr font-medium ">
-              {localFind("entering the metaverse world")}
+              {/* {localFind("entering the metaverse world")} */}
+              {findByUniqueId(mainData, 483)}
             </p>
             <div className="bg-dark-yellow size-[42px] md:size-[47px] lg:size-[53px]  xl:size-[70px] rounded-full flex justify-center items-center">
               <Arrow className="size-[20px] sm:size-[23px] md:size-[28px] lg:size-[32px]  xl:size-[36px]" />

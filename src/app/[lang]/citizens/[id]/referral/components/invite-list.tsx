@@ -18,8 +18,6 @@ export default function InviteList({
   const [referralList, setReferralList] = useState(initInviteList.data);
   const [searchTerm, setSearchTerm] = useState(""); // Track the search term
 
-  console.log("referralPageArrayContent", referralPageArrayContent);
-
   function localFind(_name: any) {
     return referralPageArrayContent.find((item: any) => item.name == _name)
       .translation;
@@ -102,9 +100,11 @@ export default function InviteList({
       {referralList.length == 0 && (
         <p className="w-full text-center text-white">موردی یافت نشد.</p>
       )}
-      <p className="w-[150px] text-blueLink dark:text-dark-primary pt-7 cursor-pointer m-auto text-center">
-        {params.lang.toLowerCase() == "fa" ? "مشاهده بیشتر" : "View more"}
-      </p>
+      {false && (
+        <p className="w-[150px] text-blueLink dark:text-dark-primary pt-7 cursor-pointer m-auto text-center">
+          {params.lang.toLowerCase() == "fa" ? "مشاهده بیشتر" : "View more"}
+        </p>
+      )}
     </>
   );
 }

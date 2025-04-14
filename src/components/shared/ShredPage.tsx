@@ -2,19 +2,17 @@ import { useContext, useState, useRef } from "react";
 import Image from "next/image";
 import { CLoseIcon } from "@/svgs/index";
 import { Arrow } from "@/svgs/SvgEducation";
-import { useTheme } from "next-themes";
-import { useRouter } from "next/router";
-// import { LangContext } from "@/context/LangContext";
-import { targetData } from "@/utils/targetDataName";
 
 //ANIMATION
 import { motion } from "framer-motion";
 import { Tooltip as ReactTooltip } from "react-tooltip";
+import { findByUniqueId } from "../utils/findByUniqueId";
 
 export default function ShredPage({
   setShowSocial,
   setShowSharedPage,
-  userProperty,
+  // userProperty,
+  mainData,
   params,
 }: any) {
   const [copied, setCopied] = useState(false);
@@ -114,7 +112,8 @@ export default function ShredPage({
                 alt="Close"
               />
               <h1 className="font-azarMehr font-bold text-[16px] mt-2 text-[#00000096] dark:text-white w-full text-center">
-                {targetData(userProperty, "citizen sharing")}
+                {/* {targetData(userProperty, "citizen sharing")} */}
+                {findByUniqueId(mainData, 324)}
               </h1>
 
               <div
@@ -165,7 +164,8 @@ export default function ShredPage({
                   className="absolute start-2 cursor-pointer xl:w-[75px] lg:w-[75px] md:w-[65px] sm:w-[55px] xs:w-[55px] rounded-[40px] text-center  font-azarMehr text-[16px] sm:text-[14px] xs:text-[14px]  font-bold xl:py-2  lg:py-2 md:py-1 sm:py-2 xs:py-2 text-[#f9f9f9] bg-[#0000ffd9] dark:bg-dark-yellow dark:text-[#000]  "
                   onClick={handleCopyClick}
                 >
-                  {targetData(userProperty, "copy")}
+                  {/* {targetData(userProperty, "copy")} */}
+                  {findByUniqueId(mainData, 323)}
                 </p>
                 <p className="py-2 text-[#000] dark:text-[#fff] font-azarMehr xl:text-[16px] lg:text-[16px] md:text-[10px] sm:text-[12px] xs:text-[12px] font-medium">{`https://rgb.irpsc.com/${params.lang}/citizen/${params.id}`}</p>
               </div>

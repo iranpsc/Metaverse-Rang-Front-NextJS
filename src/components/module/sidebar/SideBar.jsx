@@ -2,26 +2,42 @@
 import Header from "./Header";
 import AllSideTab from "./AllSideTab";
 import LevelSideTab from './LevelSideTab'
-import { useState, useCallback  } from "react";
+import { useState, useCallback, useEffect  } from "react";
 import LoginMenuModule from "./LoginMenuModule";
 import ThemeMenuModule from "@/components/module/sidebar/ThemeMenuModule";
 import HeaderMobile from "@/components/module/sidebar/HeaderMobile";
+import { useCookies } from "react-cookie";
 
 export default function SideBar({
   tabsMenu,
   langData,
   langArray,
-  defaultTheme,
   params,
   pageSide,
 }) {
   
-  //
-  const [isClosed, setisClosed] = useState(true);
-  // const router = useRouter()
-  const toggleSide = useCallback(() => {
-    setisClosed((prev) => !prev);
+  const [isClosed, setIsClosed] = useState(true); // Start with true (default for SSR)
+  const [hydrated, setHydrated] = useState(false); // Track hydration
+  const [cookies] = useCookies(["theme"]);
+  const theme = cookies.theme || "dark";
+
+  useEffect(() => {
+    setIsClosed(localStorage.getItem("sidebarClosed") === "true");
+    setHydrated(true);
   }, []);
+
+  useEffect(() => {
+    if (hydrated) {
+      localStorage.setItem("sidebarClosed", isClosed);
+    }
+  }, [isClosed, hydrated]);
+
+  const toggleSide = useCallback(() => {
+    setIsClosed((prev) => !prev);
+  }, []);
+
+  // Prevent rendering until hydration completes
+  if (!hydrated) return null;
   
   return (
     <>
@@ -48,7 +64,7 @@ export default function SideBar({
               }  
               flex flex-col h-screen relative bg-white  dark:bg-dark-background menu-transition`}
           >
-            <div className="sticky w-full h-fit top-0 pt-4 z-50 bg-white dark:bg-dark-background menu-transition">
+            <div className="flex flex-col sticky w-full h-fit top-0 pt-1 z-50 bg-white dark:bg-dark-background menu-transition">
               <Header
                 isClosed={isClosed}
                 tabsMenu={tabsMenu}
@@ -92,7 +108,7 @@ export default function SideBar({
               </div>
               <ThemeMenuModule
                 isClosed={isClosed}
-                defaultTheme={defaultTheme}
+                defaultTheme={theme}
                 params={params}
               />
             </div>

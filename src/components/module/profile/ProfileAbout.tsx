@@ -6,10 +6,12 @@ import { targetData } from "@/utils/targetDataName";
 import { motion } from "framer-motion";
 import { AnimatePresence } from "framer-motion";
 import React, { useState, useEffect, useRef } from "react";
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 export default function ProfileAbout({
   titleData,
-  userProperty,
+  // userProperty,
+  mainData,
   profileData,
   params,
 }: any) {
@@ -48,7 +50,8 @@ export default function ProfileAbout({
 
   const submitModalCart = (item: any) => {
     setDataModal({
-      title: targetData(userProperty, "about me"),
+      // title: targetData(userProperty, "about me"),
+      title: findByUniqueId(mainData, 95),
       data: item,
     });
     setShowModal(true);
@@ -69,7 +72,8 @@ export default function ProfileAbout({
         <>
           <div className="dark:bg-dark-background w-full h-[37%] shadow-md transition-all duration-300 ease-linear bg-white px-1 rounded-[10px]">
             <h1 className="dark:text-white font-azarMehr font-medium  text-[#000] mx-2 3xl:text-xl3Title xl:text-xlTitle lg:text-lgTitle  md:text-mdTitle sm:text-smDesc xs:text-smDesc py-5">
-              {targetData(userProperty, "about me")}
+              {/* {targetData(userProperty, "about me")} */}
+              {findByUniqueId(mainData, 95)}
             </h1>
             {profileData.data?.customs?.about && (
               <p className="font-azarMehr  text-justify 3xl:text-xl3Title xl:text-xlTitle lg:text-lgTitle  md:text-mdTitle xl:leading-[30px] sm:text-smDesc xs:text-smDesc truncate[20px] lg:leading-[20px] md:leading-[35px] xs:leading-[30px] sm:leading-[30px] mx-1 font-medium text-[5px]  text-gray  dark:text-dark-gray">
@@ -87,7 +91,8 @@ export default function ProfileAbout({
                         submitCart(profileData.data?.customs?.about)
                       }
                     >
-                      {targetData(userProperty, "read more")}
+                      {/* {targetData(userProperty, "read more")} */}
+                      {findByUniqueId(mainData, 195)}
                     </span>
                   </>
                 )}
@@ -142,7 +147,8 @@ export default function ProfileAbout({
                 dataModal={dataModal}
                 setShowModal={setShowModal}
                 profileData={profileData}
-                userProperty={userProperty}
+                // userProperty={userProperty}
+                mainData={mainData}
               />
             )}
           </AnimatePresence>

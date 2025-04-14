@@ -9,9 +9,8 @@ import {
 } from "@/components/utils/actions";
 import DynamicFooter from "@/components/module/footer/DynamicFooter";
 import SideBar from "@/components/module/sidebar/SideBar";
-import useServerDarkMode from "src/hooks/use-server-dark-mode";
 import BreadCrumb from "@/components/shared/BreadCrumb";
-import { staticMenuToShow as MenuStaticData } from "@/components/utils/constants";
+import { getStaticMenu } from "@/components/utils/constants";
 import { WhatsAppIcon, ContactDownArrow } from "@/components/svgs";
 import Form from "./components/form";
 import Social from "./components/social";
@@ -53,8 +52,6 @@ export default async function AboutPage({ params }: any) {
     );
   }
 
-  const defaultTheme = useServerDarkMode();
-
   const levelArray = await getAllLevels();
 
   // convert persian digit to eng digit in DATA
@@ -81,25 +78,33 @@ export default async function AboutPage({ params }: any) {
   const levelModals = await findByModalName(mainData, "levels");
   const levelListArrayContent = await findByTabName(levelModals, "level-list");
 
-  function localFind1(_name: any) {
-    return citizenListArrayContent.find((item: any) => item.name == _name)
-      ?.translation;
-  }
-  function localFind2(_name: any) {
-    return levelListArrayContent.find((item: any) => item.name == _name)
-      ?.translation;
-  }
+  // function localFind1(_name: any) {
+  //   return citizenListArrayContent.find((item: any) => item.name == _name)
+  //     ?.translation;
+  // }
+  // function localFind2(_name: any) {
+  //   return levelListArrayContent.find((item: any) => item.name == _name)
+  //     ?.translation;
+  // }
 
-  const staticMenuToShow = MenuStaticData;
+  const staticMenuToShow = getStaticMenu(params.id);
 
   // add staticMenuToShow values to siblings tabsMenu values
-  tabsMenu.forEach((tab: any) => {
-    let findInStatic = staticMenuToShow.find((val) => tab.name == val.name);
+  const updatedTabsMenu = tabsMenu.map((tab: any) => {
+    let findInStatic = staticMenuToShow.find((val) => tab.name === val.name);
+
     if (findInStatic) {
-      tab.url = findInStatic.url;
-      tab.order = findInStatic.order;
-      tab.toShow = true;
+      // Return a new tab object with updated properties
+      return {
+        ...tab, // Spread the original tab properties
+        url: findInStatic.url,
+        order: findInStatic.order,
+        toShow: true,
+      };
     }
+
+    // If no match found, return the original tab
+    return tab;
   });
   const aboutSchema = {
     "@context": "https://schema.org",
@@ -176,8 +181,7 @@ export default async function AboutPage({ params }: any) {
         <SideBar
           langArray={langArray}
           langData={langData}
-          tabsMenu={tabsMenu}
-          defaultTheme={defaultTheme}
+          tabsMenu={updatedTabsMenu}
           params={params}
           pageSide="citizen"
         />
@@ -297,7 +301,7 @@ export default async function AboutPage({ params }: any) {
             </div>
           </section>
           <div className="lg:px-32 md:px-5 sm:px-5 xs:px-1">
-            <DynamicFooter footerTabs={footerTabs} />
+            <DynamicFooter footerTabs={footerTabs} mainData={mainData} />
           </div>
         </section>
       </div>

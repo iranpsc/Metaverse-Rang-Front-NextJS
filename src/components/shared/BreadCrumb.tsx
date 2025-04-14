@@ -39,6 +39,13 @@ export default function ({ params }: any) {
 
   const staticData = [
     {
+      name: "education",
+      en: "education",
+      fa: "آموزش",
+      font: "font-bold",
+      link: `/${params.lang}/education`,
+    },
+    {
       name: "version",
       en: "version",
       fa: "ورژن",

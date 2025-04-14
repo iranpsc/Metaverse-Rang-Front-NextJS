@@ -3,16 +3,20 @@ import Image from "next/image";
 import { CLoseIcon } from "@/svgs/index";
 import { Arrow } from "@/svgs/SvgEducation";
 import { useTheme } from "next-themes";
-import { translateFavorites } from "@/utils/targetDataName";
+import { findByUniqueId } from "../utils/findByUniqueId";
 
 //ANIMATION
 import { motion } from "framer-motion";
+
 export default function ModalCard({
   setShowModal,
   dataModal,
   profileData,
-  userProperty,
+  // userProperty,
+  mainData,
 }: any) {
+  console.log("dataModal", dataModal);
+
   const { theme } = useTheme();
   const scrollContainer = useRef<HTMLDivElement>(null);
 
@@ -70,13 +74,16 @@ export default function ModalCard({
                         >
                           <Image
                             src={dataModal.data[item]}
-                            alt={translateFavorites(userProperty, item)}
+                            // alt={translateFavorites(userProperty, item)}
+                            alt={findByUniqueId(mainData, item.id)}
                             width={1000}
                             height={1000}
                             className="size-[50px] md:size-[40px] mx-5 "
                           />
                           <p className="font-azarMehr 3xl:text-xl3Title lg:text-lgTitle  xl:text-xlTitle  md:text-mdTitle sm:text-smTitle xs:text-smTitle font-medium  text-[#000] dark:text-white">
-                            {translateFavorites(userProperty, item)}
+                            {/* {translateFavorites(userProperty, item)} */}
+                            {/* {findByUniqueId(mainData, item.id)} */}
+                            {item}
                           </p>
                         </div>
                       )
