@@ -9,9 +9,12 @@ import {
   getFooterData,
   getLangArray,
 } from "@/components/utils/actions";
+import Version from "./components/version";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import SideBar from "@/components/module/sidebar/SideBar";
 import { getStaticMenu } from "@/components/utils/constants";
+
+
 export default async function VersionPage({ params }: { params: any }) {
   const [footerTabs, langData, langArray] = await Promise.all([
     getFooterData(params),
@@ -44,7 +47,50 @@ export default async function VersionPage({ params }: { params: any }) {
     // If no match found, return the original tab
     return tab;
   });
+  let versions: any = [];
+  try {
+    const response = await fetch(
+      "https://api.rgb.irpsc.com/api/calendar?type=version&page=1",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        cache: "no-store",
+      }
+    );
 
+    if (!response.ok) {
+      throw new Error(`خطا در دریافت اطلاعات: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    interface VersionItem {
+      id: number;
+      title: string;
+      description: string;
+      starts_at: string;
+      version_title: string;
+    }
+    
+    versions = Array.isArray(data.data)
+    ? data.data.map((item: VersionItem, index: number) => ({
+        id: item.id,
+        title: item.title,
+        description: item.description.trim(),
+
+        date: item.starts_at.split(" ")[0], 
+        version: item.version_title, 
+        customName: `نسخه ${index + 1}`, 
+
+      }))
+    : [];
+  
+
+  } catch (error) {
+    console.error("خطا در دریافت داده از API:", error);
+    versions = []; 
+  }
   return (
     <>
       <div className="flex h-screen overflow-hidden" dir={langData.direction}>
@@ -64,7 +110,13 @@ export default async function VersionPage({ params }: { params: any }) {
           </div>
 
           {/* PLZ code here without container */}
-
+          <div className="mainContainer w-full lg:h-auto dark:bg-black flex flex-col gap-[10px] lg:flex-row lg:items-start lg:justify-between">
+            <div className="centerItem w-[100%] h-[90%] lg:px-7">
+              <div className="self-center justify-between flex pt-8 w-full h-full gap-8">
+                <Version versions={versions} params={params} mainData={mainData} />
+              </div>
+            </div>
+          </div>
           <div className="w-full xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
             {/* <DynamicFooter footerTabs={footerTabs} mainData={mainData} /> */}
             <Footer footerTabs={footerTabs} mainData={mainData} />
