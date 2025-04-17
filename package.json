@@ -12,7 +12,7 @@
   "dependencies": {
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
-    "@google/model-viewer": "^4.0.0",
+    "@google/model-viewer": "^4.1.0",
     "@mui/material": "^6.0.2",
     "@next/bundle-analyzer": "^14.1.0",
     "@next/font": "^13.4.19",
@@ -29,6 +29,7 @@
     "formik": "^2.4.3",
     "framer-motion": "^10.16.4",
     "gltf-loader": "^1.0.0",
+    "jalaali-js": "^1.2.8",
     "js-cookie": "^3.0.5",
     "lottie-react": "^2.4.0",
     "next": "^14.2.5",
@@ -50,7 +51,7 @@
     "react-three-fiber": "^6.0.13",
     "react-toastify": "^10.0.6",
     "react-tooltip": "^5.23.0",
-    "three": "^0.169.0",
+    "three": "^0.172.0",
     "typescript": "5.0.4",
     "webpack": "^5.82.0",
     "yup": "^1.2.0"

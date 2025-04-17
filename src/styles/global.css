@@ -169,3 +169,16 @@
 .hoverCardLevel:hover .boxDataLevel{
     border: none;
 }
+
+.versionHistoryInfo::-webkit-scrollbar {
+
+    width: 3px;
+}
+
+.versionHistoryInfo::-webkit-scrollbar-thumb {
+    /* گرد کردن گوشه‌های دستگیره */
+    border: 3px solid#868B90;
+    /* رنگ حاشیه دستگیره */
+    border-radius: 10px;
+
+}
