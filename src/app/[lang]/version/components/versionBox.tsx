@@ -165,7 +165,7 @@ const VersionBox: React.FC<VersionBoxProps> = ({
       fetchMoreVersions();
     }
   }, [visibleCount, filteredVersions.length, hasMore, loading]);
-
+  
   return (
     <div className="w-full mx-[20px] self-center flex flex-col items-center lg:w-[35%]  lg:h-full lg:flex-shrink-0 lg:rounded-[20px]">
       {/* search box */}
@@ -202,7 +202,7 @@ const VersionBox: React.FC<VersionBoxProps> = ({
             {filteredVersions.length > 0 ? (
               filteredVersions.slice(0, visibleCount).map((item, index) => (
                 <div
-                  key="4465465416416541"
+                  key={item.id}
                   onClick={() => handleClick(index)}
                   className={`versionbox cursor-pointer justify-center flex flex-row w-full rounded-[10px] pt-[2px] ${
                     openIndex === index
