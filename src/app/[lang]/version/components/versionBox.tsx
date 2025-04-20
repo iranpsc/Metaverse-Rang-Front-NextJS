@@ -167,7 +167,7 @@ const VersionBox: React.FC<VersionBoxProps> = ({
   }, [visibleCount, filteredVersions.length, hasMore, loading]);
   
   return (
-    <div className="w-full mx-[20px] self-center flex flex-col items-center lg:w-[35%]  lg:h-full lg:flex-shrink-0 lg:rounded-[20px]">
+    <div className="w-full mx-[20px] self-start flex flex-col items-center lg:w-[35%]  lg:flex-shrink-0 lg:rounded-[20px] lg:h-[844px]">
       {/* search box */}
       <div className="w-full flex items-center border-solid border-[#00000024] border-[1px] justify-between bg-[#FFFF] dark:bg-[#1A1A18] lg:w-full h-[50px] rounded-[12px]">
         <div className="searchIcon flex justify-center p-2">
@@ -189,16 +189,16 @@ const VersionBox: React.FC<VersionBoxProps> = ({
       </div>
 
       {/* list */}
-      <div className="bg-[#FFFFFF] mt-[20px] rounded-[20px] w-full dark:bg-[#080807]">
+      <div className="bg-[#FFFFFF] mt-[20px] rounded-[20px] w-full dark:bg-[#080807] h-full">
         <p className="historyVersionP font-rokh text-[120%] self-start font-[550] pt-[4%] pb-[4%] p-[6%] dark:text-[#FCF9FE] lg:pt-[30px] lg:text-[140%]">
           {findByUniqueId(mainData, 574)}
         </p>
 
         <div
           ref={containerRef}
-          className="versionHistoryInfo flex overflow-auto flex-col items-center overflow-x-hidden rounded-[20px] w-full lg:w-full lg:h-full"
+          className="versionHistoryInfo flex overflow-auto flex-col items-center overflow-x-hidden rounded-[20px] w-full   "
         >
-          <div className="historyUpdated pt-4  flex flex-col w-[92%] gap-1 lg:h-[650px]">
+          <div className="historyUpdated pt-4  flex flex-col w-full gap-1 lg:h-[680px]">
             {filteredVersions.length > 0 ? (
               filteredVersions.slice(0, visibleCount).map((item, index) => (
                 <div
@@ -272,7 +272,7 @@ const VersionBox: React.FC<VersionBoxProps> = ({
           </div>
 
           {!isMobile && visibleCount < filteredVersions.length && (
-            <div ref={loadMoreRef} className="h-10 w-full"></div>
+            <div ref={loadMoreRef} className="h-10 w-full lg:hidden"></div>
           )}
 
           {shouldShowLoadMore() && (
