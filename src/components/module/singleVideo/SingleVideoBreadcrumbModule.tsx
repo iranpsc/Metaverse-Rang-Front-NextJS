@@ -1,4 +1,4 @@
-const SingleVideoSlugsModule = () => {
+const SingleVideoBreadcrumbModule = () => {
   return (
     <div>
       <div></div>
