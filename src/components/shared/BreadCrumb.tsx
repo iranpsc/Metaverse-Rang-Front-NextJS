@@ -130,6 +130,13 @@ export default function ({ params }: any) {
       link: `/${params.lang}/version`,
     },
     {
+      name: "calendar",
+      en: "calendar",
+      fa: "تقویم",
+      font: "font-bold",
+      link: `/${params.lang}/calendar`,
+    },
+    {
       name: `${params.id}`,
       en: `${userName}'s invites`,
       fa: `دعوتی های ${userName}`,
