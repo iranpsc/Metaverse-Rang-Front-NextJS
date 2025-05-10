@@ -209,7 +209,7 @@ export default function SideBarContent({
                 </li>
               )}
               {/* ________trainings______ */}
-              {item.name == "trainings" ? (
+              {item.unique_id == 87 ? (
                 <li style={{ order: "-2" }}>
                   <div onClick={handleTrainingBtn} data-tooltip-id={item.name}>
                     <div
@@ -236,7 +236,7 @@ export default function SideBarContent({
                         <ListMenuSvgModule
                           item={
                             (item = {
-                              name: "trainings",
+                              unique_id : 87,
                               active: pathName.includes(
                                 `/${params.lang}/education`
                               )
@@ -373,7 +373,7 @@ export default function SideBarContent({
               )}
 
               {/* ________language______ */}
-              {item.name == "language" ? (
+              {item.unique_id == 1414 ? (
                 <li>
                   <div onClick={handleLangBtn} data-tooltip-id={item.name}>
                     <div
@@ -393,7 +393,10 @@ export default function SideBarContent({
                       </span>
                       <div className="w-full flex justify-between items-center">
                         <ListMenuTitleModule item={item} isClosed={isClosed} />
-                        <ListMenuArrow item={item} isOpen={langDropDown} />
+                        <ListMenuArrow
+                          item={(item = { name: "language" })}
+                          isOpen={langDropDown}
+                        />
                       </div>
                     </div>
                   </div>

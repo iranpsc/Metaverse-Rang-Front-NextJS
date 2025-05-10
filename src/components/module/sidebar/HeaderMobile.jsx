@@ -12,8 +12,8 @@ export default function ProfileHeaderMobile({ tabsMenu, isClosed, toggleSide }) 
 
   const namesToKeep = ["meta rgb", "metaverse rang"];
 
-  const title = tabsMenu.find((item) => item.name === "meta rgb");
-  const desc = tabsMenu.find((item) => item.name === "metaverse rang");
+  const title = tabsMenu.find((item) => item?.name === "meta rgb");
+  const desc = tabsMenu.find((item) => item?.name === "metaverse rang");
 
 
   // useEffect(() => {
