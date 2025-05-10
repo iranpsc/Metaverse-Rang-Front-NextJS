@@ -17,9 +17,10 @@ function SideBarHeader({ isClosed, toggleSide, tabsMenu, params }: any) {
   // }, [tabsMenu]);
 
   // to find in an array with key(_name)
+  console.log("tabsMenu:", tabsMenu);
 
   function localFind(_name: any) {
-    return tabsMenu.find((item: any) => item.name == _name)?.translation;
+    return tabsMenu.find((item: any) => item?.name == _name)?.translation;
   }
   return (
     <>
@@ -60,12 +61,12 @@ function SideBarHeader({ isClosed, toggleSide, tabsMenu, params }: any) {
             <p
               className={`whitespace-nowrap leading-[25px] visible dark:text-white whitespace-nowrap block font-azarMehr font-bold text-[14px] md:text-[16px] lg:text-[18px] text-black pb-[2px]`}
             >
-              {localFind("metargb") || "متارنگ"}
+              {localFind("meta rgb") || "متارنگ"}
             </p>
             <p
               className={`whitespace-nowrap leading-[25px] dark:text-dark-gray visible font-azarMehr font-normal text-gray text-[14px] md:text-[16px] lg:text-[18px] `}
             >
-              {localFind("metaverse rang")}
+              {localFind("metaverse rang") || "متاورس رنگ"}
             </p>
             {/* {metaRGBTranslation && (
               <p

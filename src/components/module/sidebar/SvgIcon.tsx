@@ -45,186 +45,92 @@ import {
   Trainers,
 } from "@/components/svgs/SvgEducation";
 
-export default function SvgIcon({ name, color }: any) {
+export default function SvgIcon({ unique_id, color, name }: any) {
   return (
     <>
-      {name === "trainers" && (
-        <Trainers className={`${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
-      )}
+      {/* with name */}
       {name === "categories" && (
-        <Categories
-          stroke="#ff0000"
-          className={` ${color} stroke-1 mx-[10px] 3xl:w-7 3xl:h-7`}
-        />
+        <Categories className={`${color} stroke-1 mx-[10px] 3xl:w-7 3xl:h-7`} />
       )}
-      {name === "home" && (
-        <HomeIcon
-          stroke="#ff0000"
-          className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`}
-        />
+      {/* with name */}
+      {name === "trainers" && (
+        <Trainers className={`${color} stroke-1 mx-[10px] 3xl:w-7 3xl:h-7`} />
       )}
-      {name === "citizen information" && (
-        <SingleCitizenMenu
-          stroke="#ff0000"
-          className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`}
-        />
+      {/* with unique_id */}
+      {unique_id === 149 && (
+        <HomeIcon className={`${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
       )}
-      {name === "list of levels" && (
-        <LevelIcon
-          stroke="#ff0000"
-          className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`}
-        />
+      {unique_id === 903 && (
+        <LevelIcon className={`${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
       )}
-      {name === "news" && (
-        <News className={` ${color} stroke-4 mx-[10px]  3xl:w-7 3xl:h-7`} />
+      {unique_id === 263 && (
+        <SingleCitizenMenu className={`${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
       )}
-      {name === "articles" && (
-        <Articles
-          stroke="#ff0000"
-          className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`}
-        />
+      {unique_id === 255 && (
+        <News className={`${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
       )}
-      {name === "competitions" && (
-        <Competitions
-          className={` ${color} stroke-2 mx-[10px]  3xl:w-7 3xl:h-7 `}
-        />
+      {unique_id === 258 && (
+        <Articles className={`${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
       )}
-      {name === "trainings" && (
-        <Trainings
-          stroke="#ff0000"
-          className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`}
-        />
+      {unique_id === 259 && (
+        <About className={`${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
       )}
-      {name === "about" && (
-        <About className={` ${color} stroke-4 mx-[10px] 3xl:w-7 3xl:h-7`} />
+      {unique_id === 260 && (
+        <Contact className={`${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
       )}
-      {name === "contact" && (
-        <Contact
-          stroke="#ff0000"
-          className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`}
-        />
+      {unique_id === 87 && (
+        <Trainings className={`${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
       )}
-      {name === "calendar" && (
-        <Calender
-          stroke="#ff0000"
-          className={` ${color}   stroke-[1.5px] mx-[10px] 3xl:w-7 3xl:h-7`}
-        />
+      {unique_id === 1414 && (
+        <Language className={`${color} stroke-1 mx-[10px] 3xl:w-7 3xl:h-7`} />
       )}
-      {name === "overview" && (
-        <Overview
-          stroke="#ff0000"
-          className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`}
-        />
+
+      {unique_id === 382 && (
+        <Image src={Citizen} alt="Citizen" width={30} height={30} loading="lazy" />
       )}
-      {name === "version" && (
-        <Version
-          stroke="#ff0000"
-          className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`}
-        />
+      {unique_id === 68 && (
+        <Image src={Developer} alt="Developer" width={30} height={30} loading="lazy" />
       )}
-      {name === "belongings" && (
-        <Belongings
-          className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`}
-        />
+
+      {unique_id === 383 && (
+        <Image src={Reporter} alt="Reporter" width={30} height={30} loading="lazy" />
       )}
-      {name === "connections" && (
-        <Connections
-          className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`}
-        />
+      {unique_id === 331 && (
+        <Image src={Participation} alt="Participation" width={30} height={30} loading="lazy" />
       )}
-      {name === "dynasty" && (
-        <Dynasty className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
+      {unique_id === 69 && (
+        <Image src={Inspector} alt="Inspector" width={30} height={30} loading="lazy" />
       )}
-      {name === "citizens" && (
-        <Dynasty className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
+      {unique_id === 70 && (
+        <Image src={Businessman} alt="Businessman" width={30} height={30} loading="lazy" />
       )}
-      {name === "crimes" && (
-        <Infractions
-          className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`}
-        />
+      {unique_id === 71 && (
+        <Image src={Lawyer} alt="Lawyer" width={30} height={30} loading="lazy" />
       )}
-      {name === "invitations" && (
-        <Invitations
-          className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`}
-        />
+      {unique_id === 72 && (
+        <Image src={CityCouncil} alt="CityCouncil" width={30} height={30} loading="lazy" />
       )}
-      {name === "permissions" && (
-        <Permissions
-          className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`}
-        />
+      {unique_id === 73 && (
+        <Image src={Mayor} alt="Mayor" width={30} height={30} loading="lazy" />
       )}
-      {name === "property" && (
-        <Property className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
+      {unique_id === 74 && (
+        <Image src={Governor} alt="Governor" width={30} height={30} loading="lazy" />
       )}
-      {name === "real estate" && (
-        <RealEstate
-          className={` ${color} stroke-2 mx-[10px] group 3xl:w-7 3xl:h-7`}
-        />
+      {unique_id === 75 && (
+        <Image src={Minister} alt="Minister" width={30} height={30} loading="lazy" />
       )}
-      {name === "reward" && (
-        <Reward className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
+      {unique_id === 76 && (
+        <Image src={Judge} alt="Judge" width={30} height={30} loading="lazy" />
       )}
-      {name === "structures" && (
-        <Structures
-          className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`}
-        />
+      {unique_id === 77 && (
+        <Image src={Legislator} alt="Legislator" width={30} height={30} loading="lazy" />
       )}
-      {name === "transaction" && (
-        <Transaction
-          className={` ${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`}
-        />
-      )}
-      {name === "language" && (
-        <Language className={` ${color} stroke-1 mx-[10px] 3xl:w-7 3xl:h-7`} />
-      )}
-      {name === "home page" && (
-        <HomeIcon className={` ${color} stroke-1 mx-[7px] w-[20px] h-[30px]`} />
-      )}
-      {name === "1" && (
-        <Image src={Citizen} alt="" width={30} height={30} loading="lazy" />
-      )}
-      {name === "2" && (
-        <Image src={Reporter} alt="" width={30} height={30} loading="lazy" />
-      )}
-      {name === "participant" && (
-        <Image
-          src={Participation}
-          alt=""
-          width={30}
-          height={30}
-          loading="lazy"
-        />
-      )}
-      {name === "4" && (
-        <Image src={Developer} alt="" width={30} height={30} loading="lazy" />
-      )}
-      {name === "5" && (
-        <Image src={Inspector} alt="" width={30} height={30} loading="lazy" />
-      )}
-      {name === "businessman" && (
-        <Image src={Businessman} alt="" width={30} height={30} loading="lazy" />
-      )}
-      {name === "7" && (
-        <Image src={Lawyer} alt="" width={30} height={30} loading="lazy" />
-      )}
-      {name === "city council" && (
-        <Image src={CityCouncil} alt="" width={30} height={30} loading="lazy" />
-      )}
-      {name === "the mayor" && (
-        <Image src={Mayor} alt="" width={30} height={30} loading="lazy" />
-      )}
-      {name === "10" && (
-        <Image src={Governor} alt="" width={30} height={30} loading="lazy" />
-      )}
-      {name === "11" && (
-        <Image src={Minister} alt="" width={30} height={30} loading="lazy" />
-      )}{" "}
-      {name === "12" && (
-        <Image src={Legislator} alt="" width={30} height={30} loading="lazy" />
-      )}{" "}
-      {name === "13" && (
-        <Image src={Judge} alt="" width={30} height={30} loading="lazy" />
-      )}
+
+
+
+
+
     </>
   );
 }
+
