@@ -17,7 +17,10 @@ function SideBarHeader({ isClosed, toggleSide, tabsMenu, params }: any) {
   // }, [tabsMenu]);
 
   // to find in an array with key(_name)
-  console.log("tabsMenu:", tabsMenu);
+
+
+  
+  // console.log("tabsMenu:", tabsMenu);
 
   function localFind(_name: any) {
     return tabsMenu.find((item: any) => item?.name == _name)?.translation;
