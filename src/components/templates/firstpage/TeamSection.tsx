@@ -74,42 +74,42 @@ const SectionTeam = ({ mainData, params }: any) => {
             <Image
               className="xl:size-[60px] lg:size-[50px] md:size-[70px] sm:size-[50px] xs:size-[44px] rounded-full border-2 border-white z-50"
               src="/firstpage/person1.webp"
-              alt="header"
+              alt="hossein ghadiri"
               width={64}
               height={64}
             />
             <Image
               className="xl:size-[60px] lg:size-[50px] md:size-[70px] sm:size-[50px] xs:size-[44px] rounded-full border-2 border-white ms-[-20px] z-40"
               src="/firstpage/person2.webp"
-              alt="header"
+              alt="amir madanifar"
               width={64}
               height={64}
             />
             <Image
               className="xl:size-[60px] lg:size-[50px] md:size-[70px] sm:size-[50px] xs:size-[44px] rounded-full border-2 border-white ms-[-20px] z-30"
               src="/firstpage/person3.webp"
-              alt="header"
+              alt="abbas ajorloo"
               width={64}
               height={64}
             />
             <Image
               className="xl:size-[60px] lg:size-[50px] md:size-[70px] sm:size-[50px] xs:size-[44px] rounded-full border-2 border-white ms-[-20px] z-20"
               src="/firstpage/person4.webp"
-              alt="header"
+              alt="mahdi"
               width={64}
               height={64}
             />
             <Image
               className="xl:size-[60px] lg:size-[50px] md:size-[70px] sm:size-[50px] xs:size-[44px] rounded-full border-2 border-white ms-[-20px] z-10 object-cover"
-              src="/firstpage/person5.webp"
-              alt="header"
+              src="/firstpage/person05.webp"
+              alt="Amin DehghanNejad"
               width={64}
               height={64}
             />
             <Image
               className="xl:size-[60px] lg:size-[50px] md:size-[70px] sm:size-[50px] xs:size-[44px] rounded-full border-2 border-white ms-[-20px] z-1 object-cover"
               src="/firstpage/person6.webp"
-              alt="header"
+              alt="nazanin heshmati"
               width={64}
               height={64}
             />
