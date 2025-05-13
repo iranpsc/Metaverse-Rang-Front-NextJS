@@ -23,7 +23,7 @@ export default function SideBarContent({
   const [activeNav, setActiveNav] = useState(params.levelName);
 
   const staticRouteNames = [
-    { unique_id: 303, route_name: "home" },
+    // { unique_id: 303, route_name: "home" },
     { unique_id: 382, route_name: "citizen-baguette" },
     { unique_id: 383, route_name: "reporter-baguette" },
     { unique_id: 331, route_name: "participation-baguette" },

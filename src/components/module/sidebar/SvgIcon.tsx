@@ -29,9 +29,11 @@ import {
   Judge,
   Legislator,
   Minister,
+  Citizens,
 } from "@/components/svgs";
 
 import {
+
   News,
   Articles,
   Competitions,
@@ -48,6 +50,7 @@ import {
 export default function SvgIcon({ unique_id, color, name }: any) {
   return (
     <>
+
       {/* with name */}
       {name === "categories" && (
         <Categories className={`${color} stroke-1 mx-[10px] 3xl:w-7 3xl:h-7`} />
@@ -57,6 +60,13 @@ export default function SvgIcon({ unique_id, color, name }: any) {
         <Trainers className={`${color} stroke-1 mx-[10px] 3xl:w-7 3xl:h-7`} />
       )}
       {/* with unique_id */}
+      {unique_id === 1374 && (
+        <SingleCitizenMenu className={`${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
+      )}
+      {unique_id === 1419 && (
+        <Invitations className={`${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
+      )}
+
       {unique_id === 149 && (
         <HomeIcon className={`${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
       )}
@@ -64,7 +74,7 @@ export default function SvgIcon({ unique_id, color, name }: any) {
         <LevelIcon className={`${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
       )}
       {unique_id === 263 && (
-        <SingleCitizenMenu className={`${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
+        <Citizens className={`${color} stroke-1 mx-[10px] 3xl:w-7 3xl:h-7`} />
       )}
       {unique_id === 255 && (
         <News className={`${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
@@ -125,6 +135,7 @@ export default function SvgIcon({ unique_id, color, name }: any) {
       {unique_id === 77 && (
         <Image src={Legislator} alt="Legislator" width={30} height={30} loading="lazy" />
       )}
+
 
 
 

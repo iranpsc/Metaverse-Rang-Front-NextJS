@@ -1,5 +1,6 @@
 export { default as HomeIcon } from "../../../public/svg/home.svg";
 export { default as SingleCitizenMenu } from "../../../public/svg/single-citizen-menu-icon.svg";
+export { default as Citizens } from "../../../public/svg/citizens.svg";
 export { default as LevelIcon } from "../../../public/svg/levels.svg";
 export { default as Belongings } from "../../../public/svg/belongings.svg";
 export { default as Connections } from "../../../public/svg/connections.svg";
