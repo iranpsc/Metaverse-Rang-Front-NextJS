@@ -18,13 +18,18 @@ interface VersionBoxProps {
   sendDataParent: (data: Version) => void;
   params: any;
   mainData: any;
+  disableInitialSelection?: boolean; 
+  selectedVersion?: Version | null;
 }
+
 
 const VersionBox: React.FC<VersionBoxProps> = ({
   versions,
   sendDataParent,
   params,
   mainData,
+  disableInitialSelection = false,
+  selectedVersion,
 }) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [selectedItem, setSelectedItem] = useState<Version | null>(null);
@@ -40,29 +45,48 @@ const VersionBox: React.FC<VersionBoxProps> = ({
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
 
   const resetSearch = () => setFilteredVersions(versions);
+  
 
   useEffect(() => {
-    if (!searchTerm.trim()) resetSearch();
-  }, [searchTerm, versions]);
-
-  useEffect(() => {
-    setFilteredVersions(versions);
-  }, [versions]);
-
-  useEffect(() => {
-    if (versions.length > 0) {
-      const first = versions[0];
-      setSelectedItem(first);
-      sendDataParent(first);
+    if (selectedVersion && versions.length > 0) {
+      const index = versions.findIndex(v => v.version === selectedVersion.version);
+      if (index !== -1) {
+        setOpenIndex(index);
+        setSelectedItem(selectedVersion);
+      }
     }
-  }, [versions]);
+  }, [selectedVersion, versions]);
 
-  useEffect(() => {
-    const checkScreenWidth = () => setIsMobile(window.innerWidth < 1024);
-    checkScreenWidth();
-    window.addEventListener("resize", checkScreenWidth);
-    return () => window.removeEventListener("resize", checkScreenWidth);
-  }, []);
+// بررسی اندازه صفحه برای تشخیص موبایل یا دسکتاپ
+useEffect(() => {
+  const checkScreenWidth = () => setIsMobile(window.innerWidth < 1024);
+  checkScreenWidth();
+  window.addEventListener("resize", checkScreenWidth);
+  return () => window.removeEventListener("resize", checkScreenWidth);
+}, []);
+
+// ست کردن نسخه فیلتر شده اولیه
+useEffect(() => {
+  setFilteredVersions(versions);
+  setAllVersions(versions);
+}, [versions]);
+
+// اگر کاربر چیزی تایپ نکرده بود، همه نسخه‌ها را نمایش بده
+useEffect(() => {
+  if (!searchTerm.trim()) {
+    resetSearch();
+  }
+}, [searchTerm]);
+
+// انتخاب اولین نسخه فقط اگر از URL نسخه نیامده باشد
+useEffect(() => {
+  if (!disableInitialSelection && versions.length > 0) {
+    const first = versions[0];
+    setSelectedItem(first);
+    sendDataParent(first);
+  }
+}, [versions, disableInitialSelection]);
+
 
   const handleSearch = async () => {
     const query = searchTerm.trim();

@@ -27,7 +27,7 @@ export const getStaticMenu = (params) => {
     // { name: "trainings", url: "https://video.irpsc.com/videos/category/1036?page_id=1", order: "-1" },
     { name: "about",unique_id:259, url: "about", order: "-1" },
     { name: "contact",unique_id:260, url: "contact", order: "-1" },
-    { name: "version" },
+    { name: "version" ,  unique_id:261, url: "version", order: "-1" },
     { name: "calendar" },
     { name: "overview" }
   ];

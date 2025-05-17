@@ -167,7 +167,7 @@ export default function SideBarContent({
                         {
                           name: "offset",
                           options: {
-                            offset: [0, -13], // Adjusts tooltip offset
+                            offset: [-40, -180], // Adjusts tooltip offset
                           },
                         },
                       ],
@@ -200,7 +200,7 @@ export default function SideBarContent({
                               item={item}
                               isClosed={isClosed}
                             />
-                            <ListMenuArrow item={item} />
+                            <ListMenuArrow item={item}  />
                           </div>
                         </div>
                       </div>
@@ -266,6 +266,7 @@ export default function SideBarContent({
                         <ListMenuArrow
                           item={(item = { name: "trainings" })}
                           isOpen={trainingDropDown}
+                          isClosed={isClosed}
                         />
                       </div>
                     </div>

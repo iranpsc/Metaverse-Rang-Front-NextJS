@@ -20,7 +20,7 @@ function SideBarHeader({ isClosed, toggleSide, tabsMenu, params }: any) {
 
 
   
-  console.log("tabsMenu:", tabsMenu);
+  // console.log("tabsMenu:", tabsMenu);
 
   function localFind(_name: any) {
     return tabsMenu.find((item: any) => item?.name == _name)?.translation;
@@ -94,11 +94,11 @@ function SideBarHeader({ isClosed, toggleSide, tabsMenu, params }: any) {
           isClosed
             ? "invisible opacity-0"
             : "visible opacity-100 menu-transition"
-        } h-[30px] w-[30px] cursor-pointer rounded-full bg-[#efefef] dark:bg-mediumGray flex justify-center items-center absolute top-[5px] rtl:left-[5px] ltr:right-[5px]`}
+        } h-[30px] w-[30px] md:h-[40px] md:w-[40px] cursor-pointer rounded-full bg-[#efefef] dark:bg-mediumGray flex justify-center items-center absolute top-[5px] rtl:left-[5px] ltr:right-[5px] mx-2 mt-2`}
         onClick={toggleSide}
       >
         <ArrowMenu
-          className={`w-[7px] h-[13px] stroke-gray dark:stroke-white ltr:rotate-180 rtl:rotate-0`}
+          className={`w-[7px] md:w-[14px] h-[7px] md:h-[14px] stroke-gray dark:stroke-white ltr:rotate-180 rtl:rotate-0 `}
         />
       </div>
       <hr

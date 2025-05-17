@@ -70,6 +70,9 @@ export default function SvgIcon({ unique_id, color, name }: any) {
       {unique_id === 149 && (
         <HomeIcon className={`${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
       )}
+      {unique_id === 303 && (
+        <HomeIcon className={`${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
+      )}
       {unique_id === 903 && (
         <LevelIcon className={`${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
       )}
@@ -93,6 +96,9 @@ export default function SvgIcon({ unique_id, color, name }: any) {
       )}
       {unique_id === 1414 && (
         <Language className={`${color} stroke-1 mx-[10px] 3xl:w-7 3xl:h-7`} />
+      )}
+      {unique_id === 261 && (
+        <Version className={`${color} stroke-1 mx-[10px] 3xl:w-7 3xl:h-7`} />
       )}
 
       {unique_id === 382 && (

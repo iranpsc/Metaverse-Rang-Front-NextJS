@@ -23,7 +23,7 @@ export default function SideBarContent({
   const [activeNav, setActiveNav] = useState(params.levelName);
 
   const staticRouteNames = [
-    // { unique_id: 303, route_name: "home" },
+    { unique_id: 303, route_name: "home" },
     { unique_id: 382, route_name: "citizen-baguette" },
     { unique_id: 383, route_name: "reporter-baguette" },
     { unique_id: 331, route_name: "participation-baguette" },
@@ -48,13 +48,19 @@ export default function SideBarContent({
     if (match) el1.route_name = match.route_name;
   });
 
-  const onTabClick = (item, tabNumber) => {
-    setActiveNav(tabNumber);
-    const href = item?.route_name
-      ? `/${langData.code}/levels/citizen/${item?.route_name}/general-info`
-      : `/${langData.code}`;
+  const onTabClick = (item) => {
+    setActiveNav(item.route_name || "");
+  
+    let href = `/${params.lang}`; // مسیر پیش‌فرض صفحه اصلی
+  
+    if (item.route_name && item.route_name !== "home") {
+      href = `/${params.lang}/levels/citizen/${item.route_name}/general-info`;
+    }
+  
     router.push(href);
   };
+  
+  
 
   const handleLangBtn = () => {
     setLangDropDown(!langDropDown);
