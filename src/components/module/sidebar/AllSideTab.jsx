@@ -157,8 +157,10 @@ export default function SideBarContent({
                     slotProps={{
                       tooltip: {
                         // Applies Tailwind classes to the tooltip container
-                        className:
-                          "bg-white dark:bg-dark-background font-azarMehr font-medium text-black dark:text-white text-[14px] lg:text-[16px]",
+                        className: `
+                        bg-white dark:!bg-black !font-azarMehr !font-medium  dark:!text-white !text-[14px] 
+                        ${isClosed ? "hidden" : "block"}
+                      `,
                       },
                     }}
                     // PopperProps is used to configure the behavior and positioning
@@ -397,6 +399,7 @@ export default function SideBarContent({
                         <ListMenuArrow
                           item={(item = { name: "language" })}
                           isOpen={langDropDown}
+                          isClosed={isClosed}
                         />
                       </div>
                     </div>
