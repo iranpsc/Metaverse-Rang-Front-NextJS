@@ -158,7 +158,7 @@ export default function SideBarContent({
                       tooltip: {
                         // Applies Tailwind classes to the tooltip container
                         className: `
-                        bg-white dark:!bg-black !font-azarMehr !font-medium  dark:!text-white !text-[14px] 
+                        !bg-[#E9E9E9] !text-[#908F95] dark:!bg-black !font-azarMehr !font-medium  dark:!text-white !text-[14px] 
                         ${isClosed ? "hidden" : "block"}
                       `,
                       },

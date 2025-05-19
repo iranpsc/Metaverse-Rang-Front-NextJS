@@ -84,15 +84,17 @@ export default function SideBarContent({
                     }
                     slotProps={{
                       tooltip: {
-                        className:
-                          "bg-white dark:bg-dark-background font-azarMehr font-medium text-black dark:text-white text-[14px] lg:text-[16px]",
+                        className: `
+                        !bg-[#E9E9E9] !text-[#908F95] dark:!bg-black !font-azarMehr !font-medium  dark:!text-white !text-[14px] 
+                        ${isClosed ? "hidden" : "block"}
+                      `,
                       },
                     }}
                     PopperProps={{
                       modifiers: [
                         {
                           name: "offset",
-                          options: { offset: [0, -13] },
+                          options: { offset: [-30, -180] },
                         },
                       ],
                     }}
@@ -131,34 +133,39 @@ export default function SideBarContent({
 
               {item.route_name === "language" && (
                 <li key={"language-" + item.unique_id}>
-                  <div onClick={handleLangBtn}>
+                  <div onClick={handleLangBtn} data-tooltip-id={item.name}>
                     <div
-                      className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px]
-                      group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer menu-transition
-                      ${isClosed ? "justify-start gap-0" : "justify-start gap-2"}`}
+                      className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px] px-2
+                    group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer menu-transition
+                    ${
+                      isClosed ? "justify-start items-center " : "justify-start items-center"
+                    }`}
                     >
                       <ListMenuActiveIconModule
                         item={item}
                         languageSelected={langData.code}
                         isClosed={isClosed}
                       />
-                      <span className="ps-[15px]">
+                      <span className="flex items-center">
                         <ListMenuSvgModule item={item} />
                       </span>
                       <div className="w-full flex justify-between items-center">
-                        <ListMenuTitleModule
-                          item={item}
+                        <ListMenuTitleModule item={item} isClosed={isClosed}  />
+                        <ListMenuArrow
+                          item={(item = { name: "language" })}
+                          isOpen={langDropDown}
                           isClosed={isClosed}
                         />
-                        <ListMenuArrow item={item} isOpen={langDropDown} />
                       </div>
                     </div>
                   </div>
 
                   <div
+                   
                     className={`${
                       langDropDown ? "h-fit" : "h-0 overflow-hidden"
-                    } base-transition-1 bg-Field dark:bg-darkGray`}
+                    }
+                  base-transition-1 bg-Field dark:bg-darkGray`}
                   >
                     <DropdownLanguageModule
                       languagesData={langData}
@@ -169,6 +176,7 @@ export default function SideBarContent({
                   </div>
                 </li>
               )}
+                          
             </React.Fragment>
           ))}
       </ul>

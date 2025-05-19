@@ -14,7 +14,7 @@ const ListMenuArrow = ({ item, isOpen , isClosed }: any) => {
             
           }
            ${isClosed ? "hidden" : "block"}
-           me-2 ms-1 w-3 h-3 md:w-5 md:h-5 stroke-gray dark:stroke-dark-gray transition-all duration-300 ease-in-out block !mx-3`
+           me-2 ms-1 w-3 h-3 md:w-5 md:h-5 stroke-gray dark:stroke-dark-gray transition-all duration-300 ease-in-out block !mx-10`
         }
           
         />
