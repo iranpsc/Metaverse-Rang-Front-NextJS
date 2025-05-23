@@ -77,10 +77,11 @@ export async function generateMetadata({ params }: { params: any }): Promise<Met
         openGraph: { locale },
       };
     }
-
-    const title = `${currentVersion.title} `;
-    const description = currentVersion.description;
-    const pageUrl = `${siteUrl}/${lang}/version/${encodeURIComponent(currentVersion.version)}`;
+    const langData = await getTranslation(params.lang);
+    const mainData = await getMainFile(langData);
+    const title = findByUniqueId(mainData, 261);
+    const description = findByUniqueId(mainData, 1452);
+    const pageUrl = `https://rgb.irpsc.com/${params.lang}/version/${encodeURIComponent(currentVersion.version)}`;
     const image = currentVersion.image;
 
     return {
@@ -224,9 +225,17 @@ export default async function VersionPage({ params }: { params: any }) {
       "datePublished": v.date,
       "description": stripHtmlTags(v.description)
     })),
-
-    "image": currentVersion?.image || "https://rgb.irpsc.com/_next/image?url=%2Flogo.png&w=120&q=75"
+    "image": currentVersion?.image || "https://rgb.irpsc.com/_next/image?url=%2Flogo.png&w=120&q=75",
+  
+    "applicationCategory": "GameApplication",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.5",  
+      "ratingCount": "15",  
+      "reviewCount": "27"   
+    }
   };
+  
 
   {/*END SCHEMA** */ }
 

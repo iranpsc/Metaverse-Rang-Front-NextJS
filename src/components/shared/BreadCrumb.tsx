@@ -124,8 +124,8 @@ export default function ({ params }: any) {
     },
     {
       name: "version",
-      en: "version",
-      fa: "ورژن",
+      en: "metaverse version",
+      fa: "ورژن متاورس",
       font: "font-bold",
       link: `/${params.lang}/version`,
     },

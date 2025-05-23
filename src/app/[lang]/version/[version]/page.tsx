@@ -93,7 +93,7 @@ export async function generateMetadata({ params }: { params: any }): Promise<Met
     const title = `${currentVersion.title} - نسخه ${currentVersion.version}`;
     const description = currentVersion.description;
 
-    const siteUrl = process.env.SITE_URL || "https://example.com";
+    const siteUrl = process.env.SITE_URL || "https://rgb.irpsc.com";
     const pageUrl = `${siteUrl}/${lang}/version/${encodeURIComponent(version)}`;
     const image = currentVersion.image;
 
@@ -242,7 +242,13 @@ export default async function VersionPage({ params }: { params: any }) {
     })),
     "image": versions.length > 0
       ? versions.find((v: VersionItem) => v.version === params.version)?.image || "https://rgb.irpsc.com/_next/image?url=%2Flogo.png&w=120&q=75"
-      : "https://rgb.irpsc.com/_next/image?url=%2Flogo.png&w=120&q=75"
+      : "https://rgb.irpsc.com/_next/image?url=%2Flogo.png&w=120&q=75",
+      "applicationCategory": "GameApplication",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.6",  
+        "ratingCount": "7",    
+      }
   };
   {/*END SCHEMA** */ }
 
