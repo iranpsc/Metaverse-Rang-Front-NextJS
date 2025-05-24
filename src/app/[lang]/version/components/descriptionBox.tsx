@@ -56,9 +56,9 @@ const DescriptionBox: React.FC<DescriptionBoxProps> = ({
     lg:transition-[width,margin-left] lg:duration-300 lg:ease-in-out lg:w-full lg:dark:bg-[#080807] lg:pt-[15px] lg:rounded-[20px]"
     >
       <div className="lineBox flex justify-between items-center w-full min-h-[48px] lg:px-[15px]">
-        <p className="versionP m-0 font-[600] z-[1] text-[#0066FF] dark:text-[#FFC700] text-[100%] lg:font-rokh lg:font-[600] lg:text-[200%]">
+        <span className="versionP m-0 font-[600] z-[1] text-[#0066FF] dark:text-[#FFC700] text-[100%] lg:font-rokh lg:font-[600] lg:text-[200%]">
           {findByUniqueId(mainData, 1443)}
-        </p>
+        </span>
         <hr
           className="flex-grow border-none h-[2px] my-[2px] bg-transparent bg-bottom bg-repeat-x bg-[length:15px_100%]
            [background-image:linear-gradient(to_right,#BABABA_40%,#ffffff13_0%)] dark:[background-image:linear-gradient(to_right,#000_40%,#ffffff13_0%)]"
@@ -81,9 +81,9 @@ const DescriptionBox: React.FC<DescriptionBoxProps> = ({
       </div>
 
       <div className="lg:px-[15px] descriptionBox flex justify-between items-center  w-full min-h-[48px] ">
-        <p className="description transition-[max-height] mb-2 duration-300 ease-in-out font-[Vazir] self-start text-bold dark:text-white lg:w-full lg:self-end lg:p-0">
+        <span className="description transition-[max-height] mb-2 duration-300 ease-in-out font-[Vazir] self-start text-bold dark:text-white lg:w-full lg:self-end lg:p-0">
           {findByUniqueId(mainData, 1444)}
-        </p>
+        </span>
       </div>
 
       <div
