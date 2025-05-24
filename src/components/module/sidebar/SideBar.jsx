@@ -22,9 +22,15 @@ export default function SideBar({
   const theme = cookies.theme || "dark";
 
   useEffect(() => {
-    setIsClosed(localStorage.getItem("sidebarClosed") === "true");
+    const stored = localStorage.getItem("sidebarClosed");
+    if (stored === null) {
+      setIsClosed(true); // سایدبار به‌صورت پیش‌فرض بسته باشد
+    } else {
+      setIsClosed(stored === "true");
+    }
     setHydrated(true);
   }, []);
+  
 
   useEffect(() => {
     if (hydrated) {

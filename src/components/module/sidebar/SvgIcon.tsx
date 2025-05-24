@@ -50,7 +50,6 @@ import {
 export default function SvgIcon({ unique_id, color, name }: any) {
   return (
     <>
-
       {/* with name */}
       {name === "categories" && (
         <Categories className={`${color} stroke-1 mx-[10px] 3xl:w-7 3xl:h-7`} />
@@ -141,11 +140,6 @@ export default function SvgIcon({ unique_id, color, name }: any) {
       {unique_id === 77 && (
         <Image src={Legislator} alt="Legislator" width={30} height={30} loading="lazy" className="mx-2"/>
       )}
-
-
-
-
-
 
     </>
   );
