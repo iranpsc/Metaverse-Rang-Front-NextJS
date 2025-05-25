@@ -50,6 +50,11 @@ const DescriptionBox: React.FC<DescriptionBoxProps> = ({
       ? selectedVersion.title.slice(0, charLimit) + "..."
       : selectedVersion.title;
 
+
+
+      const myValue = findByUniqueId(mainData, 1444);
+      const myValue2 = findByUniqueId(mainData, 1443);
+
   return (
     <div
       className=" h-[844px] pb-10 hidden lg:bg-[#FFFFFF] dark:bg-[#080807]  lg:self-start  lg:flex lg:flex-col lg:items-center 
@@ -57,7 +62,7 @@ const DescriptionBox: React.FC<DescriptionBoxProps> = ({
     >
       <div className="lineBox flex justify-between items-center w-full min-h-[48px] lg:px-[15px]">
         <span className="versionP m-0 font-[600] z-[1] text-[#0066FF] dark:text-[#FFC700] text-[100%] lg:font-rokh lg:font-[600] lg:text-[200%]">
-          {findByUniqueId(mainData, 1443)}
+        {myValue2}
         </span>
         <hr
           className="flex-grow border-none h-[2px] my-[2px] bg-transparent bg-bottom bg-repeat-x bg-[length:15px_100%]
@@ -82,7 +87,7 @@ const DescriptionBox: React.FC<DescriptionBoxProps> = ({
 
       <div className="lg:px-[15px] descriptionBox flex justify-between items-center  w-full min-h-[48px] ">
         <span className="description transition-[max-height] mb-2 duration-300 ease-in-out font-[Vazir] self-start text-bold dark:text-white lg:w-full lg:self-end lg:p-0">
-          {findByUniqueId(mainData, 1444)}
+        {myValue}
         </span>
       </div>
 

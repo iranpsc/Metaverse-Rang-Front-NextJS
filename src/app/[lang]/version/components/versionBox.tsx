@@ -230,7 +230,7 @@ useEffect(() => {
                   onClick={() => handleClick(index)}
                   className={`versionbox cursor-pointer justify-center flex flex-row w-full rounded-[10px] pt-[2px] ${
                     openIndex === index
-                      ? "bg-[#0066FF1A] dark:bg-[#ffc8002f]"
+                      ? "bg-[#0066FF1A] dark:bg-[#5a4c1a] !text-black"
                       : ""
                   }`}
                 >
@@ -246,7 +246,7 @@ useEffect(() => {
                           {item.title}
                         </p>
                         <p
-                          className={`textVersion whitespace-nowrap pl-[15px] text-[90%] ${
+                          className={`textVersion whitespace-nowrap pl-[15px] text-[90%]  ${
                             openIndex === index
                               ? "dark:text-[#ffff]"
                               : "text-[#868B90]"
@@ -267,7 +267,7 @@ useEffect(() => {
                       </div>
 
                       <div
-                        className={`accordion-content overflow-hidden transition-all duration-300 ease-in-out flex flex-col items-start gap-3 px-2.5 w-full  ${
+                        className={`accordion-content overflow-hidden transition-all duration-300 ease-in-out flex flex-col items-start gap-3 px-2.5 w-full  text-sm  ${
                           isMobile && openIndex === index
                             ? "max-h-[1000px]"
                             : "max-h-0"
