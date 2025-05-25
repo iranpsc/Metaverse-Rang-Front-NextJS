@@ -242,13 +242,17 @@ useEffect(() => {
 
                     <div className="moreInfo lg:w-[91%] w-full">
                       <div className="topParagraph bgw flex flex-row justify-between pr-[8px]">
-                        <p className="textName truncate text-[90%] text-wrap lg:text-nowrap dark:text-[#FCF9FE]">
+                        <p  className={`textName truncate text-[90%] text-wrap lg:text-nowrap dark:text-[#FCF9FE] ${
+                    openIndex === index
+                      ? " dark:!text-white font-bold"
+                      : ""
+                  }`}>
                           {item.title}
                         </p>
                         <p
                           className={`textVersion whitespace-nowrap pl-[15px] text-[90%]  ${
                             openIndex === index
-                              ? "dark:text-[#ffff]"
+                              ? "dark:text-white"
                               : "text-[#868B90]"
                           }`}
                         >
@@ -259,7 +263,7 @@ useEffect(() => {
                       <div
                         className={`textDate font-[600] pt-[20px] pb-[20px] pr-[8px] text-[100%] ${
                           openIndex === index
-                            ? "text-[#868B90]"
+                            ? "text-[#868B90] dark:text-white"
                             : "text-[#868B90] dark:text-[#4C4C4C]"
                         }`}
                       >

@@ -9,7 +9,7 @@ import {
   getFooterData,
   getLangArray,
 } from "@/components/utils/actions";
-import Version from "./components/version";
+import Version from "./[version]/components/version";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import SideBar from "@/components/module/sidebar/SideBar";
 import { getStaticMenu } from "@/components/utils/constants";
