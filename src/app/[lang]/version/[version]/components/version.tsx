@@ -1,6 +1,6 @@
 "use client";
 
-import DescriptionBox from "../../components/descriptionBox";
+import DescriptionBox from "./descriptionBox";
 import VersionBox from "../../components/versionBox";
 
 import { useSearchParams, useRouter } from "next/navigation";

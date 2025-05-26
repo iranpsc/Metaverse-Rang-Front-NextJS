@@ -213,7 +213,7 @@ useEffect(() => {
       </div>
 
       {/* list */}
-      <div className="bg-[#FFFFFF] mt-[20px] rounded-[20px] w-full dark:bg-[#080807] min-h-[770px] ">
+      <div className="bg-[#FFFFFF] mt-[20px] rounded-[20px] w-full dark:bg-[#1A1A18] min-h-[770px] ">
         <p className="historyVersionP font-rokh text-[120%] self-start font-[550] pt-[4%] pb-[4%] p-[6%] dark:text-[#FCF9FE] lg:pt-[30px] lg:text-[140%]">
           {findByUniqueId(mainData, 574)}
         </p>
@@ -264,7 +264,7 @@ useEffect(() => {
                         className={`textDate font-[600] pt-[20px] pb-[20px] pr-[8px] text-[100%] ${
                           openIndex === index
                             ? "text-[#868B90] dark:text-white"
-                            : "text-[#868B90] dark:text-[#4C4C4C]"
+                            : "text-[#868B90] dark:text-[#868B90]"
                         }`}
                       >
                         {formatDate(item.date, params.lang)}
