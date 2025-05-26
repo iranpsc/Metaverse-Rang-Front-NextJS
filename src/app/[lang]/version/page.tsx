@@ -79,7 +79,7 @@ export async function generateMetadata({ params }: { params: any }): Promise<Met
     }
     const langData = await getTranslation(params.lang);
     const mainData = await getMainFile(langData);
-    const title = findByUniqueId(mainData, 261);
+    const title = findByUniqueId(mainData, 1454);
     const description = findByUniqueId(mainData, 1452);
     const pageUrl = `https://rgb.irpsc.com/${params.lang}/version/${encodeURIComponent(currentVersion.version)}`;
     const image = currentVersion.image;
