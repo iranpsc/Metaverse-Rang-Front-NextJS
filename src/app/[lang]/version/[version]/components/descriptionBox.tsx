@@ -43,7 +43,7 @@ const DescriptionBox: React.FC<DescriptionBoxProps> = ({
     return () => window.removeEventListener("resize", handleResize);
   }, []);
   const [VersionText, setVersionText] = useState("");
-    const [DscriptionText, setDscriptionText] = useState("");
+  const [DscriptionText, setDscriptionText] = useState("");
 
   useEffect(() => {
     if (params.lang.toLowerCase() === "fa") {
@@ -67,8 +67,8 @@ const DescriptionBox: React.FC<DescriptionBoxProps> = ({
 
 
 
-// const safeContent1443 = findByUniqueId(mainData, 1443) || " ";
-// const safeContent1444 = findByUniqueId(mainData, 1444) || " ";
+  // const safeContent1443 = findByUniqueId(mainData, 1443) || " ";
+  // const safeContent1444 = findByUniqueId(mainData, 1444) || " ";
 
 
   return (
@@ -78,7 +78,7 @@ const DescriptionBox: React.FC<DescriptionBoxProps> = ({
     >
       <div className="lineBox flex justify-between items-center w-full min-h-[48px] lg:px-[15px]">
         <span className="versionP m-0 font-[600] z-[1] text-[#0066FF] dark:text-[#FFC700] text-[100%] lg:font-rokh lg:font-[600] lg:text-[200%]">
-{VersionText}
+          {VersionText}
         </span>
         <hr
           className="flex-grow border-none h-[2px] my-[2px] bg-transparent bg-bottom bg-repeat-x bg-[length:15px_100%]
@@ -103,9 +103,9 @@ const DescriptionBox: React.FC<DescriptionBoxProps> = ({
 
       <div className="lg:px-[15px] descriptionBox flex justify-between items-center  w-full min-h-[48px] ">
         <span className="description transition-[max-height] mb-2 duration-300 ease-in-out font-[Vazir] self-start text-bold dark:text-white lg:w-full lg:self-end lg:p-0">
-        {DscriptionText} 
+          {DscriptionText}
         </span>
-</div>
+      </div>
 
       <div
         className="versionHistoryInfo  flex-row flex  leading-[37px] transition-[max-height] duration-300 ease-in-out text-[90%] w-full pb-[20px] h-auto bg-transparent text-[#C4C4C4] lg:text-[#908986] lg:overflow-auto lg:h-full"
