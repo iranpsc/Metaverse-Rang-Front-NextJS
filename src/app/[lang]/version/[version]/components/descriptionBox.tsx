@@ -42,6 +42,21 @@ const DescriptionBox: React.FC<DescriptionBoxProps> = ({
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+  const [VersionText, setVersionText] = useState("");
+    const [DscriptionText, setDscriptionText] = useState("");
+
+  useEffect(() => {
+    if (params.lang.toLowerCase() === "fa") {
+      setVersionText("ورژن متاورس");
+      setDscriptionText("توضیحات");
+    } else if (params.lang.toLowerCase() === "en") {
+      setVersionText("Metaverse Version");
+      setDscriptionText("Dscription");
+    } else {
+      setDscriptionText("Dscription");
+      setVersionText("Metaverse Version");
+    }
+  }, [params.lang]);
 
   if (!selectedVersion) return null;
 
@@ -52,8 +67,8 @@ const DescriptionBox: React.FC<DescriptionBoxProps> = ({
 
 
 
-const safeContent1443 = findByUniqueId(mainData, 1443) || " ";
-const safeContent1444 = findByUniqueId(mainData, 1444) || " ";
+// const safeContent1443 = findByUniqueId(mainData, 1443) || " ";
+// const safeContent1444 = findByUniqueId(mainData, 1444) || " ";
 
 
   return (
@@ -63,7 +78,7 @@ const safeContent1444 = findByUniqueId(mainData, 1444) || " ";
     >
       <div className="lineBox flex justify-between items-center w-full min-h-[48px] lg:px-[15px]">
         <span className="versionP m-0 font-[600] z-[1] text-[#0066FF] dark:text-[#FFC700] text-[100%] lg:font-rokh lg:font-[600] lg:text-[200%]">
-{safeContent1443}
+{VersionText}
         </span>
         <hr
           className="flex-grow border-none h-[2px] my-[2px] bg-transparent bg-bottom bg-repeat-x bg-[length:15px_100%]
@@ -88,7 +103,7 @@ const safeContent1444 = findByUniqueId(mainData, 1444) || " ";
 
       <div className="lg:px-[15px] descriptionBox flex justify-between items-center  w-full min-h-[48px] ">
         <span className="description transition-[max-height] mb-2 duration-300 ease-in-out font-[Vazir] self-start text-bold dark:text-white lg:w-full lg:self-end lg:p-0">
-        {safeContent1444} 
+        {DscriptionText} 
         </span>
 </div>
 
