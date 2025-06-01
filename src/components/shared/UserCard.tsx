@@ -4,7 +4,7 @@ import GemImage from "@/components/templates/citizen/gemImage";
 import Link from "next/link";
 import { Text } from "../svgs/SvgEducation";
 
-export default function UserCard({ item, params, buttonText, minWidth }: any) {
+export default function UserCard({ item, params, buttonText, minWidth, scoreElement, hidePreviousLevels }: any) {
   return (
     <div
       className={`hover:scale-105 base-transition-1 px-2`}
@@ -45,22 +45,26 @@ export default function UserCard({ item, params, buttonText, minWidth }: any) {
           {item.levels?.current
             ? item.levels.current.name
             : params.lang == "fa"
-            ? "تازه وارد"
-            : "Newcomer"}
+              ? "تازه وارد"
+              : "Newcomer"}
         </span>
+        {scoreElement}
 
-        <div className="w-[95%] min-h-[75px] overflow-auto light-scrollbar dark:dark-scrollbar pb-2">
-          <div className="w-max flex m-auto">
-            {item.levels?.previous?.map((item2: any, index2: any) => (
-              <GemImage
-                key={index2}
-                item={item2}
-                params={params}
-                picSize={50}
-              />
-            ))}
+        {!hidePreviousLevels && (
+          <div className="w-[95%] min-h-[75px] overflow-auto light-scrollbar dark:dark-scrollbar pb-2">
+            <div className="w-max flex m-auto">
+              {item.levels?.previous?.map((item2: any, index2: any) => (
+                <GemImage
+                  key={index2}
+                  item={item2}
+                  params={params}
+                  picSize={50}
+                />
+              ))}
+            </div>
           </div>
-        </div>
+        )}
+
         <Link
           href={`/${params.lang}/citizens/${item.code}`}
           className="w-[80%]"
