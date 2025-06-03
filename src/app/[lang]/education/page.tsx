@@ -113,15 +113,16 @@ export default async function CitizensPage({ params }: { params: any }) {
             <BreadCrumb params={params} />
           </div>
 
-          <h1 className="mt-[70px] text-center  text-gray dark:text-dark-gray font-azarMehr font-bold 2xl:text-[26px] xl:text-[26px] lg:text-[22px] md:text-[20px] sm:text-[18px] xs:text-[16px] w-full">
-            {/* {localFind("page title")} */}
+          {/* <h1 className="mt-[70px] text-center  text-gray dark:text-dark-gray font-azarMehr font-bold 2xl:text-[26px] xl:text-[26px] lg:text-[22px] md:text-[20px] sm:text-[18px] xs:text-[16px] w-full">
+          
             {findByUniqueId(mainData, 166)}
-          </h1>
+          </h1> */}
           <div className="flex flex-col items-center justify-center">
-            <p className=" 2xl:w-[30%] xl:w-[30%] lg:w-[40%] md:w-[40%] sm:w-[50%] xs:w-[50%] mt-5 font-azarMehr font-normal text-gray dark:text-dark-gray 2xl:text-[14px] xl:text-[14px] lg:text-[13px] md:text-[12px] sm:text-[12px] xs:text-[10px]   text-center">
-              {/* {localFind("description")} */}
+            {/* <p className=" 2xl:w-[30%] xl:w-[30%] lg:w-[40%] md:w-[40%] sm:w-[50%] xs:w-[50%] mt-5 font-azarMehr font-normal text-gray dark:text-dark-gray 2xl:text-[14px] xl:text-[14px] lg:text-[13px] md:text-[12px] sm:text-[12px] xs:text-[10px]   text-center">
+              
               {findByUniqueId(mainData, 164)}
-            </p>
+            </p> */}
+
 
             <SearchComponent
               searchLevel="education"
@@ -130,7 +131,7 @@ export default async function CitizensPage({ params }: { params: any }) {
             />
           </div>
 
-          <div className="h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
+          <div className="h-fit mt-[60px]  xl:mt-[100px] 2xl:mt-[150px]">
             <TopTrainersFirstPage params={params} mainData={mainData} />
           </div>
 

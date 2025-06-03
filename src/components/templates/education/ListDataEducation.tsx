@@ -24,7 +24,7 @@ export default function ListDataEducation({ data }: any) {
         data.map((item: any) => (
           <div
             key={item.id}
-            className="w-[100%] min-h-[240px]  shadow-md hover:shadow-xl hover:dark:shadow-dark  rounded-[10px] bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-6 items-center"
+            className="w-[100%]  min-h-[240px]  shadow-md hover:shadow-xl hover:dark:shadow-dark  rounded-[10px] bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-6 items-center"
           >
             <div className=" group w-full h-[266px]   rounded-t-[10px] relative">
               <Image

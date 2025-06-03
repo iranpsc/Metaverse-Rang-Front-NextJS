@@ -79,14 +79,24 @@ module.exports = {
     //   },
     // },
     extend: {
+      keyframes: {
+        rtlMarquee: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(100%)' },
+        },
+      },
+      animation: {
+        rtlMarquee: 'rtlMarquee 5s linear infinite',
+      },
+
       colors: {
         // *** this project custome START
         black: "#000000ff",
         lightGray: "#868B90",
-        bgLightGrey:"#E9E9E9",
-        textGray:'#33353B',
-        bgGray:'#F4F4F4',
-        bgLightGrey2:"#3B3B3B",
+        bgLightGrey: "#E9E9E9",
+        textGray: '#33353B',
+        bgGray: '#F4F4F4',
+        bgLightGrey2: "#3B3B3B",
         mediumGray: "rgba(116, 116, 116, 0.58)",
         mediumGrayFull: "rgba(116, 116, 116)",
         gray: "#151b30",
@@ -101,10 +111,10 @@ module.exports = {
         borderField: "#DADADA",
         Field: "#FCFCFC",
         darkGray: "#1A1A18",
-        darkGrey_1:"#10100F",
-        grayLight:"#F8F8F8",
-        activeGrey:"#626262",
-        divider:"#2d2d2a38",
+        darkGrey_1: "#10100F",
+        grayLight: "#F8F8F8",
+        activeGrey: "#626262",
+        divider: "#2d2d2a38",
         // Add flat aliases for placeholder colors
         'light-placeholder': '#BEBFC9', // Alias for light mode placeholder
         'dark-placeholder': '#84858F', // Alias for dark mode placeholder
@@ -155,7 +165,7 @@ module.exports = {
               yellow: "#FFC107",
               menuBg: "#FFFFFF",
               themeBtn: "#F4F4F4",
-              textBtn:"#868B90",
+              textBtn: "#868B90",
             },
           },
         },
@@ -276,8 +286,9 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [require("tailwindcss"), require("autoprefixer")],
+  plugins: [
+    require("tailwindcss"), require("autoprefixer")],
   corePlugins: {
     preflight: false,
-},
+  },
 };

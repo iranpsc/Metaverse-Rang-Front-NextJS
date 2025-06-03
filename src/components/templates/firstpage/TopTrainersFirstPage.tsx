@@ -23,7 +23,7 @@ const TopTrainersFirstPage = ({ params, mainData }: any) => {
   ];
   return (
     <>
-      <div className="w-full flex flex-row justify-between items-center">
+      <div className="w-full flex flex-row justify-between items-center lg:px-[32px]">
         <p className="font-azarMehr font-medium  text-[16px] md:text-[20px] lg:text-[28px] xl:text-[32px] dark:text-white">
           {findByUniqueId(mainData, 168)}
         </p>
@@ -34,7 +34,7 @@ const TopTrainersFirstPage = ({ params, mainData }: any) => {
           <ArrowRight className="dark:stroke-white stroke-black rtl:rotate-180 w-[24px] h-full " />
         </div>
       </div>
-      <div className="w-full relative flex flex-row dark:dark-scrollbar light-scrollbar overflow-x-auto mt-4 md:mt-2 py-[30px]">
+      <div className="w-full relative flex flex-row dark:dark-scrollbar light-scrollbar overflow-x-auto mt-4 md:mt-2 py-[30px] lg:px-7">
         {staticUsers.map((item: any, index: any) => (
           <div key={index} className="flex flex-col items-center" style={{ minWidth: '260px' }}>
             <UserCard
