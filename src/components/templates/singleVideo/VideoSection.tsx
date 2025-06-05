@@ -57,6 +57,7 @@ const VideoSection = ({
             setOpenSharedPage={setOpenSharedPage}
             // translateSingleVideo={translateSingleVideo}
             mainData={mainData}
+            dataCommentsVideo={dataCommentsVideo}
           />
           {/* USER */}
           <SingleVideoProfileModule
@@ -99,7 +100,7 @@ const VideoSection = ({
             newEducationsVideos={newEducationsVideos}
             mainData={mainData}
             params={params}
-            // translateSingleVideo={translateSingleVideo}
+          // translateSingleVideo={translateSingleVideo}
           />
         </div>
 

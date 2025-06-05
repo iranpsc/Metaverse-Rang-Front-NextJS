@@ -17,6 +17,7 @@ const SingleVideoDashboardModule = ({
   // translateSingleVideo,
   mainData,
   params,
+  dataCommentsVideo,
 }: any) => {
   // const { code, token } = useToken();
   const [cookies] = useCookies(["auth"]);
@@ -113,7 +114,7 @@ const SingleVideoDashboardModule = ({
 
       <div className="flex flex-row justify-center items-center gap-2">
         <p className="font-azarMehr font-normal text-singleVideo_medium dark:text-white xs:text-[12px]">
-          {checkData(DataVideo.comments)}
+          {checkData(dataCommentsVideo?.data?.length ?? 0)}
         </p>
         <Comment className="stroke-singleVideo-gray dark:stroke-white xs:size-[24px]" />
       </div>
