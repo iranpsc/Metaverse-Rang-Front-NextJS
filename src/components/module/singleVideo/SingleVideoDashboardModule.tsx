@@ -151,47 +151,47 @@ const SingleVideoDashboardModule = ({
           <p className="font-azarMehr font-normal text-singleVideo_medium dark:text-white xs:text-[12px]">
             {checkData(findByUniqueId(mainData, 244))}
           </p>
-          <CopyIcon className="fill-singleVideo-gray dark:fill-white xs:size-[24px]" />
+          <CopyIcon className="fill-singleVideo-gray dark:fill-white xs:size-[24px] md:size-[18px]" />
         </div>
 
         <div className="flex flex-row justify-center items-center gap-2">
-          <p className="font-azarMehr font-normal text-singleVideo_medium dark:text-white xs:text-[12px]">
+          <p className="font-azarMehr font-normal text-singleVideo_medium dark:text-white xs:text-[12px] md:text-lg">
             {checkData(dataCommentsVideo?.data?.length ?? 0)}
           </p>
-          <Comment className="stroke-singleVideo-gray dark:stroke-white xs:size-[24px]" />
+          <Comment className="stroke-textGray dark:stroke-white xs:size-[24px] md:size-[18px]" />
         </div>
 
         <div className="flex flex-row justify-center items-center gap-2 cursor-pointer">
-          <p className="font-azarMehr font-normal text-singleVideo_medium dark:text-white xs:text-[12px]">
+          <p className="font-azarMehr font-normal text-singleVideo_medium dark:text-white xs:text-[12px] md:text-lg">
             {checkData(newData.likes_count)}
           </p>
           <motion.div
-            className={`xs:size-[24px] outline-none border-none stroke-singleVideo-gray dark:stroke-white ${isLiking || !cookies.auth ? "opacity-50 " : "cursor-pointer"}`}
+            className={`xs:size-[24px] md:size-[18px] outline-none border-none stroke-singleVideo-gray dark:stroke-white flex items-center justify-center ${isLiking || !cookies.auth ? "opacity-50 " : "cursor-pointer"}`}
             whileTap={{ scale: isLiking || !cookies.auth ? 1 : 1.2 }}
             onClick={handlerLikeComments}
           >
-            <Like className="stroke-singleVideo-gray dark:stroke-white size-full" />
+            <Like className="stroke-textGray dark:stroke-white size-full" />
           </motion.div>
         </div>
 
         <div className="flex flex-row justify-center items-center gap-2 cursor-pointer">
-          <p className="font-azarMehr font-normal text-singleVideo_medium dark:text-white xs:text-[12px]">
+          <p className="font-azarMehr font-normal text-singleVideo_medium dark:text-white xs:text-[12px] md:text-lg">
             {checkData(newData.dislikes_count)}
           </p>
           <motion.div
-            className={`xs:size-[24px] outline-none border-none stroke-singleVideo-gray dark:stroke-white  ${isDisliking || !cookies.auth ? "opacity-50 " : "cursor-pointer "}`}
+            className={`xs:size-[24px] md:size-[18px] outline-none border-none stroke-singleVideo-gray dark:stroke-white flex items-center justify-center ${isDisliking || !cookies.auth ? "opacity-50 " : "cursor-pointer "}`}
             whileTap={{ scale: isDisliking || !cookies.auth ? 1 : 1.2 }}
             onClick={handlerDisLikeComments}
           >
-            <Dislike className="stroke-singleVideo-gray dark:stroke-white size-full" />
+            <Dislike className="stroke-textGray dark:stroke-white size-full" />
           </motion.div>
         </div>
 
         <div className="flex flex-row justify-center items-center gap-2 xs:hidden">
-          <p className="font-azarMehr font-normal text-singleVideo_medium dark:text-white xs:text-[12px]">
+          <p className="font-azarMehr font-normal text-singleVideo_medium dark:text-white xs:text-[12px] md:text-lg">
             {checkData(newData.views_count)}
           </p>
-          <View className="stroke-singleVideo-gray dark:stroke-white xs:size-[24px]" />
+          <View className="stroke-textGray dark:stroke-white xs:size-[24px] md:size-[18px]" />
         </div>
       </div>
 

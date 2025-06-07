@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { MessageRepeat, Like, Dislike } from "@/components/svgs/SvgEducation";
 import { checkData } from "@/components/utils/targetDataName";
-import { handleChange, handlerReportComments } from "./utils/helper";
+import { handleChange, handleSubmit, handlerReportComments } from "./utils/helper";
 import ProfileComment from "./ProfileComment";
 import EditSectionComment from "./utils/EditSectionComment";
 import ControlCommentSection from "./ControlCommentSection";
@@ -28,19 +28,19 @@ const CommentList = ({
   const [activeMenu, setActiveMenu] = useState(0);
   const [editMode, setEditMode] = useState(0);
   const [editedText, setEditedText] = useState("");
-  const [edited, setEdited] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [code, setCode] = useState<string | null>(null);
   const [showLoginModal, setShowLoginModal] = useState(false);
-  const [showSelfCommentModal, setShowSelfCommentModal] = useState(false); // state برای مودال کامنت خود
+  const [showSelfCommentModal, setShowSelfCommentModal] = useState(false);
+  const [showReportModal, setShowReportModal] = useState(0);
 
   const token = GetAuthData("token");
 
-  // دریافت اطلاعات کاربر برای گرفتن کد کاربر (code)
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         if (token) {
-          // console.log("Fetching user data with token:", token);
           const response = await axios.post(
             "https://api.rgb.irpsc.com/api/auth/me",
             null,
@@ -51,14 +51,10 @@ const CommentList = ({
               },
             }
           );
-          // console.log("Response from /auth/me:", response.data);
           setCode(response.data.data.code);
-        } else {
-          // console.log("No token found for /auth/me");
         }
       } catch (err: any) {
-        // console.error("خطا در دریافت اطلاعات کاربر:", err);
-        // console.log("Error details:", err.response?.data, err.response?.status);
+        console.error("خطا در دریافت اطلاعات کاربر:", err?.response?.status, err?.response?.data);
         if (err.response?.status === 403 || err.response?.status === 401) {
           setShowLoginModal(true);
         }
@@ -67,7 +63,6 @@ const CommentList = ({
     fetchUserData();
   }, [token]);
 
-  // تابع مدیریت لایک کامنت
   const handlerLikeComments = async (
     token: string | null,
     commentId: number,
@@ -76,22 +71,14 @@ const CommentList = ({
     setRefreshComment: React.Dispatch<React.SetStateAction<boolean>>
   ) => {
     if (!token) {
-      // console.log("No token found, showing login modal");
       setShowLoginModal(true);
       return;
     }
-
-    // بررسی اینکه آیا کاربر روی کامنت خودش کلیک کرده است
     if (userCode === code) {
-      // console.log("User tried to like their own comment, showing error modal");
       setShowSelfCommentModal(true);
       return;
     }
-
     try {
-      // console.log(
-      //   `Sending like request for videoId: ${videoId}, commentId: ${commentId}, token: ${token}`
-      // );
       const response = await axios.post(
         `https://api.rgb.irpsc.com/api/tutorials/${videoId}/comments/${commentId}/like`,
         null,
@@ -103,20 +90,15 @@ const CommentList = ({
           },
         }
       );
-      // console.log("Like response:", response.data);
       setRefreshComment((prev) => !prev);
     } catch (error: any) {
-      // console.error("خطا در ثبت لایک:", error);
-      // console.log("Response Data:", error.response?.data);
-      // console.log("Response Status:", error.response?.status);
+      console.error("خطا در ثبت لایک:", error?.response?.status, error?.response?.data);
       if (error.response?.status === 403 || error.response?.status === 401) {
-        // console.log("Unauthorized or Forbidden, showing login modal");
         setShowLoginModal(true);
       }
     }
   };
 
-  // تابع مدیریت دیسلایک کامنت
   const handlerDisLikeComments = async (
     token: string | null,
     commentId: number,
@@ -125,22 +107,14 @@ const CommentList = ({
     setRefreshComment: React.Dispatch<React.SetStateAction<boolean>>
   ) => {
     if (!token) {
-      // console.log("No token found, showing login modal");
       setShowLoginModal(true);
       return;
     }
-
-    // بررسی اینکه آیا کاربر روی کامنت خودش کلیک کرده است
     if (userCode === code) {
-      // console.log("User tried to dislike their own comment, showing error modal");
       setShowSelfCommentModal(true);
       return;
     }
-
     try {
-      // console.log(
-      //   `Sending dislike request for videoId: ${videoId}, commentId: ${commentId}, token: ${token}`
-      // );
       const response = await axios.post(
         `https://api.rgb.irpsc.com/api/tutorials/${videoId}/comments/${commentId}/dislike`,
         null,
@@ -152,17 +126,19 @@ const CommentList = ({
           },
         }
       );
-      // console.log("Dislike response:", response.data);
       setRefreshComment((prev) => !prev);
     } catch (error: any) {
-      // console.error("خطا در ثبت دیسلایک:", error);
-      // console.log("Response Data:", error.response?.data);
-      // console.log("Response Status:", error.response?.status);
+      console.error("خطا در ثبت دیسلایک:", error?.response?.status, error?.response?.data);
       if (error.response?.status === 403 || error.response?.status === 401) {
-        // console.log("Unauthorized or Forbidden, showing login modal");
         setShowLoginModal(true);
       }
     }
+  };
+
+  const handleReportClick = (commentId: number) => {
+    setShowReportModal(commentId);
+    setError(null);
+    setSuccessMessage(null);
   };
 
   return (
@@ -172,11 +148,10 @@ const CommentList = ({
           <div
             key={itemComment.id}
             className={`relative min-h-fit bg-singleVideo-backgroundInput dark:bg-dark-background rounded-[20px] xl:p-7 lg:p-7 md:p-5 sm:p-4 xs:p-3 mb-10 flex flex-col justify-between items-center
-            ${
-              itemComment.user.code == code
+              ${itemComment.user.code == code
                 ? "xl:ms-[50px] lg:ms-[50px] xs:ms-0 w-[95%] xs:w-full"
                 : "ms-0 w-full"
-            }`}
+              }`}
           >
             <div className="w-full flex flex-row justify-between items-center">
               <ProfileComment
@@ -185,36 +160,63 @@ const CommentList = ({
                 activeMenu={activeMenu}
                 setActiveMenu={setActiveMenu}
               />
-
               {activeMenu === itemComment.id && (
                 <EditSectionComment
                   itemComment={itemComment}
                   setRefreshComment={setRefreshComment}
-                  code={code}
+                  setShowAuthCard={setShowLoginModal}
                   mainData={mainData}
                   setEditMode={setEditMode}
                   setEditedText={setEditedText}
-                  setEdited={setEdited}
+                  setEdited={() => { }}
+                  code={code}
+                  setError={setError}
                 />
               )}
             </div>
 
             <div className="w-full mt-5">
-              {!edited &&
-              editMode === itemComment.id &&
-              code === itemComment.user.code ? (
-                <form>
-                  <input
-                    type="text"
-                    value={editedText}
-                    onChange={(e) => handleChange(e, setEditedText)}
-                    className="pe-10 w-fit h-fit"
-                  />
+              {editMode === itemComment.id && code === itemComment.user.code ? (
+                <form
+                  onSubmit={(e) => {
+                    setError(null);
+                    handleSubmit(
+                      e,
+                      itemComment.video_id,
+                      itemComment.id,
+                      token,
+                      editedText,
+                      setEditMode,
+                      setShowLoginModal,
+                      setRefreshComment,
+                      setError
+                    );
+                  }}
+                  className="flex items-center gap-4"
+                >
+                  <div className="flex-1">
+                    <input
+                      type="text"
+                      value={editedText}
+                      onChange={(e) => handleChange(e, setEditedText)}
+                      className="w-full p-2 border border-transparent focus:outline-none focus:ring-2 focus:ring-light-primary dark:focus:ring-dark-primary rounded-[10px] bg-bgGray dark:bg-black dark:text-dark-gray"
+                      placeholder="متن کامنت را وارد کنید"
+                    />
+
+                    {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+                  </div>
                   <button
-                    className="bg-dark-yellow px-3 py-1 ms-4 rounded-xl text-black"
                     type="submit"
+                    className="bg-light-primary dark:bg-dark-yellow px-3 py-[6px] rounded-xl text-white dark:text-black"
                   >
                     {checkData(findByUniqueId(mainData, 460))}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setEditMode(0)}
+                    className="bg-bgGray dark:bg-black  px-3 py-[6px] rounded-xl dark:text-white"
+                  >
+                    لغو
                   </button>
                 </form>
               ) : (
@@ -233,9 +235,9 @@ const CommentList = ({
                     mainData={mainData}
                     setEditMode={setEditMode}
                     setEditedText={setEditedText}
+                    setError={setError}
                   />
                 )}
-
                 <div className="flex flex-row justify-center items-center gap-1 cursor-pointer">
                   <p className="font-azarMehr font-normal text-black dark:text-white text-singleVideo_medium">
                     {checkData(itemComment?.likes)}
@@ -256,7 +258,6 @@ const CommentList = ({
                     <Like className="stroke-[#414040] dark:stroke-white cursor-pointer" />
                   </motion.div>
                 </div>
-
                 <div className="flex flex-row justify-center items-center gap-1 cursor-pointer">
                   <p className="font-azarMehr font-normal text-singleVideo_medium text-black dark:text-white">
                     {checkData(itemComment?.dislikes)}
@@ -277,18 +278,10 @@ const CommentList = ({
                     <Dislike className="stroke-[#414040] dark:stroke-white cursor-pointer" />
                   </motion.div>
                 </div>
-
                 {itemComment.user.code !== code && (
                   <div
                     className="flex flex-row justify-center items-center gap-1 cursor-pointer xs:hidden"
-                    onClick={() =>
-                      handlerReportComments(
-                        token,
-                        itemComment.id,
-                        itemComment.video_id,
-                        setShowLoginModal
-                      )
-                    }
+                    onClick={() => handleReportClick(itemComment.id)}
                   >
                     <p className="font-azarMehr font-normal text-black dark:text-white text-singleVideo_medium">
                       {checkData(findByUniqueId(mainData, 193))}
@@ -301,27 +294,66 @@ const CommentList = ({
                     </motion.div>
                   </div>
                 )}
-
                 <RepeatCommentSection mainData={mainData} type={"mob"} />
               </div>
-
               <RepeatCommentSection mainData={mainData} type={"xl"} />
             </div>
+
+            {showReportModal === itemComment.id && (
+              <div className="fixed inset-0 backdrop-blur bg-black/30 flex items-center justify-center z-50 p-5">
+                <div className="bg-white dark:bg-dark-background p-6 rounded-lg shadow-lg max-w-sm w-full">
+                  <h2 className="text-lg md:text-xl font-azarMehr font-bold text-center dark:text-white mb-4">
+                    گزارش کامنت
+                  </h2>
+                  <p className="text-sm text-gray-600 dark:text-gray-300 mb-4 dark:text-white">
+                    آیا مطمئن هستید که می‌خواهید این کامنت را گزارش کنید؟
+                  </p>
+                  {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
+                  {successMessage && (
+                    <p className="text-green-500 text-sm mb-4">{successMessage}</p>
+                  )}
+                  <div className="flex gap-2 justify-between items-center w-full">
+                    <button
+                      className="w-1/2 bg-blueLink dark:bg-dark-yellow text-white dark:text-black font-azarMehr py-2 px-4 font-medium text-[15px] rounded-[10px] hover:bg-yellow-600 active:scale-105 duration-300"
+                      onClick={() => {
+                        handlerReportComments({
+                          token,
+                          commentId: itemComment.id,
+                          videoId: itemComment.video_id,
+                          setShowAuthCard: setShowLoginModal,
+                          setRefreshComment,
+                          setError,
+                        });
+                        setSuccessMessage("گزارش با موفقیت ارسال شد.");
+                        setTimeout(() => setShowReportModal(0), 1000);
+                      }}
+                    >
+                      ارسال گزارش
+                    </button>
+                    <button
+                      className="w-1/2  dark:bg-extraGray text-activeButton dark:text-white font-azarMehr py-2 px-4 font-medium text-[15px] rounded-[10px] hover:bg-gray-400 active:scale-105 duration-300"
+                      onClick={() => setShowReportModal(0)}
+                    >
+                      لغو
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         ))}
 
-      {/* مودال ورود */}
       {showLoginModal && (
         <div className="fixed inset-0 backdrop-blur bg-black/30 flex items-center justify-center z-50 p-5">
           <div className="bg-white dark:bg-dark-background p-6 rounded-lg shadow-lg max-w-sm w-full">
             <h2 className="text-lg md:text-xl font-azarMehr font-bold text-center dark:text-white mb-4">
-              برای لایک یا دیسلایک باید وارد شوید
+              برای لایک، دیسلایک یا گزارش باید وارد شوید
             </h2>
             <div className="flex gap-2 justify-between items-center w-full mt-5">
               <LoginButtonModule params={mainData} />
               <div className="w-1/2 flex justify-center">
                 <button
-                  className="w-full bg-dark-gray dark:bg-extraGray text-black dark:text-white font-azarMehr py-2 px-2 md:px-4 font-medium text-center text-[15px] rounded-[10px] hover:bg-gray-400 active:scale-105 duration-300"
+                  className="w-full  dark:bg-extraGray text-activeButton dark:text-white font-azarMehr py-2 px-2 md:px-4 font-medium text-center text-[15px] rounded-[10px] hover:bg-gray-400 active:scale-105 duration-300"
                   onClick={() => setShowLoginModal(false)}
                 >
                   بستن
@@ -332,7 +364,6 @@ const CommentList = ({
         </div>
       )}
 
-      {/* مودال خطا برای کامنت خود کاربر */}
       {showSelfCommentModal && (
         <div className="fixed inset-0 backdrop-blur bg-black/30 flex items-center justify-center z-50 p-5">
           <div className="bg-white dark:bg-dark-background p-6 rounded-lg shadow-lg max-w-sm w-full">
@@ -341,7 +372,7 @@ const CommentList = ({
             </h2>
             <div className="flex justify-center w-full mt-5">
               <button
-                className="w-1/2 bg-dark-gray dark:bg-extraGray text-black dark:text-white font-azarMehr py-2 px-2 md:px-4 font-medium text-center text-[15px] rounded-[10px] hover:bg-gray-400 active:scale-105 duration-300"
+                className="w-1/2  dark:bg-extraGray text-activeButton dark:text-white font-azarMehr py-2 px-2 md:px-4 font-medium text-center text-[15px] rounded-[10px] hover:bg-gray-400 active:scale-105 duration-300"
                 onClick={() => setShowSelfCommentModal(false)}
               >
                 بستن
