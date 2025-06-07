@@ -34,7 +34,7 @@ const NewEducationSectionTemp = ({
     setLoading(false);
   };
   return (
-    <div className="flex flex-col justify-center items-center relative">
+    <div className="flex flex-col gap-5 px-3 lg:px-5 justify-center items-center relative">
       <h1 className="w-full text-center xs:text-start mt-5 text-[18px] text-singleVideo-gray dark:text-white font-azarMehr font-bold ">
         {/* {checkData(
           translateSingleVideo.find(

@@ -45,8 +45,8 @@ const VideoSection = ({
 
   return (
     <>
-      <div className="w-full bg-[#F5F5F5] dark:bg-black grid grid-cols-12   xs:flex xs:flex-col select-none ">
-        <div className="w-auto xl:max-h-fit lg:max-h-fit md:h-full sm:h-full xs:h-full  xl:me-10 lg:me-5 md:md-2 xs:me-1 xl:col-span-9 lg:col-span-9 sm:col-span-12 h-fit flex flex-col justify-start items-center">
+      <div className="w-full  bg-[#F5F5F5] dark:bg-black grid grid-cols-12   xs:flex xs:flex-col 3xl:flex select-none mt-10 rounded-[20px] ">
+        <div className="w-auto 3xl:w-[79%] xl:max-h-fit lg:max-h-fit md:h-full sm:h-full xs:h-full  xl:me-10 lg:me-5 md:md-2 xs:me-1 xl:col-span-9 lg:col-span-9 sm:col-span-12 h-fit flex flex-col justify-start items-center ">
           <SingleVideoSlugModule DataVideo={DataVideo} params={params} />
           {/* Player */}
           <DynamicVideoPlayer DataVideo={DataVideo} />
@@ -84,7 +84,7 @@ const VideoSection = ({
             refreshComment={refreshComment}
             params={params}
           />
-          <div className="xl:hidden lg:hidden md:block sm:block xs:block h-fit w-full lg:mx-5 md:md-2 xs:mx-1  bg-white dark:bg-dark-background">
+          <div className="xl:hidden lg:hidden md:block sm:block xs:block h-fit w-full lg:mx-5 md:md-2 xs:mx-1  bg-white dark:bg-dark-background mt-10 rounded-[20px]">
             <NewEducationSectionTemp
               newEducationsVideos={newEducationsVideos}
               // translateSingleVideo={translateSingleVideo}
@@ -95,7 +95,7 @@ const VideoSection = ({
 
           {/* <Pagination /> */}
         </div>
-        <div className="bg-white max-h-[2050px] dark:bg-dark-background xl:block lg:block md:hidden xs:hidden sm:hidden xl:w-auto no-scrollbar overflow-y-scroll overflow-x-clip xl:col-span-3 lg:col-span-3 rounded-[20px]">
+        <div className="bg-white max-h-[2050px]  dark:bg-dark-background xl:block lg:block md:hidden xs:hidden sm:hidden 3xl:w-[21%] no-scrollbar overflow-y-scroll overflow-x-clip xl:col-span-3 lg:col-span-3 rounded-[20px] mt-14 lg:mt-0">
           <NewEducationSectionTemp
             newEducationsVideos={newEducationsVideos}
             mainData={mainData}

@@ -17,12 +17,14 @@ import LoginButtonModule from "../LoginButtonModule";
 interface CommentListProps {
   DataItem: any;
   mainData: any;
+  params: any;
   setRefreshComment: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const CommentList = ({
   DataItem,
   mainData,
+  params,
   setRefreshComment,
 }: CommentListProps) => {
   const [activeMenu, setActiveMenu] = useState(0);
@@ -147,7 +149,7 @@ const CommentList = ({
         DataItem.data.map((itemComment: any) => (
           <div
             key={itemComment.id}
-            className={`relative min-h-fit bg-singleVideo-backgroundInput dark:bg-dark-background rounded-[20px] xl:p-7 lg:p-7 md:p-5 sm:p-4 xs:p-3 mb-10 flex flex-col justify-between items-center
+            className={`relative min-h-fit bg-singleVideo-backgroundInput bg-[#ECECEC] dark:bg-[#1A1A18] rounded-[20px] xl:p-7 lg:p-7 md:p-5 sm:p-4 xs:p-3 mb-10 flex flex-col justify-between items-center
               ${itemComment.user.code == code
                 ? "xl:ms-[50px] lg:ms-[50px] xs:ms-0 w-[95%] xs:w-full"
                 : "ms-0 w-full"
@@ -159,6 +161,9 @@ const CommentList = ({
                 mainData={mainData}
                 activeMenu={activeMenu}
                 setActiveMenu={setActiveMenu}
+                params={params}
+                
+                
               />
               {activeMenu === itemComment.id && (
                 <EditSectionComment
@@ -243,7 +248,7 @@ const CommentList = ({
                     {checkData(itemComment?.likes)}
                   </p>
                   <motion.div
-                    className="xs:size-[24px] outline-none border-none stroke-singleVideo-gray dark:stroke-white cursor-pointer"
+                    className="xs:size-[24px] outline-none border-none stroke-singleVideo-gray dark:stroke-white cursor-pointer  flex items-center justify-center"
                     whileTap={{ scale: 1.2 }}
                     onClick={() =>
                       handlerLikeComments(
@@ -263,7 +268,7 @@ const CommentList = ({
                     {checkData(itemComment?.dislikes)}
                   </p>
                   <motion.div
-                    className="xs:size-[24px] outline-none border-none stroke-singleVideo-gray dark:stroke-white cursor-pointer"
+                    className="xs:size-[24px] outline-none border-none stroke-singleVideo-gray dark:stroke-white cursor-pointer  flex items-center justify-center"
                     whileTap={{ scale: 1.2 }}
                     onClick={() =>
                       handlerDisLikeComments(
@@ -287,7 +292,7 @@ const CommentList = ({
                       {checkData(findByUniqueId(mainData, 193))}
                     </p>
                     <motion.div
-                      className="xs:size-[24px] outline-none border-none stroke-singleVideo-gray dark:stroke-white cursor-pointer"
+                      className="xs:size-[24px] outline-none border-none stroke-singleVideo-gray dark:stroke-white cursor-pointer  flex items-center justify-center"
                       whileTap={{ scale: 1.2 }}
                     >
                       <MessageRepeat className="stroke-[#414040] dark:stroke-white cursor-pointer" />

@@ -2,6 +2,7 @@ import { MenuCommentIcon } from "@/components/svgs/SvgEducation";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { checkData } from "@/components/utils/targetDataName";
 import Image from "next/image";
+import Link from "next/link";
 
 const ProfileComment = ({
   itemComment,
@@ -9,6 +10,7 @@ const ProfileComment = ({
   mainData,
   activeMenu,
   setActiveMenu,
+  params,
 }: any) => {
   return (
     <>
@@ -40,12 +42,12 @@ const ProfileComment = ({
             )} */}
             {findByUniqueId(mainData, 563)}
             {" : "}
-            {checkData(itemComment.user.code)}
+            <Link href={`https://rgb.irpsc.com/${params.lang}/citizen/${itemComment.user.code}`}> {checkData(itemComment.user.code)} </Link>
           </span>
         </div>
       </div>
       <div className="flex flex-row  justify-center items-center xs:place-items-end xs:pb-1 gap-1  xs:h-full">
-        <p className="font-azarMehr font-normal text-singleVideo_medium xs:text-[10px] xs:hidden text-singleVideo-gray dark:text-white">
+        <p className="font-azarMehr f text-singleVideo_medium xs:text-[10px] xs:hidden text-singleVideo-gray dark:text-white md:text-sm">
           {/* {checkData(
             translateSingleVideo.find(
               (item: any) => item.name === "publication date"
@@ -53,7 +55,7 @@ const ProfileComment = ({
           )} */}
           {findByUniqueId(mainData, 191)}
         </p>
-        <p className="font-azarMehr font-normal text-singleVideo_medium xs:text-[10px] text-singleVideo-gray dark:text-white">
+        <p className="font-azarMehr font-normal text-singleVideo_medium xs:text-[10px] md:text-sm text-singleVideo-gray dark:text-white">
           {checkData(itemComment.created_at)}
         </p>
       </div>

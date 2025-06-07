@@ -1,10 +1,10 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { SendIcon, View } from "@/components/svgs/SvgEducation";
 import { checkData } from "@/components/utils/targetDataName";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import LoginButtonModule from "./LoginButtonModule"; // فرض می‌کنم این کامپوننت دارید
+import LoginButtonModule from "./LoginButtonModule";
 
 const SingleVideoDetailsModule = ({
   DataVideo,
@@ -13,7 +13,9 @@ const SingleVideoDetailsModule = ({
 }: any) => {
   const [isComplete, setIsComplete] = useState(false);
   const [comment, SetComment] = useState("");
-  const [showLoginModal, setShowLoginModal] = useState(false); // state برای مودال
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [progress, setProgress] = useState(0); // state برای درصد پیشرفت
   const [cookies] = useCookies(["auth"]);
 
   // تابع پارسر کوکی
@@ -26,9 +28,8 @@ const SingleVideoDetailsModule = ({
   }
 
   const handlerCreateComment = async (videoId: any) => {
-    // بررسی لاگین بودن کاربر
     if (!parsAuthCookieByName("token")) {
-      setShowLoginModal(true); // نمایش مودال اگر کاربر لاگین نکرده باشد
+      setShowLoginModal(true);
       return;
     }
 
@@ -49,11 +50,36 @@ const SingleVideoDetailsModule = ({
 
         SetComment("");
         setRefreshComment((prevRefreshComment: boolean) => !prevRefreshComment);
+        setShowSuccessModal(true);
+        setProgress(0); // ریست کردن پیشرفت
       } catch (error: any) {
         console.error("خطا:", error?.response?.status);
       }
     }
   };
+
+  // مدیریت نوار پیشرفت
+  useEffect(() => {
+    if (showSuccessModal) {
+      const duration = 3000; // 3 ثانیه
+      const intervalTime = 50; // به‌روزرسانی هر 50 میلی‌ثانیه
+      const increment = (intervalTime / duration) * 100; // افزایش درصد در هر مرحله
+
+      const interval = setInterval(() => {
+        setProgress((prev) => {
+          const nextProgress = prev + increment;
+          if (nextProgress >= 100) {
+            clearInterval(interval);
+            setShowSuccessModal(false); // بستن مودال پس از پر شدن
+            return 100;
+          }
+          return nextProgress;
+        });
+      }, intervalTime);
+
+      return () => clearInterval(interval); // پاکسازی هنگام بسته شدن مودال
+    }
+  }, [showSuccessModal]);
 
   return (
     <div className="w-full pt-6 bg-white dark:bg-dark-background rounded-b-[20px] pb-10 px-5">
@@ -116,7 +142,7 @@ const SingleVideoDetailsModule = ({
           onChange={(e) => SetComment(e.target.value)}
         />
         <SendIcon
-          className="absolute end-[20px] top-1/4 size-[24px] cursor-pointer"
+          className="absolute end-[20px] top-1/4 size-[24px] cursor-pointer active:scale-125 duration-300"
           onClick={() => handlerCreateComment(DataVideo.id)}
         />
       </div>
@@ -139,6 +165,22 @@ const SingleVideoDetailsModule = ({
                 </button>
               </div>
             </div>
+          </div>
+        </div>
+      )}
+
+      {showSuccessModal && (
+        <div className="fixed inset-0 backdrop-blur bg-black/30 flex items-center justify-center z-50 p-5">
+          <div className="bg-white dark:bg-dark-background p-6 rounded-lg shadow-lg max-w-sm w-full text-center">
+            <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2.5">
+              <div
+                className="bg-green-600 h-2.5 rounded-full transition-all duration-50 ease-linear"
+                style={{ width: `${progress}%` }}
+              ></div>
+            </div>
+            <h2 className="text-lg md:text-xl font-azarMehr font-bold text-green-600 dark:text-green-400 my-5">
+              دیدگاه شما با موفقیت ثبت شد!
+            </h2>
           </div>
         </div>
       )}

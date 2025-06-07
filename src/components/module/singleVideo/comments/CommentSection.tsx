@@ -32,17 +32,18 @@ const CommentSection = ({
     setLoading(false);
   };
   return (
-    <div className="w-full mt-10 pt-5 bg-white dark:bg-dark-background rounded-[20px]">
-      <p className="w-full text-start px-5 text-singleVideo_title text-singleVideo-gray dark:text-white font-azarMehr font-bold ">
+    <div className="w-full mt-10 pt-5 bg-white dark:bg-[#080807] rounded-[20px]">
+      <p className="w-full text-start px-6 text-singleVideo_title text-singleVideo-gray dark:text-white font-azarMehr font-bold  ">
         {checkData(findByUniqueId(mainData, 457))}
       </p>
-      <div className="light-scrollbar dark:dark-scrollbar w-full xl:max-h-[730px] lg:max-h-[730px] md:h-full sm:h-full xs:h-full xl:overflow-y-scroll lg:overflow-y-scroll  overflow-x-clip flex flex-col justify-start items-center gap-10">
+      <div className="light-scrollbar dark:dark-scrollbar w-full px-5 xl:max-h-[730px] lg:max-h-[730px] md:h-full sm:h-full xs:h-full xl:overflow-y-scroll lg:overflow-y-scroll  overflow-x-clip flex flex-col justify-start items-center gap-10">
         {dataCommentsVideo.data.length > 0 ? (
           <CommentList
             DataItem={dataCommentsVideo}
             // translateSingleVideo={translateSingleVideo}
             mainData={mainData}
             setRefreshComment={setRefreshComment}
+            params={params}
           />
         ) : (
           <div className="text-black dark:text-white">

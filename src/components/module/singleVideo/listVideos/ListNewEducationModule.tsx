@@ -64,22 +64,17 @@ const ListNewEducationModule = ({ videos, mainData, params }: any) => {
               </Link>
             </div>
 
-            <div className="w-[95%]  flex flex-row justify-between items-center">
-              <p className="w-full font-azarMehr text-blueLink  font-medium text-singleVideo_medium ">
-                {/* {checkData(
-                  translateSingleVideo.find(
-                    (item: any) => item.name === "citizen id"
-                  )?.translation
-                )} */}
-                {findByUniqueId(mainData, 563)}
+            <div className="w-[90%]  flex flex-row justify-between items-center">
+              <p className="w-full font-azarMehr text-blueLink  font-medium text-singleVideo_medium flex items-center gap-1">
+                <span>{findByUniqueId(mainData, 563)}</span>
                 {" : "}
-                {checkData(item.creator.code)}
+                <span className="mb-[-2px]"><Link href={`https://rgb.irpsc.com/${params.lang}/citizen/${item.creator.code}`}> {checkData(item.creator.code)}</Link></span>
               </p>
               <div className="flex flex-row justify-center items-center gap-0">
                 <p className="w-full font-azarMehr text-singleVideo-gray dark:text-white font-normal text-[14px] ">
                   {item.likes_count}
                 </p>
-                <Like className="stroke-singleVideo-gray dark:stroke-white size-[24px]" />
+                <Like className="stroke-gray dark:stroke-white !size-[26px]" />
               </div>
             </div>
             <hr className="h-[2px] w-[90%] text-singleVideo-backgroundInput dark:text-dark-background" />
