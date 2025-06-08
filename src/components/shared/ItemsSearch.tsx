@@ -54,10 +54,10 @@ export const ItemsSearch = ({ searchLevel, searchData, params }: any) => {
         if (searchLevel === "citizen") {
           // Citizen level rendering
           return (
-            <motion.div key={item?.id} variants={items}>
+            <motion.div key={item?.id} variants={items} >
               <Link
                 href={`/${params.lang}/citizens/${item.code}`}
-                className="w-[99%] h-[65px] mt-2 hover:dark:shadow-darkSearch transition-all duration-300 bg-white dark:bg-dark-background border-b-[1px] border-mediumGray dark:border-mediumGray hover:shadow-md cursor-pointer flex flex-row justify-between items-center dark:text-white"
+                className="w-[99%] h-[65px] mt-2  transition-all duration-300 border-b-[1px] border-mediumGray dark:border-mediumGraycursor-pointer flex flex-row justify-between items-center dark:text-white"
               >
                 <p className="ms-7 dark:text-white text-black font-azarMehr truncate text-[16px] xs:text-[12px] font-medium">
                   {item?.name}
@@ -90,36 +90,41 @@ export const ItemsSearch = ({ searchLevel, searchData, params }: any) => {
           return (
             <motion.div
               key={item.id}
-              className="w-[99%] h-[65px] mt-2 hover:dark:shadow-darkSearch transition-all duration-300 bg-white dark:bg-dark-background border-b-[1px] border-mediumGray dark:border-mediumGray hover:shadow-md cursor-pointer flex flex-row justify-between items-center"
+              className="w-[99%] h-[65px] mt-2 transition-all duration-300  border-b-[1px] border-mediumGray dark:border-mediumGray  cursor-pointer flex flex-row justify-between items-center"
               variants={items}
             >
-              <p className="ms-7 dark:text-white text-black font-azarMehr truncate text-[16px] xs:text-[12px] font-medium">
-                {item.title}
-              </p>
-              <div className="flex flex-row justify-between items-center gap-3 min-w-fit">
-                <div className="h-full flex flex-col gap-0">
-                  <p
-                    className="uppercase font-azarMehr text-[14px] xs:text-[10px] font-bold text-blueLink"
-                    onClick={() => pusherRgb(item.creator.code)}
-                  >
-                    {item.creator.code}
-                  </p>
-                  <div className="flex flex-row items-center justify-end gap-1">
-                    <span className="whitespace-nowrap font-azarMehr font-normal text-black dark:text-white 3xl:text-[18px] xs:text-[12px]">
-                      {item.likes_count}
-                    </span>
-                    <Like className="w-[15px] h-[15px] stroke-gray dark:stroke-dark-gray" />
+
+              <Link  href={`/${params.lang}/education/category/${item.category.slug}/${item.sub_category.slug}/${item.slug}`}>
+                <p className="ms-7 dark:text-white text-black font-azarMehr truncate text-[16px] xs:text-[12px] font-medium">
+                  {item.title}
+                </p>
+              </Link>
+              <Link href={`/${params.lang}/citizens/${item.creator.code}`}>
+                <div className="flex flex-row justify-between items-center gap-3 min-w-fit">
+                  <div className="h-full flex flex-col gap-0">
+                    <p
+                      className="uppercase font-azarMehr text-[14px] xs:text-[10px] font-bold text-blueLink"
+                      onClick={() => pusherRgb(item.creator.code)}
+                    >
+                      {item.creator.code}
+                    </p>
+                    <div className="flex flex-row items-center justify-end gap-1">
+                      <span className="whitespace-nowrap font-azarMehr font-normal text-black dark:text-white 3xl:text-[18px] xs:text-[12px]">
+                        {item.likes_count}
+                      </span>
+                      <Like className="w-[15px] h-[15px] stroke-gray dark:stroke-dark-gray" />
+                    </div>
                   </div>
+                  <Image
+                    src={item.creator.image}
+                    alt={item.creator.title}
+                    loading="lazy"
+                    width={1000}
+                    height={1000}
+                    className="w-[50px] h-[50px] xs:w-[40px] xs:h-[40px] me-2 my-5 shadow-sm shadow-gray rounded-full"
+                  />
                 </div>
-                <Image
-                  src={item.creator.image}
-                  alt={item.creator.title}
-                  loading="lazy"
-                  width={1000}
-                  height={1000}
-                  className="w-[50px] h-[50px] xs:w-[40px] xs:h-[40px] me-2 my-5 shadow-sm shadow-gray rounded-full"
-                />
-              </div>
+              </Link>
             </motion.div>
           );
         }
