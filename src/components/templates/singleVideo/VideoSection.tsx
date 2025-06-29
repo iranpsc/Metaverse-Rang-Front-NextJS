@@ -34,7 +34,7 @@ const VideoSection = ({
     const handlerGetComments = async () => {
       try {
         const comments = await axios.get(
-          `https://api.rgb.irpsc.com/api/tutorials/${DataVideo.id}/comments?page=1`
+          `http://localhost:8080/https://api.rgb.irpsc.com/api/tutorials/${DataVideo.id}/comments?page=1`
         );
         console.log("API response:", comments.data); // لاگ کردن پاسخ API
         setDataComment(comments.data);

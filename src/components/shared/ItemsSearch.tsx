@@ -93,10 +93,9 @@ export const ItemsSearch = ({ searchLevel, searchData, params }: any) => {
               className="w-[99%] h-[65px] mt-2 hover:dark:shadow-darkSearch transition-all duration-300 bg-white dark:bg-dark-background border-b-[1px] border-mediumGray dark:border-mediumGray hover:shadow-md cursor-pointer flex flex-row justify-between items-center"
               variants={items}
             >
-              <Link href={`/${params.lang}/education/category/${item.category.slug}/${item.sub_category.slug}/${item.slug}`}>
-                <p className="ms-7 dark:text-white text-black font-azarMehr truncate text-[16px] xs:text-[12px] font-medium">
-                  {item.title}
-                </p></Link>
+              <Link href={`/${params.lang}/education/category/${item.category.slug}/${item.sub_category.slug}/${item.slug}`} className="ms-7 dark:text-white text-black font-azarMehr truncate text-[16px] xs:text-[12px] font-medium">
+                {item.title}
+              </Link>
               <div className="flex flex-row justify-between items-center gap-3 min-w-fit">
                 <div className="h-full flex flex-col gap-0">
                   <p
