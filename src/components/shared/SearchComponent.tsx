@@ -22,7 +22,6 @@ export default function SearchComponent({
       setLoadingSearch(true);
       const formData = new FormData();
       formData.append("searchTerm", searchTerm);
-      // switch url
       let selectedURL = "";
       if (searchLevel == "citizen") {
         selectedURL = "https://api.rgb.irpsc.com/api/search/users";
@@ -34,32 +33,29 @@ export default function SearchComponent({
         .then((response) => {
           setLoadingSearch(false);
           setSearchData(response.data.data);
+          console.log("Search Data:", response.data.data); // لاگ داده‌ها
         })
-        .catch((error) => {})
+        .catch((error) => {
+          console.error("Search Error:", error); // لاگ خطاها
+        })
         .finally(() => {
           setLoadingSearch(false);
-          // setActiveSearch(false);
         });
     } else {
       setSearchData([]);
       setLoadingSearch(false);
-
-      // setActiveSearch(false);
     }
   }, [searchTerm]);
 
   useEffect(() => {
     if (searchData.length >= 1) {
-      // setActiveSearch(true);
-    } else {
-      // setActiveSearch(false);
+      console.log("Updated Search Data:", searchData); // لاگ تغییرات
     }
   }, [searchData]);
 
   const removeSearch = () => {
     setSearchData([]);
     setSearchTerm("");
-    // setActiveSearch(false);
   };
 
   return (
@@ -71,9 +67,6 @@ export default function SearchComponent({
         onClick={removeSearch}
       ></div>
       <div
-        // id={`${
-        //   themeDataActive === "dark" ? "dark-scrollbar" : "light-scrollbar"
-        // }`}
         className="w-[100%] md:w-[70%] lg:w-[50%] mt-[50px] flex flex-col items-center w-full m-auto relative z-20 dark:dark-scrollbar light-scrollbar"
       >
         <SectionInputSearch
