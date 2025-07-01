@@ -1,9 +1,14 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+
 import jalaali from "jalaali-js";
 import { format } from "date-fns";
 import { faIR, enUS } from "date-fns/locale"; // اضافه کردن enUS برای زبان انگلیسی
 import { monthsInYear } from "date-fns/constants";
+interface calendarProps{
+ mainData:any,
+ params:any 
+}
 // ماه‌های شمسی
 const persianMonths = [
   "فروردین",
@@ -72,17 +77,43 @@ const getJalaaliMonthLength = (jy: number, jm: number) => {
 
 // روزهای هفته به فارسی
 const persianWeekdays = ["ش", "ی", "د", "س", "چ", "پ", "ج"]; // شروع از شنبه
-const englishWeekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const englishWeekdays = ["S", "M", "T", "W", "T", "F", "S"];
 
-export default function EventCalendar() {
+export default function Calendar({params}:calendarProps) {
+  const monthListRef = useRef<HTMLDivElement>(null);
+  const yearListRef = useRef<HTMLDivElement>(null);
+
   const today = new Date();
   const [currentDate, setCurrentDate] = useState(today);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [isShamsi, setIsShamsi] = useState(true);
+  const isShamsi = params.lang === "fa";
   const [showMonthList, setShowMonthList] = useState(false); // نمایش یا مخفی کردن لیست ماه‌ها
   const [showYearList, setShowYearList] = useState(false);
   const [currentYearPage, setCurrentYearPage] = useState(0);
   const [yearOffset, setYearOffset] = useState(0); // تغییر سال‌ها با فلش‌ها
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        monthListRef.current &&
+        !monthListRef.current.contains(event.target as Node)
+      ) {
+        setShowMonthList(false);
+      }
+  
+      if (
+        yearListRef.current &&
+        !yearListRef.current.contains(event.target as Node)
+      ) {
+        setShowYearList(false);
+      }
+    };
+  
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+  
   const getDynamicYears = () => {
     const baseYear = isShamsi
       ? toJalaali(currentDate).jy
@@ -231,11 +262,11 @@ export default function EventCalendar() {
     <div className="xl:text-xl 2xl:text-2xl relative w-full border-[1px] border-solid dark:border-[#454545] border-[#BABABA]  sm:pt-4 h-auto p-4 sm:p-5 pt-6 dark:bg-[#080807] text-[#DEDEE9] rounded-3xl flex flex-col sm:min-w-[310px] md:min-w-[380px] md:max-w-[380px] lg:min-w-[450px] lg:max-w-[450px] xl:min-w-[520px] x 2xl:min-w-[580px]">
       <div className="flex justify-between pt-2 pb-5 sm:pb-4 xl:pb-10 flex-row-reverse ">
         <div className="flex items-center text-xl">
-           <img
+          <img
             src="/svg/arrow.svg"
-            className="w-4 h-4 xl:w-5 xl:h-5 2xl:w-9 2xl:h-9 rotate-[270deg] cursor-pointer invert dark:invert-0"
-            onClick={() => changeMonth("prev")}
-
+            className={`w-6 h-6 xl:w-7 xl:h-7 2xl:w-9 2xl:h-9 cursor-pointer invert dark:invert-0 ${
+              isShamsi ? "rotate-[270deg]" : "rotate-90"
+            }`}                onClick={() => changeMonth("prev")}
           />
 
           <button
@@ -252,15 +283,18 @@ export default function EventCalendar() {
           </button>
           <img
             src="/svg/arrow.svg"
-            className="w-4 h-4 xl:w-5 xl:h-5  2xl:w-9 2xl:h-9    cursor-pointer rotate-[90deg] invert dark:invert-0"
-            onClick={() => changeMonth("next")}
+            className={`w-6 h-6 xl:w-7 xl:h-7 2xl:w-9 2xl:h-9 cursor-pointer invert dark:invert-0 ${
+              isShamsi ? "rotate-[90deg]" : "rotate-[270deg]"
+            }`}            onClick={() => changeMonth("next")}
           />
         </div>
-        <span className="text-2xl justify-center items-center font-semibold  flex ">
-          <span className="text-black dark:text-white">{getCurrentMonthTitle()}</span>
+        <span className="text-base 2xl:text-2xl xl:text-xl   justify-center items-center font-semibold  flex ">
+          <span className="text-black dark:text-white ">
+            {getCurrentMonthTitle()}
+          </span>
           <img
             src="/svg/arrow.svg"
-            className="w-4 h-4 xl:w-5 xl:h-5  2xl:w-9 2xl:h-9    cursor-pointer invert dark:invert-0"
+            className="w-6 h-6 xl:w-7 xl:h-7  2xl:w-9 2xl:h-9  cursor-pointer invert dark:invert-0"
             onClick={() => {
               setShowYearList(!showYearList);
               setShowMonthList(false); // اگر سال‌ها رو نشون بدیم، ماه‌ها بسته بشن
@@ -272,8 +306,10 @@ export default function EventCalendar() {
       {/* نمایش لیست ماه‌ها به صورت absolute وقتی که showMonthList true باشه */}
       {showMonthList && (
         <div
-          className="absolute text-base xl:text-lg 2xl:text-xl top-[80px] border-[1px] border-solid dark:border-[#454545] border-[#BABABA]  left-0 w-[70%] bg-white dark:bg-[#080807] dark:sm:bg-black text-black dark:text-[#868B90] rounded-3xl p-4 min-w-[160px] transition-opacity duration-500"
-          style={{ zIndex: 10 }}
+        ref={monthListRef}
+
+        className={`absolute text-base xl:text-lg 2xl:text-xl top-[80px] border border-solid dark:border-[#454545] border-[#BABABA] w-[70%] bg-white dark:bg-[#080807] dark:sm:bg-black text-black dark:text-[#868B90] rounded-3xl p-4 min-w-[160px] ${isShamsi ? "left-0" : "right-0"}`}
+        style={{ zIndex: 10 }}
         >
           <div className="grid grid-cols-3 gap-2 text-center ">
             <div className="flex justify-start  pb-2 ">{getCurrentYear()}</div>
@@ -282,7 +318,7 @@ export default function EventCalendar() {
             {(isShamsi ? persianMonths : englishMonths).map((month, index) => (
               <span
                 key={index}
-                className=" hover:bg-yellow-500 hover:text-black cursor-pointer rounded-lg py-1"
+                className=" hover:bg-yellow-500 hover:text-black cursor-pointer rounded-lg py-1 hover:transition-all"
                 onClick={() => selectMonth(index)}
               >
                 {month}
@@ -295,15 +331,17 @@ export default function EventCalendar() {
       {/*   روز های سال*/}
       {showYearList && (
         <div
-          className="absolute text-base xl:text-lg 2xl:text-xl top-[80px] xs:left-5 right-0 w-[70%] border-[1px] border-solid dark:border-[#454545] border-[#BABABA]  dark:bg-[#080807] bg-white dark:sm:bg-black text-black dark:text-[#868B90] z-50 rounded-3xl p-4 min-w-[160px]  transition-all duration-300 "
-          style={{ zIndex: 10 }}
+        ref={yearListRef}
+
+        className={`absolute text-base xl:text-lg 2xl:text-xl top-[80px] w-[70%] border border-solid dark:border-[#454545] border-[#BABABA] dark:bg-[#080807] bg-white dark:sm:bg-black text-black dark:text-[#868B90] z-50 rounded-3xl p-4 min-w-[160px] transition-all ${isShamsi ? "right-0" : "left-0"}`}
+        style={{ zIndex: 10 }}
         >
           <div className="flex justify-between items-center mb-2">
             <span>{getCurrentMonth()}</span>
 
             <span>
               <img
-                className="w-[25px]  cursor-pointer invert dark:invert-0 "
+                className={`w-[25px] cursor-pointer invert dark:invert-0 ${isShamsi ? "rotate-0" : "rotate-180"}`}
                 src="/svg/arrowMini.svg"
                 onClick={() => shiftYears("prev")}
               />
@@ -311,8 +349,8 @@ export default function EventCalendar() {
               <img
                 src="/svg/arrowMini.svg"
                 onClick={() => shiftYears("next")}
-                className="w-[25px]  cursor-pointer rotate-[180deg] invert dark:invert-0"
-              />
+                className={`w-[25px] cursor-pointer invert dark:invert-0 ${isShamsi ? "rotate-[180deg]" : "rotate-0"}`}
+                />
             </span>
           </div>
 
@@ -320,7 +358,7 @@ export default function EventCalendar() {
             {getDynamicYears().map((year, index) => (
               <span
                 key={index}
-                className="hover:bg-yellow-500 hover:text-black cursor-pointer rounded-lg py-1"
+                className="hover:bg-yellow-500 hover:text-black cursor-pointer rounded-lg py-1 hover:transition-all"
                 onClick={() => {
                   selectYear(year);
                   setYearOffset(0); // ریست برای دفعات بعدی
@@ -363,34 +401,29 @@ export default function EventCalendar() {
           return (
             <div
               key={index}
-              className={`calendar-day p-3   flex flex-row-reverse dark:text-white text-black justify-between text-center rounded-lg cursor-pointer transition-all ${
+              className={`calendar-day flex flex-row-reverse justify-between my-3  md:my-1 lg:my-2 xl:my-[10px] 2xl:my-3 items-center w-full h-full rounded-lg text-black dark:text-white hover:bg-[#0066FF4D] dark:hover:bg-[#FFC70033] cursor-pointer relative ${
                 selectedDate && selectedDate.getTime() === currentDay.getTime()
-                  ? "bg-blue-500 dark:bg-yellow-500 text-white font-bold"
+                  ? "bg-[#0066FF4D] dark:bg-[#FFC70033] text-blueLink dark:text-[#ffc800ea] font-bold"
                   : "bg-gray-100 hover:bg-gray-200"
               }`}
               onClick={() => handleDateClick(currentDay)}
             >
-              <span className="flex flex-col gap-1">
-                <div className="rounded-full w-2 h-2 bg-red-500"></div>
-                <div className="rounded-full w-2 h-2 bg-red-500"></div>
-                <div className="rounded-full w-2 h-2 bg-red-500"></div>
-                <div className="rounded-full w-2 h-2 bg-red-500"></div>
+              <span className="flex flex-col gap-1 px-1">
+                <div className="rounded-full w-1 h-1 md:h-1 xl:w-2 xl:h-2 bg-red-500"></div>
+                <div className="rounded-full w-1 h-1 md:h-1 xl:w-2 xl:h-2 bg-red-500"></div>
+                <div className="rounded-full w-1 h-1 md:h-1 xl:w-2 xl:h-2 bg-red-500"></div>
+                <div className="rounded-full w-1 h-1 md:h-1 xl:w-2 xl:h-2 bg-red-500"></div>
+                <div className="rounded-full w-1 h-1 md:h-1 xl:w-2 xl:h-2 bg-red-500"></div>
+
               </span>
-              <div className="self-center">{displayDay}</div>
+              <div className=" absolute inset-0 flex justify-center items-center">{displayDay}</div>
               <div></div>
             </div>
           );
         })}
       </div>
 
-      <div className="toggle-container text-center">
-        <button
-          className="px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-all"
-          onClick={() => setIsShamsi(!isShamsi)}
-        >
-          {isShamsi ? "نمایش میلادی" : "نمایش شمسی"}
-        </button>
-      </div>
+    
     </div>
   );
 }

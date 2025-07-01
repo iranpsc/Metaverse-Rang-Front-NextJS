@@ -6,6 +6,7 @@ import { ArrowMenu } from "@/svgs/index";
 import { useCookies } from "react-cookie";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
+import { redirectToSSOLogin } from "@/utils/authRedirect"; // مسیر واقعی فایل
 
 export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
   const [dropDown, setDropDown] = useState(false);
@@ -94,33 +95,9 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
     }
   }, [isMounted, cookies.auth]);
 
-  const handleLogin = async () => {
-    let temp = pathname.split("/");
-    let last = temp[temp.length - 1];
-    let referral;
-    if (last.startsWith("hm-") || last.startsWith("HM-")) {
-      referral = last;
-    }
-
-    const urlToUse = `${window.location.origin}${pathname.toString()}`;
-    const res = await axios.get(
-      `https://api.rgb.irpsc.com/api/auth/redirect?redirect_to=${urlToUse}&referral=${referral}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    // debugger;
-    if (res) {
-      const redirectUrl = res.data.url;
-      window.location.href = redirectUrl;
-    } else {
-      throw new Error("Failed to fetch redirectUrl, client!");
-    }
-  };
-
+const handleLogin = () => {
+  redirectToSSOLogin(pathname);
+};
   const handleLogout = async () => {
     const res = await axios.post(
       "https://api.rgb.irpsc.com/api/auth/logout",
