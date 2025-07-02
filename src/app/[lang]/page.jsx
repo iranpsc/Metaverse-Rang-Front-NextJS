@@ -255,12 +255,12 @@ export default async function LangPage({params}) {
             </div>
             {/* MD to larg shown-1 */}
             <div
-              className="w-full max-h-[40vh] overflow-y-auto light-scrollbar dark:dark-scrollbar tall0:max-h-[50vh] lg:max-h-[35vh] hidden lg:flex flex-col lg:flex-row gap-4 xl:gap-10 absolute bottom-0 xl:pe-32 lg:pe-32 xs:pe-5 xl:ps-32 lg:ps-32 md:ps-5 sm:ps-5 xs:ps-5 bg-[#151515] bg-opacity-40 py-3 z-[1] mt-4"
+              className="w-full max-h-[40vh] overflow-y-auto light-scrollbar dark:dark-scrollbar tall0:max-h-[50vh] lg:max-h-[35vh] hidden lg:flex flex-col lg:flex-row gap-4 xl:gap-20 absolute bottom-0 xl:pe-32 lg:pe-32 xs:pe-5 xl:ps-32 lg:ps-32 md:ps-5 sm:ps-5 xs:ps-5 bg-[#151515] bg-opacity-40 pt-4 pb-3 2xl:px-20 3xl:px-[100px] z-[1] mt-4 "
             >
               <div
                 className="lg:w-1/2 flex flex-col justify-start items-start gap-4"
               >
-                <div className="flex items-center">
+                <div className="flex items-center gap-1">
                   <Frame1 className="size-[36px]" />
                   <h3 className="text-white font-bold text-[16px] 2xl:text-[24px] 3xl:text-[28px] ps-2 font-azarMehr">
                     {/* {localFind("different competitions")} */}
@@ -279,7 +279,7 @@ export default async function LangPage({params}) {
               <div
                 className="lg:w-1/2 xl:col-span-6 lg:col-span-6 md:col-span-12 sm:col-span-12 xs:col-span-12 flex flex-col justify-start items-start gap-4 mt-10 md:mt-0"
               >
-                <div className="flex items-center">
+                <div className="flex items-center gap-1">
                   <Frame2 className="size-[36px]" />
                   <h3 className="text-white font-bold text-[16px] 2xl:text-[24px] 3xl:text-[28px] ps-2 font-azarMehr">
                     {/* {localFind("real interactions")} */}
@@ -357,7 +357,7 @@ export default async function LangPage({params}) {
             </Suspense>
             </div>
 
-            <div className="w-[90%] h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
+            <div className="w-[90%] md:w-full h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
               <Suspense fallback={<div>Loading Header...</div>}>
                 <TopCitizen
                 // firstPageArrayContent={firstPageArrayContent}
@@ -421,8 +421,8 @@ export default async function LangPage({params}) {
             </div>
           </section>
         </section>
-        <a href="https://discord.gg/sW6XCY96hh" aria-label="Join us on Discord" title='Discord' className="fixed rtl:left-[20px] ltr:right-[20px] bottom-[20px] z-[2]">
-          <Discord className="size-[50px]" />
+        <a href="https://discord.gg/sW6XCY96hh" aria-label="Join us on Discord" title='Discord' className="fixed rtl:left-10 ltr:right-10 bottom-[20px] z-[2]">
+          <Discord className="size-[60px]" />
         </a>
         
       </div>

@@ -54,9 +54,10 @@ const EducationFirstPage = ({ mainData, params }: any) => {
         {staticData.map((item, index) => (
           <div
             key={index}
-            className="w-[100%] shadow-md rounded-[10px] bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-6 items-center"
+            className="w-[100%] shadow-md rounded-[20px] overflow-hidden bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-6 items-center"
           >
-            <Link
+            <div className="w-full flex flex-col justify-center items-center max-h-[265px] overflow-hidden">
+                          <Link
               href={item.url}
               className="group w-full rounded-t-[10px] relative"
             >
@@ -71,6 +72,7 @@ const EducationFirstPage = ({ mainData, params }: any) => {
                 className="w-full h-full rounded-t-[10px] object-cover"
               />
             </Link>
+            </div>
 
             <div className=" w-[95%] flex flex-row justify-start items-center gap-1  mt-[-10px] pe-16">
               <p className="text-start text-gray dark:text-dark-gray font-medium font-azarMehr text-[13px]  3xl:text-[16px] cursor-pointer hover:text-blueLink hover:dark:text-dark-yellow">
@@ -104,23 +106,23 @@ const EducationFirstPage = ({ mainData, params }: any) => {
                   </span>
                 </div>
               </Link>
-              <div className="flex flex-row justify-end items-center gap-4 md:gap-3 xl:gap-4">
+              <div className="flex flex-row justify-end items-center gap-4 md:gap-3 xl:gap-4 3xl:gap-5">
                 {/* 1 */}
-                <span className="flex items-center">
+                <span className="flex items-center gap-2">
                   <span className=" whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray">
                     125
                   </span>
                   <Like className="stroke-gray dark:stroke-dark-gray stroke-2 w-[18px] h-[18px] " />
                 </span>
                 {/* 2 */}
-                <span className="flex items-center">
+                <span className="flex items-center gap-2">
                   <span className="whitespace-nowrap font-azarMehr font-normal  3xl:text-[18px] text-gray dark:text-dark-gray">
                     10
                   </span>
                   <Dislike className="stroke-gray  dark:stroke-dark-gray stroke-2 " />
                 </span>
                 {/* 3 */}
-                <span className="flex items-center">
+                <span className="flex items-center gap-2">
                   <span className="whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray">
                     610
                   </span>

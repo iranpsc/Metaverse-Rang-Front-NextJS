@@ -34,7 +34,7 @@ const TopTrainersFirstPage = ({ params, mainData }: any) => {
           <ArrowRight className="dark:stroke-white stroke-black rtl:rotate-180 w-[24px] h-full " />
         </div>
       </div>
-      <div className="w-full relative flex flex-row dark:dark-scrollbar light-scrollbar overflow-x-auto mt-4 md:mt-2 py-[30px] lg:px-7">
+      <div className="w-full relative flex flex-row dark:dark-scrollbar light-scrollbar overflow-x-auto  pb-10 lg:px-7">
         {staticUsers.map((item: any, index: any) => (
           <div key={index} className="flex flex-col items-center" style={{ minWidth: '260px' }}>
             <UserCard

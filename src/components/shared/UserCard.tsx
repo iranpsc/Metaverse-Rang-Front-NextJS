@@ -51,7 +51,7 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
         {scoreElement}
 
         {!hidePreviousLevels && (
-          <div className="w-[95%] min-h-[75px] overflow-auto light-scrollbar dark:dark-scrollbar pb-2">
+          <div className="w-[95%] min-h-[75px] overflow-auto light-scrollbar dark:dark-scrollbar  pb-2">
             <div className="w-max flex m-auto">
               {item.levels?.previous?.map((item2: any, index2: any) => (
                 <GemImage

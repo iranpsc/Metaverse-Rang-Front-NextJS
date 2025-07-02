@@ -51,11 +51,12 @@ const LastNews = ({ mainData, params }: any) => {
         {staticData.map((item, index) => (
           <div
             key={index}
-            className="w-[100%] min-h-[240px] base-transition-1 shadow-md hover:shadow-xl hover:dark:shadow-dark  rounded-[10px] bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-6 items-center"
+            className="w-[100%] min-h-[240px] base-transition-1 shadow-md hover:shadow-xl hover:dark:shadow-dark  rounded-[20px] bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-6 items-center overflow-hidden"
           >
-            <Link
+            <div className="w-full flex flex-col justify-center items-center max-h-[265px] overflow-hidden">
+                          <Link
               href={item.url}
-              className=" group w-full h-[266px] rounded-t-[10px] relative"
+              className=" group w-full  rounded-t-[10px] flex relative"
             >
               <Image
                 src={`/firstpage/static-news-${index}.webp`}
@@ -65,12 +66,13 @@ const LastNews = ({ mainData, params }: any) => {
                 // priority={true}
                 loading="lazy"
                 quality={75}
-                className=" w-full h-full transition-all duration-150 ease-in-out rounded-t-[10px] object-contain"
+                className=" w-full h-full transition-all duration-150 ease-in-out rounded-t-[10px] object-contain bg-cover "
               />
-              <div className="w-full h-full bg-black/20 absolute z-0 top-0 flex justify-center items-center rounded-t-[10px]">
+              <div className="w-full h-full bg-black/30 absolute z-0 top-0 flex justify-center items-center rounded-t-[10px]">
                 <Video className="w-[78px] h-[78px] p-3 fill-blueLink dark:fill-dark-yellow  rounded-full bg-white/80" />
               </div>
             </Link>
+            </div>
 
             <div className=" w-[95%] flex flex-row justify-start items-center gap-1  mt-[-10px] pe-16">
               <p
@@ -107,23 +109,23 @@ const LastNews = ({ mainData, params }: any) => {
                 </span>
               </Link>
               {/* </Link> */}
-              <div className="flex flex-row justify-end items-center gap-4 md:gap-3 xl:gap-4">
+              <div className="flex flex-row justify-end items-center gap-4 md:gap-3 xl:gap-4 3xl:gap-5">
                 {/* 1 */}
-                <span className="flex items-center">
+                <span className="flex items-center gap-2">
                   <span className=" whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray">
                     125
                   </span>
                   <Like className="stroke-gray dark:stroke-dark-gray stroke-2 w-[18px] h-[18px] " />
                 </span>
                 {/* 2 */}
-                <span className="flex items-center">
+                <span className="flex items-center gap-2">
                   <span className="whitespace-nowrap font-azarMehr font-normal  3xl:text-[18px] text-gray dark:text-dark-gray">
                     10
                   </span>
                   <Dislike className="stroke-gray  dark:stroke-dark-gray stroke-2 " />
                 </span>
                 {/* 3 */}
-                <span className="flex items-center">
+                <span className="flex items-center gap-2">
                   <span className="whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray">
                     610
                   </span>

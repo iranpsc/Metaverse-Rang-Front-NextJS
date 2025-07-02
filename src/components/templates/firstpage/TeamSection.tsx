@@ -40,9 +40,9 @@ const SectionTeam = ({ mainData, params }: any) => {
   }
   return (
     <div ref={sectionRef} className="flex flex-column justify-center flex-wrap">
-      <div className="w-[full] md:w-[50%] lg:w-[30%]">
+      <div className="w-[full] md:w-[50%] lg:w-[35%]">
         <Image
-          className="w-full h-full sm:h-[360px] md:h-auto object-cover lg:rounded-[32px] origin-center border-none"
+          className="w-full h-full sm:h-[360px] md:h-auto 3xl:aspect-square object-cover lg:rounded-[32px] origin-center border-none"
           src="/firstpage/img2.webp"
           alt="header"
           width={500}
@@ -52,19 +52,23 @@ const SectionTeam = ({ mainData, params }: any) => {
         />
       </div>
 
-      <div className="lg:w-[70%] flex flex-col justify-between items-start md:ps-10 gap-1">
-        <h2 className="w-full text-start font-bold text-[20px] md:text-[26px] lg:text-[32px] text-gray dark:text-white mt-5 font-azarMehr">
+      <div className="w-full lg:w-[65%] flex flex-col justify-between items-start md:pb-3 md:ps-10 gap-1 ">
+      <div className="flex flex-col  w-full">
+                <h2 className="w-full text-start font-bold text-[20px] md:text-[26px] lg:text-[32px] text-gray dark:text-white mt-5 font-azarMehr">
           متاورس رنگ
+          
         </h2>
+        <Vector className="w-[20%] h-10 stroke-light-primary dark:stroke-dark-yellow" />
+      </div>
 
-        <Vector className="w-[20%] h-10" />
+        
 
         <h4 className="w-full text-gray dark:text-white text-[20px] md:text-[24px] lg:text-[28px] text-start pb-2 font-bold ">
           {/* {localFind("a revolution in virtual platforms")} */}
           {findByUniqueId(mainData, 490)}
         </h4>
 
-        <p className="w-full  pt-5 md:pt-0 text-justify   text-black dark:text-lightGray font-azarMehr font-medium text-[14px] md:text-[16px] lg:text-[22px]">
+        <p className="w-full  pt-5 md:pt-0 text-justify   text-black dark:text-lightGray font-azarMehr font-medium text-[14px] md:text-[16px] lg:text-[22px] 3xl:pe-[250px]">
           {/* {localFind("imagine seeing objects and people in 3d on the internet")} */}
           {findByUniqueId(mainData, 491)}
         </p>
@@ -115,7 +119,7 @@ const SectionTeam = ({ mainData, params }: any) => {
             />
           </div>
 
-          <p className="ps-2 text-justify text-dark-yellow font-azarMehr font-medium text-[12px] md:text-[18px] lg:text-[24px]">
+          <p className="ps-2 text-justify text-light-primary dark:text-dark-yellow font-azarMehr font-bold text-[12px] md:text-[18px] lg:text-[24px]">
             + 40 &nbsp;
             {/* {localFind("metarang team")} */}
             {findByUniqueId(mainData, 492)}
