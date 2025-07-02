@@ -1,8 +1,8 @@
 "use client";
 import Header from "./Header";
 import AllSideTab from "./AllSideTab";
-import LevelSideTab from './LevelSideTab'
-import { useState, useCallback, useEffect  } from "react";
+import LevelSideTab from './LevelSideTab';
+import { useState, useCallback, useEffect, useRef } from "react";
 import LoginMenuModule from "./LoginMenuModule";
 import ThemeMenuModule from "@/components/module/sidebar/ThemeMenuModule";
 import HeaderMobile from "@/components/module/sidebar/HeaderMobile";
@@ -15,11 +15,11 @@ export default function SideBar({
   params,
   pageSide,
 }) {
-  
   const [isClosed, setIsClosed] = useState(true); // Start with true (default for SSR)
   const [hydrated, setHydrated] = useState(false); // Track hydration
   const [cookies] = useCookies(["theme"]);
   const theme = cookies.theme || "dark";
+  const sidebarRef = useRef(null); // Reference to sidebar element
 
   useEffect(() => {
     const stored = localStorage.getItem("sidebarClosed");
@@ -30,7 +30,6 @@ export default function SideBar({
     }
     setHydrated(true);
   }, []);
-  
 
   useEffect(() => {
     if (hydrated) {
@@ -38,13 +37,31 @@ export default function SideBar({
     }
   }, [isClosed, hydrated]);
 
+  // Handle clicks outside the sidebar
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // اگر منو باز باشد و کلیک خارج از سایدبار باشد
+      if (!isClosed && sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+        setIsClosed(true); // بستن منو
+      }
+    };
+
+    // اضافه کردن رویداد کلیک به document
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // پاکسازی رویداد هنگام unmount
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isClosed]); // وابستگی به isClosed برای به‌روزرسانی وضعیت
+
   const toggleSide = useCallback(() => {
     setIsClosed((prev) => !prev);
   }, []);
 
   // Prevent rendering until hydration completes
   if (!hydrated) return null;
-  
+
   return (
     <>
       <HeaderMobile
@@ -60,15 +77,15 @@ export default function SideBar({
             isClosed
               ? "sm:hidden xs:hidden md:hidden menu-transition xl:block lg:block"
               : "sm:block xs:block bg-blackTransparent/30"
-          }   absolute xl:relative lg:relative xl:w-fit lg:w-fit md:w-full z-[60] sm:w-full xs:w-full no-scrollbar  `}
+          } absolute xl:relative lg:relative xl:w-fit lg:w-fit md:w-full z-[60] sm:w-full xs:w-full no-scrollbar`}
         >
           <aside
+            ref={sidebarRef} // اضافه کردن ref به المنت سایدبار
             className={`${
               isClosed
                 ? "w-[70px] max-lg:hidden"
                 : "w-[260px] lg:w-[16.5vw] sm:shadow-[#000000] xs:sm:shadow-[#000000] visible"
-              }  
-              flex flex-col h-screen relative bg-white  dark:bg-dark-background menu-transition`}
+            } flex flex-col h-screen relative bg-white dark:bg-dark-background menu-transition`}
           >
             <div className="flex flex-col sticky w-full h-fit top-0 pt-1 z-50 bg-white dark:bg-dark-background menu-transition">
               <Header
@@ -78,25 +95,26 @@ export default function SideBar({
                 params={params}
               />
             </div>
-            {/* <MenuProfileModule /> */}
-            {pageSide == 'citizen' &&
-            <AllSideTab
-              tabsMenu={tabsMenu}
-              isClosed={isClosed}
-              toggleSide={toggleSide}
-              langData={langData}
-              langArray={langArray}
-              params={params}
-            />}
-            {pageSide == 'level' && 
-            <LevelSideTab
-              tabsMenu={tabsMenu}
-              isClosed={isClosed}
-              params={params}
-              toggleSide={toggleSide}
-              langArray={langArray}
-              langData={langData}
-              />}
+            {pageSide === 'citizen' && (
+              <AllSideTab
+                tabsMenu={tabsMenu}
+                isClosed={isClosed}
+                toggleSide={toggleSide}
+                langData={langData}
+                langArray={langArray}
+                params={params}
+              />
+            )}
+            {pageSide === 'level' && (
+              <LevelSideTab
+                tabsMenu={tabsMenu}
+                isClosed={isClosed}
+                params={params}
+                toggleSide={toggleSide}
+                langArray={langArray}
+                langData={langData}
+              />
+            )}
             <div
               className={`${
                 isClosed
@@ -104,13 +122,11 @@ export default function SideBar({
                   : ""
               } w-full h-fit z-[100] transition-all duration-300 ease-linear bg-white dark:bg-dark-background bottom-0 py-5 flex flex-col items-center justify-center gap-3 menu-transition`}
             >
-              {/*_________ login BTN __________*/}
-              <div className='w-[80%] m-auto'>
-              <LoginMenuModule isClosed={isClosed} tabsMenu={tabsMenu} params={params} />
+              <div className="w-[80%] m-auto">
+                <LoginMenuModule isClosed={isClosed} tabsMenu={tabsMenu} params={params} />
               </div>
-
               <div className="w-full pt-3 pb-1 flex flex-col items-center justify-center">
-                <div className="h-[1px] bg-gray opacity-50 dark:bg-mediumGray w-[80%] " />
+                <div className="h-[1px] bg-gray opacity-50 dark:bg-mediumGray w-[80%]" />
               </div>
               <ThemeMenuModule
                 isClosed={isClosed}

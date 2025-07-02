@@ -86,7 +86,7 @@ export default function SideBarContent({
                       tooltip: {
                         className: `
                         !bg-[#E9E9E9] !text-[#908F95] dark:!bg-black !font-azarMehr !font-medium  dark:!text-white !text-[14px] 
-                        ${isClosed ? "hidden" : "block"}
+                        ${isClosed ? "block" : "hidden"}
                       `,
                       },
                     }}
@@ -94,7 +94,7 @@ export default function SideBarContent({
                       modifiers: [
                         {
                           name: "offset",
-                          options: { offset: [-30, -180] },
+                          options: { offset: [-20, 0] },
                         },
                       ],
                     }}

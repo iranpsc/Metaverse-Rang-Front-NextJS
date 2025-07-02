@@ -140,7 +140,7 @@ export default function SideBarContent({
       {modalShow && <Modal dataObject={modalData} close={closeModal} />}
       <ul
         id="light-scrollbar"
-        className={`h-full z-[100] flex flex-col list-none overflow-y-scroll relative no-scrollbar relative pt-3 w-full menu-transition max-lg:w-fit`}
+        className={`h-full z-[100] flex flex-col list-none overflow-y-scroll relative no-scrollbar  pt-3 w-full menu-transition max-lg:w-fit`}
       >
         {tabsMenu &&
           tabsMenu.map((item, i) => (
@@ -159,7 +159,7 @@ export default function SideBarContent({
                         // Applies Tailwind classes to the tooltip container
                         className: `
                         !bg-[#E9E9E9] !text-[#908F95] dark:!bg-black !font-azarMehr !font-medium  dark:!text-white !text-[14px] 
-                        ${isClosed ? "hidden" : "block"}
+                        ${isClosed ? "block" : "hidden"}
                       `,
                       },
                     }}
@@ -169,7 +169,7 @@ export default function SideBarContent({
                         {
                           name: "offset",
                           options: {
-                            offset: [-40, -180], // Adjusts tooltip offset
+                            offset: [-40, 0], // Adjusts tooltip offset
                           },
                         },
                       ],
