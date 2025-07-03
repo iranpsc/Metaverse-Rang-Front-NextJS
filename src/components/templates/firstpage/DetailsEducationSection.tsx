@@ -23,7 +23,7 @@ const DetailsEducationSection = ({ mainData }: any) => {
                 ورود به دنیای متاورس
               </p>
               <div className="bg-dark-yellow  size-[30px] sm:size-[32px] md:size-[42px] lg:size-[52px] xl:size-[70px] rounded-full flex justify-center items-center">
-                <Arrow className="size-[9px] sm:size-[12px] md:size-[18px] lg:size-[24px] xl:size-[36px]" />
+                <Arrow className="size-[9px] sm:size-[12px] md:size-[18px] lg:size-[24px] xl:size-[36px] ltr:rotate-90" />
               </div>
             </div>
           </a>

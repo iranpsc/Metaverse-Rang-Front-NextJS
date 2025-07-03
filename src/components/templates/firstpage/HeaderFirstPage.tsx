@@ -57,7 +57,7 @@ export default function HeaderFirstPage({ mainData, params }: any) {
               {findByUniqueId(mainData, 483)}
             </p>
             <div className="bg-light-primary dark:bg-dark-yellow size-[42px] md:size-[47px] lg:size-[53px]  xl:size-[70px] rounded-full flex justify-center items-center">
-              <Arrow className="size-[20px] sm:size-[23px] md:size-[28px] lg:size-[32px]  xl:size-[36px]" />
+              <Arrow className="size-[20px] sm:size-[23px] md:size-[28px] lg:size-[32px]  xl:size-[36px] ltr:rotate-90" />
             </div>
           </motion.div>
         </a>

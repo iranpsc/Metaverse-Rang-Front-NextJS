@@ -41,7 +41,7 @@ const TopCitizen = async ({ mainData, params }: any) => {
             className="flex-shrink-0 !min-w-[290px] min-h-[435px] md:min-h-[460px] bg-[#fff] dark:bg-[#1A1A18] rounded-[20px] mx-2 flex flex-col gap-3 items-center justify-center hover:scale-105 base-transition-1 shadow-lg cursor-pointer mt-10"
            
           >
-            <div className="rounded-full bg-[#0066FF30] dark:bg-[#483D13] aspect-square flex items-center justify-center w-14 h-14">
+            <div className="rounded-full bg-[#0066FF30] dark:bg-[#483D13] aspect-square flex items-center justify-center w-14 h-14 ltr:rotate-180">
               <svg
                 width="16"
                 height="24"

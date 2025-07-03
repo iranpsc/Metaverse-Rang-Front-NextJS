@@ -54,17 +54,20 @@ const SectionTimer = () => {
       </div>
 
       <div className="bg-light-primary dark:bg-dark-yellow rounded-full p-[10px] hidden lg:flex justify-center items-center me-5">
-        <ArrowRight className="stroke-white dark:stroke-[#1b1b1b] size-[32px]" />
+        <ArrowRight className="stroke-white dark:stroke-[#1b1b1b] size-[32px] ltr:rotate-180" />
       </div>
-      <div
-        className="h-[90%] lg:me-5 relative rounded-[50px] p-[2px] "
+      <div className="flex gap-5 px-4">
+              <div
+        className="h-[90%] lg:me-5 relative rounded-[50px] p-[1px] "
         style={{ background: "linear-gradient(-135deg, transparent, #9898a0 , transparent)" }}
       >
         <div
-          className="h-full bg-[#DEDEE9] dark:bg-darkGray  rounded-[48px] p-[20px] flex flex-col lg:flex-row md:gap-0 sm:gap-5 gap-5 justify-center items-center"
+          className="h-full bg-[#DEDEE9] dark:bg-darkGray  rounded-[48px] p-7 flex flex-col lg:flex-row md:gap-0 sm:gap-5 gap-5 justify-center items-center"
         >
-          <div className="absolute bg-white/10 z-0 size-[150px] top-[10px] end-[20%] blur-3xl filter"></div>
-          <div className="w-full flex justify-center lg:max-w-[360px] max-h-[100%] rounded-[32px] border-none overflow-hidden">
+          <div className="absolute bg-white/10 z-0 size-[200px] top-[30px] end-[25%] blur-3xl filter"></div>
+          <div className="absolute bg-white/20 z-0 size-[150px] top-[10px] end-[85%] blur-3xl filter"></div>
+          <div className="absolute bg-white/15 z-0 size-[150px] top-[160px] end-[0%] blur-3xl filter"></div>
+          <div className="w-full h-full flex justify-center lg:max-w-[360px] max-h-[100%] rounded-[32px] border-none overflow-hidden">
             <Image
               className="w-fill h-full object-cover"
               src="/firstpage/free.webp"
@@ -74,11 +77,11 @@ const SectionTimer = () => {
               quality={75}
             />
           </div>
-          <div className="w-full mt-4 lg:mt-0">
-            <h4 className="text-start text-[23px] lg:text-[28px] text-black dark:text-white font-azarMehr font-medium ms-5">
+          <div className="w-full mt-4 lg:mt-0 text-justify flex flex-col justify-between h-full">
+            <h4 className="text-start text-[23px] lg:text-xl 3xl:text-[32px] text-black dark:text-white font-azarMehr font-medium ms-5">
               اهدای 963 قطعه زمین(VOD) رایگان
             </h4>
-            <p className="w-fit text-start text-lg xl:text-[20px] text-lightGray font-azarMehr font-medium mt-5 lg:mt-10 ms-5">
+            <p className="w-fit text-start  text-lg  3xl:text-2xl text-lightGray font-azarMehr font-medium mt-5 lg:mt-10 ms-5">
               اهدای 963 قطعه زمین(VOD) رایگان به ارزش 50,371,200,000 ریال برای
               آزادسازی جزیره آریایی در اولین متاورس ایران متاورس رنگ
             </p>
@@ -89,7 +92,7 @@ const SectionTimer = () => {
 
 
       {/* SECOND BOX */}
-      <div className="h-[90%] w-full lg:w-[45%] rounded-[50px] p-[2px] relative dark:bg-gradient-to-tl dark:to-transparent dark:via-[#454545] dark:from-transparent"
+      <div className="h-[90%] w-full lg:w-[45%] rounded-[50px] p-[1px] relative dark:bg-gradient-to-tl dark:to-transparent dark:via-[#454545] dark:from-transparent"
       >
         <div
           className=" p-[20px] h-full  rounded-[50px]
@@ -112,9 +115,10 @@ const SectionTimer = () => {
           </div>
         </div>
       </div>
+      </div>
 
       <div className="bg-light-primary dark:bg-dark-yellow rounded-full p-[10px] flex justify-center items-center hidden lg:flex xs:hidden ms-5">
-        <ArrowRight className="stroke-white dark:stroke-[#1b1b1b] size-[32px] rotate-180 " />
+        <ArrowRight className="stroke-white dark:stroke-[#1b1b1b] size-[32px] rotate-180 ltr:rotate-0" />
       </div>
     </div>
   );

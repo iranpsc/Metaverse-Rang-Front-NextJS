@@ -42,7 +42,7 @@ const LastNews = ({ mainData, params }: any) => {
               {/* {localFind("view all")} */}
               {findByUniqueId(mainData, 171)}
             </p>
-            <ArrowRight className="dark:stroke-white stroke-black rotate-180 w-[24px] h-full " />
+            <ArrowRight className="dark:stroke-white stroke-black rotate-180 w-[24px] h-full ltr:rotate-0" />
           </div>
         </a>
       </div>
@@ -74,63 +74,63 @@ const LastNews = ({ mainData, params }: any) => {
             </Link>
             </div>
 
-            <div className=" w-[95%] flex flex-row justify-start items-center gap-1  mt-[-10px] pe-16">
-              <p
-                className="text-start text-gray dark:text-dark-gray font-medium font-azarMehr text-[13px]  3xl:text-[16px]"
-                //   onClick={() => pusher(item.category.slug)}
-              >
-                {item.date}
-              </p>
-            </div>
+            <div className="py-3 px-3 flex flex-col justify-between gap-5 w-full">
+              <div className=" w-[95%] flex flex-row justify-start items-center gap-1  mt-[-20px] ">
+                <p className="text-start text-gray dark:text-dark-gray font-medium font-azarMehr text-[13px]  3xl:text-[16px] cursor-pointer hover:text-blueLink hover:dark:text-dark-yellow">
+                  {item.date}
+                </p>
+              </div>
 
-            <a className="w-[95%]" href={item.url}>
-              <h4 className="text-start dark:text-white text-gray  w-full font-azarMehr truncate cursor-pointer font-bold mt-[8px] text-[18px] xl:text-[20px] 3xl:text-[22px] ">
-                {item.title}
-              </h4>
-            </a>
+              <a className="w-[95%] mt-[-10px]" href={item.url}>
+                <h4 className="text-start  w-full font-azarMehr truncate cursor-pointer font-bold text-[18px] xl:text-[20px] 3xl:text-[22px] dark:text-white text-gray ">
+                  {item.title}
+                </h4>
+                <p className="line-clamp-2 text-darkGray dark:text-lightGray"> {item.desc}</p>
+              </a>
 
-            <div className="w-[95%] pb-2 flex flex-row justify-between  items-center">
-              {/* <Link href="#" target="_blank"> */}
-              <Link
-                href={`/${params.lang}/citizen/Hm-2000001`}
-                className="flex flex-row justify-start items-center gap-2"
-              >
-                <Image
-                  src="/firstpage/person1.webp"
-                  alt="hossein ghadiri"
-                  width={100}
-                  height={100}
-                  loading="lazy"
-                  className="w-[45px] h-[45px] rounded-full object-cover cursor-pointer transition-all duration-150 ease-in-out"
-                  // onClick={() => pushRgb(item.creator.code)}
-                />
-                <span className="text-blueLink  cursor-pointer text-[14px] 3xl:text-[18px] whitespace-nowrap font-medium hover:font-bold uppercase ">
-                  Hm-2000001
-                </span>
-              </Link>
-              {/* </Link> */}
-              <div className="flex flex-row justify-end items-center gap-4 md:gap-3 xl:gap-4 3xl:gap-5">
-                {/* 1 */}
-                <span className="flex items-center gap-2">
-                  <span className=" whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray">
-                    125
+              <div className="w-[95%] flex flex-row justify-between  items-center">
+                <Link href={`/${params.lang}/citizen/Hm-2000003`} target="_blank">
+                  <div className="flex flex-row justify-start items-center gap-2">
+                    <Image
+                      src="/firstpage/alizadeh.webp"
+                      alt="citizen image"
+                      width={1000}
+                      height={1000}
+                      loading="lazy"
+                      className="w-[45px] h-[45px] rounded-full object-cover cursor-pointer transition-all duration-150 ease-in-out"
+                    // onClick={() => pushRgb(item.creator.code)}
+                    />
+                    <span
+                      className="text-blueLink  cursor-pointer text-[14px] 3xl:text-[18px] whitespace-nowrap font-medium hover:font-bold uppercase "
+                    // onClick={() => pushRgb(item.creator.code)}
+                    >
+                      Hm-2000003
+                    </span>
+                  </div>
+                </Link>
+                <div className="flex flex-row justify-end items-center gap-4 md:gap-3 xl:gap-4 3xl:gap-5">
+                  {/* 1 */}
+                  <span className="flex items-center gap-2">
+                    <span className=" whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray">
+                      125
+                    </span>
+                    <Like className="stroke-gray dark:stroke-dark-gray stroke-2 w-[18px] h-[18px] " />
                   </span>
-                  <Like className="stroke-gray dark:stroke-dark-gray stroke-2 w-[18px] h-[18px] " />
-                </span>
-                {/* 2 */}
-                <span className="flex items-center gap-2">
-                  <span className="whitespace-nowrap font-azarMehr font-normal  3xl:text-[18px] text-gray dark:text-dark-gray">
-                    10
+                  {/* 2 */}
+                  <span className="flex items-center gap-2">
+                    <span className="whitespace-nowrap font-azarMehr font-normal  3xl:text-[18px] text-gray dark:text-dark-gray">
+                      10
+                    </span>
+                    <Dislike className="stroke-gray  dark:stroke-dark-gray stroke-2 " />
                   </span>
-                  <Dislike className="stroke-gray  dark:stroke-dark-gray stroke-2 " />
-                </span>
-                {/* 3 */}
-                <span className="flex items-center gap-2">
-                  <span className="whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray">
-                    610
+                  {/* 3 */}
+                  <span className="flex items-center gap-2">
+                    <span className="whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray">
+                      610
+                    </span>
+                    <View className="stroke-gray dark:stroke-dark-gray stroke-2 ms-1" />
                   </span>
-                  <View className="stroke-gray dark:stroke-dark-gray stroke-2 ms-1" />
-                </span>
+                </div>
               </div>
             </div>
           </div>

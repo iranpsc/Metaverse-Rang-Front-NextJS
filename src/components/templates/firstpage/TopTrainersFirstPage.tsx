@@ -61,7 +61,7 @@ const TopTrainersFirstPage = ({ params, mainData }: any) => {
 
         ))}
         <div style={{ minWidth: '260px' }} className="bg-[#fff] dark:bg-[#1A1A18] mt-10 rounded-[20px] hidden  mx-2 md:flex flex-col gap-3 items-center justify-center hover:scale-105 base-transition-1 shadow-lg cursor-pointer">
-          <div className="rounded-full bg-[#0066FF30] dark:bg-[#483D13] aspect-square flex items-center justify-center w-14 h-14">
+          <div className="rounded-full bg-[#0066FF30] dark:bg-[#483D13] aspect-square flex items-center justify-center w-14 h-14 ltr:rotate-180">
             <svg width="16" height="24" viewBox="0 0 17 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path className="dark:stroke-dark-primary" d="M11.2753 21.6532L1.99609 11.6008L11.2753 1.54834" stroke="#0066FF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
