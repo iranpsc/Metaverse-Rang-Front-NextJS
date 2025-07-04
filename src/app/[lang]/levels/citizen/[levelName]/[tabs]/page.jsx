@@ -284,18 +284,18 @@ export default async function lavelSingelPage({ params }) {
           <BreadCrumb params={params} />
         </div>
         
-        <div className="grid-container gap-x-4 bg-white dark:bg-[#080807] rounded-[20px] px-2 lg:px-3 py-3 relative">
+        <div className="grid-container gap-x-7 bg-white dark:bg-[#080807] rounded-[20px] p-5 3xl:p-[30px] relative">
           {/* __________1 Btn + Title*/}
-          <div className="grid-first self-start md:order-none w-full md:min-w-[65vw] xl:min-w-[65vw] flex items-center justify-between font-bold pt-[3px] pb-5 dark:text-white text-lg sm:text-xl lg:text-2xl 2xl:text-3xl 3xl:text-4xl">
+          <div className=" self-start md:order-none w-full md:min-w-[65vw] xl:min-w-[65vw] flex items-center justify-between font-bold pt-[3px] pb-5 dark:text-white text-lg sm:text-xl lg:text-2xl 2xl:text-3xl 3xl:text-4xl">
             <h1 className="text-[36px]">{localFind2()}</h1>
-            <button className="min-w-[167px] w-max h-[48px] px-5 text-[14px] dark:bg-bgLightGrey2 bg-bgLightGrey dark:text-white font-bold text-textGray rounded-[12px]">
+            <button className="w-max py-3 px-5 text-[14px] dark:bg-bgLightGrey2 bg-bgLightGrey dark:text-white font-bold text-textGray rounded-[12px]">
               {/* {localFind('list of recipients')} */}
               {findByUniqueId(mainData,392)}
             </button>
           </div>
           {/* __________2 Tab Selector*/}
 
-          <div className="grid-second overflow-hidden mb-5 self-start w-full md:min-w-[65vw] xl:min-w-[65vw]">
+          <div className="grid-second overflow-hidden mb-5 self-start w-full md:min-w-[65vw] xl:min-w-[65vw] ">
             <TabSelector
               params={params}
               // levelsTranslatePage={levelsTranslatePage}
@@ -304,7 +304,7 @@ export default async function lavelSingelPage({ params }) {
           </div>
           {/* __________3 Content*/}
 
-          <div className="grid-third w-full md:min-w-[65vw] xl:min-w-[65vw]">
+          <div className="grid-third w-full md:min-w-[65vw] xl:min-w-[65vw] px-1 ">
             {params.tabs == "general-info" && (
               <GeneralInfo
                 mainData={mainData}
@@ -356,7 +356,7 @@ export default async function lavelSingelPage({ params }) {
             )}
           </div>
           {/* __________4 Image*/}
-          <div className="grid-forth flex-1 relative">
+          <div className="grid-forth flex-1 relative !mt-[-2px]">
             <Suspense fallback={<div>image box loading ...</div>} >
               <ImageBox item={levelTabs.data} singleLevel={singleLevel} />
             </Suspense>

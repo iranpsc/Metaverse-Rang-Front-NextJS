@@ -10,7 +10,7 @@ export const getStaticMenu = (params) => {
       url: params?.id ? `citizens/${params.id}` : "", 
       order: "-2" 
     },
-    // { name: "trainings",unique_id:87, url: "education", order: "-2" },
+    { name: "trainings",unique_id:1455, url: "education", order: "-2" },
     { name: "property" },
     { name: "real estate" },
     { name: "structures" },

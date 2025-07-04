@@ -259,8 +259,8 @@ export default function SideBarContent({
                                 : false,
                               translation:
                                 params.lang.toLowerCase() == "fa"
-                                  ? "آمورش"
-                                  : "Trainings",
+                                  ? "راهنمای جامع"
+                                  : "comprehensive guide",
                             })
                           }
                           isClosed={isClosed}
@@ -356,8 +356,8 @@ export default function SideBarContent({
                             (item = {
                               translation:
                                 params.lang.toLowerCase() == "fa"
-                                  ? "مربیان متاورس"
-                                  : "metaverse trainers",
+                                  ? " آموزش ها"
+                                  : " Trainings",
                               active: pathName.endsWith(
                                 `/${params.lang}/education`
                               )

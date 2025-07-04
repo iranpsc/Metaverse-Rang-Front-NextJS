@@ -23,7 +23,7 @@ export default function DetailItem({
     else if (isLink)
       return (
         <a
-          className="text-dark-active-btn text-[#868B90] dark:text-[#C4C4C4] font-[700]"
+          className="text-dark-active-btn text-[#868B90] dark:text-[#C4C4C4] font-[700] "
           target="_blank"
           href={value}
         >
@@ -33,7 +33,7 @@ export default function DetailItem({
     else
       return (
         <span
-          className="text-[#868B90] dark:text-[#C4C4C4] font-[700] text-ellipsis line-clamp-1 overflow-hidden"
+          className="text-[#868B90] dark:text-[#C4C4C4] font-[700] text-ellipsis line-clamp-1 overflow-hidden "
           title={value}
         >
           {value}
@@ -42,8 +42,8 @@ export default function DetailItem({
   };
   return (
     <div
-      className={`flex flex-wrap flex-row gap-2 justify-between py-3  border-b-2 border-[#ECECEC] dark:border-[#1A1A18] items-center w-full text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] ${
-        fullBox ? "w-full" : "sm:w-[48%]"
+      className={`flex flex-wrap flex-row gap-2 justify-between py-3 border-solid border-t-0 border-x-0 border-b-2 border-[#ECECEC] dark:border-[#1A1A18] items-center w-full text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] ${
+        fullBox ? "w-full" : "sm:w-[47%]"
       }`}
     >
       <span
