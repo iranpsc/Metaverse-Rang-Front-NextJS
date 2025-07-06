@@ -7,6 +7,7 @@ import ListMenuArrow from "./list/ListMenuArrow";
 import { useState } from "react";
 import ListMenuActiveIconModule from "./list/ListMenuActiveIconModule";
 import DropdownLanguageModule from "./list/dropdowns/DropdownLanguageModule";
+import { ActiveMenuIcon } from "@/components/svgs";
 import { useRouter } from "next/navigation";
 import React from "react";
 import Link from "next/link";
@@ -50,17 +51,15 @@ export default function SideBarContent({
 
   const onTabClick = (item) => {
     setActiveNav(item.route_name || "");
-  
+
     let href = `/${params.lang}`; // مسیر پیش‌فرض صفحه اصلی
-  
+
     if (item.route_name && item.route_name !== "home") {
       href = `/${params.lang}/levels/citizen/${item.route_name}/general-info`;
     }
-  
+
     router.push(href);
   };
-  
-  
 
   const handleLangBtn = () => {
     setLangDropDown(!langDropDown);
@@ -102,28 +101,49 @@ export default function SideBarContent({
                     {item.route_name && item.route_name !== "language" ? (
                       <div className="px-2 flex cursor-pointer flex-col items-center box-border menu-transition">
                         <div
-                          className={`${
-                            activeNav === item?.route_name
-                              ? "bg-grayLight dark:bg-black"
-                              : ""
-                          } w-full flex flex-row items-center group py-2 ${
-                            isClosed ? "justify-center" : "justify-start"
-                          } rounded-[10px]`}
+                          className={`w-full flex flex-row items-center group py-2 ${isClosed ? "justify-center" : "justify-start"
+                            } rounded-[10px]`}
                         >
-                          <span className="flex">
-                            <ListMenuSvgModule
-                              item={item}
-                              i={i}
-                              activeNav={activeNav}
-                            />
-                          </span>
-                          <ListMenuTitleModule
-                            isClosed={isClosed}
-                            item={item}
-                            i={i}
-                            activeNav={activeNav}
-                          />
-                          <ListMenuArrow item={item} />
+                          {activeNav === item?.route_name ? (
+                            <div className="flex items-center">
+                              <ActiveMenuIcon
+                                className={` ${isClosed ? "w-[10px] pr-[17px]" : ""}  ${activeNav === item?.route_name
+
+                                  } visible  h-[35px] absolute start-0 fill-blueLink dark:fill-dark-yellow pr-[20px] w-[25px] rtl:rotate-180 `}
+                              />
+                              <span className="flex">
+                                <ListMenuSvgModule
+                                  item={item}
+                                  i={i}
+                                  activeNav={activeNav}
+                                />
+                              </span>
+                              <ListMenuTitleModule
+                                isClosed={isClosed}
+                                item={item}
+                                i={i}
+                                activeNav={activeNav}
+                              />
+                              <ListMenuArrow item={item} />
+                            </div>
+                          ) : (
+                            <>
+                              <span className="flex">
+                                <ListMenuSvgModule
+                                  item={item}
+                                  i={i}
+                                  activeNav={activeNav}
+                                />
+                              </span>
+                              <ListMenuTitleModule
+                                isClosed={isClosed}
+                                item={item}
+                                i={i}
+                                activeNav={activeNav}
+                              />
+                              <ListMenuArrow item={item} />
+                            </>
+                          )}
                         </div>
                       </div>
                     ) : null}
@@ -135,22 +155,21 @@ export default function SideBarContent({
                 <li key={"language-" + item.unique_id}>
                   <div onClick={handleLangBtn} data-tooltip-id={item.name}>
                     <div
-                      className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px] px-2
+                      className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px] px-3
                     group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer menu-transition
-                    ${
-                      isClosed ? "justify-start items-center " : "justify-start items-center"
-                    }`}
+                    ${isClosed ? "justify-start items-center " : "justify-start items-center"
+                        }`}
                     >
                       <ListMenuActiveIconModule
                         item={item}
                         languageSelected={langData.code}
                         isClosed={isClosed}
                       />
-                      <span className="flex items-center">
+                      <div className="flex items-center">
                         <ListMenuSvgModule item={item} />
-                      </span>
+                      </div>
                       <div className="w-full flex justify-between items-center">
-                        <ListMenuTitleModule item={item} isClosed={isClosed}  />
+                        <ListMenuTitleModule item={item} isClosed={isClosed} />
                         <ListMenuArrow
                           item={(item = { name: "language" })}
                           isOpen={langDropDown}
@@ -161,10 +180,8 @@ export default function SideBarContent({
                   </div>
 
                   <div
-                   
-                    className={`${
-                      langDropDown ? "h-fit" : "h-0 overflow-hidden"
-                    }
+                    className={`${langDropDown ? "h-fit" : "h-0 overflow-hidden"
+                      }
                   base-transition-1 bg-Field dark:bg-darkGray`}
                   >
                     <DropdownLanguageModule
@@ -176,7 +193,6 @@ export default function SideBarContent({
                   </div>
                 </li>
               )}
-                          
             </React.Fragment>
           ))}
       </ul>

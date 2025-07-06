@@ -29,7 +29,7 @@ export default function ProfileHeaderMobile({ tabsMenu, isClosed, toggleSide }) 
 
   return (
     <>
-      <div className="xs:fixed px-1 sm:fixed top-0 dark:bg-dark-background shadow-md xl:hidden lg:hidden md:flex sm:flex xs:flex z-[51] w-full sm:h-[60px] xs:h-[60px] bg-white flex-rows justify-between items-center">
+      <div className="xs:fixed px-5  sm:fixed top-0 dark:bg-dark-background shadow-md xl:hidden lg:hidden md:flex sm:flex xs:flex z-[51] w-full sm:h-[60px] xs:h-[60px] bg-white flex-rows justify-between items-center">
         <div className="">
           {/* {!state.isCollapsed ? ( */}
           {!isClosed ? (

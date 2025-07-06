@@ -56,11 +56,11 @@ export default function ImageBox({ item, singleLevel }: any) {
           />
         </div>
       )}
-      <div className="w-full flex justify-around flex-wrap mt-3 mb-5 gap-x-2">
+      <div className="w-full flex justify-center flex-wrap mt-3 mb-5 gap-x-5">
         {["png", "fbx", "gif"].map((type) => (
           <button
             key={type}
-            className={`basis-1/4 min-w-[70px] px-5 py-2 mb-2 rounded font-[700] ${
+            className={` min-w-[70px] px-4 py-2 mb-2 rounded-[10px] font-[700] ${
               mode === type
                 ? "dark:bg-dark-yellow dark:text-darkGray bg-light-primary text-white"
                 : "dark:bg-darkGray bg-light-newColors-otherColors-themeBtn dark:text-light-newColors-otherColors-themeBtn"

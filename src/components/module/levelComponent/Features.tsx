@@ -50,7 +50,7 @@ export const Features = ({ levelsTranslatePage }: any) => {
       className="pt-8 flex flex-wrap justify-center dark:text-white"
     >
       <div className="flex justify-center items-end px-3 sm:px-4 2xl:px-6 h-[300px] xl:h-[400px] w-full sm:w-1/2 lg:w-1/3 xl:w-1/4">
-        <div className="w-[90%] relative rounded-[20px] cursor-cell p-3 pb-[15%] pt-[95px] xl:pt-[120px] 2xl:pt-[130px] 3xl:pt-[150px] h-[195px] lg:h-[210px] xl:h-[260px] 2xl:h-[280px] 2xl flex flex-col justify-center items-center dark:bg-[#080807] bg-white base-shadow-1 border border-transparent hover:border hover:border-blueLink hover:dark:border-dark-yellow hover:scale-110 base-transition-1">
+        <div className="w-[90%] relative rounded-[20px] cursor-cell p-3 pb-[15%] pt-[95px] xl:pt-[120px] 2xl:pt-[130px] 3xl:pt-[150px] h-[195px] lg:h-[210px] xl:h-[260px] 2xl:h-[280px] 2xl flex flex-col justify-center items-center dark:bg-[#080807] bg-white base-shadow-1 hover:shadow-[0_0px_20px_rgba(0,0,0,0.45)] dark:hover:shadow-[0_0px_33px_-11px_rgba(255,255,255,255.9)] border-solid border-transparent hover:border-solid hover:border-blueLink hover:dark:border-dark-yellow hover:scale-110 base-transition-1">
           <div className="absolute bottom-[calc(100%-70px)]">
             <div className="w-[140px] h-[140px] flex justify-center items-center bg-bgLightGrey dark:bg-darkGrey_1 rounded-full">
               <LevelIncome className="w-[100px] h-[100px]" />
@@ -69,7 +69,7 @@ export const Features = ({ levelsTranslatePage }: any) => {
       </div>
 
       <div className="flex justify-center items-end px-3 sm:px-4 2xl:px-6 h-[300px] xl:h-[400px] w-full sm:w-1/2 lg:w-1/3 xl:w-1/4">
-        <div className="w-[90%] relative rounded-[20px] cursor-cell p-3 pb-[15%] pt-[95px] xl:pt-[120px] 2xl:pt-[130px] 3xl:pt-[150px] h-[195px] lg:h-[210px] xl:h-[260px] 2xl:h-[280px] 2xl flex flex-col justify-center items-center dark:bg-[#080807] bg-white base-shadow-1 border border-transparent hover:border hover:border-blueLink hover:dark:border-dark-yellow hover:scale-110 base-transition-1">
+        <div className="w-[90%] relative rounded-[20px] cursor-cell p-3 pb-[15%] pt-[95px] xl:pt-[120px] 2xl:pt-[130px] 3xl:pt-[150px] h-[195px] lg:h-[210px] xl:h-[260px] 2xl:h-[280px] 2xl flex flex-col justify-center items-center dark:bg-[#080807] bg-white base-shadow-1 hover:shadow-[0_0px_20px_rgba(0,0,0,0.45)] dark:hover:shadow-[0_0px_33px_-11px_rgba(255,255,255,255.9)]  border-solid border-transparent hover:border-solid hover:border-blueLink hover:dark:border-dark-yellow hover:scale-110 base-transition-1">
           <div className="absolute bottom-[calc(100%-70px)]">
             <div className="w-[140px] h-[140px] flex justify-center items-center bg-bgLightGrey dark:bg-darkGrey_1 rounded-full">
               <LevelOrders className="w-[100px] h-[100px]" />
@@ -88,7 +88,7 @@ export const Features = ({ levelsTranslatePage }: any) => {
       </div>
 
       <div className="flex justify-center items-end px-3 sm:px-4 2xl:px-6 h-[300px] xl:h-[400px] w-full sm:w-1/2 lg:w-1/3 xl:w-1/4">
-        <div className="w-[90%] relative rounded-[20px] cursor-cell p-3 pb-[15%] pt-[95px] xl:pt-[120px] 2xl:pt-[130px] 3xl:pt-[150px] h-[195px] lg:h-[210px] xl:h-[260px] 2xl:h-[280px] 2xl flex flex-col justify-center items-center dark:bg-[#080807] bg-white base-shadow-1 border border-transparent hover:border hover:border-blueLink hover:dark:border-dark-yellow hover:scale-110 base-transition-1">
+        <div className="w-[90%] relative rounded-[20px] cursor-cell p-3 pb-[15%] pt-[95px] xl:pt-[120px] 2xl:pt-[130px] 3xl:pt-[150px] h-[195px] lg:h-[210px] xl:h-[260px] 2xl:h-[280px] 2xl flex flex-col justify-center items-center dark:bg-[#080807] bg-white base-shadow-1 hover:shadow-[0_0px_20px_rgba(0,0,0,0.45)] dark:hover:shadow-[0_0px_33px_-11px_rgba(255,255,255,255.9)]  border-solid border-transparent hover:border-solid hover:border-blueLink hover:dark:border-dark-yellow hover:scale-110 base-transition-1">
           <div className="absolute bottom-[calc(100%-70px)]">
             <div className="w-[140px] h-[140px] flex justify-center items-center bg-bgLightGrey dark:bg-darkGrey_1 rounded-full">
               <LevelDevelopment className="w-[100px] h-[100px]" />
@@ -107,7 +107,7 @@ export const Features = ({ levelsTranslatePage }: any) => {
       </div>
 
       <div className="flex justify-center items-end px-3 sm:px-4 2xl:px-6 h-[300px] xl:h-[400px] w-full sm:w-1/2 lg:w-1/3 xl:w-1/4">
-        <div className="w-[90%] relative rounded-[20px] cursor-cell p-3 pb-[15%] pt-[95px] xl:pt-[120px] 2xl:pt-[130px] 3xl:pt-[150px] h-[195px] lg:h-[210px] xl:h-[260px] 2xl:h-[280px] 2xl flex flex-col justify-center items-center dark:bg-[#080807] bg-white base-shadow-1 border border-transparent hover:border hover:border-blueLink hover:dark:border-dark-yellow hover:scale-110 base-transition-1">
+        <div className="w-[90%] relative rounded-[20px] cursor-cell p-3 pb-[15%] pt-[95px] xl:pt-[120px] 2xl:pt-[130px] 3xl:pt-[150px] h-[195px] lg:h-[210px] xl:h-[260px] 2xl:h-[280px] 2xl flex flex-col justify-center items-center dark:bg-[#080807] bg-white base-shadow-1 hover:shadow-[0_0px_20px_rgba(0,0,0,0.45)] dark:hover:shadow-[0_0px_33px_-11px_rgba(255,255,255,255.9)]  border-solid border-transparent hover:border-solid hover:border-blueLink hover:dark:border-dark-yellow hover:scale-110 base-transition-1">
           <div className="absolute bottom-[calc(100%-70px)]">
             <div className="w-[140px] h-[140px] flex justify-center items-center bg-bgLightGrey dark:bg-darkGrey_1 rounded-full">
               <LevelUpdate className="w-[100px] h-[100px]" />

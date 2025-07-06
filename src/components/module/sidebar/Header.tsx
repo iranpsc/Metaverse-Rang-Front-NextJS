@@ -29,8 +29,8 @@ function SideBarHeader({ isClosed, toggleSide, tabsMenu, params }: any) {
     <>
       <MenuIcon
         className={`${
-          isClosed ? "visible my-2" : "invisible h-0 my-0"
-        } stroke-[#2B2B2B] dark:stroke-white cursor-pointer w-full menu-transition`}
+          isClosed ? "visible my-2 mt-5" : "invisible h-0 my-0"
+        } stroke-[#2B2B2B] dark:stroke-white cursor-pointer w-full menu-transition `}
         alt="toggle"
         onClick={toggleSide}
       />
@@ -38,8 +38,8 @@ function SideBarHeader({ isClosed, toggleSide, tabsMenu, params }: any) {
       <Link
         href={`/${params.lang}`}
         className={`${
-          isClosed ? "" : "flex items-center justify-between"
-        } relative overflow-hidden`}
+          isClosed ? "mt-3" : "flex items-center justify-between"
+        } relative overflow-hidden `}
       >
         <div
           className={`${
@@ -103,7 +103,7 @@ function SideBarHeader({ isClosed, toggleSide, tabsMenu, params }: any) {
       </div>
       <hr
         className={`${
-          isClosed ? "mx-5" : "mx-2"
+          isClosed ? "mx-3 mt-3" : "mx-2"
         } border-[1px] border-[#00000017] dark:border-[#3F3F3F] my-1`}
       />
     </>

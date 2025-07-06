@@ -280,14 +280,14 @@ export default function SideBarContent({
                     className={`${
                       trainingDropDown ? "h-fit" : "h-0 overflow-hidden"
                     }
-                  base-transition-1 bg-Field dark:bg-darkGray`}
+                  base-transition-1 bg-slate-100 dark:bg-darkGray`}
                   >
                     <Link
                       href={`/${params.lang}/education/category/all`}
-                      className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px] ps-3
+                      className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px] 
                     group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer menu-transition
                     ${
-                      isClosed ? "justify-start gap-0" : "justify-start gap-2"
+                      isClosed ? "justify-start gap-0" : "justify-start gap-2 ps-3"
                     }`}
                     >
                       <span className="ps-[15px]">
@@ -326,14 +326,14 @@ export default function SideBarContent({
                     className={`${
                       trainingDropDown ? "h-fit" : "h-0 overflow-hidden"
                     }
-                  base-transition-1 bg-Field dark:bg-darkGray`}
+                  base-transition-1 bg-slate-100 dark:bg-darkGray`}
                   >
                     <Link
                       href={`/${params.lang}/education`}
-                      className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px] ps-3
+                      className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px]
                     group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer menu-transition
                     ${
-                      isClosed ? "justify-start gap-0" : "justify-start gap-2"
+                      isClosed ? "justify-start gap-0" : "justify-start gap-2 ps-3"
                     }`}
                     >
                       <span className="ps-[15px]">
