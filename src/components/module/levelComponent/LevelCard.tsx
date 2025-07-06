@@ -41,26 +41,30 @@ export default function LevelCard({
             {findByUniqueId(mainData, 393)}
             <span className="ps-1 font-medium">{item.score}</span>
           </span>
-          <span className="mb-3 w-full flex justify-evenly font-azarMehr text-[16px] lg:text-[20px]">
-            <span className="flex items-center dark:bg-black bg-[#F6F6F6] rounded-[20px] p-[4px] w-5/12">
+          <span className="mb-3 w-full flex items-center justify-evenly font-azarMehr text-[16px] lg:text-[20px]">
+            <span className="flex items-center justify-between dark:bg-black bg-[#F6F6F6] rounded-[20px] px-3 py-1 w-5/12">
               <FlagSatar className="stroke-[#0066FF] dark:stroke-[#FFC700] text-[24px]" />
-              <span className="dark:text-[#868B90] text-[#84858F] px-1 font-normal">
-                {/* {localFind("rank")} */}
-                {findByUniqueId(mainData, 534)}
-              </span>
-              <span className="dark:text-[#fff] text-[#33353B] font-normal">
-                {item.rank}
-              </span>
+              <div className="flex items-center gap-1">
+                <span className="dark:text-[#868B90] text-[#84858F] px-1 font-normal">
+                  {/* {localFind("rank")} */}
+                  {findByUniqueId(mainData, 534)}
+                </span>
+                <span className="dark:text-[#fff] text-[#33353B] font-normal">
+                  {item.rank}
+                </span>
+              </div>
             </span>
-            <span className="flex items-center dark:bg-black bg-[#F6F6F6] rounded-[20px] p-[4px] w-5/12">
+            <span className="flex items-center justify-between dark:bg-black bg-[#F6F6F6] rounded-[20px] py-1 px-3 w-5/12 ">
               <StairsUp className="stroke-[#0066FF] dark:stroke-[#FFC700] text-[24px]" />
-              <span className="dark:text-[#868B90] text-[#84858F] px-1 font-normal text-[16px] lg:text-[20px]">
-                {/* {localFind("level")}: */}
-                {findByUniqueId(mainData, 724)}
-              </span>
-              <span className="dark:text-[#fff] text-[#33353B] font-normal text-[16px] lg:text-[20px]">
-                {item.slug}
-              </span>
+              <div className="flex items-center gap-1">
+                <span className="dark:text-[#868B90] text-[#84858F] px-1 font-normal text-[16px] lg:text-[20px]">
+                  {/* {localFind("level")}: */}
+                  {findByUniqueId(mainData, 724)}
+                </span>
+                <span className="dark:text-[#fff] text-[#33353B] font-normal text-[16px] lg:text-[20px]">
+                  {item.slug}
+                </span>
+              </div>
             </span>
           </span>
         </div>
