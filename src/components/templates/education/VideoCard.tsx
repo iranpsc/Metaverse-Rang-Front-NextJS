@@ -58,18 +58,18 @@ export default function VideoCard({ item, params, theme }: any) {
       </div>
 
       <div className="w-[95%] flex flex-row justify-start items-center gap-1 mt-[-10px] pe-16">
-        <p className="text-start text-gray dark:text-dark-gray font-medium font-azarMehr text-[13px] 3xl:text-[16px]">
+        <Link href={`/${params.lang}/education/category/${item.category.slug}`} className="text-start text-gray dark:text-dark-gray font-medium font-azarMehr text-[13px] 3xl:text-[16px]">
           {item.category.name}
-        </p>
+        </Link>
         <span className="font-azarMehr text-gray dark:text-dark-gray">/</span>
-        <p
+        <Link href={`/${params.lang}/education/category/${item.category.slug}/${item.sub_category.slug}`}
           className="text-start text-gray dark:text-dark-gray whitespace-nowrap font-medium font-azarMehr text-[13px] 3xl:text-[16px]"
           data-tooltip-id={item.sub_category.name}
         >
           {item.sub_category.name.length > 30
             ? item.sub_category.name.slice(0, 25) + "..."
             : item.sub_category.name}
-        </p>
+        </Link>
         <ReactTooltip
           id={item.sub_category.name}
           content={item.sub_category.name}
@@ -87,11 +87,10 @@ export default function VideoCard({ item, params, theme }: any) {
         className="w-[95%]"
         href={`/${params.lang}/education/category/${item.category.slug}/${item.sub_category.slug}/${item.slug}`}
       >
-<p
+        <p
           ref={titleRef}
-          className={`dark:text-white text-blac text-start w-full font-azarMehr truncate cursor-pointer font-bold mt-[8px] text-[18px] 3xl:text-[22px] ${
-            isTruncated ? "hover:overflow-visible hover:animate-rtlMarquee" : ""
-          }`}
+          className={`dark:text-white text-blac text-start w-full font-azarMehr truncate cursor-pointer font-bold mt-[8px] text-[18px] 3xl:text-[22px] ${isTruncated ? "hover:overflow-visible hover:animate-rtlMarquee" : ""
+            }`}
         >
           {item.title}
         </p>
@@ -114,18 +113,24 @@ export default function VideoCard({ item, params, theme }: any) {
           </div>
         </Link>
         <div className="flex flex-row justify-start items-center gap-5">
-          <span className="font-azarMehr text-gray dark:text-dark-gray text-[13px] 3xl:text-[18px]">
-            {formatNumber(item.dislikes_count)}
-          </span>
-          <Like className="stroke-gray dark:stroke-dark-gray stroke-2 w-[18px] h-[18px]" />
-          <span className="font-azarMehr text-gray dark:text-dark-gray text-[13px] 3xl:text-[18px]">
-            {formatNumber(item.likes_count)}
-          </span>
-          <Dislike className="stroke-gray dark:stroke-dark-gray stroke-2" />
-          <span className="font-azarMehr text-gray dark:text-dark-gray text-[13px] 3xl:text-[18px]">
-            {formatNumber(item.views_count)}
-          </span>
-          <View className="stroke-gray dark:stroke-dark-gray stroke-2" />
+          <div className="flex items-center gap-[5px]">
+            <span className="font-azarMehr text-gray dark:text-dark-gray text-[13px] 3xl:text-[18px]">
+              {formatNumber(item.dislikes_count)}
+            </span>
+            <Like className="stroke-gray dark:stroke-dark-gray stroke-2 w-[18px] h-[18px]" />
+          </div>
+          <div className="flex items-center gap-[5px]">
+            <span className="font-azarMehr text-gray dark:text-dark-gray text-[13px] 3xl:text-[18px]">
+              {formatNumber(item.likes_count)}
+            </span>
+            <Dislike className="stroke-gray dark:stroke-dark-gray stroke-2" />
+          </div>
+          <div className="flex items-center gap-[5px]">
+            <span className="font-azarMehr text-gray dark:text-dark-gray text-[13px] 3xl:text-[18px]">
+              {formatNumber(item.views_count)}
+            </span>
+            <View className="stroke-gray dark:stroke-dark-gray stroke-2" />
+          </div>
         </div>
       </div>
     </div>
