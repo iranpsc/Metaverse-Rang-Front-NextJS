@@ -118,7 +118,7 @@ export default function ({ params }: any) {
     {
       name: "education",
       en: "education",
-      fa: "آموزش",
+      fa: " آموزش ها",
       font: "font-bold",
       link: `/${params.lang}/education`,
     },

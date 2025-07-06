@@ -251,6 +251,8 @@ function Footer({ footerTabs, mainData }: any) {
               ) || {}
             ).translation || "undefined"} */}
             {findByUniqueId(mainData, 274)}
+            <br />
+            {findByUniqueId(mainData, 275)}
           </p>
         </div>
         <div className="xl:col-span-2 col-span-6 mt-6 w-full flex flex-col items-center ">
@@ -262,6 +264,7 @@ function Footer({ footerTabs, mainData }: any) {
             ).translation || "undefined"} */}
             {findByUniqueId(mainData, 276)}
           </p>
+
           <div className="xl:grid xl:grid-cols-5 3xl:grid-cols-7  flex flex-wrap gap-3 max-w-fit lg:w-full  justify-center mt-6 ">
             {socialItems.map((item: any) => (
               <div key={item.id}>
