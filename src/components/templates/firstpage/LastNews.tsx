@@ -54,24 +54,28 @@ const LastNews = ({ mainData, params }: any) => {
             className="w-[100%] min-h-[240px] base-transition-1 shadow-md hover:shadow-xl hover:dark:shadow-dark  rounded-[20px] bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-6 items-center overflow-hidden"
           >
             <div className="w-full flex flex-col justify-center items-center max-h-[265px] overflow-hidden">
-                          <Link
-              href={item.url}
-              className=" group w-full  rounded-t-[10px] flex relative"
-            >
-              <Image
-                src={`/firstpage/static-news-${index}.webp`}
-                alt="latest news"
-                width={500}
-                height={375}
-                // priority={true}
-                loading="lazy"
-                quality={75}
-                className=" w-full h-full transition-all duration-150 ease-in-out rounded-t-[10px] object-contain bg-cover "
-              />
-              <div className="w-full h-full bg-black/30 absolute z-0 top-0 flex justify-center items-center rounded-t-[10px]">
-                <Video className="w-[78px] h-[78px] p-3 fill-blueLink dark:fill-dark-yellow  rounded-full bg-white/80" />
-              </div>
-            </Link>
+              <Link
+                href={item.url}
+                className=" group w-full  rounded-t-[10px] flex relative"
+              >
+                <Image
+                  src={`/firstpage/static-news-${index}.webp`}
+                  alt="latest news"
+                  width={500}
+                  height={375}
+                  // priority={true}
+                  loading="lazy"
+                  quality={75}
+                  className=" w-full h-full transition-all duration-150 ease-in-out rounded-t-[10px] object-contain bg-cover "
+                />
+                <div className="w-full h-full bg-black/30 absolute z-0 top-0 flex justify-center items-center rounded-t-[10px]">
+                  <div className="w-fit hover:scale-105 duration-100 rounded-full bg-white/30 flex items-center justify-center p-5">
+                    <Video
+                      width={40}
+                      height={40} />
+                  </div>
+                </div>
+              </Link>
             </div>
 
             <div className="py-3 px-3 flex flex-col justify-between gap-5 w-full">

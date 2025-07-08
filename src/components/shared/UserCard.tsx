@@ -54,7 +54,6 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
         {!hidePreviousLevels && (
           <div className="w-full min-h-[75px]  pb-2">
             <div className="w-full flex flex-wrap justify-center   gap-[-10px]">
-              {/* نمایش جم‌های جمع‌آوری‌شده */}
               {item.levels?.previous?.map((item2: any, index2: any) => (
                 <GemImage
                   key={index2}
@@ -63,12 +62,9 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
                   picSize={30}
                 />
               ))}
-              {/* نمایش جای خالی برای جم‌های باقی‌مانده */}
               {Array.from({ length: 13 - (item.levels?.previous?.length || 0) }).map((_, index) => (
                 
                   <img src="/Frame1000003193.png" alt="lock gem" className="w-[30px] h-[30px]" />
-
-                
               ))}
             </div>
           </div>

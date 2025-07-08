@@ -17,7 +17,7 @@ export { default as Contact } from "../../../public/svg/education/contact.svg";
 export { default as Version } from "../../../public/svg/education/version.svg";
 export { default as Overview } from "../../../public/svg/education/overview.svg";
 export { default as Calender } from "../../../public/svg/education/calender.svg";
-export { default as Video } from "../../../public/svg/education/video.svg";
+export { default as Video } from "../../../public/svg/education/play-icon.svg";
 export { default as Videos } from "../../../public/svg/education/videos.svg";
 export { default as Categories } from "../../../public/svg/education/categories.svg";
 export { default as Trainers } from "../../../public/svg/education/trainers.svg";
