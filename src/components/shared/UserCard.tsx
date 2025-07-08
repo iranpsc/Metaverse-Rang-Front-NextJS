@@ -63,8 +63,14 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
                 />
               ))}
               {Array.from({ length: 13 - (item.levels?.previous?.length || 0) }).map((_, index) => (
-                
-                  <img src="/Frame1000003193.png" alt="lock gem" className="w-[30px] h-[30px]" />
+                <Image
+                  src={`/Frame1000003193.png`}
+                  alt="LockGem"
+                  width={30}
+                  height={30}
+                  loading="lazy"
+                  className=" w-[30px] h-[30px]"
+                />
               ))}
             </div>
           </div>
