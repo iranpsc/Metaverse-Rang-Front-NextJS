@@ -42,7 +42,7 @@ export default function LevelCard({
             <span className="ps-1 font-medium">{item.score}</span>
           </span>
           <span className="mb-3 w-full flex items-center justify-evenly font-azarMehr text-[16px] lg:text-[20px]">
-            <span className="flex items-center justify-between dark:bg-black bg-[#F6F6F6] rounded-[20px] px-3 py-1 w-5/12">
+            <span className="flex items-center justify-between dark:bg-black bg-[#F6F6F6] rounded-[20px] px-3 3xl:px-5 py-1 w-5/12">
               <FlagSatar className="stroke-[#0066FF] dark:stroke-[#FFC700] text-[24px]" />
               <div className="flex items-center gap-1">
                 <span className="dark:text-[#868B90] text-[#84858F] px-1 font-normal">
@@ -54,7 +54,7 @@ export default function LevelCard({
                 </span>
               </div>
             </span>
-            <span className="flex items-center justify-between dark:bg-black bg-[#F6F6F6] rounded-[20px] py-1 px-3 w-5/12 ">
+            <span className="flex items-center justify-between dark:bg-black bg-[#F6F6F6] rounded-[20px] py-1 px-3 3xl:px-5 w-5/12 ">
               <StairsUp className="stroke-[#0066FF] dark:stroke-[#FFC700] text-[24px]" />
               <div className="flex items-center gap-1">
                 <span className="dark:text-[#868B90] text-[#84858F] px-1 font-normal text-[16px] lg:text-[20px]">

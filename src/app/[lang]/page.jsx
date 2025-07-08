@@ -284,7 +284,7 @@ export default async function LangPage({ params }) {
                   <h3 className="text-white font-bold text-[16px] 2xl:text-[24px] 3xl:text-[28px] ps-2 font-azarMehr">
                     {/* {localFind("real interactions")} */}
                     {findByUniqueId(mainData, 486)}
-                    {findByUniqueId(mainData, 486)}
+
                   </h3>
                 </div>
                 <p className="w-full text-justify text-white font-azarMehr font-medium text-[14px] md:text-[16px] 2xl:text-[18px]">
