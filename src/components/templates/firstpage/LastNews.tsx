@@ -6,27 +6,65 @@ import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import Image from "next/image";
 import Link from "next/link";
 
-const LastNews = ({ mainData, params }: any) => {
-  const staticData = [
+// تعریف نوع برای params
+interface Params {
+  lang: "fa" | "en"; // محدود کردن lang به fa یا en
+}
+
+// تعریف نوع برای staticData
+interface NewsItem {
+  title: { fa: string; en: string };
+  desc: { fa: string; en: string };
+  url: string;
+  date: { fa: string; en: string };
+}
+
+const LastNews = ({ mainData, params }: { mainData: any; params: Params }) => {
+  const staticData: NewsItem[] = [
     {
-      title:
-        "کسب درآمد از اولین متاورس ایران متاورس رنگ، فرصتی نوین برای کارآفرینان دیجیتال",
-      desc: "در حال حاضر هیچ قانونی وجود ندارد که به طور خاص متاورس یا سایر دنیای مجازی را تنظیم کند. با این حال، همان قوانین کلی که در مورد اینترنت اعمال می شود، در مورد Metaverse نیز اعمال می شود، از جمله قانون کپی رایت، قانون افترا، قانون قرارداد و غیره است.",
+      title: {
+        fa: "کسب درآمد از اولین متاورس ایران متاورس رنگ، فرصتی نوین برای کارآفرینان دیجیتال",
+        en: "Earning Income from Iran's First Metaverse, Rang Metaverse, a New Opportunity for Digital Entrepreneurs",
+      },
+      desc: {
+        fa: "در حال حاضر هیچ قانونی وجود ندارد که به طور خاص متاورس یا سایر دنیای مجازی را تنظیم کند. با این حال، همان قوانین کلی که در مورد اینترنت اعمال می‌شود، در مورد متاورس نیز اعمال می‌شود، از جمله قانون کپی‌رایت، قانون افترا، قانون قرارداد و غیره.",
+        en: "Currently, there is no specific law regulating the metaverse or other virtual worlds. However, the general laws that apply to the internet also apply to the metaverse, including copyright law, defamation law, contract law, and more.",
+      },
       url: "https://meta.irpsc.com/2024/07/12/earning-income-from-the-first-metaverse-iran-metaverse-rang/",
-      date: "22/تیر/1403",
+      date: {
+        fa: "22/تیر/1403",
+        en: "12/July/2024",
+      },
     },
     {
-      title:
-        "بازپس گیری جزیره آریانا در اولین متاورس ایران متاورس رنگ با اهدای 963 قطعه زمین(VOD) رایگان به ارزش 50371200000 ریال",
-      desc: "فضای مجازی ممکن است جملات زیادی از زبان مدیران اجرایی مانند مارک زاکربرگ یا ساتیا نادلا در مورد متاورس شنیده باشید متاورس آینده اینترنت است",
-      url: "https://meta.irpsc.com/2024/07/17/%d8%a8%d8%a7%d8%b2%d9%be%d8%b3-%da%af%db%8c%d8%b1%db%8c-%d8%ac%d8%b2%db%8c%d8%b1%d9%87-%d8%a2%d8%b1%db%8c%d8%a7%d9%86%d8%a7-%d8%af%d8%b1-%d8%a7%d9%88%d9%84%db%8c%d9%86-%d9%85%d8%aa%d8%a7%d9%88%d8%b1/",
-      date: "27/تیر/1403",
+      title: {
+        fa: "بازپس‌گیری جزیره آریانا در اولین متاورس ایران متاورس رنگ با اهدای 963 قطعه زمین(VOD) رایگان به ارزش 50371200000 ریال",
+        en: "Reclaiming Ariana Island in Iran's First Metaverse, Rang Metaverse, with 963 Free VOD Land Plots Worth 50,371,200,000 Rials",
+      },
+      desc: {
+        fa: "فضای مجازی ممکن است جملات زیادی از زبان مدیران اجرایی مانند مارک زاکربرگ یا ساتیا نادلا در مورد متاورس شنیده باشید. متاورس آینده اینترنت است.",
+        en: "You may have heard many statements from executives like Mark Zuckerberg or Satya Nadella about the metaverse. The metaverse is the future of the internet.",
+      },
+      url: "https://meta.irpsc.com/2024/07/17/reclaiming-ariana-island-in-irans-first-metaverse/",
+      date: {
+        fa: "27/تیر/1403",
+        en: "17/July/2024",
+      },
     },
     {
-      title: "VOD تجاری دارای بنا چیست؟ |متاورس",
-      desc: "متاورس رنگ اولین متاورس ایران با هدف توسعه تاورس ملی اهداف زیادی از قبیل عدم خروج ارز از کشور و در فازهای بعدی ورود ارز به کشور را دارد که این ها همه بخشی کوچکی از اهداف متاورس ملی می باشد",
+      title: {
+        fa: "VOD تجاری دارای بنا چیست؟ | متاورس",
+        en: "What is a Commercial VOD with a Building? | Metaverse",
+      },
+      desc: {
+        fa: "متاورس رنگ اولین متاورس ایران با هدف توسعه تاورس ملی اهداف زیادی از قبیل عدم خروج ارز از کشور و در فازهای بعدی ورود ارز به کشور را دارد که این‌ها همه بخشی کوچکی از اهداف متاورس ملی می‌باشد.",
+        en: "Rang Metaverse, Iran's first metaverse, aims to develop a national metaverse with goals such as preventing currency outflow and, in later phases, bringing currency into the country, which is just a small part of the national metaverse's objectives.",
+      },
       url: "https://video.irpsc.com/watch/F2x6VMfXJK8xhhT",
-      date: "6/مرداد/1403",
+      date: {
+        fa: "6/مرداد/1403",
+        en: "27/July/2024",
+      },
     },
   ];
 
@@ -41,7 +79,9 @@ const LastNews = ({ mainData, params }: any) => {
             <p className="font-azarMehr font-medium text-[12px] md:text-[16px] lg:text-[18px] xl:text-[20px] dark:text-white">
               {findByUniqueId(mainData, 171)}
             </p>
-            <ArrowRight className="dark:stroke-white stroke-black rotate-180 w-[24px] h-full ltr:rotate-0" />
+            <ArrowRight
+              className={`dark:stroke-white stroke-black rotate-180 w-[24px] h-full ${params.lang === "en" ? "ltr:rotate-0" : ""}`}
+            />
           </div>
         </a>
       </div>
@@ -50,7 +90,6 @@ const LastNews = ({ mainData, params }: any) => {
         {staticData.map((item, index) => {
           const titleRef = useRef<HTMLHeadingElement>(null);
           const [isTruncated, setIsTruncated] = useState(false);
-
 
           const checkTruncation = () => {
             const el = titleRef.current;
@@ -61,19 +100,14 @@ const LastNews = ({ mainData, params }: any) => {
 
           useEffect(() => {
             checkTruncation();
-
-            const observer = new ResizeObserver(() => {
-              checkTruncation();
-            });
-
+            const observer = new ResizeObserver(checkTruncation);
             if (titleRef.current) {
               observer.observe(titleRef.current);
             }
-
             return () => {
               observer.disconnect();
             };
-          }, [item.title]);
+          }, [item.title[params.lang]]);
 
           return (
             <div
@@ -87,7 +121,7 @@ const LastNews = ({ mainData, params }: any) => {
                 >
                   <Image
                     src={`/firstpage/static-news-${index}.webp`}
-                    alt="latest news"
+                    alt={params.lang === "fa" ? "آخرین اخبار" : "latest news"}
                     width={500}
                     height={375}
                     loading="lazy"
@@ -105,19 +139,22 @@ const LastNews = ({ mainData, params }: any) => {
               <div className="py-3 px-3 flex flex-col justify-between gap-5 w-full">
                 <div className="w-[95%] flex flex-row justify-start items-center gap-1 mt-[-20px]">
                   <p className="text-start text-gray dark:text-dark-gray font-medium font-azarMehr text-[13px] 3xl:text-[16px] cursor-pointer hover:text-blueLink hover:dark:text-dark-yellow">
-                    {item.date}
+                    {item.date[params.lang]}
                   </p>
                 </div>
 
-                <a className="w-[95%] mt-[-10px]" href={item.url}>
+                <a className="w-[95%] mt-[-10px] "  href={item.url}>
                   <h4
                     ref={titleRef}
-                    className={`text-start w-full font-azarMehr truncate cursor-pointer font-bold text-[18px] xl:text-[20px] 3xl:text-[22px] dark:text-white text-gray ${isTruncated ? "hover:overflow-visible hover:animate-rtlMarquee" : ""
-                      }`}
+                    className={`text-start w-full font-azarMehr truncate cursor-pointer font-bold text-[18px] xl:text-[20px] 3xl:text-[22px] dark:text-white text-gray ${
+                      isTruncated ? "hover:overflow-visible hover:animate-rtlMarquee ltr:hover:animate-ltrMarquee " : ""
+                    }`}
                   >
-                    {item.title}
+                    {item.title[params.lang]}
                   </h4>
-                  <p className="line-clamp-2 text-darkGray dark:text-lightGray">{item.desc}</p>
+                  <p className="line-clamp-2 text-darkGray dark:text-lightGray">
+                    {item.desc[params.lang]}
+                  </p>
                 </a>
 
                 <div className="w-[95%] flex flex-row justify-between items-center">
@@ -125,7 +162,7 @@ const LastNews = ({ mainData, params }: any) => {
                     <div className="flex flex-row justify-start items-center gap-2">
                       <Image
                         src="/firstpage/alizadeh.webp"
-                        alt="citizen image"
+                        alt={params.lang === "fa" ? "تصویر شهروند" : "citizen image"}
                         width={1000}
                         height={1000}
                         loading="lazy"

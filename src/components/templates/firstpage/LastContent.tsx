@@ -1,144 +1,209 @@
+"use client";
+import { useEffect, useRef, useState } from "react";
 import { ArrowRight } from "@/components/svgs";
 import { Dislike, Like, View, Video } from "@/components/svgs/SvgEducation";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-
 import Image from "next/image";
 import Link from "next/link";
 
-const LastContent = ({ mainData, params }: any) => {
-  // function localFind(_name: any) {
-  //   return firstPageArrayContent.find((item: any) => item.name == _name)
-  //     .translation;
-  // }
 
-  const staticData = [
+interface Params {
+  lang: "fa" | "en"; 
+}
+
+
+interface ContentItem {
+  title: { fa: string; en: string };
+  desc: { fa: string; en: string };
+  url: string;
+  categories: { fa: string; en: string };
+}
+
+const LastContent = ({ mainData, params }: { mainData: any; params: Params }) => {
+  const staticData: ContentItem[] = [
     {
-      title: "استاندارد های متاورس",
-      desc: "در حال حاضر هیچ قانونی وجود ندارد که به طور خاص متاورس یا سایر دنیای مجازی را تنظیم کند. با این حال، همان قوانین کلی که در مورد اینترنت اعمال می شود، در مورد Metaverse نیز اعمال می شود، از جمله قانون کپی رایت، قانون افترا، قانون قرارداد و غیره است.",
+      title: {
+        fa: "استانداردهای متاورس",
+        en: "Metaverse Standards",
+      },
+      desc: {
+        fa: "در حال حاضر هیچ قانونی وجود ندارد که به طور خاص متاورس یا سایر دنیای مجازی را تنظیم کند. با این حال، همان قوانین کلی که در مورد اینترنت اعمال می‌شود، در مورد متاورس نیز اعمال می‌شود، از جمله قانون کپی‌رایت، قانون افترا، قانون قرارداد و غیره.",
+        en: "Currently, there is no specific law regulating the metaverse or other virtual worlds. However, the general laws that apply to the internet also apply to the metaverse, including copyright law, defamation law, contract law, and more.",
+      },
       url: "https://rgb.irpsc.com/blogs/metaverse-standards.html",
-      categories: "مقالات",
+      categories: {
+        fa: "مقالات",
+        en: "Articles",
+      },
     },
     {
-      title: "متاورس چیست",
-      desc: "فضای مجازی ممکن است جملات زیادی از زبان مدیران اجرایی مانند مارک زاکربرگ یا ساتیا نادلا در مورد متاورس شنیده باشید متاورس آینده اینترنت است",
+      title: {
+        fa: "متاورس چیست",
+        en: "What is the Metaverse",
+      },
+      desc: {
+        fa: "فضای مجازی ممکن است جملات زیادی از زبان مدیران اجرایی مانند مارک زاکربرگ یا ساتیا نادلا در مورد متاورس شنیده باشید. متاورس آینده اینترنت است.",
+        en: "You may have heard many statements from executives like Mark Zuckerberg or Satya Nadella about the metaverse. The metaverse is the future of the internet.",
+      },
       url: "https://rgb.irpsc.com/blogs/metaverse.html",
-      categories: "مقالات",
+      categories: {
+        fa: "مقالات",
+        en: "Articles",
+      },
     },
     {
-      title: "متاورس ملی",
-      desc: "متاورس رنگ اولین متاورس ایران با هدف توسعه تاورس ملی اهداف زیادی از قبیل عدم خروج ارز از کشور و در فازهای بعدی ورود ارز به کشور را دارد که این ها همه بخشی کوچکی از اهداف متاورس ملی می باشد",
+      title: {
+        fa: "متاورس ملی",
+        en: "National Metaverse",
+      },
+      desc: {
+        fa: "متاورس رنگ اولین متاورس ایران با هدف توسعه تاورس ملی اهداف زیادی از قبیل عدم خروج ارز از کشور و در فازهای بعدی ورود ارز به کشور را دارد که این‌ها همه بخشی کوچکی از اهداف متاورس ملی می‌باشد.",
+        en: "Rang Metaverse, Iran's first metaverse, aims to develop a national metaverse with goals such as preventing currency outflow and, in later phases, bringing currency into the country, which is just a small part of the national metaverse's objectives.",
+      },
       url: "https://rgb.irpsc.com/blogs/national-metaverse.html",
-      categories: "مقالات",
+      categories: {
+        fa: "مقالات",
+        en: "Articles",
+      },
     },
   ];
 
+
+  const direction = params.lang === "fa" ? "rtl" : "ltr";
+
   return (
-    <>
-      <div className="w-full flex flex-row justify-between items-center ">
+    <div dir={direction} className={`${direction === "rtl" ? "text-right" : "text-left"}`}>
+      <div className="w-full flex flex-row justify-between items-center">
         <p className="font-azarMehr font-medium text-[16px] md:text-[20px] lg:text-[28px] xl:text-[32px] dark:text-white">
-          {/* {localFind("latest content")} */}
           {findByUniqueId(mainData, 497)}
         </p>
-
-        <a href="https://uni.irpsc.com/category/blogs/">
+        <a href="https://uni.irpsc.com/category/blogs/" target="_blank">
           <div className="flex justify-center items-center gap-4">
             <p className="font-azarMehr font-medium text-[12px] md:text-[16px] lg:text-[18px] xl:text-[20px] dark:text-white">
-              {/* {localFind("view all")} */}
               {findByUniqueId(mainData, 171)}
             </p>
-            <ArrowRight className="dark:stroke-white stroke-black rotate-180 w-[24px] h-full ltr:rotate-0" />
+            <ArrowRight
+              className={`dark:stroke-white stroke-black w-[24px] h-full ${direction === "rtl" ? "rotate-180" : "rotate-0"}`}
+            />
           </div>
         </a>
       </div>
 
-      <div className="grid  lg:grid-cols-2 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 xs:grid-cols-1 gap-10 mt-4 md:mt-12">
-        {staticData.map((item, index) => (
-          <div
-            key={index}
-            className="w-[100%] min-h-[240px] shadow-md rounded-[20px] overflow-hidden bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-6 items-center"
-          >
-            <div className="w-full flex flex-col justify-center items-center max-h-[265px] overflow-hidden">
-                          <Link
-              href={item.url}
-              target="_blank"
-              className=" group w-full"
-              aria-label=""
-            >
-              <Image
-                src={`/firstpage/img-N-${index}.webp`}
-                alt="latest content"
-                width={500}
-                height={357}
-                quality={50}
-                loading="lazy"
-                className="w-full h-full rounded-t-[10px] object-contain"
-              />
-            </Link>
-            </div>
+      <div className="grid lg:grid-cols-2 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 xs:grid-cols-1 gap-10 mt-4 md:mt-12">
+        {staticData.map((item, index) => {
+          const titleRef = useRef<HTMLHeadingElement>(null);
+          const [isTruncated, setIsTruncated] = useState(false);
 
-            <div className="py-3 px-3 flex flex-col justify-between gap-5">
-              <div className=" w-[95%] flex flex-row justify-start items-center gap-1  mt-[-20px] ">
-                <p className="text-start text-gray dark:text-dark-gray font-medium font-azarMehr text-[13px]  3xl:text-[16px] cursor-pointer hover:text-blueLink hover:dark:text-dark-yellow">
-                  {item.categories}
-                </p>
+          const checkTruncation = () => {
+            const el = titleRef.current;
+            if (el) {
+              setIsTruncated(el.scrollWidth > el.clientWidth);
+            }
+          };
+
+          useEffect(() => {
+            checkTruncation();
+            const observer = new ResizeObserver(checkTruncation);
+            if (titleRef.current) {
+              observer.observe(titleRef.current);
+            }
+            return () => {
+              observer.disconnect();
+            };
+          }, [item.title[params.lang]]);
+
+          return (
+            <div
+              key={index}
+              className="w-full min-h-[240px] shadow-md rounded-[20px] overflow-hidden bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-6 items-center"
+            >
+              <div className="w-full flex flex-col justify-center items-center max-h-[265px] overflow-hidden">
+                <Link
+                  href={item.url}
+                  target="_blank"
+                  className="group w-full"
+                  aria-label={params.lang === "fa" ? "آخرین محتوا" : "latest content"}
+                >
+                  <Image
+                    src={`/firstpage/img-N-${index}.webp`}
+                    alt={params.lang === "fa" ? "آخرین محتوا" : "latest content"}
+                    width={500}
+                    height={357}
+                    quality={50}
+                    loading="lazy"
+                    className="w-full h-full rounded-t-[10px] object-contain"
+                  />
+                </Link>
               </div>
 
-              <a className="w-[95%] mt-[-10px]" href={item.url}>
-                <h4 className="text-start  w-full font-azarMehr truncate cursor-pointer font-bold text-[18px] xl:text-[20px] 3xl:text-[22px] dark:text-white text-gray ">
-                  {item.title}
-                </h4>
-                <p className="line-clamp-2 text-darkGray dark:text-lightGray"> {item.desc}</p>
-              </a>
+              <div className="py-3 px-3 flex flex-col justify-between gap-5 w-full">
+                <div className="w-[95%] flex flex-row justify-start items-center gap-1 mt-[-20px]">
+                  <p className="text-gray dark:text-dark-gray font-medium font-azarMehr text-[13px] 3xl:text-[16px] cursor-pointer hover:text-blueLink hover:dark:text-dark-yellow">
+                    {item.categories[params.lang]}
+                  </p>
+                </div>
 
-              <div className="w-[95%] flex flex-row justify-between  items-center">
-                <Link href={`/${params.lang}/citizen/Hm-2000003`} target="_blank">
-                  <div className="flex flex-row justify-start items-center gap-2">
-                    <Image
-                      src="/firstpage/alizadeh.webp"
-                      alt="citizen image"
-                      width={1000}
-                      height={1000}
-                      loading="lazy"
-                      className="w-[45px] h-[45px] rounded-full object-cover cursor-pointer transition-all duration-150 ease-in-out"
-                    // onClick={() => pushRgb(item.creator.code)}
-                    />
-                    <span
-                      className="text-blueLink  cursor-pointer text-[14px] 3xl:text-[18px] whitespace-nowrap font-medium hover:font-bold uppercase "
-                    // onClick={() => pushRgb(item.creator.code)}
-                    >
-                      Hm-2000003
+                <a className="w-[95%] mt-[-10px]" href={item.url}>
+                  <h4
+                    ref={titleRef}
+                    className={`w-full font-azarMehr truncate cursor-pointer font-bold text-[18px] xl:text-[20px] 3xl:text-[22px] dark:text-white text-gray ${
+                      isTruncated
+                        ? direction === "rtl"
+                          ? "hover:overflow-visible hover:animate-rtlMarquee"
+                          : "hover:overflow-visible hover:animate-ltrMarquee"
+                        : ""
+                    } ${direction === "rtl" ? "text-right" : "text-left"}`}
+                  >
+                    {item.title[params.lang]}
+                  </h4>
+                  <p className={`line-clamp-2 text-darkGray dark:text-lightGray ${direction === "rtl" ? "text-right" : "text-left"}`}>
+                    {item.desc[params.lang]}
+                  </p>
+                </a>
+
+                <div className="w-[95%] flex flex-row justify-between items-center">
+                  <Link href={`/${params.lang}/citizen/Hm-2000003`} target="_blank">
+                    <div className="flex flex-row justify-start items-center gap-2">
+                      <Image
+                        src="/firstpage/alizadeh.webp"
+                        alt={params.lang === "fa" ? "تصویر شهروند" : "citizen image"}
+                        width={1000}
+                        height={1000}
+                        loading="lazy"
+                        className="w-[45px] h-[45px] rounded-full object-cover cursor-pointer transition-all duration-150 ease-in-out"
+                      />
+                      <span className="text-blueLink cursor-pointer text-[14px] 3xl:text-[18px] whitespace-nowrap font-medium hover:font-bold uppercase">
+                        Hm-2000003
+                      </span>
+                    </div>
+                  </Link>
+                  <div className="flex flex-row justify-end items-center gap-4 md:gap-3 xl:gap-4 3xl:gap-5">
+                    <span className="flex items-center gap-2">
+                      <span className="whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray">
+                        125
+                      </span>
+                      <Like className="stroke-gray dark:stroke-dark-gray stroke-2 w-[18px] h-[18px]" />
+                    </span>
+                    <span className="flex items-center gap-2">
+                      <span className="whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray">
+                        10
+                      </span>
+                      <Dislike className="stroke-gray dark:stroke-dark-gray stroke-2" />
+                    </span>
+                    <span className="flex items-center gap-2">
+                      <span className="whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray">
+                        610
+                      </span>
+                      <View className="stroke-gray dark:stroke-dark-gray stroke-2 ms-1" />
                     </span>
                   </div>
-                </Link>
-                <div className="flex flex-row justify-end items-center gap-4 md:gap-3 xl:gap-4 3xl:gap-5">
-                  {/* 1 */}
-                  <span className="flex items-center gap-2">
-                    <span className=" whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray">
-                      125
-                    </span>
-                    <Like className="stroke-gray dark:stroke-dark-gray stroke-2 w-[18px] h-[18px] " />
-                  </span>
-                  {/* 2 */}
-                  <span className="flex items-center gap-2">
-                    <span className="whitespace-nowrap font-azarMehr font-normal  3xl:text-[18px] text-gray dark:text-dark-gray">
-                      10
-                    </span>
-                    <Dislike className="stroke-gray  dark:stroke-dark-gray stroke-2 " />
-                  </span>
-                  {/* 3 */}
-                  <span className="flex items-center gap-2">
-                    <span className="whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray">
-                      610
-                    </span>
-                    <View className="stroke-gray dark:stroke-dark-gray stroke-2 ms-1" />
-                  </span>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
-    </>
+    </div>
   );
 };
 

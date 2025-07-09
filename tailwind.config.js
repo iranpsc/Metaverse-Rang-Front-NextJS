@@ -82,11 +82,16 @@ module.exports = {
       keyframes: {
         rtlMarquee: {
           '0%': { transform: 'translateX(0%)' },
-          '100%': { transform: 'translateX(100%)' },
+          '100%': { transform: 'translateX(100%)' }, // تغییر به -100% برای حرکت راست به چپ
+        },
+        ltrMarquee: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-100%)' }, // حرکت چپ به راست
         },
       },
       animation: {
         rtlMarquee: 'rtlMarquee 5s linear infinite',
+        ltrMarquee: 'ltrMarquee 5s linear infinite',
       },
 
       colors: {

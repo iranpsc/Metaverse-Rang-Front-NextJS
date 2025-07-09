@@ -145,8 +145,8 @@ export default function ({ params }: any) {
     },
     {
       name: "levels",
-      en: "levels",
-      fa: "سطوح",
+      en: "List Of Levels",
+      fa: "سطوح ليست",
       font: "font-bold",
       link: `/${params.lang}/levels/citizen`,
     },
