@@ -2,7 +2,7 @@
 import { targetData } from "@/components/utils/targetDataName";
 import { Development, Income, Orders, Update } from "@/components/svgs";
 import React, { useState, useEffect, useRef } from "react";
-import { findByUniqueId } from "@/components/utils/findByUniqueId";
+
 import {
   LevelIncome,
   LevelOrders,
@@ -10,7 +10,7 @@ import {
   LevelUpdate,
 } from "@/components/svgs/SvgLevels";
 
-export const Features = ({ levelsTranslatePage, mainData }: any) => {
+export const Features = ({ levelsTranslatePage }: any) => {
   const [inView, setInView] = useState(false);
   // *HINT* useRef WON'T trigger re-render unlike useState.
   const featuresRef = useRef<HTMLDivElement | null>(null);
@@ -58,10 +58,13 @@ export const Features = ({ levelsTranslatePage, mainData }: any) => {
             </div>
           </div>
           <span className="text-xl xl:text-2xl font-bold py-2">
-            {findByUniqueId(mainData, 406)}
+            {targetData(levelsTranslatePage, "income")}
           </span>
           <p className="text-center text-base 2xl:text-xl font-[400]">
-            {findByUniqueId(mainData, 407)}
+            {targetData(
+              levelsTranslatePage,
+              "a list of earned income by titles and clients"
+            )}
           </p>
         </div>
       </div>
@@ -74,10 +77,13 @@ export const Features = ({ levelsTranslatePage, mainData }: any) => {
             </div>
           </div>
           <span className="text-xl xl:text-2xl font-bold py-2">
-            {findByUniqueId(mainData, 408)}
+            {targetData(levelsTranslatePage, "orders")}
           </span>
           <p className="text-center text-base 2xl:text-xl font-[400]">
-            {findByUniqueId(mainData, 409)}
+            {targetData(
+              levelsTranslatePage,
+              "a list of registered orders with the ability to be attracted by correspondent level holders"
+            )}
           </p>
         </div>
       </div>
@@ -90,10 +96,13 @@ export const Features = ({ levelsTranslatePage, mainData }: any) => {
             </div>
           </div>
           <span className="text-xl xl:text-2xl font-bold py-2">
-            {findByUniqueId(mainData, 502)}
+            {targetData(levelsTranslatePage, "development")}
           </span>
           <p className="text-center text-base 2xl:text-xl font-[400]">
-            {findByUniqueId(mainData, 410)}
+            {targetData(
+              levelsTranslatePage,
+              "recording citizens criticisms and suggestions regarding performance and capabilities"
+            )}
           </p>
         </div>
       </div>
@@ -106,10 +115,13 @@ export const Features = ({ levelsTranslatePage, mainData }: any) => {
             </div>
           </div>
           <span className="text-xl xl:text-2xl font-bold py-2">
-            {findByUniqueId(mainData, 411)}
+            {targetData(levelsTranslatePage, "update")}
           </span>
           <p className="text-center text-base 2xl:text-xl font-[400]">
-            {findByUniqueId(mainData, 412)}
+            {targetData(
+              levelsTranslatePage,
+              "decisions made to improve reporter level performance"
+            )}
           </p>
         </div>
       </div>
