@@ -351,6 +351,7 @@ export default async function lavelSingelPage({ params }) {
                 levelTabs={levelTabs} 
                 singleLevel={singleLevel}
                 params={params}
+                mainData={mainData}
                 concatArrayContent={concatArrayContent}
               />
             )}
@@ -363,7 +364,7 @@ export default async function lavelSingelPage({ params }) {
           </div>
         </div>
         <div>
-          <Features levelsTranslatePage={levelsTranslatePage}  />
+          <Features levelsTranslatePage={levelsTranslatePage} mainData={mainData} params={params}/>
         </div>
       </div>
       <div className="flex flex-col justify-center items-center xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
