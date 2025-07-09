@@ -2,11 +2,11 @@ import DetailItem from "@/components/module/levelComponent/DetailItem";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 export default async function Prize({
+  params,
   mainData,
   levelsTranslatePage,
   levelTabs,
   singleLevel,
-  params,
   concatArrayContent,
 }: any) {
   // function localFind(_name: any) {
@@ -97,26 +97,37 @@ export default async function Prize({
           // title={localFind("get psc")}
           title={findByUniqueId(mainData, 902)}
           value={levelTabs.data.psc}
+          params={params}
+          mainData={mainData}
+
         />
         <DetailItem
           // title={localFind("get red color")}
           title={findByUniqueId(mainData, 50)}
           value={levelTabs.data.red}
+          params={params}
+          mainData={mainData}
         />
         <DetailItem
           // title={localFind("get blue color")}
           title={findByUniqueId(mainData, 452)}
           value={levelTabs.data.blue}
+          params={params}
+          mainData={mainData}
         />
         <DetailItem
           // title={localFind("satisfaction unit")}
           title={findByUniqueId(mainData, 453)}
           value={levelTabs.data.satisfaction}
+          params={params}
+          mainData={mainData}
         />
         <DetailItem
           // title={localFind("receive yellow color")}
           title={findByUniqueId(mainData, 454)}
           value={levelTabs.data.yellow}
+          params={params}
+          mainData={mainData}
         />
       </div>
     </>

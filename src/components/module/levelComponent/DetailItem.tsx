@@ -7,6 +7,7 @@ export default function DetailItem({
   showCheck = false,
   fullBox,
   params,
+  mainData,
 }: {
   title: string;
   value: any;
@@ -14,9 +15,9 @@ export default function DetailItem({
   showCheck?: boolean;
   fullBox?: boolean;
   params?: { lang?: string };
+  mainData:string;
 }) {
-  // لاگ برای دیباگ مقدار params.lang
-  console.log("DetailItem params.lang:", params?.lang, "value:", value);
+
 
   const generateValue = () => {
     // بررسی قالب HM-2000000
