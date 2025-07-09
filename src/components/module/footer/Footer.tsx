@@ -297,16 +297,17 @@ function Footer({ footerTabs, mainData }: any) {
       </div>
 
       <div className="my-3 text-center text-black dark:text-white">
-        {translateFooter(footerTabs, "update")}&nbsp;|&nbsp;
-        {translateFooter(footerTabs, "design and development")}&nbsp;
-        <a href="https://web.irpsc.com/" target="_blank">
-          {translateFooter(footerTabs, "webrang")}&nbsp;|&nbsp;
+        {findByUniqueId(mainData, 411)}&nbsp;|&nbsp;
+        {findByUniqueId(mainData, 1411)}&nbsp;
+        <a className="text-light-primary dark:text-dark-yellow" href="https://web.irpsc.com/" target="_blank">
+          {findByUniqueId(mainData, 1412)}&nbsp;
         </a>
+        |&nbsp;
         <a
           href="https://github.com/iranpsc/Metaverse-Rang-Front-NextJS"
           target="_blank"
         >
-          {translateFooter(footerTabs, "version")}&nbsp;
+          {findByUniqueId(mainData, 1453)}&nbsp;
         </a>
       </div>
     </div>

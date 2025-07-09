@@ -29,7 +29,7 @@ export default function HeaderFirstPage({ mainData, params }: any) {
           initial={{ opacity: 0, x: 100 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.3, delay: 0.5 }}
-          className="w-full text-white text-[16px] sm:text-[18px] md:text-[24px] 2xl:text-[36px] 3xl:text-[42px] text-start font-bold "
+          className="w-full text-white text-[16px] sm:text-[18px] md:text-[24px] 2xl:text-[36px] 3xl:text-[40px] text-start font-bold "
         >
           {/* {localFind("integration of ideas and creativity")} */}
           {findByUniqueId(mainData, 481)}
