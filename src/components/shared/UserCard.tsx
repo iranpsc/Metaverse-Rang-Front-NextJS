@@ -1,11 +1,42 @@
 "use client";
+
 import Image from "next/image";
 import GemImage from "@/components/templates/citizen/gemImage";
 import Link from "next/link";
 import { Text } from "../svgs/SvgEducation";
-import LockGem from '@public/Frame1000003193.png';
+import LockGem from '@/public/Frame1000003193.png';
 
 export default function UserCard({ item, params, buttonText, minWidth, scoreElement, hidePreviousLevels }: any) {
+  const staticRouteNames = [
+    { id: 1, route_name: "citizen-baguette" },
+    { id: 2, route_name: "reporter-baguette" },
+    { id: 3, route_name: "participation-baguette" },
+    { id: 4, route_name: "developer-baguette" },
+    { id: 5, route_name: "inspector-baguette" },
+    { id: 6, route_name: "businessman-baguette" },
+    { id: 7, route_name: "lawyer-baguette" },
+    { id: 8, route_name: "city-council-baguette" },
+    { id: 9, route_name: "the-mayor-baguette" },
+    { id: 10, route_name: "governor-baguette" },
+    { id: 11, route_name: "minister-baguette" },
+    { id: 12, route_name: "judge-baguette" },
+    { id: 13, route_name: "legislator-baguette" },
+  ];
+
+  // تعداد کل جواهرها (previous + قفل‌شده)
+  const totalGems = 13;
+  const previousGems = item.levels?.previous || [];
+  
+  // مرتب‌سازی جواهرهای قبلی بر اساس ترتیب staticRouteNames
+  const sortedPreviousGems = [...previousGems].sort((a, b) => {
+    const indexA = staticRouteNames.findIndex((route) => route.id === a.id);
+    const indexB = staticRouteNames.findIndex((route) => route.id === b.id);
+    return indexA - indexB;
+  });
+
+  // محاسبه تعداد تصاویر قفل‌شده
+  const remainingGemsCount = totalGems - previousGems.length;
+
   return (
     <div
       className={`hover:scale-105 base-transition-1 px-2`}
@@ -26,17 +57,14 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
           />
         </figure>
 
-        <p
-          // data-atropos-offset="-5"
-          className="font-bold text-[20px] dark:text-white font-azarMehr sm:mt-2"
-        >
+        <p className="font-bold text-[20px] dark:text-white font-azarMehr sm:mt-2">
           {item.name}
         </p>
 
         <Link
-          className="min-h-[30px] uppercase text-blueLink font-medium font-azarMehr text-[16px] cursor-pointer"
+          className="min-h-[30px] uppercase text-blueLink accumulating font-azarMehr text-[16px] cursor-pointer"
           href={`/${params.lang}/citizens/${item.code}`}
-          title={`Go to citizen ${item.code}`} // Optional
+          title={`Go to citizen ${item.code}`}
           aria-label={`Go to citizen ${item.code}`}
         >
           {item.code}
@@ -52,24 +80,27 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
         {scoreElement}
 
         {!hidePreviousLevels && (
-          <div className="w-full min-h-[75px]  pb-2">
-            <div className="w-full flex flex-wrap justify-center   gap-[-10px]">
-              {item.levels?.previous?.map((item2: any, index2: any) => (
+          <div className="w-full min-h-[75px] pb-2">
+            <div className="w-full flex flex-wrap justify-center ">
+              {/* نمایش جواهرهای قبلی (مرتب‌شده بر اساس staticRouteNames) */}
+              {sortedPreviousGems.map((item2: any, index2: number) => (
                 <GemImage
-                  key={index2}
+                  key={`previous-${item2.id}`}
                   item={item2}
                   params={params}
-                  picSize={30}
+                  picSize={33}
                 />
               ))}
-              {Array.from({ length: 13 - (item.levels?.previous?.length || 0) }).map((_, index) => (
+              
+              {Array.from({ length: remainingGemsCount }).map((_, index) => (
                 <Image
-                  src={`/Frame1000003193.png`}
-                  alt="LockGem"
-                  width={30}
-                  height={30}
+                  key={`lock-${index}`}
+                  src={LockGem}
+                  alt="Locked Gem"
+                  width={33}
+                  height={33}
                   loading="lazy"
-                  className=" w-[30px] h-[30px]"
+                  className="w-[33px] h-[33px]"
                 />
               ))}
             </div>
@@ -80,13 +111,11 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
           className="w-[80%]"
         >
           <div
-            // data-atropos-offset="5"
             className="w-full h-[55px] bg-[#f5f9ff] dark:bg-[#000000] px-3 sm:px-6 rounded-[10px] flex flex-row justify-between items-center"
           >
             <span className="text-blueLink dark:text-dark-yellow font-azarMehr font-medium text-[14px]">
               {buttonText}
             </span>
-
             <Text className="h-[24px] stroke-blueLink dark:stroke-dark-yellow" />
           </div>
         </Link>
