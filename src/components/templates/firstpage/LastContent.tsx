@@ -11,7 +11,6 @@ interface Params {
   lang: "fa" | "en"; 
 }
 
-
 interface ContentItem {
   title: { fa: string; en: string };
   desc: { fa: string; en: string };
