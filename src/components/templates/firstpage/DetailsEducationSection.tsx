@@ -18,11 +18,11 @@ const DetailsEducationSection = ({ mainData }: any) => {
             {findByUniqueId(mainData, 498)}
           </p>
           <a href="https://rgb.irpsc.com/metaverse/">
-            <div className="border-[1px] border-white bg-white rounded-full w-[130px] sm:w-[160px] md:w-[210px] lg:w-[250px] xl:w-[305px] h-[34px] sm:h-[40px] md:h-[50px] lg:h-[60px] xl:h-[77px] flex flex-row justify-between items-center ps-2 sm:ps-3 md:ps-4 lg:ps-5 xl:ps-6 pe-1">
+            <div className="border-[1px] border-white bg-white rounded-full w-max  flex flex-row justify-between items-center ps-2 sm:ps-3 md:ps-4 lg:ps-5 xl:ps-6 pe-[5px] gap-5 py-[5px]">
               <p className="w-fit text-start text-[10px] sm:text-[13px] md:text-[15px] lg:text-[18px] xl:text-[20px] text-black font-azarMehr font-medium ">
-                ورود به دنیای متاورس
+               {findByUniqueId(mainData, 483)}
               </p>
-              <div className="bg-dark-yellow  size-[30px] sm:size-[32px] md:size-[42px] lg:size-[52px] xl:size-[70px] rounded-full flex justify-center items-center">
+              <div className="bg-light-primary dark:bg-dark-yellow  size-[30px] sm:size-[32px] md:size-[42px] lg:size-[52px] xl:size-[70px] rounded-full flex justify-center items-center">
                 <Arrow className="size-[9px] sm:size-[12px] md:size-[18px] lg:size-[24px] xl:size-[36px] ltr:rotate-90" />
               </div>
             </div>

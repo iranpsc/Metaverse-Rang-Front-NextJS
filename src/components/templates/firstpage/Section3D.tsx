@@ -1,40 +1,55 @@
 "use client";
-import React, { useState, useEffect } from "react";
+
+import React, { useState, useEffect, useRef } from "react";
 
 const Section3D = ({ params }: any) => {
-  const [useAparat, setUseAparat] = useState(false); // State to track fallback
-  const timeoutRef = React.useRef<NodeJS.Timeout | null>(null); // Timeout reference
+  const [useAparat, setUseAparat] = useState(params.lang.toLowerCase() === "fa"); // Initial state based on language
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null); // Timeout reference
 
-  // useEffect(() => {
-  //   // Set a timeout to switch to Aparat if YouTube iframe doesn't load
-  //   timeoutRef.current = setTimeout(() => {
-  //     setUseAparat(true); // Switch to Aparat
-  //   }, 4000); // 4-second timeout
+  useEffect(() => {
+    // If language is Persian, use Aparat directly and skip YouTube check
+    if (params.lang.toLowerCase() === "fa") {
+      setUseAparat(true);
+      return;
+    }
 
-  //   return () => {
-  //     // Clear the timeout when the component unmounts
-  //     if (timeoutRef.current) {
-  //       clearTimeout(timeoutRef.current);
-  //     }
-  //   };
-  // }, []);
+    // Set a timeout to fallback to Aparat if YouTube doesn't load
+    timeoutRef.current = setTimeout(() => {
+      setUseAparat(true); // Switch to Aparat after 6 seconds
+    }, 6000);
 
-  // const handleYouTubeLoad = () => {
-  //   // Clear the fallback timeout
-  //   if (timeoutRef.current) {
-  //     clearTimeout(timeoutRef.current);
-  //     timeoutRef.current = null; // Ensure the timeout is nullified
-  //   }
+    // Cleanup on unmount
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, [params.lang]);
 
-  //   setUseAparat(false); // Ensure YouTube is used
-  // };
+  // Handle successful YouTube iframe load
+  const handleYouTubeLoad = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current); // Clear the fallback timeout
+      timeoutRef.current = null;
+    }
+    setUseAparat(false); // Ensure YouTube is used
+  };
+
+  // Handle YouTube iframe error (e.g., due to filtering)
+  const handleYouTubeError = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current); // Clear the timeout
+      timeoutRef.current = null;
+    }
+    setUseAparat(true); // Fallback to Aparat
+  };
 
   return (
     <div
       className="relative w-full flex justify-center items-center"
       style={{ minHeight: "100px" }}
     >
-      {params.lang.toLowerCase() == "fa" ? (
+      {useAparat ? (
         <iframe
           className="w-full h-full aspect-video border-0 rounded-[72px]"
           src="https://www.aparat.com/video/video/embed/videohash/nkl2c42/vt/frame"
@@ -48,7 +63,8 @@ const Section3D = ({ params }: any) => {
           title="YouTube Video Player"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
-          // onLoad={handleYouTubeLoad} // Triggered when the iframe loads
+          onLoad={handleYouTubeLoad} // Triggered when iframe loads successfully
+          onError={handleYouTubeError} // Triggered when iframe fails to load
         ></iframe>
       )}
     </div>
