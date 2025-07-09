@@ -1,4 +1,5 @@
 "use client";
+
 import Header from "./Header";
 import AllSideTab from "./AllSideTab";
 import LevelSideTab from './LevelSideTab';
@@ -37,12 +38,12 @@ export default function SideBar({
     }
   }, [isClosed, hydrated]);
 
-  // Handle clicks outside the sidebar
+  // Handle clicks outside the sidebar in mobile view only
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // اگر منو باز باشد و کلیک خارج از سایدبار باشد
-      if (!isClosed && sidebarRef.current && !sidebarRef.current.contains(event.target)) {
-        setIsClosed(true); // بستن منو
+      // فقط در حالت موبایل (عرض صفحه کمتر از 1024px) اجرا شود
+      if (window.innerWidth < 1024 && !isClosed && sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+        setIsClosed(true); // بستن سایدبار
       }
     };
 
@@ -80,7 +81,7 @@ export default function SideBar({
           } absolute xl:relative lg:relative xl:w-fit lg:w-fit md:w-full z-[60] sm:w-full xs:w-full no-scrollbar`}
         >
           <aside
-            ref={sidebarRef} // اضافه کردن ref به المنت سایدبار
+            ref={sidebarRef}
             className={`${
               isClosed
                 ? "w-[70px] max-lg:hidden"
