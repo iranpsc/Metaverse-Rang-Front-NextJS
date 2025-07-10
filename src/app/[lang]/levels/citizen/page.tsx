@@ -258,7 +258,7 @@ export default async function LevelsPage({ params }: any) {
           //   themeDataActive == "dark" ? "dark-scrollbar" : "light-scrollbar"
           // }`}
 
-          className={`h-[calc(100vh-60px)] lg:h-screen overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 bg-bgGray`}
+          className={`h-[calc(100vh-60px)] lg:h-screen overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 bg-bgGray dark:bg-black`}
         >
           <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
             <BreadCrumb params={params} />
