@@ -51,14 +51,14 @@ const Section3D = ({ params }: any) => {
     >
       {useAparat ? (
         <iframe
-          className="w-full h-full aspect-video border-0 rounded-[72px]"
+          className="w-full h-full aspect-video border-0 rounded-3xl lg:rounded-[72px]"
           src="https://www.aparat.com/video/video/embed/videohash/nkl2c42/vt/frame"
           title="Aparat Video Player"
           allowFullScreen
         ></iframe>
       ) : (
         <iframe
-          className="w-full h-full aspect-video border-0 rounded-[72px]"
+          className="w-full h-full aspect-video border-0 rounded-3xl lg:rounded-[72px]"
           src="https://www.youtube.com/embed/0yAc0hUeF8Y"
           title="YouTube Video Player"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

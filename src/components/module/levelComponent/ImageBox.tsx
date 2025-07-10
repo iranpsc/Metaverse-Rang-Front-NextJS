@@ -22,7 +22,7 @@ export default function ImageBox({ item, singleLevel }: any) {
       {srcPng && mode === "png" && (
         <div
           className={`relative w-[60%] sm:w-[40%] md:w-full aspect-[5/7] md:aspect-[5/7] ${
-            !item?.png_file ? "hidden md:block" : "block"
+            !item?.png_file ? "block" : "block"
           }`}
         >
           <Image
@@ -33,7 +33,7 @@ export default function ImageBox({ item, singleLevel }: any) {
             priority={true}
             fetchPriority="high"
             quality={100}
-            className="object-cover"
+            className="object-cover w-full"
           />
         </div>
       )}

@@ -11,7 +11,7 @@ const DetailsEducationSection = ({ mainData }: any) => {
   // }
   return (
     <>
-      <div className="relative w-full h-[193px] sm:h-[250px] md:h-[350px] lg:h-[450px] xl:h-[600px] mt-12 flex justify-center items-start">
+      <div className="relative w-full h-[280px] lg:h-[450px] xl:h-[600px] mt-12 flex justify-center items-start">
         <div className="flex flex-col justify-center items-center gap-2 md:gap-3 lg:gap-5 xl:gap-7 relative z-50 mt-[20px] sm:mt-[30px] md:mt-[50px] lg:mt-[80px] xl:mt-[100px]">
           <p className="font-azarMehr font-bold xl:text-[44px] lg:text-[38px] md:text-[32px] sm:text-[24px] xs:text-[20px] text-white">
             {/* {localFind("the attractiveness of education in the 3d world")} */}
@@ -29,7 +29,7 @@ const DetailsEducationSection = ({ mainData }: any) => {
           </a>
         </div>
 
-        <div className="absolute bottom-0 rounded-b-[72px] pt-10 pb-3 w-full z-10 gap-4 py-5 sm:py-6 md:py-9 lg:py-14 xl:py-16 flex flex-col-reverse justify-center items-center backdrop-blur-sm">
+        <div className="absolute bottom-0 rounded-b-[18px] lg:rounded-b-[72px] pb-3 w-full z-10 gap-4 py-5 sm:py-3 md:py-9 lg:py-14 xl:py-16 flex flex-col-reverse justify-center items-center backdrop-blur-sm">
           <div className="bg-white px-3 py-2 md:px-10 rounded-full ms-5">
             <p className="font-azarMehr font-medium text-[10px] sm:text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px] text-black whitespace-nowrap">
               {/* {localFind("establishment of educational centers")} */}

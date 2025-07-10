@@ -39,10 +39,10 @@ const SectionTeam = ({ mainData, params }: any) => {
     return <div ref={sectionRef} style={{ minHeight: "500px" }} />;
   }
   return (
-    <div ref={sectionRef} className="flex flex-column justify-center flex-wrap">
+    <div ref={sectionRef} className="flex flex-column justify-center flex-wrap px-5 lg:px-0">
       <div className="w-[full] md:w-[50%] lg:w-[35%]">
         <Image
-          className="w-full h-full sm:h-[360px] md:h-auto 3xl:aspect-square object-cover lg:rounded-[32px] origin-center border-none"
+          className="w-full h-full sm:h-[360px] md:h-auto 3xl:aspect-square object-cover rounded-2xl lg:rounded-[32px] origin-center border-none"
           src="/firstpage/img2.webp"
           alt="header"
           width={500}
@@ -126,7 +126,7 @@ const SectionTeam = ({ mainData, params }: any) => {
           </p>
         </div>
         <Link href={`/${params.lang}/about`}>
-          <p className="w-fit rounded-[24px] py-3 px-10 mt-5 text-center text-[14px] md:text-[16px] lg:text-[20px] text-white bg-[#343434]  font-azarMehr font-medium ">
+          <p className="w-fit rounded-[24px] py-3 px-10 mt-5 text-center text-[14px] md:text-[16px] lg:text-[20px] text-white bg-light-primary dark:bg-dark-yellow dark:text-black  font-azarMehr font-medium ">
            {findByUniqueId(mainData, 1456)}
           </p>
         </Link>

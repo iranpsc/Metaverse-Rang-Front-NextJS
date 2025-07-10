@@ -279,7 +279,7 @@ export default async function lavelSingelPage({ params }) {
         />}
       </Head>
 
-      <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-3 w-full font-azarMehr bg-bgGray dark:bg-black">
+      <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-3 w-full font-azarMehr ">
         <div className="">
           <BreadCrumb params={params} />
         </div>
