@@ -4,24 +4,35 @@ import { getAllReferral } from "@/components/utils/actions";
 import InviteChart from "./invite-chart";
 import InviteListCard from "./invite-list-card";
 import axios from "axios";
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 export default function InviteList({
   initInviteList,
   params,
   referralPageArrayContent,
+  mainData,
 }: {
   initInviteList: any;
   params: any;
   referralPageArrayContent: any;
+  mainData:any;
 }) {
   const [isMounted, setIsMounted] = useState(false);
   const [referralList, setReferralList] = useState(initInviteList.data);
   const [searchTerm, setSearchTerm] = useState(""); // Track the search term
 
-  function localFind(_name: any) {
-    return referralPageArrayContent.find((item: any) => item.name == _name)
-      .translation;
-  }
+  // function localFind(_name: any): string {
+  //   if (!Array.isArray(referralPageArrayContent) || referralPageArrayContent.length === 0) {
+  //     console.warn('referralPageArrayContent is empty or not an array', { _name });
+  //     return '';
+  //   }
+  //   const item = referralPageArrayContent.find((item: any) => item.name === _name);
+  //   if (!item) {
+  //     console.warn(`No item found for name: ${_name}`, { referralPageArrayContent });
+  //     return '';
+  //   }
+  //   return item.translation || '';
+  // }
 
   useEffect(() => {
     setIsMounted(true);
@@ -51,10 +62,10 @@ export default function InviteList({
     <>
       <div className="flex flex-col py-8 leading-[24px] gap-4 w-full lg:self-start mt-[64px] mb-[32px]">
         <p className="text-black dark:text-white font-black lg:text-2xl">
-          {localFind("invitation list")}
+          {findByUniqueId(mainData, 1424)}
         </p>
         <p className="text-lightGray dark:text-lightGray lg:text-lg">
-          {localFind("the list of friends who have been")}
+          {findByUniqueId(mainData, 1425)}
         </p>
 
         <div className="transition-[right,width] lg:w-[49%] duration-300 ease-in-out flex items-center flex-row justify-between bg-white dark:bg-darkGray w-full h-[50px] rounded-[12px] ">
@@ -79,7 +90,7 @@ export default function InviteList({
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="pr-2 ps-5 text-black dark:text-white bg-transparent flex-1 w-[90%] h-[90%] border-none outline-none text-sm text-aliceblue font-azarMehr text-[16px]"
-            placeholder={localFind("search for your invitee")}
+            placeholder= {findByUniqueId(mainData, 1426)}
             style={{ fontSize: "18px" }}
           />
           <button

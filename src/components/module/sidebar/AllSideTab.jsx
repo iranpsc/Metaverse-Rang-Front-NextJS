@@ -129,6 +129,14 @@ export default function SideBarContent({
     ) {
       item.active = true;
     }
+     // Disable the activation for all other tabs when on the Referral page, but keep referral active
+    if (pathName === `/${params.lang}/citizens/${params.id}/referral`) {
+      if (item.unique_id == "1419") {
+        item.active = true;  // Keep referral active
+      } else {
+        item.active = false;  // Disable other tabs
+      }
+    }
   });
 
 

@@ -47,8 +47,8 @@ export default function ProfileImages({
     images.push(
       <figure
         key={i}
-        className={`relative rounded-full overflow-hidden aspect-square ${
-          imgProfiles[i]?.url == mainImageUrl ? "w-[50px]" : "w-32"
+        className={`relative rounded-full overflow-hidden !aspect-square ${
+          imgProfiles[i]?.url == mainImageUrl ? "w-[34px] 3xl:w-[53px] border-2 border-dashed border-light-primary dark:border-dark-yellow" : "w-32 3xl:w-[50px]"
         }`}
       >
         <Image
@@ -71,7 +71,7 @@ export default function ProfileImages({
         width={100}
         height={100}
         alt={titleData}
-        className="inline-block rounded-full w-32 h-32 3xl:w-[60px] 3xl:h-[60px]"
+        className="inline-block rounded-full w-32 h-32 3xl:w-[50px] 3xl:h-[50px]"
         key={images.length}
       />
     );
@@ -92,8 +92,8 @@ export default function ProfileImages({
           />
         )}
       </Head>
-      <section className="dark:bg-dark-background shadow-md relative bg-white transition-all duration-300 ease-linear rounded-[10px] flex flex-col justify-center items-center lg:flex-row lg:justify-between">
-        <div className="relative w-[100%] md:w-[80%] aspect-square tall0:h-[100vh] dark:bg-dark-background bg-white overflow-clip flex justify-center items-center rounded-[10px] ">
+      <section className="dark:bg-dark-background shadow-md  relative bg-white transition-all duration-300 ease-linear rounded-[10px] flex flex-col justify-center items-center lg:flex-row lg:justify-between ">
+        <div className="relative w-[100%] md:w-[77%] aspect-square lg:aspect-auto lg:[height:-webkit-fill-available] lg:[height:-moz-available]  tall0:h-[100vh] dark:bg-dark-background bg-white overflow-clip flex justify-center items-center rounded-[10px] ">
           <Image
             src={mainImageUrl || "/firstpage/temp-1.webp"}
             fill
@@ -101,13 +101,14 @@ export default function ProfileImages({
             alt={titleData}
             priority={true}
             decoding="async"
-            className="w-full h-full rounded-r-[10px] object-cover"
+            className="w-full h-full  rounded-r-[10px] object-cover "
           />
         </div>
 
-        <hr className="ms-5 h-[1.5px] w-[35vh] lg:w-[1.5px] lg:h-[35vh] mt-2 border-none xl:bg-gradient-to-b lg:bg-gradient-to-b md:bg-gradient-to-r mb-1 sm:bg-gradient-to-l xs:bg-gradient-to-l from-[#DADADA00] via-[#b3b3b3] to-[#DADADA00]" />
+        <div className="flex items-center flex-col lg:flex-row w-[100%] lg:w-[23%] justify-center lg:justify-end gap-5 pe-5">
+          <hr className="ms-5 h-[1.5px] w-[35vh] lg:w-[1.5px] lg:h-[35vh] 2xl:h-[39vh] mt-2 border-none xl:bg-gradient-to-b lg:bg-gradient-to-b md:bg-gradient-to-r mb-1 sm:bg-gradient-to-l xs:bg-gradient-to-l from-[#DADADA00] via-[#b3b3b3] to-[#DADADA00]" />
 
-        <div className="w-[100%] lg:w-[20%] flex xl:flex-row lg:flex-row md:flex-col sm:flex-col xs:flex-col max-lg:mb-2  gap-2 justify-center items-center">
+        <div className=" flex xl:flex-row lg:flex-row md:flex-col sm:flex-col xs:flex-col max-lg:mb-2  gap-2 justify-center items-center">
           <motion.div
             initial={{ opacity: 0, scale: 0, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -115,10 +116,11 @@ export default function ProfileImages({
               delayChildren: 0.9,
               staggerChildren: 0.6,
             }}
-            className="pt-3 h-full flex flex-col xl:flex-col lg:flex-col md:flex-row sm:flex-row xs:flex-row w-full 3xl:gap-4 tall:gap-3 xl:gap-2 lg:gap-1 md:gap-3 sm:gap-5 xs:gap-2 justify-center items-center md:pb-3 sm:pb-3 xs:pb-3"
+            className="pt-3 h-full  flex flex-col xl:flex-col lg:flex-col md:flex-row sm:flex-row xs:flex-row w-full 3xl:gap-4 tall:gap-3 xl:gap-2 lg:gap-1 md:gap-3 sm:gap-5 xs:gap-2 justify-center items-center md:pb-3 sm:pb-3 xs:pb-3"
           >
             {images}
           </motion.div>
+        </div>
         </div>
       </section>
     </>

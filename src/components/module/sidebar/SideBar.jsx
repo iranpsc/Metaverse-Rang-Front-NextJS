@@ -106,6 +106,16 @@ export default function SideBar({
                 params={params}
               />
             )}
+            {pageSide === 'citizen/referal' && (
+              <AllSideTab
+                tabsMenu={tabsMenu}
+                isClosed={isClosed}
+                toggleSide={toggleSide}
+                langData={langData}
+                langArray={langArray}
+                params={params}
+              />
+            )}
             {pageSide === 'level' && (
               <LevelSideTab
                 tabsMenu={tabsMenu}

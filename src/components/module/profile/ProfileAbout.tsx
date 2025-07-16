@@ -66,7 +66,7 @@ export default function ProfileAbout({
   return (
     <section
       ref={iframeContainerRef2}
-      className="flex flex-col justify-start  gap-[6px]  items-center h-screen"
+      className="flex flex-col justify-start  gap-[10px]  items-center h-screen"
     >
       {inView && (
         <>
@@ -77,7 +77,7 @@ export default function ProfileAbout({
             </h1>
             {profileData.data?.customs?.about && (
               <p className="font-azarMehr  text-justify 3xl:text-xl3Title xl:text-xlTitle lg:text-lgTitle  md:text-mdTitle xl:leading-[30px] sm:text-smDesc xs:text-smDesc truncate[20px] lg:leading-[20px] md:leading-[35px] xs:leading-[30px] sm:leading-[30px] mx-1 font-medium text-[5px]  text-gray  dark:text-dark-gray">
-                {profileData.data?.customs?.about.slice(0, 210)}
+                {profileData.data?.customs?.about.slice(0, 275)}
 
                 {profileData.data?.customs?.about.length > 150 && (
                   <>

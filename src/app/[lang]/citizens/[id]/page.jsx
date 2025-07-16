@@ -139,10 +139,10 @@ export default async function citizenSinglePage({
             />
             <section className="relative w-full bg-[#e9eef8] dark:bg-black">
               <div
-                className={`flex flex-col lg:flex-row h-fit lg:h-full gap-[6px] p-[6px]`}>
+                className={`flex flex-col lg:flex-row h-fit lg:h-full gap-[10px] p-[8px] `}>
                   {/* FIRST */}
                 <section
-                  className="w-full h-fit lg:h-full gap-[6px] lg:w-[40%] flex flex-col no-scrollbar overflow-auto"
+                  className="w-full h-fit lg:h-full gap-[6px] lg:w-[35%] flex flex-col no-scrollbar overflow-auto"
                 >
                   <Profile
                     profileData={profileData}
@@ -156,7 +156,7 @@ export default async function citizenSinglePage({
                 </section>
                 {/* SECOND */}
                 <section
-                  className="w-full h-fit lg:h-full lg:w-[30%] flex flex-col no-scrollbar overflow-auto sm:h-fit xs:h-fit md:h-fit"
+                  className="w-full h-fit lg:h-full lg:w-[35%] flex flex-col no-scrollbar overflow-auto sm:h-fit xs:h-fit md:h-fit"
                 >
                   <ProfileDetails
                     profileData={profileData}

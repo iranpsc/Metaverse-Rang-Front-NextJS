@@ -14,11 +14,10 @@ import {
 import { getStaticMenu } from "@/components/utils/constants";
 import DynamicFooter from "@/components/module/footer/DynamicFooter";
 import InviteBox from "./components/invite-box";
-
 import "./style/style.css";
 import InviteList from "./components/invite-list";
 import InviteChart from "./components/invite-chart.js";
-// import "./style/output.css";
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 export default async function CitizenReferral({ params }: { params: any }) {
   const langData = await getTranslation(params.lang);
@@ -32,15 +31,25 @@ export default async function CitizenReferral({ params }: { params: any }) {
       getChartReferral(params.id, "yearly"),
     ]);
 
-  function localFind(_name: any) {
-    return referralPageArrayContent.find((item: any) => item.name == _name)
-      .translation;
+  // Updated localFind function with error handling and logging
+  function localFind(_name: any): string {
+    if (!Array.isArray(referralPageArrayContent) || referralPageArrayContent.length === 0) {
+      console.warn('referralPageArrayContent is empty or not an array', { _name });
+      return '';
+    }
+    const item = referralPageArrayContent.find((item: any) => item.name === _name);
+    if (!item) {
+      console.warn(`No item found for name: ${_name}`, { referralPageArrayContent });
+      return '';
+    }
+    return item.translation || '';
   }
 
   // Convert all digits to Persian digits
   const convertToPersianDigits = (str: any) => {
     return str.replace(/\d/g, (d: any) => "۰۱۲۳۴۵۶۷۸۹"[d]);
   };
+
   let initChartData = { labels: [], data: [[], []] };
   initChartData.labels = await chartDataFetch.chart_data.map((label: any) =>
     convertToPersianDigits(label.year)
@@ -66,27 +75,25 @@ export default async function CitizenReferral({ params }: { params: any }) {
 
   const staticMenuToShow = getStaticMenu(params);
 
-  // add staticMenuToShow values to siblings tabsMenu values
+  // Add staticMenuToShow values to siblings tabsMenu values
   const updatedTabsMenu = tabsMenu.map((tab: any) => {
     let findInStatic = staticMenuToShow.find(
       (val) => tab.unique_id === val.unique_id
     );
 
     if (findInStatic) {
-      // Return a new tab object with updated properties
       return {
-        ...tab, // Spread the original tab properties
+        ...tab,
         url: findInStatic.url,
         order: findInStatic.order,
         toShow: true,
       };
     }
 
-    // If no match found, return the original tab
     return tab;
   });
 
-  //to make description less than 200 character
+  // To make description less than 200 characters
   async function makeLessCharacter() {
     let temp;
     if (profileData.data?.customs?.about) {
@@ -106,27 +113,25 @@ export default async function CitizenReferral({ params }: { params: any }) {
     }`,
     image: profileData.data?.profilePhotos?.map((item: any) => {
       return item.url;
-    }),
+    }) || [],
     url: `http://rgb.irpsc.com/${params.lang}/citizen/${params.id}`,
-    jobTitle: `${profileData.data?.customs?.occupation}`,
+    jobTitle: `${profileData.data?.customs?.occupation || ""}`,
     description: `${await makeLessCharacter()}`,
     birthDate: `${profileData.data?.kyc?.birth_date || ""}`,
     email: `${profileData.data?.kyc?.email || ""}`,
-    alternateName: `${profileData.data.code}`,
+    alternateName: `${profileData.data.code || ""}`,
   };
-  // ***********************
 
   const itemListSchema = {
     "@context": "https://schema.org/",
     "@type": "ItemList",
-
     itemListElement: [
       // Static item for Total Invited
       {
         "@type": "ListItem",
         position: 1,
         name: localFind("the total number of invitations"),
-        value: initInviteList.data.length,
+        value: initInviteList.data.length || 0,
         url: `https://rgb.irpsc.com/fa/citizens/${params.id}/referral`,
       },
       // Static item for Total Reward
@@ -135,9 +140,8 @@ export default async function CitizenReferral({ params }: { params: any }) {
         position: 2,
         name: localFind("-rewards"),
         value: initInviteList.data.reduce((sum: any, person: any) => {
-          // Sum the amounts of all referrerOrders for the current person
           const personTotal = person.referrerOrders.reduce(
-            (orderSum: any, order: any) => orderSum + order.amount,
+            (orderSum: any, order: any) => orderSum + (order.amount || 0),
             0
           );
           return sum + personTotal;
@@ -145,23 +149,23 @@ export default async function CitizenReferral({ params }: { params: any }) {
         url: `https://rgb.irpsc.com/fa/citizens/${params.id}/referral`,
       },
       // Dynamic items for each invite
-      ...initInviteList.data.map((invited: any, index: any) => ({
+      ...(initInviteList.data || []).map((invited: any, index: any) => ({
         "@type": "ListItem",
         position: index + 3,
-        name: invited.name,
-        identifier: `${invited.code}`,
+        name: invited.name || "",
+        identifier: `${invited.code || ""}`,
         value: invited.referrerOrders.reduce(
-          (acc: any, item: any) => acc + item.amount,
+          (acc: any, item: any) => acc + (item.amount || 0),
           0
         ),
-        url: `https://rgb.irpsc.com/${params.lang}/citizens/${invited.code}`,
+        url: `https://rgb.irpsc.com/${params.lang}/citizens/${invited.code || ""}`,
       })),
     ],
   };
 
   return (
     <>
-      {/* SCHEMA** */}
+      {/* SCHEMA */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -184,7 +188,7 @@ export default async function CitizenReferral({ params }: { params: any }) {
           pageSide="citizen"
         />
         <section
-          className={`overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20 px-2`}
+          className={`overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20 px-2 !w-full`}
         >
           {/* Breadcrumb */}
           <div className="px-12">
@@ -196,6 +200,7 @@ export default async function CitizenReferral({ params }: { params: any }) {
               <InviteBox
                 referralPageArrayContent={referralPageArrayContent}
                 params={params}
+                mainData={mainData}
               />
             )}
             {initInviteList && referralPageArrayContent && (
@@ -203,6 +208,7 @@ export default async function CitizenReferral({ params }: { params: any }) {
                 initInviteList={initInviteList}
                 params={params}
                 referralPageArrayContent={referralPageArrayContent}
+                mainData={mainData}
               />
             )}
             {referralPageArrayContent && initChartData && (
@@ -210,6 +216,7 @@ export default async function CitizenReferral({ params }: { params: any }) {
                 params={params}
                 referralPageArrayContent={referralPageArrayContent}
                 initChartData={initChartData}
+                mainData={mainData}
               />
             )}
           </div>
@@ -223,32 +230,35 @@ export default async function CitizenReferral({ params }: { params: any }) {
   );
 }
 
-// SEO**
+// SEO
 export async function generateMetadata({ params }: { params: any }) {
   const profileData = await getUserData(params.id);
-
-  const [langData] = await Promise.all([
-    // getUserData(params.id),
-    getTranslation(params.lang),
-  ]);
-
-  const [mainData] = await Promise.all([getMainFile(langData)]);
+  const langData = await getTranslation(params.lang);
+  const mainData = await getMainFile(langData);
   const centralPageModal = await findByModalName(
     mainData,
     "Citizenship-profile"
   );
-
   const referralPageArrayContent = await findByTabName(
     centralPageModal,
     "referral"
   );
 
-  function localFind(_name: any) {
-    return referralPageArrayContent.find((item: any) => item.name == _name)
-      .translation;
+  // Updated localFind function with error handling and logging
+  function localFind(_name: any): string {
+    if (!Array.isArray(referralPageArrayContent) || referralPageArrayContent.length === 0) {
+      console.warn('referralPageArrayContent is empty or not an array', { _name });
+      return '';
+    }
+    const item = referralPageArrayContent.find((item: any) => item.name === _name);
+    if (!item) {
+      console.warn(`No item found for name: ${_name}`, { referralPageArrayContent });
+      return '';
+    }
+    return item.translation || '';
   }
 
-  //to make description less than 200 character
+  // To make description less than 200 characters
   async function makeLessCharacter() {
     let temp = await localFind("description of invitations");
     temp = temp.slice(0, 200);
@@ -258,30 +268,28 @@ export async function generateMetadata({ params }: { params: any }) {
   return {
     title: `${
       params.lang.toLowerCase() == "fa" ? "دعوتی های" : "invite list of"
-    } ${profileData.data.kyc?.fname} ${profileData.data.kyc?.lname}`,
+    } ${profileData.data.kyc?.fname || ""} ${profileData.data.kyc?.lname || ""}`,
     description:
       (await localFind("the list of friends who have been")) ||
       "citizen referral page",
     openGraph: {
-      // site_name:'',
       type: "profile",
       title: `${
         params.lang.toLowerCase() == "fa" ? "دعوتی های" : "invite list of"
-      } ${profileData.data.kyc?.fname} ${profileData.data.kyc?.lname} `,
+      } ${profileData.data.kyc?.fname || ""} ${profileData.data.kyc?.lname || ""}`,
       description: `${await makeLessCharacter()}`,
       locale: params.lang == "fa" ? "fa_IR" : "en_US",
       url: `https://rgb.irpsc.com/${params.lang}/citizen/${params.id}/referral`,
       profile: {
-        first_name: `${profileData.data.name}`,
+        first_name: `${profileData.data.name || ""}`,
       },
       images: [
         {
-          url: `${profileData.data?.profilePhotos[0]?.url}`,
+          url: `${profileData.data?.profilePhotos?.[0]?.url || ""}`,
           width: 800,
           height: 600,
         },
       ],
-      // Adding the google-site-verification meta tag
     },
     other: {
       "google-site-verification": "lmf8kBJQgLHew_wXcxGQwJQWiOSFy8odEBRTLOoX7Q4",

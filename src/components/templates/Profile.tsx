@@ -42,7 +42,7 @@ export default function Profile({
         />
       </div>
       {/* MID */}
-      <div className="w-full">
+      <div className="w-full my-[5px]">
         <ProfileImages
           profileData={profileData}
           // profileName={profileName}

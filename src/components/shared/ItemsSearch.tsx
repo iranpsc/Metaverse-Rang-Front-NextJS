@@ -57,9 +57,9 @@ export const ItemsSearch = ({ searchLevel, searchData, params }: any) => {
             <motion.div key={item?.id} variants={items}>
               <Link
                 href={`/${params.lang}/citizens/${item.code}`}
-                className="w-[99%] h-[65px] mt-2 hover:dark:shadow-darkSearch transition-all duration-300 bg-white dark:bg-dark-background border-b-[1px] border-mediumGray dark:border-mediumGray hover:shadow-md cursor-pointer flex flex-row justify-between items-center dark:text-white"
+                className="w-[99%] h-[65px] mt-2 transition-all duration-300   border-b-[1px] border-solid border-x-0 border-t-0 border-stone-300 dark:border-mediumGray  cursor-pointer flex flex-row justify-between items-center dark:text-white "
               >
-                <p className="ms-7 dark:text-white text-black font-azarMehr truncate text-[16px] xs:text-[12px] font-medium">
+                <p className=" dark:text-white text-black font-azarMehr truncate text-[16px] xs:text-[12px] font-medium">
                   {item?.name}
                 </p>
                 <div className="flex flex-row justify-between items-center gap-3 min-w-fit">
@@ -68,7 +68,7 @@ export const ItemsSearch = ({ searchLevel, searchData, params }: any) => {
                       {item?.code}
                     </p>
                     <div className="flex flex-row items-center justify-end gap-1">
-                      <span className="whitespace-nowrap font-azarMehr font-normal text-black dark:text-white 3xl:text-[18px] xs:text-[12px]">
+                      <span className="whitespace-nowrap font-azarMehr font-normal text-black dark:text-white 3xl:text-[16px] xs:text-[12px]">
                         {item.level ? item.level : "--"}
                       </span>
                     </div>
@@ -79,7 +79,7 @@ export const ItemsSearch = ({ searchLevel, searchData, params }: any) => {
                     loading="lazy"
                     width={1000}
                     height={1000}
-                    className="w-[50px] h-[50px] xs:w-[40px] xs:h-[40px] me-2 my-5 shadow-sm shadow-gray rounded-full"
+                    className="w-[50px] h-[50px] xs:w-[40px] xs:h-[40px]  my-5 shadow-sm shadow-gray rounded-full"
                   />
                 </div>
               </Link>

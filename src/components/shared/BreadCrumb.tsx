@@ -138,8 +138,8 @@ export default function ({ params }: any) {
     },
     {
       name: "citizens",
-      en: "citizens",
-      fa: "شهروندان",
+      en: "List of citizens",
+      fa: "لیست شهروندان",
       font: "font-bold",
       link: `/${params.lang}/citizens`,
     },

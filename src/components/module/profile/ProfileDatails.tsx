@@ -149,7 +149,7 @@ export default function ProfileDetails({
   return (
     <div
       ref={iframeContainerRef}
-      className=" 3xl:h-screen xl:h-screen lg:h-screen md:h-fit sm:h-fit xs:h-fit flex flex-col justify-between gap-[6px] items-center dark:bg-black bg-[#e9eef8] "
+      className=" 3xl:h-screen xl:h-screen lg:h-screen md:h-fit sm:h-fit xs:h-fit flex flex-col justify-between gap-[10px] items-center dark:bg-black bg-[#e9eef8] "
     >
       {inView && (
         <>

@@ -173,10 +173,10 @@ export default async function CitizensPage({ params }) {
             <h1 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[64px] mb-[16px]">
               {findByUniqueId(mainData, 593)}
             </h1>
-            <p className="text-lightGray dark:text-lightGray font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center text-justify">
+            <p className="text-lightGray  dark:text-lightGray font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center px-5 lg:px-10">
               {findByUniqueId(mainData, 596)}
             </p>
-            <div className="flex justify-center w-full">
+            <div className="flex justify-center w-full px-5 lg:px-0">
               <SearchComponent
                 searchLevel='citizen'
                 mainData={mainData}
@@ -185,7 +185,7 @@ export default async function CitizensPage({ params }) {
             </div>
           </div>
           {/* CITIZEN box Container */}
-          <div className="flex flex-row flex-wrap justify-center md:justify-center w-full no-scrollbar overflow-y-auto py-[20px]">
+          <div className="flex flex-row flex-wrap justify-center md:justify-center w-full no-scrollbar overflow-y-auto py-[20px] gap-x-5">
           <Suspense fallback={<div>Loading citizens...</div>}>
             <CitizenList
               allCitizenArray={allCitizenArray.data}

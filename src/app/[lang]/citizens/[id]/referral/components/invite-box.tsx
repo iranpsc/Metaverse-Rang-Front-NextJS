@@ -3,13 +3,16 @@
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { usePathname } from "next/navigation";
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 export default function InviteBox({
   referralPageArrayContent,
   params,
+  mainData,
 }: {
   referralPageArrayContent: any;
   params: any;
+  mainData: any;
 }) {
   const pathname = usePathname();
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -18,10 +21,18 @@ export default function InviteBox({
     `rgb.irpsc.com/${params.lang}/citizens/${params.id}/referral`
   );
 
-  function localFind(_name: any) {
-    return referralPageArrayContent.find((item: any) => item.name == _name)
-      .translation;
-  }
+  // function localFind(_name: any): string {
+  //   if (!Array.isArray(referralPageArrayContent) || referralPageArrayContent.length === 0) {
+  //     console.warn('referralPageArrayContent is empty or not an array', { _name });
+  //     return '';
+  //   }
+  //   const item = referralPageArrayContent.find((item: any) => item.name === _name);
+  //   if (!item) {
+  //     console.warn(`No item found for name: ${_name}`, { referralPageArrayContent });
+  //     return '';
+  //   }
+  //   return item.translation || '';
+  // }
 
   const handleShare = (platform: any) => {
     const urlToShare = `https://rgb.irpsc.com/${params.lang}/citizen/${params.id}`;
@@ -87,20 +98,20 @@ export default function InviteBox({
         }}
       ></div>
 
-      {/* محتوای دیو */}
-      <div className="flex flex-wrap min-h-[260px]">
+
+      <div className="flex flex-wrap min-h-[260px] ">
         <div className="w-full lg:w-3/4 p-6">
           <p className="text-black dark:text-white text-lg leading-[36px] text-justify lg:text-[20px] ">
-            {localFind("description of invitations")}
+            {findByUniqueId(mainData, 1420)}
           </p>
 
-          <div className="my-6 flex flex-col w-full lg:flex-row xl:mt-16">
-            <div className="lg:w-[30%] ">
+          <div className=" flex flex-col w-full lg:flex-row lg:gap-2 xl:mt-12">
+            <div className="lg:w-[50%] ">
               <label
                 htmlFor="invite-link1"
                 className="block mb-2 lg:mb-8 text-black dark:text-white"
               >
-                {localFind("copy link")}
+                {findByUniqueId(mainData, 1421)}
               </label>
               <div className=" h-12 lg:h-13 xl:h-14 rounded-xl border border-solid border-[#484950] flex flex-row-reverse items-center  px-2 relative">
                 <button
@@ -111,7 +122,7 @@ export default function InviteBox({
                     ? params.lang.toLowerCase() == "fa"
                       ? "کپی شد"
                       : "copied"
-                    : localFind("copy the invitation link")}
+                    : findByUniqueId(mainData, 1422)}
                 </button>
                 <input
                   ref={inputRef}
@@ -152,11 +163,11 @@ export default function InviteBox({
               </div>
             </div>
 
-            <div className=" flex flex-col justify-between lg:w-[60%] items-center lg:justify-center lg:gap-3 lg:ps-2 xl:ps-9">
-              <span className="text-black dark:text-white my-5 self-start lg:my-0 lg:mb-8">
-                {localFind("share via")}
+            <div className=" flex flex-col justify-between lg:w-[50%] items-center lg:justify-center lg:gap-3 lg:ps-2 xl:ps-9">
+              <span className="text-black dark:text-white my-5 self-start lg:my-0 lg:mb-8 lg:ps-[1px]">
+                {findByUniqueId(mainData, 1423)}
               </span>
-              <div className="flex flex-row w-full justify-evenly gap-1 sm:px-24 lg:p-0">
+              <div className="flex flex-row w-full justify-evenly lg:justify-between  gap-1 sm:px-24 lg:px-0 lg:pe-20">
                 {/* لینک تلگرام */}
                 <a
                   onClick={(e) => handleShare("Telegram")}
@@ -188,9 +199,7 @@ export default function InviteBox({
                     />
                   </svg>
                 </a>
-
                 {/* لینک واتساپ */}
-
                 <a
                   onClick={(e) => handleShare("Whatsapp")}
                   id="whatsApp-share"
@@ -253,7 +262,6 @@ export default function InviteBox({
                   </svg>
                 </a>
                 {/* لینک لینکدین */}
-
                 <a
                   onClick={(e) => handleShare("Linkedin")}
                   id="linkedin-share"
@@ -280,7 +288,6 @@ export default function InviteBox({
                     </g>
                   </svg>
                 </a>
-
                 {/* لینک ایکس */}
                 <a
                   onClick={(e) => handleShare("Twitter")}
@@ -310,7 +317,7 @@ export default function InviteBox({
           </div>
         </div>
 
-        <div className="relative lg:absolute lg:top-[-30px] rtl:lg:left-0 ltr:lg:right-0 h-[300px] lg:h-[110%] w-full lg:w-[35%] ltr:rotate-y-180">
+        <div className="relative lg:absolute lg:top-[-30px] rtl:lg:left-0 ltr:lg:right-0 h-[300px] lg:h-[112%] w-full lg:w-[35%] ltr:rotate-y-180">
           <Image
             className="object-contain"
             src="/firstpage/referral/invite.svg"

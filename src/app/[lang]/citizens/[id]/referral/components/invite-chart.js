@@ -1,28 +1,25 @@
 "use client";
 import React, { useRef, useEffect, useState } from "react";
-import Chart from "chart.js/auto"; // Import Chart.js
+import Chart from "chart.js/auto";
 import axios from "axios";
 import { useCookies } from "react-cookie";
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
-
-
-export default function InviteChart({params,referralPageArrayContent,initChartData}) {
-  const canvasRef = useRef(null); // useRef to reference the canvas
+export default function InviteChart({ params, referralPageArrayContent, initChartData, mainData }) {
+  const canvasRef = useRef(null);
   const chartRef = useRef(null);
-  const [currentData, setCurrentData] = useState(initChartData); // Default to daily data
-  const [invBtn, setInvBtn  ] = useState(true)
-  const [giftBtn, setGiftBtn] = useState(true)
-  const [timePeriodBtns, setTimePeriodBtns] = useState('yearly')
+  const [currentData, setCurrentData] = useState(initChartData);
+  const [invBtn, setInvBtn] = useState(true);
+  const [giftBtn, setGiftBtn] = useState(true);
+  const [timePeriodBtns, setTimePeriodBtns] = useState("yearly");
   const [cookies] = useCookies(["theme"]);
   const theme = cookies.theme || "dark";
 
   useEffect(() => {
-
     if (!canvasRef.current) return;
     const ctx = canvasRef.current.getContext("2d");
     if (!ctx) return;
 
-    // Destroy previous chart instance if it exists
     if (chartRef.current) {
       chartRef.current.destroy();
     }
@@ -59,18 +56,42 @@ export default function InviteChart({params,referralPageArrayContent,initChartDa
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false,
+          },
+          tooltip: {
+            enabled: true,
+            backgroundColor: theme === "dark" ? "rgba(0, 0, 0, 0.8)" : "rgba(255, 255, 255, 0.8)",
+            titleFont: {
+              size: 18, // افزایش اندازه فونت عنوان تول‌تیپ
+              family: "AzarMehrFD",
+            },
+            bodyFont: {
+              size: 18, // افزایش اندازه فونت بدنه تول‌تیپ
+              family: "AzarMehrFD",
+            },
+            padding: 12, // افزایش فاصله داخلی تول‌تیپ
+            cornerRadius: 8, // گرد کردن گوشه‌های تول‌تیپ
+            caretSize: 8, // اندازه فلش تول‌تیپ
+            caretPadding: 10, // فاصله فلش از چارت
+            titleColor: theme === "dark" ? "#FFFFFF" : "#000000",
+            bodyColor: theme === "dark" ? "#FFFFFF" : "#000000",
+          },
+        },
         scales: {
           x: {
             ticks: {
-              color: theme === "dark" ? "white" : "black", // Dynamically change color
+              color: theme === "dark" ? "white" : "black",
               font: {
-                size: 14,
+                size: 18, // افزایش اندازه فونت برچسب‌های محور X
                 family: "AzarMehrFD",
               },
               maxRotation: 45,
               minRotation: 45,
               autoSkip: true,
               autoSkipPadding: 10,
+              padding: 15, // افزایش فاصله برچسب‌ها از محور X
             },
             grid: {
               color: "#484850",
@@ -81,7 +102,12 @@ export default function InviteChart({params,referralPageArrayContent,initChartDa
           y: {
             beginAtZero: true,
             ticks: {
-              color: theme === "dark" ? "white" : "black", // Dynamically change color
+              color: theme === "dark" ? "white" : "black",
+              font: {
+                size: 16, // افزایش اندازه فونت برچسب‌های محور Y
+                family: "AzarMehrFD",
+              },
+              padding: 15, // افزایش فاصله برچسب‌ها از محور Y
             },
             grid: {
               color: "#484850",
@@ -90,178 +116,166 @@ export default function InviteChart({params,referralPageArrayContent,initChartDa
             },
           },
         },
-        plugins: {
-          legend: {
-            display: false,
+        layout: {
+          padding: {
+            left: -12, // فاصله اضافی از سمت چپ
+            right: -12, // فاصله اضافی از سمت راست
+            top: 20,
+            bottom: 20,
           },
         },
       },
     });
 
-    // Store the chart instance in chartRef
     chartRef.current = newChart;
 
-    // Cleanup the chart on component unmount
     return () => {
       newChart.destroy();
     };
-  }, [JSON.stringify(currentData), theme]); // Use JSON.stringify for currentData
-  
+  }, [JSON.stringify(currentData), theme]);
 
-  function localFind(_name) {
-    return referralPageArrayContent.find((item) => item.name == _name)
-      .translation;
-  }
-
-  // Convert all digits to Persian digits
   const convertToPersianDigits = (str) => {
     return str.replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
   };
 
-  const sumation = (_array)=>{
-    return _array.reduce((sum, current) => sum + current, 0)
-  }
+  const sumation = (_array) => {
+    return _array.reduce((sum, current) => sum + (current || 0), 0);
+  };
 
   const fetchChartData = async (_searchParam) => {
     try {
       const response = await axios.get(
-        `https://api.rgb.irpsc.com/api/citizen/${params.id}/referrals/chart?range=${_searchParam}`,{
+        `https://api.rgb.irpsc.com/api/citizen/${params.id}/referrals/chart?range=${_searchParam}`,
+        {
           headers: {
-            "Content-Type": "application/json" 
-          },}
+            "Content-Type": "application/json",
+          },
+        }
       );
-      return response.data.data
-    } 
-    catch (error) {
-      console.error("Error fetching chart data:", error);
+      return response.data.data;
+    } catch (error) {
+      console.error("خطا در دریافت داده‌های نمودار:", error);
+      return null;
     }
   };
 
+  const handleLegendClick = (datasetIndex) => {
+    if (datasetIndex === 0) {
+      setInvBtn(!invBtn);
+    } else {
+      setGiftBtn(!giftBtn);
+    }
+    const chart = chartRef.current;
+    chart.setDatasetVisibility(datasetIndex, !chart.isDatasetVisible(datasetIndex));
+    chart.update();
+  };
 
-
-
-    // Handle dataset toggle visibility on legend click
-    const handleLegendClick = (datasetIndex) => {
-      // handling style of chart btn
-      if(datasetIndex == 0)
-        setInvBtn(!invBtn)
-      else
-        setGiftBtn(!giftBtn)
-      const chart = chartRef.current;
-      chart.setDatasetVisibility(datasetIndex, !chart.isDatasetVisible(datasetIndex));
-      chart.update();
-    };
-
-  // Function to update the chart data based on the selected timeframe
   const handleTimeframeClick = async (timeframe) => {
-    setInvBtn(true)
-    setGiftBtn(true)
-    setTimePeriodBtns(timeframe)
+    setInvBtn(true);
+    setGiftBtn(true);
+    setTimePeriodBtns(timeframe);
     const fetchData = async () => {
       try {
         const chartData = await fetchChartData(timeframe);
-        
-        let myLabels
-        let referralsCount
-        let referralsAmount
-        let newData = {labels:[],data:[]}
-    
+        if (!chartData || !chartData.chart_data) {
+          console.warn("داده‌ای برای بازه زمانی دریافت نشد:", timeframe);
+          return;
+        }
+
+        let myLabels;
+        let referralsCount;
+        let referralsAmount;
+        let newData = { labels: [], data: [[], []] };
+
         switch (timeframe) {
           case "daily":
-            myLabels = await chartData.chart_data.map((label) => convertToPersianDigits(label.hour))
-            referralsCount = chartData.chart_data.map((label) => label.referrals_count)
-            referralsAmount = chartData.chart_data.map((label) => label.referral_orders_amount)
+            myLabels = chartData.chart_data.map((label) => convertToPersianDigits(label.hour));
+            referralsCount = chartData.chart_data.map((label) => label.referrals_count || 0);
+            referralsAmount = chartData.chart_data.map((label) => label.referral_orders_amount || 0);
             break;
           case "weekly":
-            myLabels = await chartData.chart_data.map((label) => convertToPersianDigits(label.day))
-            referralsCount = chartData.chart_data.map((label) => label.referrals_count)
-            referralsAmount = chartData.chart_data.map((label) => label.referral_orders_amount)
+            myLabels = chartData.chart_data.map((label) => convertToPersianDigits(label.day));
+            referralsCount = chartData.chart_data.map((label) => label.referrals_count || 0);
+            referralsAmount = chartData.chart_data.map((label) => label.referral_orders_amount || 0);
             break;
           case "monthly":
-            myLabels = await chartData.chart_data.map((label) => convertToPersianDigits(label.month))
-            referralsCount = chartData.chart_data.map((label) => label.referrals_count)
-            referralsAmount = chartData.chart_data.map((label) => label.referral_orders_amount)
-    
+            myLabels = chartData.chart_data.map((label) => convertToPersianDigits(label.month));
+            referralsCount = chartData.chart_data.map((label) => label.referrals_count || 0);
+            referralsAmount = chartData.chart_data.map((label) => label.referral_orders_amount || 0);
             break;
           case "yearly":
-            myLabels = await chartData.chart_data.map((label) => convertToPersianDigits(label.year))
-            referralsCount = chartData.chart_data.map((label) => label.total_referrals_count)
-            referralsAmount = chartData.chart_data.map((label) => label.total_referral_orders_amount)
+            myLabels = chartData.chart_data.map((label) => convertToPersianDigits(label.year));
+            referralsCount = chartData.chart_data.map((label) => label.total_referrals_count || 0);
+            referralsAmount = chartData.chart_data.map((label) => label.total_referral_orders_amount || 0);
             break;
           default:
             break;
         }
-        // creating new data for chart
-    
-        newData.labels = myLabels
-        newData.data[0] =  referralsCount
-        newData.data[1] =  referralsAmount
-    
-        setCurrentData(newData); // Update the current data based on the selected timeframe
-    
-        setCurrentData(newData); // Update the state with fetched data
+
+        newData.labels = myLabels || [];
+        newData.data[0] = referralsCount || [];
+        newData.data[1] = referralsAmount || [];
+
+        setCurrentData(newData);
       } catch (error) {
-        console.log('Error in fetching chart data', error);
+        console.error("خطا در دریافت داده‌های نمودار:", error);
       }
     };
-    fetchData()
-
+    fetchData();
   };
-
 
   return (
     <div className="w-full pt-7 flex flex-col gap-3">
       <div className="w-full pt-7 flex flex-col gap-3">
         <h2 className="text-black dark:text-white text-lg font-black font-azarMehr lg:text-2xl">
-         {localFind("reward history table")}
+          {findByUniqueId(mainData, 1427)}
         </h2>
         <p className="text-[#A0A0AB] text-lg my-3">
-          {localFind("in this table, you can see the am")}
+          {findByUniqueId(mainData, 1428)}
         </p>
-
         <div className="flex justify-between gap-4 md:max-w-[50%] lg:max-w-[30%] h-[64px]">
           <button
             onClick={() => handleTimeframeClick("daily")}
-            className={`moment bg-white dark:bg-darkGray text-[#84858F] p-2 rounded-xl w-full ${timePeriodBtns == 'daily'?"border border-[#33353B] dark:text-white text-black":''}`}
+            className={`moment bg-white dark:bg-darkGray text-[#84858F] p-2 rounded-xl w-full ${timePeriodBtns === "daily" ? "border-2 border-light-primary dark:border-dark-yellow border-solid dark:text-dark-yellow text-light-primary font-bold" : ""
+              }`}
           >
-            {localFind('daily')}
+            {findByUniqueId(mainData, 1429)}
           </button>
           <button
             onClick={() => handleTimeframeClick("weekly")}
-            className={`moment bg-white dark:bg-darkGray text-[#84858F] p-2 rounded-xl w-full ${timePeriodBtns == 'weekly'?"border border-[#33353B] dark:text-white text-black":''}`}
+            className={`moment bg-white dark:bg-darkGray text-[#84858F] p-2 rounded-xl w-full ${timePeriodBtns === "weekly" ? "border-2 border-light-primary dark:border-dark-yellow border-solid dark:text-dark-yellow text-light-primary font-bold" : ""
+              }`}
           >
-            {localFind('weekly')}
+            {findByUniqueId(mainData, 1430)}
           </button>
           <button
             onClick={() => handleTimeframeClick("monthly")}
-            className={`moment bg-white dark:bg-darkGray text-[#84858F] p-2 rounded-xl w-full ${timePeriodBtns == 'monthly'?"border border-[#33353B] dark:text-white text-black":''}`}
+            className={`moment bg-white dark:bg-darkGray text-[#84858F] p-2 rounded-xl w-full ${timePeriodBtns === "monthly" ? "border-2 border-light-primary dark:border-dark-yellow border-solid dark:text-dark-yellow text-light-primary font-bold" : ""
+              }`}
           >
-            {localFind('monthly')}
+            {findByUniqueId(mainData, 1431)}
           </button>
           <button
             onClick={() => handleTimeframeClick("yearly")}
-            className={`moment bg-white dark:bg-darkGray text-[#84858F] p-2 rounded-xl w-full ${timePeriodBtns == 'yearly'?"border border-[#33353B] dark:text-white text-black":''}`}
+            className={`moment bg-white dark:bg-darkGray text-[#84858F] p-2 rounded-xl w-full ${timePeriodBtns === "yearly" ? "border-2 border-light-primary dark:border-dark-yellow border-solid dark:text-dark-yellow text-light-primary font-bold" : ""
+              }`}
           >
-            {localFind('annually')}
+            {findByUniqueId(mainData, 1432)}
           </button>
         </div>
       </div>
-      {/* LEGENDARY buttons */}
       <div className="flex justify-start md:justify-end gap-6 mt-6">
         <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleLegendClick(0)}>
           <div className="w-2 h-2 lg:w-3 lg:h-3 rounded-full bg-[#0066FF]"></div>
-          <span className={`text-[#0066FF] ${invBtn?"":"line-through"}`}>{localFind("invitations")}</span>
+          <span className={`text-[#0066FF] ${invBtn ? "" : "line-through"}`}> {findByUniqueId(mainData, 1419)}</span>
         </div>
-
         <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleLegendClick(1)}>
           <div className="w-2 h-2 lg:w-3 lg:h-3 rounded-full bg-[#FFC700]"></div>
-          <span className={`text-[#FFC700] ${giftBtn?"":"line-through"}`}>{localFind("-rewards")}</span>
+          <span className={`text-[#FFC700] ${giftBtn ? "" : "line-through"}`}> {findByUniqueId(mainData, 1433)}</span>
         </div>
       </div>
-      {/* BIG CARDS - 1 */}
-
-      <div className=" w-full pt-2  text-right flex flex-col gap-3 md:flex-row">
-        <div className="bg-[#0066ff78] h-[96px]  rounded-xl flex justify-between px-6 items-center w-full relative lg:h-44">
+      <div className="w-full pt-2 text-right flex flex-col gap-3 md:flex-row">
+        <div className="bg-[#0066FF] dark:bg-[#0066ff78] h-[96px] rounded-xl flex justify-between px-6 items-center w-full relative lg:h-44">
           <div className="absolute top-0 right-0">
             <svg
               className="lg:w-[111px] lg:h-[59px]"
@@ -271,13 +285,12 @@ export default function InviteChart({params,referralPageArrayContent,initChartDa
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path
-                d="M8 0.09375H98.193C104.82 0.09375 110.193 5.46633 110.193 12.0937V52.0938C110.193 52.0938 106.5 72.0938 41.4997 43.0938C-23.5 14.0938 8 0.09375 8 0.09375Z"
-                fill="#003C95"
+              <path className="fill-[#004cbe] dark:fill-[#003C95]"
+                d="M8 0.09375H98.193C104.82 0.09375 110.193 5.46633 110.193 12.0937V52.0938C110.193 52.0938 106.5 72.0938 41.4997 43.0938C-23.5 14.0938 8 0.09375 8 0.09375Z" 
               />
             </svg>
           </div>
-          <div className="absolute top-1 left-0  z-40">
+          <div className="absolute top-1 left-0 z-40">
             <svg
               className="lg:w-[60px] lg:h-[102px]"
               width="40"
@@ -286,21 +299,21 @@ export default function InviteChart({params,referralPageArrayContent,initChartDa
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path
+              <path className="fill-[#004cbe] dark:fill-[#003C95]"
                 d="M0.660883 93.0841L0.620241 11.0166C0.620241 11.0166 13.3941 -5.81132 38.9942 2.79481C64.5943 11.4009 83.4943 57.7928 66.4943 86.7951C49.4943 115.797 0.660883 93.0841 0.660883 93.0841Z"
-                fill="#003C95"
               />
             </svg>
           </div>
-
-          <div className="z-40 flex flex-col gap-2 mt-2 ">
-            <p className="text-white text-sm lg:text-base">{localFind("the total number of invitations")}</p>
+          <div className="z-40 flex flex-col gap-2 mt-2">
+            <p className="text-white text-sm lg:text-base"> {findByUniqueId(mainData, 1434)}</p>
             <p
               id="invite"
               className="text-white text-3xl font-semibold lg:text-5xl rtl:text-right ltr:text-left"
-            >{currentData.data[0] && currentData.data[0].length > 0 ? sumation(currentData.data[0]) : ""}</p>
+            >
+              {currentData.data[0] && currentData.data[0].length > 0 ? sumation(currentData.data[0]) : ""}
+            </p>
           </div>
-          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2">
+          <div className="absolute bottom-[-10px] left-1/2 transform -translate-x-1/2">
             <svg
               className="lg:w-[109px] lg:h-[31px]"
               width="70"
@@ -309,14 +322,13 @@ export default function InviteChart({params,referralPageArrayContent,initChartDa
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path
+              <path className="fill-[#004cbe] dark:fill-[#003C95]"
                 d="M106.701 30.3781L20.1633 30.3781L0.164742 30.6094C0.164742 30.6094 15.2159 -9.06122 68.3597 3.3313C121.503 15.7238 106.701 30.3781 106.701 30.3781Z"
-                fill="#003C95"
+                
                 fillOpacity="0.4"
               />
             </svg>
           </div>
-
           <div className="relative">
             <svg
               className="lg:w-28 lg:h-28 pt-2 lg:pt-6"
@@ -375,9 +387,8 @@ export default function InviteChart({params,referralPageArrayContent,initChartDa
             </svg>
           </div>
         </div>
-
-        <div className="bg-[#806300] h-[96px]  rounded-xl flex justify-between px-6  items-center w-full relative  lg:h-44">
-          <div className="absolute top-0 right-0 ">
+        <div className="bg-[#FFC700] dark:bg-[#806300] h-[96px] rounded-xl flex justify-between px-6 items-center w-full relative lg:h-44">
+          <div className="absolute top-0 right-0">
             <svg
               className="lg:w-[75px] lg:h-[46px]"
               width="35"
@@ -386,13 +397,13 @@ export default function InviteChart({params,referralPageArrayContent,initChartDa
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path
+              <path className="fill-[#EAB600] dark:fill-[#947300]"
                 d="M5.87786 0H59.8779C66.5053 0 71.8779 5.37258 71.8779 12V34.0924C71.8779 34.0924 38.3779 59 14.113 34.0924C-10.1518 9.18478 5.87786 0 5.87786 0Z"
                 fill="#947300"
               />
             </svg>
           </div>
-          <div className="absolute bottom-0 left-0 z-40  ">
+          <div className="absolute bottom-0 left-0 z-40">
             <svg
               className="lg:w-14 lg:h-28"
               width="40"
@@ -401,23 +412,22 @@ export default function InviteChart({params,referralPageArrayContent,initChartDa
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path
+              <path className="fill-[#EAB600] dark:fill-[#947300]"
                 d="M0.87785 123.074L0.87785 1.57813C0.87785 1.57813 10.3779 -1.92186 27.3779 1.57813C44.3779 5.07812 98.8778 68.0741 54.3556 108.448C9.83338 148.822 0.87785 123.074 0.87785 123.074Z"
                 fill="#947300"
               />
             </svg>
           </div>
-
           <div className="z-40 flex flex-col gap-2 mt-2">
-            <p className="text-white text-sm lg:text-base">
-              {localFind("bonus received per unit (psc)")}
-            </p>
+            <p className="text-white text-sm lg:text-base">{findByUniqueId(mainData, 1435)}</p>
             <p
               id="reward"
               className="text-white text-3xl font-semibold lg:text-5xl rtl:text-right ltr:text-left"
-            >{currentData.data[1] && currentData.data[1].length > 0 ? sumation(currentData.data[1]) : ""}</p>
+            >
+              {currentData.data[1] && currentData.data[1].length > 0 ? sumation(currentData.data[1]) : ""}
+            </p>
           </div>
-          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2">
+          <div className="absolute bottom-[-10px] left-1/2 transform -translate-x-1/2">
             <svg
               className="lg:w-[81px] lg:h-[45px]"
               width="40"
@@ -426,7 +436,7 @@ export default function InviteChart({params,referralPageArrayContent,initChartDa
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path
+              <path className="fill-[#dfae00] dark:fill-[#947300]"
                 d="M75.2562 44.0781L1.31507 43.5502C1.31507 43.5502 -0.773712 37.7534 1.43021 27.4226C3.63414 17.0918 42.2096 -15.8026 66.5875 11.4686C90.9653 38.7398 75.2562 44.0781 75.2562 44.0781Z"
                 fill="#947300"
                 fillOpacity="0.4"
@@ -435,7 +445,7 @@ export default function InviteChart({params,referralPageArrayContent,initChartDa
           </div>
           <div className="relative">
             <svg
-              className="lg:w-[113px] lg:h-[100px] "
+              className="lg:w-[113px] lg:h-[100px]"
               width="61"
               height="55"
               viewBox="0 0 61 55"
@@ -467,10 +477,9 @@ export default function InviteChart({params,referralPageArrayContent,initChartDa
           </div>
         </div>
       </div>
-
       <div className="overflow-x-auto light-scrollbar dark:dark-scrollbar">
-        <div className="relative flex justify-center md:justify-end gap-6 text-right min-w-[800px]">
-            <canvas ref={canvasRef} id="myChart" height='300'></canvas> 
+        <div className="relative flex justify-center md:justify-end gap-6 text-right lg:w-full min-w-[800px]">
+          <canvas ref={canvasRef} id="myChart" height="420"></canvas>
         </div>
       </div>
     </div>
