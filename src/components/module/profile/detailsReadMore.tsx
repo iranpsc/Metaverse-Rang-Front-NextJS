@@ -29,7 +29,7 @@ const ProfileReadMore = ({
 
   return (
     <>
-      <section className="dark:bg-dark-background transition-all duration-300 ease-linear shadow-md bg-white w-full rounded-[10px] py-2 px-3">
+      <section className="dark:bg-dark-background transition-all duration-300 ease-linear shadow-md bg-white w-full rounded-[10px]  px-3">
         <div className="flex flex-nowrap p-1 xl:py-3 3xl:py-5 justify-between w-full h-full items-center">
           <p className="font-azarMehr font-medium 3xl:text-xl3Title xl:text-xlTitle lg:text-lgTitle  md:text-mdTitle sm:text-smTitle xs:text-smTitle text-[#000] dark:text-white ">
             {/* {targetData(
@@ -58,7 +58,7 @@ const ProfileReadMore = ({
           </span>
         </div>
       </section>
-      <section className="dark:bg-dark-background transition-all duration-300 ease-linear shadow-md bg-white w-full rounded-[10px] py-2 px-3">
+      <section className="dark:bg-dark-background transition-all duration-300 ease-linear shadow-md bg-white w-full rounded-[10px] px-3">
         <div className="flex flex-row justify-between p-1 xl:py-3 3xl:py-5 w-full h-full items-center ">
           <p className="font-azarMehr font-medium 3xl:text-xl3Title xl:text-xlTitle lg:text-lgTitle  md:text-mdTitle sm:text-smTitle xs:text-smTitle text-[#000] dark:text-white">
             {/* {targetData(userProperty, "forecast 2022")} */}
@@ -86,7 +86,7 @@ const ProfileReadMore = ({
         </div>
       </section>
 
-      <section className="dark:bg-dark-background transition-all duration-300 ease-linear shadow-md bg-white w-full rounded-[10px] py-2 px-3">
+      <section className="dark:bg-dark-background transition-all duration-300 ease-linear shadow-md bg-white w-full rounded-[10px]  px-3">
         <div className="flex flex-nowrap justify-between items-center h-full p-1 xl:py-3 3xl:py-5  ">
           <p className="font-azarMehr font-medium 3xl:text-xl3Title xl:text-xlTitle lg:text-lgTitle  md:text-mdTitle sm:text-smTitle xs:text-smTitle text-[#000] dark:text-white ">
             {/* {targetData(userProperty, "pleasant memory")} */}
@@ -115,7 +115,7 @@ const ProfileReadMore = ({
         </div>
       </section>
 
-      <section className="dark:bg-dark-background bg-white transition-all shadow-md duration-300 ease-linear w-full rounded-[10px] py-2 px-3">
+      <section className="dark:bg-dark-background bg-white transition-all shadow-md duration-300 ease-linear w-full rounded-[10px]  px-3">
         <div className="flex flex-nowrap justify-between w-full h-full items-center p-1 xl:py-3 3xl:py-5 ">
           <p className="font-azarMehr font-medium   xl:text-xlTitle 3xl:text-xl3Title lg:text-lgTitle  md:text-mdTitle sm:text-smTitle xs:text-smTitle text-[#000] dark:text-white ">
             {/* {targetData(userProperty, "favorites")} */}

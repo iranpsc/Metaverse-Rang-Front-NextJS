@@ -247,7 +247,7 @@ export async function generateMetadata({ params }: { params: any }) {
   // Updated localFind function with error handling and logging
   function localFind(_name: any): string {
     if (!Array.isArray(referralPageArrayContent) || referralPageArrayContent.length === 0) {
-      console.warn('referralPageArrayContent is empty or not an array', { _name });
+      // console.warn('referralPageArrayContent is empty or not an array', { _name });
       return '';
     }
     const item = referralPageArrayContent.find((item: any) => item.name === _name);

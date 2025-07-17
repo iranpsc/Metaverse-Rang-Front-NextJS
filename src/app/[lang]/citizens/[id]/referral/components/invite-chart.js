@@ -387,7 +387,7 @@ export default function InviteChart({ params, referralPageArrayContent, initChar
             </svg>
           </div>
         </div>
-        <div className="bg-[#FFC700] dark:bg-[#806300] h-[96px] rounded-xl flex justify-between px-6 items-center w-full relative lg:h-44">
+        <div className="bg-[#FFC700] dark:bg-dark-yellow h-[96px] rounded-xl flex justify-between px-6 items-center w-full relative lg:h-44">
           <div className="absolute top-0 right-0">
             <svg
               className="lg:w-[75px] lg:h-[46px]"
@@ -397,7 +397,7 @@ export default function InviteChart({ params, referralPageArrayContent, initChar
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path className="fill-[#EAB600] dark:fill-[#947300]"
+              <path className="fill-[#EAB600] "
                 d="M5.87786 0H59.8779C66.5053 0 71.8779 5.37258 71.8779 12V34.0924C71.8779 34.0924 38.3779 59 14.113 34.0924C-10.1518 9.18478 5.87786 0 5.87786 0Z"
                 fill="#947300"
               />
@@ -412,7 +412,7 @@ export default function InviteChart({ params, referralPageArrayContent, initChar
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path className="fill-[#EAB600] dark:fill-[#947300]"
+              <path className="fill-[#EAB600] "
                 d="M0.87785 123.074L0.87785 1.57813C0.87785 1.57813 10.3779 -1.92186 27.3779 1.57813C44.3779 5.07812 98.8778 68.0741 54.3556 108.448C9.83338 148.822 0.87785 123.074 0.87785 123.074Z"
                 fill="#947300"
               />
@@ -436,7 +436,7 @@ export default function InviteChart({ params, referralPageArrayContent, initChar
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path className="fill-[#dfae00] dark:fill-[#947300]"
+              <path className="fill-[#dfae00] "
                 d="M75.2562 44.0781L1.31507 43.5502C1.31507 43.5502 -0.773712 37.7534 1.43021 27.4226C3.63414 17.0918 42.2096 -15.8026 66.5875 11.4686C90.9653 38.7398 75.2562 44.0781 75.2562 44.0781Z"
                 fill="#947300"
                 fillOpacity="0.4"

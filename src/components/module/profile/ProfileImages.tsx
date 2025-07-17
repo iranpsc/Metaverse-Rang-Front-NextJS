@@ -106,7 +106,7 @@ export default function ProfileImages({
         </div>
 
         <div className="flex items-center flex-col lg:flex-row w-[100%] lg:w-[23%] justify-center lg:justify-end gap-5 pe-5">
-          <hr className="ms-5 h-[1.5px] w-[35vh] lg:w-[1.5px] lg:h-[35vh] 2xl:h-[39vh] mt-2 border-none xl:bg-gradient-to-b lg:bg-gradient-to-b md:bg-gradient-to-r mb-1 sm:bg-gradient-to-l xs:bg-gradient-to-l from-[#DADADA00] via-[#b3b3b3] to-[#DADADA00]" />
+          <hr className="ms-5 h-[1.5px] w-[35vh] lg:w-[1.5px] lg:h-[35vh] 2xl:h-[40vh] mt-2 border-none xl:bg-gradient-to-b lg:bg-gradient-to-b md:bg-gradient-to-r mb-1 sm:bg-gradient-to-l xs:bg-gradient-to-l from-[#DADADA00] via-[#b3b3b3] to-[#DADADA00]" />
 
         <div className=" flex xl:flex-row lg:flex-row md:flex-col sm:flex-col xs:flex-col max-lg:mb-2  gap-2 justify-center items-center">
           <motion.div

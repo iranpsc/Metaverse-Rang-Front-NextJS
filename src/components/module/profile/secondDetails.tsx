@@ -8,13 +8,13 @@ export default function ProfileDetailsDetails({ itemsProfileDetails }: any) {
           duration: 2,
           x: { duration: 1 },
         }}
-        className="h-[70%] dark:bg-dark-background flex flex-col shadow-md justify-evenly items-center 3xl:py-3 sm:py-3 xs:py-3  transition-all duration-300 ease-linear bg-white w-full rounded-[10px]"
+        className="h-[70%] dark:bg-dark-background flex flex-col shadow-md justify-evenly items-center 3xl:py-0 sm:py-3 xs:py-3  transition-all duration-300 ease-linear bg-white w-full rounded-[10px]"
       >
         {itemsProfileDetails.map((item: any, i: number): any => (
           <div
             key={i}
             className="flex flex-row px-3 xl:mt-3 lg:mt-3 md:mt-2 sm:mt-1 xs:mt-1 justify-between w-full items-center
-            xl:py-[4px] lg:py-[4px] md:py-[4px] sm:py-[5px] xs:py-[5px]
+            xl:py-[0px] lg:py-[4px] md:py-[4px] sm:py-[5px] xs:py-[5px]
             "
           >
             <p className="font-azarMehr 3xl:text-xl3Title lg:text-lgTitle  xl:text-xlTitle  md:text-mdTitle sm:text-smTitle xs:text-smTitle font-medium  text-[#000] dark:text-white">
@@ -27,7 +27,7 @@ export default function ProfileDetailsDetails({ itemsProfileDetails }: any) {
                 {item.value}
               </p>
               {item.fValue && item.fValue.length > 2 && (
-                <span className="absolute end-2  top-6 z-20 bg-[#868b90] rounded-md text-center w-max p-2 scale-0 font-azarMehr font-medium text-xs text-white group-hover:scale-100">
+                <span className="absolute end-2  top-7 z-20  !bg-[#E9E9E9] !text-[#908F95] dark:!bg-black !font-azarMehr !font-medium  dark:!text-white !text-[14px]  rounded-md text-center w-max px-2 py-[5px] scale-0   group-hover:scale-100">
                   {item.fValue}
                 </span>
               )}

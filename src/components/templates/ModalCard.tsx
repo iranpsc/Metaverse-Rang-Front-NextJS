@@ -53,7 +53,7 @@ export default function ModalCard({
             alt={dataModal.title}
           />
           <div className="w-full h-full  flex flex-col justify-start  gap-4 top-0 absolute">
-            <div className="flex flex-row justify-center items-center mt-[14px]">
+            <div className="flex flex-row justify-start items-center mt-[14px] ps-4">
               <h1 className="font-azarMehr font-bold 3xl:text-2xl xl:text-xlDesc lg:text-lgDesc md:text-mdDesc  sm:text-smTitle xs:text-smTitle text-[#00000096] dark:text-dark-gray">
                 {dataModal.title}
               </h1>
