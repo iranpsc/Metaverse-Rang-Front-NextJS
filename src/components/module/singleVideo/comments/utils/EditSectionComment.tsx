@@ -72,7 +72,7 @@ const EditSectionComment = ({
               )
             }
           >
-            <p className="font-azarMehr font-normal text-[12px] text-white">
+            <p className="font-azarMehr font-normal text-[12px] md:text-base text-white">
               {checkData(findByUniqueId(mainData, 460))}
             </p>
             <EditIcon className="stroke-[#414040] dark:stroke-white size-[24px]" />

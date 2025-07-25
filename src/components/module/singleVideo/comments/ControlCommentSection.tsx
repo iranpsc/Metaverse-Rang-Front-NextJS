@@ -18,7 +18,7 @@ const ControlCommentSection = ({
 
   return (
     <>
-      <button className="flex flex-row justify-center items-center cursor-pointer gap-1 xl:flex lg:flex md:flex xs:hidden sm:hidden active:scale-105 duration-300 bg-transparent"
+      <button className="flex flex-row justify-center items-center cursor-pointer gap-1  active:scale-105 duration-300 bg-transparent"
         onClick={() =>
           handlerDeleteComments(
             token,
@@ -28,7 +28,7 @@ const ControlCommentSection = ({
             setShowAuthCard
           )
         }>
-        <p className="font-azarMehr font-normal text-singleVideo_medium text-error ">
+        <p className="font-azarMehr font-normal text-[12px] md:text-[15px] text-error ">
           {/* {checkData(
             translateSingleVideo.find((item: any) => item.name === "delete")
               ?.translation
@@ -50,7 +50,7 @@ const ControlCommentSection = ({
           )
         }
       >
-        <p className="font-azarMehr text-black dark:text-white font-normal text-[12px]">
+        <p className="font-azarMehr text-black dark:text-white font-normal text-[12px] md:text-[14px]">
           {/* {checkData(
             translateSingleVideo.find((item: any) => item.name === "edit")
               ?.translation

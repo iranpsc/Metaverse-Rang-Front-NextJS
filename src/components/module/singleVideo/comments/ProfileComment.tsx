@@ -14,9 +14,10 @@ const ProfileComment = ({
 }: any) => {
   return (
     <>
-      <div className="flex flex-row justify-start items-center gap-2 h-[50px] ">
+    <div className="flex justify-between w-full items-start">
+            <div className="flex flex-row justify-start items-center gap-2 h-[50px] ">
         <Image
-          src={itemComment.user.image ? itemComment.user.image : "/profile.png"}
+          src={itemComment.user.image ? itemComment.user.image : "/profile.webp"}
           alt={itemComment.user.code}
           width={1000}
           height={1000}
@@ -59,6 +60,7 @@ const ProfileComment = ({
           {checkData(itemComment.created_at)}
         </p>
       </div>
+    </div>
       <MenuCommentIcon
         className="size-[24px] cursor-pointer xl:hidden lg:hidden md:hidden sm:block xs:block stroke-[#414040] dark:stroke-white"
         onClick={() =>
