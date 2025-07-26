@@ -72,10 +72,11 @@ const SingleVideoPlayModule = ({ DataVideo }: any) => {
     return `${hours > 0 ? `${hours}:` : ""}${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
   };
 
-  const handlerVolume = () => {
-    if (videoRef.current) {
-      videoRef.current.muted = !isMute;
-      setIsMute(!isMute);
+const handlerVolume = () => {
+    if (isMute) {
+      setIsMute(false);
+    } else {
+      setIsMute(true);
     }
   };
 
@@ -126,7 +127,7 @@ const SingleVideoPlayModule = ({ DataVideo }: any) => {
         </div>
       </div>
 
-      <div className="xl:w-[80%] lg:w-[80%] md:w-[90%] sm:w-[95%] xs:w-[95%] bg-white/80 dark:bg-dark-background flex flex-row justify-center items-center xl:gap-4 lg:gap-4 md:gap-4 sm:gap-1 xs:gap-1 h-[65px] xs:h-[45px] absolute bottom-7 rounded-[20px] select-none z-50">
+      <div dir="rtl" className="xl:w-[80%] lg:w-[80%] md:w-[90%] sm:w-[95%] xs:w-[95%] bg-white/80 dark:bg-dark-background flex flex-row justify-center items-center xl:gap-4 lg:gap-4 md:gap-4 sm:gap-1 xs:gap-1 h-[65px] xs:h-[45px] absolute bottom-7 rounded-[20px] select-none z-50">
         <div className="size-[25px]" onClick={toggleFullScreen}>
           <FullScreenIcon className="size-[24px] fill-singleVideo-gray dark:fill-white cursor-pointer" />
         </div>
