@@ -132,7 +132,7 @@ const handlerVolume = () => {
           <FullScreenIcon className="size-[24px] fill-singleVideo-gray dark:fill-white cursor-pointer" />
         </div>
 
-        <p className="font-azarMehr text-singleVideo_medium text-singleVideo-gray dark:text-white font-medium " dir="ltr">
+        <p className="font-azarMehr text-singleVideo-gray dark:text-white font-medium text-xs md:text-base" dir="ltr">
           {formatDuration(currentTime)} / {videoRef.current ? formatDuration(videoRef.current.duration) : "00:00"}
         </p>
         <input
