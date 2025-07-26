@@ -131,7 +131,7 @@ const SingleVideoPlayModule = ({ DataVideo }: any) => {
           <FullScreenIcon className="size-[24px] fill-singleVideo-gray dark:fill-white cursor-pointer" />
         </div>
 
-        <p className="font-azarMehr text-singleVideo_medium text-singleVideo-gray dark:text-white font-medium">
+        <p className="font-azarMehr text-singleVideo_medium text-singleVideo-gray dark:text-white font-medium " dir="ltr">
           {formatDuration(currentTime)} / {videoRef.current ? formatDuration(videoRef.current.duration) : "00:00"}
         </p>
         <input
@@ -145,12 +145,12 @@ const SingleVideoPlayModule = ({ DataVideo }: any) => {
           aria-label="player input"
         />
         {isMute ? (
-          <VolumeMuteIcon
+          <VolumeIcon
             className="size-[24px] fill-singleVideo-gray dark:fill-white cursor-pointer"
             onClick={handlerVolume}
           />
         ) : (
-          <VolumeIcon
+          <VolumeMuteIcon
             className="size-[24px] fill-singleVideo-gray dark:fill-white cursor-pointer"
             onClick={handlerVolume}
           />
