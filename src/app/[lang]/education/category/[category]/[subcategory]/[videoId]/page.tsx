@@ -199,7 +199,7 @@ export default async function EducationVideo({ params }: { params: any }) {
           />
         </Suspense>
         <section
-          className={`w-full overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20 xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1`}
+          className={`w-full overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 lg:pt-0 bg-[#F5F5F5] dark:bg-black bg-opacity20 xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1`}
         >
           {/* Breadcrumb */}
           {/* <div className="">
@@ -213,7 +213,7 @@ export default async function EducationVideo({ params }: { params: any }) {
           </div> */}
 
           <section
-            className={`w-full relative overflow-y-auto overflow-x-clip flex flex-col justify-start items-center bg-[#F5F5F5] dark:bg-black`}
+            className={`w-full relative overflow-y-auto overflow-x-clip flex flex-col justify-start items-center `}
           >
             {/* <ProfileHeaderMobile
               menuData={data}
