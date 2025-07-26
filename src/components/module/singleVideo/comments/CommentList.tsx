@@ -289,6 +289,10 @@ const CommentList = ({
   };
 
   const handleReportClick = (commentId: number) => {
+    if (!token) {
+      setShowLoginModal(true); // نمایش مودال لاگین اگر کاربر لاگین نکرده باشد
+      return;
+    }
     setShowReportModal(commentId);
     setError(null);
     setShowSuccessModal(null);
@@ -448,8 +452,17 @@ const CommentList = ({
                 </div>
                 {itemComment.user.code !== code && (
                   <div
-                    className="flex flex-row justify-center items-center gap-1 cursor-pointer flex-nowrap "
-                    onClick={() => setShowReplyForm((prev: { [key: number]: boolean }) => ({ ...prev, [itemComment.id]: !prev[itemComment.id] }))}
+                    className="flex flex-row justify-center items-center gap-1 cursor-pointer flex-nowrap"
+                    onClick={() => {
+                      if (!token) {
+                        setShowLoginModal(true); // نمایش مودال لاگین اگر توکن وجود نداشته باشد
+                      } else {
+                        setShowReplyForm((prev: { [key: number]: boolean }) => ({
+                          ...prev,
+                          [itemComment.id]: !prev[itemComment.id],
+                        }));
+                      }
+                    }}
                   >
                     <p className="font-azarMehr font-medium text-blue-500 dark:text-yellow-400 text-sm md:text-[16px] text-nowrap">
                       {checkData(findByUniqueId(mainData, 458))} ({repliesData[itemComment.id]?.length || 0})
