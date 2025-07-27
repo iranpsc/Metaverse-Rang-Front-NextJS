@@ -79,7 +79,7 @@ export async function generateMetadata({ params }: { params: any }): Promise<Met
     }
     const langData = await getTranslation(params.lang);
     const mainData = await getMainFile(langData);
-    const title = findByUniqueId(mainData, 1454);
+    const title = findByUniqueId(mainData, 1458);
     const description = findByUniqueId(mainData, 1452);
     const pageUrl = `https://rgb.irpsc.com/${params.lang}/version/${encodeURIComponent(currentVersion.version)}`;
     const image = currentVersion.image;
@@ -210,7 +210,7 @@ export default async function VersionPage({ params }: { params: any }) {
   const versionSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": findByUniqueId(mainData, 256) || "نام نرم‌افزار یا پروژه",
+    "name": findByUniqueId(mainData, 1458) || "نام نرم‌افزار یا پروژه",
     "url": `https://rgb.irpsc.com/${params.lang}/version/${encodeURIComponent(params.version || "")}`,
     "description": currentVersion ? stripHtmlTags(currentVersion.description) : "صفحه نسخه‌های نرم‌افزار",
     "author": {
