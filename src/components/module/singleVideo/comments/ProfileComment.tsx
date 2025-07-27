@@ -18,9 +18,9 @@ const ProfileComment = ({
             <div className="flex flex-row justify-start items-center gap-2 h-[50px] ">
         <Image
           src={itemComment.user.image ? itemComment.user.image : "/profile.webp"}
-          alt={itemComment.user.code}
-          width={1000}
-          height={1000}
+          alt={itemComment.user.name + " pic"} 
+          width={50}
+          height={50}
           loading="lazy"
           className="w-[50px] h-[50px] rounded-full object-cover cursor-pointer transition-all duration-150 ease-in-out"
           // onClick={() => pushRgb(item.creator.code)}

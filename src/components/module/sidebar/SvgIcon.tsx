@@ -96,7 +96,7 @@ export default function SvgIcon({ unique_id, color, name }: any) {
       {unique_id === 1414 && (
         <Language className={`${color} stroke-1 mx-[10px] 3xl:w-7 3xl:h-7`} />
       )}
-      {unique_id === 261 && (
+      {unique_id === 1458 && (
         <Version className={`${color} stroke-1 fill-[#888888]  mx-[10px] 3xl:w-7 3xl:h-7`} />
       )}
 

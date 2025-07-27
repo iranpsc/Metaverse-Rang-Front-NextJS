@@ -47,7 +47,7 @@ export async function generateMetadata({ params }) {
 
 
   return {
-    title: findByUniqueId(mainData, 256),
+    title: findByUniqueId(mainData, 1457),
     description: await makeLessCharacter(),
     openGraph: {
       type: 'website',
@@ -61,7 +61,7 @@ export async function generateMetadata({ params }) {
           url: "https://rgb.irpsc.com/_next/image?url=%2Flogo.png&w=120&q=75",
           width: 800,
           height: 600,
-          alt: findByUniqueId(mainData, 256),
+          alt: findByUniqueId(mainData, 1457),
         },
       ],
     },
@@ -167,7 +167,7 @@ export default async function LangPage({ params }) {
   const landingSchema = {
     "@context": "https://schema.org/",
     "@type": "ProfessionalService",
-    "name": `${findByUniqueId(mainData, 256)}`,
+    "name": `${findByUniqueId(mainData, 1457)}`,
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "میرداماد، 824H+JG2",
