@@ -12,9 +12,9 @@ export default function HeaderFirstPage({ mainData, params }: any) {
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.3, delay: 0.3 }}
-          className="w-[50%] font-bold text-[28px] sm:text-[32px] md:text-[38px] xl:text-[56px] 2xl:text-[78px]  text-light-primary dark:text-dark-yellow whitespace-nowrap font-rokh mt-2 xl:mt-5"
+          className=" lg:w-[50%] font-bold text-[32px] sm:text-[32px] md:text-[38px] xl:text-[56px] 2xl:text-[78px]  text-light-primary dark:text-dark-yellow lg:whitespace-nowrap font-rokh mt-2 xl:mt-5"
         >
-{findByUniqueId(mainData, 1457)}
+          {findByUniqueId(mainData, 1457)}
         </motion.h1>
         <motion.div
           initial={{ opacity: 0, scale: 0 }}
@@ -45,14 +45,14 @@ export default function HeaderFirstPage({ mainData, params }: any) {
           {findByUniqueId(mainData, 482)}
         </motion.p>
 
-        <a  href="https://rgb.irpsc.com/metaverse/">
-          <motion.div 
+        <a href="https://rgb.irpsc.com/metaverse/">
+          <motion.div
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.3 }}
             className="!border-[2px]  border-solid mt-3 !border-white rounded-full  w-max xl gap-7  flex flex-row justify-between items-center p-1 ps-6"
           >
-            <p  className="w-fit text-start text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px] text-white font-azarMehr font-medium whitespace-nowrap">
+            <p className="w-fit text-start text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px] text-white font-azarMehr font-medium whitespace-nowrap">
               {/* {localFind("entering the metaverse world")} */}
               {findByUniqueId(mainData, 483)}
             </p>
