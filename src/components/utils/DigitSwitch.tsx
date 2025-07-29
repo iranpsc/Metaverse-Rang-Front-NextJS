@@ -30,7 +30,11 @@ export const switchDigits = (
   ];
 
   // Convert input to string if it's a number
-  const inputStr: string = input.toString();
+  if (input === undefined || input === null) {
+    // مقدار پیش‌فرض یا مقدار مناسب برگردان
+    return "";
+  }
+  const inputStr = input.toString();
 
   if (language === "fa") {
     // Convert English digits to Persian digits
