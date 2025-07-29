@@ -424,7 +424,7 @@ export default function Calendar({
       <div className="flex justify-between pt-2 pb-5 sm:pb-4 xl:pb-10 flex-row-reverse ">
         <div className="flex items-center text-xl">
           <img
-            src="/svg/arrow.svg"
+            src="public/svg/arrow.svg"
             className={`w-6 h-6 xl:w-7 xl:h-7 2xl:w-9 2xl:h-9 cursor-pointer invert dark:invert-0 ${
               isShamsi ? "rotate-[270deg]" : "rotate-90"
             }`}
@@ -444,7 +444,7 @@ export default function Calendar({
             <div className="w-4 h-[1px] dark:bg-[#EBEBEB] bg-black xl:w-5 xl:h-[2px] 2xl:w-6 "></div>
           </button>
           <img
-            src="/svg/arrow.svg"
+            src="public/svg/arrow.svg"
             className={`w-6 h-6 xl:w-7 xl:h-7 2xl:w-9 2xl:h-9 cursor-pointer invert dark:invert-0 ${
               isShamsi ? "rotate-[90deg]" : "rotate-[270deg]"
             }`}
@@ -456,7 +456,7 @@ export default function Calendar({
             {getCurrentMonthTitle()}
           </span>
           <img
-            src="/svg/arrow.svg"
+            src="public/svg/arrow.svg"
             className="w-6 h-6 xl:w-7 xl:h-7  2xl:w-9 2xl:h-9  cursor-pointer invert dark:invert-0"
             onClick={() => {
               setShowYearList(!showYearList);
@@ -507,13 +507,13 @@ export default function Calendar({
                 className={`w-[25px] cursor-pointer invert dark:invert-0 ${
                   isShamsi ? "rotate-0" : "rotate-180"
                 }`}
-                src="/svg/arrowMini.svg"
+                src="public/svg/arrowMini.svg"
                 onClick={() => canGoPrev && shiftYears("prev")}
                 style={{ visibility: canGoPrev ? "visible" : "hidden" }}
               />
 
               <img
-                src="/svg/arrowMini.svg"
+                src="public/svg/arrowMini.svg"
                 onClick={() => canGoNext && shiftYears("next")}
                 className={`w-[25px] cursor-pointer invert dark:invert-0 ${
                   isShamsi ? "rotate-[180deg]" : "rotate-0"
