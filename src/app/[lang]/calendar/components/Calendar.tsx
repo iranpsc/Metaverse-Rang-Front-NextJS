@@ -423,13 +423,23 @@ export default function Calendar({
     >
       <div className="flex justify-between pt-2 pb-5 sm:pb-4 xl:pb-10 flex-row-reverse ">
         <div className="flex items-center text-xl">
-          <img
-            src="public/svg/arrow.svg"
-            className={`w-6 h-6 xl:w-7 xl:h-7 2xl:w-9 2xl:h-9 cursor-pointer invert dark:invert-0 ${
-              isShamsi ? "rotate-[270deg]" : "rotate-90"
-            }`}
+          <svg
             onClick={() => changeMonth("prev")}
-          />
+            className={`w-4 h-4 xl:w-6 xl:h-6 2xl:w-7 2xl:h-7 cursor-pointer invert dark:invert-0 ${
+              isShamsi ? "" : "rotate-180"
+            }`}
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 5l7 7-7 7"
+            ></path>
+          </svg>
 
           <button
             id="showMonth"
@@ -443,26 +453,46 @@ export default function Calendar({
             <div className="w-4 h-[1px] dark:bg-[#EBEBEB]  bg-black mb-1 xl:w-5 xl:h-[2px] 2xl:w-6 "></div>
             <div className="w-4 h-[1px] dark:bg-[#EBEBEB] bg-black xl:w-5 xl:h-[2px] 2xl:w-6 "></div>
           </button>
-          <img
-            src="public/svg/arrow.svg"
-            className={`w-6 h-6 xl:w-7 xl:h-7 2xl:w-9 2xl:h-9 cursor-pointer invert dark:invert-0 ${
-              isShamsi ? "rotate-[90deg]" : "rotate-[270deg]"
-            }`}
+          <svg
             onClick={() => changeMonth("next")}
-          />
+            className={`w-4 h-4 xl:w-6 xl:h-6 2xl:w-7 2xl:h-7 cursor-pointer invert dark:invert-0 ${
+              isShamsi ? "rotate-180" : ""
+            }`}
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 5l7 7-7 7"
+            ></path>
+          </svg>
         </div>
         <span className="text-base 2xl:text-2xl xl:text-xl   justify-center items-center font-semibold  flex ">
           <span className="text-black dark:text-white ">
             {getCurrentMonthTitle()}
           </span>
-          <img
-            src="public/svg/arrow.svg"
-            className="w-6 h-6 xl:w-7 xl:h-7  2xl:w-9 2xl:h-9  cursor-pointer invert dark:invert-0"
+          <svg
             onClick={() => {
               setShowYearList(!showYearList);
               setShowMonthList(false);
             }}
-          />
+            className={`w-4 h-4 xl:w-6 xl:h-6 2xl:w-7 2xl:h-7 cursor-pointer invert dark:invert-0 rotate-90`}
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 5l7 7-7 7"
+            ></path>
+          </svg>
         </span>
       </div>
 
@@ -502,25 +532,46 @@ export default function Calendar({
           <div className="flex justify-between items-center mb-2">
             <span>{getCurrentMonth()}</span>
 
-            <span>
-              <img
+            <div className=" flex justify-center items-center">
+              <svg
+                onClick={() => canGoPrev && shiftYears("prev")}
+                style={{ visibility: canGoPrev ? "visible" : "hidden" }}
                 className={`w-[25px] cursor-pointer invert dark:invert-0 ${
                   isShamsi ? "rotate-0" : "rotate-180"
                 }`}
-                src="public/svg/arrowMini.svg"
-                onClick={() => canGoPrev && shiftYears("prev")}
-                style={{ visibility: canGoPrev ? "visible" : "hidden" }}
-              />
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 26 26"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 5l7 7-7 7"
+                ></path>
+              </svg>
 
-              <img
-                src="public/svg/arrowMini.svg"
+              <svg
                 onClick={() => canGoNext && shiftYears("next")}
-                className={`w-[25px] cursor-pointer invert dark:invert-0 ${
+                style={{ visibility: canGoNext ? "visible" : "hidden" }}
+                className={`w-[25px] cursor-pointer invert dark:invert-0 pt-1 ${
                   isShamsi ? "rotate-[180deg]" : "rotate-0"
                 }`}
-                style={{ visibility: canGoNext ? "visible" : "hidden" }}
-              />
-            </span>
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 26 26"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 5l7 7-7 7"
+                ></path>
+              </svg>
+             
+            </div>
           </div>
 
           <div className="grid grid-cols-3 gap-2 text-center font-['AzarMehr'] max-h-[260px]">
