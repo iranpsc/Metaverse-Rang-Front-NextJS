@@ -456,7 +456,7 @@ const EventList = ({
                 <h2 className="text-[16px] text font-bold self-center sm:self-start  text-black dark:text-white pb-6 sm:mt-4 sm:pb-6 sm:text-start 2xl:text-xl xl:text-lg lg:text-base ">
                   {findByUniqueId(mainData, 583)} :
                 </h2>
-                <div className="flex justify-between  items-center">
+                <div className="flex justify-between  items-center" style={{ direction: "ltr" }}>
                   <div className="text-center">
                     <div
                       id="start-days"
@@ -529,7 +529,7 @@ const EventList = ({
                 <h2 className="text-[16px] font-bold  text-black dark:text-white pb-6 sm:pb-6  sm:mt-4 sm:text-start 2xl:text-xl xl:text-lg lg:text-base pt-6 sm:pt-0">
                   {findByUniqueId(mainData, 584)} :
                 </h2>
-                <div className="flex justify-between items-center ">
+                <div className="flex justify-between  items-center "  style={{ direction: "ltr" }}>
                   <div className="text-center ">
                     <div
                       id="end-days"
