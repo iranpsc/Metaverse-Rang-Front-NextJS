@@ -19,7 +19,12 @@ export default function EventsCalendar({
   const [startOfMonthDate, SetStartOfMonthDate] = useState<string>("");
   const [endOfMonthDate, setEndOfMonthDate] = useState<string>("");
   const [eventsDay, setEventsDay] = useState<any[]>([]);
- 
+ useEffect(() => {
+  if (searchValue.trim() === "") {
+    setSearchResults(null); // یا []، بسته به اینکه توی EventList چک می‌کنی یا نه
+  }
+}, [searchValue]);
+
 
   useEffect(() => {
     if (!startOfMonthDate || !endOfMonthDate) return;
@@ -135,7 +140,7 @@ export default function EventsCalendar({
             />
             <button
               onClick={handleSearchClick}
-              className="searchButton font-normal text-[95%] px-5 font-['AzarMehr'] border-none bg-transparent text-[#FFBC00] cursor-pointer"
+              className="searchButton font-normal text-[95%] px-5 font-['AzarMehr'] border-none bg-transparent text-blueLink  dark:text-dark-yellow cursor-pointer"
             >
               {findByUniqueId(mainData, 57)}
             </button>

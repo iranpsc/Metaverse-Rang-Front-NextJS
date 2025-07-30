@@ -9,6 +9,7 @@ import { redirectToSSOLogin } from "@/utils/authRedirect";
 import { usePathname } from "next/navigation";
 import moment from "moment-jalaali";
 import SyncLoader from "react-spinners/SyncLoader";
+import LoginButtonModule from "@/components/module/singleVideo/LoginButtonModule";
 
 function parseJalaliDatetime(jalaliStr: string): Date {
   return moment(jalaliStr, "jYYYY/jMM/jDD HH:mm").toDate();
@@ -46,6 +47,7 @@ const EventList = ({
     Record<number, boolean>
   >({});
   const [hasMore, setHasMore] = useState(true);
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
   const [events, setEvents] = useState<EventItem[]>(initialEvents);
   const [visibleCount, setVisibleCount] = useState(5);
@@ -135,11 +137,6 @@ const EventList = ({
     setLoading(false);
   };
 
-  const filteredEvents = selectedFilters.includes("all")
-    ? events
-    : events.filter((event) =>
-        selectedFilters.includes(event.color?.toLowerCase())
-      );
 
   const ThemedLoader = () => {
     const [isDark, setIsDark] = useState(false);
@@ -186,7 +183,7 @@ const EventList = ({
   }, [events]);
   const sendLike = async (eventId: number) => {
     if (!token) {
-      redirectToSSOLogin(pathname);
+      setShowLoginModal(true)
       return;
     }
 
@@ -239,7 +236,7 @@ const EventList = ({
 
   const disLike = async (eventId: number) => {
     if (!token) {
-      redirectToSSOLogin(pathname);
+      setShowLoginModal(true)
       return;
     }
 
@@ -350,8 +347,8 @@ const EventList = ({
                         : "fill-none"
                     }`}
                     onClick={() => sendLike(event.id)}
-                    width="17"
-                    viewBox="0 0 25 24"
+                    width="20"
+                    viewBox="0 0 28 24"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
@@ -376,7 +373,7 @@ const EventList = ({
                         : "fill-none"
                     }`}
                     onClick={() => disLike(event.id)}
-                    width="17"
+                    width="20"
                     viewBox="0 0 25 24"
                     xmlns="http://www.w3.org/2000/svg"
                   >
@@ -397,7 +394,7 @@ const EventList = ({
                 </div>
                 <div className="flex items-center  gap-1 stroke-black dark:stroke-white fill-none">
                   <svg
-                    width="25"
+                    width="26"
                     viewBox="0 0 32 32"
                     xmlns="http://www.w3.org/2000/svg"
                   >
@@ -636,6 +633,26 @@ const EventList = ({
           </button>
         )}
       </div>
+       {showLoginModal && (
+        <div className="fixed inset-0 backdrop-blur bg-black/30 flex items-center justify-center z-50 p-5">
+          <div className="bg-white dark:bg-dark-background p-6 rounded-lg shadow-lg max-w-sm w-full">
+            <h2 className="text-lg md:text-xl font-azarMehr font-bold text-center dark:text-white mb-4">
+              برای لایک و دیسلایک باید وارد شوید
+            </h2>
+            <div className="flex gap-2 justify-between items-center w-full mt-5">
+              <LoginButtonModule params={mainData} />
+              <div className="w-1/2 flex justify-center">
+                <button
+                  className="w-full bg-dark-gray dark:bg-extraGray text-black dark:text-white font-azarMehr py-2 px-2 md:px-4 font-medium text-[15px] rounded-[10px] hover:bg-gray-400 active:scale-105 duration-300"
+                  onClick={() => setShowLoginModal(false)}
+                >
+                  بستن
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };

@@ -434,9 +434,9 @@ export default function Calendar({
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
               d="M9 5l7 7-7 7"
             ></path>
           </svg>
@@ -464,9 +464,9 @@ export default function Calendar({
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
               d="M9 5l7 7-7 7"
             ></path>
           </svg>
@@ -487,9 +487,9 @@ export default function Calendar({
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
               d="M9 5l7 7-7 7"
             ></path>
           </svg>
@@ -499,7 +499,7 @@ export default function Calendar({
       {showMonthList && (
         <div
           ref={monthListRef}
-          className={`absolute text-base xl:text-lg 2xl:text-xl top-[80px] border border-solid dark:border-[#454545] border-[#BABABA] w-[70%] bg-white dark:bg-[#080807] dark:sm:bg-black text-black dark:text-[#868B90] rounded-3xl p-4 min-w-[160px] ${
+          className={`absolute text-base  xl:text-lg 2xl:text-xl top-[80px] border border-solid dark:border-[#454545] border-[#BABABA] w-[70%] bg-white dark:bg-[#080807] dark:sm:bg-black text-black dark:text-[#868B90] rounded-3xl p-4 min-w-[160px] ${
             isShamsi ? "left-0" : "right-0"
           }`}
           style={{ zIndex: 10 }}
@@ -511,7 +511,7 @@ export default function Calendar({
             {(isShamsi ? persianMonths : englishMonths).map((month, index) => (
               <span
                 key={index}
-                className=" hover:bg-yellow-500 hover:text-black cursor-pointer rounded-lg py-1 hover:transition-all"
+                className=" dark:hover:bg-yellow-500 hover:bg-blueLink hover:text-white dark:hover:text-black cursor-pointer rounded-lg py-1 hover:transition-all"
                 onClick={() => selectMonth(index)}
               >
                 {month}
@@ -524,12 +524,12 @@ export default function Calendar({
       {showYearList && (
         <div
           ref={yearListRef}
-          className={`absolute text-base xl:text-lg 2xl:text-xl top-[80px] w-[70%] border border-solid dark:border-[#454545] border-[#BABABA] dark:bg-[#080807] bg-white dark:sm:bg-black text-black dark:text-[#868B90] z-50 rounded-3xl p-4 min-w-[160px] transition-all ${
+          className={`absolute text-base   xl:text-lg 2xl:text-xl top-[80px] w-[70%] border border-solid dark:border-[#454545] border-[#BABABA] dark:bg-[#080807] bg-white dark:sm:bg-black text-black dark:text-[#868B90] z-50 rounded-3xl p-4 min-w-[160px] transition-all ${
             isShamsi ? "right-0" : "left-0"
           }`}
           style={{ zIndex: 10 }}
         >
-          <div className="flex justify-between items-center mb-2">
+          <div className="flex  justify-between items-center mb-2">
             <span>{getCurrentMonth()}</span>
 
             <div className=" flex justify-center items-center">
@@ -545,9 +545,9 @@ export default function Calendar({
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M9 5l7 7-7 7"
                 ></path>
               </svg>
@@ -564,21 +564,20 @@ export default function Calendar({
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M9 5l7 7-7 7"
                 ></path>
               </svg>
-             
             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-2 text-center font-['AzarMehr'] max-h-[260px]">
+          <div className="grid grid-cols-3 gap-2 text-center font-['AzarMehr'] max-h-[260px] [direction:ltr]">
             {getDynamicYears().map((year, index) => (
               <span
                 key={index}
-                className="hover:bg-yellow-500 hover:text-black cursor-pointer rounded-lg py-1 hover:transition-all"
+                className="dark:hover:bg-yellow-500 hover:bg-blueLink hover:text-white dark:hover:text-black cursor-pointer rounded-lg py-1 hover:transition-all"
                 onClick={() => {
                   selectYear(year);
                   setYearOffset(0);
@@ -726,13 +725,13 @@ export default function Calendar({
           return (
             <div
               key={index}
-              className={`calendar-day flex flex-row-reverse  sm:max-h-[45px] md:max-h-[300px] justify-between my-3  md:my-1 lg:my-2 xl:my-[10px]
-                 2xl:my-3 items-center w-full h-full rounded-lg text-black dark:text-white
+              className={`calendar-day box-border   flex flex-row-reverse  sm:max-h-[45px] md:max-h-[300px] justify-between my-3  md:my-1 lg:my-2 xl:my-[10px]
+                  items-center w-full h-full rounded-lg text-black dark:text-white
                   hover:bg-[#0066FF4D] dark:hover:bg-[#FFC70033] cursor-pointer
                    relative ${
                      selectedDate &&
                      selectedDate.getTime() === currentDay.getTime()
-                       ? "bg-[#0066FF4D] dark:bg-[#FFC70033] text-blueLink dark:text-[#ffc800ea] font-bold"
+                       ? "bg-[#0066FF4D] outline outline-[2px] outline-blueLink dark:outline-dark-yellow dark:bg-[#FFC70033] text-blueLink dark:text-[#ffc800ea] font-bold"
                        : "bg-gray-100 hover:bg-gray-200"
                    } `}
               onClick={() => {
