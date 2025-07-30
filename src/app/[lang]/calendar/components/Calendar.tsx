@@ -532,13 +532,16 @@ export default function Calendar({
           <div className="flex  justify-between items-center mb-2">
             <span>{getCurrentMonth()}</span>
 
-            <div className=" flex justify-center items-center">
+            <div
+              style={{ direction: "ltr" }}
+              className=" flex justify-center items-center "
+            >
               <svg
                 onClick={() => canGoPrev && shiftYears("prev")}
                 style={{ visibility: canGoPrev ? "visible" : "hidden" }}
-                className={`w-[25px] cursor-pointer invert dark:invert-0 ${
-                  isShamsi ? "rotate-0" : "rotate-180"
-                }`}
+                className={
+                  "w-[25px] cursor-pointer invert dark:invert-0 rotate-180"
+                }
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 26 26"
@@ -555,9 +558,7 @@ export default function Calendar({
               <svg
                 onClick={() => canGoNext && shiftYears("next")}
                 style={{ visibility: canGoNext ? "visible" : "hidden" }}
-                className={`w-[25px] cursor-pointer invert dark:invert-0 pt-1 ${
-                  isShamsi ? "rotate-[180deg]" : "rotate-0"
-                }`}
+                className={"w-[25px] cursor-pointer invert dark:invert-0 pt-1 "}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 26 26"
@@ -725,32 +726,37 @@ export default function Calendar({
           return (
             <div
               key={index}
-              className={`calendar-day box-border   flex flex-row-reverse  sm:max-h-[45px] md:max-h-[300px] justify-between my-3  md:my-1 lg:my-2 xl:my-[10px]
-                  items-center w-full h-full rounded-lg text-black dark:text-white
-                  hover:bg-[#0066FF4D] dark:hover:bg-[#FFC70033] cursor-pointer
-                   relative ${
-                     selectedDate &&
-                     selectedDate.getTime() === currentDay.getTime()
-                       ? "bg-[#0066FF4D] outline outline-[2px] outline-blueLink dark:outline-dark-yellow dark:bg-[#FFC70033] text-blueLink dark:text-[#ffc800ea] font-bold"
-                       : "bg-gray-100 hover:bg-gray-200"
-                   } `}
+              className={`calendar-day box-border w-full h-full rounded-lg text-black dark:text-white cursor-pointer relative
+    flex flex-row-reverse items-center justify-between sm:max-h-[45px] md:max-h-[300px] my-3 md:my-1 lg:my-2 xl:my-[10px]
+    hover:bg-[#0066FF4D] dark:hover:bg-[#FFC70033]
+    ${
+      selectedDate?.getTime() === currentDay.getTime()
+        ? "bg-[#0066FF4D] outline outline-[2px] outline-blueLink dark:outline-dark-yellow dark:bg-[#FFC70033] font-bold"
+        : "bg-gray-100 hover:bg-gray-200"
+    }`}
               onClick={() => {
                 handleDateClick(currentDay);
                 setSelectedEventIds(currentEventIds);
-                //        console.log("Selected Event IDs:", currentEventIds);
               }}
             >
               <div className="flex flex-col items-end justify-start gap-1 px-1 w-1/3">
                 {eventDots}
                 {emptyDots}
               </div>
+
               <div
-                className={`w-1/3  inset-0 flex justify-center items-center ${
-                  isToday ? "color: dark:text-dark-yellow text-blueLink" : ""
-                }`}
+                className={`w-1/3 flex justify-center items-center
+      ${
+        selectedDate?.getTime() === currentDay.getTime()
+          ? "text-blueLink dark:text-dark-yellow"
+          : isToday
+          ? "text-blueLink dark:text-dark-yellow"
+          : ""
+      }`}
               >
                 {switchDigits(dayNumber, params.lang)}
               </div>
+
               <div className="w-1/3"></div>
             </div>
           );

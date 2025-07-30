@@ -137,7 +137,6 @@ const EventList = ({
     setLoading(false);
   };
 
-
   const ThemedLoader = () => {
     const [isDark, setIsDark] = useState(false);
 
@@ -179,11 +178,10 @@ const EventList = ({
     setUserLikedMap(initialUserLiked);
     setUserDisLikedMap(initialUserDisLiked);
   }, [events]);
-  useEffect(() => {
-  }, [events]);
+  useEffect(() => {}, [events]);
   const sendLike = async (eventId: number) => {
     if (!token) {
-      setShowLoginModal(true)
+      setShowLoginModal(true);
       return;
     }
 
@@ -236,7 +234,7 @@ const EventList = ({
 
   const disLike = async (eventId: number) => {
     if (!token) {
-      setShowLoginModal(true)
+      setShowLoginModal(true);
       return;
     }
 
@@ -440,7 +438,8 @@ const EventList = ({
                       [event.id]: !prev[event.id],
                     }))
                   }
-                  className="dark:text-dark-yellow text-xl text-blueLink bg-transparent hover:underline cursor-pointer"
+                  className="dark:text-dark-yellow text-blueLink bg-transparent hover:underline cursor-pointer text-base 
+ 2xl:text-xl"
                 >
                   {showFullMap[event.id] ? "" : findByUniqueId(mainData, 271)}
                 </button>
@@ -456,7 +455,10 @@ const EventList = ({
                 <h2 className="text-[16px] text font-bold self-center sm:self-start  text-black dark:text-white pb-6 sm:mt-4 sm:pb-6 sm:text-start 2xl:text-xl xl:text-lg lg:text-base ">
                   {findByUniqueId(mainData, 583)} :
                 </h2>
-                <div className="flex justify-between  items-center" style={{ direction: "ltr" }}>
+                <div
+                  className="flex justify-between  items-center"
+                  style={{ direction: "ltr" }}
+                >
                   <div className="text-center">
                     <div
                       id="start-days"
@@ -529,7 +531,10 @@ const EventList = ({
                 <h2 className="text-[16px] font-bold  text-black dark:text-white pb-6 sm:pb-6  sm:mt-4 sm:text-start 2xl:text-xl xl:text-lg lg:text-base pt-6 sm:pt-0">
                   {findByUniqueId(mainData, 584)} :
                 </h2>
-                <div className="flex justify-between  items-center "  style={{ direction: "ltr" }}>
+                <div
+                  className="flex justify-between  items-center "
+                  style={{ direction: "ltr" }}
+                >
                   <div className="text-center ">
                     <div
                       id="end-days"
@@ -633,7 +638,7 @@ const EventList = ({
           </button>
         )}
       </div>
-       {showLoginModal && (
+      {showLoginModal && (
         <div className="fixed inset-0 backdrop-blur bg-black/30 flex items-center justify-center z-50 p-5">
           <div className="bg-white dark:bg-dark-background p-6 rounded-lg shadow-lg max-w-sm w-full">
             <h2 className="text-lg md:text-xl font-azarMehr font-bold text-center dark:text-white mb-4">
@@ -646,7 +651,7 @@ const EventList = ({
                   className="w-full bg-dark-gray dark:bg-extraGray text-black dark:text-white font-azarMehr py-2 px-2 md:px-4 font-medium text-[15px] rounded-[10px] hover:bg-gray-400 active:scale-105 duration-300"
                   onClick={() => setShowLoginModal(false)}
                 >
-                  بستن
+                  {findByUniqueId(mainData, 884)}
                 </button>
               </div>
             </div>
