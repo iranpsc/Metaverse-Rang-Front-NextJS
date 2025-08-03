@@ -1,5 +1,5 @@
 "use client";
-//Types
+// Types
 import ListMenuSvgModule from "./list/ListMenuSvgModule";
 import ListMenuTitleModule from "./list/ListMenuTitleModule";
 import ListMenuArrow from "./list/ListMenuArrow";
@@ -121,10 +121,6 @@ export default function SideBarContent({
     }
   });
 
-  // The 'version' item is defined statically outside of tabsMenu to ensure it is always displayed in the sidebar,
-  // even if there are issues with tabsMenu updates or toShow logic during client-side navigation. Unlike other menu items,
-  // which rely on dynamic rendering and may be affected by state inconsistencies, this approach guarantees visibility.
-  // The 'active' state uses pathName.startsWith to highlight the item for both /version and its subroutes (e.g., /version/something).
   const versionItem = {
     name: "version",
     unique_id: 1458,
@@ -149,14 +145,20 @@ export default function SideBarContent({
                   <Tooltip
                     title={item.translation}
                     placement={
-                      langData.direction == "rtl" ? "left-end" : "right-end"
+                      langData.direction === "rtl" ? "left-end" : "right-end"
                     }
+                    arrow // فعال کردن فلش تولتیپ
                     slotProps={{
                       tooltip: {
                         className: `
-                        !bg-[#E9E9E9] !text-[#908F95] dark:!bg-black !font-azarMehr !font-medium dark:!text-white !text-[14px] 
-                        ${isClosed ? "block" : "hidden"}
-                      `,
+                          !bg-[#E9E9E9] !text-[#908F95] dark:!bg-[#434343] !font-azarMehr !font-medium dark:!text-white !text-[14px] !top-[-20px] 
+                          ${isClosed ? "block" : "hidden"}
+                        `,
+                      },
+                      arrow: {
+                        className: `
+                          !text-[#E9E9E9] dark:!text-[#434343] mt-[6px]
+                        `,
                       },
                     }}
                     PopperProps={{
@@ -164,7 +166,7 @@ export default function SideBarContent({
                         {
                           name: "offset",
                           options: {
-                            offset: [-40, 0],
+                            offset: [0, -10], // تنظیم موقعیت فلش و تولتیپ
                           },
                         },
                       ],
@@ -362,53 +364,61 @@ export default function SideBarContent({
             </React.Fragment>
           ))}
         {/* Static Version Item */}
-        <li style={{ order: -1 }}>
-          <Tooltip
-            title={versionItem.translation}
-            placement={langData.direction === "rtl" ? "left-end" : "right-end"}
-            slotProps={{
-              tooltip: {
-                className: `
-                  !bg-[#E9E9E9] !text-[#908F95] dark:!bg-black !font-azarMehr !font-medium dark:!text-white !text-[14px] 
-                  ${isClosed ? "block" : "hidden"}
-                `,
-              },
-            }}
-            PopperProps={{
-              modifiers: [
-                {
-                  name: "offset",
-                  options: {
-                    offset: [-40, 0],
-                  },
+        {pathName !== `/${params.lang}/citizens/${params.id}` && (
+          <li style={{ order: -1 }}>
+            <Tooltip
+              title={versionItem.translation}
+              placement={langData.direction === "rtl" ? "left-end" : "right-end"}
+              arrow // فعال کردن فلش تولتیپ
+              slotProps={{
+                tooltip: {
+                  className: `
+                    !bg-[#E9E9E9] !text-[#908F95] dark:!bg-[#434343] !font-azarMehr !font-medium dark:!text-white !text-[14px] !top-[-20px]
+                    ${isClosed ? "block" : "hidden"}
+                  `,
                 },
-              ],
-            }}
-          >
-            <span style={{ order: -1 }}>
-              <div onClick={() => router.push(`/${params.lang}/version`)}>
-                <div
-                  className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px]
+                arrow: {
+                  className: `
+                    !text-[#E9E9E9] dark:!text-[#434343] mt-[6px]
+                  `,
+                },
+              }}
+              PopperProps={{
+                modifiers: [
+                  {
+                    name: "offset",
+                    options: {
+                      offset: [0, -10], // تنظیم موقعیت فلش و تولتیپ
+                    },
+                  },
+                ],
+              }}
+            >
+              <span style={{ order: -1 }}>
+                <div onClick={() => router.push(`/${params.lang}/version`)}>
+                  <div
+                    className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px]
                     group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer menu-transition
                     ${isClosed ? "justify-start gap-0" : "justify-start gap-2"}`}
-                >
-                  <ListMenuActiveIconModule
-                    item={versionItem}
-                    languageSelected={langData.code}
-                    isClosed={isClosed}
-                  />
-                  <span className="ps-[15px]">
-                    <ListMenuSvgModule item={versionItem} />
-                  </span>
-                  <div className="w-full flex justify-between items-center">
-                    <ListMenuTitleModule item={versionItem} isClosed={isClosed} />
-                    <ListMenuArrow item={versionItem} />
+                  >
+                    <ListMenuActiveIconModule
+                      item={versionItem}
+                      languageSelected={langData.code}
+                      isClosed={isClosed}
+                    />
+                    <span className="ps-[15px]">
+                      <ListMenuSvgModule item={versionItem} />
+                    </span>
+                    <div className="w-full flex justify-between items-center">
+                      <ListMenuTitleModule item={versionItem} isClosed={isClosed} />
+                      <ListMenuArrow item={versionItem} />
+                    </div>
                   </div>
                 </div>
-              </div>
-            </span>
-          </Tooltip>
-        </li>
+              </span>
+            </Tooltip>
+          </li>
+        )}
       </ul>
     </>
   );

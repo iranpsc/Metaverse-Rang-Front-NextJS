@@ -78,15 +78,21 @@ export default function SideBarContent({
                 <li onClick={() => onTabClick(item, i)}>
                   <Tooltip
                     title={item.translation}
+                    arrow
                     placement={
                       langData.direction === "rtl" ? "left-end" : "right-end"
                     }
                     slotProps={{
                       tooltip: {
                         className: `
-                        !bg-[#E9E9E9] !text-[#908F95] dark:!bg-black !font-azarMehr !font-medium  dark:!text-white !text-[14px] 
+                        !bg-[#E9E9E9] !text-[#908F95] dark:!bg-[#434343] !font-azarMehr !font-medium  dark:!text-white !text-[14px] 
                         ${isClosed ? "block" : "hidden"}
                       `,
+                      },
+                      arrow: {
+                        className: `
+                    !text-[#E9E9E9] dark:!text-[#434343] mt-[-7px]
+                  `,
                       },
                     }}
                     PopperProps={{
