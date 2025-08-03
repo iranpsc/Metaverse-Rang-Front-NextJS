@@ -1,0 +1,643 @@
+"use client";
+import htmlTruncate from "html-truncate";
+import { useState, useEffect } from "react";
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import { switchDigits } from "@/components/utils/DigitSwitch";
+import type { EventItem } from "@/types/pages/calendarPage";
+import type { CalendarFilterProps } from "@/types/pages/calendarPage";
+import { redirectToSSOLogin } from "@/utils/authRedirect";
+import { usePathname } from "next/navigation";
+import moment from "moment-jalaali";
+import SyncLoader from "react-spinners/SyncLoader";
+
+function parseJalaliDatetime(jalaliStr: string): Date {
+  return moment(jalaliStr, "jYYYY/jMM/jDD HH:mm").toDate();
+}
+
+function getTimeRemaining(targetDate: Date) {
+  const now = new Date().getTime();
+  const diff = targetDate.getTime() - now;
+
+  if (diff <= 0) {
+    return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+  }
+
+  const totalSeconds = Math.floor(diff / 1000);
+  const days = Math.floor(totalSeconds / (3600 * 24));
+  const hours = Math.floor((totalSeconds % (3600 * 24)) / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  return { days, hours, minutes, seconds };
+}
+
+const EventList = ({
+  events: initialEvents,
+  mainData,
+  params,
+  selectedFilters,
+  token,
+}: CalendarFilterProps) => {
+  const pathname = usePathname();
+  const [likesMap, setLikesMap] = useState<Record<number, number>>({});
+  const [disLikesMap, setDisLikesMap] = useState<Record<number, number>>({});
+  const [userLikedMap, setUserLikedMap] = useState<Record<number, boolean>>({});
+  const [userDisLikedMap, setUserDisLikedMap] = useState<
+    Record<number, boolean>
+  >({});
+  const [hasMore, setHasMore] = useState(true);
+
+  const [events, setEvents] = useState<EventItem[]>(initialEvents);
+  const [visibleCount, setVisibleCount] = useState(5);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [countdowns, setCountdowns] = useState<
+    Record<number, { toStart: any; toEnd: any }>
+  >({});
+  const [showFullMap, setShowFullMap] = useState<Record<number, boolean>>({});
+  useEffect(() => {
+    setEvents(initialEvents);
+  }, [initialEvents]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const updated: Record<number, { toStart: any; toEnd: any }> = {};
+      events.slice(0, visibleCount).forEach((event) => {
+        const startDate = parseJalaliDatetime(event.start);
+        const endDate = parseJalaliDatetime(event.end);
+        updated[event.id] = {
+          toStart: getTimeRemaining(startDate),
+          toEnd: getTimeRemaining(endDate),
+        };
+      });
+      setCountdowns(updated);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [events, visibleCount]);
+  const showMore = async () => {
+    setLoading(true);
+
+    const newVisibleCount = visibleCount + 3;
+
+    if (events.length < 14) {
+      setVisibleCount(Math.min(newVisibleCount, events.length));
+      setHasMore(false);
+      setLoading(false);
+      return;
+    }
+
+    if (newVisibleCount > events.length) {
+      try {
+        const nextPage = currentPage + 1;
+        const res = await fetch(
+          `https://api.rgb.irpsc.com/api/calendar?page=${nextPage}`
+        );
+        const data = await res.json();
+
+        if (data.data && data.data.length > 0) {
+          const mappedEvents: EventItem[] = data.data.map(
+            (item: EventItem) => ({
+              id: item.id,
+              title: item.title,
+              image: item.image,
+              desc: item.description,
+              start: item.starts_at,
+              end: item.ends_at,
+              color: item.color,
+            })
+          );
+
+          setEvents((prev) => {
+            const newEvents = [...prev, ...mappedEvents];
+            setVisibleCount(Math.min(newVisibleCount, newEvents.length));
+
+            if (mappedEvents.length < 3) {
+              setHasMore(false);
+            }
+
+            return newEvents;
+          });
+
+          setCurrentPage(nextPage);
+        } else {
+          setHasMore(false);
+          setVisibleCount(Math.min(newVisibleCount, events.length));
+        }
+      } catch (error) {
+        console.error("خطا در بارگذاری رویدادهای بیشتر:", error);
+        setVisibleCount(Math.min(newVisibleCount, events.length));
+      }
+    } else {
+      setVisibleCount(Math.min(newVisibleCount, events.length));
+    }
+
+    setLoading(false);
+  };
+
+  const filteredEvents = selectedFilters.includes("all")
+    ? events
+    : events.filter((event) =>
+        selectedFilters.includes(event.color?.toLowerCase())
+      );
+
+  const ThemedLoader = () => {
+    const [isDark, setIsDark] = useState(false);
+
+    useEffect(() => {
+      const checkTheme = () => {
+        const dark = document.documentElement.classList.contains("dark");
+        setIsDark(dark);
+      };
+
+      checkTheme();
+
+      const observer = new MutationObserver(checkTheme);
+      observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["class"],
+      });
+
+      return () => observer.disconnect();
+    }, []);
+
+    return <SyncLoader color={isDark ? "#FFD700" : "#0066ff"} size={8} />;
+  };
+  useEffect(() => {
+    const initialLikes: Record<number, number> = {};
+    const initialDisLikes: Record<number, number> = {};
+    const initialUserLiked: Record<number, boolean> = {};
+    const initialUserDisLiked: Record<number, boolean> = {};
+
+    events.forEach((event) => {
+      initialLikes[event.id] = event.likes ?? 0;
+      initialDisLikes[event.id] = event.disLikes ?? 0;
+
+      initialUserLiked[event.id] = event.userLiked ?? false;
+      initialUserDisLiked[event.id] = event.userDisLiked ?? false;
+    });
+
+    setLikesMap(initialLikes);
+    setDisLikesMap(initialDisLikes);
+    setUserLikedMap(initialUserLiked);
+    setUserDisLikedMap(initialUserDisLiked);
+  }, [events]);
+  useEffect(() => {
+  }, [events]);
+  const sendLike = async (eventId: number) => {
+    if (!token) {
+      redirectToSSOLogin(pathname);
+      return;
+    }
+
+    if (userLikedMap[eventId]) {
+      return;
+    }
+
+    setLikesMap((prev) => ({
+      ...prev,
+      [eventId]: (prev[eventId] ?? 0) + 1,
+    }));
+
+    setDisLikesMap((prev) => ({
+      ...prev,
+      [eventId]: Math.max((prev[eventId] ?? 0) - 1, 0),
+    }));
+
+    setUserLikedMap((prev) => ({
+      ...prev,
+      [eventId]: true,
+    }));
+
+    setUserDisLikedMap((prev) => ({
+      ...prev,
+      [eventId]: false,
+    }));
+
+    try {
+      const response = await fetch(
+        `https://api.rgb.irpsc.com/api/calendar/events/${eventId}/interact`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ liked: 1 }),
+        }
+      );
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Response error details:", errorText);
+        throw new Error("خطا در ارسال لایک");
+      }
+    } catch (error) {
+      console.error("خطا در ارسال لایک:", error);
+    }
+  };
+
+  const disLike = async (eventId: number) => {
+    if (!token) {
+      redirectToSSOLogin(pathname);
+      return;
+    }
+
+    if (userDisLikedMap[eventId]) {
+      return;
+    }
+
+    setDisLikesMap((prev) => ({
+      ...prev,
+      [eventId]: (prev[eventId] ?? 0) + 1,
+    }));
+
+    setLikesMap((prev) => ({
+      ...prev,
+      [eventId]: Math.max((prev[eventId] ?? 0) - 1, 0),
+    }));
+
+    setUserDisLikedMap((prev) => ({
+      ...prev,
+      [eventId]: true,
+    }));
+
+    setUserLikedMap((prev) => ({
+      ...prev,
+      [eventId]: false,
+    }));
+
+    try {
+      const response = await fetch(
+        `https://api.rgb.irpsc.com/api/calendar/events/${eventId}/interact`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ liked: 0 }),
+        }
+      );
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Response error details:", errorText);
+        throw new Error("خطا در ارسال لایک");
+      }
+    } catch (error) {
+      console.error("خطا در ارسال لایک:", error);
+    }
+  };
+
+  const colorMap: Record<string, string> = {
+    red: "#ED2E2E",
+    blue: "#0066FF",
+    yellow: "#FFC700",
+    green: "#32DA6B",
+    pink: "#ff00ff",
+  };
+
+  const isAllSelected =
+    selectedFilters.length === 0 || selectedFilters.includes("all");
+
+  const filteredEvent = isAllSelected
+    ? events
+    : events.filter((event) => {
+        const color = event.color?.toLowerCase();
+        return selectedFilters.some(
+          (filterColor: any) => color === colorMap[filterColor]
+        );
+      });
+
+  const visibleEvents = filteredEvent.slice(0, visibleCount);
+  return (
+    <>
+      {visibleEvents.map((event) => {
+        const { toStart, toEnd } = countdowns[event.id] || {
+          toStart: { days: 0, hours: 0, minutes: 0, seconds: 0 },
+          toEnd: { days: 0, hours: 0, minutes: 0, seconds: 0 },
+        };
+        const maxLength = 350;
+        const shouldTruncate = event.desc.length > maxLength;
+        const truncatedHtml = shouldTruncate
+          ? htmlTruncate(event.desc, maxLength, { ellipsis: "..." })
+          : event.desc;
+        return (
+          <div
+            key={event.id}
+            className="items flex flex-col justify-center gap-3  items-center w-full"
+          >
+            <div className="mt-4 w-[97%] flex justify-center lg:w-[95%] mx-auto rounded-[20px] overflow-hidden shadow-lg lg:mt-6">
+              <img
+                className="w-full"
+                src={
+                  event.image === "image" || !event.image
+                    ? "/firstpage/frame.jpg"
+                    : event.image
+                }
+                alt={event.title}
+              />
+            </div>
+
+            <div className="flex flex-col w-[97%] lg:w-[95%] gap-3 sm:gap-0 items-center sm:flex-row-reverse sm:justify-between">
+              <div className="w-[96%] flex justify-between text-base font-normal font-[Vazir] sm:w-[350px] sm:ml-2 sm:self-center">
+                <div className="flex items-center  gap-1">
+                  <svg
+                    className={`cursor-pointer stroke-black dark:stroke-white ${
+                      userLikedMap[event.id]
+                        ? "fill-black dark:fill-white"
+                        : "fill-none"
+                    }`}
+                    onClick={() => sendLike(event.id)}
+                    width="17"
+                    viewBox="0 0 25 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M6.33333 10.6654V21.332C6.33333 21.6857 6.19286 22.0248 5.94281 22.2748C5.69276 22.5249 5.35362 22.6654 5 22.6654H2.33333C1.97971 22.6654 1.64057 22.5249 1.39052 22.2748C1.14048 22.0248 1 21.6857 1 21.332V11.9987C1 11.6451 1.14048 11.3059 1.39052 11.0559C1.64057 10.8058 1.97971 10.6654 2.33333 10.6654H6.33333ZM6.33333 10.6654C7.74782 10.6654 9.10438 10.1035 10.1046 9.10327C11.1048 8.10307 11.6667 6.74652 11.6667 5.33203V3.9987C11.6667 3.29145 11.9476 2.61318 12.4477 2.11308C12.9478 1.61298 13.6261 1.33203 14.3333 1.33203C15.0406 1.33203 15.7189 1.61298 16.219 2.11308C16.719 2.61318 17 3.29145 17 3.9987V10.6654H21C21.7072 10.6654 22.3855 10.9463 22.8856 11.4464C23.3857 11.9465 23.6667 12.6248 23.6667 13.332L22.3333 19.9987C22.1416 20.8167 21.7778 21.519 21.2969 22C20.8159 22.4809 20.2438 22.7145 19.6667 22.6654H10.3333C9.27247 22.6654 8.25505 22.2439 7.50491 21.4938C6.75476 20.7436 6.33333 19.7262 6.33333 18.6654"
+                      strokeWidth="2"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+
+                  <span className="like-count mt-[2px]">
+                    {switchDigits(
+                      likesMap[event.id] ?? event.likes ?? 0,
+                      params.lang
+                    )}
+                  </span>
+                </div>
+                <div className="flex items-center  gap-1 stroke-black dark:stroke-white fill-none">
+                  <svg
+                    className={`cursor-pointer rotate-180 stroke-black dark:stroke-white ${
+                      userDisLikedMap[event.id]
+                        ? "fill-black dark:fill-white"
+                        : "fill-none"
+                    }`}
+                    onClick={() => disLike(event.id)}
+                    width="17"
+                    viewBox="0 0 25 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M6.33333 10.6654V21.332C6.33333 21.6857 6.19286 22.0248 5.94281 22.2748C5.69276 22.5249 5.35362 22.6654 5 22.6654H2.33333C1.97971 22.6654 1.64057 22.5249 1.39052 22.2748C1.14048 22.0248 1 21.6857 1 21.332V11.9987C1 11.6451 1.14048 11.3059 1.39052 11.0559C1.64057 10.8058 1.97971 10.6654 2.33333 10.6654H6.33333ZM6.33333 10.6654C7.74782 10.6654 9.10438 10.1035 10.1046 9.10327C11.1048 8.10307 11.6667 6.74652 11.6667 5.33203V3.9987C11.6667 3.29145 11.9476 2.61318 12.4477 2.11308C12.9478 1.61298 13.6261 1.33203 14.3333 1.33203C15.0406 1.33203 15.7189 1.61298 16.219 2.11308C16.719 2.61318 17 3.29145 17 3.9987V10.6654H21C21.7072 10.6654 22.3855 10.9463 22.8856 11.4464C23.3857 11.9465 23.6667 12.6248 23.6667 13.332L22.3333 19.9987C22.1416 20.8167 21.7778 21.519 21.2969 22C20.8159 22.4809 20.2438 22.7145 19.6667 22.6654H10.3333C9.27247 22.6654 8.25505 22.2439 7.50491 21.4938C6.75476 20.7436 6.33333 19.7262 6.33333 18.6654"
+                      strokeWidth="2"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+
+                  <span className="dislike-count">
+                    {" "}
+                    {switchDigits(
+                      disLikesMap[event.id] ?? event.disLikes ?? 0,
+                      params.lang
+                    )}{" "}
+                  </span>
+                </div>
+                <div className="flex items-center  gap-1 stroke-black dark:stroke-white fill-none">
+                  <svg
+                    width="25"
+                    viewBox="0 0 32 32"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M13.3333 16C13.3333 16.7072 13.6143 17.3855 14.1144 17.8856C14.6145 18.3857 15.2928 18.6667 16 18.6667C16.7072 18.6667 17.3855 18.3857 17.8856 17.8856C18.3857 17.3855 18.6667 16.7072 18.6667 16C18.6667 15.2928 18.3857 14.6145 17.8856 14.1144C17.3855 13.6143 16.7072 13.3333 16 13.3333C15.2928 13.3333 14.6145 13.6143 14.1144 14.1144C13.6143 14.6145 13.3333 15.2928 13.3333 16Z"
+                      strokeWidth="2"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M28 16C24.8 21.3333 20.8 24 16 24C11.2 24 7.2 21.3333 4 16C7.2 10.6667 11.2 8 16 8C20.8 8 24.8 10.6667 28 16Z"
+                      strokeWidth="2"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+
+                  <span> {switchDigits(event.views, params.lang)}</span>
+                </div>
+              </div>
+              <div className="flex items-center justify-between h-8 w-full font-[Rokh] my-2 sm:w-[60%] xl:h-11">
+                <div className="flex items-center h-full w-full">
+                  <div
+                    style={{ backgroundColor: event.color }}
+                    className=" h-7 xl:h-9 2xl:h-10 rounded-lg aspect-square "
+                  ></div>
+                  <span className="mx-2 whitespace-nowrap text-base font-bold text-ellipsis overflow-hidden lg:text-xl xl:text-2xl 2xl:text-3xl">
+                    {event.title}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="text-base lg:w-[95%]    break-words whitespace-normal text-[#868B90] dark:text-[#C4C4C4] mb-4 text-justify leading-6 w-[97%] font-normal font-[Vazir] 2xl:text-xl 2xl:leading-8">
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: showFullMap[event.id] ? event.desc : truncatedHtml,
+                }}
+              />
+              {shouldTruncate && (
+                <button
+                  onClick={() =>
+                    setShowFullMap((prev) => ({
+                      ...prev,
+                      [event.id]: !prev[event.id],
+                    }))
+                  }
+                  className="dark:text-dark-yellow text-xl text-blueLink bg-transparent hover:underline cursor-pointer"
+                >
+                  {showFullMap[event.id] ? "" : findByUniqueId(mainData, 271)}
+                </button>
+              )}
+            </div>
+
+            <div
+              className="px-4                   mb-2 w-[97%] lg:w-[95%] lg:px-7 font-[AzarMehrFD] h-[360px]
+ bg-gradient-to-r from-[#CFCFCFE5] to-[#D8D8D800]
+ dark:bg-gradient-to-r dark:from-[#ffffff09] dark:to-[#00000000] dark:text-dark-yellow text-blueLink rounded-[32px] border-[1px] border-solid dark:border-[#ffffff25] border-[#CFCFCFE5]  shadow-lg p-4  flex flex-col  sm:flex-row-reverse sm:h-[250px]"
+            >
+              <div className="  flex flex-col justify-start  sm:order-1 sm:content-start sm:w-[30%] sm:min-w-[194px]">
+                <h2 className="text-[16px] text font-bold  text-black dark:text-white pb-6 sm:mt-4 sm:pb-6 sm:text-start 2xl:text-xl xl:text-lg lg:text-base ">
+                  {findByUniqueId(mainData, 583)} :
+                </h2>
+                <div className="flex justify-between  items-center">
+                  <div className="text-center">
+                    <div
+                      id="start-days"
+                      className="hale text-2xl font-bold  lg:text-3xl xl:text-4xl 2xl:text-5xl"
+                    >
+                      {switchDigits(
+                        toStart.days.toString().padStart(2, "0"),
+                        params.lang
+                      )}
+                    </div>
+                    <div className="text-base">
+                      {findByUniqueId(mainData, 380)}
+                    </div>
+                  </div>
+                  <span className="self-start text-[24px]  leading-10 font-bold lg:text-3xl xl:text-4xl 2xl:text-5xl">
+                    :
+                  </span>
+                  <div className="text-center">
+                    <div
+                      id="start-hours"
+                      className="hale text-2xl font-bold  w-11 lg:text-3xl xl:text-4xl 2xl:text-5xl"
+                    >
+                      {switchDigits(
+                        toStart.hours.toString().padStart(2, "0"),
+                        params.lang
+                      )}
+                    </div>
+                    <div className="text-base">
+                      {findByUniqueId(mainData, 560)}
+                    </div>
+                  </div>
+                  <span className="self-start text-[24px]  leading-10 font-bold lg:text-3xl xl:text-4xl 2xl:text-5xl">
+                    :
+                  </span>
+                  <div className="text-center">
+                    <div
+                      id="start-minutes"
+                      className="hale text-2xl font-bold w-11 lg:text-3xl xl:text-4xl 2xl:text-5xl"
+                    >
+                      {switchDigits(
+                        toStart.minutes.toString().padStart(2, "0"),
+                        params.lang
+                      )}
+                    </div>
+                    <div className="text-base">
+                      {findByUniqueId(mainData, 33)}
+                    </div>
+                  </div>
+                  <span className="self-start text-[24px]  leading-10 font-bold lg:text-3xl xl:text-4xl 2xl:text-5xl">
+                    :
+                  </span>
+                  <div className="text-center">
+                    <div
+                      id="start-seconds"
+                      className="hale text-2xl font-bold w-11 lg:text-3xl xl:text-4xl 2xl:text-5xl"
+                    >
+                      {switchDigits(
+                        toStart.seconds.toString().padStart(2, "0"),
+                        params.lang
+                      )}
+                    </div>
+                    <div className="text-base ">
+                      {" "}
+                      {findByUniqueId(mainData, 778)}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="text-center mb-4 sm:w-[30%] sm:min-w-[194px]">
+                <h2 className="text-[16px] font-bold  text-black dark:text-white pb-6 sm:pb-6  sm:mt-4 sm:text-start 2xl:text-xl xl:text-lg lg:text-base pt-6 sm:pt-0">
+                  {findByUniqueId(mainData, 584)} :
+                </h2>
+                <div className="flex justify-between items-center ">
+                  <div className="text-center ">
+                    <div
+                      id="end-days"
+                      className="hale text-2xl font-bold  lg:text-3xl xl:text-4xl 2xl:text-5xl"
+                    >
+                      {switchDigits(
+                        toEnd.days.toString().padStart(2, "0"),
+                        params.lang
+                      )}
+                      <span> </span>
+                    </div>
+                    <div className="text-base ">
+                      {findByUniqueId(mainData, 380)}
+                    </div>
+                  </div>
+                  <span className="self-start text-[24px]  leading-10 font-bold lg:text-3xl xl:text-4xl 2xl:text-5xl">
+                    :
+                  </span>
+                  <div className="text-center">
+                    <div
+                      id="end-hours"
+                      className="hale text-2xl font-bold w-11 lg:text-3xl xl:text-4xl 2xl:text-5xl"
+                    >
+                      {switchDigits(
+                        toEnd.hours.toString().padStart(2, "0"),
+                        params.lang
+                      )}
+                    </div>
+                    <div className="text-base ">
+                      {findByUniqueId(mainData, 560)}
+                    </div>
+                  </div>
+                  <span className="self-start text-[24px]  leading-10 font-bold lg:text-3xl xl:text-4xl 2xl:text-5xl">
+                    :
+                  </span>
+                  <div className="text-center">
+                    <div
+                      id="end-minutes"
+                      className="hale text-2xl font-bold w-11 lg:text-3xl xl:text-4xl 2xl:text-5xl"
+                    >
+                      {switchDigits(
+                        toEnd.minutes.toString().padStart(2, "0"),
+                        params.lang
+                      )}{" "}
+                    </div>
+                    <div className="text-base ">
+                      {findByUniqueId(mainData, 33)}
+                    </div>
+                  </div>
+                  <span className="self-start text-[24px]  leading-10 font-bold lg:text-3xl xl:text-4xl 2xl:text-5xl">
+                    :
+                  </span>
+                  <div className="text-center">
+                    <div
+                      id="end-seconds"
+                      className="hale text-2xl font-bold w-11 lg:text-3xl xl:text-4xl 2xl:text-5xl"
+                    >
+                      {switchDigits(
+                        toEnd.seconds.toString().padStart(2, "0"),
+                        params.lang
+                      )}
+                    </div>
+                    <div className="text-base ">
+                      {findByUniqueId(mainData, 778)}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className=" flex text-center sm:justify-center mt-4 sm:w-2/5">
+                <a
+                  href={event.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="dark:bg-dark-yellow bg-blueLink text-white dark:text-black font-bold py-2 px-4 w-full mb-2 h-11 self-end rounded-[28px] sm:text-lg sm:font-semibold sm:w-[60%] text-center justify-center items-center flex"
+                >
+                  <span>{findByUniqueId(mainData, 1449)}</span>
+                </a>
+              </div>
+            </div>
+            <div className="mt-6 w-full lg:w-[95%] h-[2px] bg-gradient-to-r from-transparent via-[#DADADA] to-transparent"></div>
+          </div>
+        );
+      })}
+
+      <div className="w-full text-center my-8 justify-center flex">
+        {hasMore && events.length > 0 && (
+          <button
+            onClick={showMore}
+            disabled={loading}
+            className={`flex justify-center items-center gap-2
+      ${
+        loading
+          ? "cursor-not-allowed opacity-60"
+          : "hover:border-blueLink hover:dark:border-dark-yellow"
+      }
+      bg-transparent text-blueLink dark:text-dark-yellow 
+      rounded-[10px] px-[40px] py-[20px] base-transition-1 
+      border-2 border-transparent`}
+          >
+            {loading ? <ThemedLoader /> : <>{findByUniqueId(mainData, 271)}</>}
+          </button>
+        )}
+      </div>
+    </>
+  );
+};
+
+export default EventList;

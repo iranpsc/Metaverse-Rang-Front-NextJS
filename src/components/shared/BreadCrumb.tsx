@@ -52,6 +52,13 @@ export default function ({ params }: any) {
       font: "font-bold",
       link: `/${params.lang}/education/category/dynasty`,
     },
+     {
+      name: "calendar",
+      en: "events calendar",
+      fa: "تقویم رویداد ها",
+      font: "font-bold",
+      link: `/${params.lang}/calendar`,
+    },
     {
       name: "setting",
       en: "setting",
