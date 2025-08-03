@@ -191,7 +191,6 @@ export default async function AboutPage({ params }: any) {
           // id={`${
           //   themeDataActive == "dark" ? "dark-scrollbar" : "light-scrollbar"
           // }`}
-
           className={`h-[calc(100vh-60px)] lg:h-screen overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0`}
         >
           {/* Breadcrumb */}
@@ -204,11 +203,6 @@ export default async function AboutPage({ params }: any) {
             </h1>
             <div className="flex flex-col gap-10 ">
               <div>
-                <h2 className="dark:text-white text-black text-lg md:text-2xl font-bold font-rohk">
-                  {params.lang.toLowerCase() == "fa"
-                    ? "تماس با ما - متاورس رنگ (متارنگ)"
-                    : "Contact Us - Metaverse Rang (MetaRang)"}
-                </h2>
                 <p className="text-lightGray font-medium text-justify text-sm md:text-lg mt-5 leading-10">
                   {params.lang.toLowerCase() == "fa"
                     ? "ما در متاورس رنگ معتقدیم که توسعه این دنیای موازی و مجازی تنها با مشارکت و همفکری عمومی امکان‌پذیر است. زیرساخت‌های این جهان بر پایه‌ی واحد حدتاثیر بنا شده‌اند تا بتوانند نظرات و ایده‌های شما را به بهترین شکل در مسیر توسعه هدایت کنند. ارتباط با انجمن متاورس ایران و دانشگاه متاورس ایران از طریق این پلتفرم به راحتی امکان‌پذیر است. همچنین، شما می‌توانید با تیم پیشرو در توسعه زیرساخت‌های مشارکت همگانی در ارتباط باشید تا با هم‌افزایی و همکاری، آینده‌ای بهتر برای این جهان مجازی بسازیم. نظرات و پیشنهادات شما، نیروی محرکه‌ی این تحول عظیم است و به ما در ایجاد جهانی بهتر و نوآورانه کمک می‌کند."
@@ -253,11 +247,7 @@ export default async function AboutPage({ params }: any) {
                   <div className="flex flex-col gap-7 w-full lg:w-1/2 justify-center lg:justify-start ">
                     <div className="flex flex-col md:flex-row md:flex-wrap w-full items-center justify-between gap-6 ">
                       <div className="flex gap-3">
-                        <WhatsAppIcon
-                          width={27}
-                          height={27}
-                          className="text-light-placeholder dark:text-dark-placeholder"
-                        />
+                        
                         <a
                           className="font-bold text-2xl leading-[40px] text-black dark:text-light-newColors-shades-bg2 font-rokh"
                           href="tel:09120820120"
@@ -266,6 +256,11 @@ export default async function AboutPage({ params }: any) {
                             ? "۰۹۱۲۰۸۲۰۱۲۰"
                             : "09120820120"}
                         </a>
+                        <WhatsAppIcon
+                          width={27}
+                          height={27}
+                          className="text-light-placeholder dark:text-dark-placeholder"
+                        />
                       </div>
                       <div className="flex gap-3 text-center lg:text-right">
                         <a
@@ -287,7 +282,7 @@ export default async function AboutPage({ params }: any) {
                         style={{ border: "0" }}
                         loading="lazy"
                         referrerPolicy="no-referrer-when-downgrade"
-                        className="w-full h-full"
+                        className="w-full h-full rounded-xl"
                         title={
                           params.lang.toLowerCase() == "fa" ? "نقشه" : "map"
                         }

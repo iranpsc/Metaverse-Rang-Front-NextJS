@@ -22,7 +22,7 @@ export default function LevelCard({
   return (
     <div className="py-[10px] px-[14px] w-full md:w-1/2 lg:w-1/3 2xl:w-1/4 flex justify-center">
       <Link
-        className="w-full max-w-[296px] lg:max-w-[333px] py-[25px] base-transition-1 hoverCardLevel  flex flex-col items-center rounded-[20px] box-border border-solid  border-transparent hover:border hover:border-[#0066FF] hover:bg-white dark:hover:bg-[#1A1A18] dark:hover:border-[#FFC700] hover:shadow-[0_0px_20px_rgba(0,0,0,0.45)] dark:hover:shadow-[0_0px_33px_-11px_rgba(255,255,255,255.9)]"
+        className="w-full max-w-[296px] lg:max-w-[333px] py-[25px] base-transition-1 hoverCardLevel  flex flex-col items-center rounded-[20px] box-border border-solid  border-transparent border hover:border-[#0066FF] hover:bg-white dark:hover:bg-[#1A1A18] dark:hover:border-[#FFC700] hover:shadow-[0_0px_20px_rgba(0,0,0,0.45)] dark:hover:shadow-[0_0px_33px_-11px_rgba(255,255,255,255.9)]"
         href={`/${params.lang}/levels/citizen/${item.route_name}/general-info`}
       >
         <Image

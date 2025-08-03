@@ -264,7 +264,7 @@ export default async function VersionPage({ params }: { params: any }) {
           </div>
 
           {/* PLZ code here without container */}
-          <div className="mainContainer w-full lg:h-auto dark:bg-black flex flex-col gap-[10px] lg:flex-row lg:items-start lg:justify-between">
+          <div className="mainContainer w-full lg:h-auto  flex flex-col gap-[10px] lg:flex-row lg:items-start lg:justify-between">
             <div className="centerItem w-full   lg:px-7">
               <div className="self-center justify-between flex pt-8 w-full  gap-8">
                 <Version versions={versions} params={params} mainData={mainData} initialVersion={params.version || (versions.length > 0 ? versions[0].version : null)}

@@ -364,7 +364,7 @@ export default function SideBarContent({
             </React.Fragment>
           ))}
         {/* Static Version Item */}
-        {pathName !== `/${params.lang}/citizens/${params.id}` && (
+        {pathName !== `/${params.lang}/citizens/${params.id}` && pathName !== `/${params.lang}/citizens/${params.id}/referral` && (
           <li style={{ order: -1 }}>
             <Tooltip
               title={versionItem.translation}
