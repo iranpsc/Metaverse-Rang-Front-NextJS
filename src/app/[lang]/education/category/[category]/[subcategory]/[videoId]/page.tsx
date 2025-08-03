@@ -254,9 +254,9 @@ export async function generateMetadata({ params }: { params: any }) {
   const DataVideo = await getSingleVideoData(params.videoId);
 
   //to make description less than 200 character
-  async function makeLessCharacter(_input: string) {
-    return _input.slice(0, 200);
-  }
+async function makeLessCharacter(_input: string | undefined | null): Promise<string> {
+  return _input && typeof _input === 'string' ? _input.slice(0, 200) : '';
+}
 
   return {
     title: DataVideo.title,

@@ -86,21 +86,17 @@ export default async function EducationSubcategory({
     "@context": "http://schema.org",
     "@type": "WebSite",
     name: ` ${subCategoryData.name}`,
-    url: `https://rgb.irpsc.com/${
-      params.lang
-    }/education/category/${decodeURIComponent(params.category)}/${
-      params.subcategory
-    }`,
+    url: `https://rgb.irpsc.com/${params.lang
+      }/education/category/${decodeURIComponent(params.category)}/${params.subcategory
+      }`,
     description: await makeLessCharacter(subCategoryData.description),
     mainEntity: subCategoryData.videos.map((video: any) => ({
       "@type": "VideoObject",
       name: video.title,
       thumbnailUrl: video.image_url,
-      contentUrl: `https://rgb.irpsc.com/${
-        params.lang
-      }/education/category/${decodeURIComponent(params.category)}/${
-        params.subcategory
-      }/video/${video.slug}`,
+      contentUrl: `https://rgb.irpsc.com/${params.lang
+        }/education/category/${decodeURIComponent(params.category)}/${params.subcategory
+        }/video/${video.slug}`,
       uploadDate: video.upload_date || "",
       publisher: {
         "@type": "Organization",
@@ -210,8 +206,8 @@ export async function generateMetadata({ params }: { params: any }) {
   );
 
   //to make description less than 200 character
-  async function makeLessCharacter(_input: string) {
-    return _input.slice(0, 200);
+  async function makeLessCharacter(_input: string | undefined | null): Promise<string> {
+    return _input && typeof _input === 'string' ? _input.slice(0, 200) : '';
   }
 
   return {
