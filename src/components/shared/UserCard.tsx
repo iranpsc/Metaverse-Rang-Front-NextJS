@@ -39,7 +39,7 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
 
   return (
     <div
-      className={`hover:scale-105 base-transition-1 px-2 !w-[90%] md:max-w-[281px]`}
+      className={`hover:scale-105 base-transition-1 px-2 !max-w-[281px]`}
       style={minWidth ? { width: minWidth, minWidth: minWidth } : {}}
     >
       <div
