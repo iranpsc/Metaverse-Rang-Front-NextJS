@@ -239,19 +239,29 @@
     
   }
 
-  export async function getEducationSingleCategory(_category){
-    
-    
-    const res = await fetch(`https://api.rgb.irpsc.com/api/tutorials/categories/${_category}`,{
-      headers: {
-        "Content-Type": "application/json",
-        "Cache-Control": "public, max-age=3600", 
-      },}
-    )
-    let temp = await res.json()
+export async function getEducationSingleCategory(_category) {
+  const res = await fetch(`https://api.rgb.irpsc.com/api/tutorials/categories/${_category}`, {
+    headers: {
+      "Content-Type": "application/json",
+      "Cache-Control": "public, max-age=3600",
+    },
+  });
 
-    return temp.data
+  if (res.status === 404) {
+    // در صورت 404، مقدار null برگردون
+    return null;
   }
+
+  if (!res.ok) {
+    // در سایر خطاها ارور پرتاب کن
+    throw new Error(`${res.status} - ${res.statusText}`);
+  }
+
+  const temp = await res.json();
+  return temp.data;
+}
+
+
 
   export async function getSubcategoryData(_category,_subcategory){
     const res = await fetch(`https://api.rgb.irpsc.com/api/tutorials/categories/${_category}/${_subcategory}`,{

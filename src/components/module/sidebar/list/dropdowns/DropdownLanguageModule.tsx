@@ -12,17 +12,20 @@ const DropdownLanguageModule = ({ langArray, params, isClosed }: any) => {
   const searchParams = useSearchParams();
   // const { state, toggleCollapseHandler } = useContext(SideBarContext);
 
-  const handleDirChange = (item: any) => {
-    // Split the current path into segments
-    const segments = pathname.split("/");
+const handleDirChange = (item: any) => {
+  // استفاده از مقدار پیش‌فرض اگر pathname null باشد
+  const safePathname = pathname || '/';
+  
+  // Split the current path into segments
+  const segments = safePathname.split("/");
 
-    // Update the [lang] segment (assumes it's the first segment)
-    segments[1] = item.code;
+  // Update the [lang] segment (assumes it's the first segment)
+  segments[1] = item.code;
 
-    // Reconstruct the path
-    const newPath = segments.join("/");
-    router.push(newPath);
-  };
+  // Reconstruct the path
+  const newPath = segments.join("/");
+  router.push(newPath);
+};
 
   return (
     <>
