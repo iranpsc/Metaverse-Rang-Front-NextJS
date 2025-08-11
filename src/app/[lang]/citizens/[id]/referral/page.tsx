@@ -17,10 +17,69 @@ import InviteBox from "./components/invite-box";
 import "./style/style.css";
 import InviteList from "./components/invite-list";
 import InviteChart from "./components/invite-chart.js";
-import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import NotFound from "@/components/shared/NotFoundPage";
 
-export default async function CitizenReferral({ params }: { params: any }) {
+interface Tab {
+  unique_id?: number; // تغییر به optional number برای هندل کردن موارد undefined
+  url?: string;
+  order?: string;
+  toShow?: boolean;
+  name?: string;
+  translation?: string;
+  [key: string]: any;
+}
+
+interface Params {
+  lang: string;
+  id: string;
+}
+
+export default async function CitizenReferral({ params }: { params: Params }) {
   const langData = await getTranslation(params.lang);
+
+  const profileData = await getUserData(params.id);
+
+  // اگر اطلاعات پروفایل پیدا نشد، صفحه 404 نمایش بده
+  if (!profileData || !profileData.code) {
+    const [mainData, langArray] = await Promise.all([
+      getMainFile(langData),
+      getLangArray(),
+    ]);
+
+    const footerTabs = mainData.footerTabs || [];
+
+    const centralPageModal = await findByModalName(mainData, "Citizenship-profile");
+    const tabsMenu: Tab[] = await findByTabName(centralPageModal, "menu");
+
+    const staticMenuToShow: Tab[] = getStaticMenu(params);
+
+    const updatedTabsMenu = tabsMenu.map((tab: Tab) => {
+      const findInStatic = staticMenuToShow.find(
+        (val: Tab) => tab.unique_id === val.unique_id
+      );
+      if (findInStatic) {
+        return {
+          ...tab,
+          url: findInStatic.url,
+          order: findInStatic.order,
+          toShow: true,
+        };
+      }
+      return tab;
+    });
+
+    return (
+      <NotFound
+        lang={params.lang}
+        params={params}
+        langData={langData}
+        langArray={langArray}
+        updatedTabsMenu={updatedTabsMenu}
+        footerTabs={footerTabs}
+        mainData={mainData}
+      />
+    );
+  }
 
   const [mainData, langArray, initInviteList, footerTabs, chartDataFetch] =
     await Promise.all([
@@ -31,54 +90,24 @@ export default async function CitizenReferral({ params }: { params: any }) {
       getChartReferral(params.id, "yearly"),
     ]);
 
-  // Updated localFind function with error handling and logging
-  function localFind(_name: any): string {
-    if (!Array.isArray(referralPageArrayContent) || referralPageArrayContent.length === 0) {
-      console.warn('referralPageArrayContent is empty or not an array', { _name });
-      return '';
-    }
-    const item = referralPageArrayContent.find((item: any) => item.name === _name);
-    if (!item) {
-      console.warn(`No item found for name: ${_name}`, { referralPageArrayContent });
-      return '';
-    }
-    return item.translation || '';
-  }
-
-  // Convert all digits to Persian digits
-  const convertToPersianDigits = (str: any) => {
-    return str.replace(/\d/g, (d: any) => "۰۱۲۳۴۵۶۷۸۹"[d]);
-  };
-
-  let initChartData = { labels: [], data: [[], []] };
-  initChartData.labels = await chartDataFetch.chart_data.map((label: any) =>
-    convertToPersianDigits(label.year)
-  );
-  initChartData.data[0] = await chartDataFetch.chart_data.map(
-    (label: any) => label.total_referrals_count
-  );
-  initChartData.data[1] = await chartDataFetch.chart_data.map(
-    (label: any) => label.total_referral_orders_amount
-  );
-
   const centralPageModal = await findByModalName(
     mainData,
     "Citizenship-profile"
   );
 
-  const tabsMenu = await findByTabName(centralPageModal, "menu");
+  const tabsMenu: Tab[] = await findByTabName(centralPageModal, "menu");
 
   const referralPageArrayContent = await findByTabName(
     centralPageModal,
     "referral"
   );
 
-  const staticMenuToShow = getStaticMenu(params);
+  const staticMenuToShow: Tab[] = getStaticMenu(params);
 
   // Add staticMenuToShow values to siblings tabsMenu values
-  const updatedTabsMenu = tabsMenu.map((tab: any) => {
-    let findInStatic = staticMenuToShow.find(
-      (val) => tab.unique_id === val.unique_id
+  const updatedTabsMenu = tabsMenu.map((tab: Tab) => {
+    const findInStatic = staticMenuToShow.find(
+      (val: Tab) => tab.unique_id === val.unique_id
     );
 
     if (findInStatic) {
@@ -93,33 +122,59 @@ export default async function CitizenReferral({ params }: { params: any }) {
     return tab;
   });
 
+  // Updated localFind function with error handling and logging
+  function localFind(_name: string): string {
+    if (!Array.isArray(referralPageArrayContent) || referralPageArrayContent.length === 0) {
+      console.warn('referralPageArrayContent is empty or not an array', { _name });
+      return '';
+    }
+    const item = referralPageArrayContent.find((item: any) => item.name === _name);
+    if (!item) {
+      console.warn(`No item found for name: ${_name}`, { referralPageArrayContent });
+      return '';
+    }
+    return item.translation || '';
+  }
+
+  // Convert all digits to Persian digits
+  const convertToPersianDigits = (str: string) => {
+    return str.replace(/\d/g, (d: string) => "۰۱۲۳۴۵۶۷۸۹"[parseInt(d)]);
+  };
+
+  let initChartData = { labels: [], data: [[], []] };
+  initChartData.labels = chartDataFetch.chart_data.map((label: any) =>
+    convertToPersianDigits(label.year)
+  );
+  initChartData.data[0] = chartDataFetch.chart_data.map(
+    (label: any) => label.total_referrals_count
+  );
+  initChartData.data[1] = chartDataFetch.chart_data.map(
+    (label: any) => label.total_referral_orders_amount
+  );
+
   // To make description less than 200 characters
   async function makeLessCharacter() {
-    let temp;
-    if (profileData.data?.customs?.about) {
-      temp = profileData.data.customs.about;
-      temp = temp.slice(0, 200);
-    } else temp = "";
+    let temp = "";
+    if (profileData.customs?.about) {
+      temp = profileData.customs.about.slice(0, 200);
+    }
     return temp;
   }
-  const profileData = await getUserData(params.id);
 
   const citizenReferralSchema = {
     "@context": "https://schema.org/",
     "@type": "Person",
     name: `${
-      profileData.data.name ||
-      profileData.data?.kyc.fname + " " + profileData.data?.kyc.lname
+      profileData.name ||
+      (profileData.kyc?.fname + " " + profileData.kyc?.lname)
     }`,
-    image: profileData.data?.profilePhotos?.map((item: any) => {
-      return item.url;
-    }) || [],
+    image: profileData.profilePhotos?.map((item: any) => item.url) || [],
     url: `http://rgb.irpsc.com/${params.lang}/citizen/${params.id}`,
-    jobTitle: `${profileData.data?.customs?.occupation || ""}`,
+    jobTitle: `${profileData.customs?.occupation || ""}`,
     description: `${await makeLessCharacter()}`,
-    birthDate: `${profileData.data?.kyc?.birth_date || ""}`,
-    email: `${profileData.data?.kyc?.email || ""}`,
-    alternateName: `${profileData.data.code || ""}`,
+    birthDate: `${profileData.kyc?.birth_date || ""}`,
+    email: `${profileData.kyc?.email || ""}`,
+    alternateName: `${profileData.code || ""}`,
   };
 
   const itemListSchema = {
@@ -139,9 +194,9 @@ export default async function CitizenReferral({ params }: { params: any }) {
         "@type": "ListItem",
         position: 2,
         name: localFind("-rewards"),
-        value: initInviteList.data.reduce((sum: any, person: any) => {
+        value: initInviteList.data.reduce((sum: number, person: any) => {
           const personTotal = person.referrerOrders.reduce(
-            (orderSum: any, order: any) => orderSum + (order.amount || 0),
+            (orderSum: number, order: any) => orderSum + (order.amount || 0),
             0
           );
           return sum + personTotal;
@@ -149,13 +204,13 @@ export default async function CitizenReferral({ params }: { params: any }) {
         url: `https://rgb.irpsc.com/fa/citizens/${params.id}/referral`,
       },
       // Dynamic items for each invite
-      ...(initInviteList.data || []).map((invited: any, index: any) => ({
+      ...(initInviteList.data || []).map((invited: any, index: number) => ({
         "@type": "ListItem",
         position: index + 3,
         name: invited.name || "",
         identifier: `${invited.code || ""}`,
         value: invited.referrerOrders.reduce(
-          (acc: any, item: any) => acc + (item.amount || 0),
+          (acc: number, item: any) => acc + (item.amount || 0),
           0
         ),
         url: `https://rgb.irpsc.com/${params.lang}/citizens/${invited.code || ""}`,
@@ -231,7 +286,7 @@ export default async function CitizenReferral({ params }: { params: any }) {
 }
 
 // SEO
-export async function generateMetadata({ params }: { params: any }) {
+export async function generateMetadata({ params }: { params: Params }) {
   const profileData = await getUserData(params.id);
   const langData = await getTranslation(params.lang);
   const mainData = await getMainFile(langData);
@@ -244,10 +299,24 @@ export async function generateMetadata({ params }: { params: any }) {
     "referral"
   );
 
+  // اگر اطلاعات پروفایل پیدا نشد، متادیتای 404 برگردون
+  if (!profileData || !profileData.code) {
+    return {
+      title: "کاربر یافت نشد",
+      description: "کاربر موردنظر وجود ندارد.",
+      openGraph: {
+        title: "کاربر یافت نشد",
+        description: "کاربر موردنظر وجود ندارد.",
+        url: `https://rgb.irpsc.com/${params.lang}/citizen/${params.id}/referral`,
+        locale: params.lang === "fa" ? "fa_IR" : "en_US",
+      },
+    };
+  }
+
   // Updated localFind function with error handling and logging
-  function localFind(_name: any): string {
+  function localFind(_name: string): string {
     if (!Array.isArray(referralPageArrayContent) || referralPageArrayContent.length === 0) {
-      // console.warn('referralPageArrayContent is empty or not an array', { _name });
+      console.warn('referralPageArrayContent is empty or not an array', { _name });
       return '';
     }
     const item = referralPageArrayContent.find((item: any) => item.name === _name);
@@ -267,25 +336,25 @@ export async function generateMetadata({ params }: { params: any }) {
 
   return {
     title: `${
-      params.lang.toLowerCase() == "fa" ? "دعوتی های" : "invite list of"
-    } ${profileData.data.kyc?.fname || ""} ${profileData.data.kyc?.lname || ""}`,
+      params.lang.toLowerCase() === "fa" ? "دعوتی‌های" : "invite list of"
+    } ${profileData.kyc?.fname || ""} ${profileData.kyc?.lname || ""}`,
     description:
       (await localFind("the list of friends who have been")) ||
       "citizen referral page",
     openGraph: {
       type: "profile",
       title: `${
-        params.lang.toLowerCase() == "fa" ? "دعوتی های" : "invite list of"
-      } ${profileData.data.kyc?.fname || ""} ${profileData.data.kyc?.lname || ""}`,
+        params.lang.toLowerCase() === "fa" ? "دعوتی‌های" : "invite list of"
+      } ${profileData.kyc?.fname || ""} ${profileData.kyc?.lname || ""}`,
       description: `${await makeLessCharacter()}`,
-      locale: params.lang == "fa" ? "fa_IR" : "en_US",
+      locale: params.lang === "fa" ? "fa_IR" : "en_US",
       url: `https://rgb.irpsc.com/${params.lang}/citizen/${params.id}/referral`,
       profile: {
-        first_name: `${profileData.data.name || ""}`,
+        first_name: `${profileData.name || ""}`,
       },
       images: [
         {
-          url: `${profileData.data?.profilePhotos?.[0]?.url || ""}`,
+          url: `${profileData.profilePhotos?.[0]?.url || ""}`,
           width: 800,
           height: 600,
         },

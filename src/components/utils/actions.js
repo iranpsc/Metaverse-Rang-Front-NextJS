@@ -168,25 +168,36 @@ export async function getSingleLevel(levelId) {
 }
 
 export async function getUserData(_userId) {
-  let id = _userId.replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]).toLowerCase()
+  const id = _userId.replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]).toLowerCase();
   try {
-    const res = await fetch(
-      `https://api.rgb.irpsc.com/api/citizen/${id}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          "Cache-Control": "public, max-age=3600",
-        },
+    const res = await fetch(`https://api.rgb.irpsc.com/api/citizen/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        "Cache-Control": "public, max-age=3600",
+      },
+    });
+
+    if (!res.ok) {
+      if (res.status === 404) {
+        throw new Error("User not found");
       }
-    );
+      throw new Error(`Error fetching user data: ${res.statusText}`);
+    }
+
     const temp = await res.json();
 
-    return temp;
+    if (!temp.data) {
+      throw new Error("No user data found");
+    }
+
+    return temp.data;  // فقط داده کاربر
   } catch (err) {
-    // در صورت وجود خطا
-    return { props: { error: "خطا در دریافت داده‌ها" } };
+    console.error("Error while getting user data:", err.message || err);
+    return null;
   }
 }
+
+
 
 export async function getAllReferral(_userId, _searchParam = "") {
   const res = await fetch(`https://api.rgb.irpsc.com/api/citizen/${_userId}/referrals?search=${_searchParam}`, {
