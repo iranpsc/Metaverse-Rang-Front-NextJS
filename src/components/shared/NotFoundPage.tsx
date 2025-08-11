@@ -1,7 +1,9 @@
 import React from "react";
 import SideBar from "@/components/module/sidebar/SideBar";
 import DynamicFooter from "@/components/module/footer/DynamicFooter";
-import BreadCrumb from "@/components/shared/BreadCrumb";
+import Image from "next/image";
+import Rafiki from '@/public/rafiki.png';
+import RafikiDark from '@/public/rafiki-dark.png';
 
 interface NotFoundPageProps {
   lang: string;
@@ -38,30 +40,45 @@ export default function NotFoundPage({
       )}
 
       {/* Main Content */}
-      <section className="w-full overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 bg-[#f8f8f8] dark:bg-black xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
-        <div>
-          <BreadCrumb params={params} />
-        </div>
+      <section className="w-full pt-7 overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 bg-[#f8f8f8] dark:bg-black xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
 
-        {/* 404 Message */}
-        <div className="flex flex-col gap-5 items-center justify-center min-h-[60vh] text-center">
-          <h1 className="text-[#00000024] text-2xl md:text-[100px] font-bold">
-            404
-          </h1>
-          <h2 className="text-[#33353B] text-xl md:text-3xl">
-            صفحه یافت نشد..!
-          </h2>
-          <p className="text-[#868B90] max-w-[500px]">
-            صفحه‌ای که دنبال آن هستید وجود ندارد. از جستجو کردن کمک بگیرید یا
-            به صفحه اصلی بروید.
-          </p>
-          <a href={`/${lang}`} className="text-blue-500 underline">
-            بازگشت به صفحه اصلی
-          </a>
+
+        <div className=" bg-white dark:bg-[#1A1A18] rounded-[20px] flex flex-col lg:flex-row gap-5 p-5 w-full">
+          {/* 404 Message */}
+          <div className="flex flex-col gap-10  justify-start text-start w-full lg:w-[60%] p-1 ">
+            <h1 className="text-[#33353B] dark:text-white text-7xl md:text-[120px] 2xl:text-[176px] font-bold mt-5  h-max">
+              404
+            </h1>
+            <h2 className="text-[#33353B] dark:text-white text-xl md:text-3xl ">
+              صفحه یافت نشد..!
+            </h2>
+            <p className="text-[#868B90] lg:text-xl 2xl:text-2xl w-full">
+              صفحه‌ای که دنبال آن هستید وجود ندارد. از جستجو کردن کمک بگیرید یا
+              به صفحه اصلی بروید.
+            </p>
+            <a href={`/${lang}`} className="text-light-primary dark:text-dark-yellow md:text-xl rounded-xl border border-solid border-light-primary dark:border-dark-yellow w-max py-3 px-2 lg:px-5">
+              بازگشت به صفحه اصلی
+            </a>
+          </div>
+          <div className="lg:mt-[270px] w-full lg:w-[40%] p-2">
+            <Image
+              src={Rafiki}
+              alt="404 pic"
+              loading="lazy"
+              className="w-full dark:hidden "
+            />
+            <Image
+              src={RafikiDark}
+              alt="404 pic"
+              loading="lazy"
+              className="w-full hidden dark:block"
+            />
+
+          </div>
         </div>
 
         {/* Footer */}
-        <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1 mt-auto">
+        <div className="mt-[-120px]">
           <DynamicFooter footerTabs={footerTabs} mainData={mainData} />
         </div>
       </section>
