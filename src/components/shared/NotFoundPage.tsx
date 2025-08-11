@@ -1,4 +1,3 @@
-// src/components/NotFoundPage.tsx
 import React from "react";
 import SideBar from "@/components/module/sidebar/SideBar";
 import DynamicFooter from "@/components/module/footer/DynamicFooter";
@@ -12,6 +11,7 @@ interface NotFoundPageProps {
   updatedTabsMenu: any[];
   footerTabs: any[];
   mainData: any;
+  hideSidebar?: boolean;  // این پراپ رو اضافه کردیم، اختیاری
 }
 
 export default function NotFoundPage({
@@ -22,17 +22,20 @@ export default function NotFoundPage({
   updatedTabsMenu,
   footerTabs,
   mainData,
+  hideSidebar = false,  // مقدار پیش‌فرض false
 }: NotFoundPageProps) {
   return (
     <div className="flex h-screen overflow-hidden" dir={langData.direction}>
-      {/* Sidebar */}
-      <SideBar
-        tabsMenu={updatedTabsMenu}
-        langData={langData}
-        langArray={langArray}
-        params={params}
-       pageSide="citizen"
-      />
+      {/* Sidebar فقط وقتی hideSidebar false باشه */}
+      {!hideSidebar && (
+        <SideBar
+          tabsMenu={updatedTabsMenu}
+          langData={langData}
+          langArray={langArray}
+          params={params}
+          pageSide="citizen"
+        />
+      )}
 
       {/* Main Content */}
       <section className="w-full overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 bg-[#f8f8f8] dark:bg-black xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
@@ -52,10 +55,7 @@ export default function NotFoundPage({
             صفحه‌ای که دنبال آن هستید وجود ندارد. از جستجو کردن کمک بگیرید یا
             به صفحه اصلی بروید.
           </p>
-          <a
-            href={`/${lang}`}
-            className="text-blue-500 underline"
-          >
+          <a href={`/${lang}`} className="text-blue-500 underline">
             بازگشت به صفحه اصلی
           </a>
         </div>

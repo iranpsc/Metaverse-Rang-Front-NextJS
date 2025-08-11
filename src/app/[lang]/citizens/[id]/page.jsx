@@ -1,67 +1,36 @@
+
 import Profile from "@/components/templates/Profile";
 import ProfileAbout from "@/components/module/profile/ProfileAbout";
 import ProfileDetails from "@/components/module/profile/ProfileDatails";
 import { getTranslation, getMainFile, findByModalName, findByTabName, getLangArray, getUserData } from "@/components/utils/actions";
 import SideBar from "@/components/module/sidebar/SideBar";
 import { getStaticMenu } from "@/components/utils/constants";
-import NotFound from "@/components/shared/NotFoundPage";
 
-export default async function citizenSinglePage({ params }) {
-  // گرفتن داده‌های اصلی و ترجمه‌ها
+
+export default async function citizenSinglePage({
+  params,
+}) {
   const [profileData, langData] = await Promise.all([
     getUserData(params.id),
-    getTranslation(params.lang),
-  ]);
+    getTranslation(params.lang)
+  ])
+  
+  // const profileData = await getUserData();
+  // const langData = await getTranslation(params.lang);
 
-  // گرفتن داده‌های ثابت مثل mainData و langArray
   const [mainData, langArray] = await Promise.all([
     getMainFile(langData),
-    getLangArray(),
-  ]);
+    getLangArray()
+  ])
 
-  // فرض: footerTabs از mainData استخراج می‌شود
-  const footerTabs = mainData.footerTabs || [];
+  const modalsProfile = mainData.modals.find(
+    (modal) => modal.name === "Citizenship-profile"
+  ).tabs;
 
-  // پیدا کردن modal اصلی و تب‌ها
-  const centralPageModal = await findByModalName(mainData, "Citizenship-profile");
-  const tabsMenu = await findByTabName(centralPageModal, "menu");
+  const userProperty = modalsProfile.find(
+    (tabs) => tabs.name === "home"
+  ).fields;
 
-  // گرفتن منوی استاتیک برای پارامترهای ورودی
-  const staticMenuToShow = getStaticMenu(params);
-
-  // آپدیت تب‌ها با مقادیر منوی استاتیک
-  const updatedTabsMenu = tabsMenu.map((tab) => {
-    const findInStatic = staticMenuToShow.find((val) => tab.unique_id === val.unique_id);
-    if (findInStatic) {
-      return {
-        ...tab,
-        url: findInStatic.url,
-        order: findInStatic.order,
-        toShow: true,
-      };
-    }
-    return tab;
-  });
-
-  // اگر اطلاعات پروفایل پیدا نشد، صفحه 404 با تمام پراپس‌ها نمایش بده
-  if (!profileData || !profileData.code) {
-    return (
-      <NotFound
-        lang={params.lang}
-        params={params}
-        langData={langData}
-        langArray={langArray}
-        updatedTabsMenu={updatedTabsMenu}
-        footerTabs={footerTabs}
-        mainData={mainData}
-      />
-    );
-  }
-
-  // ادامه استخراج داده‌ها برای رندر صفحه اصلی
-  const modalsProfile = mainData.modals.find(modal => modal.name === "Citizenship-profile")?.tabs || [];
-
-  const userProperty = modalsProfile.find(tab => tab.name === "home")?.fields || [];
 
   let titleData = "";
   let nameUser = "";
@@ -71,60 +40,95 @@ export default async function citizenSinglePage({ params }) {
   if (params.lang === "fa") {
     nameSite = "متاورس رنگ";
     localSite = "fa_IR";
-    if (profileData.kyc?.fname) {
-      nameUser = `${profileData.kyc.fname} ${profileData.kyc.lname}`;
-      titleData = `${profileData.kyc.fname} ${profileData.kyc.lname} | ${profileData.code}`;
-    } else if (profileData.name) {
-      titleData = `${profileData.name} | ${profileData.code}`;
-      nameUser = `${profileData.name}`;
+    if (profileData.data?.kyc?.fname) {
+      nameUser = `${profileData.data.kyc.fname} ${profileData.data.kyc.lname}`;
+      titleData = `${profileData.data.kyc.fname} ${profileData.data.kyc.lname} | ${profileData.data.code}`;
+    } else if (profileData.data.name) {
+      titleData = `${profileData.data.name} | ${profileData.data.code}`;
+      nameUser = `${profileData.data.name} `;
     } else {
       titleData = "متاورس رنگ";
     }
   } else if (params.lang === "en") {
     localSite = "en-US";
     nameSite = "Metaverse Rgb";
-    if (profileData.name) {
-      titleData = `${profileData.name} | ${profileData.code}`;
-      nameUser = `${profileData.name}`;
-    } else if (profileData.kyc?.fname) {
-      nameUser = `${profileData.kyc.fname} ${profileData.kyc.lname}`;
-      titleData = `${profileData.kyc.fname} ${profileData.kyc.lname} | ${profileData.code}`;
-    } else {
+    if (profileData.data.name) {
+      titleData = `${profileData.data.name} | ${profileData.data.code}`;
+      nameUser = `${profileData.data.name} `;
+    }else if (profileData.data?.kyc?.fname) {
+      nameUser = `${profileData.data.kyc.fname} ${profileData.data.kyc.lname}`;
+      titleData = `${profileData.data.kyc.fname} ${profileData.data.kyc.lname} | ${profileData.data.code}`;
+    }
+     else {
       titleData = "Metaverse Rgb";
     }
   }
 
-  async function makeLessCharacter() {
-    let temp = "";
-    if (profileData.customs?.about) {
-      temp = profileData.customs.about.slice(0, 200);
-    }
-    return temp;
+  //to make description less than 200 character
+  async function makeLessCharacter(){
+    let temp;
+    if(profileData.data?.customs?.about){
+      temp = profileData.data.customs.about
+      temp = temp.slice(0,200)
+    }else(
+      temp = ""
+    )
+    return temp
   }
+
+  const centralPageModal = await findByModalName(
+    mainData,
+    "Citizenship-profile"
+  );
+  const tabsMenu = await findByTabName(centralPageModal, "menu");
+
+  const staticMenuToShow = getStaticMenu(params);
+
+  // add staticMenuToShow values to siblings tabsMenu values
+  const updatedTabsMenu = tabsMenu.map((tab) => {
+    let findInStatic = staticMenuToShow.find((val) => tab.unique_id === val.unique_id);
+    
+    if (findInStatic) {
+      // Return a new tab object with updated properties
+      return {
+        ...tab, // Spread the original tab properties
+        url: findInStatic.url,
+        order: findInStatic.order,
+        toShow: true,
+      };
+    }
+  
+    // If no match found, return the original tab
+    return tab;
+  });
 
   const singleCitizenSchema = {
     "@context": "https://schema.org/",
     "@type": "Person",
-    "name": profileData.name || "",
-    "image": profileData.profilePhotos?.map(item => item.url) || [],
+    "name": `${profileData.data.name}`,
+    "image": profileData.data?.profilePhotos?.map(item=>{
+      return item.url
+    }),
     "url": `http://rgb.irpsc.com/fa/citizen/${params.id}`,
-    "jobTitle": profileData.customs?.occupation || "",
-    "description": await makeLessCharacter(),
-    "birthDate": profileData.kyc?.birth_date || "",
-    "email": profileData.kyc?.email || "",
-    "alternateName": profileData.code || "",
-  };
+    "jobTitle": `${profileData.data?.customs?.occupation}`,
+    "description": `${await makeLessCharacter()}`,
+    "birthDate": `${profileData.data?.kyc?.birth_date}`,
+    "email": `${profileData.data?.kyc?.email}`,
+    "alternateName": `${profileData.data.code}`,
+  }
 
   return (
     <>
-      {/* SCHEMA */}
+      {/* SCHEMA** */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(singleCitizenSchema) }}
       />
       {/* schema END */}
       <main className="flex h-screen dark:bg-black" dir={langData.direction}>
-        <div className="relative overflow-y-scroll lg:overflow-hidden light-scrollbar dark:dark-scrollbar w-full xs:px-1 mt-[60px] lg:mt-0">
+        <div
+          className={`relative overflow-y-scroll lg:overflow-hidden light-scrollbar dark:dark-scrollbar w-full xs:px-1 mt-[60px] lg:mt-0`}
+        >
           <div className="flex h-full" dir={langData.direction}>
             <SideBar
               tabsMenu={updatedTabsMenu}
@@ -134,29 +138,39 @@ export default async function citizenSinglePage({ params }) {
               pageSide="citizen"
             />
             <section className="relative w-full bg-[#e9eef8] dark:bg-black">
-              <div className="flex flex-col lg:flex-row h-fit lg:h-full gap-[10px] p-[8px]">
-                {/* FIRST */}
-                <section className="w-full h-fit lg:h-full gap-[6px] lg:w-[35%] flex flex-col no-scrollbar overflow-auto">
+              <div
+                className={`flex flex-col lg:flex-row h-fit lg:h-full gap-[10px] p-[8px] `}>
+                  {/* FIRST */}
+                <section
+                  className="w-full h-fit lg:h-full gap-[6px] lg:w-[35%] flex flex-col no-scrollbar overflow-auto"
+                >
                   <Profile
                     profileData={profileData}
                     titleData={titleData}
                     langData={langData}
                     nameUser={nameUser}
+                    // userProperty={userProperty}
                     mainData={mainData}
                     params={params}
                   />
                 </section>
                 {/* SECOND */}
-                <section className="w-full h-fit lg:h-full lg:w-[35%] flex flex-col no-scrollbar overflow-auto sm:h-fit xs:h-fit md:h-fit">
+                <section
+                  className="w-full h-fit lg:h-full lg:w-[35%] flex flex-col no-scrollbar overflow-auto sm:h-fit xs:h-fit md:h-fit"
+                >
                   <ProfileDetails
                     profileData={profileData}
+                    // userProperty={userProperty}
                     mainData={mainData}
                   />
                 </section>
                 {/* THIRD */}
-                <section className="w-full h-fit lg:h-full lg:w-[30%] flex flex-col no-scrollbar overflow-auto">
+                <section
+                  className="w-full h-fit lg:h-full lg:w-[30%] flex flex-col no-scrollbar overflow-auto"
+                >
                   <ProfileAbout
                     profileData={profileData}
+                    // userProperty={userProperty}
                     mainData={mainData}
                     titleData={titleData}
                     params={params}
@@ -167,57 +181,51 @@ export default async function citizenSinglePage({ params }) {
           </div>
         </div>
       </main>
+
     </>
   );
 }
 
-// SEO
+// SEO**
 export async function generateMetadata({ params }) {
   const profileData = await getUserData(params.id);
-
-  if (!profileData) {
-    return {
-      title: "User Not Found",
-      description: "The requested user does not exist.",
-      openGraph: {
-        title: "User Not Found",
-        description: "The requested user does not exist.",
-        url: `https://rgb.irpsc.com/${params.lang}/citizen/${params.id}`,
-        locale: params.lang === "fa" ? "fa_IR" : "en_US",
-      },
-    };
-  }
-
-  async function makeLessCharacter() {
-    let temp = "";
-    if (profileData.customs?.about) {
-      temp = profileData.customs.about.slice(0, 200);
-    }
-    return temp;
+  
+  //to make description less than 200 character
+  async function makeLessCharacter(){
+    let temp;
+    if(profileData.data?.customs?.about){
+      temp = profileData.data.customs.about
+      temp = temp.slice(0,200)
+    }else(
+      temp = ""
+    )
+    return temp
   }
 
   return {
-    title: `${profileData.kyc?.fname || ""} ${profileData.kyc?.lname || "citizen"}`,
-    description: await makeLessCharacter(),
+    title: `${profileData.data.kyc?.fname || ""} ${profileData.data.kyc?.lname || "citizen"}`,
+    description: await makeLessCharacter(profileData.data.customs?.about) || "about citizen",
     openGraph: {
-      type: "profile",
-      title: profileData.name || "",
-      description: await makeLessCharacter(),
-      locale: params.lang === "fa" ? "fa_IR" : "en_US",
+      // site_name:'',
+      type: 'profile',
+      title: `${profileData.data.name}`,
+      description: `${await makeLessCharacter()}`,
+      locale: params.lang == 'fa'? 'fa_IR' : 'en_US',
       url: `https://rgb.irpsc.com/${params.lang}/citizen/${params.id}`,
       profile: {
-        first_name: profileData.name || "",
+        first_name: `${profileData.data.name}`, 
       },
       images: [
         {
-          url: profileData.profilePhotos?.[0]?.url || "",
+          url: `${profileData.data?.profilePhotos[0]?.url}`,
           width: 800,
-          height: 600,
+          height: 600
         },
       ],
+        // Adding the google-site-verification meta tag
     },
     other: {
-      "google-site-verification": "lmf8kBJQgLHew_wXcxGQwJQWiOSFy8odEBRTLOoX7Q4",
+      'google-site-verification': 'lmf8kBJQgLHew_wXcxGQwJQWiOSFy8odEBRTLOoX7Q4',
     },
   };
 }
