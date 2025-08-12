@@ -45,14 +45,14 @@ export default function NotFoundPage({
 
         <div className=" bg-white dark:bg-[#1A1A18] rounded-[20px] flex flex-col lg:flex-row gap-5 p-5 w-full">
           {/* 404 Message */}
-          <div className="flex flex-col gap-10  justify-start text-start w-full lg:w-[60%] p-1 ">
-            <h1 className="text-[#33353B] dark:text-white text-7xl md:text-[120px] 2xl:text-[176px] font-bold mt-5  h-max">
+          <div className="flex flex-col gap-10 justify-center lg:justify-start items-center lg:items-start text-center lg:text-start w-full lg:w-[60%] p-1 lg:ps-7">
+            <h1 className="text-[#33353B] dark:text-white text-8xl md:text-[120px] 2xl:text-[176px] font-bold mt-5  h-max lg:ps-5">
               404
             </h1>
-            <h2 className="text-[#33353B] dark:text-white text-xl md:text-3xl ">
+            <h2 className="text-[#33353B] dark:text-white text-2xl md:text-3xl ">
               صفحه یافت نشد..!
             </h2>
-            <p className="text-[#868B90] lg:text-xl 2xl:text-2xl w-full">
+            <p className="text-[#868B90] text-xl 2xl:text-2xl w-full left-10 !leading-[50px]">
               صفحه‌ای که دنبال آن هستید وجود ندارد. از جستجو کردن کمک بگیرید یا
               به صفحه اصلی بروید.
             </p>
