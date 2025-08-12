@@ -188,26 +188,49 @@ export async function getSingleLevel(levelId) {
 }
 
 
-  export async function getUserData(_userId) {
-    let id = _userId.replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]).toLowerCase()
-    try {
-      const res = await fetch(
-        `https://api.rgb.irpsc.com/api/citizen/${id}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "public, max-age=3600", 
-          },
-        }
-      );
-      const temp = await res.json();
+  // export async function getUserData(_userId) {
+  //   let id = _userId.replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]).toLowerCase()
+  //   try {
+  //     const res = await fetch(
+  //       `https://api.rgb.irpsc.com/api/citizen/${id}`,
+  //       {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           "Cache-Control": "public, max-age=3600", 
+  //         },
+  //       }
+  //     );
+  //     const temp = await res.json();
 
-      return temp;
-    } catch (err) {
-      // در صورت وجود خطا
-      return { props: { error: "خطا در دریافت داده‌ها" } };
-    }
+  //     return temp;
+  //   } catch (err) {
+  //     // در صورت وجود خطا
+  //     return { props: { error: "خطا در دریافت داده‌ها" } };
+  //   }
+  // }
+  
+  export async function getUserData(_userId) {
+  // استانداردسازی ID: تبدیل به uppercase برای یکنواختی و حذف تبدیل به حروف فارسی مگر اینکه API نیاز داشته باشد
+  let id = _userId.toUpperCase(); // استفاده از uppercase برای هم‌راستایی با HM- در URLها
+  try {
+    const res = await fetch(
+      `https://api.rgb.irpsc.com/api/citizen/${id}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Cache-Control": "public, max-age=3600",
+        },
+      }
+    );
+    const temp = await res.json();
+
+    return temp;
+  } catch (err) {
+    // در صورت وجود خطا
+    return { props: { error: "خطا در دریافت داده‌ها" } };
   }
+}
+
 
   export async function getAllReferral(_userId, _searchParam = ""){
     const res = await fetch(`https://api.rgb.irpsc.com/api/citizen/${_userId}/referrals?search=${_searchParam}`,{
