@@ -39,11 +39,11 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
 
   return (
     <div
-      className={`hover:scale-105 base-transition-1 px-2 !w-[90%] md:max-w-[281px]`}
+      className={`hover:scale-105 base-transition-1 px-2 !max-w-[281px]`}
       style={minWidth ? { width: minWidth, minWidth: minWidth } : {}}
     >
       <div
-        className={`shadow-lg mt-10 relative bg-[#fff] dark:bg-[#1A1A18] flex flex-col justify-between gap-3 py-3 sm:py-4 md:py-5 items-center rounded-[20px]  border border-solid border-transparent hover:border-light-primary hover:dark:border-dark-yellow`}
+        className={`shadow-lg mt-10 relative bg-[#fff] dark:bg-[#1A1A18] flex flex-col justify-between gap-3 py-3 sm:py-4 md:py-5 items-center rounded-[20px]  border-transparent border border-solid hover:border-[#0066FF] hover:bg-white dark:hover:bg-[#1A1A18] dark:hover:border-[#FFC700] hover:shadow-[0_0px_20px_rgba(0,0,0,0.45)] dark:hover:shadow-[0_0px_33px_-11px_rgba(255,255,255,255.9)]`}
       >
         <figure className="w-[120px] h-[120px] relative overflow-hidden rounded-full">
           <Image

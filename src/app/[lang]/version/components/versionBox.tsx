@@ -237,7 +237,7 @@ useEffect(() => {
                   <div className="flex w-full justify-between">
                     <div className="logo pt-[10px] p-[10px] flex flex-col">
                       <div className="w-[10px] h-[12px] bg-[#0066FF] dark:bg-[#FFC700] rounded-full self-center" />
-                      <div className="lineBottom w-[1.5px] h-full bg-[#e6e5e5] dark:bg-black rounded-[1px] self-center" />
+                      <div className="lineBottom w-[1.5px] h-full rounded-[1px] self-center" />
                     </div>
 
                     <div className="moreInfo lg:w-[91%] w-full">

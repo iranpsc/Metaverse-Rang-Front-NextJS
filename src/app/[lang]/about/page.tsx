@@ -189,16 +189,16 @@ export default async function AboutPage({ params }: any) {
                 </p>
               </div>
               <figure
-                className="relative w-full"
-                style={{ aspectRatio: "4 / 3" }}
+                className="relative w-full aspect-video lg:h-[650px] "
+               
               >
                 <Image
                   src="/team.webp"
                   alt="Metarang Team"
                   fill
-                  sizes="(max-width: 1920px) 70vw, 1920px"
+                  sizes="(max-width: 1920px) "
                   quality={100}
-                  className="object-cover"
+                  className="object-cover object-bottom rounded-2xl lg:rounded-3xl "
                   priority
                 />
               </figure>

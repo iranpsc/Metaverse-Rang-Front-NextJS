@@ -130,19 +130,30 @@
     
     return temp.data
   }
-  export async function getLevelTabs(params,levelId) {
+export async function getLevelTabs(params, levelId) {
+  const res = await fetch(`https://api.rgb.irpsc.com/api/levels/${levelId}/${params.tabs}`, {
+    headers: {
+      "Content-Type": "application/json",
+      "Cache-Control": "public, max-age=3600",
+    },
+  });
 
-    const res = await fetch(`https://api.rgb.irpsc.com/api/levels/${levelId}/${params.tabs}`, {
-      headers: {
-        "Content-Type": "application/json",
-        "Cache-Control": "public, max-age=3600", 
-      },
-    });
-    let temp = await res.json()
-    
-    return temp;
-
+  if (!res.ok) {
+    // هندل کردن ارور 404 یا سایر خطاها
+    if (res.status === 404) {
+      // مثلا یک مقدار خالی یا ارور دلخواه
+      return null; 
+      // یا
+      // throw new Error("Level not found (404)");
+    } else {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
   }
+
+  const temp = await res.json();
+  return temp;
+}
+
 
   export async function getAllVersions(){
     const res = await fetch(`https://api.rgb.irpsc.com/api/calendar?type=version`, {
@@ -156,36 +167,70 @@
     return temp.data;
   }
 
-  export async function getSingleLevel(levelId) {
-    const res = await fetch(`https://api.rgb.irpsc.com/api/levels/${levelId}`, {
-      headers: {
-        "Content-Type": "application/json",
-        "Cache-Control": "public, max-age=3600", 
-      },
-    });
-    return await res.json();
-  }
+export async function getSingleLevel(levelId) {
+  const res = await fetch(`https://api.rgb.irpsc.com/api/levels/${levelId}`, {
+    headers: {
+      "Content-Type": "application/json",
+      "Cache-Control": "public, max-age=3600", 
+    },
+  });
 
-  export async function getUserData(_userId) {
-    let id = _userId.replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]).toLowerCase()
-    try {
-      const res = await fetch(
-        `https://api.rgb.irpsc.com/api/citizen/${id}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "public, max-age=3600", 
-          },
-        }
-      );
-      const temp = await res.json();
-
-      return temp;
-    } catch (err) {
-      // در صورت وجود خطا
-      return { props: { error: "خطا در دریافت داده‌ها" } };
+  if (!res.ok) {
+    if (res.status === 404) {
+      // مثلا مقدار null برگردون یا خطا پرتاب کن
+      return null;
+      // یا: throw new Error("Level not found (404)");
     }
+    throw new Error(`HTTP error! status: ${res.status}`);
   }
+
+  return await res.json();
+}
+
+
+  // export async function getUserData(_userId) {
+  //   let id = _userId.replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]).toLowerCase()
+  //   try {
+  //     const res = await fetch(
+  //       `https://api.rgb.irpsc.com/api/citizen/${id}`,
+  //       {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           "Cache-Control": "public, max-age=3600", 
+  //         },
+  //       }
+  //     );
+  //     const temp = await res.json();
+
+  //     return temp;
+  //   } catch (err) {
+  //     // در صورت وجود خطا
+  //     return { props: { error: "خطا در دریافت داده‌ها" } };
+  //   }
+  // }
+  
+export async function getUserData(_userId) {
+  // استانداردسازی ID: تبدیل به lowercase برای یکنواختی
+  let id = _userId.toLowerCase(); // استفاده از lowercase
+  try {
+    const res = await fetch(
+      `https://api.rgb.irpsc.com/api/citizen/${id}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Cache-Control": "public, max-age=3600",
+        },
+      }
+    );
+    const temp = await res.json();
+
+    return temp;
+  } catch (err) {
+    // در صورت وجود خطا
+    return { props: { error: "خطا در دریافت داده‌ها" } };
+  }
+}
+
 
   export async function getAllReferral(_userId, _searchParam = ""){
     const res = await fetch(`https://api.rgb.irpsc.com/api/citizen/${_userId}/referrals?search=${_searchParam}`,{
@@ -239,19 +284,29 @@
     
   }
 
-  export async function getEducationSingleCategory(_category){
-    
-    
-    const res = await fetch(`https://api.rgb.irpsc.com/api/tutorials/categories/${_category}`,{
-      headers: {
-        "Content-Type": "application/json",
-        "Cache-Control": "public, max-age=3600", 
-      },}
-    )
-    let temp = await res.json()
+export async function getEducationSingleCategory(_category) {
+  const res = await fetch(`https://api.rgb.irpsc.com/api/tutorials/categories/${_category}`, {
+    headers: {
+      "Content-Type": "application/json",
+      "Cache-Control": "public, max-age=3600",
+    },
+  });
 
-    return temp.data
+  if (res.status === 404) {
+    // در صورت 404، مقدار null برگردون
+    return null;
   }
+
+  if (!res.ok) {
+    // در سایر خطاها ارور پرتاب کن
+    throw new Error(`${res.status} - ${res.statusText}`);
+  }
+
+  const temp = await res.json();
+  return temp.data;
+}
+
+
 
   export async function getSubcategoryData(_category,_subcategory){
     const res = await fetch(`https://api.rgb.irpsc.com/api/tutorials/categories/${_category}/${_subcategory}`,{

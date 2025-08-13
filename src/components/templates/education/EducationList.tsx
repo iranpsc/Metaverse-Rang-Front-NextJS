@@ -1,13 +1,6 @@
 "use client";
-// import { useTheme } from "next-themes";
 import SyncLoader from "react-spinners/SyncLoader";
-// import { formatNumber, translateFooter } from "@/components/utils/education";
-// import ListDataEducation from "./ListDataEducation";
 import { useEffect, useState } from "react";
-// import Link from "next/link";
-// import Image from "next/image";
-// import { Tooltip as ReactTooltip } from "react-tooltip";
-// import { Dislike, Like, Video, View } from "@/components/svgs/SvgEducation";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
@@ -23,21 +16,40 @@ export default function EducationList({ mainData, allCatVideos, params }: any) {
   const [cookies] = useCookies(["theme"]);
   const theme = cookies.theme || "dark";
 
+  // Sort initial videos by upload_date (newest first)
+  useEffect(() => {
+    console.log("Initial videos:", allCatVideos); // دیباگ داده‌های اولیه
+    const sortedVideos = [...allCatVideos].sort((a, b) => {
+      const dateA = a.upload_date ? new Date(a.upload_date).getTime() : 0;
+      const dateB = b.upload_date ? new Date(b.upload_date).getTime() : 0;
+      return dateB - dateA; // جدید به قدیم
+    });
+    console.log("Sorted initial videos:", sortedVideos); // دیباگ پس از مرتب‌سازی
+    setVideoToShow(sortedVideos);
+  }, [allCatVideos]);
+
   const handleLoadMore = async () => {
     try {
       setLoading(true);
-
-      // Increment page AFTER getting the data to avoid incorrect requests
       const nextPage = currentPage + 1;
 
       const res = await axios.get(
         `https://api.rgb.irpsc.com/api/tutorials?page=${nextPage}`
       );
 
+      console.log("API response:", res.data.data); // دیباگ داده‌های API
       setLastPage(res.data.meta.to);
 
-      // Update state correctly without mutating the existing array
-      setVideoToShow((prevVideos: any) => [...prevVideos, ...res.data.data]);
+      // Append new videos and sort the entire array by upload_date (newest first)
+      setVideoToShow((prevVideos: any) => {
+        const newVideos = [...prevVideos, ...res.data.data].sort((a, b) => {
+          const dateA = a.upload_date ? new Date(a.upload_date).getTime() : 0;
+          const dateB = b.upload_date ? new Date(b.upload_date).getTime() : 0;
+          return dateB - dateA; // جدید به قدیم
+        });
+        console.log("Sorted combined videos:", newVideos); // دیباگ پس از مرتب‌سازی
+        return newVideos;
+      });
 
       setCurrentPage(nextPage);
 
@@ -47,13 +59,13 @@ export default function EducationList({ mainData, allCatVideos, params }: any) {
     } catch (error) {
       console.error("Error fetching more videos:", error);
     } finally {
-      setLoading(false); // Always stop loading
+      setLoading(false);
     }
   };
 
   return (
     <>
-      <div className="w-[95%] xs:w-[90%] h-fit mt-24  flex flex-col justify-center items-center mx-auto">
+      <div className="w-[95%] xs:w-[90%] h-fit mt-24 flex flex-col justify-center items-center mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-10">
           {videoToShow.map((item: any) => (
             <VideoCard key={item.id} item={item} params={params} theme={theme} />
@@ -65,7 +77,7 @@ export default function EducationList({ mainData, allCatVideos, params }: any) {
               disabled={isDisabled}
               title={isDisabled ? "صفحه آخر" : ""}
               className={`${isDisabled ? "cursor-not-allowed" : ""
-                } bg-white dark:bg-darkGray text-light-primary  md:text-lg dark:text-dark-yellow rounded-[12px] px-[40px] py-[16px] base-transition-1 border-2 border-transparent hover:border-light-primary hover:text-light-primary hover:dark:border-dark-yellow`}
+                } bg-white dark:bg-darkGray text-light-primary md:text-lg dark:text-dark-yellow rounded-[12px] px-[40px] py-[16px] base-transition-1 border-2 border-transparent hover:border-light-primary hover:text-light-primary hover:dark:border-dark-yellow`}
               onClick={handleLoadMore}
             >
               {findByUniqueId(mainData, 271)}

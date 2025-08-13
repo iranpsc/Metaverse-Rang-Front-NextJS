@@ -185,42 +185,42 @@ const EventList = ({
       return;
     }
 
-    if (userLikedMap[eventId]) {
-      return;
-    }
+  if (userLikedMap[eventId]) {
+    return;
+  }
 
-    setLikesMap((prev) => ({
-      ...prev,
-      [eventId]: (prev[eventId] ?? 0) + 1,
-    }));
+  setLikesMap((prev) => ({
+    ...prev,
+    [eventId]: (prev[eventId] ?? 0) + 1,
+  }));
 
-    setDisLikesMap((prev) => ({
-      ...prev,
-      [eventId]: Math.max((prev[eventId] ?? 0) - 1, 0),
-    }));
+  setDisLikesMap((prev) => ({
+    ...prev,
+    [eventId]: Math.max((prev[eventId] ?? 0) - 1, 0),
+  }));
 
-    setUserLikedMap((prev) => ({
-      ...prev,
-      [eventId]: true,
-    }));
+  setUserLikedMap((prev) => ({
+    ...prev,
+    [eventId]: true,
+  }));
 
-    setUserDisLikedMap((prev) => ({
-      ...prev,
-      [eventId]: false,
-    }));
+  setUserDisLikedMap((prev) => ({
+    ...prev,
+    [eventId]: false,
+  }));
 
-    try {
-      const response = await fetch(
-        `https://api.rgb.irpsc.com/api/calendar/events/${eventId}/interact`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({ liked: 1 }),
-        }
-      );
+  try {
+    const response = await fetch(
+      `https://api.rgb.irpsc.com/api/calendar/events/${eventId}/interact`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ liked: 1 }),
+      }
+    );
 
       if (!response.ok) {
         const errorText = await response.text();
@@ -232,58 +232,63 @@ const EventList = ({
     }
   };
 
+const disLike = async (eventId: number) => {
+  if (!token) {
+    redirectToSSOLogin(pathname || '/'); // اگر pathname null باشد، '/' استفاده می‌شود
+    return;
+  }
   const disLike = async (eventId: number) => {
     if (!token) {
       setShowLoginModal(true);
       return;
     }
 
-    if (userDisLikedMap[eventId]) {
-      return;
-    }
+  if (userDisLikedMap[eventId]) {
+    return;
+  }
 
-    setDisLikesMap((prev) => ({
-      ...prev,
-      [eventId]: (prev[eventId] ?? 0) + 1,
-    }));
+  setDisLikesMap((prev) => ({
+    ...prev,
+    [eventId]: (prev[eventId] ?? 0) + 1,
+  }));
 
-    setLikesMap((prev) => ({
-      ...prev,
-      [eventId]: Math.max((prev[eventId] ?? 0) - 1, 0),
-    }));
+  setLikesMap((prev) => ({
+    ...prev,
+    [eventId]: Math.max((prev[eventId] ?? 0) - 1, 0),
+  }));
 
-    setUserDisLikedMap((prev) => ({
-      ...prev,
-      [eventId]: true,
-    }));
+  setUserDisLikedMap((prev) => ({
+    ...prev,
+    [eventId]: true,
+  }));
 
-    setUserLikedMap((prev) => ({
-      ...prev,
-      [eventId]: false,
-    }));
+  setUserLikedMap((prev) => ({
+    ...prev,
+    [eventId]: false,
+  }));
 
-    try {
-      const response = await fetch(
-        `https://api.rgb.irpsc.com/api/calendar/events/${eventId}/interact`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({ liked: 0 }),
-        }
-      );
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error("Response error details:", errorText);
-        throw new Error("خطا در ارسال لایک");
+  try {
+    const response = await fetch(
+      `https://api.rgb.irpsc.com/api/calendar/events/${eventId}/interact`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ liked: 0 }),
       }
-    } catch (error) {
-      console.error("خطا در ارسال لایک:", error);
+    );
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Response error details:", errorText);
+      throw new Error("خطا در ارسال لایک");
     }
-  };
+  } catch (error) {
+    console.error("خطا در ارسال لایک:", error);
+  }
+};
 
   const colorMap: Record<string, string> = {
     red: "#ED2E2E",
