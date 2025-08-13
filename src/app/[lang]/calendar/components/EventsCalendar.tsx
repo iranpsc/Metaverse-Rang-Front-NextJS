@@ -22,6 +22,7 @@ export default function EventsCalendar({
   const [selectedEventDate, setSelectedEventDate] = useState<string | null>(
     null
   );
+const [dateResults, setDateResults] = useState<EventItem[] | null>(null);
 
   useEffect(() => {
     if (searchValue.trim() === "") {
@@ -51,12 +52,13 @@ export default function EventsCalendar({
 
     fetchCalendarEvents();
   }, [startOfMonthDate, endOfMonthDate]);
+
 useEffect(() => {
   const fetchCalendarEvents = async () => {
     try {
       if (!selectedEventDate) {
-        // وقتی تاریخ انتخاب نشده همه رو نشون بده
-        setSearchResults(events);
+        // وقتی تاریخ انتخاب نشده
+        setDateResults(events);
         return;
       }
 
@@ -82,15 +84,16 @@ useEffect(() => {
         userDisLiked: item.user_interaction?.has_disliked ?? false,
       }));
 
-      setSearchResults(newEvents);
+      setDateResults(newEvents);
     } catch (error) {
       console.error(error);
-      setSearchResults([]);
+      setDateResults([]);
     }
   };
 
   fetchCalendarEvents();
 }, [selectedEventDate, events]);
+
 
 
 
@@ -329,8 +332,13 @@ useEffect(() => {
       <div className="line mt-6 w-full lg:w-[95%] h-[2px] bg-gradient-to-r from-transparent via-[#DADADA] to-transparent"></div>
       <EventList
         token={token}
-        events={searchResults !== null ? searchResults : events}
-        mainData={mainData}
+ events={
+    searchResults && searchResults.length > 0
+      ? searchResults
+      : selectedEventDate && dateResults && dateResults.length > 0
+      ? dateResults
+      : events
+  }        mainData={mainData}
         params={params}
         selectedFilters={selectedFilters}
       />
