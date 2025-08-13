@@ -209,9 +209,9 @@ export async function getSingleLevel(levelId) {
   //   }
   // }
   
-  export async function getUserData(_userId) {
-  // استانداردسازی ID: تبدیل به uppercase برای یکنواختی و حذف تبدیل به حروف فارسی مگر اینکه API نیاز داشته باشد
-  let id = _userId.toUpperCase(); // استفاده از uppercase برای هم‌راستایی با HM- در URLها
+export async function getUserData(_userId) {
+  // استانداردسازی ID: تبدیل به lowercase برای یکنواختی
+  let id = _userId.toLowerCase(); // استفاده از lowercase
   try {
     const res = await fetch(
       `https://api.rgb.irpsc.com/api/citizen/${id}`,
