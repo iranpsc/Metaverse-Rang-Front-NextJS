@@ -22,7 +22,7 @@ export default function EventsCalendar({
   const [selectedEventDate, setSelectedEventDate] = useState<string | null>(
     null
   );
-const [dateResults, setDateResults] = useState<EventItem[] | null>(null);
+  const [dateResults, setDateResults] = useState<EventItem[] | null>(null);
 
   useEffect(() => {
     if (searchValue.trim() === "") {
@@ -53,53 +53,48 @@ const [dateResults, setDateResults] = useState<EventItem[] | null>(null);
     fetchCalendarEvents();
   }, [startOfMonthDate, endOfMonthDate]);
 
-useEffect(() => {
-  const fetchCalendarEvents = async () => {
-    try {
-      if (!selectedEventDate) {
-        // وقتی تاریخ انتخاب نشده
-        setDateResults(events);
-        return;
+  useEffect(() => {
+    const fetchCalendarEvents = async () => {
+      try {
+        if (!selectedEventDate) {
+          // وقتی تاریخ انتخاب نشده
+          setDateResults(events);
+          return;
+        }
+
+        const url = `https://api.rgb.irpsc.com/api/calendar?date=${selectedEventDate}`;
+        const res = await fetch(url);
+
+        if (!res.ok) throw new Error("ERR");
+
+        const json = await res.json();
+        const newEvents = json.data.map((item: EventItem) => ({
+          id: item.id,
+          title: item.title,
+          image: item.image,
+          link: item.btn_link,
+          desc: item.description,
+          start: item.starts_at,
+          end: item.ends_at,
+          color: item.color,
+          views: item.views,
+          likes: item.likes,
+          disLikes: item.dislikes,
+          userLiked: item.user_interaction?.has_liked ?? false,
+          userDisLiked: item.user_interaction?.has_disliked ?? false,
+        }));
+
+        setDateResults(newEvents);
+      } catch (error) {
+        console.error(error);
+        setDateResults([]);
       }
+    };
 
-      const url = `https://api.rgb.irpsc.com/api/calendar?date=${selectedEventDate}`;
-      const res = await fetch(url);
+    fetchCalendarEvents();
+  }, [selectedEventDate, events]);
 
-      if (!res.ok) throw new Error("ERR");
-
-      const json = await res.json();
-      const newEvents = json.data.map((item: EventItem) => ({
-        id: item.id,
-        title: item.title,
-        image: item.image,
-        link: item.btn_link,
-        desc: item.description,
-        start: item.starts_at,
-        end: item.ends_at,
-        color: item.color,
-        views: item.views,
-        likes: item.likes,
-        disLikes: item.dislikes,
-        userLiked: item.user_interaction?.has_liked ?? false,
-        userDisLiked: item.user_interaction?.has_disliked ?? false,
-      }));
-
-      setDateResults(newEvents);
-    } catch (error) {
-      console.error(error);
-      setDateResults([]);
-    }
-  };
-
-  fetchCalendarEvents();
-}, [selectedEventDate, events]);
-
-
-
-
- console.log("Selected Event Date:", selectedEventDate );
-
-
+  console.log("Selected Event Date:", selectedEventDate);
 
   function handleSearchClick() {
     if (!searchValue.trim()) return;
@@ -332,13 +327,14 @@ useEffect(() => {
       <div className="line mt-6 w-full lg:w-[95%] h-[2px] bg-gradient-to-r from-transparent via-[#DADADA] to-transparent"></div>
       <EventList
         token={token}
- events={
-    searchResults && searchResults.length > 0
-      ? searchResults
-      : selectedEventDate && dateResults && dateResults.length > 0
-      ? dateResults
-      : events
-  }        mainData={mainData}
+        events={
+          searchResults && searchResults.length > 0
+            ? searchResults
+            : selectedEventDate && dateResults && dateResults.length > 0
+            ? dateResults
+            : events
+        }
+        mainData={mainData}
         params={params}
         selectedFilters={selectedFilters}
       />

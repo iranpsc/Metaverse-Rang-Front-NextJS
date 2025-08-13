@@ -32,7 +32,7 @@ function getTimeRemaining(targetDate: Date) {
   return { days, hours, minutes, seconds };
 }
 
-const EventList = ({
+const EventList: React.FC<CalendarFilterProps>= ({
   events: initialEvents,
   mainData,
   params,
@@ -232,11 +232,6 @@ const EventList = ({
     }
   };
 
-const disLike = async (eventId: number) => {
-  if (!token) {
-    redirectToSSOLogin(pathname || '/'); // اگر pathname null باشد، '/' استفاده می‌شود
-    return;
-  }
   const disLike = async (eventId: number) => {
     if (!token) {
       setShowLoginModal(true);
