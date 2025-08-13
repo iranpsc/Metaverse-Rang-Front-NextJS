@@ -30,7 +30,7 @@ export default async function citizenSinglePage({ params }) {
         : tab;
     });
 
-    //  صفحه 404
+    // اگر داده پیدا نشد → صفحه 404
     if (!profileData || !profileData.data) {
       return (
         <NotFoundPage
@@ -39,7 +39,7 @@ export default async function citizenSinglePage({ params }) {
           langData={langData}
           langArray={langArray}
           updatedTabsMenu={updatedTabsMenu}
-          footerTabs={[]} 
+          footerTabs={[]}
           mainData={mainData}
         />
       );
@@ -80,7 +80,7 @@ export default async function citizenSinglePage({ params }) {
       "@type": "Person",
       "name": `${profileData.data.name}`,
       "image": profileData.data?.profilePhotos?.map(item => item.url),
-      "url": `https://rgb.irpsc.com/fa/citizen/${params.id}`,  // تغییر به fa به عنوان اصلی و استفاده از https
+      "url": `https://rgb.irpsc.com/fa/citizens/${params.id}`, // تغییر به /citizens
       "jobTitle": `${profileData.data?.customs?.occupation}`,
       "description": `${makeLessCharacter()}`,
       "birthDate": `${profileData.data?.kyc?.birth_date}`,
@@ -90,6 +90,12 @@ export default async function citizenSinglePage({ params }) {
 
     return (
       <>
+        <head>
+          <link rel="canonical" href={`https://rgb.irpsc.com/${params.lang}/citizens/${params.id}`} />
+          <link rel="alternate" hrefLang="x-default" href={`https://rgb.irpsc.com/fa/citizens/${params.id}`} />
+          <link rel="alternate" hrefLang="fa-IR" href={`https://rgb.irpsc.com/fa/citizens/${params.id}`} />
+          <link rel="alternate" hrefLang="en-US" href={`https://rgb.irpsc.com/en/citizens/${params.id}`} />
+        </head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(singleCitizenSchema) }}
@@ -160,11 +166,11 @@ export async function generateMetadata({ params }) {
       title: `${profileData.data?.kyc?.fname || ""} ${profileData.data?.kyc?.lname || "citizen"}`,
       description: makeLessCharacter() || "about citizen",
       alternates: {
-        canonical: `https://rgb.irpsc.com/${params.lang}/citizen/${params.id}`,  // کانونیکال به صفحه فعلی (خود-انتخابی)
+        canonical: `https://rgb.irpsc.com/${params.lang}/citizens/${params.id}`, // تغییر به /citizens
         languages: {
-          'x-default': `https://rgb.irpsc.com/fa/citizen/${params.id}`,  // نسخه fa به عنوان پیش‌فرض
-          'fa-IR': `https://rgb.irpsc.com/fa/citizen/${params.id}`,
-          'en-US': `https://rgb.irpsc.com/en/citizen/${params.id}`,
+          'x-default': `https://rgb.irpsc.com/fa/citizens/${params.id}`, // نسخه fa به‌عنوان پیش‌فرض
+          'fa-IR': `https://rgb.irpsc.com/fa/citizens/${params.id}`,
+          'en-US': `https://rgb.irpsc.com/en/citizens/${params.id}`,
         },
       },
       openGraph: {
@@ -172,7 +178,7 @@ export async function generateMetadata({ params }) {
         title: `${profileData.data?.name || ""}`,
         description: makeLessCharacter(),
         locale: params.lang === 'fa' ? 'fa_IR' : 'en_US',
-        url: `https://rgb.irpsc.com/${params.lang}/citizen/${params.id}`,
+        url: `https://rgb.irpsc.com/${params.lang}/citizens/${params.id}`, // تغییر به /citizens
         profile: {
           first_name: `${profileData.data?.name || ""}`,
         },
