@@ -642,7 +642,7 @@ const EventList = ({
         <div className="fixed inset-0 backdrop-blur bg-black/30 flex items-center justify-center z-50 p-5">
           <div className="bg-white dark:bg-dark-background p-6 rounded-lg shadow-lg max-w-sm w-full">
             <h2 className="text-lg md:text-xl font-azarMehr font-bold text-center dark:text-white mb-4">
-              برای لایک و دیسلایک باید وارد شوید
+              {findByUniqueId(mainData, 1459)}{" "}
             </h2>
             <div className="flex gap-2 justify-between items-center w-full mt-5">
               <LoginButtonModule params={mainData} />

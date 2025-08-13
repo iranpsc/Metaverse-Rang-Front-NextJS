@@ -11,6 +11,8 @@ interface calendarProps {
   SetStartOfMonthDate: any;
   setEndOfMonthDate: any;
   eventsDay: Array<EventDay>;
+  setSelectedEventDate:any;
+  selectedEventDate:string|null;
 }
 interface EventDay {
   starts_at: string;
@@ -74,6 +76,9 @@ export default function Calendar({
   SetStartOfMonthDate,
   setEndOfMonthDate,
   eventsDay,
+  setSelectedEventDate,
+  selectedEventDate
+
 }: calendarProps) {
   const monthListRef = useRef<HTMLDivElement>(null);
   const yearListRef = useRef<HTMLDivElement>(null);
@@ -85,6 +90,7 @@ export default function Calendar({
   const [showYearList, setShowYearList] = useState(false);
   const [todayDate, setTodayDate] = useState<Date | null>(null);
   const [selectedEventIds, setSelectedEventIds] = useState<number[]>([]);
+   
   const minYear = isShamsi ? 1398 : 2019;
   const maxYear = isShamsi
     ? toJalaali(new Date()).jy + 5
@@ -250,10 +256,6 @@ export default function Calendar({
     }
   };
 
-  const handleDateClick = (selectedDay: Date) => {
-    setSelectedDate(selectedDay);
-  };
-
   const getCurrentMonthTitle = () => {
     if (isShamsi) {
       const { jy, jm } = toJalaali(currentDate);
@@ -413,6 +415,7 @@ export default function Calendar({
 
     setShowYearList(false);
   };
+
 
   return (
     <div
@@ -612,6 +615,7 @@ export default function Calendar({
           }
 
           const { currentDay, jalaaliDate } = day;
+
           const dayNumber = isShamsi
             ? jalaaliDate?.jd ?? currentDay.getDate()
             : currentDay.getDate();
@@ -722,6 +726,27 @@ export default function Calendar({
               uniqueColorValues.push(color);
             }
           });
+         const handleDateClick = (currentDay: Date) => {
+  const clickedDateStr = isShamsi
+    ? `${jy}/${String(jm).padStart(2, "0")}/${String(jd).padStart(2, "0")}`
+    : currentDay.toDateString();
+
+  // اگه کاربر دوباره روی همون تاریخ کلیک کرد
+  if (selectedEventDate === clickedDateStr) {
+    setSelectedEventDate(null);
+    setSelectedDate(null);
+    return;
+  }
+
+  setSelectedDate(currentDay);
+
+  if (currentEvents.length > 0) {
+    setSelectedEventDate(clickedDateStr);
+  } else {
+    setSelectedEventDate(null);
+    console.log("No event on this date");
+  }
+};
 
           return (
             <div
@@ -736,7 +761,6 @@ export default function Calendar({
     }`}
               onClick={() => {
                 handleDateClick(currentDay);
-                setSelectedEventIds(currentEventIds);
               }}
             >
               <div className="flex flex-col items-end justify-start gap-1 px-1 w-1/3">

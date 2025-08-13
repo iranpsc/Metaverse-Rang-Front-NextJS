@@ -19,12 +19,15 @@ export default function EventsCalendar({
   const [startOfMonthDate, SetStartOfMonthDate] = useState<string>("");
   const [endOfMonthDate, setEndOfMonthDate] = useState<string>("");
   const [eventsDay, setEventsDay] = useState<any[]>([]);
- useEffect(() => {
-  if (searchValue.trim() === "") {
-    setSearchResults(null); // یا []، بسته به اینکه توی EventList چک می‌کنی یا نه
-  }
-}, [searchValue]);
+  const [selectedEventDate, setSelectedEventDate] = useState<string | null>(
+    null
+  );
 
+  useEffect(() => {
+    if (searchValue.trim() === "") {
+      setSearchResults(null); // یا []، بسته به اینکه توی EventList چک می‌کنی یا نه
+    }
+  }, [searchValue]);
 
   useEffect(() => {
     if (!startOfMonthDate || !endOfMonthDate) return;
@@ -48,6 +51,52 @@ export default function EventsCalendar({
 
     fetchCalendarEvents();
   }, [startOfMonthDate, endOfMonthDate]);
+useEffect(() => {
+  const fetchCalendarEvents = async () => {
+    try {
+      if (!selectedEventDate) {
+        // وقتی تاریخ انتخاب نشده همه رو نشون بده
+        setSearchResults(events);
+        return;
+      }
+
+      const url = `https://api.rgb.irpsc.com/api/calendar?date=${selectedEventDate}`;
+      const res = await fetch(url);
+
+      if (!res.ok) throw new Error("ERR");
+
+      const json = await res.json();
+      const newEvents = json.data.map((item: EventItem) => ({
+        id: item.id,
+        title: item.title,
+        image: item.image,
+        link: item.btn_link,
+        desc: item.description,
+        start: item.starts_at,
+        end: item.ends_at,
+        color: item.color,
+        views: item.views,
+        likes: item.likes,
+        disLikes: item.dislikes,
+        userLiked: item.user_interaction?.has_liked ?? false,
+        userDisLiked: item.user_interaction?.has_disliked ?? false,
+      }));
+
+      setSearchResults(newEvents);
+    } catch (error) {
+      console.error(error);
+      setSearchResults([]);
+    }
+  };
+
+  fetchCalendarEvents();
+}, [selectedEventDate, events]);
+
+
+
+ console.log("Selected Event Date:", selectedEventDate );
+
+
 
   function handleSearchClick() {
     if (!searchValue.trim()) return;
@@ -85,7 +134,7 @@ export default function EventsCalendar({
       })
       .catch((err) => {
         console.error(err);
-        setSearchResults([]); 
+        setSearchResults([]);
       });
   }
 
@@ -116,6 +165,8 @@ export default function EventsCalendar({
           SetStartOfMonthDate={SetStartOfMonthDate}
           setEndOfMonthDate={setEndOfMonthDate}
           eventsDay={eventsDay}
+          setSelectedEventDate={setSelectedEventDate}
+          selectedEventDate={selectedEventDate}
         />
         <div className="EventFilters w-full sm:w-[90%]  mt-4 sm:mt-0 sm:ml-4  ">
           <div
