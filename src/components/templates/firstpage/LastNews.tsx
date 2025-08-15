@@ -128,7 +128,7 @@ const LastNews = ({ mainData, params }: { mainData: any; params: Params }) => {
                     quality={75}
                     className="w-full h-full transition-all duration-150 ease-in-out rounded-t-[10px] object-contain bg-cover"
                   />
-                  <div className="w-full h-full bg-black/30 absolute z-0 top-0 flex justify-center items-center rounded-t-[10px]">
+                  <div className="w-full h-full  absolute z-0 top-0 flex justify-center items-center rounded-t-[10px]">
                     <div className="w-fit hover:scale-105 duration-100 rounded-full bg-white/30 dark:bg-black/35 flex items-center justify-center p-5">
                       <Video width={40} height={40} />
                     </div>

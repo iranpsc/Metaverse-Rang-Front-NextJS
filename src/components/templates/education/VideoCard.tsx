@@ -44,14 +44,14 @@ export default function VideoCard({ item, params, theme }: any) {
           priority={true}
           className="w-full h-full object-cover rounded-t-[10px]"
         />
-        <div className="w-full h-full backdrop-blur-[2px] bg-black/40 absolute top-0 z-0 flex justify-center items-center">
+        <div className="w-full h-full   absolute top-0 z-0 flex justify-center items-center">
           <Link
             className="w-fit hover:scale-105 duration-100"
             href={`/${params.lang}/education/category/${item.category.slug}/${item.sub_category.slug}/${item.slug}`}
           >
             <svg width="78" height="78" viewBox="0 0 78 78" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect width="78" height="78" rx="39" fill="white" fillOpacity="0.51" />
-              <path d="M54 34.3039C58 36.6133 58 42.3868 54 44.6962L35.25 55.5215C31.25 57.8309 26.25 54.9441 26.25 50.3253V28.6747C26.25 24.0559 31.25 21.1691 35.25 23.4785L54 34.3039Z" fill="white" />
+              <rect className="fill-white/80 dark:fill-black/70" width="78" height="78" rx="39"  fillOpacity="0.51" />
+              <path className="fill-white " d="M54 34.3039C58 36.6133 58 42.3868 54 44.6962L35.25 55.5215C31.25 57.8309 26.25 54.9441 26.25 50.3253V28.6747C26.25 24.0559 31.25 21.1691 35.25 23.4785L54 34.3039Z"  />
             </svg>
           </Link>
         </div>
