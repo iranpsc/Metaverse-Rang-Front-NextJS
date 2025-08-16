@@ -95,11 +95,11 @@ const handlerVolume = () => {
 
   return (
     <div className="w-full relative pt-5 bg-white dark:bg-dark-background flex justify-center items-center">
-      <div className="relative w-full flex justify-center items-center">
+      <div className="relative w-full flex justify-center items-center px-3 lg:px-0">
         <video
           ref={videoRef}
-          className="w-full xl:h-[700px] lg:h-[600px] md:h-[500px] sm:h-[300px] xs:h-[300px] rounded-xl mx-10 object-fill z-30"
-          src={DataVideo.video_url}
+          className="w-full aspect-video rounded-xl mx-10 object-fill z-30 "
+         src={DataVideo.video_url}
           poster={DataVideo.image_url}
           width={1000}
           height={1000}
