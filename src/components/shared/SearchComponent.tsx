@@ -9,6 +9,7 @@ export default function SearchComponent({
   searchLevel = "citizen",
   params,
   mainData,
+  fullWidth = false,
 }: any) {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchData, setSearchData] = useState<any>([]);
@@ -35,7 +36,7 @@ export default function SearchComponent({
           setLoadingSearch(false);
           setSearchData(response.data.data);
         })
-        .catch((error) => {})
+        .catch((error) => { })
         .finally(() => {
           setLoadingSearch(false);
           // setActiveSearch(false);
@@ -65,16 +66,13 @@ export default function SearchComponent({
   return (
     <>
       <div
-        className={`${
-          searchData.length >= 1 ? "visible" : "invisible"
-        }  w-full min-h-[1000px] h-full backdrop-blur-sm  bg-blackTransparent/30 h-screen absolute right-0 top-0 z-20 `}
+        className={`${searchData.length >= 1 ? "visible" : "invisible"
+          }  w-full min-h-[1000px] h-full backdrop-blur-sm  bg-blackTransparent/30 h-screen absolute right-0 top-0 z-20 `}
         onClick={removeSearch}
       ></div>
       <div
-        // id={`${
-        //   themeDataActive === "dark" ? "dark-scrollbar" : "light-scrollbar"
-        // }`}
-        className="w-[100%] md:w-[70%] lg:w-[45%] mt-[50px] flex flex-col items-center  m-auto relative z-20 dark:dark-scrollbar light-scrollbar"
+        className={`${fullWidth ? "w-full" : "w-[100%] md:w-[70%] lg:w-[45%]"
+          } mt-[50px] flex flex-col items-center m-auto relative z-20 dark:dark-scrollbar light-scrollbar`}
       >
         <SectionInputSearch
           SectionName="education"
