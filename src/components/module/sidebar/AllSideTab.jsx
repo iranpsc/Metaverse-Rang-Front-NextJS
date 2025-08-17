@@ -167,19 +167,19 @@ export default function SideBarContent({
                         <Link
                           href={
                             item.url.startsWith("http://") ||
-                            item.url.startsWith("https://")
+                              item.url.startsWith("https://")
                               ? item.url
                               : `/${params.lang}/${item.url}`
                           }
                           target={
                             item.url.startsWith("http://") ||
-                            item.url.startsWith("https://")
+                              item.url.startsWith("https://")
                               ? "_blank"
                               : undefined
                           }
                           rel={
                             item.url.startsWith("http://") ||
-                            item.url.startsWith("https://")
+                              item.url.startsWith("https://")
                               ? "noopener noreferrer"
                               : undefined
                           }
@@ -272,33 +272,6 @@ export default function SideBarContent({
                     className={`${trainingDropDown ? "h-fit" : "h-0 overflow-hidden"} base-transition-1 bg-slate-100 dark:bg-darkGray`}
                   >
                     <Link
-                      href={`/${params.lang}/education/category/all`}
-                      className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px]
-                      group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer menu-transition
-                      ${isClosed ? "justify-start gap-0" : "justify-start gap-2 ps-3"}`}
-                    >
-                      <span className="ps-[15px]">
-                        <ListMenuSvgModule
-                          item={{
-                            name: "categories",
-                            active: pathName.includes("category/all"),
-                          }}
-                        />
-                      </span>
-                      <div className="w-full flex justify-between items-center">
-                        <ListMenuTitleModule
-                          item={{
-                            translation:
-                              params.lang.toLowerCase() == "fa"
-                                ? "دسته بندی ها"
-                                : "categories",
-                            active: pathName.includes("category/all"),
-                          }}
-                          isClosed={isClosed}
-                        />
-                      </div>
-                    </Link>
-                    <Link
                       href={`/${params.lang}/education`}
                       className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px]
                       group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer menu-transition
@@ -325,6 +298,34 @@ export default function SideBarContent({
                         />
                       </div>
                     </Link>
+                    <Link
+                      href={`/${params.lang}/education/category/all`}
+                      className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px]
+                      group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer menu-transition
+                      ${isClosed ? "justify-start gap-0" : "justify-start gap-2 ps-3"}`}
+                    >
+                      <span className="ps-[15px]">
+                        <ListMenuSvgModule
+                          item={{
+                            name: "categories",
+                            active: pathName.includes("category/all"),
+                          }}
+                        />
+                      </span>
+                      <div className="w-full flex justify-between items-center">
+                        <ListMenuTitleModule
+                          item={{
+                            translation:
+                              params.lang.toLowerCase() == "fa"
+                                ? "دسته بندی ها"
+                                : "categories",
+                            active: pathName.includes("category/all"),
+                          }}
+                          isClosed={isClosed}
+                        />
+                      </div>
+                    </Link>
+
                   </div>
                 </li>
               ) : (

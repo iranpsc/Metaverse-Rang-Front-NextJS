@@ -33,7 +33,7 @@ export const getStaticMenu = (params) => {
     // { name: "version", unique_id: 1458, url: "version", order: "-1" },
 
     // { name: "version" ,  unique_id:1458, url: "version", order: "-1" },
-    { name: "calendar" },
+    { name: "calendar" , unique_id: 262, url: "calendar", order: "0" },
     { name: "overview" }
   ];
 };
