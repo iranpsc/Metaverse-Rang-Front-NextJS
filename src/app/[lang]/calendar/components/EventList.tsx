@@ -3,13 +3,14 @@ import htmlTruncate from "html-truncate";
 import { useState, useEffect } from "react";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { switchDigits } from "@/components/utils/DigitSwitch";
-import type { EventItem } from "@/types/pages/calendarPage";
-import type { CalendarFilterProps } from "@/types/pages/calendarPage";
-import { redirectToSSOLogin } from "@/utils/authRedirect";
-import { usePathname } from "next/navigation";
 import moment from "moment-jalaali";
 import SyncLoader from "react-spinners/SyncLoader";
 import LoginButtonModule from "@/components/module/singleVideo/LoginButtonModule";
+import {
+  MappedEventItem,
+  CalendarFilterProps,
+  EventItem,
+} from "@/utils/mapEvents";
 
 function parseJalaliDatetime(jalaliStr: string): Date {
   return moment(jalaliStr, "jYYYY/jMM/jDD HH:mm").toDate();
@@ -32,14 +33,13 @@ function getTimeRemaining(targetDate: Date) {
   return { days, hours, minutes, seconds };
 }
 
-const EventList: React.FC<CalendarFilterProps>= ({
+const EventList: React.FC<CalendarFilterProps> = ({
   events: initialEvents,
   mainData,
   params,
   selectedFilters,
   token,
 }: CalendarFilterProps) => {
-  const pathname = usePathname();
   const [likesMap, setLikesMap] = useState<Record<number, number>>({});
   const [disLikesMap, setDisLikesMap] = useState<Record<number, number>>({});
   const [userLikedMap, setUserLikedMap] = useState<Record<number, boolean>>({});
@@ -49,7 +49,7 @@ const EventList: React.FC<CalendarFilterProps>= ({
   const [hasMore, setHasMore] = useState(true);
   const [showLoginModal, setShowLoginModal] = useState(false);
 
-  const [events, setEvents] = useState<EventItem[]>(initialEvents);
+  const [events, setEvents] = useState<MappedEventItem[]>(initialEvents);
   const [visibleCount, setVisibleCount] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -98,7 +98,7 @@ const EventList: React.FC<CalendarFilterProps>= ({
         const data = await res.json();
 
         if (data.data && data.data.length > 0) {
-          const mappedEvents: EventItem[] = data.data.map(
+          const mappedEvents: MappedEventItem[] = data.data.map(
             (item: EventItem) => ({
               id: item.id,
               title: item.title,
@@ -107,6 +107,7 @@ const EventList: React.FC<CalendarFilterProps>= ({
               start: item.starts_at,
               end: item.ends_at,
               color: item.color,
+              btnName:item.btn_name
             })
           );
 
@@ -135,7 +136,11 @@ const EventList: React.FC<CalendarFilterProps>= ({
     }
 
     setLoading(false);
-  };
+
+  };useEffect(() => {
+  setVisibleCount(5); // یا هر تعداد پیش‌فرض که داری
+  setHasMore(events.length > 5);
+}, [ events]);
 
   const ThemedLoader = () => {
     const [isDark, setIsDark] = useState(false);
@@ -185,42 +190,42 @@ const EventList: React.FC<CalendarFilterProps>= ({
       return;
     }
 
-  if (userLikedMap[eventId]) {
-    return;
-  }
+    if (userLikedMap[eventId]) {
+      return;
+    }
 
-  setLikesMap((prev) => ({
-    ...prev,
-    [eventId]: (prev[eventId] ?? 0) + 1,
-  }));
+    setLikesMap((prev) => ({
+      ...prev,
+      [eventId]: (prev[eventId] ?? 0) + 1,
+    }));
 
-  setDisLikesMap((prev) => ({
-    ...prev,
-    [eventId]: Math.max((prev[eventId] ?? 0) - 1, 0),
-  }));
+    setDisLikesMap((prev) => ({
+      ...prev,
+      [eventId]: Math.max((prev[eventId] ?? 0) - 1, 0),
+    }));
 
-  setUserLikedMap((prev) => ({
-    ...prev,
-    [eventId]: true,
-  }));
+    setUserLikedMap((prev) => ({
+      ...prev,
+      [eventId]: true,
+    }));
 
-  setUserDisLikedMap((prev) => ({
-    ...prev,
-    [eventId]: false,
-  }));
+    setUserDisLikedMap((prev) => ({
+      ...prev,
+      [eventId]: false,
+    }));
 
-  try {
-    const response = await fetch(
-      `https://api.rgb.irpsc.com/api/calendar/events/${eventId}/interact`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ liked: 1 }),
-      }
-    );
+    try {
+      const response = await fetch(
+        `https://api.rgb.irpsc.com/api/calendar/events/${eventId}/interact`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ liked: 1 }),
+        }
+      );
 
       if (!response.ok) {
         const errorText = await response.text();
@@ -238,52 +243,52 @@ const EventList: React.FC<CalendarFilterProps>= ({
       return;
     }
 
-  if (userDisLikedMap[eventId]) {
-    return;
-  }
-
-  setDisLikesMap((prev) => ({
-    ...prev,
-    [eventId]: (prev[eventId] ?? 0) + 1,
-  }));
-
-  setLikesMap((prev) => ({
-    ...prev,
-    [eventId]: Math.max((prev[eventId] ?? 0) - 1, 0),
-  }));
-
-  setUserDisLikedMap((prev) => ({
-    ...prev,
-    [eventId]: true,
-  }));
-
-  setUserLikedMap((prev) => ({
-    ...prev,
-    [eventId]: false,
-  }));
-
-  try {
-    const response = await fetch(
-      `https://api.rgb.irpsc.com/api/calendar/events/${eventId}/interact`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ liked: 0 }),
-      }
-    );
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error("Response error details:", errorText);
-      throw new Error("خطا در ارسال لایک");
+    if (userDisLikedMap[eventId]) {
+      return;
     }
-  } catch (error) {
-    console.error("خطا در ارسال لایک:", error);
-  }
-};
+
+    setDisLikesMap((prev) => ({
+      ...prev,
+      [eventId]: (prev[eventId] ?? 0) + 1,
+    }));
+
+    setLikesMap((prev) => ({
+      ...prev,
+      [eventId]: Math.max((prev[eventId] ?? 0) - 1, 0),
+    }));
+
+    setUserDisLikedMap((prev) => ({
+      ...prev,
+      [eventId]: true,
+    }));
+
+    setUserLikedMap((prev) => ({
+      ...prev,
+      [eventId]: false,
+    }));
+
+    try {
+      const response = await fetch(
+        `https://api.rgb.irpsc.com/api/calendar/events/${eventId}/interact`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ liked: 0 }),
+        }
+      );
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Response error details:", errorText);
+        throw new Error("خطا در ارسال لایک");
+      }
+    } catch (error) {
+      console.error("خطا در ارسال لایک:", error);
+    }
+  };
 
   const colorMap: Record<string, string> = {
     red: "#ED2E2E",
@@ -292,7 +297,6 @@ const EventList: React.FC<CalendarFilterProps>= ({
     green: "#32DA6B",
     pink: "#ff00ff",
   };
-
   const isAllSelected =
     selectedFilters.length === 0 || selectedFilters.includes("all");
 
@@ -339,14 +343,14 @@ const EventList: React.FC<CalendarFilterProps>= ({
               <div className="w-[96%] flex justify-between text-base font-normal font-[Vazir] sm:w-[350px] sm:ml-2 sm:self-center">
                 <div className="flex items-center  gap-1">
                   <svg
-                    className={`cursor-pointer stroke-black dark:stroke-white ${
+                    className={`cursor-pointer stroke-black dark:stroke-white fill-white dark:fill-black ${
                       userLikedMap[event.id]
-                        ? "fill-black dark:fill-white"
+                        ? "stroke-[#636363] dark:stroke-[#b3afaf]"
                         : "fill-none"
                     }`}
                     onClick={() => sendLike(event.id)}
                     width="20"
-                    viewBox="0 0 28 24"
+                    viewBox="0 0 25 24"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
@@ -365,9 +369,9 @@ const EventList: React.FC<CalendarFilterProps>= ({
                 </div>
                 <div className="flex items-center  gap-1 stroke-black dark:stroke-white fill-none">
                   <svg
-                    className={`cursor-pointer rotate-180 stroke-black dark:stroke-white ${
+                    className={`cursor-pointer rotate-180 stroke-black dark:stroke-white fill-white dark:fill-black ${
                       userDisLikedMap[event.id]
-                        ? "fill-black dark:fill-white"
+                        ? "stroke-[#636363] dark:stroke-[#b3afaf]"
                         : "fill-none"
                     }`}
                     onClick={() => disLike(event.id)}
@@ -610,7 +614,7 @@ const EventList: React.FC<CalendarFilterProps>= ({
                   rel="noopener noreferrer"
                   className="dark:bg-dark-yellow bg-blueLink text-white dark:text-black font-bold py-2 px-4 w-full mb-2 h-11 self-end rounded-[28px] sm:text-lg sm:font-semibold sm:w-[60%] text-center justify-center items-center flex"
                 >
-                  <span>{findByUniqueId(mainData, 1449)}</span>
+                  <span>{event.btnName}</span>
                 </a>
               </div>
             </div>

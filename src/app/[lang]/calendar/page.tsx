@@ -1,6 +1,5 @@
 import Footer from "@/components/module/footer/Footer";
 import { cookies } from "next/headers";
-
 import {
   getTranslation,
   getMainFile,
@@ -9,13 +8,11 @@ import {
   getFooterData,
   getLangArray,
 } from "@/components/utils/actions";
-
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import SideBar from "@/components/module/sidebar/SideBar";
 import { getStaticMenu } from "@/components/utils/constants";
 import EventsCalendar from "./components/EventsCalendar";
-import type { EventItem } from "@/types/pages/calendarPage";
-
+import { mapEvents, MappedEventItem } from "@/utils/mapEvents";
 
 export default async function calendarPage({ params }: { params: any }) {
   const [footerTabs, langData, langArray] = await Promise.all([
@@ -63,22 +60,7 @@ export default async function calendarPage({ params }: { params: any }) {
 
   const data = await res.json();
   const events = data.data;
-
-  const Events = events.map((item: EventItem) => ({
-    id: item.id,
-    title: item.title,
-    image: item.image,
-    link: item.btn_link,
-    desc: item.description,
-    start: item.starts_at,
-    end: item.ends_at,
-    color: item.color,
-    views: item.views,
-    likes: item.likes,
-    disLikes: item.dislikes,
-    userLiked: item.user_interaction?.has_liked ?? false,
-    userDisLiked: item.user_interaction?.has_disliked ?? false,
-  }));
+  const Events: MappedEventItem[] = mapEvents(events);
 
   return (
     <div

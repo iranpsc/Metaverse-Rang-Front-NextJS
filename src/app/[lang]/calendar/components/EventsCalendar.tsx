@@ -1,12 +1,12 @@
 "use client";
 import Calendar from "./Calendar";
 import EventList from "./EventList";
-import type { EventItem } from "@/types/pages/calendarPage";
-import type { CalendarProps } from "@/types/pages/calendarPage";
 import { useEffect, useState } from "react";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { switchDigits } from "@/components/utils/DigitSwitch";
 import { Search } from "@/components/svgs/SvgEducation";
+import { mapEvents, MappedEventItem, CalendarProps } from "@/utils/mapEvents";
+
 export default function EventsCalendar({
   events,
   mainData,
@@ -15,35 +15,34 @@ export default function EventsCalendar({
 }: CalendarProps) {
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
   const [searchValue, setSearchValue] = useState<string>("");
-  const [searchResults, setSearchResults] = useState<EventItem[] | null>(null);
+  const [searchResults, setSearchResults] = useState<MappedEventItem[] | null>(
+    null
+  );
   const [startOfMonthDate, SetStartOfMonthDate] = useState<string>("");
   const [endOfMonthDate, setEndOfMonthDate] = useState<string>("");
   const [eventsDay, setEventsDay] = useState<any[]>([]);
   const [selectedEventDate, setSelectedEventDate] = useState<string | null>(
     null
   );
-  const [dateResults, setDateResults] = useState<EventItem[] | null>(null);
+  const [dateResults, setDateResults] = useState<MappedEventItem[] | null>(
+    null
+  );
 
   useEffect(() => {
     if (searchValue.trim() === "") {
-      setSearchResults(null); // یا []، بسته به اینکه توی EventList چک می‌کنی یا نه
+      setSearchResults(null); 
     }
   }, [searchValue]);
 
   useEffect(() => {
     if (!startOfMonthDate || !endOfMonthDate) return;
-
     const fetchCalendarEvents = async () => {
       try {
         const url = `https://api.rgb.irpsc.com/api/calendar/filter?start_date=${startOfMonthDate}&end_date=${endOfMonthDate}`;
         const res = await fetch(url);
-
         if (!res.ok) throw new Error("ERR");
-
         const json = await res.json();
-
         const newEvents = json.data;
-
         setEventsDay((prev) => [...prev, ...newEvents]);
       } catch (error) {
         console.error(error);
@@ -57,34 +56,16 @@ export default function EventsCalendar({
     const fetchCalendarEvents = async () => {
       try {
         if (!selectedEventDate) {
-          // وقتی تاریخ انتخاب نشده
           setDateResults(events);
           return;
         }
 
         const url = `https://api.rgb.irpsc.com/api/calendar?date=${selectedEventDate}`;
         const res = await fetch(url);
-
         if (!res.ok) throw new Error("ERR");
 
         const json = await res.json();
-        const newEvents = json.data.map((item: EventItem) => ({
-          id: item.id,
-          title: item.title,
-          image: item.image,
-          link: item.btn_link,
-          desc: item.description,
-          start: item.starts_at,
-          end: item.ends_at,
-          color: item.color,
-          views: item.views,
-          likes: item.likes,
-          disLikes: item.dislikes,
-          userLiked: item.user_interaction?.has_liked ?? false,
-          userDisLiked: item.user_interaction?.has_disliked ?? false,
-        }));
-
-        setDateResults(newEvents);
+        setDateResults(mapEvents(json.data));
       } catch (error) {
         console.error(error);
         setDateResults([]);
@@ -94,8 +75,6 @@ export default function EventsCalendar({
     fetchCalendarEvents();
   }, [selectedEventDate, events]);
 
-  console.log("Selected Event Date:", selectedEventDate);
-
   function handleSearchClick() {
     if (!searchValue.trim()) return;
 
@@ -104,32 +83,12 @@ export default function EventsCalendar({
 
     const headers: HeadersInit = {
       "Content-Type": "application/json",
+      ...(token && { Authorization: `Bearer ${token}` }),
     };
-
-    if (token) {
-      headers["Authorization"] = `Bearer ${token}`;
-    }
 
     fetch(url, { headers })
       .then((res) => res.json())
-      .then((data) => {
-        const mappedResults = data.data.map((item: EventItem) => ({
-          id: item.id,
-          title: item.title,
-          image: item.image,
-          link: item.btn_link,
-          desc: item.description,
-          start: item.starts_at,
-          end: item.ends_at,
-          color: item.color,
-          views: item.views,
-          likes: item.likes,
-          disLikes: item.dislikes,
-          userLiked: item.user_interaction?.has_liked ?? false,
-          userDisLiked: item.user_interaction?.has_disliked ?? false,
-        }));
-        setSearchResults(mappedResults);
-      })
+      .then((data) => setSearchResults(mapEvents(data.data)))
       .catch((err) => {
         console.error(err);
         setSearchResults([]);
