@@ -1,12 +1,12 @@
 "use client";
 import Calendar from "./Calendar";
 import EventList from "./EventList";
-import type { EventItem } from "@/types/pages/calendarPage";
-import type { CalendarProps } from "@/types/pages/calendarPage";
 import { useEffect, useState } from "react";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { switchDigits } from "@/components/utils/DigitSwitch";
 import { Search } from "@/components/svgs/SvgEducation";
+import { mapEvents, MappedEventItem, CalendarProps } from "@/utils/mapEvents";
+
 export default function EventsCalendar({
   events,
   mainData,
@@ -15,26 +15,34 @@ export default function EventsCalendar({
 }: CalendarProps) {
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
   const [searchValue, setSearchValue] = useState<string>("");
-  const [searchResults, setSearchResults] = useState<EventItem[] | null>(null);
+  const [searchResults, setSearchResults] = useState<MappedEventItem[] | null>(
+    null
+  );
   const [startOfMonthDate, SetStartOfMonthDate] = useState<string>("");
   const [endOfMonthDate, setEndOfMonthDate] = useState<string>("");
   const [eventsDay, setEventsDay] = useState<any[]>([]);
- 
+  const [selectedEventDate, setSelectedEventDate] = useState<string | null>(
+    null
+  );
+  const [dateResults, setDateResults] = useState<MappedEventItem[] | null>(
+    null
+  );
+
+  useEffect(() => {
+    if (searchValue.trim() === "") {
+      setSearchResults(null); 
+    }
+  }, [searchValue]);
 
   useEffect(() => {
     if (!startOfMonthDate || !endOfMonthDate) return;
-
     const fetchCalendarEvents = async () => {
       try {
         const url = `https://api.rgb.irpsc.com/api/calendar/filter?start_date=${startOfMonthDate}&end_date=${endOfMonthDate}`;
         const res = await fetch(url);
-
         if (!res.ok) throw new Error("ERR");
-
         const json = await res.json();
-
         const newEvents = json.data;
-
         setEventsDay((prev) => [...prev, ...newEvents]);
       } catch (error) {
         console.error(error);
@@ -44,6 +52,29 @@ export default function EventsCalendar({
     fetchCalendarEvents();
   }, [startOfMonthDate, endOfMonthDate]);
 
+  useEffect(() => {
+    const fetchCalendarEvents = async () => {
+      try {
+        if (!selectedEventDate) {
+          setDateResults(events);
+          return;
+        }
+
+        const url = `https://api.rgb.irpsc.com/api/calendar?date=${selectedEventDate}`;
+        const res = await fetch(url);
+        if (!res.ok) throw new Error("ERR");
+
+        const json = await res.json();
+        setDateResults(mapEvents(json.data));
+      } catch (error) {
+        console.error(error);
+        setDateResults([]);
+      }
+    };
+
+    fetchCalendarEvents();
+  }, [selectedEventDate, events]);
+
   function handleSearchClick() {
     if (!searchValue.trim()) return;
 
@@ -52,35 +83,15 @@ export default function EventsCalendar({
 
     const headers: HeadersInit = {
       "Content-Type": "application/json",
+      ...(token && { Authorization: `Bearer ${token}` }),
     };
-
-    if (token) {
-      headers["Authorization"] = `Bearer ${token}`;
-    }
 
     fetch(url, { headers })
       .then((res) => res.json())
-      .then((data) => {
-        const mappedResults = data.data.map((item: EventItem) => ({
-          id: item.id,
-          title: item.title,
-          image: item.image,
-          link: item.btn_link,
-          desc: item.description,
-          start: item.starts_at,
-          end: item.ends_at,
-          color: item.color,
-          views: item.views,
-          likes: item.likes,
-          disLikes: item.dislikes,
-          userLiked: item.user_interaction?.has_liked ?? false,
-          userDisLiked: item.user_interaction?.has_disliked ?? false,
-        }));
-        setSearchResults(mappedResults);
-      })
+      .then((data) => setSearchResults(mapEvents(data.data)))
       .catch((err) => {
         console.error(err);
-        setSearchResults([]); 
+        setSearchResults([]);
       });
   }
 
@@ -111,6 +122,8 @@ export default function EventsCalendar({
           SetStartOfMonthDate={SetStartOfMonthDate}
           setEndOfMonthDate={setEndOfMonthDate}
           eventsDay={eventsDay}
+          setSelectedEventDate={setSelectedEventDate}
+          selectedEventDate={selectedEventDate}
         />
         <div className="EventFilters w-full sm:w-[90%]  mt-4 sm:mt-0 sm:ml-4  ">
           <div
@@ -135,7 +148,7 @@ export default function EventsCalendar({
             />
             <button
               onClick={handleSearchClick}
-              className="searchButton font-normal text-[95%] px-5 font-['AzarMehr'] border-none bg-transparent text-[#FFBC00] cursor-pointer"
+              className="searchButton font-normal text-[95%] px-5 font-['AzarMehr'] border-none bg-transparent text-blueLink  dark:text-dark-yellow cursor-pointer"
             >
               {findByUniqueId(mainData, 57)}
             </button>
@@ -273,7 +286,13 @@ export default function EventsCalendar({
       <div className="line mt-6 w-full lg:w-[95%] h-[2px] bg-gradient-to-r from-transparent via-[#DADADA] to-transparent"></div>
       <EventList
         token={token}
-        events={searchResults !== null ? searchResults : events}
+        events={
+          searchResults && searchResults.length > 0
+            ? searchResults
+            : selectedEventDate && dateResults && dateResults.length > 0
+            ? dateResults
+            : events
+        }
         mainData={mainData}
         params={params}
         selectedFilters={selectedFilters}
