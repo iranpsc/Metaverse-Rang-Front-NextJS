@@ -345,7 +345,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
                   <svg
                     className={`cursor-pointer stroke-black dark:stroke-white fill-white dark:fill-black ${
                       userLikedMap[event.id]
-                        ? "stroke-[#636363] dark:stroke-[#b3afaf]"
+                        ? "stroke-textGray dark:stroke-extraGray"
                         : "fill-none"
                     }`}
                     onClick={() => sendLike(event.id)}
@@ -371,7 +371,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
                   <svg
                     className={`cursor-pointer rotate-180 stroke-black dark:stroke-white fill-white dark:fill-black ${
                       userDisLikedMap[event.id]
-                        ? "stroke-[#636363] dark:stroke-[#b3afaf]"
+                        ? "stroke-textGray dark:stroke-extraGray"
                         : "fill-none"
                     }`}
                     onClick={() => disLike(event.id)}
