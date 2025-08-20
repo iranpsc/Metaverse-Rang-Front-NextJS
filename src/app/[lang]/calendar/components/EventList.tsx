@@ -346,7 +346,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
                     className={`cursor-pointer stroke-black dark:stroke-white fill-white dark:fill-black ${
                       userLikedMap[event.id]
                         ? "stroke-textGray dark:stroke-extraGray"
-                        : "fill-none"
+                        : ""
                     }`}
                     onClick={() => sendLike(event.id)}
                     width="20"
@@ -372,7 +372,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
                     className={`cursor-pointer rotate-180 stroke-black dark:stroke-white fill-white dark:fill-black ${
                       userDisLikedMap[event.id]
                         ? "stroke-textGray dark:stroke-extraGray"
-                        : "fill-none"
+                        : ""
                     }`}
                     onClick={() => disLike(event.id)}
                     width="20"
