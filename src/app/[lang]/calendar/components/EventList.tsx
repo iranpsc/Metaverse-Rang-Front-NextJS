@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { switchDigits } from "@/components/utils/DigitSwitch";
 import moment from "moment-jalaali";
+import { Like, Dislike, View } from "@/components/svgs/SvgEducation";
+
 import SyncLoader from "react-spinners/SyncLoader";
 import LoginButtonModule from "@/components/module/singleVideo/LoginButtonModule";
 import {
@@ -107,7 +109,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
               start: item.starts_at,
               end: item.ends_at,
               color: item.color,
-              btnName:item.btn_name
+              btnName: item.btn_name,
             })
           );
 
@@ -136,11 +138,11 @@ const EventList: React.FC<CalendarFilterProps> = ({
     }
 
     setLoading(false);
-
-  };useEffect(() => {
-  setVisibleCount(5); // یا هر تعداد پیش‌فرض که داری
-  setHasMore(events.length > 5);
-}, [ events]);
+  };
+  useEffect(() => {
+    setVisibleCount(5); // یا هر تعداد پیش‌فرض که داری
+    setHasMore(events.length > 5);
+  }, [events]);
 
   const ThemedLoader = () => {
     const [isDark, setIsDark] = useState(false);
@@ -183,7 +185,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
     setUserLikedMap(initialUserLiked);
     setUserDisLikedMap(initialUserDisLiked);
   }, [events]);
-  useEffect(() => {}, [events]);
+  useEffect(() => { }, [events]);
   const sendLike = async (eventId: number) => {
     if (!token) {
       setShowLoginModal(true);
@@ -303,11 +305,11 @@ const EventList: React.FC<CalendarFilterProps> = ({
   const filteredEvent = isAllSelected
     ? events
     : events.filter((event) => {
-        const color = event.color?.toLowerCase();
-        return selectedFilters.some(
-          (filterColor: any) => color === colorMap[filterColor]
-        );
-      });
+      const color = event.color?.toLowerCase();
+      return selectedFilters.some(
+        (filterColor: any) => color === colorMap[filterColor]
+      );
+    });
 
   const visibleEvents = filteredEvent.slice(0, visibleCount);
   return (
@@ -342,23 +344,18 @@ const EventList: React.FC<CalendarFilterProps> = ({
             <div className="flex flex-col w-[97%] lg:w-[95%] gap-3 sm:gap-0 items-center sm:flex-row-reverse sm:justify-between">
               <div className="w-[96%] flex justify-between text-base font-normal font-[Vazir] sm:w-[350px] sm:ml-2 sm:self-center">
                 <div className="flex items-center  gap-1">
-                  <svg
-                    className={`cursor-pointer stroke-black dark:stroke-white fill-white dark:fill-black ${
-                      userLikedMap[event.id]
-                        ? "stroke-textGray dark:stroke-extraGray"
-                        : ""
-                    }`}
+                  <Like
                     onClick={() => sendLike(event.id)}
                     width="20"
-                    viewBox="0 0 25 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M6.33333 10.6654V21.332C6.33333 21.6857 6.19286 22.0248 5.94281 22.2748C5.69276 22.5249 5.35362 22.6654 5 22.6654H2.33333C1.97971 22.6654 1.64057 22.5249 1.39052 22.2748C1.14048 22.0248 1 21.6857 1 21.332V11.9987C1 11.6451 1.14048 11.3059 1.39052 11.0559C1.64057 10.8058 1.97971 10.6654 2.33333 10.6654H6.33333ZM6.33333 10.6654C7.74782 10.6654 9.10438 10.1035 10.1046 9.10327C11.1048 8.10307 11.6667 6.74652 11.6667 5.33203V3.9987C11.6667 3.29145 11.9476 2.61318 12.4477 2.11308C12.9478 1.61298 13.6261 1.33203 14.3333 1.33203C15.0406 1.33203 15.7189 1.61298 16.219 2.11308C16.719 2.61318 17 3.29145 17 3.9987V10.6654H21C21.7072 10.6654 22.3855 10.9463 22.8856 11.4464C23.3857 11.9465 23.6667 12.6248 23.6667 13.332L22.3333 19.9987C22.1416 20.8167 21.7778 21.519 21.2969 22C20.8159 22.4809 20.2438 22.7145 19.6667 22.6654H10.3333C9.27247 22.6654 8.25505 22.2439 7.50491 21.4938C6.75476 20.7436 6.33333 19.7262 6.33333 18.6654"
-                      strokeWidth="2"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                    height="24"
+                    className={`
+    cursor-pointer
+    ${userLikedMap[event.id]
+                        ? "stroke-[#636363] dark:stroke-[#b3afaf]"
+                        : "stroke-black dark:stroke-white"
+                      }
+  `}
+                  />
 
                   <span className="like-count mt-[2px]">
                     {switchDigits(
@@ -367,24 +364,19 @@ const EventList: React.FC<CalendarFilterProps> = ({
                     )}
                   </span>
                 </div>
-                <div className="flex items-center  gap-1 stroke-black dark:stroke-white fill-none">
-                  <svg
-                    className={`cursor-pointer rotate-180 stroke-black dark:stroke-white fill-white dark:fill-black ${
-                      userDisLikedMap[event.id]
-                        ? "stroke-textGray dark:stroke-extraGray"
-                        : ""
-                    }`}
+                <div className="flex items-center  gap-1 ">
+                  <Dislike
                     onClick={() => disLike(event.id)}
                     width="20"
-                    viewBox="0 0 25 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M6.33333 10.6654V21.332C6.33333 21.6857 6.19286 22.0248 5.94281 22.2748C5.69276 22.5249 5.35362 22.6654 5 22.6654H2.33333C1.97971 22.6654 1.64057 22.5249 1.39052 22.2748C1.14048 22.0248 1 21.6857 1 21.332V11.9987C1 11.6451 1.14048 11.3059 1.39052 11.0559C1.64057 10.8058 1.97971 10.6654 2.33333 10.6654H6.33333ZM6.33333 10.6654C7.74782 10.6654 9.10438 10.1035 10.1046 9.10327C11.1048 8.10307 11.6667 6.74652 11.6667 5.33203V3.9987C11.6667 3.29145 11.9476 2.61318 12.4477 2.11308C12.9478 1.61298 13.6261 1.33203 14.3333 1.33203C15.0406 1.33203 15.7189 1.61298 16.219 2.11308C16.719 2.61318 17 3.29145 17 3.9987V10.6654H21C21.7072 10.6654 22.3855 10.9463 22.8856 11.4464C23.3857 11.9465 23.6667 12.6248 23.6667 13.332L22.3333 19.9987C22.1416 20.8167 21.7778 21.519 21.2969 22C20.8159 22.4809 20.2438 22.7145 19.6667 22.6654H10.3333C9.27247 22.6654 8.25505 22.2439 7.50491 21.4938C6.75476 20.7436 6.33333 19.7262 6.33333 18.6654"
-                      strokeWidth="2"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                    height="24"
+                    className={`
+    cursor-pointer
+    ${userDisLikedMap[event.id]
+                        ? "stroke-slate-500 dark:stroke-slate-300"
+                        : "stroke-black dark:stroke-white"
+                      }
+  `}
+                  />
 
                   <span className="dislike-count">
                     {" "}
@@ -394,23 +386,8 @@ const EventList: React.FC<CalendarFilterProps> = ({
                     )}{" "}
                   </span>
                 </div>
-                <div className="flex items-center  gap-1 stroke-black dark:stroke-white fill-none">
-                  <svg
-                    width="26"
-                    viewBox="0 0 32 32"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M13.3333 16C13.3333 16.7072 13.6143 17.3855 14.1144 17.8856C14.6145 18.3857 15.2928 18.6667 16 18.6667C16.7072 18.6667 17.3855 18.3857 17.8856 17.8856C18.3857 17.3855 18.6667 16.7072 18.6667 16C18.6667 15.2928 18.3857 14.6145 17.8856 14.1144C17.3855 13.6143 16.7072 13.3333 16 13.3333C15.2928 13.3333 14.6145 13.6143 14.1144 14.1144C13.6143 14.6145 13.3333 15.2928 13.3333 16Z"
-                      strokeWidth="2"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M28 16C24.8 21.3333 20.8 24 16 24C11.2 24 7.2 21.3333 4 16C7.2 10.6667 11.2 8 16 8C20.8 8 24.8 10.6667 28 16Z"
-                      strokeWidth="2"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                <div className="flex items-center  gap-1 stroke-black dark:stroke-white ">
+               <View className="xs:size-[24px] md:size-[18px]"/>
 
                   <span> {switchDigits(event.views, params.lang)}</span>
                 </div>
@@ -451,7 +428,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
             </div>
 
             <div
-              className="px-4                   mb-2 w-[97%] lg:w-[95%] lg:px-7 font-[AzarMehrFD] h-[360px]
+              className="px-4                   mb-2 w-[97%] lg:w-[95%] lg:px-7 font-[AzarMehrFD] 
  bg-gradient-to-r from-[#CFCFCFE5] to-[#D8D8D800]
  dark:bg-gradient-to-r dark:from-[#ffffff09] dark:to-[#00000000] dark:text-dark-yellow text-blueLink rounded-[32px] border-[1px] border-solid dark:border-[#ffffff25] border-[#CFCFCFE5]  shadow-lg p-4  flex flex-col  sm:flex-row-reverse sm:h-[250px]"
             >
@@ -629,11 +606,10 @@ const EventList: React.FC<CalendarFilterProps> = ({
             onClick={showMore}
             disabled={loading}
             className={`flex justify-center items-center gap-2
-      ${
-        loading
-          ? "cursor-not-allowed opacity-60"
-          : "hover:border-blueLink hover:dark:border-dark-yellow"
-      }
+      ${loading
+                ? "cursor-not-allowed opacity-60"
+                : "hover:border-blueLink hover:dark:border-dark-yellow"
+              }
       bg-transparent text-blueLink dark:text-dark-yellow 
       rounded-[10px] px-[40px] py-[20px] base-transition-1 
       border-2 border-transparent`}
