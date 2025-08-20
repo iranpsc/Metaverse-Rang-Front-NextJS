@@ -5,7 +5,6 @@ import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { switchDigits } from "@/components/utils/DigitSwitch";
 import moment from "moment-jalaali";
 import { Like, Dislike, View } from "@/components/svgs/SvgEducation";
-
 import SyncLoader from "react-spinners/SyncLoader";
 import LoginButtonModule from "@/components/module/singleVideo/LoginButtonModule";
 import {
@@ -386,8 +385,8 @@ const EventList: React.FC<CalendarFilterProps> = ({
                     )}{" "}
                   </span>
                 </div>
-                <div className="flex items-center  gap-1 stroke-black dark:stroke-white ">
-               <View className="xs:size-[24px] md:size-[18px]"/>
+                <div className="flex items-center size-7 gap-1 stroke-black dark:stroke-white ">
+               <View  className="size-full   "/>
 
                   <span> {switchDigits(event.views, params.lang)}</span>
                 </div>
