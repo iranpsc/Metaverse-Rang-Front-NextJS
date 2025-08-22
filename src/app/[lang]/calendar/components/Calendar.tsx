@@ -89,8 +89,6 @@ export default function Calendar({
   const [showMonthList, setShowMonthList] = useState(false);
   const [showYearList, setShowYearList] = useState(false);
   const [todayDate, setTodayDate] = useState<Date | null>(null);
-  const [selectedEventIds, setSelectedEventIds] = useState<number[]>([]);
-   
   const minYear = isShamsi ? 1398 : 2019;
   const maxYear = isShamsi
     ? toJalaali(new Date()).jy + 5

@@ -21,12 +21,28 @@ export default function EventsCalendar({
   const [startOfMonthDate, SetStartOfMonthDate] = useState<string>("");
   const [endOfMonthDate, setEndOfMonthDate] = useState<string>("");
   const [eventsDay, setEventsDay] = useState<any[]>([]);
+    const [MonthEventsDay, setMonthEventsDay] = useState<any[]>([]);
+   console.log("test is",MonthEventsDay)
+
   const [selectedEventDate, setSelectedEventDate] = useState<string | null>(
     null
   );
   const [dateResults, setDateResults] = useState<MappedEventItem[] | null>(
     null
   );
+
+const total = MonthEventsDay.length;
+
+const grouped = MonthEventsDay.reduce((acc, event) => {
+  acc[event.color] = (acc[event.color] || 0) + 1;
+  return acc;
+}, {});
+
+const bluePercent = grouped["#0000ff"] ? Math.round((grouped["#0000ff"] / total) * 100) : 0;
+const redPercent = grouped["#ff0000"] ? Math.round((grouped["#ff0000"] / total) * 100) : 0;
+const yellowPercent = grouped["#ffff00"] ? Math.round((grouped["#ffff00"] / total) * 100) : 0;
+const greenPercent = grouped["#32DA6B"] ? Math.round((grouped["#80ff00"] / total) * 100) : 0;
+const pinkPercent = grouped["#ff00ff"] ? Math.round((grouped["#ff00ff"] / total) * 100) : 0;
 
   useEffect(() => {
     if (searchValue.trim() === "") {
@@ -44,6 +60,7 @@ export default function EventsCalendar({
         const json = await res.json();
         const newEvents = json.data;
         setEventsDay((prev) => [...prev, ...newEvents]);
+        setMonthEventsDay(newEvents)
       } catch (error) {
         console.error(error);
       }
@@ -168,10 +185,10 @@ export default function EventsCalendar({
             >
               <div className="flex items-center  h-7  xl:h-9 2xl:h-10">
                 <div className="whitespace-nowrap inline-block bg-transparent relative rounded-lg aspect-square h-full overflow-hidden  ">
-                  <div className="bg-[#ED2E2E] absolute top-[72%] left-0 w-full h-[30%] rounded-t-md z-50"></div>
-                  <div className="bg-[#0066FF] absolute top-[58%] left-0 w-full h-[40%] rounded-t-md z-40"></div>
-                  <div className="bg-[#FFC700] absolute top-[38%] left-0 w-full h-[60%] rounded-t-md z-30"></div>
-                  <div className="bg-[#32DA6B] absolute top-[18%] left-0 w-full h-[80%] rounded-t-md z-20"></div>
+                  <div className="bg-[#ff0000] absolute top-[72%] left-0 w-full h-[30%] rounded-t-md z-50"></div>
+                  <div className="bg-[#0000ff] absolute top-[58%] left-0 w-full h-[40%] rounded-t-md z-40"></div>
+                  <div className="bg-[#ffff00] absolute top-[38%] left-0 w-full h-[60%] rounded-t-md z-30"></div>
+                  <div className="bg-[#80ff00] absolute top-[18%] left-0 w-full h-[80%] rounded-t-md z-20"></div>
                   <div className="bg-[#ff00ff] absolute top-0 left-0 w-full h-full rounded-t-md z-10"></div>
                 </div>
                 <span className="mx-2 whitespace-nowrap  ">
@@ -188,14 +205,14 @@ export default function EventsCalendar({
           ${getFilterClasses("blue")}`}
             >
               <div className="flex items-center h-full  ">
-                <div className="bg-[#0066FF] rounded-lg aspect-square h-7  xl:h-9 2xl:h-10 "></div>
+                <div className="bg-[#0000ff] rounded-lg aspect-square h-7  xl:h-9 2xl:h-10 "></div>
                 <span className="mx-2 whitespace-nowrap">
                   {findByUniqueId(mainData, 578)}
                 </span>
               </div>
-              <div className="text-[#0066FF] ">
+              <div className="text-[#0000ff] ">
                 {" "}
-                {switchDigits(37, params.lang)} %
+                {switchDigits(bluePercent, params.lang)} %
               </div>
             </div>
 
@@ -208,15 +225,15 @@ export default function EventsCalendar({
                         ${getFilterClasses("red")}`}
             >
               <div className="flex items-center h-full">
-                <div className="bg-[#ED2E2E] rounded-lg aspect-square  xl:h-9  2xl:h-10 h-7 "></div>
+                <div className="bg-[#ff0000] rounded-lg aspect-square  xl:h-9  2xl:h-10 h-7 "></div>
                 <span className="mx-2 whitespace-nowrap">
                   {" "}
                   {findByUniqueId(mainData, 577)}
                 </span>
               </div>
-              <div className="text-[#ED2E2E]">
+              <div className="text-[#ff0000]">
                 {" "}
-                {switchDigits(37, params.lang)} %
+                {switchDigits(redPercent, params.lang)} %
               </div>
             </div>
 
@@ -228,14 +245,14 @@ export default function EventsCalendar({
          ${getFilterClasses("yellow")} `}
             >
               <div className="flex items-center h-full ">
-                <div className="bg-[#FFC700] rounded-lg aspect-square   xl:h-9 2xl:h-10 h-7 "></div>
+                <div className="bg-[#ffff00] rounded-lg aspect-square   xl:h-9 2xl:h-10 h-7 "></div>
                 <span className="mx-2 whitespace-nowrap ">
                   {findByUniqueId(mainData, 579)}
                 </span>
               </div>
-              <div className="text-[#FFC700] ">
+              <div className="text-[#ffff00] ">
                 {" "}
-                {switchDigits(37, params.lang)} %
+                {switchDigits(yellowPercent, params.lang)} %
               </div>
             </div>
 
@@ -249,14 +266,14 @@ export default function EventsCalendar({
           `}
             >
               <div className="flex items-center h-full ">
-                <div className="bg-[#32DA6B] rounded-lg aspect-square  xl:h-9  2xl:h-10 h-7 "></div>
+                <div className="bg-[#80ff00] rounded-lg aspect-square  xl:h-9  2xl:h-10 h-7 "></div>
                 <span className="mx-2 whitespace-nowrap">
                   {findByUniqueId(mainData, 580)}
                 </span>
               </div>
-              <div className="text-[#32DA6B]">
+              <div className="text-[#80ff00]">
                 {" "}
-                {switchDigits(37, params.lang)} %
+                {switchDigits(greenPercent, params.lang)} %
               </div>
             </div>
 
@@ -276,7 +293,7 @@ export default function EventsCalendar({
               </div>
               <div className="text-[#ff00ff]">
                 {" "}
-                {switchDigits(37, params.lang)} %
+                {switchDigits(pinkPercent, params.lang)} %
               </div>
             </div>
           </div>
