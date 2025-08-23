@@ -93,7 +93,7 @@ export default function SvgIcon({ unique_id, color, name }: any) {
       {unique_id === 260 && (
         <Contact className={`${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
       )}
-      {unique_id === 87 && (
+      {unique_id === 1462 && (
         <Trainings className={`${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
       )}
       {unique_id === 1414 && (

@@ -74,7 +74,7 @@ const EducationFirstPage = ({ mainData, params }: { mainData: any; params: Param
     <div >
       <div className="w-full flex flex-row justify-between items-center">
         <p className="font-azarMehr font-medium text-[16px] md:text-[20px] lg:text-[28px] xl:text-[32px] dark:text-white">
-          {findByUniqueId(mainData, 87)}
+          {findByUniqueId(mainData, 1461)}
         </p>
         <a href="https://video.irpsc.com/videos/category/1036?page_id=1" target="_blank">
           <div className="flex justify-center items-center gap-4">

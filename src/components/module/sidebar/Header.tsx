@@ -20,7 +20,7 @@ function SideBarHeader({ isClosed, toggleSide, tabsMenu, params }: any) {
 
 
   
-  // console.log("tabsMenu:", tabsMenu);
+  console.log("tabsMenu:", tabsMenu);
 
   function localFind(_name: any) {
     return tabsMenu.find((item: any) => item?.name == _name)?.translation;

@@ -16,7 +16,7 @@ const ListVideos = ({ DataVideos, params, theme }: any) => {
   };
 
   return (
-    <div className="my-[20px] grid md:grid-cols-2 lg:grid-cols-2 sm:grid-cols-2 xl:grid-cols-3 gap-10 w-full pb-3  pt-16 xs:flex xs:justify-center xs:items-center px-5 lg:px-0">
+    <div className="my-[20px] flex flex-col  md:grid  md:grid-cols-2 lg:grid-cols-2 sm:grid-cols-2 xl:grid-cols-3 gap-10 w-full pb-3  pt-16 xs:flex xs:justify-center xs:items-center px-5 lg:px-0">
       {DataVideos &&
         DataVideos.videos.map((item: any) => {
           const titleRef = useRef<HTMLParagraphElement>(null);

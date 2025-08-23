@@ -195,7 +195,7 @@ export default async function EducationVideo({ params }: { params: any }) {
               newEducationsVideos={newEducationsVideos}
               dataCommentsVideo={dataCommentsVideo}
             />
-            <ListVideos DataVideos={DataVideos} params={params} />
+          <ListVideos DataVideos={DataVideos} params={params} />
           </section>
           <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
             <Suspense fallback={<div className="text-center text-[20px]">loading...</div>}>

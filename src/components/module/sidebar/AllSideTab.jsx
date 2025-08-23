@@ -93,7 +93,7 @@ export default function SideBarContent({
     if (item.unique_id == "149") {
       item.active = pathName === `/${params.lang}`;
     } else if (
-      item.unique_id == "87" &&
+      item.unique_id == "1462" &&
       pathName.startsWith(`/${params.lang}/education`)
     ) {
       item.active = true;
@@ -225,7 +225,7 @@ export default function SideBarContent({
                   </Tooltip>
                 </li>
               )}
-              {item.unique_id == 87 ? (
+              {item.unique_id == 1462 ? (
                 <li style={{ order: "-2" }}>
                   <div onClick={handleTrainingBtn} data-tooltip-id={item.name}>
                     <div
@@ -243,7 +243,7 @@ export default function SideBarContent({
                       <span className="ps-[15px]">
                         <ListMenuSvgModule
                           item={{
-                            unique_id: 87,
+                            unique_id: 1462,
                             active: pathName.includes(`/${params.lang}/education`),
                           }}
                         />
