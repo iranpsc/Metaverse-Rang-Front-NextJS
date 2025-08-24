@@ -38,7 +38,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
   events: initialEvents,
   mainData,
   params,
-  selectedFilters,
+  
   token,
 }: CalendarFilterProps) => {
   const [likesMap, setLikesMap] = useState<Record<number, number>>({});
@@ -290,27 +290,8 @@ const EventList: React.FC<CalendarFilterProps> = ({
       console.error("خطا در ارسال لایک:", error);
     }
   };
+  const visibleEvents = events.slice(0, visibleCount);
 
-  const colorMap: Record<string, string> = {
-    red: "#ED2E2E",
-    blue: "#0066FF",
-    yellow: "#FFC700",
-    green: "#32DA6B",
-    pink: "#ff00ff",
-  };
-  const isAllSelected =
-    selectedFilters.length === 0 || selectedFilters.includes("all");
-
-  const filteredEvent = isAllSelected
-    ? events
-    : events.filter((event) => {
-      const color = event.color?.toLowerCase();
-      return selectedFilters.some(
-        (filterColor: any) => color === colorMap[filterColor]
-      );
-    });
-
-  const visibleEvents = filteredEvent.slice(0, visibleCount);
   return (
     <>
       {visibleEvents.map((event) => {

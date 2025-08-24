@@ -71,6 +71,5 @@ export interface CalendarFilterProps {
   events: MappedEventItem[];
   mainData: any;
   params: any;
-  selectedFilters: any;
   token: string | null;
 }
