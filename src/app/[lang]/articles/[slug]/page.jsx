@@ -20,7 +20,12 @@ import ArticleHeader from "./components/ArticleHeader";
 import AuthorSection from "./components/AuthorSection";
 import ArticleImage from "./components/ArticleImage";
 import ArticleBody from "./components/ArticleBody";
-import ListingsGrid from "./components/ListingsGrid";
+import SideCard from "./components/SideCard";
+import PopularArticlesSlider from "./components/PopularArticlesSlider";
+import RelatedArticlesSlider from "./components/RelatedArticlesSlider"
+import PrevNextArticles from "./components/PrevNextArticles";
+import AuthorCard from "./components/AuthorCard"
+
 
 
 const DynamicSideBar = dynamic(() => import("@/components/module/sidebar/SideBar"));
@@ -65,6 +70,7 @@ export default async function ArticlePage({ params }) {
     }
 
     return (
+
       <div className="flex h-screen overflow-hidden min-w-[340px]" dir={langData.direction}>
         <DynamicSideBar
           tabsMenu={updatedTabsMenu}
@@ -74,27 +80,42 @@ export default async function ArticlePage({ params }) {
           pageSide="citizen"
         />
 
-        <section className="w-full overflow-y-auto relative light-scrollbar bg-[#f8f8f8] mt-[60px] lg:mt-0 lg:pt-0">
+        <section className="w-full overflow-y-auto relative light-scrollbar dark:dark-scrollbar bg-[#f8f8f8] dark:bg-black mt-[60px] lg:mt-0 lg:pt-0">
           <div className="px-12">
             <BreadCrumb params={params} />
           </div>
 
-          <div className="mainContainer w-full h-auto flex flex-col gap-5  items-center  font-['AzarMehr'] lg:flex-row lg:items-start p-5 xl:px-10">
-            <div className="flex flex-col gap-10 w-full items-center px-5 lg:px-10 py-5 lg:w-[70%] 3xl:w-[80%] rounded-xl bg-white shadow-lg">
-              <AuthorSection author={article.author} date={article.date} excerpt={article.excerpt} title={article.title}/>
-              <ArticleHeader title={article.title}
-                author={article.author}
-                date={article.date}
-                description={article.description} />
+          <div className="mainContainer  w-full h-auto flex flex-col gap-5  items-center  font-['AzarMehr'] lg:flex-row lg:items-start  px-5 lg:px-10">
+            <div className="  lg:w-[70%] 3xl:w-[80%]">
+              <div className="flex flex-col gap-10 w-full items-center  rounded-xl bg-white dark:bg-[#1A1A18] shadow-lg p-5 xl:px-10">
+                <AuthorSection author={article.author} date={article.date} excerpt={article.excerpt} title={article.title} />
+                <ArticleHeader title={article.title}
+                  author={article.author}
+                  date={article.date}
+                  description={article.description} />
 
-              <ArticleImage src={article.image} alt={article.title} />
-              <ArticleBody content={article.content} />
+                <ArticleImage src={article.image} alt={article.title} />
+                <ArticleBody content={article.content} />
+              </div>
+              <div className="w-full mt-10 space-y-28">
+                <PrevNextArticles params={params} />
+                <AuthorCard lang={params.lang} slug={params.slug}  />
+              </div>
             </div>
-            <div className="w-full lg:w-[30%] 3xl:w-[20%]">
-                <ListingsGrid/>
+            <div className="w-full hidden lg:block lg:w-[30%] 3xl:w-[20%]">
+              <SideCard params={params} />
             </div>
+
           </div>
 
+
+
+          <div className="ps-5 lg:ps-10 w-full flex items-center mt-14 lg:mt-20  flex-col gap-14">
+            
+
+            <PopularArticlesSlider params={params} />
+            <RelatedArticlesSlider params={params} />
+          </div>
           <div className="w-full xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
             <DynamicFooter footerTabs={footerTabs} mainData={mainData} />
           </div>

@@ -292,8 +292,10 @@ module.exports = {
     extend: {},
   },
   plugins: [
-    require("tailwindcss"), require("autoprefixer")],
+    require("tailwindcss"), require("autoprefixer") , require('@tailwindcss/typography'),],
+    
   corePlugins: {
     preflight: false,
   },
+
 };
