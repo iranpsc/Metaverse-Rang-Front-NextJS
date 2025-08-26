@@ -11,6 +11,8 @@ interface calendarProps {
   SetStartOfMonthDate: any;
   setEndOfMonthDate: any;
   eventsDay: Array<EventDay>;
+  setSelectedEventDate:any;
+  selectedEventDate:string|null;
 }
 interface EventDay {
   starts_at: string;
@@ -74,6 +76,9 @@ export default function Calendar({
   SetStartOfMonthDate,
   setEndOfMonthDate,
   eventsDay,
+  setSelectedEventDate,
+  selectedEventDate
+
 }: calendarProps) {
   const monthListRef = useRef<HTMLDivElement>(null);
   const yearListRef = useRef<HTMLDivElement>(null);
@@ -84,7 +89,6 @@ export default function Calendar({
   const [showMonthList, setShowMonthList] = useState(false);
   const [showYearList, setShowYearList] = useState(false);
   const [todayDate, setTodayDate] = useState<Date | null>(null);
-  const [selectedEventIds, setSelectedEventIds] = useState<number[]>([]);
   const minYear = isShamsi ? 1398 : 2019;
   const maxYear = isShamsi
     ? toJalaali(new Date()).jy + 5
@@ -250,10 +254,6 @@ export default function Calendar({
     }
   };
 
-  const handleDateClick = (selectedDay: Date) => {
-    setSelectedDate(selectedDay);
-  };
-
   const getCurrentMonthTitle = () => {
     if (isShamsi) {
       const { jy, jm } = toJalaali(currentDate);
@@ -414,6 +414,7 @@ export default function Calendar({
     setShowYearList(false);
   };
 
+
   return (
     <div
       className="xl:text-xl 2xl:text-2xl relative w-full border-[1px] border-solid 
@@ -434,9 +435,9 @@ export default function Calendar({
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
               d="M9 5l7 7-7 7"
             ></path>
           </svg>
@@ -464,9 +465,9 @@ export default function Calendar({
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
               d="M9 5l7 7-7 7"
             ></path>
           </svg>
@@ -487,9 +488,9 @@ export default function Calendar({
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
               d="M9 5l7 7-7 7"
             ></path>
           </svg>
@@ -499,7 +500,7 @@ export default function Calendar({
       {showMonthList && (
         <div
           ref={monthListRef}
-          className={`absolute text-base xl:text-lg 2xl:text-xl top-[80px] border border-solid dark:border-[#454545] border-[#BABABA] w-[70%] bg-white dark:bg-[#080807] dark:sm:bg-black text-black dark:text-[#868B90] rounded-3xl p-4 min-w-[160px] ${
+          className={`absolute text-base  xl:text-lg 2xl:text-xl top-[80px] border border-solid dark:border-[#454545] border-[#BABABA] w-[70%] bg-white dark:bg-[#080807] dark:sm:bg-black text-black dark:text-[#868B90] rounded-3xl p-4 min-w-[160px] ${
             isShamsi ? "left-0" : "right-0"
           }`}
           style={{ zIndex: 10 }}
@@ -511,7 +512,7 @@ export default function Calendar({
             {(isShamsi ? persianMonths : englishMonths).map((month, index) => (
               <span
                 key={index}
-                className=" hover:bg-yellow-500 hover:text-black cursor-pointer rounded-lg py-1 hover:transition-all"
+                className=" dark:hover:bg-yellow-500 hover:bg-blueLink hover:text-white dark:hover:text-black cursor-pointer rounded-lg py-1 hover:transition-all"
                 onClick={() => selectMonth(index)}
               >
                 {month}
@@ -524,30 +525,33 @@ export default function Calendar({
       {showYearList && (
         <div
           ref={yearListRef}
-          className={`absolute text-base xl:text-lg 2xl:text-xl top-[80px] w-[70%] border border-solid dark:border-[#454545] border-[#BABABA] dark:bg-[#080807] bg-white dark:sm:bg-black text-black dark:text-[#868B90] z-50 rounded-3xl p-4 min-w-[160px] transition-all ${
+          className={`absolute text-base   xl:text-lg 2xl:text-xl top-[80px] w-[70%] border border-solid dark:border-[#454545] border-[#BABABA] dark:bg-[#080807] bg-white dark:sm:bg-black text-black dark:text-[#868B90] z-50 rounded-3xl p-4 min-w-[160px] transition-all ${
             isShamsi ? "right-0" : "left-0"
           }`}
           style={{ zIndex: 10 }}
         >
-          <div className="flex justify-between items-center mb-2">
+          <div className="flex  justify-between items-center mb-2">
             <span>{getCurrentMonth()}</span>
 
-            <div className=" flex justify-center items-center">
+            <div
+              style={{ direction: "ltr" }}
+              className=" flex justify-center items-center "
+            >
               <svg
                 onClick={() => canGoPrev && shiftYears("prev")}
                 style={{ visibility: canGoPrev ? "visible" : "hidden" }}
-                className={`w-[25px] cursor-pointer invert dark:invert-0 ${
-                  isShamsi ? "rotate-0" : "rotate-180"
-                }`}
+                className={
+                  "w-[25px] cursor-pointer invert dark:invert-0 rotate-180"
+                }
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 26 26"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M9 5l7 7-7 7"
                 ></path>
               </svg>
@@ -555,30 +559,27 @@ export default function Calendar({
               <svg
                 onClick={() => canGoNext && shiftYears("next")}
                 style={{ visibility: canGoNext ? "visible" : "hidden" }}
-                className={`w-[25px] cursor-pointer invert dark:invert-0 pt-1 ${
-                  isShamsi ? "rotate-[180deg]" : "rotate-0"
-                }`}
+                className={"w-[25px] cursor-pointer invert dark:invert-0 pt-1 "}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 26 26"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M9 5l7 7-7 7"
                 ></path>
               </svg>
-             
             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-2 text-center font-['AzarMehr'] max-h-[260px]">
+          <div className="grid grid-cols-3 gap-2 text-center font-['AzarMehr'] max-h-[260px] [direction:ltr]">
             {getDynamicYears().map((year, index) => (
               <span
                 key={index}
-                className="hover:bg-yellow-500 hover:text-black cursor-pointer rounded-lg py-1 hover:transition-all"
+                className="dark:hover:bg-yellow-500 hover:bg-blueLink hover:text-white dark:hover:text-black cursor-pointer rounded-lg py-1 hover:transition-all"
                 onClick={() => {
                   selectYear(year);
                   setYearOffset(0);
@@ -612,6 +613,7 @@ export default function Calendar({
           }
 
           const { currentDay, jalaaliDate } = day;
+
           const dayNumber = isShamsi
             ? jalaaliDate?.jd ?? currentDay.getDate()
             : currentDay.getDate();
@@ -722,36 +724,61 @@ export default function Calendar({
               uniqueColorValues.push(color);
             }
           });
+         const handleDateClick = (currentDay: Date) => {
+  const clickedDateStr = isShamsi
+    ? `${jy}/${String(jm).padStart(2, "0")}/${String(jd).padStart(2, "0")}`
+    : currentDay.toDateString();
+
+  // اگه کاربر دوباره روی همون تاریخ کلیک کرد
+  if (selectedEventDate === clickedDateStr) {
+    setSelectedEventDate(null);
+    setSelectedDate(null);
+    return;
+  }
+
+  setSelectedDate(currentDay);
+
+  if (currentEvents.length > 0) {
+    setSelectedEventDate(clickedDateStr);
+  } else {
+    setSelectedEventDate(null);
+    console.log("No event on this date");
+  }
+};
 
           return (
             <div
               key={index}
-              className={`calendar-day flex flex-row-reverse  sm:max-h-[45px] md:max-h-[300px] justify-between my-3  md:my-1 lg:my-2 xl:my-[10px]
-                 2xl:my-3 items-center w-full h-full rounded-lg text-black dark:text-white
-                  hover:bg-[#0066FF4D] dark:hover:bg-[#FFC70033] cursor-pointer
-                   relative ${
-                     selectedDate &&
-                     selectedDate.getTime() === currentDay.getTime()
-                       ? "bg-[#0066FF4D] dark:bg-[#FFC70033] text-blueLink dark:text-[#ffc800ea] font-bold"
-                       : "bg-gray-100 hover:bg-gray-200"
-                   } `}
+              className={`calendar-day box-border w-full h-full rounded-lg text-black dark:text-white cursor-pointer relative
+    flex flex-row-reverse items-center justify-between sm:max-h-[45px] md:max-h-[300px] my-3 md:my-1 lg:my-2 xl:my-[10px]
+    hover:bg-[#0066FF4D] dark:hover:bg-[#FFC70033]
+    ${
+      selectedDate?.getTime() === currentDay.getTime()
+        ? "bg-[#0066FF4D] outline outline-[2px] outline-blueLink dark:outline-dark-yellow dark:bg-[#FFC70033] font-bold"
+        : "bg-gray-100 hover:bg-gray-200"
+    }`}
               onClick={() => {
                 handleDateClick(currentDay);
-                setSelectedEventIds(currentEventIds);
-                //        console.log("Selected Event IDs:", currentEventIds);
               }}
             >
               <div className="flex flex-col items-end justify-start gap-1 px-1 w-1/3">
                 {eventDots}
                 {emptyDots}
               </div>
+
               <div
-                className={`w-1/3  inset-0 flex justify-center items-center ${
-                  isToday ? "color: dark:text-dark-yellow text-blueLink" : ""
-                }`}
+                className={`w-1/3 flex justify-center items-center
+      ${
+        selectedDate?.getTime() === currentDay.getTime()
+          ? "text-blueLink dark:text-dark-yellow"
+          : isToday
+          ? "text-blueLink dark:text-dark-yellow"
+          : ""
+      }`}
               >
                 {switchDigits(dayNumber, params.lang)}
               </div>
+
               <div className="w-1/3"></div>
             </div>
           );

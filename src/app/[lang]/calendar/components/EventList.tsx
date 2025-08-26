@@ -3,12 +3,15 @@ import htmlTruncate from "html-truncate";
 import { useState, useEffect } from "react";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { switchDigits } from "@/components/utils/DigitSwitch";
-import type { EventItem } from "@/types/pages/calendarPage";
-import type { CalendarFilterProps } from "@/types/pages/calendarPage";
-import { redirectToSSOLogin } from "@/utils/authRedirect";
-import { usePathname } from "next/navigation";
 import moment from "moment-jalaali";
+import { Like, Dislike, View } from "@/components/svgs/SvgEducation";
 import SyncLoader from "react-spinners/SyncLoader";
+import LoginButtonModule from "@/components/module/singleVideo/LoginButtonModule";
+import {
+  MappedEventItem,
+  CalendarFilterProps,
+  EventItem,
+} from "@/utils/mapEvents";
 
 function parseJalaliDatetime(jalaliStr: string): Date {
   return moment(jalaliStr, "jYYYY/jMM/jDD HH:mm").toDate();
@@ -31,14 +34,13 @@ function getTimeRemaining(targetDate: Date) {
   return { days, hours, minutes, seconds };
 }
 
-const EventList = ({
+const EventList: React.FC<CalendarFilterProps> = ({
   events: initialEvents,
   mainData,
   params,
-  selectedFilters,
+  
   token,
 }: CalendarFilterProps) => {
-  const pathname = usePathname();
   const [likesMap, setLikesMap] = useState<Record<number, number>>({});
   const [disLikesMap, setDisLikesMap] = useState<Record<number, number>>({});
   const [userLikedMap, setUserLikedMap] = useState<Record<number, boolean>>({});
@@ -46,8 +48,9 @@ const EventList = ({
     Record<number, boolean>
   >({});
   const [hasMore, setHasMore] = useState(true);
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
-  const [events, setEvents] = useState<EventItem[]>(initialEvents);
+  const [events, setEvents] = useState<MappedEventItem[]>(initialEvents);
   const [visibleCount, setVisibleCount] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -96,7 +99,7 @@ const EventList = ({
         const data = await res.json();
 
         if (data.data && data.data.length > 0) {
-          const mappedEvents: EventItem[] = data.data.map(
+          const mappedEvents: MappedEventItem[] = data.data.map(
             (item: EventItem) => ({
               id: item.id,
               title: item.title,
@@ -105,6 +108,7 @@ const EventList = ({
               start: item.starts_at,
               end: item.ends_at,
               color: item.color,
+              btnName: item.btn_name,
             })
           );
 
@@ -134,12 +138,10 @@ const EventList = ({
 
     setLoading(false);
   };
-
-  const filteredEvents = selectedFilters.includes("all")
-    ? events
-    : events.filter((event) =>
-        selectedFilters.includes(event.color?.toLowerCase())
-      );
+  useEffect(() => {
+    setVisibleCount(5); // یا هر تعداد پیش‌فرض که داری
+    setHasMore(events.length > 5);
+  }, [events]);
 
   const ThemedLoader = () => {
     const [isDark, setIsDark] = useState(false);
@@ -182,135 +184,114 @@ const EventList = ({
     setUserLikedMap(initialUserLiked);
     setUserDisLikedMap(initialUserDisLiked);
   }, [events]);
-  useEffect(() => {
-  }, [events]);
-const sendLike = async (eventId: number) => {
-  if (!token) {
-    redirectToSSOLogin(pathname || '/'); // اگر pathname null باشد، '/' استفاده می‌شود
-    return;
-  }
-
-  if (userLikedMap[eventId]) {
-    return;
-  }
-
-  setLikesMap((prev) => ({
-    ...prev,
-    [eventId]: (prev[eventId] ?? 0) + 1,
-  }));
-
-  setDisLikesMap((prev) => ({
-    ...prev,
-    [eventId]: Math.max((prev[eventId] ?? 0) - 1, 0),
-  }));
-
-  setUserLikedMap((prev) => ({
-    ...prev,
-    [eventId]: true,
-  }));
-
-  setUserDisLikedMap((prev) => ({
-    ...prev,
-    [eventId]: false,
-  }));
-
-  try {
-    const response = await fetch(
-      `https://api.rgb.irpsc.com/api/calendar/events/${eventId}/interact`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ liked: 1 }),
-      }
-    );
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error("Response error details:", errorText);
-      throw new Error("خطا در ارسال لایک");
+  useEffect(() => { }, [events]);
+  const sendLike = async (eventId: number) => {
+    if (!token) {
+      setShowLoginModal(true);
+      return;
     }
-  } catch (error) {
-    console.error("خطا در ارسال لایک:", error);
-  }
-};
 
-const disLike = async (eventId: number) => {
-  if (!token) {
-    redirectToSSOLogin(pathname || '/'); // اگر pathname null باشد، '/' استفاده می‌شود
-    return;
-  }
-
-  if (userDisLikedMap[eventId]) {
-    return;
-  }
-
-  setDisLikesMap((prev) => ({
-    ...prev,
-    [eventId]: (prev[eventId] ?? 0) + 1,
-  }));
-
-  setLikesMap((prev) => ({
-    ...prev,
-    [eventId]: Math.max((prev[eventId] ?? 0) - 1, 0),
-  }));
-
-  setUserDisLikedMap((prev) => ({
-    ...prev,
-    [eventId]: true,
-  }));
-
-  setUserLikedMap((prev) => ({
-    ...prev,
-    [eventId]: false,
-  }));
-
-  try {
-    const response = await fetch(
-      `https://api.rgb.irpsc.com/api/calendar/events/${eventId}/interact`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ liked: 0 }),
-      }
-    );
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error("Response error details:", errorText);
-      throw new Error("خطا در ارسال لایک");
+    if (userLikedMap[eventId]) {
+      return;
     }
-  } catch (error) {
-    console.error("خطا در ارسال لایک:", error);
-  }
-};
 
-  const colorMap: Record<string, string> = {
-    red: "#ED2E2E",
-    blue: "#0066FF",
-    yellow: "#FFC700",
-    green: "#32DA6B",
-    pink: "#ff00ff",
+    setLikesMap((prev) => ({
+      ...prev,
+      [eventId]: (prev[eventId] ?? 0) + 1,
+    }));
+
+    setDisLikesMap((prev) => ({
+      ...prev,
+      [eventId]: Math.max((prev[eventId] ?? 0) - 1, 0),
+    }));
+
+    setUserLikedMap((prev) => ({
+      ...prev,
+      [eventId]: true,
+    }));
+
+    setUserDisLikedMap((prev) => ({
+      ...prev,
+      [eventId]: false,
+    }));
+
+    try {
+      const response = await fetch(
+        `https://api.rgb.irpsc.com/api/calendar/events/${eventId}/interact`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ liked: 1 }),
+        }
+      );
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Response error details:", errorText);
+        throw new Error("خطا در ارسال لایک");
+      }
+    } catch (error) {
+      console.error("خطا در ارسال لایک:", error);
+    }
   };
 
-  const isAllSelected =
-    selectedFilters.length === 0 || selectedFilters.includes("all");
+  const disLike = async (eventId: number) => {
+    if (!token) {
+      setShowLoginModal(true);
+      return;
+    }
 
-  const filteredEvent = isAllSelected
-    ? events
-    : events.filter((event) => {
-        const color = event.color?.toLowerCase();
-        return selectedFilters.some(
-          (filterColor: any) => color === colorMap[filterColor]
-        );
-      });
+    if (userDisLikedMap[eventId]) {
+      return;
+    }
 
-  const visibleEvents = filteredEvent.slice(0, visibleCount);
+    setDisLikesMap((prev) => ({
+      ...prev,
+      [eventId]: (prev[eventId] ?? 0) + 1,
+    }));
+
+    setLikesMap((prev) => ({
+      ...prev,
+      [eventId]: Math.max((prev[eventId] ?? 0) - 1, 0),
+    }));
+
+    setUserDisLikedMap((prev) => ({
+      ...prev,
+      [eventId]: true,
+    }));
+
+    setUserLikedMap((prev) => ({
+      ...prev,
+      [eventId]: false,
+    }));
+
+    try {
+      const response = await fetch(
+        `https://api.rgb.irpsc.com/api/calendar/events/${eventId}/interact`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ liked: 0 }),
+        }
+      );
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Response error details:", errorText);
+        throw new Error("خطا در ارسال لایک");
+      }
+    } catch (error) {
+      console.error("خطا در ارسال لایک:", error);
+    }
+  };
+  const visibleEvents = events.slice(0, visibleCount);
+
   return (
     <>
       {visibleEvents.map((event) => {
@@ -343,23 +324,18 @@ const disLike = async (eventId: number) => {
             <div className="flex flex-col w-[97%] lg:w-[95%] gap-3 sm:gap-0 items-center sm:flex-row-reverse sm:justify-between">
               <div className="w-[96%] flex justify-between text-base font-normal font-[Vazir] sm:w-[350px] sm:ml-2 sm:self-center">
                 <div className="flex items-center  gap-1">
-                  <svg
-                    className={`cursor-pointer stroke-black dark:stroke-white ${
-                      userLikedMap[event.id]
-                        ? "fill-black dark:fill-white"
-                        : "fill-none"
-                    }`}
+                  <Like
                     onClick={() => sendLike(event.id)}
-                    width="17"
-                    viewBox="0 0 25 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M6.33333 10.6654V21.332C6.33333 21.6857 6.19286 22.0248 5.94281 22.2748C5.69276 22.5249 5.35362 22.6654 5 22.6654H2.33333C1.97971 22.6654 1.64057 22.5249 1.39052 22.2748C1.14048 22.0248 1 21.6857 1 21.332V11.9987C1 11.6451 1.14048 11.3059 1.39052 11.0559C1.64057 10.8058 1.97971 10.6654 2.33333 10.6654H6.33333ZM6.33333 10.6654C7.74782 10.6654 9.10438 10.1035 10.1046 9.10327C11.1048 8.10307 11.6667 6.74652 11.6667 5.33203V3.9987C11.6667 3.29145 11.9476 2.61318 12.4477 2.11308C12.9478 1.61298 13.6261 1.33203 14.3333 1.33203C15.0406 1.33203 15.7189 1.61298 16.219 2.11308C16.719 2.61318 17 3.29145 17 3.9987V10.6654H21C21.7072 10.6654 22.3855 10.9463 22.8856 11.4464C23.3857 11.9465 23.6667 12.6248 23.6667 13.332L22.3333 19.9987C22.1416 20.8167 21.7778 21.519 21.2969 22C20.8159 22.4809 20.2438 22.7145 19.6667 22.6654H10.3333C9.27247 22.6654 8.25505 22.2439 7.50491 21.4938C6.75476 20.7436 6.33333 19.7262 6.33333 18.6654"
-                      strokeWidth="2"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                    width="20"
+                    height="24"
+                    className={`
+    cursor-pointer
+    ${userLikedMap[event.id]
+                        ? "stroke-[#636363] dark:stroke-[#b3afaf]"
+                        : "stroke-black dark:stroke-white"
+                      }
+  `}
+                  />
 
                   <span className="like-count mt-[2px]">
                     {switchDigits(
@@ -368,24 +344,19 @@ const disLike = async (eventId: number) => {
                     )}
                   </span>
                 </div>
-                <div className="flex items-center  gap-1 stroke-black dark:stroke-white fill-none">
-                  <svg
-                    className={`cursor-pointer rotate-180 stroke-black dark:stroke-white ${
-                      userDisLikedMap[event.id]
-                        ? "fill-black dark:fill-white"
-                        : "fill-none"
-                    }`}
+                <div className="flex items-center  gap-1 ">
+                  <Dislike
                     onClick={() => disLike(event.id)}
-                    width="17"
-                    viewBox="0 0 25 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M6.33333 10.6654V21.332C6.33333 21.6857 6.19286 22.0248 5.94281 22.2748C5.69276 22.5249 5.35362 22.6654 5 22.6654H2.33333C1.97971 22.6654 1.64057 22.5249 1.39052 22.2748C1.14048 22.0248 1 21.6857 1 21.332V11.9987C1 11.6451 1.14048 11.3059 1.39052 11.0559C1.64057 10.8058 1.97971 10.6654 2.33333 10.6654H6.33333ZM6.33333 10.6654C7.74782 10.6654 9.10438 10.1035 10.1046 9.10327C11.1048 8.10307 11.6667 6.74652 11.6667 5.33203V3.9987C11.6667 3.29145 11.9476 2.61318 12.4477 2.11308C12.9478 1.61298 13.6261 1.33203 14.3333 1.33203C15.0406 1.33203 15.7189 1.61298 16.219 2.11308C16.719 2.61318 17 3.29145 17 3.9987V10.6654H21C21.7072 10.6654 22.3855 10.9463 22.8856 11.4464C23.3857 11.9465 23.6667 12.6248 23.6667 13.332L22.3333 19.9987C22.1416 20.8167 21.7778 21.519 21.2969 22C20.8159 22.4809 20.2438 22.7145 19.6667 22.6654H10.3333C9.27247 22.6654 8.25505 22.2439 7.50491 21.4938C6.75476 20.7436 6.33333 19.7262 6.33333 18.6654"
-                      strokeWidth="2"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                    width="20"
+                    height="24"
+                    className={`
+    cursor-pointer
+    ${userDisLikedMap[event.id]
+                        ? "stroke-slate-500 dark:stroke-slate-300"
+                        : "stroke-black dark:stroke-white"
+                      }
+  `}
+                  />
 
                   <span className="dislike-count">
                     {" "}
@@ -395,23 +366,8 @@ const disLike = async (eventId: number) => {
                     )}{" "}
                   </span>
                 </div>
-                <div className="flex items-center  gap-1 stroke-black dark:stroke-white fill-none">
-                  <svg
-                    width="25"
-                    viewBox="0 0 32 32"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M13.3333 16C13.3333 16.7072 13.6143 17.3855 14.1144 17.8856C14.6145 18.3857 15.2928 18.6667 16 18.6667C16.7072 18.6667 17.3855 18.3857 17.8856 17.8856C18.3857 17.3855 18.6667 16.7072 18.6667 16C18.6667 15.2928 18.3857 14.6145 17.8856 14.1144C17.3855 13.6143 16.7072 13.3333 16 13.3333C15.2928 13.3333 14.6145 13.6143 14.1144 14.1144C13.6143 14.6145 13.3333 15.2928 13.3333 16Z"
-                      strokeWidth="2"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M28 16C24.8 21.3333 20.8 24 16 24C11.2 24 7.2 21.3333 4 16C7.2 10.6667 11.2 8 16 8C20.8 8 24.8 10.6667 28 16Z"
-                      strokeWidth="2"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                <div className="flex items-center size-7 gap-1 stroke-black dark:stroke-white ">
+               <View  className="size-full   "/>
 
                   <span> {switchDigits(event.views, params.lang)}</span>
                 </div>
@@ -443,7 +399,8 @@ const disLike = async (eventId: number) => {
                       [event.id]: !prev[event.id],
                     }))
                   }
-                  className="dark:text-dark-yellow text-xl text-blueLink bg-transparent hover:underline cursor-pointer"
+                  className="dark:text-dark-yellow text-blueLink bg-transparent hover:underline cursor-pointer text-base 
+ 2xl:text-xl"
                 >
                   {showFullMap[event.id] ? "" : findByUniqueId(mainData, 271)}
                 </button>
@@ -451,15 +408,18 @@ const disLike = async (eventId: number) => {
             </div>
 
             <div
-              className="px-4                   mb-2 w-[97%] lg:w-[95%] lg:px-7 font-[AzarMehrFD] h-[360px]
+              className="px-4                   mb-2 w-[97%] lg:w-[95%] lg:px-7 font-[AzarMehrFD] 
  bg-gradient-to-r from-[#CFCFCFE5] to-[#D8D8D800]
  dark:bg-gradient-to-r dark:from-[#ffffff09] dark:to-[#00000000] dark:text-dark-yellow text-blueLink rounded-[32px] border-[1px] border-solid dark:border-[#ffffff25] border-[#CFCFCFE5]  shadow-lg p-4  flex flex-col  sm:flex-row-reverse sm:h-[250px]"
             >
               <div className="  flex flex-col justify-start  sm:order-1 sm:content-start sm:w-[30%] sm:min-w-[194px]">
-                <h2 className="text-[16px] text font-bold  text-black dark:text-white pb-6 sm:mt-4 sm:pb-6 sm:text-start 2xl:text-xl xl:text-lg lg:text-base ">
+                <h2 className="text-[16px] text font-bold self-center sm:self-start  text-black dark:text-white pb-6 sm:mt-4 sm:pb-6 sm:text-start 2xl:text-xl xl:text-lg lg:text-base ">
                   {findByUniqueId(mainData, 583)} :
                 </h2>
-                <div className="flex justify-between  items-center">
+                <div
+                  className="flex justify-between  items-center"
+                  style={{ direction: "ltr" }}
+                >
                   <div className="text-center">
                     <div
                       id="start-days"
@@ -532,7 +492,10 @@ const disLike = async (eventId: number) => {
                 <h2 className="text-[16px] font-bold  text-black dark:text-white pb-6 sm:pb-6  sm:mt-4 sm:text-start 2xl:text-xl xl:text-lg lg:text-base pt-6 sm:pt-0">
                   {findByUniqueId(mainData, 584)} :
                 </h2>
-                <div className="flex justify-between items-center ">
+                <div
+                  className="flex justify-between  items-center "
+                  style={{ direction: "ltr" }}
+                >
                   <div className="text-center ">
                     <div
                       id="end-days"
@@ -608,7 +571,7 @@ const disLike = async (eventId: number) => {
                   rel="noopener noreferrer"
                   className="dark:bg-dark-yellow bg-blueLink text-white dark:text-black font-bold py-2 px-4 w-full mb-2 h-11 self-end rounded-[28px] sm:text-lg sm:font-semibold sm:w-[60%] text-center justify-center items-center flex"
                 >
-                  <span>{findByUniqueId(mainData, 1449)}</span>
+                  <span>{event.btnName}</span>
                 </a>
               </div>
             </div>
@@ -623,11 +586,10 @@ const disLike = async (eventId: number) => {
             onClick={showMore}
             disabled={loading}
             className={`flex justify-center items-center gap-2
-      ${
-        loading
-          ? "cursor-not-allowed opacity-60"
-          : "hover:border-blueLink hover:dark:border-dark-yellow"
-      }
+      ${loading
+                ? "cursor-not-allowed opacity-60"
+                : "hover:border-blueLink hover:dark:border-dark-yellow"
+              }
       bg-transparent text-blueLink dark:text-dark-yellow 
       rounded-[10px] px-[40px] py-[20px] base-transition-1 
       border-2 border-transparent`}
@@ -636,6 +598,26 @@ const disLike = async (eventId: number) => {
           </button>
         )}
       </div>
+      {showLoginModal && (
+        <div className="fixed inset-0 backdrop-blur bg-black/30 flex items-center justify-center z-50 p-5">
+          <div className="bg-white dark:bg-dark-background p-6 rounded-lg shadow-lg max-w-sm w-full">
+            <h2 className="text-lg md:text-xl font-azarMehr font-bold text-center dark:text-white mb-4">
+              {findByUniqueId(mainData, 1459)}{" "}
+            </h2>
+            <div className="flex gap-2 justify-between items-center w-full mt-5">
+              <LoginButtonModule params={mainData} />
+              <div className="w-1/2 flex justify-center">
+                <button
+                  className="w-full bg-dark-gray dark:bg-extraGray text-black dark:text-white font-azarMehr py-2 px-2 md:px-4 font-medium text-[15px] rounded-[10px] hover:bg-gray-400 active:scale-105 duration-300"
+                  onClick={() => setShowLoginModal(false)}
+                >
+                  {findByUniqueId(mainData, 884)}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };
