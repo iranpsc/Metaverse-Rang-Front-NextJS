@@ -52,7 +52,7 @@ export default function ({ params }: any) {
       font: "font-bold",
       link: `/${params.lang}/education/category/dynasty`,
     },
-     {
+    {
       name: "calendar",
       en: "events calendar",
       fa: "تقویم رویداد ها",
@@ -305,6 +305,20 @@ export default function ({ params }: any) {
       font: "font-bold",
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
+    {
+      name: `articles`,
+      en: `articles`,
+      fa: `مقالات`,
+      font: "font-bold",
+      link: `/${params.lang}/articles`,
+    },
+    {
+      name: `${params.slug}`,
+      en: `${params.slug}`,
+      fa: `${params.slug}`,
+      font: "font-bold",
+      link: `/${params.lang}/articles/${params.slug}`,
+    },
   ];
   const pathname = usePathname();
   let temp = pathname.split("/");
@@ -332,53 +346,49 @@ export default function ({ params }: any) {
     <div className="flex flex-wrap font-azarMehr text-[16px] lg:text-[18px] 2xl:text-[20px] py-[20px] capitalize">
       {direction == "rtl"
         ? buildedArray.map((x, index) => (
-            <Link
-              href={x.link}
-              className={`${
-                index == buildedArray.length - 1
-                  ? "text-black"
-                  : "text-blueLink"
+          <Link
+            href={x.link}
+            className={`${index == buildedArray.length - 1
+                ? "text-black"
+                : "text-blueLink"
               } 
-              dark:${
-                index == buildedArray.length - 1
-                  ? "text-white"
-                  : "text-dark-yellow"
-              } ${x.font} flex items-center`}
-              key={index}
-            >
-              {/* TEXT */}
-              {x.fa}
-
-              {buildedArray.length - 1 != index && (
-                <ArrowMenu
-                  className={`w-[7px] h-[13px] stroke-gray dark:stroke-white mx-2 rotate-180`}
-                />
-              )}
-            </Link>
-          ))
-        : buildedArray.map((x, index) => (
-            <Link
-              href={x.link}
-              className={`${
-                index == buildedArray.length - 1
-                  ? "text-black"
-                  : "text-blueLink"
-              } 
-            dark:${
-              index == buildedArray.length - 1
+              dark:${index == buildedArray.length - 1
                 ? "text-white"
                 : "text-dark-yellow"
-            } ${x.font} flex items-center`}
-              key={index}
-            >
-              {x.en}
-              {buildedArray.length - 1 != index && (
-                <ArrowMenu
-                  className={`w-[7px] h-[13px] stroke-gray dark:stroke-white mx-2 rotate-0`}
-                />
-              )}
-            </Link>
-          ))}
+              } ${x.font} flex items-center`}
+            key={index}
+          >
+            {/* TEXT */}
+            {x.fa}
+
+            {buildedArray.length - 1 != index && (
+              <ArrowMenu
+                className={`w-[7px] h-[13px] stroke-gray dark:stroke-white mx-2 rotate-180`}
+              />
+            )}
+          </Link>
+        ))
+        : buildedArray.map((x, index) => (
+          <Link
+            href={x.link}
+            className={`${index == buildedArray.length - 1
+                ? "text-black"
+                : "text-blueLink"
+              } 
+            dark:${index == buildedArray.length - 1
+                ? "text-white"
+                : "text-dark-yellow"
+              } ${x.font} flex items-center`}
+            key={index}
+          >
+            {x.en}
+            {buildedArray.length - 1 != index && (
+              <ArrowMenu
+                className={`w-[7px] h-[13px] stroke-gray dark:stroke-white mx-2 rotate-0`}
+              />
+            )}
+          </Link>
+        ))}
     </div>
   );
 }

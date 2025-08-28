@@ -128,7 +128,7 @@ export default function ShareArticlePage({
               {/* copy link */}
               <div data-tooltip-id="unique-tooltip" className="relative flex justify-end items-center mt-8 w-[95%] rounded-[20px] px-4 py-1 shadow-md dark:bg-[#000] border border-gray">
                 <p
-                  className="absolute start-2 cursor-pointer rounded-[40px] text-center font-azarMehr text-[14px] font-bold py-2 text-[#f9f9f9] bg-[#0000ffd9] dark:bg-dark-yellow dark:text-[#000]"
+                  className="absolute start-2 cursor-pointer rounded-[18px] w-max text-center font-azarMehr text-[14px] font-bold py-2 px-5 text-[#f9f9f9] bg-[#0000ffd9] dark:bg-dark-yellow dark:text-[#000]"
                   onClick={handleCopyClick}
                 >
                   {findByUniqueId(mainData, 323)}
