@@ -24,12 +24,13 @@ const AuthorCard = ({ lang, slug }: AuthorCardProps) => {
                 <div className="flex flex-col gap-4 mt-[-85px]">
                     {/* عکس پروفایل */}
                     <div className="relative w-[120px] h-[120px] bg-lightGray rounded-full overflow-hidden border shadow-md ">
-                                        {/* <Image
-                            src={author.avatar}
+                        <Image
+                            src={author.avatar || "/articles/author/fallback-avatar.jpg"}
                             alt={author.name}
-                            fill
                             className="object-cover"
-                        /> */}
+                            width={120}
+                            height={120}
+                        />
 
                     </div>
                     <div className="flex flex-col text-center">

@@ -15,21 +15,44 @@ import { getStaticMenu } from "@/components/utils/constants";
 
 import BreadCrumb from "@/components/shared/BreadCrumb";
 
-// جداشده به کامپوننت‌های مستقل
 import ArticleHeader from "./components/ArticleHeader";
 import AuthorSection from "./components/AuthorSection";
 import ArticleImage from "./components/ArticleImage";
 import ArticleBody from "./components/ArticleBody";
 import SideCard from "./components/SideCard";
 import PopularArticlesSlider from "./components/PopularArticlesSlider";
-import RelatedArticlesSlider from "./components/RelatedArticlesSlider"
+import RelatedArticlesSlider from "./components/RelatedArticlesSlider";
 import PrevNextArticles from "./components/PrevNextArticles";
-import AuthorCard from "./components/AuthorCard"
-
-
+import AuthorCard from "./components/AuthorCard";
+import ShowSocialWrapper from "./components/ShowSocialWrapper";
 
 const DynamicSideBar = dynamic(() => import("@/components/module/sidebar/SideBar"));
 const DynamicFooter = dynamic(() => import("@/components/module/footer/Footer"));
+
+export async function generateMetadata({ params }) {
+  const article = articles.find(a => a.slug === params.slug);
+
+  if (!article) return { title: "مقاله یافت نشد" };
+
+  return {
+    title: article.title,
+    description: article.excerpt || article.description || "",
+    authors: [{ name: article.author.name }],
+    openGraph: {
+      title: article.title,
+      description: article.excerpt || article.description || "",
+      images: article.image ? [{ url: article.image }] : [],
+      url: `${process.env.NEXT_PUBLIC_SITE_URL}/${params.lang}/articles/${article.slug}`,
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: article.title,
+      description: article.excerpt || article.description || "",
+      images: article.image ? [article.image] : [],
+    },
+  };
+}
 
 export default async function ArticlePage({ params }) {
   try {
@@ -69,9 +92,37 @@ export default async function ArticlePage({ params }) {
       );
     }
 
-    return (
+    // ✅ JSON-LD Schema
+    const schema = {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: article.title,
+      description: article.excerpt || article.description || "",
+      image: article.image ? [article.image] : undefined,
+      author: {
+        "@type": "Person",
+        name: article.author.name,
+      },
+      datePublished: article.date,
+      mainEntityOfPage: {
+        "@type": "WebPage",
+        "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/${params.lang}/articles/${article.slug}`,
+      },
+      publisher: {
+        "@type": "Organization",
+        name: "متاورس رنگ",
+        logo: {
+          "@type": "ImageObject",
+          url: "/logo.png",
+        },
+      },
+    };
 
+    return (
       <div className="flex h-screen overflow-hidden min-w-[340px]" dir={langData.direction}>
+        {/* Schema */}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+
         <DynamicSideBar
           tabsMenu={updatedTabsMenu}
           langData={langData}
@@ -85,34 +136,28 @@ export default async function ArticlePage({ params }) {
             <BreadCrumb params={params} />
           </div>
 
-          <div className="mainContainer  w-full h-auto flex flex-col gap-5  items-center  font-['AzarMehr'] lg:flex-row lg:items-start  px-5 lg:px-10">
-            <div className="  lg:w-[70%] 3xl:w-[80%]">
-              <div className="flex flex-col gap-10 w-full items-center  rounded-xl bg-white dark:bg-[#1A1A18] shadow-lg p-5 xl:px-10">
-                <AuthorSection author={article.author} date={article.date} excerpt={article.excerpt} title={article.title} />
-                <ArticleHeader title={article.title}
-                  author={article.author}
-                  date={article.date}
-                  description={article.description} />
+          <div className="mainContainer w-full h-auto flex flex-col gap-5 items-center font-['AzarMehr'] lg:flex-row lg:items-start px-5 lg:px-10">
+            <div className="lg:w-[70%] 3xl:w-[80%]">
+              <div className="flex flex-col gap-10 w-full items-center rounded-xl bg-white dark:bg-[#1A1A18] shadow-lg p-5 xl:px-10">
+                <AuthorSection author={article.author}  date={article.date} excerpt={article.excerpt} title={article.title} content={article.content} />
+                <ArticleHeader title={article.title} author={article.author} date={article.date} description={article.description} />
 
-                <ArticleImage src={article.image} alt={article.title} />
-                <ArticleBody content={article.content} />
+                <ArticleImage key={article.id} article={article} />
+
+                <ArticleBody content={article.content}  tags={article.tags}/>
               </div>
               <div className="w-full mt-10 space-y-28">
+                <ShowSocialWrapper params={params} mainData={mainData} />
                 <PrevNextArticles params={params} />
-                <AuthorCard lang={params.lang} slug={params.slug}  />
+                <AuthorCard lang={params.lang} slug={params.slug} />
               </div>
             </div>
             <div className="w-full hidden lg:block lg:w-[30%] 3xl:w-[20%]">
               <SideCard params={params} />
             </div>
-
           </div>
 
-
-
-          <div className="ps-5 lg:ps-10 w-full flex items-center mt-14 lg:mt-20  flex-col gap-14">
-            
-
+          <div className="ps-5 lg:ps-10 w-full flex items-center mt-14 lg:mt-20 flex-col gap-14">
             <PopularArticlesSlider params={params} />
             <RelatedArticlesSlider params={params} />
           </div>

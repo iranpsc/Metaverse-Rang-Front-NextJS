@@ -3,7 +3,6 @@ import Link from "next/link";
 import Footer from "@/components/module/footer/Footer";
 import SideBar from "@/components/module/sidebar/SideBar";
 import BreadCrumb from "@/components/shared/BreadCrumb";
-import { cookies } from "next/headers";
 import { articles } from "@/components/utils/articles";
 
 import {
