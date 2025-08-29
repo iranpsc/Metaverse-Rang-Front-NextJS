@@ -347,7 +347,7 @@ export default async function LangPage({ params }) {
             <div className="w-full relative lg:h-[350px] 2xl:h-[400px] mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
               {/* <div className="absolute top-0 left-0 w-full h-full bg-cover bg-no-repeat bg-center filter blur-sm "></div> */}
               <Suspense fallback={<div>Loading Header...</div>}>
-                <SectionTimer />
+                <SectionTimer params={params}/>
               </Suspense>
             </div>
 

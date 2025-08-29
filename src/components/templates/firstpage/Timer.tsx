@@ -1,9 +1,17 @@
+
 "use client";
 
 import { azarMehr } from "@/components/utils/fonts";
 import { useState, useEffect } from "react";
 
-export default function TimerSection() {
+interface DynamicTimerProps {
+  daysLabel: string;
+  hoursLabel: string;
+  minutesLabel: string;
+  secondsLabel: string;
+}
+
+export default function DynamicTimer({ daysLabel, hoursLabel, minutesLabel, secondsLabel }: DynamicTimerProps) {
   const [timeRemaining, setTimeRemaining] = useState(calculateTimeRemaining());
 
   function calculateTimeRemaining() {
@@ -47,7 +55,7 @@ export default function TimerSection() {
         </span>
 
         <span className="text-[16px] text-light-primary dark:text-dark-yellow text-azarMehr font-bold text-center w-full pe-0">
-          روز
+          {daysLabel}
         </span>
       </div>
 
@@ -61,7 +69,7 @@ export default function TimerSection() {
           </span>
         </span>
         <span className="text-[16px] text-light-primary dark:text-dark-yellow text-azarMehr font-bold text-center w-full pe-0">
-          ساعت
+          {hoursLabel}
         </span>
       </div>
 
@@ -75,7 +83,7 @@ export default function TimerSection() {
           </span>
         </span>
         <span className="text-[16px] text-light-primary dark:text-dark-yellow text-azarMehr font-bold text-center text-center w-full pe-0">
-          دقیقه
+          {minutesLabel}
         </span>
       </div>
 
@@ -87,7 +95,7 @@ export default function TimerSection() {
         </span>
 
         <span className="text-[16px] text-light-primary dark:text-dark-yellow text-azarMehr font-bold text-center w-full pe-0">
-          ثانیه
+          {secondsLabel}
         </span>
       </div>
     </div>

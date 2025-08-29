@@ -227,151 +227,257 @@ export default function SideBarContent({
               )}
               {item.unique_id == 1462 ? (
                 <li style={{ order: "-2" }}>
-                  <div onClick={handleTrainingBtn} data-tooltip-id={item.name}>
-                    <div
-                      className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px]
-                      group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer menu-transition
-                      ${isClosed ? "justify-start gap-0" : "justify-start gap-2"}`}
-                    >
-                      <ListMenuActiveIconModule
-                        item={{
-                          active: pathName.includes(`/${params.lang}/education`),
-                        }}
-                        languageSelected={langData.code}
-                        isClosed={isClosed}
-                      />
-                      <span className="ps-[15px]">
-                        <ListMenuSvgModule
-                          item={{
-                            unique_id: 1462,
-                            active: pathName.includes(`/${params.lang}/education`),
-                          }}
-                        />
-                      </span>
-                      <div className="w-full flex justify-between items-center">
-                        <ListMenuTitleModule
-                          item={{
-                            active: pathName.includes(`/${params.lang}/education`),
-                            translation:
-                              params.lang.toLowerCase() == "fa"
-                                ? "راهنمای جامع"
-                                : "comprehensive guide",
-                          }}
+                  <Tooltip
+                    title={params.lang.toLowerCase() == "fa" ? "راهنمای جامع" : "Comprehensive guide"}
+                    placement={langData.direction === "rtl" ? "left-end" : "right-end"}
+                    arrow
+                    slotProps={{
+                      tooltip: {
+                        className: `
+            !bg-[#E9E9E9] !text-[#908F95] dark:!bg-[#434343]
+            !font-azarMehr !font-medium dark:!text-white !text-[14px] !top-[-20px]
+            ${isClosed ? "block" : "hidden"}
+          `,
+                      },
+                      arrow: {
+                        className: `!text-[#E9E9E9] dark:!text-[#434343] mt-[6px]`,
+                      },
+                    }}
+                    PopperProps={{
+                      modifiers: [{ name: "offset", options: { offset: [0, -10] } }],
+                    }}
+                  >
+                    <div onClick={handleTrainingBtn}>
+                      <div
+                        className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px]
+            group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer menu-transition
+            ${isClosed ? "justify-start gap-0" : "justify-start gap-2"}`}
+                      >
+                        <ListMenuActiveIconModule
+                          item={{ active: pathName.includes(`/${params.lang}/education`) }}
+                          languageSelected={langData.code}
                           isClosed={isClosed}
                         />
-                        <ListMenuArrow
-                          item={{ name: "trainings" }}
-                          isOpen={trainingDropDown}
-                          isClosed={isClosed}
-                        />
+                        <span className="ps-[15px]">
+                          <ListMenuSvgModule
+                            item={{
+                              unique_id: 1462,
+                              active: pathName.includes(`/${params.lang}/education`),
+                            }}
+                          />
+                        </span>
+                        <div className="w-full flex justify-between items-center">
+                          <ListMenuTitleModule
+                            item={{
+                              active: pathName.includes(`/${params.lang}/education`),
+                              translation:
+                                params.lang.toLowerCase() == "fa"
+                                  ? "راهنمای جامع"
+                                  : "Comprehensive guide",
+                            }}
+                            isClosed={isClosed}
+                          />
+                          <ListMenuArrow
+                            item={{ name: "trainings" }}
+                            isOpen={trainingDropDown}
+                            isClosed={isClosed}
+                          />
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  </Tooltip>
+
+                  {/* Dropdown Content */}
                   <div
                     ref={dropdownRef2}
                     className={`${trainingDropDown ? "h-fit" : "h-0 overflow-hidden"} base-transition-1 bg-slate-100 dark:bg-darkGray`}
                   >
-                    <Link
-                      href={`/${params.lang}/education`}
-                      className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px]
-                      group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer menu-transition
-                      ${isClosed ? "justify-start gap-0" : "justify-start gap-2 ps-3"}`}
+                    {/* Trainings Link */}
+                    <Tooltip
+                      title={params.lang.toLowerCase() == "fa" ? "آموزش‌ها" : "Trainings"}
+                      placement={langData.direction === "rtl" ? "left-end" : "right-end"}
+                      arrow
+                      slotProps={{
+                        tooltip: {
+                          className: `
+              !bg-[#E9E9E9] !text-[#908F95] dark:!bg-[#434343]
+              !font-azarMehr !font-medium dark:!text-white !text-[14px] !top-[-20px]
+              ${isClosed ? "block" : "hidden"}
+            `,
+                        },
+                        arrow: { className: `!text-[#E9E9E9] dark:!text-[#434343] mt-[6px]` },
+                      }}
+                      PopperProps={{
+                        modifiers: [{ name: "offset", options: { offset: [0, -10] } }],
+                      }}
                     >
-                      <span className="ps-[15px]">
-                        <ListMenuSvgModule
-                          item={{
-                            name: "trainers",
-                            active: pathName.endsWith(`/${params.lang}/education`),
-                          }}
-                        />
-                      </span>
-                      <div className="w-full flex justify-between items-center">
-                        <ListMenuTitleModule
-                          item={{
-                            translation:
-                              params.lang.toLowerCase() == "fa"
-                                ? "آموزش‌ها"
-                                : "Trainings",
-                            active: pathName.endsWith(`/${params.lang}/education`),
-                          }}
-                          isClosed={isClosed}
-                        />
-                      </div>
-                    </Link>
-                    <Link
-                      href={`/${params.lang}/education/category/all`}
-                      className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px]
-                      group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer menu-transition
-                      ${isClosed ? "justify-start gap-0" : "justify-start gap-2 ps-3"}`}
-                    >
-                      <span className="ps-[15px]">
-                        <ListMenuSvgModule
-                          item={{
-                            name: "categories",
-                            active: pathName.includes("category/all"),
-                          }}
-                        />
-                      </span>
-                      <div className="w-full flex justify-between items-center">
-                        <ListMenuTitleModule
-                          item={{
-                            translation:
-                              params.lang.toLowerCase() == "fa"
-                                ? "دسته بندی ها"
-                                : "categories",
-                            active: pathName.includes("category/all"),
-                          }}
-                          isClosed={isClosed}
-                        />
-                      </div>
-                    </Link>
+                      <Link
+                        href={`/${params.lang}/education`}
+                        className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px]
+            group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer menu-transition
+            ${isClosed ? "justify-start gap-0" : "justify-start gap-2 ps-3"}`}
+                      >
+                        <span className="ps-[15px]">
+                          <ListMenuSvgModule
+                            item={{
+                              name: "trainers",
+                              active: pathName.endsWith(`/${params.lang}/education`),
+                            }}
+                          />
+                        </span>
+                        <div className="w-full flex justify-between items-center">
+                          <ListMenuTitleModule
+                            item={{
+                              translation: params.lang.toLowerCase() == "fa" ? "آموزش‌ها" : "Trainings",
+                              active: pathName.endsWith(`/${params.lang}/education`),
+                            }}
+                            isClosed={isClosed}
+                          />
+                        </div>
+                      </Link>
+                    </Tooltip>
 
+                    {/* Categories Link */}
+                    <Tooltip
+                      title={params.lang.toLowerCase() == "fa" ? "دسته‌بندی‌ها" : "Categories"}
+                      placement={langData.direction === "rtl" ? "left-end" : "right-end"}
+                      arrow
+                      slotProps={{
+                        tooltip: {
+                          className: `
+              !bg-[#E9E9E9] !text-[#908F95] dark:!bg-[#434343]
+              !font-azarMehr !font-medium dark:!text-white !text-[14px] !top-[-20px]
+              ${isClosed ? "block" : "hidden"}
+            `,
+                        },
+                        arrow: { className: `!text-[#E9E9E9] dark:!text-[#434343] mt-[6px]` },
+                      }}
+                      PopperProps={{
+                        modifiers: [{ name: "offset", options: { offset: [0, -10] } }],
+                      }}
+                    >
+                      <Link
+                        href={`/${params.lang}/education/category/all`}
+                        className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px]
+            group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer menu-transition
+            ${isClosed ? "justify-start gap-0" : "justify-start gap-2 ps-3"}`}
+                      >
+                        <span className="ps-[15px]">
+                          <ListMenuSvgModule
+                            item={{
+                              name: "categories",
+                              active: pathName.includes("category/all"),
+                            }}
+                          />
+                        </span>
+                        <div className="w-full flex justify-between items-center">
+                          <ListMenuTitleModule
+                            item={{
+                              translation: params.lang.toLowerCase() == "fa" ? "دسته‌بندی‌ها" : "Categories",
+                              active: pathName.includes("category/all"),
+                            }}
+                            isClosed={isClosed}
+                          />
+                        </div>
+                      </Link>
+                    </Tooltip>
                   </div>
                 </li>
               ) : (
                 ""
               )}
+
               {item.unique_id == 1414 ? (
                 <li>
-                  <div onClick={handleLangBtn} data-tooltip-id={item.name}>
-                    <div
-                      className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px]
-                      group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer menu-transition
-                      ${isClosed ? "justify-start gap-0" : "justify-start gap-2"}`}
-                    >
-                      <ListMenuActiveIconModule
-                        item={item}
-                        languageSelected={langData.code}
-                        isClosed={isClosed}
-                      />
-                      <span className="ps-[15px]">
-                        <ListMenuSvgModule item={item} />
-                      </span>
-                      <div className="w-full flex justify-between items-center">
-                        <ListMenuTitleModule item={item} isClosed={isClosed} />
-                        <ListMenuArrow
-                          item={{ name: "language" }}
-                          isOpen={langDropDown}
+                  <Tooltip
+                    title={item.translation}
+                    placement={langData.direction === "rtl" ? "left-end" : "right-end"}
+                    arrow
+                    slotProps={{
+                      tooltip: {
+                        className: `
+            !bg-[#E9E9E9] !text-[#908F95] dark:!bg-[#434343]
+            !font-azarMehr !font-medium dark:!text-white !text-[14px] !top-[-20px]
+            ${isClosed ? "block" : "hidden"}
+          `,
+                      },
+                      arrow: {
+                        className: `!text-[#E9E9E9] dark:!text-[#434343] mt-[6px]`,
+                      },
+                    }}
+                    PopperProps={{
+                      modifiers: [{ name: "offset", options: { offset: [0, -10] } }],
+                    }}
+                  >
+                    <div onClick={handleLangBtn}>
+                      <div
+                        className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px]
+            group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer menu-transition
+            ${isClosed ? "justify-start gap-0" : "justify-start gap-2"}`}
+                      >
+                        <ListMenuActiveIconModule
+                          item={item}
+                          languageSelected={langData.code}
                           isClosed={isClosed}
                         />
+                        <span className="ps-[15px]">
+                          <ListMenuSvgModule item={item} />
+                        </span>
+                        <div className="w-full flex justify-between items-center">
+                          <ListMenuTitleModule item={item} isClosed={isClosed} />
+                          <ListMenuArrow
+                            item={{ name: "language" }}
+                            isOpen={langDropDown}
+                            isClosed={isClosed}
+                          />
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  </Tooltip>
+
+                  {/* Dropdown Content */}
                   <div
                     ref={dropdownRef}
                     className={`${langDropDown ? "h-fit" : "h-0 overflow-hidden"} base-transition-1 bg-Field dark:bg-darkGray`}
                   >
-                    <DropdownLanguageModule
-                      languagesData={langData}
-                      langArray={langArray}
-                      params={params}
-                      isClosed={isClosed}
-                    />
+                    {langArray.map((lang, idx) => (
+                      <Tooltip
+                        key={idx}
+                        title={lang.translation}
+                        placement={langData.direction === "rtl" ? "left-end" : "right-end"}
+                        arrow
+                        slotProps={{
+                          tooltip: {
+                            className: `
+                !bg-[#E9E9E9] !text-[#908F95] dark:!bg-[#434343]
+                !font-azarMehr !font-medium dark:!text-white !text-[14px] !top-[-20px]
+                ${isClosed ? "block" : "hidden"}
+              `,
+                          },
+                          arrow: {
+                            className: `!text-[#E9E9E9] dark:!text-[#434343] mt-[6px]`,
+                          },
+                        }}
+                        PopperProps={{
+                          modifiers: [{ name: "offset", options: { offset: [0, -10] } }],
+                        }}
+                      >
+                        <div>
+                          <DropdownLanguageModule
+                            languagesData={langData}
+                            langArray={[lang]}
+                            params={params}
+                            isClosed={isClosed}
+                          />
+                        </div>
+                      </Tooltip>
+                    ))}
                   </div>
                 </li>
               ) : (
                 ""
               )}
+
             </React.Fragment>
           ))}
         {/* Static Version Item */}

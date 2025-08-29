@@ -4,9 +4,61 @@ import { ArrowRight } from "@/components/svgs";
 import Image from "next/image";
 import DynamicTimer from "./DynamicTimer";
 
-const SectionTimer = () => {
+// Define type for params
+interface Params {
+  lang: "fa" | "en"; // Restrict lang to fa or en
+}
+
+// Define types for text content
+interface TextContent {
+  title: { fa: string; en: string };
+  description: { fa: string; en: string };
+  prePurchase: { fa: string; en: string };
+  viewObject: { fa: string; en: string };
+  days: { fa: string; en: string };
+  hours: { fa: string; en: string };
+  minutes: { fa: string; en: string };
+  seconds: { fa: string; en: string };
+}
+
+const SectionTimer = ({ params }: { params: Params }) => {
   const [isInView, setInView] = useState(false);
   const sectionRef = useRef(null);
+
+  const content: TextContent = {
+    title: {
+      fa: "اهدای 963 قطعه زمین(VOD) رایگان",
+      en: "Donation of 963 Free VOD Land Plots",
+    },
+    description: {
+      fa: "اهدای 963 قطعه زمین(VOD) رایگان به ارزش 50,371,200,000 ریال برای آزادسازی جزیره آریایی در اولین متاورس ایران متاورس رنگ",
+      en: "Donation of 963 free VOD land plots worth 50,371,200,000 Rials for the liberation of Ariana Island in Iran's first metaverse, Rang Metaverse",
+    },
+    prePurchase: {
+      fa: "پیش خرید",
+      en: "Pre-Purchase",
+    },
+    viewObject: {
+      fa: "مشاهده آبجکت",
+      en: "View Object",
+    },
+    days: {
+      fa: "روز",
+      en: "Days",
+    },
+    hours: {
+      fa: "ساعت",
+      en: "Hours",
+    },
+    minutes: {
+      fa: "دقیقه",
+      en: "Minutes",
+    },
+    seconds: {
+      fa: "ثانیه",
+      en: "Seconds",
+    },
+  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -46,15 +98,15 @@ const SectionTimer = () => {
       <div className="bg-gra"> </div>
       <div className="w-full h-[50px] flex lg:hidden justify-center items-center gap-10">
         <div className="bg-light-primary dark:bg-dark-yellow rounded-full size-[50px] flex justify-center items-center">
-          <ArrowRight className="stroke-white dark:stroke-[#1b1b1b] size-[24px]" />
+          <ArrowRight className={`stroke-white dark:stroke-[#1b1b1b] size-[24px] rotate-o ltr:rotate-180`} />
         </div>
         <div className="bg-light-primary dark:bg-dark-yellow rounded-full size-[50px] flex justify-center items-center">
-          <ArrowRight className="stroke-white dark:stroke-[#1b1b1b] size-[24px] rotate-180" />
+          <ArrowRight className={`stroke-white dark:stroke-[#1b1b1b] size-[24px] rotate-180 ltr:rotate-0`} />
         </div>
       </div>
 
       <div className="bg-light-primary dark:bg-dark-yellow rounded-full p-[10px] hidden lg:flex justify-center items-center me-5">
-        <ArrowRight className="stroke-white dark:stroke-[#1b1b1b] size-[32px] ltr:rotate-180" />
+        <ArrowRight className={`stroke-white dark:stroke-[#1b1b1b] size-[32px] rotate-o ltr:rotate-180`} />
       </div>
       <div className="flex flex-col lg:flex-row gap-5 px-4">
         <div
@@ -78,12 +130,11 @@ const SectionTimer = () => {
               />
             </div>
             <div className="w-full mt-4 lg:mt-0 text-justify flex flex-col justify-between h-full">
-              <h4 className="text-start text-[23px] lg:text-xl 3xl:text-[32px] text-black dark:text-white font-azarMehr font-medium ms-5">
-                اهدای 963 قطعه زمین(VOD) رایگان
+              <h4 className={`text-start text-[23px] lg:text-xl 3xl:text-[32px] text-black dark:text-white font-azarMehr font-medium ms-5 ${params.lang === "en" ? "ltr:text-left" : ""}`}>
+                {content.title[params.lang]}
               </h4>
-              <p className="w-fit text-start  text-lg  3xl:text-2xl text-lightGray font-azarMehr font-medium mt-5 lg:mt-10 ms-5">
-                اهدای 963 قطعه زمین(VOD) رایگان به ارزش 50,371,200,000 ریال برای
-                آزادسازی جزیره آریایی در اولین متاورس ایران متاورس رنگ
+              <p className={`w-fit text-start text-lg 3xl:text-2xl text-lightGray font-azarMehr font-medium mt-5 lg:mt-10 ms-5 ${params.lang === "en" ? "ltr:text-left" : ""}`}>
+                {content.description[params.lang]}
               </p>
             </div>
           </div>
@@ -99,17 +150,22 @@ const SectionTimer = () => {
         flex flex-col justify-around items-center relative bg-gradient-to-tl to-[#dfdfdf]  from-white  dark:to-[#343434] dark:via-darkGray dark:from-darkGray"
           >
             <div className="absolute bg-white/10 z-0 size-[150px] top-[-10px] end-[-20px] rounded-xl blur-3xl filter"></div>
-            <DynamicTimer />
+            <DynamicTimer 
+              daysLabel={content.days[params.lang]}
+              hoursLabel={content.hours[params.lang]}
+              minutesLabel={content.minutes[params.lang]}
+              secondsLabel={content.seconds[params.lang]}
+            />
             <div className="w-full">
               <p className="w-full rounded-[28px] py-3 z-50 text-center text-lg lg:text-[20px] text-white dark:text-black bg-light-primary dark:bg-dark-yellow font-azarMehr font-medium mt-5">
-                پیش خرید
+                {content.prePurchase[params.lang]}
               </p>
               <p className="w-full rounded-[28px] py-3 mt-5 text-center text-lg lg:text-[20px] text-white bg-[#343434] font-azarMehr font-medium">
                 <a
                   href="https://meta.irpsc.com/2024/07/19/ariana/"
                   className="w-full h-full inline-block"
                 >
-                  مشاهده آبجکت
+                  {content.viewObject[params.lang]}
                 </a>
               </p>
             </div>
@@ -118,7 +174,7 @@ const SectionTimer = () => {
       </div>
 
       <div className="bg-light-primary dark:bg-dark-yellow rounded-full p-[10px] flex justify-center items-center hidden lg:flex xs:hidden ms-5">
-        <ArrowRight className="stroke-white dark:stroke-[#1b1b1b] size-[32px] rotate-180 ltr:rotate-0" />
+        <ArrowRight className={`stroke-white dark:stroke-[#1b1b1b] size-[32px] rotate-180 ltr:rotate-0`} />
       </div>
     </div>
   );

@@ -72,7 +72,7 @@ export default function SearchComponent({
       ></div>
       <div
         className={`${fullWidth ? "w-full" : "w-[100%] md:w-[70%] lg:w-[45%]"
-          } mt-[50px] flex flex-col items-center m-auto relative z-20 dark:dark-scrollbar light-scrollbar`}
+          } mt-[50px] flex flex-col items-center m-auto relative z-20 dark:dark-scrollbar light-scrollbar `}
       >
         <SectionInputSearch
           SectionName="education"
@@ -86,7 +86,7 @@ export default function SearchComponent({
           removeSearch={removeSearch}
         />
 
-        <div className="w-full mt-2 bg-white dark:bg-dark-background transition-all duration-300 easy-in-out rounded-xl 2xl:max-h-[500px] xl:max-h-[500px] lg:max-h-[500px] md:2xl:max-h-[500px] sm:max-h-[350px] xs:max-h-[350px] z-[999] pe-[13px] ps-[32px] overflow-y-auto overflow-x-clip absolute top-[100%] flex flex-col justify-start items-center gap-1 light-scrollbar dark:dark-scrollbar">
+        <div className="w-full mt-2 bg-white dark:bg-dark-background transition-all duration-300 easy-in-out rounded-xl 2xl:max-h-[500px] xl:max-h-[500px] lg:max-h-[500px] md:2xl:max-h-[500px] sm:max-h-[350px] xs:max-h-[350px] z-[999] pe-[13px] ps-[32px] overflow-y-auto overflow-x-clip absolute top-[100%] flex flex-col justify-start items-center gap-1 light-scrollbar dark:dark-scrollbar ">
           {searchData && searchData.length > 0 && (
             <ItemsSearch
               searchLevel={searchLevel}
