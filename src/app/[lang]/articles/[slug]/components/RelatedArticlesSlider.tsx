@@ -81,12 +81,12 @@ const RelatedArticlesSlider = ({ params }: RelatedArticlesSliderProps) => {
                 <h3 className="text-lg font-semibold line-clamp-1 dark:text-white">
                   {item.title}
                 </h3>
-                <p className="text-sm text-gray-600 line-clamp-2 dark:text-white">
+                <p className="text-sm text-gray-600 line-clamp-2 dark:text-[#868B90] mt-2">
                   {item.excerpt}
                 </p>
 
                 {/* آمار + نویسنده */}
-                <div className="flex items-center justify-between mt-4 text-xs text-gray-500">
+                <div className="flex flex-row-reverse items-center justify-between mt-4 text-xs text-gray-500">
                   <div className="flex items-center gap-3 text-[#888888]">
                     <span className="flex items-center gap-1">
                       <View className="stroke-[#888888] size-[14px]" />
@@ -104,8 +104,18 @@ const RelatedArticlesSlider = ({ params }: RelatedArticlesSliderProps) => {
                   <div className="flex items-center gap-2">
                     <Link
                       href={`/${params.lang}/citizens/${item.author.citizenId}`}
-                      className="text-blue-500 text-xs font-bold"
+                      className="text-blue-500 text-xs font-bold flex items-center gap-2"
                     >
+                      <div className="relative w-[35px] h-[35px] bg-lightGray rounded-full overflow-hidden border shadow-md ">
+                        <Image
+                            src={item.author.avatar || "/articles/author/fallback-avatar.jpg"}
+                            alt={item.author.name}
+                            className="object-cover"
+                            width={35}
+                            height={35}
+                        />
+
+                    </div>
                       {item.author.citizenId}
                     </Link>
                   </div>

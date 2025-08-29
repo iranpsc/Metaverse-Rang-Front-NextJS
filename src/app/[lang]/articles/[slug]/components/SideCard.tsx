@@ -18,10 +18,10 @@ const SideCard: React.FC<SideCardProps> = ({ params }) => {
   const latestArticles = sortedArticles.slice(0, 5);
 
   return (
-    <section className="flex flex-col gap-5 w-full">
+    <section className="flex flex-col gap-5 w-full ">
       <div className="flex items-center justify-between">
         <p className="dark:text-white font-semibold">آخرین مقالات این هفته</p>
-        <Link href={""} className="text-blueLink text-sm">مشاهده همه</Link>
+        <Link href={""} className="text-blueLink dark:text-dark-yellow text-sm">مشاهده همه</Link>
       </div>
       {latestArticles.map((item) => (
         <Link

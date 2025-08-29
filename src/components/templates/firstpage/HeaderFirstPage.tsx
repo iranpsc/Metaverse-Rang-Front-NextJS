@@ -12,7 +12,7 @@ export default function HeaderFirstPage({ mainData, params }: any) {
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.3, delay: 0.3 }}
-          className=" lg:w-[50%] font-bold text-[32px] sm:text-[32px] md:text-[38px] xl:text-[56px] 2xl:text-[78px]  text-light-primary dark:text-dark-yellow lg:whitespace-nowrap font-rokh mt-2 xl:mt-5"
+          className=" lg:w-[50%] font-bold text-[32px] sm:text-[32px] md:text-[38px] xl:text-[44px]  2xl:text-[54px] 3xl:text-[66px]  text-light-primary dark:text-dark-yellow lg:whitespace-nowrap font-rokh mt-2 xl:mt-5"
         >
           {findByUniqueId(mainData, 1457)}
         </motion.h1>

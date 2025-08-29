@@ -19,7 +19,7 @@ const AuthorCard = ({ lang, slug }: AuthorCardProps) => {
 
     return (
         <section className="w-full flex justify-center my-10">
-            <div className="bg-white dark:bg-[#1A1A18] border border-gray-200 dark:border-gray-700 rounded-2xl shadow-md p-6 w-full  flex flex-col items-center text-center">
+            <div className="bg-white dark:bg-[#1A1A18] border border-gray-200 dark:border-gray-700 rounded-2xl shadow-md p-6 w-full  flex flex-col items-center text-center md:px-12">
 
                 <div className="flex flex-col gap-4 mt-[-85px]">
                     {/* عکس پروفایل */}

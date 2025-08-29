@@ -55,7 +55,7 @@ const SectionTeam = ({ mainData, params }: any) => {
       <div className="w-full lg:w-[65%] flex flex-col justify-between items-start md:pb-3 md:ps-10 gap-1 ">
       <div className="flex flex-col  w-full">
                 <h2 className="w-full text-start font-bold text-[20px] md:text-[26px] lg:text-[32px] text-gray dark:text-white mt-5 font-azarMehr">
-         {findByUniqueId(mainData, 256)}
+         {findByUniqueId(mainData, 1457)}
           
         </h2>
         <Vector className="w-[20%] h-10 stroke-light-primary dark:stroke-dark-yellow" />

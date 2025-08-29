@@ -138,7 +138,7 @@ export default async function ArticlePage({ params }) {
 
           <div className="mainContainer w-full h-auto flex flex-col gap-5 items-center font-['AzarMehr'] lg:flex-row lg:items-start px-5 lg:px-10">
             <div className="lg:w-[70%] 3xl:w-[80%]">
-              <div className="flex flex-col gap-10 w-full items-center rounded-xl bg-white dark:bg-[#1A1A18] shadow-lg p-5 xl:px-10">
+              <div className="flex flex-col gap-10 w-full items-center rounded-xl bg-white dark:bg-[#1A1A18] shadow-lg p-5 xl:p-10 3xl:py-11">
                 <AuthorSection author={article.author}  date={article.date} excerpt={article.excerpt} title={article.title} content={article.content} />
                 <ArticleHeader title={article.title} author={article.author} date={article.date} description={article.description} />
 
@@ -152,7 +152,7 @@ export default async function ArticlePage({ params }) {
                 <AuthorCard lang={params.lang} slug={params.slug} />
               </div>
             </div>
-            <div className="w-full hidden lg:block lg:w-[30%] 3xl:w-[20%]">
+            <div className="w-full hidden lg:block lg:w-[30%] 3xl:w-[20%] sticky top-5">
               <SideCard params={params} />
             </div>
           </div>

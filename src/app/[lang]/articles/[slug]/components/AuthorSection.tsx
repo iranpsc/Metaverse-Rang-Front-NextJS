@@ -56,12 +56,12 @@ const readingTime = Math.max(1, Math.ceil(words / 200)); // 200 کلمه در د
             </Link>
           </div>
         </div>
-        <div className="flex flex-col gap-2 text-start justify-center ">
-          <span className="text-xs md:text-base dark:text-white">
+        <div className="flex flex-col gap-1 text-start justify-center ">
+          <span className="text-xs md:text-base dark:text-white md:hidden">
             تاریخ انتشار : <span className="text-[#868B90]">{date}</span>
           </span>
           <span className="text-xs md:text-sm text-[#868B90] text-start">
-            ⏱ زمان مطالعه: {readingTime} دقیقه
+            <span className="dark:text-white  text-base mt-[-5px]"> ⏱ </span> زمان مطالعه: {readingTime} دقیقه
           </span>
         </div>
       </div>

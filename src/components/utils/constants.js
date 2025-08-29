@@ -1,6 +1,6 @@
 export const getStaticMenu = (params) => {
   return [
-    { name: "home", unique_id: 149, url: "", order: "-2" },
+    { name: "home", unique_id: 149, url: "/", order: "-2" },
     { name: "citizens", unique_id: 263, url: "citizens", order: "-2" },
     { name: "list of levels", unique_id: 903, url: "levels/citizen", order: "-2" },
     // Handle citizen profilee URL dynamically
