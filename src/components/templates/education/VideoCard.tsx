@@ -20,6 +20,9 @@ export default function VideoCard({ item, params, theme }: any) {
   useEffect(() => {
     checkTruncation();
 
+
+    // console.log("VideoCard content:", item);
+
     const observer = new ResizeObserver(() => {
       checkTruncation();
     });
@@ -31,7 +34,15 @@ export default function VideoCard({ item, params, theme }: any) {
     return () => {
       observer.disconnect();
     };
-  }, [item.title]);
+  }, [item.title, item]);
+
+  // تابع برای حذف تگ‌های HTML
+  const stripHTML = (html: string) => {
+    const tmp = document.createElement("div");
+    tmp.innerHTML = html;
+    return tmp.textContent || tmp.innerText || "";
+  };
+
 
   return (
     <div className="w-[100%] min-h-[240px] shadow-md hover:shadow-xl hover:dark:shadow-dark rounded-[10px] overflow-hidden bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-6 items-center">
@@ -50,41 +61,17 @@ export default function VideoCard({ item, params, theme }: any) {
             href={`/${params.lang}/education/category/${item.category.slug}/${item.sub_category.slug}/${item.slug}`}
           >
             <svg width="78" height="78" viewBox="0 0 78 78" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect className="fill-white/80 dark:fill-black/70" width="78" height="78" rx="39"  fillOpacity="0.51" />
-              <path className="fill-white " d="M54 34.3039C58 36.6133 58 42.3868 54 44.6962L35.25 55.5215C31.25 57.8309 26.25 54.9441 26.25 50.3253V28.6747C26.25 24.0559 31.25 21.1691 35.25 23.4785L54 34.3039Z"  />
+              <rect className="fill-white/80 dark:fill-black/70" width="78" height="78" rx="39" fillOpacity="0.51" />
+              <path className="fill-white " d="M54 34.3039C58 36.6133 58 42.3868 54 44.6962L35.25 55.5215C31.25 57.8309 26.25 54.9441 26.25 50.3253V28.6747C26.25 24.0559 31.25 21.1691 35.25 23.4785L54 34.3039Z" />
             </svg>
           </Link>
         </div>
       </div>
 
-      <div className="w-[95%] flex flex-row justify-start items-center gap-1 mt-[-10px] pe-16">
-        <Link href={`/${params.lang}/education/category/${item.category.slug}`} className="text-start text-gray dark:text-dark-gray font-medium font-azarMehr text-[13px] 3xl:text-[16px]">
-          {item.category.name}
-        </Link>
-        <span className="font-azarMehr text-gray dark:text-dark-gray">/</span>
-        <Link href={`/${params.lang}/education/category/${item.category.slug}/${item.sub_category.slug}`}
-          className="text-start text-gray dark:text-dark-gray whitespace-nowrap font-medium font-azarMehr text-[13px] 3xl:text-[16px]"
-          data-tooltip-id={item.sub_category.name}
-        >
-          {item.sub_category.name.length > 30
-            ? item.sub_category.name.slice(0, 25) + "..."
-            : item.sub_category.name}
-        </Link>
-        <ReactTooltip
-          id={item.sub_category.name}
-          content={item.sub_category.name}
-          place="bottom"
-          style={{
-            backgroundColor: theme === "dark" ? "#000" : "#e9eef8",
-            color: theme === "dark" ? "#fff" : "#000",
-            fontSize: "16px",
-            fontWeight: "bold",
-          }}
-        />
-      </div>
+
 
       <Link
-        className="w-[95%]"
+        className="w-[95%] mt-[-15px]"
         href={`/${params.lang}/education/category/${item.category.slug}/${item.sub_category.slug}/${item.slug}`}
       >
         <p
@@ -95,6 +82,16 @@ export default function VideoCard({ item, params, theme }: any) {
           {item.title}
         </p>
       </Link>
+      <Link
+        className="w-[95%] mt-[-20px] text-textGray dark:text-lightGray"
+        href={`/${params.lang}/education/category/${item.category.slug}/${item.sub_category.slug}/${item.slug}`}
+      >
+        <p className=" text-[12px] 3xl:text-[16px] line-clamp-2 overflow-hidden">
+          {stripHTML(item.description)}
+        </p>
+      </Link>
+
+
 
       <div className="w-[95%] pb-2 flex flex-row justify-between items-center">
         <Link href={`/${params.lang}/citizen/${item.creator.code}`} target="_blank">

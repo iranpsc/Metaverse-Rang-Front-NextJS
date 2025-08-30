@@ -75,7 +75,7 @@ export default function ShareArticlePage({
   };
 
   return (
-    <div className="fixed backdrop-blur-sm bg-blackTransparent/30 z-50 top-[-112px] left-0 w-full h-screen ">
+    <div className="fixed backdrop-blur-sm bg-blackTransparent/30 z-50 top-[-124px] left-0 w-full h-screen ">
       <div className="w-full h-full overflow-clip">
         <motion.div
           initial={{ rotate: 0, scale: 0 }}
@@ -84,7 +84,7 @@ export default function ShareArticlePage({
           transition={{ duration: 0.5, ease: "backInOut" }}
           className="flex flex-col justify-center items-center w-full h-full "
         >
-          <div className="xl:w-[50%] lg:w-[50%] md:w-[70%] min-h-[350px] max-h-fit rounded-[15px] border-2 border-[#898989] flex relative me-[250px] sm:me-0 sm:w-[90%] xs:me-0 xs:w-[90%] justify-center items-center shadow-md bg-white dark:bg-dark-background">
+          <div className="xl:w-[50%] lg:w-[50%] md:w-[70%] min-h-[350px] max-h-fit rounded-[15px] border-2 border-[#898989] dark:text-white flex relative me-[250px] sm:me-0 sm:w-[90%] xs:me-0 xs:w-[90%] justify-center items-center shadow-md bg-white dark:bg-dark-background">
             <div className="w-full h-full flex flex-col justify-start mt-2 items-center gap-10 absolute top-0">
               <CLoseIcon
                 className="w-[15px] h-[15px] cursor-pointer stroke-2 m-2 stroke-gray dark:stroke-dark-gray absolute start-3 top-1"

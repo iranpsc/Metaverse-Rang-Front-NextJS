@@ -1,7 +1,7 @@
 export const getStaticMenu = (params) => {
   return [
-    { name: "home", unique_id: 149, url: "/", order: "-2" },
-    { name: "citizens", unique_id: 263, url: "citizens", order: "-2" },
+    { name: "home", unique_id: 149, url: "/", order: "-3" },
+    { name: "citizens", unique_id: 263, url: "citizens", order: "-3" },
     { name: "list of levels", unique_id: 903, url: "levels/citizen", order: "-2" },
     // Handle citizen profilee URL dynamically
     {
@@ -10,7 +10,7 @@ export const getStaticMenu = (params) => {
       url: params?.id ? `citizens/${params.id}` : "",
       order: "-2"
     },
-    { name: "trainings", unique_id: 1455, url: "education", order: "-2" },
+    // { name: "trainings", unique_id: 1455, url: "education", order: "-2" },
     { name: "property" },
     { name: "real estate" },
     { name: "structures" },
@@ -33,7 +33,7 @@ export const getStaticMenu = (params) => {
     // { name: "version", unique_id: 1458, url: "version", order: "-1" },
 
     // { name: "version" ,  unique_id:1458, url: "version", order: "-1" },
-    { name: "calendar" , unique_id: 262, url: "calendar", order: "0" },
+    { name: "calendar" , unique_id: 262, url: "calendar", order: "-1" },
     { name: "overview" }
   ];
 };

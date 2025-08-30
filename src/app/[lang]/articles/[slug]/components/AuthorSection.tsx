@@ -35,7 +35,7 @@ const readingTime = Math.max(1, Math.ceil(words / 200)); // 200 کلمه در د
 
   return (
     <div className="flex flex-col gap-5 w-full">
-      <h1 className="text-base md:text-[32px] dark:text-white">{title}</h1>
+      
       <div className="flex justify-between w-full ">
         <div className="flex items-center gap-2 text-sm text-gray-600">
           <div>
@@ -47,6 +47,7 @@ const readingTime = Math.max(1, Math.ceil(words / 200)); // 200 کلمه در د
               className="rounded-full aspect-square w-[50px] h-[50px] md:w-[80px] md:h-[80px]"
             />
           </div>
+          
           <div className="flex flex-col gap-2 justify-between">
             <span className="text-xs md:text-xl dark:text-white">
               {author.name}
@@ -65,8 +66,9 @@ const readingTime = Math.max(1, Math.ceil(words / 200)); // 200 کلمه در د
           </span>
         </div>
       </div>
-      <div>
-        <p className="text-[#484950] dark:text-[#868B90] text-sm md:text-2xl">
+      <div className="space-y-7">
+        <h1 className="text-base md:text-[32px] dark:text-white ">{title}</h1>
+        <p className="text-[#484950] dark:text-[#868B90] text-sm md:text-[22px] leading-8">
           {excerpt}
         </p>
       </div>

@@ -5,6 +5,7 @@ import { Like, Dislike, View, Video } from "@/components/svgs/SvgEducation";
 import { formatNumber } from "@/components/utils/education";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { Tooltip as ReactTooltip } from "react-tooltip";
 
 const ListVideos = ({ DataVideos, params, theme }: any) => {
   const router = useRouter();
@@ -15,10 +16,17 @@ const ListVideos = ({ DataVideos, params, theme }: any) => {
     );
   };
 
+  const stripHTML = (html: string) => {
+    const tmp = document.createElement("div");
+    tmp.innerHTML = html;
+    return tmp.textContent || tmp.innerText || "";
+  };
+
   return (
-    <div className="my-[20px] flex flex-col  md:grid  md:grid-cols-2 lg:grid-cols-2 sm:grid-cols-2 xl:grid-cols-3 gap-10 w-full pb-3  pt-16 xs:flex xs:justify-center xs:items-center px-5 lg:px-0">
+    <div className="my-[20px] flex flex-col md:grid md:grid-cols-2 lg:grid-cols-2 sm:grid-cols-2 xl:grid-cols-3 gap-10 w-full pb-3 pt-16 xs:flex xs:justify-center xs:items-center px-5 lg:px-0">
       {DataVideos &&
         DataVideos.videos.map((item: any) => {
+          // console.log("Video item:", item); // ← این خط اضافه شد
           const titleRef = useRef<HTMLParagraphElement>(null);
           const [isTruncated, setIsTruncated] = useState(false);
 
@@ -31,19 +39,22 @@ const ListVideos = ({ DataVideos, params, theme }: any) => {
 
           useEffect(() => {
             checkTruncation();
-
             const observer = new ResizeObserver(() => {
               checkTruncation();
             });
-
             if (titleRef.current) {
               observer.observe(titleRef.current);
             }
-
             return () => {
               observer.disconnect();
             };
           }, [item.title]);
+
+          // بررسی وجود category و sub_category
+          const categorySlug = item.category?.slug || "";
+          const categoryName = item.category?.name || "بدون دسته‌بندی";
+          const subCategorySlug = item.sub_category?.slug || "";
+          const subCategoryName = item.sub_category?.name || "بدون زیرشاخه";
 
           return (
             <div
@@ -51,7 +62,7 @@ const ListVideos = ({ DataVideos, params, theme }: any) => {
               className="w-[100%] min-h-[240px] shadow-md hover:shadow-xl duration-300 hover:dark:shadow-dark rounded-[20px] overflow-hidden bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-6 items-center"
               onClick={() => pusherSubcategory(item.slug)}
             >
-              <div className="group w-full h-[266px] cursor-pointer  relative">
+              <div className="group w-full h-[266px] cursor-pointer relative">
                 <Image
                   src={item.image_url}
                   alt={item.title}
@@ -67,30 +78,46 @@ const ListVideos = ({ DataVideos, params, theme }: any) => {
                 </div>
               </div>
 
-              {/* <div className="w-[95%] flex flex-row justify-start items-center gap-1 mt-[-10px] pe-16">
+              <div className="w-[95%] flex flex-row justify-start items-center gap-1 mt-[-10px] pe-16">
                 <Link
-                  href={`/${params.lang}/education/category/${item.category.slug}`}
-                  className="text-start text-gray dark:text-dark-gray font-medium font-azarMehr text-[13px] 3xl:text-[16px] cursor-pointer hover:text-blueLink hover:dark:text-dark-yellow"
+                  href={`/${params.lang}/education/category/${categorySlug}`}
+                  className="text-start text-gray dark:text-dark-gray font-medium font-azarMehr text-[13px] 3xl:text-[16px]"
                 >
-                  {item.category.title}
+                  {categoryName}
                 </Link>
                 <span className="font-azarMehr text-gray dark:text-dark-gray">/</span>
                 <Link
-                  href={`/${params.lang}/education/category/${item.category.slug}/${item.sub_category.slug}`}
-                  className="text-start text-gray dark:text-dark-gray whitespace-nowrap font-medium font-azarMehr text-[13px] 3xl:text-[16px] cursor-pointer hover:text-blueLink hover:dark:text-dark-yellow"
+                  href={`/${params.lang}/education/category/${categorySlug}/${subCategorySlug}`}
+                  className="text-start text-gray dark:text-dark-gray whitespace-nowrap font-medium font-azarMehr text-[13px] 3xl:text-[16px]"
+                  data-tooltip-id={subCategoryName}
                 >
-                  {item.sub_category.name.length > 30
-                    ? item.sub_category.name.slice(0, 25) + "..."
-                    : item.sub_category.name}
+                  {subCategoryName.length > 30
+                    ? subCategoryName.slice(0, 25) + "..."
+                    : subCategoryName}
                 </Link>
-              </div> */}
+                <ReactTooltip
+                  id={subCategoryName}
+                  content={subCategoryName}
+                  place="bottom"
+                  style={{
+                    backgroundColor: theme === "dark" ? "#000" : "#e9eef8",
+                    color: theme === "dark" ? "#fff" : "#000",
+                    fontSize: "16px",
+                    fontWeight: "bold",
+                  }}
+                />
+              </div>
 
               <p
                 ref={titleRef}
-                className={`text-start text-black dark:text-white w-[95%] font-azarMehr truncate cursor-pointer font-bold mt-[8px] text-[18px] 3xl:text-[22px] ${isTruncated ? "hover:overflow-visible hover:animate-rtlMarquee" : ""
-                  }`}
+                className={`text-start text-black dark:text-white w-[95%] font-azarMehr truncate cursor-pointer font-bold mt-[8px] text-[18px] 3xl:text-[22px] mt-[-15px] ${
+                  isTruncated ? "hover:overflow-visible hover:animate-rtlMarquee" : ""
+                }`}
               >
                 {item.title}
+              </p>
+              <p className="w-[95%] mt-[-20px] text-textGray dark:text-lightGray text-[12px] 3xl:text-[16px] line-clamp-2 overflow-hidden">
+                {stripHTML(item.description)}
               </p>
 
               <div className="w-[95%] pb-2 flex flex-row justify-between items-center">

@@ -9,7 +9,7 @@ export default function ShowSocialWrapper({ params, mainData }: { params: any; m
 
   return (
     <>
-      <div  onClick={() => setShowSocial(!showSocial)} className=" dark:bg-dark-yellow bg-blueLink flex flex-row w-max items-center gap-2  rounded-[10px] 3xl:py-[3px] 3xl:px-4 lg:py-2 lg:px-2 md:py-2 md:px-4 sm:py-2 sm:px-4 xs:py-1 xs:px-2">
+      <div  onClick={() => setShowSocial(!showSocial)} className=" dark:bg-dark-yellow bg-blueLink flex flex-row w-max items-center gap-2 cursor-pointer rounded-[10px] 3xl:py-[3px] 3xl:px-4 lg:py-2 lg:px-2 md:py-2 md:px-4 sm:py-2 sm:px-4 xs:py-1 xs:px-2">
         <span className="font-azarMehr dark:text-[#000] text-[#fff] font-medium 3xl:text-xl3Title xl:text-xlTitle  lg:text-lgTitle md:text-mdTitle  sm:text-smTitle xs:text-smTitle">
           {/* {targetData(userProperty, "share")} */}
           {findByUniqueId(mainData, 244)}

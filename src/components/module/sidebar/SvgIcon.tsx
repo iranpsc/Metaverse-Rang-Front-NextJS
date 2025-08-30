@@ -58,6 +58,9 @@ export default function SvgIcon({ unique_id, color, name }: any) {
       {name === "trainers" && (
         <Trainers className={`${color} stroke-1 mx-[10px] 3xl:w-7 3xl:h-7`} />
       )}
+            {name === "trainings" && (
+        <Trainings className={`${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
+      )}
       {/* with unique_id */}
       {unique_id === 1374 && (
         <SingleCitizenMenu className={`${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
