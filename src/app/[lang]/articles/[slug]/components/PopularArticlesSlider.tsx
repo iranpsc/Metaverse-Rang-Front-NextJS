@@ -12,13 +12,11 @@ import { ArrowRight } from "@/components/svgs";
 import Link from "next/link";
 
 interface PopularArticlesSliderProps {
-  params: {
-    lang: string;
-  };
+  params: { lang: string };
   mainData: any;
 }
 
-const PopularArticlesSlider = ({ params , mainData }: PopularArticlesSliderProps) => {
+const PopularArticlesSlider = ({ params, mainData }: PopularArticlesSliderProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const swiperRef = useRef<SwiperType>();
 
@@ -31,7 +29,10 @@ const PopularArticlesSlider = ({ params , mainData }: PopularArticlesSliderProps
       <div className="flex items-center justify-between mb-7 w-full lg:w-[70%] 3xl:w-[80%] ps-1 pe-5 lg:pe-11">
         <h2 className="text-xl font-bold dark:text-white">پربازدیدترین مقالات</h2>
         <Link
-          href={`/${params.lang}/articles`} className="flex justify-center items-center gap-4">
+          href={`/${params.lang}/articles`}
+          className="flex justify-center items-center gap-4"
+          aria-label="See all articles"
+        >
           <p className="font-azarMehr font-medium text-[12px] md:text-[16px] lg:text-[18px] xl:text-[20px] dark:text-white">
             {findByUniqueId(mainData, 171)}
           </p>
@@ -47,18 +48,9 @@ const PopularArticlesSlider = ({ params , mainData }: PopularArticlesSliderProps
         loop={true}
         onSwiper={(swiper) => (swiperRef.current = swiper)}
         breakpoints={{
-          0: {
-            slidesPerView: 1.2,
-            spaceBetween: 20,
-          },
-          640: {
-            slidesPerView: 2,
-            spaceBetween: 20,
-          },
-          1024: {
-            slidesPerView: 3.5,
-            spaceBetween: 20,
-          },
+          0: { slidesPerView: 1.2, spaceBetween: 20 },
+          640: { slidesPerView: 2, spaceBetween: 20 },
+          1024: { slidesPerView: 3.5, spaceBetween: 20 },
         }}
         onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
       >
@@ -67,6 +59,7 @@ const PopularArticlesSlider = ({ params , mainData }: PopularArticlesSliderProps
             <Link
               href={`/${params.lang}/articles/${item.slug}`}
               className="bg-white dark:bg-[#1A1A18] shadow-md rounded-2xl overflow-hidden flex flex-col h-[350px] w-full"
+              aria-label={`Read article: ${item.title}`}
             >
               <div className="relative w-full h-48">
                 <Image
@@ -107,8 +100,9 @@ const PopularArticlesSlider = ({ params , mainData }: PopularArticlesSliderProps
                     <Link
                       href={`/${params.lang}/citizens/${item.author.citizenId}`}
                       className="text-blue-500 text-xs font-bold flex items-center gap-2"
+                      aria-label={`Visit profile of ${item.author.name}`}
                     >
-                      <div className="relative w-[35px] h-[35px] bg-lightGray rounded-full overflow-hidden border shadow-md ">
+                      <div className="relative w-[35px] h-[35px] bg-lightGray rounded-full overflow-hidden border shadow-md">
                         <Image
                           src={item.author.avatar || "/articles/author/fallback-avatar.jpg"}
                           alt={item.author.name}
@@ -116,7 +110,6 @@ const PopularArticlesSlider = ({ params , mainData }: PopularArticlesSliderProps
                           width={35}
                           height={35}
                         />
-
                       </div>
                       {item.author.citizenId}
                     </Link>
@@ -134,6 +127,7 @@ const PopularArticlesSlider = ({ params , mainData }: PopularArticlesSliderProps
           <button
             onClick={() => swiperRef.current?.slidePrev()}
             className="flex items-center justify-center rounded-full bg-transparent"
+            aria-label="Previous slide"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -144,21 +138,26 @@ const PopularArticlesSlider = ({ params , mainData }: PopularArticlesSliderProps
               <path d="m1 14 6.5-6.5L1 1" />
             </svg>
           </button>
+
           <div className="flex justify-center gap-2">
             {sortedArticles.map((_, idx) => (
               <button
                 key={idx}
                 onClick={() => swiperRef.current?.slideToLoop(idx)}
-                className={`w-5 h-1 rounded-sm transition ${activeIndex === idx
+                className={`w-5 h-1 rounded-sm transition ${
+                  activeIndex === idx
                     ? "bg-light-primary dark:bg-dark-yellow"
                     : "bg-dark-gray dark:bg-dark-placeholder"
-                  }`}
+                }`}
+                aria-label={`Go to slide ${idx + 1}`}
               />
             ))}
           </div>
+
           <button
             onClick={() => swiperRef.current?.slideNext()}
             className="flex items-center justify-center rounded-full bg-transparent"
+            aria-label="Next slide"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

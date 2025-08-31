@@ -16,7 +16,7 @@ interface RelatedArticlesSliderProps {
   mainData: any;
 }
 
-const RelatedArticlesSlider = ({ params , mainData }: RelatedArticlesSliderProps) => {
+const RelatedArticlesSlider = ({ params, mainData }: RelatedArticlesSliderProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const swiperRef = useRef<SwiperType>();
 
@@ -41,12 +41,17 @@ const RelatedArticlesSlider = ({ params , mainData }: RelatedArticlesSliderProps
       <div className="flex items-center justify-between mb-7 w-full lg:w-[70%] 3xl:w-[80%] ps-1 pe-5 lg:pe-11">
         <h2 className="text-xl font-bold dark:text-white">مقالات مرتبط</h2>
         <Link
-          href={`/${params.lang}/articles`} className="flex justify-center items-center gap-4">
+          href={`/${params.lang}/articles`}
+          className="flex justify-center items-center gap-4"
+          aria-label="See all articles"
+        >
           <p className="font-azarMehr font-medium text-[12px] md:text-[16px] lg:text-[18px] xl:text-[20px] dark:text-white">
             {findByUniqueId(mainData, 171)}
           </p>
           <ArrowRight
-            className={`dark:stroke-white stroke-black rotate-180 w-[24px] h-full ${params.lang === "en" ? "ltr:rotate-0" : ""}`}
+            className={`dark:stroke-white stroke-black rotate-180 w-[24px] h-full ${
+              params.lang === "en" ? "ltr:rotate-0" : ""
+            }`}
           />
         </Link>
       </div>
@@ -68,6 +73,7 @@ const RelatedArticlesSlider = ({ params , mainData }: RelatedArticlesSliderProps
             <Link
               href={`/${params.lang}/articles/${item.slug}`}
               className="bg-white dark:bg-[#1A1A18] shadow-md rounded-2xl overflow-hidden flex flex-col h-[350px] w-full"
+              aria-label={`Read article: ${item.title}`}
             >
               {/* تصویر */}
               <div className="relative w-full h-48">
@@ -111,17 +117,17 @@ const RelatedArticlesSlider = ({ params , mainData }: RelatedArticlesSliderProps
                     <Link
                       href={`/${params.lang}/citizens/${item.author.citizenId}`}
                       className="text-blue-500 text-xs font-bold flex items-center gap-2"
+                      aria-label={`Visit profile of ${item.author.name}`}
                     >
-                      <div className="relative w-[35px] h-[35px] bg-lightGray rounded-full overflow-hidden border shadow-md ">
+                      <div className="relative w-[35px] h-[35px] bg-lightGray rounded-full overflow-hidden border shadow-md">
                         <Image
-                            src={item.author.avatar || "/articles/author/fallback-avatar.jpg"}
-                            alt={item.author.name}
-                            className="object-cover"
-                            width={35}
-                            height={35}
+                          src={item.author.avatar || "/articles/author/fallback-avatar.jpg"}
+                          alt={item.author.name}
+                          className="object-cover"
+                          width={35}
+                          height={35}
                         />
-
-                    </div>
+                      </div>
                       {item.author.citizenId}
                     </Link>
                   </div>
@@ -135,9 +141,11 @@ const RelatedArticlesSlider = ({ params , mainData }: RelatedArticlesSliderProps
       {/* کنترل‌ها */}
       <div className="mt-4 w-full">
         <div className="flex items-center justify-center md:justify-start gap-2">
+          {/* Prev button */}
           <button
             onClick={() => swiperRef.current?.slidePrev()}
             className="flex items-center justify-center rounded-full bg-transparent"
+            aria-label="Previous slide"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -148,6 +156,8 @@ const RelatedArticlesSlider = ({ params , mainData }: RelatedArticlesSliderProps
               <path d="m1 14 6.5-6.5L1 1" />
             </svg>
           </button>
+
+          {/* Pagination buttons */}
           <div className="flex justify-center gap-2">
             {relatedArticles.map((_, idx) => (
               <button
@@ -158,12 +168,16 @@ const RelatedArticlesSlider = ({ params , mainData }: RelatedArticlesSliderProps
                     ? "bg-light-primary dark:bg-dark-yellow"
                     : "bg-dark-gray dark:bg-dark-placeholder"
                 }`}
+                aria-label={`Go to slide ${idx + 1}`}
               />
             ))}
           </div>
+
+          {/* Next button */}
           <button
             onClick={() => swiperRef.current?.slideNext()}
             className="flex items-center justify-center rounded-full bg-transparent"
+            aria-label="Next slide"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

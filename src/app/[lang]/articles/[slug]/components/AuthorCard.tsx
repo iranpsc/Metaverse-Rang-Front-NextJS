@@ -52,6 +52,7 @@ const AuthorCard = ({ lang, slug }: AuthorCardProps) => {
                                 href={author.socials.telegram}
                                 target="_blank"
                                 rel="noopener noreferrer"
+                                aria-label="Visit our Telegram channel"
                                 className="w-10 h-10 flex items-center justify-center rounded-full border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-dark-placeholder transition"
                             >
                                 <Image
@@ -67,6 +68,7 @@ const AuthorCard = ({ lang, slug }: AuthorCardProps) => {
                                 href={`https://wa.me/${author.socials.whatsapp}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
+                                aria-label="Chat with us on WhatsApp"
                                 className="w-10 h-10 flex items-center justify-center rounded-full border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-dark-placeholder transition"
                             >
                                 <Image
@@ -86,6 +88,7 @@ const AuthorCard = ({ lang, slug }: AuthorCardProps) => {
                                     width={37}
                                     height={37}
                                     src="/social/envelope-circle.png"
+                                    aria-label="Send us an email"
                                     alt=""
                                 />
                             </a>
