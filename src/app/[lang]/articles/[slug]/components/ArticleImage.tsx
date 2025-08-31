@@ -39,10 +39,10 @@ const ArticleImage: React.FC<ArticleImageProps> = ({ article }) => {
       {/* محتوا */}
       <div className="p-4 flex flex-col gap-3">
         {/* آمار */}
-        <div className="flex items-center text-xs md:text-base">
-          <div className="flex items-center gap-4 md:gap-10 3xl:gap-20 text-textGray dark:text-[#888888] dark:text-gray-300">
+        <div className="flex items-center text-xs md:text-base w-full">
+          <div className="flex items-center gap-4 md:gap-10 justify-between w-full text-textGray dark:text-[#888888] dark:text-gray-300">
             <div>
-              <p className="md:px-4 px-2 py-1 rounded-full bg-dark-gray dark:bg-textGray hidden md:block">
+              <p className="md:px-4 px-2 py-1 rounded-full border border-solid hidden md:block">
                 انجمن متاورس ایران
               </p>
             </div>

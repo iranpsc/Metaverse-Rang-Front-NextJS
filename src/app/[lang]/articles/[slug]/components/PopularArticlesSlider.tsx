@@ -7,15 +7,18 @@ import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 import { Like, Dislike, View } from "@/components/svgs/SvgEducation";
 import { articles } from "@/components/utils/articles";
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import { ArrowRight } from "@/components/svgs";
 import Link from "next/link";
 
 interface PopularArticlesSliderProps {
   params: {
-    lang: string; 
+    lang: string;
   };
+  mainData: any;
 }
 
-const PopularArticlesSlider = ({ params }: PopularArticlesSliderProps) => {
+const PopularArticlesSlider = ({ params , mainData }: PopularArticlesSliderProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const swiperRef = useRef<SwiperType>();
 
@@ -27,8 +30,14 @@ const PopularArticlesSlider = ({ params }: PopularArticlesSliderProps) => {
     <section className="w-full">
       <div className="flex items-center justify-between mb-7 w-full lg:w-[70%] 3xl:w-[80%] ps-1 pe-5 lg:pe-11">
         <h2 className="text-xl font-bold dark:text-white">پربازدیدترین مقالات</h2>
-        <Link href={`/${params.lang}/articles`} className="text-light-primary dark:text-dark-yellow text-sm">
-          مشاهده همه
+        <Link
+          href={`/${params.lang}/articles`} className="flex justify-center items-center gap-4">
+          <p className="font-azarMehr font-medium text-[12px] md:text-[16px] lg:text-[18px] xl:text-[20px] dark:text-white">
+            {findByUniqueId(mainData, 171)}
+          </p>
+          <ArrowRight
+            className={`dark:stroke-white stroke-black rotate-180 w-[24px] h-full ${params.lang === "en" ? "ltr:rotate-0" : ""}`}
+          />
         </Link>
       </div>
 
@@ -101,14 +110,14 @@ const PopularArticlesSlider = ({ params }: PopularArticlesSliderProps) => {
                     >
                       <div className="relative w-[35px] h-[35px] bg-lightGray rounded-full overflow-hidden border shadow-md ">
                         <Image
-                            src={item.author.avatar || "/articles/author/fallback-avatar.jpg"}
-                            alt={item.author.name}
-                            className="object-cover"
-                            width={35}
-                            height={35}
+                          src={item.author.avatar || "/articles/author/fallback-avatar.jpg"}
+                          alt={item.author.name}
+                          className="object-cover"
+                          width={35}
+                          height={35}
                         />
 
-                    </div>
+                      </div>
                       {item.author.citizenId}
                     </Link>
                   </div>
@@ -140,11 +149,10 @@ const PopularArticlesSlider = ({ params }: PopularArticlesSliderProps) => {
               <button
                 key={idx}
                 onClick={() => swiperRef.current?.slideToLoop(idx)}
-                className={`w-5 h-1 rounded-sm transition ${
-                  activeIndex === idx
+                className={`w-5 h-1 rounded-sm transition ${activeIndex === idx
                     ? "bg-light-primary dark:bg-dark-yellow"
                     : "bg-dark-gray dark:bg-dark-placeholder"
-                }`}
+                  }`}
               />
             ))}
           </div>

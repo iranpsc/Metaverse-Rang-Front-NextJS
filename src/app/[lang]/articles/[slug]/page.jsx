@@ -148,18 +148,18 @@ export default async function ArticlePage({ params }) {
               </div>
               <div className="w-full mt-10 space-y-28">
                 <ShowSocialWrapper params={params} mainData={mainData} />
-                <PrevNextArticles params={params} />
+                <PrevNextArticles params={params} mainData={mainData} />
                 <AuthorCard lang={params.lang} slug={params.slug} />
               </div>
             </div>
             <div className="w-full hidden lg:block lg:w-[30%] 3xl:w-[20%] sticky top-5">
-              <SideCard params={params} />
+              <SideCard params={params} mainData={mainData}/>
             </div>
           </div>
 
           <div className="ps-5 lg:ps-10 w-full flex items-center mt-14 lg:mt-20 flex-col gap-14">
-            <PopularArticlesSlider params={params} />
-            <RelatedArticlesSlider params={params} />
+            <PopularArticlesSlider params={params} mainData={mainData}/>
+            <RelatedArticlesSlider params={params} mainData={mainData}/>
           </div>
           <div className="w-full xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
             <DynamicFooter footerTabs={footerTabs} mainData={mainData} />

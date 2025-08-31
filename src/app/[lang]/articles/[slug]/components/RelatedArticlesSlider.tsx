@@ -8,12 +8,15 @@ import "swiper/css";
 import { Like, Dislike, View } from "@/components/svgs/SvgEducation";
 import { articles } from "@/components/utils/articles";
 import Link from "next/link";
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import { ArrowRight } from "@/components/svgs";
 
 interface RelatedArticlesSliderProps {
   params: { lang: string; slug: string };
+  mainData: any;
 }
 
-const RelatedArticlesSlider = ({ params }: RelatedArticlesSliderProps) => {
+const RelatedArticlesSlider = ({ params , mainData }: RelatedArticlesSliderProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const swiperRef = useRef<SwiperType>();
 
@@ -38,10 +41,13 @@ const RelatedArticlesSlider = ({ params }: RelatedArticlesSliderProps) => {
       <div className="flex items-center justify-between mb-7 w-full lg:w-[70%] 3xl:w-[80%] ps-1 pe-5 lg:pe-11">
         <h2 className="text-xl font-bold dark:text-white">مقالات مرتبط</h2>
         <Link
-          href={`/${params.lang}/articles`}
-          className="text-light-primary dark:text-dark-yellow text-sm"
-        >
-          مشاهده همه
+          href={`/${params.lang}/articles`} className="flex justify-center items-center gap-4">
+          <p className="font-azarMehr font-medium text-[12px] md:text-[16px] lg:text-[18px] xl:text-[20px] dark:text-white">
+            {findByUniqueId(mainData, 171)}
+          </p>
+          <ArrowRight
+            className={`dark:stroke-white stroke-black rotate-180 w-[24px] h-full ${params.lang === "en" ? "ltr:rotate-0" : ""}`}
+          />
         </Link>
       </div>
 
