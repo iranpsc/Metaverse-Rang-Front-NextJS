@@ -42,140 +42,140 @@ export default function ({ params }: any) {
       name: "login",
       en: "login",
       fa: "ورود",
-      font: "font-bold",
+      font: "font-normal",
       link: `/${params.lang}/education/category/login`,
     },
     {
       name: "dynasty",
       en: "dynasty",
       fa: "سلسله",
-      font: "font-bold",
+      font: "font-normal",
       link: `/${params.lang}/education/category/dynasty`,
     },
     {
       name: "calendar",
       en: "events calendar",
       fa: "تقویم رویداد ها",
-      font: "font-bold",
+      font: "font-normal",
       link: `/${params.lang}/calendar`,
     },
     {
       name: "setting",
       en: "setting",
       fa: "تنظیمات",
-      font: "font-bold",
+      font: "font-normal",
       link: `/${params.lang}/education/category/setting`,
     },
     {
       name: "kyc",
       en: "kyc",
       fa: "احراز هویت",
-      font: "font-bold",
+      font: "font-normal",
       link: `/${params.lang}/education/category/kyc`,
     },
     {
       name: "notification",
       en: "notification",
       fa: "اعلان ها",
-      font: "font-bold",
+      font: "font-normal",
       link: `/${params.lang}/education/category/notification`,
     },
     {
       name: "register",
       en: "register",
       fa: "ثبت نام",
-      font: "font-bold",
+      font: "font-normal",
       link: `/${params.lang}/education/category/register`,
     },
     {
       name: "sanad",
       en: "documents",
       fa: "اسناد",
-      font: "font-bold",
+      font: "font-normal",
       link: `/${params.lang}/education/category/sanad`,
     },
     {
       name: "a&q",
       en: "a&q",
       fa: "پاسخ به سوالات",
-      font: "font-bold",
+      font: "font-normal",
       link: `/${params.lang}/education/category/a&q`,
     },
     {
       name: "feature",
       en: "feature",
       fa: "املاک",
-      font: "font-bold",
+      font: "font-normal",
       link: `/${params.lang}/education/category/feature`,
     },
     {
       name: "all",
       en: "all",
       fa: "همه",
-      font: "font-bold",
+      font: "font-normal",
       link: `/${params.lang}/education/category/all`,
     },
     {
       name: "category",
       en: "category",
       fa: "دسته بندی",
-      font: "font-bold",
+      font: "font-normal",
       link: `/${params.lang}/education/category/all`,
     },
     {
       name: "education",
       en: "education",
       fa: " آموزش ها",
-      font: "font-bold",
+      font: "font-normal",
       link: `/${params.lang}/education`,
     },
     {
       name: "version",
       en: "metaverse version",
       fa: "ورژن متاورس",
-      font: "font-bold",
+      font: "font-normal",
       link: `/${params.lang}/version`,
     },
     {
       name: `${params.id}`,
       en: `${userName}'s invites`,
       fa: `دعوتی های ${userName}`,
-      font: "font-bold",
+      font: "font-normal",
       link: `/${params.lang}/citizens/${params.id}`,
     },
     {
       name: "citizens",
       en: "List of citizens",
       fa: "لیست شهروندان",
-      font: "font-bold",
+      font: "font-normal",
       link: `/${params.lang}/citizens`,
     },
     {
       name: "levels",
       en: "List Of Levels",
       fa: "لیست سطوح ",
-      font: "font-bold",
+      font: "font-normal",
       link: `/${params.lang}/levels/citizen`,
     },
     // {
     //   name: "citizen",
     //   en: "",
     //   fa: "شهروند",
-    //   font: "font-bold",
+    //   font: "font-normal",
     //   link: `/${params.lang}/levels/citizen`,
     // },
     {
       name: "about",
       en: "about us",
       fa: "درباره ما",
-      font: "font-bold",
+      font: "font-normal",
       link: `/${params.lang}/about`,
     },
     {
       name: "contact",
       en: "contact us",
       fa: "تماس با ما",
-      font: "font-bold",
+      font: "font-normal",
       link: `/${params.lang}/contact`,
     },
     // -baguette is a key
@@ -183,140 +183,140 @@ export default function ({ params }: any) {
       name: "citizen-baguette",
       en: "citizen rank-1",
       fa: "شهروند رتبه یک",
-      font: "font-bold",
+      font: "font-normal",
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
     {
       name: "reporter-baguette",
       en: "reporter rank-1",
       fa: "خبرنگار رتبه یک",
-      font: "font-bold",
+      font: "font-normal",
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
     {
       name: "participation-baguette",
       en: "participation rank-1",
       fa: "مشارکت کننده رتبه یک",
-      font: "font-bold",
+      font: "font-normal",
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
     {
       name: "developer-baguette",
       en: "developer rank-1",
       fa: "توسعه دهنده رتبه یک",
-      font: "font-bold",
+      font: "font-normal",
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
     {
       name: "inspector-baguette",
       en: "inspector rank-1",
       fa: "بازرس رتبه یک",
-      font: "font-bold",
+      font: "font-normal",
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
     {
       name: "businessman-baguette",
       en: "businessman rank-1",
       fa: "بازرگان رتبه یک",
-      font: "font-bold",
+      font: "font-normal",
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
     {
       name: "lawyer-baguette",
       en: "lawyer rank-1",
       fa: "وکیل رتبه یک",
-      font: "font-bold",
+      font: "font-normal",
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
     {
       name: "city-council-baguette",
       en: "city council rank-1",
       fa: "شورای شهر رتبه یک",
-      font: "font-bold",
+      font: "font-normal",
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
     {
       name: "the-mayor-baguette",
       en: "the mayor rank-1",
       fa: "شهردار رتبه یک",
-      font: "font-bold",
+      font: "font-normal",
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
     {
       name: "governor-baguette",
       en: "governor rank-1",
       fa: "استاندار رتبه یک",
-      font: "font-bold",
+      font: "font-normal",
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
     {
       name: "minister-baguette",
       en: "minister rank-1",
       fa: "وزیر رتبه یک",
-      font: "font-bold",
+      font: "font-normal",
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
     {
       name: "judge-baguette",
       en: "judge rank-1",
       fa: "قاضی رتبه یک",
-      font: "font-bold",
+      font: "font-normal",
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
     {
       name: "legislator-baguette",
       en: "legislator rank-1",
       fa: "قانون گذار رتبه یک",
-      font: "font-bold",
+      font: "font-normal",
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
     {
       name: "general-info",
       en: "general info",
       fa: "اطلاعات اولیه سطح",
-      font: "font-bold",
+      font: "font-normal",
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
     {
       name: "licenses",
       en: "licenses",
       fa: "مجوزها و دسترسی ها",
-      font: "font-bold",
+      font: "font-normal",
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
     {
       name: "gem",
       en: "gem",
       fa: "نگین سطح",
-      font: "font-bold",
+      font: "font-normal",
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
     {
       name: "gift",
       en: "gift",
       fa: "هدیه همراه",
-      font: "font-bold",
+      font: "font-normal",
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
     {
       name: "prize",
       en: "prize",
       fa: "پاداش رسیدن به سطح",
-      font: "font-bold",
+      font: "font-normal",
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
     {
       name: `articles`,
       en: `articles`,
       fa: `مقالات`,
-      font: "font-bold",
+      font: "font-normal",
       link: `/${params.lang}/articles`,
     },
     {
       name: `${params.slug}`,
       en: `${params.slug}`,
       fa: `${params.slug}`,
-      font: "font-bold",
+      font: "font-normal",
       link: `/${params.lang}/articles/${params.slug}`,
     },
   ];
@@ -332,7 +332,7 @@ export default function ({ params }: any) {
       name: "home",
       en: "Home",
       fa: "صفحه نخست",
-      font: "font-bold",
+      font: "font-normal",
       link: `/${params.lang}`,
     },
   ];
@@ -343,18 +343,18 @@ export default function ({ params }: any) {
   });
 
   return (
-    <div className="flex flex-wrap font-azarMehr text-[16px] lg:text-[18px] 2xl:text-[20px] py-[20px] capitalize">
+    <div className="flex flex-wrap font-azarMehr text-[16px] lg:text-[18px] !font-normal py-[20px] capitalize">
       {direction == "rtl"
         ? buildedArray.map((x, index) => (
           <Link
             href={x.link}
             className={`${index == buildedArray.length - 1
-                ? "text-black"
-                : "text-blueLink"
+                ? "text-blueLink dark:text-dark-yellow"
+                : "text-extraGray"
               } 
-              dark:${index == buildedArray.length - 1
-                ? "text-white"
-                : "text-dark-yellow"
+              ${index == buildedArray.length - 1
+                ? "dark:text-dark-yellow"
+                : "dark:text-white"
               } ${x.font} flex items-center`}
             key={index}
           >
@@ -372,12 +372,12 @@ export default function ({ params }: any) {
           <Link
             href={x.link}
             className={`${index == buildedArray.length - 1
-                ? "text-black"
-                : "text-blueLink"
+                ? "text-blueLink dark:text-dark-yellow"
+                : "text-extraGray"
               } 
-            dark:${index == buildedArray.length - 1
-                ? "text-white"
-                : "text-dark-yellow"
+            ${index == buildedArray.length - 1
+                ? " dark:text-dark-yellow"
+                : "dark:text-white"
               } ${x.font} flex items-center`}
             key={index}
           >
