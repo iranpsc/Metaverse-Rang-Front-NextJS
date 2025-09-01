@@ -1,3 +1,4 @@
+
 import React from "react";
 import Image from "next/image";
 import { format } from "date-fns";
@@ -42,24 +43,24 @@ const ArticleImage: React.FC<ArticleImageProps> = ({ article }) => {
         <div className="flex items-center text-xs md:text-base w-full">
           <div className="flex items-center gap-4 md:gap-10 justify-between w-full text-textGray dark:text-[#888888] dark:text-gray-300">
             <div>
-              <p className="md:px-4 px-2 py-1 rounded-full border border-solid hidden md:block">
+              <p className="md:px-4 px-2 py-1 rounded-full border border-solid ">
                 انجمن متاورس ایران
               </p>
             </div>
             <span>تاریخ انتشار : {formattedDate}</span>
-            <span className="flex items-center gap-1">
+            <span className=" items-center gap-1 hidden md:flex">
               <Comment className="stroke-textGray dark:stroke-[#888888] size-[14px] md:size-[16px]" />
               {article.stats.comments}
             </span>
-            <span className="flex items-center gap-1">
+            <span className=" items-center gap-1  hidden md:flex">
               <Like className="stroke-textGray dark:stroke-[#888888] size-[14px] md:size-[16px]" />
               {article.stats.likes}
             </span>
-            <span className="flex items-center gap-1">
+            <span className=" items-center gap-1  hidden md:flex">
               <Dislike className="stroke-textGray dark:stroke-[#888888] size-[14px] md:size-[16px]" />
               {article.stats.dislikes}
             </span>
-            <span className="flex items-center gap-1">
+            <span className=" items-center gap-1  hidden md:flex">
               <View className="stroke-textGray dark:stroke-[#888888] size-[14px] md:size-[16px]" />
               {article.stats.views}
             </span>
