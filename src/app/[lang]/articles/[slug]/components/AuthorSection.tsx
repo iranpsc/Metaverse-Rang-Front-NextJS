@@ -62,17 +62,17 @@ export default function ArticleMeta({
             </Link>
           </div>
         </div>
-        <div className="flex flex-col gap-1 text-start justify-center ">
+        <div className="flex flex-col  text-start justify-center ">
           <span className=" items-center gap-1 flex text-[10px] md:text-sm text-[#868B90] text-start md:hidden">
             <View className="stroke-textGray dark:stroke-[#888888] size-[16px]" />
             {stats.views}
           </span>
           <span className="text-[10px] md:text-sm text-[#868B90] text-start flex items-center gap-1">
-            <span className="dark:text-white  text-base mt-[4px]">
+            <span className="dark:text-white  text-base mt-[4px] ms-[-1px]">
               <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path className="dark:stroke-white" d="M15.5635 10.4375C15.5635 14.06 12.6235 17 9.00098 17C5.37848 17 2.43848 14.06 2.43848 10.4375C2.43848 6.815 5.37848 3.875 9.00098 3.875C12.6235 3.875 15.5635 6.815 15.5635 10.4375Z" stroke="#484950" stroke-linecap="round" stroke-linejoin="round" />
-                <path className="dark:stroke-white" d="M9 6.5V10.25" stroke="#484950" stroke-linecap="round" stroke-linejoin="round" />
-                <path className="dark:stroke-white" d="M6.75 2H11.25" stroke="#484950" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                <path className="dark:stroke-[#888888] stroke-2" d="M15.5635 10.4375C15.5635 14.06 12.6235 17 9.00098 17C5.37848 17 2.43848 14.06 2.43848 10.4375C2.43848 6.815 5.37848 3.875 9.00098 3.875C12.6235 3.875 15.5635 6.815 15.5635 10.4375Z" stroke="#484950" stroke-linecap="round" stroke-linejoin="round" />
+                <path className="dark:stroke-[#888888] stroke-2" d="M9 6.5V10.25" stroke="#484950" stroke-linecap="round" stroke-linejoin="round" />
+                <path className="dark:stroke-[#888888] stroke-2" d="M6.75 2H11.25" stroke="#484950" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
             </span>
             <span>
