@@ -54,7 +54,7 @@ export default function ArticleMeta({
           </div>
 
           <div className="flex flex-col gap-2 justify-between">
-            <span className="text-[10px] md:text-xl dark:text-white">
+            <span className="text-xs md:text-xl dark:text-white">
               {author.name}
             </span>
             <Link href={""} className="text-xs md:text-base text-blueLink dark:text-blue-500">
