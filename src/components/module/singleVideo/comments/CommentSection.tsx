@@ -46,7 +46,7 @@ const CommentSection = ({
             params={params}
           />
         ) : (
-          <div className="text-black dark:text-white">
+          <div className="text-black dark:text-white py-10 pb-14">
             {params.lang.toLowerCase() == "fa"
               ? "دیدگاهی وجود ندارد."
               : "No review"}

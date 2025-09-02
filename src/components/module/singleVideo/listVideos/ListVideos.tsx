@@ -110,7 +110,7 @@ const ListVideos = ({ DataVideos, params, theme }: any) => {
 
               <p
                 ref={titleRef}
-                className={`text-start text-black dark:text-white w-[95%] font-azarMehr truncate cursor-pointer font-bold mt-[8px] text-[18px] 3xl:text-[22px] mt-[-15px] ${
+                className={`text-start text-black dark:text-white w-[95%] font-azarMehr truncate cursor-pointer font-bold text-[18px] 3xl:text-[22px] mt-[-15px] ${
                   isTruncated ? "hover:overflow-visible hover:animate-rtlMarquee" : ""
                 }`}
               >
