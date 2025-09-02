@@ -10,7 +10,7 @@ const SingleVideoProfileModule = ({
   mainData,
   params,
 }: any) => {
-  // console.log("DataVideo88888", DataVideo);
+  console.log("DataVideo88888", DataVideo);
 
   return (
     <div className="w-full pb-2 flex flex-row gap-2 items-center pt-10 bg-white dark:bg-dark-background ps-5 ">

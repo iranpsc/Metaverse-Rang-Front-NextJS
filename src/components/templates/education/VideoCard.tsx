@@ -21,7 +21,7 @@ export default function VideoCard({ item, params, theme }: any) {
     checkTruncation();
 
 
-    // console.log("VideoCard content:", item);
+    console.log("VideoCard content:", item);
 
     const observer = new ResizeObserver(() => {
       checkTruncation();
@@ -68,10 +68,34 @@ export default function VideoCard({ item, params, theme }: any) {
         </div>
       </div>
 
-
+     <div className="w-[95%] flex flex-row justify-start items-center gap-1 mt-[-10px] pe-16">
+        <Link href={`/${params.lang}/education/category/${item.category.slug}`} className="text-start text-gray dark:text-dark-gray font-medium font-azarMehr text-[13px] 3xl:text-[16px]">
+          {item.category.name}
+        </Link>
+        <span className="font-azarMehr text-gray dark:text-dark-gray">/</span>
+        <Link href={`/${params.lang}/education/category/${item.category.slug}/${item.sub_category.slug}`}
+          className="text-start text-gray dark:text-dark-gray whitespace-nowrap font-medium font-azarMehr text-[13px] 3xl:text-[16px]"
+          data-tooltip-id={item.sub_category.name}
+        >
+          {item.sub_category.name.length > 30
+            ? item.sub_category.name.slice(0, 25) + "..."
+            : item.sub_category.name}
+        </Link>
+        <ReactTooltip
+          id={item.sub_category.name}
+          content={item.sub_category.name}
+          place="bottom"
+          style={{
+            backgroundColor: theme === "dark" ? "#000" : "#e9eef8",
+            color: theme === "dark" ? "#fff" : "#000",
+            fontSize: "16px",
+            fontWeight: "bold",
+          }}
+        />
+      </div>
 
       <Link
-        className="w-[95%] mt-[-15px]"
+        className="w-[95%] mt-[-24px]"
         href={`/${params.lang}/education/category/${item.category.slug}/${item.sub_category.slug}/${item.slug}`}
       >
         <p

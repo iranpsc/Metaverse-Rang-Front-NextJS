@@ -26,7 +26,7 @@ const ListVideos = ({ DataVideos, params, theme }: any) => {
     <div className="my-[20px] flex flex-col md:grid md:grid-cols-2 lg:grid-cols-2 sm:grid-cols-2 xl:grid-cols-3 gap-10 w-full pb-3 pt-16 xs:flex xs:justify-center xs:items-center px-5 lg:px-0">
       {DataVideos &&
         DataVideos.videos.map((item: any) => {
-          // console.log("Video item:", item); // ← این خط اضافه شد
+          console.log("Video item:", item); // ← این خط اضافه شد
           const titleRef = useRef<HTMLParagraphElement>(null);
           const [isTruncated, setIsTruncated] = useState(false);
 
