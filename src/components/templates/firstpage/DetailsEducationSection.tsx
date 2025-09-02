@@ -29,14 +29,14 @@ const DetailsEducationSection = ({ mainData }: any) => {
           </a>
         </div>
 
-        <div className="absolute bottom-0 rounded-b-[18px] lg:rounded-b-[72px] pb-3 w-full z-10 gap-4 py-5 sm:py-3 md:py-9 lg:py-14 xl:py-16 flex flex-col-reverse justify-center items-center backdrop-blur-sm">
+        <div className="absolute bottom-0 rounded-b-[18px] lg:rounded-b-[72px] pb-3 w-full z-10 gap-4 py-5 sm:py-3 md:py-9 lg:py-14 xl:py-16 flex flex-col-reverse justify-center items-center backdrop-blur-sm bg-black/20">
           <div className="bg-white px-3 py-2 md:px-10 rounded-full ms-5">
-            <p className="font-azarMehr font-medium text-[10px] sm:text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px] text-black whitespace-nowrap">
+            <p className="font-azarMehr font-medium text-[12px] sm:text-[12px] md:text-[16px] lg:text-[18px] xl:text-[20px] text-black whitespace-nowrap">
               {/* {localFind("establishment of educational centers")} */}
               {findByUniqueId(mainData, 499)}
             </p>
           </div>
-          <p className="font-azarMehr font-medium text-wrap max-w-[80%] text-[10px] sm:text-[14px] md:text-[16px] lg:text-[18px] xl:text-[22px] text-white whitespace-pre-wrap">
+          <p className="font-azarMehr font-medium text-wrap max-w-[80%] text-[12px] sm:text-[12px] md:text-[16px] lg:text-[18px] xl:text-[22px] text-white whitespace-pre-wrap">
             {/* {localFind(
               "a single, stable and three-dimensional virtual space where people experience"
             )} */}
