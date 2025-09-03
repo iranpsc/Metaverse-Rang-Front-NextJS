@@ -23,7 +23,7 @@ const TopTrainersFirstPage = ({ params, mainData }: any) => {
   ];
   return (
     <>
-      <div className="w-full flex flex-row justify-between items-center lg:px-[32px]">
+      <div className="w-full flex flex-row justify-between items-center lg:px-[32px] px-4">
         <p className="font-azarMehr font-medium  text-[16px] md:text-[20px] lg:text-[28px] xl:text-[32px] dark:text-white">
           {findByUniqueId(mainData, 168)}
         </p>

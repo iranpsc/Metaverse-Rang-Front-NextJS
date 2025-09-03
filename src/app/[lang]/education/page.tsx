@@ -117,7 +117,7 @@ export default async function CitizensPage({ params }: { params: any }) {
           
             {findByUniqueId(mainData, 166)}
           </h1> */}
-          <div className="flex flex-col items-center justify-center">
+          <div className="flex flex-col items-center justify-center px-3 md:px-0">
             {/* <p className=" 2xl:w-[30%] xl:w-[30%] lg:w-[40%] md:w-[40%] sm:w-[50%] xs:w-[50%] mt-5 font-azarMehr font-normal text-gray dark:text-dark-gray 2xl:text-[14px] xl:text-[14px] lg:text-[13px] md:text-[12px] sm:text-[12px] xs:text-[10px]   text-center">
               
               {findByUniqueId(mainData, 164)}

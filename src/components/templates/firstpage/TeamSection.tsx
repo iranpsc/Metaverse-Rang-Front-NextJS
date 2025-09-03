@@ -39,8 +39,8 @@ const SectionTeam = ({ mainData, params }: any) => {
     return <div ref={sectionRef} style={{ minHeight: "500px" }} />;
   }
   return (
-    <div ref={sectionRef} className="flex flex-column justify-center flex-wrap px-5 lg:px-0">
-      <div className="w-[full] md:w-[50%] lg:w-[35%]">
+    <div ref={sectionRef} className="flex flex-column justify-center flex-wrap px-5 lg:px-0 w-full">
+      <div className="w-full md:w-[50%] lg:w-[35%]">
         <Image
           className="w-full h-full  md:h-auto 3xl:aspect-square object-cover rounded-3xl lg:rounded-[32px] origin-center border-none"
           src="/firstpage/img2.webp"
