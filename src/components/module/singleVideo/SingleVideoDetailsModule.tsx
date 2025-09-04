@@ -105,14 +105,16 @@ const SingleVideoDetailsModule = ({
 
       {!isComplete ? (
         <p
-          className="w-full text-start h-fit transition-all duration-300 ease-in-out text-[22px] xs:text-[16px] text-singleVideo-gray dark:text-white font-azarMehr font-normal mt-5"
+          className="prose max-w-none prose-p:leading-9 space-y-5 text-sm prose-h1:text-sm prose-h2:text-sm prose-h3:text-sm prose-h4:text-sm lg:text-xl md:prose-h1:text-2xl md:prose-h2:text-2xl md:prose-h3:text-2xl md:prose-h-4:text-2xl md:prose-p:text-[#484950] dark:prose-p:text-[#868B90] dark:prose-h1:text-white  dark:prose-h2:text-white  dark:prose-h3:text-white prose-a:text-blueLink dark:prose-a:text-dark-yellow dark:prose-strong:text-white mt-5"
+
           dangerouslySetInnerHTML={{
             __html: checkData(DataVideo.description.slice(0, 500)),
           }}
         />
       ) : (
         <p
-          className="w-full text-start h-fit transition-all duration-300 ease-in-out text-[22px] xs:text-[16px] text-singleVideo-gray dark:text-white font-azarMehr font-normal mt-5"
+          className="prose max-w-none prose-p:leading-9 space-y-5 text-sm prose-h1:text-sm prose-h2:text-sm prose-h3:text-sm prose-h4:text-sm lg:text-xl md:prose-h1:text-2xl md:prose-h2:text-2xl md:prose-h3:text-2xl md:prose-h-4:text-2xl md:prose-p:text-[#484950] dark:prose-p:text-[#868B90] dark:prose-h1:text-white  dark:prose-h2:text-white  dark:prose-h3:text-white prose-a:text-blueLink dark:prose-a:text-dark-yellow dark:prose-strong:text-white  transition-all duration-300 ease-in-out mt-5"
+
           dangerouslySetInnerHTML={{
             __html: checkData(DataVideo.description),
           }}
