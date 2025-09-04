@@ -128,7 +128,7 @@ const ListVideos = ({ DataVideos, params, theme }: any) => {
                   <div className="flex flex-row justify-start items-center gap-2">
                     <Image
                       src={item.creator.image}
-                      alt={item.creator.code}
+                      alt={item.creator.code + " profile id"}
                       width={1000}
                       height={1000}
                       loading="lazy"

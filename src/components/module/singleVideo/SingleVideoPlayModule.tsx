@@ -1,4 +1,3 @@
-
 "use client";
 import React, { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
@@ -12,12 +11,32 @@ import {
 
 const SingleVideoPlayModule = ({ DataVideo }: any) => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const [isPosterLoaded, setIsPosterLoaded] = useState(false);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [showIconPlaying, setShowIconPlaying] = useState<boolean>(true);
   const [progress, setProgress] = useState<number>(0);
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [isMute, setIsMute] = useState<boolean>(false);
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
+
+  // 🔹 Lazy Load Poster
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsPosterLoaded(true);
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    if (containerRef.current) observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   const updateProgress = () => {
     if (videoRef.current) {
@@ -59,7 +78,8 @@ const SingleVideoPlayModule = ({ DataVideo }: any) => {
 
   const handleSeek = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (videoRef.current) {
-      const seekTo = (Number(event.target.value) / 100) * videoRef.current.duration;
+      const seekTo =
+        (Number(event.target.value) / 100) * videoRef.current.duration;
       videoRef.current.currentTime = seekTo;
       setProgress(Number(event.target.value));
     }
@@ -69,15 +89,13 @@ const SingleVideoPlayModule = ({ DataVideo }: any) => {
     const hours = Math.floor(durationInSeconds / 3600);
     const minutes = Math.floor((durationInSeconds % 3600) / 60);
     const seconds = Math.floor(durationInSeconds % 60);
-    return `${hours > 0 ? `${hours}:` : ""}${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+    return `${
+      hours > 0 ? `${hours}:` : ""
+    }${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
   };
 
-const handlerVolume = () => {
-    if (isMute) {
-      setIsMute(false);
-    } else {
-      setIsMute(true);
-    }
+  const handlerVolume = () => {
+    setIsMute(!isMute);
   };
 
   const toggleFullScreen = () => {
@@ -94,15 +112,18 @@ const handlerVolume = () => {
   };
 
   return (
-    <div className="w-full relative pt-5 bg-white dark:bg-dark-background flex justify-center items-center">
+    <div
+      ref={containerRef}
+      className="w-full relative pt-5 bg-white dark:bg-dark-background flex justify-center items-center"
+    >
       <div className="relative w-full flex justify-center items-center px-3 lg:px-0">
         <video
           ref={videoRef}
           className="w-full aspect-video rounded-xl mx-10 object-fill z-30 "
-         src={DataVideo.video_url}
-          poster={DataVideo.image_url}
+          src={DataVideo.video_url}
+          poster={isPosterLoaded ? DataVideo.image_url : undefined} // 🔹 لیزی‌لود
           width={1000}
-          height={1000}
+          height={800}
           muted={isMute}
         />
         <div
@@ -121,19 +142,32 @@ const handlerVolume = () => {
             {!isPlaying ? (
               <PlayIcon className="size-[50px] select-none" alt="play-video" />
             ) : (
-              <PauseIcon className="size-[50px] select-none" alt="pause-video" />
+              <PauseIcon
+                className="size-[50px] select-none"
+                alt="pause-video"
+              />
             )}
           </motion.div>
         </div>
       </div>
 
-      <div dir="rtl" className="xl:w-[80%] lg:w-[80%] md:w-[90%] sm:w-[95%] xs:w-[95%] bg-white/80 dark:bg-dark-background flex flex-row justify-center items-center xl:gap-4 lg:gap-4 md:gap-4 sm:gap-1 xs:gap-1 h-[65px] xs:h-[45px] absolute bottom-7 rounded-[20px] select-none z-50">
+      {/* کنترل‌ها */}
+      <div
+        dir="rtl"
+        className="xl:w-[80%] lg:w-[80%] md:w-[90%] sm:w-[95%] xs:w-[95%] bg-white/80 dark:bg-dark-background flex flex-row justify-center items-center xl:gap-4 lg:gap-4 md:gap-4 sm:gap-1 xs:gap-1 h-[65px] xs:h-[45px] absolute bottom-7 rounded-[20px] select-none z-50"
+      >
         <div className="size-[25px]" onClick={toggleFullScreen}>
           <FullScreenIcon className="size-[24px] fill-singleVideo-gray dark:fill-white cursor-pointer" />
         </div>
 
-        <p className="font-azarMehr text-singleVideo-gray dark:text-white font-medium text-xs md:text-base" dir="ltr">
-          {formatDuration(currentTime)} / {videoRef.current ? formatDuration(videoRef.current.duration) : "00:00"}
+        <p
+          className="font-azarMehr text-singleVideo-gray dark:text-white font-medium text-xs md:text-base"
+          dir="ltr"
+        >
+          {formatDuration(currentTime)} /{" "}
+          {videoRef.current
+            ? formatDuration(videoRef.current.duration)
+            : "00:00"}
         </p>
         <input
           dir="ltr"
