@@ -32,8 +32,8 @@ const SingleVideoProfileModule = ({
         </div>
       </Link>
       <div className="flex flex-col justify-between gap-1">
-        <p> {checkData(DataVideo.creator.name)}</p>
-        <p className="w-full font-azarMehr text-blueLink  font-medium text-singleVideo_medium flex items-center gap-1">
+        <p className="text-xs md:text-xl dark:text-white"> {checkData(DataVideo.creator.name)}</p>
+        <p className="text-xs md:text-base text-blueLink dark:text-blue-500">
           <span>{findByUniqueId(mainData, 563)}</span>
           {" : "}
           <span className="mb-[-2px]"><Link href={`https://rgb.irpsc.com/${params.lang}/citizen/${DataVideo.creator.code}`}> {checkData(DataVideo.creator.code)}</Link></span>
