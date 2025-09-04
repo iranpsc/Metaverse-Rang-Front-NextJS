@@ -15,45 +15,27 @@ interface SingleVideoProps {
   params?: any;
   mainData?: any;
 }
-const SingleVideoPlayModule:  React.FC<SingleVideoProps> = ({ DataVideo, params, mainData }) => {
+
+const SingleVideoPlayModule: React.FC<SingleVideoProps> = ({ DataVideo }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const [isPosterLoaded, setIsPosterLoaded] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [showIconPlaying, setShowIconPlaying] = useState(true);
-  const [progress, setProgress] = useState(0); // 0..100
+  const [progress, setProgress] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(0); // ✅ نگه‌داری جدا از ref
+  const [duration, setDuration] = useState(0);
   const [isMute, setIsMute] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
-  // ✅ Lazy-load پوستر با چکِ وجود API و المنت
+  // اضافه کردن fetchpriority به ویدیو بعد از mount
   useEffect(() => {
-    if (!containerRef.current) return;
-
-    // فقط در مرورگر و در صورت وجود API
-    if (typeof window !== "undefined" && "IntersectionObserver" in window) {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              setIsPosterLoaded(true);
-              observer.disconnect();
-            }
-          });
-        },
-        { root: null, rootMargin: "200px 0px", threshold: 0 } // کمی زودتر لود شود
-      );
-      observer.observe(containerRef.current);
-      return () => observer.disconnect();
-    } else {
-      // اگر API نبود، مستقیم لود کن
-      setIsPosterLoaded(true);
+    if (videoRef.current) {
+      videoRef.current.setAttribute("fetchpriority", "high");
     }
   }, []);
 
-  // ✅ مدت ویدیو را بعد از loadedmetadata ست می‌کنیم
+  // دریافت duration و بروزرسانی زمان
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -66,13 +48,13 @@ const SingleVideoPlayModule:  React.FC<SingleVideoProps> = ({ DataVideo, params,
     const onTimeUpdate = () => {
       if (!Number.isFinite(video.duration) || video.duration <= 0) return;
       const p = (video.currentTime / video.duration) * 100;
-      // از NaN جلوگیری
       setProgress(Number.isFinite(p) ? p : 0);
       setCurrentTime(video.currentTime);
     };
 
     video.addEventListener("loadedmetadata", onLoadedMeta);
     video.addEventListener("timeupdate", onTimeUpdate);
+
     return () => {
       video.removeEventListener("loadedmetadata", onLoadedMeta);
       video.removeEventListener("timeupdate", onTimeUpdate);
@@ -83,13 +65,14 @@ const SingleVideoPlayModule:  React.FC<SingleVideoProps> = ({ DataVideo, params,
     setShowIconPlaying(true);
     const v = videoRef.current;
     if (!v) return;
+
     if (v.paused) {
-      v.play().then(() => {
-        setIsPlaying(true);
-        setTimeout(() => setShowIconPlaying(false), 2000);
-      }).catch(() => {
-        // ممکنه autoplay یا policy اجازه نده — خطا را نادیده بگیر
-      });
+      v.play()
+        .then(() => {
+          setIsPlaying(true);
+          setTimeout(() => setShowIconPlaying(false), 2000);
+        })
+        .catch(() => {});
     } else {
       v.pause();
       setIsPlaying(false);
@@ -121,17 +104,10 @@ const SingleVideoPlayModule:  React.FC<SingleVideoProps> = ({ DataVideo, params,
     if (!v) return;
 
     if (!isFullscreen) {
-      const req =
-        v.requestFullscreen ||
-        v.webkitEnterFullscreen ||
-        v.webkitRequestFullscreen ||
-        v.msRequestFullscreen;
+      const req = v.requestFullscreen || v.webkitEnterFullscreen || v.webkitRequestFullscreen || v.msRequestFullscreen;
       if (req) req.call(v);
     } else {
-      const exit: any =
-        document.exitFullscreen ||
-        (document as any).webkitExitFullscreen ||
-        (document as any).msExitFullscreen;
+      const exit: any = document.exitFullscreen || (document as any).webkitExitFullscreen || (document as any).msExitFullscreen;
       if (exit) exit.call(document);
     }
     setIsFullscreen((s) => !s);
@@ -147,10 +123,10 @@ const SingleVideoPlayModule:  React.FC<SingleVideoProps> = ({ DataVideo, params,
           ref={videoRef}
           className="w-full aspect-video rounded-xl mx-10 object-fill z-30"
           src={DataVideo.video_url}
-          poster={isPosterLoaded ? DataVideo.image_url : undefined} // ✅ لیزی‌لود پوستر
+          poster={DataVideo.image_url} // لود فوری برای LCP
           width={1000}
           height={800}
-          preload="metadata" // یا "none" اگر می‌خواید دانلود رو عقب بندازید
+          preload="metadata"
           muted={isMute}
           playsInline
         />
@@ -194,7 +170,7 @@ const SingleVideoPlayModule:  React.FC<SingleVideoProps> = ({ DataVideo, params,
           type="range"
           min={0}
           max={100}
-          value={Number.isFinite(progress) ? Math.max(0, Math.min(100, progress)) : 0} // ✅ از NaN جلوگیری
+          value={Number.isFinite(progress) ? Math.max(0, Math.min(100, progress)) : 0}
           onChange={handleSeek}
           aria-label="player input"
         />
