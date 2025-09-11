@@ -2,15 +2,22 @@
 import { usePathname } from "next/navigation";
 import { ArrowMenu } from "@/svgs/index";
 import Link from "next/link";
-import { getUserData } from "@/components/utils/actions";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-export default function ({ params }: any) {
+// تابع برای پاکسازی HTML
+const stripHtml = (html: string, maxLength: number = 160): string => {
+  const text = html.replace(/<[^>]+>/g, "");
+  return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
+};
+
+export default function BreadCrumb({ params, eventTitle }: { params: any; eventTitle?: string }) {
   const [userName, setUserName] = useState("");
-  // retrive name according to userId
+  const pathname = usePathname();
+
+  // دریافت نام کاربر برای مسیرهای citizens
   useEffect(() => {
-    if (!params.id) return;
+    if (!params.id || !pathname.includes("/citizens")) return;
     const fetchUserData = async () => {
       try {
         const response = await axios.get(
@@ -25,9 +32,9 @@ export default function ({ params }: any) {
         let temp = response.data.data;
         let firstName = temp?.kyc?.fname ? temp?.kyc?.fname : "";
         let lastName = temp?.kyc?.lname ? temp?.kyc?.lname : "";
-        if (params.lang.toLowerCase() == "fa") {
+        if (params.lang.toLowerCase() === "fa") {
           setUserName(`${firstName} ${lastName}`);
-        } else if (params.lang.toLowerCase() == "en") {
+        } else if (params.lang.toLowerCase() === "en") {
           setUserName(temp.name ? temp.name : `${firstName} ${lastName}`);
         }
       } catch (error) {
@@ -35,9 +42,52 @@ export default function ({ params }: any) {
       }
     };
     fetchUserData();
-  }, [params.id]);
+  }, [params.id, params.lang]);
 
   const staticData = [
+    {
+      name: "home",
+      en: "Home",
+      fa: "صفحه نخست",
+      font: "font-normal",
+      link: `/${params.lang}`,
+    },
+    {
+      name: "calendar",
+      en: "events calendar",
+      fa: "تقویم رویدادها",
+      font: "font-normal",
+      link: `/${params.lang}/calendar`,
+    },
+    ...(eventTitle && pathname.includes(`/calendar/${params.id}`)
+      ? [
+          {
+            name: `event-${params.id}`,
+            en: stripHtml(eventTitle),
+            fa: stripHtml(eventTitle),
+            font: "font-normal",
+            link: `/${params.lang}/calendar/${params.id}`,
+          },
+        ]
+      : []),
+    {
+      name: "citizens",
+      en: "List of citizens",
+      fa: "لیست شهروندان",
+      font: "font-normal",
+      link: `/${params.lang}/citizens`,
+    },
+    ...(pathname.includes("/citizens")
+      ? [
+          {
+            name: `citizen-${params.id}`,
+            en: `${userName}'s invites`,
+            fa: `دعوتی‌های ${userName}`,
+            font: "font-normal",
+            link: `/${params.lang}/citizens/${params.id}`,
+          },
+        ]
+      : []),
     {
       name: "login",
       en: "login",
@@ -51,13 +101,6 @@ export default function ({ params }: any) {
       fa: "سلسله",
       font: "font-normal",
       link: `/${params.lang}/education/category/dynasty`,
-    },
-    {
-      name: "calendar",
-      en: "events calendar",
-      fa: "تقویم رویداد ها",
-      font: "font-normal",
-      link: `/${params.lang}/calendar`,
     },
     {
       name: "setting",
@@ -76,14 +119,14 @@ export default function ({ params }: any) {
     {
       name: "notification",
       en: "notification",
-      fa: "اعلان ها",
+      fa: "اعلان‌ها",
       font: "font-normal",
       link: `/${params.lang}/education/category/notification`,
     },
     {
       name: "register",
       en: "register",
-      fa: "ثبت نام",
+      fa: "ثبت‌نام",
       font: "font-normal",
       link: `/${params.lang}/education/category/register`,
     },
@@ -118,14 +161,14 @@ export default function ({ params }: any) {
     {
       name: "category",
       en: "category",
-      fa: "دسته بندی",
+      fa: "دسته‌بندی",
       font: "font-normal",
       link: `/${params.lang}/education/category/all`,
     },
     {
       name: "education",
       en: "education",
-      fa: " آموزش ها",
+      fa: "آموزش‌ها",
       font: "font-normal",
       link: `/${params.lang}/education`,
     },
@@ -137,33 +180,12 @@ export default function ({ params }: any) {
       link: `/${params.lang}/version`,
     },
     {
-      name: `${params.id}`,
-      en: `${userName}'s invites`,
-      fa: `دعوتی های ${userName}`,
-      font: "font-normal",
-      link: `/${params.lang}/citizens/${params.id}`,
-    },
-    {
-      name: "citizens",
-      en: "List of citizens",
-      fa: "لیست شهروندان",
-      font: "font-normal",
-      link: `/${params.lang}/citizens`,
-    },
-    {
       name: "levels",
       en: "List Of Levels",
-      fa: "لیست سطوح ",
+      fa: "لیست سطوح",
       font: "font-normal",
       link: `/${params.lang}/levels/citizen`,
     },
-    // {
-    //   name: "citizen",
-    //   en: "",
-    //   fa: "شهروند",
-    //   font: "font-normal",
-    //   link: `/${params.lang}/levels/citizen`,
-    // },
     {
       name: "about",
       en: "about us",
@@ -178,7 +200,6 @@ export default function ({ params }: any) {
       font: "font-normal",
       link: `/${params.lang}/contact`,
     },
-    // -baguette is a key
     {
       name: "citizen-baguette",
       en: "citizen rank-1",
@@ -196,14 +217,14 @@ export default function ({ params }: any) {
     {
       name: "participation-baguette",
       en: "participation rank-1",
-      fa: "مشارکت کننده رتبه یک",
+      fa: "مشارکت‌کننده رتبه یک",
       font: "font-normal",
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
     {
       name: "developer-baguette",
       en: "developer rank-1",
-      fa: "توسعه دهنده رتبه یک",
+      fa: "توسعه‌دهنده رتبه یک",
       font: "font-normal",
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
@@ -266,7 +287,7 @@ export default function ({ params }: any) {
     {
       name: "legislator-baguette",
       en: "legislator rank-1",
-      fa: "قانون گذار رتبه یک",
+      fa: "قانون‌گذار رتبه یک",
       font: "font-normal",
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
@@ -280,7 +301,7 @@ export default function ({ params }: any) {
     {
       name: "licenses",
       en: "licenses",
-      fa: "مجوزها و دسترسی ها",
+      fa: "مجوزها و دسترسی‌ها",
       font: "font-normal",
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
@@ -306,9 +327,9 @@ export default function ({ params }: any) {
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
     {
-      name: `articles`,
-      en: `articles`,
-      fa: `مقالات`,
+      name: "articles",
+      en: "articles",
+      fa: "مقالات",
       font: "font-normal",
       link: `/${params.lang}/articles`,
     },
@@ -320,14 +341,11 @@ export default function ({ params }: any) {
       link: `/${params.lang}/articles/${params.slug}`,
     },
   ];
-  const pathname = usePathname();
-  let temp = pathname.split("/");
-  // delete empty string in array
-  temp.shift();
-  let direction = temp[0] == "fa" ? "rtl" : "ltr";
+
+  let temp = pathname.split("/").filter((x) => x);
+  let direction = temp[0] === "fa" ? "rtl" : "ltr";
 
   let buildedArray: any[] = [
-    // always show in breadCrumb
     {
       name: "home",
       en: "Home",
@@ -336,59 +354,73 @@ export default function ({ params }: any) {
       link: `/${params.lang}`,
     },
   ];
-  temp.map((x) => {
-    staticData.map((y) => {
-      if (y.name == x) buildedArray.push(y);
-    });
+
+  temp.forEach((x) => {
+    const matchedItem = staticData.find(
+      (y) => y.name === x || y.name === `event-${x}` || y.name === `citizen-${x}`
+    );
+    if (matchedItem) {
+      // فقط آیتم‌هایی که با مسیر فعلی مطابقت دارند اضافه شوند
+      if (
+        (pathname.includes("/calendar") && matchedItem.link.includes("/calendar")) ||
+        (pathname.includes("/citizens") && matchedItem.link.includes("/citizens")) ||
+        (!pathname.includes("/calendar") && !pathname.includes("/citizens"))
+      ) {
+        buildedArray.push(matchedItem);
+      }
+    }
   });
+
+  // حذف آیتم‌های تکراری بر اساس لینک
+  buildedArray = Array.from(new Set(buildedArray.map((item) => item.link))).map((link) =>
+    buildedArray.find((item) => item.link === link)
+  );
 
   return (
     <div className="flex flex-wrap font-azarMehr text-[16px] lg:text-[18px] !font-normal py-[20px] capitalize">
-      {direction == "rtl"
+      {direction === "rtl"
         ? buildedArray.map((x, index) => (
-          <Link
-            href={x.link}
-            className={`${index == buildedArray.length - 1
-                ? "text-blueLink dark:text-dark-yellow"
-                : "text-extraGray"
-              } 
-              ${index == buildedArray.length - 1
-                ? "dark:text-dark-yellow"
-                : "dark:text-white"
-              } ${x.font} flex items-center`}
-            key={index}
-          >
-            {/* TEXT */}
-            {x.fa}
-
-            {buildedArray.length - 1 != index && (
-              <ArrowMenu
-                className={`w-[7px] h-[13px] stroke-gray dark:stroke-white mx-2 rotate-180`}
-              />
-            )}
-          </Link>
-        ))
+            <Link
+              href={x.link}
+              className={`${index === buildedArray.length - 1
+                  ? "text-blueLink dark:text-dark-yellow"
+                  : "text-extraGray"
+                } 
+                ${index === buildedArray.length - 1
+                  ? "dark:text-dark-yellow"
+                  : "dark:text-white"
+                } ${x.font} flex items-center`}
+              key={index}
+            >
+              {x.fa}
+              {buildedArray.length - 1 !== index && (
+                <ArrowMenu
+                  className={`w-[7px] h-[13px] stroke-gray dark:stroke-white mx-2 rotate-180`}
+                />
+              )}
+            </Link>
+          ))
         : buildedArray.map((x, index) => (
-          <Link
-            href={x.link}
-            className={`${index == buildedArray.length - 1
-                ? "text-blueLink dark:text-dark-yellow"
-                : "text-extraGray"
-              } 
-            ${index == buildedArray.length - 1
-                ? " dark:text-dark-yellow"
-                : "dark:text-white"
-              } ${x.font} flex items-center`}
-            key={index}
-          >
-            {x.en}
-            {buildedArray.length - 1 != index && (
-              <ArrowMenu
-                className={`w-[7px] h-[13px] stroke-gray dark:stroke-white mx-2 rotate-0`}
-              />
-            )}
-          </Link>
-        ))}
+            <Link
+              href={x.link}
+              className={`${index === buildedArray.length - 1
+                  ? "text-blueLink dark:text-dark-yellow"
+                  : "text-extraGray"
+                } 
+                ${index === buildedArray.length - 1
+                  ? "dark:text-dark-yellow"
+                  : "dark:text-white"
+                } ${x.font} flex items-center`}
+              key={index}
+            >
+              {x.en}
+              {buildedArray.length - 1 !== index && (
+                <ArrowMenu
+                  className={`w-[7px] h-[13px] stroke-gray dark:stroke-white mx-2 rotate-0`}
+                />
+              )}
+            </Link>
+          ))}
     </div>
   );
 }

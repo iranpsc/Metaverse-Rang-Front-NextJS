@@ -1,20 +1,29 @@
 "use client";
-import Calendar from "./Calendar";
-import EventList from "./EventList";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { switchDigits } from "@/components/utils/DigitSwitch";
 import { Search } from "@/components/svgs/SvgEducation";
-import { mapEvents, MappedEventItem, CalendarProps } from "@/utils/mapEvents";
-import { useSearchParams } from "next/navigation";
+import { mapEvents, MappedEventItem } from "@/utils/mapEvents";
+import Calendar from "./Calendar";
+import SingleEvent from "./SingleEvent";
 
-export default function EventsCalendar({
-  events: initialEvents,
+interface EventCalendarClientProps {
+  events: MappedEventItem[];
+  mainData: any;
+  params: any;
+  token: string | null;
+  selectedEvent: MappedEventItem;
+}
+
+export default function EventCalendarClient({
+  events,
   mainData,
   params,
   token,
-}: CalendarProps) {
-  const searchParams = useSearchParams();
+  selectedEvent,
+}: EventCalendarClientProps) {
+  const router = useRouter();
   const [searchValue, setSearchValue] = useState<string>("");
   const [searchResults, setSearchResults] = useState<MappedEventItem[] | null>(null);
   const [startOfMonthDate, setStartOfMonthDate] = useState<string>("");
@@ -23,22 +32,6 @@ export default function EventsCalendar({
   const [monthEventsDay, setMonthEventsDay] = useState<any[]>([]);
   const [selectedEventDate, setSelectedEventDate] = useState<string | null>(null);
   const [dateResults, setDateResults] = useState<MappedEventItem[] | null>(null);
-  const [events, setEvents] = useState<MappedEventItem[]>(initialEvents);
-
-  // خواندن پارامترهای URL
-  useEffect(() => {
-    const search = searchParams.get("search");
-    const date = searchParams.get("date");
-
-    if (search) {
-      setSearchValue(decodeURIComponent(search));
-      handleSearchClick();
-    } else if (date) {
-      setSelectedEventDate(decodeURIComponent(date));
-    } else {
-      setEvents(initialEvents);
-    }
-  }, [searchParams, initialEvents]);
 
   const total = monthEventsDay.length;
 
@@ -89,13 +82,15 @@ export default function EventsCalendar({
         if (!res.ok) throw new Error("ERR");
         const json = await res.json();
         setDateResults(mapEvents(json.data));
+        // ریدایرکت به صفحه اصلی با پارامتر تاریخ
+        router.push(`/${params.lang}/calendar?date=${encodeURIComponent(selectedEventDate)}`);
       } catch (error) {
         console.error(error);
         setDateResults([]);
       }
     };
     fetchCalendarEvents();
-  }, [selectedEventDate, events]);
+  }, [selectedEventDate, events, router, params.lang]);
 
   function handleSearchClick() {
     if (!searchValue.trim()) return;
@@ -107,7 +102,11 @@ export default function EventsCalendar({
     };
     fetch(url, { headers })
       .then((res) => res.json())
-      .then((data) => setSearchResults(mapEvents(data.data)))
+      .then((data) => {
+        setSearchResults(mapEvents(data.data));
+        // ریدایرکت به صفحه اصلی با پارامتر جستجو
+        router.push(`/${params.lang}/calendar?search=${query}`);
+      })
       .catch((err) => {
         console.error(err);
         setSearchResults([]);
@@ -236,17 +235,11 @@ export default function EventsCalendar({
       </div>
 
       <div className="line mt-6 w-full lg:w-[95%] h-[2px] bg-gradient-to-r from-transparent via-[#DADADA] to-transparent"></div>
-      <EventList
-        token={token}
-        events={
-          searchResults && searchResults.length > 0
-            ? searchResults
-            : dateResults && dateResults.length > 0
-            ? dateResults
-            : events
-        }
+      <SingleEvent
+        event={selectedEvent}
         mainData={mainData}
         params={params}
+        token={token}
       />
     </div>
   );
