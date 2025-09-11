@@ -180,7 +180,7 @@ export async function generateMetadata({ params }: { params: any }) {
     description: findByUniqueId(mainData, 340),
     openGraph: {
       type: "website",
-      // url: `https://yourwebsite.com/posts/${params.id}`,
+      // url: `https://rgb.irpsc.com/posts/${params.id}`,
       title: findByUniqueId(mainData, 340),
       description: findByUniqueId(mainData, 340),
       locale: params.lang == "fa" ? "fa_IR" : "en_US",

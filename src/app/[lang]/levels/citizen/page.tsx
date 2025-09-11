@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: any) {
     description: await makeLessCharacter(),
     openGraph: {
       type: "website",
-      // url: `https://yourwebsite.com/posts/${params.id}`,
+      // url: `https://rgb.irpsc.com/posts/${params.id}`,
       title: findByUniqueId(mainData, 587),
       description: await makeLessCharacter(),
       locale: params.lang == "fa" ? "fa_IR" : "en_US",
