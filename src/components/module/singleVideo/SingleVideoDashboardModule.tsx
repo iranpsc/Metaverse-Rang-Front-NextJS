@@ -21,33 +21,13 @@ const SingleVideoDashboardModule = ({
   const [isLiking, setIsLiking] = useState(false);
   const [isDisliking, setIsDisliking] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
-  const [userInteraction, setUserInteraction] = useState<null | boolean>(null); // null: بدون تعامل، true: لایک، false: دیسلایک
+  const [userInteraction, setUserInteraction] = useState<null | boolean>(DataVideo.user_interaction ?? null);
 
-  // لود داده‌های اولیه به‌روز
+  // همگام‌سازی newData با props وقتی DataVideo تغییر کنه (مثل رفرش)
   useEffect(() => {
-    const fetchInitialData = async () => {
-      try {
-        const token = cookies.auth?.split("&")[0].replace("token=", "");
-        const headers: any = { "Cache-Control": "no-cache" };
-        if (token) {
-          headers.Authorization = `Bearer ${token}`;
-        }
-        const resVideo = await axios.get(
-          `https://api.rgb.irpsc.com/api/tutorials/${DataVideo.slug}`,
-          { headers }
-        );
-        setNewData(resVideo.data.data);
-        // فرض می‌کنیم API داده‌ای برای وضعیت تعامل کاربر ارائه می‌دهد
-        setUserInteraction(resVideo.data.data.user_interaction ?? null);
-      } catch (error: any) {
-        console.error("خطا در لود داده‌های اولیه:", error?.response?.status, error?.response?.data);
-        if (error?.response?.status === 401 && cookies.auth) {
-          setShowLoginModal(true);
-        }
-      }
-    };
-    fetchInitialData();
-  }, [DataVideo.slug, cookies.auth]);
+    setNewData(DataVideo);
+    setUserInteraction(DataVideo.user_interaction ?? null);
+  }, [DataVideo]);
 
   // تابع مشترک برای مدیریت لایک و دیسلایک
   const handleInteraction = async (isLike: boolean) => {
@@ -56,6 +36,9 @@ const SingleVideoDashboardModule = ({
       return;
     }
     if (isLiking || isDisliking) return;
+
+    // اگر کاربر بخواد همون interaction رو تکرار کنه، چیزی تغییر نمی‌کنه
+    if (userInteraction === isLike) return;
 
     const setLoading = isLike ? setIsLiking : setIsDisliking;
     setLoading(true);
@@ -73,18 +56,39 @@ const SingleVideoDashboardModule = ({
       );
       console.log(`پاسخ سرور برای ${isLike ? "لایک" : "دیسلایک"}:`, response.data);
 
-      // به‌روزرسانی داده‌های ویدیو
-      const resVideo = await axios.get(
-        `https://api.rgb.irpsc.com/api/tutorials/${DataVideo.slug}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Cache-Control": "no-cache",
-          },
+      // آپدیت محلی counts
+      setNewData((prevData: any) => {
+        let updatedLikes = prevData.likes_count || 0;
+        let updatedDislikes = prevData.dislikes_count || 0;
+
+        // اگر قبلاً لایک کرده و حالا دیسلایک می‌کنه
+        if (userInteraction === true && !isLike) {
+          updatedLikes -= 1;
+          updatedDislikes += 1;
         }
-      );
-      setNewData(resVideo.data.data);
-      setUserInteraction(isLike); // به‌روزرسانی وضعیت تعامل کاربر
+        // اگر قبلاً دیسلایک کرده و حالا لایک می‌کنه
+        else if (userInteraction === false && isLike) {
+          updatedDislikes -= 1;
+          updatedLikes += 1;
+        }
+        // اگر هیچ تعاملی نداشته و لایک می‌کنه
+        else if (userInteraction === null && isLike) {
+          updatedLikes += 1;
+        }
+        // اگر هیچ تعاملی نداشته و دیسلایک می‌کنه
+        else if (userInteraction === null && !isLike) {
+          updatedDislikes += 1;
+        }
+
+        return {
+          ...prevData,
+          likes_count: updatedLikes,
+          dislikes_count: updatedDislikes,
+        };
+      });
+
+      // آپدیت userInteraction
+      setUserInteraction(isLike ? true : false);
     } catch (error: any) {
       console.error(`خطا در ${isLike ? "لایک" : "دیسلایک"}:`, error?.response?.status, error?.response?.data);
       if (error?.response?.status === 401) {
@@ -126,33 +130,33 @@ const SingleVideoDashboardModule = ({
 
         <div className="flex flex-row justify-center items-center gap-2 cursor-pointer">
           <p className="font-azarMehr font-normal text-singleVideo_medium dark:text-white xs:text-[12px] md:text-lg">
-            {checkData(newData.likes_count)}
+            {checkData(newData.likes_count || 0)}
           </p>
           <motion.div
             className={`xs:size-[24px] md:size-[18px] outline-none border-none stroke-darkGray dark:stroke-white flex items-center justify-center ${isLiking || !cookies.auth || userInteraction === true ? "opacity-50" : "cursor-pointer"}`}
             whileTap={{ scale: isLiking || !cookies.auth || userInteraction === true ? 1 : 1.2 }}
             onClick={() => handleInteraction(true)}
           >
-            <Like className={`size-full `} />
+            <Like className={`size-full`} />
           </motion.div>
         </div>
 
         <div className="flex flex-row justify-center items-center gap-2 cursor-pointer">
           <p className="font-azarMehr font-normal text-singleVideo_medium dark:text-white xs:text-[12px] md:text-lg">
-            {checkData(newData.dislikes_count)}
+            {checkData(newData.dislikes_count || 0)}
           </p>
           <motion.div
             className={`xs:size-[24px] md:size-[18px] outline-none border-none stroke-darkGray dark:stroke-white flex items-center justify-center ${isDisliking || !cookies.auth || userInteraction === false ? "opacity-50" : "cursor-pointer"}`}
             whileTap={{ scale: isDisliking || !cookies.auth || userInteraction === false ? 1 : 1.2 }}
             onClick={() => handleInteraction(false)}
           >
-            <Dislike className={`size-full `} />
+            <Dislike className={`size-full`} />
           </motion.div>
         </div>
 
         <div className="flex flex-row justify-center items-center gap-2 xs:hidden">
           <p className="font-azarMehr font-normal text-singleVideo_medium dark:text-white xs:text-[12px] md:text-lg">
-            {checkData(newData.views_count)}
+            {checkData(newData.views_count || 0)}
           </p>
           <View className="stroke-textGray dark:stroke-white xs:size-[24px] md:size-[18px]" />
         </div>
