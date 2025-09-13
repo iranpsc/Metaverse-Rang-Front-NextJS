@@ -1,4 +1,3 @@
-// EventList.tsx
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
@@ -423,6 +422,8 @@ const EventList: React.FC<CalendarFilterProps> = ({
           ? htmlTruncate(event.desc, maxLength, { ellipsis: "..." })
           : event.desc;
 
+        const isEnded = toEnd.days === 0 && toEnd.hours === 0 && toEnd.minutes === 0 && toEnd.seconds === 0;
+
         return (
           <div
             key={event.id}
@@ -434,16 +435,16 @@ const EventList: React.FC<CalendarFilterProps> = ({
             {/* تصویر ایونت */}
             <div className="mt-4 w-[97%] flex justify-center lg:w-[95%] mx-auto rounded-[20px] overflow-hidden shadow-lg lg:mt-6">
               <Link href={`/${params.lang}/calendar/${event.id}`}>
-              <img
-                className="w-full"
-                src={
-                  event.image === "image" || !event.image
-                    ? "/firstpage/frame.jpg"
-                    : event.image
-                }
-                alt={event.title}
-                loading="lazy"
-              /></Link>
+                <img
+                  className="w-full"
+                  src={
+                    event.image === "image" || !event.image
+                      ? "/firstpage/frame.jpg"
+                      : event.image
+                  }
+                  alt={event.title}
+                  loading="lazy"
+                /></Link>
             </div>
 
             {/* عنوان و لایک/دیسلایک */}
@@ -536,108 +537,127 @@ const EventList: React.FC<CalendarFilterProps> = ({
               dark:bg-gradient-to-r dark:from-[#ffffff09] dark:to-[#00000000] dark:text-dark-yellow text-blueLink rounded-[32px] border-[1px] border-solid dark:border-[#ffffff25] border-[#CFCFCFE5] shadow-lg p-4 flex flex-col sm:flex-row-reverse sm:h-[250px]"
             >
               <div className="flex flex-col justify-start sm:order-1 sm:content-start sm:w-[30%] sm:min-w-[194px]">
-                <h2 className="text-[16px] font-bold self-center sm:self-start text-black dark:text-white pb-6 sm:mt-4 sm:pb-6 sm:text-start 2xl:text-xl xl:text-lg lg:text-base">
+                <h2 className="text-[16px] font-bold lg:px-5 self-center sm:self-start text-black dark:text-white pb-6 sm:mt-4 sm:pb-6 sm:text-start 2xl:text-xl xl:text-lg lg:text-base">
                   {findByUniqueId(mainData, 583)} :
                 </h2>
-                <div className="flex justify-between items-center" style={{ direction: "ltr" }}>
+                <div className="flex justify-between  lg:px-5 items-center" style={{ direction: "ltr" }}>
                   <div className="text-center">
                     <div
-                      id="start-days"
-                      className="hale text-2xl font-bold lg:text-3xl xl:text-4xl 2xl:text-5xl"
+                      className="hale text-2xl font-bold lg:text-3xl xl:text-4xl"
                     >
-                      {switchDigits(toStart.days.toString().padStart(2, "0"), params.lang)}
+                      {switchDigits(event.start.split(' ')[0], params.lang)}
                     </div>
                     <div className="text-base">{findByUniqueId(mainData, 380)}</div>
                   </div>
-                  <span className="self-start text-[24px] leading-10 font-bold lg:text-3xl xl:text-4xl 2xl:text-5xl">
-                    :
-                  </span>
-                  <div className="text-center">
-                    <div
-                      id="start-hours"
-                      className="hale text-2xl font-bold w-11 lg:text-3xl xl:text-4xl 2xl:text-5xl"
-                    >
-                      {switchDigits(toStart.hours.toString().padStart(2, "0"), params.lang)}
+                  <div className="flex gap-5">
+                    <div className="text-center">
+                      <div
+                        className="hale text-2xl font-bold w-11 lg:text-3xl xl:text-4xl"
+                      >
+                        {switchDigits(event.start.split(' ')[1].split(':')[0], params.lang)}
+                      </div>
+                      <div className="text-base">{findByUniqueId(mainData, 560)}</div>
                     </div>
-                    <div className="text-base">{findByUniqueId(mainData, 560)}</div>
-                  </div>
-                  <span className="self-start text-[24px] leading-10 font-bold lg:text-3xl xl:text-4xl 2xl:text-5xl">
-                    :
-                  </span>
-                  <div className="text-center">
-                    <div
-                      id="start-minutes"
-                      className="hale text-2xl font-bold w-11 lg:text-3xl xl:text-4xl 2xl:text-5xl"
-                    >
-                      {switchDigits(toStart.minutes.toString().padStart(2, "0"), params.lang)}
+                    <span className="self-start text-[24px] leading-10 font-bold lg:text-3xl xl:text-4xl ">
+                      :
+                    </span>
+                    <div className="text-center">
+                      <div
+                        className="hale text-2xl font-bold w-11 lg:text-3xl xl:text-4xl "
+                      >
+                        {switchDigits(event.start.split(' ')[1].split(':')[1], params.lang)}
+                      </div>
+                      <div className="text-base">{findByUniqueId(mainData, 33)}</div>
                     </div>
-                    <div className="text-base">{findByUniqueId(mainData, 33)}</div>
-                  </div>
-                  <span className="self-start text-[24px] leading-10 font-bold lg:text-3xl xl:text-4xl 2xl:text-5xl">
-                    :
-                  </span>
-                  <div className="text-center">
-                    <div
-                      id="start-seconds"
-                      className="hale text-2xl font-bold w-11 lg:text-3xl xl:text-4xl 2xl:text-5xl"
-                    >
-                      {switchDigits(toStart.seconds.toString().padStart(2, "0"), params.lang)}
-                    </div>
-                    <div className="text-base">{findByUniqueId(mainData, 778)}</div>
                   </div>
                 </div>
               </div>
               <div className="text-center mb-4 sm:w-[30%] sm:min-w-[194px]">
-                <h2 className="text-[16px] font-bold text-black dark:text-white pb-6 sm:pb-6 sm:mt-4 sm:text-start 2xl:text-xl xl:text-lg lg:text-base pt-6 sm:pt-0">
-                  {findByUniqueId(mainData, 584)} :
+                <h2 className="text-[16px] lg:px-5 font-bold text-black dark:text-white pb-6 sm:pb-6 sm:mt-4 sm:text-start 2xl:text-xl xl:text-lg lg:text-base pt-6 sm:pt-0">
+                  {findByUniqueId(mainData, 584)}
                 </h2>
-                <div className="flex justify-between items-center" style={{ direction: "ltr" }}>
-                  <div className="text-center">
-                    <div
-                      id="end-days"
-                      className="hale text-2xl font-bold lg:text-3xl xl:text-4xl 2xl:text-5xl"
-                    >
-                      {switchDigits(toEnd.days.toString().padStart(2, "0"), params.lang)}
+                {isEnded ? (
+                  <div className="flex justify-between lg:px-5 items-center" style={{ direction: "ltr" }}>
+                    <div className="text-center">
+                      <div
+                        className="hale text-2xl font-bold lg:text-3xl xl:text-4xl "
+                      >
+                        {switchDigits(event.end.split(' ')[0], params.lang)}
+                      </div>
+                      <div className="text-base">{findByUniqueId(mainData, 380)}</div>
                     </div>
-                    <div className="text-base">{findByUniqueId(mainData, 380)}</div>
-                  </div>
-                  <span className="self-start text-[24px] leading-10 font-bold lg:text-3xl xl:text-4xl 2xl:text-5xl">
-                    :
-                  </span>
-                  <div className="text-center">
-                    <div
-                      id="end-hours"
-                      className="hale text-2xl font-bold w-11 lg:text-3xl xl:text-4xl 2xl:text-5xl"
-                    >
-                      {switchDigits(toEnd.hours.toString().padStart(2, "0"), params.lang)}
+
+                    <div className="flex gap-5 ">
+                      <div className="text-center">
+                        <div
+                          className="hale text-2xl font-bold w-11 lg:text-3xl xl:text-4xl "
+                        >
+                          {switchDigits(event.end.split(' ')[1].split(':')[0], params.lang)}
+                        </div>
+                        <div className="text-base">{findByUniqueId(mainData, 560)}</div>
+                      </div>
+                      <span className="self-start text-[24px] leading-10 font-bold lg:text-3xl xl:text-4xl ">
+                        :
+                      </span>
+                      <div className="text-center">
+                        <div
+                          className="hale text-2xl font-bold w-11 lg:text-3xl xl:text-4xl "
+                        >
+                          {switchDigits(event.end.split(' ')[1].split(':')[1], params.lang)}
+                        </div>
+                        <div className="text-base">{findByUniqueId(mainData, 33)}</div>
+                      </div>
                     </div>
-                    <div className="text-base">{findByUniqueId(mainData, 560)}</div>
                   </div>
-                  <span className="self-start text-[24px] leading-10 font-bold lg:text-3xl xl:text-4xl 2xl:text-5xl">
-                    :
-                  </span>
-                  <div className="text-center">
-                    <div
-                      id="end-minutes"
-                      className="hale text-2xl font-bold w-11 lg:text-3xl xl:text-4xl 2xl:text-5xl"
-                    >
-                      {switchDigits(toEnd.minutes.toString().padStart(2, "0"), params.lang)}
+                ) : (
+                  <div className="flex justify-between items-center" style={{ direction: "ltr" }}>
+                    <div className="text-center">
+                      <div
+                        id="end-days"
+                        className="hale text-2xl font-bold lg:text-3xl xl:text-4xl 2xl:text-5xl"
+                      >
+                        {switchDigits(toEnd.days.toString().padStart(2, "0"), params.lang)}
+                      </div>
+                      <div className="text-base">{findByUniqueId(mainData, 380)}</div>
                     </div>
-                    <div className="text-base">{findByUniqueId(mainData, 33)}</div>
-                  </div>
-                  <span className="self-start text-[24px] leading-10 font-bold lg:text-3xl xl:text-4xl 2xl:text-5xl">
-                    :
-                  </span>
-                  <div className="text-center">
-                    <div
-                      id="end-seconds"
-                      className="hale text-2xl font-bold w-11 lg:text-3xl xl:text-4xl 2xl:text-5xl"
-                    >
-                      {switchDigits(toEnd.seconds.toString().padStart(2, "0"), params.lang)}
+                    <span className="self-start text-[24px] leading-10 font-bold lg:text-3xl xl:text-4xl 2xl:text-5xl">
+                      :
+                    </span>
+                    <div className="text-center">
+                      <div
+                        id="end-hours"
+                        className="hale text-2xl font-bold w-11 lg:text-3xl xl:text-4xl 2xl:text-5xl"
+                      >
+                        {switchDigits(toEnd.hours.toString().padStart(2, "0"), params.lang)}
+                      </div>
+                      <div className="text-base">{findByUniqueId(mainData, 560)}</div>
                     </div>
-                    <div className="text-base">{findByUniqueId(mainData, 778)}</div>
+                    <span className="self-start text-[24px] leading-10 font-bold lg:text-3xl xl:text-4xl 2xl:text-5xl">
+                      :
+                    </span>
+                    <div className="text-center">
+                      <div
+                        id="end-minutes"
+                        className="hale text-2xl font-bold w-11 lg:text-3xl xl:text-4xl 2xl:text-5xl"
+                      >
+                        {switchDigits(toEnd.minutes.toString().padStart(2, "0"), params.lang)}
+                      </div>
+                      <div className="text-base">{findByUniqueId(mainData, 33)}</div>
+                    </div>
+                    <span className="self-start text-[24px] leading-10 font-bold lg:text-3xl xl:text-4xl 2xl:text-5xl">
+                      :
+                    </span>
+                    <div className="text-center">
+                      <div
+                        id="end-seconds"
+                        className="hale text-2xl font-bold w-11 lg:text-3xl xl:text-4xl 2xl:text-5xl"
+                      >
+                        {switchDigits(toEnd.seconds.toString().padStart(2, "0"), params.lang)}
+                      </div>
+                      <div className="text-base">{findByUniqueId(mainData, 778)}</div>
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
               <div className="flex text-center sm:justify-center mt-4 sm:w-2/5">
                 <a
