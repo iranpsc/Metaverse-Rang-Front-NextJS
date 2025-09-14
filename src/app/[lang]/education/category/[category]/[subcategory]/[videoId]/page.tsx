@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
+import { cache } from "react"; // اضافه کردن cache از React
 
 const DynamicFooter = dynamic(
   () => import("@/components/module/footer/DynamicFooter"),
@@ -31,6 +32,11 @@ import ListVideos from "@/components/module/singleVideo/listVideos/ListVideos";
 
 import NotFoundPage from "@/components/shared/NotFoundPage"; // فرض کردم صفحه 404 اینجاست
 
+// Cache کردن getSingleVideoData برای جلوگیری از درخواست‌های تکراری در generateMetadata و صفحه اصلی
+const getCachedSingleVideoData = cache(async (videoId: string) => {
+  return await getSingleVideoData(videoId);
+});
+
 export default async function EducationVideo({ params }: { params: any }) {
   const [footerTabs, langData, langArray] = await Promise.all([
     getFooterData(params),
@@ -43,7 +49,8 @@ export default async function EducationVideo({ params }: { params: any }) {
   const centralPageModal = await findByModalName(mainData, "central-page");
   const tabsMenu = await findByTabName(centralPageModal, "before-login");
 
-  const DataVideo = await getSingleVideoData(params.videoId);
+  // استفاده از cached function برای DataVideo
+  const DataVideo = await getCachedSingleVideoData(params.videoId);
   const staticMenuToShow = getStaticMenu(params.id);
   const updatedTabsMenu = tabsMenu.map((tab: any) => {
     const findInStatic = staticMenuToShow.find(
@@ -210,7 +217,8 @@ export default async function EducationVideo({ params }: { params: any }) {
 
 // SEO
 export async function generateMetadata({ params }: { params: any }) {
-  const DataVideo = await getSingleVideoData(params.videoId);
+  // استفاده از cached function برای DataVideo
+  const DataVideo = await getCachedSingleVideoData(params.videoId);
 
   async function makeLessCharacter(_input: string | undefined | null): Promise<string> {
     return _input && typeof _input === "string" ? _input.slice(0, 200) : "";

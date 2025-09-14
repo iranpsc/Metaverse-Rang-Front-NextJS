@@ -21,7 +21,7 @@ export default function VideoCard({ item, params, theme }: any) {
     checkTruncation();
 
 
-    console.log("VideoCard content:", item);
+    console.log("eductions VideoCard content main page list:", item);
 
     const observer = new ResizeObserver(() => {
       checkTruncation();
@@ -134,18 +134,19 @@ export default function VideoCard({ item, params, theme }: any) {
           </div>
         </Link>
         <div className="flex flex-row justify-start items-center gap-5">
+                    <div className="flex items-center gap-[5px]">
+            <span className="font-azarMehr text-gray dark:text-dark-gray text-[13px] 3xl:text-[18px]">
+              {formatNumber(item.likes_count)}
+            </span>
+             <Like className="stroke-gray dark:stroke-dark-gray stroke-2 w-[18px] h-[18px]" />
+          </div>
           <div className="flex items-center gap-[5px]">
             <span className="font-azarMehr text-gray dark:text-dark-gray text-[13px] 3xl:text-[18px]">
               {formatNumber(item.dislikes_count)}
             </span>
-            <Like className="stroke-gray dark:stroke-dark-gray stroke-2 w-[18px] h-[18px]" />
+           <Dislike className="stroke-gray dark:stroke-dark-gray stroke-2" />
           </div>
-          <div className="flex items-center gap-[5px]">
-            <span className="font-azarMehr text-gray dark:text-dark-gray text-[13px] 3xl:text-[18px]">
-              {formatNumber(item.likes_count)}
-            </span>
-            <Dislike className="stroke-gray dark:stroke-dark-gray stroke-2" />
-          </div>
+
           <div className="flex items-center gap-[5px]">
             <span className="font-azarMehr text-gray dark:text-dark-gray text-[13px] 3xl:text-[18px]">
               {formatNumber(item.views_count)}
