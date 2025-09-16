@@ -1,60 +1,3 @@
-/********** Fonts **********/
-
-/* AzarMehr - Light */
-@font-face {
-  font-family: "AzarMehr";
-  src: url("/fonts/AzarMehr-Light.woff2") format("woff2");
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-
-
-/* AzarMehr - Medium */
-@font-face {
-  font-family: "AzarMehr";
-  src: url("/fonts/AzarMehr-Medium.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* AzarMehr - SemiBold */
-@font-face {
-  font-family: "AzarMehr";
-  src: url("/fonts/AzarMehr-SemiBold.woff2") format("woff2");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* AzarMehr - Bold */
-@font-face {
-  font-family: "AzarMehr";
-  src: url("/fonts/AzarMehr-Bold.woff2") format("woff2");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* AzarMehr - ExtraBold */
-@font-face {
-  font-family: "AzarMehr";
-  src: url("/fonts/AzarMehr-ExtraBold.woff2") format("woff2");
-  font-weight: 800;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* Rokh - Bold */
-@font-face {
-  font-family: "Rokh";
-  src: url("/fonts/Rokh-Bold.woff2") format("woff2");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
 
 /********** CSS Variables **********/
 :root {
@@ -105,3 +48,4 @@ ul {
   backdrop-filter: blur(10px);
   height: 100vh;
 }
+

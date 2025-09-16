@@ -1,4 +1,4 @@
-import { azarMehr, rokh } from "@/components/utils/fonts";
+import { azarMehr, rokh } from '../../fonts/localFonts';
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
 import ToastProvider from "../../components/shared/toastProvider";
 import { Suspense } from "react";
@@ -49,6 +49,7 @@ export default async function LangLayout({ children, params }: any) {
   return (
     <html className={theme} lang={params.lang}>
       <Head>
+        {/* Preload تصاویر و ویدئو */}
         <link rel="preload" as="image" href="/firstpage/replaced_pic.webp" />
         <link
           rel="preload"
@@ -56,13 +57,50 @@ export default async function LangLayout({ children, params }: any) {
           href="/firstpage/3d_rgb.irpsc.webm"
           type="video/mp4"
         />
+        {/* Preload همه وزن‌های فونت آذر مهر */}
         <link
           rel="preload"
-          href="/fonts/AzarMehr-DS2-Medium.woff2"
+          href="/fonts/AzarMehr-Light.woff2"
           as="font"
           type="font/woff2"
           crossOrigin="anonymous"
         />
+        <link
+          rel="preload"
+          href="/fonts/AzarMehr-Regular.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/AzarMehr-Medium.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/AzarMehr-SemiBold.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/AzarMehr-Bold.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/AzarMehr-ExtraBold.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        {/* فونت رخ */}
         <link
           rel="preload"
           href="/fonts/Rokh-Bold.woff2"
@@ -71,12 +109,11 @@ export default async function LangLayout({ children, params }: any) {
           crossOrigin="anonymous"
         />
       </Head>
-      <body
-        className={`${azarMehr.variable} ${rokh.variable} h-screen light-scrollbar dark:dark-scrollbar`}
-      >
+
+      <body className={`${azarMehr.variable} ${rokh.variable}  h-screen light-scrollbar dark:dark-scrollbar`}>
         <ToastProvider />
         <div className="flex h-screen overflow-hidden" dir={langData.direction}>
-          <Suspense fallback={<div >Loading Sidebar...</div>}>
+          <Suspense fallback={<div>Loading Sidebar...</div>}>
             <ConditionalSidebar
               tabsMenu={updatedTabsMenu}
               langData={langData}
@@ -84,17 +121,18 @@ export default async function LangLayout({ children, params }: any) {
               params={params}
             />
           </Suspense>
-          <Suspense
-            fallback={<div className="text-center text-[20px] mx-auto py-10">Loading...0</div>}
-          >
+
+          <Suspense fallback={<div className="text-center text-[20px] mx-auto py-10">Loading...</div>}>
             {children}
           </Suspense>
+
           <a
             href="https://discord.gg/sW6XCY96hh"
             aria-label="Join us on Discord"
             title="Discord"
             className="fixed rtl:left-10 ltr:right-10 bottom-[20px] z-[2]"
           >
+            {/* SVG Discord */}
             <svg
               className="size-[60px] bg-light-primary rounded-full dark:bg-dark-yellow"
               width="64"
@@ -113,12 +151,7 @@ export default async function LangLayout({ children, params }: any) {
               </g>
               <defs>
                 <clipPath id="clip0_2090_145">
-                  <rect
-                    width="30.72"
-                    height="30.72"
-                    fill="white"
-                    transform="translate(16.6396 17.0444)"
-                  />
+                  <rect width="30.72" height="30.72" fill="white" transform="translate(16.6396 17.0444)" />
                 </clipPath>
               </defs>
             </svg>
