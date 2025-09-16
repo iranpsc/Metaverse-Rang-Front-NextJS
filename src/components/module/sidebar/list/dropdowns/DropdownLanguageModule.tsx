@@ -54,8 +54,8 @@ const handleDirChange = (item: any) => {
                   <Image
                     src={item.icon}
                     alt="lang"
-                    width={100}
-                    height={100}
+                    width={28}
+                    height={28}
                     className={"w-6 h-6 3xl:w-7 3xl:h-7"}
                   />
                   {/* {languageSelected.name === item.name && (

@@ -2,10 +2,13 @@
 //   enabled: process.env.ANALYZE === 'true',
 // });
 
-module.exports = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  // 🔹 فعال‌کردن سورس‌مپ در پروداکشن (برای رفع هشدار Missing source maps)
+  productionBrowserSourceMaps: true,
+
   async redirects() {
     return [
-      // Auto redirect
       {
         source: '/:lang/citizen',
         destination: '/:lang/citizens',
@@ -18,39 +21,44 @@ module.exports = {
       },
     ];
   },
+
   async headers() {
     return [
       {
-        // اعمال کشینگ برای تصاویر در مسیر uploads/calendars (و زیرمسیرها)
+        // 📌 کش برای تصاویر (یک‌ساله + immutable)
         source: '/uploads/calendars/:path*',
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable', // کش برای ۱ سال، immutable برای جلوگیری از revalidation
+            value: 'public, max-age=31536000, immutable',
           },
         ],
       },
-      // اگر مسیرهای دیگری مثل flags داری، اینجا اضافه کن
-      // مثلاً:
-      // {
-      //   source: '/flags/:path*',
-      //   headers: [
-      //     { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
-      //   ],
-      // },
+      // می‌تونی مسیرهای دیگه مثل fonts رو هم اضافه کنی:
+      {
+        source: '/fonts/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
     ];
   },
+
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
-      use: [{ loader: "@svgr/webpack", options: { icon: true } }],
+      use: [{ loader: '@svgr/webpack', options: { icon: true } }],
     });
     return config;
   },
+
   images: {
-    deviceSizes: [640, 750, 828, 1080, 1200], // Keep default sizes for other images
+    deviceSizes: [640, 750, 828, 1080, 1200],
     imageSizes: [50, 120, 220, 320, 640, 750, 1080],
-    formats: ['image/avif', 'image/webp'], // اضافه کردن AVIF برای بهینه‌سازی بیشتر (پیشنهاد PSI)
+    formats: ['image/avif', 'image/webp'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -59,10 +67,6 @@ module.exports = {
       {
         protocol: 'https',
         hostname: 'api.rgb.irpsc.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'admin.rgb.irpsc.com',
       },
       {
         protocol: 'https',
@@ -78,12 +82,6 @@ module.exports = {
       },
     ],
   },
-  // async rewrites() {
-  //   return [
-  //     {
-  //       source: "/robots.txt",
-  //       destination: "/_next/static/robots.txt",
-  //     },
-  //   ];
-  // },
 };
+
+module.exports = nextConfig;

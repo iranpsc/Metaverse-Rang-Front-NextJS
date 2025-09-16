@@ -81,5 +81,19 @@
     "standard-version": "^9.5.0",
     "tailwindcss": "^3.4.1",
     "webpack-bundle-analyzer": "^4.10.2"
-  }
+  },
+  "browserslist": {
+  "production": [
+    ">0.5%",
+    "last 2 versions",
+    "not dead",
+    "not IE 11"
+  ],
+  "development": [
+    "last 1 chrome version",
+    "last 1 firefox version",
+    "last 1 safari version"
+  ]
+}
+
 }
