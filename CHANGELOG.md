@@ -8,6 +8,8 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### 2.2.11 (2025-09-16)
 
+### 2.2.11 (2025-09-16)
+
 ### 2.2.11 (2025-09-14)
 
 ### 2.2.11 (2025-09-11)
