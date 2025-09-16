@@ -417,7 +417,7 @@ export default function Calendar({
 
   return (
     <div
-      className="xl:text-xl 2xl:text-2xl relative w-full border-[1px] border-solid 
+      className="xl:text-xl 2xl:text-2xl relative w-full border-[1px] border-solid  font-azarMehr
     dark:border-[#454545] border-[#BABABA]  sm:pt-4 h-auto p-4 sm:p-5 pt-6 
     dark:bg-[#080807] text-[#DEDEE9] rounded-3xl flex flex-col sm:min-w-[310px] sm:max-w-[310px]
     md:min-w-[380px] md:max-w-[380px] lg:min-w-[450px] lg:max-w-[450px] xl:min-w-[520px]  2xl:min-w-[580px]"

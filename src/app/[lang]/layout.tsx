@@ -57,60 +57,10 @@ export default async function LangLayout({ children, params }: any) {
           href="/firstpage/3d_rgb.irpsc.webm"
           type="video/mp4"
         />
-        {/* Preload همه وزن‌های فونت آذر مهر */}
-        <link
-          rel="preload"
-          href="/fonts/AzarMehr-Light.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
-          href="/fonts/AzarMehr-Regular.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
-          href="/fonts/AzarMehr-Medium.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
-          href="/fonts/AzarMehr-SemiBold.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
-          href="/fonts/AzarMehr-Bold.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
-          href="/fonts/AzarMehr-ExtraBold.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        {/* فونت رخ */}
-        <link
-          rel="preload"
-          href="/fonts/Rokh-Bold.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
+        
       </Head>
 
-      <body className={`${azarMehr.variable} ${rokh.variable}  h-screen light-scrollbar dark:dark-scrollbar`}>
+      <body className={`${azarMehr.variable} ${rokh.variable}   h-screen light-scrollbar dark:dark-scrollbar`}>
         <ToastProvider />
         <div className="flex h-screen overflow-hidden" dir={langData.direction}>
           <Suspense fallback={<div>Loading Sidebar...</div>}>

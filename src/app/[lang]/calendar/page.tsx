@@ -155,12 +155,12 @@ export default async function calendarPage({ params }: { params: any }) {
         <div className="px-12">
           <BreadCrumb params={params} />
         </div>
-        <div className="p-5 lg:px-10">
-          <h1 className="dark:text-white"> {findByUniqueId(mainData, 1463)}</h1>
+        <div className="p-5 lg:px-10 space-y-3">
+          <h1 className="dark:text-white text-2xl lg:text-3xl font-bold"> {findByUniqueId(mainData, 1463)}</h1>
           <p className="text-textGray dark:text-dark-gray"> {findByUniqueId(mainData, 1464)}</p>
         </div>
 
-        <div className="mainContainer w-full h-auto flex flex-col items-center lg:gap-0 font-['AzarMehr'] lg:flex-row lg:items-start p-5 lg:px-10">
+        <div className="mainContainer w-full h-auto flex flex-col items-center lg:gap-0 font-azarMehr lg:flex-row lg:items-start p-5 lg:px-10">
           <EventsCalendar
             token={token}
             mainData={mainData}

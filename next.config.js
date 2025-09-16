@@ -34,8 +34,8 @@ const nextConfig = {
           },
         ],
       },
-      // می‌تونی مسیرهای دیگه مثل fonts رو هم اضافه کنی:
       {
+        // 📌 کش برای فونت‌ها
         source: '/fonts/:path*',
         headers: [
           {
@@ -79,6 +79,10 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'irpsc.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'frdevelop2.irpsc.com', // 🔹 اضافه شد تا ارور تصاویر رفع بشه
       },
     ],
   },

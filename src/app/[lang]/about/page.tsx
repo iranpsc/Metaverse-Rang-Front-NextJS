@@ -138,7 +138,7 @@ export default async function AboutPage({ params }: { params: Params }) {
         }}
       />
       <section
-        className={`min-h-[calc(100vh-60px)] lg:min-h-screen overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 mx-auto px-4 lg:px-9 font-azarMehr`}
+        className={`min-h-[calc(100vh-60px)] lg:min-h-screen overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 mx-auto px-4 lg:px-9 !font-azarMehr`}
       >
         <h1 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[64px] mb-[16px]">
           {params.lang.toLowerCase() === "fa" ? "درباره ما" : "About Us"}
@@ -182,7 +182,7 @@ export default async function AboutPage({ params }: { params: Params }) {
             </h2>
             <ul className="text-lightGray font-medium text-justify text-sm md:text-lg mt-5 leading-10">
               <li>
-                <span className="font-bold text-black dark:text-white">
+                <span className="font-bold font-azarMehr text-black dark:text-white">
                   {params.lang.toLowerCase() === "fa"
                     ? "نوآوری و کارآفرینی:"
                     : "Innovation and Entrepreneurship"}

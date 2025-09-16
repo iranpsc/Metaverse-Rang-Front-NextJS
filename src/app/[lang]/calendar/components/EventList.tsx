@@ -8,13 +8,13 @@ import moment from "moment-jalaali";
 import { Like, Dislike, View } from "@/components/svgs/SvgEducation";
 import SyncLoader from "react-spinners/SyncLoader";
 import LoginButtonModule from "@/components/module/singleVideo/LoginButtonModule";
+import Image from "next/image";
 import {
   MappedEventItem,
   CalendarFilterProps,
   EventItem,
 } from "@/utils/mapEvents";
 import Link from "next/link";
-import Image from "next/image"; // اضافه‌شده برای بهینه‌سازی تصاویر
 
 // تابع برای پارس تاریخ جلالی
 function parseJalaliDatetime(jalaliStr: string): Date {
@@ -412,7 +412,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
 
   return (
     <>
-      {visibleEvents.map((event, index) => {
+      {visibleEvents.map((event) => {
         const { toStart, toEnd } = countdowns[event.id] || {
           toStart: { days: 0, hours: 0, minutes: 0, seconds: 0 },
           toEnd: { days: 0, hours: 0, minutes: 0, seconds: 0 },
@@ -433,24 +433,27 @@ const EventList: React.FC<CalendarFilterProps> = ({
             ref={(el) => (eventRefs.current[event.id] = el)}
             className="items flex flex-col justify-center gap-3 items-center w-full"
           >
-            {/* تصویر ایونت - جایگزین با Image برای بهینه‌سازی */}
-            <div className="mt-4 w-[97%] flex justify-center lg:w-[95%] mx-auto rounded-[20px] overflow-hidden shadow-lg lg:mt-6">
-              <Link href={`/${params.lang}/calendar/${event.id}`}>
-                <Image
-                  src={
-                    event.image === "image" || !event.image
-                      ? "/firstpage/frame.jpg"
-                      : event.image
-                  }
-                  alt={event.title}
-                  width={1402}  // ابعاد واقعی فایل بر اساس گزارش
-                  height={816}
-                  sizes="100vw"  // responsive - بر اساس نمایش 1133x660 تنظیم کن اگر لازم
-                  priority={index === 0}  // برای اولین ایونت (LCP): fetchpriority=high و no lazy
-                  className="w-full"
-                />
-              </Link>
-            </div>
+            {/* تصویر ایونت */}
+<div className="mt-4 w-[97%] flex justify-center lg:w-[95%] mx-auto rounded-[20px] overflow-hidden shadow-lg lg:mt-6">
+  <Link href={`/${params.lang}/calendar/${event.id}`}>
+    <Image
+      src={
+        event.image && event.image !== "image"
+          ? event.image
+          : "/rafiki-dark.png"
+      }
+      alt={event.title || "event image"}
+      width={1280}       // عرض تقریبی (بسته به طراحی می‌تونی تغییر بدی)
+      height={720}      // ارتفاع تقریبی
+      className="w-full object-cover"
+      loading="lazy"
+      onError={(e) => {
+        // @ts-ignore
+        e.currentTarget.src = "/rafiki-dark.png";
+      }}
+    />
+  </Link>
+</div>
 
             {/* عنوان و لایک/دیسلایک */}
             <div className="flex flex-col w-[97%] lg:w-[95%] gap-3 sm:gap-0 items-center sm:flex-row-reverse sm:justify-between">
