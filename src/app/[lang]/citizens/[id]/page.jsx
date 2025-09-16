@@ -100,7 +100,7 @@ export default async function citizenSinglePage({ params }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(singleCitizenSchema) }}
         />
-        <main className="flex h-screen dark:bg-black" dir={langData.direction}>
+        <main className="flex h-screen dark:bg-black w-full" dir={langData.direction}>
           <div className="relative overflow-y-scroll lg:overflow-hidden w-full xs:px-1 mt-[60px] lg:mt-0">
             <div className="flex h-full" dir={langData.direction}>
               <Suspense fallback={<div>Loading...</div>}>

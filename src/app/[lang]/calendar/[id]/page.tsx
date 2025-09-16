@@ -4,14 +4,10 @@ import { cookies } from "next/headers";
 import {
   getTranslation,
   getMainFile,
-  findByModalName,
-  findByTabName,
   getFooterData,
   getLangArray,
 } from "@/components/utils/actions";
 import BreadCrumb from "@/components/shared/BreadCrumb";
-import SideBar from "@/components/module/sidebar/SideBar";
-import { getStaticMenu } from "@/components/utils/constants";
 import { mapEvents, MappedEventItem } from "@/utils/mapEvents";
 import EventCalendarClient from "../components/EventCalendarClient";
 import htmlTruncate from "html-truncate";
@@ -112,19 +108,6 @@ export default async function EventPage({
   const rawAuth = cookieStore.get("auth")?.value;
   const token = rawAuth ? new URLSearchParams(rawAuth).get("token") : null;
 
-  const centralPageModal = await findByModalName(mainData, "central-page");
-  const tabsMenu = await findByTabName(centralPageModal, "before-login");
-
-  const staticMenuToShow = getStaticMenu(params.id);
-  const updatedTabsMenu = tabsMenu.map((tab: any) => {
-    const staticTab = staticMenuToShow.find(
-      (val) => val.unique_id === tab.unique_id
-    );
-    return staticTab
-      ? { ...tab, url: staticTab.url, order: staticTab.order, toShow: true }
-      : tab;
-  });
-
   const cleanTitle = stripHtml(selectedEvent.title);
 
   const eventSchema = {
@@ -161,20 +144,12 @@ export default async function EventPage({
 
   return (
     <div
-      className="flex h-screen overflow-hidden min-w-[340px]"
+      className="flex flex-col h-screen overflow-hidden min-w-[340px] w-full"
       dir={langData.direction}
     >
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(eventSchema) }}
-      />
-
-      <SideBar
-        tabsMenu={updatedTabsMenu}
-        langData={langData}
-        langArray={langArray}
-        params={params}
-        pageSide="citizen"
       />
 
       <section className="w-full overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20">

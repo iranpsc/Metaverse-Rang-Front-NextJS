@@ -54,7 +54,7 @@ export default async function CitizensLayout({
     //   fallback={<div className="text-center text-[20px]">Loading...2</div>}
     // >
     <main
-      className="flex dark:bg-black overflow-hidden"
+      className="flex dark:bg-black overflow-hidden !w-full"
       dir={langData.direction}
     >
       <SideBar
@@ -65,7 +65,7 @@ export default async function CitizensLayout({
         params={params}
       />
       <div
-        className={`light-scrollbar dark:dark-scrollbar w-full h-[calc(100vh-60px)] lg:h-screen overflow-y-auto relative mt-[60px] lg:mt-0 lg:pt-0 lg:pt-[0]`}
+        className={`light-scrollbar dark:dark-scrollbar w-full h-[calc(100vh-60px)] lg:h-screen overflow-y-auto relative mt-[60px] lg:mt-0 lg:pt-0 lg:pt-[0] `}
       >
         {children}
       </div>

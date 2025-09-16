@@ -6,9 +6,7 @@ const DynamicFooter = dynamic(
   () => import("@/components/module/footer/DynamicFooter"),
   { suspense: true }
 );
-const SideBar = dynamic(() => import("@/components/module/sidebar/SideBar"), {
-  suspense: true,
-});
+
 const BreadCrumb = dynamic(() => import("@/components/shared/BreadCrumb"), {
   suspense: true,
 });
@@ -31,7 +29,6 @@ import {
   getAllCategories,
 } from "@/components/utils/actions";
 
-import { getStaticMenu } from "@/components/utils/constants";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 export default async function EducationCategoryAll({
@@ -48,29 +45,8 @@ export default async function EducationCategoryAll({
 
   const mainData = await getMainFile(langData);
 
-  const centralPageModal = await findByModalName(mainData, "central-page");
-  const tabsMenu = await findByTabName(centralPageModal, "before-login");
 
-  const staticMenuToShow = getStaticMenu(params);
-  // add staticMenuToShow values to siblings tabsMenu values
-  const updatedTabsMenu = tabsMenu.map((tab: any) => {
-    let findInStatic = staticMenuToShow.find(
-      (val) => tab.unique_id === val.unique_id
-    );
 
-    if (findInStatic) {
-      // Return a new tab object with updated properties
-      return {
-        ...tab, // Spread the original tab properties
-        url: findInStatic.url,
-        order: findInStatic.order,
-        toShow: true,
-      };
-    }
-
-    // If no match found, return the original tab
-    return tab;
-  });
 
   const educationAllCategorySchema = {
     "@context": "https://schema.org",
@@ -100,18 +76,8 @@ export default async function EducationCategoryAll({
         }}
       />
 
-      <div className="flex h-screen overflow-hidden" dir={langData.direction}>
-        <Suspense
-          fallback={<div className="text-center text-[20px]">loading...</div>}
-        >
-          <SideBar
-            tabsMenu={updatedTabsMenu}
-            langData={langData}
-            langArray={langArray}
-            params={params}
-            pageSide="citizen"
-          />
-        </Suspense>
+      <div className="flex h-screen overflow-hidden w-full" dir={langData.direction}>
+
         <section
           className={`w-full overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20 xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1`}
         >

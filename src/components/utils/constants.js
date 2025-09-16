@@ -32,7 +32,7 @@ export const getStaticMenu = (params) => {
     // to ensure consistent display and to handle its route (/${params.lang}/version) and subroutes independently.
     // { name: "version", unique_id: 1458, url: "version", order: "-1" },
 
-    // { name: "version" ,  unique_id:1458, url: "version", order: "-1" },
+    { name: "version" ,  unique_id:1458, url: "version", order: "-1" },
     { name: "calendar" , unique_id: 262, url: "calendar", order: "-1" },
     { name: "overview" }
   ];

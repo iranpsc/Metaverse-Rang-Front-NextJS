@@ -1,21 +1,17 @@
-// calendarPage.tsx
 import { Metadata } from "next";
 import Footer from "@/components/module/footer/Footer";
 import { cookies } from "next/headers";
 import {
   getTranslation,
   getMainFile,
-  findByModalName,
-  findByTabName,
   getFooterData,
   getLangArray,
 } from "@/components/utils/actions";
 import BreadCrumb from "@/components/shared/BreadCrumb";
-import SideBar from "@/components/module/sidebar/SideBar";
-import { getStaticMenu } from "@/components/utils/constants";
 import EventsCalendar from "./components/EventsCalendar";
 import { mapEvents, MappedEventItem } from "@/utils/mapEvents";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+
 
 // تابع generateMetadata برای تولید متا تگ‌های دینامیک
 export async function generateMetadata({ params }: { params: any }): Promise<Metadata> {
@@ -66,7 +62,7 @@ export async function generateMetadata({ params }: { params: any }): Promise<Met
     twitter: {
       card: "summary_large_image",
       title: findByUniqueId(mainData, 1463),
-      description:findByUniqueId(mainData, 1464),
+      description: findByUniqueId(mainData, 1464),
       images: [
         Events.length > 0 ? Events[0]?.image || "https://rgb.irpsc.com/default-image.jpg" : "https://rgb.irpsc.com/default-image.jpg",
       ],
@@ -97,26 +93,6 @@ export default async function calendarPage({ params }: { params: any }) {
     "Content-Type": "application/json",
     ...(token && { Authorization: `Bearer ${token}` }),
   };
-
-  const centralPageModal = await findByModalName(mainData, "central-page");
-  const tabsMenu = await findByTabName(centralPageModal, "before-login");
-
-  const staticMenuToShow = getStaticMenu(params.id);
-  const updatedTabsMenu = tabsMenu.map((tab: any) => {
-    const staticTab = staticMenuToShow.find(
-      (val) => val.unique_id === tab.unique_id
-    );
-
-    if (staticTab) {
-      return {
-        ...tab,
-        url: staticTab.url,
-        order: staticTab.order,
-        toShow: true,
-      };
-    }
-    return tab;
-  });
 
   const res = await fetch("https://api.rgb.irpsc.com/api/calendar?type=event", {
     method: "GET",
@@ -167,20 +143,12 @@ export default async function calendarPage({ params }: { params: any }) {
 
   return (
     <div
-      className="flex h-screen overflow-hidden min-w-[340px]"
+      className="flex flex-col h-screen overflow-hidden min-w-[340px] w-full"
       dir={langData.direction}
     >
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(eventSchema) }}
-      />
-
-      <SideBar
-        tabsMenu={updatedTabsMenu}
-        langData={langData}
-        langArray={langArray}
-        params={params}
-        pageSide="citizen"
       />
 
       <section className="w-full overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20">
@@ -193,14 +161,12 @@ export default async function calendarPage({ params }: { params: any }) {
         </div>
 
         <div className="mainContainer w-full h-auto flex flex-col items-center lg:gap-0 font-['AzarMehr'] lg:flex-row lg:items-start p-5 lg:px-10">
-     
-            <EventsCalendar
-              token={token}
-              mainData={mainData}
-              params={params}
-              events={Events}
-            />
-
+          <EventsCalendar
+            token={token}
+            mainData={mainData}
+            params={params}
+            events={Events}
+          />
         </div>
 
         <div className="w-full xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
