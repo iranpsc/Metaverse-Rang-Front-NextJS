@@ -14,6 +14,7 @@ import {
   EventItem,
 } from "@/utils/mapEvents";
 import Link from "next/link";
+import Image from "next/image"; // اضافه‌شده برای بهینه‌سازی تصاویر
 
 // تابع برای پارس تاریخ جلالی
 function parseJalaliDatetime(jalaliStr: string): Date {
@@ -411,7 +412,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
 
   return (
     <>
-      {visibleEvents.map((event) => {
+      {visibleEvents.map((event, index) => {
         const { toStart, toEnd } = countdowns[event.id] || {
           toStart: { days: 0, hours: 0, minutes: 0, seconds: 0 },
           toEnd: { days: 0, hours: 0, minutes: 0, seconds: 0 },
@@ -432,19 +433,23 @@ const EventList: React.FC<CalendarFilterProps> = ({
             ref={(el) => (eventRefs.current[event.id] = el)}
             className="items flex flex-col justify-center gap-3 items-center w-full"
           >
-            {/* تصویر ایونت */}
+            {/* تصویر ایونت - جایگزین با Image برای بهینه‌سازی */}
             <div className="mt-4 w-[97%] flex justify-center lg:w-[95%] mx-auto rounded-[20px] overflow-hidden shadow-lg lg:mt-6">
               <Link href={`/${params.lang}/calendar/${event.id}`}>
-                <img
-                  className="w-full"
+                <Image
                   src={
                     event.image === "image" || !event.image
                       ? "/firstpage/frame.jpg"
                       : event.image
                   }
                   alt={event.title}
-                  loading="lazy"
-                /></Link>
+                  width={1402}  // ابعاد واقعی فایل بر اساس گزارش
+                  height={816}
+                  sizes="100vw"  // responsive - بر اساس نمایش 1133x660 تنظیم کن اگر لازم
+                  priority={index === 0}  // برای اولین ایونت (LCP): fetchpriority=high و no lazy
+                  className="w-full"
+                />
+              </Link>
             </div>
 
             {/* عنوان و لایک/دیسلایک */}
