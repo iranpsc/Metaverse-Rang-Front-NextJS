@@ -434,26 +434,23 @@ const EventList: React.FC<CalendarFilterProps> = ({
             className="items flex flex-col justify-center gap-3 items-center w-full"
           >
             {/* تصویر ایونت */}
-<div className="mt-4 w-[97%] flex justify-center lg:w-[95%] mx-auto rounded-[20px] overflow-hidden shadow-lg lg:mt-6">
-  <Link href={`/${params.lang}/calendar/${event.id}`}>
-    <Image
-      src={
-        event.image && event.image !== "image"
-          ? event.image
-          : "/rafiki-dark.png"
-      }
-      alt={event.title || "event image"}
-      width={1280}       // عرض تقریبی (بسته به طراحی می‌تونی تغییر بدی)
-      height={720}      // ارتفاع تقریبی
-      className="w-full object-cover"
-      loading="lazy"
-      onError={(e) => {
-        // @ts-ignore
-        e.currentTarget.src = "/rafiki-dark.png";
-      }}
-    />
-  </Link>
-</div>
+            <div className="mt-4 w-[97%] flex justify-center lg:w-[95%] mx-auto rounded-[20px] overflow-hidden shadow-lg lg:mt-6">
+              <Link href={`/${params.lang}/calendar/${event.id}`}>
+                <img
+                  className="w-full"
+                  src={
+                    event.image && event.image !== "image"
+                      ? event.image
+                      : "/rafiki-dark.png"
+                  }
+                  alt={event.title || "event image"}
+                  loading="lazy"
+                  onError={(e) => {
+                    (e.currentTarget as HTMLImageElement).src = "/rafiki-dark.png";
+                  }}
+                />
+              </Link>
+            </div>
 
             {/* عنوان و لایک/دیسلایک */}
             <div className="flex flex-col w-[97%] lg:w-[95%] gap-3 sm:gap-0 items-center sm:flex-row-reverse sm:justify-between">
