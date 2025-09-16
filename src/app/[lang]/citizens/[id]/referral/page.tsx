@@ -49,7 +49,6 @@ export default async function CitizenReferral({ params }: { params: any }) {
         params={params}
         langData={langData}
         langArray={langArray}
-        updatedTabsMenu={updatedTabsMenu}
         footerTabs={footerTabs}
         mainData={mainData}
       />
