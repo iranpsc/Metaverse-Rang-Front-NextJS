@@ -11,8 +11,6 @@ import {
 } from "@/components/utils/actions";
 import Version from "../[version]/components/version";
 import BreadCrumb from "@/components/shared/BreadCrumb";
-import SideBar from "@/components/module/sidebar/SideBar";
-import { getStaticMenu } from "@/components/utils/constants";
 import { Metadata } from "next";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
@@ -151,26 +149,6 @@ export default async function VersionPage({ params }: { params: any }) {
 
   const mainData = await getMainFile(langData);
 
-  const centralPageModal = await findByModalName(mainData, "central-page");
-  const tabsMenu = await findByTabName(centralPageModal, "before-login");
-
-  const staticMenuToShow = getStaticMenu(params.id);
-  const updatedTabsMenu = tabsMenu.map((tab: any) => {
-    let findInStatic = staticMenuToShow.find(
-      (val) => tab.unique_id === val.unique_id
-    );
-
-    if (findInStatic) {
-      return {
-        ...tab,
-        url: findInStatic.url,
-        order: findInStatic.order,
-        toShow: true,
-      };
-    }
-
-    return tab;
-  });
 
   let versions: any = [];
   try {
@@ -263,14 +241,8 @@ export default async function VersionPage({ params }: { params: any }) {
       />
       {/* schema END */}
 
-      <div className="flex h-screen overflow-hidden" dir={langData.direction}>
-        <SideBar
-          tabsMenu={updatedTabsMenu}
-          langData={langData}
-          langArray={langArray}
-          params={params}
-          pageSide="citizen"
-        />
+      <div className="flex w-full h-screen overflow-hidden" dir={langData.direction}>
+
         <section
           className={`w-full overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20`}
         >

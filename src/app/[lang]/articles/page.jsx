@@ -1,20 +1,14 @@
 // src/app/[lang]/articles/page.jsx
 import Link from "next/link";
 import Footer from "@/components/module/footer/Footer";
-import SideBar from "@/components/module/sidebar/SideBar";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import { articles } from "@/components/utils/articles";
-
 import {
   getTranslation,
   getMainFile,
-  findByModalName,
-  findByTabName,
   getFooterData,
   getLangArray,
-  
 } from "@/components/utils/actions";
-import { getStaticMenu } from "@/components/utils/constants";
 
 export default async function ArticlesPage({ params }) {
   // گرفتن داده‌ها از سرور
@@ -24,46 +18,44 @@ export default async function ArticlesPage({ params }) {
     getLangArray(),
   ]);
 
+  // چک کردن وجود langData
+  if (!langData) {
+    console.error("langData is null or undefined:", langData);
+    return (
+      <div className="min-h-screen overflow-hidden min-w-[340px]">
+        <section className="w-full overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black">
+          <div className="container mx-auto px-6 py-10">
+            <p className="text-red-500">خطا: داده‌های زبان قابل بارگذاری نیست.</p>
+          </div>
+        </section>
+      </div>
+    );
+  }
+
   const mainData = await getMainFile(langData);
 
-  // گرفتن منوی مرکزی
-  const centralPageModal = await findByModalName(mainData, "central-page");
-  const tabsMenu = centralPageModal ? await findByTabName(centralPageModal, "before-login") : [];
-
-  // استفاده از شناسه پیش‌فرض برای getStaticMenu در صفحات بدون id
-  const staticMenuToShow = getStaticMenu(params.id || "articles");
-
-  // ترکیب منوهای داینامیک و استاتیک
-  const updatedTabsMenu = (tabsMenu || []).map((tab) => {
-    const staticTab = (staticMenuToShow || []).find(
-      (val) => val.unique_id === tab.unique_id
+  // چک کردن وجود articles
+  if (!articles || !Array.isArray(articles)) {
+    console.error("articles is not defined or not an array:", articles);
+    return (
+      <div className="min-h-screen overflow-hidden min-w-[340px]" dir={langData.direction}>
+        <section className="w-full overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black">
+          <div className="container mx-auto px-6 py-10">
+            <h1 className="text-2xl font-bold mb-8 dark:text-white">لیست مقالات</h1>
+            <p className="text-red-500">خطا: لیست مقالات قابل بارگذاری نیست.</p>
+          </div>
+          <div className="w-full xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
+            <Footer footerTabs={footerTabs} mainData={mainData} />
+          </div>
+        </section>
+      </div>
     );
-    if (staticTab) {
-      return {
-        ...tab,
-        url: staticTab.url,
-        order: staticTab.order,
-        toShow: true,
-      };
-    }
-    return tab;
-  });
-
-
+  }
 
   return (
-    <div className="flex h-screen overflow-hidden min-w-[340px]" dir={langData.direction}>
-      {/* Sidebar */}
-      <SideBar
-        tabsMenu={updatedTabsMenu}
-        langData={langData}
-        langArray={langArray}
-        params={params}
-        pageSide="citizen"
-      />
-
+    <div className="min-h-screen overflow-hidden min-w-[340px]" dir={langData.direction}>
       {/* Main content */}
-      <section className="w-full overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black ">
+      <section className="w-full overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black">
         {/* Breadcrumb */}
         <div className="px-12">
           <BreadCrumb params={params} />
@@ -71,7 +63,7 @@ export default async function ArticlesPage({ params }) {
 
         {/* Articles Grid */}
         <div className="container mx-auto px-6 py-10">
-          <h1 className="text-2xl font-bold mb-8 dark:text-white"> لیست مقالات</h1>
+          <h1 className="text-2xl font-bold mb-8 dark:text-white">لیست مقالات</h1>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {articles.map((article) => (
@@ -83,7 +75,6 @@ export default async function ArticlesPage({ params }) {
                   <div className="flex justify-between items-center text-sm text-gray-500">
                     <span>{article.author.name}</span>
                     <span>{article.date}</span>
-                    
                   </div>
                   <Link href={`/${params.lang}/articles/${article.slug}`} className="inline-block mt-3 text-blue-600 font-medium hover:underline">
                     ادامه مطلب →

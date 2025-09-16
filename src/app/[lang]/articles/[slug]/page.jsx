@@ -11,7 +11,6 @@ import {
   findByTabName,
 } from "@/components/utils/actions";
 
-import { getStaticMenu } from "@/components/utils/constants";
 
 import BreadCrumb from "@/components/shared/BreadCrumb";
 
@@ -26,7 +25,6 @@ import PrevNextArticles from "./components/PrevNextArticles";
 import AuthorCard from "./components/AuthorCard";
 import ShowSocialWrapper from "./components/ShowSocialWrapper";
 
-const DynamicSideBar = dynamic(() => import("@/components/module/sidebar/SideBar"));
 const DynamicFooter = dynamic(() => import("@/components/module/footer/Footer"));
 
 export async function generateMetadata({ params }) {
@@ -65,18 +63,8 @@ export default async function ArticlePage({ params }) {
     ]);
 
     const mainData = await getMainFile(langData);
-
-    const centralPageModal = await findByModalName(mainData, "central-page");
-    const tabsMenuRaw = centralPageModal ? await findByTabName(centralPageModal, "before-login") : [];
-    const tabsMenu = Array.isArray(tabsMenuRaw) ? tabsMenuRaw : [];
-
-    const staticMenuToShow = getStaticMenu("articles");
-    const safeStaticMenu = Array.isArray(staticMenuToShow) ? staticMenuToShow : [];
-
-    const updatedTabsMenu = tabsMenu.map(tab => {
-      const staticTab = safeStaticMenu.find(val => val.unique_id === tab.unique_id);
-      return staticTab ? { ...tab, url: staticTab.url, order: staticTab.order, toShow: true } : tab;
-    });
+   
+    ;
 
     if (!article) {
       return (
@@ -122,14 +110,6 @@ export default async function ArticlePage({ params }) {
       <div className="flex h-screen overflow-hidden min-w-[340px]" dir={langData.direction}>
         {/* Schema */}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
-
-        <DynamicSideBar
-          tabsMenu={updatedTabsMenu}
-          langData={langData}
-          langArray={langArray}
-          params={params}
-          pageSide="citizen"
-        />
 
         <section className="w-full overflow-y-auto relative light-scrollbar dark:dark-scrollbar bg-[#f8f8f8] dark:bg-black mt-[60px] lg:mt-0 lg:pt-0">
           <div className="px-12">

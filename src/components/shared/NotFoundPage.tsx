@@ -11,10 +11,9 @@ interface NotFoundPageProps {
   params: any;
   langData: any;
   langArray: any;
-  updatedTabsMenu: any[];
   footerTabs: any[];
   mainData: any;
-  hideSidebar?: boolean;  // این پراپ رو اضافه کردیم، اختیاری
+
 }
 
 export default function NotFoundPage({
@@ -22,23 +21,14 @@ export default function NotFoundPage({
   params,
   langData,
   langArray,
-  updatedTabsMenu,
+
   footerTabs,
   mainData,
-  hideSidebar = false,  // مقدار پیش‌فرض false
+
 }: NotFoundPageProps) {
   return (
-    <div className="flex h-screen overflow-hidden" dir={langData.direction}>
+    <div className="flex h-screen overflow-hidden w-full" dir={langData.direction}>
       {/* Sidebar فقط وقتی hideSidebar false باشه */}
-      {!hideSidebar && (
-        <SideBar
-          tabsMenu={updatedTabsMenu}
-          langData={langData}
-          langArray={langArray}
-          params={params}
-          pageSide="citizen"
-        />
-      )}
 
       {/* Main Content */}
       <section className="w-full pt-7 overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 bg-[#f8f8f8] dark:bg-black xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">

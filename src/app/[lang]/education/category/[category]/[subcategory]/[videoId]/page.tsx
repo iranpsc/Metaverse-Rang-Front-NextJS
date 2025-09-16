@@ -6,9 +6,6 @@ const DynamicFooter = dynamic(
   () => import("@/components/module/footer/DynamicFooter"),
   { suspense: true }
 );
-const SideBar = dynamic(() => import("@/components/module/sidebar/SideBar"), {
-  suspense: true,
-});
 const BreadCrumb = dynamic(() => import("@/components/shared/BreadCrumb"), {
   suspense: true,
 });
@@ -26,7 +23,6 @@ import {
   getVideoComments,
 } from "@/components/utils/actions";
 
-import { getStaticMenu } from "@/components/utils/constants";
 import VideoSection from "@/components/templates/singleVideo/VideoSection";
 import ListVideos from "@/components/module/singleVideo/listVideos/ListVideos";
 
@@ -46,26 +42,9 @@ export default async function EducationVideo({ params }: { params: any }) {
 
   const mainData = await getMainFile(langData);
 
-  const centralPageModal = await findByModalName(mainData, "central-page");
-  const tabsMenu = await findByTabName(centralPageModal, "before-login");
-
   // استفاده از cached function برای DataVideo
   const DataVideo = await getCachedSingleVideoData(params.videoId);
-  const staticMenuToShow = getStaticMenu(params.id);
-  const updatedTabsMenu = tabsMenu.map((tab: any) => {
-    const findInStatic = staticMenuToShow.find(
-      (val) => tab.unique_id === val.unique_id
-    );
-    if (findInStatic) {
-      return {
-        ...tab,
-        url: findInStatic.url,
-        order: findInStatic.order,
-        toShow: true,
-      };
-    }
-    return tab;
-  });
+ 
   // اگر ویدئو پیدا نشد، 404 نمایش بده
   if (!DataVideo) {
     return <NotFoundPage
@@ -73,7 +52,6 @@ export default async function EducationVideo({ params }: { params: any }) {
       params={params}
       langData={langData}
       langArray={langArray}
-      updatedTabsMenu={updatedTabsMenu}
       footerTabs={footerTabs}
       mainData={mainData} />;
   }
@@ -179,16 +157,8 @@ export default async function EducationVideo({ params }: { params: any }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(relatedVideosSchema) }}
       />
-      <div className="flex h-screen overflow-hidden" dir={langData.direction}>
-        <Suspense fallback={<div className="text-center text-[20px]">loading...</div>}>
-          <SideBar
-            tabsMenu={updatedTabsMenu}
-            langData={langData}
-            langArray={langArray}
-            params={params}
-            pageSide="citizen"
-          />
-        </Suspense>
+      <div className="flex w-full h-screen overflow-hidden" dir={langData.direction}>
+
         <section
           className={`w-full overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 lg:pt-0 bg-[#F5F5F5] dark:bg-black bg-opacity20 xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1`}
         >

@@ -8,9 +8,7 @@ import {
   getLangArray,
 } from "@/components/utils/actions";
 import DynamicFooter from "@/components/module/footer/DynamicFooter";
-import SideBar from "@/components/module/sidebar/SideBar";
 import BreadCrumb from "@/components/shared/BreadCrumb";
-import { getStaticMenu } from "@/components/utils/constants";
 import { WhatsAppIcon, ContactDownArrow } from "@/components/svgs";
 import Form from "./components/form";
 import Social from "./components/social";
@@ -66,9 +64,7 @@ export default async function AboutPage({ params }: any) {
   const langData = await getTranslation(params.lang);
   const mainData = await getMainFile(langData);
 
-  const centralPageModal = await findByModalName(mainData, "central-page");
-  const tabsMenu = await findByTabName(centralPageModal, "before-login");
-
+  
   const Citizenship = await findByModalName(mainData, "Citizenship-profile");
   const citizenListArrayContent = await findByTabName(
     Citizenship,
@@ -87,27 +83,7 @@ export default async function AboutPage({ params }: any) {
   //     ?.translation;
   // }
 
-  const staticMenuToShow = getStaticMenu(params.id);
 
-  // add staticMenuToShow values to siblings tabsMenu values
-  const updatedTabsMenu = tabsMenu.map((tab: any) => {
-    let findInStatic = staticMenuToShow.find(
-      (val) => tab.unique_id === val.unique_id
-    );
-
-    if (findInStatic) {
-      // Return a new tab object with updated properties
-      return {
-        ...tab, // Spread the original tab properties
-        url: findInStatic.url,
-        order: findInStatic.order,
-        toShow: true,
-      };
-    }
-
-    // If no match found, return the original tab
-    return tab;
-  });
   const aboutSchema = {
     "@context": "https://schema.org",
     "@type": "ContactPage",
@@ -180,13 +156,7 @@ export default async function AboutPage({ params }: any) {
         }}
       />
       <div className={`flex`} dir={langData.direction}>
-        <SideBar
-          langArray={langArray}
-          langData={langData}
-          tabsMenu={updatedTabsMenu}
-          params={params}
-          pageSide="citizen"
-        />
+
         <section
           // id={`${
           //   themeDataActive == "dark" ? "dark-scrollbar" : "light-scrollbar"

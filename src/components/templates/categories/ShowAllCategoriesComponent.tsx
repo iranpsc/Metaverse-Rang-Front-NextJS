@@ -96,17 +96,16 @@ const ShowAllCategoriesComponent = ({ categoriesData, params }: any) => {
           دسته بندی ها
         </p>
       </div>
-      <Masonry
-        breakpointCols={breakpointColumnsObj}
-        className="my-masonry-grid mt-5  "
-        columnClassName="my-masonry-grid_column"
+      <motion.div
+        className=" mt-5 gap-6 grid md:grid-cols-2 xl:grid-cols-3 w-full"
+        
       >
         {categoriesData &&
           categoriesData.map((category: any, index: any) => (
             <motion.div
               variants={items}
               key={index}
-              className="flex flex-col justify-start items-center gap-2 shadow-xl rounded-md bg-white dark:bg-dark-background cursor-pointer hover:shadow-2xl"
+              className="flex w-full flex-col justify-start items-center gap-2 shadow-xl rounded-md bg-white dark:bg-dark-background cursor-pointer hover:shadow-2xl"
               onClick={() => pusher(category.slug)}
             >
               <figure>
@@ -152,7 +151,7 @@ const ShowAllCategoriesComponent = ({ categoriesData, params }: any) => {
               </div>
             </motion.div>
           ))}
-      </Masonry>
+      </motion.div>
     </motion.div>
   );
 };
