@@ -11,7 +11,6 @@ import SingleVideoSlugModule from "@/components/module/singleVideo/SingleVideoSl
 import { useEffect, useState } from "react";
 import axios from "axios";
 import DynamicDetails from "@/components/module/singleVideo/DynamicDetails";
-import Pagination from "@/components/module/singleVideo/listVideos/Pagination";
 import { AnimatePresence } from "framer-motion";
 import SharedPageVideos from "@/components/module/singleVideo/SharedPageVideos";
 

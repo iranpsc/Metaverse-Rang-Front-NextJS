@@ -21,7 +21,7 @@ export default function VideoCard({ item, params, theme }: any) {
     checkTruncation();
 
 
-    console.log("eductions VideoCard content main page list:", item);
+    // console.log("eductions VideoCard content main page list:", item);
 
     const observer = new ResizeObserver(() => {
       checkTruncation();

@@ -13,8 +13,8 @@ const BreadCrumb = dynamic(() => import("@/components/shared/BreadCrumb"), {
 import {
   getTranslation,
   getMainFile,
-  findByModalName,
-  findByTabName,
+  // findByModalName,
+  // findByTabName,
   getFooterData,
   getLangArray,
   getSubcategoryData,
@@ -172,7 +172,7 @@ export default async function EducationVideo({ params }: { params: any }) {
               newEducationsVideos={newEducationsVideos}
               dataCommentsVideo={dataCommentsVideo}
             />
-          <ListVideos DataVideos={DataVideos} params={params} />
+          <ListVideos DataVideos={DataVideos} params={params} DataVideo={DataVideo}   />
           </section>
           <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
             <Suspense fallback={<div className="text-center text-[20px]">loading...</div>}>
