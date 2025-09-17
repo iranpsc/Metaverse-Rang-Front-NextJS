@@ -109,7 +109,9 @@ function buildEventSchema(
     },
     location: {
       "@type": "VirtualLocation",
-      url: selectedEvent.link || `https://rgb.irpsc.com/${lang}/calendar/${id}`,
+      "name":"متاورس رنگ",
+      url: `https://rgb.irpsc.com/${lang}/calendar/${id}`,
+      
     },
     offers: selectedEvent.btnName
       ? {
