@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Script from "next/script";
 import Footer from "@/components/module/footer/Footer";
 import { cookies } from "next/headers";
 import {
@@ -12,80 +13,85 @@ import { mapEvents, MappedEventItem } from "@/utils/mapEvents";
 import EventCalendarClient from "../components/EventCalendarClient";
 import htmlTruncate from "html-truncate";
 
-// Jalali to Gregorian conversion utility
+// 📌 Utility: Jalali → Gregorian
 const JalaliDate = {
   g_days_in_month: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
   j_days_in_month: [31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29],
-  jalaliToGregorian: function (j_y: number, j_m: number, j_d: number) {
+  jalaliToGregorian(j_y: number, j_m: number, j_d: number) {
     j_y = parseInt(j_y as any);
     j_m = parseInt(j_m as any);
     j_d = parseInt(j_d as any);
+
     let jy = j_y - 979;
     let jm = j_m - 1;
     let jd = j_d - 1;
 
-    let j_day_no = 365 * jy + Math.floor(jy / 33) * 8 + Math.floor((jy % 33 + 3) / 4);
+    let j_day_no =
+      365 * jy + Math.floor(jy / 33) * 8 + Math.floor(((jy % 33) + 3) / 4);
     for (let i = 0; i < jm; ++i) j_day_no += JalaliDate.j_days_in_month[i];
-
     j_day_no += jd;
 
     let g_day_no = j_day_no + 79;
-
-    let gy = 1600 + 400 * Math.floor(g_day_no / 146097); /* 146097 = 400*365 + 400/4 - 400/100 + 400/400 */
-    g_day_no = g_day_no % 146097;
+    let gy = 1600 + 400 * Math.floor(g_day_no / 146097);
+    g_day_no %= 146097;
 
     let leap = true;
-    if (g_day_no >= 36525) /* 36525 = 100*365 + 100/4 - 100/100 */ {
+    if (g_day_no >= 36525) {
       g_day_no--;
-      gy += 100 * Math.floor(g_day_no / 36524); /* 36524 = 100*365 + 100/4 - 100/100 */
-      g_day_no = g_day_no % 36524;
+      gy += 100 * Math.floor(g_day_no / 36524);
+      g_day_no %= 36524;
 
       if (g_day_no >= 365) g_day_no++;
       else leap = false;
     }
 
-    gy += 4 * Math.floor(g_day_no / 1461); /* 1461 = 4*365 + 4/4 */
+    gy += 4 * Math.floor(g_day_no / 1461);
     g_day_no %= 1461;
 
     if (g_day_no >= 365) {
       g_day_no--;
       gy += Math.floor(g_day_no / 365);
-      g_day_no = g_day_no % 365;
+      g_day_no %= 365;
     }
 
     let i = 0;
-    for (; g_day_no >= JalaliDate.g_days_in_month[i] + (i === 1 && leap ? 1 : 0); i++)
-      g_day_no -= JalaliDate.g_days_in_month[i] + (i === 1 && leap ? 1 : 0);
+    for (
+      ;
+      g_day_no >=
+      JalaliDate.g_days_in_month[i] + (i === 1 && leap ? 1 : 0);
+      i++
+    )
+      g_day_no -=
+        JalaliDate.g_days_in_month[i] + (i === 1 && leap ? 1 : 0);
+
     let gm = i + 1;
     let gd = g_day_no + 1;
 
     return [gy, gm, gd];
-  }
+  },
 };
 
-// تابع برای پاکسازی HTML و کوتاه کردن متن
+// 📌 Clean HTML & truncate text
 const stripHtml = (html: string, maxLength: number = 160): string => {
   const text = htmlTruncate(html, maxLength, { ellipsis: "..." });
   return text.replace(/<[^>]+>/g, "");
 };
 
-// تبدیل تاریخ شمسی به میلادی ISO 8601
+// 📌 Convert Jalali date to ISO8601
 function toISODate(dateString: string): string {
-  // Parse the Jalali date string, e.g., "1404/05/01 09:00"
   const [datePart, timePart] = dateString.split(" ");
   const [j_y, j_m, j_d] = datePart.split("/").map(Number);
   const [hour = 0, min = 0] = timePart ? timePart.split(":").map(Number) : [0, 0];
-
-  // Convert Jalali to Gregorian
   const [g_y, g_m, g_d] = JalaliDate.jalaliToGregorian(j_y, j_m, j_d);
-
-  // Create Gregorian Date object
-  const date = new Date(g_y, g_m - 1, g_d, hour, min);
-  return date.toISOString();
+  return new Date(g_y, g_m - 1, g_d, hour, min).toISOString();
 }
 
-// تابع برای ساخت اسکیمای رویداد
-function buildEventSchema(selectedEvent: MappedEventItem, lang: string, id: string) {
+// 📌 Build Event Schema
+function buildEventSchema(
+  selectedEvent: MappedEventItem,
+  lang: string,
+  id: string
+) {
   return {
     "@context": "https://schema.org",
     "@type": "Event",
@@ -108,7 +114,7 @@ function buildEventSchema(selectedEvent: MappedEventItem, lang: string, id: stri
     offers: selectedEvent.btnName
       ? {
           "@type": "Offer",
-          price: "0", // اگر پولی شد، اینو داینامیک بذار
+          price: "0",
           priceCurrency: "IRR",
           url: selectedEvent.link || `https://rgb.irpsc.com/${lang}/calendar/${id}`,
           availability: "https://schema.org/InStock",
@@ -118,7 +124,7 @@ function buildEventSchema(selectedEvent: MappedEventItem, lang: string, id: stri
   };
 }
 
-// تابع برای دریافت رویداد خاص
+// 📌 Fetch single event
 async function getEvent(id: string) {
   const res = await fetch(`https://api.rgb.irpsc.com/api/calendar/${id}`, {
     next: { revalidate: 3600 },
@@ -128,7 +134,7 @@ async function getEvent(id: string) {
   return mapEvents([json.data])[0];
 }
 
-// تابع برای دریافت تمام رویدادها
+// 📌 Fetch all events
 async function getEvents() {
   const res = await fetch("https://api.rgb.irpsc.com/api/calendar", {
     next: { revalidate: 3600 },
@@ -138,14 +144,13 @@ async function getEvents() {
   return mapEvents(json.data);
 }
 
-// تابع generateMetadata برای متا دیتای دینامیک
+// 📌 Dynamic metadata
 export async function generateMetadata({
   params,
 }: {
   params: { lang: string; id: string };
 }): Promise<Metadata> {
   const event = await getEvent(params.id);
-
   const cleanTitle = stripHtml(event.title);
   const cleanDescription = stripHtml(event.desc, 160);
 
@@ -189,63 +194,63 @@ export async function generateMetadata({
   };
 }
 
+// 📌 Page Component
 export default async function EventPage({
   params,
 }: {
   params: { lang: string; id: string };
 }) {
-  const [footerTabs, langData, langArray, events, selectedEvent] = await Promise.all([
-    getFooterData(params),
-    getTranslation(params.lang),
-    getLangArray(),
-    getEvents(),
-    getEvent(params.id),
-  ]);
+  const [footerTabs, langData, langArray, events, selectedEvent] =
+    await Promise.all([
+      getFooterData(params),
+      getTranslation(params.lang),
+      getLangArray(),
+      getEvents(),
+      getEvent(params.id),
+    ]);
 
   const mainData = await getMainFile(langData);
-
   const cookieStore = cookies();
   const rawAuth = cookieStore.get("auth")?.value;
   const token = rawAuth ? new URLSearchParams(rawAuth).get("token") : null;
 
   const cleanTitle = stripHtml(selectedEvent.title);
-
-  // ساخت اسکیمای داینامیک
   const eventSchema = buildEventSchema(selectedEvent, params.lang, params.id);
-
-  const filteredEvents = events.filter((event) => event.id !== selectedEvent.id);
+  const filteredEvents = events.filter((e) => e.id !== selectedEvent.id);
 
   return (
-    <div
-      className="flex flex-col h-screen overflow-hidden min-w-[340px] w-full"
-      dir={langData.direction}
-    >
+    <>
+      {/* ✅ Schema in <head> */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(eventSchema).replace(/</g, "\\u003c") }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(eventSchema) }}
       />
-
-      <section className="w-full overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20">
-        <div className="px-12">
-          <BreadCrumb params={params} eventTitle={cleanTitle} />
-        </div>
-
-        <div className="mainContainer w-full h-auto flex flex-col items-center lg:gap-0 font-['AzarMehr'] lg:flex-row lg:items-start">
-          <div className="flex flex-col w-full items-center p-5 lg:px-10">
-            <EventCalendarClient
-              events={filteredEvents}
-              mainData={mainData}
-              params={params}
-              token={token}
-              selectedEvent={selectedEvent}
-            />
+      <div
+        className="flex flex-col h-screen overflow-hidden min-w-[340px] w-full"
+        dir={langData.direction}
+      >
+        <section className="w-full overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20">
+          <div className="px-12">
+            <BreadCrumb params={params} eventTitle={cleanTitle} />
           </div>
-        </div>
 
-        <div className="w-full xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
-          <Footer footerTabs={footerTabs} mainData={mainData} />
-        </div>
-      </section>
-    </div>
+          <div className="mainContainer w-full h-auto flex flex-col items-center lg:gap-0 font-['AzarMehr'] lg:flex-row lg:items-start">
+            <div className="flex flex-col w-full items-center p-5 lg:px-10">
+              <EventCalendarClient
+                events={filteredEvents}
+                mainData={mainData}
+                params={params}
+                token={token}
+                selectedEvent={selectedEvent}
+              />
+            </div>
+          </div>
+
+          <div className="w-full xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
+            <Footer footerTabs={footerTabs} mainData={mainData} />
+          </div>
+        </section>
+      </div>
+    </>
   );
 }
