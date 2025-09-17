@@ -12,11 +12,111 @@ import { mapEvents, MappedEventItem } from "@/utils/mapEvents";
 import EventCalendarClient from "../components/EventCalendarClient";
 import htmlTruncate from "html-truncate";
 
+// Jalali to Gregorian conversion utility
+const JalaliDate = {
+  g_days_in_month: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
+  j_days_in_month: [31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29],
+  jalaliToGregorian: function (j_y: number, j_m: number, j_d: number) {
+    j_y = parseInt(j_y as any);
+    j_m = parseInt(j_m as any);
+    j_d = parseInt(j_d as any);
+    let jy = j_y - 979;
+    let jm = j_m - 1;
+    let jd = j_d - 1;
+
+    let j_day_no = 365 * jy + Math.floor(jy / 33) * 8 + Math.floor((jy % 33 + 3) / 4);
+    for (let i = 0; i < jm; ++i) j_day_no += JalaliDate.j_days_in_month[i];
+
+    j_day_no += jd;
+
+    let g_day_no = j_day_no + 79;
+
+    let gy = 1600 + 400 * Math.floor(g_day_no / 146097); /* 146097 = 400*365 + 400/4 - 400/100 + 400/400 */
+    g_day_no = g_day_no % 146097;
+
+    let leap = true;
+    if (g_day_no >= 36525) /* 36525 = 100*365 + 100/4 - 100/100 */ {
+      g_day_no--;
+      gy += 100 * Math.floor(g_day_no / 36524); /* 36524 = 100*365 + 100/4 - 100/100 */
+      g_day_no = g_day_no % 36524;
+
+      if (g_day_no >= 365) g_day_no++;
+      else leap = false;
+    }
+
+    gy += 4 * Math.floor(g_day_no / 1461); /* 1461 = 4*365 + 4/4 */
+    g_day_no %= 1461;
+
+    if (g_day_no >= 365) {
+      g_day_no--;
+      gy += Math.floor(g_day_no / 365);
+      g_day_no = g_day_no % 365;
+    }
+
+    let i = 0;
+    for (; g_day_no >= JalaliDate.g_days_in_month[i] + (i === 1 && leap ? 1 : 0); i++)
+      g_day_no -= JalaliDate.g_days_in_month[i] + (i === 1 && leap ? 1 : 0);
+    let gm = i + 1;
+    let gd = g_day_no + 1;
+
+    return [gy, gm, gd];
+  }
+};
+
 // تابع برای پاکسازی HTML و کوتاه کردن متن
 const stripHtml = (html: string, maxLength: number = 160): string => {
   const text = htmlTruncate(html, maxLength, { ellipsis: "..." });
   return text.replace(/<[^>]+>/g, "");
 };
+
+// تبدیل تاریخ شمسی به میلادی ISO 8601
+function toISODate(dateString: string): string {
+  // Parse the Jalali date string, e.g., "1404/05/01 09:00"
+  const [datePart, timePart] = dateString.split(" ");
+  const [j_y, j_m, j_d] = datePart.split("/").map(Number);
+  const [hour = 0, min = 0] = timePart ? timePart.split(":").map(Number) : [0, 0];
+
+  // Convert Jalali to Gregorian
+  const [g_y, g_m, g_d] = JalaliDate.jalaliToGregorian(j_y, j_m, j_d);
+
+  // Create Gregorian Date object
+  const date = new Date(g_y, g_m - 1, g_d, hour, min);
+  return date.toISOString();
+}
+
+// تابع برای ساخت اسکیمای رویداد
+function buildEventSchema(selectedEvent: MappedEventItem, lang: string, id: string) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: stripHtml(selectedEvent.title),
+    startDate: toISODate(selectedEvent.start),
+    endDate: toISODate(selectedEvent.end),
+    description: stripHtml(selectedEvent.desc, 160),
+    image: [selectedEvent.image || "https://rgb.irpsc.com/default-image.jpg"],
+    eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
+    eventStatus: "https://schema.org/EventScheduled",
+    organizer: {
+      "@type": "Organization",
+      name: "متاورس رنگ",
+      url: "https://rgb.irpsc.com",
+    },
+    location: {
+      "@type": "VirtualLocation",
+      url: selectedEvent.link || `https://rgb.irpsc.com/${lang}/calendar/${id}`,
+    },
+    offers: selectedEvent.btnName
+      ? {
+          "@type": "Offer",
+          price: "0", // اگر پولی شد، اینو داینامیک بذار
+          priceCurrency: "IRR",
+          url: selectedEvent.link || `https://rgb.irpsc.com/${lang}/calendar/${id}`,
+          availability: "https://schema.org/InStock",
+          validFrom: new Date().toISOString(),
+        }
+      : undefined,
+  };
+}
 
 // تابع برای دریافت رویداد خاص
 async function getEvent(id: string) {
@@ -110,35 +210,8 @@ export default async function EventPage({
 
   const cleanTitle = stripHtml(selectedEvent.title);
 
-  const eventSchema = {
-    "@context": "https://schema.org",
-    "@type": "Event",
-    name: cleanTitle,
-    startDate: selectedEvent.start,
-    endDate: selectedEvent.end,
-    description: stripHtml(selectedEvent.desc, 160),
-    image: selectedEvent.image || "https://rgb.irpsc.com/default-image.jpg",
-    eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
-    eventStatus: "https://schema.org/EventScheduled",
-    organizer: {
-      "@type": "Organization",
-      name: "متاورس رنگ",
-      url: "https://rgb.irpsc.com",
-    },
-    location: {
-      "@type": "VirtualLocation",
-      url: selectedEvent.link || `https://rgb.irpsc.com/${params.lang}/calendar/${params.id}`,
-    },
-    offers: selectedEvent.btnName
-      ? {
-          "@type": "Offer",
-          price: "مشخص نشده",
-          priceCurrency: "IRR",
-          url: selectedEvent.link || `https://rgb.irpsc.com/${params.lang}/calendar/${params.id}`,
-          availability: "https://schema.org/InStock",
-        }
-      : undefined,
-  };
+  // ساخت اسکیمای داینامیک
+  const eventSchema = buildEventSchema(selectedEvent, params.lang, params.id);
 
   const filteredEvents = events.filter((event) => event.id !== selectedEvent.id);
 
@@ -149,7 +222,7 @@ export default async function EventPage({
     >
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(eventSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(eventSchema).replace(/</g, "\\u003c") }}
       />
 
       <section className="w-full overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20">
