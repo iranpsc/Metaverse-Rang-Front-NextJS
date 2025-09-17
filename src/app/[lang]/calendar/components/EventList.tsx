@@ -545,16 +545,16 @@ const EventList: React.FC<CalendarFilterProps> = ({
                 <h2 className="text-[16px] font-bold lg:px-5 self-center sm:self-start text-black dark:text-white pb-6 sm:mt-4 sm:pb-6 sm:text-start 2xl:text-xl xl:text-lg lg:text-base">
                   {findByUniqueId(mainData, 583)} :
                 </h2>
-                <div className="flex justify-between  lg:px-5 items-center" style={{ direction: "ltr" }}>
+                <div className="flex justify-center  lg:px-5 items-center" style={{ direction: "ltr" }}>
                   <div className="text-center">
                     <div
-                      className="hale text-2xl font-bold lg:text-3xl xl:text-4xl"
+                      className="hale text-2xl font-bold lg:text-3xl xl:text-4xl 3xl:text-5xl"
                     >
                       {switchDigits(event.start.split(' ')[0], params.lang)}
                     </div>
-                    <div className="text-base">{findByUniqueId(mainData, 380)}</div>
+                    {/* <div className="text-base">{findByUniqueId(mainData, 380)}</div> */}
                   </div>
-                  <div className="flex gap-5">
+                  {/* <div className="flex gap-5">
                     <div className="text-center">
                       <div
                         className="hale text-2xl font-bold w-11 lg:text-3xl xl:text-4xl"
@@ -574,7 +574,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
                       </div>
                       <div className="text-base">{findByUniqueId(mainData, 33)}</div>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <div className="text-center mb-4 sm:w-[30%] sm:min-w-[194px]">
@@ -582,17 +582,17 @@ const EventList: React.FC<CalendarFilterProps> = ({
                   {findByUniqueId(mainData, 584)}
                 </h2>
                 {isEnded ? (
-                  <div className="flex justify-between lg:px-5 items-center" style={{ direction: "ltr" }}>
+                  <div className="flex justify-center lg:px-5 items-center" style={{ direction: "ltr" }}>
                     <div className="text-center">
                       <div
-                        className="hale text-2xl font-bold lg:text-3xl xl:text-4xl "
+                        className="hale text-2xl font-bold lg:text-3xl xl:text-4xl 3xl:text-5 3xl:text-5xl"
                       >
                         {switchDigits(event.end.split(' ')[0], params.lang)}
                       </div>
-                      <div className="text-base">{findByUniqueId(mainData, 380)}</div>
+                      {/* <div className="text-base">{findByUniqueId(mainData, 380)}</div> */}
                     </div>
 
-                    <div className="flex gap-5 ">
+                    {/* <div className="flex gap-5 ">
                       <div className="text-center">
                         <div
                           className="hale text-2xl font-bold w-11 lg:text-3xl xl:text-4xl "
@@ -612,7 +612,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
                         </div>
                         <div className="text-base">{findByUniqueId(mainData, 33)}</div>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 ) : (
                   <div className="flex justify-between items-center" style={{ direction: "ltr" }}>
