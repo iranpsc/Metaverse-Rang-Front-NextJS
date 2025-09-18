@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import Script from "next/script";
 import Footer from "@/components/module/footer/Footer";
 import { cookies } from "next/headers";
 import {
@@ -17,7 +16,7 @@ import htmlTruncate from "html-truncate";
 const JalaliDate = {
   g_days_in_month: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
   j_days_in_month: [31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29],
-  jalaliToGregorian(j_y: number, j_m: number, j_d: number) {
+  jalaliToGregorian(j_y: number, j_m: number, j_d: number): [number, number, number] {
     j_y = parseInt(j_y as any);
     j_m = parseInt(j_m as any);
     j_d = parseInt(j_d as any);
@@ -55,14 +54,8 @@ const JalaliDate = {
     }
 
     let i = 0;
-    for (
-      ;
-      g_day_no >=
-      JalaliDate.g_days_in_month[i] + (i === 1 && leap ? 1 : 0);
-      i++
-    )
-      g_day_no -=
-        JalaliDate.g_days_in_month[i] + (i === 1 && leap ? 1 : 0);
+    for (; g_day_no >= JalaliDate.g_days_in_month[i] + (i === 1 && leap ? 1 : 0); i++)
+      g_day_no -= JalaliDate.g_days_in_month[i] + (i === 1 && leap ? 1 : 0);
 
     let gm = i + 1;
     let gd = g_day_no + 1;
@@ -73,12 +66,13 @@ const JalaliDate = {
 
 // 📌 Clean HTML & truncate text
 const stripHtml = (html: string, maxLength: number = 160): string => {
-  const text = htmlTruncate(html, maxLength, { ellipsis: "..." });
+  const text = htmlTruncate(html || "", maxLength, { ellipsis: "..." });
   return text.replace(/<[^>]+>/g, "");
 };
 
 // 📌 Convert Jalali date to ISO8601
-function toISODate(dateString: string): string {
+function toISODate(dateString: string | undefined): string {
+  if (!dateString) return new Date().toISOString();
   const [datePart, timePart] = dateString.split(" ");
   const [j_y, j_m, j_d] = datePart.split("/").map(Number);
   const [hour = 0, min = 0] = timePart ? timePart.split(":").map(Number) : [0, 0];
@@ -86,12 +80,8 @@ function toISODate(dateString: string): string {
   return new Date(g_y, g_m - 1, g_d, hour, min).toISOString();
 }
 
-// 📌 Build Event Schema
-function buildEventSchema(
-  selectedEvent: MappedEventItem,
-  lang: string,
-  id: string
-) {
+// 📌 Build Event Schema exactly like sample but fully dynamic
+function buildEventSchema(selectedEvent: MappedEventItem) {
   return {
     "@context": "https://schema.org",
     "@type": "Event",
@@ -99,59 +89,48 @@ function buildEventSchema(
     startDate: toISODate(selectedEvent.start),
     endDate: toISODate(selectedEvent.end),
     description: stripHtml(selectedEvent.desc, 160),
-    image: [selectedEvent.image || "https://rgb.irpsc.com/default-image.jpg"],
-    eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
-    eventStatus: "https://schema.org/EventScheduled",
+    image: selectedEvent.image || "https://rgb.irpsc.com/default-image.jpg",
+    url: selectedEvent.link || "https://rgb.irpsc.com",
+    location: {
+      "@type": "Place",
+      name: (selectedEvent as any).locationName || "Metaverse Rang",
+      url: selectedEvent.link || "https://rgb.irpsc.com",
+    },
     organizer: {
       "@type": "Organization",
-      name: "متاورس رنگ",
-      url: "https://rgb.irpsc.com",
+      name: (selectedEvent as any).organizerName || "IRPSC",
+      url: (selectedEvent as any).organizerUrl || "https://rgb.irpsc.com/",
     },
-    location: {
-      "@type": "VirtualLocation",
-      "name":"متاورس رنگ",
-      url: `https://rgb.irpsc.com/${lang}/calendar/${id}`,
-      
+    eventStatus: "https://schema.org/EventScheduled",
+    offers: {
+      "@type": "Offer",
+      price: (selectedEvent as any).price ?? "0",
+      priceCurrency: (selectedEvent as any).priceCurrency || "IRR",
+      url: (selectedEvent as any).offerUrl || (selectedEvent as any).link || "https://rgb.irpsc.com",
+      availability: "https://schema.org/InStock",
+      validFrom: (selectedEvent as any).validFrom ? toISODate((selectedEvent as any).validFrom) : new Date().toISOString(),
     },
-    offers: selectedEvent.btnName
-      ? {
-          "@type": "Offer",
-          price: "0",
-          priceCurrency: "IRR",
-          url: selectedEvent.link || `https://rgb.irpsc.com/${lang}/calendar/${id}`,
-          availability: "https://schema.org/InStock",
-          validFrom: new Date().toISOString(),
-        }
-      : undefined,
   };
 }
 
 // 📌 Fetch single event
-async function getEvent(id: string) {
-  const res = await fetch(`https://api.rgb.irpsc.com/api/calendar/${id}`, {
-    next: { revalidate: 3600 },
-  });
+async function getEvent(id: string): Promise<MappedEventItem> {
+  const res = await fetch(`https://api.rgb.irpsc.com/api/calendar/${id}`, { next: { revalidate: 3600 } });
   if (!res.ok) throw new Error("Failed to fetch event");
   const json = await res.json();
   return mapEvents([json.data])[0];
 }
 
 // 📌 Fetch all events
-async function getEvents() {
-  const res = await fetch("https://api.rgb.irpsc.com/api/calendar", {
-    next: { revalidate: 3600 },
-  });
+async function getEvents(): Promise<MappedEventItem[]> {
+  const res = await fetch("https://api.rgb.irpsc.com/api/calendar", { next: { revalidate: 3600 } });
   if (!res.ok) throw new Error("Failed to fetch events");
   const json = await res.json();
   return mapEvents(json.data);
 }
 
 // 📌 Dynamic metadata
-export async function generateMetadata({
-  params,
-}: {
-  params: { lang: string; id: string };
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: { lang: string; id: string } }): Promise<Metadata> {
   const event = await getEvent(params.id);
   const cleanTitle = stripHtml(event.title);
   const cleanDescription = stripHtml(event.desc, 160);
@@ -159,26 +138,13 @@ export async function generateMetadata({
   return {
     title: cleanTitle,
     description: cleanDescription,
-    keywords: [
-      cleanTitle,
-      "رویداد",
-      "تقویم رویدادها",
-      "برنامه‌های متاورس رنگ",
-      "رویدادهای مهم",
-    ],
+    keywords: [cleanTitle, "رویداد", "تقویم رویدادها", "برنامه‌های متاورس رنگ", "رویدادهای مهم"],
     openGraph: {
       title: cleanTitle,
       description: cleanDescription,
       url: `https://rgb.irpsc.com/${params.lang}/calendar/${params.id}`,
       type: "website",
-      images: [
-        {
-          url: event.image || "https://rgb.irpsc.com/default-image.jpg",
-          width: 1200,
-          height: 630,
-          alt: cleanTitle,
-        },
-      ],
+      images: [{ url: event.image || "https://rgb.irpsc.com/default-image.jpg", width: 1200, height: 630, alt: cleanTitle }],
       locale: params.lang === "fa" ? "fa_IR" : "en_US",
     },
     twitter: {
@@ -197,40 +163,28 @@ export async function generateMetadata({
 }
 
 // 📌 Page Component
-export default async function EventPage({
-  params,
-}: {
-  params: { lang: string; id: string };
-}) {
-  const [footerTabs, langData, langArray, events, selectedEvent] =
-    await Promise.all([
-      getFooterData(params),
-      getTranslation(params.lang),
-      getLangArray(),
-      getEvents(),
-      getEvent(params.id),
-    ]);
+export default async function EventPage({ params }: { params: { lang: string; id: string } }) {
+  const [footerTabs, langData, langArray, events, selectedEvent] = await Promise.all([
+    getFooterData(params),
+    getTranslation(params.lang),
+    getLangArray(),
+    getEvents(),
+    getEvent(params.id),
+  ]);
 
   const mainData = await getMainFile(langData);
   const cookieStore = cookies();
   const rawAuth = cookieStore.get("auth")?.value;
-  const token = rawAuth ? new URLSearchParams(rawAuth).get("token") : null;
+  const token: string | null = rawAuth ? new URLSearchParams(rawAuth).get("token") : null;
 
   const cleanTitle = stripHtml(selectedEvent.title);
-  const eventSchema = buildEventSchema(selectedEvent, params.lang, params.id);
+  const eventSchema = buildEventSchema(selectedEvent);
   const filteredEvents = events.filter((e) => e.id !== selectedEvent.id);
 
   return (
     <>
-      {/* ✅ Schema in <head> */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(eventSchema) }}
-      />
-      <div
-        className="flex flex-col h-screen overflow-hidden min-w-[340px] w-full"
-        dir={langData.direction}
-      >
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(eventSchema, null, 2) }} />
+      <div className="flex flex-col h-screen overflow-hidden min-w-[340px] w-full" dir={langData.direction}>
         <section className="w-full overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20">
           <div className="px-12">
             <BreadCrumb params={params} eventTitle={cleanTitle} />
