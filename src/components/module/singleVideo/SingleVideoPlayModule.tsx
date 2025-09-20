@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import {
@@ -32,6 +32,15 @@ const SingleVideoPlayModule: React.FC<SingleVideoProps> = ({ DataVideo }) => {
   const [isMute, setIsMute] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
+  const isMountedRef = useRef(true);
+
+  useEffect(() => {
+    isMountedRef.current = true;
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, []);
+
   const onLoadedMeta = (e: React.SyntheticEvent<HTMLVideoElement>) => {
     const video = e.currentTarget;
     if (Number.isFinite(video.duration) && video.duration > 0) {
@@ -43,7 +52,6 @@ const SingleVideoPlayModule: React.FC<SingleVideoProps> = ({ DataVideo }) => {
     const video = e.currentTarget;
     if (!Number.isFinite(video.duration) || video.duration <= 0) return;
 
-    // Fallback: Set duration state if it wasn't caught by loadedmetadata
     if (duration <= 0) {
       setDuration(video.duration);
     }
@@ -61,14 +69,17 @@ const SingleVideoPlayModule: React.FC<SingleVideoProps> = ({ DataVideo }) => {
     if (v.paused) {
       v.play()
         .then(() => {
+          if (!isMountedRef.current) return;
           setIsPlaying(true);
           setHasStarted(true);
-          setTimeout(() => setShowIconPlaying(false), 2000);
+          setTimeout(() => {
+            if (isMountedRef.current) setShowIconPlaying(false);
+          }, 2000);
         })
-        .catch(() => { });
+        .catch(() => {});
     } else {
-      v.pause();
       setIsPlaying(false);
+      v.pause();
     }
   };
 
@@ -123,21 +134,19 @@ const SingleVideoPlayModule: React.FC<SingleVideoProps> = ({ DataVideo }) => {
       className="w-full relative pt-5 px-5 bg-white dark:bg-dark-background flex justify-center items-center"
     >
       <div className="relative w-full flex justify-center items-center px-3 rounded-xl overflow-hidden lg:px-0">
-        {/* پوستر روی ویدیو با z-index بالاتر، تا وقتی پخش شروع نشده */}
         {!hasStarted && (
           <Image
             src={DataVideo.image_url}
             alt="video-poster"
             priority
-            width={1200}
-            height={685}
+            width={830}
+            height={470}
             sizes="(max-width: 600px) 360px, (max-width: 1200px) 800px, 1200px"
-            className="absolute top-0 left-0 w-full aspect-video  object-fill z-30 cursor-pointer"
+            className="absolute top-0 left-0 w-full aspect-video object-fill z-30 cursor-pointer"
             onClick={togglePlayPause}
           />
         )}
 
-        {/* ویدیو همیشه نمایش داده می‌شود تا metadata لود شود */}
         <video
           ref={videoRef}
           className="w-full aspect-video rounded-xl object-fill z-20"
@@ -151,7 +160,6 @@ const SingleVideoPlayModule: React.FC<SingleVideoProps> = ({ DataVideo }) => {
           fetchpriority="high"
         />
 
-        {/* آیکن Play/Pause روی پوستر یا ویدیو */}
         <div
           className="absolute w-full h-full flex justify-center items-center z-40 top-0 cursor-pointer"
           onClick={togglePlayPause}
@@ -174,7 +182,6 @@ const SingleVideoPlayModule: React.FC<SingleVideoProps> = ({ DataVideo }) => {
         </div>
       </div>
 
-      {/* کنترل‌های ویدیو (می‌توانید همیشه نمایش دهید اگر بخواهید مدت زمان قبل از پخش نشان داده شود) */}
       {isPlaying && (
         <div
           dir="rtl"

@@ -113,6 +113,7 @@ const CommentList = ({
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,
               },
+              withCredentials: true,
             }
           );
           setCode(response.data.data.code);
@@ -151,6 +152,7 @@ const CommentList = ({
           headers: {
             Authorization: `Bearer ${token}`,
           },
+          withCredentials: true,
         }
       );
       setRepliesData((prev: { [key: number]: any[] }) => ({
@@ -223,6 +225,7 @@ const CommentList = ({
             "Content-Type": "application/json",
             Accept: "application/json",
           },
+          withCredentials: true,
         }
       );
       setUserInteractions((prev: { [key: number]: boolean | null }) => ({ ...prev, [commentId]: isLike }));
@@ -264,6 +267,7 @@ const CommentList = ({
             "Content-Type": "application/json",
             Accept: "application/json",
           },
+          withCredentials: true,
         }
       );
       setReplyText((prev: { [key: number]: string }) => ({ ...prev, [commentId]: "" }));

@@ -52,6 +52,7 @@ const SingleVideoDashboardModule = ({
           headers: {
             Authorization: `Bearer ${token}`,
           },
+          withCredentials: true,
         }
       );
       console.log(`پاسخ سرور برای ${isLike ? "لایک" : "دیسلایک"}:`, response.data);

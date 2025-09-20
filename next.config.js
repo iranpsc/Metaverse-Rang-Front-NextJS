@@ -6,6 +6,7 @@
 const nextConfig = {
   // 🔹 فعال‌کردن سورس‌مپ در پروداکشن (برای رفع هشدار Missing source maps)
   productionBrowserSourceMaps: true,
+  
 
   async redirects() {
     return [

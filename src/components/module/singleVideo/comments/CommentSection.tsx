@@ -1,4 +1,6 @@
-import { useState, memo } from "react";
+"use client";
+
+import { useState } from "react";
 import { checkData } from "@/components/utils/targetDataName";
 import CommentList from "./CommentList";
 import SyncLoader from "react-spinners/SyncLoader";
@@ -7,8 +9,6 @@ import axios from "axios";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 const CommentSection = ({
-  // DataVideo,
-  // translateSingleVideo,
   mainData,
   dataCommentsVideo,
   setRefreshComment,
@@ -18,58 +18,59 @@ const CommentSection = ({
   const [loading, setLoading] = useState<boolean>(false);
   const { theme } = useTheme();
 
+  const comments = dataCommentsVideo?.data || [];
+
   const loadMore = async () => {
     setLoading(true);
     const nextPage = page + 1;
-    setPage(nextPage);
 
-    const resVideos = await axios.get(
-      `https://api.rgb.irpsc.com/api/tutorials?page=${nextPage}`
-    );
+    try {
+      const resVideos = await axios.get(
+        `https://api.rgb.irpsc.com/api/tutorials?page=${nextPage}`
+      );
 
-    const newVideosData = resVideos.data.data;
-    // setVideos((prevVideos: any) => [...prevVideos, ...newVideosData]);
-    setLoading(false);
+      const newVideosData = resVideos.data.data;
+      // TODO: append newVideosData to state if needed
+
+    } catch (error) {
+      console.error("Load more comments error:", error);
+    } finally {
+      setLoading(false);
+      setPage(nextPage);
+    }
   };
+
   return (
     <div className="w-full mt-10 pt-5 bg-white dark:bg-[#080807] rounded-[20px] min-h-[320px]">
-      <p className="w-full text-start px-6 t text-singleVideo-gray dark:text-white font-azarMehr font-bold  text-2xl xl:text-3xl">
+      <p className="w-full text-start px-6 text-singleVideo-gray dark:text-white font-azarMehr font-bold text-2xl xl:text-3xl">
         {checkData(findByUniqueId(mainData, 457))}
       </p>
-      <div className="light-scrollbar dark:dark-scrollbar w-full px-5 xl:max-h-[730px] lg:max-h-[730px] md:h-full sm:h-full xs:h-full xl:overflow-y-scroll lg:overflow-y-scroll  overflow-x-clip flex flex-col justify-start items-center gap-10">
-        {dataCommentsVideo.data.length > 0 ? (
+
+      <div className="light-scrollbar dark:dark-scrollbar w-full px-5 xl:max-h-[730px] lg:max-h-[730px] md:h-full sm:h-full xs:h-full xl:overflow-y-scroll lg:overflow-y-scroll overflow-x-clip flex flex-col justify-start items-center gap-10">
+        {comments.length > 0 ? (
           <CommentList
             DataItem={dataCommentsVideo}
-            // translateSingleVideo={translateSingleVideo}
             mainData={mainData}
             setRefreshComment={setRefreshComment}
             params={params}
           />
         ) : (
           <p className="text-black dark:text-white mt-10">
-            {params.lang.toLowerCase() == "fa"
+            {params.lang.toLowerCase() === "fa"
               ? "دیدگاهی وجود ندارد."
               : "No review"}
           </p>
         )}
+
         {/* VIEW ALL BTN */}
-        {dataCommentsVideo.length > 5 && (
+        {comments.length > 5 && (
           <button
-            className=" text-center rounded-full mb-10 flex items-center justify-center mt-10 py-5  px-10 shadow-sm hover:shadow-md  dark:bg-[#1A1A18] text-blueLink dark:text-dark-yellow font-azarMehr font-semibold hover:opacity-90"
+            className="text-center rounded-full mb-10 flex items-center justify-center mt-10 py-5 px-10 shadow-sm hover:shadow-md dark:bg-[#1A1A18] text-blueLink dark:text-dark-yellow font-azarMehr font-semibold hover:opacity-90"
             onClick={loadMore}
           >
-            {!loading ? (
-              // checkData(
-              //   translateSingleVideo.find((item: any) => item.name === "view all")
-              //     ?.translation
-              // )
-              findByUniqueId(mainData, 171)
-            ) : (
-              <SyncLoader
-                color={`${theme == "dark" ? "#FFC700" : "#0000FF"}`}
-                size={10}
-              />
-            )}
+            {!loading
+              ? findByUniqueId(mainData, 171)
+              : <SyncLoader color={theme === "dark" ? "#FFC700" : "#0000FF"} size={10} />}
           </button>
         )}
       </div>

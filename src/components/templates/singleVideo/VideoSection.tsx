@@ -4,7 +4,7 @@ import SingleVideoDashboardModule from "@/components/module/singleVideo/SingleVi
 // import SingleVideoDetailsModule from "@/components/module/singleVideo/SingleVideoDetailsModule";
 import SingleVideoProfileModule from "@/components/module/singleVideo/SingleVideoProfileModule";
 import CommentSection from "@/components/module/singleVideo/comments/CommentSection";
-import ListVideos from "@/components/module/singleVideo/listVideos/ListVideos";
+// import ListVideos from "@/components/module/singleVideo/listVideos/ListVideos";
 // import Pagination from "@/components/module/singleVideo/listVideos/Pagination";
 import NewEducationSectionTemp from "./NewEducationSectionTemp";
 import SingleVideoSlugModule from "@/components/module/singleVideo/SingleVideoSlugModule";
@@ -27,20 +27,27 @@ const VideoSection = ({
   const [DataComment, setDataComment] = useState<any>(dataCommentsVideo);
   const [openSharedPage, setOpenSharedPage] = useState<boolean>(false);
 
-  useEffect(() => {
-    const handlerGetComments = async () => {
-      try {
-        const comments = await axios.get(
-          `https://api.rgb.irpsc.com/api/tutorials/${DataVideo.id}/comments?page=1`
-        );
-        setDataComment(comments.data);
-      } catch (error: any) {
-        console.error("خطا:", error?.response?.status);
-      }
-    };
+useEffect(() => {
+  let isMounted = true; // ✅ flag
 
-    handlerGetComments();
-  }, [refreshComment]);
+  const handlerGetComments = async () => {
+    try {
+      const comments = await axios.get(
+        `https://api.rgb.irpsc.com/api/tutorials/${DataVideo.id}/comments?page=1`
+      );
+      if (isMounted) setDataComment(comments.data); // فقط اگر mount است
+    } catch (error: any) {
+      console.error("خطا:", error?.response?.status);
+    }
+  };
+
+  handlerGetComments();
+
+  return () => {
+    isMounted = false; // هنگام unmount flag false شود
+  };
+}, [refreshComment]);
+
 
   return (
     <>
