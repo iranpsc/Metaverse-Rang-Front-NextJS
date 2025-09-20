@@ -32,8 +32,8 @@ const CommentSection = ({
     setLoading(false);
   };
   return (
-    <div className="w-full mt-10 pt-5 bg-white dark:bg-[#080807] rounded-[20px]">
-      <p className="w-full text-start px-6 text-singleVideo_title text-singleVideo-gray dark:text-white font-azarMehr font-bold  ">
+    <div className="w-full mt-10 pt-5 bg-white dark:bg-[#080807] rounded-[20px] min-h-[320px]">
+      <p className="w-full text-start px-6 t text-singleVideo-gray dark:text-white font-azarMehr font-bold  text-2xl xl:text-3xl">
         {checkData(findByUniqueId(mainData, 457))}
       </p>
       <div className="light-scrollbar dark:dark-scrollbar w-full px-5 xl:max-h-[730px] lg:max-h-[730px] md:h-full sm:h-full xs:h-full xl:overflow-y-scroll lg:overflow-y-scroll  overflow-x-clip flex flex-col justify-start items-center gap-10">
@@ -46,11 +46,11 @@ const CommentSection = ({
             params={params}
           />
         ) : (
-          <div className="text-black dark:text-white py-10 pb-14">
+          <p className="text-black dark:text-white mt-10">
             {params.lang.toLowerCase() == "fa"
               ? "دیدگاهی وجود ندارد."
               : "No review"}
-          </div>
+          </p>
         )}
         {/* VIEW ALL BTN */}
         {dataCommentsVideo.length > 5 && (

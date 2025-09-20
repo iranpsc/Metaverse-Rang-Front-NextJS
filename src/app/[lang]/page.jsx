@@ -13,7 +13,7 @@ const TopTrainersFirstPage = React.lazy(() => import('@/components/templates/fir
 const EducationFirstPage = React.lazy(() => import('@/components/templates/firstpage/EducationFirstPage'));
 const LastContent = React.lazy(() => import('@/components/templates/firstpage/LastContent'));
 const DetailsEducationSection = React.lazy(() => import('@/components/templates/firstpage/DetailsEducationSection'));
-const VersionSection = React.lazy(() => import('@/components/templates/firstpage/VersionSection'));
+// const VersionSection = React.lazy(() => import('@/components/templates/firstpage/VersionSection'));
 const DynamicFooter = React.lazy(() => import("@/components/module/footer/DynamicFooter"));
 import {
   getTranslation,

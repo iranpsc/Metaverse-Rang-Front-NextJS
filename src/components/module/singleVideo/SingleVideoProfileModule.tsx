@@ -22,8 +22,8 @@ const SingleVideoProfileModule = ({
           <Image
             src={DataVideo.creator.image}
             alt={"creator name " + DataVideo.creator.name || "creator name"}
-            width={100}
-            height={100}
+            width={80}
+            height={80}
             loading="lazy"
             className="w-[80px] h-[80px] xs:size-[50px] rounded-full object-cover cursor-pointer transition-all duration-150 ease-in-out"
           // onClick={() => pushRgb(item.creator.code)}

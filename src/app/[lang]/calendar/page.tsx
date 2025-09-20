@@ -97,7 +97,7 @@ export async function generateMetadata({ params }: { params: any }): Promise<Met
   const res = await fetch("https://api.rgb.irpsc.com/api/calendar?type=event", {
     method: "GET",
     headers,
-    next: { revalidate: 3600 }, // کش برای ۱ ساعت
+    next: { revalidate:  0}, // کش برای ۱ دقیقه
   });
 
   const data = await res.json();
@@ -202,7 +202,7 @@ export default async function CalendarPage({ params }: { params: { lang: string 
   const res = await fetch("https://api.rgb.irpsc.com/api/calendar?type=event", {
     method: "GET",
     headers,
-    next: { revalidate: 3600 },
+    next: { revalidate: 60 },
   });
 
   const data = await res.json();

@@ -57,8 +57,8 @@ const ListNewEducationModule = ({ videos, mainData, params }: any) => {
                 <Image
                   src={item.creator.image && item.creator.image}
                   alt={item.creator.image && item.creator.code}
-                  width={1000}
-                  height={1000}
+                  width={50}
+                  height={50}
                   loading="lazy"
                   className="w-[50px] h-[50px] rounded-full object-cover cursor-pointer transition-all duration-150 ease-in-out"
                   // onClick={() => pushRgb(item.creator.code)}
