@@ -5,30 +5,63 @@ import NotFoundPage from "@/components/shared/NotFoundPage";
 import Profile from "@/components/templates/Profile";
 import ProfileAbout from "@/components/module/profile/ProfileAbout";
 import ProfileDetails from "@/components/module/profile/ProfileDatails";
-import { getTranslation, getMainFile, findByModalName, findByTabName, getLangArray, getUserData } from "@/components/utils/actions";
+import {
+  getTranslation,
+  getMainFile,
+  findByModalName,
+  findByTabName,
+  getLangArray,
+  getUserData,
+} from "@/components/utils/actions";
 import { getStaticMenu } from "@/components/utils/constants";
 
 // داینامیک لود برای SideBar
-const SideBar = dynamic(() => import("@/components/module/sidebar/SideBar"), { suspense: true });
+const SideBar = dynamic(() => import("@/components/module/sidebar/SideBar"), {
+  suspense: true,
+});
 
 export default async function citizenSinglePage({ params }) {
   try {
     const [profileData, langData, langArray] = await Promise.all([
       getUserData(params.id),
       getTranslation(params.lang),
-      getLangArray()
+      getLangArray(),
     ]);
 
     const mainData = await getMainFile(langData);
-    const centralPageModal = await findByModalName(mainData, "Citizenship-profile");
-    const tabsMenu = await findByTabName(centralPageModal, "menu");
-    const staticMenuToShow = getStaticMenu(params);
-    const updatedTabsMenu = tabsMenu.map((tab) => {
-      const findInStatic = staticMenuToShow.find((val) => tab.unique_id === val.unique_id);
-      return findInStatic
-        ? { ...tab, url: findInStatic.url, order: findInStatic.order, toShow: true }
-        : tab;
-    });
+
+    // 🟢 منوی citizen
+    const citizenModal = await findByModalName(mainData, "Citizenship-profile");
+    const citizenTabsMenu = await findByTabName(citizenModal, "menu");
+
+    // 🟢 منوی اصلی (before-login)
+    const centralPageModal = await findByModalName(mainData, "central-page");
+    const mainTabsMenu = await findByTabName(centralPageModal, "before-login");
+
+    // 🟢 استاتیک منو
+    const staticMenuToShow = getStaticMenu(params.lang);
+    
+    // تابعی برای آپدیت منو با staticMenu
+    const mapMenu = (tabsMenu) =>
+      tabsMenu.map((tab) => {
+        const findInStatic = staticMenuToShow.find(
+          (val) => tab.unique_id === val.unique_id
+        );
+        return findInStatic
+          ? {
+              ...tab,
+              url: findInStatic.url,
+              order: findInStatic.order,
+              toShow: true,
+            }
+          : tab;
+      });
+
+    // 🟢 نهایی: ترکیب citizen + منوی اصلی
+    const updatedTabsMenu = [
+      ...mapMenu(citizenTabsMenu),
+      ...mapMenu(mainTabsMenu),
+    ];
 
     // اگر داده پیدا نشد → صفحه 404
     if (!profileData || !profileData.data) {
@@ -78,29 +111,49 @@ export default async function citizenSinglePage({ params }) {
     const singleCitizenSchema = {
       "@context": "https://schema.org/",
       "@type": "Person",
-      "name": `${profileData.data.name}`,
-      "image": profileData.data?.profilePhotos?.map(item => item.url),
-      "url": `https://rgb.irpsc.com/fa/citizens/${params.id}`, // تغییر به /citizens
-      "jobTitle": `${profileData.data?.customs?.occupation}`,
-      "description": `${makeLessCharacter()}`,
-      "birthDate": `${profileData.data?.kyc?.birth_date}`,
-      "email": `${profileData.data?.kyc?.email}`,
-      "alternateName": `${profileData.data.code}`,
+      name: `${profileData.data.name}`,
+      image: profileData.data?.profilePhotos?.map((item) => item.url),
+      url: `https://rgb.irpsc.com/fa/citizens/${params.id}`,
+      jobTitle: `${profileData.data?.customs?.occupation}`,
+      description: `${makeLessCharacter()}`,
+      birthDate: `${profileData.data?.kyc?.birth_date}`,
+      email: `${profileData.data?.kyc?.email}`,
+      alternateName: `${profileData.data.code}`,
     };
 
     return (
       <>
         <head>
-          <link rel="canonical" href={`https://rgb.irpsc.com/${params.lang}/citizens/${params.id}`} />
-          <link rel="alternate" hrefLang="x-default" href={`https://rgb.irpsc.com/fa/citizens/${params.id}`} />
-          <link rel="alternate" hrefLang="fa-IR" href={`https://rgb.irpsc.com/fa/citizens/${params.id}`} />
-          <link rel="alternate" hrefLang="en-US" href={`https://rgb.irpsc.com/en/citizens/${params.id}`} />
+          <link
+            rel="canonical"
+            href={`https://rgb.irpsc.com/${params.lang}/citizens/${params.id}`}
+          />
+          <link
+            rel="alternate"
+            hrefLang="x-default"
+            href={`https://rgb.irpsc.com/fa/citizens/${params.id}`}
+          />
+          <link
+            rel="alternate"
+            hrefLang="fa-IR"
+            href={`https://rgb.irpsc.com/fa/citizens/${params.id}`}
+          />
+          <link
+            rel="alternate"
+            hrefLang="en-US"
+            href={`https://rgb.irpsc.com/en/citizens/${params.id}`}
+          />
         </head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(singleCitizenSchema) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(singleCitizenSchema),
+          }}
         />
-        <main className="flex h-screen dark:bg-black w-full" dir={langData.direction}>
+        <main
+          className="flex h-screen dark:bg-black w-full"
+          dir={langData.direction}
+        >
           <div className="relative overflow-y-scroll lg:overflow-hidden w-full xs:px-1 mt-[60px] lg:mt-0">
             <div className="flex h-full" dir={langData.direction}>
               <Suspense fallback={<div>Loading...</div>}>
@@ -124,7 +177,10 @@ export default async function citizenSinglePage({ params }) {
                   />
                 </section>
                 <section className="lg:w-[35%] flex flex-col ">
-                  <ProfileDetails profileData={profileData} mainData={mainData} />
+                  <ProfileDetails
+                    profileData={profileData}
+                    mainData={mainData}
+                  />
                 </section>
                 <section className="lg:w-[30%] flex flex-col lg:overflow-auto">
                   <ProfileAbout
@@ -153,7 +209,7 @@ export async function generateMetadata({ params }) {
     if (!profileData || !profileData.data) {
       return {
         title: "صفحه یافت نشد",
-        description: "شهروند مورد نظر پیدا نشد"
+        description: "شهروند مورد نظر پیدا نشد",
       };
     }
 
@@ -163,38 +219,42 @@ export async function generateMetadata({ params }) {
         : "";
 
     return {
-      title: `${profileData.data?.kyc?.fname || ""} ${profileData.data?.kyc?.lname || "citizen"}`,
+      title: `${
+        profileData.data?.kyc?.fname || ""
+      } ${profileData.data?.kyc?.lname || "citizen"}`,
       description: makeLessCharacter() || "about citizen",
       alternates: {
-        canonical: `https://rgb.irpsc.com/${params.lang}/citizens/${params.id}`, // تغییر به /citizens
+        canonical: `https://rgb.irpsc.com/${params.lang}/citizens/${params.id}`,
         languages: {
-          'x-default': `https://rgb.irpsc.com/fa/citizens/${params.id}`, // نسخه fa به‌عنوان پیش‌فرض
-          'fa-IR': `https://rgb.irpsc.com/fa/citizens/${params.id}`,
-          'en-US': `https://rgb.irpsc.com/en/citizens/${params.id}`,
+          "x-default": `https://rgb.irpsc.com/fa/citizens/${params.id}`,
+          "fa-IR": `https://rgb.irpsc.com/fa/citizens/${params.id}`,
+          "en-US": `https://rgb.irpsc.com/en/citizens/${params.id}`,
         },
       },
       openGraph: {
-        type: 'profile',
+        type: "profile",
         title: `${profileData.data?.name || ""}`,
         description: makeLessCharacter(),
-        locale: params.lang === 'fa' ? 'fa_IR' : 'en_US',
-        url: `https://rgb.irpsc.com/${params.lang}/citizens/${params.id}`, // تغییر به /citizens
+        locale: params.lang === "fa" ? "fa_IR" : "en_US",
+        url: `https://rgb.irpsc.com/${params.lang}/citizens/${params.id}`,
         profile: {
           first_name: `${profileData.data?.name || ""}`,
         },
         images: [
           {
-            url: `${profileData.data?.profilePhotos?.[0]?.url || "/default.jpg"}`,
+            url: `${
+              profileData.data?.profilePhotos?.[0]?.url || "/default.jpg"
+            }`,
             width: 800,
-            height: 600
+            height: 600,
           },
         ],
-      }
+      },
     };
   } catch {
     return {
       title: "صفحه یافت نشد",
-      description: "شهروند مورد نظر پیدا نشد"
+      description: "شهروند مورد نظر پیدا نشد",
     };
   }
 }

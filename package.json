@@ -57,6 +57,7 @@
     "react-three-fiber": "^6.0.13",
     "react-toastify": "^10.0.6",
     "react-tooltip": "^5.23.0",
+    "sharp": "^0.34.4",
     "slick-carousel": "^1.8.1",
     "swiper": "^11.2.10",
     "three": "^0.172.0",
@@ -83,17 +84,16 @@
     "webpack-bundle-analyzer": "^4.10.2"
   },
   "browserslist": {
-  "production": [
-    ">0.5%",
-    "last 2 versions",
-    "not dead",
-    "not IE 11"
-  ],
-  "development": [
-    "last 1 chrome version",
-    "last 1 firefox version",
-    "last 1 safari version"
-  ]
-}
-
+    "production": [
+      ">0.5%",
+      "last 2 versions",
+      "not dead",
+      "not IE 11"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }

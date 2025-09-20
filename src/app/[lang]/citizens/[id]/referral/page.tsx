@@ -1,6 +1,6 @@
 import SideBar from "@/components/module/sidebar/SideBar";
 import BreadCrumb from "@/components/shared/BreadCrumb";
-import NotFoundPage from "@/components/shared/NotFoundPage"; // اضافه کردن ایمپورت
+import NotFoundPage from "@/components/shared/NotFoundPage";
 import {
   getTranslation,
   getMainFile,
@@ -20,12 +20,44 @@ import InviteList from "./components/invite-list";
 import InviteChart from "./components/invite-chart.js";
 
 export default async function CitizenReferral({ params }: { params: any }) {
+  // ترجمه و پروفایل
   const langData = await getTranslation(params.lang);
-
-  // گرفتن اطلاعات پروفایل
   const profileData = await getUserData(params.id);
 
-  // اگر داده پروفایل وجود ندارد، نمایش 404
+  // helper: می‌سازد updatedTabsMenu با merge دو منو و فیلتر تکراری‌ها
+  async function buildUpdatedTabsMenu(mainData: any) {
+    const staticMenuToShow = getStaticMenu(params.lang); // <-- دقت کنیم params.lang
+    const citizenModal = await findByModalName(mainData, "Citizenship-profile");
+    const citizenTabs = (await findByTabName(citizenModal, "menu")) || [];
+
+    const centralModal = await findByModalName(mainData, "central-page");
+    const mainTabs = (await findByTabName(centralModal, "before-login")) || [];
+
+    const mapMenu = (tabs: any[]) =>
+      tabs.map((tab: any) => {
+        const findInStatic = staticMenuToShow.find(
+          (val: any) => val.unique_id === tab.unique_id
+        );
+        return findInStatic
+          ? { ...tab, url: findInStatic.url, order: findInStatic.order, toShow: true }
+          : tab;
+      });
+
+    // ترتیب: اول citizen، بعد main (اگر می‌خواهی برعکس باشه اینجا عوض کن)
+    const merged = [...mapMenu(citizenTabs), ...mapMenu(mainTabs)];
+
+    // حذف تکراری‌ها بر اساس unique_id (اولین occurrence نگه داشته می‌شود)
+    const seen = new Set<number | string>();
+    const deduped = merged.filter((tab: any) => {
+      if (seen.has(tab.unique_id)) return false;
+      seen.add(tab.unique_id);
+      return true;
+    });
+
+    return deduped;
+  }
+
+  // اگر پروفایل وجود نداشت → صفحه 404 (و Sidebar هم با منوی merge شده ارسال می‌شود)
   if (!profileData || !profileData.data) {
     const [mainData, langArray, footerTabs] = await Promise.all([
       getMainFile(langData),
@@ -33,15 +65,7 @@ export default async function CitizenReferral({ params }: { params: any }) {
       getFooterData(params),
     ]);
 
-    const centralPageModal = await findByModalName(mainData, "Citizenship-profile");
-    const tabsMenu = await findByTabName(centralPageModal, "menu");
-    const staticMenuToShow = getStaticMenu(params);
-    const updatedTabsMenu = tabsMenu.map((tab: any) => {
-      const findInStatic = staticMenuToShow.find((val) => tab.unique_id === val.unique_id);
-      return findInStatic
-        ? { ...tab, url: findInStatic.url, order: findInStatic.order, toShow: true }
-        : tab;
-    });
+    const updatedTabsMenu = await buildUpdatedTabsMenu(mainData);
 
     return (
       <NotFoundPage
@@ -51,10 +75,12 @@ export default async function CitizenReferral({ params }: { params: any }) {
         langArray={langArray}
         footerTabs={footerTabs}
         mainData={mainData}
+   
       />
     );
   }
 
+  // اگر پروفایل هست، داده‌های لازم را فراخوانی کن
   const [mainData, langArray, initInviteList, footerTabs, chartDataFetch] =
     await Promise.all([
       getMainFile(langData),
@@ -63,6 +89,9 @@ export default async function CitizenReferral({ params }: { params: any }) {
       getFooterData(params),
       getChartReferral(params.id, "yearly"),
     ]);
+
+  // منوی آپدیت شده (merge + dedupe)
+  const updatedTabsMenu = await buildUpdatedTabsMenu(mainData);
 
   const referralPageArrayContent = await findByTabName(
     await findByModalName(mainData, "Citizenship-profile"),
@@ -94,22 +123,6 @@ export default async function CitizenReferral({ params }: { params: any }) {
       (label: any) => label.total_referral_orders_amount
     );
   }
-
-  const tabsMenu = await findByTabName(
-    await findByModalName(mainData, "Citizenship-profile"),
-    "menu"
-  );
-
-  const staticMenuToShow = getStaticMenu(params);
-  const updatedTabsMenu = tabsMenu.map((tab: any) => {
-    let findInStatic = staticMenuToShow.find(
-      (val) => tab.unique_id === val.unique_id
-    );
-    if (findInStatic) {
-      return { ...tab, ...findInStatic, toShow: true };
-    }
-    return tab;
-  });
 
   async function makeLessCharacter() {
     let temp = profileData.data?.customs?.about || "";
@@ -147,13 +160,15 @@ export default async function CitizenReferral({ params }: { params: any }) {
         "@type": "ListItem",
         position: 2,
         name: localFind("-rewards"),
-        value: initInviteList?.data?.reduce((sum: any, person: any) => {
-          const personTotal = person.referrerOrders?.reduce(
-            (orderSum: any, order: any) => orderSum + (order.amount || 0),
-            0
-          ) || 0;
-          return sum + personTotal;
-        }, 0) || 0,
+        value:
+          initInviteList?.data?.reduce((sum: any, person: any) => {
+            const personTotal =
+              person.referrerOrders?.reduce(
+                (orderSum: any, order: any) => orderSum + (order.amount || 0),
+                0
+              ) || 0;
+            return sum + personTotal;
+          }, 0) || 0,
         url: `https://rgb.irpsc.com/fa/citizens/${params.id}/referral`,
       },
       ...(initInviteList?.data || []).map((invited: any, index: any) => ({
@@ -161,10 +176,11 @@ export default async function CitizenReferral({ params }: { params: any }) {
         position: index + 3,
         name: invited.name || "",
         identifier: `${invited.code || ""}`,
-        value: invited.referrerOrders?.reduce(
-          (acc: any, item: any) => acc + (item.amount || 0),
-          0
-        ) || 0,
+        value:
+          invited.referrerOrders?.reduce(
+            (acc: any, item: any) => acc + (item.amount || 0),
+            0
+          ) || 0,
         url: `https://rgb.irpsc.com/${params.lang}/citizens/${invited.code || ""}`,
       })),
     ],
@@ -242,10 +258,15 @@ export async function generateMetadata({ params }: { params: any }) {
   );
 
   function localFind(_name: any): string {
-    if (!Array.isArray(referralPageArrayContent) || referralPageArrayContent.length === 0) {
+    if (
+      !Array.isArray(referralPageArrayContent) ||
+      referralPageArrayContent.length === 0
+    ) {
       return "";
     }
-    const item = referralPageArrayContent.find((item: any) => item.name === _name);
+    const item = referralPageArrayContent.find(
+      (item: any) => item.name === _name
+    );
     return item ? item.translation || "" : "";
   }
 
@@ -258,11 +279,17 @@ export async function generateMetadata({ params }: { params: any }) {
   const lname = profileData.data?.kyc?.lname || "";
 
   return {
-    title: `${params.lang.toLowerCase() == "fa" ? "دعوتی های" : "invite list of"} ${fname} ${lname}`,
-    description: localFind("the list of friends who have been") || "citizen referral page",
+    title: `${
+      params.lang.toLowerCase() == "fa" ? "دعوتی های" : "invite list of"
+    } ${fname} ${lname}`,
+    description:
+      localFind("the list of friends who have been") ||
+      "citizen referral page",
     openGraph: {
       type: "profile",
-      title: `${params.lang.toLowerCase() == "fa" ? "دعوتی های" : "invite list of"} ${fname} ${lname}`,
+      title: `${
+        params.lang.toLowerCase() == "fa" ? "دعوتی های" : "invite list of"
+      } ${fname} ${lname}`,
       description: `${await makeLessCharacter()}`,
       locale: params.lang == "fa" ? "fa_IR" : "en_US",
       url: `https://rgb.irpsc.com/${params.lang}/citizen/${params.id}/referral`,
