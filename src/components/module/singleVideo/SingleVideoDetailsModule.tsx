@@ -45,6 +45,7 @@ const SingleVideoDetailsModule = ({
             headers: {
               Authorization: `Bearer ${parsAuthCookieByName("token")}`,
             },
+            withCredentials: true,
           }
         );
 
