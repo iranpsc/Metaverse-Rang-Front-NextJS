@@ -58,10 +58,22 @@ export default async function citizenSinglePage({ params }) {
       });
 
     // 🟢 نهایی: ترکیب citizen + منوی اصلی
-    const updatedTabsMenu = [
-      ...mapMenu(citizenTabsMenu),
-      ...mapMenu(mainTabsMenu),
-    ];
+// 🟢 نهایی: ترکیب citizen + منوی اصلی
+const mergedTabs = [
+  ...mapMenu(citizenTabsMenu),
+  ...mapMenu(mainTabsMenu),
+];
+
+// 🟢 فیلتر تکراری‌ها (فقط اولین occurrence نگه داشته می‌شود)
+const seen = new Set();
+const updatedTabsMenu = mergedTabs.filter((tab) => {
+  if (seen.has(tab.unique_id)) {
+    return false; // حذف آیتم تکراری
+  }
+  seen.add(tab.unique_id);
+  return true; // نگه داشتن اولین occurrence
+});
+
 
     // اگر داده پیدا نشد → صفحه 404
     if (!profileData || !profileData.data) {
