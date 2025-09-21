@@ -100,7 +100,7 @@ const SingleVideoDetailsModule = ({
           <p className="font-azarMehr font-normal text-black dark:text-white text-singleVideo_medium xs:text-[12px]">
             {checkData(DataVideo.views_count)}
           </p>
-          <View className="stroke-gray dark:stroke-white xs:size-[24px]" />
+          <View className="stroke-gray dark:stroke-white size-[15px] md:size-[20px]" />
         </div>
       </div>
 
@@ -127,7 +127,7 @@ const SingleVideoDetailsModule = ({
             ...
           </span>
           <span
-            className="dark:text-dark-yellow mx-2 text-blueLink font-azarMehr font-medium cursor-pointer text-[18px]"
+            className="dark:text-dark-yellow mx-2 text-blueLink font-azarMehr font-medium cursor-pointer text-sm md:text-[18px]"
             onClick={() => setIsComplete(!isComplete)}
           >
             {findByUniqueId(mainData, 171)}

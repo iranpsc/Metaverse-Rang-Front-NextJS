@@ -80,7 +80,7 @@ const ListNewEducationModule = ({ videos, mainData, params }: any) => {
               </div>
 
               <div className="w-[90%] flex flex-row justify-between items-center">
-                <p className="w-full font-azarMehr text-blueLink font-medium text-singleVideo_medium flex items-center gap-1">
+                <p className="w-full font-azarMehr text-blueLink font-medium text-singleVideo_medium flex items-center gap-1 text-sm md:text-base">
                   <span>{findByUniqueId(mainData, 563)}</span>
                   {" : "}
                   <span className="mb-[-2px]">

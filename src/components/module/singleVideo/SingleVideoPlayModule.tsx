@@ -141,7 +141,7 @@ const SingleVideoPlayModule: React.FC<SingleVideoProps> = ({ DataVideo }) => {
             priority
             width={830}
             height={470}
-            sizes="(max-width: 600px) 360px, (max-width: 1200px) 800px, 1200px"
+            sizes="(max-width: 600px) 360px, (max-width: 1200px) 800px, 830px"
             className="absolute top-0 left-0 w-full aspect-video object-fill z-30 cursor-pointer"
             onClick={togglePlayPause}
           />

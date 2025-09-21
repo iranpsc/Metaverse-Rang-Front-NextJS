@@ -226,9 +226,9 @@ const ReplyList = ({
                       {checkData(reply?.likes)}
                     </p>
                     <motion.div
-                      className={`xs:size-[20px] outline-none border-none stroke-singleVideo-gray dark:stroke-white flex items-center justify-center ${
+                      className={`size-[15px] md:size-[20px] outline-none border-none stroke-singleVideo-gray dark:stroke-white flex items-center justify-center ${
                         interactionLoading[reply.id] || !token || userInteractions[reply.id] === true
-                          ? "opacity-50"
+                          ? ""
                           : "cursor-pointer"
                       }`}
                       whileTap={{
@@ -239,7 +239,7 @@ const ReplyList = ({
                       <Like
                         className={`size-full  ${
                           userInteractions[reply.id] === true
-                            ? "fill-blue-500"
+                            ? ""
                             : "stroke-[#414040] dark:stroke-white"
                         } cursor-pointer`}
                       />
@@ -250,7 +250,7 @@ const ReplyList = ({
                       {checkData(reply?.dislikes)}
                     </p>
                     <motion.div
-                      className={`xs:size-[20px] outline-none border-none stroke-singleVideo-gray dark:stroke-white flex items-center justify-center ${
+                      className={`size-[15px] md:size-[20px] outline-none border-none stroke-singleVideo-gray dark:stroke-white flex items-center justify-center ${
                         interactionLoading[reply.id] || !token || userInteractions[reply.id] === false
                           ? ""
                           : "cursor-pointer"
@@ -263,7 +263,7 @@ const ReplyList = ({
                       <Dislike
                         className={`size-full ${
                           userInteractions[reply.id] === false
-                            ? "fill-red-500"
+                            ? ""
                             : "stroke-[#414040] dark:stroke-white"
                         } cursor-pointer`}
                       />

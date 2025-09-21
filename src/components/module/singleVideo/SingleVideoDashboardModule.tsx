@@ -119,14 +119,14 @@ const SingleVideoDashboardModule = ({
           <p className="font-azarMehr font-normal text-singleVideo_medium dark:text-white xs:text-[12px]">
             {checkData(findByUniqueId(mainData, 244))}
           </p>
-          <CopyIcon className="fill-singleVideo-gray dark:fill-white xs:size-[24px] md:size-[18px]" />
+          <CopyIcon className="fill-singleVideo-gray dark:fill-white size-[15px] md:size-[18px]" />
         </div>
 
         <div className="flex flex-row justify-center items-center gap-2">
           <p className="font-azarMehr font-normal text-singleVideo_medium dark:text-white xs:text-[12px] md:text-lg">
             {checkData(dataCommentsVideo?.data?.length ?? 0)}
           </p>
-          <Comment className="stroke-textGray dark:stroke-white xs:size-[24px] md:size-[18px]" />
+          <Comment className="stroke-textGray dark:stroke-white size-[15px] md:size-[18px]" />
         </div>
 
         <div className="flex flex-row justify-center items-center gap-2 cursor-pointer">
@@ -134,7 +134,7 @@ const SingleVideoDashboardModule = ({
             {checkData(newData.likes_count || 0)}
           </p>
           <motion.div
-            className={`xs:size-[24px] md:size-[18px] outline-none border-none stroke-darkGray dark:stroke-white flex items-center justify-center ${isLiking || !cookies.auth || userInteraction === true ? "opacity-50" : "cursor-pointer"}`}
+            className={`size-[15px]  md:size-[18px] outline-none border-none stroke-darkGray dark:stroke-white flex items-center justify-center ${isLiking || !cookies.auth || userInteraction === true ? "" : "cursor-pointer"}`}
             whileTap={{ scale: isLiking || !cookies.auth || userInteraction === true ? 1 : 1.2 }}
             onClick={() => handleInteraction(true)}
           >
@@ -147,7 +147,7 @@ const SingleVideoDashboardModule = ({
             {checkData(newData.dislikes_count || 0)}
           </p>
           <motion.div
-            className={`xs:size-[24px] md:size-[18px] outline-none border-none stroke-darkGray dark:stroke-white flex items-center justify-center ${isDisliking || !cookies.auth || userInteraction === false ? "opacity-50" : "cursor-pointer"}`}
+            className={`size-[15px] md:size-[18px] outline-none border-none stroke-darkGray dark:stroke-white flex items-center justify-center ${isDisliking || !cookies.auth || userInteraction === false ? "" : "cursor-pointer"}`}
             whileTap={{ scale: isDisliking || !cookies.auth || userInteraction === false ? 1 : 1.2 }}
             onClick={() => handleInteraction(false)}
           >

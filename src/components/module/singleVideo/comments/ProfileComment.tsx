@@ -61,12 +61,12 @@ const ProfileComment = ({
         </p>
       </div>
     </div>
-      <MenuCommentIcon
+      {/* <MenuCommentIcon
         className="size-[24px] cursor-pointer xl:hidden lg:hidden md:hidden sm:block xs:block stroke-[#414040] dark:stroke-white"
         onClick={() =>
           setActiveMenu(activeMenu === itemComment.id ? 0 : itemComment.id)
         }
-      />
+      /> */}
     </>
   );
 };

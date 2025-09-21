@@ -405,7 +405,7 @@ const CommentList = ({
                       {checkData(itemComment?.likes)}
                     </p>
                     <motion.div
-                      className={`xs:size-[20px] outline-none border-none stroke-darkGray dark:stroke-white flex items-center justify-center ${interactionLoading[itemComment.id] || !token || userInteractions[itemComment.id] === true
+                      className={`size-[15px] md:size-[20px] outline-none border-none  flex items-center justify-center active:!opacity-100 ${interactionLoading[itemComment.id] || !token || userInteractions[itemComment.id] === true
                         ? ""
                         : "cursor-pointer"
                         }`}
@@ -417,7 +417,7 @@ const CommentList = ({
                       }
                     >
                       <Like
-                        className={`size-full `}
+                        className={`size-full stroke-darkGray dark:stroke-white`}
                       />
                     </motion.div>
                   </div>
@@ -426,7 +426,7 @@ const CommentList = ({
                       {checkData(itemComment?.dislikes)}
                     </p>
                     <motion.div
-                      className={`xs:size-[20px] outline-none border-none stroke-darkGray dark:stroke-white flex items-center justify-center ${interactionLoading[itemComment.id] || !token || userInteractions[itemComment.id] === false
+                      className={`size-[15px] md:size-[20px] outline-none border-none  flex items-center justify-center ${interactionLoading[itemComment.id] || !token || userInteractions[itemComment.id] === false
                         ? ""
                         : "cursor-pointer"
                         }`}
@@ -438,7 +438,7 @@ const CommentList = ({
                       }
                     >
                       <Dislike
-                        className={`size-full `}
+                        className={`size-full stroke-darkGray dark:stroke-white`}
                       />
                     </motion.div>
                   </div>
@@ -447,7 +447,7 @@ const CommentList = ({
                       className="flex flex-row justify-center items-center gap-1 cursor-pointer"
                       onClick={() => handleReportClick(itemComment.id)}
                     >
-                      <p className="font-azarMehr font-medium text-blue-500 dark:text-yellow-400 text-[16px]">
+                      <p className="font-azarMehr font-medium text-blue-500 dark:text-yellow-400 text-sm  md:text-[16px]">
                         {checkData(findByUniqueId(mainData, 193))}
                       </p>
                     </div>
