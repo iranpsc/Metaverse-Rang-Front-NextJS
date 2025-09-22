@@ -407,6 +407,68 @@ const EventList: React.FC<CalendarFilterProps> = ({
     }
   };
 
+  // تابعی که HTML را تا maxLength کاراکتر (متن خالص) برش می‌زند و ساختار HTML را حفظ می‌کند
+  function safeTruncateHTML(html: string, maxLength: number, ellipsis = "...") {
+    if (typeof document === "undefined") {
+      // fallback سرور: تگ‌ها را پاک کن و متن را برش بده
+      const plain = html.replace(/<[^>]+>/g, "");
+      return plain.length > maxLength ? plain.slice(0, maxLength) + ellipsis : html;
+    }
+
+    const container = document.createElement("div");
+    container.innerHTML = html || "";
+
+    let chars = 0;
+    const output = document.createElement("div");
+
+    function walk(node: ChildNode, outParent: HTMLElement): boolean {
+      if (chars >= maxLength) return true;
+
+      if (node.nodeType === Node.TEXT_NODE) {
+        const text = node.textContent || "";
+        const remaining = maxLength - chars;
+        if (text.length <= remaining) {
+          outParent.appendChild(document.createTextNode(text));
+          chars += text.length;
+        } else {
+          outParent.appendChild(document.createTextNode(text.slice(0, remaining) + ellipsis));
+          chars = maxLength;
+          return true; // stop
+        }
+      } else if (node.nodeType === Node.ELEMENT_NODE) {
+        const el = node as HTMLElement;
+        // clone tag بدون children
+        const clone = document.createElement(el.tagName.toLowerCase());
+
+        // کپی صفات امن (از اجرای JS جلوگیری می‌کنیم)
+        for (let i = 0; i < el.attributes.length; i++) {
+          const name = el.attributes[i].name;
+          const value = el.attributes[i].value;
+          // جلوگیری از event handlers و javascript: urls
+          if (name.startsWith("on")) continue;
+          if ((name === "href" || name === "src") && value.trim().toLowerCase().startsWith("javascript:")) continue;
+          clone.setAttribute(name, value);
+        }
+
+        outParent.appendChild(clone);
+
+        // پردازش فرزندان
+        for (let i = 0; i < node.childNodes.length; i++) {
+          const stop = walk(node.childNodes[i], clone);
+          if (stop) return true;
+        }
+      }
+      return chars >= maxLength;
+    }
+
+    for (let i = 0; i < container.childNodes.length; i++) {
+      const stop = walk(container.childNodes[i], output);
+      if (stop) break;
+    }
+
+    return output.innerHTML;
+  }
+
   // رندر ایونت‌ها
   const visibleEvents = events.slice(0, visibleCount);
 
@@ -418,10 +480,25 @@ const EventList: React.FC<CalendarFilterProps> = ({
           toEnd: { days: 0, hours: 0, minutes: 0, seconds: 0 },
         };
         const maxLength = 350;
-        const shouldTruncate = event.desc.length > maxLength;
+
+        // استخراج متن خالص با استفاده از DOM (قابل اطمینان‌تر از regex)
+        let plainText = "";
+        if (typeof document !== "undefined") {
+          const tmp = document.createElement("div");
+          tmp.innerHTML = event.desc || "";
+          plainText = tmp.textContent || tmp.innerText || "";
+        } else {
+          // fallback سرور
+          plainText = (event.desc || "").replace(/<[^>]+>/g, "");
+        }
+
+        const shouldTruncate = plainText.length > maxLength;
+
+        // استفاده از تابع امنی که تگ‌ها را حفظ می‌کند
         const truncatedHtml = shouldTruncate
-          ? htmlTruncate(event.desc, maxLength, { ellipsis: "..." })
+          ? safeTruncateHTML(event.desc, maxLength, "...")
           : event.desc;
+
 
         const isEnded = toEnd.days === 0 && toEnd.hours === 0 && toEnd.minutes === 0 && toEnd.seconds === 0;
 
@@ -514,12 +591,17 @@ const EventList: React.FC<CalendarFilterProps> = ({
             </div>
 
             {/* توضیحات ایونت */}
-            <div className="text-base lg:w-[95%] break-words whitespace-normal text-[#868B90] dark:text-[#C4C4C4] mb-4 text-justify leading-6 w-[97%] font-normal font-[Vazir] 2xl:text-xl 2xl:leading-8">
-              <div
+            <div className="w-[97%] lg:w-[95%]">
+              <div className="text-basew w-full break-words whitespace-normal text-[#868B90] dark:text-[#C4C4C4] mb-4 text-justify leading-6  font-normal font-[Vazir] 2xl:text-xl 2xl:leading-8
+         [&_ul]:list-disc [&_ul]:pl-5
+         [&_ol]:list-decimal [&_ol]:pl-5
+         [&_li>p]:inline [&_li>p]:m-0"
                 dangerouslySetInnerHTML={{
                   __html: showFullMap[event.id] ? event.desc : truncatedHtml,
                 }}
               />
+
+
               {shouldTruncate && (
                 <button
                   onClick={() =>
@@ -681,16 +763,14 @@ const EventList: React.FC<CalendarFilterProps> = ({
       })}
 
       {/* دکمه بارگذاری بیشتر */}
-      <div className="w-full text-center my-8 justify-center flex">
+      <div className="w-full text-center my-5 justify-center flex">
         {hasMore && events.length > 0 && (
           <button
             onClick={showMore}
             disabled={loading}
             className={`flex justify-center items-center gap-2
               ${loading ? "cursor-not-allowed opacity-60" : "hover:border-blueLink hover:dark:border-dark-yellow"}
-              bg-transparent text-blueLink dark:text-dark-yellow 
-              rounded-[10px] px-[40px] py-[20px] base-transition-1 
-              border-2 border-transparent`}
+             bg-white dark:bg-darkGray text-light-primary md:text-lg dark:text-dark-yellow rounded-[12px] px-[40px] py-[16px] base-transition-1 border-2 border-transparent hover:border-light-primary hover:text-light-primary hover:dark:border-dark-yellow`}
           >
             {loading ? <ThemedLoader /> : <>{findByUniqueId(mainData, 271)}</>}
           </button>
