@@ -46,15 +46,18 @@ export default function VideoCard({ item, params, theme }: any) {
 
   return (
     <div className="w-[100%] min-h-[240px] shadow-md hover:shadow-xl hover:dark:shadow-dark rounded-[10px] overflow-hidden bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-6 items-center">
-      <div className="group w-full h-[266px] rounded-t-[10px] relative">
+      <div className="group w-full  rounded-t-[10px] relative">
         <Image
           src={item.image_url}
           alt={item.title}
-          width={600}
-          height={600}
-          priority={true}
-          className="w-full h-full object-cover rounded-t-[10px]"
+          width={906}   // سایز واقعی تصویر
+          height={675}
+          priority
+          quality={70}   // فشرده‌سازی
+          sizes="(max-width: 640px) 320px, (max-width: 1024px) 473px,"
+          className="w-[100%] h-auto object-cover rounded-t-[10px]"
         />
+
         <div className="w-full h-full   absolute top-0 z-0 flex justify-center items-center">
           <Link
             className="w-fit hover:scale-105 duration-100"
@@ -68,7 +71,7 @@ export default function VideoCard({ item, params, theme }: any) {
         </div>
       </div>
 
-     <div className="w-[95%] flex flex-row justify-start items-center gap-1 mt-[-10px] pe-16">
+      <div className="w-[95%] flex flex-row justify-start items-center gap-1 mt-[-10px] pe-16">
         <Link href={`/${params.lang}/education/category/${item.category.slug}`} className="text-start text-gray dark:text-dark-gray font-medium font-azarMehr text-[13px] 3xl:text-[16px]">
           {item.category.name}
         </Link>
@@ -134,17 +137,17 @@ export default function VideoCard({ item, params, theme }: any) {
           </div>
         </Link>
         <div className="flex flex-row justify-start items-center gap-5">
-                    <div className="flex items-center gap-[5px]">
+          <div className="flex items-center gap-[5px]">
             <span className="font-azarMehr text-gray dark:text-dark-gray text-[13px] 3xl:text-[18px]">
               {formatNumber(item.likes_count)}
             </span>
-             <Like className="stroke-gray dark:stroke-dark-gray stroke-2 w-[18px] h-[18px]" />
+            <Like className="stroke-gray dark:stroke-dark-gray stroke-2 w-[18px] h-[18px]" />
           </div>
           <div className="flex items-center gap-[5px]">
             <span className="font-azarMehr text-gray dark:text-dark-gray text-[13px] 3xl:text-[18px]">
               {formatNumber(item.dislikes_count)}
             </span>
-           <Dislike className="stroke-gray dark:stroke-dark-gray stroke-2" />
+            <Dislike className="stroke-gray dark:stroke-dark-gray stroke-2" />
           </div>
 
           <div className="flex items-center gap-[5px]">

@@ -532,13 +532,13 @@ const EventList: React.FC<CalendarFilterProps> = ({
             {/* عنوان و لایک/دیسلایک */}
             <div className="flex flex-col w-[97%] lg:w-[95%] gap-3 sm:gap-0 items-center sm:flex-row-reverse sm:justify-between">
               <div className="w-[96%] flex justify-between text-base font-normal font-[Vazir] sm:w-[350px] sm:ml-2 sm:self-center">
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-1 ">
                   <Like
                     onClick={() => sendLike(event.id)}
                     width="20"
                     height="24"
                     className={`
-                      cursor-pointer
+                      cursor-pointer size-[15px] md:size-[18px]
                       ${userLikedMap[event.id]
                         ? "stroke-[#636363] dark:stroke-[#b3afaf]"
                         : "stroke-black dark:stroke-white"
@@ -552,13 +552,13 @@ const EventList: React.FC<CalendarFilterProps> = ({
                     )}
                   </span>
                 </div>
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-1 ">
                   <Dislike
                     onClick={() => disLike(event.id)}
                     width="20"
                     height="24"
                     className={`
-                      cursor-pointer
+                      cursor-pointer size-[15px] md:size-[18px]
                       ${userDisLikedMap[event.id]
                         ? "stroke-slate-500 dark:stroke-slate-300"
                         : "stroke-black dark:stroke-white"
@@ -573,7 +573,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
                   </span>
                 </div>
                 <div className="flex items-center size-7 gap-1 stroke-black dark:stroke-white">
-                  <View className="size-full" />
+                  <View className=" size-[15px] md:size-[18px]" />
                   <span>{switchDigits(event.views, params.lang)}</span>
                 </div>
               </div>
