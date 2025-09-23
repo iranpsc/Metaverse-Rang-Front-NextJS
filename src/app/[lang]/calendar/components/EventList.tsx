@@ -610,7 +610,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
                       [event.id]: !prev[event.id],
                     }))
                   }
-                  className="dark:text-dark-yellow text-blueLink bg-transparent hover:underline cursor-pointer text-base 2xl:text-xl"
+                  className="dark:text-dark-yellow text-blueLink bg-transparent hover:underline cursor-pointer text-base  text-sm md:text-[18px]"
                 >
                   {showFullMap[event.id] ? "" : findByUniqueId(mainData, 271)}
                 </button>
