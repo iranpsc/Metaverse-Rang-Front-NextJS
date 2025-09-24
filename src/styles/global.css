@@ -185,3 +185,11 @@
     border-radius: 10px;
 
 }
+:root {
+  --progress-color: rgb(0 102 255); /* آبی */
+}
+
+.dark {
+  --progress-color: #ffc700; /* زرد (yellow-400) */
+}
+
