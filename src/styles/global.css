@@ -186,10 +186,12 @@
 
 }
 :root {
-  --progress-color: rgb(0 102 255); /* آبی */
+  --progress-color: rgb(0, 102, 255);   /* آبی در light */
+  --progress-bg: #e5e7eb;               /* gray-200 */
 }
 
 .dark {
-  --progress-color: #ffc700; /* زرد (yellow-400) */
+  --progress-color: #ffc700;            /* زرد در dark */
+  --progress-bg: #3d351b6e;               /* gray-700 */
 }
 
