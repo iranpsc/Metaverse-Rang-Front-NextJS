@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import dynamic from "next/dynamic";
-
+import modelUrl from "@/public/models/test.glb";
 const Sample3D = dynamic(() => import("./Sample3D"));
 const ErrorBoundary = dynamic(() => import("@/components/utils/ErrorBoundary"));
 
@@ -40,7 +40,7 @@ export default function ImageBox({ item, singleLevel }: any) {
       {mode === "fbx" && srcFbx && (
         <div className="relative w-full sm:w-3/5 md:w-full aspect-[5/7] md:aspect-[5/7]">
           <ErrorBoundary>
-            <Sample3D url="/models/test.glb" />
+            <Sample3D url={modelUrl} />
           </ErrorBoundary>
         </div>
       )}

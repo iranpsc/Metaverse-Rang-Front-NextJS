@@ -7,7 +7,6 @@ const nextConfig = {
   // 🔹 فعال‌کردن سورس‌مپ در پروداکشن (برای رفع هشدار Missing source maps)
   productionBrowserSourceMaps: true,
   
-
   async redirects() {
     return [
       {
@@ -49,10 +48,18 @@ const nextConfig = {
   },
 
   webpack(config) {
+    // 🔹 پشتیبانی از فایل‌های GLB/GLTF
+    config.module.rules.push({
+      test: /\.(glb|gltf)$/,
+      type: "asset/resource",
+    });
+
+    // 🔹 پشتیبانی از فایل‌های SVG
     config.module.rules.push({
       test: /\.svg$/,
       use: [{ loader: '@svgr/webpack', options: { icon: true } }],
     });
+
     return config;
   },
 
