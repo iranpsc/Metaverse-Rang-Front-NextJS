@@ -1,36 +1,19 @@
-"use client";
-import Image from "next/image";
-// import { useRouter } from "next/navigation";
-import randomcolor from "randomcolor";
-
-import { Folder } from "@/components/svgs/SvgCategories";
-import {
-  Like,
-  Dislike,
-  View,
-  Video,
-  Videos,
-} from "@/components/svgs/SvgEducation";
-import { formatNumber } from "@/components/utils/education";
 import { useEffect, useState } from "react";
+import randomcolor from "randomcolor";
+import Image from "next/image";
 import Link from "next/link";
 
+import { Videos, Like, Dislike, View } from "@/components/svgs/SvgEducation";
+import { formatNumber } from "@/components/utils/education";
+
 export default function ListData({ nameComponent, data, params }: any) {
-  // const router = useRouter();
-  // const pusher = (data: any) => {
-  //   router.push(
-  //     `/${params.lang}/education/category/${params.category}/${data}`
-  //   );
-  // };
-
-  // const pushRgb = (data: any) => {
-  //   router.push(`https://rgb.irpsc.com/${params.lang}/citizen/${data}`);
-  // };
-
-  const [colors, setColors] = useState([]);
+  const [colors, setColors] = useState<string[]>([]);
 
   useEffect(() => {
-    const generateRandomColors = () => {
+    console.log("📦 data:", data);   // 👈 اینجا لاگ می‌گیری
+    console.log("📂 subcategories:", data?.subcategories); // 👈 لاگ فقط زیرمجموعه‌ها
+
+    if (data?.subcategories) {
       const newColors = data.subcategories.map(() =>
         randomcolor({
           format: "rgba",
@@ -39,66 +22,60 @@ export default function ListData({ nameComponent, data, params }: any) {
         })
       );
       setColors(newColors);
-    };
-
-    generateRandomColors();
+    }
   }, [data]);
 
   return (
     <>
       {data &&
-        data.subcategories.map((item: any, index: number) => (
+        data.subcategories?.map((item: any, index: number) => (
           <Link
-            // stop encoding "&" character in "a&q" params to see like %26 with decodeURIComponent()
             href={`/${params.lang}/education/category/${decodeURIComponent(
               params.category
             )}/${item.slug}`}
             key={item.id}
-            className="w-[90%] min-h-[240px] cursor-pointer shadow-md hover:shadow-xl hover:dark:shadow-dark  rounded-[10px] bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-4 items-center"
+            className="w-full min-h-[240px] cursor-pointer shadow-md hover:shadow-xl  hover:dark:shadow-dark rounded-[12px] bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-4 items-center"
           >
-            <div className=" group w-full h-[250px] 2xl:h-[300px] relative rounded-t-[10px]  ">
+            <div className="group w-full  relative px-4 pt-4 overflow-hidden">
               <Image
                 src={item.image}
-                alt={item.name}
-                width={600}
-                height={600}
-                priority={true}
-                className=" w-full h-[250px]   2xl:h-[300px] brightness-75  transition-all duration-150 ease-in-out rounded-t-[10px]  object-contain"
+                alt={"pic" + item.name}
+                width={400}
+                height={250}
+                priority
+                className="w-full h-[250px] brightness-75 transition-all duration-150 ease-in-out object-cover rounded-[8px]"
                 style={{ backgroundColor: colors[index] }}
               />
-              <div className=" absolute 3xl:top-[260px] 2xl:top-[260px] xl:top-[210px] lg:top-[210px]  md:top-[210px] sm:top-[215px] xs:top-[210px] end-5 rounded-full h-[75px] z-50 w-[75px] flex justify-center items-center bg-white dark:bg-dark-background  shadow-md">
-                <Folder className="w-[50px] h-[50px] fill-blueLink dark:fill-dark-yellow" />
-              </div>
             </div>
 
-            <p className="text-start w-[95%] font-azarMehr truncate cursor-pointer font-bold mt-[15px] text-[16px] 3xl:text-[20px] dark:text-white text-black">
+            <p className="text-center w-full font-azarMehr truncate cursor-pointer font-bold  text-[16px] 2xl:text-xl dark:text-white text-black">
               {item.name}
             </p>
-            <div className="flex flex-row items-center justify-start  mt-[-8px] w-[98%]"></div>
-            <div className="w-[95%] pb-2 flex flex-row justify-between  items-center">
-              <div className=" px-3  flex flex-row justify-evenly items-center w-full h-fit pb-3">
+            <p className="text-center">{item.description}</p>
+            <div className="w-full pb-2 flex flex-row justify-between items-center">
+              <div className="px-3 flex flex-row justify-evenly items-center w-full h-fit pb-3">
                 <div className="flex flex-row items-center justify-center gap-2">
-                  <Videos className="w-[18px] h-[18px] stroke-gray dark:fill-dark-gray" />
-                  <span className=" whitespace-nowrap font-azarMehr font-normal text-[14px] text-gray dark:text-dark-gray">
-                    {formatNumber(item ? item.videos_count : 0)}
+                  <Videos className="w-[18px] h-[18px] stroke-black dark:stroke-gray stroke-2" />
+                  <span className="whitespace-nowrap font-azarMehr font-normal text-[14px] text-gray dark:text-dark-gray">
+                    {formatNumber(item.videos_count)}
                   </span>
                 </div>
                 <div className="flex flex-row items-center justify-center gap-2">
                   <Like className="w-[18px] h-[18px] stroke-gray dark:stroke-dark-gray" />
-                  <span className=" whitespace-nowrap font-azarMehr font-normal text-[14px] text-gray dark:text-dark-gray">
-                    {formatNumber(item ? item.likes_count : 0)}
+                  <span className="whitespace-nowrap font-azarMehr font-normal text-[14px] text-gray dark:text-dark-gray">
+                    {formatNumber(item.likes_count)}
                   </span>
                 </div>
                 <div className="flex flex-row items-center justify-center gap-2">
                   <Dislike className="w-[18px] h-[18px] stroke-gray dark:stroke-dark-gray" />
-                  <span className=" whitespace-nowrap font-azarMehr font-normal text-[14px] text-gray dark:text-dark-gray">
-                    {formatNumber(item ? item.dislikes_count : 0)}
+                  <span className="whitespace-nowrap font-azarMehr font-normal text-[14px] text-gray dark:text-dark-gray">
+                    {formatNumber(item.dislikes_count)}
                   </span>
                 </div>
                 <div className="flex flex-row items-center justify-center gap-3">
                   <View className="w-[18px] h-[18px] stroke-gray dark:stroke-dark-gray" />
-                  <span className=" whitespace-nowrap font-azarMehr font-normal text-[14px] text-gray dark:text-dark-gray">
-                    {formatNumber(item ? item.views_count : 0)}
+                  <span className="whitespace-nowrap font-azarMehr font-normal text-[14px] text-gray dark:text-dark-gray">
+                    {formatNumber(item.views_count)}
                   </span>
                 </div>
               </div>

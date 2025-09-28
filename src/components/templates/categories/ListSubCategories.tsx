@@ -13,7 +13,7 @@ export default function ListSubCategories({
   return (
     <>
       <div className="w-full px-5 h-fit mt-5  flex flex-col justify-center items-center">
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-16 w-full h-fit">
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-[64px] w-full h-fit">
           <ListData
             params={params}
             nameComponent="subCategories"
