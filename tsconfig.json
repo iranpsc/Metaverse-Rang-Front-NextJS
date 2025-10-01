@@ -43,7 +43,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts",
+    ".next/types/**/*.ts", "src/app/[lang]/education/category/[category]/[subcategory]/page.tsx",
   ],
   "exclude": [
     "node_modules"

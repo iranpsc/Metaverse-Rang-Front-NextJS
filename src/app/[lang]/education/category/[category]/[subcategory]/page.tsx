@@ -10,8 +10,8 @@ const SubcategoryComponent = dynamic(() => import("@/components/templates/catego
 import {
   getTranslation,
   getMainFile,
-  findByModalName,
-  findByTabName,
+  // findByModalName,
+  // findByTabName,
   getFooterData,
   getLangArray,
   getSubcategoryData,
@@ -37,6 +37,8 @@ export default async function EducationSubcategory({ params }: { params: any }) 
     let subCategoryData: any;
     try {
       subCategoryData = await getSubcategoryData(params.category, params.subcategory);
+      
+
     } catch (error: any) {
       if (error.message?.startsWith("404")) {
         return (

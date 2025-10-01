@@ -16,7 +16,7 @@ export default function DetailItem({
   params?: { lang?: string };
 }) {
   // لاگ برای دیباگ مقدار params.lang
-  console.log("DetailItem params.lang:", params?.lang, "value:", value);
+  // console.log("DetailItem params.lang:", params?.lang, "value:", value);
 
   const generateValue = () => {
     // بررسی قالب HM-2000000

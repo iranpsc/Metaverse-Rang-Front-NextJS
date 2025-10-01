@@ -40,7 +40,7 @@ export default function ImageBox({ item, singleLevel }: any) {
       {mode === "fbx" && srcFbx && (
         <div className="relative w-full sm:w-3/5 md:w-full aspect-[5/7] md:aspect-[5/7]">
           <ErrorBoundary>
-            <Sample3D url={modelUrl} />
+            <Sample3D url={srcFbx} />
           </ErrorBoundary>
         </div>
       )}

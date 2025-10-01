@@ -105,8 +105,6 @@ export default async function EducationCategory({ params }: { params: any }) {
               </Suspense>
             </div>
 
-
-
             <Suspense fallback={<div className="text-center text-[20px]">loading...</div>}>
               <CategoryComponent params={params} CategoryData={CategoryData} mainData={mainData} />
             </Suspense>

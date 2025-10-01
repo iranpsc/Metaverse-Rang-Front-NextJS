@@ -42,6 +42,7 @@ const Description = ({ shortText, fullText }: { shortText: string; fullText: str
 };
 
 export const DashboardHeaderModule = ({ categoryData, mainData }: any) => {
+  console.log(categoryData);
   return (
     <div className="relative z-10 flex flex-col justify-center lg:justify-start gap-5 w-full lg:w-1/2 xl:w-[65%] 3xl:w-[70%]">
       <h1 className="text-start font-azarMehr dark:text-white text-black whitespace-nowrap font-bold 3xl:text-[24px] xl:text-[24px] lg:text-[22px] md:text-[20px] sm:text-[18px] xs:text-[14px]">
@@ -49,47 +50,69 @@ export const DashboardHeaderModule = ({ categoryData, mainData }: any) => {
       </h1>
       <Description
         shortText={
-    categoryData.description
-      ? categoryData.description.length > 900
-        ? categoryData.description.slice(0, 900)
-        : categoryData.description
-      : "" 
-  }
+          categoryData.description
+            ? categoryData.description.length > 900
+              ? categoryData.description.slice(0, 900)
+              : categoryData.description
+            : ""
+        }
         fullText={categoryData.description}
       />
 
       {/* آمار */}
-      <div className="w-full flex flex-row justify-evenly gap-1 items-center">
+      <div className="w-full flex flex-row justify-start gap-10 items-center">
         {categoryData.videos_count && (
-          <div className="flex flex-row items-center justify-center gap-3">
-            <Videos className="w-[20px] h-[20px] xs:w-[17px] xs:h-[17px] fill-gray dark:fill-dark-gray" />
-            <span className="whitespace-nowrap font-azarMehr font-normal text-[22px] xs:text-[16px] text-gray dark:text-dark-gray">
+          <div className="flex flex-col ">
+            <div className="flex flex-row items-center justify-center gap-3">
+              <Videos className="w-[20px] h-[20px] xs:w-[17px] xs:h-[17px] stroke-[#84858F] " />
+              <span className="whitespace-nowrap font-azarMehr font-normal text-[20px] xs:text-[16px] text-[#84858F] ">
+                زیر دسته ها
+              </span>
+            </div>
+            <span className="whitespace-nowrap font-azarMehr font-medium text-[20px] xs:text-[16px] text-gray dark:text-white ">
               {formatNumber(categoryData.videos_count)}
             </span>
           </div>
         )}
-        {categoryData.views_count && (
-          <div className="flex flex-row items-center justify-center gap-3">
-            <View className="w-[20px] h-[20px] xs:w-[17px] xs:h-[17px] stroke-gray dark:stroke-dark-gray" />
-            <span className="whitespace-nowrap font-azarMehr font-normal text-[22px] xs:text-[16px] text-gray dark:text-dark-gray">
-              {formatNumber(categoryData.views_count)}
-            </span>
-          </div>
-        )}
+        
+        <hr className="h-[50px] border-l-0 border-y-0  border-solid border-[#D9D9D9] dark:border-[#434343]" />
         {categoryData.likes_count && (
-          <div className="flex flex-row items-center justify-center gap-3">
-            <Like className="w-[20px] h-[20px] xs:w-[17px] xs:h-[17px] stroke-gray dark:stroke-dark-gray" />
-            <span className="whitespace-nowrap font-azarMehr font-medium text-[22px] xs:text-[16px] text-gray dark:text-dark-gray">
+          <div className="flex flex-col ">
+            <div className="flex flex-row items-center justify-center gap-3">
+              <Like className="w-[20px] h-[20px] xs:w-[17px] xs:h-[17px] stroke-[#84858F]" />
+              <span className="whitespace-nowrap font-azarMehr font-medium text-[20px] xs:text-[16px] text-[#84858F] ">
+                پسندیدند
+              </span>
+            </div>
+            <span className="whitespace-nowrap font-azarMehr font-medium text-[20px] xs:text-[16px] text-gray dark:text-white">
               {formatNumber(categoryData.likes_count)}
             </span>
           </div>
         )}
+        <hr className="h-[50px] border-l-0 border-y-0  border-solid border-[#D9D9D9] dark:border-[#434343]" />
         {categoryData.dislikes_count && (
-          <div className="flex flex-row items-center justify-center gap-3">
-            <Dislike className="w-[20px] h-[20px] xs:w-[17px] xs:h-[17px] stroke-gray dark:stroke-dark-gray" />
-            <span className="whitespace-nowrap font-azarMehr font-normal text-[22px] xs:text-[16px] text-gray dark:text-dark-gray">
+          <div className="flex flex-col">
+            <div className="flex flex-row items-center justify-center gap-3">
+              <Dislike className="w-[20px] h-[20px] xs:w-[17px] xs:h-[17px] stroke-[#84858F]" />
+              <span className="whitespace-nowrap font-azarMehr font-normal text-[20px] xs:text-[16px] text-[#84858F] dark:text-dark-gray">
+                نپسندیدند
+              </span>
+            </div>
+            <span className="whitespace-nowrap font-azarMehr font-medium text-[20px] xs:text-[16px]  text-gray dark:text-white">
               {formatNumber(categoryData.dislikes_count)}
             </span>
+          </div>
+        )}
+        <hr className="h-[50px] border-l-0 border-y-0  border-solid border-[#D9D9D9] dark:border-[#434343]" />
+        {categoryData.views_count && (
+          <div className="flex flex-col ">
+            <div className="flex flex-row items-center justify-center gap-3">
+              <View className="w-[20px] h-[20px] xs:w-[17px] xs:h-[17px] stroke-[#84858F] " />
+              <span className="whitespace-nowrap font-azarMehr font-normal text-[20px] xs:text-[16px] text-[#84858F] ">
+                بازدید
+              </span>
+            </div>
+            <span className="whitespace-nowrap font-azarMehr font-medium text-[20px] xs:text-[16px]  text-gray dark:text-white">{formatNumber(categoryData.views_count)}</span>
           </div>
         )}
       </div>

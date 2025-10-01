@@ -71,7 +71,7 @@ useEffect(() => {
     return () => controls.dispose();
   }, [camera, gl]);
 
-  return model ? <primitive ref={modelRef} object={model} scale={3.5} /> : null;
+  return model ? <primitive ref={modelRef} object={model} scale={3.55} /> : null;
 };
 
 const Axes = () => <axesHelper args={[2]} />;

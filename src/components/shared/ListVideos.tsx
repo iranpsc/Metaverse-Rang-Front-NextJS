@@ -28,39 +28,35 @@ export default function ListVideos({ videos, params, subCategoryData, loadMore, 
         videos.map((item: any, index: number) => (
           <div
             key={item.id}
-            className="w-[100%] min-h-[240px] shadow-md hover:shadow-xl hover:dark:shadow-dark rounded-[10px] bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-6 items-center"
+            className="w-full relative shadow-md hover:shadow-xl hover:dark:shadow-dark rounded-[10px] bg-white dark:bg-[#1A1A18] flex flex-col justify-start  items-center"
           >
-            <div className="group w-full h-[266px] rounded-t-[10px] relative">
+            <div className="group w-full h-[266px] p-4  rounded-[10px] relative">
               <Image
                 src={item.image_url}
                 alt={item.title}
-                width={600}
-                height={600}
+                width={400}
+                height={300}
                 priority={true}
-                className="w-full h-full transition-all duration-150 ease-in-out rounded-t-[10px] object-cover"
+                className="w-full h-full transition-all duration-150 ease-in-out rounded-[10px] object-cover"
                 style={{ backgroundColor: colors[index] }}
               />
-              <div className="w-full h-full bg-black/20 absolute z-0 top-0 flex justify-center items-center">
-                <Link
-                  className="w-fit"
-                  aria-label="Watch video"
-                  href={`/${params.lang}/education/category/${subCategoryData.category.slug}/${subCategoryData.slug}/${item.slug}`}
-                >
-                  <Video className="w-[78px] h-[78px] p-3 fill-blueLink dark:fill-dark-yellow rounded-full bg-white/80" />
-                </Link>
-              </div>
             </div>
 
-            <Link
-              className="w-[95%]"
+          <div className="px-5 w-full flex flex-col gap-4">
+                        <Link
+              className="flex flex-col gap-2"
               href={`/${params.lang}/education/category/${subCategoryData.category.slug}/${subCategoryData.slug}/${item.slug}`}
             >
-              <p className="text-start w-full font-azarMehr truncate cursor-pointer font-bold mt-[8px] text-[18px] 3xl:text-[22px] dark:text-white text-black">
+              <p className="text-center w-full font-azarMehr truncate cursor-pointer font-bold  text-base 2xl:text-xl dark:text-white text-black">
                 {item.title}
               </p>
+              <p
+                className="text-center dark:text-[#868B90] line-clamp-2 px-5 text-[#656565] text-xs md:text-sm"
+                dangerouslySetInnerHTML={{ __html: item.description }}
+              ></p>
             </Link>
-
-            <div className="w-[95%] pb-2 flex flex-row justify-between items-center">
+           
+            <div className=" w-full flex flex-row justify-between items-center border-[#D9D9D9] dark:border-[#434343] border-t border-x-0 border-b-0 pt-3 border-solid ">
               <div className="flex flex-row justify-start items-center gap-2">
                 <Image
                   src={item.creator.image}
@@ -74,22 +70,35 @@ export default function ListVideos({ videos, params, subCategoryData, loadMore, 
                 </span>
               </div>
 
-              <div className="flex flex-row justify-start items-center gap-5">
-                <span className="whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray">
-                  {formatNumber(item.dislikes_count)}
-                </span>
-                <Like className="stroke-gray dark:stroke-dark-gray stroke-2 w-[18px] h-[18px]" />
-                <span className="whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray">
-                  {formatNumber(item.likes_count)}
-                </span>
-                <Dislike className="stroke-gray dark:stroke-dark-gray stroke-2" />
-
-                <span className="whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray">
-                  {formatNumber(item.views_count)}
-                </span>
-                <View className="stroke-gray dark:stroke-dark-gray stroke-2" />
+              <div className="flex flex-row justify-start items-center gap-5 ">
+                <div className="flex gap-2 items-center">
+                  <span className="whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray">
+                    {formatNumber(item.dislikes_count)}
+                  </span>
+                  <Like className="stroke-gray dark:stroke-dark-gray stroke-2 w-[18px] h-[18px]" />
+                </div>
+                  <hr className="h-[28px] border-l-0 border-y-0  border-solid border-[#D9D9D9] dark:border-[#434343]"/>
+                <div className="flex gap-2 items-center">
+                  <span className="whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray">
+                    {formatNumber(item.likes_count)}
+                  </span>
+                  <Dislike className="stroke-gray dark:stroke-dark-gray stroke-2" />
+                </div>
+                 <hr className="h-[28px] border-l-0 border-y-0  border-solid border-[#D9D9D9] dark:border-[#434343]"/>
+                <div className="flex gap-2 items-center">
+                  <span className="whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray">
+                    {formatNumber(item.views_count)}
+                  </span>
+                  <View className="stroke-gray dark:stroke-dark-gray stroke-2" />
+                </div>
               </div>
+
             </div>
+            <div className="w-full flex justify-center">
+              <Link href={`/${params.lang}/education/category/${subCategoryData.category.slug}/${subCategoryData.slug}/${item.slug}`} className="bg-light-primary dark:bg-dark-yellow text-white px-5 py-2 mb-4 rounded-[10px] dark:text-black font-light">
+                مشاهده ویدیو </Link>
+            </div>
+          </div>
           </div>
         ))}
 

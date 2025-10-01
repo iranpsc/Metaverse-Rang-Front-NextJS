@@ -171,7 +171,7 @@ export async function getSingleLevel(levelId) {
   const res = await fetch(`https://api.rgb.irpsc.com/api/levels/${levelId}`, {
     headers: {
       "Content-Type": "application/json",
-      "Cache-Control": "public, max-age=3600", 
+      "Cache-Control": "public, max-age=300", 
     },
   });
 
@@ -259,7 +259,7 @@ export async function getUserData(_userId) {
     const res = await fetch(`https://api.rgb.irpsc.com/api/tutorials/categories?count=9`,{
       headers: {
         "Content-Type": "application/json",
-        "Cache-Control": "public, max-age=3600", 
+        "Cache-Control": "public, max-age=0", 
       },}
     )
     let temp = await res.json()
@@ -272,7 +272,7 @@ export async function getUserData(_userId) {
       const res = await fetch(`https://api.rgb.irpsc.com/api/tutorials?page=${_page}`,{
         headers: {
           "Content-Type": "application/json",
-          "Cache-Control": "public, max-age=3600", 
+          "Cache-Control": "public, max-age=0", 
         },}
       )
       let temp = await res.json()
@@ -288,7 +288,7 @@ export async function getEducationSingleCategory(_category) {
   const res = await fetch(`https://api.rgb.irpsc.com/api/tutorials/categories/${_category}`, {
     headers: {
       "Content-Type": "application/json",
-      "Cache-Control": "public, max-age=3600",
+      "Cache-Control": "public, max-age=0",
     },
   });
 
@@ -312,7 +312,7 @@ export async function getEducationSingleCategory(_category) {
     const res = await fetch(`https://api.rgb.irpsc.com/api/tutorials/categories/${_category}/${_subcategory}`,{
       headers: {
         "Content-Type": "application/json",
-        "Cache-Control": "public, max-age=3600", 
+        "Cache-Control": "public, max-age=0", 
       },}
     )
     let temp = await res.json()
@@ -324,7 +324,7 @@ export async function getEducationSingleCategory(_category) {
       const res = await fetch(`https://api.rgb.irpsc.com/api/tutorials/${_videoSlug}`,{
         headers: {
           "Content-Type": "application/json",
-          "Cache-Control": "public, max-age=3600", 
+          "Cache-Control": "public, max-age=0", 
         },}
       )
       let temp = await res.json()
