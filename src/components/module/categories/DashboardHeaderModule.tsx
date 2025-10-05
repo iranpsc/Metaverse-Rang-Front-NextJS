@@ -61,7 +61,7 @@ export const DashboardHeaderModule = ({ categoryData, mainData }: any) => {
 
       {/* آمار */}
       <div className="w-full flex flex-row justify-start gap-10 items-center">
-        {categoryData.videos_count && (
+        {categoryData.videos_count !== undefined && categoryData.videos_count !== null &&(
           <div className="flex flex-col ">
             <div className="flex flex-row items-center justify-center gap-3">
               <Videos className="w-[20px] h-[20px] xs:w-[17px] xs:h-[17px] stroke-[#84858F] " />
@@ -74,9 +74,9 @@ export const DashboardHeaderModule = ({ categoryData, mainData }: any) => {
             </span>
           </div>
         )}
-        
+
         <hr className="h-[50px] border-l-0 border-y-0  border-solid border-[#D9D9D9] dark:border-[#434343]" />
-        {categoryData.likes_count && (
+        {categoryData.likes_count !== undefined && categoryData.likes_count !== null && (
           <div className="flex flex-col ">
             <div className="flex flex-row items-center justify-center gap-3">
               <Like className="w-[20px] h-[20px] xs:w-[17px] xs:h-[17px] stroke-[#84858F]" />
@@ -89,8 +89,9 @@ export const DashboardHeaderModule = ({ categoryData, mainData }: any) => {
             </span>
           </div>
         )}
+
         <hr className="h-[50px] border-l-0 border-y-0  border-solid border-[#D9D9D9] dark:border-[#434343]" />
-        {categoryData.dislikes_count && (
+        {categoryData.dislikes_count !== undefined && categoryData.likes_count !== null && (
           <div className="flex flex-col">
             <div className="flex flex-row items-center justify-center gap-3">
               <Dislike className="w-[20px] h-[20px] xs:w-[17px] xs:h-[17px] stroke-[#84858F]" />
@@ -104,7 +105,7 @@ export const DashboardHeaderModule = ({ categoryData, mainData }: any) => {
           </div>
         )}
         <hr className="h-[50px] border-l-0 border-y-0  border-solid border-[#D9D9D9] dark:border-[#434343]" />
-        {categoryData.views_count && (
+        {categoryData.views_count !== undefined && categoryData.views_count !== null &&(
           <div className="flex flex-col ">
             <div className="flex flex-row items-center justify-center gap-3">
               <View className="w-[20px] h-[20px] xs:w-[17px] xs:h-[17px] stroke-[#84858F] " />

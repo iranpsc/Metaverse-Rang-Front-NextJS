@@ -21,7 +21,7 @@ export default function ImageBox({ item, singleLevel }: any) {
     <div className={`w-full flex flex-col flex-wrap items-center sticky top-0`}>
       {srcPng && mode === "png" && (
         <div
-          className={`relative w-[60%] sm:w-[40%] md:w-full aspect-[5/7] md:aspect-[5/7] ${
+          className={`relative w-[90%] md:w-full aspect-[5/7] md:aspect-[5/7] ${
             !item?.png_file ? "block" : "block"
           }`}
         >

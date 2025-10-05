@@ -243,7 +243,17 @@ export async function generateMetadata({ params }) {
   const staticRouteNames = [
     { id: 1, unique_id: 382, route_name: "citizen-baguette" },
     { id: 2, unique_id: 383, route_name: "reporter-baguette" },
-    // بقیه موارد ...
+    { id: 3, unique_id: 589, route_name: "participation-baguette" },
+    { id: 4, unique_id: 68, route_name: "developer-baguette" },
+    { id: 5, unique_id: 69, route_name: "inspector-baguette" },
+    { id: 6, unique_id: 590, route_name: "businessman-baguette" },
+    { id: 7, unique_id: 71, route_name: "lawyer-baguette" },
+    { id: 8, unique_id: 591, route_name: "city-council-baguette" },
+    { id: 9, unique_id: 592, route_name: "the-mayor-baguette" },
+    { id: 10, unique_id: 74, route_name: "governor-baguette" },
+    { id: 11, unique_id: 75, route_name: "minister-baguette" },
+    { id: 12, unique_id: 76, route_name: "judge-baguette" },
+    { id: 13, unique_id: 77, route_name: "legislator-baguette" },
   ];
 
   const levelMeta = staticRouteNames.find(x => x.route_name === params.levelName);

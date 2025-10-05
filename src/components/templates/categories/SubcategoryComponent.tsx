@@ -1,7 +1,8 @@
+
 "use client";
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import { Suspense, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { DashboardHeaderModule } from "@/components/module/categories/DashboardHeaderModule";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
@@ -9,28 +10,52 @@ import ListVideos from "@/components/shared/ListVideos";
 
 const SearchComponent = dynamic(
   () => import("@/components/shared/SearchComponent"),
-  { suspense: true }
+  { suspense: false  }
 );
+
 
 export default function SubcategoryComponent({ subCategoryData, params, mainData }: any) {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState<boolean>(false);
+  const [hasMore, setHasMore] = useState<boolean>(
+    (subCategoryData.videos?.length || 0) < (subCategoryData.videos_count || 0)
+  );
   const [shows, setShows] = useState<boolean>(false);
   const [videos, setVideos] = useState(subCategoryData.videos || []);
   const contentRef = useRef<HTMLDivElement | null>(null);
 
-  const loadMore = async () => {
-    setLoading(true);
-    const nextPage = page + 1;
-    setPage(nextPage);
+  useEffect(() => {
+    if (page === 1) return; // صفحه اول رو داریم
+    const fetchMore = async () => {
+      setLoading(true);
+      try {
+        const res = await axios.get(
+          `https://api.rgb.irpsc.com/api/tutorials/${subCategoryData.slug}?page=${page}`
+        );
+        const newVideos = res.data.videos || res.data.data || [];
 
-    const resVideos = await axios.get(
-      `https://api.rgb.irpsc.com/api/tutorials/${subCategoryData.slug}?page=${nextPage}`
-    );
+        setVideos((prev: any) => [...prev, ...newVideos]);
 
-    const newVideosData = resVideos.data.data;
-    setVideos((prev: any) => [...prev, ...newVideosData]);
-    setLoading(false);
+        // اگر تعداد کل ویدیوها رسید به videos_count → تموم شده
+        const total = res.data.videos_count || subCategoryData.videos_count;
+        if (videos.length + newVideos.length >= total) {
+          setHasMore(false);
+        }
+      } catch (err) {
+        console.error("Load more error:", err);
+        setHasMore(false);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMore();
+  }, [page, subCategoryData.slug]);
+
+  const loadMore = () => {
+    if (!loading && hasMore) {
+      setPage(prev => prev + 1);
+    }
   };
 
   return (
@@ -73,7 +98,10 @@ export default function SubcategoryComponent({ subCategoryData, params, mainData
             videos={videos}
             loading={loading}
             subCategoryData={subCategoryData}
+            hasMore={hasMore}
           />
+
+         
         </div>
       </section>
     </section>

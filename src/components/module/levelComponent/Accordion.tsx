@@ -30,12 +30,14 @@ export default function Accordion({
         <ChevronDown
           width={12}
           height={12}
-          className={` transition-all duration-300 ${open ? "rotate-180" : ""}`}
+          className={` transition-all duration-300 ${open ? "" : "rotate-180"}`}
         />
       </div>
 
       <div
-        className={`transition-all flex flex-col gap-6 duration-300 text-textGray dark:text-lightGray text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] ${
+        className={`transition-all flex flex-col gap-6 duration-300 text-textGray dark:text-lightGray text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] [&_ul]:list-disc [&_ul]:pl-5
+         [&_ol]:list-decimal [&_ol]:pl-5
+         [&_li>p]:inline [&_li>p]:m-0${
           open
             ? "font-[400] max-h-[10000px] opacity-1  pb-5"
             : "max-h-0 overflow-hidden opacity-0"

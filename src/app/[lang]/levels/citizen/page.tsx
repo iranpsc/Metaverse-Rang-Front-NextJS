@@ -264,7 +264,7 @@ export default async function LevelsPage({ params }: any) {
             <BreadCrumb params={params} />
           </div>
 
-          <div className="mt-[60px] lg:mt-[40px] xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
+          <div className="mt-[60px] lg:mt-[40px] xl:px-32 lg:px-32 px-5">
             <h2 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mb-[16px]">
               {/* {localFind("levels of citizens of the metaverse")} */}
               {findByUniqueId(mainData, 587)}

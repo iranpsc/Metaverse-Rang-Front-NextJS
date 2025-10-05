@@ -1,5 +1,5 @@
 "use client";
-
+import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import GemImage from "@/components/templates/citizen/gemImage";
 import Link from "next/link";
@@ -23,19 +23,57 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
     { id: 13, route_name: "legislator-baguette" },
   ];
 
-  // تعداد کل جواهرها (previous + قفل‌شده)
+  // isTruncated برای اسم کاربر
+  const nameRef = useRef<HTMLParagraphElement>(null);
+  const [isTruncated, setIsTruncated] = useState(false);
+
+  const checkTruncation = () => {
+    const el = nameRef.current;
+    if (el) {
+      setIsTruncated(el.scrollWidth > el.clientWidth);
+    }
+  };
+
+  useEffect(() => {
+    checkTruncation();
+    const observer = new ResizeObserver(() => {
+      checkTruncation();
+    });
+    if (nameRef.current) {
+      observer.observe(nameRef.current);
+    }
+    return () => {
+      observer.disconnect();
+    };
+  }, [item.name]);
+
+  // تعداد کل جواهرها
   const totalGems = 13;
   const previousGems = item.levels?.previous || [];
-  
-  // مرتب‌سازی جواهرهای قبلی بر اساس ترتیب staticRouteNames
   const sortedPreviousGems = [...previousGems].sort((a, b) => {
     const indexA = staticRouteNames.findIndex((route) => route.id === a.id);
     const indexB = staticRouteNames.findIndex((route) => route.id === b.id);
     return indexA - indexB;
   });
-
-  // محاسبه تعداد تصاویر قفل‌شده
   const remainingGemsCount = totalGems - previousGems.length;
+
+
+  const getRouteName = (
+    id: number,
+    lang: string,
+    name: string,
+    staticRouteNames: any[]
+  ) => {
+    if (lang === "fa") {
+      return name; // فارسی → همونی که هست
+    } else {
+      const found = staticRouteNames.find((r) => r.id === id);
+      if (found && found.route_name) {
+        return found.route_name.split("-")[0]; // انگلیسی + وجود داشتن → قبل از "-"
+      }
+      return name; // اگر پیدا نشد → همون مقدار اصلی
+    }
+  };
 
   return (
     <div
@@ -57,9 +95,16 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
           />
         </figure>
 
-        <p className="font-bold text-[20px] dark:text-white font-azarMehr sm:mt-2">
+        {/* اسم کاربر با isTruncated */}
+    <div className="w-full overflow-x-hidden">
+              <p
+          ref={nameRef}
+          className={`font-bold text-[20px] dark:text-white font-azarMehr sm:mt-2 truncate w-full text-center ps-3  ${isTruncated ? "hover:overflow-visible hover:animate-rtlMarquee" : ""
+            }`}
+        >
           {item.name}
         </p>
+    </div>
 
         <Link
           className="min-h-[30px] uppercase text-blueLink accumulating font-azarMehr text-[16px] cursor-pointer"
@@ -72,18 +117,23 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
 
         <span className="dark:text-[#969696] text-[18px] font-azarMehr">
           {item.levels?.current
-            ? item.levels.current.name
-            : params.lang == "fa"
+            ? getRouteName(
+              item.levels.current.id,
+              params.lang,
+              item.levels.current.name,
+              staticRouteNames
+            )
+            : params.lang === "fa"
               ? "تازه وارد"
               : "Newcomer"}
         </span>
+
         {scoreElement}
 
         {!hidePreviousLevels && (
           <div className="w-full min-h-[75px] pb-2">
             <div className="w-full flex flex-wrap justify-center ">
-              {/* نمایش جواهرهای قبلی (مرتب‌شده بر اساس staticRouteNames) */}
-              {sortedPreviousGems.map((item2: any, index2: number) => (
+              {sortedPreviousGems.map((item2: any) => (
                 <GemImage
                   key={`previous-${item2.id}`}
                   item={item2}
@@ -91,7 +141,6 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
                   picSize={33}
                 />
               ))}
-              
               {Array.from({ length: remainingGemsCount }).map((_, index) => (
                 <Image
                   key={`lock-${index}`}
@@ -106,6 +155,7 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
             </div>
           </div>
         )}
+
         <Link
           href={`/${params.lang}/citizens/${item.code}`}
           className="w-[80%]"

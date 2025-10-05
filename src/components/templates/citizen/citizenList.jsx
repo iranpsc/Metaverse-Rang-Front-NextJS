@@ -15,7 +15,6 @@ export default function CitizenList({
   mainData
 }) {
 
-  
 
   const [localCitizenArray, setLocalCitizenArray] = useState(allCitizenArray);
   const [isDisabled, setIsDisabled] = useState(false);

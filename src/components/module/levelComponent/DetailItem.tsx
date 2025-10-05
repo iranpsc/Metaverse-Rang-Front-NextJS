@@ -33,14 +33,15 @@ export default function DetailItem({
     } else if (isLink || isHMFormat) {
       return (
         <a
-          className="text-blueLink dark:text-dark-yellow font-[700]"
+          className="text-blueLink dark:text-blue-500 font-[700]"
           target="_blank"
-          href={isHMFormat ? `/${lang}/citizens/${value}` : value}
+          href={isHMFormat ? `/${lang}/citizens/${value.toLowerCase()}` : value}
         >
-          {isHMFormat ? value : "لینک"}
+          {isHMFormat ? value.toUpperCase() : "لینک"}
         </a>
       );
-    } else {
+    }
+    else {
       return (
         <span
           className="text-[#868B90] dark:text-[#C4C4C4] font-[700] text-ellipsis line-clamp-1 overflow-hidden"
@@ -54,9 +55,8 @@ export default function DetailItem({
 
   return (
     <div
-      className={`flex flex-wrap flex-row gap-2 justify-between py-3 border-solid border-t-0 border-x-0 border-b-2 border-[#ECECEC] dark:border-[#1A1A18] items-center w-full text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] ${
-        fullBox ? "w-full" : "sm:w-[47%]"
-      }`}
+      className={`flex flex-wrap flex-row gap-2 justify-between py-3 border-solid border-t-0 border-x-0 border-b-2 border-[#ECECEC] dark:border-[#1A1A18] items-center w-full text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] ${fullBox ? "w-full" : "sm:w-[47%]"
+        }`}
     >
       <span
         className="whitespace-nowrap text-ellipsis text-[#414040] dark:text-white font-[500] 2xl:font-[700]"
