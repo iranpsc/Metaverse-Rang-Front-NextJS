@@ -56,7 +56,7 @@ export default function ListData({ nameComponent, data, params }: any) {
                 {item.name}
               </p>
               <p
-                className="text-center dark:text-[#868B90] line-clamp-2 px-5 text-[#656565] text-xs md:text-sm"
+                className="text-center dark:text-[#868B90] line-clamp-2 px-4 text-[#656565] text-xs md:text-sm"
                 dangerouslySetInnerHTML={{ __html: item.description }}
               ></p>
 

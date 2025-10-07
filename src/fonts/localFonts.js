@@ -13,6 +13,7 @@ export const azarMehr = localFont({
   ],
   variable: '--font-azarMehr',
   display: 'swap', // این گزینه باعث می‌شود متن بدون تأخیر رندر شود
+   fallback: ['system-ui', 'Tahoma', 'sans-serif'],
 });
 
 // فونت رخ (فقط وزن Bold)

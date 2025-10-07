@@ -31,7 +31,7 @@ export default function ListVideos({ videos, params, subCategoryData, loadMore, 
   }, [videos]);
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-10 w-full h-fit px-5 mt-10">
+    <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-10 w-full h-fit px-5 mt-5">
       {videos &&
         videos.map((item: any, index: number) => {
           const sanitizedDesc = stripAnchorTags(item.description || "");
@@ -64,7 +64,7 @@ export default function ListVideos({ videos, params, subCategoryData, loadMore, 
 
                   {/* توضیحات خارج از لینک و بدون <a> داخلی */}
                   <p
-                    className="text-center dark:text-[#868B90] line-clamp-2 px-5 text-[#656565] text-xs md:text-sm"
+                    className="text-center dark:text-[#868B90] line-clamp-2  text-[#656565] text-xs md:text-sm"
                     dangerouslySetInnerHTML={{ __html: sanitizedDesc }}
                   />
                 </div>
@@ -83,17 +83,18 @@ export default function ListVideos({ videos, params, subCategoryData, loadMore, 
                     </span>
                   </div>
 
-                  <div className="flex flex-row justify-start items-center gap-5">
+                  <div className="flex flex-row justify-start items-center gap-4 md:gap-3 3xl:gap-5">
                     <div className="flex gap-2 items-center">
                       <span className="whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray">
-                        {formatNumber(item.dislikes_count)}
+                       
+                        {formatNumber(item.likes_count)}
                       </span>
                       <Like className="stroke-gray dark:stroke-dark-gray stroke-2 w-[18px] h-[18px]" />
                     </div>
                     <hr className="h-[28px] border-solid border-[#D9D9D9] dark:border-[#434343]" />
                     <div className="flex gap-2 items-center">
                       <span className="whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray">
-                        {formatNumber(item.likes_count)}
+                         {formatNumber(item.dislikes_count)}
                       </span>
                       <Dislike className="stroke-gray dark:stroke-dark-gray stroke-2" />
                     </div>

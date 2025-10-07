@@ -13,7 +13,7 @@ const TopTrainersFirstPage = React.lazy(() => import('@/components/templates/fir
 const EducationFirstPage = React.lazy(() => import('@/components/templates/firstpage/EducationFirstPage'));
 const LastContent = React.lazy(() => import('@/components/templates/firstpage/LastContent'));
 const DetailsEducationSection = React.lazy(() => import('@/components/templates/firstpage/DetailsEducationSection'));
-// const VersionSection = React.lazy(() => import('@/components/templates/firstpage/VersionSection'));
+const VersionSection = React.lazy(() => import('@/components/templates/firstpage/VersionSection'));
 const DynamicFooter = React.lazy(() => import("@/components/module/footer/DynamicFooter"));
 import {
   getTranslation,
@@ -31,8 +31,10 @@ export async function generateMetadata({ params }) {
   const langData = await getTranslation(params.lang);
   const mainData = await getMainFile(langData);
   const centralPageModal = await findByModalName(mainData, "central-page");
-  const firstPageArrayContent = await findByTabName(centralPageModal, "first-page");
 
+
+  const firstPageArrayContent = await findByTabName(centralPageModal, "first-page");
+  const allVersionList = await getAllVersions(mainData);
   async function makeLessCharacter() {
     let temp = findByUniqueId(mainData, 482);
     temp = temp.slice(0, 200);
@@ -267,9 +269,10 @@ export default async function LangPage({ params }) {
             </Suspense>
           </div>
           <div className="w-[90%] relative h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
-            {/* <Suspense fallback={<div>Loading Header...</div>}>
-              <VersionSection firstPageArrayContent={firstPageArrayContent} allVersionList={allVersionList} />
-            </Suspense> */}
+            <Suspense fallback={<div>Loading Header...</div>}>
+              <VersionSection mainData={mainData} params={params}  />
+
+            </Suspense>
           </div>
           <div className="flex flex-col justify-center items-center">
             <Suspense fallback={<div>Loading Header...</div>}>

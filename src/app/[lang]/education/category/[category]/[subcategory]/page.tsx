@@ -117,7 +117,7 @@ export default async function EducationSubcategory({ params }: { params: any }) 
         />
         <div className="flex h-screen overflow-hidden w-full" dir={langData.direction}>
           <section className="w-full overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20 xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
-            <div>
+            <div className="ps-4 lg:ps-5">
               <BreadCrumb params={params} />
             </div>
 

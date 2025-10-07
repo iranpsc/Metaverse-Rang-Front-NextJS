@@ -61,7 +61,7 @@ export default function SubcategoryComponent({ subCategoryData, params, mainData
   return (
     <section className="w-full h-fit flex flex-col justify-start items-center relative mt-10">
       <section className="w-full h-fit flex flex-col justify-center items-center">
-        <div className="relative w-full px-4 gap-10 flex flex-col lg:flex-row transition-all duration-300 ease-in-out">
+        <div className="relative w-full px-4 gap-5 lg:gap-10 flex flex-col lg:flex-row transition-all duration-300 ease-in-out">
           <div className="w-full md:w-1/2 lg:w-[35%] 3xl:w-[30%] h-max">
             <Image
               src={subCategoryData.image}
@@ -81,8 +81,8 @@ export default function SubcategoryComponent({ subCategoryData, params, mainData
           />
         </div>
 
-        <div className="w-full h-fit pt-5 flex flex-col justify-center items-center gap-[60px] transition-all duration-300 easy-in-out">
-          <div className="flex flex-col gap-5 lg:flex-row lg:justify-between items-center w-full">
+        <div className="w-full h-fit pt-5 flex flex-col justify-center items-center gap-[24px] transition-all duration-300 easy-in-out">
+          <div className="flex flex-col-reverse lg:gap-5 lg:flex-row lg:justify-between items-center w-full px-4">
             <h1 className="md:w-1/2 ms-5 mt-10 font-bold font-azarMehr text-[22px] text-start dark:text-white text-black">
               {findByUniqueId(mainData, 344)} {subCategoryData.name}
             </h1>

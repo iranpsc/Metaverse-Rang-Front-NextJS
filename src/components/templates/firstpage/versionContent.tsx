@@ -8,27 +8,12 @@ export default function VersionContent({ singleData }: any) {
       <div
         //   HINT inject html to html in nextjs, this way have issue
         dangerouslySetInnerHTML={{ __html: singleData.description }}
-        className="text-white xl:text-[28px] lg:text-[24px] md:text-[20px] sm:text-[16px] text-[14px] text-start w-full font-bold"
+        className="text-base w-full break-words whitespace-normal text-[#868B90] dark:text-[#C4C4C4] [&_*]:text-lg [&_h1]:text-2xl [&_h2]:text-2xl   mb-4 text-justify leading-8 space-y-3   font-normal font-[Vazir] 2xl:text-lg 2xl:leading-8
+         [&_ul]:list-disc [&_ul]:pl-5
+         [&_ol]:list-decimal [&_ol]:pl-5
+         [&_li>p]:inline [&_li>h1]:inline [&_li>h2]:inline [&_li>h3]:inline [&_li>h4]:inline [&_li>p]:m-0  "
       ></div>
-      {/* <ul className="list-disc ps-5 ">
-        <li className="mt-5">
-          <span className="font-azarMehr text-[14px] sm:text-[16px] md:text-[18px]  xl:text-[20px] font-medium  text-white">
-            تغییرات 1
-          </span>
-        </li>
-        <li className="mt-5">
-          <span className="font-azarMehr text-[14px] sm:text-[16px] md:text-[18px]  xl:text-[20px] font-medium  text-white">
-            {" "}
-            تغییرات 2
-          </span>
-        </li>
-        <li className="mt-5">
-          <span className="font-azarMehr text-[14px] sm:text-[16px] md:text-[18px]  xl:text-[20px] font-medium  text-white">
-            {" "}
-            تغییرات 3
-          </span>
-        </li>
-      </ul> */}
+     
     </>
   );
 }

@@ -60,31 +60,30 @@ export const DashboardHeaderModule = ({ categoryData, mainData }: any) => {
       />
 
       {/* آمار */}
-      <div className="w-full flex flex-row justify-start gap-10 items-center">
+      <div className="w-full flex flex-row justify-between lg:justify-start  lg:gap-10 items-center">
         {categoryData.videos_count !== undefined && categoryData.videos_count !== null &&(
-          <div className="flex flex-col ">
-            <div className="flex flex-row items-center justify-center gap-3">
+          <div className="flex flex-col gap-1 md:gap-2">
+            <div className="flex flex-row items-center justify-center gap-1 md:gap-3">
               <Videos className="w-[20px] h-[20px] xs:w-[17px] xs:h-[17px] stroke-[#84858F] " />
-              <span className="whitespace-nowrap font-azarMehr font-normal text-[20px] xs:text-[16px] text-[#84858F] ">
+              <span className="whitespace-nowrap font-azarMehr font-normal text-sm lg:text-[20px]  text-[#84858F] ">
                 زیر دسته ها
               </span>
             </div>
-            <span className="whitespace-nowrap font-azarMehr font-medium text-[20px] xs:text-[16px] text-gray dark:text-white ">
-              {formatNumber(categoryData.videos_count)}
+            <span className="whitespace-nowrap font-azarMehr font-medium text-sm lg:text-[20px] text-gray dark:text-white ms-1">
+              {formatNumber(categoryData.videos_count)} عدد  
             </span>
           </div>
         )}
-
         <hr className="h-[50px] border-l-0 border-y-0  border-solid border-[#D9D9D9] dark:border-[#434343]" />
         {categoryData.likes_count !== undefined && categoryData.likes_count !== null && (
-          <div className="flex flex-col ">
-            <div className="flex flex-row items-center justify-center gap-3">
+          <div className="flex flex-col gap-1 md:gap-2">
+            <div className="flex flex-row items-center justify-center gap-1 md:gap-3">
               <Like className="w-[20px] h-[20px] xs:w-[17px] xs:h-[17px] stroke-[#84858F]" />
-              <span className="whitespace-nowrap font-azarMehr font-medium text-[20px] xs:text-[16px] text-[#84858F] ">
+              <span className="whitespace-nowrap font-azarMehr font-medium text-sm lg:text-[20px] text-[#84858F] ">
                 پسندیدند
               </span>
             </div>
-            <span className="whitespace-nowrap font-azarMehr font-medium text-[20px] xs:text-[16px] text-gray dark:text-white">
+            <span className="whitespace-nowrap font-azarMehr font-medium text-sm lg:text-[20px] text-gray dark:text-white ms-1">
               {formatNumber(categoryData.likes_count)}
             </span>
           </div>
@@ -92,28 +91,28 @@ export const DashboardHeaderModule = ({ categoryData, mainData }: any) => {
 
         <hr className="h-[50px] border-l-0 border-y-0  border-solid border-[#D9D9D9] dark:border-[#434343]" />
         {categoryData.dislikes_count !== undefined && categoryData.likes_count !== null && (
-          <div className="flex flex-col">
-            <div className="flex flex-row items-center justify-center gap-3">
+          <div className="flex flex-col gap-1 md:gap-2">
+            <div className="flex flex-row items-center justify-center gap-1 md:gap-3">
               <Dislike className="w-[20px] h-[20px] xs:w-[17px] xs:h-[17px] stroke-[#84858F]" />
-              <span className="whitespace-nowrap font-azarMehr font-normal text-[20px] xs:text-[16px] text-[#84858F] dark:text-dark-gray">
+              <span className="whitespace-nowrap font-azarMehr font-normal text-sm lg:text-[20px] text-[#84858F] dark:text-dark-gray">
                 نپسندیدند
               </span>
             </div>
-            <span className="whitespace-nowrap font-azarMehr font-medium text-[20px] xs:text-[16px]  text-gray dark:text-white">
+            <span className="whitespace-nowrap font-azarMehr font-medium text-sm lg:text-[20px] text-gray dark:text-white ms-1">
               {formatNumber(categoryData.dislikes_count)}
             </span>
           </div>
         )}
         <hr className="h-[50px] border-l-0 border-y-0  border-solid border-[#D9D9D9] dark:border-[#434343]" />
         {categoryData.views_count !== undefined && categoryData.views_count !== null &&(
-          <div className="flex flex-col ">
-            <div className="flex flex-row items-center justify-center gap-3">
+          <div className="flex flex-col gap-1 md:gap-2">
+            <div className="flex flex-row items-center justify-center gap-1 md:gap-3">
               <View className="w-[20px] h-[20px] xs:w-[17px] xs:h-[17px] stroke-[#84858F] " />
-              <span className="whitespace-nowrap font-azarMehr font-normal text-[20px] xs:text-[16px] text-[#84858F] ">
+              <span className="whitespace-nowrap font-azarMehr font-normal text-sm lg:text-[20px] text-[#84858F] ">
                 بازدید
               </span>
             </div>
-            <span className="whitespace-nowrap font-azarMehr font-medium text-[20px] xs:text-[16px]  text-gray dark:text-white">{formatNumber(categoryData.views_count)}</span>
+            <span className="whitespace-nowrap font-azarMehr font-medium text-sm lg:text-[20px]  text-gray dark:text-white ">{formatNumber(categoryData.views_count)}</span>
           </div>
         )}
       </div>

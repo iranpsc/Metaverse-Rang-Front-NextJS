@@ -32,7 +32,7 @@ export default function SectionInputSearch({
               : findByUniqueId(mainData, 167)
           }
           className="w-[80%] outline-none border-none 
-              placeholder-[#868B90] dark:text-white text-[14px] ms-2 font-azarMehr font-medium dark:bg-[#1A1A18] dark:placeholder-dark-gray"
+              placeholder-[#868B90] dark:text-white text-[14px] ms-2 dark:bg-[#1A1A18] dark:placeholder-dark-gray"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
