@@ -26,6 +26,7 @@ export default function ListData({ nameComponent, data, params }: any) {
     <>
       {data &&
         data.subcategories?.map((item: any, index: number) => {
+          const isFirstImage = index === 0;
           // ساخت لینک بر اساس nameComponent
           const href =
             nameComponent === "categories"
@@ -40,17 +41,27 @@ export default function ListData({ nameComponent, data, params }: any) {
               key={item.id}
               className="w-full min-h-[240px] cursor-pointer shadow-md hover:shadow-xl  hover:dark:shadow-dark rounded-[12px] bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-2 items-center"
             >
-              <div className="group w-full relative px-4 pt-4 overflow-hidden">
-                <Image
-                  src={item.image}
-                  alt={"pic" + item.name}
-                  width={360}
-                  height={260}
-                  priority
-                  className="w-full h-[250px] brightness-75 transition-all duration-150 ease-in-out object-cover rounded-[8px]"
-                  style={{ backgroundColor: colors[index] }}
-                />
+              <div className="group w-full relative px-4 pt-4 overflow-hidden ">
+                <div className="relative w-full h-[250px]">
+                  <Image
+                    src={item.image}
+                    alt={"pic" + item.name}
+                    fill
+                    sizes="
+    (max-width: 640px) 270px,
+    (max-width: 1024px) 48vw,
+    (max-width: 1536px) 31vw,
+    25vw
+  "
+                    className="object-cover rounded-[8px] brightness-75 transition-all duration-150 ease-in-out"
+                    style={{ backgroundColor: colors[index] }}
+                    {...(index === 0 ? { priority: true, fetchPriority: 'high' } : { loading: 'lazy' })}
+                  />
+
+                </div>
+
               </div>
+
 
               <p className="text-center w-full font-azarMehr truncate cursor-pointer font-bold text-[16px] 2xl:text-xl dark:text-white text-black">
                 {item.name}

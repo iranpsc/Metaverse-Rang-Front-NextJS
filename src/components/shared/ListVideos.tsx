@@ -34,23 +34,33 @@ export default function ListVideos({ videos, params, subCategoryData, loadMore, 
     <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-10 w-full h-fit px-5 mt-5">
       {videos &&
         videos.map((item: any, index: number) => {
+          const isFirstImage = index === 0;
           const sanitizedDesc = stripAnchorTags(item.description || "");
           return (
             <div
               key={item.id ?? index}
               className="w-full relative shadow-md hover:shadow-xl hover:dark:shadow-dark rounded-[10px] bg-white dark:bg-[#1A1A18] flex flex-col justify-start  items-center"
             >
-              <div className="group w-full h-[266px] p-4 rounded-[10px] relative">
-                <Image
-                  src={item.image_url}
-                  alt={item.title}
-                  width={400}
-                  height={300}
-                  priority={true}
-                  className="w-full h-full transition-all duration-150 ease-in-out rounded-[10px] object-cover"
-                  style={{ backgroundColor: colors[index] }}
-                />
+              <div className="group w-full p-4 rounded-[10px] relative">
+                <div className="relative w-full h-[250px]">
+                  <Image
+                    src={item.image_url}
+                  alt={"pic" + item.title}
+                    fill
+                    sizes="
+    (max-width: 640px) 270px,
+    (max-width: 1024px) 48vw,
+    (max-width: 1536px) 31vw,
+    25vw
+  "
+                    className="object-cover rounded-[8px] brightness-75 transition-all duration-150 ease-in-out"
+                    style={{ backgroundColor: colors[index] }}
+                    {...(index === 0 ? { priority: true, fetchPriority: 'high' } : { loading: 'lazy' })}
+                  />
+
+                </div>
               </div>
+              
 
               <div className="px-5 w-full flex flex-col gap-4">
                 {/* عنوان لینک شده — فقط عنوان داخل Link */}

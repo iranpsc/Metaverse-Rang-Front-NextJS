@@ -63,14 +63,23 @@ export default function SubcategoryComponent({ subCategoryData, params, mainData
       <section className="w-full h-fit flex flex-col justify-center items-center">
         <div className="relative w-full px-4 gap-5 lg:gap-10 flex flex-col lg:flex-row transition-all duration-300 ease-in-out">
           <div className="w-full md:w-1/2 lg:w-[35%] 3xl:w-[30%] h-max">
-            <Image
-              src={subCategoryData.image}
-              alt="img"
-              width={500}
-              height={400}
-              priority={true}
-              className="w-full rounded-xl h-auto object-cover"
-            />
+             <div className="relative w-full h-[365px] 3xl:h-[400px]">
+              <Image
+                src={subCategoryData.image}
+                alt={"pic " + subCategoryData.name}
+                fill
+                priority
+                fetchPriority="high"
+                quality={70}
+                sizes="
+      (max-width: 640px) 200px,
+      (max-width: 1024px) 350px,
+      (max-width: 1536px) 540px,
+      512px
+    "
+                className="object-cover rounded-xl"
+              />
+            </div>
           </div>
           <DashboardHeaderModule
             mainData={mainData}

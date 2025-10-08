@@ -63,37 +63,21 @@ const nextConfig = {
     return config;
   },
 
-  images: {
-    deviceSizes: [640, 750, 828, 1080, 1200],
-    imageSizes: [50, 120, 220, 320, 640, 750, 1080],
-    formats: ['image/avif', 'image/webp'],
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'dl.qzparadise.ir',
-      },
-      {
-        protocol: 'https',
-        hostname: 'api.rgb.irpsc.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'admin.rgb.irpsc.com',
-      },
-      {
-        protocol: 'http',
-        hostname: 'localhost',
-      },
-      {
-        protocol: 'https',
-        hostname: 'irpsc.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'frdevelop2.irpsc.com', // 🔹 اضافه شد تا ارور تصاویر رفع بشه
-      },
-    ],
-  },
+images: {
+  deviceSizes: [320, 480, 640, 768, 1024, 1280, 1536],
+  imageSizes: [16, 32, 64, 128, 256, 384, 512, 540, 600],
+
+  formats: ['image/avif', 'image/webp'],
+  remotePatterns: [
+    { protocol: 'https', hostname: 'dl.qzparadise.ir' },
+    { protocol: 'https', hostname: 'api.rgb.irpsc.com' },
+    { protocol: 'https', hostname: 'admin.rgb.irpsc.com' },
+    { protocol: 'http', hostname: 'localhost' },
+    { protocol: 'https', hostname: 'irpsc.com' },
+    { protocol: 'https', hostname: 'frdevelop2.irpsc.com' },
+  ],
+},
+
 };
 
 module.exports = nextConfig;
