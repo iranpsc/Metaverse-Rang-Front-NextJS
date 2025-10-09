@@ -1,24 +1,22 @@
 "use client";
+
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import { Suspense, useRef, useState } from "react";
 import axios from "axios";
-const SearchComponent = dynamic(() => import("@/components/shared/SearchComponent"), { suspense: true });
+
 import ListSubCategories from "./ListSubCategories";
 import { DashboardHeaderModule } from "@/components/module/categories/DashboardHeaderModule";
-// import SlugsModule from "@/components/module/categories/SlugsModule";
-// import { motion, useAnimation } from "framer-motion";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+
+const SearchComponent = dynamic(() => import("@/components/shared/SearchComponent"), { suspense: true });
+
 const CategoryComponent = ({ CategoryData, mainData, params }: any) => {
   const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [shows, setShows] = useState<boolean>(false);
-  const [videos, setVideos] = useState(CategoryData);
-  const [height, setHeight] = useState(0);
-
+  const [loading, setLoading] = useState(false);
+  const [videos, setVideos] = useState(CategoryData.subcategories || []);
+  const [shows, setShows] = useState(false);
   const contentRef = useRef<HTMLDivElement | null>(null);
-
-
 
   const loadMore = async () => {
     setLoading(true);
@@ -34,13 +32,16 @@ const CategoryComponent = ({ CategoryData, mainData, params }: any) => {
     setLoading(false);
   };
 
-  return (
-    <section className="w-full h-fit flex flex-col justify-start items-center relative mt-10 ">
-      <section className="  w-full h-fit flex  flex-col justify-center items-center">
-        <div
-          className={`relative w-full px-4 gap-5 lg:gap-10 flex flex-col  lg:flex-row   transition-all duration-300 ease-in-out`}
+  // اضافه کردن videos به CategoryData برای ListSubCategories
+  const CategoryDataWithSubcategories = {
+    ...CategoryData,
+    subcategories: videos
+  };
 
-        >
+  return (
+    <section className="w-full h-fit flex flex-col justify-start items-center relative mt-10">
+      <section className="w-full h-fit flex flex-col justify-center items-center">
+        <div className="relative w-full px-4 gap-5 lg:gap-10 flex flex-col lg:flex-row transition-all duration-300 ease-in-out">
           <div className="w-full md:w-1/2 lg:w-[35%] 3xl:w-[30%] h-max">
             <div className="relative w-full h-[365px] 3xl:h-[400px]">
               <Image
@@ -51,18 +52,17 @@ const CategoryComponent = ({ CategoryData, mainData, params }: any) => {
                 fetchPriority="high"
                 quality={70}
                 sizes="
-      (max-width: 640px) 200px,
-      (max-width: 1024px) 350px,
-      (max-width: 1536px) 540px,
-      512px
-    "
+                  (max-width: 640px) 200px,
+                  (max-width: 1024px) 350px,
+                  (max-width: 1536px) 540px,
+                  512px
+                "
                 className="object-cover rounded-xl"
               />
             </div>
-
           </div>
+
           <DashboardHeaderModule
-            // translates={translates}
             mainData={mainData}
             categoryData={CategoryData}
             shows={shows}
@@ -71,10 +71,9 @@ const CategoryComponent = ({ CategoryData, mainData, params }: any) => {
           />
         </div>
 
-        <div className="w-full h-fit pt-5 flex flex-col justify-center items-center  gap-[24px]  transition-all duration-300 easy-in-out">
-          {/* <SlugsModule params={params} categoryName={CategoryData.name} /> */}
+        <div className="w-full h-fit pt-5 flex flex-col justify-center items-center gap-[24px] transition-all duration-300 easy-in-out">
           <div className="flex flex-col-reverse lg:gap-5 lg:flex-row lg:justify-between items-center w-full px-4 lg:px-0">
-            <h1 className=" md:w-1/2 lg:ms-5 mt-5 font-bold font-azarMehr text-[22px] text-start dark:text-white text-black">
+            <h1 className="md:w-1/2 lg:ms-5 mt-5 font-bold font-azarMehr text-[22px] text-start dark:text-white text-black">
               {findByUniqueId(mainData, 455)} {CategoryData.name}
             </h1>
 
@@ -82,12 +81,14 @@ const CategoryComponent = ({ CategoryData, mainData, params }: any) => {
               <SearchComponent searchLevel="education" mainData={mainData} params={params} />
             </Suspense>
           </div>
+
+          {/* لیست زیرمجموعه‌ها با Load More */}
           <ListSubCategories
             params={params}
             loadMore={loadMore}
-            CategoryData={CategoryData}
+            CategoryData={CategoryDataWithSubcategories}
             loading={loading}
-          // translateData={translateData}
+            mainData={mainData}
           />
         </div>
       </section>

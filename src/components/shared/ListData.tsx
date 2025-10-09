@@ -48,10 +48,10 @@ export default function ListData({ nameComponent, data, params }: any) {
                     alt={"pic" + item.name}
                     fill
                     sizes="
-    (max-width: 640px) 270px,
-    (max-width: 1024px) 48vw,
-    (max-width: 1536px) 31vw,
-    25vw
+    (max-width: 640px) 300px,
+    (max-width: 1024px) 320px,
+    (max-width: 1536px) 359px,
+    20vw
   "
                     className="object-cover rounded-[8px] brightness-75 transition-all duration-150 ease-in-out"
                     style={{ backgroundColor: colors[index] }}

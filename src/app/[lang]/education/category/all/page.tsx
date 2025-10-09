@@ -114,6 +114,7 @@ export default async function EducationCategoryAll({
             <ShowAllCategoriesComponent
               params={params}
               categoriesData={categoriesData}
+              mainData={mainData}
             />
           </Suspense>
 

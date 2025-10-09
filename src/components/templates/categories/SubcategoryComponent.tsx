@@ -1,18 +1,18 @@
-
 "use client";
+
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import { Suspense, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { DashboardHeaderModule } from "@/components/module/categories/DashboardHeaderModule";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import ListVideos from "@/components/shared/ListVideos";
+import SyncLoader from "react-spinners/SyncLoader";
 
 const SearchComponent = dynamic(
   () => import("@/components/shared/SearchComponent"),
-  { suspense: false  }
+  { suspense: false }
 );
-
+import ListVideos from "@/components/shared/ListVideos";
 
 export default function SubcategoryComponent({ subCategoryData, params, mainData }: any) {
   const [page, setPage] = useState(1);
@@ -22,6 +22,7 @@ export default function SubcategoryComponent({ subCategoryData, params, mainData
   );
   const [shows, setShows] = useState<boolean>(false);
   const [videos, setVideos] = useState(subCategoryData.videos || []);
+  const [visibleCount, setVisibleCount] = useState(9); // فقط ۹ تا اول
   const contentRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -36,7 +37,6 @@ export default function SubcategoryComponent({ subCategoryData, params, mainData
 
         setVideos((prev: any) => [...prev, ...newVideos]);
 
-        // اگر تعداد کل ویدیوها رسید به videos_count → تموم شده
         const total = res.data.videos_count || subCategoryData.videos_count;
         if (videos.length + newVideos.length >= total) {
           setHasMore(false);
@@ -52,9 +52,14 @@ export default function SubcategoryComponent({ subCategoryData, params, mainData
     fetchMore();
   }, [page, subCategoryData.slug]);
 
-  const loadMore = () => {
+  const handleLoadMore = () => {
     if (!loading && hasMore) {
-      setPage(prev => prev + 1);
+      // ۹ تا اضافه کن
+      setVisibleCount((prev) => prev + 9);
+      // اگر نیاز هست fetch واقعی هم انجام بده
+      if (visibleCount + 9 > videos.length && hasMore) {
+        setPage((prev) => prev + 1);
+      }
     }
   };
 
@@ -63,7 +68,7 @@ export default function SubcategoryComponent({ subCategoryData, params, mainData
       <section className="w-full h-fit flex flex-col justify-center items-center">
         <div className="relative w-full px-4 gap-5 lg:gap-10 flex flex-col lg:flex-row transition-all duration-300 ease-in-out">
           <div className="w-full md:w-1/2 lg:w-[35%] 3xl:w-[30%] h-max">
-             <div className="relative w-full h-[365px] 3xl:h-[400px]">
+            <div className="relative w-full h-[365px] 3xl:h-[400px]">
               <Image
                 src={subCategoryData.image}
                 alt={"pic " + subCategoryData.name}
@@ -72,15 +77,16 @@ export default function SubcategoryComponent({ subCategoryData, params, mainData
                 fetchPriority="high"
                 quality={70}
                 sizes="
-      (max-width: 640px) 200px,
-      (max-width: 1024px) 350px,
-      (max-width: 1536px) 540px,
-      512px
-    "
+                  (max-width: 640px) 200px,
+                  (max-width: 1024px) 350px,
+                  (max-width: 1536px) 540px,
+                  512px
+                "
                 className="object-cover rounded-xl"
               />
             </div>
           </div>
+
           <DashboardHeaderModule
             mainData={mainData}
             categoryData={subCategoryData}
@@ -103,14 +109,34 @@ export default function SubcategoryComponent({ subCategoryData, params, mainData
 
           <ListVideos
             params={params}
-            loadMore={loadMore}
-            videos={videos}
+            loadMore={handleLoadMore}
+            videos={videos.slice(0, visibleCount)} // فقط visibleCount نمایش داده میشه
             loading={loading}
             subCategoryData={subCategoryData}
-            hasMore={hasMore}
+            hasMore={hasMore && visibleCount < videos.length}
           />
 
-         
+          {/* دکمه Load More */}
+          {visibleCount < videos.length || hasMore ? (
+            <div className="w-full flex justify-center mt-[40px] relative">
+              {!loading ? (
+                <button
+                  disabled={loading}
+                  className={`bg-white dark:bg-darkGray text-light-primary md:text-lg dark:text-dark-yellow rounded-[12px] px-[40px] py-[16px] base-transition-1 border-2 border-transparent hover:border-light-primary hover:text-light-primary hover:dark:border-dark-yellow`}
+                  onClick={handleLoadMore}
+                >
+                  {findByUniqueId(mainData, 271)}
+                </button>
+              ) : (
+                <SyncLoader
+                  color="currentColor"
+                  size={10}
+                  className="text-light-primary dark:text-dark-yellow"
+                />
+              )}
+            </div>
+          ) : null}
+
         </div>
       </section>
     </section>

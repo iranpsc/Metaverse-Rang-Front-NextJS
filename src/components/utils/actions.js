@@ -254,18 +254,18 @@ export async function getUserData(_userId) {
     return temp.data
   }
 
-  export async function getAllCategories(){
-    
-    const res = await fetch(`https://api.rgb.irpsc.com/api/tutorials/categories?count=9`,{
-      headers: {
-        "Content-Type": "application/json",
-        "Cache-Control": "public, max-age=0", 
-      },}
-    )
-    let temp = await res.json()
+export async function getAllCategories() {
+  const res = await fetch(`https://api.rgb.irpsc.com/api/tutorials/categories`, {
+    headers: {
+      "Content-Type": "application/json",
+      "Cache-Control": "public, max-age=0",
+    },
+  });
+  let temp = await res.json();
 
-    return temp.data
-  }
+  return temp.data;
+}
+
 
   export async function getAllCategoryVideos(_page){
     try{
