@@ -45,7 +45,7 @@ export const DashboardHeaderModule = ({ categoryData, mainData }: any) => {
   console.log(categoryData);
   return (
     <div className="relative z-10 flex flex-col justify-center lg:justify-start gap-5 w-full lg:w-1/2 xl:w-[65%] 3xl:w-[70%]">
-      <h1 className="text-start font-azarMehr dark:text-white text-black whitespace-nowrap font-bold 3xl:text-[24px] xl:text-[24px] lg:text-[22px] md:text-[20px] sm:text-[18px] xs:text-[14px]">
+      <h1 className="text-start font-azarMehr dark:text-white text-black whitespace-nowrap font-bold 3xl:text-[24px] xl:text-[24px] lg:text-[22px]  text-xl">
         {categoryData.name}
       </h1>
       <Description
@@ -60,10 +60,10 @@ export const DashboardHeaderModule = ({ categoryData, mainData }: any) => {
       />
 
       {/* آمار */}
-      <div className="w-full flex flex-row justify-between lg:justify-start  lg:gap-10 items-center">
+      <div className="w-full grid grid-cols-3 gap-y-10 md:grid-cols-7 justify-between lg:justify-start  lg:gap-10 items-center">
         {categoryData.videos_count !== undefined && categoryData.videos_count !== null &&(
-          <div className="flex flex-col gap-1 md:gap-2">
-            <div className="flex flex-row items-center justify-center gap-1 md:gap-3">
+          <div className="flex flex-col gap-1 md:gap-2 w-max">
+            <div className="flex flex-row items-center justify-start gap-1 md:gap-3">
               <Videos className="w-[20px] h-[20px] xs:w-[17px] xs:h-[17px] stroke-[#84858F] " />
               <span className="whitespace-nowrap font-azarMehr font-normal text-sm lg:text-[20px]  text-[#84858F] ">
                 زیر دسته ها
@@ -74,10 +74,10 @@ export const DashboardHeaderModule = ({ categoryData, mainData }: any) => {
             </span>
           </div>
         )}
-        <hr className="h-[50px] border-l-0 border-y-0  border-solid border-[#D9D9D9] dark:border-[#434343]" />
+        <hr className="h-[50px] mx-auto w-[1px] border-l-0 border-y-0  border-solid border-[#D9D9D9] dark:border-[#434343]" />
         {categoryData.likes_count !== undefined && categoryData.likes_count !== null && (
           <div className="flex flex-col gap-1 md:gap-2">
-            <div className="flex flex-row items-center justify-center gap-1 md:gap-3">
+            <div className="flex flex-row items-center justify-start gap-1 md:gap-3">
               <Like className="w-[20px] h-[20px] xs:w-[17px] xs:h-[17px] stroke-[#84858F]" />
               <span className="whitespace-nowrap font-azarMehr font-medium text-sm lg:text-[20px] text-[#84858F] ">
                 پسندیدند
@@ -89,10 +89,10 @@ export const DashboardHeaderModule = ({ categoryData, mainData }: any) => {
           </div>
         )}
 
-        <hr className="h-[50px] border-l-0 border-y-0  border-solid border-[#D9D9D9] dark:border-[#434343]" />
+        <hr className="h-[50px] hidden mx-auto  w-[1px] md:block border-l-0 border-y-0  border-solid border-[#D9D9D9] dark:border-[#434343]" />
         {categoryData.dislikes_count !== undefined && categoryData.likes_count !== null && (
           <div className="flex flex-col gap-1 md:gap-2">
-            <div className="flex flex-row items-center justify-center gap-1 md:gap-3">
+            <div className="flex flex-row items-center justify-start gap-1 md:gap-3">
               <Dislike className="w-[20px] h-[20px] xs:w-[17px] xs:h-[17px] stroke-[#84858F]" />
               <span className="whitespace-nowrap font-azarMehr font-normal text-sm lg:text-[20px] text-[#84858F] dark:text-dark-gray">
                 نپسندیدند
@@ -103,10 +103,10 @@ export const DashboardHeaderModule = ({ categoryData, mainData }: any) => {
             </span>
           </div>
         )}
-        <hr className="h-[50px] border-l-0 border-y-0  border-solid border-[#D9D9D9] dark:border-[#434343]" />
+        <hr className="h-[50px] mx-auto  w-[1px] border-l-0 border-y-0  border-solid border-[#D9D9D9] dark:border-[#434343]" />
         {categoryData.views_count !== undefined && categoryData.views_count !== null &&(
           <div className="flex flex-col gap-1 md:gap-2">
-            <div className="flex flex-row items-center justify-center gap-1 md:gap-3">
+            <div className="flex flex-row items-center justify-start gap-1 md:gap-3">
               <View className="w-[20px] h-[20px] xs:w-[17px] xs:h-[17px] stroke-[#84858F] " />
               <span className="whitespace-nowrap font-azarMehr font-normal text-sm lg:text-[20px] text-[#84858F] ">
                 بازدید

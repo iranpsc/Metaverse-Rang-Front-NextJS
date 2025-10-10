@@ -72,7 +72,7 @@ const CategoryComponent = ({ CategoryData, mainData, params }: any) => {
         </div>
 
         <div className="w-full h-fit pt-5 flex flex-col justify-center items-center gap-[24px] transition-all duration-300 easy-in-out">
-          <div className="flex flex-col-reverse lg:gap-5 lg:flex-row lg:justify-between items-center w-full px-4 lg:px-0">
+          <div className="flex flex-col-reverse lg:gap-5 lg:flex-row lg:justify-between items-center w-full px-5 lg:px-0">
             <h1 className="md:w-1/2 lg:ms-5 mt-5 font-bold font-azarMehr text-[22px] text-start dark:text-white text-black">
               {findByUniqueId(mainData, 455)} {CategoryData.name}
             </h1>

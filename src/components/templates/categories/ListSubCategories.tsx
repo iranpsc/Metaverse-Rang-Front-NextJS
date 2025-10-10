@@ -26,7 +26,7 @@ export default function ListSubCategories({
   };
 
   return (
-    <div className="w-full flex flex-col justify-center items-center mt-5">
+    <div className="w-full flex flex-col justify-center items-center mt-5 px-4 3xl:pe-6">
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-[64px] w-full h-fit">
         <ListData
           params={params}

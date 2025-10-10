@@ -105,7 +105,7 @@ export default function ListData({ nameComponent, data, params }: any) {
 
               </div>
               <div className="w-full flex justify-center ">
-                <span className="bg-light-primary dark:bg-dark-yellow text-white px-5 py-2 mb-4 rounded-[10px] dark:text-black font-light hover:cursor-pointer">
+                <span className="bg-light-primary dark:bg-dark-yellow text-white  px-7 py-3 mb-4 rounded-[10px] dark:text-black font-light hover:cursor-pointer text-sm">
                   مشاهده ویدیو </span>
               </div>
             </Link>

@@ -79,7 +79,7 @@ export default async function EducationCategoryAll({
       <div className="flex h-screen overflow-hidden w-full" dir={langData.direction}>
 
         <section
-          className={`w-full overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20 xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1`}
+          className={`w-full overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20 xl:px-32 lg:px-32 px-5 `}
         >
           {/* Breadcrumb */}
           <div className="ps-2 lg:ps-4">
@@ -92,10 +92,13 @@ export default async function EducationCategoryAll({
             </Suspense>
           </div>
 
-          <div className="flex flex-col">
+          <div className="flex flex-col gap-3">
             <h1 className="mt-5 text-center  whitespace-nowrap dark:text-white text-black font-bold 3xl:text-[24px] xl:text-[24px] lg:text-[22px] md:text-[20px] sm:text-[18px] xs:text-[18px]">
               {findByUniqueId(mainData, 340)}
             </h1>
+            <p className="text-lightGray  dark:text-lightGray font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center px-5 lg:px-10">
+              {findByUniqueId(mainData, 1466)}
+            </p>
             <div className="mt-[-60px] md:mt-0 px-2">
               <Suspense
                 fallback={<div className="text-center text-[20px] ">loading...</div>}

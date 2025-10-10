@@ -80,7 +80,7 @@ export default async function LangLayout({ children, params }: any) {
             href="https://discord.gg/sW6XCY96hh"
             aria-label="Join us on Discord"
             title="Discord"
-            className="fixed rtl:left-10 ltr:right-10 bottom-[20px] z-[2]"
+            className="fixed rtl:left-10 ltr:right-10 bottom-[20px] z-[1000]"
           >
             {/* SVG Discord */}
             <svg
