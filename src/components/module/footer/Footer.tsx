@@ -1,12 +1,11 @@
 "use client";
-import { memo } from "react";
+import { memo, useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import { translateFooter } from "@/components/utils/education";
 import { imageSources } from "@/components/utils/items";
 import { useTheme } from "next-themes";
-import React, { useState, useEffect, useRef } from "react";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 function Footer({ footerTabs, mainData }: any) {
@@ -95,7 +94,6 @@ function Footer({ footerTabs, mainData }: any) {
       translation: findByUniqueId(mainData, 290),
       target: translateFooter(footerTabs, "discord-url"),
     },
-
     {
       id: 15,
       img: "/social/faq.png",
@@ -135,45 +133,61 @@ function Footer({ footerTabs, mainData }: any) {
   ];
 
   const [inView, setInView] = useState(false);
-  // *HINT* useRef WON'T trigger re-render unlike useState.
   const footerRef = useRef<HTMLDivElement | null>(null);
 
-  // IntersectionObserver to load iframe when it's in view
+  const { theme } = useTheme();
+
+  // گرفتن آخرین ورژن از API
+  const [version, setVersion] = useState<string>("");
+
+  useEffect(() => {
+    async function fetchVersion() {
+      try {
+        const res = await fetch(
+          "https://api.rgb.irpsc.com/api/calendar?type=version&page=1",
+          { cache: "no-store" }
+        );
+        if (!res.ok) throw new Error("API error");
+        const data = await res.json();
+        const latest = data?.data?.[0]?.version_title || "N/A";
+        setVersion(latest);
+      } catch (err) {
+        console.error("خطا در دریافت نسخه:", err);
+      }
+    }
+    fetchVersion();
+  }, []);
+
+  // IntersectionObserver برای lazy load
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
         if (entry.isIntersecting) {
-          setInView(true); // Trigger iframe load when in view
+          setInView(true);
         }
       },
-      {
-        rootMargin: "0px",
-        threshold: 0.1, // Trigger when 10% of the iframe is in view
-      }
+      { rootMargin: "0px", threshold: 0.1 }
     );
 
     if (footerRef.current) {
-      observer.observe(footerRef.current); // Observe the iframe container
+      observer.observe(footerRef.current);
     }
 
     return () => {
       if (footerRef.current) {
-        observer.unobserve(footerRef.current); // Cleanup observer
+        observer.unobserve(footerRef.current);
       }
     };
   }, []);
 
-  const { theme } = useTheme();
-
-  // If not in view, render a placeholder (or null to defer rendering entirely)
   if (!inView) {
     return <div ref={footerRef} style={{ minHeight: "500px" }} />;
   }
 
   return (
     <div ref={footerRef}>
-      <div className="h-fit w-full mt-[200px] flex flex-wrap gap-[15px] py-5 rounded-[10px]  items-center justify-center bg-white dark:bg-[#1A1A18]">
+      <div className="h-fit w-full mt-[200px] flex flex-wrap gap-[15px] py-5 rounded-[10px] items-center justify-center bg-white dark:bg-[#1A1A18]">
         {imageSources.map((item: any, i: number) => (
           <Link key={i} href={item.target} target="_blank">
             <Image
@@ -185,19 +199,10 @@ function Footer({ footerTabs, mainData }: any) {
               height={1000}
               className="w-[60px] h-[60px] cursor-pointer"
             />
-
             <ReactTooltip
               id={item.url}
               place="top"
-              content={
-                // (
-                //   footerTabs.find(
-                //     (itemData: any) => itemData.name == item.unique_id
-                //   ) || {}
-                // ).translation || "undefined"
-                findByUniqueId(mainData, item.unique_id)
-              }
- 
+              content={findByUniqueId(mainData, item.unique_id)}
               className="!bg-[#E9E9E9] !text-[#908F95] dark:!bg-[#434343] !font-azarMehr !font-medium dark:!text-white !text-[14px]"
             />
           </Link>
@@ -205,7 +210,7 @@ function Footer({ footerTabs, mainData }: any) {
       </div>
 
       <div className="h-fit pb-5 mt-20 rounded-[10px] w-full bg-white dark:bg-[#1A1A18] grid grid-cols-6">
-        <div className="col-span-6  xl:col-span-4 mt-2  pe-2">
+        <div className="col-span-6 xl:col-span-4 mt-2 pe-2">
           <div className="w-full pt-4 px-5 flex flex-row justify-start items-center gap-5 ">
             <Image
               src="/logo.png"
@@ -214,38 +219,17 @@ function Footer({ footerTabs, mainData }: any) {
               height={70}
               className="w-[60px] h-[60px] inline "
             />
-            <div className="flex flex-col h-[60px]  justify-between items-start">
-              <p className="text-[22px] mt-[-5px] font-bold font-azarMehr  dark:text-white">
-                {/* {(
-                  footerTabs.find(
-                    (item: any) => item.name == "national metaverse"
-                  ) || {}
-                ).translation || "undefined"} */}
+            <div className="flex flex-col h-[60px] justify-between items-start">
+              <p className="text-[22px] mt-[-5px] font-bold font-azarMehr dark:text-white">
                 {findByUniqueId(mainData, 272)}
               </p>
               <p className="mb-[-3px] font-azarMehr font-normal dark:text-white">
-                {/* {(
-                  footerTabs.find(
-                    (item: any) =>
-                      item.name == "global leadership in a parallel world"
-                  ) || {}
-                ).translation || "undefined"} */}
                 {findByUniqueId(mainData, 273)}
               </p>
             </div>
           </div>
           <p className="px-5 pt-6 font-normal text-justify font-azarMehr text-[#4C4C4C] dark:text-[#D4D4D4] text-[20px] leading-9">
-            {/* {(
-              footerTabs.find(
-                (item: any) => item.name == "footer description1"
-              ) || {}
-            ).translation || "undefined"} */}
             {findByUniqueId(mainData, 273)} <br />
-            {/* {(
-              footerTabs.find(
-                (item: any) => item.name == "footer description2"
-              ) || {}
-            ).translation || "undefined"} */}
             {findByUniqueId(mainData, 274)}
             <br />
             {findByUniqueId(mainData, 275)}
@@ -253,15 +237,10 @@ function Footer({ footerTabs, mainData }: any) {
         </div>
         <div className="xl:col-span-2 col-span-6 mt-6 w-full flex flex-col items-center ">
           <p className="text-center w-full font-medium font-azarMehr text-[20px] text-[#4C4C4C] dark:text-white">
-            {/* {(
-              footerTabs.find(
-                (item: any) => item.name == "join our networks"
-              ) || {}
-            ).translation || "undefined"} */}
             {findByUniqueId(mainData, 276)}
           </p>
 
-          <div className="xl:grid xl:grid-cols-5 3xl:grid-cols-7  flex flex-wrap gap-3 max-w-fit lg:w-full  justify-center mt-6 ">
+          <div className="xl:grid xl:grid-cols-5 3xl:grid-cols-7 flex flex-wrap gap-3 max-w-fit lg:w-full justify-center mt-6 ">
             {socialItems.map((item: any) => (
               <div key={item.id}>
                 <Link href={item.target} target="_blank">
@@ -280,7 +259,6 @@ function Footer({ footerTabs, mainData }: any) {
                   place="top"
                   content={item.translation}
                   className="!bg-[#E9E9E9] !text-[#908F95] dark:!bg-[#434343] !font-azarMehr !font-medium dark:!text-white !text-[14px]"
-
                 />
               </div>
             ))}
@@ -288,10 +266,15 @@ function Footer({ footerTabs, mainData }: any) {
         </div>
       </div>
 
+      {/* کپی‌رایت + نمایش ورژن */}
       <div className="my-3 text-center text-black dark:text-white">
         {findByUniqueId(mainData, 411)}&nbsp;|&nbsp;
         {findByUniqueId(mainData, 1411)}&nbsp;
-        <a className="text-light-primary dark:text-dark-yellow" href="https://web.irpsc.com/" target="_blank">
+        <a
+          className="text-light-primary dark:text-dark-yellow"
+          href="https://web.irpsc.com/"
+          target="_blank"
+        >
           {findByUniqueId(mainData, 1412)}&nbsp;
         </a>
         |&nbsp;
@@ -299,8 +282,9 @@ function Footer({ footerTabs, mainData }: any) {
           href="https://github.com/iranpsc/Metaverse-Rang-Front-NextJS"
           target="_blank"
         >
-          {findByUniqueId(mainData, 1453)}&nbsp;
+          {version}&nbsp;
         </a>
+
       </div>
     </div>
   );

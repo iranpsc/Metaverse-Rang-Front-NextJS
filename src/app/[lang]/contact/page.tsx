@@ -260,10 +260,10 @@ export default async function AboutPage({ params }: any) {
                     </div>
                   </div>
                 </div>
-                <div className="w-full h-[1px] bg-dark-newColors-shades-100 mt-[38px] mb-[28px]"></div>
+                {/* <div className="w-full h-[1px] bg-dark-newColors-shades-100 mt-[38px] mb-[28px]"></div>
                 <div className="flex justify-center gap-[5px]">
-                  <Social />
-                </div>
+
+                </div> */}
               </main>
             </div>
           </section>
