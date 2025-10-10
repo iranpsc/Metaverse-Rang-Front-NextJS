@@ -19,7 +19,7 @@ export default function SearchComponent({
   const theme = cookies.theme || "dark";
 
   useEffect(() => {
-    if (searchTerm.length >= 4) {
+    if (searchTerm.length >= 3) {
       setLoadingSearch(true);
       const formData = new FormData();
       formData.append("searchTerm", searchTerm);

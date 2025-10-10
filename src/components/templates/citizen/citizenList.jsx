@@ -87,7 +87,7 @@ export default function CitizenList({
             title={isDisabled ? "صفحه آخر" : ""}
             className={`${
               isDisabled ? "cursor-not-allowed" : ""
-            } bg-transparent text-black dark:text-dark-yellow rounded-[10px] px-[40px] py-[20px] base-transition-1 border-2 border-transparent hover:border-black hover:dark:border-dark-yellow`}
+            }bg-white dark:bg-darkGray text-light-primary md:text-lg dark:text-dark-yellow rounded-[12px] px-[40px] py-[16px] base-transition-1 border-2 border-transparent hover:border-light-primary hover:text-light-primary hover:dark:border-dark-yellow`}
             onClick={handleLoadMore}
           >
             {params.lang == "fa" ? "مشاهده بیشتر" : "View More"}

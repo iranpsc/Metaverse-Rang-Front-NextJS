@@ -25,6 +25,7 @@ export { default as SendIcon } from "../../../public/svg/education/send-icon.svg
 export { default as Repeat } from "../../../public/svg/education/repeat.svg";
 export { default as MessageRepeat } from "../../../public/svg/education/message-report.svg";
 export { default as Trash } from "../../../public/svg/education/trash.svg";
+export { default as Folder } from "../../../public/svg/education/folderCat.svg";
 
 export { default as ArrowLeftEdu } from "../../../public/svg/education/arrow-left.svg";
 export { default as ArrowRightEdu } from "../../../public/svg/education/arrow-right.svg";
