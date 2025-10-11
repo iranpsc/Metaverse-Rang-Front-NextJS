@@ -107,7 +107,7 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
     </div>
 
         <Link
-          className="min-h-[30px] uppercase text-blueLink accumulating font-azarMehr text-[16px] cursor-pointer"
+          className="min-h-[30px] uppercase text-blueLink dark:text-blue-500 accumulating font-azarMehr text-[16px] cursor-pointer"
           href={`/${params.lang}/citizens/${item.code}`}
           title={`Go to citizen ${item.code}`}
           aria-label={`Go to citizen ${item.code}`}

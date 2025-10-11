@@ -77,7 +77,7 @@ export default function SideBarContent({
               {item.menuItem === true && (
                 <li onClick={() => onTabClick(item, i)}>
                   <Tooltip
-                    title={item.translation}
+                   
                     arrow
                     placement={
                       langData.direction === "rtl" ? "left-end" : "right-end"

@@ -75,7 +75,7 @@ export default function ListData({ nameComponent, data, params }: any) {
               <div className="group w-full relative px-4 pt-4 overflow-hidden ">
                 <div className="relative w-full h-[250px]">
                   <Image
-                    src={item.image}
+                    src={item.image || "/rafiki-dark.png"}
                     alt={"pic" + item.name}
                     fill
                     className="object-cover rounded-[8px] brightness-75 transition-all duration-150 ease-in-out"

@@ -14,14 +14,7 @@ const TopCitizen = async ({ mainData, params }: any) => {
         <p className="font-azarMehr font-medium text-[16px] md:text-[20px] lg:text-[28px] xl:text-[32px] dark:text-white ">
           {findByUniqueId(mainData, 493)} {/* عنوان شهروندان برتر */}
         </p>
-        <Link href={`/${params.lang}/citizens`}>
-          <div className="flex justify-center items-center gap-4">
-            {/* <p className="font-azarMehr font-medium text-[12px] md:text-[16px] lg:text-[18px] xl:text-[20px] dark:text-white">
-              {findByUniqueId(mainData, 171)} 
-            </p> */}
-            {/* <ArrowRight className="dark:stroke-white stroke-black rotate-180 w-[24px] h-full" /> */}
-          </div>
-        </Link>
+
       </div>
       <div className="w-full relative flex flex-row sm:no-scrollbar1 lg:show-scrollbar1 dark:dark-scrollbar light-scrollbar overflow-x-auto  pb-10 ">
         {topFourCitizens.map((item: any, index: any) => (
