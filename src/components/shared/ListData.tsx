@@ -31,14 +31,10 @@ export default function ListData({ nameComponent, data, params }: any) {
       const newTruncated: number[] = [];
       titleRefs.current.forEach((el, i) => {
         if (el && el.scrollWidth > el.clientWidth) {
-          // فاصله اسکرول رو حساب کن
           const shift = el.scrollWidth - el.clientWidth;
           el.style.setProperty("--marquee-shift", `${shift}px`);
-
-          // مدت زمان رو هم نسبی بذاریم (مثلاً هر 50px = 1 ثانیه)
           const duration = Math.max(5, Math.floor(shift / 50));
           el.style.setProperty("--marquee-duration", `${duration}s`);
-
           newTruncated.push(i);
         }
       });
@@ -51,6 +47,17 @@ export default function ListData({ nameComponent, data, params }: any) {
 
     return () => observer.disconnect();
   }, [data]);
+
+  // تابع امن برای URL تصویر
+  const safeImage = (url: string | undefined) => {
+    if (!url) return "/rafiki-dark.png"; // fallback
+    try {
+      const parsed = new URL(url);
+      return parsed.href;
+    } catch {
+      return "/rafiki-dark.png"; // اگر URL نامعتبر بود
+    }
+  };
 
   return (
     <>
@@ -75,14 +82,20 @@ export default function ListData({ nameComponent, data, params }: any) {
               <div className="group w-full relative px-4 pt-4 overflow-hidden ">
                 <div className="relative w-full h-[250px]">
                   <Image
-                    src={item.image || "/rafiki-dark.png"}
-                    alt={"pic" + item.name}
+                    src={safeImage(item.image)}
+                    alt={"pic " + item.name}
                     fill
                     className="object-cover rounded-[8px] brightness-75 transition-all duration-150 ease-in-out"
                     style={{ backgroundColor: colors[index] }}
                     {...(index === 0
                       ? { priority: true, fetchPriority: "high" }
                       : { loading: "lazy" })}
+                    placeholder="blur"
+                    blurDataURL="/rafiki-dark.png"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.src = "/rafiki-dark.png";
+                    }}
                   />
                 </div>
               </div>
@@ -90,13 +103,13 @@ export default function ListData({ nameComponent, data, params }: any) {
               {/* متن با انیمیشن */}
               <div className="w-full overflow-x-hidden pt-3">
                 <p
-                ref={(el) => (titleRefs.current[index] = el)}
-                className={`text-center w-full font-azarMehr truncate cursor-pointer font-bold text-[16px] 2xl:text-xl dark:text-white text-black px-5 whitespace-nowrap ${
-                  isTruncated ? "hover:overflow-visible hover:animate-rtlMarquee" : ""
-                }`}
-              >
-                {item.name}
-              </p>
+                  ref={(el) => (titleRefs.current[index] = el)}
+                  className={`text-center w-full font-azarMehr truncate cursor-pointer font-bold text-[16px] 2xl:text-xl dark:text-white text-black px-5 whitespace-nowrap ${
+                    isTruncated ? "hover:overflow-visible hover:animate-rtlMarquee" : ""
+                  }`}
+                >
+                  {item.name}
+                </p>
               </div>
 
               {/* توضیحات */}
