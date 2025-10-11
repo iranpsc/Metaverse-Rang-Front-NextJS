@@ -166,8 +166,8 @@ export default async function LevelSinglePage({ params }) {
 
         <div className="grid-container gap-x-7 bg-white dark:bg-[#080807] rounded-[20px] p-5 3xl:p-[30px] relative">
           <div className="self-start md:order-none w-full md:min-w-[65vw] xl:min-w-[65vw] flex items-center justify-between font-bold pt-[3px] pb-5 dark:text-white text-lg sm:text-xl lg:text-2xl 2xl:text-3xl 3xl:text-4xl">
-            <h1 className="text-[36px]">{pageTitle}</h1>
-            <button className="w-max py-3 px-5 text-[14px] dark:bg-bgLightGrey2 bg-bgLightGrey dark:text-white font-bold text-textGray rounded-[12px]">
+            <h1 className="text-2xl md:text-[36px]">{pageTitle}</h1>
+            <button className="w-max py-[5px] md:py-3 px-5 text-[14px] dark:bg-bgLightGrey2 bg-bgLightGrey dark:text-white font-bold text-textGray rounded-[12px]">
               {findByUniqueId(mainData, 392)}
             </button>
           </div>

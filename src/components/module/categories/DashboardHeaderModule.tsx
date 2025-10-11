@@ -12,7 +12,7 @@ const Description = ({ shortText, fullText }: { shortText: string; fullText: str
   if (!shortText) return null; // قبل از Hydration، هیچ چیزی رندر نمی‌کنیم
 
   return (
-    <p className="w-full font-azarMehr font-normal text-[16px] text-justify dark:text-white !inline">
+    <p className="w-full font-azarMehr font-normal text-[16px] text-justify dark:text-[#84858F] !inline">
       {!expanded ? (
         <>
           <span className="!inline  [&>p]:inline ![&>p>ol>li]:inline" dangerouslySetInnerHTML={{ __html: shortText }} />
@@ -60,7 +60,7 @@ export const DashboardHeaderModule = ({ categoryData, mainData }: any) => {
       />
 
       {/* آمار */}
-      <div className="w-full grid grid-cols-3 gap-y-10 md:grid-cols-7 justify-between lg:justify-start  lg:gap-10 items-center">
+      <div className="w-full grid grid-cols-3 gap-y-10 lg:grid-cols-7 justify-between lg:justify-start  lg:gap-10 items-center">
         {categoryData.videos_count !== undefined && categoryData.videos_count !== null &&(
           <div className="flex flex-col gap-1 md:gap-2 w-max">
             <div className="flex flex-row items-center justify-start gap-1 md:gap-3">

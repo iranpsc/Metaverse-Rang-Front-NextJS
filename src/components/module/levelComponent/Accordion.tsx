@@ -34,12 +34,12 @@ export default function Accordion({
         />
       </div>
 
-      <div
+      <div dir="rtl"
         className={`transition-all flex flex-col gap-6 duration-300 text-textGray dark:text-lightGray text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] [&_ul]:list-disc [&_ul]:pl-5
          [&_ol]:list-decimal [&_ol]:pl-5
-         [&_li>p]:inline [&_li>p]:m-0${
+         [&_li>p]:inline [&_li>p]:m-0 ${
           open
-            ? "font-[400] max-h-[10000px] opacity-1  pb-5"
+            ? "font-[400]  opacity-1  pb-5"
             : "max-h-0 overflow-hidden opacity-0"
         }`}
         dangerouslySetInnerHTML={{ __html: value }}
