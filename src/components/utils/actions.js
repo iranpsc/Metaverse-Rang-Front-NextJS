@@ -155,17 +155,39 @@ export async function getLevelTabs(params, levelId) {
 }
 
 
-  export async function getAllVersions(){
+  // export async function getAllVersions(){
+  //   const res = await fetch(`https://api.rgb.irpsc.com/api/calendar?type=version`, {
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       "Cache-Control": "public, max-age=3600", 
+  //     },
+  //   });
+    
+  //   let temp = await res.json()
+  //   return temp.data;
+  // }
+
+export async function getAllVersions() {
+  try {
     const res = await fetch(`https://api.rgb.irpsc.com/api/calendar?type=version`, {
       headers: {
         "Content-Type": "application/json",
-        "Cache-Control": "public, max-age=3600", 
+        "Cache-Control": "public, max-age=3600",
       },
     });
-    
-    let temp = await res.json()
-    return temp.data;
+
+    if (!res.ok) {
+      console.error("Error fetching versions:", res.statusText);
+      return []; // داده‌ای برگشت داده نشد
+    }
+
+    const temp = await res.json();
+    return temp.data || []; // اگر data خالی یا undefined بود، آرایه خالی برگردان
+  } catch (error) {
+    console.error("Error fetching versions:", error);
+    return []; // در صورت خطا، آرایه خالی برگردان
   }
+}
 
 export async function getSingleLevel(levelId) {
   const res = await fetch(`https://api.rgb.irpsc.com/api/levels/${levelId}`, {
