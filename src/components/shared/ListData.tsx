@@ -1,10 +1,50 @@
 import { useEffect, useRef, useState } from "react";
 import randomcolor from "randomcolor";
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
 
 import { Videos, Like, Dislike, View } from "@/components/svgs/SvgEducation";
 import { formatNumber } from "@/components/utils/education";
+
+// SafeImage با Optimization + Skeleton + Fallback
+function SafeImage({
+  src,
+  alt,
+  className,
+  fallback = "/rafiki-dark.png", // تصویر fallback
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+  fallback?: string;
+}) {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [isError, setIsError] = useState(false);
+
+  return (
+    <div className="relative w-full h-full rounded-[8px] overflow-hidden">
+      {/* Skeleton / Pulse */}
+      {!isLoaded && !isError && (
+        <div className="absolute inset-0 bg-gray-300 animate-pulse" />
+      )}
+
+      {!isError ? (
+        <Image
+          src={src || fallback}
+          alt={alt}
+          fill
+          className={`${className} ${!isLoaded ? "opacity-0" : "opacity-100"} transition-opacity duration-300`}
+          onLoadingComplete={() => setIsLoaded(true)}
+          onError={() => setIsError(true)}
+        />
+      ) : (
+        <div className="absolute inset-0 bg-gray-400">
+          <Image src={fallback} alt="fallback" fill className="object-cover" />
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function ListData({ nameComponent, data, params }: any) {
   const [colors, setColors] = useState<string[]>([]);
@@ -48,14 +88,13 @@ export default function ListData({ nameComponent, data, params }: any) {
     return () => observer.disconnect();
   }, [data]);
 
-  // تابع امن برای URL تصویر
   const safeImage = (url: string | undefined) => {
-    if (!url) return "/rafiki-dark.png"; // fallback
+    if (!url) return "";
     try {
       const parsed = new URL(url);
       return parsed.href;
     } catch {
-      return "/rafiki-dark.png"; // اگر URL نامعتبر بود
+      return "";
     }
   };
 
@@ -81,21 +120,10 @@ export default function ListData({ nameComponent, data, params }: any) {
               {/* تصویر */}
               <div className="group w-full relative px-4 pt-4 overflow-hidden ">
                 <div className="relative w-full h-[250px]">
-                  <Image
+                  <SafeImage
                     src={safeImage(item.image)}
                     alt={"pic " + item.name}
-                    fill
-                    className="object-cover rounded-[8px] brightness-75 transition-all duration-150 ease-in-out"
-                    style={{ backgroundColor: colors[index] }}
-                    {...(index === 0
-                      ? { priority: true, fetchPriority: "high" }
-                      : { loading: "lazy" })}
-                    placeholder="blur"
-                    blurDataURL="/rafiki-dark.png"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.src = "/rafiki-dark.png";
-                    }}
+                    className="object-cover brightness-75"
                   />
                 </div>
               </div>
@@ -105,7 +133,9 @@ export default function ListData({ nameComponent, data, params }: any) {
                 <p
                   ref={(el) => (titleRefs.current[index] = el)}
                   className={`text-center w-full font-azarMehr truncate cursor-pointer font-bold text-[16px] 2xl:text-xl dark:text-white text-black px-5 whitespace-nowrap ${
-                    isTruncated ? "hover:overflow-visible hover:animate-rtlMarquee" : ""
+                    isTruncated
+                      ? "hover:overflow-visible hover:animate-rtlMarquee"
+                      : ""
                   }`}
                 >
                   {item.name}

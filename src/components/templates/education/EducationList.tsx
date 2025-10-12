@@ -112,6 +112,9 @@ export default function EducationList({ mainData, params }: any) {
 
   return (
     <div className="w-[95%] xs:w-[90%] h-fit mt-24 flex flex-col justify-center items-center mx-auto">
+        <p className="font-azarMehr text-[16px] md:text-[20px] lg:text-[28px] mt-2 mb-7 text-gray dark:text-dark-gray  text-start w-full font-bold">
+          {findByUniqueId(mainData, 1462)}
+        </p>
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-10">
         {videoToShow.map((item: any) => (
           <VideoCard key={item.id} item={item} params={params} theme={theme} />
