@@ -111,7 +111,7 @@ const DescriptionBox: React.FC<DescriptionBoxProps> = ({
         className="versionHistoryInfo  flex-row flex  leading-[37px] transition-[max-height] duration-300 ease-in-out text-[90%] w-full pb-[20px] h-auto bg-transparent text-[#C4C4C4] lg:text-[#908986] lg:overflow-auto lg:h-full"
       >
         <div
-          className="justify-between  px-3 ltr lg:px-[30px] "
+          className="justify-between  px-3 ltr break-all lg:px-[30px] "
           dangerouslySetInnerHTML={{
             __html: selectedVersion.description || "",
           }}

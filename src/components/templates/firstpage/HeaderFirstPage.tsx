@@ -29,7 +29,7 @@ export default function HeaderFirstPage({ mainData, params }: any) {
           initial={{ opacity: 0, x: 100 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.3, delay: 0.5 }}
-          className="w-full text-white text-[16px] sm:text-[18px] md:text-[24px] 2xl:text-[36px] 3xl:text-[40px] text-start font-bold font-azarMehr"
+          className="w-full text-white text-[16px] sm:text-[18px] md:text-[24px] 2xl:text-[36px]  text-start font-bold font-azarMehr"
         >
           {/* {localFind("integration of ideas and creativity")} */}
           {findByUniqueId(mainData, 481)}
@@ -39,7 +39,7 @@ export default function HeaderFirstPage({ mainData, params }: any) {
           initial={{ opacity: 0, y: -100 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="w-full text-justify text-white font-azarMehr font-medium text-[14px] md:text-[16px] 2xl:text-[22px]"
+          className="w-full text-justify text-white font-azarMehr font-medium text-[14px] md:text-[16px] 2xl:text-[20px]"
         >
           {/* {localFind("metaverse rang is a metaverse world platform")} */}
           {findByUniqueId(mainData, 482)}

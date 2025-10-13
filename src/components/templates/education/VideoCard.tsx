@@ -46,28 +46,30 @@ export default function VideoCard({ item, params, theme }: any) {
 
   return (
     <div className="w-[100%] min-h-[240px] shadow-md hover:shadow-xl hover:dark:shadow-dark rounded-[10px] overflow-hidden bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-6 items-center">
-      <div className="group w-full  rounded-t-[10px] relative">
-        <Image
-          src={item.image_url}
-          alt={item.title}
-          width={906}   // سایز واقعی تصویر
-          height={675}
-          priority
-          quality={70}   // فشرده‌سازی
-          sizes="(max-width: 640px) 320px, (max-width: 1024px) 473px,"
-          className="w-[100%] h-auto object-cover rounded-t-[10px]"
-        />
+      <div className="group w-full  h-[260px] overflow-hidden px-4 pt-4 ">
+        <div className=" relative h-full w-full ">
+          <Image
+            src={item.image_url}
+            alt={item.title}
+            width={400}   // سایز واقعی تصویر
+            height={260}
+            priority
+            quality={70}   // فشرده‌سازی
+            sizes="(max-width: 640px) 320px, (max-width: 1024px) 473px,"
+            className="w-[100%] h-full object-cover rounded-[10px]"
+          />
 
-        <div className="w-full h-full   absolute top-0 z-0 flex justify-center items-center">
-          <Link
-            className="w-fit hover:scale-105 duration-100"
-            href={`/${params.lang}/education/category/${item.category.slug}/${item.sub_category.slug}/${item.slug}`}
-          >
-            <svg width="78" height="78" viewBox="0 0 78 78" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect className="fill-white/80 dark:fill-black/70" width="78" height="78" rx="39" fillOpacity="0.51" />
-              <path className="fill-white " d="M54 34.3039C58 36.6133 58 42.3868 54 44.6962L35.25 55.5215C31.25 57.8309 26.25 54.9441 26.25 50.3253V28.6747C26.25 24.0559 31.25 21.1691 35.25 23.4785L54 34.3039Z" />
-            </svg>
-          </Link>
+          <div className="w-full h-full   absolute top-0 z-0 flex justify-center items-center">
+            <Link
+              className="w-fit hover:scale-105 duration-100"
+              href={`/${params.lang}/education/category/${item.category.slug}/${item.sub_category.slug}/${item.slug}`}
+            >
+              <svg width="78" height="78" viewBox="0 0 78 78" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect className="fill-white/80 dark:fill-black/70" width="78" height="78" rx="39" fillOpacity="0.51" />
+                <path className="fill-white " d="M54 34.3039C58 36.6133 58 42.3868 54 44.6962L35.25 55.5215C31.25 57.8309 26.25 54.9441 26.25 50.3253V28.6747C26.25 24.0559 31.25 21.1691 35.25 23.4785L54 34.3039Z" />
+              </svg>
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -136,20 +138,22 @@ export default function VideoCard({ item, params, theme }: any) {
             </span>
           </div>
         </Link>
-        <div className="flex flex-row justify-start items-center gap-5">
+        <div className="flex flex-row justify-start items-center gap-3 md:gap-5">
           <div className="flex items-center gap-[5px]">
             <span className="font-azarMehr text-gray dark:text-dark-gray text-[13px] 3xl:text-[18px]">
               {formatNumber(item.likes_count)}
             </span>
             <Like className="stroke-gray dark:stroke-dark-gray stroke-2 w-[18px] h-[18px]" />
           </div>
+          <hr className="h-[28px] border-l-0 border-y-0 border-solid border-[#D9D9D9] dark:border-[#434343]" />
           <div className="flex items-center gap-[5px]">
+
             <span className="font-azarMehr text-gray dark:text-dark-gray text-[13px] 3xl:text-[18px]">
               {formatNumber(item.dislikes_count)}
             </span>
             <Dislike className="stroke-gray dark:stroke-dark-gray stroke-2" />
           </div>
-
+          <hr className="h-[28px] border-l-0 border-y-0 border-solid border-[#D9D9D9] dark:border-[#434343]" />
           <div className="flex items-center gap-[5px]">
             <span className="font-azarMehr text-gray dark:text-dark-gray text-[13px] 3xl:text-[18px]">
               {formatNumber(item.views_count)}

@@ -26,39 +26,64 @@ const VersionSection = ({ firstPageArrayContent = [] }: VersionSectionProps) => 
     return firstPageArrayContent.find((item) => item.name === _name)?.translation || "";
   }
 
-  // گرفتن 4 ورژن آخر از API
-  useEffect(() => {
-    const fetchVersions = async () => {
-      try {
-        const response = await fetch(
-          "https://api.rgb.irpsc.com/api/calendar?type=version&page=1",
-          { method: "GET", cache: "no-store" }
-        );
+  // تابع پارس ورژن را به سطح کامپوننت منتقل کنید
+  const parseVersion = (version: string): number[] => {
+    return version.replace(/v/gi, "").trim().split(".").map(Number);
+  };
 
-        const data = await response.json();
-        const versions: VersionItem[] = data.data || [];
+useEffect(() => {
+  const fetchVersions = async () => {
+    try {
+      const response = await fetch(
+        "https://api.rgb.irpsc.com/api/calendar?type=version",
+        { method: "GET", cache: "no-store" }
+      );
 
-        if (versions.length === 0) {
-          setErrorMessage("هیچ نسخه‌ای یافت نشد.");
-          setAllVersionList([]);
-          setSingleData(null);
-          setActiveTabId(null);
-          return;
-        }
+      const data = await response.json();
+      const versions: VersionItem[] = data.data || [];
 
-        const latestVersions = versions.slice(-4).reverse(); // 4 ورژن آخر
-        setAllVersionList(latestVersions);
-        setActiveTabId(latestVersions[0].id);
-        setSingleData(latestVersions[0]);
-        setErrorMessage(""); // پیام خطا پاک شود
-      } catch (error) {
-        console.error("Error fetching versions:", error);
-        setErrorMessage("خطا در دریافت اطلاعات. لطفا بعدا تلاش کنید.");
+      if (versions.length === 0) {
+        setErrorMessage("هیچ نسخه‌ای یافت نشد.");
+        setAllVersionList([]);
+        setSingleData(null);
+        setActiveTabId(null);
+        return;
       }
-    };
 
-    fetchVersions();
-  }, []);
+      // مرتب‌سازی نزولی (جدیدترین → قدیمی‌تر)
+      const sortedVersions = versions.sort((a, b) => {
+        const va = parseVersion(a.version_title);
+        const vb = parseVersion(b.version_title);
+
+        for (let i = 0; i < Math.max(va.length, vb.length); i++) {
+          const na = va[i] || 0;
+          const nb = vb[i] || 0;
+          if (na !== nb) return nb - na; // بزرگتر یعنی جدیدتر
+        }
+        return 0;
+      });
+
+      // گرفتن ۴ تای اول (چون نزولی مرتب کردیم، اولین‌ها جدیدترینن)
+      const latestVersions = sortedVersions.slice(0, 4);
+
+      // جدیدترین اولین عنصره
+      const newest = latestVersions[0];
+
+      setAllVersionList(latestVersions);
+      setActiveTabId(newest.id);
+      setSingleData(newest);
+      setErrorMessage("");
+    } catch (error) {
+      console.error("Error fetching versions:", error);
+      setErrorMessage("خطا در دریافت اطلاعات. لطفا بعدا تلاش کنید.");
+    }
+  };
+
+  fetchVersions();
+}, []);
+
+
+
 
   // تغییر تب و لود داده مربوط به آن
   const handleTabClick = (id: number) => {

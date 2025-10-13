@@ -1,103 +1,99 @@
-
 "use client";
-
-import { azarMehr } from "@/components/utils/fonts";
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import moment from "moment-jalaali";
 
 interface DynamicTimerProps {
-  daysLabel: string;
-  hoursLabel: string;
-  minutesLabel: string;
-  secondsLabel: string;
+  targetDate: string; // تاریخ شروع (jalali string)
+  endDate?: string;   // تاریخ پایان (jalali string)
+  daysLabel?: string;
+  hoursLabel?: string;
+  minutesLabel?: string;
+  secondsLabel?: string;
 }
 
-export default function DynamicTimer({ daysLabel, hoursLabel, minutesLabel, secondsLabel }: DynamicTimerProps) {
-  const [timeRemaining, setTimeRemaining] = useState(calculateTimeRemaining());
+function parseJalaliDatetime(jalaliStr: string): Date {
+  return moment(jalaliStr, "jYYYY/jMM/jDD HH:mm").toDate();
+}
 
-  function calculateTimeRemaining() {
-    const now: any = new Date();
-    const targetDate: any = new Date("2024-08-19T01:31:22");
-    const difference = targetDate - now;
+function getTimeRemaining(target: Date) {
+  const now = new Date().getTime();
+  const diff = target.getTime() - now;
 
-    if (difference <= 0) {
-      return { days: 0, hours: 0, minutes: 0, seconds: 0 };
-    }
-
-    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((difference / 1000 / 60) % 60);
-    const seconds = Math.floor((difference / 1000) % 60);
-
-    return { days, hours, minutes, seconds };
+  if (diff <= 0) {
+    return { total: 0, days: 0, hours: 0, minutes: 0, seconds: 0 };
   }
 
+  const totalSeconds = Math.floor(diff / 1000);
+  const days = Math.floor(totalSeconds / (3600 * 24));
+  const hours = Math.floor((totalSeconds % (3600 * 24)) / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  return { total: diff, days, hours, minutes, seconds };
+}
+
+const DynamicTimer: React.FC<DynamicTimerProps> = ({
+  targetDate,
+  endDate,
+  daysLabel = "Days",
+  hoursLabel = "Hours",
+  minutesLabel = "Minutes",
+  secondsLabel = "Seconds",
+}) => {
+  const [timeToStart, setTimeToStart] = useState(getTimeRemaining(parseJalaliDatetime(targetDate)));
+  const [timeToEnd, setTimeToEnd] = useState(endDate ? getTimeRemaining(parseJalaliDatetime(endDate)) : null);
+  const [status, setStatus] = useState<"upcoming" | "ongoing" | "ended">("upcoming");
+
   useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeRemaining(calculateTimeRemaining());
+    const interval = setInterval(() => {
+      const start = parseJalaliDatetime(targetDate);
+      const now = new Date();
+
+      if (now < start) {
+        setStatus("upcoming");
+        setTimeToStart(getTimeRemaining(start));
+      } else if (endDate && now < parseJalaliDatetime(endDate)) {
+        setStatus("ongoing");
+        setTimeToEnd(getTimeRemaining(parseJalaliDatetime(endDate)));
+      } else {
+        setStatus("ended");
+      }
     }, 1000);
 
-    return () => clearInterval(timer);
-  }, []);
+    return () => clearInterval(interval);
+  }, [targetDate, endDate]);
+
+  if (status === "ended") {
+    return (
+      <div className="text-center text-2xl  text-light-primary dark:text-dark-yellow font-bold">
+        تاریخ پایان : {endDate?.split(" ")[0]}
+      </div>
+    );
+  }
+
+  const time = status === "upcoming" ? timeToStart : timeToEnd;
 
   return (
-    <div
-      className="w-full flex flex-row justify-between lg:justify-center items-center gap-1 z-50"
-      dir="ltr"
-    >
-      <div className="flex flex-col justify-center items-center relative min-w-[25%]">
-        <span className="flex items-center text-[28px] lg:text-[38px] xl:text-[42px] 2xl:text-[48px] text-light-primary dark:text-dark-yellow text-azarMehr">
-          <span className="font-bold">
-            {timeRemaining.days.toString().padStart(2, "0")}
-          </span>
-          <span className="font-bold lg:ps-1 absolute right-[-5px]">
-            {" : "}
-          </span>
-        </span>
-
-        <span className="text-[16px] text-light-primary dark:text-dark-yellow text-azarMehr font-bold text-center w-full pe-0">
-          {daysLabel}
-        </span>
+    <div className="flex gap-3 justify-center items-center">
+      <div>
+        <div className="text-2xl 2xl:text-3xl 3xl:text-4xl font-bold text-light-primary dark:text-dark-yellow">{time?.seconds.toString().padStart(2, "0")}&nbsp;:</div>
+        <div className="text-light-primary dark:text-dark-yellow">{secondsLabel}</div>
+      </div>
+      <div>
+        <div className="text-2xl 2xl:text-3xl 3xl:text-4xl font-bold text-light-primary dark:text-dark-yellow">{time?.minutes.toString().padStart(2, "0")}&nbsp;: </div>
+        <div className="text-light-primary dark:text-dark-yellow">{minutesLabel}</div>
+      </div>
+      <div >
+        <div className="text-2xl 2xl:text-3xl 3xl:text-4xl font-bold text-light-primary dark:text-dark-yellow">{time?.hours.toString().padStart(2, "0")}&nbsp;: </div>
+        <div className="text-light-primary dark:text-dark-yellow">{hoursLabel}</div>
+      </div>
+      <div className="text-center flex flex-col justify-center">
+        <div className="text-2xl 2xl:text-3xl 3xl:text-4xl font-bold text-light-primary dark:text-dark-yellow">{time?.days.toString().padStart(2, "0")} </div>
+        <div className="text-light-primary dark:text-dark-yellow">{daysLabel}</div>
       </div>
 
-      <div className="flex flex-col justify-center items-center relative min-w-[25%]">
-        <span className="flex items-center text-[28px] lg:text-[38px] xl:text-[42px] 2xl:text-[48px] text-light-primary dark:text-dark-yellow text-azarMehr">
-          <span className="font-bold">
-            {timeRemaining.hours.toString().padStart(2, "0")}
-          </span>
-          <span className="font-bold lg:ps-1 absolute right-[-5px]">
-            {" : "}
-          </span>
-        </span>
-        <span className="text-[16px] text-light-primary dark:text-dark-yellow text-azarMehr font-bold text-center w-full pe-0">
-          {hoursLabel}
-        </span>
-      </div>
-
-      <div className="flex flex-col justify-center items-center relative min-w-[25%]">
-        <span className="flex items-center text-[28px] lg:text-[38px] xl:text-[42px] 2xl:text-[48px] text-light-primary dark:text-dark-yellow text-azarMehr">
-          <span className="font-bold">
-            {timeRemaining.minutes.toString().padStart(2, "0")}
-          </span>
-          <span className="font-bold lg:ps-1 absolute right-[-5px]">
-            {" : "}
-          </span>
-        </span>
-        <span className="text-[16px] text-light-primary dark:text-dark-yellow text-azarMehr font-bold text-center text-center w-full pe-0">
-          {minutesLabel}
-        </span>
-      </div>
-
-      <div className="flex flex-col justify-center items-center relative min-w-[25%]">
-        <span className="flex items-center text-[28px] lg:text-[38px] xl:text-[42px] 2xl:text-[48px] text-light-primary dark:text-dark-yellow text-azarMehr">
-          <span className="font-bold">
-            {timeRemaining.seconds.toString().padStart(2, "0")}
-          </span>
-        </span>
-
-        <span className="text-[16px] text-light-primary dark:text-dark-yellow text-azarMehr font-bold text-center w-full pe-0">
-          {secondsLabel}
-        </span>
-      </div>
     </div>
   );
-}
+};
+
+export default DynamicTimer;

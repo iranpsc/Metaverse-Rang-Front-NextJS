@@ -3,178 +3,145 @@ import React, { useEffect, useRef, useState } from "react";
 import { ArrowRight } from "@/components/svgs";
 import Image from "next/image";
 import DynamicTimer from "./DynamicTimer";
+import { mapEvents, MappedEventItem } from "@/utils/mapEvents";
 
-// Define type for params
 interface Params {
-  lang: "fa" | "en"; // Restrict lang to fa or en
-}
-
-// Define types for text content
-interface TextContent {
-  title: { fa: string; en: string };
-  description: { fa: string; en: string };
-  prePurchase: { fa: string; en: string };
-  viewObject: { fa: string; en: string };
-  days: { fa: string; en: string };
-  hours: { fa: string; en: string };
-  minutes: { fa: string; en: string };
-  seconds: { fa: string; en: string };
+  lang: "fa" | "en";
 }
 
 const SectionTimer = ({ params }: { params: Params }) => {
+  const sectionRef = useRef<HTMLDivElement | null>(null);
   const [isInView, setInView] = useState(false);
-  const sectionRef = useRef(null);
+  const [events, setEvents] = useState<MappedEventItem[]>([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const content: TextContent = {
-    title: {
-      fa: "اهدای 963 قطعه زمین(VOD) رایگان",
-      en: "Donation of 963 Free VOD Land Plots",
-    },
-    description: {
-      fa: "اهدای 963 قطعه زمین(VOD) رایگان به ارزش 50,371,200,000 ریال برای آزادسازی جزیره آریایی در اولین متاورس ایران متاورس رنگ",
-      en: "Donation of 963 free VOD land plots worth 50,371,200,000 Rials for the liberation of Ariana Island in Iran's first metaverse, Rang Metaverse",
-    },
-    prePurchase: {
-      fa: "پیش خرید",
-      en: "Pre-Purchase",
-    },
-    viewObject: {
-      fa: "مشاهده آبجکت",
-      en: "View Object",
-    },
-    days: {
-      fa: "روز",
-      en: "Days",
-    },
-    hours: {
-      fa: "ساعت",
-      en: "Hours",
-    },
-    minutes: {
-      fa: "دقیقه",
-      en: "Minutes",
-    },
-    seconds: {
-      fa: "ثانیه",
-      en: "Seconds",
-    },
-  };
+  // گرفتن دیتا از API
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const res = await fetch("https://api.rgb.irpsc.com/api/calendar?type=event");
+        const json = await res.json();
+        let allEvents: MappedEventItem[] = mapEvents(json.data);
 
+        // مرتب‌سازی بر اساس تاریخ شروع: جدیدترین‌ها اول
+        allEvents.sort((a, b) => {
+          const dateA = new Date(a.start).getTime();
+          const dateB = new Date(b.start).getTime();
+          return dateB - dateA;
+        });
+
+        // گرفتن 4 ایونت اول
+        const lastFour = allEvents.slice(0, 4);
+        setEvents(lastFour);
+      } catch (err) {
+        console.error("Error fetching events:", err);
+      }
+    };
+
+    fetchEvents();
+  }, []);
+
+
+  // فعال کردن وقتی اسکرول بهش رسید
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        const entry = entries[0];
-        if (entry.isIntersecting) {
-          setInView(true);
-        }
+        if (entries[0].isIntersecting) setInView(true);
       },
-      {
-        rootMargin: "0px",
-        threshold: 0.01, // Trigger
-      }
+      { rootMargin: "0px", threshold: 0.01 }
     );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
+    if (sectionRef.current) observer.observe(sectionRef.current);
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
+      if (sectionRef.current) observer.unobserve(sectionRef.current);
     };
   }, []);
 
-  // If not in view, render a placeholder (or null to defer rendering entirely)
-  if (!isInView) {
-    return <div ref={sectionRef} style={{ minHeight: "500px" }} />;
-  }
+  if (!isInView) return <div ref={sectionRef} style={{ minHeight: "500px" }} />;
+
+  if (events.length === 0) return <div className="text-center p-10">در حال بارگذاری رویدادها...</div>;
+
+  const eventData = events[currentIndex];
+
+  const handleNext = () => setCurrentIndex((prev) => (prev + 1) % events.length);
+  const handlePrev = () => setCurrentIndex((prev) => (prev - 1 + events.length) % events.length);
 
   return (
     <div
       ref={sectionRef}
-      className="w-full h-full flex flex-wrap lg:flex-nowrap justify-evenly xl:gap-1 lg:gap-1 md:gap-5 sm:gap-5 xs:gap-5 items-center"
+      className="w-full h-full flex flex-wrap lg:flex-nowrap justify-evenly gap-5 items-center relative"
     >
-      <div className="bg-gra"> </div>
-      <div className="w-full h-[50px] flex lg:hidden justify-center items-center gap-10">
-        <div className="bg-light-primary dark:bg-dark-yellow rounded-full size-[50px] flex justify-center items-center">
-          <ArrowRight className={`stroke-white dark:stroke-[#1b1b1b] size-[24px] rotate-o ltr:rotate-180`} />
-        </div>
-        <div className="bg-light-primary dark:bg-dark-yellow rounded-full size-[50px] flex justify-center items-center">
-          <ArrowRight className={`stroke-white dark:stroke-[#1b1b1b] size-[24px] rotate-180 ltr:rotate-0`} />
-        </div>
+      {/* دکمه چپ */}
+      <div
+        onClick={handlePrev}
+        className="bg-light-primary dark:bg-dark-yellow rounded-full p-[10px] cursor-pointer hidden lg:flex justify-center items-center me-5"
+      >
+        <ArrowRight className="stroke-white dark:stroke-[#1b1b1b] size-[32px] rotate-0 ltr:rotate-180" />
       </div>
 
-      <div className="bg-light-primary dark:bg-dark-yellow rounded-full p-[10px] hidden lg:flex justify-center items-center me-5">
-        <ArrowRight className={`stroke-white dark:stroke-[#1b1b1b] size-[32px] rotate-o ltr:rotate-180`} />
-      </div>
-      <div className="flex flex-col lg:flex-row gap-5 px-4">
+      {/* باکس ایونت */}
+      <div className="flex flex-col lg:flex-row gap-5 px-4 w-full transition-all duration-500">
+        {/* عکس و توضیحات */}
         <div
-          className="h-[90%] lg:me-5 relative rounded-[50px] p-[1px] "
+          className="h-[320px] overflow-y-hidden lg:me-5 relative rounded-[50px] p-[1px] w-full lg:w-1/2 xl:w-2/3 3xl:w-3/4"
           style={{ background: "linear-gradient(-135deg, transparent, #9898a0 , transparent)" }}
         >
-          <div
-            className="h-full bg-[#DEDEE9] dark:bg-darkGray  rounded-[48px] p-7 flex flex-col lg:flex-row md:gap-0 sm:gap-5 gap-5 justify-center items-center"
-          >
-            <div className="absolute bg-white/10 z-0 size-[200px] top-[30px] end-[25%] blur-3xl filter"></div>
-            <div className="absolute bg-white/20 z-0 size-[150px] top-[10px] end-[85%] blur-3xl filter"></div>
-            <div className="absolute bg-white/15 z-0 size-[150px] top-[160px] end-[0%] blur-3xl filter"></div>
-            <div className="w-full h-full flex justify-center lg:max-w-[360px] max-h-[100%] rounded-[32px] border-none overflow-hidden">
+          <div className="h-full w-full bg-[#DEDEE9] dark:bg-darkGray rounded-[48px] p-7 flex flex-col lg:flex-row gap-5 justify-center items-center">
+            <div className="w-full h-full flex justify-center lg:max-w-[360px] max-h-[100%] rounded-[32px] overflow-hidden">
               <Image
                 className="w-fill h-full object-cover"
-                src="/firstpage/free.webp"
-                alt="header"
-                width={500}
-                height={357}
+                src={eventData.image || "/firstpage/free.webp"}
+                alt={eventData.title}
+                width={360}
+                height={300}
                 quality={75}
               />
             </div>
             <div className="w-full mt-4 lg:mt-0 text-justify flex flex-col justify-between h-full">
-              <h4 className={`text-start text-[23px] lg:text-xl 3xl:text-[32px] text-black dark:text-white font-azarMehr font-medium ms-5 ${params.lang === "en" ? "ltr:text-left" : ""}`}>
-                {content.title[params.lang]}
-              </h4>
-              <p className={`w-fit text-start text-lg 3xl:text-2xl text-lightGray font-azarMehr font-medium mt-5 lg:mt-10 ms-5 ${params.lang === "en" ? "ltr:text-left" : ""}`}>
-                {content.description[params.lang]}
+              <p className="text-start text-[23px] lg:text-xl 3xl:text-[30px] text-black dark:text-white font-azarMehr font-medium ms-5 leading-10">
+                {eventData.title}
               </p>
+              <p className="w-fit text-start text-lg 3xl:text-2xl text-lightGray font-azarMehr font-medium  ms-5 line-clamp-5" dangerouslySetInnerHTML={{ __html: eventData.desc }}/>
+
             </div>
           </div>
         </div>
-        {/* FIRST BOX */}
 
-
-        {/* SECOND BOX */}
-        <div className="h-[90%] w-full lg:w-[45%] rounded-[50px] p-[1px] relative dark:bg-gradient-to-tl dark:to-transparent dark:via-[#454545] dark:from-transparent"
-        >
-          <div
-            className=" p-[20px] h-full  rounded-[50px]
-        flex flex-col justify-around items-center relative bg-gradient-to-tl to-[#dfdfdf]  from-white  dark:to-[#343434] dark:via-darkGray dark:from-darkGray"
-          >
-            <div className="absolute bg-white/10 z-0 size-[150px] top-[-10px] end-[-20px] rounded-xl blur-3xl filter"></div>
-            <DynamicTimer 
-              daysLabel={content.days[params.lang]}
-              hoursLabel={content.hours[params.lang]}
-              minutesLabel={content.minutes[params.lang]}
-              secondsLabel={content.seconds[params.lang]}
+        {/* تایمر + دکمه‌ها */}
+        <div className="h-[320px] w-full lg:w-1/2 xl:w-1/3 3xl:w-1/4 rounded-[50px] p-[1px] relative dark:bg-gradient-to-tl">
+          <div className="p-[20px] h-full rounded-[50px] flex flex-col justify-around items-center relative bg-gradient-to-tl to-[#dfdfdf] from-white dark:to-[#343434] dark:via-darkGray dark:from-darkGray">
+            <DynamicTimer
+              daysLabel={params.lang === "fa" ? "روز" : "Days"}
+              hoursLabel={params.lang === "fa" ? "ساعت" : "Hours"}
+              minutesLabel={params.lang === "fa" ? "دقیقه" : "Minutes"}
+              secondsLabel={params.lang === "fa" ? "ثانیه" : "Seconds"}
+              targetDate={eventData.start} // تاریخ شروع جلالی
+              endDate={eventData.end}      // تاریخ پایان جلالی
             />
             <div className="w-full">
-              <p className="w-full rounded-[28px] py-3 z-50 text-center text-lg lg:text-[20px] text-white dark:text-black bg-light-primary dark:bg-dark-yellow font-azarMehr font-medium mt-5">
-                {content.prePurchase[params.lang]}
-              </p>
-              <p className="w-full rounded-[28px] py-3 mt-5 text-center text-lg lg:text-[20px] text-white bg-[#343434] font-azarMehr font-medium">
-                <a
-                  href="https://meta.irpsc.com/2024/07/19/ariana/"
-                  className="w-full h-full inline-block"
-                >
-                  {content.viewObject[params.lang]}
-                </a>
-              </p>
+              {eventData.btnName && (
+                <p className="w-full rounded-[28px] py-3 text-center lg:text-lg 3xl:text-[19px] text-white dark:text-black bg-light-primary dark:bg-dark-yellow font-azarMehr font-medium mt-5">
+                  {eventData.btnName}
+                </p>
+              )}
+              {eventData.link && (
+                <p className="w-full rounded-[28px] py-3 mt-5 text-center text-lg 3xl:text-[19px] text-white bg-[#343434] font-azarMehr font-medium">
+                  <a href={eventData.link} className="w-full h-full inline-block" target="_blank">
+                    {params.lang === "fa" ? "مشاهده جزئیات" : "View Details"}
+                  </a>
+
+                </p>
+              )}
             </div>
           </div>
         </div>
       </div>
 
-      <div className="bg-light-primary dark:bg-dark-yellow rounded-full p-[10px] flex justify-center items-center hidden lg:flex xs:hidden ms-5">
-        <ArrowRight className={`stroke-white dark:stroke-[#1b1b1b] size-[32px] rotate-180 ltr:rotate-0`} />
+      {/* دکمه راست */}
+      <div
+        onClick={handleNext}
+        className="bg-light-primary dark:bg-dark-yellow rounded-full p-[10px] cursor-pointer hidden lg:flex justify-center items-center ms-5"
+      >
+        <ArrowRight className="stroke-white dark:stroke-[#1b1b1b] size-[32px] rotate-180 ltr:rotate-0" />
       </div>
     </div>
   );

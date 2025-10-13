@@ -280,7 +280,7 @@ useEffect(() => {
                         <p className="description dark:text-white">
                         {findByUniqueId(mainData, 1444)}
                         </p>
-                        <div className="descriptionParagraph pb-2 text-[90%] text-[#414040] dark:text-[#C4C4C4]">
+                        <div className="descriptionParagraph pb-2   text-[90%] text-[#414040] dark:text-[#C4C4C4]">
                           <div
                             dangerouslySetInnerHTML={{
                               __html: item.description,

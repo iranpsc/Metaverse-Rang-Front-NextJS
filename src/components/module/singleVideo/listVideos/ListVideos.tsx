@@ -40,17 +40,19 @@ const VideoCard = memo(
     const videoUrl = `/${params.lang}/education/category/${categorySlug}/${subCategorySlug}/${item.slug}`;
 
     return (
-      <div className="w-full min-h-[240px] shadow-md hover:shadow-xl duration-300 hover:dark:shadow-dark rounded-[20px] overflow-hidden bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-6 items-center">
-        <Link href={videoUrl} className="group w-full h-[266px] cursor-pointer relative">
-          <Image
+      <div className="w-full min-h-[240px] shadow-md hover:shadow-xl duration-300 hover:dark:shadow-dark rounded-[12px] overflow-hidden bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-6 items-center">
+        <Link href={videoUrl} className="group w-full h-[260px] overflow-hidden  cursor-pointer relative">
+          <div className="px-4 pt-4 w-full h-full ">
+             <Image
             src={item.image_url || "/placeholder.png"}
             alt={item.title || "video thumbnail"}
             width={360}
             height={280}
             priority={true}
-            className="w-full h-full xs:p-3 hover:blur-none transition-all duration-150 ease-in-out rounded-t-[10px] object-cover"
+            className="w-full h-full object-cover rounded-[10px]"
           />
-          <div className="w-full h-full bg-black/30 absolute z-0 top-0 flex justify-center items-center rounded-t-[10px]">
+          </div>
+          <div className="w-full h-full  absolute z-0 top-0 flex justify-center items-center rounded-t-[10px]">
             <div className="w-fit hover:scale-105 duration-100 rounded-full bg-white/30 dark:bg-black/35 flex items-center justify-center p-5">
               <Video width={40} height={40} />
             </div>
@@ -106,19 +108,21 @@ const VideoCard = memo(
             </div>
           </Link>
 
-          <div className="flex flex-row justify-start items-center gap-5">
+          <div className="flex flex-row justify-start items-center gap-3 md:gap-5">
             <div className="flex items-center gap-[5px]">
               <span className="whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray">
                 {formatNumber(item.likes_count)}
               </span>
               <Like className="stroke-gray dark:stroke-dark-gray stroke-2 w-[18px] h-[18px]" />
             </div>
+             <hr className="h-[28px] border-l-0 border-y-0 border-solid border-[#D9D9D9] dark:border-[#434343]" />
             <div className="flex items-center gap-[5px]">
               <span className="whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray">
                 {formatNumber(item.dislikes_count)}
               </span>
               <Dislike className="stroke-gray dark:stroke-dark-gray stroke-2" />
             </div>
+             <hr className="h-[28px] border-l-0 border-y-0 border-solid border-[#D9D9D9] dark:border-[#434343]" />
             <div className="flex items-center gap-[5px]">
               <span className="whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray">
                 {formatNumber(item.views_count)}
