@@ -60,7 +60,7 @@ export default function VideoCard({ item, params, theme }: any) {
           />
 
           <div className="w-full h-full   absolute top-0 z-0 flex justify-center items-center">
-            <Link
+            <Link aria-label="eduction"
               className="w-fit hover:scale-105 duration-100"
               href={`/${params.lang}/education/category/${item.category.slug}/${item.sub_category.slug}/${item.slug}`}
             >
@@ -74,11 +74,11 @@ export default function VideoCard({ item, params, theme }: any) {
       </div>
 
       <div className="w-[95%] flex flex-row justify-start items-center gap-1 mt-[-10px] pe-16">
-        <Link href={`/${params.lang}/education/category/${item.category.slug}`} className="text-start text-gray dark:text-dark-gray font-medium font-azarMehr text-[13px] 3xl:text-[16px]">
+        <Link aria-label="eduction" href={`/${params.lang}/education/category/${item.category.slug}`} className="text-start text-gray dark:text-dark-gray font-medium font-azarMehr text-[13px] 3xl:text-[16px]">
           {item.category.name}
         </Link>
         <span className="font-azarMehr text-gray dark:text-dark-gray">/</span>
-        <Link href={`/${params.lang}/education/category/${item.category.slug}/${item.sub_category.slug}`}
+        <Link aria-label="eduction" href={`/${params.lang}/education/category/${item.category.slug}/${item.sub_category.slug}`}
           className="text-start text-gray dark:text-dark-gray whitespace-nowrap font-medium font-azarMehr text-[13px] 3xl:text-[16px]"
           data-tooltip-id={item.sub_category.name}
         >
@@ -100,7 +100,7 @@ export default function VideoCard({ item, params, theme }: any) {
       </div>
 
       <Link
-        className="w-[95%] mt-[-24px]"
+        className="w-[95%] mt-[-24px]" aria-label="eduction"
         href={`/${params.lang}/education/category/${item.category.slug}/${item.sub_category.slug}/${item.slug}`}
       >
         <p
@@ -112,7 +112,7 @@ export default function VideoCard({ item, params, theme }: any) {
         </p>
       </Link>
       <Link
-        className="w-[95%] mt-[-20px] text-textGray dark:text-lightGray"
+        className="w-[95%] mt-[-20px] text-textGray dark:text-lightGray" aria-label="eduction"
         href={`/${params.lang}/education/category/${item.category.slug}/${item.sub_category.slug}/${item.slug}`}
       >
         <p className=" text-[12px] 3xl:text-[16px] line-clamp-2 overflow-hidden">
@@ -123,11 +123,11 @@ export default function VideoCard({ item, params, theme }: any) {
 
 
       <div className="w-[95%] pb-2 flex flex-row justify-between items-center">
-        <Link href={`/${params.lang}/citizen/${item.creator.code}`} target="_blank">
+        <Link aria-label="citizen" href={`/${params.lang}/citizen/${item.creator.code}`} >
           <div className="flex flex-row justify-start items-center gap-2">
             <Image
               src={item.creator.image}
-              alt={item.creator.code}
+              alt={"pic" + item.creator.code}
               width={100}
               height={100}
               loading="lazy"
