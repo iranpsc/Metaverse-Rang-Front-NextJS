@@ -49,7 +49,7 @@ export default function VideoCard({ item, params, theme }: any) {
       <div className="group w-full  h-[260px] overflow-hidden px-4 pt-4 ">
         <div className=" relative h-full w-full ">
           <Image
-            src={item.image_url}
+            src={item.image_url || "/rafiki-dark.png"}
             alt={item.title}
             width={400}   // سایز واقعی تصویر
             height={260}
