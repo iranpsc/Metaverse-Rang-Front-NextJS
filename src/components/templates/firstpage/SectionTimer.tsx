@@ -82,13 +82,13 @@ const SectionTimer = ({ params }: { params: Params }) => {
       <div className="flex flex-col lg:flex-row gap-5 px-4 w-full transition-all duration-500">
         {/* عکس و توضیحات */}
         <div
-          className="h-[320px] overflow-y-hidden lg:me-5 relative rounded-[50px] p-[1px] w-full lg:w-1/2 xl:w-2/3 3xl:w-3/4"
+          className="lg:h-[320px] overflow-y-hidden lg:me-5 relative rounded-3xl lg:rounded-[50px] p-[1px] w-full lg:w-1/2 xl:w-2/3 3xl:w-3/4"
           style={{ background: "linear-gradient(-135deg, transparent, #9898a0 , transparent)" }}
         >
-          <div className="h-full w-full bg-[#DEDEE9] dark:bg-darkGray rounded-[48px] p-7 flex flex-col lg:flex-row gap-5 justify-center items-center">
-            <div className="w-full h-full flex justify-center lg:max-w-[360px] max-h-[100%] rounded-[32px] overflow-hidden">
+          <div className="h-full w-full bg-[#DEDEE9] dark:bg-darkGray  lg:rounded-[48px] p-4 lg:p-7 flex flex-col lg:flex-row gap-5 justify-center items-center">
+            <div className="w-full h-full flex justify-center max-w-[360px] max-h-[100%] lg:rounded-[32px] overflow-hidden">
               <Image
-                className="w-fill h-full object-cover"
+                className="w-fill h-full object-cover rounded-2xl"
                 src={eventData.image || "/firstpage/free.webp"}
                 alt={eventData.title}
                 width={360}
@@ -97,10 +97,10 @@ const SectionTimer = ({ params }: { params: Params }) => {
               />
             </div>
             <div className="w-full mt-4 lg:mt-0 text-justify flex flex-col justify-between h-full">
-              <p className="text-start text-[23px] lg:text-xl 3xl:text-[30px] text-black dark:text-white font-azarMehr font-medium ms-5 leading-10">
+              <p className="text-start text-xl lg:text-xl 3xl:text-[30px] text-black dark:text-white font-azarMehr font-medium ms-5 ">
                 {eventData.title}
               </p>
-              <p className="w-fit text-start text-lg 3xl:text-2xl text-lightGray font-azarMehr font-medium  ms-5 line-clamp-5" dangerouslySetInnerHTML={{ __html: eventData.desc }}/>
+              <p className="w-fit text-start text-base 3xl:text-2xl text-lightGray font-azarMehr font-medium  ms-5 line-clamp-5 mt-3 lg:mt-0" dangerouslySetInnerHTML={{ __html: eventData.desc }}/>
 
             </div>
           </div>

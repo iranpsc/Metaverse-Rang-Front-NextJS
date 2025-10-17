@@ -10,6 +10,9 @@ export default function VideoCard({ item, params, theme }: any) {
   const titleRef = useRef<HTMLParagraphElement>(null);
   const [isTruncated, setIsTruncated] = useState(false);
 
+  // ✅ استیت برای کنترل لود تصویر
+  const [imgLoading, setImgLoading] = useState(true);
+
   const checkTruncation = () => {
     const el = titleRef.current;
     if (el) {
@@ -19,10 +22,6 @@ export default function VideoCard({ item, params, theme }: any) {
 
   useEffect(() => {
     checkTruncation();
-
-
-    // console.log("eductions VideoCard content main page list:", item);
-
     const observer = new ResizeObserver(() => {
       checkTruncation();
     });
@@ -46,8 +45,15 @@ export default function VideoCard({ item, params, theme }: any) {
 
   return (
     <div className="w-[100%] min-h-[240px] shadow-md hover:shadow-xl hover:dark:shadow-dark rounded-[10px] overflow-hidden bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-6 items-center">
+      
       <div className="group w-full  h-[260px] overflow-hidden px-4 pt-4 ">
         <div className=" relative h-full w-full ">
+
+          {/* ✅ اسکلت لودر (بکگراند خاکستری با افکت پالس) */}
+          {imgLoading && (
+            <div className="absolute inset-0 h-full w-full bg-dark-gray dark:bg-textGray animate-pulse rounded-[10px] z-20" />
+          )}
+
           <Image
             src={item.image_url || "/rafiki-dark.png"}
             alt={item.title}
@@ -57,9 +63,10 @@ export default function VideoCard({ item, params, theme }: any) {
             quality={70}   // فشرده‌سازی
             sizes="(max-width: 640px) 320px, (max-width: 1024px) 473px,"
             className="w-[100%] h-full object-cover rounded-[10px]"
+            onLoadingComplete={() => setImgLoading(false)} // ✅ وقتی لود تموم شد اسکلت حذف بشه
           />
 
-          <div className="w-full h-full   absolute top-0 z-0 flex justify-center items-center">
+          <div className="w-full h-full   absolute top-0 z-10 flex justify-center items-center">
             <Link aria-label="eduction"
               className="w-fit hover:scale-105 duration-100"
               href={`/${params.lang}/education/category/${item.category.slug}/${item.sub_category.slug}/${item.slug}`}
