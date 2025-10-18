@@ -80,7 +80,7 @@ const DescriptionBox: React.FC<DescriptionBoxProps> = ({
         {VersionText}
         </span>
         <hr
-          className="flex-grow border-2 border-dashed h-[2px] border-b-0 my-[2px] "
+          className="flex-grow border-2 border-dashed h-[2px] border-b-0 my-[2px] mx-1"
         />
         <p className="displayVersionDes text-[170%] font-[700] z-[2] text-[#0066FF] dark:text-[#FFC700]">
           {switchDigits(selectedVersion.version, params.lang)}
@@ -92,7 +92,7 @@ const DescriptionBox: React.FC<DescriptionBoxProps> = ({
           {trimmedTitle}
         </p>
 
-        <hr className="flex-grow border-2 border-dashed h-[2px] border-b-0 my-[2px] " />
+        <hr className="flex-grow border-2 border-dashed h-[2px] border-b-0 my-[2px] mx-1" />
 
         <p className="toseVbehbodDate text-[#868B90] z-[1] whitespace-nowrap text-[120%] ">
           {formatDate(selectedVersion.date, params.lang)}

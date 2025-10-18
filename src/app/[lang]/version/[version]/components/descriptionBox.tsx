@@ -81,8 +81,7 @@ const DescriptionBox: React.FC<DescriptionBoxProps> = ({
           {VersionText}
         </span>
         <hr
-          className="flex-grow border-none h-[2px] my-[2px] bg-transparent bg-bottom bg-repeat-x bg-[length:15px_100%]
-           [background-image:linear-gradient(to_right,#BABABA_40%,#ffffff13_0%)] dark:[background-image:linear-gradient(to_right,#000_40%,#ffffff13_0%)]"
+          className="flex-grow border-2 border-dashed h-[2px] border-b-0 my-[2px] mx-1"
         />
         <p className="displayVersionDes text-[170%] font-[700] z-[2] text-[#0066FF] dark:text-[#FFC700]">
           {switchDigits(selectedVersion.version, params.lang)}
@@ -94,7 +93,7 @@ const DescriptionBox: React.FC<DescriptionBoxProps> = ({
           {trimmedTitle}
         </p>
 
-        <hr className=" flex-grow border-none h-[2px] my-[2px] bg-transparent bg-bottom bg-repeat-x bg-[length:15px_100%] [background-image:linear-gradient(to_right,#BABABA_40%,#ffffff13_0%)] dark:[background-image:linear-gradient(to_right,#000_40%,#ffffff13_0%)]" />
+        <hr className="flex-grow border-2 border-dashed h-[2px] border-b-0 my-[2px] mx-1" />
 
         <p className="toseVbehbodDate text-[#868B90] z-[1] whitespace-nowrap text-[120%] ">
           {formatDate(selectedVersion.date, params.lang)}
