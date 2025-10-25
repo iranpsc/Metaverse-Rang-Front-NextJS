@@ -3,6 +3,7 @@ import useServerDarkMode from "src/hooks/use-server-dark-mode";
 import ToastProvider from "../../components/shared/toastProvider";
 import { Suspense } from "react";
 import Head from "next/head";
+import ReferralHandler from './ReferralHandler';
 import {
   getTranslation,
   getMainFile,
@@ -61,6 +62,7 @@ export default async function LangLayout({ children, params }: any) {
       </Head>
 
       <body className={`${azarMehr.variable} ${rokh.variable}   h-screen light-scrollbar dark:dark-scrollbar`}>
+        <ReferralHandler/>
         <ToastProvider />
         <div className="flex h-screen overflow-hidden" dir={langData.direction}>
           <Suspense fallback={<div>Loading Sidebar...</div>}>
