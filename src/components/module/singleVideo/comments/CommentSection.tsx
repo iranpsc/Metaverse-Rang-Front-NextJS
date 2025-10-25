@@ -41,7 +41,7 @@ const CommentSection = ({
   };
 
   return (
-    <div className="w-full mt-10 pt-5 bg-white dark:bg-[#080807] rounded-[20px] min-h-[320px]">
+    <div className="w-full mt-10 pt-5 bg-white dark:bg-[#080807] rounded-[20px] min-h-[220px]">
       <p className="w-full text-start px-6 text-singleVideo-gray dark:text-white font-azarMehr font-bold text-2xl xl:text-3xl pb-5">
         {checkData(findByUniqueId(mainData, 457))}
       </p>

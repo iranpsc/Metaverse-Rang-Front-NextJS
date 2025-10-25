@@ -17,7 +17,10 @@ const NewEducationSectionTemp = ({
   const { theme } = useTheme();
 
   useEffect(() => {
-    if (newEducationsVideos) setVideos(newEducationsVideos);
+    if (newEducationsVideos) {
+      console.log("✅ Initial API data:", newEducationsVideos); // ← اینجا لاگ اولیه
+      setVideos(newEducationsVideos);
+    }
   }, [newEducationsVideos]);
 
   const loadMore = async () => {
@@ -28,11 +31,16 @@ const NewEducationSectionTemp = ({
       const resVideos = await axios.get(
         `https://api.rgb.irpsc.com/api/tutorials?page=${nextPage}`
       );
+
+      console.log("📦 Full API response:", resVideos); // ← لاگ کل ریسپانس
+      console.log("🎥 API data content:", resVideos.data); // ← فقط دیتا
+      console.log("🎬 API video list:", resVideos.data.data); // ← لیست ویدیوها
+
       const newVideosData = resVideos.data.data || [];
       setVideos((prevVideos) => [...prevVideos, ...newVideosData]);
       setPage(nextPage);
     } catch (error) {
-      console.error("Error loading more videos:", error);
+      console.error("❌ Error loading more videos:", error);
     } finally {
       setLoading(false);
     }

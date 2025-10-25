@@ -304,6 +304,9 @@ const EventList: React.FC<CalendarFilterProps> = ({
 
     return <SyncLoader color={isDark ? "#FFD700" : "#0066ff"} size={8} />;
   };
+useEffect(() => {
+  console.log("📅 ایونت‌های اولیه:", initialEvents);
+}, []);
 
   // تنظیم مقادیر اولیه لایک‌ها و دیسلایک‌ها
   useEffect(() => {

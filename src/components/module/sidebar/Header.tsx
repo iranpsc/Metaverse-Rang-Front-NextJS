@@ -4,27 +4,23 @@ import { MenuIcon, ArrowMenu } from "@/svgs/index";
 import Link from "next/link";
 // import React, { useMemo } from "react";
 function SideBarHeader({ isClosed, toggleSide, tabsMenu, params }: any) {
-  // const { metaRGBTranslation, metaverseRangTranslation } = useMemo(() => {
-  //   const metaRGB = tabsMenu.find((item: any) => item.name === "meta rgb");
-  //   const metaverseRang = tabsMenu.find(
-  //     (item: any) => item.name === "metaverse rang"
-  //   );
+  const lang = params.lang;
 
-  //   return {
-  //     metaRGBTranslation: metaRGB?.translation,
-  //     metaverseRangTranslation: metaverseRang?.translation,
-  //   };
-  // }, [tabsMenu]);
+  // ترجمه‌های دستی
+  const translations: Record<string, { title: string; subtitle: string }> = {
+    fa: {
+      title: "متارنگ",
+      subtitle: "متاورس رنگ",
+    },
+    en: {
+      title: "Meta RANG",
+      subtitle: "Metaverse RANG",
+    },
+  };
 
-  // to find in an array with key(_name)
+  // اگر زبان تعریف نشده بود، پیش‌فرض فارسی
+  const t = translations[lang] || translations.fa;
 
-
-  
-  // console.log("tabsMenu:", tabsMenu);
-
-  function localFind(_name: any) {
-    return tabsMenu.find((item: any) => item?.name == _name)?.translation;
-  }
   return (
     <>
       <MenuIcon
@@ -51,9 +47,7 @@ function SideBarHeader({ isClosed, toggleSide, tabsMenu, params }: any) {
             alt="rgb metaverse"
             width={71}
             height={70}
-            className={`${
-              isClosed ? "ms-2" : "ms-4"
-            } w-[40px] h-[40px] menu-transition`}
+            className={`${isClosed ? "ms-2" : "ms-4"} w-[40px] h-[40px] menu-transition`}
           />
 
           <div
@@ -62,35 +56,21 @@ function SideBarHeader({ isClosed, toggleSide, tabsMenu, params }: any) {
             } overflow-hidden`}
           >
             <p
-              className={`whitespace-nowrap leading-[25px] visible dark:text-white whitespace-nowrap block font-azarMehr font-bold text-[14px] md:text-[16px] lg:text-[18px] text-black pb-[2px]`}
+              className={`whitespace-nowrap leading-[25px] visible dark:text-white block font-azarMehr font-bold text-[14px] md:text-[16px] lg:text-[18px] text-black pb-[2px]`}
             >
-              {localFind("meta rgb") || "متارنگ"}
+              {t.title}
             </p>
             <p
               className={`whitespace-nowrap leading-[25px] dark:text-dark-gray visible font-azarMehr font-normal text-gray text-[14px] md:text-[16px] lg:text-[18px] `}
             >
-              {localFind("metaverse rang") || "متاورس رنگ"}
+              {t.subtitle}
             </p>
-            {/* {metaRGBTranslation && (
-              <p
-                className={`visible dark:text-white whitespace-nowrap block font-azarMehr font-bold xl:text-[16px] lg:text-[14px] md:text-[13px] sm:text-[12px] xs:text-[12px] text-black pb-[2px]`}
-              >
-                {metaRGBTranslation}
-              </p>
-            )}
-            {metaverseRangTranslation && (
-              <p
-                className={`dark:text-dark-gray visible font-azarMehr font-normal text-gray xl:text-[14px] lg:text-[11px] md:text-[13px] sm:text-[10px] xs:text-[10px] `}
-              >
-                {metaverseRangTranslation}
-              </p>
-            )} */}
           </div>
         </div>
       </Link>
 
       <div
-        className={` ${
+        className={`${
           isClosed
             ? "invisible opacity-0"
             : "visible opacity-100 menu-transition"
@@ -98,9 +78,10 @@ function SideBarHeader({ isClosed, toggleSide, tabsMenu, params }: any) {
         onClick={toggleSide}
       >
         <ArrowMenu
-          className={`w-[7px] md:w-[14px] h-[7px] md:h-[14px] stroke-gray dark:stroke-white ltr:rotate-180 rtl:rotate-0 `}
+          className={`w-[7px] md:w-[14px] h-[7px] md:h-[14px] stroke-gray dark:stroke-white ltr:rotate-180 rtl:rotate-0`}
         />
       </div>
+
       <hr
         className={`${
           isClosed ? "mx-3 mt-3" : "mx-2"
@@ -109,5 +90,6 @@ function SideBarHeader({ isClosed, toggleSide, tabsMenu, params }: any) {
     </>
   );
 }
+
 export default SideBarHeader;
-// export default React.memo(SideBarHeader);
+

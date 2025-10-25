@@ -65,10 +65,16 @@ export default async function EducationVideo({ params }: { params: any }) {
     params.subcategory
   );
 
-  async function makeLessCharacter(_desc: any) {
-    if (_desc) return _desc.slice(0, 200);
-    return "";
-  }
+function stripHtmlTags(str: string): string {
+  return str ? str.replace(/<[^>]*>/g, "") : "";
+}
+
+async function makeLessCharacter(_desc: any) {
+  const clean = stripHtmlTags(_desc);
+  return clean.slice(0, 200);
+}
+
+
 
   const singleVideoSchema = {
     "@context": "http://schema.org",
@@ -190,9 +196,15 @@ export async function generateMetadata({ params }: { params: any }) {
   // استفاده از cached function برای DataVideo
   const DataVideo = await getCachedSingleVideoData(params.videoId);
 
-  async function makeLessCharacter(_input: string | undefined | null): Promise<string> {
-    return _input && typeof _input === "string" ? _input.slice(0, 200) : "";
-  }
+function stripHtmlTags(str: string): string {
+  return str ? str.replace(/<[^>]*>/g, "") : "";
+}
+
+async function makeLessCharacter(_desc: any) {
+  const clean = stripHtmlTags(_desc);
+  return clean.slice(0, 200);
+}
+
 
   if (!DataVideo) {
     return {

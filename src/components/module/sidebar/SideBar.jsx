@@ -94,6 +94,9 @@ export default function SideBar({
                 tabsMenu={tabsMenu}
                 toggleSide={toggleSide}
                 params={params}
+                langData={langData}
+               
+                langArray={langArray}
               />
             </div>
             {pageSide === 'citizen' && (
