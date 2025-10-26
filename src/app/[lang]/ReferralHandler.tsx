@@ -20,14 +20,14 @@ export default function ReferralHandler() {
       // مستقیم یعنی هیچ prevPath از همین دامنه نداشته باشیم و هنوز بازدید اول است
       const isDirect = !prevPath && !hasVisited;
 
-      console.log("🧭 Debug:", {
-        pathname,
-        prevPath,
-        referralCode,
-        hasVisited,
-        alreadyHandled,
-        isDirect,
-      });
+      // console.log("🧭 Debug:", {
+      //   pathname,
+      //   prevPath,
+      //   referralCode,
+      //   hasVisited,
+      //   alreadyHandled,
+      //   isDirect,
+      // });
 
       if (!referralCode) {
         sessionStorage.setItem("prevPath", pathname);
@@ -36,14 +36,14 @@ export default function ReferralHandler() {
       }
 
       if (alreadyHandled) {
-        console.log("⏭ قبلاً هندل شده برای:", referralCode);
+        // console.log("⏭ قبلاً هندل شده برای:", referralCode);
         sessionStorage.setItem("prevPath", pathname);
         sessionStorage.setItem("hasVisited", "true");
         return;
       }
 
       if (isDirect) {
-        console.log("🎯 ورود مستقیم با رفرال:", referralCode);
+        // console.log("🎯 ورود مستقیم با رفرال:", referralCode);
         sessionStorage.setItem("hasVisited", "true");
         sessionStorage.setItem("prevPath", pathname);
         if (handledKey) sessionStorage.setItem(handledKey, "true");
@@ -58,7 +58,7 @@ export default function ReferralHandler() {
           .then((res) => console.log("✅ ثبت موفق:", res.data))
           .catch((err) => console.error("❌ خطا در ثبت:", err));
       } else {
-        console.log("🚫 ورود داخلی یا با رفرش — ثبت انجام نشد");
+        // console.log("🚫 ورود داخلی یا با رفرش — ثبت انجام نشد");
         localStorage.removeItem("isDirectReferral");
       }
 

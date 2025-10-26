@@ -29,20 +29,21 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
   // Returning from external login (SSO)
   useEffect(() => {
     if (isMounted) {
-
       let params = searchParams.toString();
+
       if (params) {
-        // console.log("Params found:", params);
         const expires_at = Number(searchParams.get("expires_at"));
         const now = new Date();
         const realExpireTime = now.getTime() + expires_at * 60 * 1000;
         params += `&realExpireTime=${realExpireTime}`;
-        // console.log("Final params with realExpireTime:", params);
         setCookie("auth", params);
+
+        // ✅ پاک کردن localStorage بعد از بازگشت از بک URL
+        localStorage.removeItem("referral");
+        localStorage.removeItem("isDirectReferral");
       }
 
       const urlToUse = `${window.location.origin}${pathname.toString()}`;
-      // console.log("Redirecting back to clean URL:", urlToUse);
       router.push(urlToUse);
     }
   }, [isMounted]);
@@ -245,8 +246,8 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
         <div className="base-transition-1 text-white dark:text-black">
           <ul
             className={`${dropDown ? "max-h-[160px]" : "max-h-0"} ${isClosed
-                ? "min-w-[250px] rtl:rounded-l-[15px] ltr:rounded-r-[15px]"
-                : ""
+              ? "min-w-[250px] rtl:rounded-l-[15px] ltr:rounded-r-[15px]"
+              : ""
               } base-transition-1 overflow-hidden bg-blueLink dark:bg-dark-primary rounded-t-[15px] px-4 list-none`}
           >
             {pathname != `/${params.lang}/citizen/${loggedInUserData?.code}` ? (
@@ -291,8 +292,8 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
           </ul>
           <button
             className={`${isClosed ? "justify-center" : "justify-between"} ${dropDown
-                ? "rounded-t-[1px] rounded-b-[15px]"
-                : "rounded-t-[15px] rounded-b-[15px]"
+              ? "rounded-t-[1px] rounded-b-[15px]"
+              : "rounded-t-[15px] rounded-b-[15px]"
               } w-full bg-blueLink dark:bg-dark-yellow cursor-pointer
                             h-[40px] flex flex-row-reverse xs:px-2 px-4 gap-5 items-center
                             text-white dark:text-dark-background font-azarMehr font-medium text-center text-[15px] m-auto`}
