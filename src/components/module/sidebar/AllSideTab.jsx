@@ -28,7 +28,7 @@ export default function SideBarContent({
   const [langDropDown, setLangDropDown] = useState(false);
   const [trainingDropDown, setTrainingDropDown] = useState(
     pathName.endsWith(`/${params.lang}/education`) ||
-      pathName.includes(`/category/all`)
+      pathName.includes(`/category`)
       ? true
       : false
   );
@@ -386,7 +386,7 @@ useEffect(() => {
                       }}
                     >
                       <Link
-                        href={`/${params.lang}/education/category/all`}
+                        href={`/${params.lang}/education/category`}
                         className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px]
             group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer menu-transition
             ${isClosed ? "justify-start gap-0" : "justify-start gap-2 ps-3"}`}
@@ -395,7 +395,7 @@ useEffect(() => {
                           <ListMenuSvgModule
                             item={{
                               name: "categories",
-                              active: pathName.includes("category/all"),
+                              active: pathName.includes("category"),
                             }}
                           />
                         </span>
@@ -403,7 +403,7 @@ useEffect(() => {
                           <ListMenuTitleModule
                             item={{
                               translation: params.lang.toLowerCase() == "fa" ? "دسته‌بندی‌ها" : "Categories",
-                              active: pathName.includes("category/all"),
+                              active: pathName.includes("category"),
                             }}
                             isClosed={isClosed}
                           />

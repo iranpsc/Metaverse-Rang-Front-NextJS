@@ -156,14 +156,14 @@ export default function BreadCrumb({ params, eventTitle }: { params: any; eventT
       en: "all",
       fa: "همه",
       font: "font-normal",
-      link: `/${params.lang}/education/category/all`,
+      link: `/${params.lang}/education/category`,
     },
     {
       name: "category",
       en: "category",
       fa: "دسته‌بندی",
       font: "font-normal",
-      link: `/${params.lang}/education/category/all`,
+      link: `/${params.lang}/education/category`,
     },
     {
       name: "education",

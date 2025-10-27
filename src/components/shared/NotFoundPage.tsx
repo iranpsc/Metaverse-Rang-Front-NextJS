@@ -75,7 +75,7 @@ export default function NotFoundPage({
 
         {/* Footer */}
         <div className="mt-[-120px]">
-          <DynamicFooter footerTabs={footerTabs} mainData={mainData} />
+          <DynamicFooter footerTabs={footerTabs} mainData={mainData} params={params} />
         </div>
       </section>
     </div>

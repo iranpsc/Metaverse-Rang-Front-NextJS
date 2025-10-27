@@ -19,7 +19,7 @@ export default function SingleVideoSlugModule({ DataVideo, params }: any) {
 
         <Link
           className="w-fit font-normal font-azarMehr cursor-pointer text-[15px] xs:text-[12px] text-start text-[#575757] dark:text-lightGray  hover:text-blueLink hover:dark:text-dark-yellow xs:whitespace-nowrap"
-          href={`/${params.lang}/education/category/all`}
+          href={`/${params.lang}/education/category`}
         >
           دسته بندی ها
         </Link>

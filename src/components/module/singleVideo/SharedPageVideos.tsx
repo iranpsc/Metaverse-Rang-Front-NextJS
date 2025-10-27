@@ -111,7 +111,7 @@ export default function SharedPageVideos({
         >
           <div
             className="xl:w-[50%] lg:w-[50%] md:w-[70%] min-h-[350px] max-h-fit  rounded-[15px] border-2 border-[#898989] flex relative me-[250px] sm:me-0 sm:w-[90%] xs:me-0 xs:w-[90%] justify-center xl:mt-0 lg:mt-0 md:mt-0 
-              mt-[100px]    items-center shadow-md bg-white dark:bg-dark-background "
+              mt-[100px]   items-center shadow-md bg-white dark:bg-dark-background "
             onClick={(e) => e.stopPropagation()}
           >
             <div className="w-full h-full overflow-clip flex flex-col justify-start mt-2 items-center  gap-10 top-0 absolute">
@@ -180,7 +180,7 @@ export default function SharedPageVideos({
                   {/* {targetData(data.data.selectedProfileData, "copy")} */}
                   {findByUniqueId(mainData, 323)}
                 </p>
-                <p className="py-2 text-[#000] dark:text-[#fff] font-azarMehr xl:text-[11px] lg:text-[11px] md:text-[8px] sm:text-[5px]  whitespace-nowrap xs:text-[9px] font-medium">{`https://rgb.irpsc.com/${params.lang}/education/category/${DataVideo.category.slug}/${DataVideo.sub_category.slug}/${DataVideo.slug}`}</p>
+                <p dir="ltr" className="py-2 text-[#000] truncate w-[80%] text-left dark:text-[#fff] font-azarMehr xl:text-[12px] lg:text-[12px] md:text-[12px]   whitespace-nowrap text-[10px] font-medium">{`https://rgb.irpsc.com/${params.lang}/education/category/${DataVideo.category.slug}/${DataVideo.sub_category.slug}/${DataVideo.slug}`}</p>
               </div>
               {copied && (
                 <ReactTooltip

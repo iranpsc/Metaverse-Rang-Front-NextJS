@@ -68,8 +68,22 @@ const SectionTimer = ({ params }: { params: Params }) => {
   return (
     <div
       ref={sectionRef}
-      className="w-full h-full flex flex-wrap lg:flex-nowrap justify-evenly gap-5 items-center relative"
+      className="w-full h-full flex flex-wrap lg:flex-nowrap justify-evenly gap-5 my-12 md:my-0 items-center relative"
     >
+              <div className="md:hidden flex items-center justify-around w-full">
+    <div
+        onClick={handlePrev}
+        className="bg-light-primary dark:bg-dark-yellow rounded-full p-[13px] cursor-pointer flex justify-center items-center me-5"
+      >
+        <ArrowRight className="stroke-white dark:stroke-[#1b1b1b] size-[32px] rotate-0 ltr:rotate-180" />
+      </div>
+            <div
+        onClick={handleNext}
+        className="bg-light-primary dark:bg-dark-yellow rounded-full p-[13px] cursor-pointer  flex justify-center items-center ms-5"
+      >
+        <ArrowRight className="stroke-white dark:stroke-[#1b1b1b] size-[32px] rotate-180 ltr:rotate-0" />
+      </div>
+        </div>
       {/* دکمه چپ */}
       <div
         onClick={handlePrev}
@@ -96,11 +110,11 @@ const SectionTimer = ({ params }: { params: Params }) => {
                 quality={75}
               />
             </div>
-            <div className="w-full mt-4 lg:mt-0 text-justify flex flex-col justify-between h-full">
-              <p className="text-start text-xl lg:text-xl 3xl:text-[30px] text-black dark:text-white font-azarMehr font-medium ms-5 ">
+            <div className="w-full lg:mt-0 text-justify flex flex-col justify-between h-full">
+              <p className="text-start text-lg lg:text-xl 3xl:text-3xl text-black dark:text-white font-azarMehr font-medium ms-1 md:ms-5 ">
                 {eventData.title}
               </p>
-              <p className="w-fit text-start text-base 3xl:text-2xl text-lightGray font-azarMehr font-medium  ms-5 line-clamp-5 mt-3 lg:mt-0" dangerouslySetInnerHTML={{ __html: eventData.desc }}/>
+              <p className="w-fit text-start text-sm 3xl:text-2xl text-lightGray font-azarMehr font-medium ms-1 md:ms-5 line-clamp-5 mt-3 lg:mt-0" dangerouslySetInnerHTML={{ __html: eventData.desc }}/>
 
             </div>
           </div>
@@ -108,7 +122,7 @@ const SectionTimer = ({ params }: { params: Params }) => {
 
         {/* تایمر + دکمه‌ها */}
         <div className="h-[320px] w-full lg:w-1/2 xl:w-1/3 3xl:w-1/4 rounded-[50px] p-[1px] relative dark:bg-gradient-to-tl">
-          <div className="p-[20px] h-full rounded-[50px] flex flex-col justify-around items-center relative bg-gradient-to-tl to-[#dfdfdf] from-white dark:to-[#343434] dark:via-darkGray dark:from-darkGray">
+          <div className="p-[20px] h-full rounded-3xl md:rounded-[50px] flex flex-col justify-around items-center relative bg-gradient-to-tl to-[#dfdfdf] from-white dark:to-[#343434] dark:via-darkGray dark:from-darkGray">
             <DynamicTimer
               daysLabel={params.lang === "fa" ? "روز" : "Days"}
               hoursLabel={params.lang === "fa" ? "ساعت" : "Hours"}

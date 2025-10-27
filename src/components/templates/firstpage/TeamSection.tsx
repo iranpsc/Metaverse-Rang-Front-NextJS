@@ -98,7 +98,7 @@ const SectionTeam = ({ mainData, params }: any) => {
             />
             <Image
               className="xl:size-[60px] lg:size-[50px] md:size-[70px] sm:size-[50px] xs:size-[44px] rounded-full border-2 border-white ms-[-20px] z-20"
-              src="/firstpage/person4.webp"
+              src="/firstpage/person4.JPEG"
               alt="mahdi"
               width={64}
               height={64}

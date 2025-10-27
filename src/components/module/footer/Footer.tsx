@@ -8,7 +8,7 @@ import { imageSources } from "@/components/utils/items";
 import { useTheme } from "next-themes";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
-function Footer({ footerTabs, mainData }: any) {
+function Footer({ footerTabs, mainData ,params}: any) {
   const socialItems = [
     {
       id: 1,
@@ -278,12 +278,12 @@ function Footer({ footerTabs, mainData }: any) {
           {findByUniqueId(mainData, 1412)}&nbsp;
         </a>
         |&nbsp;
-        <a
-          href="https://github.com/iranpsc/Metaverse-Rang-Front-NextJS"
+        <Link href={`/${params.lang}/version`}
+        
           target="_blank"
         >
           {version}&nbsp;
-        </a>
+        </Link>
 
       </div>
     </div>

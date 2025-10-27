@@ -48,7 +48,7 @@ const EducationFirstPage = ({ mainData, params }: { mainData: any; params: Param
         <p className="font-azarMehr font-medium text-[16px] md:text-[20px] lg:text-[28px] xl:text-[32px] dark:text-white">
           {findByUniqueId(mainData, 1462)}
         </p>
-        <Link href={`/${params.lang}/education/category/all`} >
+        <Link href={`/${params.lang}/education/category`} >
           <div className="flex justify-center items-center gap-4">
             <p className="font-azarMehr font-medium text-[12px] md:text-[16px] lg:text-[18px] xl:text-[20px] dark:text-white">
               {findByUniqueId(mainData, 171)}

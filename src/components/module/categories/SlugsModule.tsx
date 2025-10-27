@@ -14,7 +14,7 @@ export default function SlugsModule({ params, categoryName }: any) {
           /
         </span>
         <Link
-          href={`/${params.lang}/education/category/all`}
+          href={`/${params.lang}/education/category`}
           className="w-fit font-normal font-azarMehr cursor-pointer text-[15px] text-start text-[#575757]  hover:text-blueLink hover:dark:text-dark-yellow"
         >
           دسته بندی ها

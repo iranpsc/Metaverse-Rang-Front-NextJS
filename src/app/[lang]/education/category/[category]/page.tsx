@@ -111,7 +111,7 @@ export default async function EducationCategory({ params }: { params: any }) {
 
             <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
               <Suspense fallback={<div className="text-center text-[20px]">loading...</div>}>
-                <DynamicFooter footerTabs={footerTabs} mainData={mainData} />
+                <DynamicFooter footerTabs={footerTabs} mainData={mainData} params={params} />
               </Suspense>
             </div>
           </section>

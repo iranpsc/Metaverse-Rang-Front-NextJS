@@ -142,7 +142,7 @@ export default async function ArticlePage({ params }) {
             <RelatedArticlesSlider params={params} mainData={mainData}/>
           </div>
           <div className="w-full xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
-            <DynamicFooter footerTabs={footerTabs} mainData={mainData} />
+            <DynamicFooter footerTabs={footerTabs} mainData={mainData} params={params} />
           </div>
         </section>
       </div>

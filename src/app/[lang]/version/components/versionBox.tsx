@@ -234,10 +234,10 @@ useEffect(() => {
                       : ""
                   }`}
                 >
-                  <div className="flex w-full justify-between">
-                    <div className="logo pt-[10px] p-[10px] flex flex-col">
-                      <div className="w-[10px] h-[12px] bg-[#0066FF] dark:bg-[#FFC700] rounded-full self-center" />
-                      <div className="lineBottom w-[1.5px] h-full rounded-[1px] self-center" />
+                  <div className="flex w-full justify-between py-2">
+                    <div className="logo pt-[10px] p-[10px] pe-0 md:pe-[10px] flex flex-col">
+                      <div className="w-[10px] h-[10px] md:h-[12px] bg-[#0066FF] dark:bg-[#FFC700] rounded-full self-center" />
+                      <div className="lineBottom  w-[1.5px] h-full rounded-[1px] self-center" />
                     </div>
 
                     <div className="moreInfo lg:w-[91%] w-full">
@@ -261,7 +261,7 @@ useEffect(() => {
                       </div>
 
                       <div
-                        className={`textDate font-[600] pt-[20px] pb-[20px] pr-[8px] text-[100%] ${
+                        className={`textDate mt-3 font-[600] pr-[8px] text-[100%] ${
                           openIndex === index
                             ? "text-[#868B90] dark:text-white"
                             : "text-[#868B90] dark:text-[#868B90]"

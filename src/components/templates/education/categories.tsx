@@ -38,7 +38,7 @@ export default function EducationCategories({
             ))}
 
           <Link
-            href={`/${params.lang}/education/category/all`}
+            href={`/${params.lang}/education/category`}
             className="col-span-1 cursor-pointer 2xl:w-full xl:w-full lg:w-full md:w-full sm:w-[200px] xs:w-full h-[80px] bg-white dark:bg-[#1A1A18] rounded-[20px] flex flex-row justify-start items-center gap-5 shadow-sm hover:shadow-md"
           >
             <ShowAll className="w-[18px] h-[18px] stroke-blueLink ms-3 dark:dark:stroke-dark-yellow" />

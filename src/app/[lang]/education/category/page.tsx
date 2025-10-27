@@ -51,10 +51,10 @@ export default async function EducationCategoryAll({
   const educationAllCategorySchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    url: `https://rgb.irpsc.com/${params.lang}/education/category/all`,
+    url: `https://rgb.irpsc.com/${params.lang}/education/category`,
     name: findByUniqueId(mainData, 340),
     description: findByUniqueId(mainData, 340),
-    mainEntityOfPage: `https://rgb.irpsc.com/${params.lang}/education/category/all`,
+    mainEntityOfPage: `https://rgb.irpsc.com/${params.lang}/education/category`,
     itemListElement: categoriesData.map((item: any, index: any) => {
       return {
         "@type": "ListItem",
@@ -127,7 +127,7 @@ export default async function EducationCategoryAll({
                 <div className="text-center text-[20px]">loading...</div>
               }
             >
-              <DynamicFooter footerTabs={footerTabs} mainData={mainData} />
+              <DynamicFooter footerTabs={footerTabs} mainData={mainData} params={params} />
             </Suspense>
           </div>
         </section>
@@ -159,7 +159,7 @@ export async function generateMetadata({ params }: { params: any }) {
       description: findByUniqueId(mainData, 340),
       locale: params.lang == "fa" ? "fa_IR" : "en_US",
       // site_name: متاورس رنگ,
-      url: `https://rgb.irpsc.com/${params.lang}/education/category/all`,
+      url: `https://rgb.irpsc.com/${params.lang}/education/category`,
       images: [
         {
           url: "/logo.png",
