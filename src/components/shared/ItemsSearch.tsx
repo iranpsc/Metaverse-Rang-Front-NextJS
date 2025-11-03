@@ -1,7 +1,7 @@
 "use client";
+
 import { useState, useEffect } from "react";
 import Image from "next/image";
-
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -28,19 +28,13 @@ export const ItemsSearch = ({ searchLevel, searchData, params }: any) => {
     visible: {
       opacity: 1,
       scale: 1,
-      transition: {
-        delayChildren: 0.3,
-        staggerChildren: 0.2,
-      },
+      transition: { delayChildren: 0.3, staggerChildren: 0.2 },
     },
   };
 
   const items = {
     hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-    },
+    visible: { y: 0, opacity: 1 },
   };
 
   return isDataReady ? (
@@ -50,80 +44,112 @@ export const ItemsSearch = ({ searchLevel, searchData, params }: any) => {
       animate="visible"
       className="w-full"
     >
-      {searchData.map((item: any, index: any) => {
+      {searchData.map((item: any) => {
+        // ---------------------------------
+        // 1️⃣ Citizen Level
+        // ---------------------------------
         if (searchLevel === "citizen") {
-          // Citizen level rendering
           return (
             <motion.div key={item?.id} variants={items}>
               <Link
                 href={`/${params.lang}/citizens/${item.code}`}
-                className="w-[99%] h-[65px] mt-2 transition-all duration-300   border-b-[1px] border-solid border-x-0 border-t-0 border-stone-300 dark:border-mediumGray  cursor-pointer flex flex-row justify-between items-center dark:text-white "
+                className="w-[99%] h-[65px] mt-2 transition-all duration-300 border-b border-stone-300 dark:border-mediumGray cursor-pointer flex justify-between items-center dark:text-white"
               >
-                <p className=" dark:text-white text-black font-azarMehr truncate text-[16px] xs:text-[12px] font-medium">
+                <p className="dark:text-white text-black font-medium truncate text-[16px]">
                   {item?.name}
                 </p>
-                <div className="flex flex-row justify-between items-center gap-3 min-w-fit">
-                  <div className="h-full flex flex-col gap-0">
-                    <p className="uppercase font-azarMehr text-[14px] xs:text-[10px] font-bold text-blueLink">
+                <div className="flex items-center gap-3">
+                  <div className="flex flex-col items-end">
+                    <p className="uppercase font-bold text-blueLink text-[14px]">
                       {item?.code}
                     </p>
-                    <div className="flex flex-row items-center justify-end gap-1">
-                      <span className="whitespace-nowrap font-azarMehr font-normal text-black dark:text-white 3xl:text-[16px] xs:text-[12px]">
-                        {item.level ? item.level : "--"}
-                      </span>
-                    </div>
+                    <span className="text-[13px] text-gray-400">
+                      {item.level || "--"}
+                    </span>
                   </div>
                   <Image
                     src={item.photo || "/firstpage/temp-1.webp"}
                     alt={item?.name}
-                    loading="lazy"
-                    width={1000}
-                    height={1000}
-                    className="w-[50px] h-[50px] xs:w-[40px] xs:h-[40px]  my-5 shadow-sm shadow-gray rounded-full"
+                    width={50}
+                    height={50}
+                    className="rounded-full shadow-sm"
                   />
                 </div>
               </Link>
             </motion.div>
           );
-        } else {
-          // Default (Non-citizen) rendering
+        }
+
+        // ---------------------------------
+        // 2️⃣ Education Level
+        // ---------------------------------
+        else if (searchLevel === "education") {
           return (
-            <Link href={`/${params.lang}/education/category/${item.category.slug}/${item.sub_category.slug}/${item.slug}`} 
+            <Link
+              href={`/${params.lang}/education/category/${item.category.slug}/${item.sub_category.slug}/${item.slug}`}
               key={item.id}
-              className="w-[99%] h-[65px] mt-2 hover:dark:shadow-darkSearch transition-all duration-300 bg-white dark:bg-dark-background border-b-[1px] border-mediumGray dark:border-mediumGray hover:shadow-md cursor-pointer flex flex-row justify-between items-center"
-             
+              className="w-[99%] h-[65px] mt-2 transition-all duration-300 bg-white dark:bg-dark-background border-b border-mediumGray flex justify-between items-center p-3 rounded-lg"
             >
-              <Link href={`/${params.lang}/education/category/${item.category.slug}/${item.sub_category.slug}/${item.slug}`} className="ms-7 dark:text-white text-black font-azarMehr truncate text-[16px] xs:text-[12px] font-medium">
+              <p className="dark:text-white text-black font-medium truncate text-[16px]">
                 {item.title}
-              </Link>
-              <div className="flex flex-row justify-between items-center gap-3 min-w-fit">
-                <div className="h-full flex flex-col gap-0">
-                  <Link href={`/${params.lang}/citizens/${item.creator.code}`}
-                    className="uppercase font-azarMehr text-[14px] xs:text-[10px] font-bold text-blueLink"
-                    onClick={() => pusherRgb(item.creator.code)}
-                  >
+              </p>
+              <div className="flex items-center gap-3">
+                <div className="flex flex-col items-end">
+                  <p className="uppercase font-bold text-blueLink text-[14px]">
                     {item.creator.code}
-                  </Link>
-                  <div className="flex flex-row items-center justify-end gap-1">
-                    <span className="whitespace-nowrap font-azarMehr font-normal text-black dark:text-white 3xl:text-[18px] xs:text-[12px]">
+                  </p>
+                  <div className="flex items-center gap-1">
+                    <span className="text-[12px] text-gray-400">
                       {item.likes_count}
                     </span>
                     <Like className="w-[15px] h-[15px] stroke-gray dark:stroke-dark-gray" />
                   </div>
                 </div>
-                <Link href={`/${params.lang}/citizens/${item.creator.code}`}>
-                <Image 
+                <Image
                   src={item.creator.image}
                   alt={item.creator.title}
-                  loading="lazy"
-                  width={1000}
-                  height={1000}
-                  className="w-[50px] h-[50px] xs:w-[40px] xs:h-[40px] me-2 my-5 shadow-sm shadow-gray rounded-full"
-                /></Link>
+                  width={50}
+                  height={50}
+                  className="rounded-full shadow-sm"
+                />
               </div>
             </Link>
           );
         }
+
+        // ---------------------------------
+        // 3️⃣ Articles Level
+        // ---------------------------------
+        else if (searchLevel === "articles") {
+          return (
+            <motion.div key={item.id} variants={items}>
+              <Link
+                href={`/${params.lang}/articles/${item.slug}`}
+                className="w-[99%] mt-2 hover:shadow-md transition-all duration-300 
+                bg-white dark:bg-dark-background border-b border-mediumGray 
+                flex justify-between items-center p-3 rounded-lg"
+              >
+                <div className="flex flex-col">
+                  <h3 className="text-black dark:text-white text-[16px] font-semibold">
+                    {item.title}
+                  </h3>
+                  <p className="text-gray-500 text-[13px] truncate">
+                    {item.excerpt || item.category}
+                  </p>
+                </div>
+                <Image
+                  src={item.image || "/placeholder.png"}
+                  alt={item.title}
+                  width={60}
+                  height={60}
+                  className="rounded-md object-cover"
+                />
+              </Link>
+            </motion.div>
+          );
+        }
+
+        return null;
       })}
     </motion.div>
   ) : null;

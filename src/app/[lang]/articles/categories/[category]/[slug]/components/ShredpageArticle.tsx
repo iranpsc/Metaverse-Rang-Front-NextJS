@@ -6,7 +6,7 @@ import { Arrow } from "@/svgs/SvgEducation";
 // ANIMATION
 import { motion } from "framer-motion";
 import { Tooltip as ReactTooltip } from "react-tooltip";
-import { findByUniqueId } from "../../../../../components/utils/findByUniqueId";
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 export default function ShareArticlePage({
   setShowSocial,

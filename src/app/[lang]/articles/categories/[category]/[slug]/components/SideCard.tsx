@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { articles } from "@/components/utils/articles";
-import { View, Like, Dislike, } from "@/components/svgs/SvgEducation";
+import { View, Like, Dislike, Categories, } from "@/components/svgs/SvgEducation";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { ArrowRight } from "@/components/svgs";
 
@@ -37,7 +37,7 @@ const SideCard: React.FC<SideCardProps> = ({ params, mainData }) => {
       {latestArticles.map((item) => (
         <Link
           key={item.slug}
-          href={`/${params.lang}/articles/${item.slug}`} // استفاده از lang از props
+          href={`/${params.lang}/articles/categories/${item.category}/${item.slug}`} // استفاده از lang از props
           className="bg-white dark:bg-[#1A1A18] shadow-lg rounded-xl overflow-hidden w-full flex flex-col hover:scale-[1.02] transition-transform"
         >
           <div className="w-full p-3">

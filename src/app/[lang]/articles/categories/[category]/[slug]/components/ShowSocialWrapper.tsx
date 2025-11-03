@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import ShredPageArticle from "./ShredpageArticle";
-import { findByUniqueId } from "../../../../../components/utils/findByUniqueId";
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { CopyIcon } from "@/components/svgs/SvgCategories";
 import { Like, Dislike, Comment } from "@/components/svgs/SvgEducation";
 

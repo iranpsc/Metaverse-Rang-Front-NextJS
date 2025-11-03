@@ -2,14 +2,21 @@
 
 import React, { useState, useRef } from "react";
 import Image from "next/image";
-import { Swiper, SwiperSlide } from "swiper/react";
+import Link from "next/link";
+import dynamic from "next/dynamic";
 import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
+import { SwiperSlide } from "swiper/react";
 import { Like, Dislike, View } from "@/components/svgs/SvgEducation";
 import { articles } from "@/components/utils/articles";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { ArrowRight } from "@/components/svgs";
-import Link from "next/link";
+
+// ✅ فقط Swiper را داینامیک ایمپورت می‌کنیم تا SSR ارور ندهد
+const Swiper = dynamic(async () => (await import("swiper/react")).Swiper, {
+  ssr: false,
+});
+
 
 interface PopularArticlesSliderProps {
   params: { lang: string };
@@ -20,12 +27,14 @@ const PopularArticlesSlider = ({ params, mainData }: PopularArticlesSliderProps)
   const [activeIndex, setActiveIndex] = useState(0);
   const swiperRef = useRef<SwiperType>();
 
+  // ✅ فقط 10 مقاله پربازدید
   const sortedArticles = [...articles]
     .sort((a, b) => b.stats.views - a.stats.views)
     .slice(0, 10);
 
   return (
     <section className="w-full">
+      {/* عنوان و لینک مشاهده همه */}
       <div className="flex items-center justify-between mb-7 w-full lg:w-[70%] 3xl:w-[80%] ps-1 pe-5 lg:pe-11">
         <h2 className="text-xl font-bold dark:text-white">پربازدیدترین مقالات</h2>
         <Link
@@ -37,11 +46,14 @@ const PopularArticlesSlider = ({ params, mainData }: PopularArticlesSliderProps)
             {findByUniqueId(mainData, 171)}
           </p>
           <ArrowRight
-            className={`dark:stroke-white stroke-black rotate-180 w-[24px] h-full ${params.lang === "en" ? "ltr:rotate-0" : ""}`}
+            className={`dark:stroke-white stroke-black rotate-180 w-[24px] h-full ${
+              params.lang === "en" ? "ltr:rotate-0" : ""
+            }`}
           />
         </Link>
       </div>
 
+      {/* ✅ اسلایدر مقالات */}
       <Swiper
         spaceBetween={20}
         slidesPerView={3.7}
@@ -57,7 +69,7 @@ const PopularArticlesSlider = ({ params, mainData }: PopularArticlesSliderProps)
         {sortedArticles.map((item) => (
           <SwiperSlide key={item.id} className="flex items-center pb-5">
             <Link
-              href={`/${params.lang}/articles/${item.slug}`}
+              href={`/${params.lang}/articles/categories/${item.category}/${item.slug}`}
               className="bg-white dark:bg-[#1A1A18] shadow-md rounded-2xl overflow-hidden flex flex-col h-[350px] w-full"
               aria-label={`Read article: ${item.title}`}
             >
@@ -96,6 +108,7 @@ const PopularArticlesSlider = ({ params, mainData }: PopularArticlesSliderProps)
                       {item.stats.dislikes}
                     </span>
                   </div>
+
                   <div className="flex items-center gap-2">
                     <Link
                       href={`/${params.lang}/citizens/${item.author.citizenId}`}
@@ -104,7 +117,10 @@ const PopularArticlesSlider = ({ params, mainData }: PopularArticlesSliderProps)
                     >
                       <div className="relative w-[35px] h-[35px] bg-lightGray rounded-full overflow-hidden border shadow-md">
                         <Image
-                          src={item.author.avatar || "/articles/author/fallback-avatar.jpg"}
+                          src={
+                            item.author.avatar ||
+                            "/articles/author/fallback-avatar.jpg"
+                          }
                           alt={item.author.name}
                           className="object-cover"
                           width={35}
@@ -121,7 +137,7 @@ const PopularArticlesSlider = ({ params, mainData }: PopularArticlesSliderProps)
         ))}
       </Swiper>
 
-      {/* کنترل‌ها */}
+      {/* کنترل‌های پایین اسلایدر */}
       <div className="mt-4 w-full">
         <div className="flex items-center justify-center md:justify-start gap-2">
           <button

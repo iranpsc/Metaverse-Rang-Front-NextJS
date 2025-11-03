@@ -74,8 +74,10 @@ export const articles = [
       },
     },
 
-    category: "تکنولوژی",
-    subCategory: "متاورس",
+    category: "نوسعه وب",
+    subCategory: "ریکت",
+    categoryImage: "/ARTICTEST.png",
+    categoryDec: "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطر آن چنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می‌باشد.",
 
     tags: [
       { label: "متاورس", slug: "metaverse" },
@@ -93,8 +95,8 @@ export const articles = [
   },
   {
     id: 2,
-    title: "ترجمه ماشینی چیست؟",
-    slug: "test",
+    title: "  ریکت چیست ؟",
+    slug: "test001",
     date: "2025-06-30",
     image: "/rafiki-dark.png",
     excerpt: "بررسی مفهوم ترجمه ماشینی و کاربردهای آن در ارتباطات...",
@@ -110,8 +112,10 @@ export const articles = [
       citizenId: "CIT-987654",
     },
 
-    category: "هوش مصنوعی",
-    subCategory: "پردازش زبان طبیعی",
+    category: "نوسعه وب",
+    subCategory: "NEXT.JS",
+    categoryImage: "/ARTICTEST.png",
+    categoryDec: "test asda sdasd ",
 
     stats: {
       likes: 45,
@@ -122,11 +126,11 @@ export const articles = [
   },
   {
     id: 3,
-    title: "ترجمه ماشینی چیست؟",
+    title: " 2ترجمه ماشینی چیست؟",
     slug: "machine-translation",
     date: "2025-06-30",
     image: "/rafiki-dark.png",
-    excerpt: "بررسی مفهوم ترجمه ماشینی و کاربردهای آن در ارتباطات...",
+    excerpt: "222بررسی مفهوم ترجمه ماشینی و کاربردهای آن در ارتباطات...",
     description: "این یک توضیح کوتاه درباره مقاله تستی است.",
     content: `
       <p>ترجمه ماشینی یکی از حوزه‌های مهم پردازش زبان طبیعی است و به کمک الگوریتم‌ها
@@ -141,6 +145,8 @@ export const articles = [
 
     category: "هوش مصنوعی",
     subCategory: "پردازش زبان طبیعی",
+    categoryImage: "/ARTICTEST.png",
+    categoryDec: "سیبس بس یبس یبس یب سیبچخحصهنضشثحجخقهضش حجصخثیبجحخشسیتبنل حشستیبمکن شستیمکنبتشسمکین بتشجحسیهتبمک هشستیبمکنشتسیبشسیب شسیبتس یخحهبعت سثخحهیباتشحمیهسن بتشسجخحهیهبغاصحخهث تاشسخیمکهبلا شسحخعهیبعاکشسخهیبات شخحهسیا شحکنسیبت شحخجهسیباتف    بسیگنيخشجسني جخحشسني شخحجسينشحخجسني حشجسخني شسحخني شجحسنخحجلتاخحهصسعتثفبت شحخجهسیباتف    بسیگنيخشجسني جخحشسني شخحجسينشحخجسني حشجسخني شسحخني شجحسنخحجلتاخحهصسعتثفبت شحخجهسیباتف    بسیگنيخشجسني جخحشسني شخحجسينشحخجسني حشجسخني شسحخني شجحسنخحجلتاخحهصسعتثفبت شحخجهسیباتف    بسیگنيخشجسني جخحشسني شخحجسينشحخجسني حشجسخني شسحخني شجحسنخحجلتاخحهصسعتثفبت شحخجهسیباتف    بسیگنيخشجسني جخحشسني شخحجسينشحخجسني حشجسخني شسحخني شجحسنخحجلتاخحهصسعتثفبت شحخجهسیباتف    بسیگنيخشجسني جخحشسني شخحجسينشحخجسني حشجسخني شسحخني شجحسنخحجلتاخحهصسعتثف لحخجهيبتذ   يبد لاخحه سبتلحسيب لجشحهنسبدل",
 
     stats: {
       likes: 45,
@@ -151,11 +157,11 @@ export const articles = [
   },
   {
     id: 4,
-    title: "ترجمه ماشینی چیست؟",
+    title: "ترجمه ماشینی چیست؟3333",
     slug: "machine-translation",
     date: "2025-06-30",
     image: "/rafiki-dark.png",
-    excerpt: "بررسی مفهوم ترجمه ماشینی و کاربردهای آن در ارتباطات...",
+    excerpt: "بررسی مفهوم ترجمه ماشینی و کاربردهای آن در ارتباطات...33333",
     description: "این یک توضیح کوتاه درباره مقاله تستی است.",
     content: `
       <p>ترجمه ماشینی یکی از حوزه‌های مهم پردازش زبان طبیعی است و به کمک الگوریتم‌ها
@@ -170,6 +176,8 @@ export const articles = [
 
     category: "هوش مصنوعی",
     subCategory: "پردازش زبان طبیعی",
+    categoryImage: "/ARTICTEST.png",
+    categoryDec: "سیبس بس یبس یبس یب سیبچخحصهنضشثحجخقهضش حجصخثیبجحخشسیتبنل حشستیبمکن شستیمکنبتشسمکین بتشجحسیهتبمک هشستیبمکنشتسیبشسیب شسیبتس یخحهبعت سثخحهیباتشحمیهسن بتشسجخحهیهبغاصحخهث تاشسخیمکهبلا شسحخعهیبعاکشسخهیبات شخحهسیا شحکنسیبت شحخجهسیباتف لجشحهنسبدل",
 
     stats: {
       likes: 45,
@@ -211,6 +219,8 @@ export const articles = [
     // ✅ دسته بندی
     category: "تکنولوژی",
     subCategory: "متاورس",
+    categoryImage: "/ARTICTEST.png",
+    categoryDec: "test asda sdasd ",
 
     // ✅ آمار
     stats: {
@@ -221,12 +231,12 @@ export const articles = [
     },
   },
   {
-    id: 6,
-    title: "ترجمه ماشینی چیست؟",
-    slug: "machine-translation",
-    date: "2025-06-30",
+    id: 9,
+    title: "ترجمه ماشینی 4444444",
+    slug: "machine-232323",
+    date: "2025-06-22",
     image: "/rafiki-dark.png",
-    excerpt: "بررسی مفهوم ترجمه ماشینی و کاربردهای آن در ارتباطات...",
+    excerpt: "بررسی مفهوم ترجمه ماشینی و کاربردهای آن در ارتباطات...44444444",
     description: "این یک توضیح کوتاه درباره مقاله تستی است.",
     content: `
       <p>ترجمه ماشینی یکی از حوزه‌های مهم پردازش زبان طبیعی است و به کمک الگوریتم‌ها
@@ -240,22 +250,23 @@ export const articles = [
     },
 
     category: "هوش مصنوعی",
-    subCategory: "پردازش زبان طبیعی",
-
+    subCategory: "پردازش تصویر",
+    categoryImage: "/ARTICTEST.png",
+    categoryDec: "سیبس بس یبس یبس یب سیبچخحصهنضشثحجخقهضش حجصخثیبجحخشسیتبنل حشستیبمکن شستیمکنبتشسمکین بتشجحسیهتبمک هشستیبمکنشتسیبشسیب شسیبتس یخحهبعت سثخحهیباتشحمیهسن بتشسجخحهیهبغاصحخهث تاشسخیمکهبلا شسحخعهیبعاکشسخهیبات شخحهسیا شحکنسیبت شحخجهسیباتف لجشحهنسبدل",
     stats: {
       likes: 45,
       dislikes: 2,
-      views: 2880,
+      views: 1880,
       comments: 6,
     },
   },
   {
     id: 7,
-    title: "ترجمه ماشینی چیست؟",
+    title: "ترجمه ماشینی چیست؟555",
     slug: "machine-translation",
     date: "2025-06-30",
     image: "/rafiki-dark.png",
-    excerpt: "بررسی مفهوم ترجمه ماشینی و کاربردهای آن در ارتباطات...",
+    excerpt: "بررسی مفهوم ترجمه ماشینی و کاربردهای آن در ارتباطات...5555",
     description: "این یک توضیح کوتاه درباره مقاله تستی است.",
     content: `
       <p>ترجمه ماشینی یکی از حوزه‌های مهم پردازش زبان طبیعی است و به کمک الگوریتم‌ها
@@ -280,11 +291,11 @@ export const articles = [
   },
   {
     id: 6,
-    title: "ترجمه ماشینی چیست؟",
+    title: "ترجمه ماشینی چیست؟6666666",
     slug: "machine-translation",
     date: "2025-06-30",
     image: "/rafiki-dark.png",
-    excerpt: "بررسی مفهوم ترجمه ماشینی و کاربردهای آن در ارتباطات...",
+    excerpt: "بررسی مفهوم ترجمه ماشینی و کاربردهای آن در ارتباطات...666666",
     description: "این یک توضیح کوتاه درباره مقاله تستی است.",
     content: `
       <p>ترجمه ماشینی یکی از حوزه‌های مهم پردازش زبان طبیعی است و به کمک الگوریتم‌ها
@@ -309,11 +320,11 @@ export const articles = [
   },
   {
     id: 8,
-    title: " ماشین لرنینگ چیست؟",
+    title: " ماشین لرنینگ چیست؟7777777777",
     slug: "machine-learning",
     date: "2025-01-10",
     image: "/rafiki-dark.png",
-    excerpt: "بررسی مفهوم ترجمه ماشینی و کاربردهای آن در ارتباطات...",
+    excerpt: "بررسی مفهوم ترجمه ماشینی و کاربردهای آن در ارتباطات...77777777",
     description: "این یک توضیح کوتاه درباره مقاله تستی است.",
     content: `
       <p>ترجمه ماشینی یکی از حوزه‌های مهم پردازش زبان طبیعی است و به کمک الگوریتم‌ها
@@ -333,6 +344,222 @@ export const articles = [
       likes: 45,
       dislikes: 2,
       views: 1880,
+      comments: 6,
+    },
+  },
+  {
+    id: 9,
+    title: "  NEXT.JS چیست ؟",
+    slug: "next_js",
+    date: "2025-01-10",
+    image: "/rafiki-dark.png",
+    excerpt: "بررسی مفهوم ترجمه ماشینی و کاربردهای آن در ارتباطات...",
+    description: "این یک توضیح کوتاه درباره مقاله تستی است.",
+    content: `
+      <p>ترجمه ماشینی یکی از حوزه‌های مهم پردازش زبان طبیعی است و به کمک الگوریتم‌ها
+      <a href="#">و هوش مصنوعی تلاش می‌کند متن‌ها را به زبان‌های مختلف ترجمه کند.<a/> و هوش مصنوعی تلاش می‌کند متن‌ها را به زبان‌های مختلف ترجمه کند.</p>
+      
+    `,
+
+    author: {
+      name: "شهره فاطمی علیرضاده",
+      citizenId: "CIT-987654",
+    },
+
+    category: "نوسعه وب",
+    subCategory: "NEXT.JS",
+    categoryImage: "/ARTICTEST.png",
+    categoryDec: "test asda sdasd  sfdf sdf sdf sdf sdf sdf' lkwse'lr kfwq['eofk w[]eoifk wp[]eofikwp[oerfgk ['sofgk[p d skajgp[dsfjg [psdfjgopi sdf",
+
+    stats: {
+      likes: 45,
+      dislikes: 2,
+      views: 880,
+      comments: 6,
+    },
+  },
+  {
+    id: 9,
+    title: "  NEXT.JS چیست ؟",
+    slug: "next_js",
+    date: "2025-01-10",
+    image: "/rafiki-dark.png",
+    excerpt: "بررسی مفهوم ترجمه ماشینی و کاربردهای آن در ارتباطات...",
+    description: "این یک توضیح کوتاه درباره مقاله تستی است.",
+    content: `
+      <p>ترجمه ماشینی یکی از حوزه‌های مهم پردازش زبان طبیعی است و به کمک الگوریتم‌ها
+      <a href="#">و هوش مصنوعی تلاش می‌کند متن‌ها را به زبان‌های مختلف ترجمه کند.<a/> و هوش مصنوعی تلاش می‌کند متن‌ها را به زبان‌های مختلف ترجمه کند.</p>
+      
+    `,
+
+    author: {
+      name: "شهره فاطمی علیرضاده",
+      citizenId: "CIT-987654",
+    },
+
+    category: "نوسعه وب2",
+    subCategory: "NEXT.JS",
+    categoryImage: "/ARTICTEST.png",
+    categoryDec: "test asda sdasd  sfdf sdf sdf sdf sdf sdf' lkwse'lr kfwq['eofk w[]eoifk wp[]eofikwp[oerfgk ['sofgk[p d skajgp[dsfjg [psdfjgopi sdf",
+
+    stats: {
+      likes: 45,
+      dislikes: 2,
+      views: 880,
+      comments: 6,
+    },
+  },
+  {
+    id: 9,
+    title: "  NEXT.JS چیست ؟",
+    slug: "next_js",
+    date: "2025-01-10",
+    image: "/rafiki-dark.png",
+    excerpt: "بررسی مفهوم ترجمه ماشینی و کاربردهای آن در ارتباطات...",
+    description: "این یک توضیح کوتاه درباره مقاله تستی است.",
+    content: `
+      <p>ترجمه ماشینی یکی از حوزه‌های مهم پردازش زبان طبیعی است و به کمک الگوریتم‌ها
+      <a href="#">و هوش مصنوعی تلاش می‌کند متن‌ها را به زبان‌های مختلف ترجمه کند.<a/> و هوش مصنوعی تلاش می‌کند متن‌ها را به زبان‌های مختلف ترجمه کند.</p>
+      
+    `,
+
+    author: {
+      name: "شهره فاطمی علیرضاده",
+      citizenId: "CIT-987654",
+    },
+
+    category: "نوسعه وب3",
+    subCategory: "NEXT.JS",
+    categoryImage: "/ARTICTEST.png",
+    categoryDec: "test asda sdasd  sfdf sdf sdf sdf sdf sdf' lkwse'lr kfwq['eofk w[]eoifk wp[]eofikwp[oerfgk ['sofgk[p d skajgp[dsfjg [psdfjgopi sdf",
+
+    stats: {
+      likes: 45,
+      dislikes: 2,
+      views: 880,
+      comments: 6,
+    },
+  },
+  {
+    id: 9,
+    title: "  NEXT.JS چیست ؟",
+    slug: "next_js",
+    date: "2025-01-10",
+    image: "/rafiki-dark.png",
+    excerpt: "بررسی مفهوم ترجمه ماشینی و کاربردهای آن در ارتباطات...",
+    description: "این یک توضیح کوتاه درباره مقاله تستی است.",
+    content: `
+      <p>ترجمه ماشینی یکی از حوزه‌های مهم پردازش زبان طبیعی است و به کمک الگوریتم‌ها
+      <a href="#">و هوش مصنوعی تلاش می‌کند متن‌ها را به زبان‌های مختلف ترجمه کند.<a/> و هوش مصنوعی تلاش می‌کند متن‌ها را به زبان‌های مختلف ترجمه کند.</p>
+      
+    `,
+
+    author: {
+      name: "شهره فاطمی علیرضاده",
+      citizenId: "CIT-987654",
+    },
+
+    category: "نوسعه وب4",
+    subCategory: "NEXT.JS",
+    categoryImage: "/ARTICTEST.png",
+    categoryDec: "test asda sdasd  sfdf sdf sdf sdf sdf sdf' lkwse'lr kfwq['eofk w[]eoifk wp[]eofikwp[oerfgk ['sofgk[p d skajgp[dsfjg [psdfjgopi sdf",
+
+    stats: {
+      likes: 45,
+      dislikes: 2,
+      views: 880,
+      comments: 6,
+    },
+  },
+  {
+    id: 9,
+    title: "  NEXT.JS چیست ؟",
+    slug: "next_js",
+    date: "2025-01-10",
+    image: "/rafiki-dark.png",
+    excerpt: "بررسی مفهوم ترجمه ماشینی و کاربردهای آن در ارتباطات...",
+    description: "این یک توضیح کوتاه درباره مقاله تستی است.",
+    content: `
+      <p>ترجمه ماشینی یکی از حوزه‌های مهم پردازش زبان طبیعی است و به کمک الگوریتم‌ها
+      <a href="#">و هوش مصنوعی تلاش می‌کند متن‌ها را به زبان‌های مختلف ترجمه کند.<a/> و هوش مصنوعی تلاش می‌کند متن‌ها را به زبان‌های مختلف ترجمه کند.</p>
+      
+    `,
+
+    author: {
+      name: "شهره فاطمی علیرضاده",
+      citizenId: "CIT-987654",
+    },
+
+    category: "نوسعه وب5",
+    subCategory: "NEXT.JS",
+    categoryImage: "/ARTICTEST.png",
+    categoryDec: "test asda sdasd  sfdf sdf sdf sdf sdf sdf' lkwse'lr kfwq['eofk w[]eoifk wp[]eofikwp[oerfgk ['sofgk[p d skajgp[dsfjg [psdfjgopi sdf",
+
+    stats: {
+      likes: 45,
+      dislikes: 2,
+      views: 880,
+      comments: 6,
+    },
+  },
+  {
+    id: 9,
+    title: "  NEXT.JS چیست ؟",
+    slug: "next_js",
+    date: "2025-01-10",
+    image: "/rafiki-dark.png",
+    excerpt: "بررسی مفهوم ترجمه ماشینی و کاربردهای آن در ارتباطات...",
+    description: "این یک توضیح کوتاه درباره مقاله تستی است.",
+    content: `
+      <p>ترجمه ماشینی یکی از حوزه‌های مهم پردازش زبان طبیعی است و به کمک الگوریتم‌ها
+      <a href="#">و هوش مصنوعی تلاش می‌کند متن‌ها را به زبان‌های مختلف ترجمه کند.<a/> و هوش مصنوعی تلاش می‌کند متن‌ها را به زبان‌های مختلف ترجمه کند.</p>
+      
+    `,
+
+    author: {
+      name: "شهره فاطمی علیرضاده",
+      citizenId: "CIT-987654",
+    },
+
+    category: "نوسعه وب",
+    subCategory: "NEXT.JS",
+    categoryImage: "/ARTICTEST.png",
+    categoryDec: "test asda sdasd  sfdf sdf sdf sdf sdf sdf' lkwse'lr kfwq['eofk w[]eoifk wp[]eofikwp[oerfgk ['sofgk[p d skajgp[dsfjg [psdfjgopi sdf",
+
+    stats: {
+      likes: 45,
+      dislikes: 2,
+      views: 880,
+      comments: 6,
+    },
+  }, {
+    id: 9,
+    title: "  NEXT.JS چیست ؟",
+    slug: "next_js",
+    date: "2025-01-10",
+    image: "/rafiki-dark.png",
+    excerpt: "بررسی مفهوم ترجمه ماشینی و کاربردهای آن در ارتباطات...",
+    description: "این یک توضیح کوتاه درباره مقاله تستی است.",
+    content: `
+      <p>ترجمه ماشینی یکی از حوزه‌های مهم پردازش زبان طبیعی است و به کمک الگوریتم‌ها
+      <a href="#">و هوش مصنوعی تلاش می‌کند متن‌ها را به زبان‌های مختلف ترجمه کند.<a/> و هوش مصنوعی تلاش می‌کند متن‌ها را به زبان‌های مختلف ترجمه کند.</p>
+      
+    `,
+
+    author: {
+      name: "شهره فاطمی علیرضاده",
+      citizenId: "CIT-987654",
+    },
+
+    category: "نوسعه وب66",
+    subCategory: "NEXT.JS",
+    categoryImage: "/ARTICTEST.png",
+    categoryDec: "test asda sdasd  sfdf sdf sdf sdf sdf sdf' lkwse'lr kfwq['eofk w[]eoifk wp[]eofikwp[oerfgk ['sofgk[p d skajgp[dsfjg [psdfjgopi sdf",
+
+    stats: {
+      likes: 45,
+      dislikes: 2,
+      views: 880,
       comments: 6,
     },
   },

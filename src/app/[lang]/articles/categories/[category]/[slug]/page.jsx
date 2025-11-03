@@ -19,7 +19,7 @@ import AuthorSection from "./components/AuthorSection";
 import ArticleImage from "./components/ArticleImage";
 import ArticleBody from "./components/ArticleBody";
 import SideCard from "./components/SideCard";
-import PopularArticlesSlider from "./components/PopularArticlesSlider";
+import PopularArticlesSlider from "../../../components/PopularArticlesSlider";
 import RelatedArticlesSlider from "./components/RelatedArticlesSlider";
 import PrevNextArticles from "./components/PrevNextArticles";
 import AuthorCard from "./components/AuthorCard";
