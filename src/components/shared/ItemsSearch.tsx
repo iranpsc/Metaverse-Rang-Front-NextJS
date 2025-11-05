@@ -124,26 +124,28 @@ export const ItemsSearch = ({ searchLevel, searchData, params }: any) => {
           return (
             <motion.div key={item.id} variants={items}>
               <Link
-                href={`/${params.lang}/articles/${item.slug}`}
+                href={`/${params.lang}/articles/categories/${params.category}/${item.slug}`}
                 className="w-[99%] mt-2 hover:shadow-md transition-all duration-300 
                 bg-white dark:bg-dark-background border-b border-mediumGray 
                 flex justify-between items-center p-3 rounded-lg"
               >
-                <div className="flex flex-col">
-                  <h3 className="text-black dark:text-white text-[16px] font-semibold">
+                <div className="flex flex-col w-[80%]">
+                  <h3 className="text-black dark:text-white text-[16px] font-semibold line-clamp-1">
                     {item.title}
                   </h3>
-                  <p className="text-gray-500 text-[13px] truncate">
+                  <p className="dark:text-lightGray text-textGray text-[13px] truncate">
                     {item.excerpt || item.category}
                   </p>
                 </div>
-                <Image
+                <div className="w-[20%] ">
+                  <Image
                   src={item.image || "/placeholder.png"}
                   alt={item.title}
-                  width={60}
-                  height={60}
-                  className="rounded-md object-cover"
+                  width={70}
+                  height={70}
+                  className="rounded-md object-cover w-full h-[70px] bg-cover"
                 />
+                </div>
               </Link>
             </motion.div>
           );

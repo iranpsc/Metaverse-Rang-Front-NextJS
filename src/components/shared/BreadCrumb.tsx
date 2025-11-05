@@ -333,12 +333,26 @@ export default function BreadCrumb({ params, eventTitle }: { params: any; eventT
       font: "font-normal",
       link: `/${params.lang}/articles`,
     },
+        {
+      name: "categories",
+      en: "articles categories",
+      fa: "دسته بندی مقالات",
+      font: "font-normal",
+      link: `/${params.lang}/articles/categories`,
+    },
+    {
+      name: `${params.category}`,
+      en: decodeURIComponent(params.category || ""),
+  fa: decodeURIComponent(params.category|| ""),
+      font: "font-normal",
+      link: `/${params.lang}/articles/categories/${params.category}`,
+    },
     {
       name: `${params.slug}`,
       en: `${params.slug}`,
       fa: `${params.slug}`,
       font: "font-normal",
-      link: `/${params.lang}/articles/${params.slug}`,
+      link: `/${params.lang}/articles/categories/${params.category}/${params.slug}`,
     },
   ];
 

@@ -40,7 +40,7 @@ export async function generateMetadata({ params }) {
       title: article.title,
       description: article.excerpt || article.description || "",
       images: article.image ? [{ url: article.image }] : [],
-      url: `${process.env.NEXT_PUBLIC_SITE_URL}/${params.lang}/articles/${article.slug}`,
+      url: `rgb.irpsc.com/${params.lang}/articles/categories/${decodeURIComponent(params.category)}/${article.slug}`,
       type: "article",
     },
     twitter: {
@@ -94,7 +94,7 @@ export default async function ArticlePage({ params }) {
       datePublished: article.date,
       mainEntityOfPage: {
         "@type": "WebPage",
-        "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/${params.lang}/articles/${article.slug}`,
+        "@id": `rgb.irpsc.com/${params.lang}/articles/categories/${decodeURIComponent(params.category)}/${article.slug}`,
       },
       publisher: {
         "@type": "Organization",
@@ -112,7 +112,7 @@ export default async function ArticlePage({ params }) {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
 
         <section className="w-full overflow-y-auto relative light-scrollbar dark:dark-scrollbar bg-[#f8f8f8] dark:bg-black mt-[60px] lg:mt-0 lg:pt-0">
-          <div className="px-12">
+          <div className="px-5 2xl:px-10">
             <BreadCrumb params={params} />
           </div>
 

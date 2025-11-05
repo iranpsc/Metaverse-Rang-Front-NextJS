@@ -44,7 +44,7 @@ export default function CategoriesGrid({ params }: CategoriesGridProps) {
     <div >
       
 
-      <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-5 xl:gap-10 3xl:gap-12">
+      <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-10 md:gap-7 xl:gap-10 3xl:gap-12">
         {visibleCategories.map((cat) => (
           <Link
             key={cat}

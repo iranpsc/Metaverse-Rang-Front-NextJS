@@ -7,7 +7,7 @@ import { articles } from "@/components/utils/articles";
 import { Like, Dislike, View } from "@/components/svgs/SvgEducation";
 
 interface PrevNextArticlesProps {
-  params: { lang: string; slug: string };
+  params: { lang: string; slug: string ; category: string};
 }
 
 const PrevNextArticles = ({ params }: PrevNextArticlesProps) => {
@@ -28,7 +28,7 @@ const PrevNextArticles = ({ params }: PrevNextArticlesProps) => {
           <div className="w-full">
             {prevArticle ? (
               <Link
-                href={`/${params.lang}/articles/${prevArticle.slug}`}
+                href={`/${params.lang}/articles/categories/${params.category}/${prevArticle.slug}`}
                 className="flex flex-col gap-1  bg-white dark:bg-[#1A1A18] shadow-md rounded-2xl overflow-hidden w-full h-[390px]"
               >
                 <div className="p-3 w-full">
@@ -79,7 +79,7 @@ const PrevNextArticles = ({ params }: PrevNextArticlesProps) => {
           <div className=" w-full">
             {nextArticle ? (
               <Link
-                href={`/${params.lang}/articles/${nextArticle.slug}`}
+                href={`/${params.lang}/articles/categories/${params.category}/${nextArticle.slug}`}
                 className="flex flex-col gap-1  bg-white dark:bg-[#1A1A18] shadow-md rounded-2xl overflow-hidden w-full h-[390px]"
               >
                 {/* تصویر */}
