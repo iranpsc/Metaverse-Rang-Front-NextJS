@@ -26,7 +26,7 @@ export default async function CitizenReferral({ params }: { params: any }) {
 
   // helper: می‌سازد updatedTabsMenu با merge دو منو و فیلتر تکراری‌ها
   async function buildUpdatedTabsMenu(mainData: any) {
-    const staticMenuToShow = getStaticMenu(params.lang); // <-- دقت کنیم params.lang
+    const staticMenuToShow = getStaticMenu(params); // <-- دقت کنیم params.lang
     const citizenModal = await findByModalName(mainData, "Citizenship-profile");
     const citizenTabs = (await findByTabName(citizenModal, "menu")) || [];
 

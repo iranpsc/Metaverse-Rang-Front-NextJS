@@ -10,8 +10,8 @@ const ThemeMenuModule = ({ isClosed, defaultTheme, params }: any) => {
   return (
     <div
       className={`${
-        isClosed ? "w-[70px]" : "w-[90%]"
-      } h-[50px]  flex justify-center items-center `}
+        isClosed ? "w-[70px] hidden" : "w-[90%] "
+      } h-[50px]  flex justify-center items-center transition-all `}
     >
       {isClosed ? (
         <div

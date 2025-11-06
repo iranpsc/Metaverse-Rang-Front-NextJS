@@ -229,7 +229,7 @@ export default async function CalendarPage({ params }: { params: { lang: string 
         </div>
 
         <div className="w-full xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
-          <Footer footerTabs={footerTabs} mainData={mainData} />
+          <Footer footerTabs={footerTabs}  params={params} mainData={mainData} />
         </div>
       </section>
     </div>

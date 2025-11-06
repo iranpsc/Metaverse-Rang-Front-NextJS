@@ -2,10 +2,13 @@
 import Image from "next/image";
 import { MenuIcon, ArrowMenu } from "@/svgs/index";
 import Link from "next/link";
+import ThemeMenuModule from "@/components/module/sidebar/ThemeMenuModule";
+import { useCookies } from "react-cookie";
 // import React, { useMemo } from "react";
 function SideBarHeader({ isClosed, toggleSide, tabsMenu, params }: any) {
   const lang = params.lang;
-
+  const [cookies] = useCookies(["theme"]);
+  const theme = cookies.theme || "dark";
   // ترجمه‌های دستی
   const translations: Record<string, { title: string; subtitle: string }> = {
     fa: {
@@ -81,7 +84,11 @@ function SideBarHeader({ isClosed, toggleSide, tabsMenu, params }: any) {
           className={`w-[7px] md:w-[14px] h-[7px] md:h-[14px] stroke-gray dark:stroke-white ltr:rotate-180 rtl:rotate-0`}
         />
       </div>
-
+        <ThemeMenuModule
+                isClosed={isClosed}
+                defaultTheme={theme}
+                params={params}
+              />
       <hr
         className={`${
           isClosed ? "mx-3 mt-3" : "mx-2"

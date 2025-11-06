@@ -39,7 +39,8 @@ export default async function citizenSinglePage({ params }) {
     const mainTabsMenu = await findByTabName(centralPageModal, "before-login");
 
     // 🟢 استاتیک منو
-    const staticMenuToShow = getStaticMenu(params.lang);
+    const staticMenuToShow = getStaticMenu(params);
+
     
     // تابعی برای آپدیت منو با staticMenu
     const mapMenu = (tabsMenu) =>

@@ -5,7 +5,7 @@ import AllSideTab from "./AllSideTab";
 import LevelSideTab from './LevelSideTab';
 import { useState, useCallback, useEffect, useRef } from "react";
 import LoginMenuModule from "./LoginMenuModule";
-import ThemeMenuModule from "@/components/module/sidebar/ThemeMenuModule";
+// import ThemeMenuModule from "@/components/module/sidebar/ThemeMenuModule";
 import HeaderMobile from "@/components/module/sidebar/HeaderMobile";
 import { useCookies } from "react-cookie";
 
@@ -139,14 +139,10 @@ export default function SideBar({
               <div className="w-[80%] m-auto">
                 <LoginMenuModule isClosed={isClosed} tabsMenu={tabsMenu} params={params} />
               </div>
-              <div className="w-full pt-3 pb-1 flex flex-col items-center justify-center">
+              {/* <div className="w-full pt-3 pb-1 flex flex-col items-center justify-center">
                 <div className="h-[1px] bg-gray opacity-50 dark:bg-mediumGray w-[80%]" />
-              </div>
-              <ThemeMenuModule
-                isClosed={isClosed}
-                defaultTheme={theme}
-                params={params}
-              />
+              </div> */}
+              
             </div>
           </aside>
         </div>
