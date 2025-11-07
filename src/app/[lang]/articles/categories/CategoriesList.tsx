@@ -27,20 +27,24 @@ export default function CategoriesGridClient({
   return (
     <>
       <div className="w-full mt-[70px]">
-
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 3xl:gap-10 mt-10">
-          {visibleCategories.map((cat) => (
+          {visibleCategories.map((cat, index) => (
             <Link
               key={cat}
               href={`/${params.lang}/articles/categories/${encodeURIComponent(cat)}`}
               className="relative w-full h-[200px] rounded-xl overflow-hidden shadow-lg group"
             >
+              {/* ✅ بهینه‌سازی برای تصویر LCP */}
               <Image
-                src={categoryImages[cat] || "/default-bg.jpg"}
+                src={categoryImages[cat] || "/default.png"}
                 alt={cat}
                 fill
                 className="object-cover group-hover:scale-110 transition-transform duration-500"
+                // فقط برای اولین تصویر (LCP image)
+                priority={index === 0}
+                fetchPriority={index === 0 ? "high" : "auto"}
               />
+
               <div className="absolute inset-0 bg-gradient-to-br to-black/90 via-black/60 from-black/5 transition" />
               <div className="absolute bottom-4 right-4 flex gap-3">
                 <div className="border-r-0 border-solid border-y-0 border-l border-[#969696] pl-3 h-min">
@@ -86,7 +90,7 @@ export default function CategoriesGridClient({
         <div className="flex justify-center mt-10">
           <button
             onClick={handleLoadMore}
-            className=" bg-white dark:bg-darkGray text-light-primary md:text-lg dark:text-dark-yellow rounded-[12px] px-[40px] py-[16px] base-transition-1 border-2 border-transparent hover:border-light-primary hover:text-light-primary hover:dark:border-dark-yellow"
+            className="bg-white dark:bg-darkGray text-light-primary md:text-lg dark:text-dark-yellow rounded-[12px] px-[40px] py-[16px] base-transition-1 border-2 border-transparent hover:border-light-primary hover:text-light-primary hover:dark:border-dark-yellow"
           >
             مشاهده بیشتر
           </button>
