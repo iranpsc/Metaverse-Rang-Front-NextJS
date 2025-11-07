@@ -1,41 +1,42 @@
 "use client";
 
-import React, { useState, useRef } from "react";
-import Image from "next/image";
-import Link from "next/link";
+import React, { useState, useRef, useMemo } from "react";
 import dynamic from "next/dynamic";
 import type { Swiper as SwiperType } from "swiper";
-import "swiper/css";
 import { SwiperSlide } from "swiper/react";
-import { Like, Dislike, View } from "@/components/svgs/SvgEducation";
+import "swiper/css";
+import Link from "next/link";
+import { ArrowRight } from "@/components/svgs";
 import { articles } from "@/components/utils/articles";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import { ArrowRight } from "@/components/svgs";
+import ArticleCard from "./ArticleCard";
 
 // ✅ فقط Swiper را داینامیک ایمپورت می‌کنیم تا SSR ارور ندهد
 const Swiper = dynamic(async () => (await import("swiper/react")).Swiper, {
   ssr: false,
 });
 
-
 interface PopularArticlesSliderProps {
   params: { lang: string };
   mainData: any;
+  theme?: "light" | "dark";
 }
 
-const PopularArticlesSlider = ({ params, mainData }: PopularArticlesSliderProps) => {
+const PopularArticlesSlider = ({ params, mainData, theme }: PopularArticlesSliderProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const swiperRef = useRef<SwiperType>();
+  const swiperRef = useRef<SwiperType | null>(null);
 
   // ✅ فقط 10 مقاله پربازدید
-  const sortedArticles = [...articles]
-    .sort((a, b) => b.stats.views - a.stats.views)
-    .slice(0, 10);
+  const sortedArticles = useMemo(() => {
+    return [...articles]
+      .sort((a, b) => b.stats.views - a.stats.views)
+      .slice(0, 10);
+  }, []);
 
   return (
     <section className="w-full">
       {/* عنوان و لینک مشاهده همه */}
-      <div className="flex items-center justify-between mb-7 w-full lg:w-[70%] 3xl:w-[80%] ps-1 pe-5 lg:pe-11">
+      <div className="flex items-center justify-between mb-7 w-full  ps-1 pe-5 lg:pe-10">
         <h2 className="text-xl font-bold dark:text-white">پربازدیدترین مقالات</h2>
         <Link
           href={`/${params.lang}/articles`}
@@ -68,71 +69,7 @@ const PopularArticlesSlider = ({ params, mainData }: PopularArticlesSliderProps)
       >
         {sortedArticles.map((item) => (
           <SwiperSlide key={item.id} className="flex items-center pb-5">
-            <Link
-              href={`/${params.lang}/articles/categories/${item.category}/${item.slug}`}
-              className="bg-white dark:bg-[#1A1A18] shadow-md rounded-2xl overflow-hidden flex flex-col h-[350px] w-full"
-              aria-label={`Read article: ${item.title}`}
-            >
-              <div className="relative w-full h-48">
-                <Image
-                  src={item.image}
-                  alt={item.title}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-
-              <div className="p-4 flex flex-col justify-between flex-1">
-                <p className="text-xs text-gray-500 mb-1 text-[#888888]">
-                  {item.category} / {item.subCategory}
-                </p>
-                <h3 className="text-lg font-semibold line-clamp-1 dark:text-white">
-                  {item.title}
-                </h3>
-                <p className="text-sm text-gray-600 line-clamp-2 dark:text-[#868B90] mt-2">
-                  {item.excerpt}
-                </p>
-
-                <div className="flex flex-row-reverse items-center justify-between mt-4 text-xs text-gray-500">
-                  <div className="flex items-center gap-3 text-[#888888]">
-                    <span className="flex items-center gap-1">
-                      <View className="stroke-[#888888] size-[14px]" />
-                      {item.stats.views}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Like className="stroke-[#888888] size-[14px]" />
-                      {item.stats.likes}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Dislike className="stroke-[#888888] size-[14px]" />
-                      {item.stats.dislikes}
-                    </span>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <Link
-                      href={`/${params.lang}/citizens/${item.author.citizenId}`}
-                      className="text-blue-500 text-xs font-bold flex items-center gap-2"
-                      aria-label={`Visit profile of ${item.author.name}`}
-                    >
-                      <div className="relative w-[35px] h-[35px] bg-lightGray rounded-full overflow-hidden border shadow-md">
-                        <Image
-                          src={
-                            item.author.avatar ||
-                            "/articles/author/fallback-avatar.jpg"
-                          }
-                          alt={item.author.name}
-                          className="object-cover"
-                          width={35}
-                          height={35}
-                        />
-                      </div>
-                      {item.author.citizenId}
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </Link>
+            <ArticleCard item={item} params={params} theme={theme} />
           </SwiperSlide>
         ))}
       </Swiper>

@@ -26,8 +26,8 @@ export default function CategoriesGridClient({
 
   return (
     <>
-      <div className="w-full mt-20">
-        <p className="text-2xl font-bold mb-8 dark:text-white"> دسته‌بندی‌ها</p>
+      <div className="w-full mt-[70px]">
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 3xl:gap-10 mt-10">
           {visibleCategories.map((cat) => (
             <Link
@@ -44,7 +44,7 @@ export default function CategoriesGridClient({
               <div className="absolute inset-0 bg-gradient-to-br to-black/90 via-black/60 from-black/5 transition" />
               <div className="absolute bottom-4 right-4 flex gap-3">
                 <div className="border-r-0 border-solid border-y-0 border-l border-[#969696] pl-3 h-min">
-                  <div className="rounded-full bg-[#969696] aspect-square h-10 w-10 flex items-center justify-center">
+                  <div className="rounded-full bg-[#969696] aspect-square h-10 w-10 flex items-center justify-center rtl:rotate-180">
                     <svg
                       width="20"
                       height="20"

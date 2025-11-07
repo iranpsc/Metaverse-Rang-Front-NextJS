@@ -107,7 +107,7 @@ export default async function ArticlePage({ params }) {
     };
 
     return (
-      <div className="flex h-screen overflow-hidden min-w-[340px]" dir={langData.direction}>
+      <main className="flex h-screen overflow-hidden min-w-[340px]" dir={langData.direction}>
         {/* Schema */}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
 
@@ -145,7 +145,7 @@ export default async function ArticlePage({ params }) {
             <DynamicFooter footerTabs={footerTabs} mainData={mainData} params={params} />
           </div>
         </section>
-      </div>
+      </main>
     );
   } catch (error) {
     return (

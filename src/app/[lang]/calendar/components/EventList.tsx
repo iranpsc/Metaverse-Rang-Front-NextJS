@@ -595,10 +595,10 @@ useEffect(() => {
 
             {/* توضیحات ایونت */}
             <div className="w-[97%] lg:w-[95%]">
-              <div className="text-base w-full break-words whitespace-normal text-[#868B90] dark:text-[#C4C4C4] mb-4 text-justify leading-6  font-normal font-[Vazir] 2xl:text-xl 2xl:leading-8
+              <div className="text-base w-full break-words whitespace-normal text-[#868B90] dark:text-[#C4C4C4] mb-4 text-justify font-normal font-[Vazir] 2xl:text-xl 2xl:leading-10
          [&_ul]:list-disc [&_ul]:pl-5
          [&_ol]:list-decimal [&_ol]:pl-5
-         [&_li>p]:inline [&_li>p]:m-0"
+         [&_li>p]:inline [&_li>p]:m-0 leading-8"
                 dangerouslySetInnerHTML={{
                   __html: showFullMap[event.id] ? event.desc : truncatedHtml,
                 }}

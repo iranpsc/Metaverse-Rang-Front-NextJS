@@ -115,7 +115,7 @@ export default async function ArticlesPage({ params }) {
 
   // ✅ محتوای اصلی (دقیقاً مثل نسخه‌ی خودت)
   return (
-    <section
+    <main
       className="w-full h-screen overflow-y-auto relative lg:pt-0 bg-[#f8f8f8] dark:bg-black light-scrollbar dark:dark-scrollbar"
       dir={langData.direction}
     >
@@ -123,18 +123,18 @@ export default async function ArticlesPage({ params }) {
         <BreadCrumb params={params} />
       </div>
 
-      <div className="px-5 2xl:px-10 mt-5">
-        <h1 className="text-lg md:text-2xl dark:text-white font-bold">
+      <div className=" 2xl:px-10 mt-5">
+        <h1 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[64px] mb-[16px]">
           مقالات متاورس رنگ
         </h1>
-        <p className="test-sm md:text-xl text-[#656565] dark:text-[#A0A0A0] mt-5">
+        <p className="text-lightGray  dark:text-lightGray font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center px-5 lg:px-10">
           در این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنید
         </p>
       </div>
 
-      <div className="mb-10 mt-10 space-y-14">
+      <div className="mb-10 mt-[-50px] lg:mt-5 space-y-7">
         <div className="flex flex-col-reverse  lg:gap-5 lg:flex-row lg:justify-between lg:items-center w-full px-5 lg:pe-4">
-          <h2 className="md:w-1/2 lg:ms-5 mt-5 lg:mt-0 lg:mb-[-42px] font-azarMehr text-lg md:text-2xl font-bold text-start dark:text-white text-black ps-[2px]">
+          <h2 className="md:w-1/2 lg:ms-5 mt-5 lg:mt-0 lg:mb-[-45px] font-azarMehr text-lg md:text-2xl font-bold text-start dark:text-white text-black ps-[2px]">
             دسته بندی های مقالات
           </h2>
           <SearchComponent
@@ -143,7 +143,7 @@ export default async function ArticlesPage({ params }) {
             params={params}
           />
         </div>
-        <div className="px-5 2xl:px-10">
+        <div className="px-5 lg:pt-6 2xl:px-10">
           <CategoriesGrid params={params} mainData={mainData} />
         </div>
       </div>
@@ -162,6 +162,6 @@ export default async function ArticlesPage({ params }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
       />
-    </section>
+    </main>
   );
 }

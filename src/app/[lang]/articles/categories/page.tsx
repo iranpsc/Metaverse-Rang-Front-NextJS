@@ -119,7 +119,7 @@ const baseUrl = "https://rgb.irpsc.com";
   };
 
   return (
-    <section
+    <main
       className="w-full h-screen overflow-y-auto bg-[#f8f8f8] dark:bg-black px-5 3xl:px-10 light-scrollbar dark:dark-scrollbar "
       dir={langData.direction}
     >
@@ -133,16 +133,16 @@ const baseUrl = "https://rgb.irpsc.com";
           <BreadCrumb params={params} />
         </div>
 
-        <div className="flex flex-col gap-3">
-          <h1 className="mt-5 text-center whitespace-nowrap dark:text-white text-black font-bold 3xl:text-[24px] xl:text-[24px] lg:text-[22px] md:text-[20px] sm:text-[18px] xs:text-[18px]">
+        <div >
+          <h1 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[64px] mb-[16px]">
             دسته‌بندی‌ مقالات
           </h1>
-          <p className="text-lightGray dark:text-lightGray font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center px-5 lg:px-10">
+          <p className="text-lightGray  dark:text-lightGray font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center px-5 lg:px-10">
             در سامانه مقالات متاورس رنگ، مجموعه‌ای از مطالب تخصصی و به‌روز در زمینه فناوری‌های نوین، دنیای متاورس، هوش مصنوعی، دارایی‌های دیجیتال و اقتصاد مجازی گردآوری شده است. هدف این بخش، ارتقای دانش شهروندان متاورسی و فراهم‌سازی بستری برای آشنایی عمیق‌تر با تحولات دنیای دیجیتال است.
           </p>
         </div>
 
-        <div className="w-full mt-6">
+        <div className="w-full mt-[-50px] lg:mt-0">
           <SearchComponent searchLevel="articles" mainData={mainData} params={params} />
         </div>
 
@@ -157,6 +157,6 @@ const baseUrl = "https://rgb.irpsc.com";
           <Footer footerTabs={footerTabs} mainData={mainData} params={params} />
         </div>
       </div>
-    </section>
+    </main>
   );
 }

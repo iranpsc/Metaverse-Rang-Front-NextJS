@@ -191,7 +191,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   // ✅ 4. Component Return
   // ===============================
   return (
-    <section className="w-full h-screen overflow-y-auto relative bg-[#f8f8f8] dark:bg-black light-scrollbar dark:dark-scrollbar">
+    <main className="w-full h-screen overflow-y-auto relative bg-[#f8f8f8] dark:bg-black light-scrollbar dark:dark-scrollbar">
       {/* ✅ Valid Schema for Rich Results */}
       <script
         type="application/ld+json"
@@ -217,8 +217,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         }}
       />
 
-      <div className="flex flex-col-reverse lg:gap-5 lg:flex-row lg:justify-between items-center w-full px-5 lg:pe-4">
-        <h2 className="md:w-1/2 lg:ms-5 mt-5 lg:mt-0 lg:mb-[-42px] font-azarMehr text-lg md:text-2xl font-bold text-start dark:text-white text-black ps-[2px]">
+      <div className="flex flex-col-reverse justify-start lg:gap-5 lg:flex-row lg:justify-between items-center w-full px-5 lg:pe-4 mt-[-100px] lg:mt-0">
+        <h2 className="md:w-1/2 lg:ms-5 mt-5 lg:mt-0 lg:mb-[-45px] font-azarMehr text-lg md:text-2xl font-bold text-start dark:text-white text-black ps-[2px]">
           زیر دسته‌های {catName}
         </h2>
 
@@ -240,6 +240,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       <div className="w-full xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
         <Footer footerTabs={footerTabs} mainData={mainData} params={params} />
       </div>
-    </section>
+    </main>
   );
 }

@@ -43,7 +43,6 @@ export default function CategoriesGrid({ params }: CategoriesGridProps) {
   return (
     <div >
       
-
       <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-10 md:gap-7 xl:gap-10 3xl:gap-12">
         {visibleCategories.map((cat) => (
           <Link
@@ -60,7 +59,7 @@ export default function CategoriesGrid({ params }: CategoriesGridProps) {
             <div className="absolute inset-0 bg-gradient-to-br to-black/90 via-black/60 from-black/5 transition" />
             <div className="absolute bottom-4 right-4 flex gap-3">
               <div className="border-r-0 border-solid border-y-0 border-l border-[#969696] pl-3 h-min">
-                <div className="rounded-full bg-[#969696] aspect-square h-10 w-10 flex items-center justify-center">
+                <div className="rounded-full bg-[#969696] aspect-square h-10 w-10 flex items-center justify-center rtl:rotate-180">
                   <svg
                     width="20"
                     height="20"
@@ -101,8 +100,8 @@ export default function CategoriesGrid({ params }: CategoriesGridProps) {
             href={`/${params.lang}/articles/categories`}
             className="relative w-full h-[200px] rounded-xl overflow-hidden flex flex-col gap-3 items-center justify-center transition bg-[#fff] dark:bg-[#1A1A18] hover:scale-105 base-transition-1 shadow-lg cursor-pointer"
           >
-            <div className="rounded-full bg-[#0066FF30] dark:bg-[#483D13] aspect-square h-14 w-14 flex items-center justify-center">
-              <svg
+            <div className="rounded-full bg-[#0066FF30] dark:bg-[#483D13] aspect-square h-12 w-12 lg:h-14 lg:w-14 flex items-center justify-center rtl:rotate-180">
+              <svg className="size-5 lg:size-7"
                 width="39"
                 height="30"
                 viewBox="0 0 12 12"
@@ -127,7 +126,7 @@ export default function CategoriesGrid({ params }: CategoriesGridProps) {
                 />
               </svg>
             </div>
-            <span className="font-azarMehr text-light-primary dark:text-dark-primary text-xl">
+            <span className="font-azarMehr text-light-primary dark:text-dark-primary lg:text-xl">
               مشاهده همه
             </span>
           </Link>
