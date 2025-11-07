@@ -115,7 +115,7 @@ export default async function ArticlesPage({ params }) {
 
   // ✅ محتوای اصلی (دقیقاً مثل نسخه‌ی خودت)
   return (
-    <main
+    <section
       className="w-full h-screen overflow-y-auto relative lg:pt-0 bg-[#f8f8f8] dark:bg-black light-scrollbar dark:dark-scrollbar"
       dir={langData.direction}
     >
@@ -162,6 +162,6 @@ export default async function ArticlesPage({ params }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
       />
-    </main>
+    </section>
   );
 }

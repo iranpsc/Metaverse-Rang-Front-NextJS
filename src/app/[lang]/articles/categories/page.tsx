@@ -119,7 +119,7 @@ const baseUrl = "https://rgb.irpsc.com";
   };
 
   return (
-    <main
+    <section
       className="w-full h-screen overflow-y-auto bg-[#f8f8f8] dark:bg-black px-5 3xl:px-10 light-scrollbar dark:dark-scrollbar "
       dir={langData.direction}
     >
@@ -157,6 +157,6 @@ const baseUrl = "https://rgb.irpsc.com";
           <Footer footerTabs={footerTabs} mainData={mainData} params={params} />
         </div>
       </div>
-    </main>
+    </section>
   );
 }

@@ -64,7 +64,7 @@ export default async function LangLayout({ children, params }: any) {
       <body className={`${azarMehr.variable} ${rokh.variable}   h-screen light-scrollbar dark:dark-scrollbar`}>
         <ReferralHandler/>
         <ToastProvider />
-        <div className="flex h-screen overflow-hidden" dir={langData.direction}>
+        <main className="flex h-screen overflow-hidden" dir={langData.direction}>
           <Suspense fallback={<div>Loading Sidebar...</div>}>
             <ConditionalSidebar
               tabsMenu={updatedTabsMenu}
@@ -108,7 +108,7 @@ export default async function LangLayout({ children, params }: any) {
               </defs>
             </svg>
           </a>
-        </div>
+        </main>
       </body>
     </html>
   );
