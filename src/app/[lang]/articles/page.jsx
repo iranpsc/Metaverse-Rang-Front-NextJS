@@ -148,7 +148,7 @@ export default async function ArticlesPage({ params }) {
           <CategoriesGrid params={params} mainData={mainData} />
         </div>
       </div>
-      <div className="w-full h-fit mt-[60px] ">
+      <div className="w-full h-fit mt-[60px] lg:mt-20">
         <TopWritersArticles params={params} mainData={mainData} />
       </div>
       <div className="ps-5 2xl:ps-10 space-y-14 mt-28">
