@@ -11,7 +11,8 @@ export async function generateMetadata({ params }: { params: { lang: string } })
   const description =
     "در بخش دسته‌بندی مقالات متاورس رنگ، با موضوعات مختلفی از فناوری متاورس، هوش مصنوعی، بلاک‌چین و دنیای دیجیتال آشنا شوید.";
   const url = `${siteUrl}/${params.lang}/articles/categories`;
-
+  
+  
   return {
     title,
     description,
