@@ -23,23 +23,40 @@ interface CategoryPageProps {
 // ===============================
 export async function generateMetadata({ params }: CategoryPageProps) {
   const category = decodeURIComponent(params.category);
+
+  // ✅ خواندن دامنه از env یا fallback به rgb.irpsc.com
+  const siteUrl =
+    process.env.NEXT_PUBLIC_BASE_URL || "https://rgb.irpsc.com";
+
   const categoryArticles = articles.filter(
     (a) => a.category.trim() === category.trim()
   );
 
+  // ⚠️ اگر دسته‌ای پیدا نشد
   if (categoryArticles.length === 0) {
     return {
       title: `دسته ${category} | مقالات`,
       description: `هیچ مقاله‌ای در دسته ${category} یافت نشد.`,
+      alternates: {
+        canonical: `${siteUrl}/${params.lang}/articles/categories/${category}`,
+      },
     };
   }
 
+  // ✅ داده‌های دسته
   const { category: catName, categoryDec, categoryImage } = categoryArticles[0];
   const title = `${catName} | مقالات`;
   const description = categoryDec || `مطالب و مقالات مرتبط با ${catName}`;
-  const image = categoryImage || "/default-bg.jpg";
-  const url = `rgb.irpsc.com/${params.lang}/articles/categories/${category}`;
 
+  // ✅ اطمینان از absolute بودن آدرس عکس
+  const image = categoryImage?.startsWith("http")
+    ? categoryImage
+    : `${siteUrl}${categoryImage?.startsWith("/") ? "" : "/"}${categoryImage || "default.jpg"}`;
+
+  // ✅ ساخت URL کامل صفحه
+  const url = `${siteUrl}/${params.lang}/articles/categories/${encodeURIComponent(category)}`;
+
+  // ✅ خروجی نهایی متادیتا
   return {
     title,
     description,
@@ -49,7 +66,16 @@ export async function generateMetadata({ params }: CategoryPageProps) {
       description,
       url,
       type: "website",
-      images: [image],
+      siteName: "متاورس رنگ",
+      locale: params.lang === "fa" ? "fa_IR" : "en_US",
+      images: [
+        {
+          url: image,
+          width: 1200,
+          height: 630,
+          alt: `${catName} | متاورس رنگ`,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
@@ -59,6 +85,9 @@ export async function generateMetadata({ params }: CategoryPageProps) {
     },
   };
 }
+
+
+
 
 // ===============================
 // ✅ 2. Page Component

@@ -5,6 +5,7 @@ import LatestArticlesSlider from "./components/LatestArticlesSlider";
 import PopularArticlesSlider from "./components/PopularArticlesSlider";
 import CategoriesGrid from "./components/CategoriesGrid";
 import SearchComponent from "@/components/shared/SearchComponent";
+import TopWritersArticles from "./components/TopWritersArticles"
 import {
   getTranslation,
   getMainFile,
@@ -13,7 +14,7 @@ import {
 } from "@/components/utils/actions";
 
 const baseUrl = "https://rgb.irpsc.com"; // ← دامنه اصلی سایتت
-  const imageUrl = "/clogo.png";
+const imageUrl = "https://rgb.irpsc.com/_next/image?url=%2Flogo.png&w=128&q=75";
 // ✅ متادیتای داینامیک
 export async function generateMetadata({ params }) {
   const lang = params.lang || "fa";
@@ -27,7 +28,7 @@ export async function generateMetadata({ params }) {
     openGraph: {
       title: "مقالات متاورس رنگ",
       description:
-      "در این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنید",
+        "در این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنید",
       url,
       siteName: "Metaverse Rang",
       locale: lang === "fa" ? "fa_IR" : "en_US",
@@ -35,8 +36,8 @@ export async function generateMetadata({ params }) {
       images: [
         {
           url: imageUrl,
-          width: 400,
-          height: 400,
+          width: 800,
+          height: 600,
           alt: "مقالات متاورس رنگ",
         },
       ],
@@ -45,7 +46,7 @@ export async function generateMetadata({ params }) {
       card: "summary_large_image",
       title: "مقالات متاورس رنگ",
       description:
-      "در این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنید",
+        "در این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنید",
       images: [imageUrl],
     },
   };
@@ -147,7 +148,9 @@ export default async function ArticlesPage({ params }) {
           <CategoriesGrid params={params} mainData={mainData} />
         </div>
       </div>
-
+      <div className="w-full h-fit mt-[60px] ">
+        <TopWritersArticles params={params} mainData={mainData} />
+      </div>
       <div className="ps-5 2xl:ps-10 space-y-14 mt-28">
         <PopularArticlesSlider params={params} mainData={mainData} />
         <LatestArticlesSlider params={params} mainData={mainData} />

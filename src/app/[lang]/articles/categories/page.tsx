@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: { params: { lang: string } })
       description,
       url,
       siteName: "MetaRang",
-      images: "/clogo.png",
+      images: "https://rgb.irpsc.com/_next/image?url=%2Flogo.png&w=128&q=75",
       locale: params.lang === "fa" ? "fa_IR" : "en_US",
       type: "website",
     },
@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: { params: { lang: string } })
       card: "summary_large_image",
       title,
       description,
-      images: "/clogo.png",
+      images: "https://rgb.irpsc.com/_next/image?url=%2Flogo.png&w=128&q=75",
     },
   };
 }
