@@ -5,7 +5,7 @@ import axios from "axios";
 import SectionInputSearch from "@/components/shared/SectionInputSearch";
 import { ItemsSearch } from "@/components/shared/ItemsSearch";
 import { useCookies } from "react-cookie";
-import { articles } from "@/components/utils/articles"; // ← اضافه شده برای سرچ لوکال مقالات
+import { articles } from "@/components/utils/articles";
 
 export default function SearchComponent({
   searchLevel = "citizen",
@@ -20,14 +20,10 @@ export default function SearchComponent({
   const [cookies] = useCookies(["theme"]);
   const theme = cookies.theme || "dark";
 
-  // --------------------------------------
-  // Handle search logic
-  // --------------------------------------
   useEffect(() => {
     if (searchTerm.length >= 3) {
       setLoadingSearch(true);
 
-      // اگر نوع سرچ، "articles" باشد از دیتای لوکال استفاده کن
       if (searchLevel === "articles") {
         const filtered = articles.filter((a) =>
           a.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -37,7 +33,6 @@ export default function SearchComponent({
         return;
       }
 
-      // در غیر اینصورت API را صدا بزن
       const formData = new FormData();
       formData.append("searchTerm", searchTerm);
 
@@ -51,15 +46,10 @@ export default function SearchComponent({
       axios
         .post(selectedURL, formData)
         .then((response) => {
-          setLoadingSearch(false);
-          setSearchData(response.data.data);
+          setSearchData(response.data.data || []);
         })
-        .catch((error) => {
-          console.error(error);
-        })
-        .finally(() => {
-          setLoadingSearch(false);
-        });
+        .catch(() => setSearchData([]))
+        .finally(() => setLoadingSearch(false));
     } else {
       setSearchData([]);
       setLoadingSearch(false);
@@ -71,21 +61,22 @@ export default function SearchComponent({
     setSearchTerm("");
   };
 
+  const shouldShowBox = searchTerm.length >= 3;
+
   return (
     <>
-      {/* پس‌زمینه نیمه‌شفاف وقتی نتایج بازند */}
-      <div
-        className={`${
-          searchData.length >= 1 ? "visible" : "invisible"
-        }  w-full h-screen backdrop-blur-sm bg-black/30 absolute right-0 top-0 z-20`}
-        onClick={removeSearch}
-      ></div>
+      {/* 🔹 پس‌زمینه نیمه‌شفاف فقط وقتی باکس باز است */}
+      {shouldShowBox && (
+        <div
+          className="w-full h-screen backdrop-blur-sm bg-black/30 absolute right-0 top-0 z-20"
+          onClick={removeSearch}
+        ></div>
+      )}
 
-      {/* کادر ورودی سرچ */}
+      {/* 🔹 کادر ورودی سرچ */}
       <div
-        className={`${
-          fullWidth ? "w-full" : "w-[100%] md:w-[70%] lg:w-[45%]"
-        } mt-[50px] flex flex-col items-center m-auto relative z-30 dark:dark-scrollbar light-scrollbar`}
+        className={`${fullWidth ? "w-full" : "w-[100%] md:w-[70%] lg:w-[45%]"
+          } mt-[50px] flex flex-col items-center m-auto relative z-30`}
       >
         <SectionInputSearch
           SectionName="search"
@@ -101,7 +92,7 @@ export default function SearchComponent({
 
         {/* نتایج سرچ */}
         <div className="w-full mt-2 bg-white dark:bg-dark-background transition-all duration-300 rounded-xl max-h-[500px] z-[999] pe-[13px] ps-[32px] overflow-y-auto absolute top-[100%] flex flex-col justify-start items-center gap-1 light-scrollbar dark:dark-scrollbar">
-          {searchData && searchData.length > 0 && (
+          {searchTerm.length >= 3 && (
             <ItemsSearch
               searchLevel={searchLevel}
               searchData={searchData}

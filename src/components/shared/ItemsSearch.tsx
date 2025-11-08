@@ -12,7 +12,7 @@ export const ItemsSearch = ({ searchLevel, searchData, params }: any) => {
   const router = useRouter();
 
   useEffect(() => {
-    if (searchData.length >= 1) {
+    if (searchData && searchData.length >= 1) {
       setIsDataReady(true);
     } else {
       setIsDataReady(false);
@@ -37,7 +37,19 @@ export const ItemsSearch = ({ searchLevel, searchData, params }: any) => {
     visible: { y: 0, opacity: 1 },
   };
 
-  return isDataReady ? (
+  // ✅ وقتی داده‌ای وجود ندارد، پیام مناسب را برگردان
+  if (!isDataReady) {
+    return (
+      <div className="w-full py-5 flex justify-center items-center">
+        <p className="text-gray-400 dark:text-dark-gray text-[15px] font-medium">
+          هیچ نتیجه‌ای یافت نشد.
+        </p>
+      </div>
+    );
+  }
+
+  // ✅ در غیر این صورت نتایج را نمایش بده
+  return (
     <motion.div
       variants={container}
       initial="hidden"
@@ -125,11 +137,11 @@ export const ItemsSearch = ({ searchLevel, searchData, params }: any) => {
             <motion.div key={item.id} variants={items}>
               <Link
                 href={`/${params.lang}/articles/categories/${params.category}/${item.slug}`}
-                className="w-[99%] mt-2 hover:shadow-md transition-all duration-300 
-                bg-white dark:bg-dark-background border-b border-mediumGray 
-                flex justify-between items-center p-3 rounded-lg"
+                className="w-[99%] mt-2 transition-all duration-300 
+                bg-white dark:bg-dark-background border-b border-solid border-x-0 border-t-0 border-mediumGray 
+                flex justify-between items-center py-2 gap-3"
               >
-                <div className="flex flex-col w-[80%]">
+                <div className="flex flex-col w-[70%] lg:w-[80%] ">
                   <h3 className="text-black dark:text-white text-[16px] font-semibold line-clamp-1">
                     {item.title}
                   </h3>
@@ -137,14 +149,14 @@ export const ItemsSearch = ({ searchLevel, searchData, params }: any) => {
                     {item.excerpt || item.category}
                   </p>
                 </div>
-                <div className="w-[20%] ">
+                <div className="w-[30%] lg:w-[20%] ">
                   <Image
-                  src={item.image || "/placeholder.png"}
-                  alt={item.title}
-                  width={70}
-                  height={70}
-                  className="rounded-md object-cover w-full h-[70px] bg-cover"
-                />
+                    src={item.image || "/placeholder.png"}
+                    alt={item.title}
+                    width={70}
+                    height={70}
+                    className="rounded-md object-cover w-full h-[70px] bg-cover"
+                  />
                 </div>
               </Link>
             </motion.div>
@@ -154,5 +166,5 @@ export const ItemsSearch = ({ searchLevel, searchData, params }: any) => {
         return null;
       })}
     </motion.div>
-  ) : null;
+  );
 };

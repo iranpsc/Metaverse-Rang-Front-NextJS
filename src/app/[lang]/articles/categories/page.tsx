@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: { params: { lang: string } })
       title,
       description,
       url,
-      siteName: "Metaverse Rang",
+      siteName: "MetaRang",
       images: "/clogo.png",
       locale: params.lang === "fa" ? "fa_IR" : "en_US",
       type: "website",

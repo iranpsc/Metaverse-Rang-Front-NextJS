@@ -38,7 +38,7 @@ export async function generateMetadata({ params }: CategoryPageProps) {
   const title = `${catName} | مقالات`;
   const description = categoryDec || `مطالب و مقالات مرتبط با ${catName}`;
   const image = categoryImage || "/default-bg.jpg";
-  const url = `https://yourdomain.com/${params.lang}/articles/${category}`;
+  const url = `rgb.irpsc.com/${params.lang}/articles/categories/${category}`;
 
   return {
     title,
@@ -116,7 +116,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     "@type": "CollectionPage",
     "name": catName,
     "description": categoryDec || `مقالات مرتبط با ${catName}`,
-    "url": `https://yourdomain.com/${params.lang}/articles/${category}`,
+    "url": `rgb.irpsc.com/${params.lang}/articles/categories/${category}`,
     "image": categoryImage || "/default-bg.jpg",
     "mainEntity": {
       "@type": "ItemList",
@@ -137,10 +137,10 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               a.description ||
               a.categoryDec ||
               "این یک مقاله آموزشی در حوزه برنامه‌نویسی است.",
-            "url": `https://yourdomain.com/${params.lang}/articles/${a.slug}`,
+            "url": `rgb.irpsc.com/${params.lang}/articles/categories/${category}/${a.slug}`,
             "datePublished": published,
             "dateModified": published,
-            "image": a.image || "https://yourdomain.com/default-bg.jpg",
+            "image": a.image || "rgb.irpsc.com/default.jpg",
             "author": {
               "@type": "Person",
               "name": a.author?.name || "شهره فاطمی علیرضاده",
