@@ -69,6 +69,7 @@ export default function SideBar({
         tabsMenu={tabsMenu}
         isClosed={isClosed}
         toggleSide={toggleSide}
+         params={params}
       />
       <div className={`z-[60] h-screen dark:bg-dark-background fixed top-0 rtl:right-0 ltr:left-0 z-[1] lg:relative lg:top-0 lg:right-0 ${
         isClosed ? "" : ""

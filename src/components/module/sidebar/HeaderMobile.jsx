@@ -5,15 +5,19 @@ import { CLoseIcon, MenuIcon } from "@/components/svgs";
 import Image from "next/image";
 import { getTranslation, getMainFile } from "@/components/utils/actions";
 
-export default function ProfileHeaderMobile({ tabsMenu, isClosed, toggleSide }) {
+export default function ProfileHeaderMobile({  isClosed, toggleSide ,params}) {
   // const { state, toggleCollapseHandler } = useContext(SideBarContext);
   // const [title, SetTitle] = useState<any>([]);
   // const [desc, setDesc] = useState<any>([]);
+const lang = params.lang;
+  // ترجمه‌های دستی
+  const translations = {
+    fa: { title: "متارنگ", subtitle: "متاورس رنگ" },
+    en: { title: "Meta RANG", subtitle: "Metaverse RANG" },
+  };
 
-  const namesToKeep = ["meta rgb", "metaverse rang"];
-
-  const title = tabsMenu.find((item) => item?.name === "meta rgb");
-  const desc = tabsMenu.find((item) => item?.name === "metaverse rang");
+  // انتخاب ترجمه با توجه به زبان، پیش‌فرض فارسی
+  const t = translations[lang] || translations.fa;
 
 
   // useEffect(() => {
@@ -52,10 +56,10 @@ export default function ProfileHeaderMobile({ tabsMenu, isClosed, toggleSide }) 
         <div className="flex flex-rows justify-center items-center ">
           <div className=" ml-1 flex flex-col  justify-between items-center ">
             <p className=" dark:text-white md:text-[16px] block font-azarMehr text-end  font-bold text-[18px] mt-1 text-black sm:text-center">
-              {title?.translation}
+             {t.title}
             </p>
             <p className="dark:text-dark-gray mt-[-5px] md:text-[11px] font-normal text-[#5A5858] ">
-              {desc?.translation}
+             {t.subtitle}
             </p>
           </div>
           <Image
