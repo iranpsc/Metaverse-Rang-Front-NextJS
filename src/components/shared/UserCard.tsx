@@ -29,9 +29,7 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
 
   const checkTruncation = () => {
     const el = nameRef.current;
-    if (el) {
-      setIsTruncated(el.scrollWidth > el.clientWidth);
-    }
+    if (el) setIsTruncated(el.scrollWidth > el.clientWidth);
   };
 
   useEffect(() => {
@@ -39,40 +37,35 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
     const observer = new ResizeObserver(() => {
       checkTruncation();
     });
-    if (nameRef.current) {
-      observer.observe(nameRef.current);
-    }
-    return () => {
-      observer.disconnect();
-    };
+    if (nameRef.current) observer.observe(nameRef.current);
+    return () => observer.disconnect();
   }, [item.name]);
 
   // تعداد کل جواهرها
   const totalGems = 13;
+
+  // مرتب‌سازی لول‌ها و حذف تکراری‌ها
   const previousGems = item.levels?.previous || [];
-  const sortedPreviousGems = [...previousGems].sort((a, b) => {
-    const indexA = staticRouteNames.findIndex((route) => route.id === a.id);
-    const indexB = staticRouteNames.findIndex((route) => route.id === b.id);
+  const currentGem = item.levels?.current;
+
+  // حذف لول فعلی از آرایه قبلی‌ها (اگر موجود است)
+  const uniquePreviousGems = previousGems.filter((gem: { slug: any; }) => gem.slug !== currentGem?.slug);
+
+  // مرتب‌سازی قبلی‌ها طبق staticRouteNames
+  const sortedPreviousGems = [...uniquePreviousGems].sort((a, b) => {
+    const indexA = staticRouteNames.findIndex(route => route.id === a.id);
+    const indexB = staticRouteNames.findIndex(route => route.id === b.id);
     return indexA - indexB;
   });
-  const remainingGemsCount = totalGems - previousGems.length;
 
+  // آرایه نهایی برای نمایش: قبلی‌ها + فعلی در انتها
+  const displayGems = currentGem ? [...sortedPreviousGems, currentGem] : sortedPreviousGems;
+  const remainingGemsCount = totalGems - displayGems.length;
 
-  const getRouteName = (
-    id: number,
-    lang: string,
-    name: string,
-    staticRouteNames: any[]
-  ) => {
-    if (lang === "fa") {
-      return name; // فارسی → همونی که هست
-    } else {
-      const found = staticRouteNames.find((r) => r.id === id);
-      if (found && found.route_name) {
-        return found.route_name.split("-")[0]; // انگلیسی + وجود داشتن → قبل از "-"
-      }
-      return name; // اگر پیدا نشد → همون مقدار اصلی
-    }
+  const getRouteName = (id: number, lang: string, name: string, staticRouteNames: any[]) => {
+    if (lang === "fa") return name;
+    const found = staticRouteNames.find(r => r.id === id);
+    return found?.route_name.split("-")[0] || name;
   };
 
   return (
@@ -81,7 +74,7 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
       style={minWidth ? { width: minWidth, minWidth: minWidth } : {}}
     >
       <div
-        className={`shadow-lg mt-10 relative bg-[#fff] dark:bg-[#1A1A18] flex flex-col justify-between gap-3 py-3 sm:py-4 md:py-5 items-center rounded-[20px]  border-transparent border border-solid hover:border-[#0066FF] hover:bg-white dark:hover:bg-[#1A1A18] dark:hover:border-[#FFC700] hover:shadow-[0_0px_20px_rgba(0,0,0,0.45)] dark:hover:shadow-[0_0px_33px_-11px_rgba(255,255,255,255.9)]`}
+        className={`shadow-lg mt-10 relative bg-[#fff] dark:bg-[#1A1A18] flex flex-col justify-between gap-3 py-3 sm:py-4 md:py-5 items-center rounded-[20px] border-transparent border border-solid hover:border-[#0066FF] hover:bg-white dark:hover:bg-[#1A1A18] dark:hover:border-[#FFC700] hover:shadow-[0_0px_20px_rgba(0,0,0,0.45)] dark:hover:shadow-[0_0px_33px_-11px_rgba(255,255,255,255.9)]`}
       >
         <figure className="w-[120px] h-[120px] relative overflow-hidden rounded-full">
           <Image
@@ -95,16 +88,14 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
           />
         </figure>
 
-        {/* اسم کاربر با isTruncated */}
-    <div className="w-full overflow-x-hidden">
-              <p
-          ref={nameRef}
-          className={`font-bold text-[20px] dark:text-white font-azarMehr sm:mt-2 truncate w-full text-center ps-3  ${isTruncated ? "hover:overflow-visible hover:animate-rtlMarquee" : ""
-            }`}
-        >
-          {item.name}
-        </p>
-    </div>
+        <div className="w-full overflow-x-hidden">
+          <p
+            ref={nameRef}
+            className={`font-bold text-[20px] dark:text-white font-azarMehr sm:mt-2 truncate w-full text-center ps-3 ${isTruncated ? "hover:overflow-visible hover:animate-rtlMarquee" : ""}`}
+          >
+            {item.name}
+          </p>
+        </div>
 
         <Link
           className="min-h-[30px] uppercase text-blueLink dark:text-blue-500 accumulating font-azarMehr text-[16px] cursor-pointer"
@@ -116,30 +107,20 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
         </Link>
 
         <span className="dark:text-[#969696] text-[18px] font-azarMehr">
-          {item.levels?.current
-            ? getRouteName(
-              item.levels.current.id,
-              params.lang,
-              item.levels.current.name,
-              staticRouteNames
-            )
+          {currentGem
+            ? getRouteName(currentGem.id, params.lang, currentGem.name, staticRouteNames)
             : params.lang === "fa"
-              ? "تازه وارد"
-              : "Newcomer"}
+            ? "تازه وارد"
+            : "Newcomer"}
         </span>
 
         {scoreElement}
 
         {!hidePreviousLevels && (
           <div className="w-full min-h-[75px] pb-2">
-            <div className="w-full flex flex-wrap justify-center ">
-              {sortedPreviousGems.map((item2: any) => (
-                <GemImage
-                  key={`previous-${item2.id}`}
-                  item={item2}
-                  params={params}
-                  picSize={33}
-                />
+            <div className="w-full flex flex-wrap justify-center">
+              {displayGems.map((gem: any) => (
+                <GemImage key={`gem-${gem.slug}`} item={gem} params={params} picSize={33} />
               ))}
               {Array.from({ length: remainingGemsCount }).map((_, index) => (
                 <Image
@@ -156,13 +137,8 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
           </div>
         )}
 
-        <Link
-          href={`/${params.lang}/citizens/${item.code}`}
-          className="w-[80%]"
-        >
-          <div
-            className="w-full h-[55px] bg-[#f5f9ff] dark:bg-[#000000] px-3 sm:px-6 rounded-[10px] flex flex-row justify-between items-center"
-          >
+        <Link href={`/${params.lang}/citizens/${item.code}`} className="w-[80%]">
+          <div className="w-full h-[55px] bg-[#f5f9ff] dark:bg-[#000000] px-3 sm:px-6 rounded-[10px] flex flex-row justify-between items-center">
             <span className="text-blueLink dark:text-dark-yellow font-azarMehr font-medium text-[14px]">
               {buttonText}
             </span>
