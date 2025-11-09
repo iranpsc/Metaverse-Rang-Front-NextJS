@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### 2.2.11 (2025-11-09)
 
+### 2.2.11 (2025-11-09)
+
 ### 2.2.11 (2025-11-08)
 
 ### 2.2.11 (2025-11-08)
