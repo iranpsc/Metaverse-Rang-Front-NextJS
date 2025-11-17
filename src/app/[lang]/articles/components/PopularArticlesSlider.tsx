@@ -1,49 +1,81 @@
 "use client";
 
-import React, { useState, useRef, useMemo } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import dynamic from "next/dynamic";
 import type { Swiper as SwiperType } from "swiper";
 import { SwiperSlide } from "swiper/react";
 import "swiper/css";
 import Link from "next/link";
 import { ArrowRight } from "@/components/svgs";
-import { articles } from "@/components/utils/articles";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import ArticleCard from "./ArticleCard";
+import { supabase } from "@/utils/lib/supabaseClient";
 
-// ✅ فقط Swiper را داینامیک ایمپورت می‌کنیم تا SSR ارور ندهد
-const Swiper = dynamic(async () => (await import("swiper/react")).Swiper, {
-  ssr: false,
-});
+// ================= TYPES =================
+interface Article {
+  id: string;
+  title: string;
+  slug: string;
+  image?: string;
+  date?: string;
+  stats?: { views?: number };
+  [key: string]: any;
+}
 
-interface PopularArticlesSliderProps {
+interface PopularArticlesProps {
   params: { lang: string };
   mainData: any;
   theme?: "light" | "dark";
 }
 
-const PopularArticlesSlider = ({ params, mainData, theme }: PopularArticlesSliderProps) => {
-  const [activeIndex, setActiveIndex] = useState(0);
+// Swiper (client-side only)
+const Swiper = dynamic(async () => (await import("swiper/react")).Swiper, {
+  ssr: false,
+});
+
+const PopularArticlesSlider = ({ params, mainData, theme }: PopularArticlesProps) => {
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [activeIndex, setActiveIndex] = useState<number>(0);
   const swiperRef = useRef<SwiperType | null>(null);
 
-  // ✅ فقط 10 مقاله پربازدید
+  // ================= Fetch Articles From Supabase =================
+  useEffect(() => {
+    const fetchArticles = async () => {
+      const { data, error } = await supabase
+        .from("articles")
+        .select("*")
+        .limit(50); // محدودیت امنیتی، اما بعداً فقط ۱۰ تا نمایش می‌دیم
+
+      if (error) {
+        console.error("Error loading articles:", error);
+      } else {
+        setArticles(data || []);
+      }
+    };
+
+    fetchArticles();
+  }, []);
+
+  // ================= Sort by Views & Limit to 10 =================
   const sortedArticles = useMemo(() => {
     return [...articles]
-      .sort((a, b) => b.stats.views - a.stats.views)
-      .slice(0, 10);
-  }, []);
+      .sort(
+        (a, b) => (b.stats?.views || 0) - (a.stats?.views || 0)
+      )
+      .slice(0, 10); // ← فقط ۱۰ مقاله
+  }, [articles]);
 
   return (
     <section className="w-full">
-      {/* عنوان و لینک مشاهده همه */}
-      <div className="flex items-center justify-between mb-7 w-full  ps-1 pe-5 lg:pe-10">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-7 w-full ps-1 pe-5 lg:pe-10">
         <h2 className="text-xl font-bold dark:text-white">پربازدیدترین مقالات</h2>
+
         <Link
           href={`/${params.lang}/articles`}
           className="flex justify-center items-center gap-4"
-          aria-label="See all articles"
         >
-          <p className="font-azarMehr font-medium text-[12px] md:text-[16px] lg:text-[18px] xl:text-[20px] dark:text-white">
+          <p className="font-azarMehr text-[12px] md:text-[16px] lg:text-[18px] xl:text-[20px] dark:text-white">
             {findByUniqueId(mainData, 171)}
           </p>
           <ArrowRight
@@ -54,7 +86,7 @@ const PopularArticlesSlider = ({ params, mainData, theme }: PopularArticlesSlide
         </Link>
       </div>
 
-      {/* ✅ اسلایدر مقالات */}
+      {/* Swiper */}
       <Swiper
         spaceBetween={20}
         slidesPerView={3.7}
@@ -74,9 +106,10 @@ const PopularArticlesSlider = ({ params, mainData, theme }: PopularArticlesSlide
         ))}
       </Swiper>
 
-      {/* کنترل‌های پایین اسلایدر */}
+      {/* Controls */}
       <div className="mt-4 w-full">
         <div className="flex items-center justify-center md:justify-start gap-2">
+          {/* Prev */}
           <button
             onClick={() => swiperRef.current?.slidePrev()}
             className="flex items-center justify-center rounded-full bg-transparent"
@@ -92,6 +125,7 @@ const PopularArticlesSlider = ({ params, mainData, theme }: PopularArticlesSlide
             </svg>
           </button>
 
+          {/* Dots */}
           <div className="flex justify-center gap-2">
             {sortedArticles.map((_, idx) => (
               <button
@@ -102,11 +136,11 @@ const PopularArticlesSlider = ({ params, mainData, theme }: PopularArticlesSlide
                     ? "bg-light-primary dark:bg-dark-yellow"
                     : "bg-dark-gray dark:bg-dark-placeholder"
                 }`}
-                aria-label={`Go to slide ${idx + 1}`}
               />
             ))}
           </div>
 
+          {/* Next */}
           <button
             onClick={() => swiperRef.current?.slideNext()}
             className="flex items-center justify-center rounded-full bg-transparent"

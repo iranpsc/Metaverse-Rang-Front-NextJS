@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Like, Dislike, View } from "@/components/svgs/SvgEducation";
 import { Tooltip as ReactTooltip } from "react-tooltip";
-import { formatNumber } from "@/components/utils/education";
+import { formatNumber } from "@/components/utils/formatNumber";
 
 interface ArticleCardProps {
   item: any;

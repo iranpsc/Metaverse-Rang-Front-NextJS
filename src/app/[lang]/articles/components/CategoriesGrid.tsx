@@ -2,42 +2,67 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { articles } from "@/components/utils/articles";
+import { useEffect, useState } from "react";
+import { supabase } from "@/utils/lib/supabaseClient";
 
 interface CategoriesGridProps {
   params: { lang: string };
 }
 
 export default function CategoriesGrid({ params }: CategoriesGridProps) {
-  // استخراج کتگوری‌های یکتا
-  const categories = [...new Set(articles.map((a) => a.category).filter(Boolean))];
+  const [articles, setArticles] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  // نگاشت عکس برای هر کتگوری
+  useEffect(() => {
+    const fetchArticles = async () => {
+      const { data, error } = await supabase
+        .from("articles")
+        .select("*");
+
+      if (!error && data) {
+        setArticles(data);
+      }
+      setLoading(false);
+    };
+
+    fetchArticles();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="text-center py-10 text-gray-500">
+        بارگذاری...
+      </div>
+    );
+  }
+
+  // استخراج کتگوری یکتا
+  const categories = [...new Set(articles.map(a => a.category).filter(Boolean))];
+
+  // تصویر هر کتگوری
   const categoryImages: Record<string, string> = {};
-  articles.forEach((a) => {
+  articles.forEach(a => {
     if (a.category && a.categoryImage && !categoryImages[a.category]) {
       categoryImages[a.category] = a.categoryImage;
     }
   });
 
-  // شمارش واقعی زیر‌دسته‌ها برای هر کتگوری
+  // شمارش یکتای زیر‌دسته‌ها
   const subcategorySets: Record<string, Set<string>> = {};
   const subcategoryCounts: Record<string, number> = {};
 
-  articles.forEach((a) => {
+  articles.forEach(a => {
     if (a.category && a.subCategory) {
-      if (!subcategorySets[a.category]) {
-        subcategorySets[a.category] = new Set();
-      }
+      if (!subcategorySets[a.category]) subcategorySets[a.category] = new Set();
       subcategorySets[a.category].add(a.subCategory);
     }
   });
 
-  Object.keys(subcategorySets).forEach((cat) => {
+  Object.keys(subcategorySets).forEach(cat => {
     subcategoryCounts[cat] = subcategorySets[cat].size;
   });
 
-  // فقط ۷ تای اول + کارت مشاهده بیشتر
+  // فقط ۷ عدد برای نمایش
   const visibleCategories = categories.slice(0, 7);
 
   return (
@@ -49,13 +74,11 @@ export default function CategoriesGrid({ params }: CategoriesGridProps) {
             href={`/${params.lang}/articles/categories/${encodeURIComponent(cat)}`}
             className="relative w-full h-[200px] rounded-xl overflow-hidden shadow-lg group"
           >
-            {/* ✅ تصویر LCP بهینه‌سازی‌شده */}
             <Image
               src={categoryImages[cat] || "/default.png"}
               alt={cat}
               fill
               className="object-cover group-hover:scale-110 transition-transform duration-500"
-              // فقط برای اولین تصویر (LCP image)
               priority={index === 0}
               fetchPriority={index === 0 ? "high" : "auto"}
             />
@@ -88,6 +111,7 @@ export default function CategoriesGrid({ params }: CategoriesGridProps) {
                   </svg>
                 </div>
               </div>
+
               <div className="flex flex-col items-start justify-start z-10">
                 <span className="text-white font-bold mt-[-6px]">{cat}</span>
                 <span className="text-[#9A9A9A] text-xs">
@@ -98,7 +122,6 @@ export default function CategoriesGrid({ params }: CategoriesGridProps) {
           </Link>
         ))}
 
-        {/* 🔹 کارت مشاهده بیشتر */}
         {categories.length > 7 && (
           <Link
             href={`/${params.lang}/articles/categories`}
@@ -131,6 +154,7 @@ export default function CategoriesGrid({ params }: CategoriesGridProps) {
                 />
               </svg>
             </div>
+
             <span className="font-azarMehr text-light-primary dark:text-dark-primary lg:text-xl">
               مشاهده همه
             </span>

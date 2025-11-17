@@ -23,7 +23,12 @@ interface ArticleImageProps {
 }
 
 const ArticleImage: React.FC<ArticleImageProps> = ({ article }) => {
-  const formattedDate = format(new Date(article.date), "yyyy/MM/dd");
+  // تبدیل و اعتبارسنجی تاریخ
+  const dateObj = article.date ? new Date(article.date) : null;
+  const formattedDate =
+    dateObj && !isNaN(dateObj.getTime())
+      ? format(dateObj, "yyyy/MM/dd")
+      : "—";
 
   return (
     <div className="w-full">
@@ -33,13 +38,12 @@ const ArticleImage: React.FC<ArticleImageProps> = ({ article }) => {
           src={article.image || "/images/fallback.jpg"}
           alt={article.title}
           fill
-          className="object-cover "
+          className="object-cover"
         />
       </div>
 
       {/* محتوا */}
       <div className="p-4 flex flex-col gap-3">
-        {/* آمار */}
         <div className="flex items-center text-xs md:text-base w-full">
           <div className="flex items-center gap-4 md:gap-10 justify-between w-full text-textGray dark:text-[#888888] dark:text-gray-300">
             <div>
@@ -47,20 +51,22 @@ const ArticleImage: React.FC<ArticleImageProps> = ({ article }) => {
                 انجمن متاورس ایران
               </p>
             </div>
+
             <span>تاریخ انتشار : {formattedDate}</span>
-            <span className=" items-center gap-1 hidden md:flex">
+
+            <span className="items-center gap-1 hidden md:flex">
               <Comment className="stroke-textGray dark:stroke-[#888888] size-[14px] md:size-[16px]" />
               {article.stats.comments}
             </span>
-            <span className=" items-center gap-1  hidden md:flex">
+            <span className="items-center gap-1 hidden md:flex">
               <Like className="stroke-textGray dark:stroke-[#888888] size-[14px] md:size-[16px]" />
               {article.stats.likes}
             </span>
-            <span className=" items-center gap-1  hidden md:flex">
+            <span className="items-center gap-1 hidden md:flex">
               <Dislike className="stroke-textGray dark:stroke-[#888888] size-[14px] md:size-[16px]" />
               {article.stats.dislikes}
             </span>
-            <span className=" items-center gap-1  hidden md:flex">
+            <span className="items-center gap-1 hidden md:flex">
               <View className="stroke-textGray dark:stroke-[#888888] size-[14px] md:size-[16px]" />
               {article.stats.views}
             </span>
@@ -70,5 +76,7 @@ const ArticleImage: React.FC<ArticleImageProps> = ({ article }) => {
     </div>
   );
 };
+
+
 
 export default ArticleImage;

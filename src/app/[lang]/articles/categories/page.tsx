@@ -1,26 +1,27 @@
+// src/app/[lang]/articles/categories/page.tsx
 import Footer from "@/components/module/footer/Footer";
 import BreadCrumb from "@/components/shared/BreadCrumb";
-import CategoriesList from "./CategoriesList";
-import { articles } from "@/components/utils/articles";
+import CategoriesList from "./CategoriesList"; // Client Component
+import SearchComponent from "@/components/shared/SearchComponent"; // Client Component
+import { supabase } from "@/utils/lib/supabaseClient";
 import { getTranslation, getMainFile, getFooterData } from "@/components/utils/actions";
-import SearchComponent from "@/components/shared/SearchComponent";
-
 export async function generateMetadata({ params }: { params: { lang: string } }) {
-  const siteUrl = "https://rgb.irpsc.com";
-  const title = "دسته‌بندی مقالات متاورس رنگ ";
+  const baseUrl = "https://rgb.irpsc.com";
+  const langPrefix = params.lang ? `/${params.lang}` : "";
+  const fullPageUrl = `${baseUrl}${langPrefix}/articles/categories`;
+
+  const title = "دسته‌بندی مقالات متاورس رنگ";
   const description =
     "در بخش دسته‌بندی مقالات متاورس رنگ، با موضوعات مختلفی از فناوری متاورس، هوش مصنوعی، بلاک‌چین و دنیای دیجیتال آشنا شوید.";
-  const url = `${siteUrl}/${params.lang}/articles/categories`;
-  
-  
+
   return {
     title,
     description,
-    alternates: { canonical: url },
+    alternates: { canonical: fullPageUrl },
     openGraph: {
       title,
       description,
-      url,
+      url: fullPageUrl,
       siteName: "MetaRang",
       images: "https://rgb.irpsc.com/_next/image?url=%2Flogo.png&w=128&q=75",
       locale: params.lang === "fa" ? "fa_IR" : "en_US",
@@ -40,10 +41,20 @@ export default async function CategoriesPage({ params }: { params: { lang: strin
     getFooterData(params),
     getTranslation(params.lang),
   ]);
-
   const mainData = await getMainFile(langData);
+  // ✅ اصلاح ستون تاریخ: 'date' به جای 'created_at'
+  const { data: articlesData, error } = await supabase
+    .from("articles")
+    .select("*")
+    .order("date", { ascending: false });
 
+  if (error) {
+    console.error("Supabase fetch error:", error);
+  }
 
+  const articles = articlesData || [];
+
+  // دسته‌بندی‌ها
   const categories = [...new Set(articles.map((a) => a.category).filter(Boolean))];
   const categoryImages: Record<string, string> = {};
   articles.forEach((a) => {
@@ -59,35 +70,25 @@ export default async function CategoriesPage({ params }: { params: { lang: strin
     }
   });
 
-const baseUrl = "https://rgb.irpsc.com";
+  const baseUrl = "https://rgb.irpsc.com";
   const langPrefix = params.lang ? `/${params.lang}` : "";
   const fullPageUrl = `${baseUrl}${langPrefix}/articles/categories`;
 
-  // ✅ تولید اسکیمای داینامیک کاملاً معتبر
+  // console.log("articlesData:", articlesData);
+  // console.log("categories:", categories);
+  // console.log("categoryImages:", categoryImages);
+  // console.log("subcategoryCounts:", subcategoryCounts);
+
+  // ✅ JSON-LD schema
   const schemaData = {
     "@context": "https://schema.org",
     "@graph": [
       {
         "@type": "BreadcrumbList",
         "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "صفحه اصلی",
-            "item": `${baseUrl}${langPrefix}`,
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "مقالات",
-            "item": `${baseUrl}${langPrefix}/articles`,
-          },
-          {
-            "@type": "ListItem",
-            "position": 3,
-            "name": "دسته‌بندی مقالات",
-            "item": fullPageUrl,
-          },
+          { "@type": "ListItem", "position": 1, "name": "صفحه اصلی", "item": `${baseUrl}${langPrefix}` },
+          { "@type": "ListItem", "position": 2, "name": "مقالات", "item": `${baseUrl}${langPrefix}/articles` },
+          { "@type": "ListItem", "position": 3, "name": "دسته‌بندی مقالات", "item": fullPageUrl },
         ],
       },
       {
@@ -95,17 +96,11 @@ const baseUrl = "https://rgb.irpsc.com";
         "@id": `${fullPageUrl}#webpage`,
         "url": fullPageUrl,
         "name": "دسته‌بندی مقالات متاورس رنگ",
-        "description":
-          "مجموعه‌ای از مقالات آموزشی و تحلیلی در زمینه فناوری متاورس، هوش مصنوعی و دارایی‌های دیجیتال، بر اساس دسته‌بندی‌های مختلف.",
-        "isPartOf": {
-          "@type": "WebSite",
-          "name": "Metaverse Rang",
-          "url": baseUrl,
-        },
+        "isPartOf": { "@type": "WebSite", "name": "Metaverse Rang", "url": baseUrl },
       },
       {
         "@type": "ItemList",
-        "name": "دسته‌بندی‌های مقالات متاورس رنگ",
+        "name": "دسته‌بندی‌های مقالات",
         "itemListOrder": "Ascending",
         "numberOfItems": categories.length,
         "itemListElement": categories.map((cat, index) => ({
@@ -120,43 +115,36 @@ const baseUrl = "https://rgb.irpsc.com";
   };
 
   return (
-    <section
-      className="w-full h-screen overflow-y-auto bg-[#f8f8f8] dark:bg-black px-5 3xl:px-10 light-scrollbar dark:dark-scrollbar "
-      dir={langData.direction}
-    >
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
+    <section className="w-full h-screen overflow-y-auto bg-[#f8f8f8] dark:bg-black px-5 3xl:px-10 light-scrollbar dark:dark-scrollbar">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
+
+      <div className="mb-6 mt-[60px] lg:mt-0">
+        <BreadCrumb params={params} />
+      </div>
+
+      <div className="text-center mt-5">
+        <h1 className="font-rokh font-bold text-[30px] dark:text-white">دسته‌بندی مقالات</h1>
+        <p className="text-lightGray dark:text-lightGray text-lg mt-2">
+          مجموعه‌ای از مطالب تخصصی و به‌روز در زمینه فناوری‌های نوین، دنیای متاورس، هوش مصنوعی و دارایی‌های دیجیتال.
+        </p>
+      </div>
+
+      {/* کامپوننت Client برای جستجو */}
+      <div className="my-8">
+        <SearchComponent searchLevel="articles" articles={articles} params={params} />
+      </div>
+
+      {/* لیست دسته‌بندی‌ها */}
+      <CategoriesList
+        categories={categories}
+        categoryImages={categoryImages}
+        subcategoryCounts={subcategoryCounts}
+        params={params}
       />
 
-      <div>
-        <div className="mb-6 mt-[60px] lg:mt-0">
-          <BreadCrumb params={params} />
-        </div>
-
-        <div >
-          <h1 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[64px] mb-[16px]">
-            دسته‌بندی‌ مقالات
-          </h1>
-          <p className="text-lightGray  dark:text-lightGray font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center px-5 lg:px-10">
-            در سامانه مقالات متاورس رنگ، مجموعه‌ای از مطالب تخصصی و به‌روز در زمینه فناوری‌های نوین، دنیای متاورس، هوش مصنوعی، دارایی‌های دیجیتال و اقتصاد مجازی گردآوری شده است. هدف این بخش، ارتقای دانش شهروندان متاورسی و فراهم‌سازی بستری برای آشنایی عمیق‌تر با تحولات دنیای دیجیتال است.
-          </p>
-        </div>
-
-        <div className="w-full mt-[-50px] lg:mt-0">
-          <SearchComponent searchLevel="articles" mainData={mainData} params={params} />
-        </div>
-
-        <CategoriesList
-          categories={categories}
-          categoryImages={categoryImages}
-          subcategoryCounts={subcategoryCounts}
-          params={params}
-        />
-
-        <div className="mt-20">
-          <Footer footerTabs={footerTabs} mainData={mainData} params={params} />
-        </div>
+      {/* Footer */}
+      <div className="w-full xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
+        <Footer footerTabs={footerTabs} mainData={mainData} params={params} />
       </div>
     </section>
   );

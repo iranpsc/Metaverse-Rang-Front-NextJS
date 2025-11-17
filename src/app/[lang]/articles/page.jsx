@@ -1,17 +1,19 @@
 import Footer from "@/components/module/footer/Footer";
 import BreadCrumb from "@/components/shared/BreadCrumb";
-import { articles } from "@/components/utils/articles";
+// import { articles } from "@/components/utils/articles";
 import LatestArticlesSlider from "./components/LatestArticlesSlider";
 import PopularArticlesSlider from "./components/PopularArticlesSlider";
 import CategoriesGrid from "./components/CategoriesGrid";
 import SearchComponent from "@/components/shared/SearchComponent";
 import TopWritersArticles from "./components/TopWritersArticles"
+
 import {
   getTranslation,
   getMainFile,
   getFooterData,
   getLangArray,
 } from "@/components/utils/actions";
+
 
 const baseUrl = "https://rgb.irpsc.com"; // ← دامنه اصلی سایتت
 const imageUrl = "https://rgb.irpsc.com/_next/image?url=%2Flogo.png&w=128&q=75";
@@ -65,54 +67,54 @@ export default async function ArticlesPage({ params }) {
   const fullPageUrl = `${baseUrl}${langPrefix}/articles`;
 
   // ✅ اسکیمای داینامیک معتبر
-  const schemaData = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            name: "صفحه اصلی",
-            item: `${baseUrl}${langPrefix}`,
-          },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: "مقالات",
-            item: fullPageUrl,
-          },
-        ],
-      },
-      {
-        "@type": "CollectionPage",
-        "@id": `${fullPageUrl}#webpage`,
-        url: fullPageUrl,
-        name: "مقالات متاورس رنگ",
-        description:
-          "در این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنید",
-        isPartOf: {
-          "@type": "WebSite",
-          name: "Metaverse Rang",
-          url: baseUrl,
-        },
-      },
-      {
-        "@type": "ItemList",
-        name: "لیست مقالات متاورس رنگ",
-        itemListOrder: "Descending",
-        numberOfItems: articles.length,
-        itemListElement: articles.map((a, index) => ({
-          "@type": "ListItem",
-          position: index + 1,
-          url: `${baseUrl}${langPrefix}/articles/categories/${a.category}/${a.slug}`,
-          name: a.title,
-          image: a.image || undefined,
-        })),
-      },
-    ],
-  };
+  // const schemaData = {
+  //   "@context": "https://schema.org",
+  //   "@graph": [
+  //     {
+  //       "@type": "BreadcrumbList",
+  //       itemListElement: [
+  //         {
+  //           "@type": "ListItem",
+  //           position: 1,
+  //           name: "صفحه اصلی",
+  //           item: `${baseUrl}${langPrefix}`,
+  //         },
+  //         {
+  //           "@type": "ListItem",
+  //           position: 2,
+  //           name: "مقالات",
+  //           item: fullPageUrl,
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       "@type": "CollectionPage",
+  //       "@id": `${fullPageUrl}#webpage`,
+  //       url: fullPageUrl,
+  //       name: "مقالات متاورس رنگ",
+  //       description:
+  //         "در این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنید",
+  //       isPartOf: {
+  //         "@type": "WebSite",
+  //         name: "Metaverse Rang",
+  //         url: baseUrl,
+  //       },
+  //     },
+  //     {
+  //       "@type": "ItemList",
+  //       name: "لیست مقالات متاورس رنگ",
+  //       itemListOrder: "Descending",
+  //       numberOfItems: articles.length,
+  //       itemListElement: articles.map((a, index) => ({
+  //         "@type": "ListItem",
+  //         position: index + 1,
+  //         url: `${baseUrl}${langPrefix}/articles/categories/${a.category}/${a.slug}`,
+  //         name: a.title,
+  //         image: a.image || undefined,
+  //       })),
+  //     },
+  //   ],
+  // };
 
   // ✅ محتوای اصلی (دقیقاً مثل نسخه‌ی خودت)
   return (
@@ -161,10 +163,10 @@ export default async function ArticlesPage({ params }) {
       </div>
 
       {/* ✅ اسکیمای SSR معتبر و داینامیک */}
-      <script
+      {/* <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
-      />
+      /> */}
     </section>
   );
 }

@@ -1,17 +1,48 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { articles } from "@/components/utils/articles";
+import { supabase } from "@/utils/lib/supabaseClient";
 import { Like, Dislike, View } from "@/components/svgs/SvgEducation";
 
 interface PrevNextArticlesProps {
-  params: { lang: string; slug: string ; category: string};
+  params: { 
+    lang: string; 
+    slug: string;
+    category: string;
+  };
 }
 
 const PrevNextArticles = ({ params }: PrevNextArticlesProps) => {
+  const [articles, setArticles] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // ===============================
+  // 📌 گرفتن همه مقالات از Supabase
+  // ===============================
+  useEffect(() => {
+    const fetchArticles = async () => {
+      const { data, error } = await supabase
+        .from("articles")
+        .select("*")
+        .order("date", { ascending: true }); // ترتیب انتشار
+
+      if (!error && data) {
+        setArticles(data);
+      }
+
+      setLoading(false);
+    };
+
+    fetchArticles();
+  }, []);
+
+  if (loading) return null;
+
+  // مقاله فعلی
   const currentIndex = articles.findIndex((a) => a.slug === params.slug);
+  if (currentIndex === -1) return null;
 
   const prevArticle = currentIndex > 0 ? articles[currentIndex - 1] : null;
   const nextArticle =
@@ -20,7 +51,10 @@ const PrevNextArticles = ({ params }: PrevNextArticlesProps) => {
   return (
     <section className="w-full my-10 2xl:px-20">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full md:gap-10 3xl:gap-[100px]">
-        {/* کارت مقاله قبلی */}
+
+        {/* ======================= */}
+        {/* 📌 کارت مقاله قبلی */}
+        {/* ======================= */}
         <div className="flex flex-col items-center w-full">
           <h3 className="text-center font-bold mb-3 dark:text-white">
             مقاله قبلی
@@ -47,16 +81,20 @@ const PrevNextArticles = ({ params }: PrevNextArticlesProps) => {
                     <span>تاریخ انتشار: {prevArticle.date}</span>
                     <div className="flex items-center gap-3 text-[#888888]">
                       <span className="flex items-center gap-1">
-                        <View className="stroke-[#888888] size-[14px]" /> {prevArticle.stats.views}
+                        <View className="stroke-[#888888] size-[14px]" />{" "}
+                        {prevArticle.stats?.views ?? 0}
                       </span>
                       <span className="flex items-center gap-1">
-                        <Like className="stroke-[#888888] size-[14px]" /> {prevArticle.stats.likes}
+                        <Like className="stroke-[#888888] size-[14px]" />{" "}
+                        {prevArticle.stats?.likes ?? 0}
                       </span>
                       <span className="flex items-center gap-1">
-                        <Dislike className="stroke-[#888888] size-[14px]" /> {prevArticle.stats.dislikes}
+                        <Dislike className="stroke-[#888888] size-[14px]" />{" "}
+                        {prevArticle.stats?.dislikes ?? 0}
                       </span>
                     </div>
                   </div>
+
                   <div>
                     <h4 className="font-semibold text-sm lg:text-xl line-clamp-1 dark:text-white">
                       {prevArticle.title}
@@ -71,7 +109,9 @@ const PrevNextArticles = ({ params }: PrevNextArticlesProps) => {
           </div>
         </div>
 
-        {/* کارت مقاله بعدی */}
+        {/* ======================= */}
+        {/* 📌 کارت مقاله بعدی */}
+        {/* ======================= */}
         <div className="flex flex-col items-center w-full">
           <h3 className="text-center font-bold mb-3 dark:text-white">
             مقاله بعدی
@@ -82,7 +122,6 @@ const PrevNextArticles = ({ params }: PrevNextArticlesProps) => {
                 href={`/${params.lang}/articles/categories/${params.category}/${nextArticle.slug}`}
                 className="flex flex-col gap-1  bg-white dark:bg-[#1A1A18] shadow-md rounded-2xl overflow-hidden w-full h-[390px]"
               >
-                {/* تصویر */}
                 <div className="p-3">
                   <div className=" w-full h-60 ">
                     <Image
@@ -94,19 +133,21 @@ const PrevNextArticles = ({ params }: PrevNextArticlesProps) => {
                   </div>
                 </div>
 
-                {/* جزئیات */}
                 <div className="p-4 flex flex-col ggap-2">
                   <div className="flex items-center justify-between text-xs text-gray-500 mb-2 dark:text-white">
                     <span>تاریخ انتشار: {nextArticle.date}</span>
                     <div className="flex items-center gap-3 text-[#888888] ">
                       <span className="flex items-center gap-1">
-                        <View className="stroke-[#888888] size-[14px]" /> {nextArticle.stats.views}
+                        <View className="stroke-[#888888] size-[14px]" />{" "}
+                        {nextArticle.stats?.views ?? 0}
                       </span>
                       <span className="flex items-center gap-1">
-                        <Like className="stroke-[#888888] size-[14px]" /> {nextArticle.stats.likes}
+                        <Like className="stroke-[#888888] size-[14px]" />{" "}
+                        {nextArticle.stats?.likes ?? 0}
                       </span>
                       <span className="flex items-center gap-1">
-                        <Dislike className="stroke-[#888888] size-[14px]" /> {nextArticle.stats.dislikes}
+                        <Dislike className="stroke-[#888888] size-[14px]" />{" "}
+                        {nextArticle.stats?.dislikes ?? 0}
                       </span>
                     </div>
                   </div>
@@ -124,6 +165,7 @@ const PrevNextArticles = ({ params }: PrevNextArticlesProps) => {
             ) : null}
           </div>
         </div>
+
       </div>
     </section>
   );

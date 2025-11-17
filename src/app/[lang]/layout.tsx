@@ -58,11 +58,12 @@ export default async function LangLayout({ children, params }: any) {
           href="/firstpage/3d_rgb.irpsc.webm"
           type="video/mp4"
         />
-        
+
       </Head>
 
       <body className={`${azarMehr.variable} ${rokh.variable}   h-screen light-scrollbar dark:dark-scrollbar`}>
-        <ReferralHandler/>
+        
+        <ReferralHandler />
         <ToastProvider />
         <main className="flex h-screen overflow-hidden" dir={langData.direction}>
           <Suspense fallback={<div>Loading Sidebar...</div>}>
@@ -74,7 +75,18 @@ export default async function LangLayout({ children, params }: any) {
             />
           </Suspense>
 
-          <Suspense fallback={<div className="text-center text-[20px] mx-auto py-10">Loading...</div>}>
+          <Suspense fallback={
+            <div className="container flex w-full h-screen items-center justify-center !bg-transparent">
+              <div className="holder">
+                <div className="box"></div>
+              </div>
+              <div className="holder">
+                <div className="box"></div>
+              </div>
+              <div className="holder">
+                <div className="box"></div>
+              </div>
+            </div>}>
             {children}
           </Suspense>
 

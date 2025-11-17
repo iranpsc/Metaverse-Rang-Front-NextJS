@@ -1,14 +1,14 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 import Link from "next/link";
 import { ArrowRight } from "@/components/svgs";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import { articles } from "@/components/utils/articles";
-import ArticleCard from "../../../../components/ArticleCard"; // ✅ استفاده از ArticleCard
+import ArticleCard from "../../../../components/ArticleCard";
+import { supabase } from "@/utils/lib/supabaseClient";
 
 interface RelatedArticlesSliderProps {
   params: { lang: string; slug: string };
@@ -16,29 +16,61 @@ interface RelatedArticlesSliderProps {
 }
 
 const RelatedArticlesSlider = ({ params, mainData }: RelatedArticlesSliderProps) => {
+  const [relatedArticles, setRelatedArticles] = useState<any[]>([]);
+  const [currentArticle, setCurrentArticle] = useState<any | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const swiperRef = useRef<SwiperType>();
 
-  // پیدا کردن مقاله فعلی
-  const currentArticle = articles.find((a) => a.slug === params.slug);
+  // === 1) دریافت مقاله فعلی با slug ===
+  useEffect(() => {
+    const fetchCurrent = async () => {
+      const { data, error } = await supabase
+        .from("articles")
+        .select("*")
+        .eq("slug", params.slug)
+        .single();
+
+      if (!error && data) {
+        setCurrentArticle(data);
+      }
+    };
+
+    fetchCurrent();
+  }, [params.slug]);
+
+  // === 2) دریافت مقالات مرتبط پس از لود شدن مقاله اصلی ===
+  useEffect(() => {
+    if (!currentArticle) return;
+
+    const fetchRelated = async () => {
+      const { data, error } = await supabase
+        .from("articles")
+        .select("*")
+        .neq("slug", params.slug); // حذف مقاله فعلی
+
+      if (!error && data) {
+        const filtered = data
+          .filter(
+            (a) =>
+              a.category === currentArticle.category ||
+              a.subCategory === currentArticle.subCategory
+          )
+          .slice(0, 10);
+
+        setRelatedArticles(filtered);
+      }
+    };
+
+    fetchRelated();
+  }, [currentArticle]);
+
   if (!currentArticle) return null;
-
-  // فیلتر مقالات مرتبط
-  const relatedArticles = articles
-    .filter(
-      (a) =>
-        a.slug !== params.slug &&
-        (a.category === currentArticle.category ||
-          a.subCategory === currentArticle.subCategory)
-    )
-    .slice(0, 10);
-
   if (relatedArticles.length === 0) return null;
 
   return (
     <section className="w-full">
       {/* Header */}
-      <div className="flex items-center justify-between mb-7 w-full  ps-1 pe-5 lg:pe-10">
+      <div className="flex items-center justify-between mb-7 w-full ps-1 pe-5 lg:pe-10">
         <h2 className="text-xl font-bold dark:text-white">مقالات مرتبط</h2>
         <Link
           href={`/${params.lang}/articles`}
@@ -71,7 +103,6 @@ const RelatedArticlesSlider = ({ params, mainData }: RelatedArticlesSliderProps)
       >
         {relatedArticles.map((item) => (
           <SwiperSlide key={item.id} className="flex items-center pb-5">
-            {/* ✅ استفاده از ArticleCard */}
             <ArticleCard item={item} params={{ lang: params.lang }} />
           </SwiperSlide>
         ))}
@@ -80,7 +111,7 @@ const RelatedArticlesSlider = ({ params, mainData }: RelatedArticlesSliderProps)
       {/* Controls */}
       <div className="mt-4 w-full">
         <div className="flex items-center justify-center md:justify-start gap-2">
-          {/* Prev button */}
+          {/* Prev */}
           <button
             onClick={() => swiperRef.current?.slidePrev()}
             className="flex items-center justify-center rounded-full bg-transparent"
@@ -112,7 +143,7 @@ const RelatedArticlesSlider = ({ params, mainData }: RelatedArticlesSliderProps)
             ))}
           </div>
 
-          {/* Next button */}
+          {/* Next */}
           <button
             onClick={() => swiperRef.current?.slideNext()}
             className="flex items-center justify-center rounded-full bg-transparent"
