@@ -38,7 +38,7 @@ export default function CitizenClientImage({ item, params, picSize }: any) {
           width={picSize}
           height={picSize}
           alt={item.name}
-          className="object-contain inline"
+          className="object-contain inline  hover:scale-150 duration-300 hover:drop-shadow-[0_0px_8px_rgba(255,199,0,0.6)]"
         />
         <ReactTooltip
           id={item.name}

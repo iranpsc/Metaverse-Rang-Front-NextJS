@@ -416,96 +416,7 @@ useEffect(() => {
                 ""
               )}
 
-              {item.unique_id == 1414 ? (
-                <li>
-                  <Tooltip
-                    title={item.translation}
-                    placement={langData.direction === "rtl" ? "left-end" : "right-end"}
-                    arrow
-                    slotProps={{
-                      tooltip: {
-                        className: `
-            !bg-[#E9E9E9] !text-[#908F95] dark:!bg-[#434343]
-            !font-azarMehr !font-medium dark:!text-white !text-[14px] !top-[-20px]
-            ${isClosed ? "block" : "hidden"}
-          `,
-                      },
-                      arrow: {
-                        className: `!text-[#E9E9E9] dark:!text-[#434343] mt-[6px]`,
-                      },
-                    }}
-                    PopperProps={{
-                      modifiers: [{ name: "offset", options: { offset: [0, -10] } }],
-                    }}
-                  >
-                    <div onClick={handleLangBtn}>
-                      <div
-                        className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px]
-            group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer menu-transition
-            ${isClosed ? "justify-start gap-0" : "justify-start gap-2"}`}
-                      >
-                        <ListMenuActiveIconModule
-                          item={item}
-                          languageSelected={langData.code}
-                          isClosed={isClosed}
-                        />
-                        <span className="ps-[15px]">
-                          <ListMenuSvgModule item={item} />
-                        </span>
-                        <div className="w-full flex justify-between items-center">
-                          <ListMenuTitleModule item={item} isClosed={isClosed} />
-                          <ListMenuArrow
-                            item={{ name: "language" }}
-                            isOpen={langDropDown}
-                            isClosed={isClosed}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </Tooltip>
-
-                  {/* Dropdown Content */}
-                  <div
-                    ref={dropdownRef}
-                    className={`${langDropDown ? "h-fit" : "h-0 overflow-hidden"} base-transition-1 bg-Field dark:bg-darkGray`}
-                  >
-                    {langArray.map((lang, idx) => (
-                      <Tooltip
-                        key={idx}
-                        title={lang.translation}
-                        placement={langData.direction === "rtl" ? "left-end" : "right-end"}
-                        arrow
-                        slotProps={{
-                          tooltip: {
-                            className: `
-                !bg-[#E9E9E9] !text-[#908F95] dark:!bg-[#434343]
-                !font-azarMehr !font-medium dark:!text-white !text-[14px] !top-[-20px]
-                ${isClosed ? "block" : "hidden"}
-              `,
-                          },
-                          arrow: {
-                            className: `!text-[#E9E9E9] dark:!text-[#434343] mt-[6px]`,
-                          },
-                        }}
-                        PopperProps={{
-                          modifiers: [{ name: "offset", options: { offset: [0, -10] } }],
-                        }}
-                      >
-                        <div>
-                          <DropdownLanguageModule
-                            languagesData={langData}
-                            langArray={[lang]}
-                            params={params}
-                            isClosed={isClosed}
-                          />
-                        </div>
-                      </Tooltip>
-                    ))}
-                  </div>
-                </li>
-              ) : (
-                ""
-              )}
+              
             </React.Fragment>
           ))}
 
@@ -513,3 +424,93 @@ useEffect(() => {
     </>
   );
 }
+          //     {item.unique_id == 1414 ? (
+          //       <li>
+          //         <Tooltip
+          //           title={item.translation}
+          //           placement={langData.direction === "rtl" ? "left-end" : "right-end"}
+          //           arrow
+          //           slotProps={{
+          //             tooltip: {
+          //               className: `
+          //   !bg-[#E9E9E9] !text-[#908F95] dark:!bg-[#434343]
+          //   !font-azarMehr !font-medium dark:!text-white !text-[14px] !top-[-20px]
+          //   ${isClosed ? "block" : "hidden"}
+          // `,
+          //             },
+          //             arrow: {
+          //               className: `!text-[#E9E9E9] dark:!text-[#434343] mt-[6px]`,
+          //             },
+          //           }}
+          //           PopperProps={{
+          //             modifiers: [{ name: "offset", options: { offset: [0, -10] } }],
+          //           }}
+          //         >
+          //           <div onClick={handleLangBtn}>
+          //             <div
+          //               className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px]
+          //   group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer menu-transition
+          //   ${isClosed ? "justify-start gap-0" : "justify-start gap-2"}`}
+          //             >
+          //               <ListMenuActiveIconModule
+          //                 item={item}
+          //                 languageSelected={langData.code}
+          //                 isClosed={isClosed}
+          //               />
+          //               <span className="ps-[15px]">
+          //                 <ListMenuSvgModule item={item} />
+          //               </span>
+          //               <div className="w-full flex justify-between items-center">
+          //                 <ListMenuTitleModule item={item} isClosed={isClosed} />
+          //                 <ListMenuArrow
+          //                   item={{ name: "language" }}
+          //                   isOpen={langDropDown}
+          //                   isClosed={isClosed}
+          //                 />
+          //               </div>
+          //             </div>
+          //           </div>
+          //         </Tooltip>
+
+          //         {/* Dropdown Content */}
+          //         <div
+          //           ref={dropdownRef}
+          //           className={`${langDropDown ? "h-fit" : "h-0 overflow-hidden"} base-transition-1 bg-Field dark:bg-darkGray`}
+          //         >
+          //           {langArray.map((lang, idx) => (
+          //             <Tooltip
+          //               key={idx}
+          //               title={lang.translation}
+          //               placement={langData.direction === "rtl" ? "left-end" : "right-end"}
+          //               arrow
+          //               slotProps={{
+          //                 tooltip: {
+          //                   className: `
+          //       !bg-[#E9E9E9] !text-[#908F95] dark:!bg-[#434343]
+          //       !font-azarMehr !font-medium dark:!text-white !text-[14px] !top-[-20px]
+          //       ${isClosed ? "block" : "hidden"}
+          //     `,
+          //                 },
+          //                 arrow: {
+          //                   className: `!text-[#E9E9E9] dark:!text-[#434343] mt-[6px]`,
+          //                 },
+          //               }}
+          //               PopperProps={{
+          //                 modifiers: [{ name: "offset", options: { offset: [0, -10] } }],
+          //               }}
+          //             >
+          //               <div>
+          //                 <DropdownLanguageModule
+          //                   languagesData={langData}
+          //                   langArray={[lang]}
+          //                   params={params}
+          //                   isClosed={isClosed}
+          //                 />
+          //               </div>
+          //             </Tooltip>
+          //           ))}
+          //         </div>
+          //       </li>
+          //     ) : (
+          //       ""
+          //     )}

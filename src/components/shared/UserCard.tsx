@@ -5,7 +5,7 @@ import GemImage from "@/components/templates/citizen/gemImage";
 import Link from "next/link";
 import { Text } from "../svgs/SvgEducation";
 import LockGem from '@/public/Frame1000003193.png';
-
+import { Like } from "@/components/svgs/SvgEducation";
 export default function UserCard({ item, params, buttonText, minWidth, scoreElement, hidePreviousLevels }: any) {
   const staticRouteNames = [
     { id: 1, route_name: "citizen-baguette" },
@@ -76,7 +76,7 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
       <div
         className={`shadow-lg mt-10 relative bg-[#fff] dark:bg-[#1A1A18] flex flex-col justify-between gap-3 py-3 sm:py-4 md:py-5 items-center rounded-[20px] border-transparent border border-solid hover:border-[#0066FF] hover:bg-white dark:hover:bg-[#1A1A18] dark:hover:border-[#FFC700] hover:shadow-[0_0px_20px_rgba(0,0,0,0.45)] dark:hover:shadow-[0_0px_33px_-11px_rgba(255,255,255,255.9)]`}
       >
-        <figure className="w-[120px] h-[120px] relative overflow-hidden rounded-full">
+        <figure className="w-[120px] h-[120px] relative overflow-hidden rounded-full mt-10">
           <Image
             src={item.profile_photo || "/firstpage/temp-1.webp"}
             alt="citizen image"
@@ -97,24 +97,22 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
           </p>
         </div>
 
-        <Link
-          className="min-h-[30px] uppercase text-blueLink dark:text-blue-500 accumulating font-azarMehr text-[16px] cursor-pointer"
-          href={`/${params.lang}/citizens/${item.code}`}
-          title={`Go to citizen ${item.code}`}
-          aria-label={`Go to citizen ${item.code}`}
-        >
-          {item.code}
-        </Link>
-
-        <span className="dark:text-[#969696] text-[18px] font-azarMehr">
-          {currentGem
-            ? getRouteName(currentGem.id, params.lang, currentGem.name, staticRouteNames)
-            : params.lang === "fa"
-            ? "تازه وارد"
-            : "Newcomer"}
-        </span>
-
-        {scoreElement}
+        <div className="flex items-center gap-4 justify-center">
+          <div className="flex items-center gap-[5px]">
+            <span className="font-azarMehr text-gray dark:text-dark-gray  md:text-base">
+              {item.score}
+            </span>
+            <Like className="stroke-gray dark:stroke-dark-gray stroke-2 w-[15px] h-[15px] mt-[-2px]" />
+          </div>
+          <Link
+            className="min-h-[30px] uppercase text-blueLink dark:text-blue-500 accumulating font-azarMehr text-[16px] cursor-pointer"
+            href={`/${params.lang}/citizens/${item.code}`}
+            title={`Go to citizen ${item.code}`}
+            aria-label={`Go to citizen ${item.code}`}
+          >
+            {item.code}
+          </Link>
+        </div>
 
         {!hidePreviousLevels && (
           <div className="w-full min-h-[75px] pb-2">
@@ -145,7 +143,59 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
             <Text className="h-[24px] stroke-blueLink dark:stroke-dark-yellow" />
           </div>
         </Link>
+        <div className="absolute top-4 left-[-5px]">
+
+          <svg width="100" height="29" viewBox="0 0 100 29" fill="none" xmlns="http://www.w3.org/2000/svg" className="relative dark:hidden">
+            <g clip-path="url(#clip0_4061_38560)">
+              <path d="M0 2.0182V8.12H5.88235V0H0.987497C0.442242 0 0 0.903835 0 2.0182Z" fill="url(#paint0_linear_4061_38560)" />
+              <path d="M0 26.8548C0 28.0384 2.04025 29.0003 4.55074 29.0003H97.1356C98.9938 29.0003 100.329 28.1528 99.7826 27.3125L90.6356 17.3178L99.8963 6.10007C100.389 5.26688 99.062 4.44441 97.2266 4.44441H19.3406L4.619 4.46229C2.10851 4.46587 0.0682611 3.50394 0.0682611 2.32031L0 26.8548Z" fill="url(#paint1_linear_4061_38560)" />
+
+            </g>
+            <defs>
+              <linearGradient id="paint0_linear_4061_38560" x1="-0.413825" y1="4.06181" x2="9.17874" y2="4.06181" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#2C80FF" />
+                <stop offset="0.99" stop-color="#001E4A" />
+              </linearGradient>
+              <linearGradient id="paint1_linear_4061_38560" x1="-14.1176" y1="16.2403" x2="89.3916" y2="15.6456" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#0053CF" />
+                <stop offset="1" stop-color="#65A3FF" />
+              </linearGradient>
+              <clipPath id="clip0_4061_38560">
+                <rect width="29" height="100" fill="white" transform="matrix(0 1 1 0 0 0)" />
+              </clipPath>
+            </defs>
+          </svg>
+
+          <svg xmlns="http://www.w3.org/2000/svg" width="100" height="29" viewBox="0 0 100 29" fill="none" className="relative hidden dark:block">
+            <g clip-path="url(#clip0_4061_38634)">
+              <path d="M0 2.0182V8.12H5.88235V0H0.987497C0.442242 0 0 0.903835 0 2.0182Z" fill="url(#paint0_linear_4061_38634)" />
+              <path d="M0 26.8548C0 28.0384 2.04025 29.0003 4.55074 29.0003H97.1356C98.9938 29.0003 100.329 28.1528 99.7826 27.3125L90.6356 17.3178L99.8963 6.10007C100.389 5.26688 99.062 4.44441 97.2266 4.44441H19.3406L4.619 4.46229C2.10851 4.46587 0.0682611 3.50394 0.0682611 2.32031L0 26.8548Z" fill="url(#paint1_linear_4061_38634)" />
+
+            </g>
+            <defs>
+              <linearGradient id="paint0_linear_4061_38634" x1="-0.413825" y1="4.06181" x2="9.17874" y2="4.06181" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#FFD232" />
+                <stop offset="0.99" stop-color="#2D2302" />
+              </linearGradient>
+              <linearGradient id="paint1_linear_4061_38634" x1="-14.1176" y1="16.2403" x2="89.3916" y2="15.6456" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#CDA000" />
+                <stop offset="1" stop-color="#FFCE1F" />
+              </linearGradient>
+              <clipPath id="clip0_4061_38634">
+                <rect width="29" height="100" fill="white" transform="matrix(0 1 1 0 0 0)" />
+              </clipPath>
+            </defs>
+          </svg>
+          <span className="dark:text-black text-white text-xs font-azarMehr absolute top-[7px] right-4 z-10">
+            {currentGem
+              ? getRouteName(currentGem.id, params.lang, currentGem.name, staticRouteNames)
+              : params.lang === "fa"
+                ? "تازه وارد"
+                : "Newcomer"}
+          </span>
+        </div>
       </div>
+
     </div>
   );
 }

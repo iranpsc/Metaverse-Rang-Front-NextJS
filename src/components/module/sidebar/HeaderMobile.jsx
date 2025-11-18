@@ -54,11 +54,11 @@ const lang = params.lang;
         </div>
 
         <div className="flex flex-rows justify-center items-center ">
-          <div className=" ml-1 flex flex-col  justify-between items-center ">
-            <p className=" dark:text-white md:text-[16px] block font-azarMehr text-end  font-bold text-[18px] mt-1 text-black sm:text-center">
+          <div className=" ml-1 flex flex-col  justify-center items-center py-2">
+            <p className=" dark:text-white block font-azarMehr  font-bold  mb-[-3px] text-black sm:text-center">
              {t.title}
             </p>
-            <p className="dark:text-dark-gray mt-[-5px] md:text-[11px] font-normal text-[#5A5858] ">
+            <p className="dark:text-dark-gray  text-[12px] font-normal text-[#5A5858]">
              {t.subtitle}
             </p>
           </div>

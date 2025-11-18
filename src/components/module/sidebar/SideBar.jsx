@@ -86,7 +86,7 @@ export default function SideBar({
             className={`${
               isClosed
                 ? "w-[70px] max-lg:hidden"
-                : "w-[260px] lg:w-[16.5vw] sm:shadow-[#000000] xs:sm:shadow-[#000000] visible"
+                : "w-[260px] md:w-[242px] xl:w-[17vw] 2xl:w-[16.5vw] sm:shadow-[#000000] xs:sm:shadow-[#000000] visible"
             } flex flex-col h-screen relative bg-white dark:bg-dark-background menu-transition`}
           >
             <div className="flex flex-col sticky w-full h-fit top-0 pt-1 z-50 bg-white dark:bg-dark-background menu-transition">
