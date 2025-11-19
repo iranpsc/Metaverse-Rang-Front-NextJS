@@ -4,6 +4,7 @@
 import { CLoseIcon, MenuIcon } from "@/components/svgs";
 import Image from "next/image";
 import { getTranslation, getMainFile } from "@/components/utils/actions";
+import Link from "next/link";
 
 export default function ProfileHeaderMobile({  isClosed, toggleSide ,params}) {
   // const { state, toggleCollapseHandler } = useContext(SideBarContext);
@@ -53,7 +54,7 @@ const lang = params.lang;
           )}
         </div>
 
-        <div className="flex flex-rows justify-center items-center ">
+        <Link href={`/${params.lang}`} className="flex flex-rows justify-center items-center ">
           <div className=" ml-1 flex flex-col  justify-center items-center py-2">
             <p className=" dark:text-white block font-azarMehr  font-bold  mb-[-3px] text-black sm:text-center">
              {t.title}
@@ -69,7 +70,7 @@ const lang = params.lang;
             className="xs:w-[40px] xs:h-[40px] sm:w-[40px] sm:h-[40px] md:w-[50px] md:h-[50px] mx-1 "
             alt="rgb metaverse"
           />
-        </div>
+        </Link>
       </div>
     </>
   );

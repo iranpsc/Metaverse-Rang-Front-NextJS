@@ -96,7 +96,7 @@ export default function SideBar({
                 toggleSide={toggleSide}
                 params={params}
                 langData={langData}
-               
+                languagesData={langData}
                 langArray={langArray}
               />
             </div>

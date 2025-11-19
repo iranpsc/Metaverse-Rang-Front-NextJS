@@ -12,20 +12,20 @@ const DropdownLanguageModule = ({ langArray, params, isClosed }: any) => {
   const searchParams = useSearchParams();
   // const { state, toggleCollapseHandler } = useContext(SideBarContext);
 
-const handleDirChange = (item: any) => {
-  // استفاده از مقدار پیش‌فرض اگر pathname null باشد
-  const safePathname = pathname || '/';
-  
-  // Split the current path into segments
-  const segments = safePathname.split("/");
+  const handleDirChange = (item: any) => {
+    // استفاده از مقدار پیش‌فرض اگر pathname null باشد
+    const safePathname = pathname || '/';
 
-  // Update the [lang] segment (assumes it's the first segment)
-  segments[1] = item.code;
+    // Split the current path into segments
+    const segments = safePathname.split("/");
 
-  // Reconstruct the path
-  const newPath = segments.join("/");
-  router.push(newPath);
-};
+    // Update the [lang] segment (assumes it's the first segment)
+    segments[1] = item.code;
+
+    // Reconstruct the path
+    const newPath = segments.join("/");
+    router.push(newPath);
+  };
 
   return (
     <>
@@ -35,21 +35,21 @@ const handleDirChange = (item: any) => {
             langArray.map((item: LanguageDataItem) => (
               <li
                 key={item.id}
-                className={` border-none w-full py-[12px] ${
-                  params.lang === item.name
+                className={` border-none w-full py-[12px] ${params.lang === item.code
+                    // params.lang === item.name
+
                     ? "text-[#0066FF] dark:text-dark-yellow"
                     : ""
-                } ${
+                  } ${
                   // state.isCollapsed ? "hidden" : "flex"
                   false ? "hidden" : "flex"
-                } flex flex-col items-center justify-start    cursor-pointer hover:text-[#0066FF]`}
+                  } flex flex-col items-center justify-start    cursor-pointer hover:text-[#0066FF]`}
                 onClick={() => handleDirChange(item)}
               >
                 {/* <div className="w-10">{params.lang === item.name && <></>}</div> */}
                 <div
-                  className={`${
-                    isClosed ? "justify-center" : "justify-start ms-[20%]"
-                  } flex flex-row items-center w-full`}
+                  className={`${isClosed ? "justify-center" : "justify-start ms-[20%]"
+                    } flex flex-row items-center w-full`}
                 >
                   <Image
                     src={item.icon}
@@ -65,9 +65,10 @@ const handleDirChange = (item: any) => {
                   <p
                     className={`${isClosed ? "max-w-0" : "max-w-max ps-3"} 
                       ${
-                        params.lang === item.name
-                          ? "text-blueLink dark:text-dark-yellow"
-                          : "text-gray dark:text-dark-gray"
+                      // params.lang === item.name
+                      params.lang === item.code
+                        ? "text-blueLink dark:text-dark-yellow"
+                        : "text-gray dark:text-dark-gray"
                       }  font-normal hover:text-[#0000ffd9] dark:hover:text-dark-yellow font-azarMehr text-start w-full 3xl:text-[20px] menu-transition overflow-hidden`}
                   >
                     {item.native_name}

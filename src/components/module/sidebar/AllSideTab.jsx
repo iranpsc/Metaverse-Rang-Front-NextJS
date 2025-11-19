@@ -156,7 +156,7 @@ useEffect(() => {
       {modalShow && <Modal dataObject={modalData} close={closeModal} />}
       <ul
         id="light-scrollbar"
-        className={`h-full z-[100] flex flex-col list-none overflow-y-scroll relative no-scrollbar pt-3 w-full menu-transition max-lg:w-fit`}
+        className={`h-full  flex flex-col list-none overflow-y-scroll relative no-scrollbar pt-3 w-full menu-transition max-lg:w-fit`}
       >
         {menuItems &&
           menuItems.map((item, i) => (
