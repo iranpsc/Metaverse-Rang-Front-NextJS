@@ -70,13 +70,13 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
 
   return (
     <div
-      className={`hover:scale-105 base-transition-1 px-2 !max-w-[281px]`}
+      className={`  px-2 !max-w-[281px] `}
       style={minWidth ? { width: minWidth, minWidth: minWidth } : {}}
     >
       <div
-        className={`shadow-lg mt-10 relative bg-[#fff] dark:bg-[#1A1A18] flex flex-col justify-between gap-3 py-3 sm:py-4 md:py-5 items-center rounded-[20px] border-transparent border border-solid hover:border-[#0066FF] hover:bg-white dark:hover:bg-[#1A1A18] dark:hover:border-[#FFC700] hover:shadow-[0_0px_20px_rgba(0,0,0,0.45)] dark:hover:shadow-[0_0px_33px_-11px_rgba(255,255,255,255.9)]`}
+        className={`group hover:scale-105 base-transition-1 shadow-lg  mt-10 relative bg-[#fff] dark:bg-[#1A1A18] flex flex-col justify-between gap-3 py-3 sm:py-4 md:py-5 items-center rounded-[20px] border-transparent border border-solid hover:border-[#0066FF] hover:bg-white dark:hover:bg-[#1A1A18] dark:hover:border-[#FFC700] hover:shadow-[0_0px_20px_rgba(0,0,0,0.45)] dark:hover:shadow-[0_0px_33px_-11px_rgba(255,255,255,255.9)] `}
       >
-        <figure className="w-[120px] h-[120px] relative overflow-hidden rounded-full mt-10">
+        <figure className="w-[120px] h-[120px] relative overflow-hidden rounded-full mt-10 ">
           <Image
             src={item.profile_photo || "/firstpage/temp-1.webp"}
             alt="citizen image"
@@ -143,50 +143,148 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
             <Text className="h-[24px] stroke-blueLink dark:stroke-dark-yellow" />
           </div>
         </Link>
-        <div className="absolute top-4 left-[-5px]">
 
-          <svg width="100" height="29" viewBox="0 0 100 29" fill="none" xmlns="http://www.w3.org/2000/svg" className="relative dark:hidden">
-            <g clip-path="url(#clip0_4061_38560)">
-              <path d="M0 2.0182V8.12H5.88235V0H0.987497C0.442242 0 0 0.903835 0 2.0182Z" fill="url(#paint0_linear_4061_38560)" />
-              <path d="M0 26.8548C0 28.0384 2.04025 29.0003 4.55074 29.0003H97.1356C98.9938 29.0003 100.329 28.1528 99.7826 27.3125L90.6356 17.3178L99.8963 6.10007C100.389 5.26688 99.062 4.44441 97.2266 4.44441H19.3406L4.619 4.46229C2.10851 4.46587 0.0682611 3.50394 0.0682611 2.32031L0 26.8548Z" fill="url(#paint1_linear_4061_38560)" />
-
+        <div className="absolute top-4 left-[-7px] group">
+          {/* LIGHT – NORMAL */}
+          <svg
+            width={100}
+            height={29}
+            viewBox="0 0 100 29"
+            fill="none"
+            className="relative block dark:hidden group-hover:hidden"
+          >
+            <g clipPath={`url(#clip-${item.code}-ln)`}>
+              <path d="M0 2.0182V8.12H5.88235V0H0.987497C0.442242 0 0 0.903835 0 2.0182Z" fill={`url(#paint0-${item.code}-ln)`} />
+              <path d="M0 26.8548C0 28.0384 2.04025 29.0003 4.55074 29.0003H97.1356C98.9938 29.0003 100.329 28.1528 99.7826 27.3125L90.6356 17.3178L99.8963 6.10007C100.389 5.26688 99.062 4.44441 97.2266 4.44441H19.3406L4.619 4.46229C2.10851 4.46587 0.0682611 3.50394 0.0682611 2.32031L0 26.8548Z" fill={`url(#paint1-${item.code}-ln)`} />
             </g>
             <defs>
-              <linearGradient id="paint0_linear_4061_38560" x1="-0.413825" y1="4.06181" x2="9.17874" y2="4.06181" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#2C80FF" />
-                <stop offset="0.99" stop-color="#001E4A" />
+              <linearGradient id={`paint0-${item.code}-ln`} x1={-0.413825} y1={4.06181} x2={9.17874} y2={4.06181} gradientUnits="userSpaceOnUse">
+                <stop stopColor="#A6A6A6" />
+                <stop offset={0.99} stopColor="#5B5B5B" />
               </linearGradient>
-              <linearGradient id="paint1_linear_4061_38560" x1="-14.1176" y1="16.2403" x2="89.3916" y2="15.6456" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#0053CF" />
-                <stop offset="1" stop-color="#65A3FF" />
+              <linearGradient id={`paint1-${item.code}-ln`} x1={-14.1176} y1={16.2403} x2={89.3916} y2={15.6456} gradientUnits="userSpaceOnUse">
+                <stop stopColor="#AFAFAF" />
+                <stop offset={1} stopColor="#E9E9E9" />
               </linearGradient>
-              <clipPath id="clip0_4061_38560">
-                <rect width="29" height="100" fill="white" transform="matrix(0 1 1 0 0 0)" />
+              <clipPath id={`clip-${item.code}-ln`}>
+                <rect width={29} height={100} fill="white" transform="matrix(0 1 1 0 0 0)" />
               </clipPath>
             </defs>
           </svg>
 
-          <svg xmlns="http://www.w3.org/2000/svg" width="100" height="29" viewBox="0 0 100 29" fill="none" className="relative hidden dark:block">
-            <g clip-path="url(#clip0_4061_38634)">
-              <path d="M0 2.0182V8.12H5.88235V0H0.987497C0.442242 0 0 0.903835 0 2.0182Z" fill="url(#paint0_linear_4061_38634)" />
-              <path d="M0 26.8548C0 28.0384 2.04025 29.0003 4.55074 29.0003H97.1356C98.9938 29.0003 100.329 28.1528 99.7826 27.3125L90.6356 17.3178L99.8963 6.10007C100.389 5.26688 99.062 4.44441 97.2266 4.44441H19.3406L4.619 4.46229C2.10851 4.46587 0.0682611 3.50394 0.0682611 2.32031L0 26.8548Z" fill="url(#paint1_linear_4061_38634)" />
-
+          {/* LIGHT – HOVER */}
+          <svg
+            width={100}
+            height={29}
+            viewBox="0 0 100 29"
+            fill="none"
+            className="relative hidden dark:hidden dark:group-hover:hidden group-hover:block"
+          >
+            <g clipPath={`url(#clip-${item.code}-lh)`}>
+              <path d="M0 2.0182V8.12H5.88235V0H0.987497C0.442242 0 0 0.903835 0 2.0182Z" fill={`url(#paint0-${item.code}-lh)`} />
+              <path d="M0 26.8548C0 28.0384 2.04025 29.0003 4.55074 29.0003H97.1356C98.9938 29.0003 100.329 28.1528 99.7826 27.3125L90.6356 17.3178L99.8963 6.10007C100.389 5.26688 99.062 4.44441 97.2266 4.44441H19.3406L4.619 4.46229C2.10851 4.46587 0.0682611 3.50394 0.0682611 2.32031L0 26.8548Z" fill={`url(#paint1-${item.code}-lh)`} />
             </g>
             <defs>
-              <linearGradient id="paint0_linear_4061_38634" x1="-0.413825" y1="4.06181" x2="9.17874" y2="4.06181" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#FFD232" />
-                <stop offset="0.99" stop-color="#2D2302" />
+              <linearGradient id={`paint0-${item.code}-lh`} x1={-0.413825} y1={4.06181} x2={9.17874} y2={4.06181} gradientUnits="userSpaceOnUse">
+                <stop stopColor="#2C80FF" />
+                <stop offset={0.99} stopColor="#001E4A" />
               </linearGradient>
-              <linearGradient id="paint1_linear_4061_38634" x1="-14.1176" y1="16.2403" x2="89.3916" y2="15.6456" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#CDA000" />
-                <stop offset="1" stop-color="#FFCE1F" />
+              <linearGradient id={`paint1-${item.code}-lh`} x1={-14.1176} y1={16.2403} x2={89.3916} y2={15.6456} gradientUnits="userSpaceOnUse">
+                <stop stopColor="#0053CF" />
+                <stop offset={1} stopColor="#65A3FF" />
               </linearGradient>
-              <clipPath id="clip0_4061_38634">
-                <rect width="29" height="100" fill="white" transform="matrix(0 1 1 0 0 0)" />
+              <clipPath id={`clip-${item.code}-lh`}>
+                <rect width={29} height={100} fill="white" transform="matrix(0 1 1 0 0 0)" />
               </clipPath>
             </defs>
           </svg>
-          <span className="dark:text-black text-white text-xs font-azarMehr absolute top-[7px] right-4 z-10">
+
+          {/* DARK – NORMAL */}
+          <svg
+            width={100}
+            height={29}
+            viewBox="0 0 100 29"
+            fill="none"
+            className="relative hidden dark:block group-hover:hidden"
+          >
+            <g clipPath={`url(#clip-${item.code}-dn)`}>
+              <path d="M0 2.0182V8.12H5.88235V0H0.987497C0.442242 0 0 0.903835 0 2.0182Z" fill={`url(#paint0-${item.code}-dn)`} />
+              <path d="M0 26.8548C0 28.0384 2.04025 29.0003 4.55074 29.0003H97.1356C98.9938 29.0003 100.329 28.1528 99.7826 27.3125L90.6356 17.3178L99.8963 6.10007C100.389 5.26688 99.062 4.44441 97.2266 4.44441H19.3406L4.619 4.46229C2.10851 4.46587 0.0682611 3.50394 0.0682611 2.32031L0 26.8548Z" fill={`url(#paint1-${item.code}-dn)`} />
+            </g>
+            <defs>
+              <linearGradient id={`paint0-${item.code}-dn`} x1={-0.413825} y1={4.06181} x2={9.17874} y2={4.06181} gradientUnits="userSpaceOnUse">
+                <stop stopColor="#1A1A18" />
+                <stop offset={1} stopColor="#393939" />
+              </linearGradient>
+              <linearGradient id={`paint1-${item.code}-dn`} x1={-14.1176} y1={16.2403} x2={89.3916} y2={15.6456} gradientUnits="userSpaceOnUse">
+                <stop stopColor="#1A1A18" />
+                <stop offset={1} stopColor="#393939" />
+              </linearGradient>
+              <clipPath id={`clip-${item.code}-dn`}>
+                <rect width={29} height={100} fill="white" transform="matrix(0 1 1 0 0 0)" />
+              </clipPath>
+            </defs>
+          </svg>
+
+          {/* DARK – HOVER */}
+          <svg
+            width={100}
+            height={29}
+            viewBox="0 0 100 29"
+            fill="none"
+            className="relative hidden dark:group-hover:block"
+          >
+            <g clipPath={`url(#clip-dark-${item.code})`}>
+              <path
+                d="M0 2.0182V8.12H5.88235V0H0.987497C0.442242 0 0 0.903835 0 2.0182Z"
+                fill={`url(#paint0-dark-${item.code})`}
+              />
+              <path
+                d="M0 26.8548C0 28.0384 2.04025 29.0003 4.55074 29.0003H97.1356C98.9938 29.0003 100.329 28.1528 99.7826 27.3125L90.6356 17.3178L99.8963 6.10007C100.389 5.26688 99.062 4.44441 97.2266 4.44441H19.3406L4.619 4.46229C2.10851 4.46587 0.0682611 3.50394 0.0682611 2.32031L0 26.8548Z"
+                fill={`url(#paint1-dark-${item.code})`}
+              />
+            </g>
+
+            <defs>
+              {/* ----------- گرادیانت دقیق بدون هیچ تغییر ----------- */}
+              <linearGradient
+                id={`paint0-dark-${item.code}`}
+                x1="-0.413825"
+                y1="4.06181"
+                x2="9.17874"
+                y2="4.06181"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stopColor="#FFD232" />
+                <stop offset="0.99" stopColor="#2D2302" />
+              </linearGradient>
+
+              <linearGradient
+                id={`paint1-dark-${item.code}`}
+                x1="-14.1176"
+                y1="16.2403"
+                x2="89.3916"
+                y2="15.6456"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stopColor="#CDA000" />
+                <stop offset="1" stopColor="#FFCE1F" />
+              </linearGradient>
+
+              {/* ----------- clipPath داینامیک ----------- */}
+              <clipPath id={`clip-dark-${item.code}`}>
+                <rect
+                  width="29"
+                  height="100"
+                  fill="white"
+                  transform="matrix(0 1 1 0 0 0)"
+                />
+              </clipPath>
+            </defs>
+          </svg>
+
+          {/* TEXT LABEL */}
+          <span className=" dark:group-hover:text-black group-hover:text-white  dark:text-white text-xs font-azarMehr absolute top-[7px] right-4 z-10">
             {currentGem
               ? getRouteName(currentGem.id, params.lang, currentGem.name, staticRouteNames)
               : params.lang === "fa"

@@ -85,7 +85,7 @@ function SideBarHeader({ isClosed, toggleSide, params, langData, langArray }: an
       </Link>
 
       {/* آیکون‌ها کنار هم */}
-      <div className="flex items-center absolute top-0 rtl:left-[5px] ltr:right-[5px] mx-2 gap-2" >
+      <div className="flex items-center absolute top-[2px] rtl:left-[5px] ltr:right-[5px] mx-2 gap-2" >
        
         <div ref={langRef} className={`${isClosed ? "hidden" : "block"} relative`}>
           <div
