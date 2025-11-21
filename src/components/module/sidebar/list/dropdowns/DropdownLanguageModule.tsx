@@ -35,7 +35,7 @@ const DropdownLanguageModule = ({ langArray, params, isClosed }: any) => {
             langArray.map((item: LanguageDataItem) => (
               <li
                 key={item.id}
-                className={` border-none w-full py-[12px] ${params.lang === item.code
+                className={` border-none w-full  ${params.lang === item.code
                     // params.lang === item.name
 
                     ? "text-[#0066FF] dark:text-dark-yellow"
