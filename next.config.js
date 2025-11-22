@@ -75,6 +75,8 @@ images: {
     { protocol: 'http', hostname: 'localhost' },
     { protocol: 'https', hostname: 'irpsc.com' },
     { protocol: 'https', hostname: 'frdevelop2.irpsc.com' },
+    { protocol: 'https', hostname: 'supabase.com' },
+    { protocol: 'https', hostname: '3d.irpsc.com' },
   ],
 },
 

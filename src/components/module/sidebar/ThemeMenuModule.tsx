@@ -85,7 +85,7 @@ const ThemeMenuModule = ({ isClosed, defaultTheme, params }: any) => {
                <div
           className={` ${
             theme === "dark" ? "bg-black" : "bg-[#e9eef8]"
-          } w-[30px]  h-[30px] rounded-full  flex justify-center items-center  cursor-pointer`}
+          } w-[31px] h-[31px] md:w-[25px] md:h-[25px] xl:w-[31px] xl:h-[31px] rounded-full  flex justify-center items-center  cursor-pointer`}
           onClick={toggoleTheme}
         >
           {theme === "dark" ? (

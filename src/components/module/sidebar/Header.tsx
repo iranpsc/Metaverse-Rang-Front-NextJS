@@ -52,7 +52,7 @@ function SideBarHeader({ isClosed, toggleSide, params, langData, langArray }: an
   return (
     <div className="relative w-full !z-[101]">
       {/* آیکون منو */}
-    <div className={`${isClosed ? "  py-2 w-full" : "hidden  my-0"} `}>
+    <div onClick={toggleSide} className={`${isClosed ? " cursor-pointer py-2 w-full" : "hidden  my-0"} `}>
             <MenuIcon
         className={`${isClosed ? "visible  mt-3" : "hidden  my-0"} stroke-[#2B2B2B] dark:stroke-white cursor-pointer w-full menu-transition `}
         alt="toggle"
@@ -71,13 +71,13 @@ function SideBarHeader({ isClosed, toggleSide, params, langData, langArray }: an
             alt="rgb metaverse"
             width={71}
             height={70}
-            className={`${isClosed ? "ms-2" : "ms-4"} w-[40px] h-[40px] menu-transition`}
+            className={`${isClosed ? "ms-2" : "ms-4"} w-[45px] h-[45px] menu-transition`}
           />
-          <div className={`${isClosed ? "w-0 h-0" : "w-[100%] h-[100%]"} overflow-hidden`}>
-            <p className="whitespace-nowrap leading-[25px] visible dark:text-white block font-azarMehr font-bold text-[14px] md:text-[16px] lg:text-[18px] text-black pb-[2px]">
+          <div className={`${isClosed ? "w-0 h-0" : "w-[100%] h-[100%] flex flex-col"} overflow-hidden`}>
+            <p className="whitespace-nowrap visible leading-[25px] dark:text-white block font-azarMehr font-bold text-[14px] md:text-[16px]  text-black ">
               {t.title}
             </p>
-            <p className="whitespace-nowrap leading-[25px] dark:text-dark-gray visible font-azarMehr font-normal text-gray text-[14px] md:text-[16px] lg:text-[18px] ">
+            <p className="whitespace-nowrap leading-[25px] dark:text-dark-gray visible font-azarMehr font-normal text-gray text-[14px] md:text-[16px]  ">
               {t.subtitle}
             </p>
           </div>
@@ -85,12 +85,12 @@ function SideBarHeader({ isClosed, toggleSide, params, langData, langArray }: an
       </Link>
 
       {/* آیکون‌ها کنار هم */}
-      <div className="flex items-center absolute top-[2px] rtl:left-[5px] ltr:right-[5px] mx-2 gap-2" >
+      <div className={`${isClosed ? "hidden" : "block"} flex items-center absolute top-1 md:top-[1px] xl:top-1 rtl:left-[5px] ltr:right-[5px] mx-2 gap-2`} >
        
         <div ref={langRef} className={`${isClosed ? "hidden" : "block"} relative`}>
           <div
             onClick={() => setIsLangOpen(!isLangOpen)}
-            className="h-7 w-7 rounded-full overflow-hidden border border-gray-300 dark:border-dark-gray flex items-center justify-center cursor-pointer transition-all hover:scale-110"
+            className="w-[27px] h-[26px] md:w-[23px] md:h-[23px] xl:w-[27px] xl:h-[27px] rounded-full overflow-hidden border border-gray-300 dark:border-dark-gray flex items-center justify-center cursor-pointer transition-all hover:scale-110"
           >
             <Image
               src={currentLang.icon}
