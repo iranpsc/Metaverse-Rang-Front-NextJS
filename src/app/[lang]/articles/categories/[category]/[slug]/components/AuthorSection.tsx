@@ -82,10 +82,10 @@ export default function ArticleMeta({
         </div>
       </div>
       <div className="space-y-7">
-        <h1 className="text-base md:text-[32px] dark:text-white ">{title}</h1>
-        <p className="text-[#484950] dark:text-[#868B90] text-sm md:text-[22px] leading-8">
+        <h1 className="text-base md:leading-10 md:text-[32px] dark:text-white ">{title}</h1>
+        {/* <p className="text-[#484950] dark:text-[#868B90] text-sm md:text-[22px] leading-8">
           {excerpt}
-        </p>
+        </p> */}
       </div>
     </div>
   );
