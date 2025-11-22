@@ -52,9 +52,9 @@ function SideBarHeader({ isClosed, toggleSide, params, langData, langArray }: an
   return (
     <div className="relative w-full !z-[101]">
       {/* آیکون منو */}
-    <div onClick={toggleSide} className={`${isClosed ? " cursor-pointer py-2 w-full" : "hidden  my-0"} `}>
+    <div className={`${isClosed ? " py-2 w-full" : "hidden  my-0"} `}>
             <MenuIcon
-        className={`${isClosed ? "visible  mt-3" : "hidden  my-0"} stroke-[#2B2B2B] dark:stroke-white cursor-pointer w-full menu-transition `}
+        className={`${isClosed ? "visible  mt-3 " : "hidden  my-0"} stroke-[#2B2B2B] dark:stroke-white cursor-pointer w-full menu-transition `}
         alt="toggle"
         onClick={toggleSide}
       />
