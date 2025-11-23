@@ -57,74 +57,74 @@ export default function SideBarContent({
   // تشخیص اینکه در بخش آموزش هستیم یا نه
   const isEducationSectionActive = pathName.startsWith(`/${params.lang}/education`);
 
-useEffect(() => {
-  if (!finalTabsMenu) return;
+  useEffect(() => {
+    if (!finalTabsMenu) return;
 
-  // پاک کردن اسلش انتهایی (برای مقایسه دقیق)
-  const cleanPath = pathName.endsWith("/") ? pathName.slice(0, -1) : pathName;
+    // پاک کردن اسلش انتهایی (برای مقایسه دقیق)
+    const cleanPath = pathName.endsWith("/") ? pathName.slice(0, -1) : pathName;
 
-  const citizenProfilePath = `/${params.lang}/citizens/${params.id}`;
-  const referralPath = `${citizenProfilePath}/referral`;
+    const citizenProfilePath = `/${params.lang}/citizens/${params.id}`;
+    const referralPath = `${citizenProfilePath}/referral`;
 
-const updatedMenu = finalTabsMenu.map((item) => {
-    // زبان هیچوقت اکتیو نشه
-    if (item.unique_id == 1414) {
-      return { ...item, active: false };
-    }
+    const updatedMenu = finalTabsMenu.map((item) => {
+      // زبان هیچوقت اکتیو نشه
+      if (item.unique_id == 1414) {
+        return { ...item, active: false };
+      }
 
-    let urlThemp;
-    if (item.url == "referral") {
-      urlThemp = `/${params.lang}/citizens/${params.id}/referral`;
-      item.url = `/citizens/${params.id}/referral`;
-    } else if (item.unique_id == "1374") {
-      urlThemp = `/${params.lang}/citizens/${params.id}`;
-    } else if (item.unique_id == "149") {
-      urlThemp = `/${params.lang}`;
-    } else if (item.unique_id == 1458) {
-      urlThemp = `/${params.lang}/version`;
-    } else {
-      urlThemp = `/${params.lang}${item.url ? "/" + item.url : ""}`;
-    }
+      let urlThemp;
+      if (item.url == "referral") {
+        urlThemp = `/${params.lang}/citizens/${params.id}/referral`;
+        item.url = `/citizens/${params.id}/referral`;
+      } else if (item.unique_id == "1374") {
+        urlThemp = `/${params.lang}/citizens/${params.id}`;
+      } else if (item.unique_id == "149") {
+        urlThemp = `/${params.lang}`;
+      } else if (item.unique_id == 1458) {
+        urlThemp = `/${params.lang}/version`;
+      } else {
+        urlThemp = `/${params.lang}${item.url ? "/" + item.url : ""}`;
+      }
 
-    let isActive = false;
+      let isActive = false;
 
-    // --- صفحه اصلی ---
-    if (item.unique_id == "149") {
-      isActive =
-        pathName === `/${params.lang}` || pathName === `/${params.lang}/`;
-    } 
-    // --- education و زیرمجموعه‌ها ---
-    else if (
-      item.unique_id == "1462" &&
-      pathName.startsWith(`/${params.lang}/education`)
-    ) {
-      isActive = true;
-    }
-    // --- version و زیرمجموعه‌ها ---
-    else if (
-      item.unique_id == 1458 &&
-      pathName.startsWith(`/${params.lang}/version`)
-    ) {
-      isActive = true;
-    }
-    // --- سایر صفحات (match دقیق) ---
-    else if (urlThemp && pathName === urlThemp) {
-      isActive = true;
-    }
+      // --- صفحه اصلی ---
+      if (item.unique_id == "149") {
+        isActive =
+          pathName === `/${params.lang}` || pathName === `/${params.lang}/`;
+      }
+      // --- education و زیرمجموعه‌ها ---
+      else if (
+        item.unique_id == "1462" &&
+        pathName.startsWith(`/${params.lang}/education`)
+      ) {
+        isActive = true;
+      }
+      // --- version و زیرمجموعه‌ها ---
+      else if (
+        item.unique_id == 1458 &&
+        pathName.startsWith(`/${params.lang}/version`)
+      ) {
+        isActive = true;
+      }
+      // --- سایر صفحات (match دقیق) ---
+      else if (urlThemp && pathName === urlThemp) {
+        isActive = true;
+      }
 
-    // --- referral ---
-    if (pathName === `/${params.lang}/citizens/${params.id}/referral`) {
-      isActive = item.unique_id == "1419";
-    }
+      // --- referral ---
+      if (pathName === `/${params.lang}/citizens/${params.id}/referral`) {
+        isActive = item.unique_id == "1419";
+      }
 
-    return { ...item, active: isActive };
-  });
+      return { ...item, active: isActive };
+    });
 
-  setMenuItems(updatedMenu);
+    setMenuItems(updatedMenu);
 
-  setMenuItems(updatedMenu);
-  setTrainingDropDown(cleanPath.startsWith(`/${params.lang}/education`));
-}, [finalTabsMenu, pathName, params.lang, params.id]);
+    setMenuItems(updatedMenu);
+    setTrainingDropDown(cleanPath.startsWith(`/${params.lang}/education`));
+  }, [finalTabsMenu, pathName, params.lang, params.id]);
   // هندلر اصلی کلیک (کلیک چپ + کلیک وسط)
   const handleItemClick = (e, url = null, item = null) => {
     e.stopPropagation();
@@ -185,19 +185,19 @@ const updatedMenu = finalTabsMenu.map((item) => {
     <>
       {/* لودر تمام صفحه */}
       {loading && (
-        <div className={`${isClosed ? "w-[96.4vw]" : "xl:w-[83vw] 2xl:w-[83.5vw]"}
+        <div className={`${isClosed ? "!w-[96.4vw]" : "xl:w-[83vw] 2xl:w-[83.5vw]"}
           fixed inset-0 w-full  rtl:left-0 ltr:right-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm`} >
-              <div className="container flex w-full h-screen items-center justify-center">
-      <div className="holder">
-        <div className="box"></div>
-      </div>
-      <div className="holder">
-        <div className="box"></div>
-      </div>
-      <div className="holder">
-        <div className="box"></div>
-      </div>
-    </div>
+          <div className="container flex w-full h-screen items-center justify-center">
+            <div className="holder">
+              <div className="box"></div>
+            </div>
+            <div className="holder">
+              <div className="box"></div>
+            </div>
+            <div className="holder">
+              <div className="box"></div>
+            </div>
+          </div>
         </div>
       )}
 
@@ -307,7 +307,7 @@ const updatedMenu = finalTabsMenu.map((item) => {
               </li>
             )}
 
-            
+
             {/* {item.unique_id == 1414 && (
               <li>
                 <Tooltip title={item.translation} placement={langData.direction === "rtl" ? "left-end" : "right-end"} arrow>

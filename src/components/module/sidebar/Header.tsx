@@ -125,7 +125,7 @@ function SideBarHeader({ isClosed, toggleSide, params, langData, langArray }: an
           className={`${isClosed ? "invisible opacity-0" : "visible opacity-100 menu-transition"} h-[30px] w-[30px] cursor-pointer rounded-full flex justify-center items-center`}
           onClick={toggleSide}
         >
-          <ArrowMenu className={`w-[10px] md:w-[16px] h-[10px] md:h-[16px] stroke-gray dark:stroke-white ltr:rotate-180 rtl:rotate-0`} />
+          <ArrowMenu className={`w-[16px] h-[16px] stroke-gray dark:stroke-white ltr:rotate-180 rtl:rotate-0`} />
         </div>
       </div>
 
