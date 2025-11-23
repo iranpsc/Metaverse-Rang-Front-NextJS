@@ -1,11 +1,10 @@
-import DynamicFooter from "@/components/module/footer/DynamicFooter";
+
 import {
   getTranslation,
   getMainFile,
   findByModalName,
   findByTabName,
   getAllCategoryVideos,
-  getFooterData,
   getLangArray,
   getAllCategories,
 } from "@/components/utils/actions";
@@ -17,9 +16,8 @@ import EducationList from "@/components/templates/education/EducationList";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 export default async function CitizensPage({ params }: { params: any }) {
-  const [footerTabs, langData, langArray, allCatVideos, categoriesData] =
+  const [ langData, langArray, allCatVideos, categoriesData] =
     await Promise.all([
-      getFooterData(params),
       getTranslation(params.lang),
       getLangArray(),
       getAllCategoryVideos("1"),
@@ -72,27 +70,25 @@ export default async function CitizensPage({ params }: { params: any }) {
           __html: JSON.stringify(educationVideoSchema),
         }}
       />
-      <div className="flex h-screen overflow-hidden w-full" dir={langData.direction}>
+      <div className="flex w-full" dir={langData.direction}>
 
         <section
-          className={`w-full overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20 xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1`}
+          className={`w-full  relative  mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20 xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1`}
         >
           {/* Breadcrumb */}
           <div className="">
             <BreadCrumb params={params} />
           </div>
 
-          {/* <h1 className="mt-[70px] text-center  text-gray dark:text-dark-gray font-azarMehr font-bold 2xl:text-[26px] xl:text-[26px] lg:text-[22px] md:text-[20px] sm:text-[18px] xs:text-[16px] w-full">
+          <h1 className="mt-[70px] text-center  text-gray dark:text-dark-gray font-azarMehr font-bold 2xl:text-[26px] xl:text-[26px] lg:text-[22px] md:text-[20px] sm:text-[18px] xs:text-[16px] w-full">
           
             {findByUniqueId(mainData, 166)}
-          </h1> */}
+          </h1>
           <div className="flex flex-col items-center justify-center px-3 md:px-0">
-            {/* <p className=" 2xl:w-[30%] xl:w-[30%] lg:w-[40%] md:w-[40%] sm:w-[50%] xs:w-[50%] mt-5 font-azarMehr font-normal text-gray dark:text-dark-gray 2xl:text-[14px] xl:text-[14px] lg:text-[13px] md:text-[12px] sm:text-[12px] xs:text-[10px]   text-center">
+            <p className=" 2xl:w-[30%] xl:w-[30%] lg:w-[40%] md:w-[40%] sm:w-[50%] xs:w-[50%] mt-5 font-azarMehr font-normal text-gray dark:text-dark-gray 2xl:text-[14px] xl:text-[14px] lg:text-[13px] md:text-[12px] sm:text-[12px] xs:text-[10px]   text-center">
               
               {findByUniqueId(mainData, 164)}
-            </p> */}
-
-
+            </p>
             <SearchComponent
               searchLevel="education"
               mainData={mainData}
@@ -116,9 +112,7 @@ export default async function CitizensPage({ params }: { params: any }) {
             mainData={mainData}
           />
 
-          <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
-            <DynamicFooter footerTabs={footerTabs} mainData={mainData} params={params} />
-          </div>
+         
         </section>
       </div>
     </>

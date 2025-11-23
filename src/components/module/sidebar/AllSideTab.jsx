@@ -185,7 +185,8 @@ const updatedMenu = finalTabsMenu.map((item) => {
     <>
       {/* لودر تمام صفحه */}
       {loading && (
-        <div className="fixed inset-0 w-full xl:w-[83vw] 2xl:w-[83.5vw] rtl:left-0 ltr:right-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm">
+        <div className={`${isClosed ? "w-[96.4vw]" : "xl:w-[83vw] 2xl:w-[83.5vw]"}
+          fixed inset-0 w-full  rtl:left-0 ltr:right-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm`} >
               <div className="container flex w-full h-screen items-center justify-center">
       <div className="holder">
         <div className="box"></div>

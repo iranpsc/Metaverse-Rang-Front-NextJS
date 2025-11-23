@@ -10,9 +10,11 @@ import {
   findByModalName,
   findByTabName,
   getLangArray,
+  getFooterData
 } from "@/components/utils/actions";
 import { getStaticMenu } from "@/components/utils/constants";
 import ConditionalSidebar from "@/components/module/sidebar/ConditionalSidebar";
+import FooterClient from "@/components/module/footer/FooterClient";
 
 interface Tab {
   id: number;
@@ -25,14 +27,17 @@ interface Tab {
 
 export default async function LangLayout({ children, params }: any) {
   const theme = useServerDarkMode();
-  const [langArray, langData] = await Promise.all([
+  const [langArray, langData, footerTabs] = await Promise.all([
     getLangArray(),
     getTranslation(params.lang),
+    getFooterData(params),
   ]);
   const mainData = await getMainFile(langData);
   const centralPageModal = await findByModalName(mainData, "central-page");
   const tabsMenu = await findByTabName(centralPageModal, "before-login");
   const staticMenuToShow = getStaticMenu(params.lang);
+
+
 
   const updatedTabsMenu = tabsMenu.map((tab: Tab) => {
     let findInStatic = staticMenuToShow.find((val) => tab.unique_id === val.unique_id);
@@ -62,10 +67,10 @@ export default async function LangLayout({ children, params }: any) {
       </Head>
 
       <body className={`${azarMehr.variable} ${rokh.variable}   h-screen light-scrollbar dark:dark-scrollbar`}>
-        
+
         <ReferralHandler />
         <ToastProvider />
-        <main className="flex h-screen overflow-hidden" dir={langData.direction}>
+        <main className="flex w-full h-screen overflow-hidden" dir={langData.direction}>
           <Suspense fallback={<div>Loading Sidebar...</div>}>
             <ConditionalSidebar
               tabsMenu={updatedTabsMenu}
@@ -75,21 +80,31 @@ export default async function LangLayout({ children, params }: any) {
             />
           </Suspense>
 
-          <Suspense fallback={
-            <div className="container flex w-full h-screen items-center justify-center !bg-transparent">
-              <div className="holder">
-                <div className="box"></div>
-              </div>
-              <div className="holder">
-                <div className="box"></div>
-              </div>
-              <div className="holder">
-                <div className="box"></div>
-              </div>
-            </div>}>
-            {children}
-          </Suspense>
+          <div className='flex flex-col w-full h-screen overflow-y-auto light-scrollbar dark:dark-scrollbar'>
+            <Suspense fallback={
+              <div className="container flex flex-col w-full h-screen items-center justify-center !bg-transparent">
+                <div className="holder">
+                  <div className="box"></div>
+                </div>
+                <div className="holder">
+                  <div className="box"></div>
+                </div>
+                <div className="holder">
+                  <div className="box"></div>
+                </div>
+              </div>}>
+              {children}
+     
+                <div className="w-full xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
+                  <FooterClient footerTabs={footerTabs} mainData={mainData} params={params} />
+                </div>
+              
 
+
+            </Suspense>
+
+
+          </div>
           <a
             href="https://discord.gg/sW6XCY96hh"
             aria-label="Join us on Discord"
@@ -120,6 +135,7 @@ export default async function LangLayout({ children, params }: any) {
               </defs>
             </svg>
           </a>
+
         </main>
       </body>
     </html>

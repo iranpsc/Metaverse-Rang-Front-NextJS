@@ -5,7 +5,6 @@ import { supabase } from "@/utils/lib/supabaseClient";
 import {
   getTranslation,
   getMainFile,
-  getFooterData,
   getLangArray,
 } from "@/components/utils/actions";
 
@@ -21,7 +20,6 @@ import RelatedArticlesSlider from "./components/RelatedArticlesSlider";
 import PrevNextArticles from "./components/PrevNextArticles";
 import AuthorCard from "./components/AuthorCard";
 import ShowSocialWrapper from "./components/ShowSocialWrapper";
-const DynamicFooter = dynamic(() => import("@/components/module/footer/Footer"));
 
 
 // ======================================
@@ -81,8 +79,7 @@ export default async function ArticlePage({ params }) {
       .eq("category", category) // ← حالا category درست کار می‌کند
       .order("date", { ascending: true });
 
-    const [footerTabs, langData, langArray] = await Promise.all([
-      getFooterData(params),
+    const [ langData, langArray] = await Promise.all([
       getTranslation(params.lang),
       getLangArray(),
     ]);
@@ -139,7 +136,7 @@ export default async function ArticlePage({ params }) {
     // ✅ رندر صفحه
     // ======================================
     return (
-      <div className="w-full h-screen overflow-y-auto relative bg-[#f8f8f8] dark:bg-black light-scrollbar dark:dark-scrollbar" dir={langData.direction}>
+      <div className="w-full h-screen  relative bg-[#f8f8f8] dark:bg-black" dir={langData.direction}>
 
         <script
           type="application/ld+json"
@@ -202,10 +199,6 @@ export default async function ArticlePage({ params }) {
             <RelatedArticlesSlider params={params} mainData={mainData} />
           </div>
 
-          {/* فوتر */}
-          <div className="w-full xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
-            <DynamicFooter footerTabs={footerTabs} mainData={mainData} params={params} />
-          </div>
         </section>
       </div>
     );

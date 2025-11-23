@@ -1,5 +1,4 @@
 // src/app/[lang]/articles/categories/page.tsx
-import Footer from "@/components/module/footer/Footer";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import CategoriesList from "./CategoriesList"; // Client Component
 import SearchComponent from "@/components/shared/SearchComponent"; // Client Component
@@ -37,8 +36,7 @@ export async function generateMetadata({ params }: { params: { lang: string } })
 }
 
 export default async function CategoriesPage({ params }: { params: { lang: string } }) {
-  const [footerTabs, langData] = await Promise.all([
-    getFooterData(params),
+  const [ langData] = await Promise.all([
     getTranslation(params.lang),
   ]);
   const mainData = await getMainFile(langData);
@@ -115,7 +113,7 @@ export default async function CategoriesPage({ params }: { params: { lang: strin
   };
 
   return (
-    <section className="w-full h-screen overflow-y-auto bg-[#f8f8f8] dark:bg-black px-5 3xl:px-10 light-scrollbar dark:dark-scrollbar">
+    <section className="w-full  bg-[#f8f8f8] dark:bg-black px-5 3xl:px-10 ">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
 
       <div className="mb-6 mt-[60px] lg:mt-0">
@@ -141,11 +139,6 @@ export default async function CategoriesPage({ params }: { params: { lang: strin
         subcategoryCounts={subcategoryCounts}
         params={params}
       />
-
-      {/* Footer */}
-      <div className="w-full xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
-        <Footer footerTabs={footerTabs} mainData={mainData} params={params} />
-      </div>
     </section>
   );
 }

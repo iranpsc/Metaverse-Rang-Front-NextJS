@@ -1,13 +1,11 @@
 import {
   getAllLevels,
-  getFooterData,
   getTranslation,
   getMainFile,
   findByModalName,
   findByTabName,
   getLangArray,
 } from "@/components/utils/actions";
-import DynamicFooter from "@/components/module/footer/DynamicFooter";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import { WhatsAppIcon, ContactDownArrow } from "@/components/svgs";
 import Form from "./components/form";
@@ -57,7 +55,6 @@ export default async function AboutPage({ params }: any) {
     item.slug = convertPersianToEnglishNumber(item.slug);
   });
 
-  const footerTabs = await getFooterData(params);
 
   const langArray = await getLangArray();
 
@@ -161,7 +158,7 @@ export default async function AboutPage({ params }: any) {
           // id={`${
           //   themeDataActive == "dark" ? "dark-scrollbar" : "light-scrollbar"
           // }`}
-          className={`h-[calc(100vh-60px)] lg:h-screen overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0`}
+          className={` relative mt-[60px] lg:mt-0`}
         >
           {/* Breadcrumb */}
           <div className="px-12">
@@ -267,9 +264,6 @@ export default async function AboutPage({ params }: any) {
               </main>
             </div>
           </section>
-          <div className="lg:px-32 md:px-5 sm:px-5 xs:px-1">
-            <DynamicFooter footerTabs={footerTabs} mainData={mainData} params={params} />
-          </div>
         </section>
       </div>
     </>

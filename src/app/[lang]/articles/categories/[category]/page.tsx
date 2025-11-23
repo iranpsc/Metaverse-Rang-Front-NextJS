@@ -4,8 +4,7 @@ import BreadCrumb from "@/components/shared/BreadCrumb";
 import CategorySorted from "./components/CategorySorted";
 import CategoryHeader from "./components/CategoryHeader";
 import SearchComponent from "@/components/shared/SearchComponent";
-import Footer from "@/components/module/footer/Footer";
-import { getTranslation, getMainFile, getFooterData } from "@/components/utils/actions";
+import { getTranslation, getMainFile} from "@/components/utils/actions";
 import { supabase } from "@/utils/lib/supabaseClient";
 
 interface CategoryPageProps {
@@ -70,8 +69,7 @@ export async function generateMetadata({ params }: CategoryPageProps) {
 export default async function CategoryPage({ params }: CategoryPageProps) {
   const category = decodeURIComponent(params.category);
 
-  const [footerTabs, langData] = await Promise.all([
-    getFooterData(params),
+  const [ langData] = await Promise.all([
     getTranslation(params.lang),
   ]);
   const mainData = await getMainFile(langData);
@@ -164,7 +162,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   };
 
   return (
-    <section className="w-full h-screen overflow-y-auto relative bg-[#f8f8f8] dark:bg-black light-scrollbar dark:dark-scrollbar">
+    <section className="w-full relative bg-[#f8f8f8] dark:bg-black">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       <div className="px-5 2xl:px-10 mt-[60px] lg:mt-0">
@@ -196,9 +194,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         <CategorySorted params={params} category={category} articles={categoryArticles} />
       </div>
 
-      <div className="w-full xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
-        <Footer footerTabs={footerTabs} mainData={mainData} params={params} />
-      </div>
     </section>
   );
 }

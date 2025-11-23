@@ -2,7 +2,6 @@ import dynamic from "next/dynamic";
 import { Suspense } from "react";
 import NotFoundPage from "@/components/shared/NotFoundPage";
 
-const DynamicFooter = dynamic(() => import("@/components/module/footer/DynamicFooter"), { suspense: true });
 const BreadCrumb = dynamic(() => import("@/components/shared/BreadCrumb"), { suspense: true });
 
 const CategoryComponent = dynamic(
@@ -16,7 +15,6 @@ import {
   getMainFile,
   findByModalName,
   findByTabName,
-  getFooterData,
   getLangArray,
   getEducationSingleCategory,
 } from "@/components/utils/actions";
@@ -30,8 +28,7 @@ async function makeLessCharacter(_desc: any, limit: number = 200) {
 
 export default async function EducationCategory({ params }: { params: any }) {
   try {
-    const [footerTabs, langData, langArray] = await Promise.all([
-      getFooterData(params),
+    const [ langData, langArray] = await Promise.all([
       getTranslation(params.lang),
       getLangArray(),
     ]);
@@ -49,7 +46,6 @@ export default async function EducationCategory({ params }: { params: any }) {
             params={params}
             langData={langData}
             langArray={langArray}
-            footerTabs={footerTabs}
             mainData={mainData}
           />
         );
@@ -64,7 +60,6 @@ export default async function EducationCategory({ params }: { params: any }) {
           params={params}
           langData={langData}
           langArray={langArray}
-          footerTabs={footerTabs}
           mainData={mainData}
         />
       );
@@ -97,8 +92,8 @@ export default async function EducationCategory({ params }: { params: any }) {
             __html: JSON.stringify(educationSingleCategorySchema),
           }}
         />
-        <div className="flex h-screen overflow-hidden w-full bg-[#f8f8f8] dark:bg-black bg-opacity20" dir={langData.direction}>
-          <section className="w-full overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 lg:pt-0  xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
+        <div className="flex  w-full bg-[#f8f8f8] dark:bg-black bg-opacity20" dir={langData.direction}>
+          <section className="w-full overflow-y-auto relative l mt-[60px] lg:mt-0 lg:pt-0  xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
             <div className="ps-4 lg:ps-5">
               <Suspense fallback={<div className="text-center text-[20px]">loading...</div>}>
                 <BreadCrumb params={params} />
@@ -109,11 +104,7 @@ export default async function EducationCategory({ params }: { params: any }) {
               <CategoryComponent params={params} CategoryData={CategoryData} mainData={mainData} />
             </Suspense>
 
-            <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
-              <Suspense fallback={<div className="text-center text-[20px]">loading...</div>}>
-                <DynamicFooter footerTabs={footerTabs} mainData={mainData} params={params} />
-              </Suspense>
-            </div>
+           
           </section>
         </div>
       </>

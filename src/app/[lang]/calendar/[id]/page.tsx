@@ -1,10 +1,8 @@
 import { Metadata } from "next";
-import Footer from "@/components/module/footer/Footer";
 import { cookies } from "next/headers";
 import {
   getTranslation,
   getMainFile,
-  getFooterData,
   getLangArray,
 } from "@/components/utils/actions";
 import BreadCrumb from "@/components/shared/BreadCrumb";
@@ -164,8 +162,7 @@ export async function generateMetadata({ params }: { params: { lang: string; id:
 
 // 📌 Page Component
 export default async function EventPage({ params }: { params: { lang: string; id: string } }) {
-  const [footerTabs, langData, langArray, events, selectedEvent] = await Promise.all([
-    getFooterData(params),
+  const [ langData, langArray, events, selectedEvent] = await Promise.all([
     getTranslation(params.lang),
     getLangArray(),
     getEvents(),
@@ -184,8 +181,8 @@ export default async function EventPage({ params }: { params: { lang: string; id
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(eventSchema, null, 2) }} />
-      <div className="flex flex-col h-screen overflow-hidden min-w-[340px] w-full" dir={langData.direction}>
-        <section className="w-full overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20">
+      <div className="flex flex-col  min-w-[340px] w-full" dir={langData.direction}>
+        <section className="w-full relative mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20">
           <div className="px-12">
             <BreadCrumb params={params} eventTitle={cleanTitle} />
           </div>
@@ -200,10 +197,6 @@ export default async function EventPage({ params }: { params: { lang: string; id
                 selectedEvent={selectedEvent}
               />
             </div>
-          </div>
-
-          <div className="w-full xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
-            <Footer footerTabs={footerTabs} mainData={mainData}  params={params}/>
           </div>
         </section>
       </div>

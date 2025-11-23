@@ -1,16 +1,13 @@
 import dynamic from "next/dynamic";
 import {
   getAllLevels,
-  getFooterData,
   getTranslation,
   getMainFile,
   findByModalName,
   findByTabName,
   getLangArray,
 } from "@/components/utils/actions";
-const DynamicFooter = dynamic(
-  () => import("@/components/module/footer/DynamicFooter")
-);
+
 const AboutList = dynamic(() => import("./components/list"));
 
 import Image from "next/image";
@@ -76,9 +73,8 @@ export default async function AboutPage({ params }: { params: Params }) {
     );
   }
 
-  const [levelArray, footerTabs, langArray, langData] = await Promise.all([
+  const [levelArray, langArray, langData] = await Promise.all([
     getAllLevels() as Promise<LevelItem[]>,
-    getFooterData(params) as Promise<Tab[]>,
     getLangArray() as Promise<string[]>,
     getTranslation(params.lang) as Promise<any>,
   ]);
@@ -138,7 +134,7 @@ export default async function AboutPage({ params }: { params: Params }) {
         }}
       />
       <section
-        className={`min-h-[calc(100vh-60px)] lg:min-h-screen overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 mx-auto px-4 lg:px-9 !font-azarMehr`}
+        className={`min-h-[calc(100vh-60px)]  relative  mt-[60px] lg:mt-0 mx-auto px-4 lg:px-9 !font-azarMehr`}
       >
         <h1 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[64px] mb-[16px]">
           {params.lang.toLowerCase() === "fa" ? "درباره ما" : "About Us"}
@@ -279,9 +275,6 @@ export default async function AboutPage({ params }: { params: Params }) {
           citizenListArrayContent={citizenListArrayContent}
           levelListArrayContent={levelListArrayContent}
         />
-        <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
-          <DynamicFooter footerTabs={footerTabs} mainData={mainData} DynamicFooter/>
-        </div>
       </section>
     </>
   );

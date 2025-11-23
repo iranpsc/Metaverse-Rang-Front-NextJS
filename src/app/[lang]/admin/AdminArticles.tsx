@@ -229,7 +229,7 @@ if (!["hm-2000003", "hm-2000007"].includes(loggedInUserData.code.trim().toLowerC
   };
 
   return (
-    <div className="bg-[#f8f8f8] dark:bg-black light-scrollbar dark:dark-scrollbar w-full h-screen overflow-y-auto px-5 lg:px-10 py-5 dark:text-white">
+    <div className="bg-[#f8f8f8] dark:bg-black w-full px-5 lg:px-10 py-5 dark:text-white">
       
       <h1 className="text-2xl font-bold mb-4 mt-20 lg:mt-5  px-2 pb-3">پنل مدیریت مقالات</h1>
       <div className="dark:bg-dark-background  bg-white rounded-3xl">

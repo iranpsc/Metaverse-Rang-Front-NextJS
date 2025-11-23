@@ -1,10 +1,8 @@
 import { Metadata } from "next";
-import Footer from "@/components/module/footer/Footer";
 import { cookies } from "next/headers";
 import {
   getTranslation,
   getMainFile,
-  getFooterData,
   getLangArray,
 } from "@/components/utils/actions";
 import BreadCrumb from "@/components/shared/BreadCrumb";
@@ -182,8 +180,7 @@ function buildEventSchema(events: MappedEventItem[], paramsLang: string) {
 
 // 📌 Page Component
 export default async function CalendarPage({ params }: { params: { lang: string } }) {
-  const [footerTabs, langData, langArray] = await Promise.all([
-    getFooterData(params),
+  const [ langData, langArray] = await Promise.all([
     getTranslation(params.lang),
     getLangArray(),
   ]);
@@ -211,10 +208,10 @@ export default async function CalendarPage({ params }: { params: { lang: string 
   const eventSchema = buildEventSchema(Events, params.lang);
 
   return (
-    <div className="flex flex-col h-screen overflow-hidden min-w-[340px] w-full" dir={langData.direction}>
+    <div className="flex flex-col min-w-[340px] w-full" dir={langData.direction}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(eventSchema, null, 2) }} />
 
-      <section className="w-full overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20">
+      <section className="w-full relative mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20">
         <div className="px-12">
           <BreadCrumb params={params} />
         </div>
@@ -226,10 +223,6 @@ export default async function CalendarPage({ params }: { params: { lang: string 
 
         <div className="mainContainer w-full h-auto flex flex-col items-center lg:gap-0 font-azarMehr lg:flex-row lg:items-start p-5 lg:px-10">
           <EventsCalendar token={token} mainData={mainData} params={params} events={Events} />
-        </div>
-
-        <div className="w-full xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
-          <Footer footerTabs={footerTabs}  params={params} mainData={mainData} />
         </div>
       </section>
     </div>

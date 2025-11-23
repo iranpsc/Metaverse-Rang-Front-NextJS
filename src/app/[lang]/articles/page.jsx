@@ -1,4 +1,3 @@
-import Footer from "@/components/module/footer/Footer";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 // import { articles } from "@/components/utils/articles";
 import LatestArticlesSlider from "./components/LatestArticlesSlider";
@@ -10,7 +9,6 @@ import TopWritersArticles from "./components/TopWritersArticles"
 import {
   getTranslation,
   getMainFile,
-  getFooterData,
   getLangArray,
 } from "@/components/utils/actions";
 
@@ -56,8 +54,7 @@ export async function generateMetadata({ params }) {
 
 
 export default async function ArticlesPage({ params }) {
-  const [footerTabs, langData] = await Promise.all([
-    getFooterData(params),
+  const [ langData] = await Promise.all([
     getTranslation(params.lang),
   ]);
 
@@ -119,7 +116,7 @@ export default async function ArticlesPage({ params }) {
   // ✅ محتوای اصلی (دقیقاً مثل نسخه‌ی خودت)
   return (
     <section
-      className="w-full h-screen overflow-y-auto relative lg:pt-0 bg-[#f8f8f8] dark:bg-black light-scrollbar dark:dark-scrollbar"
+      className="w-full relative lg:pt-0 bg-[#f8f8f8] dark:bg-black "
       dir={langData.direction}
     >
       <div className="px-5 2xl:px-10 mt-[60px] lg:mt-0">
@@ -156,10 +153,6 @@ export default async function ArticlesPage({ params }) {
       <div className="ps-5 2xl:ps-10 space-y-14 mt-28">
         <PopularArticlesSlider params={params} mainData={mainData} />
         <LatestArticlesSlider params={params} mainData={mainData} />
-      </div>
-
-      <div className="w-full xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
-        <Footer footerTabs={footerTabs} mainData={mainData} params={params} />
       </div>
 
       {/* ✅ اسکیمای SSR معتبر و داینامیک */}

@@ -14,13 +14,12 @@ const EducationFirstPage = React.lazy(() => import('@/components/templates/first
 const LastContent = React.lazy(() => import('@/components/templates/firstpage/LastContent'));
 const DetailsEducationSection = React.lazy(() => import('@/components/templates/firstpage/DetailsEducationSection'));
 const VersionSection = React.lazy(() => import('@/components/templates/firstpage/VersionSection'));
-const DynamicFooter = React.lazy(() => import("@/components/module/footer/DynamicFooter"));
 import {
   getTranslation,
   getMainFile,
   findByModalName,
   findByTabName,
-  getLangArray,
+  // getLangArray,
   getAllVersions
 } from "@/components/utils/actions";
 import Head from 'next/head';
@@ -102,7 +101,6 @@ export default async function LangPage({ params }) {
       return [];
     }
   }
-  const footerTabs = await fetchData();
 
   async function makeLessCharacter() {
     let temp = findByUniqueId(mainData, 482);
@@ -140,7 +138,7 @@ export default async function LangPage({ params }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(landingSchema) }}
       />
-      <section className="overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity-20">
+      <section className=" relative  mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity-20">
         <section className="flex flex-col h-fit tall0:min-h-[600px] min-h-[calc(100vh-60px)] lg:h-screen relative">
           {!isMobile && (
             <video
@@ -274,11 +272,7 @@ export default async function LangPage({ params }) {
 
             </Suspense>
           </div>
-          <div className="flex flex-col justify-center items-center">
-            <Suspense fallback={<div>Loading Header...</div>}>
-              <DynamicFooter footerTabs={footerTabs} mainData={mainData} params={params}  />
-            </Suspense>
-          </div>
+
         </section>
       </section>
     </>

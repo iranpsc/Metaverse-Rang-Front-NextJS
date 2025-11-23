@@ -2,10 +2,6 @@ import dynamic from "next/dynamic";
 import { Suspense } from "react";
 
 // Dynamically Import Components
-const DynamicFooter = dynamic(
-  () => import("@/components/module/footer/DynamicFooter"),
-  { suspense: true }
-);
 
 const BreadCrumb = dynamic(() => import("@/components/shared/BreadCrumb"), {
   suspense: true,
@@ -24,7 +20,6 @@ import {
   getMainFile,
   findByModalName,
   findByTabName,
-  getFooterData,
   getLangArray,
   getAllCategories,
 } from "@/components/utils/actions";
@@ -36,8 +31,8 @@ export default async function EducationCategoryAll({
 }: {
   params: any;
 }) {
-  const [footerTabs, langData, langArray, categoriesData] = await Promise.all([
-    getFooterData(params),
+  const [ langData, langArray, categoriesData] = await Promise.all([
+  
     getTranslation(params.lang),
     getLangArray(),
     getAllCategories(),
@@ -76,10 +71,10 @@ export default async function EducationCategoryAll({
         }}
       />
 
-      <div className="flex h-screen overflow-hidden w-full" dir={langData.direction}>
+      <div className="flex  w-full" dir={langData.direction}>
 
         <section
-          className={`w-full overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20 xl:px-32 lg:px-32 px-5 `}
+          className={`w-full mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20 xl:px-32 lg:px-32 px-5 `}
         >
           {/* Breadcrumb */}
           <div className="ps-2 lg:ps-4">
@@ -121,15 +116,7 @@ export default async function EducationCategoryAll({
             />
           </Suspense>
 
-          <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
-            <Suspense
-              fallback={
-                <div className="text-center text-[20px]">loading...</div>
-              }
-            >
-              <DynamicFooter footerTabs={footerTabs} mainData={mainData} params={params} />
-            </Suspense>
-          </div>
+         
         </section>
       </div>
     </>

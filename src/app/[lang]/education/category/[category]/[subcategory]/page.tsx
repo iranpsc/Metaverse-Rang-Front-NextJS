@@ -4,7 +4,6 @@ import NotFoundPage from "@/components/shared/NotFoundPage";
 import {
   getTranslation,
   getMainFile,
-  getFooterData,
   getLangArray,
   getSubcategoryData,
 } from "@/components/utils/actions";
@@ -13,11 +12,7 @@ async function makeLessCharacter(_desc: any) {
   return _desc ? _desc.slice(0, 200) : "";
 }
 
-// ✅ کامپوننت‌های داینامیک فقط روی کلاینت رندر می‌شوند
-const DynamicFooter = dynamic(
-  () => import("@/components/module/footer/DynamicFooter"),
-  { ssr: false }
-);
+
 const BreadCrumb = dynamic(
   () => import("@/components/shared/BreadCrumb"),
   { ssr: false }
@@ -29,8 +24,7 @@ const SubcategoryComponent = dynamic(
 
 export default async function EducationSubcategory({ params }: { params: any }) {
   try {
-    const [footerTabs, langData, langArray] = await Promise.all([
-      getFooterData(params),
+    const [langData, langArray] = await Promise.all([
       getTranslation(params.lang),
       getLangArray(),
     ]);
@@ -48,7 +42,6 @@ export default async function EducationSubcategory({ params }: { params: any }) 
             params={params}
             langData={langData}
             langArray={langArray}
-            footerTabs={footerTabs}
             mainData={mainData}
           />
         );
@@ -63,7 +56,6 @@ export default async function EducationSubcategory({ params }: { params: any }) 
           params={params}
           langData={langData}
           langArray={langArray}
-          footerTabs={footerTabs}
           mainData={mainData}
         />
       );
@@ -115,8 +107,8 @@ export default async function EducationSubcategory({ params }: { params: any }) 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(subCategorySchema) }}
         />
-        <div className="flex h-screen overflow-hidden w-full" dir={langData.direction}>
-          <section className="w-full overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20 xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
+        <div className="flex  w-full" dir={langData.direction}>
+          <section className="w-full  mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20 xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
             <div className="ps-4 lg:ps-5">
               <BreadCrumb params={params} />
             </div>
@@ -127,9 +119,6 @@ export default async function EducationSubcategory({ params }: { params: any }) 
               mainData={mainData}
             />
 
-            <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
-              <DynamicFooter footerTabs={footerTabs} mainData={mainData} params={params} />
-            </div>
           </section>
         </div>
       </>

@@ -1,6 +1,5 @@
 import React from "react";
 import SideBar from "@/components/module/sidebar/SideBar";
-import DynamicFooter from "@/components/module/footer/DynamicFooter";
 import Image from "next/image";
 import Rafiki from '@/public/rafiki.png';
 import RafikiDark from '@/public/rafiki-dark.png';
@@ -11,7 +10,6 @@ interface NotFoundPageProps {
   params: any;
   langData: any;
   langArray: any;
-  footerTabs: any[];
   mainData: any;
 
 }
@@ -21,17 +19,15 @@ export default function NotFoundPage({
   params,
   langData,
   langArray,
-
-  footerTabs,
   mainData,
 
 }: NotFoundPageProps) {
   return (
-    <div className="flex h-screen overflow-hidden w-full" dir={langData.direction}>
+    <div className="flex  w-full" dir={langData.direction}>
       {/* Sidebar فقط وقتی hideSidebar false باشه */}
 
       {/* Main Content */}
-      <section className="w-full pt-7 overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 bg-[#f8f8f8] dark:bg-black xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
+      <section className="w-full pt-7 relative r mt-[60px] lg:mt-0 bg-[#f8f8f8] dark:bg-black xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
 
 
         <div className=" bg-white dark:bg-[#080807] rounded-[20px] flex flex-col lg:flex-row gap-5 p-5 w-full">
@@ -73,10 +69,7 @@ export default function NotFoundPage({
           </div>
         </div>
 
-        {/* Footer */}
-        <div className="mt-[-120px]">
-          <DynamicFooter footerTabs={footerTabs} mainData={mainData} params={params} />
-        </div>
+       
       </section>
     </div>
   );

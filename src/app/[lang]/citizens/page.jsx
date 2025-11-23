@@ -1,4 +1,4 @@
-import DynamicFooter from "@/components/module/footer/DynamicFooter";
+
 import {
   getTranslation,
   getMainFile,
@@ -72,8 +72,8 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function CitizensPage({ params }) {
-  const [footerTabs, langData, langArray] = await Promise.all([
-  getFooterData(params), 
+  const [ langData, langArray] = await Promise.all([
+
   getTranslation(params.lang), 
   getLangArray(),
 ]);
@@ -132,10 +132,10 @@ export default async function CitizensPage({ params }) {
           __html: JSON.stringify(citizenListSchema),
         }}
       />
-      <div className="flex h-screen overflow-hidden w-full" dir={langData.direction}>
+      <div className=" w-full" dir={langData.direction}>
 
         <section
-          className={`overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20`}
+          className={`w-full mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20`}
         >
           {/* Breadcrumb */}
           <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
@@ -168,9 +168,7 @@ export default async function CitizensPage({ params }) {
             </Suspense>
           </div>
 
-          <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
-            <DynamicFooter footerTabs={footerTabs} mainData={mainData} params={params} />
-          </div>
+        
         </section>
       </div>
     </>

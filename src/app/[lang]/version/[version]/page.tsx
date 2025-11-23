@@ -1,4 +1,3 @@
-import DynamicFooter from "@/components/module/footer/DynamicFooter";
 import Footer from "@/components/module/footer/Footer";
 import {
   getTranslation,
@@ -6,7 +5,6 @@ import {
   findByModalName,
   findByTabName,
   getAllCitizen,
-  getFooterData,
   getLangArray,
 } from "@/components/utils/actions";
 import Version from "../[version]/components/version";
@@ -141,8 +139,7 @@ export async function generateMetadata({ params }: { params: any }): Promise<Met
 
 
 export default async function VersionPage({ params }: { params: any }) {
-  const [footerTabs, langData, langArray] = await Promise.all([
-    getFooterData(params),
+  const [langData, langArray] = await Promise.all([
     getTranslation(params.lang),
     getLangArray(),
   ]);
@@ -229,9 +226,6 @@ export default async function VersionPage({ params }: { params: any }) {
       }
   };
   {/*END SCHEMA** */ }
-
-
-
   return (
     <>
       {/* SCHEMA** */}
@@ -241,10 +235,10 @@ export default async function VersionPage({ params }: { params: any }) {
       />
       {/* schema END */}
 
-      <div className="flex w-full h-screen overflow-hidden" dir={langData.direction}>
+      <div className="flex w-full" dir={langData.direction}>
 
         <section
-          className={`w-full overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20`}
+          className={`w-full relative mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20`}
         >
           <div className="px-12">
             <BreadCrumb params={params} />
@@ -260,10 +254,6 @@ export default async function VersionPage({ params }: { params: any }) {
                 />
               </div>
             </div>
-          </div>
-          <div className="w-full xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
-            {/* <DynamicFooter footerTabs={footerTabs} mainData={mainData} params={params} /> */}
-            <Footer footerTabs={footerTabs} mainData={mainData} params={params} />
           </div>
         </section>
       </div>

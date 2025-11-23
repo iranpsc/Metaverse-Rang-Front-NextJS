@@ -2,10 +2,7 @@ import dynamic from "next/dynamic";
 import { Suspense } from "react";
 import { cache } from "react"; // اضافه کردن cache از React
 
-const DynamicFooter = dynamic(
-  () => import("@/components/module/footer/DynamicFooter"),
-  { suspense: true }
-);
+
 const BreadCrumb = dynamic(() => import("@/components/shared/BreadCrumb"), {
   suspense: true,
 });
@@ -15,7 +12,6 @@ import {
   getMainFile,
   // findByModalName,
   // findByTabName,
-  getFooterData,
   getLangArray,
   getSubcategoryData,
   getSingleVideoData,
@@ -34,8 +30,7 @@ const getCachedSingleVideoData = cache(async (videoId: string) => {
 });
 
 export default async function EducationVideo({ params }: { params: any }) {
-  const [footerTabs, langData, langArray] = await Promise.all([
-    getFooterData(params),
+  const [langData, langArray] = await Promise.all([
     getTranslation(params.lang),
     getLangArray(),
   ]);
@@ -52,7 +47,6 @@ export default async function EducationVideo({ params }: { params: any }) {
       params={params}
       langData={langData}
       langArray={langArray}
-      footerTabs={footerTabs}
       mainData={mainData} />;
   }
 
@@ -163,10 +157,10 @@ async function makeLessCharacter(_desc: any) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(relatedVideosSchema) }}
       />
-      <div className="flex w-full h-screen overflow-hidden" dir={langData.direction}>
+      <div className="flex w-full" dir={langData.direction}>
 
         <section
-          className={`w-full overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 lg:pt-0 bg-[#F5F5F5] dark:bg-black bg-opacity20 xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1`}
+          className={`w-full relative mt-[60px] lg:mt-0 lg:pt-0 bg-[#F5F5F5] dark:bg-black bg-opacity20 xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1`}
         >
           <section
             className={`w-full relative overflow-y-auto overflow-x-clip flex flex-col justify-start items-center`}
@@ -180,11 +174,7 @@ async function makeLessCharacter(_desc: any) {
             />
           <ListVideos DataVideos={DataVideos} params={params} DataVideo={DataVideo}   />
           </section>
-          <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
-            <Suspense fallback={<div className="text-center text-[20px]">loading...</div>}>
-              <DynamicFooter footerTabs={footerTabs} mainData={mainData} params={params} />
-            </Suspense>
-          </div>
+
         </section>
       </div>
     </>
