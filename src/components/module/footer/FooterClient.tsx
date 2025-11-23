@@ -16,7 +16,7 @@ const FooterClient: React.FC<FooterClientProps> = ({ footerTabs, mainData, param
   // مسیرهایی که Footer نباید نمایش داده شود
   const hiddenPaths = [
     /^\/[^\/]+\/citizens\/hm-[A-Za-z0-9_-]+(\/.*)?$/,   // /fa/citizens/hm-xxxx
-    /^\/[^\/]+\/levels\/citizen$/              // /fa/levels/citizen
+    /^\/[^\/]+\/levels\/.*/              // /fa/levels/citizen
   ];
 
   const isHidden = hiddenPaths.some((regex) => regex.test(pathname));
