@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Text } from "../svgs/SvgEducation";
 import LockGem from '@/public/Frame1000003193.png';
 import { Like } from "@/components/svgs/SvgEducation";
+import { useId } from "react";
 export default function UserCard({ item, params, buttonText, minWidth, scoreElement, hidePreviousLevels }: any) {
   const staticRouteNames = [
     { id: 1, route_name: "citizen-baguette" },
@@ -22,7 +23,7 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
     { id: 12, route_name: "judge-baguette" },
     { id: 13, route_name: "legislator-baguette" },
   ];
-
+const uid = useId();
   // isTruncated برای اسم کاربر
   const nameRef = useRef<HTMLParagraphElement>(null);
   const [isTruncated, setIsTruncated] = useState(false);
@@ -106,9 +107,9 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
           </div>
           <Link
             className="min-h-[30px] uppercase text-blueLink dark:text-blue-500 accumulating font-azarMehr text-[16px] cursor-pointer"
-            href={`/${params.lang}/citizens/${item.code}`}
-            title={`Go to citizen ${item.code}`}
-            aria-label={`Go to citizen ${item.code}`}
+            href={`/${params.lang}/citizens/${uid}`}
+            title={`Go to citizen ${uid}`}
+            aria-label={`Go to citizen ${uid}`}
           >
             {item.code}
           </Link>
@@ -135,7 +136,7 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
           </div>
         )}
 
-        <Link href={`/${params.lang}/citizens/${item.code}`} className="w-[80%]">
+        <Link href={`/${params.lang}/citizens/${uid}`} className="w-[80%]">
           <div className="w-full h-[55px] bg-[#f5f9ff] dark:bg-[#000000] px-3 sm:px-6 rounded-[10px] flex flex-row justify-between items-center">
             <span className="text-blueLink dark:text-dark-yellow font-azarMehr font-medium text-[14px]">
               {buttonText}
@@ -153,20 +154,20 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
             fill="none"
             className="relative block dark:hidden group-hover:hidden"
           >
-            <g clipPath={`url(#clip-${item.code}-ln)`}>
-              <path d="M0 2.0182V8.12H5.88235V0H0.987497C0.442242 0 0 0.903835 0 2.0182Z" fill={`url(#paint0-${item.code}-ln)`} />
-              <path d="M0 26.8548C0 28.0384 2.04025 29.0003 4.55074 29.0003H97.1356C98.9938 29.0003 100.329 28.1528 99.7826 27.3125L90.6356 17.3178L99.8963 6.10007C100.389 5.26688 99.062 4.44441 97.2266 4.44441H19.3406L4.619 4.46229C2.10851 4.46587 0.0682611 3.50394 0.0682611 2.32031L0 26.8548Z" fill={`url(#paint1-${item.code}-ln)`} />
+            <g clipPath={`url(#clip-${uid}-ln)`}>
+              <path d="M0 2.0182V8.12H5.88235V0H0.987497C0.442242 0 0 0.903835 0 2.0182Z" fill={`url(#paint0-${uid}-ln)`} />
+              <path d="M0 26.8548C0 28.0384 2.04025 29.0003 4.55074 29.0003H97.1356C98.9938 29.0003 100.329 28.1528 99.7826 27.3125L90.6356 17.3178L99.8963 6.10007C100.389 5.26688 99.062 4.44441 97.2266 4.44441H19.3406L4.619 4.46229C2.10851 4.46587 0.0682611 3.50394 0.0682611 2.32031L0 26.8548Z" fill={`url(#paint1-${uid}-ln)`} />
             </g>
             <defs>
-              <linearGradient id={`paint0-${item.code}-ln`} x1={-0.413825} y1={4.06181} x2={9.17874} y2={4.06181} gradientUnits="userSpaceOnUse">
+              <linearGradient id={`paint0-${uid}-ln`} x1={-0.413825} y1={4.06181} x2={9.17874} y2={4.06181} gradientUnits="userSpaceOnUse">
                 <stop stopColor="#A6A6A6" />
                 <stop offset={0.99} stopColor="#5B5B5B" />
               </linearGradient>
-              <linearGradient id={`paint1-${item.code}-ln`} x1={-14.1176} y1={16.2403} x2={89.3916} y2={15.6456} gradientUnits="userSpaceOnUse">
+              <linearGradient id={`paint1-${uid}-ln`} x1={-14.1176} y1={16.2403} x2={89.3916} y2={15.6456} gradientUnits="userSpaceOnUse">
                 <stop stopColor="#AFAFAF" />
                 <stop offset={1} stopColor="#E9E9E9" />
               </linearGradient>
-              <clipPath id={`clip-${item.code}-ln`}>
+              <clipPath id={`clip-${uid}-ln`}>
                 <rect width={29} height={100} fill="white" transform="matrix(0 1 1 0 0 0)" />
               </clipPath>
             </defs>
@@ -180,20 +181,20 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
             fill="none"
             className="relative hidden dark:hidden dark:group-hover:hidden group-hover:block"
           >
-            <g clipPath={`url(#clip-${item.code}-lh)`}>
-              <path d="M0 2.0182V8.12H5.88235V0H0.987497C0.442242 0 0 0.903835 0 2.0182Z" fill={`url(#paint0-${item.code}-lh)`} />
-              <path d="M0 26.8548C0 28.0384 2.04025 29.0003 4.55074 29.0003H97.1356C98.9938 29.0003 100.329 28.1528 99.7826 27.3125L90.6356 17.3178L99.8963 6.10007C100.389 5.26688 99.062 4.44441 97.2266 4.44441H19.3406L4.619 4.46229C2.10851 4.46587 0.0682611 3.50394 0.0682611 2.32031L0 26.8548Z" fill={`url(#paint1-${item.code}-lh)`} />
+            <g clipPath={`url(#clip-${uid}-lh)`}>
+              <path d="M0 2.0182V8.12H5.88235V0H0.987497C0.442242 0 0 0.903835 0 2.0182Z" fill={`url(#paint0-${uid}-lh)`} />
+              <path d="M0 26.8548C0 28.0384 2.04025 29.0003 4.55074 29.0003H97.1356C98.9938 29.0003 100.329 28.1528 99.7826 27.3125L90.6356 17.3178L99.8963 6.10007C100.389 5.26688 99.062 4.44441 97.2266 4.44441H19.3406L4.619 4.46229C2.10851 4.46587 0.0682611 3.50394 0.0682611 2.32031L0 26.8548Z" fill={`url(#paint1-${uid}-lh)`} />
             </g>
             <defs>
-              <linearGradient id={`paint0-${item.code}-lh`} x1={-0.413825} y1={4.06181} x2={9.17874} y2={4.06181} gradientUnits="userSpaceOnUse">
+              <linearGradient id={`paint0-${uid}-lh`} x1={-0.413825} y1={4.06181} x2={9.17874} y2={4.06181} gradientUnits="userSpaceOnUse">
                 <stop stopColor="#2C80FF" />
                 <stop offset={0.99} stopColor="#001E4A" />
               </linearGradient>
-              <linearGradient id={`paint1-${item.code}-lh`} x1={-14.1176} y1={16.2403} x2={89.3916} y2={15.6456} gradientUnits="userSpaceOnUse">
+              <linearGradient id={`paint1-${uid}-lh`} x1={-14.1176} y1={16.2403} x2={89.3916} y2={15.6456} gradientUnits="userSpaceOnUse">
                 <stop stopColor="#0053CF" />
                 <stop offset={1} stopColor="#65A3FF" />
               </linearGradient>
-              <clipPath id={`clip-${item.code}-lh`}>
+              <clipPath id={`clip-${uid}-lh`}>
                 <rect width={29} height={100} fill="white" transform="matrix(0 1 1 0 0 0)" />
               </clipPath>
             </defs>
@@ -207,20 +208,20 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
             fill="none"
             className="relative hidden dark:block group-hover:hidden"
           >
-            <g clipPath={`url(#clip-${item.code}-dn)`}>
-              <path d="M0 2.0182V8.12H5.88235V0H0.987497C0.442242 0 0 0.903835 0 2.0182Z" fill={`url(#paint0-${item.code}-dn)`} />
-              <path d="M0 26.8548C0 28.0384 2.04025 29.0003 4.55074 29.0003H97.1356C98.9938 29.0003 100.329 28.1528 99.7826 27.3125L90.6356 17.3178L99.8963 6.10007C100.389 5.26688 99.062 4.44441 97.2266 4.44441H19.3406L4.619 4.46229C2.10851 4.46587 0.0682611 3.50394 0.0682611 2.32031L0 26.8548Z" fill={`url(#paint1-${item.code}-dn)`} />
+            <g clipPath={`url(#clip-${uid}-dn)`}>
+              <path d="M0 2.0182V8.12H5.88235V0H0.987497C0.442242 0 0 0.903835 0 2.0182Z" fill={`url(#paint0-${uid}-dn)`} />
+              <path d="M0 26.8548C0 28.0384 2.04025 29.0003 4.55074 29.0003H97.1356C98.9938 29.0003 100.329 28.1528 99.7826 27.3125L90.6356 17.3178L99.8963 6.10007C100.389 5.26688 99.062 4.44441 97.2266 4.44441H19.3406L4.619 4.46229C2.10851 4.46587 0.0682611 3.50394 0.0682611 2.32031L0 26.8548Z" fill={`url(#paint1-${uid}-dn)`} />
             </g>
             <defs>
-              <linearGradient id={`paint0-${item.code}-dn`} x1={-0.413825} y1={4.06181} x2={9.17874} y2={4.06181} gradientUnits="userSpaceOnUse">
+              <linearGradient id={`paint0-${uid}-dn`} x1={-0.413825} y1={4.06181} x2={9.17874} y2={4.06181} gradientUnits="userSpaceOnUse">
                 <stop stopColor="#1A1A18" />
                 <stop offset={1} stopColor="#393939" />
               </linearGradient>
-              <linearGradient id={`paint1-${item.code}-dn`} x1={-14.1176} y1={16.2403} x2={89.3916} y2={15.6456} gradientUnits="userSpaceOnUse">
+              <linearGradient id={`paint1-${uid}-dn`} x1={-14.1176} y1={16.2403} x2={89.3916} y2={15.6456} gradientUnits="userSpaceOnUse">
                 <stop stopColor="#1A1A18" />
                 <stop offset={1} stopColor="#393939" />
               </linearGradient>
-              <clipPath id={`clip-${item.code}-dn`}>
+              <clipPath id={`clip-${uid}-dn`}>
                 <rect width={29} height={100} fill="white" transform="matrix(0 1 1 0 0 0)" />
               </clipPath>
             </defs>
@@ -234,21 +235,21 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
             fill="none"
             className="relative hidden dark:group-hover:block"
           >
-            <g clipPath={`url(#clip-dark-${item.code})`}>
+            <g clipPath={`url(#clip-dark-${uid})`}>
               <path
                 d="M0 2.0182V8.12H5.88235V0H0.987497C0.442242 0 0 0.903835 0 2.0182Z"
-                fill={`url(#paint0-dark-${item.code})`}
+                fill={`url(#paint0-dark-${uid})`}
               />
               <path
                 d="M0 26.8548C0 28.0384 2.04025 29.0003 4.55074 29.0003H97.1356C98.9938 29.0003 100.329 28.1528 99.7826 27.3125L90.6356 17.3178L99.8963 6.10007C100.389 5.26688 99.062 4.44441 97.2266 4.44441H19.3406L4.619 4.46229C2.10851 4.46587 0.0682611 3.50394 0.0682611 2.32031L0 26.8548Z"
-                fill={`url(#paint1-dark-${item.code})`}
+                fill={`url(#paint1-dark-${uid})`}
               />
             </g>
 
             <defs>
               {/* ----------- گرادیانت دقیق بدون هیچ تغییر ----------- */}
               <linearGradient
-                id={`paint0-dark-${item.code}`}
+                id={`paint0-dark-${uid}`}
                 x1="-0.413825"
                 y1="4.06181"
                 x2="9.17874"
@@ -260,7 +261,7 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
               </linearGradient>
 
               <linearGradient
-                id={`paint1-dark-${item.code}`}
+                id={`paint1-dark-${uid}`}
                 x1="-14.1176"
                 y1="16.2403"
                 x2="89.3916"
@@ -272,7 +273,7 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
               </linearGradient>
 
               {/* ----------- clipPath داینامیک ----------- */}
-              <clipPath id={`clip-dark-${item.code}`}>
+              <clipPath id={`clip-dark-${uid}`}>
                 <rect
                   width="29"
                   height="100"

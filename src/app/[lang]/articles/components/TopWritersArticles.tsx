@@ -3,45 +3,39 @@ import UserCard from "@/components/shared/UserCard";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { getUserData } from "@/components/utils/actions";
 
-export default async function TopTrainersFirstPage({ params, mainData }: any) {
-  
-  // 🔵 کدهای کاربران
-  const codes = ["HM-2000003", "HM-2000001"];
+export default async function TopWritersArticles({ params, mainData }: any) {
+  const profile = await getUserData("HM-2000001");
 
-  // 🔵 گرفتن کاربران از API
-  const usersData = await Promise.all(
-    codes.map(async (code) => {
-      const res = await getUserData(code);
 
-      if (!res?.data) return null;
 
-      return {
-        id: res.data.id,
-        name: `${res.data?.kyc?.fname || ""} ${res.data?.kyc?.lname || ""}`.trim(),
-        profile_photo: res.data?.profilePhotos?.[0]?.url || "/firstpage/default.webp",
-        code: res.data.code,
-        score: res.data.score,
-        levels: {
-          current: res.data.current_level,
-          previous: res.data.achieved_levels || [],
-        },
-        passions: res.data.customs?.passions || {},
-      };
-    })
-  );
+  // console.log("📦 داده برگشتی از getUserData('HM-2000001'):");
+  // console.dir(profile, { depth: null });
 
-  const users = usersData.filter(Boolean);
 
-  if (!users.length) {
-    return <div className="text-center p-5 text-red-500">کاربری یافت نشد</div>;
+
+  if (!profile?.data) {
+    return <div className="text-center p-5 text-red-500">کاربر یافت نشد</div>;
   }
+
+  const user = {
+    id: profile.data.id,
+    name: `${profile.data?.kyc?.fname || ""} ${profile.data?.kyc?.lname || ""}`.trim(),
+    profile_photo: profile.data?.profilePhotos?.[0]?.url || "/firstpage/ghadiri.webp",
+    code: profile.data.code,
+    score: profile.data.score,
+    levels: {
+      current: profile.data.current_level,        // 🔹 سطح فعلی (slug: 4)
+      previous: profile.data.achieved_levels || [], // 🔹 لول‌های قبلی
+    },
+    passions: profile.data.customs?.passions || {}, // 🔹 جم‌ها
+  };
 
   return (
     <>
-      {/* 🔴 هدر - دقیقا مثل استایل نمونه */}
+
       <div className="w-full flex flex-row justify-between items-center lg:px-[42px] px-5">
         <p className="font-azarMehr font-medium text-xl lg:text-2xl dark:text-white">
-          {findByUniqueId(mainData, 168)}
+          نویسندگان برتر
         </p>
 
         <div className="flex justify-center items-center gap-4 md:hidden">
@@ -52,20 +46,23 @@ export default async function TopTrainersFirstPage({ params, mainData }: any) {
         </div>
       </div>
 
-      {/* 🔴 باکس لیست کاربران - بالکل مثل نمونه */}
+
       <div className="w-full relative flex flex-col lg:flex-row pb-10 lg:px-7 items-center">
-        {users.map((user: any, index: number) => (
-          <div key={index} className="flex flex-col items-center" style={{ minWidth: "280px" }}>
-            <UserCard
-              item={user}
-              index={index}
-              params={params}
-              minWidth="280px"
-              levelText={findByUniqueId(mainData, 68)}
-              buttonText={findByUniqueId(mainData, 600)}
-            />
-          </div>
-        ))}
+        <div className="flex flex-col items-center" style={{ minWidth: "280px" }}>
+          <UserCard
+            item={user}
+            index={0}
+            params={params}
+            minWidth="280px"
+            levelText={findByUniqueId(mainData, 68)}
+            buttonText={findByUniqueId(mainData, 600)}
+          // scoreElement={
+          //   <div className="text-[16px] font-bold text-[#555] dark:text-[#ccc] font-azarMehr flex justify-center items-center gap-1">
+          //     <span>{user.score}</span>
+          //   </div>
+          // }
+          />
+        </div>
       </div>
     </>
   );

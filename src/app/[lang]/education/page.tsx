@@ -10,12 +10,13 @@ import {
 } from "@/components/utils/actions";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import SearchComponent from "@/components/shared/SearchComponent";
-import TopTrainersFirstPage from "@/components/templates/firstpage/TopTrainersFirstPage";
+import TopTrainersFirstPage, { getTopTrainerUsers } from "@/components/templates/firstpage/TopTrainersFirstPage";
 import EducationCategories from "@/components/templates/education/categories";
 import EducationList from "@/components/templates/education/EducationList";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 export default async function CitizensPage({ params }: { params: any }) {
+  const users = await getTopTrainerUsers();
   const [ langData, langArray, allCatVideos, categoriesData] =
     await Promise.all([
       getTranslation(params.lang),
@@ -97,7 +98,7 @@ export default async function CitizensPage({ params }: { params: any }) {
           </div>
 
           <div className="h-fit mt-[60px]  xl:mt-[100px] 2xl:mt-[150px]">
-            <TopTrainersFirstPage params={params} mainData={mainData} />
+            <TopTrainersFirstPage params={params} mainData={mainData} users={users}/>
           </div>
 
           <EducationCategories

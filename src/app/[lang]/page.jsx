@@ -9,7 +9,7 @@ const SectionTeam = React.lazy(() => import('@/components/templates/firstpage/Te
 const TopCitizen = React.lazy(() => import('@/components/templates/firstpage/TopCitizen'));
 const LastNews = React.lazy(() => import('@/components/templates/firstpage/LastNews'));
 const Section3D = React.lazy(() => import('@/components/templates/firstpage/Section3D'));
-const TopTrainersFirstPage = React.lazy(() => import('@/components/templates/firstpage/TopTrainersFirstPage'));
+import TopTrainersFirstPage, { getTopTrainerUsers } from "@/components/templates/firstpage/TopTrainersFirstPage";
 const EducationFirstPage = React.lazy(() => import('@/components/templates/firstpage/EducationFirstPage'));
 const LastContent = React.lazy(() => import('@/components/templates/firstpage/LastContent'));
 const DetailsEducationSection = React.lazy(() => import('@/components/templates/firstpage/DetailsEducationSection'));
@@ -63,6 +63,8 @@ export async function generateMetadata({ params }) {
 
 export default async function LangPage({ params }) {
   const headersList = headers();
+  const users = await getTopTrainerUsers();
+
   const viewportWidth = headersList.get('viewport-width');
   const userAgent = headersList.get('user-agent') || '';
   const isMobile = viewportWidth
@@ -249,7 +251,7 @@ export default async function LangPage({ params }) {
             </Suspense>
           </div>
           <div className="w-[90%] h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
-            <TopTrainersFirstPage params={params} mainData={mainData} />
+            <TopTrainersFirstPage params={params} mainData={mainData}  users={users} />
           </div>
           <div className="w-[90%] h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
             <Suspense fallback={<div>Loading Header...</div>}>
