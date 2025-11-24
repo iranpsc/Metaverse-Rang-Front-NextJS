@@ -33,7 +33,7 @@ export default function TopTrainersFirstPage({ params, mainData, users }: any) {
   return (
     <>
       <div className="w-full flex flex-row justify-between items-center lg:px-[42px] px-5">
-        <p className="font-azarMehr font-medium text-xl lg:text-2xl dark:text-white">
+        <p className="font-azarMehr font-medium text-[16px] md:text-[20px] lg:text-[28px] xl:text-[32px] dark:text-white">
           {findByUniqueId(mainData, 168)}
         </p>
 
