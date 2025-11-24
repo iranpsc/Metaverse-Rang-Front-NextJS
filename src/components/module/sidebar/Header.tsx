@@ -84,8 +84,11 @@ function SideBarHeader({ isClosed, toggleSide, params, langData, langArray }: an
         </div>
       </Link>
 
-      {/* آیکون‌ها کنار هم */}
-      <div className={`${isClosed ? "hidden" : "block"} flex items-center absolute top-1 md:top-[1px] xl:top-1 rtl:left-[5px] ltr:right-[5px] mx-2 gap-2`} >
+      <div className={`
+    flex items-center absolute top-1 md:top-[1px] xl:top-1 rtl:left-[5px] ltr:right-[5px] mx-2 gap-2
+    transition-opacity duration-1000
+    ${isClosed ? "opacity-0 pointer-events-none" : "opacity-100 delay-300"}
+  `} >
        
         <div ref={langRef} className={`${isClosed ? "hidden" : "block"} relative`}>
           <div
