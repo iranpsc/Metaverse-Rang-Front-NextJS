@@ -68,83 +68,85 @@ const SectionTimer = ({ params }: { params: Params }) => {
   return (
     <div
       ref={sectionRef}
-      className="w-full h-full flex flex-wrap lg:flex-nowrap justify-evenly gap-5 my-12 md:my-0 items-center relative"
+      className="w-full h-full flex flex-wrap lg:flex-nowrap justify-evenly gap-5 my-12 md:my-0 items-center relative px-6"
     >
-              <div className="md:hidden flex items-center justify-around w-full">
-    <div
-        onClick={handlePrev}
-        className="bg-light-primary dark:bg-dark-yellow rounded-full p-[13px] cursor-pointer flex justify-center items-center me-5"
-      >
-        <ArrowRight className="stroke-white dark:stroke-[#1b1b1b] size-[32px] rotate-0 ltr:rotate-180" />
-      </div>
-            <div
-        onClick={handleNext}
-        className="bg-light-primary dark:bg-dark-yellow rounded-full p-[13px] cursor-pointer  flex justify-center items-center ms-5"
-      >
-        <ArrowRight className="stroke-white dark:stroke-[#1b1b1b] size-[32px] rotate-180 ltr:rotate-0" />
-      </div>
+      <div className="md:hidden flex items-center justify-between w-full absolute z-10 top-[94px] ">
+        <div
+          onClick={handlePrev}
+          className="bg-light-primary dark:bg-dark-yellow rounded-full p-[8px] cursor-pointer flex justify-center items-center "
+        >
+          <ArrowRight className="stroke-white dark:stroke-[#1b1b1b] size-[24px] rotate-0 ltr:rotate-180" />
         </div>
+        <div
+          onClick={handleNext}
+          className="bg-light-primary dark:bg-dark-yellow rounded-full p-[8px] cursor-pointer  flex justify-center items-center ms-5"
+        >
+          <ArrowRight className="stroke-white dark:stroke-[#1b1b1b] size-[24px] rotate-180 ltr:rotate-0" />
+        </div>
+      </div>
       {/* دکمه چپ */}
       <div
         onClick={handlePrev}
-        className="bg-light-primary dark:bg-dark-yellow rounded-full p-[10px] cursor-pointer hidden lg:flex justify-center items-center me-5"
+        className="bg-light-primary dark:bg-dark-yellow rounded-full p-[10px] cursor-pointer hidden lg:flex justify-center items-center"
       >
         <ArrowRight className="stroke-white dark:stroke-[#1b1b1b] size-[32px] rotate-0 ltr:rotate-180" />
       </div>
 
       {/* باکس ایونت */}
-      <div className="flex flex-col lg:flex-row gap-5 px-4 w-full transition-all duration-500">
-        {/* عکس و توضیحات */}
-        <div
-          className="lg:h-[320px] overflow-y-hidden lg:me-5 relative rounded-3xl lg:rounded-[50px] p-[1px] w-full lg:w-1/2 xl:w-2/3 3xl:w-3/4"
-          style={{ background: "linear-gradient(-135deg, transparent, #9898a0 , transparent)" }}
-        >
-          <div className="h-full w-full bg-[#DEDEE9] dark:bg-darkGray  lg:rounded-[48px] p-4 lg:p-7 flex flex-col lg:flex-row gap-5 justify-center items-center">
-            <div className="w-full h-full flex justify-center max-w-[360px] max-h-[100%] lg:rounded-[32px] overflow-hidden">
-              <Image
-                className="w-fill h-full object-cover rounded-2xl"
-                src={eventData.image || "/firstpage/free.webp"}
-                alt={eventData.title}
-                width={360}
-                height={300}
-                quality={75}
-              />
-            </div>
-            <div className="w-full lg:mt-0 text-justify flex flex-col justify-between h-full">
-              <p className="text-start text-lg lg:text-xl 3xl:text-3xl text-black dark:text-white font-azarMehr font-medium ms-1 md:ms-5 ">
-                {eventData.title}
-              </p>
-              <p className="w-fit text-start text-sm 3xl:text-2xl text-lightGray font-azarMehr font-medium ms-1 md:ms-5 line-clamp-5 mt-3 lg:mt-0" dangerouslySetInnerHTML={{ __html: eventData.desc }}/>
+      <div style={{ background: "linear-gradient(-135deg, transparent, #9898a0 , transparent)" }} className="p-[1px] rounded-3xl lg:rounded-[50px]">
+        <div className="flex flex-col lg:flex-row p-5 w-full transition-all duration-500 bg-[#DEDEE9] dark:bg-[#313131] rounded-3xl lg:rounded-[50px] " >
+          {/* عکس و توضیحات */}
+          <div
+            className="lg:h-[320px] overflow-y-hidden lg:me-5 relative p-[1px] w-full lg:w-1/2 xl:w-2/3 3xl:w-[70%]"
 
+          >
+            <div className="h-full w-full   lg:rounded-[48px] py-4 lg:py-7 flex flex-col lg:flex-row gap-5 justify-center items-center">
+              <div className="w-full h-full flex justify-center max-w-[360px] max-h-[100%] lg:rounded-[32px] overflow-hidden">
+                <Image
+                  className="w-fill h-full object-cover rounded-2xl"
+                  src={eventData.image || "/firstpage/free.webp"}
+                  alt={eventData.title}
+                  width={360}
+                  height={300}
+                  quality={75}
+                />
+              </div>
+              <div className="w-full lg:mt-0 text-justify flex flex-col justify-between h-full ">
+                <p className="text-start text-lg lg:text-xl 3xl:text-3xl text-black dark:text-white font-azarMehr font-medium ms-1 md:ms-5 2xl:!leading-[46px]">
+                  {eventData.title}
+                </p>
+                <p className="w-fit text-start text-sm 3xl:text-2xl text-lightGray font-azarMehr font-medium ms-1 md:ms-5 line-clamp-4 mt-3 lg:mt-0" dangerouslySetInnerHTML={{ __html: eventData.desc }} />
+
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* تایمر + دکمه‌ها */}
-        <div className="h-[320px] w-full lg:w-1/2 xl:w-1/3 3xl:w-1/4 rounded-[50px] p-[1px] relative dark:bg-gradient-to-tl">
-          <div className="p-[20px] h-full rounded-3xl md:rounded-[50px] flex flex-col justify-around items-center relative bg-gradient-to-tl to-[#dfdfdf] from-white dark:to-[#343434] dark:via-darkGray dark:from-darkGray">
-            <DynamicTimer
-              daysLabel={params.lang === "fa" ? "روز" : "Days"}
-              hoursLabel={params.lang === "fa" ? "ساعت" : "Hours"}
-              minutesLabel={params.lang === "fa" ? "دقیقه" : "Minutes"}
-              secondsLabel={params.lang === "fa" ? "ثانیه" : "Seconds"}
-              targetDate={eventData.start} // تاریخ شروع جلالی
-              endDate={eventData.end}      // تاریخ پایان جلالی
-            />
-            <div className="w-full">
-              {eventData.btnName && (
-                <p className="w-full rounded-[28px] py-3 text-center lg:text-lg 3xl:text-[19px] text-white dark:text-black bg-light-primary dark:bg-dark-yellow font-azarMehr font-medium mt-5">
-                  {eventData.btnName}
-                </p>
-              )}
-              {eventData.link && (
-                <p className="w-full rounded-[28px] py-3 mt-5 text-center text-lg 3xl:text-[19px] text-white bg-[#343434] font-azarMehr font-medium">
-                  <a href={eventData.link} className="w-full h-full inline-block" target="_blank">
-                    {params.lang === "fa" ? "مشاهده جزئیات" : "View Details"}
-                  </a>
+          {/* تایمر + دکمه‌ها */}
+          <div className="h-[320px] w-full lg:w-1/2 xl:w-1/3 3xl:w-[30%]  rounded-[50px] p-[5px] relative " >
+            <div className="p-[20px] h-full rounded-3xl md:rounded-[50px] flex flex-col justify-around items-center relative bg-gradient-to-tl to-[#dfdfdf] from-white dark:to-[#FFFFFF17]  dark:from-[#22222291]">
+              <DynamicTimer
+                daysLabel={params.lang === "fa" ? "روز" : "Days"}
+                hoursLabel={params.lang === "fa" ? "ساعت" : "Hours"}
+                minutesLabel={params.lang === "fa" ? "دقیقه" : "Minutes"}
+                secondsLabel={params.lang === "fa" ? "ثانیه" : "Seconds"}
+                targetDate={eventData.start} // تاریخ شروع جلالی
+                endDate={eventData.end}      // تاریخ پایان جلالی
+              />
+              <div className="w-full">
+                {eventData.btnName && (
+                  <p className="w-full rounded-[28px] py-3 text-center  lg:text-lg 3xl:text-[19px] text-white dark:text-black bg-light-primary dark:bg-dark-yellow font-azarMehr font-medium mt-5">
+                    {eventData.btnName}
+                  </p>
+                )}
+                {eventData.link && (
+                  <p className="w-full rounded-[28px] py-3 mt-5 text-center text-lg 3xl:text-[19px] text-white bg-[#343434] font-azarMehr font-medium">
+                    <a href={eventData.link} className="w-full h-full inline-block" target="_blank">
+                      {params.lang === "fa" ? "مشاهده جزئیات" : "View Details"}
+                    </a>
 
-                </p>
-              )}
+                  </p>
+                )}
+              </div>
             </div>
           </div>
         </div>
