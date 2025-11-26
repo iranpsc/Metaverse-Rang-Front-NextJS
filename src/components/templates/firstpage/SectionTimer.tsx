@@ -70,7 +70,7 @@ const SectionTimer = ({ params }: { params: Params }) => {
       ref={sectionRef}
       className="w-full h-full flex flex-wrap lg:flex-nowrap justify-evenly gap-5 my-12 md:my-0 items-center relative px-6"
     >
-      <div className="md:hidden flex items-center justify-between w-full absolute z-10 top-[94px] ">
+      <div className="md:hidden flex items-center justify-between w-full absolute z-10 top-[91px] px-1 ">
         <div
           onClick={handlePrev}
           className="bg-light-primary dark:bg-dark-yellow rounded-full p-[8px] cursor-pointer flex justify-center items-center "
@@ -93,17 +93,17 @@ const SectionTimer = ({ params }: { params: Params }) => {
       </div>
 
       {/* باکس ایونت */}
-      <div style={{ background: "linear-gradient(-135deg, transparent, #9898a0 , transparent)" }} className="p-[1px] rounded-3xl lg:rounded-[50px]">
-        <div className="flex flex-col lg:flex-row p-5 w-full transition-all duration-500 bg-[#DEDEE9] dark:bg-[#313131] rounded-3xl lg:rounded-[50px] " >
+      <div style={{ background: "linear-gradient(-135deg, transparent, #9898a0 , transparent)" }} className="p-[1px] rounded-[48px] lg:rounded-[50px]">
+        <div className="flex flex-col lg:flex-row pb-5 px-5 lg:p-5 w-full transition-all duration-500 bg-[#DEDEE9] dark:bg-[#313131] rounded-[48px] lg:rounded-[50px] " >
           {/* عکس و توضیحات */}
           <div
             className="lg:h-[320px] overflow-y-hidden lg:me-5 relative p-[1px] w-full lg:w-1/2 xl:w-2/3 3xl:w-[70%]"
 
           >
-            <div className="h-full w-full   lg:rounded-[48px] py-4 lg:py-7 flex flex-col lg:flex-row gap-5 justify-center items-center">
-              <div className="w-full h-full flex justify-center max-w-[360px] max-h-[100%] lg:rounded-[32px] overflow-hidden">
+            <div className="h-full w-full   lg:rounded-[48px] py-5 lg:py-7 flex flex-col lg:flex-row gap-5 justify-center items-center">
+              <div className="w-full h-full flex justify-center max-w-[360px] max-h-[100%]  lg:rounded-[32px] overflow-hidden">
                 <Image
-                  className="w-fill h-full object-cover rounded-2xl"
+                  className="w-fill h-full object-cover rounded-[38px]"
                   src={eventData.image || "/firstpage/free.webp"}
                   alt={eventData.title}
                   width={360}
