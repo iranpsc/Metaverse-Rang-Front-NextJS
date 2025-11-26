@@ -1,7 +1,7 @@
 import { Discord, Frame1, Frame2 } from "@/components/svgs";
 import React, { Suspense } from 'react';
 import { headers } from 'next/headers';
-
+import dynamic from "next/dynamic";
 // Lazy load components
 const HeaderFirstPage = React.lazy(() => import('@/components/templates/firstpage/HeaderFirstPage'));
 const SectionTimer = React.lazy(() => import('@/components/templates/firstpage/SectionTimer'));
@@ -11,9 +11,13 @@ const LastNews = React.lazy(() => import('@/components/templates/firstpage/LastN
 const Section3D = React.lazy(() => import('@/components/templates/firstpage/Section3D'));
 import TopTrainersFirstPage, { getTopTrainerUsers } from "@/components/templates/firstpage/TopTrainersFirstPage";
 const EducationFirstPage = React.lazy(() => import('@/components/templates/firstpage/EducationFirstPage'));
-const LastContent = React.lazy(() => import('@/components/templates/firstpage/LastContent'));
+// const LastContent = React.lazy(() => import('@/components/templates/firstpage/LastContent'));
 const DetailsEducationSection = React.lazy(() => import('@/components/templates/firstpage/DetailsEducationSection'));
 const VersionSection = React.lazy(() => import('@/components/templates/firstpage/VersionSection'));
+const LastContent = dynamic(
+  () => import("@/components/templates/firstpage/LastContent"),
+  { ssr: false }
+);
 import {
   getTranslation,
   getMainFile,

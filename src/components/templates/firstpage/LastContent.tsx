@@ -1,209 +1,202 @@
+// src/components/LatestArticlesSlider.tsx
 "use client";
-import { useEffect, useRef, useState } from "react";
-import { ArrowRight } from "@/components/svgs";
-import { Dislike, Like, View, Video } from "@/components/svgs/SvgEducation";
-import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import Image from "next/image";
+
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
+import { ArrowRight } from "@/components/svgs";
+import ArticleCard from "../../../app/[lang]/articles/components/ArticleCard";
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import { supabase } from "@/utils/lib/supabaseClient";
+import { articles as localArticles } from "@/components/utils/articles";
 
 
-interface Params {
-  lang: "fa" | "en"; 
+
+type Tag = { label: string; slug: string };
+
+type Author = {
+  name?: string;
+  citizenId?: string;
+  avatar?: string;
+  field?: string;
+  bio?: string;
+  socials?: { telegram?: string; whatsapp?: string; email?: string };
+};
+
+export type Article = {
+  id: number | string;
+  title: string;
+  slug: string;
+  date?: string;
+  readingTime?: string;
+  image?: string;
+  excerpt?: string;
+  description?: string;
+  content?: string;
+  category?: string;
+  subCategory?: string;
+  categoryImage?: string;
+  categoryDec?: string;
+  author?: Author;
+  stats?: { views?: number; likes?: number; dislikes?: number; comments?: number };
+  tags?: Tag[] | string[]; // اگر قدیمی تر باشد ممکن text[] برگردد
+};
+
+interface LatestArticlesSliderProps {
+  params: { lang: string };
+  mainData?: any;
+  theme?: "light" | "dark";
+  limit?: number; // تعداد نمایش (پیشفرض 10)
 }
 
-interface ContentItem {
-  title: { fa: string; en: string };
-  desc: { fa: string; en: string };
-  url: string;
-  categories: { fa: string; en: string };
-}
-
-const LastContent = ({ mainData, params }: { mainData: any; params: Params }) => {
-  const staticData: ContentItem[] = [
-    {
-      title: {
-        fa: "استانداردهای متاورس",
-        en: "Metaverse Standards",
-      },
-      desc: {
-        fa: "در حال حاضر هیچ قانونی وجود ندارد که به طور خاص متاورس یا سایر دنیای مجازی را تنظیم کند. با این حال، همان قوانین کلی که در مورد اینترنت اعمال می‌شود، در مورد متاورس نیز اعمال می‌شود، از جمله قانون کپی‌رایت، قانون افترا، قانون قرارداد و غیره.",
-        en: "Currently, there is no specific law regulating the metaverse or other virtual worlds. However, the general laws that apply to the internet also apply to the metaverse, including copyright law, defamation law, contract law, and more.",
-      },
-      url: "https://rgb.irpsc.com/blogs/metaverse-standards.html",
-      categories: {
-        fa: "مقالات",
-        en: "Articles",
-      },
-    },
-    {
-      title: {
-        fa: "متاورس چیست",
-        en: "What is the Metaverse",
-      },
-      desc: {
-        fa: "فضای مجازی ممکن است جملات زیادی از زبان مدیران اجرایی مانند مارک زاکربرگ یا ساتیا نادلا در مورد متاورس شنیده باشید. متاورس آینده اینترنت است.",
-        en: "You may have heard many statements from executives like Mark Zuckerberg or Satya Nadella about the metaverse. The metaverse is the future of the internet.",
-      },
-      url: "https://rgb.irpsc.com/blogs/metaverse.html",
-      categories: {
-        fa: "مقالات",
-        en: "Articles",
-      },
-    },
-    {
-      title: {
-        fa: "متاورس ملی",
-        en: "National Metaverse",
-      },
-      desc: {
-        fa: "متاورس رنگ اولین متاورس ایران با هدف توسعه تاورس ملی اهداف زیادی از قبیل عدم خروج ارز از کشور و در فازهای بعدی ورود ارز به کشور را دارد که این‌ها همه بخشی کوچکی از اهداف متاورس ملی می‌باشد.",
-        en: "Rang Metaverse, Iran's first metaverse, aims to develop a national metaverse with goals such as preventing currency outflow and, in later phases, bringing currency into the country, which is just a small part of the national metaverse's objectives.",
-      },
-      url: "https://rgb.irpsc.com/blogs/national-metaverse.html",
-      categories: {
-        fa: "مقالات",
-        en: "Articles",
-      },
-    },
-  ];
-
-
+const LatestArticlesSlider: React.FC<LatestArticlesSliderProps> = ({
+  params,
+  mainData,
+  theme,
+  limit = 10,
+}) => {
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
   const direction = params.lang === "fa" ? "rtl" : "ltr";
 
+
+  useEffect(() => {
+    let mounted = true;
+
+    const fetchFromSupabase = async () => {
+      try {
+        // تلاش می‌کنیم از Supabase بخوانیم؛ اگر ارور یا صفر داده برگشت، fallback به local
+        const { data, error: supError } = await supabase
+          .from("articles")
+          .select("*")
+          .order("date", { ascending: false })
+          .limit(limit);
+
+        if (supError) throw supError;
+
+        if (mounted && Array.isArray(data) && data.length > 0) {
+          // نرمالایز کردن فیلد tags اگر به صورت text[] یا string ارسال شده باشد
+          const normalized = data.map((d: any) => {
+            const item: Article = {
+              id: d.id,
+              title: d.title,
+              slug: d.slug,
+              date: d.date,
+              readingTime: d.readingTime,
+              image: d.image,
+              excerpt: d.excerpt,
+              description: d.description,
+              content: d.content,
+              category: d.category,
+              subCategory: d.subCategory,
+              categoryImage: d.categoryImage,
+              categoryDec: d.categoryDec,
+              author: d.author,
+              stats: d.stats || { views: 0, likes: 0, dislikes: 0, comments: 0 },
+              tags:
+                Array.isArray(d.tags) && d.tags.length > 0
+                  ? // اگر آیتم‌ها رشته ساده باشند، تبدیل به {label,slug}
+                    d.tags[0] && typeof d.tags[0] === "string"
+                    ? d.tags.map((t: string) => ({ label: t, slug: slugify(t) }))
+                    : d.tags
+                  : [],
+            };
+            return item;
+          });
+
+          setArticles(normalized);
+          setLoading(false);
+          return;
+        }
+
+        // اگر داده‌ای برنگردد، fallback به localArticles
+        if (mounted) {
+          setArticles(
+            [...localArticles]
+              .sort((a, b) => new Date((b.date || "")).getTime() - new Date((a.date || "")).getTime())
+              .slice(0, 10)
+          );
+          setLoading(false);
+        }
+      } catch (err: any) {
+        console.error("LatestArticlesSlider fetch error:", err);
+        setError(String(err?.message || err));
+        // fallback to local
+        if (mounted) {
+          setArticles(
+            [...localArticles]
+              .sort((a, b) => new Date((b.date || "")).getTime() - new Date((a.date || "")).getTime())
+              .slice(0, limit)
+          );
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchFromSupabase();
+
+    return () => {
+      mounted = false;
+    };
+  }, [limit]);
+
+  const sortedArticles = useMemo(() => {
+    // articles قبلاً از سرور یا local آمده؛ اینجا فقط اطمینان و slice
+    return [...articles]
+      .sort((a, b) => (new Date(b.date || 0).getTime() || 0) - (new Date(a.date || 0).getTime() || 0))
+      .slice(0, 3);
+  }, [articles]);
+
+  // small helper: slugify for tag slugs if needed
+  function slugify(s: string) {
+    return String(s)
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, "-")
+      .replace(/[^\w-]+/g, "");
+  }
+
+  if (loading) {
+    return <div className="py-6 text-center">در حال بارگذاری مقالات...</div>;
+  }
+
+  if (error) {
+    // خطا رو لاگ کردیم و fallback داریم؛ اما اگر خواستی نمایش بده
+    console.warn("LatestArticlesSlider error:", error);
+  }
+
+  if (sortedArticles.length === 0) {
+    return <div className="py-6 text-center text-gray-500">هیچ مقاله‌ای برای نمایش موجود نیست.</div>;
+  }
+
   return (
-    <div dir={direction} className={`${direction === "rtl" ? "text-right" : "text-left"}`}>
+    <section className="w-full">
+      {/* Header */}
       <div className="w-full flex flex-row justify-between items-center">
         <p className="font-azarMehr font-medium text-[16px] md:text-[20px] lg:text-[28px] xl:text-[32px] dark:text-white">
           {findByUniqueId(mainData, 497)}
         </p>
-        <a href="https://uni.irpsc.com/category/blogs/" target="_blank">
+        <Link href={`/${params.lang}/articles`} >
           <div className="flex justify-center items-center gap-4">
             <p className="font-azarMehr font-medium text-[12px] md:text-[16px] lg:text-[18px] xl:text-[20px] dark:text-white">
               {findByUniqueId(mainData, 171)}
             </p>
             <ArrowRight
-              className={`dark:stroke-white stroke-black w-[24px] h-full ${direction === "rtl" ? "rotate-180" : "rotate-0"}`}
+              className={`dark:stroke-white stroke-black w-[24px] h-full ${
+                direction === "rtl" ? "rotate-180" : "rotate-0"
+              }`}
             />
           </div>
-        </a>
+        </Link>
       </div>
 
-      <div className="grid lg:grid-cols-2 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 xs:grid-cols-1 gap-10 mt-4 md:mt-12">
-        {staticData.map((item, index) => {
-          const titleRef = useRef<HTMLHeadingElement>(null);
-          const [isTruncated, setIsTruncated] = useState(false);
-
-          const checkTruncation = () => {
-            const el = titleRef.current;
-            if (el) {
-              setIsTruncated(el.scrollWidth > el.clientWidth);
-            }
-          };
-
-          useEffect(() => {
-            checkTruncation();
-            const observer = new ResizeObserver(checkTruncation);
-            if (titleRef.current) {
-              observer.observe(titleRef.current);
-            }
-            return () => {
-              observer.disconnect();
-            };
-          }, [item.title[params.lang]]);
-
-          return (
-            <div
-              key={index}
-              className="w-full min-h-[240px] shadow-md rounded-[20px] overflow-hidden bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-6 items-center"
-            >
-              <div className="w-full flex flex-col justify-center items-center max-h-[265px] overflow-hidden">
-                <Link
-                  href={item.url}
-                  target="_blank"
-                  className="group w-full"
-                  aria-label={params.lang === "fa" ? "آخرین محتوا" : "latest content"}
-                >
-                  <Image
-                    src={`/firstpage/img-N-${index}.webp`}
-                    alt={params.lang === "fa" ? "آخرین محتوا" : "latest content"}
-                    width={500}
-                    height={357}
-                    quality={50}
-                    loading="lazy"
-                    className="w-full h-full rounded-t-[10px] object-contain"
-                  />
-                </Link>
-              </div>
-
-              <div className="py-3 px-3 flex flex-col justify-between gap-5 w-full">
-                <div className="w-[95%] flex flex-row justify-start items-center gap-1 mt-[-20px]">
-                  <p className="text-gray dark:text-dark-gray font-medium font-azarMehr text-[13px] 3xl:text-[16px] cursor-pointer hover:text-blueLink hover:dark:text-dark-yellow">
-                    {item.categories[params.lang]}
-                  </p>
-                </div>
-
-                <a className="w-[95%] mt-[-10px]" href={item.url}>
-                  <h4
-                    ref={titleRef}
-                    className={`w-full font-azarMehr truncate cursor-pointer font-bold text-[18px] xl:text-[20px] 3xl:text-[22px] dark:text-white text-gray ${
-                      isTruncated
-                        ? direction === "rtl"
-                          ? "hover:overflow-visible hover:animate-rtlMarquee"
-                          : "hover:overflow-visible hover:animate-ltrMarquee"
-                        : ""
-                    } ${direction === "rtl" ? "text-right" : "text-left"}`}
-                  >
-                    {item.title[params.lang]}
-                  </h4>
-                  <p className={`line-clamp-2 text-darkGray dark:text-lightGray ${direction === "rtl" ? "text-right" : "text-left"}`}>
-                    {item.desc[params.lang]}
-                  </p>
-                </a>
-
-                <div className="w-[95%] flex flex-row justify-between items-center">
-                  <Link href={`/${params.lang}/citizen/Hm-2000003`} target="_blank">
-                    <div className="flex flex-row justify-start items-center gap-2">
-                      <Image
-                        src="/firstpage/alizadeh.webp"
-                        alt={params.lang === "fa" ? "تصویر شهروند" : "citizen image"}
-                        width={1000}
-                        height={1000}
-                        loading="lazy"
-                        className="w-[45px] h-[45px] rounded-full object-cover cursor-pointer transition-all duration-150 ease-in-out"
-                      />
-                      <span className="text-blueLink cursor-pointer text-[14px] 3xl:text-[18px] whitespace-nowrap font-medium hover:font-bold uppercase">
-                        Hm-2000003
-                      </span>
-                    </div>
-                  </Link>
-                  <div className="flex flex-row justify-end items-center gap-4 md:gap-3 xl:gap-4 3xl:gap-5">
-                    <span className="flex items-center gap-2">
-                      <span className="whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray">
-                        125
-                      </span>
-                      <Like className="stroke-gray dark:stroke-dark-gray stroke-2 w-[18px] h-[18px]" />
-                    </span>
-                    <span className="flex items-center gap-2">
-                      <span className="whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray">
-                        10
-                      </span>
-                      <Dislike className="stroke-gray dark:stroke-dark-gray stroke-2" />
-                    </span>
-                    <span className="flex items-center gap-2">
-                      <span className="whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray">
-                        610
-                      </span>
-                      <View className="stroke-gray dark:stroke-dark-gray stroke-2 ms-1" />
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
+      <div className="grid lg:grid-cols-2 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 xs:grid-cols-1 gap-10 mt-6 md:mt-12">
+       {sortedArticles.map((item) => (
+           <ArticleCard key={String(item.id)} item={item} params={params} theme={theme} />
+        ))}
     </div>
+    </section>
   );
 };
 
-export default LastContent;
+export default LatestArticlesSlider;
