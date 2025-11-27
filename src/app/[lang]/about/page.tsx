@@ -10,10 +10,11 @@ import {
   getUserData
 
 } from "@/components/utils/actions";
-import List from "./components/List"
+
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import Image from "next/image";
 import Head from "next/head";
+import List from "./components/List"
 
 // تعریف نوع پارامترها
 interface Params {
