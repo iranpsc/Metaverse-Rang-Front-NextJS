@@ -62,7 +62,7 @@ export async function generateMetadata({ params }) {
 // ======================================
 // ✅ صفحه مقاله
 // ======================================
-export default async function ArticlePage({ params , mainData}) {
+export default async function ArticlePage({ params }) {
   try {
     const { slug , category } = params;
 
