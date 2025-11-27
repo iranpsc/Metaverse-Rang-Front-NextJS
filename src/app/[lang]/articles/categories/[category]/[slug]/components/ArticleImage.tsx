@@ -3,7 +3,7 @@ import Image from "next/image";
 import { format } from "date-fns";
 import { Like, Dislike, View, Comment } from "@/components/svgs/SvgEducation";
 import Link from "next/link";
-
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 interface ArticleStats {
   comments: number;
   likes: number;
@@ -27,9 +27,10 @@ interface Params {
 interface ArticleImageProps {
   article: Article;
   params?: Params; // make params optional and provide fallbacks
+    mainData:{mainData:string}
 }
 
-const ArticleImage: React.FC<ArticleImageProps> = ({ article, params }) => {
+const ArticleImage: React.FC<ArticleImageProps> = ({ article, params , mainData }) => {
   // تبدیل و اعتبارسنجی تاریخ
   const dateObj = article.date ? new Date(article.date) : null;
   const formattedDate =
@@ -66,7 +67,7 @@ const ArticleImage: React.FC<ArticleImageProps> = ({ article, params }) => {
               </Link>
             </div>
 
-            <span>تاریخ انتشار : {formattedDate}</span>
+            <span>{findByUniqueId(mainData, 191)} : {formattedDate}</span>
 
             <span className="items-center gap-1 hidden md:flex">
               <Comment className="stroke-textGray dark:stroke-[#888888] size-[14px] md:size-[16px]" />

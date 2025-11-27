@@ -4,7 +4,7 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import { Like, Dislike, View, Folder } from "@/components/svgs/SvgEducation";
 import { formatNumber } from "@/components/utils/education";
-
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 // ✅ Description فقط در کلاینت رندر می‌شود (بدون SSR)
 const Description = dynamic(() => import("./Description"), { ssr: false });
 
@@ -19,9 +19,10 @@ interface CategoryHeaderProps {
     totalViews?: number;
     totalArticles?: number;
   };
+    mainData:{mainData:string}
 }
 
-export default function CategoryHeader({ data }: CategoryHeaderProps) {
+export default function CategoryHeader({ data , mainData }: CategoryHeaderProps) {
   const {
     category,
     subCategory,
@@ -67,7 +68,7 @@ export default function CategoryHeader({ data }: CategoryHeaderProps) {
             <div className="flex items-center gap-2 md:gap-3">
               <Folder className="w-[20px] h-[20px] stroke-[#84858F]" />
               <span className="whitespace-nowrap font-azarMehr font-normal text-sm lg:text-[20px] text-[#84858F] dark:text-dark-gray">
-                تعداد مقالات
+               {findByUniqueId(mainData, 1522)}
               </span>
             </div>
             <span className="font-medium text-sm lg:text-[18px] text-gray dark:text-white ms-1">
@@ -82,7 +83,7 @@ export default function CategoryHeader({ data }: CategoryHeaderProps) {
             <div className="flex items-center gap-2 md:gap-3">
               <Like className="w-[20px] h-[20px] stroke-[#84858F]" />
               <span className="whitespace-nowrap font-azarMehr font-normal text-sm lg:text-[20px] text-[#84858F] dark:text-dark-gray">
-                پسندیدند
+                {findByUniqueId(mainData, 1523)}
               </span>
             </div>
             <span className="font-medium text-sm lg:text-[18px] text-gray dark:text-white ms-1">
@@ -97,7 +98,7 @@ export default function CategoryHeader({ data }: CategoryHeaderProps) {
             <div className="flex items-center gap-2 md:gap-3">
               <Dislike className="w-[20px] h-[20px] stroke-[#84858F]" />
               <span className="whitespace-nowrap font-azarMehr font-normal text-sm lg:text-[20px] text-[#84858F] dark:text-dark-gray">
-                نپسندیدند
+                {findByUniqueId(mainData, 1524)}
               </span>
             </div>
             <span className="font-medium text-sm lg:text-[18px] text-gray dark:text-white ms-1">
@@ -111,7 +112,7 @@ export default function CategoryHeader({ data }: CategoryHeaderProps) {
           <div className="flex flex-col gap-1 md:gap-2 w-max">
             <div className="flex items-center gap-2 md:gap-3">
               <View className="w-[20px] h-[20px] stroke-[#84858F]" />
-              <span className="whitespace-nowrap font-azarMehr font-normal text-sm lg:text-[20px] text-[#84858F] dark:text-dark-gray">بازدید</span>
+              <span className="whitespace-nowrap font-azarMehr font-normal text-sm lg:text-[20px] text-[#84858F] dark:text-dark-gray">{findByUniqueId(mainData, 1525)}</span>
             </div>
             <span className="font-medium text-sm lg:text-[18px] text-gray dark:text-white">
               {formatNumber(totalViews)}

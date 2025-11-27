@@ -6,7 +6,7 @@ import CategoryHeader from "./components/CategoryHeader";
 import SearchComponent from "@/components/shared/SearchComponent";
 import { getTranslation, getMainFile} from "@/components/utils/actions";
 import { supabase } from "@/utils/lib/supabaseClient";
-
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 interface CategoryPageProps {
   params: {
     lang: string;
@@ -66,7 +66,7 @@ export async function generateMetadata({ params }: CategoryPageProps) {
   };
 }
 
-export default async function CategoryPage({ params }: CategoryPageProps) {
+export default async function CategoryPage({ params  }: CategoryPageProps) {
   const category = decodeURIComponent(params.category);
 
   const [ langData] = await Promise.all([
@@ -180,18 +180,19 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           totalViews,
           totalArticles,
         }}
+        mainData={mainData}
       />
 
       <div className="flex flex-col-reverse justify-start gap-7 lg:gap-5 lg:flex-row lg:justify-between items-start lg:items-center w-full px-5 lg:pe-4 mt-[-100px] lg:mt-0">
         <h2 className="md:w-1/2 lg:ms-5 mt-5 lg:mt-0 lg:mb-[-45px] font-azarMehr text-lg md:text-2xl font-bold text-start dark:text-white text-black ps-2 lg:ps-[2px]">
-          زیر دسته‌های {catName}
+          {findByUniqueId(mainData, 1518)}{catName}
         </h2>
 
-        <SearchComponent searchLevel="articles" mainData={categoryArticles} params={params} />
+        <SearchComponent searchLevel="articles"  params={params} mainData={mainData}/>
       </div>
 
       <div className="mt-10 lg:px-5">
-        <CategorySorted params={params} category={category} articles={categoryArticles} />
+        <CategorySorted params={params} category={category} articles={categoryArticles} mainData={mainData} />
       </div>
 
     </section>

@@ -7,7 +7,7 @@ import {
   getMainFile,
   getLangArray,
 } from "@/components/utils/actions";
-
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 
 import AuthorSection from "./components/AuthorSection";
@@ -62,7 +62,7 @@ export async function generateMetadata({ params }) {
 // ======================================
 // ✅ صفحه مقاله
 // ======================================
-export default async function ArticlePage({ params }) {
+export default async function ArticlePage({ params , mainData}) {
   try {
     const { slug , category } = params;
 
@@ -163,6 +163,7 @@ export default async function ArticlePage({ params }) {
                   title={article.title}
                   content={article.content}
                   stats={article.stats}
+                  mainData={mainData}
                 />
 
                 <ArticleHeader
@@ -172,7 +173,7 @@ export default async function ArticlePage({ params }) {
                   description={article.description}
                 />
 
-                <ArticleImage key={article.id} article={article} />
+                <ArticleImage key={article.id} article={article} mainData={mainData}/>
 
                 <ArticleContent content={article.content} tags={article.tags} />
               </div>
@@ -181,8 +182,8 @@ export default async function ArticlePage({ params }) {
               {/* بخش‌های جانبی پایین مقاله */}
               <div className="w-full mt-10 space-y-28">
                 <ShowSocialWrapper params={params} mainData={mainData} article={article} />
-                <PrevNextArticles  params={params} articles={categoryArticles || []} />
-                <AuthorCard lang={params.lang} article={article} mainData={mainData}/>
+                <PrevNextArticles  params={params} articles={categoryArticles || []}  mainData={mainData}/>
+                <AuthorCard lang={params.lang} article={article} mainData={mainData} />
               </div>
             </div>
 

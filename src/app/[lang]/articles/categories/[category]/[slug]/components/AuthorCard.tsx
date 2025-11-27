@@ -3,13 +3,15 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 interface AuthorCardProps {
   lang: string;
   article: any; // می‌تونی تایپ دقیق هم بزنی
+    mainData:{mainData:string}
 }
 
-const AuthorCard = ({ lang, article }: AuthorCardProps) => {
+
+const AuthorCard = ({ lang, article , mainData }: AuthorCardProps) => {
   const author = article?.author;
   if (!author) return null;
 
@@ -38,7 +40,7 @@ const AuthorCard = ({ lang, article }: AuthorCardProps) => {
         <div className="flex flex-col lg:flex-row md:flex-row md:justify-between w-full gap-5 items-center mt-5 md:mt-[-34px]">
           <div>
             <p className="text-sm text-gray-500 dark:text-dark-gray">
-              نویسنده حوزه {author.field}
+              {findByUniqueId(mainData, 1508)} {author.field}
             </p>
           </div>
           <div className="flex items-center gap-4">
@@ -70,7 +72,7 @@ const AuthorCard = ({ lang, article }: AuthorCardProps) => {
           href={`/${lang}/citizens/${author.citizenId}`}
           className="mt-6 px-5 py-2 rounded-lg bg-light-primary dark:bg-dark-yellow dark:text-black text-white font-bold text-sm hover:opacity-90 transition"
         >
-          مقالات این نویسنده
+           {findByUniqueId(mainData, 1512)} 
         </Link>
       </div>
     </section>

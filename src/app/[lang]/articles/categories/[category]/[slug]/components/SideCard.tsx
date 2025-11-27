@@ -6,7 +6,7 @@ import Link from "next/link";
 import { supabase } from "@/utils/lib/supabaseClient";
 import { View, Like, Dislike } from "@/components/svgs/SvgEducation";
 import { ArrowRight } from "@/components/svgs";
-
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 interface SideCardProps {
   params: any;
   mainData: any;
@@ -36,11 +36,11 @@ const SideCard: React.FC<SideCardProps> = ({ params, mainData }) => {
   return (
     <section className="flex flex-col gap-5 w-full ">
       <div className="flex items-center justify-between">
-        <p className="dark:text-white font-semibold">آخرین مقالات این هفته</p>
+        <p className="dark:text-white font-semibold"> {findByUniqueId(mainData, 1504)} </p>
 
         <Link href={`/${params.lang}/articles`} className="flex justify-center items-center gap-2">
           <p className="font-azarMehr font-medium text-sm dark:text-white">
-            {mainData?.["171"] ?? "بیشتر"}
+            {findByUniqueId(mainData, 171)} 
           </p>
           <ArrowRight
             className={`dark:stroke-white stroke-black rotate-180 w-[18px] h-full ${
@@ -71,7 +71,7 @@ const SideCard: React.FC<SideCardProps> = ({ params, mainData }) => {
           <div className="p-4 text-right space-y-2">
             <div className="flex items-center w-full justify-between">
               <div className="flex items-center text-xs lg:hidden xl:block">
-                <span className="dark:text-white">تاریخ انتشار : </span>
+                <span className="dark:text-white"> {findByUniqueId(mainData, 191)}  : </span>
                 <span className="dark:text-white">{item.date}</span>
               </div>
 

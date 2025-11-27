@@ -69,7 +69,7 @@ const PopularArticlesSlider = ({ params, mainData, theme }: PopularArticlesProps
     <section className="w-full">
       {/* Header */}
       <div className="flex items-center justify-between mb-7 w-full ps-1 pe-5 lg:pe-10">
-        <h2 className="text-xl font-bold dark:text-white">پربازدیدترین مقالات</h2>
+        <h2 className="text-xl font-bold dark:text-white"> {findByUniqueId(mainData, 1520)}</h2>
 
         <Link
           href={`/${params.lang}/articles`}

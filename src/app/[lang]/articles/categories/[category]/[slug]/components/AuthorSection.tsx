@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Like, Dislike, View } from "@/components/svgs/SvgEducation";
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 interface ArticleMetaProps {
   author: {
     name: string;
@@ -15,6 +16,7 @@ interface ArticleMetaProps {
   title: string;
   excerpt: string;
   content?: string;
+   mainData:{mainData:string}
   // optional برای جلوگیری از ارور
 }
 
@@ -25,6 +27,7 @@ export default function ArticleMeta({
   title,
   content,
   stats,
+  mainData,
 }: ArticleMetaProps) {
   // پاک کردن HTML و محاسبه تعداد کلمات
   const plainText = content
@@ -76,7 +79,7 @@ export default function ArticleMeta({
               </svg>
             </span>
             <span>
-              زمان مطالعه: {readingTime} دقیقه
+              {findByUniqueId(mainData, 1503)}: {readingTime} {findByUniqueId(mainData, 33)}
             </span>
           </span>
         </div>

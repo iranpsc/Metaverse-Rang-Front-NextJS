@@ -5,16 +5,17 @@ import Link from "next/link";
 import Image from "next/image";
 import { supabase } from "@/utils/lib/supabaseClient";
 import { Like, Dislike, View } from "@/components/svgs/SvgEducation";
-
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 interface PrevNextArticlesProps {
   params: { 
     lang: string; 
     slug: string;
     category: string;
   };
+    mainData:{mainData:string}
 }
 
-const PrevNextArticles = ({ params }: PrevNextArticlesProps) => {
+const PrevNextArticles = ({ params , mainData }: PrevNextArticlesProps) => {
   const [articles, setArticles] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -57,7 +58,7 @@ const PrevNextArticles = ({ params }: PrevNextArticlesProps) => {
         {/* ======================= */}
         <div className="flex flex-col items-center w-full">
           <h3 className="text-center font-bold mb-3 dark:text-white">
-            مقاله قبلی
+           {findByUniqueId(mainData, 1506)}
           </h3>
           <div className="w-full">
             {prevArticle ? (
@@ -114,7 +115,7 @@ const PrevNextArticles = ({ params }: PrevNextArticlesProps) => {
         {/* ======================= */}
         <div className="flex flex-col items-center w-full">
           <h3 className="text-center font-bold mb-3 dark:text-white">
-            مقاله بعدی
+            {findByUniqueId(mainData, 1507)}
           </h3>
           <div className=" w-full">
             {nextArticle ? (

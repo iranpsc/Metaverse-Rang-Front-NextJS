@@ -177,7 +177,7 @@ const LatestArticlesSlider: React.FC<LatestArticlesSliderProps> = ({
     <section className="w-full">
       {/* Header */}
       <div className="flex items-center justify-between mb-7 w-full ps-1 pe-5 lg:pe-10">
-        <h2 className="text-xl font-bold dark:text-white">آخرین مقالات</h2>
+        <h2 className="text-xl font-bold dark:text-white"> {findByUniqueId(mainData, 1521)}</h2>
         <Link href={`/${params.lang}/articles`} className="flex justify-center items-center gap-4" aria-label="See all articles">
           <p className="font-azarMehr font-medium text-[12px] md:text-[16px] lg:text-[18px] xl:text-[20px] dark:text-white">
             {findByUniqueId(mainData, 171) ?? "مشاهده همه"}

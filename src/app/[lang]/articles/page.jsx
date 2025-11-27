@@ -12,7 +12,7 @@ import {
   getLangArray,
 } from "@/components/utils/actions";
 
-
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 const baseUrl = "https://rgb.irpsc.com"; // ← دامنه اصلی سایتت
 const imageUrl = "https://rgb.irpsc.com/_next/image?url=%2Flogo.png&w=128&q=75";
 // ✅ متادیتای داینامیک
@@ -125,17 +125,17 @@ export default async function ArticlesPage({ params }) {
 
       <div className=" 2xl:px-10 mt-5">
         <h1 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[64px] mb-[16px]">
-          مقالات متاورس رنگ
+          {findByUniqueId(mainData, 1513)}
         </h1>
         <p className="text-lightGray  dark:text-lightGray font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center px-5 lg:px-10">
-          در این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنید
+         {findByUniqueId(mainData, 1514)}
         </p>
       </div>
 
       <div className="mb-10 mt-[-50px] lg:mt-5 space-y-7">
         <div className="flex flex-col-reverse  lg:gap-5 lg:flex-row lg:justify-between lg:items-center w-full px-5 lg:pe-4">
           <h2 className="md:w-1/2 lg:ms-5 mt-5 lg:mt-0 lg:mb-[-45px] font-azarMehr text-lg md:text-2xl font-bold text-start dark:text-white text-black ps-[2px]">
-            دسته بندی های مقالات
+           {findByUniqueId(mainData, 1516)}
           </h2>
           <SearchComponent
             searchLevel="articles"

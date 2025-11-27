@@ -35,7 +35,7 @@ export default async function TopWritersArticles({ params, mainData }: any) {
 
       <div className="w-full flex flex-row justify-between items-center lg:px-[42px] px-5">
         <p className="font-azarMehr font-medium text-xl lg:text-2xl dark:text-white">
-          نویسندگان برتر
+          {findByUniqueId(mainData, 1519)}
         </p>
 
         <div className="flex justify-center items-center gap-4 md:hidden">

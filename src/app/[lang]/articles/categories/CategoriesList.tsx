@@ -3,12 +3,13 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 interface CategoriesGridClientProps {
   categories: string[];
   categoryImages: Record<string, string>;
   subcategoryCounts: Record<string, number>;
   params: { lang: string };
+    mainData:{mainData:string}
 }
 
 export default function CategoriesGridClient({
@@ -16,6 +17,7 @@ export default function CategoriesGridClient({
   categoryImages,
   subcategoryCounts,
   params,
+  mainData,
 }: CategoriesGridClientProps) {
   const [visibleCount, setVisibleCount] = useState(12);
   const visibleCategories = categories.slice(0, visibleCount);
@@ -80,7 +82,7 @@ export default function CategoriesGridClient({
                   <div className="flex flex-col items-start justify-start z-10">
                     <span className="text-white font-bold mt-[-6px]">{cat}</span>
                     <span className="text-[#9A9A9A] text-xs">
-                      دارای {subcategoryCounts[cat] || 0} زیر‌دسته مرتبط
+                      {findByUniqueId(mainData, 1517)} {subcategoryCounts[cat] || 0} {findByUniqueId(mainData, 1518)}
                     </span>
                   </div>
                 </div>

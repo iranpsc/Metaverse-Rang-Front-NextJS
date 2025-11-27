@@ -4,6 +4,7 @@ import CategoriesList from "./CategoriesList"; // Client Component
 import SearchComponent from "@/components/shared/SearchComponent"; // Client Component
 import { supabase } from "@/utils/lib/supabaseClient";
 import { getTranslation, getMainFile, getFooterData } from "@/components/utils/actions";
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 export async function generateMetadata({ params }: { params: { lang: string } }) {
   const baseUrl = "https://rgb.irpsc.com";
   const langPrefix = params.lang ? `/${params.lang}` : "";
@@ -35,7 +36,7 @@ export async function generateMetadata({ params }: { params: { lang: string } })
   };
 }
 
-export default async function CategoriesPage({ params }: { params: { lang: string } }) {
+export default async function CategoriesPage({ params  }: { params: { lang: string } }) {
   const [ langData] = await Promise.all([
     getTranslation(params.lang),
   ]);
@@ -121,15 +122,15 @@ export default async function CategoriesPage({ params }: { params: { lang: strin
       </div>
 
       <div className="text-center mt-5">
-        <h1 className="font-rokh font-bold text-[30px] dark:text-white">دسته‌بندی مقالات</h1>
+        <h1 className="font-rokh font-bold text-[30px] dark:text-white">{findByUniqueId(mainData, 1516)} </h1>
         <p className="text-lightGray dark:text-lightGray text-lg mt-2">
-          مجموعه‌ای از مطالب تخصصی و به‌روز در زمینه فناوری‌های نوین، دنیای متاورس، هوش مصنوعی و دارایی‌های دیجیتال.
+          {findByUniqueId(mainData, 1526)}
         </p>
       </div>
 
       {/* کامپوننت Client برای جستجو */}
       <div className="my-8">
-        <SearchComponent searchLevel="articles" articles={articles} params={params} />
+        <SearchComponent searchLevel="articles" articles={articles} params={params} mainData={mainData}/>
       </div>
 
       {/* لیست دسته‌بندی‌ها */}
@@ -138,6 +139,7 @@ export default async function CategoriesPage({ params }: { params: { lang: strin
         categoryImages={categoryImages}
         subcategoryCounts={subcategoryCounts}
         params={params}
+        mainData={mainData}
       />
     </section>
   );

@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import ArticleCard from "../../../components/ArticleCard"; // ✅ اضافه شد
-
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 export interface Author {
   name: string;
   citizenId: string;
@@ -51,10 +51,11 @@ interface CategoryClientProps {
   params: {
     lang: string;
   };
+    mainData:{mainData:string}
   
 }
 
-export default function CategoryClient({ articles, category, params }: CategoryClientProps) {
+export default function CategoryClient({ articles, category, params , mainData }: CategoryClientProps) {
   const [activeSub, setActiveSub] = useState<string | null>(null);
   const [visibleCount, setVisibleCount] = useState(9);
 
@@ -123,7 +124,7 @@ export default function CategoryClient({ articles, category, params }: CategoryC
       )}
 
       <p className="text-lg md:text-2xl font-bold dark:text-white mt-14 mb-9">
-        پربازدیدترین مقالات {category}
+        {findByUniqueId(mainData, 1520)}{category}
       </p>
 
       {displayedArticles.length === 0 ? (
@@ -147,7 +148,7 @@ export default function CategoryClient({ articles, category, params }: CategoryC
                 onClick={handleLoadMore}
                 className="bg-white dark:bg-darkGray text-light-primary md:text-lg dark:text-dark-yellow rounded-[12px] px-[40px] py-[16px] base-transition-1 border-2 border-transparent hover:border-light-primary hover:text-light-primary hover:dark:border-dark-yellow"
               >
-                نمایش بیشتر
+                {findByUniqueId(mainData, 1456)}
               </button>
             </div>
           )}

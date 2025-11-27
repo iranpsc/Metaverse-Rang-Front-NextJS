@@ -39,7 +39,7 @@ export default function SectionInputSearch({
       return findByUniqueId(mainData, 167) || "جستجو میان آموزش‌ها...";
     }
     if (searchLevel === "articles") {
-      return "جستجو میان مقالات...";
+      return findByUniqueId(mainData, 1515) || "جستجو میان مقالات...";
     }
     return "جستجو...";
   };
