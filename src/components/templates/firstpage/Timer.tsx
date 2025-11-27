@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment-jalaali";
 
+
 interface DynamicTimerProps {
   targetDate: string; // تاریخ شروع (jalali string)
   endDate?: string;   // تاریخ پایان (jalali string)
@@ -9,7 +10,10 @@ interface DynamicTimerProps {
   hoursLabel?: string;
   minutesLabel?: string;
   secondsLabel?: string;
+  params?: { lang: "fa" | "en" };
+
 }
+
 
 function parseJalaliDatetime(jalaliStr: string): Date {
   return moment(jalaliStr, "jYYYY/jMM/jDD HH:mm").toDate();
@@ -39,6 +43,9 @@ const DynamicTimer: React.FC<DynamicTimerProps> = ({
   hoursLabel = "Hours",
   minutesLabel = "Minutes",
   secondsLabel = "Seconds",
+  params,
+
+
 }) => {
   const [timeToStart, setTimeToStart] = useState(getTimeRemaining(parseJalaliDatetime(targetDate)));
   const [timeToEnd, setTimeToEnd] = useState(endDate ? getTimeRemaining(parseJalaliDatetime(endDate)) : null);
@@ -66,7 +73,9 @@ const DynamicTimer: React.FC<DynamicTimerProps> = ({
   if (status === "ended") {
     return (
       <div className="text-center text-2xl  text-light-primary dark:text-dark-yellow font-bold">
-        تاریخ پایان : {endDate?.split(" ")[0]}
+        {params?.lang === "fa" ? " تاریخ پایان :" : "End date : "}
+
+        {endDate?.split(" ")[0]}
       </div>
     );
   }

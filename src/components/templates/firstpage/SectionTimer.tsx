@@ -103,7 +103,7 @@ const SectionTimer = ({ params }: { params: Params }) => {
             <div className="h-full w-full   lg:rounded-[48px] py-5 lg:py-7 flex flex-col lg:flex-row gap-5 justify-center items-center">
               <div className="w-full h-full flex justify-center max-w-[360px] max-h-[100%]  lg:rounded-[32px] overflow-hidden">
                 <Image
-                  className="w-fill h-full object-cover rounded-[38px]"
+                  className="w-fill h-full  rounded-[38px]"
                   src={eventData.image || "/firstpage/free.webp"}
                   alt={eventData.title}
                   width={360}
@@ -130,7 +130,8 @@ const SectionTimer = ({ params }: { params: Params }) => {
                 minutesLabel={params.lang === "fa" ? "دقیقه" : "Minutes"}
                 secondsLabel={params.lang === "fa" ? "ثانیه" : "Seconds"}
                 targetDate={eventData.start} // تاریخ شروع جلالی
-                endDate={eventData.end}      // تاریخ پایان جلالی
+                endDate={eventData.end} 
+                params={params}     // تاریخ پایان جلالی
               />
               <div className="w-full">
                 {eventData.btnName && (

@@ -306,7 +306,7 @@ useEffect(() => {
           {shouldShowLoadMore() && (
             <button
               onClick={handleShowMore}
-              className="displayMore py-[30px] bg-transparent text-[#0066FF] dark:text-[#FFC700] cursor-pointer lg:hidden"
+              className="mb-5 displayMore bg-white dark:bg-darkGray text-light-primary md:text-lg dark:text-dark-yellow rounded-[12px] px-[40px] py-[16px] base-transition-1 border-2 border-transparent hover:border-light-primary hover:text-light-primary hover:dark:border-dark-yellow lg:hidden"
             >
               {findByUniqueId(mainData, 271)}
             </button>
