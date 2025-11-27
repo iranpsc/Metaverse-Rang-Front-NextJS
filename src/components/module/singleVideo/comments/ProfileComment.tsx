@@ -33,7 +33,7 @@ const ProfileComment = ({
             {checkData(itemComment.user.name)}
           </span>
           <span
-            className="text-blueLink  cursor-pointer text-[14px] xs:text-[12px] font-medium whitespace-wrap"
+            className="uppercase dark:text-white cursor-pointer text-[14px] xs:text-[12px] font-medium whitespace-wrap"
             // onClick={() => pushRgb(item.creator.code)}
           >
             {/* {checkData(
@@ -43,7 +43,7 @@ const ProfileComment = ({
             )} */}
             {findByUniqueId(mainData, 563)}
             {" : "}
-            <Link href={`https://rgb.irpsc.com/${params.lang}/citizen/${itemComment.user.code}`}> {checkData(itemComment.user.code)} </Link>
+            <Link className="text-blueLink dark:text-blue-500" href={`https://rgb.irpsc.com/${params.lang}/citizen/${itemComment.user.code}`}> {checkData(itemComment.user.code)} </Link>
           </span>
         </div>
       </div>

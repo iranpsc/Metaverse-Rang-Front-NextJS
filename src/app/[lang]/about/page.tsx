@@ -1,4 +1,5 @@
 import dynamic from "next/dynamic";
+
 import {
   getAllLevels,
   getTranslation,
@@ -6,10 +7,11 @@ import {
   findByModalName,
   findByTabName,
   getLangArray,
+  getUserData
+
 } from "@/components/utils/actions";
-
-const AboutList = dynamic(() => import("./components/list"));
-
+import List from "./components/List"
+import BreadCrumb from "@/components/shared/BreadCrumb";
 import Image from "next/image";
 import Head from "next/head";
 
@@ -67,6 +69,7 @@ export async function generateMetadata({ params }: { params: Params }) {
 }
 
 export default async function AboutPage({ params }: { params: Params }) {
+
   function convertPersianToEnglishNumber(slug: string): number {
     return Number(
       slug.replace(/[۰-۹]/g, (char) => String.fromCharCode(char.charCodeAt(0) - 1776))
@@ -79,19 +82,45 @@ export default async function AboutPage({ params }: { params: Params }) {
     getTranslation(params.lang) as Promise<any>,
   ]);
 
+
   levelArray.forEach((item: LevelItem) => {
     if (typeof item.slug === "string") {
       item.slug = convertPersianToEnglishNumber(item.slug);
     }
   });
 
-  const mainData = await getMainFile(langData) as Promise<any>;
+  const mainData = await getMainFile(langData);
 
   const [centralPageModal, Citizenship, levelModals] = await Promise.all([
     findByModalName(mainData, "central-page") as Promise<ModalData>,
     findByModalName(mainData, "Citizenship-profile") as Promise<ModalData>,
     findByModalName(mainData, "levels") as Promise<ModalData>,
   ]);
+const userCodes = [
+    "HM-2000001","HM-2000002","HM-2000005","HM-2000003",
+    "HM-2000007","HM-2000008","HM-2000207","HM-2000475",
+    "HM-2000011","HM-2000010","HM-2000491","HM-2000009",
+    "HM-2000006"
+  ];
+
+  // لود همه کاربران با Promise.all
+  const profiles = await Promise.all(userCodes.map(code => getUserData(code)));
+
+  // ساخت آرایه userها برای List
+  const users = profiles
+    .filter(profile => profile?.data)
+    .map(profile => ({
+      id: profile.data.id,
+      name: `${profile.data?.kyc?.fname || ""} ${profile.data?.kyc?.lname || ""}`.trim(),
+      profile_photo: profile.data?.profilePhotos?.[0]?.url ,
+      code: profile.data.code,
+      score: profile.data.score,
+      levels: {
+        current: profile.data.current_level,
+        previous: profile.data.achieved_levels || [],
+      },
+      passions: profile.data.customs?.passions || {},
+    }));
 
   const citizenListArrayContent = await findByTabName(
     Citizenship,
@@ -136,17 +165,20 @@ export default async function AboutPage({ params }: { params: Params }) {
       <section
         className={`min-h-[calc(100vh-60px)]  relative  mt-[60px] lg:mt-0 mx-auto px-4 lg:px-9 !font-azarMehr`}
       >
-        <h1 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[64px] mb-[16px]">
+        <div >
+          <BreadCrumb params={params} />
+        </div>
+        <h1 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[64px] lg:mt-[40px] mb-[16px]">
           {params.lang.toLowerCase() === "fa" ? "درباره ما" : "About Us"}
         </h1>
-        <div className="flex flex-col gap-10">
+        <div className="flex text-center flex-col gap-10">
           <div>
-            <h2 className="dark:text-white text-black text-lg md:text-2xl font-bold font-rohk">
+            <h2 className="dark:text-white text-black text-lg md:text-2xl font-bold font-rohk mb-4">
               {params.lang.toLowerCase() === "fa"
                 ? "پروژه متاورس رنگ (متارنگ)"
                 : "Metaverse Rang Project (MetaRang)"}
             </h2>
-            <p className="text-lightGray font-medium text-justify text-sm md:text-lg mt-5 leading-10">
+            <p className="text-lightGray  dark:text-lightGray font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center px-5 lg:px-10">
               {params.lang.toLowerCase() === "fa"
                 ? "متارنگ، نخستین پروژه متاورسی ایران، با هدف ایجاد جهانی مجازی و موازی با تأکید بر فرهنگ و اصالت ایرانی آغاز به کار کرده است. این پلتفرم با بهره‌گیری از فناوری‌های پیشرفته، دریچه‌ای به سوی آینده‌ای دیجیتالی می‌گشاید که امکان زندگی، تعامل و کسب‌وکار در دنیایی موازی را برای کاربران فراهم می‌کند."
                 : "MetaRang, the first metaverse project in Iran, has been initiated with the goal of creating a parallel virtual world that emphasizes Iranian culture and heritage. This platform, leveraging advanced technologies, opens a gateway to a digital future where users can live, interact, and conduct business in a parallel universe."}
@@ -270,10 +302,8 @@ export default async function AboutPage({ params }: { params: Params }) {
             </p>
           </div>
         </div>
-        <AboutList
-          params={params}
-          citizenListArrayContent={citizenListArrayContent}
-          levelListArrayContent={levelListArrayContent}
+        <List
+          params={params} mainData={mainData} users={users}
         />
       </section>
     </>

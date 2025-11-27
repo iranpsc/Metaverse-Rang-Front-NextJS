@@ -148,7 +148,7 @@ const SingleVideoDetailsModule = ({
           onChange={(e) => SetComment(e.target.value)}
         />
         <SendIcon
-          className="absolute end-[20px] top-1/4 size-[24px] cursor-pointer active:scale-125 duration-300"
+          className="absolute end-[20px] top-1/4 size-[24px] cursor-pointer active:scale-125 duration-300 ltr:rotate-180"
           onClick={() => handlerCreateComment(DataVideo.id)}
         />
       </div>

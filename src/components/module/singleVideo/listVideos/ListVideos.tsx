@@ -102,7 +102,7 @@ const VideoCard = memo(
                 loading="lazy"
                 className="w-[45px] h-[45px] rounded-full object-cover cursor-pointer transition-all duration-150 ease-in-out"
               />
-              <span className="text-blueLink cursor-pointer text-[14px] 3xl:text-[18px] whitespace-nowrap font-medium hover:font-bold uppercase">
+              <span className="text-blueLink dark:text-blue-500 cursor-pointer text-[14px] md:text-base whitespace-nowrap font-medium  uppercase">
                 {item.creator.code}
               </span>
             </div>

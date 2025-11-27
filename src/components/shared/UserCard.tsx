@@ -7,7 +7,7 @@ import { Text } from "../svgs/SvgEducation";
 import LockGem from '@/public/Frame1000003193.png';
 import { Like } from "@/components/svgs/SvgEducation";
 import { useId } from "react";
-export default function UserCard({ item, params, buttonText, minWidth, scoreElement, hidePreviousLevels }: any) {
+export default function UserCard({ item, params, buttonText, minWidth, scoreElement, hidePreviousLevels  }: any) {
   const staticRouteNames = [
     { id: 1, route_name: "citizen-baguette" },
     { id: 2, route_name: "reporter-baguette" },
@@ -23,7 +23,7 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
     { id: 12, route_name: "judge-baguette" },
     { id: 13, route_name: "legislator-baguette" },
   ];
-const uid = useId();
+  const uid = useId();
   // isTruncated برای اسم کاربر
   const nameRef = useRef<HTMLParagraphElement>(null);
   const [isTruncated, setIsTruncated] = useState(false);
@@ -75,7 +75,7 @@ const uid = useId();
       style={minWidth ? { width: minWidth, minWidth: minWidth } : {}}
     >
       <div
-        className={`group hover:scale-105 base-transition-1 shadow-lg  mt-10 relative bg-[#fff] dark:bg-[#1A1A18] flex flex-col justify-between gap-3 py-3 sm:py-4 md:py-5 items-center rounded-[20px] border-transparent border border-solid hover:border-[#0066FF] hover:bg-white dark:hover:bg-[#1A1A18] dark:hover:border-[#FFC700] hover:shadow-[0_0px_20px_rgba(0,0,0,0.45)] dark:hover:shadow-[0_0px_33px_-11px_rgba(255,255,255,255.9)] `}
+        className={`group hover:scale-105 base-transition-1 shadow-lg  mt-10 relative bg-[#fff] dark:bg-[#1A1A18] flex flex-col justify-between gap-3 py-3 sm:py-4 md:py-5 items-center rounded-[20px] border-transparent border border-solid hover:border-[#0066FF] hover:bg-white dark:hover:bg-[#1A1A18] dark:hover:border-[#FFC700] hover:shadow-[0_0px_20px_rgba(0,102,255,0.4)] dark:hover:shadow-[0_0px_35px_-12px_rgba(255,199,0,9)]`}
       >
         <figure className="w-[120px] h-[120px] relative overflow-hidden rounded-full mt-10 ">
           <Image
@@ -99,22 +99,21 @@ const uid = useId();
         </div>
 
         <div className="flex items-center gap-4 justify-center">
-          <div className="flex items-center gap-[5px]">
+          {/* <div className="flex items-center gap-[5px]">
             <span className="font-azarMehr text-gray dark:text-dark-gray  md:text-base">
               {item.score}
             </span>
             <Like className="stroke-gray dark:stroke-dark-gray stroke-2 w-[15px] h-[15px] mt-[-2px]" />
-          </div>
+          </div> */}
           <Link
             className="min-h-[30px] uppercase text-blueLink dark:text-blue-500 accumulating font-azarMehr text-[16px] cursor-pointer"
-            href={`/${params.lang}/citizens/${uid}`}
-            title={`Go to citizen ${uid}`}
-            aria-label={`Go to citizen ${uid}`}
+            href={`/${params.lang}/citizens/${item.code}`}
+            title={`Go to citizen ${item.code}`}
+            aria-label={`Go to citizen ${item.code}`}
           >
             {item.code}
           </Link>
         </div>
-
         {!hidePreviousLevels && (
           <div className="w-full min-h-[75px] pb-2">
             <div className="w-full flex flex-wrap justify-center">
@@ -136,7 +135,7 @@ const uid = useId();
           </div>
         )}
 
-        <Link href={`/${params.lang}/citizens/${uid}`} className="w-[80%]">
+        <Link href={`/${params.lang}/citizens/${item.code}`} className="w-[80%]">
           <div className="w-full h-[55px] bg-[#f5f9ff] dark:bg-[#000000] px-3 sm:px-6 rounded-[10px] flex flex-row justify-between items-center">
             <span className="text-blueLink dark:text-dark-yellow font-azarMehr font-medium text-[14px]">
               {buttonText}
@@ -171,6 +170,18 @@ const uid = useId();
                 <rect width={29} height={100} fill="white" transform="matrix(0 1 1 0 0 0)" />
               </clipPath>
             </defs>
+            <foreignObject x="0" y="0" width="100" height="29">
+              <div
+              {...({ xmlns: "http://www.w3.org/1999/xhtml" } as any)}
+                className="w-full h-full flex items-center justify-center text-xs font-azarMehr rtl:ms-1 ltr:me-1 mt-[1px] text-black text-center px-1 overflow-hidden break-words"
+              >
+                {currentGem
+                  ? getRouteName(currentGem.id, params.lang, currentGem.name, staticRouteNames)
+                  : params.lang === "fa"
+                    ? "تازه وارد"
+                    : "Newcomer"}
+              </div>
+            </foreignObject>
           </svg>
 
           {/* LIGHT – HOVER */}
@@ -198,6 +209,18 @@ const uid = useId();
                 <rect width={29} height={100} fill="white" transform="matrix(0 1 1 0 0 0)" />
               </clipPath>
             </defs>
+            <foreignObject x="0" y="0" width="100" height="29">
+              <div
+              {...({ xmlns: "http://www.w3.org/1999/xhtml" } as any)}
+                className="w-full h-full flex items-center justify-center text-xs font-azarMehr rtl:ms-1 ltr:me-1 mt-[1px] text-white text-center px-1 overflow-hidden break-words"
+              >
+                {currentGem
+                  ? getRouteName(currentGem.id, params.lang, currentGem.name, staticRouteNames)
+                  : params.lang === "fa"
+                    ? "تازه وارد"
+                    : "Newcomer"}
+              </div>
+            </foreignObject>
           </svg>
 
           {/* DARK – NORMAL */}
@@ -225,6 +248,18 @@ const uid = useId();
                 <rect width={29} height={100} fill="white" transform="matrix(0 1 1 0 0 0)" />
               </clipPath>
             </defs>
+            <foreignObject x="0" y="0" width="100" height="29">
+              <div
+              {...({ xmlns: "http://www.w3.org/1999/xhtml" } as any)}
+                className="w-full h-full flex items-center justify-center text-xs font-azarMehr text-white rtl:ms-1 ltr:me-1 mt-[1px]  text-center px-1 overflow-hidden break-words"
+              >
+                {currentGem
+                  ? getRouteName(currentGem.id, params.lang, currentGem.name, staticRouteNames)
+                  : params.lang === "fa"
+                    ? "تازه وارد"
+                    : "Newcomer"}
+              </div>
+            </foreignObject>
           </svg>
 
           {/* DARK – HOVER */}
@@ -282,16 +317,22 @@ const uid = useId();
                 />
               </clipPath>
             </defs>
+            <foreignObject x="0" y="0" width="100" height="29">
+              <div
+              {...({ xmlns: "http://www.w3.org/1999/xhtml" } as any)}
+                className="w-full h-full flex items-center justify-center text-xs font-azarMehr text-white dark:text-black text-center rtl:ms-1 ltr:me-1 mt-[1px] overflow-hidden break-words"
+              >
+                {currentGem
+                  ? getRouteName(currentGem.id, params.lang, currentGem.name, staticRouteNames)
+                  : params.lang === "fa"
+                    ? "تازه وارد"
+                    : "Newcomer"}
+              </div>
+            </foreignObject>
           </svg>
 
           {/* TEXT LABEL */}
-          <span className=" dark:group-hover:text-black group-hover:text-white  dark:text-white text-xs font-azarMehr absolute top-[7px] right-4 z-10">
-            {currentGem
-              ? getRouteName(currentGem.id, params.lang, currentGem.name, staticRouteNames)
-              : params.lang === "fa"
-                ? "تازه وارد"
-                : "Newcomer"}
-          </span>
+
         </div>
       </div>
 

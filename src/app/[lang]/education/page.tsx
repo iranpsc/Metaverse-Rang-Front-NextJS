@@ -80,21 +80,20 @@ export default async function CitizensPage({ params }: { params: any }) {
           <div className="">
             <BreadCrumb params={params} />
           </div>
-
-          <h1 className="mt-[70px] text-center  text-gray dark:text-dark-gray font-azarMehr font-bold 2xl:text-[26px] xl:text-[26px] lg:text-[22px] md:text-[20px] sm:text-[18px] xs:text-[16px] w-full">
-          
-            {findByUniqueId(mainData, 166)}
-          </h1>
-          <div className="flex flex-col items-center justify-center px-3 md:px-0">
-            <p className=" 2xl:w-[30%] xl:w-[30%] lg:w-[40%] md:w-[40%] sm:w-[50%] xs:w-[50%] mt-5 font-azarMehr font-normal text-gray dark:text-dark-gray 2xl:text-[14px] xl:text-[14px] lg:text-[13px] md:text-[12px] sm:text-[12px] xs:text-[10px]   text-center">
-              
-              {findByUniqueId(mainData, 164)}
+                    <div className="mt-[60px] lg:mt-[40px] xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
+            <h1 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[64px] mb-[16px]">
+               {findByUniqueId(mainData, 166)}
+            </h1>
+            <p className="text-lightGray  dark:text-lightGray font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center px-5 lg:px-10">
+             {findByUniqueId(mainData, 164)}
             </p>
-            <SearchComponent
-              searchLevel="education"
-              mainData={mainData}
-              params={params}
-            />
+            <div className="flex justify-center w-full px-5 lg:px-0">
+              <SearchComponent
+                searchLevel='education'
+                mainData={mainData}
+                params={params}
+              />
+            </div>
           </div>
 
           <div className="h-fit mt-[60px]  xl:mt-[100px] 2xl:mt-[150px]">

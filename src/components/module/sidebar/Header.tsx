@@ -52,13 +52,13 @@ function SideBarHeader({ isClosed, toggleSide, params, langData, langArray }: an
   return (
     <div className="relative w-full !z-[101]">
       {/* آیکون منو */}
-    <div className={`${isClosed ? " py-2 w-full" : "hidden  my-0"} `}>
-            <MenuIcon
-        className={`${isClosed ? "visible  mt-3 " : "hidden  my-0"} stroke-[#2B2B2B] dark:stroke-white cursor-pointer w-full menu-transition `}
-        alt="toggle"
-        onClick={toggleSide}
-      />
-    </div>
+      <div className={`${isClosed ? " py-2 w-full" : "hidden  my-0"} `}>
+        <MenuIcon
+          className={`${isClosed ? "visible  mt-3 " : "hidden  my-0"} stroke-[#2B2B2B] dark:stroke-white cursor-pointer w-full menu-transition `}
+          alt="toggle"
+          onClick={toggleSide}
+        />
+      </div>
 
       {/* لوگو و متن */}
       <Link
@@ -89,8 +89,8 @@ function SideBarHeader({ isClosed, toggleSide, params, langData, langArray }: an
     transition-opacity duration-1000
     ${isClosed ? "opacity-0 pointer-events-none" : "opacity-100 delay-300"}
   `} >
-       
-        <div ref={langRef} className={`${isClosed ? "hidden" : "block"} relative`}>
+
+        <div ref={langRef} className={`${isClosed ? "hidden" : "block"} relative hidden lg:block`}>
           <div
             onClick={() => setIsLangOpen(!isLangOpen)}
             className="w-[27px] h-[26px] md:w-[23px] md:h-[23px] xl:w-[27px] xl:h-[27px] rounded-full overflow-hidden border border-gray-300 dark:border-dark-gray flex items-center justify-center cursor-pointer transition-all hover:scale-110"
@@ -119,9 +119,10 @@ function SideBarHeader({ isClosed, toggleSide, params, langData, langArray }: an
             </div>
           )}
         </div>
-        <ThemeMenuModule isClosed={isClosed} defaultTheme={theme} params={params} />
 
-
+        <div className="hidden lg:block w-[-webkit-fill-available]">
+          <ThemeMenuModule isClosed={isClosed} defaultTheme={theme} params={params} />
+        </div>
 
         {/* Arrow Menu */}
         <div

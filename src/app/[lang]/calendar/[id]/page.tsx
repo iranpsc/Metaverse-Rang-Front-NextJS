@@ -187,7 +187,7 @@ export default async function EventPage({ params }: { params: { lang: string; id
             <BreadCrumb params={params} eventTitle={cleanTitle} />
           </div>
 
-          <div className="mainContainer w-full h-auto flex flex-col items-center lg:gap-0 font-['AzarMehr'] lg:flex-row lg:items-start">
+          <div className=" w-full h-auto flex flex-col items-center lg:gap-0 font-['AzarMehr'] lg:flex-row lg:items-start">
             <div className="flex flex-col w-full items-center p-5 lg:px-10">
               <EventCalendarClient
                 events={filteredEvents}

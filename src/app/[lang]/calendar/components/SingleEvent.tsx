@@ -249,7 +249,7 @@ const SingleEvent: React.FC<SingleEventProps> = ({
         <div className="text-base lg:w-[95%] break-words whitespace-normal text-[#868B90] dark:text-[#C4C4C4] mb-4 text-justify leading-6 w-[97%] font-normal font-[Vazir] 2xl:text-xl 2xl:leading-8">
           <div
             dangerouslySetInnerHTML={{
-              __html: showFullDesc ? event.desc : truncatedHtml,
+              __html: event.desc, // همیشه متن کامل
             }}
           />
           {shouldTruncate && (

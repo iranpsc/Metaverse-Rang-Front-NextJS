@@ -59,7 +59,7 @@ const SingleEducationItem = ({ item, mainData, params, theme }: any) => {
         <p className="w-full font-azarMehr dark:text-white font-medium text-singleVideo_medium flex items-center gap-1 text-sm md:text-base">
           <span>{findByUniqueId(mainData, 563)}</span>
           {" : "}
-          <span className="mb-[-2px] text-blueLink uppercase">
+          <span className="mb-[-2px] text-blueLink dark:text-blue-500 uppercase">
             <Link
               href={`https://rgb.irpsc.com/${params.lang}/citizen/${item.creator.code}`}
             >
