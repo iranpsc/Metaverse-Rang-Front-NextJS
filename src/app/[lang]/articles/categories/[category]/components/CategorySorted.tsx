@@ -92,7 +92,7 @@ export default function CategoryClient({ articles, category, params , mainData }
   return (
     <section className="w-full pb-5 lg:py-10 px-6">
       {subCategories.length > 0 && (
-        <div className="flex flex-wrap gap-3 lg:gap-6 mb-8">
+        <div className="flex flex-wrap gap-3 lg:gap-4 mb-8">
           <button
             onClick={() => {
               setActiveSub(null);
