@@ -208,8 +208,9 @@ const LatestArticlesSlider: React.FC<LatestArticlesSliderProps> = ({
 
       {/* Controls */}
       <div className="mt-4 w-full">
+        
         <div className="flex items-center justify-center md:justify-start gap-2">
-          <button onClick={() => swiperRef.current?.slidePrev()} className="flex items-center justify-center rounded-full bg-transparent" aria-label="Previous slide">
+          <button  onClick={() => swiperRef.current?.slidePrev()} className="flex items-center justify-center rounded-full bg-transparent" aria-label="Previous slide">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 9 15" className="w-[20px] h-[20px] stroke-gray dark:stroke-white ltr:rotate-180">
               <path d="m1 14 6.5-6.5L1 1" />
             </svg>

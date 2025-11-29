@@ -130,6 +130,7 @@ const PopularArticlesSlider = ({ params, mainData, theme }: PopularArticlesProps
             {sortedArticles.map((_, idx) => (
               <button
                 key={idx}
+                aria-label="Next slide" 
                 onClick={() => swiperRef.current?.slideToLoop(idx)}
                 className={`w-5 h-1 rounded-sm transition ${
                   activeIndex === idx
@@ -144,7 +145,7 @@ const PopularArticlesSlider = ({ params, mainData, theme }: PopularArticlesProps
           <button
             onClick={() => swiperRef.current?.slideNext()}
             className="flex items-center justify-center rounded-full bg-transparent"
-            aria-label="Next slide"
+            aria-label="Next slide" 
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
