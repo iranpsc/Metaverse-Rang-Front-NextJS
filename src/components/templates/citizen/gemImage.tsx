@@ -43,7 +43,7 @@ export default function CitizenClientImage({ item, params, picSize }: any) {
         <ReactTooltip
           id={item.name}
           place="top"
-          className="tooltip-bg-black transition-opacity active:!opacity-100 text-center"
+          className="!bg-[#E9E9E9] !text-[#908F95] dark:!bg-[#434343] dark:!text-white !font-azarMehr !font-medium !text-[14px]"
           content={item.name}
         />
       </Link>

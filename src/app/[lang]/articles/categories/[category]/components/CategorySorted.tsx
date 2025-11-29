@@ -124,7 +124,7 @@ export default function CategoryClient({ articles, category, params , mainData }
       )}
 
       <p className="text-lg md:text-2xl font-bold dark:text-white mt-14 mb-9">
-        {findByUniqueId(mainData, 1520)}{category}
+        {findByUniqueId(mainData, 1520)} {category}
       </p>
 
       {displayedArticles.length === 0 ? (

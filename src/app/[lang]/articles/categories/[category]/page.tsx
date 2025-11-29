@@ -183,10 +183,8 @@ export default async function CategoryPage({ params  }: CategoryPageProps) {
         mainData={mainData}
       />
 
-      <div className="flex flex-col-reverse justify-start gap-7 lg:gap-5 lg:flex-row lg:justify-between items-start lg:items-center w-full px-5 lg:pe-4 mt-[-100px] lg:mt-0">
-        <h2 className="md:w-1/2 lg:ms-5 mt-5 lg:mt-0 lg:mb-[-45px] font-azarMehr text-lg md:text-2xl font-bold text-start dark:text-white text-black ps-2 lg:ps-[2px]">
-          {findByUniqueId(mainData, 1518)}{catName}
-        </h2>
+      <div className="flex flex-col-reverse justify-center gap-7 lg:gap-5 lg:flex-row lg:justify-between items-start lg:items-center w-full px-5  mt-[-100px] lg:mt-0">
+      
 
         <SearchComponent searchLevel="articles"  params={params} mainData={mainData}/>
       </div>
