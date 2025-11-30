@@ -81,7 +81,7 @@ export default function CategoriesGrid({ params ,mainData }: CategoriesGridProps
               fill
               className="object-cover group-hover:scale-110 transition-transform duration-500"
               priority={index === 0}
-              fetchPriority={index === 0 ? "high" : "auto"}
+              fetchPriority={index === 0 ? "high" : "auto"} 
             />
 
             <div className="absolute inset-0 bg-gradient-to-br to-black/90 via-black/60 from-black/5 transition" />
