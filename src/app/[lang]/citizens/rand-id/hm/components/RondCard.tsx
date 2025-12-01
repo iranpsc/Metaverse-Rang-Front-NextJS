@@ -72,7 +72,11 @@ const RondCard: React.FC<RondCardProps> = ({ item, mainData, params }) => {
                 </div>
 
                 {/* price bar */}
-                <div className="flex flex-col gap-2 bg-[#F8F8F8] dark:bg-black py-3 rounded-xl px-3 relative">
+                <div className={`flex flex-col gap-2 bg-[#F8F8F8] dark:bg-black pt-3 rounded-xl px-3 relative          
+                ${dropdownOpen
+                        ? " rounded-b-0 pb-2 md:pb-0 md:rounded-xl"
+                        : " "
+                    }`}>
                     <div className="flex items-center justify-center lg:justify-between">
 
 
@@ -86,13 +90,13 @@ const RondCard: React.FC<RondCardProps> = ({ item, mainData, params }) => {
                                         setDropdownOpen(!dropdownOpen);
                                     }}
                                 >
-                                    <svg className={`w-7 h-7 transition-transform ${dropdownOpen ? "rotate-180" : ""}`} viewBox="0 0 20 20" fill="currentColor">
+                                    <svg className={`w-7 h-7 mt-[-9px] transition-transform ${dropdownOpen ? "rotate-180" : ""}`} viewBox="0 0 20 20" fill="currentColor">
                                         <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z" clipRule="evenodd" />
                                     </svg>
                                 </div>
 
                                 {dropdownOpen && (
-                                    <div className="absolute bg-[#F8F8F8] text-black dark:bg-black mt-2 w-full top-11 rounded-b-xl md:top-[60px] z-20 right-0 border border-gray-700 md:rounded-xl shadow-lg text-gray-200">
+                                    <div className="absolute bg-[#F8F8F8] text-black dark:bg-black mt-2 w-full top-[55px] rounded-b-xl md:top-[60px] z-30 right-0 border border-gray-700 md:rounded-xl shadow-lg text-gray-200">
                                         <div className="p-3">
                                             <input
 
@@ -102,7 +106,7 @@ const RondCard: React.FC<RondCardProps> = ({ item, mainData, params }) => {
                                                 className="w-full bg-[#FCFCFC] dark:bg-[#1A1A18] dark:text-white border-0  placeholder-gray-500 rounded-xl px-3 py-3 text-sm ring-1 ring-[#DEDEE9] dark:ring-[#1A1A18] outline-none"
                                             />
                                         </div>
-                                        <div className="h-48 overflow-auto divide-y">
+                                        <div className="h-[220px] overflow-auto divide-y">
                                             {filteredCurrencies.map((c) => (
                                                 <button
                                                     key={c.key}
@@ -129,7 +133,7 @@ const RondCard: React.FC<RondCardProps> = ({ item, mainData, params }) => {
                             </div>
 
                             {/* icons */}
-                            <div className="flex items-center gap-2 justify-start">
+                            <div className="flex items-center gap-2 justify-start ">
                                 {["USD", "BTC", "USDT", "IRR"].map((key) => {
                                     const currency = item.currencies.find(c => c.key === key);
                                     if (!currency) return null;
@@ -140,7 +144,7 @@ const RondCard: React.FC<RondCardProps> = ({ item, mainData, params }) => {
                                         <div
                                             key={currency.key}
                                             onClick={() => setSelectedCurrency(currency)}
-                                            className={`w-[36px] h-[36px] p-[3px] rounded-full flex items-center justify-center border-2 border-solid  text-sm cursor-pointer
+                                            className={`w-[36px] h-[36px] px-1 pt-5 pb-7 flex items-center justify-center border-x-0 border-t-0 border-b-2 border-solid text-sm cursor-pointer
                                                 ${isActive
                                                     ? " border-light-primary dark:border-dark-yellow"
                                                     : " border-transparent"
@@ -161,17 +165,17 @@ const RondCard: React.FC<RondCardProps> = ({ item, mainData, params }) => {
                 </div>
                 <div className="flex justify-between ">
                     <div className="text-[#1F1F1F] dark:text-[#F2F2F2]  items-center gap-1 text-base md:text-xl flex">
-                    <div>{price}</div>
-                </div>
+                        <div>{price}</div>
+                    </div>
 
-                {/* --- BUY BUTTON --- */}
-                <div className="flex justify-center">
-                    <button aria-label="BUY BUTTON"
-                        onClick={() => setModalOpen(true)}
-                        className="bg-transparent dark:bg-[#1A1A18] w-max font-semibold text-sm px-5 md:px-10 border border-light-primary text-light-primary dark:border-transparent dark:text-dark-yellow py-3 rounded-xl  transition">
-                        {findByUniqueId(mainData, 1488)}
-                    </button>
-                </div>
+                    {/* --- BUY BUTTON --- */}
+                    <div className="flex justify-center">
+                        <button aria-label="BUY BUTTON"
+                            onClick={() => setModalOpen(true)}
+                            className="bg-transparent dark:bg-[#1A1A18] w-max font-semibold text-sm px-5 md:px-10 border border-light-primary text-light-primary dark:border-transparent dark:text-dark-yellow py-3 rounded-xl  transition">
+                            {findByUniqueId(mainData, 1488)}
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -186,7 +190,12 @@ const RondCard: React.FC<RondCardProps> = ({ item, mainData, params }) => {
                     </div>
 
                     {/* MODAL BOX */}
-                    <div className="  bg-white xl:ms-[5vw] 2xl:ms-[8vw] dark:bg-[#0C0D0F] rounded-xl p-5 2xl:p-10 w-[90%] max-w-xl shadow-xl z-50  flex flex-col gap-5">
+                    <div className="  bg-white xl:ms-[5vw] 2xl:ms-[8vw] dark:bg-[#0C0D0F] rounded-xl p-5 2xl:p-10 w-[90%] max-w-xl shadow-xl z-50  flex flex-col gap-5 relative">
+
+                        <svg onClick={() => setModalOpen(false)} className="absolute start-[25px] top-[25px] cursor-pointer" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8.74638 7L13.6346 2.11179C13.8666 1.88021 13.9971 1.56595 13.9974 1.23815C13.9977 0.910351 13.8677 0.595863 13.6361 0.36387C13.4045 0.131876 13.0903 0.00138122 12.7625 0.00109174C12.4347 0.000802246 12.1202 0.130742 11.8882 0.362326L7 5.25054L2.11179 0.362326C1.8798 0.130333 1.56515 0 1.23706 0C0.90897 0 0.59432 0.130333 0.362326 0.362326C0.130333 0.59432 0 0.90897 0 1.23706C0 1.56515 0.130333 1.8798 0.362326 2.11179L5.25054 7L0.362326 11.8882C0.130333 12.1202 0 12.4349 0 12.7629C0 13.091 0.130333 13.4057 0.362326 13.6377C0.59432 13.8697 0.90897 14 1.23706 14C1.56515 14 1.8798 13.8697 2.11179 13.6377L7 8.74946L11.8882 13.6377C12.1202 13.8697 12.4349 14 12.7629 14C13.091 14 13.4057 13.8697 13.6377 13.6377C13.8697 13.4057 14 13.091 14 12.7629C14 12.4349 13.8697 12.1202 13.6377 11.8882L8.74638 7Z" fill="#6A6B74" />
+                        </svg>
+
                         <div className="flex w-full justify-center">
 
                             <svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
