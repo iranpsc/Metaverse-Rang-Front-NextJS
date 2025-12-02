@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: { params: { lang: string } })
       type: 'website',
       // url: `https://rgb.irpsc.com/posts/${params.id}`,
       title: findByUniqueId(mainData, 593),
-      description: "اینجا مجموعه‌ای از شناسه‌های رند و کمیاب قرار گرفته که به دلیل سادگی و ارزش بالای عددی، انتخابی متفاوت نسبت به شناسه‌های معمولی محسوب می‌شوند. هر شناسه با جزئیات دقیق نمایش داده شده تا بتوانید بدون دردسر مناسب‌ترین گزینه را انتخاب و خریداری کنید. هدف ما ارائه انتخاب‌های واقعی، شفاف و قابل اعتماد است؛ شما فقط لیست نمی‌بینید—بلکه بهترین گزینه‌ها را از میان هزاران شناسه آماده خرید در اختیار دارید.",
+      description: findByUniqueId(mainData, 1527),
       locale: params.lang == "fa" ? "fa_IR" : "en_US",
       // site_name: متاورس رنگ,
       url: `https://rgb.irpsc.com/${params.lang}/citizen/rand-is/hm`,
@@ -63,7 +63,7 @@ export default async function RounPage({ params }: { params: { lang: string } })
   ]);
   const mainData = await getMainFile(langData);
   const title = findByUniqueId(mainData, 1484)
-  const desc = findByUniqueId(mainData, 596).slice(0, 200)
+  const desc = findByUniqueId(mainData, 1527).slice(0, 200)
   const citizenData = [
     {
       id: "HM-2000100",
@@ -330,7 +330,7 @@ export default async function RounPage({ params }: { params: { lang: string } })
             "@type": "Product",
             name: findByUniqueId(mainData, 1484),
             description: findByUniqueId(mainData, 596)?.slice(0, 300) ||
-              "مجموعه‌ای از شناسه‌های رند و کمیاب متاورس رنگ با ارزش عددی بالا و الگوهای خاص، آماده خرید فوری.",
+              findByUniqueId(mainData, 1527),
             image: "https://rgb.irpsc.com/logo.png",
             brand: {
               "@type": "Brand",
@@ -440,7 +440,7 @@ export default async function RounPage({ params }: { params: { lang: string } })
               {findByUniqueId(mainData, 1484)}
             </h1>
             <p className="text-lightGray  dark:text-lightGray font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center px-5 lg:px-10">
-              اینجا مجموعه‌ای از شناسه‌های رند و کمیاب قرار گرفته که به دلیل سادگی و ارزش بالای عددی، انتخابی متفاوت نسبت به شناسه‌های معمولی محسوب می‌شوند. هر شناسه با جزئیات دقیق نمایش داده شده تا بتوانید بدون دردسر مناسب‌ترین گزینه را انتخاب و خریداری کنید. هدف ما ارائه انتخاب‌های واقعی، شفاف و قابل اعتماد است؛ شما فقط لیست نمی‌بینید—بلکه بهترین گزینه‌ها را از میان هزاران شناسه آماده خرید در اختیار دارید.
+            {findByUniqueId(mainData, 1527)}
             </p>
             <div className="flex justify-center w-full px-5 lg:px-0">
               <SearchComponent

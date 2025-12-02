@@ -88,6 +88,13 @@ export default function BreadCrumb({ params, eventTitle }: { params: any; eventT
           },
         ]
       : []),
+       {
+      name: "rand-id",
+      en: "Random Metaverse IDs",
+      fa: "شناسه های رند متاورس",
+      font: "font-normal",
+      link: `/${params.lang}/citizens/rand-id/hm`,
+    },
     {
       name: "login",
       en: "login",

@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useRef, useEffect } from "react";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-
+import EmailModal from "./EmailModal";
 interface CurrencyType {
     key: string;
     label: string;
@@ -55,7 +55,7 @@ const RondCard: React.FC<RondCardProps> = ({ item, mainData, params }) => {
         c.label.toLowerCase().includes(query.toLowerCase()) ||
         c.key.toLowerCase().includes(query.toLowerCase())
     );
-
+    
     return (
         <>
             {/* --- CARD --- */}
@@ -180,51 +180,8 @@ const RondCard: React.FC<RondCardProps> = ({ item, mainData, params }) => {
             </div>
 
             {/* --- MODAL --- */}
-            {modalOpen && (
-                <div className="fixed inset-0 flex items-center justify-center z-50">
+            <EmailModal open={modalOpen} onClose={() => setModalOpen(false)} mainData={mainData} params={params} id={item.id}/>
 
-                    {/* BACKDROP */}
-                    <div
-                        onClick={() => setModalOpen(false)}
-                        className="absolute inset-0 bg-black/25 backdrop-blur-sm">
-                    </div>
-
-                    {/* MODAL BOX */}
-                    <div className="  bg-white xl:ms-[5vw] 2xl:ms-[8vw] dark:bg-[#0C0D0F] rounded-xl p-5 2xl:p-10 w-[90%] max-w-xl shadow-xl z-50  flex flex-col gap-5 relative">
-
-                        <svg onClick={() => setModalOpen(false)} className="absolute start-[25px] top-[25px] cursor-pointer" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M8.74638 7L13.6346 2.11179C13.8666 1.88021 13.9971 1.56595 13.9974 1.23815C13.9977 0.910351 13.8677 0.595863 13.6361 0.36387C13.4045 0.131876 13.0903 0.00138122 12.7625 0.00109174C12.4347 0.000802246 12.1202 0.130742 11.8882 0.362326L7 5.25054L2.11179 0.362326C1.8798 0.130333 1.56515 0 1.23706 0C0.90897 0 0.59432 0.130333 0.362326 0.362326C0.130333 0.59432 0 0.90897 0 1.23706C0 1.56515 0.130333 1.8798 0.362326 2.11179L5.25054 7L0.362326 11.8882C0.130333 12.1202 0 12.4349 0 12.7629C0 13.091 0.130333 13.4057 0.362326 13.6377C0.59432 13.8697 0.90897 14 1.23706 14C1.56515 14 1.8798 13.8697 2.11179 13.6377L7 8.74946L11.8882 13.6377C12.1202 13.8697 12.4349 14 12.7629 14C13.091 14 13.4057 13.8697 13.6377 13.6377C13.8697 13.4057 14 13.091 14 12.7629C14 12.4349 13.8697 12.1202 13.6377 11.8882L8.74638 7Z" fill="#6A6B74" />
-                        </svg>
-
-                        <div className="flex w-full justify-center">
-
-                            <svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path className="dark:stroke-dark-yellow" d="M41.084 49.5443H16.9173C9.66732 49.5443 4.83398 45.9193 4.83398 37.4609V20.5443C4.83398 12.0859 9.66732 8.46094 16.9173 8.46094H41.084C48.334 8.46094 53.1673 12.0859 53.1673 20.5443V37.4609C53.1673 45.9193 48.334 49.5443 41.084 49.5443Z" stroke="#0066FF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                                <path className="dark:stroke-dark-yellow" d="M41.0827 21.75L33.5185 27.7917C31.0293 29.7733 26.9452 29.7733 24.456 27.7917L16.916 21.75" stroke="#0066FF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-
-                        </div>
-                        <p className="text-lg md:text-xl font-bold text-black dark:text-white text-center">
-                            ایمیل خود را وارد کنید
-                        </p>
-                        <p className="text-sm md:text-lg text-center text-[#868B90]">مالکیت شناسه ای که انتخاب کرده اید به ایمیل وارد شده اختصاص خواهد یافت و ایمیل میبایست قبلا در متارنگ استفاده نشده باشد .</p>
-
-                        <input
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder="ایمیل خود را وارد کنید"
-                            className="w-full bg-[#FCFCFC] dark:bg-black mt-3 dark:text-white border-0  placeholder-gray-500 rounded-xl px-3 py-3 text-sm ring-1 ring-[#DEDEE9] dark:ring-[#1A1A18] outline-none"
-                        />
-
-                        <button
-                            className="mx-auto text-base bg-light-primary dark:bg-dark-yellow text-white dark:text-black py-3  rounded-xl font-bold w-full max-w-36 xl:max-w-44 mt-3">
-                            تائید
-                        </button>
-
-                    </div>
-                </div>
-            )}
         </>
     );
 };
