@@ -42,12 +42,12 @@ const EmailModal: React.FC<EmailModalProps> = ({ open, onClose, mainData, params
             {/* BACKDROP */}
             <div
                 onClick={onClose}
-                className="absolute inset-0 bg-black/25 backdrop-blur-sm"
+                className="absolute inset-0  backdrop-blur-sm"
             ></div>
 
             {/* ---------- حالت SUCCESS ---------- */}
             {success ? (
-                <div className="relative py-14 bg-[#0C0D0F] dark:bg-[#0C0D0F] text-white p-8 rounded-xl w-[90%] max-w-xl z-50 flex flex-col items-center gap-6">
+                <div className="relative py-14 bg-white dark:bg-[#0C0D0F] text-white p-8 rounded-xl w-[90%] max-w-xl z-50 flex flex-col items-center gap-6">
 
                     {/* CLOSE BUTTON */}
                     <svg onClick={onClose} className="absolute start-[25px] top-[25px] cursor-pointer" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -62,14 +62,14 @@ const EmailModal: React.FC<EmailModalProps> = ({ open, onClose, mainData, params
                     </svg>
 
                     {/* TEXT */}
-                    <p className="text-center text-base dark:text-white px-7">
+                    <p className="text-center text-base text-black dark:text-white px-7">
                         {findByUniqueId(mainData, 1528)}
                     </p>
 
                     {/* VIEW EMAIL BUTTON */}
                     <button
                         onClick={() => window.open(`mailto:${email}`)}
-                        className="bg-[#F9CC00] text-black font-bold py-3 px-6 rounded-xl flex items-center gap-2"
+                        className="dark:bg-dark-yellow bg-light-primary text-white dark:text-black text  py-3 px-6 rounded-xl flex items-center gap-2"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="16" viewBox="0 0 22 16" fill="none">
                             <path d="M1.45419 16.0031H4.84734V7.76264L2.62546 3.88281L0 4.12713V14.5489C0 15.3523 0.650761 16.0031 1.45419 16.0031Z" fill="#0085F7" />
@@ -77,7 +77,7 @@ const EmailModal: React.FC<EmailModalProps> = ({ open, onClose, mainData, params
                             <path d="M16.4805 1.4581L14.4873 5.26149L16.4805 7.75964L21.3278 4.12413V2.18522C21.3278 0.388068 19.2762 -0.638354 17.8377 0.44018L16.4805 1.4581Z" fill="#FFBC00" />
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M4.8475 7.76248L2.94824 3.75052L4.8475 1.46094L10.6643 5.82352L16.4811 1.46094V7.76248L10.6643 12.1251L4.8475 7.76248Z" fill="#FF4131" />
                             <path d="M0 2.18522V4.12413L4.84734 7.75964V1.4581L3.49008 0.44018C2.05164 -0.638354 0 0.388068 0 2.18522Z" fill="#E51C19" />
-                        </svg><span>{findByUniqueId(mainData, 220)}</span>
+                        </svg><span className="font-semibold text-[14px]">{findByUniqueId(mainData, 220)}</span>
                     </button>
                 </div>
             ) : (

@@ -432,7 +432,7 @@ export default async function RounPage({ params }: { params: { lang: string } })
           className={`w-full mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20 `}
         >
           {/* Breadcrumb */}
-          <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
+          <div className="xl:px-32 lg:px-32 md:px-5 px-5">
             <BreadCrumb params={params} />
           </div>
           <div className="mt-[60px] lg:mt-[40px] xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
