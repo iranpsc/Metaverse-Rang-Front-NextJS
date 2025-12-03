@@ -29,7 +29,7 @@ const citizenData = [
       Solana: "SOL8"
     },
     currencies: [
-      { key: "IRR", label: "ریال", icon: `
+      { key: "IRR", label: findByUniqueId(mainData, 906), icon: `
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path class="stroke-light-primary dark:stroke-dark-primary" d="M25.7331 10.5619V17.4286C25.7331 21.5353 23.3865 23.2952 19.8665 23.2952H8.14644C7.54644 23.2952 6.97311 23.242 6.43978 23.122C6.10645 23.0687 5.78646 22.9753 5.49312 22.8687C3.49312 22.122 2.27979 20.3886 2.27979 17.4286V10.5619C2.27979 6.45526 4.62644 4.69531 8.14644 4.69531H19.8665C22.8531 4.69531 24.9998 5.96197 25.5731 8.85531C25.6665 9.38864 25.7331 9.93526 25.7331 10.5619Z" stroke="#FFC700" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
           <path class="stroke-light-primary dark:stroke-dark-primary" d="M29.7347 14.566V21.4327C29.7347 25.5394 27.3881 27.2993 23.8681 27.2993H12.1481C11.1614 27.2993 10.2681 27.1661 9.49475 26.8727C7.90808 26.2861 6.82807 25.0727 6.44141 23.1261C6.97474 23.2461 7.54807 23.2993 8.14807 23.2993H19.8681C23.3881 23.2993 25.7347 21.5394 25.7347 17.4327V10.566C25.7347 9.93933 25.6814 9.37937 25.5747 8.85938C28.1081 9.39271 29.7347 11.1793 29.7347 14.566Z" stroke="#FFC700" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
@@ -255,7 +255,7 @@ const citizenData = [
       BTC: "₿0.0018" 
     },
     currencies: [
-      { key: "IRR", label: "ریال", icon: `
+      { key: "IRR", label: findByUniqueId(mainData, 906), icon: `
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path class="stroke-light-primary dark:stroke-dark-primary" d="M25.7331 10.5619V17.4286C25.7331 21.5353 23.3865 23.2952 19.8665 23.2952H8.14644C7.54644 23.2952 6.97311 23.242 6.43978 23.122C6.10645 23.0687 5.78646 22.9753 5.49312 22.8687C3.49312 22.122 2.27979 20.3886 2.27979 17.4286V10.5619C2.27979 6.45526 4.62644 4.69531 8.14644 4.69531H19.8665C22.8531 4.69531 24.9998 5.96197 25.5731 8.85531C25.6665 9.38864 25.7331 9.93526 25.7331 10.5619Z" stroke="#FFC700" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
           <path class="stroke-light-primary dark:stroke-dark-primary" d="M29.7347 14.566V21.4327C29.7347 25.5394 27.3881 27.2993 23.8681 27.2993H12.1481C11.1614 27.2993 10.2681 27.1661 9.49475 26.8727C7.90808 26.2861 6.82807 25.0727 6.44141 23.1261C6.97474 23.2461 7.54807 23.2993 8.14807 23.2993H19.8681C23.3881 23.2993 25.7347 21.5394 25.7347 17.4327V10.566C25.7347 9.93933 25.6814 9.37937 25.5747 8.85938C28.1081 9.39271 29.7347 11.1793 29.7347 14.566Z" stroke="#FFC700" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
@@ -264,7 +264,7 @@ const citizenData = [
           <path class="stroke-light-primary dark:stroke-dark-primary" d="M21.6289 11.0703V16.937" stroke="#FFC700" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
           ` },
-      { key: "USD", label: "Dollar", icon: `
+      { key: "USD", label: findByUniqueId(mainData, 1495), icon: `
           <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="14" cy="14" r="14" fill="#00A94B"/>
           <path d="M9.625 17.0625C9.625 18.758 10.9237 20.125 12.5373 20.125H15.83C17.2337 20.125 18.375 18.9289 18.375 17.4568C18.375 15.8533 17.6797 15.2881 16.6434 14.9201L11.3566 13.0799C10.3203 12.7119 9.625 12.1467 9.625 10.5432C9.625 9.07108 10.7663 7.875 12.17 7.875H15.4627C17.0763 7.875 18.375 9.24195 18.375 10.9375" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -291,7 +291,7 @@ const citizenData = [
       BTC: "₿0.0011" 
     },
     currencies: [
-      { key: "IRR", label: "ریال", icon: `
+      { key: "IRR", label: findByUniqueId(mainData, 906), icon: `
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path class="stroke-light-primary dark:stroke-dark-primary" d="M25.7331 10.5619V17.4286C25.7331 21.5353 23.3865 23.2952 19.8665 23.2952H8.14644C7.54644 23.2952 6.97311 23.242 6.43978 23.122C6.10645 23.0687 5.78646 22.9753 5.49312 22.8687C3.49312 22.122 2.27979 20.3886 2.27979 17.4286V10.5619C2.27979 6.45526 4.62644 4.69531 8.14644 4.69531H19.8665C22.8531 4.69531 24.9998 5.96197 25.5731 8.85531C25.6665 9.38864 25.7331 9.93526 25.7331 10.5619Z" stroke="#FFC700" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
           <path class="stroke-light-primary dark:stroke-dark-primary" d="M29.7347 14.566V21.4327C29.7347 25.5394 27.3881 27.2993 23.8681 27.2993H12.1481C11.1614 27.2993 10.2681 27.1661 9.49475 26.8727C7.90808 26.2861 6.82807 25.0727 6.44141 23.1261C6.97474 23.2461 7.54807 23.2993 8.14807 23.2993H19.8681C23.3881 23.2993 25.7347 21.5394 25.7347 17.4327V10.566C25.7347 9.93933 25.6814 9.37937 25.5747 8.85938C28.1081 9.39271 29.7347 11.1793 29.7347 14.566Z" stroke="#FFC700" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
@@ -328,7 +328,7 @@ const citizenData = [
       USDT: "T82.77"
     },
     currencies: [
-      { key: "IRR", label: "ریال", icon: `
+      { key: "IRR", label: findByUniqueId(mainData, 906), icon: `
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path class="stroke-light-primary dark:stroke-dark-primary" d="M25.7331 10.5619V17.4286C25.7331 21.5353 23.3865 23.2952 19.8665 23.2952H8.14644C7.54644 23.2952 6.97311 23.242 6.43978 23.122C6.10645 23.0687 5.78646 22.9753 5.49312 22.8687C3.49312 22.122 2.27979 20.3886 2.27979 17.4286V10.5619C2.27979 6.45526 4.62644 4.69531 8.14644 4.69531H19.8665C22.8531 4.69531 24.9998 5.96197 25.5731 8.85531C25.6665 9.38864 25.7331 9.93526 25.7331 10.5619Z" stroke="#FFC700" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
           <path class="stroke-light-primary dark:stroke-dark-primary" d="M29.7347 14.566V21.4327C29.7347 25.5394 27.3881 27.2993 23.8681 27.2993H12.1481C11.1614 27.2993 10.2681 27.1661 9.49475 26.8727C7.90808 26.2861 6.82807 25.0727 6.44141 23.1261C6.97474 23.2461 7.54807 23.2993 8.14807 23.2993H19.8681C23.3881 23.2993 25.7347 21.5394 25.7347 17.4327V10.566C25.7347 9.93933 25.6814 9.37937 25.5747 8.85938C28.1081 9.39271 29.7347 11.1793 29.7347 14.566Z" stroke="#FFC700" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
@@ -370,7 +370,7 @@ const citizenData = [
       BTC: "₿0.0016" 
     },
     currencies: [
-      { key: "IRR", label: "ریال", icon: `
+      { key: "IRR", label: findByUniqueId(mainData, 906), icon: `
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path class="stroke-light-primary dark:stroke-dark-primary" d="M25.7331 10.5619V17.4286C25.7331 21.5353 23.3865 23.2952 19.8665 23.2952H8.14644C7.54644 23.2952 6.97311 23.242 6.43978 23.122C6.10645 23.0687 5.78646 22.9753 5.49312 22.8687C3.49312 22.122 2.27979 20.3886 2.27979 17.4286V10.5619C2.27979 6.45526 4.62644 4.69531 8.14644 4.69531H19.8665C22.8531 4.69531 24.9998 5.96197 25.5731 8.85531C25.6665 9.38864 25.7331 9.93526 25.7331 10.5619Z" stroke="#FFC700" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
           <path class="stroke-light-primary dark:stroke-dark-primary" d="M29.7347 14.566V21.4327C29.7347 25.5394 27.3881 27.2993 23.8681 27.2993H12.1481C11.1614 27.2993 10.2681 27.1661 9.49475 26.8727C7.90808 26.2861 6.82807 25.0727 6.44141 23.1261C6.97474 23.2461 7.54807 23.2993 8.14807 23.2993H19.8681C23.3881 23.2993 25.7347 21.5394 25.7347 17.4327V10.566C25.7347 9.93933 25.6814 9.37937 25.5747 8.85938C28.1081 9.39271 29.7347 11.1793 29.7347 14.566Z" stroke="#FFC700" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
@@ -407,7 +407,7 @@ const citizenData = [
       USDT: "T71.85"
     },
     currencies: [
-      { key: "IRR", label: "ریال", icon: `
+      { key: "IRR", label: findByUniqueId(mainData, 906), icon: `
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path class="stroke-light-primary dark:stroke-dark-primary" d="M25.7331 10.5619V17.4286C25.7331 21.5353 23.3865 23.2952 19.8665 23.2952H8.14644C7.54644 23.2952 6.97311 23.242 6.43978 23.122C6.10645 23.0687 5.78646 22.9753 5.49312 22.8687C3.49312 22.122 2.27979 20.3886 2.27979 17.4286V10.5619C2.27979 6.45526 4.62644 4.69531 8.14644 4.69531H19.8665C22.8531 4.69531 24.9998 5.96197 25.5731 8.85531C25.6665 9.38864 25.7331 9.93526 25.7331 10.5619Z" stroke="#FFC700" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
           <path class="stroke-light-primary dark:stroke-dark-primary" d="M29.7347 14.566V21.4327C29.7347 25.5394 27.3881 27.2993 23.8681 27.2993H12.1481C11.1614 27.2993 10.2681 27.1661 9.49475 26.8727C7.90808 26.2861 6.82807 25.0727 6.44141 23.1261C6.97474 23.2461 7.54807 23.2993 8.14807 23.2993H19.8681C23.3881 23.2993 25.7347 21.5394 25.7347 17.4327V10.566C25.7347 9.93933 25.6814 9.37937 25.5747 8.85938C28.1081 9.39271 29.7347 11.1793 29.7347 14.566Z" stroke="#FFC700" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
