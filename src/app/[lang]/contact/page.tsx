@@ -10,7 +10,7 @@ import BreadCrumb from "@/components/shared/BreadCrumb";
 import { WhatsAppIcon, ContactDownArrow } from "@/components/svgs";
 import Form from "./components/form";
 // import Social from "./components/social";
-import Test from "./components/Test";
+import CommunicationRoutes from "./components/CommunicationRoutes";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 // SEO**
 export async function generateMetadata({ params }: any) {
@@ -85,11 +85,9 @@ export default async function AboutPage({ params }: any) {
   const aboutSchema = {
     "@context": "https://schema.org",
     "@type": "ContactPage",
-    name: params.lang.toLowerCase() === "fa" ? "تماس با ما" : "Contact Us",
+    name: findByUniqueId(mainData, 260),
     description:
-      params.lang.toLowerCase() === "fa"
-        ? "ما در متاورس رنگ معتقدیم که توسعه این دنیای موازی و مجازی تنها با مشارکت و همفکری عمومی امکان‌پذیر است. زیرساخت‌های این جهان بر پایه‌ی واحد حدتاثیر بنا شده‌اند تا بتوانند نظرات و ایده‌های شما را به بهترین شکل در مسیر توسعه هدایت کنند. ارتباط با انجمن متاورس ایران و دانشگاه متاورس ایران از طریق این پلتفرم به راحتی امکان‌پذیر است."
-        : "", // Add English description if needed
+      findByUniqueId(mainData, 1535),
     url: `https://rgb.irpsc.com/${params.lang}/contact`,
 
     contentLocation: {
@@ -134,16 +132,34 @@ export default async function AboutPage({ params }: any) {
       // Contact Point (Customer Service)
       "contactPoint": [
         {
-         "@type": "ContactPoint",
-        "telephone": "+989120820120",
-        "contactType": "customer service",
-        "availableLanguage": ["Persian", "English"]
+          "@type": "ContactPoint",
+          "telephone": "+989301916023",
+          "contactType": findByUniqueId(mainData, 1536),
+          "availableLanguage": ["Persian", "English"]
         },
         {
-      "@type": "ContactPoint",
-        "telephone": "+989120820121",
-        "contactType": "sales",
-        "availableLanguage": ["Persian", "English"]
+          "@type": "ContactPoint",
+          "telephone": "+989301916023",
+          "contactType": findByUniqueId(mainData, 1538),
+          "availableLanguage": ["Persian", "English"]
+        },
+        {
+          "@type": "ContactPoint",
+          "telephone": "+989301916023",
+          "contactType": findByUniqueId(mainData, 1540),
+          "availableLanguage": ["Persian", "English"]
+        },
+        {
+          "@type": "ContactPoint",
+          "telephone": "+989370820120",
+          "contactType": findByUniqueId(mainData, 1542),
+          "availableLanguage": ["Persian", "English"]
+        },
+        {
+          "@type": "ContactPoint",
+          "telephone": "+989370820120",
+          "contactType": findByUniqueId(mainData, 1544),
+          "availableLanguage": ["Persian", "English"]
         },
       ],
 
@@ -187,7 +203,7 @@ export default async function AboutPage({ params }: any) {
               </div>
             </div>
             <div>
-              <div className="w-full mt-20 mb-[68px]"> <Test params={params} mainData={mainData} /></div>
+              <div className="w-full mt-20 mb-[68px]"> <CommunicationRoutes params={params} mainData={mainData} /></div>
               <div className="text-center mx-auto text-xl md:text-2xl space-y-2">
                 <p className="font-rokh font-bold dark:text-white"> {findByUniqueId(mainData, 260)}</p>
                 <p className="text-lightGray md:text-xl"> {findByUniqueId(mainData, 1551)}</p>
@@ -201,8 +217,8 @@ export default async function AboutPage({ params }: any) {
                     <div>
                       <p
                         className={`${params.lang.toLowerCase() == "fa"
-                            ? "lg:text-right"
-                            : "lg:text-left"
+                          ? "lg:text-right"
+                          : "lg:text-left"
                           } text-darkGray dark:text-Field py-1 text-center text-sm md:text-base`}
                       >
                         {findByUniqueId(mainData, 1552)}
@@ -216,7 +232,7 @@ export default async function AboutPage({ params }: any) {
                   <div className="flex flex-col gap-7 w-full lg:w-1/2 justify-center lg:justify-start ">
                     <div className="flex flex-col md:flex-row md:flex-wrap w-full items-center justify-between gap-6 ">
                     </div>
-                    <div className="aspect-[5/3]">
+                    <div className="aspect-[5/3] md:mt-[32px]">
                       <iframe
                         src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12860.972378290073!2d50.0287883!3d36.3064114!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f8b5551db33af95%3A0xa19dc982418e7204!2sMetaRgb!5e0!3m2!1sen!2s!4v1732341818636!5m2!1sen!2s"
                         style={{ border: "0" }}

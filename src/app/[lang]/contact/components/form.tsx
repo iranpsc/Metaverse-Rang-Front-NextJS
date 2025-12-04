@@ -62,6 +62,8 @@ export default function ContactForm({ params }: any) {
       alert("There was an error submitting the form. Please try again later.");
     }
   };
+  const isFormValid = Object.values(formData).every((value) => value.trim() !== "");
+
   return (
     <form onSubmit={handleSubmit}>
       <div className="grid lg:grid-cols-2 gap-3 md:gap-5">
@@ -69,7 +71,7 @@ export default function ContactForm({ params }: any) {
           <div className="flex flex-col gap-5">
             <input
               type="text"
-              className="w-full rtl:text-right ltr:text-left h-[50px] bg-grayLight dark:bg-black rounded-[10px] p-4 border-0 dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder"
+              className="w-full rtl:text-right ltr:text-left h-[50px] bg-[#F5F5F5] dark:bg-black rounded-[10px] p-4 border-0 dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder"
               name="name"
               value={formData.name}
               id="name"
@@ -86,7 +88,7 @@ export default function ContactForm({ params }: any) {
           <div className="flex flex-col gap-5">
             <input
               type="tel"
-              className={`w-full rtl:text-right ltr:text-left h-[50px] bg-grayLight dark:bg-black rounded-[10px] p-4 border-0 dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder`}
+              className={`w-full rtl:text-right ltr:text-left h-[50px] bg-[#F5F5F5] dark:bg-black rounded-[10px] p-4 border-0 dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder`}
               name="phoneNo"
               value={formData.phoneNo}
               id="phoneNo"
@@ -104,7 +106,7 @@ export default function ContactForm({ params }: any) {
           <div className="flex flex-col gap-5">
             <input
               type="text"
-              className="w-full rtl:text-right ltr:text-left h-[50px] bg-grayLight dark:bg-black rounded-[10px] p-4 border-0 dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder"
+              className="w-full rtl:text-right ltr:text-left h-[50px] bg-[#F5F5F5] dark:bg-black rounded-[10px] p-4 border-0 dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder"
               name="email"
               value={formData.email}
               id="email"
@@ -120,7 +122,7 @@ export default function ContactForm({ params }: any) {
           <div className="flex flex-col gap-5">
             <input
               type="text"
-              className="w-full rtl:text-right ltr:text-left h-[50px] bg-grayLight dark:bg-black rounded-[10px] p-4 border-0 dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder"
+              className="w-full rtl:text-right ltr:text-left h-[50px] bg-[#F5F5F5] dark:bg-black rounded-[10px] p-4 border-0 dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder"
               name="title"
               value={formData.title}
               id="title"
@@ -137,9 +139,9 @@ export default function ContactForm({ params }: any) {
       <div className="flex flex-col gap-3 md:gap-5 w-full mt-2 md:mt-5">
         <div className="flex flex-col">
           <textarea
-            className="w-full rtl:text-right ltr:text-left bg-grayLight dark:bg-black rounded-[10px] p-4 border-0 dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder"
+            className="w-full rtl:text-right ltr:text-left bg-[#F5F5F5] dark:bg-black rounded-[10px] p-4 border-0 dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder"
             id="message"
-            rows={5}
+            rows={7}
             placeholder={
               params.lang.toLowerCase() == "fa"
                 ? "پیام خود را اینجا بنویسید..."
@@ -150,12 +152,19 @@ export default function ContactForm({ params }: any) {
             value={formData.message}
           ></textarea>
         </div>
+
         <button
-          type="submit"
-          className="mt-[4px] text-[19px] bg-blueLink dark:bg-dark-yellow dark:text-black w-full text-white font-bold text-center p-4 rounded-[10px] active:scale-105"
-        >
-          {params.lang.toLowerCase() == "fa" ? "ارسال پیام" : "Send"}
-        </button>
+  type="submit"
+  disabled={!isFormValid}
+  className={`mt-[4px] text-[19px] w-full md:w-[48%] font-bold py-2 rounded-[10px] active:scale-105 transition 
+    ${isFormValid 
+      ? "dark:bg-dark-yellow dark:text-black bg-light-primary text-white cursor-pointer" 
+      : "bg-[#ECECEC] text-[#656565] cursor-not-allowed border border-gray-300"
+    }`}
+>
+  {params.lang.toLowerCase() == "fa" ? "ارسال پیام" : "Send"}
+</button>
+
       </div>
     </form>
   );
