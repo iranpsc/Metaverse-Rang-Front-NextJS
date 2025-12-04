@@ -58,7 +58,7 @@ const RondCard: React.FC<RondCardProps> = ({ item, mainData, params }) => {
     );
 
     /** لیست آیکون‌هایی که در نوار بالا نمایش داده می‌شوند */
-    const baseTopKeys = ["IRR", "USD", "BTC", "ETC", "USDT", "B&B", "ripple"];
+    const baseTopKeys = ["IRR", "USD", "BTC", "ETC", "USDT", "B&B"];
     const topKeys = baseTopKeys.includes(selectedCurrency.key)
         ? baseTopKeys
         : [
@@ -126,7 +126,7 @@ const RondCard: React.FC<RondCardProps> = ({ item, mainData, params }) => {
                                                         setDropdownOpen(false);
                                                     }}
                                                     className={`w-full text-right px-4 flex items-center justify-between bg-transparent
-        ${selectedCurrency.key === c.key ? "text-yellow-500 font-bold" : " dark:text-white"}
+        ${selectedCurrency.key === c.key ? "text-light-primary dark:text-dark-yellow font-semibold" : " dark:text-white"}
     `}
                                                 >
                                                     <div className="flex items-center gap-3">

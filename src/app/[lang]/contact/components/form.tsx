@@ -71,7 +71,7 @@ export default function ContactForm({ params }: any) {
           <div className="flex flex-col gap-5">
             <input
               type="text"
-              className="w-full rtl:text-right ltr:text-left h-[50px] bg-[#F5F5F5] dark:bg-black rounded-[10px] p-4 border-0 dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder"
+              className="w-full rtl:text-right ltr:text-left h-[50px] bg-[#F5F5F5] dark:bg-black rounded-[10px] p-4 border-0 dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder ring-1 ring-transparent focus:ring-1 outline-0 focus:ring-light-primary dark:focus:ring-dark-primary"
               name="name"
               value={formData.name}
               id="name"
@@ -88,7 +88,7 @@ export default function ContactForm({ params }: any) {
           <div className="flex flex-col gap-5">
             <input
               type="tel"
-              className={`w-full rtl:text-right ltr:text-left h-[50px] bg-[#F5F5F5] dark:bg-black rounded-[10px] p-4 border-0 dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder`}
+              className={`w-full rtl:text-right ltr:text-left h-[50px] bg-[#F5F5F5] dark:bg-black rounded-[10px] p-4 border-0 dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder ring-1 ring-transparent focus:ring-1 outline-0 focus:ring-light-primary dark:focus:ring-dark-primary`}
               name="phoneNo"
               value={formData.phoneNo}
               id="phoneNo"
@@ -106,7 +106,7 @@ export default function ContactForm({ params }: any) {
           <div className="flex flex-col gap-5">
             <input
               type="text"
-              className="w-full rtl:text-right ltr:text-left h-[50px] bg-[#F5F5F5] dark:bg-black rounded-[10px] p-4 border-0 dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder"
+              className="w-full rtl:text-right ltr:text-left h-[50px] bg-[#F5F5F5] dark:bg-black rounded-[10px] p-4 border-0 dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder ring-1 ring-transparent focus:ring-1 outline-0 focus:ring-light-primary dark:focus:ring-dark-primary"
               name="email"
               value={formData.email}
               id="email"
@@ -122,7 +122,7 @@ export default function ContactForm({ params }: any) {
           <div className="flex flex-col gap-5">
             <input
               type="text"
-              className="w-full rtl:text-right ltr:text-left h-[50px] bg-[#F5F5F5] dark:bg-black rounded-[10px] p-4 border-0 dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder"
+              className="w-full rtl:text-right ltr:text-left h-[50px] bg-[#F5F5F5] dark:bg-black rounded-[10px] p-4 border-0 dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder ring-1 ring-transparent focus:ring-1 outline-0 focus:ring-light-primary dark:focus:ring-dark-primary"
               name="title"
               value={formData.title}
               id="title"
@@ -139,7 +139,7 @@ export default function ContactForm({ params }: any) {
       <div className="flex flex-col gap-3 md:gap-5 w-full mt-2 md:mt-5">
         <div className="flex flex-col">
           <textarea
-            className="w-full rtl:text-right ltr:text-left bg-[#F5F5F5] dark:bg-black rounded-[10px] p-4 border-0 dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder"
+            className="w-full mt-1 md:mt-0 rtl:text-right ltr:text-left bg-[#F5F5F5] dark:bg-black rounded-[10px] p-4 border-0 dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder ring-1 ring-transparent focus:ring-1 outline-0 focus:ring-light-primary dark:focus:ring-dark-primary"
             id="message"
             rows={7}
             placeholder={

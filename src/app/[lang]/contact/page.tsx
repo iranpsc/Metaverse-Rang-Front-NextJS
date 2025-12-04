@@ -203,12 +203,12 @@ export default async function AboutPage({ params }: any) {
               </div>
             </div>
             <div>
-              <div className="w-full mt-20 mb-[68px]"> <CommunicationRoutes params={params} mainData={mainData} /></div>
-              <div className="text-center mx-auto text-xl md:text-2xl space-y-2">
-                <p className="font-rokh font-bold dark:text-white"> {findByUniqueId(mainData, 260)}</p>
-                <p className="text-lightGray md:text-xl"> {findByUniqueId(mainData, 1551)}</p>
+              <div className="w-full mt-[60px] "> <CommunicationRoutes params={params} mainData={mainData} /></div>
+              <div className="text-center mx-auto text-xl md:text-2xl space-y-2 mt-7">
+                <p className="font-rokh font-bold dark:text-white text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px]"> {findByUniqueId(mainData, 260)}</p>
+                <p className="text-lightGray  text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] px-5"> {findByUniqueId(mainData, 1551)}</p>
               </div>
-              <main className="overflow-x-hidden w-full bg-white dark:bg-[#1A1A18] rounded-xl dark:text-white py-5 px-2 md:px-4 lg:p-7 mt-10">
+              <main className="overflow-x-hidden w-full bg-white dark:bg-[#1A1A18] rounded-xl dark:text-white py-5 px-2 md:px-4 lg:p-7 mt-7">
 
 
 
@@ -219,7 +219,7 @@ export default async function AboutPage({ params }: any) {
                         className={`${params.lang.toLowerCase() == "fa"
                           ? "lg:text-right"
                           : "lg:text-left"
-                          } text-darkGray dark:text-Field py-1 text-center text-sm md:text-base`}
+                          } text-darkGray dark:text-Field py-1 text-center text-sm md:text-base pb-4 md:pb-0`}
                       >
                         {findByUniqueId(mainData, 1552)}
                       </p>
@@ -229,16 +229,16 @@ export default async function AboutPage({ params }: any) {
                       <Form params={params} />
                     </div>
                   </div>
-                  <div className="flex flex-col gap-7 w-full lg:w-1/2 justify-center lg:justify-start ">
+                  <div className="flex flex-col gap-7 w-full lg:w-1/2 justify-center lg:justify-start w-full">
                     <div className="flex flex-col md:flex-row md:flex-wrap w-full items-center justify-between gap-6 ">
                     </div>
-                    <div className="aspect-[5/3] md:mt-[32px]">
+                    <div className="aspect-[5/3] w-full md:mt-[32px]">
                       <iframe
                         src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12860.972378290073!2d50.0287883!3d36.3064114!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f8b5551db33af95%3A0xa19dc982418e7204!2sMetaRgb!5e0!3m2!1sen!2s!4v1732341818636!5m2!1sen!2s"
                         style={{ border: "0" }}
                         loading="lazy"
                         referrerPolicy="no-referrer-when-downgrade"
-                        className="w-full h-full rounded-xl"
+                        className="w-full h-full rounded-xl dark:invert dark:brightness-95 dark:hue-rotate-180"
                         title={
                           params.lang.toLowerCase() == "fa" ? "نقشه" : "map"
                         }

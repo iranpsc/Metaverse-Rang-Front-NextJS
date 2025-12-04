@@ -95,7 +95,7 @@ export default async function LangLayout({ children, params }: any) {
               </div>}>
               {children}
      
-                <div className="w-full xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
+                <div className="w-full xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1 bg-[#f8f8f8] dark:bg-black">
                   <FooterClient footerTabs={footerTabs} mainData={mainData} params={params} />
                 </div>
               
