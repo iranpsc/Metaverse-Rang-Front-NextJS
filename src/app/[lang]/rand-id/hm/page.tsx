@@ -444,7 +444,7 @@ export default async function RounPage({ params }: { params: { lang: string } })
             </p>
             <div className="flex justify-center w-full px-5 lg:px-0">
               <SearchComponent
-                searchLevel='citizen'
+                searchLevel='rand_id'
                 mainData={mainData}
                 params={params}
               />

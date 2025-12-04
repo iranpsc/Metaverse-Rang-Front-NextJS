@@ -41,6 +41,9 @@ export default function SectionInputSearch({
     if (searchLevel === "articles") {
       return findByUniqueId(mainData, 1515) || "جستجو میان مقالات...";
     }
+    if (searchLevel === "rand_id") {
+      return findByUniqueId(mainData, 57) || "جستجو میان شناسه ها...";
+    }
     return "جستجو...";
   };
 

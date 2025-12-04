@@ -2,6 +2,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import EmailModal from "./EmailModal";
+
 interface CurrencyType {
     key: string;
     label: string;
@@ -36,7 +37,6 @@ const RondCard: React.FC<RondCardProps> = ({ item, mainData, params }) => {
     const dropdownRef = useRef<HTMLDivElement>(null);
 
     const [modalOpen, setModalOpen] = useState(false);
-    const [email, setEmail] = useState("");
 
     const price = item.prices[selectedCurrency.key];
 
@@ -51,15 +51,27 @@ const RondCard: React.FC<RondCardProps> = ({ item, mainData, params }) => {
         return () => window.removeEventListener("click", handler);
     }, []);
 
+    /** فیلتر ارزها */
     const filteredCurrencies = item.currencies.filter((c) =>
         c.label.toLowerCase().includes(query.toLowerCase()) ||
         c.key.toLowerCase().includes(query.toLowerCase())
     );
-    
+
+    /** لیست آیکون‌هایی که در نوار بالا نمایش داده می‌شوند */
+    const baseTopKeys = ["IRR", "USD", "BTC", "ETC", "USDT", "B&B", "ripple"];
+    const topKeys = baseTopKeys.includes(selectedCurrency.key)
+        ? baseTopKeys
+        : [
+            ...baseTopKeys.slice(0, baseTopKeys.length - 1),
+            selectedCurrency.key
+        ];
+    /** آیا ارز انتخاب‌شده جزو آیکون‌های بالاست؟ */
+    const selectedExistsInTop = topKeys.includes(selectedCurrency.key);
+
     return (
         <>
             {/* --- CARD --- */}
-            <div className="bg-white md:h-[252px] shadow-lg dark:bg-dark-background rounded-2xl p-5 dark:text-white text-gray-100 flex flex-col gap-5 md:gap-9">
+            <div className="bg-white md:h-[252px] shadow-lg dark:bg-[#1A1A18]  rounded-2xl p-5 dark:text-white text-gray-100 flex flex-col gap-5 md:gap-9">
 
                 {/* header */}
                 <div className="flex justify-between items-start">
@@ -73,13 +85,9 @@ const RondCard: React.FC<RondCardProps> = ({ item, mainData, params }) => {
 
                 {/* price bar */}
                 <div className={`flex flex-col gap-2 bg-[#F8F8F8] dark:bg-black pt-3 rounded-xl px-3 relative          
-                ${dropdownOpen
-                        ? " rounded-b-0 pb-2 "
-                        : " "
-                    }`}>
+                ${dropdownOpen ? " rounded-b-0 pb-2 " : " "}
+                `}>
                     <div className="flex items-center justify-center lg:justify-between">
-
-
 
                         <div className="flex items-center gap-2 justify-between w-full ">
                             <div ref={dropdownRef}>
@@ -96,16 +104,18 @@ const RondCard: React.FC<RondCardProps> = ({ item, mainData, params }) => {
                                 </div>
 
                                 {dropdownOpen && (
-                                    <div className="absolute pb-5  bg-[#F8F8F8] text-black dark:bg-black mt-2 w-full top-[55px] rounded-b-xl  z-30 right-0 border border-gray-700  shadow-lg text-gray-200">
+                                    <div className="absolute pb-5 bg-[#F8F8F8] text-black dark:bg-black mt-2 w-full top-[55px] rounded-b-xl z-30 right-0 border border-gray-700 shadow-lg text-gray-200">
+
                                         <div className="p-3">
                                             <input
-
                                                 value={query}
                                                 onChange={(e) => setQuery(e.target.value)}
                                                 placeholder={findByUniqueId(mainData, 57) + " ..."}
-                                                className="w-full bg-[#FCFCFC] dark:bg-[#1A1A18] dark:text-white border-0  placeholder-gray-500 rounded-xl px-3 py-3 text-[16px] ring-1 ring-[#DEDEE9] dark:ring-[#1A1A18] outline-none"
+                                                className="w-full bg-[#FCFCFC] dark:bg-[#1A1A18] dark:text-white border-0 placeholder-gray-500 rounded-xl px-3 py-3 text-[16px] ring-1 ring-[#DEDEE9] dark:ring-[#1A1A18] outline-none"
                                             />
                                         </div>
+
+                                        {/* لیست ارزها */}
                                         <div className="h-[224px] overflow-auto divide-y light-scrollbar dark:dark-scrollbar space-y-3">
                                             {filteredCurrencies.map((c) => (
                                                 <button
@@ -115,26 +125,35 @@ const RondCard: React.FC<RondCardProps> = ({ item, mainData, params }) => {
                                                         setSelectedCurrency(c);
                                                         setDropdownOpen(false);
                                                     }}
-                                                    className="w-full text-right px-4  bg-transparent flex items-center justify-between dark:text-white"
+                                                    className={`w-full text-right px-4 flex items-center justify-between bg-transparent
+        ${selectedCurrency.key === c.key ? "text-yellow-500 font-bold" : " dark:text-white"}
+    `}
                                                 >
-                                                    <div className="flex items-center gap-3 ">
-                                                        <span className="text-lg flex items-center" dangerouslySetInnerHTML={{ __html: c.icon }} />
+                                                    <div className="flex items-center gap-3">
+                                                        <span
+                                                            className="text-lg flex items-center"
+                                                            dangerouslySetInnerHTML={{ __html: c.icon }}
+                                                        />
                                                         <span className="text-sm">{c.label}</span>
                                                     </div>
                                                 </button>
+
                                             ))}
 
                                             {filteredCurrencies.length === 0 && (
                                                 <div className="px-4 py-3 text-sm text-gray-500">موردی یافت نشد</div>
                                             )}
                                         </div>
+
                                     </div>
                                 )}
                             </div>
 
                             {/* icons */}
-                            <div className="flex items-center justify-end  gap-2  w-[90%] overflow-x-hidden">
-                                {[  "ADA","shiba","ETC","USD", "BTC", "USDT", "IRR" ].map((key) => {
+                            <div className="flex flex-row-reverse items-center justify-start gap-2 w-[90%] overflow-x-hidden ">
+
+                                {/* آیکون‌های اصلی */}
+                                {topKeys.map((key) => {
                                     const currency = item.currencies.find(c => c.key === key);
                                     if (!currency) return null;
 
@@ -144,43 +163,65 @@ const RondCard: React.FC<RondCardProps> = ({ item, mainData, params }) => {
                                         <div
                                             key={currency.key}
                                             onClick={() => setSelectedCurrency(currency)}
-                                            className={`w-[40px] h-[40px] px-1 pt-5 pb-7 flex items-center justify-center border-x-0 border-t-0 border-b-2 border-solid text-sm cursor-pointer
-                                                ${isActive
-                                                    ? " border-light-primary dark:border-dark-yellow"
-                                                    : " border-transparent"
-                                                }`}
+                                            className={`w-[40px] h-[40px] px-1 pt-6 pb-6 flex items-center justify-center  border-solid border-t-0 border-x-0
+                border-b-[2px] cursor-pointer
+                ${isActive ? "border-light-primary dark:border-dark-yellow" : "border-transparent"}
+            `}
                                         >
                                             <div
                                                 dangerouslySetInnerHTML={{ __html: currency.icon }}
-                                                className="w-full h-full flex items-center justify-center"
                                             />
                                         </div>
                                     );
                                 })}
+
+
+                                {/* اگر آیکون ارز انتخاب‌شده در لیست نبود → نمایش جداگانه */}
+                                {!selectedExistsInTop && (
+                                    <div
+                                        onClick={() => setSelectedCurrency(selectedCurrency)}
+                                        className="w-[40px] h-[40px] px-1 pt-5 pb-7 flex items-center justify-center 
+            border-b-[2px] border-light-primary dark:border-dark-yellow"
+                                    >
+                                        <div dangerouslySetInnerHTML={{ __html: selectedCurrency.icon }} />
+                                    </div>
+                                )}
+
+
                             </div>
 
                         </div>
 
                     </div>
                 </div>
+
+                {/* bottom section */}
                 <div className="flex justify-between ">
-                    <div className="text-[#1F1F1F] dark:text-[#F2F2F2]  items-center gap-1 text-base md:text-xl flex">
-                        <div>{price}</div>
+                    <div className="text-[#1F1F1F] dark:text-[#F2F2F2] items-center gap-1 text-base md:text-xl flex">
+                        <div> {price}</div>
                     </div>
 
-                    {/* --- BUY BUTTON --- */}
+                    {/* BUY BUTTON */}
                     <div className="flex justify-center">
-                        <button aria-label="BUY BUTTON"
+                        <button
+                            aria-label="BUY BUTTON"
                             onClick={() => setModalOpen(true)}
-                            className="bg-transparent dark:bg-[#1A1A18] w-max font-semibold text-sm px-5 md:px-10 border dark:hover:border-dark-yellow border-light-primary text-light-primary dark:border-transparent dark:text-dark-yellow py-3 rounded-xl  transition">
+                            className="bg-[#f5f9ff] dark:bg-black w-max font-semibold text-sm px-5 md:px-10 border dark:hover:border-dark-yellow hover:border-light-primary text-light-primary dark:border-transparent dark:text-dark-yellow py-3 rounded-xl transition"
+                        >
                             {findByUniqueId(mainData, 1488)}
                         </button>
                     </div>
                 </div>
             </div>
 
-            {/* --- MODAL --- */}
-            <EmailModal open={modalOpen} onClose={() => setModalOpen(false)} mainData={mainData} params={params} id={item.id}/>
+            {/* MODAL */}
+            <EmailModal
+                open={modalOpen}
+                onClose={() => setModalOpen(false)}
+                mainData={mainData}
+                params={params}
+                id={item.id}
+            />
 
         </>
     );

@@ -113,7 +113,7 @@ const EmailModal: React.FC<EmailModalProps> = ({ open, onClose, mainData, params
                                 setError("");
                             }}
                             placeholder={findByUniqueId(mainData, 2) + " ..."}
-                            className={`w-full bg-[#FCFCFC] dark:bg-black mt-3 dark:text-white border-0 rounded-xl px-4 py-3 text-sm ring-1 outline-none transition
+                            className={`w-full bg-[#FCFCFC] dark:bg-black mt-3 dark:text-white border-0 rounded-xl px-4 py-3  ring-1 outline-none transition text-base
                                 ${error ? "ring-[#DE5753]" : "ring-[#DEDEE9] dark:ring-[#1A1A18]"}
                             `}
                         />

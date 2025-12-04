@@ -17,16 +17,16 @@ const citizenData = [
     percent: 76,
     prices: { 
       IRR: ["1,560,000 " + findByUniqueId(mainData, 1487)], 
-      USD: "$37.14", 
-      BTC: "₿0.0013", 
-      USDT: "T37.14" ,
-      ETC: "Ξ0.025",
-      "B&B": "B&B10.5",
-      shiba: "SHIB1,250,000",
-      ripple: "XRP500",
-      ADA: "ADA150",
-      Polkadot: "DOT12",
-      Solana: "SOL8"
+      USD: "37.14 $" , 
+      BTC: "0.0013 ₿", 
+      USDT: "T 37.14" ,
+      ETC: "Ξ 0.025",
+      "B&B": "B&B 10.5",
+      shiba: "SHIB 1,250,000",
+      ripple: "XRP 500",
+      ADA: "ADA 150",
+      Polkadot: "DOT 12",
+      Solana: "SOL 8"
     },
     currencies: [
       { key: "IRR", label: findByUniqueId(mainData, 906), icon: `
