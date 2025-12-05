@@ -28,10 +28,16 @@ export default function SideBarContent({
   const [modalData, setModalData] = useState({});
   const [langDropDown, setLangDropDown] = useState(false);
   const [trainingDropDown, setTrainingDropDown] = useState(false);
+   const [articleDropDown, setArticlesDropDown] = useState(false);
+   const [citizensDropDown, setCitizensDropDown] = useState(false);
+
   const [loading, setLoading] = useState(false);
 
   const dropdownRef = useRef(null);
   const dropdownRef2 = useRef(null);
+    const dropdownRef3 = useRef(null);
+        const dropdownRef4 = useRef(null);
+
 
   // خاموش شدن لودر وقتی صفحه عوض شد
   useEffect(() => {
@@ -39,6 +45,8 @@ export default function SideBarContent({
   }, [pathName]);
 
   const handleTrainingBtn = () => setTrainingDropDown((prev) => !prev);
+  const handleArticlesBtn = () => setArticlesDropDown((prev) => !prev);
+  const handleCitizensBtn = () => setCitizensDropDown((prev) => !prev);
   const handleLangBtn = () => setLangDropDown((prev) => !prev);
 
   useEffect(() => {
@@ -56,6 +64,8 @@ export default function SideBarContent({
 
   // تشخیص اینکه در بخش آموزش هستیم یا نه
   const isEducationSectionActive = pathName.startsWith(`/${params.lang}/education`);
+    const isArticlesSectionActive = pathName.startsWith(`/${params.lang}/articles`);
+    const isCitizensSectionActive = pathName.startsWith(`/${params.lang}/citizens`);
 
   useEffect(() => {
     if (!finalTabsMenu) return;
@@ -124,6 +134,8 @@ export default function SideBarContent({
 
     setMenuItems(updatedMenu);
     setTrainingDropDown(cleanPath.startsWith(`/${params.lang}/education`));
+    setArticlesDropDown(cleanPath.startsWith(`/${params.lang}/articles`));
+    setCitizensDropDown(cleanPath.startsWith(`/${params.lang}/citizens`));
   }, [finalTabsMenu, pathName, params.lang, params.id]);
   // هندلر اصلی کلیک (کلیک چپ + کلیک وسط)
   const handleItemClick = (e, url = null, item = null) => {
@@ -301,6 +313,138 @@ export default function SideBarContent({
                         <ListMenuSvgModule item={{ name: "categories", active: pathName.startsWith(`/${params.lang}/education/category`) }} />
                       </span>
                       <ListMenuTitleModule item={{ translation: params.lang === "fa" ? "دسته‌بندی‌ها" : "Categories", active: pathName.startsWith(`/${params.lang}/education/category`) }} isClosed={isClosed} />
+                    </div>
+                  </div>
+                </div>
+              </li>
+            )}
+             {item.unique_id == 258 && (
+              <li style={{ order: "-1" }}>
+                <Tooltip
+                  title={params.lang === "fa" ? " مقالات متارنگ" : "MetaRang Articles"}
+                  placement={langData.direction === "rtl" ? "left-end" : "right-end"}
+                  arrow
+                  slotProps={{
+                    tooltip: {
+                      className: `!bg-[#E9E9E9] !text-[#908F95] dark:!bg-[#434343] dark:!text-white !font-azarMehr !font-medium !text-[14px] ${isClosed ? "block" : "hidden"}`,
+                    },
+                    arrow: { className: "!text-[#E9E9E9] dark:!text-[#434343]" },
+                  }}
+                >
+                  <div onClick={handleArticlesBtn} className="cursor-pointer">
+                    <div className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px] menu-transition
+                      ${isArticlesSectionActive ? "text-[#0066FF] dark:text-[#FFC700]" : "text-gray-700 dark:text-gray-300"}
+                      group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700]
+                      ${isClosed ? "justify-start gap-0" : "justify-start gap-2"}`}>
+                      <ListMenuActiveIconModule item={{ active: isArticlesSectionActive }} languageSelected={langData.code} isClosed={isClosed} />
+                      <span className="ps-[15px]">
+                        <ListMenuSvgModule item={{ unique_id: 258, active: isArticlesSectionActive }} />
+                      </span>
+                      <div className="w-full flex justify-between items-center">
+                        <ListMenuTitleModule
+                          item={{ translation: params.lang === "fa" ? " مقالات متارنگ" : "MetaRang Articles", active: isArticlesSectionActive }}
+                          isClosed={isClosed}
+                        />
+                        <ListMenuArrow item={{ name: "trainings" }} isOpen={articleDropDown} isClosed={isClosed} />
+                      </div>
+                    </div>
+                  </div>
+                </Tooltip>
+
+                <div ref={dropdownRef3} className={`${articleDropDown ? "h-fit" : "h-0 overflow-hidden"} base-transition-1 bg-slate-100 dark:bg-darkGray`}>
+                  {/* آموزش‌ها */}
+                  <div
+                    onMouseDown={(e) => handleItemClick(e, "/articles")}
+                    className={`block w-full py-[12px] 3xl:py-[16px] menu-transition cursor-pointer
+                      ${pathName === `/${params.lang}/articles` || pathName === `/${params.lang}/articles/` ? "text-[#0066FF] dark:text-[#FFC700]" : "text-gray-600 dark:text-gray-400"}
+                      hover:text-[#0066FF] dark:hover:text-[#FFC700] ${isClosed ? "ps-0" : "ps-3"}`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="ps-[15px]">
+                        <ListMenuSvgModule item={{ unique_id: 258, active: pathName === `/${params.lang}/articles` || pathName === `/${params.lang}/articles/` }} />
+                      </span>
+                      <ListMenuTitleModule item={{ translation: params.lang === "fa" ? "مقالات" : "Articles", active: pathName === `/${params.lang}/articles` || pathName === `/${params.lang}/articles/` }} isClosed={isClosed} />
+                    </div>
+                  </div>
+
+                  {/* دسته‌بندی‌ها */}
+                  <div
+                    onMouseDown={(e) => handleItemClick(e, "/articles/categories")}
+                    className={`block w-full py-[12px] 3xl:py-[16px] menu-transition cursor-pointer
+                      ${pathName.startsWith(`/${params.lang}/articles/categories`) ? "text-[#0066FF] dark:text-[#FFC700]" : "text-gray-600 dark:text-gray-400"}
+                      hover:text-[#0066FF] dark:hover:text-[#FFC700] ${isClosed ? "ps-0" : "ps-3"}`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="ps-[15px]">
+                        <ListMenuSvgModule item={{ name: "categories", active: pathName.startsWith(`/${params.lang}/articles/categories`) }} />
+                      </span>
+                      <ListMenuTitleModule item={{ translation: params.lang === "fa" ? "دسته‌بندی‌ها" : "Categories", active: pathName.startsWith(`/${params.lang}/articles/categories`) }} isClosed={isClosed} />
+                    </div>
+                  </div>
+                </div>
+              </li>
+            )}
+                         {item.unique_id == 263 && (
+              <li style={{ order: "-2" }}>
+                <Tooltip
+                  title={params.lang === "fa" ? "شهروندان متاورس" : "citizens"}
+                  placement={langData.direction === "rtl" ? "left-end" : "right-end"}
+                  arrow
+                  slotProps={{
+                    tooltip: {
+                      className: `!bg-[#E9E9E9] !text-[#908F95] dark:!bg-[#434343] dark:!text-white !font-azarMehr !font-medium !text-[14px] ${isClosed ? "block" : "hidden"}`,
+                    },
+                    arrow: { className: "!text-[#E9E9E9] dark:!text-[#434343]" },
+                  }}
+                >
+                  <div onClick={handleCitizensBtn} className="cursor-pointer">
+                    <div className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px] menu-transition
+                      ${isCitizensSectionActive ? "text-[#0066FF] dark:text-[#FFC700]" : "text-gray-700 dark:text-gray-300"}
+                      group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700]
+                      ${isClosed ? "justify-start gap-0" : "justify-start gap-2"}`}>
+                      <ListMenuActiveIconModule item={{ active: isCitizensSectionActive }} languageSelected={langData.code} isClosed={isClosed} />
+                      <span className="ps-[15px]">
+                        <ListMenuSvgModule item={{ unique_id: 263, active: isCitizensSectionActive }} />
+                      </span>
+                      <div className="w-full flex justify-between items-center">
+                        <ListMenuTitleModule
+                          item={{ translation: params.lang === "fa" ? "شهروندان متاورس" : "citizens", active: isCitizensSectionActive }}
+                          isClosed={isClosed}
+                        />
+                        <ListMenuArrow item={{ name: "trainings" }} isOpen={citizensDropDown} isClosed={isClosed} />
+                      </div>
+                    </div>
+                  </div>
+                </Tooltip>
+
+                <div ref={dropdownRef4} className={`${citizensDropDown ? "h-fit" : "h-0 overflow-hidden"} base-transition-1 bg-slate-100 dark:bg-darkGray`}>
+                  {/* آموزش‌ها */}
+                  <div
+                    onMouseDown={(e) => handleItemClick(e, "/citizens")}
+                    className={`block w-full py-[12px] 3xl:py-[16px] menu-transition cursor-pointer
+                      ${pathName === `/${params.lang}/citizens` || pathName === `/${params.lang}/citizens/` ? "text-[#0066FF] dark:text-[#FFC700]" : "text-gray-600 dark:text-gray-400"}
+                      hover:text-[#0066FF] dark:hover:text-[#FFC700] ${isClosed ? "ps-0" : "ps-3"}`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="ps-[15px]">
+                        <ListMenuSvgModule item={{ unique_id: 263, active: pathName === `/${params.lang}/citizens` || pathName === `/${params.lang}/citizens/` }} />
+                      </span>
+                      <ListMenuTitleModule item={{ translation: params.lang === "fa" ? "لیست شروندان" : "citizens list", active: pathName === `/${params.lang}/citizens` || pathName === `/${params.lang}/citizens/` }} isClosed={isClosed} />
+                    </div>
+                  </div>
+
+                  {/* دسته‌بندی‌ها */}
+                  <div
+                    onMouseDown={(e) => handleItemClick(e, "/rand-id/hm")}
+                    className={`block w-full py-[12px] 3xl:py-[16px] menu-transition cursor-pointer
+                      ${pathName.startsWith(`/${params.lang}/rand-id/hm`) ? "text-[#0066FF] dark:text-[#FFC700]" : "text-gray-600 dark:text-gray-400"}
+                      hover:text-[#0066FF] dark:hover:text-[#FFC700] ${isClosed ? "ps-0" : "ps-3"}`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="ps-[15px]">
+                        <ListMenuSvgModule item={{ name: "categories", active: pathName.startsWith(`/${params.lang}/rand-id/hm`) }} />
+                      </span>
+                      <ListMenuTitleModule item={{ translation: params.lang === "fa" ? "شناسه های رندوم" : "Rand id", active: pathName.startsWith(`/${params.lang}/rand-id/hm`) }} isClosed={isClosed} />
                     </div>
                   </div>
                 </div>

@@ -379,7 +379,7 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
                         <p className="text-[#84858F] dark:text-[#84858F] text-base md:text-xl">{findByUniqueId(mainData, 1547)}</p>
                     </div>
                     <div className="flex flex-col-reverse gap-y-5 md:flex-row w-full justify-between items-center ">
-                        <a href="tel:09370820120" className="bg-light-primary dark:bg-dark-yellow text-white dark:text-black w-[60%] md:w-max text-center px-5 py-3 rounded-[10px] text-sm font-bold">
+                        <a href="mailto:Hq@irpsc.com" className="bg-light-primary dark:bg-dark-yellow text-white dark:text-black w-[60%] md:w-max text-center px-5 py-3 rounded-[10px] text-sm font-bold">
                             {findByUniqueId(mainData, 1548)}
                         </a>
                         <div className="flex items-center gap-2">

@@ -126,7 +126,7 @@ const RondCard: React.FC<RondCardProps> = ({ item, mainData, params }) => {
                                                         setDropdownOpen(false);
                                                     }}
                                                     className={`w-full text-right px-4 flex items-center justify-between bg-transparent
-        ${selectedCurrency.key === c.key ? "text-light-primary dark:text-dark-yellow font-semibold" : " dark:text-white"}
+        ${selectedCurrency.key === c.key ? "text-light-primary dark:text-dark-yellow font-semibold" : " text-black dark:text-white"}
     `}
                                                 >
                                                     <div className="flex items-center gap-3">

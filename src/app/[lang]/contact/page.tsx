@@ -42,25 +42,29 @@ export async function generateMetadata({ params }: any) {
 }
 
 export default async function AboutPage({ params }: any) {
-  function convertPersianToEnglishNumber(slug: any) {
-    // Replace Persian/Arabic digits with English digits using regex
-    return Number(
-      slug.replace(/[۰-۹]/g, (char: any) => char.charCodeAt(0) - 1776)
-    );
-  }
+  // function convertPersianToEnglishNumber(slug: any) {
+  //   // Replace Persian/Arabic digits with English digits using regex
+  //   return Number(
+  //     slug.replace(/[۰-۹]/g, (char: any) => char.charCodeAt(0) - 1776)
+  //   );
+  // }
+  
 
-  const levelArray = await getAllLevels();
+  // const levelArray = await getAllLevels();
 
-  // convert persian digit to eng digit in DATA
-  levelArray.forEach((item: any) => {
-    item.slug = convertPersianToEnglishNumber(item.slug);
-  });
+  // // convert persian digit to eng digit in DATA
+  // levelArray.forEach((item: any) => {
+  //   item.slug = convertPersianToEnglishNumber(item.slug);
+  // });
 
 
   const langArray = await getLangArray();
 
   const langData = await getTranslation(params.lang);
   const mainData = await getMainFile(langData);
+console.log("LANG DATA:", langData);
+console.log("MAIN DATA:", mainData);
+
 
 
   const Citizenship = await findByModalName(mainData, "Citizenship-profile");

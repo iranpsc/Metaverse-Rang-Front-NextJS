@@ -8,7 +8,7 @@ export const getStaticMenu = (params) => {
       order: "-3"
     },
     { name: "invitations", unique_id: 1419, url: "referral", order: "-2" },
-    { name: "citizens", unique_id: 263, url: "citizens", order: "-2" },
+    // { name: "citizens", unique_id: 263, url: "citizens", order: "-2" },
     { name: "list of levels", unique_id: 903, url: "levels/citizen", order: "-2" },
     // Handle citizen profilee URL dynamically
 
@@ -24,7 +24,7 @@ export const getStaticMenu = (params) => {
     { name: "connections" },
     { name: "crimes" },
     { name: "news", unique_id: 255, url: "https://metatimes.ir/", order: "-1" },
-    { name: "articles", unique_id: 258, url: "articles", order: "-1" },
+    // { name: "articles", unique_id: 258, url: "articles", order: "-1" },
     // { name: "trainings", url: "https://video.irpsc.com/videos/category/1036?page_id=1", order: "-1" },
 
 
