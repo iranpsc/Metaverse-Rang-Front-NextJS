@@ -99,7 +99,7 @@ export default async function AboutPage({ params }: any) {
       // URL that points to the same entity
       sameAs: "https://rgb.irpsc.com",
       // Global Location Number (use a valid GLN if you have one)
-      globalLocationNumber: "1234567890", // Replace with actual GLN
+      // globalLocationNumber: "1234567890", // Replace with actual GLN
       // Maximum Attendee Capacity (could be used for events or location capacity)
       maximumAttendeeCapacity: 100, // This is an example; replace with actual number
       // Map URL for location
@@ -115,8 +115,17 @@ export default async function AboutPage({ params }: any) {
       // Maps to (provide a URL pointing to a map, could be a digital map link)
       maps: "https://maps.app.goo.gl/63ayLgtcRGZEBhmf7",
       // Fax Number (if applicable)
-      faxNumber: "+02833647126",
+      faxNumber: "+02833647125",
+      image: "https://rgb.irpsc.com/_next/image?url=%2Flogo.png&w=128&q=75",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "میرداماد، 824H+JG2",
+        addressLocality: "قزوین",
+        addressRegion: "استان قزوین",
+        addressCountry: "ایران",
+      },
     },
+    
 
     mainEntity: {
       "@type": "Organization",
@@ -139,25 +148,25 @@ export default async function AboutPage({ params }: any) {
         },
         {
           "@type": "ContactPoint",
-          "telephone": "+989301916023",
+          "telephone": "+0989370820120",
           "contactType": findByUniqueId(mainData, 1538),
           "availableLanguage": ["Persian", "English"]
         },
         {
           "@type": "ContactPoint",
-          "telephone": "+989301916023",
+          "telephone": "+989337850575",
           "contactType": findByUniqueId(mainData, 1540),
           "availableLanguage": ["Persian", "English"]
         },
         {
           "@type": "ContactPoint",
-          "telephone": "+989370820120",
+          "telephone": "+989337850445",
           "contactType": findByUniqueId(mainData, 1542),
           "availableLanguage": ["Persian", "English"]
         },
         {
           "@type": "ContactPoint",
-          "telephone": "+989370820120",
+          "telephone": "+989337850435",
           "contactType": findByUniqueId(mainData, 1544),
           "availableLanguage": ["Persian", "English"]
         },
@@ -204,7 +213,7 @@ export default async function AboutPage({ params }: any) {
             </div>
             <div>
               <div className="w-full mt-[60px] "> <CommunicationRoutes params={params} mainData={mainData} /></div>
-              <div className="text-center mx-auto text-xl md:text-2xl space-y-2 mt-7">
+              <div className="text-center mx-auto text-xl md:text-2xl space-y-2 mt-7 md:my-14">
                 <p className="font-rokh font-bold dark:text-white text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px]"> {findByUniqueId(mainData, 260)}</p>
                 <p className="text-lightGray  text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] px-5"> {findByUniqueId(mainData, 1551)}</p>
               </div>
