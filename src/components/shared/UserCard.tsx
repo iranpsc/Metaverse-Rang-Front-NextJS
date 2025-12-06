@@ -7,7 +7,8 @@ import { Text } from "../svgs/SvgEducation";
 import LockGem from '@/public/Frame1000003193.png';
 import { Like } from "@/components/svgs/SvgEducation";
 import { useId } from "react";
-export default function UserCard({ item, params, buttonText, minWidth, scoreElement, hidePreviousLevels  }: any) {
+export default function UserCard({ item, params, buttonText, minWidth, scoreElement, hidePreviousLevels }: any) {
+  const [urlForGem, setUrlForGem] = useState<string | undefined>(undefined);
   const staticRouteNames = [
     { id: 1, route_name: "citizen-baguette" },
     { id: 2, route_name: "reporter-baguette" },
@@ -23,6 +24,8 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
     { id: 12, route_name: "judge-baguette" },
     { id: 13, route_name: "legislator-baguette" },
   ];
+
+
   const uid = useId();
   // isTruncated برای اسم کاربر
   const nameRef = useRef<HTMLParagraphElement>(null);
@@ -48,7 +51,13 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
   // مرتب‌سازی لول‌ها و حذف تکراری‌ها
   const previousGems = item.levels?.previous || [];
   const currentGem = item.levels?.current;
+  useEffect(() => {
+    const matchedRoute = staticRouteNames.find(
+      (x) => x.id === currentGem?.id
+    )?.route_name;
 
+    setUrlForGem(matchedRoute);
+  }, [currentGem]);
   // حذف لول فعلی از آرایه قبلی‌ها (اگر موجود است)
   const uniquePreviousGems = previousGems.filter((gem: { slug: any; }) => gem.slug !== currentGem?.slug);
 
@@ -68,6 +77,7 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
     const found = staticRouteNames.find(r => r.id === id);
     return found?.route_name.split("-")[0] || name;
   };
+
 
   return (
     <div
@@ -171,8 +181,8 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
               </clipPath>
             </defs>
             <foreignObject x="0" y="0" width="100" height="29">
-              <div
-              {...({ xmlns: "http://www.w3.org/1999/xhtml" } as any)}
+              <Link href={`/${params.lang}/levels/citizen/${urlForGem}/gem`}
+                {...({ xmlns: "http://www.w3.org/1999/xhtml" } as any)}
                 className="w-full h-full flex items-center justify-center text-xs font-azarMehr rtl:ms-1 ltr:me-1 mt-[1px] text-black text-center px-1 overflow-hidden break-words"
               >
                 {currentGem
@@ -180,7 +190,7 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
                   : params.lang === "fa"
                     ? "تازه وارد"
                     : "Newcomer"}
-              </div>
+              </Link>
             </foreignObject>
           </svg>
 
@@ -210,8 +220,8 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
               </clipPath>
             </defs>
             <foreignObject x="0" y="0" width="100" height="29">
-              <div
-              {...({ xmlns: "http://www.w3.org/1999/xhtml" } as any)}
+              <Link href={`/${params.lang}/levels/citizen/${urlForGem}/gem`}
+                {...({ xmlns: "http://www.w3.org/1999/xhtml" } as any)}
                 className="w-full h-full flex items-center justify-center text-xs font-azarMehr rtl:ms-1 ltr:me-1 mt-[1px] text-white text-center px-1 overflow-hidden break-words"
               >
                 {currentGem
@@ -219,7 +229,7 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
                   : params.lang === "fa"
                     ? "تازه وارد"
                     : "Newcomer"}
-              </div>
+              </Link>
             </foreignObject>
           </svg>
 
@@ -249,8 +259,8 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
               </clipPath>
             </defs>
             <foreignObject x="0" y="0" width="100" height="29">
-              <div
-              {...({ xmlns: "http://www.w3.org/1999/xhtml" } as any)}
+              <Link href={`/${params.lang}/levels/citizen/${urlForGem}/gem`}
+                {...({ xmlns: "http://www.w3.org/1999/xhtml" } as any)}
                 className="w-full h-full flex items-center justify-center text-xs font-azarMehr text-white rtl:ms-1 ltr:me-1 mt-[1px]  text-center px-1 overflow-hidden break-words"
               >
                 {currentGem
@@ -258,7 +268,7 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
                   : params.lang === "fa"
                     ? "تازه وارد"
                     : "Newcomer"}
-              </div>
+              </Link>
             </foreignObject>
           </svg>
 
@@ -318,8 +328,8 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
               </clipPath>
             </defs>
             <foreignObject x="0" y="0" width="100" height="29">
-              <div
-              {...({ xmlns: "http://www.w3.org/1999/xhtml" } as any)}
+              <Link href={`/${params.lang}/levels/citizen/${urlForGem}/gem`}
+                {...({ xmlns: "http://www.w3.org/1999/xhtml" } as any)}
                 className="w-full h-full flex items-center justify-center text-xs font-azarMehr text-white dark:text-black text-center rtl:ms-1 ltr:me-1 mt-[1px] overflow-hidden break-words"
               >
                 {currentGem
@@ -327,7 +337,7 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
                   : params.lang === "fa"
                     ? "تازه وارد"
                     : "Newcomer"}
-              </div>
+              </Link>
             </foreignObject>
           </svg>
 

@@ -16,30 +16,57 @@ const SectionTimer = ({ params }: { params: Params }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   // گرفتن دیتا از API
-  useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        const res = await fetch("https://api.rgb.irpsc.com/api/calendar?type=event");
-        const json = await res.json();
-        let allEvents: MappedEventItem[] = mapEvents(json.data);
+useEffect(() => {
+  const fetchEvents = async () => {
+    try {
+      const res = await fetch("https://api.rgb.irpsc.com/api/calendar?type=event");
+      const json = await res.json();
+      let allEvents: MappedEventItem[] = mapEvents(json.data);
+      const now = Date.now();
 
-        // مرتب‌سازی بر اساس تاریخ شروع: جدیدترین‌ها اول
-        allEvents.sort((a, b) => {
-          const dateA = new Date(a.start).getTime();
-          const dateB = new Date(b.start).getTime();
-          return dateB - dateA;
+      // ---------------------------
+      // 1) ایونت‌هایی که هنوز شروع نشده یا در حال اجرا هستند
+      // ---------------------------
+      let activeEvents = allEvents.filter(ev => {
+        const startTime = new Date(ev.start).getTime();
+        const endTime = ev.end ? new Date(ev.end).getTime() : startTime;
+        return endTime > now; // هنوز تمام نشده
+      });
+
+      if (activeEvents.length > 0) {
+        activeEvents.sort((a, b) => {
+          const aEnd = a.end ? new Date(a.end).getTime() : new Date(a.start).getTime();
+          const bEnd = b.end ? new Date(b.end).getTime() : new Date(b.start).getTime();
+
+          // نزدیک‌ترین پایان → اول
+          return aEnd - bEnd;
         });
 
-        // گرفتن 4 ایونت اول
-        const lastFour = allEvents.slice(0, 4);
-        setEvents(lastFour);
-      } catch (err) {
-        console.error("Error fetching events:", err);
+        setEvents(activeEvents.slice(0, 4));
+        return;
       }
-    };
 
-    fetchEvents();
-  }, []);
+      // ---------------------------
+      // 2) اگر هیچ ایونت فعال نبود → آخرین ایونت‌های تمام‌شده
+      // ---------------------------
+      let endedEvents = allEvents.filter(ev =>
+        ev.end && new Date(ev.end).getTime() <= now
+      );
+
+      endedEvents.sort((a, b) => {
+        const aEnd = new Date(a.end!).getTime();
+        const bEnd = new Date(b.end!).getTime();
+        return (bEnd - aEnd); // جدیدترین پایان → اول
+      });
+
+      setEvents(endedEvents.slice(0, 4));
+    } catch (err) {
+      console.error("Error fetching events:", err);
+    }
+  };
+
+  fetchEvents();
+}, []);
 
 
   // فعال کردن وقتی اسکرول بهش رسید

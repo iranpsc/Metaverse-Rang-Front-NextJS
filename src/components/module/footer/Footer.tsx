@@ -220,8 +220,8 @@ function Footer({ footerTabs, mainData ,params}: any) {
               className="w-[60px] h-[60px] inline "
             />
             <div className="flex flex-col h-[60px] justify-between items-start">
-              <p className="text-[22px] mt-[-5px] font-bold font-azarMehr dark:text-white">
-                {findByUniqueId(mainData, 272)}
+              <p className="text-[22px] mt-[-9px] font-bold font-azarMehr dark:text-white">
+                {findByUniqueId(mainData, 905)}
               </p>
               <p className="mb-[-3px] font-azarMehr font-normal dark:text-white">
                 {findByUniqueId(mainData, 273)}

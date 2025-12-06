@@ -14,6 +14,7 @@ const EducationFirstPage = React.lazy(() => import('@/components/templates/first
 // const LastContent = React.lazy(() => import('@/components/templates/firstpage/LastContent'));
 const DetailsEducationSection = React.lazy(() => import('@/components/templates/firstpage/DetailsEducationSection'));
 const VersionSection = React.lazy(() => import('@/components/templates/firstpage/VersionSection'));
+import TeamImg from '@/public/firstpage/teams.jpg';
 const LastContent = dynamic(
   () => import("@/components/templates/firstpage/LastContent"),
   { ssr: false }
@@ -55,7 +56,7 @@ export async function generateMetadata({ params }) {
       url: `https://rgb.irpsc.com/${params.lang}`,
       images: [
         {
-          url: "https://rgb.irpsc.com/_next/image?url=%2Flogo.png&w=128&q=75",
+          url: TeamImg.src,
           width: 800,
           height: 600,
           alt: findByUniqueId(mainData, 1457),

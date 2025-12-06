@@ -4,7 +4,7 @@ import { Vector } from "@/components/svgs";
 import Image from "next/image";
 import Link from "next/link";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-
+import TeamImg from '@/public/firstpage/teams.jpg';
 const SectionTeam = ({ mainData, params }: any) => {
   const [isInView, setInView] = useState(false);
   const sectionRef = useRef(null);
@@ -43,8 +43,8 @@ const SectionTeam = ({ mainData, params }: any) => {
       <div className="w-full md:w-[50%] lg:w-[35%]">
         <Image
           className="w-full h-full  md:h-auto 3xl:aspect-square object-cover rounded-3xl lg:rounded-[32px] origin-center border-none"
-          src="/firstpage/img2.webp"
-          alt="header"
+          src={TeamImg}
+          alt={"pic " +findByUniqueId(mainData, 256)}
           width={500}
           height={357}
           loading="lazy"
@@ -98,8 +98,8 @@ const SectionTeam = ({ mainData, params }: any) => {
             />
             <Image
               className="xl:size-[60px] lg:size-[50px] md:size-[70px] sm:size-[50px] xs:size-[44px] rounded-full border-2 border-white ms-[-20px] z-20"
-              src="/firstpage/person4.JPEG"
-              alt="mahdi"
+              src="/firstpage/pesrion04.jpg"
+              alt="saqeb"
               width={64}
               height={64}
             />
