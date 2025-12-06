@@ -1,9 +1,6 @@
 import {
-  getAllLevels,
   getTranslation,
   getMainFile,
-  findByModalName,
-  findByTabName,
   getLangArray,
 } from "@/components/utils/actions";
 import BreadCrumb from "@/components/shared/BreadCrumb";
@@ -42,48 +39,10 @@ export async function generateMetadata({ params }: any) {
 }
 
 export default async function AboutPage({ params }: any) {
-  // function convertPersianToEnglishNumber(slug: any) {
-  //   // Replace Persian/Arabic digits with English digits using regex
-  //   return Number(
-  //     slug.replace(/[۰-۹]/g, (char: any) => char.charCodeAt(0) - 1776)
-  //   );
-  // }
-  
-
-  // const levelArray = await getAllLevels();
-
-  // // convert persian digit to eng digit in DATA
-  // levelArray.forEach((item: any) => {
-  //   item.slug = convertPersianToEnglishNumber(item.slug);
-  // });
-
 
   const langArray = await getLangArray();
-
   const langData = await getTranslation(params.lang);
   const mainData = await getMainFile(langData);
-console.log("LANG DATA:", langData);
-console.log("MAIN DATA:", mainData);
-
-
-
-  const Citizenship = await findByModalName(mainData, "Citizenship-profile");
-  const citizenListArrayContent = await findByTabName(
-    Citizenship,
-    "list-citizen"
-  );
-
-  const levelModals = await findByModalName(mainData, "levels");
-  const levelListArrayContent = await findByTabName(levelModals, "level-list");
-
-  // function localFind1(_name: any) {
-  //   return citizenListArrayContent.find((item: any) => item.name == _name)
-  //     ?.translation;
-  // }
-  // function localFind2(_name: any) {
-  //   return levelListArrayContent.find((item: any) => item.name == _name)
-  //     ?.translation;
-  // }
 
 
   const aboutSchema = {
@@ -222,9 +181,6 @@ console.log("MAIN DATA:", mainData);
                 <p className="text-lightGray  text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] px-5"> {findByUniqueId(mainData, 1551)}</p>
               </div>
               <main className="overflow-x-hidden w-full bg-white dark:bg-[#1A1A18] rounded-xl dark:text-white py-5 px-2 md:px-4 lg:p-7 mt-7">
-
-
-
                 <div className="flex-col flex gap-7 lg:flex-row w-full">
                   <div className="flex flex-col gap-2 md:gap-7 w-full lg:w-1/2 justify-center lg:justify-start">
                     <div>
@@ -237,7 +193,6 @@ console.log("MAIN DATA:", mainData);
                         {findByUniqueId(mainData, 1552)}
                       </p>
                     </div>
-
                     <div>
                       <Form params={params} />
                     </div>
