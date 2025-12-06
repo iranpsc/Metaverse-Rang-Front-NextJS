@@ -63,7 +63,7 @@ export default async function RounPage({ params }: { params: { lang: string } })
   ]);
   const mainData = await getMainFile(langData);
   const title = findByUniqueId(mainData, 1484)
-  const desc = findByUniqueId(mainData, 1527).slice(0, 200)
+  const desc = findByUniqueId(mainData, 1527)
   const citizenData = [
     {
       id: "HM-2000100",
