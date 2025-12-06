@@ -56,7 +56,7 @@ export async function generateMetadata({ params }) {
       url: `https://rgb.irpsc.com/${params.lang}`,
       images: [
         {
-          url: TeamImg.src,
+          url: "https://frdevelop2.irpsc.com/_next/static/media/teams.6efc25f4.jpg",
           width: 800,
           height: 600,
           alt: findByUniqueId(mainData, 1457),
