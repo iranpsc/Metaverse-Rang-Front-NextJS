@@ -52,6 +52,7 @@ export async function generateMetadata({ params }: { params: { lang: string } })
     //   description: post.description,
     //   images: [post.imageUrl],
     // },
+       // test 
   };
 }
 
