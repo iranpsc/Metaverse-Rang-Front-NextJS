@@ -5,6 +5,7 @@ import SideBar from "@/components/module/sidebar/SideBar";
 
 interface Tab {
   id: number;
+  mainData: string;
   unique_id: number;
   url?: string;
   translation: string;
@@ -13,7 +14,7 @@ interface Tab {
   active?: boolean;
 }
 
-export default function ConditionalSidebar({ tabsMenu, langData, langArray, params }: { tabsMenu: Tab[], langData: any, langArray: any, params: any }) {
+export default function ConditionalSidebar({ tabsMenu, langData, langArray, params , mainData }: { tabsMenu: Tab[], langData: any, langArray: any, params: any , mainData: any }) {
   const pathname = usePathname();
 
   // console.log("Current pathname:", pathname);
@@ -40,6 +41,7 @@ export default function ConditionalSidebar({ tabsMenu, langData, langArray, para
       langArray={langArray}
       params={params}
       pageSide={pageSide}
+      mainData={mainData}
     />
   );
 }

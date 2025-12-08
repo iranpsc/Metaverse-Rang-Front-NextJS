@@ -11,7 +11,7 @@ import ListMenuActiveIconModule from "./list/ListMenuActiveIconModule";
 import { useRouter, usePathname } from "next/navigation";
 import Tooltip from "@mui/material/Tooltip";
 import React from "react";
-
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 export default function SideBarContent({
   tabsMenu,
   langData,
@@ -20,7 +20,9 @@ export default function SideBarContent({
   params,
   pageSide,
   levelTabs,
+  mainData
 }) {
+
   const pathName = usePathname();
   const router = useRouter();
 
@@ -28,15 +30,15 @@ export default function SideBarContent({
   const [modalData, setModalData] = useState({});
   const [langDropDown, setLangDropDown] = useState(false);
   const [trainingDropDown, setTrainingDropDown] = useState(false);
-   const [articleDropDown, setArticlesDropDown] = useState(false);
-   const [citizensDropDown, setCitizensDropDown] = useState(false);
+  const [articleDropDown, setArticlesDropDown] = useState(false);
+  const [citizensDropDown, setCitizensDropDown] = useState(false);
 
   const [loading, setLoading] = useState(false);
 
   const dropdownRef = useRef(null);
   const dropdownRef2 = useRef(null);
-    const dropdownRef3 = useRef(null);
-        const dropdownRef4 = useRef(null);
+  const dropdownRef3 = useRef(null);
+  const dropdownRef4 = useRef(null);
 
 
   // خاموش شدن لودر وقتی صفحه عوض شد
@@ -64,8 +66,8 @@ export default function SideBarContent({
 
   // تشخیص اینکه در بخش آموزش هستیم یا نه
   const isEducationSectionActive = pathName.startsWith(`/${params.lang}/education`);
-    const isArticlesSectionActive = pathName.startsWith(`/${params.lang}/articles`);
-    const isCitizensSectionActive = pathName.startsWith(`/${params.lang}/citizens`);
+  const isArticlesSectionActive = pathName.startsWith(`/${params.lang}/articles`);
+  const isCitizensSectionActive = pathName.startsWith(`/${params.lang}/citizens`);
 
   useEffect(() => {
     if (!finalTabsMenu) return;
@@ -318,7 +320,7 @@ export default function SideBarContent({
                 </div>
               </li>
             )}
-             {item.unique_id == 258 && (
+            {item.unique_id == 258 && (
               <li style={{ order: "-1" }}>
                 <Tooltip
                   title={params.lang === "fa" ? " مقالات متارنگ" : "MetaRang Articles"}
@@ -384,10 +386,11 @@ export default function SideBarContent({
                 </div>
               </li>
             )}
-                         {item.unique_id == 263 && (
+
+            {item.unique_id == 263 && (
               <li style={{ order: "-2" }}>
                 <Tooltip
-                  title={params.lang === "fa" ? "شهروندان متاورس" : "citizens"}
+                  title={findByUniqueId(mainData, 1588)}
                   placement={langData.direction === "rtl" ? "left-end" : "right-end"}
                   arrow
                   slotProps={{
@@ -408,7 +411,7 @@ export default function SideBarContent({
                       </span>
                       <div className="w-full flex justify-between items-center">
                         <ListMenuTitleModule
-                          item={{ translation: params.lang === "fa" ? "شهروندان متاورس" : "citizens", active: isCitizensSectionActive }}
+                          item={{ translation: findByUniqueId(mainData, 1588), active: isCitizensSectionActive }}
                           isClosed={isClosed}
                         />
                         <ListMenuArrow item={{ name: "trainings" }} isOpen={citizensDropDown} isClosed={isClosed} />
@@ -429,7 +432,7 @@ export default function SideBarContent({
                       <span className="ps-[15px]">
                         <ListMenuSvgModule item={{ unique_id: 263, active: pathName === `/${params.lang}/citizens` || pathName === `/${params.lang}/citizens/` }} />
                       </span>
-                      <ListMenuTitleModule item={{ translation: params.lang === "fa" ? "لیست شروندان" : "citizens list", active: pathName === `/${params.lang}/citizens` || pathName === `/${params.lang}/citizens/` }} isClosed={isClosed} />
+                      <ListMenuTitleModule item={{ translation: findByUniqueId(mainData, 1589), active: pathName === `/${params.lang}/citizens` || pathName === `/${params.lang}/citizens/` }} isClosed={isClosed} />
                     </div>
                   </div>
 
@@ -442,9 +445,9 @@ export default function SideBarContent({
                   >
                     <div className="flex items-center gap-2">
                       <span className="ps-[15px]">
-                        <ListMenuSvgModule item={{ name: "categories", active: pathName.startsWith(`/${params.lang}/rand-id/hm`) }} />
+                        <ListMenuSvgModule item={{ unique_id: 1490, active: pathName.startsWith(`/${params.lang}/rand-id/hm`) }} />
                       </span>
-                      <ListMenuTitleModule item={{ translation: params.lang === "fa" ? "شناسه های رندوم" : "Rand id", active: pathName.startsWith(`/${params.lang}/rand-id/hm`) }} isClosed={isClosed} />
+                      <ListMenuTitleModule item={{ translation: findByUniqueId(mainData, 1490), active: pathName.startsWith(`/${params.lang}/rand-id/hm`) }} isClosed={isClosed} />
                     </div>
                   </div>
                 </div>

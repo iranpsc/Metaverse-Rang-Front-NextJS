@@ -30,6 +30,7 @@ import {
   Legislator,
   Minister,
   Citizens,
+  
 } from "@/components/svgs";
 
 import {
@@ -45,6 +46,7 @@ import {
   Calender,
   Categories,
   Trainers,
+  RandId
 } from "@/components/svgs/SvgEducation";
 
 export default function SvgIcon({ unique_id, color, name }: any) {
@@ -74,6 +76,9 @@ export default function SvgIcon({ unique_id, color, name }: any) {
 
       {unique_id === 149 && (
         <HomeIcon className={`${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
+      )}
+      {unique_id === 1490 && (
+        <RandId className={`${color} stroke-[7px] mx-[10px] 3xl:w-7 3xl:h-7  stroke-[#888888] dark:stroke-[#868B90] `} />
       )}
       {unique_id === 303 && (
         <HomeIcon className={`${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />

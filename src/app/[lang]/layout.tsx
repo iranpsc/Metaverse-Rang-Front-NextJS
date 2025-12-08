@@ -77,6 +77,7 @@ export default async function LangLayout({ children, params }: any) {
               langData={langData}
               langArray={langArray}
               params={params}
+              mainData={mainData}
             />
           </Suspense>
 

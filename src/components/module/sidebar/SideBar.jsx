@@ -15,6 +15,7 @@ export default function SideBar({
   langArray,
   params,
   pageSide,
+  mainData
 }) {
   const [isClosed, setIsClosed] = useState(true); // Start with true (default for SSR)
   const [hydrated, setHydrated] = useState(false); // Track hydration
@@ -108,6 +109,7 @@ export default function SideBar({
                 langData={langData}
                 langArray={langArray}
                 params={params}
+                mainData={mainData}
               />
             )}
             {pageSide === 'citizen/referal' && (

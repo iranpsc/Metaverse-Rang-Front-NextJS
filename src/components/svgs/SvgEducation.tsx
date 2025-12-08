@@ -40,3 +40,4 @@ export { default as MenuCommentIcon } from "../../../public/svg/education/menu-c
 
 export { default as EditIcon } from "../../../public/svg/education/edit.svg";
 export { default as FullScreenIcon } from "../../../public/svg/education/fullScreen.svg";
+export { default as RandId } from "../../../public/svg/education/randid.svg";

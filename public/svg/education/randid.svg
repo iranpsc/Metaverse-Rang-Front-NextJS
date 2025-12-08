@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="120" height="120" viewBox="0 0 120 120">
+  <rect x="6" y="6" width="108" height="108" rx="8"
+        fill="none"  stroke-width="12"/>
+
+  <text x="50%" y="50%" dy=".35em"
+        font-family="Inter, Arial, sans-serif"
+        font-size="60" font-weight="700"
+        text-anchor="middle"
+        >
+    id
+  </text>
+</svg>
