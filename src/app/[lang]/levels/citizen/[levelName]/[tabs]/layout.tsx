@@ -63,6 +63,7 @@ export default async function CitizensLayout({
         langData={langData}
         tabsMenu={tabsMenu}
         params={params}
+             mainData={mainData}
       />
       <div dir={langData.direction}
         className={`light-scrollbar dark:dark-scrollbar w-full h-[calc(100vh-60px)] lg:h-screen overflow-y-auto relative mt-[60px] lg:mt-0 lg:pt-0 lg:pt-[0] `}

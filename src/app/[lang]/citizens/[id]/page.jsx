@@ -176,6 +176,7 @@ const updatedTabsMenu = mergedTabs.filter((tab) => {
                   langArray={langArray}
                   params={params}
                   pageSide="citizen"
+                       mainData={mainData}
                 />
               </Suspense>
               <section className="relative w-full bg-[#e9eef8] dark:bg-black flex flex-col lg:flex-row gap-[10px] p-[8px]">

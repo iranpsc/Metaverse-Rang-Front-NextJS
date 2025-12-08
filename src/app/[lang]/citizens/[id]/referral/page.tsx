@@ -204,6 +204,7 @@ export default async function CitizenReferral({ params }: { params: any }) {
           langArray={langArray}
           params={params}
           pageSide="citizen"
+               mainData={mainData}
         />
         <section className="overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black px-2 w-full">
           <div className="px-12">

@@ -252,6 +252,7 @@ export default async function LevelsPage({ params }: any) {
           tabsMenu={updatedTabsMenu}
           params={params}
           pageSide="citizen"
+          mainData={mainData}
         />
         <section
           // id={`${
