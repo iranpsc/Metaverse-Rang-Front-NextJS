@@ -20,7 +20,7 @@ export default function ConditionalSidebar({ tabsMenu, langData, langArray, para
   // console.log("Current pathname:", pathname);
 
   // مسیرهایی که سایدبار نباید رندر بشن (فقط بعد از /citizens/)
-  const pathsWithoutSidebar = ["/levels/citizen", "/citizens/hm"];
+  const pathsWithoutSidebar = ["/levels/citizen/", "/citizens/hm"];
 
   // چک می‌کنیم که آیا مسیر فعلی توی لیست pathsWithoutSidebar هست یا نه
   const shouldShowSidebar = !pathsWithoutSidebar.some(path => pathname.includes(path));
@@ -31,8 +31,8 @@ export default function ConditionalSidebar({ tabsMenu, langData, langArray, para
 
   // تعیین pageSide بر اساس مسیر (برای استفاده توی SideBar)
   let pageSide = "citizen"; // پیش‌فرض
-  if (pathname && pathname.startsWith(`/${params.lang}/levels/citizen`)) pageSide = "level";
-  else if (pathname && pathname.startsWith(`/${params.lang}/citizens`)) pageSide = "citizen/referal";
+  if (pathname && pathname.startsWith(`/${params.lang}/levels/citizen/`)) pageSide = "level";
+  else if (pathname && pathname.startsWith(`/${params.lang}/citizens`)) pageSide = "citizen";
 
   return (
     <SideBar

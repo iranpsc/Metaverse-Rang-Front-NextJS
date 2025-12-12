@@ -246,14 +246,14 @@ export default async function LevelsPage({ params }: any) {
         className={`flex h-screen dark:bg-black overflow-hidden`}
         dir={langData.direction}
       >
-        <SideBar
+        {/* <SideBar
           langArray={langArray}
           langData={langData}
           tabsMenu={updatedTabsMenu}
           params={params}
           pageSide="citizen"
           mainData={mainData}
-        />
+        /> */}
         <section
           // id={`${
           //   themeDataActive == "dark" ? "dark-scrollbar" : "light-scrollbar"
