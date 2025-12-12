@@ -67,7 +67,12 @@ export default function SideBarContent({
   // تشخیص اینکه در بخش آموزش هستیم یا نه
   const isEducationSectionActive = pathName.startsWith(`/${params.lang}/education`);
   const isArticlesSectionActive = pathName.startsWith(`/${params.lang}/articles`);
-  const isCitizensSectionActive = pathName.startsWith(`/${params.lang}/citizens`);
+  const isCitizensSectionActive =
+  pathName === `/${params.lang}/citizens` ||
+  pathName === `/${params.lang}/citizens/` ||
+  pathName === `/${params.lang}/rand-id/hm`;
+
+
 
   useEffect(() => {
     if (!finalTabsMenu) return;
@@ -137,7 +142,9 @@ export default function SideBarContent({
     setMenuItems(updatedMenu);
     setTrainingDropDown(cleanPath.startsWith(`/${params.lang}/education`));
     setArticlesDropDown(cleanPath.startsWith(`/${params.lang}/articles`));
-    setCitizensDropDown(cleanPath.startsWith(`/${params.lang}/citizens`));
+    setCitizensDropDown(isCitizensSectionActive);
+
+
   }, [finalTabsMenu, pathName, params.lang, params.id]);
   // هندلر اصلی کلیک (کلیک چپ + کلیک وسط)
   const handleItemClick = (e, url = null, item = null) => {
