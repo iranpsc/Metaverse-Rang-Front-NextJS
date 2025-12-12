@@ -51,13 +51,15 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
   // مرتب‌سازی لول‌ها و حذف تکراری‌ها
   const previousGems = item.levels?.previous || [];
   const currentGem = item.levels?.current;
-  useEffect(() => {
-    const matchedRoute = staticRouteNames.find(
-      (x) => x.id === currentGem?.id
-    )?.route_name;
+useEffect(() => {
+  const curId = currentGem?.id ?? currentGem?.slug ?? null;
+  const matchedRoute = staticRouteNames.find((x) => {
+    if (curId == null) return false;
+    return x.id === Number(curId);
+  })?.route_name;
+  setUrlForGem(matchedRoute);
+}, [currentGem]);
 
-    setUrlForGem(matchedRoute);
-  }, [currentGem]);
   // حذف لول فعلی از آرایه قبلی‌ها (اگر موجود است)
   const uniquePreviousGems = previousGems.filter((gem: { slug: any; }) => gem.slug !== currentGem?.slug);
 
@@ -181,7 +183,7 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
               </clipPath>
             </defs>
             <foreignObject x="0" y="0" width="100" height="29">
-              <Link href={`/${params.lang}/levels/citizen/${urlForGem}/gem`}
+              <Link href={`/${params.lang}/levels/citizen/${urlForGem}`}
                 {...({ xmlns: "http://www.w3.org/1999/xhtml" } as any)}
                 className="w-full h-full flex items-center justify-center text-xs font-azarMehr rtl:ms-1 ltr:me-1 mt-[1px] text-black text-center px-1 overflow-hidden break-words"
               >
@@ -220,7 +222,7 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
               </clipPath>
             </defs>
             <foreignObject x="0" y="0" width="100" height="29">
-              <Link href={`/${params.lang}/levels/citizen/${urlForGem}/gem`}
+              <Link href={`/${params.lang}/levels/citizen/${urlForGem}`}
                 {...({ xmlns: "http://www.w3.org/1999/xhtml" } as any)}
                 className="w-full h-full flex items-center justify-center text-xs font-azarMehr rtl:ms-1 ltr:me-1 mt-[1px] text-white text-center px-1 overflow-hidden break-words"
               >
@@ -259,7 +261,7 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
               </clipPath>
             </defs>
             <foreignObject x="0" y="0" width="100" height="29">
-              <Link href={`/${params.lang}/levels/citizen/${urlForGem}/gem`}
+              <Link href={`/${params.lang}/levels/citizen/${urlForGem}`}
                 {...({ xmlns: "http://www.w3.org/1999/xhtml" } as any)}
                 className="w-full h-full flex items-center justify-center text-xs font-azarMehr text-white rtl:ms-1 ltr:me-1 mt-[1px]  text-center px-1 overflow-hidden break-words"
               >
@@ -328,7 +330,7 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
               </clipPath>
             </defs>
             <foreignObject x="0" y="0" width="100" height="29">
-              <Link href={`/${params.lang}/levels/citizen/${urlForGem}/gem`}
+              <Link href={`/${params.lang}/levels/citizen/${urlForGem}`}
                 {...({ xmlns: "http://www.w3.org/1999/xhtml" } as any)}
                 className="w-full h-full flex items-center justify-center text-xs font-azarMehr text-white dark:text-black text-center rtl:ms-1 ltr:me-1 mt-[1px] overflow-hidden break-words"
               >
