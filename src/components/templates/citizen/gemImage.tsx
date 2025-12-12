@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 
-export default function CitizenClientImage({ item, params, picSize }: any) {
+export default function CitizenClientImage({ item, params, picSize, disableHoverScale = false }: any) {
   const [urlForGem, setUrlForGem] = useState<string | undefined>(undefined);
 
   const staticRouteNames = [
@@ -24,11 +24,14 @@ export default function CitizenClientImage({ item, params, picSize }: any) {
   ];
 
   useEffect(() => {
-    const matchedRoute = staticRouteNames.find(
-      (x) => x.id === item.id
-    )?.route_name;
+    const matchedRoute = staticRouteNames.find((x) => x.id === item.id)?.route_name;
     setUrlForGem(matchedRoute);
   }, [item]);
+
+  const hoverClasses = disableHoverScale
+    ? ""
+    : "hover:scale-150 hover:drop-shadow-[0_0px_8px_rgba(255,199,0,0.6)]";
+
   return (
     <>
       <Link href={`/${params.lang}/levels/citizen/${urlForGem}/gem`}>
@@ -38,8 +41,9 @@ export default function CitizenClientImage({ item, params, picSize }: any) {
           width={picSize}
           height={picSize}
           alt={item.name}
-          className="object-contain inline  hover:scale-150 duration-300 hover:drop-shadow-[0_0px_8px_rgba(255,199,0,0.6)]"
+          className={`object-contain inline duration-300 ${hoverClasses}`}
         />
+
         <ReactTooltip
           id={item.name}
           place="top"
