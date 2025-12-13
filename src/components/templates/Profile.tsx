@@ -29,7 +29,7 @@ export default function Profile({
   const numberScore =
     100 - parseInt(profileData?.score_percentage_to_next_level);
   const percent = (numberScore / 100) * 100;
-  console.log(profileData);
+  // console.log(profileData);
   return (
     <>
       {/* TOP */}
