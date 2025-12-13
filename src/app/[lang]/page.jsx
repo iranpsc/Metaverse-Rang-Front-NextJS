@@ -8,7 +8,8 @@ const SectionTimer = React.lazy(() => import('@/components/templates/firstpage/S
 const SectionTeam = React.lazy(() => import('@/components/templates/firstpage/TeamSection'));
 const TopCitizen = React.lazy(() => import('@/components/templates/firstpage/TopCitizen'));
 const LastNews = React.lazy(() => import('@/components/templates/firstpage/LastNews'));
-const Section3D = React.lazy(() => import('@/components/templates/firstpage/Section3D'));
+// const Section3D = React.lazy(() => import('@/components/templates/firstpage/Section3D'));
+const FristPageVideo = React.lazy(() => import('@/components/templates/firstpage/FristPageVideo.tsx'));
 import TopTrainersFirstPage, { getTopTrainerUsers } from "@/components/templates/firstpage/TopTrainersFirstPage";
 const EducationFirstPage = React.lazy(() => import('@/components/templates/firstpage/EducationFirstPage'));
 // const LastContent = React.lazy(() => import('@/components/templates/firstpage/LastContent'));
@@ -252,7 +253,8 @@ export default async function LangPage({ params }) {
           </div>
           <div className="relative w-[90%] h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px] flex items-center justify-center">
             <Suspense fallback={<div>Loading Header...</div>}>
-              <Section3D params={params} />
+              {/* <Section3D params={params} /> */}
+               <FristPageVideo params={params} />
             </Suspense>
           </div>
           <div className="w-[90%] h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
