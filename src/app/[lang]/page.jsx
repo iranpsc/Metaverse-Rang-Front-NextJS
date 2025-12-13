@@ -154,7 +154,7 @@ export default async function LangPage({ params }) {
               muted
               loop
               playsInline
-              className="hidden lg:block absolute w-full h-full ltr:rotate-y-180 object-cover object-[-115px] sm:object-left"
+              className="hidden lg:block absolute w-full h-full ltr:rotate-y-180 object-fill  sm:object-left"
             >
               <source src="/firstpage/Untitled-1.webp" type="video/webm" />
               <source src="/firstpage/metaverse-rang.mp4" type="video/mp4" />

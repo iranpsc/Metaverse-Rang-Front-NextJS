@@ -45,6 +45,13 @@ async function fetchData(params) {
   const levelMeta = STATIC_ROUTE_NAMES.find(x => x.route_name === params.levelName);
   const levelId = levelMeta?.id;
   const levelUniqueId = levelMeta?.unique_id;
+const TAB_TITLE_MAP = {
+  "general-info": 387,
+  "licenses": 388,
+  "gem": 389,
+  "gift": 390,
+  "prize": 391,
+};
 
   const [
     langData,
@@ -130,8 +137,26 @@ export default async function LevelSinglePage({ params }) {
     findByTabName(levels, "level-list"),
   ]);
   const concatArrayContent = [...levelPageArrayContent, ...levelListArrayContent];
+const TAB_TITLE_MAP = {
+  "general-info": 387,
+  "licenses": 388,
+  "gem": 389,
+  "gift": 390,
+  "prize": 391,
+};
 
-  const pageTitle = getLevelTitle(concatArrayContent, levelUniqueId);
+  const tabUniqueId = TAB_TITLE_MAP[params.tabs];
+const tabTitle = tabUniqueId
+  ? findByUniqueId(mainData, tabUniqueId)
+  : "";
+
+const levelTitle = getLevelTitle(concatArrayContent, levelUniqueId);
+
+// عنوان نهایی
+const pageTitle = tabTitle
+  ? `${tabTitle} ${levelTitle} `
+  : levelTitle;
+
   const breadcrumbSchema = buildBreadcrumbSchema(mainData, params);
 
   return (
