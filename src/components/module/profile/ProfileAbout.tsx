@@ -48,7 +48,7 @@ export default function ProfileAbout({
     >
       {inView && (
         <>
-          <div className="dark:bg-dark-background w-full h-[37%] shadow-md transition-all duration-300 ease-linear bg-white px-1 rounded-[10px]">
+          <div className="dark:bg-dark-background w-full h-[37vh] shadow-md transition-all duration-300 ease-linear bg-white px-1 rounded-[10px]">
             <h1 className="dark:text-white font-azarMehr font-medium text-[#000] mx-2 3xl:text-xl3Title xl:text-xlTitle lg:text-lgTitle md:text-mdTitle sm:text-smDesc xs:text-smDesc py-5">
               {findByUniqueId(mainData, 95)}
             </h1>
@@ -77,7 +77,7 @@ export default function ProfileAbout({
             <br />
           </div>
 
-          <div className="dark:bg-dark-background h-[90%] shadow-md bg-white transition-all duration-300 ease-linear items-center flex flex-col justify-center w-full rounded-[10px] p-2 md:p-0">
+          <div className="dark:bg-dark-background h-[60vh] overflow-hidden shadow-md bg-white transition-all duration-300 ease-linear items-center flex flex-col justify-center w-full rounded-[10px] p-2 md:p-0">
             {userId && userId === "hm-2000003" ? (
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
@@ -89,10 +89,10 @@ export default function ProfileAbout({
               >
                 <Image
                   src="/profile/alizadeh.png"
-                  width={1000}
-                  height={1000}
+                  width={400}
+                  height={500}
                   alt={titleData}
-                  className="3xl:w-[180px] xl:w-[145px] lg:w-[120px] md:w-[170px] sm:w-[140px] xs:w-[130px]"
+                  className="3xl:w-[180px] xl:w-[145px] lg:w-[120px] md:w-[170px] sm:w-[140px] xs:w-[130px] "
                 />
               </motion.div>
             ) : (
