@@ -240,7 +240,7 @@ export async function getUserData(_userId) {
       {
         headers: {
           "Content-Type": "application/json",
-          "Cache-Control": "public, max-age=0",
+           cache: "no-store", 
         },
       }
     );

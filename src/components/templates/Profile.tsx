@@ -29,7 +29,7 @@ export default function Profile({
   const numberScore =
     100 - parseInt(profileData?.score_percentage_to_next_level);
   const percent = (numberScore / 100) * 100;
-console.log(profileData);
+  console.log(profileData);
   return (
     <>
       {/* TOP */}
@@ -64,7 +64,7 @@ console.log(profileData);
           {inView &&
             concatGems &&
             concatGems.map((item: any, index: any) => (
-              <GemImage key={index} item={item} params={params} picSize={128} disableHoverScale/>
+              <GemImage key={index} item={item} params={params} picSize={128} disableHoverScale />
             ))}
         </div>
       </div>
