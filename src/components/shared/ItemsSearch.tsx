@@ -64,7 +64,7 @@ export const ItemsSearch = ({ searchLevel, searchData, params }: any) => {
           return (
             <motion.div key={item?.id} variants={items}>
               <Link
-                href={`/${params.lang}/citizens/${item.code}`}
+                href={`/${params.lang}/citizens/${item.code?.toLowerCase()}`}
                 className="w-[99%] h-[65px] mt-2 transition-all duration-300 border-b border-stone-300 dark:border-mediumGray cursor-pointer flex justify-between items-center dark:text-white"
               >
                 <p className="dark:text-white text-black font-medium truncate text-[16px]">

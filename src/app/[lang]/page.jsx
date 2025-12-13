@@ -138,8 +138,8 @@ export default async function LangPage({ params }) {
   return (
     <>
       <Head>
-        <link rel="preload" href="/firstpage/replaced_pic.webp" as="image" />
-        <link rel="preload" href="/firstpage/3d_rgb.irpsc.webm" as="video" type="video/mp4" />
+        <link rel="preload" href="/firstpage/Untitled-1.webp" as="image" />
+        <link rel="preload" href="/firstpage/metaverse-rang.mp4" as="video" type="video/mp4" />
       </Head>
       <script
         type="application/ld+json"
@@ -149,29 +149,29 @@ export default async function LangPage({ params }) {
         <section className="flex flex-col h-fit tall0:min-h-[600px] min-h-[calc(100vh-60px)] lg:h-screen relative">
           {!isMobile && (
             <video
-              poster="/firstpage/replaced_pic.webp"
+              poster="/firstpage/Untitled-1.webp"
               autoPlay
               muted
               loop
               playsInline
               className="hidden lg:block absolute w-full h-full ltr:rotate-y-180 object-cover object-[-115px] sm:object-left"
             >
-              <source src="/firstpage/3d_rgb.irpsc.webm" type="video/webm" />
-              <source src="/firstpage/3d_rgb.irpsc.mp4" type="video/mp4" />
+              <source src="/firstpage/Untitled-1.webp" type="video/webm" />
+              <source src="/firstpage/metaverse-rang.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           )}
           {isMobile && (
             <video
-              poster="/firstpage/mobile_replaced_pic.webp"
+              poster="/firstpage/Untitled-1.webp"
               autoPlay
               muted
               loop
               playsInline
               className="block lg:hidden absolute w-full h-full ltr:rotate-y-180 object-cover"
             >
-              <source src="/firstpage/mobile_3d_rgb.irpsc.webm" type="video/webm" />
-              <source src="/firstpage/mobile_3d_rgb.irpsc.mp4" type="video/mp4" />
+              <source src="/firstpage/Untitled-1.webp" type="video/webm" />
+              <source src="/firstpage/metaverse-rang.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           )}
