@@ -120,9 +120,9 @@ const LastNews = ({ mainData, params }: { mainData: any; params: Params }) => {
                   className="group w-full rounded-t-[10px] flex relative"
                 >
                   <Image
-                    src={`/firstpage/static-news-${index}.webp`}
+                    src={`/firstpage/static-news-${index}.webp` || "/rafiki-dark.png"}
                     alt={params.lang === "fa" ? "آخرین اخبار" : "latest news"}
-                    width={500}
+                    width={380}
                     height={375}
                     loading="lazy"
                     quality={75}
