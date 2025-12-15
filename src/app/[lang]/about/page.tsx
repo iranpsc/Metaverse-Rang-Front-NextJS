@@ -15,6 +15,7 @@ import Image from "next/image";
 import Head from "next/head";
 import List from "./components/list"
 
+
 // تعریف نوع پارامترها
 interface Params {
   lang: string;
@@ -96,16 +97,11 @@ export default async function AboutPage({ params }: { params: Params }) {
     findByModalName(mainData, "Citizenship-profile") as Promise<ModalData>,
     findByModalName(mainData, "levels") as Promise<ModalData>,
   ]);
-  const userCodes = [
-    "HM-2000001", "HM-2000002", "HM-2000005", "HM-2000003",
-    "HM-2000007", "HM-2000008", "HM-2000207", "HM-2000475",
-    "HM-2000011", "HM-2000010", "HM-2000491", "HM-2000009",
-    "HM-2000006"
+  const userCodes = ["HM-2000008", "HM-2000491", "HM-2000009", "HM-2000005", "HM-2000003", "HM-2000002" , "HM-2000001"
   ];
 
   // لود همه کاربران با Promise.all
   const profiles = await Promise.all(userCodes.map(code => getUserData(code)));
-
   // ساخت آرایه userها برای List
   const users = profiles
     .filter(profile => profile?.data)
@@ -263,9 +259,12 @@ export default async function AboutPage({ params }: { params: Params }) {
             </p>
           </div>
         </div>
-        <List
-          params={params} mainData={mainData} users={users}
-        />
+        <div>
+          
+          <List
+            params={params} mainData={mainData} users={users}
+          />
+        </div>
       </section>
     </>
   );
