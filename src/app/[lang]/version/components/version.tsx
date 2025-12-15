@@ -3,8 +3,8 @@
 import DescriptionBox from "./descriptionBox";
 import VersionBox from "./versionBox";
 
-import { useSearchParams, useRouter } from "next/navigation";
-import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import React, { useState, useEffect, useRef } from "react";
 
 interface Version {
   id: number;
@@ -21,29 +21,53 @@ interface VersionBoxProps {
   initialVersion?: string | null;
 }
 
-const Version: React.FC<VersionBoxProps> = ({ versions, params, mainData  , initialVersion}) => {
+const Version: React.FC<VersionBoxProps> = ({
+  versions,
+  params,
+  mainData,
+  initialVersion,
+}) => {
   const [selectedVersion, setSelectedVersion] = useState<Version | null>(null);
   const router = useRouter();
 
+  /** 🔹 ref برای آیتم‌های لیست */
+  const versionRefs = useRef<Record<string, HTMLDivElement | null>>({});
+
+  /** 🔹 ست کردن ورژن فعال بر اساس URL */
   useEffect(() => {
-    if (initialVersion && versions.length > 0) {
+    if (!versions.length) return;
+
+    if (initialVersion) {
       const matched = versions.find((v) => v.version === initialVersion);
-      if (matched) {
-        setSelectedVersion(matched);
-      } else {
-        setSelectedVersion(versions[0]); // ورژن اول اگر initialVersion نامعتبر بود
-      }
+      setSelectedVersion(matched || versions[0]);
     } else {
-      setSelectedVersion(versions[0] || null);
+      setSelectedVersion(versions[0]);
     }
   }, [initialVersion, versions]);
-  
+
+  /** ✅ اسکرول به آیتم active بعد از mount / route change */
+  useEffect(() => {
+    if (!selectedVersion) return;
+
+    const el = versionRefs.current[selectedVersion.version];
+    if (el) {
+      setTimeout(() => {
+        el.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      }, 100); // ⬅️ بسیار مهم
+    }
+  }, [selectedVersion]);
 
   const handleDataFromChild = (data: Version) => {
     setSelectedVersion(data);
-    router.push(`/${params.lang}/version/${encodeURIComponent(data.version)}`, { scroll: false });
+
+    router.push(
+      `/${params.lang}/version/${encodeURIComponent(data.version)}`,
+      { scroll: false } // 🔥 جلوگیری از اسکرول Next
+    );
   };
-  
 
   return (
     <>
@@ -52,9 +76,10 @@ const Version: React.FC<VersionBoxProps> = ({ versions, params, mainData  , init
         sendDataParent={handleDataFromChild}
         params={params}
         mainData={mainData}
-        disableInitialSelection={!!initialVersion}
         selectedVersion={selectedVersion}
+        versionRefs={versionRefs} // ⬅️ ارسال ref
       />
+
       <DescriptionBox
         selectedVersion={selectedVersion}
         params={params}

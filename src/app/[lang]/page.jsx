@@ -164,15 +164,15 @@ export default async function LangPage({ params }) {
           )}
           {isMobile && (
             <video
-              poster="/firstpage/Untitled-1.webp"
+              poster="/firstpage/metaverse-rang-mobile-app.webp"
               autoPlay
               muted
               loop
               playsInline
               className="block lg:hidden absolute w-full h-full ltr:rotate-y-180 object-cover"
             >
-              <source src="/firstpage/Untitled-1.webp" type="video/webm" />
-              <source src="/firstpage/metaverse-rang.mp4" type="video/mp4" />
+              <source src="/firstpage/metaverse-rang-mobile-app.webp" type="video/webm" />
+              <source src="/firstpage/mob.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           )}
