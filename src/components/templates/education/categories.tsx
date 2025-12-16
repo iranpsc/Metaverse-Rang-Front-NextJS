@@ -11,7 +11,7 @@ export default function EducationCategories({
   return (
     <>
       <div className="w-[95%] mx-auto h-fit mt-36 flex flex-col justify-center items-center ">
-        <h1 className="w-full text-center xl:text-start text-[28px] font-bold font-azarMehr text-gray dark:text-dark-gray">
+        <h1 className="w-full font-azarMehr font-medium text-[16px] md:text-[20px] lg:text-[28px] xl:text-[32px] dark:text-white">
           {findByUniqueId(mainData, 270)}
         </h1>
 
