@@ -172,7 +172,7 @@ export default async function LangPage({ params }) {
               className="block lg:hidden absolute w-full h-full object-fill"
             >
               <source src="/firstpage/metaverse-rang-mobile-app.webp" type="video/webm" />
-              <source src="/firstpage/mob.mp4" type="video/mp4" />
+              <source src="/firstpage/mob2.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           )}
