@@ -277,7 +277,7 @@ export default async function LangPage({ params }) {
           </div>
           <div className="w-[90%] relative h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
             <Suspense fallback={<div>Loading Header...</div>}>
-            <p className="dark:text-white px-3">{findByUniqueId(mainData, 1458)}</p>
+            <p className="font-azarMehr font-medium text-[16px] md:text-[20px] lg:text-[28px] xl:text-[32px] dark:text-white ">{findByUniqueId(mainData, 501)}</p>
               <VersionSection mainData={mainData} params={params}  />
 
             </Suspense>

@@ -124,7 +124,7 @@ export default async function CategoriesPage({ params  }: { params: { lang: stri
       <div className="text-center mt-5">
         <h1 className="font-rokh font-bold text-[30px] dark:text-white">{findByUniqueId(mainData, 1516)} </h1>
         <p className="text-lightGray dark:text-lightGray text-lg mt-2">
-          {findByUniqueId(mainData, 1526)}
+          {findByUniqueId(mainData, 1592)}
         </p>
       </div>
 

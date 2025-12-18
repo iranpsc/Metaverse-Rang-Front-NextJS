@@ -5,9 +5,10 @@ import GemImage from "@/components/templates/citizen/gemImage";
 import Link from "next/link";
 import { Text } from "../svgs/SvgEducation";
 import LockGem from '@/public/Frame1000003193.png';
-import { Like } from "@/components/svgs/SvgEducation";
+// import { Like } from "@/components/svgs/SvgEducation";
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { useId } from "react";
-export default function UserCard({ item, params, buttonText, minWidth, scoreElement, hidePreviousLevels }: any) {
+export default function UserCard({ item, params, buttonText, minWidth, scoreElement, hidePreviousLevels , mainData }: any) {
   const [urlForGem, setUrlForGem] = useState<string | undefined>(undefined);
   const staticRouteNames = [
     { id: 1, route_name: "citizen-baguette" },
@@ -106,7 +107,11 @@ useEffect(() => {
             ref={nameRef}
             className={`font-bold text-[20px] dark:text-white font-azarMehr sm:mt-2 truncate w-full text-center ps-3 ${isTruncated ? "hover:overflow-visible hover:animate-rtlMarquee" : ""}`}
           >
-            {item.name}
+            {item.name} {item.code && ["hm-2000001", "hm-2000002"].includes(item.code.trim()) && (
+      <span className=" mt-[-2px] mx-1 text-xs font-medium text-blue-600 dark:text-yellow-400 bg-blue-50 dark:bg-yellow-900/20 px-3 py-[2px] rounded-full ">
+        {findByUniqueId(mainData, 1593)}
+      </span>
+    )}
           </p>
         </div>
 
