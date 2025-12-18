@@ -21,7 +21,7 @@ interface VersionBoxProps {
   mainData: any;
   disableInitialSelection?: boolean;
   selectedVersion?: Version | null;
-  versionRefs:any
+  versionRefs:any| null;
 }
 
 const VersionBox: React.FC<VersionBoxProps> = ({
