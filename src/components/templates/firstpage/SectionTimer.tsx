@@ -4,62 +4,65 @@ import { ArrowRight } from "@/components/svgs";
 import Image from "next/image";
 import DynamicTimer from "./DynamicTimer";
 import { mapEvents, MappedEventItem } from "@/utils/mapEvents";
-
+import jalaali from "jalaali-js";
 interface Params {
   lang: "fa" | "en";
 }
+const jalaliToTimestamp = (dateStr: string) => {
+  // "1404/08/16 09:00"
+  const [d, t] = dateStr.split(" ");
+  const [jy, jm, jd] = d.split("/").map(Number);
+  const [h, m] = t.split(":").map(Number);
 
+  const { gy, gm, gd } = jalaali.toGregorian(jy, jm, jd);
+  return new Date(gy, gm - 1, gd, h, m).getTime();
+};
 const SectionTimer = ({ params }: { params: Params }) => {
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const [isInView, setInView] = useState(false);
   const [events, setEvents] = useState<MappedEventItem[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // گرفتن دیتا از API
 useEffect(() => {
   const fetchEvents = async () => {
     try {
       const res = await fetch("https://api.rgb.irpsc.com/api/calendar?type=event");
       const json = await res.json();
-      let allEvents: MappedEventItem[] = mapEvents(json.data);
+      const allEvents: MappedEventItem[] = mapEvents(json.data);
       const now = Date.now();
 
       // ---------------------------
-      // 1) ایونت‌هایی که هنوز شروع نشده یا در حال اجرا هستند
+      // 1) تایمر دارهای فعال
       // ---------------------------
-      let activeEvents = allEvents.filter(ev => {
-        const startTime = new Date(ev.start).getTime();
-        const endTime = ev.end ? new Date(ev.end).getTime() : startTime;
-        return endTime > now; // هنوز تمام نشده
-      });
+      const activeTimedEvents = allEvents
+        .filter(ev => ev.end && jalaliToTimestamp(ev.end) > now)
+        .sort((a, b) =>
+          jalaliToTimestamp(a.end!) - jalaliToTimestamp(b.end!)
+        );
 
-      if (activeEvents.length > 0) {
-        activeEvents.sort((a, b) => {
-          const aEnd = a.end ? new Date(a.end).getTime() : new Date(a.start).getTime();
-          const bEnd = b.end ? new Date(b.end).getTime() : new Date(b.start).getTime();
-
-          // نزدیک‌ترین پایان → اول
-          return aEnd - bEnd;
-        });
-
-        setEvents(activeEvents.slice(0, 4));
+      // اگر ۴ تا یا بیشتر داریم
+      if (activeTimedEvents.length >= 4) {
+        setEvents(activeTimedEvents.slice(0, 4));
         return;
       }
 
       // ---------------------------
-      // 2) اگر هیچ ایونت فعال نبود → آخرین ایونت‌های تمام‌شده
+      // 2) پر کردن با پایان‌یافته‌ها
       // ---------------------------
-      let endedEvents = allEvents.filter(ev =>
-        ev.end && new Date(ev.end).getTime() <= now
-      );
+      const endedTimedEvents = allEvents
+        .filter(ev => ev.end && jalaliToTimestamp(ev.end) <= now)
+        .sort((a, b) =>
+          jalaliToTimestamp(b.end!) - jalaliToTimestamp(a.end!)
+        );
 
-      endedEvents.sort((a, b) => {
-        const aEnd = new Date(a.end!).getTime();
-        const bEnd = new Date(b.end!).getTime();
-        return (bEnd - aEnd); // جدیدترین پایان → اول
-      });
+      const remainingCount = 4 - activeTimedEvents.length;
 
-      setEvents(endedEvents.slice(0, 4));
+      const finalEvents = [
+        ...activeTimedEvents,
+        ...endedTimedEvents.slice(0, remainingCount),
+      ];
+
+      setEvents(finalEvents);
     } catch (err) {
       console.error("Error fetching events:", err);
     }
@@ -67,6 +70,13 @@ useEffect(() => {
 
   fetchEvents();
 }, []);
+
+
+
+
+
+
+
 
 
   // فعال کردن وقتی اسکرول بهش رسید
@@ -127,18 +137,21 @@ useEffect(() => {
             className="lg:h-[320px] overflow-y-hidden lg:me-5 relative p-[1px] w-full lg:w-1/2 xl:w-2/3 3xl:w-[70%]"
 
           >
-            <div className="h-full w-full   lg:rounded-[48px] py-5 lg:py-7 flex flex-col lg:flex-row gap-5 justify-center items-center">
-              <div className="w-full h-full flex justify-center max-w-[360px] max-h-[100%]  lg:rounded-[32px] overflow-hidden">
+            <div className="h-full w-full  py-5 md:py-0 lg:rounded-[48px]  flex flex-col lg:flex-row gap-5 justify-center items-center">
+              <div className="w-full h-full flex justify-center max-w-[380px] max-h-[100%]  lg:rounded-[32px] overflow-hidden relative">
                 <Image
-                  className="w-fill h-full  rounded-[38px]"
+                  className="w-fill h-full  rounded-[38px] relative"
                   src={eventData.image || "/firstpage/free.webp"}
                   alt={eventData.title}
-                  width={360}
-                  height={300}
+                  width={380}
+                  height={350}
                   quality={75}
                 />
+                <div className="w-full h-full  dark:bg-gradient-to-l dark:to-[#313131] dark:via-[#3131315b]  dark:from-[#31313100] absolute right-0 ">
+                  
+                </div>
               </div>
-              <div className="w-full lg:mt-0 text-justify flex flex-col justify-between h-full ">
+              <div className="w-full lg:mt-0 text-justify flex flex-col justify-between h-full  md:py-4 ">
                 <p className="text-start text-lg lg:text-xl 3xl:text-3xl text-black dark:text-white font-azarMehr font-medium ms-1 md:ms-5 2xl:!leading-[46px]">
                   {eventData.title}
                 </p>
