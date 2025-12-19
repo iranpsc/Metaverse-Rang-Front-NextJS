@@ -4,6 +4,7 @@ import ToastProvider from "../../components/shared/toastProvider";
 import { Suspense } from "react";
 import Head from "next/head";
 import ReferralHandler from './ReferralHandler';
+import VPNDetector from './VPNDetector';
 import {
   getTranslation,
   getMainFile,
@@ -67,7 +68,7 @@ export default async function LangLayout({ children, params }: any) {
       </Head>
 
       <body className={`${azarMehr.variable} ${rokh.variable}   h-screen light-scrollbar dark:dark-scrollbar`}>
-
+         <VPNDetector />
         <ReferralHandler />
         <ToastProvider />
         <main className="flex w-full h-screen overflow-hidden" dir={langData.direction}>
