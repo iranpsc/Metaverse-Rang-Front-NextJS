@@ -67,6 +67,7 @@ export default async function TopWritersArticles({ params, mainData }: any) {
               index={index}
               params={params}
               minWidth="280px"
+              mainData={mainData}
               levelText={findByUniqueId(mainData, 68)}
               buttonText={findByUniqueId(mainData, 600)}
             />

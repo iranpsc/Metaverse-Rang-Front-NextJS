@@ -55,6 +55,7 @@ export default function TopTrainersFirstPage({ params, mainData, users }: any) {
               minWidth="280px"
               levelText={findByUniqueId(mainData, 68)}
               buttonText={findByUniqueId(mainData, 600)}
+              mainData={mainData}
             />
           </div>
         ))}

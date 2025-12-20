@@ -24,6 +24,7 @@ const TopCitizen = async ({ mainData, params }: any) => {
             index={index}
             params={params}
             minWidth={`290px`}
+            mainData={mainData}
             buttonText={findByUniqueId(mainData, 600)}
           />
           
