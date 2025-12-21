@@ -78,6 +78,7 @@ export default function CitizenList({
         index={index}
         params={params}
         buttonText={buttonText} 
+        mainData={mainData}
         />
       ))}
       <div className="w-full flex justify-center mt-[40px]">

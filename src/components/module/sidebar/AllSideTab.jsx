@@ -68,11 +68,25 @@ export default function SideBarContent({
   const isEducationSectionActive = pathName.startsWith(`/${params.lang}/education`);
   const isArticlesSectionActive = pathName.startsWith(`/${params.lang}/articles`);
   const isCitizensSectionActive =
-  pathName === `/${params.lang}/citizens` ||
-  pathName === `/${params.lang}/citizens/` ||
-  pathName === `/${params.lang}/rand-id/hm`;
+    pathName === `/${params.lang}/citizens` ||
+    pathName === `/${params.lang}/citizens/` ||
+    pathName === `/${params.lang}/rand-id/hm`;
 
 
+  const pathSegments = pathName.split("/").filter(Boolean);
+  // ["fa","education","category","a&q","real-estate","SRDxZje7ll"]
+  const isEducationFinalContent =
+    pathSegments[1] === "education" &&
+    pathSegments[2] === "category" &&
+    pathSegments.length > 5;
+  const isEducationCategory =
+    pathSegments[1] === "education" &&
+    pathSegments[2] === "category" &&
+    !isEducationFinalContent;
+  const isCategoriesActive = isEducationCategory;
+  const isTrainingsActive =
+    pathName === `/${params.lang}/education` ||
+    isEducationFinalContent;
 
   useEffect(() => {
     if (!finalTabsMenu) return;
@@ -304,9 +318,23 @@ export default function SideBarContent({
                   >
                     <div className="flex items-center gap-2">
                       <span className="ps-[15px]">
-                        <ListMenuSvgModule item={{ name: "trainers", active: pathName === `/${params.lang}/education` || pathName === `/${params.lang}/education/` }} />
+                        <ListMenuSvgModule
+                          item={{
+                            name: "trainers",
+                            active: isTrainingsActive
+                          }}
+                        />
+
+
                       </span>
-                      <ListMenuTitleModule item={{ translation: params.lang === "fa" ? "آموزش‌ها" : "Trainings", active: pathName === `/${params.lang}/education` || pathName === `/${params.lang}/education/` }} isClosed={isClosed} />
+                      <ListMenuTitleModule
+                        item={{
+                          translation: params.lang === "fa" ? "آموزش‌ها" : "Trainings",
+                          active: isTrainingsActive
+                        }}
+                        isClosed={isClosed}
+                      />
+
                     </div>
                   </div>
 
@@ -319,9 +347,22 @@ export default function SideBarContent({
                   >
                     <div className="flex items-center gap-2">
                       <span className="ps-[15px]">
-                        <ListMenuSvgModule item={{ name: "categories", active: pathName.startsWith(`/${params.lang}/education/category`) }} />
+                        <ListMenuSvgModule
+                          item={{
+                            name: "categories",
+                            active: isCategoriesActive
+                          }}
+                        />
+
                       </span>
-                      <ListMenuTitleModule item={{ translation: params.lang === "fa" ? "دسته‌بندی‌ها" : "Categories", active: pathName.startsWith(`/${params.lang}/education/category`) }} isClosed={isClosed} />
+                      <ListMenuTitleModule
+                        item={{
+                          translation: params.lang === "fa" ? "دسته‌بندی‌ها" : "Categories",
+                          active: isCategoriesActive
+                        }}
+                        isClosed={isClosed}
+                      />
+
                     </div>
                   </div>
                 </div>
