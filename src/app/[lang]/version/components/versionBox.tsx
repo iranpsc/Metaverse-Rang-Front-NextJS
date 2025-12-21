@@ -240,7 +240,7 @@ const VersionBox: React.FC<VersionBoxProps> = ({
                         }`}>
                           {item.title}
                         </p>
-                        <p className={`textVersion whitespace-nowrap pl-[15px] text-[90%] ${
+                        <p className={`textVersion whitespace-nowrap pe-[15px] ps-[10px] text-[90%] ${
                           openIndex === index ? "dark:text-white" : "text-[#868B90]"
                         }`}>
                           {switchDigits(item.version, params.lang)}

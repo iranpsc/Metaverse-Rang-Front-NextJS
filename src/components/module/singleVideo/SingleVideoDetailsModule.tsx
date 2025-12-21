@@ -142,7 +142,7 @@ const SingleVideoDetailsModule = ({
       <div className="relative mt-10 px-3 w-full xs:w-[95%] h-[48px]">
         <input
           type="text"
-          className="w-full h-full ps-2 pe-[50px] text-black dark:text-white bg-grayLight dark:bg-black border-none rounded-[12px] placeholder-textInput focus:outline-none focus:shadow-md"
+          className="w-full h-full text-base ps-2 pe-[50px] text-black dark:text-white bg-grayLight dark:bg-black border-none rounded-[12px] placeholder-textInput focus:outline-none focus:shadow-md"
           placeholder={findByUniqueId(mainData, 457)}
           value={comment}
           onChange={(e) => SetComment(e.target.value)}
