@@ -147,7 +147,7 @@ useEffect(() => {
                   height={350}
                   quality={75}
                 />
-                <div className="w-full h-full  dark:bg-gradient-to-l dark:to-[#313131] dark:via-[#3131315b]  dark:from-[#31313100] absolute right-0 ">
+                <div className="w-full h-full bg-gradient-to-b to-[#DEDEE9] via-[#dedee942]  from-[#dedee905] md:bg-gradient-to-l md:to-[#DEDEE9] md:via-[#dedee942]  md:from-[#dedee905]  dark:bg-gradient-to-b dark:to-[#313131] dark:via-[#3131315b]  dark:from-[#31313100]  md:dark:bg-gradient-to-l md:dark:to-[#313131] md:dark:via-[#3131315b]  md:dark:from-[#31313100] absolute right-0 ">
                   
                 </div>
               </div>
