@@ -157,7 +157,7 @@ export default function SideBarContent({
                 </li>
               )}
 
-              {item.route_name === "language" && (
+              {/* {item.route_name === "language" && (
                 <li key={"language-" + item.unique_id}>
                   <div onClick={handleLangBtn} data-tooltip-id={item.name}>
                     <div
@@ -198,7 +198,7 @@ export default function SideBarContent({
                     />
                   </div>
                 </li>
-              )}
+              )} */}
             </React.Fragment>
           ))}
       </ul>
