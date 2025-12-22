@@ -15,7 +15,7 @@ import EducationCategories from "@/components/templates/education/categories";
 import EducationList from "@/components/templates/education/EducationList";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
-export default async function CitizensPage({ params }: { params: any }) {
+export default async function CitizensPage({ params  }: { params: any }) {
   const users = await getTopTrainerUsers();
   const [langData, langArray, allCatVideos, categoriesData] =
     await Promise.all([

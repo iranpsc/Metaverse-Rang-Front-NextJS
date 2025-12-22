@@ -109,7 +109,7 @@ useEffect(() => {
           >
             {item.name} {item.code && ["hm-2000001", "hm-2000002"].includes(item.code.trim()) && (
       <span className=" mt-[-2px] mx-1 text-xs font-medium text-blue-600 dark:text-yellow-400 bg-blue-50 dark:bg-yellow-900/20 px-3 py-[2px] rounded-full ">
-        {findByUniqueId(mainData, 1593)}
+        {findByUniqueId(mainData, 1593) || "بنیان گذار"} 
       </span>
     )}
           </p>
