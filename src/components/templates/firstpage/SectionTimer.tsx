@@ -134,7 +134,7 @@ useEffect(() => {
         <div className="flex flex-col lg:flex-row pb-5 px-5 lg:p-5 w-full transition-all duration-500 bg-[#DEDEE9] dark:bg-[#313131] rounded-[48px] lg:rounded-[50px] " >
           {/* عکس و توضیحات */}
           <div
-            className="lg:h-[320px] overflow-y-hidden lg:me-5 relative p-[1px] w-full lg:w-1/2 xl:w-2/3 3xl:w-[70%]"
+            className="lg:h-[250px] 2xl:h-[280px] 3xl:h-[320px] overflow-y-hidden lg:me-5 relative p-[1px] w-full lg:w-1/2 xl:w-2/3 3xl:w-[70%]"
 
           >
             <div className="h-full w-full  py-5 md:py-0 lg:rounded-[48px]  flex flex-col lg:flex-row gap-5 justify-center items-center">
@@ -155,14 +155,14 @@ useEffect(() => {
                 <p className="text-start text-lg lg:text-xl 3xl:text-3xl text-black dark:text-white font-azarMehr font-medium ms-1 md:ms-5 2xl:!leading-[46px]">
                   {eventData.title}
                 </p>
-                <p className="w-fit text-start text-sm 3xl:text-2xl text-lightGray font-azarMehr font-medium ms-1 md:ms-5 line-clamp-4 mt-3 lg:mt-0" dangerouslySetInnerHTML={{ __html: eventData.desc }} />
+                <p className="w-fit text-start text-sm lg:text-base xl:text-xl 3xl:text-2xl text-lightGray font-azarMehr font-medium ms-1 md:ms-5 line-clamp-4 mt-3 lg:mt-0" dangerouslySetInnerHTML={{ __html: eventData.desc }} />
 
               </div>
             </div>
           </div>
 
           {/* تایمر + دکمه‌ها */}
-          <div className="h-[320px] w-full lg:w-1/2 xl:w-1/3 3xl:w-[30%]  rounded-[50px] p-[5px] relative " >
+          <div className="lg:h-[250px] 2xl:h-[280px]  3xl:h-[320px] w-full lg:w-1/2 xl:w-1/3 3xl:w-[30%]  rounded-[50px] p-[5px] relative " >
             <div className="p-[20px] h-full rounded-3xl md:rounded-[50px] flex flex-col justify-around items-center relative bg-gradient-to-tl to-[#dfdfdf] from-white dark:to-[#FFFFFF17]  dark:from-[#22222291]">
               <DynamicTimer
                 daysLabel={params.lang === "fa" ? "روز" : "Days"}

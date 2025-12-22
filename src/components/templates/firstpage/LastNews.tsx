@@ -157,8 +157,8 @@ const LastNews = ({ mainData, params }: { mainData: any; params: Params }) => {
                   </p>
                 </a>
 
-                <div className="w-[95%] flex flex-row justify-between items-center">
-                  <Link href={`/${params.lang}/citizen/Hm-2000003`} target="_blank">
+                <div className="w-full flex flex-row justify-between items-center">
+                  <Link href={`/${params.lang}/citizen/hm-2000003`} target="_blank">
                     <div className="flex flex-row justify-start items-center gap-2">
                       <Image
                         src="/firstpage/alizadeh.webp"
@@ -168,29 +168,29 @@ const LastNews = ({ mainData, params }: { mainData: any; params: Params }) => {
                         loading="lazy"
                         className="w-[45px] h-[45px] rounded-full object-cover cursor-pointer transition-all duration-150 ease-in-out"
                       />
-                      <span className="text-blueLink cursor-pointer text-[14px] 3xl:text-[18px] whitespace-nowrap font-medium hover:font-bold uppercase">
-                        Hm-2000003
+                      <span className="text-blueLink cursor-pointer text-[14px] 3xl:text-[18px] whitespace-nowrap font-medium  uppercase">
+                        HM-2000003
                       </span>
                     </div>
                   </Link>
-                  <div className="flex flex-row justify-end items-center gap-4 md:gap-3 xl:gap-4 3xl:gap-5">
-                    <span className="flex items-center gap-2">
-                      <span className="whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray">
+                  <div className="flex flex-row justify-end items-center gap-4 md:gap-3 xl:gap-2 3xl:gap-5">
+                    <span className="flex items-center gap-2 xl:gap-1 3xl:gap-2">
+                      <span className="whitespace-nowrap font-azarMehr font-normal xl:text-sm 3xl:text-[18px] text-gray dark:text-dark-gray">
                         125
                       </span>
-                      <Like className="stroke-gray dark:stroke-dark-gray stroke-2 w-[18px] h-[18px]" />
+                      <Like className="stroke-gray dark:stroke-dark-gray stroke-2 w-[18px] h-[18px] xl:h-[14px] xl:w-[14px] 3xl:w-[18px] 3xl:h-[18px]" />
                     </span>
-                    <span className="flex items-center gap-2">
-                      <span className="whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray">
+                    <span className="flex items-center gap-2 xl:gap-1 3xl:gap-2">
+                      <span className="whitespace-nowrap font-azarMehr font-normal xl:text-sm 3xl:text-[18px] text-gray dark:text-dark-gray">
                         10
                       </span>
-                      <Dislike className="stroke-gray dark:stroke-dark-gray stroke-2" />
+                      <Dislike className="stroke-gray dark:stroke-dark-gray stroke-2 w-[18px] h-[18px] xl:h-[14px] xl:w-[14px] 3xl:w-[18px] 3xl:h-[18px]" />
                     </span>
-                    <span className="flex items-center gap-2">
-                      <span className="whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray">
+                    <span className="flex items-center gap-2 xl:gap-1 3xl:gap-2">
+                      <span className="whitespace-nowrap font-azarMehr font-normal xl:text-sm 3xl:text-[18px] text-gray dark:text-dark-gray">
                         610
                       </span>
-                      <View className="stroke-gray dark:stroke-dark-gray stroke-2 ms-1" />
+                      <View className="stroke-gray dark:stroke-dark-gray stroke-2 ms-1 w-[18px] h-[18px] xl:h-[14px] xl:w-[14px] 3xl:w-[18px] 3xl:h-[18px]" />
                     </span>
                   </div>
                 </div>

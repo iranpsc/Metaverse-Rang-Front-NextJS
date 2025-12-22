@@ -180,7 +180,7 @@ const updatedTabsMenu = mergedTabs.filter((tab) => {
                 />
               </Suspense>
               <section className="relative w-full bg-[#e9eef8] dark:bg-black flex flex-col lg:flex-row gap-[10px] p-[8px]">
-                <section className="lg:w-[35%] flex flex-col lg:overflow-auto">
+                <section className="lg:w-[35%] flex flex-col lg:overflow-auto light-scrollbar dark:dark-scrollbar">
                   <Profile
                     profileData={profileData}
                     titleData={titleData}
@@ -190,13 +190,13 @@ const updatedTabsMenu = mergedTabs.filter((tab) => {
                     params={params}
                   />
                 </section>
-                <section className="lg:w-[35%] flex flex-col ">
+                <section className="lg:w-[35%] flex flex-col lg:overflow-auto light-scrollbar dark:dark-scrollbar">
                   <ProfileDetails
                     profileData={profileData}
                     mainData={mainData}
                   />
                 </section>
-                <section className="lg:w-[30%] flex flex-col lg:overflow-auto">
+                <section className="lg:w-[30%] flex flex-col lg:overflow-auto light-scrollbar dark:dark-scrollbar">
                   <ProfileAbout
                     profileData={profileData}
                     mainData={mainData}
