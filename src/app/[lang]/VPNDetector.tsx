@@ -1,23 +1,25 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const VPNDetector = () => {
   const [showModal, setShowModal] = useState(false);
+  const hasChecked = useRef(false);
 
   useEffect(() => {
+    if (hasChecked.current) return;
+    hasChecked.current = true;
+
     const checkIP = async () => {
       try {
-        // چک می‌کنیم که قبلاً در این سشن مودال نشون داده شده یا نه
         if (sessionStorage.getItem("vpnModalShown")) return;
 
         const res = await fetch("https://ipapi.co/json/");
         const data = await res.json();
 
-        // اگر کشور ایران نبود → VPN روشنه
         if (data.country !== "IR") {
           setShowModal(true);
-          sessionStorage.setItem("vpnModalShown", "true"); // فقط یک‌بار در سشن
+          sessionStorage.setItem("vpnModalShown", "true");
         }
       } catch (error) {
         console.error("IP check failed:", error);
@@ -41,7 +43,7 @@ const VPNDetector = () => {
         <p className="text-black dark:text-white leading-7">
           برای تجربه بهتر VPN خود را خاموش کنید
         </p>
-        <button
+        <button aria-label="Close VPN Modal"
           onClick={() => setShowModal(false)}
           className="mt-6 px-6 py-2 rounded-xl bg-light-primary text-white dark:bg-dark-yellow dark:text-black transition font-semibold"
         >

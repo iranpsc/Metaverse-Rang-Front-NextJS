@@ -27,26 +27,15 @@ export default function ContactForm({ params }: any) {
     // console.log("NEXT_PUBLIC_EMAIL_TO:", process.env.NEXT_PUBLIC_EMAIL_TO);
     try {
       // nextjs request/response (api) handling
-      const response = await fetch("/api/sendEmail", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          to: [process.env.NEXT_PUBLIC_EMAIL_TO],
-          cc: [""],
-          bcc: [],
-          message: {
-            subject: `Contact Form Submission from ${formData.name}`,
-            text: `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phoneNo}\nTitle: ${formData.title}\nMessage: ${formData.message}`,
-            html: `
-                <p><strong>Name:</strong> ${formData.name}</p>
-                <p><strong>Email:</strong> ${formData.email}</p>
-                <p><strong>Phone:</strong> ${formData.phoneNo}</p>
-                <p><strong>Title:</strong> ${formData.title}</p>
-                <p><strong>Message:</strong> ${formData.message}</p>
-              `,
-          },
-        }),
-      });
+const response = await fetch("/api/sendEmail", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    to: [process.env.NEXT_PUBLIC_EMAIL_TO],
+    formData,
+  }),
+});
+
 
       const result = await response.json();
       toast.success(result.message);

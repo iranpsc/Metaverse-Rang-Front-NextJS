@@ -5,38 +5,43 @@ export const runtime = "nodejs";
 
 export async function POST(req: NextRequest) {
   try {
-    const { to, cc, bcc, message } = await req.json();
+    const { formData } = await req.json();
 
-const transporter = nodemailer.createTransport({
-  host: "sandbox.smtp.mailtrap.io",
-  port: 2525,
-  secure: false, // ❗ حتما false
-  auth: {
-    user: "8fd1c10e1bed58",
-    pass: "46b18920655987",
-  },
-  tls: {
-    rejectUnauthorized: false,
-  },
-});
+    if (!formData) {
+      throw new Error("No formData received");
+    }
 
+    const transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: Number(process.env.SMTP_PORT),
+      secure: false,
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+    });
 
-    const mailOptions: any = {
-      from: process.env.SMTP_USER,
-      to: to.join(", "),
-      subject: message.subject,
-      text: message.text,
-      html: message.html,
+    const mailOptions = {
+      from: process.env.EMAIL_FROM,          // حتماً وجود داشته باشه
+      to: process.env.EMAIL_TO,              // مقصد فقط سرور
+      subject: `Contact Form: ${formData.title}`,
+      text: `
+Name: ${formData.name}
+Email: ${formData.email}
+Phone: ${formData.phoneNo}
+
+Message:
+${formData.message}
+      `,
+      html: `
+        <h2>New Contact Form</h2>
+        <p><b>Name:</b> ${formData.name}</p>
+        <p><b>Email:</b> ${formData.email}</p>
+        <p><b>Phone:</b> ${formData.phoneNo}</p>
+        <p><b>Title:</b> ${formData.title}</p>
+        <p><b>Message:</b><br/>${formData.message}</p>
+      `,
     };
-console.log({
-  host: process.env.SMTP_HOST,
-  port: process.env.SMTP_PORT,
-  user: process.env.SMTP_USER,
-  pass: process.env.SMTP_PASS,
-});
-
-    if (cc?.length) mailOptions.cc = cc.join(", ");
-    if (bcc?.length) mailOptions.bcc = bcc.join(", ");
 
     const info = await transporter.sendMail(mailOptions);
 
@@ -45,7 +50,7 @@ console.log({
       { status: 200 }
     );
   } catch (error: any) {
-    console.error(error);
+    console.error("SEND EMAIL ERROR ❌", error);
     return NextResponse.json(
       { message: "خطا در ارسال ایمیل ❌", error: error.message },
       { status: 500 }
