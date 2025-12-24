@@ -68,7 +68,7 @@ export default async function LangLayout({ children, params }: any) {
       </Head>
 
       <body className={`${azarMehr.variable} ${rokh.variable}   h-screen light-scrollbar dark:dark-scrollbar`}>
-         <VPNDetector />
+         {params.lang !== "en" && <VPNDetector />}
         <ReferralHandler />
         <ToastProvider />
         <main className="flex w-full h-screen overflow-hidden" dir={langData.direction}>
