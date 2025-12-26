@@ -46,7 +46,7 @@ export default function ArticleCard({ item, params, theme }: ArticleCardProps) {
             <div className="absolute inset-0 h-full w-full bg-dark-gray dark:bg-textGray animate-pulse rounded-[10px] z-20" />
           )}
           <Image
-            src={item.image || "/articles/fallback.jpg"}
+            src={item.image || "/rafiki-dark.png"}
             alt={item.title}
             width={400}
             height={260}
