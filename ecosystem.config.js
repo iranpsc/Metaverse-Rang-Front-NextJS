@@ -3,7 +3,7 @@ module.exports = {
     {
       name: "next-app",
       script: "node_modules/next/dist/bin/next",
-      args: "start -p 3002",
+      args: "start -p 3003",
       cwd: "/home/frdevelop2/public_html",
       env: {
         NODE_ENV: "production",
