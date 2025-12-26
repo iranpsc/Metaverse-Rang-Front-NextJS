@@ -3,6 +3,14 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 
+type Errors = {
+  name?: string;
+  email?: string;
+  phoneNo?: string;
+  title?: string;
+  message?: string;
+};
+
 export default function ContactForm({ params }: any) {
   const [formData, setFormData] = useState({
     name: "",
@@ -10,151 +18,248 @@ export default function ContactForm({ params }: any) {
     phoneNo: "",
     title: "",
     message: "",
+    website: "", // honeypot
   });
+
+  const [errors, setErrors] = useState<Errors>({});
+  const [startTime] = useState(Date.now());
+
+  /* =========================
+     Helpers
+  ========================= */
+
+  const validate = () => {
+    const newErrors: Errors = {};
+
+    if (!formData.name.trim())
+      newErrors.name = "نام الزامی است";
+
+    if (!formData.email.trim())
+      newErrors.email = "ایمیل الزامی است";
+    else if (
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)
+    )
+      newErrors.email = "فرمت ایمیل نادرست است";
+
+    if (!formData.phoneNo.trim())
+      newErrors.phoneNo = "شماره تماس الزامی است";
+    else if (!/^[0-9]+$/.test(formData.phoneNo))
+      newErrors.phoneNo = "شماره تماس فقط باید عدد باشد";
+
+    if (!formData.title.trim())
+      newErrors.title = "عنوان پیام الزامی است";
+
+    if (!formData.message.trim())
+      newErrors.message = "متن پیام الزامی است";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  /* =========================
+     Handlers
+  ========================= */
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+
+    // پاک شدن ارور همان فیلد
+    setErrors((prev) => ({
+      ...prev,
+      [e.target.name]: undefined,
+    }));
   };
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // console.log("SMTP_HOST:", process.env.SMTP_HOST);
-    // console.log("SMTP_PORT:", process.env.SMTP_PORT);
-    // console.log("SMTP_USER:", process.env.SMTP_USER);
-    // console.log("SMTP_PASS:", process.env.SMTP_PASS);
-    // console.log("NEXT_PUBLIC_EMAIL_TO:", process.env.NEXT_PUBLIC_EMAIL_TO);
-    try {
-      // nextjs request/response (api) handling
-const response = await fetch("/api/sendEmail", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-    to: [process.env.NEXT_PUBLIC_EMAIL_TO],
-    formData,
-  }),
-});
 
+    if (!validate()) return;
+
+    setIsSubmitting(true); // 🔒 قفل دکمه
+
+    try {
+      const response = await fetch("/api/sendEmail", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          formData,
+          startTime,
+        }),
+      });
 
       const result = await response.json();
+
+      if (!response.ok) {
+        toast.error(result.message || "ارسال ناموفق");
+        return;
+      }
+
       toast.success(result.message);
+
       setFormData({
         name: "",
         email: "",
         phoneNo: "",
         title: "",
         message: "",
+        website: "",
       });
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      alert("There was an error submitting the form. Please try again later.");
+      setErrors({});
+    } catch {
+      toast.error("خطا در ارسال فرم ❌");
+    } finally {
+      setIsSubmitting(false); // 🔓 آزاد شدن دکمه
     }
   };
-  const isFormValid = Object.values(formData).every((value) => value.trim() !== "");
+
+
+  /* =========================
+     Render
+  ========================= */
 
   return (
     <form onSubmit={handleSubmit}>
+      {/* honeypot */}
+      <input
+        type="text"
+        name="website"
+        value={formData.website}
+        onChange={handleChange}
+        style={{ display: "none" }}
+        tabIndex={-1}
+        autoComplete="off"
+      />
+
       <div className="grid lg:grid-cols-2 gap-3 md:gap-5">
-        <div className="flex flex-col gap-3 ">
-          <div className="flex flex-col gap-5">
-            <input
-              type="text"
-              className="w-full text-base rtl:text-right ltr:text-left h-[50px] bg-[#F5F5F5] dark:bg-black rounded-[10px] p-4 border-0 dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder ring-1 ring-transparent focus:ring-1 outline-0 focus:ring-light-primary dark:focus:ring-dark-primary outline-none  border-none"
-              name="name"
-              value={formData.name}
-              id="name"
-              placeholder={
-                params.lang.toLowerCase() == "fa"
-                  ? "نام و نام خانوادگی"
-                  : "Name and Family"
-              }
-              onChange={handleChange}
-            />
-          </div>
-        </div>
-        <div className="flex flex-col gap-3 ">
-          <div className="flex flex-col gap-5">
-            <input
-              type="tel"
-              className={`w-full text-base rtl:text-right ltr:text-left h-[50px] bg-[#F5F5F5] dark:bg-black rounded-[10px] p-4 border-0 dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder ring-1 ring-transparent focus:ring-1 outline-0 focus:ring-light-primary dark:focus:ring-dark-primary outline-none  border-none`}
-              name="phoneNo"
-              value={formData.phoneNo}
-              id="phoneNo"
-              placeholder={
-                params.lang.toLowerCase() == "fa"
-                  ? "شماره تلفن"
-                  : "Phone number"
-              }
-              onChange={handleChange}
-            />
-          </div>
+
+        {/* name */}
+        <div>
+          <input
+            className={`w-full text-base rtl:text-right ltr:text-left h-[50px] bg-[#F5F5F5] dark:bg-black rounded-[10px] p-4 border-0 
+  dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder 
+  ring-1 outline-0 focus:ring-1 outline-none border-none
+  ${errors.name
+                ? "ring-red-600 focus:ring-red-600"
+                : "ring-transparent focus:ring-light-primary dark:focus:ring-dark-primary"
+              }`}
+            name="name"
+            value={formData.name}
+            placeholder={params.lang === "fa" ? "نام و نام خانوادگی" : "Name"}
+            onChange={handleChange}
+          />
+          {errors.name && (
+            <p className="text-red-600 text-sm mt-1">{errors.name}</p>
+          )}
         </div>
 
-        <div className="flex flex-col gap-3 ">
-          <div className="flex flex-col gap-5">
-            <input
-              type="text"
-              className="w-full text-base rtl:text-right ltr:text-left h-[50px] bg-[#F5F5F5] dark:bg-black rounded-[10px] p-4 border-0 dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder ring-1 ring-transparent focus:ring-1 outline-0 focus:ring-light-primary dark:focus:ring-dark-primary outline-none  border-none"
-              name="email"
-              value={formData.email}
-              id="email"
-              placeholder={
+        {/* phone */}
+        <div>
+          <input
+            className={`w-full text-base rtl:text-right ltr:text-left h-[50px] bg-[#F5F5F5] dark:bg-black rounded-[10px] p-4 border-0 
+  dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder 
+  ring-1 outline-0 focus:ring-1 outline-none border-none
+  ${errors.name
+                ? "ring-red-600 focus:ring-red-600"
+                : "ring-transparent focus:ring-light-primary dark:focus:ring-dark-primary"
+              }`}
+
+            name="phoneNo"
+            value={formData.phoneNo}
+            placeholder={params.lang === "fa" ? "شماره تلفن" : "Phone"}
+            onChange={handleChange}
+          />
+          {errors.phoneNo && (
+            <p className="text-red-600 text-sm mt-1">{errors.phoneNo}</p>
+          )}
+        </div>
+
+        {/* email */}
+        <div>
+          <input
+            className={`w-full text-base rtl:text-right ltr:text-left h-[50px] bg-[#F5F5F5] dark:bg-black rounded-[10px] p-4 border-0 
+  dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder 
+  ring-1 outline-0 focus:ring-1 outline-none border-none
+  ${errors.name
+                ? "ring-red-600 focus:ring-red-600"
+                : "ring-transparent focus:ring-light-primary dark:focus:ring-dark-primary"
+              }`}
+            name="email"
+            value={formData.email}
+           placeholder={
                 params.lang.toLowerCase() == "fa" ? "پست الکترونیک" : "E-mail"
               }
-              onChange={handleChange}
-            />
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-3 ">
-          <div className="flex flex-col gap-5">
-            <input
-              type="text"
-              className="w-full text-base rtl:text-right ltr:text-left h-[50px] bg-[#F5F5F5] dark:bg-black rounded-[10px] p-4 border-0 dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder ring-1 ring-transparent focus:ring-1 outline-0 focus:ring-light-primary dark:focus:ring-dark-primary outline-none  border-none"
-              name="title"
-              value={formData.title}
-              id="title"
-              placeholder={
-                params.lang.toLowerCase() == "fa"
-                  ? "موضوع پیام"
-                  : "Message title"
-              }
-              onChange={handleChange}
-            />
-          </div>
-        </div>
-      </div>
-      <div className="flex flex-col gap-3 md:gap-5 w-full mt-2 md:mt-5">
-        <div className="flex flex-col">
-          <textarea
-            className="w-full text-base mt-1 md:mt-0 rtl:text-right ltr:text-left bg-[#F5F5F5] dark:bg-black rounded-[10px] p-4 border-0 dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder ring-1 ring-transparent focus:ring-1 outline-0 focus:ring-light-primary dark:focus:ring-dark-primary outline-none  border-none"
-            id="message"
-            rows={7}
-            placeholder={
-              params.lang.toLowerCase() == "fa"
-                ? "پیام خود را اینجا بنویسید..."
-                : "Please type your message here..."
-            }
             onChange={handleChange}
-            name="message"
-            value={formData.message}
-          ></textarea>
+          />
+          {errors.email && (
+            <p className="text-red-600 text-sm mt-1">{errors.email}</p>
+          )}
         </div>
 
-        <button
-  type="submit"
-  disabled={!isFormValid}
-  className={`mt-[4px] text-[19px] w-full md:w-[48%] font-bold py-2 rounded-[10px] active:scale-105 transition 
-    ${isFormValid 
-      ? "dark:bg-dark-yellow dark:text-black bg-light-primary text-white cursor-pointer" 
-      : "bg-[#ECECEC] text-[#656565] cursor-not-allowed border border-gray-300"
-    }`}
->
-  {params.lang.toLowerCase() == "fa" ? "ارسال پیام" : "Send"}
-</button>
-
+        {/* title */}
+        <div>
+          <input
+            className={`w-full text-base rtl:text-right ltr:text-left h-[50px] bg-[#F5F5F5] dark:bg-black rounded-[10px] p-4 border-0 
+  dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder 
+  ring-1 outline-0 focus:ring-1 outline-none border-none
+  ${errors.name
+                ? "ring-red-600 focus:ring-red-600"
+                : "ring-transparent focus:ring-light-primary dark:focus:ring-dark-primary"
+              }`}
+            name="title"
+            value={formData.title}
+            placeholder={params.lang === "fa" ? "موضوع پیام" : "Title"}
+            onChange={handleChange}
+          />
+          {errors.title && (
+            <p className="text-red-600 text-sm mt-1">{errors.title}</p>
+          )}
+        </div>
       </div>
+
+      {/* message */}
+      <div className="mt-4">
+        <textarea
+          className={`w-full text-base rtl:text-right placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder  ltr:text-left bg-[#F5F5F5] dark:bg-black rounded-[10px] p-4 border-0 dark:text-white ring-1 ring-transparent focus:ring-light-primary dark:focus:ring-dark-primary outline-none
+  ${errors.name
+              ? "ring-red-600 focus:ring-red-600"
+              : "ring-transparent focus:ring-light-primary dark:focus:ring-dark-primary"
+            }`}
+          rows={7}
+          name="message"
+          value={formData.message}
+          placeholder={
+            params.lang === "fa"
+              ? "پیام خود را بنویسید..."
+              : "Your message..."
+          }
+          onChange={handleChange}
+        />
+        {errors.message && (
+          <p className="text-red-600 text-sm mt-1">{errors.message}</p>
+        )}
+      </div>
+
+      <button
+        type="submit"
+        disabled={isSubmitting}
+        className={`mt-5 text-[19px] w-full md:w-[48%] font-bold py-2 rounded-[10px] transition
+    ${isSubmitting
+            ? "bg-gray-400 cursor-not-allowed"
+            : "dark:bg-dark-yellow dark:text-black bg-light-primary text-white"
+          }`}
+      >
+        {isSubmitting
+          ? params.lang === "fa"
+            ? "در حال ارسال..."
+            : "Sending..."
+          : params.lang === "fa"
+            ? "ارسال پیام"
+            : "Send"}
+      </button>
+
     </form>
   );
 }
