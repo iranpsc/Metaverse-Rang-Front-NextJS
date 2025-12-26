@@ -1,12 +1,13 @@
 module.exports = {
-  apps : [{
-    name: "next-app",
-    script: "npm",
-    args: "start",
-    cwd: "/src/app",
-    watch: true,
-    env: {
-      NODE_ENV: "production",
-    }
-  }]
+  apps: [
+    {
+      name: "next-app",
+      script: "node_modules/next/dist/bin/next",
+      args: "start -p 3000",
+      cwd: "/home/frdevelop2/public_html",
+      env: {
+        NODE_ENV: "production",
+      },
+    },
+  ],
 };
