@@ -3,7 +3,7 @@ module.exports = {
     name: "next-app",
     script: "npm",
     args: "start",
-    cwd: "/src",
+    cwd: "/src/app",
     watch: true,
     env: {
       NODE_ENV: "production",
