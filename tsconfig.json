@@ -45,7 +45,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts", "src/app/[lang]/education/category/[category]/[subcategory]/page.tsx", "src/components/module/sidebar/LoginMenuModule.jsx", "src/components/module/sidebar/HeaderMobile.tsx",
+    ".next/types/**/*.ts", "src/app/[lang]/education/category/[category]/[subcategory]/page.tsx", "src/components/module/sidebar/LoginMenuModule.jsx", "src/components/module/sidebar/HeaderMobile.tsx", "src/app/[lang]/api/sendEmail/route.ts",
   ],
   "exclude": [
     "node_modules"

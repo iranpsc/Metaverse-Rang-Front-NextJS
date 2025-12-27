@@ -11,6 +11,8 @@ type Errors = {
   message?: string;
 };
 
+
+
 export default function ContactForm({ params }: any) {
   const [formData, setFormData] = useState({
     name: "",
@@ -81,7 +83,7 @@ export default function ContactForm({ params }: any) {
     setIsSubmitting(true); // 🔒 قفل دکمه
 
     try {
-      const response = await fetch("/api/sendEmail", {
+      const response = await fetch(`/${params}/api/sendEmail`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
