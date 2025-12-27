@@ -11,9 +11,12 @@ type Errors = {
   message?: string;
 };
 
+type Props = {
+  lang: string;
+};
 
 
-export default function ContactForm({ params }: any) {
+export default function ContactForm({ lang }: Props) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -83,7 +86,7 @@ export default function ContactForm({ params }: any) {
     setIsSubmitting(true); // 🔒 قفل دکمه
 
     try {
-      const response = await fetch(`/${params}/api/sendEmail`, {
+      const response = await fetch(`/${lang}/api/sendEmail`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -149,7 +152,7 @@ export default function ContactForm({ params }: any) {
               }`}
             name="name"
             value={formData.name}
-            placeholder={params.lang === "fa" ? "نام و نام خانوادگی" : "Name"}
+            placeholder={lang === "fa" ? "نام و نام خانوادگی" : "Name"}
             onChange={handleChange}
           />
           {errors.name && (
@@ -170,7 +173,7 @@ export default function ContactForm({ params }: any) {
 
             name="phoneNo"
             value={formData.phoneNo}
-            placeholder={params.lang === "fa" ? "شماره تلفن" : "Phone"}
+            placeholder={lang === "fa" ? "شماره تلفن" : "Phone"}
             onChange={handleChange}
           />
           {errors.phoneNo && (
@@ -191,7 +194,7 @@ export default function ContactForm({ params }: any) {
             name="email"
             value={formData.email}
            placeholder={
-                params.lang.toLowerCase() == "fa" ? "پست الکترونیک" : "E-mail"
+                lang.toLowerCase() == "fa" ? "پست الکترونیک" : "E-mail"
               }
             onChange={handleChange}
           />
@@ -212,7 +215,7 @@ export default function ContactForm({ params }: any) {
               }`}
             name="title"
             value={formData.title}
-            placeholder={params.lang === "fa" ? "موضوع پیام" : "Title"}
+            placeholder={lang === "fa" ? "موضوع پیام" : "Title"}
             onChange={handleChange}
           />
           {errors.title && (
@@ -233,7 +236,7 @@ export default function ContactForm({ params }: any) {
           name="message"
           value={formData.message}
           placeholder={
-            params.lang === "fa"
+            lang === "fa"
               ? "پیام خود را بنویسید..."
               : "Your message..."
           }
@@ -254,10 +257,10 @@ export default function ContactForm({ params }: any) {
           }`}
       >
         {isSubmitting
-          ? params.lang === "fa"
+          ? lang === "fa"
             ? "در حال ارسال..."
             : "Sending..."
-          : params.lang === "fa"
+          : lang === "fa"
             ? "ارسال پیام"
             : "Send"}
       </button>

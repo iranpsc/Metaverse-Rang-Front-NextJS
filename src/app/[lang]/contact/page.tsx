@@ -194,7 +194,7 @@ export default async function AboutPage({ params }: any) {
                       </p>
                     </div>
                     <div>
-                      <Form params={params} />
+                      <Form  lang={params.lang} />
                     </div>
                   </div>
                   <div className="flex flex-col gap-7 w-full lg:w-1/2 justify-center lg:justify-start w-full">
