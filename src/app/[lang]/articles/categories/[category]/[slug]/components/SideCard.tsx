@@ -53,7 +53,7 @@ const SideCard: React.FC<SideCardProps> = ({ params, mainData }) => {
       {latestArticles.map((item) => (
         <Link
           key={item.slug}
-          href={`/${params.lang}/articles/categories/${item.category}/${item.slug}`}
+          href={`/${params.lang}/articles/categories/${item.categorySlug}/${item.slug}`}
           className="bg-white dark:bg-[#1A1A18] shadow-lg rounded-xl overflow-hidden w-full flex flex-col hover:scale-[1.02] transition-transform"
         >
           <div className="w-full p-3">

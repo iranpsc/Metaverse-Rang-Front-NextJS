@@ -63,7 +63,7 @@ const PrevNextArticles = ({ params , mainData }: PrevNextArticlesProps) => {
           <div className="w-full">
             {prevArticle ? (
               <Link
-                href={`/${params.lang}/articles/categories/${params.category}/${prevArticle.slug}`}
+                href={`/${params.lang}/articles/categories/${prevArticle.categorySlug}/${prevArticle.slug}`}
                 className="flex flex-col gap-1  bg-white dark:bg-[#1A1A18] shadow-md rounded-2xl overflow-hidden w-full h-[390px]"
               >
                 <div className="p-3 w-full">
@@ -120,7 +120,7 @@ const PrevNextArticles = ({ params , mainData }: PrevNextArticlesProps) => {
           <div className=" w-full">
             {nextArticle ? (
               <Link
-                href={`/${params.lang}/articles/categories/${params.category}/${nextArticle.slug}`}
+                href={`/${params.lang}/articles/categories/${nextArticle.categorySlug}/${nextArticle.slug}`}
                 className="flex flex-col gap-1  bg-white dark:bg-[#1A1A18] shadow-md rounded-2xl overflow-hidden w-full h-[390px]"
               >
                 <div className="p-3">

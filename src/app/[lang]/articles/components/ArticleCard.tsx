@@ -37,7 +37,7 @@ export default function ArticleCard({ item, params, theme }: ArticleCardProps) {
   };
 
   return (
-    <Link href={`/${params.lang}/articles/categories/${item.category}/${item.slug}`} className="w-[100%] min-h-[240px] shadow-md hover:shadow-xl hover:dark:shadow-dark rounded-[10px] overflow-hidden bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-6 items-center">
+    <Link href={`/${params.lang}/articles/categories/${item.categorySlug}/${item.slug}`} className="w-[100%] min-h-[240px] shadow-md hover:shadow-xl hover:dark:shadow-dark rounded-[10px] overflow-hidden bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-6 items-center">
 
       {/* تصویر مقاله */}
       <div className="group w-full h-[260px] overflow-hidden px-4 pt-4">
@@ -63,7 +63,7 @@ export default function ArticleCard({ item, params, theme }: ArticleCardProps) {
       {/* دسته‌بندی */}
       <div className="w-[95%] flex flex-row justify-start items-center gap-1 mt-[-10px] pe-16">
         <Link
-          href={`/${params.lang}/articles/categories/${item.category}`}
+          href={`/${params.lang}/articles/categories/${item.categorySlug}`}
           className="text-start text-gray dark:text-dark-gray font-medium font-azarMehr text-[13px] 3xl:text-[16px]"
         >
           {item.category}
@@ -72,7 +72,7 @@ export default function ArticleCard({ item, params, theme }: ArticleCardProps) {
           <>
             <span className="font-azarMehr text-gray dark:text-dark-gray">/</span>
             <Link
-              href={`/${params.lang}/articles/categories/${item.category}/${item.subCategory}`}
+              href={`/${params.lang}/articles/categories/${item.categorySlug}/${item.subCategory}`}
               className="text-start text-gray dark:text-dark-gray whitespace-nowrap font-medium font-azarMehr text-[13px] 3xl:text-[16px]"
               data-tooltip-id={item.subCategory}
             >

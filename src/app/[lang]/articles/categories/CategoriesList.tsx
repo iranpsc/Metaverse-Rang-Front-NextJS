@@ -4,17 +4,20 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+
 interface CategoriesGridClientProps {
   categories: string[];
   categoryImages: Record<string, string>;
+  categorySlugs: Record<string, string>; // اضافه شد
   subcategoryCounts: Record<string, number>;
   params: { lang: string };
-    mainData:{mainData:string}
+  mainData: { mainData: string };
 }
 
 export default function CategoriesGridClient({
   categories,
   categoryImages,
+  categorySlugs, // اضافه شد
   subcategoryCounts,
   params,
   mainData,
@@ -34,10 +37,12 @@ export default function CategoriesGridClient({
             // برای LCP image از state استفاده می‌کنیم تا fallback کار کند
             const [imgSrc, setImgSrc] = useState(categoryImages[cat] || "/default.png");
 
+            const slug = categorySlugs[cat] || cat; // گرفتن slug برای URL
+
             return (
               <Link
                 key={cat}
-                href={`/${params.lang}/articles/categories/${encodeURIComponent(cat)}`}
+                href={`/${params.lang}/articles/categories/${encodeURIComponent(slug)}`}
                 className="relative w-full h-[200px] rounded-xl overflow-hidden shadow-lg group"
               >
                 <Image

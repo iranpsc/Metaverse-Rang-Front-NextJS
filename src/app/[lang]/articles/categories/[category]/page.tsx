@@ -11,28 +11,29 @@ interface CategoryPageProps {
   params: {
     lang: string;
     category: string;
+    slug:string;
   };
 }
 
 export async function generateMetadata({ params }: CategoryPageProps) {
-  const category = decodeURIComponent(params.category);
+  const categorySlug = decodeURIComponent(params.category);
   const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://rgb.irpsc.com";
 
   // ✅ گرفتن داده از Supabase
   const { data: articlesData } = await supabase
     .from("articles")
     .select("*")
-    .eq("category", category)
+    .eq("categorySlug", categorySlug)
     .order("date", { ascending: false });
 
   const categoryArticles = articlesData || [];
 
   if (categoryArticles.length === 0) {
     return {
-      title: `دسته ${category} | مقالات`,
-      description: `هیچ مقاله‌ای در دسته ${category} یافت نشد.`,
+      title: `دسته ${categorySlug} | مقالات`,
+      description: `هیچ مقاله‌ای در دسته ${categorySlug} یافت نشد.`,
       alternates: {
-        canonical: `${siteUrl}/${params.lang}/articles/categories/${category}`,
+        canonical: `${siteUrl}/${params.lang}/articles/categories/${categorySlug}`,
       },
     };
   }
@@ -47,11 +48,11 @@ export async function generateMetadata({ params }: CategoryPageProps) {
   return {
     title,
     description,
-    alternates: { canonical: `${siteUrl}/${params.lang}/articles/categories/${category}` },
+    alternates: { canonical: `${siteUrl}/${params.lang}/articles/categories/${categorySlug}` },
     openGraph: {
       title,
       description,
-      url: `${siteUrl}/${params.lang}/articles/categories/${category}`,
+      url: `${siteUrl}/${params.lang}/articles/categories/${categorySlug}`,
       type: "website",
       siteName: "متاورس رنگ",
       locale: params.lang === "fa" ? "fa_IR" : "en_US",
@@ -67,7 +68,7 @@ export async function generateMetadata({ params }: CategoryPageProps) {
 }
 
 export default async function CategoryPage({ params  }: CategoryPageProps) {
-  const category = decodeURIComponent(params.category);
+  const categorySlug = decodeURIComponent(params.category);
 
   const [ langData] = await Promise.all([
     getTranslation(params.lang),
@@ -78,7 +79,7 @@ export default async function CategoryPage({ params  }: CategoryPageProps) {
   const { data: articlesData } = await supabase
     .from("articles")
     .select("*")
-    .eq("category", category)
+    .eq("categorySlug", categorySlug)
     .order("date", { ascending: false });
 
   const categoryArticles = articlesData || [];
@@ -86,8 +87,8 @@ export default async function CategoryPage({ params  }: CategoryPageProps) {
   if (categoryArticles.length === 0) {
     return (
       <div className="text-center py-20 text-gray-500">
-        <h2 className="text-2xl font-semibold mb-4">
-          دسته‌ای با نام «{category}» پیدا نشد 😕
+        <h2 className="text-2xl font-semibold mb-4 dark:text-white">
+          دسته‌ای با نام «{categorySlug}» پیدا نشد 😕
         </h2>
         <Link
           href={`/${params.lang}/articles`}
@@ -112,7 +113,7 @@ export default async function CategoryPage({ params  }: CategoryPageProps) {
     "@type": "CollectionPage",
     "name": catName,
     "description": categoryDec || `مقالات مرتبط با ${catName}`,
-    "url": `https://rgb.irpsc.com/${params.lang}/articles/categories/${category}`,
+    "url": `https://rgb.irpsc.com/${params.lang}/articles/categories/${categorySlug}`,
     "image": categoryImage || "/default-bg.jpg",
     "mainEntity": {
       "@type": "ItemList",
@@ -128,7 +129,7 @@ export default async function CategoryPage({ params  }: CategoryPageProps) {
             "@type": "BlogPosting",
             "headline": a.title,
             "description": a.description || categoryDec || "این یک مقاله آموزشی است",
-            "url": `https://rgb.irpsc.com/${params.lang}/articles/categories/${category}/${a.slug}`,
+            "url": `https://rgb.irpsc.com/${params.lang}/articles/categories/${categorySlug}/${a.slug}`,
             "datePublished": published,
             "dateModified": published,
             "image": a.image || "/default-bg.jpg",
@@ -190,7 +191,7 @@ export default async function CategoryPage({ params  }: CategoryPageProps) {
       </div>
 
       <div className="mt-10 lg:px-5">
-        <CategorySorted params={params} category={category} articles={categoryArticles} mainData={mainData} />
+        <CategorySorted params={params} category={catName} articles={categoryArticles} mainData={mainData} />
       </div>
 
     </section>

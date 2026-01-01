@@ -3,8 +3,9 @@ import BreadCrumb from "@/components/shared/BreadCrumb";
 import CategoriesList from "./CategoriesList"; // Client Component
 import SearchComponent from "@/components/shared/SearchComponent"; // Client Component
 import { supabase } from "@/utils/lib/supabaseClient";
-import { getTranslation, getMainFile, getFooterData } from "@/components/utils/actions";
+import { getTranslation, getMainFile } from "@/components/utils/actions";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+
 export async function generateMetadata({ params }: { params: { lang: string } }) {
   const baseUrl = "https://rgb.irpsc.com";
   const langPrefix = params.lang ? `/${params.lang}` : "";
@@ -36,29 +37,30 @@ export async function generateMetadata({ params }: { params: { lang: string } })
   };
 }
 
-export default async function CategoriesPage({ params  }: { params: { lang: string } }) {
-  const [ langData] = await Promise.all([
-    getTranslation(params.lang),
-  ]);
+export default async function CategoriesPage({ params }: { params: { lang: string } }) {
+  const [langData] = await Promise.all([getTranslation(params.lang)]);
   const mainData = await getMainFile(langData);
-  // ✅ اصلاح ستون تاریخ: 'date' به جای 'created_at'
+
   const { data: articlesData, error } = await supabase
     .from("articles")
     .select("*")
     .order("date", { ascending: false });
 
-  if (error) {
-    console.error("Supabase fetch error:", error);
-  }
+  if (error) console.error("Supabase fetch error:", error);
 
   const articles = articlesData || [];
 
   // دسته‌بندی‌ها
   const categories = [...new Set(articles.map((a) => a.category).filter(Boolean))];
   const categoryImages: Record<string, string> = {};
+  const categorySlugs: Record<string, string> = {}; // اضافه شد
   articles.forEach((a) => {
-    if (a.category && a.categoryImage && !categoryImages[a.category]) {
-      categoryImages[a.category] = a.categoryImage;
+    if (a.category) {
+      if (a.categoryImage && !categoryImages[a.category]) {
+        categoryImages[a.category] = a.categoryImage;
+      }
+      // اگر slug وجود دارد از آن استفاده کن، در غیر این صورت خود name را encode کن
+      categorySlugs[a.category] = a.categorySlug ? a.categorySlug : encodeURIComponent(a.category);
     }
   });
 
@@ -73,12 +75,7 @@ export default async function CategoriesPage({ params  }: { params: { lang: stri
   const langPrefix = params.lang ? `/${params.lang}` : "";
   const fullPageUrl = `${baseUrl}${langPrefix}/articles/categories`;
 
-  // console.log("articlesData:", articlesData);
-  // console.log("categories:", categories);
-  // console.log("categoryImages:", categoryImages);
-  // console.log("subcategoryCounts:", subcategoryCounts);
-
-  // ✅ JSON-LD schema
+  // JSON-LD schema
   const schemaData = {
     "@context": "https://schema.org",
     "@graph": [
@@ -105,7 +102,7 @@ export default async function CategoriesPage({ params  }: { params: { lang: stri
         "itemListElement": categories.map((cat, index) => ({
           "@type": "ListItem",
           "position": index + 1,
-          "url": `${baseUrl}${langPrefix}/articles/categories/${encodeURIComponent(cat)}`,
+          "url": `${baseUrl}${langPrefix}/articles/categories/${categorySlugs[cat]}`, // slug استفاده شد
           "name": cat,
           "image": categoryImages[cat] || undefined,
         })),
@@ -130,13 +127,14 @@ export default async function CategoriesPage({ params  }: { params: { lang: stri
 
       {/* کامپوننت Client برای جستجو */}
       <div className="my-8">
-        <SearchComponent searchLevel="articles" articles={articles} params={params} mainData={mainData}/>
+        <SearchComponent searchLevel="articles" articles={articles} params={params} mainData={mainData} />
       </div>
 
       {/* لیست دسته‌بندی‌ها */}
       <CategoriesList
         categories={categories}
         categoryImages={categoryImages}
+        categorySlugs={categorySlugs} // اضافه شد
         subcategoryCounts={subcategoryCounts}
         params={params}
         mainData={mainData}

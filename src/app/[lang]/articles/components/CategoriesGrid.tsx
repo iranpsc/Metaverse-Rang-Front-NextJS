@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { supabase } from "@/utils/lib/supabaseClient";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+
 interface CategoriesGridProps {
   params: { lang: string };
   mainData:{mainData:string}
@@ -20,9 +21,7 @@ export default function CategoriesGrid({ params ,mainData }: CategoriesGridProps
         .from("articles")
         .select("*");
 
-      if (!error && data) {
-        setArticles(data);
-      }
+      if (!error && data) setArticles(data);
       setLoading(false);
     };
 
@@ -37,22 +36,19 @@ export default function CategoriesGrid({ params ,mainData }: CategoriesGridProps
     );
   }
 
-  // استخراج کتگوری یکتا
-  const categories = [...new Set(articles.map(a => a.category).filter(Boolean))];
-
-  // تصویر هر کتگوری
+  // استخراج دسته‌ها و slug ها
+  const categories: { name: string; slug: string }[] = [];
   const categoryImages: Record<string, string> = {};
-  articles.forEach(a => {
-    if (a.category && a.categoryImage && !categoryImages[a.category]) {
-      categoryImages[a.category] = a.categoryImage;
-    }
-  });
-
-  // شمارش یکتای زیر‌دسته‌ها
   const subcategorySets: Record<string, Set<string>> = {};
   const subcategoryCounts: Record<string, number> = {};
 
   articles.forEach(a => {
+    if (a.category && !categories.find(c => c.name === a.category)) {
+      categories.push({ name: a.category, slug: a.categorySlug || encodeURIComponent(a.category) });
+    }
+    if (a.category && a.categoryImage && !categoryImages[a.category]) {
+      categoryImages[a.category] = a.categoryImage;
+    }
     if (a.category && a.subCategory) {
       if (!subcategorySets[a.category]) subcategorySets[a.category] = new Set();
       subcategorySets[a.category].add(a.subCategory);
@@ -63,21 +59,20 @@ export default function CategoriesGrid({ params ,mainData }: CategoriesGridProps
     subcategoryCounts[cat] = subcategorySets[cat].size;
   });
 
-  // فقط ۷ عدد برای نمایش
   const visibleCategories = categories.slice(0, 7);
 
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-10 md:gap-7 xl:gap-10 3xl:gap-12">
-        {visibleCategories.map((cat, index) => (
+        {visibleCategories.map((catObj, index) => (
           <Link
-            key={cat}
-            href={`/${params.lang}/articles/categories/${encodeURIComponent(cat)}`}
+            key={catObj.slug}
+            href={`/${params.lang}/articles/categories/${catObj.slug}`}
             className="relative w-full h-[200px] rounded-xl overflow-hidden shadow-lg group"
           >
             <Image
-              src={categoryImages[cat] || "/default.png"}
-              alt={cat}
+              src={categoryImages[catObj.name] || "/default.png"}
+              alt={catObj.name}
               fill
               className="object-cover group-hover:scale-110 transition-transform duration-500"
               priority={index === 0}
@@ -114,9 +109,9 @@ export default function CategoriesGrid({ params ,mainData }: CategoriesGridProps
               </div>
 
               <div className="flex flex-col items-start justify-start z-10">
-                <span className="text-white font-bold mt-[-6px]">{cat}</span>
+                <span className="text-white font-bold mt-[-6px]">{catObj.name}</span>
                 <span className="text-[#9A9A9A] text-xs">
-                  {findByUniqueId(mainData, 1517)} {subcategoryCounts[cat] || 0} {findByUniqueId(mainData, 1518)}
+                  {findByUniqueId(mainData, 1517)} {subcategoryCounts[catObj.name] || 0} {findByUniqueId(mainData, 1518)}
                 </span>
               </div>
             </div>

@@ -39,6 +39,7 @@ interface Article {
   description: string;
   content: string;
   category: string;
+  categorySlug: string;
   subCategory: string;
   categoryImage: string;
   categoryDec: string;
@@ -72,6 +73,7 @@ if (!["hm-2000003", "hm-2000007"].includes(loggedInUserData.code.trim().toLowerC
     description: "",
     content: "",
     category: "",
+    categorySlug: "",
     subCategory: "",
     categoryImage: "",
     categoryDec: "",
@@ -128,6 +130,7 @@ if (!["hm-2000003", "hm-2000007"].includes(loggedInUserData.code.trim().toLowerC
     description: article.description || "",
     content: article.content || "",
     category: article.category || "",
+    categorySlug: article.categorySlug || "",
     subCategory: article.subCategory || "",
     categoryImage: article.categoryImage || "",
     categoryDec: article.categoryDec || "",
@@ -254,6 +257,14 @@ if (!["hm-2000003", "hm-2000007"].includes(loggedInUserData.code.trim().toLowerC
             onChange={(val: any) => setForm(prev => ({ ...prev, category: val?.value || "" }))}
             options={allCategories.map(c => ({ value: c, label: c }))}
           />
+
+          <input
+  name="categorySlug"
+  placeholder="Category Slug  - اسلاک دسته "
+  value={form.categorySlug}
+  onChange={handleChange}
+  className="w-full rounded-lg py-2 px-3 mt-2 focus:border-light-primary dark:focus:border-dark-yellow border-lightGray dark:bg-black dark:text-white dark:border-dark-gray border focus:border-2 outline-none"
+/>
 
           <h3>زیر دسته</h3>
           <CreatableSelect
