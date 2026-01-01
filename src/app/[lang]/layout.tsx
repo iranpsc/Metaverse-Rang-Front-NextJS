@@ -16,6 +16,7 @@ import {
 import { getStaticMenu } from "@/components/utils/constants";
 import ConditionalSidebar from "@/components/module/sidebar/ConditionalSidebar";
 import FooterClient from "@/components/module/footer/FooterClient";
+import Icon from "./Icon"
 
 interface Tab {
   id: number;
@@ -114,7 +115,10 @@ export default async function LangLayout({ children, params }: any) {
             className="fixed rtl:left-10 ltr:right-10 bottom-[20px] z-[1000]"
           >
             {/* SVG Discord */}
-              <img src="/IMG_6568.jpeg" alt="tm" className='w-[60px] h-[60px] rounded-full'/>
+             
+
+<Icon width={60} height={60} />
+
           </a>
 
         </main>
