@@ -170,7 +170,7 @@ const VersionBox: React.FC<VersionBoxProps> = ({
   };
 
   const shouldShowLoadMore = () =>
-    isMobile && visibleCount < filteredVersions.length;
+    visibleCount < filteredVersions.length;
 
   // scroll to active item
   useEffect(() => {
@@ -270,21 +270,23 @@ const VersionBox: React.FC<VersionBoxProps> = ({
                 موردی برای نمایش یافت نشد 😞
               </p>
             )}
-          </div>
-
-          {!isMobile && visibleCount < filteredVersions.length && (
+                      {visibleCount < filteredVersions.length && (
             <div ref={loadMoreRef} className="h-10 w-full"></div>
           )}
 
           {shouldShowLoadMore() && (
             <button
               onClick={handleShowMore}
-              className="mb-5 displayMore bg-white dark:bg-darkGray text-light-primary md:text-lg dark:text-dark-yellow rounded-[12px] px-[40px] py-[16px] base-transition-1 border-2 border-transparent hover:border-light-primary hover:text-light-primary hover:dark:border-dark-yellow lg:hidden"
+              className="mb-5 w-max mx-auto  bg-white dark:bg-darkGray text-light-primary md:text-lg dark:text-dark-yellow rounded-[12px] px-[40px] py-[16px] base-transition-1 border-2 border-light-primary hover:text-light-primary dark:border-dark-yellow "
             >
               {findByUniqueId(mainData, 271)}
             </button>
           )}
+          </div>
+
+
         </div>
+        
       </div>
     </div>
   );
