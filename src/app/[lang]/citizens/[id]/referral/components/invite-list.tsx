@@ -1,9 +1,8 @@
 "use client";
+
 import { useEffect, useState } from "react";
-import { getAllReferral } from "@/components/utils/actions";
-import InviteChart from "./invite-chart";
-import InviteListCard from "./invite-list-card";
 import axios from "axios";
+import InviteListCard from "./invite-list-card";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 export default function InviteList({
@@ -15,49 +14,71 @@ export default function InviteList({
   initInviteList: any;
   params: any;
   referralPageArrayContent: any;
-  mainData:any;
+  mainData: any;
 }) {
   const [isMounted, setIsMounted] = useState(false);
-  const [referralList, setReferralList] = useState(initInviteList.data);
-  const [searchTerm, setSearchTerm] = useState(""); // Track the search term
+  const [referralList, setReferralList] = useState<any[]>(
+    initInviteList?.data || []
+  );
+  const [searchTerm, setSearchTerm] = useState("");
 
-  // function localFind(_name: any): string {
-  //   if (!Array.isArray(referralPageArrayContent) || referralPageArrayContent.length === 0) {
-  //     console.warn('referralPageArrayContent is empty or not an array', { _name });
-  //     return '';
-  //   }
-  //   const item = referralPageArrayContent.find((item: any) => item.name === _name);
-  //   if (!item) {
-  //     console.warn(`No item found for name: ${_name}`, { referralPageArrayContent });
-  //     return '';
-  //   }
-  //   return item.translation || '';
-  // }
+  // 🔥 pagination states (اضافه شده)
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
-  useEffect(() => {}, [isMounted]);
-
+  /* ---------------- search ---------------- */
   const searchFetch = async () => {
     try {
-      // Call the API with the search term
-      const filteredReferralList = await axios.get(
+      setLoading(true);
+      const res = await axios.get(
         `https://api.rgb.irpsc.com/api/citizen/${params.id}/referrals?search=${searchTerm}`,
         {
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
         }
       );
 
-      // Update the referral list with the filtered results from the API
-      setReferralList(filteredReferralList.data.data);
+      setReferralList(res.data.data || []);
+      setHasMore(false); // بعد از search دیگه مشاهده بیشتر نداریم
     } catch (error) {
       console.error("Error fetching referral list:", error);
+    } finally {
+      setLoading(false);
     }
   };
+
+  /* ---------------- load more ---------------- */
+  const loadMore = async () => {
+    if (loading || !hasMore) return;
+
+    try {
+      setLoading(true);
+      const res = await axios.get(
+        `https://api.rgb.irpsc.com/api/citizen/${params.id}/referrals?page=${
+          page + 1
+        }`,
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      if (Array.isArray(res.data.data) && res.data.data.length > 0) {
+        setReferralList((prev) => [...prev, ...res.data.data]);
+        setPage((p) => p + 1);
+      } else {
+        setHasMore(false);
+      }
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <div className="flex flex-col py-8 leading-[24px] gap-4 w-full lg:self-start mt-[64px] mb-[32px]">
@@ -111,9 +132,20 @@ export default function InviteList({
       {referralList.length == 0 && (
         <p className="w-full text-center text-white">موردی یافت نشد.</p>
       )}
-      {false && (
-        <p className="w-[150px] text-blueLink dark:text-dark-primary pt-7 cursor-pointer m-auto text-center">
-          {params.lang.toLowerCase() == "fa" ? "مشاهده بیشتر" : "View more"}
+
+      {/* load more */}
+      {hasMore && referralList.length > 0 && (
+        <p
+          onClick={loadMore}
+          className="w-[150px] text-blueLink dark:text-dark-primary pt-7 cursor-pointer m-auto text-center"
+        >
+          {loading
+            ? params.lang.toLowerCase() === "fa"
+              ? "در حال بارگذاری..."
+              : "Loading..."
+            : params.lang.toLowerCase() === "fa"
+            ? "مشاهده بیشتر"
+            : "View more"}
         </p>
       )}
     </>
