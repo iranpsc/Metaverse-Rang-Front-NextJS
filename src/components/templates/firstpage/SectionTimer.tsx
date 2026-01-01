@@ -173,11 +173,11 @@ useEffect(() => {
                 endDate={eventData.end} 
                 params={params}     // تاریخ پایان جلالی
               />
-              <div className="w-full">
+              <div className="w-full flex flex-col">
                 {eventData.btnName && (
-                  <p className="w-full rounded-[28px] py-3 text-center  lg:text-lg 3xl:text-[19px] text-white dark:text-black bg-light-primary dark:bg-dark-yellow font-azarMehr font-medium mt-5">
+                  <a aria-label="meta btn" href="https://rgb.irpsc.com/metaverse/" className=" !w-full rounded-[28px] py-3 text-center  lg:text-lg 3xl:text-[19px] text-white dark:text-black bg-light-primary dark:bg-dark-yellow font-azarMehr font-medium mt-5">
                     {eventData.btnName}
-                  </p>
+                  </a>
                 )}
                 {eventData.link && (
                   <p className="w-full rounded-[28px] py-3 mt-5 text-center text-lg 3xl:text-[19px] text-white bg-[#343434] font-azarMehr font-medium">

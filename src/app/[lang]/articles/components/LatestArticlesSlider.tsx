@@ -12,6 +12,7 @@ import ArticleCard from "./ArticleCard";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { supabase } from "@/utils/lib/supabaseClient";
 import { articles as localArticles } from "@/components/utils/articles";
+import { string } from "yup";
 
 const Swiper = dynamic(async () => (await import("swiper/react")).Swiper, { ssr: false });
 
@@ -37,6 +38,7 @@ export type Article = {
   description?: string;
   content?: string;
   category?: string;
+  categorySlug?: string;
   subCategory?: string;
   categoryImage?: string;
   categoryDec?: string;
@@ -92,6 +94,7 @@ const LatestArticlesSlider: React.FC<LatestArticlesSliderProps> = ({
               description: d.description,
               content: d.content,
               category: d.category,
+              categorySlug: d.categorySlug,
               subCategory: d.subCategory,
               categoryImage: d.categoryImage,
               categoryDec: d.categoryDec,
