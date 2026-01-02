@@ -33,6 +33,7 @@ export type Article = {
   description?: string;
   content?: string;
   category?: string;
+  categorySlug?: string;
   subCategory?: string;
   categoryImage?: string;
   categoryDec?: string;
@@ -91,6 +92,7 @@ const LatestArticlesSlider: React.FC<LatestArticlesSliderProps> = ({
               subCategory: d.subCategory,
               categoryImage: d.categoryImage,
               categoryDec: d.categoryDec,
+              categorySlug: d.categorySlug,
               author: d.author,
               stats: d.stats || { views: 0, likes: 0, dislikes: 0, comments: 0 },
               tags:

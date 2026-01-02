@@ -130,7 +130,7 @@ export default function ArticleCard({ item, params, theme }: ArticleCardProps) {
         >
           <div className="flex flex-row justify-start items-center gap-2">
             <Image
-              src={item.author.avatar || "/articles/author/fallback-avatar.jpg"}
+              src={item.author.avatar || "/clogo.png"}
               alt={item.author.name}
               width={45}
               height={45}
