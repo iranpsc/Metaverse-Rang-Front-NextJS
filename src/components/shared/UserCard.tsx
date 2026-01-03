@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import GemImage from "@/components/templates/citizen/gemImage";
@@ -8,7 +9,8 @@ import LockGem from '@/public/Frame1000003193.png';
 // import { Like } from "@/components/svgs/SvgEducation";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { useId } from "react";
-export default function UserCard({ item, params, buttonText, minWidth, scoreElement, hidePreviousLevels , mainData }: any) {
+export default function UserCard({ item, params, buttonText, minWidth, scoreElement, hidePreviousLevels, mainData, activeBtnId,
+  setActiveBtnId, }: any) {
   const [urlForGem, setUrlForGem] = useState<string | undefined>(undefined);
   const staticRouteNames = [
     { id: 1, route_name: "citizen-baguette" },
@@ -25,6 +27,21 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
     { id: 12, route_name: "judge-baguette" },
     { id: 13, route_name: "legislator-baguette" },
   ];
+
+  const router = useRouter();
+  const isLoading = activeBtnId === item.code;
+
+  const handleButtonClick = () => {
+    // اگر همون دکمه دوباره کلیک شد، کاری نکن
+    if (isLoading) return;
+
+    // دکمه‌های قبلی خاموش می‌شن
+    setActiveBtnId(item.code);
+
+    router.push(`/${params.lang}/citizens/${item.code.toLowerCase()}`);
+  };
+
+
 
 
   const uid = useId();
@@ -52,14 +69,14 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
   // مرتب‌سازی لول‌ها و حذف تکراری‌ها
   const previousGems = item.levels?.previous || [];
   const currentGem = item.levels?.current;
-useEffect(() => {
-  const curId = currentGem?.id ?? currentGem?.slug ?? null;
-  const matchedRoute = staticRouteNames.find((x) => {
-    if (curId == null) return false;
-    return x.id === Number(curId);
-  })?.route_name;
-  setUrlForGem(matchedRoute);
-}, [currentGem]);
+  useEffect(() => {
+    const curId = currentGem?.id ?? currentGem?.slug ?? null;
+    const matchedRoute = staticRouteNames.find((x) => {
+      if (curId == null) return false;
+      return x.id === Number(curId);
+    })?.route_name;
+    setUrlForGem(matchedRoute);
+  }, [currentGem]);
 
   // حذف لول فعلی از آرایه قبلی‌ها (اگر موجود است)
   const uniquePreviousGems = previousGems.filter((gem: { slug: any; }) => gem.slug !== currentGem?.slug);
@@ -108,10 +125,10 @@ useEffect(() => {
             className={`font-bold text-[20px] dark:text-white font-azarMehr sm:mt-2 truncate w-full text-center ps-3 ${isTruncated ? "hover:overflow-visible hover:animate-rtlMarquee" : ""}`}
           >
             {item.name} {item.code && ["hm-2000001", "hm-2000002"].includes(item.code.trim()) && (
-      <span className=" mt-[-2px] mx-1 text-xs font-medium text-blue-600 dark:text-yellow-400 bg-blue-50 dark:bg-yellow-900/20 px-3 py-[2px] rounded-full ">
-        {findByUniqueId(mainData, 1593) || "بنیان گذار"} 
-      </span>
-    )}
+              <span className=" mt-[-2px] mx-1 text-xs font-medium text-blue-600 dark:text-yellow-400 bg-blue-50 dark:bg-yellow-900/20 px-3 py-[2px] rounded-full ">
+                {findByUniqueId(mainData, 1593) || "بنیان گذار"}
+              </span>
+            )}
           </p>
         </div>
 
@@ -152,14 +169,24 @@ useEffect(() => {
           </div>
         )}
 
-        <Link href={`/${params.lang}/citizens/${item.code}`} className="w-[80%]">
-          <div className="w-full h-[55px] bg-[#f5f9ff] dark:bg-[#000000] px-3 sm:px-6 rounded-[10px] flex flex-row justify-between items-center">
-            <span className="text-blueLink dark:text-dark-yellow font-azarMehr font-medium text-[14px]">
+        <button aria-label="citizen information"
+          onClick={handleButtonClick}
+          disabled={isLoading}
+          className={`w-[80%] ${isLoading ? "rotating-border cursor-not-allowed" : ""} p-[1px] bg-transparent`}
+        >
+          <div className="w-full h-[55px] bg-[#f5f9ff] dark:bg-[#000000] px-3 sm:px-6 rounded-[10px] flex flex-row justify-between items-center relative z-10">
+            <span
+              className={` transition-opacity text-blueLink dark:text-dark-yellow font-azarMehr font-medium text-[14px] ${isLoading ? "opacity-70" : "opacity-100"
+                }`}
+            >
               {buttonText}
             </span>
             <Text className="h-[24px] stroke-blueLink dark:stroke-dark-yellow" />
           </div>
-        </Link>
+        </button>
+
+
+
 
         <div className="absolute top-4 left-[-7px] group">
           {/* LIGHT – NORMAL */}

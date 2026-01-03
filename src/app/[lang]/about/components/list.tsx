@@ -1,5 +1,10 @@
+"use client";
+
 import UserCard from "@/components/shared/UserCard";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import { useState } from "react";
+
+
 
 interface User {
   id: string | number;
@@ -37,7 +42,7 @@ export default function List({ params, mainData, users }: ListProps) {
       code: "",
       score: "",
       levels: {
-        current: { id: 0, name: "توسعه دهنده" , image:"https://admin.rgb.irpsc.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
+        current: { id: 0, name: "توسعه دهنده", image: "https://admin.rgb.irpsc.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
         previous: [],
       },
     },
@@ -48,7 +53,7 @@ export default function List({ params, mainData, users }: ListProps) {
       code: "HM-2000475",
       score: "",
       levels: {
-        current: { id: 0, name: "توسعه دهنده", image:"https://admin.rgb.irpsc.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
+        current: { id: 0, name: "توسعه دهنده", image: "https://admin.rgb.irpsc.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
         previous: [],
       },
     },
@@ -56,10 +61,10 @@ export default function List({ params, mainData, users }: ListProps) {
       id: 7,
       name: "امین دهقان نژاد",
       profile_photo: "",
-      code: "",
+      code: "HM-2000007",
       score: "",
       levels: {
-        current: { id: 0, name: "توسعه دهنده" ,image:"https://admin.rgb.irpsc.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
+        current: { id: 0, name: "توسعه دهنده", image: "https://admin.rgb.irpsc.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
         previous: [],
       },
     },
@@ -70,7 +75,7 @@ export default function List({ params, mainData, users }: ListProps) {
       code: "",
       score: "",
       levels: {
-        current: { id: 0, name: "توسعه دهنده" ,image:"https://admin.rgb.irpsc.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png"},
+        current: { id: 0, name: "توسعه دهنده", image: "https://admin.rgb.irpsc.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
         previous: [],
       },
     },
@@ -81,7 +86,7 @@ export default function List({ params, mainData, users }: ListProps) {
       code: "HM-2000011",
       score: "",
       levels: {
-        current: { id: 0, name: "توسعه دهنده" ,image:"https://admin.rgb.irpsc.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png"},
+        current: { id: 0, name: "توسعه دهنده", image: "https://admin.rgb.irpsc.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
         previous: [],
       },
     },
@@ -92,7 +97,7 @@ export default function List({ params, mainData, users }: ListProps) {
       code: "",
       score: "",
       levels: {
-        current: { id: 0, name: "توسعه دهنده" ,image:"https://admin.rgb.irpsc.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png"},
+        current: { id: 0, name: "توسعه دهنده", image: "https://admin.rgb.irpsc.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
         previous: [],
       },
     },
@@ -103,7 +108,7 @@ export default function List({ params, mainData, users }: ListProps) {
       code: "",
       score: "",
       levels: {
-        current: { id: 0, name: "توسعه دهنده" ,image:"https://admin.rgb.irpsc.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png"},
+        current: { id: 0, name: "توسعه دهنده", image: "https://admin.rgb.irpsc.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
         previous: [],
       },
     },
@@ -111,10 +116,10 @@ export default function List({ params, mainData, users }: ListProps) {
       id: 12,
       name: "امیر حسین امینی",
       profile_photo: "",
-      code: "HM-2000010",
+      code: "hm-2000010",
       score: "",
       levels: {
-        current: { id: 0, name: "توسعه دهنده" ,image:"https://admin.rgb.irpsc.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
+        current: { id: 0, name: "توسعه دهنده", image: "https://admin.rgb.irpsc.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
         previous: [],
       },
     },
@@ -125,18 +130,18 @@ export default function List({ params, mainData, users }: ListProps) {
       code: "",
       score: "",
       levels: {
-        current: { id: 0, name: "توسعه دهنده" ,image:"https://admin.rgb.irpsc.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png"},
+        current: { id: 0, name: "توسعه دهنده", image: "https://admin.rgb.irpsc.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
         previous: [],
       },
     },
     {
       id: 14,
-      name: "یوسف خدری" ,
+      name: "یوسف خدری",
       profile_photo: "",
       code: "",
       score: "",
       levels: {
-        current: { id: 0, name: "توسعه دهنده" ,image:"https://admin.rgb.irpsc.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png"},
+        current: { id: 0, name: "توسعه دهنده", image: "https://admin.rgb.irpsc.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
         previous: [],
       },
     },
@@ -147,7 +152,7 @@ export default function List({ params, mainData, users }: ListProps) {
       code: "",
       score: "",
       levels: {
-        current: { id: 0, name: "توسعه دهنده" ,image:"https://admin.rgb.irpsc.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png"},
+        current: { id: 0, name: "توسعه دهنده", image: "https://admin.rgb.irpsc.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
         previous: [],
       },
     },
@@ -158,7 +163,7 @@ export default function List({ params, mainData, users }: ListProps) {
       code: "",
       score: "",
       levels: {
-        current: { id: 0, name: "توسعه دهنده" ,image:"https://admin.rgb.irpsc.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png"},
+        current: { id: 0, name: "توسعه دهنده", image: "https://admin.rgb.irpsc.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
         previous: [],
       },
     },
@@ -168,7 +173,7 @@ export default function List({ params, mainData, users }: ListProps) {
     { id: 1, route_name: "citizen-baguette" },
     { id: 2, route_name: "reporter-baguette" },
     { id: 3, route_name: "participation-baguette" },
-    { id: 4, route_name: "developer-baguette" , image:"https://admin.rgb.irpsc.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png"},
+    { id: 4, route_name: "developer-baguette", image: "https://admin.rgb.irpsc.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
     { id: 5, route_name: "inspector-baguette" },
   ];
 
@@ -205,7 +210,7 @@ export default function List({ params, mainData, users }: ListProps) {
 
   // 🔥 استاتیک + داینامیک پشت‌سرهم
   const allUsers: User[] = [...staticUsers, ...mappedUsers];
-
+const [activeBtnId, setActiveBtnId] = useState<string | number | null>(null);
   return (
     <div className="w-full flex flex-wrap gap-6 justify-center items-start pb-10 lg:px-7">
       {allUsers.map((user, index) => (
@@ -221,6 +226,8 @@ export default function List({ params, mainData, users }: ListProps) {
             minWidth="280px"
             levelText={findByUniqueId(mainData, 68)}
             buttonText={findByUniqueId(mainData, 600)}
+            activeBtnId={activeBtnId}
+            setActiveBtnId={setActiveBtnId}
           />
         </div>
       ))}
