@@ -48,7 +48,7 @@ export default function ArticleMeta({
         <div className="flex items-center gap-2 text-sm text-gray-600">
           <div>
             <Image
-              src={author.avatar || "/articles/author/fallback-avatar.jpg"}
+              src={author.avatar || "/clogo.png"}
               alt={author.name}
               width={60}
               height={60}

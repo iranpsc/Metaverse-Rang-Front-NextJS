@@ -22,10 +22,17 @@ import AuthorCard from "./components/AuthorCard";
 import ShowSocialWrapper from "./components/ShowSocialWrapper";
 
 
+
+
 // ======================================
 // ✅ Metadata از Supabase
 // ======================================
 export async function generateMetadata({ params }) {
+  function cleanDescription(html, limit = 255) {
+  if (!html) return "";
+  const text = html.replace(/<[^>]*>/g, "").trim(); // حذف HTML
+  return text.length > limit ? text.slice(0, limit).trim() + "…" : text;
+}
   const { slug } = params;
 
   const { data: article } = await supabase
@@ -38,11 +45,11 @@ export async function generateMetadata({ params }) {
 
   return {
     title: article.title,
-    description: article.excerpt || article.description || "",
+    description: cleanDescription(article.description || "مقالات متاورس رنگ"),
     authors: [{ name: article.author?.name }],
     openGraph: {
       title: article.title,
-      description: article.excerpt || article.description || "",
+      description: cleanDescription(article.description || "مقالات متاورس رنگ"),
       images: article.image ? [{ url: article.image }] : [],
       url: `https://rgb.irpsc.com/${params.lang}/articles/categories/${decodeURIComponent(
         params.category
@@ -52,7 +59,7 @@ export async function generateMetadata({ params }) {
     twitter: {
       card: "summary_large_image",
       title: article.title,
-      description: article.excerpt || article.description || "",
+      description:cleanDescription(article.description || "مقالات متاورس رنگ"),
       images: article.image ? [article.image] : [],
     },
   };
@@ -63,6 +70,11 @@ export async function generateMetadata({ params }) {
 // ✅ صفحه مقاله
 // ======================================
 export default async function ArticlePage({ params }) {
+  function cleanDescription(html, limit = 100) {
+  if (!html) return "";
+  const text = html.replace(/<[^>]*>/g, "").trim(); // حذف HTML
+  return text.length > limit ? text.slice(0, limit).trim() + "…" : text;
+}
   try {
     const { slug , category } = params;
 
@@ -108,7 +120,7 @@ export default async function ArticlePage({ params }) {
       "@context": "https://schema.org",
       "@type": "Article",
       headline: article.title,
-      description: article.excerpt || article.description || "",
+      description:cleanDescription( article.description || "مقالات متاورس رنگ"),
       image: article.image ? [article.image] : undefined,
       author: {
         "@type": "Person",
