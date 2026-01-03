@@ -167,7 +167,7 @@ export default async function CategoryPage({ params  }: CategoryPageProps) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       <div className="px-5 2xl:px-10 mt-[60px] lg:mt-0">
-        <BreadCrumb params={params} />
+        <BreadCrumb params={params} title={catName} />
       </div>
 
       <CategoryHeader

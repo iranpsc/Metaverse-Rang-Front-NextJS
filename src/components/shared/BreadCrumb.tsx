@@ -349,8 +349,8 @@ export default function BreadCrumb({ params, eventTitle , title}: { params: any;
     },
     {
       name: `${params.category}`,
-      en: decodeURIComponent(params.category || ""),
-  fa: decodeURIComponent(params.category|| ""),
+      en: decodeURIComponent(title || ""),
+  fa: decodeURIComponent(title|| ""),
       font: "font-normal",
       link: `/${params.lang}/articles/categories/${params.category}`,
     },
