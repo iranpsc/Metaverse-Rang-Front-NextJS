@@ -30,7 +30,11 @@ const SideCard: React.FC<SideCardProps> = ({ params, mainData }) => {
     if (!error && data) setLatestArticles(data);
     setLoading(false);
   };
-
+  function cleanDescription(html: string, limit = 255) {
+  if (!html) return "";
+  const text = html.replace(/<[^>]*>/g, "").trim(); // حذف HTML
+  return text.length > limit ? text.slice(0, limit).trim() + "…" : text;
+}
   if (loading) return <p>در حال بارگذاری...</p>;
 
   return (
@@ -93,7 +97,7 @@ const SideCard: React.FC<SideCardProps> = ({ params, mainData }) => {
 
             <h3 className="text-sm font-semibold dark:text-white">{item.title}</h3>
 
-            <p className="line-clamp-2 text-[#868B90] text-xs">{item.description}</p>
+            <p className="line-clamp-2 text-[#868B90] text-xs">{cleanDescription(item.description)}</p>
           </div>
         </Link>
       ))}
