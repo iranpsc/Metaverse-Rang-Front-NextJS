@@ -24,6 +24,9 @@ export { default as Dark } from "../../../public/svg/dark.svg";
 export { default as Light } from "../../../public/svg/light.svg";
 export { default as Dashet } from "../../../public/svg/dashet.svg";
 export { default as Tick } from "../../../public/menu/tick-lang.svg";
+export { default as HbtnDark } from "../../../public/svg/connect-devops-dark.svg";
+export { default as Hbtn } from "../../../public/svg/connect-devops-light.svg";
+
 
 export { default as Shahrvand } from "../../../public/svg/shahrvand.svg";
 

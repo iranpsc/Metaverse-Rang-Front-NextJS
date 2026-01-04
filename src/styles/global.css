@@ -399,3 +399,53 @@ input {
 .core-styles-module_show__Nt9eE{
   opacity: 1 !important;
 }
+/* Glow زرد pulsing */
+.glow-svg {
+  filter: drop-shadow(0 3px 6px rgba(0, 102,255, 0.7));
+  animation: pulseGlow 2s infinite alternate;
+  transition: filter 0.3s ease-in-out;
+}
+
+/* هاور: شدو ثابت و شدیدتر، pulsing قطع میشه */
+.glow-svg:hover {
+  animation: none;
+  filter: drop-shadow(0 3px 12px rgba(0, 102,255, 1));
+}
+
+/* انیمیشن pulsing */
+@keyframes pulseGlow {
+  0% {
+    filter: drop-shadow(0 3px 4px rgba(0, 102, 255, 0.2));
+  }
+  50% {
+    filter: drop-shadow(0 3px 10px rgba(0, 102, 255, 2));
+  }
+  100% {
+    filter: drop-shadow(0 3px 6px rgba(0, 102, 255, 0.8));
+  }
+}
+.dark .glow-svg {
+  filter: drop-shadow(0 3px 6px rgba(255, 199, 0, 0.6));
+  animation: pulseGlowD 2s infinite alternate;
+  transition: filter 0.3s ease-in-out;
+}
+
+/* هاور: شدو ثابت و شدیدتر، pulsing قطع میشه */
+.dark .glow-svg:hover {
+  animation: none;
+  filter: drop-shadow(0 3px 12px rgba(255, 199, 0, 1));
+}
+
+/* انیمیشن pulsing */
+@keyframes  pulseGlowD {
+  0% {
+    filter: drop-shadow(0 3px 4px rgba(255, 199, 0, 0.1));
+  }
+  50% {
+    filter: drop-shadow(0 3px 10px rgba(255, 199, 0, 1.2));
+  }
+  100% {
+    filter: drop-shadow(0 3px 6px rgba(255, 199, 0, 0.5));
+  }
+}
+
