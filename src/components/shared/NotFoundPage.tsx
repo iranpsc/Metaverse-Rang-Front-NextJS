@@ -1,5 +1,5 @@
 import React from "react";
-import SideBar from "@/components/module/sidebar/SideBar";
+// import SideBar from "@/components/module/sidebar/SideBar";
 import Image from "next/image";
 import Rafiki from '@/public/rafiki.png';
 import RafikiDark from '@/public/rafiki-dark.png';

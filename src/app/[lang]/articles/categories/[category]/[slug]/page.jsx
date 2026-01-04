@@ -25,42 +25,83 @@ import ShowSocialWrapper from "./components/ShowSocialWrapper";
 
 
 // ======================================
-// ✅ Metadata از Supabase
+// ✅ Metadata (SEO + 404 امن)
 // ======================================
 export async function generateMetadata({ params }) {
   function cleanDescription(html, limit = 255) {
-  if (!html) return "";
-  const text = html.replace(/<[^>]*>/g, "").trim(); // حذف HTML
-  return text.length > limit ? text.slice(0, limit).trim() + "…" : text;
-}
-  const { slug } = params;
+    if (!html) return "";
+    const text = html.replace(/<[^>]*>/g, "").trim();
+    return text.length > limit ? text.slice(0, limit).trim() + "…" : text;
+  }
 
+  const { slug, category, lang } = params;
+
+  // گرفتن مقاله فقط با slug
   const { data: article } = await supabase
     .from("articles")
     .select("*")
     .eq("slug", slug)
     .single();
 
-  if (!article) return { title: "مقاله یافت نشد" };
+  // ❌ مقاله وجود ندارد
+  if (!article) {
+    return {
+      title: "مقاله یافت نشد",
+      description: "مقاله مورد نظر وجود ندارد",
+      robots: {
+        index: false,
+        follow: false,
+      },
+    };
+  }
 
+  // ❌ category داخل URL اشتباه است (فارسی یا هر چیز دیگر)
+  if (category !== article.categorySlug) {
+    return {
+      title: "مقاله یافت نشد",
+      description: "آدرس مقاله معتبر نیست",
+      robots: {
+        index: false,
+        follow: false,
+      },
+    };
+  }
+
+  const canonicalUrl = `https://rgb.irpsc.com/${lang}/articles/categories/${article.categorySlug}/${article.slug}`;
+
+  // ✅ متادیتای نهایی صحیح
   return {
     title: article.title,
-    description: cleanDescription(article.description || "مقالات متاورس رنگ"),
-    authors: [{ name: article.author?.name }],
+    description: cleanDescription(
+      article.description || "مقالات متاورس رنگ"
+    ),
+
+    alternates: {
+      canonical: canonicalUrl,
+    },
+
     openGraph: {
       title: article.title,
-      description: cleanDescription(article.description || "مقالات متاورس رنگ"),
-      images: article.image ? [{ url: article.image }] : [],
-      url: `https://rgb.irpsc.com/${params.lang}/articles/categories/${decodeURIComponent(
-        params.category
-      )}/${article.slug}`,
+      description: cleanDescription(
+        article.description || "مقالات متاورس رنگ"
+      ),
+      url: canonicalUrl,
       type: "article",
+      images: article.image ? [{ url: article.image }] : [],
     },
+
     twitter: {
       card: "summary_large_image",
       title: article.title,
-      description:cleanDescription(article.description || "مقالات متاورس رنگ"),
+      description: cleanDescription(
+        article.description || "مقالات متاورس رنگ"
+      ),
       images: article.image ? [article.image] : [],
+    },
+
+    robots: {
+      index: true,
+      follow: true,
     },
   };
 }
@@ -76,20 +117,24 @@ export default async function ArticlePage({ params }) {
   return text.length > limit ? text.slice(0, limit).trim() + "…" : text;
 }
   try {
-    const { slug , category } = params;
+   const { slug, category } = params;
+
+
 
     // --- گرفتن مقاله اصلی ---
-    const { data: article } = await supabase
-      .from("articles")
-      .select("*")
-      .eq("slug", slug)
-      .single();
+const { data: article } = await supabase
+  .from("articles")
+  .select("*")
+  .eq("slug", slug)
+  .single();
+
     // گرفتن همه مقالات همان دسته‌بندی برای Prev/Next
-    const { data: categoryArticles } = await supabase
-      .from("articles")
-      .select("*")
-      .eq("category", category) // ← حالا category درست کار می‌کند
-      .order("date", { ascending: true });
+const { data: categoryArticles } = await supabase
+  .from("articles")
+  .select("*")
+  .eq("categorySlug", article.categorySlug)
+  .order("date", { ascending: true });
+
 
     const [ langData, langArray] = await Promise.all([
       getTranslation(params.lang),
@@ -98,19 +143,34 @@ export default async function ArticlePage({ params }) {
 
     const mainData = await getMainFile(langData);
 
-    // ❌ اگر مقاله نبود
-    if (!article) {
-      return (
-        <NotFoundPage
-          lang={params.lang}
-          params={params}
-          langData={langData}
-          langArray={langArray}
-          footerTabs={footerTabs}
-          mainData={mainData}
-        />
-      );
-    }
+// ❌ مقاله وجود ندارد
+if (!article) {
+  return (
+    <NotFoundPage
+      lang={params.lang}
+      params={params}
+      langData={langData}
+      langArray={langArray}
+      footerTabs={[]}
+      mainData={mainData}
+    />
+  );
+}
+
+// ❌ category داخل URL اشتباه است (فارسی یا هر چیز دیگر)
+if (category !== article.categorySlug) {
+  return (
+    <NotFoundPage
+      lang={params.lang}
+      params={params}
+      langData={langData}
+      langArray={langArray}
+      footerTabs={[]}
+      mainData={mainData}
+    />
+  );
+}
+
 
 
     // ======================================
