@@ -11,7 +11,7 @@ const stripHtml = (html: string, maxLength: number = 160): string => {
   return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
 };
 
-export default function BreadCrumb({ params, eventTitle , title}: { params: any; eventTitle?: string , title? :string;}) {
+export default function BreadCrumb({ params, eventTitle , title ,articleCat}: { params: any; eventTitle?: string , title? :string; articleCat? :string;}) {
   const [userName, setUserName] = useState("");
   const pathname = usePathname();
 
@@ -349,8 +349,8 @@ export default function BreadCrumb({ params, eventTitle , title}: { params: any;
     },
     {
       name: `${params.category}`,
-      en: decodeURIComponent(title || ""),
-  fa: decodeURIComponent(title|| ""),
+      en: decodeURIComponent(articleCat || ""),
+  fa: decodeURIComponent(articleCat|| ""),
       font: "font-normal",
       link: `/${params.lang}/articles/categories/${params.category}`,
     },

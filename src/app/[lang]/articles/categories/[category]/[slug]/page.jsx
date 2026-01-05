@@ -228,7 +228,7 @@ export default async function ArticlePage({ params }) {
 
         <section className="w-full overflow-y-auto relative bg-[#f8f8f8] dark:bg-black mt-[60px] lg:mt-0">
           <div className="px-5 2xl:px-10">
-            <BreadCrumb params={params} title={article.title} />
+            <BreadCrumb params={params} title={article.title} articleCat={article.category} />
           </div>
 
           <div className="mainContainer w-full flex flex-col gap-5 items-center lg:flex-row lg:items-start px-5 lg:px-10">
