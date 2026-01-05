@@ -64,7 +64,7 @@ export default function ArticleCard({ item, params, theme }: ArticleCardProps) {
       <div className="w-[95%] flex flex-row justify-start items-center gap-1 mt-[-10px] pe-16">
         <Link
           href={`/${params.lang}/articles/categories/${item.categorySlug}`}
-          className="text-start text-gray dark:text-dark-gray font-medium font-azarMehr text-[13px] 3xl:text-[16px]"
+          className="text-start text-gray dark:text-dark-gray font-medium font-azarMehr text-[13px] 3xl:text-[16px] text-nowrap"
         >
           {item.category}
         </Link>
@@ -73,7 +73,7 @@ export default function ArticleCard({ item, params, theme }: ArticleCardProps) {
             <span className="font-azarMehr text-gray dark:text-dark-gray">/</span>
             <Link
               href={`/${params.lang}/articles/categories/${item.categorySlug}/${item.subCategory}`}
-              className="text-start text-gray dark:text-dark-gray whitespace-nowrap font-medium font-azarMehr text-[13px] 3xl:text-[16px]"
+              className="text-start text-gray dark:text-dark-gray whitespace-nowrap font-medium font-azarMehr text-[13px] 3xl:text-[16px] truncate"
               data-tooltip-id={item.subCategory}
             >
               {item.subCategory.length > 30
@@ -97,7 +97,7 @@ export default function ArticleCard({ item, params, theme }: ArticleCardProps) {
 
       {/* عنوان مقاله */}
       <Link
-        href={`/${params.lang}/articles/categories/${item.category}/${item.slug}`}
+        href={`/${params.lang}/articles/categories/${item.categorySlug}/${item.slug}`}
         className="w-[95%] mt-[-24px]"
       >
         <p
@@ -114,7 +114,7 @@ export default function ArticleCard({ item, params, theme }: ArticleCardProps) {
 
       {/* توضیح کوتاه */}
       <Link
-        href={`/${params.lang}/articles/categories/${item.category}/${item.slug}`}
+        href={`/${params.lang}/articles/categories/${item.categorySlug}/${item.slug}`}
         className="w-[95%] mt-[-20px] text-textGray dark:text-lightGray"
       >
         <p className="text-[12px] 3xl:text-[16px] line-clamp-2 overflow-hidden">
