@@ -252,14 +252,14 @@ const SingleEvent: React.FC<SingleEventProps> = ({
               __html: event.desc, // همیشه متن کامل
             }}
           />
-          {shouldTruncate && (
+          {/* {shouldTruncate && (
             <button
               onClick={() => setShowFullDesc(!showFullDesc)}
               className="dark:text-dark-yellow text-blueLink bg-transparent hover:underline cursor-pointer text-base 2xl:text-xl"
             >
               {showFullDesc ? "" : findByUniqueId(mainData, 271)}
             </button>
-          )}
+          )} */}
         </div>
 
         {/* شمارش معکوس */}
