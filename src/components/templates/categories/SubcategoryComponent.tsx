@@ -24,7 +24,7 @@ export default function SubcategoryComponent({ subCategoryData, params, mainData
   const [videos, setVideos] = useState(subCategoryData.videos || []);
   const [visibleCount, setVisibleCount] = useState(9); // فقط ۹ تا اول
   const contentRef = useRef<HTMLDivElement | null>(null);
-
+  const [activeLoadingId, setActiveLoadingId] = useState<string | null>(null);
   useEffect(() => {
     if (page === 1) return; // صفحه اول رو داریم
     const fetchMore = async () => {
@@ -114,6 +114,7 @@ export default function SubcategoryComponent({ subCategoryData, params, mainData
             loading={loading}
             subCategoryData={subCategoryData}
             hasMore={hasMore && visibleCount < videos.length}
+            activeLoadingId={activeLoadingId} setActiveLoadingId={setActiveLoadingId}
           />
 
           {/* دکمه Load More */}

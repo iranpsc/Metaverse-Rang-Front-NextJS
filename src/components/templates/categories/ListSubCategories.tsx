@@ -15,7 +15,7 @@ export default function ListSubCategories({
 }: any) {
   const { theme } = useTheme();
   const [visibleCount, setVisibleCount] = useState(9); // اول ۹ تا
-
+  const [activeLoadingId, setActiveLoadingId] = useState<string | null>(null);
   const isDisabled = !CategoryData?.subcategories || visibleCount >= CategoryData.subcategories.length;
 
   const handleLoadMore = () => {
@@ -31,6 +31,7 @@ export default function ListSubCategories({
         <ListData
           params={params}
           nameComponent="subCategories"
+          activeLoadingId={activeLoadingId} setActiveLoadingId={setActiveLoadingId}
           data={{
             ...CategoryData,
             subcategories: CategoryData.subcategories?.slice(0, visibleCount),
@@ -43,9 +44,8 @@ export default function ListSubCategories({
         {!loading ? (
           <button
             disabled={isDisabled || loading}
-            className={`${
-              isDisabled ? "cursor-not-allowed" : ""
-            } bg-white dark:bg-darkGray text-light-primary md:text-lg dark:text-dark-yellow rounded-[12px] px-[40px] py-[16px] base-transition-1 border-2 border-transparent hover:border-light-primary hover:text-light-primary hover:dark:border-dark-yellow`}
+            className={`${isDisabled ? "cursor-not-allowed" : ""
+              } bg-white dark:bg-darkGray text-light-primary md:text-lg dark:text-dark-yellow rounded-[12px] px-[40px] py-[16px] base-transition-1 border-2 border-transparent hover:border-light-primary hover:text-light-primary hover:dark:border-dark-yellow`}
             onClick={handleLoadMore}
           >
             {findByUniqueId(mainData, 271)}
