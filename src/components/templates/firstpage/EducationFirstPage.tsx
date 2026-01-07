@@ -15,7 +15,7 @@ const EducationFirstPage = ({ mainData, params }: { mainData: any; params: Param
   const [videos, setVideos] = useState<any[]>([]);
   const [cookies] = useCookies(["theme"]);
   const theme = cookies.theme || "dark";
-
+  const [activeLoadingId, setActiveLoadingId] = useState<string | null>(null);
   const direction = params.lang === "fa" ? "rtl" : "ltr";
 
   useEffect(() => {
@@ -54,9 +54,8 @@ const EducationFirstPage = ({ mainData, params }: { mainData: any; params: Param
               {findByUniqueId(mainData, 171)}
             </p>
             <ArrowRight
-              className={`dark:stroke-white stroke-black w-[24px] h-full ${
-                direction === "rtl" ? "rotate-180" : "rotate-0"
-              }`}
+              className={`dark:stroke-white stroke-black w-[24px] h-full ${direction === "rtl" ? "rotate-180" : "rotate-0"
+                }`}
             />
           </div>
         </Link>
@@ -65,7 +64,7 @@ const EducationFirstPage = ({ mainData, params }: { mainData: any; params: Param
       {/* نمایش ۳ ویدیو آخر */}
       <div className="grid lg:grid-cols-2 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 xs:grid-cols-1 gap-10 mt-6 md:mt-12">
         {videos.map((item: any) => (
-          <VideoCard key={item.id} item={item} params={params} theme={theme} />
+          <VideoCard key={item.id} item={item} params={params} theme={theme} activeLoadingId={activeLoadingId} setActiveLoadingId={setActiveLoadingId}/>
         ))}
       </div>
     </div>

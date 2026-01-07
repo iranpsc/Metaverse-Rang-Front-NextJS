@@ -5,55 +5,43 @@ import { Like, Dislike, View } from "@/components/svgs/SvgEducation";
 import { formatNumber } from "@/components/utils/education";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 
-
-export default function VideoCard({ item, params, theme }: any) {
+export default function VideoCard({
+  item,
+  params,
+  theme,
+  activeLoadingId,
+  setActiveLoadingId,
+}: any) {
   const titleRef = useRef<HTMLParagraphElement>(null);
   const [isTruncated, setIsTruncated] = useState(false);
-
-  // ✅ استیت برای کنترل لود تصویر
   const [imgLoading, setImgLoading] = useState(true);
 
-  const checkTruncation = () => {
-    const el = titleRef.current;
-    if (el) {
-      setIsTruncated(el.scrollWidth > el.clientWidth);
-    }
-  };
+  const isLoading = activeLoadingId === item.id;
 
   useEffect(() => {
-    checkTruncation();
-    const observer = new ResizeObserver(() => {
-      checkTruncation();
-    });
+    const el = titleRef.current;
+    if (el) setIsTruncated(el.scrollWidth > el.clientWidth);
+  }, [item.title]);
 
-    if (titleRef.current) {
-      observer.observe(titleRef.current);
-    }
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [item.title, item]);
-
-  // تابع برای حذف تگ‌های HTML
   const stripHTML = (html: string) => {
     const tmp = document.createElement("div");
     tmp.innerHTML = html;
-    return tmp.textContent || tmp.innerText || "";
+    return tmp.textContent || "";
   };
 
-
   return (
-    <div className="w-[100%] min-h-[240px] shadow-md hover:shadow-xl hover:dark:shadow-dark rounded-[10px] overflow-hidden bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-6 items-center">
-      
+    <Link aria-label="eduction card" href={`/${params.lang}/education/category/${item.category.slug}/${item.sub_category.slug}/${item.slug}`} onClickCapture={() => setActiveLoadingId(item.id)} className={`${isLoading ? "rotating-border-card cursor-not-allowed" : ""}  w-[100%] min-h-[240px] shadow-md  hover:shadow-xl hover:dark:shadow-dark rounded-[10px] overflow-hidden bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-6 items-center`}>
+      {isLoading && (
+        <div className="absolute inset-0 z-50 flex items-center justify-center">
+          {/* بک‌گراند محو */}
+          <div className="absolute inset-0 bg-black/20 " />
+        </div>
+      )}
       <div className="group w-full  h-[260px] overflow-hidden px-4 pt-4 ">
-        <div className=" relative h-full w-full ">
-
-          {/* ✅ اسکلت لودر (بکگراند خاکستری با افکت پالس) */}
+        <div className=" relative h-full w-full z-[1] ">
           {imgLoading && (
             <div className="absolute inset-0 h-full w-full bg-dark-gray dark:bg-textGray animate-pulse rounded-[10px] z-20" />
           )}
-
           <Image
             src={item.image_url || "/rafiki-dark.png"}
             alt={item.title}
@@ -66,7 +54,7 @@ export default function VideoCard({ item, params, theme }: any) {
             onLoadingComplete={() => setImgLoading(false)} // ✅ وقتی لود تموم شد اسکلت حذف بشه
           />
 
-          <div className="w-full h-full   absolute top-0 z-10 flex justify-center items-center">
+          <div className="w-full h-full z-[1]  absolute top-0 z-10 flex justify-center items-center">
             <Link aria-label="eduction"
               className="w-fit hover:scale-105 duration-100"
               href={`/${params.lang}/education/category/${item.category.slug}/${item.sub_category.slug}/${item.slug}`}
@@ -80,7 +68,7 @@ export default function VideoCard({ item, params, theme }: any) {
         </div>
       </div>
 
-      <div className="w-[95%] flex flex-row justify-start items-center gap-1 mt-[-10px] pe-16">
+      <div className="w-[95%]  z-[1] flex flex-row justify-start items-center gap-1 mt-[-10px] pe-16">
         <Link aria-label="eduction" href={`/${params.lang}/education/category/${item.category.slug}`} className="text-start text-gray dark:text-dark-gray font-medium font-azarMehr text-[13px] 3xl:text-[16px]">
           {item.category.name}
         </Link>
@@ -107,7 +95,7 @@ export default function VideoCard({ item, params, theme }: any) {
       </div>
 
       <Link
-        className="w-[95%] mt-[-24px]" aria-label="eduction"
+        className="w-[95%] mt-[-24px] z-[1]" aria-label="eduction"
         href={`/${params.lang}/education/category/${item.category.slug}/${item.sub_category.slug}/${item.slug}`}
       >
         <p
@@ -119,7 +107,7 @@ export default function VideoCard({ item, params, theme }: any) {
         </p>
       </Link>
       <Link
-        className="w-[95%] mt-[-20px] text-textGray dark:text-lightGray" aria-label="eduction"
+        className="w-[95%] z-[1] mt-[-20px] text-textGray dark:text-lightGray" aria-label="eduction"
         href={`/${params.lang}/education/category/${item.category.slug}/${item.sub_category.slug}/${item.slug}`}
       >
         <p className=" text-[12px] 3xl:text-[16px] line-clamp-2 overflow-hidden">
@@ -129,7 +117,7 @@ export default function VideoCard({ item, params, theme }: any) {
 
 
 
-      <div className="w-[95%] pb-2 flex flex-row justify-between items-center">
+      <div className="w-[95%] z-[1] pb-2 flex flex-row justify-between items-center">
         <Link aria-label="citizen" href={`/${params.lang}/citizen/${item.creator.code}`} >
           <div className="flex flex-row justify-start items-center gap-2">
             <Image
@@ -169,6 +157,6 @@ export default function VideoCard({ item, params, theme }: any) {
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
