@@ -37,7 +37,7 @@ const PopularArticlesSlider = ({ params, mainData, theme }: PopularArticlesProps
   const [articles, setArticles] = useState<Article[]>([]);
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const swiperRef = useRef<SwiperType | null>(null);
-
+  const [activeLoadingId, setActiveLoadingId] = useState<string | null>(null);
   // ================= Fetch Articles From Supabase =================
   useEffect(() => {
     const fetchArticles = async () => {
@@ -101,7 +101,7 @@ const PopularArticlesSlider = ({ params, mainData, theme }: PopularArticlesProps
       >
         {sortedArticles.map((item) => (
           <SwiperSlide key={item.id} className="flex items-center pb-5">
-            <ArticleCard item={item} params={params} theme={theme} />
+            <ArticleCard item={item} params={params} theme={theme} activeLoadingId={activeLoadingId} setActiveLoadingId={setActiveLoadingId}/>
           </SwiperSlide>
         ))}
       </Swiper>

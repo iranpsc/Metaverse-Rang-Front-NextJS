@@ -51,14 +51,14 @@ interface CategoryClientProps {
   params: {
     lang: string;
   };
-    mainData:{mainData:string}
-  
+  mainData: { mainData: string }
+
 }
 
-export default function CategoryClient({ articles, category, params , mainData }: CategoryClientProps) {
+export default function CategoryClient({ articles, category, params, mainData }: CategoryClientProps) {
   const [activeSub, setActiveSub] = useState<string | null>(null);
   const [visibleCount, setVisibleCount] = useState(9);
-
+  const [activeLoadingId, setActiveLoadingId] = useState<string | null>(null);
   const categoryArticles = useMemo(() => {
     const filtered = articles.filter(
       (a) => a.category.trim().toLowerCase() === category.trim().toLowerCase()
@@ -99,8 +99,8 @@ export default function CategoryClient({ articles, category, params , mainData }
               setVisibleCount(9);
             }}
             className={`px-4 py-2 rounded-lg transition ${activeSub === null
-                ? "dark:border-dark-yellow border border-solid border-light-primary text-light-primary  dark:text-dark-yellow dark:bg-[#0E0E0E] bg-white"
-                : "bg-white border border-solid border-[#D9D9D9] dark:border-[#434343] dark:bg-[#0E0E0E] text-[#A0A0A0] dark:text-white"
+              ? "dark:border-dark-yellow border border-solid border-light-primary text-light-primary  dark:text-dark-yellow dark:bg-[#0E0E0E] bg-white"
+              : "bg-white border border-solid border-[#D9D9D9] dark:border-[#434343] dark:bg-[#0E0E0E] text-[#A0A0A0] dark:text-white"
               }`}
           >
             همه
@@ -113,8 +113,8 @@ export default function CategoryClient({ articles, category, params , mainData }
                 setVisibleCount(9);
               }}
               className={`px-4 py-2 rounded-lg transition ${activeSub === sub
-                  ? "dark:border-dark-yellow border border-solid border-light-primary text-light-primary  dark:text-dark-yellow dark:bg-[#0E0E0E] bg-white"
-                  : "bg-white border border-solid border-[#D9D9D9] dark:border-[#434343] dark:bg-[#0E0E0E] text-[#A0A0A0] dark:text-white"
+                ? "dark:border-dark-yellow border border-solid border-light-primary text-light-primary  dark:text-dark-yellow dark:bg-[#0E0E0E] bg-white"
+                : "bg-white border border-solid border-[#D9D9D9] dark:border-[#434343] dark:bg-[#0E0E0E] text-[#A0A0A0] dark:text-white"
                 }`}
             >
               {sub}
@@ -138,6 +138,8 @@ export default function CategoryClient({ articles, category, params , mainData }
                 key={item.id}
                 item={item}
                 params={{ lang: params.lang }}
+                activeLoadingId={activeLoadingId}
+                setActiveLoadingId={setActiveLoadingId}
               />
             ))}
           </div>

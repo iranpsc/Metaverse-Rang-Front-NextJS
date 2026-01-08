@@ -65,7 +65,7 @@ const LatestArticlesSlider: React.FC<LatestArticlesSliderProps> = ({
   const [error, setError] = useState<string | null>(null);
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const swiperRef = useRef<SwiperType | null>(null);
-
+  const [activeLoadingId, setActiveLoadingId] = useState<string | null>(null);
   useEffect(() => {
     let mounted = true;
 
@@ -204,7 +204,7 @@ const LatestArticlesSlider: React.FC<LatestArticlesSliderProps> = ({
       >
         {sortedArticles.map((item) => (
           <SwiperSlide key={String(item.id)} className="flex items-center pb-5">
-            <ArticleCard item={item} params={params} theme={theme} />
+            <ArticleCard item={item} params={params} theme={theme} activeLoadingId={activeLoadingId} setActiveLoadingId={setActiveLoadingId}/>
           </SwiperSlide>
         ))}
       </Swiper>

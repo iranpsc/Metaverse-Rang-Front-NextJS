@@ -19,6 +19,7 @@ const RelatedArticlesSlider = ({ params, mainData }: RelatedArticlesSliderProps)
   const [relatedArticles, setRelatedArticles] = useState<any[]>([]);
   const [currentArticle, setCurrentArticle] = useState<any | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [activeLoadingId, setActiveLoadingId] = useState<string | null>(null);
   const swiperRef = useRef<SwiperType>();
 
   // === 1) دریافت مقاله فعلی با slug ===
@@ -103,7 +104,7 @@ const RelatedArticlesSlider = ({ params, mainData }: RelatedArticlesSliderProps)
       >
         {relatedArticles.map((item) => (
           <SwiperSlide key={item.id} className="flex items-center pb-5">
-            <ArticleCard item={item} params={{ lang: params.lang }} />
+            <ArticleCard item={item} params={{ lang: params.lang }} activeLoadingId={activeLoadingId} setActiveLoadingId={setActiveLoadingId}/>
           </SwiperSlide>
         ))}
       </Swiper>
