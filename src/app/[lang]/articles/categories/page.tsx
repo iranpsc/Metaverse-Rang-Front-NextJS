@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: { params: { lang: string } })
     },
   };
 }
-
+export const revalidate = 0;
 export default async function CategoriesPage({ params }: { params: { lang: string } }) {
   const [langData] = await Promise.all([getTranslation(params.lang)]);
   const mainData = await getMainFile(langData);

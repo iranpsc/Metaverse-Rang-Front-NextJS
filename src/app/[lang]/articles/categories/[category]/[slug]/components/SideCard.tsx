@@ -7,6 +7,8 @@ import { supabase } from "@/utils/lib/supabaseClient";
 import { View, Like, Dislike } from "@/components/svgs/SvgEducation";
 import { ArrowRight } from "@/components/svgs";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import ArticleSideCard from "./ArticleSideCard";
+
 interface SideCardProps {
   params: any;
   mainData: any;
@@ -15,7 +17,7 @@ interface SideCardProps {
 const SideCard: React.FC<SideCardProps> = ({ params, mainData }) => {
   const [latestArticles, setLatestArticles] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-
+    const [activeLoadingId, setActiveLoadingId] = useState<string | null>(null);
   useEffect(() => {
     fetchLatest();
   }, []);
@@ -54,53 +56,17 @@ const SideCard: React.FC<SideCardProps> = ({ params, mainData }) => {
         </Link>
       </div>
 
-      {latestArticles.map((item) => (
-        <Link
-          key={item.slug}
-          href={`/${params.lang}/articles/categories/${item.categorySlug}/${item.slug}`}
-          className="bg-white dark:bg-[#1A1A18] shadow-lg rounded-xl overflow-hidden w-full flex flex-col hover:scale-[1.02] transition-transform"
-        >
-          <div className="w-full p-3">
-            <div className="h-36 overflow-hidden aspect-video rounded-[10px] w-full">
-              <Image
-                src={item.image}
-                alt={item.title}
-                width={300}
-                height={144}
-                className="w-full h-full object-cover object-center"
-              />
-            </div>
-          </div>
+{latestArticles.map((item) => (
+  <ArticleSideCard
+    key={item.slug}
+    article={item}
+    mainData={findByUniqueId(mainData, 191)} // مثلا "تاریخ انتشار"
+    href={`/${params.lang}/articles/categories/${item.categorySlug}/${item.slug}`}
+     activeLoadingId={activeLoadingId} setActiveLoadingId={setActiveLoadingId}
 
-          <div className="p-4 text-right space-y-2">
-            <div className="flex items-center w-full justify-between">
-              <div className="flex items-center text-xs lg:hidden xl:block">
-                <span className="dark:text-white"> {findByUniqueId(mainData, 191)}  : </span>
-                <span className="dark:text-white">{item.date}</span>
-              </div>
+  />
+))}
 
-              <div className="flex items-center gap-[14px]">
-                <div className="flex gap-1 items-center text-xs">
-                  <span className="dark:text-white">{item.stats?.views ?? 0}</span>
-                  <View className="stroke-textGray dark:stroke-white size-[13px]" />
-                </div>
-                <div className="flex gap-1 items-center text-xs">
-                  <span className="dark:text-white">{item.stats?.likes ?? 0}</span>
-                  <Like className="stroke-textGray dark:stroke-white size-[13px]" />
-                </div>
-                <div className="flex gap-1 items-center text-xs">
-                  <span className="dark:text-white">{item.stats?.dislikes ?? 0}</span>
-                  <Dislike className="stroke-textGray dark:stroke-white size=[13px]" />
-                </div>
-              </div>
-            </div>
-
-            <h3 className="text-sm font-semibold dark:text-white">{item.title}</h3>
-
-            <p className="line-clamp-2 text-[#868B90] text-xs">{cleanDescription(item.description)}</p>
-          </div>
-        </Link>
-      ))}
     </section>
   );
 };

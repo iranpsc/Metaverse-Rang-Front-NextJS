@@ -40,7 +40,7 @@ export default function CategoryHeader({ data , mainData }: CategoryHeaderProps)
       <div className="w-full md:w-1/2 lg:w-[35%] 3xl:w-[30%] h-max">
         <div className="relative w-full h-[365px] 3xl:h-[400px]">
           <Image
-            src={categoryImage}
+            src={categoryImage || "/default.png"}
             alt={`${category} pic`}
             fill
             priority

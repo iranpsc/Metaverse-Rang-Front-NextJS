@@ -59,7 +59,7 @@ const LatestArticlesSlider: React.FC<LatestArticlesSliderProps> = ({
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const direction = params.lang === "fa" ? "rtl" : "ltr";
-
+  const [activeLoadingId, setActiveLoadingId] = useState<string | null>(null);
 
   useEffect(() => {
     let mounted = true;
@@ -98,7 +98,7 @@ const LatestArticlesSlider: React.FC<LatestArticlesSliderProps> = ({
               tags:
                 Array.isArray(d.tags) && d.tags.length > 0
                   ? // اگر آیتم‌ها رشته ساده باشند، تبدیل به {label,slug}
-                    d.tags[0] && typeof d.tags[0] === "string"
+                  d.tags[0] && typeof d.tags[0] === "string"
                     ? d.tags.map((t: string) => ({ label: t, slug: slugify(t) }))
                     : d.tags
                   : [],
@@ -184,19 +184,18 @@ const LatestArticlesSlider: React.FC<LatestArticlesSliderProps> = ({
               {findByUniqueId(mainData, 171)}
             </p>
             <ArrowRight
-              className={`dark:stroke-white stroke-black w-[24px] h-full ${
-                direction === "rtl" ? "rotate-180" : "rotate-0"
-              }`}
+              className={`dark:stroke-white stroke-black w-[24px] h-full ${direction === "rtl" ? "rotate-180" : "rotate-0"
+                }`}
             />
           </div>
         </Link>
       </div>
 
       <div className="grid lg:grid-cols-2 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 xs:grid-cols-1 gap-10 mt-6 md:mt-12">
-       {sortedArticles.map((item) => (
-           <ArticleCard key={String(item.id)} item={item} params={params} theme={theme} />
+        {sortedArticles.map((item) => (
+          <ArticleCard key={String(item.id)} item={item} params={params} theme={theme} activeLoadingId={activeLoadingId} setActiveLoadingId={setActiveLoadingId} />
         ))}
-    </div>
+      </div>
     </section>
   );
 };
