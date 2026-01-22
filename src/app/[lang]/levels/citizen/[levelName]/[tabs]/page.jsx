@@ -13,7 +13,8 @@ import {
   findByTabName,
 } from "@/components/utils/actions";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-
+import TabContentWrapper from "./TabContentWrapper";
+import TabLoadingProvider from "./TabLoadingProvider";
 const GeneralInfo = dynamic(() => import('@/components/module/levelComponent/GeneralInfo'));
 const TabSelector = dynamic(() => import('@/components/module/levelComponent/TabSelector'));
 const Gem = dynamic(() => import('@/components/module/levelComponent/Gem'));
@@ -197,56 +198,70 @@ const pageTitle = tabTitle
             </button>
           </div>
 
-          <div className="grid-second overflow-hidden mb-5 self-start w-full md:min-w-[65vw] xl:min-w-[65vw]">
-            <TabSelector params={params} mainData={mainData} />
-          </div>
+<TabLoadingProvider>
+  {/* Tabs (ثابت – بدون Skeleton) */}
+  <div className="grid-second overflow-hidden mb-5 self-start w-full md:min-w-[65vw] xl:min-w-[65vw]">
+    <TabSelector
+      params={params}
+      mainData={mainData}
+    />
+  </div>
 
-          <div className="grid-third w-full md:min-w-[65vw] xl:min-w-[65vw] px-1">
-            {params.tabs === "general-info" && (
-              <GeneralInfo
-                mainData={mainData}
-                levelTabs={levelTabs}
-                singleLevel={singleLevel}
-                params={params}
-                concatArrayContent={concatArrayContent}
-              />
-            )}
-            {params.tabs === "gem" && (
-              <Gem
-                mainData={mainData}
-                levelTabs={levelTabs}
-                singleLevel={singleLevel}
-                params={params}
-                concatArrayContent={concatArrayContent}
-              />
-            )}
-            {params.tabs === "gift" && (
-              <Gift
-                mainData={mainData}
-                levelTabs={levelTabs}
-                singleLevel={singleLevel}
-                params={params}
-                concatArrayContent={concatArrayContent}
-              />
-            )}
-            {params.tabs === "licenses" && (
-              <Permission
-                mainData={mainData}
-                levelTabs={levelTabs}
-                singleLevel={singleLevel}
-                params={params}
-              />
-            )}
-            {params.tabs === "prize" && (
-              <Prize
-                levelTabs={levelTabs}
-                singleLevel={singleLevel}
-                params={params}
-                mainData={mainData}
-                concatArrayContent={concatArrayContent}
-              />
-            )}
-          </div>
+  {/* Tab Content (Skeleton می‌شود) */}
+  <div className="grid-third w-full md:min-w-[65vw] xl:min-w-[65vw] px-1">
+    <TabContentWrapper>
+      {params.tabs === "general-info" && (
+        <GeneralInfo
+          mainData={mainData}
+          levelTabs={levelTabs}
+          singleLevel={singleLevel}
+          params={params}
+          concatArrayContent={concatArrayContent}
+        />
+      )}
+
+      {params.tabs === "gem" && (
+        <Gem
+          mainData={mainData}
+          levelTabs={levelTabs}
+          singleLevel={singleLevel}
+          params={params}
+          concatArrayContent={concatArrayContent}
+        />
+      )}
+
+      {params.tabs === "gift" && (
+        <Gift
+          mainData={mainData}
+          levelTabs={levelTabs}
+          singleLevel={singleLevel}
+          params={params}
+          concatArrayContent={concatArrayContent}
+        />
+      )}
+
+      {params.tabs === "licenses" && (
+        <Permission
+          mainData={mainData}
+          levelTabs={levelTabs}
+          singleLevel={singleLevel}
+          params={params}
+        />
+      )}
+
+      {params.tabs === "prize" && (
+        <Prize
+          mainData={mainData}
+          levelTabs={levelTabs}
+          singleLevel={singleLevel}
+          params={params}
+          concatArrayContent={concatArrayContent}
+        />
+      )}
+    </TabContentWrapper>
+  </div>
+</TabLoadingProvider>
+
 
           <div className="grid-forth flex-1 relative !mt-[-2px]">
             <Suspense fallback={<div>image box loading ...</div>}>
