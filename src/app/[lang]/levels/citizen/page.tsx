@@ -8,8 +8,7 @@ import {
   getLangArray,
 } from "@/components/utils/actions";
 import DynamicFooter from "@/components/module/footer/DynamicFooter";
-import LevelCard from "@/components/module/levelComponent/LevelCard";
-import SideBar from "@/components/module/sidebar/SideBar";
+import LevelsClient from "@/components/module/levelComponent/LevelsClient";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import { getStaticMenu } from "@/components/utils/constants";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
@@ -276,15 +275,12 @@ export default async function LevelsPage({ params }: any) {
             </p>
           </div>
           <div className="flex justify-center flex-wrap mt-[20px]">
-            {levelArray.map((item: any, index: any) => (
-              <LevelCard
-                key={index}
-                item={item}
-                allLevelArrayContent={concatArrayContent}
-                mainData={mainData}
-                params={params}
-              />
-            ))}
+<LevelsClient
+    levels={levelArray}
+    concatArrayContent={concatArrayContent}
+    params={params}
+    mainData={mainData}
+  />
           </div>
           <div className="flex flex-col justify-center items-center xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
             <DynamicFooter footerTabs={footerTabs} mainData={mainData} params={params} />
