@@ -4,13 +4,14 @@ import Tooltip from "@mui/material/Tooltip";
 import ListMenuSvgModule from "./list/ListMenuSvgModule";
 import ListMenuTitleModule from "./list/ListMenuTitleModule";
 import ListMenuArrow from "./list/ListMenuArrow";
-import { useState } from "react";
-import ListMenuActiveIconModule from "./list/ListMenuActiveIconModule";
-import DropdownLanguageModule from "./list/dropdowns/DropdownLanguageModule";
+import { useState, useEffect } from "react";
+// import ListMenuActiveIconModule from "./list/ListMenuActiveIconModule";
+// import DropdownLanguageModule from "./list/dropdowns/DropdownLanguageModule";
 import { ActiveMenuIcon } from "@/components/svgs";
 import { useRouter } from "next/navigation";
 import React from "react";
-import Link from "next/link";
+// import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function SideBarContent({
   tabsMenu,
@@ -48,7 +49,12 @@ export default function SideBarContent({
     );
     if (match) el1.route_name = match.route_name;
   });
+  const pathname = usePathname();
+  const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    setLoading(false);
+  }, [pathname]);
   const onTabClick = (item) => {
     setActiveNav(item.route_name || "");
 
@@ -64,9 +70,47 @@ export default function SideBarContent({
   const handleLangBtn = () => {
     setLangDropDown(!langDropDown);
   };
+  const handleItemMouseDown = (e, item) => {
+    e.stopPropagation();
+
+    let href = `/${params.lang}`;
+    if (item.route_name && item.route_name !== "home") {
+      href = `/${params.lang}/levels/citizen/${item.route_name}/general-info`;
+    }
+
+    // 🟢 کلیک وسط → تب جدید
+    if (e.button === 1) {
+      window.open(href, "_blank");
+      return;
+    }
+
+    // 🔵 کلیک چپ → ناوبری + لودر
+    if (e.button === 0) {
+      setActiveNav(item.route_name || "");
+      setLoading(true);
+      router.push(href);
+    }
+  };
 
   return (
     <>
+      {loading && (
+        <div className={`${isClosed ? "!w-[96.4vw]" : "xl:w-[83vw] 2xl:w-[83.5vw]"}
+          fixed w-full  rtl:left-0 ltr:right-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm`} >
+          <div className="container flex w-full h-screen items-center justify-center">
+            <div className="holder">
+              <div className="box"></div>
+            </div>
+            <div className="holder">
+              <div className="box"></div>
+            </div>
+            <div className="holder">
+              <div className="box"></div>
+            </div>
+          </div>
+        </div>
+      )}
+
       <ul
         id="light-scrollbar"
         className="h-full z-[1] list-none overflow-y-scroll no-scrollbar relative pt-3 w-full menu-transition max-lg:w-fit"
@@ -75,9 +119,9 @@ export default function SideBarContent({
           tabsMenu.map((item, i) => (
             <React.Fragment key={item.unique_id + "-" + i}>
               {item.menuItem === true && (
-                <li onClick={() => onTabClick(item, i)}>
+                <li onMouseDown={(e) => handleItemMouseDown(e, item)}>
                   <Tooltip
-                   
+
                     arrow
                     placement={
                       langData.direction === "rtl" ? "left-end" : "right-end"
