@@ -12,8 +12,10 @@ import LevelsClient from "@/components/module/levelComponent/LevelsClient";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import { getStaticMenu } from "@/components/utils/constants";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import CustomErrorPage from "@/components/shared/CustomErrorPage";
 // SEO**
 export async function generateMetadata({ params }: any) {
+   try {
   const levelArray = await getAllLevels();
 
   const langData = await getTranslation(params.lang);
@@ -56,9 +58,18 @@ export async function generateMetadata({ params }: any) {
     //   images: [post.imageUrl],
     // },
   };
+ }catch (error) {
+    console.error("❌ Metadata error (LevelsPage):", error);
+
+    return {
+      title: "خطا",
+      description: "مشکلی در بارگذاری صفحه رخ داده است",
+    };
+  }
 }
 
 export default async function LevelsPage({ params }: any) {
+  try {
   const staticData = [
     {
       url: "/svg/level/citizen.png",
@@ -199,6 +210,7 @@ export default async function LevelsPage({ params }: any) {
         toShow: true,
       };
     }
+    
 
     // If no match found, return the original tab
     return tab;
@@ -289,4 +301,16 @@ export default async function LevelsPage({ params }: any) {
       </div>
     </>
   );
+} 
+catch (error) {
+    // ✅ لاگ با جزئیات کامل
+    console.error("❌ Error in LevelsPage:", {
+      error,
+      params,
+      stack: error instanceof Error ? error.stack : null,
+    });
+
+    // ✅ نمایش صفحه ارور کاستوم
+    return <CustomErrorPage />;
+  }
 }

@@ -15,6 +15,7 @@ import {
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import TabContentWrapper from "./TabContentWrapper";
 import TabLoadingProvider from "./TabLoadingProvider";
+import CustomErrorPage from "@/components/shared/CustomErrorPage";
 const GeneralInfo = dynamic(() => import('@/components/module/levelComponent/GeneralInfo'));
 const TabSelector = dynamic(() => import('@/components/module/levelComponent/TabSelector'));
 const Gem = dynamic(() => import('@/components/module/levelComponent/Gem'));
@@ -100,6 +101,7 @@ function buildBreadcrumbSchema(mainData, params) {
 }
 
 export default async function LevelSinglePage({ params }) {
+   try {
   const {
     langData,
     footerTabs,
@@ -278,8 +280,20 @@ const pageTitle = tabTitle
       </div>
     </>
   );
+}catch (error) {
+    // ✅ لاگ با جزئیات کامل
+    console.error("❌ Error in CitizensPage:", {
+      error,
+      params,
+      stack: error instanceof Error ? error.stack : null,
+    });
+
+    // ✅ نمایش صفحه ارور کاستوم
+    return <CustomErrorPage />;
+  }
 }
 export async function generateMetadata({ params }) {
+   try {
   const staticRouteNames = [
     { id: 1, unique_id: 382, route_name: "citizen-baguette" },
     { id: 2, unique_id: 383, route_name: "reporter-baguette" },
@@ -355,5 +369,14 @@ export async function generateMetadata({ params }) {
       ],
     },
   };
+}
+catch (error) {
+    console.error("❌ Metadata error (LevelsPage):", error);
+
+    return {
+      title: "سطوح متاورس رنگ",
+      description: "مشکلی در بارگذاری داده ها رخ است",
+    };
+  }
 }
 
