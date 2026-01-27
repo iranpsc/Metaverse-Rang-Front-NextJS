@@ -14,8 +14,10 @@ import TopTrainersFirstPage, { getTopTrainerUsers } from "@/components/templates
 import EducationCategories from "@/components/templates/education/categories";
 import EducationList from "@/components/templates/education/EducationList";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-
+import CustomErrorPage from "@/components/shared/CustomErrorPage";
+import CleanAutoRetryParam  from "@/components/shared/CleanAutoRetryParam";
 export default async function CitizensPage({ params  }: { params: any }) {
+  try {
   const users = await getTopTrainerUsers();
   const [langData, langArray, allCatVideos, categoriesData] =
     await Promise.all([
@@ -76,6 +78,8 @@ export default async function CitizensPage({ params  }: { params: any }) {
         <section
           className={`w-full  relative  mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20 xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1`}
         >
+          <CleanAutoRetryParam />
+
           {/* Breadcrumb */}
           <div className="">
             <BreadCrumb params={params} />
@@ -117,6 +121,22 @@ export default async function CitizensPage({ params  }: { params: any }) {
       </div>
     </>
   );
+}
+catch (error) {
+  const serializedError = {
+    message:
+      error instanceof Error ? error.message : "Unknown error",
+    stack:
+      error instanceof Error ? error.stack : null,
+    name:
+      error instanceof Error ? error.name : "Error",
+  };
+
+  console.error("❌ Error in LevelsPage:", serializedError);
+
+  return <CustomErrorPage error={serializedError} />;
+}
+
 }
 
 // SEO**
@@ -161,3 +181,4 @@ export async function generateMetadata({ params }: { params: any }) {
     // },
   };
 }
+

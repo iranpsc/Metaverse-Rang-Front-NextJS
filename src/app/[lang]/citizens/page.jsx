@@ -14,7 +14,7 @@ import CitizenList from "@/components/templates/citizen/citizenList";
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
 import React, { Suspense } from 'react';
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-
+import CustomErrorPage from "@/components/shared/CustomErrorPage";
 
 // SEO**
 export async function generateMetadata({ params }) {
@@ -72,6 +72,7 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function CitizensPage({ params }) {
+   try {
   const [ langData, langArray] = await Promise.all([
 
   getTranslation(params.lang), 
@@ -173,4 +174,20 @@ export default async function CitizensPage({ params }) {
       </div>
     </>
   );
+}
+catch (error) {
+  const serializedError = {
+    message:
+      error instanceof Error ? error.message : "Unknown error",
+    stack:
+      error instanceof Error ? error.stack : null,
+    name:
+      error instanceof Error ? error.name : "Error",
+  };
+
+  console.error("❌ Error in CitizensPage:", serializedError);
+
+  return <CustomErrorPage error={serializedError} />;
+}
+
 }

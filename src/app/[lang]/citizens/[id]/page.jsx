@@ -14,7 +14,7 @@ import {
   getUserData,
 } from "@/components/utils/actions";
 import { getStaticMenu } from "@/components/utils/constants";
-
+import CustomErrorPage from "@/components/shared/CustomErrorPage";
 // داینامیک لود برای SideBar
 const SideBar = dynamic(() => import("@/components/module/sidebar/SideBar"), {
   suspense: true,
@@ -210,9 +210,21 @@ const updatedTabsMenu = mergedTabs.filter((tab) => {
         </main>
       </>
     );
-  } catch (error) {
-    return <div className="p-5 text-red-500">خطا: {String(error)}</div>;
-  }
+  }catch (error) {
+  const serializedError = {
+    message:
+      error instanceof Error ? error.message : "Unknown error",
+    stack:
+      error instanceof Error ? error.stack : null,
+    name:
+      error instanceof Error ? error.name : "Error",
+  };
+
+  console.error("❌ Error in LevelsPage:", serializedError);
+
+  return <CustomErrorPage error={serializedError} />;
+}
+
 }
 
 // SEO
