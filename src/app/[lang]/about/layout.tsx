@@ -1,18 +1,22 @@
 // app/[lang]/about/layout.tsx
 
 import { getTranslation } from "@/components/utils/actions";
-
+import CustomErrorPage from "@/components/shared/CustomErrorPage";
 // حیاتی 👇
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export default async function AboutLayout({
+  
   children,
   params,
 }: {
   children: React.ReactNode;
   params: { lang?: string };
 }) {
+    try {
+  
+  
   const lang = params?.lang || "fa";
 
   let langData;
@@ -37,4 +41,19 @@ export default async function AboutLayout({
       </div>
     </main>
   );
+}
+catch (error) {
+  const serializedError = {
+    message:
+      error instanceof Error ? error.message : "Unknown error",
+    stack:
+      error instanceof Error ? error.stack : null,
+    name:
+      error instanceof Error ? error.name : "Error",
+  };
+
+  console.error("❌ Error in EductionPage:", serializedError);
+
+  return <CustomErrorPage error={serializedError} />;
+}
 }

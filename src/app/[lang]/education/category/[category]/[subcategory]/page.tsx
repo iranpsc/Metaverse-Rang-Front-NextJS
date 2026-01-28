@@ -7,7 +7,8 @@ import {
   getLangArray,
   getSubcategoryData,
 } from "@/components/utils/actions";
-
+import CustomErrorPage from "@/components/shared/CustomErrorPage";
+import CleanAutoRetryParam  from "@/components/shared/CleanAutoRetryParam";
 async function makeLessCharacter(_desc: any) {
   return _desc ? _desc.slice(0, 200) : "";
 }
@@ -108,6 +109,7 @@ export default async function EducationSubcategory({ params }: { params: any }) 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(subCategorySchema) }}
         />
         <div className="flex  w-full" dir={langData.direction}>
+          <CleanAutoRetryParam />
           <section className="w-full  mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20 xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
             <div className="ps-4 lg:ps-5">
               <BreadCrumb params={params} />
@@ -124,12 +126,19 @@ export default async function EducationSubcategory({ params }: { params: any }) 
       </>
     );
   } catch (error) {
-    return (
-      <div className="text-center text-red-600 mt-20 p-5 text-base">
-        خطایی رخ داد: {String(error)}
-      </div>
-    );
-  }
+  const serializedError = {
+    message:
+      error instanceof Error ? error.message : "Unknown error",
+    stack:
+      error instanceof Error ? error.stack : null,
+    name:
+      error instanceof Error ? error.name : "Error",
+  };
+
+  console.error("❌ Error in EductionPage:", serializedError);
+
+  return <CustomErrorPage error={serializedError} />;
+}
 }
 
 export async function generateMetadata({ params }: { params: any }) {
@@ -152,7 +161,7 @@ export async function generateMetadata({ params }: { params: any }) {
     };
   } catch {
     return {
-      title: "صفحه یافت نشد",
+      title: " خطایی رخ داده است صفحه یافت نشد",
       description: "زیر دسته یافت نشد",
     };
   }

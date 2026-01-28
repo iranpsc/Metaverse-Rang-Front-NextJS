@@ -10,7 +10,8 @@ import EventsCalendar from "./components/EventsCalendar";
 import { mapEvents, MappedEventItem } from "@/utils/mapEvents";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import htmlTruncate from "html-truncate";
-
+import CustomErrorPage from "@/components/shared/CustomErrorPage";
+import CleanAutoRetryParam  from "@/components/shared/CleanAutoRetryParam";
 // 📌 Utility: Jalali → Gregorian
 const JalaliDate = {
   g_days_in_month: [31,28,31,30,31,30,31,31,30,31,30,31],
@@ -77,6 +78,7 @@ function toISODate(dateString: string): string {
   return new Date(g_y, g_m-1, g_d, hour, min).toISOString();
 }
 export async function generateMetadata({ params }: { params: any }): Promise<Metadata> {
+  try{
   const [langData] = await Promise.all([
     getTranslation(params.lang),
   ]);
@@ -105,7 +107,7 @@ export async function generateMetadata({ params }: { params: any }): Promise<Met
   return {
     title: findByUniqueId(mainData, 1463),
     description: findByUniqueId(mainData, 1464),
-    keywords: ["تقویم رویدادها", "رویدادهای [موضوع]", "برنامه‌های [نام سایت]", "رویدادهای مهم"],
+    keywords: ["تقویم رویدادها", "رویدادهای متاورس",  "رویدادهای مهم"],
     openGraph: {
       title: findByUniqueId(mainData, 1463),
       description: findByUniqueId(mainData, 1464),
@@ -136,6 +138,14 @@ export async function generateMetadata({ params }: { params: any }): Promise<Met
       },
     },
   };
+ } catch (error) {
+    console.error("❌ Metadata error (LevelsPage):", error);
+
+    return {
+      title: "خطا",
+      description: "مشکلی در بارگذاری صفحه رخ داده است",
+    };
+  }
 }
 
 // 📌 Build dynamic Event Schema for rich results
@@ -180,6 +190,7 @@ function buildEventSchema(events: MappedEventItem[], paramsLang: string) {
 
 // 📌 Page Component
 export default async function CalendarPage({ params }: { params: { lang: string } }) {
+    try {
   const [ langData, langArray] = await Promise.all([
     getTranslation(params.lang),
     getLangArray(),
@@ -210,7 +221,7 @@ export default async function CalendarPage({ params }: { params: { lang: string 
   return (
     <div className="flex flex-col min-w-[340px] w-full" dir={langData.direction}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(eventSchema, null, 2) }} />
-
+<CleanAutoRetryParam />
       <section className="w-full relative mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20">
         <div className="px-12">
           <BreadCrumb params={params} />
@@ -227,4 +238,19 @@ export default async function CalendarPage({ params }: { params: { lang: string 
       </section>
     </div>
   );
+}
+catch (error) {
+  const serializedError = {
+    message:
+      error instanceof Error ? error.message : "Unknown error",
+    stack:
+      error instanceof Error ? error.stack : null,
+    name:
+      error instanceof Error ? error.name : "Error",
+  };
+
+  console.error("❌ Error in EventsPage:", serializedError);
+
+  return <CustomErrorPage error={serializedError} />;
+}
 }

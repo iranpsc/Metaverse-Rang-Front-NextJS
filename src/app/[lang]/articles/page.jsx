@@ -5,7 +5,8 @@ import PopularArticlesSlider from "./components/PopularArticlesSlider";
 import CategoriesGrid from "./components/CategoriesGrid";
 import SearchComponent from "@/components/shared/SearchComponent";
 import TopWritersArticles from "./components/TopWritersArticles"
-
+import CustomErrorPage from "@/components/shared/CustomErrorPage";
+import CleanAutoRetryParam  from "@/components/shared/CleanAutoRetryParam";
 import {
   getTranslation,
   getMainFile,
@@ -17,6 +18,7 @@ const baseUrl = "https://rgb.irpsc.com"; // ← دامنه اصلی سایتت
 const imageUrl = "https://rgb.irpsc.com/_next/image?url=%2Flogo.png&w=128&q=75";
 // ✅ متادیتای داینامیک
 export async function generateMetadata({ params }) {
+  try {
   const lang = params.lang || "fa";
   const url = `${baseUrl}/${lang}/articles`;
 
@@ -47,10 +49,19 @@ export async function generateMetadata({ params }) {
       images: [imageUrl],
     },
   };
+} catch (error) {
+    console.error("❌ Metadata error (LevelsPage):", error);
+
+    return {
+      title: "خطا",
+      description: "مشکلی در بارگذاری صفحه رخ داده است",
+    };
+  }
 }
 
 
 export default async function ArticlesPage({ params }) {
+    try {
   const [ langData] = await Promise.all([
     getTranslation(params.lang),
   ]);
@@ -159,4 +170,19 @@ export default async function ArticlesPage({ params }) {
       /> */}
     </section>
   );
+}
+catch (error) {
+  const serializedError = {
+    message:
+      error instanceof Error ? error.message : "Unknown error",
+    stack:
+      error instanceof Error ? error.stack : null,
+    name:
+      error instanceof Error ? error.name : "Error",
+  };
+
+  console.error("❌ Error in EductionPage:", serializedError);
+
+  return <CustomErrorPage error={serializedError} />;
+}
 }

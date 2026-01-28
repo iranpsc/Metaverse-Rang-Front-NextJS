@@ -15,14 +15,15 @@ import useServerDarkMode from "src/hooks/use-server-dark-mode";
 import React, { Suspense } from 'react';
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import CustomErrorPage from "@/components/shared/CustomErrorPage";
-
+import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
 // SEO**
 export async function generateMetadata({ params }) {
+  try {
   const langData = await getTranslation(params.lang);
 
   const mainData = await getMainFile(langData);
-  
-  
+
+
   // const centralPageModal = await findByModalName(mainData, "central-page");
   // const firstPageArrayContent = await findByTabName(
   //   centralPageModal,
@@ -37,9 +38,9 @@ export async function generateMetadata({ params }) {
 
 
   //to make description less than 200 character
-  async function makeLessCharacter(){
+  async function makeLessCharacter() {
     let temp = findByUniqueId(mainData, 596)
-    return await temp.slice(0,200)
+    return await temp.slice(0, 200)
   }
 
   return {
@@ -69,125 +70,133 @@ export async function generateMetadata({ params }) {
     //   images: [post.imageUrl],
     // },
   };
+} catch (error) {
+    console.error("❌ Metadata error (LevelsPage):", error);
+
+    return {
+      title: "خطا",
+      description: "مشکلی در بارگذاری صفحه رخ داده است",
+    };
+  }
 }
 
 export default async function CitizensPage({ params }) {
-   try {
-  const [ langData, langArray] = await Promise.all([
+  try {
+    const [langData, langArray] = await Promise.all([
 
-  getTranslation(params.lang), 
-  getLangArray(),
-]);
-  
-  const mainData = await getMainFile(langData);
-  const defaultTheme = useServerDarkMode();
+      getTranslation(params.lang),
+      getLangArray(),
+    ]);
 
-
-  const Citizenship = await findByModalName(mainData, "Citizenship-profile");
-  const citizenListArrayContent = await findByTabName(
-    Citizenship,
-    "list-citizen"
-  );
-
-  // ****
-  const levelModals = await findByModalName(mainData, "levels");
-  const levelListArrayContent = await findByTabName(levelModals, "level-list");
-
-  let allCitizenArray = await getAllCitizen("1");
-
-  //to make description less than 200 character
-  async function makeLessCharacter(){
-    let temp = findByUniqueId(mainData, 596)
-    return await temp.slice(0,200)
-  }
-  
+    const mainData = await getMainFile(langData);
+    const defaultTheme = useServerDarkMode();
 
 
+    const Citizenship = await findByModalName(mainData, "Citizenship-profile");
+    const citizenListArrayContent = await findByTabName(
+      Citizenship,
+      "list-citizen"
+    );
 
-  const citizenListSchema = {
-    "@context": "https://schema.org/",
-    "@type": "ProfessionalService",
-    "name": `${await makeLessCharacter()}`,
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "میرداماد، 824H+JG2",
-      "addressCountry": "ایران",
-      "addressRegion": "استان قزوین",
-      "addressLocality": "قزوین"
-    },
-    "image": 'https://rgb.irpsc.com/logo.png',
-    "telephone": "09120820120",
-    "url": `https://rgb.irpsc.com/${params.lang}/citizen`,
-    "logo": `https://rgb.irpsc.com/logo.png`,
-    "email": "info@rgb.irpsc.com",
-    "description": await makeLessCharacter(),
-    "alternateName": "MetaRGB"
-  }
+    // ****
+    const levelModals = await findByModalName(mainData, "levels");
+    const levelListArrayContent = await findByTabName(levelModals, "level-list");
 
-  return (
-    <>
-      {/* SCHEMA** */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(citizenListSchema),
-        }}
-      />
-      <div className=" w-full" dir={langData.direction}>
+    let allCitizenArray = await getAllCitizen("1");
 
-        <section
-          className={`w-full mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20`}
-        >
-          {/* Breadcrumb */}
-          <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
+    //to make description less than 200 character
+    async function makeLessCharacter() {
+      let temp = findByUniqueId(mainData, 596)
+      return await temp.slice(0, 200)
+    }
+
+
+
+
+    const citizenListSchema = {
+      "@context": "https://schema.org/",
+      "@type": "ProfessionalService",
+      "name": `${await makeLessCharacter()}`,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "میرداماد، 824H+JG2",
+        "addressCountry": "ایران",
+        "addressRegion": "استان قزوین",
+        "addressLocality": "قزوین"
+      },
+      "image": 'https://rgb.irpsc.com/logo.png',
+      "telephone": "09120820120",
+      "url": `https://rgb.irpsc.com/${params.lang}/citizen`,
+      "logo": `https://rgb.irpsc.com/logo.png`,
+      "email": "info@rgb.irpsc.com",
+      "description": await makeLessCharacter(),
+      "alternateName": "MetaRGB"
+    }
+
+    return (
+      <>
+        {/* SCHEMA** */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(citizenListSchema),
+          }}
+        />
+        <div className=" w-full" dir={langData.direction}>
+          <CleanAutoRetryParam />
+          <section
+            className={`w-full mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20`}
+          >
+            {/* Breadcrumb */}
+            <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
               <BreadCrumb params={params} />
             </div>
-          <div className="mt-[60px] lg:mt-[40px] xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
-            <h1 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[64px] mb-[16px]">
-              {findByUniqueId(mainData, 593)}
-            </h1>
-            <p className="text-lightGray  dark:text-lightGray font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center px-5 lg:px-10">
-              {findByUniqueId(mainData, 596)}
-            </p>
-            <div className="flex justify-center w-full px-5 lg:px-0">
-              <SearchComponent
-                searchLevel='citizen'
-                mainData={mainData}
-                params={params}
-              />
+            <div className="mt-[60px] lg:mt-[40px] xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
+              <h1 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[64px] mb-[16px]">
+                {findByUniqueId(mainData, 593)}
+              </h1>
+              <p className="text-lightGray  dark:text-lightGray font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center px-5 lg:px-10">
+                {findByUniqueId(mainData, 596)}
+              </p>
+              <div className="flex justify-center w-full px-5 lg:px-0">
+                <SearchComponent
+                  searchLevel='citizen'
+                  mainData={mainData}
+                  params={params}
+                />
+              </div>
             </div>
-          </div>
-          {/* CITIZEN box Container */}
-          <div className="flex flex-row flex-wrap justify-center md:justify-center w-full no-scrollbar overflow-y-auto py-[20px] gap-x-5">
-          <Suspense fallback={<div>Loading citizens...</div>}>
-            <CitizenList
-              allCitizenArray={allCitizenArray.data}
-              params={params}
-              mainData={mainData}
-              defaultTheme={defaultTheme}
-            />
-            </Suspense>
-          </div>
+            {/* CITIZEN box Container */}
+            <div className="flex flex-row flex-wrap justify-center md:justify-center w-full no-scrollbar overflow-y-auto py-[20px] gap-x-5">
+              <Suspense fallback={<div>Loading citizens...</div>}>
+                <CitizenList
+                  allCitizenArray={allCitizenArray.data}
+                  params={params}
+                  mainData={mainData}
+                  defaultTheme={defaultTheme}
+                />
+              </Suspense>
+            </div>
 
-        
-        </section>
-      </div>
-    </>
-  );
-}
-catch (error) {
-  const serializedError = {
-    message:
-      error instanceof Error ? error.message : "Unknown error",
-    stack:
-      error instanceof Error ? error.stack : null,
-    name:
-      error instanceof Error ? error.name : "Error",
-  };
 
-  console.error("❌ Error in CitizensPage:", serializedError);
+          </section>
+        </div>
+      </>
+    );
+  }
+  catch (error) {
+    const serializedError = {
+      message:
+        error instanceof Error ? error.message : "Unknown error",
+      stack:
+        error instanceof Error ? error.stack : null,
+      name:
+        error instanceof Error ? error.name : "Error",
+    };
 
-  return <CustomErrorPage error={serializedError} />;
-}
+    console.error("❌ Error in CitizensPage:", serializedError);
+
+    return <CustomErrorPage error={serializedError} />;
+  }
 
 }

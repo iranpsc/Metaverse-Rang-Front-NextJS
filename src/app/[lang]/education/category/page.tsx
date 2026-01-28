@@ -25,12 +25,14 @@ import {
 } from "@/components/utils/actions";
 
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-
+import CustomErrorPage from "@/components/shared/CustomErrorPage";
+import CleanAutoRetryParam  from "@/components/shared/CleanAutoRetryParam";
 export default async function EducationCategoryAll({
   params,
 }: {
   params: any;
 }) {
+  try {
   const [ langData, langArray, categoriesData] = await Promise.all([
   
     getTranslation(params.lang),
@@ -76,6 +78,7 @@ export default async function EducationCategoryAll({
         <section
           className={`w-full mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20 xl:px-32 lg:px-32 px-5 `}
         >
+          <CleanAutoRetryParam />
           {/* Breadcrumb */}
           <div className="ps-2 lg:ps-4">
             <Suspense
@@ -121,10 +124,25 @@ export default async function EducationCategoryAll({
       </div>
     </>
   );
+} catch (error) {
+  const serializedError = {
+    message:
+      error instanceof Error ? error.message : "Unknown error",
+    stack:
+      error instanceof Error ? error.stack : null,
+    name:
+      error instanceof Error ? error.name : "Error",
+  };
+
+  console.error("❌ Error in EductionCategoriesPage:", serializedError);
+
+  return <CustomErrorPage error={serializedError} />;
+}
 }
 
 // SEO**
 export async function generateMetadata({ params }: { params: any }) {
+  try {
   const langData = await getTranslation(params.lang);
   const mainData = await getMainFile(langData);
 
@@ -163,4 +181,12 @@ export async function generateMetadata({ params }: { params: any }) {
     //   images: [post.imageUrl],
     // },
   };
+} catch (error) {
+    console.error("❌ Metadata error (LevelsPage):", error);
+
+    return {
+      title: "خطا",
+      description: "مشکلی در بارگذاری صفحه رخ داده است",
+    };
+  }
 }

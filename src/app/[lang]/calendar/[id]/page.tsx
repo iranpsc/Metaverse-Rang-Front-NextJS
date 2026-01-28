@@ -9,7 +9,8 @@ import BreadCrumb from "@/components/shared/BreadCrumb";
 import { mapEvents, MappedEventItem } from "@/utils/mapEvents";
 import EventCalendarClient from "../components/EventCalendarClient";
 import htmlTruncate from "html-truncate";
-
+import CustomErrorPage from "@/components/shared/CustomErrorPage";
+import CleanAutoRetryParam  from "@/components/shared/CleanAutoRetryParam";
 // 📌 Utility: Jalali → Gregorian
 const JalaliDate = {
   g_days_in_month: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
@@ -129,6 +130,7 @@ async function getEvents(): Promise<MappedEventItem[]> {
 
 // 📌 Dynamic metadata
 export async function generateMetadata({ params }: { params: { lang: string; id: string } }): Promise<Metadata> {
+  try {
   const event = await getEvent(params.id);
   const cleanTitle = stripHtml(event.title);
   const cleanDescription = stripHtml(event.desc, 160);
@@ -159,9 +161,19 @@ export async function generateMetadata({ params }: { params: { lang: string; id:
     },
   };
 }
+catch (error) {
+    console.error("❌ Metadata error (LevelsPage):", error);
+
+    return {
+      title: "خطا",
+      description: "مشکلی در بارگذاری صفحه رخ داده است",
+    };
+  }
+}
 
 // 📌 Page Component
 export default async function EventPage({ params }: { params: { lang: string; id: string } }) {
+    try {
   const [ langData, langArray, events, selectedEvent] = await Promise.all([
     getTranslation(params.lang),
     getLangArray(),
@@ -183,6 +195,7 @@ export default async function EventPage({ params }: { params: { lang: string; id
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(eventSchema, null, 2) }} />
       <div className="flex flex-col  min-w-[340px] w-full" dir={langData.direction}>
         <section className="w-full relative mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20">
+          <CleanAutoRetryParam />
           <div className="px-12">
             <BreadCrumb params={params} eventTitle={cleanTitle} />
           </div>
@@ -202,4 +215,18 @@ export default async function EventPage({ params }: { params: { lang: string; id
       </div>
     </>
   );
+} catch (error) {
+  const serializedError = {
+    message:
+      error instanceof Error ? error.message : "Unknown error",
+    stack:
+      error instanceof Error ? error.stack : null,
+    name:
+      error instanceof Error ? error.name : "Error",
+  };
+
+  console.error("❌ Error in EvenntPage:", serializedError);
+
+  return <CustomErrorPage error={serializedError} />;
+}
 }

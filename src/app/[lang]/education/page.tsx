@@ -132,15 +132,15 @@ catch (error) {
       error instanceof Error ? error.name : "Error",
   };
 
-  console.error("❌ Error in LevelsPage:", serializedError);
+  console.error("❌ Error in EductionPage:", serializedError);
 
   return <CustomErrorPage error={serializedError} />;
 }
-
 }
 
 // SEO**
 export async function generateMetadata({ params }: { params: any }) {
+  try {
   const langData = await getTranslation(params.lang);
 
   const mainData = await getMainFile(langData);
@@ -180,5 +180,13 @@ export async function generateMetadata({ params }: { params: any }) {
     //   images: [post.imageUrl],
     // },
   };
+} catch (error) {
+    console.error("❌ Metadata error (LevelsPage):", error);
+
+    return {
+      title: "خطا",
+      description: "مشکلی در بارگذاری صفحه رخ داده است",
+    };
+  }
 }
 

@@ -13,6 +13,7 @@ import {
   findByTabName,
   findByModalName,
 } from "@/components/utils/actions";
+import CustomErrorPage from "@/components/shared/CustomErrorPage";
 
 export default async function CitizensLayout({
   children,
@@ -21,6 +22,7 @@ export default async function CitizensLayout({
   children: React.ReactNode;
   params: any;
 }) {
+  try {
   const [langData, langArray] = await Promise.all([
     getTranslation(params.lang),
     getLangArray(),
@@ -73,4 +75,17 @@ export default async function CitizensLayout({
     </main>
     // </Suspense>
   );
-}
+} catch (error) {
+  const serializedError = {
+    message:
+      error instanceof Error ? error.message : "Unknown error",
+    stack:
+      error instanceof Error ? error.stack : null,
+    name:
+      error instanceof Error ? error.name : "Error",
+  };
+
+  console.error("❌ Error in EductionPage:", serializedError);
+
+  return <CustomErrorPage error={serializedError} />;
+} }

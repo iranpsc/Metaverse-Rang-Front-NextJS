@@ -15,6 +15,7 @@ import {
 } from "@/components/utils/actions";
 import { getStaticMenu } from "@/components/utils/constants";
 import CustomErrorPage from "@/components/shared/CustomErrorPage";
+import CleanAutoRetryParam  from "@/components/shared/CleanAutoRetryParam";
 // داینامیک لود برای SideBar
 const SideBar = dynamic(() => import("@/components/module/sidebar/SideBar"), {
   suspense: true,
@@ -168,6 +169,7 @@ const updatedTabsMenu = mergedTabs.filter((tab) => {
           dir={langData.direction}
         >
           <div className="relative overflow-y-scroll lg:overflow-hidden w-full xs:px-1 mt-[60px] lg:mt-0">
+            <CleanAutoRetryParam />
             <div className="flex h-full" dir={langData.direction}>
               <Suspense fallback={<div>Loading...</div>}>
                 <SideBar
@@ -220,11 +222,10 @@ const updatedTabsMenu = mergedTabs.filter((tab) => {
       error instanceof Error ? error.name : "Error",
   };
 
-  console.error("❌ Error in LevelsPage:", serializedError);
+  console.error("❌ Error in CitizenInformationPage:", serializedError);
 
   return <CustomErrorPage error={serializedError} />;
 }
-
 }
 
 // SEO
@@ -279,7 +280,7 @@ export async function generateMetadata({ params }) {
     };
   } catch {
     return {
-      title: "صفحه یافت نشد",
+      title: "خطایی رخ داده است صفحه یافت نشد",
       description: "شهروند مورد نظر پیدا نشد",
     };
   }

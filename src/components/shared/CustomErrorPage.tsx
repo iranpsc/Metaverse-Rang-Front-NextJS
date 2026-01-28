@@ -13,7 +13,7 @@ type Props = {
   error?: ClientError;
 };
 
-const AUTO_RETRY_SECONDS = 11;
+const AUTO_RETRY_SECONDS = 20;
 
 export default function CustomErrorPage({ error }: Props) {
   const router = useRouter();

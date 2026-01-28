@@ -1,7 +1,7 @@
 // app/[lang]/contact/layout.tsx
 
 import { getTranslation } from "@/components/utils/actions";
-import { notFound } from "next/navigation";
+import CustomErrorPage from "@/components/shared/CustomErrorPage";
 
 // این دو خط حیاتی هستن – بدون کش، همیشه تازه و بدون باگ
 export const dynamic = "force-dynamic";
@@ -14,6 +14,7 @@ export default async function ContactLayout({
   children: React.ReactNode;
   params: { lang?: string };
 }) {
+  try {
   // امنیت کامل: اگر lang نبود، فارسی بذار
   const lang = params?.lang || "fa";
 
@@ -41,4 +42,18 @@ export default async function ContactLayout({
       </div>
     </main>
   );
+} catch (error) {
+  const serializedError = {
+    message:
+      error instanceof Error ? error.message : "Unknown error",
+    stack:
+      error instanceof Error ? error.stack : null,
+    name:
+      error instanceof Error ? error.name : "Error",
+  };
+
+  console.error("❌ Error in EductionPage:", serializedError);
+
+  return <CustomErrorPage error={serializedError} />;
+}
 }

@@ -20,7 +20,8 @@ import {
 } from "@/components/utils/actions";
 
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-
+import CustomErrorPage from "@/components/shared/CustomErrorPage";
+import CleanAutoRetryParam  from "@/components/shared/CleanAutoRetryParam";
 // ✅ تابع ساخت متن کوتاه سمت سرور
 async function makeLessCharacter(_desc: any, limit: number = 200) {
   return _desc ? _desc.slice(0, limit) : "";
@@ -92,6 +93,7 @@ export default async function EducationCategory({ params }: { params: any }) {
             __html: JSON.stringify(educationSingleCategorySchema),
           }}
         />
+        <CleanAutoRetryParam />
         <div className="flex  w-full bg-[#f8f8f8] dark:bg-black bg-opacity20" dir={langData.direction}>
           <section className="w-full overflow-y-auto relative l mt-[60px] lg:mt-0 lg:pt-0  xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
             <div className="ps-4 lg:ps-5">
@@ -110,13 +112,19 @@ export default async function EducationCategory({ params }: { params: any }) {
       </>
     );
   } catch (error) {
-    return (
-      <div className="text-center text-red-600 mt-20 p-5 text-base">
-        خطایی رخ داد: {String(error)}
-      </div>
-    );
-  }
-}
+  const serializedError = {
+    message:
+      error instanceof Error ? error.message : "Unknown error",
+    stack:
+      error instanceof Error ? error.stack : null,
+    name:
+      error instanceof Error ? error.name : "Error",
+  };
+
+  console.error("❌ Error in EductionPage:", serializedError);
+
+  return <CustomErrorPage error={serializedError} />;
+} }
 
 export async function generateMetadata({ params }: { params: any }) {
   try {
@@ -144,7 +152,7 @@ export async function generateMetadata({ params }: { params: any }) {
     };
   } catch {
     return {
-      title: "صفحه یافت نشد",
+      title: "خطایی رخ داده است صفحه یافت نشد",
       description: "دسته بندی یافت نشد",
     };
   }

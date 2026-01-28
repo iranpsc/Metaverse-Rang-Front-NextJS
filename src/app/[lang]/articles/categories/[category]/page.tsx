@@ -4,18 +4,21 @@ import BreadCrumb from "@/components/shared/BreadCrumb";
 import CategorySorted from "./components/CategorySorted";
 import CategoryHeader from "./components/CategoryHeader";
 import SearchComponent from "@/components/shared/SearchComponent";
-import { getTranslation, getMainFile} from "@/components/utils/actions";
+import { getTranslation, getMainFile } from "@/components/utils/actions";
 import { supabase } from "@/utils/lib/supabaseClient";
-import { findByUniqueId } from "@/components/utils/findByUniqueId";
+// import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import CustomErrorPage from "@/components/shared/CustomErrorPage";
+import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
 interface CategoryPageProps {
   params: {
     lang: string;
     category: string;
-    slug:string;
+    slug: string;
   };
 }
 
 export async function generateMetadata({ params }: CategoryPageProps) {
+  try {
   const categorySlug = decodeURIComponent(params.category);
   const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://rgb.irpsc.com";
 
@@ -65,135 +68,158 @@ export async function generateMetadata({ params }: CategoryPageProps) {
       images: [image],
     },
   };
+} catch (error) {
+    console.error("❌ Metadata error (LevelsPage):", error);
+
+    return {
+      title: "خطا",
+      description: "مشکلی در بارگذاری صفحه رخ داده است",
+    };
+  }
 }
 
-export default async function CategoryPage({ params  }: CategoryPageProps) {
-  const categorySlug = decodeURIComponent(params.category);
+export default async function CategoryPage({ params }: CategoryPageProps) {
+  try {
+    const categorySlug = decodeURIComponent(params.category);
 
-  const [ langData] = await Promise.all([
-    getTranslation(params.lang),
-  ]);
-  const mainData = await getMainFile(langData);
+    const [langData] = await Promise.all([
+      getTranslation(params.lang),
+    ]);
+    const mainData = await getMainFile(langData);
 
-  // ✅ گرفتن مقالات از Supabase
-  const { data: articlesData } = await supabase
-    .from("articles")
-    .select("*")
-    .eq("categorySlug", categorySlug)
-    .order("date", { ascending: false });
+    // ✅ گرفتن مقالات از Supabase
+    const { data: articlesData } = await supabase
+      .from("articles")
+      .select("*")
+      .eq("categorySlug", categorySlug)
+      .order("date", { ascending: false });
 
-  const categoryArticles = articlesData || [];
+    const categoryArticles = articlesData || [];
 
-  if (categoryArticles.length === 0) {
+    if (categoryArticles.length === 0) {
+      return (
+        <div className="text-center py-20 text-gray-500">
+          <h2 className="text-2xl font-semibold mb-4 dark:text-white">
+            دسته‌ای با نام «{categorySlug}» پیدا نشد 😕
+          </h2>
+          <Link
+            href={`/${params.lang}/articles`}
+            className="text-blue-600 hover:underline"
+          >
+            بازگشت به لیست مقالات
+          </Link>
+        </div>
+      );
+    }
+
+    const { category: catName, subCategory, categoryImage, categoryDec } =
+      categoryArticles[0];
+
+    const totalLikes = categoryArticles.reduce((sum, a) => sum + (a.stats?.likes ?? 0), 0);
+    const totalDislikes = categoryArticles.reduce((sum, a) => sum + (a.stats?.dislikes ?? 0), 0);
+    const totalViews = categoryArticles.reduce((sum, a) => sum + (a.stats?.views ?? 0), 0);
+    const totalArticles = categoryArticles.length;
+
+    const jsonLd = {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": catName,
+      "description": categoryDec || `مقالات مرتبط با ${catName}`,
+      "url": `https://rgb.irpsc.com/${params.lang}/articles/categories/${categorySlug}`,
+      "image": categoryImage || "/default-bg.jpg",
+      "mainEntity": {
+        "@type": "ItemList",
+        "name": `مقالات دسته ${catName}`,
+        "itemListOrder": "Descending",
+        "numberOfItems": categoryArticles.length,
+        "itemListElement": categoryArticles.map((a, index) => {
+          const published = a.date ? new Date(a.date).toISOString() : new Date().toISOString();
+          return {
+            "@type": "ListItem",
+            "position": index + 1,
+            "item": {
+              "@type": "BlogPosting",
+              "headline": a.title,
+              "description": a.description || categoryDec || "این یک مقاله آموزشی است",
+              "url": `https://rgb.irpsc.com/${params.lang}/articles/categories/${categorySlug}/${a.slug}`,
+              "datePublished": published,
+              "dateModified": published,
+              "image": a.image || "/default-bg.jpg",
+              "author": {
+                "@type": "Person",
+                "name": a.author?.name || "مدیر سایت",
+                "url": a.author?.citizenId
+                  ? `https://rgb.irpsc.com/${params.lang}/citizens/${a.author.citizenId}`
+                  : undefined,
+                "identifier": a.author?.citizenId || "CIT-0000",
+              },
+              "publisher": {
+                "@type": "Organization",
+                "name": "متاورس رنگ",
+                "logo": { "@type": "ImageObject", "url": "https://rgb.irpsc.com/_next/image?url=%2Flogo.png&w=120&q=75" },
+              },
+              "inLanguage": params.lang || "fa",
+              "isAccessibleForFree": true,
+              "genre": a.category || "مقاله آموزشی",
+              "keywords": a.tags?.join(", ") || `${catName}, آموزش, مقاله`,
+              "commentCount": a.stats?.comments ?? 0,
+              "interactionStatistic": [
+                { "@type": "InteractionCounter", "interactionType": "https://schema.org/LikeAction", "userInteractionCount": a.stats?.likes ?? 0 },
+                { "@type": "InteractionCounter", "interactionType": "https://schema.org/DislikeAction", "userInteractionCount": a.stats?.dislikes ?? 0 },
+                { "@type": "InteractionCounter", "interactionType": "https://schema.org/ViewAction", "userInteractionCount": a.stats?.views ?? 0 },
+              ],
+            },
+          };
+        }),
+      },
+    };
+
     return (
-      <div className="text-center py-20 text-gray-500">
-        <h2 className="text-2xl font-semibold mb-4 dark:text-white">
-          دسته‌ای با نام «{categorySlug}» پیدا نشد 😕
-        </h2>
-        <Link
-          href={`/${params.lang}/articles`}
-          className="text-blue-600 hover:underline"
-        >
-          بازگشت به لیست مقالات
-        </Link>
-      </div>
+      <section className="w-full relative bg-[#f8f8f8] dark:bg-black">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+        <CleanAutoRetryParam />
+        <div className="px-5 2xl:px-10 mt-[60px] lg:mt-0">
+          <BreadCrumb params={params} articleCat={catName} />
+        </div>
+
+        <CategoryHeader
+          data={{
+            category: catName,
+            subCategory,
+            categoryImage: categoryImage || "/default-bg.jpg",
+            categoryDec: categoryDec || "توضیحی برای این دسته موجود نیست.",
+            totalLikes,
+            totalDislikes,
+            totalViews,
+            totalArticles,
+          }}
+          mainData={mainData}
+        />
+
+        <div className="flex flex-col-reverse justify-center gap-7 lg:gap-5 lg:flex-row lg:justify-between items-start lg:items-center w-full px-5  mt-[-100px] lg:mt-0">
+
+
+          <SearchComponent searchLevel="articles" params={params} mainData={mainData} />
+        </div>
+
+        <div className="mt-10 lg:px-5">
+          <CategorySorted params={params} category={catName} articles={categoryArticles} mainData={mainData} />
+        </div>
+
+      </section>
     );
+  } catch (error) {
+    const serializedError = {
+      message:
+        error instanceof Error ? error.message : "Unknown error",
+      stack:
+        error instanceof Error ? error.stack : null,
+      name:
+        error instanceof Error ? error.name : "Error",
+    };
+
+    console.error("❌ Error in ArticleCategoryPage:", serializedError);
+
+    return <CustomErrorPage error={serializedError} />;
   }
-
-  const { category: catName, subCategory, categoryImage, categoryDec } =
-    categoryArticles[0];
-
-  const totalLikes = categoryArticles.reduce((sum, a) => sum + (a.stats?.likes ?? 0), 0);
-  const totalDislikes = categoryArticles.reduce((sum, a) => sum + (a.stats?.dislikes ?? 0), 0);
-  const totalViews = categoryArticles.reduce((sum, a) => sum + (a.stats?.views ?? 0), 0);
-  const totalArticles = categoryArticles.length;
-
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    "name": catName,
-    "description": categoryDec || `مقالات مرتبط با ${catName}`,
-    "url": `https://rgb.irpsc.com/${params.lang}/articles/categories/${categorySlug}`,
-    "image": categoryImage || "/default-bg.jpg",
-    "mainEntity": {
-      "@type": "ItemList",
-      "name": `مقالات دسته ${catName}`,
-      "itemListOrder": "Descending",
-      "numberOfItems": categoryArticles.length,
-      "itemListElement": categoryArticles.map((a, index) => {
-        const published = a.date ? new Date(a.date).toISOString() : new Date().toISOString();
-        return {
-          "@type": "ListItem",
-          "position": index + 1,
-          "item": {
-            "@type": "BlogPosting",
-            "headline": a.title,
-            "description": a.description || categoryDec || "این یک مقاله آموزشی است",
-            "url": `https://rgb.irpsc.com/${params.lang}/articles/categories/${categorySlug}/${a.slug}`,
-            "datePublished": published,
-            "dateModified": published,
-            "image": a.image || "/default-bg.jpg",
-            "author": {
-              "@type": "Person",
-              "name": a.author?.name || "مدیر سایت",
-              "url": a.author?.citizenId
-                ? `https://rgb.irpsc.com/${params.lang}/citizens/${a.author.citizenId}`
-                : undefined,
-              "identifier": a.author?.citizenId || "CIT-0000",
-            },
-            "publisher": {
-              "@type": "Organization",
-              "name": "متاورس رنگ",
-              "logo": { "@type": "ImageObject", "url": "https://rgb.irpsc.com/_next/image?url=%2Flogo.png&w=120&q=75" },
-            },
-            "inLanguage": params.lang || "fa",
-            "isAccessibleForFree": true,
-            "genre": a.category || "مقاله آموزشی",
-            "keywords": a.tags?.join(", ") || `${catName}, آموزش, مقاله`,
-            "commentCount": a.stats?.comments ?? 0,
-            "interactionStatistic": [
-              { "@type": "InteractionCounter", "interactionType": "https://schema.org/LikeAction", "userInteractionCount": a.stats?.likes ?? 0 },
-              { "@type": "InteractionCounter", "interactionType": "https://schema.org/DislikeAction", "userInteractionCount": a.stats?.dislikes ?? 0 },
-              { "@type": "InteractionCounter", "interactionType": "https://schema.org/ViewAction", "userInteractionCount": a.stats?.views ?? 0 },
-            ],
-          },
-        };
-      }),
-    },
-  };
-
-  return (
-    <section className="w-full relative bg-[#f8f8f8] dark:bg-black">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-
-      <div className="px-5 2xl:px-10 mt-[60px] lg:mt-0">
-        <BreadCrumb params={params} articleCat={catName} />
-      </div>
-
-      <CategoryHeader
-        data={{
-          category: catName,
-          subCategory,
-          categoryImage: categoryImage || "/default-bg.jpg",
-          categoryDec: categoryDec || "توضیحی برای این دسته موجود نیست.",
-          totalLikes,
-          totalDislikes,
-          totalViews,
-          totalArticles,
-        }}
-        mainData={mainData}
-      />
-
-      <div className="flex flex-col-reverse justify-center gap-7 lg:gap-5 lg:flex-row lg:justify-between items-start lg:items-center w-full px-5  mt-[-100px] lg:mt-0">
-      
-
-        <SearchComponent searchLevel="articles"  params={params} mainData={mainData}/>
-      </div>
-
-      <div className="mt-10 lg:px-5">
-        <CategorySorted params={params} category={catName} articles={categoryArticles} mainData={mainData} />
-      </div>
-
-    </section>
-  );
 }

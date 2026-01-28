@@ -16,6 +16,7 @@ import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import TabContentWrapper from "./TabContentWrapper";
 import TabLoadingProvider from "./TabLoadingProvider";
 import CustomErrorPage from "@/components/shared/CustomErrorPage";
+import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
 const GeneralInfo = dynamic(() => import('@/components/module/levelComponent/GeneralInfo'));
 const TabSelector = dynamic(() => import('@/components/module/levelComponent/TabSelector'));
 const Gem = dynamic(() => import('@/components/module/levelComponent/Gem'));
@@ -26,6 +27,7 @@ const DynamicFooter = dynamic(() => import('@/components/module/footer/DynamicFo
 const BreadCrumb = dynamic(() => import('@/components/shared/BreadCrumb'));
 const ImageBox = dynamic(() => import('@/components/module/levelComponent/ImageBox'));
 import { Features } from "@/components/module/levelComponent/Features";
+
 
 const STATIC_ROUTE_NAMES = [
   { id: 1, unique_id: 382, route_name: "citizen-baguette" },
@@ -47,13 +49,13 @@ async function fetchData(params) {
   const levelMeta = STATIC_ROUTE_NAMES.find(x => x.route_name === params.levelName);
   const levelId = levelMeta?.id;
   const levelUniqueId = levelMeta?.unique_id;
-const TAB_TITLE_MAP = {
-  "general-info": 387,
-  "licenses": 388,
-  "gem": 389,
-  "gift": 390,
-  "prize": 391,
-};
+  const TAB_TITLE_MAP = {
+    "general-info": 387,
+    "licenses": 388,
+    "gem": 389,
+    "gift": 390,
+    "prize": 391,
+  };
 
   const [
     langData,
@@ -101,276 +103,279 @@ function buildBreadcrumbSchema(mainData, params) {
 }
 
 export default async function LevelSinglePage({ params }) {
-   try {
-  const {
-    langData,
-    footerTabs,
-    singleLevel,
-    levelTabs,
-    mainData,
-    levelUniqueId
-  } = await fetchData(params);
+  try {
+    const {
+      langData,
+      footerTabs,
+      singleLevel,
+      levelTabs,
+      mainData,
+      levelUniqueId
+    } = await fetchData(params);
 
-  // اگر داده‌ها ناقص بودند، صفحه 404 نمایش داده شود
-  if (!singleLevel?.data || !levelTabs?.data) {
-    return (
-      <NotFoundPage
-        lang={params.lang}
-        params={params}
-        langData={langData}
-        langArray={mainData?.languages || []}
-        updatedTabsMenu={mainData?.tabsMenu || []}
-        footerTabs={footerTabs}
-        mainData={mainData}
-        hideSidebar={true}
-      />
-    );
-  }
-
-  // افزودن unique_id در صورت نیاز
-  STATIC_ROUTE_NAMES.forEach(item => {
-    if (item.id === singleLevel.data.slug) {
-      singleLevel.data.unique_id = item.unique_id;
+    // اگر داده‌ها ناقص بودند، صفحه 404 نمایش داده شود
+    if (!singleLevel?.data || !levelTabs?.data) {
+      return (
+        <NotFoundPage
+          lang={params.lang}
+          params={params}
+          langData={langData}
+          langArray={mainData?.languages || []}
+          updatedTabsMenu={mainData?.tabsMenu || []}
+          footerTabs={footerTabs}
+          mainData={mainData}
+          hideSidebar={true}
+        />
+      );
     }
-  });
 
-  const levels = await findByModalName(mainData, "levels");
-  const [levelPageArrayContent, levelListArrayContent] = await Promise.all([
-    findByTabName(levels, "levels-page"),
-    findByTabName(levels, "level-list"),
-  ]);
-  const concatArrayContent = [...levelPageArrayContent, ...levelListArrayContent];
-const TAB_TITLE_MAP = {
-  "general-info": 387,
-  "licenses": 388,
-  "gem": 389,
-  "gift": 390,
-  "prize": 391,
-};
-
-  const tabUniqueId = TAB_TITLE_MAP[params.tabs];
-const tabTitle = tabUniqueId
-  ? findByUniqueId(mainData, tabUniqueId)
-  : "";
-
-const levelTitle = getLevelTitle(concatArrayContent, levelUniqueId);
-
-// عنوان نهایی
-const pageTitle = tabTitle
-  ? `${tabTitle} ${levelTitle} `
-  : levelTitle;
-
-  const breadcrumbSchema = buildBreadcrumbSchema(mainData, params);
-
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-      <Head>
-        {singleLevel.data.general_info?.png_file && (
-          <link
-            rel="preload"
-            href={singleLevel.data.general_info.png_file}
-            as="image"
-            type="image/png"
-            crossOrigin="anonymous"
-          />
-        )}
-        {levelTabs.data?.png_file && (
-          <link
-            rel="preload"
-            href={levelTabs.data.png_file}
-            as="image"
-            type="image/png"
-            crossOrigin="anonymous"
-          />
-        )}
-      </Head>
-
-      <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-3 w-full font-azarMehr ">
-        <BreadCrumb params={params} />
-
-        <div className="grid-container gap-x-7 bg-white dark:bg-[#080807] rounded-[20px] p-5 3xl:p-[30px] relative">
-          <div className="self-start md:order-none w-full md:min-w-[65vw] xl:min-w-[65vw] flex items-center justify-between font-bold pt-[3px] pb-5 dark:text-white text-lg sm:text-xl lg:text-2xl 2xl:text-3xl 3xl:text-4xl">
-            <h1 className="text-base  md:text-[28px] lg:text-[30px] xl:text-[32px]">{pageTitle}</h1>
-            <button className="w-max py-[5px] md:py-3 px-5 text-[14px] dark:bg-bgLightGrey2 bg-bgLightGrey dark:text-white font-bold text-textGray rounded-[12px]">
-              {findByUniqueId(mainData, 392)}
-            </button>
-          </div>
-
-<TabLoadingProvider>
-  {/* Tabs (ثابت – بدون Skeleton) */}
-  <div className="grid-second overflow-hidden mb-5 self-start w-full md:min-w-[65vw] xl:min-w-[65vw]">
-    <TabSelector
-      params={params}
-      mainData={mainData}
-    />
-  </div>
-
-  {/* Tab Content (Skeleton می‌شود) */}
-  <div className="grid-third w-full md:min-w-[65vw] xl:min-w-[65vw] px-1">
-    <TabContentWrapper>
-      {params.tabs === "general-info" && (
-        <GeneralInfo
-          mainData={mainData}
-          levelTabs={levelTabs}
-          singleLevel={singleLevel}
-          params={params}
-          concatArrayContent={concatArrayContent}
-        />
-      )}
-
-      {params.tabs === "gem" && (
-        <Gem
-          mainData={mainData}
-          levelTabs={levelTabs}
-          singleLevel={singleLevel}
-          params={params}
-          concatArrayContent={concatArrayContent}
-        />
-      )}
-
-      {params.tabs === "gift" && (
-        <Gift
-          mainData={mainData}
-          levelTabs={levelTabs}
-          singleLevel={singleLevel}
-          params={params}
-          concatArrayContent={concatArrayContent}
-        />
-      )}
-
-      {params.tabs === "licenses" && (
-        <Permission
-          mainData={mainData}
-          levelTabs={levelTabs}
-          singleLevel={singleLevel}
-          params={params}
-        />
-      )}
-
-      {params.tabs === "prize" && (
-        <Prize
-          mainData={mainData}
-          levelTabs={levelTabs}
-          singleLevel={singleLevel}
-          params={params}
-          concatArrayContent={concatArrayContent}
-        />
-      )}
-    </TabContentWrapper>
-  </div>
-</TabLoadingProvider>
-
-
-          <div className="grid-forth flex-1 relative !mt-[-2px]">
-            <Suspense fallback={<div>image box loading ...</div>}>
-              <ImageBox item={levelTabs.data} singleLevel={singleLevel} />
-            </Suspense>
-          </div>
-        </div>
-
-        <Features mainData={mainData} params={params} />
-      </div>
-
-      <div className="flex flex-col justify-center items-center xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
-        <DynamicFooter footerTabs={footerTabs} mainData={mainData} params={params} />
-      </div>
-    </>
-  );
-}catch (error) {
-    // ✅ لاگ با جزئیات کامل
-    console.error("❌ Error in CitizensPage:", {
-      error,
-      params,
-      stack: error instanceof Error ? error.stack : null,
+    // افزودن unique_id در صورت نیاز
+    STATIC_ROUTE_NAMES.forEach(item => {
+      if (item.id === singleLevel.data.slug) {
+        singleLevel.data.unique_id = item.unique_id;
+      }
     });
 
-    // ✅ نمایش صفحه ارور کاستوم
-    return <CustomErrorPage />;
+    const levels = await findByModalName(mainData, "levels");
+    const [levelPageArrayContent, levelListArrayContent] = await Promise.all([
+      findByTabName(levels, "levels-page"),
+      findByTabName(levels, "level-list"),
+    ]);
+    const concatArrayContent = [...levelPageArrayContent, ...levelListArrayContent];
+    const TAB_TITLE_MAP = {
+      "general-info": 387,
+      "licenses": 388,
+      "gem": 389,
+      "gift": 390,
+      "prize": 391,
+    };
+
+    const tabUniqueId = TAB_TITLE_MAP[params.tabs];
+    const tabTitle = tabUniqueId
+      ? findByUniqueId(mainData, tabUniqueId)
+      : "";
+
+    const levelTitle = getLevelTitle(concatArrayContent, levelUniqueId);
+
+    // عنوان نهایی
+    const pageTitle = tabTitle
+      ? `${tabTitle} ${levelTitle} `
+      : levelTitle;
+
+    const breadcrumbSchema = buildBreadcrumbSchema(mainData, params);
+
+    return (
+      <>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        />
+        <Head>
+          {singleLevel.data.general_info?.png_file && (
+            <link
+              rel="preload"
+              href={singleLevel.data.general_info.png_file}
+              as="image"
+              type="image/png"
+              crossOrigin="anonymous"
+            />
+          )}
+          {levelTabs.data?.png_file && (
+            <link
+              rel="preload"
+              href={levelTabs.data.png_file}
+              as="image"
+              type="image/png"
+              crossOrigin="anonymous"
+            />
+          )}
+        </Head>
+
+        <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-3 w-full font-azarMehr ">
+          <BreadCrumb params={params} />
+
+          <div className="grid-container gap-x-7 bg-white dark:bg-[#080807] rounded-[20px] p-5 3xl:p-[30px] relative">
+            <div className="self-start md:order-none w-full md:min-w-[65vw] xl:min-w-[65vw] flex items-center justify-between font-bold pt-[3px] pb-5 dark:text-white text-lg sm:text-xl lg:text-2xl 2xl:text-3xl 3xl:text-4xl">
+              <h1 className="text-base  md:text-[28px] lg:text-[30px] xl:text-[32px]">{pageTitle}</h1>
+              <button className="w-max py-[5px] md:py-3 px-5 text-[14px] dark:bg-bgLightGrey2 bg-bgLightGrey dark:text-white font-bold text-textGray rounded-[12px]">
+                {findByUniqueId(mainData, 392)}
+              </button>
+            </div>
+
+            <TabLoadingProvider>
+              {/* Tabs (ثابت – بدون Skeleton) */}
+              <div className="grid-second overflow-hidden mb-5 self-start w-full md:min-w-[65vw] xl:min-w-[65vw]">
+                <TabSelector
+                  params={params}
+                  mainData={mainData}
+                />
+              </div>
+
+              {/* Tab Content (Skeleton می‌شود) */}
+              <div className="grid-third w-full md:min-w-[65vw] xl:min-w-[65vw] px-1">
+                <TabContentWrapper>
+                  {params.tabs === "general-info" && (
+                    <GeneralInfo
+                      mainData={mainData}
+                      levelTabs={levelTabs}
+                      singleLevel={singleLevel}
+                      params={params}
+                      concatArrayContent={concatArrayContent}
+                    />
+                  )}
+
+                  {params.tabs === "gem" && (
+                    <Gem
+                      mainData={mainData}
+                      levelTabs={levelTabs}
+                      singleLevel={singleLevel}
+                      params={params}
+                      concatArrayContent={concatArrayContent}
+                    />
+                  )}
+
+                  {params.tabs === "gift" && (
+                    <Gift
+                      mainData={mainData}
+                      levelTabs={levelTabs}
+                      singleLevel={singleLevel}
+                      params={params}
+                      concatArrayContent={concatArrayContent}
+                    />
+                  )}
+
+                  {params.tabs === "licenses" && (
+                    <Permission
+                      mainData={mainData}
+                      levelTabs={levelTabs}
+                      singleLevel={singleLevel}
+                      params={params}
+                    />
+                  )}
+
+                  {params.tabs === "prize" && (
+                    <Prize
+                      mainData={mainData}
+                      levelTabs={levelTabs}
+                      singleLevel={singleLevel}
+                      params={params}
+                      concatArrayContent={concatArrayContent}
+                    />
+                  )}
+                </TabContentWrapper>
+              </div>
+            </TabLoadingProvider>
+
+
+            <div className="grid-forth flex-1 relative !mt-[-2px]">
+              <Suspense fallback={<div>image box loading ...</div>}>
+                <ImageBox item={levelTabs.data} singleLevel={singleLevel} />
+              </Suspense>
+            </div>
+          </div>
+
+          <Features mainData={mainData} params={params} />
+        </div>
+
+        <div className="flex flex-col justify-center items-center xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
+          <DynamicFooter footerTabs={footerTabs} mainData={mainData} params={params} />
+        </div>
+      </>
+    );
+  } catch (error) {
+    const serializedError = {
+      message:
+        error instanceof Error ? error.message : "Unknown error",
+      stack:
+        error instanceof Error ? error.stack : null,
+      name:
+        error instanceof Error ? error.name : "Error",
+    };
+
+    console.error("❌ Error in LevelTabPage:", serializedError);
+
+    return <CustomErrorPage error={serializedError} />;
   }
 }
 export async function generateMetadata({ params }) {
-   try {
-  const staticRouteNames = [
-    { id: 1, unique_id: 382, route_name: "citizen-baguette" },
-    { id: 2, unique_id: 383, route_name: "reporter-baguette" },
-    { id: 3, unique_id: 589, route_name: "participation-baguette" },
-    { id: 4, unique_id: 68, route_name: "developer-baguette" },
-    { id: 5, unique_id: 69, route_name: "inspector-baguette" },
-    { id: 6, unique_id: 590, route_name: "businessman-baguette" },
-    { id: 7, unique_id: 71, route_name: "lawyer-baguette" },
-    { id: 8, unique_id: 591, route_name: "city-council-baguette" },
-    { id: 9, unique_id: 592, route_name: "the-mayor-baguette" },
-    { id: 10, unique_id: 74, route_name: "governor-baguette" },
-    { id: 11, unique_id: 75, route_name: "minister-baguette" },
-    { id: 12, unique_id: 76, route_name: "judge-baguette" },
-    { id: 13, unique_id: 77, route_name: "legislator-baguette" },
-  ];
+  try {
+    const staticRouteNames = [
+      { id: 1, unique_id: 382, route_name: "citizen-baguette" },
+      { id: 2, unique_id: 383, route_name: "reporter-baguette" },
+      { id: 3, unique_id: 589, route_name: "participation-baguette" },
+      { id: 4, unique_id: 68, route_name: "developer-baguette" },
+      { id: 5, unique_id: 69, route_name: "inspector-baguette" },
+      { id: 6, unique_id: 590, route_name: "businessman-baguette" },
+      { id: 7, unique_id: 71, route_name: "lawyer-baguette" },
+      { id: 8, unique_id: 591, route_name: "city-council-baguette" },
+      { id: 9, unique_id: 592, route_name: "the-mayor-baguette" },
+      { id: 10, unique_id: 74, route_name: "governor-baguette" },
+      { id: 11, unique_id: 75, route_name: "minister-baguette" },
+      { id: 12, unique_id: 76, route_name: "judge-baguette" },
+      { id: 13, unique_id: 77, route_name: "legislator-baguette" },
+    ];
 
-  const levelMeta = staticRouteNames.find(x => x.route_name === params.levelName);
-  const levelId = levelMeta?.id;
-  const levelUniqueId = levelMeta?.unique_id;
+    const levelMeta = staticRouteNames.find(x => x.route_name === params.levelName);
+    const levelId = levelMeta?.id;
+    const levelUniqueId = levelMeta?.unique_id;
 
-  const [singleLevel, levelTabs, langData] = await Promise.all([
-    getSingleLevel(levelId),
-    getLevelTabs(params, levelId),
-    getTranslation(params.lang),
-  ]);
+    const [singleLevel, levelTabs, langData] = await Promise.all([
+      getSingleLevel(levelId),
+      getLevelTabs(params, levelId),
+      getTranslation(params.lang),
+    ]);
 
-  const mainData = await getMainFile(langData);
+    const mainData = await getMainFile(langData);
 
-  function makeLessCharacter(desc) {
-    return desc ? desc.slice(0, 200) : "";
-  }
+    function makeLessCharacter(desc) {
+      return desc ? desc.slice(0, 200) : "";
+    }
 
-  // اگر داده‌ها موجود نبودند، متادیتای پیش‌فرض 404 برگردون
-  if (!singleLevel?.data || !levelTabs?.data) {
+    // اگر داده‌ها موجود نبودند، متادیتای پیش‌فرض 404 برگردون
+    if (!singleLevel?.data || !levelTabs?.data) {
+      return {
+        title: "خطایی رخ داده است صفحه یافت نشد",
+        description: "",
+        openGraph: {
+          type: 'website',
+          title: " خطایی رخ داده است صفحه یافت نشد",
+          description: "",
+          locale: params.lang === 'fa' ? 'fa_IR' : 'en_US',
+          url: `https://rgb.irpsc.com/${params.lang}/levels/citizen${params.levelName ? "/" + params.levelName : ""}${params.tabs ? "/" + params.tabs : ""}`,
+          images: [],
+        },
+      };
+    }
+
+    const levels = await findByModalName(mainData, "levels");
+    const [levelPageArrayContent, levelListArrayContent] = await Promise.all([
+      findByTabName(levels, "levels-page"),
+      findByTabName(levels, "level-list"),
+    ]);
+    const concatArrayContent = [...levelPageArrayContent, ...levelListArrayContent];
+
+    const pageTitle = concatArrayContent.find(item => Number(item.unique_id) === Number(levelUniqueId))?.translation || "";
+
     return {
-      title: "صفحه یافت نشد",
-      description: "",
+      title: pageTitle,
+      description: makeLessCharacter(levelTabs.data.description || singleLevel.data.general_info.description),
       openGraph: {
         type: 'website',
-        title: "صفحه یافت نشد",
-        description: "",
+        title: pageTitle,
+        description: makeLessCharacter(levelTabs.data.description || singleLevel.data.general_info.description),
         locale: params.lang === 'fa' ? 'fa_IR' : 'en_US',
         url: `https://rgb.irpsc.com/${params.lang}/levels/citizen${params.levelName ? "/" + params.levelName : ""}${params.tabs ? "/" + params.tabs : ""}`,
-        images: [],
+        images: [
+          {
+            url: levelTabs.data.png_file || singleLevel.data.general_info.png_file,
+            width: 800,
+            height: 600,
+          },
+        ],
       },
     };
   }
-
-  const levels = await findByModalName(mainData, "levels");
-  const [levelPageArrayContent, levelListArrayContent] = await Promise.all([
-    findByTabName(levels, "levels-page"),
-    findByTabName(levels, "level-list"),
-  ]);
-  const concatArrayContent = [...levelPageArrayContent, ...levelListArrayContent];
-
-  const pageTitle = concatArrayContent.find(item => Number(item.unique_id) === Number(levelUniqueId))?.translation || "";
-
-  return {
-    title: pageTitle,
-    description: makeLessCharacter(levelTabs.data.description || singleLevel.data.general_info.description),
-    openGraph: {
-      type: 'website',
-      title: pageTitle,
-      description: makeLessCharacter(levelTabs.data.description || singleLevel.data.general_info.description),
-      locale: params.lang === 'fa' ? 'fa_IR' : 'en_US',
-      url: `https://rgb.irpsc.com/${params.lang}/levels/citizen${params.levelName ? "/" + params.levelName : ""}${params.tabs ? "/" + params.tabs : ""}`,
-      images: [
-        {
-          url: levelTabs.data.png_file || singleLevel.data.general_info.png_file,
-          width: 800,
-          height: 600,
-        },
-      ],
-    },
-  };
-}
-catch (error) {
+  catch (error) {
     console.error("❌ Metadata error (LevelsPage):", error);
 
     return {

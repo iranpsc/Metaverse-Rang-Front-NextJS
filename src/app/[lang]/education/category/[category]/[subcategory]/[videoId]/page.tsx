@@ -21,7 +21,8 @@ import {
 
 import VideoSection from "@/components/templates/singleVideo/VideoSection";
 import ListVideos from "@/components/module/singleVideo/listVideos/ListVideos";
-
+import CustomErrorPage from "@/components/shared/CustomErrorPage";
+import CleanAutoRetryParam  from "@/components/shared/CleanAutoRetryParam";
 import NotFoundPage from "@/components/shared/NotFoundPage"; // فرض کردم صفحه 404 اینجاست
 
 // Cache کردن getSingleVideoData برای جلوگیری از درخواست‌های تکراری در generateMetadata و صفحه اصلی
@@ -30,6 +31,7 @@ const getCachedSingleVideoData = cache(async (videoId: string) => {
 });
 
 export default async function EducationVideo({ params }: { params: any }) {
+  try {
   const [langData, langArray] = await Promise.all([
     getTranslation(params.lang),
     getLangArray(),
@@ -157,6 +159,7 @@ async function makeLessCharacter(_desc: any) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(relatedVideosSchema) }}
       />
+      <CleanAutoRetryParam />
       <div className="flex w-full" dir={langData.direction}>
 
         <section
@@ -179,10 +182,24 @@ async function makeLessCharacter(_desc: any) {
       </div>
     </>
   );
-}
+} catch (error) {
+  const serializedError = {
+    message:
+      error instanceof Error ? error.message : "Unknown error",
+    stack:
+      error instanceof Error ? error.stack : null,
+    name:
+      error instanceof Error ? error.name : "Error",
+  };
+
+  console.error("❌ Error in EductionCategoryPage:", serializedError);
+
+  return <CustomErrorPage error={serializedError} />;
+}}
 
 // SEO
 export async function generateMetadata({ params }: { params: any }) {
+  try {
   // استفاده از cached function برای DataVideo
   const DataVideo = await getCachedSingleVideoData(params.videoId);
 
@@ -228,4 +245,12 @@ async function makeLessCharacter(_desc: any) {
       ],
     },
   };
+} catch (error) {
+    console.error("❌ Metadata error (LevelsPage):", error);
+
+    return {
+      title: "خطا",
+      description: "مشکلی در بارگذاری صفحه رخ داده است",
+    };
+  }
 }

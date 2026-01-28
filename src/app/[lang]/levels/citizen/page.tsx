@@ -13,6 +13,7 @@ import BreadCrumb from "@/components/shared/BreadCrumb";
 import { getStaticMenu } from "@/components/utils/constants";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import CustomErrorPage from "@/components/shared/CustomErrorPage";
+import CleanAutoRetryParam  from "@/components/shared/CleanAutoRetryParam";
 // SEO**
 export async function generateMetadata({ params }: any) {
    try {
@@ -272,6 +273,7 @@ export default async function LevelsPage({ params }: any) {
 
           className={`h-[calc(100vh-60px)] lg:h-screen overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 bg-bgGray dark:bg-black`}
         >
+          <CleanAutoRetryParam />
           <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
             <BreadCrumb params={params} />
           </div>
@@ -303,14 +305,17 @@ export default async function LevelsPage({ params }: any) {
   );
 } 
 catch (error) {
-    // ✅ لاگ با جزئیات کامل
-    console.error("❌ Error in LevelsPage:", {
-      error,
-      params,
-      stack: error instanceof Error ? error.stack : null,
-    });
+  const serializedError = {
+    message:
+      error instanceof Error ? error.message : "Unknown error",
+    stack:
+      error instanceof Error ? error.stack : null,
+    name:
+      error instanceof Error ? error.name : "Error",
+  };
 
-    // ✅ نمایش صفحه ارور کاستوم
-    return <CustomErrorPage />;
-  }
+  console.error("❌ Error in LevelPage:", serializedError);
+
+  return <CustomErrorPage error={serializedError} />;
+}
 }

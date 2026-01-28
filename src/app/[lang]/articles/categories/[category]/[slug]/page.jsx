@@ -19,11 +19,13 @@ import RelatedArticlesSlider from "./components/RelatedArticlesSlider";
 import PrevNextArticles from "./components/PrevNextArticles";
 import AuthorCard from "./components/AuthorCard";
 import ShowSocialWrapper from "./components/ShowSocialWrapper";
-
+import CustomErrorPage from "@/components/shared/CustomErrorPage";
+import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
 // ======================================
 // Metadata (SEO + 404 امن)
 // ======================================
 export async function generateMetadata({ params }) {
+  try {
   function cleanDescription(html, limit = 255) {
     if (!html) return "";
     const text = html.replace(/<[^>]*>/g, "").trim();
@@ -75,6 +77,14 @@ export async function generateMetadata({ params }) {
     },
     robots: { index: true, follow: true },
   };
+} catch (error) {
+    console.error("❌ Metadata error (LevelsPage):", error);
+
+    return {
+      title: "خطا",
+      description: "مشکلی در بارگذاری صفحه رخ داده است",
+    };
+  }
 }
 
 // ======================================
@@ -125,13 +135,14 @@ export const dynamicParams = true; // اجازه می‌ده مقالات جدی
 // صفحه اصلی مقاله
 // ======================================
 export default async function ArticlePage({ params }) {
-  function cleanDescription(html, limit = 100) {
-    if (!html) return "";
-    const text = html.replace(/<[^>]*>/g, "").trim();
-    return text.length > limit ? text.slice(0, limit).trim() + "…" : text;
-  }
-
   try {
+    function cleanDescription(html, limit = 100) {
+      if (!html) return "";
+      const text = html.replace(/<[^>]*>/g, "").trim();
+      return text.length > limit ? text.slice(0, limit).trim() + "…" : text;
+    }
+
+
     const { slug, category, lang } = params;
 
     // مقاله اصلی
@@ -225,7 +236,7 @@ export default async function ArticlePage({ params }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
-
+        <CleanAutoRetryParam />
         <section className="w-full overflow-y-auto relative bg-[#f8f8f8] dark:bg-black mt-[60px] lg:mt-0">
           <div className="px-5 2xl:px-10">
             <BreadCrumb params={params} title={article.title} articleCat={article.category} />
@@ -278,12 +289,19 @@ export default async function ArticlePage({ params }) {
         </section>
       </div>
     );
-  } catch (error) {
-    console.error("Article page error:", error);
-    return (
-      <div className="text-center text-red-600 mt-20 p-5">
-        خطایی در بارگذاری مقاله رخ داد. لطفاً دوباره تلاش کنید.
-      </div>
-    );
+  }
+  catch (error) {
+    const serializedError = {
+      message:
+        error instanceof Error ? error.message : "Unknown error",
+      stack:
+        error instanceof Error ? error.stack : null,
+      name:
+        error instanceof Error ? error.name : "Error",
+    };
+
+    console.error("❌ Error in ArticlePage:", serializedError);
+
+    return <CustomErrorPage error={serializedError} />;
   }
 }

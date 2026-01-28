@@ -10,15 +10,14 @@ import BreadCrumb from "@/components/shared/BreadCrumb";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import FreeId from "./components/FreeId";
 import RondId from "./components/RondId"
+import CustomErrorPage from "@/components/shared/CustomErrorPage";
+import CleanAutoRetryParam  from "@/components/shared/CleanAutoRetryParam";
 // SEO**
 export async function generateMetadata({ params }: { params: { lang: string } }) {
+  try {
   const langData = await getTranslation(params.lang);
 
   const mainData = await getMainFile(langData);
-
-
-
-
 
   //to make description less than 200 character
   async function makeLessCharacter() {
@@ -54,9 +53,18 @@ export async function generateMetadata({ params }: { params: { lang: string } })
     // },
        // test 
   };
+} catch (error) {
+    console.error("❌ Metadata error (LevelsPage):", error);
+
+    return {
+      title: "خطا",
+      description: "مشکلی در بارگذاری صفحه رخ داده است",
+    };
+  }
 }
 
 export default async function RounPage({ params }: { params: { lang: string } }) {
+  try {
   const [langData, langArray] = await Promise.all([
 
     getTranslation(params.lang),
@@ -428,7 +436,7 @@ export default async function RounPage({ params }: { params: { lang: string } })
 
 
       <div className=" w-full relative" dir={langData.direction}>
-
+ <CleanAutoRetryParam />
         <section
           className={`w-full mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20 `}
         >
@@ -465,4 +473,17 @@ export default async function RounPage({ params }: { params: { lang: string } })
       </div>
     </>
   );
-}
+} catch (error) {
+  const serializedError = {
+    message:
+      error instanceof Error ? error.message : "Unknown error",
+    stack:
+      error instanceof Error ? error.stack : null,
+    name:
+      error instanceof Error ? error.name : "Error",
+  };
+
+  console.error("❌ Error in EductionPage:", serializedError);
+
+  return <CustomErrorPage error={serializedError} />;
+} }

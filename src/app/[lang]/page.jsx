@@ -2,6 +2,8 @@ import { Discord, Frame1, Frame2 } from "@/components/svgs";
 import React, { Suspense } from 'react';
 import { headers } from 'next/headers';
 import dynamic from "next/dynamic";
+import CustomErrorPage from "@/components/shared/CustomErrorPage";
+import CleanAutoRetryParam  from "@/components/shared/CleanAutoRetryParam";
 // Lazy load components
 const HeaderFirstPage = React.lazy(() => import('@/components/templates/firstpage/HeaderFirstPage'));
 const SectionTimer = React.lazy(() => import('@/components/templates/firstpage/SectionTimer'));
@@ -15,7 +17,7 @@ const EducationFirstPage = React.lazy(() => import('@/components/templates/first
 // const LastContent = React.lazy(() => import('@/components/templates/firstpage/LastContent'));
 const DetailsEducationSection = React.lazy(() => import('@/components/templates/firstpage/DetailsEducationSection'));
 const VersionSection = React.lazy(() => import('@/components/templates/firstpage/VersionSection'));
-import TeamImg from '@/public/firstpage/teams.jpg';
+// import TeamImg from '@/public/firstpage/teams.jpg';
 const LastContent = dynamic(
   () => import("@/components/templates/firstpage/LastContent"),
   { ssr: false }
@@ -33,6 +35,7 @@ import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 // SEO
 export async function generateMetadata({ params }) {
+  try {
   const langData = await getTranslation(params.lang);
   const mainData = await getMainFile(langData);
   const centralPageModal = await findByModalName(mainData, "central-page");
@@ -65,9 +68,18 @@ export async function generateMetadata({ params }) {
       ],
     },
   };
+} catch (error) {
+    console.error("❌ Metadata error (MainPAge):", error);
+
+    return {
+      title: "خطا",
+      description: "مشکلی در بارگذاری صفحه رخ داده است",
+    };
+  }
 }
 
 export default async function LangPage({ params }) {
+  try {
   const headersList = headers();
   const users = await getTopTrainerUsers();
 
@@ -146,6 +158,7 @@ export default async function LangPage({ params }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(landingSchema) }}
       />
+      <CleanAutoRetryParam />
       <section className=" relative  mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity-20">
         <section className="flex flex-col h-fit tall0:min-h-[600px] min-h-[calc(100vh-60px)] lg:h-screen relative">
           {!isMobile && (
@@ -287,4 +300,17 @@ export default async function LangPage({ params }) {
       </section>
     </>
   );
-}
+} catch (error) {
+  const serializedError = {
+    message:
+      error instanceof Error ? error.message : "Unknown error",
+    stack:
+      error instanceof Error ? error.stack : null,
+    name:
+      error instanceof Error ? error.name : "Error",
+  };
+
+  console.error("❌ Error in MainPage:", serializedError);
+
+  return <CustomErrorPage error={serializedError} />;
+} }
