@@ -105,23 +105,9 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
       className={`  px-2 !max-w-[281px] `}
       style={minWidth ? { width: minWidth, minWidth: minWidth } : {}}
     >
-      {linkLoading && (
-        <div className="fixed top-0 left-0 bottom-0  w-full  h-screen z-[70] flex items-center justify-center bg-black/60 backdrop-blur-sm" >
-          <div className="container flex w-full h-screen items-center justify-center md:ms-[25vw] lg:ms-[17vw] xl:ms-[15vw] 3xl:ms-[16vw]">
-            <div className="holder">
-              <div className="box"></div>
-            </div>
-            <div className="holder">
-              <div className="box"></div>
-            </div>
-            <div className="holder">
-              <div className="box"></div>
-            </div>
-          </div>
-        </div>
-      )}
+
       <div
-        className={`group hover:scale-105 base-transition-1 shadow-lg  mt-10 relative bg-[#fff] dark:bg-[#1A1A18] flex flex-col justify-between gap-3 py-3 sm:py-4 md:py-5 items-center rounded-[20px] border-transparent border border-solid hover:border-[#0066FF] hover:bg-white dark:hover:bg-[#1A1A18] dark:hover:border-[#FFC700] hover:shadow-[0_0px_20px_rgba(0,102,255,0.4)] dark:hover:shadow-[0_0px_35px_-12px_rgba(255,199,0,9)]`}
+        className={`${linkLoading ? "cursor-not-allowed group scale-105 base-transition-1   bg-white dark:bg-[#1A1A18] !border-[#0066FF] dark:border-[#FFC700] !shadow-[0_0px_20px_rgba(0,102,255,0.4)] dark:shadow-[0_0px_35px_-12px_rgba(255,199,0,9)]" : "hover:border-[#0066FF] hover:bg-white dark:hover:bg-[#1A1A18] dark:hover:border-[#FFC700] hover:shadow-[0_0px_20px_rgba(0,102,255,0.4)] dark:hover:shadow-[0_0px_35px_-12px_rgba(255,199,0,9)]"} group hover:scale-105 base-transition-1 shadow-lg  mt-10 relative bg-[#fff] dark:bg-[#1A1A18] flex flex-col justify-between gap-3 py-3 sm:py-4 md:py-5 items-center rounded-[20px] border-transparent border border-solid `}
       >
         <figure className="w-[120px] h-[120px] relative overflow-hidden rounded-full mt-10 ">
           <Image
@@ -155,8 +141,14 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
             </span>
             <Like className="stroke-gray dark:stroke-dark-gray stroke-2 w-[15px] h-[15px] mt-[-2px]" />
           </div> */}
-          <Link onClickCapture={() => setLinkLoading(true)}
-            className="min-h-[30px] uppercase text-blueLink dark:text-blue-500 accumulating font-azarMehr text-[16px] cursor-pointer"
+          <Link onClick={(e) => {
+            e.preventDefault(); // جلوی رفتن فوری
+            setLinkLoading(true); // کلاس و overlay فعال میشه
+            setTimeout(() => {
+              router.push(`/${params.lang}/citizens/${item.code}`);
+            }, 300);
+          }}
+            className={` min-h-[30px] uppercase text-blueLink dark:text-blue-500 accumulating font-azarMehr text-[16px] cursor-pointer ${linkLoading ? "!cursor-not-allowed " : ""}`}
             href={`/${params.lang}/citizens/${item.code}`}
             title={`Go to citizen ${item.code}`}
             aria-label={`Go to citizen ${item.code}`}
