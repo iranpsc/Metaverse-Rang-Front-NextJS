@@ -11,10 +11,10 @@ const stripHtml = (html: string, maxLength: number = 160): string => {
   return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
 };
 
-export default function BreadCrumb({ params, eventTitle , title ,articleCat}: { params: any; eventTitle?: string , title? :string; articleCat? :string;}) {
+export default function BreadCrumb({ params, eventTitle, title, articleCat }: { params: any; eventTitle?: string, title?: string; articleCat?: string; }) {
   const [userName, setUserName] = useState("");
   const pathname = usePathname();
-
+  const [linkLoading, setLinkLoading] = useState(false);
   // دریافت نام کاربر برای مسیرهای citizens
   useEffect(() => {
     if (!params.id || !pathname.includes("/citizens")) return;
@@ -61,14 +61,14 @@ export default function BreadCrumb({ params, eventTitle , title ,articleCat}: { 
     },
     ...(eventTitle && pathname.includes(`/calendar/${params.id}`)
       ? [
-          {
-            name: `event-${params.id}`,
-            en: stripHtml(eventTitle),
-            fa: stripHtml(eventTitle),
-            font: "font-normal",
-            link: `/${params.lang}/calendar/${params.id}`,
-          },
-        ]
+        {
+          name: `event-${params.id}`,
+          en: stripHtml(eventTitle),
+          fa: stripHtml(eventTitle),
+          font: "font-normal",
+          link: `/${params.lang}/calendar/${params.id}`,
+        },
+      ]
       : []),
     {
       name: "citizens",
@@ -79,16 +79,16 @@ export default function BreadCrumb({ params, eventTitle , title ,articleCat}: { 
     },
     ...(pathname.includes("/citizens")
       ? [
-          {
-            name: `citizen-${params.id}`,
-            en: `${userName}'s invites`,
-            fa: `دعوتی‌های ${userName}`,
-            font: "font-normal",
-            link: `/${params.lang}/citizens/${params.id}`,
-          },
-        ]
+        {
+          name: `citizen-${params.id}`,
+          en: `${userName}'s invites`,
+          fa: `دعوتی‌های ${userName}`,
+          font: "font-normal",
+          link: `/${params.lang}/citizens/${params.id}`,
+        },
+      ]
       : []),
-       {
+    {
       name: "rand-id",
       en: "Random Metaverse IDs",
       fa: "شناسه های رند متاورس",
@@ -340,7 +340,7 @@ export default function BreadCrumb({ params, eventTitle , title ,articleCat}: { 
       font: "font-normal",
       link: `/${params.lang}/articles`,
     },
-        {
+    {
       name: "categories",
       en: "articles categories",
       fa: "دسته بندی مقالات",
@@ -350,7 +350,7 @@ export default function BreadCrumb({ params, eventTitle , title ,articleCat}: { 
     {
       name: `${params.category}`,
       en: decodeURIComponent(articleCat || ""),
-  fa: decodeURIComponent(articleCat|| ""),
+      fa: decodeURIComponent(articleCat || ""),
       font: "font-normal",
       link: `/${params.lang}/articles/categories/${params.category}`,
     },
@@ -398,50 +398,70 @@ export default function BreadCrumb({ params, eventTitle , title ,articleCat}: { 
   );
 
   return (
+
     <div className="flex flex-wrap font-azarMehr text-[16px] lg:text-[18px] !font-normal py-[20px] capitalize">
+      {linkLoading && (
+        <div className="fixed top-0 left-0 bottom-0  w-full  h-screen z-[70] flex items-center justify-center bg-black/60 backdrop-blur-sm" >
+          <div className="container flex w-full h-screen items-center justify-center md:ms-[25vw] lg:ms-[17vw] xl:ms-[15vw] 3xl:ms-[16vw]">
+            <div className="holder">
+              <div className="box"></div>
+            </div>
+            <div className="holder">
+              <div className="box"></div>
+            </div>
+            <div className="holder">
+              <div className="box"></div>
+            </div>
+          </div>
+        </div>
+      )}
       {direction === "rtl"
         ? buildedArray.map((x, index) => (
-            <Link
-              href={x.link}
-              className={`${index === buildedArray.length - 1
-                  ? "text-blueLink dark:text-dark-yellow"
-                  : "text-extraGray"
-                } 
+          <Link onClickCapture={() => {
+            if (index !== buildedArray.length - 1) {
+              setLinkLoading(true);
+            }
+          }}
+            href={x.link}
+            className={`${index === buildedArray.length - 1
+              ? "text-blueLink dark:text-dark-yellow"
+              : "text-extraGray"
+              } 
                 ${index === buildedArray.length - 1
-                  ? "dark:text-dark-yellow"
-                  : "dark:text-white"
-                } ${x.font} flex items-center`}
-              key={index}
-            >
-              {x.fa}
-              {buildedArray.length - 1 !== index && (
-                <ArrowMenu
-                  className={`w-[7px] h-[13px] stroke-gray dark:stroke-white mx-2 rotate-180`}
-                />
-              )}
-            </Link>
-          ))
+                ? "dark:text-dark-yellow"
+                : "dark:text-white"
+              } ${x.font} flex items-center`}
+            key={index}
+          >
+            {x.fa}
+            {buildedArray.length - 1 !== index && (
+              <ArrowMenu
+                className={`w-[7px] h-[13px] stroke-gray dark:stroke-white mx-2 rotate-180`}
+              />
+            )}
+          </Link>
+        ))
         : buildedArray.map((x, index) => (
-            <Link
-              href={x.link}
-              className={`${index === buildedArray.length - 1
-                  ? "text-blueLink dark:text-dark-yellow"
-                  : "text-extraGray"
-                } 
+          <Link
+            href={x.link}
+            className={`${index === buildedArray.length - 1
+              ? "text-blueLink dark:text-dark-yellow"
+              : "text-extraGray"
+              } 
                 ${index === buildedArray.length - 1
-                  ? "dark:text-dark-yellow"
-                  : "dark:text-white"
-                } ${x.font} flex items-center`}
-              key={index}
-            >
-              {x.en}
-              {buildedArray.length - 1 !== index && (
-                <ArrowMenu
-                  className={`w-[7px] h-[13px] stroke-gray dark:stroke-white mx-2 rotate-0`}
-                />
-              )}
-            </Link>
-          ))}
+                ? "dark:text-dark-yellow"
+                : "dark:text-white"
+              } ${x.font} flex items-center`}
+            key={index}
+          >
+            {x.en}
+            {buildedArray.length - 1 !== index && (
+              <ArrowMenu
+                className={`w-[7px] h-[13px] stroke-gray dark:stroke-white mx-2 rotate-0`}
+              />
+            )}
+          </Link>
+        ))}
     </div>
   );
 }

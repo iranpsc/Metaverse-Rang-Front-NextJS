@@ -3,9 +3,9 @@ import { Suspense } from "react";
 import { cache } from "react"; // اضافه کردن cache از React
 
 
-const BreadCrumb = dynamic(() => import("@/components/shared/BreadCrumb"), {
-  suspense: true,
-});
+// const BreadCrumb = dynamic(() => import("@/components/shared/BreadCrumb"), {
+//   suspense: true,
+// });
 
 import {
   getTranslation,
