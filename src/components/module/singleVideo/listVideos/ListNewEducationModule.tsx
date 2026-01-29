@@ -1,9 +1,9 @@
 "use client";
-import { Like } from "@/components/svgs/SvgEducation";
-import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import { checkData } from "@/components/utils/targetDataName";
-import Image from "next/image";
-import Link from "next/link";
+// import { Like } from "@/components/svgs/SvgEducation";
+// import { findByUniqueId } from "@/components/utils/findByUniqueId";
+// import { checkData } from "@/components/utils/targetDataName";
+// import Image from "next/image";
+// import Link from "next/link";
 import { useEffect, useState } from "react";
 import SingleEducationItem from "./SingleEducationItem"; // 👈 فایل جدید برای هر آیتم
 

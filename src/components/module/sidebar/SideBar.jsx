@@ -75,13 +75,13 @@ export default function SideBar({
         languagesData={langData}
         langArray={langArray}
       />
-      <div className={`z-[60] h-screen dark:bg-dark-background fixed top-0 rtl:right-0 ltr:left-0 z-[1] lg:relative lg:top-0 lg:right-0 ${isClosed ? "" : ""
+      <div className={`z-[1000] h-screen dark:bg-dark-background fixed top-0 rtl:right-0 ltr:left-0 lg:relative lg:top-0 lg:right-0 ${isClosed ? "" : ""
         }`}>
         <div
           className={`shadow-left dark:shadow-leftDark xl:min-h-screen scroll lg:min-h-screen md:min-h-screen relative sm:min-h-screen xs:min-h-screen ${isClosed
               ? "sm:hidden xs:hidden md:hidden menu-transition xl:block lg:block"
               : "sm:block xs:block bg-blackTransparent/30"
-            } absolute xl:relative lg:relative xl:w-fit lg:w-fit md:w-full z-[60] sm:w-full xs:w-full no-scrollbar`}
+            } absolute xl:relative lg:relative xl:w-fit lg:w-fit md:w-full z-[100] sm:w-full xs:w-full no-scrollbar`}
         >
           <aside
             ref={sidebarRef}

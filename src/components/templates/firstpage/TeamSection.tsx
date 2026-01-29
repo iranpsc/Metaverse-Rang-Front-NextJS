@@ -8,7 +8,7 @@ import TeamImg from '@/public/firstpage/teams.jpg';
 const SectionTeam = ({ mainData, params }: any) => {
   const [isInView, setInView] = useState(false);
   const sectionRef = useRef(null);
-
+  const [linkLoading, setLinkLoading] = useState(false);
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -40,11 +40,26 @@ const SectionTeam = ({ mainData, params }: any) => {
   }
   return (
     <div ref={sectionRef} className="flex flex-column justify-center flex-wrap px-5 lg:px-0 w-full">
+      {linkLoading && (
+        <div className="fixed top-0 left-0 bottom-0  w-full  h-screen z-[70] flex items-center justify-center bg-black/60 backdrop-blur-sm" >
+          <div className="container flex w-full h-screen items-center justify-center md:ms-[25vw] lg:ms-[17vw] xl:ms-[15vw] 3xl:ms-[16vw]">
+            <div className="holder">
+              <div className="box"></div>
+            </div>
+            <div className="holder">
+              <div className="box"></div>
+            </div>
+            <div className="holder">
+              <div className="box"></div>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="w-full md:w-[50%] lg:w-[35%]">
         <Image
           className="w-full h-full  md:h-auto 3xl:aspect-square object-cover rounded-3xl lg:rounded-[32px] origin-center border-none"
           src={TeamImg}
-          alt={"pic " +findByUniqueId(mainData, 256)}
+          alt={"pic " + findByUniqueId(mainData, 256)}
           width={500}
           height={357}
           loading="lazy"
@@ -53,15 +68,15 @@ const SectionTeam = ({ mainData, params }: any) => {
       </div>
 
       <div className="w-full lg:w-[65%] flex flex-col justify-between items-start md:pb-3 md:ps-10 gap-1 ">
-      <div className="flex flex-col  w-full">
-                <h2 className="w-full text-start font-bold text-[20px] md:text-[26px] lg:text-[32px] text-gray dark:text-white mt-5 font-azarMehr">
-         {findByUniqueId(mainData, 1457)}
-          
-        </h2>
-        <Vector className="w-[20%] h-10 stroke-light-primary dark:stroke-dark-yellow" />
-      </div>
+        <div className="flex flex-col  w-full">
+          <h2 className="w-full text-start font-bold text-[20px] md:text-[26px] lg:text-[32px] text-gray dark:text-white mt-5 font-azarMehr">
+            {findByUniqueId(mainData, 1457)}
 
-        
+          </h2>
+          <Vector className="w-[20%] h-10 stroke-light-primary dark:stroke-dark-yellow" />
+        </div>
+
+
 
         <h4 className="w-full text-gray dark:text-white text-[20px] md:text-[24px] lg:text-[28px] text-start pb-2 font-bold ">
           {/* {localFind("a revolution in virtual platforms")} */}
@@ -125,9 +140,9 @@ const SectionTeam = ({ mainData, params }: any) => {
             {findByUniqueId(mainData, 492)}
           </p>
         </div>
-        <Link href={`/${params.lang}/about`}>
+        <Link onClickCapture={() => setLinkLoading(true)} href={`/${params.lang}/about`}>
           <p className="w-fit rounded-[24px] py-3 px-10 mt-5 text-center text-[14px] md:text-[16px] lg:text-[20px] text-white bg-light-primary dark:bg-dark-yellow dark:text-black  font-azarMehr font-medium ">
-           {findByUniqueId(mainData, 1456)}
+            {findByUniqueId(mainData, 1456)}
           </p>
         </Link>
       </div>

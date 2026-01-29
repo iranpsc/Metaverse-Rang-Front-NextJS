@@ -17,6 +17,7 @@ interface ArticleMetaProps {
   excerpt: string;
   content?: string;
    mainData:{mainData:string}
+   lang:string;
   // optional برای جلوگیری از ارور
 }
 
@@ -28,6 +29,7 @@ export default function ArticleMeta({
   content,
   stats,
   mainData,
+  lang
 }: ArticleMetaProps) {
   // پاک کردن HTML و محاسبه تعداد کلمات
   const plainText = content
@@ -60,7 +62,7 @@ export default function ArticleMeta({
             <span className="text-xs md:text-xl dark:text-white">
               {author.name}
             </span>
-            <Link href={""} className="text-xs md:text-base text-blueLink dark:text-blue-500">
+            <Link href={`/${lang}/citizens/${author.citizenId.toLowerCase()}`} className="text-xs md:text-base text-blueLink dark:text-blue-500 uppercase">
               {author.citizenId}
             </Link>
           </div>

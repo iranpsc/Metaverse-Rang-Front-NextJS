@@ -22,62 +22,54 @@ const SectionTimer = ({ params }: { params: Params }) => {
   const [isInView, setInView] = useState(false);
   const [events, setEvents] = useState<MappedEventItem[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [linkLoading, setLinkLoading] = useState(false);
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const res = await fetch("https://api.rgb.irpsc.com/api/calendar?type=event");
+        const json = await res.json();
+        const allEvents: MappedEventItem[] = mapEvents(json.data);
+        const now = Date.now();
 
-useEffect(() => {
-  const fetchEvents = async () => {
-    try {
-      const res = await fetch("https://api.rgb.irpsc.com/api/calendar?type=event");
-      const json = await res.json();
-      const allEvents: MappedEventItem[] = mapEvents(json.data);
-      const now = Date.now();
+        // ---------------------------
+        // 1) تایمر دارهای فعال
+        // ---------------------------
+        const activeTimedEvents = allEvents
+          .filter(ev => ev.end && jalaliToTimestamp(ev.end) > now)
+          .sort((a, b) =>
+            jalaliToTimestamp(a.end!) - jalaliToTimestamp(b.end!)
+          );
 
-      // ---------------------------
-      // 1) تایمر دارهای فعال
-      // ---------------------------
-      const activeTimedEvents = allEvents
-        .filter(ev => ev.end && jalaliToTimestamp(ev.end) > now)
-        .sort((a, b) =>
-          jalaliToTimestamp(a.end!) - jalaliToTimestamp(b.end!)
-        );
+        // اگر ۴ تا یا بیشتر داریم
+        if (activeTimedEvents.length >= 4) {
+          setEvents(activeTimedEvents.slice(0, 4));
+          return;
+        }
 
-      // اگر ۴ تا یا بیشتر داریم
-      if (activeTimedEvents.length >= 4) {
-        setEvents(activeTimedEvents.slice(0, 4));
-        return;
+        // ---------------------------
+        // 2) پر کردن با پایان‌یافته‌ها
+        // ---------------------------
+        const endedTimedEvents = allEvents
+          .filter(ev => ev.end && jalaliToTimestamp(ev.end) <= now)
+          .sort((a, b) =>
+            jalaliToTimestamp(b.end!) - jalaliToTimestamp(a.end!)
+          );
+
+        const remainingCount = 4 - activeTimedEvents.length;
+
+        const finalEvents = [
+          ...activeTimedEvents,
+          ...endedTimedEvents.slice(0, remainingCount),
+        ];
+
+        setEvents(finalEvents);
+      } catch (err) {
+        console.error("Error fetching events:", err);
       }
+    };
 
-      // ---------------------------
-      // 2) پر کردن با پایان‌یافته‌ها
-      // ---------------------------
-      const endedTimedEvents = allEvents
-        .filter(ev => ev.end && jalaliToTimestamp(ev.end) <= now)
-        .sort((a, b) =>
-          jalaliToTimestamp(b.end!) - jalaliToTimestamp(a.end!)
-        );
-
-      const remainingCount = 4 - activeTimedEvents.length;
-
-      const finalEvents = [
-        ...activeTimedEvents,
-        ...endedTimedEvents.slice(0, remainingCount),
-      ];
-
-      setEvents(finalEvents);
-    } catch (err) {
-      console.error("Error fetching events:", err);
-    }
-  };
-
-  fetchEvents();
-}, []);
-
-
-
-
-
-
-
-
+    fetchEvents();
+  }, []);
 
   // فعال کردن وقتی اسکرول بهش رسید
   useEffect(() => {
@@ -107,6 +99,21 @@ useEffect(() => {
       ref={sectionRef}
       className="w-full h-full flex flex-wrap lg:flex-nowrap justify-evenly gap-5 my-12 md:my-0 items-center relative px-6"
     >
+      {linkLoading && (
+        <div className="fixed top-0 left-0 bottom-0  w-full  h-screen z-[40] flex items-center justify-center bg-black/60 backdrop-blur-sm" >
+          <div className="container flex w-full h-screen items-center justify-center md:ms-[25vw] lg:ms-[17vw] xl:ms-[15vw] 3xl:ms-[16vw]">
+            <div className="holder">
+              <div className="box"></div>
+            </div>
+            <div className="holder">
+              <div className="box"></div>
+            </div>
+            <div className="holder">
+              <div className="box"></div>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="md:hidden flex items-center justify-between w-full absolute z-10 top-[91px] px-1 ">
         <div
           onClick={handlePrev}
@@ -148,7 +155,7 @@ useEffect(() => {
                   quality={75}
                 />
                 <div className="w-full h-full bg-gradient-to-b to-[#DEDEE9] via-[#dedee942]  from-[#dedee905] md:bg-gradient-to-l md:to-[#DEDEE9] md:via-[#dedee942]  md:from-[#dedee905]  dark:bg-gradient-to-b dark:to-[#313131] dark:via-[#3131315b]  dark:from-[#31313100]  md:dark:bg-gradient-to-l md:dark:to-[#313131] md:dark:via-[#3131315b]  md:dark:from-[#31313100] absolute right-0 ">
-                  
+
                 </div>
               </div>
               <div className="w-full lg:mt-0 text-justify flex flex-col justify-between h-full  md:py-4 ">
@@ -170,18 +177,18 @@ useEffect(() => {
                 minutesLabel={params.lang === "fa" ? "دقیقه" : "Minutes"}
                 secondsLabel={params.lang === "fa" ? "ثانیه" : "Seconds"}
                 targetDate={eventData.start} // تاریخ شروع جلالی
-                endDate={eventData.end} 
+                endDate={eventData.end}
                 params={params}     // تاریخ پایان جلالی
               />
               <div className="w-full flex flex-col">
                 {eventData.btnName && (
-                  <a aria-label="meta btn" href="https://rgb.irpsc.com/metaverse/" className=" !w-full rounded-[28px] py-3 text-center  lg:text-lg 3xl:text-[19px] text-white dark:text-black bg-light-primary dark:bg-dark-yellow font-azarMehr font-medium mt-5">
+                  <a target="_blank" aria-label="meta btn" href={eventData.link} className=" !w-full rounded-[28px] py-3 text-center  lg:text-lg 3xl:text-[19px] text-white dark:text-black bg-light-primary dark:bg-dark-yellow font-azarMehr font-medium mt-5">
                     {eventData.btnName}
                   </a>
                 )}
                 {eventData.link && (
                   <p className="w-full rounded-[28px] py-3 mt-5 text-center text-lg 3xl:text-[19px] text-white bg-[#343434] font-azarMehr font-medium">
-                    <a href={eventData.link} className="w-full h-full inline-block" target="_blank">
+                    <a onClickCapture={() => setLinkLoading(true)} href={`/${params.lang}/calendar/${eventData.id}`} className="w-full h-full inline-block" >
                       {params.lang === "fa" ? "مشاهده جزئیات" : "View Details"}
                     </a>
 

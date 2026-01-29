@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from "react";
 const SingleEducationItem = ({ item, mainData, params, theme }: any) => {
   const titleRef = useRef<HTMLParagraphElement>(null);
   const [isTruncated, setIsTruncated] = useState(false);
-
+  const [linkLoading, setLinkLoading] = useState(false);
   const checkTruncation = () => {
     const el = titleRef.current;
     if (el) {
@@ -28,6 +28,21 @@ const SingleEducationItem = ({ item, mainData, params, theme }: any) => {
 
   return (
     <div className="w-full h-fit flex flex-col gap-5 pt-2 justify-start items-center">
+       {linkLoading && (
+        <div className="fixed top-0 left-0 bottom-0  w-full  h-screen z-[70] flex items-center justify-center bg-black/60 backdrop-blur-sm" >
+          <div className="container flex w-full h-screen items-center justify-center md:ms-[25vw] lg:ms-[17vw] xl:ms-[15vw] 3xl:ms-[16vw]">
+            <div className="holder">
+              <div className="box"></div>
+            </div>
+            <div className="holder">
+              <div className="box"></div>
+            </div>
+            <div className="holder">
+              <div className="box"></div>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="w-[90%] flex flex-row justify-between gap-3 items-center">
         <Image
           src={item.creator.image && item.creator.image}
@@ -37,10 +52,10 @@ const SingleEducationItem = ({ item, mainData, params, theme }: any) => {
           loading="lazy"
           className="w-[50px] h-[50px] rounded-full object-cover cursor-pointer transition-all duration-150 ease-in-out"
         />
-        <Link
+        <Link onClickCapture={() => setLinkLoading(true)}
           className="w-full truncate"
           href={`/${params.lang}/education/category/${item.category.slug}/${item.sub_category.slug}/${item.slug}`}
-          target="_blank"
+         
         >
           <p
             ref={titleRef}
@@ -60,7 +75,7 @@ const SingleEducationItem = ({ item, mainData, params, theme }: any) => {
           <span>{findByUniqueId(mainData, 563)}</span>
           {" : "}
           <span className="mb-[-2px] text-blueLink dark:text-blue-500 uppercase">
-            <Link
+            <Link onClickCapture={() => setLinkLoading(true)}
               href={`https://rgb.irpsc.com/${params.lang}/citizen/${item.creator.code}`}
             >
               {checkData(item.creator.code)}

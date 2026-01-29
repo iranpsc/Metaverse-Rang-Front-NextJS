@@ -64,7 +64,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
   const [showFullMap, setShowFullMap] = useState<Record<number, boolean>>({});
   const eventRefs = useRef<Record<number, HTMLDivElement | null>>({});
   const [targetEventId, setTargetEventId] = useState<number | null>(null);
-
+  const [linkLoading, setLinkLoading] = useState(false);
   // به‌روزرسانی ایونت‌ها
   useEffect(() => {
     setEvents(initialEvents);
@@ -304,9 +304,9 @@ const EventList: React.FC<CalendarFilterProps> = ({
 
     return <SyncLoader color={isDark ? "#FFD700" : "#0066ff"} size={8} />;
   };
-useEffect(() => {
-  console.log("📅 ایونت‌های اولیه:", initialEvents);
-}, []);
+  useEffect(() => {
+    console.log("📅 ایونت‌های اولیه:", initialEvents);
+  }, []);
 
   // تنظیم مقادیر اولیه لایک‌ها و دیسلایک‌ها
   useEffect(() => {
@@ -513,9 +513,24 @@ useEffect(() => {
             ref={(el) => (eventRefs.current[event.id] = el)}
             className="items flex flex-col justify-center gap-3 items-center w-full"
           >
+            {linkLoading && (
+              <div className="fixed top-0 left-0 bottom-0  w-full  h-screen z-[70] flex items-center justify-center bg-black/60 backdrop-blur-sm" >
+                <div className="container flex w-full h-screen items-center justify-center md:ms-[25vw] lg:ms-[17vw] xl:ms-[15vw] 3xl:ms-[16vw]">
+                  <div className="holder">
+                    <div className="box"></div>
+                  </div>
+                  <div className="holder">
+                    <div className="box"></div>
+                  </div>
+                  <div className="holder">
+                    <div className="box"></div>
+                  </div>
+                </div>
+              </div>
+            )}
             {/* تصویر ایونت */}
             <div className="mt-4 w-[97%] flex justify-center lg:w-[95%] mx-auto rounded-[20px] overflow-hidden shadow-lg lg:mt-6">
-              <Link href={`/${params.lang}/calendar/${event.id}`}>
+              <Link onClickCapture={() => setLinkLoading(true)} href={`/${params.lang}/calendar/${event.id}`}>
                 <img
                   className="w-full"
                   src={
@@ -586,7 +601,7 @@ useEffect(() => {
                     style={{ backgroundColor: event.color }}
                     className="h-7 xl:h-9 2xl:h-10 rounded-lg aspect-square"
                   ></div>
-                  <Link href={`/${params.lang}/calendar/${event.id}`} className="mx-2 whitespace-nowrap text-base font-bold text-ellipsis overflow-hidden lg:text-xl xl:text-2xl 2xl:text-3xl">
+                  <Link onClickCapture={() => setLinkLoading(true)} href={`/${params.lang}/calendar/${event.id}`} className="mx-2 whitespace-nowrap text-base font-bold text-ellipsis overflow-hidden lg:text-xl xl:text-2xl 2xl:text-3xl">
                     {event.title}
                   </Link>
                 </div>

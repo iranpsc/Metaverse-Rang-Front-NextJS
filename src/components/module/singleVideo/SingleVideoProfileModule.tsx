@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { checkData } from "@/components/utils/targetDataName";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import { useState } from "react";
 
 const SingleVideoProfileModule = ({
   DataVideo,
@@ -11,12 +12,28 @@ const SingleVideoProfileModule = ({
   params,
 }: any) => {
   // console.log("Data single Video", DataVideo);
-
+const [linkLoading, setLinkLoading] = useState(false);
   return (
+    
     <div className="w-full pb-2 flex flex-row gap-2 items-center pt-10 bg-white dark:bg-dark-background ps-5 ">
-      <Link
+       {linkLoading && (
+        <div className="fixed top-0 left-0 bottom-0  w-full  h-screen z-[70] flex items-center justify-center bg-black/60 backdrop-blur-sm" >
+          <div className="container flex w-full h-screen items-center justify-center md:ms-[25vw] lg:ms-[17vw] xl:ms-[15vw] 3xl:ms-[16vw]">
+            <div className="holder">
+              <div className="box"></div>
+            </div>
+            <div className="holder">
+              <div className="box"></div>
+            </div>
+            <div className="holder">
+              <div className="box"></div>
+            </div>
+          </div>
+        </div>
+      )}
+      <Link onClickCapture={() => setLinkLoading(true)}
         href={`https://rgb.irpsc.com/${params.lang}/citizen/${DataVideo.creator.code}`}
-        target="_blank"
+        
       >
         <div className="flex flex-row justify-start items-center gap-2">
           <Image
@@ -35,7 +52,7 @@ const SingleVideoProfileModule = ({
         <p className="text-xs md:text-base dark:text-white">
           <span>{findByUniqueId(mainData, 563)}</span>
           {" : "}
-          <span className="mb-[-2px] uppercase text-blueLink dark:text-blue-500"><Link href={`https://rgb.irpsc.com/${params.lang}/citizen/${DataVideo.creator.code}`}> {checkData(DataVideo.creator.code)}</Link></span>
+          <span className="mb-[-2px] uppercase text-blueLink dark:text-blue-500"><Link onClickCapture={() => setLinkLoading(true)} href={`https://rgb.irpsc.com/${params.lang}/citizen/${DataVideo.creator.code}`}> {checkData(DataVideo.creator.code)}</Link></span>
         </p>
 
       </div>

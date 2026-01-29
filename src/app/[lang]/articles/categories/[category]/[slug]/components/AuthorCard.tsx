@@ -1,22 +1,36 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 interface AuthorCardProps {
   lang: string;
   article: any; // می‌تونی تایپ دقیق هم بزنی
-    mainData:{mainData:string}
+  mainData: { mainData: string }
 }
 
-
-const AuthorCard = ({ lang, article , mainData }: AuthorCardProps) => {
+const AuthorCard = ({ lang, article, mainData }: AuthorCardProps) => {
   const author = article?.author;
   if (!author) return null;
-
+  const [linkLoading, setLinkLoading] = useState(false);
   return (
     <section className="w-full flex justify-center my-10">
+      {linkLoading && (
+        <div className="fixed top-0 left-0 bottom-0  w-full  h-screen z-[70] flex items-center justify-center bg-black/60 backdrop-blur-sm" >
+          <div className="container flex w-full h-screen items-center justify-center md:ms-[25vw] lg:ms-[17vw] xl:ms-[15vw] 3xl:ms-[16vw]">
+            <div className="holder">
+              <div className="box"></div>
+            </div>
+            <div className="holder">
+              <div className="box"></div>
+            </div>
+            <div className="holder">
+              <div className="box"></div>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="bg-white dark:bg-[#1A1A18] border border-gray-200 dark:border-gray-700 rounded-2xl shadow-md p-6 w-full flex flex-col items-center text-center md:px-12">
 
         {/* عکس پروفایل */}
@@ -68,11 +82,11 @@ const AuthorCard = ({ lang, article , mainData }: AuthorCardProps) => {
         </p>
 
         {/* دکمه دیدن مقالات نویسنده */}
-        <Link
-          href={`/${lang}/citizens/${author.citizenId}`}
-          className="mt-6 px-5 py-2 rounded-lg bg-light-primary dark:bg-dark-yellow dark:text-black text-white font-bold text-sm hover:opacity-90 transition"
+        <Link onClickCapture={() => setLinkLoading(true)}
+          href={`/${lang}/citizens/${author.citizenId.toLowerCase()}`}
+          className="mt-6 px-5 py-2 rounded-lg bg-light-primary dark:bg-dark-yellow dark:text-black text-white font-bold text-sm hover:opacity-90 transition u"
         >
-           {findByUniqueId(mainData, 1512)} 
+          {findByUniqueId(mainData, 1512)}
         </Link>
       </div>
     </section>

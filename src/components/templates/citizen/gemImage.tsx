@@ -6,7 +6,7 @@ import { Tooltip as ReactTooltip } from "react-tooltip";
 
 export default function CitizenClientImage({ item, params, picSize, disableHoverScale = false }: any) {
   const [urlForGem, setUrlForGem] = useState<string | undefined>(undefined);
-
+  const [linkLoading, setLinkLoading] = useState(false);
   const staticRouteNames = [
     { id: 1, route_name: "citizen-baguette" },
     { id: 2, route_name: "reporter-baguette" },
@@ -34,14 +34,15 @@ export default function CitizenClientImage({ item, params, picSize, disableHover
 
   return (
     <>
-      <Link href={`/${params.lang}/levels/citizen/${urlForGem}/gem`}>
+
+      <Link onClickCapture={() => setLinkLoading(true)} href={`/${params.lang}/levels/citizen/${urlForGem}/gem`}>
         <Image
           data-tooltip-id={item.name}
           src={item.image}
           width={picSize}
           height={picSize}
           alt={item.name}
-          className={`object-contain inline duration-300 ${hoverClasses}`}
+          className={`${linkLoading ? " drop-shadow-[0_0px_8px_rgba(255,199,0,0.6)] cursor-wait" : ""} object-contain inline duration-300 ${hoverClasses}  `}
         />
 
         <ReactTooltip

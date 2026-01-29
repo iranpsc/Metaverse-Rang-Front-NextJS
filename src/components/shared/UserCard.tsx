@@ -30,7 +30,7 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
 
   const router = useRouter();
   const isLoading = activeBtnId === item.code;
-
+  const [linkLoading, setLinkLoading] = useState(false);
   const handleButtonClick = () => {
     // اگر همون دکمه دوباره کلیک شد، کاری نکن
     if (isLoading) return;
@@ -100,10 +100,26 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
 
 
   return (
+
     <div
       className={`  px-2 !max-w-[281px] `}
       style={minWidth ? { width: minWidth, minWidth: minWidth } : {}}
     >
+      {linkLoading && (
+        <div className="fixed top-0 left-0 bottom-0  w-full  h-screen z-[70] flex items-center justify-center bg-black/60 backdrop-blur-sm" >
+          <div className="container flex w-full h-screen items-center justify-center md:ms-[25vw] lg:ms-[17vw] xl:ms-[15vw] 3xl:ms-[16vw]">
+            <div className="holder">
+              <div className="box"></div>
+            </div>
+            <div className="holder">
+              <div className="box"></div>
+            </div>
+            <div className="holder">
+              <div className="box"></div>
+            </div>
+          </div>
+        </div>
+      )}
       <div
         className={`group hover:scale-105 base-transition-1 shadow-lg  mt-10 relative bg-[#fff] dark:bg-[#1A1A18] flex flex-col justify-between gap-3 py-3 sm:py-4 md:py-5 items-center rounded-[20px] border-transparent border border-solid hover:border-[#0066FF] hover:bg-white dark:hover:bg-[#1A1A18] dark:hover:border-[#FFC700] hover:shadow-[0_0px_20px_rgba(0,102,255,0.4)] dark:hover:shadow-[0_0px_35px_-12px_rgba(255,199,0,9)]`}
       >
@@ -139,7 +155,7 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
             </span>
             <Like className="stroke-gray dark:stroke-dark-gray stroke-2 w-[15px] h-[15px] mt-[-2px]" />
           </div> */}
-          <Link
+          <Link onClickCapture={() => setLinkLoading(true)}
             className="min-h-[30px] uppercase text-blueLink dark:text-blue-500 accumulating font-azarMehr text-[16px] cursor-pointer"
             href={`/${params.lang}/citizens/${item.code}`}
             title={`Go to citizen ${item.code}`}
@@ -215,7 +231,7 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
               </clipPath>
             </defs>
             <foreignObject x="0" y="0" width="100" height="29">
-              <Link href={`/${params.lang}/levels/citizen/${urlForGem}/general-info`}
+              <Link onClickCapture={() => setLinkLoading(true)} href={`/${params.lang}/levels/citizen/${urlForGem}/general-info`}
                 {...({ xmlns: "http://www.w3.org/1999/xhtml" } as any)}
                 className="w-full h-full flex items-center justify-center text-xs font-azarMehr rtl:ms-1 ltr:me-1 mt-[1px] text-black text-center px-1 overflow-hidden break-words"
               >
@@ -254,7 +270,7 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
               </clipPath>
             </defs>
             <foreignObject x="0" y="0" width="100" height="29">
-              <Link href={`/${params.lang}/levels/citizen/${urlForGem}/general-info`}
+              <Link onClickCapture={() => setLinkLoading(true)} href={`/${params.lang}/levels/citizen/${urlForGem}/general-info`}
                 {...({ xmlns: "http://www.w3.org/1999/xhtml" } as any)}
                 className="w-full h-full flex items-center justify-center text-xs font-azarMehr rtl:ms-1 ltr:me-1 mt-[1px] text-white text-center px-1 overflow-hidden break-words"
               >
@@ -293,7 +309,7 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
               </clipPath>
             </defs>
             <foreignObject x="0" y="0" width="100" height="29">
-              <Link href={`/${params.lang}/levels/citizen/${urlForGem}/general-info`}
+              <Link onClickCapture={() => setLinkLoading(true)} href={`/${params.lang}/levels/citizen/${urlForGem}/general-info`}
                 {...({ xmlns: "http://www.w3.org/1999/xhtml" } as any)}
                 className="w-full h-full flex items-center justify-center text-xs font-azarMehr text-white rtl:ms-1 ltr:me-1 mt-[1px]  text-center px-1 overflow-hidden break-words"
               >
@@ -362,7 +378,7 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
               </clipPath>
             </defs>
             <foreignObject x="0" y="0" width="100" height="29">
-              <Link href={`/${params.lang}/levels/citizen/${urlForGem}/general-info`}
+              <Link onClickCapture={() => setLinkLoading(true)} href={`/${params.lang}/levels/citizen/${urlForGem}/general-info`}
                 {...({ xmlns: "http://www.w3.org/1999/xhtml" } as any)}
                 className="w-full h-full flex items-center justify-center text-xs font-azarMehr text-white dark:text-black text-center rtl:ms-1 ltr:me-1 mt-[1px] overflow-hidden break-words"
               >

@@ -254,6 +254,7 @@ export default async function ArticlePage({ params }) {
                   content={article.content}
                   stats={article.stats}
                   mainData={mainData}
+                  lang={lang}
                 />
 
                 <ArticleHeader

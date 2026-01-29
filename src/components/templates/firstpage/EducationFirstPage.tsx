@@ -17,7 +17,7 @@ const EducationFirstPage = ({ mainData, params }: { mainData: any; params: Param
   const theme = cookies.theme || "dark";
   const [activeLoadingId, setActiveLoadingId] = useState<string | null>(null);
   const direction = params.lang === "fa" ? "rtl" : "ltr";
-
+  const [linkLoading, setLinkLoading] = useState(false);
   useEffect(() => {
     const fetchVideos = async () => {
       try {
@@ -43,12 +43,27 @@ const EducationFirstPage = ({ mainData, params }: { mainData: any; params: Param
 
   return (
     <div>
+      {linkLoading && (
+        <div className="fixed top-0 left-0 bottom-0  w-full  h-screen z-[40] flex items-center justify-center bg-black/60 backdrop-blur-sm" >
+          <div className="container flex w-full h-screen items-center justify-center md:ms-[25vw] lg:ms-[17vw] xl:ms-[15vw] 3xl:ms-[16vw]">
+            <div className="holder">
+              <div className="box"></div>
+            </div>
+            <div className="holder">
+              <div className="box"></div>
+            </div>
+            <div className="holder">
+              <div className="box"></div>
+            </div>
+          </div>
+        </div>
+      )}
       {/* عنوان بخش */}
       <div className="w-full flex flex-row justify-between items-center">
         <p className="font-azarMehr font-medium text-[16px] md:text-[20px] lg:text-[28px] xl:text-[32px] dark:text-white">
           {findByUniqueId(mainData, 1462)}
         </p>
-        <Link href={`/${params.lang}/education/category`} >
+        <Link onClickCapture={() => setLinkLoading(true)} href={`/${params.lang}/education/category`} >
           <div className="flex justify-center items-center gap-4">
             <p className="font-azarMehr font-medium text-[12px] md:text-[16px] lg:text-[18px] xl:text-[20px] dark:text-white">
               {findByUniqueId(mainData, 171)}
