@@ -113,7 +113,8 @@ export default async function LangLayout({ children, params }: any) {
             <a
               href="https://t.me/metargb"
               aria-label="Join us on Discord"
-              title="Discord"
+              target='_blank'
+              title="همکاری در توسعه متارنگ"
               className="fixed rtl:left-10 ltr:right-10 bottom-[20px] z-[1000]"
             >
               {/* SVG Discord */}

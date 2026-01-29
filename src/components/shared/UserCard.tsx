@@ -107,7 +107,7 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
     >
 
       <div
-        className={`${linkLoading ? "cursor-not-allowed group scale-105 base-transition-1   bg-white dark:bg-[#1A1A18] !border-[#0066FF] dark:border-[#FFC700] !shadow-[0_0px_20px_rgba(0,102,255,0.4)] dark:shadow-[0_0px_35px_-12px_rgba(255,199,0,9)]" : "hover:border-[#0066FF] hover:bg-white dark:hover:bg-[#1A1A18] dark:hover:border-[#FFC700] hover:shadow-[0_0px_20px_rgba(0,102,255,0.4)] dark:hover:shadow-[0_0px_35px_-12px_rgba(255,199,0,9)]"} group hover:scale-105 base-transition-1 shadow-lg  mt-10 relative bg-[#fff] dark:bg-[#1A1A18] flex flex-col justify-between gap-3 py-3 sm:py-4 md:py-5 items-center rounded-[20px] border-transparent border border-solid `}
+        className={`${linkLoading ? "!cursor-not-allowed group scale-105 base-transition-1   bg-white dark:bg-[#1A1A18] !border-[#0066FF] dark:border-[#FFC700] glow-svg !pointer-events-none" : "hover:border-[#0066FF] hover:bg-white dark:hover:bg-[#1A1A18] dark:hover:border-[#FFC700] hover:shadow-[0_0px_20px_rgba(0,102,255,0.4)] dark:hover:shadow-[0_0px_35px_-12px_rgba(255,199,0,9)]"} group hover:scale-105 base-transition-1 shadow-lg  mt-10 relative bg-[#fff] dark:bg-[#1A1A18] flex flex-col justify-between gap-3 py-3 sm:py-4 md:py-5 items-center rounded-[20px] border-transparent border border-solid `}
       >
         <figure className="w-[120px] h-[120px] relative overflow-hidden rounded-full mt-10 ">
           <Image
@@ -146,7 +146,7 @@ export default function UserCard({ item, params, buttonText, minWidth, scoreElem
             setLinkLoading(true); // کلاس و overlay فعال میشه
             setTimeout(() => {
               router.push(`/${params.lang}/citizens/${item.code}`);
-            }, 300);
+            }, 2300);
           }}
             className={` min-h-[30px] uppercase text-blueLink dark:text-blue-500 accumulating font-azarMehr text-[16px] cursor-pointer ${linkLoading ? "!cursor-not-allowed " : ""}`}
             href={`/${params.lang}/citizens/${item.code}`}
