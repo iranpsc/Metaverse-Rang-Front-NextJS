@@ -1,4 +1,5 @@
-import dynamic from "next/dynamic";
+export const dynamic = "force-dynamic";
+
 import NotFoundPage from "@/components/shared/NotFoundPage";
 import { supabase } from "@/utils/lib/supabaseClient";
 
@@ -127,7 +128,7 @@ export async function generateStaticParams() {
 }
 
 // هر ۱۰ دقیقه یکبار صفحات استاتیک رو به‌روزرسانی کنه (ISR)
-export const revalidate = 600;
+
 
 export const dynamicParams = true; // اجازه می‌ده مقالات جدید بدون rebuild هم کار کنن
 
