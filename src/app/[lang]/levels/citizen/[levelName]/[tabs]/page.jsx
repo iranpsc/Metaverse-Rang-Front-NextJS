@@ -264,7 +264,7 @@ export default async function LevelSinglePage({ params }) {
                   )}
                 </TabContentWrapper>
               </div>
-            </TabLoadingProvider>
+            
 
 
             <div className="grid-forth flex-1 relative !mt-[-2px]">
@@ -272,6 +272,7 @@ export default async function LevelSinglePage({ params }) {
                 <ImageBox item={levelTabs.data} singleLevel={singleLevel} />
               </Suspense>
             </div>
+            </TabLoadingProvider>
           </div>
 
           <Features mainData={mainData} params={params} />
