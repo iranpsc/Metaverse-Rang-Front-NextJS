@@ -61,3 +61,5 @@ export { default as Legislator } from "../../../public/svg/level/legislator.png"
 export { default as Judge } from "../../../public/svg/level/judge.png";
 export { default as WhatsAppIcon } from "../../../public/svg/whatsapp.svg";
 export { default as ContactDownArrow } from "../../../public/svg/contactDownArrow.svg";
+export { default as ErrorImg } from "../../../public/error.png";
+export { default as ErrorImgDark } from "../../../public/error-dark.png";
