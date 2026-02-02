@@ -40,25 +40,27 @@ export default function ListSubCategories({
       </div>
 
       {/* Load More Button */}
-      <div className="w-full flex justify-center mt-[40px] relative">
-        {!loading ? (
-          <button
-            disabled={isDisabled || loading}
-            className={`${isDisabled ? "cursor-not-allowed" : ""
-              } bg-white dark:bg-darkGray text-light-primary md:text-lg dark:text-dark-yellow rounded-[12px] px-[40px] py-[16px] base-transition-1 border-2 border-transparent hover:border-light-primary hover:text-light-primary hover:dark:border-dark-yellow`}
-            onClick={handleLoadMore}
-          >
-            {findByUniqueId(mainData, 271)}
-          </button>
-        ) : (
-          <SyncLoader
-            color="currentColor"
-            size={10}
-            className="text-light-primary dark:text-dark-yellow"
-          />
-        )}
+      {visibleCount <= CategoryData.subcategories.length && (
+        <div className="w-full flex justify-center mt-[40px] relative">
+          {!loading ? (
+            <button
+              disabled={isDisabled || loading}
+              className={`${isDisabled ? "cursor-not-allowed" : ""
+                } bg-white dark:bg-darkGray text-light-primary md:text-lg dark:text-dark-yellow rounded-[12px] px-[40px] py-[16px] base-transition-1 border-2 border-transparent hover:border-light-primary hover:text-light-primary hover:dark:border-dark-yellow`}
+              onClick={handleLoadMore}
+            >
+              {findByUniqueId(mainData, 271)}
+            </button>
+          ) : (
+            <SyncLoader
+              color="currentColor"
+              size={10}
+              className="text-light-primary dark:text-dark-yellow h-14"
+            />
+          )}
 
-      </div>
+        </div>
+      )}
     </div>
   );
 }
