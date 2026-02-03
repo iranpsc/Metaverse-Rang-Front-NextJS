@@ -232,13 +232,13 @@ const SingleEvent: React.FC<SingleEventProps> = ({
               <span>{switchDigits(event.views, params.lang)}</span>
             </div>
           </div>
-          <div className="flex items-center justify-between h-8 w-full font-[Rokh] my-2 sm:w-[60%] xl:h-11">
+          <div className="flex items-center justify-between w-full font-[Rokh] my-2 sm:w-[60%] ">
             <div className="flex items-center h-full w-full">
               <div
                 style={{ backgroundColor: event.color }}
                 className="h-7 xl:h-9 2xl:h-10 rounded-lg aspect-square"
               ></div>
-              <span className="mx-2 whitespace-nowrap text-base font-bold text-ellipsis overflow-hidden lg:text-xl xl:text-2xl 2xl:text-3xl">
+              <span className="mx-2  text-base font-bold lg:text-xl xl:text-2xl 2xl:text-3xl">
                 {event.title}
               </span>
             </div>
