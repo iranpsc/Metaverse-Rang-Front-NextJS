@@ -232,7 +232,7 @@ export default async function ArticlePage({ params }) {
     };
 
     return (
-      <div className="w-full min-h-screen relative bg-[#f8f8f8] dark:bg-black" dir={langData.direction}>
+      <div className="w-full  relative bg-[#f8f8f8] dark:bg-black" dir={langData.direction}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
