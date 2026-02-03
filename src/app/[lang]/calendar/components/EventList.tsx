@@ -65,6 +65,39 @@ const EventList: React.FC<CalendarFilterProps> = ({
   const eventRefs = useRef<Record<number, HTMLDivElement | null>>({});
   const [targetEventId, setTargetEventId] = useState<number | null>(null);
   const [linkLoading, setLinkLoading] = useState(false);
+  const titleRefs = useRef<Record<number, HTMLAnchorElement | null>>({});
+  const [truncatedTitles, setTruncatedTitles] = useState<Record<number, boolean>>({});
+    const visibleEvents = events.slice(0, visibleCount);
+  const checkTitleTruncation = (eventId: number) => {
+    const el = titleRefs.current[eventId];
+    if (el) {
+      const isTruncated = el.scrollWidth > el.clientWidth;
+      setTruncatedTitles((prev) => ({
+        ...prev,
+        [eventId]: isTruncated,
+      }));
+    }
+  };
+  useEffect(() => {
+    // چک اولیه بعد از رندر
+    visibleEvents.forEach((event) => {
+      checkTitleTruncation(event.id);
+    });
+
+    // برای resize و تغییر اندازه فونت/صفحه
+    const observer = new ResizeObserver(() => {
+      visibleEvents.forEach((event) => {
+        checkTitleTruncation(event.id);
+      });
+    });
+
+    // observe کردن همه عنوان‌ها
+    Object.values(titleRefs.current).forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => observer.disconnect();
+  }, [visibleEvents]); // هر وقت visibleEvents تغییر کرد دوباره چک کن
   // به‌روزرسانی ایونت‌ها
   useEffect(() => {
     setEvents(initialEvents);
@@ -473,7 +506,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
   }
 
   // رندر ایونت‌ها
-  const visibleEvents = events.slice(0, visibleCount);
+
 
   return (
     <>
@@ -596,14 +629,30 @@ const EventList: React.FC<CalendarFilterProps> = ({
                 </div>
               </div>
               <div className="flex items-center justify-between h-8 w-full font-[Rokh] my-2 sm:w-[60%] xl:h-11">
-                <div className="flex items-center h-full w-full">
+                <div className="flex items-center h-7 xl:h-9 2xl:h-10 overflow-hidden 3xl:rounded-s-[10px]">
                   <div
                     style={{ backgroundColor: event.color }}
-                    className="h-7 xl:h-9 2xl:h-10 rounded-lg aspect-square"
+                    className="h-7 xl:h-9 2xl:h-10 rounded-lg aspect-square z-10"
                   ></div>
-                  <Link onClickCapture={() => setLinkLoading(true)} href={`/${params.lang}/calendar/${event.id}`} className="mx-2 whitespace-nowrap text-base font-bold text-ellipsis overflow-hidden lg:text-xl xl:text-2xl 2xl:text-3xl">
-                    {event.title}
-                  </Link>
+<Link
+                  onClickCapture={() => setLinkLoading(true)}
+                  href={`/${params.lang}/calendar/${event.id}`}
+                  ref={(el) => (titleRefs.current[event.id] = el)}
+                  className={`
+                    mx-2 
+                    font-bold 
+                    text-ellipsis overflow-hidden 
+                    whitespace-nowrap
+                    text-base lg:text-xl xl:text-2xl 2xl:text-3xl
+                    max-w-[calc(100%-60px)]   /* ← مهم: محدود کردن عرض */
+                    ${truncatedTitles[event.id]
+            ? "hover:overflow-visible hover:animate-rtlMarquee "
+            : ""
+            }
+                  `}
+                >
+                  {event.title}
+                </Link>
                 </div>
               </div>
             </div>
