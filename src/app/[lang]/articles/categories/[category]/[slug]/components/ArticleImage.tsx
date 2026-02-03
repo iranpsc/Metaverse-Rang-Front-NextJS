@@ -12,6 +12,7 @@ interface ArticleStats {
 }
 
 interface Article {
+  categorySlug: string | undefined;
   date: string;
   image?: string;
   title: string;
@@ -40,7 +41,7 @@ const ArticleImage: React.FC<ArticleImageProps> = ({ article, params , mainData 
 
   // fallback برای پارامترها
   const lang = params?.lang ?? "fa"; // یا "en" بسته به پیش‌فرض شما
-  const categoryForLink = params?.category ?? article.category ?? "all";
+const categoryForLink = article.categorySlug ?? params?.category ?? "all";
 
   return (
     <div className="w-full">

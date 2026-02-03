@@ -15,6 +15,8 @@ interface ArticleStats {
 
 interface Article {
   stats: ArticleStats;
+  slug: string;             // اضافه شد
+  categorySlug?: string;    // اضافه شد
 }
 
 export default function ShowSocialWrapper({
@@ -64,6 +66,7 @@ export default function ShowSocialWrapper({
           params={params}
           mainData={mainData}
           setShowSocial={setShowSocial}
+          article={article}
         />
       )}
     </div>
