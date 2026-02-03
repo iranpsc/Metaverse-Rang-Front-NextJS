@@ -16,7 +16,7 @@ export async function getTopTrainerUsers() {
         id: res.data.id,
         name: `${res.data?.kyc?.fname || ""} ${res.data?.kyc?.lname || ""}`.trim(),
         profile_photo:
-          res.data?.profilePhotos?.[0]?.url || "/firstpage/default.webp",
+          res.data?.profilePhotos?.at(-1)?.url || "/firstpage/default.webp",
         code: res.data.code,
         score: res.data.score,
         levels: {

@@ -12,7 +12,7 @@ export default async function TopWritersArticles({ params, mainData }: any) {
     .map(profile => ({
       id: profile.data.id,
       name: `${profile.data?.kyc?.fname || ""} ${profile.data?.kyc?.lname || ""}`.trim(),
-      profile_photo: profile.data?.profilePhotos?.[0]?.url || "/firstpage/ghadiri.webp",
+      profile_photo: profile.data?.profilePhotos?.at(-1)?.url || "/firstpage/ghadiri.webp",
       code: profile.data.code,
       score: profile.data.score,
       levels: {
