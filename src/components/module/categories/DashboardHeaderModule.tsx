@@ -42,7 +42,7 @@ const Description = ({ shortText, fullText }: { shortText: string; fullText: str
 };
 
 export const DashboardHeaderModule = ({ categoryData, mainData }: any) => {
-  console.log(categoryData);
+  // console.log(categoryData);
   return (
     <div className="relative z-10 flex flex-col justify-center lg:justify-start gap-5 w-full lg:w-1/2 xl:w-[65%] 3xl:w-[70%]">
       <h1 className="text-start font-azarMehr dark:text-white text-black whitespace-nowrap font-bold 3xl:text-[24px] xl:text-[24px] lg:text-[22px]  text-xl text-wrap">
