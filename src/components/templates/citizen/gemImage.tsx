@@ -23,10 +23,29 @@ export default function CitizenClientImage({ item, params, picSize, disableHover
     { id: 13, route_name: "legislator-baguette" },
   ];
 
-  useEffect(() => {
-    const matchedRoute = staticRouteNames.find((x) => x.id === item.id)?.route_name;
-    setUrlForGem(matchedRoute);
-  }, [item]);
+useEffect(() => {
+  if (!item) {
+    setUrlForGem(undefined);
+    return;
+  }
+
+  let matchedRoute = null;
+
+  // اولویت ۱: با slug (حالت فعلی API)
+  if (item.slug) {
+    matchedRoute = staticRouteNames.find(r => r.route_name === item.slug);
+  }
+
+  // اولویت ۲: اگر slug نبود، با id (برای آینده‌نگری)
+  if (!matchedRoute && item.id) {
+    const idNum = Number(item.id);
+    if (!isNaN(idNum)) {
+      matchedRoute = staticRouteNames.find(r => r.id === idNum);
+    }
+  }
+
+  setUrlForGem(matchedRoute?.route_name);
+}, [item]);
 
   const hoverClasses = disableHoverScale
     ? ""
