@@ -45,7 +45,7 @@ const AuthorCard = ({ lang, article, mainData }: AuthorCardProps) => {
             />
           </div>
           <div className="flex flex-col text-center">
-            <p className="text-sm text-blue-500 mt-2">{author.citizenId}</p>
+            <Link onClickCapture={() => setLinkLoading(true)} href={`/${lang}/citizens/${author.citizenId.toLowerCase()}`} className="text-sm text-blue-500 mt-2">{author.citizenId}</Link>
             <h2 className="text-lg font-bold mt-1 dark:text-white">{author.name}</h2>
           </div>
         </div>
