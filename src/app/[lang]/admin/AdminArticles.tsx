@@ -55,7 +55,7 @@ interface Article {
 }
 
 export default function AdminArticles({ loggedInUserData }: AdminArticlesProps) {
-if (!["hm-2000003", "hm-2000007"].includes(loggedInUserData.code.trim().toLowerCase())) {
+if (!["hm-2000003", "hm-2000007" , "hm-2000001"].includes(loggedInUserData.code.trim().toLowerCase())) {
     console.log("LoggedIn code (trimmed):", loggedInUserData.code.trim().toLowerCase());
     return <p  className="mx-auto my-10">دسترسی ندارید</p>;
 }

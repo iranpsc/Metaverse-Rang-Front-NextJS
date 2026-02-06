@@ -296,7 +296,7 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
               : "rounded-t-[15px] rounded-b-[15px]"
               } w-full bg-blueLink dark:bg-dark-yellow cursor-pointer
                             h-[40px] flex flex-row-reverse xs:px-2 px-4 gap-5 items-center
-                            text-white dark:text-dark-background font-azarMehr font-medium text-center text-[15px] m-auto`}
+                            text-white dark:text-dark-background font-azarMehr  text-center text-[15px] m-auto uppercase font-bold`}
             onClick={handleDropDown}
           >
             {isClosed ? "" : loggedInUserData?.code}
