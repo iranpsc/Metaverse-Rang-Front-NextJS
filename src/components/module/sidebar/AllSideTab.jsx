@@ -1,5 +1,5 @@
 "use client";
-
+import Link from "next/link";
 import ListMenuSvgModule from "./list/ListMenuSvgModule";
 import ListMenuTitleModule from "./list/ListMenuTitleModule";
 import ListMenuArrow from "./list/ListMenuArrow";
@@ -255,8 +255,9 @@ export default function SideBarContent({
                   }}
                   PopperProps={{ modifiers: [{ name: "offset", options: { offset: [0, -10] } }] }}
                 >
-                  <div
+                  <Link
                     onMouseDown={(e) => handleItemClick(e, item.url, item)}
+                    href={`/${params.lang}/${item.url}`}
                     data-id={item.id}
                     className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px] cursor-pointer menu-transition
                       ${item.active ? "text-[#0066FF] dark:text-[#FFC700]" : "text-gray-700 dark:text-gray-300"}
@@ -269,7 +270,7 @@ export default function SideBarContent({
                       <ListMenuTitleModule item={item} isClosed={isClosed} />
                       <ListMenuArrow item={item} />
                     </div>
-                  </div>
+                  </Link>
                 </Tooltip>
               </li>
             )}
@@ -310,7 +311,8 @@ export default function SideBarContent({
 
                 <div ref={dropdownRef2} className={`${trainingDropDown ? "h-fit" : "h-0 overflow-hidden"} base-transition-1 bg-slate-100 dark:bg-darkGray`}>
                   {/* آموزش‌ها */}
-                  <div
+                  <Link
+                  href={`/${params.lang}/education`}
                     onMouseDown={(e) => handleItemClick(e, "/education")}
                     className={`block w-full py-[12px] 3xl:py-[16px] menu-transition cursor-pointer
                       ${pathName === `/${params.lang}/education` || pathName === `/${params.lang}/education/` ? "text-[#0066FF] dark:text-[#FFC700]" : "text-gray-600 dark:text-gray-400"}
@@ -336,10 +338,11 @@ export default function SideBarContent({
                       />
 
                     </div>
-                  </div>
+                  </Link>
 
                   {/* دسته‌بندی‌ها */}
-                  <div
+                  <Link
+                  href={`/${params.lang}/education/category`}
                     onMouseDown={(e) => handleItemClick(e, "/education/category")}
                     className={`block w-full py-[12px] 3xl:py-[16px] menu-transition cursor-pointer
                       ${pathName.startsWith(`/${params.lang}/education/category`) ? "text-[#0066FF] dark:text-[#FFC700]" : "text-gray-600 dark:text-gray-400"}
@@ -364,7 +367,7 @@ export default function SideBarContent({
                       />
 
                     </div>
-                  </div>
+                  </Link>
                 </div>
               </li>
             )}
@@ -403,7 +406,8 @@ export default function SideBarContent({
 
                 <div ref={dropdownRef3} className={`${articleDropDown ? "h-fit" : "h-0 overflow-hidden"} base-transition-1 bg-slate-100 dark:bg-darkGray`}>
                   {/* آموزش‌ها */}
-                  <div
+                  <Link
+                  href={`/${params.lang}/articles`}
                     onMouseDown={(e) => handleItemClick(e, "/articles")}
                     className={`block w-full py-[12px] 3xl:py-[16px] menu-transition cursor-pointer
                       ${pathName === `/${params.lang}/articles` || pathName === `/${params.lang}/articles/` ? "text-[#0066FF] dark:text-[#FFC700]" : "text-gray-600 dark:text-gray-400"}
@@ -415,10 +419,10 @@ export default function SideBarContent({
                       </span>
                       <ListMenuTitleModule item={{ translation: params.lang === "fa" ? "مقالات" : "Articles", active: pathName === `/${params.lang}/articles` || pathName === `/${params.lang}/articles/` }} isClosed={isClosed} />
                     </div>
-                  </div>
+                  </Link>
 
                   {/* دسته‌بندی‌ها */}
-                  <div
+                  <Link href={`/${params.lang}//articles/categories`}
                     onMouseDown={(e) => handleItemClick(e, "/articles/categories")}
                     className={`block w-full py-[12px] 3xl:py-[16px] menu-transition cursor-pointer
                       ${pathName.startsWith(`/${params.lang}/articles/categories`) ? "text-[#0066FF] dark:text-[#FFC700]" : "text-gray-600 dark:text-gray-400"}
@@ -430,7 +434,7 @@ export default function SideBarContent({
                       </span>
                       <ListMenuTitleModule item={{ translation: params.lang === "fa" ? "دسته‌بندی‌ها" : "Categories", active: pathName.startsWith(`/${params.lang}/articles/categories`) }} isClosed={isClosed} />
                     </div>
-                  </div>
+                  </Link>
                 </div>
               </li>
             )}
@@ -470,7 +474,8 @@ export default function SideBarContent({
 
                 <div ref={dropdownRef4} className={`${citizensDropDown ? "h-fit" : "h-0 overflow-hidden"} base-transition-1 bg-slate-100 dark:bg-darkGray`}>
                   {/* آموزش‌ها */}
-                  <div
+                  <Link
+                  href={`/${params.lang}/citizens`}
                     onMouseDown={(e) => handleItemClick(e, "/citizens")}
                     className={`block w-full py-[12px] 3xl:py-[16px] menu-transition cursor-pointer
                       ${pathName === `/${params.lang}/citizens` || pathName === `/${params.lang}/citizens/` ? "text-[#0066FF] dark:text-[#FFC700]" : "text-gray-600 dark:text-gray-400"}
@@ -482,10 +487,11 @@ export default function SideBarContent({
                       </span>
                       <ListMenuTitleModule item={{ translation: findByUniqueId(mainData, 1589), active: pathName === `/${params.lang}/citizens` || pathName === `/${params.lang}/citizens/` }} isClosed={isClosed} />
                     </div>
-                  </div>
+                  </Link>
 
                   {/* دسته‌بندی‌ها */}
-                  <div
+                  <Link
+                  href={`/${params.lang}/rand-id/hm`}
                     onMouseDown={(e) => handleItemClick(e, "/rand-id/hm")}
                     className={`block w-full py-[12px] 3xl:py-[16px] menu-transition cursor-pointer
                       ${pathName.startsWith(`/${params.lang}/rand-id/hm`) ? "text-[#0066FF] dark:text-[#FFC700]" : "text-gray-600 dark:text-gray-400"}
@@ -497,7 +503,7 @@ export default function SideBarContent({
                       </span>
                       <ListMenuTitleModule item={{ translation: findByUniqueId(mainData, 1490), active: pathName.startsWith(`/${params.lang}/rand-id/hm`) }} isClosed={isClosed} />
                     </div>
-                  </div>
+                  </Link>
                 </div>
               </li>
             )}

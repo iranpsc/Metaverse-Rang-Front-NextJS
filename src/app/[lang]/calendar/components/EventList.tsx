@@ -67,7 +67,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
   const [linkLoading, setLinkLoading] = useState(false);
   const titleRefs = useRef<Record<number, HTMLAnchorElement | null>>({});
   const [truncatedTitles, setTruncatedTitles] = useState<Record<number, boolean>>({});
-    const visibleEvents = events.slice(0, visibleCount);
+  const visibleEvents = events.slice(0, visibleCount);
   const checkTitleTruncation = (eventId: number) => {
     const el = titleRefs.current[eventId];
     if (el) {
@@ -337,9 +337,9 @@ const EventList: React.FC<CalendarFilterProps> = ({
 
     return <SyncLoader color={isDark ? "#FFD700" : "#0066ff"} size={8} />;
   };
-  useEffect(() => {
-    console.log("📅 ایونت‌های اولیه:", initialEvents);
-  }, []);
+  // useEffect(() => {
+  //   console.log("📅 ایونت‌های اولیه:", initialEvents);
+  // }, []);
 
   // تنظیم مقادیر اولیه لایک‌ها و دیسلایک‌ها
   useEffect(() => {
@@ -634,11 +634,11 @@ const EventList: React.FC<CalendarFilterProps> = ({
                     style={{ backgroundColor: event.color }}
                     className="h-7 xl:h-9 2xl:h-10 rounded-lg aspect-square z-10"
                   ></div>
-<Link
-                  onClickCapture={() => setLinkLoading(true)}
-                  href={`/${params.lang}/calendar/${event.id}`}
-                  ref={(el) => (titleRefs.current[event.id] = el)}
-                  className={`
+                  <Link
+                    onClickCapture={() => setLinkLoading(true)}
+                    href={`/${params.lang}/calendar/${event.id}`}
+                    ref={(el) => (titleRefs.current[event.id] = el)}
+                    className={`
                     mx-2 
                     font-bold 
                     text-ellipsis overflow-hidden 
@@ -646,13 +646,13 @@ const EventList: React.FC<CalendarFilterProps> = ({
                     text-base lg:text-xl xl:text-2xl 2xl:text-3xl
                     max-w-[calc(100%-60px)]   /* ← مهم: محدود کردن عرض */
                     ${truncatedTitles[event.id]
-            ? "hover:overflow-visible hover:animate-rtlMarquee "
-            : ""
-            }
+                        ? "hover:overflow-visible hover:animate-rtlMarquee "
+                        : ""
+                      }
                   `}
-                >
-                  {event.title}
-                </Link>
+                  >
+                    {event.title}
+                  </Link>
                 </div>
               </div>
             </div>

@@ -12,6 +12,7 @@ import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import htmlTruncate from "html-truncate";
 import CustomErrorPage from "@/components/shared/CustomErrorPage";
 import CleanAutoRetryParam  from "@/components/shared/CleanAutoRetryParam";
+import FixLinks from "./components/FixLinks";
 // 📌 Utility: Jalali → Gregorian
 const JalaliDate = {
   g_days_in_month: [31,28,31,30,31,30,31,31,30,31,30,31],
@@ -220,6 +221,7 @@ export default async function CalendarPage({ params }: { params: { lang: string 
 
   return (
     <div className="flex flex-col min-w-[340px] w-full" dir={langData.direction}>
+      <FixLinks />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(eventSchema, null, 2) }} />
 <CleanAutoRetryParam />
       <section className="w-full relative mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20">
