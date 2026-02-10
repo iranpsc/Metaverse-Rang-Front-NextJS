@@ -65,7 +65,7 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
                         <p className="text-[#1A1A18] dark:text-white text-base md:text-xl font-bold">{findByUniqueId(mainData, 1536)}</p>
                         <p className="text-[#84858F] dark:text-[#84858F] text-base md:text-xl">{findByUniqueId(mainData, 1537)}</p>
                     </div>
-                    <div className="flex w-full flex-col-reverse md:flex-row gap-y-5 justify-between items-center">
+                    <div className="flex w-full flex-col-reverse md:flex-row gap-y-5 justify-around items-center">
                         <a
                             href={
                                 params.lang.toLowerCase() === "en"
@@ -79,7 +79,11 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
                         </a>
 
                         <div className="flex items-center gap-2">
-                            <a target="_blank" href="/pdf/Metarang_A_New_Economic_Dimension (1).pdf" className="bg-light-primary dark:bg-dark-yellow text-white dark:text-black w-[60%] md:w-max text-center px-5 py-3 rounded-[10px] text-sm font-bold">
+                            <a target="_blank" href={
+                                params.lang.toLowerCase() === "en"
+                                    ? "/pdf/MetaRang_Strategic_Partnership_Guide.pdf"
+                                    : "/pdf/Metarang_A_New_Economic_Dimension (1).pdf"
+                            }  className="bg-light-primary dark:bg-dark-yellow text-white dark:text-black w-[60%] md:w-max text-center px-5 py-3 rounded-[10px] text-sm font-bold">
                                 {findByUniqueId(mainData, 1614)}
                             </a>
                         </div>
@@ -120,7 +124,7 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
                         <p className="text-[#1A1A18] dark:text-white text-base md:text-xl font-bold">{findByUniqueId(mainData, 1538)}</p>
                         <p className="text-[#84858F] dark:text-[#84858F] text-base md:text-xl">{findByUniqueId(mainData, 1539)}</p>
                     </div>
-                    <div className="flex w-full flex-col-reverse md:flex-row gap-y-5 justify-between items-center">
+                    <div className="flex w-full flex-col-reverse md:flex-row gap-y-5 justify-around items-center">
                         <a
                             href={
                                 params.lang.toLowerCase() === "en"
@@ -134,7 +138,10 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
                         </a>
 
                         <div className="flex items-center gap-2">
-                            <a target="_blank" href="/pdf/Metarang_Business_Development_Gateway.pdf" className="bg-light-primary dark:bg-dark-yellow text-white dark:text-black w-[60%] md:w-max text-center px-5 py-3 rounded-[10px] text-sm font-bold">
+                            <a target="_blank"  href={params.lang.toLowerCase() === "en"
+                                    ? "/pdf/Metarange_Enterprise_Future.pdf"
+                                    : "/pdf/Metarang_Business_Development_Gateway.pdf"
+                            } className="bg-light-primary dark:bg-dark-yellow text-white dark:text-black w-[60%] md:w-max text-center px-5 py-3 rounded-[10px] text-sm font-bold">
                                 {findByUniqueId(mainData, 1614)}
                             </a>
                         </div>
@@ -176,7 +183,7 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
                         <p className="text-[#1A1A18] dark:text-white text-base md:text-xl font-bold">{findByUniqueId(mainData, 1540)}</p>
                         <p className="text-[#84858F] dark:text-[#84858F] text-base md:text-xl">{findByUniqueId(mainData, 1541)}</p>
                     </div>
-                    <div className="flex w-full flex-col-reverse md:flex-row gap-y-5 justify-between items-center">
+                    <div className="flex w-full flex-col-reverse md:flex-row gap-y-5 justify-around items-center">
                         <a
                             href={
                                 params.lang.toLowerCase() === "en"
@@ -190,7 +197,10 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
                         </a>
 
                         <div className="flex items-center gap-2">
-                            <a target="_blank" href="/pdf/Metarang_Architecture_and_Global_Commerce.pdf" className="bg-light-primary dark:bg-dark-yellow text-white dark:text-black w-[60%] md:w-max text-center px-5 py-3 rounded-[10px] text-sm font-bold">
+                            <a target="_blank"  href={
+                                params.lang.toLowerCase() === "en"
+                                    ? "/pdf/MetaRang_Architectural_Solutions.pdf"
+                                    : "/pdf/Metarang_Architecture_and_Global_Commerce.pdf"} className="bg-light-primary dark:bg-dark-yellow text-white dark:text-black w-[60%] md:w-max text-center px-5 py-3 rounded-[10px] text-sm font-bold">
                                 {findByUniqueId(mainData, 1614)}
                             </a>
                         </div>
@@ -304,7 +314,7 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
                         <p className="text-[#1A1A18] dark:text-white text-base md:text-xl font-bold">{findByUniqueId(mainData, 1542)}</p>
                         <p className="text-[#84858F] dark:text-[#84858F] text-base md:text-xl">{findByUniqueId(mainData, 1543)}</p>
                     </div>
-                    <div className="flex w-full flex-col-reverse md:flex-row gap-y-5 justify-between items-center">
+                    <div className="flex w-full flex-col-reverse md:flex-row gap-y-5 justify-around items-center">
                         <a 
                             href={ 
                                 params.lang.toLowerCase() === "en"
@@ -318,7 +328,10 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
                         </a>
 
                         <div className="flex items-center gap-2">
-                            <a target="_blank" href="/pdf/Metarang_Digital_Governance_Infrastructure.pdf" className="bg-light-primary dark:bg-dark-yellow text-white dark:text-black w-[60%] md:w-max text-center px-5 py-3 rounded-[10px] text-sm font-bold">
+                            <a target="_blank"  href={
+                                params.lang.toLowerCase() === "en"
+                                    ? "/pdf/Metarang_Global_Synergy.pdf"
+                                    : "/pdf/Metarang_Digital_Governance_Infrastructure.pdf"} className="bg-light-primary dark:bg-dark-yellow text-white dark:text-black w-[60%] md:w-max text-center px-5 py-3 rounded-[10px] text-sm font-bold">
                                 {findByUniqueId(mainData, 1614)}
                             </a>
                         </div>
@@ -371,7 +384,7 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
                         <p className="text-[#1A1A18] dark:text-white text-base md:text-xl font-bold">{findByUniqueId(mainData, 1544)}</p>
                         <p className="text-[#84858F] dark:text-[#84858F] text-base md:text-xl">{findByUniqueId(mainData, 1545)}</p>
                     </div>
-                    <div className="flex w-full flex-col-reverse md:flex-row gap-y-5 justify-between items-center">
+                    <div className="flex w-full flex-col-reverse md:flex-row gap-y-5 justify-around items-center">
                         <a 
                             href={
                                 params.lang.toLowerCase() === "en"
@@ -385,7 +398,10 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
                         </a>
 
                         <div className="flex items-center gap-2">
-                            <a target="_blank" href="/pdf/Metarang_The_Global_Gateway.pdf" className="bg-light-primary dark:bg-dark-yellow text-white dark:text-black w-[60%] md:w-max text-center px-5 py-3 rounded-[10px] text-sm font-bold">
+                            <a target="_blank"  href={
+                                params.lang.toLowerCase() === "en"
+                                    ? "/pdf/Enterprise_Digital_Governance.pdf"
+                                    : "/pdf/Metarang_The_Global_Gateway.pdf"} className="bg-light-primary dark:bg-dark-yellow text-white dark:text-black w-[60%] md:w-max text-center px-5 py-3 rounded-[10px] text-sm font-bold">
                                 {findByUniqueId(mainData, 1614)}
                             </a>
                         </div>
