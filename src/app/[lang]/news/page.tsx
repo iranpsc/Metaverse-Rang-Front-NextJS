@@ -1,13 +1,12 @@
 import BreadCrumb from "@/components/shared/BreadCrumb";
-import LatestNewsSlider from "./components/LatestArticlesSlider";
-import PopularNewsSlider from "./components/PopularArticlesSlider";
-import CategoriesGrid from "./components/CategoriesGrid";
+import LatestNews from "./components/LatestNews";
+import PopularNews from "./components/PopularNews";
 import SearchComponent from "@/components/shared/SearchComponent";
 import BreakingNewsSlider from "./components/BreakingNewsSlider";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import CustomErrorPage from "@/components/shared/CustomErrorPage";
-
+import NewsCategoriesSection from "./components/NewsCategoriesSection";
 import {
   getTranslation,
   getMainFile,
@@ -22,7 +21,7 @@ const imageUrl =
 // =====================
 // ✅ Dynamic Metadata
 // =====================
-export async function generateMetadata({ params }) {
+export async function generateMetadata({ params } : { params: any }) {
   try {
     const lang = params.lang || "fa";
     const url = `${baseUrl}/${lang}/news`;
@@ -80,7 +79,7 @@ export async function generateMetadata({ params }) {
 // =====================
 // ✅ Page Component
 // =====================
-export default async function NewsPage({ params }) {
+export default async function NewsPage({ params } : { params: any }) {
   try {
     const [langData] = await Promise.all([
       getTranslation(params.lang),
@@ -103,7 +102,7 @@ export default async function NewsPage({ params }) {
             {findByUniqueId(mainData, 1601)}
           </h1>
           <p className="text-lightGray dark:text-lightGray font-azarMehr text-center text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] px-5 lg:px-10">
-            {findByUniqueId(mainData, 1602)}
+            {findByUniqueId(mainData, 1625)}
           </p>
         </div>
 
@@ -121,20 +120,13 @@ export default async function NewsPage({ params }) {
             />
           </div>
 
-          <BreakingNewsSlider lang={params.lang} />
-
-
-          <div className="px-5 lg:pt-6 2xl:px-10">
-            <CategoriesGrid params={params} mainData={mainData} />
-          </div>
         </div>
 
-
-
-        {/* ===== Sliders ===== */}
-        <div className="ps-5 2xl:ps-10 space-y-14 mt-28">
-          <PopularNewsSlider params={params} mainData={mainData} />
-          <LatestNewsSlider params={params} mainData={mainData} />
+        <div className=" space-y-28 mt-28">
+           {/* <BreakingNewsSlider lang={params.lang} /> */}
+          {/* <PopularNews params={params} mainData={mainData} /> */}
+          <NewsCategoriesSection  lang={params.lang}  />
+          <LatestNews params={params} mainData={mainData} />
         </div>
       </section>
     );
