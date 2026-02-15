@@ -4,7 +4,7 @@ import React, { useEffect, useState, useTransition } from "react";
 import NewsCard from "./NewsCard";
 import Link from "next/link";
 import { supabase } from "@/utils/lib/supabaseClient";
-
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 type Category = {
   title: string;
@@ -24,7 +24,7 @@ type News = {
 
 
 
-export default function NewsByCategorySection({ lang }: { lang: string }) {
+export default function NewsByCategorySection({ lang , mainData }: any) {
   const [linkLoading, setLinkLoading] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
   const [activeCat, setActiveCat] = useState<string | null>(null);
@@ -112,11 +112,11 @@ export default function NewsByCategorySection({ lang }: { lang: string }) {
       <div className="flex flex-col mb-4 gap-5 px-4 md:px-0">
         <div className="flex flex-col gap-2">
           <h2 className="text-2xl md:text-3xl font-bold w-max dark:text-white border border-x-0 border-b-4 pe-7 border-t-0 pb-3 border-light-primary dark:border-dark-yellow border-solid">
-            دسته بندی ها
+           {findByUniqueId(mainData, 270) || "دسته بندی ها"}
           </h2>
         </div>
         <p className="text-[#A0A0AB] lg:text-lg">
-          در سه بعدی متا، ما به دنیایی وارد می‌شویم که هنر و تکنولوژی به آغوش هم می‌رقصند. ...
+         {findByUniqueId(mainData, 1619)}
         </p>
       </div>
 

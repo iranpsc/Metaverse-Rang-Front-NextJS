@@ -165,7 +165,7 @@ const LatestNews: React.FC<LatestNewsProps> = ({
       <div className="flex items-center justify-between mb-4 px-4 md:px-0">
         <div className="flex flex-col gap-2">
           <h2 className="text-2xl md:text-3xl font-bold w-max dark:text-white border border-x-0 border-b-4 pe-7 border-t-0 pb-3 border-light-primary dark:border-dark-yellow border-solid">
-            {findByUniqueId(mainData, 492) || "آخرین اخبار"}
+            {findByUniqueId(mainData, 494) || "آخرین اخبار"}
           </h2>
         </div>
 
@@ -182,7 +182,7 @@ const LatestNews: React.FC<LatestNewsProps> = ({
           />
         </Link>
       </div>
-      <p className="text-[#A0A0AB] lg:text-lg mb-7">در سه بعدی متا، ما به دنیایی وارد می‌شویم که هنر و تکنولوژی به آغوش هم می‌رقصند. فروشگاه سه بعدی متا با هدف ارائه بهترین مدل‌های سه بعدی و آواتار با بهترین ویژگی‌ها و جزئیات، برای علاقه‌مندان به دنیای گرافیک دیجیتال </p>
+      <p className="text-[#A0A0AB] lg:text-lg mb-7">{findByUniqueId(mainData, 1639)}</p>
       {/* گرید اصلی: ۱ خبر بزرگ + ۳ خبر کوچک */}
       <div className="flex flex-col lg:flex-row w-full items-center gap-10 ">
         {/* خبر ویژه (بزرگ) */}

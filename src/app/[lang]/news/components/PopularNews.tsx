@@ -151,7 +151,7 @@ const PopularNews: React.FC<PopularNewsProps> = ({ params, mainData, theme = "li
       <div className="flex items-center justify-between mb-4 px-4 md:px-0">
         <div className="flex flex-col gap-2">
           <h2 className="text-2xl md:text-3xl font-bold w-max dark:text-white border border-x-0 border-b-4 pe-7 border-t-0 pb-3 border-light-primary dark:border-dark-yellow border-solid">
-            {findByUniqueId(mainData, 1520) || "محبوب‌ترین اخبار"}
+            {findByUniqueId(mainData, 1624) || "محبوب‌ترین اخبار"}
           </h2>
         </div>
 
@@ -166,7 +166,7 @@ const PopularNews: React.FC<PopularNewsProps> = ({ params, mainData, theme = "li
       </div>
 
       <p className="text-[#A0A0AB] lg:text-lg mb-7 px-4 md:px-0">
-        محبوب‌ترین اخبار سه بعدی متا بر اساس بازدید کاربران – جدیدترین و جذاب‌ترین مدل‌ها و محتواها
+        {findByUniqueId(mainData, 1625)}
       </p>
 
       {/* محتوای اصلی */}

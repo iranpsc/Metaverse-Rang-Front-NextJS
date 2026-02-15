@@ -14,7 +14,7 @@ import "swiper/css/navigation";
 
 import { Calender, Timer, View } from "@/components/svgs/SvgEducation";
 import { formatNumber } from "@/components/utils/formatNumber";
-
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 type NewsItem = {
   id: number;
   title: string;
@@ -25,7 +25,7 @@ type NewsItem = {
   stats: { views?: any };
 };
 
-export default function BreakingNewsSlider({ lang }: { lang: string }) {
+export default function BreakingNewsSlider({ lang , mainData }: any) {
   const [news, setNews] = useState<NewsItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -203,8 +203,8 @@ export default function BreakingNewsSlider({ lang }: { lang: string }) {
                     <path d="M24.5872 1.86955L26.2543 1.27784L3.54634 52.8965L2.88089 51.112L24.5872 1.86955Z" fill="#F10011" />
                     <path d="M20.8645 2.40607L21.9633 1.64997L0.699874 49.8665L0.553442 48.4093L20.8645 2.40607Z" fill="#F10011" />
                     <path d="M178.377 1H333.736L310.986 57H178.377L155.66 32.1512C154.281 30.6432 154.261 28.3385 155.613 26.8062L178.377 1Z" fill="white" className="dark:fill-black" />
-                    <text className="fill-black dark:fill-white"><tspan x="270" y="36.3237" className="text-xl lg:text-3xl !font-rokh !font-extrabold !text-black dark:!text-white">خبر</tspan></text>
-                    <text className="fill-black dark:fill-white"><tspan x="120" y="36.3237" className="text-xl lg:text-3xl !font-rokh !font-extrabold !text-black dark:!text-white">فوری</tspan></text>
+                    <text className="fill-black dark:fill-white"><tspan x="270" y="36.3237" className="text-xl lg:text-3xl !font-rokh !font-extrabold !text-black dark:!text-white">{findByUniqueId(mainData, 1616) || "خبر"}</tspan></text>
+                    <text className="fill-black dark:fill-white"><tspan x="120" y="36.3237" className="text-xl lg:text-3xl !font-rokh !font-extrabold !text-black dark:!text-white">{findByUniqueId(mainData, 1617) || "فوری"}</tspan></text>
                   </svg>
                 </div>
 
