@@ -343,7 +343,11 @@ export async function getEducationSingleCategory(_category) {
   }
   export async function getSingleVideoData(_videoSlug){
     try{
-      const res = await fetch(`https://api.rgb.irpsc.com/api/tutorials/${_videoSlug}`,{
+      const safeVideoSlug = sanitizePathSegment(_videoSlug);
+      if (!safeVideoSlug) {
+        throw new Error('Invalid video slug');
+      }
+      const res = await fetch(`https://api.rgb.irpsc.com/api/tutorials/${encodeURIComponent(safeVideoSlug)}`,{
         headers: {
           "Content-Type": "application/json",
           "Cache-Control": "public, max-age=0", 
