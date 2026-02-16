@@ -386,14 +386,14 @@ export async function getEducationSingleCategory(_category) {
 
   }
 
-  function sanitizePathSegment(segment) {
-    if (typeof segment !== 'string') {
-      return '';
-    }
-    // Allow only URL-safe slug characters; strip everything else.
-    const cleaned = segment.trim().replace(/[^a-zA-Z0-9-_]/g, '');
-    return cleaned;
-  }
+  // function sanitizePathSegment(segment) {
+  //   if (typeof segment !== 'string') {
+  //     return '';
+  //   }
+  //   // Allow only URL-safe slug characters; strip everything else.
+  //   const cleaned = segment.trim().replace(/[^a-zA-Z0-9-_]/g, '');
+  //   return cleaned;
+  // }
 
   export async function getVideoComments(_videoId){
     try{
