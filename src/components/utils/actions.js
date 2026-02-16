@@ -357,9 +357,23 @@ export async function getEducationSingleCategory(_category) {
     }
 
   }
+
+  function sanitizePathSegment(segment) {
+    if (typeof segment !== 'string') {
+      return '';
+    }
+    // Allow only URL-safe slug characters; strip everything else.
+    const cleaned = segment.trim().replace(/[^a-zA-Z0-9-_]/g, '');
+    return cleaned;
+  }
+
   export async function getVideoComments(_videoId){
     try{
-      const res = await fetch(`https://api.rgb.irpsc.com/api/tutorials/${_videoId}/comments?page=1`,{
+      const safeVideoId = sanitizePathSegment(_videoId);
+      if (!safeVideoId) {
+        throw new Error('Invalid video id');
+      }
+      const res = await fetch(`https://api.rgb.irpsc.com/api/tutorials/${encodeURIComponent(safeVideoId)}/comments?page=1`,{
         cache: 'no-store',
         headers: {
           "Content-Type": "application/json",
