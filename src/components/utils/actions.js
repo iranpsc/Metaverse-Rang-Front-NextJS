@@ -1,5 +1,19 @@
 'use server'
 
+// Utility: sanitize a single URL path segment to prevent traversal and malformed values
+function sanitizePathSegment(segment) {
+  if (typeof segment !== 'string') {
+    return null;
+  }
+  const trimmed = segment.trim();
+  // Allow only alphanumerics, underscore, dash and dot; adjust if needed
+  const isValid = /^[A-Za-z0-9._-]+$/.test(trimmed);
+  if (!isValid || trimmed.length === 0) {
+    return null;
+  }
+  return trimmed;
+}
+
 //return selected language object
   export async function getTranslation(lang) {
     
@@ -331,12 +345,22 @@ export async function getEducationSingleCategory(_category) {
 
 
   export async function getSubcategoryData(_category,_subcategory){
-    const res = await fetch(`https://api.rgb.irpsc.com/api/tutorials/categories/${_category}/${_subcategory}`,{
-      headers: {
-        "Content-Type": "application/json",
-        "Cache-Control": "public, max-age=0", 
-      },}
-    )
+    const safeCategory = sanitizePathSegment(_category);
+    const safeSubcategory = sanitizePathSegment(_subcategory);
+
+    if (!safeCategory || !safeSubcategory) {
+      throw new Error('Invalid category or subcategory');
+    }
+
+    const res = await fetch(
+      `https://api.rgb.irpsc.com/api/tutorials/categories/${encodeURIComponent(safeCategory)}/${encodeURIComponent(safeSubcategory)}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Cache-Control": "public, max-age=0",
+        },
+      }
+    );
     let temp = await res.json()
 
     return temp.data
