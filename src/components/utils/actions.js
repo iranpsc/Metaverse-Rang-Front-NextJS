@@ -321,7 +321,13 @@ export async function getAllCategories() {
   }
 
 export async function getEducationSingleCategory(_category) {
-  const res = await fetch(`https://api.rgb.irpsc.com/api/tutorials/categories/${_category}`, {
+  const sanitizedCategory = sanitizePathSegment(_category);
+  if (!sanitizedCategory) {
+    // Invalid category input; treat as not found
+    return null;
+  }
+
+  const res = await fetch(`https://api.rgb.irpsc.com/api/tutorials/categories/${sanitizedCategory}`, {
     headers: {
       "Content-Type": "application/json",
       "Cache-Control": "public, max-age=0",
