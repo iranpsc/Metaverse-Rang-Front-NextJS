@@ -126,7 +126,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       "name": catName,
       "description": categoryDec || `مقالات مرتبط با ${catName}`,
       "url": `https://rgb.irpsc.com/${params.lang}/articles/categories/${categorySlug}`,
-      "image": categoryImage || "/default-bg.jpg",
+      "image": categoryImage || "/default.png",
       "mainEntity": {
         "@type": "ItemList",
         "name": `مقالات دسته ${catName}`,
@@ -144,7 +144,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               "url": `https://rgb.irpsc.com/${params.lang}/articles/categories/${categorySlug}/${a.slug}`,
               "datePublished": published,
               "dateModified": published,
-              "image": a.image || "/default-bg.jpg",
+              "image": a.image || "/default.png",
               "author": {
                 "@type": "Person",
                 "name": a.author?.name || "مدیر سایت",
@@ -186,7 +186,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           data={{
             category: catName,
             subCategory,
-            categoryImage: categoryImage || "/default-bg.jpg",
+            categoryImage: categoryImage || "/default.png",
             categoryDec: categoryDec || "توضیحی برای این دسته موجود نیست.",
             totalLikes,
             totalDislikes,

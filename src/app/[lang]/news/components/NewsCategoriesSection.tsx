@@ -120,7 +120,7 @@ export default function NewsByCategorySection({ lang , mainData }: any) {
         </p>
       </div>
 
-      <div className="flex flex-wrap items-center gap-3 min-h-[42px]">
+      <div className="flex flex-wrap items-center gap-3 gap-y-10 min-h-[42px]">
         {isCategoriesLoading ? (
           Array.from({ length: 6 }).map((_, i) => (
             <div

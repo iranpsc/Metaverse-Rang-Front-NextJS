@@ -60,9 +60,9 @@ export default function BreakingNewsSlider({ lang , mainData }: any) {
         .shimmer {
           background: linear-gradient(
             90deg,
-            #e5e5e5 25%,
-            #f0f0f0 50%,
-            #e5e5e5 75%
+            #d4d4d4 25%,
+            #e5e5e5 50%,
+            #d4d4d4 75%
           );
           background-size: 200% 100%;
           animation: shimmer 1.8s infinite linear;
@@ -77,9 +77,9 @@ export default function BreakingNewsSlider({ lang , mainData }: any) {
       `}</style>
 
         <div className="relative w-full flex justify-center h-[480px] rounded-x-xl">
-          <div className="skeleton-slide prev w-[200px] h-[84%] mt-[40px] rounded-xl overflow-hidden  dark:bg-neutral-800/70 shimmer shadow-2xl me-[-15px]" />
+          <div className="skeleton-slide prev w-[200px] h-[84%] mt-[40px] rounded-xl overflow-hidden bg-neutral-300  dark:bg-neutral-800/70 shimmer shadow-2xl me-[-15px]" />
           {/* کارت مرکزی */}
-          <div className="skeleton-slide z-10 !w-[82%] sm:!w-[75%] md:!w-[65%] lg:!w-[58%] xl:!w-[60%] h-full rounded-xl overflow-hidden bg-neutral-800 shimmer shadow-2xl flex items-end ">
+          <div className="skeleton-slide z-10 !w-[82%] sm:!w-[75%] md:!w-[65%] lg:!w-[58%] xl:!w-[60%] h-full rounded-xl overflow-hidden bg-neutral-300  dark:bg-neutral-800 shimmer shadow-2xl flex items-end ">
             {/* محتوای placeholder همان قبلی */}
             <div className="w-full  z-20 p-5 sm:p-6 md:p-8 lg:p-10 flex flex-col items-center justify-center gap-5">
               {/* بج فوری خبر - سعی کن اندازه واقعی رو بگیری */}
@@ -105,7 +105,7 @@ export default function BreakingNewsSlider({ lang , mainData }: any) {
               </div>
             </div>
           </div>
-          <div className="skeleton-slide prev w-[200px] h-[84%] mt-[40px] rounded-xl overflow-hidden bg-neutral-800/70 shimmer shadow-2xl ms-[-15px]" />
+          <div className="skeleton-slide prev w-[200px] h-[84%] mt-[40px] rounded-xl overflow-hidden bg-neutral-300 dark:bg-neutral-800/70 shimmer shadow-2xl ms-[-15px]" />
           {/* کارت‌های دورتر اگر می‌خواهی */}
           {/* <div className="skeleton-slide other hidden lg:block ..." style={{ transform: 'translateX(-140%) scale(0.85)' }} /> */}
           {/* <div className="skeleton-slide other hidden lg:block ..." style={{ transform: 'translateX(140%) scale(0.85)' }} /> */}

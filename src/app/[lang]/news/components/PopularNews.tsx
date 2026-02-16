@@ -92,13 +92,13 @@ const PopularNews: React.FC<PopularNewsProps> = ({ params, mainData, theme = "li
 
   // ── Skeleton ها ────────────────────────────────────────────────
   const FeaturedSkeleton = () => (
-    <div className="w-full lg:w-1/2 rounded-md overflow-hidden shadow-md bg-neutral-400 dark:bg-[#1A1A18] animate-pulse">
-      <div className="aspect-square bg-neutral-400 dark:bg-neutral-800 flex flex-col justify-end" >
+    <div className="w-full lg:w-1/2 rounded-md overflow-hidden shadow-md bg-neutral-300 dark:bg-[#1A1A18] animate-pulse">
+      <div className="aspect-square bg-neutral-300 dark:bg-neutral-800 flex flex-col justify-end" >
               <div className="p-6 flex flex-col gap-4 items-center">
-        <div className="h-8 w-32 bg-neutral-500 dark:bg-neutral-700 rounded-full" />
-        <div className="h-7 w-4/5 bg-neutral-500 dark:bg-neutral-700 rounded" />
-        <div className="h-5 w-3/4 bg-neutral-500 dark:bg-neutral-700 rounded" />
-        <div className="h-4 w-1/2 bg-neutral-500 dark:bg-neutral-700 rounded" />
+        <div className="h-8 w-32 bg-neutral-400 dark:bg-neutral-700 rounded-full" />
+        <div className="h-7 w-4/5 bg-neutral-400 dark:bg-neutral-700 rounded" />
+        <div className="h-5 w-3/4 bg-neutral-400 dark:bg-neutral-700 rounded" />
+        <div className="h-4 w-1/2 bg-neutral-400 dark:bg-neutral-700 rounded" />
       </div>
       </div>
 
@@ -110,13 +110,13 @@ const PopularNews: React.FC<PopularNewsProps> = ({ params, mainData, theme = "li
       {[1, 2, 3].map((i) => (
         <div
           key={i}
-          className="flex flex-col lg:flex-row gap-4 animate-pulse bg-neutral-400 dark:bg-[#1A1A18] rounded-lg p-4"
+          className="flex flex-col lg:flex-row gap-4 animate-pulse bg-neutral-300 dark:bg-[#1A1A18] rounded-lg p-4"
         >
-          <div className="w-full lg:w-[40%] h-[150px] bg-neutral-500 dark:bg-neutral-700 rounded-lg" />
+          <div className="w-full lg:w-[40%] h-[150px] bg-neutral-400 dark:bg-neutral-700 rounded-lg" />
           <div className="flex flex-col gap-4 w-full lg:w-[60%]">
-            <div className="h-6 w-32 bg-neutral-500 dark:bg-neutral-700 rounded-full" />
-            <div className="h-6 w-full bg-neutral-500 dark:bg-neutral-700 rounded" />
-            <div className="h-4 w-3/5 bg-neutral-500 dark:bg-neutral-700 rounded" />
+            <div className="h-6 w-32 bg-neutral-400 dark:bg-neutral-700 rounded-full" />
+            <div className="h-6 w-full bg-neutral-400 dark:bg-neutral-700 rounded" />
+            <div className="h-4 w-3/5 bg-neutral-400 dark:bg-neutral-700 rounded" />
           </div>
         </div>
       ))}

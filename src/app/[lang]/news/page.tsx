@@ -7,6 +7,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import CustomErrorPage from "@/components/shared/CustomErrorPage";
 import NewsCategoriesSection from "./components/NewsCategoriesSection";
+import VideoNewsList from "./components/VideoNewsList";
 import {
   getTranslation,
   getMainFile,
@@ -118,10 +119,15 @@ export default async function NewsPage({ params }: { params: any }) {
 
         <div className=" space-y-28 mt-28">
 
-          <BreakingNewsSlider lang={params.lang} mainData={mainData}/>
+          <BreakingNewsSlider lang={params.lang} mainData={mainData} />
           <LatestNews params={params} mainData={mainData} />
-
-          <NewsCategoriesSection lang={params.lang}  mainData={mainData}/>
+          <VideoNewsList
+            params={params}
+            limit={6}
+            title="اخبار ویدئویی داغ"
+            mainData={mainData}
+          />
+          <NewsCategoriesSection lang={params.lang} mainData={mainData} />
           <PopularNews params={params} mainData={mainData} />
 
         </div>
