@@ -145,35 +145,34 @@ function sanitizePathSegment(segment) {
     return temp.data
   }
 export async function getLevelTabs(params, levelId) {
-  const safeLevelId = sanitizePathSegment(levelId);
-  const safeTabs = params && sanitizePathSegment(params.tabs);
-
-  if (!safeLevelId || !safeTabs) {
-    throw new Error("Invalid levelId or tabs parameter");
+  if (!levelId || !params?.tabs) {
+    return null;
   }
 
-  const res = await fetch(`https://api.rgb.irpsc.com/api/levels/${safeLevelId}/${safeTabs}`, {
-    headers: {
-      "Content-Type": "application/json",
-      "Cache-Control": "public, max-age=3600",
-    },
-  });
+  const safeLevelId = encodeURIComponent(String(levelId).trim());
+  const safeTabs = encodeURIComponent(String(params.tabs).trim());
+
+  const res = await fetch(
+    `https://api.rgb.irpsc.com/api/levels/${safeLevelId}/${safeTabs}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "Cache-Control": "public, max-age=3600",
+      },
+    }
+  );
+
+  if (res.status === 404) {
+    return null;
+  }
 
   if (!res.ok) {
-    // هندل کردن ارور 404 یا سایر خطاها
-    if (res.status === 404) {
-      // مثلا یک مقدار خالی یا ارور دلخواه
-      return null; 
-      // یا
-      // throw new Error("Level not found (404)");
-    } else {
-      throw new Error(`HTTP error! status: ${res.status}`);
-    }
+    throw new Error(`HTTP error! status: ${res.status}`);
   }
 
-  const temp = await res.json();
-  return temp;
+  return await res.json();
 }
+
 
 
   // export async function getAllVersions(){
