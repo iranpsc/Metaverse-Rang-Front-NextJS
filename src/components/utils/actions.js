@@ -246,8 +246,12 @@ export async function getSingleLevel(levelId) {
   // }
   
 export async function getUserData(_userId) {
-  // استانداردسازی ID: تبدیل به lowercase برای یکنواختی
-  let id = _userId.toLowerCase(); // استفاده از lowercase
+  // استانداردسازی ID: ابتدا پاک‌سازی، سپس تبدیل به lowercase برای یکنواختی
+  const sanitizedId = sanitizePathSegment(_userId);
+  if (!sanitizedId) {
+    return { props: { error: "خطا در دریافت داده‌ها" } };
+  }
+  const id = sanitizedId.toLowerCase();
   try {
     const res = await fetch(
       `https://api.rgb.irpsc.com/api/citizen/${id}`,
@@ -269,7 +273,12 @@ export async function getUserData(_userId) {
 
 
   export async function getAllReferral(_userId, _searchParam = ""){
-    const res = await fetch(`https://api.rgb.irpsc.com/api/citizen/${_userId}/referrals?search=${_searchParam}`,{
+    const safeUserId = sanitizePathSegment(_userId);
+    if (!safeUserId) {
+      return { props: { error: "خطا در دریافت داده‌ها" } };
+    }
+    const safeSearch = encodeURIComponent(_searchParam ?? "");
+    const res = await fetch(`https://api.rgb.irpsc.com/api/citizen/${safeUserId}/referrals?search=${safeSearch}`,{
       headers: {
         "Content-Type": "application/json",
         "Cache-Control": "public, max-age=0", 
@@ -280,7 +289,12 @@ export async function getUserData(_userId) {
   }
 
   export async function getChartReferral(_userId, _searchParam = ""){
-    const res = await fetch(`https://api.rgb.irpsc.com/api/citizen/${_userId}/referrals/chart?range=${_searchParam}`,{
+    const safeUserId = sanitizePathSegment(_userId);
+    if (!safeUserId) {
+      return { props: { error: "خطا در دریافت داده‌ها" } };
+    }
+    const safeRange = encodeURIComponent(_searchParam ?? "");
+    const res = await fetch(`https://api.rgb.irpsc.com/api/citizen/${safeUserId}/referrals/chart?range=${safeRange}`,{
       headers: {
         "Content-Type": "application/json",
         "Cache-Control": "public, max-age=0", 
