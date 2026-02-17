@@ -204,30 +204,26 @@ export async function getAllVersions() {
 }
 
 export async function getSingleLevel(levelId) {
-  const safeLevelId = sanitizePathSegment(levelId);
-  if (!safeLevelId) {
-    // مقدار levelId نامعتبر است، درخواست ارسال نمی‌شود
-    return null;
-  }
+  if (!levelId) return null;
 
-  const res = await fetch(`https://api.rgb.irpsc.com/api/levels/${safeLevelId}`, {
-    headers: {
-      "Content-Type": "application/json",
-      "Cache-Control": "public, max-age=300", 
-    },
-  });
+  const safeLevelId = encodeURIComponent(String(levelId).trim());
 
-  if (!res.ok) {
-    if (res.status === 404) {
-      // مثلا مقدار null برگردون یا خطا پرتاب کن
-      return null;
-      // یا: throw new Error("Level not found (404)");
+  const res = await fetch(
+    `https://api.rgb.irpsc.com/api/levels/${safeLevelId}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "Cache-Control": "no-store",
+      },
     }
-    throw new Error(`HTTP error! status: ${res.status}`);
-  }
+  );
+
+  if (res.status === 404) return null;
+  if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
   return await res.json();
 }
+
 
 
   // export async function getUserData(_userId) {
