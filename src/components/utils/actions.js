@@ -204,7 +204,13 @@ export async function getAllVersions() {
 }
 
 export async function getSingleLevel(levelId) {
-  const res = await fetch(`https://api.rgb.irpsc.com/api/levels/${levelId}`, {
+  const safeLevelId = sanitizePathSegment(levelId);
+  if (!safeLevelId) {
+    // مقدار levelId نامعتبر است، درخواست ارسال نمی‌شود
+    return null;
+  }
+
+  const res = await fetch(`https://api.rgb.irpsc.com/api/levels/${safeLevelId}`, {
     headers: {
       "Content-Type": "application/json",
       "Cache-Control": "public, max-age=300", 
