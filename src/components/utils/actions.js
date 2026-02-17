@@ -145,7 +145,14 @@ function sanitizePathSegment(segment) {
     return temp.data
   }
 export async function getLevelTabs(params, levelId) {
-  const res = await fetch(`https://api.rgb.irpsc.com/api/levels/${levelId}/${params.tabs}`, {
+  const safeLevelId = sanitizePathSegment(levelId);
+  const safeTabs = params && sanitizePathSegment(params.tabs);
+
+  if (!safeLevelId || !safeTabs) {
+    throw new Error("Invalid levelId or tabs parameter");
+  }
+
+  const res = await fetch(`https://api.rgb.irpsc.com/api/levels/${safeLevelId}/${safeTabs}`, {
     headers: {
       "Content-Type": "application/json",
       "Cache-Control": "public, max-age=3600",
