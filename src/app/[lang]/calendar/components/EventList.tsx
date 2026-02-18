@@ -503,11 +503,15 @@ const EventList: React.FC<CalendarFilterProps> = ({
           const { name, value } = el.attributes[i];
 
           if (name.startsWith("on")) continue;
-          if (
-            (name === "href" || name === "src") &&
-            value.trim().toLowerCase().startsWith("javascript:")
-          ) {
-            continue;
+          if (name === "href" || name === "src") {
+            const normalized = value.trim().toLowerCase();
+            if (
+              normalized.startsWith("javascript:") ||
+              normalized.startsWith("data:") ||
+              normalized.startsWith("vbscript:")
+            ) {
+              continue;
+            }
           }
 
           clone.setAttribute(name, value);
