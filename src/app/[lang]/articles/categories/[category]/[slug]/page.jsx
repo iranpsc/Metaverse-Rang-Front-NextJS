@@ -137,7 +137,7 @@ export const dynamicParams = true; // اجازه می‌ده مقالات جدی
 // ======================================
 export default async function ArticlePage({ params }) {
   try {
-function cleanDescription(html, limit = 100){
+function cleanDescription(html, limit = 200){
   if (!html) return "";
 
   let text = "";
