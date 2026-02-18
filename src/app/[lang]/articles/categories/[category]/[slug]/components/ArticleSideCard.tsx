@@ -21,7 +21,7 @@ const ArticleSideCard: React.FC<ArticleSideCardProps> = ({
 }) => {
     const cleanDescription = (html: string, limit = 255) => {
         if (!html) return "";
-        const text = html.replace(/<[^>]*>/g, "").trim();
+        const text = html.replace(/[<>]/g, " ").trim();
         return text.length > limit ? text.slice(0, limit).trim() + "…" : text;
     };
     const isLoading = activeLoadingId === article.id;
