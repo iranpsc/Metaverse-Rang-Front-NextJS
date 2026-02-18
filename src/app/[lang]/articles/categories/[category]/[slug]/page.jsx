@@ -159,10 +159,7 @@ function cleanDescription(html, limit = 100){
   // Normalize to string
   let text = String(html);
 
-  // Remove HTML tags
-  text = text.replace(/<[^>]*>/g, "");
-
-  // Remove any remaining angle brackets to prevent partial tags (e.g., "<script")
+  // Remove any angle brackets to prevent partial tags (e.g., "<script")
   text = text.replace(/[<>]/g, "");
 
   // Collapse consecutive whitespace and trim
