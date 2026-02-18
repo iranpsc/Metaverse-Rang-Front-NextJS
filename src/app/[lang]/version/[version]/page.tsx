@@ -33,7 +33,7 @@ interface VersionItem {
 
 
 function stripHtmlTags(html: string): string {
-  return html.replace(/<[^>]*>/g, '').trim();
+  return html.replace(/<|>/g, "").trim();
 }
 
 
