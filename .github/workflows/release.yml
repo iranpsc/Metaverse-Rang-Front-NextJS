@@ -1,5 +1,8 @@
 name: CI/CD for MetaRang Frontend
 
+permissions:
+  contents: write
+
 on:
   push:
     branches:
