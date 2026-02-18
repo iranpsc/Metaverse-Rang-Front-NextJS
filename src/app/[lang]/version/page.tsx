@@ -24,8 +24,9 @@ interface VersionItem {
 
 
 function stripHtmlTags(html: string): string {
-  return html.replace(/<[^>]*>/g, "").trim();
+  return html.replace(/<|>/g, "").trim();
 }
+
 
 function truncateText(text: string, maxLength: number): string {
   if (text.length <= maxLength) return text;
