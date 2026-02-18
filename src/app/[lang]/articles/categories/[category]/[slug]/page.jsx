@@ -27,11 +27,27 @@ import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
 // ======================================
 export async function generateMetadata({ params }) {
   try {
-  function cleanDescription(html, limit = 255) {
-    if (!html) return "";
-    const text = html.replace(/<[^>]*>/g, "").trim();
-    return text.length > limit ? text.slice(0, limit).trim() + "…" : text;
+function cleanDescription(html, limit = 255){
+  if (!html) return "";
+
+  let text = "";
+
+  if (typeof window === "undefined") {
+    // SSR / Node.js
+    text = html.replace(/<|>/g, "");
+  } else {
+    // Browser
+    const div = document.createElement("div");
+    div.innerHTML = html;
+    text = div.textContent || div.innerText || "";
   }
+
+  text = text.trim();
+
+  return text.length > limit
+    ? text.slice(0, limit).trim() + "…"
+    : text;
+}
 
   const { slug, category, lang } = params;
 
@@ -137,7 +153,7 @@ export const dynamicParams = true; // اجازه می‌ده مقالات جدی
 // ======================================
 export default async function ArticlePage({ params }) {
   try {
-function cleanDescription(html, limit = 200){
+function cleanDescription(html, limit = 100){
   if (!html) return "";
 
   let text = "";
