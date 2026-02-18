@@ -100,12 +100,20 @@ export default async function CitizenReferral({ params }: { params: any }) {
     );
 
     // توابع کمکی
+    function sanitizeJsonLdString(value: any): string {
+      if (typeof value !== "string") {
+        return "";
+      }
+      // Remove characters that could interfere with script parsing in rare cases
+      return value.replace(/[<>]/g, "");
+    }
+
     function localFind(_name: any): string {
       if (!Array.isArray(referralPageArrayContent) || referralPageArrayContent.length === 0) {
         return "";
       }
       const item = referralPageArrayContent.find((item: any) => item.name === _name);
-      return item ? item.translation || "" : "";
+      return item ? sanitizeJsonLdString(item.translation || "") : "";
     }
 
     const convertToPersianDigits = (str: any) => {
@@ -174,8 +182,8 @@ export default async function CitizenReferral({ params }: { params: any }) {
         ...(initInviteList?.data || []).map((invited: any, index: any) => ({
           "@type": "ListItem",
           position: index + 3,
-          name: invited.name || "",
-          identifier: `${invited.code || ""}`,
+          name: sanitizeJsonLdString(invited.name || ""),
+          identifier: sanitizeJsonLdString(`${invited.code || ""}`),
           value:
             invited.referrerOrders?.reduce(
               (acc: any, item: any) => acc + (item.amount || 0),
