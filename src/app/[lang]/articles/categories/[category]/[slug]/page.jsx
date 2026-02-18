@@ -139,7 +139,10 @@ export default async function ArticlePage({ params }) {
   try {
     function cleanDescription(html, limit = 100) {
       if (!html) return "";
-      const text = html.replace(/<[^>]*>/g, "").trim();
+      const text = html
+        .replace(/<[^>]*>/g, "")
+        .replace(/[<>]/g, "")
+        .trim();
       return text.length > limit ? text.slice(0, limit).trim() + "…" : text;
     }
 
