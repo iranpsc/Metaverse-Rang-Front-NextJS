@@ -9,13 +9,16 @@ import Link from "next/link";
 export default function ListDataEducation({ data }: any) {
   const router = useRouter();
   const { lang } = router.query;
+  const allowedLangs = ["en", "fa", "ar"];
+  const safeLang =
+    typeof lang === "string" && allowedLangs.includes(lang) ? lang : "en";
   const { theme } = useTheme();
 
   const pusher = (data: any) => {
-    router.push(`/${lang}/education/category/${data}`);
+    router.push(`/${safeLang}/education/category/${data}`);
   };
   const pusherSubcategory = (category: any, subcategory: any) => {
-    router.push(`/${lang}/education/category/${category}/${subcategory}`);
+    router.push(`/${safeLang}/education/category/${category}/${subcategory}`);
   };
 
   return (
@@ -38,7 +41,7 @@ export default function ListDataEducation({ data }: any) {
               <div className="w-full h-full backdrop-blur-[3px] bg-black/20 hover:backdrop-blur-none xs:backdrop-blur-none absolute z-0 top-0 flex justify-center items-center">
                 <Link
                   className="w-fit"
-                  href={`/${lang}/education/category/${item.category.slug}/${item.sub_category.slug}/${item.slug}`}
+                  href={`/${safeLang}/education/category/${item.category.slug}/${item.sub_category.slug}/${item.slug}`}
                 >
                   <Video className="w-[78px] h-[78px] p-3 fill-blueLink dark:fill-dark-yellow  rounded-full bg-white/80" />
                 </Link>
@@ -82,7 +85,7 @@ export default function ListDataEducation({ data }: any) {
 
             <Link
               className="w-[95%]"
-              href={`/${lang}/education/category/${item.category.slug}/${item.sub_category.slug}/${item.slug}`}
+              href={`/${safeLang}/education/category/${item.category.slug}/${item.sub_category.slug}/${item.slug}`}
             >
               <h1 className="text-start  w-full font-azarMehr truncate cursor-pointer font-bold mt-[8px] text-[18px] 3xl:text-[22px] ">
                 {item.title}
@@ -91,7 +94,7 @@ export default function ListDataEducation({ data }: any) {
 
             <div className="w-[95%] pb-2 flex flex-row justify-between  items-center">
               <Link
-                href={`https://rgb.irpsc.com/${lang}/citizen/${item.creator.code}`}
+                href={`https://rgb.irpsc.com/${safeLang}/citizen/${item.creator.code}`}
                 target="_blank"
               >
                 <div className="flex flex-row justify-start items-center gap-2">
