@@ -162,6 +162,9 @@ function cleanDescription(html, limit = 100){
   // Remove HTML tags
   text = text.replace(/<[^>]*>/g, "");
 
+  // Remove any remaining angle brackets to prevent partial tags (e.g., "<script")
+  text = text.replace(/[<>]/g, "");
+
   // Collapse consecutive whitespace and trim
   text = text.replace(/\s+/g, " ").trim();
 
