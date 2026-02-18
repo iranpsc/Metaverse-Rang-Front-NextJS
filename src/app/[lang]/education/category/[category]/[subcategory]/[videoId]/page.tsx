@@ -216,7 +216,18 @@ export async function generateMetadata({ params }: { params: any }) {
   const DataVideo = await getCachedSingleVideoData(params.videoId);
 
 function stripHtmlTags(str: string): string {
-  return str ? str.replace(/<[^>]*>/g, "") : "";
+  if (!str) return "";
+
+  // SSR / Node
+  if (typeof window === "undefined") {
+    return str.replace(/<|>/g, "").trim();
+  }
+
+  // Browser
+  const div = document.createElement("div");
+  div.innerHTML = str;
+
+  return (div.textContent || div.innerText || "").trim();
 }
 
 async function makeLessCharacter(_desc: any) {

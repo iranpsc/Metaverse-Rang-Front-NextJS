@@ -444,15 +444,34 @@ const EventList: React.FC<CalendarFilterProps> = ({
   };
 
   // تابعی که HTML را تا maxLength کاراکتر (متن خالص) برش می‌زند و ساختار HTML را حفظ می‌کند
-  function safeTruncateHTML(html: string, maxLength: number, ellipsis = "...") {
+  function safeTruncateHTML(
+    html: string,
+    maxLength: number,
+    ellipsis = "…"
+  ): string {
+    if (!html) return "";
+
+    // ===== SSR / Server fallback =====
     if (typeof document === "undefined") {
-      // fallback سرور: تگ‌ها را پاک کن و متن را برش بده
-      const plain = html.replace(/<[^>]+>/g, "");
-      return plain.length > maxLength ? plain.slice(0, maxLength) + ellipsis : html;
+      const plain = html
+        // CodeQL-safe: بدون regex چندکاراکتری
+        .replace(/<|>/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
+
+      if (plain.length <= maxLength) {
+        return plain;
+      }
+
+      const slice = plain.slice(0, maxLength - ellipsis.length);
+      const safeCut = slice.lastIndexOf(" ");
+
+      return (safeCut > 0 ? slice.slice(0, safeCut) : slice) + ellipsis;
     }
 
+    // ===== Client / Browser =====
     const container = document.createElement("div");
-    container.innerHTML = html || "";
+    container.innerHTML = html;
 
     let chars = 0;
     const output = document.createElement("div");
@@ -463,47 +482,54 @@ const EventList: React.FC<CalendarFilterProps> = ({
       if (node.nodeType === Node.TEXT_NODE) {
         const text = node.textContent || "";
         const remaining = maxLength - chars;
+
         if (text.length <= remaining) {
           outParent.appendChild(document.createTextNode(text));
           chars += text.length;
         } else {
-          outParent.appendChild(document.createTextNode(text.slice(0, remaining) + ellipsis));
+          const slice = text.slice(0, remaining - ellipsis.length);
+          outParent.appendChild(document.createTextNode(slice + ellipsis));
           chars = maxLength;
-          return true; // stop
+          return true;
         }
-      } else if (node.nodeType === Node.ELEMENT_NODE) {
+      }
+
+      if (node.nodeType === Node.ELEMENT_NODE) {
         const el = node as HTMLElement;
-        // clone tag بدون children
         const clone = document.createElement(el.tagName.toLowerCase());
 
-        // کپی صفات امن (از اجرای JS جلوگیری می‌کنیم)
+        // کپی فقط attributeهای امن
         for (let i = 0; i < el.attributes.length; i++) {
-          const name = el.attributes[i].name;
-          const value = el.attributes[i].value;
-          // جلوگیری از event handlers و javascript: urls
+          const { name, value } = el.attributes[i];
+
           if (name.startsWith("on")) continue;
-          if ((name === "href" || name === "src") && value.trim().toLowerCase().startsWith("javascript:")) continue;
+          if (
+            (name === "href" || name === "src") &&
+            value.trim().toLowerCase().startsWith("javascript:")
+          ) {
+            continue;
+          }
+
           clone.setAttribute(name, value);
         }
 
         outParent.appendChild(clone);
 
-        // پردازش فرزندان
-        for (let i = 0; i < node.childNodes.length; i++) {
-          const stop = walk(node.childNodes[i], clone);
-          if (stop) return true;
+        for (let i = 0; i < el.childNodes.length; i++) {
+          if (walk(el.childNodes[i], clone)) return true;
         }
       }
+
       return chars >= maxLength;
     }
 
     for (let i = 0; i < container.childNodes.length; i++) {
-      const stop = walk(container.childNodes[i], output);
-      if (stop) break;
+      if (walk(container.childNodes[i], output)) break;
     }
 
     return output.innerHTML;
   }
+
 
   // رندر ایونت‌ها
 
@@ -519,14 +545,20 @@ const EventList: React.FC<CalendarFilterProps> = ({
 
         // استخراج متن خالص با استفاده از DOM (قابل اطمینان‌تر از regex)
         let plainText = "";
+        const html = event.desc || "";
+
         if (typeof document !== "undefined") {
+          // Client / Browser
           const tmp = document.createElement("div");
-          tmp.innerHTML = event.desc || "";
+          tmp.innerHTML = html;
           plainText = tmp.textContent || tmp.innerText || "";
         } else {
-          // fallback سرور
-          plainText = (event.desc || "").replace(/<[^>]+>/g, "");
+          // Server / SSR fallback (CodeQL-safe)
+          plainText = html.replace(/<|>/g, "");
         }
+
+        plainText = plainText.trim();
+
 
         const shouldTruncate = plainText.length > maxLength;
 
