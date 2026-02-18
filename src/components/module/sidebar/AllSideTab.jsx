@@ -258,7 +258,7 @@ export default function SideBarContent({
                   <Link
                     onMouseDown={(e) => handleItemClick(e, item.url, item)}
                     href={`/${params.lang}/${item.url}`}
-                    data-id={item.id}
+                    
                     className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px] cursor-pointer menu-transition
                       ${item.active ? "text-[#0066FF] dark:text-[#FFC700]" : "text-gray-700 dark:text-gray-300"}
                       group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700]
