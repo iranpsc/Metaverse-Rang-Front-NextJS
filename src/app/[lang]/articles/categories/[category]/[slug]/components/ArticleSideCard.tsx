@@ -19,11 +19,27 @@ const ArticleSideCard: React.FC<ArticleSideCardProps> = ({
     activeLoadingId,
     setActiveLoadingId
 }) => {
-    const cleanDescription = (html: string, limit = 255) => {
-        if (!html) return "";
-        const text = html.replace(/[<>]/g, " ").trim();
-        return text.length > limit ? text.slice(0, limit).trim() + "…" : text;
-    };
+const cleanDescription = (html: string, limit = 255): string => {
+  if (!html) return "";
+
+  let text = "";
+
+  if (typeof window === "undefined") {
+    // SSR / Node
+    text = html.replace(/<|>/g, " ");
+  } else {
+    const div = document.createElement("div");
+    div.innerHTML = html;
+    text = div.textContent || div.innerText || "";
+  }
+
+  text = text.replace(/\s+/g, " ").trim();
+
+  return text.length > limit
+    ? text.slice(0, limit).trim() + "…"
+    : text;
+};
+
     const isLoading = activeLoadingId === article.id;
     return (
         <Link

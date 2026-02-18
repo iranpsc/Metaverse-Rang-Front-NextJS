@@ -7,9 +7,20 @@ import axios from "axios";
 
 // تابع برای پاکسازی HTML
 const stripHtml = (html: string, maxLength: number = 160): string => {
-  const text = html.replace(/<[^>]+>/g, "");
+  if (typeof window === "undefined") {
+    // برای SSR
+    const text = html.replace(/<|>/g, "");
+    return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
+  }
+
+  const div = document.createElement("div");
+  div.innerHTML = html;
+
+  const text = div.textContent || div.innerText || "";
+
   return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
 };
+
 
 export default function BreadCrumb({ params, eventTitle, title, articleCat }: { params: any; eventTitle?: string, title?: string; articleCat?: string; }) {
   const [userName, setUserName] = useState("");
