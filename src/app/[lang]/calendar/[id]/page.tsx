@@ -64,10 +64,27 @@ const JalaliDate = {
 };
 
 // 📌 Clean HTML & truncate text
-const stripHtml = (html: string, maxLength: number = 160): string => {
-  const text = htmlTruncate(html || "", maxLength, { ellipsis: "..." });
-  return text.replace(/<[^>]+>/g, "");
-};
+function stripHtml(html: string, limit = 200) {
+  if (!html) return "";
+
+  let text = "";
+
+  if (typeof window === "undefined") {
+    // SSR / Node.js
+    text = html.replace(/<|>/g, "");
+  } else {
+    // Browser
+    const div = document.createElement("div");
+    div.innerHTML = html;
+    text = div.textContent || div.innerText || "";
+  }
+
+  text = text.trim();
+
+  return text.length > limit
+    ? text.slice(0, limit).trim() + "…"
+    : text;
+}
 
 // 📌 Convert Jalali date to ISO8601
 function toISODate(dateString: string | undefined): string {
