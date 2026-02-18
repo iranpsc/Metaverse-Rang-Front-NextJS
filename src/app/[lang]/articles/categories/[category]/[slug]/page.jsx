@@ -156,19 +156,14 @@ export default async function ArticlePage({ params }) {
 function cleanDescription(html, limit = 100){
   if (!html) return "";
 
-  let text = "";
+  // Normalize to string
+  let text = String(html);
 
-  if (typeof window === "undefined") {
-    // SSR / Node.js
-    text = html.replace(/<|>/g, "");
-  } else {
-    // Browser
-    const div = document.createElement("div");
-    div.innerHTML = html;
-    text = div.textContent || div.innerText || "";
-  }
+  // Remove HTML tags
+  text = text.replace(/<[^>]*>/g, "");
 
-  text = text.trim();
+  // Collapse consecutive whitespace and trim
+  text = text.replace(/\s+/g, " ").trim();
 
   return text.length > limit
     ? text.slice(0, limit).trim() + "…"
