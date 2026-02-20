@@ -1,7 +1,7 @@
 // src/app/[lang]/news/categories/page.tsx
 
 import BreadCrumb from "@/components/shared/BreadCrumb";
-import CategoriesList from "../../articles/categories/CategoriesList"; // همون کامپوننت
+import CategoriesList from "./CategoriesList"; // همون کامپوننت
 import SearchComponent from "@/components/shared/SearchComponent";
 import { supabase } from "@/utils/lib/supabaseClient";
 import { getTranslation, getMainFile } from "@/components/utils/actions";
