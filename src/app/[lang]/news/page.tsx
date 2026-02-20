@@ -197,7 +197,7 @@ export default async function NewsPage({ params }: { params: any }) {
               params={params}
             />
           </div>
-          <p className="text-lightGray dark:text-lightGray font-azarMehr text-center text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] px-5 lg:px-10">
+          <p className="text-lightGray dark:text-lightGray font-azarMehr text-start text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] px-5 2xl:pe-28">
             {findByUniqueId(mainData, 1629) || "رجع تخصصی و مرکز نشر آخرین رویدادها، پیشرفت‌های فنی و اخبار توسعه دنیای موازی متارنگ؛ آگاهی از تازه‌ترین تحولات در حوزه‌ی فناوری، تجارت مجازی و حاکمیت غیرمتمرکز با ساختار بین المللی."}
           </p>
         </div>
