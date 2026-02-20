@@ -94,12 +94,12 @@ const PopularNews: React.FC<PopularNewsProps> = ({ params, mainData, theme = "li
   const FeaturedSkeleton = () => (
     <div className="w-full lg:w-1/2 rounded-md overflow-hidden shadow-md bg-neutral-300 dark:bg-[#1A1A18] animate-pulse">
       <div className="aspect-square bg-neutral-300 dark:bg-neutral-800 flex flex-col justify-end" >
-              <div className="p-6 flex flex-col gap-4 items-center">
-        <div className="h-8 w-32 bg-neutral-400 dark:bg-neutral-700 rounded-full" />
-        <div className="h-7 w-4/5 bg-neutral-400 dark:bg-neutral-700 rounded" />
-        <div className="h-5 w-3/4 bg-neutral-400 dark:bg-neutral-700 rounded" />
-        <div className="h-4 w-1/2 bg-neutral-400 dark:bg-neutral-700 rounded" />
-      </div>
+        <div className="p-6 flex flex-col gap-4 items-center">
+          <div className="h-8 w-32 bg-neutral-400 dark:bg-neutral-700 rounded-full" />
+          <div className="h-7 w-4/5 bg-neutral-400 dark:bg-neutral-700 rounded" />
+          <div className="h-5 w-3/4 bg-neutral-400 dark:bg-neutral-700 rounded" />
+          <div className="h-4 w-1/2 bg-neutral-400 dark:bg-neutral-700 rounded" />
+        </div>
       </div>
 
     </div>
@@ -230,7 +230,9 @@ const PopularNews: React.FC<PopularNewsProps> = ({ params, mainData, theme = "li
                       <>
                         <span>|</span>
                         <div className="flex gap-2 items-center">
-                          <time>{new Date(featured.date).toLocaleDateString("fa-IR")}</time>
+                          <time dateTime={featured.date}>
+                            {featured.date}
+                          </time>
                           <Calender className="stroke-dark-gray size-5" />
                         </div>
                       </>
@@ -261,19 +263,20 @@ const PopularNews: React.FC<PopularNewsProps> = ({ params, mainData, theme = "li
                 key={String(item.id)}
                 href={`/${params.lang}/news/categories/${getCategorySlug(item)}/${item.slug}`}
                 onClickCapture={() => setActiveLoadingId(item.id)}
-                className={`relative bg-white dark:bg-[#1A1A18] lg:bg-[#f8f8f8] dark:lg:bg-black rounded-lg h-auto p-4 lg:p-1 ${
-                  isLoading ? "rotating-border-card cursor-not-allowed" : ""
-                }`}
+                className={`relative bg-white dark:bg-[#1A1A18] lg:bg-[#f8f8f8] dark:lg:bg-black rounded-lg h-auto p-4 lg:p-1 ${isLoading ? "rotating-border-card cursor-not-allowed" : ""
+                  }`}
               >
-                <div className="flex lg:flex-row flex-col w-full dark:bg-black z-10">
-                  <div className="relative w-full lg:w-[40%] lg:h-[176px] overflow-hidden z-10">
+                <div className="flex lg:flex-row flex-col w-full  z-10">
+                  <div className="relative w-full lg:w-[40%] h-[250px] lg:h-[176px] overflow-hidden z-10">
                     {item.image ? (
                       <Image
                         src={item.image}
                         alt={item.title}
                         fill
                         className="object-cover rounded-lg w-full h-full !static"
-                        sizes="(max-width: 1024px) 100vw, 40vw"
+                        loading="lazy"
+                        sizes="(max-width: 768px) 90vw, 14vw"
+                        quality={70}
                       />
                     ) : (
                       <div className="w-full h-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-xs text-gray-500">
@@ -301,11 +304,8 @@ const PopularNews: React.FC<PopularNewsProps> = ({ params, mainData, theme = "li
                     <div className="text-sm text-gray-500 dark:text-[#969696] flex flex-wrap items-center gap-3 justify-center lg:justify-start">
                       {item.date && (
                         <div className="flex items-center gap-2">
-                          <time>
-                            {new Date(item.date).toLocaleDateString("fa-IR", {
-                              month: "short",
-                              day: "numeric",
-                            })}
+                          <time dateTime={item.date}>
+                            {item.date}
                           </time>
                           <Calender className="stroke-dark-gray size-5" />
                         </div>

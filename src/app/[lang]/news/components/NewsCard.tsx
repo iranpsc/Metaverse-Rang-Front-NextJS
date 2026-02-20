@@ -89,16 +89,16 @@ const NewsCard: React.FC<NewsCardProps> = ({
                     <div className="flex flex-wrap gap-5 text-sm text-neutral-700 dark:text-neutral-400 items-center">
                         {item.date && (
                             <div className="flex items-center gap-2">
-                                <Calender className="size-5 fill-current" aria-hidden="true" />
                                 <time dateTime={item.date}>
-                                    {new Date(item.date).toLocaleDateString("fa-IR")}
+                                    {item.date}
                                 </time>
+                                <Calender className="size-5 fill-current" aria-hidden="true" />
                             </div>
                         )}
                         {item.readingTime && (
                             <div className="flex items-center gap-2">
-                                <Timer className="size-5 stroke-current" aria-hidden="true" />
                                 <span>{item.readingTime} دقیقه</span>
+                                <Timer className="size-5 stroke-current" aria-hidden="true" />
                             </div>
                         )}
                     </div>

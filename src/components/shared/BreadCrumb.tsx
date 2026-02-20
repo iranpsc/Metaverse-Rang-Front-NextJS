@@ -344,6 +344,27 @@ export default function BreadCrumb({ params, eventTitle, title, articleCat }: { 
       font: "font-normal",
       link: `/${params.lang}/levels/citizen/${params.levelName}/${params.tabs}`,
     },
+     {
+      name: "news",
+      en: "news",
+      fa: "اخبار",
+      font: "font-normal",
+      link: `/${params.lang}/news`,
+    },
+     {
+      name: "categories",
+      en: "news categories",
+      fa: "دسته بندی اخبار",
+      font: "font-normal",
+      link: `/${params.lang}/news/categories`,
+    },
+         {
+      name: `${params.category}`,
+      en: `${params.category}`,
+      fa: decodeURIComponent(articleCat || ""),
+      font: "font-normal",
+      link: `/${params.lang}/news/categories/${params.category}`,
+    },
     {
       name: "articles",
       en: "articles",
@@ -372,6 +393,7 @@ export default function BreadCrumb({ params, eventTitle, title, articleCat }: { 
       font: "font-normal",
       link: `/${params.lang}/articles/categories/${params.category}/${params.slug}`,
     },
+       
   ];
 
   let temp = pathname.split("/").filter((x) => x);

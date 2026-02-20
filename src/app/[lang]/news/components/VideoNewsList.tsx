@@ -14,6 +14,7 @@ interface VideoItem {
   video: string;
   date?: string;
   readingTime?: number;
+  categorySlug?: string;
 }
 
 interface Props {
@@ -43,7 +44,7 @@ export default function VideoNewsInlinePlayer({
     const fetchVideos = async () => {
       const { data } = await supabase
         .from("news")
-        .select("id, title, slug, image, video, date, readingTime")
+        .select("id, title, slug, image, video, date, readingTime, categorySlug")
         .neq("video", "")
         .not("video", "is", null)
         .order("date", { ascending: false })
@@ -79,7 +80,7 @@ export default function VideoNewsInlinePlayer({
           <div>
             {active && (
               <div className="bg-light-primary/60 dark:bg-dark-yellow/70  flex">
-                <Link href={`/${params.lang}/news/${active.slug}`}>
+                <Link href={`/${params.lang}/news/categories/${active.categorySlug}/${active.slug}`}>
                   <h2 className="text-white text-lg font-bold dark:text-[#1A1A18] p-4">
                     {active.title}
                   </h2>
@@ -112,12 +113,17 @@ export default function VideoNewsInlinePlayer({
                   >
 
                     {item.image && (
-                      <div className="w-1/3"><Image
-                        src={item.image}
-                        alt={item.title}
-                        fill
-                        className="bg-cover !static rounded-lg"
-                      /></div>
+                      <div className="relative w-1/3 aspect-video">
+                        <Image
+                          src={item.image}
+                          alt={item.title}
+                          fill
+                          sizes="(max-width: 768px) 33vw, 20vw"
+                          loading="lazy"
+                          quality={60}
+                          className="object-cover rounded-lg"
+                        />
+                      </div>
 
                     )}
                     {/* TITLE */}
@@ -170,7 +176,10 @@ export default function VideoNewsInlinePlayer({
                 alt={active.title}
                 fill
                 className="object-cover"
-                priority
+                loading="lazy"
+                sizes="(max-width: 768px) 95vw, 50vw"
+                quality={70}
+
               />
             )}
 

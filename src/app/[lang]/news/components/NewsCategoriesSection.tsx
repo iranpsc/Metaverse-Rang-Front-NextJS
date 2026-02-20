@@ -112,7 +112,7 @@ export default function NewsByCategorySection({ lang , mainData }: any) {
       <div className="flex flex-col mb-4 gap-5 px-4 md:px-0">
         <div className="flex flex-col gap-2">
           <h2 className="text-2xl md:text-3xl font-bold w-max dark:text-white border border-x-0 border-b-4 pe-7 border-t-0 pb-3 border-light-primary dark:border-dark-yellow border-solid">
-           {findByUniqueId(mainData, 270) || "دسته بندی ها"}
+           {findByUniqueId(mainData, 1648) || "دسته بندی ها"}
           </h2>
         </div>
         <p className="text-[#A0A0AB] lg:text-lg">
