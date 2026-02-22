@@ -108,7 +108,7 @@ export default function BreakingNewsSliderClient({
                   </div>
                 </div>
               </div>
-              <div className="relative h-full rounded-xl overflow-hidden">
+              <div className="relative h-full rounded-xl overflow-hidden bg-neutral-200 dark:bg-neutral-800">
                 <Image
                   src={item.image}
                   alt={item.title}
@@ -125,8 +125,8 @@ export default function BreakingNewsSliderClient({
           ))}
                   <div className="absolute top-[240px] w-full flex justify-center items-center">
           <div className="flex  justify-between items-center !w-[85%] md:!w-[65%] lg:!w-[58%] 3xl:!w-[61%]">
-            <div className="swiper-button-prev !font-bold !static !text-white after:!text-xl dark:after:!text-black !w-12 !h-12 transition select-none bg-light-primary dark:bg-dark-yellow rounded-full p-1 aspect-square" />
-            <div className="swiper-button-next !font-bold !static !text-white after:!text-xl dark:after:!text-black !w-12 !h-12 transition select-none bg-light-primary dark:bg-dark-yellow rounded-full p-1 aspect-square" />
+            <div className="swiper-button-prev !font-bold !static !text-white dark:!text-black after:!text-xl dark:after:!text-black !text-xl !w-12 !h-12 transition select-none bg-light-primary dark:bg-dark-yellow rounded-full p-3 aspect-square" />
+            <div className="swiper-button-next !font-bold !static !text-white after:!text-xl dark:!text-black dark:after:!text-black !w-12 !h-12 transition select-none bg-light-primary dark:bg-dark-yellow rounded-full p-3 aspect-square" />
           </div>
         </div>
         </Swiper>
