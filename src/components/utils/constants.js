@@ -23,7 +23,7 @@ export const getStaticMenu = (params) => {
     { name: "dynasty" },
     { name: "connections" },
     { name: "crimes" },
-    { name: "news", unique_id: 255, url: "https://metatimes.ir/", order: "-1" },
+    { name: "news", unique_id: 255, url: "news", order: "-1" },
     // { name: "articles", unique_id: 258, url: "articles", order: "-1" },
     // { name: "trainings", url: "https://video.irpsc.com/videos/category/1036?page_id=1", order: "-1" },
 
