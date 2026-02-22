@@ -10,6 +10,8 @@
     "release": "standard-version",
     "json": "json-server --watch db.json --port 3001"
   },
+  
+
   "dependencies": {
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
@@ -45,7 +47,7 @@
     "nodemailer": "^7.0.12",
     "persianjs": "^0.4.0",
     "postcss-nested": "^6.0.1",
-    "quill": "^2.0.3",
+    "quill": "^2.0.2",
     "randomcolor": "^0.6.2",
     "react": "^18.2.0",
     "react-cookie": "^7.2.0",
@@ -63,7 +65,7 @@
     "react-tooltip": "^5.23.0",
     "sharp": "^0.34.4",
     "slick-carousel": "^1.8.1",
-    "swiper": "^11.2.10",
+    "swiper": "12.1.2",
     "three": "^0.172.0",
     "typescript": "5.0.4",
     "webpack": "^5.82.0",
@@ -85,7 +87,6 @@
     "postcss": "^8.5.6",
     "postcss-import": "^16.1.1",
     "postcss-nesting": "^12.1.5",
-    "standard-version": "^9.5.0",
     "tailwindcss": "^3.4.4",
     "webpack-bundle-analyzer": "^4.10.2"
   },
