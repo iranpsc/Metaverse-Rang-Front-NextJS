@@ -111,10 +111,11 @@ const isRTL = lang === "fa" ;
               <div className="relative h-full rounded-xl overflow-hidden bg-neutral-200 dark:bg-neutral-800">
                 <Image
                   src={item.image}
-                  alt={item.title}
+                  alt={"slyder" + item.title}
                   fill
                   sizes="(max-width: 768px) 90vw, 54vw"
                   className="object-cover"
+                  quality={60}
                   priority={index === 0}
                 />
 

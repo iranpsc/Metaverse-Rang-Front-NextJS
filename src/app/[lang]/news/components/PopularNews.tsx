@@ -188,11 +188,12 @@ const PopularNews: React.FC<PopularNewsProps> = ({ params, mainData, theme = "li
                 {featured.image ? (
                   <Image
                     src={featured.image}
-                    alt={featured.title}
+                    alt={"popFeatured " + featured.title}
                     fill
                     className="object-cover rounded-md"
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                    priority
+                    sizes="(max-width: 1024px) 100vw, 40vw"
+                    quality={40}
+                    loading="lazy"
                   />
                 ) : (
                   <div className="w-full h-full bg-gray-200 flex items-center justify-center">
@@ -271,12 +272,12 @@ const PopularNews: React.FC<PopularNewsProps> = ({ params, mainData, theme = "li
                     {item.image ? (
                       <Image
                         src={item.image}
-                        alt={item.title}
+                        alt={"popList" + item.title}
                         fill
-                        className="object-cover rounded-lg w-full h-full !static"
                         loading="lazy"
-                        sizes="(max-width: 768px) 90vw, 14vw"
-                        quality={70}
+                        sizes="(max-width: 768px) 90vw, 15vw"
+                        quality={50}
+                        className="object-cover rounded-lg"
                       />
                     ) : (
                       <div className="w-full h-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-xs text-gray-500">
