@@ -91,11 +91,11 @@ export default async function NewsPage({ params }: { params: any }) {
     const newsUrl = `${baseUrl}/${params.lang}/news`;
 
 
-  const { data: news } = await supabase
-    .from("news")
-    .select("id,title,slug,image,date,readingTime,stats")
-    .order("date", { ascending: false })
-    .limit(5);
+    const { data: news } = await supabase
+      .from("news")
+      .select("id,title,slug,image,date,readingTime,stats")
+      .order("date", { ascending: false })
+      .limit(5);
 
     const jsonLd = {
       "@context": "https://schema.org",
@@ -186,18 +186,21 @@ export default async function NewsPage({ params }: { params: any }) {
 
         {/* ===== Search + Categories ===== */}
         <div className="mb-10 mt-[-50px] lg:mt-5 space-y-7 ps-5">
-          <div className="flex flex-col-reverse lg:flex-row lg:justify-between lg:items-center w-full px-5 lg:pe-4">
-            <h1 className="font-rokh text-start font-bold w-full lg:w-1/2  text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px]  dark:text-white mt-[64px] mb-[16px]">
+          <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center w-full px-5 lg:pe-4">
+            <h1 className="font-rokh text-center md:text-start font-bold w-full lg:w-1/2  text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px]  dark:text-white mt-[64px] mb-[16px]">
               {findByUniqueId(mainData, 255)}
             </h1>
-
-            <SearchComponent
+            <p className="lg:hidden text-lightGray dark:text-lightGray font-azarMehr text-center lg:text-start text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] px-5 2xl:pe-28">
+              {findByUniqueId(mainData, 1629) || "رجع تخصصی و مرکز نشر آخرین رویدادها، پیشرفت‌های فنی و اخبار توسعه دنیای موازی متارنگ؛ آگاهی از تازه‌ترین تحولات در حوزه‌ی فناوری، تجارت مجازی و حاکمیت غیرمتمرکز با ساختار بین المللی."}
+            </p>
+              <SearchComponent
               searchLevel="news"
               mainData={mainData}
               params={params}
+              
             />
           </div>
-          <p className="text-lightGray dark:text-lightGray font-azarMehr text-start text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] px-5 2xl:pe-28">
+          <p className="text-lightGray hidden lg:block dark:text-lightGray font-azarMehr text-center lg:text-start text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] px-5 2xl:pe-28">
             {findByUniqueId(mainData, 1629) || "رجع تخصصی و مرکز نشر آخرین رویدادها، پیشرفت‌های فنی و اخبار توسعه دنیای موازی متارنگ؛ آگاهی از تازه‌ترین تحولات در حوزه‌ی فناوری، تجارت مجازی و حاکمیت غیرمتمرکز با ساختار بین المللی."}
           </p>
         </div>
