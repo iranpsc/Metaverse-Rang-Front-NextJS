@@ -1,8 +1,8 @@
+// src/app/[lang]/layout.tsx
 import { azarMehr, rokh } from '../../fonts/localFonts';
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
 import ToastProvider from "../../components/shared/toastProvider";
 import { Suspense } from "react";
-import Head from "next/head";
 import ReferralHandler from './ReferralHandler';
 import VPNDetector from './VPNDetector';
 import {
@@ -53,12 +53,6 @@ export default async function LangLayout({ children, params }: any) {
 
     return (
       <div className={`${azarMehr.variable} ${rokh.variable} ${theme} flex w-full h-screen`}>
-        <Head>
-          {/* Preload تصاویر و ویدئو */}
-          <link rel="preload" as="image" href="/firstpage/replaced_pic.webp" />
-          <link rel="preload" as="video" href="/firstpage/3d_rgb.irpsc.webm" type="video/mp4" />
-        </Head>
-
         {params.lang !== "en" && <VPNDetector />}
         <ReferralHandler />
         <ToastProvider />

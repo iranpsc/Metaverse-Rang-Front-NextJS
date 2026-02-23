@@ -275,8 +275,8 @@ const PopularNews: React.FC<PopularNewsProps> = ({ params, mainData, theme = "li
                         alt={"popList" + item.title}
                         fill
                         loading="lazy"
-                        sizes="(max-width: 768px) 90vw, 15vw"
-                        quality={50}
+                        sizes="(max-width: 768px) 90vw, 20vw"
+                        quality={65}
                         className="object-cover rounded-lg"
                       />
                     ) : (
