@@ -29,7 +29,7 @@ interface Tab {
 }
 
 export default async function LangLayout({ children, params }: any) {
-  try {
+  
     const theme = useServerDarkMode();
 
     const [langArray, langData, footerTabs] = await Promise.all([
@@ -96,14 +96,4 @@ export default async function LangLayout({ children, params }: any) {
         </main>
       </div>
     );
-  } catch (error) {
-    const serializedError = {
-      message: error instanceof Error ? error.message : "Unknown error",
-      stack: error instanceof Error ? error.stack : null,
-      name: error instanceof Error ? error.name : "Error",
-    };
-
-    console.error("❌ Error in LangLayout:", serializedError);
-    return <CustomErrorPage error={serializedError} />;
-  }
-}
+  } 
