@@ -81,7 +81,7 @@ export default function CustomErrorPage({ error }: Props) {
       return String(value);
     }
   };
-
+  console.log("PageSpeedError")
   return (
     <div>
       <section className="w-full pt-7 relative mt-[60px] lg:mt-0 bg-[#f8f8f8] dark:bg-black xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
