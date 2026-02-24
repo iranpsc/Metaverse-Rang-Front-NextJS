@@ -175,11 +175,10 @@ export default function VideoNewsInlinePlayer({
                 src={active.image}
                 alt={"video poster " + active.title}
                 fill
-                priority={false}
                 className="object-cover"
                 loading="lazy"
-                sizes="(max-width: 768px) 95vw, 50vw"
-                quality={65}
+                sizes="(max-width: 768px) 90vw, 40vw"
+                quality={50}
 
               />
             )}

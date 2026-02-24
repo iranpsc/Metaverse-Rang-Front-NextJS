@@ -113,7 +113,7 @@ const isRTL = lang === "fa" ;
                   src={item.image}
                   alt={"slyder" + item.title}
                   fill
-                  sizes="(max-width: 768px) 90vw, 54vw"
+                  sizes="(max-width: 768px) 90vw, 50vw"
                   className="object-cover"
                   quality={60}
                   priority={index === 0}

@@ -24,8 +24,8 @@ export default function BreakingNewsSlider({
         fill
         priority
         fetchPriority="high"
-        sizes="10vw"
-        unoptimized
+        sizes="50vw"
+        quality={50}
         className="object-cover"
       />
 
