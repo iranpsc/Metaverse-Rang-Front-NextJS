@@ -4,14 +4,15 @@ import Link from "next/link";
 import { Calender, Timer } from "@/components/svgs/SvgEducation";
 
 type News = {
-    id: number;
-    title: string;
-    slug: string;
-    image?: string;
-    date?: string;
-    readingTime?: string;
-    category?: string;
-    categorySlug?: string;
+  id: number;
+  title: string;
+  slug: string;
+  image?: string | null;          // ← فقط null را اضافه کن
+  date?: string | null;           // ← بهتر است null هم بگذاری
+  readingTime?: string | null;
+  category?: string | null;
+  categorySlug?: string | null;
+  // اگر stats و بقیه فیلدها هم ممکن است null باشند اضافه کن
 };
 
 interface NewsCardProps {

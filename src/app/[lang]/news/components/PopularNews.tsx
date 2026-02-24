@@ -7,7 +7,6 @@ import Image from "next/image";
 import { ArrowRight } from "@/components/svgs";
 import { Calender, Timer, View } from "@/components/svgs/SvgEducation";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import { supabase } from "@/utils/lib/supabaseClient";
 import { formatNumber } from "@/components/utils/formatNumber";
 
 interface News {
@@ -30,60 +29,36 @@ interface PopularNewsProps {
   params: { lang: string };
   mainData: any;
   theme?: "light" | "dark";
+  initialNews: News[];
 }
 
-const PopularNews: React.FC<PopularNewsProps> = ({ params, mainData, theme = "light" }) => {
-  const [news, setNews] = useState<News[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [activeLoadingId, setActiveLoadingId] = useState<string | number | null>(null);
+const PopularNews: React.FC<PopularNewsProps> = ({ params, mainData, theme = "light" , initialNews }) => {
 
-  useEffect(() => {
-    let mounted = true;
 
-    const fetchNews = async () => {
-      try {
-        const { data, error } = await supabase
-          .from("news")
-          .select("*")
-          .limit(10);
+const [mounted, setMounted] = useState(false);
 
-        if (error) throw error;
+useEffect(() => {
+  setMounted(true);
+}, []);
 
-        if (mounted && data) {
-          // تبدیل views به عدد در زمان دریافت داده (برای جلوگیری از مشکلات تایپ)
-          const normalized = data.map((item: any) => ({
-            ...item,
-            stats: {
-              ...item.stats,
-              views: item.stats?.views != null ? Number(item.stats.views) : 0,
-            },
-          }));
-          setNews(normalized);
-        }
-      } catch (err) {
-        console.error("Error fetching popular news:", err);
-      } finally {
-        if (mounted) setLoading(false);
-      }
-    };
 
-    fetchNews();
+const [activeLoadingId, setActiveLoadingId] =
+  useState<string | number | null>(null);
 
-    return () => {
-      mounted = false;
-    };
-  }, []);
+const sortedPopular = useMemo(() => {
+  if (!initialNews?.length) return [];
 
-  const sortedPopular = useMemo(() => {
-    return [...news]
-      .sort((a, b) => {
-        // تبدیل امن به عدد – اینجا دیگه ارور TypeScript نمی‌ده
-        const viewsA = Number(a.stats?.views ?? 0);
-        const viewsB = Number(b.stats?.views ?? 0);
-        return viewsB - viewsA; // نزولی (بیشترین بازدید اول)
-      })
-      .slice(0, 4); // فقط ۴ تا نیاز داریم
-  }, [news]);
+  return [...initialNews]
+    .map((item) => ({
+      ...item,
+      stats: {
+        ...item.stats,
+        views: Number(item.stats?.views ?? 0),
+      },
+    }))
+    .sort((a, b) => Number(b.stats.views) - Number(a.stats.views))
+    .slice(0, 4);
+}, [initialNews]);
 
   const getCategorySlug = (item: News) =>
     item.categorySlug ||
@@ -123,16 +98,17 @@ const PopularNews: React.FC<PopularNewsProps> = ({ params, mainData, theme = "li
     </div>
   );
 
-  if (loading) {
-    return (
-      <section className="w-full max-w-7xl mx-auto px-4">
-        <div className="flex flex-col lg:flex-row items-center gap-10">
-          <FeaturedSkeleton />
-          <SideNewsSkeleton />
-        </div>
-      </section>
-    );
-  }
+if (!mounted) {
+  return (
+    <section className="w-full max-w-7xl mx-auto px-4">
+      <div className="flex flex-col lg:flex-row items-center gap-10">
+        <FeaturedSkeleton />
+        <SideNewsSkeleton />
+      </div>
+    </section>
+  );
+}
+
 
   if (sortedPopular.length === 0) {
     return (

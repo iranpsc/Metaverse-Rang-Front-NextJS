@@ -6,8 +6,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "@/components/svgs"; // اگر داری نگه دار، اگر نه حذف کن
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import { supabase } from "@/utils/lib/supabaseClient";
-import { articles as localArticles } from "@/components/utils/articles";
 import { Calender, Timer, View } from "@/components/svgs/SvgEducation";
 import { formatNumber } from "@/components/utils/formatNumber";
 type Tag = { label: string; slug: string };
@@ -37,66 +35,28 @@ interface LatestNewsProps {
   mainData?: any;
   theme?: "light" | "dark";
   limit?: number;
+  initialNews: News[];
 }
 
 const LatestNews: React.FC<LatestNewsProps> = ({
   params,
   mainData,
-  theme = "light",
   limit = 10,
+  initialNews,
 }) => {
-  const [articles, setArticles] = useState<News[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [activeLoadingId, setActiveLoadingId] = useState<string | number | null>(null);
+  const [activeLoadingId, setActiveLoadingId] =
+    useState<string | number | null>(null);
+
+  const articles = useMemo<News[]>(() => {
+    if (!initialNews?.length) return [];
+    return initialNews.slice(0, limit);
+  }, [initialNews, limit]);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    let mounted = true;
+    setMounted(true);
+  }, []);
 
-    const fetchData = async () => {
-      try {
-        const { data, error } = await supabase
-          .from("news")
-          .select("*")
-          .order("date", { ascending: false })
-          .limit(limit);
-
-        if (error) throw error;
-
-        if (mounted) {
-          if (data?.length > 0) {
-            const normalized = data.map((d: any) => ({
-              ...d,
-              tags: Array.isArray(d.tags) && d.tags.length > 0 && typeof d.tags[0] === "string"
-                ? d.tags.map((t: string) => ({ label: t, slug: t.toLowerCase().replace(/\s+/g, "-") }))
-                : d.tags || [],
-            }));
-            setArticles(normalized);
-          } else {
-            // fallback به داده‌های محلی
-            setArticles(
-              [...localArticles]
-                .sort((a, b) => new Date(b.date || "").getTime() - new Date(a.date || "").getTime())
-                .slice(0, limit)
-            );
-          }
-        }
-      } catch (err) {
-        console.error("Error fetching news:", err);
-        if (mounted) {
-          setArticles(
-            [...localArticles]
-              .sort((a, b) => new Date(b.date || "").getTime() - new Date(a.date || "").getTime())
-              .slice(0, limit)
-          );
-        }
-      } finally {
-        if (mounted) setLoading(false);
-      }
-    };
-
-    fetchData();
-    return () => { mounted = false; };
-  }, [limit]);
 
   const sortedArticles = useMemo(() => {
     return [...articles].sort((a, b) =>
@@ -136,10 +96,10 @@ const LatestNews: React.FC<LatestNewsProps> = ({
     </div>
   );
 
-  if (loading) {
+  if (!mounted) {
     return (
       <section className="w-full max-w-7xl mx-auto px-4">
-        <div className="flex flex-col items-center lg:flex-row gap-10">
+        <div className="flex flex-col lg:flex-row items-center gap-10">
           <FeaturedSkeleton />
           <SideNewsSkeleton />
         </div>
@@ -194,7 +154,7 @@ const LatestNews: React.FC<LatestNewsProps> = ({
                 {featured.image ? (
                   <Image
                     src={featured.image}
-                    alt={"lastFeat" + featured.title }
+                    alt={"lastFeat" + featured.title}
                     fill
                     className="object-cover lg:rounded-md"
                     sizes="(max-width: 1024px) 100vw, 40vw"
