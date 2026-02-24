@@ -56,16 +56,16 @@ const NewsCard: React.FC<NewsCardProps> = ({
                         }`}
                 >
                     <Image
-                        src={item.image + "catList" || "/placeholder.jpg"}
+                        src={item.image || "/default.png"}
                         alt={"cards " + item.title || "تصویر خبر"}
                         fill
                         className="object-cover transition-transform duration-300 group-hover:scale-105"
                         sizes={
                             variant === "featured"
-                                ? "(max-width: 768px) 100vw, 40vw"
-                                : "(max-width: 768px) 90vw, 30vw"
+                                ? "(max-width: 768px) 90vw, 25vw"
+                                : "(max-width: 768px) 25vw, 15vw"
                         }
-                        quality={65}
+                        quality={50}
                         loading="lazy"
                         placeholder={variant === "featured" ? "blur" : "empty"}
                         blurDataURL={
