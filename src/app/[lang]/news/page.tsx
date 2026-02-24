@@ -34,9 +34,59 @@ const baseUrl = "https://rgb.irpsc.com";
 const imageUrl = "https://rgb.irpsc.com/_next/image?url=%2Flogo.png&w=128&q=75";
 
 // Metadata ...
-export async function generateMetadata({ params }: { params: { lang: string } }) {
-  // همان کد قبلی بدون تغییر
-  // ...
+export async function generateMetadata({ params }: { params: any }) {
+  try {
+    const lang = params.lang || "fa";
+    const url = `${baseUrl}/${lang}/news`;
+
+    return {
+      title: lang === "fa" ? "اخبار متاورس رنگ" : "Metarangs Metaverse News",
+      description:
+        lang === "fa"
+          ? "آخرین اخبار و بروزرسانی‌های متاورس رنگ را در این صفحه دنبال کنید."
+          : "Follow the latest news and updates of Metarang — Iran’s first national metaverse.",
+      openGraph: {
+        title:
+          lang === "fa"
+            ? "اخبار متاورس رنگ"
+            : "Metarangs Metaverse News",
+        description:
+          lang === "fa"
+            ? "آخرین اخبار و بروزرسانی‌های متاورس رنگ را در این صفحه دنبال کنید."
+            : "Follow the latest news and updates of Metarang — Iran’s first national metaverse.",
+        url,
+        siteName: "Metaverse Rang",
+        locale: lang === "fa" ? "fa_IR" : "en_US",
+        type: "website",
+        images: [
+          {
+            url: imageUrl,
+            width: 800,
+            height: 600,
+            alt: "اخبار متاورس رنگ",
+          },
+        ],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title:
+          lang === "fa"
+            ? "اخبار متاورس رنگ"
+            : "Metarangs Metaverse News",
+        description:
+          lang === "fa"
+            ? "آخرین اخبار متاورس رنگ"
+            : "Latest Metarangs Metaverse News",
+        images: [imageUrl],
+      },
+    };
+  } catch (error) {
+    console.error("❌ Metadata error (NewsPage):", error);
+    return {
+      title: "خطا",
+      description: "مشکلی در بارگذاری صفحه رخ داده است",
+    };
+  }
 }
 
 export default async function NewsPage({ params }: { params: { lang: string } }) {
