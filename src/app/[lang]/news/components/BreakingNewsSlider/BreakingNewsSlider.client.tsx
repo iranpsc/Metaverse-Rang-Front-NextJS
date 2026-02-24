@@ -134,8 +134,8 @@ export default function BreakingNewsSliderClient({
         {/* NAV */}
         <div className="absolute top-[240px] w-full flex justify-center">
           <div className="flex justify-between items-center !w-[85%] md:!w-[65%] lg:!w-[61%]">
-            <div className="swiper-button-prev !static !text-white dark:!text-black after:!text-xl dark:after:!text-black !text-xl !w-12 !h-12 rounded-full bg-light-primary dark:bg-dark-yellow" />
-            <div className="swiper-button-next !static !text-white dark:!text-black after:!text-xl dark:after:!text-black !text-xl !w-12 !h-12 rounded-full bg-light-primary dark:bg-dark-yellow" />
+            <div className="swiper-button-prevv p-3 !static !text-white dark:!text-black after:!text-xl dark:after:!text-black !text-xl !w-12 !h-12 rounded-full bg-light-primary dark:bg-dark-yellow" />
+            <div className="swiper-button-next p-3 !static !text-white dark:!text-black after:!text-xl dark:after:!text-black !text-xl !w-12 !h-12 rounded-full bg-light-primary dark:bg-dark-yellow" />
           </div>
         </div>
       </Swiper>
