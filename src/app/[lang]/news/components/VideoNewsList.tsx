@@ -115,8 +115,8 @@ export default function VideoNewsInlinePlayer({
                     {item.image && (
                       <div className="relative w-1/3 aspect-video">
                         <Image
-                          src={item.image}
-                          alt={item.title}
+                          src={item.image }
+                          alt={"video side " + item.title}
                           fill
                           sizes="(max-width: 768px) 33vw, 20vw"
                           loading="lazy"
@@ -129,7 +129,7 @@ export default function VideoNewsInlinePlayer({
                     {/* TITLE */}
                     <div className="flex flex-col justify-between w-2/3 text-right py-1 ps-1">
                       {isActive && hasPlayed ? (
-                        <Link href={`/${params.lang}/news/${item.slug}`}>
+                        <Link href={`/${params.lang}/news/categories/${active.categorySlug}/${item.slug}`}>
                           <p className="text-sm line-clamp-2 text-light-primary dark:text-dark-yellow hover:underline">
                             {item.title}
                           </p>
@@ -173,12 +173,12 @@ export default function VideoNewsInlinePlayer({
             {!hasPlayed && active.image && (
               <Image
                 src={active.image}
-                alt={active.title}
+                alt={"video poster " + active.title}
                 fill
                 className="object-cover"
                 loading="lazy"
-                sizes="(max-width: 768px) 95vw, 50vw"
-                quality={70}
+                sizes="(max-width: 768px) 90vw, 40vw"
+                quality={50}
 
               />
             )}

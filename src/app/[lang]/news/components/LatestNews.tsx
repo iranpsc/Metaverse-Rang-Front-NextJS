@@ -194,11 +194,12 @@ const LatestNews: React.FC<LatestNewsProps> = ({
                 {featured.image ? (
                   <Image
                     src={featured.image}
-                    alt={featured.title}
+                    alt={"lastFeat" + featured.title }
                     fill
-                    className="object-cover rounded-md"
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                    priority
+                    className="object-cover lg:rounded-md"
+                    sizes="(max-width: 1024px) 100vw, 40vw"
+                    quality={40}
+                    loading="lazy"
                   />
                 ) : (
                   <div className="w-full h-full bg-gray-200 flex items-center justify-center">
@@ -274,13 +275,12 @@ const LatestNews: React.FC<LatestNewsProps> = ({
                     {item.image ? (
                       <Image
                         src={item.image}
-                        alt={item.title}
+                        alt={"lastN " + item.title}
                         fill
-                        className="object-cover rounded-lg w-full h-full aspect-video !static"
                         loading="lazy"
-                        sizes="(max-width: 768px) 90vw, 14vw"
-                        quality={70}
-
+                        sizes="(max-width: 768px) 90vw, 15vw"
+                        quality={20}
+                        className="object-cover rounded-lg"
                       />
                     ) : (
                       <div className="w-full h-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-xs text-gray-500">
