@@ -16,28 +16,51 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "incremental": true,
     "plugins": [
       {
         "name": "next"
       }
     ],
-"downlevelIteration": true,
-
+    "downlevelIteration": true,
     "paths": {
-     "@/public/*":["public/*"],
-     "@/pages/*":["src/pages/*"],
-     "@/components/*":["src/components/*"],
-     "@/styles/*":["src/styles/*"],
-     "@/types/*":["src/types/*"],
-     "@/utils/*":["src/components/utils/*"],
-     "@/svgs/*":["src/components/svgs/*"],
-     "@/module/*":["src/components/module/*"],
-     "@/templates/*":["src/components/templates/*"],
-     "@/layout/*":["src/components/layout/*"],
-     "@/context/*":["src/components/context/*"],
-     "react": [ "./node_modules/@types/react" ]
+      "@/public/*": [
+        "public/*"
+      ],
+      "@/pages/*": [
+        "src/pages/*"
+      ],
+      "@/components/*": [
+        "src/components/*"
+      ],
+      "@/styles/*": [
+        "src/styles/*"
+      ],
+      "@/types/*": [
+        "src/types/*"
+      ],
+      "@/utils/*": [
+        "src/components/utils/*"
+      ],
+      "@/svgs/*": [
+        "src/components/svgs/*"
+      ],
+      "@/module/*": [
+        "src/components/module/*"
+      ],
+      "@/templates/*": [
+        "src/components/templates/*"
+      ],
+      "@/layout/*": [
+        "src/components/layout/*"
+      ],
+      "@/context/*": [
+        "src/components/context/*"
+      ],
+      "react": [
+        "./node_modules/@types/react"
+      ]
     },
     "forceConsistentCasingInFileNames": true
   },
@@ -45,8 +68,14 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts", "src/app/[lang]/education/category/[category]/[subcategory]/page.tsx", "src/components/module/sidebar/LoginMenuModule.jsx", "src/components/module/sidebar/HeaderMobile.tsx", "src/app/[lang]/api/sendEmail/route.ts", "src/components/module/levelComponent/TabSelector.tsx",
-  ],
+    ".next/types/**/*.ts",
+    "src/app/[lang]/education/category/[category]/[subcategory]/page.tsx",
+    "src/components/module/sidebar/LoginMenuModule.jsx",
+    "src/components/module/sidebar/HeaderMobile.tsx",
+    "src/app/[lang]/api/sendEmail/route.ts",
+    "src/components/module/levelComponent/TabSelector.tsx",
+    ".next/dev/types/**/*.ts"
+, "src/app/[lang]/page.tsx"  ],
   "exclude": [
     "node_modules"
   ]

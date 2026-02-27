@@ -13,6 +13,7 @@ interface VersionItem {
 
 interface VersionSectionProps {
   firstPageArrayContent?: { name: string; translation: string }[];
+  params:any;
 }
 
 const VersionSection = ({ firstPageArrayContent = [] }: VersionSectionProps) => {

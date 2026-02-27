@@ -3,15 +3,13 @@
   "version": "2.2.10",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 5175",
+    "dev": "next dev --webpack -p 5175",
     "build": "next build",
     "start": "next start -p 5175",
     "lint": "next lint",
     "release": "standard-version",
     "json": "json-server --watch db.json --port 3001"
   },
-  
-
   "dependencies": {
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
@@ -41,7 +39,7 @@
     "keen-slider": "^6.8.6",
     "lottie-react": "^2.4.0",
     "moment-jalaali": "^0.10.4",
-    "next": "^14.2.5",
+    "next": "^16.1.6",
     "next-seo": "^6.4.0",
     "next-themes": "^0.2.1",
     "nodemailer": "^7.0.12",
@@ -49,9 +47,9 @@
     "postcss-nested": "^6.0.1",
     "quill": "^2.0.2",
     "randomcolor": "^0.6.2",
-    "react": "^18.2.0",
+    "react": "^18.3.1",
     "react-cookie": "^7.2.0",
-    "react-dom": "^18.2.0",
+    "react-dom": "^18.3.1",
     "react-google-recaptcha": "^3.1.0",
     "react-masonry-css": "^1.0.16",
     "react-modal": "^3.16.1",

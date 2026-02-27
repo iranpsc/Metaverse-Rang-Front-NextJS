@@ -15,29 +15,34 @@ function sanitizePathSegment(segment) {
 }
 
 //return selected language object
-  export async function getTranslation(lang) {
-    
-    try{
-      const res = await fetch("https://admin.rgb.irpsc.com/api/translations", {
-        headers: {
-          "Content-Type": "application/json",
-          "Cache-Control": "public, max-age=3600", 
-        },
-      });
-      const data = await res.json();
-      let temp = await data.data.find((item) => item.code == lang)
+export async function getTranslation(lang) {
+  try {
+    const res = await fetch("https://admin.rgb.irpsc.com/api/translations", {
+      cache: 'force-cache',
+      next: { tags: ['translations'] },
+    });
+    const data = await res.json();
 
+    // console.log("[getTranslation] Requested lang:", lang);
+    // console.log("[getTranslation] Available codes:", data.data.map((l) => l.code));
 
-      return temp;
-    }catch(err){
-      console.error("Error fetching main file: Amir", err);
-      // Optionally, return a default response instead of breaking the app
-      // return {
-      //   success: false,
-      //   message: err.message || "An unknown error occurred",
-      // };
+    let temp = data.data.find((item) => item.code === lang);
+
+    if (!temp) {
+      console.warn(`[getTranslation] Lang "${lang}" not found → fallback to "fa"`);
+      temp = data.data.find((item) => item.code === "fa") || data.data[0];
     }
+
+    // console.log("[getTranslation] Selected language code:", temp?.code);
+    // console.log("[getTranslation] file_url:", temp?.file_url);
+
+    return temp;
+  } catch (err) {
+    console.error("[getTranslation] Error:", err);
+    // fallback سخت
+    return { code: "fa", file_url: "https://rgb.irpsc.com/lang/fa.json", direction: "rtl" };
   }
+}
   
 
   //return whole language array
@@ -53,29 +58,35 @@ function sanitizePathSegment(segment) {
   }
 
 
-  export async function getMainFile(langData) {
-    try {
-      const res = await fetch(langData.file_url, {
-        headers: {
-          "Content-Type": "application/json",
-          "Cache-Control": "public, max-age=3600",
-        },
-      });
-      
-  
-      // Parse JSON response
-      const data = await res.json();
-      return data;
-    } catch (error) {
-      console.error("Error fetching mainData file:", error);
-  
-      // Optionally, return a default response instead of breaking the app
-      // return {
-      //   success: false,
-      //   message: error.message || "An unknown error occurred",
-      // };
+export async function getMainFile(langData) {
+  try {
+    if (!langData?.file_url) {
+      throw new Error("No file_url provided");
     }
+
+    const res = await fetch(langData.file_url, {
+      cache: 'force-cache',
+      next: { tags: [`main-file-${langData.code || 'unknown'}`] },
+    });
+
+    if (!res.ok) {
+      throw new Error(`Fetch main file failed: ${res.status} - ${langData.file_url}`);
+    }
+
+    const data = await res.json();
+
+    // چک ساختار
+    if (!data?.modals || !Array.isArray(data.modals)) {
+      throw new Error("Invalid mainData structure: missing or invalid 'modals'");
+    }
+
+    return data;
+  } catch (error) {
+    console.error("Error fetching mainData:", error, { langData });
+    // مهم: همیشه چیزی برگردون – fallback خالی یا null
+    return null; // یا {} یا یک آبجکت fallback
   }
+}
   // return our main file(.json) according to selected lang
   // export async function getMainFile(langData) {
   //   const res = await fetch(langData.file_url, {
