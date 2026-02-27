@@ -4,7 +4,7 @@ import RondCard from "./RondCard"
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 interface CitizenListProps {
-  params: { lang: string };
+  params:  string ;
   mainData: any;   // یا هر نوع مناسب
 }
 

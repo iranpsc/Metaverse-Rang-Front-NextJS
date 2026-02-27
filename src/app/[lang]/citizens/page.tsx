@@ -17,74 +17,60 @@ import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import CustomErrorPage from "@/components/shared/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
 // SEO**
-export async function generateMetadata({ params }) {
+export async function generateMetadata(
+  { params }: { params: Promise<{ lang: string }> }
+) {
+  const { lang } = await params;
+
   try {
-  const langData = await getTranslation(params.lang);
+    const langData = await getTranslation(lang);
+    const mainData = await getMainFile(langData);
 
-  const mainData = await getMainFile(langData);
+    const description = (findByUniqueId(mainData, 596) || "").slice(0, 160);
 
-
-  // const centralPageModal = await findByModalName(mainData, "central-page");
-  // const firstPageArrayContent = await findByTabName(
-  //   centralPageModal,
-  //   "first-page"
-  // );
-
-  const Citizenship = await findByModalName(mainData, "Citizenship-profile");
-  const citizenListArrayContent = await findByTabName(
-    Citizenship,
-    "list-citizen"
-  );
-
-
-  //to make description less than 200 character
-  async function makeLessCharacter() {
-    let temp = findByUniqueId(mainData, 596)
-    return await temp.slice(0, 200)
-  }
-
-  return {
-    title: findByUniqueId(mainData, 593),
-    description: await makeLessCharacter(),
-    openGraph: {
-      type: 'website',
-      // url: `https://rgb.irpsc.com/posts/${params.id}`,
+    return {
       title: findByUniqueId(mainData, 593),
-      description: await makeLessCharacter(),
-      locale: params.lang == "fa" ? "fa_IR" : "en_US",
-      // site_name: متاورس رنگ,
-      url: `https://rgb.irpsc.com/${params.lang}/citizen`,
-      images: [
-        {
-          url: "/logo.png",
-          width: 800,
-          height: 600,
-          // alt: post.title,
+      description,
+      alternates: {
+        canonical: `https://rgb.irpsc.com/${lang}/citizen`,
+        languages: {
+          'fa-IR': 'https://rgb.irpsc.com/fa/citizen',
+          'en-US': 'https://rgb.irpsc.com/en/citizen',
+          'x-default': 'https://rgb.irpsc.com/fa/citizen',
         },
-      ],
-    },
-    // twitter: {
-    //   card: 'summary_large_image',
-    //   title: post.title,
-    //   description: post.description,
-    //   images: [post.imageUrl],
-    // },
-  };
-} catch (error) {
-    console.error("❌ Metadata error (LevelsPage):", error);
-
+      },
+      openGraph: {
+        type: 'website',
+        title: findByUniqueId(mainData, 593),
+        description,
+        locale: lang === "fa" ? "fa_IR" : "en_US",
+        url: `https://rgb.irpsc.com/${lang}/citizen`,
+        images: [
+          {
+            url: "/logo.png",
+            width: 1200,
+            height: 630,
+          },
+        ],
+      },
+    };
+  } catch (e) {
     return {
       title: "خطا",
       description: "مشکلی در بارگذاری صفحه رخ داده است",
     };
   }
 }
-
-export default async function CitizensPage({ params }) {
+interface CitizensPageProps {
+  params: Promise<{ lang: string }>;
+}
+export default async function CitizensPage({ params }: CitizensPageProps) {
+   const resolvedParams = await params;
+  const { lang } = resolvedParams;
   try {
     const [langData, langArray] = await Promise.all([
 
-      getTranslation(params.lang),
+      getTranslation(lang),
       getLangArray(),
     ]);
 
@@ -126,7 +112,7 @@ export default async function CitizensPage({ params }) {
       },
       "image": 'https://rgb.irpsc.com/logo.png',
       "telephone": "09120820120",
-      "url": `https://rgb.irpsc.com/${params.lang}/citizen`,
+      "url": `https://rgb.irpsc.com/${lang}/citizen`,
       "logo": `https://rgb.irpsc.com/logo.png`,
       "email": "info@rgb.irpsc.com",
       "description": await makeLessCharacter(),
@@ -171,7 +157,7 @@ export default async function CitizensPage({ params }) {
               <Suspense fallback={<div>Loading citizens...</div>}>
                 <CitizenList
                   allCitizenArray={allCitizenArray.data}
-                  params={params}
+                  params={resolvedParams}
                   mainData={mainData}
                   defaultTheme={defaultTheme}
                 />
