@@ -22,7 +22,11 @@ interface VersionItem {
   image?: string;
 }
 
-
+interface VersionPageProps {
+  params: Promise<{
+    version: string; lang: string 
+}>;
+}
 function stripHtmlTags(html: string): string {
   return html.replace(/<|>/g, "").trim();
 }
@@ -76,11 +80,11 @@ export async function generateMetadata({ params }: { params: any }): Promise<Met
           openGraph: { locale },
         };
       }
-      const langData = await getTranslation(params.lang);
+      const langData = await getTranslation(lang);
       const mainData = await getMainFile(langData);
       const title = findByUniqueId(mainData, 1458);
       const description = findByUniqueId(mainData, 1452);
-      const pageUrl = `https://metarang.com/${params.lang}/version`;
+      const pageUrl = `https://metarang.com/${lang}/version`;
       const image = currentVersion.image;
 
       return {
@@ -133,10 +137,12 @@ export async function generateMetadata({ params }: { params: any }): Promise<Met
 }
 
 
-export default async function VersionPage({ params }: { params: any }) {
+export default async function VersionPage({ params }:VersionPageProps) {
+        const resolvedParams = await params;
+    const { lang } = resolvedParams;
   try {
     const [langData, langArray] = await Promise.all([
-      getTranslation(params.lang),
+      getTranslation(lang),
       getLangArray(),
     ]);
 
@@ -188,21 +194,21 @@ export default async function VersionPage({ params }: { params: any }) {
       versions = [];
     }
     {/* SCHEMA** */ }
-    const currentVersion = versions.find((v: VersionItem) => v.version === params.version) || versions[0];
+    const currentVersion = versions.find((v: VersionItem) => v.version === resolvedParams.version) || versions[0];
 
 
     const versionSchema = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": findByUniqueId(mainData, 1458) || "نام نرم‌افزار یا پروژه",
-      "url": `https://metarang.com/${params.lang}/version/${encodeURIComponent(params.version || "")}`,
+      "url": `https://metarang.com/${lang}/version/${encodeURIComponent(resolvedParams.version || "")}`,
       "description": currentVersion ? stripHtmlTags(currentVersion.description) : "صفحه نسخه‌های نرم‌افزار",
       "author": {
         "@type": "Organization",
         "name": "RGB IRPSC"
       },
       "datePublished": currentVersion ? currentVersion.date : new Date().toISOString().slice(0, 10),
-      "softwareVersion": params.version || (versions.length > 0 ? versions[0].version : ""),
+      "softwareVersion": resolvedParams.version || (versions.length > 0 ? versions[0].version : ""),
       "version": versions.map((v: VersionItem) => ({
         "@type": "CreativeWork",
         "name": v.title,
@@ -236,14 +242,14 @@ export default async function VersionPage({ params }: { params: any }) {
           >
             {/* Breadcrumb */}
             <div className="px-12">
-              <BreadCrumb params={params} />
+              <BreadCrumb params={resolvedParams} />
             </div>
 
             {/* PLZ code here without container */}
             <div className="mainContainer w-full lg:h-auto  flex flex-col gap-[10px] lg:flex-row lg:items-start lg:justify-between">
               <div className="centerItem w-full   lg:px-7">
                 <div className="self-center justify-between flex pt-8 w-full  gap-8">
-                  <Version versions={versions} params={params} mainData={mainData} initialVersion={params.version || (versions.length > 0 ? versions[0].version : null)}
+                  <Version versions={versions} params={resolvedParams} mainData={mainData} initialVersion={resolvedParams.version || (versions.length > 0 ? versions[0].version : null)}
                   />
                 </div>
               </div>
