@@ -85,8 +85,8 @@ export default function ImageBox({ item, singleLevel }: any) {
             key={type}
             onClick={() => setMode(type)}
             className={`px-4 py-2 rounded-lg font-bold ${mode === type
-                ? "bg-light-primary text-white"
-                : "bg-gray-200 dark:bg-gray-700"
+                ? "bg-light-primary text-white dark:bg-dark-yellow dark:text-black"
+                : " dark:bg-neutral-700 dark:text-neutral-200"
               }`}
           >
             {type.toUpperCase()}

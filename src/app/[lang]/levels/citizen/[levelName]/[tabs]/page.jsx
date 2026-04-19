@@ -220,7 +220,7 @@ console.log("DATA:", levelTabs.data);
               {/* Tab Content (Skeleton می‌شود) */}
               <div className="grid-third w-full md:min-w-[65vw] xl:min-w-[65vw] px-1">
                 <TabContentWrapper>
-                  {params.tabs === "general-info" && (
+                  {resolvedParams.tabs === "general-info" && (
                     <GeneralInfo
                       mainData={mainData}
                       levelTabs={levelTabs}
@@ -230,7 +230,7 @@ console.log("DATA:", levelTabs.data);
                     />
                   )}
 
-                  {params.tabs === "gem" && (
+                  {resolvedParams.tabs === "gem" && (
                     <Gem
                       mainData={mainData}
                       levelTabs={levelTabs}
@@ -240,7 +240,7 @@ console.log("DATA:", levelTabs.data);
                     />
                   )}
 
-                  {params.tabs === "gift" && (
+                  {resolvedParams.tabs === "gift" && (
                     <Gift
                       mainData={mainData}
                       levelTabs={levelTabs}
@@ -250,7 +250,7 @@ console.log("DATA:", levelTabs.data);
                     />
                   )}
 
-                  {params.tabs === "licenses" && (
+                  {resolvedParams.tabs === "licenses" && (
                     <Permission
                       mainData={mainData}
                       levelTabs={levelTabs}
@@ -259,7 +259,7 @@ console.log("DATA:", levelTabs.data);
                     />
                   )}
 
-                  {params.tabs === "prize" && (
+                  {resolvedParams.tabs === "prize" && (
                     <Prize
                       mainData={mainData}
                       levelTabs={levelTabs}
