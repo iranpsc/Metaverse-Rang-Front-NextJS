@@ -13,6 +13,9 @@ import htmlTruncate from "html-truncate";
 import CustomErrorPage from "@/components/shared/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
 import FixLinks from "./components/FixLinks";
+interface CalendarPageProps {
+  params: Promise<{ lang: string }>;
+}
 // 📌 Utility: Jalali → Gregorian
 const JalaliDate = {
   g_days_in_month: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
@@ -95,15 +98,17 @@ function toISODate(dateString: string): string {
   const [g_y, g_m, g_d] = JalaliDate.jalaliToGregorian(j_y, j_m, j_d);
   return new Date(g_y, g_m - 1, g_d, hour, min).toISOString();
 }
-export async function generateMetadata({ params }: { params: any }): Promise<Metadata> {
+export async function generateMetadata({ params }: CalendarPageProps): Promise<Metadata> {
+          const resolvedParams = await params;
+    const { lang } = resolvedParams;
   try {
     const [langData] = await Promise.all([
-      getTranslation(params.lang),
+      getTranslation(lang),
     ]);
 
     const mainData = await getMainFile(langData);
 
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const rawAuth = cookieStore.get("auth")?.value;
     const token = rawAuth ? new URLSearchParams(rawAuth).get("token") : null;
 
@@ -129,9 +134,9 @@ export async function generateMetadata({ params }: { params: any }): Promise<Met
       openGraph: {
         title: findByUniqueId(mainData, 1463),
         description: findByUniqueId(mainData, 1464),
-        url: `https://metarang.com/${params.lang}/calendar`,
+        url: `https://metarang.com/${lang}/calendar`,
         type: "website",
-        locale: params.lang === "fa" ? "fa_IR" : "en_US",
+        locale: (await params).lang === "fa" ? "fa_IR" : "en_US",
         images: [
           {
             url: Events.length > 0 ? Events[0]?.image || "https://metarang.com/default-image.jpg" : "https://metarang.com/default-image.jpg",
@@ -207,16 +212,18 @@ function buildEventSchema(events: MappedEventItem[], paramsLang: string) {
 }
 
 // 📌 Page Component
-export default async function CalendarPage({ params }: { params: { lang: string } }) {
+export default async function CalendarPage({ params }: CalendarPageProps) {
+          const resolvedParams = await params;
+    const { lang } = resolvedParams;
   try {
     const [langData, langArray] = await Promise.all([
-      getTranslation(params.lang),
+      getTranslation(lang),
       getLangArray(),
     ]);
 
     const mainData = await getMainFile(langData);
 
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const rawAuth = cookieStore.get("auth")?.value;
     const token: string | null = rawAuth ? new URLSearchParams(rawAuth).get("token") : null;
 
@@ -234,7 +241,7 @@ export default async function CalendarPage({ params }: { params: { lang: string 
     const data = await res.json();
     const Events: MappedEventItem[] = mapEvents(data.data);
 
-    const eventSchema = buildEventSchema(Events, params.lang);
+    const eventSchema = buildEventSchema(Events, resolvedParams.lang);
 
     return (
       <div className="flex flex-col min-w-[340px] w-full" dir={langData.direction}>
@@ -243,7 +250,7 @@ export default async function CalendarPage({ params }: { params: { lang: string 
         <CleanAutoRetryParam />
         <section className="w-full relative mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20">
           <div className="px-12">
-            <BreadCrumb params={params} />
+            <BreadCrumb params={resolvedParams} />
           </div>
 
           <div className="p-5 lg:px-10 space-y-3 mb-5">
@@ -252,7 +259,7 @@ export default async function CalendarPage({ params }: { params: { lang: string 
           </div>
 
           <div className="mainContainer w-full h-auto flex flex-col items-center lg:gap-0 font-azarMehr lg:flex-row lg:items-start p-5 lg:px-10">
-            <EventsCalendar token={token} mainData={mainData} params={params} events={Events} />
+            <EventsCalendar token={token} mainData={mainData} params={resolvedParams} events={Events} />
           </div>
         </section>
       </div>

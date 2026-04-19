@@ -11,6 +11,11 @@ import EventCalendarClient from "../components/EventCalendarClient";
 import htmlTruncate from "html-truncate";
 import CustomErrorPage from "@/components/shared/CustomErrorPage";
 import CleanAutoRetryParam  from "@/components/shared/CleanAutoRetryParam";
+interface EventPageProps {
+  params: Promise<{
+    id: string; lang: string 
+}>;
+}
 // 📌 Utility: Jalali → Gregorian
 const JalaliDate = {
   g_days_in_month: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
@@ -146,9 +151,11 @@ async function getEvents(): Promise<MappedEventItem[]> {
 }
 
 // 📌 Dynamic metadata
-export async function generateMetadata({ params }: { params: { lang: string; id: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: EventPageProps): Promise<Metadata> {
+          const resolvedParams = await params;
+    const { lang } = resolvedParams;
   try {
-  const event = await getEvent(params.id);
+  const event = await getEvent(resolvedParams.id);
   const cleanTitle = stripHtml(event.title);
   const cleanDescription = stripHtml(event.desc, 160);
 
@@ -159,10 +166,10 @@ export async function generateMetadata({ params }: { params: { lang: string; id:
     openGraph: {
       title: cleanTitle,
       description: cleanDescription,
-      url: `https://metarang.com/${params.lang}/calendar/${params.id}`,
+      url: `https://metarang.com/${lang}/calendar/${resolvedParams.id}`,
       type: "website",
       images: [{ url: event.image || "https://metarang.com/default-image.jpg", width: 1200, height: 630, alt: cleanTitle }],
-      locale: params.lang === "fa" ? "fa_IR" : "en_US",
+      locale: lang === "fa" ? "fa_IR" : "en_US",
     },
     twitter: {
       card: "summary_large_image",
@@ -172,8 +179,8 @@ export async function generateMetadata({ params }: { params: { lang: string; id:
     },
     alternates: {
       languages: {
-        "fa-IR": `https://metarang.com/fa/calendar/${params.id}`,
-        "en-US": `https://metarang.com/en/calendar/${params.id}`,
+        "fa-IR": `https://metarang.com/fa/calendar/${resolvedParams.id}`,
+        "en-US": `https://metarang.com/en/calendar/${resolvedParams.id}`,
       },
     },
   };
@@ -189,17 +196,19 @@ catch (error) {
 }
 
 // 📌 Page Component
-export default async function EventPage({ params }: { params: { lang: string; id: string } }) {
+export default async function EventPage({ params }: EventPageProps ) {
+          const resolvedParams = await params;
+    const { lang } = resolvedParams;
     try {
   const [ langData, langArray, events, selectedEvent] = await Promise.all([
-    getTranslation(params.lang),
+    getTranslation(lang),
     getLangArray(),
     getEvents(),
-    getEvent(params.id),
+    getEvent(resolvedParams.id),
   ]);
 
   const mainData = await getMainFile(langData);
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const rawAuth = cookieStore.get("auth")?.value;
   const token: string | null = rawAuth ? new URLSearchParams(rawAuth).get("token") : null;
 
@@ -222,7 +231,7 @@ export default async function EventPage({ params }: { params: { lang: string; id
               <EventCalendarClient
                 events={filteredEvents}
                 mainData={mainData}
-                params={params}
+                params={resolvedParams}
                 token={token}
                 selectedEvent={selectedEvent}
               />

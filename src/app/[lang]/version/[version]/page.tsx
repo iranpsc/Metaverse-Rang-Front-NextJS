@@ -40,8 +40,6 @@ function stripHtmlTags(html: string): string {
   return html.replace(/<|>/g, "").trim();
 }
 
-
-
 function truncateText(text: string, maxLength: number): string {
   if (text.length <= maxLength) return text;
   return text.slice(0, maxLength).trimEnd() + "...";
@@ -98,7 +96,6 @@ export async function generateMetadata({ params }: VersionPageProps): Promise<Me
 
       const title = `${currentVersion.title} - نسخه ${currentVersion.version}`;
       const description = currentVersion.description;
-
       const siteUrl = process.env.SITE_URL || "https://metarang.com";
       const pageUrl = `${siteUrl}/${lang}/version/${encodeURIComponent(version)}`;
       const image = currentVersion.image;
@@ -152,9 +149,6 @@ export async function generateMetadata({ params }: VersionPageProps): Promise<Me
     };
   }
 }
-
-
-
 
 export default async function VersionPage({ params }: VersionPageProps) {
   const resolvedParams = await params;
