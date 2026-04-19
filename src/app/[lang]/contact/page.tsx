@@ -11,23 +11,28 @@ import CommunicationRoutes from "./components/CommunicationRoutes";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import CustomErrorPage from "@/components/shared/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
+interface AboutPageProps {
+  params: Promise<{ lang: string }>;
+}
 // SEO**
-export async function generateMetadata({ params }: any) {
+export async function generateMetadata({ params }: AboutPageProps) {
+      const resolvedParams = await params;
+    const { lang } = resolvedParams;
   try {
     return {
-      title: params.lang.toLowerCase() == "fa" ? "تماس با ما" : "Contact Us",
+      title: lang.toLowerCase() == "fa" ? "تماس با ما" : "Contact Us",
       description:
-        params.lang.toLowerCase() == "fa"
+        lang.toLowerCase() == "fa"
           ? "ما در متاورس رنگ معتقدیم که توسعه این دنیای موازی و مجازی تنها با مشارکت و همفکری عمومی امکان‌پذیر است. زیرساخت‌های این جهان بر پایه‌ی واحد حدتاثیر بنا شده‌اند تا بتوانند نظرات و ایده‌های شما را به بهترین شکل در مسیر توسعه هدایت کنند. ارتباط با انجمن متاورس ایران و دانشگاه متاورس ایران از طریق این پلتفرم به راحتی امکان‌پذیر است."
           : "We at Metaverse Rang believe that the development of this parallel and virtual world is only possible with public participation and consensus. The infrastructure of this world is built on the basis of the Haddtashtir unit so that it can best guide your opinions and ideas on the path of development. Communication with the Iranian Metaverse Association and the Iranian Metaverse University is easily possible through this platform.",
       openGraph: {
         type: "website",
-        title: params.lang.toLowerCase() == "fa" ? "تماس با ما" : "Contact Us",
+        title: lang.toLowerCase() == "fa" ? "تماس با ما" : "Contact Us",
         description:
-          params.lang.toLowerCase() == "fa"
+          lang.toLowerCase() == "fa"
             ? "ما در متاورس رنگ معتقدیم که توسعه این دنیای موازی و مجازی تنها با مشارکت و همفکری عمومی امکان‌پذیر است. زیرساخت‌های این جهان بر پایه‌ی واحد حدتاثیر بنا شده‌اند تا بتوانند نظرات و ایده‌های شما را به بهترین شکل در مسیر توسعه هدایت کنند. ارتباط با انجمن متاورس ایران و دانشگاه متاورس ایران از طریق این پلتفرم به راحتی امکان‌پذیر است."
             : "We at Metaverse Rang believe that the development of this parallel and virtual world is only possible with public participation and consensus. The infrastructure of this world is built on the basis of the Haddtashtir unit so that it can best guide your opinions and ideas on the path of development. Communication with the Iranian Metaverse Association and the Iranian Metaverse University is easily possible through this platform.",
-        url: `https://metarang.com/${params.lang}/contact`,
+        url: `https://metarang.com/${lang}/contact`,
         images: [
           {
             url: "/team.jpg",
@@ -36,7 +41,7 @@ export async function generateMetadata({ params }: any) {
             alt: "تیم متاورس رنگ",
           },
         ],
-        locale: params.lang.toLowerCase() == "fa" ? "fa_IR" : "en_US",
+        locale: lang.toLowerCase() == "fa" ? "fa_IR" : "en_US",
       },
     };
   } catch (error) {
@@ -49,10 +54,12 @@ export async function generateMetadata({ params }: any) {
   }
 }
 
-export default async function AboutPage({ params }: any) {
+export default async function AboutPage({ params }: AboutPageProps) {
+    const resolvedParams = await params;
+    const { lang } = resolvedParams;
   try {
     // const langArray = await getLangArray();
-    const langData = await getTranslation(params.lang);
+    const langData = await getTranslation(lang);
     const mainData = await getMainFile(langData);
 
 
@@ -62,7 +69,7 @@ export default async function AboutPage({ params }: any) {
       name: findByUniqueId(mainData, 260),
       description:
         findByUniqueId(mainData, 1535),
-      url: `https://metarang.com/${params.lang}/contact`,
+      url: `https://metarang.com/${lang}/contact`,
 
       contentLocation: {
         "@type": "Place",
@@ -172,7 +179,7 @@ export default async function AboutPage({ params }: any) {
           >
             {/* Breadcrumb */}
             <div className="px-12">
-              <BreadCrumb params={params} />
+              <BreadCrumb params={resolvedParams} />
             </div>
             <section className="mx-auto px-3 lg:px-9">
               <h1 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[64px] mb-[16px]">
@@ -186,7 +193,7 @@ export default async function AboutPage({ params }: any) {
                 </div>
               </div>
               <div>
-                <div className="w-full mt-[60px] "> <CommunicationRoutes params={params} mainData={mainData} /></div>
+                <div className="w-full mt-[60px] "> <CommunicationRoutes params={resolvedParams} mainData={mainData} /></div>
                 <div className="text-center mx-auto text-xl md:text-2xl space-y-2 mt-7 md:my-14">
                   <p className="font-rokh font-bold dark:text-white text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px]"> {findByUniqueId(mainData, 260)}</p>
                   <p className="text-lightGray  text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] px-5"> {findByUniqueId(mainData, 1551)}</p>
@@ -196,7 +203,7 @@ export default async function AboutPage({ params }: any) {
                     <div className="flex flex-col gap-2 md:gap-7 w-full lg:w-1/2 justify-center lg:justify-start">
                       <div>
                         <p
-                          className={`${params.lang.toLowerCase() == "fa"
+                          className={`${lang.toLowerCase() == "fa"
                             ? "lg:text-right"
                             : "lg:text-left"
                             } text-darkGray dark:text-Field py-1 text-center text-sm md:text-base pb-4 md:pb-0`}
@@ -205,7 +212,7 @@ export default async function AboutPage({ params }: any) {
                         </p>
                       </div>
                       <div>
-                        <Form lang={params.lang} />
+                        <Form lang={lang} />
                       </div>
                     </div>
                     <div className="flex flex-col gap-7 w-full lg:w-1/2 justify-center lg:justify-start w-full">
@@ -219,7 +226,7 @@ export default async function AboutPage({ params }: any) {
                           referrerPolicy="no-referrer-when-downgrade"
                           className="w-full h-full rounded-xl dark:invert dark:brightness-95 dark:hue-rotate-180"
                           title={
-                            params.lang.toLowerCase() == "fa" ? "نقشه" : "map"
+                            lang.toLowerCase() == "fa" ? "نقشه" : "map"
                           }
                         ></iframe>
                       </div>

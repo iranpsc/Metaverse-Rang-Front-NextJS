@@ -41,24 +41,30 @@ interface ModalData {
   [key: string]: any; // ساختار دقیق‌تر بستگی به خروجی findByModalName داره
 }
 
+interface AboutPageProps {
+  params: Promise<{ lang: string }>;
+}
 // SEO**
-export async function generateMetadata({ params }: { params: Params }) {
+
+export async function generateMetadata({ params }:AboutPageProps) {
+      const resolvedParams = await params;
+    const { lang } = resolvedParams;
   try{
   return {
-    title: params.lang.toLowerCase() === "fa" ? "درباره ما" : "About Us",
+    title: lang.toLowerCase() === "fa" ? "درباره ما" : "About Us",
     description:
-      params.lang.toLowerCase() === "fa"
+      lang.toLowerCase() === "fa"
         ? "متارنگ با تأکید بر نوآوری و کارآفرینی، بستری را فراهم کرده است که افراد می‌توانند از طریق آن به توسعه‌ی کسب و کارها و اقتصاد بین‌المللی بپردازند."
         : "With a focus on innovation and entrepreneurship, MetaRang provides a foundation for individuals to develop businesses and contribute to the international economy.",
     openGraph: {
       type: "website",
-      url: `https://metarang.com/${params.lang}/about`,
-      title: params.lang.toLowerCase() === "fa" ? "درباره ما" : "About Us",
+      url: `https://metarang.com/${lang}/about`,
+      title: lang.toLowerCase() === "fa" ? "درباره ما" : "About Us",
       description:
-        params.lang.toLowerCase() === "fa"
+        lang.toLowerCase() === "fa"
           ? "متارنگ با تأکید بر نوآوری و کارآفرینی، بستری را فراهم کرده است که افراد می‌توانند از طریق آن به توسعه‌ی کسب و کارها و اقتصاد بین‌المللی بپردازند."
           : "With a focus on innovation and entrepreneurship, MetaRang provides a foundation for individuals to develop businesses and contribute to the international economy.",
-      locale: params.lang.toLowerCase() === "fa" ? "fa_IR" : "en_US",
+      locale: lang.toLowerCase() === "fa" ? "fa_IR" : "en_US",
       images: [
         {
           url: "/team.webp",
@@ -79,14 +85,15 @@ export async function generateMetadata({ params }: { params: Params }) {
   }
 }
 
-export default async function AboutPage({ params }: { params: Params }) {
-
+export default async function AboutPage({ params }:AboutPageProps) {
+    const resolvedParams = await params;
+    const { lang } = resolvedParams;
   try {
 
     const [levelArray, langArray, langData] = await Promise.all([
       getAllLevels() as Promise<LevelItem[]>,
       getLangArray() as Promise<string[]>,
-      getTranslation(params.lang) as Promise<any>,
+      getTranslation(lang) as Promise<any>,
     ]);
     const mainData = await getMainFile(langData);
     function convertPersianToEnglishNumber(slug: string): number {
@@ -260,7 +267,7 @@ export default async function AboutPage({ params }: { params: Params }) {
             </div>
             <div className="w-full text-center bg-white dark:bg-[#1A1A18] text-[#6A6A6A] dark:text-white rounded-[30px] p-6 py-10 leading-10 text-sm md:text-lg text-justify">
               <h2 className="dark:text-white text-black text-lg md:text-2xl font-bold font-rohk">
-                {params.lang.toLowerCase() === "fa"
+                {lang.toLowerCase() === "fa"
                   ? "تیم متاورس"
                   : "Metaverse Team"}
                 &nbsp;

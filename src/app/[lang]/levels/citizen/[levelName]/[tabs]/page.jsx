@@ -106,7 +106,6 @@ function buildBreadcrumbSchema(mainData, params) {
 export default async function LevelSinglePage({ params }) {
   try {
     const resolvedParams = await params;
-    console.log("TABS:", resolvedParams.tabs);
     const { lang } = resolvedParams;
 
     const {
@@ -122,8 +121,8 @@ export default async function LevelSinglePage({ params }) {
     if (!singleLevel?.data || !levelTabs?.data) {
       return (
         <NotFoundPage
-          lang={params.lang}
-          params={params}
+          lang={lang}
+          params={resolvedParams}
           langData={langData}
           langArray={mainData?.languages || []}
           updatedTabsMenu={mainData?.tabsMenu || []}
@@ -168,8 +167,8 @@ export default async function LevelSinglePage({ params }) {
       : levelTitle;
 
     const breadcrumbSchema = buildBreadcrumbSchema(mainData, params);
-console.log("TAB:", params.tabs);
-console.log("DATA:", levelTabs.data);
+    // console.log("TAB:", params.tabs);
+    // console.log("DATA:", levelTabs.data);
     return (
       <>
         <script
@@ -270,14 +269,14 @@ console.log("DATA:", levelTabs.data);
                   )}
                 </TabContentWrapper>
               </div>
-            
 
 
-            <div className="grid-forth flex-1 relative !mt-[-2px]">
-              <Suspense fallback={<div>image box loading ...</div>}>
-                <ImageBox item={levelTabs.data} singleLevel={singleLevel} />
-              </Suspense>
-            </div>
+
+              <div className="grid-forth flex-1 relative !mt-[-2px]">
+                <Suspense fallback={<div>image box loading ...</div>}>
+                  <ImageBox item={levelTabs.data} singleLevel={singleLevel} />
+                </Suspense>
+              </div>
             </TabLoadingProvider>
           </div>
 
@@ -400,9 +399,8 @@ export async function generateMetadata({ params }) {
       levelTabs.data.png_file ||
       singleLevel.data.general_info?.png_file;
 
-    const url = `https://metarang.com/${lang}/levels/citizen/${levelName}${
-      tabs ? `/${tabs}` : ""
-    }`;
+    const url = `https://metarang.com/${lang}/levels/citizen/${levelName}${tabs ? `/${tabs}` : ""
+      }`;
 
     return {
       title,
@@ -415,12 +413,12 @@ export async function generateMetadata({ params }) {
         url,
         images: imageUrl
           ? [
-              {
-                url: imageUrl,
-                width: 800,
-                height: 600,
-              },
-            ]
+            {
+              url: imageUrl,
+              width: 800,
+              height: 600,
+            },
+          ]
           : [],
       },
     };
