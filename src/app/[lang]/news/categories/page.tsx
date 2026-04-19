@@ -11,7 +11,7 @@ import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
 
 export async function generateMetadata({ params }: { params: { lang: string } }) {
   try {
-    const baseUrl = "https://rgb.irpsc.com";
+    const baseUrl = "https://metarang.com";
     const langPrefix = params.lang ? `/${params.lang}` : "";
     const fullPageUrl = `${baseUrl}${langPrefix}/news/categories`;
 
@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: { params: { lang: string } })
         description,
         url: fullPageUrl,
         siteName: "MetaRang",
-        images: "https://rgb.irpsc.com/_next/image?url=%2Flogo.png&w=128&q=75",
+        images: "https://metarang.com/_next/image?url=%2Flogo.png&w=128&q=75",
         locale: params.lang === "fa" ? "fa_IR" : "en_US",
         type: "website",
       },
@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: { params: { lang: string } })
         card: "summary_large_image",
         title,
         description,
-        images: "https://rgb.irpsc.com/_next/image?url=%2Flogo.png&w=128&q=75",
+        images: "https://metarang.com/_next/image?url=%2Flogo.png&w=128&q=75",
       },
     };
   } catch (error) {
@@ -91,7 +91,7 @@ news.forEach((n) => {
 });
 
 
-    const baseUrl = "https://rgb.irpsc.com";
+    const baseUrl = "https://metarang.com";
     const langPrefix = params.lang ? `/${params.lang}` : "";
     const fullPageUrl = `${baseUrl}${langPrefix}/news/categories`;
 

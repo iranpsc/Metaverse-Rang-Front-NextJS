@@ -16,17 +16,23 @@ async function makeLessCharacter(_desc: any) {
 
 const BreadCrumb = dynamic(
   () => import("@/components/shared/BreadCrumb"),
-  { ssr: false }
+
 );
 const SubcategoryComponent = dynamic(
   () => import("@/components/templates/categories/SubcategoryComponent"),
-  { ssr: false }
-);
 
-export default async function EducationSubcategory({ params }: { params: any }) {
+);
+interface EducationSubcategoryProps {
+  params: Promise<{
+    [x: string]: any; lang: string 
+}>;
+}
+export default async function EducationSubcategory({ params }:EducationSubcategoryProps) {
+       const resolvedParams = await params;
+  const { lang } = resolvedParams;
   try {
     const [langData, langArray] = await Promise.all([
-      getTranslation(params.lang),
+      getTranslation(lang),
       getLangArray(),
     ]);
 
@@ -34,13 +40,13 @@ export default async function EducationSubcategory({ params }: { params: any }) 
 
     let subCategoryData: any;
     try {
-      subCategoryData = await getSubcategoryData(params.category, params.subcategory);
+      subCategoryData = await getSubcategoryData(resolvedParams.category, resolvedParams.subcategory);
     } catch (error: any) {
       if (error.message?.startsWith("404")) {
         return (
           <NotFoundPage
-            lang={params.lang}
-            params={params}
+            lang={lang}
+            params={resolvedParams}
             langData={langData}
             langArray={langArray}
             mainData={mainData}
@@ -53,8 +59,8 @@ export default async function EducationSubcategory({ params }: { params: any }) 
     if (!subCategoryData) {
       return (
         <NotFoundPage
-          lang={params.lang}
-          params={params}
+          lang={lang}
+          params={resolvedParams}
           langData={langData}
           langArray={langArray}
           mainData={mainData}
@@ -66,17 +72,17 @@ export default async function EducationSubcategory({ params }: { params: any }) 
       "@context": "http://schema.org",
       "@type": "WebSite",
       name: `${subCategoryData.name}`,
-      url: `https://rgb.irpsc.com/${params.lang}/education/category/${decodeURIComponent(
-        params.category
-      )}/${params.subcategory}`,
+      url: `https://metarang.com/${lang}/education/category/${decodeURIComponent(
+        resolvedParams.category
+      )}/${resolvedParams.subcategory}`,
       description: await makeLessCharacter(subCategoryData.description),
       mainEntity: subCategoryData.videos.map((video: any) => ({
         "@type": "VideoObject",
         name: video.title,
         thumbnailUrl: video.image_url,
-        contentUrl: `https://rgb.irpsc.com/${params.lang}/education/category/${decodeURIComponent(
-          params.category
-        )}/${params.subcategory}/video/${video.slug}`,
+        contentUrl: `https://metarang.com/${lang}/education/category/${decodeURIComponent(
+          resolvedParams.category
+        )}/${resolvedParams.subcategory}/video/${video.slug}`,
         uploadDate: video.upload_date || "",
         publisher: {
           "@type": "Organization",
@@ -141,11 +147,13 @@ export default async function EducationSubcategory({ params }: { params: any }) 
 }
 }
 
-export async function generateMetadata({ params }: { params: any }) {
+export async function generateMetadata({ params }:EducationSubcategoryProps) {
+       const resolvedParams = await params;
+  const { lang } = resolvedParams;
   try {
-    const langData = await getTranslation(params.lang);
+    const langData = await getTranslation(lang);
     const mainData = await getMainFile(langData);
-    const subCategoryData = await getSubcategoryData(params.category, params.subcategory);
+    const subCategoryData = await getSubcategoryData(resolvedParams.category, resolvedParams.subcategory);
 
     return {
       title: findByUniqueId(mainData, 455) + " " + subCategoryData.name,
@@ -154,8 +162,8 @@ export async function generateMetadata({ params }: { params: any }) {
         type: "website",
         title: findByUniqueId(mainData, 455) + " " + subCategoryData.name,
         description: await makeLessCharacter(subCategoryData.description),
-        locale: params.lang == "fa" ? "fa_IR" : "en_US",
-        url: `https://rgb.irpsc.com/${params.lang}/education/category/${params.category}`,
+        locale: lang == "fa" ? "fa_IR" : "en_US",
+        url: `https://metarang.com/${lang}/education/category/${resolvedParams.category}`,
         images: [{ url: subCategoryData.image, width: 800, height: 400 }],
       },
     };

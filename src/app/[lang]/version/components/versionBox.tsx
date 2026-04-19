@@ -100,7 +100,7 @@ const VersionBox: React.FC<VersionBoxProps> = ({
     setLoading(true);
     try {
       const response = await fetch(
-        `https://api.rgb.irpsc.com/api/calendar?type=version&search=${encodeURIComponent(query)}`
+        `https://api.metarang.com/api/calendar?type=version&search=${encodeURIComponent(query)}`
       );
       const data = await response.json();
 
@@ -136,7 +136,7 @@ const VersionBox: React.FC<VersionBoxProps> = ({
     setLoading(true);
     try {
       const response = await fetch(
-        `https://api.rgb.irpsc.com/api/calendar?type=version&page=${page + 1}`
+        `https://api.metarang.com/api/calendar?type=version&page=${page + 1}`
       );
       const data = await response.json();
 

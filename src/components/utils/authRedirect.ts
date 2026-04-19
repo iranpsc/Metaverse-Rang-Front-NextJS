@@ -14,7 +14,7 @@ export const redirectToSSOLogin = async (pathname: string) => {
     }
 
     const urlToUse = `${window.location.origin}${pathname}`;
-    const apiUrl = `https://api.rgb.irpsc.com/api/auth/redirect?redirect_to=${encodeURIComponent(urlToUse)}${referral ? `&referral=${referral}` : ""}`;
+    const apiUrl = `https://api.metarang.com/api/auth/redirect?redirect_to=${encodeURIComponent(urlToUse)}${referral ? `&referral=${referral}` : ""}`;
 
     const res = await axios.get(apiUrl, {
       headers: {

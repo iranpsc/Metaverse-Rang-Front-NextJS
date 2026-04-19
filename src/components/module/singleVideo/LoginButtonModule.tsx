@@ -26,7 +26,7 @@ export default function LoginButtonModule({ params }: { params: any }) {
 
       const urlToUse = `${window.location.origin}${pathname.toString()}`;
       const res = await axios.get(
-        `https://api.rgb.irpsc.com/api/auth/redirect?redirect_to=${urlToUse}&referral=${referral}`,
+        `https://api.metarang.com/api/auth/redirect?redirect_to=${urlToUse}&referral=${referral}`,
         {
           headers: {
             "Content-Type": "application/json",

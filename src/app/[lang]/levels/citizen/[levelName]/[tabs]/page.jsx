@@ -46,6 +46,7 @@ const STATIC_ROUTE_NAMES = [
 ];
 
 async function fetchData(params) {
+  const { lang } = params;
   const levelMeta = STATIC_ROUTE_NAMES.find(x => x.route_name === params.levelName);
   const levelId = levelMeta?.id;
   const levelUniqueId = levelMeta?.unique_id;
@@ -64,11 +65,11 @@ async function fetchData(params) {
     levelTabs,
     mainData,
   ] = await Promise.all([
-    getTranslation(params.lang),
+    getTranslation(lang),
     getFooterData(params),
     getSingleLevel(levelId),
     getLevelTabs(params, levelId),
-    getMainFile(await getTranslation(params.lang)),
+    getMainFile(await getTranslation(lang)),
   ]);
 
   return {
@@ -86,7 +87,7 @@ function getLevelTitle(concatArrayContent, uniqueId) {
 }
 
 function buildBreadcrumbSchema(mainData, params) {
-  const baseUrl = `https://rgb.irpsc.com/${params.lang}/levels/citizen/${params.levelName}`;
+  const baseUrl = `https://metarang.com/${params.lang}/levels/citizen/${params.levelName}`;
   const ids = [387, 388, 389, 390, 391];
   const urls = ['general-info', 'licenses', 'gem', 'gift', 'prize'];
 
@@ -104,6 +105,10 @@ function buildBreadcrumbSchema(mainData, params) {
 
 export default async function LevelSinglePage({ params }) {
   try {
+    const resolvedParams = await params;
+    console.log("TABS:", resolvedParams.tabs);
+    const { lang } = resolvedParams;
+
     const {
       langData,
       footerTabs,
@@ -111,7 +116,7 @@ export default async function LevelSinglePage({ params }) {
       levelTabs,
       mainData,
       levelUniqueId
-    } = await fetchData(params);
+    } = await fetchData(resolvedParams);
 
     // اگر داده‌ها ناقص بودند، صفحه 404 نمایش داده شود
     if (!singleLevel?.data || !levelTabs?.data) {
@@ -163,7 +168,8 @@ export default async function LevelSinglePage({ params }) {
       : levelTitle;
 
     const breadcrumbSchema = buildBreadcrumbSchema(mainData, params);
-
+console.log("TAB:", params.tabs);
+console.log("DATA:", levelTabs.data);
     return (
       <>
         <script
@@ -192,7 +198,7 @@ export default async function LevelSinglePage({ params }) {
         </Head>
 
         <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-3 w-full font-azarMehr ">
-          <BreadCrumb params={params} />
+          <BreadCrumb params={resolvedParams} />
 
           <div className="grid-container gap-x-7 bg-white dark:bg-[#080807] rounded-[20px] p-5 3xl:p-[30px] relative">
             <div className="self-start md:order-none w-full md:min-w-[65vw] xl:min-w-[65vw] flex items-center justify-between font-bold pt-[3px] pb-5 dark:text-white text-lg sm:text-xl lg:text-2xl 2xl:text-3xl 3xl:text-4xl">
@@ -206,7 +212,7 @@ export default async function LevelSinglePage({ params }) {
               {/* Tabs (ثابت – بدون Skeleton) */}
               <div className="grid-second overflow-hidden mb-5 self-start w-full md:min-w-[65vw] xl:min-w-[65vw]">
                 <TabSelector
-                  params={params}
+                  params={resolvedParams}
                   mainData={mainData}
                 />
               </div>
@@ -219,7 +225,7 @@ export default async function LevelSinglePage({ params }) {
                       mainData={mainData}
                       levelTabs={levelTabs}
                       singleLevel={singleLevel}
-                      params={params}
+                      params={resolvedParams}
                       concatArrayContent={concatArrayContent}
                     />
                   )}
@@ -229,7 +235,7 @@ export default async function LevelSinglePage({ params }) {
                       mainData={mainData}
                       levelTabs={levelTabs}
                       singleLevel={singleLevel}
-                      params={params}
+                      params={resolvedParams}
                       concatArrayContent={concatArrayContent}
                     />
                   )}
@@ -239,7 +245,7 @@ export default async function LevelSinglePage({ params }) {
                       mainData={mainData}
                       levelTabs={levelTabs}
                       singleLevel={singleLevel}
-                      params={params}
+                      params={resolvedParams}
                       concatArrayContent={concatArrayContent}
                     />
                   )}
@@ -249,7 +255,7 @@ export default async function LevelSinglePage({ params }) {
                       mainData={mainData}
                       levelTabs={levelTabs}
                       singleLevel={singleLevel}
-                      params={params}
+                      params={resolvedParams}
                     />
                   )}
 
@@ -258,7 +264,7 @@ export default async function LevelSinglePage({ params }) {
                       mainData={mainData}
                       levelTabs={levelTabs}
                       singleLevel={singleLevel}
-                      params={params}
+                      params={resolvedParams}
                       concatArrayContent={concatArrayContent}
                     />
                   )}
@@ -275,11 +281,11 @@ export default async function LevelSinglePage({ params }) {
             </TabLoadingProvider>
           </div>
 
-          <Features mainData={mainData} params={params} />
+          <Features mainData={mainData} params={resolvedParams} />
         </div>
 
         <div className="flex flex-col justify-center items-center xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
-          <DynamicFooter footerTabs={footerTabs} mainData={mainData} params={params} />
+          <DynamicFooter footerTabs={footerTabs} mainData={mainData} params={resolvedParams} />
         </div>
       </>
     );
@@ -300,7 +306,11 @@ export default async function LevelSinglePage({ params }) {
 }
 export async function generateMetadata({ params }) {
   try {
-    const staticRouteNames = [
+    // ✅ الگوی استاندارد پروژه
+    const resolvedParams = await params;
+    const { lang, levelName, tabs } = resolvedParams;
+
+    const STATIC_ROUTE_NAMES = [
       { id: 1, unique_id: 382, route_name: "citizen-baguette" },
       { id: 2, unique_id: 383, route_name: "reporter-baguette" },
       { id: 3, unique_id: 589, route_name: "participation-baguette" },
@@ -316,72 +326,110 @@ export async function generateMetadata({ params }) {
       { id: 13, unique_id: 77, route_name: "legislator-baguette" },
     ];
 
-    const levelMeta = staticRouteNames.find(x => x.route_name === params.levelName);
-    const levelId = levelMeta?.id;
-    const levelUniqueId = levelMeta?.unique_id;
+    const levelMeta = STATIC_ROUTE_NAMES.find(
+      (x) => x.route_name === levelName
+    );
 
-    const [singleLevel, levelTabs, langData] = await Promise.all([
-      getSingleLevel(levelId),
-      getLevelTabs(params, levelId),
-      getTranslation(params.lang),
-    ]);
-
-    const mainData = await getMainFile(langData);
-
-    function makeLessCharacter(desc) {
-      return desc ? desc.slice(0, 200) : "";
-    }
-
-    // اگر داده‌ها موجود نبودند، متادیتای پیش‌فرض 404 برگردون
-    if (!singleLevel?.data || !levelTabs?.data) {
+    if (!levelMeta) {
       return {
-        title: "خطایی رخ داده است صفحه یافت نشد",
+        title: "صفحه یافت نشد",
         description: "",
-        openGraph: {
-          type: 'website',
-          title: " خطایی رخ داده است صفحه یافت نشد",
-          description: "",
-          locale: params.lang === 'fa' ? 'fa_IR' : 'en_US',
-          url: `https://rgb.irpsc.com/${params.lang}/levels/citizen${params.levelName ? "/" + params.levelName : ""}${params.tabs ? "/" + params.tabs : ""}`,
-          images: [],
-        },
       };
     }
+
+    const levelId = levelMeta.id;
+    const levelUniqueId = levelMeta.unique_id;
+
+    const [langData, singleLevel, levelTabs] = await Promise.all([
+      getTranslation(lang),
+      getSingleLevel(levelId),
+      getLevelTabs(resolvedParams, levelId),
+    ]);
+
+    if (!singleLevel?.data || !levelTabs?.data) {
+      return {
+        title: "صفحه یافت نشد",
+        description: "",
+      };
+    }
+
+    const mainData = await getMainFile(langData);
 
     const levels = await findByModalName(mainData, "levels");
     const [levelPageArrayContent, levelListArrayContent] = await Promise.all([
       findByTabName(levels, "levels-page"),
       findByTabName(levels, "level-list"),
     ]);
-    const concatArrayContent = [...levelPageArrayContent, ...levelListArrayContent];
 
-    const pageTitle = concatArrayContent.find(item => Number(item.unique_id) === Number(levelUniqueId))?.translation || "";
+    const concatArrayContent = [
+      ...levelPageArrayContent,
+      ...levelListArrayContent,
+    ];
+
+    const levelTitle =
+      concatArrayContent.find(
+        (item) =>
+          Number(item.unique_id) === Number(levelUniqueId)
+      )?.translation || "";
+
+    const TAB_TITLE_MAP = {
+      "general-info": 387,
+      "licenses": 388,
+      "gem": 389,
+      "gift": 390,
+      "prize": 391,
+    };
+
+    const tabUniqueId = TAB_TITLE_MAP[tabs];
+    const tabTitle = tabUniqueId
+      ? findByUniqueId(mainData, tabUniqueId)
+      : "";
+
+    const title = tabTitle
+      ? `${tabTitle} ${levelTitle}`
+      : levelTitle;
+
+    const description =
+      levelTabs.data.description ||
+      singleLevel.data.general_info?.description ||
+      "";
+
+    const shortDescription = description.slice(0, 200);
+
+    const imageUrl =
+      levelTabs.data.png_file ||
+      singleLevel.data.general_info?.png_file;
+
+    const url = `https://metarang.com/${lang}/levels/citizen/${levelName}${
+      tabs ? `/${tabs}` : ""
+    }`;
 
     return {
-      title: pageTitle,
-      description: makeLessCharacter(levelTabs.data.description || singleLevel.data.general_info.description),
+      title,
+      description: shortDescription,
       openGraph: {
-        type: 'website',
-        title: pageTitle,
-        description: makeLessCharacter(levelTabs.data.description || singleLevel.data.general_info.description),
-        locale: params.lang === 'fa' ? 'fa_IR' : 'en_US',
-        url: `https://rgb.irpsc.com/${params.lang}/levels/citizen${params.levelName ? "/" + params.levelName : ""}${params.tabs ? "/" + params.tabs : ""}`,
-        images: [
-          {
-            url: levelTabs.data.png_file || singleLevel.data.general_info.png_file,
-            width: 800,
-            height: 600,
-          },
-        ],
+        type: "website",
+        title,
+        description: shortDescription,
+        locale: lang === "fa" ? "fa_IR" : "en_US",
+        url,
+        images: imageUrl
+          ? [
+              {
+                url: imageUrl,
+                width: 800,
+                height: 600,
+              },
+            ]
+          : [],
       },
     };
-  }
-  catch (error) {
-    console.error("❌ Metadata error (LevelsPage):", error);
+  } catch (error) {
+    console.error("❌ Metadata error (LevelSinglePage):", error);
 
     return {
       title: "سطوح متاورس رنگ",
-      description: "مشکلی در بارگذاری داده ها رخ است",
+      description: "مشکلی در بارگذاری اطلاعات صفحه رخ داده است",
     };
   }
 }

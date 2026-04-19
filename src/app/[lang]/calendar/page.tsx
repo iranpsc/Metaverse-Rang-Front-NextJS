@@ -112,7 +112,7 @@ export async function generateMetadata({ params }: { params: any }): Promise<Met
       ...(token && { Authorization: `Bearer ${token}` }),
     };
 
-    const res = await fetch("https://api.rgb.irpsc.com/api/calendar?type=event", {
+    const res = await fetch("https://api.metarang.com/api/calendar?type=event", {
       method: "GET",
       headers,
       next: { revalidate: 0 }, // کش برای ۱ دقیقه
@@ -129,12 +129,12 @@ export async function generateMetadata({ params }: { params: any }): Promise<Met
       openGraph: {
         title: findByUniqueId(mainData, 1463),
         description: findByUniqueId(mainData, 1464),
-        url: `https://rgb.irpsc.com/${params.lang}/calendar`,
+        url: `https://metarang.com/${params.lang}/calendar`,
         type: "website",
         locale: params.lang === "fa" ? "fa_IR" : "en_US",
         images: [
           {
-            url: Events.length > 0 ? Events[0]?.image || "https://rgb.irpsc.com/default-image.jpg" : "https://rgb.irpsc.com/default-image.jpg",
+            url: Events.length > 0 ? Events[0]?.image || "https://metarang.com/default-image.jpg" : "https://metarang.com/default-image.jpg",
             width: 1200,
             height: 630,
             alt: "تصویر اولین رویداد",
@@ -146,13 +146,13 @@ export async function generateMetadata({ params }: { params: any }): Promise<Met
         title: findByUniqueId(mainData, 1463),
         description: findByUniqueId(mainData, 1464),
         images: [
-          Events.length > 0 ? Events[0]?.image || "https://rgb.irpsc.com/default-image.jpg" : "https://rgb.irpsc.com/default-image.jpg",
+          Events.length > 0 ? Events[0]?.image || "https://metarang.com/default-image.jpg" : "https://metarang.com/default-image.jpg",
         ],
       },
       alternates: {
         languages: {
-          "fa-IR": `https://rgb.irpsc.com/fa/calendar`,
-          "en-US": `https://rgb.irpsc.com/en/calendar`,
+          "fa-IR": `https://metarang.com/fa/calendar`,
+          "en-US": `https://metarang.com/en/calendar`,
         },
       },
     };
@@ -173,13 +173,13 @@ function buildEventSchema(events: MappedEventItem[], paramsLang: string) {
     "@type": "Event",
     name: "تقویم رویدادهای متاورس رنگ",
     description: "مشاهده جدیدترین رویدادها و برنامه‌های متاورس رنگ در تقویم ما.",
-    image: events.length > 0 ? events[0].image || "https://rgb.irpsc.com/default-image.jpg" : "https://rgb.irpsc.com/default-image.jpg",
+    image: events.length > 0 ? events[0].image || "https://metarang.com/default-image.jpg" : "https://metarang.com/default-image.jpg",
     eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
     eventStatus: "https://schema.org/EventScheduled",
     organizer: {
       "@type": "Organization",
       name: "متاورس رنگ",
-      url: "https://rgb.irpsc.com",
+      url: "https://metarang.com",
     },
     subEvents: events.map(event => ({
       "@type": "Event",
@@ -187,18 +187,18 @@ function buildEventSchema(events: MappedEventItem[], paramsLang: string) {
       startDate: toISODate(event.start),
       endDate: toISODate(event.end),
       description: cleanDescription(event.desc, 160),
-      image: event.image || "https://rgb.irpsc.com/default-image.jpg",
-      url: event.link || `https://rgb.irpsc.com/${paramsLang}/calendar/${event.id}`,
+      image: event.image || "https://metarang.com/default-image.jpg",
+      url: event.link || `https://metarang.com/${paramsLang}/calendar/${event.id}`,
       location: {
         "@type": "Place",
         name: cleanDescription(event.title) || "Metaverse Rang",
-        url: event.link || `https://rgb.irpsc.com/${paramsLang}/calendar/${event.id}`
+        url: event.link || `https://metarang.com/${paramsLang}/calendar/${event.id}`
       },
       offers: event.btnName ? {
         "@type": "Offer",
         price: "0",
         priceCurrency: "IRR",
-        url: event.link || `https://rgb.irpsc.com/${paramsLang}/calendar/${event.id}`,
+        url: event.link || `https://metarang.com/${paramsLang}/calendar/${event.id}`,
         availability: "https://schema.org/InStock",
         validFrom: new Date().toISOString()
       } : undefined
@@ -225,7 +225,7 @@ export default async function CalendarPage({ params }: { params: { lang: string 
       ...(token && { Authorization: `Bearer ${token}` }),
     };
 
-    const res = await fetch("https://api.rgb.irpsc.com/api/calendar?type=event", {
+    const res = await fetch("https://api.metarang.com/api/calendar?type=event", {
       method: "GET",
       headers,
       next: { revalidate: 60 },

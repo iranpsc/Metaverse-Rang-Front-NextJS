@@ -19,7 +19,7 @@ interface NewsCategoryPageProps {
 export async function generateMetadata({ params }: NewsCategoryPageProps) {
   try {
     const categorySlug = decodeURIComponent(params.category);
-    const siteUrl = "https://rgb.irpsc.com";
+    const siteUrl = "https://metarang.com";
 
     const { data } = await supabase
       .from("news")
@@ -111,7 +111,7 @@ export default async function NewsCategoryPage({ params }: NewsCategoryPageProps
       (sum, n) => sum + (n.stats?.views ?? 0),
       0
     );
-    const baseUrl = "https://rgb.irpsc.com";
+    const baseUrl = "https://metarang.com";
 const categoryUrl = `${baseUrl}/${params.lang}/news/categories/${categorySlug}`;
 
 const jsonLd = {

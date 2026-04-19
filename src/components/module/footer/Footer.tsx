@@ -144,7 +144,7 @@ function Footer({ footerTabs, mainData ,params}: any) {
     async function fetchVersion() {
       try {
         const res = await fetch(
-          "https://api.rgb.irpsc.com/api/calendar?type=version&page=1",
+          "https://api.metarang.com/api/calendar?type=version&page=1",
           { cache: "no-store" }
         );
         if (!res.ok) throw new Error("API error");

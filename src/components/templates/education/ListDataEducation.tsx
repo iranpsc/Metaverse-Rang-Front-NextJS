@@ -94,7 +94,7 @@ export default function ListDataEducation({ data }: any) {
 
             <div className="w-[95%] pb-2 flex flex-row justify-between  items-center">
               <Link
-                href={`https://rgb.irpsc.com/${safeLang}/citizen/${item.creator.code}`}
+                href={`https://metarang.com/${safeLang}/citizen/${item.creator.code}`}
                 target="_blank"
               >
                 <div className="flex flex-row justify-start items-center gap-2">

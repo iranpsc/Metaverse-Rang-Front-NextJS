@@ -32,7 +32,7 @@ export default function BreadCrumb({ params, eventTitle, title, articleCat }: { 
     const fetchUserData = async () => {
       try {
         const response = await axios.get(
-          `https://api.rgb.irpsc.com/api/citizen/${params.id}`,
+          `https://api.metarang.com/api/citizen/${params.id}`,
           {
             headers: {
               "Content-Type": "application/json",

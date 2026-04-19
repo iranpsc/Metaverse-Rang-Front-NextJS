@@ -18,7 +18,7 @@ export default function InviteBox({
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [copied, setCopied] = useState(false);
   const [inviteLink, setInviteLink] = useState(
-    `rgb.irpsc.com/${params.lang}/citizens/${params.id}/referral`
+    `metarang.com/${params.lang}/citizens/${params.id}/referral`
   );
 
   // function localFind(_name: any): string {
@@ -35,7 +35,7 @@ export default function InviteBox({
   // }
 
   const handleShare = (platform: any) => {
-    const urlToShare = `https://rgb.irpsc.com/${params.lang}/citizen/${params.id}`;
+    const urlToShare = `https://metarang.com/${params.lang}/citizen/${params.id}`;
     let shareUrl = "";
 
     switch (platform) {
@@ -79,7 +79,7 @@ export default function InviteBox({
       navigator.clipboard
         .writeText(
           fullUrl ||
-            `https://rgb.irpsc.com/${params.lang}/citizens/${params.id}/referral`
+            `https://metarang.com/${params.lang}/citizens/${params.id}/referral`
         )
         .then(() => {
           setCopied(true); // Update button text to "Copied"

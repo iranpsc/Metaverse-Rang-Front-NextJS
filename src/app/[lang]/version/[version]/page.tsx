@@ -47,7 +47,7 @@ export async function generateMetadata({ params }: { params: any }): Promise<Met
   try {
     const { lang, version } = params;
 
-    const apiUrl = "https://api.rgb.irpsc.com/api/calendar?type=version&page=1";
+    const apiUrl = "https://api.metarang.com/api/calendar?type=version&page=1";
 
     const localeMap: Record<string, string> = {
       fa: "fa_IR",
@@ -73,7 +73,7 @@ export async function generateMetadata({ params }: { params: any }): Promise<Met
           title: item.title,
           description: truncateText(stripHtmlTags(item.description), 200),
           version: item.version_title,
-          image: item.image_url || `https://rgb.irpsc.com/_next/image?url=%2Flogo.png&w=120&q=75`,
+          image: item.image_url || `https://metarang.com/_next/image?url=%2Flogo.png&w=120&q=75`,
         }))
         : [];
 
@@ -92,7 +92,7 @@ export async function generateMetadata({ params }: { params: any }): Promise<Met
       const title = `${currentVersion.title} - نسخه ${currentVersion.version}`;
       const description = currentVersion.description;
 
-      const siteUrl = process.env.SITE_URL || "https://rgb.irpsc.com";
+      const siteUrl = process.env.SITE_URL || "https://metarang.com";
       const pageUrl = `${siteUrl}/${lang}/version/${encodeURIComponent(version)}`;
       const image = currentVersion.image;
 
@@ -162,7 +162,7 @@ export default async function VersionPage({ params }: { params: any }) {
     let versions: any = [];
     try {
       const response = await fetch(
-        "https://api.rgb.irpsc.com/api/calendar?type=version&page=1",
+        "https://api.metarang.com/api/calendar?type=version&page=1",
         {
           method: "GET",
           headers: {
@@ -205,7 +205,7 @@ export default async function VersionPage({ params }: { params: any }) {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": findByUniqueId(mainData, 256) || "نام نرم‌افزار یا پروژه",
-      "url": `https://rgb.irpsc.com/${params.lang}/version/${encodeURIComponent(params.version || '')}`,
+      "url": `https://metarang.com/${params.lang}/version/${encodeURIComponent(params.version || '')}`,
       "description": versions.length > 0
         ? stripHtmlTags(
           versions.find((v: VersionItem) => v.version === params.version)?.description || "صفحه نسخه‌های نرم‌افزار"
@@ -228,8 +228,8 @@ export default async function VersionPage({ params }: { params: any }) {
 
       })),
       "image": versions.length > 0
-        ? versions.find((v: VersionItem) => v.version === params.version)?.image || "https://rgb.irpsc.com/_next/image?url=%2Flogo.png&w=120&q=75"
-        : "https://rgb.irpsc.com/_next/image?url=%2Flogo.png&w=120&q=75",
+        ? versions.find((v: VersionItem) => v.version === params.version)?.image || "https://metarang.com/_next/image?url=%2Flogo.png&w=120&q=75"
+        : "https://metarang.com/_next/image?url=%2Flogo.png&w=120&q=75",
       "applicationCategory": "GameApplication",
       "aggregateRating": {
         "@type": "AggregateRating",

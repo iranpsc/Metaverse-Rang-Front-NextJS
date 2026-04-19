@@ -30,8 +30,8 @@ type Category = {
   slug: string;
 };
 
-const baseUrl = "https://rgb.irpsc.com";
-const imageUrl = "https://rgb.irpsc.com/_next/image?url=%2Flogo.png&w=128&q=75";
+const baseUrl = "https://metarang.com";
+const imageUrl = "https://metarang.com/_next/image?url=%2Flogo.png&w=128&q=75";
 
 // Metadata ...
 export async function generateMetadata({ params }: { params: any }) {

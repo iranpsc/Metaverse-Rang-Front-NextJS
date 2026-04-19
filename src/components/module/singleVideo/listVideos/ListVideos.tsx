@@ -92,7 +92,7 @@ const VideoCard = memo(
         </p>
 
         <div className="w-[95%] pb-2 flex flex-row justify-between items-center">
-          <Link href={`https://rgb.irpsc.com/${params.lang}/citizen/${item.creator.code}`} target="_blank">
+          <Link href={`https://metarang.com/${params.lang}/citizen/${item.creator.code}`} target="_blank">
             <div className="flex flex-row justify-start items-center gap-2">
               <Image
                 src={item.creator.image || "/placeholder.png"}

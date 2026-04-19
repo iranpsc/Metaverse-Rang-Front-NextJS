@@ -172,9 +172,9 @@ const EventList: React.FC<CalendarFilterProps> = ({
     const ogTags = [
       { property: "og:title", content: event.title },
       { property: "og:description", content: description },
-      { property: "og:url", content: `https://rgb.irpsc.com/${params.lang}/calendar/${event.id}` },
+      { property: "og:url", content: `https://metarang.com/${params.lang}/calendar/${event.id}` },
       { property: "og:type", content: "website" },
-      { property: "og:image", content: event.image || "https://rgb.irpsc.com/default-image.jpg" },
+      { property: "og:image", content: event.image || "https://metarang.com/default-image.jpg" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
       { property: "og:image:alt", content: event.title },
@@ -196,7 +196,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: event.title },
       { name: "twitter:description", content: description },
-      { name: "twitter:image", content: event.image || "https://rgb.irpsc.com/default-image.jpg" },
+      { name: "twitter:image", content: event.image || "https://metarang.com/default-image.jpg" },
     ];
 
     twitterTags.forEach(({ name, content }) => {
@@ -261,7 +261,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
       try {
         const nextPage = currentPage + 1;
         const res = await fetch(
-          `https://api.rgb.irpsc.com/api/calendar?page=${nextPage}`
+          `https://api.metarang.com/api/calendar?page=${nextPage}`
         );
         const data = await res.json();
 
@@ -383,7 +383,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
 
     try {
       const response = await fetch(
-        `https://api.rgb.irpsc.com/api/calendar/events/${eventId}/interact`,
+        `https://api.metarang.com/api/calendar/events/${eventId}/interact`,
         {
           method: "POST",
           headers: {
@@ -424,7 +424,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
 
     try {
       const response = await fetch(
-        `https://api.rgb.irpsc.com/api/calendar/events/${eventId}/interact`,
+        `https://api.metarang.com/api/calendar/events/${eventId}/interact`,
         {
           method: "POST",
           headers: {

@@ -40,11 +40,11 @@ export async function generateMetadata({
       description:
         "اینجا مجموعه‌ای از شناسه‌های رند و کمیاب قرار گرفته که به دلیل سادگی و ارزش بالای عددی، انتخابی متفاوت نسبت به شناسه‌های معمولی محسوب می‌شوند. هر شناسه با جزئیات دقیق نمایش داده شده تا بتوانید بدون دردسر مناسب‌ترین گزینه را انتخاب و خریداری کنید.",
       alternates: {
-        canonical: `https://rgb.irpsc.com/${lang}/citizen/rand-is/hm`,
+        canonical: `https://metarang.com/${lang}/citizen/rand-is/hm`,
         languages: {
-          "fa-IR": "https://rgb.irpsc.com/fa/citizen/rand-is/hm",
-          "en-US": "https://rgb.irpsc.com/en/citizen/rand-is/hm",
-          "x-default": "https://rgb.irpsc.com/fa/citizen/rand-is/hm",
+          "fa-IR": "https://metarang.com/fa/citizen/rand-is/hm",
+          "en-US": "https://metarang.com/en/citizen/rand-is/hm",
+          "x-default": "https://metarang.com/fa/citizen/rand-is/hm",
         },
       },
       openGraph: {
@@ -52,7 +52,7 @@ export async function generateMetadata({
         title: findByUniqueId(mainData, 593),
         description: findByUniqueId(mainData, 1527),
         locale: lang === "fa" ? "fa_IR" : "en_US",
-        url: `https://rgb.irpsc.com/${lang}/citizen/rand-is/hm`,
+        url: `https://metarang.com/${lang}/citizen/rand-is/hm`,
         images: [
           {
             url: "/logo.png",

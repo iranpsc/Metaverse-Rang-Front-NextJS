@@ -926,7 +926,7 @@ export const imageSources = [
   },
   {
     url: "https://irpsc.com/img-icon/rgb.gif",
-    target: "https://rgb.irpsc.com/",
+    target: "https://metarang.com/",
     translate: "metaverse color",
   },
   {

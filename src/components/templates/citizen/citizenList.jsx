@@ -52,7 +52,7 @@ export default function CitizenList({
       // Increment page AFTER fetching data to avoid incorrect pagination
       const nextPage = currentPage + 1;
 
-      const res = await axios.get(`https://api.rgb.irpsc.com/api/users?page=${nextPage}`);
+      const res = await axios.get(`https://api.metarang.com/api/users?page=${nextPage}`);
 
       setLastPage(res.data.meta.to);
 

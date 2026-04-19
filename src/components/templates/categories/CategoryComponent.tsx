@@ -34,7 +34,7 @@ const CategoryComponent = ({ CategoryData, mainData, params }: any) => {
       setPage(nextPage);
 
       const res = await axios.get(
-        `https://api.rgb.irpsc.com/api/tutorials?page=${nextPage}`
+        `https://api.metarang.com/api/tutorials?page=${nextPage}`
       );
 
       const newSubcategories = res.data.data || [];

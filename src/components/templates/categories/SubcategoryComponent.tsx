@@ -31,7 +31,7 @@ export default function SubcategoryComponent({ subCategoryData, params, mainData
       setLoading(true);
       try {
         const res = await axios.get(
-          `https://api.rgb.irpsc.com/api/tutorials/${subCategoryData.slug}?page=${page}`
+          `https://api.metarang.com/api/tutorials/${subCategoryData.slug}?page=${page}`
         );
         const newVideos = res.data.videos || res.data.data || [];
 

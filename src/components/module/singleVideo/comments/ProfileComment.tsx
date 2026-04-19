@@ -43,7 +43,7 @@ const ProfileComment = ({
             )} */}
             {findByUniqueId(mainData, 563)}
             {" : "}
-            <Link className="text-blueLink dark:text-blue-500" href={`https://rgb.irpsc.com/${params.lang}/citizen/${itemComment.user.code}`}> {checkData(itemComment.user.code)} </Link>
+            <Link className="text-blueLink dark:text-blue-500" href={`https://metarang.com/${params.lang}/citizen/${itemComment.user.code}`}> {checkData(itemComment.user.code)} </Link>
           </span>
         </div>
       </div>

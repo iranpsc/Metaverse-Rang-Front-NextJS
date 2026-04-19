@@ -73,7 +73,7 @@ function cleanDescription(html, limit = 255){
     };
   }
 
-  const canonicalUrl = `https://rgb.irpsc.com/${lang}/articles/categories/${article.categorySlug}/${article.slug}`;
+  const canonicalUrl = `https://metarang.com/${lang}/articles/categories/${article.categorySlug}/${article.slug}`;
 
   return {
     title: article.title,
@@ -247,14 +247,14 @@ function cleanDescription(html, limit = 100){
       datePublished: article.date,
       mainEntityOfPage: {
         "@type": "WebPage",
-        "@id": `https://rgb.irpsc.com/${lang}/articles/categories/${category}/${slug}`,
+        "@id": `https://metarang.com/${lang}/articles/categories/${category}/${slug}`,
       },
       publisher: {
         "@type": "Organization",
         name: "متاورس رنگ",
         logo: {
           "@type": "ImageObject",
-          url: "https://rgb.irpsc.com/logo.png",
+          url: "https://metarang.com/logo.png",
         },
       },
     };

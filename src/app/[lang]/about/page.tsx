@@ -52,7 +52,7 @@ export async function generateMetadata({ params }: { params: Params }) {
         : "With a focus on innovation and entrepreneurship, MetaRang provides a foundation for individuals to develop businesses and contribute to the international economy.",
     openGraph: {
       type: "website",
-      url: `https://rgb.irpsc.com/${params.lang}/about`,
+      url: `https://metarang.com/${params.lang}/about`,
       title: params.lang.toLowerCase() === "fa" ? "درباره ما" : "About Us",
       description:
         params.lang.toLowerCase() === "fa"
@@ -142,12 +142,12 @@ export default async function AboutPage({ params }: { params: Params }) {
       about: {
         "@type": "Thing",
         sameAs: "https://www.instagram.com/rgb.irpsc",
-        url: "https://rgb.irpsc.com/fa/about",
-        image: "https://rgb.irpsc.com/logo.png",
+        url: "https://metarang.com/fa/about",
+        image: "https://metarang.com/logo.png",
         additionalType: "https://schema.org/WebPage",
         name: 'متاورس رنگ - متارنگ"',
-        identifier: "https://rgb.irpsc.com/about",
-        mainEntityOfPage: "https://rgb.irpsc.com/fa/about",
+        identifier: "https://metarang.com/about",
+        mainEntityOfPage: "https://metarang.com/fa/about",
         disambiguatingDescription: "صفحه‌ای برای معرفی متاورس رنگ و ماموریت آن",
         description: findByUniqueId(mainData, 1557),
         alternateName: "Metaverse Rang - MetaRang About Page",

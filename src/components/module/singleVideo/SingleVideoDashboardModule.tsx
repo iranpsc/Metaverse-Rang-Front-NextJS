@@ -46,7 +46,7 @@ const SingleVideoDashboardModule = ({
     try {
       const token = cookies.auth.split("&")[0].replace("token=", "");
       const response = await axios.post(
-        `https://api.rgb.irpsc.com/api/tutorials/${DataVideo.id}/interactions?liked=${isLike ? 1 : 0}`,
+        `https://api.metarang.com/api/tutorials/${DataVideo.id}/interactions?liked=${isLike ? 1 : 0}`,
         { data: " " },
         {
           headers: {

@@ -29,7 +29,7 @@ const NewEducationSectionTemp = ({
 
     try {
       const resVideos = await axios.get(
-        `https://api.rgb.irpsc.com/api/tutorials?page=${nextPage}`
+        `https://api.metarang.com/api/tutorials?page=${nextPage}`
       );
 
       console.log("📦 Full API response:", resVideos); // ← لاگ کل ریسپانس

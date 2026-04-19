@@ -39,7 +39,7 @@ const SingleVideoDetailsModule = ({
           content: comment,
         };
         const response = await axios.post(
-          `https://api.rgb.irpsc.com/api/tutorials/${videoId}/comments`,
+          `https://api.metarang.com/api/tutorials/${videoId}/comments`,
           requestData,
           {
             headers: {

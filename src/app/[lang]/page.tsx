@@ -39,18 +39,18 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     const descriptionRaw = findByUniqueId(mainData, 482) || "";
     const description = descriptionRaw.slice(0, 160); // متا دیسکریپشن بهتر زیر ۱۶۰ کاراکتر
 
-    const canonical = `https://rgb.irpsc.com/${lang}`;
+    const canonical = `https://metarang.com/${lang}`;
 
     return {
       title,
       description,
-      metadataBase: new URL('https://rgb.irpsc.com'),
+      metadataBase: new URL('https://metarang.com'),
       alternates: {
         canonical,
         languages: {
-          'fa-IR': 'https://rgb.irpsc.com/fa',
-          'en-US': 'https://rgb.irpsc.com/en',
-          'x-default': 'https://rgb.irpsc.com/fa', // fa به عنوان پیش‌فرض
+          'fa-IR': 'https://metarang.com/fa',
+          'en-US': 'https://metarang.com/en',
+          'x-default': 'https://metarang.com/fa', // fa به عنوان پیش‌فرض
         },
       },
       openGraph: {
@@ -138,11 +138,11 @@ const viewportWidth = headersList.get('viewport-width');   // حالا امن ا
       "addressRegion": "استان قزوین",
       "addressLocality": "قزوین"
     },
-    "image": 'https://rgb.irpsc.com/logo.png',
+    "image": 'https://metarang.com/logo.png',
     "telephone": "09120820120",
-    "url": `https://rgb.irpsc.com/${lang}`,
-    "logo": `https://rgb.irpsc.com/logo.png`,
-    "email": "info@rgb.irpsc.com",
+    "url": `https://metarang.com/${lang}`,
+    "logo": `https://metarang.com/logo.png`,
+    "email": "info@metarang.com",
     "description": await makeLessCharacter(),
     "alternateName": "MetaRGB"
   };

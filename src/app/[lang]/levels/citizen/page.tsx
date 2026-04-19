@@ -1,3 +1,5 @@
+// app/[lang]/levels/citizen/page.tsx
+
 import {
   getAllLevels,
   getFooterData,
@@ -7,61 +9,59 @@ import {
   findByTabName,
   getLangArray,
 } from "@/components/utils/actions";
+
 import DynamicFooter from "@/components/module/footer/DynamicFooter";
 import LevelsClient from "@/components/module/levelComponent/LevelsClient";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import { getStaticMenu } from "@/components/utils/constants";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import CustomErrorPage from "@/components/shared/CustomErrorPage";
-import CleanAutoRetryParam  from "@/components/shared/CleanAutoRetryParam";
-// SEO**
-export async function generateMetadata({ params }: any) {
-   try {
-  const levelArray = await getAllLevels();
+import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
 
-  const langData = await getTranslation(params.lang);
-  const mainData = await getMainFile(langData);
+/* -------------------------------------------------------------------------- */
+/*                                   Metadata                                 */
+/* -------------------------------------------------------------------------- */
 
-  //to make description less than 200 character
-  async function makeLessCharacter() {
-    // let temp = await localFind(
-    //   'the levels of "metaverse rang" in the parallel'
-    // );
-    let temp = findByUniqueId(mainData, 1417);
-    if (temp) temp = temp.slice(0, 200);
-    return temp;
-  }
+interface PageParams {
+  lang: string;
+}
 
-  return {
-    // title: await localFind("levels of citizens of the metaverse"),
-    title: findByUniqueId(mainData, 587),
-    description: await makeLessCharacter(),
-    openGraph: {
-      type: "website",
-      // url: `https://rgb.irpsc.com/posts/${params.id}`,
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<PageParams>;
+}) {
+  try {
+    const { lang } = await params;
+
+    const levelArray = await getAllLevels();
+    const langData = await getTranslation(lang);
+    const mainData = await getMainFile(langData);
+
+    const description =
+      findByUniqueId(mainData, 1417)?.slice(0, 200) || "";
+
+    return {
       title: findByUniqueId(mainData, 587),
-      description: await makeLessCharacter(),
-      locale: params.lang == "fa" ? "fa_IR" : "en_US",
-      url: `https://rgb.irpsc.com/${params.lang}/levels/citizen`,
-      images: [
-        {
-          url: `${levelArray[0].image}`,
-          width: 800,
-          height: 600,
-          alt: findByUniqueId(mainData, 587),
-        },
-      ],
-    },
-    // twitter: {
-    //   card: 'summary_large_image',
-    //   title: post.title,
-    //   description: post.description,
-    //   images: [post.imageUrl],
-    // },
-  };
- }catch (error) {
+      description,
+      openGraph: {
+        type: "website",
+        title: findByUniqueId(mainData, 587),
+        description,
+        locale: lang === "fa" ? "fa_IR" : "en_US",
+        url: `https://metarang.com/${lang}/levels/citizen`,
+        images: [
+          {
+            url: levelArray?.[0]?.image || "/logo.png",
+            width: 800,
+            height: 600,
+            alt: findByUniqueId(mainData, 587),
+          },
+        ],
+      },
+    };
+  } catch (error) {
     console.error("❌ Metadata error (LevelsPage):", error);
-
     return {
       title: "خطا",
       description: "مشکلی در بارگذاری صفحه رخ داده است",
@@ -69,9 +69,22 @@ export async function generateMetadata({ params }: any) {
   }
 }
 
-export default async function LevelsPage({ params }: any) {
+/* -------------------------------------------------------------------------- */
+/*                                    Page                                    */
+/* -------------------------------------------------------------------------- */
+
+interface LevelsPageProps {
+  params: Promise<PageParams>;
+}
+
+export default async function LevelsPage({ params }: LevelsPageProps) {
   try {
-  const staticData = [
+    const resolvedParams = await params;
+    const { lang } = resolvedParams;
+
+    /* ----------------------------- Static Data ----------------------------- */
+
+      const staticData = [
     {
       url: "/svg/level/citizen.png",
       score: 10,
@@ -164,147 +177,110 @@ export default async function LevelsPage({ params }: any) {
       unique_id: 77,
     },
   ];
-  function convertPersianToEnglishNumber(slug: any) {
-    // Replace Persian/Arabic digits with English digits using regex
-    return Number(
-      slug.replace(/[۰-۹]/g, (char: any) => char.charCodeAt(0) - 1776)
-    );
-  }
 
-  const levelArray = await getAllLevels();
-  // convert persian digit to eng digit in DATA
-  levelArray.forEach((item: any) => {
-    item.slug = convertPersianToEnglishNumber(item.slug);
-  });
+    /* ----------------------------- Fetch Data ------------------------------ */
 
-  const footerTabs = await getFooterData(params);
+    const [
+      levelArray,
+      footerTabs,
+      langArray,
+      langData,
+    ] = await Promise.all([
+      getAllLevels(),
+      getFooterData(resolvedParams),
+      getLangArray(),
+      getTranslation(lang),
+    ]);
 
-  const langArray = await getLangArray();
+    const mainData = await getMainFile(langData);
 
-  const langData = await getTranslation(params.lang);
-  const mainData = await getMainFile(langData);
-  const levels = await findByModalName(mainData, "levels");
+    /* -------------------------- Normalize Levels --------------------------- */
 
-  const levelPageArrayContent = await findByTabName(levels, "levels-page");
-  const levelListArrayContent = await findByTabName(levels, "level-list");
-
-  const concatArrayContent = levelPageArrayContent.concat(
-    levelListArrayContent
-  );
-  const centralPageModal = await findByModalName(mainData, "central-page");
-  const tabsMenu = await findByTabName(centralPageModal, "before-login");
-
-  const staticMenuToShow = getStaticMenu(params.id);
-
-  // add staticMenuToShow values to siblings tabsMenu values
-  const updatedTabsMenu = tabsMenu.map((tab: any) => {
-    let findInStatic = staticMenuToShow.find(
-      (val) => tab.unique_id === val.unique_id
-    );
-
-    if (findInStatic) {
-      // Return a new tab object with updated properties
-      return {
-        ...tab, // Spread the original tab properties
-        url: findInStatic.url,
-        order: findInStatic.order,
-        toShow: true,
-      };
-    }
-    
-
-    // If no match found, return the original tab
-    return tab;
-  });
-
+staticData.forEach((el2: any) => {
   levelArray.forEach((el1: any) => {
-    staticData.forEach((el2: any) => {
-      if (el1.id == el2.id) {
-        el1.photo = el2.url;
-        el1.rank = 1;
-        el1.score = el2.score;
-        el1.route_name = el2.route_name;
-        el1.unique_id = el2.unique_id;
-      }
-    });
+    if (el1.id == el2.id) {
+      el1.photo = el2.url;
+      el1.rank = 1;
+      el1.score = el2.score;
+      el1.route_name = el2.route_name;
+      el1.unique_id = el2.unique_id;
+    }
   });
+});
 
-  const levelsSchema = {
-    "@context": "https://schema.org/",
-    "@type": "ItemList",
-    itemListElement: levelArray.map((item: any) => {
-      return {
+    /* ------------------------------ Content -------------------------------- */
+
+    const levelsModal = await findByModalName(mainData, "levels");
+    const levelPageArrayContent = await findByTabName(levelsModal, "levels-page");
+    const levelListArrayContent = await findByTabName(levelsModal, "level-list");
+
+    const concatArrayContent = [
+      ...levelPageArrayContent,
+      ...levelListArrayContent,
+    ];
+
+    /* ------------------------------ Schema --------------------------------- */
+
+    const levelsSchema = {
+      "@context": "https://schema.org/",
+      "@type": "ItemList",
+      itemListElement: levelArray.map((item: any) => ({
         "@type": "ListItem",
-        position: `${item.id}`,
-        name: `${item.name}`,
-        url: `${item.image}`,
-      };
-    }),
-    // {
-    //   "@type": "ListItem",
-    //   position: "1",
-    //   name: "",
-    // },
-  };
-  return (
-    <>
-      {/* SCHEMA** */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(levelsSchema) }}
-      />
-      {/* schema END */}
-      <div
-        className={`flex h-screen dark:bg-black overflow-hidden`}
-        dir={langData.direction}
-      >
-        {/* <SideBar
-          langArray={langArray}
-          langData={langData}
-          tabsMenu={updatedTabsMenu}
-          params={params}
-          pageSide="citizen"
-          mainData={mainData}
-        /> */}
-        <section
-          // id={`${
-          //   themeDataActive == "dark" ? "dark-scrollbar" : "light-scrollbar"
-          // }`}
+        position: item.id,
+        name: item.name,
+        url: item.image,
+      })),
+    };
 
-          className={`h-[calc(100vh-60px)] lg:h-screen overflow-y-auto relative light-scrollbar dark:dark-scrollbar mt-[60px] lg:mt-0 bg-bgGray dark:bg-black`}
+    /* -------------------------------- Render ------------------------------- */
+
+    return (
+      <>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(levelsSchema) }}
+        />
+
+        <CleanAutoRetryParam />
+
+        <section
+          className="h-[calc(100vh-60px)] lg:h-screen overflow-y-auto mt-[60px] lg:mt-0 bg-bgGray dark:bg-black"
+          dir={langData.direction}
         >
-          <CleanAutoRetryParam />
           <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
-            <BreadCrumb params={params} />
+            <BreadCrumb params={resolvedParams} />
           </div>
 
-          <div className="mt-[60px] lg:mt-[40px] xl:px-32 lg:px-32 px-5">
-            <h2 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mb-[16px]">
-              {/* {localFind("levels of citizens of the metaverse")} */}
+          <div className="mt-[40px] xl:px-32 lg:px-32 px-5 text-center">
+            <h2 className="font-rokh font-bold text-[32px] dark:text-white mb-4">
               {findByUniqueId(mainData, 587)}
             </h2>
-            <p className="text-lightGrey dark:text-lightGray font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center text-justify">
-              {/* {localFind(`the levels of "metaverse rang" in the parallel`)} */}
+            <p className="text-lightGrey dark:text-lightGray text-[20px]">
               {findByUniqueId(mainData, 1417)}
             </p>
           </div>
-          <div className="flex justify-center flex-wrap mt-[20px]">
-<LevelsClient
-    levels={levelArray}
+
+          <div className="flex justify-center flex-wrap mt-8">
+            <LevelsClient
+             levels={levelArray}
     concatArrayContent={concatArrayContent}
-    params={params}
-    mainData={mainData}
-  />
+              params={resolvedParams}
+              mainData={mainData}
+            />
           </div>
-          <div className="flex flex-col justify-center items-center xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
-            <DynamicFooter footerTabs={footerTabs} mainData={mainData} params={params} />
+          
+
+          <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1 mt-10">
+            <DynamicFooter
+              footerTabs={footerTabs}
+              mainData={mainData}
+              params={resolvedParams}
+            />
           </div>
         </section>
-      </div>
-    </>
-  );
-} 
-catch (error) {
+      </>
+    );
+  } catch (error) {
   const serializedError = {
     message:
       error instanceof Error ? error.message : "Unknown error",

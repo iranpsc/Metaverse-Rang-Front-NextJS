@@ -32,11 +32,11 @@ export async function generateMetadata(
       title: findByUniqueId(mainData, 593),
       description,
       alternates: {
-        canonical: `https://rgb.irpsc.com/${lang}/citizen`,
+        canonical: `https://metarang.com/${lang}/citizen`,
         languages: {
-          'fa-IR': 'https://rgb.irpsc.com/fa/citizen',
-          'en-US': 'https://rgb.irpsc.com/en/citizen',
-          'x-default': 'https://rgb.irpsc.com/fa/citizen',
+          'fa-IR': 'https://metarang.com/fa/citizen',
+          'en-US': 'https://metarang.com/en/citizen',
+          'x-default': 'https://metarang.com/fa/citizen',
         },
       },
       openGraph: {
@@ -44,7 +44,7 @@ export async function generateMetadata(
         title: findByUniqueId(mainData, 593),
         description,
         locale: lang === "fa" ? "fa_IR" : "en_US",
-        url: `https://rgb.irpsc.com/${lang}/citizen`,
+        url: `https://metarang.com/${lang}/citizen`,
         images: [
           {
             url: "/logo.png",
@@ -110,11 +110,11 @@ export default async function CitizensPage({ params }: CitizensPageProps) {
         "addressRegion": "استان قزوین",
         "addressLocality": "قزوین"
       },
-      "image": 'https://rgb.irpsc.com/logo.png',
+      "image": 'https://metarang.com/logo.png',
       "telephone": "09120820120",
-      "url": `https://rgb.irpsc.com/${lang}/citizen`,
-      "logo": `https://rgb.irpsc.com/logo.png`,
-      "email": "info@rgb.irpsc.com",
+      "url": `https://metarang.com/${lang}/citizen`,
+      "logo": `https://metarang.com/logo.png`,
+      "email": "info@metarang.com",
       "description": await makeLessCharacter(),
       "alternateName": "MetaRGB"
     }

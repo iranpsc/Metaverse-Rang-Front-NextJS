@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: any) {
           params.lang.toLowerCase() == "fa"
             ? "ما در متاورس رنگ معتقدیم که توسعه این دنیای موازی و مجازی تنها با مشارکت و همفکری عمومی امکان‌پذیر است. زیرساخت‌های این جهان بر پایه‌ی واحد حدتاثیر بنا شده‌اند تا بتوانند نظرات و ایده‌های شما را به بهترین شکل در مسیر توسعه هدایت کنند. ارتباط با انجمن متاورس ایران و دانشگاه متاورس ایران از طریق این پلتفرم به راحتی امکان‌پذیر است."
             : "We at Metaverse Rang believe that the development of this parallel and virtual world is only possible with public participation and consensus. The infrastructure of this world is built on the basis of the Haddtashtir unit so that it can best guide your opinions and ideas on the path of development. Communication with the Iranian Metaverse Association and the Iranian Metaverse University is easily possible through this platform.",
-        url: `https://rgb.irpsc.com/${params.lang}/contact`,
+        url: `https://metarang.com/${params.lang}/contact`,
         images: [
           {
             url: "/team.jpg",
@@ -62,7 +62,7 @@ export default async function AboutPage({ params }: any) {
       name: findByUniqueId(mainData, 260),
       description:
         findByUniqueId(mainData, 1535),
-      url: `https://rgb.irpsc.com/${params.lang}/contact`,
+      url: `https://metarang.com/${params.lang}/contact`,
 
       contentLocation: {
         "@type": "Place",
@@ -71,7 +71,7 @@ export default async function AboutPage({ params }: any) {
         // Alternate Name (e.g., other business or location name)
         alternateName: "Metaverse Rang Headquarters",
         // URL that points to the same entity
-        sameAs: "https://rgb.irpsc.com",
+        sameAs: "https://metarang.com",
         // Global Location Number (use a valid GLN if you have one)
         // globalLocationNumber: "1234567890", // Replace with actual GLN
         // Maximum Attendee Capacity (could be used for events or location capacity)
@@ -90,7 +90,7 @@ export default async function AboutPage({ params }: any) {
         maps: "https://maps.app.goo.gl/63ayLgtcRGZEBhmf7",
         // Fax Number (if applicable)
         faxNumber: "+02833647125",
-        image: "https://rgb.irpsc.com/_next/image?url=%2Flogo.png&w=128&q=75",
+        image: "https://metarang.com/_next/image?url=%2Flogo.png&w=128&q=75",
         address: {
           "@type": "PostalAddress",
           streetAddress: "میرداماد، 824H+JG2",

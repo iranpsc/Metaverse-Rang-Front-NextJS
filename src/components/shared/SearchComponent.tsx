@@ -58,9 +58,9 @@ export default function SearchComponent({
 
       let selectedURL = "";
       if (searchLevel === "citizen") {
-        selectedURL = "https://api.rgb.irpsc.com/api/search/users";
+        selectedURL = "https://api.metarang.com/api/search/users";
       } else if (searchLevel === "education") {
-        selectedURL = "https://api.rgb.irpsc.com/api/tutorials/search";
+        selectedURL = "https://api.metarang.com/api/tutorials/search";
       }
 
       axios

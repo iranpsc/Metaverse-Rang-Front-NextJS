@@ -1,7 +1,7 @@
 // utils/getEvent.ts
 import { EventItem, MappedEventItem, mapEvents } from "@/utils/mapEvents";
 
-const BASE = "https://api.rgb.irpsc.com/api";
+const BASE = "https://api.metarang.com/api";
 
 // گرفتن تمام ایونت‌ها
 export async function getAllEvents(): Promise<MappedEventItem[]> {

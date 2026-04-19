@@ -51,7 +51,7 @@ export default function ReferralHandler() {
         localStorage.setItem("isDirectReferral", "true");
 
         axios
-          .post("https://api.rgb.irpsc.com/api/auth/register", {
+          .post("https://api.metarang.com/api/auth/register", {
             referral: referralCode,
             back_url: window.location.href,
           })

@@ -149,7 +149,7 @@ export default async function CitizenSinglePage({
       "@type": "Person",
       name: nameUser,
       image: profileData.data?.profilePhotos?.map((p: { url: any; }) => p.url),
-      url: `https://rgb.irpsc.com/${lang}/citizens/${id}`,
+      url: `https://metarang.com/${lang}/citizens/${id}`,
       jobTitle: profileData.data?.customs?.occupation,
       description: makeLessCharacter(),
       birthDate: profileData.data?.kyc?.birth_date,
@@ -264,11 +264,11 @@ export async function generateMetadata({
       title: `${fullName} | ${profileData.data.code}`,
       description,
       alternates: {
-        canonical: `https://rgb.irpsc.com/${lang}/citizens/${id}`,
+        canonical: `https://metarang.com/${lang}/citizens/${id}`,
         languages: {
-          "fa-IR": `https://rgb.irpsc.com/fa/citizens/${id}`,
-          "en-US": `https://rgb.irpsc.com/en/citizens/${id}`,
-          "x-default": `https://rgb.irpsc.com/fa/citizens/${id}`,
+          "fa-IR": `https://metarang.com/fa/citizens/${id}`,
+          "en-US": `https://metarang.com/en/citizens/${id}`,
+          "x-default": `https://metarang.com/fa/citizens/${id}`,
         },
       },
       openGraph: {
@@ -276,7 +276,7 @@ export async function generateMetadata({
         title: fullName,
         description,
         locale: lang === "fa" ? "fa_IR" : "en_US",
-        url: `https://rgb.irpsc.com/${lang}/citizens/${id}`,
+        url: `https://metarang.com/${lang}/citizens/${id}`,
         images: [
           {
             url:

@@ -2,11 +2,11 @@ import dynamic from "next/dynamic";
 import { Suspense } from "react";
 import NotFoundPage from "@/components/shared/NotFoundPage";
 
-const BreadCrumb = dynamic(() => import("@/components/shared/BreadCrumb"), { suspense: true });
+const BreadCrumb = dynamic(() => import("@/components/shared/BreadCrumb"),);
 
 const CategoryComponent = dynamic(
   () => import("@/components/templates/categories/CategoryComponent"),
-  { ssr: false }
+
 );
 
 
@@ -21,16 +21,22 @@ import {
 
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import CustomErrorPage from "@/components/shared/CustomErrorPage";
-import CleanAutoRetryParam  from "@/components/shared/CleanAutoRetryParam";
+import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
 // ✅ تابع ساخت متن کوتاه سمت سرور
 async function makeLessCharacter(_desc: any, limit: number = 200) {
   return _desc ? _desc.slice(0, limit) : "";
 }
-
-export default async function EducationCategory({ params }: { params: any }) {
+interface EducationCategoryProps {
+  params: Promise<{
+    category(category: any): any; lang: string
+  }>;
+}
+export default async function EducationCategory({ params }: EducationCategoryProps) {
+  const resolvedParams = await params;
+  const { lang } = resolvedParams;
   try {
-    const [ langData, langArray] = await Promise.all([
-      getTranslation(params.lang),
+    const [langData, langArray] = await Promise.all([
+      getTranslation(lang),
       getLangArray(),
     ]);
 
@@ -38,13 +44,13 @@ export default async function EducationCategory({ params }: { params: any }) {
 
     let CategoryData: any;
     try {
-      CategoryData = await getEducationSingleCategory(params.category);
+      CategoryData = await getEducationSingleCategory(resolvedParams.category);
     } catch (error: any) {
       if (error.message?.startsWith("404")) {
         return (
           <NotFoundPage
-            lang={params.lang}
-            params={params}
+            lang={lang}
+            params={resolvedParams}
             langData={langData}
             langArray={langArray}
             mainData={mainData}
@@ -57,8 +63,8 @@ export default async function EducationCategory({ params }: { params: any }) {
     if (!CategoryData) {
       return (
         <NotFoundPage
-          lang={params.lang}
-          params={params}
+          lang={lang}
+          params={resolvedParams}
           langData={langData}
           langArray={langArray}
           mainData={mainData}
@@ -72,15 +78,15 @@ export default async function EducationCategory({ params }: { params: any }) {
     const educationSingleCategorySchema = {
       "@context": "https://schema.org",
       "@type": "ItemList",
-      url: `https://rgb.irpsc.com/${params.lang}/education/category/${CategoryData.slug}`,
+      url: `https://metarang.com/${lang}/education/category/${CategoryData.slug}`,
       name: findByUniqueId(mainData, 455) + " " + CategoryData.name,
       description: CategoryData.shortDescription,
-      mainEntityOfPage: `https://rgb.irpsc.com/${params.lang}/education/category/${CategoryData.slug}`,
+      mainEntityOfPage: `https://metarang.com/${lang}/education/category/${CategoryData.slug}`,
       itemListElement: CategoryData.subcategories.map((item: any, index: number) => ({
         "@type": "ListItem",
         position: index + 1,
-        url: `https://rgb.irpsc.com/${params.lang}/education/category/${params.category}/${item.slug}`,
-        name: params.lang.toLowerCase() === "fa" ? item.name : item.slug,
+        url: `https://metarang.com/${lang}/education/category/${resolvedParams.category}/${item.slug}`,
+        name: lang.toLowerCase() === "fa" ? item.name : item.slug,
         description: "",
       })),
     };
@@ -97,40 +103,41 @@ export default async function EducationCategory({ params }: { params: any }) {
         <div className="flex  w-full bg-[#f8f8f8] dark:bg-black bg-opacity20" dir={langData.direction}>
           <section className="w-full overflow-y-auto relative l mt-[60px] lg:mt-0 lg:pt-0  xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
             <div className="ps-4 lg:ps-5">
-              <Suspense fallback={<div className="text-center text-[20px]">loading...</div>}>
-                <BreadCrumb params={params} />
-              </Suspense>
+
+              <BreadCrumb params={resolvedParams} />
+
             </div>
+            <CategoryComponent params={resolvedParams} CategoryData={CategoryData} mainData={mainData} />
 
-            <Suspense fallback={<div className="text-center text-[20px]">loading...</div>}>
-              <CategoryComponent params={params} CategoryData={CategoryData} mainData={mainData} />
-            </Suspense>
 
-           
+
           </section>
         </div>
       </>
     );
   } catch (error) {
-  const serializedError = {
-    message:
-      error instanceof Error ? error.message : "Unknown error",
-    stack:
-      error instanceof Error ? error.stack : null,
-    name:
-      error instanceof Error ? error.name : "Error",
-  };
+    const serializedError = {
+      message:
+        error instanceof Error ? error.message : "Unknown error",
+      stack:
+        error instanceof Error ? error.stack : null,
+      name:
+        error instanceof Error ? error.name : "Error",
+    };
 
-  console.error("❌ Error in EductionPage:", serializedError);
+    console.error("❌ Error in EductionPage:", serializedError);
 
-  return <CustomErrorPage error={serializedError} />;
-} }
+    return <CustomErrorPage error={serializedError} />;
+  }
+}
 
-export async function generateMetadata({ params }: { params: any }) {
+export async function generateMetadata({ params }: EducationCategoryProps) {
+  const resolvedParams = await params;
+  const { lang } = resolvedParams;
   try {
-    const langData = await getTranslation(params.lang);
+    const langData = await getTranslation(lang);
     const mainData = await getMainFile(langData);
-    const CategoryData = await getEducationSingleCategory(params.category);
+    const CategoryData = await getEducationSingleCategory(resolvedParams.category);
 
     return {
       title: findByUniqueId(mainData, 455) + " " + CategoryData.name,
@@ -139,8 +146,8 @@ export async function generateMetadata({ params }: { params: any }) {
         type: "website",
         title: findByUniqueId(mainData, 455) + " " + CategoryData.name,
         description: await makeLessCharacter(CategoryData.description),
-        locale: params.lang == "fa" ? "fa_IR" : "en_US",
-        url: `https://rgb.irpsc.com/${params.lang}/education/category/${params.category}`,
+        locale: lang == "fa" ? "fa_IR" : "en_US",
+        url: `https://metarang.com/${lang}/education/category/${resolvedParams.category}`,
         images: [
           {
             url: CategoryData.image,

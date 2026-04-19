@@ -14,8 +14,8 @@ import {
 } from "@/components/utils/actions";
 
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-const baseUrl = "https://rgb.irpsc.com"; // ← دامنه اصلی سایتت
-const imageUrl = "https://rgb.irpsc.com/_next/image?url=%2Flogo.png&w=128&q=75";
+const baseUrl = "https://metarang.com"; // ← دامنه اصلی سایتت
+const imageUrl = "https://metarang.com/_next/image?url=%2Flogo.png&w=128&q=75";
 // ✅ متادیتای داینامیک
 export async function generateMetadata({ params }) {
   try {

@@ -20,7 +20,7 @@ interface CategoryPageProps {
 export async function generateMetadata({ params }: CategoryPageProps) {
   try {
   const categorySlug = decodeURIComponent(params.category);
-  const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://rgb.irpsc.com";
+  const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://metarang.com";
 
   // ✅ گرفتن داده از Supabase
   const { data: articlesData } = await supabase
@@ -125,7 +125,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       "@type": "CollectionPage",
       "name": catName,
       "description": categoryDec || `مقالات مرتبط با ${catName}`,
-      "url": `https://rgb.irpsc.com/${params.lang}/articles/categories/${categorySlug}`,
+      "url": `https://metarang.com/${params.lang}/articles/categories/${categorySlug}`,
       "image": categoryImage || "/default.png",
       "mainEntity": {
         "@type": "ItemList",
@@ -141,7 +141,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               "@type": "BlogPosting",
               "headline": a.title,
               "description": a.description || categoryDec || "این یک مقاله آموزشی است",
-              "url": `https://rgb.irpsc.com/${params.lang}/articles/categories/${categorySlug}/${a.slug}`,
+              "url": `https://metarang.com/${params.lang}/articles/categories/${categorySlug}/${a.slug}`,
               "datePublished": published,
               "dateModified": published,
               "image": a.image || "/default.png",
@@ -149,14 +149,14 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                 "@type": "Person",
                 "name": a.author?.name || "مدیر سایت",
                 "url": a.author?.citizenId
-                  ? `https://rgb.irpsc.com/${params.lang}/citizens/${a.author.citizenId}`
+                  ? `https://metarang.com/${params.lang}/citizens/${a.author.citizenId}`
                   : undefined,
                 "identifier": a.author?.citizenId || "CIT-0000",
               },
               "publisher": {
                 "@type": "Organization",
                 "name": "متاورس رنگ",
-                "logo": { "@type": "ImageObject", "url": "https://rgb.irpsc.com/_next/image?url=%2Flogo.png&w=120&q=75" },
+                "logo": { "@type": "ImageObject", "url": "https://metarang.com/_next/image?url=%2Flogo.png&w=120&q=75" },
               },
               "inLanguage": params.lang || "fa",
               "isAccessibleForFree": true,

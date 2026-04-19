@@ -170,7 +170,7 @@ export default async function CitizenReferral({
         }`,
       image:
         profileData.data?.profilePhotos?.map((p: any) => p.url) || [],
-      url: `https://rgb.irpsc.com/${lang}/citizens/${id}/referral`,
+      url: `https://metarang.com/${lang}/citizens/${id}/referral`,
       jobTitle: profileData.data?.customs?.occupation || "",
       description: aboutText,
       birthDate: profileData.data?.kyc?.birth_date || "",
@@ -293,11 +293,11 @@ export async function generateMetadata({
           : `Invites of ${fullName}`,
       description,
       alternates: {
-        canonical: `https://rgb.irpsc.com/${lang}/citizens/${id}/referral`,
+        canonical: `https://metarang.com/${lang}/citizens/${id}/referral`,
         languages: {
-          "fa-IR": `https://rgb.irpsc.com/fa/citizens/${id}/referral`,
-          "en-US": `https://rgb.irpsc.com/en/citizens/${id}/referral`,
-          "x-default": `https://rgb.irpsc.com/fa/citizens/${id}/referral`,
+          "fa-IR": `https://metarang.com/fa/citizens/${id}/referral`,
+          "en-US": `https://metarang.com/en/citizens/${id}/referral`,
+          "x-default": `https://metarang.com/fa/citizens/${id}/referral`,
         },
       },
       openGraph: {
@@ -308,7 +308,7 @@ export async function generateMetadata({
             : `Invites of ${fullName}`,
         description,
         locale: lang === "fa" ? "fa_IR" : "en_US",
-        url: `https://rgb.irpsc.com/${lang}/citizens/${id}/referral`,
+        url: `https://metarang.com/${lang}/citizens/${id}/referral`,
         images: [
           {
             url:
