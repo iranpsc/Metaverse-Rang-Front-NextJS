@@ -7,37 +7,44 @@ import { getTranslation, getMainFile } from "@/components/utils/actions";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import CustomErrorPage from "@/components/shared/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
-export async function generateMetadata({ params }: { params: { lang: string } }) {
+interface CategoriesPageProps {
+  params: Promise<{ lang: string }>;
+}
+export async function generateMetadata({ params}: CategoriesPageProps
+) {
+  const resolvedParams = await params;
+  const { lang } = resolvedParams;
   try {
-  const baseUrl = "https://metarang.com";
-  const langPrefix = params.lang ? `/${params.lang}` : "";
-  const fullPageUrl = `${baseUrl}${langPrefix}/articles/categories`;
+    const baseUrl = "https://metarang.com";
+    const langPrefix = lang ? `/${lang}` : "";
+    const fullPageUrl = `${baseUrl}${langPrefix}/articles/categories`;
+    const [langData] = await Promise.all([getTranslation(lang)]);
+    const mainData = await getMainFile(langData);
+    const title = findByUniqueId(mainData, 1516);
+    const description =
+      "در بخش دسته‌بندی مقالات متاورس رنگ، با موضوعات مختلفی از فناوری متاورس، هوش مصنوعی، بلاک‌چین و دنیای دیجیتال آشنا شوید.";
 
-  const title = "دسته‌بندی مقالات متاورس رنگ";
-  const description =
-    "در بخش دسته‌بندی مقالات متاورس رنگ، با موضوعات مختلفی از فناوری متاورس، هوش مصنوعی، بلاک‌چین و دنیای دیجیتال آشنا شوید.";
-
-  return {
-    title,
-    description,
-    alternates: { canonical: fullPageUrl },
-    openGraph: {
+    return {
       title,
       description,
-      url: fullPageUrl,
-      siteName: "MetaRang",
-      images: "https://metarang.com/_next/image?url=%2Flogo.png&w=128&q=75",
-      locale: params.lang === "fa" ? "fa_IR" : "en_US",
-      type: "website",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: "https://metarang.com/_next/image?url=%2Flogo.png&w=128&q=75",
-    },
-  };
-} catch (error) {
+      alternates: { canonical: fullPageUrl },
+      openGraph: {
+        title,
+        description,
+        url: fullPageUrl,
+        siteName: "MetaRang",
+        images: "https://metarang.com/_next/image?url=%2Flogo.png&w=128&q=75",
+        locale: lang === "fa" ? "fa_IR" : "en_US",
+        type: "website",
+      },
+      twitter: {
+        card: "summary_large_image",
+        title,
+        description,
+        images: "https://metarang.com/_next/image?url=%2Flogo.png&w=128&q=75",
+      },
+    };
+  } catch (error) {
     console.error("❌ Metadata error (LevelsPage):", error);
 
     return {
@@ -47,9 +54,11 @@ export async function generateMetadata({ params }: { params: { lang: string } })
   }
 }
 export const revalidate = 0;
-export default async function CategoriesPage({ params }: { params: { lang: string } }) {
+export default async function CategoriesPage({ params }: CategoriesPageProps) {
+  const resolvedParams = await params;
+  const { lang } = resolvedParams;
   try {
-    const [langData] = await Promise.all([getTranslation(params.lang)]);
+    const [langData] = await Promise.all([getTranslation(lang)]);
     const mainData = await getMainFile(langData);
 
     const { data: articlesData, error } = await supabase
@@ -83,7 +92,7 @@ export default async function CategoriesPage({ params }: { params: { lang: strin
     });
 
     const baseUrl = "https://metarang.com";
-    const langPrefix = params.lang ? `/${params.lang}` : "";
+    const langPrefix = lang ? `/${lang}` : "";
     const fullPageUrl = `${baseUrl}${langPrefix}/articles/categories`;
 
     // JSON-LD schema
@@ -126,7 +135,7 @@ export default async function CategoriesPage({ params }: { params: { lang: strin
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
         <CleanAutoRetryParam />
         <div className="mb-6 mt-[60px] lg:mt-0">
-          <BreadCrumb params={params} />
+          <BreadCrumb params={resolvedParams} />
         </div>
 
         <div className="text-center mt-5">
@@ -138,7 +147,7 @@ export default async function CategoriesPage({ params }: { params: { lang: strin
 
         {/* کامپوننت Client برای جستجو */}
         <div className="my-8">
-          <SearchComponent searchLevel="articles" articles={articles} params={params} mainData={mainData} />
+          <SearchComponent searchLevel="articles" articles={articles} params={resolvedParams} mainData={mainData} />
         </div>
 
         {/* لیست دسته‌بندی‌ها */}
@@ -147,7 +156,7 @@ export default async function CategoriesPage({ params }: { params: { lang: strin
           categoryImages={categoryImages}
           categorySlugs={categorySlugs} // اضافه شد
           subcategoryCounts={subcategoryCounts}
-          params={params}
+          params={resolvedParams}
           mainData={mainData}
         />
       </section>

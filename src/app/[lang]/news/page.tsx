@@ -29,14 +29,18 @@ type Category = {
   title: string;
   slug: string;
 };
-
+interface NewsPageProps {
+  params: Promise<{ lang: string }>;
+}
 const baseUrl = "https://metarang.com";
 const imageUrl = "https://metarang.com/_next/image?url=%2Flogo.png&w=128&q=75";
 
 // Metadata ...
-export async function generateMetadata({ params }: { params: any }) {
+export async function generateMetadata({ params }: NewsPageProps) {
+  const resolvedParams = await params;
+  const { lang } = resolvedParams;
   try {
-    const lang = params.lang || "fa";
+    const lang = resolvedParams.lang || "fa";
     const url = `${baseUrl}/${lang}/news`;
 
     return {
@@ -89,11 +93,13 @@ export async function generateMetadata({ params }: { params: any }) {
   }
 }
 
-export default async function NewsPage({ params }: { params: { lang: string } }) {
+export default async function NewsPage({ params }: NewsPageProps) {
+  const resolvedParams = await params;
+  const { lang } = resolvedParams;
   try {
-    const langData = await getTranslation(params.lang);
+    const langData = await getTranslation(lang);
     const mainData = await getMainFile(langData);
-    const newsUrl = `${baseUrl}/${params.lang}/news`;
+    const newsUrl = `${baseUrl}/${lang}/news`;
 
     // ─── گرفتن اخبار بیشتر برای پشتیبانی از دسته‌بندی‌ها ───
     const { data: allNews, error } = await supabase
@@ -135,7 +141,7 @@ export default async function NewsPage({ params }: { params: { lang: string } })
       }
     });
 
-       const jsonLd = {
+    const jsonLd = {
       "@context": "https://schema.org",
       "@graph": [
         /* ================= Breadcrumb ================= */
@@ -146,7 +152,7 @@ export default async function NewsPage({ params }: { params: { lang: string } })
               "@type": "ListItem",
               "position": 1,
               "name": "صفحه اصلی",
-              "item": `${baseUrl}/${params.lang}`,
+              "item": `${baseUrl}/${lang}`,
             },
             {
               "@type": "ListItem",
@@ -178,7 +184,7 @@ export default async function NewsPage({ params }: { params: { lang: string } })
           "publisher": {
             "@id": `${baseUrl}#organization`,
           },
-          "inLanguage": params.lang === "fa" ? "fa-IR" : "en-US",
+          "inLanguage": lang === "fa" ? "fa-IR" : "en-US",
         },
 
         /* ================= Collection Page ================= */
@@ -187,11 +193,11 @@ export default async function NewsPage({ params }: { params: { lang: string } })
           "@id": `${newsUrl}#webpage`,
           "url": newsUrl,
           "name":
-            params.lang === "fa"
+            lang === "fa"
               ? "اخبار متاورس رنگ"
               : "Metarang News",
           "description":
-            params.lang === "fa"
+            lang === "fa"
               ? "آخرین اخبار و رویدادهای متاورس رنگ"
               : "Latest news and updates from Metarang Metaverse",
           "isPartOf": {
@@ -201,7 +207,7 @@ export default async function NewsPage({ params }: { params: { lang: string } })
             "@type": "Thing",
             "name": "News",
           },
-          "inLanguage": params.lang === "fa" ? "fa-IR" : "en-US",
+          "inLanguage": lang === "fa" ? "fa-IR" : "en-US",
         },
       ],
     };
@@ -230,11 +236,11 @@ export default async function NewsPage({ params }: { params: { lang: string } })
             <p className="lg:hidden text-lightGray dark:text-lightGray font-azarMehr text-center lg:text-start text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] px-5 2xl:pe-28">
               {findByUniqueId(mainData, 1629) || "رجع تخصصی و مرکز نشر آخرین رویدادها، پیشرفت‌های فنی و اخبار توسعه دنیای موازی متارنگ؛ آگاهی از تازه‌ترین تحولات در حوزه‌ی فناوری، تجارت مجازی و حاکمیت غیرمتمرکز با ساختار بین المللی."}
             </p>
-              <SearchComponent
+            <SearchComponent
               searchLevel="news"
               mainData={mainData}
               params={params}
-              
+
             />
           </div>
           <p className="text-lightGray hidden lg:block dark:text-lightGray font-azarMehr text-center lg:text-start text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] px-5 2xl:pe-28">
@@ -243,16 +249,16 @@ export default async function NewsPage({ params }: { params: { lang: string } })
         </div>
 
         <div className="space-y-28 mt-28">
-          <BreakingNewsSlider lang={params.lang} news={allNews?.slice(0, 5) ?? []} />
+          <BreakingNewsSlider lang={lang} news={allNews?.slice(0, 5) ?? []} />
 
           <LatestNews
-            params={params}
+            params={resolvedParams}
             mainData={mainData}
             initialNews={allNews}
           />
 
           <VideoNewsList
-            params={params}
+            params={resolvedParams}
             limit={6}
             title="اخبار ویدئویی داغ"
             mainData={mainData}
@@ -260,20 +266,20 @@ export default async function NewsPage({ params }: { params: { lang: string } })
 
           {/* بخش دسته‌بندی – حالا درست پاس داده می‌شود */}
           <NewsCategoriesSection
-            lang={params.lang}
+            lang={resolvedParams.lang}
             mainData={mainData}
             categories={categories}
             initialNewsByCategory={newsByCategory}
           />
 
           <PopularNews
-            params={params}
+            params={resolvedParams}
             mainData={mainData}
             initialNews={allNews?.slice(0, 10) ?? []}
           />
 
           {/* خبرنامه */}
-                    <div className="w-full px-5 flex flex-col items-center">
+          <div className="w-full px-5 flex flex-col items-center">
             <svg xmlns="http://www.w3.org/2000/svg" width="364" height="364" viewBox="0 0 364 364" fill="none" className="mb-[-140px] dark:hidden">
               <path d="M333.666 174.419V235.086C333.666 288.169 303.333 310.919 257.833 310.919H106.166C60.6663 310.919 30.333 288.169 30.333 235.086V128.919C30.333 75.8359 60.6663 53.0859 106.166 53.0859H182" stroke="url(#paint0_linear_4633_15252)" stroke-width="6" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
               <path d="M106.167 136.5L166.834 174.417C182.728 186.394 211.606 171.228 227.5 159.25" stroke="url(#paint1_linear_4633_15252)" stroke-width="6" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />

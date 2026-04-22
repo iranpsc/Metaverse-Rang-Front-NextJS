@@ -14,6 +14,7 @@ interface PrevNextArticlesProps {
     slug: string;
     category: string;
   };
+  articles: any[];
   mainData: { mainData: string }
 }
 

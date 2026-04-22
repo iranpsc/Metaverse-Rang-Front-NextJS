@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 
 const BreakingNewsSliderClient = dynamic(
   () => import("./BreakingNewsSlider.client"),
-  { ssr: false }
+
 );
 
 export default function BreakingNewsSlider({

@@ -19,7 +19,7 @@ import ConditionalSidebar from "@/components/module/sidebar/ConditionalSidebar";
 import FooterClient from "@/components/module/footer/FooterClient";
 import Icon from "./Icon"
 import CustomErrorPage from "@/components/shared/CustomErrorPage";
-
+import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
 interface Tab {
   id: number;
   unique_id: number;
@@ -32,17 +32,19 @@ interface Tab {
 export default async function LangLayout({
   children,
   params,
+
 }: {
   children: React.ReactNode;
   params: Promise<{ lang: string }>;
+ 
 }) {
   const resolvedParams = await params;
   const lang = resolvedParams.lang || 'fa';
-
+ const theme = useServerDarkMode();
   // console.log("Resolved lang:", lang);
 
   try {
-    const theme = useServerDarkMode();
+   
 
     const [langArray, langData, footerTabs] = await Promise.all([
       getLangArray(),
@@ -89,7 +91,7 @@ export default async function LangLayout({
     });
 
     return (
-      <html className={theme} lang={lang}>
+      <html  className={theme} lang={lang} >
         <Head>
           <link rel="preload" as="image" href="/firstpage/replaced_pic.webp" />
           <link rel="preload" as="video" href="/firstpage/3d_rgb.irpsc.webm" type="video/mp4" />
@@ -97,6 +99,7 @@ export default async function LangLayout({
 
         <body className={`${azarMehr.variable} ${rokh.variable} h-screen light-scrollbar dark:dark-scrollbar`}>
           {lang !== "en" && <VPNDetector />}
+           <CleanAutoRetryParam />
           <ReferralHandler />
           <ToastProvider />
           <main className="flex w-full h-screen overflow-hidden" dir={langData.direction}>
