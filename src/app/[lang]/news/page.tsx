@@ -108,7 +108,7 @@ export default async function NewsPage({ params }: NewsPageProps) {
       .order("date", { ascending: false })
       .limit(40); // ← حداقل ۳۰–۵۰ تا بگیری بهتره
 
-    if (error) throw new Error(`Supabase error: ${error.message}`);
+    // if (error) throw new Error(`Supabase error: ${error.message}`);
 
     // ─── ساخت دسته‌های یکتا ───
     const uniqueMap = new Map<string, Category>();

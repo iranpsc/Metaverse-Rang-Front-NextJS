@@ -8,11 +8,15 @@ import { getTranslation, getMainFile } from "@/components/utils/actions";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import CustomErrorPage from "@/components/shared/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
-
-export async function generateMetadata({ params }: { params: { lang: string } }) {
+interface NewsCategoriesPageProps {
+  params: Promise<{ lang: string }>;
+}
+export async function generateMetadata({ params }:NewsCategoriesPageProps) {
+     const resolvedParams = await params;
+  const { lang } = resolvedParams;
   try {
     const baseUrl = "https://metarang.com";
-    const langPrefix = params.lang ? `/${params.lang}` : "";
+    const langPrefix = lang ? `/${lang}` : "";
     const fullPageUrl = `${baseUrl}${langPrefix}/news/categories`;
 
     const title = "دسته‌بندی اخبار متاورس رنگ";
@@ -29,7 +33,7 @@ export async function generateMetadata({ params }: { params: { lang: string } })
         url: fullPageUrl,
         siteName: "MetaRang",
         images: "https://metarang.com/_next/image?url=%2Flogo.png&w=128&q=75",
-        locale: params.lang === "fa" ? "fa_IR" : "en_US",
+        locale: lang === "fa" ? "fa_IR" : "en_US",
         type: "website",
       },
       twitter: {
@@ -49,9 +53,11 @@ export async function generateMetadata({ params }: { params: { lang: string } })
 
 export const revalidate = 0;
 
-export default async function NewsCategoriesPage({ params }: { params: { lang: string } }) {
+export default async function NewsCategoriesPage({ params }: NewsCategoriesPageProps) {
+     const resolvedParams = await params;
+  const { lang } = resolvedParams;
   try {
-    const [langData] = await Promise.all([getTranslation(params.lang)]);
+    const [langData] = await Promise.all([getTranslation(lang)]);
     const mainData = await getMainFile(langData);
 
     const { data: newsData, error } = await supabase
@@ -92,7 +98,7 @@ news.forEach((n) => {
 
 
     const baseUrl = "https://metarang.com";
-    const langPrefix = params.lang ? `/${params.lang}` : "";
+    const langPrefix = lang ? `/${lang}` : "";
     const fullPageUrl = `${baseUrl}${langPrefix}/news/categories`;
 
     // JSON-LD
@@ -138,7 +144,7 @@ news.forEach((n) => {
         <CleanAutoRetryParam />
 
         <div className="mb-6 mt-[60px] lg:mt-0">
-          <BreadCrumb params={params} />
+          <BreadCrumb params={resolvedParams} />
         </div>
 
         <div className="text-center mt-5">
@@ -154,7 +160,7 @@ news.forEach((n) => {
           <SearchComponent
             searchLevel="news"
             articles={news}
-            params={params}
+            params={resolvedParams}
             mainData={mainData}
           />
         </div>
@@ -164,7 +170,7 @@ news.forEach((n) => {
           categoryImages={categoryImages}
           categorySlugs={categorySlugs}
           subcategoryCounts={subcategoryCounts}
-          params={params}
+          params={resolvedParams}
           mainData={mainData}
         />
       </section>
