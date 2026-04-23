@@ -6,7 +6,7 @@ import { supabase } from "@/utils/lib/supabaseClient";
 import CreatableSelect from "react-select/creatable";
 import "react-quill/dist/quill.snow.css";
 
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+const ReactQuill = dynamic(() => import("react-quill"), );
 interface AdminArticlesProps {
   loggedInUserData: { code: string; token: string };
   
