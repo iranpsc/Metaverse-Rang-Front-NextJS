@@ -77,7 +77,7 @@
     ".next/dev/types/**/*.ts",
     "src/app/[lang]/page.tsx",
     "src/app/[lang]/levels/citizen/[levelName]/[tabs]/page.jsx"
-, "src/app/[lang]/articles/categories/[category]/[slug]/page.tsx"  ],
+, "src/app/[lang]/articles/categories/[category]/[slug]/page.tsx", "src/app/[lang]/about/layout.tsx"  ],
   "exclude": [
     "node_modules"
   ]

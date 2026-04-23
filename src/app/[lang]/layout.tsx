@@ -91,7 +91,7 @@ export default async function LangLayout({
     });
 
     return (
-      <html  className={theme} lang={lang} >
+      <html  className={await theme ? "dark" : "dark"} lang={lang} >
         <Head>
           <link rel="preload" as="image" href="/firstpage/replaced_pic.webp" />
           <link rel="preload" as="video" href="/firstpage/3d_rgb.irpsc.webm" type="video/mp4" />
@@ -136,7 +136,17 @@ export default async function LangLayout({
       </html>
     );
   } catch (error) {
-    console.error("❌ Error in LangLayout:", error);
-    return <CustomErrorPage error={{ message: error.message || 'Unknown', stack: error.stack }} />;
+    const serializedError = {
+      message:
+        error instanceof Error ? error.message : "Unknown error",
+      stack:
+        error instanceof Error ? error.stack : null,
+      name:
+        error instanceof Error ? error.name : "Error",
+    };
+  
+    console.error("❌ Error in MainPage:", serializedError);
+  
+    return <CustomErrorPage error={serializedError} />;
   }
 }

@@ -6,17 +6,17 @@ import CustomErrorPage from "@/components/shared/CustomErrorPage";
 // این دو خط حیاتی هستن – بدون کش، همیشه تازه و بدون باگ
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
-
+ interface ContactLayoutProps {
+  params: Promise<{ lang: string }>;
+   children:React.ReactNode;
+}
 export default async function ContactLayout({
   children,
   params,
-}: {
-  children: React.ReactNode;
-  params: { lang?: string };
-}) {
+}: ContactLayoutProps) {
   try {
-  // امنیت کامل: اگر lang نبود، فارسی بذار
-  const lang = params?.lang || "fa";
+  const resolvedParams = await params;
+  const { lang } = resolvedParams;
 
   let langData;
 

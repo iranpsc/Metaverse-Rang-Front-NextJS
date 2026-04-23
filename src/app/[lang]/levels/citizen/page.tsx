@@ -244,7 +244,7 @@ staticData.forEach((el2: any) => {
         <CleanAutoRetryParam />
 
         <section
-          className="h-[calc(100vh-60px)] lg:h-screen overflow-y-auto mt-[60px] lg:mt-0 bg-bgGray dark:bg-black"
+          className="h-[calc(100vh-60px)] lg:h-screen overflow-y-auto mt-[60px] lg:mt-0 bg-bgGray dark:bg-black light-scrollbar dark:dark-scrollbar"
           dir={langData.direction}
         >
           <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
