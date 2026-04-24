@@ -11,7 +11,8 @@
     "json": "json-server --watch db.json --port 3001"
   },
   "overrides": {
-    "quill": "2.0.2"
+    "quill": "2.0.2",
+    "minimatch": "^9.0.6"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
@@ -45,7 +46,7 @@
     "next": "^16.1.6",
     "next-seo": "^6.4.0",
     "next-themes": "^0.2.1",
-    "nodemailer": "^7.0.12",
+    "nodemailer": "^8.0.5",
     "persianjs": "^0.4.0",
     "postcss-nested": "^6.0.1",
     "randomcolor": "^0.6.2",
