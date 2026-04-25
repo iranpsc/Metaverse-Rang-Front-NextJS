@@ -67,7 +67,7 @@
     "sharp": "^0.34.4",
     "slick-carousel": "^1.8.1",
     "swiper": "12.1.2",
-    "three": "^0.172.0",
+    "three": "^0.182.0",
     "typescript": "5.0.4",
     "webpack": "^5.82.0",
     "yup": "^1.2.0"
