@@ -22,9 +22,9 @@ export default function LevelBadge({
   const label = currentGem
     ? lang === "fa"
       ? currentGem.name || "تازه وارد"
-      : currentGem.slug
-        ? currentGem.slug.split("-baguette")[0].charAt(0).toUpperCase() +
-          currentGem.slug.split("-baguette")[0].slice(1)
+      : urlForGem
+        ? urlForGem.split("-baguette")[0].charAt(0).toUpperCase() +
+          urlForGem.split("-baguette")[0].slice(1)
         : "Newcomer"
     : lang === "fa"
       ? "تازه وارد"

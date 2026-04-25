@@ -98,9 +98,9 @@ export default function UserCard({
 
     setUrlForGem(matchedRouteName);
 
-    // دیباگ (بعد از تست می‌تونی حذف کنی)
-    console.log("currentGem در UserCard:", currentGem);
-    console.log("urlForGem نهایی:", matchedRouteName);
+
+    // console.log("currentGem در UserCard:", currentGem);
+    // console.log("urlForGem نهایی:", matchedRouteName);
   }, [currentGem]);
 
   // فیلتر و مرتب‌سازی جواهرات

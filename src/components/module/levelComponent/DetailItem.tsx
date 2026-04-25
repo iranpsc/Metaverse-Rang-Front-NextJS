@@ -53,7 +53,7 @@ export default function DetailItem({
           href={href}
           target={isHMFormat ? undefined : "_blank"}
         >
-          {isHMFormat ? value.toUpperCase() : "لینک"}
+          {isHMFormat ? value.toUpperCase() : lang == "fa" ? "لینک" : "link"}
         </a>
       );
     }
