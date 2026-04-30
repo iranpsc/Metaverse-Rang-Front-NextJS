@@ -15,172 +15,179 @@ import EducationCategories from "@/components/templates/education/categories";
 import EducationList from "@/components/templates/education/EducationList";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import CustomErrorPage from "@/components/shared/CustomErrorPage";
-import CleanAutoRetryParam  from "@/components/shared/CleanAutoRetryParam";
-export default async function CitizensPage({ params  }: { params: any }) {
+import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
+interface CitizensPageProps {
+  params: Promise<{ lang: string }>;
+}
+export default async function CitizensPage({ params }: CitizensPageProps) {
+  const resolvedParams = await params;
+  const { lang } = resolvedParams;
   try {
-  const users = await getTopTrainerUsers();
-  const [langData, langArray, allCatVideos, categoriesData] =
-    await Promise.all([
-      getTranslation(params.lang),
-      getLangArray(),
-      getAllCategoryVideos("1"),
-      getAllCategories(),
-    ]);
+    const users = await getTopTrainerUsers();
+    const [langData, langArray, allCatVideos, categoriesData] =
+      await Promise.all([
+        getTranslation(lang),
+        getLangArray(),
+        getAllCategoryVideos("1"),
+        getAllCategories(),
+      ]);
 
-  const mainData = await getMainFile(langData);
+    const mainData = await getMainFile(langData);
 
 
-  const educationVideoSchema = {
-    "@context": "http://schema.org",
-    "@type": "WebSite",
-    mainEntity: allCatVideos.map((video: any) => ({
-      "@type": "VideoObject",
-      name: video.title,
-      // description: video.description,
-      thumbnailUrl: video.image_url,
-      contentUrl: `https://rgb.irpsc.com/${params.lang}/education/category/${video.sub_category.slug}`,
-      uploadDate: "",
-      publisher: {
-        "@type": "Organization",
-        name: video.creator.name || video.creator.code,
-      },
-      interactionStatistic: [
-        {
-          "@type": "InteractionCounter",
-          interactionType: "http://schema.org/LikeAction",
-          userInteractionCount: video.likes_count,
+    const educationVideoSchema = {
+      "@context": "http://schema.org",
+      "@type": "WebSite",
+      mainEntity: allCatVideos.map((video: any) => ({
+        "@type": "VideoObject",
+        name: video.title,
+        // description: video.description,
+        thumbnailUrl: video.image_url,
+        contentUrl: `https://metarang.com/${lang}/education/category/${video.sub_category.slug}`,
+        uploadDate: "",
+        publisher: {
+          "@type": "Organization",
+          name: video.creator.name || video.creator.code,
         },
-        {
-          "@type": "InteractionCounter",
-          interactionType: "http://schema.org/DislikeAction",
-          userInteractionCount: video.dislikes_count,
-        },
-        {
-          "@type": "InteractionCounter",
-          interactionType: "http://schema.org/WatchAction",
-          userInteractionCount: video.views_count,
-        },
-      ],
-    })),
-  };
+        interactionStatistic: [
+          {
+            "@type": "InteractionCounter",
+            interactionType: "http://schema.org/LikeAction",
+            userInteractionCount: video.likes_count,
+          },
+          {
+            "@type": "InteractionCounter",
+            interactionType: "http://schema.org/DislikeAction",
+            userInteractionCount: video.dislikes_count,
+          },
+          {
+            "@type": "InteractionCounter",
+            interactionType: "http://schema.org/WatchAction",
+            userInteractionCount: video.views_count,
+          },
+        ],
+      })),
+    };
 
-  return (
-    <>
-      {/* SCHEMA** */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(educationVideoSchema),
-        }}
-      />
-      <div className="flex w-full" dir={langData.direction}>
+    return (
+      <>
+        {/* SCHEMA** */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(educationVideoSchema),
+          }}
+        />
+        <div className="flex w-full" dir={langData.direction}>
 
-        <section
-          className={`w-full  relative  mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20 xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1`}
-        >
-          <CleanAutoRetryParam />
+          <section
+            className={`w-full  relative  mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20 xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1`}
+          >
+            <CleanAutoRetryParam />
 
-          {/* Breadcrumb */}
-          <div className="">
-            <BreadCrumb params={params} />
-          </div>
-          <div className="mt-[60px] lg:mt-[40px] xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
-            <h1 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[64px] mb-[16px]">
-              {findByUniqueId(mainData, 166)}
-            </h1>
-            <p className="text-lightGray  dark:text-lightGray font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center px-5 lg:px-10">
-              {findByUniqueId(mainData, 164)}
-            </p>
-            <div className="flex justify-center w-full px-5 lg:px-0">
-              <SearchComponent
-                searchLevel='education'
-                mainData={mainData}
-                params={params}
-              />
+            {/* Breadcrumb */}
+            <div className="">
+              <BreadCrumb params={resolvedParams} />
             </div>
-          </div>
+            <div className="mt-[60px] lg:mt-[40px] xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
+              <h1 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[64px] mb-[16px]">
+                {findByUniqueId(mainData, 166)}
+              </h1>
+              <p className="text-lightGray  dark:text-lightGray font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center px-5 lg:px-10">
+                {findByUniqueId(mainData, 164)}
+              </p>
+              <div className="flex justify-center w-full px-5 lg:px-0">
+                <SearchComponent
+                  searchLevel='education'
+                  mainData={mainData}
+                  params={resolvedParams}
+                />
+              </div>
+            </div>
 
-          <div className="h-fit mt-[60px]  xl:mt-[100px] 2xl:mt-[150px]">
-            <TopTrainersFirstPage params={params} mainData={mainData} users={users} />
-          </div>
+            <div className="h-fit mt-[60px]  xl:mt-[100px] 2xl:mt-[150px]">
+              <TopTrainersFirstPage params={resolvedParams} mainData={mainData} users={users} />
+            </div>
 
-          <EducationCategories
-            categoriesData={categoriesData}
-            mainData={mainData}
-            params={params}
-          />
+            <EducationCategories
+              categoriesData={categoriesData}
+              mainData={mainData}
+              params={resolvedParams}
+            />
 
-          <EducationList
-            allCatVideos={allCatVideos}
-            params={params}
-            mainData={mainData}
-          />
+            <EducationList
+              allCatVideos={allCatVideos}
+              params={resolvedParams}
+              mainData={mainData}
+            />
 
 
-        </section>
-      </div>
-    </>
-  );
-}
-catch (error) {
-  const serializedError = {
-    message:
-      error instanceof Error ? error.message : "Unknown error",
-    stack:
-      error instanceof Error ? error.stack : null,
-    name:
-      error instanceof Error ? error.name : "Error",
-  };
+          </section>
+        </div>
+      </>
+    );
+  }
+  catch (error) {
+    const serializedError = {
+      message:
+        error instanceof Error ? error.message : "Unknown error",
+      stack:
+        error instanceof Error ? error.stack : null,
+      name:
+        error instanceof Error ? error.name : "Error",
+    };
 
-  console.error("❌ Error in EductionPage:", serializedError);
+    console.error("❌ Error in EductionPage:", serializedError);
 
-  return <CustomErrorPage error={serializedError} />;
-}
+    return <CustomErrorPage error={serializedError} />;
+  }
 }
 
 // SEO**
-export async function generateMetadata({ params }: { params: any }) {
+export async function generateMetadata({ params }: CitizensPageProps) {
   try {
-  const langData = await getTranslation(params.lang);
+    const resolvedParams = await params;
+    const { lang } = resolvedParams;
+    const langData = await getTranslation(lang);
 
-  const mainData = await getMainFile(langData);
+    const mainData = await getMainFile(langData);
 
-  //to make description less than 200 character
-  async function makeLessCharacter() {
-    let temp = findByUniqueId(mainData, 164);
-    temp = temp.slice(0, 200);
+    //to make description less than 200 character
+    async function makeLessCharacter() {
+      let temp = findByUniqueId(mainData, 164);
+      temp = temp.slice(0, 200);
 
-    return temp;
-  }
+      return temp;
+    }
 
-  return {
-    title: await findByUniqueId(mainData, 165),
-    description: await makeLessCharacter(),
-    openGraph: {
-      type: "website",
-      // url: `https://rgb.irpsc.com/posts/${params.id}`,
-      title: findByUniqueId(mainData, 593),
+    return {
+      title: await findByUniqueId(mainData, 165),
       description: await makeLessCharacter(),
-      locale: params.lang == "fa" ? "fa_IR" : "en_US",
-      // site_name: متاورس رنگ,
-      url: `https://rgb.irpsc.com/${params.lang}/education`,
-      images: [
-        {
-          url: "/logo.png",
-          width: 800,
-          height: 600,
-          // alt: post.title,
-        },
-      ],
-    },
-    // twitter: {
-    //   card: 'summary_large_image',
-    //   title: post.title,
-    //   description: post.description,
-    //   images: [post.imageUrl],
-    // },
-  };
-} catch (error) {
+      openGraph: {
+        type: "website",
+        // url: `https://metarang.com/posts/${params.id}`,
+        title: findByUniqueId(mainData, 593),
+        description: await makeLessCharacter(),
+        locale: lang == "fa" ? "fa_IR" : "en_US",
+        // site_name: متاورس رنگ,
+        url: `https://metarang.com/${lang}/education`,
+        images: [
+          {
+            url: "/logo.png",
+            width: 800,
+            height: 600,
+            // alt: post.title,
+          },
+        ],
+      },
+      // twitter: {
+      //   card: 'summary_large_image',
+      //   title: post.title,
+      //   description: post.description,
+      //   images: [post.imageUrl],
+      // },
+    };
+  } catch (error) {
     console.error("❌ Metadata error (LevelsPage):", error);
 
     return {

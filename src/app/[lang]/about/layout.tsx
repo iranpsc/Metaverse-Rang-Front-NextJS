@@ -5,19 +5,19 @@ import CustomErrorPage from "@/components/shared/CustomErrorPage";
 // حیاتی 👇
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
-
+ interface AboutLayoutProps {
+  params: Promise<{ lang: string }>;
+   children:React.ReactNode;
+}
 export default async function AboutLayout({
   
   children,
   params,
-}: {
-  children: React.ReactNode;
-  params: { lang?: string };
-}) {
+}: AboutLayoutProps) {
     try {
   
-  
-  const lang = params?.lang || "fa";
+  const resolvedParams = await params;
+  const { lang } = resolvedParams;
 
   let langData;
 

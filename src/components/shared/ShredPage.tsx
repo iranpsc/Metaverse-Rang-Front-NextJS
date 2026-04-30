@@ -29,7 +29,7 @@ export default function ShredPage({
 
   const handleCopyClick = async () => {
     try {
-      const textToCopy = `https://rgb.irpsc.com/${params.lang}/citizen/${params.id}`;
+      const textToCopy = `https://metarang.com/${params.lang}/citizen/${params.id}`;
       await navigator.clipboard.writeText(textToCopy);
 
       setCopied(true);
@@ -40,7 +40,7 @@ export default function ShredPage({
   };
 
   const handleShare = (platform: any) => {
-    const urlToShare = `https://rgb.irpsc.com/${params.lang}/citizen/${params.id}`;
+    const urlToShare = `https://metarang.com/${params.lang}/citizen/${params.id}`;
     let shareUrl = "";
 
     switch (platform) {
@@ -167,7 +167,7 @@ export default function ShredPage({
                   {/* {targetData(userProperty, "copy")} */}
                   {findByUniqueId(mainData, 323)}
                 </p>
-                <p className="py-2 text-[#000] dark:text-[#fff] font-azarMehr xl:text-[16px] lg:text-[16px] md:text-[10px] sm:text-[12px] xs:text-[12px] font-medium">{`https://rgb.irpsc.com/${params.lang}/citizen/${params.id}`}</p>
+                <p className="py-2 text-[#000] dark:text-[#fff] font-azarMehr xl:text-[16px] lg:text-[16px] md:text-[10px] sm:text-[12px] xs:text-[12px] font-medium">{`https://metarang.com/${params.lang}/citizen/${params.id}`}</p>
               </div>
               {copied && (
                 <ReactTooltip

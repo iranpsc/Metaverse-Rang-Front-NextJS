@@ -68,7 +68,10 @@ useEffect(() => {
           id={item.name}
           place="top"
           className="!bg-[#E9E9E9] !text-[#908F95] dark:!bg-[#434343] dark:!text-white !font-azarMehr !font-medium !text-[14px]"
-          content={item.name}
+          content={params.lang == "fa" ? item.name : urlForGem
+        ? urlForGem.split("-baguette")[0].charAt(0).toUpperCase() +
+          urlForGem.split("-baguette")[0].slice(1)
+        : "Newcomer"}
         />
       </Link>
     </>

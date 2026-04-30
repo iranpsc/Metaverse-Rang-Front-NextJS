@@ -145,7 +145,7 @@ export default function InviteChart({ params, referralPageArrayContent, initChar
   const fetchChartData = async (_searchParam) => {
     try {
       const response = await axios.get(
-        `https://api.rgb.irpsc.com/api/citizen/${params.id}/referrals/chart?range=${_searchParam}`,
+        `https://api.metarang.com/api/citizen/${params.id}/referrals/chart?range=${_searchParam}`,
         {
           headers: {
             "Content-Type": "application/json",

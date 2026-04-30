@@ -33,7 +33,7 @@ export default function AdminArticlesWrapper() {
 
       try {
         const res = await axios.post(
-          "https://api.rgb.irpsc.com/api/auth/me",
+          "https://api.metarang.com/api/auth/me",
           null,
           { headers: { Authorization: `Bearer ${token}` } }
         );

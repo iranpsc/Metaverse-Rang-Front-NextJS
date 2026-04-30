@@ -9,17 +9,17 @@ import CustomErrorPage from "@/components/shared/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
 
 interface NewsCategoryPageProps {
-  params: {
-    lang: string;
-    category: string;
-  };
+
+   params: Promise<{ lang: string ;  category: string;}>;
 }
 
 /* ================= METADATA ================= */
 export async function generateMetadata({ params }: NewsCategoryPageProps) {
+     const resolvedParams = await params;
+  const { lang } = resolvedParams;
   try {
-    const categorySlug = decodeURIComponent(params.category);
-    const siteUrl = "https://rgb.irpsc.com";
+    const categorySlug = decodeURIComponent(resolvedParams.category);
+    const siteUrl = "https://metarang.com";
 
     const { data } = await supabase
       .from("news")
@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: NewsCategoryPageProps) {
         title: `دسته ${categorySlug} | اخبار`,
         description: `خبری در این دسته یافت نشد`,
         alternates: {
-          canonical: `${siteUrl}/${params.lang}/news/categories/${categorySlug}`,
+          canonical: `${siteUrl}/${lang}/news/categories/${categorySlug}`,
         },
       };
     }
@@ -43,15 +43,15 @@ export async function generateMetadata({ params }: NewsCategoryPageProps) {
       title: `${category} | اخبار`,
       description: categoryDec || `اخبار مرتبط با ${category}`,
       alternates: {
-        canonical: `${siteUrl}/${params.lang}/news/categories/${categorySlug}`,
+        canonical: `${siteUrl}/${lang}/news/categories/${categorySlug}`,
       },
       openGraph: {
         title: `${category} | اخبار`,
         description: categoryDec,
-        url: `${siteUrl}/${params.lang}/news/categories/${categorySlug}`,
+        url: `${siteUrl}/${lang}/news/categories/${categorySlug}`,
         siteName: "MetaRang",
         type: "website",
-        locale: params.lang === "fa" ? "fa_IR" : "en_US",
+        locale: lang === "fa" ? "fa_IR" : "en_US",
         images: [
           {
             url: categoryImage || "/default.png",
@@ -72,10 +72,12 @@ export async function generateMetadata({ params }: NewsCategoryPageProps) {
 
 /* ================= PAGE ================= */
 export default async function NewsCategoryPage({ params }: NewsCategoryPageProps) {
+     const resolvedParams = await params;
+  const { lang } = resolvedParams;
   try {
-    const categorySlug = decodeURIComponent(params.category);
+    const categorySlug = decodeURIComponent(resolvedParams.category);
 
-    const langData = await getTranslation(params.lang);
+    const langData = await getTranslation(lang);
     const mainData = await getMainFile(langData);
 
     const { data: newsData } = await supabase
@@ -91,7 +93,7 @@ export default async function NewsCategoryPage({ params }: NewsCategoryPageProps
             خبری در این دسته پیدا نشد 😕
           </h2>
           <Link
-            href={`/${params.lang}/news`}
+            href={`/${lang}/news`}
             className="text-blue-600 hover:underline"
           >
             بازگشت به اخبار
@@ -111,8 +113,8 @@ export default async function NewsCategoryPage({ params }: NewsCategoryPageProps
       (sum, n) => sum + (n.stats?.views ?? 0),
       0
     );
-    const baseUrl = "https://rgb.irpsc.com";
-const categoryUrl = `${baseUrl}/${params.lang}/news/categories/${categorySlug}`;
+    const baseUrl = "https://metarang.com";
+const categoryUrl = `${baseUrl}/${lang}/news/categories/${categorySlug}`;
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -125,13 +127,13 @@ const jsonLd = {
           "@type": "ListItem",
           "position": 1,
           "name": "صفحه اصلی",
-          "item": `${baseUrl}/${params.lang}`,
+          "item": `${baseUrl}/${lang}`,
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "اخبار",
-          "item": `${baseUrl}/${params.lang}/news`,
+          "item": `${baseUrl}/${lang}/news`,
         },
         {
           "@type": "ListItem",
@@ -154,7 +156,7 @@ const jsonLd = {
         "name": "MetaRang",
         "url": baseUrl,
       },
-      "inLanguage": params.lang === "fa" ? "fa-IR" : "en-US",
+      "inLanguage": lang === "fa" ? "fa-IR" : "en-US",
     },
 
     /* ================= News List ================= */
@@ -176,7 +178,7 @@ const jsonLd = {
             "headline": n.title,
             "description":
               n.description || categoryDec || "خبر جدید از متاورس رنگ",
-            "url": `${baseUrl}/${params.lang}/news/${n.slug}`,
+            "url": `${baseUrl}/${lang}/news/${n.slug}`,
             "datePublished": publishedDate,
             "dateModified": publishedDate,
             "image": n.image || `${baseUrl}/default.png`,
@@ -194,9 +196,9 @@ const jsonLd = {
             },
             "mainEntityOfPage": {
               "@type": "WebPage",
-              "@id": `${baseUrl}/${params.lang}/news/${n.slug}`,
+              "@id": `${baseUrl}/${lang}/news/${n.slug}`,
             },
-            "inLanguage": params.lang === "fa" ? "fa-IR" : "en-US",
+            "inLanguage": lang === "fa" ? "fa-IR" : "en-US",
             "isAccessibleForFree": true,
           },
         };
@@ -236,7 +238,7 @@ const jsonLd = {
         <div className="flex flex-col-reverse lg:flex-row gap-5 px-5">
           <SearchComponent
             searchLevel="news"
-            params={params}
+            params={resolvedParams}
             mainData={mainData}
           />
         </div>
@@ -244,7 +246,7 @@ const jsonLd = {
         {/* 🔹 لیست اخبار */}
         <div className="px-5">
           <CategoryItemsGrid
-            params={params}
+            params={resolvedParams}
             category={category}
             articles={newsData}
             mainData={mainData}

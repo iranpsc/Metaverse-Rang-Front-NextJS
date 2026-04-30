@@ -13,6 +13,7 @@ interface VersionItem {
 
 interface VersionSectionProps {
   firstPageArrayContent?: { name: string; translation: string }[];
+  params:any;
 }
 
 const VersionSection = ({ firstPageArrayContent = [] }: VersionSectionProps) => {
@@ -35,7 +36,7 @@ useEffect(() => {
   const fetchVersions = async () => {
     try {
       const response = await fetch(
-        "https://api.rgb.irpsc.com/api/calendar?type=version",
+        "https://api.metarang.com/api/calendar?type=version",
         { method: "GET", cache: "no-store" }
       );
 

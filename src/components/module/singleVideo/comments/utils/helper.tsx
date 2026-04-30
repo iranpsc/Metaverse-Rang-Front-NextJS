@@ -13,7 +13,7 @@ export const handlerLikeComments = async (
         data: " ",
       };
       const response = await axios.post(
-        `https://api.rgb.irpsc.com/api/tutorials/${videoId}/comments/${commentId}/like`,
+        `https://api.metarang.com/api/tutorials/${videoId}/comments/${commentId}/like`,
         requestData,
         {
           headers: {
@@ -45,7 +45,7 @@ export const handlerDisLikeComments = async (
     };
     try {
       const response = await axios.post(
-        `https://api.rgb.irpsc.com/api/tutorials/${videoId}/comments/${commentId}/dislike`,
+        `https://api.metarang.com/api/tutorials/${videoId}/comments/${commentId}/dislike`,
         requestData,
         {
           headers: {
@@ -76,7 +76,7 @@ export const handlerDeleteComments = async (
     };
     try {
       const response = await axios.delete(
-        `https://api.rgb.irpsc.com/api/tutorials/${videoId}/comments/${commentId}`,
+        `https://api.metarang.com/api/tutorials/${videoId}/comments/${commentId}`,
 
         {
           headers: {
@@ -123,7 +123,7 @@ export const handlerReportComments = async ({
 
   try {
     const response = await axios.post(
-      `https://api.rgb.irpsc.com/api/tutorials/${videoId}/comments/${commentId}/report`,
+      `https://api.metarang.com/api/tutorials/${videoId}/comments/${commentId}/report`,
       requestData,
       {
         headers: {
@@ -193,7 +193,7 @@ export const handleSubmit = async (
 
   try {
     const response = await axios.post(
-      `https://api.rgb.irpsc.com/api/tutorials/${videoId}/comments/${commentId}`,
+      `https://api.metarang.com/api/tutorials/${videoId}/comments/${commentId}`,
       requestData,
       {
         headers: {

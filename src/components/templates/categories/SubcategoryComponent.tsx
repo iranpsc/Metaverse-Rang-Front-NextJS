@@ -10,7 +10,7 @@ import SyncLoader from "react-spinners/SyncLoader";
 
 const SearchComponent = dynamic(
   () => import("@/components/shared/SearchComponent"),
-  { suspense: false }
+  // { suspense: false }
 );
 import ListVideos from "@/components/shared/ListVideos";
 
@@ -31,7 +31,7 @@ export default function SubcategoryComponent({ subCategoryData, params, mainData
       setLoading(true);
       try {
         const res = await axios.get(
-          `https://api.rgb.irpsc.com/api/tutorials/${subCategoryData.slug}?page=${page}`
+          `https://api.metarang.com/api/tutorials/${subCategoryData.slug}?page=${page}`
         );
         const newVideos = res.data.videos || res.data.data || [];
 
@@ -102,9 +102,9 @@ export default function SubcategoryComponent({ subCategoryData, params, mainData
               {findByUniqueId(mainData, 344)} {subCategoryData.name}
             </h1>
 
-            <Suspense fallback={<div className="text-center !mx-0 w-full text-[20px] lg:w-1/2">loading...</div>}>
+            {/* <Suspense fallback={<div className="text-center !mx-0 w-full text-[20px] lg:w-1/2">loading...</div>}> */}
               <SearchComponent searchLevel="education" mainData={mainData} params={params} />
-            </Suspense>
+            {/* </Suspense> */}
           </div>
 
           <ListVideos

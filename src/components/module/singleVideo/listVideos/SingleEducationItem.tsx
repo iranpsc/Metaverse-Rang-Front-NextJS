@@ -76,7 +76,7 @@ const SingleEducationItem = ({ item, mainData, params, theme }: any) => {
           {" : "}
           <span className="mb-[-2px] text-blueLink dark:text-blue-500 uppercase">
             <Link onClickCapture={() => setLinkLoading(true)}
-              href={`https://rgb.irpsc.com/${params.lang}/citizen/${item.creator.code}`}
+              href={`https://metarang.com/${params.lang}/citizen/${item.creator.code}`}
             >
               {checkData(item.creator.code)}
             </Link>

@@ -75,7 +75,7 @@ const ReplyList = ({
   const fetchReplies = async () => {
     try {
       const response = await axios.get(
-        `https://api.rgb.irpsc.com/api/comments/${commentId}/replies`,
+        `https://api.metarang.com/api/comments/${commentId}/replies`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -142,7 +142,7 @@ const ReplyList = ({
     setInteractionLoading((prev) => ({ ...prev, [replyId]: true }));
 
     try {
-      const endpoint = `https://api.rgb.irpsc.com/api/comments/${commentId}/replies/${replyId}/interactions?liked=${isLike ? 1 : 0}`;
+      const endpoint = `https://api.metarang.com/api/comments/${commentId}/replies/${replyId}/interactions?liked=${isLike ? 1 : 0}`;
       await axios.post(endpoint, null, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -175,7 +175,7 @@ const ReplyList = ({
 
     try {
       await axios.delete(
-        `https://api.rgb.irpsc.com/api/comments/${commentId}/replies/${replyId}`,
+        `https://api.metarang.com/api/comments/${commentId}/replies/${replyId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

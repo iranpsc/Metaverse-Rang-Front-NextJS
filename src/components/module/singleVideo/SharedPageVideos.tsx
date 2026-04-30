@@ -34,7 +34,7 @@ export default function SharedPageVideos({
 
   const handleCopyClick = async () => {
     try {
-      const textToCopy = `https://rgb.irpsc.com/${params.lang}/education/category/${DataVideo.category.slug}/${DataVideo.sub_category.slug}/${DataVideo.slug}`;
+      const textToCopy = `https://metarang.com/${params.lang}/education/category/${DataVideo.category.slug}/${DataVideo.sub_category.slug}/${DataVideo.slug}`;
       await navigator.clipboard.writeText(textToCopy);
 
       setCopied(true);
@@ -45,7 +45,7 @@ export default function SharedPageVideos({
   };
 
   const handleShare = (platform: any) => {
-    const urlToShare = `https://rgb.irpsc.com/${params.lang}/education/category/${DataVideo.category.slug}/${DataVideo.sub_category.slug}/${DataVideo.slug}`;
+    const urlToShare = `https://metarang.com/${params.lang}/education/category/${DataVideo.category.slug}/${DataVideo.sub_category.slug}/${DataVideo.slug}`;
     let shareUrl = "";
 
     switch (platform) {
@@ -180,7 +180,7 @@ export default function SharedPageVideos({
                   {/* {targetData(data.data.selectedProfileData, "copy")} */}
                   {findByUniqueId(mainData, 323)}
                 </p>
-                <p dir="ltr" className="py-2 text-[#000] truncate w-[80%] text-left dark:text-[#fff] font-azarMehr xl:text-[12px] lg:text-[12px] md:text-[12px]   whitespace-nowrap text-[10px] font-medium">{`https://rgb.irpsc.com/${params.lang}/education/category/${DataVideo.category.slug}/${DataVideo.sub_category.slug}/${DataVideo.slug}`}</p>
+                <p dir="ltr" className="py-2 text-[#000] truncate w-[80%] text-left dark:text-[#fff] font-azarMehr xl:text-[12px] lg:text-[12px] md:text-[12px]   whitespace-nowrap text-[10px] font-medium">{`https://metarang.com/${params.lang}/education/category/${DataVideo.category.slug}/${DataVideo.sub_category.slug}/${DataVideo.slug}`}</p>
               </div>
               {copied && (
                 <ReactTooltip

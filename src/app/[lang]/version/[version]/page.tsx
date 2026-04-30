@@ -30,24 +30,29 @@ interface VersionItem {
   customName?: string;
   image?: string;
 }
-
+interface VersionPageProps {
+  params: Promise<{
+    version: string; lang: string
+  }>;
+}
 
 function stripHtmlTags(html: string): string {
   return html.replace(/<|>/g, "").trim();
 }
-
-
 
 function truncateText(text: string, maxLength: number): string {
   if (text.length <= maxLength) return text;
   return text.slice(0, maxLength).trimEnd() + "...";
 }
 
-export async function generateMetadata({ params }: { params: any }): Promise<Metadata> {
-  try {
-    const { lang, version } = params;
+export async function generateMetadata({ params }: VersionPageProps): Promise<Metadata> {
 
-    const apiUrl = "https://api.rgb.irpsc.com/api/calendar?type=version&page=1";
+  try {
+
+    const resolvedParams = await params;
+    const { lang, version } = resolvedParams;
+
+    const apiUrl = "https://api.metarang.com/api/calendar?type=version&page=1";
 
     const localeMap: Record<string, string> = {
       fa: "fa_IR",
@@ -73,7 +78,7 @@ export async function generateMetadata({ params }: { params: any }): Promise<Met
           title: item.title,
           description: truncateText(stripHtmlTags(item.description), 200),
           version: item.version_title,
-          image: item.image_url || `https://rgb.irpsc.com/_next/image?url=%2Flogo.png&w=120&q=75`,
+          image: item.image_url || `https://metarang.com/_next/image?url=%2Flogo.png&w=120&q=75`,
         }))
         : [];
 
@@ -91,8 +96,7 @@ export async function generateMetadata({ params }: { params: any }): Promise<Met
 
       const title = `${currentVersion.title} - نسخه ${currentVersion.version}`;
       const description = currentVersion.description;
-
-      const siteUrl = process.env.SITE_URL || "https://rgb.irpsc.com";
+      const siteUrl = process.env.SITE_URL || "https://metarang.com";
       const pageUrl = `${siteUrl}/${lang}/version/${encodeURIComponent(version)}`;
       const image = currentVersion.image;
 
@@ -146,13 +150,12 @@ export async function generateMetadata({ params }: { params: any }): Promise<Met
   }
 }
 
-
-
-
-export default async function VersionPage({ params }: { params: any }) {
+export default async function VersionPage({ params }: VersionPageProps) {
+  const resolvedParams = await params;
+  const { lang } = resolvedParams;
   try {
     const [langData, langArray] = await Promise.all([
-      getTranslation(params.lang),
+      getTranslation(lang),
       getLangArray(),
     ]);
 
@@ -162,7 +165,7 @@ export default async function VersionPage({ params }: { params: any }) {
     let versions: any = [];
     try {
       const response = await fetch(
-        "https://api.rgb.irpsc.com/api/calendar?type=version&page=1",
+        "https://api.metarang.com/api/calendar?type=version&page=1",
         {
           method: "GET",
           headers: {
@@ -205,10 +208,10 @@ export default async function VersionPage({ params }: { params: any }) {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": findByUniqueId(mainData, 256) || "نام نرم‌افزار یا پروژه",
-      "url": `https://rgb.irpsc.com/${params.lang}/version/${encodeURIComponent(params.version || '')}`,
+      "url": `https://metarang.com/${resolvedParams.lang}/version/${encodeURIComponent(resolvedParams.version || '')}`,
       "description": versions.length > 0
         ? stripHtmlTags(
-          versions.find((v: VersionItem) => v.version === params.version)?.description || "صفحه نسخه‌های نرم‌افزار"
+          versions.find((v: VersionItem) => v.version === resolvedParams.version)?.description || "صفحه نسخه‌های نرم‌افزار"
         )
         : "صفحه نسخه‌های نرم‌افزار",
 
@@ -217,9 +220,9 @@ export default async function VersionPage({ params }: { params: any }) {
         "name": "RGB IRPSC"
       },
       "datePublished": versions.length > 0
-        ? versions.find((v: VersionItem) => v.version === params.version)?.date || new Date().toISOString().slice(0, 10)
+        ? versions.find((v: VersionItem) => v.version === resolvedParams.version)?.date || new Date().toISOString().slice(0, 10)
         : new Date().toISOString().slice(0, 10),
-      "softwareVersion": params.version || (versions.length > 0 ? versions[0].version : ""),
+      "softwareVersion": resolvedParams.version || (versions.length > 0 ? versions[0].version : ""),
       "version": versions.map((v: VersionItem) => ({
         "@type": "CreativeWork",
         "name": v.title,
@@ -228,8 +231,8 @@ export default async function VersionPage({ params }: { params: any }) {
 
       })),
       "image": versions.length > 0
-        ? versions.find((v: VersionItem) => v.version === params.version)?.image || "https://rgb.irpsc.com/_next/image?url=%2Flogo.png&w=120&q=75"
-        : "https://rgb.irpsc.com/_next/image?url=%2Flogo.png&w=120&q=75",
+        ? versions.find((v: VersionItem) => v.version === resolvedParams.version)?.image || "https://metarang.com/_next/image?url=%2Flogo.png&w=120&q=75"
+        : "https://metarang.com/_next/image?url=%2Flogo.png&w=120&q=75",
       "applicationCategory": "GameApplication",
       "aggregateRating": {
         "@type": "AggregateRating",
@@ -253,16 +256,16 @@ export default async function VersionPage({ params }: { params: any }) {
             className={`w-full relative mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20`}
           >
             <div className="px-12">
-              <BreadCrumb params={params} />
+              <BreadCrumb params={resolvedParams} />
             </div>
             <div className="mainContainer w-full lg:h-auto dark:bg-black flex flex-col gap-[10px] lg:flex-row lg:items-start lg:justify-between">
               <div className="centerItem w-full lg:px-7">
                 <div className="self-center justify-between flex pt-8 w-full gap-8">
                   <Version
                     versions={versions}
-                    params={params}
+                    params={resolvedParams}
                     mainData={mainData}
-                    initialVersion={params.version || (versions.length > 0 ? versions[0].version : null)}
+                    initialVersion={resolvedParams.version || (versions.length > 0 ? versions[0].version : null)}
                   />
                 </div>
               </div>

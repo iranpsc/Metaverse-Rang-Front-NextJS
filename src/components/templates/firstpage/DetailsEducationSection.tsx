@@ -16,7 +16,7 @@ const DetailsEducationSection = ({ mainData }: any) => {
           {/* <p className="font-azarMehr text-center font-bold xl:text-[44px] lg:text-[38px] md:text-[32px] sm:text-[24px] xs:text-[20px] text-white">
             {findByUniqueId(mainData, 498)}
           </p> */}
-          <a href="https://rgb.irpsc.com/metaverse/" >
+          <a href="https://metarang.com/metaverse/" >
             <div className="border-[1px] border-white bg-white shadow-xl rounded-full w-max  flex flex-row justify-between items-center ps-2 sm:ps-3 md:ps-4 lg:ps-5 xl:ps-6 pe-[5px] gap-5 py-[5px]">
               <p className="w-fit text-start text-[10px] sm:text-[13px] md:text-[15px] lg:text-[18px] xl:text-[20px] text-black font-azarMehr font-medium ">
                {findByUniqueId(mainData, 483)}

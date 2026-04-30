@@ -21,7 +21,7 @@ const EducationFirstPage = ({ mainData, params }: { mainData: any; params: Param
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        const res = await axios.get("https://api.rgb.irpsc.com/api/tutorials?page=1");
+        const res = await axios.get("https://api.metarang.com/api/tutorials?page=1");
         const apiVideos = res.data.data;
 
         // مرتب‌سازی جدیدترین ویدیوها

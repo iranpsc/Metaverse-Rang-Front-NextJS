@@ -79,7 +79,7 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
       try {
         // console.log("Fetching user data with token:", token);
         const response = await axios.post(
-          "https://api.rgb.irpsc.com/api/auth/me",
+          "https://api.metarang.com/api/auth/me",
           null,
           {
             headers: {
@@ -140,7 +140,7 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
         // console.log("🎯 [REGISTER WITH REFERRAL]", referralCode);
 
         const res = await axios.post(
-          "https://api.rgb.irpsc.com/api/auth/register",
+          "https://api.metarang.com/api/auth/register",
           {
             referral: referralCode,
             back_url: currentUrl,
@@ -160,7 +160,7 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
         // console.log("🚫 [NORMAL LOGIN MODE]");
 
         const res = await axios.get(
-          `https://api.rgb.irpsc.com/api/auth/redirect?redirect_to=${encodeURIComponent(
+          `https://api.metarang.com/api/auth/redirect?redirect_to=${encodeURIComponent(
             currentUrl
           )}`,
           {
@@ -186,7 +186,7 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
     try {
       // console.log("📩 Sending referral to API:", referralCode);
       const res = await axios.post(
-        "https://api.rgb.irpsc.com/api/auth/referral",
+        "https://api.metarang.com/api/auth/referral",
         { referral: referralCode },
         {
           headers: {
@@ -205,7 +205,7 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
     // console.log("Logging out...");
     try {
       const res = await axios.post(
-        "https://api.rgb.irpsc.com/api/auth/logout",
+        "https://api.metarang.com/api/auth/logout",
         null,
         {
           headers: {
@@ -273,7 +273,7 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
             )}
             <li className="border-b border-white dark:border-divider">
               <Link
-                href="https://rgb.irpsc.com/metaverse/"
+                href="https://metarang.com/metaverse/"
                 className="h-[30px] w-full block font-medium"
               >
                 {localFind("enter the metaverse") && params.lang == "fa"

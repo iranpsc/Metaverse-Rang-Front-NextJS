@@ -42,7 +42,7 @@ export default function List({ params, mainData, users }: ListProps) {
       code: "",
       score: "",
       levels: {
-        current: { id: 0, name: "توسعه دهنده", image: "https://admin.rgb.irpsc.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
+        current: { id: 0, name: "توسعه دهنده", image: "https://admin.metarang.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
         previous: [],
       },
     },
@@ -53,7 +53,7 @@ export default function List({ params, mainData, users }: ListProps) {
       code: "HM-2000475",
       score: "",
       levels: {
-        current: { id: 0, name: "توسعه دهنده", image: "https://admin.rgb.irpsc.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
+        current: { id: 0, name: "توسعه دهنده", image: "https://admin.metarang.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
         previous: [],
       },
     },
@@ -64,7 +64,7 @@ export default function List({ params, mainData, users }: ListProps) {
       code: "HM-2000007",
       score: "",
       levels: {
-        current: { id: 0, name: "توسعه دهنده", image: "https://admin.rgb.irpsc.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
+        current: { id: 0, name: "توسعه دهنده", image: "https://admin.metarang.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
         previous: [],
       },
     },
@@ -75,7 +75,7 @@ export default function List({ params, mainData, users }: ListProps) {
       code: "",
       score: "",
       levels: {
-        current: { id: 0, name: "توسعه دهنده", image: "https://admin.rgb.irpsc.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
+        current: { id: 0, name: "توسعه دهنده", image: "https://admin.metarang.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
         previous: [],
       },
     },
@@ -86,7 +86,7 @@ export default function List({ params, mainData, users }: ListProps) {
       code: "HM-2000011",
       score: "",
       levels: {
-        current: { id: 0, name: "توسعه دهنده", image: "https://admin.rgb.irpsc.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
+        current: { id: 0, name: "توسعه دهنده", image: "https://admin.metarang.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
         previous: [],
       },
     },
@@ -97,7 +97,7 @@ export default function List({ params, mainData, users }: ListProps) {
       code: "",
       score: "",
       levels: {
-        current: { id: 0, name: "توسعه دهنده", image: "https://admin.rgb.irpsc.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
+        current: { id: 0, name: "توسعه دهنده", image: "https://admin.metarang.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
         previous: [],
       },
     },
@@ -108,7 +108,7 @@ export default function List({ params, mainData, users }: ListProps) {
       code: "",
       score: "",
       levels: {
-        current: { id: 0, name: "توسعه دهنده", image: "https://admin.rgb.irpsc.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
+        current: { id: 0, name: "توسعه دهنده", image: "https://admin.metarang.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
         previous: [],
       },
     },
@@ -119,7 +119,7 @@ export default function List({ params, mainData, users }: ListProps) {
       code: "hm-2000010",
       score: "",
       levels: {
-        current: { id: 0, name: "توسعه دهنده", image: "https://admin.rgb.irpsc.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
+        current: { id: 0, name: "توسعه دهنده", image: "https://admin.metarang.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
         previous: [],
       },
     },
@@ -130,7 +130,7 @@ export default function List({ params, mainData, users }: ListProps) {
       code: "",
       score: "",
       levels: {
-        current: { id: 0, name: "توسعه دهنده", image: "https://admin.rgb.irpsc.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
+        current: { id: 0, name: "توسعه دهنده", image: "https://admin.metarang.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
         previous: [],
       },
     },
@@ -141,7 +141,7 @@ export default function List({ params, mainData, users }: ListProps) {
       code: "",
       score: "",
       levels: {
-        current: { id: 0, name: "توسعه دهنده", image: "https://admin.rgb.irpsc.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
+        current: { id: 0, name: "توسعه دهنده", image: "https://admin.metarang.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
         previous: [],
       },
     },
@@ -152,7 +152,7 @@ export default function List({ params, mainData, users }: ListProps) {
       code: "",
       score: "",
       levels: {
-        current: { id: 0, name: "توسعه دهنده", image: "https://admin.rgb.irpsc.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
+        current: { id: 0, name: "توسعه دهنده", image: "https://admin.metarang.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
         previous: [],
       },
     },
@@ -163,7 +163,7 @@ export default function List({ params, mainData, users }: ListProps) {
       code: "",
       score: "",
       levels: {
-        current: { id: 0, name: "توسعه دهنده", image: "https://admin.rgb.irpsc.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
+        current: { id: 0, name: "توسعه دهنده", image: "https://admin.metarang.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
         previous: [],
       },
     },
@@ -173,7 +173,7 @@ export default function List({ params, mainData, users }: ListProps) {
     { id: 1, route_name: "citizen-baguette" },
     { id: 2, route_name: "reporter-baguette" },
     { id: 3, route_name: "participation-baguette" },
-    { id: 4, route_name: "developer-baguette", image: "https://admin.rgb.irpsc.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
+    { id: 4, route_name: "developer-baguette", image: "https://admin.metarang.com/uploads/levels/aJuYaVPHY34Ci25HGUWGiRpRmJMiNvN9L3gjojhY.png" },
     { id: 5, route_name: "inspector-baguette" },
   ];
 

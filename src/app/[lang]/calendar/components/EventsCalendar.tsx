@@ -63,7 +63,7 @@ export default function EventsCalendar({
     if (!startOfMonthDate || !endOfMonthDate) return;
     const fetchCalendarEvents = async () => {
       try {
-        const url = `https://api.rgb.irpsc.com/api/calendar/filter?start_date=${startOfMonthDate}&end_date=${endOfMonthDate}`;
+        const url = `https://api.metarang.com/api/calendar/filter?start_date=${startOfMonthDate}&end_date=${endOfMonthDate}`;
         const res = await fetch(url);
         if (!res.ok) throw new Error("ERR");
         const json = await res.json();
@@ -84,7 +84,7 @@ export default function EventsCalendar({
           setDateResults(events);
           return;
         }
-        const url = `https://api.rgb.irpsc.com/api/calendar?date=${selectedEventDate}`;
+        const url = `https://api.metarang.com/api/calendar?date=${selectedEventDate}`;
         const res = await fetch(url);
         if (!res.ok) throw new Error("ERR");
         const json = await res.json();
@@ -100,7 +100,7 @@ export default function EventsCalendar({
   function handleSearchClick() {
     if (!searchValue.trim()) return;
     const query = encodeURIComponent(searchValue);
-    const url = `https://api.rgb.irpsc.com/api/calendar?search=${query}&type=event`;
+    const url = `https://api.metarang.com/api/calendar?search=${query}&type=event`;
     const headers: HeadersInit = {
       "Content-Type": "application/json",
       ...(token && { Authorization: `Bearer ${token}` }),

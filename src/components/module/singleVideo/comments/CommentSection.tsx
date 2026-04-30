@@ -26,7 +26,7 @@ const CommentSection = ({
 
     try {
       const resVideos = await axios.get(
-        `https://api.rgb.irpsc.com/api/tutorials?page=${nextPage}`
+        `https://api.metarang.com/api/tutorials?page=${nextPage}`
       );
 
       const newVideosData = resVideos.data.data;

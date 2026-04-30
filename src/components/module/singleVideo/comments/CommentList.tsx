@@ -106,7 +106,7 @@ const CommentList = ({
       try {
         if (token) {
           const response = await axios.post(
-            "https://api.rgb.irpsc.com/api/auth/me",
+            "https://api.metarang.com/api/auth/me",
             null,
             {
               headers: {
@@ -147,7 +147,7 @@ const CommentList = ({
   const fetchReplies = async (commentId: number) => {
     try {
       const response = await axios.get(
-        `https://api.rgb.irpsc.com/api/comments/${commentId}/replies`,
+        `https://api.metarang.com/api/comments/${commentId}/replies`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -217,7 +217,7 @@ const CommentList = ({
 
     try {
       await axios.post(
-        `https://api.rgb.irpsc.com/api/tutorials/${videoId}/comments/${commentId}/interactions?liked=${isLike ? 1 : 0}`,
+        `https://api.metarang.com/api/tutorials/${videoId}/comments/${commentId}/interactions?liked=${isLike ? 1 : 0}`,
         null,
         {
           headers: {
@@ -259,7 +259,7 @@ const CommentList = ({
 
     try {
       await axios.post(
-        `https://api.rgb.irpsc.com/api/comments/${commentId}/reply`,
+        `https://api.metarang.com/api/comments/${commentId}/reply`,
         { content: replyText[commentId] },
         {
           headers: {

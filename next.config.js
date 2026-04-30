@@ -6,6 +6,7 @@
 const nextConfig = {
   // 🔹 فعال‌کردن سورس‌مپ در پروداکشن (برای رفع هشدار Missing source maps)
   productionBrowserSourceMaps: true,
+
 logging: {
     fetches: {
       fullUrl: true,
@@ -74,14 +75,16 @@ images: {
   formats: ['image/avif', 'image/webp'],
   remotePatterns: [
     { protocol: 'https', hostname: 'dl.qzparadise.ir' },
+    { protocol: 'https', hostname: 'api.metarang.com' },
     { protocol: 'https', hostname: 'api.rgb.irpsc.com' },
+    { protocol: 'https', hostname: 'admin.metarang.com' },
     { protocol: 'https', hostname: 'admin.rgb.irpsc.com' },
     { protocol: 'http', hostname: 'localhost' },
     { protocol: 'https', hostname: 'irpsc.com' },
     { protocol: 'https', hostname: 'frdevelop2.irpsc.com' },
     { protocol: 'https', hostname: 'supabase.com' },
     { protocol: 'https', hostname: '3d.irpsc.com' },
-    { protocol: 'https', hostname: 'rgb.irpsc.com' },
+    { protocol: 'https', hostname: 'metarang.com' },
 
   ],
 },

@@ -10,65 +10,66 @@ import { supabase } from "@/utils/lib/supabaseClient";
 import CustomErrorPage from "@/components/shared/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
 interface CategoryPageProps {
-  params: {
-    lang: string;
-    category: string;
+  params: Promise<{
+    lang: string, category: string;
     slug: string;
-  };
+  }>;
 }
 
 export async function generateMetadata({ params }: CategoryPageProps) {
+  const resolvedParams = await params;
+  const { lang } = resolvedParams;
   try {
-  const categorySlug = decodeURIComponent(params.category);
-  const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://rgb.irpsc.com";
+    const categorySlug = decodeURIComponent(resolvedParams.category);
+    const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://metarang.com";
 
-  // ✅ گرفتن داده از Supabase
-  const { data: articlesData } = await supabase
-    .from("articles")
-    .select("*")
-    .eq("categorySlug", categorySlug)
-    .order("date", { ascending: false });
+    // ✅ گرفتن داده از Supabase
+    const { data: articlesData } = await supabase
+      .from("articles")
+      .select("*")
+      .eq("categorySlug", categorySlug)
+      .order("date", { ascending: false });
 
-  const categoryArticles = articlesData || [];
+    const categoryArticles = articlesData || [];
 
-  if (categoryArticles.length === 0) {
+    if (categoryArticles.length === 0) {
+      return {
+        title: `دسته ${categorySlug} | مقالات`,
+        description: `هیچ مقاله‌ای در دسته ${categorySlug} یافت نشد.`,
+        alternates: {
+          canonical: `${siteUrl}/${lang}/articles/categories/${categorySlug}`,
+        },
+      };
+    }
+
+    const { category: catName, categoryDec, categoryImage } = categoryArticles[0];
+    const title = `${catName} | مقالات`;
+    const description = categoryDec || `مطالب و مقالات مرتبط با ${catName}`;
+    const image = categoryImage?.startsWith("http")
+      ? categoryImage
+      : `${siteUrl}${categoryImage?.startsWith("/") ? "" : "/"}${categoryImage || "default.jpg"}`;
+
     return {
-      title: `دسته ${categorySlug} | مقالات`,
-      description: `هیچ مقاله‌ای در دسته ${categorySlug} یافت نشد.`,
-      alternates: {
-        canonical: `${siteUrl}/${params.lang}/articles/categories/${categorySlug}`,
+      title,
+      description,
+      alternates: { canonical: `${siteUrl}/${lang}/articles/categories/${categorySlug}` },
+      openGraph: {
+        title,
+        description,
+        url: `${siteUrl}/${lang}/articles/categories/${categorySlug}`,
+        type: "website",
+        siteName: "متاورس رنگ",
+        locale: lang === "fa" ? "fa_IR" : "en_US",
+        images: [{ url: image, width: 1200, height: 630, alt: catName }],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title,
+        description,
+        images: [image],
       },
     };
-  }
-
-  const { category: catName, categoryDec, categoryImage } = categoryArticles[0];
-  const title = `${catName} | مقالات`;
-  const description = categoryDec || `مطالب و مقالات مرتبط با ${catName}`;
-  const image = categoryImage?.startsWith("http")
-    ? categoryImage
-    : `${siteUrl}${categoryImage?.startsWith("/") ? "" : "/"}${categoryImage || "default.jpg"}`;
-
-  return {
-    title,
-    description,
-    alternates: { canonical: `${siteUrl}/${params.lang}/articles/categories/${categorySlug}` },
-    openGraph: {
-      title,
-      description,
-      url: `${siteUrl}/${params.lang}/articles/categories/${categorySlug}`,
-      type: "website",
-      siteName: "متاورس رنگ",
-      locale: params.lang === "fa" ? "fa_IR" : "en_US",
-      images: [{ url: image, width: 1200, height: 630, alt: catName }],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: [image],
-    },
-  };
-} catch (error) {
+  } catch (error) {
     console.error("❌ Metadata error (LevelsPage):", error);
 
     return {
@@ -79,11 +80,13 @@ export async function generateMetadata({ params }: CategoryPageProps) {
 }
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
+  const resolvedParams = await params;
+  const { lang } = resolvedParams;
   try {
-    const categorySlug = decodeURIComponent(params.category);
+    const categorySlug = decodeURIComponent(resolvedParams.category);
 
     const [langData] = await Promise.all([
-      getTranslation(params.lang),
+      getTranslation(lang),
     ]);
     const mainData = await getMainFile(langData);
 
@@ -103,7 +106,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             دسته‌ای با نام «{categorySlug}» پیدا نشد 😕
           </h2>
           <Link
-            href={`/${params.lang}/articles`}
+            href={`/${lang}/articles`}
             className="text-blue-600 hover:underline"
           >
             بازگشت به لیست مقالات
@@ -125,7 +128,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       "@type": "CollectionPage",
       "name": catName,
       "description": categoryDec || `مقالات مرتبط با ${catName}`,
-      "url": `https://rgb.irpsc.com/${params.lang}/articles/categories/${categorySlug}`,
+      "url": `https://metarang.com/${lang}/articles/categories/${categorySlug}`,
       "image": categoryImage || "/default.png",
       "mainEntity": {
         "@type": "ItemList",
@@ -141,7 +144,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               "@type": "BlogPosting",
               "headline": a.title,
               "description": a.description || categoryDec || "این یک مقاله آموزشی است",
-              "url": `https://rgb.irpsc.com/${params.lang}/articles/categories/${categorySlug}/${a.slug}`,
+              "url": `https://metarang.com/${lang}/articles/categories/${categorySlug}/${a.slug}`,
               "datePublished": published,
               "dateModified": published,
               "image": a.image || "/default.png",
@@ -149,16 +152,16 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                 "@type": "Person",
                 "name": a.author?.name || "مدیر سایت",
                 "url": a.author?.citizenId
-                  ? `https://rgb.irpsc.com/${params.lang}/citizens/${a.author.citizenId}`
+                  ? `https://metarang.com/${lang}/citizens/${a.author.citizenId}`
                   : undefined,
                 "identifier": a.author?.citizenId || "CIT-0000",
               },
               "publisher": {
                 "@type": "Organization",
                 "name": "متاورس رنگ",
-                "logo": { "@type": "ImageObject", "url": "https://rgb.irpsc.com/_next/image?url=%2Flogo.png&w=120&q=75" },
+                "logo": { "@type": "ImageObject", "url": "https://metarang.com/_next/image?url=%2Flogo.png&w=120&q=75" },
               },
-              "inLanguage": params.lang || "fa",
+              "inLanguage": lang || "fa",
               "isAccessibleForFree": true,
               "genre": a.category || "مقاله آموزشی",
               "keywords": a.tags?.join(", ") || `${catName}, آموزش, مقاله`,
@@ -199,11 +202,11 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         <div className="flex flex-col-reverse justify-center gap-7 lg:gap-5 lg:flex-row lg:justify-between items-start lg:items-center w-full px-5  mt-[-100px] lg:mt-0">
 
 
-          <SearchComponent searchLevel="articles" params={params} mainData={mainData} />
+          <SearchComponent searchLevel="articles" params={resolvedParams} mainData={mainData} />
         </div>
 
         <div className="mt-10 lg:px-5">
-          <CategorySorted params={params} category={catName} articles={categoryArticles} mainData={mainData} />
+          <CategorySorted params={resolvedParams} category={catName} articles={categoryArticles} mainData={mainData} />
         </div>
 
       </section>

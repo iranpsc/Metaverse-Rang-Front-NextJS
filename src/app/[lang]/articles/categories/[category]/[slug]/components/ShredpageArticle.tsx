@@ -37,7 +37,7 @@ export default function ShareArticlePage({
 
   // لینک کامل با categorySlug
 const categorySlug = article?.categorySlug ?? "all"; // fallback امن
-const fullUrl = `https://rgb.irpsc.com/${params.lang}/articles/categories/${categorySlug}/${params.slug}`;
+const fullUrl = `https://metarang.com/${params.lang}/articles/categories/${categorySlug}/${params.slug}`;
 
 
   // کپی لینک

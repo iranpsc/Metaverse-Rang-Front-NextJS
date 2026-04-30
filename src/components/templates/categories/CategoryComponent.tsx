@@ -11,7 +11,7 @@ import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 const SearchComponent = dynamic(
   () => import("@/components/shared/SearchComponent"),
-  { suspense: true }
+  // { suspense: true }
 );
 
 const CategoryComponent = ({ CategoryData, mainData, params }: any) => {
@@ -34,7 +34,7 @@ const CategoryComponent = ({ CategoryData, mainData, params }: any) => {
       setPage(nextPage);
 
       const res = await axios.get(
-        `https://api.rgb.irpsc.com/api/tutorials?page=${nextPage}`
+        `https://api.metarang.com/api/tutorials?page=${nextPage}`
       );
 
       const newSubcategories = res.data.data || [];
@@ -87,19 +87,19 @@ const CategoryComponent = ({ CategoryData, mainData, params }: any) => {
               {findByUniqueId(mainData, 455)} {CategoryData.name}
             </h1>
 
-            <Suspense
+            {/* <Suspense
               fallback={
                 <div className="text-center !mx-0 w-full text-[20px] lg:w-1/2">
                   loading...
                 </div>
               }
-            >
+            > */}
               <SearchComponent
                 searchLevel="education"
                 mainData={mainData}
                 params={params}
               />
-            </Suspense>
+            {/* </Suspense> */}
           </div>
 
           {/* لیست زیرمجموعه‌ها با Load More */}

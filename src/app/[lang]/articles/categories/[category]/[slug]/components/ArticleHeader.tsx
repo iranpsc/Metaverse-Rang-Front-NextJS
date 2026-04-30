@@ -1,6 +1,8 @@
 type ArticleHeaderProps = {
-
+  title:any;
+  author:any;
   description: string;
+  date:any;
 };
 
 export default function ArticleHeader({ description }: ArticleHeaderProps) {

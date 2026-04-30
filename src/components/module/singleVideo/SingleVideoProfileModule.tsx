@@ -32,7 +32,7 @@ const [linkLoading, setLinkLoading] = useState(false);
         </div>
       )}
       <Link onClickCapture={() => setLinkLoading(true)}
-        href={`https://rgb.irpsc.com/${params.lang}/citizen/${DataVideo.creator.code}`}
+        href={`https://metarang.com/${params.lang}/citizen/${DataVideo.creator.code}`}
         
       >
         <div className="flex flex-row justify-start items-center gap-2">
@@ -52,7 +52,7 @@ const [linkLoading, setLinkLoading] = useState(false);
         <p className="text-xs md:text-base dark:text-white">
           <span>{findByUniqueId(mainData, 563)}</span>
           {" : "}
-          <span className="mb-[-2px] uppercase text-blueLink dark:text-blue-500"><Link onClickCapture={() => setLinkLoading(true)} href={`https://rgb.irpsc.com/${params.lang}/citizen/${DataVideo.creator.code}`}> {checkData(DataVideo.creator.code)}</Link></span>
+          <span className="mb-[-2px] uppercase text-blueLink dark:text-blue-500"><Link onClickCapture={() => setLinkLoading(true)} href={`https://metarang.com/${params.lang}/citizen/${DataVideo.creator.code}`}> {checkData(DataVideo.creator.code)}</Link></span>
         </p>
 
       </div>

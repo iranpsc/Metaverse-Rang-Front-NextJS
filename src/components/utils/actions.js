@@ -15,34 +15,39 @@ function sanitizePathSegment(segment) {
 }
 
 //return selected language object
-  export async function getTranslation(lang) {
-    
-    try{
-      const res = await fetch("https://admin.rgb.irpsc.com/api/translations", {
-        headers: {
-          "Content-Type": "application/json",
-          "Cache-Control": "public, max-age=3600", 
-        },
-      });
-      const data = await res.json();
-      let temp = await data.data.find((item) => item.code == lang)
+export async function getTranslation(lang) {
+  try {
+    const res = await fetch("https://admin.metarang.com/api/translations", {
+      cache: 'force-cache',
+      next: { tags: ['translations'] },
+    });
+    const data = await res.json();
 
+    // console.log("[getTranslation] Requested lang:", lang);
+    // console.log("[getTranslation] Available codes:", data.data.map((l) => l.code));
 
-      return temp;
-    }catch(err){
-      console.error("Error fetching main file: Amir", err);
-      // Optionally, return a default response instead of breaking the app
-      // return {
-      //   success: false,
-      //   message: err.message || "An unknown error occurred",
-      // };
+    let temp = data.data.find((item) => item.code === lang);
+
+    if (!temp) {
+      console.warn(`[getTranslation] Lang "${lang}" not found → fallback to "fa"`);
+      temp = data.data.find((item) => item.code === "fa") || data.data[0];
     }
+
+    // console.log("[getTranslation] Selected language code:", temp?.code);
+    // console.log("[getTranslation] file_url:", temp?.file_url);
+
+    return temp;
+  } catch (err) {
+    console.error("[getTranslation] Error:", err);
+    // fallback سخت
+    return { code: "fa", file_url: "https://metarang.com/lang/fa.json", direction: "rtl" };
   }
+}
   
 
   //return whole language array
   export async function getLangArray() {
-    const res = await fetch("https://admin.rgb.irpsc.com/api/translations", {
+    const res = await fetch("https://admin.metarang.com/api/translations", {
       headers: {
         "Content-Type": "application/json",
         "Cache-Control": "public, max-age=3600", 
@@ -53,29 +58,35 @@ function sanitizePathSegment(segment) {
   }
 
 
-  export async function getMainFile(langData) {
-    try {
-      const res = await fetch(langData.file_url, {
-        headers: {
-          "Content-Type": "application/json",
-          "Cache-Control": "public, max-age=3600",
-        },
-      });
-      
-  
-      // Parse JSON response
-      const data = await res.json();
-      return data;
-    } catch (error) {
-      console.error("Error fetching mainData file:", error);
-  
-      // Optionally, return a default response instead of breaking the app
-      // return {
-      //   success: false,
-      //   message: error.message || "An unknown error occurred",
-      // };
+export async function getMainFile(langData) {
+  try {
+    if (!langData?.file_url) {
+      throw new Error("No file_url provided");
     }
+
+    const res = await fetch(langData.file_url, {
+      cache: 'force-cache',
+      next: { tags: [`main-file-${langData.code || 'unknown'}`] },
+    });
+
+    if (!res.ok) {
+      throw new Error(`Fetch main file failed: ${res.status} - ${langData.file_url}`);
+    }
+
+    const data = await res.json();
+
+    // چک ساختار
+    if (!data?.modals || !Array.isArray(data.modals)) {
+      throw new Error("Invalid mainData structure: missing or invalid 'modals'");
+    }
+
+    return data;
+  } catch (error) {
+    console.error("Error fetching mainData:", error, { langData });
+    // مهم: همیشه چیزی برگردون – fallback خالی یا null
+    return null; // یا {} یا یک آبجکت fallback
   }
+}
   // return our main file(.json) according to selected lang
   // export async function getMainFile(langData) {
   //   const res = await fetch(langData.file_url, {
@@ -106,7 +117,7 @@ function sanitizePathSegment(segment) {
 
   export async function getAllCitizen(_page){
     
-    const res = await fetch(`https://api.rgb.irpsc.com/api/users?page=${_page}`,{
+    const res = await fetch(`https://api.metarang.com/api/users?page=${_page}`,{
       headers: {
         "Content-Type": "application/json",
         "Cache-Control": "public, max-age=60", 
@@ -134,7 +145,7 @@ function sanitizePathSegment(segment) {
     } catch (error) {}
   }
   export async function getAllLevels() {
-    const res = await fetch("https://api.rgb.irpsc.com/api/levels", {
+    const res = await fetch("https://api.metarang.com/api/levels", {
       headers: {
         "Content-Type": "application/json",
         "Cache-Control": "public, max-age=3600", 
@@ -153,7 +164,7 @@ export async function getLevelTabs(params, levelId) {
   const safeTabs = encodeURIComponent(String(params.tabs).trim());
 
   const res = await fetch(
-    `https://api.rgb.irpsc.com/api/levels/${safeLevelId}/${safeTabs}`,
+    `https://api.metarang.com/api/levels/${safeLevelId}/${safeTabs}`,
     {
       headers: {
         "Content-Type": "application/json",
@@ -176,7 +187,7 @@ export async function getLevelTabs(params, levelId) {
 
 
   // export async function getAllVersions(){
-  //   const res = await fetch(`https://api.rgb.irpsc.com/api/calendar?type=version`, {
+  //   const res = await fetch(`https://api.metarang.com/api/calendar?type=version`, {
   //     headers: {
   //       "Content-Type": "application/json",
   //       "Cache-Control": "public, max-age=3600", 
@@ -189,7 +200,7 @@ export async function getLevelTabs(params, levelId) {
 
 export async function getAllVersions() {
   try {
-    const res = await fetch(`https://api.rgb.irpsc.com/api/calendar?type=version`, {
+    const res = await fetch(`https://api.metarang.com/api/calendar?type=version`, {
       headers: {
         "Content-Type": "application/json",
         "Cache-Control": "public, max-age=3600",
@@ -215,7 +226,7 @@ export async function getSingleLevel(levelId) {
   const safeLevelId = encodeURIComponent(String(levelId).trim());
 
   const res = await fetch(
-    `https://api.rgb.irpsc.com/api/levels/${safeLevelId}`,
+    `https://api.metarang.com/api/levels/${safeLevelId}`,
     {
       headers: {
         "Content-Type": "application/json",
@@ -236,7 +247,7 @@ export async function getSingleLevel(levelId) {
   //   let id = _userId.replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]).toLowerCase()
   //   try {
   //     const res = await fetch(
-  //       `https://api.rgb.irpsc.com/api/citizen/${id}`,
+  //       `https://api.metarang.com/api/citizen/${id}`,
   //       {
   //         headers: {
   //           "Content-Type": "application/json",
@@ -262,7 +273,7 @@ export async function getUserData(_userId) {
   const id = sanitizedId.toLowerCase();
   try {
     const res = await fetch(
-      `https://api.rgb.irpsc.com/api/citizen/${id}`,
+      `https://api.metarang.com/api/citizen/${id}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -286,7 +297,7 @@ export async function getUserData(_userId) {
       return { props: { error: "خطا در دریافت داده‌ها" } };
     }
     const safeSearch = encodeURIComponent(_searchParam ?? "");
-    const res = await fetch(`https://api.rgb.irpsc.com/api/citizen/${safeUserId}/referrals?search=${safeSearch}`,{
+    const res = await fetch(`https://api.metarang.com/api/citizen/${safeUserId}/referrals?search=${safeSearch}`,{
       headers: {
         "Content-Type": "application/json",
         "Cache-Control": "public, max-age=0", 
@@ -302,7 +313,7 @@ export async function getUserData(_userId) {
       return { props: { error: "خطا در دریافت داده‌ها" } };
     }
     const safeRange = encodeURIComponent(_searchParam ?? "");
-    const res = await fetch(`https://api.rgb.irpsc.com/api/citizen/${safeUserId}/referrals/chart?range=${safeRange}`,{
+    const res = await fetch(`https://api.metarang.com/api/citizen/${safeUserId}/referrals/chart?range=${safeRange}`,{
       headers: {
         "Content-Type": "application/json",
         "Cache-Control": "public, max-age=0", 
@@ -313,7 +324,7 @@ export async function getUserData(_userId) {
   }
 
 export async function getAllCategories() {
-  const res = await fetch(`https://api.rgb.irpsc.com/api/tutorials/categories`, {
+  const res = await fetch(`https://api.metarang.com/api/tutorials/categories`, {
     headers: {
       "Content-Type": "application/json",
       "Cache-Control": "public, max-age=0",
@@ -327,7 +338,7 @@ export async function getAllCategories() {
 
   export async function getAllCategoryVideos(_page){
     try{
-      const res = await fetch(`https://api.rgb.irpsc.com/api/tutorials?page=${_page}`,{
+      const res = await fetch(`https://api.metarang.com/api/tutorials?page=${_page}`,{
         headers: {
           "Content-Type": "application/json",
           "Cache-Control": "public, max-age=0", 
@@ -349,7 +360,7 @@ export async function getEducationSingleCategory(_category) {
     return null;
   }
 
-  const res = await fetch(`https://api.rgb.irpsc.com/api/tutorials/categories/${sanitizedCategory}`, {
+  const res = await fetch(`https://api.metarang.com/api/tutorials/categories/${sanitizedCategory}`, {
     headers: {
       "Content-Type": "application/json",
       "Cache-Control": "public, max-age=0",
@@ -381,7 +392,7 @@ export async function getEducationSingleCategory(_category) {
     }
 
     const res = await fetch(
-      `https://api.rgb.irpsc.com/api/tutorials/categories/${encodeURIComponent(safeCategory)}/${encodeURIComponent(safeSubcategory)}`,
+      `https://api.metarang.com/api/tutorials/categories/${encodeURIComponent(safeCategory)}/${encodeURIComponent(safeSubcategory)}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -399,7 +410,7 @@ export async function getEducationSingleCategory(_category) {
       if (!safeVideoSlug) {
         throw new Error('Invalid video slug');
       }
-      const res = await fetch(`https://api.rgb.irpsc.com/api/tutorials/${encodeURIComponent(safeVideoSlug)}`,{
+      const res = await fetch(`https://api.metarang.com/api/tutorials/${encodeURIComponent(safeVideoSlug)}`,{
         headers: {
           "Content-Type": "application/json",
           "Cache-Control": "public, max-age=0", 
@@ -429,7 +440,7 @@ export async function getEducationSingleCategory(_category) {
       if (!safeVideoId) {
         throw new Error('Invalid video id');
       }
-      const res = await fetch(`https://api.rgb.irpsc.com/api/tutorials/${encodeURIComponent(safeVideoId)}/comments?page=1`,{
+      const res = await fetch(`https://api.metarang.com/api/tutorials/${encodeURIComponent(safeVideoId)}/comments?page=1`,{
         cache: 'no-store',
         headers: {
           "Content-Type": "application/json",

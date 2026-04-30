@@ -36,16 +36,16 @@ export default async function Prize({
   const tabLevelSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    // https://api.rgb.irpsc.com/api/levels/1
+    // https://api.metarang.com/api/levels/1
     name: findByUniqueId(mainData, singleLevel.data.unique_id),
-    // https://api.rgb.irpsc.com/api/levels/1
+    // https://api.metarang.com/api/levels/1
     description: await makeLessCharacter(
       singleLevel.data.general_info.description
     ),
     itemListElement: [
       {
         "@type": "ListItem",
-        url: `https://rgb.irpsc.com/${params.lang}/levels/citizen/${params.levelName}/general-info`,
+        url: `https://metarang.com/${params.lang}/levels/citizen/${params.levelName}/general-info`,
         position: 5,
         // name: await targetData(levelsTranslatePage, "reward for reaching the level"),
         name: findByUniqueId(mainData, 391),

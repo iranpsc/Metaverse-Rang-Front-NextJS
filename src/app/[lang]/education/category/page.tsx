@@ -3,16 +3,16 @@ import { Suspense } from "react";
 
 // Dynamically Import Components
 
-const BreadCrumb = dynamic(() => import("@/components/shared/BreadCrumb"), {
-  suspense: true,
-});
+const BreadCrumb = dynamic(() => import("@/components/shared/BreadCrumb"),
+// { suspense: true }
+);
 const SearchComponent = dynamic(
   () => import("@/components/shared/SearchComponent"),
-  { suspense: true }
+  // { suspense: true }
 );
 const ShowAllCategoriesComponent = dynamic(
   () => import("@/components/templates/categories/ShowAllCategoriesComponent"),
-  { ssr: false, suspense: true }
+  // { suspense: true }
 );
 
 import {
@@ -27,15 +27,16 @@ import {
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import CustomErrorPage from "@/components/shared/CustomErrorPage";
 import CleanAutoRetryParam  from "@/components/shared/CleanAutoRetryParam";
-export default async function EducationCategoryAll({
-  params,
-}: {
-  params: any;
-}) {
+interface EducationCategoryAllProps {
+  params: Promise<{ lang: string }>;
+}
+export default async function EducationCategoryAll({params}: EducationCategoryAllProps) {
+       const resolvedParams = await params;
+  const { lang } = resolvedParams;
   try {
   const [ langData, langArray, categoriesData] = await Promise.all([
   
-    getTranslation(params.lang),
+    getTranslation(lang),
     getLangArray(),
     getAllCategories(),
   ]);
@@ -48,16 +49,16 @@ export default async function EducationCategoryAll({
   const educationAllCategorySchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    url: `https://rgb.irpsc.com/${params.lang}/education/category`,
+    url: `https://metarang.com/${lang}/education/category`,
     name: findByUniqueId(mainData, 340),
     description: findByUniqueId(mainData, 340),
-    mainEntityOfPage: `https://rgb.irpsc.com/${params.lang}/education/category`,
+    mainEntityOfPage: `https://metarang.com/${lang}/education/category`,
     itemListElement: categoriesData.map((item: any, index: any) => {
       return {
         "@type": "ListItem",
         position: index + 1,
-        url: `https://rgb.irpsc.com/${params.lang}/education/category/${item.slug}`,
-        name: params.lang.toLowerCase() === "fa" ? item.name : item.slug,
+        url: `https://metarang.com/${lang}/education/category/${item.slug}`,
+        name: lang.toLowerCase() === "fa" ? item.name : item.slug,
         description: "", // If no description, leave blank
       };
     }),
@@ -81,13 +82,13 @@ export default async function EducationCategoryAll({
           <CleanAutoRetryParam />
           {/* Breadcrumb */}
           <div className="ps-2 lg:ps-4">
-            <Suspense
+            {/* <Suspense
               fallback={
                 <div className="text-center text-[20px]">loading...</div>
               }
-            >
-              <BreadCrumb params={params} />
-            </Suspense>
+            > */}
+              <BreadCrumb params={resolvedParams} />
+            {/* </Suspense> */}
           </div>
 
           <div className="mt-[60px] lg:mt-[40px] xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
@@ -98,26 +99,25 @@ export default async function EducationCategoryAll({
               {findByUniqueId(mainData, 1466)}
             </p>
             <div className="mt-[-60px] md:mt-0 px-2">
-              <Suspense
+              {/* <Suspense
                 fallback={<div className="text-center text-[20px] ">loading...</div>}
-              >
+              > */}
                 <SearchComponent
                   searchLevel="education"
                   mainData={mainData}
-                  params={params}
+                  params={resolvedParams}
                 />
-              </Suspense>
+              {/* </Suspense> */}
             </div>
           </div>
-          <Suspense
-            fallback={<div className="text-center text-[20px]">loading...</div>}
-          >
+          {/* <Suspense
+            fallback={<div className="text-center text-[20px]">loading...</div>}> */}
             <ShowAllCategoriesComponent
-              params={params}
+              params={resolvedParams}
               categoriesData={categoriesData}
               mainData={mainData}
             />
-          </Suspense>
+          {/* </Suspense> */}
 
          
         </section>
@@ -141,9 +141,11 @@ export default async function EducationCategoryAll({
 }
 
 // SEO**
-export async function generateMetadata({ params }: { params: any }) {
+export async function generateMetadata({ params }:EducationCategoryAllProps) {
   try {
-  const langData = await getTranslation(params.lang);
+       const resolvedParams = await params;
+  const { lang } = resolvedParams;
+  const langData = await getTranslation(lang);
   const mainData = await getMainFile(langData);
 
   //to make description less than 200 character
@@ -159,12 +161,12 @@ export async function generateMetadata({ params }: { params: any }) {
     description: findByUniqueId(mainData, 340),
     openGraph: {
       type: "website",
-      // url: `https://rgb.irpsc.com/posts/${params.id}`,
+      // url: `https://metarang.com/posts/${params.id}`,
       title: findByUniqueId(mainData, 340),
       description: findByUniqueId(mainData, 340),
-      locale: params.lang == "fa" ? "fa_IR" : "en_US",
+      locale: lang == "fa" ? "fa_IR" : "en_US",
       // site_name: متاورس رنگ,
-      url: `https://rgb.irpsc.com/${params.lang}/education/category`,
+      url: `https://metarang.com/${lang}/education/category`,
       images: [
         {
           url: "/logo.png",

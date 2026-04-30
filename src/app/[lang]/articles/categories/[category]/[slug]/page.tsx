@@ -22,79 +22,88 @@ import AuthorCard from "./components/AuthorCard";
 import ShowSocialWrapper from "./components/ShowSocialWrapper";
 import CustomErrorPage from "@/components/shared/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
+
+interface ArticlePageProps {
+  params: Promise<{
+    lang: string; category: string;
+    slug: string;
+  }>;
+}
 // ======================================
 // Metadata (SEO + 404 امن)
 // ======================================
-export async function generateMetadata({ params }) {
+export async function generateMetadata({ params }: ArticlePageProps) {
+  const resolvedParams = await params;
+  const { lang } = resolvedParams;
   try {
-function cleanDescription(html, limit = 255){
-  if (!html) return "";
+    function cleanDescription(html: any, limit = 255) {
+      if (!html) return "";
 
-  let text = "";
+      let text = "";
 
-  if (typeof window === "undefined") {
-    // SSR / Node.js
-    text = html.replace(/<|>/g, "");
-  } else {
-    // Browser
-    const div = document.createElement("div");
-    div.innerHTML = html;
-    text = div.textContent || div.innerText || "";
-  }
+      if (typeof window === "undefined") {
+        // SSR / Node.js
+        text = html.replace(/<|>/g, "");
+      } else {
+        // Browser
+        const div = document.createElement("div");
+        div.innerHTML = html;
+        text = div.textContent || div.innerText || "";
+      }
 
-  text = text.trim();
+      text = text.trim();
 
-  return text.length > limit
-    ? text.slice(0, limit).trim() + "…"
-    : text;
-}
+      return text.length > limit
+        ? text.slice(0, limit).trim() + "…"
+        : text;
+    }
 
-  const { slug, category, lang } = params;
+    const { slug, category, lang } = resolvedParams;
 
-  const { data: article } = await supabase
-    .from("articles")
-    .select("*")
-    .eq("slug", slug)
-    .single();
+    const { data: article } = await supabase
+      .from("articles")
+      .select("*")
+      .eq("slug", slug)
+      .single();
 
-  if (!article) {
+    if (!article) {
+      return {
+        title: "مقاله یافت نشد",
+        description: "مقاله مورد نظر وجود ندارد",
+        robots: { index: false, follow: false },
+      };
+    }
+
+    if (category !== article.categorySlug) {
+      return {
+        title: "مقاله یافت نشد",
+        description: "آدرس مقاله معتبر نیست",
+        robots: { index: false, follow: false },
+      };
+    }
+
+    const canonicalUrl = `https://metarang.com/${lang}/articles/categories/${article.categorySlug}/${article.slug}`;
+
     return {
-      title: "مقاله یافت نشد",
-      description: "مقاله مورد نظر وجود ندارد",
-      robots: { index: false, follow: false },
-    };
-  }
-
-  if (category !== article.categorySlug) {
-    return {
-      title: "مقاله یافت نشد",
-      description: "آدرس مقاله معتبر نیست",
-      robots: { index: false, follow: false },
-    };
-  }
-
-  const canonicalUrl = `https://rgb.irpsc.com/${lang}/articles/categories/${article.categorySlug}/${article.slug}`;
-
-  return {
-    title: article.title,
-    description: cleanDescription(article.description || "مقالات متاورس رنگ"),
-    alternates: { canonical: canonicalUrl },
-    openGraph: {
       title: article.title,
       description: cleanDescription(article.description || "مقالات متاورس رنگ"),
-      url: canonicalUrl,
-      type: "article",
-      images: article.image ? [{ url: article.image }] : [],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: article.title,
-      description: cleanDescription(article.description || "مقالات متاورس رنگ"),
-      images: article.image ? [article.image] : [],
-    },
-    robots: { index: true, follow: true },
-  };
-} catch (error) {
+      alternates: { canonical: canonicalUrl },
+      openGraph: {
+        title: article.title,
+        description: cleanDescription(article.description || "مقالات متاورس رنگ"),
+        url: canonicalUrl,
+        type: "article",
+        images: article.image ? [{ url: article.image }] : [],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: article.title,
+        description: cleanDescription(article.description || "مقالات متاورس رنگ"),
+        images: article.image ? [article.image] : [],
+      },
+      robots: { index: true, follow: true },
+    };
+  } catch (error) {
     console.error("❌ Metadata error (LevelsPage):", error);
 
     return {
@@ -151,28 +160,30 @@ export const dynamicParams = true; // اجازه می‌ده مقالات جدی
 // ======================================
 // صفحه اصلی مقاله
 // ======================================
-export default async function ArticlePage({ params }) {
+export default async function ArticlePage({ params } :ArticlePageProps) {
+     const resolvedParams = await params;
+  const { lang } = resolvedParams;
   try {
-function cleanDescription(html, limit = 100){
-  if (!html) return "";
+    function cleanDescription(html: any, limit = 100) {
+      if (!html) return "";
 
-  // Normalize to string
-  let text = String(html);
+      // Normalize to string
+      let text = String(html);
 
-  // Remove any angle brackets to prevent partial tags (e.g., "<script")
-  text = text.replace(/[<>]/g, "");
+      // Remove any angle brackets to prevent partial tags (e.g., "<script")
+      text = text.replace(/[<>]/g, "");
 
-  // Collapse consecutive whitespace and trim
-  text = text.replace(/\s+/g, " ").trim();
+      // Collapse consecutive whitespace and trim
+      text = text.replace(/\s+/g, " ").trim();
 
-  return text.length > limit
-    ? text.slice(0, limit).trim() + "…"
-    : text;
-}
+      return text.length > limit
+        ? text.slice(0, limit).trim() + "…"
+        : text;
+    }
 
 
 
-    const { slug, category, lang } = params;
+    const { slug, category, lang } = resolvedParams;
 
     // مقاله اصلی
     const { data: article, error: articleError } = await supabase
@@ -191,10 +202,10 @@ function cleanDescription(html, limit = 100){
       return (
         <NotFoundPage
           lang={lang}
-          params={params}
+          params={resolvedParams}
           langData={langData}
           langArray={langArray}
-          footerTabs={[]}
+          // footerTabs={[]}
           mainData={mainData}
         />
       );
@@ -211,10 +222,10 @@ function cleanDescription(html, limit = 100){
       return (
         <NotFoundPage
           lang={lang}
-          params={params}
+          params={resolvedParams}
           langData={langData}
           langArray={langArray}
-          footerTabs={[]}
+          // footerTabs={[]}
           mainData={mainData}
         />
       );
@@ -247,14 +258,14 @@ function cleanDescription(html, limit = 100){
       datePublished: article.date,
       mainEntityOfPage: {
         "@type": "WebPage",
-        "@id": `https://rgb.irpsc.com/${lang}/articles/categories/${category}/${slug}`,
+        "@id": `https://metarang.com/${lang}/articles/categories/${category}/${slug}`,
       },
       publisher: {
         "@type": "Organization",
         name: "متاورس رنگ",
         logo: {
           "@type": "ImageObject",
-          url: "https://rgb.irpsc.com/logo.png",
+          url: "https://metarang.com/logo.png",
         },
       },
     };
@@ -268,7 +279,7 @@ function cleanDescription(html, limit = 100){
         <CleanAutoRetryParam />
         <section className="w-full overflow-y-auto relative bg-[#f8f8f8] dark:bg-black mt-[60px] lg:mt-0">
           <div className="px-5 2xl:px-10">
-            <BreadCrumb params={params} title={article.title} articleCat={article.category} />
+            <BreadCrumb params={resolvedParams} title={article.title} articleCat={article.category} />
           </div>
 
           <div className="mainContainer w-full flex flex-col gap-5 items-center lg:flex-row lg:items-start px-5 lg:px-10">
@@ -299,8 +310,8 @@ function cleanDescription(html, limit = 100){
               </div>
 
               <div className="w-full mt-10 space-y-28">
-                <ShowSocialWrapper params={params} mainData={mainData} article={article} />
-                <PrevNextArticles params={params} articles={categoryArticles || []} mainData={mainData} />
+                <ShowSocialWrapper params={resolvedParams} mainData={mainData} article={article} />
+                <PrevNextArticles params={resolvedParams} articles={categoryArticles || []} mainData={mainData} />
                 <AuthorCard lang={lang} article={article} mainData={mainData} />
               </div>
             </div>
@@ -313,8 +324,8 @@ function cleanDescription(html, limit = 100){
 
           {/* اسلایدرها */}
           <div className="ps-5 lg:ps-10 w-full flex items-center mt-14 lg:mt-20 flex-col gap-14">
-            <PopularArticlesSlider params={params} mainData={mainData} />
-            <RelatedArticlesSlider params={params} mainData={mainData} />
+            <PopularArticlesSlider params={resolvedParams} mainData={mainData} />
+            <RelatedArticlesSlider params={resolvedParams} mainData={mainData} />
           </div>
         </section>
       </div>

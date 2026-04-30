@@ -12,7 +12,7 @@ type Tag = { label: string; slug: string };
 
 type Author = {
   name?: string;
-  // ... بقیه فیلدها اگر لازم داری
+
 };
 
 export type News = {
@@ -35,7 +35,8 @@ interface LatestNewsProps {
   mainData?: any;
   theme?: "light" | "dark";
   limit?: number;
-  initialNews: News[];
+  initialNews: News[] | null ;
+
 }
 
 const LatestNews: React.FC<LatestNewsProps> = ({
