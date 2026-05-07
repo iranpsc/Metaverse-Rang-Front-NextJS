@@ -1,18 +1,100 @@
 // src/app/[lang]/news/categories/page.tsx
 
 import BreadCrumb from "@/components/shared/BreadCrumb";
-import CategoriesList from "./CategoriesList"; // همون کامپوننت
+import CategoriesList from "./CategoriesList";
 import SearchComponent from "@/components/shared/SearchComponent";
 import { supabase } from "@/utils/lib/supabaseClient";
 import { getTranslation, getMainFile } from "@/components/utils/actions";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import CustomErrorPage from "@/components/shared/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
+
+// ایمپورت دیتای استاتیک به عنوان fallback
+import fallbackNewsData from "@/components/utils/news.json";
+
 interface NewsCategoriesPageProps {
   params: Promise<{ lang: string }>;
 }
-export async function generateMetadata({ params }:NewsCategoriesPageProps) {
-     const resolvedParams = await params;
+
+// ─── تابع کمکی برای نرمالایز کردن دیتای دریافتی ───
+type NormalizedNews = {
+  id: number;
+  title: string;
+  slug: string;
+  image?: string | null;
+  date?: string | null;
+  readingTime?: string | null;
+  stats?: any;
+  category?: string | null;
+  categorySlug?: string | null;
+  categoryImage?: string | null;
+  subCategory?: string | null;
+  content?: string | null;
+  description?: string | null;
+  author?: any;
+  tags?: any;
+  video?: string | null;
+};
+
+function normalizeNewsItem(item: any): NormalizedNews {
+  return {
+    id: item.id,
+    title: item.title,
+    slug: item.slug,
+    image: item.image || null,
+    date: item.date || null,
+    readingTime: item.readingTime || null,
+    stats: item.stats || null,
+    category: item.category || null,
+    categorySlug: item.categorySlug || null,
+    categoryImage: item.categoryImage || null,
+    subCategory: item.subCategory || null,
+    content: item.content || null,
+    description: item.description || null,
+    author: item.author || null,
+    tags: item.tags || null,
+    video: item.video || null,
+  };
+}
+
+// ─── تابع دریافت دیتا با fallback به news.json ───
+async function fetchNewsWithFallback() {
+  try {
+    // تلاش برای دریافت از Supabase
+    const { data: supabaseNews, error } = await supabase
+      .from("news")
+      .select("*")
+      .order("date", { ascending: false });
+
+    // اگر خطایی رخ داد یا دیتایی نیامد، از fallback استفاده کن
+    if (error || !supabaseNews || supabaseNews.length === 0) {
+      if (error) {
+        console.warn("⚠️ [Categories] Supabase error, using fallback news.json:", error.message);
+      } else if (!supabaseNews || supabaseNews.length === 0) {
+        console.warn("⚠️ [Categories] No data from Supabase, using fallback news.json");
+      }
+      
+      // تبدیل دیتای news.json به فرمت مناسب
+      const fallbackData = fallbackNewsData.map((item: any) => normalizeNewsItem(item));
+      
+      return { data: fallbackData, fromFallback: true };
+    }
+
+    // نرمالایز کردن دیتای دریافتی از Supabase
+    const normalizedData = supabaseNews.map((item: any) => normalizeNewsItem(item));
+    
+    return { data: normalizedData, fromFallback: false };
+  } catch (err) {
+    // در صورت بروز هرگونه خطای غیرمنتظره، از fallback استفاده کن
+    console.error("❌ [Categories] Unexpected error fetching news, using fallback:", err);
+    const fallbackData = fallbackNewsData.map((item: any) => normalizeNewsItem(item));
+    
+    return { data: fallbackData, fromFallback: true };
+  }
+}
+
+export async function generateMetadata({ params }: NewsCategoriesPageProps) {
+  const resolvedParams = await params;
   const { lang } = resolvedParams;
   try {
     const baseUrl = "https://metarang.com";
@@ -54,29 +136,45 @@ export async function generateMetadata({ params }:NewsCategoriesPageProps) {
 export const revalidate = 0;
 
 export default async function NewsCategoriesPage({ params }: NewsCategoriesPageProps) {
-     const resolvedParams = await params;
+  const resolvedParams = await params;
   const { lang } = resolvedParams;
   try {
     const [langData] = await Promise.all([getTranslation(lang)]);
     const mainData = await getMainFile(langData);
 
-    const { data: newsData, error } = await supabase
-      .from("news")
-      .select("*")
-      .order("date", { ascending: false });
+    // ─── دریافت اخبار با قابلیت fallback ───
+    const { data: newsData, fromFallback } = await fetchNewsWithFallback();
 
-    if (error) console.error("Supabase fetch error:", error);
+    // اگر هیچ دیتایی از هیچ منبعی نیامد
+    if (!newsData || newsData.length === 0) {
+      console.error("❌ [Categories] No news data available from both Supabase and fallback");
+      return (
+        <section className="w-full bg-[#f8f8f8] dark:bg-black px-5 3xl:px-10 min-h-screen">
+          <div className="mb-6 mt-[60px] lg:mt-0">
+            <BreadCrumb params={resolvedParams} />
+          </div>
+          <div className="text-center py-20">
+            <p className="text-xl dark:text-white">هیچ دسته‌بندی یافت نشد</p>
+          </div>
+        </section>
+      );
+    }
 
+    // هشدار در صورت استفاده از fallback (اختیاری)
+    if (fromFallback) {
+      console.log("ℹ️ [Categories] News data is currently being served from fallback JSON file");
+    }
 
-    const news = newsData || [];
+    const news = newsData;
 
-    // دسته‌بندی‌ها
-    const categories = [...new Set(news.map((n) => n.category).filter(Boolean))];
+    // ─── دسته‌بندی‌ها ───
+    const categories = [...new Set(news.map((n: NormalizedNews) => n.category).filter(Boolean))];
 
     const categoryImages: Record<string, string> = {};
     const categorySlugs: Record<string, string> = {};
     const subcategoryCounts: Record<string, number> = {};
-    news.forEach((n) => {
+    
+    news.forEach((n: NormalizedNews) => {
       if (n.category) {
         if (n.categoryImage && !categoryImages[n.category]) {
           categoryImages[n.category] = n.categoryImage;
@@ -87,15 +185,13 @@ export default async function NewsCategoriesPage({ params }: NewsCategoriesPageP
           : encodeURIComponent(n.category);
       }
     });
-    
 
-news.forEach((n) => {
-  if (n.category && n.subCategory) {
-    subcategoryCounts[n.category] =
-      (subcategoryCounts[n.category] || 0) + 1;
-  }
-});
-
+    news.forEach((n: NormalizedNews) => {
+      if (n.category && n.subCategory) {
+        subcategoryCounts[n.category] =
+          (subcategoryCounts[n.category] || 0) + 1;
+      }
+    });
 
     const baseUrl = "https://metarang.com";
     const langPrefix = lang ? `/${lang}` : "";
@@ -127,9 +223,9 @@ news.forEach((n) => {
           "itemListElement": categories.map((cat, index) => ({
             "@type": "ListItem",
             "position": index + 1,
-            "url": `${baseUrl}${langPrefix}/news/categories/${categorySlugs[cat]}`,
+            "url": `${baseUrl}${langPrefix}/news/categories/${categorySlugs[cat as string]}`,
             "name": cat,
-            "image": categoryImages[cat] || undefined,
+            "image": categoryImages[cat as string] || undefined,
           })),
         },
       ],
@@ -176,6 +272,7 @@ news.forEach((n) => {
       </section>
     );
   } catch (error) {
+    console.error("❌ [Categories] Error in NewsCategoriesPage:", error);
     return <CustomErrorPage />;
   }
 }

@@ -9,6 +9,9 @@ import { Calender, Timer, View } from "@/components/svgs/SvgEducation";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { formatNumber } from "@/components/utils/formatNumber";
 
+// ایمپورت دیتای استاتیک به عنوان fallback
+import fallbackNewsData from "@/components/utils/news.json";
+
 interface News {
   id: string | number;
   title: string;
@@ -34,21 +37,31 @@ interface PopularNewsProps {
 
 const PopularNews: React.FC<PopularNewsProps> = ({ params, mainData, theme = "light" , initialNews }) => {
 
-
 const [mounted, setMounted] = useState(false);
+const [fallbackData, setFallbackData] = useState<News[] | null>(null);
 
 useEffect(() => {
   setMounted(true);
-}, []);
-
+  // اگر initialNews خالی بود، از fallback استفاده کن
+  if (!initialNews || initialNews.length === 0) {
+    const formattedData = fallbackNewsData.map((item: any) => ({
+      ...item,
+      stats: typeof item.stats === 'string' ? JSON.parse(item.stats) : item.stats,
+    }));
+    setFallbackData(formattedData);
+  }
+}, [initialNews]);
 
 const [activeLoadingId, setActiveLoadingId] =
   useState<string | number | null>(null);
 
-const sortedPopular = useMemo(() => {
-  if (!initialNews?.length) return [];
+// استفاده از fallback اگر initialNews خالی بود
+const effectiveNews = (initialNews && initialNews.length > 0) ? initialNews : (fallbackData || []);
 
-  return [...initialNews]
+const sortedPopular = useMemo(() => {
+  if (!effectiveNews?.length) return [];
+
+  return [...effectiveNews]
     .map((item) => ({
       ...item,
       stats: {
@@ -58,7 +71,7 @@ const sortedPopular = useMemo(() => {
     }))
     .sort((a, b) => Number(b.stats.views) - Number(a.stats.views))
     .slice(0, 4);
-}, [initialNews]);
+}, [effectiveNews]);
 
   const getCategorySlug = (item: News) =>
     item.categorySlug ||
@@ -251,12 +264,13 @@ if (!mounted) {
                         alt={"popList" + item.title}
                         fill
                         loading="lazy"
+                        unoptimized={true}
                         sizes="(max-width: 768px) 90vw, 15vw"
                         quality={50}
                         className="object-cover rounded-lg"
                       />
                     ) : (
-                      <div className="w-full h-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-xs text-gray-500">
+                      <div className="w-full h-full bg-neutral-200 dark:bg-neutral-700 flex items-center justify-center text-xs text-gray-500">
                         بدون عکس
                       </div>
                     )}
