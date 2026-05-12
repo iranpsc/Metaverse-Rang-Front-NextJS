@@ -32,7 +32,7 @@ interface PopularNewsProps {
   params: { lang: string };
   mainData: any;
   theme?: "light" | "dark";
-  initialNews: News[];
+  initialNews?: News[] | null;
 }
 
 const PopularNews: React.FC<PopularNewsProps> = ({ params, mainData, theme = "light" , initialNews }) => {

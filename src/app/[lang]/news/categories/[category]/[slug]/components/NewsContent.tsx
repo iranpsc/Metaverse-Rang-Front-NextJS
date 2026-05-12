@@ -7,7 +7,7 @@ import NewsGallerySimple from "./NewsGallery";
 
 type NewsContentProps = {
   content: string;
-  gallery?: string[] | null;
+  gallery?: string[] | null ;
   mainImage?: string;
   galleryTitle?: string;
 };
@@ -178,7 +178,6 @@ export default function NewsContent({
       {!isGalleryLoading && showRealGallery && (
         <NewsGallerySimple
           gallery={gallery}
-          title={galleryTitle}
           mainImage={mainImage}
         />
       )}

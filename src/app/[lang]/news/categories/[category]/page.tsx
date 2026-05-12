@@ -24,16 +24,17 @@ type NormalizedNews = {
   date?: string | null;
   readingTime?: string | null;
   stats?: any;
-  category?: string | null;
-  categorySlug?: string | null;
+  category: string ;
+  categorySlug: string ;
   categoryImage?: string | null;
   categoryDec?: string | null;
-  subCategory?: string | null;
+  subCategory: string ;
   content?: string | null;
   description?: string | null;
   author?: any;
   tags?: any;
   video?: string | null;
+  
 };
 
 function normalizeNewsItem(item: any): NormalizedNews {
@@ -343,7 +344,7 @@ export default async function NewsCategoryPage({ params }: NewsCategoryPageProps
           <CategoryItemsGrid
             params={resolvedParams}
             category={category}
-            articles={newsData}
+            articles={newsData  as any}
             mainData={mainData}
           />
         </div>

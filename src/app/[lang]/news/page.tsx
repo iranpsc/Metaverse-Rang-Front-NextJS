@@ -385,7 +385,7 @@ export default async function NewsPage({ params }: NewsPageProps) {
           <LatestNews
             params={resolvedParams}
             mainData={mainData}
-            initialNews={allNews}
+            initialNews={allNews  as any}
           />
 
           <VideoNewsList
@@ -406,7 +406,7 @@ export default async function NewsPage({ params }: NewsPageProps) {
           <PopularNews
             params={resolvedParams}
             mainData={mainData}
-            initialNews={allNews?.slice(0, 10) ?? []}
+            initialNews={allNews.slice(0, 10)  as any}
           />
 
           {/* خبرنامه */}

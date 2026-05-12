@@ -262,7 +262,7 @@ export default async function NewsCategoriesPage({ params }: NewsCategoriesPageP
         </div>
 
         <CategoriesList
-          categories={categories}
+          categories={categories  as any}
           categoryImages={categoryImages}
           categorySlugs={categorySlugs}
           subcategoryCounts={subcategoryCounts}

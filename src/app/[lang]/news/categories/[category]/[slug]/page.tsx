@@ -53,7 +53,7 @@ type NormalizedNews = {
   tags?: any;
   video?: string | null;
   excerpt?: string | null;
-  gallery?: string | null;
+  gallery?: string[] | null;
 };
 
 function normalizeNewsItem(item: any): NormalizedNews {
