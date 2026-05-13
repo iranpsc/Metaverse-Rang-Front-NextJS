@@ -12,6 +12,7 @@ logging: {
       fullUrl: true,
     },
   },
+  output: 'standalone',
   async redirects() {
     return [
       {
