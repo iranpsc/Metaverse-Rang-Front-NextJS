@@ -26,7 +26,7 @@ export default function EcosystemIntro() {
       <div className="mt-12">
         <button
           onClick={handleScroll}
-          className="group flex items-center gap-3 bg-transparent hover:scale-105 duration-300"
+          className="group flex  gap-3 bg-transparent hover:scale-105 duration-300 p-2"
         >
 
           {/* آیکون Chevron Down با SVG ساده */}
@@ -38,9 +38,9 @@ export default function EcosystemIntro() {
               <path className="stroke-black dark:stroke-white" d="M32.2295 202.586H188.771" stroke-width="12" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
           </div>
-          <div className="flex flex-col gap-2 items-end">
-            <span className="text-sm tracking-wider dark:text-white ">Scroll</span>
-            <span className="text-xs text-[#656565] ml-1">to explore page</span>
+          <div className="flex flex-col gap-2 items-end justify-end py-4">
+            <span className="tracking-wider dark:text-white ">Scroll</span>
+            <span className="text-sm  text-[#656565] ">to explore page</span>
           </div>
         </button>
       </div>

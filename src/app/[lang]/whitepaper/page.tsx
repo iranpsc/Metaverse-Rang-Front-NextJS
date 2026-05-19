@@ -137,12 +137,16 @@ export default async function ArticlesPage({ params }:  WhitePaperPageProps) {
           <BreadCrumb params={resolvedParams} />
         </div>
 
-       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20">
+       <div className="flex gap-10 justify-between w-full">
           {/* سمت چپ */}
-          <EcosystemIntro />
+          <div className="lg:w-[50%]">
+            <EcosystemIntro />
+          </div>
           
           {/* سمت راست */}
-          <PoweredBy />
+          <div className="max-w-[30%]">
+            <PoweredBy />
+          </div>
         </div>
 
         {/* ✅ اسکیمای SSR معتبر و داینامیک */}
