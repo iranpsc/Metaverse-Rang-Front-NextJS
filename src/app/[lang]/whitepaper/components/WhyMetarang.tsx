@@ -84,7 +84,7 @@ export default function WhyMetarang() {
             ref={sectionRef}
             className="relative min-h-[200vh] bg-white dark:bg-[#1A1A18] rounded-[40px] rounded-tl-[150px]"
         >
-            {/* عنوان بخش - Sticky در ابتدا */}
+
             <div>
                 <div className="font-bold text-start flex flex-col justify-start py-12 px-10 mb-20 space-y-4">
                     <p className="text-6xl md:text-7xl lg:text-8xl tracking-[0.2em] text-black dark:text-white uppercase">
@@ -97,7 +97,6 @@ export default function WhyMetarang() {
                 </div>
             </div>
 
-            {/* کارت‌ها - با افکت استکی روی هم */}
             <div
                 ref={containerRef}
                 className="relative z-20 w-full"
