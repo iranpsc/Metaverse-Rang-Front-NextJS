@@ -11,6 +11,7 @@ import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { articles } from "@/components/utils/articles";
 import PoweredBy from "./components/PoweredBy";
 import EcosystemIntro from "./components/EcosystemIntro";
+import WhyMetarang from "./components/WhyMetarang"
 const baseUrl = "https://metarang.com"; // ← دامنه اصلی سایتت
 const imageUrl = "https://metarang.com/_next/image?url=%2Flogo.png&w=128&q=75";
 interface WhitePaperPageProps {
@@ -18,7 +19,7 @@ interface WhitePaperPageProps {
 }
 
 // ✅ متادیتای داینامیک
-export async function generateMetadata({ params }:  WhitePaperPageProps) {
+export async function generateMetadata({ params }: WhitePaperPageProps) {
   try {
     const resolvedParams = await params;
     const { lang } = resolvedParams;
@@ -62,7 +63,7 @@ export async function generateMetadata({ params }:  WhitePaperPageProps) {
 }
 
 
-export default async function ArticlesPage({ params }:  WhitePaperPageProps) {
+export default async function ArticlesPage({ params }: WhitePaperPageProps) {
   const resolvedParams = await params;
   const { lang } = resolvedParams;
   try {
@@ -129,7 +130,7 @@ export default async function ArticlesPage({ params }:  WhitePaperPageProps) {
     // ✅ محتوای اصلی (دقیقاً مثل نسخه‌ی خودت)
     return (
       <section
-        className="w-full relative lg:pt-0 bg-[#f8f8f8] dark:bg-black  px-5"
+        className="w-full relative lg:pt-0 bg-[#f8f8f8] dark:bg-black min-h-screen  px-5"
         dir={langData.direction}
       >
         <CleanAutoRetryParam />
@@ -137,23 +138,26 @@ export default async function ArticlesPage({ params }:  WhitePaperPageProps) {
           <BreadCrumb params={resolvedParams} />
         </div>
 
-       <div className="flex flex-col lg:flex-row gap-3 lg:gap-10 justify-between w-full">
+        <div className="flex flex-col lg:flex-row gap-3 lg:gap-10 justify-between w-full">
           {/* سمت چپ */}
           <div className="w-full lg:w-[50%]">
             <EcosystemIntro />
           </div>
-          
+
           {/* سمت راست */}
           <div className=" w-full lg:max-w-[40%]">
             <PoweredBy />
           </div>
         </div>
+        <div className="mt-5">
+          <WhyMetarang />
+        </div>
 
         {/* ✅ اسکیمای SSR معتبر و داینامیک */}
         <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
-      />
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
+        />
       </section>
     );
   }
