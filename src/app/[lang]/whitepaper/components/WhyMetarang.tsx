@@ -102,7 +102,7 @@ export default function WhyMetarang() {
     return (
         <section
             ref={sectionRef}
-            className="relative min-h-[200vh] bg-white dark:bg-[#1A1A18] rounded-[40px] rounded-tl-[150px]"
+            className="relative min-h-[200vh] bg-white dark:bg-[#1A1A18] rounded-[40px] ltr:rounded-tr-[150px] rtl:rounded-tl-[150px]"
         >
 
             <div>
@@ -137,7 +137,7 @@ export default function WhyMetarang() {
                         >
                             <div className="flex flex-col md:flex-row md:items-start md:justify-between  w-full">
                                 <div className="flex flex-col lg:flex-row h-[550px] w-full ">
-                                    <div className={`${card.gradient} border-2 border-solid border-[#434343] flex flex-col gap-10 p-10 rounded-[40px] rounded-tl-[150px] lg:rounded-tl-[40px] w-full lg:w-1/2 min-h-[320px]`}>
+                                    <div className={`${card.gradient} border-2 border-solid border-[#434343] flex flex-col gap-10 p-10 rounded-[40px] ltr:rounded-tr-[150px] rtl:rounded-tl-[150px] rtl:lg:rounded-tl-[40px] ltr:lg:rounded-tr-[40px] w-full lg:w-1/2 min-h-[320px]`}>
                                         <div className='flex gap-5 items-end'>
                                             <div className="text-3xl text-black dark:text-white font-mono">
                                                 {(idx + 1).toString().padStart(2, '0')}
@@ -150,7 +150,7 @@ export default function WhyMetarang() {
                                         <p className="text-black dark:text-white text-base lg:text-xl leading-relaxed max-w-lg">
                                             {card.description}
                                         </p></div>
-                                    <div className={`${card.gradient} border border-solid border-[#434343]  flex flex-col w-full lg:w-1/2 h-full justify-center items-center rounded-[40px] lg:rounded-tl-[150px]`}>
+                                    <div className={`${card.gradient} border border-solid border-[#434343]  flex flex-col w-full lg:w-1/2 h-full justify-center items-center rounded-[40px] rtl:lg:rounded-tl-[150px] ltr:lg:rounded-tr-[150px]`}>
                                         <div className='w-[200px] lg:w-[300px] 2xl:w-[350px]'>
                                             {card.icon}
                                         </div>
