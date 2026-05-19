@@ -129,22 +129,22 @@ export default async function ArticlesPage({ params }:  WhitePaperPageProps) {
     // ✅ محتوای اصلی (دقیقاً مثل نسخه‌ی خودت)
     return (
       <section
-        className="w-full relative lg:pt-0 bg-[#f8f8f8] dark:bg-black "
+        className="w-full relative lg:pt-0 bg-[#f8f8f8] dark:bg-black  px-5"
         dir={langData.direction}
       >
         <CleanAutoRetryParam />
-        <div className="px-5 2xl:px-10 mt-[60px] lg:mt-0">
+        <div className="px-5  mt-[60px] lg:mt-0">
           <BreadCrumb params={resolvedParams} />
         </div>
 
-       <div className="flex gap-10 justify-between w-full">
+       <div className="flex flex-col lg:flex-row gap-3 lg:gap-10 justify-between w-full">
           {/* سمت چپ */}
-          <div className="lg:w-[50%]">
+          <div className="w-full lg:w-[50%]">
             <EcosystemIntro />
           </div>
           
           {/* سمت راست */}
-          <div className="max-w-[30%]">
+          <div className=" w-full lg:max-w-[40%]">
             <PoweredBy />
           </div>
         </div>
