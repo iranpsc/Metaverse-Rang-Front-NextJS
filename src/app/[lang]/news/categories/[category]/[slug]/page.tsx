@@ -454,7 +454,7 @@ export default async function NewsPage({ params }: NewsPageProps) {
               </div>
             </div>
             <div className="w-full hidden lg:block lg:w-[30%] 3xl:w-[20%] sticky top-5">
-              <SideCard params={params} mainData={mainData} />
+              <SideCard params={resolvedParams} mainData={mainData} />
             </div>
           </div>
           <div className="ps-5 lg:ps-10 w-full flex items-center mt-14 lg:mt-20 flex-col gap-14">

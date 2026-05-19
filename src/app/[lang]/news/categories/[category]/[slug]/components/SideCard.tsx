@@ -86,7 +86,7 @@ const SideCard: React.FC<SideCardProps> = ({ params, mainData }) => {
   return (
     <section className="flex flex-col gap-5 w-full ">
       <div className="flex items-center justify-between">
-        <p className="dark:text-white font-semibold"> {findByUniqueId(mainData, 1504)} </p>
+        <p className="dark:text-white font-semibold"> {findByUniqueId(mainData, 494) || "آخرین اخبار"} </p>
 
         <Link href={`/${params.lang}/news`} className="flex justify-center items-center gap-2">
           <p className="font-azarMehr font-medium text-sm dark:text-white">
