@@ -431,7 +431,7 @@ export default async function NewsPage({ params }: NewsPageProps) {
                   params={resolvedParams}
                   mainData={mainData}
                 />
-                <NewsContent content={news.content} gallery={news.gallery}/>
+                <NewsContent content={news.content} gallery={news.gallery} params={resolvedParams}/>
                 <NewsStats
                   stats={news.stats}
                   category={news.category}
