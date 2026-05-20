@@ -12,6 +12,7 @@ import { useRouter, usePathname } from "next/navigation";
 import Tooltip from "@mui/material/Tooltip";
 import React from "react";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+
 export default function SideBarContent({
   tabsMenu,
   langData,
@@ -32,6 +33,7 @@ export default function SideBarContent({
   const [trainingDropDown, setTrainingDropDown] = useState(false);
   const [articleDropDown, setArticlesDropDown] = useState(false);
   const [citizensDropDown, setCitizensDropDown] = useState(false);
+  const [newsDropDown, setNewsDropDown] = useState(false); // اضافه شده برای اخبار
 
   const [loading, setLoading] = useState(false);
 
@@ -39,7 +41,7 @@ export default function SideBarContent({
   const dropdownRef2 = useRef(null);
   const dropdownRef3 = useRef(null);
   const dropdownRef4 = useRef(null);
-
+  const dropdownRef5 = useRef(null); // اضافه شده برای اخبار
 
   // خاموش شدن لودر وقتی صفحه عوض شد
   useEffect(() => {
@@ -49,6 +51,7 @@ export default function SideBarContent({
   const handleTrainingBtn = () => setTrainingDropDown((prev) => !prev);
   const handleArticlesBtn = () => setArticlesDropDown((prev) => !prev);
   const handleCitizensBtn = () => setCitizensDropDown((prev) => !prev);
+  const handleNewsBtn = () => setNewsDropDown((prev) => !prev); // اضافه شده برای اخبار
   const handleLangBtn = () => setLangDropDown((prev) => !prev);
 
   useEffect(() => {
@@ -67,14 +70,13 @@ export default function SideBarContent({
   // تشخیص اینکه در بخش آموزش هستیم یا نه
   const isEducationSectionActive = pathName.startsWith(`/${params.lang}/education`);
   const isArticlesSectionActive = pathName.startsWith(`/${params.lang}/articles`);
+  const isNewsSectionActive = pathName.startsWith(`/${params.lang}/news`); // اضافه شده برای اخبار
   const isCitizensSectionActive =
     pathName === `/${params.lang}/citizens` ||
     pathName === `/${params.lang}/citizens/` ||
     pathName === `/${params.lang}/rand-id/hm`;
 
-
   const pathSegments = pathName.split("/").filter(Boolean);
-  // ["fa","education","category","a&q","real-estate","SRDxZje7ll"]
   const isEducationFinalContent =
     pathSegments[1] === "education" &&
     pathSegments[2] === "category" &&
@@ -88,10 +90,19 @@ export default function SideBarContent({
     pathName === `/${params.lang}/education` ||
     isEducationFinalContent;
 
+  const isNewsMainActive = pathName === `/${params.lang}/news` ||
+    pathName === `/${params.lang}/news/` ||
+    (pathName.startsWith(`/${params.lang}/news/categories/`) &&
+      pathName.split('/').length > 5);
+
+  const isNewsCategoriesActive = (pathName === `/${params.lang}/news/categories` ||
+    pathName === `/${params.lang}/news/categories/`) ||
+    (pathName.startsWith(`/${params.lang}/news/categories`) &&
+      pathName.split('/').length === 5);
   useEffect(() => {
     if (!finalTabsMenu) return;
 
-    // پاک کردن اسلش انتهایی (برای مقایسه دقیق)
+
     const cleanPath = pathName.endsWith("/") ? pathName.slice(0, -1) : pathName;
 
     const citizenProfilePath = `/${params.lang}/citizens/${params.id}`;
@@ -131,6 +142,13 @@ export default function SideBarContent({
       ) {
         isActive = true;
       }
+      // --- news و زیرمجموعه‌ها ---
+      else if (
+        item.unique_id == "NEWS_UNIQUE_ID" && // باید با unique_id واقعی جایگزین شود
+        pathName.startsWith(`/${params.lang}/news`)
+      ) {
+        isActive = true;
+      }
       // --- version و زیرمجموعه‌ها ---
       else if (
         item.unique_id == 1458 &&
@@ -152,14 +170,13 @@ export default function SideBarContent({
     });
 
     setMenuItems(updatedMenu);
-
-    setMenuItems(updatedMenu);
     setTrainingDropDown(cleanPath.startsWith(`/${params.lang}/education`));
     setArticlesDropDown(cleanPath.startsWith(`/${params.lang}/articles`));
+    setNewsDropDown(cleanPath.startsWith(`/${params.lang}/news`)); // اضافه شده برای اخبار
     setCitizensDropDown(isCitizensSectionActive);
 
-
   }, [finalTabsMenu, pathName, params.lang, params.id]);
+
   // هندلر اصلی کلیک (کلیک چپ + کلیک وسط)
   const handleItemClick = (e, url = null, item = null) => {
     e.stopPropagation();
@@ -174,6 +191,7 @@ export default function SideBarContent({
       else if (item?.unique_id === "1374") targetUrl = `/citizens/${params.id}`;
       else if (item?.unique_id === "149") targetUrl = "";
       else if (item?.unique_id === 1458) targetUrl = "/version";
+      else if (item?.unique_id === "NEWS_UNIQUE_ID") targetUrl = "/news"; // اضافه شده برای اخبار
 
       const fullUrl = targetUrl.startsWith("http")
         ? targetUrl
@@ -192,6 +210,7 @@ export default function SideBarContent({
         else if (item?.unique_id === "1374") targetUrl = `/citizens/${params.id}`;
         else if (item?.unique_id === "149") targetUrl = "";
         else if (item?.unique_id === 1458) targetUrl = "/version";
+        else if (item?.unique_id === "NEWS_UNIQUE_ID") targetUrl = "/news"; // اضافه شده برای اخبار
 
         const fullUrl = targetUrl.startsWith("http")
           ? targetUrl
@@ -221,7 +240,7 @@ export default function SideBarContent({
       {/* لودر تمام صفحه */}
       {loading && (
         <div className={`${isClosed ? "!w-[96.4vw]" : "xl:w-[83vw] 2xl:w-[83.5vw]"}
-          fixed w-full  rtl:left-0 ltr:right-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm`} >
+          fixed w-full rtl:left-0 ltr:right-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm`} >
           <div className="container flex w-full h-screen items-center justify-center">
             <div className="holder">
               <div className="box"></div>
@@ -258,7 +277,7 @@ export default function SideBarContent({
                   <Link
                     onMouseDown={(e) => handleItemClick(e, item.url, item)}
                     href={`/${params.lang}/${item.url}`}
-                    
+
                     className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px] cursor-pointer menu-transition
                       ${item.active ? "text-[#0066FF] dark:text-[#FFC700]" : "text-gray-700 dark:text-gray-300"}
                       group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700]
@@ -312,7 +331,7 @@ export default function SideBarContent({
                 <div ref={dropdownRef2} className={`${trainingDropDown ? "h-fit" : "h-0 overflow-hidden"} base-transition-1 bg-slate-100 dark:bg-darkGray`}>
                   {/* آموزش‌ها */}
                   <Link
-                  href={`/${params.lang}/education`}
+                    href={`/${params.lang}/education`}
                     onMouseDown={(e) => handleItemClick(e, "/education")}
                     className={`block w-full py-[12px] 3xl:py-[16px] menu-transition cursor-pointer
                       ${pathName === `/${params.lang}/education` || pathName === `/${params.lang}/education/` ? "text-[#0066FF] dark:text-[#FFC700]" : "text-gray-600 dark:text-gray-400"}
@@ -326,8 +345,6 @@ export default function SideBarContent({
                             active: isTrainingsActive
                           }}
                         />
-
-
                       </span>
                       <ListMenuTitleModule
                         item={{
@@ -336,13 +353,12 @@ export default function SideBarContent({
                         }}
                         isClosed={isClosed}
                       />
-
                     </div>
                   </Link>
 
                   {/* دسته‌بندی‌ها */}
                   <Link
-                  href={`/${params.lang}/education/category`}
+                    href={`/${params.lang}/education/category`}
                     onMouseDown={(e) => handleItemClick(e, "/education/category")}
                     className={`block w-full py-[12px] 3xl:py-[16px] menu-transition cursor-pointer
                       ${pathName.startsWith(`/${params.lang}/education/category`) ? "text-[#0066FF] dark:text-[#FFC700]" : "text-gray-600 dark:text-gray-400"}
@@ -356,7 +372,6 @@ export default function SideBarContent({
                             active: isCategoriesActive
                           }}
                         />
-
                       </span>
                       <ListMenuTitleModule
                         item={{
@@ -365,12 +380,13 @@ export default function SideBarContent({
                         }}
                         isClosed={isClosed}
                       />
-
                     </div>
                   </Link>
                 </div>
               </li>
             )}
+
+            {/* بخش مقالات متارنگ */}
             {item.unique_id == 258 && (
               <li style={{ order: "-1" }}>
                 <Tooltip
@@ -405,9 +421,9 @@ export default function SideBarContent({
                 </Tooltip>
 
                 <div ref={dropdownRef3} className={`${articleDropDown ? "h-fit" : "h-0 overflow-hidden"} base-transition-1 bg-slate-100 dark:bg-darkGray`}>
-                  {/* آموزش‌ها */}
+                  {/* مقالات */}
                   <Link
-                  href={`/${params.lang}/articles`}
+                    href={`/${params.lang}/articles`}
                     onMouseDown={(e) => handleItemClick(e, "/articles")}
                     className={`block w-full py-[12px] 3xl:py-[16px] menu-transition cursor-pointer
                       ${pathName === `/${params.lang}/articles` || pathName === `/${params.lang}/articles/` ? "text-[#0066FF] dark:text-[#FFC700]" : "text-gray-600 dark:text-gray-400"}
@@ -422,7 +438,7 @@ export default function SideBarContent({
                   </Link>
 
                   {/* دسته‌بندی‌ها */}
-                  <Link href={`/${params.lang}//articles/categories`}
+                  <Link href={`/${params.lang}/articles/categories`}
                     onMouseDown={(e) => handleItemClick(e, "/articles/categories")}
                     className={`block w-full py-[12px] 3xl:py-[16px] menu-transition cursor-pointer
                       ${pathName.startsWith(`/${params.lang}/articles/categories`) ? "text-[#0066FF] dark:text-[#FFC700]" : "text-gray-600 dark:text-gray-400"}
@@ -439,6 +455,89 @@ export default function SideBarContent({
               </li>
             )}
 
+            {/* بخش اخبار (NEWS) - اضافه شده */}
+            {item.unique_id == 255 && ( // عدد 259 را با unique_id واقعی اخبار جایگزین کنید
+              <li style={{ order: "-1" }}> {/* order را بر اساس نیاز تنظیم کنید */}
+                <Tooltip
+                  title={params.lang === "fa" ? "اخبار متارنگ" : "MetaRang News"}
+                  placement={langData.direction === "rtl" ? "left-end" : "right-end"}
+                  arrow
+                  slotProps={{
+                    tooltip: {
+                      className: `!bg-[#E9E9E9] !text-[#908F95] dark:!bg-[#434343] dark:!text-white !font-azarMehr !font-medium !text-[14px] ${isClosed ? "block" : "hidden"}`,
+                    },
+                    arrow: { className: "!text-[#E9E9E9] dark:!text-[#434343]" },
+                  }}
+                >
+                  <div onClick={handleNewsBtn} className="cursor-pointer">
+                    <div className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px] menu-transition
+                      ${isNewsSectionActive ? "text-[#0066FF] dark:text-[#FFC700]" : "text-gray-700 dark:text-gray-300"}
+                      group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700]
+                      ${isClosed ? "justify-start gap-0" : "justify-start gap-2"}`}>
+                      <ListMenuActiveIconModule item={{ active: isNewsSectionActive }} languageSelected={langData.code} isClosed={isClosed} />
+                      <span className="ps-[15px]">
+                        <ListMenuSvgModule item={{ unique_id: 255, active: isNewsSectionActive }} />
+                      </span>
+                      <div className="w-full flex justify-between items-center">
+                        <ListMenuTitleModule
+                          item={{ translation: params.lang === "fa" ? "اخبار متارنگ" : "MetaRang News", active: isNewsSectionActive }}
+                          isClosed={isClosed}
+                        />
+                         <ListMenuArrow item={{ name: "trainings" }} isOpen={newsDropDown} isClosed={isClosed} />
+                      </div>
+                    </div>
+                  </div>
+                </Tooltip>
+
+                <div ref={dropdownRef5} className={`${newsDropDown ? "h-fit" : "h-0 overflow-hidden"} base-transition-1 bg-slate-100 dark:bg-darkGray`}>
+                  {/* لیست اخبار */}
+                  <Link
+                    href={`/${params.lang}/news`}
+                    onMouseDown={(e) => handleItemClick(e, "/news")}
+                    className={`block w-full py-[12px] 3xl:py-[16px] menu-transition cursor-pointer
+                      ${isNewsMainActive ? "text-[#0066FF] dark:text-[#FFC700]" : "text-gray-600 dark:text-gray-400"}
+                      hover:text-[#0066FF] dark:hover:text-[#FFC700] ${isClosed ? "ps-0" : "ps-3"}`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="ps-[15px]">
+                        <ListMenuSvgModule item={{ unique_id: 255, active: isNewsMainActive }} />
+                      </span>
+                      <ListMenuTitleModule
+                        item={{
+                          translation: params.lang === "fa" ? " اخبار" : "News",
+                          active: isNewsMainActive
+                        }}
+                        isClosed={isClosed}
+                      />
+                    </div>
+                  </Link>
+
+                  {/* دسته‌بندی اخبار */}
+                  <Link
+                    href={`/${params.lang}/news/categories`}
+                    onMouseDown={(e) => handleItemClick(e, "/news/categories")}
+                    className={`block w-full py-[12px] 3xl:py-[16px] menu-transition cursor-pointer
+                      ${isNewsCategoriesActive ? "text-[#0066FF] dark:text-[#FFC700]" : "text-gray-600 dark:text-gray-400"}
+                      hover:text-[#0066FF] dark:hover:text-[#FFC700] ${isClosed ? "ps-0" : "ps-3"}`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="ps-[15px]">
+                        <ListMenuSvgModule item={{ name: "categories", active: isNewsCategoriesActive }} />
+                      </span>
+                      <ListMenuTitleModule
+                        item={{
+                          translation: params.lang === "fa" ? "دسته‌بندی‌ها" : "Categories",
+                          active: isNewsCategoriesActive
+                        }}
+                        isClosed={isClosed}
+                      />
+                    </div>
+                  </Link>
+                </div>
+              </li>
+            )}
+
+            {/* بخش شهروندان */}
             {item.unique_id == 263 && (
               <li style={{ order: "-2" }}>
                 <Tooltip
@@ -473,9 +572,9 @@ export default function SideBarContent({
                 </Tooltip>
 
                 <div ref={dropdownRef4} className={`${citizensDropDown ? "h-fit" : "h-0 overflow-hidden"} base-transition-1 bg-slate-100 dark:bg-darkGray`}>
-                  {/* آموزش‌ها */}
+                  {/* شهروندان */}
                   <Link
-                  href={`/${params.lang}/citizens`}
+                    href={`/${params.lang}/citizens`}
                     onMouseDown={(e) => handleItemClick(e, "/citizens")}
                     className={`block w-full py-[12px] 3xl:py-[16px] menu-transition cursor-pointer
                       ${pathName === `/${params.lang}/citizens` || pathName === `/${params.lang}/citizens/` ? "text-[#0066FF] dark:text-[#FFC700]" : "text-gray-600 dark:text-gray-400"}
@@ -491,7 +590,7 @@ export default function SideBarContent({
 
                   {/* دسته‌بندی‌ها */}
                   <Link
-                  href={`/${params.lang}/rand-id/hm`}
+                    href={`/${params.lang}/rand-id/hm`}
                     onMouseDown={(e) => handleItemClick(e, "/rand-id/hm")}
                     className={`block w-full py-[12px] 3xl:py-[16px] menu-transition cursor-pointer
                       ${pathName.startsWith(`/${params.lang}/rand-id/hm`) ? "text-[#0066FF] dark:text-[#FFC700]" : "text-gray-600 dark:text-gray-400"}
@@ -507,32 +606,6 @@ export default function SideBarContent({
                 </div>
               </li>
             )}
-
-
-            {/* {item.unique_id == 1414 && (
-              <li>
-                <Tooltip title={item.translation} placement={langData.direction === "rtl" ? "left-end" : "right-end"} arrow>
-                  <div onClick={handleLangBtn} className="cursor-pointer">
-                    <div className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px] menu-transition group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] ${isClosed ? "justify-start gap-0" : "justify-start gap-2"}`}>
-                      <ListMenuActiveIconModule item={item} languageSelected={langData.code} isClosed={isClosed} />
-                      <span className="ps-[15px]"><ListMenuSvgModule item={item} /></span>
-                      <div className="w-full flex justify-between items-center">
-                        <ListMenuTitleModule item={item} isClosed={isClosed} />
-                        <ListMenuArrow item={{ name: "language" }} isOpen={langDropDown} isClosed={isClosed} />
-                      </div>
-                    </div>
-                  </div>
-                </Tooltip>
-
-                <div ref={dropdownRef} className={`${langDropDown ? "h-fit" : "h-0 overflow-hidden"} base-transition-1 bg-Field dark:bg-darkGray`}>
-                  {langArray.map((lang, idx) => (
-                    <div key={idx} className="py-1">
-                      <DropdownLanguageModule languagesData={langData} langArray={[lang]} params={params} isClosed={isClosed} />
-                    </div>
-                  ))}
-                </div>
-              </li>
-            )} */}
           </React.Fragment>
         ))}
       </ul>

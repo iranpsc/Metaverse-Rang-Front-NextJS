@@ -22,8 +22,7 @@ const FooterClient: React.FC<FooterClientProps> = ({ footerTabs, mainData, param
   const isHidden = hiddenPaths.some((regex) => regex.test(pathname));
 
   if (isHidden) return null;
-  return <div>فوتر جدید با اصلاحات ترجمه در دست ساخت است</div>;
-  // return <Footer footerTabs={footerTabs} mainData={mainData} params={params} />;
+  return <Footer footerTabs={footerTabs} mainData={mainData} params={params} />;
 };
 
 export default FooterClient;
