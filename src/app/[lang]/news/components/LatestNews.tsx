@@ -244,7 +244,7 @@ const LatestNews: React.FC<LatestNewsProps> = ({
                         className="object-cover rounded-lg"
                       />
                     ) : (
-                      <div className="w-full h-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-xs text-gray-500">
+                      <div className="w-full h-full bg-neutral-200 dark:bg-neutral-700 flex items-center justify-center text-xs text-gray-500">
                         بدون عکس
                       </div>
                     )}

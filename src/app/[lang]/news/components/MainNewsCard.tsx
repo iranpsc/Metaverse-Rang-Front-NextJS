@@ -56,6 +56,7 @@ export default function ArticleCard({ item, params, theme, activeLoadingId, setA
             alt={item.title}
             width={400}
             height={260}
+            unoptimized={true}
             priority
             quality={70}
             sizes="(max-width: 640px) 320px, (max-width: 1024px) 473px,"

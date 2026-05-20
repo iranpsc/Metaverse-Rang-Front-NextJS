@@ -22,7 +22,6 @@ const FooterClient: React.FC<FooterClientProps> = ({ footerTabs, mainData, param
   const isHidden = hiddenPaths.some((regex) => regex.test(pathname));
 
   if (isHidden) return null;
-
   return <Footer footerTabs={footerTabs} mainData={mainData} params={params} />;
 };
 
