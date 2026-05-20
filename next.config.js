@@ -6,8 +6,8 @@
 const nextConfig = {
   // 🔹 فعال‌کردن سورس‌مپ در پروداکشن (برای رفع هشدار Missing source maps)
   productionBrowserSourceMaps: true,
-
-  logging: {
+output: 'standalone',
+logging: {
     fetches: {
       fullUrl: true,
     },

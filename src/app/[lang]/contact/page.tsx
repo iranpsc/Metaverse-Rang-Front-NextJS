@@ -215,8 +215,11 @@ export default async function AboutPage({ params }: AboutPageProps) {
                         <Form lang={lang} />
                       </div>
                     </div>
-                    <div className="flex flex-col gap-7 w-full lg:w-1/2 justify-center lg:justify-start w-full">
-                      <div className="flex flex-col md:flex-row md:flex-wrap w-full items-center justify-between gap-6 ">
+                    <div className="flex flex-col gap-7 w-full lg:w-1/2 justify-center lg:justify-start w-full mt-5 lg:mt-14">
+                      <div className="flex flex-col w-full items-center justify-start  gap-5   px-5 dark:text-white text-start ">
+                        <p className="lg:text-xl">آدرس :  قزوین - بخش مرکزی - ملاصدرا - خیابان میرداماد - نبش بن بست پویا - پلاک ۴۵</p>
+                        <p>تلفن پشتیبانی  :  <a href="tel:02833647125" className="text-light-primary dark:text-dark-primary"> 02833647125 </a></p>
+                        <p className="">ساعات پاسخگویی شنبه - چهارشنبه 9 تا 13</p>
                       </div>
                       <div className="aspect-[5/3] w-full md:mt-[32px]">
                         <iframe
