@@ -15,6 +15,12 @@ logging: {
   async redirects() {
     return [
       {
+        source: '/',
+        destination: '/fa',
+        permanent: true,
+        basePath: false,
+      },
+      {
         source: '/:lang/citizen',
         destination: '/:lang/citizens',
         permanent: true,
