@@ -13,6 +13,7 @@ import PoweredBy from "./components/PoweredBy";
 import EcosystemIntro from "./components/EcosystemIntro";
 import WhyMetarang from "./components/WhyMetarang"
 import EcosystemFeatures from "./components/EcosystemFeatures"
+import TrustedBy from "./components/TrustedBy"
 const baseUrl = "https://metarang.com"; // ← دامنه اصلی سایتت
 const imageUrl = "https://metarang.com/_next/image?url=%2Flogo.png&w=128&q=75";
 interface WhitePaperPageProps {
@@ -153,6 +154,7 @@ export default async function ArticlesPage({ params }: WhitePaperPageProps) {
         <div className="mt-5 space-y-5">
           <WhyMetarang />
            <EcosystemFeatures />
+           <TrustedBy/>
         </div>
 
         {/* ✅ اسکیمای SSR معتبر و داینامیک */}
