@@ -15,6 +15,8 @@ import WhyMetarang from "./components/WhyMetarang"
 import EcosystemFeatures from "./components/EcosystemFeatures"
 import TrustedBy from "./components/TrustedBy"
 import TrustedBySimple from "./components/TrustedBySimple"
+import Codebase from "./components/Codebase"
+import FoundationGrants from "./components/FoundationGrants"
 const baseUrl = "https://metarang.com"; // ← دامنه اصلی سایتت
 const imageUrl = "https://metarang.com/_next/image?url=%2Flogo.png&w=128&q=75";
 interface WhitePaperPageProps {
@@ -157,6 +159,8 @@ export default async function ArticlesPage({ params }: WhitePaperPageProps) {
           <EcosystemFeatures />
           <TrustedBySimple />
           <TrustedBy />
+          <Codebase />
+          <FoundationGrants />
         </div>
 
         {/* ✅ اسکیمای SSR معتبر و داینامیک */}
