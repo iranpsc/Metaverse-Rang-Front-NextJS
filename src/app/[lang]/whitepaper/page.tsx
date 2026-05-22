@@ -14,6 +14,7 @@ import EcosystemIntro from "./components/EcosystemIntro";
 import WhyMetarang from "./components/WhyMetarang"
 import EcosystemFeatures from "./components/EcosystemFeatures"
 import TrustedBy from "./components/TrustedBy"
+import TrustedBySimple from "./components/TrustedBySimple"
 const baseUrl = "https://metarang.com"; // ← دامنه اصلی سایتت
 const imageUrl = "https://metarang.com/_next/image?url=%2Flogo.png&w=128&q=75";
 interface WhitePaperPageProps {
@@ -132,7 +133,7 @@ export default async function ArticlesPage({ params }: WhitePaperPageProps) {
     // ✅ محتوای اصلی (دقیقاً مثل نسخه‌ی خودت)
     return (
       <section
-        className="w-full relative lg:pt-0 bg-[#f8f8f8] dark:bg-black min-h-screen  px-5"
+        className="w-full relative lg:pt-0 bg-[#f5f5f5] dark:bg-black px-5"
         dir={langData.direction}
       >
         <CleanAutoRetryParam />
@@ -153,8 +154,9 @@ export default async function ArticlesPage({ params }: WhitePaperPageProps) {
         </div>
         <div className="mt-5 space-y-5">
           <WhyMetarang />
-           <EcosystemFeatures />
-           <TrustedBy/>
+          <EcosystemFeatures />
+          <TrustedBySimple />
+          <TrustedBy />
         </div>
 
         {/* ✅ اسکیمای SSR معتبر و داینامیک */}

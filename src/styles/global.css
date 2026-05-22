@@ -35,6 +35,15 @@
         cursor: pointer;
 
     }
+        .scrollbar01::-webkit-scrollbar {
+        width: 1px;
+        height: 1px;
+    }
+    .scrollbar01::-webkit-scrollbar-thumb {
+        background: transparent;
+        border-radius: 10px;
+        cursor: pointer;
+    }
     /* custom transition */
     .base-transition-1{
         transition: all 0.2s;

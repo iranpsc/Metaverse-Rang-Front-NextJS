@@ -114,8 +114,6 @@ export default function TrustedBy() {
                                 </div>
                             ))}
                         </div>
-
-
                     </div>
                 </div>
             </div>
