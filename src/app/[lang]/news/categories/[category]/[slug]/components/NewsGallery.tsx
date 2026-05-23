@@ -139,9 +139,9 @@ export default function NewsGallerySimple({ gallery, mainImage , params }: NewsG
     <>
       {/* پیش‌نمایش گالری گرید - تعداد متغیر بر اساس دستگاه */}
       <div className="w-full my-8">
-        <div className={`grid gap-3 md:gap-4 ${
+        <div className={`grid gap-3 md:gap-3 ${
           displayCount === 4 
-            ? 'grid-cols-4' // موبایل: 4 ستون
+            ? 'grid-cols-2' // موبایل: 4 ستون
             : 'grid-cols-3' // دسکتاپ: 3 ستون
         }`}>
           {previewImages.map((img, idx) => (
