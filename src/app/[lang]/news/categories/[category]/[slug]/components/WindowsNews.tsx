@@ -8,7 +8,7 @@ const WindowsNews = () => {
             <div className="p-6 flex flex-col md:flex-row justify-between" dir="rtl">
                 <div className='w-[300px] mx-auto lg:mx-0 relative'>
                     <div className='bg-[#5d9eff80] dark:bg-[#d8a90054] w-[240px] h-[240px] rounded-full relative z-0' />
-                    <Image src={'/adNews.png'} fill alt={'ad pic'} className=' w-full max-w-[270px] !h-auto z-10 my-auto ms-[-15px]' />
+                    <Image src={'/adNews.png'} fill unoptimized={true} alt={'ad pic'} className=' w-full max-w-[270px] !h-auto z-10 my-auto ms-[-15px]' />
                 </div>
                 <div className=" flex flex-col gap-4">
                     <p className="text-xl lg:text-3xl font-rokh font-bold text-white dark:text-black">
