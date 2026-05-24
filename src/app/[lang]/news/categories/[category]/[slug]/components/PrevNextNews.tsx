@@ -92,18 +92,16 @@ const PrevNextNews = ({ params, news: propNews, mainData }: PrevNextNewsProps) =
 
   return (
     <section className="w-full my-10 2xl:px-20">
-
-
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full md:gap-10 3xl:gap-[100px]">
         {/* ======================= */}
         {/* 📌 کارت مقاله قبلی */}
         {/* ======================= */}
         <div className="flex flex-col items-center w-full">
           {prevNews ? (
-          <h3 className="text-center font-bold mb-3 dark:text-white">
-            {findByUniqueId(mainData, 1506) || "مطلب قبلی"}
-          </h3>
-            ) : ( <div></div>)}
+            <h3 className="text-center font-bold mb-3 dark:text-white">
+              {findByUniqueId(mainData, 1506) || "مطلب قبلی"}
+            </h3>
+          ) : (<div></div>)}
           <div className="w-full">
             {prevNews ? (
               <NewsNavCard
@@ -113,8 +111,8 @@ const PrevNextNews = ({ params, news: propNews, mainData }: PrevNextNewsProps) =
                 setActiveLoadingId={setActiveLoadingId}
               />
             ) : (
-              <div className="w-full h-[200px] bg-gray-100 dark:bg-gray-800 rounded-2xl flex items-center justify-center">
-               
+              <div className="w-full h-[200px] rounded-2xl flex items-center justify-center">
+
               </div>
             )}
           </div>
@@ -124,11 +122,11 @@ const PrevNextNews = ({ params, news: propNews, mainData }: PrevNextNewsProps) =
         {/* 📌 کارت مقاله بعدی */}
         {/* ======================= */}
         <div className="flex flex-col items-center w-full">
-         
-          <h3 className="text-center font-bold mb-3 dark:text-white">
-            {findByUniqueId(mainData, 1507) || "مطلب بعدی"}
-          </h3>
-
+          {nextNews ? (
+            <h3 className="text-center font-bold mb-3 dark:text-white">
+              {findByUniqueId(mainData, 1507) || "مطلب بعدی"}
+            </h3>
+          ) : (<div></div>)}
           <div className="w-full">
             {nextNews ? (
               <NewsNavCard
@@ -138,8 +136,7 @@ const PrevNextNews = ({ params, news: propNews, mainData }: PrevNextNewsProps) =
                 setActiveLoadingId={setActiveLoadingId}
               />
             ) : (
-              <div className="w-full h-[200px] bg-gray-100 dark:bg-gray-800 rounded-2xl flex items-center justify-center">
-                
+              <div className="w-full h-[200px] rounded-2xl flex items-center justify-center">
               </div>
             )}
           </div>

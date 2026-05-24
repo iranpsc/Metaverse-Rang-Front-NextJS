@@ -12,7 +12,7 @@ interface NewsStatsProps {
   category?: string | null;
   categorySlug?: string | null;
   date?: string | null;
-  readingTime?: string | number | null;
+  // readingTime?: string | number | null;
   mainData: any;
   lang?: string;
   className?: string;
@@ -24,8 +24,8 @@ export default function NewsStats({
   category,
 categorySlug,
   date,
-  readingTime,
-  mainData,
+  // readingTime,
+  // mainData,
   lang,
   className = "",
   showIcons = true,
@@ -72,7 +72,7 @@ categorySlug,
         </div>
       )}
 
-      {/* زمان مطالعه */}
+      {/* زمان مطالعه
       {readingTime && (
         <div className="flex items-center gap-1.5">
           {showIcons && (
@@ -95,13 +95,13 @@ categorySlug,
             {findByUniqueId(mainData, 33) || "دقیقه"}
           </span>
         </div>
-      )}
+      )} */}
 
       {/* جداساز */}
       
 
       {/* بازدیدها */}
-      <div className="flex items-center gap-1.5">
+      <div className="flex items-center gap-3">
         {showIcons && <View className="stroke-textGray dark:stroke-[#888888] size-[14px] md:size-[20px]" />}
         <span>{views.toLocaleString("fa-IR")}</span>
       </div>
