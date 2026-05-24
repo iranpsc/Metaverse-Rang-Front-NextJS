@@ -43,7 +43,7 @@ export default function ShowSocialWrapper({
         <CopyIcon className="dark:fill-[#000] fill-[#fff] 3xl:w-[20px] 3xl:h-[20px] md:w-[20px] md:h-[20px]" />
       </div>
 
-      <div className="flex md:hidden items-center text-sm md:text-base w-full">
+      {/* <div className="flex md:hidden items-center text-sm md:text-base w-full">
         <div className="flex justify-end  items-center gap-5 w-full text-textGray dark:text-[#888888]">
           <span className=" items-center gap-1 flex">
             <Comment className="stroke-textGray dark:stroke-[#888888] size-[16px]" />
@@ -58,7 +58,7 @@ export default function ShowSocialWrapper({
             {news.stats.dislikes}
           </span>
         </div>
-      </div>
+      </div> */}
 
       {/* مودال یا بخش اشتراک‌گذاری */}
       {showSocial && (
