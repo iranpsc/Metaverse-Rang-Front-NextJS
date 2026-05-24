@@ -17,6 +17,7 @@ import TrustedBy from "./components/TrustedBy"
 import TrustedBySimple from "./components/TrustedBySimple"
 import Codebase from "./components/Codebase"
 import FoundationGrants from "./components/FoundationGrants"
+import AvalancheNetwork from "./components/AvalancheNetwork"
 const baseUrl = "https://metarang.com"; // ← دامنه اصلی سایتت
 const imageUrl = "https://metarang.com/_next/image?url=%2Flogo.png&w=128&q=75";
 interface WhitePaperPageProps {
@@ -161,6 +162,7 @@ export default async function ArticlesPage({ params }: WhitePaperPageProps) {
           <TrustedBy />
           <Codebase />
           <FoundationGrants />
+          <AvalancheNetwork />
         </div>
 
         {/* ✅ اسکیمای SSR معتبر و داینامیک */}
