@@ -234,7 +234,7 @@ export default function NewsGallerySimple({ gallery, mainImage , params }: NewsG
                   src={allImages[currentIndex]}
                   alt={`تصویر ${currentIndex + 1}`}
                   fill
-                  className=" p-4 md:p-8  object-contain  mx-auto  rounded-3xl !h-max !w-max !max-h-full !max-w-full"
+                  className=" p-4 md:p-8  object-contain  mx-auto my-auto lg:my-0  rounded-3xl !h-max !w-max !max-h-full !max-w-full"
                   sizes="100vw"
                   priority
                   unoptimized={true}
@@ -272,7 +272,7 @@ export default function NewsGallerySimple({ gallery, mainImage , params }: NewsG
             {allImages.length > 1 && (
               <div className="absolute bottom-0 left-0 right-0 z-20 pb-4 md:pb-6 bg-gradient-to-t  from-black/70 to-transparent pt-8">
                 <div className="flex justify-center items-center px-4">
-                  <div className="flex gap-2 md:gap-3 mb-5 lg:mb-0 py-5 overflow-x-auto w-full scrollbar-hide justify-center">
+                  <div className="flex gap-2 md:gap-3 mb-[60px] lg:mb-0 py-5 overflow-x-auto w-full scrollbar-hide justify-center">
                     {allImages.map((img, idx) => (
                       <button
                         key={idx}

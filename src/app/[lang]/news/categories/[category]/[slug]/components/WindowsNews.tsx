@@ -4,11 +4,11 @@ import Image from 'next/image';
 
 const WindowsNews = () => {
     return (
-        <div className=" mx-auto w-full bg-gradient-to-r to-light-primary from-blue-400 dark:to-dark-yellow dark:from-yellow-600 rounded-xl  overflow-hidden  my-10 p-5">
+        <div className=" mx-auto w-full bg-gradient-to-r to-light-primary from-blue-400 dark:to-dark-yellow dark:from-yellow-600 lg:rounded-xl  overflow-hidden  my-10 p-5">
             <div className="p-6 flex flex-col md:flex-row justify-between" dir="rtl">
-                <div className='w-[300px] mx-auto lg:mx-0 relative'>
+                <div className='w-[300px] mx-auto lg:mx-0 relative mt-[-60px] lg:mt-0 mb-5 lg:mb-0'>
                     <div className='bg-[#5d9eff80] dark:bg-[#d8a90054] w-[240px] h-[240px] rounded-full relative z-0' />
-                    <Image src={'/adNews.png'} fill unoptimized={true} alt={'ad pic'} className=' w-full max-w-[270px] !h-auto z-10 my-auto ms-[-15px]' />
+                    <Image src={'/adNews.png'} fill unoptimized={true} alt={'ad pic'} className=' w-full max-w-[270px] !h-auto z-10 my-auto lg:ms-[-15px]' />
                 </div>
                 <div className=" flex flex-col gap-4">
                     <p className="text-xl lg:text-3xl font-rokh font-bold text-white dark:text-black">
@@ -22,7 +22,7 @@ const WindowsNews = () => {
                     </p>
                 </div>
 
-                <div className=" flex items-center lg:items-end lg:pe-10">
+                <div className=" flex items-center justify-center lg:justify-normal mt-5 lg:mt-1  lg:items-end lg:pe-10">
                     <button className="bg-black w-max text-light-primary dark:text-dark-yellow font-bold py-3 px-6 rounded-lg transition duration-300 shadow-md flex items-center gap-2">
                         آموزش نصب
                     </button>
