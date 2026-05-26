@@ -2,12 +2,13 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 
 export default function AvalancheNetwork() {
     const [count, setCount] = useState(12554178438);
     const [isActive, setIsActive] = useState(false);
     const [hasAnimated, setHasAnimated] = useState(false);
-    const sectionRef = useRef(null);
+    const sectionRef = useRef<HTMLElement>(null); // ✅ Fixed type
 
     const blocks = [
         { blockNumber: '59005799', timeAgo: '1 SECOND AGO', hash: '0x54BA...F43D59', txCount: 7, amount: '<0.01 AVAX' },
@@ -17,10 +18,10 @@ export default function AvalancheNetwork() {
     ];
 
     const transactions = [
-        { hash: '0x54BA...F43D59', timeAgo: '1 SECOND AGO', txCount: 7, amount: '<0.01 AVAX', from: '0x1234...5678', to: '0x8765...4321' },
-        { hash: '0x32CF...A872EB', timeAgo: '2 SECONDS AGO', txCount: 12, amount: '0.02 AVAX', from: '0xabcd...efgh', to: '0xijkl...mnop' },
-        { hash: '0x87DE...B4512F', timeAgo: '3 SECONDS AGO', txCount: 5, amount: '<0.01 AVAX', from: '0xqrst...uvwx', to: '0x1234...5678' },
-        { hash: '0x41AC...E9637A', timeAgo: '4 SECONDS AGO', txCount: 9, amount: '0.01 AVAX', from: '0x9876...5432', to: '0xabcdef...123' },
+        { hash: '0x54BA...F43D59', timeAgo: '1 SECOND AGO', txCount: 7, amount: '<0.01 AVAX' },
+        { hash: '0x32CF...A872EB', timeAgo: '2 SECONDS AGO', txCount: 12, amount: '0.02 AVAX' },
+        { hash: '0x87DE...B4512F', timeAgo: '3 SECONDS AGO', txCount: 5, amount: '<0.01 AVAX' },
+        { hash: '0x41AC...E9637A', timeAgo: '4 SECONDS AGO', txCount: 9, amount: '0.01 AVAX' },
     ];
 
     const randomNumber = () => {
@@ -66,149 +67,135 @@ export default function AvalancheNetwork() {
     };
 
     return (
-        <>
+        <section ref={sectionRef} className="w-full bg-white dark:bg-[#1A1A18] rounded-[40px]" id="network-section">
+            <div className="p-5 lg:p-10">
 
-            <section ref={sectionRef} className="w-full bg-white dark:bg-[#1A1A18] py-24" id="network-section">
-                <div className="max-w-7xl mx-auto px-6 lg:px-8">
+                {/* عنوان اصلی */}
+                <div className="mb-16 mt-7 w-full space-y-3">
+                    <p className="dark:text-white text-3xl md:text-5xl xl:text-7xl 3xl:text-[160px] font-bold tracking-wider">AVALANCHE</p>
+                    <p className="text-end dark:text-white text-3xl md:text-5xl xl:text-7xl 3xl:text-[160px] font-bold tracking-wider">NETWORK</p>
+                    <p className="text-3xl md:text-5xl xl:text-7xl 3xl:text-[160px] font-bold text-black dark:text-white">
+                        In Action
+                    </p>
+                </div>
 
-                    {/* عنوان اصلی */}
-                    <div className="text-center mb-16">
-                        <div className="inline-block mb-4">
-                            <span className="text-red-500 text-sm font-mono tracking-wider">AVALANCHE NETWORK</span>
-                        </div>
-                        <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6">
-                            In Action
-                        </h2>
-                        <div className="w-20 h-0.5 bg-red-500 mx-auto"></div>
+                <div className="w-full h-0.5 bg-[#D9D9D9] dark:bg-[#434343] mx-auto my-20"></div>
+
+                {/* کارت توضیحات */}
+                <div className="mb-16">
+                    <div className="rounded-2xl p-8">
+                        <p className="text-start dark:text-white text-xl xl:text-3xl 3xl:text-4xl font-bold lg:max-w-[55%] leading-relaxed">
+                            Explore the latest transactions and block data from the Avalanche network in real-time.
+                            Built for speed, security, and decentralization.
+                        </p>
                     </div>
+                </div>
 
-                    {/* کارت توضیحات با طرح avax */}
-                    <div className="max-w-3xl mx-auto text-center mb-16">
-                        <div className="bg-gradient-to-r from-gray-900/50 to-gray-800/50 backdrop-blur-sm border border-gray-800 rounded-2xl p-8">
-                            <p className="text-gray-300 text-lg leading-relaxed">
-                                Explore the latest transactions and block data from the Avalanche network in real-time.
-                                Built for speed, security, and decentralization.
-                            </p>
-                        </div>
-                    </div>
+                {/* آمار اصلی */}
+                <div className="text-center mb-20 border border-solid border-[#D9D9D9] dark:border-[#434343] rounded-[40px] px-5 py-12">
+                    <div className="relative flex justify-between items-center w-full gap-5">
+                        <div className={`absolute -inset-4 bg-[#9100d93d] blur-3xl rounded-full transition-opacity duration-500 ${isActive ? 'opacity-100' : 'opacity-0'}`}></div>
 
-                    {/* آمار اصلی */}
-                    <div className="text-center mb-20">
-                        <div className="inline-block relative">
-                            {/* افکت glow */}
-                            <div className={`absolute -inset-4 bg-red-500/20 blur-3xl rounded-full transition-opacity duration-500 ${isActive ? 'opacity-100' : 'opacity-0'}`}></div>
-
-                            <p className={`text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold mb-6 font-mono tracking-tight transition-all duration-200 ${isActive ? 'text-red-500 scale-105' : 'text-white'}`}>
+                        <div className="flex flex-col lg:flex-row gap-6 lg:gap-10 w-full">
+                            <p className={`text-3xl mx-auto lg:mb-5 lg:mt-2 lg:mx-0 text-start lg:text-6xl 3xl:text-8xl font-bold font-mono tracking-tight transition-all duration-200 ${isActive ? 'text-[#9100D9] scale-105' : 'text-black dark:text-white'}`}>
                                 {formatNumber(count)}
                             </p>
 
                             <div className="flex items-center justify-center gap-4">
                                 <div className="flex items-center gap-2">
-                                    <div className={`w-2 h-2 rounded-full ${isActive ? 'bg-red-500 animate-pulse' : 'bg-green-500'}`}></div>
-                                    <span className="dark:text-white  text-sm font-mono">LIVE</span>
+                                    <span className={`${isActive ? 'bg-red-500 animate-pulse' : 'bg-[#9100D9]'} bg-[#9100D9] px-3 py-1 text-white rounded-full text-sm font-mono`}>
+                                        Live states
+                                    </span>
                                 </div>
-                                <div className="w-px h-4 bg-gray-700"></div>
-                                <span className="dark:text-white  text-sm">Total Transactions</span>
+                                <div className="w-px h-4 bg-gray-300 dark:bg-gray-700"></div>
                             </div>
                         </div>
-
-                        {isActive && (
-                            <div className="mt-6">
-                                <div className="inline-flex items-center gap-2 bg-red-500/10 border border-red-500/20 rounded-full px-4 py-2">
-                                    <div className="w-1.5 h-1.5 bg-red-500 rounded-full animate-ping"></div>
-                                    <span className="text-red-400 text-xs font-mono">SYNCING NETWORK DATA...</span>
-                                </div>
-                            </div>
-                        )}
+                        <span className="text-black dark:text-white text-2xl xl:text-3xl 3xl:text-5xl hidden lg:block">Transactions</span>
                     </div>
+                </div>
 
-                    {/* گرید دیتاها */}
-                    <div className="grid lg:grid-cols-2 gap-8">
+                {/* گرید دیتاها */}
+                <div className="grid lg:grid-cols-2 gap-10 lg:gap-7">
 
-                        {/* LATEST BLOCKS */}
-                        <div className="space-y-6">
-                            <div className="flex items-center gap-3 border-b border-gray-800 pb-4">
-                                <div className="w-1 h-6 bg-red-500 rounded-full"></div>
-                                <h3 className="text-xl font-bold text-white tracking-wider">LATEST BLOCKS</h3>
-                                <span className="text-xs text-gray-500 bg-gray-900 px-2 py-0.5 rounded">LIVE</span>
-                            </div>
+                    {/* LATEST BLOCKS */}
+                    <div className="space-y-2">
+                        <div className="flex items-center gap-3 border-b border-gray-300 dark:border-gray-800 pb-4">
+                            <h3 className="text-xl xl:text-4xl font-bold text-black dark:text-white tracking-wider">LATEST BLOCKS</h3>
+                        </div>
 
-                            <div className="space-y-3">
-                                {blocks.map((block, i) => (
-                                    <div key={i} className="group border-solid border border-neutral-400 dark:border-neutral-700  rounded-3xl p-5  cursor-pointer">
-                                        <div className="flex flex-row items-center justify-between gap-4">
-
-                                            <div className="flex flex-col items-center gap-3 mb-2">
-                                                <span className="dark:text-white underline font-mono text-lg font-bold">
+                        <div>
+                            {blocks.map((block, i) => (
+                                <div key={i} className="group border-solid border border-neutral-300 dark:border-neutral-700 rounded-[40px] px-3 lg:px-5 py-3 lg:py-4 cursor-pointer">
+                                    <div className="flex flex-row items-center justify-between gap-1 lg:gap-4">
+                                        <div className="flex items-center gap-3">
+                                            <Image src={"/whitepaper/coin.png"} alt='coin pic' width={71} height={71} className='rounded-full aspect-square w-[45px] h-[45px] lg:w-[71px] lg:h-[71px]' />
+                                            <div className="flex flex-col items-start gap-1">
+                                                <span className="dark:text-white text-black underline font-mono text-xs lg:text-lg font-bold">
                                                     {block.blockNumber}
                                                 </span>
-                                                <span className="text-xs text-neutral-400 dark:text-neutral-600 px-2 py-0.5 rounded-full">
+                                                <span className="text-xs text-neutral-400 dark:text-neutral-500">
                                                     {block.timeAgo}
                                                 </span>
                                             </div>
-                                            <div className='flex flex-col'>
-                                                <p className="dark:text-white flex items-center flex-row-reverse gap-2 text-sm font-mono">
-                                                   <span className='text-neutral-400 dark:text-neutral-600'>HASH</span> <span className='underline'>{block.hash}</span>
-                                                </p>
-                                                <p className='text-neutral-400 dark:text-neutral-600'>7TX</p>
-                                            </div>
-                                            <div className="flex items-center gap-6">
-                                                <div className="text-right bg-black dark:bg-white py-3 px-3 rounded-xl">
-                                                    {/* <p className="text-white font-semibold text-sm">{block.txCount}</p> */}
-                                                    <p className="dark:text-black text-white text-sm font-mono">{block.amount}</p>
-                                                </div>
-
+                                        </div>
+                                        <div className="flex flex-col gap-1">
+                                            <p className="dark:text-white text-black flex items-center flex-row-reverse gap-2 text-sm font-mono">
+                                                <span className="text-neutral-400 dark:text-neutral-500 hidden lg:block">HASH</span>
+                                                <span className="underline text-wrap text-xs lg:text-base">{block.hash}</span>
+                                            </p>
+                                            <p className="text-neutral-400 dark:text-neutral-500 text-sm text-right">{block.txCount} TX</p>
+                                        </div>
+                                        <div className="flex items-center gap-6">
+                                            <div className="text-right bg-[#ECECEC] dark:bg-[#ECECEC] py-2 lg:py-3 px-2 lg:px-3 rounded-xl">
+                                                <p className="text-black text-xs lg:text-sm font-mono">{block.amount}</p>
                                             </div>
                                         </div>
                                     </div>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* LATEST TRANSACTIONS */}
-                        <div className="space-y-6">
-                            <div className="flex items-center gap-3 border-b border-gray-800 pb-4">
-                                <div className="w-1 h-6 bg-red-500 rounded-full"></div>
-                                <h3 className="text-xl font-bold text-white tracking-wider">LATEST TRANSACTIONS</h3>
-                                <span className="text-xs text-gray-500 bg-gray-900 px-2 py-0.5 rounded">LIVE</span>
-                            </div>
-
-                            <div className="space-y-3">
-                                {transactions.map((tx, i) => (
-                                    <div key={i} className="group  hover:bg-gray-900 border  rounded-xl p-5 transition-all duration-300 cursor-pointer">
-                                        <div className="space-y-3">
-                                            <div className="flex items-center justify-between">
-                                                <p className="text-red-500 font-mono text-sm">
-                                                    {tx.hash}
-                                                </p>
-                                                <div className="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center group-hover:bg-red-500/20 transition-colors">
-                                                    <svg className="w-4 h-4 text-gray-400 group-hover:text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                                                    </svg>
-                                                </div>
-                                            </div>
-                                            <div className="flex items-center justify-between text-sm">
-                                                <div className="flex items-center gap-4">
-                                                    <span className="dark:text-white text-xs">{tx.timeAgo}</span>
-                                                    <span className="dark:text-white ">{tx.txCount} transactions</span>
-                                                </div>
-                                                <p className="text-green-400 font-mono font-semibold">{tx.amount}</p>
-                                            </div>
-                                            <div className="flex items-center gap-4 text-xs dark:text-white  font-mono pt-2 border-t ">
-                                                <span>From: {tx.from}</span>
-                                                <span>→</span>
-                                                <span>To: {tx.to}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
+                                </div>
+                            ))}
                         </div>
                     </div>
 
-                </div>
-            </section>
+                    {/* LATEST TRANSACTIONS - دقیقاً مثل BLOCKS */}
+                    <div className="space-y-2">
+                        <div className="flex items-center gap-3 border-b border-gray-300 dark:border-gray-800 pb-4">
+                            <h3 className="text-xl xl:text-4xl font-bold text-black dark:text-white tracking-wider">LATEST TRANSACTIONS</h3>
+                        </div>
 
-        </>
+                        <div>
+                            {transactions.map((tx, i) => (
+                                <div key={i} className="group border-solid border border-neutral-300 dark:border-neutral-700 rounded-[40px] px-3 lg:px-5 py-3 lg:py-4 cursor-pointer">
+                                    <div className="flex flex-row items-center justify-between gap-4">
+                                        <div className="flex items-center gap-3">
+                                            <Image src={"/whitepaper/coin.png"} alt='transaction pic' width={71} height={71} className='rounded-full aspect-square w-[45px] h-[45px] lg:w-[71px] lg:h-[71px]' />
+                                            <div className="flex flex-col items-start gap-1">
+                                                <span className="dark:text-white text-black underline font-mono text-xs lg:text-lg font-bold">
+                                                    {tx.hash}
+                                                </span>
+                                                <span className="text-xs text-neutral-400 dark:text-neutral-500">
+                                                    {tx.timeAgo}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div className="flex flex-col gap-1">
+                                            <p className="dark:text-white text-black flex items-center flex-row-reverse gap-2 text-sm font-mono">
+                                                <span className="text-neutral-400 dark:text-neutral-500 hidden lg:block">HASH</span>
+                                                <span className="underline text-xs lg:text-base">{tx.hash}</span>
+                                            </p>
+                                            <p className="text-neutral-400 dark:text-neutral-500 text-sm text-right">{tx.txCount} TX</p>
+                                        </div>
+                                        <div className="flex items-center">
+                                            <div className="text-right bg-[#ECECEC] dark:bg-[#ECECEC] py-2 lg:py-3 px-2 lg:px-3 rounded-xl">
+                                                <p className="text-black text-xs lg:text-sm font-mono">{tx.amount}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     );
 }
