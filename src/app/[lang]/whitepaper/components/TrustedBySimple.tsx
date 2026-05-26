@@ -85,7 +85,7 @@ export default function AvalancheTrusted() {
             <div className=" bg-white dark:bg-[#1A1A18] rounded-[40px] rounded-es-none">
                 <div className="font-bold text-start flex flex-col justify-start py-12 px-10  space-y-4">
                     <div className='flex flex-col lg:flex-row gap-10 w-full items-center'>
-                        <div className='flex items-center lg:w-[70%]'>
+                        <div className='flex flex-col lg:flex-row items-center w-full lg:w-[70%]'>
                             <div>
 
                                 <svg width="198" height="198" viewBox="0 0 198 198" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -97,7 +97,7 @@ export default function AvalancheTrusted() {
                                 </svg>
 
                             </div>
-                            <p className="text-6xl text-start  text-black dark:text-white w-full uppercase">
+                            <p className="text-xl xl:text-6xl text-start  text-black dark:text-white w-full uppercase">
                                 Avalanche Is Trusted By <br /> Businesses Worldwide
                             </p>
 

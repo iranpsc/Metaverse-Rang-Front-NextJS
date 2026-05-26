@@ -161,8 +161,10 @@ export default async function ArticlesPage({ params }: WhitePaperPageProps) {
           <EcosystemFeatures />
           <TrustedBySimple />
           <TrustedBy />
-          <Codebase />
-          <FoundationGrants />
+          <div className="my-5 hidden lg:block">          
+            <Codebase />
+            <FoundationGrants />
+            </div>
           <AvalancheNetwork />
           <NewsStories />
         </div>
