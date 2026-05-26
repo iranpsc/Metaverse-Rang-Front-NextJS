@@ -1,206 +1,316 @@
+// src/components/LatestNews.tsx
 "use client";
-import { useEffect, useRef, useState } from "react";
-import { ArrowRight } from "@/components/svgs";
-import { Dislike, Like, View, Video } from "@/components/svgs/SvgEducation";
-import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import Image from "next/image";
+
+import React, { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import { ArrowRight } from "@/components/svgs";
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import { Calender, Timer, View } from "@/components/svgs/SvgEducation";
+import { formatNumber } from "@/components/utils/formatNumber";
+import fallbackNewsData from "@/components/utils/news.json";
 
-// تعریف نوع برای params
-interface Params {
-  lang: "fa" | "en"; // محدود کردن lang به fa یا en
+type Tag = { label: string; slug: string };
+
+type Author = {
+  name?: string;
+};
+
+export type News = {
+  id: number | string;
+  title: string;
+  slug: string;
+  date?: string;
+  readingTime?: string;
+  image?: string;
+  excerpt?: string;
+  category?: string;
+  categorySlug?: string;
+  author?: Author;
+  tags?: Tag[] | string[];
+  stats: { views?: any };
+};
+
+interface LatestNewsProps {
+  params: { lang: string };
+  mainData?: any;
+  theme?: "light" | "dark";
+  limit?: number;
+  initialNews?: News[] | null;
 }
 
-// تعریف نوع برای staticData
-interface NewsItem {
-  title: { fa: string; en: string };
-  desc: { fa: string; en: string };
-  url: string;
-  date: { fa: string; en: string };
-}
+// تابع کمکی برای تبدیل داده JSON به تایپ News
+const transformToNews = (data: any[]): News[] => {
+  return data.map((item) => ({
+    id: item.id,
+    title: item.title,
+    slug: item.slug,
+    date: item.date,
+    readingTime: item.readingTime,
+    image: item.image,
+    excerpt: item.description || item.excerpt, // اگر description داشت استفاده کن
+    category: item.category,
+    categorySlug: item.categorySlug,
+    stats: { views: item.views || item.stats?.views || 0 },
+    author: item.author,
+    tags: item.tags,
+  }));
+};
 
-const LastNews = ({ mainData, params }: { mainData: any; params: Params }) => {
-  const staticData: NewsItem[] = [
-    {
-      title: {
-        fa: "کسب درآمد از اولین متاورس ایران متاورس رنگ، فرصتی نوین برای کارآفرینان دیجیتال",
-        en: "Earning Income from Iran's First Metaverse, Rang Metaverse, a New Opportunity for Digital Entrepreneurs",
-      },
-      desc: {
-        fa: "در حال حاضر هیچ قانونی وجود ندارد که به طور خاص متاورس یا سایر دنیای مجازی را تنظیم کند. با این حال، همان قوانین کلی که در مورد اینترنت اعمال می‌شود، در مورد متاورس نیز اعمال می‌شود، از جمله قانون کپی‌رایت، قانون افترا، قانون قرارداد و غیره.",
-        en: "Currently, there is no specific law regulating the metaverse or other virtual worlds. However, the general laws that apply to the internet also apply to the metaverse, including copyright law, defamation law, contract law, and more.",
-      },
-      url: "https://meta.irpsc.com/2024/07/12/earning-income-from-the-first-metaverse-iran-metaverse-rang/",
-      date: {
-        fa: "22/تیر/1403",
-        en: "12/July/2024",
-      },
-    },
-    {
-      title: {
-        fa: "بازپس‌گیری جزیره آریانا در اولین متاورس ایران متاورس رنگ با اهدای 963 قطعه زمین(VOD) رایگان به ارزش 50371200000 ریال",
-        en: "Reclaiming Ariana Island in Iran's First Metaverse, Rang Metaverse, with 963 Free VOD Land Plots Worth 50,371,200,000 Rials",
-      },
-      desc: {
-        fa: "فضای مجازی ممکن است جملات زیادی از زبان مدیران اجرایی مانند مارک زاکربرگ یا ساتیا نادلا در مورد متاورس شنیده باشید. متاورس آینده اینترنت است.",
-        en: "You may have heard many statements from executives like Mark Zuckerberg or Satya Nadella about the metaverse. The metaverse is the future of the internet.",
-      },
-      url: "https://meta.irpsc.com/2024/07/17/reclaiming-ariana-island-in-irans-first-metaverse/",
-      date: {
-        fa: "27/تیر/1403",
-        en: "17/July/2024",
-      },
-    },
-    {
-      title: {
-        fa: "VOD تجاری دارای بنا چیست؟ | متاورس",
-        en: "What is a Commercial VOD with a Building? | Metaverse",
-      },
-      desc: {
-        fa: "متاورس رنگ اولین متاورس ایران با هدف توسعه تاورس ملی اهداف زیادی از قبیل عدم خروج ارز از کشور و در فازهای بعدی ورود ارز به کشور را دارد که این‌ها همه بخشی کوچکی از اهداف متاورس ملی می‌باشد.",
-        en: "Rang Metaverse, Iran's first metaverse, aims to develop a national metaverse with goals such as preventing currency outflow and, in later phases, bringing currency into the country, which is just a small part of the national metaverse's objectives.",
-      },
-      url: "https://video.irpsc.com/watch/F2x6VMfXJK8xhhT",
-      date: {
-        fa: "6/مرداد/1403",
-        en: "27/July/2024",
-      },
-    },
-  ];
+const LatestNews: React.FC<LatestNewsProps> = ({
+  params,
+  mainData,
+  limit = 10,
+  initialNews,
+}) => {
+  const [activeLoadingId, setActiveLoadingId] = useState<string | number | null>(null);
+
+  const articles = useMemo<News[]>(() => {
+    // اگر initialNews معتبر است از آن استفاده کن
+    if (initialNews && initialNews.length > 0) {
+      return initialNews.slice(0, limit);
+    }
+    
+    // در غیر این صورت از داده JSON استفاده کن و تبدیلش کن
+    const transformedData = transformToNews(fallbackNewsData);
+    return transformedData.slice(0, limit);
+  }, [initialNews, limit]);
+
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const sortedArticles = useMemo(() => {
+    return [...articles].sort((a, b) =>
+      new Date(b.date || "1900-01-01").getTime() - new Date(a.date || "1900-01-01").getTime()
+    );
+  }, [articles]);
+
+  const FeaturedSkeleton = () => (
+    <div className="w-full lg:w-1/2 rounded-md overflow-hidden shadow-md bg-neutral-300 dark:bg-[#1A1A18] animate-pulse">
+      <div className="aspect-square bg-neutral-300 dark:bg-neutral-800 flex flex-col justify-end" >
+        <div className="p-6 flex flex-col gap-4 items-center">
+          <div className="h-8 w-32 bg-neutral-400 dark:bg-neutral-700 rounded-full" />
+          <div className="h-7 w-4/5 bg-neutral-400 dark:bg-neutral-700 rounded" />
+          <div className="h-5 w-3/4 bg-neutral-400 dark:bg-neutral-700 rounded" />
+          <div className="h-4 w-1/2 bg-neutral-400 dark:bg-neutral-700 rounded" />
+        </div>
+      </div>
+    </div>
+  );
+
+  const SideNewsSkeleton = () => (
+    <div className="flex flex-col gap-[28px] w-full lg:w-1/2">
+      {[1, 2, 3].map((i) => (
+        <div
+          key={i}
+          className="flex flex-col lg:flex-row gap-4 animate-pulse bg-neutral-300 dark:bg-[#1A1A18] rounded-lg p-4"
+        >
+          <div className="w-full lg:w-[40%] h-[150px] bg-neutral-400 dark:bg-neutral-700 rounded-lg" />
+          <div className="flex flex-col gap-4 w-full lg:w-[60%]">
+            <div className="h-6 w-32 bg-neutral-400 dark:bg-neutral-700 rounded-full" />
+            <div className="h-6 w-full bg-neutral-400 dark:bg-neutral-700 rounded" />
+            <div className="h-4 w-3/5 bg-neutral-400 dark:bg-neutral-700 rounded" />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+
+  if (!mounted) {
+    return (
+      <section className="w-full max-w-7xl mx-auto px-4">
+        <div className="flex flex-col lg:flex-row items-center gap-10">
+          <FeaturedSkeleton />
+          <SideNewsSkeleton />
+        </div>
+      </section>
+    );
+  }
+
+  if (sortedArticles.length === 0) {
+    return <div className="py-10 text-center dark:text-white">خبری برای نمایش وجود ندارد.</div>;
+  }
+
+  const featured = sortedArticles[0];
+  const sideNews = sortedArticles.slice(1, 4);
+  
+  const getCategorySlug = (item: { categorySlug?: string; category?: string }) =>
+    item.categorySlug ||
+    item.category?.toLowerCase().replace(/\s+/g, "-") ||
+    "general";
 
   return (
-    <>
-      <div className="w-full flex flex-row justify-between items-center">
-        <p className="font-azarMehr font-medium text-[16px] md:text-[20px] lg:text-[28px] xl:text-[32px] dark:text-white">
-          {findByUniqueId(mainData, 494)}
-        </p>
-        <a href="https://metatimes.ir/" target="_blank">
-          <div className="flex justify-center items-center gap-4">
-            <p className="font-azarMehr font-medium text-[12px] md:text-[16px] lg:text-[18px] xl:text-[20px] dark:text-white">
-              {findByUniqueId(mainData, 171)}
-            </p>
-            <ArrowRight
-              className={`dark:stroke-white stroke-black rotate-180 w-[24px] h-full ${params.lang === "en" ? "ltr:rotate-0" : ""}`}
-            />
-          </div>
-        </a>
+    <section className="w-full max-w-7xl mx-auto">
+      {/* هدر بخش */}
+      <div className="flex items-center justify-between mb-4 px-4 md:px-0">
+        <div className="flex flex-col gap-2">
+          <h2 className="text-2xl md:text-3xl font-bold w-max dark:text-white border border-x-0 border-b-4 pe-7 border-t-0 pb-3 border-light-primary dark:border-dark-yellow border-solid">
+            {findByUniqueId(mainData, 494) || "آخرین اخبار"}
+          </h2>
+        </div>
+
+        <Link
+          href={`/${params.lang}/news`}
+          className="flex justify-center items-center gap-4"
+        >
+          <p className="font-azarMehr text-[12px] md:text-[16px] lg:text-[18px] xl:text-[20px] dark:text-white">
+            {findByUniqueId(mainData, 171)}
+          </p>
+          <ArrowRight
+            className={`dark:stroke-white stroke-black rotate-180 w-[24px] h-full ${
+              params.lang === "en" ? "ltr:rotate-0" : ""
+            }`}
+          />
+        </Link>
       </div>
-
-      <div className="grid lg:grid-cols-2 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 xs:grid-cols-1 gap-10 mt-4 md:mt-12">
-        {staticData.map((item, index) => {
-          const titleRef = useRef<HTMLHeadingElement>(null);
-          const [isTruncated, setIsTruncated] = useState(false);
-
-          const checkTruncation = () => {
-            const el = titleRef.current;
-            if (el) {
-              setIsTruncated(el.scrollWidth > el.clientWidth);
-            }
-          };
-
-          useEffect(() => {
-            checkTruncation();
-            const observer = new ResizeObserver(checkTruncation);
-            if (titleRef.current) {
-              observer.observe(titleRef.current);
-            }
-            return () => {
-              observer.disconnect();
-            };
-          }, [item.title[params.lang]]);
-
-          return (
-            <div
-              key={index}
-              className="w-[100%] min-h-[240px] base-transition-1 shadow-md hover:shadow-xl hover:dark:shadow-dark rounded-[20px] bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-6 items-center overflow-hidden"
-            >
-              <div className="w-full flex flex-col justify-center items-center max-h-[265px] overflow-hidden">
-                <Link
-                  href={item.url}
-                  className="group w-full rounded-t-[10px] flex relative"
-                >
+      <p className="text-[#A0A0AB] lg:text-lg mb-7">{findByUniqueId(mainData, 1639)}</p>
+      
+      {/* گرید اصلی: ۱ خبر بزرگ + ۳ خبر کوچک */}
+      <div className="flex flex-col lg:flex-row w-full items-center gap-10 ">
+        {/* خبر ویژه (بزرگ) */}
+        {featured && (
+          <div className={activeLoadingId === featured.id ? "rotating-border-card cursor-not-allowed p-1 w-full lg:w-1/2 dark:bg-gray-800 rounded-md overflow-hidden duration-300" : "p-1 w-full lg:w-1/2 dark:bg-gray-800 rounded-md overflow-hidden duration-300"}>
+            <Link onClickCapture={() => setActiveLoadingId(featured.id)} href={`/${params.lang}/news/categories/${getCategorySlug(featured)}/${featured.slug}`}>
+              <div className="relative aspect-square overflow-hidden rounded-md">
+                {featured.image ? (
                   <Image
-                    src={`/firstpage/static-news-${index}.webp` || "/rafiki-dark.png"}
-                    alt={params.lang === "fa" ? "آخرین اخبار" : "latest news"}
-                    width={380}
-                    height={375}
+                    src={featured.image}
+                    alt={"lastFeat" + featured.title}
+                    fill
+                    className="object-cover lg:rounded-md"
+                    sizes="(max-width: 1024px) 100vw, 40vw"
+                    quality={40}
                     loading="lazy"
-                    quality={75}
-                    className="w-full h-full transition-all duration-150 ease-in-out rounded-t-[10px] object-contain bg-cover"
                   />
-                  <div className="w-full h-full  absolute z-0 top-0 flex justify-center items-center rounded-t-[10px]">
-                    <div className="w-fit hover:scale-105 duration-100 rounded-full bg-white/30 dark:bg-black/35 flex items-center justify-center p-5">
-                      <Video width={40} height={40} />
-                    </div>
+                ) : (
+                  <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                    <span className="text-gray-400">بدون تصویر</span>
                   </div>
-                </Link>
-              </div>
+                )}
 
-              <div className="py-3 px-3 flex flex-col justify-between gap-5 w-full">
-                <div className="w-[95%] flex flex-row justify-start items-center gap-1 mt-[-20px]">
-                  <p className="text-start text-gray dark:text-dark-gray font-medium font-azarMehr text-[13px] 3xl:text-[16px] cursor-pointer hover:text-blueLink hover:dark:text-dark-yellow">
-                    {item.date[params.lang]}
+                {/* overlay گرادیان */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+
+                {/* اطلاعات روی تصویر */}
+                <div className="absolute bottom-0 left-0 right-0 p-5 xl:p-[32px] text-white w-full flex flex-col gap-4 items-center">
+                  {featured.category && (
+                    <div className="border-2 border-solid border-dark-gray py-2 px-5 rounded-full w-max">
+                      <Link href={`/${params.lang}/news/categories/${getCategorySlug(featured)}`} className="text-xs lg:text-base font-medium dark:text-[#F2F2F2]">
+                        {featured.category}
+                      </Link>
+                    </div>
+                  )}
+                  <p className="text-xl md:text-2xl font-rokh text-center font-bold line-clamp-2 leading-9">
+                    {featured.title}
                   </p>
+                  {featured.excerpt && (
+                    <p className="text-sm md:text-base text-gray-200 line-clamp-2">
+                      {featured.excerpt}
+                    </p>
+                  )}
+                  <div className="flex w-full items-center justify-center gap-4 2xl:gap-10 text-sm pb-2">
+                    {featured.stats && (
+                      <div className="flex gap-2 items-center">
+                        <span>{formatNumber(featured.stats?.views ?? 0)}</span>
+                        <View className="stroke-dark-gray size-5" />
+                      </div>
+                    )}
+                    |
+                    {featured.date && (
+                      <div className="flex gap-2 items-center">
+                        <time dateTime={featured.date}>{featured.date}</time>
+                        <Calender className="stroke-dark-gray size-5" />
+                      </div>
+                    )}
+                    {featured.readingTime && <div>|</div>}
+                    {featured.readingTime && (
+                      <div className="flex items-center gap-2">
+                        |
+                        <span>{featured.readingTime} دقیقه</span>
+                        <Timer className="stroke-dark-gray size-5" />
+                      </div>
+                    )}
+                  </div>
                 </div>
+              </div>
+            </Link>
+          </div>
+        )}
 
-                <a className="w-[95%] mt-[-10px] "  href={item.url}>
-                  <h4
-                    ref={titleRef}
-                    className={`text-start w-full font-azarMehr truncate cursor-pointer font-bold text-[18px] xl:text-[20px] 3xl:text-[22px] dark:text-white text-gray ${
-                      isTruncated ? "hover:overflow-visible hover:animate-rtlMarquee ltr:hover:animate-ltrMarquee " : ""
-                    }`}
-                  >
-                    {item.title[params.lang]}
-                  </h4>
-                  <p className="line-clamp-2 text-darkGray dark:text-lightGray">
-                    {item.desc[params.lang]}
-                  </p>
-                </a>
+        {/* سه خبر کناری (کوچک) */}
+        <div className="flex flex-col gap-[28px] w-full lg:w-1/2">
+          {sideNews.map((item) => {
+            const isLoading = activeLoadingId === item.id;
 
-                <div className="w-full flex flex-row justify-between items-center">
-                  <Link href={`/${params.lang}/citizen/hm-2000003`} target="_blank">
-                    <div className="flex flex-row justify-start items-center gap-2">
+            return (
+              <Link
+                key={String(item.id)}
+                href={`/${params.lang}/news/categories/${getCategorySlug(item)}/${item.slug}`}
+                onClickCapture={() => setActiveLoadingId(item.id)}
+                className={`relative bg-white dark:bg-[#1A1A18] lg:bg-[#f8f8f8] dark:lg:bg-black rounded-lg h-auto p-4 lg:p-1 ${
+                  isLoading ? "rotating-border-card cursor-not-allowed" : ""
+                }`}
+              >
+                <div className="flex lg:flex-row flex-col w-full z-10">
+                  <div className="relative w-full lg:w-[40%] h-[250px] lg:h-[176px] overflow-hidden z-10">
+                    {item.image ? (
                       <Image
-                        src="/firstpage/alizadeh.webp"
-                        alt={params.lang === "fa" ? "تصویر شهروند" : "citizen image"}
-                        width={1000}
-                        height={1000}
+                        src={item.image}
+                        alt={"lastN " + item.title}
+                        fill
                         loading="lazy"
-                        className="w-[45px] h-[45px] rounded-full object-cover cursor-pointer transition-all duration-150 ease-in-out"
+                        sizes="(max-width: 768px) 90vw, 15vw"
+                        quality={20}
+                        className="object-cover rounded-lg"
                       />
-                      <span className="text-blueLink cursor-pointer text-[14px] 3xl:text-[18px] whitespace-nowrap font-medium  uppercase">
-                        HM-2000003
-                      </span>
+                    ) : (
+                      <div className="w-full h-full bg-neutral-200 dark:bg-neutral-700 flex items-center justify-center text-xs text-gray-500">
+                        بدون عکس
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="flex flex-col items-center lg:items-start gap-4 w-full lg:w-[60%] p-3 lg:ps-5 h-full bg-white lg:bg-[#f8f8f8] dark:bg-[#1A1A18] lg:dark:bg-black z-10">
+                    {item.category && (
+                      <Link
+                        href={`/${params.lang}/news/categories/${getCategorySlug(item)}`}
+                        className="border-2 border-solid border-dark-gray py-2 px-5 rounded-full w-max"
+                      >
+                        <span className="text-xs lg:text-base font-medium dark:text-[#F2F2F2]">
+                          {item.category}
+                        </span>
+                      </Link>
+                    )}
+
+                    <p className="font-bold text-sm text-center lg:text-start lg:text-lg line-clamp-2 dark:text-white">
+                      {item.title}
+                    </p>
+
+                    <div className="text-sm text-gray-500 dark:text-[#969696] flex items-center gap-3">
+                      <div className="flex items-center gap-2">
+                        {item.date && <time dateTime={item.date}>{item.date}</time>}
+                        <Calender className="stroke-dark-gray size-5" />
+                      </div>
+
+                      {item.readingTime && (
+                        <div className="flex items-center gap-2">
+                          <span>{item.readingTime} دقیقه</span>
+                          <Timer className="stroke-dark-gray size-5" />
+                        </div>
+                      )}
                     </div>
-                  </Link>
-                  <div className="flex flex-row justify-end items-center gap-4 md:gap-3 xl:gap-2 3xl:gap-5">
-                    <span className="flex items-center gap-2 xl:gap-1 3xl:gap-2">
-                      <span className="whitespace-nowrap font-azarMehr font-normal xl:text-sm 3xl:text-[18px] text-gray dark:text-dark-gray">
-                        125
-                      </span>
-                      <Like className="stroke-gray dark:stroke-dark-gray stroke-2 w-[18px] h-[18px] xl:h-[14px] xl:w-[14px] 3xl:w-[18px] 3xl:h-[18px]" />
-                    </span>
-                    <span className="flex items-center gap-2 xl:gap-1 3xl:gap-2">
-                      <span className="whitespace-nowrap font-azarMehr font-normal xl:text-sm 3xl:text-[18px] text-gray dark:text-dark-gray">
-                        10
-                      </span>
-                      <Dislike className="stroke-gray dark:stroke-dark-gray stroke-2 w-[18px] h-[18px] xl:h-[14px] xl:w-[14px] 3xl:w-[18px] 3xl:h-[18px]" />
-                    </span>
-                    <span className="flex items-center gap-2 xl:gap-1 3xl:gap-2">
-                      <span className="whitespace-nowrap font-azarMehr font-normal xl:text-sm 3xl:text-[18px] text-gray dark:text-dark-gray">
-                        610
-                      </span>
-                      <View className="stroke-gray dark:stroke-dark-gray stroke-2 ms-1 w-[18px] h-[18px] xl:h-[14px] xl:w-[14px] 3xl:w-[18px] 3xl:h-[18px]" />
-                    </span>
                   </div>
                 </div>
-              </div>
-            </div>
-          );
-        })}
+              </Link>
+            );
+          })}
+        </div>
       </div>
-    </>
+    </section>
   );
 };
 
-export default LastNews;
+export default LatestNews;

@@ -16,7 +16,7 @@ import TopTrainersFirstPage, { getTopTrainerUsers } from "@/components/templates
 const EducationFirstPage = React.lazy(() => import('@/components/templates/firstpage/EducationFirstPage'));
 const DetailsEducationSection = React.lazy(() => import('@/components/templates/firstpage/DetailsEducationSection'));
 const VersionSection = React.lazy(() => import('@/components/templates/firstpage/VersionSection'));
-import LastContent from '@/components/templates/firstpage/LastContent.client';
+// import LastContent from '@/components/templates/firstpage/LastContent.client';
 import {
   getTranslation,
   getMainFile,
@@ -277,11 +277,11 @@ const viewportWidth = headersList.get('viewport-width');   // حالا امن ا
               <EducationFirstPage params={resolvedParams} mainData={mainData} />
             </Suspense>
           </div>
-          <div className="w-[90%] h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
+          {/* <div className="w-[90%] h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
             <Suspense fallback={<div>Loading Header...</div>}>
               <LastContent mainData={mainData} params={resolvedParams} />
             </Suspense>
-          </div>
+          </div> */}
           <div className="w-[90%] relative h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
             <Suspense fallback={<div>Loading Header...</div>}>
               <DetailsEducationSection mainData={mainData} />

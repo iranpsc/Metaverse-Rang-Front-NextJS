@@ -398,7 +398,7 @@ export default async function NewsPage({ params }: NewsPageProps) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
         <div className="fixed z-[1000] end-10 bottom-[100px]">
-          <Link href={"#em"} className="bg-light-primary dark:bg-dark-yellow rounded-full w-[60px] h-[60px]  flex items-center justify-center">
+          <Link aria-label="SocialLink" href={"#em"} className="bg-light-primary dark:bg-dark-yellow rounded-full w-[60px] h-[60px]  flex items-center justify-center">
 
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path className="stroke-white dark:stroke-black" d="M22 11.5V15.5C22 19 20 20.5 17 20.5H7C4 20.5 2 19 2 15.5V8.5C2 5 4 3.5 7 3.5H12" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
@@ -411,12 +411,12 @@ export default async function NewsPage({ params }: NewsPageProps) {
           </Link>
         </div>
         <CleanAutoRetryParam />
-        <section className="w-full overflow-y-auto relative bg-[#f8f8f8] dark:bg-black mt-[60px] lg:mt-0">
+        <section className="w-full  bg-[#f8f8f8] dark:bg-black mt-[60px] lg:mt-0">
           <div className="px-5 2xl:px-10">
             <BreadCrumb params={resolvedParams} title={news.title} articleCat={news.category || ""} />
           </div>
 
-          <div className="mainContainer w-full flex flex-col gap-5 items-center lg:flex-row lg:items-start px-5 lg:px-10">
+          <div className="mainContainer w-full flex flex-col gap-5 items-center lg:flex-row lg:items-start px-5 lg:px-10 ">
             {/* محتوای اصلی */}
             <div className="lg:w-[70%] 3xl:w-[80%]">
               <div className="flex flex-col gap-10 w-full items-center rounded-xl bg-white dark:bg-[#1A1A18] shadow-lg p-5 xl:p-10">
@@ -470,7 +470,7 @@ export default async function NewsPage({ params }: NewsPageProps) {
               </div>
             </div>
 
-            <div className="w-full hidden lg:block lg:w-[30%] 3xl:w-[20%] sticky top-5">
+            <div className="w-full hidden lg:block lg:w-[30%] 3xl:w-[20%] sticky self-start z-10 top-5">
               <SideCard params={resolvedParams} mainData={mainData} />
             </div>
           </div>
