@@ -19,6 +19,8 @@ import Codebase from "./components/Codebase"
 import FoundationGrants from "./components/FoundationGrants"
 import AvalancheNetwork from "./components/AvalancheNetwork"
 import NewsStories from "./components/NewsStories"
+import AvalancheSolutions from "./components/AvalancheSolutions"
+import AvalancheStories from "./components/AvalancheStories"
 const baseUrl = "https://metarang.com"; // ← دامنه اصلی سایتت
 const imageUrl = "https://metarang.com/_next/image?url=%2Flogo.png&w=128&q=75";
 interface WhitePaperPageProps {
@@ -137,7 +139,7 @@ export default async function ArticlesPage({ params }: WhitePaperPageProps) {
     // ✅ محتوای اصلی (دقیقاً مثل نسخه‌ی خودت)
     return (
       <section
-        className="w-full relative lg:pt-0 bg-[#f5f5f5] dark:bg-black px-5"
+        className="w-full  lg:pt-0 bg-[#f5f5f5] dark:bg-black px-5"
         dir={langData.direction}
       >
         <CleanAutoRetryParam />
@@ -167,6 +169,9 @@ export default async function ArticlesPage({ params }: WhitePaperPageProps) {
             </div>
           <AvalancheNetwork />
           <NewsStories />
+          <AvalancheSolutions />
+          <AvalancheStories />
+ 
         </div>
 
         {/* ✅ اسکیمای SSR معتبر و داینامیک */}
