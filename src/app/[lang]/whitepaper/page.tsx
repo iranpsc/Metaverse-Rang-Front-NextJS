@@ -21,6 +21,10 @@ import AvalancheNetwork from "./components/AvalancheNetwork"
 import NewsStories from "./components/NewsStories"
 import AvalancheSolutions from "./components/AvalancheSolutions"
 import AvalancheStories from "./components/AvalancheStories"
+import AvalancheEventsCard from "./components/AvalancheEventsCard";
+import MetaFeatures from "./components/MetaFeatures";
+import AvalancheCTA from "./components/AvalancheCTA";
+import ContactSection from "./components/ContactSection";
 const baseUrl = "https://metarang.com"; // ← دامنه اصلی سایتت
 const imageUrl = "https://metarang.com/_next/image?url=%2Flogo.png&w=128&q=75";
 interface WhitePaperPageProps {
@@ -163,15 +167,19 @@ export default async function ArticlesPage({ params }: WhitePaperPageProps) {
           <EcosystemFeatures />
           <TrustedBySimple />
           <TrustedBy />
-          <div className="my-5 hidden lg:block">          
+          <div className="my-5 hidden lg:block">
             <Codebase />
             <FoundationGrants />
-            </div>
+          </div>
           <AvalancheNetwork />
           <NewsStories />
           <AvalancheSolutions />
           <AvalancheStories />
- 
+          <AvalancheEventsCard />
+          <MetaFeatures />
+          <AvalancheCTA />
+          <ContactSection />
+
         </div>
 
         {/* ✅ اسکیمای SSR معتبر و داینامیک */}

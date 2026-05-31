@@ -136,7 +136,7 @@ export default function WhyMetarang() {
                             className={`   rounded-3xl `}
                         >
                             <div className="flex flex-col md:flex-row md:items-start md:justify-between  w-full">
-                                <div className="flex flex-col lg:flex-row h-[550px] w-full ">
+                                <div className="flex flex-col lg:flex-row h-[650px] w-full ">
                                     <div className={`${card.gradient} border-2 border-solid border-[#434343] flex flex-col gap-10 p-10 rounded-[40px] ltr:rounded-tr-[150px] rtl:rounded-tl-[150px] rtl:lg:rounded-tl-[40px] ltr:lg:rounded-tr-[40px] w-full lg:w-1/2 min-h-[320px]`}>
                                         <div className='flex gap-5 items-end'>
                                             <div className="text-3xl text-black dark:text-white font-mono">

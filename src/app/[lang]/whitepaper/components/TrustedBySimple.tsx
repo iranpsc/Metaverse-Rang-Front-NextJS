@@ -3,6 +3,7 @@
 
 import { useRef, useEffect } from 'react';
 import { Framer, Hex, DropBox, Wings } from "@/components/svgs/SvgWhitepaper";
+import TextScramble from '@/components/utils/textScramble';
 interface TrustedCardData {
     id: number;
     icon: React.ReactNode;
@@ -97,9 +98,9 @@ export default function AvalancheTrusted() {
                                 </svg>
 
                             </div>
-                            <p className="text-xl xl:text-6xl text-start  text-black dark:text-white w-full uppercase">
-                                Avalanche Is Trusted By <br /> Businesses Worldwide
-                            </p>
+                            <TextScramble className="text-xl xl:text-3xl 2xl:text-5xl 3xl:text-6xl text-start  text-black dark:text-white w-full uppercase"
+                                text='Avalanche Is Trusted By Businesses Worldwide'
+                            />
 
                         </div>
 

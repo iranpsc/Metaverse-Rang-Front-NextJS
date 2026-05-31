@@ -2,7 +2,7 @@
 'use client';
 
 import Image from 'next/image';
-
+import TextScramble from '@/components/utils/textScramble';
 const companies = [
     { id: 1, name: 'Company 1', logo: '/logos/logo1.svg' },
     { id: 2, name: 'Company 2', logo: '/logos/logo2.svg' },
@@ -68,9 +68,9 @@ export default function TrustedBy() {
                         <path className='fill-black dark:fill-white' d="M45.0441 181.25H33.4113C25.7388 181.25 21.8614 171.928 27.3064 166.483L74.5787 119.21C88.1087 105.68 109.971 105.68 123.501 119.21L170.774 166.483C176.219 171.928 172.342 181.25 164.669 181.25H153.036C146.189 181.25 139.589 178.527 134.722 173.66L105.186 144.125C101.804 140.742 96.3591 140.742 92.9766 144.125L63.4414 173.66C58.4914 178.527 51.8916 181.25 45.0441 181.25Z" fill="white" />
                     </svg>
                     <div className="text-start max-w-3xl">
-                        <p className=" dark:text-white text-xl 3xl:text-6xl leading-relaxed">
-                            Avalanche Is Trusted By Businesses Worldwide
-                        </p>
+                        <TextScramble className=" dark:text-white text-xl xl:text-3xl 2xl:text-5xl 3xl:text-6xl leading-relaxed"
+                           text='Avalanche Is Trusted By Businesses Worldwide'
+                        />
 
                     </div>
                 </div>
