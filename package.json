@@ -13,7 +13,7 @@
   "overrides": {
     "quill": "2.0.2",
     "minimatch": "^9.0.6",
-        "postcss": "^8.5.10"
+    "postcss": "^8.5.10"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
@@ -24,6 +24,7 @@
     "@next/font": "^13.4.19",
     "@react-three/drei": "^9.115.0",
     "@react-three/fiber": "^8.17.10",
+    "@sentry/nextjs": "^10.55.0",
     "@supabase/supabase-js": "^2.81.1",
     "@tailwindcss/typography": "^0.5.16",
     "@types/node": "18.16.3",
@@ -86,7 +87,6 @@
     "@types/three": "^0.152.1",
     "autoprefixer": "^10.4.22",
     "eslint-config-next": "^13.3.4",
-
     "postcss-import": "^16.1.1",
     "postcss-nesting": "^12.1.5",
     "tailwindcss": "^3.4.4",

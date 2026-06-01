@@ -236,20 +236,11 @@ function Footer({ footerTabs, mainData, params }: any) {
           </p>
         </div>
         <div className="flex items-center justify-center px-5">
-          <a
-            referrerPolicy="origin"
-            target="_blank"
-            href="https://trustseal.enamad.ir/?id=721065&Code=fLkLFNhooBCR33C1ntVXIBxJFAj9gf3q"
-            rel="noreferrer"
-          >
-            <img
-              referrerPolicy="origin"
-              src="https://trustseal.enamad.ir/logo.aspx?id=721065&Code=fLkLFNhooBCR33C1ntVXIBxJFAj9gf3q"
-              alt="اینماد"
-              style={{ cursor: "pointer" }}
-              data-code="fLkLFNhooBCR33C1ntVXIBxJFAj9gf3q"
-            />
-          </a>
+          <div
+  dangerouslySetInnerHTML={{
+    __html: `<a referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/?id=721065&Code=fLkLFNhooBCR33C1ntVXIBxJFAj9gf3q'><img referrerpolicy='origin' src='https://trustseal.enamad.ir/logo.aspx?id=721065&Code=fLkLFNhooBCR33C1ntVXIBxJFAj9gf3q' alt='' style='cursor:pointer' code='fLkLFNhooBCR33C1ntVXIBxJFAj9gf3q'></a>`,
+  }}
+/>
         </div>
         <div className="xl:col-span-2 col-span-6 mt-6 w-full flex flex-col items-center ">
           <p className="text-center w-full font-medium font-azarMehr text-[20px] text-[#4C4C4C] dark:text-white">
