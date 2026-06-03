@@ -36,7 +36,20 @@ const nextConfig = {
   async headers() {
     return [
       {
-        // 📌 کش برای تصاویر (یک‌ساله + immutable)
+        source: '/lang/:path*',
+        headers: [
+          {
+            key: 'Access-Control-Allow-Origin',
+            value: 'https://world.metarang.com',
+          },
+          {
+            key: 'Access-Control-Allow-Methods',
+            value: 'GET, OPTIONS',
+          },
+        ],
+      },
+      {
+        //  کش برای تصاویر (یک‌ساله + immutable)
         source: "/uploads/calendars/:path*",
         headers: [
           {
@@ -46,7 +59,7 @@ const nextConfig = {
         ],
       },
       {
-        // 📌 کش برای فونت‌ها
+        //  کش برای فونت‌ها
         source: "/fonts/:path*",
         headers: [
           {
@@ -56,6 +69,7 @@ const nextConfig = {
         ],
       },
     ];
+
   },
 
   webpack(config) {
