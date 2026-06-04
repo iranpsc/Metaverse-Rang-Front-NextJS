@@ -1,7 +1,11 @@
 // components/EcosystemIntro.tsx
 'use client';
-
-export default function EcosystemIntro() {
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
+interface EcosystemIntroProps {
+  params: { lang: string };
+  mainData: { mainData: string };
+}
+export default function EcosystemIntro({ params, mainData }: EcosystemIntroProps) {
   const handleScroll = () => {
     window.scrollTo({
       top: window.innerHeight,
@@ -39,8 +43,8 @@ export default function EcosystemIntro() {
             </svg>
           </div>
           <div className="flex flex-col gap-2 items-end justify-end py-4">
-            <span className="tracking-wider dark:text-white ">Scroll</span>
-            <span className="text-sm  text-[#656565] ">to explore page</span>
+            <span className="tracking-wider dark:text-white ">{findByUniqueId(mainData, 1513)}</span>
+            <span className="text-sm  text-[#656565] ">{findByUniqueId(mainData, 1483)}</span>
           </div>
         </button>
       </div>

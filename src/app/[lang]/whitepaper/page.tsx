@@ -154,7 +154,7 @@ export default async function ArticlesPage({ params }: WhitePaperPageProps) {
         <div className="flex flex-col lg:flex-row gap-3 lg:gap-10 justify-between w-full">
           {/* سمت چپ */}
           <div className="w-full lg:w-[50%]">
-            <EcosystemIntro />
+            <EcosystemIntro params={resolvedParams} mainData={mainData}/>
           </div>
 
           {/* سمت راست */}
