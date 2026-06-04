@@ -8,7 +8,7 @@ import { imageSources } from "@/components/utils/items";
 import { useTheme } from "next-themes";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
-function Footer({ footerTabs, mainData ,params}: any) {
+function Footer({ footerTabs, mainData, params }: any) {
   const socialItems = [
     {
       id: 1,
@@ -209,7 +209,7 @@ function Footer({ footerTabs, mainData ,params}: any) {
         ))}
       </div> */}
 
-      <div className="h-fit pb-5 mt-20 rounded-[10px] w-full bg-white dark:bg-[#1A1A18] grid grid-cols-6">
+      <div className="h-fit pb-5 mt-20 rounded-[10px] w-full bg-white dark:bg-[#1A1A18] flex flex-col gap-5 lg:flex-row 2xl:gap-10 justify-between ">
         <div className="col-span-6 xl:col-span-4 mt-2 pe-2">
           <div className="w-full pt-4 px-5 flex flex-row justify-start items-center gap-5 ">
             <Image
@@ -234,6 +234,13 @@ function Footer({ footerTabs, mainData ,params}: any) {
             <br />
             {findByUniqueId(mainData, 275)}
           </p>
+        </div>
+        <div className="flex items-center justify-center px-5">
+          <div
+  dangerouslySetInnerHTML={{
+    __html: `<a referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/?id=721065&Code=fLkLFNhooBCR33C1ntVXIBxJFAj9gf3q'><img referrerpolicy='origin' src='https://trustseal.enamad.ir/logo.aspx?id=721065&Code=fLkLFNhooBCR33C1ntVXIBxJFAj9gf3q' alt='' style='cursor:pointer' code='fLkLFNhooBCR33C1ntVXIBxJFAj9gf3q'></a>`,
+  }}
+/>
         </div>
         <div className="xl:col-span-2 col-span-6 mt-6 w-full flex flex-col items-center ">
           <p className="text-center w-full font-medium font-azarMehr text-[20px] text-[#4C4C4C] dark:text-white">
@@ -279,7 +286,7 @@ function Footer({ footerTabs, mainData ,params}: any) {
         </a>
         |&nbsp;
         <Link href={`/${params.lang}/version`}
-        
+
           target="_blank"
         >
           {version}&nbsp;

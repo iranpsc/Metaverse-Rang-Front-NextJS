@@ -1,5 +1,3 @@
-// components/shared/NewsGallerySimple.tsx
-
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -8,12 +6,14 @@ import Image from "next/image";
 interface NewsGallerySimpleProps {
   gallery?: string[] | null;
   mainImage?: string;
- params:any;
+  params: any;
 }
 
-export default function NewsGallerySimple({ gallery, mainImage , params }: NewsGallerySimpleProps) {
+export default function NewsGallerySimple({ gallery, mainImage, params }: NewsGallerySimpleProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isImageFullscreen, setIsImageFullscreen] = useState(false);
+  const [fullscreenImage, setFullscreenImage] = useState('');
 
   if (!gallery || gallery.length === 0) {
     return null;
@@ -27,15 +27,13 @@ export default function NewsGallerySimple({ gallery, mainImage , params }: NewsG
   // تعیین تعداد نمایش بر اساس صفحه
   const getDisplayCount = () => {
     if (typeof window !== 'undefined') {
-      return window.innerWidth < 768 ? 4 : 3; // موبایل: 4, دسکتاپ: 3
+      return window.innerWidth < 768 ? 4 : 3;
     }
-    return 4; // پیش‌فرض موبایل
+    return 4;
   };
 
   const [displayCount, setDisplayCount] = useState(4);
   const showViewMoreButton = allImages.length > displayCount;
-
-  // فقط تعداد مشخصی تصویر اول برای پیش‌نمایش
   const previewImages = allImages.slice(0, displayCount);
 
   // بررسی تغییر سایز صفحه
@@ -45,7 +43,7 @@ export default function NewsGallerySimple({ gallery, mainImage , params }: NewsG
       setDisplayCount(newCount);
     };
 
-    handleResize(); // تنظیم اولیه
+    handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -57,9 +55,24 @@ export default function NewsGallerySimple({ gallery, mainImage , params }: NewsG
     document.body.style.overflow = "hidden";
   };
 
-  // بستن مودال - فقط با دکمه بستن
+  // بستن مودال
   const closeModal = () => {
     setIsModalOpen(false);
+    document.body.style.overflow = "";
+  };
+
+  // باز کردن تصویر در تمام صفحه
+  const openImageFullscreen = (imageUrl: string, e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    setFullscreenImage(imageUrl);
+    setIsImageFullscreen(true);
+    document.body.style.overflow = "hidden";
+  };
+
+  // بستن تصویر تمام صفحه
+  const closeImageFullscreen = () => {
+    setIsImageFullscreen(false);
+    setFullscreenImage('');
     document.body.style.overflow = "";
   };
 
@@ -81,17 +94,7 @@ export default function NewsGallerySimple({ gallery, mainImage , params }: NewsG
     setCurrentIndex(index);
   };
 
-  // تمام صفحه کردن
-  const toggleFullscreen = async (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (!document.fullscreenElement) {
-      await document.documentElement.requestFullscreen();
-    } else {
-      await document.exitFullscreen();
-    }
-  };
-
-  // ناوبری با کیبورد
+  // ناوبری با کیبورد برای مودال اصلی
   useEffect(() => {
     if (!isModalOpen) return;
 
@@ -108,6 +111,20 @@ export default function NewsGallerySimple({ gallery, mainImage , params }: NewsG
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isModalOpen]);
+
+  // ناوبری با کیبورد برای حالت تمام صفحه تصویر
+  useEffect(() => {
+    if (!isImageFullscreen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        closeImageFullscreen();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isImageFullscreen]);
 
   // پشتیبانی از سوایپ لمسی برای موبایل
   const [touchStart, setTouchStart] = useState(0);
@@ -137,12 +154,12 @@ export default function NewsGallerySimple({ gallery, mainImage , params }: NewsG
 
   return (
     <>
-      {/* پیش‌نمایش گالری گرید - تعداد متغیر بر اساس دستگاه */}
+      {/* پیش‌نمایش گالری گرید */}
       <div className="w-full my-8">
         <div className={`grid gap-3 md:gap-3 ${
           displayCount === 4 
-            ? 'grid-cols-2' // موبایل: 4 ستون
-            : 'grid-cols-3' // دسکتاپ: 3 ستون
+            ? 'grid-cols-2'
+            : 'grid-cols-3'
         }`}>
           {previewImages.map((img, idx) => (
             <div
@@ -158,7 +175,6 @@ export default function NewsGallerySimple({ gallery, mainImage , params }: NewsG
                 sizes="(max-width: 768px) 25vw, 33vw"
                 unoptimized={true}
               />
-              {/* لایه تیره و متن "+ بیشتر" برای آخرین عکس اگر بیشتر از تعداد نمایش باشد */}
               {idx === displayCount - 1 && showViewMoreButton && (
                 <div className="absolute inset-0 bg-black/40 flex items-center justify-center transition-opacity group-hover:bg-black/70">
                   <div className="text-center text-white">
@@ -171,7 +187,7 @@ export default function NewsGallerySimple({ gallery, mainImage , params }: NewsG
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
                     </svg>
                     <span className="text-sm font-medium">
-                      +{allImages.length - displayCount} <span> {params == "fa" ? "بیشتر" : "more"} </span>
+                      +{allImages.length - displayCount} <span>{params == "fa" ? "بیشتر" : "more"}</span>
                     </span>
                   </div>
                 </div>
@@ -181,18 +197,14 @@ export default function NewsGallerySimple({ gallery, mainImage , params }: NewsG
         </div>
       </div>
 
-      {/* مودال فول اسکرین با اسلایدر و thumbnail */}
+      {/* مودال اسلایدر اصلی */}
       {isModalOpen && (
-        <div
-          className="fixed inset-0 z-[9999] backdrop-blur-md bg-white/10 dark:bg-black/20"
-         
-        >
-          {/* هدر مودال با دکمه‌های کنترل */}
-          <div className="absolute top-0 left-0 right-0 z-20 flex justify-between p-4 ">
-            {/* دکمه بستن - فقط همین دکمه مودال رو میبنده */}
+        <div className="fixed inset-0 z-[9999] backdrop-blur-md bg-white/10 dark:bg-black/20">
+          {/* هدر مودال */}
+          <div className="absolute top-0 left-0 right-0 z-20 flex justify-between p-4">
             <button
               onClick={closeModal}
-              className="px-3 aspect-square rounded-full bg-black/50 dark:bg-white/50 dark:text-black dark:hover:bg-white/80 text-white hover:bg-black/70  flex items-center justify-center"
+              className="px-3 aspect-square rounded-full bg-black/50 dark:bg-white/50 dark:text-black dark:hover:bg-white/80 text-white hover:bg-black/70 flex items-center justify-center"
               aria-label="بستن"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -200,15 +212,13 @@ export default function NewsGallerySimple({ gallery, mainImage , params }: NewsG
               </svg>
             </button>
 
-            {/* شمارنده تصاویر */}
-            <div className="px-5  flex items-center justify-center rounded-full bg-black/50 text-white text-sm">
+            <div className="px-5 flex items-center justify-center rounded-full bg-black/50 text-white text-sm">
               <span>{currentIndex + 1} / {allImages.length}</span>
             </div>
 
-            {/* دکمه تمام صفحه */}
             <button
-              onClick={toggleFullscreen}
-              className="px-3 aspect-square rounded-full bg-black/50 dark:bg-white/50 dark:text-black dark:hover:bg-white/80 text-white hover:bg-black/70  flex items-center justify-center"
+              onClick={(e) => openImageFullscreen(allImages[currentIndex], e)}
+              className="px-3 aspect-square rounded-full bg-black/50  dark:bg-white/50 dark:text-black dark:hover:bg-white/80 text-white hover:bg-black/70 flex items-center justify-center"
               aria-label="تمام صفحه"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -218,59 +228,52 @@ export default function NewsGallerySimple({ gallery, mainImage , params }: NewsG
           </div>
 
           {/* اسلایدر اصلی */}
-          <div 
-            className="relative w-full h-full cursor-pointer"
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className="relative w-full h-full cursor-pointer">
             <div
               className="relative w-full h-full flex items-center justify-center"
               onTouchStart={handleTouchStart}
               onTouchMove={handleTouchMove}
               onTouchEnd={handleTouchEnd}
             >
-              {/* تصویر اصلی */}
-              <div className="relative w-full h-full max-w-7xl mx-auto ">
+              <div className="relative w-full h-full max-w-7xl mx-auto">
                 <Image
                   src={allImages[currentIndex]}
                   alt={`تصویر ${currentIndex + 1}`}
                   fill
-                  className=" p-4 md:p-8  object-contain  mx-auto my-auto lg:my-0  rounded-3xl !h-max !w-max !max-h-full !max-w-full"
+                  className="p-4 md:p-8 object-contain mx-auto my-auto lg:my-0 rounded-3xl !h-max !w-max !max-h-full !max-w-full"
                   sizes="100vw"
                   priority
                   unoptimized={true}
                 />
               </div>
 
-              {/* دکمه قبلی */}
               {allImages.length > 1 && (
-                <button
-                  onClick={goToPrevious}
-                  className="absolute right-4 md:right-6 px-3 aspect-square rounded-full bg-black/50 dark:bg-white/50 dark:text-black dark:hover:bg-white/80 text-white hover:bg-black/70  flex items-center justify-center shadow-lg"
-                  aria-label="قبلی"
-                >
-                  <svg className="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </button>
-              )}
-
-              {/* دکمه بعدی */}
-              {allImages.length > 1 && (
-                <button
-                  onClick={goToNext}
-                  className="absolute left-4 md:left-6 px-3 aspect-square rounded-full bg-black/50 dark:bg-white/50 dark:text-black dark:hover:bg-white/80 text-white hover:bg-black/70  flex items-center justify-center shadow-lg"
-                  aria-label="بعدی"
-                >
-                  <svg className="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                  </svg>
-                </button>
+                <>
+                  <button
+                    onClick={goToPrevious}
+                    className="absolute right-4 md:right-6 px-3 aspect-square rounded-full bg-black/50 dark:bg-white/50 dark:text-black dark:hover:bg-white/80 text-white hover:bg-black/70 flex items-center justify-center shadow-lg"
+                    aria-label="قبلی"
+                  >
+                    <svg className="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                  <button
+                    onClick={goToNext}
+                    className="absolute left-4 md:left-6 px-3 aspect-square rounded-full bg-black/50 dark:bg-white/50 dark:text-black dark:hover:bg-white/80 text-white hover:bg-black/70 flex items-center justify-center shadow-lg"
+                    aria-label="بعدی"
+                  >
+                    <svg className="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                    </svg>
+                  </button>
+                </>
               )}
             </div>
 
-            {/* ثامبیل‌نیل (تصاویر کوچک در پایین) - به صورت افقی و در مرکز */}
+            {/* thumbnails */}
             {allImages.length > 1 && (
-              <div className="absolute bottom-0 left-0 right-0 z-20 pb-4 md:pb-6 bg-gradient-to-t  from-black/70 to-transparent pt-8">
+              <div className="absolute bottom-0 left-0 right-0 z-20 pb-4 md:pb-6 bg-gradient-to-t from-black/70 to-transparent pt-8">
                 <div className="flex justify-center items-center px-4">
                   <div className="flex gap-2 md:gap-3 mb-[60px] lg:mb-0 py-5 overflow-x-auto w-full scrollbar-hide justify-center">
                     {allImages.map((img, idx) => (
@@ -301,7 +304,38 @@ export default function NewsGallerySimple({ gallery, mainImage , params }: NewsG
         </div>
       )}
 
-      {/* استایل برای مخفی کردن اسکرول‌بار در مرورگرها */}
+      {/* مودال تمام صفحه برای نمایش تصویر به صورت کامل و بدون حاشیه */}
+      {isImageFullscreen && (
+        <div
+          className="fixed inset-0 z-[10000] bg-black"
+          onClick={closeImageFullscreen}
+        >
+          <button
+            onClick={closeImageFullscreen}
+            className="absolute top-4 right-4 z-20 w-[60px] h-[60px] rounded-full bg-white/20 hover:bg-white/30 text-white transition-all duration-200 flex items-center justify-center"
+            aria-label="بستن"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+          
+
+          <div className="relative w-full h-full">
+            <Image
+              src={fullscreenImage}
+              alt="Fullscreen image"
+              fill
+              className="object-contain p-4"
+              sizes="100vw"
+              priority
+              unoptimized={true}
+              onClick={(e) => e.stopPropagation()}
+            />
+          </div>
+        </div>
+      )}
+
       <style jsx global>{`
         .scrollbar-hide {
           -ms-overflow-style: none;
