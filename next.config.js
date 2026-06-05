@@ -43,6 +43,10 @@ const nextConfig = {
             value: 'https://world.metarang.com',
           },
           {
+            key: 'Access-Control-Allow-Origin',
+            value: 'http://localhost:5173',
+          },
+          {
             key: 'Access-Control-Allow-Methods',
             value: 'GET, OPTIONS',
           },
