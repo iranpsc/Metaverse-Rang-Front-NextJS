@@ -40,8 +40,9 @@ const nextConfig = {
         headers: [
           {
             key: 'Access-Control-Allow-Origin',
-            value: 'https://world.metarang.com',
+            value: '*',
           },
+
           {
             key: 'Access-Control-Allow-Methods',
             value: 'GET, OPTIONS',
