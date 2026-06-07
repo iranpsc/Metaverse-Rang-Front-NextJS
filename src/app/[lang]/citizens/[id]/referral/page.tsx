@@ -2,9 +2,9 @@ import SideBar from "@/components/module/sidebar/SideBar";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import NotFoundPage from "@/components/shared/NotFoundPage";
 import DynamicFooter from "@/components/module/footer/DynamicFooter";
-import InviteBox from "./components/invite-box";
-import InviteList from "./components/invite-list";
-import InviteChart from "./components/invite-chart";
+import InviteBox from "@/components/templates/referral/invite-box";
+import InviteList from "@/components/templates/referral/invite-list";
+import InviteChart from "@/components/templates/referral/invite-chart";
 
 import CustomErrorPage from "@/components/shared/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";

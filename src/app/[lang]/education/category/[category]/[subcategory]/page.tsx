@@ -18,8 +18,8 @@ const BreadCrumb = dynamic(
   () => import("@/components/shared/BreadCrumb"),
 
 );
-const SubcategoryComponent = dynamic(
-  () => import("@/components/templates/categories/SubcategoryComponent"),
+const SubcategoryPageSection = dynamic(
+  () => import("@/components/templates/PageTemplate/SubcategoryPageSection"),
 
 );
 interface EducationSubcategoryProps {
@@ -121,7 +121,7 @@ export default async function EducationSubcategory({ params }:EducationSubcatego
               <BreadCrumb params={params} />
             </div>
 
-            <SubcategoryComponent
+            <SubcategoryPageSection
               subCategoryData={subCategoryData}
               params={params}
               mainData={mainData}

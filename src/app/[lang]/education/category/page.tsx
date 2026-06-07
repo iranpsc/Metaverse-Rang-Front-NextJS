@@ -10,8 +10,8 @@ const SearchComponent = dynamic(
   () => import("@/components/shared/SearchComponent"),
   // { suspense: true }
 );
-const ShowAllCategoriesComponent = dynamic(
-  () => import("@/components/templates/categories/ShowAllCategoriesComponent"),
+const ShowAllCategoriesEducationList = dynamic(
+  () => import("@/components/templates/list/ShowAllCategoriesEducationList"),
   // { suspense: true }
 );
 
@@ -112,7 +112,7 @@ export default async function EducationCategoryAll({params}: EducationCategoryAl
           </div>
           {/* <Suspense
             fallback={<div className="text-center text-[20px]">loading...</div>}> */}
-            <ShowAllCategoriesComponent
+            <ShowAllCategoriesEducationList
               params={resolvedParams}
               categoriesData={categoriesData}
               mainData={mainData}

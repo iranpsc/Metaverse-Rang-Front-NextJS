@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import { Suspense, useRef, useState } from "react";
 import axios from "axios";
 
-import ListSubCategories from "./ListSubCategories";
+import ListSubCategories from "../list/ListSubCategoriesEducation";
 import { DashboardHeaderModule } from "@/components/module/categories/DashboardHeaderModule";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
@@ -14,7 +14,7 @@ const SearchComponent = dynamic(
   // { suspense: true }
 );
 
-const CategoryComponent = ({ CategoryData, mainData, params }: any) => {
+const CategoryPageSection = ({ CategoryData, mainData, params }: any) => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [subcategories, setSubcategories] = useState<any[]>(
@@ -118,4 +118,4 @@ const CategoryComponent = ({ CategoryData, mainData, params }: any) => {
   );
 };
 
-export default CategoryComponent;
+export default CategoryPageSection;

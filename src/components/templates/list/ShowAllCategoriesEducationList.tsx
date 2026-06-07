@@ -2,11 +2,11 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-import ListData from "@/components/shared/ListData";
+import ListData from "@/components/templates/card/EducationCategoriesCard";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import SyncLoader from "react-spinners/SyncLoader";
 
-const ShowAllCategoriesComponent = ({ categoriesData, params, mainData, theme }: any) => {
+const ShowAllCategoriesEducationList = ({ categoriesData, params, mainData, theme }: any) => {
   const router = useRouter();
 
   const [visibleCount, setVisibleCount] = useState(9);
@@ -62,4 +62,4 @@ const ShowAllCategoriesComponent = ({ categoriesData, params, mainData, theme }:
   );
 };
 
-export default ShowAllCategoriesComponent;
+export default ShowAllCategoriesEducationList;

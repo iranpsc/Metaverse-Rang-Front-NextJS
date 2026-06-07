@@ -4,11 +4,11 @@ import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import GemImage from "@/components/templates/citizen/gemImage";
 import Link from "next/link";
-import { Text } from "../svgs/SvgEducation";
+import { Text } from "../../svgs/SvgEducation";
 import LockGem from '@/public/Frame1000003193.png';
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { useId } from "react";
-import LevelBadge from "./LevelBadge";  // فرض می‌کنیم این کامپوننت جداگانه ساخته شده
+import LevelBadge from "../../shared/LevelBadge";  // فرض می‌کنیم این کامپوننت جداگانه ساخته شده
 
 export default function UserCard({
   item,

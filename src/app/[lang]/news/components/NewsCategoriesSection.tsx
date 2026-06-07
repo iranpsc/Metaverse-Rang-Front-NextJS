@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useTransition } from "react";
-import NewsCard from "./NewsCard";
+import NewsCard from "../../../../components/templates/card/NewsCard";
 import Link from "next/link";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 

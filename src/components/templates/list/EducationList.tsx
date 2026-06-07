@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import VideoCard from "./VideoCard";
+import VideoCard from "@/components/templates/card/VideoCard";
 
 export default function EducationList({ mainData, params }: any) {
   const [videoToShow, setVideoToShow] = useState<any[]>([]);

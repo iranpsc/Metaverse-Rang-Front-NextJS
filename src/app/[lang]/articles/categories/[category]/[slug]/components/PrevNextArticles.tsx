@@ -6,7 +6,7 @@ import Image from "next/image";
 import { supabase } from "@/utils/lib/supabaseClient";
 import { Like, Dislike, View } from "@/components/svgs/SvgEducation";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import ArticleNavCard from "./ArticleNavCard";
+import ArticleNavCard from "../../../../../../../components/templates/card/ArticleNavCard";
 
 interface PrevNextArticlesProps {
   params: {

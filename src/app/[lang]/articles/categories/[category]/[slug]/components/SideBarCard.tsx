@@ -7,7 +7,7 @@ import { supabase } from "@/utils/lib/supabaseClient";
 import { View, Like, Dislike } from "@/components/svgs/SvgEducation";
 import { ArrowRight } from "@/components/svgs";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import ArticleSideCard from "./ArticleSideCard";
+import ArticleSideCard from "../../../../../../../components/templates/card/ArticleSideCard";
 
 interface SideCardProps {
   params: any;

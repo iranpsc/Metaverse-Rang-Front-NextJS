@@ -4,7 +4,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowRight } from "@/components/svgs";
-import ArticleCard from "../../../app/[lang]/articles/components/ArticleCard";
+import ArticleCard from "../card/ArticleCard";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { supabase } from "@/utils/lib/supabaseClient";
 import { articles as localArticles } from "@/components/utils/articles";

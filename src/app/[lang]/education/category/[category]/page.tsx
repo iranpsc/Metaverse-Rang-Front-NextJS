@@ -4,8 +4,8 @@ import NotFoundPage from "@/components/shared/NotFoundPage";
 
 const BreadCrumb = dynamic(() => import("@/components/shared/BreadCrumb"),);
 
-const CategoryComponent = dynamic(
-  () => import("@/components/templates/categories/CategoryComponent"),
+const CategoryPageSection = dynamic(
+  () => import("@/components/templates/PageTemplate/CategoryPageSection"),
 
 );
 
@@ -103,14 +103,9 @@ export default async function EducationCategory({ params }: EducationCategoryPro
         <div className="flex  w-full bg-[#f8f8f8] dark:bg-black bg-opacity20" dir={langData.direction}>
           <section className="w-full overflow-y-auto relative l mt-[60px] lg:mt-0 lg:pt-0  xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
             <div className="ps-4 lg:ps-5">
-
               <BreadCrumb params={resolvedParams} />
-
             </div>
-            <CategoryComponent params={resolvedParams} CategoryData={CategoryData} mainData={mainData} />
-
-
-
+            <CategoryPageSection params={resolvedParams} CategoryData={CategoryData} mainData={mainData} />
           </section>
         </div>
       </>

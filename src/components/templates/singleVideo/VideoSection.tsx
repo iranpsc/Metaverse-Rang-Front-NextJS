@@ -3,7 +3,7 @@ import DynamicVideoPlayer from "@/components/module/singleVideo/DynamicVideoPlay
 import SingleVideoDashboardModule from "@/components/module/singleVideo/SingleVideoDashboardModule";
 // import SingleVideoDetailsModule from "@/components/module/singleVideo/SingleVideoDetailsModule";
 import SingleVideoProfileModule from "@/components/module/singleVideo/SingleVideoProfileModule";
-import CommentSection from "@/components/module/singleVideo/comments/CommentSection";
+import CommentSection from "@/components/module/comments/CommentSection";
 // import ListVideos from "@/components/module/singleVideo/listVideos/ListVideos";
 // import Pagination from "@/components/module/singleVideo/listVideos/Pagination";
 import NewEducationSectionTemp from "./NewEducationSectionTemp";

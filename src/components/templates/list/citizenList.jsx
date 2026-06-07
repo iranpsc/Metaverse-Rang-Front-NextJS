@@ -3,7 +3,7 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import UserCard from "@/components/shared/UserCard";
+import UserCard from "@/components/templates/card/UserCard";
 import SyncLoader from "react-spinners/SyncLoader";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 

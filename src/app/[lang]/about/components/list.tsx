@@ -1,6 +1,6 @@
 "use client";
 
-import UserCard from "@/components/shared/UserCard";
+import UserCard from "@/components/templates/card/UserCard";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { useState } from "react";
 

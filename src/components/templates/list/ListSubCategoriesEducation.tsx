@@ -1,6 +1,6 @@
 "use client";
 
-import ListData from "@/components/shared/ListData";
+import ListData from "@/components/templates/card/EducationCategoriesCard";
 import { useTheme } from "next-themes";
 import SyncLoader from "react-spinners/SyncLoader";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";

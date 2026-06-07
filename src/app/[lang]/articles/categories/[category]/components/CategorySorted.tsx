@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import ArticleCard from "../../../components/ArticleCard"; // ✅ اضافه شد
+import ArticleCard from "../../../../../../components/templates/card/ArticleCard"; // ✅ اضافه شد
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 export interface Author {
   name: string;

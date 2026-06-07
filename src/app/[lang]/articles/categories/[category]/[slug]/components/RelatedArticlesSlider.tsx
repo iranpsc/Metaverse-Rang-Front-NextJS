@@ -7,7 +7,7 @@ import "swiper/css";
 import Link from "next/link";
 import { ArrowRight } from "@/components/svgs";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import ArticleCard from "../../../../components/ArticleCard";
+import ArticleCard from "../../../../../../../components/templates/card/ArticleCard";
 import { supabase } from "@/utils/lib/supabaseClient";
 
 interface RelatedArticlesSliderProps {

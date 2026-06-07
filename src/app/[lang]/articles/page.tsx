@@ -1,7 +1,7 @@
 import BreadCrumb from "@/components/shared/BreadCrumb";
 // import { articles } from "@/components/utils/articles";
-import LatestArticlesSlider from "./components/LatestArticlesSlider";
-import PopularArticlesSlider from "./components/PopularArticlesSlider";
+import LatestArticlesSlider from "../../../components/module/slider/LatestArticlesSlider";
+import PopularArticlesSlider from "../../../components/module/slider/PopularArticlesSlider";
 import CategoriesGrid from "./components/CategoriesGrid";
 import SearchComponent from "@/components/shared/SearchComponent";
 import TopWritersArticles from "./components/TopWritersArticles"

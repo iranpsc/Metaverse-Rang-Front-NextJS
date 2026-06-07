@@ -12,9 +12,9 @@ const SearchComponent = dynamic(
   () => import("@/components/shared/SearchComponent"),
   // { suspense: false }
 );
-import ListVideos from "@/components/shared/ListVideos";
+import ListVideos from "@/components/templates/list/ListVideosSubCategories";
 
-export default function SubcategoryComponent({ subCategoryData, params, mainData }: any) {
+export default function SubcategoryPageSection({ subCategoryData, params, mainData }: any) {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState<boolean>(false);
   const [hasMore, setHasMore] = useState<boolean>(

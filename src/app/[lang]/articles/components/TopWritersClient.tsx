@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import UserCard from "@/components/shared/UserCard";
+import UserCard from "@/components/templates/card/UserCard";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { string } from "yup";
 export default function TopWritersClient({ params ,users, mainData }: any) {

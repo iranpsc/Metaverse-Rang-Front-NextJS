@@ -11,8 +11,8 @@ import {
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import SearchComponent from "@/components/shared/SearchComponent";
 import TopTrainersFirstPage, { getTopTrainerUsers } from "@/components/templates/firstpage/TopTrainersFirstPage";
-import EducationCategories from "@/components/templates/education/categories";
-import EducationList from "@/components/templates/education/EducationList";
+import EducationCategories from "@/components/templates/list/EducationPagePreviewCategories";
+import EducationList from "@/components/templates/list/EducationList";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import CustomErrorPage from "@/components/shared/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
