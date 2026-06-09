@@ -1,8 +1,11 @@
 
 'use client';
-
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import Image from 'next/image';
-
+interface CodebaseProps {
+  params: { lang: string };
+  mainData: { mainData: string };
+}
 const companies = [
     { id: 1, name: 'Company 1', logo: '/logos/logo1.svg' },
     { id: 2, name: 'Company 2', logo: '/logos/logo2.svg' },
@@ -31,22 +34,22 @@ const academyCards = [
     },
 
 ];
-export default function Codebase() {
+export default function Codebase({ params, mainData }: CodebaseProps) {
     return (
         <section className="py-12 flex  px-4 2xl:px-10  bg-[url(../../public/whitepaper/bgCodeSpace.png)] h-[800px] bg-inherit rounded-[40px] ">
             <div className=" grid lg:grid-cols-2  my-auto">
                 <div className=" flex flex-col gap-5 justify-between p-10 w-full  text-start h-full bg-black/80 border-2 border-solid border-[#9100D9] rounded-[40px]">
                     <div>
                         <p className=" text-white text-xl 3xl:text-6xl leading-relaxed uppercase">
-                            Codebase
+                            {findByUniqueId(mainData, 1684)}
                         </p>
                         <p className='text-white lg:text-xl mt-5'>
-                            Codebase by Avalanche® is home to Avalanche’s Builder Support Programs—providing developers with incubators, innovation labs, hackathons, and hands-on resources all year long.
+                            {findByUniqueId(mainData, 1685)}
 
                         </p>
                     </div>
                     <div className="group cursor-pointer inline-flex items-center gap-6 bg-transparent hover:bg-[#9100D9] rounded-3xl rtl:rounded-bl-[100px] ltr:rounded-br-[100px]  text-gray-900 dark:text-white font-medium text-sm transition-all duration-300 px-5 py-3 w-max">
-                        <span>Learn more about codebase</span>
+                        <span> {findByUniqueId(mainData, 1687)}</span>
                         <svg className="w-5 h-5 text-[#9100D9] group-hover:text-white rtl:rotate-180 transition-transform duration-300 group-hover:translate-x-1" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path className='stroke-[#9100D9] group-hover:stroke-white' d="M14.4297 5.92969L20.4997 11.9997L14.4297 18.0697" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
                             <path className='stroke-[#9100D9] group-hover:stroke-white' d="M3.5 12H20.33" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />

@@ -25,7 +25,7 @@ export default function EcosystemIntro({ params, mainData }: EcosystemIntroProps
 
         </div>
         <p className="text-black dark:text-white font-bold text-5xl text-start">10:37 PM</p>
-        <p className="text-[#585858] text-start lg:text-3xl">Wednesday, February 25, 2026 </p>
+        <p className="text-[#585858] dark:text-neutral-400 text-start lg:text-3xl">Wednesday, February 25, 2026 </p>
       </div>
       <div className="mt-12">
         <button
@@ -42,9 +42,9 @@ export default function EcosystemIntro({ params, mainData }: EcosystemIntroProps
               <path className="stroke-black dark:stroke-white" d="M32.2295 202.586H188.771" stroke-width="12" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
           </div>
-          <div className="flex flex-col gap-2 items-end justify-end py-4">
-            <span className="tracking-wider dark:text-white ">{findByUniqueId(mainData, 1513)}</span>
-            <span className="text-sm  text-[#656565] ">{findByUniqueId(mainData, 1483)}</span>
+          <div className="flex flex-col gap-2 items-start ltr:items-end justify-end text-start py-4">
+            <span className="tracking-wider dark:text-white ">{findByUniqueId(mainData, 1657)}</span>
+            <span className="text-sm  text-[#575757] dark:text-neutral-400 ">{findByUniqueId(mainData, 1658 )}</span>
           </div>
         </button>
       </div>

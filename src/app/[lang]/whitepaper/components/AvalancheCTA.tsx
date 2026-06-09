@@ -1,8 +1,12 @@
 'use client';
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
+interface AvalancheCTAProps {
+  params: { lang: string };
+  mainData: { mainData: string };
+}
 
 
-
-export default function AvalancheCTA() {
+export default function AvalancheCTA({ params, mainData }: AvalancheCTAProps) {
     return (
         <section className="w-full rounded-[28px] bg-white dark:bg-[#1A1A18] p-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -18,13 +22,12 @@ export default function AvalancheCTA() {
                     <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-black/40 z-0" />
 
                     <div className="relative z-10">
-                        <h2 className="text-white text-[52px] leading-[1] font-semibold tracking-[-2px] max-w-[420px]">
-                            Start building On Avalanche
-                        </h2>
+                        <p className="text-white text-[52px] leading-[1] font-semibold tracking-[-2px] max-w-[420px]">
+                            {findByUniqueId(mainData, 1723)}
+                        </p>
 
                         <p className="mt-6 text-white/75 text-[14px] leading-6 max-w-[360px]">
-                            Create, scale, and innovate with Avalanche&apos;s
-                            powerful builder infrastructure.
+                           {findByUniqueId(mainData, 1724)}
                         </p>
                     </div>
 
@@ -32,7 +35,7 @@ export default function AvalancheCTA() {
                     <div className="relative z-10">
                         <button aria-label="btn strart" className="lg:text-xl gap-2 bg-[#9100D9]  text-white font-medium hover:gap-3 transition-all duration-300 group/btn rounded-[16px] ltr:rounded-br-[100px] rtl:rounded-bl-[100px] px-10 py-3 flex justify-between items-center w-max ms-auto">
 
-                            <span>Get started</span>
+                            <span>{findByUniqueId(mainData, 1725)}</span>
                             <svg
                                 className="w-4 h-4 rtl:rotate-180 transition-transform duration-300 group-hover/btn:translate-x-1"
                                 fill="none"
@@ -60,12 +63,11 @@ export default function AvalancheCTA() {
                         {/* Header */}
                         <div>
                             <h2 className="text-white text-[50px] leading-[1] font-semibold tracking-[-2px]">
-                                Join the Email List
+                               {findByUniqueId(mainData, 1726)}
                             </h2>
 
                             <p className="mt-5 text-white/75 text-[14px] leading-6 max-w-[420px]">
-                                Sign up today to stay up to date on the latest
-                                network developments.
+                               {findByUniqueId(mainData, 1727)}
                             </p>
                         </div>
 
@@ -73,25 +75,25 @@ export default function AvalancheCTA() {
                         <div className="mt-10 grid md:grid-cols-2 gap-4">
                             <input
                                 type="text"
-                                placeholder="First name orPseudonym*"
+                                placeholder={findByUniqueId(mainData, 79)}
                                 className="h-[58px] rounded-xl bg-white px-5 text-black outline-none border border-transparent focus:border-fuchsia-500 text-[14px] font-medium"
                             />
 
                             <input
                                 type="text"
-                                placeholder="Last name"
+                                placeholder={findByUniqueId(mainData, 78)}
                                 className="h-[58px] rounded-xl bg-white px-5 text-black outline-none border border-transparent focus:border-fuchsia-500 text-[14px] font-medium"
                             />
 
                             <input
                                 type="email"
-                                placeholder="Email*"
+                                placeholder={findByUniqueId(mainData, 85)}
                                 className="h-[58px] rounded-xl bg-white px-5 text-black outline-none border border-transparent focus:border-fuchsia-500 text-[14px] font-medium"
                             />
 
                             <input
                                 type="text"
-                                placeholder="Twitter handle"
+                                placeholder={findByUniqueId(mainData, 1728)}
                                 className="h-[58px] rounded-xl bg-white px-5 text-black outline-none border border-transparent focus:border-fuchsia-500 text-[14px] font-medium"
                             />
                         </div>
@@ -100,7 +102,7 @@ export default function AvalancheCTA() {
                         <div className=" flex flex-col gap-y-5 mt-5 md:flex-row items-center justify-between pt-8">
                             <div className="flex items-center gap-5">
                                 <span className="text-white text-[11px]">
-                                    1 of 5 steps
+                                    1 {findByUniqueId(mainData, 1730)}  5 {findByUniqueId(mainData, 1729)}
                                 </span>
 
                                 <div className="w-[110px] h-[2px] bg-white/15 rounded-full overflow-hidden">
@@ -110,7 +112,7 @@ export default function AvalancheCTA() {
 
                             <button aria-label="btn next" className="lg:text-xl gap-2 bg-[#9100D9] w-max text-white font-medium hover:gap-3 transition-all duration-300 group/btn rounded-[16px] ltr:rounded-br-[100px] rtl:rounded-bl-[100px] px-10 py-3  flex justify-between items-center ms-auto">
 
-                                <span>Next</span>
+                                <span>{findByUniqueId(mainData, 1731)}</span>
                                 <svg
                                     className="w-4 h-4 rtl:rotate-180 transition-transform duration-300 group-hover/btn:translate-x-1"
                                     fill="none"

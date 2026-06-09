@@ -1,7 +1,11 @@
 'use client';
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
+interface ContactSectionProps {
+    params: { lang: string };
+    mainData: { mainData: string };
+}
 
-
-export default function ContactSection() {
+export default function ContactSection({ params, mainData }: ContactSectionProps) {
     return (
         <section className="relative overflow-hidden rounded-[40px] rounded-ss-[200px] bg-white dark:bg-[#1A1A18] p-4 lg:p-12">
             {/* Purple glow */}
@@ -10,16 +14,16 @@ export default function ContactSection() {
             <div className="relative z-10">
                 {/* Header */}
                 <div className="flex items-center gap-6 px-5 ps-10">
-                   <div >
-            <svg className="w-[100px] lg:w-auto" width="221" height="221" viewBox="0 0 221 221" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path className="stroke-black dark:stroke-white" d="M46.042 161.143L174.959 32.2266" stroke-width="12" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-              <path className="stroke-black dark:stroke-white" d="M46.042 66.5703V161.14H140.612" stroke-width="12" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-              <path className="stroke-black dark:stroke-white" d="M32.2295 202.586H188.771" stroke-width="12" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </div>
+                    <div >
+                        <svg className="w-[100px] lg:w-auto" width="221" height="221" viewBox="0 0 221 221" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path className="stroke-black dark:stroke-white" d="M46.042 161.143L174.959 32.2266" stroke-width="12" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                            <path className="stroke-black dark:stroke-white" d="M46.042 66.5703V161.14H140.612" stroke-width="12" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                            <path className="stroke-black dark:stroke-white" d="M32.2295 202.586H188.771" stroke-width="12" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </div>
 
                     <h2 className="dark:text-white text-5xl md:text-6xl font-semibold tracking-[-0.03em]">
-                        Contact us
+                        {findByUniqueId(mainData, 1549)}
                     </h2>
                 </div>
 
@@ -30,8 +34,7 @@ export default function ContactSection() {
                     {/* Left Text */}
                     <div>
                         <p className="dark:text-white text-[36px] leading-[1.25] font-medium px-3 lg:px-0 text-center lg:text-start">
-                            Interested in building your project on Avalanche?
-                            Get in touch!
+                            {findByUniqueId(mainData, 1733)}
                         </p>
                     </div>
 
@@ -40,25 +43,27 @@ export default function ContactSection() {
                         <div className="grid lg:grid-cols-2 gap-4">
                             <input
                                 type="text"
-                                placeholder="First name orPseudonym*"
+                                placeholder={findByUniqueId(mainData, 79)}
                                 className="h-14 rounded-lg dark:bg-black px-4 dark:text-white dark:placeholder:text-white/35 outline-none border  dark:border-transparent focus:border-purple-500"
                             />
 
                             <input
                                 type="text"
-                                placeholder="Last name*"
+                                placeholder={findByUniqueId(mainData, 646)}
                                 className="h-14 rounded-lg dark:bg-black px-4 dark:text-white dark:placeholder:text-white/35 outline-none border  dark:border-transparent focus:border-purple-500"
                             />
                         </div>
 
                         <input
                             type="email"
-                            placeholder="Email*"
+                            placeholder={findByUniqueId(mainData, 85)}
                             className="w-full h-14 rounded-lg dark:bg-black px-4 dark:text-white dark:placeholder:text-white/35 outline-none border dark:border-transparent focus:border-purple-500"
                         />
 
                         <div className="relative">
+                            <label htmlFor="state" ></label>
                             <select
+                            id="state"
                                 className="
                                     w-full
                                     h-14
@@ -73,8 +78,8 @@ export default function ContactSection() {
                                     focus:border-purple-500
                                 "
                             >
-                                <option>
-                                    What type of project are you working on?*
+                                <option aria-label="contact op">
+                                    {findByUniqueId(mainData, 1734)}
                                 </option>
                             </select>
 
@@ -93,12 +98,12 @@ export default function ContactSection() {
                                     strokeLinejoin="round"
                                 />
                             </svg>
-                            
+
                         </div>
 
                         <textarea
                             rows={6}
-                            placeholder="Share your massage with the team*"
+                            placeholder={findByUniqueId(mainData, 1735)}
                             className="
                                 w-full
                                 rounded-lg
@@ -129,13 +134,13 @@ export default function ContactSection() {
                                 />
 
                                 <span className="dark:text-white/60 text-sm">
-                                    I have read the privacy policy
+                                    {findByUniqueId(mainData, 1736)}
                                 </span>
                             </label>
 
                             <button aria-label="confirm" className=" lg:text-xl gap-2 bg-[#9100D9] w-max text-white font-medium hover:gap-3 transition-all duration-300 group/btn rounded-[16px] ltr:rounded-br-[100px] rtl:rounded-bl-[100px] px-10 py-3  flex justify-between items-center ms-auto">
 
-                                <span>Sumbit</span>
+                                <span>{findByUniqueId(mainData, 1755)}</span>
                                 <svg
                                     className="w-4 h-4 rtl:rotate-180 transition-transform duration-300 group-hover/btn:translate-x-1"
                                     fill="none"

@@ -4,7 +4,11 @@
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import TextScramble from '@/components/utils/textScramble';
-
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
+interface AvalancheStoriesProps {
+    params: { lang: string };
+    mainData: { mainData: string };
+}
 interface StoryItem {
     id: number;
     platform: string;
@@ -200,7 +204,7 @@ function StoryCard({
     );
 }
 
-export default function AvalancheStories() {
+export default function AvalancheStories({ params, mainData }: AvalancheStoriesProps) {
     const scrollRef = useRef<HTMLDivElement>(null);
 
     const [showLeftButton, setShowLeftButton] = useState(false);
@@ -298,13 +302,16 @@ export default function AvalancheStories() {
 
 
                     <div className='flex gap-10 mt-5 items-center '>
-                        <svg width="198" height="198" viewBox="0 0 198 198" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path className='fill-black dark:fill-white' d="M45.0441 16.5H33.4113C25.7388 16.5 21.8614 25.8225 27.3064 31.2675L74.5787 78.54C88.1087 92.07 109.971 92.07 123.501 78.54L170.774 31.2675C176.219 25.8225 172.342 16.5 164.669 16.5H153.036C146.189 16.5 139.589 19.2225 134.722 24.09L105.186 53.625C101.804 57.0075 96.3591 57.0075 92.9766 53.625L63.4414 24.09C58.4914 19.2225 51.8916 16.5 45.0441 16.5Z" fill="white" />
-                            <path className='fill-black dark:fill-white' d="M45.0441 181.25H33.4113C25.7388 181.25 21.8614 171.928 27.3064 166.483L74.5787 119.21C88.1087 105.68 109.971 105.68 123.501 119.21L170.774 166.483C176.219 171.928 172.342 181.25 164.669 181.25H153.036C146.189 181.25 139.589 178.527 134.722 173.66L105.186 144.125C101.804 140.742 96.3591 140.742 92.9766 144.125L63.4414 173.66C58.4914 178.527 51.8916 181.25 45.0441 181.25Z" fill="white" />
-                        </svg>
+                        <div>
+                            <svg className='w-[100px] xl:w-auto' width="198" height="198" viewBox="0 0 198 198" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path className='fill-black dark:fill-white' d="M45.0441 16.5H33.4113C25.7388 16.5 21.8614 25.8225 27.3064 31.2675L74.5787 78.54C88.1087 92.07 109.971 92.07 123.501 78.54L170.774 31.2675C176.219 25.8225 172.342 16.5 164.669 16.5H153.036C146.189 16.5 139.589 19.2225 134.722 24.09L105.186 53.625C101.804 57.0075 96.3591 57.0075 92.9766 53.625L63.4414 24.09C58.4914 19.2225 51.8916 16.5 45.0441 16.5Z" fill="white" />
+                                <path className='fill-black dark:fill-white' d="M45.0441 181.25H33.4113C25.7388 181.25 21.8614 171.928 27.3064 166.483L74.5787 119.21C88.1087 105.68 109.971 105.68 123.501 119.21L170.774 166.483C176.219 171.928 172.342 181.25 164.669 181.25H153.036C146.189 181.25 139.589 178.527 134.722 173.66L105.186 144.125C101.804 140.742 96.3591 140.742 92.9766 144.125L63.4414 173.66C58.4914 178.527 51.8916 181.25 45.0441 181.25Z" fill="white" />
+                            </svg>
+                        </div>
                         <div className="text-start max-w-3xl">
                             <TextScramble className={` dark:text-white text-xl xl:text-3xl 2xl:text-5xl 3xl:text-6xl leading-relaxed`}
-                                text="News & Stories From The Avalanche Network"
+                                text={findByUniqueId(mainData, 1708)}
+                                lang={params.lang}
                             />
                         </div>
                     </div>
@@ -317,11 +324,7 @@ export default function AvalancheStories() {
                                 tracking-[0.08em]
                                 dark:text-[#E7E7E7] text-[#1A1A18]`}
                         >
-                            The Avalanche culture goes beyond
-                            the chain. Get connected with the
-                            founders, investors, artists,
-                            gamers, and creators who call
-                            Avalanche home…
+                            {findByUniqueId(mainData, 1707)}
                         </p>
                     </div>
 
@@ -361,7 +364,7 @@ export default function AvalancheStories() {
                             aria-label="Next"
                             className={`flex h-11 w-11  bg-transparent  items-center justify-center rounded-full border border-solid border-[#2D2D2D] text-white transition-all duration-300 hover:bg-white hover:text-black disabled:cursor-not-allowed disabled:opacity-40`}
                         >
-                           <svg className="w-5 h-5 text-[#00CEB9] group-hover:text-white duration-300" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <svg className="w-5 h-5 text-[#00CEB9] group-hover:text-white duration-300" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                 <path className='stroke-[#434343] group-hover:stroke-white' d="M14.4297 5.92969L20.4997 11.9997L14.4297 18.0697" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
                                 <path className='stroke-[#434343] group-hover:stroke-white' d="M3.5 12H20.33" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>

@@ -6,12 +6,17 @@ import {
     memo,
 } from 'react';
 
-const CHARS =
+const EN_CHARS =
     'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
 
-function randomChar() {
-    return CHARS[
-        Math.floor(Math.random() * CHARS.length)
+const FA_CHARS =
+    'اآبپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی';
+
+function randomChar(isFa: boolean) {
+    const chars = isFa ? FA_CHARS : EN_CHARS;
+
+    return chars[
+        Math.floor(Math.random() * chars.length)
     ];
 }
 
@@ -20,10 +25,12 @@ interface Props {
     speed?: number;
     scramble?: number;
     className?: string;
+    lang?: string;
 }
 
 function TextScramble({
     text,
+    lang,
     speed = 40,
     scramble = 6,
     className = '',
@@ -64,7 +71,7 @@ function TextScramble({
                     started = true;
 
                     observer.disconnect();
-
+                    const isFa = lang === 'fa';
                     const animate = (
                         time: number
                     ) => {
@@ -84,13 +91,12 @@ function TextScramble({
                                 } else if (
                                     i <
                                     current +
-                                        scramble
+                                    scramble
                                 ) {
                                     output +=
-                                        chars[i] ===
-                                        ' '
+                                        chars[i] === ' '
                                             ? ' '
-                                            : randomChar();
+                                            : randomChar(isFa);
                                 } else {
                                     output += ' ';
                                 }

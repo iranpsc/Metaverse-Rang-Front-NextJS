@@ -1,27 +1,30 @@
 'use client';
-
-export default function AvalancheEventsCard() {
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
+interface AvalancheEventsCardProps {
+  params: { lang: string };
+  mainData: { mainData: string };
+}
+export default function AvalancheEventsCard( {params, mainData }: AvalancheEventsCardProps) {
+    
     return (
         <section className="w-full bg-white dark:bg-[#1A1A18] rounded-[28px] p-5 xl:p-7 overflow-hidden">
-            <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-6 items-stretch">
+            <div className="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-6 items-stretch">
                 {/* Left Side */}
                 <div className="flex flex-col justify-between">
                     <div>
-                        <h2 className="dark:text-white text-[48px] leading-[1.05] font-semibold tracking-[-2px]">
-                            Avalanche Global Events
+                        <h2 className="dark:text-white text-2xl 3xl:text-4xl leading-[1.05] font-semibold tracking-[-2px]">
+                            {findByUniqueId(mainData, 1709)}
                         </h2>
 
                         <p className="text-[#b5b5b5] text-[16px] leading-7 mt-8 max-w-[320px]">
-                            Avalanche events are unmatched in experience and
-                            uniqueness, while offering unparalleled access to
-                            founders and leaders in the blockchain space.
+                           {findByUniqueId(mainData, 1710)}
                         </p>
                     </div>
 
                     {/* دکمه */}
-                    <button aria-label="btn feat" className="lg:text-xl gap-2 border border-solid bg-transparent border-[#D9D9D9] dark:border-[#434343] hover:bg-[#9100D9] hover:text-white  dark:text-white font-medium hover:gap-3 transition-all duration-300 group/btn rounded-[16px] ltr:rounded-br-[100px] rtl:rounded-bl-[100px] px-4 py-3 flex justify-between items-center w-[60%]">
+                    <button aria-label="btn feat" className="lg:text-xl  border border-solid bg-transparent border-[#D9D9D9] dark:border-[#434343] hover:bg-[#9100D9] hover:text-white  dark:text-white font-medium hover:gap-3 transition-all duration-300 group/btn rounded-[16px] ltr:rounded-br-[100px] rtl:rounded-bl-[100px] px-4 py-3 flex justify-between items-center w-max gap-5 2xl:gap-7">
 
-                        <span> View all events</span>
+                        <span>{findByUniqueId(mainData, 1711)}</span>
                         <svg
                             className="w-4 h-4 rtl:rotate-180 transition-transform duration-300 group-hover/btn:translate-x-1"
                             fill="none"
@@ -55,11 +58,11 @@ export default function AvalancheEventsCard() {
                         {/* Tags */}
                         <div className="flex items-center gap-3">
                             <span className="px-5 py-2 rounded-full bg-[#bb2dff] text-white text-[13px] font-medium">
-                                Private credites
+                                {findByUniqueId(mainData, 1712)}
                             </span>
 
                             <span className="px-5 py-2 rounded-full bg-[#9c1eff] text-white text-[13px] font-medium">
-                                Conference
+                                {findByUniqueId(mainData, 1713)}
                             </span>
                         </div>
 

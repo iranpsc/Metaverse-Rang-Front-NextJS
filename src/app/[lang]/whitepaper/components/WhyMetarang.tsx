@@ -3,6 +3,11 @@
 
 import { useEffect, useRef } from 'react';
 import { Framer, Hex, DropBox, Wings } from "@/components/svgs/SvgWhitepaper";
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
+interface WhyMetarangProps {
+  params: { lang: string };
+  mainData: { mainData: string };
+}
 interface CardData {
     id: number;
     title: string;
@@ -26,38 +31,41 @@ const svg4 = (
     <Framer className="w-full h-full fill-white"/>
 );
 
+
+
+export default function WhyMetarang({ params, mainData }: WhyMetarangProps) {
 const cardsData: CardData[] = [
     {
         id: 1,
-        title: 'Fast. Powerful. Secure.',
-        description: 'The groundbreaking Metarang consensus powers a network of fast, efficient, highly-optimized chains that finalize transactions almost instantly. Accompanied by a best-in-class developer experience and suite of tools, Metarang is the platform of choice for builders and users ready for what’s next in Web3.',
+        title: findByUniqueId(mainData, 1660),
+        description: findByUniqueId(mainData, 1661),
         gradient: 'bg-[#3D8BFF] dark:bg-[#19005E]',
         icon: svg1,
     },
     {
         id: 2,
-        title: 'Infinitely Scalable by Design',
-        description: 'Metarang is where Web3s big ideas scale with confidence. Whether it’s a single application, or launching a fully-customizable Layer 1 blockchain, Metarang makes it easy to scale up — or across — in an interconnected ecosystem.',
+        title: findByUniqueId(mainData, 1662),
+        description: findByUniqueId(mainData, 1663),
         gradient: 'bg-[#FF24A8] dark:bg-[#FE0099] ',
         icon: svg2,
     },
     {
         id: 3,
-        title: 'Customizable Layer 1s',
-        description: 'Whatever your use-case, Metarang makes launching your own L1 more economically feasible, simpler to customize, smoother to maintain and quicker to bring to market. The network is anchored by a lightning-fast and efficient primary chain and a universe of sovereign blockchains, all natively connected through Metarang Interchain Messaging.',
+        title: findByUniqueId(mainData, 1664),
+        description: findByUniqueId(mainData, 1665),
         gradient: 'bg-[#8E02F7] dark:bg-[#9100D9]',
         icon: svg3,
     },
     {
         id: 4,
-        title: 'Global Community',
-        description: 'Metarang is more than just a blockchain network. Its a global community of builders, creators, and collaborators, all together on a mission to drive the adoption of blockchain technology. There are no gatekeepers, just an open ecosystem where knowledge and resources are shared, creating a global movement ready to turn ideas into real-world impact.',
+        title: findByUniqueId(mainData, 1666),
+        description: findByUniqueId(mainData, 1667),
         gradient: 'bg-[#01FFE5] dark:bg-[#00CEB9]',
         icon: svg4,
     },
 ];
 
-export default function WhyMetarang() {
+
     const containerRef = useRef<HTMLDivElement>(null);
     const sectionRef = useRef<HTMLElement>(null);
 
@@ -108,12 +116,8 @@ export default function WhyMetarang() {
             <div>
                 <div className="font-bold text-start flex flex-col justify-start py-12 px-10 mb-20 space-y-4">
                     <p className="text-6xl md:text-7xl lg:text-8xl tracking-[0.2em] text-black dark:text-white uppercase">
-                        Why
+                        {findByUniqueId(mainData, 1659)}
                     </p>
-                    <h2 className="text-6xl md:text-7xl lg:text-8xl font-light tracking-tight text-black dark:text-white">
-                        Metarang
-                        
-                    </h2>
                     <div className="w-12 h-px bg-gray-700 mx-auto mt-6" />
                 </div>
             </div>
@@ -138,12 +142,12 @@ export default function WhyMetarang() {
                             <div className="flex flex-col md:flex-row md:items-start md:justify-between  w-full">
                                 <div className="flex flex-col lg:flex-row h-[650px] w-full ">
                                     <div className={`${card.gradient} border-2 border-solid border-[#434343] flex flex-col gap-10 p-10 rounded-[40px] ltr:rounded-tr-[150px] rtl:rounded-tl-[150px] rtl:lg:rounded-tl-[40px] ltr:lg:rounded-tr-[40px] w-full lg:w-1/2 min-h-[320px]`}>
-                                        <div className='flex gap-5 items-end'>
-                                            <div className="text-3xl text-black dark:text-white font-mono">
+                                        <div className='flex gap-5 items-start'>
+                                            <div className="text-3xl text-black dark:text-white font-mono ">
                                                 {(idx + 1).toString().padStart(2, '0')}
 
                                             </div>
-                                            <h3 className="text-2xl md:text-3xl 3xl:text-6xl font-light tracking-tight text-black dark:text-white">
+                                            <h3 className="3xl:!leading-[80px] text-2xl md:text-3xl 3xl:text-6xl font-light tracking-tight text-black dark:text-white">
                                                 {card.title}
                                             </h3>
                                         </div>

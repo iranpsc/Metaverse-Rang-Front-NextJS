@@ -2,7 +2,11 @@
 'use client';
 
 import { Framer, Hex, DropBox, Wings } from "@/components/svgs/SvgWhitepaper";
-
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
+interface EcosystemFeaturesProps {
+    params: { lang: string };
+    mainData: { mainData: string };
+}
 interface FeatureCard {
     id: number;
     title: string;
@@ -11,31 +15,32 @@ interface FeatureCard {
     icon: React.ReactNode;
 }
 
-const featuresData: FeatureCard[] = [
-    {
-        id: 1,
-        title: 'Set up a wallet',
-        description: 'To connect to the Avalanche ecosystem, set up a non-custodial wallet to store your crypto assets, approve transactions, track your network activity and more...',
-        buttonText: 'Create a wallet',
-        icon: <Wings className="w-full h-full fill-black" />,
-    },
-    {
-        id: 2,
-        title: 'The AVAX Token',
-        description: 'AVAX powers the Avalanche network—used for paying fees, securing the platform, and fueling custom blockchain operations....',
-        buttonText: 'Learn more',
-        icon: <Hex className="w-full h-full fill-black" />,
-    },
-    {
-        id: 3,
-        title: 'Explore the Ecosystem',
-        description: 'Discover the expanding web of applications, tools and experiences across the Avalanche network.',
-        buttonText: 'Start Exploring',
-        icon: <DropBox className="w-full h-full fill-black" />,
-    },
-];
 
-export default function EcosystemFeatures() {
+
+export default function EcosystemFeatures({ params, mainData }: EcosystemFeaturesProps) {
+    const featuresData: FeatureCard[] = [
+        {
+            id: 1,
+            title: findByUniqueId(mainData, 1668),
+            description: findByUniqueId(mainData, 1669),
+            buttonText: findByUniqueId(mainData, 1670),
+            icon: <Wings className="w-full h-full fill-black" />,
+        },
+        {
+            id: 2,
+            title: findByUniqueId(mainData, 1671),
+            description: findByUniqueId(mainData, 1674),
+            buttonText: findByUniqueId(mainData, 1672),
+            icon: <Hex className="w-full h-full fill-black" />,
+        },
+        {
+            id: 3,
+            title: findByUniqueId(mainData, 1673),
+            description: findByUniqueId(mainData, 1674),
+            buttonText: findByUniqueId(mainData, 1675),
+            icon: <DropBox className="w-full h-full fill-black" />,
+        },
+    ];
     return (
         <section className="">
             <div className="">
@@ -51,7 +56,7 @@ export default function EcosystemFeatures() {
                             </div>
 
                             {/* عنوان */}
-                            <h3 className="text-xl md:text-2xl 3xl:text-[32px] font-semibold   ">
+                            <h3 className="text-xl md:text-2xl 3xl:text-[32px] font-semibold  !leading-10 ">
                                 {feature.title}
                             </h3>
 
@@ -61,18 +66,20 @@ export default function EcosystemFeatures() {
                             </p>
 
                             {/* دکمه */}
-                            <button aria-label="btn feat" className="lg:text-xl gap-2 bg-[#9100D9]  text-white font-medium hover:gap-3 transition-all duration-300 group/btn rounded-[16px] ltr:rounded-br-[100px] rtl:rounded-bl-[100px] px-4 py-3 flex justify-between items-center w-[60%]">
+                            <div className="w-full">
+                                <button aria-label="btn feat" className="lg:text-xl gap-2 bg-[#9100D9]  text-white font-medium hover:gap-3 transition-all duration-300 group/btn rounded-[16px] ltr:rounded-br-[100px] rtl:rounded-bl-[100px] px-4 py-3 flex justify-between items-center w-[60%]">
 
-                                <span>{feature.buttonText}</span>
-                                                            <svg 
-                                    className="w-4 h-4 rtl:rotate-180 transition-transform duration-300 group-hover/btn:translate-x-1" 
-                                    fill="none" 
-                                    stroke="currentColor" 
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                </svg>
-                            </button>
+                                    <span>{feature.buttonText}</span>
+                                    <svg
+                                        className="w-4 h-4 rtl:rotate-180 transition-transform duration-300 group-hover/btn:translate-x-1"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
                     ))}
                 </div>

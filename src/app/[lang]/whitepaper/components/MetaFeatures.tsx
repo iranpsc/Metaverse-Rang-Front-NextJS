@@ -2,7 +2,11 @@
 'use client';
 
 import { Framer, Hex, DropBox, Wings } from "@/components/svgs/SvgWhitepaper";
-
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
+interface MetaFeaturesProps {
+  params: { lang: string };
+  mainData: { mainData: string };
+}
 interface FeatureCard {
     id: number;
     title: string;
@@ -35,7 +39,30 @@ const featuresData: FeatureCard[] = [
     },
 ];
 
-export default function MetaFeatures() {
+export default function MetaFeatures({ params, mainData }: MetaFeaturesProps) {
+    const featuresData: FeatureCard[] = [
+    {
+        id: 1,
+        title: findByUniqueId(mainData, 1715),
+        description: findByUniqueId(mainData, 1716),
+        buttonText: findByUniqueId(mainData, 1717),
+        icon: <Wings className="w-full h-full fill-black" />,
+    },
+    {
+        id: 2,
+        title: findByUniqueId(mainData, 1718),
+        description: findByUniqueId(mainData, 1719),
+        buttonText: findByUniqueId(mainData, 1672),
+        icon: <Hex className="w-full h-full fill-black" />,
+    },
+    {
+        id: 3,
+        title: findByUniqueId(mainData, 1720),
+        description: findByUniqueId(mainData, 1721),
+        buttonText: findByUniqueId(mainData, 1722),
+        icon: <DropBox className="w-full h-full fill-black" />,
+    },
+];
     return (
         <section className="">
             <div className="">
@@ -51,7 +78,7 @@ export default function MetaFeatures() {
                             </div>
 
                             {/* عنوان */}
-                            <h3 className="text-xl md:text-2xl 3xl:text-[32px] font-semibold   ">
+                            <h3 className="text-xl md:text-2xl 3xl:text-3xl font-semibold   ">
                                 {feature.title}
                             </h3>
 
@@ -63,7 +90,7 @@ export default function MetaFeatures() {
                             {/* دکمه */}
                     <button aria-label="btn feat" className="lg:text-xl gap-2 border border-solid bg-transparent border-[#D9D9D9] dark:border-[#434343] hover:bg-[#9100D9] hover:text-white  dark:text-white font-medium hover:gap-3 transition-all duration-300 group/btn rounded-[16px] ltr:rounded-br-[100px] rtl:rounded-bl-[100px] px-4 py-3 flex justify-between items-center w-[60%]">
 
-                        <span> View all events</span>
+                        <span> {findByUniqueId(mainData, 1711)}</span>
                         <svg
                             className="w-4 h-4 rtl:rotate-180 transition-transform duration-300 group-hover/btn:translate-x-1"
                             fill="none"
