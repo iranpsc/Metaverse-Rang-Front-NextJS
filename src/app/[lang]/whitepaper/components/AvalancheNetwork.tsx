@@ -4,9 +4,10 @@
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import Reveal from '@/components/utils/Reveal';
 interface AvalancheNetworkProps {
-  params: { lang: string };
-  mainData: { mainData: string };
+    params: { lang: string };
+    mainData: { mainData: string };
 }
 export default function AvalancheNetwork({ params, mainData }: AvalancheNetworkProps) {
     const [count, setCount] = useState(12554178438);
@@ -72,15 +73,38 @@ export default function AvalancheNetwork({ params, mainData }: AvalancheNetworkP
 
     return (
         <section ref={sectionRef} className="w-full bg-white dark:bg-[#1A1A18] rounded-[40px]" id="network-section">
-            <div className="p-5 lg:p-10">
+            <div className="p-5 lg:p-10 overflow-x-hidden">
 
                 {/* عنوان اصلی */}
-                <div className="mb-16 mt-7 w-full space-y-3">
-                    <p className="dark:text-white text-3xl md:text-5xl xl:text-7xl 3xl:text-[160px] font-bold tracking-wider">{findByUniqueId(mainData, 148)}</p>
-                    <p className="text-end dark:text-white text-3xl md:text-5xl xl:text-7xl 3xl:text-[160px] font-bold tracking-wider ">{findByUniqueId(mainData, 1692)}</p>
-                    <p className="text-3xl md:text-5xl xl:text-7xl 3xl:text-[160px] font-bold text-black dark:text-white ">
-                        {findByUniqueId(mainData, 1693)}
-                    </p>
+                <div className="mb-16 mt-7 w-full space-y-3 ">
+                    <div className="dark:text-white text-3xl md:text-5xl xl:text-7xl 3xl:text-[160px] font-bold tracking-wider">
+                        <Reveal
+                            direction={params.lang == "fa" ? "left" : "right"}
+                            distance={200}
+                            duration={2300}
+                            delay={300}>
+                            {findByUniqueId(mainData, 148)}
+                        </Reveal>
+                    </div>
+                    <div className="text-end dark:text-white text-3xl md:text-5xl xl:text-7xl 3xl:text-[160px] font-bold tracking-wider ">
+                        <Reveal
+                            direction={params.lang == "fa" ? "right" : "left"}
+                            distance={200}
+                            duration={3000}
+                            delay={300}>
+                            {findByUniqueId(mainData, 1692)}
+                        </Reveal>
+                    </div>
+                    <div className="text-3xl md:text-5xl xl:text-7xl 3xl:text-[160px] font-bold text-black dark:text-white ">
+
+                        <Reveal
+                            direction={params.lang == "fa" ? "left" : "right"}
+                            distance={200}
+                            duration={2300}
+                            delay={200}>
+                            {findByUniqueId(mainData, 1693)}
+                        </Reveal>
+                    </div>
                 </div>
 
                 <div className="w-full h-0.5 bg-[#D9D9D9] dark:bg-[#434343] mx-auto my-20"></div>

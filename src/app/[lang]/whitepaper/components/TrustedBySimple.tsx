@@ -120,7 +120,7 @@ export default function AvalancheTrustedProps({ params, mainData }: AvalancheTru
                     <div className=' h-[266px] lg:h-[356px] w-[15vw] rounded-es-[40px]  bg-white dark:bg-[#1A1A18] mt-[-20px] relative'>
                         <div className='absolute top-[-16px] end-[-42px]'>
                             <div className='bg-white dark:bg-[#1A1A18] h-[80px] w-[80px] rounded-full relative ' />
-                            <div className='bg-[#f5f5f5] dark:bg-black rotate-45 w-[70px] h-[65px] rounded-full absolute top-[38px] right-[37px] z-10' />
+                            <div className='bg-[#f5f5f5] dark:bg-black ltr:-rotate-45 rotate-45 w-[70px] h-[65px] rounded-full absolute ltr:left-[37px] top-[38px] right-[37px] z-10' />
                         </div>
 
                     </div>

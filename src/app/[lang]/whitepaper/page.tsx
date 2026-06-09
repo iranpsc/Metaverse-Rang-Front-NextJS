@@ -26,6 +26,7 @@ import MetaFeatures from "./components/MetaFeatures";
 import AvalancheCTA from "./components/AvalancheCTA";
 import ContactSection from "./components/ContactSection";
 import AvalancheBanner from "./components/AvalancheBanner"
+import SectionTeam from "@/components/templates/firstpage/TeamSection";
 const baseUrl = "https://metarang.com"; // ← دامنه اصلی سایتت
 const imageUrl = "https://metarang.com/_next/image?url=%2Flogo.png&w=128&q=75";
 interface WhitePaperPageProps {
@@ -192,6 +193,7 @@ const schemaData = {
           </div>
           <AvalancheNetwork params={resolvedParams} mainData={mainData} />
           <NewsStories params={resolvedParams} mainData={mainData} />
+          <SectionTeam mainData={mainData} params={resolvedParams} />
           <AvalancheSolutions params={resolvedParams} mainData={mainData} />
           <AvalancheStories params={resolvedParams} mainData={mainData} />
           <AvalancheEventsCard params={resolvedParams} mainData={mainData} />

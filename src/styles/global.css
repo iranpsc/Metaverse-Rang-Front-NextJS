@@ -586,4 +586,31 @@ input {
 .animate-shimmer {
   animation: shimmer 1.5s infinite;
 }
+[data-visible='false'] {
+  opacity: 0;
+  transform: var(--transform);
+}
 
+[data-visible='true'] {
+  opacity: 1;
+  transform: translate3d(0,0,0);
+}
+
+[data-visible] {
+  transition:
+    opacity var(--duration) ease,
+    transform var(--duration)
+      cubic-bezier(0.22, 1, 0.36, 1);
+
+  transition-delay: var(--delay);
+
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-visible] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

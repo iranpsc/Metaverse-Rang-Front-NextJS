@@ -48,7 +48,7 @@ export default function Codebase({ params, mainData }: CodebaseProps) {
 
                         </p>
                     </div>
-                    <div className="group cursor-pointer inline-flex items-center gap-6 bg-transparent hover:bg-[#9100D9] rounded-3xl rtl:rounded-bl-[100px] ltr:rounded-br-[100px]  text-gray-900 dark:text-white font-medium text-sm transition-all duration-300 px-5 py-3 w-max">
+                    <div className="group cursor-pointer inline-flex items-center gap-6 bg-transparent hover:bg-[#9100D9] rounded-3xl rtl:rounded-bl-[100px] ltr:rounded-br-[100px] text-white font-medium text-sm transition-all duration-300 px-5 py-3 w-max">
                         <span> {findByUniqueId(mainData, 1687)}</span>
                         <svg className="w-5 h-5 text-[#9100D9] group-hover:text-white rtl:rotate-180 transition-transform duration-300 group-hover:translate-x-1" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path className='stroke-[#9100D9] group-hover:stroke-white' d="M14.4297 5.92969L20.4997 11.9997L14.4297 18.0697" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
