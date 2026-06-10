@@ -1,4 +1,4 @@
-import Footer from "@/components/module/footer/Footer";
+
 import {
   getTranslation,
   getMainFile,

@@ -30,12 +30,17 @@ import SectionTeam from "@/components/templates/firstpage/TeamSection";
 const baseUrl = "https://metarang.com"; // ← دامنه اصلی سایتت
 const imageUrl = "https://metarang.com/_next/image?url=%2Flogo.png&w=128&q=75";
 interface WhitePaperPageProps {
-  params: Promise<{ lang: string }>;
-  mainData: { mainData: string };
+  params: Promise<{
+    lang: string;
+  }>;
 }
 
 // ✅ متادیتای داینامیک
-export async function generateMetadata({ params }: WhitePaperPageProps) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}) {
   try {
  const resolvedParams = await params;
   const { lang } = resolvedParams;
@@ -79,7 +84,11 @@ export async function generateMetadata({ params }: WhitePaperPageProps) {
 }
 
 
-export default async function ArticlesPage({ params   }: WhitePaperPageProps) {
+export default async function ArticlesPage({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}) {
   const resolvedParams = await params;
   const { lang } = resolvedParams;
   try {

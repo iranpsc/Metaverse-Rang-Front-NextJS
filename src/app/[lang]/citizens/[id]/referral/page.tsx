@@ -235,7 +235,6 @@ export default async function CitizenReferral({
 
             <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
               <DynamicFooter
-                footerTabs={footerTabs}
                 mainData={mainData}
                 params={resolvedParams}
               />
