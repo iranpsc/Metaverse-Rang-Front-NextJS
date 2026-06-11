@@ -97,7 +97,7 @@ export default function Footer2({ params, mainData }: FooterProps) {
                   {section.title}
                 </p>
 
-                <ul className="space-y-5 2xl:space-y-6 list-none">
+                <ul className="space-y-2 2xl:space-y-5 list-none">
                   {section.links.map((item) => {
                     const isExternal =
                       item.targetBlank || item.href.startsWith("http");

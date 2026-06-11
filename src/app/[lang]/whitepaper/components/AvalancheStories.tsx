@@ -81,14 +81,17 @@ function SocialPill({ label }: { label: string }) {
                 gap-3
                 rounded-[14px]
                 border
-                border-[#2A2A2A]
-                bg-[#111111]
+                border-solid
+                bg-white
+                border-[#D9D9D9]
+                dark:border-[#2A2A2A]
+                dark:bg-[#111111]
                 px-4
                 py-3
                 text-xs
                 font-medium
                 tracking-[0.18em]
-                text-white
+                dark:text-white
                 transition-colors
                 duration-300
                 hover:border-[#3D3D3D]
@@ -102,8 +105,10 @@ function SocialPill({ label }: { label: string }) {
                     items-center
                     justify-center
                     rounded-md
-                    bg-white
-                    text-black
+                    dark:bg-white
+                    dark:text-black
+                    text-white
+                    bg-black
                 "
             >
                 <svg
@@ -350,11 +355,11 @@ export default function AvalancheStories({ params, mainData }: AvalancheStoriesP
                         <button
                             onClick={() => scroll('left')}
                             aria-label="Previous"
-                            className={`flex h-11 w-11 items-center  bg-transparent  justify-center rounded-full border border-solid border-[#2D2D2D] text-white transition-all duration-300 hover:bg-white hover:text-black disabled:cursor-not-allowed disabled:opacity-40`}
+                            className={`flex h-11 w-11 items-center group hover:bg-[#9100D9]  bg-transparent  justify-center rounded-full border border-solid border-[#D9D9D9] dark:border-[#2D2D2D] text-white transition-all duration-300 hover:text-black disabled:cursor-not-allowed disabled:opacity-40`}
                         >
                             <svg className="w-5 h-5 text-[#00CEB9] group-hover:text-white rtl:rotate-180 ltr:rotate-180 duration-300" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <path className='stroke-[#434343] group-hover:stroke-white' d="M14.4297 5.92969L20.4997 11.9997L14.4297 18.0697" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
-                                <path className='stroke-[#434343] group-hover:stroke-white' d="M3.5 12H20.33" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+                                <path className='stroke-[#D9D9D9] dark:stroke-[#434343]' d="M14.4297 5.92969L20.4997 11.9997L14.4297 18.0697" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+                                <path className='stroke-[#D9D9D9] dark:stroke-[#434343]' d="M3.5 12H20.33" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
                         </button>
 
@@ -362,11 +367,11 @@ export default function AvalancheStories({ params, mainData }: AvalancheStoriesP
                             onClick={() => scroll('right')}
 
                             aria-label="Next"
-                            className={`flex h-11 w-11  bg-transparent  items-center justify-center rounded-full border border-solid border-[#2D2D2D] text-white transition-all duration-300 hover:bg-white hover:text-black disabled:cursor-not-allowed disabled:opacity-40`}
+                            className={`flex h-11 w-11  bg-transparent group hover:bg-[#9100D9]  items-center justify-center rounded-full border border-solid border-[#D9D9D9] dark:border-[#2D2D2D] text-white transition-all duration-300  hover:text-black disabled:cursor-not-allowed disabled:opacity-40`}
                         >
                             <svg className="w-5 h-5 text-[#00CEB9] group-hover:text-white duration-300" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <path className='stroke-[#434343] group-hover:stroke-white' d="M14.4297 5.92969L20.4997 11.9997L14.4297 18.0697" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
-                                <path className='stroke-[#434343] group-hover:stroke-white' d="M3.5 12H20.33" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+                                <path className='stroke-[#D9D9D9] dark:stroke-[#434343] group-hover:stroke-white' d="M14.4297 5.92969L20.4997 11.9997L14.4297 18.0697" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+                                <path className='stroke-[#D9D9D9] dark:stroke-[#434343] group-hover:stroke-white' d="M3.5 12H20.33" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
                         </button>
                     </div>
