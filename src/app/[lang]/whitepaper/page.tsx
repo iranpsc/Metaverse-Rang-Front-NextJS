@@ -27,6 +27,8 @@ import AvalancheCTA from "./components/AvalancheCTA";
 import ContactSection from "./components/ContactSection";
 import AvalancheBanner from "./components/AvalancheBanner"
 import SectionTeam from "@/components/templates/firstpage/TeamSection";
+import PageRevealLoader from "./components/PageRevealLoader"
+import LandingLayout from "./components/LandingLayout"
 const baseUrl = "https://metarang.com"; // ← دامنه اصلی سایتت
 const imageUrl = "https://metarang.com/_next/image?url=%2Flogo.png&w=128&q=75";
 interface WhitePaperPageProps {
@@ -42,8 +44,8 @@ export async function generateMetadata({
   params: Promise<{ lang: string }>;
 }) {
   try {
- const resolvedParams = await params;
-  const { lang } = resolvedParams;
+    const resolvedParams = await params;
+    const { lang } = resolvedParams;
     const url = `${baseUrl}/${lang}/whitepaper`;
     const langData = await getTranslation(lang);
     const mainData = await getMainFile(langData);
@@ -69,7 +71,7 @@ export async function generateMetadata({
       twitter: {
         card: "summary_large_image",
         title: "PSC token",
-        description:findByUniqueId(mainData, 1757),
+        description: findByUniqueId(mainData, 1757),
         images: [imageUrl],
       },
     };
@@ -102,95 +104,89 @@ export default async function ArticlesPage({
     const fullPageUrl = `${baseUrl}${langPrefix}/whitepaper`;
 
 
-const schemaData = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Organization",
-      "@id": `${baseUrl}#organization`,
-      name: "MetaRang",
-      url: baseUrl,
-      logo: imageUrl
-    },
-
-    {
-      "@type": "WebSite",
-      "@id": `${baseUrl}#website`,
-      url: baseUrl,
-      name: "MetaRang",
-      publisher: {
-        "@id": `${baseUrl}#organization`
-      }
-    },
-
-    {
-      "@type": "WebPage",
-      "@id": `${fullPageUrl}#webpage`,
-      url: fullPageUrl,
-      name: "PSC Token by MetaRang",
-      description:findByUniqueId(mainData, 1757),
-      isPartOf: {
-        "@id": `${baseUrl}#website`
-      },
-      about: {
-        "@id": `${fullPageUrl}#psc-token`
-      }
-    },
-
-    {
-      "@type": "Cryptocurrency",
-      "@id": `${fullPageUrl}#psc-token`,
-      name: "PSC Token",
-      alternateName: "PSC",
-      description:findByUniqueId(mainData, 1757),
-      issuer: {
-        "@id": `${baseUrl}#organization`
-      }
-    },
-
-    {
-      "@type": "BreadcrumbList",
-      itemListElement: [
+    const schemaData = {
+      "@context": "https://schema.org",
+      "@graph": [
         {
-          "@type": "ListItem",
-          position: 1,
-          name: "Home",
-          item: baseUrl
+          "@type": "Organization",
+          "@id": `${baseUrl}#organization`,
+          name: "MetaRang",
+          url: baseUrl,
+          logo: imageUrl
         },
+
         {
-          "@type": "ListItem",
-          position: 2,
+          "@type": "WebSite",
+          "@id": `${baseUrl}#website`,
+          url: baseUrl,
+          name: "MetaRang",
+          publisher: {
+            "@id": `${baseUrl}#organization`
+          }
+        },
+
+        {
+          "@type": "WebPage",
+          "@id": `${fullPageUrl}#webpage`,
+          url: fullPageUrl,
+          name: "PSC Token by MetaRang",
+          description: findByUniqueId(mainData, 1757),
+          isPartOf: {
+            "@id": `${baseUrl}#website`
+          },
+          about: {
+            "@id": `${fullPageUrl}#psc-token`
+          }
+        },
+
+        {
+          "@type": "Cryptocurrency",
+          "@id": `${fullPageUrl}#psc-token`,
           name: "PSC Token",
-          item: fullPageUrl
+          alternateName: "PSC",
+          description: findByUniqueId(mainData, 1757),
+          issuer: {
+            "@id": `${baseUrl}#organization`
+          }
+        },
+
+        {
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: "Home",
+              item: baseUrl
+            },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "PSC Token",
+              item: fullPageUrl
+            }
+          ]
         }
       ]
-    }
-  ]
-};
+    };
 
     // ✅ محتوای اصلی (دقیقاً مثل نسخه‌ی خودت)
     return (
       <section
-        className="w-full  lg:pt-0 bg-[#f5f5f5] dark:bg-black px-5"
+        className="w-full  lg:pt-0 bg-[#f5f5f5] dark:bg-black "
         dir={langData.direction}
       >
         <CleanAutoRetryParam />
-        <div className="px-5  mt-[60px] lg:mt-0">
+        {/* <div className="px-5  mt-[60px] lg:mt-0">
           <BreadCrumb params={resolvedParams} />
-        </div>
-
-        <div className="flex flex-col lg:flex-row gap-3 lg:gap-10 justify-between w-full">
-          {/* سمت چپ */}
-          <div className="w-full lg:w-[50%]">
-            <EcosystemIntro params={resolvedParams} mainData={mainData} />
-          </div>
-
-          {/* سمت راست */}
-          <div className=" w-full lg:max-w-[40%]">
-            <PoweredBy params={resolvedParams} mainData={mainData} />
-          </div>
-        </div>
-        <div className="mt-5 space-y-5">
+        </div> */}
+<PageRevealLoader>
+  <LandingLayout
+    resolvedParams={resolvedParams}
+    mainData={mainData}
+  />
+</PageRevealLoader>
+        <div className="mt-5 space-y-5 px-5">
           <WhyMetarang params={resolvedParams} mainData={mainData} />
           <EcosystemFeatures params={resolvedParams} mainData={mainData} />
           <TrustedBySimple params={resolvedParams} mainData={mainData} />

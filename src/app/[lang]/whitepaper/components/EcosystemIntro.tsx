@@ -14,7 +14,7 @@ export default function EcosystemIntro({ params, mainData }: EcosystemIntroProps
   };
 
   return (
-    <div className="flex flex-col justify-between h-full min-h-[80vh] bg-white dark:bg-[#1A1A18] rounded-[40px]">
+    <div className="flex flex-col justify-between h-full min-h-[80vh] bg-white dark:bg-[#1A1A18] rounded-[40px] overflow-hidden">
 
       <div className="flex flex-col items-start mx-auto justify-start mt-20 px-5 ps-14 gap-5">
         <div>
@@ -25,7 +25,7 @@ export default function EcosystemIntro({ params, mainData }: EcosystemIntroProps
 
         </div>
         <p className="text-black dark:text-white font-bold text-5xl text-start">10:37 PM</p>
-        <p className="text-[#585858] dark:text-neutral-400 text-start lg:text-3xl">Wednesday, February 25, 2026 </p>
+        <p className="text-[#585858] dark:text-neutral-400 text-start lg:text-2xl text-nowrap">Wednesday, February 25, 2026 </p>
       </div>
       <div className="mt-12">
         <button

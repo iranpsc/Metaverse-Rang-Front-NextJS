@@ -80,6 +80,56 @@ module.exports = {
     // },
     extend: {
       keyframes: {
+        fadeInUp: {
+          '0%': {
+            opacity: '0',
+            transform: 'translateY(10px) scale(1.02)',
+            filter: 'blur(12px)',
+          },
+          '100%': {
+            opacity: '1',
+            transform: 'translateY(0) scale(1)',
+            filter: 'blur(0px)',
+          },
+        },
+        fadeInCenter: {
+          '0%': {
+            opacity: '0',
+            transform: 'translateY(10px)',
+            filter: 'blur(10px)',
+          },
+          '100%': {
+            opacity: '1',
+            transform: 'translateY(0)',
+            filter: 'blur(0px)',
+          },
+        },
+
+        slideInLeft: {
+          '0%': {
+            opacity: '0',
+            transform: 'translateX(-80px)',
+            filter: 'blur(12px)',
+          },
+          '100%': {
+            opacity: '1',
+            transform: 'translateX(0)',
+            filter: 'blur(0px)',
+          },
+        },
+
+        slideInRight: {
+          '0%': {
+            opacity: '0',
+            transform: 'translateX(80px)',
+            filter: 'blur(12px)',
+          },
+          '100%': {
+            opacity: '1',
+            transform: 'translateX(0)',
+            filter: 'blur(0px)',
+          },
+        },
         rtlMarquee: {
           '0%': { transform: 'translateX(0%)' },
           '100%': { transform: 'translateX(100%)' }, // تغییر به -100% برای حرکت راست به چپ
@@ -92,6 +142,12 @@ module.exports = {
       animation: {
         rtlMarquee: 'rtlMarquee 5s linear infinite',
         ltrMarquee: 'ltrMarquee 5s linear infinite',
+
+          fadeUp: 'fadeUp 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards',
+
+        fadeInCenter: 'fadeInCenter 1s cubic-bezier(0.22,1,0.36,1) forwards',
+        slideInLeft: 'slideInLeft 1.1s cubic-bezier(0.22,1,0.36,1) forwards',
+        slideInRight: 'slideInRight 1.1s cubic-bezier(0.22,1,0.36,1) forwards',
       },
 
       colors: {
@@ -250,7 +306,7 @@ module.exports = {
         120: "120px",
       },
       fontFamily: {
-        azarMehr: ['var(--font-azarMehr)','ui-sans-serif', 'system-ui' ],
+        azarMehr: ['var(--font-azarMehr)', 'ui-sans-serif', 'system-ui'],
         rokh: ['var(--font-rokh)'],
       },
 
