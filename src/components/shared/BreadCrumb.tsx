@@ -218,6 +218,13 @@ export default function BreadCrumb({ params, eventTitle, title, articleCat }: { 
       font: "font-normal",
       link: `/${params.lang}/contact`,
     },
+        {
+      name: "whitepaper",
+      en: "One Pager",
+      fa: "وان پیجر",
+      font: "font-normal",
+      link: `/${params.lang}/whitepaper`,
+    },
     {
       name: "citizen-baguette",
       en: "citizen rank-1",
