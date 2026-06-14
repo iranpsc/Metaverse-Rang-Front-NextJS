@@ -32,6 +32,7 @@ export default function SideBarContent({
   const [langDropDown, setLangDropDown] = useState(false);
   const [trainingDropDown, setTrainingDropDown] = useState(false);
   const [articleDropDown, setArticlesDropDown] = useState(false);
+  const [whitePaperDropDown, setWhitePaperDropDown] = useState(false);
   const [citizensDropDown, setCitizensDropDown] = useState(false);
   const [newsDropDown, setNewsDropDown] = useState(false); // اضافه شده برای اخبار
 
@@ -51,6 +52,7 @@ export default function SideBarContent({
   const handleTrainingBtn = () => setTrainingDropDown((prev) => !prev);
   const handleArticlesBtn = () => setArticlesDropDown((prev) => !prev);
   const handleCitizensBtn = () => setCitizensDropDown((prev) => !prev);
+  const handleWhitePaper = () => setWhitePaperDropDown((prev) => !prev);
   const handleNewsBtn = () => setNewsDropDown((prev) => !prev); // اضافه شده برای اخبار
   const handleLangBtn = () => setLangDropDown((prev) => !prev);
 
@@ -69,6 +71,8 @@ export default function SideBarContent({
 
   // تشخیص اینکه در بخش آموزش هستیم یا نه
   const isEducationSectionActive = pathName.startsWith(`/${params.lang}/education`);
+  const isWhitePaperSectionActive =
+  pathName.startsWith(`/${params.lang}/whitepaper`);
   const isArticlesSectionActive = pathName.startsWith(`/${params.lang}/articles`);
   const isNewsSectionActive = pathName.startsWith(`/${params.lang}/news`); // اضافه شده برای اخبار
   const isCitizensSectionActive =
@@ -385,6 +389,70 @@ export default function SideBarContent({
                 </div>
               </li>
             )}
+                        {item.unique_id == 1462  && (
+              <li style={{ order: "-2" }}>
+                <Tooltip
+                  title={findByUniqueId(mainData, 1758 )}
+                  placement={langData.direction === "rtl" ? "left-end" : "right-end"}
+                  arrow
+                  slotProps={{
+                    tooltip: {
+                      className: `!bg-[#E9E9E9] !text-[#908F95] dark:!bg-[#434343] dark:!text-white !font-azarMehr !font-medium !text-[14px] ${isClosed ? "block" : "hidden"}`,
+                    },
+                    arrow: { className: "!text-[#E9E9E9] dark:!text-[#434343]" },
+                  }}
+                >
+                  <div onClick={handleWhitePaper} className="cursor-pointer">
+                    <div className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px] menu-transition
+                     ${isWhitePaperSectionActive ? "text-[#0066FF] dark:text-[#FFC700]" : "text-gray-700 dark:text-gray-300"}
+                      group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700]
+                      ${isClosed ? "justify-start gap-0" : "justify-start gap-2"}`}>
+                      <ListMenuActiveIconModule item={{ active: isWhitePaperSectionActive  }} languageSelected={langData.code} isClosed={isClosed} />
+                      <span className="ps-[15px]">
+                        <ListMenuSvgModule item={{name:"docs", active: isWhitePaperSectionActive  }} />
+                      </span>
+                      <div className="w-full flex justify-between items-center">
+                        <ListMenuTitleModule
+                          item={{ translation:findByUniqueId(mainData, 1758 ), active: isWhitePaperSectionActive  }}
+                          isClosed={isClosed}
+                        />
+                        <ListMenuArrow item={{ name: "trainings" }} isOpen={whitePaperDropDown} isClosed={isClosed} />
+                      </div>
+                    </div>
+                  </div>
+                </Tooltip>
+
+                <div ref={dropdownRef2} className={`${whitePaperDropDown ? "h-fit" : "h-0 overflow-hidden"} base-transition-1 bg-slate-100 dark:bg-darkGray`}>
+                  {/* آموزش‌ها */}
+                  <Link
+                    href={`/${params.lang}/whitepaper`}
+                    onMouseDown={(e) => handleItemClick(e, "/whitepaper")}
+                    className={`block w-full py-[12px] 3xl:py-[16px] menu-transition cursor-pointer
+                      ${pathName === `/${params.lang}/whitepaper` || pathName === `/${params.lang}/whitepaper/` ? "text-[#0066FF] dark:text-[#FFC700]" : "text-gray-600 dark:text-gray-400"}
+                      hover:text-[#0066FF] dark:hover:text-[#FFC700] ${isClosed ? "ps-0" : "ps-3"}`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="ps-[15px]">
+                        <ListMenuSvgModule
+                          item={{
+                            name: "whitepaper",
+                            active: isWhitePaperSectionActive 
+                          }}
+                        />
+                      </span>
+                      <ListMenuTitleModule
+                        item={{
+                          translation:  findByUniqueId(mainData, 1759 ),
+                          active: isWhitePaperSectionActive 
+                        }}
+                        isClosed={isClosed}
+                      />
+                    </div>
+                  </Link>
+
+                </div>
+              </li>
+            )}
 
             {/* بخش مقالات متارنگ */}
             {item.unique_id == 258 && (
@@ -483,7 +551,7 @@ export default function SideBarContent({
                           item={{ translation: params.lang === "fa" ? "اخبار متارنگ" : "MetaRang News", active: isNewsSectionActive }}
                           isClosed={isClosed}
                         />
-                         <ListMenuArrow item={{ name: "trainings" }} isOpen={newsDropDown} isClosed={isClosed} />
+                        <ListMenuArrow item={{ name: "trainings" }} isOpen={newsDropDown} isClosed={isClosed} />
                       </div>
                     </div>
                   </div>

@@ -80,7 +80,7 @@ export default function Footer2({ params, mainData }: FooterProps) {
           <div className="grid gap-10 gap-y-12 md:grid-cols-[80px_repeat(4,1fr)]">
 
             {/* Logo */}
-            <div className="flex items-start ">
+            <div className="flex items-center lg:items-start justify-center lg:justify-start px-5 lg:px-0 lg:flex-col gap-5">
               <Image
                 src="/logo.png"
                 alt="logo"
@@ -88,6 +88,13 @@ export default function Footer2({ params, mainData }: FooterProps) {
                 height={70}
                 className="w-[60px] h-[60px] inline "
               />
+              <div className="flex items-center justify-center ">
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: `<a referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/?id=721065&Code=fLkLFNhooBCR33C1ntVXIBxJFAj9gf3q'><img referrerpolicy='origin' src='https://trustseal.enamad.ir/logo.aspx?id=721065&Code=fLkLFNhooBCR33C1ntVXIBxJFAj9gf3q' alt='' style='cursor:pointer' code='fLkLFNhooBCR33C1ntVXIBxJFAj9gf3q'></a>`,
+                  }}
+                />
+              </div>
             </div>
 
             {/* Links */}
