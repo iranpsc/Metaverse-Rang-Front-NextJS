@@ -30,6 +30,9 @@ import {
   Legislator,
   Minister,
   Citizens,
+  Docs,
+  WhitePaper,
+
   
 } from "@/components/svgs";
 
@@ -55,6 +58,12 @@ export default function SvgIcon({ unique_id, color, name }: any) {
       {/* with name */}
       {name === "categories" && (
         <Categories className={`${color} stroke-1 mx-[10px] 3xl:w-7 3xl:h-7`} />
+      )}
+            {name === "docs" && (
+        <Docs className={`${color}  stroke-2   mx-[10px] 3xl:w-7 3xl:h-7`} />
+      )}
+                  {name === "whitepaper" && (
+        <WhitePaper className={`${color} stroke-2   mx-[10px] 3xl:w-7 3xl:h-7`} />
       )}
       {/* with name */}
       {name === "trainers" && (

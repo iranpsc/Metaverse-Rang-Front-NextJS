@@ -11,25 +11,48 @@ import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { articles } from "@/components/utils/articles";
 import PoweredBy from "./components/PoweredBy";
 import EcosystemIntro from "./components/EcosystemIntro";
+import WhyMetarang from "./components/WhyMetarang"
+import EcosystemFeatures from "./components/EcosystemFeatures"
+import TrustedBy from "./components/TrustedBy"
+import TrustedBySimple from "./components/TrustedBySimple"
+import Codebase from "./components/Codebase"
+import FoundationGrants from "./components/FoundationGrants"
+import AvalancheNetwork from "./components/AvalancheNetwork"
+import NewsStories from "./components/NewsStories"
+import AvalancheSolutions from "./components/AvalancheSolutions"
+import AvalancheStories from "./components/AvalancheStories"
+import AvalancheEventsCard from "./components/AvalancheEventsCard";
+import MetaFeatures from "./components/MetaFeatures";
+import AvalancheCTA from "./components/AvalancheCTA";
+import ContactSection from "./components/ContactSection";
+import AvalancheBanner from "./components/AvalancheBanner"
+import SectionTeam from "@/components/templates/firstpage/TeamSection";
 const baseUrl = "https://metarang.com"; // ← دامنه اصلی سایتت
 const imageUrl = "https://metarang.com/_next/image?url=%2Flogo.png&w=128&q=75";
 interface WhitePaperPageProps {
-  params: Promise<{ lang: string }>;
+  params: Promise<{
+    lang: string;
+  }>;
 }
 
 // ✅ متادیتای داینامیک
-export async function generateMetadata({ params }:  WhitePaperPageProps) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}) {
   try {
-    const resolvedParams = await params;
-    const { lang } = resolvedParams;
-    const url = `${baseUrl}/${lang}/articles`;
-
+ const resolvedParams = await params;
+  const { lang } = resolvedParams;
+    const url = `${baseUrl}/${lang}/whitepaper`;
+    const langData = await getTranslation(lang);
+    const mainData = await getMainFile(langData);
     return {
-      title: lang === "fa" ? "مقالات متاورس رنگ" : "Metarangs Metaverse Articles",
-      description: lang === "fa" ? "در این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنید" : "The Metarangs Metaverse articles page is the main gateway to the written content of Metarang — Iran’s first national metaverse. In this section, you can access the latest content on science, technology, virtual commerce, and development news of this parallel world.",
+      title: findByUniqueId(mainData, 1756),
+      description: findByUniqueId(mainData, 1757),
       openGraph: {
-        title: lang === "fa" ? "مقالات متاورس رنگ" : "Metarangs Metaverse Articles",
-        description: lang === "fa" ? "در این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنید" : "The Metarangs Metaverse articles page is the main gateway to the written content of Metarang — Iran’s first national metaverse. In this section, you can access the latest content on science, technology, virtual commerce, and development news of this parallel world.",
+        title: findByUniqueId(mainData, 1756),
+        description: findByUniqueId(mainData, 1757),
         url,
         siteName: "Metaverse Rang",
         locale: lang === "fa" ? "fa_IR" : "en_US",
@@ -39,15 +62,14 @@ export async function generateMetadata({ params }:  WhitePaperPageProps) {
             url: imageUrl,
             width: 800,
             height: 600,
-            alt: "مقالات متاورس رنگ",
+            alt: " PSC token ",
           },
         ],
       },
       twitter: {
         card: "summary_large_image",
-        title: "مقالات متاورس رنگ",
-        description:
-          "در این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنید",
+        title: "PSC token",
+        description:findByUniqueId(mainData, 1757),
         images: [imageUrl],
       },
     };
@@ -62,7 +84,11 @@ export async function generateMetadata({ params }:  WhitePaperPageProps) {
 }
 
 
-export default async function ArticlesPage({ params }:  WhitePaperPageProps) {
+export default async function ArticlesPage({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}) {
   const resolvedParams = await params;
   const { lang } = resolvedParams;
   try {
@@ -73,63 +99,79 @@ export default async function ArticlesPage({ params }:  WhitePaperPageProps) {
     const mainData = await getMainFile(langData);
 
     const langPrefix = lang ? `/${lang}` : "";
-    const fullPageUrl = `${baseUrl}${langPrefix}/articles`;
+    const fullPageUrl = `${baseUrl}${langPrefix}/whitepaper`;
 
 
-    // ✅ اسکیمای داینامیک معتبر
-    const schemaData = {
-      "@context": "https://schema.org",
-      "@graph": [
+const schemaData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${baseUrl}#organization`,
+      name: "MetaRang",
+      url: baseUrl,
+      logo: imageUrl
+    },
+
+    {
+      "@type": "WebSite",
+      "@id": `${baseUrl}#website`,
+      url: baseUrl,
+      name: "MetaRang",
+      publisher: {
+        "@id": `${baseUrl}#organization`
+      }
+    },
+
+    {
+      "@type": "WebPage",
+      "@id": `${fullPageUrl}#webpage`,
+      url: fullPageUrl,
+      name: "PSC Token by MetaRang",
+      description:findByUniqueId(mainData, 1757),
+      isPartOf: {
+        "@id": `${baseUrl}#website`
+      },
+      about: {
+        "@id": `${fullPageUrl}#psc-token`
+      }
+    },
+
+    {
+      "@type": "Cryptocurrency",
+      "@id": `${fullPageUrl}#psc-token`,
+      name: "PSC Token",
+      alternateName: "PSC",
+      description:findByUniqueId(mainData, 1757),
+      issuer: {
+        "@id": `${baseUrl}#organization`
+      }
+    },
+
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
         {
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            {
-              "@type": "ListItem",
-              position: 1,
-              name: "صفحه اصلی",
-              item: `${baseUrl}${langPrefix}`,
-            },
-            {
-              "@type": "ListItem",
-              position: 2,
-              name: "مقالات",
-              item: fullPageUrl,
-            },
-          ],
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: baseUrl
         },
         {
-          "@type": "CollectionPage",
-          "@id": `${fullPageUrl}#webpage`,
-          url: fullPageUrl,
-          name: "مقالات متاورس رنگ",
-          description:
-            "در این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنید",
-          isPartOf: {
-            "@type": "WebSite",
-            name: "Metaverse Rang",
-            url: baseUrl,
-          },
-        },
-        {
-          "@type": "ItemList",
-          name: "لیست مقالات متاورس رنگ",
-          itemListOrder: "Descending",
-          numberOfItems: articles.length,
-          itemListElement: articles.map((a, index) => ({
-            "@type": "ListItem",
-            position: index + 1,
-            url: `${baseUrl}${langPrefix}/articles/categories/${a.category}/${a.slug}`,
-            name: a.title,
-            image: a.image || undefined,
-          })),
-        },
-      ],
-    };
+          "@type": "ListItem",
+          position: 2,
+          name: "PSC Token",
+          item: fullPageUrl
+        }
+      ]
+    }
+  ]
+};
 
     // ✅ محتوای اصلی (دقیقاً مثل نسخه‌ی خودت)
     return (
       <section
-        className="w-full relative lg:pt-0 bg-[#f8f8f8] dark:bg-black  px-5"
+        className="w-full  lg:pt-0 bg-[#f5f5f5] dark:bg-black px-5"
         dir={langData.direction}
       >
         <CleanAutoRetryParam />
@@ -137,23 +179,44 @@ export default async function ArticlesPage({ params }:  WhitePaperPageProps) {
           <BreadCrumb params={resolvedParams} />
         </div>
 
-       <div className="flex flex-col lg:flex-row gap-3 lg:gap-10 justify-between w-full">
+        <div className="flex flex-col lg:flex-row gap-3 lg:gap-10 justify-between w-full">
           {/* سمت چپ */}
           <div className="w-full lg:w-[50%]">
-            <EcosystemIntro />
+            <EcosystemIntro params={resolvedParams} mainData={mainData} />
           </div>
-          
+
           {/* سمت راست */}
           <div className=" w-full lg:max-w-[40%]">
-            <PoweredBy />
+            <PoweredBy params={resolvedParams} mainData={mainData} />
           </div>
+        </div>
+        <div className="mt-5 space-y-5">
+          <WhyMetarang params={resolvedParams} mainData={mainData} />
+          <EcosystemFeatures params={resolvedParams} mainData={mainData} />
+          <TrustedBySimple params={resolvedParams} mainData={mainData} />
+          <TrustedBy params={resolvedParams} mainData={mainData} />
+          <div className="my-5 hidden lg:block">
+            <AvalancheBanner params={resolvedParams} mainData={mainData} />
+            <Codebase params={resolvedParams} mainData={mainData} />
+            <FoundationGrants params={resolvedParams} mainData={mainData} />
+          </div>
+          <AvalancheNetwork params={resolvedParams} mainData={mainData} />
+          <NewsStories params={resolvedParams} mainData={mainData} />
+          <SectionTeam mainData={mainData} params={resolvedParams} />
+          <AvalancheSolutions params={resolvedParams} mainData={mainData} />
+          <AvalancheStories params={resolvedParams} mainData={mainData} />
+          <AvalancheEventsCard params={resolvedParams} mainData={mainData} />
+          <MetaFeatures params={resolvedParams} mainData={mainData} />
+          <AvalancheCTA params={resolvedParams} mainData={mainData} />
+          <ContactSection params={resolvedParams} mainData={mainData} />
+
         </div>
 
         {/* ✅ اسکیمای SSR معتبر و داینامیک */}
         <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
-      />
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
+        />
       </section>
     );
   }

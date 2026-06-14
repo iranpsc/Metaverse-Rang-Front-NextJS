@@ -46,7 +46,7 @@ export default async function LangLayout({
   try {
    
 
-    const [langArray, langData, footerTabs] = await Promise.all([
+    const [langArray, langData,] = await Promise.all([
       getLangArray(),
       getTranslation(lang),
       getFooterData({ lang }),
@@ -128,8 +128,8 @@ export default async function LangLayout({
                     </div>
                 </div>}>
                 {children}
-                <div className="w-full xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1 bg-[#f8f8f8] dark:bg-black">
-                  <FooterClient footerTabs={footerTabs} mainData={mainData} params={resolvedParams} />
+                <div className="w-full mb-2 px-5 bg-[#f8f8f8] dark:bg-black">
+                  <FooterClient  mainData={mainData} params={resolvedParams} />
                 </div>
               </Suspense>
             </div>
