@@ -50,7 +50,8 @@ export default async function CitizensLayout({
     );
 
     return (
-      <main className="flex dark:bg-black !w-full" dir={langData.direction}>
+<div className="flex w-full h-screen overflow-hidden">
+        <main className="flex dark:bg-black !w-full h-screen light-scrollbar dark:dark-scrollbar" dir={langData.direction}>
         <SideBar
           pageSide="level"
           langArray={langArray}
@@ -67,6 +68,7 @@ export default async function CitizensLayout({
           {children}
         </div>
       </main>
+</div>
     );
   } catch (error) {
     const serializedError = {

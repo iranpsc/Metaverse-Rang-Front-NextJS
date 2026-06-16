@@ -2,11 +2,15 @@ FROM node:20 AS builder
 
 WORKDIR /app
 
+# مهم: جلوگیری از registry مشکل‌دار
+ENV NPM_CONFIG_REGISTRY=https://registry.npmjs.org/
+
 COPY package*.json ./
-RUN npm install
+RUN npm install --legacy-peer-deps
 
 COPY . .
 
+# ENV ها (build-time برای Next.js)
 ARG NEXT_PUBLIC_SUPABASE_URL
 ARG NEXT_PUBLIC_SUPABASE_ANON_KEY
 ARG NEXT_PUBLIC_BASE_URL
@@ -20,15 +24,17 @@ ENV NEXT_PUBLIC_API_KEY=$NEXT_PUBLIC_API_KEY
 RUN npm run build
 
 
+# Production stage
 FROM node:20-alpine
 
 WORKDIR /app
 
-COPY --from=builder /app/package*.json ./
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/.next ./.next
+ENV NODE_ENV=production
+
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
 
 EXPOSE 3000
 
-CMD ["npm","start"]
+CMD ["node", "server.js"]

@@ -1,300 +1,234 @@
 "use client";
-import { memo, useState, useEffect, useRef } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { Tooltip as ReactTooltip } from "react-tooltip";
-import { translateFooter } from "@/components/utils/education";
-import { imageSources } from "@/components/utils/items";
-import { useTheme } from "next-themes";
-import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
-function Footer({ footerTabs, mainData, params }: any) {
-  const socialItems = [
+import Link from "next/link";
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import Image from "next/image";
+interface FooterProps {
+  params: { lang: string };
+  mainData: any;
+}
+
+interface FooterLink {
+  label: string;
+  href: string;
+  targetBlank?: boolean;
+  disabled?: boolean;
+}
+
+export default function Footer2({ params, mainData }: FooterProps) {
+  const isRTL = params.lang === "fa";
+  const footerLinks: { title: string; links: FooterLink[] }[] = [
     {
-      id: 1,
-      img: "/social/facebook.png",
-      translation: findByUniqueId(mainData, 277),
-      target: translateFooter(footerTabs, "facebook-url"),
+      title: findByUniqueId(mainData, 1737),
+      links: [
+        { label: findByUniqueId(mainData, 303), href: `/${params.lang}/` },
+        { label: findByUniqueId(mainData, 259), href: `/${params.lang}/about/` },
+        {
+          label: findByUniqueId(mainData, 1738),
+          href: "https://github.com/iranpsc",
+          targetBlank: true,
+        },
+        { label: findByUniqueId(mainData, 1739), href: `/${params.lang}/citizens` },
+        {
+          label: findByUniqueId(mainData, 1740),
+          href: `/${params.lang}/version`
+        },
+      ],
     },
     {
-      id: 2,
-      img: "/social/feed.png",
-      translation: findByUniqueId(mainData, 278),
-      target: translateFooter(footerTabs, "fedd-url"),
+      title: findByUniqueId(mainData, 1741),
+      links: [
+        { label: findByUniqueId(mainData, 1742), href: "/build", disabled: true, },
+        { label: findByUniqueId(mainData, 1743), href: `/${params.lang}/whitepaper` },
+        {
+          label: findByUniqueId(mainData, 1744),
+          href: "/sdk",
+          disabled: true,
+        },
+        { label: findByUniqueId(mainData, 1490), href: `/${params.lang}/rand-id/hm` },
+      ],
     },
     {
-      id: 3,
-      img: "/social/instagram.png",
-      translation: findByUniqueId(mainData, 279),
-      target: findByUniqueId(mainData, 299),
+      title: findByUniqueId(mainData, 1745),
+      links: [
+        { label: findByUniqueId(mainData, 1746), href: `/${params.lang}/articles` },
+        { label: findByUniqueId(mainData, 1462), href: `/${params.lang}/education` },
+        {
+          label: findByUniqueId(mainData, 1747),
+          href: "http://faqhub.ir/",
+          targetBlank: true,
+        },
+        { label: findByUniqueId(mainData, 1748), href: `/${params.lang}/calendar` },
+      ],
     },
     {
-      id: 4,
-      img: "/social/linkedin.png",
-      translation: findByUniqueId(mainData, 280),
-      target: findByUniqueId(mainData, 313),
-    },
-    {
-      id: 5,
-      img: "/social/printers.png",
-      translation: findByUniqueId(mainData, 281),
-      target: findByUniqueId(mainData, 311),
-    },
-    {
-      id: 6,
-      img: "/social/whatsapp.png",
-      translation: findByUniqueId(mainData, 282),
-      target: translateFooter(footerTabs, "whatsapp-url"),
-    },
-    {
-      id: 7,
-      img: "/social/youtube.png",
-      translation: findByUniqueId(mainData, 283),
-      target: findByUniqueId(mainData, 298),
-    },
-    {
-      id: 8,
-      img: "/social/rubika.png",
-      translation: findByUniqueId(mainData, 284),
-      target: findByUniqueId(mainData, 307),
-    },
-    {
-      id: 9,
-      img: "/social/telegram.png",
-      translation: findByUniqueId(mainData, 285),
-      target: translateFooter(footerTabs, "telegram-url"),
-    },
-    {
-      id: 10,
-      img: "/social/virgool.png",
-      translation: findByUniqueId(mainData, 286),
-      target: findByUniqueId(mainData, 312),
-    },
-    {
-      id: 11,
-      img: "/social/add.png",
-      translation: findByUniqueId(mainData, 287),
-      target: translateFooter(footerTabs, "add-url"),
-    },
-    {
-      id: 12,
-      img: "/social/aparat.png",
-      translation: findByUniqueId(mainData, 288),
-      target: findByUniqueId(mainData, 310),
-    },
-    {
-      id: 13,
-      img: "/social/dalfak.png",
-      translation: findByUniqueId(mainData, 289),
-      target: findByUniqueId(mainData, 302),
-    },
-    {
-      id: 14,
-      img: "/social/discord.png",
-      translation: findByUniqueId(mainData, 290),
-      target: translateFooter(footerTabs, "discord-url"),
-    },
-    {
-      id: 15,
-      img: "/social/faq.png",
-      translation: findByUniqueId(mainData, 291),
-      target: findByUniqueId(mainData, 308),
-    },
-    {
-      id: 16,
-      img: "/social/filo.png",
-      translation: findByUniqueId(mainData, 292),
-      target: findByUniqueId(mainData, 300),
-    },
-    {
-      id: 17,
-      img: "/social/jabeh.png",
-      translation: findByUniqueId(mainData, 293),
-      target: findByUniqueId(mainData, 304),
-    },
-    {
-      id: 18,
-      img: "/social/medium.png",
-      translation: findByUniqueId(mainData, 294),
-      target: findByUniqueId(mainData, 306),
-    },
-    {
-      id: 19,
-      img: "/social/mp4.png",
-      translation: findByUniqueId(mainData, 295),
-      target: findByUniqueId(mainData, 301),
-    },
-    {
-      id: 20,
-      img: "/social/namasha.png",
-      translation: findByUniqueId(mainData, 296),
-      target: findByUniqueId(mainData, 305),
+      title: findByUniqueId(mainData, 1749),
+      links: [
+        { label: findByUniqueId(mainData, 279), href: "https://www.instagram.com/metaverse_rang" },
+        { label: findByUniqueId(mainData, 280), href: "https://www.linkedin.com/company/metaverse-rang/" },
+        { label: findByUniqueId(mainData, 281), href: "https://youtube.com/@metargb?si=gdM0aFPk5SCsC7z4" },
+        { label: findByUniqueId(mainData, 1753), href: "https://substack.com/@metarang" },
+        { label: findByUniqueId(mainData, 1754), href: "https://medium.com/@metarang.iran" },
+      ],
     },
   ];
 
-  const [inView, setInView] = useState(false);
-  const footerRef = useRef<HTMLDivElement | null>(null);
-
-  const { theme } = useTheme();
-
-  // گرفتن آخرین ورژن از API
-  const [version, setVersion] = useState<string>("");
-
-  useEffect(() => {
-    async function fetchVersion() {
-      try {
-        const res = await fetch(
-          "https://api.metarang.com/api/calendar?type=version&page=1",
-          { cache: "no-store" }
-        );
-        if (!res.ok) throw new Error("API error");
-        const data = await res.json();
-        const latest = data?.data?.[0]?.version_title || "N/A";
-        setVersion(latest);
-      } catch (err) {
-        console.error("خطا در دریافت نسخه:", err);
-      }
-    }
-    fetchVersion();
-  }, []);
-
-  // IntersectionObserver برای lazy load
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0];
-        if (entry.isIntersecting) {
-          setInView(true);
-        }
-      },
-      { rootMargin: "0px", threshold: 0.1 }
-    );
-
-    if (footerRef.current) {
-      observer.observe(footerRef.current);
-    }
-
-    return () => {
-      if (footerRef.current) {
-        observer.unobserve(footerRef.current);
-      }
-    };
-  }, []);
-
-  if (!inView) {
-    return <div ref={footerRef} style={{ minHeight: "500px" }} />;
-  }
-
   return (
-    <div ref={footerRef}>
-      {/* <div className="h-fit w-full mt-[200px] flex flex-wrap gap-[15px] py-5 rounded-[10px] items-center justify-center bg-white dark:bg-[#1A1A18]">
-        {imageSources.map((item: any, i: number) => (
-          <Link key={i} href={item.target} target="_blank">
-            <Image
-              data-tooltip-id={item.url}
-              src={item.url}
-              loading="lazy"
-              alt={findByUniqueId(mainData, item.unique_id)}
-              width={1000}
-              height={1000}
-              className="w-[60px] h-[60px] cursor-pointer"
-            />
-            <ReactTooltip
-              id={item.url}
-              place="top"
-              content={findByUniqueId(mainData, item.unique_id)}
-              className="!bg-[#E9E9E9] !text-[#908F95] dark:!bg-[#434343] !font-azarMehr !font-medium dark:!text-white !text-[14px]"
-            />
-          </Link>
-        ))}
-      </div> */}
+    <footer className="bg-white dark:bg-[#1A1A18]  rounded-[40px] rounded-se-[120px] 2xl:rounded-se-[260px] mt-10">
+      <div className="overflow-hidden ">
+        <div className="p-5 xl:p-5 2xl:p-9 3xl:p-14 3xl:px-[76px] 3xl:px  mt-5">
+          <div className="grid gap-10 gap-y-12 md:grid-cols-[80px_repeat(4,1fr)]">
 
-      <div className="h-fit pb-5 mt-20 rounded-[10px] w-full bg-white dark:bg-[#1A1A18] flex flex-col gap-5 lg:flex-row 2xl:gap-10 justify-between ">
-        <div className="col-span-6 xl:col-span-4 mt-2 pe-2">
-          <div className="w-full pt-4 px-5 flex flex-row justify-start items-center gap-5 ">
-            <Image
-              src="/logo.png"
-              alt="logo"
-              width={71}
-              height={70}
-              className="w-[60px] h-[60px] inline "
-            />
-            <div className="flex flex-col h-[60px] justify-between items-start">
-              <p className="text-[22px] mt-[-9px] font-bold font-azarMehr dark:text-white">
-                {findByUniqueId(mainData, 905)}
-              </p>
-              <p className="mb-[-3px] font-azarMehr font-normal dark:text-white">
-                {findByUniqueId(mainData, 273)}
-              </p>
-            </div>
-          </div>
-          <p className="px-5 pt-6 font-normal text-justify font-azarMehr text-[#4C4C4C] dark:text-[#D4D4D4] text-[20px] leading-9">
-            {findByUniqueId(mainData, 273)} <br />
-            {findByUniqueId(mainData, 274)}
-            <br />
-            {findByUniqueId(mainData, 275)}
-          </p>
-        </div>
-        <div className="flex items-center justify-center px-5">
-          <div
-  dangerouslySetInnerHTML={{
-    __html: `<a referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/?id=721065&Code=fLkLFNhooBCR33C1ntVXIBxJFAj9gf3q'><img referrerpolicy='origin' src='https://trustseal.enamad.ir/logo.aspx?id=721065&Code=fLkLFNhooBCR33C1ntVXIBxJFAj9gf3q' alt='' style='cursor:pointer' code='fLkLFNhooBCR33C1ntVXIBxJFAj9gf3q'></a>`,
-  }}
-/>
-        </div>
-        <div className="xl:col-span-2 col-span-6 mt-6 w-full flex flex-col items-center ">
-          <p className="text-center w-full font-medium font-azarMehr text-[20px] text-[#4C4C4C] dark:text-white">
-            {findByUniqueId(mainData, 276)}
-          </p>
-
-          <div className="xl:grid xl:grid-cols-5 3xl:grid-cols-7 flex flex-wrap gap-3 max-w-fit lg:w-full justify-center mt-6 ">
-            {socialItems.map((item: any) => (
-              <div key={item.id}>
-                <Link href={item.target} target="_blank">
-                  <Image
-                    data-tooltip-id={`${item.id}`}
-                    key={item.id}
-                    src={item.img}
-                    alt={item.translation}
-                    width={1000}
-                    height={1000}
-                    className="w-[63px] h-[64px] col-span-1"
-                  />
-                </Link>
-                <ReactTooltip
-                  id={`${item.id}`}
-                  place="top"
-                  content={item.translation}
-                  className="!bg-[#E9E9E9] !text-[#908F95] dark:!bg-[#434343] !font-azarMehr !font-medium dark:!text-white !text-[14px]"
+            {/* Logo */}
+            <div className="flex items-center lg:items-start justify-center lg:justify-start px-5 lg:px-0 lg:flex-col gap-5">
+              <Image
+                src="/logo.png"
+                alt="logo"
+                width={71}
+                height={70}
+                className="w-[60px] h-[60px] inline "
+              />
+              <div className="flex items-center justify-center ">
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: `<a referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/?id=721065&Code=fLkLFNhooBCR33C1ntVXIBxJFAj9gf3q'><img referrerpolicy='origin' src='https://trustseal.enamad.ir/logo.aspx?id=721065&Code=fLkLFNhooBCR33C1ntVXIBxJFAj9gf3q' alt='' style='cursor:pointer' code='fLkLFNhooBCR33C1ntVXIBxJFAj9gf3q'></a>`,
+                  }}
                 />
+              </div>
+            </div>
+
+            {/* Links */}
+            {footerLinks.map((section) => (
+              <div key={section.title}>
+                <p className="mb-5 2xl:mb-12 lg:mt-3  text-3xl 3xl:text-4xl font-medium text-[#1B1B1B] dark:text-[#FFFFFF]">
+                  {section.title}
+                </p>
+
+                <ul className="space-y-2 2xl:space-y-5 list-none">
+                  {section.links.map((item) => {
+                    const isExternal =
+                      item.targetBlank || item.href.startsWith("http");
+
+                    const baseClass =
+                      "peer flex items-center dark:text-[#9A9A9A] gap-2 3xl:text-3xl transition";
+
+                    const isDisabled = item.disabled;
+
+                    const linkClass = isDisabled
+                      ? "text-[#aaa] pointer-events-none opacity-50"
+                      : "text-[#222]";
+
+                    return (
+                      <li key={item.href}>
+                        {isDisabled ? (
+                          <span className={`${baseClass} ${linkClass}`}>
+                            {item.label}
+                            <span className="text-[#ccc] !text-4xl ms-1">›</span>
+                          </span>
+                        ) : (
+                          <Link
+                            href={item.href}
+                            className={`${baseClass} ${linkClass}`}
+                            {...(isExternal
+                              ? {
+                                target: "_blank",
+                                rel: "noopener noreferrer",
+                              }
+                              : {})}
+                          >
+                            {item.label}
+
+                            {/* arrow فقط برای فعال‌ها */}
+                            <span className="text-[#8A2BE2] ms-1 !text-4xl transition-transform peer-hover:translate-x-1  rtl:peer-hover:translate-x-[-4px]">
+                              ›
+                            </span>
+                          </Link>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
               </div>
             ))}
           </div>
         </div>
+
+        {/* MARQUEE */}
+        <div className="relative mt-10 mb-7 h-[450px]  flex items-center overflow-hidden ">
+          <div className={`marquee ${isRTL ? "rtl" : "ltr"}`}>
+            <div className="track">
+              <div className="group">
+                <span className="text-neutral-900 dark:text-white">{findByUniqueId(mainData, 148)}</span>
+              </div>
+              <div className="group">
+                <span className="text-neutral-900 dark:text-white">{findByUniqueId(mainData, 148)}</span>
+              </div>
+              <div className="group">
+                <span className="text-neutral-900 dark:text-white">{findByUniqueId(mainData, 148)}</span>
+              </div>
+              <div className="group">
+                <span className="text-neutral-900 dark:text-white">{findByUniqueId(mainData, 148)}</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* کپی‌رایت + نمایش ورژن */}
-      <div className="my-3 text-center text-black dark:text-white">
-        {findByUniqueId(mainData, 411)}&nbsp;|&nbsp;
-        {findByUniqueId(mainData, 1411)}&nbsp;
-        <a
-          className="text-light-primary dark:text-dark-yellow"
-          href="https://web.irpsc.com/"
-          target="_blank"
-        >
-          {findByUniqueId(mainData, 1412)}&nbsp;
-        </a>
-        |&nbsp;
-        <Link href={`/${params.lang}/version`}
-
-          target="_blank"
-        >
-          {version}&nbsp;
-        </Link>
-
-      </div>
-    </div>
-  );
+      {/* Styles */}
+      <style jsx>{`
+.marquee {
+  overflow: hidden;
+  width: 100%;
 }
 
-export default memo(Footer);
+/* base track */
+.track {
+  display: flex;
+  width: max-content;
+}
+
+/* LTR animation (default) */
+.ltr .track {
+  animation: scroll-ltr 18s linear infinite;
+}
+
+/* RTL animation */
+.rtl .track {
+  animation: scroll-rtl 10s linear infinite;
+}
+
+.group {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.group span {
+  font-size: 400px;
+  font-weight: 700;
+  white-space: nowrap;
+  padding-right: 80px;
+}
+
+/* LTR → چپ به راست */
+@keyframes scroll-ltr {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* RTL → راست به چپ (برعکس) */
+@keyframes scroll-rtl {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(50%);
+  }
+}
+`}</style>
+    </footer>
+  );
+}

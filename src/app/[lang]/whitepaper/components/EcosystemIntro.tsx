@@ -1,7 +1,11 @@
 // components/EcosystemIntro.tsx
 'use client';
-
-export default function EcosystemIntro() {
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
+interface EcosystemIntroProps {
+  params: { lang: string };
+  mainData: { mainData: string };
+}
+export default function EcosystemIntro({ params, mainData }: EcosystemIntroProps) {
   const handleScroll = () => {
     window.scrollTo({
       top: window.innerHeight,
@@ -21,7 +25,7 @@ export default function EcosystemIntro() {
 
         </div>
         <p className="text-black dark:text-white font-bold text-5xl text-start">10:37 PM</p>
-        <p className="text-[#585858] text-start lg:text-3xl">Wednesday, February 25, 2026 </p>
+        <p className="text-[#585858] dark:text-neutral-400 text-start lg:text-3xl">Wednesday, February 25, 2026 </p>
       </div>
       <div className="mt-12">
         <button
@@ -38,9 +42,9 @@ export default function EcosystemIntro() {
               <path className="stroke-black dark:stroke-white" d="M32.2295 202.586H188.771" stroke-width="12" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
           </div>
-          <div className="flex flex-col gap-2 items-end justify-end py-4">
-            <span className="tracking-wider dark:text-white ">Scroll</span>
-            <span className="text-sm  text-[#656565] ">to explore page</span>
+          <div className="flex flex-col gap-2 items-start ltr:items-end justify-end text-start py-4">
+            <span className="tracking-wider dark:text-white ">{findByUniqueId(mainData, 1657)}</span>
+            <span className="text-sm  text-[#575757] dark:text-neutral-400 ">{findByUniqueId(mainData, 1658 )}</span>
           </div>
         </button>
       </div>

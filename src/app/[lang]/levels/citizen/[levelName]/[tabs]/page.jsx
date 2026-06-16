@@ -23,7 +23,7 @@ const Gem = dynamic(() => import('@/components/module/levelComponent/Gem'));
 const Gift = dynamic(() => import('@/components/module/levelComponent/Gift'));
 const Permission = dynamic(() => import('@/components/module/levelComponent/Permissions'));
 const Prize = dynamic(() => import('@/components/module/levelComponent/Prize'));
-const DynamicFooter = dynamic(() => import('@/components/module/footer/DynamicFooter'));
+const Footer = dynamic(() => import('@/components/module/footer/Footer'));
 const BreadCrumb = dynamic(() => import('@/components/shared/BreadCrumb'));
 const ImageBox = dynamic(() => import('@/components/module/levelComponent/ImageBox'));
 import { Features } from "@/components/module/levelComponent/Features";
@@ -283,9 +283,12 @@ export default async function LevelSinglePage({ params }) {
           <Features mainData={mainData} params={resolvedParams} />
         </div>
 
-        <div className="flex flex-col justify-center items-center xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
-          <DynamicFooter footerTabs={footerTabs} mainData={mainData} params={resolvedParams} />
-        </div>
+          <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1 mt-10">
+            <Footer
+              mainData={mainData}
+              params={resolvedParams}
+            />
+          </div>
       </>
     );
   } catch (error) {
