@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev --webpack -p 5175",
     "build": "next build --webpack",
-    "start": "next start -p 5175",
+    "start": "next start",
     "lint": "next lint",
     "release": "standard-version",
     "json": "json-server --watch db.json --port 3001"
@@ -68,7 +68,7 @@
     "sharp": "^0.34.4",
     "slick-carousel": "^1.8.1",
     "swiper": "12.1.2",
-    "three": "^0.182.0",
+    "three": "^0.183.0",
     "typescript": "5.0.4",
     "webpack": "^5.82.0",
     "yup": "^1.2.0"

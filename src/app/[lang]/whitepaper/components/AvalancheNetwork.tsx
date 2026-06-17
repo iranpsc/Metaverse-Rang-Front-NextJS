@@ -156,7 +156,7 @@ export default function AvalancheNetwork({ params, mainData }: AvalancheNetworkP
                                     <div className="flex flex-row items-center justify-between gap-1 lg:gap-4">
                                         <div className="flex items-center gap-3">
                                             <Image src={"/whitepaper/coin.png"} alt='coin pic' width={71} height={71} className='rounded-full aspect-square w-[45px] h-[45px] lg:w-[71px] lg:h-[71px]' />
-                                            <div className="flex flex-col items-start gap-1">
+                                            <div className="hidden lg:flex flex-col items-start gap-1">
                                                 <span className="dark:text-white text-black underline font-mono text-xs lg:text-lg font-bold">
                                                     {block.blockNumber}
                                                 </span>
@@ -165,16 +165,33 @@ export default function AvalancheNetwork({ params, mainData }: AvalancheNetworkP
                                                 </span>
                                             </div>
                                         </div>
-                                        <div className="flex flex-col gap-1">
+                                        <div className="hidden lg:flex flex-col gap-1">
                                             <p className="dark:text-white text-black flex items-center flex-row-reverse gap-2 text-sm font-mono">
                                                 <span className="text-neutral-500 hidden lg:block">{findByUniqueId(mainData, 1699)}</span>
                                                 <span className="underline text-wrap text-xs lg:text-base">{block.hash}</span>
                                             </p>
                                             <p className=" text-neutral-500 text-sm text-right">{block.txCount} TX</p>
                                         </div>
+                                        <div  className='flex flex-col lg:hidden items-center'>
+                                                                                 <div className="flex  items-start gap-1">
+                                                <span className="dark:text-white text-black underline font-mono break-all text-xs lg:text-lg font-bold">
+                                                    {block.blockNumber}
+                                                </span>
+                                                <span className="text-xs text-neutral-500">
+                                                    {block.timeAgo} {findByUniqueId(mainData, 1698)}
+                                                </span>
+                                            </div>
+                                        <div className="flex  gap-1">
+                                            <p className="dark:text-white text-black flex items-center flex-row-reverse gap-2 text-sm font-mono">
+                                                <span className="text-neutral-500 hidden lg:block">{findByUniqueId(mainData, 1699)}</span>
+                                                <span className="underline text-wrap text-xs lg:text-base break-all">{block.hash}</span>
+                                            </p>
+                                            <p className=" text-neutral-500 text-sm text-right">{block.txCount} TX</p>
+                                        </div>
+                                        </div>
                                         <div className="flex items-center gap-6">
                                             <div className="text-right bg-[#ECECEC] dark:bg-[#ECECEC] py-2 lg:py-3 px-2 lg:px-3 rounded-xl">
-                                                <p className="text-black text-xs lg:text-sm font-mono">{block.amount}</p>
+                                                <p className="text-black text-xs lg:text-sm font-mono text-center">{block.amount}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -195,7 +212,7 @@ export default function AvalancheNetwork({ params, mainData }: AvalancheNetworkP
                                     <div className="flex flex-row items-center justify-between gap-4">
                                         <div className="flex items-center gap-3">
                                             <Image src={"/whitepaper/coin.png"} alt='transaction pic' width={71} height={71} className='rounded-full aspect-square w-[45px] h-[45px] lg:w-[71px] lg:h-[71px]' />
-                                            <div className="flex flex-col items-start gap-1">
+                                            <div className="hidden lg:flex flex-col items-start gap-1">
                                                 <span className="dark:text-white text-black underline font-mono text-xs lg:text-lg font-bold">
                                                     {tx.hash}
                                                 </span>
@@ -204,12 +221,29 @@ export default function AvalancheNetwork({ params, mainData }: AvalancheNetworkP
                                                 </span>
                                             </div>
                                         </div>
-                                        <div className="flex flex-col gap-1">
+                                        <div className="lg:flex flex-col gap-1 hidden">
                                             <p className="dark:text-white text-black flex items-center flex-row-reverse gap-2 text-sm font-mono">
                                                 <span className="text-neutral-500 hidden lg:block">HASH</span>
                                                 <span className="underline text-xs lg:text-base">{tx.hash}</span>
                                             </p>
                                             <p className="text-neutral-500 text-sm text-right">{tx.txCount} TX</p>
+                                        </div>
+                                        <div className='flex flex-col lg:hidden items-center'>
+                                            <div className="flex lg:flex-col items-start gap-1">
+                                                <span className="dark:text-white text-black text-wrap break-all lg:underline font-mono text-xs lg:text-lg font-bold">
+                                                    {tx.hash}
+                                                </span>
+                                                <span className="text-xs text-neutral-500">
+                                                    {tx.timeAgo} {findByUniqueId(mainData, 1698)}
+                                                </span>
+                                            </div>
+                                            <div className="flex lg:flex-col gap-1">
+                                                <p className="dark:text-white text-black flex items-center flex-row-reverse gap-2 text-sm font-mono">
+                                                    <span className="text-neutral-500 hidden lg:block">HASH</span>
+                                                    <span className="underline text-xs lg:text-base break-all">{tx.hash}</span>
+                                                </p>
+                                                <p className="text-neutral-500 text-sm text-right">{tx.txCount} TX</p>
+                                            </div>
                                         </div>
                                         <div className="flex items-center">
                                             <div className="text-right bg-[#ECECEC] dark:bg-[#ECECEC] py-2 lg:py-3 px-2 lg:px-3 rounded-xl">

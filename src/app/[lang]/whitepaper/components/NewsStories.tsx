@@ -212,7 +212,7 @@ export default function NewsStories({ params, mainData }: NewsStoriesProps) {
     };
 
     return (
-        <section className="w-full bg-white dark:bg-[#1A1A18] py-16  overflow-hidden rounded-[40px] rounded-se-[136px]">
+        <section className="w-full bg-white dark:bg-[#1A1A18] py-16  overflow-hidden rounded-[40px] rounded-se-[120px]">
             <div className="px-5 lg:px-10 w-full">
 
                 {/* Header */}

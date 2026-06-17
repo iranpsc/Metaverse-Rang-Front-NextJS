@@ -65,7 +65,7 @@ export default function TrustedBy({ params, mainData }: TrustedByProps) {
         },
     ];
     return (
-        <section className="py-12 px-4 2xl:px-10  bg-white dark:bg-[#1A1A18] rounded-[40px] rtl:rounded-tr-[200px] ltr:rounded-tl-[200px]">
+        <section className="py-12 px-4 2xl:px-10  bg-white dark:bg-[#1A1A18] rounded-[40px] rtl:rounded-tr-[120px] ltr:rounded-tl-[120px] lg:rtl:rounded-tr-[200px] lg:ltr:rounded-tl-[200px]">
             <div className="">
                 {/* متن اصلی */}
                 <div className='flex gap-10 mt-5 items-center border-b border-solid border-x-0 border-t-0 dark:border-[#434343] border-[#D9D9D9] pb-10'>

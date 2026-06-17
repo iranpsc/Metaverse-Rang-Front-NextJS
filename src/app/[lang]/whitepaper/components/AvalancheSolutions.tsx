@@ -198,7 +198,7 @@ export default function AvalancheSolutions({ params, mainData }: AvalancheSoluti
                 dark:bg-[#1A1A18]
                 p-5
                 xl:p-10
-                rounded-es-[180px]
+                rounded-es-[120px]
             "
         >
             {/* BACKGROUND GLOW */}
