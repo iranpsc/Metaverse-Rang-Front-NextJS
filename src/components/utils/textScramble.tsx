@@ -57,7 +57,7 @@ function TextScramble({
         let lastTime = 0;
         let started = false;
 
-        const chars = text.split('');
+        const chars = (text || '').split('');
 
         const observer =
             new IntersectionObserver(
