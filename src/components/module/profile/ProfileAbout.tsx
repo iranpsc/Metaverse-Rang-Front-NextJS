@@ -1,5 +1,5 @@
 "use client";
-import ModalCard from "@/components/templates/ModalCard";
+import ModalCard from "@/components/modal/ModalCard";
 import Image from "next/image";
 import { targetData } from "@/utils/targetDataName";
 import { motion } from "framer-motion";

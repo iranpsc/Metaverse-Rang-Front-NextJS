@@ -6,7 +6,7 @@ import ListMenuArrow from "./list/ListMenuArrow";
 import DropdownLanguageModule from "./list/dropdowns/DropdownLanguageModule";
 import { Modals_fa, Modals_en } from "@/components/utils/modals-content";
 import { useEffect, useRef, useState } from "react";
-import Modal from "@/components/templates/modal";
+import Modal from "@/components/modal/modal";
 import ListMenuActiveIconModule from "./list/ListMenuActiveIconModule";
 import { useRouter, usePathname } from "next/navigation";
 import Tooltip from "@mui/material/Tooltip";

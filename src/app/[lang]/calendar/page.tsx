@@ -6,13 +6,13 @@ import {
   getLangArray,
 } from "@/components/utils/actions";
 import BreadCrumb from "@/components/shared/BreadCrumb";
-import EventsCalendar from "./components/EventsCalendar";
+import EventsCalendar from "../../../components/templates/envent/EventsCalendar";
 import { mapEvents, MappedEventItem } from "@/utils/mapEvents";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import htmlTruncate from "html-truncate";
-import CustomErrorPage from "@/components/shared/CustomErrorPage";
-import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
-import FixLinks from "./components/FixLinks";
+import CustomErrorPage from "@/components/error/CustomErrorPage";
+import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
+import FixLinks from "../../../components/templates/envent/FixLinks";
 interface CalendarPageProps {
   params: Promise<{ lang: string }>;
 }

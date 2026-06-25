@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { ArrowRight } from "@/components/svgs";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import axios from "axios";
-import VideoCard from "@/components/templates/card/VideoCard";
+import VideoCard from "@/components/card/VideoCard";
 import { useCookies } from "react-cookie";
 import Link from "next/link";
 

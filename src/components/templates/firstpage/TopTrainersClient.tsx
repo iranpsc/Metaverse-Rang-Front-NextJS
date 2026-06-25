@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowRight } from "@/components/svgs";
-import UserCard from "@/components/templates/card/UserCard";
+import UserCard from "@/components/card/UserCard";
 import { useState } from "react";
 
 export default function TopTrainersClient({

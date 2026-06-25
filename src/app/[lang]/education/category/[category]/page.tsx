@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
-import NotFoundPage from "@/components/shared/NotFoundPage";
+import NotFoundPage from "@/components/error/NotFoundPage";
 
 const BreadCrumb = dynamic(() => import("@/components/shared/BreadCrumb"),);
 
@@ -20,8 +20,8 @@ import {
 } from "@/components/utils/actions";
 
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import CustomErrorPage from "@/components/shared/CustomErrorPage";
-import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
+import CustomErrorPage from "@/components/error/CustomErrorPage";
+import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 // ✅ تابع ساخت متن کوتاه سمت سرور
 async function makeLessCharacter(_desc: any, limit: number = 200) {
   return _desc ? _desc.slice(0, limit) : "";

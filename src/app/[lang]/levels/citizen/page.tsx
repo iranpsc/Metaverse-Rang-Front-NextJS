@@ -11,12 +11,12 @@ import {
 } from "@/components/utils/actions";
 
 import Footer from "@/components/module/footer/Footer";
-import LevelsClient from "@/components/module/levelComponent/LevelsClient";
+import LevelsClient from "@/components/module/levelComponents/LevelsClient";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import { getStaticMenu } from "@/components/utils/constants";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import CustomErrorPage from "@/components/shared/CustomErrorPage";
-import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
+import CustomErrorPage from "@/components/error/CustomErrorPage";
+import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 
 /* -------------------------------------------------------------------------- */
 /*                                   Metadata                                 */

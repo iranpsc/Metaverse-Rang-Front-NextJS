@@ -8,7 +8,7 @@ import { SwiperSlide } from "swiper/react";
 import "swiper/css";
 import Link from "next/link";
 import { ArrowRight } from "@/components/svgs";
-import ArticleCard from "../../templates/card/ArticleCard";
+import ArticleCard from "../../card/ArticleCard";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { supabase } from "@/utils/lib/supabaseClient";
 import { articles as localArticles } from "@/components/utils/articles";

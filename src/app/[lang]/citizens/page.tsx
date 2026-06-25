@@ -8,14 +8,14 @@ import {
   getFooterData,
   getLangArray
 } from "@/components/utils/actions";
-import SearchComponent from "@/components/shared/SearchComponent";
+import SearchComponent from "@/components/Search/SearchComponent";
 import BreadCrumb from "@/components/shared/BreadCrumb";
-import CitizenList from "@/components/templates/citizen/citizenList";
+import CitizenList from "@/components/list/citizenList";
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
 import React, { Suspense } from 'react';
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import CustomErrorPage from "@/components/shared/CustomErrorPage";
-import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
+import CustomErrorPage from "@/components/error/CustomErrorPage";
+import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 // SEO**
 export async function generateMetadata(
   { params }: { params: Promise<{ lang: string }> }

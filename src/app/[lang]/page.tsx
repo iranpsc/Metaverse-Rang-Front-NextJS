@@ -2,8 +2,8 @@ import { Frame1, Frame2 } from "@/components/svgs";
 import React, { Suspense } from 'react';
 import { headers } from 'next/headers';
 import { Metadata } from 'next';
-import CustomErrorPage from "@/components/shared/CustomErrorPage";
-import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
+import CustomErrorPage from "@/components/error/CustomErrorPage";
+import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 
 // Lazy load components
 const HeaderFirstPage = React.lazy(() => import('@/components/templates/firstpage/HeaderFirstPage'));

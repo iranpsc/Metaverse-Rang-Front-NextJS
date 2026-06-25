@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import UserCard from "@/components/templates/card/UserCard";
+import UserCard from "@/components/card/UserCard";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { getAllCitizen } from "@/components/utils/actions"; // فرض می‌کنیم این action/server-action هست
 

@@ -1,6 +1,6 @@
 import BreadCrumb from "@/components/shared/BreadCrumb";
-import CustomErrorPage from "@/components/shared/CustomErrorPage";
-import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
+import CustomErrorPage from "@/components/error/CustomErrorPage";
+import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 import {
   getTranslation,
   getMainFile,

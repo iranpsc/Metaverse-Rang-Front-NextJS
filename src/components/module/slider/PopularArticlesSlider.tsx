@@ -8,7 +8,7 @@ import "swiper/css";
 import Link from "next/link";
 import { ArrowRight } from "@/components/svgs";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import ArticleCard from "../../templates/card/ArticleCard";
+import ArticleCard from "../../card/ArticleCard";
 import { supabase } from "@/utils/lib/supabaseClient";
 
 // ================= TYPES =================

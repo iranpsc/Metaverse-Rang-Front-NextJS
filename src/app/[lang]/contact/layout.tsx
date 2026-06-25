@@ -1,7 +1,7 @@
 // app/[lang]/contact/layout.tsx
 
 import { getTranslation } from "@/components/utils/actions";
-import CustomErrorPage from "@/components/shared/CustomErrorPage";
+import CustomErrorPage from "@/components/error/CustomErrorPage";
 
 // این دو خط حیاتی هستن – بدون کش، همیشه تازه و بدون باگ
 export const dynamic = "force-dynamic";

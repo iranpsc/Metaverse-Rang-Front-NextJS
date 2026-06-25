@@ -6,8 +6,8 @@ import {
   findByTabName,
   findByModalName,
 } from "@/components/utils/actions";
-import CustomErrorPage from "@/components/shared/CustomErrorPage";
-import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
+import CustomErrorPage from "@/components/error/CustomErrorPage";
+import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 export default async function CitizensLayout({
   children,
   params,

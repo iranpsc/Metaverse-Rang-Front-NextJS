@@ -9,10 +9,10 @@ import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import SyncLoader from "react-spinners/SyncLoader";
 
 const SearchComponent = dynamic(
-  () => import("@/components/shared/SearchComponent"),
+  () => import("@/components/Search/SearchComponent"),
   // { suspense: false }
 );
-import ListVideos from "@/components/templates/list/ListVideosSubCategories";
+import ListVideos from "@/components/list/ListVideosSubCategories";
 
 export default function SubcategoryPageSection({ subCategoryData, params, mainData }: any) {
   const [page, setPage] = useState(1);

@@ -1,12 +1,12 @@
 import Link from "next/link";
 import BreadCrumb from "@/components/shared/BreadCrumb";
-import CategoryHeader from "../../../articles/categories/[category]/components/CategoryHeader";
-import CategoryItemsGrid from "./components/CategoryItemsGrid";
-import SearchComponent from "@/components/shared/SearchComponent";
+import CategoryHeader from "../../../../../components/ui/header/ArticleCategoryHeader";
+import CategoryItemsGrid from "../../../../../components/features/CategoryItemsGrid";
+import SearchComponent from "@/components/Search/SearchComponent";
 import { getTranslation, getMainFile } from "@/components/utils/actions";
 import { supabase } from "@/utils/lib/supabaseClient";
-import CustomErrorPage from "@/components/shared/CustomErrorPage";
-import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
+import CustomErrorPage from "@/components/error/CustomErrorPage";
+import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 
 // ایمپورت دیتای استاتیک به عنوان fallback
 import fallbackNewsData from "@/components/utils/news.json";

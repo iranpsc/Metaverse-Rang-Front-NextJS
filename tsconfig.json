@@ -73,7 +73,7 @@
     "src/components/module/sidebar/LoginMenuModule.jsx",
     "src/components/module/sidebar/HeaderMobile.tsx",
     "src/app/[lang]/api/sendEmail/route.ts",
-    "src/components/module/levelComponent/TabSelector.tsx",
+    "src/components/module/levelComponents/TabSelector.tsx",
     ".next/dev/types/**/*.ts",
     "src/app/[lang]/page.tsx",
     "src/app/[lang]/levels/citizen/[levelName]/[tabs]/page.jsx"

@@ -1,7 +1,7 @@
 // app/[lang]/about/layout.tsx
 
 import { getTranslation } from "@/components/utils/actions";
-import CustomErrorPage from "@/components/shared/CustomErrorPage";
+import CustomErrorPage from "@/components/error/CustomErrorPage";
 // حیاتی 👇
 export const dynamic = "force-dynamic";
 export const revalidate = 0;

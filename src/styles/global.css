@@ -614,3 +614,36 @@ input {
     transition: none !important;
   }
 }
+.clip-corner {
+  position: relative;
+  display: inline-flex;
+  cursor: pointer;
+}
+
+.clip-corner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #111;
+  clip-path: polygon(
+    0 14px,
+    14px 0,
+    calc(100% - 22px) 0,
+    100% 22px,
+    100% calc(100% - 14px),
+    calc(100% - 14px) 100%,
+    14px 100%,
+    0 calc(100% - 14px)
+  );
+  transition: background 0.2s;
+  z-index: 0;
+}
+
+.clip-corner:hover::before {
+  background: #222;
+}
+
+.clip-corner > * {
+  position: relative;
+  z-index: 1;
+}

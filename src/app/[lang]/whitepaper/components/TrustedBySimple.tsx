@@ -3,7 +3,7 @@
 
 import { useRef, useEffect } from 'react';
 import { Framer, Hex, DropBox, Wings } from "@/components/svgs/SvgWhitepaper";
-import TextScramble from '@/components/utils/textScramble';
+import TextScramble from '@/components/animations/textScramble';
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 interface AvalancheTrustedProps {
   params: { lang: string };

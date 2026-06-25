@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 
-import NotFoundPage from "@/components/shared/NotFoundPage";
+import NotFoundPage from "@/components/error/NotFoundPage";
 import {
   getFooterData,
   getTranslation,
@@ -15,18 +15,18 @@ import {
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import TabContentWrapper from "./TabContentWrapper";
 import TabLoadingProvider from "./TabLoadingProvider";
-import CustomErrorPage from "@/components/shared/CustomErrorPage";
-import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
-const GeneralInfo = dynamic(() => import('@/components/module/levelComponent/GeneralInfo'));
-const TabSelector = dynamic(() => import('@/components/module/levelComponent/TabSelector'));
-const Gem = dynamic(() => import('@/components/module/levelComponent/Gem'));
-const Gift = dynamic(() => import('@/components/module/levelComponent/Gift'));
-const Permission = dynamic(() => import('@/components/module/levelComponent/Permissions'));
-const Prize = dynamic(() => import('@/components/module/levelComponent/Prize'));
+import CustomErrorPage from "@/components/error/CustomErrorPage";
+import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
+const GeneralInfo = dynamic(() => import('@/components/module/levelComponents/GeneralInfo'));
+const TabSelector = dynamic(() => import('@/components/module/levelComponents/TabSelector'));
+const Gem = dynamic(() => import('@/components/module/levelComponents/Gem'));
+const Gift = dynamic(() => import('@/components/module/levelComponents/Gift'));
+const Permission = dynamic(() => import('@/components/module/levelComponents/Permissions'));
+const Prize = dynamic(() => import('@/components/module/levelComponents/Prize'));
 const Footer = dynamic(() => import('@/components/module/footer/Footer'));
 const BreadCrumb = dynamic(() => import('@/components/shared/BreadCrumb'));
-const ImageBox = dynamic(() => import('@/components/module/levelComponent/ImageBox'));
-import { Features } from "@/components/module/levelComponent/Features";
+const ImageBox = dynamic(() => import('@/components/module/levelComponents/ImageBox'));
+import { Features } from "@/components/module/levelComponents/Features";
 
 
 const STATIC_ROUTE_NAMES = [

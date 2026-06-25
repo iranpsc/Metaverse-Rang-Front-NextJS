@@ -1,13 +1,13 @@
 // app/[lang]/news/page.tsx
 
 import BreadCrumb from "@/components/shared/BreadCrumb";
-import LatestNews from "./components/LatestNews";
-import PopularNews from "./components/PopularNews";
-import SearchComponent from "@/components/shared/SearchComponent";
-import BreakingNewsSlider from "./components/BreakingNewsSlider/BreakingNewsSlider.server";
-import CustomErrorPage from "@/components/shared/CustomErrorPage";
-import NewsCategoriesSection from "./components/NewsCategoriesSection";
-import VideoNewsList from "./components/VideoNewsList";
+import LatestNews from "../../../components/features/LatestNews";
+import PopularNews from "../../../components/features/PopularNews";
+import SearchComponent from "@/components/Search/SearchComponent";
+import BreakingNewsSlider from "../../../components/features/BreakingNewsSlider/BreakingNewsSlider.server";
+import CustomErrorPage from "@/components/error/CustomErrorPage";
+import NewsCategoriesSection from "../../../components/features/NewsCategoriesSection";
+import VideoNewsList from "../../../components/features/VideoNewsList";
 import { supabase } from "@/utils/lib/supabaseClient";
 import { getTranslation, getMainFile } from "@/components/utils/actions";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";

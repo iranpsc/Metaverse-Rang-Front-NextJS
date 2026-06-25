@@ -1,4 +1,4 @@
-import { State, DropdownItem } from "@/types/reducerTypes";
+import { State, DropdownItem } from "@/types/reducer";
 
 type Field = {
   name: string;

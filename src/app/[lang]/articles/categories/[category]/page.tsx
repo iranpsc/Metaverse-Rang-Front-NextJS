@@ -1,14 +1,14 @@
 // src/app/[lang]/articles/categories/[category]/page.tsx
 import Link from "next/link";
 import BreadCrumb from "@/components/shared/BreadCrumb";
-import CategorySorted from "./components/CategorySorted";
-import CategoryHeader from "./components/CategoryHeader";
-import SearchComponent from "@/components/shared/SearchComponent";
+import CategorySorted from "../../../../../components/features/ArticleCategorySorted";
+import CategoryHeader from "../../../../../components/ui/header/ArticleCategoryHeader";
+import SearchComponent from "@/components/Search/SearchComponent";
 import { getTranslation, getMainFile } from "@/components/utils/actions";
 import { supabase } from "@/utils/lib/supabaseClient";
 // import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import CustomErrorPage from "@/components/shared/CustomErrorPage";
-import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
+import CustomErrorPage from "@/components/error/CustomErrorPage";
+import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 interface CategoryPageProps {
   params: Promise<{
     lang: string, category: string;

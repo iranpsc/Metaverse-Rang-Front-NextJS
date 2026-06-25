@@ -2,11 +2,11 @@ import BreadCrumb from "@/components/shared/BreadCrumb";
 // import { articles } from "@/components/utils/articles";
 import LatestArticlesSlider from "../../../components/module/slider/LatestArticlesSlider";
 import PopularArticlesSlider from "../../../components/module/slider/PopularArticlesSlider";
-import CategoriesGrid from "./components/CategoriesGrid";
-import SearchComponent from "@/components/shared/SearchComponent";
-import TopWritersArticles from "./components/TopWritersArticles"
-import CustomErrorPage from "@/components/shared/CustomErrorPage";
-import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
+import CategoriesGrid from "../../../components/features/ArticleCategoriesGrid";
+import SearchComponent from "@/components/Search/SearchComponent";
+import TopWritersArticles from "../../../components/features/TopWritersArticles"
+import CustomErrorPage from "@/components/error/CustomErrorPage";
+import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 import {
   getTranslation,
   getMainFile,

@@ -5,12 +5,12 @@ import dynamic from "next/dynamic";
 import { Suspense, useRef, useState } from "react";
 import axios from "axios";
 
-import ListSubCategories from "../list/ListSubCategoriesEducation";
+import ListSubCategories from "../../list/ListSubCategoriesEducation";
 import { DashboardHeaderModule } from "@/components/module/categories/DashboardHeaderModule";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 const SearchComponent = dynamic(
-  () => import("@/components/shared/SearchComponent"),
+  () => import("@/components/Search/SearchComponent"),
   // { suspense: true }
 );
 

@@ -1,13 +1,13 @@
 import SideBar from "@/components/module/sidebar/SideBar";
 import BreadCrumb from "@/components/shared/BreadCrumb";
-import NotFoundPage from "@/components/shared/NotFoundPage";
+import NotFoundPage from "@/components/error/NotFoundPage";
 import DynamicFooter from "@/components/module/footer/DynamicFooter";
 import InviteBox from "@/components/templates/referral/invite-box";
 import InviteList from "@/components/templates/referral/invite-list";
 import InviteChart from "@/components/templates/referral/invite-chart";
 
-import CustomErrorPage from "@/components/shared/CustomErrorPage";
-import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
+import CustomErrorPage from "@/components/error/CustomErrorPage";
+import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 
 import {
   getTranslation,

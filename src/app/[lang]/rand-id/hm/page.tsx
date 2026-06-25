@@ -6,15 +6,15 @@ import {
   getLangArray,
 } from "@/components/utils/actions";
 
-import SearchComponent from "@/components/shared/SearchComponent";
+import SearchComponent from "@/components/Search/SearchComponent";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 import FreeId from "./components/FreeId";
 import RondId from "./components/RondId";
 
-import CustomErrorPage from "@/components/shared/CustomErrorPage";
-import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
+import CustomErrorPage from "@/components/error/CustomErrorPage";
+import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 
 /* -------------------------------------------------------------------------- */
 /*                                  Metadata                                  */
