@@ -105,7 +105,7 @@ const PrevNextNews = ({ params, news: propNews, mainData }: PrevNextNewsProps) =
           <div className="w-full">
             {prevNews ? (
               <NewsNavCard
-                href={`/${params.lang}/news/categories/${prevNews.categorySlug || prevNews.categorySlug}/${prevNews.slug}`}
+                href={`/${params.lang}/news/categories/${prevNews.categorySlug}/${prevNews.slug}`}
                 news={prevNews}
                 activeLoadingId={activeLoadingId}
                 setActiveLoadingId={setActiveLoadingId}
@@ -130,7 +130,7 @@ const PrevNextNews = ({ params, news: propNews, mainData }: PrevNextNewsProps) =
           <div className="w-full">
             {nextNews ? (
               <NewsNavCard
-                href={`/${params.lang}/news/categories/${nextNews.categorySlug || nextNews.categorySlug}/${nextNews.slug}`}
+                href={`/${params.lang}/news/categories/${nextNews.categorySlug}/${nextNews.slug}`}
                 news={nextNews}
                 activeLoadingId={activeLoadingId}
                 setActiveLoadingId={setActiveLoadingId}

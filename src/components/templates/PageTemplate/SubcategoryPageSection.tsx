@@ -57,7 +57,7 @@ export default function SubcategoryPageSection({ subCategoryData, params, mainDa
       // ۹ تا اضافه کن
       setVisibleCount((prev) => prev + 9);
       // اگر نیاز هست fetch واقعی هم انجام بده
-      if (visibleCount + 9 > videos.length && hasMore) {
+      if (visibleCount + 9 > videos.length ) {
         setPage((prev) => prev + 1);
       }
     }

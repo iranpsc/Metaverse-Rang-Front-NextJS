@@ -71,7 +71,7 @@ export default function BreakingNewsSliderClient({
                   <path d="M178.377 1H333.736L310.986 57H178.377L155.66 32.1512C154.281 30.6432 154.261 28.3385 155.613 26.8062L178.377 1Z" fill="white" className="dark:fill-black" />
                   <text className="fill-black dark:fill-white">
                     <tspan
-                      x={isRTL ? 270 : 260}
+                      x={isRTL ? 270 : 210}
                       y="36.3237"
                       className="text-xl lg:text-3xl !font-rokh !font-extrabold"
                     >
@@ -80,7 +80,7 @@ export default function BreakingNewsSliderClient({
                   </text>
                   <text className="fill-black dark:fill-white">
                     <tspan
-                      x={isRTL ? 120 : 70}
+                      x={isRTL ? 140 : 40}
                       y="36.3237"
                       className="text-xl lg:text-3xl !font-rokh !font-extrabold"
                     >

@@ -257,7 +257,7 @@ export default async function NewsPage({ params }: NewsPageProps) {
     ];
 
     // ─── گروه‌بندی اخبار بر اساس categorySlug ───
-    const newsByCategory: Record<string, NewsItem[]> = { all: allNews || [] };
+    const newsByCategory: Record<string, NewsItem[]> = { all: allNews};
 
     allNews.forEach((news) => {
       if (news.categorySlug) {
@@ -355,7 +355,7 @@ export default async function NewsPage({ params }: NewsPageProps) {
         />
 
         <div className="px-5 2xl:px-10 mt-[60px] lg:mt-0">
-          <BreadCrumb params={params} />
+          <BreadCrumb params={resolvedParams} />
         </div>
 
         {/* Search + Title */}
@@ -371,7 +371,7 @@ export default async function NewsPage({ params }: NewsPageProps) {
             <SearchComponent
               searchLevel="news"
               mainData={mainData}
-              params={params}
+              params={resolvedParams}
             />
           </div>
           <p className="text-lightGray hidden lg:block dark:text-lightGray font-azarMehr text-center lg:text-start text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] px-5 2xl:pe-28">
@@ -380,7 +380,7 @@ export default async function NewsPage({ params }: NewsPageProps) {
         </div>
 
         <div className="space-y-28 mt-28">
-          <BreakingNewsSlider lang={lang} news={allNews?.slice(0, 5) ?? []} />
+          <BreakingNewsSlider mainData={mainData}  lang={lang} news={allNews?.slice(0, 5) ?? []} />
 
           <LatestNews
             params={resolvedParams}
