@@ -75,10 +75,10 @@ export default function SideBar({
         languagesData={langData}
         langArray={langArray}
       />
-      <div className={`z-[1000] h-screen dark:bg-dark-background fixed top-0 rtl:right-0 ltr:left-0 lg:relative lg:top-0 lg:right-0 ${isClosed ? "" : ""
+      <div className={`z-[1000] h-dvh dark:bg-dark-background fixed top-0 rtl:right-0 ltr:left-0 lg:relative lg:top-0 lg:right-0 ${isClosed ? "" : ""
         }`}>
         <div
-          className={`shadow-left dark:shadow-leftDark xl:min-h-screen scroll lg:min-h-screen md:min-h-screen relative sm:min-h-screen xs:min-h-screen ${isClosed
+          className={`shadow-left dark:shadow-leftDark xl:min-h-dvh scroll lg:min-h-dvh md:min-h-dvh relative sm:min-h-dvh xs:min-h-dvh ${isClosed
               ? "sm:hidden xs:hidden md:hidden menu-transition xl:block lg:block"
               : "sm:block xs:block bg-blackTransparent/30"
             } absolute xl:relative lg:relative xl:w-fit lg:w-fit md:w-full z-[100] sm:w-full xs:w-full no-scrollbar`}
@@ -88,7 +88,7 @@ export default function SideBar({
             className={`${isClosed
                 ? "w-[70px] max-lg:hidden"
                 : "w-[260px] md:w-[242px] lg:w-[262px] xl:w-[18.2vw] 2xl:w-[16.5vw] sm:shadow-[#000000] xs:sm:shadow-[#000000] visible"
-              } flex flex-col h-screen relative bg-white dark:bg-dark-background menu-transition`}
+              } flex flex-col h-dvh relative bg-white dark:bg-dark-background menu-transition`}
           >
             <div className="flex flex-col sticky w-full h-fit top-0 pt-1 z-50 bg-white dark:bg-dark-background menu-transition">
               <Header

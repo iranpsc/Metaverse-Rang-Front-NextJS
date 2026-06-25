@@ -17,7 +17,6 @@ export default function SideBarContent({
   tabsMenu,
   langData,
   isClosed,
-  langArray,
   params,
   pageSide,
   levelTabs,
@@ -54,7 +53,7 @@ export default function SideBarContent({
   const handleCitizensBtn = () => setCitizensDropDown((prev) => !prev);
   const handleWhitePaper = () => setWhitePaperDropDown((prev) => !prev);
   const handleNewsBtn = () => setNewsDropDown((prev) => !prev); // اضافه شده برای اخبار
-  const handleLangBtn = () => setLangDropDown((prev) => !prev);
+  // const handleLangBtn = () => setLangDropDown((prev) => !prev);
 
   useEffect(() => {
     if (langDropDown && dropdownRef.current) {
@@ -110,7 +109,7 @@ export default function SideBarContent({
     const cleanPath = pathName.endsWith("/") ? pathName.slice(0, -1) : pathName;
 
     const citizenProfilePath = `/${params.lang}/citizens/${params.id}`;
-    const referralPath = `${citizenProfilePath}/referral`;
+    // const referralPath = `${citizenProfilePath}/referral`;
 
     const updatedMenu = finalTabsMenu.map((item) => {
       // زبان هیچوقت اکتیو نشه

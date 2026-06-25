@@ -115,7 +115,7 @@ export const setDataHeader = (
   state: State,
   action: { payload: { pageName: string; dataHeader: any } }
 ): State => {
-  const { pageName: newPageName, dataHeader } = action.payload;
+  const { pageName:  dataHeader } = action.payload;
 
   const modalsProfile = dataHeader.find(
     (modal: any) => modal.name === "Citizenship-profile"

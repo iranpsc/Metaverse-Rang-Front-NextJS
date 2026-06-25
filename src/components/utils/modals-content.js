@@ -1,4 +1,4 @@
-import { translateFooter } from "@/components/utils/education";
+
 
 export const Modals_fa = [
   {

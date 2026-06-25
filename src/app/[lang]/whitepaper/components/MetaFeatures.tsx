@@ -1,7 +1,7 @@
 // components/MetaFeatures.tsx
 'use client';
 
-import { Framer, Hex, DropBox, Wings } from "@/components/svgs/SvgWhitepaper";
+import {  Hex, DropBox, Wings } from "@/components/svgs/SvgWhitepaper";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 interface MetaFeaturesProps {
   params: { lang: string };
@@ -15,29 +15,6 @@ interface FeatureCard {
     icon: React.ReactNode;
 }
 
-const featuresData: FeatureCard[] = [
-    {
-        id: 1,
-        title: 'Set up a wallet',
-        description: 'To connect to the Avalanche ecosystem, set up a non-custodial wallet to store your crypto assets, approve transactions, track your network activity and more...',
-        buttonText: 'Create a wallet',
-        icon: <Wings className="w-full h-full fill-black" />,
-    },
-    {
-        id: 2,
-        title: 'The AVAX Token',
-        description: 'AVAX powers the Avalanche network—used for paying fees, securing the platform, and fueling custom blockchain operations....',
-        buttonText: 'Learn more',
-        icon: <Hex className="w-full h-full fill-black" />,
-    },
-    {
-        id: 3,
-        title: 'Explore the Ecosystem',
-        description: 'Discover the expanding web of applications, tools and experiences across the Avalanche network.',
-        buttonText: 'Start Exploring',
-        icon: <DropBox className="w-full h-full fill-black" />,
-    },
-];
 
 export default function MetaFeatures({ params, mainData }: MetaFeaturesProps) {
     const featuresData: FeatureCard[] = [

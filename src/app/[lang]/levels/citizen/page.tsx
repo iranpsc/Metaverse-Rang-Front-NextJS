@@ -13,7 +13,6 @@ import {
 import Footer from "@/components/module/footer/Footer";
 import LevelsClient from "@/components/module/levelComponents/LevelsClient";
 import BreadCrumb from "@/components/shared/BreadCrumb";
-import { getStaticMenu } from "@/components/utils/constants";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
@@ -182,8 +181,6 @@ export default async function LevelsPage({ params }: LevelsPageProps) {
 
     const [
       levelArray,
-      footerTabs,
-      langArray,
       langData,
     ] = await Promise.all([
       getAllLevels(),

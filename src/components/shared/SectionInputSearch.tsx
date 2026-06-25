@@ -12,6 +12,7 @@ interface SectionInputSearchProps {
   loadingSearch: boolean;
   defaultTheme: string;
   searchTerm: string;
+  params:any;
   setSearchTerm: (val: string) => void;
   searchData: any[];
   removeSearch: () => void;
@@ -21,6 +22,7 @@ export default function SectionInputSearch({
   SectionName,
   searchLevel,
   mainData,
+  params,
   loadingSearch,
   defaultTheme,
   searchTerm,
@@ -44,7 +46,7 @@ export default function SectionInputSearch({
     if (searchLevel === "rand_id") {
       return findByUniqueId(mainData, 57) || "جستجو میان شناسه ها...";
     }
-    return "جستجو...";
+    return params.lang == 'fa' ? "جستجو..." : "search...";
   };
 
   return (

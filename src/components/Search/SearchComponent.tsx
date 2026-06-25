@@ -109,6 +109,7 @@ export default function SearchComponent({
           setSearchTerm={setSearchTerm}
           searchData={searchData}
           removeSearch={removeSearch}
+          params={params}
         />
 
         {/* 🔹 نتایج سرچ */}

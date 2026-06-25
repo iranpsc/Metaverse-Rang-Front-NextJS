@@ -32,7 +32,7 @@ export default function EducationCategories({
                   height={1000}
                 />
                 <p className="dark:text-white text-black text-[18px] xs:text-[13px] font-medium font-azarMehr xs:max-w-[85px] text-center">
-                  {params == "fa" ? item.name : item.slug}
+                  {params.lang == "fa" ? item.name : item.slug}
                 </p>
               </Link>
             ))}

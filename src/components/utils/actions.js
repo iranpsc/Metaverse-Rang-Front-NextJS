@@ -67,7 +67,7 @@ export async function getMainFile(langData) {
     }
 
     const res = await fetch(langData.file_url, {
-      // cache: 'force-cache',
+      cache: 'force-cache',
       next: { tags: [`main-file-${langData.code || 'unknown'}`] },
     });
 

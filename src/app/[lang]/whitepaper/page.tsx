@@ -8,7 +8,6 @@ import {
 } from "@/components/utils/actions";
 
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import { articles } from "@/components/utils/articles";
 import PoweredBy from "./components/PoweredBy";
 import EcosystemIntro from "./components/EcosystemIntro";
 import WhyMetarang from "./components/WhyMetarang"
@@ -29,11 +28,11 @@ import AvalancheBanner from "./components/AvalancheBanner"
 import SectionTeam from "@/components/templates/firstpage/TeamSection";
 const baseUrl = "https://metarang.com"; // ← دامنه اصلی سایتت
 const imageUrl = "https://metarang.com/_next/image?url=%2Flogo.png&w=128&q=75";
-interface WhitePaperPageProps {
-  params: Promise<{
-    lang: string;
-  }>;
-}
+// interface WhitePaperPageProps {
+//   params: Promise<{
+//     lang: string;
+//   }>;
+// }
 
 // ✅ متادیتای داینامیک
 export async function generateMetadata({
