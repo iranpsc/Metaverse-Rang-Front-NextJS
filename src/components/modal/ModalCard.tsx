@@ -1,7 +1,6 @@
-import { useRef, useContext } from "react";
+// import { useRef, useContext } from "react";
 import Image from "next/image";
 import { CLoseIcon } from "@/svgs/index";
-import { Arrow } from "@/svgs/SvgEducation";
 import { useTheme } from "next-themes";
 import { findByUniqueId } from "../utils/findByUniqueId";
 
@@ -11,24 +10,24 @@ import { motion } from "framer-motion";
 export default function ModalCard({
   setShowModal,
   dataModal,
-  profileData,
+  // profileData,
   // userProperty,
   mainData,
 }: any) {
-  const { theme } = useTheme();
-  const scrollContainer = useRef<HTMLDivElement>(null);
+  // const { theme } = useTheme();
+  // const scrollContainer = useRef<HTMLDivElement>(null);
 
-  const scrollRight = () => {
-    if (scrollContainer.current) {
-      scrollContainer.current.scrollBy({ left: 200, behavior: "smooth" });
-    }
-  };
+  // const scrollRight = () => {
+  //   if (scrollContainer.current) {
+  //     scrollContainer.current.scrollBy({ left: 200, behavior: "smooth" });
+  //   }
+  // };
 
-  const scrollLeft = () => {
-    if (scrollContainer.current) {
-      scrollContainer.current.scrollBy({ left: -200, behavior: "smooth" });
-    }
-  };
+  // const scrollLeft = () => {
+  //   if (scrollContainer.current) {
+  //     scrollContainer.current.scrollBy({ left: -200, behavior: "smooth" });
+  //   }
+  // };
 
   return (
     <div

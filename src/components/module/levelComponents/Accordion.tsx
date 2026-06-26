@@ -1,5 +1,5 @@
 "use client";
-import { ChevronDown } from "@/components/svgs";
+// import { ChevronDown } from "@/components/svgs";
 import { useState } from "react";
 
 export default function Accordion({
@@ -9,7 +9,7 @@ export default function Accordion({
   title: string;
   value: any;
 }) {
-  const [open, setOpen] = useState<boolean>(true);
+  const [open] = useState<boolean>(true);
 
   return (
     <div

@@ -12,7 +12,7 @@ export const handlerLikeComments = async (
       const requestData = {
         data: " ",
       };
-      const response = await axios.post(
+       await axios.post(
         `https://api.metarang.com/api/tutorials/${videoId}/comments/${commentId}/like`,
         requestData,
         {
@@ -44,7 +44,7 @@ export const handlerDisLikeComments = async (
       data: " ",
     };
     try {
-      const response = await axios.post(
+       await axios.post(
         `https://api.metarang.com/api/tutorials/${videoId}/comments/${commentId}/dislike`,
         requestData,
         {
@@ -71,11 +71,8 @@ export const handlerDeleteComments = async (
   setShowAuthCard: any
 ) => {
   if (token) {
-    const requestData = {
-      data: " ",
-    };
     try {
-      const response = await axios.delete(
+      await axios.delete(
         `https://api.metarang.com/api/tutorials/${videoId}/comments/${commentId}`,
 
         {

@@ -25,13 +25,13 @@ export default function EventCalendarClient({
 }: EventCalendarClientProps) {
   const router = useRouter();
   const [searchValue, setSearchValue] = useState<string>("");
-  const [searchResults, setSearchResults] = useState<MappedEventItem[] | null>(null);
+  const [, setSearchResults] = useState<MappedEventItem[] | null>(null);
   const [startOfMonthDate, setStartOfMonthDate] = useState<string>("");
   const [endOfMonthDate, setEndOfMonthDate] = useState<string>("");
   const [eventsDay, setEventsDay] = useState<any[]>([]);
   const [monthEventsDay, setMonthEventsDay] = useState<any[]>([]);
   const [selectedEventDate, setSelectedEventDate] = useState<string | null>(null);
-  const [dateResults, setDateResults] = useState<MappedEventItem[] | null>(null);
+  const [, setDateResults] = useState<MappedEventItem[] | null>(null);
 
   const total = monthEventsDay.length;
 

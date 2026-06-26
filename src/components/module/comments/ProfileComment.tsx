@@ -1,4 +1,4 @@
-import { MenuCommentIcon } from "@/components/svgs/SvgEducation";
+
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { checkData } from "@/components/utils/targetDataName";
 import Image from "next/image";

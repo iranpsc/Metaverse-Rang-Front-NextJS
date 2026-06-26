@@ -118,37 +118,37 @@ export default function UserCard({
   const remainingGemsCount = totalGems - displayGems.length;
 
   // تابع محاسبه نام لیبل – پشتیبانی همزمان از slug و id
-  const getRouteName = (gem: any, lang: string) => {
-    if (!gem) {
-      return lang === "fa" ? "تازه وارد" : "Newcomer";
-    }
+  // const getRouteName = (gem: any, lang: string) => {
+  //   if (!gem) {
+  //     return lang === "fa" ? "تازه وارد" : "Newcomer";
+  //   }
 
-    // فارسی همیشه نام اصلی
-    if (lang === "fa") {
-      return gem.name || "تازه وارد";
-    }
+  //   // فارسی همیشه نام اصلی
+  //   if (lang === "fa") {
+  //     return gem.name || "تازه وارد";
+  //   }
 
-    // انگلیسی: اولویت با slug، بعد id
-    let base = "";
+  //   // انگلیسی: اولویت با slug، بعد id
+  //   let base = "";
 
-    if (gem.slug && typeof gem.slug === "string" && gem.slug.includes("-baguette")) {
-      base = gem.slug.split("-baguette")[0];
-    } else if (gem.id != null) {
-      const idNum = Number(gem.id);
-      if (!isNaN(idNum)) {
-        const found = staticRouteNames.find((r) => r.id === idNum);
-        if (found) {
-          base = found.route_name.split("-")[0];
-        }
-      }
-    }
+  //   if (gem.slug && typeof gem.slug === "string" && gem.slug.includes("-baguette")) {
+  //     base = gem.slug.split("-baguette")[0];
+  //   } else if (gem.id != null) {
+  //     const idNum = Number(gem.id);
+  //     if (!isNaN(idNum)) {
+  //       const found = staticRouteNames.find((r) => r.id === idNum);
+  //       if (found) {
+  //         base = found.route_name.split("-")[0];
+  //       }
+  //     }
+  //   }
 
-    if (base) {
-      return base.charAt(0).toUpperCase() + base.slice(1);
-    }
+  //   if (base) {
+  //     return base.charAt(0).toUpperCase() + base.slice(1);
+  //   }
 
-    return gem.name || "Newcomer";
-  };
+  //   return gem.name || "Newcomer";
+  // };
 
   return (
     <div className={`px-2 !max-w-[281px]`} style={minWidth ? { width: minWidth, minWidth } : {}}>

@@ -1,6 +1,6 @@
 
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import randomcolor from "randomcolor";
@@ -34,7 +34,7 @@ export default function ListVideos({ videos, params, subCategoryData, loadMore, 
     <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-10 w-full h-fit px-5 mt-5">
       {videos &&
         videos.map((item: any, index: number) => {
-          const isFirstImage = index === 0;
+          // const isFirstImage = index === 0;
           const isLoading = activeLoadingId === item.id;
           const sanitizedDesc = stripAnchorTags(item.description || "");
           return (

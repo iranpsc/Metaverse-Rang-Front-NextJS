@@ -48,7 +48,7 @@ function SafeImage({
 
 export default function ListData({ nameComponent, data, params, activeLoadingId,
   setActiveLoadingId }: any) {
-  const [colors, setColors] = useState<string[]>([]);
+  const [, setColors] = useState<string[]>([]);
   const titleRefs = useRef<(HTMLParagraphElement | null)[]>([]);
   const [truncatedIndexes, setTruncatedIndexes] = useState<number[]>([]);
 

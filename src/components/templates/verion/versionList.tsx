@@ -33,11 +33,11 @@ const VersionBox: React.FC<VersionBoxProps> = ({
   selectedVersion,
 }) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const [selectedItem, setSelectedItem] = useState<Version | null>(null);
+  const [, setSelectedItem] = useState<Version | null>(null);
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [visibleCount, setVisibleCount] = useState<number>(10);
-  const [allVersions, setAllVersions] = useState<Version[]>(versions);
+  const [, setAllVersions] = useState<Version[]>(versions);
   const [page, setPage] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
   const [hasMore, setHasMore] = useState<boolean>(true);

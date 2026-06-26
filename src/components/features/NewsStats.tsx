@@ -1,6 +1,5 @@
 
 import { Like, Dislike, View, Comment } from "@/components/svgs/SvgEducation";
-import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import Link from "next/link";
 interface NewsStatsProps {
   stats: {

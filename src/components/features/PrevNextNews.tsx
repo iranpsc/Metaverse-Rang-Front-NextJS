@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { supabase } from "@/utils/lib/supabaseClient";
-import { Like, Dislike, View } from "@/components/svgs/SvgEducation";
+// import { Like, Dislike, View } from "@/components/svgs/SvgEducation";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import NewsNavCard from "../card/NewsNavCard";
 
@@ -25,7 +25,7 @@ const PrevNextNews = ({ params, news: propNews, mainData }: PrevNextNewsProps) =
   const [news, setNews] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeLoadingId, setActiveLoadingId] = useState<string | null>(null);
-  const [usingFallback, setUsingFallback] = useState(false);
+  const [, setUsingFallback] = useState(false);
 
   // ===============================
   // 📌 گرفتن همه اخبار (با fallback)

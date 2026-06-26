@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Like, Dislike, View } from "@/components/svgs/SvgEducation";
+import { View } from "@/components/svgs/SvgEducation";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 interface NewsMetaProps {

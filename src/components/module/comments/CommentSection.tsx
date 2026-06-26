@@ -29,7 +29,7 @@ const CommentSection = ({
         `https://api.metarang.com/api/tutorials?page=${nextPage}`
       );
 
-      const newVideosData = resVideos.data.data;
+      // const newVideosData = resVideos.data.data;
       // TODO: append newVideosData to state if needed
 
     } catch (error) {

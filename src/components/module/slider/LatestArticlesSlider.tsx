@@ -12,7 +12,7 @@ import ArticleCard from "../../card/ArticleCard";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { supabase } from "@/utils/lib/supabaseClient";
 import { articles as localArticles } from "@/components/utils/articles";
-import { string } from "yup";
+// import { string } from "yup";
 
 const Swiper = dynamic(async () => (await import("swiper/react")).Swiper, { ssr: false });
 

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+// import React, { useState } from "react";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 interface TestProps {
 
@@ -7,9 +7,9 @@ interface TestProps {
     params: any;
 }
 const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
-    const [email, setEmail] = useState("");
-    const [error, setError] = useState("");
-    const [success, setSuccess] = useState(false);
+    // const [email, setEmail] = useState("");
+    // const [error, setError] = useState("");
+    // const [success, setSuccess] = useState(false);
 
 
 

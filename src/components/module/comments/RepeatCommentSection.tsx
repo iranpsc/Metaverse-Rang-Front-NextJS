@@ -1,6 +1,6 @@
 import { Repeat } from "@/components/svgs/SvgEducation";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import { checkData } from "@/components/utils/targetDataName";
+// import { checkData } from "@/components/utils/targetDataName";
 
 const RepeatCommentSection = ({ mainData, type }: any) => {
   return (

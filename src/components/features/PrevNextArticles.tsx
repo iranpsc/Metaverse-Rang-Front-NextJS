@@ -1,10 +1,8 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
+import  { useEffect, useState } from "react";
 import { supabase } from "@/utils/lib/supabaseClient";
-import { Like, Dislike, View } from "@/components/svgs/SvgEducation";
+// import { Like, Dislike, View } from "@/components/svgs/SvgEducation";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import ArticleNavCard from "../card/ArticleNavCard";
 

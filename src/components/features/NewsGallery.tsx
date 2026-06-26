@@ -25,12 +25,12 @@ export default function NewsGallerySimple({ gallery, mainImage, params }: NewsGa
     : gallery;
 
   // تعیین تعداد نمایش بر اساس صفحه
-  const getDisplayCount = () => {
-    if (typeof window !== 'undefined') {
-      return window.innerWidth < 768 ? 4 : 3;
-    }
-    return 4;
-  };
+  // const getDisplayCount = () => {
+  //   if (typeof window !== 'undefined') {
+  //     return window.innerWidth < 768 ? 4 : 3;
+  //   }
+  //   return 4;
+  // };
 
   const [displayCount, setDisplayCount] = useState(4);
   const showViewMoreButton = allImages.length > displayCount;
