@@ -3,7 +3,7 @@
 
 import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
-import TextScramble from '@/components/utils/textScramble';
+import TextScramble from '@/components/animations/textScramble';
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 interface NewsStoriesProps {
     params: { lang: string };
@@ -21,69 +21,6 @@ interface NewsItem {
     image?: string;
 }
 
-const newsData: NewsItem[] = [
-    {
-        id: 1,
-        category: 'FEATURED / NEWS',
-        title: 'Enterprise and consumer apps are coming together on Avalanche',
-        description: 'Major brands and Web3 pioneers are building the next generation of digital experiences on Avalanche\'s high-performance subnet architecture.',
-        date: 'NOV 20, 2025',
-        author: 'AVALANCHE',
-        readTime: '5 MINUTE READ',
-        featured: true,
-        image: '/whitepaper/bgCodeSpace.png',
-    },
-    {
-        id: 2,
-        category: 'Announcement',
-        title: 'ROYALTIES IN SECONDS, NOT MONTHS: MUSIC GOES ONCHAIN WITH AVALANCHE',
-        description: 'How Record Financial and 11am, home to artists like Armani White, RealestK, Lil Tjay, ASAP Ferg, Alex Warren, and Maddox, are using Avalanche to pay royalties in seconds.',
-        date: 'NOV 20, 2025',
-        author: 'AVALANCHE',
-        readTime: '3 MINUTE READ',
-        image: '/whitepaper/bgCodeSpace.png',
-    },
-    {
-        id: 3,
-        category: 'News',
-        title: 'HOW RECORD FINANCIAL AND 11AM, HOME TO ARTISTS LIKE ARMANI WHITE',
-        description: 'The music industry moves onchain: instant royalty payments, transparent licensing, and new revenue streams for creators.',
-        date: 'NOV 19, 2025',
-        author: 'AVALANCHE',
-        readTime: '2 MINUTE READ',
-        image: '/whitepaper/bgCodeSpace.png',
-    },
-    {
-        id: 4,
-        category: 'Announcement',
-        title: 'ROYALTIES IN SECONDS, NOT MONTHS: MUSIC GOES ONCHAIN WITH AVALANCHE',
-        description: 'Artists like ASAP Ferg, Alex Warren, and Madd0x are now receiving royalties instantly via smart contracts.',
-        date: 'NOV 18, 2025',
-        author: 'AVALANCHE',
-        readTime: '4 MINUTE READ',
-        image: '/whitepaper/bgCodeSpace.png',
-    },
-    {
-        id: 5,
-        category: 'News',
-        title: 'AVALANCHE POWERS NEXT-GEN GAMING ECONOMIES',
-        description: 'Game developers are building player-owned economies with subnets, offering near-zero fees and instant finality.',
-        date: 'NOV 17, 2025',
-        author: 'AVALANCHE',
-        readTime: '5 MINUTE READ',
-        image: '/whitepaper/bgCodeSpace.png',
-    },
-    {
-        id: 6,
-        category: 'Announcement',
-        title: 'ENTERPRISE AND CUSTOM APPS: NEW TOOLS FOR BUILDERS',
-        description: 'Launch your own custom blockchain with Avalanche’s Subnet technology – scalable, sovereign, and interoperable.',
-        date: 'NOV 16, 2025',
-        author: 'AVALANCHE',
-        readTime: '2 MINUTE READ',
-        image: '/whitepaper/bgCodeSpace.png',
-    },
-];
 
 export default function NewsStories({ params, mainData }: NewsStoriesProps) {
     const scrollContainerRef = useRef<HTMLDivElement>(null);

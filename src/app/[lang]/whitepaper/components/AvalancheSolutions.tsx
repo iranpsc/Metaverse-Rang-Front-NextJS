@@ -1,7 +1,7 @@
 // components/AvalancheSolutions.tsx
 
 import Image from 'next/image';
-import TextScramble from '@/components/utils/textScramble';
+import TextScramble from '@/components/animations/textScramble';
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 interface AvalancheSolutionsProps {
     params: { lang: string };

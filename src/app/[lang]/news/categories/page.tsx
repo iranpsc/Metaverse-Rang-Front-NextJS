@@ -1,13 +1,13 @@
 // src/app/[lang]/news/categories/page.tsx
 
 import BreadCrumb from "@/components/shared/BreadCrumb";
-import CategoriesList from "./CategoriesList";
-import SearchComponent from "@/components/shared/SearchComponent";
+import CategoriesList from "../../../../components/features/CategoriesList";
+import SearchComponent from "@/components/Search/SearchComponent";
 import { supabase } from "@/utils/lib/supabaseClient";
 import { getTranslation, getMainFile } from "@/components/utils/actions";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import CustomErrorPage from "@/components/shared/CustomErrorPage";
-import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
+import CustomErrorPage from "@/components/error/CustomErrorPage";
+import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 
 // ایمپورت دیتای استاتیک به عنوان fallback
 import fallbackNewsData from "@/components/utils/news.json";

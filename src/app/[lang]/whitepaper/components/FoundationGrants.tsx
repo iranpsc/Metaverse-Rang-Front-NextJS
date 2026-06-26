@@ -1,40 +1,12 @@
 
 'use client';
 
-import Image from 'next/image';
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 interface FoundationGrantsProps {
     params: { lang: string };
     mainData: { mainData: string };
 }
-const companies = [
-    { id: 1, name: 'Company 1', logo: '/logos/logo1.svg' },
-    { id: 2, name: 'Company 2', logo: '/logos/logo2.svg' },
-    { id: 3, name: 'Company 3', logo: '/logos/logo3.svg' },
-    { id: 4, name: 'Company 4', logo: '/logos/logo4.svg' },
-    { id: 5, name: 'Company 5', logo: '/logos/logo5.svg' },
-    { id: 6, name: 'Company 6', logo: '/logos/logo6.svg' },
-    { id: 7, name: 'Company 7', logo: '/logos/logo7.svg' },
-    { id: 8, name: 'Company 8', logo: '/logos/logo8.svg' },
-];
-const academyCards = [
-    {
-        id: 1,
-        title: 'Academy',
-        description: 'Avalanche Academy is a suite of courses for developers of all experience levels to hone their skills, while the Codebase Entrepreneur Academy offers the foundational knowledge needed to launch and grow your Web3 startup on Avalanche....',
-    },
-    {
-        id: 2,
-        title: 'Academy',
-        description: 'Avalanche Academy is a suite of courses for developers of all experience levels to hone their skills, while the Codebase Entrepreneur Academy offers the foundational knowledge needed to launch and grow your Web3 startup on Avalanche....',
-    },
-    {
-        id: 3,
-        title: 'Academy',
-        description: 'Avalanche Academy is a suite of courses for developers of all experience levels to hone their skills, while the Codebase Entrepreneur Academy offers the foundational knowledge needed to launch and grow your Web3 startup on Avalanche....',
-    },
 
-];
 export default function FoundationGrants({ params, mainData }: FoundationGrantsProps) {
     const academyCards = [
     {

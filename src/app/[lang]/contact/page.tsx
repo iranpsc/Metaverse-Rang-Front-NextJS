@@ -5,12 +5,12 @@ import {
 } from "@/components/utils/actions";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 // import { WhatsAppIcon, ContactDownArrow } from "@/components/svgs";
-import Form from "./components/form";
+import Form from "../../../components/ui/form/form";
 // import Social from "./components/social";
-import CommunicationRoutes from "./components/CommunicationRoutes";
+import CommunicationRoutes from "../../../components/list/ContactCommunicationRoutes";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import CustomErrorPage from "@/components/shared/CustomErrorPage";
-import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
+import CustomErrorPage from "@/components/error/CustomErrorPage";
+import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 interface AboutPageProps {
   params: Promise<{ lang: string }>;
 }

@@ -4,8 +4,8 @@ import useServerDarkMode from "src/hooks/use-server-dark-mode";
 import ToastProvider from "../../components/shared/toastProvider";
 import { Suspense } from "react";
 import Head from "next/head";
-import ReferralHandler from './ReferralHandler';
-import VPNDetector from './VPNDetector';
+import ReferralHandler from '../../components/system/ReferralHandler';
+import VPNDetector from '../../components/system/VPNDetector';
 import {
   getTranslation,
   getMainFile,
@@ -17,9 +17,9 @@ import {
 import { getStaticMenu } from "@/components/utils/constants";
 import ConditionalSidebar from "@/components/module/sidebar/ConditionalSidebar";
 import FooterClient from "@/components/module/footer/FooterClient";
-import Icon from "./Icon"
-import CustomErrorPage from "@/components/shared/CustomErrorPage";
-import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
+import Icon from "../../components/system/Icon"
+import CustomErrorPage from "@/components/error/CustomErrorPage";
+import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 interface Tab {
   id: number;
   unique_id: number;

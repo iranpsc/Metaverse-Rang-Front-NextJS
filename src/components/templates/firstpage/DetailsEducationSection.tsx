@@ -1,5 +1,5 @@
-import { Arrow, ArrowRight, ButtonClick } from "@/components/svgs";
-import { Dislike, Like, View, Video } from "@/components/svgs/SvgEducation";
+import { Arrow } from "@/components/svgs";
+// import { Dislike, Like, View, Video } from "@/components/svgs/SvgEducation";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 import Image from "next/image";

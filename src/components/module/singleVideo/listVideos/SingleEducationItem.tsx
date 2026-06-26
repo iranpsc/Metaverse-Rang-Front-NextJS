@@ -45,7 +45,7 @@ const SingleEducationItem = ({ item, mainData, params, theme }: any) => {
       )}
       <div className="w-[90%] flex flex-row justify-between gap-3 items-center">
         <Image
-          src={item.creator.image && item.creator.image}
+          src={item.creator.image}
           alt={item.creator.image && item.creator.code}
           width={50}
           height={50}

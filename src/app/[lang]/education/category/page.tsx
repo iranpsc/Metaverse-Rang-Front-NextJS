@@ -7,11 +7,11 @@ const BreadCrumb = dynamic(() => import("@/components/shared/BreadCrumb"),
 // { suspense: true }
 );
 const SearchComponent = dynamic(
-  () => import("@/components/shared/SearchComponent"),
+  () => import("@/components/Search/SearchComponent"),
   // { suspense: true }
 );
-const ShowAllCategoriesComponent = dynamic(
-  () => import("@/components/templates/categories/ShowAllCategoriesComponent"),
+const ShowAllCategoriesEducationList = dynamic(
+  () => import("@/components/list/ShowAllCategoriesEducationList"),
   // { suspense: true }
 );
 
@@ -25,8 +25,8 @@ import {
 } from "@/components/utils/actions";
 
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import CustomErrorPage from "@/components/shared/CustomErrorPage";
-import CleanAutoRetryParam  from "@/components/shared/CleanAutoRetryParam";
+import CustomErrorPage from "@/components/error/CustomErrorPage";
+import CleanAutoRetryParam  from "@/components/system/CleanAutoRetryParam";
 interface EducationCategoryAllProps {
   params: Promise<{ lang: string }>;
 }
@@ -112,7 +112,7 @@ export default async function EducationCategoryAll({params}: EducationCategoryAl
           </div>
           {/* <Suspense
             fallback={<div className="text-center text-[20px]">loading...</div>}> */}
-            <ShowAllCategoriesComponent
+            <ShowAllCategoriesEducationList
               params={resolvedParams}
               categoriesData={categoriesData}
               mainData={mainData}

@@ -6,15 +6,15 @@ import {
   getLangArray,
 } from "@/components/utils/actions";
 
-import SearchComponent from "@/components/shared/SearchComponent";
+import SearchComponent from "@/components/Search/SearchComponent";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 import FreeId from "./components/FreeId";
 import RondId from "./components/RondId";
 
-import CustomErrorPage from "@/components/shared/CustomErrorPage";
-import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
+import CustomErrorPage from "@/components/error/CustomErrorPage";
+import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 
 /* -------------------------------------------------------------------------- */
 /*                                  Metadata                                  */
@@ -367,21 +367,18 @@ export default async function RounPage({ params }: RounPageProps) {
 
 
         <CleanAutoRetryParam />
-        <div className="px-3 lg:px-10">         
+        <div className="px-3 lg:px-10">
           <BreadCrumb
-          params={lang}
-          title={title}
+            params={lang}
+            title={title}
 
-        /></div>
-        <SearchComponent params={resolvedParams} />
-
-
-
+          /></div>
+        <SearchComponent params={resolvedParams} mainData={mainData} />
         <RondId
           params={lang}
           titel={title}
           description={desc}
-          data={citizenData} mainData={mainData}        />
+          data={citizenData} mainData={mainData} />
 
         <FreeId
           params={lang}
@@ -391,16 +388,17 @@ export default async function RounPage({ params }: RounPageProps) {
 
     );
   } catch (error) {
-  const serializedError = {
-    message:
-      error instanceof Error ? error.message : "Unknown error",
-    stack:
-      error instanceof Error ? error.stack : null,
-    name:
-      error instanceof Error ? error.name : "Error",
-  };
+    const serializedError = {
+      message:
+        error instanceof Error ? error.message : "Unknown error",
+      stack:
+        error instanceof Error ? error.stack : null,
+      name:
+        error instanceof Error ? error.name : "Error",
+    };
 
-  console.error("❌ Error in EductionPage:", serializedError);
+    console.error("❌ Error in EductionPage:", serializedError);
 
-  return <CustomErrorPage error={serializedError} />;
-} }
+    return <CustomErrorPage error={serializedError} />;
+  }
+}

@@ -1,13 +1,13 @@
 // app/[lang]/news/page.tsx
 
 import BreadCrumb from "@/components/shared/BreadCrumb";
-import LatestNews from "./components/LatestNews";
-import PopularNews from "./components/PopularNews";
-import SearchComponent from "@/components/shared/SearchComponent";
-import BreakingNewsSlider from "./components/BreakingNewsSlider/BreakingNewsSlider.server";
-import CustomErrorPage from "@/components/shared/CustomErrorPage";
-import NewsCategoriesSection from "./components/NewsCategoriesSection";
-import VideoNewsList from "./components/VideoNewsList";
+import LatestNews from "../../../components/features/LatestNews";
+import PopularNews from "../../../components/features/PopularNews";
+import SearchComponent from "@/components/Search/SearchComponent";
+import BreakingNewsSlider from "../../../components/features/BreakingNewsSlider/BreakingNewsSlider.server";
+import CustomErrorPage from "@/components/error/CustomErrorPage";
+import NewsCategoriesSection from "../../../components/features/NewsCategoriesSection";
+import VideoNewsList from "../../../components/features/VideoNewsList";
 import { supabase } from "@/utils/lib/supabaseClient";
 import { getTranslation, getMainFile } from "@/components/utils/actions";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
@@ -257,7 +257,7 @@ export default async function NewsPage({ params }: NewsPageProps) {
     ];
 
     // ─── گروه‌بندی اخبار بر اساس categorySlug ───
-    const newsByCategory: Record<string, NewsItem[]> = { all: allNews || [] };
+    const newsByCategory: Record<string, NewsItem[]> = { all: allNews};
 
     allNews.forEach((news) => {
       if (news.categorySlug) {
@@ -355,7 +355,7 @@ export default async function NewsPage({ params }: NewsPageProps) {
         />
 
         <div className="px-5 2xl:px-10 mt-[60px] lg:mt-0">
-          <BreadCrumb params={params} />
+          <BreadCrumb params={resolvedParams} />
         </div>
 
         {/* Search + Title */}
@@ -371,7 +371,7 @@ export default async function NewsPage({ params }: NewsPageProps) {
             <SearchComponent
               searchLevel="news"
               mainData={mainData}
-              params={params}
+              params={resolvedParams}
             />
           </div>
           <p className="text-lightGray hidden lg:block dark:text-lightGray font-azarMehr text-center lg:text-start text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] px-5 2xl:pe-28">
@@ -380,7 +380,7 @@ export default async function NewsPage({ params }: NewsPageProps) {
         </div>
 
         <div className="space-y-28 mt-28">
-          <BreakingNewsSlider lang={lang} news={allNews?.slice(0, 5) ?? []} />
+          <BreakingNewsSlider mainData={mainData}  lang={lang} news={allNews?.slice(0, 5) ?? []} />
 
           <LatestNews
             params={resolvedParams}
@@ -473,7 +473,7 @@ export default async function NewsPage({ params }: NewsPageProps) {
               <p className="text-2xl dark:text-white 2xl:text-[32px] font-rokh dark:text-wrap font-bold">{findByUniqueId(mainData, 1626) || "خبرنامه متاورس"}</p>
               <p className="lg:text-lg dark:text-[#868B90] text-[#656565]">{findByUniqueId(mainData, 1627) || "برای اطلاع از آخرین اخبار، تحلیل ها و مطالب اختصاصی، می توانید در خبرنامه ما عضو شوید.هدف ما ارائه محتوای دقیق، معتبر و به روز است تا همواره از مهم ترین تحولات باخبر باشید. در صورت تمایل، کافی است آدرس ایمیل خود را وارد کنید تا از این پس، به روزترین محتواها و اطلاع رسانی های رسمی را بدون نیاز به مراجعه مداوم به وب سایت، دریافت کنید."}</p>
               <div className="w-full flex flex-col gap-2 gap-y-5 lg:flex-row max-w-3xl">
-                <input type="text" name="" id="" placeholder={findByUniqueId(mainData, 1626) || "آدرس ایمیل"} className="bg-[#F5F5F5] w-full lg:w-[75%] dark:bg-black rounded-xl border-0 ring-1 ring-[#D9D9D9] dark:ring-[#434343] px-4 py-2 focus:outline-none focus:ring-2 focus:ring-light-primary focus:dark:ring-dark-yellow focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-darkGray" />
+                <input type="text" name="" placeholder={findByUniqueId(mainData, 1626) || "آدرس ایمیل"} className="bg-[#F5F5F5] w-full lg:w-[75%] dark:bg-black rounded-xl border-0 ring-1 ring-[#D9D9D9] dark:ring-[#434343] px-4 py-2 focus:outline-none focus:ring-2 focus:ring-light-primary focus:dark:ring-dark-yellow focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-darkGray" />
                 <button className="bg-light-primary font-bold dark:bg-dark-yellow text-white dark:text-black rounded-xl px-5 py-2 lg:w-[25%]">{findByUniqueId(mainData, 2)}</button>
               </div>
             </div>

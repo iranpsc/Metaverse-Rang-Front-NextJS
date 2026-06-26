@@ -6,12 +6,12 @@ import {
   getAllCitizen,
   getLangArray,
 } from "@/components/utils/actions";
-import Version from "./components/version";
+import Version from "../../../components/templates/verion/version";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import { Metadata } from "next";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import CustomErrorPage from "@/components/shared/CustomErrorPage";
-import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
+import CustomErrorPage from "@/components/error/CustomErrorPage";
+import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 interface VersionItem {
   id: number;
   title: string;

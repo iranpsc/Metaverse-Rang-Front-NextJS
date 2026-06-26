@@ -1,4 +1,4 @@
-import { ItemsSearch } from "@/components/shared/ItemsSearch";
+import { ItemsSearch } from "@/components/Search/ItemsSearch";
 
 export const ActiveSearchModule = ({
   searchTerm,

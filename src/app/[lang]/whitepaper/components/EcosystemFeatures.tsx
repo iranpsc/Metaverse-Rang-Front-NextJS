@@ -1,7 +1,7 @@
 // components/EcosystemFeatures.tsx
 'use client';
 
-import { Framer, Hex, DropBox, Wings } from "@/components/svgs/SvgWhitepaper";
+import {  Hex, DropBox, Wings } from "@/components/svgs/SvgWhitepaper";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 interface EcosystemFeaturesProps {
     params: { lang: string };

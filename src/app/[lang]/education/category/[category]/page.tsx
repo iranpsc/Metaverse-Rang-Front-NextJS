@@ -1,11 +1,11 @@
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
-import NotFoundPage from "@/components/shared/NotFoundPage";
+import NotFoundPage from "@/components/error/NotFoundPage";
 
 const BreadCrumb = dynamic(() => import("@/components/shared/BreadCrumb"),);
 
-const CategoryComponent = dynamic(
-  () => import("@/components/templates/categories/CategoryComponent"),
+const CategoryPageSection = dynamic(
+  () => import("@/components/templates/PageTemplate/CategoryPageSection"),
 
 );
 
@@ -20,8 +20,8 @@ import {
 } from "@/components/utils/actions";
 
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import CustomErrorPage from "@/components/shared/CustomErrorPage";
-import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
+import CustomErrorPage from "@/components/error/CustomErrorPage";
+import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 // ✅ تابع ساخت متن کوتاه سمت سرور
 async function makeLessCharacter(_desc: any, limit: number = 200) {
   return _desc ? _desc.slice(0, limit) : "";
@@ -103,14 +103,9 @@ export default async function EducationCategory({ params }: EducationCategoryPro
         <div className="flex  w-full bg-[#f8f8f8] dark:bg-black bg-opacity20" dir={langData.direction}>
           <section className="w-full overflow-y-auto relative l mt-[60px] lg:mt-0 lg:pt-0  xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
             <div className="ps-4 lg:ps-5">
-
               <BreadCrumb params={resolvedParams} />
-
             </div>
-            <CategoryComponent params={resolvedParams} CategoryData={CategoryData} mainData={mainData} />
-
-
-
+            <CategoryPageSection params={resolvedParams} CategoryData={CategoryData} mainData={mainData} />
           </section>
         </div>
       </>

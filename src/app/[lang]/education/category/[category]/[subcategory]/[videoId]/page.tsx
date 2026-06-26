@@ -19,11 +19,11 @@ import {
   getVideoComments,
 } from "@/components/utils/actions";
 
-import VideoSection from "@/components/templates/singleVideo/VideoSection";
+import VideoSection from "@/components/templates/PageTemplate/VideoSection";
 import ListVideos from "@/components/module/singleVideo/listVideos/ListVideos";
-import CustomErrorPage from "@/components/shared/CustomErrorPage";
-import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
-import NotFoundPage from "@/components/shared/NotFoundPage"; // فرض کردم صفحه 404 اینجاست
+import CustomErrorPage from "@/components/error/CustomErrorPage";
+import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
+import NotFoundPage from "@/components/error/NotFoundPage"; // فرض کردم صفحه 404 اینجاست
 
 // Cache کردن getSingleVideoData برای جلوگیری از درخواست‌های تکراری در generateMetadata و صفحه اصلی
 const getCachedSingleVideoData = cache(async (videoId: string) => {

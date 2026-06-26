@@ -1,6 +1,6 @@
 export const dynamic = "force-dynamic";
 
-import NotFoundPage from "@/components/shared/NotFoundPage";
+import NotFoundPage from "@/components/error/NotFoundPage";
 import { supabase } from "@/utils/lib/supabaseClient";
 
 import {
@@ -10,18 +10,18 @@ import {
 } from "@/components/utils/actions";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 
-import AuthorSection from "./components/AuthorSection";
-import ArticleHeader from "./components/ArticleHeader";
-import ArticleImage from "./components/ArticleImage";
-import ArticleContent from "./components/ArticleContent";
-import SideCard from "./components/SideCard";
-import PopularArticlesSlider from "../../../components/PopularArticlesSlider";
-import RelatedArticlesSlider from "./components/RelatedArticlesSlider";
-import PrevNextArticles from "./components/PrevNextArticles";
-import AuthorCard from "./components/AuthorCard";
-import ShowSocialWrapper from "./components/ShowSocialWrapper";
-import CustomErrorPage from "@/components/shared/CustomErrorPage";
-import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
+import AuthorSection from "@/components/ui/weblog/AuthorSection";
+import ArticleHeader from "@/components/ui/header/ArticleHeader";
+import ArticleImage from "@/components/ui/ArticleImage";
+import ArticleContent from "@/components/ui/weblog/ArticleContent";
+import SideCard from "@/components/card/ArticleSideBarCard";
+import PopularArticlesSlider from "@/components/module/slider/PopularArticlesSlider";
+import RelatedArticlesSlider from "@/components/features/RelatedArticlesSlider";
+import PrevNextArticles from "@/components/features/PrevNextArticles";
+import AuthorCard from "@/components/card/AuthorCard";
+import ShowSocialWrapper from "@/components/shared/ShowSocialWrapper";
+import CustomErrorPage from "@/components/error/CustomErrorPage";
+import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 
 interface ArticlePageProps {
   params: Promise<{
@@ -310,7 +310,7 @@ export default async function ArticlePage({ params } :ArticlePageProps) {
               </div>
 
               <div className="w-full mt-10 space-y-28">
-                <ShowSocialWrapper params={resolvedParams} mainData={mainData} article={article} />
+                <ShowSocialWrapper params={resolvedParams} mainData={mainData} content={article} />
                 <PrevNextArticles params={resolvedParams} articles={categoryArticles || []} mainData={mainData} />
                 <AuthorCard lang={lang} article={article} mainData={mainData} />
               </div>

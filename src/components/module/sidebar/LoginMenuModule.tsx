@@ -273,7 +273,7 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
             )}
             <li className="border-b border-white dark:border-divider">
               <Link
-                href="https://metarang.com/metaverse/"
+                href="https://world.metarang.com/"
                 className="h-[30px] w-full block font-medium"
               >
                 {localFind("enter the metaverse") && params.lang == "fa"

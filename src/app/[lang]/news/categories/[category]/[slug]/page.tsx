@@ -1,6 +1,6 @@
 export const dynamic = "force-dynamic";
 
-import NotFoundPage from "@/components/shared/NotFoundPage";
+import NotFoundPage from "@/components/error/NotFoundPage";
 import { supabase } from "@/utils/lib/supabaseClient";
 
 import {
@@ -10,21 +10,21 @@ import {
 } from "@/components/utils/actions";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import AuthorSection from "./components/AuthorSection";
-import NewsHeader from "./components/NewsHeader";
-import NewsImage from "./components/NewsImage";
-import NewsContent from "./components/NewsContent";
-import SideCard from "./components/SideCard";
-import PopularNews from "../../../components/PopularNews";
+import AuthorSection from "../../../../../../components/features/MetaNews";
+import NewsHeader from "../../../../../../components/ui/header/NewsHeader";
+import NewsImage from "../../../../../../components/features/NewsImage";
+import NewsContent from "../../../../../../components/features/NewsContent";
+import SideCard from "../../../../../../components/features/NewsSideBar";
+import PopularNews from "../../../../../../components/features/PopularNews";
 
-import NewsStats from "./components/NewsStats";
-import PrevNextNews from "./components/PrevNextNews";
-import ShowSocialWrapper from "./components/ShowSocialWrapper";
-import CustomErrorPage from "@/components/shared/CustomErrorPage";
-import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
-import NewsTags from "./components/NewsTags";
+import NewsStats from "../../../../../../components/features/NewsStats";
+import PrevNextNews from "../../../../../../components/features/PrevNextNews";
+import ShowSocialWrapper from "@/components/shared/ShowSocialWrapper";
+import CustomErrorPage from "@/components/error/CustomErrorPage";
+import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
+import NewsTags from "../../../../../../components/features/NewsTags";
 import fallbackNewsData from "@/components/utils/news.json";
-import WindowsNews from "./components/WindowsNews"
+import WindowsNews from "../../../../../../components/features/PromoNewsSection"
 import Link from "next/link";
 
 interface NewsPageProps {
@@ -45,7 +45,7 @@ type NormalizedNews = {
   readingTime?: string | null;
   stats?: any;
   category?: string | null;
-  categorySlug?: string | null;
+  categorySlug?: string;
   categoryImage?: string | null;
   categoryDec?: string | null;
   subCategory?: string | null;
@@ -56,6 +56,7 @@ type NormalizedNews = {
   video?: string | null;
   excerpt?: string | null;
   gallery?: string[] | null;
+
 };
 
 function normalizeNewsItem(item: any): NormalizedNews {
@@ -68,7 +69,7 @@ function normalizeNewsItem(item: any): NormalizedNews {
     readingTime: item.readingTime || null,
     stats: item.stats || null,
     category: item.category || null,
-    categorySlug: item.categorySlug || null,
+    categorySlug: item.categorySlug,
     categoryImage: item.categoryImage || null,
     categoryDec: item.categoryDec || null,
     subCategory: item.subCategory || null,
@@ -464,7 +465,11 @@ export default async function NewsPage({ params }: NewsPageProps) {
                 showIcon={true}
               />
               <div className="w-full mt-10 space-y-28">
-                <ShowSocialWrapper params={resolvedParams} mainData={mainData} news={news} />
+                <ShowSocialWrapper
+                  params={resolvedParams}
+                  mainData={mainData}
+                  content={news}
+                />
                 <PrevNextNews params={resolvedParams} news={categoryNews || []} mainData={mainData} />
 
               </div>
@@ -544,7 +549,7 @@ export default async function NewsPage({ params }: NewsPageProps) {
               <p className="text-2xl dark:text-white 2xl:text-[32px] font-rokh dark:text-wrap font-bold">{findByUniqueId(mainData, 1626) || "خبرنامه متاورس"}</p>
               <p className="lg:text-lg dark:text-[#868B90] text-[#656565]">{findByUniqueId(mainData, 1627) || "برای اطلاع از آخرین اخبار، تحلیل ها و مطالب اختصاصی، می توانید در خبرنامه ما عضو شوید.هدف ما ارائه محتوای دقیق، معتبر و به روز است تا همواره از مهم ترین تحولات باخبر باشید. در صورت تمایل، کافی است آدرس ایمیل خود را وارد کنید تا از این پس، به روزترین محتواها و اطلاع رسانی های رسمی را بدون نیاز به مراجعه مداوم به وب سایت، دریافت کنید."}</p>
               <div className="w-full flex flex-col gap-2 gap-y-5 lg:flex-row max-w-3xl">
-                <input type="text" name="" id="" placeholder={findByUniqueId(mainData, 1626) || "آدرس ایمیل"} className="bg-[#F5F5F5] w-full lg:w-[75%] dark:bg-black rounded-xl border-0 ring-1 ring-[#D9D9D9] dark:ring-[#434343] px-4 py-2 focus:outline-none focus:ring-2 focus:ring-light-primary focus:dark:ring-dark-yellow focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-darkGray" />
+                <input type="text" placeholder={findByUniqueId(mainData, 1626) || "آدرس ایمیل"} className="bg-[#F5F5F5] w-full lg:w-[75%] dark:bg-black rounded-xl border-0 ring-1 ring-[#D9D9D9] dark:ring-[#434343] px-4 py-2 focus:outline-none focus:ring-2 focus:ring-light-primary focus:dark:ring-dark-yellow focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-darkGray" />
                 <button className="bg-light-primary font-bold dark:bg-dark-yellow text-white dark:text-black rounded-xl px-5 py-2 lg:w-[25%]">{findByUniqueId(mainData, 2)}</button>
               </div>
             </div>

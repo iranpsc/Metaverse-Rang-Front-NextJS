@@ -13,9 +13,9 @@ import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import Image from "next/image";
 import Head from "next/head";
-import List from "./components/list"
-import CustomErrorPage from "@/components/shared/CustomErrorPage";
-import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
+import List from "../../../components/list/TeamStaticList"
+import CustomErrorPage from "@/components/error/CustomErrorPage";
+import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 
 // تعریف نوع پارامترها
 interface Params {

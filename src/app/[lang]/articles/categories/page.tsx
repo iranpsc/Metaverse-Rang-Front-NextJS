@@ -1,12 +1,12 @@
 // src/app/[lang]/articles/categories/page.tsx
 import BreadCrumb from "@/components/shared/BreadCrumb";
-import CategoriesList from "./CategoriesList"; // Client Component
-import SearchComponent from "@/components/shared/SearchComponent"; // Client Component
+import CategoriesList from "../../../../components/features/ArticleCategoriesList"; // Client Component
+import SearchComponent from "@/components/Search/SearchComponent"; // Client Component
 import { supabase } from "@/utils/lib/supabaseClient";
 import { getTranslation, getMainFile } from "@/components/utils/actions";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import CustomErrorPage from "@/components/shared/CustomErrorPage";
-import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
+import CustomErrorPage from "@/components/error/CustomErrorPage";
+import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 interface CategoriesPageProps {
   params: Promise<{ lang: string }>;
 }

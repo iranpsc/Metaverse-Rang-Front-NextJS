@@ -1,14 +1,14 @@
 import dynamic from "next/dynamic";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import NotFoundPage from "@/components/shared/NotFoundPage";
+import NotFoundPage from "@/components/error/NotFoundPage";
 import {
   getTranslation,
   getMainFile,
   getLangArray,
   getSubcategoryData,
 } from "@/components/utils/actions";
-import CustomErrorPage from "@/components/shared/CustomErrorPage";
-import CleanAutoRetryParam  from "@/components/shared/CleanAutoRetryParam";
+import CustomErrorPage from "@/components/error/CustomErrorPage";
+import CleanAutoRetryParam  from "@/components/system/CleanAutoRetryParam";
 async function makeLessCharacter(_desc: any) {
   return _desc ? _desc.slice(0, 200) : "";
 }
@@ -18,8 +18,8 @@ const BreadCrumb = dynamic(
   () => import("@/components/shared/BreadCrumb"),
 
 );
-const SubcategoryComponent = dynamic(
-  () => import("@/components/templates/categories/SubcategoryComponent"),
+const SubcategoryPageSection = dynamic(
+  () => import("@/components/templates/PageTemplate/SubcategoryPageSection"),
 
 );
 interface EducationSubcategoryProps {
@@ -121,7 +121,7 @@ export default async function EducationSubcategory({ params }:EducationSubcatego
               <BreadCrumb params={resolvedParams} />
             </div>
 
-            <SubcategoryComponent
+            <SubcategoryPageSection
               subCategoryData={subCategoryData}
               params={resolvedParams}
               mainData={mainData}

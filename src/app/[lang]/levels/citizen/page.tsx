@@ -2,21 +2,18 @@
 
 import {
   getAllLevels,
-  getFooterData,
   getTranslation,
   getMainFile,
   findByModalName,
   findByTabName,
-  getLangArray,
 } from "@/components/utils/actions";
 
 import Footer from "@/components/module/footer/Footer";
-import LevelsClient from "@/components/module/levelComponent/LevelsClient";
+import LevelsClient from "@/components/module/levelComponents/LevelsClient";
 import BreadCrumb from "@/components/shared/BreadCrumb";
-import { getStaticMenu } from "@/components/utils/constants";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import CustomErrorPage from "@/components/shared/CustomErrorPage";
-import CleanAutoRetryParam from "@/components/shared/CleanAutoRetryParam";
+import CustomErrorPage from "@/components/error/CustomErrorPage";
+import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 
 /* -------------------------------------------------------------------------- */
 /*                                   Metadata                                 */
@@ -84,111 +81,107 @@ export default async function LevelsPage({ params }: LevelsPageProps) {
 
     /* ----------------------------- Static Data ----------------------------- */
 
-      const staticData = [
-    {
-      url: "/svg/level/citizen.png",
-      score: 10,
-      id: 1,
-      route_name: "citizen-baguette",
-      unique_id: 382,
-    },
-    {
-      url: "/svg/level/reporter.png",
-      score: 990,
-      id: 2,
-      route_name: "reporter-baguette",
-      unique_id: 383,
-    },
-    {
-      url: "/svg/level/participation.png",
-      score: 3000,
-      id: 3,
-      route_name: "participation-baguette",
-      unique_id: 589,
-    },
-    {
-      url: "/svg/level/developer.png",
-      score: 8000,
-      id: 4,
-      route_name: "developer-baguette",
-      unique_id: 68,
-    },
-    {
-      url: "/svg/level/inspector.png",
-      score: 18000,
-      id: 5,
-      route_name: "inspector-baguette",
-      unique_id: 69,
-    },
-    {
-      url: "/svg/level/businessman.png",
-      score: 36000,
-      id: 6,
-      route_name: "businessman-baguette",
-      unique_id: 590,
-    },
-    {
-      url: "/svg/level/lawyer.png",
-      score: 76000,
-      id: 7,
-      route_name: "lawyer-baguette",
-      unique_id: 71,
-    },
-    {
-      url: "/svg/level/city-council.png",
-      score: 166000,
-      id: 8,
-      route_name: "city-council-baguette",
-      unique_id: 591,
-    },
-    {
-      url: "/svg/level/the-mayor.png",
-      score: 366000,
-      id: 9,
-      route_name: "the-mayor-baguette",
-      unique_id: 592,
-    },
-    {
-      url: "/svg/level/governor.png",
-      score: 796000,
-      id: 10,
-      route_name: "governor-baguette",
-      unique_id: 74,
-    },
-    {
-      url: "/svg/level/minister.png",
-      score: 1696000,
-      id: 11,
-      route_name: "minister-baguette",
-      unique_id: 75,
-    },
-    {
-      url: "/svg/level/judge.png",
-      score: 3696000,
-      id: 12,
-      route_name: "judge-baguette",
-      unique_id: 76,
-    },
-    {
-      url: "/svg/level/legislator.png",
-      score: 7896000,
-      id: 13,
-      route_name: "legislator-baguette",
-      unique_id: 77,
-    },
-  ];
+    const staticData = [
+      {
+        url: "/svg/level/citizen.png",
+        score: 10,
+        id: 1,
+        route_name: "citizen-baguette",
+        unique_id: 382,
+      },
+      {
+        url: "/svg/level/reporter.png",
+        score: 990,
+        id: 2,
+        route_name: "reporter-baguette",
+        unique_id: 383,
+      },
+      {
+        url: "/svg/level/participation.png",
+        score: 3000,
+        id: 3,
+        route_name: "participation-baguette",
+        unique_id: 589,
+      },
+      {
+        url: "/svg/level/developer.png",
+        score: 8000,
+        id: 4,
+        route_name: "developer-baguette",
+        unique_id: 68,
+      },
+      {
+        url: "/svg/level/inspector.png",
+        score: 18000,
+        id: 5,
+        route_name: "inspector-baguette",
+        unique_id: 69,
+      },
+      {
+        url: "/svg/level/businessman.png",
+        score: 36000,
+        id: 6,
+        route_name: "businessman-baguette",
+        unique_id: 590,
+      },
+      {
+        url: "/svg/level/lawyer.png",
+        score: 76000,
+        id: 7,
+        route_name: "lawyer-baguette",
+        unique_id: 71,
+      },
+      {
+        url: "/svg/level/city-council.png",
+        score: 166000,
+        id: 8,
+        route_name: "city-council-baguette",
+        unique_id: 591,
+      },
+      {
+        url: "/svg/level/the-mayor.png",
+        score: 366000,
+        id: 9,
+        route_name: "the-mayor-baguette",
+        unique_id: 592,
+      },
+      {
+        url: "/svg/level/governor.png",
+        score: 796000,
+        id: 10,
+        route_name: "governor-baguette",
+        unique_id: 74,
+      },
+      {
+        url: "/svg/level/minister.png",
+        score: 1696000,
+        id: 11,
+        route_name: "minister-baguette",
+        unique_id: 75,
+      },
+      {
+        url: "/svg/level/judge.png",
+        score: 3696000,
+        id: 12,
+        route_name: "judge-baguette",
+        unique_id: 76,
+      },
+      {
+        url: "/svg/level/legislator.png",
+        score: 7896000,
+        id: 13,
+        route_name: "legislator-baguette",
+        unique_id: 77,
+      },
+    ];
 
     /* ----------------------------- Fetch Data ------------------------------ */
 
     const [
       levelArray,
-      footerTabs,
-      langArray,
       langData,
     ] = await Promise.all([
       getAllLevels(),
-      getFooterData(resolvedParams),
-      getLangArray(),
       getTranslation(lang),
     ]);
 
@@ -196,17 +189,17 @@ export default async function LevelsPage({ params }: LevelsPageProps) {
 
     /* -------------------------- Normalize Levels --------------------------- */
 
-staticData.forEach((el2: any) => {
-  levelArray.forEach((el1: any) => {
-    if (el1.id == el2.id) {
-      el1.photo = el2.url;
-      el1.rank = 1;
-      el1.score = el2.score;
-      el1.route_name = el2.route_name;
-      el1.unique_id = el2.unique_id;
-    }
-  });
-});
+    staticData.forEach((el2: any) => {
+      levelArray.forEach((el1: any) => {
+        if (el1.id == el2.id) {
+          el1.photo = el2.url;
+          el1.rank = 1;
+          el1.score = el2.score;
+          el1.route_name = el2.route_name;
+          el1.unique_id = el2.unique_id;
+        }
+      });
+    });
 
     /* ------------------------------ Content -------------------------------- */
 
@@ -262,13 +255,13 @@ staticData.forEach((el2: any) => {
 
           <div className="flex justify-center flex-wrap mt-8">
             <LevelsClient
-             levels={levelArray}
-    concatArrayContent={concatArrayContent}
+              levels={levelArray}
+              concatArrayContent={concatArrayContent}
               params={resolvedParams}
               mainData={mainData}
             />
           </div>
-          
+
 
           <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1 mt-10">
             <Footer
@@ -280,17 +273,17 @@ staticData.forEach((el2: any) => {
       </>
     );
   } catch (error) {
-  const serializedError = {
-    message:
-      error instanceof Error ? error.message : "Unknown error",
-    stack:
-      error instanceof Error ? error.stack : null,
-    name:
-      error instanceof Error ? error.name : "Error",
-  };
+    const serializedError = {
+      message:
+        error instanceof Error ? error.message : "Unknown error",
+      stack:
+        error instanceof Error ? error.stack : null,
+      name:
+        error instanceof Error ? error.name : "Error",
+    };
 
-  console.error("❌ Error in LevelPage:", serializedError);
+    console.error("❌ Error in LevelPage:", serializedError);
 
-  return <CustomErrorPage error={serializedError} />;
-}
+    return <CustomErrorPage error={serializedError} />;
+  }
 }

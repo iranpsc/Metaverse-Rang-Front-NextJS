@@ -76,8 +76,6 @@ const cardsData: CardData[] = [
 
         const cards = container.querySelectorAll('.sticky-card');
         const totalCards = cards.length;
-        const startOffset = 0;
-        const endOffset = 100;
 
         const handleScroll = () => {
             const sectionRect = section.getBoundingClientRect();

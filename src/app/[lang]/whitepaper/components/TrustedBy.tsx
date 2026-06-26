@@ -2,22 +2,13 @@
 'use client';
 
 import Image from 'next/image';
-import TextScramble from '@/components/utils/textScramble';
+import TextScramble from '@/components/animations/textScramble';
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 interface TrustedByProps {
     params: { lang: string };
     mainData: { mainData: string };
 }
-const companies = [
-    { id: 1, name: 'Company 1', logo: '/logos/logo1.svg' },
-    { id: 2, name: 'Company 2', logo: '/logos/logo2.svg' },
-    { id: 3, name: 'Company 3', logo: '/logos/logo3.svg' },
-    { id: 4, name: 'Company 4', logo: '/logos/logo4.svg' },
-    { id: 5, name: 'Company 5', logo: '/logos/logo5.svg' },
-    { id: 6, name: 'Company 6', logo: '/logos/logo6.svg' },
-    { id: 7, name: 'Company 7', logo: '/logos/logo7.svg' },
-    { id: 8, name: 'Company 8', logo: '/logos/logo8.svg' },
-];
+
 
 export default function TrustedBy({ params, mainData }: TrustedByProps) {
     const academyCards = [

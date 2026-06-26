@@ -7,10 +7,10 @@ import {
 } from "@/components/utils/actions";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import { mapEvents, MappedEventItem } from "@/utils/mapEvents";
-import EventCalendarClient from "../components/EventCalendarClient";
+import EventCalendarClient from "../../../../components/templates/envent/EventCalendarClient";
 import htmlTruncate from "html-truncate";
-import CustomErrorPage from "@/components/shared/CustomErrorPage";
-import CleanAutoRetryParam  from "@/components/shared/CleanAutoRetryParam";
+import CustomErrorPage from "@/components/error/CustomErrorPage";
+import CleanAutoRetryParam  from "@/components/system/CleanAutoRetryParam";
 interface EventPageProps {
   params: Promise<{
     id: string; lang: string 

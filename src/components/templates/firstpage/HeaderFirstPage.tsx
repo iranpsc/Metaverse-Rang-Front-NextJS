@@ -7,12 +7,12 @@ export default function HeaderFirstPage({ mainData, params }: any) {
   return (
     <>
       {/* FIRST BOX */}
-      <div className="w-full lg:w-1/2 flex flex-col justify-start items-start gap-1 ">
+      <div className="w-full lg:w-[80%] flex flex-col justify-start items-start gap-1 ">
         <motion.h1
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.3, delay: 0.3 }}
-          className=" lg:w-[50%] font-bold text-[32px] sm:text-[32px] md:text-[38px] xl:text-[44px]  2xl:text-[54px] 3xl:text-[66px]  text-light-primary dark:text-dark-yellow lg:whitespace-nowrap font-rokh mt-2 xl:mt-5"
+          className=" w-full font-bold text-[32px] sm:text-[32px]  xl:text-[44px]  2xl:text-[54px] 3xl:text-[66px]  text-light-primary dark:text-dark-yellow  rtl:lg:whitespace-nowrap font-rokh mt-2 xl:mt-5"
         >
           {findByUniqueId(mainData, 1457)}
         </motion.h1>
@@ -22,14 +22,14 @@ export default function HeaderFirstPage({ mainData, params }: any) {
           transition={{ duration: 0.3, delay: 0.3 }}
           className=" w-full outline-none border-none"
         >
-          <Vector className="w-[50%] h-2 md:h-5 2xl:h-10 stroke-light-primary dark:stroke-dark-yellow" />
+          <Vector className="w-[50%] lg:w-[60%] h-2 md:h-5 2xl:h-10 stroke-light-primary dark:stroke-dark-yellow" />
         </motion.div>
 
         <motion.h2
           initial={{ opacity: 0, x: 100 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.3, delay: 0.5 }}
-          className="w-full text-white text-[16px] sm:text-[18px] md:text-[24px] 2xl:text-[36px]  text-start font-bold font-azarMehr"
+          className="w-full text-white lg:w-[50%] text-[16px] sm:text-[18px] md:text-[24px] 2xl:text-[36px]  text-start font-bold font-azarMehr"
         >
           {/* {localFind("integration of ideas and creativity")} */}
           {findByUniqueId(mainData, 481)}

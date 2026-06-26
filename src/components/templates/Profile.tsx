@@ -2,7 +2,7 @@
 import ProfileTopMobile from "@/module/profile/ProfileTopMobile";
 import ProfileImages from "@/module/profile/ProfileImages";
 import ProfileMainDetails from "../module/profile/ProfileMainDetails";
-import GemImage from "@/components/templates/citizen/gemImage";
+import GemImage from "@/components/shared/gemImage";
 import React, { useState, useEffect, useRef } from "react";
 
 export default function Profile({
