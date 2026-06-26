@@ -223,7 +223,7 @@ export default async function EventPage({ params }: EventPageProps ) {
         <section className="w-full relative mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20">
           <CleanAutoRetryParam />
           <div className="px-12">
-            <BreadCrumb params={params} eventTitle={cleanTitle} />
+            <BreadCrumb params={resolvedParams} eventTitle={cleanTitle} />
           </div>
 
           <div className=" w-full h-auto flex flex-col items-center lg:gap-0 font-['AzarMehr'] lg:flex-row lg:items-start">

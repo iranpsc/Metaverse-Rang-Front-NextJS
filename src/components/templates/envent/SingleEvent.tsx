@@ -1,11 +1,11 @@
 "use client";
 import { useState, useEffect } from "react";
-import htmlTruncate from "html-truncate";
+// import htmlTruncate from "html-truncate";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { switchDigits } from "@/components/utils/DigitSwitch";
 import moment from "moment-jalaali";
 import { Like, Dislike, View } from "@/components/svgs/SvgEducation";
-import SyncLoader from "react-spinners/SyncLoader";
+// import SyncLoader from "react-spinners/SyncLoader";
 import LoginButtonModule from "@/components/module/singleVideo/LoginButtonModule";
 import { MappedEventItem } from "@/utils/mapEvents";
 
@@ -50,7 +50,7 @@ const SingleEvent: React.FC<SingleEventProps> = ({
   const [userLiked, setUserLiked] = useState<boolean>(event.userLiked ?? false);
   const [userDisLiked, setUserDisLiked] = useState<boolean>(event.userDisLiked ?? false);
   const [showLoginModal, setShowLoginModal] = useState(false);
-  const [showFullDesc, setShowFullDesc] = useState<boolean>(false);
+  // const [showFullDesc, setShowFullDesc] = useState<boolean>(false);
   const [countdowns, setCountdowns] = useState<{
     toStart: { days: number; hours: number; minutes: number; seconds: number };
     toEnd: { days: number; hours: number; minutes: number; seconds: number };
@@ -144,34 +144,34 @@ const SingleEvent: React.FC<SingleEventProps> = ({
   };
 
   // لودر تم‌دار
-  const ThemedLoader = () => {
-    const [isDark, setIsDark] = useState(false);
+  // const ThemedLoader = () => {
+  //   const [isDark, setIsDark] = useState(false);
 
-    useEffect(() => {
-      const checkTheme = () => {
-        const dark = document.documentElement.classList.contains("dark");
-        setIsDark(dark);
-      };
+  //   useEffect(() => {
+  //     const checkTheme = () => {
+  //       const dark = document.documentElement.classList.contains("dark");
+  //       setIsDark(dark);
+  //     };
 
-      checkTheme();
-      const observer = new MutationObserver(checkTheme);
-      observer.observe(document.documentElement, {
-        attributes: true,
-        attributeFilter: ["class"],
-      });
+  //     checkTheme();
+  //     const observer = new MutationObserver(checkTheme);
+  //     observer.observe(document.documentElement, {
+  //       attributes: true,
+  //       attributeFilter: ["class"],
+  //     });
 
-      return () => observer.disconnect();
-    }, []);
+  //     return () => observer.disconnect();
+  //   }, []);
 
-    return <SyncLoader color={isDark ? "#FFD700" : "#0066ff"} size={8} />;
-  };
+  //   return <SyncLoader color={isDark ? "#FFD700" : "#0066ff"} size={8} />;
+  // };
 
-  const maxLength = 350;
-  const shouldTruncate = event.desc.length > maxLength;
-  const truncatedHtml = shouldTruncate
-    ? htmlTruncate(event.desc, maxLength, { ellipsis: "..." })
-    : event.desc;
-  const { toStart, toEnd } = countdowns;
+  // const maxLength = 350;
+  // const shouldTruncate = event.desc.length > maxLength;
+  // const truncatedHtml = shouldTruncate
+  //   ? htmlTruncate(event.desc, maxLength, { ellipsis: "..." })
+  //   : event.desc;
+  const {toEnd } = countdowns;
   const isEnded = toEnd.days === 0 && toEnd.hours === 0 && toEnd.minutes === 0 && toEnd.seconds === 0;
 
   return (

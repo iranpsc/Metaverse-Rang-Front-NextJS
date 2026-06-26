@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import InviteListCard from "./invite-list-card";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
@@ -16,7 +16,7 @@ export default function InviteList({
   referralPageArrayContent: any;
   mainData: any;
 }) {
-  const [isMounted, setIsMounted] = useState(false);
+ 
   const [referralList, setReferralList] = useState<any[]>(
     initInviteList?.data || []
   );
@@ -27,9 +27,6 @@ export default function InviteList({
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   /* ---------------- search ---------------- */
   const searchFetch = async () => {

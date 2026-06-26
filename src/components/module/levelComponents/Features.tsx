@@ -1,6 +1,6 @@
 "use client";
-import { targetData } from "@/components/utils/targetDataName";
-import { Development, Income, Orders, Update } from "@/components/svgs";
+// import { targetData } from "@/components/utils/targetDataName";
+// import { Development, Income, Orders, Update } from "@/components/svgs";
 import React, { useState, useEffect, useRef } from "react";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import {

@@ -25,7 +25,7 @@ interface CategoryHeaderProps {
 export default function CategoryHeader({ data , mainData }: CategoryHeaderProps) {
   const {
     category,
-    subCategory,
+    // subCategory,
     categoryImage,
     categoryDec,
     totalLikes = 0,

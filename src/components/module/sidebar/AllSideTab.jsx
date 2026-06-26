@@ -28,7 +28,7 @@ export default function SideBarContent({
 
   const [modalShow, setModalShow] = useState(false);
   const [modalData, setModalData] = useState({});
-  const [langDropDown, setLangDropDown] = useState(false);
+  const [langDropDown] = useState(false);
   const [trainingDropDown, setTrainingDropDown] = useState(false);
   const [articleDropDown, setArticlesDropDown] = useState(false);
   const [whitePaperDropDown, setWhitePaperDropDown] = useState(false);
@@ -108,7 +108,7 @@ export default function SideBarContent({
 
     const cleanPath = pathName.endsWith("/") ? pathName.slice(0, -1) : pathName;
 
-    const citizenProfilePath = `/${params.lang}/citizens/${params.id}`;
+    // const citizenProfilePath = `/${params.lang}/citizens/${params.id}`;
     // const referralPath = `${citizenProfilePath}/referral`;
 
     const updatedMenu = finalTabsMenu.map((item) => {

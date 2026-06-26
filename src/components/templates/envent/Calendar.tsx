@@ -645,10 +645,10 @@ export default function Calendar({
                 const [jy, jm, jd] = jDate.split("/").map(Number);
 
                 if (isShamsi) {
-                  const currentDayStr = `${jy}/${String(jm).padStart(
-                    2,
-                    "0"
-                  )}/${String(jd).padStart(2, "0")}`;
+                  // const currentDayStr = `${jy}/${String(jm).padStart(
+                  //   2,
+                  //   "0"
+                  // )}/${String(jd).padStart(2, "0")}`;
                   const {
                     jy: cJy,
                     jm: cJm,
@@ -683,7 +683,7 @@ export default function Calendar({
 
           const currentEvents = getMatchedEventsForDay(eventsDay, currentDay);
 
-          const currentEventIds = currentEvents.map((e) => e.id);
+          // const currentEventIds = currentEvents.map((e) => e.id);
 
           const eventColors = Array.from(
             new Set(currentEvents.map((e: any) => e.color))

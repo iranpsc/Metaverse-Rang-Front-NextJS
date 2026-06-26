@@ -1,14 +1,14 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { useTabLoading } from "../../ui/skelton/TabLoadingProvider";
 
 export default function TabSelector({ params, mainData }: any ) {
   const lang = params.lang;
   const router = useRouter();
-  const pathname = usePathname();
+  // const pathname = usePathname();
   const selectedTabRef = useRef<HTMLButtonElement | null>(null);
   const { setLoading } = useTabLoading();
 

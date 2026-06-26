@@ -17,7 +17,7 @@ export default function InviteBox({
   const pathname = usePathname();
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [copied, setCopied] = useState(false);
-  const [inviteLink, setInviteLink] = useState(
+  const [inviteLink] = useState(
     `metarang.com/${params.lang}/citizens/${params.id}/referral`
   );
 

@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import htmlTruncate from "html-truncate";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { switchDigits } from "@/components/utils/DigitSwitch";
@@ -8,7 +8,7 @@ import moment from "moment-jalaali";
 import { Like, Dislike, View } from "@/components/svgs/SvgEducation";
 import SyncLoader from "react-spinners/SyncLoader";
 import LoginButtonModule from "@/components/module/singleVideo/LoginButtonModule";
-import Image from "next/image";
+// import Image from "next/image";
 import {
   MappedEventItem,
   CalendarFilterProps,
@@ -45,7 +45,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
   params,
   token,
 }: CalendarFilterProps) => {
-  const router = useRouter();
+  // const router = useRouter();
   const [likesMap, setLikesMap] = useState<Record<number, number>>({});
   const [disLikesMap, setDisLikesMap] = useState<Record<number, number>>({});
   const [userLikedMap, setUserLikedMap] = useState<Record<number, boolean>>({});
@@ -541,7 +541,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
   return (
     <>
       {visibleEvents.map((event) => {
-        const { toStart, toEnd } = countdowns[event.id] || {
+        const {  toEnd } = countdowns[event.id] || {
           toStart: { days: 0, hours: 0, minutes: 0, seconds: 0 },
           toEnd: { days: 0, hours: 0, minutes: 0, seconds: 0 },
         };
