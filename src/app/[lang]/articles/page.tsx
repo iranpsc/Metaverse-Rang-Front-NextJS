@@ -9,7 +9,6 @@ import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 import {
   getTranslation,
   getMainFile,
-  getLangArray,
 } from "@/components/utils/actions";
 
 import { findByUniqueId } from "@/components/utils/findByUniqueId";

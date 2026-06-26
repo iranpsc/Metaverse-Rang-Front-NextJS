@@ -49,13 +49,13 @@ async function fetchData(params) {
   const levelMeta = STATIC_ROUTE_NAMES.find(x => x.route_name === params.levelName);
   const levelId = levelMeta?.id;
   const levelUniqueId = levelMeta?.unique_id;
-  const TAB_TITLE_MAP = {
-    "general-info": 387,
-    "licenses": 388,
-    "gem": 389,
-    "gift": 390,
-    "prize": 391,
-  };
+  // const TAB_TITLE_MAP = {
+  //   "general-info": 387,
+  //   "licenses": 388,
+  //   "gem": 389,
+  //   "gift": 390,
+  //   "prize": 391,
+  // };
 
   const [
     langData,

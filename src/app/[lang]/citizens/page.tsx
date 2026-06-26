@@ -5,7 +5,6 @@ import {
   findByModalName,
   findByTabName,
   getAllCitizen,
-  getFooterData,
   getLangArray
 } from "@/components/utils/actions";
 import SearchComponent from "@/components/Search/SearchComponent";
@@ -68,25 +67,22 @@ export default async function CitizensPage({ params }: CitizensPageProps) {
    const resolvedParams = await params;
   const { lang } = resolvedParams;
   try {
-    const [langData, langArray] = await Promise.all([
-
+    const [langData] = await Promise.all([
       getTranslation(lang),
-      getLangArray(),
     ]);
 
     const mainData = await getMainFile(langData);
     const defaultTheme = useServerDarkMode();
 
-
     const Citizenship = await findByModalName(mainData, "Citizenship-profile");
-    const citizenListArrayContent = await findByTabName(
-      Citizenship,
-      "list-citizen"
-    );
+    // const citizenListArrayContent = await findByTabName(
+    //   Citizenship,
+    //   "list-citizen"
+    // );
 
     // ****
     const levelModals = await findByModalName(mainData, "levels");
-    const levelListArrayContent = await findByTabName(levelModals, "level-list");
+    // const levelListArrayContent = await findByTabName(levelModals, "level-list");
 
     let allCitizenArray = await getAllCitizen("1");
 

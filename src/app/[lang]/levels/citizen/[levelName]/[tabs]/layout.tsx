@@ -66,6 +66,7 @@ export default async function CitizensLayout({
           className="light-scrollbar dark:dark-scrollbar w-full h-[calc(100vh-60px)] lg:h-screen overflow-y-auto relative mt-[60px] lg:mt-0"
         >
           {children}
+          <CleanAutoRetryParam />
         </div>
       </main>
 </div>

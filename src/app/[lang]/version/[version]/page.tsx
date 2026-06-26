@@ -2,7 +2,6 @@
 import {
   getTranslation,
   getMainFile,
-  getLangArray,
 } from "@/components/utils/actions";
 import Version from "../../../../components/templates/verion/SingleVersion";
 import BreadCrumb from "@/components/shared/BreadCrumb";

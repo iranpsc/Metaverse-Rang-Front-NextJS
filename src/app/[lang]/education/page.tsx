@@ -2,10 +2,7 @@
 import {
   getTranslation,
   getMainFile,
-  findByModalName,
-  findByTabName,
   getAllCategoryVideos,
-  getLangArray,
   getAllCategories,
 } from "@/components/utils/actions";
 import BreadCrumb from "@/components/shared/BreadCrumb";
@@ -24,10 +21,9 @@ export default async function CitizensPage({ params }: CitizensPageProps) {
   const { lang } = resolvedParams;
   try {
     const users = await getTopTrainerUsers();
-    const [langData, langArray, allCatVideos, categoriesData] =
+    const [langData, allCatVideos, categoriesData] =
       await Promise.all([
         getTranslation(lang),
-        getLangArray(),
         getAllCategoryVideos("1"),
         getAllCategories(),
       ]);

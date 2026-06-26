@@ -1,8 +1,6 @@
 import dynamic from "next/dynamic";
-import { Suspense } from "react";
-
+// import { Suspense } from "react";
 // Dynamically Import Components
-
 const BreadCrumb = dynamic(() => import("@/components/shared/BreadCrumb"),
 // { suspense: true }
 );
@@ -18,8 +16,6 @@ const ShowAllCategoriesEducationList = dynamic(
 import {
   getTranslation,
   getMainFile,
-  findByModalName,
-  findByTabName,
   getLangArray,
   getAllCategories,
 } from "@/components/utils/actions";
@@ -34,10 +30,9 @@ export default async function EducationCategoryAll({params}: EducationCategoryAl
        const resolvedParams = await params;
   const { lang } = resolvedParams;
   try {
-  const [ langData, langArray, categoriesData] = await Promise.all([
+  const [ langData, categoriesData] = await Promise.all([
   
     getTranslation(lang),
-    getLangArray(),
     getAllCategories(),
   ]);
 
@@ -149,12 +144,12 @@ export async function generateMetadata({ params }:EducationCategoryAllProps) {
   const mainData = await getMainFile(langData);
 
   //to make description less than 200 character
-  async function makeLessCharacter() {
-    let temp = findByUniqueId(mainData, 164);
-    temp = temp.slice(0, 200);
+  // async function makeLessCharacter() {
+  //   let temp = findByUniqueId(mainData, 164);
+  //   temp = temp.slice(0, 200);
 
-    return temp;
-  }
+  //   return temp;
+  // }
 
   return {
     title: findByUniqueId(mainData, 340),

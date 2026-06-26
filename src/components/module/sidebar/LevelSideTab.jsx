@@ -21,7 +21,7 @@ export default function SideBarContent({
   langArray,
 }) {
   const router = useRouter();
-  const [langDropDown, setLangDropDown] = useState(false);
+  // const [langDropDown, setLangDropDown] = useState(false);
   const [activeNav, setActiveNav] = useState(params.levelName);
 
   const staticRouteNames = [

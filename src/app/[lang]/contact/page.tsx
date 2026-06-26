@@ -1,7 +1,6 @@
 import {
   getTranslation,
   getMainFile,
-  getLangArray,
 } from "@/components/utils/actions";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 // import { WhatsAppIcon, ContactDownArrow } from "@/components/svgs";

@@ -1,6 +1,6 @@
 // "use client";
 // import { useContext } from "react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import Image from "next/image";
 // import { SideBarContext } from "@/components/context/SidebarContext";
 import { LanguageDataItem } from "@/types/listMenu";

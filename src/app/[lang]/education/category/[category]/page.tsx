@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import { Suspense } from "react";
+// import { Suspense } from "react";
 import NotFoundPage from "@/components/error/NotFoundPage";
 
 const BreadCrumb = dynamic(() => import("@/components/shared/BreadCrumb"),);
@@ -13,8 +13,6 @@ const CategoryPageSection = dynamic(
 import {
   getTranslation,
   getMainFile,
-  findByModalName,
-  findByTabName,
   getLangArray,
   getEducationSingleCategory,
 } from "@/components/utils/actions";

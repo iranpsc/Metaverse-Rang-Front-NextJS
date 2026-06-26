@@ -102,8 +102,6 @@ export default async function CitizenReferral({
         getLangArray(),
       ]);
 
-      const updatedTabsMenu = await buildUpdatedTabsMenu(mainData);
-
       return (
         <NotFoundPage
           lang={lang}

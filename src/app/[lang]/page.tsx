@@ -20,7 +20,7 @@ import LastContent from '@/components/templates/firstpage/LastContent.client';
 import {
   getTranslation,
   getMainFile,
-  findByModalName,
+  // findByModalName,
   // findByTabName,
   // getAllVersions
 } from "@/components/utils/actions";

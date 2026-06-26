@@ -3,12 +3,11 @@ import { cookies } from "next/headers";
 import {
   getTranslation,
   getMainFile,
-  getLangArray,
 } from "@/components/utils/actions";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import { mapEvents, MappedEventItem } from "@/utils/mapEvents";
 import EventCalendarClient from "../../../../components/templates/envent/EventCalendarClient";
-import htmlTruncate from "html-truncate";
+// import htmlTruncate from "html-truncate";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam  from "@/components/system/CleanAutoRetryParam";
 interface EventPageProps {
@@ -200,9 +199,8 @@ export default async function EventPage({ params }: EventPageProps ) {
           const resolvedParams = await params;
     const { lang } = resolvedParams;
     try {
-  const [ langData, langArray, events, selectedEvent] = await Promise.all([
+  const [ langData, events, selectedEvent] = await Promise.all([
     getTranslation(lang),
-    getLangArray(),
     getEvents(),
     getEvent(resolvedParams.id),
   ]);

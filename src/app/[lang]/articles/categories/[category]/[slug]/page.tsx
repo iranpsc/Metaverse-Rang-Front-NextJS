@@ -34,7 +34,7 @@ interface ArticlePageProps {
 // ======================================
 export async function generateMetadata({ params }: ArticlePageProps) {
   const resolvedParams = await params;
-  const { lang } = resolvedParams;
+  // const { lang } = resolvedParams;
   try {
     function cleanDescription(html: any, limit = 255) {
       if (!html) return "";
@@ -152,7 +152,7 @@ export async function generateStaticParams() {
   }
 }
 
-// هر ۱۰ دقیقه یکبار صفحات استاتیک رو به‌روزرسانی کنه (ISR)
+
 
 
 export const dynamicParams = true; // اجازه می‌ده مقالات جدید بدون rebuild هم کار کنن
@@ -162,7 +162,7 @@ export const dynamicParams = true; // اجازه می‌ده مقالات جدی
 // ======================================
 export default async function ArticlePage({ params } :ArticlePageProps) {
      const resolvedParams = await params;
-  const { lang } = resolvedParams;
+  // const { lang } = resolvedParams;
   try {
     function cleanDescription(html: any, limit = 100) {
       if (!html) return "";
@@ -238,9 +238,8 @@ export default async function ArticlePage({ params } :ArticlePageProps) {
       .eq("categorySlug", article.categorySlug)
       .order("date", { ascending: true });
 
-    const [langData, langArray, mainData] = await Promise.all([
+    const [langData, mainData] = await Promise.all([
       getTranslation(lang),
-      getLangArray(),
       getMainFile(await getTranslation(lang)),
     ]);
 

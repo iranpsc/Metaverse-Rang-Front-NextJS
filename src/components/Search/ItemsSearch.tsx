@@ -3,13 +3,13 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Like } from "../svgs/SvgEducation";
 
 export const ItemsSearch = ({ searchLevel, searchData, params }: any) => {
   const [isDataReady, setIsDataReady] = useState(false);
-  const router = useRouter();
+  // const router = useRouter();
 const [linkLoading, setLinkLoading] = useState(false);
   useEffect(() => {
     if (searchData && searchData.length >= 1) {

@@ -3,9 +3,6 @@ import {
   getAllLevels,
   getTranslation,
   getMainFile,
-  findByModalName,
-  findByTabName,
-  getLangArray,
   getUserData
 
 } from "@/components/utils/actions";
@@ -90,9 +87,8 @@ export default async function AboutPage({ params }:AboutPageProps) {
     const { lang } = resolvedParams;
   try {
 
-    const [levelArray, langArray, langData] = await Promise.all([
+    const [levelArray, langData] = await Promise.all([
       getAllLevels() as Promise<LevelItem[]>,
-      getLangArray() as Promise<string[]>,
       getTranslation(lang) as Promise<any>,
     ]);
     const mainData = await getMainFile(langData);
@@ -107,13 +103,6 @@ export default async function AboutPage({ params }:AboutPageProps) {
       }
     });
 
-
-
-    const [centralPageModal, Citizenship, levelModals] = await Promise.all([
-      findByModalName(mainData, "central-page") as Promise<ModalData>,
-      findByModalName(mainData, "Citizenship-profile") as Promise<ModalData>,
-      findByModalName(mainData, "levels") as Promise<ModalData>,
-    ]);
     const userCodes = ["HM-2000008", "HM-2000491", "HM-2000009", "HM-2000005", "HM-2000003", "HM-2000002", "HM-2000001"
     ];
 
@@ -135,14 +124,9 @@ export default async function AboutPage({ params }:AboutPageProps) {
         passions: profile.data.customs?.passions || {},
       }));
 
-    const citizenListArrayContent = await findByTabName(
-      Citizenship,
-      "list-citizen"
-    ) as Promise<Tab[]>;
-    const levelListArrayContent = await findByTabName(levelModals, "level-list") as Promise<Tab[]>;
 
-    const baseURL = process.env.NEXT_PUBLIC_BASE_URL as string;
-    const logoURL = `${baseURL}/logo.png`;
+    // const baseURL = process.env.NEXT_PUBLIC_BASE_URL as string;
+    // const logoURL = `${baseURL}/logo.png`;
     const aboutSchema = {
       "@context": "https://schema.org/",
       "@type": "AboutPage",

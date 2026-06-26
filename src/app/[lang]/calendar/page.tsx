@@ -9,7 +9,7 @@ import BreadCrumb from "@/components/shared/BreadCrumb";
 import EventsCalendar from "../../../components/templates/envent/EventsCalendar";
 import { mapEvents, MappedEventItem } from "@/utils/mapEvents";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import htmlTruncate from "html-truncate";
+// import htmlTruncate from "html-truncate";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 import FixLinks from "../../../components/templates/envent/FixLinks";
@@ -216,9 +216,8 @@ export default async function CalendarPage({ params }: CalendarPageProps) {
           const resolvedParams = await params;
     const { lang } = resolvedParams;
   try {
-    const [langData, langArray] = await Promise.all([
+    const [langData] = await Promise.all([
       getTranslation(lang),
-      getLangArray(),
     ]);
 
     const mainData = await getMainFile(langData);
