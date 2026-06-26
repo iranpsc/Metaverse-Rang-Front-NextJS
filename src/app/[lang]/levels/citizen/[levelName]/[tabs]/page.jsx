@@ -13,8 +13,8 @@ import {
   findByTabName,
 } from "@/components/utils/actions";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import TabContentWrapper from "./TabContentWrapper";
-import TabLoadingProvider from "./TabLoadingProvider";
+import TabContentWrapper from "../../../../../../components/ui/skelton/TabContentWrapper";
+import TabLoadingProvider from "../../../../../../components/ui/skelton/TabLoadingProvider";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 const GeneralInfo = dynamic(() => import('@/components/module/levelComponents/GeneralInfo'));
@@ -60,13 +60,11 @@ async function fetchData(params) {
 
   const [
     langData,
-    footerTabs,
     singleLevel,
     levelTabs,
     mainData,
   ] = await Promise.all([
     getTranslation(lang),
-    getFooterData(params),
     getSingleLevel(levelId),
     getLevelTabs(params, levelId),
     getMainFile(await getTranslation(lang)),
@@ -74,7 +72,6 @@ async function fetchData(params) {
 
   return {
     langData,
-    footerTabs,
     singleLevel,
     levelTabs,
     mainData,
@@ -110,7 +107,6 @@ export default async function LevelSinglePage({ params }) {
 
     const {
       langData,
-      footerTabs,
       singleLevel,
       levelTabs,
       mainData,
@@ -126,7 +122,6 @@ export default async function LevelSinglePage({ params }) {
           langData={langData}
           langArray={mainData?.languages || []}
           updatedTabsMenu={mainData?.tabsMenu || []}
-          footerTabs={footerTabs}
           mainData={mainData}
           hideSidebar={true}
         />
@@ -195,7 +190,7 @@ export default async function LevelSinglePage({ params }) {
             />
           )}
         </Head>
-
+          <CleanAutoRetryParam />
         <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-3 w-full font-azarMehr ">
           <BreadCrumb params={resolvedParams} />
 
@@ -272,7 +267,7 @@ export default async function LevelSinglePage({ params }) {
 
 
 
-              <div className="grid-forth flex-1 relative !mt-[-2px]">
+              <div className="grid-forth flex-1 relative !mt-[-2px] mb-10 lg:mb-0">
                 <Suspense fallback={<div>image box loading ...</div>}>
                   <ImageBox item={levelTabs.data} singleLevel={singleLevel} />
                 </Suspense>

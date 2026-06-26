@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
-import { useTabLoading } from "../../../app/[lang]/levels/citizen/[levelName]/[tabs]/TabLoadingProvider";
+import { useTabLoading } from "@/components/ui/skelton/TabLoadingProvider";
 
 const Sample3D = dynamic(() => import("./Sample3D"), { ssr: false });
 const ErrorBoundary = dynamic(() => import("@/components/utils/ErrorBoundary"));
@@ -74,7 +74,7 @@ export default function ImageBox({ item, singleLevel }: any) {
       {mode === "fbx" && srcFbx && (
         <div className="relative w-full aspect-[5/7]">
           <ErrorBoundary>
-            <Sample3D url={srcFbx} />
+            <Sample3D src={srcFbx} />
           </ErrorBoundary>
         </div>
       )}

@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import { useTabLoading } from "../../../app/[lang]/levels/citizen/[levelName]/[tabs]/TabLoadingProvider";
+import { useTabLoading } from "../../ui/skelton/TabLoadingProvider";
 
 export default function TabSelector({ params, mainData }: any ) {
   const lang = params.lang;

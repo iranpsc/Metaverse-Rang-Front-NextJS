@@ -259,7 +259,7 @@ const VersionBox: React.FC<VersionBoxProps> = ({
                         <p className="description dark:text-white">
                           {findByUniqueId(mainData, 1444)}
                         </p>
-                        <div className="descriptionParagraph pb-2 break-words text-[90%] text-[#414040] dark:text-[#C4C4C4]" dangerouslySetInnerHTML={{ __html: item.description }} />
+                        <div className="descriptionParagraph break-all pb-2 break-words text-[90%] text-[#414040] dark:text-[#C4C4C4]" dangerouslySetInnerHTML={{ __html: item.description }} />
                       </div>
                     </div>
                   </div>
