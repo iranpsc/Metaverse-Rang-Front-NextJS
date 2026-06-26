@@ -3,7 +3,7 @@
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import Image from "next/image";
 // import { SideBarContext } from "@/components/context/SidebarContext";
-import { LanguageDataItem } from "@/types/menu";
+import { LanguageDataItem } from "@/types/listMenu";
 import { Tick } from "@/components/svgs";
 
 const DropdownLanguageModule = ({ langArray, params, isClosed }: any) => {

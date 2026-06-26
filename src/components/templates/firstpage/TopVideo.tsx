@@ -5,9 +5,9 @@ import Image from "next/image";
 export default function LandingTopVideo() {
   const [videoLoaded, setVideoLoaded] = useState(false);
 
-  const handleVideoLoad = () => {
-    setVideoLoaded(true);
-  };
+  // const handleVideoLoad = () => {
+  //   setVideoLoaded(true);
+  // };
   return (
     <>
       {!videoLoaded && (

@@ -1,7 +1,7 @@
 // src/components/LatestArticlesSlider.tsx
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import  { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowRight } from "@/components/svgs";
 import ArticleCard from "../../card/ArticleCard";

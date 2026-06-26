@@ -1,7 +1,6 @@
 "use client";
 
 import ListData from "@/components/card/EducationCategoriesCard";
-import { useTheme } from "next-themes";
 import SyncLoader from "react-spinners/SyncLoader";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
@@ -24,7 +23,6 @@ export default function ListSubCategories({
   visibleCount,
   setVisibleCount,
 }: ListSubCategoriesProps) {
-  const { theme } = useTheme();
 
   const isDisabled =
     !CategoryData?.subcategories ||

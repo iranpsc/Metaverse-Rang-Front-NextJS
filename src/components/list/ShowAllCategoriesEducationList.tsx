@@ -1,14 +1,10 @@
 "use client";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-
 import ListData from "@/components/card/EducationCategoriesCard";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import SyncLoader from "react-spinners/SyncLoader";
 
 const ShowAllCategoriesEducationList = ({ categoriesData, params, mainData, theme }: any) => {
-  const router = useRouter();
-
   const [visibleCount, setVisibleCount] = useState(9);
   const [loading, setLoading] = useState(false);
   const [activeLoadingId, setActiveLoadingId] = useState<string | null>(null);

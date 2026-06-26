@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+
 import { CLoseIcon } from "@/svgs/index";
 import { useTheme } from "next-themes";
 // import { LangContext } from "@/context/LangContext";

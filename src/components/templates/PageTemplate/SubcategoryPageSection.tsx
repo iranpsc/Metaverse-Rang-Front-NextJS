@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import { Suspense, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { DashboardHeaderModule } from "@/components/module/categories/DashboardHeaderModule";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";

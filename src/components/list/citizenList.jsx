@@ -17,7 +17,7 @@ export default function CitizenList({
 
 
   const [localCitizenArray, setLocalCitizenArray] = useState(allCitizenArray);
-  const [isDisabled, setIsDisabled] = useState(false);
+  const isDisabled = false;
   const [currentPage, setCurrentPage] = useState(2);
   const [lastPage, setLastPage] = useState(2);
   const [isMounted, setIsMounted] = useState(false);

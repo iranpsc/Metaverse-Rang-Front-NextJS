@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import { Suspense, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import axios from "axios";
 
 import ListSubCategories from "../../list/ListSubCategoriesEducation";
@@ -11,7 +11,6 @@ import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 const SearchComponent = dynamic(
   () => import("@/components/Search/SearchComponent"),
-  // { suspense: true }
 );
 
 const CategoryPageSection = ({ CategoryData, mainData, params }: any) => {
@@ -86,20 +85,12 @@ const CategoryPageSection = ({ CategoryData, mainData, params }: any) => {
             <h1 className="md:w-1/2 lg:ms-5 mt-5 font-bold font-azarMehr text-[22px] text-start dark:text-white text-black">
               {findByUniqueId(mainData, 455)} {CategoryData.name}
             </h1>
-
-            {/* <Suspense
-              fallback={
-                <div className="text-center !mx-0 w-full text-[20px] lg:w-1/2">
-                  loading...
-                </div>
-              }
-            > */}
               <SearchComponent
                 searchLevel="education"
                 mainData={mainData}
                 params={params}
               />
-            {/* </Suspense> */}
+      
           </div>
 
           {/* لیست زیرمجموعه‌ها با Load More */}
