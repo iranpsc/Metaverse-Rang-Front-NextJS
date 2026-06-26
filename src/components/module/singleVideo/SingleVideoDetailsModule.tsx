@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import {  useState, useEffect } from "react";
 import { SendIcon, View } from "@/components/svgs/SvgEducation";
 import { checkData } from "@/components/utils/targetDataName";
 import axios from "axios";
@@ -38,7 +38,7 @@ const SingleVideoDetailsModule = ({
         const requestData = {
           content: comment,
         };
-        const response = await axios.post(
+         await axios.post(
           `https://api.metarang.com/api/tutorials/${videoId}/comments`,
           requestData,
           {

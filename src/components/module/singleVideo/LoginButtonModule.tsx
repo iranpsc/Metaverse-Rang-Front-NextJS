@@ -2,13 +2,13 @@
 
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 export default function LoginButtonModule({ params }: { params: any }) {
   const [isMounted, setIsMounted] = useState(false);
   const pathname = usePathname();
-  const router = useRouter();
+  // const router = useRouter();
 
   // اطمینان از مونت شدن کامپوننت در سمت کلاینت
   useEffect(() => {

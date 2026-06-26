@@ -1,6 +1,5 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
-import { targetData } from "@/utils/targetDataName";
+import  { useState, useRef } from "react";
 import SecondDetails from "@/components/module/profile/secondDetails";
 import DetailsInterest from "@/components/module/profile/detailsInterest";
 import ReadMore from "@/components/module/profile/detailsReadMore";
@@ -15,9 +14,9 @@ export default function ProfileDetails({
   mainData,
 }: any) {
   // const { data, profileData.data, languageSelected } = useContext(LangContext);
-  const [inView, setInView] = useState(true);
+  const [inView, ] = useState(true);
   const iframeContainerRef = useRef<HTMLDivElement | null>(null);
-  const x = profileData.data?.customs?.prediction;
+  // const x = profileData.data?.customs?.prediction;
 
   // IntersectionObserver to load iframe when it's in view
   // useEffect(() => {

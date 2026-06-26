@@ -3,7 +3,7 @@ import ProfileTopMobile from "@/module/profile/ProfileTopMobile";
 import ProfileImages from "@/module/profile/ProfileImages";
 import ProfileMainDetails from "../module/profile/ProfileMainDetails";
 import GemImage from "@/components/shared/gemImage";
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 
 export default function Profile({
   profileData,
@@ -14,7 +14,7 @@ export default function Profile({
   langData,
   params,
 }: any) {
-  const [inView, setInView] = useState(true);
+  const [inView, ] = useState(true);
   const iframeContainerRef3 = useRef<HTMLDivElement | null>(null);
 
   let concatGems = [];
@@ -28,7 +28,7 @@ export default function Profile({
 
   const numberScore =
     100 - parseInt(profileData?.score_percentage_to_next_level);
-  const percent = (numberScore / 100) * 100;
+  // const percent = (numberScore / 100) * 100;
   // console.log(profileData);
   return (
     <>

@@ -1,10 +1,6 @@
 import {
   getTranslation,
   getMainFile,
-  findByModalName,
-  findByTabName,
-  getAllCitizen,
-  getLangArray,
 } from "@/components/utils/actions";
 import Version from "../../../components/templates/verion/version";
 import BreadCrumb from "@/components/shared/BreadCrumb";
@@ -60,7 +56,7 @@ export async function generateMetadata({ params }: { params: any }): Promise<Met
 
       const data = await response.json();
 
-      const siteUrl = process.env.SITE_URL;
+      // const siteUrl = process.env.SITE_URL;
 
       const versions = Array.isArray(data.data)
         ? data.data.map((item: any) => ({
@@ -141,9 +137,8 @@ export default async function VersionPage({ params }:VersionPageProps) {
         const resolvedParams = await params;
     const { lang } = resolvedParams;
   try {
-    const [langData, langArray] = await Promise.all([
+    const [langData] = await Promise.all([
       getTranslation(lang),
-      getLangArray(),
     ]);
 
 

@@ -14,7 +14,7 @@ const Pagination = () => {
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = sampleData.slice(indexOfFirstItem, indexOfLastItem);
+  // const currentItems = sampleData.slice(indexOfFirstItem, indexOfLastItem);
 
   const totalPages = Math.ceil(sampleData.length / itemsPerPage);
 

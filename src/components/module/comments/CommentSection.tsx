@@ -25,7 +25,7 @@ const CommentSection = ({
     const nextPage = page + 1;
 
     try {
-      const resVideos = await axios.get(
+      await axios.get(
         `https://api.metarang.com/api/tutorials?page=${nextPage}`
       );
 

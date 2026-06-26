@@ -1,7 +1,6 @@
 // import { useRef, useContext } from "react";
 import Image from "next/image";
 import { CLoseIcon } from "@/svgs/index";
-import { useTheme } from "next-themes";
 import { findByUniqueId } from "../utils/findByUniqueId";
 
 //ANIMATION

@@ -19,8 +19,9 @@ export default function SideBar({
 }) {
   const [isClosed, setIsClosed] = useState(true); // Start with true (default for SSR)
   const [hydrated, setHydrated] = useState(false); // Track hydration
-  const [cookies] = useCookies(["theme"]);
-  const theme = cookies.theme || "dark";
+  useCookies(["theme"]);
+  // const [cookies] = useCookies(["theme"]);
+  // const theme = cookies.theme || "dark";
   const sidebarRef = useRef(null); // Reference to sidebar element
 
   useEffect(() => {

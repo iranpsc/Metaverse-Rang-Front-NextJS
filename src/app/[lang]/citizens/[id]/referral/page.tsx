@@ -15,7 +15,6 @@ import {
   findByModalName,
   findByTabName,
   getLangArray,
-  getFooterData,
   getAllReferral,
   getUserData,
   getChartReferral,
@@ -121,13 +120,11 @@ export default async function CitizenReferral({
       mainData,
       langArray,
       initInviteList,
-      footerTabs,
       chartDataFetch,
     ] = await Promise.all([
       getMainFile(langData),
       getLangArray(),
       getAllReferral(id),
-      getFooterData(resolvedParams),
       getChartReferral(id, "yearly"),
     ]);
 

@@ -212,8 +212,8 @@ function StoryCard({
 export default function AvalancheStories({ params, mainData }: AvalancheStoriesProps) {
     const scrollRef = useRef<HTMLDivElement>(null);
 
-    const [showLeftButton, setShowLeftButton] = useState(false);
-    const [showRightButton, setShowRightButton] = useState(true);
+    const [, setShowLeftButton] = useState(false);
+    const [, setShowRightButton] = useState(true);
 
     const updateButtons = () => {
         const container = scrollRef.current;

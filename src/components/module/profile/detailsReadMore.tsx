@@ -1,7 +1,6 @@
 "use client";
 import ModalCard from "@/components/modal/ModalCard";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import { targetData } from "@/utils/targetDataName";
 import { AnimatePresence } from "framer-motion";
 import { useState } from "react";
 

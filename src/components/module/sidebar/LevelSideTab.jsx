@@ -55,21 +55,21 @@ export default function SideBarContent({
   useEffect(() => {
     setLoading(false);
   }, [pathname]);
-  const onTabClick = (item) => {
-    setActiveNav(item.route_name || "");
+  // const onTabClick = (item) => {
+  //   setActiveNav(item.route_name || "");
 
-    let href = `/${params.lang}`; // مسیر پیش‌فرض صفحه اصلی
+  //   let href = `/${params.lang}`; // مسیر پیش‌فرض صفحه اصلی
 
-    if (item.route_name && item.route_name !== "home") {
-      href = `/${params.lang}/levels/citizen/${item.route_name}/general-info`;
-    }
+  //   if (item.route_name && item.route_name !== "home") {
+  //     href = `/${params.lang}/levels/citizen/${item.route_name}/general-info`;
+  //   }
 
-    router.push(href);
-  };
+  //   router.push(href);
+  // };
 
-  const handleLangBtn = () => {
-    setLangDropDown(!langDropDown);
-  };
+  // const handleLangBtn = () => {
+  //   setLangDropDown(!langDropDown);
+  // };
   const handleItemMouseDown = (e, item) => {
     e.stopPropagation();
 

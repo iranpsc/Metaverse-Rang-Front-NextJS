@@ -1,10 +1,9 @@
 "use client";
 import ModalCard from "@/components/modal/ModalCard";
 import Image from "next/image";
-import { targetData } from "@/utils/targetDataName";
 import { motion } from "framer-motion";
 import { AnimatePresence } from "framer-motion";
-import React, { useState, useEffect, useRef } from "react";
+import  { useState, useRef } from "react";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 // Function to strip HTML tags from a string
@@ -24,7 +23,7 @@ export default function ProfileAbout({
   const [showModal, setShowModal] = useState<Boolean>(false);
   const [dataModal, setDataModal] = useState({});
 
-  const [inView, setInView] = useState(true);
+  const [inView, ] = useState(true);
   const iframeContainerRef2 = useRef<HTMLDivElement | null>(null);
 
   const submitModalCart = (item: any) => {

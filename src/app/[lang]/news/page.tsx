@@ -184,7 +184,7 @@ export default async function NewsPage({ params }: NewsPageProps) {
     if (!allNews || allNews.length === 0) {
       console.error("❌ No news data available from both Supabase and fallback");
       // می‌توانید یک آرایه خالی برگردانید یا صفحه خطای سفارشی نشان دهید
-      const emptyNews: NewsItem[] = [];
+      // const emptyNews: NewsItem[] = [];
       
       const jsonLd = {
         "@context": "https://schema.org",

@@ -4,7 +4,6 @@ import Head from "next/head";
 
 import NotFoundPage from "@/components/error/NotFoundPage";
 import {
-  getFooterData,
   getTranslation,
   getMainFile,
   getSingleLevel,

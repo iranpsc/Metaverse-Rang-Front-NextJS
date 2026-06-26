@@ -1,9 +1,9 @@
 "use client";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
 import { CLoseIcon } from "@/svgs/index";
 import { Arrow } from "@/svgs/SvgEducation";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 
 //ANIMATION
 import { motion } from "framer-motion";
@@ -21,7 +21,7 @@ export default function SharedPageVideos({
 
   // const { data } = useContext(LangContext);
   // const { theme } = useTheme();
-  const router = useRouter();
+  // const router = useRouter();
   // const lang = router.query.lang;
 
   const items = [

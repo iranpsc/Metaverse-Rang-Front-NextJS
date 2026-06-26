@@ -2,9 +2,6 @@
 import {
   getTranslation,
   getMainFile,
-  findByModalName,
-  findByTabName,
-  getAllCitizen,
   getLangArray,
 } from "@/components/utils/actions";
 import Version from "../../../../components/templates/verion/SingleVersion";
@@ -154,9 +151,8 @@ export default async function VersionPage({ params }: VersionPageProps) {
   const resolvedParams = await params;
   const { lang } = resolvedParams;
   try {
-    const [langData, langArray] = await Promise.all([
+    const [langData] = await Promise.all([
       getTranslation(lang),
-      getLangArray(),
     ]);
 
     const mainData = await getMainFile(langData);

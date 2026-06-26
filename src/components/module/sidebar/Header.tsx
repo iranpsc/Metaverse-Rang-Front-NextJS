@@ -1,13 +1,12 @@
 "use client";
 import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
-import { useRouter, usePathname } from "next/navigation";
 import { MenuIcon, ArrowMenu } from "@/svgs/index";
 import Link from "next/link";
 import ThemeMenuModule from "@/components/module/sidebar/ThemeMenuModule";
 import { useCookies } from "react-cookie";
 import DropdownLanguageModule from "./list/dropdowns/DropdownLanguageModule";
-import { Modals_fa, Modals_en } from "@/components/utils/modals-content";
+
 interface DropdownLanguageModuleProps {
   languagesData: any;
   langArray: any[];

@@ -19,9 +19,9 @@ const [linkLoading, setLinkLoading] = useState(false);
     }
   }, [searchData]);
 
-  const pusherRgb = (code: any) => {
-    router.push(`/${params.lang}/citizen/${code}`);
-  };
+  // const pusherRgb = (code: any) => {
+  //   router.push(`/${params.lang}/citizen/${code}`);
+  // };
 
   const container = {
     hidden: { opacity: 1, scale: 0 },

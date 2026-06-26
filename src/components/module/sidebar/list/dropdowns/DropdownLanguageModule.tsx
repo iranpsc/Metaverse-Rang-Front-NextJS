@@ -4,12 +4,12 @@ import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import Image from "next/image";
 // import { SideBarContext } from "@/components/context/SidebarContext";
 import { LanguageDataItem } from "@/types/listMenu";
-import { Tick } from "@/components/svgs";
+
 
 const DropdownLanguageModule = ({ langArray, params, isClosed }: any) => {
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
+
   // const { state, toggleCollapseHandler } = useContext(SideBarContext);
 
   const handleDirChange = (item: any) => {

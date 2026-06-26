@@ -1,18 +1,17 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useTheme } from "next-themes";
 // import { LangContext } from "@/context/LangContext";
 import { Shahrvand } from "@/svgs/index";
-import Persian from "persianjs";
 
 export default function ProfileHeader({
-  profileName,
+  // profileName,
   profileData,
   titleData,
   nameUser,
 }: any) {
   // const { profileData, languageSelected } = useContext(LangContext);
-  const [numberCurrent_level, setNumberCurrent_level] = useState<number>(1);
+  const [, setNumberCurrent_level] = useState<number>(1);
   const { theme } = useTheme();
   const [staticImageURL, setStaticImageURL] =
     useState<string>("/profile/lock.png");

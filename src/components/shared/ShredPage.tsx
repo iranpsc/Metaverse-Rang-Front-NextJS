@@ -1,4 +1,4 @@
-import { useContext, useState, useRef } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
 import { CLoseIcon } from "@/svgs/index";
 import { Arrow } from "@/svgs/SvgEducation";

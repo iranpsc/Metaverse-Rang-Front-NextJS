@@ -360,9 +360,8 @@ export default async function NewsPage({ params }: NewsPageProps) {
       console.log(`ℹ️ [Category:${news.categorySlug}] Category news for Prev/Next from fallback`);
     }
 
-    const [langData, langArray, mainData] = await Promise.all([
+    const [langData, mainData] = await Promise.all([
       getTranslation(lang),
-      getLangArray(),
       getMainFile(await getTranslation(lang)),
     ]);
 

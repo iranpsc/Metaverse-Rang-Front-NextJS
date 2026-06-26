@@ -1,7 +1,6 @@
 "use client";
-import { useContext, useRef, useState, useEffect } from "react";
+import {useRef, useState, useEffect } from "react";
 
-import { targetData } from "@/utils/targetDataName";
 import Persian from "persianjs";
 import { CopyIcon } from "@/components/svgs/SvgCategories";
 import ShredPage from "@/components/shared/ShredPage";
@@ -18,11 +17,6 @@ const ProfileMainDetails = ({
 }: any) => {
   const [showSocial, setShowSocial] = useState<Boolean>(false);
 
-  const data = {
-    data: {
-      selectedProfileData: "",
-    },
-  };
   const [numberScore, setNumberScore] = useState<number>(0);
 
   useEffect(() => {
