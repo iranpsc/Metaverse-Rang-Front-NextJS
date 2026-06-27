@@ -58,10 +58,10 @@ const Pagination = ({ itemsPerPage = 5, items = defaultItems }: PaginationProps)
             key={index + 1}
           >
             <button
-              className={`min-w-[44px] min-h-[44px] inline-flex items-center justify-center rounded-sm transition-all duration-300 ease-in-out ${
+              className={`min-w-[44px] min-h-[44px] w-[44px] h-[44px] inline-flex items-center justify-center rounded-sm transition-all duration-300 ease-in-out ${
                 currentPage === index + 1
-                  ? "bg-error w-[20px] h-[5px]"
-                  : "bg-singleVideo-gray w-[12px] h-[5px]"
+                  ? "bg-error"
+                  : "bg-singleVideo-gray"
               }`}
               onClick={() => handlePageChange(index + 1)}
               aria-label={`Page ${index + 1}`}
