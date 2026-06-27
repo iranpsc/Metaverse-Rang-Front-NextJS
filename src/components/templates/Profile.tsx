@@ -17,14 +17,10 @@ export default function Profile({
   const [inView, ] = useState(true);
   const iframeContainerRef3 = useRef<HTMLDivElement | null>(null);
 
-  let concatGems = [];
-  if (profileData.data?.current_level && profileData.data?.achieved_levels) {
-    concatGems = profileData.data?.achieved_levels.concat(
-      profileData.data.current_level
-    );
-  } else {
-    concatGems = profileData.data?.achieved_levels;
-  }
+  const concatGems =
+    profileData.data?.current_level && profileData.data?.achieved_levels
+      ? profileData.data.achieved_levels.concat(profileData.data.current_level)
+      : profileData.data?.achieved_levels;
 
   // const numberScore =
   //   100 - parseInt(profileData?.score_percentage_to_next_level);
