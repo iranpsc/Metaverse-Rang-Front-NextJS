@@ -100,7 +100,9 @@ export default function VideoNewsInlinePlayer({
   // autoplay فقط بعد از play
   useEffect(() => {
     if (hasPlayed && videoRef.current) {
-      videoRef.current.play().catch(() => {});
+      videoRef.current.play().catch((error) => {
+        console.warn("Video autoplay failed:", error);
+      });
     }
   }, [hasPlayed, active]);
 
