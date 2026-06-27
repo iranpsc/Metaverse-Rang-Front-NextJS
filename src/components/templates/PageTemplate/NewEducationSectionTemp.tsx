@@ -1,5 +1,5 @@
 "use client";
-import ListNewEducationModule from "@/components/module/singleVideo/listVideos/ListNewEducationModule";
+import ListNewEducationModule from "@/components/features/video/listVideos/ListNewEducationModule";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import axios from "axios";
 import { useTheme } from "next-themes";

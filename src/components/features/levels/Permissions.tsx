@@ -1,4 +1,4 @@
-import DetailItem from "@/components/module/levelComponents/DetailItem";
+import DetailItem from "@/components/ui/DetailItem";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 export default async function Permissions({

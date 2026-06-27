@@ -1,8 +1,8 @@
 "use client";
 import  { useState, useRef } from "react";
-import SecondDetails from "@/components/module/profile/secondDetails";
-import DetailsInterest from "@/components/module/profile/detailsInterest";
-import ReadMore from "@/components/module/profile/detailsReadMore";
+import SecondDetails from "@/components/features/profile/secondDetails";
+import DetailsInterest from "@/components/features/profile/detailsInterest";
+import ReadMore from "@/components/features/profile/detailsReadMore";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 export default function ProfileDetails({

@@ -1,18 +1,18 @@
 "use client";
-import DynamicVideoPlayer from "@/components/module/singleVideo/DynamicVideoPlayer";
-import SingleVideoDashboardModule from "@/components/module/singleVideo/SingleVideoDashboardModule";
+import DynamicVideoPlayer from "@/components/features/video/DynamicVideoPlayer";
+import SingleVideoDashboardModule from "@/components/features/video/SingleVideoDashboardModule";
 // import SingleVideoDetailsModule from "@/components/module/singleVideo/SingleVideoDetailsModule";
-import SingleVideoProfileModule from "@/components/module/singleVideo/SingleVideoProfileModule";
-import CommentSection from "@/components/module/comments/CommentSection";
+import SingleVideoProfileModule from "@/components/features/video/SingleVideoProfileModule";
+import CommentSection from "@/components/features/comments/CommentSection";
 // import ListVideos from "@/components/module/singleVideo/listVideos/ListVideos";
 // import Pagination from "@/components/module/singleVideo/listVideos/Pagination";
 import NewEducationSectionTemp from "./NewEducationSectionTemp";
-import SingleVideoSlugModule from "@/components/module/singleVideo/SingleVideoSlugModule";
+import SingleVideoSlugModule from "@/components/features/video/SingleVideoSlugModule";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import DynamicDetails from "@/components/module/singleVideo/DynamicDetails";
+import DynamicDetails from "@/components/features/video/DynamicDetails";
 import { AnimatePresence } from "framer-motion";
-import SharedPageVideos from "@/components/module/singleVideo/SharedPageVideos";
+import SharedPageVideos from "@/components/features/video/SharedPageVideos";
 
 const VideoSection = ({
   // translateSingleVideo,

@@ -1,7 +1,7 @@
 "use client";
 
-import DetailItem from "@/components/module/levelComponents/DetailItem";
-import Accordion from "@/components/module/levelComponents/Accordion";
+import DetailItem from "@/components/ui/DetailItem";
+import Accordion from "@/components/ui/Accordion/Accordion";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 export default function GeneralInfo({

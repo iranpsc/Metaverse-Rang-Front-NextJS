@@ -11,7 +11,7 @@ import { motion } from "framer-motion";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import GetAuthData from "@/components/utils/getAuthData";
 import axios from "axios";
-import LoginButtonModule from "../singleVideo/LoginButtonModule";
+import LoginButtonModule from "../video/LoginButtonModule";
 import ReplyList from "./ReplyList";
 
 interface CommentListProps {

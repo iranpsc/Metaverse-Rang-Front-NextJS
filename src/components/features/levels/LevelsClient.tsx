@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import LevelCard from "@/components/module/levelComponents/LevelCard";
+import LevelCard from "@/components/card/LevelCard";
 
 export default function LevelsClient({
   levels,

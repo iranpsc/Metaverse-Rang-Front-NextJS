@@ -1,7 +1,7 @@
 "use client";
-import ProfileTopMobile from "@/module/profile/ProfileTopMobile";
-import ProfileImages from "@/module/profile/ProfileImages";
-import ProfileMainDetails from "../module/profile/ProfileMainDetails";
+import ProfileTopMobile from "@/components/features/profile/ProfileTopMobile";
+import ProfileImages from "@/components/features/profile/ProfileImages";
+import ProfileMainDetails from "../features/profile/ProfileMainDetails";
 import GemImage from "@/components/shared/gemImage";
 import { useRef } from "react";
 

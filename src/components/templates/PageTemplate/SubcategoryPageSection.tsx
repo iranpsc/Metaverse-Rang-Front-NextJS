@@ -4,7 +4,7 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { DashboardHeaderModule } from "@/components/module/categories/DashboardHeaderModule";
+import { DashboardHeaderModule } from "@/components/features/categories/DashboardHeaderModule";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import SyncLoader from "react-spinners/SyncLoader";
 

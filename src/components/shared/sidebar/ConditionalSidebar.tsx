@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import SideBar from "@/components/module/sidebar/SideBar";
+import SideBar from "@/components/shared/sidebar/SideBar";
 
 interface Tab {
   id: number;

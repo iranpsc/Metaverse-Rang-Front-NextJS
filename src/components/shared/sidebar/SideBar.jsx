@@ -6,7 +6,7 @@ import LevelSideTab from './LevelSideTab';
 import { useState, useCallback, useEffect, useRef } from "react";
 import LoginMenuModule from "./LoginMenuModule";
 // import ThemeMenuModule from "@/components/module/sidebar/ThemeMenuModule";
-import HeaderMobile from "@/components/module/sidebar/HeaderMobile";
+import HeaderMobile from "@/components/shared/sidebar/HeaderMobile";
 import { useCookies } from "react-cookie";
 
 export default function SideBar({

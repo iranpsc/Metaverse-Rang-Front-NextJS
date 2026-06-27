@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { CLoseIcon, MenuIcon } from "@/components/svgs";
-import ThemeMenuModule from "@/components/module/sidebar/ThemeMenuModule";
+import ThemeMenuModule from "@/components/shared/sidebar/ThemeMenuModule";
 import DropdownLanguageModule from "./list/dropdowns/DropdownLanguageModule";
 import { useCookies } from "react-cookie";
 

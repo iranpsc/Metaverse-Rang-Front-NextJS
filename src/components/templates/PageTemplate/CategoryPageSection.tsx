@@ -6,7 +6,7 @@ import { useRef, useState } from "react";
 import axios from "axios";
 
 import ListSubCategories from "../../list/ListSubCategoriesEducation";
-import { DashboardHeaderModule } from "@/components/module/categories/DashboardHeaderModule";
+import { DashboardHeaderModule } from "@/components/features/categories/DashboardHeaderModule";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 const SearchComponent = dynamic(

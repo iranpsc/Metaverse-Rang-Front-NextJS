@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
-import { useTabLoading } from "@/components/ui/skelton/TabLoadingProvider";
+import { useTabLoading } from "@/components/ui/Skeleton/TabLoadingProvider";
 
 const Sample3D = dynamic(() => import("./Sample3D"), { ssr: false });
 const ErrorBoundary = dynamic(() => import("@/components/utils/ErrorBoundary"));

@@ -7,7 +7,7 @@ import { switchDigits } from "@/components/utils/DigitSwitch";
 import moment from "moment-jalaali";
 import { Like, Dislike, View } from "@/components/svgs/SvgEducation";
 import SyncLoader from "react-spinners/SyncLoader";
-import LoginButtonModule from "@/components/module/singleVideo/LoginButtonModule";
+import LoginButtonModule from "@/components/features/video/LoginButtonModule";
 // import Image from "next/image";
 import {
   MappedEventItem,
