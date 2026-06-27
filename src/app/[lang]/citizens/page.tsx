@@ -110,7 +110,7 @@ export default async function CitizensPage({ params }: CitizensPageProps) {
       "email": "info@metarang.com",
       "description": await makeLessCharacter(),
       "alternateName": "MetaRGB"
-    }
+    };
 
     return (
       <>

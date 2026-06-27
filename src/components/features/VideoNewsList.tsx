@@ -115,7 +115,7 @@ export default function VideoNewsInlinePlayer({
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-5">
           <div>
-            {active && (
+           
               <div className="bg-light-primary/60 dark:bg-dark-yellow/70 flex">
                 <Link href={`/${params.lang}/news/categories/${active.categorySlug}/${active.slug}`}>
                   <h2 className="text-white text-lg font-bold dark:text-[#1A1A18] p-4">
@@ -131,7 +131,7 @@ export default function VideoNewsInlinePlayer({
                   </button>
                 </div>
               </div>
-            )}
+           
             {/* SIDE LIST */}
             <div className="space-y-3 max-h-[385px] light-scrollbar dark:dark-scrollbar overflow-y-auto pe-1">
               {videos.map((item) => {
