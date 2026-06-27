@@ -23,7 +23,7 @@ interface VideoItem {
 
 interface Props {
   params: { lang: string };
-  mainData: any;
+  mainData: unknown;
   limit?: number;
   title?: string;
   date?: string;
@@ -100,7 +100,9 @@ export default function VideoNewsInlinePlayer({
   // autoplay فقط بعد از play
   useEffect(() => {
     if (hasPlayed && videoRef.current) {
-      videoRef.current.play().catch(() => {});
+      videoRef.current.play().catch((error) => {
+        console.warn("Video autoplay failed:", error);
+      });
     }
   }, [hasPlayed, active]);
 
@@ -123,7 +125,7 @@ export default function VideoNewsInlinePlayer({
                   </h2>
                 </Link>
                 <div className="dark:bg-dark-yellow bg-light-primary">
-                  <button onClick={() => setHasPlayed(true)} aria-label="paly btn" className="bg-transparent !py-3 p-6 w-max h-max text-center flex items-center justify-center aspect-square hover:scale-110 transition">
+                  <button onClick={() => setHasPlayed(true)} aria-label="play btn" className="bg-transparent !py-3 p-6 w-max h-max text-center flex items-center justify-center aspect-square hover:scale-110 transition">
                     <svg width="87" height="87" viewBox="0 0 87 87" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <rect width="86.7799" height="86.7799" rx="43.39" fill="#1A1A18" fillOpacity="0.2" />
                       <path d="M62 37.3038C66 39.6132 66 45.3868 62 47.6962L37.25 61.9856C33.25 64.295 28.25 61.4082 28.25 56.7894L28.25 28.2106C28.25 23.5918 33.25 20.705 37.25 23.0144L62 37.3038Z" fill="white" />
