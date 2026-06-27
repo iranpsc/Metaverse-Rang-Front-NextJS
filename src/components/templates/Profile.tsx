@@ -3,7 +3,7 @@ import ProfileTopMobile from "@/module/profile/ProfileTopMobile";
 import ProfileImages from "@/module/profile/ProfileImages";
 import ProfileMainDetails from "../module/profile/ProfileMainDetails";
 import GemImage from "@/components/shared/gemImage";
-import { useState, useRef } from "react";
+import { useRef } from "react";
 
 export default function Profile({
   profileData,
@@ -14,17 +14,13 @@ export default function Profile({
   langData,
   params,
 }: any) {
-  const [inView, ] = useState(true);
+  const inView = true;
   const iframeContainerRef3 = useRef<HTMLDivElement | null>(null);
 
-  let concatGems = [];
-  if (profileData.data?.current_level && profileData.data?.achieved_levels) {
-    concatGems = profileData.data?.achieved_levels.concat(
-      profileData.data.current_level
-    );
-  } else {
-    concatGems = profileData.data?.achieved_levels;
-  }
+  const concatGems =
+    profileData.data?.current_level && profileData.data?.achieved_levels
+      ? profileData.data.achieved_levels.concat(profileData.data.current_level)
+      : profileData.data?.achieved_levels;
 
   // const numberScore =
   //   100 - parseInt(profileData?.score_percentage_to_next_level);
@@ -50,7 +46,7 @@ export default function Profile({
         />
       </div>
       {/* BOT */}
-      <div className="w-full h-full border border-red-500 shadow-md rounded-[10px] dark:bg-dark-background text-gray dark:text-dark-gray bg-white px-3 flex flex-col justify-between gap-5  transition-all duration-300 ease-linear">
+      <div className="w-full h-full border shadow-md rounded-[10px] dark:bg-dark-background text-gray dark:text-dark-gray bg-white px-3 flex flex-col justify-between gap-5  transition-all duration-300 ease-linear">
         <ProfileMainDetails
           nameUser={nameUser}
           profileData={profileData}
