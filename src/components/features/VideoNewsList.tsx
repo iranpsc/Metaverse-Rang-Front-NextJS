@@ -23,7 +23,7 @@ interface VideoItem {
 
 interface Props {
   params: { lang: string };
-  mainData: any;
+  mainData: unknown;
   limit?: number;
   title?: string;
   date?: string;
