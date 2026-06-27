@@ -21,9 +21,11 @@ interface VideoItem {
   categorySlug?: string;
 }
 
+type MainData = Record<string, unknown> | null;
+
 interface Props {
   params: { lang: string };
-  mainData: unknown;
+  mainData: MainData;
   limit?: number;
   title?: string;
   date?: string;
