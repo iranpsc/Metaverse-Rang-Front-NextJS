@@ -3,7 +3,7 @@ import ProfileTopMobile from "@/module/profile/ProfileTopMobile";
 import ProfileImages from "@/module/profile/ProfileImages";
 import ProfileMainDetails from "../module/profile/ProfileMainDetails";
 import GemImage from "@/components/shared/gemImage";
-import { useState, useRef } from "react";
+import { useRef } from "react";
 
 export default function Profile({
   profileData,
@@ -14,7 +14,7 @@ export default function Profile({
   langData,
   params,
 }: any) {
-  const [inView, ] = useState(true);
+  const inView = true;
   const iframeContainerRef3 = useRef<HTMLDivElement | null>(null);
 
   const concatGems =
