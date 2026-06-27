@@ -54,7 +54,7 @@ const Pagination = () => {
               aria-label={`Page ${index + 1}`}
               aria-current={currentPage === index + 1 ? "page" : undefined}
             >
-              {/* متن دکمه */}
+              {index + 1}
             </button>
           </div>
         ))}
