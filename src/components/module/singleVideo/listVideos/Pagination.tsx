@@ -13,6 +13,8 @@ const Pagination = () => {
   const itemsPerPage = 5;
 
   const totalPages = Math.ceil(sampleData.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentItems = sampleData.slice(startIndex, startIndex + itemsPerPage);
 
   const handlePageChange = (pageNumber: number) => {
     if (!Number.isFinite(pageNumber)) return;
@@ -24,7 +26,12 @@ const Pagination = () => {
   };
 
   return (
-    <div className="flex flex-row w-full">
+    <div className="flex flex-col w-full">
+      <div className="mb-3">
+        {currentItems.map((item) => (
+          <div key={item.id}>{item.text}</div>
+        ))}
+      </div>
       <div className="flex flex-row">
         <button
           onClick={() => handlePageChange(currentPage - 1)}
