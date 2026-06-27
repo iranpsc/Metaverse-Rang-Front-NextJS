@@ -68,7 +68,7 @@ export default function VideoNewsInlinePlayer({
             image: item.image,
             video: item.video,
             date: item.date,
-            readingTime: item.readingTime ? parseInt(item.readingTime) : undefined,
+            readingTime: item.readingTime ? parseInt(item.readingTime, 10) : undefined,
             categorySlug: item.categorySlug,
           }))
           .sort((a, b) => {
