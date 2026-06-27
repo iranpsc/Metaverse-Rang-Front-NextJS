@@ -48,6 +48,22 @@ const [linkLoading, setLinkLoading] = useState(false);
     );
   }
 
+  const LoadingOverlay = () => (
+    <div className="fixed top-0 left-0 bottom-0  w-full  h-screen z-[70] flex items-center justify-center bg-black/60 backdrop-blur-sm">
+      <div className="container flex w-full h-screen items-center justify-center md:ms-[25vw] lg:ms-[17vw] xl:ms-[15vw] 3xl:ms-[16vw]">
+        <div className="holder">
+          <div className="box"></div>
+        </div>
+        <div className="holder">
+          <div className="box"></div>
+        </div>
+        <div className="holder">
+          <div className="box"></div>
+        </div>
+      </div>
+    </div>
+  );
+
   // ✅ در غیر این صورت نتایج را نمایش بده
   return (
     
@@ -57,6 +73,7 @@ const [linkLoading, setLinkLoading] = useState(false);
       animate="visible"
       className="w-full"
     >
+      {linkLoading && <LoadingOverlay />}
       {searchData.map((item: any) => {
         // ---------------------------------
         // 1️⃣ Citizen Level
@@ -64,21 +81,6 @@ const [linkLoading, setLinkLoading] = useState(false);
         if (searchLevel === "citizen") {
           return (
             <motion.div key={item?.id} variants={items}>
-              {linkLoading && (
-              <div className="fixed top-0 left-0 bottom-0  w-full  h-screen z-[70] flex items-center justify-center bg-black/60 backdrop-blur-sm" >
-                <div className="container flex w-full h-screen items-center justify-center md:ms-[25vw] lg:ms-[17vw] xl:ms-[15vw] 3xl:ms-[16vw]">
-                  <div className="holder">
-                    <div className="box"></div>
-                  </div>
-                  <div className="holder">
-                    <div className="box"></div>
-                  </div>
-                  <div className="holder">
-                    <div className="box"></div>
-                  </div>
-                </div>
-              </div>
-            )}
               <Link onClickCapture={() => setLinkLoading(true)}
                 href={`/${params.lang}/citizens/${item.code?.toLowerCase()}`}
                 className="w-[99%] h-[65px] mt-2 transition-all duration-300 border-b border-stone-300 dark:border-mediumGray cursor-pointer flex justify-between items-center dark:text-white"
