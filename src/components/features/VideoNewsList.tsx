@@ -166,7 +166,7 @@ export default function VideoNewsInlinePlayer({
                     {/* TITLE */}
                     <div className="flex flex-col justify-between w-2/3 text-right py-1 ps-1">
                       {isActive && hasPlayed ? (
-                        <Link href={`/${params.lang}/news/categories/${active.categorySlug}/${item.slug}`}>
+                        <Link href={`/${params.lang}/news/categories/${item.categorySlug}/${item.slug}`}>
                           <p className="text-sm line-clamp-2 text-light-primary dark:text-dark-yellow hover:underline">
                             {item.title}
                           </p>
