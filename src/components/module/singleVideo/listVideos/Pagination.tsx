@@ -1,24 +1,30 @@
 import React, { useState } from "react";
 
-type PaginationProps = {
-  itemsPerPage?: number;
+type PaginationItem = {
+  id: number;
+  text: string;
 };
 
-const Pagination = ({ itemsPerPage = 5 }: PaginationProps) => {
-  const sampleData = [
-    { id: 1, text: "Item 1" },
-    { id: 2, text: "Item 2" },
-    { id: 3, text: "Item 3" },
+type PaginationProps = {
+  itemsPerPage?: number;
+  items?: PaginationItem[];
+};
 
-    // ... داده‌های دیگر
-  ];
+const defaultItems: PaginationItem[] = [
+  { id: 1, text: "Item 1" },
+  { id: 2, text: "Item 2" },
+  { id: 3, text: "Item 3" },
 
+  // ... داده‌های دیگر
+];
+
+const Pagination = ({ itemsPerPage = 5, items = defaultItems }: PaginationProps) => {
   const [currentPage, setCurrentPage] = useState(1);
   const safeItemsPerPage = Math.max(1, Math.trunc(itemsPerPage));
 
-  const totalPages = Math.ceil(sampleData.length / safeItemsPerPage);
+  const totalPages = Math.ceil(items.length / safeItemsPerPage);
   const startIndex = (currentPage - 1) * safeItemsPerPage;
-  const currentItems = sampleData.slice(
+  const currentItems = items.slice(
     startIndex,
     startIndex + safeItemsPerPage
   );
@@ -60,9 +66,7 @@ const Pagination = ({ itemsPerPage = 5 }: PaginationProps) => {
               onClick={() => handlePageChange(index + 1)}
               aria-label={`Page ${index + 1}`}
               aria-current={currentPage === index + 1 ? "page" : undefined}
-            >
-              {index + 1}
-            </button>
+            />
           </div>
         ))}
         <button
