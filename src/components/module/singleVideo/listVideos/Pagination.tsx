@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 
-const Pagination = () => {
+type PaginationProps = {
+  itemsPerPage?: number;
+};
+
+const Pagination = ({ itemsPerPage = 5 }: PaginationProps) => {
   const sampleData = [
     { id: 1, text: "Item 1" },
     { id: 2, text: "Item 2" },
@@ -10,11 +14,14 @@ const Pagination = () => {
   ];
 
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
+  const safeItemsPerPage = Math.max(1, Math.trunc(itemsPerPage));
 
-  const totalPages = Math.ceil(sampleData.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentItems = sampleData.slice(startIndex, startIndex + itemsPerPage);
+  const totalPages = Math.ceil(sampleData.length / safeItemsPerPage);
+  const startIndex = (currentPage - 1) * safeItemsPerPage;
+  const currentItems = sampleData.slice(
+    startIndex,
+    startIndex + safeItemsPerPage
+  );
 
   const handlePageChange = (pageNumber: number) => {
     if (!Number.isFinite(pageNumber)) return;
@@ -45,16 +52,16 @@ const Pagination = () => {
             key={index + 1}
           >
             <button
-              className={`h-[5px] rounded-sm transition-all duration-300 ease-in-out ${
+              className={`min-w-[44px] min-h-[44px] inline-flex items-center justify-center rounded-sm transition-all duration-300 ease-in-out ${
                 currentPage === index + 1
-                  ? "bg-error w-[20px]"
-                  : "bg-singleVideo-gray w-[12px]"
+                  ? "bg-error w-[20px] h-[5px]"
+                  : "bg-singleVideo-gray w-[12px] h-[5px]"
               }`}
               onClick={() => handlePageChange(index + 1)}
               aria-label={`Page ${index + 1}`}
               aria-current={currentPage === index + 1 ? "page" : undefined}
             >
-              {/* متن دکمه */}
+              {index + 1}
             </button>
           </div>
         ))}
