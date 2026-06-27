@@ -60,9 +60,7 @@ const Pagination = ({ itemsPerPage = 5 }: PaginationProps) => {
               onClick={() => handlePageChange(index + 1)}
               aria-label={`Page ${index + 1}`}
               aria-current={currentPage === index + 1 ? "page" : undefined}
-            >
-              {index + 1}
-            </button>
+            />
           </div>
         ))}
         <button
