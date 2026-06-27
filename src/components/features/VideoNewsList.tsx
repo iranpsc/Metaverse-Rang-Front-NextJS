@@ -21,9 +21,11 @@ interface VideoItem {
   categorySlug?: string;
 }
 
+type MainData = Record<string, unknown> | null;
+
 interface Props {
   params: { lang: string };
-  mainData: unknown;
+  mainData: MainData;
   limit?: number;
   title?: string;
   date?: string;
@@ -68,7 +70,7 @@ export default function VideoNewsInlinePlayer({
             image: item.image,
             video: item.video,
             date: item.date,
-            readingTime: item.readingTime ? parseInt(item.readingTime) : undefined,
+            readingTime: item.readingTime ? parseInt(item.readingTime, 10) : undefined,
             categorySlug: item.categorySlug,
           }))
           .sort((a, b) => {
@@ -166,7 +168,7 @@ export default function VideoNewsInlinePlayer({
                     {/* TITLE */}
                     <div className="flex flex-col justify-between w-2/3 text-right py-1 ps-1">
                       {isActive && hasPlayed ? (
-                        <Link href={`/${params.lang}/news/categories/${active.categorySlug}/${item.slug}`}>
+                        <Link href={`/${params.lang}/news/categories/${item.categorySlug}/${item.slug}`}>
                           <p className="text-sm line-clamp-2 text-light-primary dark:text-dark-yellow hover:underline">
                             {item.title}
                           </p>
