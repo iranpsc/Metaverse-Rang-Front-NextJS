@@ -12,10 +12,6 @@ const Pagination = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
-  // const indexOfLastItem = currentPage * itemsPerPage;
-  // const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  // const currentItems = sampleData.slice(indexOfFirstItem, indexOfLastItem);
-
   const totalPages = Math.ceil(sampleData.length / itemsPerPage);
 
   const handlePageChange = (pageNumber: number) => {
