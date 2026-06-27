@@ -18,8 +18,13 @@ const Pagination = () => {
 
   const totalPages = Math.ceil(sampleData.length / itemsPerPage);
 
-  const handlePageChange = (pageNumber: any) => {
-    setCurrentPage(pageNumber);
+  const handlePageChange = (pageNumber: number) => {
+    if (!Number.isFinite(pageNumber)) return;
+    const safePageNumber = Math.min(
+      totalPages,
+      Math.max(1, Math.trunc(pageNumber))
+    );
+    setCurrentPage(safePageNumber);
   };
 
   return (
