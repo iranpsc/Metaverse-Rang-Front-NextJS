@@ -22,7 +22,7 @@ const Pagination = ({ itemsPerPage = 5, items = defaultItems }: PaginationProps)
   const [currentPage, setCurrentPage] = useState(1);
   const safeItemsPerPage = Math.max(1, Math.trunc(itemsPerPage));
 
-  const totalPages = Math.ceil(items.length / safeItemsPerPage);
+  const totalPages = Math.max(1, Math.ceil(items.length / safeItemsPerPage));
   const startIndex = (currentPage - 1) * safeItemsPerPage;
   const currentItems = items.slice(
     startIndex,
