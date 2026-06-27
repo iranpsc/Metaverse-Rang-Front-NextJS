@@ -160,7 +160,7 @@ export default async function LevelSinglePage({ params }) {
       ? `${tabTitle} ${levelTitle} `
       : levelTitle;
 
-    const breadcrumbSchema = buildBreadcrumbSchema(mainData, params);
+     const breadcrumbSchema = buildBreadcrumbSchema(mainData, resolvedParams);
     // console.log("TAB:", params.tabs);
     // console.log("DATA:", levelTabs.data);
     return (

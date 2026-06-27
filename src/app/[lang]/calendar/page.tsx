@@ -3,7 +3,6 @@ import { cookies } from "next/headers";
 import {
   getTranslation,
   getMainFile,
-  getLangArray,
 } from "@/components/utils/actions";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import EventsCalendar from "../../../components/templates/envent/EventsCalendar";

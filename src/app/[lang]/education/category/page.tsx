@@ -16,7 +16,6 @@ const ShowAllCategoriesEducationList = dynamic(
 import {
   getTranslation,
   getMainFile,
-  getLangArray,
   getAllCategories,
 } from "@/components/utils/actions";
 

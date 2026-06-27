@@ -78,12 +78,12 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
                             {findByUniqueId(mainData, 1613)}
                         </a>
 
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 w-[60%] md:w-max">
                             <a target="_blank" href={
                                 params.lang.toLowerCase() === "en"
-                                    ? "/pdf/MetaRang_Strategic_Partnership_Guide.pdf"
-                                    : "/pdf/Metarang_A_New_Economic_Dimension (1).pdf"
-                            }  className="bg-light-primary dark:bg-dark-yellow text-white dark:text-black w-[60%] md:w-max text-center px-5 py-3 rounded-[10px] text-sm font-bold">
+                                    ? "Https://s3.metarang.com/metarang/pdf/MetaRang_Strategic_Partnership_Guide.pdf"
+                                    : "Https://s3.metarang.com/metarang/pdf/Metarang_A_New_Economic_Dimension (1).pdf"
+                            }  className="bg-light-primary dark:bg-dark-yellow text-white dark:text-black w-full text-center px-5 py-3 rounded-[10px] text-sm font-bold">
                                 {findByUniqueId(mainData, 1614)}
                             </a>
                         </div>
@@ -137,11 +137,11 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
                             {findByUniqueId(mainData, 1613)}
                         </a>
 
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 w-[60%] md:w-max">
                             <a target="_blank"  href={params.lang.toLowerCase() === "en"
-                                    ? "/pdf/Metarange_Enterprise_Future.pdf"
-                                    : "/pdf/Metarang_Business_Development_Gateway.pdf"
-                            } className="bg-light-primary dark:bg-dark-yellow text-white dark:text-black w-[60%] md:w-max text-center px-5 py-3 rounded-[10px] text-sm font-bold">
+                                    ? "Https://s3.metarang.com/metarang/pdf/Metarange_Enterprise_Future.pdf"
+                                    : "Https://s3.metarang.com/metarang/pdf/Metarang_Business_Development_Gateway.pdf"
+                            } className="bg-light-primary dark:bg-dark-yellow text-white dark:text-black  text-center px-5 py-3 rounded-[10px] text-sm font-bold  w-full">
                                 {findByUniqueId(mainData, 1614)}
                             </a>
                         </div>
@@ -196,11 +196,11 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
                             {findByUniqueId(mainData, 1613)}
                         </a>
 
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 w-[60%] md:w-max">
                             <a target="_blank"  href={
                                 params.lang.toLowerCase() === "en"
-                                    ? "/pdf/MetaRang_Architectural_Solutions.pdf"
-                                    : "/pdf/Metarang_Architecture_and_Global_Commerce.pdf"} className="bg-light-primary dark:bg-dark-yellow text-white dark:text-black w-[60%] md:w-max text-center px-5 py-3 rounded-[10px] text-sm font-bold">
+                                    ? "Https://s3.metarang.com/metarang/pdf/MetaRang_Architectural_Solutions.pdf"
+                                    : "Https://s3.metarang.com/metarang/pdf/Metarang_Architecture_and_Global_Commerce.pdf"} className="bg-light-primary dark:bg-dark-yellow text-white  w-full dark:text-black  text-center px-5 py-3 rounded-[10px] text-sm font-bold">
                                 {findByUniqueId(mainData, 1614)}
                             </a>
                         </div>
@@ -327,11 +327,11 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
                             {findByUniqueId(mainData, 1613)}
                         </a>
 
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 w-[60%] md:w-max">
                             <a target="_blank"  href={
                                 params.lang.toLowerCase() === "en"
-                                    ? "/pdf/Metarang_Global_Synergy.pdf"
-                                    : "/pdf/Metarang_Digital_Governance_Infrastructure.pdf"} className="bg-light-primary dark:bg-dark-yellow text-white dark:text-black w-[60%] md:w-max text-center px-5 py-3 rounded-[10px] text-sm font-bold">
+                                    ? "Https://s3.metarang.com/metarang/pdf/Metarang_Global_Synergy.pdf"
+                                    : "Https://s3.metarang.com/metarang/pdf/Metarang_Digital_Governance_Infrastructure.pdf"} className="bg-light-primary dark:bg-dark-yellow  w-full text-white dark:text-black text-center px-5 py-3 rounded-[10px] text-sm font-bold">
                                 {findByUniqueId(mainData, 1614)}
                             </a>
                         </div>
@@ -397,11 +397,11 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
                             {findByUniqueId(mainData, 1613)}
                         </a>
 
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 w-[60%] md:w-max">
                             <a target="_blank"  href={
                                 params.lang.toLowerCase() === "en"
-                                    ? "/pdf/Enterprise_Digital_Governance.pdf"
-                                    : "/pdf/Metarang_The_Global_Gateway.pdf"} className="bg-light-primary dark:bg-dark-yellow text-white dark:text-black w-[60%] md:w-max text-center px-5 py-3 rounded-[10px] text-sm font-bold">
+                                    ? "Https://s3.metarang.com/metarang/pdf/Enterprise_Digital_Governance.pdf"
+                                    : "Https://s3.metarang.com/metarang/pdf/Metarang_The_Global_Gateway.pdf"} className="bg-light-primary dark:bg-dark-yellow text-white dark:text-black w-full text-center px-5 py-3 rounded-[10px] text-sm font-bold">
                                 {findByUniqueId(mainData, 1614)}
                             </a>
                         </div>

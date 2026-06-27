@@ -109,11 +109,8 @@ export default async function LangPage({ params }: LangPageProps) {
   const headersList = await headers();
   const users = await getTopTrainerUsers();
 
-const viewportWidth = headersList.get('viewport-width');   // حالا امن است
   const userAgent = headersList.get('user-agent');
-  const isMobile = viewportWidth
-    ? parseInt(viewportWidth, 10) < 1024
-    : /mobile|android|iphone|ipad|phone/i.test(userAgent ?? '');
+    const isMobile = /mobile|android|iphone|ipad|phone/i.test(userAgent ?? '');
 
   const langData = await getTranslation(lang);
   const mainData = await getMainFile(langData);
@@ -170,7 +167,7 @@ const viewportWidth = headersList.get('viewport-width');   // حالا امن ا
               className="hidden lg:block absolute w-full h-full ltr:rotate-y-180 object-fill  sm:object-left"
             >
               <source src="/firstpage/Untitled-1.webp" type="video/webm" />
-              <source src="/firstpage/metaverse-rang.mp4" type="video/mp4" />
+              <source src="Https://s3.metarang.com/metarang/firstpage/metaverse-rang.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           )}
@@ -184,7 +181,7 @@ const viewportWidth = headersList.get('viewport-width');   // حالا امن ا
               className="block lg:hidden absolute w-full h-full object-fill"
             >
               <source src="/firstpage/metaverse-rang-mobile-app.webp" type="video/webm" />
-              <source src="/firstpage/mob2.mp4" type="video/mp4" />
+              <source src="Https://s3.metarang.com/metarang/firstpage/mob2.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           )}

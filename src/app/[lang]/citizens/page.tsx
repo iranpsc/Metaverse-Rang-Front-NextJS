@@ -2,10 +2,7 @@
 import {
   getTranslation,
   getMainFile,
-  findByModalName,
-  findByTabName,
   getAllCitizen,
-  getLangArray
 } from "@/components/utils/actions";
 import SearchComponent from "@/components/Search/SearchComponent";
 import BreadCrumb from "@/components/shared/BreadCrumb";
@@ -74,14 +71,14 @@ export default async function CitizensPage({ params }: CitizensPageProps) {
     const mainData = await getMainFile(langData);
     const defaultTheme = useServerDarkMode();
 
-    const Citizenship = await findByModalName(mainData, "Citizenship-profile");
+    // const Citizenship = await findByModalName(mainData, "Citizenship-profile");
     // const citizenListArrayContent = await findByTabName(
     //   Citizenship,
     //   "list-citizen"
     // );
 
     // ****
-    const levelModals = await findByModalName(mainData, "levels");
+    // const levelModals = await findByModalName(mainData, "levels");
     // const levelListArrayContent = await findByTabName(levelModals, "level-list");
 
     let allCitizenArray = await getAllCitizen("1");
