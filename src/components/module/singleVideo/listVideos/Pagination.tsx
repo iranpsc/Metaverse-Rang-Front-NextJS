@@ -44,6 +44,8 @@ const Pagination = () => {
                   : "bg-singleVideo-gray w-[12px]"
               }`}
               onClick={() => handlePageChange(index + 1)}
+              aria-label={`Page ${index + 1}`}
+              aria-current={currentPage === index + 1 ? "page" : undefined}
             >
               {/* متن دکمه */}
             </button>
