@@ -8,8 +8,8 @@ import {
   findByTabName,
 } from "@/components/utils/actions";
 
-import Footer from "@/components/module/footer/Footer";
-import LevelsClient from "@/components/module/levelComponents/LevelsClient";
+import Footer from "@/components/shared/footer/Footer";
+import LevelsClient from "@/components/features/levels/LevelsClient";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import CustomErrorPage from "@/components/error/CustomErrorPage";

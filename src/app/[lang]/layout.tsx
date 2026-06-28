@@ -15,8 +15,8 @@ import {
   getFooterData
 } from "@/components/utils/actions";
 import { getStaticMenu } from "@/components/utils/constants";
-import ConditionalSidebar from "@/components/module/sidebar/ConditionalSidebar";
-import FooterClient from "@/components/module/footer/FooterClient";
+import ConditionalSidebar from "@/components/shared/sidebar/ConditionalSidebar";
+import FooterClient from "@/components/shared/footer/FooterClient";
 import Icon from "../../components/system/Icon"
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";

@@ -1,6 +1,6 @@
 // components/AvalancheBanner.tsx
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import TextScramble from '@/components/animations/textScramble';
+import TextScramble from '@/components/ui/animations/textScramble';
 interface AvalancheBannerProps {
     params: { lang: string };
     mainData: { mainData: string };

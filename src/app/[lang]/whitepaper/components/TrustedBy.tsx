@@ -2,7 +2,7 @@
 'use client';
 
 import Image from 'next/image';
-import TextScramble from '@/components/animations/textScramble';
+import TextScramble from '@/components/ui/animations/textScramble';
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 interface TrustedByProps {
     params: { lang: string };

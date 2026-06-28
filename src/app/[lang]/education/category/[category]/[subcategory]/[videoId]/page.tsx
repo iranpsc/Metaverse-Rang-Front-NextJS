@@ -12,7 +12,7 @@ import {
 } from "@/components/utils/actions";
 
 import VideoSection from "@/components/templates/PageTemplate/VideoSection";
-import ListVideos from "@/components/module/singleVideo/listVideos/ListVideos";
+import ListVideos from "@/components/features/video/listVideos/ListVideos";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 import NotFoundPage from "@/components/error/NotFoundPage"; // فرض کردم صفحه 404 اینجاست

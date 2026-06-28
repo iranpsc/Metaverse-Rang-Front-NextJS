@@ -4,7 +4,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import Reveal from '@/components/animations/Reveal';
+import Reveal from '@/components/ui/animations/Reveal';
 interface AvalancheNetworkProps {
     params: { lang: string };
     mainData: { mainData: string };

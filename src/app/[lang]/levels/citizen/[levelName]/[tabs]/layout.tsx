@@ -1,4 +1,4 @@
-import SideBar from "@/components/module/sidebar/SideBar";
+import SideBar from "@/components/shared/sidebar/SideBar";
 import {
   getTranslation,
   getMainFile,

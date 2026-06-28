@@ -71,9 +71,9 @@
     ".next/types/**/*.ts",
     "src/app/[lang]/education/category/[category]/[subcategory]/page.tsx",
     "src/components/module/sidebar/LoginMenuModule.jsx",
-    "src/components/module/sidebar/HeaderMobile.tsx",
+    "src/components/shared/sidebar/HeaderMobile.tsx",
     "src/app/[lang]/api/sendEmail/route.ts",
-    "src/components/module/levelComponents/TabSelector.tsx",
+    "src/components/features/levels/TabSelector.tsx",
     ".next/dev/types/**/*.ts",
     "src/app/[lang]/page.tsx",
     "src/app/[lang]/levels/citizen/[levelName]/[tabs]/page.jsx"

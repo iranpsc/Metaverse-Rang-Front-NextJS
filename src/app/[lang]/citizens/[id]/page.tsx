@@ -6,8 +6,8 @@ import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 
 import Profile from "@/components/templates/Profile";
-import ProfileAbout from "@/components/module/profile/ProfileAbout";
-import ProfileDetails from "@/components/module/profile/ProfileDatails";
+import ProfileAbout from "@/components/features/profile/ProfileAbout";
+import ProfileDetails from "@/components/features/profile/ProfileDatails";
 
 import {
   getTranslation,
@@ -22,7 +22,7 @@ import { getStaticMenu } from "@/components/utils/constants";
 
 // lazy sidebar
 const SideBar = dynamic(
-  () => import("@/components/module/sidebar/SideBar"),
+  () => import("@/components/shared/sidebar/SideBar"),
 );
 
 /* ------------------------------------------------------------------ */

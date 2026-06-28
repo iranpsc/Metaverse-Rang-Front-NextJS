@@ -15,7 +15,7 @@ import ArticleHeader from "@/components/ui/header/ArticleHeader";
 import ArticleImage from "@/components/ui/ArticleImage";
 import ArticleContent from "@/components/ui/weblog/ArticleContent";
 import SideCard from "@/components/card/ArticleSideBarCard";
-import PopularArticlesSlider from "@/components/module/slider/PopularArticlesSlider";
+import PopularArticlesSlider from "@/components/shared/slider/PopularArticlesSlider";
 import RelatedArticlesSlider from "@/components/features/RelatedArticlesSlider";
 import PrevNextArticles from "@/components/features/PrevNextArticles";
 import AuthorCard from "@/components/card/AuthorCard";

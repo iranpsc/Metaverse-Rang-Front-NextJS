@@ -3,7 +3,7 @@
 
 import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
-import TextScramble from '@/components/animations/textScramble';
+import TextScramble from '@/components/ui/animations/textScramble';
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 interface NewsStoriesProps {
     params: { lang: string };

@@ -3,7 +3,7 @@
 
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
-import TextScramble from '@/components/animations/textScramble';
+import TextScramble from '@/components/ui/animations/textScramble';
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 interface AvalancheStoriesProps {
     params: { lang: string };

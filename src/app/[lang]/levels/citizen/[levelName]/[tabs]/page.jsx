@@ -12,20 +12,20 @@ import {
   findByTabName,
 } from "@/components/utils/actions";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import TabContentWrapper from "../../../../../../components/ui/skelton/TabContentWrapper";
-import TabLoadingProvider from "../../../../../../components/ui/skelton/TabLoadingProvider";
+import TabContentWrapper from "../../../../../../components/ui/Skeleton/TabContentWrapper";
+import TabLoadingProvider from "../../../../../../components/ui/Skeleton/TabLoadingProvider";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
-const GeneralInfo = dynamic(() => import('@/components/module/levelComponents/GeneralInfo'));
-const TabSelector = dynamic(() => import('@/components/module/levelComponents/TabSelector'));
-const Gem = dynamic(() => import('@/components/module/levelComponents/Gem'));
-const Gift = dynamic(() => import('@/components/module/levelComponents/Gift'));
-const Permission = dynamic(() => import('@/components/module/levelComponents/Permissions'));
-const Prize = dynamic(() => import('@/components/module/levelComponents/Prize'));
-const Footer = dynamic(() => import('@/components/module/footer/Footer'));
+const GeneralInfo = dynamic(() => import('@/components/features/levels/GeneralInfo'));
+const TabSelector = dynamic(() => import('@/components/features/levels/TabSelector'));
+const Gem = dynamic(() => import('@/components/ui/Gem'));
+const Gift = dynamic(() => import('@/components/ui/Gift'));
+const Permission = dynamic(() => import('@/components/features/levels/Permissions'));
+const Prize = dynamic(() => import('@/components/features/levels/Prize'));
+const Footer = dynamic(() => import('@/components/shared/footer/Footer'));
 const BreadCrumb = dynamic(() => import('@/components/shared/BreadCrumb'));
-const ImageBox = dynamic(() => import('@/components/module/levelComponents/ImageBox'));
-import { Features } from "@/components/module/levelComponents/Features";
+const ImageBox = dynamic(() => import('@/components/features/levels/ImageBox'));
+import { Features } from "@/components/features/levels/Features";
 
 
 const STATIC_ROUTE_NAMES = [
