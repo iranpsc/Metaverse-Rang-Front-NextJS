@@ -1,8 +1,10 @@
 // components/EcosystemFeatures.tsx
 'use client';
 
-import {  Hex, DropBox, Wings } from "@/components/svgs/SvgWhitepaper";
+import { Hex, DropBox, Wings } from "@/components/svgs/SvgWhitepaper";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import AnimatedReveal from "./AnimatedReveal";
+import ClipButton from "@/components/shared/ClipButton";
 interface EcosystemFeaturesProps {
     params: { lang: string };
     mainData: { mainData: string };
@@ -42,48 +44,52 @@ export default function EcosystemFeatures({ params, mainData }: EcosystemFeature
         },
     ];
     return (
-        <section className="">
-            <div className="">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                    {featuresData.map((feature) => (
-                        <div
-                            key={feature.id}
-                            className="group bg-white space-y-[32px] p-5 md:p-10 3xl:px-12 3xl:py-9 dark:text-white dark:bg-[#1A1A18] border border-gray-200 dark:border-gray-800 rounded-[40px]  hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-                        >
-                            {/* آیکون */}
-                            <div className="w-12 h-12 3xl:w-[94px] 3xl:h-[94px]   dark:text-white">
-                                {feature.icon}
-                            </div>
 
-                            {/* عنوان */}
-                            <h3 className="text-xl md:text-2xl 3xl:text-[32px] font-semibold  !leading-10 ">
-                                {feature.title}
-                            </h3>
+        <div>
+            <AnimatedReveal>
 
-                            {/* توضیحات */}
-                            <p className=" text-base lg:text-xl leading-relaxed ">
-                                {feature.description}
-                            </p>
+                {featuresData.map((feature) => (
+                    <div
+                        key={feature.id}
+                        className=" bg-white space-y-[32px]  p-5 md:p-10 3xl:px-12 3xl:py-9 dark:text-white dark:bg-[#1A1A18] border border-gray-200 dark:border-gray-800 rounded-[32px]   transition-all duration-300"
+                    >
+                        {/* آیکون */}
+                        <div className="w-12 h-12 3xl:w-[94px] 3xl:h-[94px]   dark:text-white">
+                            {feature.icon}
+                        </div>
 
-                            {/* دکمه */}
-                            <div className="w-full">
-                                <button aria-label="btn feat" className="lg:text-xl gap-2 bg-[#9100D9]  text-white font-medium hover:gap-3 transition-all duration-300 group/btn rounded-[16px] ltr:rounded-br-[100px] rtl:rounded-bl-[100px] px-4 py-3 flex justify-between items-center w-[60%]">
+                        {/* عنوان */}
+                        <h3 className="text-xl md:text-2xl 3xl:text-[31px] font-semibold  !leading-9 ">
+                            {feature.title}
+                        </h3>
 
-                                    <span>{feature.buttonText}</span>
+                        {/* توضیحات */}
+                        <p className="text-base leading-relaxed ">
+                            {feature.description}
+                        </p>
+
+                        {/* دکمه */}
+                        <div className="w-full">
+
+                           
+                                <ClipButton clip={params.lang == "fa" ? "bl" : "br"}
+                                    className="w-[230px]  h-[60px] group m-5 cursor-pointer duration-300 hover:text-[#9100D9]">
+                                     <span className="text-white dark:text-black group-hover:text-white pe-3">{feature.buttonText}</span>
                                     <svg
                                         className="w-4 h-4 rtl:rotate-180 transition-transform duration-300 group-hover/btn:translate-x-1"
                                         fill="none"
                                         stroke="currentColor"
                                         viewBox="0 0 24 24"
                                     >
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                        <path className="text-[#9100D9] group-hover:text-white" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                                     </svg>
-                                </button>
-                            </div>
+                                </ClipButton>
+
                         </div>
-                    ))}
-                </div>
-            </div>
-        </section>
+                    </div>
+                ))}
+
+            </AnimatedReveal>
+        </div>
     );
 }

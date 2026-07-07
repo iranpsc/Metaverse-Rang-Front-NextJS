@@ -1,6 +1,8 @@
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
+import ClipSection from "@/components/shared/ClipContainer";
+import ClipButton from "@/components/shared/ClipButton";
 import {
   getTranslation,
   getMainFile,
@@ -26,6 +28,8 @@ import AvalancheCTA from "./components/AvalancheCTA";
 import ContactSection from "./components/ContactSection";
 import AvalancheBanner from "./components/AvalancheBanner"
 import SectionTeam from "@/components/templates/firstpage/TeamSection";
+import PressureLayout from "./components/PressureLayout";
+import Logo from "./components/logo";
 const baseUrl = "https://metarang.com"; // ← دامنه اصلی سایتت
 const imageUrl = "https://metarang.com/_next/image?url=%2Flogo.png&w=128&q=75";
 // interface WhitePaperPageProps {
@@ -41,8 +45,8 @@ export async function generateMetadata({
   params: Promise<{ lang: string }>;
 }) {
   try {
- const resolvedParams = await params;
-  const { lang } = resolvedParams;
+    const resolvedParams = await params;
+    const { lang } = resolvedParams;
     const url = `${baseUrl}/${lang}/whitepaper`;
     const langData = await getTranslation(lang);
     const mainData = await getMainFile(langData);
@@ -68,7 +72,7 @@ export async function generateMetadata({
       twitter: {
         card: "summary_large_image",
         title: "PSC token",
-        description:findByUniqueId(mainData, 1757),
+        description: findByUniqueId(mainData, 1757),
         images: [imageUrl],
       },
     };
@@ -101,71 +105,72 @@ export default async function ArticlesPage({
     const fullPageUrl = `${baseUrl}${langPrefix}/whitepaper`;
 
 
-const schemaData = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Organization",
-      "@id": `${baseUrl}#organization`,
-      name: "MetaRang",
-      url: baseUrl,
-      logo: imageUrl
-    },
-
-    {
-      "@type": "WebSite",
-      "@id": `${baseUrl}#website`,
-      url: baseUrl,
-      name: "MetaRang",
-      publisher: {
-        "@id": `${baseUrl}#organization`
-      }
-    },
-
-    {
-      "@type": "WebPage",
-      "@id": `${fullPageUrl}#webpage`,
-      url: fullPageUrl,
-      name: "PSC Token by MetaRang",
-      description:findByUniqueId(mainData, 1757),
-      isPartOf: {
-        "@id": `${baseUrl}#website`
-      },
-      about: {
-        "@id": `${fullPageUrl}#psc-token`
-      }
-    },
-
-    {
-      "@type": "Cryptocurrency",
-      "@id": `${fullPageUrl}#psc-token`,
-      name: "PSC Token",
-      alternateName: "PSC",
-      description:findByUniqueId(mainData, 1757),
-      issuer: {
-        "@id": `${baseUrl}#organization`
-      }
-    },
-
-    {
-      "@type": "BreadcrumbList",
-      itemListElement: [
+    const schemaData = {
+      "@context": "https://schema.org",
+      "@graph": [
         {
-          "@type": "ListItem",
-          position: 1,
-          name: "Home",
-          item: baseUrl
+          "@type": "Organization",
+          "@id": `${baseUrl}#organization`,
+          name: "MetaRang",
+          url: baseUrl,
+          logo: imageUrl
         },
+
         {
-          "@type": "ListItem",
-          position: 2,
+          "@type": "WebSite",
+          "@id": `${baseUrl}#website`,
+          url: baseUrl,
+          name: "MetaRang",
+          publisher: {
+            "@id": `${baseUrl}#organization`
+          }
+        },
+
+        {
+          "@type": "WebPage",
+          "@id": `${fullPageUrl}#webpage`,
+          url: fullPageUrl,
+          name: "PSC Token by MetaRang",
+          description: findByUniqueId(mainData, 1757),
+          isPartOf: {
+            "@id": `${baseUrl}#website`
+          },
+          about: {
+            "@id": `${fullPageUrl}#psc-token`
+          }
+        },
+
+        {
+          "@type": "Cryptocurrency",
+          "@id": `${fullPageUrl}#psc-token`,
           name: "PSC Token",
-          item: fullPageUrl
+          alternateName: "PSC",
+          description: findByUniqueId(mainData, 1757),
+          issuer: {
+            "@id": `${baseUrl}#organization`
+          }
+        },
+
+        {
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: "Home",
+              item: baseUrl
+            },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "PSC Token",
+              item: fullPageUrl
+            }
+          ]
         }
       ]
-    }
-  ]
-};
+    };
+    
 
     // ✅ محتوای اصلی (دقیقاً مثل نسخه‌ی خودت)
     return (
@@ -178,20 +183,29 @@ const schemaData = {
           <BreadCrumb params={resolvedParams} />
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-3 lg:gap-10 justify-between w-full">
-          {/* سمت چپ */}
-          <div className="w-full lg:w-[50%]">
-            <EcosystemIntro params={resolvedParams} mainData={mainData} />
-          </div>
 
-          {/* سمت راست */}
-          <div className=" w-full lg:max-w-[40%]">
-            <PoweredBy params={resolvedParams} mainData={mainData} />
-          </div>
-        </div>
-        <div className="mt-5 space-y-5">
+<PressureLayout
+  center={
+    <Logo />
+  }
+  left={
+    <EcosystemIntro
+      params={resolvedParams}
+      mainData={mainData}
+    />
+  }
+  right={
+    <PoweredBy
+      params={resolvedParams}
+      mainData={mainData}
+    />
+  }
+/>
+        <div className="mt-5 space-y-[2px] ">
           <WhyMetarang params={resolvedParams} mainData={mainData} />
-          <EcosystemFeatures params={resolvedParams} mainData={mainData} />
+          <div className="!mt-[135px] lg:!mt-[2px] xl:!mt-[84px] 2xl:!mt-[2px]">
+            <EcosystemFeatures params={resolvedParams} mainData={mainData} />
+          </div>
           <TrustedBySimple params={resolvedParams} mainData={mainData} />
           <TrustedBy params={resolvedParams} mainData={mainData} />
           <div className="my-5 hidden lg:block">

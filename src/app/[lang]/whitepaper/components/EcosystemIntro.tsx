@@ -14,7 +14,7 @@ export default function EcosystemIntro({ params, mainData }: EcosystemIntroProps
   };
 
   return (
-    <div className="flex flex-col justify-between h-full min-h-[80vh] bg-white dark:bg-[#1A1A18] rounded-[40px]">
+    <div className="flex w-full flex-col justify-between h-full min-h-[80vh] bg-white dark:bg-[#1A1A18] rounded-[40px]">
 
       <div className="flex flex-col items-start mx-auto justify-start mt-20 px-5 ps-14 gap-5">
         <div>

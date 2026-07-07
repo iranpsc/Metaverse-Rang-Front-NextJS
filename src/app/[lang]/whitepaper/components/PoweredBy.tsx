@@ -18,7 +18,7 @@ export default function PoweredBy({ mainData }: PoweredByProps) {
     <div className="flex flex-col gap-5">
 
       {/* TEXT CARD (exact same UI) */}
-      <div className="bg-white dark:bg-[#1A1A18] 2xl:!leading-9 h-[370px] flex flex-col justify-center items-center p-5 lg:px-10 rounded-[40px] dark:text-white lg:text-3xl leading-9">
+      <div className="bg-white dark:bg-[#1A1A18] w-full 2xl:!leading-9 h-[370px] flex flex-col justify-center items-center p-5 lg:px-10 rounded-[40px] dark:text-white lg:text-3xl leading-9">
         <p>{title}</p>
       </div>
 

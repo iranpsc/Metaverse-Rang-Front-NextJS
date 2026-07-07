@@ -76,7 +76,7 @@ export default function SideBar({
         languagesData={langData}
         langArray={langArray}
       />
-      <div className={`z-[1000] h-dvh dark:bg-dark-background fixed top-0 rtl:right-0 ltr:left-0 lg:relative lg:top-0 lg:right-0 ${isClosed ? "" : ""
+      <div className={`z-[1000] h-dvh dark:bg-dark-background fixed top-0 rtl:right-0 ltr:left-0 xl:relative xl:top-0 xl:right-0 ${isClosed ? "" : ""
         }`}>
         <div
           className={`shadow-left dark:shadow-leftDark xl:min-h-dvh scroll lg:min-h-dvh md:min-h-dvh relative sm:min-h-dvh xs:min-h-dvh ${isClosed
