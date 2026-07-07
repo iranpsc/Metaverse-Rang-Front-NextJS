@@ -18,8 +18,8 @@ function sanitizePathSegment(segment) {
 export async function getTranslation(lang) {
   try {
     const res = await fetch("https://admin.metarang.com/api/translations", {
-      cache: 'force-cache',
-      "Cache-Control": "public, max-age=3600", 
+      // cache: 'force-cache',
+      // "Cache-Control": "public, max-age=3600", 
       next: { tags: ['translations'] },
     });
     const data = await res.json();
@@ -67,7 +67,7 @@ export async function getMainFile(langData) {
     }
 
     const res = await fetch(langData.file_url, {
-      cache: 'force-cache',
+      // cache: 'force-cache',
       next: { tags: [`main-file-${langData.code || 'unknown'}`] },
     });
 
