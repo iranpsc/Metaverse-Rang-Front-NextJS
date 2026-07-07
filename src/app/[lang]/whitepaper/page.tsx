@@ -174,6 +174,7 @@ export default async function ArticlesPage({
 
     // ✅ محتوای اصلی (دقیقاً مثل نسخه‌ی خودت)
     return (
+      
       <section
         className="w-full  lg:pt-0 bg-[#f5f5f5] dark:bg-black px-5"
         dir={langData.direction}
