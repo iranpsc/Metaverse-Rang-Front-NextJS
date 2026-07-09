@@ -1,17 +1,36 @@
 'use client';
+import ClipButton from "@/components/shared/ClipButton";
+import ClipSection from "@/components/shared/ClipContainer";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import { useEffect, useState } from "react";
 interface ContactSectionProps {
     params: { lang: string };
     mainData: { mainData: string };
 }
 
 export default function ContactSection({ params, mainData }: ContactSectionProps) {
-    return (
-        <section className="relative overflow-hidden rounded-[40px] rounded-ss-[200px] bg-white dark:bg-[#1A1A18] p-4 lg:p-12">
-            {/* Purple glow */}
-            <div className="absolute -top-40 -start-4 w-[400px] h-[300px]  lg:h-[500px] lg:w-[500px] rounded-full bg-purple-900/40 lg:bg-purple-900/25 blur-[220px]" />
+    const [isMobile, setIsMobile] = useState(false);
 
-            <div className="relative z-10">
+    useEffect(() => {
+        const media = window.matchMedia("(max-width: 1023px)");
+
+        const update = () => setIsMobile(media.matches);
+
+        update();
+
+        media.addEventListener("change", update);
+
+        return () => media.removeEventListener("change", update);
+    }, []);
+    return (
+        <ClipSection
+            corner={params.lang == "fa" ? "tr" : "tl"}
+            radius={32}
+            cornerSize={isMobile ? 80 : 120} className="relative overflow-hidden rounded-[32px]  text-white dark:text-[#1A1A18] p-4 lg:p-12">
+            {/* Purple glow */}
+
+
+            <div className="relative z-10 text-black dark:text-white">
                 {/* Header */}
                 <div className="flex items-center gap-6 px-5 ps-10">
                     <div >
@@ -63,7 +82,7 @@ export default function ContactSection({ params, mainData }: ContactSectionProps
                         <div className="relative">
                             <label htmlFor="state" ></label>
                             <select
-                            id="state"
+                                id="state"
                                 className="
                                     w-full
                                     h-14
@@ -141,22 +160,42 @@ export default function ContactSection({ params, mainData }: ContactSectionProps
                                 </span>
                             </label>
 
-                            <button aria-label="confirm" className=" lg:text-xl gap-2 bg-[#9100D9] w-max text-white font-medium hover:gap-3 transition-all duration-300 group/btn rounded-[16px] ltr:rounded-br-[100px] rtl:rounded-bl-[100px] px-10 py-3  flex justify-between items-center ms-auto">
-
-                                <span>{findByUniqueId(mainData, 1755)}</span>
-                                <svg
-                                    className="w-4 h-4 rtl:rotate-180 transition-transform duration-300 group-hover/btn:translate-x-1"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
+                            <ClipButton clip={params.lang == "fa" ? "bl" : "br"}
+                                className="w-[230px]  h-[64px] group m-5 cursor-pointer duration-300 text-[#9100D9]">
+                                <button
+                                    type="button"
+                                    aria-label="submit btn"
+                                    className="bg-transparent flex items-center text-base !ring-0 !border-0 focus-visible:ring-0"
                                 >
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                </svg>
-                            </button>
+                                    <span className="text-white font-medium  group-hover:text-white pe-3">{findByUniqueId(mainData, 1755)}</span>
+                                    <svg className="rtl:rotate-180 stroke-white"
+                                        width="20"
+                                        height="20"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        aria-hidden="true"
+                                    >
+                                        <path
+                                            d="M5 12H19"
+                                            stroke="white"
+                                            strokeWidth="1.8"
+                                            strokeLinecap="round"
+                                        />
+                                        <path
+                                            d="M13 6L19 12L13 18"
+                                            stroke="white"
+                                            strokeWidth="1.8"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        />
+                                    </svg>
+
+                                </button>
+                            </ClipButton>
                         </div>
                     </form>
                 </div>
             </div>
-        </section>
+        </ClipSection>
     );
 }

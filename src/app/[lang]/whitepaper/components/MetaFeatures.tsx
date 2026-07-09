@@ -1,8 +1,10 @@
 // components/MetaFeatures.tsx
 'use client';
 
+import ClipButton from "@/components/shared/ClipButton";
 import {  Hex, DropBox, Wings } from "@/components/svgs/SvgWhitepaper";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import AnimatedReveal from "./AnimatedReveal";
 interface MetaFeaturesProps {
   params: { lang: string };
   mainData: { mainData: string };
@@ -41,13 +43,12 @@ export default function MetaFeatures({ params, mainData }: MetaFeaturesProps) {
     },
 ];
     return (
-        <section className="">
-            <div className="">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <section >
+                <AnimatedReveal>
                     {featuresData.map((feature) => (
                         <div
                             key={feature.id}
-                            className="group bg-white space-y-[32px] p-5 md:p-10 3xl:px-12 3xl:py-9 dark:text-white dark:bg-[#1A1A18] border border-gray-200 dark:border-gray-800 rounded-[40px]  hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+                            className=" bg-white space-y-[32px] p-5 md:p-10 3xl:px-12 3xl:py-9 dark:text-white dark:bg-[#1A1A18] border border-gray-200 dark:border-gray-800 rounded-[40px]  "
                         >
                             {/* آیکون */}
                             <div className="w-12 h-12 3xl:w-[94px] 3xl:h-[94px]   dark:text-white">
@@ -55,32 +56,31 @@ export default function MetaFeatures({ params, mainData }: MetaFeaturesProps) {
                             </div>
 
                             {/* عنوان */}
-                            <h3 className="text-xl md:text-2xl 3xl:text-3xl font-semibold   ">
+                            <h3 className="text-xl md:text-2xl 3xl:text-3xl font-semibold line-clamp-1">
                                 {feature.title}
                             </h3>
 
                             {/* توضیحات */}
-                            <p className=" text-base lg:text-xl leading-relaxed ">
+                            <p className=" text-base lg:text-xl leading-relaxed line-clamp-2">
                                 {feature.description}
                             </p>
 
                             {/* دکمه */}
-                    <button aria-label="btn feat" className="lg:text-xl gap-2 border border-solid bg-transparent border-[#D9D9D9] dark:border-[#434343] hover:bg-[#9100D9] hover:text-white  dark:text-white font-medium hover:gap-3 transition-all duration-300 group/btn rounded-[16px] ltr:rounded-br-[100px] rtl:rounded-bl-[100px] px-4 py-3 flex justify-between items-center w-[60%]">
-
-                        <span> {findByUniqueId(mainData, 1711)}</span>
-                        <svg
-                            className="w-4 h-4 rtl:rotate-180 transition-transform duration-300 group-hover/btn:translate-x-1"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                        >
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                    </button>
+                                <ClipButton clip={params.lang == "fa" ? "bl" : "br"}
+                                    className="w-[230px]  h-[64px] group m-5 cursor-pointer duration-300 hover:text-[#9100D9]">
+                                     <span className="text-white dark:text-black group-hover:text-white pe-3">{findByUniqueId(mainData, 1711)}</span>
+                                    <svg
+                                        className="w-4 h-4 rtl:rotate-180 transition-transform duration-300 group-hover/btn:translate-x-1"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path className="text-[#9100D9] group-hover:text-white" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </ClipButton>
                         </div>
                     ))}
-                </div>
-            </div>
+                </AnimatedReveal>
         </section>
     );
 }
