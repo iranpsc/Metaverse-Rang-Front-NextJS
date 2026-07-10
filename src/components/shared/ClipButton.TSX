@@ -7,6 +7,7 @@ type ClipButtonProps = {
   className?: string;
   clip?: Clip;
 };
+  
 
 export default function ClipButton({
   children,
