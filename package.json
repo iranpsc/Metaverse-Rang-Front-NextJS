@@ -36,6 +36,7 @@
     "formik": "^2.4.3",
     "framer-motion": "^10.16.4",
     "gltf-loader": "^1.0.0",
+    "gsap": "^3.15.0",
     "html-truncate": "^1.2.2",
     "jalaali-js": "^1.2.8",
     "js-cookie": "^3.0.5",

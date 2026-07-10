@@ -113,7 +113,7 @@ export default async function LangLayout({
               />
             </Suspense>
 
-            <div className='flex flex-col w-full h-screen overflow-y-auto light-scrollbar dark:dark-scrollbar'>
+            <div id="page-scroll" className='flex flex-col w-full h-screen overflow-y-auto light-scrollbar dark:dark-scrollbar'>
               <Suspense fallback={<div className="fixed top-0 left-0 bottom-0  w-full  h-screen !z-[70] flex items-center justify-center bg-black/60 backdrop-blur-sm" >
                     <div className="container flex w-full h-screen items-center justify-center md:ms-[25vw] lg:ms-[17vw] xl:ms-[15vw] 3xl:ms-[16vw]">
                         <div className="holder">
