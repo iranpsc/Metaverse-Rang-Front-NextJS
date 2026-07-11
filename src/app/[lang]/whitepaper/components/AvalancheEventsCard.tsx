@@ -1,56 +1,80 @@
 'use client';
+import ClipButton from "@/components/shared/ClipButton";
+import ClipSection from "@/components/shared/ClipContainer";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 interface AvalancheEventsCardProps {
-  params: { lang: string };
-  mainData: { mainData: string };
+    params: { lang: string };
+    mainData: { mainData: string };
 }
-export default function AvalancheEventsCard( {params, mainData }: AvalancheEventsCardProps) {
-    
+export default function AvalancheEventsCard({ params, mainData }: AvalancheEventsCardProps) {
+
     return (
-        <section className="w-full bg-white dark:bg-[#1A1A18] rounded-[28px] p-5 xl:p-7 overflow-hidden">
+        <ClipSection
+            corner={params.lang == "fa" ? "bl" : "br"}
+            radius={32}
+            cornerRadius = {16}
+            cornerSize={120} className="w-full text-white dark:text-[#1A1A18] rounded-[28px] p-5 xl:p-7  overflow-hidden">
             <div className="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-6 items-stretch">
                 {/* Left Side */}
                 <div className="flex flex-col justify-between">
                     <div>
-                        <h2 className="dark:text-white text-2xl 3xl:text-4xl leading-[1.05] font-semibold tracking-[-2px]">
+                        <h2 className="text-black dark:text-white text-2xl 3xl:text-4xl leading-[1.05] font-semibold tracking-[-2px]">
                             {findByUniqueId(mainData, 1709)}
                         </h2>
 
                         <p className="text-[#b5b5b5] text-[16px] leading-7 mt-8 max-w-[320px]">
-                           {findByUniqueId(mainData, 1710)}
+                            {findByUniqueId(mainData, 1710)}
                         </p>
                     </div>
 
-                    {/* دکمه */}
-                    <button aria-label="btn feat" className="lg:text-xl  border border-solid bg-transparent border-[#D9D9D9] dark:border-[#434343] hover:bg-[#9100D9] hover:text-white  dark:text-white font-medium hover:gap-3 transition-all duration-300 group/btn rounded-[16px] ltr:rounded-br-[100px] rtl:rounded-bl-[100px] px-4 py-3 flex justify-between items-center w-max gap-5 2xl:gap-7">
+                    <ClipButton clip={params.lang == "fa" ? "bl" : "br"}
+                                            className="w-[230px]  h-[64px] group m-5 cursor-pointer duration-300 text-[#9100D9] ">
+                                            <button
+                                                type="button"
+                                                aria-label="btn event"
 
-                        <span>{findByUniqueId(mainData, 1711)}</span>
-                        <svg
-                            className="w-4 h-4 rtl:rotate-180 transition-transform duration-300 group-hover/btn:translate-x-1"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                        >
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                    </button>
+                                                className="bg-transparent flex items-center text-base !ring-0 !border-0 focus-visible:ring-0"
+                                            >
+                                                <span className="text-white font-medium  group-hover:text-white pe-3">{findByUniqueId(mainData, 1711)}</span>
+                                                <svg className="rtl:rotate-180 stroke-white"
+                                                    width="20"
+                                                    height="20"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    aria-hidden="true"
+                                                >
+                                                    <path
+                                                        d="M5 12H19"
+                                                        stroke="white"
+                                                        strokeWidth="1.8"
+                                                        strokeLinecap="round"
+                                                    />
+                                                    <path
+                                                        d="M13 6L19 12L13 18"
+                                                        stroke="white"
+                                                        strokeWidth="1.8"
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                    />
+                                                </svg>
+
+                                            </button>
+                                        </ClipButton>
                 </div>
 
                 {/* Right Card */}
-                <div className="relative rounded-3xl overflow-hidden min-h-[340px] bg-[#2f0055]">
+                <ClipSection
+                    corner={params.lang == "fa" ? "bl" : "br"}
+                    radius={24}
+                    cornerSize={130}
+                    className="relative rounded-3xl overflow-hidden min-h-[340px] text-[#2f0055]">
                     {/* Background gradients */}
-                    <div className="absolute inset-0">
-                        <div className="absolute inset-0 bg-gradient-to-br from-[#7c00ff] via-[#43006f] to-[#22002f]" />
+                    <div className="absolute inset-0 w-full">
 
-                        {/* Curved light effects */}
-                        <div className="absolute -top-20 right-[-10%] w-[120%] h-[220px] rounded-[100%] bg-gradient-to-r from-transparent via-fuchsia-400/20 to-transparent blur-2xl rotate-[-8deg]" />
 
-                        <div className="absolute top-[120px] left-[-10%] w-[120%] h-[180px] rounded-[100%] bg-gradient-to-r from-transparent via-purple-500/20 to-transparent blur-2xl rotate-[6deg]" />
 
-                        <div className="absolute bottom-[-80px] left-[-5%] w-[120%] h-[220px] rounded-[100%] bg-gradient-to-r from-transparent via-violet-500/30 to-transparent blur-2xl rotate-[-4deg]" />
 
-                        {/* Dark overlay */}
-                        <div className="absolute inset-0 bg-black/15" />
+
                     </div>
 
                     {/* Content */}
@@ -83,8 +107,8 @@ export default function AvalancheEventsCard( {params, mainData }: AvalancheEvent
                             </h3>
                         </div>
                     </div>
-                </div>
+                </ClipSection>
             </div>
-        </section>
+        </ClipSection>
     );
 }

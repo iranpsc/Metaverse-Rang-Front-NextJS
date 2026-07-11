@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import TextScramble from '@/components/ui/animations/textScramble';
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import ClipSection from '@/components/shared/ClipContainer';
 interface AvalancheStoriesProps {
     params: { lang: string };
     mainData: { mainData: string };
@@ -163,7 +164,7 @@ function StoryCard({
                     </div>
 
                     <div>
-                        <p className="text-sm font-semibold dark:text-white">
+                        <p className="text-sm font-semibold text-black dark:text-white">
                             {item.username}
                         </p>
 
@@ -210,6 +211,19 @@ function StoryCard({
 }
 
 export default function AvalancheStories({ params, mainData }: AvalancheStoriesProps) {
+        const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const media = window.matchMedia("(max-width: 1023px)");
+
+        const update = () => setIsMobile(media.matches);
+
+        update();
+
+        media.addEventListener("change", update);
+
+        return () => media.removeEventListener("change", update);
+    }, []);
     const scrollRef = useRef<HTMLDivElement>(null);
 
     const [, setShowLeftButton] = useState(false);
@@ -272,17 +286,96 @@ export default function AvalancheStories({ params, mainData }: AvalancheStoriesP
             behavior: 'smooth',
         });
     };
+function SocialIcon({ label }: { label: string }) {
+    switch (label) {
+        case 'Youtube':
+            return (
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.5V8.5L15.8 12l-6.2 3.5Z" />
+                </svg>
+            );
+        case 'Behance':
+            return (
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M22 7h-6V5h6v2ZM4 5h6.6c3 0 4.9 1.5 4.9 4a3.6 3.6 0 0 1-2.2 3.4A3.8 3.8 0 0 1 16 16.2c0 2.6-2.1 4.3-5.3 4.3H4V5Zm6 6.2c1.5 0 2.4-.6 2.4-1.9 0-1.2-.9-1.8-2.4-1.8H7.4v3.7H10Zm.3 6.8c1.7 0 2.7-.7 2.7-2.1 0-1.4-1-2.1-2.8-2.1H7.4v4.2h2.9ZM23 15.8h-7.4c.1 1.7 1.1 2.6 2.6 2.6 1.1 0 1.9-.5 2.2-1.4h2.4c-.5 2.1-2.3 3.4-4.7 3.4-3.1 0-5.1-2.1-5.1-5.4 0-3.2 2.1-5.5 5.1-5.5 3.2 0 5 2.3 5 5.7v.6Zm-7.3-1.6h5c-.1-1.5-1-2.4-2.4-2.4-1.4 0-2.4.9-2.6 2.4Z" />
+                </svg>
+            );
+        case 'Adobe':
+            return (
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M15 3h6v18L15 3ZM9 3H3v18L9 3Zm3 6.5 3.5 8.5h-2.4l-.7-1.9h-3l-.7 1.9H6.3L9.8 9.5H12Zm-1.9 4.7h1.7l-.85-2.4-.85 2.4Z" />
+                </svg>
+            );
+        case 'Facebook':
+            return (
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M13.5 21v-8h2.7l.4-3.1h-3.1V8c0-.9.25-1.5 1.55-1.5H16.7V3.7c-.28-.04-1.25-.12-2.37-.12-2.35 0-3.96 1.43-3.96 4.06V10H8v3h2.37v8h3.13Z" />
+                </svg>
+            );
+        default:
+            return null;
+    }
+}
+
+function SocialPill({ label }: { label: string }) {
+    return (
+        <button
+            className="
+                flex
+                items-center
+                gap-3
+                rounded-[14px]
+                border
+                border-solid
+                bg-white
+                border-[#D9D9D9]
+                dark:border-[#2A2A2A]
+                dark:bg-[#111111]
+                px-4
+                py-3
+                text-xs
+                font-medium
+                tracking-[0.18em]
+                dark:text-white
+                transition-colors
+                duration-300
+                hover:border-[#3D3D3D]
+            "
+        >
+            <div
+                className="
+                    flex
+                    h-7
+                    w-7
+                    items-center
+                    justify-center
+                    rounded-md
+                    dark:bg-white
+                    dark:text-black
+                    text-white
+                    bg-black
+                "
+            >
+                <SocialIcon label={label} />
+            </div>
+
+            <span>{label}</span>
+        </button>
+    );
+}
 
     return (
-        <section
+        <ClipSection
+            corner={params.lang == "fa" ? "tl" : "tr"}
+            radius={32}
+            cornerSize={isMobile ? 80 : 120}
             className={`                relative
                 overflow-hidden
-                rounded-[42px]
-                rounded-tr-[120px]
+                rounded-[32px]
                 border
                 border-[#1E1E1E]
-                bg-white
-                dark:bg-[#1A1A18]
+                text-white
+                dark:text-[#1A1A18]
                 py-10
                 lg:py-14`}
 
@@ -314,7 +407,7 @@ export default function AvalancheStories({ params, mainData }: AvalancheStoriesP
                             </svg>
                         </div>
                         <div className="text-start max-w-3xl">
-                            <TextScramble className={` dark:text-white text-xl xl:text-3xl 2xl:text-5xl 3xl:text-6xl leading-relaxed`}
+                            <TextScramble className={` text-black dark:text-white text-xl xl:text-3xl 2xl:text-5xl 3xl:text-6xl leading-relaxed`}
                                 text={findByUniqueId(mainData, 1708)}
                                 lang={params.lang}
                             />
@@ -398,6 +491,6 @@ export default function AvalancheStories({ params, mainData }: AvalancheStoriesP
                     display: none;
                 }
             `}</style>
-        </section>
+        </ClipSection>
     );
 }

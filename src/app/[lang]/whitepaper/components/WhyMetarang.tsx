@@ -225,7 +225,7 @@ export default function WhyMetarang({
 
             </div>
 
-            <div className="h-[60lvh]" />
+            <div className="h-[60lvh] 2xl:h-[56.5lvh]" />
         </div>
     );
 }

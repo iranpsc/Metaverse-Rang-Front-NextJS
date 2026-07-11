@@ -1,57 +1,102 @@
 // components/PoweredBy.tsx
+"use client";
 
 import Image from "next/image";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+
 interface PoweredByProps {
   params: { lang: string };
   mainData: any;
 }
 
-export default function PoweredBy({ mainData }: PoweredByProps) {
+// 👇 هماهنگ با تایمینگ DesktopPressure (1500ms delay + 1500ms duration فاز اول)
+const ANIMATION_START_DELAY = 3000;
 
-  // ⚡ بدون useMemo (server-safe + بدون hydration overhead اضافی)
+// 👇 ارتفاع نهایی کارت متن بعد از کوچیک شدن (پیکسل) - فقط دسکتاپ
+const TEXT_CARD_FINAL_HEIGHT = 370;
+
+export default function PoweredBy({ mainData }: PoweredByProps) {
   const title = findByUniqueId(mainData, 1653);
   const subtitle = findByUniqueId(mainData, 1654);
   const description = findByUniqueId(mainData, 1656);
 
-  return (
-    <div className="flex flex-col gap-5">
+  const textCardRef = useRef<HTMLDivElement>(null);
+  const imageCardRef = useRef<HTMLDivElement>(null);
 
-      {/* TEXT CARD (exact same UI) */}
-      <div className="bg-white dark:bg-[#1A1A18] w-full 2xl:!leading-9 h-max lg:h-[370px] flex flex-col justify-center items-center p-5 lg:px-10 rounded-[40px] dark:text-white lg:text-3xl leading-9">
+  useEffect(() => {
+    if (!textCardRef.current || !imageCardRef.current) return;
+
+    // این انیمیشن فقط برای دسکتاپ (lg به بالا) هست
+    const mql = window.matchMedia("(min-width: 1024px)");
+    if (!mql.matches) return;
+
+    const timer = setTimeout(() => {
+      const tl = gsap.timeline({
+        defaults: {
+          duration: 1.2,
+          ease: "power2.inOut",
+        },
+      });
+
+      tl.to(textCardRef.current, { height: TEXT_CARD_FINAL_HEIGHT }, 0);
+      tl.to(imageCardRef.current, { top: TEXT_CARD_FINAL_HEIGHT }, 0);
+    }, ANIMATION_START_DELAY);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <div className="flex flex-col lg:relative lg:h-full lg:w-full lg:block lg:overflow-hidden">
+      {/* TEXT CARD */}
+      <div
+        ref={textCardRef}
+        className="
+          bg-white border border-solid border-[#f5f5f5] dark:border-black dark:bg-[#1A1A18]
+          w-full 2xl:!leading-9 h-max flex flex-col justify-center items-center
+          p-5 lg:px-10 rounded-[32px] dark:text-white lg:text-2xl leading-9
+          lg:absolute lg:inset-x-0 lg:top-0 lg:z-20 lg:h-full
+        "
+        style={{
+          willChange: "height",
+          backfaceVisibility: "hidden",
+        }}
+      >
         <p>{title}</p>
       </div>
 
-      {/* IMAGE CARD (NO VISUAL CHANGE) */}
-      <div className="bg-white hidden lg:block dark:bg-[#1A1A18] rounded-[40px] dark:text-white w-full">
-
-        <div className="w-full h-[280px] overflow-hidden rounded-[40px] relative">
-
+      {/* IMAGE CARD - فقط lg به بالا رندر/دیده میشه، دقیقاً مثل قبل */}
+      <div
+        ref={imageCardRef}
+        className="
+          bg-white h-full border border-solid border-[#f5f5f5] dark:border-black
+          hidden lg:block dark:bg-[#1A1A18] rounded-[32px] dark:text-white w-full
+          lg:absolute lg:inset-x-0 lg:bottom-0 lg:z-10 lg:overflow-hidden lg:top-full
+        "
+        style={{
+          willChange: "top",
+          backfaceVisibility: "hidden",
+        }}
+      >
+        <div className="w-full h-[280px] overflow-hidden rounded-[32px] relative">
           <Image
             src="/whitepaper/testimg.jpg"
             alt="whitepaper"
-
             fill
-
-            // 🚀 LCP optimization (no visual change)
             priority
             fetchPriority="high"
             sizes="100vw"
             quality={75}
-
-            // ⚡ performance
             decoding="async"
-
-            // 🎯 EXACT SAME LOOK
             className="w-full object-cover"
           />
         </div>
 
-        <div className="w-full p-5 lg:px-10 pb-10 lg:text-2xl text-start 2xl:!leading-9">
-          <p className="font-black pb-3">{subtitle}</p>
-          <p>{description}</p>
+        <div className="w-full p-5 lg:px-10 pb-10 lg:text-xl xl:text-2xl text-start 2xl:!leading-9">
+          <p className="font-black pb-5">{subtitle}</p>
+          <p className="3xl:text-xl 3xl:leading-9">{description}</p>
         </div>
-
       </div>
     </div>
   );

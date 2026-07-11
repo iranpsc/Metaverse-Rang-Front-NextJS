@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import Image from "next/image";
+import ClipSection from "../ClipContainer";
+import { useEffect, useState } from "react";
 interface FooterProps {
   params: { lang: string };
   mainData: any;
@@ -16,6 +18,19 @@ interface FooterLink {
 }
 
 export default function Footer2({ params, mainData }: FooterProps) {
+      const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const media = window.matchMedia("(max-width: 1023px)");
+
+        const update = () => setIsMobile(media.matches);
+
+        update();
+
+        media.addEventListener("change", update);
+
+        return () => media.removeEventListener("change", update);
+    }, []);
   const isRTL = params.lang === "fa";
   const footerLinks: { title: string; links: FooterLink[] }[] = [
     {
@@ -74,108 +89,156 @@ export default function Footer2({ params, mainData }: FooterProps) {
   ];
 
   return (
-    <footer className="bg-white dark:bg-[#1A1A18]  rounded-[40px] rounded-se-[120px] 2xl:rounded-se-[260px] mt-10">
-      <div className="overflow-hidden ">
-        <div className="p-5 xl:p-5 2xl:p-9 3xl:p-14 3xl:px-[76px] 3xl:px  mt-5">
-          <div className="grid gap-10 gap-y-12 md:grid-cols-[80px_repeat(4,1fr)]">
 
-            {/* Logo */}
-            <div className="flex items-center lg:items-start justify-center lg:justify-start px-5 lg:px-0 lg:flex-col gap-5">
-              <Image
-                src="/logo.png"
-                alt="logo"
-                width={71}
-                height={70}
-                className="w-[60px] h-[60px] inline "
-              />
-              <div className="flex items-center justify-center ">
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: `<a referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/?id=721065&Code=fLkLFNhooBCR33C1ntVXIBxJFAj9gf3q'><img referrerpolicy='origin' src='https://trustseal.enamad.ir/logo.aspx?id=721065&Code=fLkLFNhooBCR33C1ntVXIBxJFAj9gf3q' alt='' style='cursor:pointer' code='fLkLFNhooBCR33C1ntVXIBxJFAj9gf3q'></a>`,
-                  }}
+    <ClipSection
+      radius={32}
+      cornerRadius={16}
+      corner={params.lang == "fa" ? "tl" : "tr"}
+      cornerSize={isMobile ? 80 : 120}
+      
+      className="text-white dark:text-[#1A1A18]">
+      <footer className="  rounded-[32px]  mt-10">
+        <div className="overflow-hidden ">
+          <div className="p-5 xl:p-5 2xl:p-9 3xl:p-14 3xl:px-[76px] 3xl:px  mt-5">
+            <div className="grid gap-10 gap-y-12 md:grid-cols-[80px_repeat(4,1fr)] 2xl:grid-cols-[350px_repeat(4,1fr)]">
+
+              {/* Logo */}
+              <div className="flex items-center lg:items-start justify-center lg:justify-start px-5 lg:px-0 lg:flex-col gap-5 ">
+                <Image
+                  src="/logo.png"
+                  alt="logo"
+                  width={71}
+                  height={70}
+                  className="w-[60px] h-[60px] inline "
                 />
+                <div className="flex items-center justify-center ">
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: `<a referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/?id=721065&Code=fLkLFNhooBCR33C1ntVXIBxJFAj9gf3q'><img referrerpolicy='origin' src='https://trustseal.enamad.ir/logo.aspx?id=721065&Code=fLkLFNhooBCR33C1ntVXIBxJFAj9gf3q' alt='' style='cursor:pointer' code='fLkLFNhooBCR33C1ntVXIBxJFAj9gf3q'></a>`,
+                    }}
+                  />
+                </div>
               </div>
-            </div>
 
-            {/* Links */}
-            {footerLinks.map((section) => (
-              <div key={section.title}>
-                <p className="mb-5 2xl:mb-12 lg:mt-3  text-3xl 3xl:text-4xl font-medium text-[#1B1B1B] dark:text-[#FFFFFF]">
-                  {section.title}
-                </p>
+              {/* Links */}
+              {footerLinks.map((section) => (
+                <div key={section.title}>
+                  <p className="mb-5  lg:mt-3  text-xl 3xl:text-2xl font-medium text-[#1B1B1B] dark:text-[#FFFFFF]">
+                    {section.title}
+                  </p>
 
-                <ul className="space-y-2 2xl:space-y-5 list-none">
-                  {section.links.map((item) => {
-                    const isExternal =
-                      item.targetBlank || item.href.startsWith("http");
+                  <ul className=" list-none space-y-[9px]">
+                    {section.links.map((item) => {
+                      const isExternal =
+                        item.targetBlank || item.href.startsWith("http");
 
-                    const baseClass =
-                      "peer flex items-center dark:text-[#9A9A9A] gap-2 3xl:text-3xl transition";
+                      const baseClass =
+                        "peer flex items-center  dark:text-[#9A9A9A] hover:text-[#8A2BE2] gap-2 font-bold xl:text-base transition";
 
-                    const isDisabled = item.disabled;
+                      const isDisabled = item.disabled;
 
-                    const linkClass = isDisabled
-                      ? "text-[#aaa] pointer-events-none opacity-50"
-                      : "text-[#222]";
+                      const linkClass = isDisabled
+                        ? "text-[#aaa] pointer-events-none opacity-50"
+                        : "text-[#222] ";
 
-                    return (
-                      <li key={item.href}>
-                        {isDisabled ? (
-                          <span className={`${baseClass} ${linkClass}`}>
-                            {item.label}
-                            <span className="text-[#ccc] !text-4xl ms-1">›</span>
-                          </span>
-                        ) : (
-                          <Link
-                            href={item.href}
-                            className={`${baseClass} ${linkClass}`}
-                            {...(isExternal
-                              ? {
-                                target: "_blank",
-                                rel: "noopener noreferrer",
-                              }
-                              : {})}
-                          >
-                            {item.label}
-
-                            {/* arrow فقط برای فعال‌ها */}
-                            <span className="text-[#8A2BE2] ms-1 !text-4xl transition-transform peer-hover:translate-x-1  rtl:peer-hover:translate-x-[-4px]">
-                              ›
+                      return (
+                        <li key={item.href}>
+                          {isDisabled ? (
+                            <span className={`${baseClass} ${linkClass}`}>
+                              {item.label}
+                              <span className="text-[#ccc]  !text-3xl ms-1 rtl:rotate-180"> <svg
+                                                    width="20"
+                                                    height="20"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    aria-hidden="true"
+                                                >
+                                                    <path
+                                                        d="M5 12H19"
+                                                        stroke="currentColor"
+                                                        strokeWidth="1.8"
+                                                        strokeLinecap="round"
+                                                    />
+                                                    <path
+                                                        d="M13 6L19 12L13 18"
+                                                        stroke="currentColor"
+                                                        strokeWidth="1.8"
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                    />
+                                                </svg></span>
                             </span>
-                          </Link>
-                        )}
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
+                          ) : (
+                            <Link
+                              href={item.href}
+                              className={`${baseClass} ${linkClass} hover:!text-[#8A2BE2]`}
+                              {...(isExternal
+                                ? {
+                                  target: "_blank",
+                                  rel: "noopener noreferrer",
+                                }
+                                : {})}
+                            >
+                              {item.label}
 
-        {/* MARQUEE */}
-        <div className="relative mt-10 mb-7 h-[450px]  flex items-center overflow-hidden ">
-          <div className={`marquee ${isRTL ? "rtl" : "ltr"}`}>
-            <div className="track">
-              <div className="group">
-                <span className="text-neutral-900 dark:text-white">{findByUniqueId(mainData, 148)}</span>
-              </div>
-              <div className="group">
-                <span className="text-neutral-900 dark:text-white">{findByUniqueId(mainData, 148)}</span>
-              </div>
-              <div className="group">
-                <span className="text-neutral-900 dark:text-white">{findByUniqueId(mainData, 148)}</span>
-              </div>
-              <div className="group">
-                <span className="text-neutral-900 dark:text-white">{findByUniqueId(mainData, 148)}</span>
+                              {/* arrow فقط برای فعال‌ها */}
+                              <span className="text-[#8A2BE2] flex items-center rtl:rotate-180 ms-1 !text-3xl transition-transform peer-hover:translate-x-1  rtl:peer-hover:translate-x-[-4px]">
+                                <svg
+                                                    width="20"
+                                                    height="20"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    aria-hidden="true"
+                                                >
+                                                    <path
+                                                        d="M5 12H19"
+                                                        stroke="currentColor"
+                                                        strokeWidth="1.8"
+                                                        strokeLinecap="round"
+                                                    />
+                                                    <path
+                                                        d="M13 6L19 12L13 18"
+                                                        stroke="currentColor"
+                                                        strokeWidth="1.8"
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                    />
+                                                </svg>
+                              </span>
+                            </Link>
+                          )}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* MARQUEE */}
+          <div className="relative mt-10 mb-7 h-[450px]  flex items-center overflow-hidden ">
+            <div className={`marquee ${isRTL ? "rtl" : "ltr"}`}>
+              <div className="track">
+                <div className="group">
+                  <span className="text-neutral-900 dark:text-white">{findByUniqueId(mainData, 148)}</span>
+                </div>
+                <div className="group">
+                  <span className="text-neutral-900 dark:text-white">{findByUniqueId(mainData, 148)}</span>
+                </div>
+                <div className="group">
+                  <span className="text-neutral-900 dark:text-white">{findByUniqueId(mainData, 148)}</span>
+                </div>
+                <div className="group">
+                  <span className="text-neutral-900 dark:text-white">{findByUniqueId(mainData, 148)}</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Styles */}
-      <style jsx>{`
+        {/* Styles */}
+        <style jsx>{`
 .marquee {
   overflow: hidden;
   width: 100%;
@@ -229,6 +292,7 @@ export default function Footer2({ params, mainData }: FooterProps) {
   }
 }
 `}</style>
-    </footer>
+      </footer>
+    </ClipSection>
   );
 }

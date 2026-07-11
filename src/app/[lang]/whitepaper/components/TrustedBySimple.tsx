@@ -1,7 +1,7 @@
 // components/AvalancheTrusted.tsx
 'use client';
 
-import { useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { Framer, Hex, DropBox, Wings } from "@/components/svgs/SvgWhitepaper";
 import TextScramble from '@/components/ui/animations/textScramble';
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
@@ -12,83 +12,65 @@ interface AvalancheTrustedProps {
 interface TrustedCardData {
     id: number;
     icon: React.ReactNode;
+    gradient: string;
 }
 const svg1 = (
-    <Wings className="w-full h-full fill-black" />
+    <Wings className="w-full h-full fill-black group-hover:fill-slate-50 duration-700" />
 );
 
 const svg2 = (
-    <Hex className="w-full h-full fill-black" />
+    <Hex className="w-full h-full fill-black group-hover:fill-slate-50 duration-700" />
 );
 
 const svg3 = (
-    <DropBox className="w-full h-full fill-black " />
+    <DropBox className="w-full h-full fill-black group-hover:fill-slate-50 duration-700" />
 );
 
 const svg4 = (
-    <Framer className="w-full h-full fill-black" />
+    <Framer className="w-full h-full fill-black group-hover:fill-slate-50 duration-700" />
 );
 const cardsData: TrustedCardData[] = [
     {
         id: 1,
         icon: svg1,
+        gradient: 'linear-gradient(135deg, #3742FA 0%, #8E44EC 50%, #D63AF9 100%)',
     },
     {
         id: 2,
-        icon: svg2
+        icon: svg2,
+        gradient: 'linear-gradient(135deg, #FF3838 0%, #FF6B00 50%, #FFC312 100%)',
     },
     {
         id: 3,
-        icon: svg3
+        icon: svg3,
+        gradient: 'linear-gradient(135deg, #00875A 0%, #00B894 50%, #00E5D4 100%)',
     },
     {
         id: 4,
-        icon: svg4
+        icon: svg4,
+        gradient: 'linear-gradient(135deg, #C2185B 0%, #E84393 50%, #FF7EB3 100%)',
+    },
+        {
+        id: 5,
+        icon: svg1,
+        gradient: 'linear-gradient(135deg, #C2185B 0%, #E84393 50%, #FF7EB3 100%)',
     },
 ];
 
+// برای اینکه لوپ کاملاً پیوسته و بدون پرش باشه، آرایه رو دوبار تکرار می‌کنیم
+// (کارت دوم که تمام می‌شه، دقیقاً کپی همون کارت اول شروع می‌شه)
+const loopedCardsData = [...cardsData, ...cardsData];
+
 export default function AvalancheTrustedProps({ params, mainData }: AvalancheTrustedProps) {
-    const containerRef = useRef<HTMLDivElement>(null);
-    const sectionRef = useRef<HTMLElement>(null);
-
-    useEffect(() => {
-        const container = containerRef.current;
-        const section = sectionRef.current;
-        if (!container || !section) return;
-
-        const cards = container.querySelectorAll('.sticky-card');
-        const totalCards = cards.length;
-
-        const handleScroll = () => {
-            const sectionRect = section.getBoundingClientRect();
-            const scrollPercent = Math.min(
-                1,
-                Math.max(0, -sectionRect.top / (sectionRect.height - window.innerHeight))
-            );
-
-            cards.forEach((card, index) => {
-                const cardProgress = Math.min(
-                    1,
-                    Math.max(0, (scrollPercent - index / totalCards) * totalCards)
-                );
-                const translateY = (1 - cardProgress) * 20;
-                (card as HTMLElement).style.transform = `translateY(${translateY}px)`;
-            });
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        handleScroll();
-
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+    const [isPaused, setIsPaused] = useState(false);
+    const [hoveredKey, setHoveredKey] = useState<string | null>(null);
+    // زبان فارسی = راست‌به‌چپ، بقیه زبان‌ها = چپ‌به‌راست
+    const isRtl = params.lang === 'fa';
 
     return (
-        <section
-            ref={sectionRef}
-            className=""
-        >
+        <section className="bg-white dark:bg-[#1A1A18] rounded-[32px] overflow-hidden">
             {/* Header Section */}
-            <div className=" bg-white dark:bg-[#1A1A18] rounded-[40px] rounded-es-none">
+            <div className="  ">
                 <div className="font-bold text-start flex flex-col justify-start py-12 px-10  space-y-4">
                     <div className='flex flex-col lg:flex-row gap-10 w-full items-center'>
                         <div className='flex flex-col lg:flex-row items-center w-full lg:w-[70%]'>
@@ -108,7 +90,7 @@ export default function AvalancheTrustedProps({ params, mainData }: AvalancheTru
 
                         </div>
 
-                        <p className="text-lg md:text-xl 3xl:text-2xl text-black dark:text-white lg:w-[30%] pt-4">
+                        <p className="text-lg md:text-xl  text-black dark:text-white lg:w-[30%] pt-4">
                            {findByUniqueId(mainData, 1677)}
                         </p>
                     </div>
@@ -116,39 +98,92 @@ export default function AvalancheTrustedProps({ params, mainData }: AvalancheTru
             </div>
 
             <div className='flex w-full'>
-                <div className=' '>
-                    <div className=' h-[250px] lg:h-[342px] w-[15vw] rounded-es-[40px] rounded-ee-[10px]  bg-white dark:bg-[#1A1A18] mt-[-20px] relative'>
+                {/* <div className=' '>
+                    <div className=' h-[250px] lg:h-[342px] w-[15vw] rounded-es-[32px] rounded-ee-[10px]  bg-white dark:bg-[#1A1A18] mt-[-20px] relative'>
                         <div className='absolute top-[-16px] end-[-42px]'>
                             <div className='bg-white dark:bg-[#1A1A18] h-[80px] w-[80px] rounded-full relative ' />
                             <div className='bg-[#f5f5f5] dark:bg-black ltr:-rotate-45 rotate-45 w-[70px] h-[65px] rounded-full absolute ltr:left-[37px] top-[38px] right-[37px] z-10' />
                         </div>
 
                     </div>
-                </div>
-                <div
-                    ref={containerRef}
-                    className=" flex gap-5 py-5 ps-5 overflow-x-auto scrollbar01 z-20 w-[85vw] pe-20"
-                >
-                    {cardsData.map((card, idx) => (
-                        <div>
-                            <div
-                                key={card.id}
-                                className={` rounded-[40px] bg-white dark:bg-[#1A1A18] flex w-[200px] h-[210px]  lg:w-[400px] lg:h-[300px] `}
-                                style={{
-                                    top: `calc(${idx * 9}vh + 10vh)`,
-                                    zIndex: 40 + idx,
-                                }}
-                            >
-                                <div className='flex w-full justify-center items-center'>
-                                    <div className="flex items-center justify-center w-[64px] h-[64] md:w-36 md:h-36 ">
-                                        {card.icon}
+                </div> */}
+
+                {/* container: overflow-hidden لازمه که اسکرول‌بار دستی دیده نشه، اسکرول‌بار قبلی حذف شد چون حالا خودکاره */}
+                <div className=" flex-1 overflow-hidden bg-[#f5f5f5] dark:bg-black z-20 w-[85vw] pe-20">
+                    <div
+                        dir={isRtl ? 'rtl' : 'ltr'}
+                        className={`flex gap-1 pt-1 ps-1 w-max ${isRtl ? 'marquee-track-rtl' : 'marquee-track-ltr'}`}
+                        style={{ animationPlayState: isPaused ? 'paused' : 'running' }}
+                        onMouseEnter={() => setIsPaused(true)}
+                        onMouseLeave={() => setIsPaused(false)}
+                    >
+                        {loopedCardsData.map((card, idx) => {
+                            const key = `${card.id}-${idx}`;
+                            const isHovered = hoveredKey === key;
+                            return (
+                                <div
+                                    key={key}
+                                    onMouseEnter={() => setHoveredKey(key)}
+                                    onMouseLeave={() => setHoveredKey(null)}
+                                    className="trusted-card group relative overflow-hidden rounded-[32px] bg-white dark:bg-[#1A1A18] flex w-[200px] h-[210px] lg:w-[400px] lg:h-[300px] shrink-0 cursor-pointer"
+                                >
+                                    {/* دایره‌ی گرادینتی که از وسط کارت باز می‌شه و کل پس‌زمینه رو پر می‌کنه */}
+                                    <span
+                                        className="pointer-events-none absolute left-1/2 top-1/2 rounded-full"
+                                        style={{
+                                            background: card.gradient,
+                                            width: '700px',
+                                            height: '700px',
+                                            transform: `translate(-50%, -50%) scale(${isHovered ? 1 : 0})`,
+                                            transition: 'transform 0.6s cubic-bezier(0.65, 0, 0.35, 1)',
+                                        }}
+                                    />
+                                    <div className='relative z-10 flex w-full justify-center items-center'>
+                                        <div className="trusted-card-icon flex items-center justify-center w-[64px] h-[64] md:w-36 md:h-36 transition-colors duration-500">
+                                            {card.icon}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    ))}
+                            );
+                        })}
+                    </div>
                 </div>
             </div>
+
+            <style jsx>{`
+                /* روی هاور هر کارت، تمام svg و path های داخل آیکون سفید می‌شن */
+                .trusted-card:hover .trusted-card-icon svg,
+                .trusted-card:hover .trusted-card-icon svg * {
+                    fill: #ffffff !important;
+                    transition: fill 0.5s ease;
+                }
+                .marquee-track-ltr {
+                    animation: marquee-loop-ltr 8s linear infinite;
+                }
+                .marquee-track-rtl {
+                    animation: marquee-loop-rtl 8s linear infinite;
+                }
+                /* حالت LTR: کارت‌ها از راست به چپ حرکت می‌کنن */
+                @keyframes marquee-loop-ltr {
+                    from {
+                        transform: translateX(0);
+                    }
+                    to {
+                        /* چون آرایه دوبار تکرار شده، دقیقا نصف عرض جابه‌جا میشه
+                           و برمیگرده به همون نقطه‌ی شروع بدون هیچ پرشی */
+                        transform: translateX(-50%);
+                    }
+                }
+                /* حالت RTL (فارسی): کارت‌ها از چپ به راست حرکت می‌کنن */
+                @keyframes marquee-loop-rtl {
+                    from {
+                        transform: translateX(0);
+                    }
+                    to {
+                        transform: translateX(50%);
+                    }
+                }
+            `}</style>
         </section>
     );
 }
