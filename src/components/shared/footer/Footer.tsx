@@ -171,6 +171,7 @@ export default function Footer2({ params, mainData }: FooterProps) {
                           ) : (
                             <Link
                               href={item.href}
+                              aria-label="fotter links"
                               className={`${baseClass} ${linkClass} hover:!text-[#8A2BE2]`}
                               {...(isExternal
                                 ? {

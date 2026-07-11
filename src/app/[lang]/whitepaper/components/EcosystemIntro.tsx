@@ -28,8 +28,8 @@ export default function EcosystemIntro({ params, mainData }: EcosystemIntroProps
         <p className="text-[#585858] dark:text-neutral-400 text-start lg:text-3xl">Wednesday, February 25, 2026 </p>
       </div>
       <div className="lg:mt-12">
-        <button
-          onClick={handleScroll}
+        <div
+         
           className="group flex  gap-3 bg-transparent hover:scale-105 duration-300 p-2"
         >
 
@@ -46,7 +46,7 @@ export default function EcosystemIntro({ params, mainData }: EcosystemIntroProps
             <span className="tracking-wider dark:text-white ">{findByUniqueId(mainData, 1657)}</span>
             <span className="text-sm  text-[#575757] dark:text-neutral-400 ">{findByUniqueId(mainData, 1658 )}</span>
           </div>
-        </button>
+        </div>
       </div>
     </div>
   );

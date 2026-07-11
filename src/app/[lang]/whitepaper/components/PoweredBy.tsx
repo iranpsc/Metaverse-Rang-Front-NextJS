@@ -86,7 +86,7 @@ export default function PoweredBy({ mainData }: PoweredByProps) {
             fill
             priority
             fetchPriority="high"
-            sizes="100vw"
+            sizes="24vw"
             quality={75}
             decoding="async"
             className="w-full object-cover"
