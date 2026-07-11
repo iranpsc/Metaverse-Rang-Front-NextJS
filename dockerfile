@@ -1,4 +1,4 @@
-FROM node:20 AS builder
+FROM docker.arvancloud.ir/node:20 AS builder
 
 WORKDIR /app
 
@@ -25,7 +25,7 @@ RUN npm run build
 
 
 # Production stage
-FROM node:20-alpine
+FROM docker.arvancloud.ir/node:20-alpine
 
 WORKDIR /app
 
