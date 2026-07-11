@@ -1,8 +1,7 @@
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
-import ClipSection from "@/components/shared/ClipContainer";
-import ClipButton from "@/components/shared/ClipButton";
+
 import {
   getTranslation,
   getMainFile,
