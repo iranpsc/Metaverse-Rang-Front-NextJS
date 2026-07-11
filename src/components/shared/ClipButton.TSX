@@ -7,7 +7,7 @@ type ClipButtonProps = {
   className?: string;
   clip?: Clip;
 };
-  //ClipButton.tsx
+  //ClipButton.tsx dd
 export default function ClipButton({
   children,
   className = "",
