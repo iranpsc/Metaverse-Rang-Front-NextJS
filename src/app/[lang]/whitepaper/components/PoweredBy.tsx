@@ -94,7 +94,7 @@ export default function PoweredBy({ mainData }: PoweredByProps) {
         </div>
 
         <div className="w-full p-5 lg:px-10 pb-10 lg:text-xl xl:text-2xl text-start 2xl:!leading-9">
-          <p className="font-black pb-5">{subtitle}</p>
+          <h1 className="font-black pb-5">{subtitle}</h1>
           <p className="3xl:text-xl 3xl:leading-9">{description}</p>
         </div>
       </div>
