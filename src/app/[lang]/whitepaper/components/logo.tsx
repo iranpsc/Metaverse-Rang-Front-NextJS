@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import ClipSection from "@/components/shared/ClipContainer";
 
 const VIDEO_SOURCES = [
@@ -14,11 +14,14 @@ const VIDEO_SOURCES = [
 export default function PressureCenter() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const indexRef = useRef(0);
+  const [loaded, setLoaded] = useState(false);
 
   const safePlay = () => {
     const el = videoRef.current;
     if (!el) return;
-    el.muted = true; // مطمئن می‌شیم property واقعی هم ست شده
+
+    el.muted = true;
+
     const p = el.play();
     if (p && typeof p.catch === "function") {
       p.catch((err) => console.error("video play() failed:", err));
@@ -31,7 +34,7 @@ export default function PressureCenter() {
 
     indexRef.current = (indexRef.current + 1) % VIDEO_SOURCES.length;
     el.src = VIDEO_SOURCES[indexRef.current];
-    el.load(); // ضروری بعد از تغییر دستی src
+    el.load();
     safePlay();
   };
 
@@ -42,10 +45,10 @@ export default function PressureCenter() {
   return (
     <div className="h-full w-full">
       <ClipSection
-        corner={"br"}
+        corner="br"
         className="w-full h-full flex items-center justify-center text-white dark:text-[#1A1A18] rounded-[40px] overflow-hidden shadow-xl"
       >
-        <div className="flex items-center justify-center w-full ">
+        <div className="flex items-center justify-center w-full">
           <video
             ref={videoRef}
             src={VIDEO_SOURCES[0]}
@@ -53,8 +56,11 @@ export default function PressureCenter() {
             muted
             playsInline
             preload="auto"
+            onLoadedData={() => setLoaded(true)}
             onEnded={handleEnded}
-            className="max-w-[600px]"
+            className={`max-w-[600px] transition-all duration-[1500ms] ease-out ${
+              loaded ? "scale-100 opacity-100" : "scale-[0.25] opacity-0"
+            }`}
           />
         </div>
       </ClipSection>

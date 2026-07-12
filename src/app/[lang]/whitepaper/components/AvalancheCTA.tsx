@@ -296,27 +296,27 @@ export default function AvalancheCTA({ params, mainData }: AvalancheCTAProps) {
                     {/* Button */}
                     <div className="relative z-10">
                         <ClipButton clip={params.lang == "fa" ? "bl" : "br"}
-                                            className="w-[230px]  h-[64px] group m-5 cursor-pointer duration-300 text-[#9100D9]">
+                                            className="w-[230px]  h-[64px] group m-5 cursor-pointer duration-300 text-white hover:text-[#9100D9]">
                                             <button
                                                 type="button"
                                                 aria-label="btn to next"
                                                 className="bg-transparent flex items-center text-base !ring-0 !border-0 focus-visible:ring-0"
                                             >
-                                                <span className="text-white font-medium  group-hover:text-white pe-3">{findByUniqueId(mainData, 1725)}</span>
-                                                <svg className="rtl:rotate-180 stroke-white"
+                                                <span className="text-black font-medium  group-hover:text-white pe-3">{findByUniqueId(mainData, 1725)}</span>
+                                                <svg className="rtl:rotate-180  !stroke-[#9100D9] group-hover:stroke-white"
                                                     width="20"
                                                     height="20"
                                                     viewBox="0 0 24 24"
                                                     fill="none"
                                                     aria-hidden="true"
                                                 >
-                                                    <path
+                                                    <path className="rtl:rotate-180 stroke-[#9100D9] group-hover:stroke-white"
                                                         d="M5 12H19"
                                                         stroke="white"
                                                         strokeWidth="1.8"
                                                         strokeLinecap="round"
                                                     />
-                                                    <path
+                                                    <path className="rtl:rotate-180  stroke-[#9100D9] group-hover:stroke-white"
                                                         d="M13 6L19 12L13 18"
                                                         stroke="white"
                                                         strokeWidth="1.8"
@@ -555,7 +555,7 @@ export default function AvalancheCTA({ params, mainData }: AvalancheCTAProps) {
                                 {/* Footer */}
                                 <div className="flex flex-col gap-y-5 mt-5 md:flex-row items-center justify-between pt-8">
                                     <div className="flex items-center gap-5">
-                                        <span className="text-white text-[11px]">
+                                        <span className="text-white text-[14px]">
                                             {step} {findByUniqueId(mainData, 1730)} {TOTAL_STEPS}{" "}
                                             {findByUniqueId(mainData, 1729)}
                                         </span>
@@ -608,7 +608,7 @@ export default function AvalancheCTA({ params, mainData }: AvalancheCTAProps) {
 
 
                                         <ClipButton clip={params.lang == "fa" ? "bl" : "br"}
-                                            className="w-[230px]  h-[64px] group m-5 cursor-pointer duration-300 text-[#9100D9]">
+                                            className="w-[230px]  h-[64px] group m-5 cursor-pointer duration-300 text-white hover:text-[#9100D9]">
                                             <button
                                                 type="button"
                                                 aria-label="btn next"
@@ -616,7 +616,7 @@ export default function AvalancheCTA({ params, mainData }: AvalancheCTAProps) {
                                                 disabled={status === "submitting"}
                                                 className="bg-transparent flex items-center text-base !ring-0 !border-0 focus-visible:ring-0"
                                             >
-                                                <span className="text-white font-medium  group-hover:text-white pe-3">{findByUniqueId(mainData, 1711)}</span>
+                                                <span className="text-black font-medium  group-hover:text-white pe-3">{findByUniqueId(mainData, 1711)}</span>
                                                 <svg className="rtl:rotate-180 stroke-white"
                                                     width="20"
                                                     height="20"
@@ -624,13 +624,13 @@ export default function AvalancheCTA({ params, mainData }: AvalancheCTAProps) {
                                                     fill="none"
                                                     aria-hidden="true"
                                                 >
-                                                    <path
+                                                    <path className="rtl:rotate-180 stroke-[#9100D9] group-hover:stroke-white"
                                                         d="M5 12H19"
                                                         stroke="white"
                                                         strokeWidth="1.8"
                                                         strokeLinecap="round"
                                                     />
-                                                    <path
+                                                    <path className="rtl:rotate-180 stroke-[#9100D9] group-hover:stroke-white"
                                                         d="M13 6L19 12L13 18"
                                                         stroke="white"
                                                         strokeWidth="1.8"

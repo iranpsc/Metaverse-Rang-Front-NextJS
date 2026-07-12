@@ -95,6 +95,7 @@ const nextConfig = {
 
     remotePatterns: [
       { protocol: "https", hostname: "metarang.com", pathname: "/**" },
+      { protocol: "https", hostname: "s3.metarang.com", pathname: "/**" },
       { protocol: "https", hostname: "api.metarang.com", pathname: "/**" },
       { protocol: "http", hostname: "api.metarang.com", pathname: "/**" },
       { protocol: "https", hostname: "admin.metarang.com", pathname: "/**" },

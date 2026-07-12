@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Framer, Hex, DropBox, Wings } from "@/components/svgs/SvgWhitepaper";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import ClipSection from "@/components/shared/ClipContainer";
+import Reveal from "@/components/ui/animations/Reveal";
 interface WhyMetarangProps {
     params: { lang: string };
     mainData: { mainData: string };
@@ -109,10 +110,20 @@ export default function WhyMetarang({
                             corner={params.lang == "fa" ? "tl" : "tr"}
                             className="text-white  dark:text-[#1A1A18] rounded-[32px]  items-center justify-center p-10 w-full "
                         >
-                            <div className="flex h-full items-center px-10">
-                                <h2 className="text-4xl md:text-7xl lg:text-8xl uppercase tracking-[.2em] text-black dark:text-white">
-                                    {findByUniqueId(mainData, 1659)}
-                                </h2>
+                            <div className=" h-full items-center  px-10">
+                                <div className="text-7xl md:text-7xl lg:text-9xl uppercase tracking-[.2em] text-black dark:text-white">
+                                    <Reveal
+                                        className="!opacity-100"
+                                        direction={params.lang == "fa" ? "left" : "right"}
+                                        distance={isMobile ? 160 : 800}
+                                        duration={3000}
+                                        delay={300}>
+                                        {findByUniqueId(mainData, 1659)}
+                                    </Reveal>
+                                </div>
+                                <p className="text-7xl mt-9 md:text-7xl lg:text-9xl uppercase tracking-[.2em] text-black dark:text-white">
+                                    {findByUniqueId(mainData, 257)}
+                                </p>
                             </div>
                         </ClipSection>
                     </div>

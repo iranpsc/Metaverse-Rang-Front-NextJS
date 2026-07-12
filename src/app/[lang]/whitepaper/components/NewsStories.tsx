@@ -39,7 +39,7 @@ export default function NewsStories({ params, mainData }: NewsStoriesProps) {
             author: 'AVALANCHE',
             readTime: '5 ',
             featured: true,
-            image: '/whitepaper/bgCodeSpace.png',
+            image: 'https://s3.metarang.com/metarang/onepage/news1.webp',
         },
         {
             id: 2,
@@ -49,7 +49,7 @@ export default function NewsStories({ params, mainData }: NewsStoriesProps) {
             date: 'NOV 20, 2025',
             author: 'AVALANCHE',
             readTime: '3 ',
-            image: '/whitepaper/bgCodeSpace.png',
+            image: 'https://s3.metarang.com/metarang/onepage/news2.webp',
         },
         {
             id: 3,
@@ -59,7 +59,7 @@ export default function NewsStories({ params, mainData }: NewsStoriesProps) {
             date: 'NOV 19, 2025',
             author: 'AVALANCHE',
             readTime: '2 ',
-            image: '/whitepaper/bgCodeSpace.png',
+            image: 'https://s3.metarang.com/metarang/onepage/news3.webp',
         },
         {
             id: 4,
@@ -69,7 +69,7 @@ export default function NewsStories({ params, mainData }: NewsStoriesProps) {
             date: 'NOV 18, 2025',
             author: 'AVALANCHE',
             readTime: '4 ',
-            image: '/whitepaper/bgCodeSpace.png',
+            image: 'https://s3.metarang.com/metarang/onepage/news4.webp',
         },
         {
             id: 5,
@@ -79,7 +79,7 @@ export default function NewsStories({ params, mainData }: NewsStoriesProps) {
             date: 'NOV 17, 2025',
             author: 'AVALANCHE',
             readTime: '5 ',
-            image: '/whitepaper/bgCodeSpace.png',
+            image: 'https://s3.metarang.com/metarang/onepage/news5.webp',
         },
         {
             id: 6,
@@ -89,7 +89,7 @@ export default function NewsStories({ params, mainData }: NewsStoriesProps) {
             date: 'NOV 16, 2025',
             author: 'AVALANCHE',
             readTime: '2 ',
-            image: '/whitepaper/bgCodeSpace.png',
+            image: 'https://s3.metarang.com/metarang/onepage/news6.webp',
         },
     ];
         const [isMobile, setIsMobile] = useState(false);
@@ -195,7 +195,7 @@ export default function NewsStories({ params, mainData }: NewsStoriesProps) {
                 </div>
                 {/* Navigation buttons */}
                 <div className='mt-10 mb-6 flex flex-col  w-full'>
-                    <div className='hidden md:flex dark:text-white md:text-xl  items-center ltr:justify-start rtl:justify-end gap-[70%] md:gap-[60%] lg:gap-[40%] xl:gap-[36%] mb-[-12px]'>
+                    <div className='hidden ltr:flex-row-reverse md:flex dark:text-white md:text-xl  items-center ltr:justify-end rtl:justify-end gap-[70%] md:gap-[60%] lg:gap-[40%] xl:gap-[36%] mb-[-12px]'>
                         <p>{findByUniqueId(mainData, 255)}</p>
                         <p>
                             {findByUniqueId(mainData, 1701)}

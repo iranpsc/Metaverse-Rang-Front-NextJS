@@ -112,7 +112,7 @@ export default function Footer2({ params, mainData }: FooterProps) {
                   className="w-[60px] h-[60px] inline "
                 />
                 <div className="flex items-center justify-center ">
-                  <div
+                  <div className="w-[60px] h-[60px]"
                     dangerouslySetInnerHTML={{
                       __html: `<a referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/?id=721065&Code=fLkLFNhooBCR33C1ntVXIBxJFAj9gf3q'><img referrerpolicy='origin' src='https://trustseal.enamad.ir/logo.aspx?id=721065&Code=fLkLFNhooBCR33C1ntVXIBxJFAj9gf3q' alt='' style='cursor:pointer' code='fLkLFNhooBCR33C1ntVXIBxJFAj9gf3q'></a>`,
                     }}

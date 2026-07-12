@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import ClipButton from "@/components/shared/ClipButton";
 
 interface PoweredByProps {
   params: { lang: string };
@@ -17,7 +18,7 @@ const ANIMATION_START_DELAY = 3000;
 // 👇 ارتفاع نهایی کارت متن بعد از کوچیک شدن (پیکسل) - فقط دسکتاپ
 const TEXT_CARD_FINAL_HEIGHT = 370;
 
-export default function PoweredBy({ mainData }: PoweredByProps) {
+export default function PoweredBy({ mainData, params }: PoweredByProps) {
   const title = findByUniqueId(mainData, 1653);
   const subtitle = findByUniqueId(mainData, 1654);
   const description = findByUniqueId(mainData, 1656);
@@ -48,14 +49,14 @@ export default function PoweredBy({ mainData }: PoweredByProps) {
   }, []);
 
   return (
-    <div className="flex flex-col lg:relative lg:h-full lg:w-full lg:block lg:overflow-hidden">
+    <div className="flex flex-col lg:relative lg:h-full lg:w-full lg:block lg:overflow-hidden lg:rounded-b-[32px]">
       {/* TEXT CARD */}
       <div
         ref={textCardRef}
         className="
           bg-white border border-solid border-[#f5f5f5] dark:border-black dark:bg-[#1A1A18]
-          w-full 2xl:!leading-9 h-max flex flex-col justify-center items-center
-          p-5 lg:px-10 rounded-[32px] dark:text-white lg:text-2xl leading-9
+          w-full 2xl:!leading-9 h-max flex flex-col justify-start items-center
+          p-5 lg:pt-7 lg:px-10 rounded-[32px] dark:text-white lg:text-xl leading-9
           lg:absolute lg:inset-x-0 lg:top-0 lg:z-20 lg:h-full
         "
         style={{
@@ -70,8 +71,8 @@ export default function PoweredBy({ mainData }: PoweredByProps) {
       <div
         ref={imageCardRef}
         className="
-          bg-white h-full border border-solid border-[#f5f5f5] dark:border-black
-          hidden lg:block dark:bg-[#1A1A18] rounded-[32px] dark:text-white w-full
+           h-full border border-solid border-[#f5f5f5] dark:border-black
+          hidden lg:block bg-white dark:bg-[#1A1A18] rounded-[32px] dark:text-white w-full
           lg:absolute lg:inset-x-0 lg:bottom-0 lg:z-10 lg:overflow-hidden lg:top-full
         "
         style={{
@@ -81,7 +82,7 @@ export default function PoweredBy({ mainData }: PoweredByProps) {
       >
         <div className="w-full h-[280px] overflow-hidden rounded-[32px] relative">
           <Image
-            src="/whitepaper/testimg.jpg"
+            src="https://s3.metarang.com/metarang/onepage/testimg.jpg"
             alt="whitepaper"
             fill
             priority
@@ -93,9 +94,21 @@ export default function PoweredBy({ mainData }: PoweredByProps) {
           />
         </div>
 
-        <div className="w-full p-5 lg:px-10 pb-10 lg:text-xl xl:text-2xl text-start 2xl:!leading-9">
-          <h1 className="font-black pb-5">{subtitle}</h1>
-          <p className="3xl:text-xl 3xl:leading-9">{description}</p>
+        <div className="w-full p-5 pt-3 lg:px-10 pb-10   text-start ">
+          <h1 className="font-black pb-3 lg:!text-xl">{subtitle}</h1>
+          <p className="ltr:leading-5">{description}</p>
+          <ClipButton clip={params.lang == "fa" ? "bl" : "br"}
+            className="w-[230px]  h-[60px] group mt-3 cursor-pointer duration-300 hover:text-[#9100D9]">
+            <span className="text-white dark:text-black group-hover:text-white pe-3">{findByUniqueId(mainData, 1670)}</span>
+            <svg
+              className="w-4 h-4 rtl:rotate-180 transition-transform duration-300 group-hover/btn:translate-x-1"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path className="text-[#9100D9] group-hover:text-white" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </ClipButton>
         </div>
       </div>
     </div>

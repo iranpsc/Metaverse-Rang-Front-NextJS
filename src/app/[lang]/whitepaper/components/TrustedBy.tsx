@@ -30,42 +30,42 @@ export default function TrustedBy({ params, mainData }: TrustedByProps) {
     const academyCards = [
         {
             id: 1,
-            img: '/whitepaper/testimg.jpg',
+            img: 'https://s3.metarang.com/metarang/onepage/testimg.jpg',
             title: 'Academy',
             description: 'Avalanche Academy is a suite of courses for developers of all experience levels to hone their skills, while the Codebase Entrepreneur Academy offers the foundational knowledge needed to launch and grow your Web3 startup on Avalanche....',
             buttonText: findByUniqueId(mainData, 1686),
         },
         {
             id: 2,
-            img: '/whitepaper/testimg.jpg',
+            img: 'https://s3.metarang.com/metarang/onepage/testimg.jpg',
             title: 'Academy',
             description: 'Avalanche Academy is a suite of courses for developers of all experience levels to hone their skills, while the Codebase Entrepreneur Academy offers the foundational knowledge needed to launch and grow your Web3 startup on Avalanche....',
             buttonText: findByUniqueId(mainData, 1686),
         },
         {
             id: 3,
-            img: '/whitepaper/testimg.jpg',
+            img: 'https://s3.metarang.com/metarang/onepage/testimg.jpg',
             title: 'Academy',
             description: 'Avalanche Academy is a suite of courses for developers of all experience levels to hone their skills, while the Codebase Entrepreneur Academy offers the foundational knowledge needed to launch and grow your Web3 startup on Avalanche....',
             buttonText: findByUniqueId(mainData, 1686),
         },
         {
             id: 4,
-            img: '/whitepaper/testimg.jpg',
+            img: 'https://s3.metarang.com/metarang/onepage/testimg.jpg',
             title: 'Academy',
             description: 'Avalanche Academy is a suite of courses for developers of all experience levels to hone their skills, while the Codebase Entrepreneur Academy offers the foundational knowledge needed to launch and grow your Web3 startup on Avalanche....',
             buttonText: findByUniqueId(mainData, 1686),
         },
         {
             id: 5,
-            img: '/whitepaper/testimg.jpg',
+            img: 'https://s3.metarang.com/metarang/onepage/testimg.jpg',
             title: 'Academy',
             description: 'Avalanche Academy is a suite of courses for developers of all experience levels to hone their skills, while the Codebase Entrepreneur Academy offers the foundational knowledge needed to launch and grow your Web3 startup on Avalanche....',
             buttonText: findByUniqueId(mainData, 1686),
         },
         {
             id: 6,
-            img: '/whitepaper/testimg.jpg',
+            img: 'https://s3.metarang.com/metarang/onepage/testimg.jpg',
             title: 'Academy',
             description: 'Avalanche Academy is a suite of courses for developers of all experience levels to hone their skills, while the Codebase Entrepreneur Academy offers the foundational knowledge needed to launch and grow your Web3 startup on Avalanche....',
             buttonText: findByUniqueId(mainData, 1686),
@@ -106,7 +106,7 @@ export default function TrustedBy({ params, mainData }: TrustedByProps) {
                 {/* عنوان پایین */}
                 <div className=" flex flex-col lg:flex-row mt-12 gap-10">
 
-                    <div className="dark:text-white text-start text-sm 2xl:text-2xl tracking-[0.2em] uppercase mb-10 max-w-[500px]">
+                    <div className="dark:text-white text-start text-sm 2xl:text-xl tracking-[0.2em] uppercase mb-10 max-w-[420px]">
 
                         <Reveal
                             direction={'bottom'}
@@ -121,7 +121,7 @@ export default function TrustedBy({ params, mainData }: TrustedByProps) {
                             {academyCards.map((card, idx) => (
                                 <div
                                     key={card.id}
-                                    className="group hover:bg-neutral-100 dark:hover:bg-neutral-800 space-y-4 border border-solid text-start  border-[#D9D9D9] dark:border-[#434343] rounded-[40px] p-3   "
+                                    className="group hover:bg-neutral-100 dark:hover:bg-neutral-800 duration-300 space-y-4 border border-solid text-start  border-[#D9D9D9] dark:border-[#434343] rounded-[40px] p-3   "
                                 >
                                     <div className="w-full h-[135px] relative rounded-[40px] overflow-hidden">
                                         <Image

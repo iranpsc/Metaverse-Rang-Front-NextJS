@@ -27,7 +27,7 @@ const stories: StoryItem[] = [
         handle: 'avax',
         content:
             'The Avalanche culture goes beyond the chain. Get connected with the founders, investors, artists, gamers, and creators who call Avalanche home…',
-        image: '/whitepaper/bgCodeSpace.png',
+        image: 'https://s3.metarang.com/metarang/onepage/article1.webp',
     },
     {
         id: 2,
@@ -44,7 +44,7 @@ const stories: StoryItem[] = [
         handle: 'avax',
         content:
             'Avalanche empowers developers and creators to build performant applications with institutional-grade infrastructure.',
-        image: '/whitepaper/bgCodeSpace.png',
+        image: 'https://s3.metarang.com/metarang/onepage/article2.webp',
     },
     {
         id: 4,
@@ -61,7 +61,7 @@ const stories: StoryItem[] = [
         handle: 'avax',
         content:
             'Explore stories from founders and communities building scalable products powered by Avalanche technology.',
-        image: '/whitepaper/bgCodeSpace.png',
+        image: 'https://s3.metarang.com/metarang/onepage/article3.webp',
     },
 ];
 
@@ -324,7 +324,7 @@ function SocialPill({ label }: { label: string }) {
                 flex
                 items-center
                 gap-3
-                rounded-[14px]
+                rounded-[10px]
                 border
                 border-solid
                 bg-white
@@ -340,13 +340,18 @@ function SocialPill({ label }: { label: string }) {
                 transition-colors
                 duration-300
                 hover:border-[#3D3D3D]
+                hover:bg-black
+                hover:text-white
+                dark:hover:bg-white
+                dark:hover:text-black
+                duration-300
             "
         >
             <div
                 className="
                     flex
-                    h-7
-                    w-7
+                    h-9
+                    w-9
                     items-center
                     justify-center
                     rounded-md
@@ -354,6 +359,9 @@ function SocialPill({ label }: { label: string }) {
                     dark:text-black
                     text-white
                     bg-black
+                    border
+                    border-solid
+                    border-neutral-500
                 "
             >
                 <SocialIcon label={label} />
@@ -376,7 +384,7 @@ function SocialPill({ label }: { label: string }) {
                 border-[#1E1E1E]
                 text-white
                 dark:text-[#1A1A18]
-                py-10
+                py-3
                 lg:py-14`}
 
         >
@@ -392,14 +400,14 @@ function SocialPill({ label }: { label: string }) {
                 {/* HEADER */}
                 <div
                     className={`grid
-                        border-b border-solid border-x-0 border-t-0 dark:border-[#434343] border-[#D9D9D9] pb-10
+                        border-b border-solid border-x-0 border-t-0 dark:border-[#434343] border-[#D9D9D9] pb-10 
                         lg:grid-cols-[1fr_auto_auto]
                         lg:items-center`}
 
                 >
 
 
-                    <div className='flex gap-10 mt-5 items-center '>
+                    <div className='flex gap-10 lg:mt-5 items-center '>
                         <div>
                             <svg className='w-[100px] xl:w-auto' width="198" height="198" viewBox="0 0 198 198" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path className='fill-black dark:fill-white' d="M45.0441 16.5H33.4113C25.7388 16.5 21.8614 25.8225 27.3064 31.2675L74.5787 78.54C88.1087 92.07 109.971 92.07 123.501 78.54L170.774 31.2675C176.219 25.8225 172.342 16.5 164.669 16.5H153.036C146.189 16.5 139.589 19.2225 134.722 24.09L105.186 53.625C101.804 57.0075 96.3591 57.0075 92.9766 53.625L63.4414 24.09C58.4914 19.2225 51.8916 16.5 45.0441 16.5Z" fill="white" />
@@ -415,7 +423,7 @@ function SocialPill({ label }: { label: string }) {
                     </div>
 
                     {/* LEFT */}
-                    <div className="max-w-[430px]">
+                    <div className="max-w-[430px] lg:mt-7">
                         <p
                             className={`text-[20px]
                                 leading-[1.35]

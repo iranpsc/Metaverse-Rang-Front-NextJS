@@ -256,14 +256,14 @@ export default function AvalancheSolutions({ params, mainData }: AvalancheSoluti
                 </header>
 
                 {/* CONTENT */}
-                <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-[320px_1fr]">
+                <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-[420px_1fr]">
 
                     {/* LEFT SIDE */}
                     <aside className="w-full ">
                         <p
                             className="
                                 text-[18px]
-                                lg:text-2xl
+                                lg:text-xl
                                 font-light
                                 leading-[1.3]
                                 tracking-[0.08em]

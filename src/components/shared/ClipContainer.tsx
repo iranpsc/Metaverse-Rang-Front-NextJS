@@ -1,12 +1,11 @@
 "use client";
 
-import React, { CSSProperties, useEffect, useRef, useState } from "react";
-import style from "styled-jsx/style";
+import React, { useEffect, useId, useRef, useState } from "react";
 
 type Corner = "tr" | "tl" | "br" | "bl";
 
 type ClipSectionProps = {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   className?: string;
   style?: React.CSSProperties;
   corner?: Corner;
@@ -14,8 +13,10 @@ type ClipSectionProps = {
   cornerSize?: number;
   cornerRadius?: number;
 
-  borderClassName?: string; // کلاس تلویند برای رنگ
-  borderWidth?: number;      // ضخامت
+  borderClassName?: string;
+  borderWidth?: number;
+
+  bgImage?: string; // 👈 آدرس عکس، به جای <Image> توی children
 };
 
 function buildPath(
@@ -99,14 +100,15 @@ export default function ClipSection({
   cornerRadius = 16,
   borderClassName = "",
   borderWidth = 0,
+  bgImage,
 }: ClipSectionProps) {
   const ref = useRef<HTMLDivElement>(null);
+  const reactId = useId();
+  const clipId = `clip-${reactId.replace(/:/g, "")}`;
 
-  const [size, setSize] = useState({
-    w: 1,
-    h: 1,
-  });
-const padding = borderWidth / 2;
+  const [size, setSize] = useState({ w: 1, h: 1 });
+  const padding = borderWidth / 2;
+
   useEffect(() => {
     if (!ref.current) return;
 
@@ -118,49 +120,52 @@ const padding = borderWidth / 2;
     });
 
     observer.observe(ref.current);
-
     return () => observer.disconnect();
   }, []);
 
-  return (
-    <div ref={ref} className={`relative  ${className}`} style={style}>
-<svg
-  className="absolute overflow-visible inset-0 w-full h-full pointer-events-none"
-  viewBox={`${-padding} ${-padding} ${size.w + borderWidth} ${size.h + borderWidth}`}
-  preserveAspectRatio="none"
->
-  {/* Background */}
-  <path
-    d={buildPath(
-      size.w,
-      size.h,
-      corner,
-      radius,
-      cornerSize,
-      cornerRadius
-    )}
-    fill="currentColor"
-  />
+  const pathD = buildPath(size.w, size.h, corner, radius, cornerSize, cornerRadius);
 
-  {/* Border */}
-  <path
-  d={buildPath(
-    size.w,
-    size.h,
-    corner,
-    radius,
-    cornerSize,
-    cornerRadius
-  )}
-  fill="none"
-  className={borderClassName}
-  stroke="currentColor"
-  strokeWidth={borderWidth}
-  strokeLinejoin="round"
-  strokeLinecap="round"
-  vectorEffect="non-scaling-stroke"
-/>
-</svg>
+  return (
+    <div ref={ref} className={`relative ${className}`} style={style}>
+      <svg
+        className="absolute overflow-visible inset-0 w-full h-full pointer-events-none"
+        viewBox={`${-padding} ${-padding} ${size.w + borderWidth} ${size.h + borderWidth}`}
+        preserveAspectRatio="none"
+      >
+        <defs>
+          <clipPath id={clipId} clipPathUnits="userSpaceOnUse">
+            <path d={pathD} />
+          </clipPath>
+        </defs>
+
+        {/* اگر عکس داده شده باشه، به جای رنگ پس‌زمینه، عکس رو دقیقاً با همون شکل کلیپ می‌کنیم */}
+        {bgImage ? (
+          <image
+            href={bgImage}
+            x={0}
+            y={0}
+            width={size.w}
+            height={size.h}
+            preserveAspectRatio="xMidYMid slice"
+            clipPath={`url(#${clipId})`}
+          />
+        ) : (
+          <path d={pathD} fill="currentColor" />
+        )}
+
+        {/* Border */}
+        <path
+          d={pathD}
+          fill="none"
+          className={borderClassName}
+          stroke="currentColor"
+          strokeWidth={borderWidth}
+          strokeLinejoin="round"
+          strokeLinecap="round"
+          vectorEffect="non-scaling-stroke"
+          pointerEvents="none"
+        />
+      </svg>
 
       <div className="relative z-10 w-full ">{children}</div>
     </div>

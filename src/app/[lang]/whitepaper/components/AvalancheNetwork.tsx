@@ -194,8 +194,8 @@ useEffect(() => {
                 <div className="w-full h-0.5 bg-[#D9D9D9] dark:bg-[#434343] mx-auto my-20"></div>
 
                 {/* کارت توضیحات */}
-                <div className="mb-16">
-                    <div className="rounded-2xl p-8">
+                <div className="">
+                    <div className="rounded-2xl py-0 mb-20 p-8">
                         <p className="text-start dark:text-white text-xl xl:text-3xl 3xl:text-4xl font-bold lg:max-w-[55%] 2xl:!leading-[53px] leading-relaxed">
                             {findByUniqueId(mainData, 1694)}
                         </p>
@@ -203,7 +203,7 @@ useEffect(() => {
                 </div>
 
                 {/* آمار اصلی */}
-                <div className="text-center mb-20 border border-solid border-[#D9D9D9] dark:border-[#434343] rounded-[40px] px-5 py-12">
+                <div className="text-center mb-20 border border-solid border-[#D9D9D9] dark:border-[#434343] rounded-[40px] px-10 py-5">
                     <div className="relative flex justify-between items-center w-full gap-5">
                         <div className={`absolute -inset-4 bg-[#9100d93d] blur-3xl rounded-full transition-opacity duration-500 ${isActive ? 'opacity-100' : 'opacity-0'}`}></div>
 
@@ -221,7 +221,7 @@ useEffect(() => {
                                 <div className="w-px h-4 bg-gray-300 dark:bg-gray-700"></div>
                             </div>
                         </div>
-                        <span className="text-black dark:text-white text-2xl xl:text-3xl 3xl:text-5xl hidden text-nowrap lg:block">{findByUniqueId(mainData, 61)}</span>
+                        <span className="text-black dark:text-white text-2xl xl:text-3xl 3xl:text-5xl hidden text-nowrap lg:block mb-auto mt-2">{findByUniqueId(mainData, 61)}</span>
                     </div>
                 </div>
 

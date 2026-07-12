@@ -63,20 +63,20 @@ export default function ContactSection({ params, mainData }: ContactSectionProps
                             <input
                                 type="text"
                                 placeholder={findByUniqueId(mainData, 79)}
-                                className="h-14 placeholder:text-black rounded-lg dark:bg-black px-4 dark:text-white dark:placeholder:text-white/35 outline-none border border-solid border-[#D9D9D9]  dark:border-transparent focus:border-purple-500"
+                                className="h-14 placeholder:text-black rounded-lg dark:bg-black px-4 dark:text-white dark:placeholder:text-white outline-none border border-solid border-[#D9D9D9]  dark:border-transparent focus:border-purple-500"
                             />
 
                             <input
                                 type="text"
                                 placeholder={findByUniqueId(mainData, 646)}
-                                className="h-14 placeholder:text-black rounded-lg dark:bg-black px-4 dark:text-white dark:placeholder:text-white/35 outline-none border border-solid border-[#D9D9D9]  dark:border-transparent focus:border-purple-500"
+                                className="h-14 placeholder:text-black rounded-lg dark:bg-black px-4 dark:text-white dark:placeholder:text-white outline-none border border-solid border-[#D9D9D9]  dark:border-transparent focus:border-purple-500"
                             />
                         </div>
 
                         <input
                             type="email"
                             placeholder={findByUniqueId(mainData, 85)}
-                            className=" placeholder:text-black w-full h-14 rounded-lg dark:bg-black px-4 dark:text-white dark:placeholder:text-white/35 outline-none border border-solid border-[#D9D9D9] dark:border-transparent focus:border-purple-500"
+                            className=" placeholder:text-black w-full h-14 rounded-lg dark:bg-black px-4 dark:text-white dark:placeholder:text-white outline-none border border-solid border-[#D9D9D9] dark:border-transparent focus:border-purple-500"
                         />
 
                         <div className="relative">
@@ -132,7 +132,7 @@ export default function ContactSection({ params, mainData }: ContactSectionProps
                                 py-4
                                 dark:text-white
                                 placeholder:text-black
-                                dark:placeholder:text-white/35
+                                dark:placeholder:text-white
                                 outline-none
                                 resize-none
                                 border-solid border-[#D9D9D9]
@@ -161,13 +161,13 @@ export default function ContactSection({ params, mainData }: ContactSectionProps
                             </label>
 
                             <ClipButton clip={params.lang == "fa" ? "bl" : "br"}
-                                className="w-[230px]  h-[64px] group m-5 cursor-pointer duration-300 text-[#9100D9]">
+                                className="w-[230px]  h-[64px] group m-5 cursor-pointer duration-300 text-black dark:text-white hover:!text-[#9100D9]">
                                 <button
                                     type="button"
                                     aria-label="submit btn"
                                     className="bg-transparent flex items-center text-base !ring-0 !border-0 focus-visible:ring-0"
                                 >
-                                    <span className="text-white font-medium  group-hover:text-white pe-3">{findByUniqueId(mainData, 1755)}</span>
+                                    <span className="text-white dark:text-black font-medium  group-hover:text-white pe-3">{findByUniqueId(mainData, 1755)}</span>
                                     <svg className="rtl:rotate-180 stroke-white"
                                         width="20"
                                         height="20"
@@ -175,13 +175,13 @@ export default function ContactSection({ params, mainData }: ContactSectionProps
                                         fill="none"
                                         aria-hidden="true"
                                     >
-                                        <path
+                                        <path className="rtl:rotate-180 stroke-[#9100D9] group-hover:stroke-white"
                                             d="M5 12H19"
                                             stroke="white"
                                             strokeWidth="1.8"
                                             strokeLinecap="round"
                                         />
-                                        <path
+                                        <path className="rtl:rotate-180 stroke-[#9100D9] group-hover:stroke-white"
                                             d="M13 6L19 12L13 18"
                                             stroke="white"
                                             strokeWidth="1.8"
