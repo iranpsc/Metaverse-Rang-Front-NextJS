@@ -303,22 +303,22 @@ export default function AvalancheCTA({ params, mainData }: AvalancheCTAProps) {
                                                 className="bg-transparent flex items-center text-base !ring-0 !border-0 focus-visible:ring-0"
                                             >
                                                 <span className="text-black font-medium  group-hover:text-white pe-3">{findByUniqueId(mainData, 1725)}</span>
-                                                <svg className="rtl:rotate-180  !stroke-[#9100D9] group-hover:stroke-white"
+                                                <svg className="rtl:rotate-180  "
                                                     width="20"
                                                     height="20"
                                                     viewBox="0 0 24 24"
                                                     fill="none"
                                                     aria-hidden="true"
                                                 >
-                                                    <path className="rtl:rotate-180 stroke-[#9100D9] group-hover:stroke-white"
+                                                    <path className=" stroke-[#9100D9] group-hover:stroke-white"
                                                         d="M5 12H19"
-                                                        stroke="white"
+                                                        
                                                         strokeWidth="1.8"
                                                         strokeLinecap="round"
                                                     />
-                                                    <path className="rtl:rotate-180  stroke-[#9100D9] group-hover:stroke-white"
+                                                    <path className="  stroke-[#9100D9] group-hover:stroke-white"
                                                         d="M13 6L19 12L13 18"
-                                                        stroke="white"
+                                                        
                                                         strokeWidth="1.8"
                                                         strokeLinecap="round"
                                                         strokeLinejoin="round"
@@ -624,13 +624,13 @@ export default function AvalancheCTA({ params, mainData }: AvalancheCTAProps) {
                                                     fill="none"
                                                     aria-hidden="true"
                                                 >
-                                                    <path className="rtl:rotate-180 stroke-[#9100D9] group-hover:stroke-white"
+                                                    <path  className="  stroke-[#9100D9] group-hover:stroke-white"
                                                         d="M5 12H19"
                                                         stroke="white"
                                                         strokeWidth="1.8"
                                                         strokeLinecap="round"
                                                     />
-                                                    <path className="rtl:rotate-180 stroke-[#9100D9] group-hover:stroke-white"
+                                                    <path  className="  stroke-[#9100D9] group-hover:stroke-white"
                                                         d="M13 6L19 12L13 18"
                                                         stroke="white"
                                                         strokeWidth="1.8"

@@ -175,13 +175,13 @@ export default function ContactSection({ params, mainData }: ContactSectionProps
                                         fill="none"
                                         aria-hidden="true"
                                     >
-                                        <path className="rtl:rotate-180 stroke-[#9100D9] group-hover:stroke-white"
+                                        <path  className="  stroke-[#9100D9] group-hover:stroke-white"
                                             d="M5 12H19"
                                             stroke="white"
                                             strokeWidth="1.8"
                                             strokeLinecap="round"
                                         />
-                                        <path className="rtl:rotate-180 stroke-[#9100D9] group-hover:stroke-white"
+                                        <path  className="  stroke-[#9100D9] group-hover:stroke-white"
                                             d="M13 6L19 12L13 18"
                                             stroke="white"
                                             strokeWidth="1.8"

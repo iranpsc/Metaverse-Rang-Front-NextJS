@@ -4,6 +4,7 @@ import { Framer, Hex, DropBox, Wings } from "@/components/svgs/SvgWhitepaper";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import ClipSection from "@/components/shared/ClipContainer";
 import Reveal from "@/components/ui/animations/Reveal";
+import Image from "next/image";
 interface WhyMetarangProps {
     params: { lang: string };
     mainData: { mainData: string };
@@ -177,6 +178,13 @@ export default function WhyMetarang({
 
                                     </div>
                                 </div>
+                                <Image
+                                    src="/logo.png"
+                                    alt="Logo"
+                                    width={45}
+                                    height={35}
+                                    className="size-10 lg:size-auto lg:w-[35px] lg:h-[35px] object-contain mt-auto hidden lg:block ms-10"
+                                />
                                 <div className=" flex-col justify-center items-center flex lg:hidden">
                                     <div className="w-[220px] lg:w-[320px]">
                                         {card.icon}
@@ -208,14 +216,14 @@ export default function WhyMetarang({
                                 borderClassName="text-white dark:text-neutral-800"
                                 borderWidth={1}
                                 corner={params.lang == "fa" ? "tl" : "tr"}
-                                className={`${card.gradient} !bg-transparent h-full  gap-3 items-start justify-start p-3 w-full !flex-row lg:w-[40%] flex lg:hidden`}>
-
+                                className={`${card.gradient} !bg-transparent h-full  gap-3 items-start  p-3 w-full flex-col justify-between lg:w-[40%] flex lg:hidden`}>
+                                
                                 <div className="flex flex-row gap-5">
                                     <div className="text-white/50 text-sm font-semibold tracking-[.15em]">
                                         {(index + 1).toString().padStart(2, "0")}
                                     </div>
 
-                                    <div className="h-min ">
+                                    <div className="h-full ">
 
                                         <p className="text-xl pe-[50px]  font-bold uppercase text-white leading-tight">
                                             {card.title}
@@ -226,9 +234,19 @@ export default function WhyMetarang({
                                         </p>
 
                                     </div>
+
                                 </div>
 
+                                                                                            <Image
+                                    src="/logo.png"
+                                    alt="Logo"
+                                    width={45}
+                                    height={35}
+                                    className="size-10 lg:size-auto lg:w-[35px] lg:h-[35px] object-contain mt-auto mb-[-120px] ms-7 lg:hidden"
+                                />
+
                             </ClipSection>
+
                         </div>
 
                     </div>
