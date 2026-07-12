@@ -1,7 +1,7 @@
 "use client";
 
-import { useLayoutEffect, useRef } from "react";
-import gsap from "gsap";
+import { useRef } from "react";
+
 
 type Card = {
     id: number;
@@ -15,14 +15,14 @@ type Props = {
 
 export default function InfiniteTrustedSlider({
     cards,
-    speed = 60,
+    // speed = 60,
 }: Props) {
 
     const wrapperRef = useRef<HTMLDivElement>(null);
 
     const trackRef = useRef<HTMLDivElement>(null);
 
-    const animation = useRef<gsap.core.Tween | null>(null);
+    // const animation = useRef<gsap.core.Tween | null>(null);
 
     const itemRefs = useRef<HTMLDivElement[]>([]);
 

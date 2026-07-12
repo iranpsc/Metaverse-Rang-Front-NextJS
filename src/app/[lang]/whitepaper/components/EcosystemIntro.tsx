@@ -6,12 +6,7 @@ interface EcosystemIntroProps {
   mainData: { mainData: string };
 }
 export default function EcosystemIntro({ params, mainData }: EcosystemIntroProps) {
-  const handleScroll = () => {
-    window.scrollTo({
-      top: window.innerHeight,
-      behavior: 'smooth',
-    });
-  };
+
 
   return (
     <div className="flex w-full  lg:flex-col items-center lg:items-start justify-between h-max lg:h-full lg:min-h-[80vh] bg-white dark:bg-[#1A1A18] rounded-[40px] p-4 lg:p-0 border border-solid border-[#f5f5f5] dark:border-black">

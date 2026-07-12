@@ -73,60 +73,60 @@ const socials = [
     'Youtube',
 ];
 
-function SocialPill({ label }: { label: string }) {
-    return (
-        <button
-            className="
-                flex
-                items-center
-                gap-3
-                rounded-[14px]
-                border
-                border-solid
-                bg-white
-                border-[#D9D9D9]
-                dark:border-[#2A2A2A]
-                dark:bg-[#111111]
-                px-4
-                py-3
-                text-xs
-                font-medium
-                tracking-[0.18em]
-                dark:text-white
-                transition-colors
-                duration-300
-                hover:border-[#3D3D3D]
-            "
-        >
-            <div
-                className="
-                    flex
-                    h-7
-                    w-7
-                    items-center
-                    justify-center
-                    rounded-md
-                    dark:bg-white
-                    dark:text-black
-                    text-white
-                    bg-black
-                "
-            >
-                <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    aria-hidden="true"
-                >
-                    <path d="M10 15L15.19 12L10 9V15ZM21.8 8S21.6 6.6 21 6C20.2 5.2 19.3 5.2 18.9 5.1C16 4.9 12 4.9 12 4.9H11.9S7.9 4.9 5 5.1C4.6 5.2 3.7 5.2 2.9 6C2.3 6.6 2.1 8 2.1 8S1.9 9.6 1.9 11.2V12.7C1.9 14.3 2.1 15.9 2.1 15.9S2.3 17.3 2.9 17.9C3.7 18.7 4.8 18.7 5.3 18.8C7.1 19 12 19 12 19S16 19 18.9 18.8C19.3 18.7 20.2 18.7 21 17.9C21.6 17.3 21.8 15.9 21.8 15.9S22 14.3 22 12.7V11.2C22 9.6 21.8 8 21.8 8Z" />
-                </svg>
-            </div>
+// function SocialPill({ label }: { label: string }) {
+//     return (
+//         <button
+//             className="
+//                 flex
+//                 items-center
+//                 gap-3
+//                 rounded-[14px]
+//                 border
+//                 border-solid
+//                 bg-white
+//                 border-[#D9D9D9]
+//                 dark:border-[#2A2A2A]
+//                 dark:bg-[#111111]
+//                 px-4
+//                 py-3
+//                 text-xs
+//                 font-medium
+//                 tracking-[0.18em]
+//                 dark:text-white
+//                 transition-colors
+//                 duration-300
+//                 hover:border-[#3D3D3D]
+//             "
+//         >
+//             <div
+//                 className="
+//                     flex
+//                     h-7
+//                     w-7
+//                     items-center
+//                     justify-center
+//                     rounded-md
+//                     dark:bg-white
+//                     dark:text-black
+//                     text-white
+//                     bg-black
+//                 "
+//             >
+//                 <svg
+//                     width="14"
+//                     height="14"
+//                     viewBox="0 0 24 24"
+//                     fill="currentColor"
+//                     aria-hidden="true"
+//                 >
+//                     <path d="M10 15L15.19 12L10 9V15ZM21.8 8S21.6 6.6 21 6C20.2 5.2 19.3 5.2 18.9 5.1C16 4.9 12 4.9 12 4.9H11.9S7.9 4.9 5 5.1C4.6 5.2 3.7 5.2 2.9 6C2.3 6.6 2.1 8 2.1 8S1.9 9.6 1.9 11.2V12.7C1.9 14.3 2.1 15.9 2.1 15.9S2.3 17.3 2.9 17.9C3.7 18.7 4.8 18.7 5.3 18.8C7.1 19 12 19 12 19S16 19 18.9 18.8C19.3 18.7 20.2 18.7 21 17.9C21.6 17.3 21.8 15.9 21.8 15.9S22 14.3 22 12.7V11.2C22 9.6 21.8 8 21.8 8Z" />
+//                 </svg>
+//             </div>
 
-            <span>{label}</span>
-        </button>
-    );
-}
+//             <span>{label}</span>
+//         </button>
+//     );
+// }
 
 function StoryCard({
     item,
