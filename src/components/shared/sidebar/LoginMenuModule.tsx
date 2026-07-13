@@ -11,6 +11,7 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
   const [dropDown, setDropDown] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(["auth"]);
   const [isMounted, setIsMounted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [loggedInUserData, setLoggedInUserData] = useState({
     token: "",
     code: "",
@@ -118,6 +119,9 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
   }, [isMounted, cookies.auth]);
 
   const handleLogin = async () => {
+     if (isLoading) return;
+
+  setIsLoading(true);
     const token = parsAuthCookieByName("token");
     if (token) {
       // console.log("[ALREADY LOGGED IN]");
@@ -176,6 +180,7 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
       }
     } catch (err) {
       // console.error("[LOGIN/REGISTER ERROR]", err);
+       setIsLoading(false);
     }
   };
 
@@ -308,17 +313,55 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
         </div>
       ) : (
         <button
-          className={`${isClosed ? "justify-center" : "justify-center"
-            } w-full bg-blueLink cursor-pointer dark:bg-dark-yellow rounded-[15px]
-          h-[40px] flex flex-row xs:px-2 px-4 gap-5 items-center
-          text-white dark:text-dark-background font-azarMehr font-medium text-center text-[15px] m-auto`}
-          onClick={handleLogin}
+          disabled={isLoading}
+  onClick={handleLogin}
+  className={`
+    w-full
+    rounded-[15px]
+    h-[40px]
+    flex
+    items-center
+    justify-center
+    px-4
+    bg-blueLink
+    dark:bg-dark-yellow
+    text-white
+    dark:text-dark-background
+    font-azarMehr
+    font-medium
+    text-[15px]
+    transition-all
+    ${
+      isLoading
+        ? "opacity-60 cursor-not-allowed pointer-events-none"
+        : "cursor-pointer"
+    }
+  `}
         >
-          {localFind("login") == ""
-            ? ""
-            : params.lang == "fa"
-              ? "ورود"
-              : "Login"}
+          {isLoading ? (
+  <svg
+    className="h-5 w-5 animate-spin"
+    viewBox="0 0 24 24"
+    fill="none"
+  >
+    <circle
+      cx="12"
+      cy="12"
+      r="10"
+      stroke="currentColor"
+      strokeWidth="3"
+      opacity=".2"
+    />
+    <path
+      d="M22 12a10 10 0 0 1-10 10"
+      stroke="currentColor"
+      strokeWidth="3"
+      strokeLinecap="round"
+    />
+  </svg>
+) : (
+  params.lang === "fa" ? "ورود" : "Login"
+)}
         </button>
       )}
     </>
