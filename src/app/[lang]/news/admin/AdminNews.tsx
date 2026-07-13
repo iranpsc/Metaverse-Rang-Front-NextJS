@@ -41,6 +41,7 @@ interface News {
   slug: string;
   readingTime: string;
   image: string;
+  gallery: string[];
   description: string;
   content: string;
   category: string;
@@ -75,6 +76,7 @@ export default function AdminNews({ loggedInUserData }: AdminNewsProps) {
     slug: "",
     readingTime: "",
     image: "",
+    gallery: [""],
     description: "",
     content: "",
     category: "",
@@ -138,6 +140,7 @@ export default function AdminNews({ loggedInUserData }: AdminNewsProps) {
     description: item.description || "",
     content: item.content || "",
     category: item.category || "",
+    gallery: Array.isArray(item.gallery) ? item.gallery : [],
     categorySlug: item.categorySlug || "",
     subCategory: item.subCategory || "",
     categoryImage: item.categoryImage || "",
@@ -242,7 +245,31 @@ export default function AdminNews({ loggedInUserData }: AdminNewsProps) {
       alert("خطا در ذخیره‌سازی");
     }
   };
+const handleGalleryChange = (index: number, value: string) => {
+  const gallery = [...form.gallery];
+  gallery[index] = value;
 
+  setForm((prev) => ({
+    ...prev,
+    gallery,
+  }));
+};
+
+const handleAddGalleryImage = () => {
+  setForm((prev) => ({
+    ...prev,
+    gallery: [...prev.gallery, ""],
+  }));
+};
+
+const handleRemoveGalleryImage = (index: number) => {
+  const gallery = form.gallery.filter((_, i) => i !== index);
+
+  setForm((prev) => ({
+    ...prev,
+    gallery: gallery.length ? gallery : [""],
+  }));
+};
   return (
     <div className="bg-gray-50 dark:bg-gray-950  p-5 lg:p-10 text-gray-900 dark:text-gray-100">
       <h1 className="text-3xl font-bold mb-8 mt-4">پنل مدیریت اخبار</h1>
@@ -308,7 +335,37 @@ export default function AdminNews({ loggedInUserData }: AdminNewsProps) {
               className="bg-white dark:bg-gray-800 rounded-lg min-h-[300px]"
             />
           </div>
+<div className="border rounded-xl p-5 dark:border-gray-700">
+  <h3 className="text-lg font-semibold mb-4">گالری تصاویر</h3>
 
+  {form.gallery.map((image, index) => (
+    <div key={index} className="flex gap-3 mb-3">
+      <input
+        type="text"
+        value={image}
+        onChange={(e) => handleGalleryChange(index, e.target.value)}
+        placeholder="آدرس تصویر"
+        className="flex-1 p-3 rounded-lg border dark:bg-gray-800 dark:border-gray-700"
+      />
+
+      <button
+        type="button"
+        onClick={() => handleRemoveGalleryImage(index)}
+        className="bg-red-600 hover:bg-red-700 text-white px-4 rounded-lg"
+      >
+        حذف
+      </button>
+    </div>
+  ))}
+
+  <button
+    type="button"
+    onClick={handleAddGalleryImage}
+    className="bg-purple-600 hover:bg-purple-700 text-white px-5 py-2 rounded-lg"
+  >
+    + افزودن تصویر
+  </button>
+</div>
           {/* دسته‌بندی و زیر دسته */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
