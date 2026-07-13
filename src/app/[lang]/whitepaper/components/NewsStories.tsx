@@ -186,7 +186,7 @@ export default function NewsStories({ params, mainData }: NewsStoriesProps) {
                         </Reveal>
                     </div>
                     <div className="text-start max-w-3xl px-3 mt-[-24px] lg:mt-0">
-                        <TextScramble className=" dark:text-white text-xl xl:text-3xl 2xl:text-5xl 3xl:text-6xl leading-relaxed 2xl:!leading-[80px]"
+                        <TextScramble className=" dark:text-white text-2xl xl:text-3xl 2xl:text-5xl 3xl:text-6xl leading-relaxed 2xl:!leading-[80px]"
                             text={findByUniqueId(mainData, 1700)}
                             lang={params.lang}
                         />

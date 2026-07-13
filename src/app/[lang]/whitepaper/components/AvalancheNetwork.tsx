@@ -161,8 +161,8 @@ useEffect(() => {
             <div className="p-5 lg:p-10 overflow-x-hidden">
 
                 {/* عنوان اصلی */}
-                <div className="mb-16 mt-7 w-full space-y-3 ">
-                    <div className="dark:text-white text-3xl md:text-5xl xl:text-7xl 3xl:text-[160px] font-bold tracking-wider">
+                <div className="mb-16 mt-7 w-full lg:space-y-3 ">
+                    <div className="dark:text-white text-4xl md:text-5xl xl:text-7xl 3xl:text-[160px] font-bold tracking-wider">
                         <Reveal
                             direction={params.lang == "fa" ? "left" : "right"}
                             distance={200}
@@ -171,7 +171,7 @@ useEffect(() => {
                             {findByUniqueId(mainData, 148)}
                         </Reveal>
                     </div>
-                    <div className="text-end dark:text-white text-3xl md:text-5xl xl:text-7xl 3xl:text-[160px] font-bold tracking-wider ">
+                    <div className="text-end dark:text-white text-4xl md:text-5xl xl:text-7xl 3xl:text-[160px] font-bold tracking-wider ">
                         <Reveal
                             direction={params.lang == "fa" ? "right" : "left"}
                             distance={200}
@@ -180,7 +180,7 @@ useEffect(() => {
                             {findByUniqueId(mainData, 1692)}
                         </Reveal>
                     </div>
-                    <div className="text-3xl md:text-5xl xl:text-7xl 3xl:text-[160px] font-bold text-black dark:text-white ">
+                    <div className="text-4xl md:text-5xl xl:text-7xl 3xl:text-[160px] font-bold text-black dark:text-white ">
                         <Reveal
                             direction={params.lang == "fa" ? "left" : "right"}
                             distance={200}
@@ -191,11 +191,11 @@ useEffect(() => {
                     </div>
                 </div>
 
-                <div className="w-full h-0.5 bg-[#D9D9D9] dark:bg-[#434343] mx-auto my-20"></div>
+                <div className="w-full h-0.5 bg-[#D9D9D9] dark:bg-[#434343] mx-auto my-10 lg:my-20"></div>
 
                 {/* کارت توضیحات */}
                 <div className="">
-                    <div className="rounded-2xl py-0 mb-20 p-8">
+                    <div className="rounded-2xl py-0 lg:mb-20 mb-10 lg:p-8">
                         <p className="text-start dark:text-white text-xl xl:text-3xl 3xl:text-4xl font-bold lg:max-w-[55%] 2xl:!leading-[53px] leading-relaxed">
                             {findByUniqueId(mainData, 1694)}
                         </p>

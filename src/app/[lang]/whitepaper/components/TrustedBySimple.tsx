@@ -71,11 +71,11 @@ export default function AvalancheTrustedProps({ params, mainData }: AvalancheTru
         <section className="bg-white dark:bg-[#1A1A18] rounded-[32px] overflow-hidden">
             {/* Header Section */}
             <div className="  ">
-                <div className="font-bold text-start flex flex-col justify-start py-12 px-10  space-y-4">
+                <div className="font-bold text-start flex flex-col justify-start pt-5 pb-12 lg:py-12 px-10  space-y-4">
                     <div className='flex flex-col lg:flex-row gap-10 w-full items-center'>
-                        <div className='flex flex-col lg:flex-row items-center w-full lg:w-[70%]'>
+                        <div className='flex flex-col lg:flex-row items-start lg:items-center w-full lg:w-[70%]'>
                             <div>
-                                <svg className='w-[120px]  xl:w-auto' width="198" height="198" viewBox="0 0 198 198" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg className='w-[140px]  xl:w-auto' width="198" height="198" viewBox="0 0 198 198" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path className='fill-black dark:fill-white' d="M96.1124 19.3866L52.4699 63.0291C50.8199 64.6791 50.8199 67.2366 52.4699 68.8866L63.1124 79.5291C64.7624 81.1791 67.3199 81.1791 68.9699 79.5291L96.1124 52.3866C97.7624 50.7366 100.32 50.7366 101.97 52.3866L129.112 79.5291C130.762 81.1791 133.32 81.1791 134.97 79.5291L145.612 68.8866C147.262 67.2366 147.262 64.6791 145.612 63.0291L101.97 19.3866C100.32 17.8191 97.6799 17.8191 96.1124 19.3866Z"  />
                                     <path className='fill-black dark:fill-white' d="M96.1124 178.614L52.4699 134.972C50.8199 133.322 50.8199 130.764 52.4699 129.114L63.1124 118.472C64.7624 116.822 67.3199 116.822 68.9699 118.472L96.1124 145.614C97.7624 147.264 100.32 147.264 101.97 145.614L129.112 118.472C130.762 116.822 133.32 116.822 134.97 118.472L145.612 129.114C147.262 130.764 147.262 133.322 145.612 134.972L101.97 178.614C100.32 180.182 97.6799 180.182 96.1124 178.614Z"  />
                                     <path className='fill-black dark:fill-white' d="M165.825 83.3241L178.53 96.0291C180.18 97.6791 180.18 100.237 178.53 101.887L165.825 114.592C164.175 116.242 161.618 116.242 159.968 114.592L147.263 101.887C145.613 100.237 145.613 97.6791 147.263 96.0291L159.968 83.3241C161.618 81.7566 164.258 81.7566 165.825 83.3241Z"  />
@@ -83,7 +83,7 @@ export default function AvalancheTrustedProps({ params, mainData }: AvalancheTru
                                     <path className='fill-black dark:fill-white' d="M101.887 81.5109L116.489 96.1134C118.139 97.7634 118.139 100.321 116.489 101.971L101.887 116.573C100.237 118.223 97.6795 118.223 96.0295 116.573L81.427 101.971C79.777 100.321 79.777 97.7634 81.427 96.1134L96.0295 81.5109C97.6795 79.8609 100.32 79.8609 101.887 81.5109Z"  />
                                 </svg>
                             </div>
-                            <TextScramble  className="text-xl xl:text-3xl 2xl:text-5xl 3xl:text-6xl text-start  text-black dark:text-white w-full uppercase"
+                            <TextScramble  className="text-2xl xl:text-3xl 2xl:text-5xl 3xl:text-6xl text-start  text-black dark:text-white w-full uppercase"
                                 text= {findByUniqueId(mainData, 1676)}
                                  lang={params.lang}
                             />

@@ -76,7 +76,7 @@ export default function TrustedBy({ params, mainData }: TrustedByProps) {
             corner={params.lang == "fa" ? "tr" : "tl"}
             radius={32}
             cornerSize={isMobile ? 80 : 120}
-            className="py-12 px-4 2xl:px-10  text-white dark:text-[#1A1A18] rounded-[40px] rtl:rounded-tr-[120px] ltr:rounded-tl-[120px] lg:rtl:rounded-tr-[200px] lg:ltr:rounded-tl-[200px]">
+            className="py-4 lg:py-12 px-4 2xl:px-10  text-white dark:text-[#1A1A18] rounded-[40px] rtl:rounded-tr-[120px] ltr:rounded-tl-[120px] lg:rtl:rounded-tr-[200px] lg:ltr:rounded-tl-[200px]">
             <div className="text-black dark:text-white overflow-hidden w-full">
                 {/* متن اصلی */}
                 <div className='flex flex-col lg:flex-row gap-5 lg:gap-0 gap-y-0 w-full  lg:mt-5 items-center border-b border-solid border-x-0 border-t-0 dark:border-[#434343] border-[#D9D9D9] pb-10'>
@@ -95,7 +95,7 @@ export default function TrustedBy({ params, mainData }: TrustedByProps) {
                         </Reveal>
                     </div>
                     <div className="text-start max-w-3xl w-full px-3 mt-[-24px] lg:mt-0">
-                        <TextScramble className=" dark:text-white text-xl xl:text-3xl 2xl:text-5xl 3xl:text-6xl leading-relaxed xl:!leading-[70px]"
+                        <TextScramble className=" dark:text-white text-3xl xl:text-4xl 2xl:text-5xl 3xl:text-6xl leading-relaxed xl:!leading-[70px]"
                             text={findByUniqueId(mainData, 1679)}
                             lang={params.lang}
                         />
@@ -121,9 +121,9 @@ export default function TrustedBy({ params, mainData }: TrustedByProps) {
                             {academyCards.map((card, idx) => (
                                 <div
                                     key={card.id}
-                                    className="group hover:bg-neutral-100 dark:hover:bg-neutral-800 duration-300 space-y-4 border border-solid text-start  border-[#D9D9D9] dark:border-[#434343] rounded-[40px] p-3   "
+                                    className="group hover:bg-neutral-100 dark:hover:bg-neutral-800 duration-300 space-y-4 border border-solid text-start  border-[#D9D9D9] dark:border-[#434343] rounded-xl lg:rounded-[32px] p-2 lg:p-3   "
                                 >
-                                    <div className="w-full h-[135px] relative rounded-[40px] overflow-hidden">
+                                    <div className="w-full h-[90px] lg:h-[135px] relative rounded-xl lg:rounded-[32px] overflow-hidden">
                                         <Image
                                             src={card.img}
                                             alt={card.title + " pic"}

@@ -284,7 +284,7 @@ export default function AvalancheCTA({ params, mainData }: AvalancheCTAProps) {
                     <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-black/40 z-0" />
 
                     <div className="relative z-10">
-                        <p className="text-white text-[52px] leading-[1] font-semibold tracking-[-2px] max-w-[420px]">
+                        <p className="text-white text-4xl lg:text-[52px] lg:leading-[1] font-semibold tracking-[-2px] max-w-[420px]">
                             {findByUniqueId(mainData, 1723)}
                         </p>
 
@@ -341,7 +341,7 @@ export default function AvalancheCTA({ params, mainData }: AvalancheCTAProps) {
                     <div className="relative z-10 h-full flex flex-col">
                         {/* Header */}
                         <div>
-                            <h2 className="text-white text-[50px] leading-[1] font-semibold tracking-[-2px]">
+                            <h2 className="text-white text-4xl lg:text-[50px] lg:leading-[1] font-semibold tracking-[-2px]">
                                 {findByUniqueId(mainData, 1726)}
                             </h2>
 

@@ -29,6 +29,8 @@ import AvalancheBanner from "./components/AvalancheBanner"
 import SectionTeam from "@/components/templates/firstpage/TeamSection";
 import PressureLayout from "./components/PressureLayout";
 import Logo from "./components/logo";
+import ClipButton from "@/components/shared/ClipButton";
+import Image from "next/image";
 const baseUrl = "https://metarang.com"; // ← دامنه اصلی سایتت
 const imageUrl = "https://metarang.com/_next/image?url=%2Flogo.png&w=128&q=75";
 // interface WhitePaperPageProps {
@@ -201,6 +203,44 @@ export default async function ArticlesPage({
     />
   }
 />
+      <div
+        
+        className="
+            border border-solid border-[#f5f5f5] dark:border-black
+           lg:hidden bg-white dark:bg-[#1A1A18] rounded-[32px] dark:text-white w-full
+          
+        "
+
+      >
+        <div className="w-full h-[280px] overflow-hidden rounded-[32px] relative">
+          <Image
+            src="https://s3.metarang.com/metarang/onepage/testimg.jpg"
+            alt="whitepaper"
+            fill
+            sizes="70vw"
+            quality={75}
+            decoding="async"
+            className="w-full object-cover"
+          />
+        </div>
+
+        <div className="w-full p-5 pt-3 text-start ">
+          <p className="font-black pb-3 text-lg">{findByUniqueId(mainData, 1654)}</p>
+          <p className="">{findByUniqueId(mainData, 1656)}</p>
+          <ClipButton clip={lang == "fa" ? "bl" : "br"}
+            className="w-[230px]  h-[60px] group mt-3 cursor-pointer duration-300 hover:text-[#9100D9]">
+            <span className="text-white dark:text-black group-hover:text-white pe-3">{findByUniqueId(mainData, 1670)}</span>
+            <svg
+              className="w-4 h-4 rtl:rotate-180 transition-transform duration-300 group-hover/btn:translate-x-1"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path className="text-[#9100D9] group-hover:text-white" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </ClipButton>
+        </div>
+      </div>
         <div className="mt-5 space-y-[2px] ">
           <WhyMetarang params={resolvedParams} mainData={mainData} />
           <div className="!mt-[135px] lg:!mt-[84px] xl:!mt-[90px] 2xl:!mt-[0]">

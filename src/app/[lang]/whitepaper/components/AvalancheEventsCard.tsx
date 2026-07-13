@@ -98,7 +98,7 @@ export default function AvalancheEventsCard({ params, mainData }: AvalancheEvent
                                 New York
                             </p>
 
-                            <h3 className="mt-4 text-white text-[54px] leading-[0.95] font-bold tracking-[-2px] uppercase max-w-[500px]">
+                            <h3 className="mt-4 text-white text-4xl lg:text-[54px] leading-[0.95] font-bold tracking-[-2px] uppercase max-w-[500px]">
                                 Credite
                                 <br />
                                 Reimagined
@@ -106,7 +106,7 @@ export default function AvalancheEventsCard({ params, mainData }: AvalancheEvent
                         </div>
                         
                     <ClipButton clip={params.lang == "fa" ? "bl" : "br"}
-                                            className="w-[230px]  h-[64px] group mt-5 cursor-pointer duration-300 text-black dark:text-white hover:!text-[#9100D9] ">
+                                            className="w-[180px] lg:w-[230px]  h-[64px] group mt-5 cursor-pointer duration-300 text-black dark:text-white hover:!text-[#9100D9] ">
                                             <button
                                                 type="button"
                                                 aria-label="btn event"

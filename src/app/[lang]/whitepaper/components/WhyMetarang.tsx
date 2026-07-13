@@ -78,7 +78,9 @@ export default function WhyMetarang({
                 {/* Card 0 */}
                 <div
                     className="sticky h-[39lvh]"
-                    style={{ top: "80px" }}
+                    style={{
+  top: `${isMobile ? 70 : 80}px`,
+}}
                 >
                     <div
                         className="
@@ -87,7 +89,7 @@ export default function WhyMetarang({
             right-0
             bottom-0
             w-full
-            h-[110lvh]
+            h-[100lvh]
             lg:h-[104lvh]
             xl:h-[112lvh]
             3xl:h-[95lvh]
@@ -135,9 +137,9 @@ export default function WhyMetarang({
                     <div
                         key={card.id}
                         className="sticky h-[43lvh] mx-5 lg:mx-9"
-                        style={{
-                            top: "50px",
-                        }}
+style={{
+  top: `${isMobile ? 70 : 40}px`,
+}}
                     >
                         <div
                             className={`
@@ -146,7 +148,7 @@ export default function WhyMetarang({
                 right-0
                 bottom-0
                 w-full
-                h-[70lvh]
+                h-[80lvh]
                 lg:h-[55lvh]
                 overflow-hidden
                 flex
@@ -154,7 +156,7 @@ export default function WhyMetarang({
                 lg:flex-row
               `}
                             style={{
-                                top: `${(index + 1) * 90}px`,
+                                top: `${(index + 1) * (isMobile ? 48 : 90)}px`,
                                 zIndex: index + 2,
                             }}
                         >
@@ -218,7 +220,7 @@ export default function WhyMetarang({
                                 corner={params.lang == "fa" ? "tl" : "tr"}
                                 className={`${card.gradient} !bg-transparent h-full  gap-3 items-start  p-3 w-full flex-col justify-between lg:w-[40%] flex lg:hidden`}>
                                 
-                                <div className="flex flex-row gap-5">
+                                <div className="flex flex-col gap-5 p-3">
                                     <div className="text-white/50 text-sm font-semibold tracking-[.15em]">
                                         {(index + 1).toString().padStart(2, "0")}
                                     </div>
@@ -240,9 +242,9 @@ export default function WhyMetarang({
                                                                                             <Image
                                     src="/logo.png"
                                     alt="Logo"
-                                    width={45}
-                                    height={35}
-                                    className="size-10 lg:size-auto lg:w-[35px] lg:h-[35px] object-contain mt-auto mb-[-120px] ms-7 lg:hidden"
+                                    width={25}
+                                    height={25}
+                                    className="w-[25px] h-[25px] object-contain mt-auto mb-[-65px] ms-2 lg:hidden"
                                 />
 
                             </ClipSection>

@@ -247,7 +247,7 @@ export default function AvalancheSolutions({ params, mainData }: AvalancheSoluti
                         </Reveal>
                     </div>
                         <div className="text-start max-w-3xl mt-[-24px] lg:mt-0">
-                            <TextScramble className=" text-black dark:text-white text-xl xl:text-3xl 2xl:text-5xl 3xl:text-6xl 2xl:!leading-[80px]"
+                            <TextScramble className=" text-black dark:text-white text-2xl xl:text-3xl 2xl:text-5xl 3xl:text-6xl 2xl:!leading-[80px]"
                                 text={findByUniqueId(mainData, 1705)}
                                 lang={params.lang} />
 
