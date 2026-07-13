@@ -207,12 +207,12 @@ export default async function ArticlesPage({
         
         className="
             border border-solid border-[#f5f5f5] dark:border-black
-           lg:hidden bg-white dark:bg-[#1A1A18] rounded-[32px] dark:text-white w-full
+           lg:hidden bg-white dark:bg-[#1A1A18] rounded-xl lg:rounded-[32px] dark:text-white w-full
           
         "
 
       >
-        <div className="w-full h-[280px] overflow-hidden rounded-[32px] relative">
+        <div className="w-full h-[280px] overflow-hidden rounded-xl lg:rounded-[32px] relative">
           <Image
             src="https://s3.metarang.com/metarang/onepage/testimg.jpg"
             alt="whitepaper"
@@ -243,7 +243,7 @@ export default async function ArticlesPage({
       </div>
         <div className="mt-5 space-y-[2px] ">
           <WhyMetarang params={resolvedParams} mainData={mainData} />
-          <div className="!mt-[135px] lg:!mt-[84px] xl:!mt-[90px] 2xl:!mt-[0]">
+          <div className="!mt-[11px] lg:!mt-[84px] xl:!mt-[90px] 2xl:!mt-[0]">
             <EcosystemFeatures params={resolvedParams} mainData={mainData} />
           </div>
           <TrustedBySimple params={resolvedParams} mainData={mainData} />

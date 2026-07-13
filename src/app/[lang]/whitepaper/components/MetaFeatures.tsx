@@ -25,21 +25,21 @@ export default function MetaFeatures({ params, mainData }: MetaFeaturesProps) {
         title: findByUniqueId(mainData, 1715),
         description: findByUniqueId(mainData, 1716),
         buttonText: findByUniqueId(mainData, 1717),
-        icon: <Wings className="w-full h-full fill-black" />,
+        icon: <Wings className="w-full h-full fill-black dark:fill-white" />,
     },
     {
         id: 2,
         title: findByUniqueId(mainData, 1718),
         description: findByUniqueId(mainData, 1719),
         buttonText: findByUniqueId(mainData, 1672),
-        icon: <Hex className="w-full h-full fill-black" />,
+        icon: <Hex className="w-full h-full fill-black dark:fill-white" />,
     },
     {
         id: 3,
         title: findByUniqueId(mainData, 1720),
         description: findByUniqueId(mainData, 1721),
         buttonText: findByUniqueId(mainData, 1722),
-        icon: <DropBox className="w-full h-full fill-black" />,
+        icon: <DropBox className="w-full h-full fill-black dark:fill-white" />,
     },
 ];
     return (
@@ -48,15 +48,15 @@ export default function MetaFeatures({ params, mainData }: MetaFeaturesProps) {
                     {featuresData.map((feature) => (
                         <div
                             key={feature.id}
-                            className=" bg-white space-y-[32px] p-5 md:p-10 3xl:px-12 3xl:py-9 dark:text-white dark:bg-[#1A1A18] border border-gray-200 dark:border-gray-800 rounded-[40px]  "
+                            className=" bg-white space-y-4 lg:space-y-[32px] p-5 md:p-10 3xl:px-12 3xl:py-9 dark:text-white dark:bg-[#1A1A18] border border-gray-200 dark:border-gray-800 rounded-xl :rounded-[32px]  "
                         >
                             {/* آیکون */}
-                            <div className="w-12 h-12 3xl:w-[94px] 3xl:h-[94px]   dark:text-white">
+                            <div className="w-20 h-20 3xl:w-[94px] 3xl:h-[94px]   dark:text-white">
                                 {feature.icon}
                             </div>
 
                             {/* عنوان */}
-                            <h3 className="text-xl md:text-2xl 3xl:text-3xl font-semibold line-clamp-1">
+                            <h3 className="text-2xl md:text-2xl 3xl:text-3xl font-semibold line-clamp-1">
                                 {feature.title}
                             </h3>
 
@@ -67,7 +67,7 @@ export default function MetaFeatures({ params, mainData }: MetaFeaturesProps) {
 
                             {/* دکمه */}
                                 <ClipButton clip={params.lang == "fa" ? "bl" : "br"}
-                                    className="w-[230px]  h-[64px] group m-5 cursor-pointer duration-300 hover:text-[#9100D9]">
+                                    className="w-[230px]  h-[64px] group ms-0 m-5 cursor-pointer duration-300 hover:text-[#9100D9]">
                                      <span className="text-white dark:text-black group-hover:text-white pe-3">{findByUniqueId(mainData, 1711)}</span>
                                     <svg
                                         className="w-4 h-4 rtl:rotate-180 transition-transform duration-300 group-hover/btn:translate-x-1"

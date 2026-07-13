@@ -55,7 +55,7 @@ export default function MobilePressure({
     <section className={`relative h-screen w-full overflow-hidden ${className}`}>
       <div
         ref={centerRef}
-        className="absolute inset-0 z-10 overflow-hidden rounded-[32px]"
+        className="absolute inset-0 z-10 overflow-hidden rounded-xl lg:rounded-[32px]"
       >
         {center}
       </div>

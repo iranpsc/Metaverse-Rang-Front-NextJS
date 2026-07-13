@@ -101,7 +101,7 @@ useEffect(() => {
         </p>
       </div>
 
-      <div className="border-4 border-[#343434] rounded-[32px] md:rounded-[40px] lg:rounded-[50px] xl:rounded-[56px] flex flex-col justify-start items-start xl:gap-10 lg:gap-10 md:gap-7 sm:gap-5 xs:gap-3 p-5 sm:p-6 md:p-[28px] dark:bg-gradient-to-l bg-[#DEDEE9] dark:from-[#343434] dark:to-[#2E2D28] mt-12">
+      <div className="border-4 border-[#343434] rounded-xl lg:rounded-[32px] md:rounded-[40px] lg:rounded-[50px] xl:rounded-[56px] flex flex-col justify-start items-start xl:gap-10 lg:gap-10 md:gap-7 sm:gap-5 xs:gap-3 p-5 sm:p-6 md:p-[28px] dark:bg-gradient-to-l bg-[#DEDEE9] dark:from-[#343434] dark:to-[#2E2D28] mt-12">
         {errorMessage ? (
           <p className="text-red-500 font-azarMehr text-center w-full py-10">{errorMessage}</p>
         ) : (

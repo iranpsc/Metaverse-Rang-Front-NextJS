@@ -7,6 +7,7 @@ import TextScramble from '@/components/ui/animations/textScramble';
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import ClipSection from '@/components/shared/ClipContainer';
 import Reveal from '@/components/ui/animations/Reveal';
+import ClipButton from '@/components/shared/ClipButton';
 interface NewsStoriesProps {
     params: { lang: string };
     mainData: { mainData: string };
@@ -92,7 +93,7 @@ export default function NewsStories({ params, mainData }: NewsStoriesProps) {
             image: 'https://s3.metarang.com/metarang/onepage/news6.webp',
         },
     ];
-        const [isMobile, setIsMobile] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
         const media = window.matchMedia("(max-width: 1023px)");
@@ -165,9 +166,9 @@ export default function NewsStories({ params, mainData }: NewsStoriesProps) {
 
     return (
         <ClipSection
-            radius={32}
+            radius={isMobile ? 12 : 32}
             cornerSize={isMobile ? 80 : 120}
-            cornerRadius={16} className="w-full text-white dark:text-[#1A1A18] py-16  overflow-hidden rounded-[32px]">
+            cornerRadius={16} className="w-full text-white dark:text-[#1A1A18] py-16  overflow-hidden rounded-xl lg:rounded-[32px]">
             <div className="px-5 lg:px-10 w-full">
 
                 {/* Header */}
@@ -186,7 +187,7 @@ export default function NewsStories({ params, mainData }: NewsStoriesProps) {
                         </Reveal>
                     </div>
                     <div className="text-start max-w-3xl px-3 mt-[-24px] lg:mt-0">
-                        <TextScramble className=" dark:text-white text-2xl xl:text-3xl 2xl:text-5xl 3xl:text-6xl leading-relaxed 2xl:!leading-[80px]"
+                        <TextScramble className=" dark:text-white text-5xl xl:text-3xl 2xl:text-5xl 3xl:text-6xl leading-relaxed 2xl:!leading-[80px]"
                             text={findByUniqueId(mainData, 1700)}
                             lang={params.lang}
                         />
@@ -194,10 +195,10 @@ export default function NewsStories({ params, mainData }: NewsStoriesProps) {
                     </div>
                 </div>
                 {/* Navigation buttons */}
-                <div className='mt-10 mb-6 flex flex-col  w-full'>
-                    <div className='hidden ltr:flex-row-reverse md:flex dark:text-white md:text-xl  items-center ltr:justify-end rtl:justify-end gap-[70%] md:gap-[60%] lg:gap-[40%] xl:gap-[36%] mb-[-12px]'>
-                        <p>{findByUniqueId(mainData, 255)}</p>
-                        <p>
+                <div className='mt-10 mb-2 lg:mb-6 flex flex-col  w-full'>
+                    <div className=' ltr:flex-row-reverse rtl:text-left md:flex dark:text-white text-3xl   items-center ltr:justify-end rtl:justify-end gap-[70%] md:gap-[60%] lg:gap-[40%] xl:gap-[36%] lg:mb-[-12px]'>
+                        <p className='mb-[-55px] lg:mb-0 rtl:lg:me-[-130px] ltr:lg:ms-[-200px]'>{findByUniqueId(mainData, 255)}</p>
+                        <p className='hidden lg:block'>
                             {findByUniqueId(mainData, 1701)}
                         </p>
 
@@ -248,18 +249,18 @@ export default function NewsStories({ params, mainData }: NewsStoriesProps) {
                                 key={item.id}
                                 className={`news-card snap-start flex-shrink-0 transition-all duration-300 ${isFeatured
                                     ? 'w-[90%] md:w-[70%] lg:w-[45%] xl:w-[40%]'
-                                    : 'w-[286px] md:w-[320px] lg:w-[360px] 3xl:w-[384px]'
+                                    : 'w-[320px] md:w-[320px] lg:w-[360px] 3xl:w-[384px]'
                                     }`}
                             >
                                 {/* All cards use the same design as Featured */}
-                                <div className="rounded-[40px] overflow-hidden border border-solid border-[#D9D9D9] dark:border-[#434343] transition-all duration-300 flex flex-col h-full">
+                                <div className="rounded-xl lg:rounded-[32px] overflow-hidden border border-solid border-[#D9D9D9] dark:border-[#434343] transition-all duration-300 flex flex-col h-full">
                                     <div className="w-full relative">
                                         <Image
                                             src={item.image || "/rafiki-dark.png"}
                                             alt={item.title}
                                             width={350}
                                             height={300}
-                                            className="w-full h-full object-cover rounded-[40px] "
+                                            className="w-full h-full object-cover rounded-xl lg:rounded-[32px] "
                                             onError={(e) => (e.currentTarget.style.display = 'none')}
                                         />
                                     </div>
@@ -296,9 +297,19 @@ export default function NewsStories({ params, mainData }: NewsStoriesProps) {
                             </div>
                         );
                     })}
+
                 </div>
             </div>
-
+<div className='flex justify-end w-full px-5 lg:px-10 pb-2 lg:pb-4'>
+                <ClipButton clip={params.lang == "fa" ? "bl" : "br"}
+                className="w-[230px]  h-[60px] group mt-3 cursor-pointer duration-300 text-white hover:text-[#9100D9]">
+                <span className="text-white dark:text-black group-hover:text-white pe-3"> {findByUniqueId(mainData, 195)}</span>
+                <svg className="w-5 h-5 text-[#9100D9] group-hover:text-white rtl:rotate-180 transition-transform duration-300 rtl:group-hover:translate-x-[-4px] ltr:group-hover:translate-x-1" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path className='stroke-[#9100D9] group-hover:stroke-white' d="M14.4297 5.92969L20.4997 11.9997L14.4297 18.0697" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+                    <path className='stroke-[#9100D9] group-hover:stroke-white' d="M3.5 12H20.33" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+            </ClipButton>
+</div>
             <style jsx>{`
                 .hide-scrollbar::-webkit-scrollbar {
                     display: none;

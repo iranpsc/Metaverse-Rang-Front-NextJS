@@ -91,28 +91,28 @@ export default function Footer2({ params, mainData }: FooterProps) {
   return (
 
     <ClipSection
-      radius={32}
+      radius={isMobile ? 12 : 32}
       cornerRadius={16}
       corner={params.lang == "fa" ? "tl" : "tr"}
       cornerSize={isMobile ? 80 : 120}
       
       className="text-white dark:text-[#1A1A18]">
-      <footer className="  rounded-[32px]  mt-10">
+      <footer className="  rounded-xl lg:rounded-[32px]  mt-10">
         <div className="overflow-hidden ">
           <div className="p-5 xl:p-5 2xl:p-9 3xl:p-14 3xl:px-[76px] 3xl:px  mt-5">
             <div className="grid gap-10 gap-y-12 md:grid-cols-[80px_repeat(4,1fr)] 2xl:grid-cols-[350px_repeat(4,1fr)]">
 
               {/* Logo */}
-              <div className="flex items-center lg:items-start justify-center lg:justify-start px-5 lg:px-0 lg:flex-col gap-5 ">
+              <div className="flex items-start justify-start  lg:px-0 lg:flex-col gap-5 ">
                 <Image
                   src="/logo.png"
                   alt="logo"
-                  width={71}
-                  height={70}
-                  className="w-[60px] h-[60px] inline "
+                  width={50}
+                  height={50}
+                  className="w-[50px] h-[50px] inline "
                 />
                 <div className="flex items-center justify-center ">
-                  <div className="w-[60px] h-[60px]"
+                  <div className="w-[50px] h-[50px]"
                     dangerouslySetInnerHTML={{
                       __html: `<a referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/?id=721065&Code=fLkLFNhooBCR33C1ntVXIBxJFAj9gf3q'><img referrerpolicy='origin' src='https://trustseal.enamad.ir/logo.aspx?id=721065&Code=fLkLFNhooBCR33C1ntVXIBxJFAj9gf3q' alt='' style='cursor:pointer' code='fLkLFNhooBCR33C1ntVXIBxJFAj9gf3q'></a>`,
                     }}

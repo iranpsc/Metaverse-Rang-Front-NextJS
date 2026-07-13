@@ -157,11 +157,11 @@ useEffect(() => {
     const formatNumber = (num: number) => num.toLocaleString();
 
     return (
-        <section ref={sectionRef} className="w-full bg-white dark:bg-[#1A1A18] rounded-[40px]" id="network-section">
+        <section ref={sectionRef} className="w-full bg-white dark:bg-[#1A1A18] rounded-xl lg:rounded-[32px]" id="network-section">
             <div className="p-5 lg:p-10 overflow-x-hidden">
 
                 {/* عنوان اصلی */}
-                <div className="mb-16 mt-7 w-full lg:space-y-3 ">
+                <div className="mb-16 lg:mt-7 w-full lg:space-y-3 ">
                     <div className="dark:text-white text-4xl md:text-5xl xl:text-7xl 3xl:text-[160px] font-bold tracking-wider">
                         <Reveal
                             direction={params.lang == "fa" ? "left" : "right"}
@@ -203,18 +203,18 @@ useEffect(() => {
                 </div>
 
                 {/* آمار اصلی */}
-                <div className="text-center mb-20 border border-solid border-[#D9D9D9] dark:border-[#434343] rounded-[40px] px-10 py-5">
+                <div className="text-center mb-10 lg:mb-20 border border-solid border-[#D9D9D9] dark:border-[#434343] rounded-xl lg:rounded-[32px] lg:px-10 py-5">
                     <div className="relative flex justify-between items-center w-full gap-5">
                         <div className={`absolute -inset-4 bg-[#9100d93d] blur-3xl rounded-full transition-opacity duration-500 ${isActive ? 'opacity-100' : 'opacity-0'}`}></div>
 
-                        <div className="flex flex-col lg:flex-row gap-6 lg:gap-10 w-full">
+                        <div className="flex flex-row gap-1 lg:gap-10 w-full">
                             <p className={`text-3xl mx-auto lg:mb-5 lg:mt-2 lg:mx-0 text-start lg:text-6xl 3xl:text-8xl font-bold font-mono tracking-tight transition-all duration-200 ${isActive ? 'text-[#9100D9] scale-105' : 'text-black dark:text-white'}`}>
                                 {formatNumber(count)}
                             </p>
 
                             <div className="flex items-center justify-center gap-4">
-                                <div className="flex items-center gap-2">
-                                    <span className={`${isActive ? 'bg-red-500 animate-pulse' : 'bg-[#9100D9]'} bg-[#9100D9] px-3 py-1 text-white rounded-full text-sm font-mono`}>
+                                <div className="flex items-center gap-2 !text-sm">
+                                    <span className={`${isActive ? 'bg-red-500 animate-pulse' : 'bg-[#9100D9]'} bg-[#9100D9] px-3 py-1 text-white rounded-full text-xs font-mono`}>
                                         {findByUniqueId(mainData, 1695)}
                                     </span>
                                 </div>
@@ -229,134 +229,217 @@ useEffect(() => {
                 <div className="grid lg:grid-cols-2 gap-10 lg:gap-7">
 
                     {/* LATEST BLOCKS */}
-                    <div className="space-y-2">
-                        <div className="flex items-center gap-3 border-b border-gray-300 dark:border-gray-800 pb-4">
-                            <p className="text-xl xl:text-2xl font-bold text-black dark:text-white tracking-wider">{findByUniqueId(mainData, 1696)}</p>
+{/* LATEST BLOCKS */}
+<div className="lg:space-y-3">
+    <div className="flex items-center border-b border-neutral-300 dark:border-neutral-700 pb-4">
+        <h3 className="text-2xl font-bold text-black dark:text-white">
+            {findByUniqueId(mainData, 1696)}
+        </h3>
+    </div>
+
+    <div className="w-full">
+        {blocks.map((block, idx) => (
+            <div
+                key={idx}
+                className={`${
+                    idx !== blocks.length - 1
+                        ? ""
+                        : ""
+                } bg-white dark:bg-[#1A1A18] rounded-xl border border-solid border-neutral-300 dark:border-neutral-700`}
+            >
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={block.id}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: .6 }}
+                        className="grid grid-cols-[50px_1fr_auto] lg:grid-cols-[64px_1fr_1fr_auto] gap-3 items-center p-2"
+                    >
+                        <Image
+                            src="/whitepaper/coin.png"
+                            alt=""
+                            width={64}
+                            height={64}
+                            className="w-10 h-10 lg:w-[60px] lg:h-[60px] rounded-full object-cover"
+                        />
+
+                        {/* Mobile */}
+                        <div className="flex flex-col gap-1 lg:hidden min-w-0">
+                            <div className="flex items-center gap-2">
+                                <span className="text-xs text-neutral-500">
+                                    Block
+                                </span>
+
+                                <span className="underline font-bold text-sm dark:text-white truncate">
+                                    {block.blockNumber}
+                                </span>
+                            </div>
+
+                            <span className="text-xs text-neutral-500">
+                                {block.timeAgo} {findByUniqueId(mainData,1698)}
+                            </span>
+
+                            <div className="flex items-center gap-2">
+                                <span className="text-xs text-neutral-500">
+                                    Hash
+                                </span>
+
+                                <span className="underline text-xs dark:text-white truncate">
+                                    {block.hash}
+                                </span>
+
+                                <span className="text-xs text-neutral-500 whitespace-nowrap">
+                                    {block.txCount} TX
+                                </span>
+                            </div>
                         </div>
 
-                        <div className="flex flex-col ">
-                            {blocks.map((block, idx) => (
-                                <div key={idx} className="border-solid border border-neutral-300 dark:border-neutral-700 rounded-xl px-3 lg:px-5 py-1 lg:py-1 cursor-pointer overflow-hidden">
-                                    <AnimatePresence mode="wait">
-                                        <motion.div
-                                            key={block.id}
-                                            initial={{ opacity: 0,  }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            exit={{ opacity: 0,}}
-                                            transition={{ duration: 0.8, ease: 'easeInOut' }}
-                                            className="flex flex-row items-center justify-between gap-1 lg:gap-4"
-                                        >
-                                            <div className="flex items-center gap-3">
-                                                <Image src={"/whitepaper/coin.png"} alt='coin pic' width={71} height={71} className='rounded-full aspect-square w-[45px] h-[45px] lg:w-[71px] lg:h-[71px]' />
-                                                <div className="hidden lg:flex flex-col items-start gap-1">
-                                                    <span className="dark:text-white text-black underline font-mono text-xs lg:text-lg font-bold">
-                                                        {block.blockNumber}
-                                                    </span>
-                                                    <span className="text-xs text-neutral-500">
-                                                        {block.timeAgo} {findByUniqueId(mainData, 1698)}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div className="hidden lg:flex flex-col gap-1">
-                                                <p className="dark:text-white text-black flex items-center flex-row-reverse gap-2 text-sm font-mono">
-                                                    <span className="text-neutral-500 hidden lg:block">{findByUniqueId(mainData, 1699)}</span>
-                                                    <span className="underline text-wrap text-xs lg:text-base">{block.hash}</span>
-                                                </p>
-                                                <p className=" text-neutral-500 text-sm text-right">{block.txCount} TX</p>
-                                            </div>
-                                            <div className='flex flex-col lg:hidden items-center'>
-                                                <div className="flex items-start gap-1">
-                                                    <span className="dark:text-white text-black underline font-mono break-all text-xs lg:text-lg font-bold">
-                                                        {block.blockNumber}
-                                                    </span>
-                                                    <span className="text-xs text-neutral-500">
-                                                        {block.timeAgo} {findByUniqueId(mainData, 1698)}
-                                                    </span>
-                                                </div>
-                                                <div className="flex gap-1">
-                                                    <p className="dark:text-white text-black flex items-center flex-row-reverse gap-2 text-sm font-mono">
-                                                        <span className="text-neutral-500 hidden lg:block">{findByUniqueId(mainData, 1699)}</span>
-                                                        <span className="underline text-wrap text-xs lg:text-base break-all">{block.hash}</span>
-                                                    </p>
-                                                    <p className=" text-neutral-500 text-sm text-right">{block.txCount} TX</p>
-                                                </div>
-                                            </div>
-                                            <div className="flex items-center gap-6">
-                                                <div className="text-right bg-[#ECECEC] dark:bg-[#ECECEC] py-2 lg:py-3 px-2 lg:px-3 rounded-xl">
-                                                    <p className="text-black text-xs lg:text-sm font-mono text-center">{block.amount}</p>
-                                                </div>
-                                            </div>
-                                        </motion.div>
-                                    </AnimatePresence>
-                                </div>
-                            ))}
+                        {/* Desktop Left */}
+                        <div className="hidden lg:flex flex-col gap-1">
+                            <span className="text-sm text-neutral-500">
+                                Block
+                            </span>
+
+                            <span className="underline font-bold text-base dark:text-white">
+                                {block.blockNumber}
+                            </span>
+
+                            <span className="text-sm text-neutral-500">
+                                {block.timeAgo} {findByUniqueId(mainData,1698)}
+                            </span>
                         </div>
-                    </div>
+
+                        {/* Desktop Center */}
+                        <div className="hidden lg:grid grid-cols-[auto_1fr] gap-x-2 gap-y-1">
+                            <span className="text-sm text-neutral-500">
+                                Hash
+                            </span>
+
+                            <span className="underline dark:text-white font-medium truncate">
+                                {block.hash}
+                            </span>
+
+                            <span className="text-sm text-neutral-500">
+                                TX
+                            </span>
+
+                            <span className="text-sm text-neutral-500">
+                                {block.txCount} TX
+                            </span>
+                        </div>
+
+                        {/* Badge */}
+                        <div className="bg-black dark:bg-white text-white dark:text-black rounded-lg px-3 py-2 text-xs lg:text-sm font-medium whitespace-nowrap text-center min-w-[92px]">
+                            {block.amount}
+                        </div>
+                    </motion.div>
+                </AnimatePresence>
+            </div>
+        ))}
+    </div>
+</div>
 
                     {/* LATEST TRANSACTIONS */}
-                    <div className="space-y-2">
-                        <div className="flex items-center gap-3 border-b border-gray-300 dark:border-gray-800 pb-4">
-                            <h3 className="text-xl xl:text-2xl font-bold text-black dark:text-white tracking-wider">{findByUniqueId(mainData, 1697)}</h3>
+{/* LATEST TRANSACTIONS */}
+<div className="lg:space-y-3 w-full">
+    <div className="flex items-center border-b border-neutral-300 dark:border-neutral-700 pb-4">
+        <h3 className="text-2xl font-bold text-black dark:text-white">
+            {findByUniqueId(mainData, 1697)}
+        </h3>
+    </div>
+
+    <div className=" w-full ">
+        {transactions.map((tx, idx) => (
+            <div
+                key={idx}
+                className={`${
+                    idx !== transactions.length - 1
+                        ? "border-b border-neutral-300 dark:border-neutral-700"
+                        : ""
+                } bg-white dark:bg-[#1A1A18] rounded-xl border border-solid border-neutral-300 dark:border-neutral-700`}
+            >
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={tx.id}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: .6 }}
+                        className="grid grid-cols-[50px_1fr] lg:grid-cols-[64px_1fr_1fr] gap-3 items-center p-2 "
+                    >
+                        <Image
+                            src="/whitepaper/coin.png"
+                            alt=""
+                            width={64}
+                            height={64}
+                            className="w-10 h-10 lg:w-[60px] lg:h-[60px] rounded-full object-cover"
+                        />
+
+                        {/* Mobile */}
+                        <div className="flex flex-col gap-1 lg:hidden min-w-0">
+                            <div className="flex items-center gap-2">
+                                <span className="text-xs text-neutral-500">
+                                    Hash
+                                </span>
+
+                                <span className="underline font-bold text-sm dark:text-white truncate">
+                                    {tx.hash}
+                                </span>
+                            </div>
+
+                            <span className="text-xs text-neutral-500">
+                                {tx.timeAgo} {findByUniqueId(mainData,1698)}
+                            </span>
+
+                            <div className="flex items-center gap-2">
+                                <span className="text-xs text-neutral-500">
+                                    TX
+                                </span>
+
+                                <span className="text-xs dark:text-white">
+                                    {tx.txCount} TX
+                                </span>
+                            </div>
                         </div>
 
-                        <div className="flex flex-col =">
-                            {transactions.map((tx, idx) => (
-                                <div key={idx} className="border-solid border border-neutral-300 dark:border-neutral-700 rounded-xl px-3 lg:px-5 py-1 lg:py-1 cursor-pointer overflow-hidden">
-                                    <AnimatePresence mode="wait">
-                                        <motion.div
-                                            key={tx.id}
-                                            initial={{ opacity: 0, }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            exit={{ opacity: 0, }}
-                                            transition={{ duration: 0.8, ease: 'easeInOut' }}
-                                            className="flex flex-row items-center justify-between gap-4"
-                                        >
-                                            <div className="flex items-center gap-3">
-                                                <Image src={"/whitepaper/coin.png"} alt='transaction pic' width={71} height={71} className='rounded-full aspect-square w-[45px] h-[45px] lg:w-[71px] lg:h-[71px]' />
-                                                <div className="hidden lg:flex flex-col items-start gap-1">
-                                                    <span className="dark:text-white text-black underline font-mono text-xs lg:text-lg font-bold">
-                                                        {tx.hash}
-                                                    </span>
-                                                    <span className="text-xs text-neutral-500">
-                                                        {tx.timeAgo} {findByUniqueId(mainData, 1698)}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div className="lg:flex flex-col gap-1 hidden">
-                                                <p className="dark:text-white text-black flex items-center flex-row-reverse gap-2 text-sm font-mono">
-                                                    <span className="text-neutral-500 hidden lg:block">HASH</span>
-                                                    <span className="underline text-xs lg:text-base">{tx.hash}</span>
-                                                </p>
-                                                <p className="text-neutral-500 text-sm text-right">{tx.txCount} TX</p>
-                                            </div>
-                                            <div className='flex flex-col lg:hidden items-center'>
-                                                <div className="flex lg:flex-col items-start gap-1">
-                                                    <span className="dark:text-white text-black text-wrap break-all lg:underline font-mono text-xs lg:text-lg font-bold">
-                                                        {tx.hash}
-                                                    </span>
-                                                    <span className="text-xs text-neutral-500">
-                                                        {tx.timeAgo} {findByUniqueId(mainData, 1698)}
-                                                    </span>
-                                                </div>
-                                                <div className="flex lg:flex-col gap-1">
-                                                    <p className="dark:text-white text-black flex items-center flex-row-reverse gap-2 text-sm font-mono">
-                                                        <span className="text-neutral-500 hidden lg:block">HASH</span>
-                                                        <span className="underline text-xs lg:text-base break-all">{tx.hash}</span>
-                                                    </p>
-                                                    <p className="text-neutral-500 text-sm text-right">{tx.txCount} TX</p>
-                                                </div>
-                                            </div>
-                                            <div className="flex items-center">
-                                                <div className="text-right bg-[#ECECEC] dark:bg-[#ECECEC] py-2 lg:py-3 px-2 lg:px-3 rounded-xl">
-                                                    <p className="text-black text-xs lg:text-sm font-mono">{tx.amount}</p>
-                                                </div>
-                                            </div>
-                                        </motion.div>
-                                    </AnimatePresence>
-                                </div>
-                            ))}
+                        {/* Desktop Left */}
+                        <div className="hidden lg:flex flex-col gap-1">
+                            <span className="text-sm text-neutral-500">
+                                Hash
+                            </span>
+
+                            <span className="underline font-bold text-base dark:text-white">
+                                {tx.hash}
+                            </span>
+
+                            <span className="text-sm text-neutral-500">
+                                {tx.timeAgo} {findByUniqueId(mainData,1698)}
+                            </span>
                         </div>
-                    </div>
+
+                        {/* Desktop Right */}
+                        <div className="hidden lg:grid grid-cols-[auto_1fr] gap-x-2 gap-y-1">
+                            <span className="text-sm text-neutral-500">
+                                TX
+                            </span>
+
+                            <span className="dark:text-white">
+                                {tx.txCount} TX
+                            </span>
+
+                            <span className="text-sm text-neutral-500">
+                                Amount
+                            </span>
+
+            
+                        </div>
+                    </motion.div>
+                </AnimatePresence>
+            </div>
+        ))}
+    </div>
+</div>
                 </div>
             </div>
         </section>

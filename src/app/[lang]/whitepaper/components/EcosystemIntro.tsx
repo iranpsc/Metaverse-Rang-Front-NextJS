@@ -10,7 +10,7 @@ export default function EcosystemIntro({ params, mainData }: EcosystemIntroProps
 
 
   return (
-    <div className="flex w-full  lg:flex-col items-center lg:items-start justify-between h-max lg:h-full lg:min-h-[80vh] bg-white dark:bg-[#1A1A18] rounded-[40px] p-4 lg:p-0 border border-solid border-[#f5f5f5] dark:border-black">
+    <div className="flex w-full  lg:flex-col items-center lg:items-start justify-between h-max lg:h-full lg:min-h-[80vh] bg-white dark:bg-[#1A1A18] rounded-xl  p-4 lg:p-0 border border-solid border-[#f5f5f5] dark:border-black">
 
       <div className="flex flex-col items-start mx-auto justify-start lg:mt-20 lg:px-5 lg:ps-14 lg:gap-5">
         <div>
@@ -19,10 +19,10 @@ export default function EcosystemIntro({ params, mainData }: EcosystemIntroProps
             alt="Logo"
             width={70}
             height={60}
-            className="size-10 lg:size-auto lg:w-[70px] lg:h-[60px] object-contain"
+            className="size-10 lg:size-auto lg:w-[70px] lg:h-[60px] object-contain hidden lg:block"
           />
         </div>
-        <p className="text-black dark:text-white font-bold lg:text-5xl text-start">10:37 PM</p>
+        <p className="text-black dark:text-white font-bold text-2xl lg:text-5xl text-start">10:37 PM</p>
         <p className="text-[#585858] dark:text-neutral-400 text-start lg:text-3xl">Wednesday, February 25, 2026 </p>
       </div>
       <div className="lg:mt-12">

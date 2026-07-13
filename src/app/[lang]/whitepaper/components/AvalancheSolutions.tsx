@@ -88,7 +88,8 @@ function Card({
                 border-[#D9D9D9]
                 dark:border-[#434343]
                 border-solid          
-                p-4
+                lg:p-4
+                p-2
                 transition-colors
                 duration-300
                 hover:bg-neutral-100
@@ -164,7 +165,7 @@ function Card({
                     dark:text-[#969696]
                     rtl:rotate-180
                     group-hover:bg-neutral-200
-                    dark:group-hover:bg-neutral-900
+                    dark:group-hover:bg-neutral-400
                     
                 "
             >
@@ -176,12 +177,14 @@ function Card({
                     aria-hidden="true"
                 >
                     <path
+                    className='dark:group-hover:stroke-white'
                         d="M5 12H19"
                         stroke="currentColor"
                         strokeWidth="1.8"
                         strokeLinecap="round"
                     />
                     <path
+                    className='dark:group-hover:stroke-white'
                         d="M13 6L19 12L13 18"
                         stroke="currentColor"
                         strokeWidth="1.8"
@@ -217,7 +220,7 @@ export default function AvalancheSolutions({ params, mainData }: AvalancheSoluti
                 relative
                 w-full
                 overflow-hidden
-                rounded-[32px]
+                rounded-xl lg:rounded-[32px]
                 text-white
                 dark:text-[#1A1A18]
                 p-5
@@ -247,7 +250,7 @@ export default function AvalancheSolutions({ params, mainData }: AvalancheSoluti
                         </Reveal>
                     </div>
                         <div className="text-start max-w-3xl mt-[-24px] lg:mt-0">
-                            <TextScramble className=" text-black dark:text-white text-2xl xl:text-3xl 2xl:text-5xl 3xl:text-6xl 2xl:!leading-[80px]"
+                            <TextScramble className=" text-black dark:text-white text-5xl xl:text-3xl 2xl:text-5xl 3xl:text-6xl 2xl:!leading-[80px]"
                                 text={findByUniqueId(mainData, 1705)}
                                 lang={params.lang} />
 

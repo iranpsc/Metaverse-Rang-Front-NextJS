@@ -15,19 +15,19 @@ interface TrustedCardData {
     gradient: string;
 }
 const svg1 = (
-    <Wings className="w-full h-full fill-black group-hover:fill-slate-50 duration-700" />
+    <Wings className="w-full h-full fill-black dark:fill-white group-hover:fill-slate-50 duration-700" />
 );
 
 const svg2 = (
-    <Hex className="w-full h-full fill-black group-hover:fill-slate-50 duration-700" />
+    <Hex className="w-full h-full fill-black dark:fill-white group-hover:fill-slate-50 duration-700" />
 );
 
 const svg3 = (
-    <DropBox className="w-full h-full fill-black group-hover:fill-slate-50 duration-700" />
+    <DropBox className="w-full h-full fill-black dark:fill-white group-hover:fill-slate-50 duration-700" />
 );
 
 const svg4 = (
-    <Framer className="w-full h-full fill-black group-hover:fill-slate-50 duration-700" />
+    <Framer className="w-full h-full fill-black dark:fill-white group-hover:fill-slate-50 duration-700" />
 );
 const cardsData: TrustedCardData[] = [
     {
@@ -68,10 +68,10 @@ export default function AvalancheTrustedProps({ params, mainData }: AvalancheTru
     const isRtl = params.lang === 'fa';
 
     return (
-        <section className="bg-white dark:bg-[#1A1A18] rounded-[32px] overflow-hidden">
+        <section className="bg-white dark:bg-[#1A1A18] rounded-xl lg:rounded-[32px] overflow-hidden">
             {/* Header Section */}
             <div className="  ">
-                <div className="font-bold text-start flex flex-col justify-start pt-5 pb-12 lg:py-12 px-10  space-y-4">
+                <div className="font-bold text-start flex flex-col justify-start pt-5 pb-12 lg:py-12 px-5 lg:px-10  space-y-4">
                     <div className='flex flex-col lg:flex-row gap-10 w-full items-center'>
                         <div className='flex flex-col lg:flex-row items-start lg:items-center w-full lg:w-[70%]'>
                             <div>
@@ -83,7 +83,7 @@ export default function AvalancheTrustedProps({ params, mainData }: AvalancheTru
                                     <path className='fill-black dark:fill-white' d="M101.887 81.5109L116.489 96.1134C118.139 97.7634 118.139 100.321 116.489 101.971L101.887 116.573C100.237 118.223 97.6795 118.223 96.0295 116.573L81.427 101.971C79.777 100.321 79.777 97.7634 81.427 96.1134L96.0295 81.5109C97.6795 79.8609 100.32 79.8609 101.887 81.5109Z"  />
                                 </svg>
                             </div>
-                            <TextScramble  className="text-2xl xl:text-3xl 2xl:text-5xl 3xl:text-6xl text-start  text-black dark:text-white w-full uppercase"
+                            <TextScramble  className="text-5xl 2xl:text-5xl 3xl:text-6xl text-start  text-black dark:text-white w-full uppercase"
                                 text= {findByUniqueId(mainData, 1676)}
                                  lang={params.lang}
                             />
@@ -125,7 +125,7 @@ export default function AvalancheTrustedProps({ params, mainData }: AvalancheTru
                                     key={key}
                                     onMouseEnter={() => setHoveredKey(key)}
                                     onMouseLeave={() => setHoveredKey(null)}
-                                    className="trusted-card group relative overflow-hidden rounded-[32px] bg-white dark:bg-[#1A1A18] flex w-[200px] h-[210px] lg:w-[400px] lg:h-[300px] shrink-0 cursor-pointer"
+                                    className="trusted-card group relative overflow-hidden rounded-xl lg:rounded-[32px] bg-white dark:bg-[#1A1A18] flex w-[200px] h-[150px] lg:w-[400px] lg:h-[300px] shrink-0 cursor-pointer"
                                 >
                                     {/* دایره‌ی گرادینتی که از وسط کارت باز می‌شه و کل پس‌زمینه رو پر می‌کنه */}
                                     <span

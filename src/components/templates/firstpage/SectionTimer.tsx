@@ -145,7 +145,7 @@ const SectionTimer = ({ params }: { params: Params }) => {
 
           >
             <div className="h-full w-full  py-5 md:py-0 lg:rounded-[48px]  flex flex-col lg:flex-row gap-5 justify-center items-center">
-              <div className="w-full h-full flex justify-center max-w-[380px] max-h-[100%]  lg:rounded-[32px] overflow-hidden relative">
+              <div className="w-full h-full flex justify-center max-w-[380px] max-h-[100%]  lg:rounded-xl lg:rounded-[32px] overflow-hidden relative">
                 <Image
                   className="w-fill h-full  rounded-[38px] relative"
                   src={eventData.image || "/firstpage/free.webp"}

@@ -74,7 +74,7 @@ export default function TrustedBy({ params, mainData }: TrustedByProps) {
     return (
         <ClipSection
             corner={params.lang == "fa" ? "tr" : "tl"}
-            radius={32}
+            radius={isMobile ? 12 : 32}
             cornerSize={isMobile ? 80 : 120}
             className="py-4 lg:py-12 px-4 2xl:px-10  text-white dark:text-[#1A1A18] rounded-[40px] rtl:rounded-tr-[120px] ltr:rounded-tl-[120px] lg:rtl:rounded-tr-[200px] lg:ltr:rounded-tl-[200px]">
             <div className="text-black dark:text-white overflow-hidden w-full">
@@ -95,7 +95,7 @@ export default function TrustedBy({ params, mainData }: TrustedByProps) {
                         </Reveal>
                     </div>
                     <div className="text-start max-w-3xl w-full px-3 mt-[-24px] lg:mt-0">
-                        <TextScramble className=" dark:text-white text-3xl xl:text-4xl 2xl:text-5xl 3xl:text-6xl leading-relaxed xl:!leading-[70px]"
+                        <TextScramble className=" dark:text-white text-5xl xl:text-5xl 2xl:text-5xl 3xl:text-6xl lg:leading-relaxed xl:!leading-[70px]"
                             text={findByUniqueId(mainData, 1679)}
                             lang={params.lang}
                         />
@@ -104,7 +104,7 @@ export default function TrustedBy({ params, mainData }: TrustedByProps) {
                 </div>
 
                 {/* عنوان پایین */}
-                <div className=" flex flex-col lg:flex-row mt-12 gap-10">
+                <div className=" flex flex-col lg:flex-row mt-12 gap-10 px-5 lg:px-0">
 
                     <div className="dark:text-white text-start text-sm 2xl:text-xl tracking-[0.2em] uppercase mb-10 max-w-[420px]">
 
@@ -116,14 +116,14 @@ export default function TrustedBy({ params, mainData }: TrustedByProps) {
                             {findByUniqueId(mainData, 1680)}
                         </Reveal>
                     </div>
-                    <div className="text-black dark:text-white">
+                    <div className="text-black dark:text-white mt-[-34px] lg:mt-0">
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ">
                             {academyCards.map((card, idx) => (
                                 <div
                                     key={card.id}
-                                    className="group hover:bg-neutral-100 dark:hover:bg-neutral-800 duration-300 space-y-4 border border-solid text-start  border-[#D9D9D9] dark:border-[#434343] rounded-xl lg:rounded-[32px] p-2 lg:p-3   "
+                                    className="group hover:bg-neutral-100 dark:hover:bg-neutral-800 duration-300 space-y-4 border border-solid text-start  border-[#D9D9D9] dark:border-[#434343] rounded-xl lg:rounded-xl lg:rounded-[32px] p-2 lg:p-3   "
                                 >
-                                    <div className="w-full h-[90px] lg:h-[135px] relative rounded-xl lg:rounded-[32px] overflow-hidden">
+                                    <div className="w-full h-[90px] lg:h-[135px] relative rounded-xl lg:rounded-xl lg:rounded-[32px] overflow-hidden">
                                         <Image
                                             src={card.img}
                                             alt={card.title + " pic"}

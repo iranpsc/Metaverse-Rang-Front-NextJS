@@ -57,7 +57,7 @@ const SectionTeam = ({ mainData, params }: any) => {
       )}
       <div className="w-full md:w-[50%] lg:w-[35%]">
         <Image
-          className="w-full h-full  md:h-auto 3xl:aspect-square object-cover rounded-3xl lg:rounded-[32px] origin-center border-none"
+          className="w-full h-full  md:h-auto 3xl:aspect-square object-cover rounded-3xl lg:rounded-xl lg:rounded-[32px] origin-center border-none"
           src={TeamImg}
           alt={"pic " + findByUniqueId(mainData, 256)}
           width={500}

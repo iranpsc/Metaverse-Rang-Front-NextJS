@@ -56,7 +56,7 @@ export default function PoweredBy({ mainData, params }: PoweredByProps) {
         className="
           bg-white border border-solid border-[#f5f5f5] dark:border-black dark:bg-[#1A1A18]
           w-full 2xl:!leading-9 h-max flex flex-col justify-start items-center
-          p-5 lg:pt-7 lg:px-10 rounded-[32px] dark:text-white lg:text-xl leading-9
+          p-5 lg:pt-7 lg:px-10 rounded-xl lg:rounded-[32px] dark:text-white lg:text-xl leading-9
           lg:absolute lg:inset-x-0 lg:top-0 lg:z-20 lg:h-full
         "
         style={{
@@ -72,7 +72,7 @@ export default function PoweredBy({ mainData, params }: PoweredByProps) {
         ref={imageCardRef}
         className="
            h-full border border-solid border-[#f5f5f5] dark:border-black
-          hidden lg:block bg-white dark:bg-[#1A1A18] rounded-[32px] dark:text-white w-full
+          hidden lg:block bg-white dark:bg-[#1A1A18] rounded-xl lg:rounded-[32px] dark:text-white w-full
           lg:absolute lg:inset-x-0 lg:bottom-0 lg:z-10 lg:overflow-hidden lg:top-full
         "
         style={{
@@ -80,7 +80,7 @@ export default function PoweredBy({ mainData, params }: PoweredByProps) {
           backfaceVisibility: "hidden",
         }}
       >
-        <div className="w-full h-[280px] overflow-hidden rounded-[32px] relative">
+        <div className="w-full h-[280px] overflow-hidden rounded-xl lg:rounded-[32px] relative">
           <Image
             src="https://s3.metarang.com/metarang/onepage/testimg.jpg"
             alt="whitepaper"

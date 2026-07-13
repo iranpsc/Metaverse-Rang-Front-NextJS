@@ -244,7 +244,7 @@ export default function AvalancheCTA({ params, mainData }: AvalancheCTAProps) {
     const progressPercent = (step / TOTAL_STEPS) * 100;
 
     return (
-        <section className="w-full rounded-[28px] bg-white dark:bg-[#1A1A18] p-6">
+        <section className="w-full rounded-xl lg:rounded-[32px] bg-white dark:bg-[#1A1A18] p-6">
             <style>{`
                 @keyframes flipForward {
                     0%   { transform: rotateY(90deg); opacity: 0; }
@@ -288,7 +288,7 @@ export default function AvalancheCTA({ params, mainData }: AvalancheCTAProps) {
                             {findByUniqueId(mainData, 1723)}
                         </p>
 
-                        <p className="mt-6 text-white/75 text-[14px] leading-6 max-w-[360px]">
+                        <p className="mt-6 text-white/75 text-base leading-6 max-w-[360px]">
                             {findByUniqueId(mainData, 1724)}
                         </p>
                     </div>
@@ -296,7 +296,7 @@ export default function AvalancheCTA({ params, mainData }: AvalancheCTAProps) {
                     {/* Button */}
                     <div className="relative z-10">
                         <ClipButton clip={params.lang == "fa" ? "bl" : "br"}
-                                            className="w-[230px]  h-[64px] group m-5 cursor-pointer duration-300 text-white hover:text-[#9100D9]">
+                                            className="w-[230px]  h-[64px] group  cursor-pointer duration-300 text-white hover:text-[#9100D9]">
                                             <button
                                                 type="button"
                                                 aria-label="btn to next"
@@ -345,7 +345,7 @@ export default function AvalancheCTA({ params, mainData }: AvalancheCTAProps) {
                                 {findByUniqueId(mainData, 1726)}
                             </h2>
 
-                            <p className="mt-5 text-white/75 text-[14px] leading-6 max-w-[420px]">
+                            <p className="mt-5 text-white/75 text-base leading-6 max-w-[420px]">
                                 {findByUniqueId(mainData, 1727)}
                             </p>
                         </div>
@@ -554,13 +554,13 @@ export default function AvalancheCTA({ params, mainData }: AvalancheCTAProps) {
 
                                 {/* Footer */}
                                 <div className="flex flex-col gap-y-5 mt-5 md:flex-row items-center justify-between pt-8">
-                                    <div className="flex items-center gap-5">
-                                        <span className="text-white text-[14px]">
+                                    <div className="flex items-center gap-5 w-full lg:w-auto">
+                                        <span className="text-white text-[14px] w-max text-nowrap">
                                             {step} {findByUniqueId(mainData, 1730)} {TOTAL_STEPS}{" "}
                                             {findByUniqueId(mainData, 1729)}
                                         </span>
 
-                                        <div className="w-[110px] h-[2px] bg-white/15 rounded-full overflow-hidden">
+                                        <div className="w-full lg:w-[110px] h-[2px] bg-white/15 rounded-full overflow-hidden">
                                             <div
                                                 className="h-full bg-white rounded-full transition-all duration-300"
                                                 style={{ width: `${progressPercent}%` }}
@@ -608,7 +608,7 @@ export default function AvalancheCTA({ params, mainData }: AvalancheCTAProps) {
 
 
                                         <ClipButton clip={params.lang == "fa" ? "bl" : "br"}
-                                            className="w-[230px]  h-[64px] group m-5 cursor-pointer duration-300 text-white hover:text-[#9100D9]">
+                                            className="w-[230px]  h-[64px] group   cursor-pointer duration-300 text-white hover:text-[#9100D9]">
                                             <button
                                                 type="button"
                                                 aria-label="btn next"
@@ -616,7 +616,7 @@ export default function AvalancheCTA({ params, mainData }: AvalancheCTAProps) {
                                                 disabled={status === "submitting"}
                                                 className="bg-transparent flex items-center text-base !ring-0 !border-0 focus-visible:ring-0"
                                             >
-                                                <span className="text-black font-medium  group-hover:text-white pe-3">{findByUniqueId(mainData, 1711)}</span>
+                                                <span className="text-black font-medium  group-hover:text-white pe-3">{findByUniqueId(mainData, 1755)}</span>
                                                 <svg className="rtl:rotate-180 stroke-white"
                                                     width="20"
                                                     height="20"

@@ -25,8 +25,8 @@ export default function ContactSection({ params, mainData }: ContactSectionProps
     return (
         <ClipSection
             corner={params.lang == "fa" ? "tr" : "tl"}
-            radius={32}
-            cornerSize={isMobile ? 80 : 120} className="relative overflow-hidden rounded-[32px]  text-white dark:text-[#1A1A18] p-4 lg:p-12">
+            radius={isMobile ? 12 : 32}
+            cornerSize={isMobile ? 80 : 120} className="relative overflow-hidden rounded-xl lg:rounded-[32px]  text-white dark:text-[#1A1A18] p-4 lg:p-12">
             {/* Purple glow */}
 
 

@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import TextScramble from '@/components/ui/animations/textScramble';
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import ClipSection from '@/components/shared/ClipContainer';
+
 interface AvalancheStoriesProps {
     params: { lang: string };
     mainData: { mainData: string };
@@ -158,9 +159,13 @@ function StoryCard({
                 {/* USER */}
                 <div className="flex items-center gap-3">
                     <div>
-                        <svg width="41" height="35" viewBox="0 0 41 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M18.4311 0.9848C19.2047 -0.328259 21.1038 -0.328274 21.8774 0.9848L31.1001 16.6391L18.1538 34.7787H26.3413L34.6176 22.6098L40.0288 31.7944C40.8139 33.1275 39.8523 34.8098 38.3051 34.81H2.00337C0.455979 34.81 -0.505637 33.1276 0.279739 31.7944L18.4311 0.9848ZM34.6528 22.56L34.6176 22.6098L31.1001 16.6391L31.1547 16.5639L34.6528 22.56Z" fill="#9100D9" />
-                        </svg>
+                        <Image
+                            src="/logo.png"
+                            alt="Logo"
+                            width={45}
+                            height={35}
+                            className="size-10  lg:w-[35px] lg:h-[35px] object-contain"
+                        />
                     </div>
 
                     <div>
@@ -211,7 +216,7 @@ function StoryCard({
 }
 
 export default function AvalancheStories({ params, mainData }: AvalancheStoriesProps) {
-        const [isMobile, setIsMobile] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
         const media = window.matchMedia("(max-width: 1023px)");
@@ -286,41 +291,41 @@ export default function AvalancheStories({ params, mainData }: AvalancheStoriesP
             behavior: 'smooth',
         });
     };
-function SocialIcon({ label }: { label: string }) {
-    switch (label) {
-        case 'Youtube':
-            return (
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.5V8.5L15.8 12l-6.2 3.5Z" />
-                </svg>
-            );
-        case 'Behance':
-            return (
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path d="M22 7h-6V5h6v2ZM4 5h6.6c3 0 4.9 1.5 4.9 4a3.6 3.6 0 0 1-2.2 3.4A3.8 3.8 0 0 1 16 16.2c0 2.6-2.1 4.3-5.3 4.3H4V5Zm6 6.2c1.5 0 2.4-.6 2.4-1.9 0-1.2-.9-1.8-2.4-1.8H7.4v3.7H10Zm.3 6.8c1.7 0 2.7-.7 2.7-2.1 0-1.4-1-2.1-2.8-2.1H7.4v4.2h2.9ZM23 15.8h-7.4c.1 1.7 1.1 2.6 2.6 2.6 1.1 0 1.9-.5 2.2-1.4h2.4c-.5 2.1-2.3 3.4-4.7 3.4-3.1 0-5.1-2.1-5.1-5.4 0-3.2 2.1-5.5 5.1-5.5 3.2 0 5 2.3 5 5.7v.6Zm-7.3-1.6h5c-.1-1.5-1-2.4-2.4-2.4-1.4 0-2.4.9-2.6 2.4Z" />
-                </svg>
-            );
-        case 'Adobe':
-            return (
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path d="M15 3h6v18L15 3ZM9 3H3v18L9 3Zm3 6.5 3.5 8.5h-2.4l-.7-1.9h-3l-.7 1.9H6.3L9.8 9.5H12Zm-1.9 4.7h1.7l-.85-2.4-.85 2.4Z" />
-                </svg>
-            );
-        case 'Facebook':
-            return (
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path d="M13.5 21v-8h2.7l.4-3.1h-3.1V8c0-.9.25-1.5 1.55-1.5H16.7V3.7c-.28-.04-1.25-.12-2.37-.12-2.35 0-3.96 1.43-3.96 4.06V10H8v3h2.37v8h3.13Z" />
-                </svg>
-            );
-        default:
-            return null;
+    function SocialIcon({ label }: { label: string }) {
+        switch (label) {
+            case 'Youtube':
+                return (
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.5V8.5L15.8 12l-6.2 3.5Z" />
+                    </svg>
+                );
+            case 'Behance':
+                return (
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M22 7h-6V5h6v2ZM4 5h6.6c3 0 4.9 1.5 4.9 4a3.6 3.6 0 0 1-2.2 3.4A3.8 3.8 0 0 1 16 16.2c0 2.6-2.1 4.3-5.3 4.3H4V5Zm6 6.2c1.5 0 2.4-.6 2.4-1.9 0-1.2-.9-1.8-2.4-1.8H7.4v3.7H10Zm.3 6.8c1.7 0 2.7-.7 2.7-2.1 0-1.4-1-2.1-2.8-2.1H7.4v4.2h2.9ZM23 15.8h-7.4c.1 1.7 1.1 2.6 2.6 2.6 1.1 0 1.9-.5 2.2-1.4h2.4c-.5 2.1-2.3 3.4-4.7 3.4-3.1 0-5.1-2.1-5.1-5.4 0-3.2 2.1-5.5 5.1-5.5 3.2 0 5 2.3 5 5.7v.6Zm-7.3-1.6h5c-.1-1.5-1-2.4-2.4-2.4-1.4 0-2.4.9-2.6 2.4Z" />
+                    </svg>
+                );
+            case 'Adobe':
+                return (
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M15 3h6v18L15 3ZM9 3H3v18L9 3Zm3 6.5 3.5 8.5h-2.4l-.7-1.9h-3l-.7 1.9H6.3L9.8 9.5H12Zm-1.9 4.7h1.7l-.85-2.4-.85 2.4Z" />
+                    </svg>
+                );
+            case 'Facebook':
+                return (
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M13.5 21v-8h2.7l.4-3.1h-3.1V8c0-.9.25-1.5 1.55-1.5H16.7V3.7c-.28-.04-1.25-.12-2.37-.12-2.35 0-3.96 1.43-3.96 4.06V10H8v3h2.37v8h3.13Z" />
+                    </svg>
+                );
+            default:
+                return null;
+        }
     }
-}
 
-function SocialPill({ label }: { label: string }) {
-    return (
-        <button
-            className="
+    function SocialPill({ label }: { label: string }) {
+        return (
+            <button
+                className="
                 flex
                 items-center
                 gap-3
@@ -331,8 +336,9 @@ function SocialPill({ label }: { label: string }) {
                 border-[#D9D9D9]
                 dark:border-[#2A2A2A]
                 dark:bg-[#111111]
-                px-4
-                py-3
+                lg:px-4
+                lg:py-3
+                p-2
                 text-xs
                 font-medium
                 tracking-[0.18em]
@@ -346,9 +352,9 @@ function SocialPill({ label }: { label: string }) {
                 dark:hover:text-black
                 duration-300
             "
-        >
-            <div
-                className="
+            >
+                <div
+                    className="
                     flex
                     h-9
                     w-9
@@ -363,23 +369,23 @@ function SocialPill({ label }: { label: string }) {
                     border-solid
                     border-neutral-500
                 "
-            >
-                <SocialIcon label={label} />
-            </div>
+                >
+                    <SocialIcon label={label} />
+                </div>
 
-            <span>{label}</span>
-        </button>
-    );
-}
+                <span className='hidden lg:block'>{label}</span>
+            </button>
+        );
+    }
 
     return (
         <ClipSection
             corner={params.lang == "fa" ? "tl" : "tr"}
-            radius={32}
+            radius={isMobile ? 12 : 32}
             cornerSize={isMobile ? 80 : 120}
             className={`                relative
                 overflow-hidden
-                rounded-[32px]
+                rounded-xl lg:rounded-[32px]
                 border
                 border-[#1E1E1E]
                 text-white
@@ -415,7 +421,7 @@ function SocialPill({ label }: { label: string }) {
                             </svg>
                         </div>
                         <div className="text-start max-w-3xl mt-[-30px] lg:mt-0">
-                            <TextScramble className={` text-black dark:text-white text-2xl xl:text-3xl 2xl:text-5xl 3xl:text-6xl leading-relaxed`}
+                            <TextScramble className={` text-black dark:text-white text-5xl xl:text-3xl 2xl:text-5xl 3xl:text-6xl lg:leading-relaxed`}
                                 text={findByUniqueId(mainData, 1708)}
                                 lang={params.lang}
                             />

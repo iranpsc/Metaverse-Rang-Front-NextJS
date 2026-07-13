@@ -105,16 +105,16 @@ export default function WhyMetarang({
                     >
 
                         <ClipSection
-                            radius={32}
+                            radius={isMobile ? 12 : 32}
                             cornerSize={isMobile ? 80 : 120}
-                            cornerRadius={16}
+                            cornerRadius={isMobile ? 12 : 16}
                             borderClassName="text-white dark:text-neutral-800"
                             borderWidth={1}
                             corner={params.lang == "fa" ? "tl" : "tr"}
-                            className="text-white  dark:text-[#1A1A18] rounded-[32px]  items-center justify-center p-10 w-full "
+                            className="text-white  dark:text-[#1A1A18] rounded-xl lg:rounded-[32px]  items-center justify-center  lg:p-10 w-full "
                         >
-                            <div className=" h-full items-center  px-10">
-                                <div className="text-7xl md:text-7xl lg:text-9xl uppercase tracking-[.2em] text-black dark:text-white">
+                            <div className=" h-full items-center  px-5 pt-5 lg:pt-0  lg:px-10">
+                                <div className="text-5xl md:text-7xl lg:text-9xl uppercase tracking-[.2em] text-black dark:text-white">
                                     <Reveal
                                         className="!opacity-100"
                                         direction={params.lang == "fa" ? "left" : "right"}
@@ -124,7 +124,7 @@ export default function WhyMetarang({
                                         {findByUniqueId(mainData, 1659)}
                                     </Reveal>
                                 </div>
-                                <p className="text-7xl mt-9 md:text-7xl lg:text-9xl uppercase tracking-[.2em] text-black dark:text-white">
+                                <p className="text-5xl mt-9 md:text-7xl lg:text-9xl uppercase tracking-[.2em] text-black dark:text-white">
                                     {findByUniqueId(mainData, 257)}
                                 </p>
                             </div>
@@ -162,9 +162,9 @@ style={{
                         >
                             {/* Left */}
 
-                            <div className={`flex flex-col  p-5 lg:p-10  w-full lg:w-[60%] rounded-[32px] border border-solid border-white dark:border-neutral-800 ${card.gradient}`}>
+                            <div className={`flex flex-col  p-5 lg:p-10  w-full lg:w-[60%] rounded-xl lg:rounded-[32px] border border-solid border-white dark:border-neutral-800 ${card.gradient}`}>
                                 <div className="hidden lg:flex gap-5">
-                                    <div className="text-white/50 tex font-semibold tracking-[.15em] text-xl">
+                                    <div className="text-white/50 tex font-semibold tracking-[.15em] text-xl ">
                                         {(index + 1).toString().padStart(2, "0")}
                                     </div>
 
@@ -212,16 +212,16 @@ style={{
 
                             </ClipSection>
                             <ClipSection
-                                radius={24}
+                                radius={12}
                                 cornerSize={80}
-                                cornerRadius={16}
+                                cornerRadius={12}
                                 borderClassName="text-white dark:text-neutral-800"
                                 borderWidth={1}
                                 corner={params.lang == "fa" ? "tl" : "tr"}
                                 className={`${card.gradient} !bg-transparent h-full  gap-3 items-start  p-3 w-full flex-col justify-between lg:w-[40%] flex lg:hidden`}>
                                 
                                 <div className="flex flex-col gap-5 p-3">
-                                    <div className="text-white/50 text-sm font-semibold tracking-[.15em]">
+                                    <div className="text-white/50 text-sm font-semibold tracking-[.15em] text-xl">
                                         {(index + 1).toString().padStart(2, "0")}
                                     </div>
 
