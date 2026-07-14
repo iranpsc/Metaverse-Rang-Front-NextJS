@@ -20,51 +20,7 @@ interface StoryItem {
     image?: string;
 }
 
-const stories: StoryItem[] = [
-    {
-        id: 1,
-        platform: 'Youtube',
-        username: 'avalanche',
-        handle: 'avax',
-        content:
-            'The Avalanche culture goes beyond the chain. Get connected with the founders, investors, artists, gamers, and creators who call Avalanche home…',
-        image: 'https://s3.metarang.com/metarang/onepage/article1.webp',
-    },
-    {
-        id: 2,
-        platform: 'Behance',
-        username: 'avalanche',
-        handle: 'avax',
-        content:
-            'Avalanche creators are building immersive experiences, decentralized communities and scalable ecosystems for the future.',
-    },
-    {
-        id: 3,
-        platform: 'Adobe',
-        username: 'avalanche',
-        handle: 'avax',
-        content:
-            'Avalanche empowers developers and creators to build performant applications with institutional-grade infrastructure.',
-        image: 'https://s3.metarang.com/metarang/onepage/article2.webp',
-    },
-    {
-        id: 4,
-        platform: 'Facebook',
-        username: 'avalanche',
-        handle: 'avax',
-        content:
-            'From gaming to finance and AI infrastructure, Avalanche supports high-throughput decentralized applications.',
-    },
-    {
-        id: 5,
-        platform: 'Youtube',
-        username: 'avalanche',
-        handle: 'avax',
-        content:
-            'Explore stories from founders and communities building scalable products powered by Avalanche technology.',
-        image: 'https://s3.metarang.com/metarang/onepage/article3.webp',
-    },
-];
+
 
 const socials = [
     'Youtube',
@@ -136,6 +92,7 @@ function StoryCard({
     item: StoryItem;
     priority?: boolean;
 }) {
+    
     return (
         <article
             className="
@@ -216,6 +173,51 @@ function StoryCard({
 }
 
 export default function AvalancheStories({ params, mainData }: AvalancheStoriesProps) {
+    const stories: StoryItem[] = [
+    {
+        id: 1,
+        platform: 'Youtube',
+        username: findByUniqueId(mainData, 905),
+        handle: findByUniqueId(mainData, 148),
+        content:
+            'The Avalanche culture goes beyond the chain. Get connected with the founders, investors, artists, gamers, and creators who call Avalanche home…',
+        image: 'https://s3.metarang.com/metarang/onepage/article1.webp',
+    },
+    {
+        id: 2,
+        platform: 'Behance',
+        username: findByUniqueId(mainData, 905),
+        handle: findByUniqueId(mainData, 148),
+        content:
+            'Avalanche creators are building immersive experiences, decentralized communities and scalable ecosystems for the future.',
+    },
+    {
+        id: 3,
+        platform: 'Adobe',
+        username: findByUniqueId(mainData, 905),
+        handle: findByUniqueId(mainData, 148),
+        content:
+            'Avalanche empowers developers and creators to build performant applications with institutional-grade infrastructure.',
+        image: 'https://s3.metarang.com/metarang/onepage/article2.webp',
+    },
+    {
+        id: 4,
+        platform: 'Facebook',
+        username: findByUniqueId(mainData, 905),
+        handle: findByUniqueId(mainData, 148),
+        content:
+            'From gaming to finance and AI infrastructure, Avalanche supports high-throughput decentralized applications.',
+    },
+    {
+        id: 5,
+        platform: 'Youtube',
+        username: findByUniqueId(mainData, 905),
+        handle: findByUniqueId(mainData, 148),
+        content:
+            'Explore stories from founders and communities building scalable products powered by Avalanche technology.',
+        image: 'https://s3.metarang.com/metarang/onepage/article3.webp',
+    },
+];
     const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {

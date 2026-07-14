@@ -97,29 +97,29 @@ export default function AvalancheNetwork({ params, mainData }: AvalancheNetworkP
 
     // هر CYCLE_INTERVAL میلی‌ثانیه، محتوای ردیف‌ها از بالا به پایین، یکی‌یکی با تاخیر عوض می‌شود.
     // جایگاه ردیف‌ها ثابت است — فقط محتوای داخلشان به‌آرامی جایگزین می‌شود.
-useEffect(() => {
-    const cycle = setInterval(() => {
-        const rowsCount = Math.max(blocks.length, transactions.length);
-        for (let idx = 0; idx < rowsCount; idx++) {
-            setTimeout(() => {
-                setBlocks(prev => {
-                    if (idx >= prev.length) return prev;
-                    const copy = [...prev];
-                    copy[idx] = createBlock();
-                    return copy;
-                });
-                setTransactions(prev => {
-                    if (idx >= prev.length) return prev;
-                    const copy = [...prev];
-                    copy[idx] = createTx();
-                    return copy;
-                });
-            }, idx * STAGGER_DELAY);
-        }
-    }, CYCLE_INTERVAL);
+    useEffect(() => {
+        const cycle = setInterval(() => {
+            const rowsCount = Math.max(blocks.length, transactions.length);
+            for (let idx = 0; idx < rowsCount; idx++) {
+                setTimeout(() => {
+                    setBlocks(prev => {
+                        if (idx >= prev.length) return prev;
+                        const copy = [...prev];
+                        copy[idx] = createBlock();
+                        return copy;
+                    });
+                    setTransactions(prev => {
+                        if (idx >= prev.length) return prev;
+                        const copy = [...prev];
+                        copy[idx] = createTx();
+                        return copy;
+                    });
+                }, idx * STAGGER_DELAY);
+            }
+        }, CYCLE_INTERVAL);
 
-    return () => clearInterval(cycle);
-}, [blocks.length, transactions.length]);
+        return () => clearInterval(cycle);
+    }, [blocks.length, transactions.length]);
 
     const randomNumber = () => {
         const base = 12554178438;
@@ -229,217 +229,211 @@ useEffect(() => {
                 <div className="grid lg:grid-cols-2 gap-10 lg:gap-7">
 
                     {/* LATEST BLOCKS */}
-{/* LATEST BLOCKS */}
-<div className="lg:space-y-3">
-    <div className="flex items-center border-b border-neutral-300 dark:border-neutral-700 pb-4">
-        <h3 className="text-2xl font-bold text-black dark:text-white">
-            {findByUniqueId(mainData, 1696)}
-        </h3>
-    </div>
-
-    <div className="w-full">
-        {blocks.map((block, idx) => (
-            <div
-                key={idx}
-                className={`${
-                    idx !== blocks.length - 1
-                        ? ""
-                        : ""
-                } bg-white dark:bg-[#1A1A18] rounded-xl border border-solid border-neutral-300 dark:border-neutral-700`}
-            >
-                <AnimatePresence mode="wait">
-                    <motion.div
-                        key={block.id}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: .6 }}
-                        className="grid grid-cols-[41px_1fr_auto] lg:grid-cols-[64px_1fr_1fr_auto] gap-1 lg:gap-3 items-center p-2"
-                    >
-                        <Image
-                            src="/whitepaper/coin.png"
-                            alt=""
-                            width={64}
-                            height={64}
-                            className="w-10 h-10 lg:w-[60px] lg:h-[60px] rounded-full object-cover"
-                        />
-
-                        {/* Mobile */}
-                        <div className="flex flex-col gap-1 lg:hidden min-w-0">
-                            <div className="flex items-center gap-2">
-                                <span className="text-xs text-neutral-500">
-                                    Block
-                                </span>
-
-                                <span className="underline font-bold text-sm dark:text-white truncate">
-                                    {block.blockNumber}
-                                </span>
-                            </div>
-
-                            <span className="text-xs text-neutral-500">
-                                {block.timeAgo} {findByUniqueId(mainData,1698)}
-                            </span>
-
-                            <div className="flex items-center gap-2">
-                                <span className="text-xs text-neutral-500">
-                                    Hash
-                                </span>
-
-                                <span className="underline text-xs dark:text-white truncate">
-                                    {block.hash}
-                                </span>
-
-                                <span className="text-xs text-neutral-500 whitespace-nowrap">
-                                    {block.txCount} TX
-                                </span>
-                            </div>
+                    {/* LATEST BLOCKS */}
+                    <div className="lg:space-y-3">
+                        <div className="flex items-center border-b border-neutral-300 dark:border-neutral-700 pb-4">
+                            <h3 className="text-2xl font-bold text-black dark:text-white">
+                                {findByUniqueId(mainData, 1696)}
+                            </h3>
                         </div>
 
-                        {/* Desktop Left */}
-                        <div className="hidden lg:flex flex-col gap-1">
-                            <span className="text-sm text-neutral-500">
-                                Block
-                            </span>
+                        <div className="w-full">
+                            {blocks.map((block, idx) => (
+                                <div
+                                    key={idx}
+                                    className={`${idx !== blocks.length - 1
+                                            ? ""
+                                            : ""
+                                        } bg-white dark:bg-[#1A1A18] rounded-xl border border-solid border-neutral-300 dark:border-neutral-700`}
+                                >
+                                    <AnimatePresence mode="wait">
+                                        <motion.div
+                                            key={block.id}
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            exit={{ opacity: 0 }}
+                                            transition={{ duration: .6 }}
+                                            className="grid grid-cols-[41px_1fr_auto] lg:grid-cols-[64px_1fr_1fr_auto] gap-1 lg:gap-3 items-center p-2"
+                                        >
+                                            <Image
+                                                src="/whitepaper/coin.png"
+                                                alt=""
+                                                width={64}
+                                                height={64}
+                                                className="w-10 h-10 lg:w-[60px] lg:h-[60px] rounded-full object-cover"
+                                            />
 
-                            <span className="underline font-bold text-base dark:text-white">
-                                {block.blockNumber}
-                            </span>
+                                            {/* Mobile */}
+                                            <div className="flex flex-col gap-1 lg:hidden min-w-0">
+                                                <div className="flex items-center gap-2">
+                                                    <span className="text-xs text-neutral-500">
+                                                        Block
+                                                    </span>
 
-                            <span className="text-sm text-neutral-500">
-                                {block.timeAgo} {findByUniqueId(mainData,1698)}
-                            </span>
+                                                    <span className="underline font-bold text-sm dark:text-white truncate">
+                                                        {block.blockNumber}
+                                                    </span>
+                                                </div>
+
+                                                <span className="text-xs text-neutral-500">
+                                                    {block.timeAgo} {findByUniqueId(mainData, 1698)}
+                                                </span>
+
+                                                <div className="flex items-center gap-2">
+                                                    <span className="text-xs text-neutral-500">
+                                                        {findByUniqueId(mainData, 1699)}
+                                                    </span>
+
+                                                    <span className="underline text-xs dark:text-white truncate">
+                                                        {block.hash}
+                                                    </span>
+
+                                                    <span className="text-xs text-neutral-500 whitespace-nowrap">
+                                                        {block.txCount} TX
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            {/* Desktop Left */}
+                                            <div className="hidden lg:flex flex-col gap-1">
+
+
+                                                <span className="underline font-bold text-base dark:text-white">
+                                                    {block.blockNumber}
+                                                </span>
+
+                                                <span className="text-sm text-neutral-500 flex">
+                                                    {block.timeAgo} {findByUniqueId(mainData, 1698)}
+                                                </span>
+                                            </div>
+
+                                            {/* Desktop Center */}
+                                            <div className="hidden lg:grid grid-cols-[auto_1fr] gap-x-2 gap-y-1 items-center">
+                                                <span className="text-sm text-neutral-500">
+                                                    {findByUniqueId(mainData, 1699)}
+                                                </span>
+
+                                                <span className="underline dark:text-white font-medium truncate">
+                                                    {block.hash}
+                                                </span>
+
+                                                <span className="text-sm text-neutral-500">
+                                                    {block.txCount} TX
+                                                </span>
+                                            </div>
+
+                                            {/* Badge */}
+                                            <div className="bg-black dark:bg-white text-white dark:text-black rounded-lg px-3 py-2 text-xs lg:text-sm font-medium whitespace-nowrap text-center min-w-[92px]">
+                                                {block.amount}
+                                            </div>
+                                        </motion.div>
+                                    </AnimatePresence>
+                                </div>
+                            ))}
                         </div>
-
-                        {/* Desktop Center */}
-                        <div className="hidden lg:grid grid-cols-[auto_1fr] gap-x-2 gap-y-1">
-                            <span className="text-sm text-neutral-500">
-                                Hash
-                            </span>
-
-                            <span className="underline dark:text-white font-medium truncate">
-                                {block.hash}
-                            </span>
-
-                            <span className="text-sm text-neutral-500">
-                                TX
-                            </span>
-
-                            <span className="text-sm text-neutral-500">
-                                {block.txCount} TX
-                            </span>
-                        </div>
-
-                        {/* Badge */}
-                        <div className="bg-black dark:bg-white text-white dark:text-black rounded-lg px-3 py-2 text-xs lg:text-sm font-medium whitespace-nowrap text-center min-w-[92px]">
-                            {block.amount}
-                        </div>
-                    </motion.div>
-                </AnimatePresence>
-            </div>
-        ))}
-    </div>
-</div>
+                    </div>
 
                     {/* LATEST TRANSACTIONS */}
-{/* LATEST TRANSACTIONS */}
-<div className="lg:space-y-3 w-full">
-    <div className="flex items-center border-b border-neutral-300 dark:border-neutral-700 pb-4">
-        <h3 className="text-2xl font-bold text-black dark:text-white">
-            {findByUniqueId(mainData, 1697)}
-        </h3>
-    </div>
-
-    <div className=" w-full ">
-        {transactions.map((tx, idx) => (
-            <div
-                key={idx}
-                className={`${
-                    idx !== transactions.length - 1
-                        ? "border-b border-neutral-300 dark:border-neutral-700"
-                        : ""
-                } bg-white dark:bg-[#1A1A18] rounded-xl border border-solid border-neutral-300 dark:border-neutral-700`}
-            >
-                <AnimatePresence mode="wait">
-                    <motion.div
-                        key={tx.id}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: .6 }}
-                        className="grid grid-cols-[41px_1fr] lg:grid-cols-[64px_1fr_1fr] gap-1 lg:gap-3 items-center p-2 "
-                    >
-                        <Image
-                            src="/whitepaper/coin.png"
-                            alt=""
-                            width={64}
-                            height={64}
-                            className="w-10 h-10 lg:w-[60px] lg:h-[60px] rounded-full object-cover"
-                        />
-
-                        {/* Mobile */}
-                        <div className="flex flex-col gap-1 lg:hidden min-w-0">
-                            <div className="flex items-center gap-2">
-                                <span className="text-xs text-neutral-500">
-                                    Hash
-                                </span>
-
-                                <span className="underline font-bold text-sm dark:text-white truncate">
-                                    {tx.hash}
-                                </span>
-                            </div>
-
-                            <span className="text-xs text-neutral-500">
-                                {tx.timeAgo} {findByUniqueId(mainData,1698)}
-                            </span>
-
-                            <div className="flex items-center gap-2">
-                                <span className="text-xs text-neutral-500">
-                                    TX
-                                </span>
-
-                                <span className="text-xs dark:text-white">
-                                    {tx.txCount} TX
-                                </span>
-                            </div>
+                    {/* LATEST TRANSACTIONS */}
+                    <div className="lg:space-y-3 w-full">
+                        <div className="flex items-center border-b border-neutral-300 dark:border-neutral-700 pb-4">
+                            <h3 className="text-2xl font-bold text-black dark:text-white">
+                                {findByUniqueId(mainData, 1697)}
+                            </h3>
                         </div>
 
-                        {/* Desktop Left */}
-                        <div className="hidden lg:flex flex-col gap-1">
-                            <span className="text-sm text-neutral-500">
-                                Hash
-                            </span>
+                        <div className=" w-full ">
+                            {transactions.map((tx, idx) => (
+                                <div
+                                    key={idx}
+                                    className={`${idx !== transactions.length - 1
+                                            ? "border-b border-neutral-300 dark:border-neutral-700"
+                                            : ""
+                                        } bg-white dark:bg-[#1A1A18] rounded-xl border border-solid border-neutral-300 dark:border-neutral-700`}
+                                >
+                                    <AnimatePresence mode="wait">
+                                        <motion.div
+                                            key={tx.id}
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            exit={{ opacity: 0 }}
+                                            transition={{ duration: .6 }}
+                                            className="grid grid-cols-[41px_1fr] lg:grid-cols-[64px_1fr_1fr] gap-1 lg:gap-3 items-center p-2 "
+                                        >
+                                            <Image
+                                                src="/whitepaper/coin.png"
+                                                alt=""
+                                                width={64}
+                                                height={64}
+                                                className="w-10 h-10 lg:w-[60px] lg:h-[60px] rounded-full object-cover"
+                                            />
 
-                            <span className="underline font-bold text-base dark:text-white">
-                                {tx.hash}
-                            </span>
+                                            {/* Mobile */}
+                                            <div className="flex flex-col gap-1 lg:hidden min-w-0">
+                                                <div className="flex items-center gap-2">
+                                                    <span className="text-xs text-neutral-500">
+                                                        {findByUniqueId(mainData, 1699)}
+                                                    </span>
 
-                            <span className="text-sm text-neutral-500">
-                                {tx.timeAgo} {findByUniqueId(mainData,1698)}
-                            </span>
+                                                    <span className="underline font-bold text-sm dark:text-white truncate">
+                                                        {tx.hash}
+                                                    </span>
+                                                </div>
+
+                                                      <div className="text-sm text-neutral-500 flex items-center gap-2 ">
+                                                    <span>from</span>
+                                                    <span className="dark:text-white">
+                                                        {tx.hash}
+                                                    </span>
+                                                </div>
+
+                                                <div className="flex items-center gap-2">
+                                   
+
+                                                    <span className="text-xs dark:text-white">
+                                                        {tx.txCount}   {findByUniqueId(mainData, 509)}
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            {/* Desktop Left */}
+                                            <div className="hidden lg:flex flex-col gap-1">
+
+
+                                                <span className="underline font-bold text-base dark:text-white">
+                                                    {tx.hash}
+                                                </span>
+
+                                                <div className="text-sm text-neutral-500">
+                                                    {tx.hash} {findByUniqueId(mainData, 1698)}
+                                                </div>
+                                            </div>
+
+                                            {/* Desktop Right */}
+                                            <div className="hidden lg:flex flex-col gap-x-2 gap-y-1 w-max">
+                                                <div className="text-sm text-neutral-500 flex items-center gap-2 rtl:flex-row-reverse">
+                                                    <span>from</span>
+                                                    <span className="dark:text-white">
+                                                        {tx.hash}
+                                                    </span>
+                                                </div>
+                                                <div className='text-sm text-neutral-500 flex items-center gap-2 rtl:flex-row-reverse'>
+                                                    <span className="text-sm text-neutral-500 flex items-center gap-2">
+                                                        {findByUniqueId(mainData, 509)}
+                                                    </span>
+                                                    <span className="dark:text-white">
+                                                        {tx.txCount}
+                                                    </span>
+                                                </div>
+
+
+                                            </div>
+                                        </motion.div>
+                                    </AnimatePresence>
+                                </div>
+                            ))}
                         </div>
-
-                        {/* Desktop Right */}
-                        <div className="hidden lg:grid grid-cols-[auto_1fr] gap-x-2 gap-y-1">
-                            <span className="text-sm text-neutral-500">
-                                TX
-                            </span>
-
-                            <span className="dark:text-white">
-                                {tx.txCount} TX
-                            </span>
-
-                            <span className="text-sm text-neutral-500">
-                                Amount
-                            </span>
-
-            
-                        </div>
-                    </motion.div>
-                </AnimatePresence>
-            </div>
-        ))}
-    </div>
-</div>
+                    </div>
                 </div>
             </div>
         </section>

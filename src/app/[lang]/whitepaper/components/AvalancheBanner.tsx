@@ -27,7 +27,7 @@ export default function AvalancheBanner({ params, mainData }: AvalancheBannerPro
                     </div>
 
                 </div>
-                <div className="w-[40%] lg:mt-[-40px]">
+                <div className="w-[40%] lg:mt-[-76px]">
                     <p className="dark:text-[#FFFFFF] text-[#1A1A18] 3xl:text-3xl">
                         {findByUniqueId(mainData, 1682)}
                     </p>

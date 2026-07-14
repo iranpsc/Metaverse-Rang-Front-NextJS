@@ -205,7 +205,7 @@ export default function NewsStories({ params, mainData }: NewsStoriesProps) {
                 </div>
                 {/* Navigation buttons */}
                 <div className='mt-10 mb-2 lg:mb-6 flex flex-col w-full'>
-                    <div className='ltr:flex-row-reverse md:flex dark:text-white text-3xl items-center justify-end gap-[70%] md:gap-[60%] lg:gap-[40%] xl:gap-[36%] lg:mb-[-12px]'>
+                    <div className='ltr:flex-row-reverse md:flex dark:text-white text-3xl items-center rtl:lg:justify-start justify-end gap-[70%] md:gap-[60%] lg:gap-[40%] xl:gap-[36%] lg:mb-[-12px] rtl:'>
                         <p className='mb-[-55px] lg:mb-0 rtl:lg:me-[-130px] ltr:lg:ms-[-200px]'>{findByUniqueId(mainData, 255)}</p>
                         <p className='hidden lg:block'>
                             {findByUniqueId(mainData, 1701)}
