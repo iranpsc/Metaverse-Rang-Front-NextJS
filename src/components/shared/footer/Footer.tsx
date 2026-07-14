@@ -73,6 +73,11 @@ export default function Footer2({ params, mainData }: FooterProps) {
           href: "http://faqhub.ir/",
           targetBlank: true,
         },
+                {
+          label: findByUniqueId(mainData,1779 ),
+          href: "https://api.metarang.com",
+          targetBlank: true,
+        },
         { label: findByUniqueId(mainData, 1748), href: `/${params.lang}/calendar` },
       ],
     },
