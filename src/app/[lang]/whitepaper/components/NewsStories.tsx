@@ -120,6 +120,13 @@ export default function NewsStories({ params, mainData }: NewsStoriesProps) {
         return () => observer.disconnect();
     }, []);
 
+    // NOTE: We intentionally do NOT add a manual `flex-row-reverse` / `rtl:flex-row-reverse`
+    // class on the scroll container below. The browser already reverses flex layout
+    // direction automatically whenever an ancestor has `dir="rtl"`. Adding a manual
+    // reverse class on top of that double-reverses it, which cancels itself out and
+    // makes RTL behave like LTR. Let `dir` do the work; only use `isRTL` for JS math
+    // (scroll direction, scrollLeft sign, etc.) where the DOM can't do it for us.
+
     const updateButtons = () => {
         const container = scrollContainerRef.current;
         if (!container) return;
@@ -151,6 +158,9 @@ export default function NewsStories({ params, mainData }: NewsStoriesProps) {
         };
     }, [isRTL]);
 
+    // قبل
+
+    // بعد
     const scroll = (direction: 'left' | 'right') => {
         const container = scrollContainerRef.current;
         if (!container) return;
@@ -159,8 +169,7 @@ export default function NewsStories({ params, mainData }: NewsStoriesProps) {
         const firstCard = cards[0] as HTMLElement;
         const gap = 16;
         const step = firstCard.offsetWidth + gap;
-        let delta = direction === 'right' ? step : -step;
-        if (isRTL) delta = -delta;
+        const delta = direction === 'right' ? step : -step;
         container.scrollBy({ left: delta, behavior: 'smooth' });
     };
 
@@ -195,21 +204,21 @@ export default function NewsStories({ params, mainData }: NewsStoriesProps) {
                     </div>
                 </div>
                 {/* Navigation buttons */}
-                <div className='mt-10 mb-2 lg:mb-6 flex flex-col  w-full'>
-                    <div className=' ltr:flex-row-reverse rtl:text-left md:flex dark:text-white text-3xl   items-center ltr:justify-end rtl:justify-end gap-[70%] md:gap-[60%] lg:gap-[40%] xl:gap-[36%] lg:mb-[-12px]'>
+                <div className='mt-10 mb-2 lg:mb-6 flex flex-col w-full'>
+                    <div className='ltr:flex-row-reverse md:flex dark:text-white text-3xl items-center justify-end gap-[70%] md:gap-[60%] lg:gap-[40%] xl:gap-[36%] lg:mb-[-12px]'>
                         <p className='mb-[-55px] lg:mb-0 rtl:lg:me-[-130px] ltr:lg:ms-[-200px]'>{findByUniqueId(mainData, 255)}</p>
                         <p className='hidden lg:block'>
                             {findByUniqueId(mainData, 1701)}
                         </p>
 
                     </div>
-                    <div className="flex rtl:flex-row-reverse gap-3 ltr:justify-end rtl:justify-end ">
+                    <div className="flex gap-3 justify-end rtl:ms-auto rtl:flex-row-reverse">
                         <button
                             onClick={() => scroll('left')}
-                            disabled={!showLeftButton}
+
                             className={`p-2 group aspect-square w-11 h-11 text-white flex items-center bg-transparent justify-center rounded-full border border-solid transition-all duration-200 ${showLeftButton
                                 ? 'border-[#D9D9D9] dark:border-[#434343] hover:bg-[#9100D9] hover:text-white'
-                                : 'border-[#D9D9D9] dark:border-[#434343] cursor-not-allowed'
+                                : 'border-[#D9D9D9] dark:border-[#434343] '
                                 }`}
                             aria-label={isRTL ? "Next" : "Previous"}
                         >
@@ -220,10 +229,10 @@ export default function NewsStories({ params, mainData }: NewsStoriesProps) {
                         </button>
                         <button
                             onClick={() => scroll('right')}
-                            disabled={!showRightButton}
+
                             className={`p-2 aspect-square w-11 h-11 flex items-center bg-transparent justify-center rounded-full border border-solid transition-all duration-200 ${showRightButton
                                 ? 'border-[#D9D9D9] dark:border-[#434343] hover:bg-[#9100D9] hover:text-white'
-                                : 'border-[#D9D9D9] dark:border-[#434343] cursor-not-allowed'
+                                : 'border-[#D9D9D9] dark:border-[#434343] '
                                 }`}
                             aria-label={isRTL ? "Previous" : "Next"}
                         >
@@ -239,7 +248,7 @@ export default function NewsStories({ params, mainData }: NewsStoriesProps) {
                 {/* Horizontal scroll container */}
                 <div
                     ref={scrollContainerRef}
-                    className={`flex overflow-x-auto scroll-smooth snap-x snap-mandatory  pb-7 -mx-2 px-2 hide-scrollbar rtl:flex-row-reverse`}
+                    className="flex overflow-x-auto scroll-smooth snap-x snap-mandatory pb-7 -mx-2 px-2 hide-scrollbar"
                     style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
                 >
                     {newsData.map((item, idx) => {
@@ -266,7 +275,7 @@ export default function NewsStories({ params, mainData }: NewsStoriesProps) {
                                     </div>
                                     <div className="flex flex-col justify-between w-full h-full px-3 lg:px-5 p-5">
                                         <div className="flex flex-col gap-3 w-full">
-                                            <p className="text-sm bg-[#9100D9] rounded-full w-max px-4 py-1 font-bold text-white">
+                                            <p className="text-sm bg-[#9100D9] rounded-full w-max px-4 truncate max-w-full py-1 font-bold text-white">
                                                 {item.category}
                                             </p>
                                             <div className="flex flex-wrap items-center gap-2 text-xs text-[#6b6b6b]">
@@ -300,16 +309,16 @@ export default function NewsStories({ params, mainData }: NewsStoriesProps) {
 
                 </div>
             </div>
-<div className='flex justify-end w-full px-5 lg:px-10 pb-2 lg:pb-4'>
+            <div className='flex justify-end w-full px-5 lg:px-10 pb-2 lg:pb-4'>
                 <ClipButton clip={params.lang == "fa" ? "bl" : "br"}
-                className="w-[230px]  h-[60px] group mt-3 cursor-pointer duration-300 text-white hover:text-[#9100D9]">
-                <span className="text-white dark:text-black group-hover:text-white pe-3"> {findByUniqueId(mainData, 195)}</span>
-                <svg className="w-5 h-5 text-[#9100D9] group-hover:text-white rtl:rotate-180 transition-transform duration-300 rtl:group-hover:translate-x-[-4px] ltr:group-hover:translate-x-1" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <path className='stroke-[#9100D9] group-hover:stroke-white' d="M14.4297 5.92969L20.4997 11.9997L14.4297 18.0697" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
-                    <path className='stroke-[#9100D9] group-hover:stroke-white' d="M3.5 12H20.33" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-            </ClipButton>
-</div>
+                    className="w-[230px]  h-[60px] group mt-3 cursor-pointer duration-300 text-white hover:text-[#9100D9]">
+                    <span className="text-white dark:text-black group-hover:text-white pe-3"> {findByUniqueId(mainData, 195)}</span>
+                    <svg className="w-5 h-5 text-[#9100D9] group-hover:text-white rtl:rotate-180 transition-transform duration-300 rtl:group-hover:translate-x-[-4px] ltr:group-hover:translate-x-1" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path className='stroke-[#9100D9] group-hover:stroke-white' d="M14.4297 5.92969L20.4997 11.9997L14.4297 18.0697" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+                        <path className='stroke-[#9100D9] group-hover:stroke-white' d="M3.5 12H20.33" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                </ClipButton>
+            </div>
             <style jsx>{`
                 .hide-scrollbar::-webkit-scrollbar {
                     display: none;

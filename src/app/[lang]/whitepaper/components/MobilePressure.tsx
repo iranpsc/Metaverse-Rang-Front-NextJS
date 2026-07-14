@@ -52,7 +52,7 @@ export default function MobilePressure({
   }, []);
 
   return (
-    <section className={`relative h-screen w-full overflow-hidden ${className}`}>
+    <section className={`relative h-[85.8lvh]  w-full overflow-hidden ${className}`}>
       <div
         ref={centerRef}
         className="absolute inset-0 z-10 overflow-hidden rounded-xl lg:rounded-[32px]"
@@ -63,7 +63,7 @@ export default function MobilePressure({
       <div
         ref={topRef}
         style={{ visibility: "hidden" }}
-        className="absolute left-0 top-0 z-20 w-full overflow-hidden rounded-b-[32px]"
+        className="absolute left-0 top-0 z-20 w-full overflow-hidden rounded-xl lg:rounded-[32px]"
       >
         {left}
       </div>
@@ -71,7 +71,7 @@ export default function MobilePressure({
       <div
         ref={bottomRef}
         style={{ visibility: "hidden" }}
-        className="absolute bottom-0 left-0 z-20 w-full overflow-hidden rounded-t-[32px]"
+        className="absolute bottom-0 left-0 z-20 w-full overflow-hidden rounded-xl lg:rounded-[32px]"
       >
         {right}
       </div>

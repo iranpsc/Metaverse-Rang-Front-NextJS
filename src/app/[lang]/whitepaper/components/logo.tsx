@@ -46,7 +46,7 @@ export default function PressureCenter() {
     <div className="h-full w-full">
       <ClipSection
         corner="br"
-        className="w-full h-full flex items-center justify-center text-white dark:text-[#1A1A18] rounded-[40px] overflow-hidden shadow-xl"
+        className="w-full h-full flex items-center justify-center text-white dark:text-[#1A1A18] rounded-xl lg:rounded-[32px] overflow-hidden "
       >
         <div className="flex items-center justify-center w-full">
           <video

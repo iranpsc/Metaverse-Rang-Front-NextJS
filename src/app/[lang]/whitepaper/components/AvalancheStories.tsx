@@ -429,7 +429,7 @@ export default function AvalancheStories({ params, mainData }: AvalancheStoriesP
                     </div>
 
                     {/* LEFT */}
-                    <div className="max-w-[430px] mt-7">
+                    <div className="max-w-[430px] lg:mt-[-5px]">
                         <p
                             className={`text-[16px] lg:text-xl
                                 leading-[1.35]

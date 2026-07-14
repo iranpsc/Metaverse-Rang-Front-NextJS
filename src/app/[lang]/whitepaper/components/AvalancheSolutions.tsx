@@ -99,7 +99,7 @@ function Card({
             "
         >
             {/* IMAGE */}
-            <div className="relative h-[120px] w-[120px] shrink-0 overflow-hidden rounded-[22px]">
+            <div className="relative w-[80px] h-[80px] lg:h-[120px] lg:w-[120px] shrink-0 overflow-hidden rounded-[22px]">
                 <Image
                     src={card.image}
                     alt={card.alt}
@@ -130,13 +130,15 @@ function Card({
 
                 <p
                     className="
-                        line-clamp-4
+                        lg:line-clamp-3
                         mt-3
                         text-[12px]
-                        uppercase
+                        
                         leading-[1.5]
                         text-[#8B8B8B]
                         md:text-[13px]
+                        line-clamp-2
+
                     "
                 >
                     {card.description}

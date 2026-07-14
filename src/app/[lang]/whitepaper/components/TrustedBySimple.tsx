@@ -90,7 +90,7 @@ export default function AvalancheTrustedProps({ params, mainData }: AvalancheTru
 
                         </div>
 
-                        <p className="text-lg md:text-xl  text-black dark:text-white lg:w-[30%] pt-4">
+                        <p className="text-lg md:text-xl  text-black dark:text-white lg:w-[30%] lg:pt-0 lg:mt-[-5px] pt-4">
                            {findByUniqueId(mainData, 1677)}
                         </p>
                     </div>

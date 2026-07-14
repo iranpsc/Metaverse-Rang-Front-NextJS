@@ -103,7 +103,7 @@ export default function Footer2({ params, mainData }: FooterProps) {
             <div className="grid gap-10 gap-y-12 md:grid-cols-[80px_repeat(4,1fr)] 2xl:grid-cols-[350px_repeat(4,1fr)]">
 
               {/* Logo */}
-              <div className="flex items-start justify-start  lg:px-0 lg:flex-col gap-5 ">
+              <div className="flex items-start justify-start  lg:px-0  gap-5 ">
                 <Image
                   src="/logo.png"
                   alt="logo"

@@ -111,10 +111,8 @@ export default function AvalancheEventsCard({ params, mainData }: AvalancheEvent
                                 New York
                             </p>
 
-                            <h3 className="mt-4 text-white text-4xl lg:text-[54px] leading-[0.95] font-bold tracking-[-2px] uppercase max-w-[500px]">
-                                Credite
-                                <br />
-                                Reimagined
+                            <h3 className="mt-4 text-white text-4xl lg:text-[54px] leading-[0.95] font-bold  uppercase w-full">
+                                Credite  Reimagined
                             </h3>
                         </div>
 

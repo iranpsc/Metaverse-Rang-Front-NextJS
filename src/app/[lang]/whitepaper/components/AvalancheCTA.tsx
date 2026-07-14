@@ -244,7 +244,7 @@ export default function AvalancheCTA({ params, mainData }: AvalancheCTAProps) {
     const progressPercent = (step / TOTAL_STEPS) * 100;
 
     return (
-        <section className="w-full rounded-xl lg:rounded-[32px] bg-white dark:bg-[#1A1A18] p-6">
+        <section className="w-full rounded-xl lg:rounded-[32px] bg-white dark:bg-[#1A1A18] lg:p-6">
             <style>{`
                 @keyframes flipForward {
                     0%   { transform: rotateY(90deg); opacity: 0; }
@@ -274,9 +274,9 @@ export default function AvalancheCTA({ params, mainData }: AvalancheCTAProps) {
                     }
                 }
             `}</style>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-4">
                 {/* LEFT CARD */}
-                <div className="relative bg-[url(../../public/whitepaper/formbg.jpg)] overflow-hidden rounded-[18px] min-h-[360px]  p-5 2xl:px-10 2xl:py-12 flex flex-col justify-between bg-cover bg-center">
+                <div className="relative bg-[url(../../public/whitepaper/formbg.jpg)] overflow-hidden rounded-xl lg:rounded-[18px] min-h-[360px]  p-5 2xl:px-10 2xl:py-12 flex flex-col justify-between bg-cover bg-center">
                     {/* Overlay */}
                     <div className="absolute inset-0 bg-black/45 z-0" />
 
@@ -284,7 +284,7 @@ export default function AvalancheCTA({ params, mainData }: AvalancheCTAProps) {
                     <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-black/40 z-0" />
 
                     <div className="relative z-10">
-                        <p className="text-white text-4xl lg:text-[52px] lg:leading-[1] font-semibold tracking-[-2px] max-w-[420px]">
+                        <p className="text-white text-4xl lg:text-[52px] lg:leading-[60px] font-semibold max-w-[620px]">
                             {findByUniqueId(mainData, 1723)}
                         </p>
 
@@ -331,7 +331,7 @@ export default function AvalancheCTA({ params, mainData }: AvalancheCTAProps) {
                 </div>
 
                 {/* RIGHT CARD */}
-                <div className="relative bg-[url(../../public/whitepaper/formbg.jpg)] overflow-hidden rounded-[18px] min-h-[360px] p-5 2xl:px-10 2xl:py-12 bg-cover bg-center">
+                <div className="relative bg-[url(../../public/whitepaper/formbg.jpg)] overflow-hidden rounded-xl lg:rounded-[18px] min-h-[360px] p-5 2xl:px-10 2xl:py-12 bg-cover bg-center">
                     {/* Overlay */}
                     <div className="absolute inset-0 bg-black/50 z-0" />
 
@@ -341,7 +341,7 @@ export default function AvalancheCTA({ params, mainData }: AvalancheCTAProps) {
                     <div className="relative z-10 h-full flex flex-col">
                         {/* Header */}
                         <div>
-                            <h2 className="text-white text-4xl lg:text-[50px] lg:leading-[1] font-semibold tracking-[-2px]">
+                            <h2 className="text-white text-4xl lg:text-[50px] lg:leading-[1] font-semibold ">
                                 {findByUniqueId(mainData, 1726)}
                             </h2>
 

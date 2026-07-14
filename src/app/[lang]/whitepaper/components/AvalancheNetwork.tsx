@@ -208,13 +208,13 @@ useEffect(() => {
                         <div className={`absolute -inset-4 bg-[#9100d93d] blur-3xl rounded-full transition-opacity duration-500 ${isActive ? 'opacity-100' : 'opacity-0'}`}></div>
 
                         <div className="flex flex-row gap-1 lg:gap-10 w-full">
-                            <p className={`text-3xl mx-auto lg:mb-5 lg:mt-2 lg:mx-0 text-start lg:text-6xl 3xl:text-8xl font-bold font-mono tracking-tight transition-all duration-200 ${isActive ? 'text-[#9100D9] scale-105' : 'text-black dark:text-white'}`}>
+                            <p className={`text-2xl mx-auto lg:mb-5 lg:mt-2 lg:mx-0 text-start lg:text-6xl 3xl:text-8xl font-bold font-mono tracking-tight transition-all duration-200 ${isActive ? 'text-[#9100D9] scale-105' : 'text-black dark:text-white'}`}>
                                 {formatNumber(count)}
                             </p>
 
                             <div className="flex items-center justify-center gap-4">
                                 <div className="flex items-center gap-2 !text-sm">
-                                    <span className={`${isActive ? 'bg-red-500 animate-pulse' : 'bg-[#9100D9]'} bg-[#9100D9] px-3 py-1 text-white rounded-full text-xs font-mono`}>
+                                    <span className={`${isActive ? 'bg-red-500 animate-pulse' : 'bg-[#9100D9]'} bg-[#9100D9] px-1 ;g:px-3 py-1 text-white rounded-full !text-xs font-mono`}>
                                         {findByUniqueId(mainData, 1695)}
                                     </span>
                                 </div>
@@ -254,7 +254,7 @@ useEffect(() => {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: .6 }}
-                        className="grid grid-cols-[50px_1fr_auto] lg:grid-cols-[64px_1fr_1fr_auto] gap-3 items-center p-2"
+                        className="grid grid-cols-[41px_1fr_auto] lg:grid-cols-[64px_1fr_1fr_auto] gap-1 lg:gap-3 items-center p-2"
                     >
                         <Image
                             src="/whitepaper/coin.png"
@@ -366,7 +366,7 @@ useEffect(() => {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: .6 }}
-                        className="grid grid-cols-[50px_1fr] lg:grid-cols-[64px_1fr_1fr] gap-3 items-center p-2 "
+                        className="grid grid-cols-[41px_1fr] lg:grid-cols-[64px_1fr_1fr] gap-1 lg:gap-3 items-center p-2 "
                     >
                         <Image
                             src="/whitepaper/coin.png"
