@@ -222,16 +222,16 @@ export default function Footer2({ params, mainData }: FooterProps) {
             <div className={`marquee ${isRTL ? "rtl" : "ltr"}`}>
               <div className="track">
                 <div className="group">
-                  <span className="text-neutral-900 dark:text-white">{findByUniqueId(mainData, 148)}</span>
+                  <span className="text-neutral-900 dark:text-white text-[180px] lg:text-[400px]">{findByUniqueId(mainData, 148)}</span>
                 </div>
                 <div className="group">
-                  <span className="text-neutral-900 dark:text-white">{findByUniqueId(mainData, 148)}</span>
+                  <span className="text-neutral-900 dark:text-white text-[180px] lg:text-[400px]">{findByUniqueId(mainData, 148)}</span>
                 </div>
                 <div className="group">
-                  <span className="text-neutral-900 dark:text-white">{findByUniqueId(mainData, 148)}</span>
+                  <span className="text-neutral-900 dark:text-white text-[180px] lg:text-[400px]">{findByUniqueId(mainData, 148)}</span>
                 </div>
                 <div className="group">
-                  <span className="text-neutral-900 dark:text-white">{findByUniqueId(mainData, 148)}</span>
+                  <span className="text-neutral-900 dark:text-white text-[180px] lg:text-[400px]">{findByUniqueId(mainData, 148)}</span>
                 </div>
               </div>
             </div>
@@ -267,7 +267,7 @@ export default function Footer2({ params, mainData }: FooterProps) {
 }
 
 .group span {
-  font-size: 400px;
+  
   font-weight: 700;
   white-space: nowrap;
   padding-right: 80px;
