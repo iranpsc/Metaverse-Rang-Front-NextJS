@@ -20,7 +20,7 @@ export default function ConditionalSidebar({ tabsMenu, langData, langArray, para
   // console.log("Current pathname:", pathname);
 
   // مسیرهایی که سایدبار نباید رندر بشن (فقط بعد از /citizens/)
-  const pathsWithoutSidebar = ["/levels/citizen/", "/citizens/hm"];
+  const pathsWithoutSidebar = ["/levels/citizen/", "/citizens/hm" , "citizens/bn"];
 
   // چک می‌کنیم که آیا مسیر فعلی توی لیست pathsWithoutSidebar هست یا نه
   const shouldShowSidebar = !pathsWithoutSidebar.some(path => pathname.includes(path));
