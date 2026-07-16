@@ -236,7 +236,7 @@ export default function AvalancheSolutions({ params, mainData }: AvalancheSoluti
 
                 {/* HEADER */}
                 <header className="border-b border-solid border-x-0 border-t-0 dark:border-[#434343] border-[#D9D9D9] ">
-                    <div className='flex flex-col lg:flex-row   items-center  pb-10'>
+                    <div className='flex flex-col lg:flex-row   items-center lg:items-start  pb-10'>
                     <div className='w-full lg:w-[300px] '>
 
                         <Reveal

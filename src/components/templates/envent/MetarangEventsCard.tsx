@@ -32,7 +32,7 @@ export default function AvalancheEventsCard({ params, mainData }: AvalancheEvent
                 {/* Left Side */}
                 <div className="flex flex-col justify-between">
                     <div>
-                        <h2 className="text-black dark:text-white text-2xl 3xl:text-4xl leading-[1.05] font-semibold tracking-[-2px]">
+                        <h2 className="text-black dark:text-white text-2xl 3xl:text-4xl leading-[1.05] font-semibold ">
                             {findByUniqueId(mainData, 1709)}
                         </h2>
 

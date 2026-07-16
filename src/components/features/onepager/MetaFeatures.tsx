@@ -4,7 +4,7 @@
 import ClipButton from "@/components/shared/ClipButton";
 import {  Hex, DropBox, Wings } from "@/components/svgs/SvgWhitepaper";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import AnimatedReveal from "./AnimatedReveal";
+import AnimatedReveal from "../../ui/animations/AnimatedReveal";
 interface MetaFeaturesProps {
   params: { lang: string };
   mainData: { mainData: string };

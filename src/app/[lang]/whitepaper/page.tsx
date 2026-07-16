@@ -9,26 +9,26 @@ import {
 } from "@/components/utils/actions";
 
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import PoweredBy from "./components/PoweredBy";
-import EcosystemIntro from "./components/EcosystemIntro";
-import WhyMetarang from "./components/WhyMetarang"
-import EcosystemFeatures from "./components/EcosystemFeatures"
-import TrustedBy from "./components/TrustedBy"
-import TrustedBySimple from "./components/TrustedBySimple"
-import Codebase from "./components/Codebase"
-import FoundationGrants from "./components/FoundationGrants"
-import AvalancheNetwork from "./components/AvalancheNetwork"
-import NewsStories from "./components/NewsStories"
-import AvalancheSolutions from "./components/AvalancheSolutions"
-import AvalancheStories from "./components/AvalancheStories"
-import AvalancheEventsCard from "./components/AvalancheEventsCard";
-import MetaFeatures from "./components/MetaFeatures";
-import AvalancheCTA from "./components/AvalancheCTA";
-import ContactSection from "./components/ContactSection";
-import AvalancheBanner from "./components/AvalancheBanner"
+import PoweredBy from "@/components/features/onepager/PoweredBy";
+import EcosystemIntro from "@/components/features/onepager/EcosystemIntro";
+import WhyMetarang from "@/components/shared/slider/WhyMetarang"
+import EcosystemFeatures from "@/components/features/onepager/EcosystemFeatures"
+import TrustedBy from "@/components/features/onepager/TrustedBy"
+import TrustedBySimple from "@/components/shared/slider/TrustedBySimple"
+import Codebase from "@/components/features/onepager/Codebase"
+import FoundationGrants from "@/components/features/onepager/FoundationGrants"
+import AvalancheNetwork from "@/components/features/onepager/MetarangNetwork"
+import NewsStories from "@/components/shared/slider/NewsStories"
+import AvalancheSolutions from "@/components/features/onepager/MetarangSolutions"
+import AvalancheStories from "@/components/features/onepager/MetarangStories"
+import AvalancheEventsCard from "@/components/templates/envent/MetarangEventsCard";
+import MetaFeatures from "@/components/features/onepager/MetaFeatures";
+import AvalancheCTA from "@/components/shared/MetarangCTA";
+import ContactSection from "@/components/shared/ContactSection";
+import AvalancheBanner from "@/components/banner/MetarangBanner"
 import SectionTeam from "@/components/templates/firstpage/TeamSection";
-import PressureLayout from "./components/PressureLayout";
-import Logo from "./components/logo";
+import PressureLayout from "@/components/ui/animations/PressureLayout";
+import Logo from "@/components/ui/animations/Pressure";
 import ClipButton from "@/components/shared/ClipButton";
 import Image from "next/image";
 const baseUrl = "https://metarang.com"; // ← دامنه اصلی سایتت
@@ -54,6 +54,9 @@ export async function generateMetadata({
     return {
       title: findByUniqueId(mainData, 1756),
       description: findByUniqueId(mainData, 1757),
+        alternates: {
+    canonical: url,
+  },
       openGraph: {
         title: findByUniqueId(mainData, 1756),
         description: findByUniqueId(mainData, 1757),

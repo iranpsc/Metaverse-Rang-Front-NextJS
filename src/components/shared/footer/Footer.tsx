@@ -112,12 +112,12 @@ export default function Footer2({ params, mainData }: FooterProps) {
                 <Image
                   src="/logo.png"
                   alt="logo"
-                  width={50}
-                  height={50}
-                  className="w-[50px] h-[50px] inline "
+                  width={isMobile ? 50 : 65}
+                  height={isMobile ? 50 : 65}
+                  className="w-[50px] h-[50px] inline lg:w-[65px] lg:h-[65px]"
                 />
                 <div className="flex items-center justify-center ">
-                  <div className="w-[50px] h-[50px]"
+                  <div className="w-[50px] h-[50px] lg:w-[65px] lg:h-[65px]"
                     dangerouslySetInnerHTML={{
                       __html: `<a referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/?id=721065&Code=fLkLFNhooBCR33C1ntVXIBxJFAj9gf3q'><img referrerpolicy='origin' src='https://trustseal.enamad.ir/logo.aspx?id=721065&Code=fLkLFNhooBCR33C1ntVXIBxJFAj9gf3q' alt='' style='cursor:pointer' code='fLkLFNhooBCR33C1ntVXIBxJFAj9gf3q'></a>`,
                     }}

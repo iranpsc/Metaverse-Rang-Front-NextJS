@@ -79,7 +79,7 @@ export default function TrustedBy({ params, mainData }: TrustedByProps) {
             className="py-4 lg:py-12 px-4 2xl:px-10  text-white dark:text-[#1A1A18] rounded-[40px] rtl:rounded-tr-[120px] ltr:rounded-tl-[120px] lg:rtl:rounded-tr-[200px] lg:ltr:rounded-tl-[200px]">
             <div className="text-black dark:text-white overflow-hidden w-full">
                 {/* متن اصلی */}
-                <div className='flex flex-col lg:flex-row gap-5 lg:gap-0 gap-y-0 w-full  lg:mt-5 items-center border-b border-solid border-x-0 border-t-0 dark:border-[#434343] border-[#D9D9D9] pb-10'>
+                <div className='flex flex-col lg:flex-row gap-5 lg:gap-0 gap-y-0 w-full  lg:mt-5 items-center lg:items-start border-b border-solid border-x-0 border-t-0 dark:border-[#434343] border-[#D9D9D9] pb-10'>
                     <div className='w-full lg:w-[300px] ms-5 lg:ms-0'>
 
                         <Reveal

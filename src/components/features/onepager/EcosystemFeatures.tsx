@@ -3,7 +3,7 @@
 
 import { Hex, DropBox, Wings } from "@/components/svgs/SvgWhitepaper";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import AnimatedReveal from "./AnimatedReveal";
+import AnimatedReveal from "../../ui/animations/AnimatedReveal";
 import ClipButton from "@/components/shared/ClipButton";
 interface EcosystemFeaturesProps {
     params: { lang: string };

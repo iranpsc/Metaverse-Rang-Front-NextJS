@@ -37,7 +37,7 @@ export default function NewsStories({ params, mainData }: NewsStoriesProps) {
             title: 'Enterprise and consumer apps are coming together on Avalanche',
             description: 'Major brands and Web3 pioneers are building the next generation of digital experiences on Avalanche\'s high-performance subnet architecture.',
             date: 'NOV 20, 2025',
-            author: 'AVALANCHE',
+            author: findByUniqueId(mainData, 905),
             readTime: '5 ',
             featured: true,
             image: 'https://s3.metarang.com/metarang/onepage/news1.webp',
@@ -48,7 +48,7 @@ export default function NewsStories({ params, mainData }: NewsStoriesProps) {
             title: 'ROYALTIES IN SECONDS, NOT MONTHS: MUSIC GOES ONCHAIN WITH AVALANCHE',
             description: 'How Record Financial and 11am, home to artists like Armani White, RealestK, Lil Tjay, ASAP Ferg, Alex Warren, and Maddox, are using Avalanche to pay royalties in seconds.',
             date: 'NOV 20, 2025',
-            author: 'AVALANCHE',
+            author: findByUniqueId(mainData, 905),
             readTime: '3 ',
             image: 'https://s3.metarang.com/metarang/onepage/news2.webp',
         },
@@ -58,7 +58,7 @@ export default function NewsStories({ params, mainData }: NewsStoriesProps) {
             title: 'HOW RECORD FINANCIAL AND 11AM, HOME TO ARTISTS LIKE ARMANI WHITE',
             description: 'The music industry moves onchain: instant royalty payments, transparent licensing, and new revenue streams for creators.',
             date: 'NOV 19, 2025',
-            author: 'AVALANCHE',
+            author: findByUniqueId(mainData, 905),
             readTime: '2 ',
             image: 'https://s3.metarang.com/metarang/onepage/news3.webp',
         },
@@ -68,7 +68,7 @@ export default function NewsStories({ params, mainData }: NewsStoriesProps) {
             title: 'ROYALTIES IN SECONDS, NOT MONTHS: MUSIC GOES ONCHAIN WITH AVALANCHE',
             description: 'Artists like ASAP Ferg, Alex Warren, and Madd0x are now receiving royalties instantly via smart contracts.',
             date: 'NOV 18, 2025',
-            author: 'AVALANCHE',
+            author: findByUniqueId(mainData, 905),
             readTime: '4 ',
             image: 'https://s3.metarang.com/metarang/onepage/news4.webp',
         },
@@ -78,7 +78,7 @@ export default function NewsStories({ params, mainData }: NewsStoriesProps) {
             title: 'AVALANCHE POWERS NEXT-GEN GAMING ECONOMIES',
             description: 'Game developers are building player-owned economies with subnets, offering near-zero fees and instant finality.',
             date: 'NOV 17, 2025',
-            author: 'AVALANCHE',
+            author: findByUniqueId(mainData, 905),
             readTime: '5 ',
             image: 'https://s3.metarang.com/metarang/onepage/news5.webp',
         },
@@ -88,7 +88,7 @@ export default function NewsStories({ params, mainData }: NewsStoriesProps) {
             title: 'ENTERPRISE AND CUSTOM APPS: NEW TOOLS FOR BUILDERS',
             description: 'Launch your own custom blockchain with Avalanche’s Subnet technology – scalable, sovereign, and interoperable.',
             date: 'NOV 16, 2025',
-            author: 'AVALANCHE',
+            author: findByUniqueId(mainData, 905),
             readTime: '2 ',
             image: 'https://s3.metarang.com/metarang/onepage/news6.webp',
         },
@@ -181,7 +181,7 @@ export default function NewsStories({ params, mainData }: NewsStoriesProps) {
             <div className="px-5 lg:px-10 w-full">
 
                 {/* Header */}
-                <div className='flex flex-col lg:flex-row lg:mt-5 overflow-hidden text-black dark:text-wrap items-center border-b border-solid border-x-0 border-t-0 dark:border-[#434343] border-[#D9D9D9] pb-10'>
+                <div className='flex flex-col lg:flex-row lg:mt-5 overflow-hidden text-black dark:text-wrap items-center lg:items-start border-b border-solid border-x-0 border-t-0 dark:border-[#434343] border-[#D9D9D9] pb-10'>
                     <div className='w-full lg:w-[300px] ms-5 '>
                         <Reveal
                             className="!opacity-100 w-full"
@@ -196,7 +196,7 @@ export default function NewsStories({ params, mainData }: NewsStoriesProps) {
                         </Reveal>
                     </div>
                     <div className="text-start max-w-3xl px-3 mt-[-24px] lg:mt-0">
-                        <TextScramble className=" dark:text-white text-5xl xl:text-3xl 2xl:text-5xl 3xl:text-6xl leading-relaxed 2xl:!leading-[80px]"
+                        <TextScramble className=" dark:text-white text-5xl xl:text-3xl 2xl:text-5xl 3xl:text-6xl lg:leading-relaxed 2xl:!leading-[80px]"
                             text={findByUniqueId(mainData, 1700)}
                             lang={params.lang}
                         />
@@ -205,8 +205,8 @@ export default function NewsStories({ params, mainData }: NewsStoriesProps) {
                 </div>
                 {/* Navigation buttons */}
                 <div className='mt-10 mb-2 lg:mb-6 flex flex-col w-full'>
-                    <div className='ltr:flex-row-reverse md:flex dark:text-white text-3xl items-center rtl:lg:justify-start justify-end gap-[70%] md:gap-[60%] lg:gap-[40%] xl:gap-[36%] lg:mb-[-12px] rtl:'>
-                        <p className='mb-[-55px] lg:mb-0 rtl:lg:me-[-130px] ltr:lg:ms-[-200px]'>{findByUniqueId(mainData, 255)}</p>
+                    <div className='flex-row-reverse md:flex text-black  dark:text-white text-3xl items-center rtl:lg:justify-end justify-end gap-[70%] md:gap-[60%] lg:gap-[40%] xl:gap-[36%] lg:mb-[-12px] '>
+                        <p className='mb-[-55px] lg:mb-0 rtl:lg:ms-[-130px] ltr:lg:ms-[-200px]'>{findByUniqueId(mainData, 255)}</p>
                         <p className='hidden lg:block'>
                             {findByUniqueId(mainData, 1701)}
                         </p>
@@ -311,7 +311,7 @@ export default function NewsStories({ params, mainData }: NewsStoriesProps) {
             </div>
             <div className='flex justify-end w-full px-5 lg:px-10 pb-2 lg:pb-4'>
                 <ClipButton clip={params.lang == "fa" ? "bl" : "br"}
-                    className="w-[230px]  h-[60px] group mt-3 cursor-pointer duration-300 text-white hover:text-[#9100D9]">
+                    className="w-[230px]  h-[60px] group mt-3 cursor-pointer duration-300 text-black dark:text-white hover:!text-[#9100D9]">
                     <span className="text-white dark:text-black group-hover:text-white pe-3"> {findByUniqueId(mainData, 195)}</span>
                     <svg className="w-5 h-5 text-[#9100D9] group-hover:text-white rtl:rotate-180 transition-transform duration-300 rtl:group-hover:translate-x-[-4px] ltr:group-hover:translate-x-1" width="24" height="24" viewBox="0 0 24 24" fill="none">
                         <path className='stroke-[#9100D9] group-hover:stroke-white' d="M14.4297 5.92969L20.4997 11.9997L14.4297 18.0697" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />

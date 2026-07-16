@@ -130,7 +130,7 @@ function StoryCard({
                             {item.username}
                         </p>
 
-                        <p className="text-xs uppercase tracking-[0.18em] text-[#1A1A18] dark:text-[#9A9A9A]">
+                        <p className="text-xs uppercase  text-[#1A1A18] dark:text-[#9A9A9A]">
                             {item.handle}
                         </p>
                     </div>
@@ -155,7 +155,7 @@ function StoryCard({
 
             {/* IMAGE */}
             {item.image && (
-                <div className="relative min-h-64 px-5 pb-5 w-full flex items-end">
+                <div className="relative lg:min-h-64 px-5 pb-5 w-full flex items-end">
                     <Image
                         src={item.image}
                         alt={item.content}
@@ -410,12 +410,12 @@ export default function AvalancheStories({ params, mainData }: AvalancheStoriesP
                     className={`grid
                         border-b border-solid border-x-0 border-t-0 dark:border-[#434343] border-[#D9D9D9] pb-10 
                         lg:grid-cols-[1fr_auto_auto]
-                        lg:items-center`}
+                        lg:items-start`}
 
                 >
 
 
-                    <div className='flex flex-col lg:flex-row lg:gap-10 lg:mt-5 items-start lg:items-center '>
+                    <div className='flex flex-col lg:flex-row lg:gap-10 lg:mt-5 items-start lg:items-start '>
                         <div>
                             <svg className='w-[100px] xl:w-auto' width="198" height="198" viewBox="0 0 198 198" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path className='fill-black dark:fill-white' d="M45.0441 16.5H33.4113C25.7388 16.5 21.8614 25.8225 27.3064 31.2675L74.5787 78.54C88.1087 92.07 109.971 92.07 123.501 78.54L170.774 31.2675C176.219 25.8225 172.342 16.5 164.669 16.5H153.036C146.189 16.5 139.589 19.2225 134.722 24.09L105.186 53.625C101.804 57.0075 96.3591 57.0075 92.9766 53.625L63.4414 24.09C58.4914 19.2225 51.8916 16.5 45.0441 16.5Z" fill="white" />
@@ -431,7 +431,7 @@ export default function AvalancheStories({ params, mainData }: AvalancheStoriesP
                     </div>
 
                     {/* LEFT */}
-                    <div className="max-w-[430px] lg:mt-[-5px]">
+                    <div className="max-w-[430px] lg:mt-5">
                         <p
                             className={`text-[16px] lg:text-xl
                                 leading-[1.35]
@@ -450,7 +450,7 @@ export default function AvalancheStories({ params, mainData }: AvalancheStoriesP
 
                 >
                     {/* SOCIALS */}
-                    <div className="flex flex-wrap gap-4">
+                    <div className="flex flex-wrap gap-2 lg:gap-4">
                         {socials.map((item, index) => (
                             <SocialPill
                                 key={`${item}-${index}`}
