@@ -41,7 +41,7 @@ export async function getTranslation(lang) {
   } catch (err) {
     console.error("[getTranslation] Error:", err);
     // fallback سخت
-    return { code: "fa", file_url: "https://metarang.com/lang/fa.json", direction: "rtl" };
+    return { code: "fa", file_url: "https://rgb.irpsc.com/lang/fa.json", direction: "rtl" };
   }
 }
   
