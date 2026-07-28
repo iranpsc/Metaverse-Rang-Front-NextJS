@@ -67,7 +67,7 @@ export default function FeaturesChart({
         qs.append("period", period);
 
         const res = await axios.get(
-          `https://api.metarang.com/api/citizen/${params.id}/features/chart?${qs.toString()}`,
+          `https://dev-api.metarang.com/api/citizen/${params.id}/features/chart?${qs.toString()}`,
           { headers: { "Content-Type": "application/json" } }
         );
 

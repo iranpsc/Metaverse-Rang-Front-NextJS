@@ -5,7 +5,7 @@ import DynamicFooter from "@/components/shared/footer/DynamicFooter";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 import FeaturesSummary from "./FeaturesSummary";
-import Map from "./Map"
+import FeaturesMap from "./FeaturesMap";
 
 import {
   getTranslation,
@@ -17,6 +17,7 @@ import {
 } from "@/components/utils/actions";
 
 import { getStaticMenu } from "@/components/utils/constants";
+import PropertyHeader from "./PropertyHeader";
 
 /* ------------------------------------------------------------------ */
 /*                                TYPES                               */
@@ -131,14 +132,18 @@ export default async function CitizenFeaturesSummary({
             <div className="px-12">
               <BreadCrumb params={resolvedParams} />
             </div>
-
+            
             <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
+              <PropertyHeader params={resolvedParams} mainData={mainData} referralPageArrayContent={undefined} />
               <FeaturesSummary params={resolvedParams} mainData={mainData} />
-              <Map />
+              <FeaturesMap params={resolvedParams} mainData={mainData} />
             </div>
 
-            <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
-              <DynamicFooter mainData={mainData} params={resolvedParams} />
+           <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
+              <DynamicFooter
+                mainData={mainData}
+                params={resolvedParams}
+              />
             </div>
           </section>
         </div>

@@ -2,6 +2,8 @@
 /*         SHARED CONFIG — used by FeaturesSummary + FeaturesChart      */
 /* ------------------------------------------------------------------ */
 
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
+
 export type Period = "daily" | "weekly" | "monthly" | "yearly";
 
 export const PERIOD_OPTIONS: { key: Period; uniqueId: number; fallback: string }[] = [
@@ -44,15 +46,60 @@ export function resolveIconKey(label: string): IconKey {
 }
 
 export const ICON_COLORS: Record<IconKey, string> = {
-  tourism: "#C026D3",
-  commercial: "#EF4444",
-  residential: "#B58C1F",
-  education: "#0EA5E9",
+  tourism: "#1F3B57",
+  commercial: "#E4574F",
+  residential: "#D4A017",
+  education: "#2E9CE0",
   exhibition: "#10B981",
-  park: "#22C55E",
-  health: "#8B5CF6",
+  park: "#27AE60",
+  health: "#8E44AD",
   default: "#84858F",
 };
+
+/* Short back-of-card description shown on hover-flip in the summary cards.
+   `mainData` isn't available at module scope (it's a per-request prop
+   passed down from the server component), so this has to be a function
+   that the caller passes mainData into — it can't be a plain object built
+   at import time. Only "residential" has a known unique_id (1793) so far;
+   add the rest to KARBARI_DESCRIPTION_IDS once you have them from the CMS,
+   and the Persian fallback text below will keep working until then. */
+const KARBARI_DESCRIPTION_IDS: Partial<Record<IconKey, number>> = {
+  residential: 1793,
+  // tourism: <unique_id>,
+  commercial: 1794,
+  education: 1795,
+  exhibition: 1796,
+  park: 1797,
+  health: 1798,
+  // default: <unique_id>,
+};
+
+const KARBARI_DESCRIPTIONS_FALLBACK: Record<IconKey, string> = {
+  tourism:
+    "با سرمایه‌گذاری در املاک گردشگری، از رشد این حوزه در پرتفوی خود بهره‌مند می‌شوید.",
+  commercial:
+    "پیشرفت شما متناسب با دارایی تجاری است. برای مشاهده جزئیات بیشتر از لینک زیر استفاده کنید.",
+  residential:
+    "پیشرفت شما متناسب با دارایی مسکونی است. برای مشاهده جزئیات بیشتر از لینک زیر استفاده کنید.",
+  education:
+    "املاک آموزشی نقش مهمی در تنوع پرتفوی شما دارند و روند رشد پایداری داشته‌اند.",
+  exhibition:
+    "پیشرفت شما متناسب با دارایی نمایشگاهی است. برای مشاهده جزئیات بیشتر از لینک زیر استفاده کنید.",
+  park:
+    "املاک پارکی ارزش بلندمدت پرتفوی شما را افزایش می‌دهند.",
+  health:
+    "پیشرفت شما متناسب با دارایی بهداشتی است. برای مشاهده جزئیات بیشتر از لینک زیر استفاده کنید.",
+  default:
+    "پیشرفت شما متناسب با این نوع دارایی است. برای مشاهده جزئیات بیشتر از لینک زیر استفاده کنید.",
+};
+
+/* Call this from a component that has `mainData` in scope, e.g.:
+   const description = getKarbariDescription(mainData, iconKey); */
+export function getKarbariDescription(mainData: any, iconKey: IconKey): string {
+  const uniqueId = KARBARI_DESCRIPTION_IDS[iconKey];
+  const fromMainData = uniqueId != null ? findByUniqueId(mainData, uniqueId) : null;
+  return fromMainData || KARBARI_DESCRIPTIONS_FALLBACK[iconKey];
+}
 
 export function colorForLabel(label: string): string {
   return ICON_COLORS[resolveIconKey(label)];
@@ -61,4 +108,20 @@ export function colorForLabel(label: string): string {
 export interface KarbariOption {
   code: string;
   label: string;
+}
+
+/* Builds the dynamic per-property link, e.g.:
+   https://dev-reactjs.metarang.com/feature/6327/info?map=25.219250,54.211946,18.00,0.0,40.0
+   map = latitude,longitude,zoom,bearing,pitch */
+export function buildFeatureLink(
+  id: number | string,
+  latitude: number,
+  longitude: number,
+  zoom: number = 18,
+  bearing: number = 0,
+  pitch: number = 40
+): string {
+  const lat = latitude.toFixed(6);
+  const lng = longitude.toFixed(6);
+  return `https://dev-reactjs.metarang.com/feature/${id}/info?map=${lat},${lng},${zoom.toFixed(2)},${bearing.toFixed(1)},${pitch.toFixed(1)}`;
 }
