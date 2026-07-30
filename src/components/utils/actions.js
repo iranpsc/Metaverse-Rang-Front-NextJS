@@ -17,7 +17,7 @@ function sanitizePathSegment(segment) {
 //return selected language object
 export async function getTranslation(lang) {
   try {
-    const res = await fetch("https://admin.metarang.com/api/translations", {
+    const res = await fetch("https://dev-admin.metarang.com/api/translations", {
       // cache: 'force-cache',
       // "Cache-Control": "public, max-age=3600", 
       next: { tags: ['translations'] },
@@ -48,7 +48,7 @@ export async function getTranslation(lang) {
 
   //return whole language array
   export async function getLangArray() {
-    const res = await fetch("https://admin.metarang.com/api/translations", {
+    const res = await fetch("https://dev-admin.metarang.com/api/translations", {
       headers: {
         "Content-Type": "application/json",
         // cache: 'force-cache',
