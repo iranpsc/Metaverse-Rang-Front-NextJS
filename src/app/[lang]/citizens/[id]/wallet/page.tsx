@@ -109,10 +109,82 @@ export default async function CitizenWalletHistory({
 
     const updatedTabsMenu = await buildUpdatedTabsMenu(mainData);
 
+    /* ------------------------- JSON-LD schema ------------------------- */
+    const isFa = lang === "fa";
+
+    const kyc = profileData?.data?.kyc;
+    const fullName = kyc?.fname
+      ? `${kyc.fname} ${kyc.lname}`
+      : profileData?.data?.name || (isFa ? "شهروند" : "Citizen");
+
+    const canonicalUrl = `https://metarang.com/${lang}/citizens/${id}/wallet-history`;
+
+    const jsonLd = {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": canonicalUrl,
+          url: canonicalUrl,
+          name: isFa
+            ? `تاریخچه دارایی‌های ${fullName}`
+            : `Wallet history of ${fullName}`,
+          description: isFa
+            ? "جدول و نمودار تاریخچه دارایی‌های کاربر"
+            : "Citizen wallet asset history summary and chart",
+          inLanguage: isFa ? "fa-IR" : "en-US",
+          isPartOf: {
+            "@type": "WebSite",
+            name: "Metarang",
+            url: "https://metarang.com",
+          },
+          about: {
+            "@type": "Person",
+            name: fullName,
+            url: `https://metarang.com/${lang}/citizens/${id}`,
+          },
+        },
+        {
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: isFa ? "خانه" : "Home",
+              item: `https://metarang.com/${lang}`,
+            },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: isFa ? "کاربران" : "Citizens",
+              item: `https://metarang.com/${lang}/citizens`,
+            },
+            {
+              "@type": "ListItem",
+              position: 3,
+              name: fullName,
+              item: `https://metarang.com/${lang}/citizens/${id}`,
+            },
+            {
+              "@type": "ListItem",
+              position: 4,
+              name: isFa ? "تاریخچه دارایی‌ها" : "Wallet History",
+              item: canonicalUrl,
+            },
+          ],
+        },
+      ],
+    };
+
     /* ----------------------------- render ---------------------------- */
     return (
       <>
         <CleanAutoRetryParam />
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
 
         <div
           className="flex h-screen overflow-hidden"
@@ -165,43 +237,79 @@ export async function generateMetadata({
   params: Promise<{ lang: string; id: string }>;
 }) {
   const { lang, id } = await params;
+  const isFa = lang === "fa";
 
   try {
     const profileData = await getUserData(id);
 
     if (!profileData?.data) {
       return {
-        title: "404 - پیدا نشد",
-        description: "صفحه مورد نظر یافت نشد",
+        title: isFa ? "404 - پیدا نشد" : "404 - Not found",
+        description: isFa
+          ? "صفحه مورد نظر یافت نشد"
+          : "The requested page could not be found",
+        robots: { index: false, follow: false },
       };
     }
 
     const fullName = profileData.data?.kyc?.fname
       ? `${profileData.data.kyc.fname} ${profileData.data.kyc.lname}`
-      : profileData.data.name || "Citizen";
+      : profileData.data.name || (isFa ? "شهروند" : "Citizen");
+
+    const title = isFa
+      ? `تاریخچه دارایی‌های ${fullName}`
+      : `Wallet history of ${fullName}`;
+
+    const description = isFa
+      ? "جدول و نمودار تاریخچه دارایی‌های کاربر"
+      : "Citizen wallet asset history summary and chart";
+
+    const canonicalUrl = `https://metarang.com/${lang}/citizens/${id}/wallet-history`;
+    const ogImage =
+      profileData.data?.profilePhotos?.[0]?.url || "/logo.png";
 
     return {
-      title:
-        lang === "fa"
-          ? `تاریخچه دارایی‌های ${fullName}`
-          : `Wallet history of ${fullName}`,
-      description:
-        lang === "fa"
-          ? "جدول و نمودار تاریخچه دارایی‌های کاربر"
-          : "Citizen wallet asset history summary and chart",
+      title,
+      description,
+      keywords: isFa
+        ? [fullName, "تاریخچه دارایی", "کیف پول", "متاورس رنگ", profileData.data.code]
+        : [fullName, "wallet history", "asset history", "Metarang metaverse", profileData.data.code],
       alternates: {
-        canonical: `https://metarang.com/${lang}/citizens/${id}/wallet-history`,
+        canonical: canonicalUrl,
         languages: {
           "fa-IR": `https://metarang.com/fa/citizens/${id}/wallet-history`,
           "en-US": `https://metarang.com/en/citizens/${id}/wallet-history`,
           "x-default": `https://metarang.com/fa/citizens/${id}/wallet-history`,
         },
       },
+      openGraph: {
+        type: "website",
+        title,
+        description,
+        locale: isFa ? "fa_IR" : "en_US",
+        url: canonicalUrl,
+        siteName: "Metarang",
+        images: [
+          {
+            url: ogImage,
+            width: 800,
+            height: 600,
+          },
+        ],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title,
+        description,
+        images: [ogImage],
+      },
     };
   } catch {
     return {
-      title: "خطا",
-      description: "مشکلی در بارگذاری صفحه رخ داده است",
+      title: isFa ? "خطا" : "Error",
+      description: isFa
+        ? "مشکلی در بارگذاری صفحه رخ داده است"
+        : "An error occurred while loading the page",
     };
   }
 }

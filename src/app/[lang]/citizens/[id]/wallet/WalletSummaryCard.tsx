@@ -39,8 +39,8 @@ export default function WalletSummaryCard({ item, period, lang , mainData }: Wal
     : item.current_balance.toLocaleString(isFa ? "fa-IR" : "en-US");
 
   const description = isFa
-    ? `این کارت وضعیت دارایی «${config.label}» را نشان می‌دهد؛ موجودی فعلی، روند رشد و میزان کسب‌شده شما در بازه انتخابی.`
-    : `This card shows the status of your "${config.label}" asset — current balance, growth trend, and what you've earned in the selected period.`;
+    ? `این کارت وضعیت دارایی « ${findByUniqueId(mainData, config.uniqueId ) }» را نشان می‌دهد؛ موجودی فعلی، روند رشد و میزان کسب‌شده شما در بازه انتخابی.`
+    : `This card shows the status of your "${findByUniqueId(mainData, config.uniqueId ) }" asset — current balance, growth trend, and what you've earned in the selected period.`;
 
   return (
     <div className={`w-full ${CARD_HEIGHT} group [perspective:1200px]`}>
@@ -50,7 +50,7 @@ export default function WalletSummaryCard({ item, period, lang , mainData }: Wal
           <div className="flex items-center gap-3">
             <div className="rounded-xl w-full flex items-center justify-center absolute right-0 left-0 top-[-26px]">
               <div
-                className="w-14 h-14 rounded-xl flex items-center justify-center"
+                className="w-[75px] h-[75px] rounded-xl flex items-center justify-center"
               // style={{ backgroundColor: `${config.color}22` }}
               >
                 <AssetIcon type={config.icon} color={config.color} />
@@ -58,7 +58,7 @@ export default function WalletSummaryCard({ item, period, lang , mainData }: Wal
             </div>
             <div className="text-center flex flex-col w-full items-center mt-6">
               <p className="text-black dark:text-white font-bold text-base lg:text-xl">
-                {config.label}
+              {findByUniqueId(mainData, config.uniqueId ) }
               </p>
               <p className="text-lightGray dark:text-lightGray text-sm lg:text-2xl font-bold mt-1">
                 {balanceLabel}  {findByUniqueId(mainData, 1582 )}
@@ -105,7 +105,7 @@ export default function WalletSummaryCard({ item, period, lang , mainData }: Wal
           <div className="flex items-center gap-2">
             <div className="rounded-xl w-full flex items-center justify-center absolute right-0 left-0 top-[-26px]">
               <div
-                className="w-14 h-14 rounded-xl flex items-center justify-center"
+                className="w-[75px] h-[75px] rounded-xl flex items-center justify-center"
               // style={{ backgroundColor: `${config.color}22` }}
               >
                 <AssetIcon type={config.icon} color={config.color} />

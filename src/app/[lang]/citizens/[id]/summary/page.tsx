@@ -110,10 +110,77 @@ export default async function CitizenFeaturesSummary({
 
     const updatedTabsMenu = await buildUpdatedTabsMenu(mainData);
 
+    /* ------------------------- JSON-LD schema ------------------------- */
+    const kyc = profileData?.data?.kyc;
+    const fullName = kyc?.fname
+      ? `${kyc.fname} ${kyc.lname}`
+      : profileData?.data?.name || "Citizen";
+
+    const isFa = lang === "fa";
+    const canonicalUrl = `https://metarang.com/${lang}/citizens/${id}/features-summary`;
+
+    const jsonLd = {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": canonicalUrl,
+          url: canonicalUrl,
+          name: isFa
+            ? `کاربری‌های ${fullName}`
+            : `Feature summary of ${fullName}`,
+          description: isFa
+            ? "خلاصه کاربری‌های ملک به تفکیک نوع"
+            : "Citizen property feature (karbari) summary by type",
+          inLanguage: isFa ? "fa-IR" : "en-US",
+          isPartOf: {
+            "@type": "WebSite",
+            name: "Metarang",
+            url: "https://metarang.com",
+          },
+          about: {
+            "@type": "Person",
+            name: fullName,
+          },
+        },
+        {
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: isFa ? "خانه" : "Home",
+              item: `https://metarang.com/${lang}`,
+            },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: isFa ? "کاربری‌ها" : "Citizens",
+              item: `https://metarang.com/${lang}/citizens`,
+            },
+            {
+              "@type": "ListItem",
+              position: 3,
+              name: isFa
+                ? `کاربری‌های ${fullName}`
+                : `Feature summary of ${fullName}`,
+              item: canonicalUrl,
+            },
+          ],
+        },
+      ],
+    };
+
     /* ----------------------------- render ---------------------------- */
     return (
       <>
         <CleanAutoRetryParam />
+
+        <script
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
 
         <div
           className="flex h-screen overflow-hidden"

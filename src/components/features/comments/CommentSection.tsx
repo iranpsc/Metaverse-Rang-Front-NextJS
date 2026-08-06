@@ -26,7 +26,7 @@ const CommentSection = ({
 
     try {
       await axios.get(
-        `https://api.metarang.com/api/tutorials?page=${nextPage}`
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/tutorials?page=${nextPage}`
       );
 
       // const newVideosData = resVideos.data.data;

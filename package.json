@@ -21,6 +21,7 @@
     "@mui/material": "^6.0.2",
     "@next/bundle-analyzer": "^14.1.0",
     "@next/font": "^13.4.19",
+    "@react-three/drei": "^9.122.0",
     "@sentry/nextjs": "^10.55.0",
     "@supabase/supabase-js": "^2.81.1",
     "@tailwindcss/typography": "^0.5.16",
@@ -68,7 +69,6 @@
     "sharp": "^0.34.4",
     "slick-carousel": "^1.8.1",
     "swiper": "12.1.2",
-    "three": "^0.183.0",
     "typescript": "5.0.4",
     "webpack": "^5.82.0",
     "yup": "^1.2.0"

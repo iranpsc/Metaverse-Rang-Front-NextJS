@@ -116,7 +116,7 @@ export async function generateMetadata({ params }: CalendarPageProps): Promise<M
       ...(token && { Authorization: `Bearer ${token}` }),
     };
 
-    const res = await fetch("https://api.metarang.com/api/calendar?type=event", {
+    const res = await fetch( `${process.env.NEXT_PUBLIC_API_BASE_URL}/calendar?type=event`, {
       method: "GET",
       headers,
       next: { revalidate: 0 }, // کش برای ۱ دقیقه
@@ -230,7 +230,7 @@ export default async function CalendarPage({ params }: CalendarPageProps) {
       ...(token && { Authorization: `Bearer ${token}` }),
     };
 
-    const res = await fetch("https://api.metarang.com/api/calendar?type=event", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar?type=event`, {
       method: "GET",
       headers,
       next: { revalidate: 60 },

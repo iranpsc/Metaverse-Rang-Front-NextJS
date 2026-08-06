@@ -31,7 +31,7 @@ export default function SubcategoryPageSection({ subCategoryData, params, mainDa
       setLoading(true);
       try {
         const res = await axios.get(
-          `https://api.metarang.com/api/tutorials/${subCategoryData.slug}?page=${page}`
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/tutorials/${subCategoryData.slug}?page=${page}`
         );
         const newVideos = res.data.videos || res.data.data || [];
 

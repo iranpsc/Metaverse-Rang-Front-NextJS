@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: VersionPageProps): Promise<Me
     const resolvedParams = await params;
     const { lang, version } = resolvedParams;
 
-    const apiUrl = "https://api.metarang.com/api/calendar?type=version&page=1";
+    const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar?type=version&page=1`;
 
     const localeMap: Record<string, string> = {
       fa: "fa_IR",
@@ -160,7 +160,7 @@ export default async function VersionPage({ params }: VersionPageProps) {
     let versions: any = [];
     try {
       const response = await fetch(
-        "https://api.metarang.com/api/calendar?type=version&page=1",
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar?type=version&page=1`,
         {
           method: "GET",
           headers: {

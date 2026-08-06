@@ -1,7 +1,7 @@
 // utils/getEvent.ts
 import { EventItem, MappedEventItem, mapEvents } from "@/utils/mapEvents";
 
-const BASE = "https://api.metarang.com/api";
+const BASE = "${process.env.NEXT_PUBLIC_API_BASE_URL}/api";
 
 // گرفتن تمام ایونت‌ها
 export async function getAllEvents(): Promise<MappedEventItem[]> {

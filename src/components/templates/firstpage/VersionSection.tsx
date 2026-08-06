@@ -36,7 +36,7 @@ useEffect(() => {
   const fetchVersions = async () => {
     try {
       const response = await fetch(
-        "https://api.metarang.com/api/calendar?type=version",
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar?type=version`,
         { method: "GET", cache: "no-store" }
       );
 

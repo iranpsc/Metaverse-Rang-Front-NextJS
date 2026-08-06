@@ -33,7 +33,7 @@ useEffect(() => {
   const handlerGetComments = async () => {
     try {
       const comments = await axios.get(
-        `https://api.metarang.com/api/tutorials/${DataVideo.id}/comments?page=1`
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/tutorials/${DataVideo.id}/comments?page=1`
       );
       if (isMounted) setDataComment(comments.data); // فقط اگر mount است
     } catch (error: any) {

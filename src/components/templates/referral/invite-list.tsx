@@ -33,7 +33,7 @@ export default function InviteList({
     try {
       setLoading(true);
       const res = await axios.get(
-        `https://api.metarang.com/api/citizen/${params.id}/referrals?search=${searchTerm}`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/citizen/${params.id}/referrals?search=${searchTerm}`,
         {
           headers: { "Content-Type": "application/json" },
         }
@@ -55,7 +55,7 @@ export default function InviteList({
     try {
       setLoading(true);
       const res = await axios.get(
-        `https://api.metarang.com/api/citizen/${params.id}/referrals?page=${
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/citizen/${params.id}/referrals?page=${
           page + 1
         }`,
         {

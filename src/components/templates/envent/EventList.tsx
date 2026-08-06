@@ -261,7 +261,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
       try {
         const nextPage = currentPage + 1;
         const res = await fetch(
-          `https://api.metarang.com/api/calendar?page=${nextPage}`
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar?page=${nextPage}`
         );
         const data = await res.json();
 
@@ -383,7 +383,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
 
     try {
       const response = await fetch(
-        `https://api.metarang.com/api/calendar/events/${eventId}/interact`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar/events/${eventId}/interact`,
         {
           method: "POST",
           headers: {
@@ -424,7 +424,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
 
     try {
       const response = await fetch(
-        `https://api.metarang.com/api/calendar/events/${eventId}/interact`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar/events/${eventId}/interact`,
         {
           method: "POST",
           headers: {

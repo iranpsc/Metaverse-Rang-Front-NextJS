@@ -106,7 +106,7 @@ const CommentList = ({
       try {
         if (token) {
           const response = await axios.post(
-            "https://api.metarang.com/api/auth/me",
+            `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/me`,
             null,
             {
               headers: {
@@ -147,7 +147,7 @@ const CommentList = ({
   const fetchReplies = async (commentId: number) => {
     try {
       const response = await axios.get(
-        `https://api.metarang.com/api/comments/${commentId}/replies`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/comments/${commentId}/replies`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -217,7 +217,7 @@ const CommentList = ({
 
     try {
       await axios.post(
-        `https://api.metarang.com/api/tutorials/${videoId}/comments/${commentId}/interactions?liked=${isLike ? 1 : 0}`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/tutorials/${videoId}/comments/${commentId}/interactions?liked=${isLike ? 1 : 0}`,
         null,
         {
           headers: {
@@ -259,7 +259,7 @@ const CommentList = ({
 
     try {
       await axios.post(
-        `https://api.metarang.com/api/comments/${commentId}/reply`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/comments/${commentId}/reply`,
         { content: replyText[commentId] },
         {
           headers: {

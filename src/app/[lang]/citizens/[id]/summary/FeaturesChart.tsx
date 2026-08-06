@@ -55,6 +55,8 @@ export default function FeaturesChart({
       return;
     }
 
+    const controller = new AbortController();
+
     const fetchChart = async () => {
       try {
         setLoading(true);
@@ -68,7 +70,7 @@ export default function FeaturesChart({
 
         const res = await axios.get(
           `https://dev-api.metarang.com/api/citizen/${params.id}/features/chart?${qs.toString()}`,
-          { headers: { "Content-Type": "application/json" } }
+          { headers: { "Content-Type": "application/json" }, signal: controller.signal }
         );
 
         const data = res.data?.data;
@@ -78,15 +80,18 @@ export default function FeaturesChart({
           labels: Array.isArray(data?.labels) ? data.labels : [],
         });
       } catch (err) {
+        if (axios.isCancel(err)) return;
         console.error("Error fetching features chart:", err);
         setError(true);
         setChartData(EMPTY_CHART);
       } finally {
-        setLoading(false);
+        if (!controller.signal.aborted) setLoading(false);
       }
     };
 
     fetchChart();
+    // Cancel a stale request if period/filters change again before it lands.
+    return () => controller.abort();
   }, [period, JSON.stringify(selectedKarbari), isAllSelected, params.id]);
 
   /* ---------------------- chart rendering ---------------------- */
@@ -214,19 +219,13 @@ export default function FeaturesChart({
 
       {!error && selectedKarbari.length > 0 && hasData && (
         <div className="flex flex-wrap justify-start md:justify-end gap-6">
-          <div
-            className="flex items-center gap-3 cursor-pointer"
-            onClick={() => handleLegendClick(0)}
-          >
+          <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleLegendClick(0)}>
             <div className="w-2 h-2 lg:w-3 lg:h-3 rounded-full bg-[#0066FF]"></div>
             <span className={`text-[#0066FF] ${boughtVisible ? "" : "line-through"}`}>
               {isFa ? "خریداری‌شده" : "Bought"}
             </span>
           </div>
-          <div
-            className="flex items-center gap-3 cursor-pointer"
-            onClick={() => handleLegendClick(1)}
-          >
+          <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleLegendClick(1)}>
             <div className="w-2 h-2 lg:w-3 lg:h-3 rounded-full bg-[#FFC700]"></div>
             <span className={`text-[#FFC700] ${soldVisible ? "" : "line-through"}`}>
               {isFa ? "فروخته‌شده" : "Sold"}

@@ -24,7 +24,7 @@ export default function EducationList({ mainData, params }: any) {
       setLoading(true);
       try {
         const res = await axios.get(
-          `https://api.metarang.com/api/tutorials?page=1`
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/tutorials?page=1`
         );
 
         const apiVideos = res.data.data;
@@ -65,7 +65,7 @@ export default function EducationList({ mainData, params }: any) {
       const nextPage = currentPage + 1;
 
       const res = await axios.get(
-        `https://api.metarang.com/api/tutorials?page=${nextPage}`
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/tutorials?page=${nextPage}`
       );
 
       const apiVideos = res.data.data;

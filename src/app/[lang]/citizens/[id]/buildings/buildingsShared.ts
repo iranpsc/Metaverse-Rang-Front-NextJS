@@ -47,7 +47,7 @@ export const BUILDING_KARBARI_STYLE: Record<BuildingKarbariCode, KarbariStyle> =
   s: { icon: "greenSpace", color: "#27AE60", labelEn: "Green space", uniqueId: 1806 /* TODO */, labelFa: "فضای سبز" },
   b: { icon: "health", color: "#8E44AD", labelEn: "Health", uniqueId: 1807 /* TODO */, labelFa: "بهداشتی" },
   e: { icon: "office", color: "#6B7280", labelEn: "Office", uniqueId: 1517 /* از پیام شما */, labelFa: "اداری" },
-  n: { icon: "exhibition", color: "#10B981", labelEn: "Exhibition", uniqueId: 0 /* TODO */, labelFa: "نمایشگاه" },
+  n: { icon: "exhibition", color: "#10B981", labelEn: "Exhibition", uniqueId: 1801  /* TODO */, labelFa: "نمایشگاه" },
 };
 
 export function styleForKarbari(code: string): KarbariStyle {

@@ -39,7 +39,7 @@ const SingleVideoDetailsModule = ({
           content: comment,
         };
          await axios.post(
-          `https://api.metarang.com/api/tutorials/${videoId}/comments`,
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/tutorials/${videoId}/comments`,
           requestData,
           {
             headers: {

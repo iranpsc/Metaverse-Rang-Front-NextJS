@@ -32,7 +32,7 @@ export default function BreadCrumb({ params, eventTitle, title, articleCat }: { 
     const fetchUserData = async () => {
       try {
         const response = await axios.get(
-          `https://api.metarang.com/api/citizen/${params.id}`,
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/citizen/${params.id}`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -81,24 +81,73 @@ export default function BreadCrumb({ params, eventTitle, title, articleCat }: { 
         },
       ]
       : []),
-    {
-      name: "citizens",
-      en: "List of citizens",
-      fa: "لیست شهروندان",
-      font: "font-normal",
-      link: `/${params.lang}/citizens`,
-    },
-    ...(pathname.includes("/citizens")
-      ? [
-        {
-          name: `citizen-${params.id}`,
-          en: `${userName}'s invites`,
-          fa: `دعوتی‌های ${userName}`,
-          font: "font-normal",
-          link: `/${params.lang}/citizens/${params.id}`,
-        },
-      ]
-      : []),
+{
+  name: "citizens",
+  en: "List of citizens",
+  fa: "لیست شهروندان",
+  font: "font-normal",
+  link: `/${params.lang}/citizens`,
+},
+
+...(pathname.includes("/citizens")
+  ? [
+      // صفحه اصلی شهروند
+      ...(
+        !pathname.endsWith("/summary") &&
+        !pathname.endsWith("/wallet") &&
+        !pathname.endsWith("/buildings")
+          ? [
+              {
+                name: `citizen-${params.id}`,
+                en: `${userName}'s invites`,
+                fa: `دعوتی‌های ${userName}`,
+                font: "font-normal",
+                link: `/${params.lang}/citizens/${params.id}`,
+              },
+            ]
+          : []
+      ),
+
+      // Summary
+      ...(pathname.endsWith("/summary")
+        ? [
+            {
+              name: `citizen-${params.id}-summary`,
+              en: `${userName}'s real estate`,
+              fa: `املاک و مستغلات ${userName}`,
+              font: "font-normal",
+              link: `/${params.lang}/citizens/${params.id}/summary`,
+            },
+          ]
+        : []),
+
+      // Wallet
+      ...(pathname.endsWith("/wallet")
+        ? [
+            {
+              name: `citizen-${params.id}-wallet`,
+              en: `${userName}'s wallet`,
+              fa: ` دارایی های ${userName}`,
+              font: "font-normal",
+              link: `/${params.lang}/citizens/${params.id}/wallet`,
+            },
+          ]
+        : []),
+
+      // Buildings
+      ...(pathname.endsWith("/buildings")
+        ? [
+            {
+              name: `citizen-${params.id}-buildings`,
+              en: `${userName}'s buildings`,
+              fa: `املاک دارای بنا ${userName}`,
+              font: "font-normal",
+              link: `/${params.lang}/citizens/${params.id}/buildings`,
+            },
+          ]
+        : []),
+    ]
+  : []),
     {
       name: "rand-id",
       en: "Random Metaverse IDs",
@@ -416,21 +465,64 @@ export default function BreadCrumb({ params, eventTitle, title, articleCat }: { 
     },
   ];
 
-  temp.forEach((x) => {
-    const matchedItem = staticData.find(
-      (y) => y.name === x || y.name === `event-${x}` || y.name === `citizen-${x}`
-    );
-    if (matchedItem) {
-      // فقط آیتم‌هایی که با مسیر فعلی مطابقت دارند اضافه شوند
-      if (
-        (pathname.includes("/calendar") && matchedItem.link.includes("/calendar")) ||
-        (pathname.includes("/citizens") && matchedItem.link.includes("/citizens")) ||
-        (!pathname.includes("/calendar") && !pathname.includes("/citizens"))
-      ) {
-        buildedArray.push(matchedItem);
-      }
+temp.forEach((x) => {
+  let matchedItem;
+
+  if (pathname.includes("/citizens/")) {
+    // صفحه اصلی citizen
+    if (
+      x === String(params.id) &&
+      !pathname.endsWith("/summary") &&
+      !pathname.endsWith("/wallet") &&
+      !pathname.endsWith("/buildings")
+    ) {
+      matchedItem = staticData.find(
+        (item) => item.name === `citizen-${params.id}`
+      );
     }
-  });
+
+    // summary
+    else if (x === "summary") {
+      matchedItem = staticData.find(
+        (item) => item.name === `citizen-${params.id}-summary`
+      );
+    }
+
+    // wallet
+    else if (x === "wallet") {
+      matchedItem = staticData.find(
+        (item) => item.name === `citizen-${params.id}-wallet`
+      );
+    }
+
+    // buildings
+    else if (x === "buildings") {
+      matchedItem = staticData.find(
+        (item) => item.name === `citizen-${params.id}-buildings`
+      );
+    }
+
+    // citizens
+    else {
+      matchedItem = staticData.find(
+        (item) => item.name === x
+      );
+    }
+  }
+
+  // سایر مسیرها
+  else {
+    matchedItem = staticData.find(
+      (item) =>
+        item.name === x ||
+        item.name === `event-${x}`
+    );
+  }
+
+  if (matchedItem) {
+    buildedArray.push(matchedItem);
+  }
+});
 
   // حذف آیتم‌های تکراری بر اساس لینک
   buildedArray = Array.from(new Set(buildedArray.map((item) => item.link))).map((link) =>

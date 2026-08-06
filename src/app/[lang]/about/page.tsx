@@ -264,7 +264,7 @@ export default async function AboutPage({ params }:AboutPageProps) {
           <div>
 
             <List
-              params={params} mainData={mainData} users={users}
+              params={resolvedParams} mainData={mainData} users={users}
             />
           </div>
         </section>

@@ -9,6 +9,7 @@ import {
   resolveIconKey,
   ICON_COLORS,
   buildFeatureLink,
+  getKarbariLabel,
 } from "./featuresShared";
 
 /* ------------------------------------------------------------------ */
@@ -336,6 +337,14 @@ export default function FeaturesMap({
   const colorForKarbari = (code: string) =>
     ICON_COLORS[resolveIconKey(knownKarbari.find((k) => k.code === code)?.label || "")];
 
+  /* karbari code -> display label, resolved through mainData's unique_id
+     first (same pattern as FeaturesSummary/FeatureCard), falling back to
+     the API's raw Persian text only if no unique_id is set/found. */
+  const displayLabelForKarbari = (code: string) => {
+    const rawLabel = knownKarbari.find((k) => k.code === code)?.label || "";
+    return getKarbariLabel(mainData, resolveIconKey(rawLabel));
+  };
+
   /* ---------------------- map markers ---------------------- */
   const fetchMarkers = async () => {
     if (selectedKarbari.length === 0) {
@@ -527,7 +536,7 @@ export default function FeaturesMap({
               onChange={() => toggleKarbari(k.code)}
               className="accent-light-primary dark:accent-dark-yellow w-4 h-4"
             />
-            {k.label}
+            {displayLabelForKarbari(k.code)}
           </label>
         ))}
       </div>
@@ -553,7 +562,7 @@ export default function FeaturesMap({
           {/* ---- map ---- */}
           <div className="relative flex-1 min-w-0 h-full">
             {!panelOpen && (
-              <div className="absolute z-10 top-3 left-3 w-[300px]">{SearchBar}</div>
+              <div className="absolute z-10 top-3 rtl:left-3 ltr:right-3 w-[300px]">{SearchBar}</div>
             )}
 
             {mapLoading && markers.length === 0 ? (

@@ -20,54 +20,115 @@ export default function DetailItem({
 }) {
   const [linkLoading, setLinkLoading] = useState(false);
 
-  const generateValue = () => {
-    const isHMFormat = typeof value === "string" && value.startsWith("HM-");
-    const lang = params?.lang && ["fa", "en"].includes(params.lang) ? params.lang : "fa";
 
-    // Check / Close
-    if (showCheck && value === 0) return <CLoseIcon width={14} height={14} className="stroke-red-500" />;
-    if (showCheck && value === 1) return <Check width={14} height={14} className="scale-[1.5] text-green-500" />;
+const generateValue = () => {
+  const isHMFormat =
+    typeof value === "string" && value.startsWith("HM-");
 
-    // لینک
-    if (isLink || isHMFormat) {
-      const href = isHMFormat
-        ? `/${lang}/citizens/${value.toLowerCase()}`
+  const lang =
+    params?.lang && ["fa", "en"].includes(params.lang)
+      ? params.lang
+      : "fa";
+
+  // --------------------------------------------------
+  // Check / Close
+  // Supports:
+  // true / false
+  // 1 / 0
+  // "true" / "false"
+  // "1" / "0"
+  // --------------------------------------------------
+  if (showCheck) {
+    const normalizedValue =
+      typeof value === "string"
+        ? value.toLowerCase().trim()
         : value;
 
-      const handleClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-        if (isHMFormat) {
-          e.preventDefault(); // جلوی رفتن فوری به لینک
-          setLinkLoading(true);
-          // شبیه لودینگ: بعد از نمایش overlay مسیر تغییر کند
-          setTimeout(() => {
-            window.location.href = href;
-          }, 100); // می‌توانی 100ms یا بیشتر بگذاری
-        }
-        // لینک معمولی بدون لودینگ _blank
-      };
+    const isTrue =
+      normalizedValue === true ||
+      normalizedValue === 1 ||
+      normalizedValue === "true" ||
+      normalizedValue === "1";
 
+    const isFalse =
+      normalizedValue === false ||
+      normalizedValue === 0 ||
+      normalizedValue === "false" ||
+      normalizedValue === "0";
+
+    if (isTrue) {
       return (
-        <a
-          onClick={handleClick}
-          className="text-blueLink dark:text-blue-500 font-[700]"
-          href={href}
-          target={isHMFormat ? undefined : "_blank"}
-        >
-          {isHMFormat ? value.toUpperCase() : lang == "fa" ? "لینک" : "link"}
-        </a>
+        <Check
+          width={14}
+          height={14}
+          className="scale-[1.5] text-green-500"
+        />
       );
     }
 
-    // متن ساده
+    if (isFalse) {
+      return (
+        <CLoseIcon
+          width={14}
+          height={14}
+          className="stroke-red-500"
+        />
+      );
+    }
+  }
+
+  // --------------------------------------------------
+  // لینک
+  // --------------------------------------------------
+  if (isLink || isHMFormat) {
+    const href = isHMFormat
+      ? `/${lang}/citizens/${value.toLowerCase()}`
+      : value;
+
+    const handleClick = (
+      e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+    ) => {
+      if (isHMFormat) {
+        e.preventDefault();
+
+        setLinkLoading(true);
+
+        setTimeout(() => {
+          window.location.href = href;
+        }, 100);
+      }
+    };
+
     return (
-      <span
-        className="text-[#868B90] dark:text-[#C4C4C4] font-[700] text-ellipsis line-clamp-1 overflow-hidden"
-        title={value}
+      <a
+        onClick={handleClick}
+        className="text-blueLink dark:text-blue-500 font-[700]"
+        href={href}
+        target={isHMFormat ? undefined : "_blank"}
       >
-        {value}
-      </span>
+        {isHMFormat
+          ? value.toUpperCase()
+          : lang === "fa"
+            ? "لینک"
+            : "link"}
+      </a>
     );
-  };
+  }
+
+  // --------------------------------------------------
+  // متن ساده
+  // --------------------------------------------------
+  return (
+    <span
+      className="text-[#868B90] dark:text-[#C4C4C4] font-[700] text-ellipsis line-clamp-1 overflow-hidden"
+      title={String(value ?? "")}
+    >
+      {String(value ?? "")}
+    </span>
+  );
+};
+
+
 
   return (
     <>

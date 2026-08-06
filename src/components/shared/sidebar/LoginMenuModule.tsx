@@ -80,7 +80,7 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
       try {
         // console.log("Fetching user data with token:", token);
         const response = await axios.post(
-          "https://api.metarang.com/api/auth/me",
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/me`,
           null,
           {
             headers: {
@@ -144,7 +144,7 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
         // console.log("🎯 [REGISTER WITH REFERRAL]", referralCode);
 
         const res = await axios.post(
-          "https://api.metarang.com/api/auth/register",
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/register`,
           {
             referral: referralCode,
             back_url: currentUrl,
@@ -164,7 +164,7 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
         // console.log("🚫 [NORMAL LOGIN MODE]");
 
         const res = await axios.get(
-          `https://api.metarang.com/api/auth/redirect?redirect_to=${encodeURIComponent(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/redirect?redirect_to=${encodeURIComponent(
             currentUrl
           )}`,
           {
@@ -191,7 +191,7 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
     try {
       // console.log("📩 Sending referral to API:", referralCode);
       const res = await axios.post(
-        "https://api.metarang.com/api/auth/referral",
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/referral`,
         { referral: referralCode },
         {
           headers: {
@@ -210,7 +210,7 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
     // console.log("Logging out...");
     try {
       const res = await axios.post(
-        "https://api.metarang.com/api/auth/logout",
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/logout`,
         null,
         {
           headers: {

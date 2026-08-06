@@ -26,7 +26,7 @@ export default function LoginButtonModule({ params }: { params: any }) {
 
       const urlToUse = `${window.location.origin}${pathname.toString()}`;
       const res = await axios.get(
-        `https://api.metarang.com/api/auth/redirect?redirect_to=${urlToUse}&referral=${referral}`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/redirect?redirect_to=${urlToUse}&referral=${referral}`,
         {
           headers: {
             "Content-Type": "application/json",

@@ -135,7 +135,7 @@ function buildEventSchema(selectedEvent: MappedEventItem) {
 
 // 📌 Fetch single event
 async function getEvent(id: string): Promise<MappedEventItem> {
-  const res = await fetch(`https://api.metarang.com/api/calendar/${id}`, { next: { revalidate: 3600 } });
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar/${id}`, { next: { revalidate: 3600 } });
   if (!res.ok) throw new Error("Failed to fetch event");
   const json = await res.json();
   return mapEvents([json.data])[0];
@@ -143,7 +143,7 @@ async function getEvent(id: string): Promise<MappedEventItem> {
 
 // 📌 Fetch all events
 async function getEvents(): Promise<MappedEventItem[]> {
-  const res = await fetch("https://api.metarang.com/api/calendar", { next: { revalidate: 3600 } });
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar`, { next: { revalidate: 3600 } });
   if (!res.ok) throw new Error("Failed to fetch events");
   const json = await res.json();
   return mapEvents(json.data);

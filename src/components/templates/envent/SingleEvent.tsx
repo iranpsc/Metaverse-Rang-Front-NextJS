@@ -89,7 +89,7 @@ const SingleEvent: React.FC<SingleEventProps> = ({
 
     try {
       const response = await fetch(
-        `https://api.metarang.com/api/calendar/events/${event.id}/interact`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar/events/${event.id}/interact`,
         {
           method: "POST",
           headers: {
@@ -124,7 +124,7 @@ const SingleEvent: React.FC<SingleEventProps> = ({
 
     try {
       const response = await fetch(
-        `https://api.metarang.com/api/calendar/events/${event.id}/interact`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar/events/${event.id}/interact`,
         {
           method: "POST",
           headers: {

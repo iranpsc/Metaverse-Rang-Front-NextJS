@@ -75,7 +75,7 @@ export default function Footer2({ params, mainData }: FooterProps) {
         },
                 {
           label: findByUniqueId(mainData,1779 ),
-          href: "https://api.metarang.com",
+          href: `${process.env.NEXT_PUBLIC_API_BASE_URL}`,
           targetBlank: true,
         },
         { label: findByUniqueId(mainData, 1748), href: `/${params.lang}/calendar` },

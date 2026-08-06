@@ -130,7 +130,7 @@ export default function WalletHistory({
       const spendingSeries = chartData[assetKey]?.spending?.map((p) => p.amount) || [];
 
       datasets.push({
-        label: `${config.label} (${isFa ? "ورودی" : "income"})`,
+        label: `${findByUniqueId(mainData, config.uniqueId ) } (${isFa ? "ورودی" : "income"})`,
         data: incomeSeries,
         borderColor: config.color,
         backgroundColor: `${config.color}33`,
@@ -142,7 +142,7 @@ export default function WalletHistory({
       });
 
       datasets.push({
-        label: `${config.label} (${isFa ? "خروجی" : "spending"})`,
+        label: `${findByUniqueId(mainData, config.uniqueId ) } (${isFa ? "خروجی" : "spending"})`,
         data: spendingSeries,
         borderColor: config.color,
         backgroundColor: "transparent",
@@ -263,7 +263,8 @@ export default function WalletHistory({
               onChange={() => toggleAsset(key)}
               className="accent-light-primary dark:accent-dark-yellow w-4 h-4"
             />
-            {ASSET_CONFIG[key].label}
+            
+            {findByUniqueId(mainData, ASSET_CONFIG[key].uniqueId ) }
           </label>
         ))}
       </div>
@@ -313,7 +314,7 @@ export default function WalletHistory({
 
       {/* chart legend */}
       {chartAssetKeys.length > 0 && (
-        <div className="flex flex-wrap justify-start md:justify-end gap-6 mt-4">
+        <div className="flex flex-wrap justify-start md:justify-end gap-6 mt-20">
           {chartAssetKeys.map((key, groupIndex) => {
             const config = ASSET_CONFIG[key];
             return (
@@ -326,7 +327,7 @@ export default function WalletHistory({
                 }}
               >
                 <div className="w-2 h-2 lg:w-3 lg:h-3 rounded-full" style={{ backgroundColor: config.color }} />
-                <span style={{ color: config.color }}>{config.label}</span>
+                <span style={{ color: config.color }}>${findByUniqueId(mainData, config.uniqueId ) }</span>
               </div>
             );
           })}

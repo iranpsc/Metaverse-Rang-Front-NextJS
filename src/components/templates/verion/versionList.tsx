@@ -100,7 +100,7 @@ const VersionBox: React.FC<VersionBoxProps> = ({
     setLoading(true);
     try {
       const response = await fetch(
-        `https://api.metarang.com/api/calendar?type=version&search=${encodeURIComponent(query)}`
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar?type=version&search=${encodeURIComponent(query)}`
       );
       const data = await response.json();
 
@@ -136,7 +136,7 @@ const VersionBox: React.FC<VersionBoxProps> = ({
     setLoading(true);
     try {
       const response = await fetch(
-        `https://api.metarang.com/api/calendar?type=version&page=${page + 1}`
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar?type=version&page=${page + 1}`
       );
       const data = await response.json();
 

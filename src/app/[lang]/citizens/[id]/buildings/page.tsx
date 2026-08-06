@@ -92,9 +92,79 @@ export default async function CitizenBuildings({ params }: CitizenBuildingsProps
 
     const updatedTabsMenu = await buildUpdatedTabsMenu(mainData);
 
+    /* ------------------------- JSON-LD schema ------------------------- */
+    const isFa = lang === "fa";
+
+    const kyc = profileData?.data?.kyc;
+    const fullName = kyc?.fname
+      ? `${kyc.fname} ${kyc.lname}`
+      : profileData?.data?.name || (isFa ? "شهروند" : "Citizen");
+
+    const canonicalUrl = `https://metarang.com/${lang}/citizens/${id}/buildings`;
+
+    const jsonLd = {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": canonicalUrl,
+          url: canonicalUrl,
+          name: isFa ? `بناهای ${fullName}` : `Buildings of ${fullName}`,
+          description: isFa
+            ? "خلاصه، نمودار و لیست بناهای تکمیل‌شده"
+            : "Completed buildings summary, chart, and list",
+          inLanguage: isFa ? "fa-IR" : "en-US",
+          isPartOf: {
+            "@type": "WebSite",
+            name: "Metarang",
+            url: "https://metarang.com",
+          },
+          about: {
+            "@type": "Person",
+            name: fullName,
+            url: `https://metarang.com/${lang}/citizens/${id}`,
+          },
+        },
+        {
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: isFa ? "خانه" : "Home",
+              item: `https://metarang.com/${lang}`,
+            },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: isFa ? "کاربران" : "Citizens",
+              item: `https://metarang.com/${lang}/citizens`,
+            },
+            {
+              "@type": "ListItem",
+              position: 3,
+              name: fullName,
+              item: `https://metarang.com/${lang}/citizens/${id}`,
+            },
+            {
+              "@type": "ListItem",
+              position: 4,
+              name: isFa ? "بناها" : "Buildings",
+              item: canonicalUrl,
+            },
+          ],
+        },
+      ],
+    };
+
     return (
       <>
         <CleanAutoRetryParam />
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
 
         <div className="flex h-screen overflow-hidden" dir={langData.direction}>
           <SideBar
@@ -144,34 +214,71 @@ export async function generateMetadata({
   params: Promise<{ lang: string; id: string }>;
 }) {
   const { lang, id } = await params;
+  const isFa = lang === "fa";
 
   try {
     const profileData = await getUserData(id);
 
     if (!profileData?.data) {
-      return { title: "404 - پیدا نشد", description: "صفحه مورد نظر یافت نشد" };
+      return {
+        title: isFa ? "404 - پیدا نشد" : "404 - Not found",
+        description: isFa ? "صفحه مورد نظر یافت نشد" : "The requested page could not be found",
+        robots: { index: false, follow: false },
+      };
     }
 
     const fullName = profileData.data?.kyc?.fname
       ? `${profileData.data.kyc.fname} ${profileData.data.kyc.lname}`
-      : profileData.data.name || "Citizen";
+      : profileData.data.name || (isFa ? "شهروند" : "Citizen");
+
+    const title = isFa ? `بناهای ${fullName}` : `Buildings of ${fullName}`;
+    const description = isFa
+      ? "خلاصه، نمودار و لیست بناهای تکمیل‌شده"
+      : "Completed buildings summary, chart, and list";
+
+    const canonicalUrl = `https://metarang.com/${lang}/citizens/${id}/buildings`;
+    const ogImage = profileData.data?.profilePhotos?.[0]?.url || "/logo.png";
 
     return {
-      title: lang === "fa" ? `بناهای ${fullName}` : `Buildings of ${fullName}`,
-      description:
-        lang === "fa"
-          ? "خلاصه، نمودار و لیست بناهای تکمیل‌شده"
-          : "Completed buildings summary, chart, and list",
+      title,
+      description,
+      keywords: isFa
+        ? [fullName, "بناها", "ساختمان‌ها", "متاورس رنگ", profileData.data.code]
+        : [fullName, "buildings", "completed buildings", "Metarang metaverse", profileData.data.code],
       alternates: {
-        canonical: `https://metarang.com/${lang}/citizens/${id}/buildings`,
+        canonical: canonicalUrl,
         languages: {
           "fa-IR": `https://metarang.com/fa/citizens/${id}/buildings`,
           "en-US": `https://metarang.com/en/citizens/${id}/buildings`,
           "x-default": `https://metarang.com/fa/citizens/${id}/buildings`,
         },
       },
+      openGraph: {
+        type: "website",
+        title,
+        description,
+        locale: isFa ? "fa_IR" : "en_US",
+        url: canonicalUrl,
+        siteName: "Metarang",
+        images: [
+          {
+            url: ogImage,
+            width: 800,
+            height: 600,
+          },
+        ],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title,
+        description,
+        images: [ogImage],
+      },
     };
   } catch {
-    return { title: "خطا", description: "مشکلی در بارگذاری صفحه رخ داده است" };
+    return {
+      title: isFa ? "خطا" : "Error",
+      description: isFa ? "مشکلی در بارگذاری صفحه رخ داده است" : "An error occurred while loading the page",
+    };
   }
 }

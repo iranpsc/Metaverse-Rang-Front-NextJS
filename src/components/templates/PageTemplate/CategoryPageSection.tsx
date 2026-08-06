@@ -33,7 +33,7 @@ const CategoryPageSection = ({ CategoryData, mainData, params }: any) => {
       setPage(nextPage);
 
       const res = await axios.get(
-        `https://api.metarang.com/api/tutorials?page=${nextPage}`
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/tutorials?page=${nextPage}`
       );
 
       const newSubcategories = res.data.data || [];

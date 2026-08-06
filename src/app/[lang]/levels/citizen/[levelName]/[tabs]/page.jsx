@@ -268,7 +268,7 @@ export default async function LevelSinglePage({ params }) {
 
               <div className="grid-forth flex-1 relative !mt-[-2px] mb-10 lg:mb-0">
                 <Suspense fallback={<div>image box loading ...</div>}>
-                  <ImageBox item={levelTabs.data} singleLevel={singleLevel} />
+                  <ImageBox item={levelTabs.data} singleLevel={singleLevel} lang={lang}/>
                 </Suspense>
               </div>
             </TabLoadingProvider>

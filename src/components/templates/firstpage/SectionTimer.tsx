@@ -26,7 +26,7 @@ const SectionTimer = ({ params }: { params: Params }) => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const res = await fetch("https://api.metarang.com/api/calendar?type=event");
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar?type=event`);
         const json = await res.json();
         const allEvents: MappedEventItem[] = mapEvents(json.data);
         const now = Date.now();
