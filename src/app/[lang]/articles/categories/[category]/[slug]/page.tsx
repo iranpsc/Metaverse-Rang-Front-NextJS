@@ -317,7 +317,7 @@ export default async function ArticlePage({ params } :ArticlePageProps) {
 
             {/* سایدبار */}
             <div className="w-full hidden lg:block lg:w-[30%] 3xl:w-[20%] sticky top-5">
-              <SideCard params={params} mainData={mainData} />
+              <SideCard params={resolvedParams} mainData={mainData} />
             </div>
           </div>
 

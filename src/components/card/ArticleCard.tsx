@@ -122,7 +122,7 @@ export default function ArticleCard({ item, params, theme, activeLoadingId, setA
         href={`/${params.lang}/articles/categories/${item.categorySlug}/${item.slug}`}
         className="w-[95%] mt-[-20px] text-matn-2 dark:text-matn-2 z-[1]"
       >
-        <p className="text-[12px] 3xl:text-[16px] line-clamp-2 overflow-hidden">
+        <p className="text-[12px] 3xl:text-[16px] line-clamp-2 break-words overflow-hidden">
           {stripHTML(item.excerpt || item.description)}
         </p>
       </Link>

@@ -226,7 +226,7 @@ const LatestNews: React.FC<LatestNewsProps> = ({
                 key={String(item.id)}
                 href={`/${params.lang}/news/categories/${getCategorySlug(item)}/${item.slug}`}
                 onClickCapture={() => setActiveLoadingId(item.id)}
-                className={`relative bg-white dark:bg-gray-1  lg:bg-bg-primary dark:lg:bg-black rounded-lg h-auto p-4 lg:p-1  ${isLoading ? "rotating-border-card cursor-not-allowed" : ""
+                className={`relative bg-white dark:bg-gray-1  lg:!bg-bg-primary  rounded-lg h-auto p-4 lg:p-1  ${isLoading ? "rotating-border-card cursor-not-allowed" : ""
                   }`}
               >
 
@@ -250,7 +250,7 @@ const LatestNews: React.FC<LatestNewsProps> = ({
                     )}
                   </div>
 
-                  <div className="flex flex-col items-center lg:items-start gap-4 w-full lg:w-[60%] p-3 lg:ps-5 h-full bg-white lg:bg-bg-primary dark:bg-gray-1  lg: z-10 ">
+                  <div className="flex flex-col items-center lg:items-start gap-4 w-full lg:w-[60%] p-3 lg:ps-5 h-full bg-white lg:!bg-bg-primary dark:bg-gray-1  lg: z-10 ">
                     {item.category && (
                       <Link
                         href={`/${params.lang}/news/categories/${getCategorySlug(item)}`}

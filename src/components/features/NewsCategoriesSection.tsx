@@ -58,10 +58,12 @@ export default function NewsByCategorySection({
     }, 500); // 500ms → می‌تونی 300 تا 700 تغییر بدی
   };
 
-  const featured = news?.slice(0, 4) ?? [];
-  const rest = news?.slice(4) ?? [];
+const visibleNews = news?.slice(0, 10) ?? [];
 
-  const isLoading = news === null;
+const featured = visibleNews.slice(0, 4);
+const rest = visibleNews.slice(4, 10);
+
+const isLoading = news === null;
 
   return (
     <section className="max-w-7xl mx-auto px-4 py-12 space-y-12">
@@ -76,7 +78,7 @@ export default function NewsByCategorySection({
         </p>
       </div>
 
-      <div className="flex flex-wrap items-center gap-3 gap-y-10 min-h-[42px]">
+      <div className="flex fleQx-wrap items-center gap-3 gap-y-10 min-h-[42px]">
         {categories.map((cat) => (
           <button
             key={cat.slug}

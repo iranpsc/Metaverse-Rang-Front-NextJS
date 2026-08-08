@@ -8,7 +8,7 @@ import { ArrowRight } from "@/components/svgs";
 import { Calender, Timer, View } from "@/components/svgs/SvgEducation";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { formatNumber } from "@/components/utils/formatNumber";
-
+import { supabase } from "@/utils/lib/supabaseClient";
 // ایمپورت دیتای استاتیک به عنوان fallback
 import fallbackNewsData from "@/components/utils/news.json";
 
@@ -38,25 +38,91 @@ interface PopularNewsProps {
 const PopularNews: React.FC<PopularNewsProps> = ({ params, mainData, theme = "light" , initialNews }) => {
 
 const [mounted, setMounted] = useState(false);
-const [fallbackData, setFallbackData] = useState<News[] | null>(null);
+const [newsData, setNewsData] = useState<News[]>([]);
+const [loading, setLoading] = useState(true);
 
 useEffect(() => {
   setMounted(true);
-  // اگر initialNews خالی بود، از fallback استفاده کن
-  if (!initialNews || initialNews.length === 0) {
-    const formattedData = fallbackNewsData.map((item: any) => ({
-      ...item,
-      stats: typeof item.stats === 'string' ? JSON.parse(item.stats) : item.stats,
-    }));
-    setFallbackData(formattedData);
-  }
-}, [initialNews]);
 
+  let cancelled = false;
+
+  const fetchPopularNews = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("news")
+        .select("*");
+
+      if (error) {
+        throw error;
+      }
+
+      if (data && data.length > 0) {
+        if (!cancelled) {
+          setNewsData(
+            data.map((item: any) => ({
+              ...item,
+              stats:
+                typeof item.stats === "string"
+                  ? JSON.parse(item.stats)
+                  : item.stats,
+            }))
+          );
+        }
+
+        return;
+      }
+
+      // Supabase خالی بود
+      console.warn(
+        "⚠️ PopularNews: Supabase returned no news, using fallback"
+      );
+
+      if (!cancelled) {
+        setNewsData(
+          fallbackNewsData.map((item: any) => ({
+            ...item,
+            stats:
+              typeof item.stats === "string"
+                ? JSON.parse(item.stats)
+                : item.stats,
+          }))
+        );
+      }
+    } catch (error) {
+      console.error(
+        "❌ PopularNews: Supabase error, using fallback:",
+        error
+      );
+
+      if (!cancelled) {
+        setNewsData(
+          fallbackNewsData.map((item: any) => ({
+            ...item,
+            stats:
+              typeof item.stats === "string"
+                ? JSON.parse(item.stats)
+                : item.stats,
+          }))
+        );
+      }
+    } finally {
+      if (!cancelled) {
+        setLoading(false);
+      }
+    }
+  };
+
+  fetchPopularNews();
+
+  return () => {
+    cancelled = true;
+  };
+}, []);
 const [activeLoadingId, setActiveLoadingId] =
   useState<string | number | null>(null);
 
 // استفاده از fallback اگر initialNews خالی بود
-const effectiveNews = (initialNews && initialNews.length > 0) ? initialNews : (fallbackData || []);
+const effectiveNews = newsData;
 
 const sortedPopular = useMemo(() => {
   if (!effectiveNews?.length) return [];
@@ -111,7 +177,9 @@ const sortedPopular = useMemo(() => {
     </div>
   );
 
-if (!mounted) {
+const showSkeleton = !mounted || loading;
+
+if (showSkeleton) {
   return (
     <section className="w-full max-w-7xl mx-auto px-4">
       <div className="flex flex-col lg:flex-row items-center gap-10">
@@ -253,7 +321,7 @@ if (!mounted) {
                 key={String(item.id)}
                 href={`/${params.lang}/news/categories/${getCategorySlug(item)}/${item.slug}`}
                 onClickCapture={() => setActiveLoadingId(item.id)}
-                className={`relative bg-white dark:bg-gray-1  lg:bg-bg-primary dark:lg:bg-black rounded-lg h-auto p-4 lg:p-1 ${isLoading ? "rotating-border-card cursor-not-allowed" : ""
+                className={`relative bg-white dark:bg-gray-1  lg:!bg-bg-primary  rounded-lg h-auto p-4 lg:p-1 ${isLoading ? "rotating-border-card cursor-not-allowed" : ""
                   }`}
               >
                 <div className="flex lg:flex-row flex-col w-full  z-10">
@@ -276,7 +344,7 @@ if (!mounted) {
                     )}
                   </div>
 
-                  <div className="flex flex-col items-center lg:items-start gap-4 w-full lg:w-[60%] p-3 lg:ps-5 h-full bg-white lg:bg-bg-primary dark:bg-gray-1  lg: z-10">
+                  <div className="flex flex-col items-center lg:items-start gap-4 w-full lg:w-[60%] p-3 lg:ps-5 h-full bg-white lg:bg-gray-1 dark:bg-gray-1  lg:!bg-bg-primary z-10">
                     {item.category && (
                       <Link
                         href={`/${params.lang}/news/categories/${getCategorySlug(item)}`}

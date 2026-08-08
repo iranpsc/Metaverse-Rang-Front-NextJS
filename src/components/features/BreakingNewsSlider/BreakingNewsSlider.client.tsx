@@ -20,7 +20,10 @@ export default function BreakingNewsSliderClient({
 }: any) {
   const [mounted, setMounted] = useState(false);
   const isRTL = lang === "fa";
-
+const getCategorySlug = (item: any) =>
+  item.categorySlug ||
+  item.category?.toLowerCase().replace(/\s+/g, "-") ||
+  "general";
   useEffect(() => {
     // ⛔ جلوگیری از init زودهنگام Swiper
     setMounted(true);
@@ -91,7 +94,7 @@ export default function BreakingNewsSliderClient({
               </div>
 
               <Link
-                href={`/${lang}/news/${item.slug}`}
+                href={`/${lang}/news/categories/${getCategorySlug(item)}/${item.slug}`}
                 className="block lg:text-2xl text-xl 3xl:text-3xl font-rokh text-center font-bold line-clamp-1"
               >
                 {item.title}

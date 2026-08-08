@@ -1,6 +1,6 @@
 // src/components/LatestNews.tsx
 "use client";
-
+import { supabase } from "@/utils/lib/supabaseClient";
 import React, { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -63,18 +63,97 @@ const LatestNews: React.FC<LatestNewsProps> = ({
   limit = 10,
   initialNews,
 }) => {
-  const [activeLoadingId, setActiveLoadingId] = useState<string | number | null>(null);
+const [activeLoadingId, setActiveLoadingId] = useState<
+  string | number | null
+>(null);
 
-  const articles = useMemo<News[]>(() => {
-    // اگر initialNews معتبر است از آن استفاده کن
-    if (initialNews && initialNews.length > 0) {
-      return initialNews.slice(0, limit);
+const [newsData, setNewsData] = useState<News[]>([]);
+const [loading, setLoading] = useState(true);
+
+useEffect(() => {
+  let cancelled = false;
+
+  const fetchLatestNews = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("news")
+        .select("*")
+        .order("date", { ascending: false })
+        .limit(limit);
+
+      if (error) {
+        throw error;
+      }
+
+      if (data && data.length > 0) {
+        if (!cancelled) {
+          setNewsData(
+            data.slice(0, limit).map((item: any) => ({
+              id: item.id,
+              title: item.title,
+              slug: item.slug,
+              date: item.date,
+              readingTime: item.readingTime,
+              image: item.image,
+              excerpt: item.description || item.excerpt,
+              category: item.category,
+              categorySlug: item.categorySlug,
+              stats: {
+                views: item.views ?? item.stats?.views ?? 0,
+              },
+              author: item.author,
+              tags: item.tags,
+            }))
+          );
+        }
+
+        return;
+      }
+
+      // Supabase خالی بود → initialNews
+      if (!cancelled && initialNews && initialNews.length > 0) {
+        setNewsData(initialNews.slice(0, limit));
+        return;
+      }
+
+      // fallback نهایی
+      if (!cancelled) {
+        setNewsData(
+          transformToNews(fallbackNewsData).slice(0, limit)
+        );
+      }
+    } catch (error) {
+      console.error(
+        "❌ LatestNews: Supabase error, using fallback:",
+        error
+      );
+
+      if (cancelled) return;
+
+      if (initialNews && initialNews.length > 0) {
+        setNewsData(initialNews.slice(0, limit));
+      } else {
+        setNewsData(
+          transformToNews(fallbackNewsData).slice(0, limit)
+        );
+      }
+    } finally {
+      if (!cancelled) {
+        setLoading(false);
+      }
     }
-    
-    // در غیر این صورت از داده JSON استفاده کن و تبدیلش کن
-    const transformedData = transformToNews(fallbackNewsData);
-    return transformedData.slice(0, limit);
-  }, [initialNews, limit]);
+  };
+
+  fetchLatestNews();
+
+  return () => {
+    cancelled = true;
+  };
+}, [initialNews, limit]);
+
+const articles = useMemo<News[]>(() => {
+  return newsData.slice(0, limit);
+}, [newsData, limit]);
 
   const [mounted, setMounted] = useState(false);
 
@@ -82,11 +161,15 @@ const LatestNews: React.FC<LatestNewsProps> = ({
     setMounted(true);
   }, []);
 
-  const sortedArticles = useMemo(() => {
-    return [...articles].sort((a, b) =>
-      new Date(b.date || "1900-01-01").getTime() - new Date(a.date || "1900-01-01").getTime()
-    );
-  }, [articles]);
+const sortedArticles = useMemo(() => {
+  return [...articles]
+    .sort(
+      (a, b) =>
+        new Date(b.date || "1300-01-01").getTime() -
+        new Date(a.date || "1300-01-01").getTime()
+    )
+    .slice(0, limit);
+}, [articles, limit]);
 
   const FeaturedSkeleton = () => (
     <div className="w-full lg:w-1/2 rounded-md overflow-hidden shadow-md bg-neutral-300 dark:bg-gray-1  animate-pulse">
@@ -119,16 +202,35 @@ const LatestNews: React.FC<LatestNewsProps> = ({
     </div>
   );
 
-  if (!mounted) {
-    return (
-      <section className="w-full max-w-7xl mx-auto px-4">
-        <div className="flex flex-col lg:flex-row items-center gap-10">
-          <FeaturedSkeleton />
-          <SideNewsSkeleton />
+if (loading) {
+  return (
+    <section className="w-full">
+      <div className="animate-pulse">
+        {/* Header Skeleton */}
+        <div className="flex items-center justify-between mb-3">
+          <div className="h-8 w-40 bg-neutral-200 dark:bg-neutral-800 rounded" />
+
+          <div className="h-6 w-28 bg-neutral-200 dark:bg-neutral-800 rounded" />
         </div>
-      </section>
-    );
-  }
+
+        <div className="h-5 w-72 bg-neutral-200 dark:bg-neutral-800 rounded mb-7" />
+
+        {/* News Skeleton */}
+        <div className="flex flex-col lg:flex-row w-full items-center gap-10">
+          {/* Featured */}
+          <div className="w-full lg:w-1/2">
+            <FeaturedSkeleton />
+          </div>
+
+          {/* Side news */}
+          <div className="flex flex-col gap-[28px] w-full lg:w-1/2">
+            <SideNewsSkeleton />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
 
   if (sortedArticles.length === 0) {
     return <div className="py-10 text-center dark:text-white">خبری برای نمایش وجود ندارد.</div>;
@@ -181,8 +283,8 @@ const LatestNews: React.FC<LatestNewsProps> = ({
                     alt={"lastFeat" + featured.title}
                     fill
                     className="object-cover lg:rounded-md"
-                    sizes="(max-width: 1024px) 100vw, 40vw"
-                    quality={40}
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    quality={75}
                     loading="lazy"
                   />
                 ) : (
@@ -250,7 +352,7 @@ const LatestNews: React.FC<LatestNewsProps> = ({
                 key={String(item.id)}
                 href={`/${params.lang}/news/categories/${getCategorySlug(item)}/${item.slug}`}
                 onClickCapture={() => setActiveLoadingId(item.id)}
-                className={`relative bg-white dark:bg-gray-1  lg:bg-bg-primary dark:lg:bg-black rounded-lg h-auto p-4 lg:p-1 ${
+                className={`relative bg-white dark:bg-gray-1  lg:!bg-bg-primary  rounded-lg h-auto p-4 lg:p-1 ${
                   isLoading ? "rotating-border-card cursor-not-allowed" : ""
                 }`}
               >
@@ -263,7 +365,7 @@ const LatestNews: React.FC<LatestNewsProps> = ({
                         fill
                         loading="lazy"
                         sizes="(max-width: 768px) 90vw, 15vw"
-                        quality={20}
+                        quality={50}
                         className="object-cover rounded-lg"
                       />
                     ) : (
@@ -273,7 +375,7 @@ const LatestNews: React.FC<LatestNewsProps> = ({
                     )}
                   </div>
 
-                  <div className="flex flex-col items-center lg:items-start gap-4 w-full lg:w-[60%] p-3 lg:ps-5 h-full bg-white lg:bg-bg-primary dark:bg-gray-1  lg: z-10">
+                  <div className="flex flex-col items-center lg:items-start gap-4 w-full lg:w-[60%] p-3 lg:ps-5 h-full bg-white lg:!bg-bg-primary dark:bg-gray-1  lg: z-10">
                     {item.category && (
                       <Link
                         href={`/${params.lang}/news/categories/${getCategorySlug(item)}`}
