@@ -14,7 +14,7 @@ const ListMenuActiveIconModule = ({
           languageSelected === "fa"
             ? "pr-[20px] w-[25px] rotate-180"
             : "pr-[20px] w-[25px]"
-        } visible  h-[35px] absolute start-0 fill-blueLink dark:fill-dark-yellow `}
+        } visible  h-[35px] absolute start-0 fill-primary dark:fill-primary `}
       />
     )
   );

@@ -1,0 +1,145 @@
+/**
+ * سیستم رنگی خودکار Light/Dark
+ * برای استفاده با کلاس "light" و "dark"
+ * مطابق PDF سیستم دیزاین
+ */
+
+:root,
+html.light,
+html:not(.dark) {
+
+  /* Primary Colors - Light */
+  --color-primary: 145 0 217;
+  --color-primary-tint-1: 221 153 255;
+  --color-primary-tint-2: 190 59 255;
+  --color-primary-shade-1: 71 0 107;
+  --color-primary-shade-2: 99 0 149;
+
+
+  /* Accent Colors - Light */
+  --color-accent-1: 61 139 255;
+  --color-accent-2: 1 255 229;
+
+
+  /* Secondary */
+  --color-secondary: 224 0 135;
+
+
+  /* Light Mood Color System */
+  --color-bg: 250 242 254;
+
+  --color-gray-1: 255 255 255;
+  --color-gray-2: 245 245 245;
+  --color-gray-3: 236 236 236;
+
+  --color-line: 222 222 233;
+  --color-icon: 128 128 128;
+
+  --color-text-3: 160 160 160;
+  --color-text-2: 101 101 101;
+  --color-text-1: 31 31 31;
+
+  --color-title-1: 26 26 24;
+  --color-title-2: 56 57 61;
+
+
+  /* State Colors */
+  --color-state-green: 24 192 143;
+  --color-state-red: 240 58 71;
+  --color-state-yellow: 255 193 7;
+}
+
+
+
+/* ========================
+   DARK MODE
+======================== */
+
+html.dark {
+
+  /* Primary Colors - Dark */
+  --color-primary: 145 0 217;
+  --color-primary-tint-1: 221 153 255;
+  --color-primary-tint-2: 190 59 255;
+  --color-primary-shade-1: 71 0 107;
+  --color-primary-shade-2: 99 0 149;
+
+
+  /* Accent Colors - Dark */
+  --color-accent-1: 25 0 94;
+  --color-accent-2: 0 206 185;
+
+
+  /* Secondary */
+  --color-secondary: 224 0 135;
+
+
+  /* Dark Mood Color System */
+  --color-bg: 13 0 20;
+
+  --color-gray-1: 26 26 24;
+  --color-gray-2: 14 14 14;
+  --color-gray-3: 0 0 0;
+
+  --color-line: 67 67 67;
+  --color-icon: 150 150 150;
+
+  --color-text-3: 88 88 88;
+  --color-text-2: 134 139 144;
+  --color-text-1: 242 242 242;
+
+  --color-title-1: 26 26 24;
+  --color-title-2: 154 154 154;
+
+
+  /* State Colors */
+  --color-state-green: 24 192 143;
+  --color-state-red: 240 58 71;
+  --color-state-yellow: 255 193 7;
+}
+
+
+
+/* ========================
+   SYSTEM DARK FALLBACK
+======================== */
+
+@media (prefers-color-scheme: dark) {
+
+  html:not(.light) {
+
+    --color-primary: 145 0 217;
+    --color-primary-tint-1: 221 153 255;
+    --color-primary-tint-2: 190 59 255;
+    --color-primary-shade-1: 71 0 107;
+    --color-primary-shade-2: 99 0 149;
+
+
+    --color-accent-1: 25 0 94;
+    --color-accent-2: 0 206 185;
+
+    --color-secondary: 224 0 135;
+
+
+    --color-bg: 13 0 20;
+
+    --color-gray-1: 26 26 24;
+    --color-gray-2: 14 14 14;
+    --color-gray-3: 0 0 0;
+
+    --color-line: 67 67 67;
+    --color-icon: 150 150 150;
+
+    --color-text-3: 88 88 88;
+    --color-text-2: 134 139 144;
+    --color-text-1: 242 242 242;
+
+    --color-title-1: 26 26 24;
+    --color-title-2: 154 154 154;
+
+
+    --color-state-green: 24 192 143;
+    --color-state-red: 240 58 71;
+    --color-state-yellow: 255 193 7;
+  }
+}

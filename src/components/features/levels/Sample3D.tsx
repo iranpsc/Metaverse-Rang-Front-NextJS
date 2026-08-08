@@ -1042,7 +1042,7 @@ export default function Sample3D({
   if (!gltfUrl) {
     return (
       <div className="flex h-[500px] items-center justify-center rounded-xl border">
-        <p className="font-bold text-gray-500">
+        <p className="font-bold matn-2-500">
           مدل سه‌بعدی وجود ندارد
         </p>
       </div>
@@ -1062,7 +1062,7 @@ export default function Sample3D({
           </p>
 
           {errorMessage && (
-            <p className="mt-2 break-words text-xs text-gray-400">
+            <p className="mt-2 break-words text-xs matn-2-400">
               {errorMessage}
             </p>
           )}
@@ -1126,7 +1126,7 @@ export default function Sample3D({
                 r="26"
                 strokeWidth="5"
                 strokeLinecap="round"
-                className="fill-none stroke-light-primary transition-[stroke-dashoffset] duration-150 ease-out dark:stroke-dark-yellow"
+                className="fill-none stroke-primary transition-[stroke-dashoffset] duration-150 ease-out dark:stroke-primary"
                 strokeDasharray={
                   circumference
                 }

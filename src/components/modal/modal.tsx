@@ -31,7 +31,7 @@ export default function MenuItemPage({ dataObject, close }: any) {
   return (
     <div
       id={`${theme === "dark" ? "dark-scrollbar" : "light-scrollbar"}`}
-      className="fixed w-screen h-screen backdrop-blur-sm bg-black/30 z-[1001]  top-0 w-full h-screen  text-gray dark:text-dark-gray"
+      className="fixed w-screen h-screen backdrop-blur-sm bg-black/30 z-[1001]  top-0 w-full h-screen  text-matn-2 "
     >
       {dataObject && (
         <div className="w-full h-full overflow-clip">
@@ -52,7 +52,7 @@ export default function MenuItemPage({ dataObject, close }: any) {
             >
               <div className=" w-full h-[75px] relative shadow-md rounded-t-[10px] flex flex-row justify-center items-center">
                 <CLoseIcon
-                  className="absolute z-50  w-[15px] h-[15px] cursor-pointer stroke-2 m-2 stroke-gray dark:stroke-white start-2"
+                  className="absolute z-50  w-[15px] h-[15px] cursor-pointer stroke-2 m-2 stroke-matn-2 dark:stroke-white start-2"
                   alt="Close"
                 />
                 <div>

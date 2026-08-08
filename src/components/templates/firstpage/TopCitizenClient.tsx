@@ -120,10 +120,10 @@ const TopCitizenClient = ({ mainData, params }: TopCitizenClientProps) => {
             className="
               flex min-h-[435px] min-w-[290px] flex-col items-center justify-center 
               gap-3 rounded-[20px] bg-white px-4 py-6 shadow-lg 
-              transition-transform hover:scale-105 dark:bg-[#1A1A18] md:min-h-[470px] mx-2 mt-10
+              transition-transform hover:scale-105 dark:bg-gray-1  md:min-h-[470px] mx-2 mt-10
             "
           >
-            <div className="flex aspect-square h-14 w-14 items-center justify-center rounded-full bg-[#0066FF30] dark:bg-[#483D13]">
+            <div className="flex aspect-square h-14 w-14 items-center justify-center rounded-full bg-[#9100D930] dark:bg-[#483D13]">
               <svg
                 width="16"
                 height="24"
@@ -134,7 +134,7 @@ const TopCitizenClient = ({ mainData, params }: TopCitizenClientProps) => {
               >
                 <path
                   d="M11.2753 21.6532L1.99609 11.6008L11.2753 1.54834"
-                  stroke="#0066FF"
+                  stroke="#9100D9"
                   strokeWidth="3"
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -143,7 +143,7 @@ const TopCitizenClient = ({ mainData, params }: TopCitizenClientProps) => {
               </svg>
             </div>
 
-            <p className="text-xl font-azarMehr text-light-primary dark:text-dark-primary">
+            <p className="text-xl font-azarMehr text-primary ">
               {findByUniqueId(mainData, 171)}
             </p>
           </div>

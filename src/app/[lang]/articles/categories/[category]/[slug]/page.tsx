@@ -270,13 +270,13 @@ export default async function ArticlePage({ params } :ArticlePageProps) {
     };
 
     return (
-      <div className="w-full  relative bg-[#f8f8f8] dark:bg-black" dir={langData.direction}>
+      <div className="w-full  relative bg-bg-primary " dir={langData.direction}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
         <CleanAutoRetryParam />
-        <section className="w-full overflow-y-auto relative bg-[#f8f8f8] dark:bg-black mt-[60px] lg:mt-0">
+        <section className="w-full overflow-y-auto relative bg-bg-primary  mt-[60px] lg:mt-0">
           <div className="px-5 2xl:px-10">
             <BreadCrumb params={resolvedParams} title={article.title} articleCat={article.category} />
           </div>
@@ -284,7 +284,7 @@ export default async function ArticlePage({ params } :ArticlePageProps) {
           <div className="mainContainer w-full flex flex-col gap-5 items-center lg:flex-row lg:items-start px-5 lg:px-10">
             {/* محتوای اصلی */}
             <div className="lg:w-[70%] 3xl:w-[80%]">
-              <div className="flex flex-col gap-10 w-full items-center rounded-xl bg-white dark:bg-[#1A1A18] shadow-lg p-5 xl:p-10">
+              <div className="flex flex-col gap-10 w-full items-center rounded-xl bg-white dark:bg-gray-1  shadow-lg p-5 xl:p-10">
                 <AuthorSection
                   author={article.author}
                   date={article.date}

@@ -114,7 +114,7 @@ export default function EventCalendarClient({
   }
 
   return (
-    <div className="centerItem w-[95%] lg:w-full pt-6 text-black dark:text-white bg-white dark:bg-[#080807] flex flex-col items-center rounded-[20px] gap-2 font-['Montserrat']">
+    <div className="centerItem w-[95%] lg:w-full pt-6 text-black dark:text-white bg-white dark:bg-gray-1 flex flex-col items-center rounded-[20px] gap-2 font-['Montserrat']">
       <div className="w-[97%] flex flex-col items-start sm:flex-row-reverse lg:w-[95%] lg:gap-4">
         <Calendar
           params={params}
@@ -126,10 +126,10 @@ export default function EventCalendarClient({
         />
         <div className="EventFilters w-full sm:w-[90%] mt-4 sm:mt-0 sm:ml-4">
           <div
-            className="searchBoxContainer my-5 transition-[right,width] duration-300 ease-in-out flex items-center flex-row justify-between border-[1px] border-solid border-[#00000024] dark:bg-[#1A1A18] w-full h-[50px] rounded-[12px] sm:m-0"
+            className="searchBoxContainer my-5 transition-[right,width] duration-300 ease-in-out flex items-center flex-row justify-between border-[1px] border-solid border-[#00000024] dark:bg-gray-1  w-full h-[50px] rounded-[12px] sm:m-0"
           >
             <span className="px-4 flex">
-              <Search className={`fill-[#1A1A18] dark:fill-white`} />
+              <Search className={`fill-gray-1  dark:fill-white`} />
             </span>
             <input
               onKeyDown={(e) => {
@@ -145,7 +145,7 @@ export default function EventCalendarClient({
             />
             <button
               onClick={handleSearchClick}
-              className="searchButton font-normal text-[95%] px-5 font-['AzarMehr'] border-none bg-transparent text-blueLink dark:text-dark-yellow cursor-pointer"
+              className="searchButton font-normal text-[95%] px-5 font-['AzarMehr'] border-none bg-transparent text-primary  cursor-pointer"
             >
               {findByUniqueId(mainData, 57)}
             </button>

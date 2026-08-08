@@ -556,11 +556,11 @@ temp.forEach((x) => {
           }}
             href={x.link}
             className={`${index === buildedArray.length - 1
-              ? "text-blueLink dark:text-dark-yellow"
+              ? "text-primary "
               : "text-extraGray"
               } 
                 ${index === buildedArray.length - 1
-                ? "dark:text-dark-yellow"
+                ? ""
                 : "dark:text-white"
               } ${x.font} flex items-center`}
             key={index}
@@ -568,7 +568,7 @@ temp.forEach((x) => {
             {x.fa}
             {buildedArray.length - 1 !== index && (
               <ArrowMenu
-                className={`w-[7px] h-[13px] stroke-gray dark:stroke-white mx-2 rotate-180`}
+                className={`w-[7px] h-[13px] stroke-matn-2 dark:stroke-white mx-2 rotate-180`}
               />
             )}
           </Link>
@@ -577,11 +577,11 @@ temp.forEach((x) => {
           <Link
             href={x.link}
             className={`${index === buildedArray.length - 1
-              ? "text-blueLink dark:text-dark-yellow"
+              ? "text-primary "
               : "text-extraGray"
               } 
                 ${index === buildedArray.length - 1
-                ? "dark:text-dark-yellow"
+                ? ""
                 : "dark:text-white"
               } ${x.font} flex items-center`}
             key={index}
@@ -589,7 +589,7 @@ temp.forEach((x) => {
             {x.en}
             {buildedArray.length - 1 !== index && (
               <ArrowMenu
-                className={`w-[7px] h-[13px] stroke-gray dark:stroke-white mx-2 rotate-0`}
+                className={`w-[7px] h-[13px] stroke-matn-2 dark:stroke-white mx-2 rotate-0`}
               />
             )}
           </Link>

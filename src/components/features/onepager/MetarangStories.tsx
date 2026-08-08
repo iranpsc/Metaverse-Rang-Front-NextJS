@@ -102,7 +102,7 @@ function StoryCard({
                 overflow-hidden
                 rounded-[18px]
                 bg-[#F5F5F5]
-                dark:bg-black
+                
                 w-[280px]
                 xl:w-[320px]
                 2xl:w-[420px]
@@ -130,7 +130,7 @@ function StoryCard({
                             {item.username}
                         </p>
 
-                        <p className="text-xs uppercase  text-[#1A1A18] dark:text-[#9A9A9A]">
+                        <p className="text-xs uppercase  text-gray-1  dark:text-[#9A9A9A]">
                             {item.handle}
                         </p>
                     </div>
@@ -144,7 +144,7 @@ function StoryCard({
                         text-[15px]
                         leading-[1.6]
                         tracking-[0.06em]
-                        text-[#1A1A18]
+                        text-gray-1 
                         dark:text-[#D4D4D4]
                     "
                 >
@@ -391,7 +391,7 @@ export default function AvalancheStories({ params, mainData }: AvalancheStoriesP
                 border
                 border-[#1E1E1E]
                 text-white
-                dark:text-[#1A1A18]
+                dark:text-gray-1 
                 py-3
                 lg:py-14`}
 
@@ -436,7 +436,7 @@ export default function AvalancheStories({ params, mainData }: AvalancheStoriesP
                             className={`text-[16px] lg:text-xl
                                 leading-[1.35]
                                 tracking-[0.08em]
-                                dark:text-[#E7E7E7] text-[#1A1A18]`}
+                                dark:text-[#E7E7E7] text-gray-1 `}
                         >
                             {findByUniqueId(mainData, 1707)}
                         </p>

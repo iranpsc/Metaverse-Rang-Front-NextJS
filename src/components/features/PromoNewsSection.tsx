@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 const WindowsNews = () => {
     return (
-        <div className=" mx-auto w-full bg-gradient-to-r to-light-primary from-blue-400 dark:to-dark-yellow dark:from-yellow-600 lg:rounded-xl  overflow-hidden  my-10 p-5">
+        <div className=" mx-auto w-full bg-gradient-to-r to-primary from-blue-400 dark:to-primary dark:from-yellow-600 lg:rounded-xl  overflow-hidden  my-10 p-5">
             <div className="p-6 flex flex-col md:flex-row justify-between" dir="rtl">
                 <div className='w-[300px] mx-auto lg:mx-0 relative mt-[-60px] lg:mt-0 mb-5 lg:mb-0'>
                     <div className='bg-[#5d9eff80] dark:bg-[#d8a90054] w-[240px] h-[240px] rounded-full relative z-0' />
@@ -23,7 +23,7 @@ const WindowsNews = () => {
                 </div>
 
                 <div className=" flex items-center justify-center lg:justify-normal mt-5 lg:mt-1  lg:items-end lg:pe-10">
-                    <button className="bg-black w-max text-light-primary dark:text-dark-yellow font-bold py-3 px-6 rounded-lg transition duration-300 shadow-md flex items-center gap-2">
+                    <button className="bg-black w-max text-primary  font-bold py-3 px-6 rounded-lg transition duration-300 shadow-md flex items-center gap-2">
                         آموزش نصب
                     </button>
                 </div>

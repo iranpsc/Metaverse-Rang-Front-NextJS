@@ -464,7 +464,7 @@ export default function MapComponent({
                     width: 48,
                     height: 48,
                     borderRadius: "50%",
-                    background: "#FFC700",
+                    background: "#9100D9",
                     border: "4px solid rgba(255,255,255,0.9)",
                     boxShadow:
                       "0 3px 12px rgba(0,0,0,0.35)",
@@ -515,11 +515,11 @@ export default function MapComponent({
                   width: isHighlighted ? 50 : 40,
                   height: isHighlighted ? 50 : 40,
                   borderRadius: "9999px",
-                  background: marker.color || "#FFC700",
+                  background: marker.color || "#9100D9",
 
                   boxShadow: isHighlighted
                     ? `0 0 0 8px ${
-                        marker.color || "#FFC700"
+                        marker.color || "#9100D9"
                       }33, 0 2px 10px rgba(0,0,0,0.5)`
                     : "0 2px 6px rgba(0,0,0,0.45)",
 

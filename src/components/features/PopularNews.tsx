@@ -80,7 +80,7 @@ const sortedPopular = useMemo(() => {
 
   // ── Skeleton ها ────────────────────────────────────────────────
   const FeaturedSkeleton = () => (
-    <div className="w-full lg:w-1/2 rounded-md overflow-hidden shadow-md bg-neutral-300 dark:bg-[#1A1A18] animate-pulse">
+    <div className="w-full lg:w-1/2 rounded-md overflow-hidden shadow-md bg-neutral-300 dark:bg-gray-1  animate-pulse">
       <div className="aspect-square bg-neutral-300 dark:bg-neutral-800 flex flex-col justify-end" >
         <div className="p-6 flex flex-col gap-4 items-center">
           <div className="h-8 w-32 bg-neutral-400 dark:bg-neutral-700 rounded-full" />
@@ -98,7 +98,7 @@ const sortedPopular = useMemo(() => {
       {[1, 2, 3].map((i) => (
         <div
           key={i}
-          className="flex flex-col lg:flex-row gap-4 animate-pulse bg-neutral-300 dark:bg-[#1A1A18] rounded-lg p-4"
+          className="flex flex-col lg:flex-row gap-4 animate-pulse bg-neutral-300 dark:bg-gray-1  rounded-lg p-4"
         >
           <div className="w-full lg:w-[40%] h-[150px] bg-neutral-400 dark:bg-neutral-700 rounded-lg" />
           <div className="flex flex-col gap-4 w-full lg:w-[60%]">
@@ -125,7 +125,7 @@ if (!mounted) {
 
   if (sortedPopular.length === 0) {
     return (
-      <div className="py-10 text-center text-gray-500 dark:text-gray-400">
+      <div className="py-10 text-center text-matn-2-500 dark:text-matn-2-400">
         خبری با بازدید بالا برای نمایش وجود ندارد.
       </div>
     );
@@ -139,7 +139,7 @@ if (!mounted) {
       {/* هدر */}
       <div className="flex items-center justify-between mb-4 px-4 md:px-0">
         <div className="flex flex-col gap-2">
-          <h2 className="text-2xl md:text-3xl font-bold w-max dark:text-white border border-x-0 border-b-4 pe-7 border-t-0 pb-3 border-light-primary dark:border-dark-yellow border-solid">
+          <h2 className="text-2xl md:text-3xl font-bold w-max dark:text-white border border-x-0 border-b-4 pe-7 border-t-0 pb-3 border-primary  border-solid">
             {findByUniqueId(mainData, 1624) || "محبوب‌ترین اخبار"}
           </h2>
         </div>
@@ -165,8 +165,8 @@ if (!mounted) {
           <div
             className={
               activeLoadingId === featured.id
-                ? "rotating-border-card cursor-not-allowed p-1 w-full lg:w-1/2 dark:bg-gray-800 rounded-md overflow-hidden duration-300"
-                : "p-1 w-full lg:w-1/2 dark:bg-gray-800 rounded-md overflow-hidden duration-300"
+                ? "rotating-border-card cursor-not-allowed p-1 w-full lg:w-1/2 dark:bg-matn-2-800 rounded-md overflow-hidden duration-300"
+                : "p-1 w-full lg:w-1/2 dark:bg-matn-2-800 rounded-md overflow-hidden duration-300"
             }
           >
             <Link
@@ -185,8 +185,8 @@ if (!mounted) {
                     loading="lazy"
                   />
                 ) : (
-                  <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                    <span className="text-gray-400">بدون تصویر</span>
+                  <div className="w-full h-full bg-matn-2-200 flex items-center justify-center">
+                    <span className="text-matn-2-400">بدون تصویر</span>
                   </div>
                 )}
 
@@ -207,7 +207,7 @@ if (!mounted) {
                     {featured.title}
                   </p>
                   {featured.excerpt && (
-                    <p className="text-sm md:text-base text-gray-200 line-clamp-2 text-center">
+                    <p className="text-sm md:text-base text-matn-2-200 line-clamp-2 text-center">
                       {featured.excerpt}
                     </p>
                   )}
@@ -253,7 +253,7 @@ if (!mounted) {
                 key={String(item.id)}
                 href={`/${params.lang}/news/categories/${getCategorySlug(item)}/${item.slug}`}
                 onClickCapture={() => setActiveLoadingId(item.id)}
-                className={`relative bg-white dark:bg-[#1A1A18] lg:bg-[#f8f8f8] dark:lg:bg-black rounded-lg h-auto p-4 lg:p-1 ${isLoading ? "rotating-border-card cursor-not-allowed" : ""
+                className={`relative bg-white dark:bg-gray-1  lg:bg-bg-primary dark:lg:bg-black rounded-lg h-auto p-4 lg:p-1 ${isLoading ? "rotating-border-card cursor-not-allowed" : ""
                   }`}
               >
                 <div className="flex lg:flex-row flex-col w-full  z-10">
@@ -270,13 +270,13 @@ if (!mounted) {
                         className="object-cover rounded-lg"
                       />
                     ) : (
-                      <div className="w-full h-full bg-neutral-200 dark:bg-neutral-700 flex items-center justify-center text-xs text-gray-500">
+                      <div className="w-full h-full bg-neutral-200 dark:bg-neutral-700 flex items-center justify-center text-xs text-matn-2-500">
                         بدون عکس
                       </div>
                     )}
                   </div>
 
-                  <div className="flex flex-col items-center lg:items-start gap-4 w-full lg:w-[60%] p-3 lg:ps-5 h-full bg-white lg:bg-[#f8f8f8] dark:bg-[#1A1A18] lg:dark:bg-black z-10">
+                  <div className="flex flex-col items-center lg:items-start gap-4 w-full lg:w-[60%] p-3 lg:ps-5 h-full bg-white lg:bg-bg-primary dark:bg-gray-1  lg: z-10">
                     {item.category && (
                       <Link
                         href={`/${params.lang}/news/categories/${getCategorySlug(item)}`}
@@ -292,7 +292,7 @@ if (!mounted) {
                       {item.title}
                     </p>
 
-                    <div className="text-sm text-gray-500 dark:text-[#969696] flex flex-wrap items-center gap-3 justify-center lg:justify-start">
+                    <div className="text-sm text-matn-2-500 dark:text-[#969696] flex flex-wrap items-center gap-3 justify-center lg:justify-start">
                       {item.date && (
                         <div className="flex items-center gap-2">
                           <time dateTime={item.date}>

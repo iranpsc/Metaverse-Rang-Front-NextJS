@@ -51,7 +51,7 @@ useEffect(() => {
 
   return (
     <>
-      <div className="w-full  bg-[#F5F5F5] dark:bg-black grid grid-cols-12   xs:flex xs:flex-col 3xl:flex select-none mt-10 rounded-[20px] ">
+      <div className="w-full  bg-bg-primary  grid grid-cols-12   xs:flex xs:flex-col 3xl:flex select-none mt-10 rounded-[20px] ">
         <div className="w-auto 3xl:w-[79%] xl:max-h-fit lg:max-h-fit md:h-full sm:h-full xs:h-full  xl:me-10 lg:me-5 md:md-2 xs:me-1 xl:col-span-9 lg:col-span-9 sm:col-span-12 h-fit flex flex-col justify-start items-center ">
           <SingleVideoSlugModule DataVideo={DataVideo} params={params} />
           {/* Player */}

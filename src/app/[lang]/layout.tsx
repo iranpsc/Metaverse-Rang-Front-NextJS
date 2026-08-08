@@ -1,5 +1,5 @@
 // src/app/[lang]/layout.tsx
-
+import '../../styles/colors-auto.css'
 import { azarMehr, rokh } from "../../fonts/localFonts";
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
 import ToastProvider from "../../components/shared/toastProvider";
@@ -162,6 +162,7 @@ export default async function LangLayout({
       <html
         className={await theme ? "dark" : "dark"}
         lang={lang}
+        suppressHydrationWarning
       >
         <Head>
           <link
@@ -234,7 +235,7 @@ export default async function LangLayout({
               >
                 {children}
 
-                <div className="w-full mb-2 px-5 bg-[#f8f8f8] dark:bg-black">
+                <div className="w-full mb-2 px-5 bg-bg-primary ">
                   <FooterClient
                     mainData={mainData}
                     params={resolvedParams}

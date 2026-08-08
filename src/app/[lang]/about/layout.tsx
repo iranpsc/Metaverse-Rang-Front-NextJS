@@ -32,7 +32,7 @@ export default async function AboutLayout({
 
   return (
     <main
-      className="flex dark:bg-black bg-grayLight"
+      className="flex  bg-bg-primary "
       dir={direction}
       lang={lang}
     >

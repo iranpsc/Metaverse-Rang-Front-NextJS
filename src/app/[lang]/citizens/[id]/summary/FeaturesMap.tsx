@@ -131,7 +131,7 @@ function FeatureCard({
     <div
       onClick={() => onFocus(item)}
       className={`bg-white dark:bg-[#1a1a1e] rounded-xl p-4 flex flex-col gap-5 cursor-pointer transition-colors ${
-        isFocused ? "ring-2 ring-light-primary dark:ring-dark-yellow" : ""
+        isFocused ? "ring-2 ring-primary " : ""
       }`}
     >
       <div className="flex items-center gap-2">
@@ -169,7 +169,7 @@ function FeatureCard({
         </div>
         <div className="flex justify-between text-[#A0A0AB] dark:text-white">
           <span className="text-[#84858F]">{isFa ? "شناسه مالک" : "Owner ID"}</span>
-          <span className="text-blueLink dark:text-dark-primary uppercase">
+          <span className="text-primary  uppercase">
             {item.owner_code || "—"}
           </span>
         </div>
@@ -191,7 +191,7 @@ function FeatureCard({
               window.open(buildFeatureLink(item.id, item.latitude, item.longitude), "_blank");
             }
           }}
-          className="flex-1 flex items-center justify-center gap-1 bg-light-primary text-white dark:text-black dark:bg-dark-yellow  text-[14px] font-bold rounded-full h-9"
+          className="flex-1 flex items-center justify-center gap-1 bg-primary text-white dark:text-black   text-[14px] font-bold rounded-full h-9"
         >
           <PinIcon />
           {isFa ? "لوکیشن" : "Location"}
@@ -202,7 +202,7 @@ function FeatureCard({
             /* TODO: wire to the real "buy" flow */
             console.log("buy clicked for", item.id);
           }}
-          className="flex-1 flex items-center justify-center gap-1 bg-light-primary text-white dark:text-black dark:bg-dark-yellow  text-[14px] font-bold rounded-full h-9"
+          className="flex-1 flex items-center justify-center gap-1 bg-primary text-white dark:text-black   text-[14px] font-bold rounded-full h-9"
         >
           <CartIcon />
           {isFa ? "خرید" : "Buy"}
@@ -213,7 +213,7 @@ function FeatureCard({
             /* TODO: wire to the real "make an offer" flow */
             console.log("offer clicked for", item.id);
           }}
-          className="flex-1 flex items-center justify-center gap-1 bg-light-primary text-white dark:text-black dark:bg-dark-yellow  text-[14px] font-bold rounded-full h-9"
+          className="flex-1 flex items-center justify-center gap-1 bg-primary text-white dark:text-black   text-[14px] font-bold rounded-full h-9"
         >
           <OfferIcon />
           {isFa ? "پیشنهاد" : "Offer"}
@@ -228,7 +228,7 @@ function FeatureCard({
 /* ------------------------------------------------------------------ */
 function MapSkeleton() {
   return (
-    <div className="w-full h-full bg-white dark:bg-darkGray animate-pulse flex items-center justify-center">
+    <div className="w-full h-full bg-white dark:bg-gray-1 animate-pulse flex items-center justify-center">
       <div className="w-2/3 h-2/3 rounded-xl bg-black/5 dark:bg-white/5" />
     </div>
   );
@@ -476,7 +476,7 @@ export default function FeaturesMap({
 
   /* ---------------------- search bar (shared markup) ---------------------- */
   const SearchBar = (
-    <div className="flex items-center bg-white dark:bg-darkGray rounded-xl h-[42px] px-3 gap-2 w-full">
+    <div className="flex items-center bg-white dark:bg-gray-1 rounded-xl h-[42px] px-3 gap-2 w-full">
       <button
         type="button"
         onClick={handleToggleList}
@@ -520,7 +520,7 @@ export default function FeaturesMap({
             type="checkbox"
             checked={isAllSelected}
             onChange={toggleAll}
-            className="accent-light-primary dark:accent-dark-yellow w-4 h-4"
+            className="accent-primary dark:accent-primary w-4 h-4"
           />
           {isFa ? "تمام املاک" : "All properties"}
         </label>
@@ -534,7 +534,7 @@ export default function FeaturesMap({
               type="checkbox"
               checked={selectedKarbari.includes(k.code)}
               onChange={() => toggleKarbari(k.code)}
-              className="accent-light-primary dark:accent-dark-yellow w-4 h-4"
+              className="accent-primary dark:accent-primary w-4 h-4"
             />
             {displayLabelForKarbari(k.code)}
           </label>
@@ -548,7 +548,7 @@ export default function FeaturesMap({
       )}
 
       {!mapError && initialized && selectedKarbari.length === 0 && (
-        <p className="w-full text-center text-lightGray py-4">
+        <p className="w-full text-center text-matn-2 py-4">
           {isFa ? "حداقل یک کاربری را انتخاب کنید." : "Select at least one feature type."}
         </p>
       )}
@@ -599,7 +599,7 @@ export default function FeaturesMap({
               <div
                 className="fixed inset-x-4 inset-y-20 z-40 overflow-y-auto overscroll-contain
                   lg:static lg:inset-auto lg:z-auto lg:w-[400px] lg:shrink-0 h-[70svh] light-scrollbar dark:dark-scrollbar lg:h-full
-                  bg-[#F6F6F6] dark:bg-[#111114] rounded-xl p-4 pe-2 shadow-xl
+                  bg-gray-2 dark:bg-[#111114] rounded-xl p-4 pe-2 shadow-xl
                   flex flex-col gap-4 "
               >
                 <div className="flex items-center justify-between">
@@ -642,7 +642,7 @@ export default function FeaturesMap({
                   )}
 
                   {!listError && !listLoading && listItems.length === 0 && (
-                    <p className="text-lightGray text-xs text-center py-4">
+                    <p className="text-matn-2 text-xs text-center py-4">
                       {isFa ? "ملکی یافت نشد." : "No properties found."}
                     </p>
                   )}
@@ -663,7 +663,7 @@ export default function FeaturesMap({
                     <button
                       onClick={handleLoadMore}
                       disabled={listLoadingMore}
-                      className="bg-blueLink text-white dark:text-black dark:bg-dark-primary text-sm font-bold text-center py-3 rounded-xl"
+                      className="bg-primary text-white dark:text-black  text-sm font-bold text-center py-3 rounded-xl"
                     >
                       {listLoadingMore
                         ? isFa

@@ -66,7 +66,7 @@ export default function CategoryClient({
       </p>
 
       {displayedArticles.length === 0 ? (
-        <p className="text-gray-500 dark:text-gray-400">
+        <p className="matn-2-500 dark:tmatn-2-400">
           هیچ محتوایی یافت نشد.
         </p>
       ) : (
@@ -89,7 +89,7 @@ export default function CategoryClient({
             <div className="flex justify-center mt-10">
               <button
                 onClick={() => setVisibleCount((prev) => prev + 9)}
-                className="bg-white dark:bg-darkGray text-light-primary md:text-lg dark:text-dark-yellow rounded-[12px] px-[40px] py-[16px] base-transition-1 border-2 border-transparent hover:border-light-primary hover:text-light-primary hover:dark:border-dark-yellow"
+                className="bg-white dark:bg-gray-1 text-primary md:text-lg  rounded-[12px] px-[40px] py-[16px] base-transition-1 border-2 border-transparent hover:border-primary hover:text-primary hover:"
               >
                 {findByUniqueId(mainData, 1456)}
               </button>

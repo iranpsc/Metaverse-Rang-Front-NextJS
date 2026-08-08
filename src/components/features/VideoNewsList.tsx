@@ -113,20 +113,20 @@ export default function VideoNewsInlinePlayer({
   return (
     <section className="w-full bg-white dark:bg-[#0b0b0b] py-10 lg:py-20">
       <div className="w-full max-w-7xl p-3 xl:p-0 mx-auto">
-        <h3 className="text-2xl 2xl:text-[32px] font-rokh font-bold dark:text-white mb-10 w-max border border-x-0 border-b-4 pe-7 border-t-0 pb-3 border-light-primary dark:border-dark-yellow border-solid">
+        <h3 className="text-2xl 2xl:text-[32px] font-rokh font-bold dark:text-white mb-10 w-max border border-x-0 border-b-4 pe-7 border-t-0 pb-3 border-primary  border-solid">
           {findByUniqueId(mainData, 1618) || "اکنون تماشا کنید"}
         </h3>
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-5">
           <div>
            
-              <div className="bg-light-primary/60 dark:bg-dark-yellow/70 flex">
+              <div className="bg-primary/60 /70 flex">
                 <Link href={`/${params.lang}/news/categories/${active.categorySlug}/${active.slug}`}>
-                  <h2 className="text-white text-lg font-bold dark:text-[#1A1A18] p-4">
+                  <h2 className="text-white text-lg font-bold dark:text-gray-1  p-4">
                     {active.title}
                   </h2>
                 </Link>
-                <div className="dark:bg-dark-yellow bg-light-primary">
+                <div className=" bg-primary">
                   <button onClick={() => setHasPlayed(true)} aria-label="play btn" className="bg-transparent !py-3 p-6 w-max h-max text-center flex items-center justify-center aspect-square hover:scale-110 transition">
                     <svg width="87" height="87" viewBox="0 0 87 87" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <rect width="86.7799" height="86.7799" rx="43.39" fill="#1A1A18" fillOpacity="0.2" />
@@ -149,7 +149,7 @@ export default function VideoNewsInlinePlayer({
                     }}
                     key={item.id}
                     className={`flex gap-3 p-2 transition
-                      ${isActive ? "bg-light-primary/10 dark:bg-yellow-400/10" : "hover:bg-white/5"}`}
+                      ${isActive ? "bg-primary/10 bg-primary/10" : "hover:bg-white/5"}`}
                   >
                     {item.image && (
                       <div className="relative w-1/3 aspect-video">
@@ -169,7 +169,7 @@ export default function VideoNewsInlinePlayer({
                     <div className="flex flex-col justify-between w-2/3 text-right py-1 ps-1">
                       {isActive && hasPlayed ? (
                         <Link href={`/${params.lang}/news/categories/${item.categorySlug}/${item.slug}`}>
-                          <p className="text-sm line-clamp-2 text-light-primary dark:text-dark-yellow hover:underline">
+                          <p className="text-sm line-clamp-2 text-primary  hover:underline">
                             {item.title}
                           </p>
                         </Link>

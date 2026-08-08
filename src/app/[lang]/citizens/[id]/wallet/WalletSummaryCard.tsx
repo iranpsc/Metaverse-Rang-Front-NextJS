@@ -15,7 +15,7 @@ interface WalletSummaryCardProps {
 }
 
 const faceBase =
-  "absolute inset-0 [backface-visibility:hidden] bg-white dark:bg-darkGray rounded-2xl p-5 flex flex-col";
+  "absolute inset-0 [backface-visibility:hidden] bg-white dark:bg-gray-1 rounded-2xl p-5 flex flex-col";
 
 /**
  * Same visual language as `FeatureCard`: a 3D flip card that reveals a
@@ -60,10 +60,10 @@ export default function WalletSummaryCard({ item, period, lang , mainData }: Wal
               <p className="text-black dark:text-white font-bold text-base lg:text-xl">
               {findByUniqueId(mainData, config.uniqueId ) }
               </p>
-              <p className="text-lightGray dark:text-lightGray text-sm lg:text-2xl font-bold mt-1">
+              <p className="text-matn-2 dark:text-matn-2 text-sm lg:text-2xl font-bold mt-1">
                 {balanceLabel}  {findByUniqueId(mainData, 1582 )}
               </p>
-              <p className="text-sm text-lightGray text-center"> {findByUniqueId(mainData, 1585 )}</p>
+              <p className="text-sm text-matn-2 text-center"> {findByUniqueId(mainData, 1585 )}</p>
             </div>
           </div>
 
@@ -83,7 +83,7 @@ export default function WalletSummaryCard({ item, period, lang , mainData }: Wal
                 {item.growth_percent}
                 {isFa ? "٪" : "%"}
               </span>
-              <span className={`text-lightGray text-[12px] lg:text-sm ${isUp ? "!text-green-500" : "text-red-600"
+              <span className={`text-matn-2 text-[12px] lg:text-sm ${isUp ? "!text-green-500" : "text-red-600"
                   }` } >
                 {PERIOD_EARNED_LABEL[period]}
               </span>
@@ -93,7 +93,7 @@ export default function WalletSummaryCard({ item, period, lang , mainData }: Wal
               <span className="text-black dark:text-white font-bold text-base">
                 {item.period_income.toLocaleString(isFa ? "fa-IR" : "en-US")}
               </span>
-              <span className="text-lightGray text-[12px] lg:text-sm">
+              <span className="text-matn-2 text-[12px] lg:text-sm">
                 {isFa ? "ورودی دوره" : "Period income"}
               </span>
             </div>
@@ -117,7 +117,7 @@ export default function WalletSummaryCard({ item, period, lang , mainData }: Wal
             {description}
           </p>
 
-          <a href="#" className="text-blueLink dark:text-dark-primary text-center text-xs lg:text-sm font-bold">
+          <a href="#" className="text-blueLink  text-center text-xs lg:text-sm font-bold">
             {item.asset === "satisfaction"
               ? isFa
                 ? "مشاهده نظرات و توضیحات"

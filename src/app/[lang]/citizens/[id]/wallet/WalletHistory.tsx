@@ -250,7 +250,7 @@ export default function WalletHistory({
             type="checkbox"
             checked={isAllSelected}
             onChange={toggleAll}
-            className="accent-light-primary dark:accent-dark-yellow w-4 h-4"
+            className="accent-primary dark:accent-primary w-4 h-4"
           />
           {isFa ? "تمام دارایی ها" : "All assets"}
         </label>
@@ -261,7 +261,7 @@ export default function WalletHistory({
               type="checkbox"
               checked={selectedAssets.includes(key)}
               onChange={() => toggleAsset(key)}
-              className="accent-light-primary dark:accent-dark-yellow w-4 h-4"
+              className="accent-primary dark:accent-primary w-4 h-4"
             />
             
             {findByUniqueId(mainData, ASSET_CONFIG[key].uniqueId ) }
@@ -275,9 +275,9 @@ export default function WalletHistory({
           <button
             key={opt.key}
             onClick={() => setPeriod(opt.key)}
-            className={`moment bg-white dark:bg-darkGray text-[#84858F] p-2 rounded-xl w-[100px] ${
+            className={`moment bg-white dark:bg-gray-1 text-[#84858F] p-2 rounded-xl w-[100px] ${
               period === opt.key
-                ? "border-2 border-light-primary dark:border-dark-yellow border-solid dark:text-dark-yellow text-light-primary font-bold"
+                ? "border-2 border-primary  border-solid  text-primary font-bold"
                 : ""
             }`}
           >
@@ -295,7 +295,7 @@ export default function WalletHistory({
       )}
 
       {!summaryError && selectedAssets.length === 0 && (
-        <p className="w-full text-center text-lightGray py-4">
+        <p className="w-full text-center text-matn-2 py-4">
           {isFa ? "حداقل یک دارایی را انتخاب کنید." : "Select at least one asset."}
         </p>
       )}

@@ -48,7 +48,7 @@ export default function MetaFeatures({ params, mainData }: MetaFeaturesProps) {
                     {featuresData.map((feature) => (
                         <div
                             key={feature.id}
-                            className=" bg-white space-y-4 lg:space-y-[32px] p-5 md:p-10 3xl:px-12 3xl:py-9 dark:text-white dark:bg-[#1A1A18] border border-gray-200 dark:border-gray-800 rounded-xl :rounded-[32px]  "
+                            className=" bg-white space-y-4 lg:space-y-[32px] p-5 md:p-10 3xl:px-12 3xl:py-9 dark:text-white dark:bg-gray-1  border matn-2-200 dark:bmatn-2-800 rounded-xl :rounded-[32px]  "
                         >
                             {/* آیکون */}
                             <div className="w-20 h-20 3xl:w-[94px] 3xl:h-[94px]   dark:text-white">

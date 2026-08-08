@@ -16,7 +16,7 @@ import { Period, PERIOD_OPTIONS, KarbariOption, getKarbariLabel, resolveIconKey 
 const FeaturesChart = dynamic(() => import("./FeaturesChart"), {
   ssr: false,
   loading: () => (
-    <div className="w-full h-[420px] flex items-center justify-center text-lightGray">
+    <div className="w-full h-[420px] flex items-center justify-center text-matn-2">
       &nbsp;
     </div>
   ),
@@ -154,9 +154,9 @@ export default function FeaturesSummary({
             <button
               key={opt.key}
               onClick={() => setPeriod(opt.key)}
-              className={`moment bg-white dark:bg-darkGray text-[#84858F] p-2 rounded-xl w-full px-7 ${
+              className={`moment bg-white dark:bg-gray-1 text-[#84858F] p-2 rounded-xl w-full px-7 ${
                 period === opt.key
-                  ? "border-2 border-light-primary dark:border-dark-yellow border-solid dark:text-dark-yellow text-light-primary font-bold"
+                  ? "border-2 border-primary  border-solid  text-primary font-bold"
                   : ""
               }`}
             >
@@ -171,7 +171,7 @@ export default function FeaturesSummary({
               type="checkbox"
               checked={isAllSelected}
               onChange={toggleAll}
-              className="accent-light-primary dark:accent-dark-yellow w-4 h-4"
+              className="accent-primary dark:accent-primary w-4 h-4"
             />
             {isFa ? "تمام کاربری‌ها" : "All feature types"}
           </label>
@@ -187,7 +187,7 @@ export default function FeaturesSummary({
                   type="checkbox"
                   checked={selectedKarbari.includes(k.code)}
                   onChange={() => toggleKarbari(k.code)}
-                  className="accent-light-primary dark:accent-dark-yellow w-4 h-4"
+                  className="accent-primary dark:accent-primary w-4 h-4"
                 />
                 {label}
               </label>
@@ -204,7 +204,7 @@ export default function FeaturesSummary({
       )}
 
       {!error && initialized && selectedKarbari.length === 0 && (
-        <p className="w-full text-center text-lightGray py-4">
+        <p className="w-full text-center text-matn-2 py-4">
           {isFa ? "حداقل یک کاربری را انتخاب کنید." : "Select at least one feature type."}
         </p>
       )}

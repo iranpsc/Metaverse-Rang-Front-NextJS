@@ -48,20 +48,20 @@ export default function ProfileAbout({
       {inView && (
         <>
           <div className="dark:bg-dark-background w-full h-[37vh] shadow-md transition-all duration-300 ease-linear bg-white px-1 rounded-[10px]">
-            <h1 className="dark:text-white font-azarMehr font-medium text-[#000] mx-2 3xl:text-xl3Title xl:text-xlTitle lg:text-lgTitle md:text-mdTitle sm:text-smDesc xs:text-smDesc py-5">
+            <h1 className="dark:text-white font-azarMehr font-medium text-matn-2 mx-2 3xl:text-xl3Title xl:text-xlTitle lg:text-lgTitle md:text-mdTitle sm:text-smDesc xs:text-smDesc py-5">
               {findByUniqueId(mainData, 95)}
             </h1>
             {profileData.data?.customs?.about && (
-              <p className="font-azarMehr text-justify 3xl:text-xl3Title xl:text-xlTitle lg:text-lgTitle md:text-mdTitle xl:leading-[30px] sm:text-smDesc xs:text-smDesc truncate[20px] lg:leading-[20px] md:leading-[35px] xs:leading-[30px] sm:leading-[30px] mx-1 font-medium text-[5px] text-gray dark:text-dark-gray">
+              <p className="font-azarMehr text-justify 3xl:text-xl3Title xl:text-xlTitle lg:text-lgTitle md:text-mdTitle xl:leading-[30px] sm:text-smDesc xs:text-smDesc truncate[20px] lg:leading-[20px] md:leading-[35px] xs:leading-[30px] sm:leading-[30px] mx-1 font-medium text-[5px] text-matn-2 ">
                 {stripHtml(profileData.data?.customs?.about).slice(0, 275)}
                 {profileData.data?.customs?.about.length > 150 && (
                   <>
-                    <span className="font-azarMehr font-medium xl:text-[12px] text-gray">
+                    <span className="font-azarMehr font-medium xl:text-[12px] text-matn-2">
                       {" "}
                       ...
                     </span>
                     <span
-                      className="dark:text-dark-yellow mx-2 text-blueLink font-azarMehr font-medium cursor-pointer 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgTitle md:text-mdTitle sm:text-smTitle xs:text-smTitle"
+                      className=" mx-2 text-primary font-azarMehr font-medium cursor-pointer 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgTitle md:text-mdTitle sm:text-smTitle xs:text-smTitle"
                       onClick={() =>
                         submitCart(profileData.data?.customs?.about)
                       }

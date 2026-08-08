@@ -30,7 +30,7 @@ export default function ModalCard({
 
   return (
     <div
-      className="fixed top-0 left-0  backdrop-blur-[15px] bg-black/40 z-[1001]  w-screen h-screen text-gray dark:text-dark-gray "
+      className="fixed top-0 left-0  backdrop-blur-[15px] bg-black/40 z-[1001]  w-screen h-screen text-matn-2  "
     >
       <div className=" flex flex-col justify-center w-screen h-screen  items-center w-full ">
         <motion.div
@@ -46,13 +46,13 @@ export default function ModalCard({
           } items-center relative shadow-md bg-white dark:bg-dark-background  `}
         >
           <CLoseIcon
-            className=" absolute w-[24px] h-[24px]  cursor-pointer stroke-2 stroke-[#00000096] dark:stroke-dark-gray top-5 end-5 z-50"
+            className=" absolute w-[24px] h-[24px]  cursor-pointer stroke-2 stroke-matn-2  top-5 end-5 z-50"
             onClick={() => setShowModal(false)}
             alt={dataModal.title}
           />
           <div className="w-full h-full  flex flex-col justify-start  gap-4 top-0 absolute">
             <div className="flex flex-row justify-start items-center mt-[14px] ps-4">
-              <h1 className="font-azarMehr font-bold 3xl:text-2xl xl:text-xlDesc lg:text-lgDesc md:text-mdDesc  sm:text-smTitle xs:text-smTitle text-[#00000096] dark:text-dark-gray">
+              <h1 className="font-azarMehr font-bold 3xl:text-2xl xl:text-xlDesc lg:text-lgDesc md:text-mdDesc  sm:text-smTitle xs:text-smTitle text-matn-2 ">
                 {dataModal.title}
               </h1>
             </div>
@@ -75,7 +75,7 @@ export default function ModalCard({
                             height={1000}
                             className="size-[50px] md:size-[40px] mx-5 "
                           />
-                          <p className="font-azarMehr 3xl:text-xl3Title lg:text-lgTitle  xl:text-xlTitle  md:text-mdTitle sm:text-smTitle xs:text-smTitle font-medium  text-[#000] dark:text-white ">
+                          <p className="font-azarMehr 3xl:text-xl3Title lg:text-lgTitle  xl:text-xlTitle  md:text-mdTitle sm:text-smTitle xs:text-smTitle font-medium  text-matn-2 dark:text-white ">
                             {/* {translateFavorites(userProperty, item)} */}
                             {/* {findByUniqueId(mainData, item.id)} */}
                             {item}
@@ -89,7 +89,7 @@ export default function ModalCard({
             ) : (
               <>
                 {" "}
-                <p className="pb-16 px-4 pt-5 leading-[35px]  overflow-y-auto overflow-x-clip font-azarMehr font-medium 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc md:text-mdDesc  sm:text-smTitle xs:text-smTitle text-gray dark:text-dark-gray text-justify dark:dark-scrollbar light-scrollbar">
+                <p className="pb-16 px-4 pt-5 leading-[35px]  overflow-y-auto overflow-x-clip font-azarMehr font-medium 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc md:text-mdDesc  sm:text-smTitle xs:text-smTitle text-matn-2  text-justify dark:dark-scrollbar light-scrollbar">
                   {dataModal.data}
                 </p>
               </>

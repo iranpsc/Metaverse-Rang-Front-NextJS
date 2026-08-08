@@ -32,23 +32,23 @@ export default function InviteChart({ params, referralPageArrayContent, initChar
           {
             label: "دعوتی ها",
             data: currentData.data[0],
-            borderColor: "#0066FF",
+            borderColor: "#9100D9",
             backgroundColor: "rgba(0, 102, 255, 0.2)",
             fill: true,
             pointRadius: 8,
             pointBackgroundColor: "rgba(0, 102, 255, 0.5)",
-            pointBorderColor: "#0066FF",
+            pointBorderColor: "#9100D9",
             pointBorderWidth: 2,
           },
           {
             label: "پاداش ها",
             data: currentData.data[1],
-            borderColor: "#FFC700",
+            borderColor: "#9100D9",
             backgroundColor: "rgba(255, 199, 0, 0.2)",
             fill: true,
             pointRadius: 8,
             pointBackgroundColor: "rgba(255, 199, 0, 0.5)",
-            pointBorderColor: "#FFC700",
+            pointBorderColor: "#9100D9",
             pointBorderWidth: 2,
           },
         ],
@@ -236,28 +236,28 @@ export default function InviteChart({ params, referralPageArrayContent, initChar
         <div className="flex justify-between gap-4 md:max-w-[50%] lg:max-w-[30%] h-[64px]">
           <button
             onClick={() => handleTimeframeClick("daily")}
-            className={`moment bg-white dark:bg-darkGray text-[#84858F] p-2 rounded-xl w-full ${timePeriodBtns === "daily" ? "border-2 border-light-primary dark:border-dark-yellow border-solid dark:text-dark-yellow text-light-primary font-bold" : ""
+            className={`moment bg-white dark:bg-gray-1 text-[#84858F] p-2 rounded-xl w-full ${timePeriodBtns === "daily" ? "border-2 border-primary  border-solid  text-primary font-bold" : ""
               }`}
           >
             {findByUniqueId(mainData, 1429)}
           </button>
           <button
             onClick={() => handleTimeframeClick("weekly")}
-            className={`moment bg-white dark:bg-darkGray text-[#84858F] p-2 rounded-xl w-full ${timePeriodBtns === "weekly" ? "border-2 border-light-primary dark:border-dark-yellow border-solid dark:text-dark-yellow text-light-primary font-bold" : ""
+            className={`moment bg-white dark:bg-gray-1 text-[#84858F] p-2 rounded-xl w-full ${timePeriodBtns === "weekly" ? "border-2 border-primary  border-solid  text-primary font-bold" : ""
               }`}
           >
             {findByUniqueId(mainData, 1430)}
           </button>
           <button
             onClick={() => handleTimeframeClick("monthly")}
-            className={`moment bg-white dark:bg-darkGray text-[#84858F] p-2 rounded-xl w-full ${timePeriodBtns === "monthly" ? "border-2 border-light-primary dark:border-dark-yellow border-solid dark:text-dark-yellow text-light-primary font-bold" : ""
+            className={`moment bg-white dark:bg-gray-1 text-[#84858F] p-2 rounded-xl w-full ${timePeriodBtns === "monthly" ? "border-2 border-primary  border-solid  text-primary font-bold" : ""
               }`}
           >
             {findByUniqueId(mainData, 1431)}
           </button>
           <button
             onClick={() => handleTimeframeClick("yearly")}
-            className={`moment bg-white dark:bg-darkGray text-[#84858F] p-2 rounded-xl w-full ${timePeriodBtns === "yearly" ? "border-2 border-light-primary dark:border-dark-yellow border-solid dark:text-dark-yellow text-light-primary font-bold" : ""
+            className={`moment bg-white dark:bg-gray-1 text-[#84858F] p-2 rounded-xl w-full ${timePeriodBtns === "yearly" ? "border-2 border-primary  border-solid  text-primary font-bold" : ""
               }`}
           >
             {findByUniqueId(mainData, 1432)}
@@ -266,16 +266,16 @@ export default function InviteChart({ params, referralPageArrayContent, initChar
       </div>
       <div className="flex justify-start md:justify-end gap-6 mt-6">
         <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleLegendClick(0)}>
-          <div className="w-2 h-2 lg:w-3 lg:h-3 rounded-full bg-[#0066FF]"></div>
-          <span className={`text-[#0066FF] ${invBtn ? "" : "line-through"}`}> {findByUniqueId(mainData, 1419)}</span>
+          <div className="w-2 h-2 lg:w-3 lg:h-3 rounded-full bg-primary"></div>
+          <span className={`text-primary ${invBtn ? "" : "line-through"}`}> {findByUniqueId(mainData, 1419)}</span>
         </div>
         <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleLegendClick(1)}>
-          <div className="w-2 h-2 lg:w-3 lg:h-3 rounded-full bg-[#FFC700]"></div>
-          <span className={`text-[#FFC700] ${giftBtn ? "" : "line-through"}`}> {findByUniqueId(mainData, 1433)}</span>
+          <div className="w-2 h-2 lg:w-3 lg:h-3 rounded-full bg-primary"></div>
+          <span className={`text-primary ${giftBtn ? "" : "line-through"}`}> {findByUniqueId(mainData, 1433)}</span>
         </div>
       </div>
       <div className="w-full pt-2 text-right flex flex-col gap-3 md:flex-row">
-        <div className="bg-[#0066FF] dark:bg-[#0066ff78] h-[96px] rounded-xl flex justify-between px-6 items-center w-full relative lg:h-44">
+        <div className="bg-primary dark:bg-[#9100D978] h-[96px] rounded-xl flex justify-between px-6 items-center w-full relative lg:h-44">
           <div className="absolute top-0 right-0">
             <svg
               className="lg:w-[111px] lg:h-[59px]"
@@ -387,7 +387,7 @@ export default function InviteChart({ params, referralPageArrayContent, initChar
             </svg>
           </div>
         </div>
-        <div className="bg-[#FFC700] dark:bg-dark-yellow h-[96px] rounded-xl flex justify-between px-6 items-center w-full relative lg:h-44">
+        <div className="bg-primary  h-[96px] rounded-xl flex justify-between px-6 items-center w-full relative lg:h-44">
           <div className="absolute top-0 right-0">
             <svg
               className="lg:w-[75px] lg:h-[46px]"

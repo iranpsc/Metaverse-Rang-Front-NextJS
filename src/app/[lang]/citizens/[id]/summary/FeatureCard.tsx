@@ -33,7 +33,7 @@ function FeatureCardImpl({ item, isFa, mainData }: FeatureCardProps) {
   const label = getKarbariLabel(mainData, iconKey);
 
   const faceBase =
-    "absolute inset-0 [backface-visibility:hidden] bg-white dark:bg-darkGray rounded-2xl p-5 flex flex-col";
+    "absolute inset-0 [backface-visibility:hidden] bg-white dark:bg-gray-1 rounded-2xl p-5 flex flex-col";
 
   return (
     <div className={`w-full ${CARD_HEIGHT} group [perspective:1200px]`}>
@@ -46,7 +46,7 @@ function FeatureCardImpl({ item, isFa, mainData }: FeatureCardProps) {
             </div>
             <div className="text-center flex flex-col w-full items-center mt-6">
               <p className="text-black dark:text-white font-bold text-base lg:text-2xl">{label}</p>
-              <p className="text-lightGray dark:text-lightGray text-xs lg:text-sm mt-1">
+              <p className="text-matn-2 dark:text-matn-2 text-xs lg:text-sm mt-1">
                 {isFa
                   ? `دارای ${item.current_count.toLocaleString("fa-IR")} بنای تکمیل شده`
                   : `${item.current_count.toLocaleString("en-US")} completed units`}
@@ -59,7 +59,7 @@ function FeatureCardImpl({ item, isFa, mainData }: FeatureCardProps) {
               <span className="text-black dark:text-white font-bold text-base">
                 {item.bought_count.toLocaleString(isFa ? "fa-IR" : "en-US")}
               </span>
-              <span className="text-lightGray text-[12px] lg:text-sm">{findByUniqueId(mainData, 597)}</span>
+              <span className="text-matn-2 text-[12px] lg:text-sm">{findByUniqueId(mainData, 597)}</span>
             </div>
             <div className="h-full w-[1px] bg-[#EFEFEF] dark:bg-[#2A2B32]" />
             <div className="flex flex-col gap-1 items-center justify-center text-center mx-auto">
@@ -69,7 +69,7 @@ function FeatureCardImpl({ item, isFa, mainData }: FeatureCardProps) {
                 </svg>
                 {item.sold_count.toLocaleString(isFa ? "fa-IR" : "en-US")}
               </span>
-              <span className="text-lightGray text-[12px] lg:text-sm">{findByUniqueId(mainData, 1791)}</span>
+              <span className="text-matn-2 text-[12px] lg:text-sm">{findByUniqueId(mainData, 1791)}</span>
             </div>
           </div>
         </div>
@@ -84,7 +84,7 @@ function FeatureCardImpl({ item, isFa, mainData }: FeatureCardProps) {
           <p className="text-[#84858F] text-xs mt-2 text-center lg:text-sm leading-6 line-clamp-4 flex-1">
             {description}
           </p>
-          <a href="#" className="text-blueLink dark:text-dark-primary text-center text-xs lg:text-sm font-bold">
+          <a href="#" className="text-blueLink text-center text-xs lg:text-sm font-bold">
             {findByUniqueId(mainData, 774)}
           </a>
         </div>
@@ -100,7 +100,7 @@ export default FeatureCard;
 
 export function FeatureCardSkeleton() {
   return (
-    <div className={`bg-white dark:bg-darkGray rounded-2xl p-5 flex flex-col gap-4 ${CARD_HEIGHT} animate-pulse`}>
+    <div className={`bg-white dark:bg-gray-1 rounded-2xl p-5 flex flex-col gap-4 ${CARD_HEIGHT} animate-pulse`}>
       <div className="flex items-center gap-3">
         <div className="w-11 h-11 rounded-xl bg-black/5 dark:bg-white/10 shrink-0" />
         <div className="flex-1 flex flex-col gap-2">

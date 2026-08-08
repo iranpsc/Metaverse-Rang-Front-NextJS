@@ -131,7 +131,7 @@ export default async function CategoriesPage({ params }: CategoriesPageProps) {
     };
 
     return (
-      <section className="w-full  bg-[#f8f8f8] dark:bg-black px-5 3xl:px-10 ">
+      <section className="w-full  bg-bg-primary  px-5 3xl:px-10 ">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
         <CleanAutoRetryParam />
         <div className="mb-6 mt-[60px] lg:mt-0">
@@ -140,7 +140,7 @@ export default async function CategoriesPage({ params }: CategoriesPageProps) {
 
         <div className="text-center mt-5">
           <h1 className="font-rokh font-bold text-[30px] dark:text-white">{findByUniqueId(mainData, 1516)} </h1>
-          <p className="text-lightGray dark:text-lightGray text-lg mt-2">
+          <p className="text-matn-2 dark:text-matn-2 text-lg mt-2">
             {findByUniqueId(mainData, 1592)}
           </p>
         </div>

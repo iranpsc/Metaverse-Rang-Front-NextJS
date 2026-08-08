@@ -6,7 +6,7 @@ const pulseBlock = "rounded bg-[#EFEFEF] dark:bg-[#2A2B32]";
 export function WalletSummaryCardSkeleton() {
   return (
     <div
-      className={`relative w-full ${CARD_HEIGHT} bg-white dark:bg-darkGray rounded-2xl p-5 flex flex-col gap-4 overflow-hidden animate-pulse`}
+      className={`relative w-full ${CARD_HEIGHT} bg-white dark:bg-gray-1 rounded-2xl p-5 flex flex-col gap-4 overflow-hidden animate-pulse`}
       role="status"
       aria-label="در حال بارگذاری کارت دارایی"
     >
@@ -53,7 +53,7 @@ export function WalletChartSkeleton() {
 
   return (
     <div
-      className="w-full h-[420px] bg-white dark:bg-darkGray rounded-2xl p-6 flex items-end gap-3 animate-pulse"
+      className="w-full h-[420px] bg-white dark:bg-gray-1 rounded-2xl p-6 flex items-end gap-3 animate-pulse"
       role="status"
       aria-label="در حال بارگذاری نمودار"
     >

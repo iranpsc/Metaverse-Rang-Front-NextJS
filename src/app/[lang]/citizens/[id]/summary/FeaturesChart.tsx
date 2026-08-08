@@ -112,23 +112,23 @@ export default function FeaturesChart({
           {
             label: isFa ? "خریداری‌شده" : "Bought",
             data: chartData.bought,
-            borderColor: "#0066FF",
+            borderColor: "#9100D9",
             backgroundColor: "rgba(0, 102, 255, 0.2)",
             fill: true,
             pointRadius: 6,
             pointBackgroundColor: "rgba(0, 102, 255, 0.5)",
-            pointBorderColor: "#0066FF",
+            pointBorderColor: "#9100D9",
             pointBorderWidth: 2,
           },
           {
             label: isFa ? "فروخته‌شده" : "Sold",
             data: chartData.sold,
-            borderColor: "#FFC700",
+            borderColor: "#9100D9",
             backgroundColor: "rgba(255, 199, 0, 0.2)",
             fill: true,
             pointRadius: 6,
             pointBackgroundColor: "rgba(255, 199, 0, 0.5)",
-            pointBorderColor: "#FFC700",
+            pointBorderColor: "#9100D9",
             pointBorderWidth: 2,
           },
         ],
@@ -212,7 +212,7 @@ export default function FeaturesChart({
       )}
 
       {!error && selectedKarbari.length === 0 && (
-        <p className="w-full text-center text-lightGray py-4">
+        <p className="w-full text-center text-matn-2 py-4">
           {isFa ? "حداقل یک کاربری را انتخاب کنید." : "Select at least one feature type."}
         </p>
       )}
@@ -220,14 +220,14 @@ export default function FeaturesChart({
       {!error && selectedKarbari.length > 0 && hasData && (
         <div className="flex flex-wrap justify-start md:justify-end gap-6">
           <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleLegendClick(0)}>
-            <div className="w-2 h-2 lg:w-3 lg:h-3 rounded-full bg-[#0066FF]"></div>
-            <span className={`text-[#0066FF] ${boughtVisible ? "" : "line-through"}`}>
+            <div className="w-2 h-2 lg:w-3 lg:h-3 rounded-full bg-primary"></div>
+            <span className={`text-primary ${boughtVisible ? "" : "line-through"}`}>
               {isFa ? "خریداری‌شده" : "Bought"}
             </span>
           </div>
           <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleLegendClick(1)}>
-            <div className="w-2 h-2 lg:w-3 lg:h-3 rounded-full bg-[#FFC700]"></div>
-            <span className={`text-[#FFC700] ${soldVisible ? "" : "line-through"}`}>
+            <div className="w-2 h-2 lg:w-3 lg:h-3 rounded-full bg-primary"></div>
+            <span className={`text-primary ${soldVisible ? "" : "line-through"}`}>
               {isFa ? "فروخته‌شده" : "Sold"}
             </span>
           </div>
@@ -237,7 +237,7 @@ export default function FeaturesChart({
       <div className="overflow-x-auto light-scrollbar dark:dark-scrollbar mt-2">
         <div className="relative flex justify-center md:justify-end gap-6 text-right lg:w-full min-w-[800px]">
           {loading && !hasData ? (
-            <div className="w-full h-[420px] flex items-center justify-center text-lightGray">
+            <div className="w-full h-[420px] flex items-center justify-center text-matn-2">
               {isFa ? "در حال بارگذاری نمودار..." : "Loading chart..."}
             </div>
           ) : (

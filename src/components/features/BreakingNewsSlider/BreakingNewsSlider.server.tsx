@@ -30,7 +30,7 @@ export default function BreakingNewsSlider({
       />
 
       {/* Gradient overlay (OK for LCP) */}
-      <div className="absolute inset-0 bg-[#f8f8f8] dark:bg-black z-10" />
+      <div className="absolute inset-0 bg-bg-primary  z-10" />
 
       {/* Client slider (NOT LCP) */}
       <div className="absolute inset-0 z-20">

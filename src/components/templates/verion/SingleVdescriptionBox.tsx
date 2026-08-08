@@ -73,17 +73,17 @@ const DescriptionBox: React.FC<DescriptionBoxProps> = ({
 
   return (
     <div
-      className=" h-[844px] pb-10 hidden lg:bg-[#FFFFFF] dark:bg-[#1A1A18] lg:self-start  lg:flex lg:flex-col lg:items-center 
-    lg:transition-[width,margin-left] lg:duration-300 lg:ease-in-out lg:w-full lg:dark:bg-[#1A1A18] lg:pt-[15px] lg:rounded-[20px]"
+      className=" h-[844px] pb-10 hidden lg:bg-[#FFFFFF] dark:bg-gray-1  lg:self-start  lg:flex lg:flex-col lg:items-center 
+    lg:transition-[width,margin-left] lg:duration-300 lg:ease-in-out lg:w-full lg:dark:bg-gray-1  lg:pt-[15px] lg:rounded-[20px]"
     >
       <div className="lineBox flex justify-between items-center w-full min-h-[48px] lg:px-[15px]">
-        <span className="versionP m-0 font-[600] z-[1] text-[#0066FF] dark:text-[#FFC700] text-[100%] lg:font-rokh lg:font-[600] lg:text-[200%]">
+        <span className="versionP m-0 font-[600] z-[1] text-primary  text-[100%] lg:font-rokh lg:font-[600] lg:text-[200%]">
           {VersionText}
         </span>
         <hr
           className="flex-grow border-2 border-dashed h-[2px] border-b-0 my-[2px] mx-1"
         />
-        <p className="displayVersionDes text-[170%] font-[700] z-[2] text-[#0066FF] dark:text-[#FFC700]">
+        <p className="displayVersionDes text-[170%] font-[700] z-[2] text-primary ">
           {switchDigits(selectedVersion.version, params.lang)}
         </p>
       </div>

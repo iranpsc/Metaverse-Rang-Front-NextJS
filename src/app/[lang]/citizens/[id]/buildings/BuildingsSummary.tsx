@@ -41,7 +41,7 @@ function SummaryCard({
 
   return (
     <div
-      className={`bg-white relative dark:bg-darkGray rounded-2xl p-4  flex items-center gap-3 w-full ${CARD_HEIGHT}`}
+      className={`bg-white relative dark:bg-gray-1 rounded-2xl p-4  flex items-center gap-3 w-full ${CARD_HEIGHT}`}
     >
       <div
         className="w-12 h-12 rounded-full flex items-center justify-center shrink-0"
@@ -51,7 +51,7 @@ function SummaryCard({
       </div>
       <div className="min-w-0">
         <p className="text-black dark:text-white font-bold text-sm truncate">{label}</p>
-        <p className="text-lightGray dark:text-lightGray text-xs mt-1">
+        <p className="text-matn-2 dark:text-matn-2 text-xs mt-1">
           {isFa
             ? `دارای ${item.count.toLocaleString("fa-IR")} بنای تکمیل شده`
             : `${item.count.toLocaleString("en-US")} completed units`}
@@ -65,7 +65,7 @@ function SummaryCard({
 function SummaryCardSkeleton() {
   return (
     <div
-      className={`bg-white dark:bg-darkGray rounded-2xl p-4 flex items-center gap-3 ${CARD_HEIGHT} animate-pulse`}
+      className={`bg-white dark:bg-gray-1 rounded-2xl p-4 flex items-center gap-3 ${CARD_HEIGHT} animate-pulse`}
     >
       <div className="w-11 h-11 rounded-xl bg-black/5 dark:bg-white/10 shrink-0" />
       <div className="flex-1 flex flex-col gap-2">
@@ -185,9 +185,9 @@ export default function BuildingsSummary({
           <button
             key={opt.key}
             onClick={() => setPeriod(opt.key)}
-            className={`moment bg-white dark:bg-darkGray text-[#84858F] p-2 rounded-xl  w-[100px] ${
+            className={`moment bg-white dark:bg-gray-1 text-[#84858F] p-2 rounded-xl  w-[100px] ${
               period === opt.key
-                ? "border-2 border-light-primary dark:border-dark-yellow border-solid dark:text-dark-yellow text-light-primary font-bold"
+                ? "border-2 border-primary  border-solid  text-primary font-bold"
                 : ""
             }`}
           >
@@ -201,7 +201,7 @@ export default function BuildingsSummary({
             type="checkbox"
             checked={isAllSelected}
             onChange={toggleAll}
-            className="accent-light-primary dark:accent-dark-yellow w-4 h-4"
+            className="accent-primary dark:accent-primary w-4 h-4"
           />
           {isFa ? "تمام املاک" : "All properties"}
         </label>
@@ -220,7 +220,7 @@ export default function BuildingsSummary({
                 type="checkbox"
                 checked={selectedKarbari.includes(k.code)}
                 onChange={() => toggleKarbari(k.code)}
-                className="accent-light-primary dark:accent-dark-yellow w-4 h-4"
+                className="accent-primary dark:accent-primary w-4 h-4"
               />
               {label}
             </label>
@@ -232,7 +232,7 @@ export default function BuildingsSummary({
 </div>
 
       {!error && initialized && selectedKarbari.length === 0 && (
-        <p className="w-full text-center text-lightGray py-4">
+        <p className="w-full text-center text-matn-2 py-4">
           {isFa ? "حداقل یک کاربری را انتخاب کنید." : "Select at least one feature type."}
         </p>
       )}

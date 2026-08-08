@@ -217,7 +217,7 @@ const ReplyList = ({
                   setActiveMenu={() => {}}
                   params={params}
                 />
-                <p className="text-[#1A1A18] dark:text-white text-start font-azarMehr text-[14px] mt-5">
+                <p className="text-gray-1  dark:text-white text-start font-azarMehr text-[14px] mt-5">
                   {checkData(reply.content)}
                 </p>
                 <div className="flex flex-row justify-start items-center gap-5 mt-4">
@@ -285,7 +285,7 @@ const ReplyList = ({
           ))}
         </div>
       ) : (
-        <p className="text-gray-600 dark:text-gray-300 text-sm mt-2 hidden">
+        <p className="text-matn-2-600 dark:text-matn-2-300 text-sm mt-2 hidden">
           {params.lang.toLowerCase() === "fa" ? "هنوز پاسخی وجود ندارد" : "No replies yet"}
         </p>
       )}
@@ -293,7 +293,7 @@ const ReplyList = ({
       {showSuccessModal && (
         <div className="fixed inset-0 backdrop-blur bg-black/30 flex items-center justify-center z-50 p-5">
           <div className="bg-white dark:bg-dark-background p-6 rounded-lg shadow-lg max-w-sm w-full text-center">
-            <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2.5">
+            <div className="w-full bg-matn-2-200 dark:bg-matn-2-600 rounded-full h-2.5">
               <div
                 className="bg-green-600 h-2.5 rounded-full transition-all duration-50 ease-linear"
                 style={{ width: `${progress}%` }}

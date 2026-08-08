@@ -89,7 +89,7 @@ export default function InviteBox({
     }
   };
   return (
-    <div className="bg-white dark:bg-darkGray lg:overflow-visible h-auto flex flex-col w-full justify-start items-center text-white rounded-3xl relative overflow-hidden lg:flex-row mt-[64px]">
+    <div className="bg-white dark:bg-gray-1 lg:overflow-visible h-auto flex flex-col w-full justify-start items-center text-white rounded-3xl relative overflow-hidden lg:flex-row mt-[64px]">
       <div
         className="absolute inset-20 lg:inset-5 opacity-10 bg-no-repeat  rotate-[25deg] z-10 w-44 h-44 "
         style={{
@@ -116,7 +116,7 @@ export default function InviteBox({
               <div className=" h-12 lg:h-13 xl:h-14 rounded-xl border border-solid border-[#484950] flex flex-row-reverse items-center  px-2 relative">
                 <button
                   onClick={copyToClipboard}
-                  className="dark:text-dark-primary text-blueLink text-sm whitespace-nowrap bg-transparent"
+                  className=" text-primary text-sm whitespace-nowrap bg-transparent"
                 >
                   {copied
                     ? params.lang.toLowerCase() == "fa"
@@ -135,7 +135,7 @@ export default function InviteBox({
                 />
                 <div
                   id="iconbutton"
-                  className="w-auto h-auto cursor-pointer dark:text-white text-darkGray"
+                  className="w-auto h-auto cursor-pointer dark:text-white text-gray-1"
                 >
                   <svg
                     width="30"
@@ -172,7 +172,7 @@ export default function InviteBox({
                 <a
                   onClick={(e) => handleShare("Telegram")}
                   id="telegram-share"
-                  className="text-gray-400 cursor-pointer"
+                  className="matn-2-400 cursor-pointer"
                 >
                   <svg
                     className="xl:w-10 xl:h-10 2xl:w-11 2xl:h-11"
@@ -203,7 +203,7 @@ export default function InviteBox({
                 <a
                   onClick={(e) => handleShare("Whatsapp")}
                   id="whatsApp-share"
-                  className="text-gray-400 cursor-pointer"
+                  className="matn-2-400 cursor-pointer"
                 >
                   <svg
                     className="xl:w-10 xl:h-10 2xl:w-11 2xl:h-11"
@@ -234,7 +234,7 @@ export default function InviteBox({
                 <a
                   onClick={(e) => handleShare("Facebook")}
                   id="faceBook-share"
-                  className="text-gray-400 cursor-pointer"
+                  className="matn-2-400 cursor-pointer"
                 >
                   <svg
                     className="xl:w-10 xl:h-10 2xl:w-11 2xl:h-11"
@@ -265,7 +265,7 @@ export default function InviteBox({
                 <a
                   onClick={(e) => handleShare("Linkedin")}
                   id="linkedin-share"
-                  className="text-gray-400 cursor-pointer"
+                  className="matn-2-400 cursor-pointer"
                 >
                   <svg
                     className="xl:w-10 xl:h-10 2xl:w-11 2xl:h-11"
@@ -292,7 +292,7 @@ export default function InviteBox({
                 <a
                   onClick={(e) => handleShare("Twitter")}
                   id="x-share"
-                  className="text-gray-400 cursor-pointer"
+                  className="matn-2-400 cursor-pointer"
                 >
                   <svg
                     className="xl:w-10 xl:h-10 2xl:w-11 2xl:h-11"

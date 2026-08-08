@@ -155,7 +155,7 @@ export default async function LangPage({ params }: LangPageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(landingSchema) }}
       />
       <CleanAutoRetryParam />
-      <section className=" relative  mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity-20">
+      <section className=" relative  mt-[60px] lg:mt-0 lg:pt-0 bg-bg-primary ">
         <section className="flex flex-col h-fit tall0:min-h-[600px] min-h-[calc(100vh-60px)] lg:h-screen relative">
           {!isMobile && (
             <video

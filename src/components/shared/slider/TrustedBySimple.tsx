@@ -68,7 +68,7 @@ export default function AvalancheTrustedProps({ params, mainData }: AvalancheTru
     const isRtl = params.lang === 'fa';
 
     return (
-        <section className="bg-white dark:bg-[#1A1A18] rounded-xl lg:rounded-[32px] overflow-hidden">
+        <section className="bg-white dark:bg-gray-1  rounded-xl lg:rounded-[32px] overflow-hidden">
             {/* Header Section */}
             <div className="  ">
                 <div className="font-bold text-start flex flex-col justify-start pt-5 pb-12 lg:py-12 px-5 lg:px-10  space-y-4">
@@ -99,17 +99,17 @@ export default function AvalancheTrustedProps({ params, mainData }: AvalancheTru
 
             <div className='flex w-full'>
                 {/* <div className=' '>
-                    <div className=' h-[250px] lg:h-[342px] w-[15vw] rounded-es-[32px] rounded-ee-[10px]  bg-white dark:bg-[#1A1A18] mt-[-20px] relative'>
+                    <div className=' h-[250px] lg:h-[342px] w-[15vw] rounded-es-[32px] rounded-ee-[10px]  bg-white dark:bg-gray-1  mt-[-20px] relative'>
                         <div className='absolute top-[-16px] end-[-42px]'>
-                            <div className='bg-white dark:bg-[#1A1A18] h-[80px] w-[80px] rounded-full relative ' />
-                            <div className='bg-[#f5f5f5] dark:bg-black ltr:-rotate-45 rotate-45 w-[70px] h-[65px] rounded-full absolute ltr:left-[37px] top-[38px] right-[37px] z-10' />
+                            <div className='bg-white dark:bg-gray-1  h-[80px] w-[80px] rounded-full relative ' />
+                            <div className='bg-[#f5f5f5]  ltr:-rotate-45 rotate-45 w-[70px] h-[65px] rounded-full absolute ltr:left-[37px] top-[38px] right-[37px] z-10' />
                         </div>
 
                     </div>
                 </div> */}
 
                 {/* container: overflow-hidden لازمه که اسکرول‌بار دستی دیده نشه، اسکرول‌بار قبلی حذف شد چون حالا خودکاره */}
-                <div className=" flex-1 overflow-hidden bg-[#f5f5f5] dark:bg-black z-20 w-[85vw] pe-20">
+                <div className=" flex-1 overflow-hidden bg-[#f5f5f5]  z-20 w-[85vw] pe-20">
                     <div
                         dir={isRtl ? 'rtl' : 'ltr'}
                         className={`flex gap-1 pt-1 ps-1 w-max ${isRtl ? 'marquee-track-rtl' : 'marquee-track-ltr'}`}
@@ -125,7 +125,7 @@ export default function AvalancheTrustedProps({ params, mainData }: AvalancheTru
                                     key={key}
                                     onMouseEnter={() => setHoveredKey(key)}
                                     onMouseLeave={() => setHoveredKey(null)}
-                                    className="trusted-card group relative overflow-hidden rounded-xl lg:rounded-[32px] bg-white dark:bg-[#1A1A18] flex w-[200px] h-[150px] lg:w-[400px] lg:h-[300px] shrink-0 cursor-pointer"
+                                    className="trusted-card group relative overflow-hidden rounded-xl lg:rounded-[32px] bg-white dark:bg-gray-1  flex w-[200px] h-[150px] lg:w-[400px] lg:h-[300px] shrink-0 cursor-pointer"
                                 >
                                     {/* دایره‌ی گرادینتی که از وسط کارت باز می‌شه و کل پس‌زمینه رو پر می‌کنه */}
                                     <span

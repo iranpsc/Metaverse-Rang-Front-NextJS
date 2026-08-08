@@ -168,7 +168,7 @@ export default async function CitizenSinglePage({
         />
 
         <main
-          className="flex h-screen w-full dark:bg-black"
+          className="flex h-screen w-full "
           dir={langData.direction}
         >
           <div className="relative w-full overflow-y-scroll lg:overflow-hidden mt-[60px] lg:mt-0 xs:px-1">
@@ -186,7 +186,7 @@ export default async function CitizenSinglePage({
                 />
               </Suspense>
 
-              <section className="relative w-full bg-[#e9eef8] dark:bg-black flex flex-col lg:flex-row gap-[10px] p-[8px]">
+              <section className="relative w-full bg-bg-primary  flex flex-col lg:flex-row gap-[10px] p-[8px]">
                 <section className="lg:w-[35%] flex flex-col lg:overflow-auto light-scrollbar dark:dark-scrollbar">
                   <Profile
                     profileData={profileData}

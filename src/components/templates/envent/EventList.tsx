@@ -335,7 +335,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
       return () => observer.disconnect();
     }, []);
 
-    return <SyncLoader color={isDark ? "#FFD700" : "#0066ff"} size={8} />;
+    return <SyncLoader color={isDark ? "#FFD700" : "#9100D9"} size={8} />;
   };
   // useEffect(() => {
   //   console.log("📅 ایونت‌های اولیه:", initialEvents);
@@ -713,7 +713,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
                       [event.id]: !prev[event.id],
                     }))
                   }
-                  className="dark:text-dark-yellow text-blueLink bg-transparent hover:underline cursor-pointer text-base  text-sm md:text-[18px]"
+                  className=" text-primary bg-transparent hover:underline cursor-pointer text-base  text-sm md:text-[18px]"
                 >
                   {showFullMap[event.id] ? "" : findByUniqueId(mainData, 271)}
                 </button>
@@ -724,7 +724,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
             <div
               className="px-4 mb-2 w-[97%] lg:w-[95%] lg:px-7 font-[AzarMehrFD] 
               bg-gradient-to-r from-[#CFCFCFE5] to-[#D8D8D800]
-              dark:bg-gradient-to-r dark:from-[#ffffff09] dark:to-[#00000000] dark:text-dark-yellow text-blueLink rounded-xl lg:rounded-[32px] border-[1px] border-solid dark:border-[#ffffff25] border-[#CFCFCFE5] shadow-lg p-4 flex flex-col sm:flex-row-reverse sm:h-[250px]"
+              dark:bg-gradient-to-r dark:from-[#ffffff09] dark:to-[#00000000]  text-primary rounded-xl lg:rounded-[32px] border-[1px] border-solid dark:border-[#ffffff25] border-[#CFCFCFE5] shadow-lg p-4 flex flex-col sm:flex-row-reverse sm:h-[250px]"
             >
               <div className="flex flex-col justify-start sm:order-1 sm:content-start sm:w-[30%] sm:min-w-[194px]">
                 <h2 className="text-[16px] font-bold lg:px-5 self-center sm:self-start text-black dark:text-white pb-6 sm:mt-4 sm:pb-6 sm:text-start 2xl:text-xl xl:text-lg lg:text-base">
@@ -854,7 +854,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
                   href={event.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="dark:bg-dark-yellow bg-blueLink text-white dark:text-black font-bold py-2 px-4 w-full mb-2 h-11 self-end rounded-[28px] sm:text-lg sm:font-semibold sm:w-[60%] text-center justify-center items-center flex"
+                  className=" bg-primary text-white dark:text-black font-bold py-2 px-4 w-full mb-2 h-11 self-end rounded-[28px] sm:text-lg sm:font-semibold sm:w-[60%] text-center justify-center items-center flex"
                 >
                   <span>{event.btnName}</span>
                 </a>
@@ -872,8 +872,8 @@ const EventList: React.FC<CalendarFilterProps> = ({
             onClick={showMore}
             disabled={loading}
             className={`flex justify-center items-center gap-2
-              ${loading ? "cursor-not-allowed opacity-60" : "hover:border-blueLink hover:dark:border-dark-yellow"}
-             bg-white dark:bg-darkGray text-light-primary md:text-lg dark:text-dark-yellow rounded-[12px] px-[40px] py-[16px] base-transition-1 border-2 border-transparent hover:border-light-primary hover:text-light-primary hover:dark:border-dark-yellow`}
+              ${loading ? "cursor-not-allowed opacity-60" : "hover:border-primary hover:"}
+             bg-white dark:bg-gray-1 text-primary md:text-lg  rounded-[12px] px-[40px] py-[16px] base-transition-1 border-2 border-transparent hover:border-primary hover:text-primary hover:`}
           >
             {loading ? <ThemedLoader /> : <>{findByUniqueId(mainData, 271)}</>}
           </button>
@@ -891,7 +891,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
               <LoginButtonModule params={mainData} />
               <div className="w-1/2 flex justify-center">
                 <button
-                  className="w-full bg-dark-gray dark:bg-extraGray text-black dark:text-white font-azarMehr py-2 px-2 md:px-4 font-medium text-[15px] rounded-[10px] hover:bg-gray-400 active:scale-105 duration-300"
+                  className="w-full bg-dark-gray dark:bg-extraGray text-black dark:text-white font-azarMehr py-2 px-2 md:px-4 font-medium text-[15px] rounded-[10px] hover:bg-matn-2-400 active:scale-105 duration-300"
                   onClick={() => setShowLoginModal(false)}
                 >
                   {findByUniqueId(mainData, 884)}

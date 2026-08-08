@@ -82,11 +82,11 @@ export default function InviteList({
         <p className="text-black dark:text-white font-black lg:text-2xl">
           {findByUniqueId(mainData, 1424)}
         </p>
-        <p className="text-lightGray dark:text-lightGray lg:text-lg">
+        <p className="text-matn-2 dark:text-matn-2 lg:text-lg">
           {findByUniqueId(mainData, 1425)}
         </p>
 
-        <div className="transition-[right,width] lg:w-[49%] duration-300 ease-in-out flex items-center flex-row justify-between bg-white dark:bg-darkGray w-full h-[50px] rounded-[12px] ">
+        <div className="transition-[right,width] lg:w-[49%] duration-300 ease-in-out flex items-center flex-row justify-between bg-white dark:bg-gray-1 w-full h-[50px] rounded-[12px] ">
           <div className="searchIcon flex justify-center ps-7 text-black dark:text-white">
             <svg
               width="19"
@@ -113,7 +113,7 @@ export default function InviteList({
           />
           <button
             onClick={searchFetch}
-            className="searchButton font-normal text-[95%] pe-5 border-none bg-transparent text-blueLink dark:text-dark-primary cursor-pointer"
+            className="searchButton font-normal text-[95%] pe-5 border-none bg-transparent text-primary  cursor-pointer"
           >
             {params.lang.toLowerCase() == "fa" ? "جستجو" : "Search"}
           </button>
@@ -134,7 +134,7 @@ export default function InviteList({
       {hasMore && referralList.length > 0 && (
         <p
           onClick={loadMore}
-          className="w-[150px] text-blueLink dark:text-dark-primary pt-7 cursor-pointer m-auto text-center"
+          className="w-[150px] text-primary  pt-7 cursor-pointer m-auto text-center"
         >
           {loading
             ? params.lang.toLowerCase() === "fa"

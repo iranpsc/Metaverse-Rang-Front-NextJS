@@ -174,7 +174,7 @@ export default async function NewsCategoryPage({ params }: NewsCategoryPageProps
 
     if (!newsData || newsData.length === 0) {
       return (
-        <div className="text-center py-20 text-gray-500">
+        <div className="text-center py-20 matn-2-500">
           <h2 className="text-2xl font-semibold dark:text-white">
             خبری در این دسته پیدا نشد 😕
           </h2>
@@ -305,7 +305,7 @@ export default async function NewsCategoryPage({ params }: NewsCategoryPageProps
     };
 
     return (
-      <section className="w-full bg-[#f8f8f8] dark:bg-black">
+      <section className="w-full bg-bg-primary ">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

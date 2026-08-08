@@ -59,7 +59,7 @@ export default function ProfileHeaderMobile({
         <div className="mt-2">
           {!isClosed ? (
             <CLoseIcon
-              className="fill-[#2B2B2B] dark:fill-dark-gray cursor-pointer sm:w-[25px] xs:w-[25px] md:w-[40px]"
+              className="fill-[#2B2B2B] dark:fmatn-2 cursor-pointer sm:w-[25px] xs:w-[25px] md:w-[40px]"
               onClick={toggleSide}
               alt="closeIcon"
             />
@@ -77,7 +77,7 @@ export default function ProfileHeaderMobile({
           <div ref={langRef} className="relative">
             <div
               onClick={() => setIsLangOpen(!isLangOpen)}
-              className="w-[27px] h-[26px] md:w-[23px] md:h-[23px] xl:w-[27px] xl:h-[27px] rounded-full overflow-hidden border border-gray-300 dark:border-dark-gray flex items-center justify-center cursor-pointer transition-all hover:scale-110"
+              className="w-[27px] h-[26px] md:w-[23px] md:h-[23px] xl:w-[27px] xl:h-[27px] rounded-full overflow-hidden border matn-2-300  flex items-center justify-center cursor-pointer transition-all hover:scale-110"
             >
               <Image
                 src={currentLang.icon}
@@ -89,7 +89,7 @@ export default function ProfileHeaderMobile({
             </div>
 
             {isLangOpen && (
-              <div className="absolute flex flex-col top-full mt-2   w-36 bg-white dark:bg-textGray rounded-lg shadow-xl border border-gray-200 dark:border-dark-border p-3 z-[101]">
+              <div className="absolute flex flex-col top-full mt-2   w-36 bg-white dark:bg-matn-2 rounded-lg shadow-xl border matn-2-200 dark:border-dark-border p-3 z-[101]">
                 {langArray.map((langItem) => (
                   <DropdownLanguageModule
                     key={langItem.code}
@@ -113,7 +113,7 @@ export default function ProfileHeaderMobile({
           <p className="dark:text-white block font-azarMehr font-bold mb-[-3px] text-black sm:text-center">
             {t.title}
           </p>
-          <p className="dark:text-dark-gray text-[12px] font-normal text-[#5A5858]">
+          <p className=" text-[12px] font-normal text-[#5A5858]">
             {t.subtitle}
           </p>
         </div>

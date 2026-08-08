@@ -233,7 +233,7 @@ export default async function VersionPage({ params }:VersionPageProps) {
         <div className="flex w-full" dir={langData.direction}>
 
           <section
-            className={`w-full relative mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20`}
+            className={`w-full relative mt-[60px] lg:mt-0 lg:pt-0 bg-bg-primary  bg-opacity20`}
           >
             {/* Breadcrumb */}
             <div className="px-12">

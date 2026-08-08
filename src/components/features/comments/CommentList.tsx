@@ -362,21 +362,21 @@ const CommentList = ({
                         type="text"
                         value={editedText}
                         onChange={(e) => handleChange(e, setEditedText)}
-                        className="w-full p-3 border border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-yellow-400 rounded-[10px] bg-gray-100 dark:bg-[#222222] dark:text-dark-gray"
+                        className="w-full p-3 border border-transparent focus:outline-none focus:ring-2 focus:ring-primary  rounded-[10px] text-matn-2 dark:bg-[#222222] "
                         placeholder={params.lang.toLowerCase() === "fa" ? "متن کامنت را وارد کنید" : "Enter comment text"}
                       />
                       {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
                     </div>
                     <button
                       type="submit"
-                      className="bg-blue-500 dark:bg-yellow-400 px-4 py-2 lg:py-[10px] rounded-xl text-white dark:text-black  "
+                      className="bg-primary px-4 py-2 lg:py-[10px] rounded-xl text-white dark:text-black  "
                     >
                       {checkData(findByUniqueId(mainData, 460))}
                     </button>
                     <button
                       type="button"
                       onClick={() => setEditMode(0)}
-                      className="bg-gray-200 dark:bg-[#222222] px-4 py-2 lg:py-[10px] rounded-xl dark:text-white"
+                      className="text-matn-2 dark:bg-[#222222] px-4 py-2 lg:py-[10px] rounded-xl dark:text-white"
                     >
                       {params.lang.toLowerCase() === "fa" ? "لغو" : "Cancel"}
                     </button>
@@ -417,7 +417,7 @@ const CommentList = ({
                       }
                     >
                       <Like
-                        className={`size-full stroke-darkGray dark:stroke-white`}
+                        className={`size-full stroke-gray-1 dark:stroke-white`}
                       />
                     </motion.div>
                   </div>
@@ -438,7 +438,7 @@ const CommentList = ({
                       }
                     >
                       <Dislike
-                        className={`size-full stroke-darkGray dark:stroke-white`}
+                        className={`size-full stroke-gray-1 dark:stroke-white`}
                       />
                     </motion.div>
                   </div>
@@ -496,14 +496,14 @@ const CommentList = ({
                       onChange={(e) =>
                         setReplyText((prev: { [key: number]: string }) => ({ ...prev, [itemComment.id]: e.target.value }))
                       }
-                      className="w-full p-3 border border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-yellow-400 rounded-[10px] bg-gray-100 dark:bg-[#222222] dark:text-dark-gray"
+                      className="w-full p-3 border border-transparent focus:outline-none focus:ring-2 focus:ring-primary  rounded-[10px] text-matn-2 dark:bg-[#222222] "
                       placeholder={params.lang.toLowerCase() === "fa" ? "پاسخ خود را وارد کنید" : "Enter your reply"}
                     />
                     {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
                   </div>
                   <button
                     type="submit"
-                    className="bg-blue-500 dark:bg-yellow-400 px-4 py-2 lg:py-[10px] rounded-xl text-white dark:text-black"
+                    className="bg-primary px-4 py-2 lg:py-[10px] rounded-xl text-white dark:text-black"
                   >
                     {params.lang.toLowerCase() === "fa" ? "ارسال" : "Submit"}
                   </button>
@@ -529,7 +529,7 @@ const CommentList = ({
                     <h2 className="text-lg md:text-xl font-azarMehr font-bold text-center dark:text-white mb-4">
                       {params.lang.toLowerCase() === "fa" ? "گزارش کامنت" : "Report Comment"}
                     </h2>
-                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-4 dark:text-white">
+                    <p className="text-sm matn-2-600 dark:tmatn-2-300 mb-4 dark:text-white">
                       {params.lang.toLowerCase() === "fa"
                         ? "آیا مطمئن هستید که می‌خواهید این کامنت را گزارش کنید؟"
                         : "Are you sure you want to report this comment?"}
@@ -537,7 +537,7 @@ const CommentList = ({
                     {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
                     {showSuccessModal === "report" && (
                       <>
-                        <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2.5">
+                        <div className="w-full matn-2-200 dark:bmatn-2-600 rounded-full h-2.5">
                           <div
                             className="bg-green-600 h-2.5 rounded-full transition-all duration-50 ease-linear"
                             style={{ width: `${progress}%` }}
@@ -551,7 +551,7 @@ const CommentList = ({
                     {!showSuccessModal && (
                       <div className="flex gap-2 justify-between items-center w-full">
                         <button
-                          className="w-1/2 bg-blue-500 dark:bg-yellow-400 text-white dark:text-black font-azarMehr py-2 px-4 font-medium text-[15px] rounded-[10px] hover:bg-yellow-600 active:scale-105 duration-300"
+                          className="w-1/2 bg-primary text-white dark:text-black font-azarMehr py-2 px-4 font-medium text-[15px] rounded-[10px] hover:bg-yellow-600 active:scale-105 duration-300"
                           onClick={async () => {
                             try {
                               await handlerReportComments({
@@ -573,7 +573,7 @@ const CommentList = ({
                           {params.lang.toLowerCase() === "fa" ? "ارسال گزارش" : "Submit Report"}
                         </button>
                         <button
-                          className="w-1/2 bg-gray-200 dark:bg-[#222222] text-black dark:text-white font-azarMehr py-2 px-4 font-medium text-[15px] rounded-[10px] hover:bg-gray-400 active:scale-105 duration-300"
+                          className="w-1/2 matn-2-200 dark:bg-[#222222] text-black dark:text-white font-azarMehr py-2 px-4 font-medium text-[15px] rounded-[10px] hover:matn-2-400 active:scale-105 duration-300"
                           onClick={() => setShowReportModal(0)}
                         >
                           {params.lang.toLowerCase() === "fa" ? "لغو" : "Cancel"}
@@ -611,7 +611,7 @@ const CommentList = ({
               <LoginButtonModule params={mainData} />
               <div className="w-1/2 flex justify-center">
                 <button
-                  className="w-full bg-gray-200 dark:bg-[#222222] text-black dark:text-white font-azarMehr py-2 px-2 md:px-4 font-medium text-center text-[15px] rounded-[10px] hover:bg-gray-400 active:scale-105 duration-300"
+                  className="w-full matn-2-200 dark:bg-[#222222] text-black dark:text-white font-azarMehr py-2 px-2 md:px-4 font-medium text-center text-[15px] rounded-[10px] hover:matn-2-400 active:scale-105 duration-300"
                   onClick={() => setShowLoginModal(false)}
                 >
                   {params.lang.toLowerCase() === "fa" ? "بستن" : "Close"}
@@ -630,7 +630,7 @@ const CommentList = ({
             </h2>
             <div className="flex justify-center w-full mt-5">
               <button
-                className="w-1/2 bg-gray-200 dark:bg-[#222222] text-black dark:text-white font-azarMehr py-2 px-2 md:px-4 font-medium text-center text-[15px] rounded-[10px] hover:bg-gray-400 active:scale-105 duration-300"
+                className="w-1/2 matn-2-200 dark:bg-[#222222] text-black dark:text-white font-azarMehr py-2 px-2 md:px-4 font-medium text-center text-[15px] rounded-[10px] hover:matn-2-400 active:scale-105 duration-300"
                 onClick={() => setShowSelfCommentModal(false)}
               >
                 {params.lang.toLowerCase() === "fa" ? "بستن" : "Close"}
@@ -643,7 +643,7 @@ const CommentList = ({
       {showSuccessModal && showSuccessModal !== "report" && (
         <div className="fixed inset-0 backdrop-blur bg-black/30 flex items-center justify-center z-50 p-5">
           <div className="bg-white dark:bg-[#333333] p-6 rounded-lg shadow-lg max-w-sm w-full text-center">
-            <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2.5">
+            <div className="w-full matn-2-200 dark:bmatn-2-600 rounded-full h-2.5">
               <div
                 className="bg-green-600 h-2.5 rounded-full transition-all duration-50 ease-linear"
                 style={{ width: `${progress}%` }}

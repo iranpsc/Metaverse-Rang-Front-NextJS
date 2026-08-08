@@ -25,7 +25,7 @@ function SafeImage({
     <div className="relative w-full h-full rounded-[8px] overflow-hidden">
       {/* Skeleton / Pulse */}
       {!isLoaded && !isError && (
-        <div className="absolute inset-0 bg-gray-300 animate-pulse" />
+        <div className="absolute inset-0 bg-matn-2-300 animate-pulse" />
       )}
 
       {!isError ? (
@@ -38,7 +38,7 @@ function SafeImage({
           onError={() => setIsError(true)}
         />
       ) : (
-        <div className="absolute inset-0 bg-gray-400">
+        <div className="absolute inset-0 bg-matn-2-400">
           <Image src={fallback} alt="fallback" fill className="object-cover" />
         </div>
       )}
@@ -117,7 +117,7 @@ export default function ListData({ nameComponent, data, params, activeLoadingId,
               onClickCapture={() => setActiveLoadingId(item.id)}
               href={href}
               key={item.id}
-              className={`${isLoading ? "rotating-border-card cursor-not-allowed" : ""} w-full min-h-[240px] cursor-pointer shadow-md hover:shadow-xl hover:dark:shadow-dark rounded-[12px] bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-2 items-center`}
+              className={`${isLoading ? "rotating-border-card cursor-not-allowed" : ""} w-full min-h-[240px] cursor-pointer shadow-md hover:shadow-xl hover:dark:shadow-dark rounded-[12px] bg-white dark:bg-gray-1  flex flex-col justify-start gap-2 items-center`}
             >
               {isLoading && (
                 <div className="absolute inset-0 z-50 flex items-center justify-center">
@@ -160,29 +160,29 @@ export default function ListData({ nameComponent, data, params, activeLoadingId,
               <div className="w-full mt-2 flex flex-row justify-between items-center px-5 z-[1]">
                 <div className="flex flex-row justify-evenly items-center w-full h-fit py-3 border border-x-0 border-b-0 border-solid border-[#D9D9D9] dark:border-[#434343]">
                   <div className="flex flex-row items-center justify-center gap-2">
-                    <Videos className="w-[18px] h-[18px] stroke-gray dark:stroke-dark-gray " />
-                    <span className="whitespace-nowrap font-azarMehr font-normal text-[14px] text-gray dark:text-dark-gray">
+                    <Videos className="w-[18px] h-[18px] stroke-matn-2  " />
+                    <span className="whitespace-nowrap font-azarMehr font-normal text-[14px] text-matn-2 ">
                       {formatNumber(item.videos_count)}
                     </span>
                   </div>
                   <hr className="h-[28px] border-l-0 border-y-0 border-solid border-[#D9D9D9] dark:border-[#434343]" />
                   <div className="flex flex-row items-center justify-center gap-2">
-                    <Like className="w-[18px] h-[18px] stroke-gray dark:stroke-dark-gray" />
-                    <span className="whitespace-nowrap font-azarMehr font-normal text-[14px] text-gray dark:text-dark-gray">
+                    <Like className="w-[18px] h-[18px] stroke-matn-2 " />
+                    <span className="whitespace-nowrap font-azarMehr font-normal text-[14px] text-matn-2 ">
                       {formatNumber(item.likes_count)}
                     </span>
                   </div>
                   <hr className="h-[28px] border-l-0 border-y-0 border-solid border-[#D9D9D9] dark:border-[#434343]" />
                   <div className="flex flex-row items-center justify-center gap-2">
-                    <Dislike className="w-[18px] h-[18px] stroke-gray dark:stroke-dark-gray" />
-                    <span className="whitespace-nowrap font-azarMehr font-normal text-[14px] text-gray dark:text-dark-gray">
+                    <Dislike className="w-[18px] h-[18px] stroke-matn-2 " />
+                    <span className="whitespace-nowrap font-azarMehr font-normal text-[14px] text-matn-2 ">
                       {formatNumber(item.dislikes_count)}
                     </span>
                   </div>
                   <hr className="h-[28px] border-l-0 border-y-0 border-solid border-[#D9D9D9] dark:border-[#434343]" />
                   <div className="flex flex-row items-center justify-center gap-3">
-                    <View className="w-[18px] h-[18px] stroke-gray dark:stroke-dark-gray" />
-                    <span className="whitespace-nowrap font-azarMehr font-normal text-[14px] text-gray dark:text-dark-gray">
+                    <View className="w-[18px] h-[18px] stroke-matn-2 " />
+                    <span className="whitespace-nowrap font-azarMehr font-normal text-[14px] text-matn-2 ">
                       {formatNumber(item.views_count)}
                     </span>
                   </div>
@@ -190,7 +190,7 @@ export default function ListData({ nameComponent, data, params, activeLoadingId,
               </div>
 
               <div className="w-full flex justify-center z-[1]">
-                <span className="bg-light-primary dark:bg-dark-yellow text-white  px-7 py-3 mb-4 rounded-[10px] dark:text-black font-light hover:cursor-pointer text-sm">
+                <span className="bg-primary  text-white  px-7 py-3 mb-4 rounded-[10px] dark:text-black font-light hover:cursor-pointer text-sm">
                   مشاهده ویدیو
                 </span>
               </div>

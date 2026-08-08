@@ -159,7 +159,7 @@ export default function SideBarContent({
                               <ActiveMenuIcon
                                 className={` ${isClosed ? "w-[10px] pr-[17px]" : ""}  ${activeNav === item?.route_name
 
-                                  } visible  h-[35px] absolute start-0 fill-blueLink dark:fill-dark-yellow pr-[20px] w-[25px] rtl:rotate-180 `}
+                                  } visible  h-[35px] absolute start-0 fill-primary dark:fill-primary pr-[20px] w-[25px] rtl:rotate-180 `}
                               />
                               <span className="flex">
                                 <ListMenuSvgModule
@@ -206,7 +206,7 @@ export default function SideBarContent({
                   <div onClick={handleLangBtn} data-tooltip-id={item.name}>
                     <div
                       className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px] px-3
-                    group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer menu-transition
+                    group-hover:text-primary dark:group-hover:text-primary cursor-pointer menu-transition
                     ${isClosed ? "justify-start items-center " : "justify-start items-center"
                         }`}
                     >
@@ -232,7 +232,7 @@ export default function SideBarContent({
                   <div
                     className={`${langDropDown ? "h-fit" : "h-0 overflow-hidden"
                       }
-                  base-transition-1 bg-Field dark:bg-darkGray`}
+                  base-transition-1 bg-Field dark:bg-gray-1`}
                   >
                     <DropdownLanguageModule
                       languagesData={langData}

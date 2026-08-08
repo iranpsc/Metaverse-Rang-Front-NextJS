@@ -39,7 +39,7 @@ export default function ArticleCard({ item, params, theme, activeLoadingId, setA
   };
   const isLoading = activeLoadingId === item.id;
   return (
-    <Link onClickCapture={() => setActiveLoadingId(item.id)} href={`/${params.lang}/articles/categories/${item.categorySlug}/${item.slug}`} className={`${isLoading ? "rotating-border-card cursor-not-allowed" : ""} w-[100%] min-h-[240px] shadow-md hover:shadow-xl hover:dark:shadow-dark rounded-[10px] overflow-hidden bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-6 items-center`}>
+    <Link onClickCapture={() => setActiveLoadingId(item.id)} href={`/${params.lang}/articles/categories/${item.categorySlug}/${item.slug}`} className={`${isLoading ? "rotating-border-card cursor-not-allowed" : ""} w-[100%] min-h-[240px] shadow-md hover:shadow-xl hover:dark:shadow-dark rounded-[10px] overflow-hidden bg-white dark:bg-gray-1  flex flex-col justify-start gap-6 items-center`}>
       {isLoading && (
         <div className="absolute inset-0 z-50 flex items-center justify-center">
           <div className="absolute inset-0 bg-black/20 " />
@@ -49,7 +49,7 @@ export default function ArticleCard({ item, params, theme, activeLoadingId, setA
       <div className="group w-full h-[260px] overflow-hidden px-4 pt-4 z-[1]">
         <div className="relative h-full w-full">
           {imgLoading && (
-            <div className="absolute inset-0 h-full w-full bg-dark-gray dark:bg-textGray animate-pulse rounded-[10px] z-20" />
+            <div className="absolute inset-0 h-full w-full bg-dark-gray dark:bg-matn-2 animate-pulse rounded-[10px] z-20" />
           )}
           <Image
             src={item.image || "/rafiki-dark.png"}
@@ -70,16 +70,16 @@ export default function ArticleCard({ item, params, theme, activeLoadingId, setA
       <div className="w-[95%] flex flex-row justify-start items-center gap-1 mt-[-10px] pe-16 z-[1]">
         <Link
           href={`/${params.lang}/articles/categories/${item.categorySlug}`}
-          className="text-start text-gray dark:text-dark-gray font-medium font-azarMehr text-[13px] 3xl:text-[16px] text-nowrap"
+          className="text-start text-matn-2  font-medium font-azarMehr text-[13px] 3xl:text-[16px] text-nowrap"
         >
           {item.category}
         </Link>
         {item.subCategory && (
           <>
-            <span className="font-azarMehr text-gray dark:text-dark-gray">/</span>
+            <span className="font-azarMehr text-matn-2 ">/</span>
             <Link
               href={`/${params.lang}/articles/categories/${item.categorySlug}/${item.subCategory}`}
-              className="text-start text-gray dark:text-dark-gray whitespace-nowrap font-medium font-azarMehr text-[13px] 3xl:text-[16px] truncate"
+              className="text-start text-matn-2  whitespace-nowrap font-medium font-azarMehr text-[13px] 3xl:text-[16px] truncate"
               data-tooltip-id={item.subCategory}
             >
               {item.subCategory.length > 30
@@ -120,7 +120,7 @@ export default function ArticleCard({ item, params, theme, activeLoadingId, setA
       {/* توضیح کوتاه */}
       <Link
         href={`/${params.lang}/articles/categories/${item.categorySlug}/${item.slug}`}
-        className="w-[95%] mt-[-20px] text-textGray dark:text-lightGray z-[1]"
+        className="w-[95%] mt-[-20px] text-matn-2 dark:text-matn-2 z-[1]"
       >
         <p className="text-[12px] 3xl:text-[16px] line-clamp-2 overflow-hidden">
           {stripHTML(item.excerpt || item.description)}
@@ -150,28 +150,28 @@ export default function ArticleCard({ item, params, theme, activeLoadingId, setA
 
         <div className="flex flex-row justify-start items-center gap-3 md:gap-5">
           <div className="flex items-center gap-[5px]">
-            <span className="font-azarMehr text-gray dark:text-dark-gray text-[13px] 3xl:text-[18px]">
+            <span className="font-azarMehr text-matn-2  text-[13px] 3xl:text-[18px]">
               {formatNumber(item.stats.likes)}
             </span>
-            <Like className="stroke-gray dark:stroke-dark-gray stroke-2 w-[18px] h-[18px]" />
+            <Like className="stroke-matn-2  stroke-2 w-[18px] h-[18px]" />
           </div>
 
           <hr className="h-[28px] border-l-0 border-y-0 border-solid border-[#D9D9D9] dark:border-[#434343]" />
 
           <div className="flex items-center gap-[5px]">
-            <span className="font-azarMehr text-gray dark:text-dark-gray text-[13px] 3xl:text-[18px]">
+            <span className="font-azarMehr text-matn-2  text-[13px] 3xl:text-[18px]">
               {formatNumber(item.stats.dislikes)}
             </span>
-            <Dislike className="stroke-gray dark:stroke-dark-gray stroke-2" />
+            <Dislike className="stroke-matn-2  stroke-2" />
           </div>
 
           <hr className="h-[28px] border-l-0 border-y-0 border-solid border-[#D9D9D9] dark:border-[#434343]" />
 
           <div className="flex items-center gap-[5px]">
-            <span className="font-azarMehr text-gray dark:text-dark-gray text-[13px] 3xl:text-[18px]">
+            <span className="font-azarMehr text-matn-2  text-[13px] 3xl:text-[18px]">
               {formatNumber(item.stats.views)}
             </span>
-            <View className="stroke-gray dark:stroke-dark-gray stroke-2" />
+            <View className="stroke-matn-2  stroke-2" />
           </div>
         </div>
       </div>

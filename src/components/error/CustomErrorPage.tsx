@@ -84,17 +84,17 @@ export default function CustomErrorPage({ error }: Props) {
   console.log("PageSpeedError")
   return (
     <div>
-      <section className="w-full pt-7 relative mt-[60px] lg:mt-0 bg-[#f8f8f8] dark:bg-black xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
-        <div className="bg-white dark:bg-[#080807] rounded-[20px] flex flex-col lg:flex-row gap-5 p-5 w-full">
+      <section className="w-full pt-7 relative mt-[60px] lg:mt-0 bg-bg-primary  xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
+        <div className="bg-white dark:bg-gray-1 rounded-[20px] flex flex-col lg:flex-row gap-5 p-5 w-full">
           {/* ============================
               LEFT SIDE
               ============================ */}
           <div className="flex flex-col gap-6 justify-center lg:justify-start items-center lg:items-start text-center lg:text-start w-full lg:w-[60%] p-1 lg:ps-7">
-            <h1 className="text-[#33353B] dark:text-white text-8xl md:text-[120px] 2xl:text-[176px] font-bold mt-5">
+            <h1 className="text-title-2 dark:text-white text-8xl md:text-[120px] 2xl:text-[176px] font-bold mt-5">
               خطا
             </h1>
 
-            <h2 className="text-[#33353B] dark:text-white text-2xl md:text-3xl">
+            <h2 className="text-title-2 dark:text-white text-2xl md:text-3xl">
               {!alreadyAutoRetried
                 ? "خطایی رخ داده است، در حال تلاش مجدد..."
                 : "لطفاً لحظاتی بعد مجدد تلاش کنید"}
@@ -103,7 +103,7 @@ export default function CustomErrorPage({ error }: Props) {
             {/* 🔄 RETRY BUTTON */}
             <button
               onClick={() => router.refresh()}
-              className="mt-4 px-6 py-[10px] rounded-lg bg-light-primary dark:bg-dark-yellow dark:text-black text-base font-bold text-white transition"
+              className="mt-4 px-6 py-[10px] rounded-lg bg-primary  dark:text-black text-base font-bold text-white transition"
             >
               {!alreadyAutoRetried && countdown > 0
                 ? `تلاش مجدد (${countdown})`

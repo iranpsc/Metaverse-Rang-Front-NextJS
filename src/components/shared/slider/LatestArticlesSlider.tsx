@@ -173,7 +173,7 @@ const LatestArticlesSlider: React.FC<LatestArticlesSliderProps> = ({
   }
 
   if (sortedArticles.length === 0) {
-    return <div className="py-6 text-center text-gray-500">هیچ مقاله‌ای برای نمایش موجود نیست.</div>;
+    return <div className="py-6 text-center text-matn-2-500">هیچ مقاله‌ای برای نمایش موجود نیست.</div>;
   }
 
   return (
@@ -214,19 +214,19 @@ const LatestArticlesSlider: React.FC<LatestArticlesSliderProps> = ({
         
         <div className="flex items-center justify-center md:justify-start gap-2">
           <button  onClick={() => swiperRef.current?.slidePrev()} className="flex items-center justify-center rounded-full bg-transparent" aria-label="Previous slide">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 9 15" className="w-[20px] h-[20px] stroke-gray dark:stroke-white ltr:rotate-180">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 9 15" className="w-[20px] h-[20px] stroke-matn-2 dark:stroke-white ltr:rotate-180">
               <path d="m1 14 6.5-6.5L1 1" />
             </svg>
           </button>
 
           <div className="flex justify-center gap-2">
             {sortedArticles.map((_, idx) => (
-              <button key={idx} onClick={() => swiperRef.current?.slideToLoop(idx)} className={`w-5 h-1 rounded-sm transition ${activeIndex === idx ? "bg-light-primary dark:bg-dark-yellow" : "bg-dark-gray dark:bg-dark-placeholder"}`} aria-label={`Go to slide ${idx + 1}`} />
+              <button key={idx} onClick={() => swiperRef.current?.slideToLoop(idx)} className={`w-5 h-1 rounded-sm transition ${activeIndex === idx ? "bg-primary " : "bg-dark-gray dark:bg-dark-placeholder"}`} aria-label={`Go to slide ${idx + 1}`} />
             ))}
           </div>
 
           <button onClick={() => swiperRef.current?.slideNext()} className="flex items-center justify-center rounded-full bg-transparent" aria-label="Next slide">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 9 15" className="w-[20px] h-[20px] stroke-gray dark:stroke-white ltr:rotate-180">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 9 15" className="w-[20px] h-[20px] stroke-matn-2 dark:stroke-white ltr:rotate-180">
               <path d="m8 14L1.5 7.5L8 1" />
             </svg>
           </button>

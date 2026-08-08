@@ -47,9 +47,9 @@ export const ASSET_CONFIG: Record<
   string,
   { label: string; color: string; icon: AssetIconType; uniqueId: number }
 > = {
-  blue: { label: "رنگ آبی", color: "#0066FF", icon: "blueGem", uniqueId: 49 },
+  blue: { label: "رنگ آبی", color: "#9100D9", icon: "blueGem", uniqueId: 49 },
   red: { label: "رنگ قرمز", color: "#EF4444", icon: "flag", uniqueId: 12 },
-  yellow: { label: "رنگ زرد", color: "#FFC700", icon: "yellowSparkle", uniqueId: 11 },
+  yellow: { label: "رنگ زرد", color: "#9100D9", icon: "yellowSparkle", uniqueId: 11 },
   satisfaction: { label: "واحد رضایت", color: "#A78BFA", icon: "trophy", uniqueId: 453 },
   irr: { label: "ارز ریال", color: "#22C55E", icon: "banknote", uniqueId: 1579 },
   effect: { label: "حد تاثیر", color: "#38BDF8", icon: "gauge", uniqueId: 723 },

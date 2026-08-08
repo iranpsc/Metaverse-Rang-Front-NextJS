@@ -224,7 +224,7 @@ export default function AvalancheSolutions({ params, mainData }: AvalancheSoluti
                 overflow-hidden
                 rounded-xl lg:rounded-[32px]
                 text-white
-                dark:text-[#1A1A18]
+                dark:text-gray-1 
                 p-5
                 xl:p-10
                

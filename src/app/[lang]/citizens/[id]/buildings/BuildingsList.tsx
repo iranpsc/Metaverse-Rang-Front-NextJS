@@ -154,7 +154,7 @@ function BuildingCard({
             dark:text-white
             shadow-lg
             backdrop-blur-md
-            dark:!bg-[#1A1A18]
+            dark:!bg-gray-1 
             !bg-white
           "
         >
@@ -219,7 +219,7 @@ function BuildingCard({
 
 function BuildingCardSkeleton() {
   return (
-    <div className="bg-white dark:bg-darkGray rounded-2xl overflow-hidden flex flex-col animate-pulse">
+    <div className="bg-white dark:bg-gray-1 rounded-2xl overflow-hidden flex flex-col animate-pulse">
       <div className="w-full h-[110px] bg-black/5 dark:bg-white/10" />
       <div className="p-4 flex flex-col gap-3">
         <div className="flex justify-between">
@@ -326,7 +326,7 @@ export default function BuildingsList({
       )}
 
       {!error && !loading && items.length === 0 && (
-        <p className="w-full text-center text-lightGray py-4">
+        <p className="w-full text-center text-matn-2 py-4">
           {isFa ? "ملکی یافت نشد." : "No properties found."}
         </p>
       )}
@@ -335,7 +335,7 @@ export default function BuildingsList({
         <button
           onClick={handleLoadMore}
           disabled={loadingMore}
-          className="text-blueLink dark:text-dark-primary text-sm font-bold text-center py-2"
+          className="text-primary  text-sm font-bold text-center py-2"
         >
           {loadingMore ? (isFa ? "در حال بارگذاری..." : "Loading...") : isFa ? "مشاهده بیشتر" : "View more"}
         </button>

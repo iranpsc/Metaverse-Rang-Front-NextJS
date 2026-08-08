@@ -20,11 +20,11 @@ interface BuildingsChartData {
 }
 
 const EMPTY_CHART: BuildingsChartData = { completed: [], labels: [] };
-const LINE_COLOR = "#0066FF";
+const LINE_COLOR = "#9100D9";
 
 function ChartSkeleton() {
   return (
-    <div className="w-full h-[360px] bg-white dark:bg-darkGray rounded-xl animate-pulse flex items-end gap-2 p-6">
+    <div className="w-full h-[360px] bg-white dark:bg-gray-1 rounded-xl animate-pulse flex items-end gap-2 p-6">
       {Array.from({ length: 10 }).map((_, i) => (
         <div
           key={i}

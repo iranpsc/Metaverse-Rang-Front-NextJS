@@ -246,14 +246,14 @@ export default async function CalendarPage({ params }: CalendarPageProps) {
         <FixLinks />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(eventSchema, null, 2) }} />
         <CleanAutoRetryParam />
-        <section className="w-full relative mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20">
+        <section className="w-full relative mt-[60px] lg:mt-0 lg:pt-0 bg-bg-primary  bg-opacity20">
           <div className="px-12">
             <BreadCrumb params={resolvedParams} />
           </div>
 
           <div className="p-5 lg:px-10 space-y-3 mb-5">
             <h1 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[64px] mb-[16px]">{findByUniqueId(mainData, 1463)}</h1>
-            <p className="text-lightGray  dark:text-lightGray font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center px-5 lg:px-10">{findByUniqueId(mainData, 1464)}</p>
+            <p className="text-matn-2  dark:text-matn-2 font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center px-5 lg:px-10">{findByUniqueId(mainData, 1464)}</p>
           </div>
 
           <div className="mainContainer w-full h-auto flex flex-col items-center lg:gap-0 font-azarMehr lg:flex-row lg:items-start p-5 lg:px-10">

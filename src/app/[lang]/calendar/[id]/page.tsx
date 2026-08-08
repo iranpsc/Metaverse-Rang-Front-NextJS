@@ -218,7 +218,7 @@ export default async function EventPage({ params }: EventPageProps ) {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(eventSchema, null, 2) }} />
       <div className="flex flex-col  min-w-[340px] w-full" dir={langData.direction}>
-        <section className="w-full relative mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20">
+        <section className="w-full relative mt-[60px] lg:mt-0 lg:pt-0 bg-bg-primary  bg-opacity20">
           <CleanAutoRetryParam />
           <div className="px-12">
             <BreadCrumb params={resolvedParams} eventTitle={cleanTitle} />

@@ -102,7 +102,7 @@ const generateValue = () => {
     return (
       <a
         onClick={handleClick}
-        className="text-blueLink dark:text-blue-500 font-[700]"
+        className="text-primary dark:text-blue-500 font-[700]"
         href={href}
         target={isHMFormat ? undefined : "_blank"}
       >
@@ -151,7 +151,7 @@ const generateValue = () => {
 
       {/* Main Item */}
       <div
-        className={`flex flex-wrap flex-row gap-2 justify-between py-3 border-solid border-t-0 border-x-0 border-b-2 border-[#ECECEC] dark:border-[#1A1A18] items-center w-full text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] ${
+        className={`flex flex-wrap flex-row gap-2 justify-between py-3 border-solid border-t-0 border-x-0 border-b-2 border-[#ECECEC] dark:border-gray-1  items-center w-full text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] ${
           fullBox ? "w-full" : "sm:w-[47%]"
         }`}
       >

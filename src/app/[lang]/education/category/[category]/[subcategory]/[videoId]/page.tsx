@@ -173,7 +173,7 @@ export default async function EducationVideo({ params }: EducationVideoProps) {
         <div className="flex w-full" dir={langData.direction}>
 
           <section
-            className={`w-full relative mt-[60px] lg:mt-0 lg:pt-0 bg-[#F5F5F5] dark:bg-black bg-opacity20 xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1`}
+            className={`w-full relative mt-[60px] lg:mt-0 lg:pt-0 bg-bg-primary xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1`}
           >
             <section
               className={`w-full relative overflow-y-auto overflow-x-clip flex flex-col justify-start items-center`}

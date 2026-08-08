@@ -48,10 +48,10 @@ export default async function NotFound() {
     return (
       <main
         dir="rtl"
-        className="min-h-screen flex items-center justify-center bg-[#f8f8f8] dark:bg-black"
+        className="min-h-screen flex items-center justify-center bg-bg-primary "
       >
         <div className="text-center">
-          <h1 className="text-8xl font-bold text-[#33353B] dark:text-white">
+          <h1 className="text-8xl font-bold text-title-2 dark:text-white">
             404
           </h1>
 
