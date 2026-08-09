@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: { params: any }): Promise<Met
   try {
     const { lang, version } = params;
 
-    const apiUrl = "https://api.metarang.com/api/calendar?type=version&page=1";
+    const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar?type=version&page=1`;
 
     const localeMap: Record<string, string> = {
       fa: "fa_IR",
@@ -147,7 +147,7 @@ export default async function VersionPage({ params }:VersionPageProps) {
     let versions: any = [];
     try {
       const response = await fetch(
-        "https://api.metarang.com/api/calendar?type=version&page=1",
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar?type=version&page=1`,
         {
           method: "GET",
           headers: {
@@ -233,7 +233,7 @@ export default async function VersionPage({ params }:VersionPageProps) {
         <div className="flex w-full" dir={langData.direction}>
 
           <section
-            className={`w-full relative mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20`}
+            className={`w-full relative mt-[60px] lg:mt-0 lg:pt-0 bg-bg-primary  bg-opacity20`}
           >
             {/* Breadcrumb */}
             <div className="px-12">

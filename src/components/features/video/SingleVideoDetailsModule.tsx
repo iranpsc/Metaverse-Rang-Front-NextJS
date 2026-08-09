@@ -39,7 +39,7 @@ const SingleVideoDetailsModule = ({
           content: comment,
         };
          await axios.post(
-          `https://api.metarang.com/api/tutorials/${videoId}/comments`,
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/tutorials/${videoId}/comments`,
           requestData,
           {
             headers: {
@@ -84,7 +84,7 @@ const SingleVideoDetailsModule = ({
 
   return (
     <div className="w-full pt-6 bg-white dark:bg-dark-background rounded-b-[20px] pb-10 px-5">
-      <h1 className="w-full text-start text-singleVideo_title xs:text-[16px] text-gray dark:text-white font-azarMehr font-bold">
+      <h1 className="w-full text-start text-singleVideo_title xs:text-[16px] text-matn-2 dark:text-white font-azarMehr font-bold">
         {checkData(DataVideo?.title)}
       </h1>
       <div className="w-full xl:hidden flex flex-row justify-start gap-5 mt-4 items-center bg-white dark:bg-dark-background relative">
@@ -100,13 +100,13 @@ const SingleVideoDetailsModule = ({
           <p className="font-azarMehr font-normal text-black dark:text-white text-singleVideo_medium xs:text-[12px]">
             {checkData(DataVideo.views_count)}
           </p>
-          <View className="stroke-gray dark:stroke-white size-[15px] md:size-[20px]" />
+          <View className="stroke-matn-2 dark:stroke-white size-[15px] md:size-[20px]" />
         </div>
       </div>
 
       {!isComplete ? (
         <p
-          className="prose max-w-none prose-p:leading-9 space-y-5 text-sm prose-h1:text-sm prose-h2:text-sm prose-h3:text-sm prose-h4:text-sm lg:text-xl md:prose-h1:text-2xl md:prose-h2:text-2xl md:prose-h3:text-2xl md:prose-h-4:text-2xl dark:text-[#868B90] md:prose-p:text-[#484950] dark:prose-p:text-[#868B90] dark:prose-h1:text-white  dark:prose-h2:text-white  dark:prose-h3:text-white prose-a:text-blueLink dark:prose-a:text-dark-yellow dark:prose-strong:text-white mt-5 [&_ul]:list-disc [&_ul]:pl-5
+          className="prose max-w-none prose-p:leading-9 space-y-5 text-sm prose-h1:text-sm prose-h2:text-sm prose-h3:text-sm prose-h4:text-sm lg:text-xl md:prose-h1:text-2xl md:prose-h2:text-2xl md:prose-h3:text-2xl md:prose-h-4:text-2xl dark:text-[#868B90] md:prose-p:text-[#484950] dark:prose-p:text-[#868B90] dark:prose-h1:text-white  dark:prose-h2:text-white  dark:prose-h3:text-white prose-a:text-primary dark:prose-a:text-primary dark:prose-strong:text-white mt-5 [&_ul]:list-disc [&_ul]:pl-5
          [&_ol]:list-decimal [&_ol]:pl-5
          [&_li>p]:inline [&_li>p]:m-0"
 
@@ -116,7 +116,7 @@ const SingleVideoDetailsModule = ({
         />
       ) : (
         <p
-          className="prose max-w-none prose-p:leading-9 space-y-5 text-sm prose-h1:text-sm prose-h2:text-sm prose-h3:text-sm prose-h4:text-sm lg:text-xl md:prose-h1:text-2xl md:prose-h2:text-2xl md:prose-h3:text-2xl md:prose-h-4:text-2xl dark:text-[#868B90] [&_span]:text-[#868B90] md:prose-p:text-[#484950] dark:prose-p:text-[#868B90] dark:prose-h1:text-white  dark:prose-h2:text-white  dark:prose-h3:text-white prose-a:text-blueLink dark:prose-a:text-dark-yellow dark:prose-strong:text-white  transition-all duration-300 ease-in-out mt-5 [&_ul]:list-disc [&_ul]:pl-5
+          className="prose max-w-none prose-p:leading-9 space-y-5 text-sm prose-h1:text-sm prose-h2:text-sm prose-h3:text-sm prose-h4:text-sm lg:text-xl md:prose-h1:text-2xl md:prose-h2:text-2xl md:prose-h3:text-2xl md:prose-h-4:text-2xl dark:text-[#868B90] [&_span]:text-[#868B90] md:prose-p:text-[#484950] dark:prose-p:text-[#868B90] dark:prose-h1:text-white  dark:prose-h2:text-white  dark:prose-h3:text-white prose-a:text-primary dark:prose-a:text-primary dark:prose-strong:text-white  transition-all duration-300 ease-in-out mt-5 [&_ul]:list-disc [&_ul]:pl-5
          [&_ol]:list-decimal [&_ol]:pl-5
          [&_li>p]:inline [&_li>p]:m-0"
           dangerouslySetInnerHTML={{
@@ -131,7 +131,7 @@ const SingleVideoDetailsModule = ({
             ...
           </span>
           <span
-            className="dark:text-dark-yellow mx-2 text-blueLink font-azarMehr font-medium cursor-pointer text-sm md:text-[18px]"
+            className=" mx-2 text-primary font-azarMehr font-medium cursor-pointer text-sm md:text-[18px]"
             onClick={() => setIsComplete(!isComplete)}
           >
             {findByUniqueId(mainData, 171)}
@@ -142,7 +142,7 @@ const SingleVideoDetailsModule = ({
       <div className="relative mt-10 px-3 w-full xs:w-[95%] h-[48px]">
         <input
           type="text"
-          className="w-full h-full text-base ps-2 pe-[50px] text-black dark:text-white bg-grayLight dark:bg-black border-none rounded-[12px] placeholder-textInput focus:outline-none focus:shadow-md"
+          className="w-full h-full text-base ps-2 pe-[50px] text-black dark:text-white bg-gray-3  border-none rounded-[12px] placeholder-textInput focus:outline-none focus:shadow-md"
           placeholder={findByUniqueId(mainData, 457)}
           value={comment}
           onChange={(e) => SetComment(e.target.value)}
@@ -164,7 +164,7 @@ const SingleVideoDetailsModule = ({
               <LoginButtonModule params={mainData} />
               <div className="w-1/2 flex justify-center">
                 <button
-                  className="w-full bg-dark-gray dark:bg-extraGray text-black dark:text-white font-azarMehr py-2 px-2 md:px-4 font-medium text-center text-[15px] rounded-[10px] hover:bg-gray-400 active:scale-105 duration-300"
+                  className="w-full bg-dark-gray dark:bg-extraGray text-black dark:text-white font-azarMehr py-2 px-2 md:px-4 font-medium text-center text-[15px] rounded-[10px] hover:bg-matn-2-400 active:scale-105 duration-300"
                   onClick={() => setShowLoginModal(false)}
                 >
                   بستن
@@ -178,7 +178,7 @@ const SingleVideoDetailsModule = ({
       {showSuccessModal && (
         <div className="fixed inset-0 backdrop-blur bg-black/30 flex items-center justify-center z-50 p-5">
           <div className="bg-white dark:bg-dark-background p-6 rounded-lg shadow-lg max-w-sm w-full text-center">
-            <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2.5">
+            <div className="w-full bg-matn-2-200 dark:bg-matn-2-600 rounded-full h-2.5">
               <div
                 className="bg-green-600 h-2.5 rounded-full transition-all duration-50 ease-linear"
                 style={{ width: `${progress}%` }}

@@ -97,8 +97,10 @@ const nextConfig = {
       { protocol: "https", hostname: "metarang.com", pathname: "/**" },
       { protocol: "https", hostname: "s3.metarang.com", pathname: "/**" },
       { protocol: "https", hostname: "api.metarang.com", pathname: "/**" },
+      { protocol: "https", hostname: "dev-api.metarang.com", pathname: "/**" },
       { protocol: "http", hostname: "api.metarang.com", pathname: "/**" },
       { protocol: "https", hostname: "admin.metarang.com", pathname: "/**" },
+      { protocol: "https", hostname: "dev-admin.metarang.com", pathname: "/**" },
       { protocol: "http", hostname: "admin.metarang.com", pathname: "/**" },
 
       { protocol: "https", hostname: "**.irpsc.com", pathname: "/**" },

@@ -23,21 +23,21 @@ const ThemeMenuModule = ({ isClosed, defaultTheme, params }: any) => {
           {theme === "dark" ? (
             <Dark
               className={` ${
-                theme === "dark" ? "stroke-white" : "stroke-gray"
+                theme === "dark" ? "stroke-white" : "stroke-matn-2"
               }  stroke-[2px] `}
             />
           ) : (
             <Light
               className={` ${
                 theme === "dark"
-                  ? "stroke-gray fill-gray"
+                  ? "stroke-matn-2 fill-matn-2"
                   : "stroke-black fill-black"
               }`}
             />
           )}
         </div>
       ) : (
-        // <div className="bg-[#e9eef8] dark:bg-black w-[90%] rounded-full flex flex-row  justify-center items-center gap-3">
+        // <div className="bg-[#e9eef8]  w-[90%] rounded-full flex flex-row  justify-center items-center gap-3">
         //   <div
         //     className={`
         //   ${theme === "dark" ? "#1A1A18" : "bg-[#fcfcfc]"}
@@ -63,13 +63,13 @@ const ThemeMenuModule = ({ isClosed, defaultTheme, params }: any) => {
 
         //   <div
         //     className={`
-        //   ${theme === "dark" ? "bg-[#1A1A18]" : ""}
+        //   ${theme === "dark" ? "bg-gray-1 " : ""}
         //   w-[135px] h-[28px] my-1 rounded-full flex flex-row  justify-center items-center gap-3 me-1  cursor-pointer `}
         //     onClick={toggoleTheme}
         //   >
         //     <Dark
         //       className={` ${
-        //         theme === "dark" ? "stroke-[#F8F8F8]" : "stroke-gray"
+        //         theme === "dark" ? "stroke-[#F8F8F8]" : "stroke-matn-2"
         //       }  stroke-[2px] `}
         //     />
         //     <p
@@ -91,14 +91,14 @@ const ThemeMenuModule = ({ isClosed, defaultTheme, params }: any) => {
           {theme === "dark" ? (
             <Dark
               className={` ${
-                theme === "dark" ? "stroke-white" : "stroke-gray"
+                theme === "dark" ? "stroke-white" : "stroke-matn-2"
               }  stroke-[2px] `}
             />
           ) : (
             <Light
               className={` ${
                 theme === "dark"
-                  ? "stroke-gray fill-gray"
+                  ? "stroke-matn-2 fill-matn-2"
                   : "stroke-black fill-black"
               }`}
             />

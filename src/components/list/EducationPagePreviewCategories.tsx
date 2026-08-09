@@ -21,10 +21,10 @@ export default function EducationCategories({
               <Link
                 href={`/${params.lang}/education/category/${item.slug}`}
                 key={item.id}
-                className="col-span-1 cursor-pointer shadow-sm hover:dark:shadow-dark transition-all duration-300 2xl:w-full xl:w-full lg:w-full md:w-full sm:w-[200px] xs:w-full h-[80px] bg-[#fff] dark:bg-[#1A1A18] rounded-[20px] flex flex-row justify-start items-center gap-5 xs:gap-2 hover:shadow-md"
+                className="col-span-1 cursor-pointer shadow-sm hover:dark:shadow-dark transition-all duration-300 2xl:w-full xl:w-full lg:w-full md:w-full sm:w-[200px] xs:w-full h-[80px] bg-[#fff] dark:bg-gray-1  rounded-[20px] flex flex-row justify-start items-center gap-5 xs:gap-2 hover:shadow-md"
               >
                 <Image
-                  className="w-[32px] h-[32px] xs:w-[28px] xs:h-[28px] ms-3 stroke-textGray"
+                  className="w-[32px] h-[32px] xs:w-[28px] xs:h-[28px] ms-3 stroke-matn-2"
                   style={{ filter: 'invert(47%) sepia(3%) saturate(9%) hue-rotate(167deg) brightness(67%) contrast(82%)' }}
                   src={item.icon}
                   alt={item.slug}
@@ -39,10 +39,10 @@ export default function EducationCategories({
 
           <Link
             href={`/${params.lang}/education/category`}
-            className="col-span-1 cursor-pointer 2xl:w-full xl:w-full lg:w-full md:w-full sm:w-[200px] xs:w-full h-[80px] bg-white dark:bg-[#1A1A18] rounded-[20px] flex flex-row justify-start items-center gap-5 shadow-sm hover:shadow-md"
+            className="col-span-1 cursor-pointer 2xl:w-full xl:w-full lg:w-full md:w-full sm:w-[200px] xs:w-full h-[80px] bg-white dark:bg-gray-1  rounded-[20px] flex flex-row justify-start items-center gap-5 shadow-sm hover:shadow-md"
           >
-            <ShowAll className="w-[18px] h-[18px] stroke-blueLink ms-3 dark:dark:stroke-dark-yellow" />
-            <p className="text-[18px] xs:text-[13px] font-medium text-blueLink dark:text-dark-yellow font-azarMehr xs:max-w-[85px] text-center">
+            <ShowAll className="w-[18px] h-[18px] stroke-primary ms-3 dark:dark:stroke-primary" />
+            <p className="text-[18px] xs:text-[13px] font-medium text-primary  font-azarMehr xs:max-w-[85px] text-center">
               {findByUniqueId(mainData, 170)}
             </p>
           </Link>

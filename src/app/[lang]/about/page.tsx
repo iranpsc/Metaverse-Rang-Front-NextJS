@@ -171,7 +171,7 @@ export default async function AboutPage({ params }:AboutPageProps) {
               <h2 className="dark:text-white text-black text-lg md:text-2xl font-bold font-rohk mb-4">
                 {findByUniqueId(mainData, 1556)}
               </h2>
-              <p className="text-lightGray  dark:text-lightGray font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center px-5 lg:px-10">
+              <p className="text-matn-2  dark:text-matn-2 font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center px-5 lg:px-10">
                 {findByUniqueId(mainData, 1557)}
               </p>
             </div>
@@ -195,7 +195,7 @@ export default async function AboutPage({ params }:AboutPageProps) {
               <h2 className="dark:text-white text-black text-lg md:text-2xl font-bold font-rohk">
                 {findByUniqueId(mainData, 1559)}
               </h2>
-              <ul className="text-lightGray font-medium text-justify text-sm md:text-lg mt-5 leading-10">
+              <ul className="text-matn-2 font-medium text-justify text-sm md:text-lg mt-5 leading-10">
                 <li>
                   <span className="font-bold font-azarMehr text-black dark:text-white">
                     {findByUniqueId(mainData, 1560)}
@@ -219,7 +219,7 @@ export default async function AboutPage({ params }:AboutPageProps) {
                 </li>
               </ul>
             </div>
-            <div className="w-full text-center bg-white dark:bg-[#1A1A18] text-[#6A6A6A] dark:text-white rounded-[30px] p-6 py-10 leading-10 text-sm md:text-lg text-justify">
+            <div className="w-full text-center bg-white dark:bg-gray-1  text-[#6A6A6A] dark:text-white rounded-[30px] p-6 py-10 leading-10 text-sm md:text-lg text-justify">
               <h2 className="dark:text-white text-black text-lg md:text-2xl font-bold font-rohk">
                 {findByUniqueId(mainData, 1566)}
               </h2>
@@ -245,18 +245,18 @@ export default async function AboutPage({ params }:AboutPageProps) {
                 {findByUniqueId(mainData, 1571)}
                 &nbsp;
               </h2>
-              <p className="text-lightGray font-medium text-justify text-sm md:text-lg mt-5 leading-10">
+              <p className="text-matn-2 font-medium text-justify text-sm md:text-lg mt-5 leading-10">
                 {findByUniqueId(mainData, 1572)}
               </p>
             </div>
-            <div className="w-full text-center bg-white dark:bg-[#1A1A18] text-[#6A6A6A] dark:text-white rounded-[30px] p-6 py-10 leading-10 text-sm md:text-lg text-justify">
+            <div className="w-full text-center bg-white dark:bg-gray-1  text-[#6A6A6A] dark:text-white rounded-[30px] p-6 py-10 leading-10 text-sm md:text-lg text-justify">
               <h2 className="dark:text-white text-black text-lg md:text-2xl font-bold font-rohk">
                 {lang.toLowerCase() === "fa"
                   ? "تیم متاورس"
                   : "Metaverse Team"}
                 &nbsp;
               </h2>
-              <p className="text-lightGray dark:text-white font-medium text-justify text-sm md:text-lg mt-5 leading-10">
+              <p className="text-matn-2 dark:text-white font-medium text-justify text-sm md:text-lg mt-5 leading-10">
                 {findByUniqueId(mainData, 1573)}
               </p>
             </div>
@@ -264,7 +264,7 @@ export default async function AboutPage({ params }:AboutPageProps) {
           <div>
 
             <List
-              params={params} mainData={mainData} users={users}
+              params={resolvedParams} mainData={mainData} users={users}
             />
           </div>
         </section>

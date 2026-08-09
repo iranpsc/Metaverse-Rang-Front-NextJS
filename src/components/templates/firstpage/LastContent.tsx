@@ -169,7 +169,7 @@ const LatestArticlesSlider: React.FC<LatestArticlesSliderProps> = ({
   }
 
   if (sortedArticles.length === 0) {
-    return <div className="py-6 text-center text-gray-500">هیچ مقاله‌ای برای نمایش موجود نیست.</div>;
+    return <div className="py-6 text-center matn-2-500">هیچ مقاله‌ای برای نمایش موجود نیست.</div>;
   }
 
   return (

@@ -30,7 +30,7 @@ export default function VideoCard({
   };
 
   return (
-    <Link aria-label="eduction card" href={`/${params.lang}/education/category/${item.category.slug}/${item.sub_category.slug}/${item.slug}`} onClickCapture={() => setActiveLoadingId(item.id)} className={`${isLoading ? "rotating-border-card cursor-not-allowed" : ""}  w-[100%] min-h-[240px] shadow-md  hover:shadow-xl hover:dark:shadow-dark rounded-[10px] overflow-hidden bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-6 items-center`}>
+    <Link aria-label="eduction card" href={`/${params.lang}/education/category/${item.category.slug}/${item.sub_category.slug}/${item.slug}`} onClickCapture={() => setActiveLoadingId(item.id)} className={`${isLoading ? "rotating-border-card cursor-not-allowed" : ""}  w-[100%] min-h-[240px] shadow-md  hover:shadow-xl hover:dark:shadow-dark rounded-[10px] overflow-hidden bg-white dark:bg-gray-1  flex flex-col justify-start gap-6 items-center`}>
       {isLoading && (
         <div className="absolute inset-0 z-50 flex items-center justify-center">
           {/* بک‌گراند محو */}
@@ -40,7 +40,7 @@ export default function VideoCard({
       <div className="group w-full  h-[260px] overflow-hidden px-4 pt-4 ">
         <div className=" relative h-full w-full z-[1] ">
           {imgLoading && (
-            <div className="absolute inset-0 h-full w-full bg-dark-gray dark:bg-textGray animate-pulse rounded-[10px] z-20" />
+            <div className="absolute inset-0 h-full w-full bg-dark-gray dark:bg-matn-2 animate-pulse rounded-[10px] z-20" />
           )}
           <Image
             src={item.image_url || "/rafiki-dark.png"}
@@ -69,12 +69,12 @@ export default function VideoCard({
       </div>
 
       <div className="w-[95%]  z-[1] flex flex-row justify-start items-center gap-1 mt-[-10px] pe-16">
-        <Link aria-label="eduction" href={`/${params.lang}/education/category/${item.category.slug}`} className="text-start text-gray dark:text-dark-gray font-medium font-azarMehr text-[13px] 3xl:text-[16px]">
+        <Link aria-label="eduction" href={`/${params.lang}/education/category/${item.category.slug}`} className="text-start text-matn-2  font-medium font-azarMehr text-[13px] 3xl:text-[16px]">
           {item.category.name}
         </Link>
-        <span className="font-azarMehr text-gray dark:text-dark-gray">/</span>
+        <span className="font-azarMehr text-matn-2 ">/</span>
         <Link aria-label="eduction" href={`/${params.lang}/education/category/${item.category.slug}/${item.sub_category.slug}`}
-          className="text-start text-gray dark:text-dark-gray whitespace-nowrap font-medium font-azarMehr text-[13px] 3xl:text-[16px]"
+          className="text-start text-matn-2  whitespace-nowrap font-medium font-azarMehr text-[13px] 3xl:text-[16px]"
           data-tooltip-id={item.sub_category.name}
         >
           {item.sub_category.name.length > 30
@@ -107,7 +107,7 @@ export default function VideoCard({
         </p>
       </Link>
       <Link
-        className="w-[95%] z-[1] mt-[-20px] text-textGray dark:text-lightGray" aria-label="eduction"
+        className="w-[95%] z-[1] mt-[-20px] text-matn-2 dark:text-matn-2" aria-label="eduction"
         href={`/${params.lang}/education/category/${item.category.slug}/${item.sub_category.slug}/${item.slug}`}
       >
         <p className=" text-[12px] 3xl:text-[16px] line-clamp-2 overflow-hidden">
@@ -135,25 +135,25 @@ export default function VideoCard({
         </Link>
         <div className="flex flex-row justify-start items-center gap-3 md:gap-5">
           <div className="flex items-center gap-[5px]">
-            <span className="font-azarMehr text-gray dark:text-dark-gray text-[13px] 3xl:text-[18px]">
+            <span className="font-azarMehr text-matn-2  text-[13px] 3xl:text-[18px]">
               {formatNumber(item.likes_count)}
             </span>
-            <Like className="stroke-gray dark:stroke-dark-gray stroke-2 w-[18px] h-[18px]" />
+            <Like className="stroke-matn-2  stroke-2 w-[18px] h-[18px]" />
           </div>
           <hr className="h-[28px] border-l-0 border-y-0 border-solid border-[#D9D9D9] dark:border-[#434343]" />
           <div className="flex items-center gap-[5px]">
 
-            <span className="font-azarMehr text-gray dark:text-dark-gray text-[13px] 3xl:text-[18px]">
+            <span className="font-azarMehr text-matn-2  text-[13px] 3xl:text-[18px]">
               {formatNumber(item.dislikes_count)}
             </span>
-            <Dislike className="stroke-gray dark:stroke-dark-gray stroke-2" />
+            <Dislike className="stroke-matn-2  stroke-2" />
           </div>
           <hr className="h-[28px] border-l-0 border-y-0 border-solid border-[#D9D9D9] dark:border-[#434343]" />
           <div className="flex items-center gap-[5px]">
-            <span className="font-azarMehr text-gray dark:text-dark-gray text-[13px] 3xl:text-[18px]">
+            <span className="font-azarMehr text-matn-2  text-[13px] 3xl:text-[18px]">
               {formatNumber(item.views_count)}
             </span>
-            <View className="stroke-gray dark:stroke-dark-gray stroke-2" />
+            <View className="stroke-matn-2  stroke-2" />
           </div>
         </div>
       </div>

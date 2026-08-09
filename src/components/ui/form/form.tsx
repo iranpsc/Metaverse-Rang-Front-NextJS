@@ -143,12 +143,12 @@ export default function ContactForm({ lang }: Props) {
         {/* name */}
         <div>
           <input
-            className={`w-full text-base rtl:text-right ltr:text-left h-[50px] bg-[#F5F5F5] dark:bg-black rounded-[10px] p-4 border-0 
+            className={`w-full text-base rtl:text-right ltr:text-left h-[50px] bg-[#F5F5F5]  rounded-[10px] p-4 border-0 
   dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder 
   ring-1 outline-0 focus:ring-1 outline-none border-none
   ${errors.name
                 ? "ring-red-600 focus:ring-red-600"
-                : "ring-transparent focus:ring-light-primary dark:focus:ring-dark-primary"
+                : "ring-transparent focus:ring-primary dark:focus:ring-dark-primary"
               }`}
             name="name"
             value={formData.name}
@@ -163,12 +163,12 @@ export default function ContactForm({ lang }: Props) {
         {/* phone */}
         <div>
           <input
-            className={`w-full text-base rtl:text-right ltr:text-left h-[50px] bg-[#F5F5F5] dark:bg-black rounded-[10px] p-4 border-0 
+            className={`w-full text-base rtl:text-right ltr:text-left h-[50px] bg-[#F5F5F5]  rounded-[10px] p-4 border-0 
   dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder 
   ring-1 outline-0 focus:ring-1 outline-none border-none
   ${errors.name
                 ? "ring-red-600 focus:ring-red-600"
-                : "ring-transparent focus:ring-light-primary dark:focus:ring-dark-primary"
+                : "ring-transparent focus:ring-primary dark:focus:ring-dark-primary"
               }`}
 
             name="phoneNo"
@@ -184,12 +184,12 @@ export default function ContactForm({ lang }: Props) {
         {/* email */}
         <div>
           <input
-            className={`w-full text-base rtl:text-right ltr:text-left h-[50px] bg-[#F5F5F5] dark:bg-black rounded-[10px] p-4 border-0 
+            className={`w-full text-base rtl:text-right ltr:text-left h-[50px] bg-[#F5F5F5]  rounded-[10px] p-4 border-0 
   dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder 
   ring-1 outline-0 focus:ring-1 outline-none border-none
   ${errors.name
                 ? "ring-red-600 focus:ring-red-600"
-                : "ring-transparent focus:ring-light-primary dark:focus:ring-dark-primary"
+                : "ring-transparent focus:ring-primary dark:focus:ring-dark-primary"
               }`}
             name="email"
             value={formData.email}
@@ -206,12 +206,12 @@ export default function ContactForm({ lang }: Props) {
         {/* title */}
         <div>
           <input
-            className={`w-full text-base rtl:text-right ltr:text-left h-[50px] bg-[#F5F5F5] dark:bg-black rounded-[10px] p-4 border-0 
+            className={`w-full text-base rtl:text-right ltr:text-left h-[50px] bg-[#F5F5F5]  rounded-[10px] p-4 border-0 
   dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder 
   ring-1 outline-0 focus:ring-1 outline-none border-none
   ${errors.name
                 ? "ring-red-600 focus:ring-red-600"
-                : "ring-transparent focus:ring-light-primary dark:focus:ring-dark-primary"
+                : "ring-transparent focus:ring-primary dark:focus:ring-dark-primary"
               }`}
             name="title"
             value={formData.title}
@@ -227,10 +227,10 @@ export default function ContactForm({ lang }: Props) {
       {/* message */}
       <div className="mt-4">
         <textarea
-          className={`w-full text-base rtl:text-right placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder  ltr:text-left bg-[#F5F5F5] dark:bg-black rounded-[10px] p-4 border-0 dark:text-white ring-1 ring-transparent focus:ring-light-primary dark:focus:ring-dark-primary outline-none
+          className={`w-full text-base rtl:text-right placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder  ltr:text-left bg-[#F5F5F5]  rounded-[10px] p-4 border-0 dark:text-white ring-1 ring-transparent focus:ring-primary dark:focus:ring-dark-primary outline-none
   ${errors.name
               ? "ring-red-600 focus:ring-red-600"
-              : "ring-transparent focus:ring-light-primary dark:focus:ring-dark-primary"
+              : "ring-transparent focus:ring-primary dark:focus:ring-dark-primary"
             }`}
           rows={7}
           name="message"
@@ -252,8 +252,8 @@ export default function ContactForm({ lang }: Props) {
         disabled={isSubmitting}
         className={`mt-5 text-[19px] w-full md:w-[48%] font-bold py-2 rounded-[10px] transition
     ${isSubmitting
-            ? "bg-gray-400 cursor-not-allowed"
-            : "dark:bg-dark-yellow dark:text-black bg-light-primary text-white"
+            ? "matn-2-400 cursor-not-allowed"
+            : " dark:text-black bg-primary text-white"
           }`}
       >
         {isSubmitting

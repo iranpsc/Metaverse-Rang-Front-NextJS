@@ -29,7 +29,7 @@ const NewEducationSectionTemp = ({
 
     try {
       const resVideos = await axios.get(
-        `https://api.metarang.com/api/tutorials?page=${nextPage}`
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/tutorials?page=${nextPage}`
       );
 
       console.log("📦 Full API response:", resVideos); // ← لاگ کل ریسپانس
@@ -62,7 +62,7 @@ const NewEducationSectionTemp = ({
       )}
 
       <button
-        className="text-center rounded-full mb-10 flex items-center justify-center mt-10 w-[170px] h-[60px] shadow-sm hover:shadow-md dark:bg-[#1A1A18] text-blueLink dark:text-dark-yellow font-azarMehr font-semibold hover:opacity-90"
+        className="text-center rounded-full mb-10 flex items-center justify-center mt-10 w-[170px] h-[60px] shadow-sm hover:shadow-md dark:bg-gray-1  text-primary  font-azarMehr font-semibold hover:opacity-90"
         onClick={loadMore}
       >
         <div className="flex items-center justify-center w-full h-full">
@@ -70,7 +70,7 @@ const NewEducationSectionTemp = ({
             <span className="whitespace-nowrap">{findByUniqueId(mainData, 171)}</span>
           ) : (
             <SyncLoader
-              color={theme === "dark" ? "#FFC700" : "#0000FF"}
+              color={theme === "dark" ? "#9100D9" : "#0000FF"}
               size={10}
             />
           )}

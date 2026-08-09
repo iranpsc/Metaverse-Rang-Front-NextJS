@@ -281,8 +281,8 @@ export default function SideBarContent({
                     href={`/${params.lang}/${item.url}`}
 
                     className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px] cursor-pointer menu-transition
-                      ${item.active ? "text-[#0066FF] dark:text-[#FFC700]" : "text-gray-700 dark:text-gray-300"}
-                      group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700]
+                      ${item.active ? "text-primary " : "matn-2-700 dark:tmatn-2-300"}
+                      group-hover:text-primary dark:group-hover:text-primary
                       ${isClosed ? "justify-start gap-0" : "justify-start gap-2"}`}
                   >
                     <ListMenuActiveIconModule item={item} languageSelected={langData.code} isClosed={isClosed} />
@@ -312,8 +312,8 @@ export default function SideBarContent({
                 >
                   <div onClick={handleTrainingBtn} className="cursor-pointer">
                     <div className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px] menu-transition
-                      ${isEducationSectionActive ? "text-[#0066FF] dark:text-[#FFC700]" : "text-gray-700 dark:text-gray-300"}
-                      group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700]
+                      ${isEducationSectionActive ? "text-primary " : "matn-2-700 dark:tmatn-2-300"}
+                      group-hover:text-primary dark:group-hover:text-primary
                       ${isClosed ? "justify-start gap-0" : "justify-start gap-2"}`}>
                       <ListMenuActiveIconModule item={{ active: isEducationSectionActive }} languageSelected={langData.code} isClosed={isClosed} />
                       <span className="ps-[15px]">
@@ -330,14 +330,14 @@ export default function SideBarContent({
                   </div>
                 </Tooltip>
 
-                <div ref={dropdownRef2} className={`${trainingDropDown ? "h-fit" : "h-0 overflow-hidden"} base-transition-1 bg-slate-100 dark:bg-darkGray`}>
+                <div ref={dropdownRef2} className={`${trainingDropDown ? "h-fit" : "h-0 overflow-hidden"} base-transition-1 bg-slate-100 dark:bg-gray-1`}>
                   {/* آموزش‌ها */}
                   <Link
                     href={`/${params.lang}/education`}
                     onMouseDown={(e) => handleItemClick(e, "/education")}
                     className={`block w-full py-[12px] 3xl:py-[16px] menu-transition cursor-pointer
-                      ${pathName === `/${params.lang}/education` || pathName === `/${params.lang}/education/` ? "text-[#0066FF] dark:text-[#FFC700]" : "text-gray-600 dark:text-gray-400"}
-                      hover:text-[#0066FF] dark:hover:text-[#FFC700] ${isClosed ? "ps-0" : "ps-3"}`}
+                      ${pathName === `/${params.lang}/education` || pathName === `/${params.lang}/education/` ? "text-primary " : "matn-2-600 dark:tmatn-2-400"}
+                      hover:text-primary dark:hover:text-primary ${isClosed ? "ps-0" : "ps-3"}`}
                   >
                     <div className="flex items-center gap-2">
                       <span className="ps-[15px]">
@@ -363,8 +363,8 @@ export default function SideBarContent({
                     href={`/${params.lang}/education/category`}
                     onMouseDown={(e) => handleItemClick(e, "/education/category")}
                     className={`block w-full py-[12px] 3xl:py-[16px] menu-transition cursor-pointer
-                      ${pathName.startsWith(`/${params.lang}/education/category`) ? "text-[#0066FF] dark:text-[#FFC700]" : "text-gray-600 dark:text-gray-400"}
-                      hover:text-[#0066FF] dark:hover:text-[#FFC700] ${isClosed ? "ps-0" : "ps-3"}`}
+                      ${pathName.startsWith(`/${params.lang}/education/category`) ? "text-primary " : "matn-2-600 dark:tmatn-2-400"}
+                      hover:text-primary dark:hover:text-primary ${isClosed ? "ps-0" : "ps-3"}`}
                   >
                     <div className="flex items-center gap-2">
                       <span className="ps-[15px]">
@@ -402,8 +402,8 @@ export default function SideBarContent({
                 >
                   <div onClick={handleWhitePaper} className="cursor-pointer">
                     <div className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px] menu-transition
-                     ${isWhitePaperSectionActive ? "text-[#0066FF] dark:text-[#FFC700]" : "text-gray-700 dark:text-gray-300"}
-                      group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700]
+                     ${isWhitePaperSectionActive ? "text-primary " : "matn-2-700 dark:tmatn-2-300"}
+                      group-hover:text-primary dark:group-hover:text-primary
                       ${isClosed ? "justify-start gap-0" : "justify-start gap-2"}`}>
                       <ListMenuActiveIconModule item={{ active: isWhitePaperSectionActive  }} languageSelected={langData.code} isClosed={isClosed} />
                       <span className="ps-[15px]">
@@ -420,14 +420,14 @@ export default function SideBarContent({
                   </div>
                 </Tooltip>
 
-                <div ref={dropdownRef2} className={`${whitePaperDropDown ? "h-fit" : "h-0 overflow-hidden"} base-transition-1 bg-slate-100 dark:bg-darkGray`}>
+                <div ref={dropdownRef2} className={`${whitePaperDropDown ? "h-fit" : "h-0 overflow-hidden"} base-transition-1 bg-slate-100 dark:bg-gray-1`}>
                   {/* آموزش‌ها */}
                   <Link
                     href={`/${params.lang}/whitepaper`}
                     onMouseDown={(e) => handleItemClick(e, "/whitepaper")}
                     className={`block w-full py-[12px] 3xl:py-[16px] menu-transition cursor-pointer
-                      ${pathName === `/${params.lang}/whitepaper` || pathName === `/${params.lang}/whitepaper/` ? "text-[#0066FF] dark:text-[#FFC700]" : "text-gray-600 dark:text-gray-400"}
-                      hover:text-[#0066FF] dark:hover:text-[#FFC700] ${isClosed ? "ps-0" : "ps-3"}`}
+                      ${pathName === `/${params.lang}/whitepaper` || pathName === `/${params.lang}/whitepaper/` ? "text-primary " : "matn-2-600 dark:tmatn-2-400"}
+                      hover:text-primary dark:hover:text-primary ${isClosed ? "ps-0" : "ps-3"}`}
                   >
                     <div className="flex items-center gap-2">
                       <span className="ps-[15px]">
@@ -468,8 +468,8 @@ export default function SideBarContent({
                 >
                   <div onClick={handleArticlesBtn} className="cursor-pointer">
                     <div className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px] menu-transition
-                      ${isArticlesSectionActive ? "text-[#0066FF] dark:text-[#FFC700]" : "text-gray-700 dark:text-gray-300"}
-                      group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700]
+                      ${isArticlesSectionActive ? "text-primary " : "matn-2-700 dark:tmatn-2-300"}
+                      group-hover:text-primary dark:group-hover:text-primary
                       ${isClosed ? "justify-start gap-0" : "justify-start gap-2"}`}>
                       <ListMenuActiveIconModule item={{ active: isArticlesSectionActive }} languageSelected={langData.code} isClosed={isClosed} />
                       <span className="ps-[15px]">
@@ -486,14 +486,14 @@ export default function SideBarContent({
                   </div>
                 </Tooltip>
 
-                <div ref={dropdownRef3} className={`${articleDropDown ? "h-fit" : "h-0 overflow-hidden"} base-transition-1 bg-slate-100 dark:bg-darkGray`}>
+                <div ref={dropdownRef3} className={`${articleDropDown ? "h-fit" : "h-0 overflow-hidden"} base-transition-1 bg-slate-100 dark:bg-gray-1`}>
                   {/* مقالات */}
                   <Link
                     href={`/${params.lang}/articles`}
                     onMouseDown={(e) => handleItemClick(e, "/articles")}
                     className={`block w-full py-[12px] 3xl:py-[16px] menu-transition cursor-pointer
-                      ${pathName === `/${params.lang}/articles` || pathName === `/${params.lang}/articles/` ? "text-[#0066FF] dark:text-[#FFC700]" : "text-gray-600 dark:text-gray-400"}
-                      hover:text-[#0066FF] dark:hover:text-[#FFC700] ${isClosed ? "ps-0" : "ps-3"}`}
+                      ${pathName === `/${params.lang}/articles` || pathName === `/${params.lang}/articles/` ? "text-primary " : "matn-2-600 dark:tmatn-2-400"}
+                      hover:text-primary dark:hover:text-primary ${isClosed ? "ps-0" : "ps-3"}`}
                   >
                     <div className="flex items-center gap-2">
                       <span className="ps-[15px]">
@@ -507,8 +507,8 @@ export default function SideBarContent({
                   <Link href={`/${params.lang}/articles/categories`}
                     onMouseDown={(e) => handleItemClick(e, "/articles/categories")}
                     className={`block w-full py-[12px] 3xl:py-[16px] menu-transition cursor-pointer
-                      ${pathName.startsWith(`/${params.lang}/articles/categories`) ? "text-[#0066FF] dark:text-[#FFC700]" : "text-gray-600 dark:text-gray-400"}
-                      hover:text-[#0066FF] dark:hover:text-[#FFC700] ${isClosed ? "ps-0" : "ps-3"}`}
+                      ${pathName.startsWith(`/${params.lang}/articles/categories`) ? "text-primary " : "matn-2-600 dark:tmatn-2-400"}
+                      hover:text-primary dark:hover:text-primary ${isClosed ? "ps-0" : "ps-3"}`}
                   >
                     <div className="flex items-center gap-2">
                       <span className="ps-[15px]">
@@ -537,8 +537,8 @@ export default function SideBarContent({
                 >
                   <div onClick={handleNewsBtn} className="cursor-pointer">
                     <div className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px] menu-transition
-                      ${isNewsSectionActive ? "text-[#0066FF] dark:text-[#FFC700]" : "text-gray-700 dark:text-gray-300"}
-                      group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700]
+                      ${isNewsSectionActive ? "text-primary " : "matn-2-700 dark:tmatn-2-300"}
+                      group-hover:text-primary dark:group-hover:text-primary
                       ${isClosed ? "justify-start gap-0" : "justify-start gap-2"}`}>
                       <ListMenuActiveIconModule item={{ active: isNewsSectionActive }} languageSelected={langData.code} isClosed={isClosed} />
                       <span className="ps-[15px]">
@@ -555,14 +555,14 @@ export default function SideBarContent({
                   </div>
                 </Tooltip>
 
-                <div ref={dropdownRef5} className={`${newsDropDown ? "h-fit" : "h-0 overflow-hidden"} base-transition-1 bg-slate-100 dark:bg-darkGray`}>
+                <div ref={dropdownRef5} className={`${newsDropDown ? "h-fit" : "h-0 overflow-hidden"} base-transition-1 bg-slate-100 dark:bg-gray-1`}>
                   {/* لیست اخبار */}
                   <Link
                     href={`/${params.lang}/news`}
                     onMouseDown={(e) => handleItemClick(e, "/news")}
                     className={`block w-full py-[12px] 3xl:py-[16px] menu-transition cursor-pointer
-                      ${isNewsMainActive ? "text-[#0066FF] dark:text-[#FFC700]" : "text-gray-600 dark:text-gray-400"}
-                      hover:text-[#0066FF] dark:hover:text-[#FFC700] ${isClosed ? "ps-0" : "ps-3"}`}
+                      ${isNewsMainActive ? "text-primary " : "matn-2-600 dark:tmatn-2-400"}
+                      hover:text-primary dark:hover:text-primary ${isClosed ? "ps-0" : "ps-3"}`}
                   >
                     <div className="flex items-center gap-2">
                       <span className="ps-[15px]">
@@ -583,8 +583,8 @@ export default function SideBarContent({
                     href={`/${params.lang}/news/categories`}
                     onMouseDown={(e) => handleItemClick(e, "/news/categories")}
                     className={`block w-full py-[12px] 3xl:py-[16px] menu-transition cursor-pointer
-                      ${isNewsCategoriesActive ? "text-[#0066FF] dark:text-[#FFC700]" : "text-gray-600 dark:text-gray-400"}
-                      hover:text-[#0066FF] dark:hover:text-[#FFC700] ${isClosed ? "ps-0" : "ps-3"}`}
+                      ${isNewsCategoriesActive ? "text-primary " : "matn-2-600 dark:tmatn-2-400"}
+                      hover:text-primary dark:hover:text-primary ${isClosed ? "ps-0" : "ps-3"}`}
                   >
                     <div className="flex items-center gap-2">
                       <span className="ps-[15px]">
@@ -619,8 +619,8 @@ export default function SideBarContent({
                 >
                   <div onClick={handleCitizensBtn} className="cursor-pointer">
                     <div className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px] menu-transition
-                      ${isCitizensSectionActive ? "text-[#0066FF] dark:text-[#FFC700]" : "text-gray-700 dark:text-gray-300"}
-                      group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700]
+                      ${isCitizensSectionActive ? "text-primary " : "matn-2-700 dark:tmatn-2-300"}
+                      group-hover:text-primary dark:group-hover:text-primary
                       ${isClosed ? "justify-start gap-0" : "justify-start gap-2"}`}>
                       <ListMenuActiveIconModule item={{ active: isCitizensSectionActive }} languageSelected={langData.code} isClosed={isClosed} />
                       <span className="ps-[15px]">
@@ -637,14 +637,14 @@ export default function SideBarContent({
                   </div>
                 </Tooltip>
 
-                <div ref={dropdownRef4} className={`${citizensDropDown ? "h-fit" : "h-0 overflow-hidden"} base-transition-1 bg-slate-100 dark:bg-darkGray`}>
+                <div ref={dropdownRef4} className={`${citizensDropDown ? "h-fit" : "h-0 overflow-hidden"} base-transition-1 bg-slate-100 dark:bg-gray-1`}>
                   {/* شهروندان */}
                   <Link
                     href={`/${params.lang}/citizens`}
                     onMouseDown={(e) => handleItemClick(e, "/citizens")}
                     className={`block w-full py-[12px] 3xl:py-[16px] menu-transition cursor-pointer
-                      ${pathName === `/${params.lang}/citizens` || pathName === `/${params.lang}/citizens/` ? "text-[#0066FF] dark:text-[#FFC700]" : "text-gray-600 dark:text-gray-400"}
-                      hover:text-[#0066FF] dark:hover:text-[#FFC700] ${isClosed ? "ps-0" : "ps-3"}`}
+                      ${pathName === `/${params.lang}/citizens` || pathName === `/${params.lang}/citizens/` ? "text-primary " : "matn-2-600 dark:tmatn-2-400"}
+                      hover:text-primary dark:hover:text-primary ${isClosed ? "ps-0" : "ps-3"}`}
                   >
                     <div className="flex items-center gap-2">
                       <span className="ps-[15px]">
@@ -659,8 +659,8 @@ export default function SideBarContent({
                     href={`/${params.lang}/rand-id/hm`}
                     onMouseDown={(e) => handleItemClick(e, "/rand-id/hm")}
                     className={`block w-full py-[12px] 3xl:py-[16px] menu-transition cursor-pointer
-                      ${pathName.startsWith(`/${params.lang}/rand-id/hm`) ? "text-[#0066FF] dark:text-[#FFC700]" : "text-gray-600 dark:text-gray-400"}
-                      hover:text-[#0066FF] dark:hover:text-[#FFC700] ${isClosed ? "ps-0" : "ps-3"}`}
+                      ${pathName.startsWith(`/${params.lang}/rand-id/hm`) ? "text-primary " : "matn-2-600 dark:tmatn-2-400"}
+                      hover:text-primary dark:hover:text-primary ${isClosed ? "ps-0" : "ps-3"}`}
                   >
                     <div className="flex items-center gap-2">
                       <span className="ps-[15px]">

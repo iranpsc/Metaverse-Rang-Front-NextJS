@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: VersionPageProps): Promise<Me
     const resolvedParams = await params;
     const { lang, version } = resolvedParams;
 
-    const apiUrl = "https://api.metarang.com/api/calendar?type=version&page=1";
+    const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar?type=version&page=1`;
 
     const localeMap: Record<string, string> = {
       fa: "fa_IR",
@@ -160,7 +160,7 @@ export default async function VersionPage({ params }: VersionPageProps) {
     let versions: any = [];
     try {
       const response = await fetch(
-        "https://api.metarang.com/api/calendar?type=version&page=1",
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar?type=version&page=1`,
         {
           method: "GET",
           headers: {
@@ -248,12 +248,12 @@ export default async function VersionPage({ params }: VersionPageProps) {
         <div className="flex w-full" dir={langData.direction}>
 
           <section
-            className={`w-full relative mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20`}
+            className={`w-full relative mt-[60px] lg:mt-0 lg:pt-0 bg-bg-primary  bg-opacity20`}
           >
             <div className="px-12">
               <BreadCrumb params={resolvedParams} />
             </div>
-            <div className="mainContainer w-full lg:h-auto dark:bg-black flex flex-col gap-[10px] lg:flex-row lg:items-start lg:justify-between">
+            <div className="mainContainer w-full lg:h-auto  flex flex-col gap-[10px] lg:flex-row lg:items-start lg:justify-between">
               <div className="centerItem w-full lg:px-7">
                 <div className="self-center justify-between flex pt-8 w-full gap-8">
                   <Version

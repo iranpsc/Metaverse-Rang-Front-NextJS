@@ -157,7 +157,7 @@ export default function AvalancheNetwork({ params, mainData }: AvalancheNetworkP
     const formatNumber = (num: number) => num.toLocaleString();
 
     return (
-        <section ref={sectionRef} className="w-full bg-white dark:bg-[#1A1A18] rounded-xl lg:rounded-[32px]" id="network-section">
+        <section ref={sectionRef} className="w-full bg-white dark:bg-gray-1  rounded-xl lg:rounded-[32px]" id="network-section">
             <div className="p-5 lg:p-10 overflow-x-hidden">
 
                 {/* عنوان اصلی */}
@@ -218,7 +218,7 @@ export default function AvalancheNetwork({ params, mainData }: AvalancheNetworkP
                                         {findByUniqueId(mainData, 1695)}
                                     </span>
                                 </div>
-                                <div className="w-px h-4 bg-gray-300 dark:bg-gray-700"></div>
+                                <div className="w-px h-4 matn-2-300 dark:bmatn-2-700"></div>
                             </div>
                         </div>
                         <span className="text-black dark:text-white text-2xl xl:text-3xl 3xl:text-5xl hidden text-nowrap lg:block mb-auto mt-2">{findByUniqueId(mainData, 61)}</span>
@@ -244,7 +244,7 @@ export default function AvalancheNetwork({ params, mainData }: AvalancheNetworkP
                                     className={`${idx !== blocks.length - 1
                                             ? ""
                                             : ""
-                                        } bg-white dark:bg-[#1A1A18] rounded-xl border border-solid border-neutral-300 dark:border-neutral-700`}
+                                        } bg-white dark:bg-gray-1  rounded-xl border border-solid border-neutral-300 dark:border-neutral-700`}
                                 >
                                     <AnimatePresence mode="wait">
                                         <motion.div
@@ -349,7 +349,7 @@ export default function AvalancheNetwork({ params, mainData }: AvalancheNetworkP
                                     className={`${idx !== transactions.length - 1
                                             ? "border-b border-neutral-300 dark:border-neutral-700"
                                             : ""
-                                        } bg-white dark:bg-[#1A1A18] rounded-xl border border-solid border-neutral-300 dark:border-neutral-700`}
+                                        } bg-white dark:bg-gray-1  rounded-xl border border-solid border-neutral-300 dark:border-neutral-700`}
                                 >
                                     <AnimatePresence mode="wait">
                                         <motion.div

@@ -115,7 +115,7 @@ export default function LevelBadge({
             y2="4.06181"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stopColor="#2C80FF" />
+            <stop stopColor="#9100D9" />
             <stop offset={0.99} stopColor="#001E4A" />
           </linearGradient>
           <linearGradient
@@ -126,8 +126,8 @@ export default function LevelBadge({
             y2="15.6456"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stopColor="#0053CF" />
-            <stop offset={1} stopColor="#65A3FF" />
+            <stop stopColor="#9100D9" />
+            <stop offset={1} stopColor="#d505ff" />
           </linearGradient>
           <clipPath id={`clip-${uid}-lh`}>
             <rect width={29} height={100} fill="white" transform="matrix(0 1 1 0 0 0)" />
@@ -229,7 +229,7 @@ export default function LevelBadge({
             y2="4.06181"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stopColor="#FFD232" />
+            <stop stopColor="#9100D9" />
             <stop offset={0.99} stopColor="#2D2302" />
           </linearGradient>
           <linearGradient
@@ -240,11 +240,11 @@ export default function LevelBadge({
             y2="15.6456"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stopColor="#CDA000" />
-            <stop offset={1} stopColor="#FFCE1F" />
+            <stop stopColor="#9100D9" />
+            <stop offset={1} stopColor="#d505ff" />
           </linearGradient>
           <clipPath id={`clip-dark-${uid}`}>
-            <rect width={29} height={100} fill="white" transform="matrix(0 1 1 0 0 0)" />
+            <rect  width={29} height={100} fill="white" transform="matrix(0 1 1 0 0 0)" />
           </clipPath>
         </defs>
         <foreignObject x="0" y="0" width="100" height="29">

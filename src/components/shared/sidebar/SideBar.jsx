@@ -143,7 +143,7 @@ export default function SideBar({
                 <LoginMenuModule isClosed={isClosed} tabsMenu={tabsMenu} params={params} />
               </div>
               {/* <div className="w-full pt-3 pb-1 flex flex-col items-center justify-center">
-                <div className="h-[1px] bg-gray opacity-50 dark:bg-mediumGray w-[80%]" />
+                <div className="h-[1px] bg-matn-2 opacity-50 dark:bg-mediumGray w-[80%]" />
               </div> */}
 
             </div>

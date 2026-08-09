@@ -39,10 +39,10 @@ export default function CategoriesGrid({ params, mainData }: CategoriesGridProps
   if (loading) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-10 md:gap-7 xl:gap-10 3xl:gap-11">
-       <div className="w-full h-[200px] bg-lightGray dark:bg-zinc-900 rounded-xl"></div>
-       <div className="w-full h-[200px] bg-lightGray dark:bg-zinc-900 rounded-xl"></div>
-       <div className="w-full h-[200px] bg-lightGray dark:bg-zinc-900 rounded-xl"></div>
-       <div className="w-full h-[200px] bg-lightGray dark:bg-zinc-900 rounded-xl"></div>
+       <div className="w-full h-[200px] bg-matn-2 dark:bg-zinc-900 rounded-xl"></div>
+       <div className="w-full h-[200px] bg-matn-2 dark:bg-zinc-900 rounded-xl"></div>
+       <div className="w-full h-[200px] bg-matn-2 dark:bg-zinc-900 rounded-xl"></div>
+       <div className="w-full h-[200px] bg-matn-2 dark:bg-zinc-900 rounded-xl"></div>
       </div>
     );
   }
@@ -149,9 +149,9 @@ export default function CategoriesGrid({ params, mainData }: CategoriesGridProps
         {categories.length > 7 && (
           <Link
             href={`/${params.lang}/articles/categories`}
-            className="relative w-full h-[200px] rounded-xl overflow-hidden flex flex-col gap-3 items-center justify-center transition bg-[#fff] dark:bg-[#1A1A18] hover:scale-105 base-transition-1 shadow-lg cursor-pointer"
+            className="relative w-full h-[200px] rounded-xl overflow-hidden flex flex-col gap-3 items-center justify-center transition bg-[#fff] dark:bg-gray-1  hover:scale-105 base-transition-1 shadow-lg cursor-pointer"
           >
-            <div className="rounded-full bg-[#0066FF30] dark:bg-[#483D13] aspect-square h-12 w-12 lg:h-14 lg:w-14 flex items-center justify-center rtl:rotate-180">
+            <div className="rounded-full bg-[#9100D930] dark:bg-[#483D13] aspect-square h-12 w-12 lg:h-14 lg:w-14 flex items-center justify-center rtl:rotate-180">
               <svg
                 className="size-5 lg:size-7"
                 width="39"
@@ -161,7 +161,7 @@ export default function CategoriesGrid({ params, mainData }: CategoriesGridProps
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  className="stroke-light-primary dark:stroke-dark-yellow"
+                  className="stroke-primary dark:stroke-primary"
                   d="M7.21484 2.96484L10.2498 5.99984L7.21484 9.03484"
                   stroke="black"
                   strokeMiterlimit="10"
@@ -169,7 +169,7 @@ export default function CategoriesGrid({ params, mainData }: CategoriesGridProps
                   strokeLinejoin="round"
                 />
                 <path
-                  className="stroke-light-primary dark:stroke-dark-yellow"
+                  className="stroke-primary dark:stroke-primary"
                   d="M1.75 6H10.165"
                   stroke="black"
                   strokeMiterlimit="10"
@@ -179,7 +179,7 @@ export default function CategoriesGrid({ params, mainData }: CategoriesGridProps
               </svg>
             </div>
 
-            <span className="font-azarMehr text-light-primary dark:text-dark-primary lg:text-xl">
+            <span className="font-azarMehr text-primary  lg:text-xl">
               مشاهده همه
             </span>
           </Link>

@@ -101,7 +101,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
     if (categoryArticles.length === 0) {
       return (
-        <div className="text-center py-20 text-gray-500">
+        <div className="text-center py-20 text-matn-2-500">
           <h2 className="text-2xl font-semibold mb-4 dark:text-white">
             دسته‌ای با نام «{categorySlug}» پیدا نشد 😕
           </h2>
@@ -178,7 +178,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     };
 
     return (
-      <section className="w-full relative bg-[#f8f8f8] dark:bg-black">
+      <section className="w-full relative bg-bg-primary ">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
         <CleanAutoRetryParam />
         <div className="px-5 2xl:px-10 mt-[60px] lg:mt-0">

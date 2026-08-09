@@ -50,8 +50,8 @@ export default async function CitizensLayout({
     );
 
     return (
-<div className="flex w-full h-screen overflow-hidden">
-        <main className="flex dark:bg-black !w-full h-screen light-scrollbar dark:dark-scrollbar" dir={langData.direction}>
+<div className="flex w-full h-screen overflow-hidden bg-bg-primary">
+        <main className="flex  !w-full h-screen light-scrollbar dark:dark-scrollbar" dir={langData.direction}>
         <SideBar
           pageSide="level"
           langArray={langArray}

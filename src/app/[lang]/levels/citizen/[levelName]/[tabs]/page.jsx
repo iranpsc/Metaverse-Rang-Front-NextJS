@@ -193,10 +193,10 @@ export default async function LevelSinglePage({ params }) {
         <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-3 w-full font-azarMehr ">
           <BreadCrumb params={resolvedParams} />
 
-          <div className="grid-container gap-x-7 bg-white dark:bg-[#080807] rounded-[20px] p-5 3xl:p-[30px] relative">
+          <div className="grid-container gap-x-7 bg-white dark:bg-gray-1 rounded-[20px] p-5 3xl:p-[30px] relative">
             <div className="self-start md:order-none w-full md:min-w-[65vw] xl:min-w-[65vw] flex items-center justify-between font-bold pt-[3px] pb-5 dark:text-white text-lg sm:text-xl lg:text-2xl 2xl:text-3xl 3xl:text-4xl">
               <h1 className="text-base  md:text-[28px] lg:text-[30px] xl:text-[32px]">{pageTitle}</h1>
-              <button className="w-max py-[5px] md:py-3 px-5 text-[14px] dark:bg-bgLightGrey2 bg-bgLightGrey dark:text-white font-bold text-textGray rounded-[12px]">
+              <button className="w-max py-[5px] md:py-3 px-5 text-[14px] bg-gray-1 dark:text-white font-bold text-matn-2 rounded-[12px]">
                 {findByUniqueId(mainData, 392)}
               </button>
             </div>
@@ -268,7 +268,7 @@ export default async function LevelSinglePage({ params }) {
 
               <div className="grid-forth flex-1 relative !mt-[-2px] mb-10 lg:mb-0">
                 <Suspense fallback={<div>image box loading ...</div>}>
-                  <ImageBox item={levelTabs.data} singleLevel={singleLevel} />
+                  <ImageBox item={levelTabs.data} singleLevel={singleLevel} lang={lang}/>
                 </Suspense>
               </div>
             </TabLoadingProvider>

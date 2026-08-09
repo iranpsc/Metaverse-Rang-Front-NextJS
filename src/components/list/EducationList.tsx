@@ -24,7 +24,7 @@ export default function EducationList({ mainData, params }: any) {
       setLoading(true);
       try {
         const res = await axios.get(
-          `https://api.metarang.com/api/tutorials?page=1`
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/tutorials?page=1`
         );
 
         const apiVideos = res.data.data;
@@ -65,7 +65,7 @@ export default function EducationList({ mainData, params }: any) {
       const nextPage = currentPage + 1;
 
       const res = await axios.get(
-        `https://api.metarang.com/api/tutorials?page=${nextPage}`
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/tutorials?page=${nextPage}`
       );
 
       const apiVideos = res.data.data;
@@ -126,14 +126,14 @@ export default function EducationList({ mainData, params }: any) {
             disabled={isDisabled || loading}
             title={isDisabled ? "صفحه آخر" : ""}
             className={`${isDisabled ? "cursor-not-allowed" : ""
-              } bg-white dark:bg-darkGray text-light-primary md:text-lg dark:text-dark-yellow rounded-[12px] px-[40px] py-[16px] base-transition-1 border-2 border-transparent hover:border-light-primary hover:text-light-primary hover:dark:border-dark-yellow`}
+              } bg-white dark:bg-gray-1 text-primary md:text-lg  rounded-[12px] px-[40px] py-[16px] base-transition-1 border-2 border-transparent hover:border-primary hover:text-primary hover:`}
             onClick={handleLoadMore}
           >
             {findByUniqueId(mainData, 271)}
           </button>
         ) : (
           <SyncLoader
-            color={`${theme === "dark" ? "#FFC700" : "#0066ff"}`}
+            color={`${theme === "dark" ? "#9100D9" : "#9100D9"}`}
             size={10}
           />
         )}

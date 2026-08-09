@@ -135,7 +135,7 @@ function buildEventSchema(selectedEvent: MappedEventItem) {
 
 // 📌 Fetch single event
 async function getEvent(id: string): Promise<MappedEventItem> {
-  const res = await fetch(`https://api.metarang.com/api/calendar/${id}`, { next: { revalidate: 3600 } });
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar/${id}`, { next: { revalidate: 3600 } });
   if (!res.ok) throw new Error("Failed to fetch event");
   const json = await res.json();
   return mapEvents([json.data])[0];
@@ -143,7 +143,7 @@ async function getEvent(id: string): Promise<MappedEventItem> {
 
 // 📌 Fetch all events
 async function getEvents(): Promise<MappedEventItem[]> {
-  const res = await fetch("https://api.metarang.com/api/calendar", { next: { revalidate: 3600 } });
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar`, { next: { revalidate: 3600 } });
   if (!res.ok) throw new Error("Failed to fetch events");
   const json = await res.json();
   return mapEvents(json.data);
@@ -218,7 +218,7 @@ export default async function EventPage({ params }: EventPageProps ) {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(eventSchema, null, 2) }} />
       <div className="flex flex-col  min-w-[340px] w-full" dir={langData.direction}>
-        <section className="w-full relative mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20">
+        <section className="w-full relative mt-[60px] lg:mt-0 lg:pt-0 bg-bg-primary  bg-opacity20">
           <CleanAutoRetryParam />
           <div className="px-12">
             <BreadCrumb params={resolvedParams} eventTitle={cleanTitle} />

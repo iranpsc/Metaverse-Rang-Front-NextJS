@@ -46,7 +46,7 @@ const SingleVideoDashboardModule = ({
     try {
       const token = cookies.auth.split("&")[0].replace("token=", "");
       const response = await axios.post(
-        `https://api.metarang.com/api/tutorials/${DataVideo.id}/interactions?liked=${isLike ? 1 : 0}`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/tutorials/${DataVideo.id}/interactions?liked=${isLike ? 1 : 0}`,
         { data: " " },
         {
           headers: {
@@ -126,7 +126,7 @@ const SingleVideoDashboardModule = ({
           <p className="font-azarMehr font-normal text-singleVideo_medium dark:text-white xs:text-[12px] md:text-lg">
             {checkData(dataCommentsVideo?.data?.length ?? 0)}
           </p>
-          <Comment className="stroke-textGray dark:stroke-white size-[15px] md:size-[18px]" />
+          <Comment className="stroke-matn-2 dark:stroke-white size-[15px] md:size-[18px]" />
         </div>
 
         <div className="flex flex-row justify-center items-center gap-2 cursor-pointer">
@@ -134,7 +134,7 @@ const SingleVideoDashboardModule = ({
             {checkData(newData.likes_count || 0)}
           </p>
           <motion.div
-            className={`size-[15px]  md:size-[18px] outline-none border-none stroke-darkGray dark:stroke-white flex items-center justify-center ${isLiking || !cookies.auth || userInteraction === true ? "" : "cursor-pointer"}`}
+            className={`size-[15px]  md:size-[18px] outline-none border-none stroke-gray-1 dark:stroke-white flex items-center justify-center ${isLiking || !cookies.auth || userInteraction === true ? "" : "cursor-pointer"}`}
             whileTap={{ scale: isLiking || !cookies.auth || userInteraction === true ? 1 : 1.2 }}
             onClick={() => handleInteraction(true)}
           >
@@ -147,7 +147,7 @@ const SingleVideoDashboardModule = ({
             {checkData(newData.dislikes_count || 0)}
           </p>
           <motion.div
-            className={`size-[15px] md:size-[18px] outline-none border-none stroke-darkGray dark:stroke-white flex items-center justify-center ${isDisliking || !cookies.auth || userInteraction === false ? "" : "cursor-pointer"}`}
+            className={`size-[15px] md:size-[18px] outline-none border-none stroke-gray-1 dark:stroke-white flex items-center justify-center ${isDisliking || !cookies.auth || userInteraction === false ? "" : "cursor-pointer"}`}
             whileTap={{ scale: isDisliking || !cookies.auth || userInteraction === false ? 1 : 1.2 }}
             onClick={() => handleInteraction(false)}
           >
@@ -159,7 +159,7 @@ const SingleVideoDashboardModule = ({
           <p className="font-azarMehr font-normal text-singleVideo_medium dark:text-white xs:text-[12px] md:text-lg">
             {checkData(newData.views_count || 0)}
           </p>
-          <View className="stroke-textGray dark:stroke-white xs:size-[24px] md:size-[18px]" />
+          <View className="stroke-matn-2 dark:stroke-white xs:size-[24px] md:size-[18px]" />
         </div>
       </div>
 
@@ -174,7 +174,7 @@ const SingleVideoDashboardModule = ({
               <LoginButtonModule params={mainData} />
               <div className="w-1/2 flex justify-center">
                 <button
-                  className="w-full bg-dark-gray dark:bg-extraGray text-black dark:text-white font-azarMehr py-2 px-2 md:px-4 font-medium text-[15px] rounded-[10px] hover:bg-gray-400 active:scale-105 duration-300"
+                  className="w-full bg-dark-gray dark:bg-extraGray text-black dark:text-white font-azarMehr py-2 px-2 md:px-4 font-medium text-[15px] rounded-[10px] hover:bg-matn-2-400 active:scale-105 duration-300"
                   onClick={() => setShowLoginModal(false)}
                 >
                   بستن

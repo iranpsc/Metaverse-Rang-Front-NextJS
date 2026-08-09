@@ -200,7 +200,7 @@ const SingleVideoPlayModule: React.FC<SingleVideoProps> = ({ DataVideo }) => {
 
           <input
             dir="ltr"
-            className="xl:w-[70%] lg:w-[70%] md:w-[70%] sm:w-[65%] xs:w-[60%] accent-blueLink dark:accent-dark-yellow border-none outline-none ring-0"
+            className="xl:w-[70%] lg:w-[70%] md:w-[70%] sm:w-[65%] xs:w-[60%] accent-primary dark:accent-primary border-none outline-none ring-0"
             type="range"
             min={0}
             max={100}

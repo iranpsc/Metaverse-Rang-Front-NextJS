@@ -12,7 +12,7 @@ export default function HeaderFirstPage({ mainData, params }: any) {
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.3, delay: 0.3 }}
-          className=" w-full font-bold text-[32px] sm:text-[32px]  xl:text-[44px]  2xl:text-[54px] 3xl:text-[66px]  text-light-primary dark:text-dark-yellow  rtl:lg:whitespace-nowrap font-rokh mt-2 xl:mt-5"
+          className=" w-full font-bold text-[32px] sm:text-[32px]  xl:text-[44px]  2xl:text-[54px] 3xl:text-[66px]  text-primary   rtl:lg:whitespace-nowrap font-rokh mt-2 xl:mt-5"
         >
           {findByUniqueId(mainData, 1457)}
         </motion.h1>
@@ -22,7 +22,7 @@ export default function HeaderFirstPage({ mainData, params }: any) {
           transition={{ duration: 0.3, delay: 0.3 }}
           className=" w-full outline-none border-none"
         >
-          <Vector className="w-[50%] lg:w-[60%] h-2 md:h-5 2xl:h-10 stroke-light-primary dark:stroke-dark-yellow" />
+          <Vector className="w-[50%] lg:w-[60%] h-2 md:h-5 2xl:h-10 stroke-primary dark:stroke-primary" />
         </motion.div>
 
         <motion.h2
@@ -56,7 +56,7 @@ export default function HeaderFirstPage({ mainData, params }: any) {
               {/* {localFind("entering the metaverse world")} */}
               {findByUniqueId(mainData, 483)}
             </p>
-            <div className="bg-light-primary dark:bg-dark-yellow size-[42px] md:size-[47px] lg:size-[53px]  xl:size-[70px] rounded-full flex justify-center items-center">
+            <div className="bg-primary  size-[42px] md:size-[47px] lg:size-[53px]  xl:size-[70px] rounded-full flex justify-center items-center">
               <Arrow className="size-[20px] sm:size-[23px] md:size-[28px] lg:size-[32px]  xl:size-[36px] ltr:rotate-90" />
             </div>
           </motion.div>

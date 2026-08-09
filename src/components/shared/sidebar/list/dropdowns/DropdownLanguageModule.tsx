@@ -30,7 +30,7 @@ const DropdownLanguageModule = ({ langArray, params, isClosed }: any) => {
   return (
     <>
       <div className="dropdown relative cursor-pointer ">
-        <ul className=" dropdown-menu text-center flex flex-col justify-start items-center text-gray pt-2">
+        <ul className=" dropdown-menu text-center flex flex-col justify-start items-center text-matn-2 pt-2">
           {langArray &&
             langArray.map((item: LanguageDataItem) => (
               <li
@@ -38,12 +38,12 @@ const DropdownLanguageModule = ({ langArray, params, isClosed }: any) => {
                 className={` border-none w-full  ${params.lang === item.code
                     // params.lang === item.name
 
-                    ? "text-[#0066FF] dark:text-dark-yellow"
+                    ? "text-primary "
                     : ""
                   } ${
                   // state.isCollapsed ? "hidden" : "flex"
                   false ? "hidden" : "flex"
-                  } flex flex-col items-center justify-start    cursor-pointer hover:text-[#0066FF]`}
+                  } flex flex-col items-center justify-start    cursor-pointer hover:text-primary`}
                 onClick={() => handleDirChange(item)}
               >
                 {/* <div className="w-10">{params.lang === item.name && <></>}</div> */}
@@ -59,7 +59,7 @@ const DropdownLanguageModule = ({ langArray, params, isClosed }: any) => {
                     className={"w-6 h-6 3xl:w-7 3xl:h-7"}
                   />
                   {/* {languageSelected.name === item.name && (
-                  <Tick className=" size-6 stroke-blueLink dark:stroke-dark-yellow" />
+                  <Tick className=" size-6 stroke-primary dark:stroke-primary" />
                 )} */}
 
                   <p
@@ -67,9 +67,9 @@ const DropdownLanguageModule = ({ langArray, params, isClosed }: any) => {
                       ${
                       // params.lang === item.name
                       params.lang === item.code
-                        ? "text-blueLink dark:text-dark-yellow"
-                        : "text-gray dark:text-dark-gray"
-                      }  font-normal hover:text-[#0000ffd9] dark:hover:text-dark-yellow font-azarMehr text-start w-full 3xl:text-[20px] menu-transition overflow-hidden`}
+                        ? "text-primary "
+                        : "text-matn-2 "
+                      }  font-normal hover:text-[#0000ffd9] dark:hover:text-primary font-azarMehr text-start w-full 3xl:text-[20px] menu-transition overflow-hidden`}
                   >
                     {item.native_name}
                   </p>

@@ -60,7 +60,7 @@ export default function ProfileTopMobile({
             </p>
           </div>
 
-          <hr className="flex-grow mx-3 h-[1px] hidden sm:block xl:visible lg:visible md:invisible sm:invisible xs:invisible border border-dashed text-[#000] opacity-10 dark:text-[#fff]" />
+          <hr className="flex-grow mx-3 h-[1px] hidden sm:block xl:visible lg:visible md:invisible sm:invisible xs:invisible border border-dashed text-matn-2 opacity-10 dark:text-[#fff]" />
 
           <Image
             src={profileData.data?.kyc?.nationality || staticImageURL}
@@ -69,7 +69,7 @@ export default function ProfileTopMobile({
             alt={titleData}
             className="inline-block rounded-full xl:w-9 xl:h-9 3xl:w-10 3xl:h-10  lg:w-10 lg:h-10 md:w-14 md:h-14 sm:w-10 sm:h-10 xs:w-10 xs:h-10 object-cover"
           />
-          <hr className="flex-grow mx-3 h-[1px] hidden sm:block xl:visible lg:visible md:invisible sm:invisible xs:invisible border border-dashed text-[#000] opacity-10 dark:text-[#fff]" />
+          <hr className="flex-grow mx-3 h-[1px] hidden sm:block xl:visible lg:visible md:invisible sm:invisible xs:invisible border border-dashed text-matn-2 opacity-10 dark:text-[#fff]" />
           <p className=" dark:text-white 3xl:text-[18px] xl:text-xlTitle lg:text-lgTitle md:text-mdDesc  sm:text-smDesc xs:text-smDesc inline-block mx-1 font-medium font-azarMehr text-extraGray">
             {profileData.data?.level?.name}
           </p>

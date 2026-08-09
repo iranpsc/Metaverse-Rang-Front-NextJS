@@ -2,8 +2,8 @@ export default function VersionContent({ singleData }: any) {
   return (
     <>
       <div>
-        <p className="text-textGray dark:text-white font-semibold md:text-xl">{singleData.title}</p>
-        <p className="w-fit font-azarMehr xl:text-[20px] lg:text-[20px] text-base text-textGray dark:text-[#C4C4C4] py-5 rounded-[20px] ">
+        <p className="text-matn-2 dark:text-white font-semibold md:text-xl">{singleData.title}</p>
+        <p className="w-fit font-azarMehr xl:text-[20px] lg:text-[20px] text-base text-matn-2 dark:text-[#C4C4C4] py-5 rounded-[20px] ">
           {/* HINT just to show 1402/11/10 00:00 like 1402/11/10*/}
           {singleData.starts_at ? singleData?.starts_at.split(" ")[0] : ""}
         </p>

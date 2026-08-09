@@ -177,7 +177,7 @@ export default function NewsStories({ params, mainData }: NewsStoriesProps) {
         <ClipSection
             radius={isMobile ? 12 : 32}
             cornerSize={isMobile ? 80 : 120}
-            cornerRadius={16} className="w-full text-white dark:text-[#1A1A18] py-16  overflow-hidden rounded-xl lg:rounded-[32px]">
+            cornerRadius={16} className="w-full text-white dark:text-gray-1  py-16  overflow-hidden rounded-xl lg:rounded-[32px]">
             <div className="px-5 lg:px-10 w-full">
 
                 {/* Header */}

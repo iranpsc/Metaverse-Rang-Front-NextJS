@@ -27,16 +27,16 @@ export default function NotFoundPage({
       {/* Sidebar فقط وقتی hideSidebar false باشه */}
 
       {/* Main Content */}
-      <section className="w-full pt-7 relative r mt-[60px] lg:mt-0 bg-[#f8f8f8] dark:bg-black xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
+      <section className="w-full pt-7 relative r mt-[60px] lg:mt-0 bg-bg-primary  xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
 
 
-        <div className=" bg-white dark:bg-[#080807] rounded-[20px] flex flex-col lg:flex-row gap-5 p-5 w-full">
+        <div className=" bg-white dark:bg-gray-1 rounded-[20px] flex flex-col lg:flex-row gap-5 p-5 w-full">
           {/* 404 Message */}
           <div className="flex flex-col gap-10 justify-center lg:justify-start items-center lg:items-start text-center lg:text-start w-full lg:w-[60%] p-1 lg:ps-7">
-            <h1 className="text-[#33353B] dark:text-white text-8xl md:text-[120px] 2xl:text-[176px] font-bold mt-5  h-max lg:ps-5">
+            <h1 className="text-title-2 dark:text-white text-8xl md:text-[120px] 2xl:text-[176px] font-bold mt-5  h-max lg:ps-5">
               404
             </h1>
-            <h2 className="text-[#33353B] dark:text-white text-2xl md:text-3xl ">
+            <h2 className="text-title-2 dark:text-white text-2xl md:text-3xl ">
               صفحه یافت نشد..!
             </h2>
             <p className="text-[#868B90] text-xl 2xl:text-2xl w-full left-10 !leading-[50px]">

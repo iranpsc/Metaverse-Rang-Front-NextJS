@@ -28,7 +28,7 @@ const ControlCommentSection = ({
             setShowAuthCard
           )
         }>
-        <p className="font-azarMehr font-normal text-[12px] md:text-[15px] text-error ">
+        <p className="font-azarMehr font-normal text-[12px] md:text-[15px] text-state-red ">
           {/* {checkData(
             translateSingleVideo.find((item: any) => item.name === "delete")
               ?.translation

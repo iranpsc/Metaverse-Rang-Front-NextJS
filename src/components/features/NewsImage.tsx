@@ -58,7 +58,7 @@ const NewsImage: React.FC<NewsImageProps> = ({ news, params, mainData }) => {
   if (!hasVideo || videoError) {
     return (
       <div className="w-full">
-        <div className="w-full h-[270px] md:h-[380px] xl:h-[450px] 2xl:h-[500px] 3xl:h-[600px] relative overflow-hidden rounded-2xl bg-gray-100 dark:bg-gray-800">
+        <div className="w-full h-[270px] md:h-[380px] xl:h-[450px] 2xl:h-[500px] 3xl:h-[600px] relative overflow-hidden rounded-2xl text-matn-2 dark:bmatn-2-800">
           <Image
             src={news.image || "/images/fallback.jpg"}
             alt={news.title}
@@ -92,7 +92,7 @@ const NewsImage: React.FC<NewsImageProps> = ({ news, params, mainData }) => {
               className="absolute inset-0 z-10 flex items-center justify-center bg-black/5 hover:bg-black/20 transition-all duration-300 group cursor-pointer"
               aria-label="Play video"
             >
-              <div className="rounded-full bg-white/90 hover:bg-white dark:bg-black/30 flex items-center justify-center p-4 md:p-6 shadow-xl transition-all duration-300 group-hover:scale-110 aspect-square w-[80px] h-[80px]">
+              <div className="rounded-full bg-white/90 hover:bg-white /30 flex items-center justify-center p-4 md:p-6 shadow-xl transition-all duration-300 group-hover:scale-110 aspect-square w-[80px] h-[80px]">
                 <svg 
                   width="40" 
                   height="40" 

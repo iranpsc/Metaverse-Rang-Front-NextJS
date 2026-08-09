@@ -69,21 +69,21 @@ const SectionTeam = ({ mainData, params }: any) => {
 
       <div className="w-full lg:w-[65%] flex flex-col justify-between items-start md:pb-3 md:ps-10 gap-1 ">
         <div className="flex flex-col  w-full">
-          <h2 className="w-full text-start font-bold text-[20px] md:text-[26px] lg:text-[32px] text-gray dark:text-white mt-5 font-azarMehr">
+          <h2 className="w-full text-start font-bold text-[20px] md:text-[26px] lg:text-[32px] text-matn-2 dark:text-white mt-5 font-azarMehr">
             {findByUniqueId(mainData, 1457)}
 
           </h2>
-          <Vector className="w-[20%] h-10 stroke-light-primary dark:stroke-dark-yellow" />
+          <Vector className="w-[20%] h-10 stroke-primary dark:stroke-primary" />
         </div>
 
 
 
-        <h4 className="w-full text-gray dark:text-white text-[20px] md:text-[24px] lg:text-[28px] text-start pb-2 font-bold ">
+        <h4 className="w-full text-matn-2 dark:text-white text-[20px] md:text-[24px] lg:text-[28px] text-start pb-2 font-bold ">
           {/* {localFind("a revolution in virtual platforms")} */}
           {findByUniqueId(mainData, 490)}
         </h4>
 
-        <p className="w-full  pt-5 md:pt-0 text-justify   text-black dark:text-lightGray font-azarMehr font-medium text-[14px] md:text-[16px] lg:text-[22px] 3xl:pe-[250px]">
+        <p className="w-full  pt-5 md:pt-0 text-justify   text-black dark:text-matn-2 font-azarMehr font-medium text-[14px] md:text-[16px] lg:text-[22px] 3xl:pe-[250px]">
           {/* {localFind("imagine seeing objects and people in 3d on the internet")} */}
           {findByUniqueId(mainData, 491)}
         </p>
@@ -134,14 +134,14 @@ const SectionTeam = ({ mainData, params }: any) => {
             />
           </div>
 
-          <p className="ps-2 text-justify text-light-primary dark:text-dark-yellow font-azarMehr font-bold text-[12px] md:text-[18px] lg:text-[24px]">
+          <p className="ps-2 text-justify text-primary  font-azarMehr font-bold text-[12px] md:text-[18px] lg:text-[24px]">
             + 40 &nbsp;
             {/* {localFind("metarang team")} */}
             {findByUniqueId(mainData, 492)}
           </p>
         </div>
         <Link onClickCapture={() => setLinkLoading(true)} href={`/${params.lang}/about`}>
-          <p className="w-fit rounded-[24px] py-3 px-10 mt-5 text-center text-[14px] md:text-[16px] lg:text-[20px] text-white bg-light-primary dark:bg-dark-yellow dark:text-black  font-azarMehr font-medium ">
+          <p className="w-fit rounded-[24px] py-3 px-10 mt-5 text-center text-[14px] md:text-[16px] lg:text-[20px] text-white bg-primary  dark:text-black  font-azarMehr font-medium ">
             {findByUniqueId(mainData, 1456)}
           </p>
         </Link>

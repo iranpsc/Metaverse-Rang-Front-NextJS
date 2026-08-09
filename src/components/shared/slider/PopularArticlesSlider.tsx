@@ -119,7 +119,7 @@ const PopularArticlesSlider = ({ params, mainData, theme }: PopularArticlesProps
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 9 15"
-              className="w-[20px] h-[20px] stroke-gray dark:stroke-white ltr:rotate-180"
+              className="w-[20px] h-[20px] stroke-matn-2 dark:stroke-white ltr:rotate-180"
             >
               <path d="m1 14 6.5-6.5L1 1" />
             </svg>
@@ -134,7 +134,7 @@ const PopularArticlesSlider = ({ params, mainData, theme }: PopularArticlesProps
                 onClick={() => swiperRef.current?.slideToLoop(idx)}
                 className={`w-5 h-1 rounded-sm transition ${
                   activeIndex === idx
-                    ? "bg-light-primary dark:bg-dark-yellow"
+                    ? "bg-primary "
                     : "bg-dark-gray dark:bg-dark-placeholder"
                 }`}
               />
@@ -151,7 +151,7 @@ const PopularArticlesSlider = ({ params, mainData, theme }: PopularArticlesProps
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 9 15"
-              className="w-[20px] h-[20px] stroke-gray dark:stroke-white ltr:rotate-180"
+              className="w-[20px] h-[20px] stroke-matn-2 dark:stroke-white ltr:rotate-180"
             >
               <path d="m8 14L1.5 7.5L8 1" />
             </svg>

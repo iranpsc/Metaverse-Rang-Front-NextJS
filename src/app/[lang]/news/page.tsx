@@ -225,7 +225,7 @@ export default async function NewsPage({ params }: NewsPageProps) {
       };
 
       return (
-        <section className="w-full relative lg:pt-0 bg-[#f8f8f8] dark:bg-black" dir={langData.direction}>
+        <section className="w-full relative lg:pt-0 bg-bg-primary " dir={langData.direction}>
           <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
           <div className="px-5 2xl:px-10 mt-[60px] lg:mt-0">
             <BreadCrumb params={params} />
@@ -346,7 +346,7 @@ export default async function NewsPage({ params }: NewsPageProps) {
 
     return (
       <section
-        className="w-full relative lg:pt-0 bg-[#f8f8f8] dark:bg-black"
+        className="w-full relative lg:pt-0 bg-bg-primary "
         dir={langData.direction}
       >
         <script
@@ -365,7 +365,7 @@ export default async function NewsPage({ params }: NewsPageProps) {
             <h1 className="font-rokh text-center md:text-start font-bold w-full lg:w-1/2 text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] dark:text-white mt-[64px] mb-[16px]">
               {findByUniqueId(mainData, 255)}
             </h1>
-            <p className="lg:hidden text-lightGray dark:text-lightGray font-azarMehr text-center lg:text-start text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] px-5 2xl:pe-28">
+            <p className="lg:hidden text-matn-2 dark:text-matn-2 font-azarMehr text-center lg:text-start text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] px-5 2xl:pe-28">
               {findByUniqueId(mainData, 1629) || "رجع تخصصی و مرکز نشر آخرین رویدادها، پیشرفت‌های فنی و اخبار توسعه دنیای موازی متارنگ؛ آگاهی از تازه‌ترین تحولات در حوزه‌ی فناوری، تجارت مجازی و حاکمیت غیرمتمرکز با ساختار بین المللی."}
             </p>
             <SearchComponent
@@ -374,7 +374,7 @@ export default async function NewsPage({ params }: NewsPageProps) {
               params={resolvedParams}
             />
           </div>
-          <p className="text-lightGray hidden lg:block dark:text-lightGray font-azarMehr text-center lg:text-start text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] px-5 2xl:pe-28">
+          <p className="text-matn-2 hidden lg:block dark:text-matn-2 font-azarMehr text-center lg:text-start text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] px-5 2xl:pe-28">
             {findByUniqueId(mainData, 1629) || "رجع تخصصی و مرکز نشر آخرین رویدادها، پیشرفت‌های فنی و اخبار توسعه دنیای موازی متارنگ؛ آگاهی از تازه‌ترین تحولات در حوزه‌ی فناوری، تجارت مجازی و حاکمیت غیرمتمرکز با ساختار بین المللی."}
           </p>
         </div>
@@ -420,23 +420,23 @@ export default async function NewsPage({ params }: NewsPageProps) {
               <defs>
                 <linearGradient id="paint0_linear_4633_15252" x1="182" y1="53.0859" x2="182" y2="310.919" gradientUnits="userSpaceOnUse">
                   <stop stopColor="#00398E" />
-                  <stop offset="1" stopColor="#0066FF" />
+                  <stop offset="1" stopColor="#9100D9" />
                 </linearGradient>
                 <linearGradient id="paint1_linear_4633_15252" x1="166.834" y1="136.5" x2="166.834" y2="178.788" gradientUnits="userSpaceOnUse">
                   <stop stopColor="#00398E" />
-                  <stop offset="1" stopColor="#0066FF" />
+                  <stop offset="1" stopColor="#9100D9" />
                 </linearGradient>
                 <linearGradient id="paint2_linear_4633_15252" x1="279.977" y1="47.0625" x2="279.977" y2="128.601" gradientUnits="userSpaceOnUse">
                   <stop stopColor="#00398E" />
-                  <stop offset="1" stopColor="#0066FF" />
+                  <stop offset="1" stopColor="#9100D9" />
                 </linearGradient>
                 <linearGradient id="paint3_linear_4633_15252" x1="280.097" y1="42.375" x2="280.097" y2="48.465" gradientUnits="userSpaceOnUse">
                   <stop stopColor="#00398E" />
-                  <stop offset="1" stopColor="#0066FF" />
+                  <stop offset="1" stopColor="#9100D9" />
                 </linearGradient>
                 <linearGradient id="paint4_linear_4633_15252" x1="280.097" y1="125.125" x2="280.097" y2="139.625" gradientUnits="userSpaceOnUse">
                   <stop stopColor="#00398E" />
-                  <stop offset="1" stopColor="#0066FF" />
+                  <stop offset="1" stopColor="#9100D9" />
                 </linearGradient>
               </defs>
             </svg>
@@ -449,23 +449,23 @@ export default async function NewsPage({ params }: NewsPageProps) {
               <defs>
                 <linearGradient id="paint0_linear_4633_15270" x1="182.001" y1="53.0859" x2="182.001" y2="310.919" gradientUnits="userSpaceOnUse">
                   <stop stopColor="#997700" />
-                  <stop offset="1" stopColor="#FFC700" />
+                  <stop offset="1" stopColor="#9100D9" />
                 </linearGradient>
                 <linearGradient id="paint1_linear_4633_15270" x1="166.833" y1="136.5" x2="166.833" y2="178.788" gradientUnits="userSpaceOnUse">
                   <stop stopColor="#997700" />
-                  <stop offset="1" stopColor="#FFC700" />
+                  <stop offset="1" stopColor="#9100D9" />
                 </linearGradient>
                 <linearGradient id="paint2_linear_4633_15270" x1="279.976" y1="47.0625" x2="279.976" y2="128.601" gradientUnits="userSpaceOnUse">
                   <stop stopColor="#997700" />
-                  <stop offset="1" stopColor="#FFC700" />
+                  <stop offset="1" stopColor="#9100D9" />
                 </linearGradient>
                 <linearGradient id="paint3_linear_4633_15270" x1="280.096" y1="42.375" x2="280.096" y2="48.465" gradientUnits="userSpaceOnUse">
                   <stop stopColor="#997700" />
-                  <stop offset="1" stopColor="#FFC700" />
+                  <stop offset="1" stopColor="#9100D9" />
                 </linearGradient>
                 <linearGradient id="paint4_linear_4633_15270" x1="280.096" y1="125.125" x2="280.096" y2="139.625" gradientUnits="userSpaceOnUse">
                   <stop stopColor="#997700" />
-                  <stop offset="1" stopColor="#FFC700" />
+                  <stop offset="1" stopColor="#9100D9" />
                 </linearGradient>
               </defs>
             </svg>
@@ -473,8 +473,8 @@ export default async function NewsPage({ params }: NewsPageProps) {
               <p className="text-2xl dark:text-white 2xl:text-[32px] font-rokh dark:text-wrap font-bold">{findByUniqueId(mainData, 1626) || "خبرنامه متاورس"}</p>
               <p className="lg:text-lg dark:text-[#868B90] text-[#656565]">{findByUniqueId(mainData, 1627) || "برای اطلاع از آخرین اخبار، تحلیل ها و مطالب اختصاصی، می توانید در خبرنامه ما عضو شوید.هدف ما ارائه محتوای دقیق، معتبر و به روز است تا همواره از مهم ترین تحولات باخبر باشید. در صورت تمایل، کافی است آدرس ایمیل خود را وارد کنید تا از این پس، به روزترین محتواها و اطلاع رسانی های رسمی را بدون نیاز به مراجعه مداوم به وب سایت، دریافت کنید."}</p>
               <div className="w-full flex flex-col gap-2 gap-y-5 lg:flex-row max-w-3xl">
-                <input type="text" name="" placeholder={findByUniqueId(mainData, 1626) || "آدرس ایمیل"} className="bg-[#F5F5F5] w-full lg:w-[75%] dark:bg-black rounded-xl border-0 ring-1 ring-[#D9D9D9] dark:ring-[#434343] px-4 py-2 focus:outline-none focus:ring-2 focus:ring-light-primary focus:dark:ring-dark-yellow focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-darkGray" />
-                <button className="bg-light-primary font-bold dark:bg-dark-yellow text-white dark:text-black rounded-xl px-5 py-2 lg:w-[25%]">{findByUniqueId(mainData, 2)}</button>
+                <input type="text" name="" placeholder={findByUniqueId(mainData, 1626) || "آدرس ایمیل"} className="bg-[#F5F5F5] w-full lg:w-[75%]  rounded-xl border-0 ring-1 ring-[#D9D9D9] dark:ring-[#434343] px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus: focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-1" />
+                <button className="bg-primary font-bold  text-white dark:text-black rounded-xl px-5 py-2 lg:w-[25%]">{findByUniqueId(mainData, 2)}</button>
               </div>
             </div>
           </div>

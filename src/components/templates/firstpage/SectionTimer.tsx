@@ -26,7 +26,7 @@ const SectionTimer = ({ params }: { params: Params }) => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const res = await fetch("https://api.metarang.com/api/calendar?type=event");
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar?type=event`);
         const json = await res.json();
         const allEvents: MappedEventItem[] = mapEvents(json.data);
         const now = Date.now();
@@ -117,13 +117,13 @@ const SectionTimer = ({ params }: { params: Params }) => {
       <div className="md:hidden flex items-center justify-between w-full absolute z-10 top-[91px] px-1 ">
         <div
           onClick={handlePrev}
-          className="bg-light-primary dark:bg-dark-yellow rounded-full p-[8px] cursor-pointer flex justify-center items-center "
+          className="bg-primary  rounded-full p-[8px] cursor-pointer flex justify-center items-center "
         >
           <ArrowRight className="stroke-white dark:stroke-[#1b1b1b] size-[24px] rotate-0 ltr:rotate-180" />
         </div>
         <div
           onClick={handleNext}
-          className="bg-light-primary dark:bg-dark-yellow rounded-full p-[8px] cursor-pointer  flex justify-center items-center ms-5"
+          className="bg-primary  rounded-full p-[8px] cursor-pointer  flex justify-center items-center ms-5"
         >
           <ArrowRight className="stroke-white dark:stroke-[#1b1b1b] size-[24px] rotate-180 ltr:rotate-0" />
         </div>
@@ -131,7 +131,7 @@ const SectionTimer = ({ params }: { params: Params }) => {
       {/* دکمه چپ */}
       <div
         onClick={handlePrev}
-        className="bg-light-primary dark:bg-dark-yellow rounded-full p-[10px] cursor-pointer hidden lg:flex justify-center items-center"
+        className="bg-primary  rounded-full p-[10px] cursor-pointer hidden lg:flex justify-center items-center"
       >
         <ArrowRight className="stroke-white dark:stroke-[#1b1b1b] size-[32px] rotate-0 ltr:rotate-180" />
       </div>
@@ -162,7 +162,7 @@ const SectionTimer = ({ params }: { params: Params }) => {
                 <p className="text-start text-lg lg:text-xl 3xl:text-3xl text-black dark:text-white font-azarMehr font-medium ms-1 md:ms-5 2xl:!leading-[46px]">
                   {eventData.title}
                 </p>
-                <p className="w-fit text-start text-sm lg:text-base xl:text-xl 3xl:text-2xl text-lightGray font-azarMehr font-medium ms-1 md:ms-5 line-clamp-4 mt-3 lg:mt-0" dangerouslySetInnerHTML={{ __html: eventData.desc }} />
+                <p className="w-fit text-start text-sm lg:text-base xl:text-xl 3xl:text-2xl text-matn-2 font-azarMehr font-medium ms-1 md:ms-5 line-clamp-4 mt-3 lg:mt-0" dangerouslySetInnerHTML={{ __html: eventData.desc }} />
 
               </div>
             </div>
@@ -182,7 +182,7 @@ const SectionTimer = ({ params }: { params: Params }) => {
               />
               <div className="w-full flex flex-col">
                 {eventData.btnName && (
-                  <a target="_blank" aria-label="meta btn" href={eventData.link} className=" !w-full rounded-[28px] py-3 text-center  lg:text-lg 3xl:text-[19px] text-white dark:text-black bg-light-primary dark:bg-dark-yellow font-azarMehr font-medium mt-5">
+                  <a target="_blank" aria-label="meta btn" href={eventData.link} className=" !w-full rounded-[28px] py-3 text-center  lg:text-lg 3xl:text-[19px] text-white dark:text-black bg-primary  font-azarMehr font-medium mt-5">
                     {eventData.btnName}
                   </a>
                 )}
@@ -203,7 +203,7 @@ const SectionTimer = ({ params }: { params: Params }) => {
       {/* دکمه راست */}
       <div
         onClick={handleNext}
-        className="bg-light-primary dark:bg-dark-yellow rounded-full p-[10px] cursor-pointer hidden lg:flex justify-center items-center ms-5"
+        className="bg-primary  rounded-full p-[10px] cursor-pointer hidden lg:flex justify-center items-center ms-5"
       >
         <ArrowRight className="stroke-white dark:stroke-[#1b1b1b] size-[32px] rotate-180 ltr:rotate-0" />
       </div>

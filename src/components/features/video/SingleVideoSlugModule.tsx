@@ -24,49 +24,49 @@ export default function SingleVideoSlugModule({ DataVideo, params }: any) {
             )}
       <div className="flex flex-wrap px-5 xl:px-10 justify-start items-center gap-2 xs:gap-4 w-full h-fit pt-5 bg-white dark:bg-dark-background rounded-t-[20px] ">
         <Link onClickCapture={() => setLinkLoading(true)}
-          className="w-fit font-normal font-azarMehr text-[15px] xs:text-[12px] text-start text-[#575757] dark:text-lightGray cursor-pointer  hover:text-blueLink hover:dark:text-dark-yellow"
+          className="w-fit font-normal font-azarMehr text-[15px] xs:text-[12px] text-start text-[#575757] dark:text-matn-2 cursor-pointer  hover:text-primary hover:"
           href={`/${params.lang}/education`}
         >
           آموزش
         </Link>
 
-        <span className="text-[#575757] dark:text-lightGray font-normal font-azarMehr text-[15px] xs:text-[12px]">
+        <span className="text-[#575757] dark:text-matn-2 font-normal font-azarMehr text-[15px] xs:text-[12px]">
           /
         </span>
 
         <Link onClickCapture={() => setLinkLoading(true)}
-          className="w-fit font-normal font-azarMehr cursor-pointer text-[15px] xs:text-[12px] text-start text-[#575757] dark:text-lightGray  hover:text-blueLink hover:dark:text-dark-yellow xs:whitespace-nowrap"
+          className="w-fit font-normal font-azarMehr cursor-pointer text-[15px] xs:text-[12px] text-start text-[#575757] dark:text-matn-2  hover:text-primary hover: xs:whitespace-nowrap"
           href={`/${params.lang}/education/category`}
         >
           دسته بندی ها
         </Link>
 
-        <span className="text-[#575757] dark:text-lightGray font-normal font-azarMehr text-[15px] xs:text-[12px]">
+        <span className="text-[#575757] dark:text-matn-2 font-normal font-azarMehr text-[15px] xs:text-[12px]">
           /
         </span>
 
         <Link onClickCapture={() => setLinkLoading(true)}
-          className="w-fit font-normal font-azarMehr cursor-pointer text-[15px] xs:text-[12px] text-start text-[#575757] dark:text-lightGray  hover:text-blueLink hover:dark:text-dark-yellow xs:whitespace-nowrap"
+          className="w-fit font-normal font-azarMehr cursor-pointer text-[15px] xs:text-[12px] text-start text-[#575757] dark:text-matn-2  hover:text-primary hover: xs:whitespace-nowrap"
           href={`/${params.lang}/education/category/${DataVideo.category.slug}`}
         >
           {DataVideo.category.name}
         </Link>
 
-        <span className="text-[#575757] dark:text-lightGray font-normal font-azarMehr text-[15px] xs:text-[12px]">
+        <span className="text-[#575757] dark:text-matn-2 font-normal font-azarMehr text-[15px] xs:text-[12px]">
           /
         </span>
 
         <Link onClickCapture={() => setLinkLoading(true)}
-          className="w-fit font-normal font-azarMehr cursor-pointer text-[15px] xs:text-[12px] text-start text-[#575757] dark:text-lightGray  hover:text-blueLink hover:dark:text-dark-yellow xs:whitespace-nowrap"
+          className="w-fit font-normal font-azarMehr cursor-pointer text-[15px] xs:text-[12px] text-start text-[#575757] dark:text-matn-2  hover:text-primary hover: xs:whitespace-nowrap"
           href={`/${params.lang}/education/category/${DataVideo.category.slug}/${DataVideo.sub_category.slug}`}
         >
           {DataVideo.sub_category.name}
         </Link>
 
-        <span className="text-[#575757] dark:text-lightGray font-normal font-azarMehr text-[15px] xs:text-[12px]">
+        <span className="text-[#575757] dark:text-matn-2 font-normal font-azarMehr text-[15px] xs:text-[12px]">
           /
         </span>
-        <p className="w-fit font-normal font-azarMehr text-[15px]  xs:text-[12px] text-start text-blueLink dark:text-dark-yellow xs:whitespace-nowrap">
+        <p className="w-fit font-normal font-azarMehr text-[15px]  xs:text-[12px] text-start text-primary  xs:whitespace-nowrap">
           {DataVideo.title}
         </p>
       </div>

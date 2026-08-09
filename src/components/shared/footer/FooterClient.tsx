@@ -17,7 +17,7 @@ const hiddenPaths = [
   /^\/[^/]+\/citizens\/hm-[A-Za-z0-9_-]+(?:\/.*)?$/,
   /^\/[^/]+\/levels(?:\/.*)?$/,
 ];
-console.log(pathname);
+// console.log(pathname);
   const isHidden = hiddenPaths.some((regex) => regex.test(pathname));
 
   if (isHidden) return null;

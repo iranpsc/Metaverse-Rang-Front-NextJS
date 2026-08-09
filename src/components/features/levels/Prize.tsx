@@ -36,9 +36,9 @@ export default async function Prize({
   const tabLevelSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    // https://api.metarang.com/api/levels/1
+    // ${process.env.NEXT_PUBLIC_API_BASE_URL}/api/levels/1
     name: findByUniqueId(mainData, singleLevel.data.unique_id),
-    // https://api.metarang.com/api/levels/1
+    // ${process.env.NEXT_PUBLIC_API_BASE_URL}/api/levels/1
     description: await makeLessCharacter(
       singleLevel.data.general_info.description
     ),

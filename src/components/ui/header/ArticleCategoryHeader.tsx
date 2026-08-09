@@ -67,11 +67,11 @@ export default function CategoryHeader({ data , mainData }: CategoryHeaderProps)
           <div className="flex flex-col gap-1 md:gap-2 w-max">
             <div className="flex items-center gap-2 md:gap-3">
               <Folder className="w-[20px] h-[20px] stroke-[#84858F]" />
-              <span className="whitespace-nowrap font-azarMehr font-normal text-sm lg:text-[20px] text-[#84858F] dark:text-dark-gray">
+              <span className="whitespace-nowrap font-azarMehr font-normal text-sm lg:text-[20px] text-[#84858F] ">
                {findByUniqueId(mainData, 1522)}
               </span>
             </div>
-            <span className="font-medium text-sm lg:text-[18px] text-gray dark:text-white ms-1">
+            <span className="font-medium text-sm lg:text-[18px] text-matn-2 dark:text-white ms-1">
               {formatNumber(totalArticles)} عدد
             </span>
           </div>
@@ -82,11 +82,11 @@ export default function CategoryHeader({ data , mainData }: CategoryHeaderProps)
           <div className="flex flex-col gap-1 md:gap-2 w-max">
             <div className="flex items-center gap-2 md:gap-3">
               <Like className="w-[20px] h-[20px] stroke-[#84858F]" />
-              <span className="whitespace-nowrap font-azarMehr font-normal text-sm lg:text-[20px] text-[#84858F] dark:text-dark-gray">
+              <span className="whitespace-nowrap font-azarMehr font-normal text-sm lg:text-[20px] text-[#84858F] ">
                 {findByUniqueId(mainData, 1523)}
               </span>
             </div>
-            <span className="font-medium text-sm lg:text-[18px] text-gray dark:text-white ms-1">
+            <span className="font-medium text-sm lg:text-[18px] text-matn-2 dark:text-white ms-1">
               {formatNumber(totalLikes)}
             </span>
           </div>
@@ -97,11 +97,11 @@ export default function CategoryHeader({ data , mainData }: CategoryHeaderProps)
           <div className="flex flex-col gap-1 md:gap-2 w-max">
             <div className="flex items-center gap-2 md:gap-3">
               <Dislike className="w-[20px] h-[20px] stroke-[#84858F]" />
-              <span className="whitespace-nowrap font-azarMehr font-normal text-sm lg:text-[20px] text-[#84858F] dark:text-dark-gray">
+              <span className="whitespace-nowrap font-azarMehr font-normal text-sm lg:text-[20px] text-[#84858F] ">
                 {findByUniqueId(mainData, 1524)}
               </span>
             </div>
-            <span className="font-medium text-sm lg:text-[18px] text-gray dark:text-white ms-1">
+            <span className="font-medium text-sm lg:text-[18px] text-matn-2 dark:text-white ms-1">
               {formatNumber(totalDislikes)}
             </span>
           </div>
@@ -112,9 +112,9 @@ export default function CategoryHeader({ data , mainData }: CategoryHeaderProps)
           <div className="flex flex-col gap-1 md:gap-2 w-max">
             <div className="flex items-center gap-2 md:gap-3">
               <View className="w-[20px] h-[20px] stroke-[#84858F]" />
-              <span className="whitespace-nowrap font-azarMehr font-normal text-sm lg:text-[20px] text-[#84858F] dark:text-dark-gray">{findByUniqueId(mainData, 1525)}</span>
+              <span className="whitespace-nowrap font-azarMehr font-normal text-sm lg:text-[20px] text-[#84858F] ">{findByUniqueId(mainData, 1525)}</span>
             </div>
-            <span className="font-medium text-sm lg:text-[18px] text-gray dark:text-white">
+            <span className="font-medium text-sm lg:text-[18px] text-matn-2 dark:text-white">
               {formatNumber(totalViews)}
             </span>
           </div>

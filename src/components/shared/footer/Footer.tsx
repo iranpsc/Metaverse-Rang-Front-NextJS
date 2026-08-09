@@ -75,7 +75,7 @@ export default function Footer2({ params, mainData }: FooterProps) {
         },
                 {
           label: findByUniqueId(mainData,1779 ),
-          href: "https://api.metarang.com",
+          href: `${process.env.NEXT_PUBLIC_API_BASE_URL}`,
           targetBlank: true,
         },
         { label: findByUniqueId(mainData, 1748), href: `/${params.lang}/calendar` },
@@ -101,7 +101,7 @@ export default function Footer2({ params, mainData }: FooterProps) {
       corner={params.lang == "fa" ? "tl" : "tr"}
       cornerSize={isMobile ? 80 : 120}
       
-      className="text-white dark:text-[#1A1A18]">
+      className="text-white dark:text-gray-1 ">
       <footer className="  rounded-xl lg:rounded-[32px]  mt-10">
         <div className="overflow-hidden ">
           <div className="p-5 xl:p-5 2xl:p-9 3xl:p-14 3xl:px-[76px] 3xl:px  mt-5">

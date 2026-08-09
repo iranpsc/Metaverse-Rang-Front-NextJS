@@ -1,9 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from "next/server";
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // /fa/citizens/HM-200001
   const match = pathname.match(/^\/([a-z]{2})\/citizens\/(HM-\d+)$/);
 
   if (match) {
@@ -19,12 +18,6 @@ export function middleware(request: NextRequest) {
   return NextResponse.next();
 }
 
-/**
- * ⬇⬇⬇ خیلی مهم
- * مشخص می‌کنیم middleware فقط روی این مسیرها اجرا شود
- */
 export const config = {
-  matcher: [
-    '/:lang/citizens/:id*',
-  ],
+  matcher: ["/:lang/citizens/:id*"],
 };

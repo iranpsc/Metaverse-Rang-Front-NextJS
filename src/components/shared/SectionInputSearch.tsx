@@ -53,8 +53,8 @@ export default function SectionInputSearch({
     <div
       className={`
         w-full h-[55px] xs:mt-[50px] xs:mb-5 rounded-2xl border-[1px]
-        focus-within:border-light-primary focus-within:dark:border-dark-yellow
-        transition-all duration-300 bg-white dark:bg-[#1A1A18]
+        focus-within:border-primary focus-within:
+        transition-all duration-300 bg-white dark:bg-gray-1 
         flex flex-row justify-evenly items-center dark:text-white
       `}
     >
@@ -62,7 +62,7 @@ export default function SectionInputSearch({
       <Search
         className={`${
           SectionName === "education" ? "ms-8" : "ms-3"
-        } fill-blueLink dark:fill-dark-yellow`}
+        } fill-primary dark:fill-primary`}
       />
 
       {/* فیلد ورودی */}
@@ -71,7 +71,7 @@ export default function SectionInputSearch({
         placeholder={getPlaceholder()}
         className="w-[80%] outline-none border-none 
           placeholder-[#868B90] dark:text-white text-[16px] ms-2
-          dark:bg-[#1A1A18] dark:placeholder-dark-gray"
+          dark:bg-gray-1  dark:pmatn-2"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
@@ -79,7 +79,7 @@ export default function SectionInputSearch({
       {/* Loader در حالت در حال جستجو */}
       {loadingSearch && (
         <SyncLoader
-          color={defaultTheme === "dark" ? "#FFC700" : "#0066FF"}
+          color={defaultTheme === "dark" ? "#9100D9" : "#9100D9"}
           className="me-1"
           size={5}
           speedMultiplier={0.5}
@@ -94,7 +94,7 @@ export default function SectionInputSearch({
         />
       ) : (
         SectionName === "education" && (
-          <span className="text-blueLink dark:text-dark-activeButton me-5 font-azarMehr font-medium">
+          <span className="text-primary dark:text-dark-activeButton me-5 font-azarMehr font-medium">
             {findByUniqueId(mainData, 57) || "جستجو"}
           </span>
         )

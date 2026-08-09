@@ -74,7 +74,7 @@ const SingleEducationItem = ({ item, mainData, params, theme }: any) => {
         <p className="w-full font-azarMehr dark:text-white font-medium text-singleVideo_medium flex items-center gap-1 text-sm md:text-base">
           <span>{findByUniqueId(mainData, 563)}</span>
           {" : "}
-          <span className="mb-[-2px] text-blueLink dark:text-blue-500 uppercase">
+          <span className="mb-[-2px] text-primary dark:text-blue-500 uppercase">
             <Link onClickCapture={() => setLinkLoading(true)}
               href={`https://metarang.com/${params.lang}/citizen/${item.creator.code}`}
             >
@@ -86,7 +86,7 @@ const SingleEducationItem = ({ item, mainData, params, theme }: any) => {
           <p className="w-full font-azarMehr text-singleVideo-gray dark:text-white font-normal text-[14px]">
             {item.likes_count}
           </p>
-          <Like className="stroke-gray dark:stroke-white !size-[26px]" />
+          <Like className="stroke-matn-2 dark:stroke-white !size-[26px]" />
         </div>
       </div>
       <hr className="h-[2px] w-[90%] text-singleVideo-backgroundInput dark:text-dark-background" />

@@ -195,7 +195,7 @@ export default async function CitizenReferral({
             mainData={mainData}
           />
 
-          <section className="relative w-full overflow-y-auto mt-[60px] lg:mt-0 bg-[#f8f8f8] dark:bg-black px-2 light-scrollbar dark:dark-scrollbar">
+          <section className="relative w-full overflow-y-auto mt-[60px] lg:mt-0 bg-bg-primary  px-2 light-scrollbar dark:dark-scrollbar">
             <div className="px-12">
               <BreadCrumb params={resolvedParams} />
             </div>

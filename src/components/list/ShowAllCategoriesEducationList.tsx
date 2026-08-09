@@ -40,7 +40,7 @@ const ShowAllCategoriesEducationList = ({ categoriesData, params, mainData, them
             aria-label={isDisabled ? "تمام دسته‌بندی‌ها نمایش داده شده" : "نمایش موارد بیشتر"}
             title={isDisabled ? "صفحه آخر" : "موارد بیشتر"}
             className={`${isDisabled ? "cursor-not-allowed opacity-70" : ""
-              } bg-white dark:bg-darkGray text-light-primary md:text-lg dark:text-dark-yellow rounded-[12px] px-[40px] py-[16px] transition-colors border-2 border-transparent hover:border-light-primary hover:text-light-primary hover:dark:border-dark-yellow`}
+              } bg-white dark:bg-gray-1 text-primary md:text-lg  rounded-[12px] px-[40px] py-[16px] transition-colors border-2 border-transparent hover:border-primary hover:text-primary hover:`}
             onClick={handleLoadMore}
           >
             {findByUniqueId(mainData, 271)}
@@ -50,7 +50,7 @@ const ShowAllCategoriesEducationList = ({ categoriesData, params, mainData, them
             color="currentColor"
             size={10}
             aria-label="در حال بارگذاری"
-            className="text-light-primary dark:text-dark-yellow"
+            className="text-primary "
           />
         )}
       </div>

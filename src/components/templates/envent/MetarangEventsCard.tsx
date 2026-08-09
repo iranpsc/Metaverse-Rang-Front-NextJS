@@ -27,7 +27,7 @@ export default function AvalancheEventsCard({ params, mainData }: AvalancheEvent
             corner={params.lang == "fa" ? "bl" : "br"}
             radius={isMobile ? 12 : 32}
             cornerRadius={16}
-            cornerSize={120} className="w-full text-white dark:text-[#1A1A18] rounded-[28px] p-5 xl:p-7  overflow-hidden">
+            cornerSize={120} className="w-full text-white dark:text-gray-1  rounded-[28px] p-5 xl:p-7  overflow-hidden">
             <div className="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-6 items-stretch">
                 {/* Left Side */}
                 <div className="flex flex-col justify-between">

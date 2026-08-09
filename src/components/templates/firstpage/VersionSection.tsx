@@ -36,7 +36,7 @@ useEffect(() => {
   const fetchVersions = async () => {
     try {
       const response = await fetch(
-        "https://api.metarang.com/api/calendar?type=version",
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar?type=version`,
         { method: "GET", cache: "no-store" }
       );
 
@@ -113,8 +113,8 @@ useEffect(() => {
                   onClick={() => handleTabClick(item.id)}
                   className={`py-[10px] md:py-3 px-3 md:px-5 3xl:px-10 w-fit text-center font-azarMehr text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px] cursor-pointer font-light ${
                     item.id === activeTabId
-                      ? "dark:bg-dark-yellow bg-blueLink text-white dark:text-black"
-                      : "bg-white dark:bg-[#343434] text-textGray dark:text-white"
+                      ? " bg-primary text-white dark:text-black"
+                      : "bg-white dark:bg-[#343434] text-matn-2 dark:text-white"
                   } rounded-[12px] sm:rounded-[14px] md:rounded-[16px] lg:rounded-[20px] xl:rounded-[24px] whitespace-nowrap`}
                 >
                   {item.version_title}

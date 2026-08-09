@@ -107,11 +107,11 @@ export default function ShredPage({
           >
             <div className="w-full h-full overflow-clip flex flex-col justify-start mt-2 items-center  gap-10 top-0 absolute">
               <CLoseIcon
-                className="w-[15px] h-[15px] cursor-pointer stroke-2 m-2 stroke-gray dark:stroke-dark-gray absolute start-3 top-1"
+                className="w-[15px] h-[15px] cursor-pointer stroke-2 m-2 stroke-matn-2  absolute start-3 top-1"
                 onClick={() => setShowSocial(false)}
                 alt="Close"
               />
-              <h1 className="font-azarMehr font-bold text-[16px] mt-2 text-[#00000096] dark:text-white w-full text-center">
+              <h1 className="font-azarMehr font-bold text-[16px] mt-2 text-matn-2 dark:text-white w-full text-center">
                 {/* {targetData(userProperty, "citizen sharing")} */}
                 {findByUniqueId(mainData, 324)}
               </h1>
@@ -120,13 +120,13 @@ export default function ShredPage({
                 className="rounded-full cursor-pointer 3xl:w-[50px] 3xl:h-[50px] xl:w-[50px] xl:h-[50px] lg:w-[50px] lg:h-[50px] md:w-[50px] md:h-[50px] sm:w-[40px] sm:h-[40px] xs:w-[40px] xs:h-[40px] absolute right-1 top-[28%]  z-50 flex justify-center items-center"
                 onClick={scrollRight}
               >
-                <Arrow className="stroke-gray dark:stroke-dark-gray stroke-[5px] w-7 h-7 rotate-[180deg]" />
+                <Arrow className="stroke-matn-2  stroke-[5px] w-7 h-7 rotate-[180deg]" />
               </div>
               <div
                 className="rounded-full cursor-pointer 3xl:w-[50px] 3xl:h-[50px] xl:w-[50px] xl:h-[50px] lg:w-[50px] lg:h-[50px] md:w-[50px] md:h-[50px] sm:w-[40px] sm:h-[40px] xs:w-[40px] xs:h-[40px] absolute left-1 top-[28%] z-50 flex justify-center items-center"
                 onClick={scrollLeft}
               >
-                <Arrow className="stroke-gray dark:stroke-dark-gray stroke-[5px] w-7 h-7" />
+                <Arrow className="stroke-matn-2  stroke-[5px] w-7 h-7" />
               </div>
 
               <div
@@ -158,16 +158,16 @@ export default function ShredPage({
               </div>
               <div
                 data-tooltip-id="unique-tooltip"
-                className="relative flex justify-end items-center mt-8 w-[95%] rounded-[20px] px-4 py-1 shadow-md dark:bg-[#000] border border-gray"
+                className="relative flex justify-end items-center mt-8 w-[95%] rounded-[20px] px-4 py-1 shadow-md dark:bg-[#000] border border-matn-2"
               >
                 <p
-                  className="absolute start-2 cursor-pointer xl:w-[75px] lg:w-[75px] md:w-[65px] sm:w-[55px] xs:w-[55px] rounded-[40px] text-center  font-azarMehr text-[16px] sm:text-[14px] xs:text-[14px]  font-bold xl:py-2  lg:py-2 md:py-1 sm:py-2 xs:py-2 text-[#f9f9f9] bg-[#0000ffd9] dark:bg-dark-yellow dark:text-[#000]  "
+                  className="absolute start-2 cursor-pointer xl:w-[75px] lg:w-[75px] md:w-[65px] sm:w-[55px] xs:w-[55px] rounded-[40px] text-center  font-azarMehr text-[16px] sm:text-[14px] xs:text-[14px]  font-bold xl:py-2  lg:py-2 md:py-1 sm:py-2 xs:py-2 text-[#f9f9f9] bg-[#0000ffd9]  dark:text-matn-2  "
                   onClick={handleCopyClick}
                 >
                   {/* {targetData(userProperty, "copy")} */}
                   {findByUniqueId(mainData, 323)}
                 </p>
-                <p className="py-2 text-[#000] dark:text-[#fff] font-azarMehr xl:text-[16px] lg:text-[16px] md:text-[10px] sm:text-[12px] xs:text-[12px] font-medium">{`https://metarang.com/${params.lang}/citizen/${params.id}`}</p>
+                <p className="py-2 text-matn-2 dark:text-[#fff] font-azarMehr xl:text-[16px] lg:text-[16px] md:text-[10px] sm:text-[12px] xs:text-[12px] font-medium">{`https://metarang.com/${params.lang}/citizen/${params.id}`}</p>
               </div>
               {copied && (
                 <ReactTooltip

@@ -149,7 +149,7 @@ export default async function NewsCategoriesPage({ params }: NewsCategoriesPageP
     if (!newsData || newsData.length === 0) {
       console.error("❌ [Categories] No news data available from both Supabase and fallback");
       return (
-        <section className="w-full bg-[#f8f8f8] dark:bg-black px-5 3xl:px-10 min-h-screen">
+        <section className="w-full bg-bg-primary  px-5 3xl:px-10 min-h-screen">
           <div className="mb-6 mt-[60px] lg:mt-0">
             <BreadCrumb params={resolvedParams} />
           </div>
@@ -232,7 +232,7 @@ export default async function NewsCategoriesPage({ params }: NewsCategoriesPageP
     };
 
     return (
-      <section className="w-full bg-[#f8f8f8] dark:bg-black px-5 3xl:px-10">
+      <section className="w-full bg-bg-primary  px-5 3xl:px-10">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
@@ -247,7 +247,7 @@ export default async function NewsCategoriesPage({ params }: NewsCategoriesPageP
           <h1 className="font-rokh font-bold text-[30px] dark:text-white">
             {findByUniqueId(mainData, 1516) || "دسته‌بندی اخبار"}
           </h1>
-          <p className="text-lightGray text-lg mt-2">
+          <p className="text-matn-2 text-lg mt-2">
             {findByUniqueId(mainData, 1592)}
           </p>
         </div>

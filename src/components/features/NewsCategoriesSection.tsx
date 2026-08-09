@@ -58,16 +58,18 @@ export default function NewsByCategorySection({
     }, 500); // 500ms → می‌تونی 300 تا 700 تغییر بدی
   };
 
-  const featured = news?.slice(0, 4) ?? [];
-  const rest = news?.slice(4) ?? [];
+const visibleNews = news?.slice(0, 10) ?? [];
 
-  const isLoading = news === null;
+const featured = visibleNews.slice(0, 4);
+const rest = visibleNews.slice(4, 10);
+
+const isLoading = news === null;
 
   return (
     <section className="max-w-7xl mx-auto px-4 py-12 space-y-12">
       <div className="flex flex-col mb-4 gap-5 px-4 md:px-0">
         <div className="flex flex-col gap-2">
-          <h2 className="text-2xl md:text-3xl font-bold w-max dark:text-white border border-x-0 border-b-4 pe-7 border-t-0 pb-3 border-light-primary dark:border-dark-yellow border-solid">
+          <h2 className="text-2xl md:text-3xl font-bold w-max dark:text-white border border-x-0 border-b-4 pe-7 border-t-0 pb-3 border-primary  border-solid">
             {findByUniqueId(mainData, 1648) || "دسته بندی ها"}
           </h2>
         </div>
@@ -76,15 +78,15 @@ export default function NewsByCategorySection({
         </p>
       </div>
 
-      <div className="flex flex-wrap items-center gap-3 gap-y-10 min-h-[42px]">
+      <div className="flex fleQx-wrap items-center gap-3 gap-y-10 min-h-[42px]">
         {categories.map((cat) => (
           <button
             key={cat.slug}
             onClick={() => handleCategoryClick(cat.slug, cat.title)}
             disabled={isPending}
-            className={`whitespace-nowrap bg-white dark:bg-[#1A1A18] px-5 py-3 rounded-full border border-solid border-transparent text-sm transition
+            className={`whitespace-nowrap bg-white dark:bg-gray-1  px-5 py-3 rounded-full border border-solid border-transparent text-sm transition
               ${activeCat === cat.slug
-                ? "dark:!border-dark-yellow dark:text-dark-yellow text-light-primary !border-light-primary shadow-sm"
+                ? "dark:!border-primary  text-primary !border-primary shadow-sm"
                 : "text-[#1F1F1F] dark:text-[#F2F2F2] hover:bg-neutral-100 dark:hover:bg-neutral-800"
               }
               disabled:opacity-50 disabled:cursor-not-allowed
@@ -97,7 +99,7 @@ export default function NewsByCategorySection({
         <div>
           <Link
             href={`/${lang}/news/categories`}
-            className="whitespace-nowrap bg-white dark:bg-[#1A1A18] px-5 py-[6px] h-full rounded-full border-solid border-transparent text-sm transition text-light-primary dark:text-dark-primary"
+            className="whitespace-nowrap bg-white dark:bg-gray-1  px-5 py-[6px] h-full rounded-full border-solid border-transparent text-sm transition text-primary "
           >
             مشاهده همه دسته بندی ها
           </Link>

@@ -26,7 +26,7 @@ export default function ContactSection({ params, mainData }: ContactSectionProps
         <ClipSection
             corner={params.lang == "fa" ? "tr" : "tl"}
             radius={isMobile ? 12 : 32}
-            cornerSize={isMobile ? 80 : 120} className="relative overflow-hidden rounded-xl lg:rounded-[32px]  text-white dark:text-[#1A1A18] p-4 lg:p-12">
+            cornerSize={isMobile ? 80 : 120} className="relative overflow-hidden rounded-xl lg:rounded-[32px]  text-white dark:text-gray-1  p-4 lg:p-12">
             {/* Purple glow */}
 
 
@@ -63,20 +63,20 @@ export default function ContactSection({ params, mainData }: ContactSectionProps
                             <input
                                 type="text"
                                 placeholder={findByUniqueId(mainData, 79)}
-                                className="h-14 placeholder:text-black rounded-lg dark:bg-black px-4 dark:text-white dark:placeholder:text-white outline-none border border-solid border-[#D9D9D9]  dark:border-transparent focus:border-purple-500"
+                                className="h-14 placeholder:text-black rounded-lg  px-4 dark:text-white dark:placeholder:text-white outline-none border border-solid border-[#D9D9D9]  dark:border-transparent focus:border-purple-500"
                             />
 
                             <input
                                 type="text"
                                 placeholder={findByUniqueId(mainData, 646)}
-                                className="h-14 placeholder:text-black rounded-lg dark:bg-black px-4 dark:text-white dark:placeholder:text-white outline-none border border-solid border-[#D9D9D9]  dark:border-transparent focus:border-purple-500"
+                                className="h-14 placeholder:text-black rounded-lg  px-4 dark:text-white dark:placeholder:text-white outline-none border border-solid border-[#D9D9D9]  dark:border-transparent focus:border-purple-500"
                             />
                         </div>
 
                         <input
                             type="email"
                             placeholder={findByUniqueId(mainData, 85)}
-                            className=" placeholder:text-black w-full h-14 rounded-lg dark:bg-black px-4 dark:text-white dark:placeholder:text-white outline-none border border-solid border-[#D9D9D9] dark:border-transparent focus:border-purple-500"
+                            className=" placeholder:text-black w-full h-14 rounded-lg  px-4 dark:text-white dark:placeholder:text-white outline-none border border-solid border-[#D9D9D9] dark:border-transparent focus:border-purple-500"
                         />
 
                         <div className="relative">
@@ -87,7 +87,7 @@ export default function ContactSection({ params, mainData }: ContactSectionProps
                                     w-full
                                     h-14
                                     rounded-lg
-                                    dark:bg-black
+                                    
                                     px-4
                                     dark:text-white
                                     appearance-none
@@ -127,7 +127,7 @@ export default function ContactSection({ params, mainData }: ContactSectionProps
                             className="
                                 w-full
                                 rounded-lg
-                                dark:bg-black
+                                
                                 px-4
                                 py-4
                                 dark:text-white

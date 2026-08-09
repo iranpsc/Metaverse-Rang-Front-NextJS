@@ -21,7 +21,7 @@ export default function Description({ text }: DescriptionProps) {
           {text.length > 500 && (
             <button
               onClick={() => setExpanded(true)}
-              className="ms-1 text-light-primary bg-transparent dark:text-dark-yellow hover:underline text-sm"
+              className="ms-1 text-primary bg-transparent  hover:underline text-sm"
             >
               مشاهده بیشتر
             </button>
@@ -32,7 +32,7 @@ export default function Description({ text }: DescriptionProps) {
           {text}
           <button
             onClick={() => setExpanded(false)}
-            className="ms-2 bg-transparent text-light-primary dark:text-dark-yellow hover:underline text-sm"
+            className="ms-2 bg-transparent text-primary  hover:underline text-sm"
           >
             مشاهده کمتر
           </button>

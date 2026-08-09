@@ -100,7 +100,7 @@ const VersionBox: React.FC<VersionBoxProps> = ({
     setLoading(true);
     try {
       const response = await fetch(
-        `https://api.metarang.com/api/calendar?type=version&search=${encodeURIComponent(query)}`
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar?type=version&search=${encodeURIComponent(query)}`
       );
       const data = await response.json();
 
@@ -136,7 +136,7 @@ const VersionBox: React.FC<VersionBoxProps> = ({
     setLoading(true);
     try {
       const response = await fetch(
-        `https://api.metarang.com/api/calendar?type=version&page=${page + 1}`
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar?type=version&page=${page + 1}`
       );
       const data = await response.json();
 
@@ -185,9 +185,9 @@ const VersionBox: React.FC<VersionBoxProps> = ({
   return (
     <div className="w-full px-2 lg:px-0 lg:mx-[20px] self-center flex flex-col items-center lg:w-[35%] lg:h-full lg:flex-shrink-0 lg:rounded-[20px]">
       {/* search box */}
-      <div className="w-full flex items-center border-solid border-[#00000024] border-[1px] justify-between bg-[#FFFF] dark:bg-[#1A1A18] lg:w-full h-[50px] rounded-[12px]">
+      <div className="w-full flex items-center border-solid border-[#00000024] border-[1px] justify-between bg-[#FFFF] dark:bg-gray-1  lg:w-full h-[50px] rounded-[12px]">
         <div className="searchIcon flex justify-center p-2">
-          <Search className={`fill-blueLink dark:fill-dark-yellow`} />
+          <Search className={`fill-primary dark:fill-primary`} />
         </div>
         <input
           type="text"
@@ -198,14 +198,14 @@ const VersionBox: React.FC<VersionBoxProps> = ({
         />
         <button
           onClick={handleSearch}
-          className="searchButton bg-transparent p-2 text-[#0066FF] dark:text-[#FFBC00] cursor-pointer"
+          className="searchButton bg-transparent p-2 text-primary  cursor-pointer"
         >
           {findByUniqueId(mainData, 57)}
         </button>
       </div>
 
       {/* version list */}
-      <div className="bg-[#FFFFFF] mt-[20px] rounded-[20px] w-full dark:bg-[#1A1A18] min-h-[770px]">
+      <div className="bg-[#FFFFFF] mt-[20px] rounded-[20px] w-full dark:bg-gray-1  min-h-[770px]">
         <p className="historyVersionP font-rokh text-[120%] self-start font-[550] pt-[4%] pb-[4%] p-[6%] dark:text-[#FCF9FE] lg:pt-[30px] lg:text-[140%]">
           {findByUniqueId(mainData, 574)}
         </p>
@@ -223,13 +223,13 @@ const VersionBox: React.FC<VersionBoxProps> = ({
                   onClick={() => handleClick(index)}
                   className={`versionbox cursor-pointer justify-center flex flex-row w-full rounded-[10px] pt-[2px] ${
                     openIndex === index
-                      ? "bg-[#0066FF1A] dark:bg-[#5a4c1a] !text-black"
+                      ? "bg-primary-shade-1/25 !text-black"
                       : ""
                   }`}
                 >
                   <div className="flex w-full justify-between py-2">
                     <div className="logo pt-[10px] p-[10px] pe-0 md:pe-[10px] flex flex-col">
-                      <div className="w-[10px] h-[10px] md:h-[12px] bg-[#0066FF] dark:bg-[#FFC700] rounded-full self-center" />
+                      <div className="w-[10px] h-[10px] md:h-[12px] bg-primary dark:bg-primary rounded-full self-center" />
                       <div className="lineBottom w-[1.5px] h-full rounded-[1px] self-center" />
                     </div>
 
@@ -277,7 +277,7 @@ const VersionBox: React.FC<VersionBoxProps> = ({
           {shouldShowLoadMore() && (
             <button
               onClick={handleShowMore}
-              className="mb-5 w-max mx-auto  bg-white dark:bg-darkGray text-light-primary md:text-lg dark:text-dark-yellow rounded-[12px] px-[40px] py-[16px] base-transition-1 border-2 border-light-primary hover:text-light-primary dark:border-dark-yellow "
+              className="mb-5 w-max mx-auto  bg-white dark:bg-gray-1 text-primary md:text-lg  rounded-[12px] px-[40px] py-[16px] base-transition-1 border-2 border-primary hover:text-primary  "
             >
               {findByUniqueId(mainData, 271)}
             </button>

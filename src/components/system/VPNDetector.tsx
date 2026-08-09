@@ -68,7 +68,7 @@ const VPNDetector = () => {
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60">
       <div className="bg-white dark:bg-[#1e1e1e] rounded-2xl p-6 max-w-md w-[90%] text-center shadow-xl" dir="rtl">
-        <h2 className="text-xl font-bold text-light-primary dark:text-dark-yellow mb-3">
+        <h2 className="text-xl font-bold text-primary  mb-3">
           VPN شما روشن است!
         </h2>
         <p className="text-black dark:text-white leading-7">
@@ -77,7 +77,7 @@ const VPNDetector = () => {
         <button
           aria-label="Close VPN Modal"
           onClick={() => setShowModal(false)}
-          className="mt-6 px-6 py-2 rounded-xl bg-light-primary text-white dark:bg-dark-yellow dark:text-black font-semibold"
+          className="mt-6 px-6 py-2 rounded-xl bg-primary text-white  dark:text-black font-semibold"
         >
           متوجه شدم
         </button>

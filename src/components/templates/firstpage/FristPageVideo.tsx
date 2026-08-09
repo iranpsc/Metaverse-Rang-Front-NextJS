@@ -11,7 +11,7 @@ type SectionVideoProps = {
 const SectionVideo: React.FC<SectionVideoProps> = ({ params }) => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false); // کنترل لود ویدیو
   const isFa = params.lang?.toLowerCase() === "fa"; // بررسی زبان
-  const videoSrc = isFa ? "/firstpage/section-fa.mp4" : "/vidfirstpageeos/section-en.mp4";
+  const videoSrc = isFa ? "https://s3.metarang.com/metarang/firstpage%2Fsection-fa.mp4" : "https://s3.metarang.com/metarang/firstpage%2Fsection-en.mp4";
   const posterSrc = isFa ? "/firstpage/videoFaposter.webp" : "/firstpage/videoEnposter.webp";
 
   // تابع برای بارگذاری ویدیو

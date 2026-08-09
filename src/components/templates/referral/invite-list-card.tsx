@@ -14,7 +14,7 @@ export default function InviteListCard({
     0
   );
   return (
-    <div className="dark:bg-darkGray bg-white p-3 rounded-xl flex  items-center w-full h-[56px] lg:h-[128px]">
+    <div className="dark:bg-gray-1 bg-white p-3 rounded-xl flex  items-center w-full h-[56px] lg:h-[128px]">
       <div className="relative w-[50px] h-[50px] lg:w-[80px] lg:h-[80px] rounded-full overflow-hidden">
         <Image
           fill
@@ -29,10 +29,10 @@ export default function InviteListCard({
         <div className="text-black dark:text-white text-[10px] lg:text-xl font-bold">
           {item.name}
         </div>
-        {/* <div className="text-[#0066FF] text-sm lg:text-base">{item.code}</div> */}
+        {/* <div className="text-primary text-sm lg:text-base">{item.code}</div> */}
         <Link
           target="_blank"
-          className="min-h-[30px] uppercase text-blueLink font-medium font-azarMehr text-[10px] lg:text-[16px] cursor-pointer"
+          className="min-h-[30px] uppercase text-primary font-medium font-azarMehr text-[10px] lg:text-[16px] cursor-pointer"
           href={`/${params.lang}/citizens/${item.code}`}
           title={`Go to citizen ${item.code}`} // Optional
           aria-label={`Go to citizen ${item.code}`}
@@ -40,7 +40,7 @@ export default function InviteListCard({
           {item.code}
         </Link>
       </div>
-      <p className="dark:text-dark-primary text-blueLink me-1 text-[16px] lg:text-2xl">
+      <p className=" text-primary me-1 text-[16px] lg:text-2xl">
         {totalAmount.toLocaleString()} +
       </p>
       <div className="relative w-[32px] h-[32px]">

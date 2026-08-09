@@ -63,7 +63,7 @@ export default function EventsCalendar({
     if (!startOfMonthDate || !endOfMonthDate) return;
     const fetchCalendarEvents = async () => {
       try {
-        const url = `https://api.metarang.com/api/calendar/filter?start_date=${startOfMonthDate}&end_date=${endOfMonthDate}`;
+        const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar/filter?start_date=${startOfMonthDate}&end_date=${endOfMonthDate}`;
         const res = await fetch(url);
         if (!res.ok) throw new Error("ERR");
         const json = await res.json();
@@ -84,7 +84,7 @@ export default function EventsCalendar({
           setDateResults(events);
           return;
         }
-        const url = `https://api.metarang.com/api/calendar?date=${selectedEventDate}`;
+        const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar?date=${selectedEventDate}`;
         const res = await fetch(url);
         if (!res.ok) throw new Error("ERR");
         const json = await res.json();
@@ -100,7 +100,7 @@ export default function EventsCalendar({
   function handleSearchClick() {
     if (!searchValue.trim()) return;
     const query = encodeURIComponent(searchValue);
-    const url = `https://api.metarang.com/api/calendar?search=${query}&type=event`;
+    const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar?search=${query}&type=event`;
     const headers: HeadersInit = {
       "Content-Type": "application/json",
       ...(token && { Authorization: `Bearer ${token}` }),
@@ -115,7 +115,7 @@ export default function EventsCalendar({
   }
 
   return (
-    <div className="centerItem w-[95%] lg:w-full pt-6 text-black dark:text-white bg-white dark:bg-[#080807] flex flex-col items-center rounded-[20px] gap-2 font-['Montserrat']">
+    <div className="centerItem w-[95%] lg:w-full pt-6 text-black dark:text-white bg-white dark:bg-gray-1 flex flex-col items-center rounded-[20px] gap-2 font-['Montserrat']">
       <div className="w-[97%] flex flex-col items-start sm:flex-row-reverse lg:w-[95%] lg:gap-4 font-azarMehr">
         <Calendar
           params={params}
@@ -127,10 +127,10 @@ export default function EventsCalendar({
         />
         <div className="EventFilters w-full sm:w-[90%] mt-4 sm:mt-0 sm:ml-4 font-azarMehr">
           <div
-            className="searchBoxContainer my-5 transition-[right,width] duration-300 ease-in-out flex items-center flex-row justify-between border-[1px] border-solid border-[#00000024] dark:bg-[#1A1A18] w-full h-[50px] rounded-[12px] sm:m-0"
+            className="searchBoxContainer my-5 transition-[right,width] duration-300 ease-in-out flex items-center flex-row justify-between border-[1px] border-solid border-[#00000024] dark:bg-gray-1  w-full h-[50px] rounded-[12px] sm:m-0"
           >
             <span className="px-4 flex">
-              <Search className={`fill-[#1A1A18] dark:fill-white font-azarMehr`} />
+              <Search className={`fill-gray-1  dark:fill-white font-azarMehr`} />
             </span>
             <input
               onKeyDown={(e) => {
@@ -146,7 +146,7 @@ export default function EventsCalendar({
             />
             <button
               onClick={handleSearchClick}
-              className="searchButton font-normal text-[95%] px-5 !font-azarMehr border-none bg-transparent text-blueLink dark:text-dark-yellow cursor-pointer"
+              className="searchButton font-normal text-[95%] px-5 !font-azarMehr border-none bg-transparent text-primary  cursor-pointer"
             >
               {findByUniqueId(mainData, 57)}
             </button>

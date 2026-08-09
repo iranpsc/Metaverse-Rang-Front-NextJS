@@ -20,7 +20,10 @@ export default function BreakingNewsSliderClient({
 }: any) {
   const [mounted, setMounted] = useState(false);
   const isRTL = lang === "fa";
-
+const getCategorySlug = (item: any) =>
+  item.categorySlug ||
+  item.category?.toLowerCase().replace(/\s+/g, "-") ||
+  "general";
   useEffect(() => {
     // ⛔ جلوگیری از init زودهنگام Swiper
     setMounted(true);
@@ -91,7 +94,7 @@ export default function BreakingNewsSliderClient({
               </div>
 
               <Link
-                href={`/${lang}/news/${item.slug}`}
+                href={`/${lang}/news/categories/${getCategorySlug(item)}/${item.slug}`}
                 className="block lg:text-2xl text-xl 3xl:text-3xl font-rokh text-center font-bold line-clamp-1"
               >
                 {item.title}
@@ -134,8 +137,8 @@ export default function BreakingNewsSliderClient({
         {/* NAV */}
         <div className="absolute top-[240px] w-full flex justify-center">
           <div className="flex justify-between items-center !w-[85%] md:!w-[65%] lg:!w-[61%]">
-            <div className="swiper-button-prev p-3 !static !text-white dark:!text-black after:!text-xl dark:after:!text-black !text-xl !w-12 !h-12 rounded-full bg-light-primary dark:bg-dark-yellow z-20" />
-            <div className="swiper-button-next p-3 !static !text-white dark:!text-black after:!text-xl dark:after:!text-black !text-xl !w-12 !h-12 rounded-full bg-light-primary dark:bg-dark-yellow z-20" />
+            <div className="swiper-button-prev p-3 !static !text-white dark:!text-black after:!text-xl dark:after:!text-black !text-xl !w-12 !h-12 rounded-full bg-primary  z-20" />
+            <div className="swiper-button-next p-3 !static !text-white dark:!text-black after:!text-xl dark:after:!text-black !text-xl !w-12 !h-12 rounded-full bg-primary  z-20" />
           </div>
         </div>
       </Swiper>

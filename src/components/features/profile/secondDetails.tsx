@@ -17,13 +17,13 @@ export default function ProfileDetailsDetails({ itemsProfileDetails }: any) {
             xl:py-[0px] lg:py-[4px] md:py-[4px] sm:py-[5px] xs:py-[5px]
             "
           >
-            <p className="font-azarMehr 3xl:text-xl3Title lg:text-lgTitle  xl:text-xlTitle  md:text-mdTitle sm:text-smTitle xs:text-smTitle font-medium  text-[#000] dark:text-white">
+            <p className="font-azarMehr 3xl:text-xl3Title lg:text-lgTitle  xl:text-xlTitle  md:text-mdTitle sm:text-smTitle xs:text-smTitle font-medium  text-matn-2 dark:text-white">
               {item.key}
             </p>
-            <hr className="flex-grow mx-3 h-[1px] xl:visible lg:visible md:invisible sm:invisible xs:invisible border border-dashed text-[#000] opacity-10 dark:text-[#fff]" />
+            <hr className="flex-grow mx-3 h-[1px] xl:visible lg:visible md:invisible sm:invisible xs:invisible border border-dashed text-matn-2 opacity-10 dark:text-[#fff]" />
 
             <div className="group relative flex justify-center ">
-              <p className="dark:text-dark-gray text-end font-azarMehr font-medium 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc  md:text-mdDesc sm:text-smDesc xs:text-smDesc text-gray">
+              <p className=" text-end font-azarMehr font-medium 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc  md:text-mdDesc sm:text-smDesc xs:text-smDesc text-matn-2">
                 {item.value}
               </p>
               {item.fValue && item.fValue.length > 2 && (

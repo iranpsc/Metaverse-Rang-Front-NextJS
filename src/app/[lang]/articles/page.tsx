@@ -135,7 +135,7 @@ export default async function ArticlesPage({ params }: ArticlesPageProps) {
     // ✅ محتوای اصلی (دقیقاً مثل نسخه‌ی خودت)
     return (
       <section
-        className="w-full relative lg:pt-0 bg-[#f8f8f8] dark:bg-black "
+        className="w-full relative lg:pt-0 bg-bg-primary  "
         dir={langData.direction}
       >
         <CleanAutoRetryParam />
@@ -147,7 +147,7 @@ export default async function ArticlesPage({ params }: ArticlesPageProps) {
           <h1 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[64px] mb-[16px]">
             {findByUniqueId(mainData, 1513)}
           </h1>
-          <p className="text-lightGray  dark:text-lightGray font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center px-5 lg:px-10">
+          <p className="text-matn-2  dark:text-matn-2 font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center px-5 lg:px-10">
             {findByUniqueId(mainData, 1514)}
           </p>
         </div>

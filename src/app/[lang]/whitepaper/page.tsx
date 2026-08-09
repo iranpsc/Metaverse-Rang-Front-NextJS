@@ -180,7 +180,7 @@ export default async function ArticlesPage({
     return (
       
       <section
-        className="w-full  lg:pt-0 bg-[#f5f5f5] dark:bg-black px-5"
+        className="w-full  lg:pt-0 bg-[#f5f5f5]  px-5"
         dir={langData.direction}
       >
         <CleanAutoRetryParam />
@@ -210,7 +210,7 @@ export default async function ArticlesPage({
         
         className="
             border border-solid border-[#f5f5f5] dark:border-black
-           lg:hidden bg-white dark:bg-[#1A1A18] rounded-xl lg:rounded-[32px] dark:text-white w-full
+           lg:hidden bg-white dark:bg-gray-1  rounded-xl lg:rounded-[32px] dark:text-white w-full
           
         "
 

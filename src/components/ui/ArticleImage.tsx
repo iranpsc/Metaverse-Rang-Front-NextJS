@@ -58,7 +58,7 @@ const categoryForLink = article.categorySlug ?? params?.category ?? "all";
       {/* محتوا */}
       <div className="p-4 flex flex-col gap-3">
         <div className="flex items-center text-xs md:text-base w-full">
-          <div className="flex items-center gap-4 md:gap-10 justify-between w-full text-textGray dark:text-[#888888] dark:text-gray-300">
+          <div className="flex items-center gap-4 md:gap-10 justify-between w-full text-matn-2 dark:text-[#888888] dark:tmatn-2-300">
             <div>
               <Link
                 href={`/${lang}/articles/categories/${categoryForLink}`}
@@ -71,19 +71,19 @@ const categoryForLink = article.categorySlug ?? params?.category ?? "all";
             <span>{findByUniqueId(mainData, 191)} : {formattedDate}</span>
 
             <span className="items-center gap-1 hidden md:flex">
-              <Comment className="stroke-textGray dark:stroke-[#888888] size-[14px] md:size-[16px]" />
+              <Comment className="stroke-matn-2 dark:stroke-[#888888] size-[14px] md:size-[16px]" />
               {article.stats.comments}
             </span>
             <span className="items-center gap-1 hidden md:flex">
-              <Like className="stroke-textGray dark:stroke-[#888888] size-[14px] md:size-[16px]" />
+              <Like className="stroke-matn-2 dark:stroke-[#888888] size-[14px] md:size-[16px]" />
               {article.stats.likes}
             </span>
             <span className="items-center gap-1 hidden md:flex">
-              <Dislike className="stroke-textGray dark:stroke-[#888888] size-[14px] md:size-[16px]" />
+              <Dislike className="stroke-matn-2 dark:stroke-[#888888] size-[14px] md:size-[16px]" />
               {article.stats.dislikes}
             </span>
             <span className="items-center gap-1 hidden md:flex">
-              <View className="stroke-textGray dark:stroke-[#888888] size-[14px] md:size-[16px]" />
+              <View className="stroke-matn-2 dark:stroke-[#888888] size-[14px] md:size-[16px]" />
               {article.stats.views}
             </span>
           </div>

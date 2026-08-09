@@ -237,7 +237,7 @@ export default async function LevelsPage({ params }: LevelsPageProps) {
         <CleanAutoRetryParam />
 
         <section
-          className="h-[calc(100vh-60px)] lg:h-screen overflow-y-auto mt-[60px] lg:mt-0 bg-bgGray dark:bg-black light-scrollbar dark:dark-scrollbar"
+          className="h-[calc(100vh-60px)] lg:h-screen overflow-y-auto mt-[60px] lg:mt-0  bg-bg-primary light-scrollbar dark:dark-scrollbar"
           dir={langData.direction}
         >
           <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
@@ -245,10 +245,10 @@ export default async function LevelsPage({ params }: LevelsPageProps) {
           </div>
 
           <div className="mt-[40px] xl:px-32 lg:px-32 px-5 text-center">
-            <h2 className="font-rokh font-bold text-[32px] dark:text-white mb-4">
+            <h2 className="font-rokh font-bold text-[32px] dark:text-white mb-4 ">
               {findByUniqueId(mainData, 587)}
             </h2>
-            <p className="text-lightGrey dark:text-lightGray text-[20px]">
+            <p className="text-lightGrey dark:text-matn-2 text-[20px]">
               {findByUniqueId(mainData, 1417)}
             </p>
           </div>
