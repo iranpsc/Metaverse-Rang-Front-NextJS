@@ -1,5 +1,5 @@
 
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 const ALLOWED_HOSTS = new Set([
   "admin.metarang.com",
@@ -15,9 +15,7 @@ function isAllowedUrl(value: string) {
 
     return (
       url.protocol === "https:" &&
-      ALLOWED_HOSTS.has(
-        url.hostname.toLowerCase(),
-      )
+      ALLOWED_HOSTS.has(url.hostname.toLowerCase())
     );
   } catch {
     return false;
@@ -25,9 +23,7 @@ function isAllowedUrl(value: string) {
 }
 
 function sleep(ms: number) {
-  return new Promise((resolve) =>
-    setTimeout(resolve, ms),
-  );
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 async function fetchWithRetry(
@@ -36,21 +32,14 @@ async function fetchWithRetry(
 ) {
   let lastError: unknown;
 
-  for (
-    let attempt = 0;
-    attempt < MAX_RETRIES;
-    attempt++
-  ) {
+  for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
     try {
       const response = await fetch(url, {
         headers,
         cache: "no-store",
       });
 
-      if (
-        response.ok ||
-        response.status === 206
-      ) {
+      if (response.ok || response.status === 206) {
         return response;
       }
 
@@ -61,28 +50,18 @@ async function fetchWithRetry(
       lastError = error;
     }
 
-    if (
-      attempt <
-      MAX_RETRIES - 1
-    ) {
-      await sleep(
-        RETRY_DELAY_MS *
-          (attempt + 1),
-      );
+    if (attempt < MAX_RETRIES - 1) {
+      await sleep(RETRY_DELAY_MS * (attempt + 1));
     }
   }
 
   throw (
     lastError ??
-    new Error(
-      "Upstream request failed",
-    )
+    new Error("Upstream request failed")
   );
 }
 
-function getContentType(
-  type: string,
-) {
+function getContentType(type: string) {
   if (type === "gltf") {
     return "model/gltf+json";
   }
@@ -98,31 +77,22 @@ function getContentType(
    GET
 ========================================================= */
 
-export async function GET(
-  request: NextRequest,
-) {
+export async function GET(request: NextRequest) {
   try {
-    const { searchParams } =
-      new URL(request.url);
+    const { searchParams } = new URL(request.url);
 
-    const type =
-      searchParams.get("type");
-
-    const targetUrl =
-      searchParams.get("url");
+    const type = searchParams.get("type");
+    const targetUrl = searchParams.get("url");
 
     /*
      * برای GLTF:
      *
      * این پارامتر BIN واقعی را مشخص می‌کند.
      */
-    const binUrl =
-      searchParams.get("bin");
+    const binUrl = searchParams.get("bin");
 
     const expectedLengthRaw =
-      searchParams.get(
-        "expectedLength",
-      );
+      searchParams.get("expectedLength");
 
     /* -------------------------------------------------------
        Validate type
@@ -133,10 +103,9 @@ export async function GET(
       type !== "bin" &&
       type !== "image"
     ) {
-      return Response.json(
+      return NextResponse.json(
         {
-          error:
-            "Invalid model type",
+          error: "Invalid model type",
         },
         {
           status: 400,
@@ -149,10 +118,9 @@ export async function GET(
     ------------------------------------------------------- */
 
     if (!targetUrl) {
-      return Response.json(
+      return NextResponse.json(
         {
-          error:
-            "Missing url parameter",
+          error: "Missing url parameter",
         },
         {
           status: 400,
@@ -160,13 +128,10 @@ export async function GET(
       );
     }
 
-    if (
-      !isAllowedUrl(targetUrl)
-    ) {
-      return Response.json(
+    if (!isAllowedUrl(targetUrl)) {
+      return NextResponse.json(
         {
-          error:
-            "URL host is not allowed",
+          error: "URL host is not allowed",
         },
         {
           status: 403,
@@ -179,13 +144,10 @@ export async function GET(
     ------------------------------------------------------- */
 
     if (binUrl) {
-      if (
-        !isAllowedUrl(binUrl)
-      ) {
-        return Response.json(
+      if (!isAllowedUrl(binUrl)) {
+        return NextResponse.json(
           {
-            error:
-              "BIN URL host is not allowed",
+            error: "BIN URL host is not allowed",
           },
           {
             status: 403,
@@ -198,25 +160,18 @@ export async function GET(
        expectedLength
     ------------------------------------------------------- */
 
-    const expectedLength =
-      expectedLengthRaw
-        ? Number(
-            expectedLengthRaw,
-          )
-        : undefined;
+    const expectedLength = expectedLengthRaw
+      ? Number(expectedLengthRaw)
+      : undefined;
 
     if (
-      expectedLength !==
-        undefined &&
-      (!Number.isFinite(
-        expectedLength,
-      ) ||
+      expectedLength !== undefined &&
+      (!Number.isFinite(expectedLength) ||
         expectedLength < 0)
     ) {
-      return Response.json(
+      return NextResponse.json(
         {
-          error:
-            "Invalid expectedLength",
+          error: "Invalid expectedLength",
         },
         {
           status: 400,
@@ -224,36 +179,29 @@ export async function GET(
       );
     }
 
-    console.log(
-      "MODEL PROXY:",
-      {
-        type,
-        targetUrl,
-        binUrl,
-        expectedLength,
-      },
-    );
+    console.log("MODEL PROXY:", {
+      type,
+      targetUrl,
+      binUrl,
+      expectedLength,
+    });
 
     /* =======================================================
        GLTF
-       
+
        GLTF را می‌گیریم، JSON را اصلاح می‌کنیم و برمی‌گردانیم.
-       
-       فقط برای GLTF از ArrayBuffer استفاده می‌کنیم.
+
+       فقط برای GLTF از JSON استفاده می‌کنیم.
        هیچ Base64 یا Blob ساخته نمی‌شود.
     ======================================================= */
 
     if (type === "gltf") {
-      const upstream =
-        await fetchWithRetry(
-          targetUrl,
-        );
+      const upstream = await fetchWithRetry(targetUrl);
 
       if (!upstream.ok) {
-        return Response.json(
+        return NextResponse.json(
           {
-            error:
-              `Failed to fetch GLTF: ${upstream.status}`,
+            error: `Failed to fetch GLTF: ${upstream.status}`,
           },
           {
             status: 502,
@@ -261,8 +209,7 @@ export async function GET(
         );
       }
 
-      const gltf =
-        await upstream.json();
+      const gltf = await upstream.json();
 
       /* -----------------------------------------------------
          اگر BIN واقعی از API داریم،
@@ -271,89 +218,64 @@ export async function GET(
 
       if (
         binUrl &&
-        Array.isArray(
-          gltf.buffers,
-        ) &&
+        Array.isArray(gltf.buffers) &&
         gltf.buffers.length > 0
       ) {
-        gltf.buffers =
-          gltf.buffers.map(
-            (
-              buffer: any,
-              index: number,
-            ) => {
-              if (
-                index === 0
-              ) {
-                return {
-                  ...buffer,
-                  uri: binUrl,
-                };
-              }
+        gltf.buffers = gltf.buffers.map(
+          (
+            buffer: Record<string, unknown>,
+            index: number,
+          ) => {
+            if (index === 0) {
+              return {
+                ...buffer,
+                uri: binUrl,
+              };
+            }
 
-              return buffer;
-            },
-          );
-
-        console.log(
-          "GLTF BIN URI REPLACED:",
-          {
-            original:
-              gltf.buffers[0]
-                ?.uri,
-            replacement:
-              binUrl,
+            return buffer;
           },
         );
+
+        console.log("GLTF BIN URI REPLACED:", {
+          replacement: binUrl,
+        });
       }
 
       /*
        * ----------------------------------------------------
        * اگر تصاویر relative هستند،
-       * آنها را هم absolute می‌کنیم.
-       *
-       * اینجا تصویر مستقیماً از API اصلی درخواست نمی‌شود
-       * مگر اینکه خود GLTF چنین URLی داشته باشد.
+       * آنها را absolute می‌کنیم.
        * ----------------------------------------------------
        */
 
-      if (
-        Array.isArray(
-          gltf.images,
-        )
-      ) {
-        gltf.images =
-          gltf.images.map(
-            (image: any) => {
-              if (
-                !image?.uri ||
-                image.uri.startsWith(
-                  "data:",
-                )
-              ) {
-                return image;
-              }
+      if (Array.isArray(gltf.images)) {
+        gltf.images = gltf.images.map(
+          (image: Record<string, unknown>) => {
+            const uri = image?.uri;
 
-              try {
-                return {
-                  ...image,
-                  uri: new URL(
-                    image.uri,
-                    targetUrl,
-                  ).href,
-                };
-              } catch {
-                return image;
-              }
-            },
-          );
+            if (
+              typeof uri !== "string" ||
+              uri.startsWith("data:")
+            ) {
+              return image;
+            }
+
+            try {
+              return {
+                ...image,
+                uri: new URL(uri, targetUrl).href,
+              };
+            } catch {
+              return image;
+            }
+          },
+        );
       }
 
-      const body =
-        JSON.stringify(gltf);
+      const body = JSON.stringify(gltf);
 
-      const headers =
-        new Headers();
+      const headers = new Headers();
 
       headers.set(
         "Content-Type",
@@ -363,9 +285,7 @@ export async function GET(
       headers.set(
         "Content-Length",
         String(
-          new TextEncoder().encode(
-            body,
-          ).byteLength,
+          new TextEncoder().encode(body).byteLength,
         ),
       );
 
@@ -379,71 +299,52 @@ export async function GET(
         "*",
       );
 
-      return new Response(
-        body,
-        {
-          status: 200,
-          headers,
-        },
-      );
+      return new Response(body, {
+        status: 200,
+        headers,
+      });
     }
 
     /* =======================================================
        BIN / IMAGE
-       
-       این قسمت Stream مستقیم است.
-       
+
+       Stream مستقیم است.
+
        Base64 ❌
        Blob ❌
        تبدیل ArrayBuffer ❌
     ======================================================= */
 
-    const incomingRange =
-      request.headers.get(
-        "range",
-      );
+    const incomingRange = request.headers.get("range");
 
-    const requestHeaders:
-      HeadersInit = {};
+    const requestHeaders: HeadersInit = {};
 
     if (incomingRange) {
-      requestHeaders.Range =
-        incomingRange;
+      requestHeaders.Range = incomingRange;
     }
 
-    const upstream =
-      await fetchWithRetry(
-        targetUrl,
-        requestHeaders,
-      );
+    const upstream = await fetchWithRetry(
+      targetUrl,
+      requestHeaders,
+    );
 
-    const responseHeaders =
-      new Headers();
+    const responseHeaders = new Headers();
 
     const contentType =
-      upstream.headers.get(
-        "content-type",
-      );
+      upstream.headers.get("content-type");
 
     const contentLength =
-      upstream.headers.get(
-        "content-length",
-      );
+      upstream.headers.get("content-length");
 
     const contentRange =
-      upstream.headers.get(
-        "content-range",
-      );
+      upstream.headers.get("content-range");
 
     const acceptRanges =
-      upstream.headers.get(
-        "accept-ranges",
-      );
+      upstream.headers.get("accept-ranges");
 
     responseHeaders.set(
       "Content-Type",
-      contentType ||
-        getContentType(type),
+      contentType || getContentType(type),
     );
 
     if (contentLength) {
@@ -462,8 +363,7 @@ export async function GET(
 
     responseHeaders.set(
       "Accept-Ranges",
-      acceptRanges ||
-        "bytes",
+      acceptRanges || "bytes",
     );
 
     responseHeaders.set(
@@ -487,35 +387,24 @@ export async function GET(
 
     if (
       type === "bin" &&
-      expectedLength !==
-        undefined
+      expectedLength !== undefined
     ) {
-      const actualLength =
-        contentLength
-          ? Number(
-              contentLength,
-            )
-          : undefined;
+      const actualLength = contentLength
+        ? Number(contentLength)
+        : undefined;
 
       if (
-        actualLength !==
-          undefined &&
-        Number.isFinite(
-          actualLength,
-        ) &&
-        actualLength <
-          expectedLength
+        actualLength !== undefined &&
+        Number.isFinite(actualLength) &&
+        actualLength < expectedLength
       ) {
-        console.error(
-          "BIN TOO SMALL:",
-          {
-            targetUrl,
-            expectedLength,
-            actualLength,
-          },
-        );
+        console.error("BIN TOO SMALL:", {
+          targetUrl,
+          expectedLength,
+          actualLength,
+        });
 
-        return Response.json(
+        return NextResponse.json(
           {
             error:
               "BIN file is smaller than expected",
@@ -533,22 +422,17 @@ export async function GET(
        Stream مستقیم
     ------------------------------------------------------- */
 
-    return new Response(
-      upstream.body,
-      {
-        status:
-          upstream.status,
-        headers:
-          responseHeaders,
-      },
-    );
+    return new Response(upstream.body, {
+      status: upstream.status,
+      headers: responseHeaders,
+    });
   } catch (error) {
     console.error(
       "MODEL PROXY ERROR:",
       error,
     );
 
-    return Response.json(
+    return NextResponse.json(
       {
         error:
           error instanceof Error
@@ -567,24 +451,17 @@ export async function GET(
 ========================================================= */
 
 export async function OPTIONS() {
-  return new Response(
-    null,
-    {
-      status: 204,
-      headers: {
-        "Access-Control-Allow-Origin":
-          "*",
-
-        "Access-Control-Allow-Methods":
-          "GET, OPTIONS",
-
-        "Access-Control-Allow-Headers":
-          "Range, Content-Type",
-
-        "Access-Control-Expose-Headers":
-          "Content-Length, Content-Range, Accept-Ranges",
-      },
+  return new Response(null, {
+    status: 204,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods":
+        "GET, OPTIONS",
+      "Access-Control-Allow-Headers":
+        "Range, Content-Type",
+      "Access-Control-Expose-Headers":
+        "Content-Length, Content-Range, Accept-Ranges",
     },
-  );
+  });
 }
 
