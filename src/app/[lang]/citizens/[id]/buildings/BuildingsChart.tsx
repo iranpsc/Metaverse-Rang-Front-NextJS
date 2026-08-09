@@ -1,26 +1,37 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import axios from "axios";
 import Chart from "chart.js/auto";
 import { useCookies } from "react-cookie";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import { Period } from "./buildingsShared";
+import { Period, styleForKarbari } from "./buildingsShared";
 
 /* ------------------------------------------------------------------ */
 /*                                TYPES                                */
 /* ------------------------------------------------------------------ */
-/* Actual API shape — flat, a single "completed" series aggregated across
-   whichever karbari codes are selected (no per-karbari breakdown, and
-   only one metric — unlike the two-line bought/sold chart elsewhere):
-   { "data": { "completed": number[], "labels": string[] }, "period": "..." } */
-interface BuildingsChartData {
-  completed: number[];
-  labels: string[];
+/* Real API shape (confirmed via console log):
+   { "data": { amount: number, karbari: string, label: string }[] }
+   res.data.data is DIRECTLY the flat array of entries — it is NOT an
+   object with a "completed" key, and there is no top-level "labels"
+   array; each entry carries its own "label". The array contains one
+   entry per period PER karbari code, so entries are grouped by karbari
+   (one line per karbari, colored via styleForKarbari) instead of being
+   summed into a single total line. */
+interface KarbariSeries {
+  code: string;
+  labelFa: string;
+  labelEn: string;
+  color: string;
+  data: number[];
 }
 
-const EMPTY_CHART: BuildingsChartData = { completed: [], labels: [] };
-const LINE_COLOR = "#9100D9";
+interface BuildingsChartData {
+  labels: string[];
+  series: KarbariSeries[];
+}
+
+const EMPTY_CHART: BuildingsChartData = { labels: [], series: [] };
 
 function ChartSkeleton() {
   return (
@@ -34,6 +45,16 @@ function ChartSkeleton() {
       ))}
     </div>
   );
+}
+
+/* Convert a hex color like "#D4A017" into an rgba() string for fills. */
+function hexToRgba(hex: string, alpha: number): string {
+  const clean = hex.replace("#", "");
+  const bigint = parseInt(clean, 16);
+  const r = (bigint >> 16) & 255;
+  const g = (bigint >> 8) & 255;
+  const b = bigint & 255;
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
 
 export default function BuildingsChart({
@@ -61,6 +82,8 @@ export default function BuildingsChart({
   const [chartData, setChartData] = useState<BuildingsChartData>(EMPTY_CHART);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  // Per-karbari-code visibility, toggled by clicking the legend.
+  const [hiddenCodes, setHiddenCodes] = useState<Set<string>>(new Set());
 
   /* ---------------------- data fetching ---------------------- */
   useEffect(() => {
@@ -68,6 +91,8 @@ export default function BuildingsChart({
       setChartData(EMPTY_CHART);
       return;
     }
+
+    const controller = new AbortController();
 
     const fetchChart = async () => {
       try {
@@ -82,26 +107,71 @@ export default function BuildingsChart({
 
         const res = await axios.get(
           `https://dev-api.metarang.com/api/citizen/${params.id}/buildings/chart?${qs.toString()}`,
-          { headers: { "Content-Type": "application/json" } }
+          { headers: { "Content-Type": "application/json" }, signal: controller.signal }
         );
-        console.log("[buildings/chart] raw response:", res.data);
 
-        const data = res.data?.data;
-        setChartData({
-          completed: Array.isArray(data?.completed) ? data.completed : [],
-          labels: Array.isArray(data?.labels) ? data.labels : [],
+        const rawEntries: any[] = Array.isArray(res.data?.data) ? res.data.data : [];
+
+        // x-axis labels, in the order the API returned them, deduped.
+        const labels: string[] = [];
+        const seenLabels = new Set<string>();
+        for (const entry of rawEntries) {
+          const label = entry?.label;
+          if (label != null && !seenLabels.has(label)) {
+            seenLabels.add(label);
+            labels.push(label);
+          }
+        }
+
+        // Group entries by karbari code, in first-seen order, so each
+        // karbari becomes its own line on the chart.
+        const codeOrder: string[] = [];
+        const byCode = new Map<string, Map<string, number>>();
+        for (const entry of rawEntries) {
+          const code = entry?.karbari;
+          if (code == null || entry?.label == null) continue;
+          if (!byCode.has(code)) {
+            byCode.set(code, new Map());
+            codeOrder.push(code);
+          }
+          const perLabel = byCode.get(code)!;
+          const prev = perLabel.get(entry.label) ?? 0;
+          perLabel.set(entry.label, prev + (Number(entry.amount) || 0));
+        }
+
+        const series: KarbariSeries[] = codeOrder.map((code) => {
+          const style = styleForKarbari(code);
+          const perLabel = byCode.get(code)!;
+          return {
+            code,
+            labelFa: style.labelFa,
+            labelEn: style.labelEn,
+            color: style.color,
+            data: labels.map((label) => perLabel.get(label) ?? 0),
+          };
         });
+
+        setChartData({ labels, series });
       } catch (err) {
+        if (axios.isCancel(err)) return;
         console.error("Error fetching buildings chart:", err);
         setError(true);
         setChartData(EMPTY_CHART);
       } finally {
-        setLoading(false);
+        if (!controller.signal.aborted) setLoading(false);
       }
     };
 
     fetchChart();
+    return () => controller.abort();
   }, [period, JSON.stringify(selectedKarbari), isAllSelected, params.id]);
+
+  // Reset legend toggle state whenever the underlying set of karbari
+  // series changes (e.g. filters change), so a hidden code from a
+  // previous selection doesn't silently hide a line in the new one.
+  useEffect(() => {
+    setHiddenCodes(new Set());
+  }, [chartData.series.map((s) => s.code).join(",")]);
 
   /* ---------------------- chart rendering ---------------------- */
   useEffect(() => {
@@ -117,19 +187,18 @@ export default function BuildingsChart({
       type: "line",
       data: {
         labels: chartData.labels,
-        datasets: [
-          {
-            label: isFa ? "بناهای تکمیل‌شده" : "Completed",
-            data: chartData.completed,
-            borderColor: LINE_COLOR,
-            backgroundColor: "rgba(0, 102, 255, 0.2)",
-            fill: true,
-            pointRadius: 6,
-            pointBackgroundColor: "rgba(0, 102, 255, 0.5)",
-            pointBorderColor: LINE_COLOR,
-            pointBorderWidth: 2,
-          },
-        ],
+        datasets: chartData.series.map((s) => ({
+          label: isFa ? s.labelFa : s.labelEn,
+          data: s.data,
+          borderColor: s.color,
+          backgroundColor: hexToRgba(s.color, 0.15),
+          fill: true,
+          pointRadius: 5,
+          pointBackgroundColor: hexToRgba(s.color, 0.6),
+          pointBorderColor: s.color,
+          pointBorderWidth: 2,
+          hidden: hiddenCodes.has(s.code),
+        })),
       },
       options: {
         responsive: true,
@@ -182,9 +251,19 @@ export default function BuildingsChart({
     return () => {
       newChart.destroy();
     };
-  }, [JSON.stringify(chartData), theme, isFa]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [JSON.stringify(chartData), theme, isFa, hiddenCodes]);
 
-  const hasData = chartData.labels.length > 0;
+  const handleLegendClick = (code: string) => {
+    setHiddenCodes((prev) => {
+      const next = new Set(prev);
+      if (next.has(code)) next.delete(code);
+      else next.add(code);
+      return next;
+    });
+  };
+
+  const hasData = chartData.labels.length > 0 && chartData.series.length > 0;
 
   return (
     <div className="w-full pt-2 flex flex-col gap-3">
@@ -197,6 +276,29 @@ export default function BuildingsChart({
         <p className="w-full text-center text-red-400 py-4">
           {isFa ? "خطا در دریافت نمودار." : "Failed to load chart."}
         </p>
+      )}
+
+      {!error && hasData && (
+        <div className="flex flex-wrap justify-start md:justify-end gap-4">
+          {chartData.series.map((s) => (
+            <div
+              key={s.code}
+              className="flex items-center gap-2 cursor-pointer select-none"
+              onClick={() => handleLegendClick(s.code)}
+            >
+              <div
+                className="w-2 h-2 lg:w-3 lg:h-3 rounded-full"
+                style={{ backgroundColor: s.color }}
+              ></div>
+              <span
+                className={hiddenCodes.has(s.code) ? "line-through text-matn-2" : ""}
+                style={{ color: hiddenCodes.has(s.code) ? undefined : s.color }}
+              >
+                {isFa ? s.labelFa : s.labelEn}
+              </span>
+            </div>
+          ))}
+        </div>
       )}
 
       {!error && (

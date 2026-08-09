@@ -11,29 +11,50 @@ import { findByUniqueId } from "@/components/utils/findByUniqueId";
 const PER_PAGE = 9;
 
 /* Real /buildings list item shape (confirmed from the live API):
-   { area, construction_end_date, empty_units, feature_properties_id,
-     floors, karbari, visitors } — note there is no image/photo field. */
+   { area, building_id, construction_end_date, density, empty_units,
+     images: { id, url }[], karbari, visitors }
+   Notes vs. the old (wrong) assumptions:
+   - there is no "feature_properties_id" field — the real id is
+     "building_id" (and it is NOT guaranteed unique per item: two
+     entries can share the same building_id with different
+     construction_end_date, since they're different physical units of
+     the same building type)
+   - there is no "floors" field at all — that was never real; "density"
+     is what the API actually returns instead
+   - "images" is a real array of { id, url } objects — use images[0].url
+     as the card photo instead of the static placeholder */
+interface BuildingImage {
+  id: number;
+  url: string;
+}
+
 interface BuildingListItem {
-  id: string;
+  id: string; // synthesized unique key (building_id is not guaranteed unique)
   code: string;
   karbari: string;
   constructionEndDate: string | null;
   visitors: number | null;
   emptyUnits: number | null;
   area: number | null;
-  floors: number | null;
+  density: number | null;
+  images: BuildingImage[];
 }
 
-function normalizeBuilding(raw: any): BuildingListItem {
+function normalizeBuilding(raw: any, uniqueKeySuffix: string): BuildingListItem {
+  const images: BuildingImage[] = Array.isArray(raw?.images)
+    ? raw.images.filter((img: any) => typeof img?.url === "string")
+    : [];
+
   return {
-    id: raw?.feature_properties_id ?? String(raw?.id ?? ""),
-    code: raw?.feature_properties_id ?? "",
+    id: `${raw?.building_id ?? "building"}-${uniqueKeySuffix}`,
+    code: raw?.building_id ?? "",
     karbari: raw?.karbari ?? "",
     constructionEndDate: raw?.construction_end_date ?? null,
     visitors: raw?.visitors ?? null,
     emptyUnits: raw?.empty_units ?? null,
     area: raw?.area ?? null,
-    floors: raw?.floors ?? null,
+    density: raw?.density ?? null,
+    images,
   };
 }
 
@@ -65,16 +86,16 @@ function AreaIcon() {
     </svg>
   );
 }
-function FloorIcon() {
+function DensityIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path className="dark:stroke-white stroke-black" d="M10.8332 18.3333H4.1665C2.49984 18.3333 1.6665 17.5 1.6665 15.8333V9.16663C1.6665 7.49996 2.49984 6.66663 4.1665 6.66663H8.33317V15.8333C8.33317 17.5 9.1665 18.3333 10.8332 18.3333Z" stroke="white" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
-      <path className="dark:stroke-white stroke-black" d="M8.42483 3.33337C8.35816 3.58337 8.33317 3.85837 8.33317 4.16671V6.66671H4.1665V5.00004C4.1665 4.08337 4.9165 3.33337 5.83317 3.33337H8.42483Z" stroke="white" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
-      <path className="dark:stroke-white stroke-black" d="M11.6665 6.66663V10.8333" stroke="white" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
-      <path className="dark:stroke-white stroke-black" d="M15 6.66663V10.8333" stroke="white" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
-      <path className="dark:stroke-white stroke-black" d="M14.1665 14.1666H12.4998C12.0415 14.1666 11.6665 14.5416 11.6665 15V18.3333H14.9998V15C14.9998 14.5416 14.6248 14.1666 14.1665 14.1666Z" stroke="white" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
-      <path className="dark:stroke-white stroke-black" d="M5 10.8334V14.1667" stroke="white" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
-      <path className="dark:stroke-white stroke-black" d="M8.3335 15.8333V4.16663C8.3335 2.49996 9.16683 1.66663 10.8335 1.66663H15.8335C17.5002 1.66663 18.3335 2.49996 18.3335 4.16663V15.8333C18.3335 17.5 17.5002 18.3333 15.8335 18.3333H10.8335C9.16683 18.3333 8.3335 17.5 8.3335 15.8333Z" stroke="white" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <path className="dark:stroke-white stroke-black" d="M10.8337 18.3334H4.16699C2.50033 18.3334 1.66699 17.5001 1.66699 15.8334V9.16675C1.66699 7.50008 2.50033 6.66675 4.16699 6.66675H8.33366V15.8334C8.33366 17.5001 9.16699 18.3334 10.8337 18.3334Z" stroke="white" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+      <path className="dark:stroke-white stroke-black" d="M8.42531 3.33325C8.35865 3.58325 8.33366 3.85825 8.33366 4.16659V6.66659H4.16699V4.99992C4.16699 4.08325 4.91699 3.33325 5.83366 3.33325H8.42531Z" stroke="white" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+      <path className="dark:stroke-white stroke-black" d="M11.667 6.66675V10.8334" stroke="white" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+      <path className="dark:stroke-white stroke-black" d="M15 6.66675V10.8334" stroke="white" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+      <path className="dark:stroke-white stroke-black" d="M14.167 14.1667H12.5003C12.042 14.1667 11.667 14.5417 11.667 15.0001V18.3334H15.0003V15.0001C15.0003 14.5417 14.6253 14.1667 14.167 14.1667Z" stroke="white" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+      <path className="dark:stroke-white stroke-black" d="M5 10.8333V14.1666" stroke="white" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+      <path className="dark:stroke-white stroke-black" d="M8.33301 15.8334V4.16675C8.33301 2.50008 9.16634 1.66675 10.833 1.66675H15.833C17.4997 1.66675 18.333 2.50008 18.333 4.16675V15.8334C18.333 17.5001 17.4997 18.3334 15.833 18.3334H10.833C9.16634 18.3334 8.33301 17.5001 8.33301 15.8334Z" stroke="white" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
     </svg>
   );
 }
@@ -90,6 +111,8 @@ function CalendarIcon() {
 /* ------------------------------------------------------------------ */
 /*                              LIST CARD                              */
 /* ------------------------------------------------------------------ */
+const PLACEHOLDER_IMAGE = "/images/building-placeholder.jpg";
+
 function BuildingCard({
   item,
   isFa,
@@ -107,8 +130,8 @@ function BuildingCard({
   const locale = isFa ? "fa-IR" : "en-US";
   const dash = "—";
 
-  // چون API فعلاً image ندارد، عکس پیش‌فرض نمایش داده می‌شود
-  const imageUrl = "/images/building-placeholder.jpg";
+  // Use the real photo from the API when available, placeholder otherwise.
+  const imageUrl = item.images[0]?.url || PLACEHOLDER_IMAGE;
 
   return (
     <div
@@ -129,10 +152,10 @@ function BuildingCard({
       <div className="relative h-[250px] w-full overflow-hidden p-3 rounded-[10px]">
         <img
           src={imageUrl}
-          alt={label || "Building"}
+          alt={label || item.code || "Building"}
           className="h-full w-full object-cover rounded-[10px]"
           onError={(e) => {
-            e.currentTarget.src = "/Linkp13-516x360.jpg.jpg";
+            e.currentTarget.src = PLACEHOLDER_IMAGE;
           }}
         />
 
@@ -184,19 +207,17 @@ function BuildingCard({
 
         {/* STATS */}
         <div className="flex items-center justify-between gap-2 text-xs sm:text-sm">
-          {/* EMPTY UNITS */}
-          <div className="flex items-center gap-1.5 text-[#333] dark:text-[#E8E8E8]">
-            <UnitIcon />
-            <span>
-              {item.emptyUnits != null ? `${item.emptyUnits} ${findByUniqueId(mainData, 1816)}` : dash}
-            </span>
-          </div>
 
+          <div className="flex items-center gap-2 text-[#333] dark:text-[#E8E8E8]">
+            <DensityIcon />
+
+             {item.density != null ? `${item.density.toLocaleString(locale)} ${findByUniqueId(mainData, 117)}` : dash}
+          </div>
           {/* SEPARATOR */}
           <div className="h-6 w-px bg-black/20 dark:bg-white/20" />
 
           {/* AREA */}
-          <div className="flex items-center gap-1.5 text-[#333] dark:text-[#E8E8E8]">
+          <div className="flex items-center gap-2 text-[#333] dark:text-[#E8E8E8]">
             <AreaIcon />
             <span>
               {item.area != null ? `${item.area.toLocaleString(locale)} ${findByUniqueId(mainData, 766)}` : dash}
@@ -205,12 +226,15 @@ function BuildingCard({
 
           {/* SEPARATOR */}
           <div className="h-6 w-px bg-black/20 dark:bg-white/20" />
-
-          {/* FLOORS */}
-          <div className="flex items-center gap-1.5 text-[#333] dark:text-[#E8E8E8]">
-            <FloorIcon />
-            <span>{item.floors != null ? `${item.floors} ${findByUniqueId(mainData, 117)}` : dash}</span>
+          {/* EMPTY UNITS */}
+          <div className="flex items-center gap-2 text-[#333] dark:text-[#E8E8E8]">
+            <UnitIcon />
+            <span>
+              {item.emptyUnits != null ? `${item.emptyUnits} ${findByUniqueId(mainData, 1816)}` : dash}
+            </span>
           </div>
+
+
         </div>
       </div>
     </div>
@@ -281,8 +305,11 @@ export default function BuildingsList({
         { headers: { "Content-Type": "application/json" } }
       );
 
-      const rawItems: any[] = res.data?.data || [];
-      const normalized = rawItems.map(normalizeBuilding);
+      const rawItems: any[] = Array.isArray(res.data?.data) ? res.data.data : [];
+      // building_id is not guaranteed unique across items (two entries
+      // can share it with different construction_end_date), so the
+      // React key is synthesized from page + index as well.
+      const normalized = rawItems.map((raw, i) => normalizeBuilding(raw, `p${pageNum}-${i}`));
 
       setItems((prev) => (pageNum === 1 ? normalized : [...prev, ...normalized]));
       setPage(pageNum);

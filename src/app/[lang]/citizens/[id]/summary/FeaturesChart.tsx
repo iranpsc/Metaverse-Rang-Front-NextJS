@@ -9,9 +9,6 @@ import { Period, KarbariOption } from "./featuresShared";
 /* ------------------------------------------------------------------ */
 /*                                TYPES                                */
 /* ------------------------------------------------------------------ */
-/* Actual API shape — flat, aggregated across whichever karbari codes
-   are selected (NOT grouped per-karbari):
-   { "data": { "bought": number[], "sold": number[], "labels": string[] } } */
 interface FeaturesChartData {
   bought: number[];
   sold: number[];
@@ -48,7 +45,6 @@ export default function FeaturesChart({
   const [boughtVisible, setBoughtVisible] = useState(true);
   const [soldVisible, setSoldVisible] = useState(true);
 
-  /* ---------------------- data fetching ---------------------- */
   useEffect(() => {
     if (selectedKarbari.length === 0) {
       setChartData(EMPTY_CHART);
@@ -68,20 +64,56 @@ export default function FeaturesChart({
         }
         qs.append("period", period);
 
-        const res = await axios.get(
-          `https://dev-api.metarang.com/api/citizen/${params.id}/features/chart?${qs.toString()}`,
-          { headers: { "Content-Type": "application/json" }, signal: controller.signal }
-        );
+        const url = `https://dev-api.metarang.com/api/citizen/${params.id}/features/chart?${qs.toString()}`;
+
+        const res = await axios.get(url, {
+          headers: { "Content-Type": "application/json" },
+          signal: controller.signal,
+        });
 
         const data = res.data?.data;
+
+        // Real API shape: data.bought / data.sold are each an array of
+        // { amount, karbari, label } — one entry per period (and, when
+        // more than one karbari is selected, one entry per period PER
+        // karbari). There is no separate top-level "labels" array; the
+        // label lives on each entry instead.
+        const rawBought: any[] = Array.isArray(data?.bought) ? data.bought : [];
+        const rawSold: any[] = Array.isArray(data?.sold) ? data.sold : [];
+
+        // Build the x-axis labels from whichever series has entries,
+        // preserving the order the API returned them in, deduped.
+        const labels: string[] = [];
+        const seen = new Set<string>();
+        for (const entry of [...rawBought, ...rawSold]) {
+          const label = entry?.label;
+          if (label != null && !seen.has(label)) {
+            seen.add(label);
+            labels.push(label);
+          }
+        }
+
+        // Sum amounts per label (handles the case where multiple karbari
+        // codes are selected and each contributes its own entry for the
+        // same period label).
+        const sumByLabel = (entries: any[]) => {
+          const totals = new Map<string, number>();
+          for (const entry of entries) {
+            if (entry?.label == null) continue;
+            const prev = totals.get(entry.label) ?? 0;
+            totals.set(entry.label, prev + (Number(entry.amount) || 0));
+          }
+          return labels.map((label) => totals.get(label) ?? 0);
+        };
+
         setChartData({
-          bought: Array.isArray(data?.bought) ? data.bought : [],
-          sold: Array.isArray(data?.sold) ? data.sold : [],
-          labels: Array.isArray(data?.labels) ? data.labels : [],
+          bought: sumByLabel(rawBought),
+          sold: sumByLabel(rawSold),
+          labels,
         });
       } catch (err) {
         if (axios.isCancel(err)) return;
-        console.error("Error fetching features chart:", err);
+        console.error("[FeaturesChart] Error fetching features chart:", err);
         setError(true);
         setChartData(EMPTY_CHART);
       } finally {
@@ -90,11 +122,9 @@ export default function FeaturesChart({
     };
 
     fetchChart();
-    // Cancel a stale request if period/filters change again before it lands.
     return () => controller.abort();
   }, [period, JSON.stringify(selectedKarbari), isAllSelected, params.id]);
 
-  /* ---------------------- chart rendering ---------------------- */
   useEffect(() => {
     if (!canvasRef.current) return;
     const ctx = canvasRef.current.getContext("2d");
@@ -123,12 +153,12 @@ export default function FeaturesChart({
           {
             label: isFa ? "فروخته‌شده" : "Sold",
             data: chartData.sold,
-            borderColor: "#9100D9",
+            borderColor: "#FFC700",
             backgroundColor: "rgba(255, 199, 0, 0.2)",
             fill: true,
             pointRadius: 6,
             pointBackgroundColor: "rgba(255, 199, 0, 0.5)",
-            pointBorderColor: "#9100D9",
+            pointBorderColor: "#FFC700",
             pointBorderWidth: 2,
           },
         ],
@@ -180,7 +210,6 @@ export default function FeaturesChart({
     });
 
     chartRef.current = newChart;
-    // re-apply legend toggle state after rebuild
     chartRef.current.setDatasetVisibility(0, boughtVisible);
     chartRef.current.setDatasetVisibility(1, soldVisible);
     chartRef.current.update();
