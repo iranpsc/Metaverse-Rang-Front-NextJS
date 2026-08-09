@@ -180,7 +180,7 @@ export default async function ArticlesPage({
     return (
       
       <section
-        className="w-full  lg:pt-0 bg-[#f5f5f5]  px-5"
+        className="w-full  lg:pt-0 bg-bg-primary  px-5"
         dir={langData.direction}
       >
         <CleanAutoRetryParam />

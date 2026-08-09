@@ -35,7 +35,7 @@ const ProfileMainDetails = ({
   return (
     <div className="h-full flex flex-col justify-between items-center 3xl:gap-4 tall:gap-10 xl:gap-6  lg:gap-4 md:gap-10 sm:gap-5 xs:gap-5">
       <div className="flex flex-row justify-between w-full items-center 3xl:mt-2 xl:mt-2 md:mt-2 sm:mt-6 xs:mt-2 xl:py-0 lg:py-0 md:py-0">
-        <p className="font-azarMehr  font-bold xl:text-xlUser 3xl:text-xl3User lg:text-lgUser  md:text-mdUser sm:text-smUser xs:text-smUser">
+        <p className="font-azarMehr text-matn-1  font-bold xl:text-xlUser 3xl:text-xl3User lg:text-lgUser  md:text-mdUser sm:text-smUser xs:text-smUser">
           {/* {targetData(userProperty, "citizenship id")} */}
           {findByUniqueId(mainData, 78)}
         </p>
@@ -47,11 +47,11 @@ const ProfileMainDetails = ({
           ref={yourElementRef}
         >
           <div className="  bg-primary flex flex-row items-center gap-2  rounded-[10px] 3xl:py-[3px] 3xl:px-4 lg:py-2 lg:px-2 md:py-2 md:px-4 sm:py-2 sm:px-4 xs:py-1 xs:px-2">
-            <span className="font-azarMehr dark:text-matn-2 text-[#fff] font-medium 3xl:text-xl3Title xl:text-xlTitle  lg:text-lgTitle md:text-mdTitle  sm:text-smTitle xs:text-smTitle">
+            <span className="font-azarMehr text-matn-1 font-medium 3xl:text-xl3Title xl:text-xlTitle  lg:text-lgTitle md:text-mdTitle  sm:text-smTitle xs:text-smTitle">
               {/* {targetData(userProperty, "share")} */}
               {findByUniqueId(mainData, 244)}
             </span>
-            <CopyIcon className="dark:fill-[#000] fill-[#fff] 3xl:w-[20px] 3xl:h-[20px] md:w-[20px] md:h-[20px] " />
+            <CopyIcon className="fill-matn-1 3xl:w-[20px] 3xl:h-[20px] md:w-[20px] md:h-[20px] " />
           </div>
           <p className="font-azarMehr font-bold  xl:text-xlUser 3xl:text-xl3User  lg:text-lgUser md:text-mdUser  sm:text-smUser xs:text-smUser uppercase">
             {profileData.data?.code}
