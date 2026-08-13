@@ -99,7 +99,7 @@ const VersionBox: React.FC<VersionBoxProps> = ({
 
     setLoading(true);
     try {
-      const response = await fetch(
+      const response =  await globalThis.fetch(
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar?type=version&search=${encodeURIComponent(query)}`
       );
       const data = await response.json();
@@ -135,7 +135,7 @@ const VersionBox: React.FC<VersionBoxProps> = ({
 
     setLoading(true);
     try {
-      const response = await fetch(
+      const response =  await globalThis.fetch(
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar?type=version&page=${page + 1}`
       );
       const data = await response.json();
@@ -218,7 +218,9 @@ const VersionBox: React.FC<VersionBoxProps> = ({
             {filteredVersions.length > 0 ? (
               filteredVersions.slice(0, visibleCount).map((item, index) => (
                 <div
-                  ref={(el) => (itemRefs.current[index] = el)}
+                 ref={(el) => {
+  itemRefs.current[index] = el;
+}}
                   key={item.id}
                   onClick={() => handleClick(index)}
                   className={`versionbox cursor-pointer justify-center flex flex-row w-full rounded-[10px] pt-[2px] ${
@@ -293,3 +295,11 @@ const VersionBox: React.FC<VersionBoxProps> = ({
 };
 
 export default VersionBox;
+function fetch(arg0: string) {
+  throw new Error("Function not implemented.");
+}
+
+function encodeURIComponent(query: any) {
+  throw new Error("Function not implemented.");
+}
+

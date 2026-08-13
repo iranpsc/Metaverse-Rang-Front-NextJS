@@ -579,7 +579,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
             key={event.id}
             id={`${event.id}`}
             data-event-id={event.id}
-            ref={(el) => (eventRefs.current[event.id] = el)}
+            ref={(el) => {(eventRefs.current[event.id] = el)}}
             className="items flex flex-col justify-center gap-3 items-center w-full"
           >
             {linkLoading && (
@@ -673,7 +673,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
                   <Link
                     onClickCapture={() => setLinkLoading(true)}
                     href={`/${params.lang}/calendar/${event.id}`}
-                    ref={(el) => (titleRefs.current[event.id] = el)}
+                    ref={(el) => {(titleRefs.current[event.id] = el)}}
                     className={`
                     mx-2 
                     font-bold 

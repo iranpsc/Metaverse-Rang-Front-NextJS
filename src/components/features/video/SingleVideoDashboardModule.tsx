@@ -4,7 +4,7 @@ import { CopyIcon } from "@/components/svgs/SvgCategories";
 import { Like, Dislike, View, Comment } from "@/components/svgs/SvgEducation";
 import { checkData } from "@/components/utils/targetDataName";
 import axios from "axios";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { useCookies } from "react-cookie";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import LoginButtonModule from "./LoginButtonModule";

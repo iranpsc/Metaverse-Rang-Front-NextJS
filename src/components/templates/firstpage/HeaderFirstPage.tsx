@@ -1,7 +1,7 @@
 "use client";
 import { Arrow, Vector } from "@/components/svgs";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 export default function HeaderFirstPage({ mainData, params }: any) {
   return (

@@ -6,7 +6,7 @@ import SearchComponent from "@/components/Search/SearchComponent";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import CitizenListLoader from "@/components/list/CitizenListLoader";
 import CitizenListSkeleton from "@/components/skeleton/CitizenListSkeleton";
-import useServerDarkMode from "src/hooks/use-server-dark-mode";
+import useServerDarkMode from "@/hooks/use-server-dark-mode";
 import React, { Suspense } from 'react';
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import CustomErrorPage from "@/components/error/CustomErrorPage";

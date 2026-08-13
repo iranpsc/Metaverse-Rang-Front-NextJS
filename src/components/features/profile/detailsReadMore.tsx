@@ -1,7 +1,7 @@
 "use client";
 import ModalCard from "@/components/modal/ModalCard";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "motion/react";
 import { useState } from "react";
 
 const ProfileReadMore = ({

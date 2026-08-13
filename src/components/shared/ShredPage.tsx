@@ -4,7 +4,7 @@ import { CLoseIcon } from "@/svgs/index";
 import { Arrow } from "@/svgs/SvgEducation";
 
 //ANIMATION
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import { findByUniqueId } from "../utils/findByUniqueId";
 

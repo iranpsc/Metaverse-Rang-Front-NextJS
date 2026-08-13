@@ -2,7 +2,7 @@
 import '../../styles/colors-auto.css'
 import Script from "next/script";
 import { azarMehr, rokh } from "../../fonts/localFonts";
-import useServerDarkMode from "src/hooks/use-server-dark-mode";
+import useServerDarkMode from "@/hooks/use-server-dark-mode";
 import ToastProvider from "../../components/shared/toastProvider";
 import { Suspense } from "react";
 import Head from "next/head";

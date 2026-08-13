@@ -11,7 +11,7 @@ import SingleVideoSlugModule from "@/components/features/video/SingleVideoSlugMo
 import { useEffect, useState } from "react";
 import axios from "axios";
 import DynamicDetails from "@/components/features/video/DynamicDetails";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "motion/react";
 import SharedPageVideos from "@/components/features/video/SharedPageVideos";
 
 const VideoSection = ({

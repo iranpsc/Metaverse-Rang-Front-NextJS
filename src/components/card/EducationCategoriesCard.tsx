@@ -140,7 +140,7 @@ export default function ListData({ nameComponent, data, params, activeLoadingId,
               {/* متن با انیمیشن */}
               <div className="w-full overflow-x-hidden pt-3 z-[1]">
                 <p
-                  ref={(el) => (titleRefs.current[index] = el)}
+                  ref={(el) => {(titleRefs.current[index] = el)}}
                   className={`text-center w-full font-azarMehr truncate cursor-pointer font-bold text-[16px] 2xl:text-xl dark:text-white text-black px-5 whitespace-nowrap ${isTruncated
                     ? "hover:overflow-visible hover:animate-rtlMarquee"
                     : ""

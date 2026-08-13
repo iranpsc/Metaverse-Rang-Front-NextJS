@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 // import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Like } from "../svgs/SvgEducation";

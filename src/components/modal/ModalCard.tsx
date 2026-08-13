@@ -4,7 +4,7 @@ import { CLoseIcon } from "@/svgs/index";
 import { findByUniqueId } from "../utils/findByUniqueId";
 
 //ANIMATION
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 export default function ModalCard({
   setShowModal,

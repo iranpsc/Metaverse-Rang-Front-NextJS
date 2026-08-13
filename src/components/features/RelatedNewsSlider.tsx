@@ -20,7 +20,7 @@ const RelatedArticlesSlider = ({ params, mainData }: RelatedArticlesSliderProps)
   const [currentArticle, setCurrentArticle] = useState<any | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [activeLoadingId, setActiveLoadingId] = useState<string | null>(null);
-  const swiperRef = useRef<SwiperType>();
+  const swiperRef = useRef<SwiperType | null>(null);
 
   // === 1) دریافت مقاله فعلی با slug ===
   useEffect(() => {

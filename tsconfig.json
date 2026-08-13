@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "target": "es2017",
     "lib": [
       "dom",
@@ -23,43 +22,42 @@
         "name": "next"
       }
     ],
-    "downlevelIteration": true,
     "paths": {
       "@/public/*": [
-        "public/*"
+        "./public/*"
       ],
       "@/pages/*": [
-        "src/pages/*"
+        "./src/pages/*"
       ],
       "@/components/*": [
-        "src/components/*"
+        "./src/components/*"
       ],
       "@/styles/*": [
-        "src/styles/*"
+        "./src/styles/*"
       ],
       "@/types/*": [
-        "src/types/*"
+        "./src/types/*"
+      ],
+      "@/hooks/*": [
+        "./src/hooks/*"
       ],
       "@/utils/*": [
-        "src/components/utils/*"
+        "./src/components/utils/*"
       ],
       "@/svgs/*": [
-        "src/components/svgs/*"
+        "./src/components/svgs/*"
       ],
       "@/module/*": [
-        "src/components/module/*"
+        "./src/components/module/*"
       ],
       "@/templates/*": [
-        "src/components/templates/*"
+        "./src/components/templates/*"
       ],
       "@/layout/*": [
-        "src/components/layout/*"
+        "./src/components/layout/*"
       ],
       "@/context/*": [
-        "src/components/context/*"
-      ],
-      "react": [
-        "./node_modules/@types/react"
+        "./src/components/context/*"
       ]
     },
     "forceConsistentCasingInFileNames": true
@@ -76,8 +74,11 @@
     "src/components/features/levels/TabSelector.tsx",
     ".next/dev/types/**/*.ts",
     "src/app/[lang]/page.tsx",
-    "src/app/[lang]/levels/citizen/[levelName]/[tabs]/page.jsx"
-, "src/app/[lang]/articles/categories/[category]/[slug]/page.tsx", "src/app/[lang]/about/layout.tsx", "src/app/layout.jsx"  ],
+    "src/app/[lang]/levels/citizen/[levelName]/[tabs]/page.jsx",
+    "src/app/[lang]/articles/categories/[category]/[slug]/page.tsx",
+    "src/app/[lang]/about/layout.tsx",
+    "src/app/layout.jsx"
+  ],
   "exclude": [
     "node_modules"
   ]

@@ -7,7 +7,7 @@ import { handleChange, handleSubmit, handlerReportComments } from "./utils/helpe
 import ProfileComment from "./ProfileComment";
 import EditSectionComment from "./utils/EditSectionComment";
 import ControlCommentSection from "./ControlCommentSection";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import GetAuthData from "@/components/utils/getAuthData";
 import axios from "axios";

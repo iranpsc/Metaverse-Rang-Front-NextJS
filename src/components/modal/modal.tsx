@@ -4,7 +4,7 @@ import { useTheme } from "next-themes";
 // import { LangContext } from "@/context/LangContext";
 //ANIMATION
 
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 //data
 // import { Items, ItemsENG } from "../utils/items";
 // import { SideBarContext } from "../context/SidebarContext";

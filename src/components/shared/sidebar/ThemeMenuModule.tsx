@@ -1,5 +1,5 @@
 "use client";
-import useDarkMode from "src/hooks/use-dark-mode";
+import useDarkMode from "@/hooks/use-dark-mode";
 
 import { Dark, Light } from "@/svgs/index";
 //CONTEXT

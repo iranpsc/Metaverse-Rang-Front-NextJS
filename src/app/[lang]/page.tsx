@@ -269,7 +269,6 @@ export default async function LangPage({ params }: LangPageProps) {
             </div>
             <div className="w-[90%] h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
               <Suspense fallback={<TopTrainersSkeleton />}>
-                {/* @ts-expect-error Async Server Component */}
                 <TopTrainersFirstPage params={resolvedParams} mainData={mainData} />
               </Suspense>
             </div>

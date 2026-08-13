@@ -6,7 +6,7 @@ import { Arrow } from "@/svgs/SvgEducation";
 // import { useRouter } from "next/navigation";
 
 //ANIMATION
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 

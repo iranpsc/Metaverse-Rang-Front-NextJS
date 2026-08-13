@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Like, Dislike } from "@/components/svgs/SvgEducation";
 import { checkData } from "@/components/utils/targetDataName";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import ProfileComment from "./ProfileComment";
 import axios from "axios";
 

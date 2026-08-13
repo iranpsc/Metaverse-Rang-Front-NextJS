@@ -1,8 +1,8 @@
 "use client";
 import ModalCard from "@/components/modal/ModalCard";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { AnimatePresence } from "framer-motion";
+import { motion } from "motion/react";
+import { AnimatePresence } from "motion/react";
 import  { useState, useRef } from "react";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
