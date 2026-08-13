@@ -626,3 +626,13 @@ input {
         0 100%
     );
 }
+
+/* قبل از اجرای اسکریپت: فرض پیش‌فرض بسته (چون دیفالت پروژه closed=true است) */
+html:not([data-sidebar-state]) .sb-open-wrapper { display: none; }
+html:not([data-sidebar-state]) .sb-closed-wrapper { display: contents; }
+
+html[data-sidebar-state="closed"] .sb-open-wrapper { display: none; }
+html[data-sidebar-state="closed"] .sb-closed-wrapper { display: contents; }
+
+html[data-sidebar-state="open"] .sb-closed-wrapper { display: none; }
+html[data-sidebar-state="open"] .sb-open-wrapper { display: contents; }

@@ -190,7 +190,7 @@ export default async function LevelSinglePage({ params }) {
           )}
         </Head>
           <CleanAutoRetryParam />
-        <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-3 w-full font-azarMehr ">
+        <div className="xl:px-8 lg:px-8 md:px-5 sm:px-5 xs:px-3 w-full font-azarMehr ">
           <BreadCrumb params={resolvedParams} />
 
           <div className="grid-container gap-x-7 bg-white dark:bg-gray-1 rounded-[20px] p-5 3xl:p-[30px] relative">
@@ -277,7 +277,7 @@ export default async function LevelSinglePage({ params }) {
           <Features mainData={mainData} params={resolvedParams} />
         </div>
 
-          <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1 mt-10">
+          <div className="xl:px-8 lg:px-8 md:px-5 sm:px-5 xs:px-1 mt-10">
             <Footer
               mainData={mainData}
               params={resolvedParams}

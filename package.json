@@ -31,6 +31,7 @@
     "atropos": "^2.0.2",
     "axios": "^1.5.0",
     "chart.js": "^4.4.7",
+    "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "embla-carousel-react": "^8.6.0",
     "eslint": "8.39.0",
@@ -69,6 +70,7 @@
     "sharp": "^0.34.4",
     "slick-carousel": "^1.8.1",
     "swiper": "12.1.2",
+    "tailwind-merge": "^3.6.0",
     "typescript": "5.0.4",
     "webpack": "^5.82.0",
     "yup": "^1.2.0"

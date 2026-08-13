@@ -240,11 +240,11 @@ export default async function LevelsPage({ params }: LevelsPageProps) {
           className="h-[calc(100vh-60px)] lg:h-screen overflow-y-auto mt-[60px] lg:mt-0  bg-bg-primary light-scrollbar dark:dark-scrollbar"
           dir={langData.direction}
         >
-          <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
+          <div className="xl:px-8 lg:px-8 md:px-5 sm:px-5 xs:px-1">
             <BreadCrumb params={resolvedParams} />
           </div>
 
-          <div className="mt-[40px] xl:px-32 lg:px-32 px-5 text-center">
+          <div className="mt-[40px] xl:px-8 lg:px-8 px-5 text-center">
             <h2 className="font-rokh font-bold text-[32px] dark:text-white mb-4 ">
               {findByUniqueId(mainData, 587)}
             </h2>
@@ -263,7 +263,7 @@ export default async function LevelsPage({ params }: LevelsPageProps) {
           </div>
 
 
-          <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1 mt-10">
+          <div className="xl:px-8 lg:px-8 md:px-5 sm:px-5 xs:px-1 mt-10">
             <Footer
               mainData={mainData}
               params={resolvedParams}

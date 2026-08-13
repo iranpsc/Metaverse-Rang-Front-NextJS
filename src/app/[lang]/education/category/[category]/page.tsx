@@ -99,7 +99,7 @@ export default async function EducationCategory({ params }: EducationCategoryPro
         />
         <CleanAutoRetryParam />
         <div className="flex  w-full bg-bg-primary  bg-opacity20" dir={langData.direction}>
-          <section className="w-full overflow-y-auto relative l mt-[60px] lg:mt-0 lg:pt-0  xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
+          <section className="w-full overflow-y-auto relative l mt-[60px] lg:mt-0 lg:pt-0  xl:px-8 lg:px-8 md:px-5 sm:px-5 xs:px-1">
             <div className="ps-4 lg:ps-5">
               <BreadCrumb params={resolvedParams} />
             </div>

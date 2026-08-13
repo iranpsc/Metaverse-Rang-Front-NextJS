@@ -200,7 +200,7 @@ export default async function CitizenReferral({
               <BreadCrumb params={resolvedParams} />
             </div>
 
-            <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
+            <div className="xl:px-8 lg:px-8 md:px-5 sm:px-5 xs:px-1">
               {referralPageArrayContent && (
                 <InviteBox
                   referralPageArrayContent={referralPageArrayContent}
@@ -228,7 +228,7 @@ export default async function CitizenReferral({
               )}
             </div>
 
-            <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
+            <div className="xl:px-8 lg:px-8 md:px-5 sm:px-5 xs:px-1">
               <DynamicFooter
                 mainData={mainData}
                 params={resolvedParams}

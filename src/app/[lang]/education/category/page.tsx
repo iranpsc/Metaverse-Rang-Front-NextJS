@@ -71,7 +71,7 @@ export default async function EducationCategoryAll({params}: EducationCategoryAl
       <div className="flex w-full" dir={langData.direction}>
 
         <section
-          className={`w-full mt-[60px] lg:mt-0 lg:pt-0 bg-bg-primary  bg-opacity20 xl:px-32 lg:px-32 px-5 `}
+          className={`w-full mt-[60px] lg:mt-0 lg:pt-0 bg-bg-primary  bg-opacity20 xl:px-8 lg:px-8 px-5 `}
         >
           <CleanAutoRetryParam />
           {/* Breadcrumb */}
@@ -85,7 +85,7 @@ export default async function EducationCategoryAll({params}: EducationCategoryAl
             {/* </Suspense> */}
           </div>
 
-          <div className="mt-[60px] lg:mt-[40px] xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
+          <div className="mt-[60px] lg:mt-[40px] xl:px-8 lg:px-8 md:px-5 sm:px-5 xs:px-1">
             <h1 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[64px] mb-[16px]">
               {findByUniqueId(mainData, 340)}
             </h1>

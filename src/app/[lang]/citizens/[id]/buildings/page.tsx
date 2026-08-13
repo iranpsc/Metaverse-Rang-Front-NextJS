@@ -181,12 +181,12 @@ export default async function CitizenBuildings({ params }: CitizenBuildingsProps
               <BreadCrumb params={resolvedParams} />
             </div>
 
-            <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
+            <div className="xl:px-8 lg:px-8 md:px-5 sm:px-5 xs:px-1">
               <BuildingsHeader referralPageArrayContent={undefined} params={resolvedParams} mainData={mainData} />
               <BuildingsSummary params={resolvedParams} mainData={mainData} />
             </div>
             <DynamicFooter mainData={mainData} params={resolvedParams} />
-            <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
+            <div className="xl:px-8 lg:px-8 md:px-5 sm:px-5 xs:px-1">
 
             </div>
           </section>

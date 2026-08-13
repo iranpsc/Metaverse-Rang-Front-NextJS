@@ -4,6 +4,7 @@ import { ArrowRight } from "@/components/svgs";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import axios from "axios";
 import VideoCard from "@/components/card/VideoCard";
+import { VideoCardSkeleton } from "@/components/skeleton/VideoCardSkeleton";
 import { useCookies } from "react-cookie";
 import Link from "next/link";
 
@@ -11,14 +12,21 @@ interface Params {
   lang: "fa" | "en";
 }
 
+// تعداد کارت‌های اسکلت — دقیقاً همون تعداد ویدیوی واقعی (۳ تا)
+const SKELETON_COUNT = 3;
+
 const EducationFirstPage = ({ mainData, params }: { mainData: any; params: Params }) => {
   const [videos, setVideos] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
   const [cookies] = useCookies(["theme"]);
   const theme = cookies.theme || "dark";
   const [activeLoadingId, setActiveLoadingId] = useState<string | null>(null);
   const direction = params.lang === "fa" ? "rtl" : "ltr";
   const [linkLoading, setLinkLoading] = useState(false);
+
   useEffect(() => {
+    let cancelled = false;
+
     const fetchVideos = async () => {
       try {
         const res = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/tutorials?page=1`);
@@ -31,14 +39,24 @@ const EducationFirstPage = ({ mainData, params }: { mainData: any; params: Param
           return dateB.localeCompare(dateA);
         });
 
-        // فقط ۳ تا آخر
-        setVideos(sorted.slice(0, 3));
+        if (!cancelled) {
+          // فقط ۳ تا آخر
+          setVideos(sorted.slice(0, 3));
+        }
       } catch (error) {
         console.error("Error fetching videos:", error);
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
       }
     };
 
     fetchVideos();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   return (
@@ -58,7 +76,7 @@ const EducationFirstPage = ({ mainData, params }: { mainData: any; params: Param
           </div>
         </div>
       )}
-      {/* عنوان بخش */}
+      {/* عنوان بخش — به mainData وابسته‌ست نه فچ ویدیوها، پس همیشه واقعی رندر می‌شه */}
       <div className="w-full flex flex-row justify-between items-center">
         <p className="font-azarMehr font-medium text-[16px] md:text-[20px] lg:text-[28px] xl:text-[32px] dark:text-white">
           {findByUniqueId(mainData, 1462)}
@@ -76,11 +94,20 @@ const EducationFirstPage = ({ mainData, params }: { mainData: any; params: Param
         </Link>
       </div>
 
-      {/* نمایش ۳ ویدیو آخر */}
+      {/* نمایش ۳ ویدیو آخر — تا وقتی loading هست، اسکلت هم‌شکل به‌جای گرید خالی */}
       <div className="grid lg:grid-cols-2 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 xs:grid-cols-1 gap-10 mt-6 md:mt-12">
-        {videos.map((item: any) => (
-          <VideoCard key={item.id} item={item} params={params} theme={theme} activeLoadingId={activeLoadingId} setActiveLoadingId={setActiveLoadingId}/>
-        ))}
+        {loading
+          ? Array.from({ length: SKELETON_COUNT }).map((_, i) => <VideoCardSkeleton key={i} />)
+          : videos.map((item: any) => (
+              <VideoCard
+                key={item.id}
+                item={item}
+                params={params}
+                theme={theme}
+                activeLoadingId={activeLoadingId}
+                setActiveLoadingId={setActiveLoadingId}
+              />
+            ))}
       </div>
     </div>
   );

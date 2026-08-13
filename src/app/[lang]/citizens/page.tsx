@@ -1,12 +1,11 @@
-
 import {
   getTranslation,
   getMainFile,
-  getAllCitizen,
 } from "@/components/utils/actions";
 import SearchComponent from "@/components/Search/SearchComponent";
 import BreadCrumb from "@/components/shared/BreadCrumb";
-import CitizenList from "@/components/list/citizenList";
+import CitizenListLoader from "@/components/list/CitizenListLoader";
+import CitizenListSkeleton from "@/components/skeleton/CitizenListSkeleton";
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
 import React, { Suspense } from 'react';
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
@@ -61,7 +60,7 @@ interface CitizensPageProps {
   params: Promise<{ lang: string }>;
 }
 export default async function CitizensPage({ params }: CitizensPageProps) {
-   const resolvedParams = await params;
+  const resolvedParams = await params;
   const { lang } = resolvedParams;
   try {
     const [langData] = await Promise.all([
@@ -71,17 +70,11 @@ export default async function CitizensPage({ params }: CitizensPageProps) {
     const mainData = await getMainFile(langData);
     const defaultTheme = useServerDarkMode();
 
-    // const Citizenship = await findByModalName(mainData, "Citizenship-profile");
-    // const citizenListArrayContent = await findByTabName(
-    //   Citizenship,
-    //   "list-citizen"
-    // );
-
-    // ****
-    // const levelModals = await findByModalName(mainData, "levels");
-    // const levelListArrayContent = await findByTabName(levelModals, "level-list");
-
-    let allCitizenArray = await getAllCitizen("1");
+    // ❌ قبلاً اینجا بود: let allCitizenArray = await getAllCitizen("1");
+    // این خط باعث می‌شد رندر کل صفحه (نه فقط لیست) منتظر جواب API بمونه؛
+    // پس وقتی نوبت به <Suspense> می‌رسید دیتا از قبل آماده بود و هیچ‌وقت
+    // چیزی سوسپند نمی‌شد. این فچ الان رفته توی CitizenListLoader (async
+    // Server Component) که خودش داخل <Suspense> رندر می‌شه.
 
     //to make description less than 200 character
     async function makeLessCharacter() {
@@ -127,10 +120,10 @@ export default async function CitizensPage({ params }: CitizensPageProps) {
             className={`w-full mt-[60px] lg:mt-0 lg:pt-0 bg-bg-primary  bg-opacity20`}
           >
             {/* Breadcrumb */}
-            <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
+            <div className="xl:px-8 lg:px-8 md:px-5 sm:px-5 xs:px-1">
               <BreadCrumb params={params} />
             </div>
-            <div className="mt-[60px] lg:mt-[40px] xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
+            <div className="mt-[60px] lg:mt-[40px] xl:px-8 lg:px-8 md:px-5 sm:px-5 xs:px-1">
               <h1 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[64px] mb-[16px]">
                 {findByUniqueId(mainData, 593)}
               </h1>
@@ -147,9 +140,8 @@ export default async function CitizensPage({ params }: CitizensPageProps) {
             </div>
             {/* CITIZEN box Container */}
             <div className="flex flex-row flex-wrap justify-center md:justify-center w-full no-scrollbar overflow-y-auto py-[20px] gap-x-5">
-              <Suspense fallback={<div>Loading citizens...</div>}>
-                <CitizenList
-                  allCitizenArray={allCitizenArray.data}
+              <Suspense fallback={<CitizenListSkeleton />}>
+                <CitizenListLoader
                   params={resolvedParams}
                   mainData={mainData}
                   defaultTheme={defaultTheme}

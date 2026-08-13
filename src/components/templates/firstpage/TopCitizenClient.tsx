@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import UserCard from "@/components/card/UserCard";
+import { UserCardSkeleton } from "@/components/skeleton/UserCardSkeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { getAllCitizen } from "@/components/utils/actions"; // فرض می‌کنیم این action/server-action هست
 
@@ -17,9 +19,12 @@ type TopCitizenClientProps = {
   params: { lang: string };
 };
 
+// تعداد کارت‌های اسکلت در حالت لودینگ — با تعداد آیتم واقعی (5) یکی است
+const SKELETON_COUNT = 5;
+
 const TopCitizenClient = ({ mainData, params }: TopCitizenClientProps) => {
   const [citizens, setCitizens] = useState<Citizen[]>([]);
-  const [loading, setLoading] = useState(true);          // برای لودینگ اولیه
+  const [loading, setLoading] = useState(true); // برای لودینگ اولیه
   const [error, setError] = useState<string | null>(null);
   const [activeBtnId, setActiveBtnId] = useState<string | null>(null);
   const [linkLoading, setLinkLoading] = useState(false); // فقط برای کلیک "مشاهده همه"
@@ -31,9 +36,9 @@ const TopCitizenClient = ({ mainData, params }: TopCitizenClientProps) => {
       try {
         setLoading(true);
         const response = await getAllCitizen();
-        
+
         if (!isMounted) return;
-        
+
         const topFive = response?.data?.slice(0, 5) ?? [];
         setCitizens(topFive);
       } catch (err: any) {
@@ -54,16 +59,22 @@ const TopCitizenClient = ({ mainData, params }: TopCitizenClientProps) => {
     };
   }, []); // فقط یک بار موقع مونت
 
-  // اگر در حال لود اولیه هست → همون overlay قدیمی رو نشون بده
+  // اگر در حال لود اولیه هست → اسکلت هم‌شکل با چیدمان واقعی
+  // (به‌جای اورلی تمام‌صفحه قبلی، چون اون باعث CLS/پرش محتوا و تجربه بد در
+  // Page Speed Test می‌شد. این نسخه دقیقاً فضای نهایی رو اشغال می‌کنه)
   if (loading) {
     return (
-      <div className="fixed inset-0 z-[70] flex items-center justify-center bg-black/60 backdrop-blur-sm">
-        <div className="container flex h-screen w-full items-center justify-center md:ms-[25vw] lg:ms-[17vw] xl:ms-[15vw] 3xl:ms-[16vw]">
-          <div className="holder"><div className="box" /></div>
-          <div className="holder"><div className="box" /></div>
-          <div className="holder"><div className="box" /></div>
+      <>
+        <div className="flex w-full flex-row items-center justify-between px-3">
+          <Skeleton tone="standalone" className="h-6 md:h-7 lg:h-9 xl:h-10 w-40 md:w-56 rounded-md" />
         </div>
-      </div>
+
+        <div className="relative flex w-full flex-row items-start gap-4 overflow-x-auto pb-10">
+          {Array.from({ length: SKELETON_COUNT }).map((_, i) => (
+            <UserCardSkeleton key={i} minWidth="290px" />
+          ))}
+        </div>
+      </>
     );
   }
 
@@ -77,7 +88,8 @@ const TopCitizenClient = ({ mainData, params }: TopCitizenClientProps) => {
 
   return (
     <>
-      {/* لودینگ فقط موقع کلیک روی "مشاهده همه" */}
+      {/* لودینگ فقط موقع کلیک روی "مشاهده همه" — این یک ناوبری صفحه‌ست نه فچ داده،
+          پس عمداً همون اورلی قبلی نگه داشته شده */}
       {linkLoading && (
         <div className="fixed inset-0 z-[70] flex items-center justify-center bg-black/60 backdrop-blur-sm">
           <div className="container flex h-screen w-full items-center justify-center md:ms-[25vw] lg:ms-[17vw] xl:ms-[15vw] 3xl:ms-[16vw]">

@@ -9,6 +9,7 @@ import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { Calender, Timer, View } from "@/components/svgs/SvgEducation";
 import { formatNumber } from "@/components/utils/formatNumber";
 import fallbackNewsData from "@/components/utils/news.json";
+import { Skeleton } from "@/components/ui/skeleton";
 
 type Tag = { label: string; slug: string };
 
@@ -57,103 +58,182 @@ const transformToNews = (data: any[]): News[] => {
   }));
 };
 
+/* ============================================================
+   اسکلت‌ها — بیرون از کامپوننت اصلی تعریف شدن تا هر رندر دوباره
+   ساخته نشن (چون کاملاً استاتیک‌ان و به state ای وابسته نیستن).
+   ابعاد و چیدمانشون دقیقاً منطبق با خروجی نهایی (خبر ویژه + سه خبر
+   کناری) است تا هیچ Layout Shift‌ای بین حالت اسکلت و حالت واقعی
+   رخ نده.
+============================================================ */
+
+// معادل دقیق کارت خبر ویژه (مربع بزرگ سمت راست/چپ)
+function FeaturedNewsSkeleton() {
+  return (
+    <div className="p-1 w-full lg:w-1/2 rounded-md overflow-hidden">
+      <div className="relative aspect-square rounded-md overflow-hidden">
+        <Skeleton tone="standalone" variant="rect" className="!w-full !h-full !rounded-md" />
+
+        {/* معادل اطلاعات روی عکس: absolute bottom-0 p-5 xl:p-[32px] */}
+        <div className="absolute bottom-0 left-0 right-0 p-5 xl:p-[32px] w-full flex flex-col gap-4 items-center">
+          <Skeleton className="h-8 w-32 rounded-full" />
+          <Skeleton className="h-7 w-4/5 rounded-md" />
+          <Skeleton className="h-7 w-3/5 rounded-md" />
+          <Skeleton className="h-5 w-3/4 rounded-md" />
+          <div className="flex items-center justify-center gap-4 2xl:gap-10 w-full pb-2">
+            <Skeleton className="h-4 w-14 rounded-md" />
+            <Skeleton className="h-4 w-4 rounded-md" />
+            <Skeleton className="h-4 w-20 rounded-md" />
+            <Skeleton className="h-4 w-4 rounded-md" />
+            <Skeleton className="h-4 w-16 rounded-md" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// معادل دقیق یک آیتم از سه خبر کناری (تصویر lg:۴۰٪ + متن lg:۶۰٪، کنار هم در lg)
+function SideNewsItemSkeleton() {
+  return (
+    <div className="relative bg-white dark:bg-gray-1 lg:!bg-bg-primary rounded-lg h-auto p-4 lg:p-1">
+      <div className="flex lg:flex-row flex-col w-full">
+        <div className="relative w-full lg:w-[40%] h-[250px] lg:h-[176px] overflow-hidden">
+          <Skeleton tone="standalone" variant="rect" className="!w-full !h-full !rounded-lg" />
+        </div>
+
+        <div className="flex flex-col items-center lg:items-start gap-4 w-full lg:w-[60%] p-3 lg:ps-5">
+          <Skeleton tone="standalone" className="h-8 w-28 rounded-full" />
+          <Skeleton tone="standalone" className="h-6 w-full rounded-md" />
+          <Skeleton tone="standalone" className="h-6 w-4/5 rounded-md" />
+          <div className="flex items-center gap-3">
+            <Skeleton tone="standalone" className="h-4 w-20 rounded-md" />
+            <Skeleton tone="standalone" className="h-4 w-16 rounded-md" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// اسکلت کامل سکشن — دقیقاً هم‌ساختار با return نهایی (هدر + گرید ۱+۳)
+function LatestNewsSkeleton() {
+  return (
+    <section className="w-full max-w-7xl mx-auto">
+      {/* هدر: تیتر + لینک مشاهده همه */}
+      <div className="flex items-center justify-between mb-4 px-4 md:px-0">
+        <Skeleton tone="standalone" className="h-7 md:h-9 w-40 md:w-52 rounded-md" />
+        <div className="flex items-center gap-3">
+          <Skeleton tone="standalone"  className="h-4 md:h-5 w-14 md:w-20 rounded-md" />
+          <Skeleton tone="standalone" variant="circle" className="!w-5 !h-5 md:!w-6 md:!h-6" />
+        </div>
+      </div>
+
+      {/* زیرعنوان */}
+      <Skeleton tone="standalone" className="h-5 w-72 rounded-md mb-7" />
+
+      {/* گرید اصلی: ۱ خبر بزرگ + ۳ خبر کوچک */}
+      <div className="flex flex-col lg:flex-row w-full items-center gap-10">
+        <FeaturedNewsSkeleton />
+        <div className="flex flex-col gap-[28px] w-full lg:w-1/2">
+          <SideNewsItemSkeleton />
+          <SideNewsItemSkeleton />
+          <SideNewsItemSkeleton />
+        </div>
+      </div>
+    </section>
+  );
+}
+
 const LatestNews: React.FC<LatestNewsProps> = ({
   params,
   mainData,
   limit = 10,
   initialNews,
 }) => {
-const [activeLoadingId, setActiveLoadingId] = useState<
-  string | number | null
->(null);
+  const [activeLoadingId, setActiveLoadingId] = useState<
+    string | number | null
+  >(null);
 
-const [newsData, setNewsData] = useState<News[]>([]);
-const [loading, setLoading] = useState(true);
+  const [newsData, setNewsData] = useState<News[]>([]);
+  const [loading, setLoading] = useState(true);
 
-useEffect(() => {
-  let cancelled = false;
+  useEffect(() => {
+    let cancelled = false;
 
-  const fetchLatestNews = async () => {
-    try {
-      const { data, error } = await supabase
-        .from("news")
-        .select("*")
-        .order("date", { ascending: false })
-        .limit(limit);
+    const fetchLatestNews = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("news")
+          .select("*")
+          .order("date", { ascending: false })
+          .limit(limit);
 
-      if (error) {
-        throw error;
-      }
-
-      if (data && data.length > 0) {
-        if (!cancelled) {
-          setNewsData(
-            data.slice(0, limit).map((item: any) => ({
-              id: item.id,
-              title: item.title,
-              slug: item.slug,
-              date: item.date,
-              readingTime: item.readingTime,
-              image: item.image,
-              excerpt: item.description || item.excerpt,
-              category: item.category,
-              categorySlug: item.categorySlug,
-              stats: {
-                views: item.views ?? item.stats?.views ?? 0,
-              },
-              author: item.author,
-              tags: item.tags,
-            }))
-          );
+        if (error) {
+          throw error;
         }
 
-        return;
+        if (data && data.length > 0) {
+          if (!cancelled) {
+            setNewsData(
+              data.slice(0, limit).map((item: any) => ({
+                id: item.id,
+                title: item.title,
+                slug: item.slug,
+                date: item.date,
+                readingTime: item.readingTime,
+                image: item.image,
+                excerpt: item.description || item.excerpt,
+                category: item.category,
+                categorySlug: item.categorySlug,
+                stats: {
+                  views: item.views ?? item.stats?.views ?? 0,
+                },
+                author: item.author,
+                tags: item.tags,
+              }))
+            );
+          }
+
+          return;
+        }
+
+        // Supabase خالی بود → initialNews
+        if (!cancelled && initialNews && initialNews.length > 0) {
+          setNewsData(initialNews.slice(0, limit));
+          return;
+        }
+
+        // fallback نهایی
+        if (!cancelled) {
+          setNewsData(transformToNews(fallbackNewsData).slice(0, limit));
+        }
+      } catch (error) {
+        console.error("❌ LatestNews: Supabase error, using fallback:", error);
+
+        if (cancelled) return;
+
+        if (initialNews && initialNews.length > 0) {
+          setNewsData(initialNews.slice(0, limit));
+        } else {
+          setNewsData(transformToNews(fallbackNewsData).slice(0, limit));
+        }
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
       }
+    };
 
-      // Supabase خالی بود → initialNews
-      if (!cancelled && initialNews && initialNews.length > 0) {
-        setNewsData(initialNews.slice(0, limit));
-        return;
-      }
+    fetchLatestNews();
 
-      // fallback نهایی
-      if (!cancelled) {
-        setNewsData(
-          transformToNews(fallbackNewsData).slice(0, limit)
-        );
-      }
-    } catch (error) {
-      console.error(
-        "❌ LatestNews: Supabase error, using fallback:",
-        error
-      );
+    return () => {
+      cancelled = true;
+    };
+  }, [initialNews, limit]);
 
-      if (cancelled) return;
-
-      if (initialNews && initialNews.length > 0) {
-        setNewsData(initialNews.slice(0, limit));
-      } else {
-        setNewsData(
-          transformToNews(fallbackNewsData).slice(0, limit)
-        );
-      }
-    } finally {
-      if (!cancelled) {
-        setLoading(false);
-      }
-    }
-  };
-
-  fetchLatestNews();
-
-  return () => {
-    cancelled = true;
-  };
-}, [initialNews, limit]);
-
-const articles = useMemo<News[]>(() => {
-  return newsData.slice(0, limit);
-}, [newsData, limit]);
+  const articles = useMemo<News[]>(() => {
+    return newsData.slice(0, limit);
+  }, [newsData, limit]);
 
   const [mounted, setMounted] = useState(false);
 
@@ -161,76 +241,19 @@ const articles = useMemo<News[]>(() => {
     setMounted(true);
   }, []);
 
-const sortedArticles = useMemo(() => {
-  return [...articles]
-    .sort(
-      (a, b) =>
-        new Date(b.date || "1300-01-01").getTime() -
-        new Date(a.date || "1300-01-01").getTime()
-    )
-    .slice(0, limit);
-}, [articles, limit]);
+  const sortedArticles = useMemo(() => {
+    return [...articles]
+      .sort(
+        (a, b) =>
+          new Date(b.date || "1300-01-01").getTime() -
+          new Date(a.date || "1300-01-01").getTime()
+      )
+      .slice(0, limit);
+  }, [articles, limit]);
 
-  const FeaturedSkeleton = () => (
-    <div className="w-full lg:w-1/2 rounded-md overflow-hidden shadow-md bg-neutral-300 dark:bg-gray-1  animate-pulse">
-      <div className="aspect-square bg-neutral-300 dark:bg-neutral-800 flex flex-col justify-end" >
-        <div className="p-6 flex flex-col gap-4 items-center">
-          <div className="h-8 w-32 bg-neutral-400 dark:bg-neutral-700 rounded-full" />
-          <div className="h-7 w-4/5 bg-neutral-400 dark:bg-neutral-700 rounded" />
-          <div className="h-5 w-3/4 bg-neutral-400 dark:bg-neutral-700 rounded" />
-          <div className="h-4 w-1/2 bg-neutral-400 dark:bg-neutral-700 rounded" />
-        </div>
-      </div>
-    </div>
-  );
-
-  const SideNewsSkeleton = () => (
-    <div className="flex flex-col gap-[28px] w-full lg:w-1/2">
-      {[1, 2, 3].map((i) => (
-        <div
-          key={i}
-          className="flex flex-col lg:flex-row gap-4 animate-pulse bg-neutral-300 dark:bg-gray-1  rounded-lg p-4"
-        >
-          <div className="w-full lg:w-[40%] h-[150px] bg-neutral-400 dark:bg-neutral-700 rounded-lg" />
-          <div className="flex flex-col gap-4 w-full lg:w-[60%]">
-            <div className="h-6 w-32 bg-neutral-400 dark:bg-neutral-700 rounded-full" />
-            <div className="h-6 w-full bg-neutral-400 dark:bg-neutral-700 rounded" />
-            <div className="h-4 w-3/5 bg-neutral-400 dark:bg-neutral-700 rounded" />
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-
-if (loading) {
-  return (
-    <section className="w-full">
-      <div className="animate-pulse">
-        {/* Header Skeleton */}
-        <div className="flex items-center justify-between mb-3">
-          <div className="h-8 w-40 bg-neutral-200 dark:bg-neutral-800 rounded" />
-
-          <div className="h-6 w-28 bg-neutral-200 dark:bg-neutral-800 rounded" />
-        </div>
-
-        <div className="h-5 w-72 bg-neutral-200 dark:bg-neutral-800 rounded mb-7" />
-
-        {/* News Skeleton */}
-        <div className="flex flex-col lg:flex-row w-full items-center gap-10">
-          {/* Featured */}
-          <div className="w-full lg:w-1/2">
-            <FeaturedSkeleton />
-          </div>
-
-          {/* Side news */}
-          <div className="flex flex-col gap-[28px] w-full lg:w-1/2">
-            <SideNewsSkeleton />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
+  if (loading) {
+    return <LatestNewsSkeleton />;
+  }
 
   if (sortedArticles.length === 0) {
     return <div className="py-10 text-center dark:text-white">خبری برای نمایش وجود ندارد.</div>;
@@ -238,7 +261,7 @@ if (loading) {
 
   const featured = sortedArticles[0];
   const sideNews = sortedArticles.slice(1, 4);
-  
+
   const getCategorySlug = (item: { categorySlug?: string; category?: string }) =>
     item.categorySlug ||
     item.category?.toLowerCase().replace(/\s+/g, "-") ||
@@ -269,7 +292,7 @@ if (loading) {
         </Link>
       </div>
       <p className="text-[#A0A0AB] lg:text-lg mb-7">{findByUniqueId(mainData, 1639)}</p>
-      
+
       {/* گرید اصلی: ۱ خبر بزرگ + ۳ خبر کوچک */}
       <div className="flex flex-col lg:flex-row w-full items-center gap-10 ">
         {/* خبر ویژه (بزرگ) */}

@@ -1,5 +1,6 @@
 // src/app/[lang]/layout.tsx
 import '../../styles/colors-auto.css'
+import Script from "next/script";
 import { azarMehr, rokh } from "../../fonts/localFonts";
 import useServerDarkMode from "src/hooks/use-server-dark-mode";
 import ToastProvider from "../../components/shared/toastProvider";
@@ -19,7 +20,7 @@ import {
 } from "@/components/utils/actions";
 
 import { getStaticMenu } from "@/components/utils/constants";
-import ConditionalSidebar from "@/components/shared/sidebar/ConditionalSidebar";
+import ConditionalSidebar from "@/components/shared/sidebar/ConditionalSidebarServer";
 import FooterClient from "@/components/shared/footer/FooterClient";
 import Icon from "../../components/system/Icon";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
@@ -177,7 +178,25 @@ export default async function LangLayout({
             href="/firstpage/3d_rgb.irpsc.webm"
             type="video/mp4"
           />
+         <Script
+          id="sidebar-state-init"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                var v = localStorage.getItem('sidebarClosed');
+                document.documentElement.setAttribute(
+                  'data-sidebar-state',
+                  v === 'false' ? 'open' : 'closed'
+                );
+              } catch (e) {
+                document.documentElement.setAttribute('data-sidebar-state', 'closed');
+              }
+            `,
+          }}
+        />
         </Head>
+        
 
         <body
           className={`${azarMehr.variable} ${rokh.variable} h-screen light-scrollbar dark:dark-scrollbar`}

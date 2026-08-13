@@ -4,9 +4,14 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import UserCard from "@/components/card/UserCard";
-import SyncLoader from "react-spinners/SyncLoader";
+import { UserCardSkeleton } from "@/components/skeleton/UserCardSkeleton";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
+// تعداد کارت اسکلتی که موقع "مشاهده بیشتر" نشون داده می‌شه — چون سایز واقعی
+// صفحه‌ی بعدی (per_page از API) قبل از رسیدن جواب مشخص نیست، یه عدد معقول
+// (۴) گذاشتیم. اگه per_page واقعی API رو می‌دونی (مثلاً ۸ یا ۱۲)، همین عدد
+// رو با SKELETON_COUNT جایگزین کن تا کاملاً منطبق باشه.
+const SKELETON_COUNT = 4;
 
 export default function CitizenList({
   params,
@@ -85,8 +90,16 @@ export default function CitizenList({
           setActiveBtnId={setActiveBtnId}
         />
       ))}
+
+      {/* موقع لود صفحه بعدی، به‌جای اسپینر، کارت‌های اسکلت هم‌شکل با
+          UserCard واقعی نشون داده می‌شه تا انگار آیتم‌های بعدی دارن میان */}
+      {loading &&
+        Array.from({ length: SKELETON_COUNT }).map((_, i) => (
+          <UserCardSkeleton key={`skeleton-${i}`} minWidth="280px" />
+        ))}
+
       <div className="w-full flex justify-center mt-[40px]">
-        {!loading ? (
+        {!loading && (
           <button
             disabled={isDisabled}
             title={isDisabled ? "صفحه آخر" : ""}
@@ -96,11 +109,6 @@ export default function CitizenList({
           >
             {params.lang == "fa" ? "مشاهده بیشتر" : "View More"}
           </button>
-        ) : (
-          <SyncLoader
-            color={`${defaultTheme == "dark" ? "#9100D9" : "#0000FF"}`}
-            size={10}
-          />
         )}
       </div>
     </>

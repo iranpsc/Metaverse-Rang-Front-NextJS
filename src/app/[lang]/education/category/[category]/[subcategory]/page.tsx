@@ -116,7 +116,7 @@ export default async function EducationSubcategory({ params }:EducationSubcatego
         />
         <div className="flex  w-full" dir={langData.direction}>
           <CleanAutoRetryParam />
-          <section className="w-full  mt-[60px] lg:mt-0 lg:pt-0 bg-bg-primary  bg-opacity20 xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
+          <section className="w-full  mt-[60px] lg:mt-0 lg:pt-0 bg-bg-primary  bg-opacity20 xl:px-8 lg:px-8 md:px-5 sm:px-5 xs:px-1">
             <div className="ps-4 lg:ps-5">
               <BreadCrumb params={resolvedParams} />
             </div>

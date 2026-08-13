@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+
 import SideBar from "@/components/shared/sidebar/SideBar";
 
 interface Tab {
@@ -14,25 +15,52 @@ interface Tab {
   active?: boolean;
 }
 
-export default function ConditionalSidebar({ tabsMenu, langData, langArray, params , mainData }: { tabsMenu: Tab[], langData: any, langArray: any, params: any , mainData: any }) {
+interface ConditionalSidebarProps {
+  tabsMenu: Tab[];
+  langData: any;
+  langArray: any;
+  params: any;
+  mainData: any;
+  initialIsClosed: boolean;
+}
+
+export default function ConditionalSidebar({
+  tabsMenu,
+  langData,
+  langArray,
+  params,
+  mainData,
+  initialIsClosed,
+}: ConditionalSidebarProps) {
   const pathname = usePathname();
 
-  // console.log("Current pathname:", pathname);
+  const pathsWithoutSidebar = [
+    "/levels/citizen/",
+    "/citizens/hm",
+    "citizens/bn",
+  ];
 
-  // مسیرهایی که سایدبار نباید رندر بشن (فقط بعد از /citizens/)
-  const pathsWithoutSidebar = ["/levels/citizen/", "/citizens/hm" , "citizens/bn"];
+  const shouldShowSidebar = !pathsWithoutSidebar.some((path) =>
+    pathname.includes(path)
+  );
 
-  // چک می‌کنیم که آیا مسیر فعلی توی لیست pathsWithoutSidebar هست یا نه
-  const shouldShowSidebar = !pathsWithoutSidebar.some(path => pathname.includes(path));
+  if (!shouldShowSidebar) {
+    return null;
+  }
 
-  // console.log("Should show sidebar:", shouldShowSidebar);
+  let pageSide = "citizen";
 
-  if (!shouldShowSidebar) return null;
-
-  // تعیین pageSide بر اساس مسیر (برای استفاده توی SideBar)
-  let pageSide = "citizen"; // پیش‌فرض
-  if (pathname && pathname.startsWith(`/${params.lang}/levels/citizen/`)) pageSide = "level";
-  else if (pathname && pathname.startsWith(`/${params.lang}/citizens`)) pageSide = "citizen";
+  if (
+    pathname &&
+    pathname.startsWith(`/${params.lang}/levels/citizen/`)
+  ) {
+    pageSide = "level";
+  } else if (
+    pathname &&
+    pathname.startsWith(`/${params.lang}/citizens`)
+  ) {
+    pageSide = "citizen";
+  }
 
   return (
     <SideBar
@@ -42,6 +70,7 @@ export default function ConditionalSidebar({ tabsMenu, langData, langArray, para
       params={params}
       pageSide={pageSide}
       mainData={mainData}
+      initialIsClosed={initialIsClosed}
     />
   );
 }

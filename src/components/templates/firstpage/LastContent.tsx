@@ -1,15 +1,17 @@
 // src/components/LatestArticlesSlider.tsx
 "use client";
 
-import  { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowRight } from "@/components/svgs";
 import ArticleCard from "../../card/ArticleCard";
+// کارت‌های ArticleCard دقیقاً هم‌شکل و هم‌سایز VideoCard هستن (همون گرید،
+// همون ابعاد کارت)، پس به‌جای ساختن یه اسکلت تکراری، همون اسکلت قبلی رو
+// دوباره استفاده می‌کنیم — فقط با یه اسم مستعار خواناتر برای این فایل.
+import { VideoCardSkeleton as ArticleCardSkeleton } from "@/components/skeleton/VideoCardSkeleton";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { supabase } from "@/utils/lib/supabaseClient";
 import { articles as localArticles } from "@/components/utils/articles";
-
-
 
 type Tag = { label: string; slug: string };
 
@@ -48,6 +50,9 @@ interface LatestArticlesSliderProps {
   theme?: "light" | "dark";
   limit?: number; // تعداد نمایش (پیشفرض 10)
 }
+
+// تعداد کارت‌های اسکلت — چون در نهایت فقط ۳ تا نمایش داده می‌شه (sortedArticles.slice(0,3))
+const SKELETON_COUNT = 3;
 
 const LatestArticlesSlider: React.FC<LatestArticlesSliderProps> = ({
   params,
@@ -99,7 +104,7 @@ const LatestArticlesSlider: React.FC<LatestArticlesSliderProps> = ({
               tags:
                 Array.isArray(d.tags) && d.tags.length > 0
                   ? // اگر آیتم‌ها رشته ساده باشند، تبدیل به {label,slug}
-                  d.tags[0] && typeof d.tags[0] === "string"
+                    d.tags[0] && typeof d.tags[0] === "string"
                     ? d.tags.map((t: string) => ({ label: t, slug: slugify(t) }))
                     : d.tags
                   : [],
@@ -116,7 +121,7 @@ const LatestArticlesSlider: React.FC<LatestArticlesSliderProps> = ({
         if (mounted) {
           setArticles(
             [...localArticles]
-              .sort((a, b) => new Date((b.date || "")).getTime() - new Date((a.date || "")).getTime())
+              .sort((a, b) => new Date(b.date || "").getTime() - new Date(a.date || "").getTime())
               .slice(0, 10)
           );
           setLoading(false);
@@ -128,7 +133,7 @@ const LatestArticlesSlider: React.FC<LatestArticlesSliderProps> = ({
         if (mounted) {
           setArticles(
             [...localArticles]
-              .sort((a, b) => new Date((b.date || "")).getTime() - new Date((a.date || "")).getTime())
+              .sort((a, b) => new Date(b.date || "").getTime() - new Date(a.date || "").getTime())
               .slice(0, limit)
           );
           setLoading(false);
@@ -159,22 +164,18 @@ const LatestArticlesSlider: React.FC<LatestArticlesSliderProps> = ({
       .replace(/[^\w-]+/g, "");
   }
 
-  if (loading) {
-    return <div className="py-6 text-center">در حال بارگذاری مقالات...</div>;
-  }
-
   if (error) {
     // خطا رو لاگ کردیم و fallback داریم؛ اما اگر خواستی نمایش بده
     console.warn("LatestArticlesSlider error:", error);
   }
 
-  if (sortedArticles.length === 0) {
+  // این حالت فقط وقتی معتبره که دیگه loading نیستیم و واقعاً چیزی نیومده
+  if (!loading && sortedArticles.length === 0) {
     return <div className="py-6 text-center matn-2-500">هیچ مقاله‌ای برای نمایش موجود نیست.</div>;
   }
 
   return (
     <section className="w-full relative">
-
       {linkLoading && (
         <div className="fixed top-0 left-0 bottom-0  w-full  h-screen z-[40] flex items-center justify-center bg-black/60 backdrop-blur-sm" >
           <div className="container flex w-full h-screen items-center justify-center md:ms-[25vw] lg:ms-[17vw] xl:ms-[15vw] 3xl:ms-[16vw]">
@@ -191,7 +192,7 @@ const LatestArticlesSlider: React.FC<LatestArticlesSliderProps> = ({
         </div>
       )}
 
-      {/* Header */}
+      {/* Header — به mainData وابسته‌ست نه فچ مقاله‌ها، پس همیشه واقعی رندر می‌شه */}
       <div className="w-full flex flex-row justify-between items-center">
         <p className="font-azarMehr font-medium text-[16px] md:text-[20px] lg:text-[28px] xl:text-[32px] dark:text-white">
           {findByUniqueId(mainData, 497)}
@@ -209,10 +210,20 @@ const LatestArticlesSlider: React.FC<LatestArticlesSliderProps> = ({
         </Link>
       </div>
 
+      {/* گرید — تا وقتی loading هست، اسکلت هم‌شکل به‌جای متن «در حال بارگذاری» قبلی */}
       <div className="grid lg:grid-cols-2 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 xs:grid-cols-1 gap-10 mt-6 md:mt-12">
-        {sortedArticles.map((item) => (
-          <ArticleCard key={String(item.id)} item={item} params={params} theme={theme} activeLoadingId={activeLoadingId} setActiveLoadingId={setActiveLoadingId} />
-        ))}
+        {loading
+          ? Array.from({ length: SKELETON_COUNT }).map((_, i) => <ArticleCardSkeleton key={i} />)
+          : sortedArticles.map((item) => (
+              <ArticleCard
+                key={String(item.id)}
+                item={item}
+                params={params}
+                theme={theme}
+                activeLoadingId={activeLoadingId}
+                setActiveLoadingId={setActiveLoadingId}
+              />
+            ))}
       </div>
     </section>
   );
