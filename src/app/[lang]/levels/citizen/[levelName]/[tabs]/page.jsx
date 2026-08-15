@@ -12,6 +12,7 @@ import {
   findByTabName,
 } from "@/components/utils/actions";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import { Skeleton } from "@/components/ui/skeleton";
 import TabContentWrapper from "../../../../../../components/ui/Skeleton/TabContentWrapper";
 import TabLoadingProvider from "../../../../../../components/ui/Skeleton/TabLoadingProvider";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
@@ -49,13 +50,6 @@ async function fetchData(params) {
   const levelMeta = STATIC_ROUTE_NAMES.find(x => x.route_name === params.levelName);
   const levelId = levelMeta?.id;
   const levelUniqueId = levelMeta?.unique_id;
-  // const TAB_TITLE_MAP = {
-  //   "general-info": 387,
-  //   "licenses": 388,
-  //   "gem": 389,
-  //   "gift": 390,
-  //   "prize": 391,
-  // };
 
   const [
     langData,
@@ -161,8 +155,6 @@ export default async function LevelSinglePage({ params }) {
       : levelTitle;
 
      const breadcrumbSchema = buildBreadcrumbSchema(mainData, resolvedParams);
-    // console.log("TAB:", params.tabs);
-    // console.log("DATA:", levelTabs.data);
     return (
       <>
         <script
@@ -210,9 +202,12 @@ export default async function LevelSinglePage({ params }) {
                 />
               </div>
 
-              {/* Tab Content (Skeleton می‌شود) */}
+              {/* Tab Content — فقط همین یه خط عوض شد: پراپ tab اضافه شد
+                  تا اسکلت درست هر تب انتخاب بشه. children (که شامل
+                  GeneralInfo/Gem/Gift/... و schema script داخلشونه) عیناً
+                  همون قبلیه، هیچ تغییری نکرده. */}
               <div className="grid-third w-full md:min-w-[65vw] xl:min-w-[65vw] px-1">
-                <TabContentWrapper>
+                <TabContentWrapper tab={resolvedParams.tabs}>
                   {resolvedParams.tabs === "general-info" && (
                     <GeneralInfo
                       mainData={mainData}
@@ -267,7 +262,17 @@ export default async function LevelSinglePage({ params }) {
 
 
               <div className="grid-forth flex-1 relative !mt-[-2px] mb-10 lg:mb-0">
-                <Suspense fallback={<div>image box loading ...</div>}>
+                {/* فقط ظاهر fallback عوض شد (متن ساده -> Skeleton سراسری)،
+                    خود ImageBox و منطق Suspense دست‌نخورده‌ست. */}
+                <Suspense
+                  fallback={
+                    <Skeleton
+                      tone="standalone"
+                      variant="rect"
+                      className="w-full h-[300px] lg:h-[400px] rounded-[20px]"
+                    />
+                  }
+                >
                   <ImageBox item={levelTabs.data} singleLevel={singleLevel} lang={lang}/>
                 </Suspense>
               </div>
@@ -302,7 +307,6 @@ export default async function LevelSinglePage({ params }) {
 }
 export async function generateMetadata({ params }) {
   try {
-    // ✅ الگوی استاندارد پروژه
     const resolvedParams = await params;
     const { lang, levelName, tabs } = resolvedParams;
 
@@ -428,4 +432,3 @@ export async function generateMetadata({ params }) {
     };
   }
 }
-

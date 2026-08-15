@@ -11,7 +11,7 @@ import { findByUniqueId } from "@/components/utils/findByUniqueId";
 // صفحه‌ی بعدی (per_page از API) قبل از رسیدن جواب مشخص نیست، یه عدد معقول
 // (۴) گذاشتیم. اگه per_page واقعی API رو می‌دونی (مثلاً ۸ یا ۱۲)، همین عدد
 // رو با SKELETON_COUNT جایگزین کن تا کاملاً منطبق باشه.
-const SKELETON_COUNT = 4;
+const SKELETON_COUNT = 5;
 
 export default function CitizenList({
   params,

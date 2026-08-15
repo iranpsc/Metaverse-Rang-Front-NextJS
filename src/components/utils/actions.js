@@ -374,36 +374,30 @@ export async function getFooterData(params) {
  */
 export async function getAllLevels() {
   try {
-    const apiBaseUrl =
-      await getApiBaseUrl();
+    const apiBaseUrl = await getApiBaseUrl();
 
-    const res = await fetch(
-      `${apiBaseUrl}/api/levels`,
-      {
-        headers: {
-          "Content-Type":
-            "application/json",
-          "Cache-Control":
-            "public, max-age=3600",
-        },
-      }
-    );
+    const res = await fetch(`${apiBaseUrl}/api/levels`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // ❌ قبلاً اینجا "Cache-Control" توی headers بود که فقط یه هدر
+      // HTTP معمولیه و رفتار کش Next.js رو کنترل نمی‌کنه. این‌جا آپشن
+      // واقعی Next.js برای کش هست — دقیقاً معادل همون max-age=3600 که
+      // می‌خواستید، ولی این‌بار واقعاً روی fetch cache خود Next اثر می‌ذاره:
+      next: {
+        revalidate: 3600, // هر ۱ ساعت یک‌بار داده رو دوباره می‌گیره
+      },
+    });
 
     if (!res.ok) {
-      throw new Error(
-        `getAllLevels failed: ${res.status} ${res.statusText}`
-      );
+      throw new Error(`getAllLevels failed: ${res.status} ${res.statusText}`);
     }
 
-    const temp =
-      await res.json();
+    const temp = await res.json();
 
     return temp?.data || [];
   } catch (error) {
-    console.error(
-      "[getAllLevels] Error:",
-      error
-    );
+    console.error("[getAllLevels] Error:", error);
 
     return [];
   }

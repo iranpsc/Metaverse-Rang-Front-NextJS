@@ -23,7 +23,7 @@ export default function NotFoundPage({
 
 }: NotFoundPageProps) {
   return (
-    <div className="flex  w-full" dir={langData.direction}>
+    <div className="flex  w-full" >
       {/* Sidebar فقط وقتی hideSidebar false باشه */}
 
       {/* Main Content */}

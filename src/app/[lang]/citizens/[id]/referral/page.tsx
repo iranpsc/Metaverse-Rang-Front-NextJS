@@ -1,10 +1,15 @@
+// app/[lang]/citizens/[id]/referral/page.tsx
+import { Suspense } from "react";
 import SideBar from "@/components/shared/sidebar/SideBar";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import NotFoundPage from "@/components/error/NotFoundPage";
 import DynamicFooter from "@/components/shared/footer/DynamicFooter";
 import InviteBox from "@/components/templates/referral/invite-box";
-import InviteList from "@/components/templates/referral/invite-list";
-import InviteChart from "@/components/templates/referral/invite-chart";
+
+import InviteListLoader from "@/components/templates/referral/InviteListLoader";
+import InviteChartLoader from "@/components/templates/referral/InviteChartLoader";
+import InviteListSkeleton from "@/components/skeleton/InviteListSkeleton";
+import InviteChartSkeleton from "@/components/skeleton/InviteChartSkeleton";
 
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
@@ -15,9 +20,7 @@ import {
   findByModalName,
   findByTabName,
   getLangArray,
-  getAllReferral,
   getUserData,
-  getChartReferral,
 } from "@/components/utils/actions";
 
 import { getStaticMenu } from "@/components/utils/constants";
@@ -114,16 +117,9 @@ export default async function CitizenReferral({
     }
 
     /* ------------------------- page data ----------------------------- */
-    const [
-      mainData,
-      langArray,
-      initInviteList,
-      chartDataFetch,
-    ] = await Promise.all([
+    const [mainData, langArray] = await Promise.all([
       getMainFile(langData),
       getLangArray(),
-      getAllReferral(id),
-      getChartReferral(id, "yearly"),
     ]);
 
     const updatedTabsMenu = await buildUpdatedTabsMenu(mainData);
@@ -132,24 +128,6 @@ export default async function CitizenReferral({
       await findByModalName(mainData, "Citizenship-profile"),
       "referral"
     );
-
-    /* -------------------------- chart data --------------------------- */
-    const convertToPersianDigits = (str: any) =>
-      str?.toString()?.replace(/\d/g, (d: any) => "۰۱۲۳۴۵۶۷۸۹"[d]);
-
-    let initChartData = { labels: [], data: [[], []] };
-
-    if (chartDataFetch?.chart_data) {
-      initChartData.labels = chartDataFetch.chart_data.map((i: any) =>
-        convertToPersianDigits(i.year)
-      );
-      initChartData.data[0] = chartDataFetch.chart_data.map(
-        (i: any) => i.total_referrals_count
-      );
-      initChartData.data[1] = chartDataFetch.chart_data.map(
-        (i: any) => i.total_referral_orders_amount
-      );
-    }
 
     /* ----------------------------- schema ---------------------------- */
     const aboutText =
@@ -209,22 +187,26 @@ export default async function CitizenReferral({
                 />
               )}
 
-              {initInviteList && referralPageArrayContent && (
-                <InviteList
-                  initInviteList={initInviteList}
-                  params={resolvedParams}
-                  referralPageArrayContent={referralPageArrayContent}
-                  mainData={mainData}
-                />
+              {referralPageArrayContent && (
+                <Suspense fallback={<InviteListSkeleton />}>
+                  <InviteListLoader
+                    id={id}
+                    params={resolvedParams}
+                    referralPageArrayContent={referralPageArrayContent}
+                    mainData={mainData}
+                  />
+                </Suspense>
               )}
 
               {referralPageArrayContent && (
-                <InviteChart
-                  params={resolvedParams}
-                  referralPageArrayContent={referralPageArrayContent}
-                  initChartData={initChartData}
-                  mainData={mainData}
-                />
+                <Suspense fallback={<InviteChartSkeleton />}>
+                  <InviteChartLoader
+                    id={id}
+                    params={resolvedParams}
+                    referralPageArrayContent={referralPageArrayContent}
+                    mainData={mainData}
+                  />
+                </Suspense>
               )}
             </div>
 

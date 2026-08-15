@@ -4,7 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 import InviteListCard from "./invite-list-card";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-
+import Skeleton from "@/components/ui/skeleton";
 export default function InviteList({
   initInviteList,
   params,
@@ -75,7 +75,47 @@ export default function InviteList({
       setLoading(false);
     }
   };
+const InviteListCardSkeleton = () => {
+  return (
+    <div className="dark:bg-gray-1 bg-white p-3 rounded-xl flex items-center w-full h-[56px] lg:h-[128px]">
+      {/* Avatar */}
+      <Skeleton
+        variant="circle"
+        tone="surface"
+        className="w-[50px] h-[50px] lg:w-[80px] lg:h-[80px] shrink-0"
+      />
 
+      {/* Name + Code */}
+      <div className="flex-1 mx-4 flex flex-col gap-2">
+        <Skeleton
+          variant="line"
+          tone="surface"
+          className="h-[10px] lg:h-[20px] w-[60%] rounded-md"
+        />
+
+        <Skeleton
+          variant="line"
+          tone="surface"
+          className="h-[10px] lg:h-[16px] w-[35%] rounded-md"
+        />
+      </div>
+
+      {/* Amount */}
+      <Skeleton
+        variant="line"
+        tone="surface"
+        className="h-[16px] lg:h-[24px] w-[50px] me-3 rounded-md"
+      />
+
+      {/* Coin */}
+      <Skeleton
+        variant="circle"
+        tone="surface"
+        className="w-[32px] h-[32px] shrink-0"
+      />
+    </div>
+  );
+};
   return (
     <>
       <div className="flex flex-col py-8 leading-[24px] gap-4 w-full lg:self-start mt-[64px] mb-[32px]">
@@ -119,32 +159,35 @@ export default function InviteList({
           </button>
         </div>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2  gap-4 w-full">
-        {/* CARD */}
-        {referralList &&
-          referralList.map((item: any, index: any) => (
-            <InviteListCard key={index} item={item} params={params} />
-          ))}
-      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+  {referralList.map((item: any, index: number) => (
+    <InviteListCard
+      key={index}
+      item={item}
+      params={params}
+    />
+  ))}
+
+  {loading &&
+    Array.from({ length: 4 }).map((_, index) => (
+      <InviteListCardSkeleton key={`skeleton-${index}`} />
+    ))}
+</div>
       {referralList.length == 0 && (
         <p className="w-full text-center text-white">موردی یافت نشد.</p>
       )}
 
       {/* load more */}
-      {hasMore && referralList.length > 0 && (
-        <p
-          onClick={loadMore}
-          className="w-[150px] text-primary  pt-7 cursor-pointer m-auto text-center"
-        >
-          {loading
-            ? params.lang.toLowerCase() === "fa"
-              ? "در حال بارگذاری..."
-              : "Loading..."
-            : params.lang.toLowerCase() === "fa"
-            ? "مشاهده بیشتر"
-            : "View more"}
-        </p>
-      )}
+      {hasMore && referralList.length > 0 && !loading && (
+  <p
+    onClick={loadMore}
+    className="w-[150px] text-primary bg-gray-1 py-4 rounded-xl mt-5 cursor-pointer m-auto text-center"
+  >
+    {params.lang.toLowerCase() === "fa"
+      ? "مشاهده بیشتر"
+      : "View more"}
+  </p>
+)}
     </>
   );
 }

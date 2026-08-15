@@ -3,14 +3,23 @@ import ModalCard from "@/components/modal/ModalCard";
 import Image from "next/image";
 import { motion } from "motion/react";
 import { AnimatePresence } from "motion/react";
-import  { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 // Function to strip HTML tags from a string
+// ❌ نسخه قبلی از document.createElement استفاده می‌کرد که فقط توی
+// مرورگره؛ چون این کامپوننت روی سرور هم SSR می‌شه، هر بار صدا زده
+// می‌شد سرور با "document is not defined" کرش می‌کرد. این نسخه به
+// DOM نیازی نداره، پس هم روی سرور هم روی کلاینت یکسان کار می‌کنه.
 const stripHtml = (html: string): string => {
-  const div = document.createElement("div");
-  div.innerHTML = html;
-  return div.textContent || div.innerText || "";
+  if (!html) return "";
+  return html
+    .replace(/<[^>]*>/g, "")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .trim();
 };
 
 export default function ProfileAbout({

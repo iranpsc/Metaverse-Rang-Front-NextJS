@@ -1,5 +1,7 @@
 // app/[lang]/levels/citizen/page.tsx
 
+import { Suspense } from "react";
+
 import {
   getAllLevels,
   getTranslation,
@@ -9,7 +11,8 @@ import {
 } from "@/components/utils/actions";
 
 import Footer from "@/components/shared/footer/Footer";
-import LevelsClient from "@/components/features/levels/LevelsClient";
+import LevelsContent from "@/components/features/levels/LevelsContent";
+import LevelsClientSkeleton from "@/components/skeleton/LevelsClientSkeleton";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
@@ -31,6 +34,8 @@ export async function generateMetadata({
   try {
     const { lang } = await params;
 
+    // توجه: generateMetadata جدا از خود صفحه اجرا می‌شه، پس اینجا
+    // getAllLevels همچنان لازمه (مستقل از LevelsContent).
     const levelArray = await getAllLevels();
     const langData = await getTranslation(lang);
     const mainData = await getMainFile(langData);
@@ -79,127 +84,13 @@ export default async function LevelsPage({ params }: LevelsPageProps) {
     const resolvedParams = await params;
     const { lang } = resolvedParams;
 
-    /* ----------------------------- Static Data ----------------------------- */
-
-    const staticData = [
-      {
-        url: "/svg/level/citizen.png",
-        score: 10,
-        id: 1,
-        route_name: "citizen-baguette",
-        unique_id: 382,
-      },
-      {
-        url: "/svg/level/reporter.png",
-        score: 990,
-        id: 2,
-        route_name: "reporter-baguette",
-        unique_id: 383,
-      },
-      {
-        url: "/svg/level/participation.png",
-        score: 3000,
-        id: 3,
-        route_name: "participation-baguette",
-        unique_id: 589,
-      },
-      {
-        url: "/svg/level/developer.png",
-        score: 8000,
-        id: 4,
-        route_name: "developer-baguette",
-        unique_id: 68,
-      },
-      {
-        url: "/svg/level/inspector.png",
-        score: 18000,
-        id: 5,
-        route_name: "inspector-baguette",
-        unique_id: 69,
-      },
-      {
-        url: "/svg/level/businessman.png",
-        score: 36000,
-        id: 6,
-        route_name: "businessman-baguette",
-        unique_id: 590,
-      },
-      {
-        url: "/svg/level/lawyer.png",
-        score: 76000,
-        id: 7,
-        route_name: "lawyer-baguette",
-        unique_id: 71,
-      },
-      {
-        url: "/svg/level/city-council.png",
-        score: 166000,
-        id: 8,
-        route_name: "city-council-baguette",
-        unique_id: 591,
-      },
-      {
-        url: "/svg/level/the-mayor.png",
-        score: 366000,
-        id: 9,
-        route_name: "the-mayor-baguette",
-        unique_id: 592,
-      },
-      {
-        url: "/svg/level/governor.png",
-        score: 796000,
-        id: 10,
-        route_name: "governor-baguette",
-        unique_id: 74,
-      },
-      {
-        url: "/svg/level/minister.png",
-        score: 1696000,
-        id: 11,
-        route_name: "minister-baguette",
-        unique_id: 75,
-      },
-      {
-        url: "/svg/level/judge.png",
-        score: 3696000,
-        id: 12,
-        route_name: "judge-baguette",
-        unique_id: 76,
-      },
-      {
-        url: "/svg/level/legislator.png",
-        score: 7896000,
-        id: 13,
-        route_name: "legislator-baguette",
-        unique_id: 77,
-      },
-    ];
-
     /* ----------------------------- Fetch Data ------------------------------ */
-
-    const [
-      levelArray,
-      langData,
-    ] = await Promise.all([
-      getAllLevels(),
-      getTranslation(lang),
-    ]);
-
+    // ❌ قبلاً اینجا getAllLevels() هم جزو Promise.all بود؛ این فچ
+    // (که کندترین بخش صفحه‌ست) الان رفته داخل LevelsContent که خودش
+    // زیر <Suspense> رندر می‌شه. یعنی breadcrumb/عنوان/فوتر منتظرش
+    // نمی‌مونن؛ فقط بخش کارت‌های سطح تا رسیدن دیتا اسکلت نشون می‌ده.
+    const langData = await getTranslation(lang);
     const mainData = await getMainFile(langData);
-
-    /* -------------------------- Normalize Levels --------------------------- */
-
-    staticData.forEach((el2: any) => {
-      levelArray.forEach((el1: any) => {
-        if (el1.id == el2.id) {
-          el1.photo = el2.url;
-          el1.rank = 1;
-          el1.score = el2.score;
-          el1.route_name = el2.route_name;
-          el1.unique_id = el2.unique_id;
-        }
-      });
-    });
 
     /* ------------------------------ Content -------------------------------- */
 
@@ -212,28 +103,10 @@ export default async function LevelsPage({ params }: LevelsPageProps) {
       ...levelListArrayContent,
     ];
 
-    /* ------------------------------ Schema --------------------------------- */
-
-    const levelsSchema = {
-      "@context": "https://schema.org/",
-      "@type": "ItemList",
-      itemListElement: levelArray.map((item: any) => ({
-        "@type": "ListItem",
-        position: item.id,
-        name: item.name,
-        url: item.image,
-      })),
-    };
-
     /* -------------------------------- Render ------------------------------- */
 
     return (
       <>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(levelsSchema) }}
-        />
-
         <CleanAutoRetryParam />
 
         <section
@@ -254,12 +127,13 @@ export default async function LevelsPage({ params }: LevelsPageProps) {
           </div>
 
           <div className="flex justify-center flex-wrap mt-8">
-            <LevelsClient
-              levels={levelArray}
-              concatArrayContent={concatArrayContent}
-              params={resolvedParams}
-              mainData={mainData}
-            />
+            <Suspense fallback={<LevelsClientSkeleton />}>
+              <LevelsContent
+                params={resolvedParams}
+                mainData={mainData}
+                concatArrayContent={concatArrayContent}
+              />
+            </Suspense>
           </div>
 
 
