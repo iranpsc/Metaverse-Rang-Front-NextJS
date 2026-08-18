@@ -6,20 +6,44 @@ import { useCookies } from "react-cookie";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import VideoCard from "@/components/card/VideoCard";
 
-export default function EducationList({ mainData, params }: any) {
-  const [videoToShow, setVideoToShow] = useState<any[]>([]);
+interface EducationListProps {
+  mainData: any;
+  params: any;
+  // اگه از سرور پاس داده بشه (initialVideos)، دیگه فچ اولیه‌ی کلاینتی
+  // انجام نمی‌شه و مستقیم همینا نمایش داده می‌شن — یه round-trip کامل
+  // بعد از هیدریت حذف می‌شه. اگه پاس داده نشه، دقیقاً رفتار قبلی
+  // (فچ خودکار صفحه ۱ با useEffect) حفظ می‌شه، پس بک‌ورد-کامپاتیبله.
+  initialVideos?: any[];
+}
+
+export default function EducationList({ mainData, params, initialVideos }: EducationListProps) {
+  const hasInitialData = Array.isArray(initialVideos) && initialVideos.length > 0;
+
+  const [videoToShow, setVideoToShow] = useState<any[]>(
+    hasInitialData
+      ? [...initialVideos].sort((a, b) => {
+          const dateA = a.created_at || "";
+          const dateB = b.created_at || "";
+          return dateB.localeCompare(dateA);
+        })
+      : []
+  );
   const [isDisabled, setIsDisabled] = useState(false);
-  const [loading, setLoading] = useState(false);
+  // اگه initialVideos داشتیم، دیگه لودینگ اولیه لازم نیست
+  const [loading, setLoading] = useState(!hasInitialData);
   const [lastPage, setLastPage] = useState<number | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
 
   const [cookies] = useCookies(["theme"]);
   const theme = cookies.theme || "dark";
   const [activeLoadingId, setActiveLoadingId] = useState<string | null>(null);
+
   // ------------------------------
-  // Fetch initial page (page 1)
+  // Fetch initial page (page 1) — فقط اگه initialVideos از سرور نیومده باشه
   // ------------------------------
   useEffect(() => {
+    if (hasInitialData) return; // ✅ دیتای سرور از قبل موجوده، نیازی به فچ نیست
+
     const fetchInitial = async () => {
       setLoading(true);
       try {
@@ -38,12 +62,6 @@ export default function EducationList({ mainData, params }: any) {
         setVideoToShow(sorted);
         setLastPage(res.data.meta.last_page);
         setCurrentPage(1);
-
-        //  لاگ مقایسه API و UI
-        // console.log("===== Initial Load =====");
-        // console.log("API videos (page 1):", apiVideos.length);
-        // console.log("UI videos (after sort):", sorted.length);
-        // console.log("========================");
       } catch (error) {
         console.error("Error fetching initial videos:", error);
       } finally {
@@ -52,6 +70,7 @@ export default function EducationList({ mainData, params }: any) {
     };
 
     fetchInitial();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // ------------------------------
@@ -71,28 +90,18 @@ export default function EducationList({ mainData, params }: any) {
       const apiVideos = res.data.data;
 
       setVideoToShow((prevVideos: any) => {
-        // ترکیب قبلی‌ها + جدیدها
         const merged = [...prevVideos, ...apiVideos];
 
-        // حذف ویدیوهای تکراری (بر اساس id)
         const uniqueVideos = merged.filter(
           (video, index, self) =>
             index === self.findIndex((v) => v.id === video.id)
         );
 
-        // مرتب‌سازی جدیدترین اول
         const sorted = uniqueVideos.sort((a, b) => {
           const dateA = a.created_at || "";
           const dateB = b.created_at || "";
           return dateB.localeCompare(dateA);
         });
-
-        //  لاگ مقایسه API و UI بعد Load More
-        // console.log("===== Load More =====");
-        // console.log("API page:", nextPage);
-        // console.log("API videos (this page):", apiVideos.length);
-        // console.log("UI videos (after merge & sort):", sorted.length);
-        // console.log("=====================");
 
         return sorted;
       });

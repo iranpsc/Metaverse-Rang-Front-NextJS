@@ -1,8 +1,11 @@
 "use client";
 import { useState } from "react";
 import ListData from "@/components/card/EducationCategoriesCard";
+import EducationCategoryCardSkeleton from "@/components/skeleton/EducationCategoryCardSkeleton";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import SyncLoader from "react-spinners/SyncLoader";
+
+// تعداد کارت اسکلت هنگام لود بیشتر — دقیقاً معادل افزایش visibleCount (۹)
+const LOAD_MORE_COUNT = 9;
 
 const ShowAllCategoriesEducationList = ({ categoriesData, params, mainData, theme }: any) => {
   const [visibleCount, setVisibleCount] = useState(9);
@@ -28,11 +31,18 @@ const ShowAllCategoriesEducationList = ({ categoriesData, params, mainData, them
           params={params}
           activeLoadingId={activeLoadingId} setActiveLoadingId={setActiveLoadingId}
         />
+
+        {/* موقع لود بیشتر، به‌جای اسپینر، همون تعداد کارت اسکلت که قراره
+            اضافه بشن (۹ تا) نشون داده می‌شه — انگار آیتم‌های بعدی دارن میان */}
+        {loading &&
+          Array.from({ length: LOAD_MORE_COUNT }).map((_, i) => (
+            <EducationCategoryCardSkeleton key={`skeleton-${i}`} />
+          ))}
       </div>
 
       {/* دکمه لود مور */}
       <div className="w-full flex justify-center mt-[40px]">
-        {!loading ? (
+        {!loading && (
           <button
             type="button"
             disabled={isDisabled || loading}
@@ -45,13 +55,6 @@ const ShowAllCategoriesEducationList = ({ categoriesData, params, mainData, them
           >
             {findByUniqueId(mainData, 271)}
           </button>
-        ) : (
-          <SyncLoader
-            color="currentColor"
-            size={10}
-            aria-label="در حال بارگذاری"
-            className="text-primary "
-          />
         )}
       </div>
     </section>

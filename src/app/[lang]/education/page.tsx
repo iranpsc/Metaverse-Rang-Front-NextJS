@@ -1,81 +1,40 @@
-
+import { Suspense } from "react";
 import {
   getTranslation,
   getMainFile,
-  getAllCategoryVideos,
-  getAllCategories,
 } from "@/components/utils/actions";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import SearchComponent from "@/components/Search/SearchComponent";
-import TopTrainersFirstPage, { getTopTrainerUsers } from "@/components/templates/firstpage/TopTrainersFirstPage";
-import EducationCategories from "@/components/list/EducationPagePreviewCategories";
-import EducationList from "@/components/list/EducationList";
+import TopTrainersFirstPage from "@/components/templates/firstpage/TopTrainersFirstPage";
+import TopTrainersSkeleton from "@/components/skeleton/TopTrainersSkeleton";
+import EducationCategoriesContent from "@/components/list/EducationCategoriesContent";
+import EducationCategoriesSkeleton from "@/components/skeleton/EducationCategoriesSkeleton";
+import EducationListContent from "@/components/list/EducationListContent";
+import EducationListSkeleton from "@/components/skeleton/EducationListSkeleton";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
+
 interface CitizensPageProps {
   params: Promise<{ lang: string }>;
 }
+
 export default async function CitizensPage({ params }: CitizensPageProps) {
   const resolvedParams = await params;
   const { lang } = resolvedParams;
   try {
-    const users = await getTopTrainerUsers();
-    const [langData, allCatVideos, categoriesData] =
-      await Promise.all([
-        getTranslation(lang),
-        getAllCategoryVideos("1"),
-        getAllCategories(),
-      ]);
-
+    // ⚠️ این تنها زنجیره‌ی غیرقابل‌موازی‌سازی صفحه‌ست: mainData به خروجی
+    // langData نیاز داره (getMainFile(langData))، پس این دو مجبورن سری
+    // اجرا بشن. همه‌ی بخش‌های دیگه (تاپ‌ترینرها، دسته‌بندی‌ها، لیست
+    // ویدیوها) هرکدوم فچ خودشون رو در یک کامپوننت async مستقل، زیر
+    // Suspense جدا انجام می‌دن — یعنی به‌محض رسیدن به این نقطه از رندر،
+    // هر سه فچ هم‌زمان (موازی) شروع می‌شن، نه سری پشت‌سرهم مثل قبل.
+    const langData = await getTranslation(lang);
     const mainData = await getMainFile(langData);
-
-
-    const educationVideoSchema = {
-      "@context": "http://schema.org",
-      "@type": "WebSite",
-      mainEntity: allCatVideos.map((video: any) => ({
-        "@type": "VideoObject",
-        name: video.title,
-        // description: video.description,
-        thumbnailUrl: video.image_url,
-        contentUrl: `https://metarang.com/${lang}/education/category/${video.sub_category.slug}`,
-        uploadDate: "",
-        publisher: {
-          "@type": "Organization",
-          name: video.creator.name || video.creator.code,
-        },
-        interactionStatistic: [
-          {
-            "@type": "InteractionCounter",
-            interactionType: "http://schema.org/LikeAction",
-            userInteractionCount: video.likes_count,
-          },
-          {
-            "@type": "InteractionCounter",
-            interactionType: "http://schema.org/DislikeAction",
-            userInteractionCount: video.dislikes_count,
-          },
-          {
-            "@type": "InteractionCounter",
-            interactionType: "http://schema.org/WatchAction",
-            userInteractionCount: video.views_count,
-          },
-        ],
-      })),
-    };
 
     return (
       <>
-        {/* SCHEMA** */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(educationVideoSchema),
-          }}
-        />
         <div className="flex w-full" dir={langData.direction}>
-
           <section
             className={`w-full  relative  mt-[60px] lg:mt-0 lg:pt-0 bg-bg-primary  bg-opacity20 xl:px-8 lg:px-8 md:px-5 sm:px-5 xs:px-1`}
           >
@@ -102,21 +61,18 @@ export default async function CitizensPage({ params }: CitizensPageProps) {
             </div>
 
             <div className="h-fit mt-[60px]  xl:mt-[100px] 2xl:mt-[150px]">
-              <TopTrainersFirstPage params={resolvedParams} mainData={mainData} users={users} />
+              <Suspense fallback={<TopTrainersSkeleton />}>
+                <TopTrainersFirstPage params={resolvedParams} mainData={mainData} />
+              </Suspense>
             </div>
 
-            <EducationCategories
-              categoriesData={categoriesData}
-              mainData={mainData}
-              params={resolvedParams}
-            />
+            <Suspense fallback={<EducationCategoriesSkeleton />}>
+              <EducationCategoriesContent mainData={mainData} params={resolvedParams} />
+            </Suspense>
 
-            <EducationList
-              allCatVideos={allCatVideos}
-              params={resolvedParams}
-              mainData={mainData}
-            />
-
+            <Suspense fallback={<EducationListSkeleton />}>
+              <EducationListContent lang={lang} mainData={mainData} params={resolvedParams} />
+            </Suspense>
 
           </section>
         </div>
@@ -148,11 +104,9 @@ export async function generateMetadata({ params }: CitizensPageProps) {
 
     const mainData = await getMainFile(langData);
 
-    //to make description less than 200 character
     async function makeLessCharacter() {
       let temp = findByUniqueId(mainData, 164);
       temp = temp.slice(0, 200);
-
       return temp;
     }
 
@@ -161,27 +115,18 @@ export async function generateMetadata({ params }: CitizensPageProps) {
       description: await makeLessCharacter(),
       openGraph: {
         type: "website",
-        // url: `https://metarang.com/posts/${params.id}`,
         title: findByUniqueId(mainData, 593),
         description: await makeLessCharacter(),
         locale: lang == "fa" ? "fa_IR" : "en_US",
-        // site_name: متاورس رنگ,
         url: `https://metarang.com/${lang}/education`,
         images: [
           {
             url: "/logo.png",
             width: 800,
             height: 600,
-            // alt: post.title,
           },
         ],
       },
-      // twitter: {
-      //   card: 'summary_large_image',
-      //   title: post.title,
-      //   description: post.description,
-      //   images: [post.imageUrl],
-      // },
     };
   } catch (error) {
     console.error("❌ Metadata error (LevelsPage):", error);
@@ -192,4 +137,3 @@ export async function generateMetadata({ params }: CitizensPageProps) {
     };
   }
 }
-

@@ -53,7 +53,7 @@ const variantClasses: Record<SkeletonVariant, string> = {
 };
 
 const toneClasses: Record<SkeletonTone, string> = {
-  surface: "bg-[rgb(var(--color-gray-3))]",
+  surface: "bg-[rgb(var(--color-gray-2))]",
   standalone: "bg-[rgb(var(--color-gray-1))]",
 };
 
@@ -75,7 +75,7 @@ export function Skeleton({
         "relative overflow-hidden",
         toneClasses[tone],
         // لایه شیمر روی pseudo-element
-        "after:absolute after:inset-0 after:-translate-x-full after:animate-shimmer",
+        "after:absolute after:inset-0 after:-translate-x-full  after:animate-shimmer",
         "after:bg-gradient-to-r after:from-transparent",
         "after:via-[rgb(var(--color-gray-1)/55%)] after:to-transparent",
         "dark:after:via-[rgb(var(--color-text-3)/35%)]",

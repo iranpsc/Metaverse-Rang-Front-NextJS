@@ -1,14 +1,16 @@
 // src/app/[lang]/articles/categories/[category]/page.tsx
+import { Suspense } from "react";
 import Link from "next/link";
 import BreadCrumb from "@/components/shared/BreadCrumb";
-import CategorySorted from "../../../../../components/features/ArticleCategorySorted";
 import CategoryHeader from "../../../../../components/ui/header/ArticleCategoryHeader";
+import CategorySortedContent from "@/components/features/CategorySortedContent";
+import CategorySortedSkeleton from "@/components/skeleton/CategorySortedSkeleton";
 import SearchComponent from "@/components/Search/SearchComponent";
 import { getTranslation, getMainFile } from "@/components/utils/actions";
 import { supabase } from "@/utils/lib/supabaseClient";
-// import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
+
 interface CategoryPageProps {
   params: Promise<{
     lang: string, category: string;
@@ -23,7 +25,6 @@ export async function generateMetadata({ params }: CategoryPageProps) {
     const categorySlug = decodeURIComponent(resolvedParams.category);
     const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://metarang.com";
 
-    // ✅ گرفتن داده از Supabase
     const { data: articlesData } = await supabase
       .from("articles")
       .select("*")
@@ -85,12 +86,13 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   try {
     const categorySlug = decodeURIComponent(resolvedParams.category);
 
-    const [langData] = await Promise.all([
-      getTranslation(lang),
-    ]);
+    const langData = await getTranslation(lang);
     const mainData = await getMainFile(langData);
 
-    // ✅ گرفتن مقالات از Supabase
+    // ✅ این فچ عمداً همون‌جوری بلاک‌کننده و سینک باقی موند — چون
+    // CategoryHeader (تصویرش LCP هست) بهش نیاز داره. فقط برای ساخت
+    // schema/notFound/header استفاده می‌شه؛ دیگه به CategorySorted پاس
+    // داده نمی‌شه (اون خودش فچ مستقل خودش رو داره، پایین‌تر).
     const { data: articlesData } = await supabase
       .from("articles")
       .select("*")
@@ -185,6 +187,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           <BreadCrumb params={params} articleCat={catName} />
         </div>
 
+        {/* ✅ سینک و بلاک‌کننده مونده — تصویرش LCP element این صفحه‌ست */}
         <CategoryHeader
           data={{
             category: catName,
@@ -200,13 +203,19 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         />
 
         <div className="flex flex-col-reverse justify-center gap-7 lg:gap-5 lg:flex-row lg:justify-between items-start lg:items-center w-full px-5  mt-[-100px] lg:mt-0">
-
-
           <SearchComponent searchLevel="articles" params={resolvedParams} mainData={mainData} />
         </div>
 
+        {/* ✅ گرید مقالات — الان زیر Suspense خودش با فچ مستقل */}
         <div className="mt-10 lg:px-5">
-          <CategorySorted params={resolvedParams} category={catName} articles={categoryArticles} mainData={mainData} />
+          <Suspense fallback={<CategorySortedSkeleton />}>
+            <CategorySortedContent
+              categorySlug={categorySlug}
+              category={catName}
+              params={resolvedParams}
+              mainData={mainData}
+            />
+          </Suspense>
         </div>
 
       </section>

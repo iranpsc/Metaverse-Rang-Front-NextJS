@@ -7,9 +7,11 @@ import { getTranslation, getMainFile } from "@/components/utils/actions";
 import { supabase } from "@/utils/lib/supabaseClient";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
-
+import CategorySortedSkeleton from "@/components/skeleton/CategorySortedSkeleton";
+import NewsSubCategoryContent from "@/components/features/NewsSubCategoryContent"
 // ایمپورت دیتای استاتیک به عنوان fallback
 import fallbackNewsData from "@/components/utils/news.json";
+import { Suspense } from "react";
 
 interface NewsCategoryPageProps {
   params: Promise<{ lang: string; category: string; }>;
@@ -339,15 +341,15 @@ export default async function NewsCategoryPage({ params }: NewsCategoryPageProps
           />
         </div>
 
-        {/* 🔹 لیست اخبار */}
-        <div className="px-5">
-          <CategoryItemsGrid
-            params={resolvedParams}
-            category={category}
-            articles={newsData  as any}
-            mainData={mainData}
-          />
-        </div>
+
+        <Suspense fallback={<CategorySortedSkeleton />}>
+  <NewsSubCategoryContent
+    categorySlug={categorySlug}
+    category={category}
+    params={resolvedParams}
+    mainData={mainData}
+  />
+</Suspense>
       </section>
     );
   } catch (error) {
