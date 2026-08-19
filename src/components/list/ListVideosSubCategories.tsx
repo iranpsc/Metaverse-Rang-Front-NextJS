@@ -55,11 +55,7 @@ export default function ListVideos({ videos, params, subCategoryData, loadMore, 
                     src={item.image_url}
                     alt={"pic" + item.title}
                     fill
-                    sizes="
-    (max-width: 640px) 270px,
-    (max-width: 1024px) 48vw,
-    (max-width: 1536px) 31vw,
-    25vw
+                    sizes="(max-width: 640px) 270px, (max-width: 1024px) 48vw, (max-width: 1536px) 31vw, 25vw
   "
                     className="object-cover rounded-[8px] brightness-75 transition-all duration-150 ease-in-out"
                     style={{ backgroundColor: colors[index] }}
