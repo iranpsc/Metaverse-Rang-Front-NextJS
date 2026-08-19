@@ -26,7 +26,7 @@ export default function SubcategoryPageSection({
 
   const [hasMore, setHasMore] = useState<boolean>(
     (subCategoryData.videos?.length || 0) <
-      (subCategoryData.videos_count || 0)
+    (subCategoryData.videos_count || 0)
   );
 
   const [shows, setShows] = useState<boolean>(false);
@@ -174,13 +174,13 @@ export default function SubcategoryPageSection({
           {/* =========================================
               ONLY VIDEO CARDS LOADING
           ========================================= */}
-{showVideoSkeleton ? (
-  <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-10 w-full h-fit px-5 mt-5">
-    {Array.from({ length: 9 }).map((_, index) => (
-      <EducationCategoryCardSkeleton key={index} />
-    ))}
-  </div>
-) : (
+          {showVideoSkeleton ? (
+            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-10 w-full h-fit px-5 mt-5">
+              {Array.from({ length: 9 }).map((_, index) => (
+                <EducationCategoryCardSkeleton key={index} />
+              ))}
+            </div>
+          ) : (
             <ListVideos
               params={params}
               loadMore={handleLoadMore}
@@ -199,7 +199,7 @@ export default function SubcategoryPageSection({
               LOAD MORE
           ========================================= */}
           {!showVideoSkeleton &&
-          (visibleCount < videos.length || hasMore) ? (
+            (visibleCount < videos.length || hasMore) ? (
             <div className="w-full flex justify-center mt-[40px] relative">
 
               {!loading ? (
