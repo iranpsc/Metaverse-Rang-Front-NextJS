@@ -69,7 +69,7 @@ export default function SideBarContent({
   // تشخیص اینکه در بخش آموزش هستیم یا نه
   const isEducationSectionActive = pathName.startsWith(`/${params.lang}/education`);
   const isWhitePaperSectionActive =
-  pathName.startsWith(`/${params.lang}/whitepaper`);
+    pathName.startsWith(`/${params.lang}/whitepaper`);
   const isArticlesSectionActive = pathName.startsWith(`/${params.lang}/articles`);
   const isNewsSectionActive = pathName.startsWith(`/${params.lang}/news`); // اضافه شده برای اخبار
   const isCitizensSectionActive =
@@ -111,64 +111,164 @@ export default function SideBarContent({
     // const referralPath = `${citizenProfilePath}/referral`;
 
     const updatedMenu = finalTabsMenu.map((item) => {
-      // زبان هیچوقت اکتیو نشه
+      // زبان هیچوقت active نشود
       if (item.unique_id == 1414) {
-        return { ...item, active: false };
+        return {
+          ...item,
+          active: false,
+        };
       }
 
-      let urlThemp;
-      if (item.url == "referral") {
-        urlThemp = `/${params.lang}/citizens/${params.id}/referral`;
-        item.url = `/citizens/${params.id}/referral`;
-      } else if (item.unique_id == "1374") {
-        urlThemp = `/${params.lang}/citizens/${params.id}`;
-      } else if (item.unique_id == "149") {
+      let urlThemp = "";
+
+      // =====================================================
+      // HOME
+      // =====================================================
+      if (item.unique_id == "149") {
         urlThemp = `/${params.lang}`;
-      } else if (item.unique_id == 1458) {
+      }
+
+      // =====================================================
+      // CITIZEN PROFILE
+      // =====================================================
+else if (item.unique_id == "1374") {
+  if (params.id) {
+    urlThemp = `/${params.lang}/citizens/${params.id}`;
+  } else {
+    return {
+      ...item,
+      toShow: false,
+      active: false,
+    };
+  }
+}
+
+      // =====================================================
+      // REFERRAL
+      // unique_id = 1419
+      // فقط وقتی params.id وجود دارد
+      // =====================================================
+      else if (item.unique_id == "1419") {
+        if (params.id) {
+          urlThemp = `/${params.lang}/citizens/${params.id}/referral`;
+        } else {
+          // وقتی id نداریم، این آیتم نباید نمایش داده شود
+          return {
+            ...item,
+            toShow: false,
+            active: false,
+          };
+        }
+      }
+
+      // =====================================================
+      // VERSION
+      // =====================================================
+      else if (item.unique_id == 1458) {
         urlThemp = `/${params.lang}/version`;
-      } else {
+      }
+
+      // =====================================================
+      // EDUCATION
+      // =====================================================
+      else if (
+        item.unique_id == "1462" &&
+        pathName.startsWith(`/${params.lang}/education`)
+      ) {
+        urlThemp = `/${params.lang}/education`;
+      }
+
+      // =====================================================
+      // NEWS
+      // =====================================================
+      else if (
+        item.unique_id == "NEWS_UNIQUE_ID" &&
+        pathName.startsWith(`/${params.lang}/news`)
+      ) {
+        urlThemp = `/${params.lang}/news`;
+      }
+
+      // =====================================================
+      // سایر آیتم‌ها
+      // =====================================================
+      else {
         urlThemp = `/${params.lang}${item.url ? "/" + item.url : ""}`;
       }
 
       let isActive = false;
 
-      // --- صفحه اصلی ---
+      // =====================================================
+      // HOME ACTIVE
+      // =====================================================
       if (item.unique_id == "149") {
         isActive =
-          pathName === `/${params.lang}` || pathName === `/${params.lang}/`;
+          pathName === `/${params.lang}` ||
+          pathName === `/${params.lang}/`;
       }
-      // --- education و زیرمجموعه‌ها ---
+
+      // =====================================================
+      // EDUCATION ACTIVE
+      // =====================================================
       else if (
         item.unique_id == "1462" &&
         pathName.startsWith(`/${params.lang}/education`)
       ) {
         isActive = true;
       }
-      // --- news و زیرمجموعه‌ها ---
+
+      // =====================================================
+      // NEWS ACTIVE
+      // =====================================================
       else if (
-        item.unique_id == "NEWS_UNIQUE_ID" && // باید با unique_id واقعی جایگزین شود
+        item.unique_id == "NEWS_UNIQUE_ID" &&
         pathName.startsWith(`/${params.lang}/news`)
       ) {
         isActive = true;
       }
-      // --- version و زیرمجموعه‌ها ---
+
+      // =====================================================
+      // VERSION ACTIVE
+      // =====================================================
       else if (
         item.unique_id == 1458 &&
         pathName.startsWith(`/${params.lang}/version`)
       ) {
         isActive = true;
       }
-      // --- سایر صفحات (match دقیق) ---
+
+      // =====================================================
+      // REFERRAL ACTIVE
+      // =====================================================
+      else if (item.unique_id == "1419") {
+        isActive =
+          !!params.id &&
+          pathName ===
+          `/${params.lang}/citizens/${params.id}/referral`;
+      }
+
+
+      // =====================================================
+      // سایر صفحات
+      // =====================================================
       else if (urlThemp && pathName === urlThemp) {
         isActive = true;
       }
 
-      // --- referral ---
-      if (pathName === `/${params.lang}/citizens/${params.id}/referral`) {
-        isActive = item.unique_id == "1419";
-      }
+      return {
+        ...item,
+        active: isActive,
 
-      return { ...item, active: isActive };
+        // Referral وقتی id دارد، لینک صحیح بگیرد
+        ...(item.unique_id == "1419" && params.id
+          ? {
+            url: `/citizens/${params.id}/referral`,
+          }
+          : item.unique_id == "1374" && params.id
+            ? {
+              url: `/citizens/${params.id}`,
+            }
+            : {}),
+      };
     });
 
     // --- آیتم‌های استاتیک (خلاصه / کیف پول / ساختمان‌ها) دقیقا مثل رفرال ---
@@ -176,33 +276,33 @@ export default function SideBarContent({
     const staticCitizenItems = params.id
       ? [
         {
-            name: "wallet",
-            unique_id: "STATIC_WALLET",
-            url: `/citizens/${params.id}/wallet`,
-            translation: params.lang === "fa" ? "دارایی پول" : "property",
-            toShow: true,
-            order:-3,
-            active: pathName === `/${params.lang}/citizens/${params.id}/wallet`,
-          },
-          {
-            name: "summary",
-            unique_id: "STATIC_SUMMARY",
-            url: `/citizens/${params.id}/summary`,
-            translation: params.lang === "fa" ? "املاک و مستغلات" : "Real Estate",
-            toShow: true,
-            order: -3,
-            active: pathName === `/${params.lang}/citizens/${params.id}/summary`,
-          },
-          {
-            name: "buildings",
-            unique_id: "STATIC_BUILDINGS",
-            url: `/citizens/${params.id}/buildings`,
-            translation: params.lang === "fa" ? "املاک دارای بنا" : "Built Properties",
-            toShow: true,
-            order: -3,
-            active: pathName === `/${params.lang}/citizens/${params.id}/buildings`,
-          },
-        ]
+          name: "wallet",
+          unique_id: "STATIC_WALLET",
+          url: `/citizens/${params.id}/wallet`,
+          translation: params.lang === "fa" ? "دارایی ها" : "property",
+          toShow: true,
+          order: -3,
+          active: pathName === `/${params.lang}/citizens/${params.id}/wallet`,
+        },
+        {
+          name: "summary",
+          unique_id: "STATIC_SUMMARY",
+          url: `/citizens/${params.id}/summary`,
+          translation: params.lang === "fa" ? "املاک و مستغلات" : "Real Estate",
+          toShow: true,
+          order: -3,
+          active: pathName === `/${params.lang}/citizens/${params.id}/summary`,
+        },
+        {
+          name: "buildings",
+          unique_id: "STATIC_BUILDINGS",
+          url: `/citizens/${params.id}/buildings`,
+          translation: params.lang === "fa" ? "املاک دارای بنا" : "Built Properties",
+          toShow: true,
+          order: -3,
+          active: pathName === `/${params.lang}/citizens/${params.id}/buildings`,
+        },
+      ]
       : [];
 
     setMenuItems([...updatedMenu, ...staticCitizenItems]);
@@ -217,56 +317,96 @@ export default function SideBarContent({
   const handleItemClick = (e, url = null, item = null) => {
     e.stopPropagation();
 
-    // کلیک وسط → تب جدید
-    if (e.button === 1) {
-      if (!url && !item?.url) return;
+    let targetUrl = url || item?.url || "";
 
-      let targetUrl = url || item?.url || "";
+    // =====================================================
+    // REFERRAL
+    // =====================================================
+    if (item?.unique_id == "1419") {
+      if (!params.id) return;
 
-      if (targetUrl === "referral") targetUrl = `/citizens/${params.id}/referral`;
-      else if (item?.unique_id === "1374") targetUrl = `/citizens/${params.id}`;
-      else if (item?.unique_id === "149") targetUrl = "";
-      else if (item?.unique_id === 1458) targetUrl = "/version";
-      else if (item?.unique_id === "NEWS_UNIQUE_ID") targetUrl = "/news"; // اضافه شده برای اخبار
+      targetUrl = `/citizens/${params.id}/referral`;
+    }
+    else if (item?.unique_id == "1374") {
+      if (!params.id) return;
 
-      const fullUrl = targetUrl.startsWith("http")
+      targetUrl = `/citizens/${params.id}`;
+    }
+
+    // =====================================================
+    // CITIZEN PROFILE
+    // =====================================================
+
+    // =====================================================
+    // HOME
+    // =====================================================
+    else if (item?.unique_id == "149") {
+      targetUrl = "";
+    }
+
+    // =====================================================
+    // VERSION
+    // =====================================================
+    else if (item?.unique_id == 1458) {
+      targetUrl = "/version";
+    }
+
+    // =====================================================
+    // NEWS
+    // =====================================================
+    else if (item?.unique_id == "NEWS_UNIQUE_ID") {
+      targetUrl = "/news";
+    }
+
+    const fullUrl = targetUrl.startsWith("http")
+      ? targetUrl
+      : `/${params.lang}${targetUrl.startsWith("/")
         ? targetUrl
-        : `/${params.lang}${targetUrl.startsWith("/") ? targetUrl : "/" + targetUrl}`;
+        : "/" + targetUrl
+      }`;
+
+    // =====================================================
+    // MIDDLE CLICK
+    // =====================================================
+    if (e.button === 1) {
+      if (!targetUrl) return;
 
       window.open(fullUrl, "_blank");
       return;
     }
 
-    // کلیک چپ → ناوبری یا مودال
+    // =====================================================
+    // LEFT CLICK
+    // =====================================================
     if (e.button === 0) {
-      if (url !== null || item?.url !== undefined) {
-        let targetUrl = url || item?.url || "";
-
-        if (targetUrl === "referral") targetUrl = `/citizens/${params.id}/referral`;
-        else if (item?.unique_id === "1374") targetUrl = `/citizens/${params.id}`;
-        else if (item?.unique_id === "149") targetUrl = "";
-        else if (item?.unique_id === 1458) targetUrl = "/version";
-        else if (item?.unique_id === "NEWS_UNIQUE_ID") targetUrl = "/news"; // اضافه شده برای اخبار
-
-        const fullUrl = targetUrl.startsWith("http")
-          ? targetUrl
-          : `/${params.lang}${targetUrl.startsWith("/") ? targetUrl : "/" + targetUrl}`;
-
+      if (targetUrl !== null && targetUrl !== undefined) {
         if (targetUrl.startsWith("http")) {
           window.open(fullUrl, "_blank");
         } else {
           setLoading(true);
           router.push(fullUrl);
         }
-      } else {
-        // مودال
-        const itemId = e.currentTarget.dataset.id;
-        const modals = langData.code === "fa" ? Modals_fa : Modals_en;
-        const temp = modals.find((x) => x.id == itemId);
-        if (temp) {
-          setModalShow(true);
-          setModalData(temp);
-        }
+
+        return;
+      }
+
+      // =====================================================
+      // MODAL
+      // =====================================================
+      const itemId = e.currentTarget.dataset.id;
+
+      const modals =
+        langData.code === "fa"
+          ? Modals_fa
+          : Modals_en;
+
+      const temp = modals.find(
+        (x) => x.id == itemId
+      );
+
+      if (temp) {
+        setModalShow(true);
+        setModalData(temp);
       }
     }
   };
@@ -312,8 +452,15 @@ export default function SideBarContent({
                 >
                   <Link
                     onMouseDown={(e) => handleItemClick(e, item.url, item)}
-                    href={`/${params.lang}/${item.url}`}
-
+                    href={
+                      item.unique_id == "1419"
+                        ? `/${params.lang}/citizens/${params.id}/referral`
+                        : item.unique_id == "1374"
+                          ? `/${params.lang}/citizens/${params.id}`
+                          : item.unique_id == "1374"
+                            ? `/${params.lang}/citizens/${params.id}`
+                            : `/${params.lang}/${item.url}`
+                    }
                     className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px] cursor-pointer menu-transition
                       ${item.active ? "text-primary " : "matn-2-700 dark:tmatn-2-300"}
                       group-hover:text-primary dark:group-hover:text-primary
@@ -421,7 +568,7 @@ export default function SideBarContent({
                 </div>
               </li>
             )}
-                        {item.unique_id == 1462  && (
+            {item.unique_id == 1462 && (
               <li style={{ order: "-2" }}>
                 <Tooltip
                   title={sidebarLabels?.whitePaper}
@@ -439,13 +586,13 @@ export default function SideBarContent({
                      ${isWhitePaperSectionActive ? "text-primary " : "matn-2-700 dark:tmatn-2-300"}
                       group-hover:text-primary dark:group-hover:text-primary
                       ${isClosed ? "justify-start gap-0" : "justify-start gap-2"}`}>
-                      <ListMenuActiveIconModule item={{ active: isWhitePaperSectionActive  }} languageSelected={langData.code} isClosed={isClosed} />
+                      <ListMenuActiveIconModule item={{ active: isWhitePaperSectionActive }} languageSelected={langData.code} isClosed={isClosed} />
                       <span className="ps-[15px]">
-                        <ListMenuSvgModule item={{name:"docs", active: isWhitePaperSectionActive  }} />
+                        <ListMenuSvgModule item={{ name: "docs", active: isWhitePaperSectionActive }} />
                       </span>
                       <div className="w-full flex justify-between items-center">
                         <ListMenuTitleModule
-                          item={{ translation:sidebarLabels?.whitePaper, active: isWhitePaperSectionActive  }}
+                          item={{ translation: sidebarLabels?.whitePaper, active: isWhitePaperSectionActive }}
                           isClosed={isClosed}
                         />
                         <ListMenuArrow item={{ name: "trainings" }} isOpen={whitePaperDropDown} isClosed={isClosed} />
@@ -468,14 +615,14 @@ export default function SideBarContent({
                         <ListMenuSvgModule
                           item={{
                             name: "whitepaper",
-                            active: isWhitePaperSectionActive 
+                            active: isWhitePaperSectionActive
                           }}
                         />
                       </span>
                       <ListMenuTitleModule
                         item={{
-                          translation:  sidebarLabels?.whitePaperChild,
-                          active: isWhitePaperSectionActive 
+                          translation: sidebarLabels?.whitePaperChild,
+                          active: isWhitePaperSectionActive
                         }}
                         isClosed={isClosed}
                       />
