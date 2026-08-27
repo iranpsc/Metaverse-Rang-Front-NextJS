@@ -17,19 +17,32 @@ type Citizen = {
 type TopCitizenClientProps = {
   mainData: any;
   params: { lang: string };
+  initialCitizens?: Citizen[];
 };
 
 // تعداد کارت‌های اسکلت در حالت لودینگ — با تعداد آیتم واقعی (5) یکی است
 const SKELETON_COUNT = 5;
 
-const TopCitizenClient = ({ mainData, params }: TopCitizenClientProps) => {
-  const [citizens, setCitizens] = useState<Citizen[]>([]);
-  const [loading, setLoading] = useState(true); // برای لودینگ اولیه
+const TopCitizenClient = ({
+  mainData,
+  params,
+  initialCitizens,
+}: TopCitizenClientProps) => {
+  const [citizens, setCitizens] = useState<Citizen[]>(
+    initialCitizens ?? []
+  );
+  const [loading, setLoading] = useState(!initialCitizens?.length);
   const [error, setError] = useState<string | null>(null);
   const [activeBtnId, setActiveBtnId] = useState<string | null>(null);
-  const [linkLoading, setLinkLoading] = useState(false); // فقط برای کلیک "مشاهده همه"
+  const [linkLoading, setLinkLoading] = useState(false);
 
   useEffect(() => {
+    if (initialCitizens?.length) {
+      setCitizens(initialCitizens);
+      setLoading(false);
+      return;
+    }
+
     let isMounted = true;
 
     const fetchCitizens = async () => {
@@ -57,7 +70,7 @@ const TopCitizenClient = ({ mainData, params }: TopCitizenClientProps) => {
     return () => {
       isMounted = false;
     };
-  }, []); // فقط یک بار موقع مونت
+  }, [initialCitizens]);
 
   // اگر در حال لود اولیه هست → اسکلت هم‌شکل با چیدمان واقعی
   // (به‌جای اورلی تمام‌صفحه قبلی، چون اون باعث CLS/پرش محتوا و تجربه بد در

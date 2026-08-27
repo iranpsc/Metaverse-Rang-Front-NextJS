@@ -6,9 +6,8 @@ import Link from "next/link";
 import { supabase } from "@/utils/lib/supabaseClient";
 import { Calender, Timer } from "@/components/svgs/SvgEducation";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import { loadNewsFallback } from "@/components/utils/loadNewsFallback";
 
-// ایمپورت دیتای استاتیک به عنوان fallback
-import fallbackNewsData from "@/components/utils/news.json";
 
 interface VideoItem {
   id: string | number;
@@ -61,7 +60,7 @@ export default function VideoNewsInlinePlayer({
         }
         
         // استفاده از دیتای fallback و فیلتر کردن خبرهایی که ویدئو دارند
-        const fallbackData = fallbackNewsData
+        const fallbackData = (await loadNewsFallback())
           .filter((item: any) => item.video && item.video !== "" && item.video !== null)
           .map((item: any) => ({
             id: item.id,

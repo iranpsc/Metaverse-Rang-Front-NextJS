@@ -111,6 +111,7 @@ const NewsSideCard: React.FC<NewsSideCardProps> = ({
                         unoptimized={true}
                         width={300}
                         height={144}
+                        sizes="(max-width: 1024px) 100vw, 300px"
                         className="w-full h-full object-cover object-center"
                     />
                 </div>

@@ -15,6 +15,7 @@ interface VersionItem {
 interface VersionSectionProps {
   firstPageArrayContent?: { name: string; translation: string }[];
   params: any;
+  initialVersions?: VersionItem[];
 }
 
 /**
@@ -58,12 +59,22 @@ function VersionContentSkeleton() {
   );
 }
 
-const VersionSection = ({ firstPageArrayContent = [] }: VersionSectionProps) => {
-  const [allVersionList, setAllVersionList] = useState<VersionItem[]>([]);
-  const [activeTabId, setActiveTabId] = useState<number | null>(null);
-  const [singleData, setSingleData] = useState<VersionItem | null>(null);
+const VersionSection = ({
+  firstPageArrayContent = [],
+  initialVersions,
+}: VersionSectionProps) => {
+  const seeded = initialVersions?.length
+    ? initialVersions
+    : [];
+  const [allVersionList, setAllVersionList] = useState<VersionItem[]>(seeded);
+  const [activeTabId, setActiveTabId] = useState<number | null>(
+    seeded[0]?.id ?? null
+  );
+  const [singleData, setSingleData] = useState<VersionItem | null>(
+    seeded[0] ?? null
+  );
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(true); // قبلاً اصلاً وجود نداشت
+  const [loading, setLoading] = useState<boolean>(!seeded.length);
 
   // پیدا کردن ترجمه متن‌ها
   function localFind(_name: string) {
@@ -76,13 +87,21 @@ const VersionSection = ({ firstPageArrayContent = [] }: VersionSectionProps) => 
   };
 
   useEffect(() => {
+    if (initialVersions?.length) {
+      setAllVersionList(initialVersions);
+      setActiveTabId(initialVersions[0].id);
+      setSingleData(initialVersions[0]);
+      setLoading(false);
+      return;
+    }
+
     let cancelled = false;
 
     const fetchVersions = async () => {
       try {
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar?type=version`,
-          { method: "GET", cache: "no-store" }
+          { method: "GET" }
         );
 
         const data = await response.json();
@@ -138,7 +157,7 @@ const VersionSection = ({ firstPageArrayContent = [] }: VersionSectionProps) => 
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [initialVersions]);
 
   // تغییر تب و لود داده مربوط به آن
   const handleTabClick = (id: number) => {

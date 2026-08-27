@@ -64,6 +64,7 @@ const NewsImage: React.FC<NewsImageProps> = ({ news, params, mainData }) => {
             alt={news.title}
             unoptimized={true}
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 70vw, 900px"
             className="object-cover"
           />
         </div>
@@ -83,6 +84,7 @@ const NewsImage: React.FC<NewsImageProps> = ({ news, params, mainData }) => {
               alt={news.title}
               unoptimized={true}
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1280px) 70vw, 900px"
               className="object-cover"
             />
             

@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
+import dynamic from "next/dynamic";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import MapComponent, { MapMarkerItem } from "./Map";
 import {
   KarbariOption,
   resolveIconKey,
@@ -11,6 +11,16 @@ import {
   buildFeatureLink,
   getKarbariLabel,
 } from "./featuresShared";
+import type { MapMarkerItem } from "./Map";
+
+const MapComponent = dynamic(() => import("./Map"), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-[420px] flex items-center justify-center text-matn-2 rounded-[20px] bg-white dark:bg-gray-1">
+      &nbsp;
+    </div>
+  ),
+});
 
 /* ------------------------------------------------------------------ */
 /*                                TYPES                                */

@@ -1,32 +1,57 @@
 import { Frame1, Frame2 } from "@/components/svgs";
 import React, { Suspense } from 'react';
-import { headers } from 'next/headers';
 import { Metadata } from 'next';
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
+import dynamic from "next/dynamic";
 
-// Lazy load components
-const HeaderFirstPage = React.lazy(() => import('@/components/templates/firstpage/HeaderFirstPage'));
-const SectionTimer = React.lazy(() => import('@/components/templates/firstpage/SectionTimer'));
-const SectionTeam = React.lazy(() => import('@/components/templates/firstpage/TeamSection'));
 import TopCitizen from '@/components/templates/firstpage/TopCitizenClient';
-const LastNews = React.lazy(() => import('@/components/templates/firstpage/LastNews'));
-const FristPageVideo = React.lazy(() => import('@/components/templates/firstpage/FristPageVideo'));
-import TopTrainersFirstPage, { getTopTrainerUsers } from "@/components/templates/firstpage/TopTrainersFirstPage";
-const EducationFirstPage = React.lazy(() => import('@/components/templates/firstpage/EducationFirstPage'));
-const DetailsEducationSection = React.lazy(() => import('@/components/templates/firstpage/DetailsEducationSection'));
-const VersionSection = React.lazy(() => import('@/components/templates/firstpage/VersionSection'));
+import TopTrainersFirstPage from "@/components/templates/firstpage/TopTrainersFirstPage";
 import TopTrainersSkeleton from "@/components/skeleton/TopTrainersSkeleton";
 import LastContent from '@/components/templates/firstpage/LastContent.client';
 import {
   getTranslation,
   getMainFile,
-  // findByModalName,
-  // findByTabName,
-  // getAllVersions
 } from "@/components/utils/actions";
-import Head from 'next/head';
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import {
+  getHomeCitizens,
+  getHomeNews,
+  getHomeTutorials,
+  getHomeVersions,
+} from "@/components/templates/firstpage/homeData";
+
+const HeaderFirstPage = dynamic(
+  () => import('@/components/templates/firstpage/HeaderFirstPage')
+);
+const SectionTimer = dynamic(
+  () => import('@/components/templates/firstpage/SectionTimer')
+);
+const SectionTeam = dynamic(
+  () => import('@/components/templates/firstpage/TeamSection')
+);
+const LastNews = dynamic(
+  () => import('@/components/templates/firstpage/LastNews')
+);
+const FristPageVideo = dynamic(
+  () => import('@/components/templates/firstpage/FristPageVideo')
+);
+const EducationFirstPage = dynamic(
+  () => import('@/components/templates/firstpage/EducationFirstPage')
+);
+const DetailsEducationSection = dynamic(
+  () => import('@/components/templates/firstpage/DetailsEducationSection')
+);
+const VersionSection = dynamic(
+  () => import('@/components/templates/firstpage/VersionSection')
+);
+
+const DESKTOP_POSTER = "/firstpage/Untitled-1.webp";
+const MOBILE_POSTER = "/firstpage/metaverse-rang-mobile-app.webp";
+const DESKTOP_VIDEO =
+  "https://s3.metarang.com/metarang/firstpage/metaverse-rang.mp4";
+const MOBILE_VIDEO =
+  "https://s3.metarang.com/metarang/firstpage/mob2.mp4";
 
 // SEO
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
@@ -38,7 +63,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
 
     const title = findByUniqueId(mainData, 1457) || (lang === 'fa' ? "متاورس رنگ - پلتفرم واقعیت افزوده و متاورس ایرانی" : "Metaverse Rang - Iranian AR/VR & Metaverse Platform");
     const descriptionRaw = findByUniqueId(mainData, 482) || "";
-    const description = descriptionRaw.slice(0, 160); // متا دیسکریپشن بهتر زیر ۱۶۰ کاراکتر
+    const description = descriptionRaw.slice(0, 160);
 
     const canonical = `https://metarang.com/${lang}`;
 
@@ -51,7 +76,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
         languages: {
           'fa-IR': 'https://metarang.com/fa',
           'en-US': 'https://metarang.com/en',
-          'x-default': 'https://metarang.com/fa', // fa به عنوان پیش‌فرض
+          'x-default': 'https://metarang.com/fa',
         },
       },
       openGraph: {
@@ -61,7 +86,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
         siteName: lang === 'fa' ? "متاورس رنگ" : "Metaverse Rang",
         images: [
           {
-            url: "/logo.png", // یا همان teams.jpg قبلی - بهتر است لوگو ۱۲۰۰×۶۳۰ باشد
+            url: "/logo.png",
             width: 1200,
             height: 630,
             alt: title,
@@ -87,8 +112,6 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
           'max-snippet': -1,
         },
       },
-      // keywords اگر دارید اضافه کنید (اختیاری)
-      // keywords: ['متاورس', 'واقعیت افزوده', 'ایران', 'metaverse', 'AR', 'VR'],
     };
   } catch (error) {
     console.error("Metadata error:", error);
@@ -105,19 +128,17 @@ interface LangPageProps {
 export default async function LangPage({ params }: LangPageProps) {
   const resolvedParams = await params;
   const { lang } = await params;
-  // console.log("Current resolved lang in page:", lang);
   try {
-    const headersList = await headers();
-    const users = await getTopTrainerUsers();
-
-    const userAgent = headersList.get('user-agent');
-    const isMobile = /mobile|android|iphone|ipad|phone/i.test(userAgent ?? '');
-
     const langData = await getTranslation(lang);
     const mainData = await getMainFile(langData);
-    // const centralPageModal = await findByModalName(mainData, "central-page");
 
-
+    const [homeCitizens, homeVideos, homeNews, homeVersions] =
+      await Promise.all([
+        getHomeCitizens(),
+        getHomeTutorials(),
+        getHomeNews(10),
+        getHomeVersions(),
+      ]);
 
     async function makeLessCharacter() {
       let temp = findByUniqueId(mainData, 482);
@@ -147,10 +168,6 @@ export default async function LangPage({ params }: LangPageProps) {
 
     return (
       <>
-        <Head>
-          <link rel="preload" href="/firstpage/Untitled-1.webp" as="image" />
-          <link rel="preload" href="/firstpage/metaverse-rang.mp4" as="video" type="video/mp4" />
-        </Head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(landingSchema) }}
@@ -158,34 +175,30 @@ export default async function LangPage({ params }: LangPageProps) {
         <CleanAutoRetryParam />
         <section className=" relative  mt-[60px] lg:mt-0 lg:pt-0 bg-bg-primary ">
           <section className="flex flex-col h-fit tall0:min-h-[600px] min-h-[calc(100vh-60px)] lg:h-screen relative">
-            {!isMobile && (
-              <video
-                poster="/firstpage/Untitled-1.webp"
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="hidden lg:block absolute w-full h-full ltr:rotate-y-180 object-fill  sm:object-left"
-              >
-                <source src="/firstpage/Untitled-1.webp" type="video/webm" />
-                <source src="Https://s3.metarang.com/metarang/firstpage/metaverse-rang.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            )}
-            {isMobile && (
-              <video
-                poster="/firstpage/metaverse-rang-mobile-app.webp"
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="block lg:hidden absolute w-full h-full object-fill"
-              >
-                <source src="/firstpage/metaverse-rang-mobile-app.webp" type="video/webm" />
-                <source src="Https://s3.metarang.com/metarang/firstpage/mob2.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            )}
+            {/* Desktop hero — CSS-gated so we never call headers() (keeps route cacheable). */}
+            <video
+              poster={DESKTOP_POSTER}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              className="hidden lg:block absolute w-full h-full ltr:rotate-y-180 object-fill sm:object-left"
+            >
+              <source src={DESKTOP_VIDEO} type="video/mp4" />
+            </video>
+            {/* Mobile hero */}
+            <video
+              poster={MOBILE_POSTER}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="none"
+              className="block lg:hidden absolute w-full h-full object-fill"
+            >
+              <source src={MOBILE_VIDEO} type="video/mp4" />
+            </video>
             <div className="w-full h-full flex flex-col-reverse lg:flex-row px-5 lg:ps-[32px] lg:pe-0 z-[1]">
               <Suspense fallback={<div>Loading Header...</div>}>
                 <HeaderFirstPage mainData={mainData} params={resolvedParams} />
@@ -242,28 +255,27 @@ export default async function LangPage({ params }: LangPageProps) {
           </div>
           <section className="w-full relative flex no-scrollbar flex-col justify-start overflow-x-clip overflow-y-auto items-center xl:px-8 lg:px-8 md:px-5 sm:px-5 xs:px-1">
             <div className="w-full relative lg:h-[350px] 2xl:h-[400px] mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
-
               <SectionTimer params={resolvedParams} />
-
             </div>
             <div className="relative w-full h-fit flex mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
-
               <SectionTeam mainData={mainData} params={resolvedParams} />
-
             </div>
             <div className="w-[90%] md:w-full h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
-
-              <TopCitizen params={resolvedParams} mainData={mainData} />
-
+              <TopCitizen
+                params={resolvedParams}
+                mainData={mainData}
+                initialCitizens={homeCitizens}
+              />
             </div>
             <div className="w-[90%] h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
-
-              <LastNews mainData={mainData} params={resolvedParams} />
-
+              <LastNews
+                mainData={mainData}
+                params={resolvedParams}
+                initialNews={homeNews}
+              />
             </div>
             <div className="relative w-[90%] h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px] flex items-center justify-center">
               <Suspense fallback={<div>Loading Header...</div>}>
-                {/* <Section3D params={params} /> */}
                 <FristPageVideo params={resolvedParams} />
               </Suspense>
             </div>
@@ -274,7 +286,11 @@ export default async function LangPage({ params }: LangPageProps) {
             </div>
             <div className="w-[90%] h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
               <Suspense fallback={<div>Loading Header...</div>}>
-                <EducationFirstPage params={resolvedParams} mainData={mainData} />
+                <EducationFirstPage
+                  params={resolvedParams}
+                  mainData={mainData}
+                  initialVideos={homeVideos}
+                />
               </Suspense>
             </div>
             <div className="w-[90%] h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
@@ -288,12 +304,14 @@ export default async function LangPage({ params }: LangPageProps) {
               </Suspense>
             </div>
             <div className="w-[90%] relative h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
-             
-                <p className="font-azarMehr font-medium text-[16px] md:text-[20px] lg:text-[28px] xl:text-[32px] dark:text-white ">{findByUniqueId(mainData, 501)}</p>
-                <VersionSection params={resolvedParams} />
-
+              <p className="font-azarMehr font-medium text-[16px] md:text-[20px] lg:text-[28px] xl:text-[32px] dark:text-white ">
+                {findByUniqueId(mainData, 501)}
+              </p>
+              <VersionSection
+                params={resolvedParams}
+                initialVersions={homeVersions}
+              />
             </div>
-
           </section>
         </section>
       </>

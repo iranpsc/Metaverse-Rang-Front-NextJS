@@ -1,6 +1,6 @@
 "use client";
 
-import Tooltip from "@mui/material/Tooltip";
+import Tooltip from "./SidebarTooltip";
 import ListMenuSvgModule from "./list/ListMenuSvgModule";
 import ListMenuTitleModule from "./list/ListMenuTitleModule";
 import ListMenuArrow from "./list/ListMenuArrow";
@@ -121,32 +121,8 @@ export default function SideBarContent({
               {item.menuItem === true && (
                 <li onMouseDown={(e) => handleItemMouseDown(e, item)}>
                   <Tooltip
-
-                    arrow
-                    placement={
-                      langData.direction === "rtl" ? "left-end" : "right-end"
-                    }
-                    slotProps={{
-                      tooltip: {
-                        className: `
-                        !bg-[#E9E9E9] !text-[#908F95] dark:!bg-[#434343] !font-azarMehr !font-medium  dark:!text-white !text-[14px] 
-                        ${isClosed ? "block" : "hidden"}
-                      `,
-                      },
-                      arrow: {
-                        className: `
-                    !text-[#E9E9E9] dark:!text-[#434343] mt-[-7px]
-                  `,
-                      },
-                    }}
-                    PopperProps={{
-                      modifiers: [
-                        {
-                          name: "offset",
-                          options: { offset: [-20, 0] },
-                        },
-                      ],
-                    }}
+                    title={item.translation || ""}
+                    enabled={isClosed}
                   >
                     {item.route_name && item.route_name !== "language" ? (
                       <div className="px-2 flex cursor-pointer flex-col items-center box-border menu-transition">

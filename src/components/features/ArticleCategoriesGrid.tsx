@@ -89,6 +89,7 @@ export default function CategoriesGrid({ params, mainData }: CategoriesGridProps
                   src={imgSrcs[catObj.name] || "/default.png"}
                   alt={catObj.name}
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
                   className="object-cover group-hover:scale-110 transition-transform duration-500"
                   priority={index === 0}
                   fetchPriority={index === 0 ? "high" : "auto"}

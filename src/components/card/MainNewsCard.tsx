@@ -59,7 +59,7 @@ export default function ArticleCard({ item, params, theme, activeLoadingId, setA
             unoptimized={true}
             priority
             quality={70}
-            sizes="(max-width: 640px) 320px, (max-width: 1024px) 473px,"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 473px"
             className="w-[100%] h-full object-cover rounded-[10px]"
             onLoadingComplete={() => setImgLoading(false)}
           />

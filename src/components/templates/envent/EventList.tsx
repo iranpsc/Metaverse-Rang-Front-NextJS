@@ -15,6 +15,7 @@ import {
   EventItem,
 } from "@/utils/mapEvents";
 import Link from "next/link";
+import Image from "next/image";
 
 // تابع برای پارس تاریخ جلالی
 function parseJalaliDatetime(jalaliStr: string): Date {
@@ -600,18 +601,19 @@ const EventList: React.FC<CalendarFilterProps> = ({
             {/* تصویر ایونت */}
             <div className="mt-4 w-[97%] flex justify-center lg:w-[95%] mx-auto rounded-[20px] overflow-hidden shadow-lg lg:mt-6">
               <Link onClickCapture={() => setLinkLoading(true)} href={`/${params.lang}/calendar/${event.id}`}>
-                <img
-                  className="w-full"
+                <Image
+                  className="w-full h-auto"
                   src={
                     event.image && event.image !== "image"
                       ? event.image
                       : "/rafiki-dark.png"
                   }
                   alt={event.title || "event image"}
+                  width={960}
+                  height={540}
+                  sizes="(max-width: 1024px) 97vw, 60vw"
                   loading="lazy"
-                  onError={(e) => {
-                    (e.currentTarget as HTMLImageElement).src = "/rafiki-dark.png";
-                  }}
+                  unoptimized
                 />
               </Link>
             </div>

@@ -1,27 +1,38 @@
 "use client";
 
 import React from "react";
-import Footer from "./Footer"; // کامپوننت اصلی Footer
+import Footer from "./Footer";
 import { usePathname } from "next/navigation";
+import type { FooterSection } from "@/components/utils/buildShellTranslations";
 
 interface FooterClientProps {
-  mainData: any;
+  footerSections: FooterSection[];
+  brandLabel: string;
   params: any;
 }
 
-const FooterClient: React.FC<FooterClientProps> = ({ mainData, params }) => {
-  const pathname = usePathname(); // مسیر فعل
+const FooterClient: React.FC<FooterClientProps> = ({
+  footerSections,
+  brandLabel,
+  params,
+}) => {
+  const pathname = usePathname();
 
-  // مسیرهایی که Footer نباید نمایش داده شود
-const hiddenPaths = [
-  /^\/[^/]+\/citizens\/hm-[A-Za-z0-9_-]+(?:\/.*)?$/,
-  /^\/[^/]+\/levels(?:\/.*)?$/,
-];
-// console.log(pathname);
+  const hiddenPaths = [
+    /^\/[^/]+\/citizens\/hm-[A-Za-z0-9_-]+(?:\/.*)?$/,
+    /^\/[^/]+\/levels(?:\/.*)?$/,
+  ];
+
   const isHidden = hiddenPaths.some((regex) => regex.test(pathname));
 
   if (isHidden) return null;
-  return <Footer mainData={mainData} params={params} />;
+  return (
+    <Footer
+      footerSections={footerSections}
+      brandLabel={brandLabel}
+      params={params}
+    />
+  );
 };
 
 export default FooterClient;

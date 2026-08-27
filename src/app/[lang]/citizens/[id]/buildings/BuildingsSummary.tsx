@@ -2,11 +2,20 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
+import dynamic from "next/dynamic";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import BuildingIcon from "./BuildingIcon";
-import BuildingsChart from "./BuildingsChart";
 import BuildingsList from "./BuildingsList";
 import { Period, PERIOD_OPTIONS, KarbariOption, styleForKarbari } from "./buildingsShared";
+
+const BuildingsChart = dynamic(() => import("./BuildingsChart"), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-[420px] flex items-center justify-center text-matn-2">
+      &nbsp;
+    </div>
+  ),
+});
 
 /* ------------------------------------------------------------------ */
 /*                                TYPES                                */

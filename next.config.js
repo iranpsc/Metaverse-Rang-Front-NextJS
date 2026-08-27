@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
-  productionBrowserSourceMaps: true,
+  productionBrowserSourceMaps: false,
 
   output: "standalone",
 
@@ -34,6 +34,15 @@ const nextConfig = {
 
   async headers() {
     return [
+      {
+        source: "/data/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=86400, stale-while-revalidate=604800",
+          },
+        ],
+      },
       {
         source: "/lang/:path*",
         headers: [
@@ -117,16 +126,20 @@ const nextConfig = {
   },
 };
 
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
+
 const { withSentryConfig } = require("@sentry/nextjs");
 
-module.exports = withSentryConfig(nextConfig, {
+module.exports = withSentryConfig(withBundleAnalyzer(nextConfig), {
   org: "sentry",
   project: "metaverse-rang-front-nextjs",
   sentryUrl: "https://sentry.irpsc.com/",
 
   silent: !process.env.CI,
 
-  widenClientFileUpload: true,
+  widenClientFileUpload: false,
 
   webpack: {
     automaticVercelMonitors: true,

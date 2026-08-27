@@ -1,13 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import Image from "next/image";
 import ClipSection from "../ClipContainer";
 import { useEffect, useState } from "react";
+import type {
+  FooterSection,
+} from "@/components/utils/buildShellTranslations";
+
 interface FooterProps {
   params: { lang: string };
-  mainData: any;
+  footerSections: FooterSection[];
+  brandLabel: string;
 }
 
 interface FooterLink {
@@ -17,81 +21,27 @@ interface FooterLink {
   disabled?: boolean;
 }
 
-export default function Footer2({ params, mainData }: FooterProps) {
-      const [isMobile, setIsMobile] = useState(false);
+export default function Footer2({
+  params,
+  footerSections,
+  brandLabel,
+}: FooterProps) {
+  const [isMobile, setIsMobile] = useState(false);
 
-    useEffect(() => {
-        const media = window.matchMedia("(max-width: 1023px)");
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 1023px)");
 
-        const update = () => setIsMobile(media.matches);
+    const update = () => setIsMobile(media.matches);
 
-        update();
+    update();
 
-        media.addEventListener("change", update);
+    media.addEventListener("change", update);
 
-        return () => media.removeEventListener("change", update);
-    }, []);
+    return () => media.removeEventListener("change", update);
+  }, []);
   const isRTL = params.lang === "fa";
-  const footerLinks: { title: string; links: FooterLink[] }[] = [
-    {
-      title: findByUniqueId(mainData, 1737),
-      links: [
-        { label: findByUniqueId(mainData, 303), href: `/${params.lang}/` },
-        { label: findByUniqueId(mainData, 259), href: `/${params.lang}/about/` },
-        {
-          label: findByUniqueId(mainData, 1738),
-          href: "https://github.com/iranpsc",
-          targetBlank: true,
-        },
-        { label: findByUniqueId(mainData, 1739), href: `/${params.lang}/citizens` },
-        {
-          label: findByUniqueId(mainData, 1740),
-          href: `/${params.lang}/version`
-        },
-      ],
-    },
-    {
-      title: findByUniqueId(mainData, 1741),
-      links: [
-        { label: findByUniqueId(mainData, 1742), href: "/build", disabled: true, },
-        { label: findByUniqueId(mainData, 1743), href: `/${params.lang}/whitepaper` },
-        {
-          label: findByUniqueId(mainData, 1744),
-          href: "/sdk",
-          disabled: true,
-        },
-        { label: findByUniqueId(mainData, 1490), href: `/${params.lang}/rand-id/hm` },
-      ],
-    },
-    {
-      title: findByUniqueId(mainData, 1745),
-      links: [
-        { label: findByUniqueId(mainData, 1746), href: `/${params.lang}/articles` },
-        { label: findByUniqueId(mainData, 1462), href: `/${params.lang}/education` },
-        {
-          label: findByUniqueId(mainData, 1747),
-          href: "http://faqhub.ir/",
-          targetBlank: true,
-        },
-                {
-          label: findByUniqueId(mainData,1779 ),
-          href: `${process.env.NEXT_PUBLIC_API_BASE_URL}`,
-          targetBlank: true,
-        },
-        { label: findByUniqueId(mainData, 1748), href: `/${params.lang}/calendar` },
-      ],
-    },
-    {
-      title: findByUniqueId(mainData, 1749),
-      links: [
-        { label: findByUniqueId(mainData, 279), href: "https://www.instagram.com/metaverse_rang" },
-        { label: findByUniqueId(mainData, 280), href: "https://www.linkedin.com/company/metaverse-rang/" },
-        { label: findByUniqueId(mainData, 281), href: "https://youtube.com/@metargb?si=gdM0aFPk5SCsC7z4" },
-        { label: findByUniqueId(mainData, 1753), href: "https://substack.com/@metarang" },
-        { label: findByUniqueId(mainData, 1754), href: "https://medium.com/@metarang.iran" },
-      ],
-    },
-  ];
+  const footerLinks: { title: string; links: FooterLink[] }[] =
+    footerSections ?? [];
 
   return (
 
@@ -227,16 +177,16 @@ export default function Footer2({ params, mainData }: FooterProps) {
             <div className={`marquee ${isRTL ? "rtl" : "ltr"}`}>
               <div className="track">
                 <div className="group">
-                  <span className="text-neutral-900 dark:text-white text-[180px] lg:text-[400px]">{findByUniqueId(mainData, 148)}</span>
+                  <span className="text-neutral-900 dark:text-white text-[180px] lg:text-[400px]">{brandLabel}</span>
                 </div>
                 <div className="group">
-                  <span className="text-neutral-900 dark:text-white text-[180px] lg:text-[400px]">{findByUniqueId(mainData, 148)}</span>
+                  <span className="text-neutral-900 dark:text-white text-[180px] lg:text-[400px]">{brandLabel}</span>
                 </div>
                 <div className="group">
-                  <span className="text-neutral-900 dark:text-white text-[180px] lg:text-[400px]">{findByUniqueId(mainData, 148)}</span>
+                  <span className="text-neutral-900 dark:text-white text-[180px] lg:text-[400px]">{brandLabel}</span>
                 </div>
                 <div className="group">
-                  <span className="text-neutral-900 dark:text-white text-[180px] lg:text-[400px]">{findByUniqueId(mainData, 148)}</span>
+                  <span className="text-neutral-900 dark:text-white text-[180px] lg:text-[400px]">{brandLabel}</span>
                 </div>
               </div>
             </div>

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Image from "next/image";
 import BuildingIcon from "./BuildingIcon";
 import { styleForKarbari } from "./buildingsShared";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
@@ -150,13 +151,13 @@ function BuildingCard({
     >
       {/* IMAGE */}
       <div className="relative h-[250px] w-full overflow-hidden p-3 rounded-[10px]">
-        <img
+        <Image
           src={imageUrl}
           alt={label || item.code || "Building"}
-          className="h-full w-full object-cover rounded-[10px]"
-          onError={(e) => {
-            e.currentTarget.src = PLACEHOLDER_IMAGE;
-          }}
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          className="object-cover rounded-[10px]"
+          unoptimized
         />
 
         {/* KARBARI BADGE */}

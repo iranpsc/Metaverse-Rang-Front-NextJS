@@ -1,79 +1,50 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
+import React, { useMemo, useRef, useState } from "react";
+import dynamic from "next/dynamic";
 import type { Swiper as SwiperType } from "swiper";
+import { SwiperSlide } from "swiper/react";
 import "swiper/css";
 import Link from "next/link";
 import { ArrowRight } from "@/components/svgs";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import ArticleCard from "../card/ArticleCard";
-import { supabase } from "@/utils/lib/supabaseClient";
+
+const Swiper = dynamic(async () => (await import("swiper/react")).Swiper, {
+  ssr: false,
+});
 
 interface RelatedArticlesSliderProps {
   params: { lang: string; slug: string };
   mainData: any;
+  /** Prefer server-provided related list to avoid client waterfalls. */
+  initialArticles?: any[];
 }
 
-const RelatedArticlesSlider = ({ params, mainData }: RelatedArticlesSliderProps) => {
-  const [relatedArticles, setRelatedArticles] = useState<any[]>([]);
-  const [currentArticle, setCurrentArticle] = useState<any | null>(null);
+const RelatedArticlesSlider = ({
+  params,
+  mainData,
+  initialArticles = [],
+}: RelatedArticlesSliderProps) => {
+  const relatedArticles = useMemo(
+    () =>
+      (initialArticles || [])
+        .filter((a) => a?.slug !== params.slug)
+        .slice(0, 10),
+    [initialArticles, params.slug]
+  );
   const [activeIndex, setActiveIndex] = useState(0);
   const [activeLoadingId, setActiveLoadingId] = useState<string | null>(null);
   const swiperRef = useRef<SwiperType | null>(null);
 
-  // === 1) دریافت مقاله فعلی با slug ===
-  useEffect(() => {
-    const fetchCurrent = async () => {
-      const { data, error } = await supabase
-        .from("articles")
-        .select("*")
-        .eq("slug", params.slug)
-        .single();
-
-      if (!error && data) {
-        setCurrentArticle(data);
-      }
-    };
-
-    fetchCurrent();
-  }, [params.slug]);
-
-  // === 2) دریافت مقالات مرتبط پس از لود شدن مقاله اصلی ===
-  useEffect(() => {
-    if (!currentArticle) return;
-
-    const fetchRelated = async () => {
-      const { data, error } = await supabase
-        .from("articles")
-        .select("*")
-        
-        .neq("slug", params.slug); // حذف مقاله فعلی
-
-      if (!error && data) {
-        const filtered = data
-          .filter(
-            (a) =>
-              a.category === currentArticle.category ||
-              a.subCategory === currentArticle.subCategory
-          )
-          .slice(0, 10);
-
-        setRelatedArticles(filtered);
-      }
-    };
-
-    fetchRelated();
-  }, [currentArticle]);
-
-  if (!currentArticle) return null;
   if (relatedArticles.length === 0) return null;
 
   return (
     <section className="w-full">
-      {/* Header */}
       <div className="flex items-center justify-between mb-7 w-full ps-1 pe-5 lg:pe-10">
-        <h2 className="text-xl font-bold dark:text-white">{findByUniqueId(mainData, 1511)}</h2>
+        <h2 className="text-xl font-bold dark:text-white">
+          {findByUniqueId(mainData, 1511)}
+        </h2>
         <Link
           href={`/${params.lang}/articles`}
           className="flex justify-center items-center gap-4"
@@ -90,11 +61,10 @@ const RelatedArticlesSlider = ({ params, mainData }: RelatedArticlesSliderProps)
         </Link>
       </div>
 
-      {/* Slider */}
       <Swiper
         spaceBetween={20}
         slidesPerView={3.7}
-        loop={true}
+        loop={relatedArticles.length > 3}
         onSwiper={(swiper) => (swiperRef.current = swiper)}
         breakpoints={{
           0: { slidesPerView: 1.2, spaceBetween: 20 },
@@ -105,15 +75,18 @@ const RelatedArticlesSlider = ({ params, mainData }: RelatedArticlesSliderProps)
       >
         {relatedArticles.map((item) => (
           <SwiperSlide key={item.id} className="flex items-center pb-5">
-            <ArticleCard item={item} params={{ lang: params.lang }} activeLoadingId={activeLoadingId} setActiveLoadingId={setActiveLoadingId}/>
+            <ArticleCard
+              item={item}
+              params={{ lang: params.lang }}
+              activeLoadingId={activeLoadingId}
+              setActiveLoadingId={setActiveLoadingId}
+            />
           </SwiperSlide>
         ))}
       </Swiper>
 
-      {/* Controls */}
       <div className="mt-4 w-full">
         <div className="flex items-center justify-center md:justify-start gap-2">
-          {/* Prev */}
           <button
             onClick={() => swiperRef.current?.slidePrev()}
             className="flex items-center justify-center rounded-full bg-transparent"
@@ -129,7 +102,6 @@ const RelatedArticlesSlider = ({ params, mainData }: RelatedArticlesSliderProps)
             </svg>
           </button>
 
-          {/* Pagination */}
           <div className="flex justify-center gap-2">
             {relatedArticles.map((_, idx) => (
               <button
@@ -145,7 +117,6 @@ const RelatedArticlesSlider = ({ params, mainData }: RelatedArticlesSliderProps)
             ))}
           </div>
 
-          {/* Next */}
           <button
             onClick={() => swiperRef.current?.slideNext()}
             className="flex items-center justify-center rounded-full bg-transparent"

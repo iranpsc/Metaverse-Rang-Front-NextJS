@@ -8,9 +8,8 @@ import { useEffect, useRef, useState } from "react";
 import Modal from "@/components/modal/modal";
 import ListMenuActiveIconModule from "./list/ListMenuActiveIconModule";
 import { useRouter, usePathname } from "next/navigation";
-import Tooltip from "@mui/material/Tooltip";
+import Tooltip from "./SidebarTooltip";
 import React from "react";
-import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 export default function SideBarContent({
   tabsMenu,
@@ -19,7 +18,7 @@ export default function SideBarContent({
   params,
   pageSide,
   levelTabs,
-  mainData
+  sidebarLabels
 }) {
 
   const pathName = usePathname();
@@ -425,7 +424,7 @@ export default function SideBarContent({
                         {item.unique_id == 1462  && (
               <li style={{ order: "-2" }}>
                 <Tooltip
-                  title={findByUniqueId(mainData, 1758 )}
+                  title={sidebarLabels?.whitePaper}
                   placement={langData.direction === "rtl" ? "left-end" : "right-end"}
                   arrow
                   slotProps={{
@@ -446,7 +445,7 @@ export default function SideBarContent({
                       </span>
                       <div className="w-full flex justify-between items-center">
                         <ListMenuTitleModule
-                          item={{ translation:findByUniqueId(mainData, 1758 ), active: isWhitePaperSectionActive  }}
+                          item={{ translation:sidebarLabels?.whitePaper, active: isWhitePaperSectionActive  }}
                           isClosed={isClosed}
                         />
                         <ListMenuArrow item={{ name: "trainings" }} isOpen={whitePaperDropDown} isClosed={isClosed} />
@@ -475,7 +474,7 @@ export default function SideBarContent({
                       </span>
                       <ListMenuTitleModule
                         item={{
-                          translation:  findByUniqueId(mainData, 1759 ),
+                          translation:  sidebarLabels?.whitePaperChild,
                           active: isWhitePaperSectionActive 
                         }}
                         isClosed={isClosed}
@@ -642,7 +641,7 @@ export default function SideBarContent({
             {item.unique_id == 263 && (
               <li style={{ order: "-2" }}>
                 <Tooltip
-                  title={findByUniqueId(mainData, 1588)}
+                  title={sidebarLabels?.citizens}
                   placement={langData.direction === "rtl" ? "left-end" : "right-end"}
                   arrow
                   slotProps={{
@@ -663,7 +662,7 @@ export default function SideBarContent({
                       </span>
                       <div className="w-full flex justify-between items-center">
                         <ListMenuTitleModule
-                          item={{ translation: findByUniqueId(mainData, 1588), active: isCitizensSectionActive }}
+                          item={{ translation: sidebarLabels?.citizens, active: isCitizensSectionActive }}
                           isClosed={isClosed}
                         />
                         <ListMenuArrow item={{ name: "trainings" }} isOpen={citizensDropDown} isClosed={isClosed} />
@@ -685,7 +684,7 @@ export default function SideBarContent({
                       <span className="ps-[15px]">
                         <ListMenuSvgModule item={{ unique_id: 263, active: pathName === `/${params.lang}/citizens` || pathName === `/${params.lang}/citizens/` }} />
                       </span>
-                      <ListMenuTitleModule item={{ translation: findByUniqueId(mainData, 1589), active: pathName === `/${params.lang}/citizens` || pathName === `/${params.lang}/citizens/` }} isClosed={isClosed} />
+                      <ListMenuTitleModule item={{ translation: sidebarLabels?.allCitizens, active: pathName === `/${params.lang}/citizens` || pathName === `/${params.lang}/citizens/` }} isClosed={isClosed} />
                     </div>
                   </Link>
 
@@ -701,7 +700,7 @@ export default function SideBarContent({
                       <span className="ps-[15px]">
                         <ListMenuSvgModule item={{ unique_id: 1490, active: pathName.startsWith(`/${params.lang}/rand-id/hm`) }} />
                       </span>
-                      <ListMenuTitleModule item={{ translation: findByUniqueId(mainData, 1490), active: pathName.startsWith(`/${params.lang}/rand-id/hm`) }} isClosed={isClosed} />
+                      <ListMenuTitleModule item={{ translation: sidebarLabels?.nationalId, active: pathName.startsWith(`/${params.lang}/rand-id/hm`) }} isClosed={isClosed} />
                     </div>
                   </Link>
 

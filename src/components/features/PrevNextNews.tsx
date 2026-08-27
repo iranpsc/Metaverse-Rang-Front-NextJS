@@ -5,9 +5,8 @@ import { supabase } from "@/utils/lib/supabaseClient";
 // import { Like, Dislike, View } from "@/components/svgs/SvgEducation";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import NewsNavCard from "../card/NewsNavCard";
+import { loadNewsFallback } from "@/components/utils/loadNewsFallback";
 
-// ایمپورت دیتای استاتیک به عنوان fallback
-import fallbackNewsData from "@/components/utils/news.json";
 
 interface PrevNextNewsProps {
   params: {
@@ -48,9 +47,8 @@ const PrevNextNews = ({ params, news: propNews, mainData }: PrevNextNewsProps) =
           setNews(data);
           setUsingFallback(false);
         } else {
-          // استفاده از fallback
           console.warn("⚠️ PrevNextNews: Using fallback news.json");
-          const fallbackData = [...fallbackNewsData].sort((a, b) => {
+          const fallbackData = [...(await loadNewsFallback())].sort((a, b) => {
             const dateA = a.date ? parseInt(a.date.replace(/\//g, "")) : 0;
             const dateB = b.date ? parseInt(b.date.replace(/\//g, "")) : 0;
             return dateA - dateB;
@@ -61,7 +59,7 @@ const PrevNextNews = ({ params, news: propNews, mainData }: PrevNextNewsProps) =
       } catch (err) {
         // در صورت خطا، از fallback استفاده کن
         console.error("❌ PrevNextNews: Error fetching from Supabase, using fallback", err);
-        const fallbackData = [...fallbackNewsData].sort((a, b) => {
+        const fallbackData = [...(await loadNewsFallback())].sort((a, b) => {
           const dateA = a.date ? parseInt(a.date.replace(/\//g, "")) : 0;
           const dateB = b.date ? parseInt(b.date.replace(/\//g, "")) : 0;
           return dateA - dateB;

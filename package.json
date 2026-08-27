@@ -8,7 +8,8 @@
     "start": "next start -p 5175",
     "lint": "next lint",
     "release": "standard-version",
-    "json": "json-server --watch db.json --port 3001"
+    "json": "json-server --watch db.json --port 3001",
+    "analyze": "ANALYZE=true next build --webpack"
   },
   "overrides": {
     "minimatch": "^9.0.6",

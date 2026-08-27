@@ -8,6 +8,7 @@ import { Like, Dislike, View } from "@/components/svgs/SvgEducation";
 // import SyncLoader from "react-spinners/SyncLoader";
 import LoginButtonModule from "@/components/features/video/LoginButtonModule";
 import { MappedEventItem } from "@/utils/mapEvents";
+import Image from "next/image";
 
 // تابع برای پارس تاریخ جلالی
 function parseJalaliDatetime(jalaliStr: string): Date {
@@ -179,14 +180,19 @@ const SingleEvent: React.FC<SingleEventProps> = ({
       <div className="items flex flex-col justify-center gap-3 items-center w-full">
         {/* تصویر ایونت */}
         <div className="mt-4 w-[97%] flex justify-center lg:w-[95%] mx-auto rounded-[20px] overflow-hidden shadow-lg lg:mt-6">
-          <img
-            className="w-full"
+          <Image
+            className="w-full h-auto"
             src={
               event.image === "image" || !event.image
                 ? "/firstpage/frame.jpg"
                 : event.image
             }
             alt={event.title}
+            width={960}
+            height={540}
+            sizes="(max-width: 1024px) 97vw, 60vw"
+            priority
+            unoptimized
           />
         </div>
 

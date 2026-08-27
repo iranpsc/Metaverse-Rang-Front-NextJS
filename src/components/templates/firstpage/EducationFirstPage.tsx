@@ -15,9 +15,17 @@ interface Params {
 // تعداد کارت‌های اسکلت — دقیقاً همون تعداد ویدیوی واقعی (۳ تا)
 const SKELETON_COUNT = 3;
 
-const EducationFirstPage = ({ mainData, params }: { mainData: any; params: Params }) => {
-  const [videos, setVideos] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+const EducationFirstPage = ({
+  mainData,
+  params,
+  initialVideos,
+}: {
+  mainData: any;
+  params: Params;
+  initialVideos?: any[];
+}) => {
+  const [videos, setVideos] = useState<any[]>(initialVideos ?? []);
+  const [loading, setLoading] = useState(!initialVideos?.length);
   const [cookies] = useCookies(["theme"]);
   const theme = cookies.theme || "dark";
   const [activeLoadingId, setActiveLoadingId] = useState<string | null>(null);
@@ -25,6 +33,12 @@ const EducationFirstPage = ({ mainData, params }: { mainData: any; params: Param
   const [linkLoading, setLinkLoading] = useState(false);
 
   useEffect(() => {
+    if (initialVideos?.length) {
+      setVideos(initialVideos);
+      setLoading(false);
+      return;
+    }
+
     let cancelled = false;
 
     const fetchVideos = async () => {
@@ -57,7 +71,7 @@ const EducationFirstPage = ({ mainData, params }: { mainData: any; params: Param
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [initialVideos]);
 
   return (
     <div>

@@ -23,7 +23,7 @@ export default function SideBar({
   langArray,
   params,
   pageSide,
-  mainData,
+  sidebarLabels,
   initialIsClosed = true,
 }) {
   const [isClosed, setIsClosed] =
@@ -35,23 +35,45 @@ export default function SideBar({
   const sidebarRef = useRef(null);
 
   useEffect(() => {
+    try {
+      const stored = localStorage.getItem("sidebarClosed");
+      if (stored === "false") {
+        setIsClosed(false);
+      } else if (stored === "true") {
+        setIsClosed(true);
+      }
+    } catch {
+      // ignore
+    }
     setHydrated(true);
+  }, []);
+
+  const persistClosed = useCallback((next) => {
+    const value = String(next);
+    document.cookie = [
+      `sidebarClosed=${value}`,
+      "path=/",
+      "max-age=31536000",
+      "SameSite=Lax",
+    ].join("; ");
+    try {
+      localStorage.setItem("sidebarClosed", value);
+      document.documentElement.setAttribute(
+        "data-sidebar-state",
+        next ? "closed" : "open"
+      );
+    } catch {
+      // ignore
+    }
   }, []);
 
   const toggleSide = useCallback(() => {
     setIsClosed((prev) => {
       const next = !prev;
-
-      document.cookie = [
-        `sidebarClosed=${next}`,
-        "path=/",
-        "max-age=31536000",
-        "SameSite=Lax",
-      ].join("; ");
-
+      persistClosed(next);
       return next;
     });
-  }, []);
+  }, [persistClosed]);
 
   useEffect(() => {
     if (!hydrated) {
@@ -66,13 +88,7 @@ export default function SideBar({
         !sidebarRef.current.contains(event.target)
       ) {
         setIsClosed(true);
-
-        document.cookie = [
-          "sidebarClosed=true",
-          "path=/",
-          "max-age=31536000",
-          "SameSite=Lax",
-        ].join("; ");
+        persistClosed(true);
       }
     };
 
@@ -87,7 +103,7 @@ export default function SideBar({
         handleClickOutside
       );
     };
-  }, [isClosed, hydrated]);
+  }, [isClosed, hydrated, persistClosed]);
 
   /*
    * Skeleton از همان مقدار Server استفاده می‌کند.
@@ -215,7 +231,7 @@ export default function SideBar({
                 langData={langData}
                 langArray={langArray}
                 params={params}
-                mainData={mainData}
+                sidebarLabels={sidebarLabels}
               />
             )}
 

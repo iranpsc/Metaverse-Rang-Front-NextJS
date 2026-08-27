@@ -9,8 +9,7 @@ import { Calender, Timer, View } from "@/components/svgs/SvgEducation";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { formatNumber } from "@/components/utils/formatNumber";
 import { supabase } from "@/utils/lib/supabaseClient";
-// ایمپورت دیتای استاتیک به عنوان fallback
-import fallbackNewsData from "@/components/utils/news.json";
+import { loadNewsFallback } from "@/components/utils/loadNewsFallback";
 
 interface News {
   id: string | number;
@@ -79,7 +78,7 @@ useEffect(() => {
 
       if (!cancelled) {
         setNewsData(
-          fallbackNewsData.map((item: any) => ({
+          (await loadNewsFallback()).map((item: any) => ({
             ...item,
             stats:
               typeof item.stats === "string"
@@ -96,7 +95,7 @@ useEffect(() => {
 
       if (!cancelled) {
         setNewsData(
-          fallbackNewsData.map((item: any) => ({
+          (await loadNewsFallback()).map((item: any) => ({
             ...item,
             stats:
               typeof item.stats === "string"

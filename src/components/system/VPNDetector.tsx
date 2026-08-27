@@ -2,59 +2,68 @@
 
 import { useEffect, useRef, useState } from "react";
 
+const IP_CACHE_KEY = "vpnIpCountry";
+const MODAL_SHOWN_KEY = "vpnModalShown";
+
 const VPNDetector = () => {
   const [showModal, setShowModal] = useState(false);
   const hasShown = useRef(false);
-  const ipNonIran = useRef(false);
+  const checking = useRef(false);
 
-  // بررسی IP بعد از تعامل کاربر
   const handleInteraction = async () => {
-    if (hasShown.current) return;
+    if (hasShown.current || checking.current) return;
+    if (sessionStorage.getItem(MODAL_SHOWN_KEY) === "true") return;
 
-    // فقط یک بار تعامل را در نظر بگیریم
     removeInteractionListeners();
+    checking.current = true;
 
     try {
-      const res = await fetch("https://ipapi.co/json/");
-      const data = await res.json();
+      let country = sessionStorage.getItem(IP_CACHE_KEY);
 
-      console.log("IP Data:", data); // بررسی پاسخ API
+      if (!country) {
+        // Idle delay so the check never contends with first interaction paint.
+        await new Promise((r) => setTimeout(r, 1500));
+        const res = await fetch("https://ipapi.co/json/", {
+          // Avoid CORS preflight cost; simple GET.
+          cache: "force-cache",
+        });
+        const data = await res.json();
+        country = data?.country || "";
+        if (country) {
+          sessionStorage.setItem(IP_CACHE_KEY, country);
+        }
+      }
 
-      if (data && data.country !== "IR") {
-        ipNonIran.current = true;
-
-        // مودال را بعد از تاخیر 5 ثانیه نمایش بده
+      if (country && country !== "IR") {
         setTimeout(() => {
           if (!hasShown.current) {
             setShowModal(true);
             hasShown.current = true;
-            sessionStorage.setItem("vpnModalShown", "true");
+            sessionStorage.setItem(MODAL_SHOWN_KEY, "true");
           }
         }, 5000);
       }
-    } catch (err) {
-      console.error("IP check failed:", err);
+    } catch {
+      // Silent — VPN hint is non-critical.
+    } finally {
+      checking.current = false;
     }
   };
 
-  // اضافه کردن لیسنر تعامل کاربر
   const addInteractionListeners = () => {
-    window.addEventListener("scroll", handleInteraction, { once: true });
-    window.addEventListener("mousemove", handleInteraction, { once: true });
-    window.addEventListener("click", handleInteraction, { once: true });
+    window.addEventListener("scroll", handleInteraction, { once: true, passive: true });
+    window.addEventListener("pointerdown", handleInteraction, { once: true });
     window.addEventListener("keydown", handleInteraction, { once: true });
   };
 
   const removeInteractionListeners = () => {
     window.removeEventListener("scroll", handleInteraction);
-    window.removeEventListener("mousemove", handleInteraction);
-    window.removeEventListener("click", handleInteraction);
+    window.removeEventListener("pointerdown", handleInteraction);
     window.removeEventListener("keydown", handleInteraction);
   };
 
   useEffect(() => {
-    // اگر مودال قبلاً نمایش داده شده بود، نیازی به لیسنر نیست
-    if (sessionStorage.getItem("vpnModalShown") !== "true") {
+    if (sessionStorage.getItem(MODAL_SHOWN_KEY) !== "true") {
       addInteractionListeners();
     }
 

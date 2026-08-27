@@ -243,6 +243,16 @@ export default async function ArticlePage({ params } :ArticlePageProps) {
       getMainFile(await getTranslation(lang)),
     ]);
 
+    const relatedArticles = (categoryArticles || [])
+      .filter(
+        (a: any) =>
+          a.slug !== article.slug &&
+          (a.category === article.category ||
+            a.subCategory === article.subCategory ||
+            a.categorySlug === article.categorySlug)
+      )
+      .slice(0, 10);
+
     // JSON-LD Schema
     const schema = {
       "@context": "https://schema.org",
@@ -324,7 +334,11 @@ export default async function ArticlePage({ params } :ArticlePageProps) {
           {/* اسلایدرها */}
           <div className="ps-5 lg:ps-10 w-full flex items-center mt-14 lg:mt-20 flex-col gap-14">
             <PopularArticlesSlider params={resolvedParams} mainData={mainData} />
-            <RelatedArticlesSlider params={resolvedParams} mainData={mainData} />
+            <RelatedArticlesSlider
+              params={resolvedParams}
+              mainData={mainData}
+              initialArticles={relatedArticles}
+            />
           </div>
         </section>
       </div>

@@ -8,8 +8,8 @@ import { ArrowRight } from "@/components/svgs";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { Calender, Timer, View } from "@/components/svgs/SvgEducation";
 import { formatNumber } from "@/components/utils/formatNumber";
-import fallbackNewsData from "@/components/utils/news.json";
 import { Skeleton } from "@/components/ui/skeleton";
+import { loadNewsFallback } from "@/components/utils/loadNewsFallback";
 
 type Tag = { label: string; slug: string };
 
@@ -154,10 +154,18 @@ const LatestNews: React.FC<LatestNewsProps> = ({
     string | number | null
   >(null);
 
-  const [newsData, setNewsData] = useState<News[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [newsData, setNewsData] = useState<News[]>(
+    initialNews?.length ? initialNews.slice(0, limit) : []
+  );
+  const [loading, setLoading] = useState(!initialNews?.length);
 
   useEffect(() => {
+    if (initialNews?.length) {
+      setNewsData(initialNews.slice(0, limit));
+      setLoading(false);
+      return;
+    }
+
     let cancelled = false;
 
     const fetchLatestNews = async () => {
@@ -197,26 +205,15 @@ const LatestNews: React.FC<LatestNewsProps> = ({
           return;
         }
 
-        // Supabase خالی بود → initialNews
-        if (!cancelled && initialNews && initialNews.length > 0) {
-          setNewsData(initialNews.slice(0, limit));
-          return;
-        }
-
-        // fallback نهایی
         if (!cancelled) {
-          setNewsData(transformToNews(fallbackNewsData).slice(0, limit));
+          setNewsData(transformToNews(await loadNewsFallback()).slice(0, limit));
         }
       } catch (error) {
         console.error("❌ LatestNews: Supabase error, using fallback:", error);
 
         if (cancelled) return;
 
-        if (initialNews && initialNews.length > 0) {
-          setNewsData(initialNews.slice(0, limit));
-        } else {
-          setNewsData(transformToNews(fallbackNewsData).slice(0, limit));
-        }
+        setNewsData(transformToNews(await loadNewsFallback()).slice(0, limit));
       } finally {
         if (!cancelled) {
           setLoading(false);

@@ -6,9 +6,8 @@ import { supabase } from "@/utils/lib/supabaseClient";
 import { ArrowRight } from "@/components/svgs";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import NewsSideCard from "../card/NewsSideCard";
+import { loadNewsFallback } from "@/components/utils/loadNewsFallback";
 
-// ایمپورت دیتای استاتیک به عنوان fallback
-import fallbackNewsData from "@/components/utils/news.json";
 
 interface SideCardProps {
   params: any;
@@ -41,7 +40,7 @@ const SideCard: React.FC<SideCardProps> = ({ params, mainData }) => {
       }
       
       // استفاده از دیتای fallback
-      const fallbackData = fallbackNewsData
+      const fallbackData = (await loadNewsFallback())
         .map((item: any) => ({
           ...item,
           stats: typeof item.stats === 'string' ? JSON.parse(item.stats) : item.stats,

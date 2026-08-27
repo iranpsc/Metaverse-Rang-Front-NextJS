@@ -36,7 +36,7 @@ async function fetchWithRetry(
     try {
       const response = await fetch(url, {
         headers,
-        cache: "no-store",
+        next: { revalidate: 3600 },
       });
 
       if (response.ok || response.status === 206) {
@@ -291,7 +291,7 @@ export async function GET(request: NextRequest) {
 
       headers.set(
         "Cache-Control",
-        "no-store, max-age=0",
+        "public, max-age=3600, stale-while-revalidate=86400",
       );
 
       headers.set(
@@ -307,7 +307,6 @@ export async function GET(request: NextRequest) {
 
     /* =======================================================
        BIN / IMAGE
-
        Stream مستقیم است.
 
        Base64 ❌
@@ -368,7 +367,7 @@ export async function GET(request: NextRequest) {
 
     responseHeaders.set(
       "Cache-Control",
-      "no-store, max-age=0",
+      "public, max-age=3600, stale-while-revalidate=86400",
     );
 
     responseHeaders.set(

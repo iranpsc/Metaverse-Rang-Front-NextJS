@@ -52,8 +52,9 @@ const Version: React.FC<VersionBoxProps> = ({ versions, params, mainData  , init
         sendDataParent={handleDataFromChild}
         params={params}
         mainData={mainData}
-        disableInitialSelection={!!initialVersion}
-        selectedVersion={selectedVersion} versionRefs={undefined}      />
+        selectedVersion={selectedVersion}
+        versionRefs={null}
+      />
         <DescriptionBox
         selectedVersion={selectedVersion}
         params={params}
