@@ -10,13 +10,13 @@ import FeaturesMap from "./FeaturesMap";
 import {
   getTranslation,
   getMainFile,
-  findByModalName,
-  findByTabName,
   getLangArray,
   getUserData,
 } from "@/components/utils/actions";
+import { buildSidebarLabels } from "@/components/utils/buildShellTranslations";
 
 import { getStaticMenu } from "@/components/utils/constants";
+import { buildTabsMenu } from "@/components/utils/buildTabsMenu";
 import PropertyHeader from "./PropertyHeader";
 
 /* ------------------------------------------------------------------ */
@@ -46,42 +46,8 @@ export default async function CitizenFeaturesSummary({
     ]);
 
     /* ------------------------ build sidebar -------------------------- */
-    async function buildUpdatedTabsMenu(mainData: any) {
-      const staticMenuToShow = getStaticMenu(resolvedParams);
-
-      const citizenModal = await findByModalName(
-        mainData,
-        "Citizenship-profile"
-      );
-      const citizenTabs = (await findByTabName(citizenModal, "menu")) || [];
-
-      const centralModal = await findByModalName(mainData, "central-page");
-      const mainTabs =
-        (await findByTabName(centralModal, "before-login")) || [];
-
-      const mapMenu = (tabs: any[]) =>
-        tabs.map((tab) => {
-          const staticItem = staticMenuToShow.find(
-            (s) => s.unique_id === tab.unique_id
-          );
-          return staticItem
-            ? {
-                ...tab,
-                url: staticItem.url,
-                order: staticItem.order,
-                toShow: true,
-              }
-            : tab;
-        });
-
-      const merged = [...mapMenu(citizenTabs), ...mapMenu(mainTabs)];
-
-      const seen = new Set();
-      return merged.filter((tab) => {
-        if (seen.has(tab.unique_id)) return false;
-        seen.add(tab.unique_id);
-        return true;
-      });
+    function buildUpdatedTabsMenu(mainData: any) {
+      return buildTabsMenu(mainData, getStaticMenu(resolvedParams));
     }
 
     /* ---------------------------- not found -------------------------- */
@@ -108,7 +74,8 @@ export default async function CitizenFeaturesSummary({
       getLangArray(),
     ]);
 
-    const updatedTabsMenu = await buildUpdatedTabsMenu(mainData);
+    const updatedTabsMenu = buildUpdatedTabsMenu(mainData);
+    const sidebarLabels = buildSidebarLabels(mainData);
 
     /* ------------------------- JSON-LD schema ------------------------- */
     const kyc = profileData?.data?.kyc;
@@ -192,7 +159,7 @@ export default async function CitizenFeaturesSummary({
             langArray={langArray}
             params={resolvedParams}
             pageSide="citizen"
-            mainData={mainData}
+            sidebarLabels={sidebarLabels}
           />
 
           <section className="relative w-full overflow-y-auto mt-[60px] lg:mt-0 bg-bg-primary  px-2 light-scrollbar dark:dark-scrollbar">

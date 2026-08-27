@@ -8,7 +8,6 @@ export default async function Gift({
   levelTabs,
   singleLevel,
   params,
-  concatArrayContent,
 }: any) {
   // function localFind(_name: any) {
   //   return levelsTranslatePage.find((item: any) => item.name == _name)
@@ -16,13 +15,7 @@ export default async function Gift({
   // }
 
   function localFind2(_slug: any) {
-    // HIN not good
-    //item.name and _slug have fa/en number string
-    //convert
-    let temp = concatArrayContent.find(
-      (item: any) => Number(item.unique_id) == Number(_slug)
-    );
-    return temp?.translation;
+    return findByUniqueId(mainData, _slug);
   }
 
   //to make description less than 200 character

@@ -1,40 +1,36 @@
-import { cookies } from "next/headers";
-
 import ConditionalSidebar from "./ConditionalSidebar";
 
+import type { TabsMenuItem } from "@/components/utils/buildTabsMenu";
+import type { SidebarLabels } from "@/components/utils/buildShellTranslations";
+
 interface ConditionalSidebarServerProps {
-  tabsMenu: any[];
+  tabsMenu: TabsMenuItem[];
   langData: any;
   langArray: any;
   params: any;
-  mainData: any;
+  sidebarLabels: SidebarLabels;
 }
 
-export default async function ConditionalSidebarServer({
+/**
+ * Thin server wrapper — intentionally does NOT call cookies()/headers()
+ * so the lang layout can stay cacheable. Sidebar open/closed state is
+ * restored on the client from localStorage (see SideBar + layout script).
+ */
+export default function ConditionalSidebarServer({
   tabsMenu,
   langData,
   langArray,
   params,
-  mainData,
+  sidebarLabels,
 }: ConditionalSidebarServerProps) {
-  const cookieStore = await cookies();
-
-  const sidebarCookie =
-    cookieStore.get("sidebarClosed")?.value;
-
-  const initialIsClosed =
-    sidebarCookie === undefined
-      ? true
-      : sidebarCookie === "true";
-
   return (
     <ConditionalSidebar
       tabsMenu={tabsMenu}
       langData={langData}
       langArray={langArray}
       params={params}
-      mainData={mainData}
-      initialIsClosed={initialIsClosed}
+      sidebarLabels={sidebarLabels}
+      initialIsClosed={true}
     />
   );
 }

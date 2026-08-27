@@ -6,22 +6,19 @@ import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 export default function LevelCard({
   item,
-  allLevelArrayContent,
   params,
   mainData,
   activeLoadingId,
   setActiveLoadingId,
 }: {
   item: any;
-  allLevelArrayContent: any;
   params: any;
   mainData: any;
   activeLoadingId: any;
   setActiveLoadingId: any;
 }) {
   function localFind2(_slug: any) {
-    return allLevelArrayContent.find((item: any) => item.unique_id == _slug)
-      ?.translation;
+    return findByUniqueId(mainData, _slug);
   }
   const isLoading = activeLoadingId === item.id;
   return (

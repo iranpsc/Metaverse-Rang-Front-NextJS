@@ -6,11 +6,9 @@ import {
   getAllLevels,
   getTranslation,
   getMainFile,
-  findByModalName,
-  findByTabName,
 } from "@/components/utils/actions";
 
-import Footer from "@/components/shared/footer/Footer";
+import Footer from "@/components/shared/footer/DynamicFooter";
 import LevelsContent from "@/components/features/levels/LevelsContent";
 import LevelsClientSkeleton from "@/components/skeleton/LevelsClientSkeleton";
 import BreadCrumb from "@/components/shared/BreadCrumb";
@@ -94,15 +92,6 @@ export default async function LevelsPage({ params }: LevelsPageProps) {
 
     /* ------------------------------ Content -------------------------------- */
 
-    const levelsModal = await findByModalName(mainData, "levels");
-    const levelPageArrayContent = await findByTabName(levelsModal, "levels-page");
-    const levelListArrayContent = await findByTabName(levelsModal, "level-list");
-
-    const concatArrayContent = [
-      ...levelPageArrayContent,
-      ...levelListArrayContent,
-    ];
-
     /* -------------------------------- Render ------------------------------- */
 
     return (
@@ -131,7 +120,6 @@ export default async function LevelsPage({ params }: LevelsPageProps) {
               <LevelsContent
                 params={resolvedParams}
                 mainData={mainData}
-                concatArrayContent={concatArrayContent}
               />
             </Suspense>
           </div>

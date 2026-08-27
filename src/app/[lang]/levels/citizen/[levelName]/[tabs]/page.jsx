@@ -8,8 +8,6 @@ import {
   getMainFile,
   getSingleLevel,
   getLevelTabs,
-  findByModalName,
-  findByTabName,
 } from "@/components/utils/actions";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -23,7 +21,7 @@ const Gem = dynamic(() => import('@/components/ui/Gem'));
 const Gift = dynamic(() => import('@/components/ui/Gift'));
 const Permission = dynamic(() => import('@/components/features/levels/Permissions'));
 const Prize = dynamic(() => import('@/components/features/levels/Prize'));
-const Footer = dynamic(() => import('@/components/shared/footer/Footer'));
+const Footer = dynamic(() => import('@/components/shared/footer/DynamicFooter'));
 const BreadCrumb = dynamic(() => import('@/components/shared/BreadCrumb'));
 const ImageBox = dynamic(() => import('@/components/features/levels/ImageBox'));
 import { Features } from "@/components/features/levels/Features";
@@ -72,8 +70,8 @@ async function fetchData(params) {
   };
 }
 
-function getLevelTitle(concatArrayContent, uniqueId) {
-  return concatArrayContent.find(item => Number(item.unique_id) === Number(uniqueId))?.translation || '';
+function getLevelTitle(mainData, uniqueId) {
+  return findByUniqueId(mainData, uniqueId);
 }
 
 function buildBreadcrumbSchema(mainData, params) {
@@ -128,12 +126,6 @@ export default async function LevelSinglePage({ params }) {
       }
     });
 
-    const levels = await findByModalName(mainData, "levels");
-    const [levelPageArrayContent, levelListArrayContent] = await Promise.all([
-      findByTabName(levels, "levels-page"),
-      findByTabName(levels, "level-list"),
-    ]);
-    const concatArrayContent = [...levelPageArrayContent, ...levelListArrayContent];
     const TAB_TITLE_MAP = {
       "general-info": 387,
       "licenses": 388,
@@ -147,7 +139,7 @@ export default async function LevelSinglePage({ params }) {
       ? findByUniqueId(mainData, tabUniqueId)
       : "";
 
-    const levelTitle = getLevelTitle(concatArrayContent, levelUniqueId);
+    const levelTitle = getLevelTitle(mainData, levelUniqueId);
 
     // عنوان نهایی
     const pageTitle = tabTitle
@@ -214,7 +206,6 @@ export default async function LevelSinglePage({ params }) {
                       levelTabs={levelTabs}
                       singleLevel={singleLevel}
                       params={resolvedParams}
-                      concatArrayContent={concatArrayContent}
                     />
                   )}
 
@@ -224,7 +215,6 @@ export default async function LevelSinglePage({ params }) {
                       levelTabs={levelTabs}
                       singleLevel={singleLevel}
                       params={resolvedParams}
-                      concatArrayContent={concatArrayContent}
                     />
                   )}
 
@@ -234,7 +224,6 @@ export default async function LevelSinglePage({ params }) {
                       levelTabs={levelTabs}
                       singleLevel={singleLevel}
                       params={resolvedParams}
-                      concatArrayContent={concatArrayContent}
                     />
                   )}
 
@@ -253,7 +242,6 @@ export default async function LevelSinglePage({ params }) {
                       levelTabs={levelTabs}
                       singleLevel={singleLevel}
                       params={resolvedParams}
-                      concatArrayContent={concatArrayContent}
                     />
                   )}
                 </TabContentWrapper>
@@ -355,22 +343,7 @@ export async function generateMetadata({ params }) {
 
     const mainData = await getMainFile(langData);
 
-    const levels = await findByModalName(mainData, "levels");
-    const [levelPageArrayContent, levelListArrayContent] = await Promise.all([
-      findByTabName(levels, "levels-page"),
-      findByTabName(levels, "level-list"),
-    ]);
-
-    const concatArrayContent = [
-      ...levelPageArrayContent,
-      ...levelListArrayContent,
-    ];
-
-    const levelTitle =
-      concatArrayContent.find(
-        (item) =>
-          Number(item.unique_id) === Number(levelUniqueId)
-      )?.translation || "";
+    const levelTitle = findByUniqueId(mainData, levelUniqueId);
 
     const TAB_TITLE_MAP = {
       "general-info": 387,

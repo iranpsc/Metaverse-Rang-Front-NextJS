@@ -11,12 +11,12 @@ import ProfileData from "@/components/features/profile/ProfileContent";
 import {
   getTranslation,
   getMainFile,
-  findByModalName,
-  findByTabName,
   getLangArray,
 } from "@/components/utils/actions";
+import { buildSidebarLabels } from "@/components/utils/buildShellTranslations";
 
 import { getStaticMenu } from "@/components/utils/constants";
+import { buildTabsMenu } from "@/components/utils/buildTabsMenu";
 
 // lazy sidebar
 const SideBar = dynamic(
@@ -59,76 +59,14 @@ export default async function CitizenSinglePage({
     /* -------------------------------------------------------------- */
 
     const mainData = await getMainFile(langData);
+    const sidebarLabels = buildSidebarLabels(mainData);
 
     /* -------------------------------------------------------------- */
     /*                             MENUS                               */
     /* -------------------------------------------------------------- */
 
-    const citizenModal = await findByModalName(
-      mainData,
-      "Citizenship-profile"
-    );
-
-    const citizenTabsMenu = await findByTabName(
-      citizenModal,
-      "menu"
-    );
-
-    const centralPageModal = await findByModalName(
-      mainData,
-      "central-page"
-    );
-
-    const mainTabsMenu = await findByTabName(
-      centralPageModal,
-      "before-login"
-    );
-
-    /* -------------------------------------------------------------- */
-    /*                         STATIC MENU                             */
-    /* -------------------------------------------------------------- */
-
     const staticMenuToShow = getStaticMenu(resolvedParams);
-
-    const mapMenu = (tabsMenu: any[]) =>
-      tabsMenu.map((tab) => {
-        const staticItem = staticMenuToShow.find(
-          (item) => item.unique_id === tab.unique_id
-        );
-
-        return staticItem
-          ? {
-              ...tab,
-              url: staticItem.url,
-              order: staticItem.order,
-              toShow: true,
-            }
-          : tab;
-      });
-
-    /* -------------------------------------------------------------- */
-    /*                       MERGE MENUS                               */
-    /* -------------------------------------------------------------- */
-
-    const mergedTabs = [
-      ...mapMenu(citizenTabsMenu),
-      ...mapMenu(mainTabsMenu),
-    ];
-
-    /* -------------------------------------------------------------- */
-    /*                      REMOVE DUPLICATES                         */
-    /* -------------------------------------------------------------- */
-
-    const seen = new Set();
-
-    const updatedTabsMenu = mergedTabs.filter((tab) => {
-      if (seen.has(tab.unique_id)) {
-        return false;
-      }
-
-      seen.add(tab.unique_id);
-      return true;
-    });
+    const updatedTabsMenu = buildTabsMenu(mainData, staticMenuToShow);
 
     /* -------------------------------------------------------------- */
     /*                              RENDER                             */
@@ -157,7 +95,7 @@ export default async function CitizenSinglePage({
                 langArray={langArray}
                 params={resolvedParams}
                 pageSide="citizen"
-                mainData={mainData}
+                sidebarLabels={sidebarLabels}
               />
             </Suspense>
 

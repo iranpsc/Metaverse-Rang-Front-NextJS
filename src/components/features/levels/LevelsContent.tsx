@@ -21,7 +21,6 @@ const staticData = [
 interface LevelsContentProps {
   params: any;
   mainData: any;
-  concatArrayContent: any;
 }
 
 /**
@@ -39,7 +38,6 @@ const MIN_LOADING_TIME = 1500;
 export default async function LevelsContent({
   params,
   mainData,
-  concatArrayContent,
 }: LevelsContentProps) {
   const startTime = Date.now();
   let levelArray: any;
@@ -96,7 +94,6 @@ export default async function LevelsContent({
 
       <LevelsClient
         levels={levelArray}
-        concatArrayContent={concatArrayContent}
         params={params}
         mainData={mainData}
       />

@@ -2,10 +2,8 @@
 import '../../styles/colors-auto.css'
 import Script from "next/script";
 import { azarMehr, rokh } from "../../fonts/localFonts";
-import useServerDarkMode from "@/hooks/use-server-dark-mode";
 import ToastProvider from "../../components/shared/toastProvider";
 import { Suspense } from "react";
-import Head from "next/head";
 import { notFound } from "next/navigation";
 
 import ReferralHandler from "../../components/system/ReferralHandler";
@@ -14,26 +12,21 @@ import VPNDetector from "../../components/system/VPNDetector";
 import {
   getTranslation,
   getMainFile,
-  findByModalName,
-  findByTabName,
   getLangArray,
 } from "@/components/utils/actions";
 
 import { getStaticMenu } from "@/components/utils/constants";
+import { buildTabsMenu } from "@/components/utils/buildTabsMenu";
+import {
+  buildFooterBrand,
+  buildFooterSections,
+  buildSidebarLabels,
+} from "@/components/utils/buildShellTranslations";
 import ConditionalSidebar from "@/components/shared/sidebar/ConditionalSidebarServer";
 import FooterClient from "@/components/shared/footer/FooterClient";
 import Icon from "../../components/system/Icon";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
-
-interface Tab {
-  id: number;
-  unique_id: number;
-  url?: string;
-  translation: string;
-  order?: number;
-  toShow?: boolean;
-}
 
 const SUPPORTED_LANGUAGES = ["fa", "en"] as const;
 
@@ -60,8 +53,6 @@ export default async function LangLayout({
     notFound();
   }
 
-  const theme = useServerDarkMode();
-
   try {
     /* ----------------------------------------------------------
      * Language data
@@ -87,73 +78,21 @@ export default async function LangLayout({
 
     const mainData = await getMainFile(langData);
 
-    if (
-      !mainData ||
-      !mainData.modals ||
-      !Array.isArray(mainData.modals)
-    ) {
-      console.error(
-        "mainData is invalid or missing 'modals'",
-        mainData
-      );
+    if (!mainData) {
+      console.error("mainData is invalid or missing", mainData);
 
-      throw new Error(
-        "Failed to load main data structure"
-      );
+      throw new Error("Failed to load translation dictionary");
     }
 
     /* ----------------------------------------------------------
-     * Central page
-     * ---------------------------------------------------------- */
-
-    const centralPageModal = await findByModalName(
-      mainData,
-      "central-page"
-    );
-
-    if (!centralPageModal) {
-      throw new Error(
-        "central-page modal not found in mainData"
-      );
-    }
-
-    /* ----------------------------------------------------------
-     * Before login menu
-     * ---------------------------------------------------------- */
-
-    const tabsMenu = await findByTabName(
-      centralPageModal,
-      "before-login"
-    );
-
-    if (!tabsMenu) {
-      throw new Error(
-        "before-login tab not found"
-      );
-    }
-
-    /* ----------------------------------------------------------
-     * Static menu
+     * Static menu (labels resolved from the flat dictionary)
      * ---------------------------------------------------------- */
 
     const staticMenuToShow = getStaticMenu(lang);
-
-    const updatedTabsMenu = tabsMenu.map((tab: Tab) => {
-      const findInStatic = staticMenuToShow.find(
-        (val) => tab.unique_id === val.unique_id
-      );
-
-      if (findInStatic) {
-        return {
-          ...tab,
-          url: findInStatic.url,
-          order: findInStatic.order,
-          toShow: true,
-        };
-      }
-
-      return tab;
-    });
+    const updatedTabsMenu = buildTabsMenu(mainData, staticMenuToShow);
+    const sidebarLabels = buildSidebarLabels(mainData);
+    const footerSections = buildFooterSections(mainData, lang);
+    const footerBrand = buildFooterBrand(mainData);
 
     /* ----------------------------------------------------------
      * Render
@@ -161,28 +100,31 @@ export default async function LangLayout({
 
     return (
       <html
-        className={await theme ? "dark" : "dark"}
+        className="dark"
         lang={lang}
         suppressHydrationWarning
       >
-        <Head>
+        <head>
           <link
             rel="preload"
             as="image"
-            href="/firstpage/replaced_pic.webp"
+            href="/firstpage/Untitled-1.webp"
           />
-
           <link
             rel="preload"
-            as="video"
-            href="/firstpage/3d_rgb.irpsc.webm"
-            type="video/mp4"
+            as="image"
+            href="/firstpage/metaverse-rang-mobile-app.webp"
           />
-         <Script
-          id="sidebar-state-init"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
+        </head>
+
+        <body
+          className={`${azarMehr.variable} ${rokh.variable} h-screen light-scrollbar dark:dark-scrollbar`}
+        >
+          <Script
+            id="sidebar-state-init"
+            strategy="beforeInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `
               try {
                 var v = localStorage.getItem('sidebarClosed');
                 document.documentElement.setAttribute(
@@ -193,14 +135,9 @@ export default async function LangLayout({
                 document.documentElement.setAttribute('data-sidebar-state', 'closed');
               }
             `,
-          }}
-        />
-        </Head>
-        
+            }}
+          />
 
-        <body
-          className={`${azarMehr.variable} ${rokh.variable} h-screen light-scrollbar dark:dark-scrollbar`}
-        >
           {lang !== "en" && <VPNDetector />}
 
           <CleanAutoRetryParam />
@@ -225,7 +162,7 @@ export default async function LangLayout({
                 langData={langData}
                 langArray={langArray}
                 params={resolvedParams}
-                mainData={mainData}
+                sidebarLabels={sidebarLabels}
               />
             </Suspense>
 
@@ -256,7 +193,8 @@ export default async function LangLayout({
 
                 <div className="w-full mb-2 px-5 bg-bg-primary ">
                   <FooterClient
-                    mainData={mainData}
+                    footerSections={footerSections}
+                    brandLabel={footerBrand}
                     params={resolvedParams}
                   />
                 </div>

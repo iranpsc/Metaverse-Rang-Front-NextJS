@@ -1,6 +1,8 @@
 
 "use server";
 
+import { cache } from "react";
+
 /* -------------------------------------------------------------------------- */
 /*                           API CONFIGURATION                                */
 /* -------------------------------------------------------------------------- */
@@ -97,9 +99,10 @@ function sanitizePathSegment(segment) {
 /* -------------------------------------------------------------------------- */
 
 /**
- * Return selected language object
+ * Return selected language object.
+ * React.cache dedupes within a request; revalidate caches across requests.
  */
-export async function getTranslation(lang) {
+export const getTranslation = cache(async function getTranslation(lang) {
   try {
     const adminApiBaseUrl =
       await getAdminApiBaseUrl();
@@ -108,6 +111,7 @@ export async function getTranslation(lang) {
       `${adminApiBaseUrl}/api/translations`,
       {
         next: {
+          revalidate: 3600,
           tags: ["translations"],
         },
       }
@@ -150,12 +154,12 @@ export async function getTranslation(lang) {
       direction: "rtl",
     };
   }
-}
+});
 
 /**
  * Return whole language array
  */
-export async function getLangArray() {
+export const getLangArray = cache(async function getLangArray() {
   try {
     const adminApiBaseUrl =
       await getAdminApiBaseUrl();
@@ -167,6 +171,7 @@ export async function getLangArray() {
           "Content-Type": "application/json",
         },
         next: {
+          revalidate: 3600,
           tags: ["translations"],
         },
       }
@@ -189,7 +194,7 @@ export async function getLangArray() {
 
     return [];
   }
-}
+});
 
 /* -------------------------------------------------------------------------- */
 /*                               MAIN FILE                                    */
@@ -198,7 +203,7 @@ export async function getLangArray() {
 /**
  * Return main language JSON file
  */
-export async function getMainFile(langData) {
+export const getMainFile = cache(async function getMainFile(langData) {
   try {
     if (!langData?.file_url) {
       throw new Error("No file_url provided");
@@ -206,6 +211,7 @@ export async function getMainFile(langData) {
 
     const res = await fetch(langData.file_url, {
       next: {
+        revalidate: 3600,
         tags: [
           `main-file-${langData.code || "unknown"}`
         ],
@@ -221,11 +227,12 @@ export async function getMainFile(langData) {
     const data = await res.json();
 
     if (
-      !data?.modals ||
-      !Array.isArray(data.modals)
+      !data ||
+      typeof data !== "object" ||
+      Array.isArray(data)
     ) {
       throw new Error(
-        "Invalid mainData structure: missing or invalid 'modals'"
+        "Invalid translation file: expected a flat dictionary"
       );
     }
 
@@ -239,35 +246,7 @@ export async function getMainFile(langData) {
 
     return null;
   }
-}
-
-/* -------------------------------------------------------------------------- */
-/*                              MODAL / TABS                                  */
-/* -------------------------------------------------------------------------- */
-
-export async function findByModalName(
-  _mainData,
-  _selectedName
-) {
-  const modal = _mainData?.modals?.find(
-    (item) =>
-      item.name === `${_selectedName}`
-  );
-
-  return modal?.tabs || [];
-}
-
-export async function findByTabName(
-  _tabs,
-  _selectedTab
-) {
-  const tab = _tabs?.find(
-    (item) =>
-      item.name === `${_selectedTab}`
-  );
-
-  return tab?.fields || [];
-}
+});
 
 /* -------------------------------------------------------------------------- */
 /*                              CITIZENS                                      */
@@ -290,8 +269,10 @@ export async function getAllCitizen(_page) {
       {
         headers: {
           "Content-Type": "application/json",
-          "Cache-Control":
-            "public, max-age=60",
+        },
+        next: {
+          revalidate: 60,
+          tags: ["citizens"],
         },
       }
     );
@@ -323,45 +304,28 @@ export async function getFooterData(params) {
       await getTranslation(params?.lang);
 
     if (!langObj?.file_url) {
-      return [];
+      return {};
     }
 
-    const res =
-      await fetch(langObj.file_url);
+    // Reuse cached main translation file instead of a bare uncached fetch.
+    const resJson = await getMainFile(langObj);
 
-    if (!res.ok) {
-      throw new Error(
-        `Footer language file failed: ${res.status}`
-      );
+    if (
+      !resJson ||
+      typeof resJson !== "object" ||
+      Array.isArray(resJson)
+    ) {
+      return {};
     }
 
-    const resJson =
-      await res.json();
-
-    const footerData =
-      resJson?.modals?.find(
-        (modal) =>
-          modal.name === "footer-menu"
-      )?.tabs;
-
-    if (!footerData) {
-      return [];
-    }
-
-    const footerTabs =
-      footerData.find(
-        (item) =>
-          item.name === "our-systems"
-      )?.fields;
-
-    return footerTabs || [];
+    return resJson;
   } catch (error) {
     console.error(
       "[getFooterData] Error:",
       error
     );
 
-    return [];
+    return {};
   }
 }
 
@@ -594,7 +558,10 @@ export async function getUserData(
           "Content-Type":
             "application/json",
         },
-        cache: "no-store",
+        next: {
+          revalidate: 60,
+          tags: [`citizen-${id}`],
+        },
       }
     );
 
@@ -1036,7 +1003,10 @@ export async function getVideoComments(
         safeVideoId
       )}/comments?page=1`,
       {
-        cache: "no-store",
+        next: {
+          revalidate: 30,
+          tags: [`video-comments-${safeVideoId}`],
+        },
         headers: {
           "Content-Type":
             "application/json",

@@ -3,9 +3,9 @@ import {
   getTranslation,
   getMainFile,
   getLangArray,
-  findByTabName,
-  findByModalName,
 } from "@/components/utils/actions";
+import { buildSidebarLabels } from "@/components/utils/buildShellTranslations";
+import { buildLevelTabsMenu } from "@/components/utils/buildTabsMenu";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 export default async function CitizensLayout({
@@ -27,27 +27,8 @@ export default async function CitizensLayout({
 
     const mainData = await getMainFile(langData);
 
-    const [levelsModal, citizenModal] = await Promise.all([
-      findByModalName(mainData, "levels"),
-      findByModalName(mainData, "Citizenship-profile"),
-    ]);
-
-    const [activetabsMenu, tabsMenu1] = await Promise.all([
-      findByTabName(levelsModal, "levels-menu"),
-      findByTabName(citizenModal, "menu"),
-    ]);
-
-    // مثل قبل، فقط menuItem اضافه می‌کنیم
-    const tabsMenu = (activetabsMenu || []).map((item: any) => ({
-      ...item,
-      menuItem: true,
-    }));
-
-    // همون منطق قبلی، بدون تغییر
-    tabsMenu.push(tabsMenu1?.find((item: any) => item.name === "meta rgb"));
-    tabsMenu.push(
-      tabsMenu1?.find((item: any) => item.name === "metaverse rang")
-    );
+    const tabsMenu = buildLevelTabsMenu(mainData);
+    const sidebarLabels = buildSidebarLabels(mainData);
 
     return (
 <div className="flex w-full h-screen overflow-hidden bg-bg-primary">
@@ -56,9 +37,9 @@ export default async function CitizensLayout({
           pageSide="level"
           langArray={langArray}
           langData={langData}
-          tabsMenu={tabsMenu.filter(Boolean)} // جلوگیری از undefined
+          tabsMenu={tabsMenu}
           params={resolvedParams}
-          mainData={mainData}
+          sidebarLabels={sidebarLabels}
         />
 
         <div

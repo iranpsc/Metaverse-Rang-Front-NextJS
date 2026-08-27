@@ -4,24 +4,16 @@ import { usePathname } from "next/navigation";
 
 import SideBar from "@/components/shared/sidebar/SideBar";
 
-interface Tab {
-  id: number;
-  mainData: string;
-  unique_id: number;
-  url?: string;
-  translation: string;
-  order?: number;
-  toShow?: boolean;
-  active?: boolean;
-}
+import type { TabsMenuItem } from "@/components/utils/buildTabsMenu";
+import type { SidebarLabels } from "@/components/utils/buildShellTranslations";
 
 interface ConditionalSidebarProps {
-  tabsMenu: Tab[];
+  tabsMenu: TabsMenuItem[];
   langData: any;
   langArray: any;
   params: any;
-  mainData: any;
-  initialIsClosed: boolean;
+  sidebarLabels: SidebarLabels;
+  initialIsClosed?: boolean;
 }
 
 export default function ConditionalSidebar({
@@ -29,8 +21,8 @@ export default function ConditionalSidebar({
   langData,
   langArray,
   params,
-  mainData,
-  initialIsClosed,
+  sidebarLabels,
+  initialIsClosed = true,
 }: ConditionalSidebarProps) {
   const pathname = usePathname();
 
@@ -69,7 +61,7 @@ export default function ConditionalSidebar({
       langArray={langArray}
       params={params}
       pageSide={pageSide}
-      mainData={mainData}
+      sidebarLabels={sidebarLabels}
       initialIsClosed={initialIsClosed}
     />
   );

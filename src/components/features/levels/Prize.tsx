@@ -7,7 +7,6 @@ export default async function Prize({
   levelTabs,
   singleLevel,
   params,
-  concatArrayContent,
 }: any) {
   // function localFind(_name: any) {
   //   return levelsTranslatePage.find((item: any) => item.name == _name)
