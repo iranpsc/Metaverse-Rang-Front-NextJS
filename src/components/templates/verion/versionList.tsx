@@ -16,12 +16,11 @@ interface Version {
 
 interface VersionBoxProps {
   versions: Version[];
-  sendDataParent: (data: Version) => void;
+  sendDataParent: (data: Version, fromClick?: boolean) => void;
   params: any;
   mainData: any;
-  disableInitialSelection?: boolean;
   selectedVersion?: Version | null;
-  versionRefs:any| null;
+  versionRefs: any | null;
 }
 
 const VersionBox: React.FC<VersionBoxProps> = ({
@@ -29,7 +28,6 @@ const VersionBox: React.FC<VersionBoxProps> = ({
   sendDataParent,
   params,
   mainData,
-  disableInitialSelection = false,
   selectedVersion,
 }) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -45,14 +43,14 @@ const VersionBox: React.FC<VersionBoxProps> = ({
 
   const containerRef = useRef<HTMLDivElement | null>(null);
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
-  const itemRefs = useRef<(HTMLDivElement | null)[]>([]); // 🔥 ref برای هر آیتم
+  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const resetSearch = () => setFilteredVersions(versions);
 
-  // ست کردن ورژن انتخاب شده از props
+  // ست کردن ورژن انتخاب‌شده از props (منبع حقیقت: parent، که از URL/آخرین‌ورژن محاسبه می‌کنه)
   useEffect(() => {
     if (selectedVersion && versions.length > 0) {
-      const index = versions.findIndex(v => v.version === selectedVersion.version);
+      const index = versions.findIndex((v) => v.version === selectedVersion.version);
       if (index !== -1) {
         setOpenIndex(index);
         setSelectedItem(selectedVersion);
@@ -81,15 +79,6 @@ const VersionBox: React.FC<VersionBoxProps> = ({
     }
   }, [searchTerm]);
 
-  // انتخاب اولین نسخه فقط اگر از URL نسخه نیامده باشد
-  useEffect(() => {
-    if (!disableInitialSelection && versions.length > 0) {
-      const first = versions[0];
-      setSelectedItem(first);
-      sendDataParent(first);
-    }
-  }, [versions, disableInitialSelection]);
-
   const handleSearch = async () => {
     const query = searchTerm.trim();
     if (!query) {
@@ -99,7 +88,7 @@ const VersionBox: React.FC<VersionBoxProps> = ({
 
     setLoading(true);
     try {
-      const response =  await globalThis.fetch(
+      const response = await globalThis.fetch(
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar?type=version&search=${encodeURIComponent(query)}`
       );
       const data = await response.json();
@@ -125,9 +114,9 @@ const VersionBox: React.FC<VersionBoxProps> = ({
 
   const handleClick = (index: number) => {
     const selected = filteredVersions[index];
-    setOpenIndex(prev => (prev === index ? null : index));
+    setOpenIndex((prev) => (prev === index ? null : index));
     setSelectedItem(selected);
-    sendDataParent(selected);
+    sendDataParent(selected); // fromClick=true (پیش‌فرض) → فقط اینجا URL عوض می‌شه
   };
 
   const fetchMoreVersions = async () => {
@@ -135,7 +124,7 @@ const VersionBox: React.FC<VersionBoxProps> = ({
 
     setLoading(true);
     try {
-      const response =  await globalThis.fetch(
+      const response = await globalThis.fetch(
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar?type=version&page=${page + 1}`
       );
       const data = await response.json();
@@ -148,9 +137,9 @@ const VersionBox: React.FC<VersionBoxProps> = ({
           date: item.starts_at.split(" ")[0],
           version: item.version_title,
         }));
-        setAllVersions(prev => [...prev, ...newItems]);
-        setVisibleCount(prev => prev + newItems.length);
-        setPage(prev => prev + 1);
+        setAllVersions((prev) => [...prev, ...newItems]);
+        setVisibleCount((prev) => prev + newItems.length);
+        setPage((prev) => prev + 1);
       } else {
         setHasMore(false);
       }
@@ -163,14 +152,13 @@ const VersionBox: React.FC<VersionBoxProps> = ({
 
   const handleShowMore = () => {
     if (visibleCount < filteredVersions.length) {
-      setVisibleCount(prev => prev + 10);
+      setVisibleCount((prev) => prev + 10);
     } else {
       fetchMoreVersions();
     }
   };
 
-  const shouldShowLoadMore = () =>
-    visibleCount < filteredVersions.length;
+  const shouldShowLoadMore = () => visibleCount < filteredVersions.length;
 
   // scroll to active item
   useEffect(() => {
@@ -218,15 +206,13 @@ const VersionBox: React.FC<VersionBoxProps> = ({
             {filteredVersions.length > 0 ? (
               filteredVersions.slice(0, visibleCount).map((item, index) => (
                 <div
-                 ref={(el) => {
-  itemRefs.current[index] = el;
-}}
+                  ref={(el) => {
+                    itemRefs.current[index] = el;
+                  }}
                   key={item.id}
                   onClick={() => handleClick(index)}
                   className={`versionbox cursor-pointer justify-center flex flex-row w-full rounded-[10px] pt-[2px] ${
-                    openIndex === index
-                      ? "bg-primary-shade-1/25 !text-black"
-                      : ""
+                    openIndex === index ? "bg-primary-shade-1/25 !text-black" : ""
                   }`}
                 >
                   <div className="flex w-full justify-between py-2">
@@ -237,69 +223,69 @@ const VersionBox: React.FC<VersionBoxProps> = ({
 
                     <div className="moreInfo lg:w-[91%] w-full">
                       <div className="topParagraph flex flex-row justify-between pr-[8px]">
-                        <p className={`textName truncate text-[90%] text-wrap lg:text-nowrap dark:text-[#FCF9FE] ${
-                          openIndex === index ? "dark:!text-white font-bold" : ""
-                        }`}>
+                        <p
+                          className={`textName truncate text-[90%] text-wrap lg:text-nowrap dark:text-[#FCF9FE] ${
+                            openIndex === index ? "dark:!text-white font-bold" : ""
+                          }`}
+                        >
                           {item.title}
                         </p>
-                        <p className={`textVersion whitespace-nowrap pe-[15px] ps-[10px] text-[90%] ${
-                          openIndex === index ? "dark:text-white" : "text-[#868B90]"
-                        }`}>
+                        <p
+                          className={`textVersion whitespace-nowrap pe-[15px] ps-[10px] text-[90%] ${
+                            openIndex === index ? "dark:text-white" : "text-[#868B90]"
+                          }`}
+                        >
                           {switchDigits(item.version, params.lang)}
                         </p>
                       </div>
 
-                      <div className={`textDate mt-3 font-[600] pr-[8px] text-[100%] ${
-                        openIndex === index ? "text-[#868B90] dark:text-white" : "text-[#868B90] dark:text-[#868B90]"
-                      }`}>
+                      <div
+                        className={`textDate mt-3 font-[600] pr-[8px] text-[100%] ${
+                          openIndex === index
+                            ? "text-[#868B90] dark:text-white"
+                            : "text-[#868B90] dark:text-[#868B90]"
+                        }`}
+                      >
                         {formatDate(item.date, params.lang)}
                       </div>
 
-                      <div className={`accordion-content overflow-hidden transition-all duration-300 ease-in-out flex flex-col items-start gap-3 px-2.5 w-full text-sm ${
-                        isMobile && openIndex === index ? "max-h-[1000px]" : "max-h-0"
-                      }`}>
+                      <div
+                        className={`accordion-content overflow-hidden transition-all duration-300 ease-in-out flex flex-col items-start gap-3 px-2.5 w-full text-sm ${
+                          isMobile && openIndex === index ? "max-h-[1000px]" : "max-h-0"
+                        }`}
+                      >
                         <p className="description dark:text-white">
                           {findByUniqueId(mainData, 1444)}
                         </p>
-                        <div className="descriptionParagraph break-all pb-2 break-words text-[90%] text-[#414040] dark:text-[#C4C4C4]" dangerouslySetInnerHTML={{ __html: item.description }} />
+                        <div
+                          className="descriptionParagraph break-all pb-2 break-words text-[90%] text-[#414040] dark:text-[#C4C4C4]"
+                          dangerouslySetInnerHTML={{ __html: item.description }}
+                        />
                       </div>
                     </div>
                   </div>
                 </div>
               ))
             ) : (
-              <p className="dark:text-white text-center py-4">
-                موردی برای نمایش یافت نشد 😞
-              </p>
+              <p className="dark:text-white text-center py-4">موردی برای نمایش یافت نشد 😞</p>
             )}
-                      {visibleCount < filteredVersions.length && (
-            <div ref={loadMoreRef} className="h-10 w-full"></div>
-          )}
+            {visibleCount < filteredVersions.length && (
+              <div ref={loadMoreRef} className="h-10 w-full"></div>
+            )}
 
-          {shouldShowLoadMore() && (
-            <button
-              onClick={handleShowMore}
-              className="mb-5 w-max mx-auto  bg-white dark:bg-gray-1 text-primary md:text-lg  rounded-[12px] px-[40px] py-[16px] base-transition-1 border-2 border-primary hover:text-primary  "
-            >
-              {findByUniqueId(mainData, 271)}
-            </button>
-          )}
+            {shouldShowLoadMore() && (
+              <button
+                onClick={handleShowMore}
+                className="mb-5 w-max mx-auto  bg-white dark:bg-gray-1 text-primary md:text-lg  rounded-[12px] px-[40px] py-[16px] base-transition-1 border-2 border-primary hover:text-primary  "
+              >
+                {findByUniqueId(mainData, 271)}
+              </button>
+            )}
           </div>
-
-
         </div>
-        
       </div>
     </div>
   );
 };
 
 export default VersionBox;
-function fetch(arg0: string) {
-  throw new Error("Function not implemented.");
-}
-
-function encodeURIComponent(query: any) {
-  throw new Error("Function not implemented.");
-}
-

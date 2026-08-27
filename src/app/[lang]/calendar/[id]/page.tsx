@@ -6,7 +6,7 @@ import {
 } from "@/components/utils/actions";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import { mapEvents, MappedEventItem } from "@/utils/mapEvents";
-import EventCalendarClient from "../../../../components/templates/envent/EventCalendarClient";
+import SingleEventCalendarClient from "@/components/templates/envent/SingleEventCalendarClient";
 // import htmlTruncate from "html-truncate";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam  from "@/components/system/CleanAutoRetryParam";
@@ -226,7 +226,7 @@ export default async function EventPage({ params }: EventPageProps ) {
 
           <div className=" w-full h-auto flex flex-col items-center lg:gap-0 font-['AzarMehr'] lg:flex-row lg:items-start">
             <div className="flex flex-col w-full items-center p-5 lg:px-10">
-              <EventCalendarClient
+              <SingleEventCalendarClient
                 events={filteredEvents}
                 mainData={mainData}
                 params={resolvedParams}

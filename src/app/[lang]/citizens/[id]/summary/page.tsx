@@ -255,11 +255,11 @@ export async function generateMetadata({
     return {
       title:
         lang === "fa"
-          ? `کاربری‌های ${fullName}`
+          ? `املاک و مستغلات حسین قدیری ${fullName}`
           : `Feature summary of ${fullName}`,
       description:
         lang === "fa"
-          ? "خلاصه کاربری‌های ملک به تفکیک نوع"
+          ? "  املاک و مستغلات حسین قدیری  "
           : "Citizen property feature (karbari) summary by type",
       alternates: {
         canonical: `https://metarang.com/${lang}/citizens/${id}/features-summary`,

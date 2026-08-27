@@ -65,3 +65,6 @@ export { default as WhatsAppIcon } from "../../../public/svg/whatsapp.svg";
 export { default as ContactDownArrow } from "../../../public/svg/contactDownArrow.svg";
 export { default as ErrorImg } from "../../../public/error.png";
 export { default as ErrorImgDark } from "../../../public/error-dark.png";
+export { default as Buildings } from "../../../public/buildings.svg";
+export { default as Wallet } from "../../../public/wallet.svg";
+export { default as PropertyS } from "../../../public/property.svg";

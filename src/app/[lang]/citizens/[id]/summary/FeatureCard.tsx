@@ -48,7 +48,7 @@ function FeatureCardImpl({ item, isFa, mainData }: FeatureCardProps) {
               <p className="text-black dark:text-white font-bold text-base lg:text-2xl">{label}</p>
               <p className="text-matn-2 dark:text-matn-2 text-xs lg:text-sm mt-1">
                 {isFa
-                  ? `دارای ${item.current_count.toLocaleString("fa-IR")} بنای تکمیل شده`
+                  ? `دارای ${item.current_count.toLocaleString("fa-IR") } ملک `
                   : `${item.current_count.toLocaleString("en-US")} completed units`}
               </p>
             </div>
@@ -56,10 +56,13 @@ function FeatureCardImpl({ item, isFa, mainData }: FeatureCardProps) {
 
           <div className="flex items-end justify-between text-center border-t border-solid border-x-0 border-b-0 border-[#EFEFEF] dark:border-[#2A2B32]">
             <div className="flex flex-col gap-1 pt-3 items-center mx-auto">
-              <span className="text-black dark:text-white font-bold text-base">
-                {item.bought_count.toLocaleString(isFa ? "fa-IR" : "en-US")}
+ <span className="flex items-center justify-center text-center gap-1 text-[12px] lg:text-sm font-bold text-green-600 text-base">
+                <svg className="rotate-180" width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path className="stroke-green-600" d="M6.0846 0.75H8.3096C11.0679 0.75 12.2013 2.70833 10.8179 5.1L9.70126 7.025L8.5846 8.95C7.20126 11.3417 4.94293 11.3417 3.5596 8.95L2.44293 7.025L1.32626 5.1C-0.0320705 2.70833 1.09293 0.75 3.8596 0.75H6.0846Z" stroke="#F03A47" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                {item.sold_count.toLocaleString(isFa ? "fa-IR" : "en-US")}
               </span>
-              <span className="text-matn-2 text-[12px] lg:text-sm">{findByUniqueId(mainData, 597)}</span>
+              <span className="text-matn-2 text-[12px] lg:text-sm">{findByUniqueId(mainData, 1584)}</span>
             </div>
             <div className="h-full w-[1px] bg-[#EFEFEF] dark:bg-[#2A2B32]" />
             <div className="flex flex-col gap-1 items-center justify-center text-center mx-auto">

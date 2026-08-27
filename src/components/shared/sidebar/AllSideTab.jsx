@@ -101,6 +101,7 @@ export default function SideBarContent({
     pathName === `/${params.lang}/news/categories/`) ||
     (pathName.startsWith(`/${params.lang}/news/categories`) &&
       pathName.split('/').length === 5);
+
   useEffect(() => {
     if (!finalTabsMenu) return;
 
@@ -171,7 +172,41 @@ export default function SideBarContent({
       return { ...item, active: isActive };
     });
 
-    setMenuItems(updatedMenu);
+    // --- آیتم‌های استاتیک (خلاصه / کیف پول / ساختمان‌ها) دقیقا مثل رفرال ---
+    // فقط وقتی داخل صفحه‌ی یک شهروند خاص هستیم (params.id موجوده) نمایش داده بشن
+    const staticCitizenItems = params.id
+      ? [
+        {
+            name: "wallet",
+            unique_id: "STATIC_WALLET",
+            url: `/citizens/${params.id}/wallet`,
+            translation: params.lang === "fa" ? "دارایی پول" : "property",
+            toShow: true,
+            order:-3,
+            active: pathName === `/${params.lang}/citizens/${params.id}/wallet`,
+          },
+          {
+            name: "summary",
+            unique_id: "STATIC_SUMMARY",
+            url: `/citizens/${params.id}/summary`,
+            translation: params.lang === "fa" ? "املاک و مستغلات" : "Real Estate",
+            toShow: true,
+            order: -3,
+            active: pathName === `/${params.lang}/citizens/${params.id}/summary`,
+          },
+          {
+            name: "buildings",
+            unique_id: "STATIC_BUILDINGS",
+            url: `/citizens/${params.id}/buildings`,
+            translation: params.lang === "fa" ? "املاک دارای بنا" : "Built Properties",
+            toShow: true,
+            order: -3,
+            active: pathName === `/${params.lang}/citizens/${params.id}/buildings`,
+          },
+        ]
+      : [];
+
+    setMenuItems([...updatedMenu, ...staticCitizenItems]);
     setTrainingDropDown(cleanPath.startsWith(`/${params.lang}/education`));
     setArticlesDropDown(cleanPath.startsWith(`/${params.lang}/articles`));
     setNewsDropDown(cleanPath.startsWith(`/${params.lang}/news`)); // اضافه شده برای اخبار
@@ -669,6 +704,7 @@ export default function SideBarContent({
                       <ListMenuTitleModule item={{ translation: findByUniqueId(mainData, 1490), active: pathName.startsWith(`/${params.lang}/rand-id/hm`) }} isClosed={isClosed} />
                     </div>
                   </Link>
+
                 </div>
               </li>
             )}

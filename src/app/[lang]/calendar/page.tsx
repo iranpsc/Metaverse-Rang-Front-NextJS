@@ -1,3 +1,4 @@
+// app/[lang]/calendar/page.tsx
 import { Metadata } from "next";
 import { cookies } from "next/headers";
 import {
@@ -5,16 +6,17 @@ import {
   getMainFile,
 } from "@/components/utils/actions";
 import BreadCrumb from "@/components/shared/BreadCrumb";
-import EventsCalendar from "../../../components/templates/envent/EventsCalendar";
+import EventsCalendarClient from "@/components/templates/envent/EventCalendarClient";
 import { mapEvents, MappedEventItem } from "@/utils/mapEvents";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-// import htmlTruncate from "html-truncate";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 import FixLinks from "../../../components/templates/envent/FixLinks";
+
 interface CalendarPageProps {
   params: Promise<{ lang: string }>;
 }
+
 // 📌 Utility: Jalali → Gregorian
 const JalaliDate = {
   g_days_in_month: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
@@ -63,33 +65,15 @@ const JalaliDate = {
     let gd = g_day_no + 1;
 
     return [gy, gm, gd];
-  }
+  },
 };
 
-// 📌 Clean HTML & truncate text
 function cleanDescription(html: string, limit = 200) {
   if (!html) return "";
-
-  let text = "";
-
-  if (typeof window === "undefined") {
-    // SSR / Node.js
-    text = html.replace(/<|>/g, "");
-  } else {
-    // Browser
-    const div = document.createElement("div");
-    div.innerHTML = html;
-    text = div.textContent || div.innerText || "";
-  }
-
-  text = text.trim();
-
-  return text.length > limit
-    ? text.slice(0, limit).trim() + "…"
-    : text;
+  const text = html.replace(/<|>/g, "").trim();
+  return text.length > limit ? text.slice(0, limit).trim() + "…" : text;
 }
 
-// 📌 Convert Jalali date to ISO8601
 function toISODate(dateString: string): string {
   const [datePart, timePart] = dateString.split(" ");
   const [j_y, j_m, j_d] = datePart.split("/").map(Number);
@@ -97,87 +81,35 @@ function toISODate(dateString: string): string {
   const [g_y, g_m, g_d] = JalaliDate.jalaliToGregorian(j_y, j_m, j_d);
   return new Date(g_y, g_m - 1, g_d, hour, min).toISOString();
 }
-export async function generateMetadata({ params }: CalendarPageProps): Promise<Metadata> {
-          const resolvedParams = await params;
-    const { lang } = resolvedParams;
+
+async function fetchPublicEvents(): Promise<MappedEventItem[]> {
   try {
-    const [langData] = await Promise.all([
-      getTranslation(lang),
-    ]);
-
-    const mainData = await getMainFile(langData);
-
-    const cookieStore = await cookies();
-    const rawAuth = cookieStore.get("auth")?.value;
-    const token = rawAuth ? new URLSearchParams(rawAuth).get("token") : null;
-
-    const headers: HeadersInit = {
-      "Content-Type": "application/json",
-      ...(token && { Authorization: `Bearer ${token}` }),
-    };
-
-    const res = await fetch( `${process.env.NEXT_PUBLIC_API_BASE_URL}/calendar?type=event`, {
-      method: "GET",
-      headers,
-      next: { revalidate: 0 }, // کش برای ۱ دقیقه
-    });
-
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar?type=event`,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        next: { revalidate: 60 },
+      }
+    );
     const data = await res.json();
-    const events = data.data;
-    const Events: MappedEventItem[] = mapEvents(events);
-
-    return {
-      title: findByUniqueId(mainData, 1463),
-      description: findByUniqueId(mainData, 1464),
-      keywords: ["تقویم رویدادها", "رویدادهای متاورس", "رویدادهای مهم"],
-      openGraph: {
-        title: findByUniqueId(mainData, 1463),
-        description: findByUniqueId(mainData, 1464),
-        url: `https://metarang.com/${lang}/calendar`,
-        type: "website",
-        locale: (await params).lang === "fa" ? "fa_IR" : "en_US",
-        images: [
-          {
-            url: Events.length > 0 ? Events[0]?.image || "https://metarang.com/default-image.jpg" : "https://metarang.com/default-image.jpg",
-            width: 1200,
-            height: 630,
-            alt: "تصویر اولین رویداد",
-          },
-        ],
-      },
-      twitter: {
-        card: "summary_large_image",
-        title: findByUniqueId(mainData, 1463),
-        description: findByUniqueId(mainData, 1464),
-        images: [
-          Events.length > 0 ? Events[0]?.image || "https://metarang.com/default-image.jpg" : "https://metarang.com/default-image.jpg",
-        ],
-      },
-      alternates: {
-        languages: {
-          "fa-IR": `https://metarang.com/fa/calendar`,
-          "en-US": `https://metarang.com/en/calendar`,
-        },
-      },
-    };
-  } catch (error) {
-    console.error("❌ Metadata error (LevelsPage):", error);
-
-    return {
-      title: "خطا",
-      description: "مشکلی در بارگذاری صفحه رخ داده است",
-    };
+    return mapEvents(data.data);
+  } catch (e) {
+    console.error("❌ Error fetching public events for SEO:", e);
+    return [];
   }
 }
 
-// 📌 Build dynamic Event Schema for rich results
 function buildEventSchema(events: MappedEventItem[], paramsLang: string) {
   return {
     "@context": "https://schema.org",
     "@type": "Event",
     name: "تقویم رویدادهای متاورس رنگ",
     description: "مشاهده جدیدترین رویدادها و برنامه‌های متاورس رنگ در تقویم ما.",
-    image: events.length > 0 ? events[0].image || "https://metarang.com/default-image.jpg" : "https://metarang.com/default-image.jpg",
+    image:
+      events.length > 0
+        ? events[0].image || "https://metarang.com/default-image.jpg"
+        : "https://metarang.com/default-image.jpg",
     eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
     eventStatus: "https://schema.org/EventScheduled",
     organizer: {
@@ -185,7 +117,7 @@ function buildEventSchema(events: MappedEventItem[], paramsLang: string) {
       name: "متاورس رنگ",
       url: "https://metarang.com",
     },
-    subEvents: events.map(event => ({
+    subEvents: events.map((event) => ({
       "@type": "Event",
       name: cleanDescription(event.title),
       startDate: toISODate(event.start),
@@ -196,85 +128,127 @@ function buildEventSchema(events: MappedEventItem[], paramsLang: string) {
       location: {
         "@type": "Place",
         name: cleanDescription(event.title) || "Metaverse Rang",
-        url: event.link || `https://metarang.com/${paramsLang}/calendar/${event.id}`
-      },
-      offers: event.btnName ? {
-        "@type": "Offer",
-        price: "0",
-        priceCurrency: "IRR",
         url: event.link || `https://metarang.com/${paramsLang}/calendar/${event.id}`,
-        availability: "https://schema.org/InStock",
-        validFrom: new Date().toISOString()
-      } : undefined
-    }))
+      },
+      offers: event.btnName
+        ? {
+            "@type": "Offer",
+            price: "0",
+            priceCurrency: "IRR",
+            url: event.link || `https://metarang.com/${paramsLang}/calendar/${event.id}`,
+            availability: "https://schema.org/InStock",
+            validFrom: new Date().toISOString(),
+          }
+        : undefined,
+    })),
   };
 }
 
-// 📌 Page Component
-export default async function CalendarPage({ params }: CalendarPageProps) {
-          const resolvedParams = await params;
-    const { lang } = resolvedParams;
-  try {
-    const [langData] = await Promise.all([
-      getTranslation(lang),
-    ]);
+export async function generateMetadata({
+  params,
+}: CalendarPageProps): Promise<Metadata> {
+  const { lang } = await params;
 
+  try {
+    const langData = await getTranslation(lang);
     const mainData = await getMainFile(langData);
 
-    const cookieStore = await cookies();
-    const rawAuth = cookieStore.get("auth")?.value;
-    const token: string | null = rawAuth ? new URLSearchParams(rawAuth).get("token") : null;
+    const title = findByUniqueId(mainData, 1463);
+    const description = findByUniqueId(mainData, 1464);
 
-    const headers: HeadersInit = {
-      "Content-Type": "application/json",
-      ...(token && { Authorization: `Bearer ${token}` }),
+    const canonicalUrl = `https://metarang.com/${lang}/calendar`;
+
+    return {
+      title,
+      description,
+
+      keywords: [
+        "تقویم رویدادها",
+        "رویدادهای متاورس",
+        "رویدادهای مهم",
+      ],
+
+      alternates: {
+        canonical: canonicalUrl,
+        languages: {
+          "fa-IR": "https://metarang.com/fa/calendar",
+          "en-US": "https://metarang.com/en/calendar",
+        },
+      },
+
+      openGraph: {
+        title,
+        description,
+        url: canonicalUrl,
+        siteName: "متاورس رنگ",
+        type: "website",
+        locale: lang === "fa" ? "fa_IR" : "en_US",
+      },
+
+      twitter: {
+        card: "summary_large_image",
+        title,
+        description,
+      },
     };
+  } catch (error) {
+    console.error("❌ Calendar generateMetadata error:", error);
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar?type=event`, {
-      method: "GET",
-      headers,
-      next: { revalidate: 60 },
-    });
+    return {
+      title: "تقویم رویدادها | متاورس رنگ",
+      description:
+        "مشاهده جدیدترین رویدادها و برنامه‌های متاورس رنگ در تقویم رویدادها.",
+    };
+  }
+}
 
-    const data = await res.json();
-    const Events: MappedEventItem[] = mapEvents(data.data);
+export default async function CalendarPage({ params }: CalendarPageProps) {
+  const resolvedParams = await params;
+  const { lang } = resolvedParams;
+  try {
+    const [langData] = await Promise.all([getTranslation(lang)]);
+    const mainData = await getMainFile(langData);
 
-    const eventSchema = buildEventSchema(Events, resolvedParams.lang);
+    // فچ سبک و عمومی فقط برای schema (بدون هدر auth) — این fetch سریع و
+    // کش‌شونده‌ست (revalidate: 60) پس بلاک‌کننده‌ی جدی برای LCP نیست
+    const publicEvents = await fetchPublicEvents();
+    const eventSchema = buildEventSchema(publicEvents, lang);
 
     return (
       <div className="flex flex-col min-w-[340px] w-full" dir={langData.direction}>
         <FixLinks />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(eventSchema, null, 2) }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(eventSchema, null, 2) }}
+        />
         <CleanAutoRetryParam />
-        <section className="w-full relative mt-[60px] lg:mt-0 lg:pt-0 bg-bg-primary  bg-opacity20">
+        <section className="w-full relative mt-[60px] lg:mt-0 lg:pt-0 bg-bg-primary bg-opacity20">
           <div className="px-12">
             <BreadCrumb params={resolvedParams} />
           </div>
 
           <div className="p-5 lg:px-10 space-y-3 mb-5">
-            <h1 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[64px] mb-[16px]">{findByUniqueId(mainData, 1463)}</h1>
-            <p className="text-matn-2  dark:text-matn-2 font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center px-5 lg:px-10">{findByUniqueId(mainData, 1464)}</p>
+            <h1 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[64px] mb-[16px]">
+              {findByUniqueId(mainData, 1463)}
+            </h1>
+            <p className="text-matn-2 dark:text-matn-2 font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center px-5 lg:px-10">
+              {findByUniqueId(mainData, 1464)}
+            </p>
           </div>
 
           <div className="mainContainer w-full h-auto flex flex-col items-center lg:gap-0 font-azarMehr lg:flex-row lg:items-start p-5 lg:px-10">
-            <EventsCalendar token={token} mainData={mainData} params={resolvedParams} events={Events} />
+            <EventsCalendarClient lang={lang} mainData={mainData} params={resolvedParams} />
           </div>
         </section>
       </div>
     );
-  }
-  catch (error) {
+  } catch (error) {
     const serializedError = {
-      message:
-        error instanceof Error ? error.message : "Unknown error",
-      stack:
-        error instanceof Error ? error.stack : null,
-      name:
-        error instanceof Error ? error.name : "Error",
+      message: error instanceof Error ? error.message : "Unknown error",
+      stack: error instanceof Error ? error.stack : null,
+      name: error instanceof Error ? error.name : "Error",
     };
-
     console.error("❌ Error in EventsPage:", serializedError);
-
     return <CustomErrorPage error={serializedError} />;
   }
 }

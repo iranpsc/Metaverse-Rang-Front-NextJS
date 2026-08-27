@@ -8,6 +8,9 @@ export const getStaticMenu = (params) => {
       order: "-3"
     },
     { name: "invitations", unique_id: 1419, url: "referral", order: "-2" },
+    { name: "buildings", url: "buildings", order: "-2", toShow:true},
+{ name: "wallet", url: "wallet", order: "-2" },
+{ name: "summary", url: "summary", order: "-2" },
     // { name: "citizens", unique_id: 263, url: "citizens", order: "-2" },
     { name: "list of levels", unique_id: 903, url: "levels/citizen", order: "-2" },
     // Handle citizen profilee URL dynamically

@@ -60,14 +60,15 @@ const Version: React.FC<VersionBoxProps> = ({
     }
   }, [selectedVersion]);
 
-  const handleDataFromChild = (data: Version) => {
-    setSelectedVersion(data);
-
+const handleDataFromChild = (data: Version, fromClick: boolean = true) => {
+  setSelectedVersion(data);
+  if (fromClick) {
     router.push(
       `/${params.lang}/version/${encodeURIComponent(data.version)}`,
-      { scroll: false } // 🔥 جلوگیری از اسکرول Next
+      { scroll: false }
     );
-  };
+  }
+};
 
   return (
     <>
