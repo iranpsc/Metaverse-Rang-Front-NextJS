@@ -56,7 +56,7 @@ export default function WalletSummaryCard({ item, period, lang , mainData }: Wal
                 <AssetIcon type={config.icon} color={config.color} />
               </div>
             </div>
-            <div className="text-center flex flex-col w-full items-center mt-6">
+            <div className="text-center flex flex-col w-full items-center mt-8">
               <p className="text-black dark:text-white font-bold text-base lg:text-xl">
               {findByUniqueId(mainData, config.uniqueId ) }
               </p>
@@ -113,7 +113,7 @@ export default function WalletSummaryCard({ item, period, lang , mainData }: Wal
             </div>
           </div>
 
-          <p className="text-[#84858F] text-xs mt-2 text-center lg:text-sm leading-6 line-clamp-4 flex-1">
+          <p className="text-[#84858F] text-xs mt-5 text-center lg:text-sm leading-6 line-clamp-4 flex-1">
             {description}
           </p>
 

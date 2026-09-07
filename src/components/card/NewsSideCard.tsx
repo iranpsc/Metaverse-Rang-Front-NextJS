@@ -121,7 +121,7 @@ const NewsSideCard: React.FC<NewsSideCardProps> = ({
                 <div className="flex items-center w-full justify-between">
                     <div className="flex items-center text-xs lg:hidden xl:block">
                         {mainData && <span className="dark:text-white">{mainData} : </span>}
-                        <span className="dark:text-white">{news?.date}</span>
+                        <span className="dark:text-white"> {news?.date.split("T")[0]}</span>
                     </div>
 
                     <div className="flex items-center gap-[14px]">

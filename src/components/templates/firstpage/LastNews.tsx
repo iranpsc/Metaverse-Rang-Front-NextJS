@@ -263,7 +263,18 @@ const LatestNews: React.FC<LatestNewsProps> = ({
     item.categorySlug ||
     item.category?.toLowerCase().replace(/\s+/g, "-") ||
     "general";
-
+const stripHtml = (html: string) => {
+  return html
+    .replace(/<[^>]*>/g, "")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/\s+/g, " ")
+    .trim();
+};
   return (
     <section className="w-full max-w-7xl mx-auto">
       {/* هدر بخش */}
@@ -328,11 +339,11 @@ const LatestNews: React.FC<LatestNewsProps> = ({
                   <p className="text-xl md:text-2xl font-rokh text-center font-bold line-clamp-2 leading-9">
                     {featured.title}
                   </p>
-                  {featured.excerpt && (
-                    <p className="text-sm md:text-base text-matn-2-200 line-clamp-2">
-                      {featured.excerpt}
-                    </p>
-                  )}
+{featured.excerpt && (
+  <p className="text-sm md:text-base text-matn-2-200 line-clamp-2">
+    {stripHtml(featured.excerpt)}
+  </p>
+)}
                   <div className="flex w-full items-center justify-center gap-4 2xl:gap-10 text-sm pb-2">
                     {featured.stats && (
                       <div className="flex gap-2 items-center">
@@ -343,7 +354,7 @@ const LatestNews: React.FC<LatestNewsProps> = ({
                     |
                     {featured.date && (
                       <div className="flex gap-2 items-center">
-                        <time dateTime={featured.date}>{featured.date}</time>
+                        <time dateTime={featured.date}>{featured.date?.split("T")[0]}</time>
                         <Calender className="stroke-dark-gray size-5" />
                       </div>
                     )}
@@ -413,7 +424,7 @@ const LatestNews: React.FC<LatestNewsProps> = ({
 
                     <div className="text-sm text-matn-2-500 dark:text-[#969696] flex items-center gap-3">
                       <div className="flex items-center gap-2">
-                        {item.date && <time dateTime={item.date}>{item.date}</time>}
+                        {item.date && <time dateTime={item.date}>{item.date?.split("T")[0]}</time>}
                         <Calender className="stroke-dark-gray size-5" />
                       </div>
 

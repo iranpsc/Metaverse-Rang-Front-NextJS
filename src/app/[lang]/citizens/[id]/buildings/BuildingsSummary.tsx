@@ -108,6 +108,16 @@ export default function BuildingsSummary({
   const [selectedKarbari, setSelectedKarbari] = useState<string[]>([]);
   const [initialized, setInitialized] = useState(false);
 
+  // BuildingsChart / BuildingsList each do their own fetching when
+  // period/filters change (this component doesn't refetch summary on
+  // period change), so they report their loading state back up here
+  // via onLoadingChange so the period button can show a spinner while
+  // either of them is fetching. If the child components don't call
+  // this prop yet, the loader below simply never lights up — harmless.
+  const [chartLoading, setChartLoading] = useState(false);
+  const [listLoading, setListLoading] = useState(false);
+  const isPeriodLoading = chartLoading || listLoading;
+
   const isAllSelected =
     knownKarbari.length > 0 && selectedKarbari.length === knownKarbari.length;
 
@@ -190,19 +200,30 @@ export default function BuildingsSummary({
 
 <div className="flex flex-wrap gap-10 w-full items-center justify-between mt-10">
         <div className="flex justify-between gap-4 md:max-w-[50%] lg:max-w-[30%] h-[64px]">
-        {PERIOD_OPTIONS.map((opt) => (
-          <button
-            key={opt.key}
-            onClick={() => setPeriod(opt.key)}
-            className={`moment bg-white dark:bg-gray-1 text-[#84858F] p-2 rounded-xl  w-[100px] ${
-              period === opt.key
-                ? "border-2 border-primary  border-solid  text-primary font-bold"
-                : ""
-            }`}
-          >
-            {findByUniqueId(mainData, opt.uniqueId) || opt.fallback}
-          </button>
-        ))}
+        {PERIOD_OPTIONS.map((opt) => {
+          const isActive = period === opt.key;
+          const showLoader = isActive && isPeriodLoading;
+          return (
+            <button
+              key={opt.key}
+              onClick={() => setPeriod(opt.key)}
+              disabled={showLoader}
+              className={`moment relative bg-white dark:bg-gray-1 text-[#84858F] p-2 rounded-xl  w-[100px] flex items-center justify-center gap-2 ${
+                isActive
+                  ? "border-2 border-primary  border-solid  text-primary font-bold"
+                  : ""
+              } ${showLoader ? "cursor-wait opacity-90" : ""}`}
+            >
+              {showLoader && (
+                <span
+                  className="inline-block w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin"
+                  aria-hidden="true"
+                />
+              )}
+              <span>{findByUniqueId(mainData, opt.uniqueId) || opt.fallback}</span>
+            </button>
+          );
+        })}
       </div>
         <div className="flex flex-wrap items-center gap-x-6 gap-y-3 py-2">
         <label className="flex items-center gap-2 cursor-pointer text-sm text-black dark:text-white">
@@ -255,6 +276,7 @@ export default function BuildingsSummary({
             isAllSelected={isAllSelected}
             lang={lang}
             mainData={mainData}
+            // onLoadingChange={setChartLoading}
           />
           <BuildingsList
             params={params}
@@ -262,6 +284,7 @@ export default function BuildingsSummary({
             isAllSelected={isAllSelected}
             lang={lang}
             mainData={mainData}
+            onLoadingChange={setListLoading}
           />
         </>
       )}

@@ -134,7 +134,7 @@ export default async function CitizensPage({ params }: CitizensPageProps) {
                 <SearchComponent
                   searchLevel='citizen'
                   mainData={mainData}
-                  params={params}
+                  params={resolvedParams}
                 />
               </div>
             </div>

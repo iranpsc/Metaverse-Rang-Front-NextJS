@@ -278,7 +278,7 @@ else if (item.unique_id == "1374") {
         {
           name: "wallet",
           unique_id: "STATIC_WALLET",
-          url: `/citizens/${params.id}/wallet`,
+          url: `citizens/${params.id}/wallet`,
           translation: params.lang === "fa" ? "دارایی ها" : "property",
           toShow: true,
           order: -3,
@@ -287,7 +287,7 @@ else if (item.unique_id == "1374") {
         {
           name: "summary",
           unique_id: "STATIC_SUMMARY",
-          url: `/citizens/${params.id}/summary`,
+          url: `citizens/${params.id}/summary`,
           translation: params.lang === "fa" ? "املاک و مستغلات" : "Real Estate",
           toShow: true,
           order: -3,
@@ -296,7 +296,7 @@ else if (item.unique_id == "1374") {
         {
           name: "buildings",
           unique_id: "STATIC_BUILDINGS",
-          url: `/citizens/${params.id}/buildings`,
+          url: `citizens/${params.id}/buildings`,
           translation: params.lang === "fa" ? "املاک دارای بنا" : "Built Properties",
           toShow: true,
           order: -3,

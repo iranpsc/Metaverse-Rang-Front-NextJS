@@ -18,7 +18,7 @@ export default function InviteBox({
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [copied, setCopied] = useState(false);
   const [inviteLink] = useState(
-    `metarang.com/${params.lang}/citizens/${params.id}/summary`
+    `metarang.com/${params.lang}/citizens/${params.id}/referral`
   );
 
   // function localFind(_name: any): string {
@@ -79,7 +79,7 @@ export default function InviteBox({
       navigator.clipboard
         .writeText(
           fullUrl ||
-            `https://metarang.com/${params.lang}/citizens/${params.id}/summary`
+            `https://metarang.com/${params.lang}/citizens/${params.id}/referral`
         )
         .then(() => {
           setCopied(true); // Update button text to "Copied"
@@ -102,7 +102,7 @@ export default function InviteBox({
       <div className="flex flex-wrap min-h-[260px] ">
         <div className="w-full lg:w-3/4 p-6">
           <p className="text-black dark:text-white text-lg leading-[36px] text-justify lg:text-[20px] ">
-            {findByUniqueId(mainData, 1783 )}
+          {findByUniqueId(mainData, 1812 )}
           </p>
 
           <div className=" flex flex-col w-full lg:flex-row lg:gap-2 xl:mt-12">

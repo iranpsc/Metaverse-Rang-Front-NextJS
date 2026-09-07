@@ -20,10 +20,10 @@ export default function BreakingNewsSliderClient({
 }: any) {
   const [mounted, setMounted] = useState(false);
   const isRTL = lang === "fa";
-const getCategorySlug = (item: any) =>
-  item.categorySlug ||
-  item.category?.toLowerCase().replace(/\s+/g, "-") ||
-  "general";
+  const getCategorySlug = (item: any) =>
+    item.categorySlug ||
+    item.category?.toLowerCase().replace(/\s+/g, "-") ||
+    "general";
   useEffect(() => {
     // ⛔ جلوگیری از init زودهنگام Swiper
     setMounted(true);
@@ -60,77 +60,80 @@ const getCategorySlug = (item: any) =>
             className="!w-[75%] md:!w-[65%] lg:!w-[58%] relative"
           >
             {/* TEXT */}
-            <div className="absolute bottom-0 left-0 right-0 z-10 p-5 sm:p-6 md:p-8 lg:p-10 text-white flex flex-col items-center justify-center gap-5">
-              <div className="flex justify-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="334"
-                  height="58"
-                  viewBox="0 0 334 58"
-                  fill="none"
-                  className="!w-[200px] lg:!w-auto"
-                >
-                  <path d="M37.4028 1.17969H333.473L310.473 57.1797H11.9727L37.4028 1.17969Z" fill="#F10011" />
-                  <path d="M178.377 1H333.736L310.986 57H178.377L155.66 32.1512C154.281 30.6432 154.261 28.3385 155.613 26.8062L178.377 1Z" fill="white" className="dark:fill-black" />
-                  <text className="fill-black dark:fill-white">
-                    <tspan
-                      x={isRTL ? 270 : 210}
-                      y="36.3237"
-                      className="text-xl lg:text-3xl !font-rokh !font-extrabold"
-                    >
-                      {findByUniqueId(mainData, 1616) || "خبر"}
-                    </tspan>
-                  </text>
-                  <text className="fill-black dark:fill-white">
-                    <tspan
-                      x={isRTL ? 140 : 40}
-                      y="36.3237"
-                      className="text-xl lg:text-3xl !font-rokh !font-extrabold"
-                    >
-                      {findByUniqueId(mainData, 1617) || "فوری"}
-                    </tspan>
-                  </text>
-                </svg>
-              </div>
+            <Link href={`/${lang}/news/categories/${getCategorySlug(item)}/${item.slug}`}>
+              <Link href={`/${lang}/news/categories/${getCategorySlug(item)}/${item.slug}`} className="absolute bottom-0 left-0 right-0 z-10 p-5 sm:p-6 md:p-8 lg:p-10 text-white flex flex-col items-center justify-center gap-5">
+                <div className="flex justify-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="334"
+                    height="58"
+                    viewBox="0 0 334 58"
+                    fill="none"
+                    className="!w-[200px] lg:!w-auto"
+                  >
+                    <path d="M37.4028 1.17969H333.473L310.473 57.1797H11.9727L37.4028 1.17969Z" fill="#F10011" />
+                    <path d="M178.377 1H333.736L310.986 57H178.377L155.66 32.1512C154.281 30.6432 154.261 28.3385 155.613 26.8062L178.377 1Z" fill="white" className="dark:fill-black" />
+                    <text className="fill-black dark:fill-white">
+                      <tspan
+                        x={isRTL ? 270 : 210}
+                        y="36.3237"
+                        className="text-xl lg:text-3xl !font-rokh !font-extrabold"
+                      >
+                        {findByUniqueId(mainData, 1616) || "خبر"}
+                      </tspan>
+                    </text>
+                    <text className="fill-black dark:fill-white">
+                      <tspan
+                        x={isRTL ? 140 : 40}
+                        y="36.3237"
+                        className="text-xl lg:text-3xl !font-rokh !font-extrabold"
+                      >
+                        {findByUniqueId(mainData, 1617) || "فوری"}
+                      </tspan>
+                    </text>
+                  </svg>
+                </div>
 
-              <Link
-                href={`/${lang}/news/categories/${getCategorySlug(item)}/${item.slug}`}
-                className="block lg:text-2xl text-xl 3xl:text-3xl font-rokh text-center font-bold line-clamp-1"
-              >
-                {item.title}
+                <Link
+                  href={`/${lang}/news/categories/${getCategorySlug(item)}/${item.slug}`}
+                  className="block lg:text-2xl text-xl 3xl:text-3xl font-rokh text-center font-bold line-clamp-1"
+                >
+                  {item.title}
+                </Link>
+
+                <div className="flex flex-wrap items-center gap-3 text-sm md:text-base">
+                  <div className="flex items-center gap-2">
+                    <span>{formatNumber(item.stats?.views ?? 0)}</span>
+                    <View className="size-5" />
+                  </div>
+                  |
+                  <div className="flex items-center gap-2">
+                    <span>{item.date?.split("T")[0]}</span>
+                    <Calender className="size-5" />
+                  </div>
+                  |
+                  <div className="flex items-center gap-2">
+                    <span>{item.readingTime} دقیقه مطالعه</span>
+                    <Timer className="size-5" />
+                  </div>
+                </div>
               </Link>
 
-              <div className="flex flex-wrap items-center gap-3 text-sm md:text-base">
-                <div className="flex items-center gap-2">
-                  <span>{formatNumber(item.stats?.views ?? 0)}</span>
-                  <View className="size-5" />
-                </div>
-                |
-                <div className="flex items-center gap-2">
-                  <span>{item.date}</span>
-                  <Calender className="size-5" />
-                </div>
-                |
-                <div className="flex items-center gap-2">
-                  <span>{item.readingTime} دقیقه مطالعه</span>
-                  <Timer className="size-5" />
-                </div>
+              {/* IMAGE */}
+              <div className="relative h-full bg-neutral-300 dark:bg-neutral-800 rounded-xl overflow-hidden">
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 70vw, 50vw"
+                  priority={index === 0}
+                  quality={60}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
               </div>
-            </div>
 
-            {/* IMAGE */}
-            <div className="relative h-full bg-neutral-300 dark:bg-neutral-800 rounded-xl overflow-hidden">
-              <Image
-                src={item.image}
-                alt={item.title}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 70vw, 50vw"
-                priority={index === 0}
-                quality={60}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
-            </div>
+            </Link>
           </SwiperSlide>
         ))}
 

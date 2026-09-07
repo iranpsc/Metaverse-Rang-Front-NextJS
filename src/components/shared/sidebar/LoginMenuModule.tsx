@@ -326,7 +326,7 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
     bg-primary
     
     text-white
-    dark:text-dark-background
+   
     font-azarMehr
     font-medium
     text-[15px]

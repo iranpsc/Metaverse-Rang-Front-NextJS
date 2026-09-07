@@ -197,7 +197,7 @@ const LatestNews: React.FC<LatestNewsProps> = ({
                     {featured.date && <div className="flex gap-2 items-center">
 
                       <time dateTime={featured.date}>
-                        {featured.date}
+                        {featured.date?.split("T")[0]}
                       </time>
                       <Calender className="stroke-dark-gray size-5" />
                     </div>}
@@ -270,7 +270,7 @@ const LatestNews: React.FC<LatestNewsProps> = ({
                       <div className="flex items-center gap-2">
                         {item.date && (
                           <time dateTime={item.date}>
-                            {item.date}
+                            {item.date?.split("T")[0]}
                           </time>
                         )}
                         <Calender className="stroke-dark-gray size-5" />

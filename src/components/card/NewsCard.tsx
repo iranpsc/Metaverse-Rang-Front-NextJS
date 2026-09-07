@@ -95,7 +95,7 @@ const NewsCard: React.FC<NewsCardProps> = ({
                         {item.date && (
                             <div className="flex items-center gap-2">
                                 <time dateTime={item.date}>
-                                    {item.date}
+                                   {item.date?.split("T")[0]}
                                 </time>
                                 <Calender className="size-5 fill-current" aria-hidden="true" />
                             </div>

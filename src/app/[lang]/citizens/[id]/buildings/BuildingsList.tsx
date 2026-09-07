@@ -270,12 +270,21 @@ export default function BuildingsList({
   isAllSelected,
   lang,
   mainData,
+  onLoadingChange,
 }: {
   params: any;
   selectedKarbari: string[];
   isAllSelected: boolean;
   lang: string;
   mainData: any;
+  // Reports the "is the first page currently loading" state up to the
+  // parent (BuildingsSummary), which uses it to light up the spinner
+  // on the active period button. Note: this list only refetches on
+  // selectedKarbari/isAllSelected changes, not on period — so this
+  // signal alone won't fire when switching weekly/monthly, only when
+  // toggling the karbari filters. The period-driven part of the
+  // spinner depends on BuildingsChart reporting its own loading state.
+  onLoadingChange?: (loading: boolean) => void;
 }) {
   const isFa = lang.toLowerCase() === "fa";
 
@@ -331,6 +340,11 @@ export default function BuildingsList({
     fetchList(1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [JSON.stringify(selectedKarbari), isAllSelected, params.id]);
+
+  // report first-page loading state up to the parent
+  useEffect(() => {
+    onLoadingChange?.(loading);
+  }, [loading, onLoadingChange]);
 
   const handleLoadMore = () => {
     if (loading || loadingMore || !hasMore) return;

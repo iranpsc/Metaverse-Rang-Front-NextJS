@@ -48,6 +48,9 @@ export default function WalletHistory({
 
   const isAllSelected = selectedAssets.length === ASSET_ORDER.length;
 
+  // true while a request triggered by the currently-selected period is in flight
+  const isPeriodLoading = summaryLoading || chartLoading;
+
   /* ---------------------- filter toggles ---------------------- */
   const toggleAll = () => {
     setSelectedAssets(isAllSelected ? [] : ASSET_ORDER);
@@ -271,19 +274,30 @@ export default function WalletHistory({
 
       {/* period switch */}
       <div className="flex justify-between gap-3 md:max-w-[60%] lg:max-w-[40%] h-[56px]">
-        {PERIOD_OPTIONS.map((opt) => (
-          <button
-            key={opt.key}
-            onClick={() => setPeriod(opt.key)}
-            className={`moment bg-white dark:bg-gray-1 text-[#84858F] p-2 rounded-xl w-[100px] ${
-              period === opt.key
-                ? "border-2 border-primary  border-solid  text-primary font-bold"
-                : ""
-            }`}
-          >
-            {findByUniqueId(mainData, opt.uniqueId) || opt.fallback}
-          </button>
-        ))}
+        {PERIOD_OPTIONS.map((opt) => {
+          const isActive = period === opt.key;
+          const showLoader = isActive && isPeriodLoading;
+          return (
+            <button
+              key={opt.key}
+              onClick={() => setPeriod(opt.key)}
+              disabled={showLoader}
+              className={`moment relative bg-white dark:bg-gray-1 text-[#84858F] p-2 rounded-xl w-[100px] flex items-center justify-center gap-2 ${
+                isActive
+                  ? "border-2 border-primary  border-solid  text-primary font-bold"
+                  : ""
+              } ${showLoader ? "cursor-wait opacity-90" : ""}`}
+            >
+              {showLoader && (
+                <span
+                  className="inline-block w-4 h-4 border-2 border-primary border-solid border-t-transparent rounded-full animate-spin"
+                  aria-hidden="true"
+                />
+              )}
+              <span>{findByUniqueId(mainData, opt.uniqueId) || opt.fallback}</span>
+            </button>
+          );
+        })}
       </div>
 </div>
 

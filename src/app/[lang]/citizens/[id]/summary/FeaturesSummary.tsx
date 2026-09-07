@@ -150,19 +150,30 @@ export default function FeaturesSummary({
       <div className="flex items-center justify-between gap-10 mt-10">
         {/* period ("sort") switch — same style/markup as the referral page */}
         <div className="flex justify-between gap-4 md:max-w-[50%] lg:max-w-[30%] h-[64px]">
-          {PERIOD_OPTIONS.map((opt) => (
-            <button
-              key={opt.key}
-              onClick={() => setPeriod(opt.key)}
-              className={`moment bg-white dark:bg-gray-1 text-[#84858F] p-2 rounded-xl w-full px-7 ${
-                period === opt.key
-                  ? "border-2 border-primary  border-solid  text-primary font-bold"
-                  : ""
-              }`}
-            >
-              {findByUniqueId(mainData, opt.uniqueId) || opt.fallback}
-            </button>
-          ))}
+          {PERIOD_OPTIONS.map((opt) => {
+            const isActive = period === opt.key;
+            const showLoader = isActive && loading;
+            return (
+              <button
+                key={opt.key}
+                onClick={() => setPeriod(opt.key)}
+                disabled={showLoader}
+                className={`moment relative bg-white dark:bg-gray-1 text-[#84858F] p-2 rounded-xl w-full px-7 flex items-center justify-center gap-2 ${
+                  isActive
+                    ? "border-2 border-primary  border-solid  text-primary font-bold"
+                    : ""
+                } ${showLoader ? "cursor-wait opacity-90" : ""}`}
+              >
+                {showLoader && (
+                  <span
+                    className="inline-block w-4 h-4 border-2 border-solid border-primary border-t-transparent rounded-full animate-spin"
+                    aria-hidden="true"
+                  />
+                )}
+                <span>{findByUniqueId(mainData, opt.uniqueId) || opt.fallback}</span>
+              </button>
+            );
+          })}
         </div>
 
         <div className="flex flex-wrap items-center gap-x-6 gap-y-3 py-2">

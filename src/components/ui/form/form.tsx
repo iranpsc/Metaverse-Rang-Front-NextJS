@@ -143,7 +143,7 @@ export default function ContactForm({ lang }: Props) {
         {/* name */}
         <div>
           <input
-            className={`w-full text-base rtl:text-right ltr:text-left h-[50px] bg-[#F5F5F5]  rounded-[10px] p-4 border-0 
+            className={`w-full text-base rtl:text-right ltr:text-left h-[50px] bg-gray-3  rounded-[10px] p-4 border-0 
   dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder 
   ring-1 outline-0 focus:ring-1 outline-none border-none
   ${errors.name
@@ -163,7 +163,7 @@ export default function ContactForm({ lang }: Props) {
         {/* phone */}
         <div>
           <input
-            className={`w-full text-base rtl:text-right ltr:text-left h-[50px] bg-[#F5F5F5]  rounded-[10px] p-4 border-0 
+            className={`w-full text-base rtl:text-right ltr:text-left h-[50px] bg-gray-3 rounded-[10px] p-4 border-0 
   dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder 
   ring-1 outline-0 focus:ring-1 outline-none border-none
   ${errors.name
@@ -184,7 +184,7 @@ export default function ContactForm({ lang }: Props) {
         {/* email */}
         <div>
           <input
-            className={`w-full text-base rtl:text-right ltr:text-left h-[50px] bg-[#F5F5F5]  rounded-[10px] p-4 border-0 
+            className={`w-full text-base rtl:text-right ltr:text-left h-[50px] bg-gray-3  rounded-[10px] p-4 border-0 
   dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder 
   ring-1 outline-0 focus:ring-1 outline-none border-none
   ${errors.name
@@ -206,7 +206,7 @@ export default function ContactForm({ lang }: Props) {
         {/* title */}
         <div>
           <input
-            className={`w-full text-base rtl:text-right ltr:text-left h-[50px] bg-[#F5F5F5]  rounded-[10px] p-4 border-0 
+            className={`w-full text-base rtl:text-right ltr:text-left h-[50px] bg-gray-3  rounded-[10px] p-4 border-0 
   dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder 
   ring-1 outline-0 focus:ring-1 outline-none border-none
   ${errors.name
@@ -227,7 +227,7 @@ export default function ContactForm({ lang }: Props) {
       {/* message */}
       <div className="mt-4">
         <textarea
-          className={`w-full text-base rtl:text-right placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder  ltr:text-left bg-[#F5F5F5]  rounded-[10px] p-4 border-0 dark:text-white ring-1 ring-transparent focus:ring-primary dark:focus:ring-dark-primary outline-none
+          className={`w-full text-base rtl:text-right placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder  ltr:text-left bg-gray-3 rounded-[10px] p-4 border-0 dark:text-white ring-1 ring-transparent focus:ring-primary dark:focus:ring-dark-primary outline-none
   ${errors.name
               ? "ring-red-600 focus:ring-red-600"
               : "ring-transparent focus:ring-primary dark:focus:ring-dark-primary"

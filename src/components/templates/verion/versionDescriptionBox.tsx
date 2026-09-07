@@ -3,6 +3,7 @@
 import { switchDigits } from "@/components/utils/DigitSwitch";
 import { useState, useEffect } from "react";
 import { formatDate } from "@/components/utils/formatDate";
+import { Skeleton } from "@/components/ui/skeleton";
 // import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 interface Version {
@@ -17,6 +18,8 @@ interface DescriptionBoxProps {
   selectedVersion: Version | null;
   params: any;
   mainData: any;
+  /** وقتی true باشه، فقط همین باکس اسکلت لودینگ نشون میده (لیست ورژن دست نمیخوره) */
+  loading?: boolean;
 }
 
 const getCharLimit = () => {
@@ -26,10 +29,42 @@ const getCharLimit = () => {
   return 100;
 };
 
+// همون شکل ستون چپ توی loading.tsx، ولی جدا شده تا فقط همین باکس ری‌رندر بشه
+const DescriptionBoxSkeleton = () => (
+  <div
+    className=" h-[844px] pb-10 hidden lg:flex lg:flex-col lg:items-center lg:w-full bg-white dark:bg-gray-1 lg:pt-[15px] lg:rounded-[20px]"
+    aria-busy="true"
+  >
+    <div className="flex justify-between items-center w-full min-h-[48px] px-[15px]">
+      <Skeleton className="h-6 w-[35%] rounded-md" />
+      <Skeleton className="h-6 w-[15%] rounded-md" />
+    </div>
+
+    <div className="flex justify-between items-center w-full min-h-[48px] px-[15px]">
+      <Skeleton className="h-5 w-[45%] rounded-md" />
+      <Skeleton className="h-4 w-[20%] rounded-md" />
+    </div>
+
+    <div className="flex items-center w-full min-h-[48px] px-[15px]">
+      <Skeleton className="h-4 w-[15%] rounded-md" />
+    </div>
+
+    <div className="w-full px-3 lg:px-[30px] flex flex-col gap-4 mt-2">
+      <Skeleton className="h-3.5 w-full rounded-md" />
+      <Skeleton className="h-3.5 w-full rounded-md" />
+      <Skeleton className="h-3.5 w-full rounded-md" />
+      <Skeleton className="h-3.5 w-[80%] rounded-md" />
+      <Skeleton className="h-3.5 w-full rounded-md" />
+      <Skeleton className="h-3.5 w-[60%] rounded-md" />
+    </div>
+  </div>
+);
+
 const DescriptionBox: React.FC<DescriptionBoxProps> = ({
   selectedVersion,
   params,
   mainData,
+  loading,
 }) => {
   const [charLimit, setCharLimit] = useState(100);
 
@@ -44,7 +79,7 @@ const DescriptionBox: React.FC<DescriptionBoxProps> = ({
   }, []);
 
   const [VersionText, setVersionText] = useState("");
-    const [DscriptionText, setDscriptionText] = useState("");
+  const [DscriptionText, setDscriptionText] = useState("");
 
   useEffect(() => {
     if (params.lang.toLowerCase() === "fa") {
@@ -59,6 +94,9 @@ const DescriptionBox: React.FC<DescriptionBoxProps> = ({
     }
   }, [params.lang]);
 
+  if (loading) {
+    return <DescriptionBoxSkeleton />;
+  }
 
   if (!selectedVersion) return null;
 
@@ -67,9 +105,6 @@ const DescriptionBox: React.FC<DescriptionBoxProps> = ({
       ? selectedVersion.title.slice(0, charLimit) + "..."
       : selectedVersion.title;
 
-
-
-
   return (
     <div
       className=" h-[844px] pb-10 hidden lg:bg-[#FFFFFF] dark:bg-gray-1  lg:self-start  lg:flex lg:flex-col lg:items-center 
@@ -77,11 +112,9 @@ const DescriptionBox: React.FC<DescriptionBoxProps> = ({
     >
       <div className="lineBox flex justify-between items-center w-full min-h-[48px] lg:px-[15px]">
         <span className="versionP m-0 font-[600] z-[1] text-primary  text-[100%] lg:font-rokh lg:font-[600] lg:text-[200%]">
-        {VersionText}
+          {VersionText}
         </span>
-        <hr
-          className="flex-grow border-2 border-dashed h-[2px] border-b-0 my-[2px] mx-1"
-        />
+        <hr className="flex-grow border-2 border-dashed h-[2px] border-b-0 my-[2px] mx-1" />
         <p className="displayVersionDes text-[170%] font-[700] z-[2] text-primary ">
           {switchDigits(selectedVersion.version, params.lang)}
         </p>
@@ -101,13 +134,11 @@ const DescriptionBox: React.FC<DescriptionBoxProps> = ({
 
       <div className="lg:px-[15px] descriptionBox flex justify-between items-center  w-full min-h-[48px] ">
         <span className="mb-2 duration-300 ease-in-out self-start text-bold dark:text-white lg:w-full lg:self-end lg:p-0">
-        {DscriptionText}
+          {DscriptionText}
         </span>
       </div>
 
-      <div
-        className="versionHistoryInfo flex-row flex  leading-[37px] transition-[max-height] duration-300 ease-in-out text-[90%] w-full pb-[20px] h-auto bg-transparent text-[#C4C4C4] lg:text-[#908986] lg:overflow-auto lg:h-full"
-      >
+      <div className="versionHistoryInfo flex-row flex  leading-[37px] transition-[max-height] duration-300 ease-in-out text-[90%] w-full pb-[20px] h-auto bg-transparent text-[#C4C4C4] lg:text-[#908986] lg:overflow-auto lg:h-full">
         <div
           className="justify-between  px-3 ltr lg:px-[30px] "
           dangerouslySetInnerHTML={{

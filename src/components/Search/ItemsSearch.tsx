@@ -102,7 +102,7 @@ const [linkLoading, setLinkLoading] = useState(false);
                     alt={item?.name}
                     width={50}
                     height={50}
-                    className="rounded-full shadow-sm"
+                    className="rounded-full shadow-sm aspect-square"
                   />
                 </div>
               </Link>
@@ -152,13 +152,15 @@ const [linkLoading, setLinkLoading] = useState(false);
                     <Like className="w-[15px] h-[15px] stroke-matn-2 " />
                   </div>
                 </div>
-                <Image
+               <div className="w-[100px] h-[100px]">
+                 <Image
                   src={item.creator.image}
                   alt={item.creator.title}
                   width={50}
                   height={50}
-                  className="rounded-full shadow-sm"
+                  className="rounded-full shadow-sm aspect-square"
                 />
+               </div>
               </div>
             </Link>
             
@@ -172,7 +174,7 @@ const [linkLoading, setLinkLoading] = useState(false);
           return (
             <motion.div key={item.id} variants={items}>
               <Link onClickCapture={() => setLinkLoading(true)}
-                href={`/${params.lang}/articles/categories/${params.category}/${item.slug}`}
+                href={`/${params.lang}/articles/categories/${item.categorySlug}/${item.slug}`}
                 className="w-[99%] mt-2 transition-all duration-300 
                 bg-white dark:bg-dark-background border-b border-solid border-x-0 border-t-0 border-mediumGray 
                 flex justify-between items-center py-2 gap-3"

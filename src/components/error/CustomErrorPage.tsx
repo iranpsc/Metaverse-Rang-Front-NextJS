@@ -84,8 +84,8 @@ export default function CustomErrorPage({ error }: Props) {
   console.log("PageSpeedError")
   return (
     <div>
-      <section className="w-full pt-7 relative mt-[60px] lg:mt-0 bg-bg-primary  xl:px-8 lg:px-8 md:px-5 sm:px-5 xs:px-1">
-        <div className="bg-white dark:bg-gray-1 rounded-[20px] flex flex-col lg:flex-row gap-5 p-5 w-full">
+      <section className="w-full pt-7 relative mt-[60px] lg:mt-0 bg-bg-primary h-screen pb-5  xl:px-8 lg:px-8 md:px-5 sm:px-5 xs:px-1">
+        <div className="bg-gray-1 rounded-[20px] flex flex-col lg:flex-row gap-5 p-5 w-full">
           {/* ============================
               LEFT SIDE
               ============================ */}

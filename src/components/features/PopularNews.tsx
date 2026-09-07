@@ -288,7 +288,7 @@ if (showSkeleton) {
                         <span>|</span>
                         <div className="flex gap-2 items-center">
                           <time dateTime={featured.date}>
-                            {featured.date}
+                            {featured.date?.split("T")[0]}
                           </time>
                           <Calender className="stroke-dark-gray size-5" />
                         </div>
@@ -363,7 +363,7 @@ if (showSkeleton) {
                       {item.date && (
                         <div className="flex items-center gap-2">
                           <time dateTime={item.date}>
-                            {item.date}
+                            {item.date?.split("T")[0]}
                           </time>
                           <Calender className="stroke-dark-gray size-5" />
                         </div>

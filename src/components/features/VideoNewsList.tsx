@@ -181,7 +181,7 @@ export default function VideoNewsInlinePlayer({
                         {item.date && (
                           <div className="flex items-center gap-2">
                             <time>
-                              {item.date.split(/[/.]/).slice(0, 2).join("/")}
+                            {item.date?.split("T")[0]}
                             </time>
                             <Calender className="stroke-dark-gray !stroke-[0px] size-5" />
                           </div>

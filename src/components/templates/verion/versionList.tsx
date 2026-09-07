@@ -1,10 +1,12 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import Link from "next/link";
 import { Search } from "@/components/svgs/SvgEducation";
 import { switchDigits } from "@/components/utils/DigitSwitch";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { formatDate } from "@/components/utils/formatDate";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface Version {
   id: number;
@@ -23,40 +25,64 @@ interface VersionBoxProps {
   versionRefs: any | null;
 }
 
+// اسکلت یه آیتم لیست، هم‌شکل آیتم واقعی؛ موقع فچ کردن صفحه‌ی بعدی نشون داده میشه
+const VersionItemSkeleton = () => (
+  <div className="flex w-full justify-between py-2 gap-3">
+    <div className="flex flex-col items-center pt-[10px] w-[10px] shrink-0">
+      <Skeleton variant="circle" className="!w-[10px] !h-[10px]" />
+      <div className="w-[1.5px] flex-1 bg-[rgb(var(--color-gray-3))] mt-1" />
+    </div>
+    <div className="flex-1 flex flex-col gap-2">
+      <div className="flex justify-between">
+        <Skeleton className="h-3.5 w-[55%] rounded-md" />
+        <Skeleton className="h-3.5 w-[15%] rounded-md" />
+      </div>
+      <Skeleton className="h-3 w-[35%] rounded-md" />
+    </div>
+  </div>
+);
+
 const VersionBox: React.FC<VersionBoxProps> = ({
   versions,
   sendDataParent,
   params,
   mainData,
   selectedVersion,
+  versionRefs,
 }) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [, setSelectedItem] = useState<Version | null>(null);
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [visibleCount, setVisibleCount] = useState<number>(10);
-  const [, setAllVersions] = useState<Version[]>(versions);
   const [page, setPage] = useState<number>(1);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [searchLoading, setSearchLoading] = useState<boolean>(false);
+  // لودینگ مخصوص "نمایش بیشتر" (فچ صفحه‌ی بعدی) - جدا از سرچ، تا فقط اسکلت آیتم‌های اضافه رو نشون بده
+  const [loadingMore, setLoadingMore] = useState<boolean>(false);
   const [hasMore, setHasMore] = useState<boolean>(true);
-  const [filteredVersions, setFilteredVersions] = useState<Version[]>(versions);
+
+  // لیست پایه (پیجینیت‌شده، همون versionsی که از سرور اومده + صفحه‌های بعدی که فچ میشن)
+  const [items, setItems] = useState<Version[]>(versions);
+  // نتیجه‌ی سرچ؛ null یعنی الان در حالت سرچ نیستیم
+  const [searchResults, setSearchResults] = useState<Version[] | null>(null);
 
   const containerRef = useRef<HTMLDivElement | null>(null);
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  const resetSearch = () => setFilteredVersions(versions);
+  const filteredVersions = searchResults ?? items;
 
   // ست کردن ورژن انتخاب‌شده از props (منبع حقیقت: parent، که از URL/آخرین‌ورژن محاسبه می‌کنه)
   useEffect(() => {
-    if (selectedVersion && versions.length > 0) {
-      const index = versions.findIndex((v) => v.version === selectedVersion.version);
-      if (index !== -1) {
-        setOpenIndex(index);
-        setSelectedItem(selectedVersion);
-      }
+    if (selectedVersion && filteredVersions.length > 0) {
+      const index = filteredVersions.findIndex((v) => v.version === selectedVersion.version);
+      setOpenIndex(index !== -1 ? index : null);
+      setSelectedItem(selectedVersion);
+    } else if (!selectedVersion) {
+      setOpenIndex(null);
     }
-  }, [selectedVersion, versions]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedVersion, filteredVersions]);
 
   // بررسی اندازه صفحه برای تشخیص موبایل
   useEffect(() => {
@@ -66,27 +92,33 @@ const VersionBox: React.FC<VersionBoxProps> = ({
     return () => window.removeEventListener("resize", checkScreenWidth);
   }, []);
 
-  // ست کردن نسخه فیلتر شده اولیه
+  // اگه دیتای اولیه از سرور عوض شد (props.versions)، همه چیز رو ریست کن
   useEffect(() => {
-    setFilteredVersions(versions);
-    setAllVersions(versions);
+    setItems(versions);
+    setPage(1);
+    setHasMore(true);
+    setSearchResults(null);
+    setSearchTerm("");
+    setVisibleCount(10);
   }, [versions]);
 
-  // اگر کاربر چیزی تایپ نکرده بود، همه نسخه‌ها را نمایش بده
+  // اگر کاربر چیزی تایپ نکرده بود، از حالت سرچ خارج شو
   useEffect(() => {
     if (!searchTerm.trim()) {
-      resetSearch();
+      setSearchResults(null);
+      setVisibleCount(10);
     }
   }, [searchTerm]);
 
   const handleSearch = async () => {
     const query = searchTerm.trim();
     if (!query) {
-      resetSearch();
+      setSearchResults(null);
+      setVisibleCount(10);
       return;
     }
 
-    setLoading(true);
+    setSearchLoading(true);
     try {
       const response = await globalThis.fetch(
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar?type=version&search=${encodeURIComponent(query)}`
@@ -101,18 +133,25 @@ const VersionBox: React.FC<VersionBoxProps> = ({
           date: item.starts_at.split(" ")[0],
           version: item.version_title,
         }));
-        setFilteredVersions(mapped);
+        setSearchResults(mapped);
       } else {
-        setFilteredVersions([]);
+        setSearchResults([]);
       }
+      setVisibleCount(10);
     } catch (err) {
       console.error("❌ خطا در جستجو:", err);
     } finally {
-      setLoading(false);
+      setSearchLoading(false);
     }
   };
 
-  const handleClick = (index: number) => {
+  const handleClick = (
+    index: number,
+    e?: React.MouseEvent<HTMLAnchorElement>
+  ) => {
+    // preventDefault لازمه چون خود لینک <a href> واقعیه (برای کراول شدن توسط گوگل)
+    // ولی نمی‌خوایم فول نویگیشن Next اتفاق بیفته
+    e?.preventDefault();
     const selected = filteredVersions[index];
     setOpenIndex((prev) => (prev === index ? null : index));
     setSelectedItem(selected);
@@ -120,9 +159,9 @@ const VersionBox: React.FC<VersionBoxProps> = ({
   };
 
   const fetchMoreVersions = async () => {
-    if (!hasMore || loading) return;
+    if (!hasMore || loadingMore || searchResults) return;
 
-    setLoading(true);
+    setLoadingMore(true);
     try {
       const response = await globalThis.fetch(
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar?type=version&page=${page + 1}`
@@ -137,7 +176,7 @@ const VersionBox: React.FC<VersionBoxProps> = ({
           date: item.starts_at.split(" ")[0],
           version: item.version_title,
         }));
-        setAllVersions((prev) => [...prev, ...newItems]);
+        setItems((prev) => [...prev, ...newItems]);
         setVisibleCount((prev) => prev + newItems.length);
         setPage((prev) => prev + 1);
       } else {
@@ -146,19 +185,26 @@ const VersionBox: React.FC<VersionBoxProps> = ({
     } catch (err) {
       console.error("❌ خطا در گرفتن نسخه‌های بیشتر:", err);
     } finally {
-      setLoading(false);
+      setLoadingMore(false);
     }
   };
 
   const handleShowMore = () => {
+    // آیتم‌هایی که از قبل توی حافظه هستن ولی هنوز نمایش داده نشدن
     if (visibleCount < filteredVersions.length) {
       setVisibleCount((prev) => prev + 10);
-    } else {
-      fetchMoreVersions();
+      return;
     }
+    // در حالت سرچ، همه‌ی نتایج یک‌جا از سرور میان؛ صفحه‌بندی سمت سرور نداریم
+    if (searchResults) return;
+    // در غیر این صورت، صفحه‌ی بعدی رو از سرور بگیر
+    fetchMoreVersions();
   };
 
-  const shouldShowLoadMore = () => visibleCount < filteredVersions.length;
+  const shouldShowLoadMore = () => {
+    if (searchResults) return visibleCount < searchResults.length;
+    return visibleCount < items.length || hasMore;
+  };
 
   // scroll to active item
   useEffect(() => {
@@ -186,7 +232,8 @@ const VersionBox: React.FC<VersionBoxProps> = ({
         />
         <button
           onClick={handleSearch}
-          className="searchButton bg-transparent p-2 text-primary  cursor-pointer"
+          disabled={searchLoading}
+          className="searchButton bg-transparent p-2 text-primary  cursor-pointer disabled:opacity-50"
         >
           {findByUniqueId(mainData, 57)}
         </button>
@@ -203,14 +250,26 @@ const VersionBox: React.FC<VersionBoxProps> = ({
           className="versionHistoryInfo flex overflow-auto flex-col items-center overflow-x-hidden rounded-[20px] w-full lg:w-full lg:h-full"
         >
           <div className="historyUpdated pt-4 flex flex-col w-[92%] gap-1 lg:h-[650px]">
-            {filteredVersions.length > 0 ? (
+            {searchLoading ? (
+              <div className="flex flex-col gap-5">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <VersionItemSkeleton key={`search-skeleton-${i}`} />
+                ))}
+              </div>
+            ) : filteredVersions.length > 0 ? (
               filteredVersions.slice(0, visibleCount).map((item, index) => (
-                <div
+                <Link
+                  href={`/${params.lang}/version/${encodeURIComponent(item.version)}`}
+                  prefetch={false}
+                  scroll={false}
                   ref={(el) => {
-                    itemRefs.current[index] = el;
+                    itemRefs.current[index] = el as unknown as HTMLDivElement;
+                    if (versionRefs) {
+                      versionRefs.current[item.version] = el as unknown as HTMLDivElement;
+                    }
                   }}
                   key={item.id}
-                  onClick={() => handleClick(index)}
+                  onClick={(e) => handleClick(index, e)}
                   className={`versionbox cursor-pointer justify-center flex flex-row w-full rounded-[10px] pt-[2px] ${
                     openIndex === index ? "bg-primary-shade-1/25 !text-black" : ""
                   }`}
@@ -264,16 +323,26 @@ const VersionBox: React.FC<VersionBoxProps> = ({
                       </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               ))
             ) : (
               <p className="dark:text-white text-center py-4">موردی برای نمایش یافت نشد 😞</p>
             )}
+
+            {/* اسکلت آیتم‌های در حال فچ شدن (نمایش بیشتر) */}
+            {loadingMore && (
+              <div className="flex flex-col gap-5 pt-2">
+                {Array.from({ length: 3 }).map((_, i) => (
+                  <VersionItemSkeleton key={`more-skeleton-${i}`} />
+                ))}
+              </div>
+            )}
+
             {visibleCount < filteredVersions.length && (
               <div ref={loadMoreRef} className="h-10 w-full"></div>
             )}
 
-            {shouldShowLoadMore() && (
+            {!loadingMore && !searchLoading && shouldShowLoadMore() && (
               <button
                 onClick={handleShowMore}
                 className="mb-5 w-max mx-auto  bg-white dark:bg-gray-1 text-primary md:text-lg  rounded-[12px] px-[40px] py-[16px] base-transition-1 border-2 border-primary hover:text-primary  "

@@ -17,7 +17,7 @@ const SingleVideoDetailsModule = ({
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [progress, setProgress] = useState(0); // state برای درصد پیشرفت
   const [cookies] = useCookies(["auth"]);
-
+const [isSubmittingComment, setIsSubmittingComment] = useState(false);
   // تابع پارسر کوکی
   function parsAuthCookieByName(
     _propName: string,
@@ -27,37 +27,49 @@ const SingleVideoDetailsModule = ({
     return authCookie.get(_propName);
   }
 
-  const handlerCreateComment = async (videoId: any) => {
-    if (!parsAuthCookieByName("token")) {
-      setShowLoginModal(true);
-      return;
-    }
+const handlerCreateComment = async (videoId: any) => {
+  if (!parsAuthCookieByName("token")) {
+    setShowLoginModal(true);
+    return;
+  }
 
-    if (comment.length > 5) {
-      try {
-        const requestData = {
-          content: comment,
-        };
-         await axios.post(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/tutorials/${videoId}/comments`,
-          requestData,
-          {
-            headers: {
-              Authorization: `Bearer ${parsAuthCookieByName("token")}`,
-            },
-            withCredentials: true,
-          }
-        );
+  if (comment.length <= 5 || isSubmittingComment) {
+    return;
+  }
 
-        SetComment("");
-        setRefreshComment((prevRefreshComment: boolean) => !prevRefreshComment);
-        setShowSuccessModal(true);
-        setProgress(0); // ریست کردن پیشرفت
-      } catch (error: any) {
-        console.error("خطا:", error?.response?.status);
+  setIsSubmittingComment(true);
+
+  try {
+    const requestData = {
+      content: comment,
+    };
+
+    await axios.post(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/tutorials/${videoId}/comments`,
+      requestData,
+      {
+        headers: {
+          Authorization: `Bearer ${parsAuthCookieByName("token")}`,
+        },
+        withCredentials: true,
       }
-    }
-  };
+    );
+
+    SetComment("");
+
+    setRefreshComment(
+      (prevRefreshComment: boolean) => !prevRefreshComment
+    );
+
+    setShowSuccessModal(true);
+    setProgress(0);
+  } catch (error: any) {
+    console.error("خطا:", error?.response?.status);
+  } finally {
+    setIsSubmittingComment(false);
+  }
+};
+
 
   // مدیریت نوار پیشرفت
   useEffect(() => {
@@ -147,10 +159,27 @@ const SingleVideoDetailsModule = ({
           value={comment}
           onChange={(e) => SetComment(e.target.value)}
         />
-        <SendIcon
-          className="absolute end-[20px] top-1/4 size-[24px] cursor-pointer active:scale-125 duration-300 ltr:rotate-180"
-          onClick={() => handlerCreateComment(DataVideo.id)}
-        />
+       
+<div
+  className={`absolute end-[20px] top-1/4 size-[24px] flex items-center justify-center ${
+    isSubmittingComment
+      ? "cursor-not-allowed"
+      : "cursor-pointer active:scale-125"
+  } duration-300`}
+  onClick={() => {
+    if (!isSubmittingComment) {
+      handlerCreateComment(DataVideo.id);
+    }
+  }}
+>
+  {isSubmittingComment ? (
+    <div className="size-[20px] border-2 border-solid border-matn-1 border-t-transparent rounded-full animate-spin" />
+  ) : (
+    <SendIcon className="size-[24px] ltr:rotate-180" />
+  )}
+</div>
+
+
       </div>
 
       {/* مودال ورود */}
