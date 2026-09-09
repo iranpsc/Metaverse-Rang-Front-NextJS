@@ -64,6 +64,7 @@ export default function BuildingsChart({
   isAllSelected,
   lang,
   mainData,
+  onLoadingChange,
 }: {
   params: any;
   period: Period;
@@ -71,6 +72,12 @@ export default function BuildingsChart({
   isAllSelected: boolean;
   lang: string;
   mainData: any;
+  // Reports this chart's own fetch-loading state up to the parent
+  // (BuildingsSummary), which uses it — combined with BuildingsList's
+  // signal — to light up the spinner on the active period button.
+  // This is the component whose fetch actually depends on `period`,
+  // so it's the main driver of that spinner.
+  onLoadingChange?: (loading: boolean) => void;
 }) {
   const isFa = lang.toLowerCase() === "fa";
 
@@ -165,6 +172,11 @@ export default function BuildingsChart({
     fetchChart();
     return () => controller.abort();
   }, [period, JSON.stringify(selectedKarbari), isAllSelected, params.id]);
+
+  // report loading state up to the parent
+  useEffect(() => {
+    onLoadingChange?.(loading);
+  }, [loading, onLoadingChange]);
 
   // Reset legend toggle state whenever the underlying set of karbari
   // series changes (e.g. filters change), so a hidden code from a

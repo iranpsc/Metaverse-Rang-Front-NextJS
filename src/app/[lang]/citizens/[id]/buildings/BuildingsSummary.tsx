@@ -177,8 +177,8 @@ export default function BuildingsSummary({
           {loading && summaryData.length === 0
             ? Array.from({ length: 8 }).map((_, i) => <SummaryCardSkeleton key={i} />)
             : summaryData.map((item) => (
-                <SummaryCard key={item.karbari} item={item} isFa={isFa} mainData={mainData} />
-              ))}
+              <SummaryCard key={item.karbari} item={item} isFa={isFa} mainData={mainData} />
+            ))}
         </div>
       )}
 
@@ -198,68 +198,67 @@ export default function BuildingsSummary({
         </p>
       </div>
 
-<div className="flex flex-wrap gap-10 w-full items-center justify-between mt-10">
+      <div className="flex flex-wrap gap-10 w-full items-center justify-between mt-10">
         <div className="flex justify-between gap-4 md:max-w-[50%] lg:max-w-[30%] h-[64px]">
-        {PERIOD_OPTIONS.map((opt) => {
-          const isActive = period === opt.key;
-          const showLoader = isActive && isPeriodLoading;
-          return (
-            <button
-              key={opt.key}
-              onClick={() => setPeriod(opt.key)}
-              disabled={showLoader}
-              className={`moment relative bg-white dark:bg-gray-1 text-[#84858F] p-2 rounded-xl  w-[100px] flex items-center justify-center gap-2 ${
-                isActive
-                  ? "border-2 border-primary  border-solid  text-primary font-bold"
-                  : ""
-              } ${showLoader ? "cursor-wait opacity-90" : ""}`}
-            >
-              {showLoader && (
-                <span
-                  className="inline-block w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin"
-                  aria-hidden="true"
-                />
-              )}
-              <span>{findByUniqueId(mainData, opt.uniqueId) || opt.fallback}</span>
-            </button>
-          );
-        })}
-      </div>
+          {PERIOD_OPTIONS.map((opt) => {
+            const isActive = period === opt.key;
+            const showLoader = isActive && isPeriodLoading;
+            return (
+              <button
+                key={opt.key}
+                onClick={() => setPeriod(opt.key)}
+                disabled={showLoader}
+                className={`moment relative bg-white dark:bg-gray-1 text-[#84858F] p-2 rounded-xl  w-[100px] flex items-center justify-center gap-2 ${isActive
+                    ? "border-2 border-primary  border-solid  text-primary font-bold"
+                    : ""
+                  } ${showLoader ? "cursor-wait opacity-90" : ""}`}
+              >
+                {showLoader && (
+                  <span
+                    className="inline-block w-4 h-4 border-2 border-primary border-solid border-t-transparent rounded-full animate-spin"
+                    aria-hidden="true"
+                  />
+                )}
+                <span>{findByUniqueId(mainData, opt.uniqueId) || opt.fallback}</span>
+              </button>
+            );
+          })}
+        </div>
         <div className="flex flex-wrap items-center gap-x-6 gap-y-3 py-2">
-        <label className="flex items-center gap-2 cursor-pointer text-sm text-black dark:text-white">
-          <input
-            type="checkbox"
-            checked={isAllSelected}
-            onChange={toggleAll}
-            className="accent-primary dark:accent-primary w-4 h-4"
-          />
-          {isFa ? "تمام املاک" : "All properties"}
-        </label>
+          <label className="flex items-center gap-2 cursor-pointer text-sm text-black dark:text-white">
+            <input
+              type="checkbox"
+              checked={isAllSelected}
+              onChange={toggleAll}
+              className="accent-primary dark:accent-primary w-4 h-4"
+            />
+            {isFa ? "تمام املاک" : "All properties"}
+          </label>
 
-        {knownKarbari.map((k) => {
-          const style = styleForKarbari(k.code);
-          const label =
-            findByUniqueId(mainData, style.uniqueId) || (isFa ? style.labelFa : style.labelEn) || k.label;
+          {knownKarbari.map((k) => {
+            const style = styleForKarbari(k.code);
+            const label =
+              findByUniqueId(mainData, style.uniqueId) || (isFa ? style.labelFa : style.labelEn) || k.label;
 
-          return (
-            <label
-              key={k.code}
-              className="flex items-center gap-2 cursor-pointer text-sm text-black dark:text-white"
-            >
-              <input
-                type="checkbox"
-                checked={selectedKarbari.includes(k.code)}
-                onChange={() => toggleKarbari(k.code)}
-                className="accent-primary dark:accent-primary w-4 h-4"
-              />
-              {label}
-            </label>
-          );
-        })}
+            return (
+              <label
+                key={k.code}
+                className="flex items-center gap-2 cursor-pointer text-sm text-black dark:text-white"
+              >
+                <input
+                  type="checkbox"
+                  checked={selectedKarbari.includes(k.code)}
+                  onChange={() => toggleKarbari(k.code)}
+                  className="accent-primary dark:accent-primary w-4 h-4"
+                />
+                {label}
+              </label>
+            );
+          })}
+        </div>
+
+
       </div>
-
-
-</div>
 
       {!error && initialized && selectedKarbari.length === 0 && (
         <p className="w-full text-center text-matn-2 py-4">
@@ -276,7 +275,7 @@ export default function BuildingsSummary({
             isAllSelected={isAllSelected}
             lang={lang}
             mainData={mainData}
-            // onLoadingChange={setChartLoading}
+            onLoadingChange={setChartLoading}
           />
           <BuildingsList
             params={params}

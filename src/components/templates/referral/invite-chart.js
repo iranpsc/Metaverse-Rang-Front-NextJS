@@ -12,6 +12,7 @@ export default function InviteChart({ params, referralPageArrayContent, initChar
   const [invBtn, setInvBtn] = useState(true);
   const [giftBtn, setGiftBtn] = useState(true);
   const [timePeriodBtns, setTimePeriodBtns] = useState("yearly");
+  const [loadingPeriod, setLoadingPeriod] = useState(false);
   const [cookies] = useCookies(["theme"]);
   const theme = cookies.theme || "dark";
 
@@ -171,11 +172,15 @@ export default function InviteChart({ params, referralPageArrayContent, initChar
   };
 
   const handleTimeframeClick = async (timeframe) => {
+    if (loadingPeriod) return;
+
     setInvBtn(true);
     setGiftBtn(true);
     setTimePeriodBtns(timeframe);
+
     const fetchData = async () => {
       try {
+        setLoadingPeriod(true);
         const chartData = await fetchChartData(timeframe);
         if (!chartData || !chartData.chart_data) {
           console.warn("داده‌ای برای بازه زمانی دریافت نشد:", timeframe);
@@ -219,10 +224,19 @@ export default function InviteChart({ params, referralPageArrayContent, initChar
         setCurrentData(newData);
       } catch (error) {
         console.error("خطا در دریافت داده‌های نمودار:", error);
+      } finally {
+        setLoadingPeriod(false);
       }
     };
     fetchData();
   };
+
+  const PERIOD_BUTTONS = [
+    { key: "daily", uniqueId: 1429 },
+    { key: "weekly", uniqueId: 1430 },
+    { key: "monthly", uniqueId: 1431 },
+    { key: "yearly", uniqueId: 1432 },
+  ];
 
   return (
     <div className="w-full pt-7 flex flex-col gap-3">
@@ -234,34 +248,28 @@ export default function InviteChart({ params, referralPageArrayContent, initChar
           {findByUniqueId(mainData, 1428)}
         </p>
         <div className="flex justify-between gap-4 md:max-w-[50%] lg:max-w-[30%] h-[64px]">
-          <button
-            onClick={() => handleTimeframeClick("daily")}
-            className={`moment bg-white dark:bg-gray-1 text-[#84858F] p-2 rounded-xl w-full ${timePeriodBtns === "daily" ? "border-2 border-primary  border-solid  text-primary font-bold" : ""
-              }`}
-          >
-            {findByUniqueId(mainData, 1429)}
-          </button>
-          <button
-            onClick={() => handleTimeframeClick("weekly")}
-            className={`moment bg-white dark:bg-gray-1 text-[#84858F] p-2 rounded-xl w-full ${timePeriodBtns === "weekly" ? "border-2 border-primary  border-solid  text-primary font-bold" : ""
-              }`}
-          >
-            {findByUniqueId(mainData, 1430)}
-          </button>
-          <button
-            onClick={() => handleTimeframeClick("monthly")}
-            className={`moment bg-white dark:bg-gray-1 text-[#84858F] p-2 rounded-xl w-full ${timePeriodBtns === "monthly" ? "border-2 border-primary  border-solid  text-primary font-bold" : ""
-              }`}
-          >
-            {findByUniqueId(mainData, 1431)}
-          </button>
-          <button
-            onClick={() => handleTimeframeClick("yearly")}
-            className={`moment bg-white dark:bg-gray-1 text-[#84858F] p-2 rounded-xl w-full ${timePeriodBtns === "yearly" ? "border-2 border-primary  border-solid  text-primary font-bold" : ""
-              }`}
-          >
-            {findByUniqueId(mainData, 1432)}
-          </button>
+          {PERIOD_BUTTONS.map((opt) => {
+            const isActive = timePeriodBtns === opt.key;
+            const showLoader = isActive && loadingPeriod;
+            return (
+              <button
+                key={opt.key}
+                onClick={() => handleTimeframeClick(opt.key)}
+                disabled={showLoader}
+                className={`moment relative bg-white dark:bg-gray-1 text-[#84858F] p-2 rounded-xl w-full flex items-center justify-center gap-2 ${
+                  isActive ? "border-2 border-primary  border-solid  text-primary font-bold" : ""
+                } ${showLoader ? "cursor-wait opacity-90" : ""}`}
+              >
+                {showLoader && (
+                  <span
+                    className="inline-block w-4 h-4 border-2 border-primary border-t-transparent border-solid rounded-full animate-spin"
+                    aria-hidden="true"
+                  />
+                )}
+                <span>{findByUniqueId(mainData, opt.uniqueId)}</span>
+              </button>
+            );
+          })}
         </div>
       </div>
       <div className="flex justify-start md:justify-end gap-6 mt-6">
