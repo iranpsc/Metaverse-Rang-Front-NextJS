@@ -2,7 +2,7 @@
 "use server";
 
 import { cache } from "react";
-
+import { cookies } from "next/headers";
 /* -------------------------------------------------------------------------- */
 /*                           API CONFIGURATION                                */
 /* -------------------------------------------------------------------------- */
@@ -924,35 +924,42 @@ export async function getSubcategoryData(
 /**
  * Get single video data
  */
-export async function getSingleVideoData(
-  _videoSlug
-) {
+export async function getSingleVideoData(_videoSlug) {
   try {
-    const safeVideoSlug =
-      sanitizePathSegment(
-        _videoSlug
-      );
+    const safeVideoSlug = sanitizePathSegment(_videoSlug);
 
     if (!safeVideoSlug) {
-      throw new Error(
-        "Invalid video slug"
-      );
+      throw new Error("Invalid video slug");
     }
 
-    const apiBaseUrl =
-      await getApiBaseUrl();
+    const apiBaseUrl = await getApiBaseUrl();
 
+    // ---------------------------------------------
+    // خواندن توکن کاربر از کوکی سمت سرور
+    // ---------------------------------------------
+    const cookieStore = await cookies();
+    const authCookie = cookieStore.get("auth")?.value;
+// console.log("🍪 [SERVER] authCookie raw:", authCookie);
+    let token = null;
+    if (authCookie) {
+      try {
+        const params = new URLSearchParams(authCookie);
+        token = params.get("token");
+      } catch {
+        if (authCookie.startsWith("token=")) {
+          token = authCookie.split("&")[0].replace(/^token=/, "");
+        }
+      }
+    }
+// console.log("🔑 [SERVER] extracted token:", token ? "FOUND" : "NOT FOUND");
     const res = await fetch(
-      `${apiBaseUrl}/api/tutorials/${encodeURIComponent(
-        safeVideoSlug
-      )}`,
+      `${apiBaseUrl}/api/tutorials/${encodeURIComponent(safeVideoSlug)}`,
       {
         headers: {
-          "Content-Type":
-            "application/json",
-          "Cache-Control":
-            "public, max-age=0",
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
         },
+        cache: "no-store", // <-- مهم‌ترین تغییر: دیگه کش نمی‌شه
       }
     );
 
@@ -962,15 +969,12 @@ export async function getSingleVideoData(
       );
     }
 
-    const temp =
-      await res.json();
-
+    const temp = await res.json();
+// console.log("📦 [SERVER] likes_count:", temp?.data?.likes_count);
+// console.log("📦 [SERVER] user_interaction:", temp?.data?.user_interaction);
     return temp?.data;
   } catch (err) {
-    console.error(
-      "[getSingleVideoData] Error:",
-      err
-    );
+    console.error("[getSingleVideoData] Error:", err);
 
     return null;
   }

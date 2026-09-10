@@ -52,7 +52,7 @@ export default async function EducationVideo({ params }: EducationVideoProps) {
 
     const newEducationsVideos = await getAllCategoryVideos();
 
-    const dataCommentsVideo = await getVideoComments(DataVideo.id);
+    const dataCommentsVideo = await getVideoComments(String(DataVideo.id));
 
     const DataVideos = await getSubcategoryData(
       resolvedParams.category,

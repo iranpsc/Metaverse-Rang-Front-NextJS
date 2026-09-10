@@ -32,26 +32,16 @@ const SingleVideoDashboardModule = ({
 
   const [showLoginModal, setShowLoginModal] = useState(false);
 
-  const [userInteraction, setUserInteraction] = useState<
-    null | boolean
-  >(DataVideo?.user_interaction ?? null);
+  const [userInteraction, setUserInteraction] = useState<null | boolean>(
+    DataVideo?.user_interaction?.liked ?? null
+  );
 
   // --------------------------------------------------
   // Sync DataVideo
   // --------------------------------------------------
-  useEffect(() => 
-    {
-
-        console.log("🔄 DataVideo after refresh:", DataVideo);
-  console.log(
-    "❤️ user_interaction:",
-    DataVideo?.user_interaction
-  );
+  useEffect(() => {
     setNewData(DataVideo);
-
-    setUserInteraction(
-      DataVideo?.user_interaction ?? null
-    );
+    setUserInteraction(DataVideo?.user_interaction?.liked ?? null);
   }, [DataVideo]);
 
   // --------------------------------------------------
@@ -129,14 +119,14 @@ const SingleVideoDashboardModule = ({
     // Token را دقیقاً در لحظه کلیک می‌گیریم
     const token = getAuthToken();
 
-    console.log("========== INTERACTION ==========");
-    console.log("auth cookie:", cookies?.auth);
-    console.log("token:", token ? "EXISTS" : "NOT FOUND");
-    console.log("isLike:", isLike);
-    console.log(
-      "userInteraction:",
-      userInteraction
-    );
+    // console.log("========== INTERACTION ==========");
+    // console.log("auth cookie:", cookies?.auth);
+    // console.log("token:", token ? "EXISTS" : "NOT FOUND");
+    // console.log("isLike:", isLike);
+    // console.log(
+    //   "userInteraction:",
+    //   userInteraction
+    // );
     console.log("=================================");
 
     // ---------------------------------------------
@@ -172,8 +162,7 @@ const SingleVideoDashboardModule = ({
 
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/tutorials/${DataVideo.id}/interactions?liked=${
-          isLike ? 1 : 0
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/tutorials/${DataVideo.id}/interactions?liked=${isLike ? 1 : 0
         }`,
         {
           data: " ",
@@ -188,10 +177,10 @@ const SingleVideoDashboardModule = ({
         }
       );
 
-      console.log(
-        "Interaction response:",
-        response.data
-      );
+      // console.log(
+      //   "Interaction response:",
+      //   response.data
+      // );
 
       // ---------------------------------------------
       // آپدیت تعدادها
@@ -271,10 +260,9 @@ const SingleVideoDashboardModule = ({
       );
 
       console.error(
-        `خطا در ${
-          isLike
-            ? "لایک"
-            : "دیس‌لایک"
+        `خطا در ${isLike
+          ? "لایک"
+          : "دیس‌لایک"
         }`
       );
 
@@ -385,16 +373,15 @@ const SingleVideoDashboardModule = ({
           </p>
 
           <motion.div
-            className={`size-[15px] md:size-[18px] outline-none border-none stroke-gray-1 dark:stroke-white flex items-center justify-center ${
-              isLiking ||
+            className={`size-[15px] md:size-[18px] outline-none border-none stroke-gray-1 dark:stroke-white flex items-center justify-center ${isLiking ||
               userInteraction === true
-                ? "cursor-not-allowed"
-                : "cursor-pointer"
-            }`}
+              ? "cursor-not-allowed"
+              : "cursor-pointer"
+              }`}
             whileTap={{
               scale:
                 isLiking ||
-                userInteraction === true
+                  userInteraction === true
                   ? 1
                   : 1.2,
             }}
@@ -403,9 +390,14 @@ const SingleVideoDashboardModule = ({
             }
           >
             {isLiking ? (
-              <div className="size-[15px] border-2 border-gray-400 border-t-transparent rounded-full animate-spin" />
+              <div className="size-[15px] border-2 border-gray-400 border-solid border-t-transparent rounded-full animate-spin" />
             ) : (
-              <Like className="size-full" />
+              <Like
+                className={`size-full transition-colors ${userInteraction === true
+                    ? "fill-red-500 stroke-red-500"
+                    : "fill-none stroke-gray-1 dark:stroke-white"
+                  }`}
+              />
             )}
           </motion.div>
         </div>
@@ -423,16 +415,15 @@ const SingleVideoDashboardModule = ({
           </p>
 
           <motion.div
-            className={`size-[15px] md:size-[18px] outline-none border-none stroke-gray-1 dark:stroke-white flex items-center justify-center ${
-              isDisliking ||
+            className={`size-[15px] md:size-[18px] outline-none border-none stroke-gray-1 dark:stroke-white flex items-center justify-center ${isDisliking ||
               userInteraction === false
-                ? "cursor-not-allowed"
-                : "cursor-pointer"
-            }`}
+              ? "cursor-not-allowed"
+              : "cursor-pointer"
+              }`}
             whileTap={{
               scale:
                 isDisliking ||
-                userInteraction === false
+                  userInteraction === false
                   ? 1
                   : 1.2,
             }}
@@ -441,9 +432,14 @@ const SingleVideoDashboardModule = ({
             }
           >
             {isDisliking ? (
-              <div className="size-[15px] border-2 border-gray-400 border-t-transparent rounded-full animate-spin" />
+              <div className="size-[15px] border-2 border-gray-400 border-solid border-t-transparent rounded-full animate-spin" />
             ) : (
-              <Dislike className="size-full" />
+              <Dislike
+                className={`size-full transition-colors ${userInteraction === false
+                    ? "fill-red-500 stroke-red-500"
+                    : "fill-none stroke-gray-1 dark:stroke-white"
+                  }`}
+              />
             )}
           </motion.div>
         </div>

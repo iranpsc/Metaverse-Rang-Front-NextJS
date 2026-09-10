@@ -18,7 +18,7 @@ const NewEducationSectionTemp = ({
 
   useEffect(() => {
     if (newEducationsVideos) {
-      console.log("✅ Initial API data:", newEducationsVideos); // ← اینجا لاگ اولیه
+      // console.log("✅ Initial API data:", newEducationsVideos); // ← اینجا لاگ اولیه
       setVideos(newEducationsVideos);
     }
   }, [newEducationsVideos]);
