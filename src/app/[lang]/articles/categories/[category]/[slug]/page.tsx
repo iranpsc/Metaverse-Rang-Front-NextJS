@@ -274,7 +274,7 @@ export default async function ArticlePage({ params } :ArticlePageProps) {
         name: "متاورس رنگ",
         logo: {
           "@type": "ImageObject",
-          url: "https://metarang.com/logo.png",
+          url: "https://s3.metarang.com/metarang/logo/metarang-logo-512.png",
         },
       },
     };

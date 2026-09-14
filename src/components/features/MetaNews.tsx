@@ -39,7 +39,7 @@ function parseAuthor(author: NewsMetaProps['author']): {
     return {
       name: author.name || "نویسنده",
       citizenId: author.citizenId || "",
-      avatar: author.avatar || "/clogo.png",
+      avatar: author.avatar || "https://s3.metarang.com/metarang/logo/metarang-logo-512.png",
       bio: author.bio,
       field: author.field,
     };
@@ -52,7 +52,7 @@ function parseAuthor(author: NewsMetaProps['author']): {
       return {
         name: parsed.name || "نویسنده",
         citizenId: parsed.citizenId || "",
-        avatar: parsed.avatar || "/clogo.png",
+        avatar: parsed.avatar || "https://s3.metarang.com/metarang/logo/metarang-logo-512.png",
         bio: parsed.bio,
         field: parsed.field,
       };
@@ -65,7 +65,7 @@ function parseAuthor(author: NewsMetaProps['author']): {
   return {
     name: "نویسنده",
     citizenId: "",
-    avatar: "/clogo.png",
+    avatar: "https://s3.metarang.com/metarang/logo/metarang-logo-512.png",
   };
 }
 
@@ -99,7 +99,7 @@ export default function NewsMeta({
         <div className="flex items-center gap-2 text-sm matn-2-600">
           <div>
             <Image
-              src={parsedAuthor.avatar || "/clogo.png"}
+              src={parsedAuthor.avatar || "https://s3.metarang.com/metarang/logo/metarang-logo-512.png"}
               alt={parsedAuthor.name}
               width={60}
               height={60}

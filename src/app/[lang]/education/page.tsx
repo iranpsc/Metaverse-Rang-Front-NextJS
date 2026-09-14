@@ -121,7 +121,7 @@ export async function generateMetadata({ params }: CitizensPageProps) {
         url: `https://metarang.com/${lang}/education`,
         images: [
           {
-            url: "/logo.png",
+            url: "https://s3.metarang.com/metarang/logo/metarang-logo-512.png",
             width: 800,
             height: 600,
           },

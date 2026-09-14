@@ -118,7 +118,7 @@ export default function ProfileHeaderMobile({
           </p>
         </div>
         <Image
-          src="/logo.png"
+          src="https://s3.metarang.com/metarang/logo/metarang-logo-512.png"
           width={71}
           height={70}
           className="xs:w-[40px] xs:h-[40px] sm:w-[40px] sm:h-[40px] md:w-[50px] md:h-[50px] mx-1"

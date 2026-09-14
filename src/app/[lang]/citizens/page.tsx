@@ -42,7 +42,7 @@ export async function generateMetadata(
         url: `https://metarang.com/${lang}/citizen`,
         images: [
           {
-            url: "/logo.png",
+            url: "https://s3.metarang.com/metarang/logo/metarang-logo-512.png",
             width: 1200,
             height: 630,
           },
@@ -96,10 +96,10 @@ export default async function CitizensPage({ params }: CitizensPageProps) {
         "addressRegion": "استان قزوین",
         "addressLocality": "قزوین"
       },
-      "image": 'https://metarang.com/logo.png',
+      "image": 'https://s3.metarang.com/metarang/logo/metarang-logo-512.png',
       "telephone": "09120820120",
       "url": `https://metarang.com/${lang}/citizen`,
-      "logo": `https://metarang.com/logo.png`,
+      "logo": `https://s3.metarang.com/metarang/logo/metarang-logo-512.png`,
       "email": "info@metarang.com",
       "description": await makeLessCharacter(),
       "alternateName": "MetaRGB"

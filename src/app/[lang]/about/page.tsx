@@ -68,7 +68,7 @@ export default async function AboutPage({ params }: AboutPageProps) {
         "@type": "Thing",
         sameAs: "https://www.instagram.com/rgb.irpsc",
         url: "https://metarang.com/fa/about",
-        image: "https://metarang.com/logo.png",
+        image: "https://s3.metarang.com/metarang/logo/metarang-logo-512.png",
         additionalType: "https://schema.org/WebPage",
         name: 'متاورس رنگ - متارنگ"',
         identifier: "https://metarang.com/about",

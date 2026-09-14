@@ -60,7 +60,7 @@ export default function Footer2({
               {/* Logo */}
               <div className="flex items-start justify-start  lg:px-0  gap-5 ">
                 <Image
-                  src="/logo.png"
+                  src="https://s3.metarang.com/metarang/logo/metarang-logo-512.png"
                   alt="logo"
                   width={isMobile ? 50 : 65}
                   height={isMobile ? 50 : 65}

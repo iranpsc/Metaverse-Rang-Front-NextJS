@@ -136,7 +136,7 @@ export default function ArticleCard({ item, params, theme, activeLoadingId, setA
         >
           <div className="flex flex-row justify-start items-center gap-2">
             <Image
-              src={item.author.avatar || "/clogo.png"}
+              src={item.author.avatar || "https://s3.metarang.com/metarang/logo/metarang-logo-512.png"}
               alt={item.author.name}
               width={45}
               height={45}

@@ -181,7 +181,7 @@ style={{
                                     </div>
                                 </div>
                                 <Image
-                                    src="/logo.png"
+                                    src="https://s3.metarang.com/metarang/logo/metarang-logo-512.png"
                                     alt="Logo"
                                     width={45}
                                     height={35}
@@ -240,7 +240,7 @@ style={{
                                 </div>
 
                                                                                             <Image
-                                    src="/logo.png"
+                                    src="https://s3.metarang.com/metarang/logo/metarang-logo-512.png"
                                     alt="Logo"
                                     width={25}
                                     height={25}

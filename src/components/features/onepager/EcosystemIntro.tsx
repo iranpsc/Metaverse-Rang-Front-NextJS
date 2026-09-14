@@ -15,7 +15,7 @@ export default function EcosystemIntro({ params, mainData }: EcosystemIntroProps
       <div className="flex flex-col items-start mx-auto justify-start lg:mt-20 lg:px-5 lg:ps-14 lg:gap-5">
         <div>
           <Image
-            src="/logo.png"
+            src="https://s3.metarang.com/metarang/logo/metarang-logo-512.png"
             alt="Logo"
             width={70}
             height={60}

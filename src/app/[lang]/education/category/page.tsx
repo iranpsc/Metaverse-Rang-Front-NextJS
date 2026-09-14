@@ -105,7 +105,7 @@ export async function generateMetadata({ params }: EducationCategoryAllProps) {
         url: `https://metarang.com/${lang}/education/category`,
         images: [
           {
-            url: "/logo.png",
+            url: "https://s3.metarang.com/metarang/logo/metarang-logo-512.png",
             width: 800,
             height: 600,
           },

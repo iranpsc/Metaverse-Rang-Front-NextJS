@@ -86,7 +86,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
         siteName: lang === 'fa' ? "متاورس رنگ" : "Metaverse Rang",
         images: [
           {
-            url: "/logo.png",
+            url: "https://s3.metarang.com/metarang/logo/metarang-logo-512.png",
             width: 1200,
             height: 630,
             alt: title,
@@ -99,7 +99,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
         card: 'summary_large_image',
         title,
         description,
-        images: ["/logo.png"],
+        images: ["https://s3.metarang.com/metarang/logo/metarang-logo-512.png"],
       },
       robots: {
         index: true,
@@ -157,10 +157,10 @@ export default async function LangPage({ params }: LangPageProps) {
         "addressRegion": "استان قزوین",
         "addressLocality": "قزوین"
       },
-      "image": 'https://metarang.com/logo.png',
+      "image": 'https://s3.metarang.com/metarang/logo/metarang-logo-512.png',
       "telephone": "09120820120",
       "url": `https://metarang.com/${lang}`,
-      "logo": `https://metarang.com/logo.png`,
+      "logo": `https://s3.metarang.com/metarang/logo/metarang-logo-512.png`,
       "email": "info@metarang.com",
       "description": await makeLessCharacter(),
       "alternateName": "MetaRGB"

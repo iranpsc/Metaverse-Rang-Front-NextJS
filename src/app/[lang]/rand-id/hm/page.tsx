@@ -55,7 +55,7 @@ export async function generateMetadata({
         url: `https://metarang.com/${lang}/citizen/rand-is/hm`,
         images: [
           {
-            url: "/logo.png",
+            url: "https://s3.metarang.com/metarang/logo/metarang-logo-512.png",
             width: 800,
             height: 600,
           },

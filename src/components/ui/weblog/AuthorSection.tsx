@@ -50,7 +50,7 @@ export default function ArticleMeta({
         <div className="flex items-center gap-2 text-sm matn-2-600">
           <div>
             <Image
-              src={author.avatar || "/clogo.png"}
+              src={author.avatar || "https://s3.metarang.com/metarang/logo/metarang-logo-512.png"}
               alt={author.name}
               width={60}
               height={60}

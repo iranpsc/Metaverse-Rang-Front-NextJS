@@ -240,7 +240,7 @@ export async function generateMetadata({
           {
             url:
               profileData.data?.profilePhotos?.[0]
-                ?.url || "/logo.png",
+                ?.url || "https://s3.metarang.com/metarang/logo/metarang-logo-512.png",
 
             width: 800,
 

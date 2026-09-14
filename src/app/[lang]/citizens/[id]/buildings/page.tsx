@@ -215,7 +215,7 @@ export async function generateMetadata({
       : "Completed buildings summary, chart, and list";
 
     const canonicalUrl = `https://metarang.com/${lang}/citizens/${id}/buildings`;
-    const ogImage = profileData.data?.profilePhotos?.[0]?.url || "/logo.png";
+    const ogImage = profileData.data?.profilePhotos?.[0]?.url || "https://s3.metarang.com/metarang/logo/metarang-logo-512.png";
 
     return {
       title,

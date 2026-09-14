@@ -66,7 +66,7 @@ function SideBarHeader({ isClosed, toggleSide, params, langData, langArray }: an
       >
         <div className={`${isClosed ? "w-full justify-center" : "justify-start"} flex items-center gap-3 my-1 pb-1 menu-transition`}>
           <Image
-            src="/logo.png"
+            src="https://s3.metarang.com/metarang/logo/metarang-logo-512.png"
             alt="rgb metaverse"
             width={71}
             height={70}

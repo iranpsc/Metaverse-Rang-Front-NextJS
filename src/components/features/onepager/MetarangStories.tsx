@@ -117,7 +117,7 @@ function StoryCard({
                 <div className="flex items-center gap-3">
                     <div>
                         <Image
-                            src="/logo.png"
+                            src="https://s3.metarang.com/metarang/logo/metarang-logo-512.png"
                             alt="Logo"
                             width={45}
                             height={35}

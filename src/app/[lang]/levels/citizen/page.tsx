@@ -52,7 +52,7 @@ export async function generateMetadata({
         url: `https://metarang.com/${lang}/levels/citizen`,
         images: [
           {
-            url: levelArray?.[0]?.image || "/logo.png",
+            url: levelArray?.[0]?.image || "https://s3.metarang.com/metarang/logo/metarang-logo-512.png",
             width: 800,
             height: 600,
             alt: findByUniqueId(mainData, 587),

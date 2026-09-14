@@ -386,7 +386,7 @@ export default async function NewsPage({ params }: NewsPageProps) {
         name: "متاورس رنگ",
         logo: {
           "@type": "ImageObject",
-          url: "https://metarang.com/logo.png",
+          url: "https://s3.metarang.com/metarang/logo/metarang-logo-512.png",
         },
       },
     };

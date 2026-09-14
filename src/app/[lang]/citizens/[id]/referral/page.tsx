@@ -237,7 +237,7 @@ export async function generateMetadata({
         images: [
           {
             url:
-              profileData.data?.profilePhotos?.[0]?.url || "/logo.png",
+              profileData.data?.profilePhotos?.[0]?.url || "https://s3.metarang.com/metarang/logo/metarang-logo-512.png",
             width: 800,
             height: 600,
           },
