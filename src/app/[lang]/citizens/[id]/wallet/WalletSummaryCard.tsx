@@ -2,7 +2,7 @@ import AssetIcon from "./AssetIcon";
 import {
   ASSET_CONFIG,
   CARD_HEIGHT,
-  PERIOD_EARNED_LABEL,
+ getPeriodEarnedLabel,
   type Period,
   type SummaryItem,
 } from "./walletHistory.types";
@@ -85,7 +85,7 @@ export default function WalletSummaryCard({ item, period, lang , mainData }: Wal
               </span>
               <span className={`text-matn-2 text-[12px] lg:text-sm ${isUp ? "!text-green-500" : "text-red-600"
                   }` } >
-                {PERIOD_EARNED_LABEL[period]}
+                {getPeriodEarnedLabel(mainData, period)}
               </span>
             </div>
             <div className="h-full w-[1px] bg-[#EFEFEF] dark:bg-[#2A2B32]" />

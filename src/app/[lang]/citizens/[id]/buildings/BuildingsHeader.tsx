@@ -102,7 +102,7 @@ export default function InviteBox({
       <div className="flex flex-wrap min-h-[260px] ">
         <div className="w-full lg:w-3/4 p-6">
           <p className="text-black dark:text-white text-lg leading-[36px] text-justify lg:text-[20px] ">
-          {findByUniqueId(mainData, 1812 )}
+          {findByUniqueId(mainData, 1810 )}
           </p>
 
           <div className=" flex flex-col w-full lg:flex-row lg:gap-2 xl:mt-12">
