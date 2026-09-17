@@ -72,7 +72,7 @@ export default function CategoryHeader({ data , mainData }: CategoryHeaderProps)
               </span>
             </div>
             <span className="font-medium text-sm lg:text-[18px] text-matn-2 dark:text-white ms-1">
-              {formatNumber(totalArticles)} عدد
+              {formatNumber(totalArticles)} {findByUniqueId(mainData, 14)}
             </span>
           </div>
 

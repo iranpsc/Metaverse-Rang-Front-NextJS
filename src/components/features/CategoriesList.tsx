@@ -104,7 +104,7 @@ export default function CategoriesGridClient({
                       <span className="text-white font-bold mt-[-6px]">{cat}</span>
                       <span className="text-[#9A9A9A] text-xs">
                         {findByUniqueId(mainData, 1517)} {subcategoryCounts?.[cat] ?? 0}
-                        {findByUniqueId(mainData, 1518)}
+                        {findByUniqueId(mainData, 1826 )}
                       </span>
                     </div>
                   </div>

@@ -104,7 +104,7 @@ function SideBarHeader({ isClosed, toggleSide, params, langData, langArray }: an
           </div>
 
           {isLangOpen && (
-            <div className="absolute flex flex-col top-full mt-2 ltr:right-0 rtl:left- w-36 bg-white dark:bg-matn-2 rounded-lg shadow-xl border border-matn-2-200 dark:border-dark-border p-3 z-[101]">
+            <div className="absolute flex flex-col top-full mt-2 ltr:right-0 rtl:left- w-36 bg-white dark:bg-gray-2 rounded-lg shadow-xl border border-matn-2-200 dark:border-dark-border p-3 z-[101]">
               {langArray.map((langItem: { code: any; }) => (
                 <DropdownLanguageModule
                   key={langItem.code}

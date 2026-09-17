@@ -4,7 +4,7 @@ import useDarkMode from "@/hooks/use-dark-mode";
 import { Dark, Light } from "@/svgs/index";
 //CONTEXT
 
-const ThemeMenuModule = ({ isClosed, defaultTheme, params }: any) => {
+const ThemeMenuModule = ({ isClosed, defaultTheme }: any) => {
   const { theme, toggoleTheme } = useDarkMode(defaultTheme);
 
   return (
