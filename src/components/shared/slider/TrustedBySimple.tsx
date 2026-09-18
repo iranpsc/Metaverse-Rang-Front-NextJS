@@ -109,7 +109,7 @@ export default function AvalancheTrustedProps({ params, mainData }: AvalancheTru
                 </div> */}
 
                 {/* container: overflow-hidden لازمه که اسکرول‌بار دستی دیده نشه، اسکرول‌بار قبلی حذف شد چون حالا خودکاره */}
-                <div className=" flex-1 overflow-hidden bg-[#f5f5f5]  z-20 w-[85vw] pe-20">
+                <div className=" flex-1 overflow-hidden bg-bg-primary  z-20 w-[85vw] pe-20">
                     <div
                         dir={isRtl ? 'rtl' : 'ltr'}
                         className={`flex gap-1 pt-1 ps-1 w-max ${isRtl ? 'marquee-track-rtl' : 'marquee-track-ltr'}`}

@@ -63,20 +63,20 @@ export default function ContactSection({ params, mainData }: ContactSectionProps
                             <input
                                 type="text"
                                 placeholder={findByUniqueId(mainData, 79)}
-                                className="h-14 placeholder:text-black rounded-lg  px-4 dark:text-white dark:placeholder:text-white outline-none border border-solid border-[#D9D9D9]  dark:border-transparent focus:border-purple-500"
+                                className="h-14 placeholder:text-black rounded-lg bg-bg-primary px-4 dark:text-white dark:placeholder:text-white outline-none border border-solid border-[#D9D9D9]  dark:border-transparent focus:border-purple-500"
                             />
 
                             <input
                                 type="text"
                                 placeholder={findByUniqueId(mainData, 646)}
-                                className="h-14 placeholder:text-black rounded-lg  px-4 dark:text-white dark:placeholder:text-white outline-none border border-solid border-[#D9D9D9]  dark:border-transparent focus:border-purple-500"
+                                className="h-14 placeholder:text-black rounded-lg bg-bg-primary px-4 dark:text-white dark:placeholder:text-white outline-none border border-solid border-[#D9D9D9]  dark:border-transparent focus:border-purple-500"
                             />
                         </div>
 
                         <input
                             type="email"
                             placeholder={findByUniqueId(mainData, 85)}
-                            className=" placeholder:text-black w-full h-14 rounded-lg  px-4 dark:text-white dark:placeholder:text-white outline-none border border-solid border-[#D9D9D9] dark:border-transparent focus:border-purple-500"
+                            className=" placeholder:text-black w-full h-14 rounded-lg bg-bg-primary px-4 dark:text-white dark:placeholder:text-white outline-none border border-solid border-[#D9D9D9] dark:border-transparent focus:border-purple-500"
                         />
 
                         <div className="relative">
@@ -87,7 +87,7 @@ export default function ContactSection({ params, mainData }: ContactSectionProps
                                     w-full
                                     h-14
                                     rounded-lg
-                                    
+                                    bg-bg-primary
                                     px-4
                                     dark:text-white
                                     appearance-none
@@ -127,7 +127,7 @@ export default function ContactSection({ params, mainData }: ContactSectionProps
                             className="
                                 w-full
                                 rounded-lg
-                                
+                                bg-bg-primary
                                 px-4
                                 py-4
                                 dark:text-white

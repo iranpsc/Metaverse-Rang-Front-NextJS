@@ -101,7 +101,7 @@ function StoryCard({
                 flex-shrink-0
                 overflow-hidden
                 rounded-[18px]
-                bg-[#F5F5F5]
+                bg-bg-primary
                 
                 w-[280px]
                 xl:w-[320px]
@@ -120,17 +120,17 @@ function StoryCard({
                             src="https://s3.metarang.com/metarang/logo/metarang-logo-512.png"
                             alt="Logo"
                             width={45}
-                            height={35}
-                            className="size-10  lg:w-[35px] lg:h-[35px] object-contain"
+                            height={45}
+                            className="size-10  lg:w-[45px] lg:h-[45px] object-contain"
                         />
                     </div>
 
-                    <div>
-                        <p className="text-sm font-semibold text-black dark:text-white">
+                    <div className='flex flex-col justify-center mt-[-8px]'>
+                        <p className="text-sm lg:text-base font-semibold text-black dark:text-white">
                             {item.username}
                         </p>
 
-                        <p className="text-xs uppercase  text-gray-1  dark:text-[#9A9A9A]">
+                        <p className="text-xs lg:text-sm uppercase  text-matn-2   ">
                             {item.handle}
                         </p>
                     </div>
@@ -144,8 +144,8 @@ function StoryCard({
                         text-[15px]
                         leading-[1.6]
                         tracking-[0.06em]
-                        text-gray-1 
-                        dark:text-[#D4D4D4]
+                        text-matn-2 
+                        
                     "
                 >
                     {item.content}
