@@ -331,7 +331,12 @@ export default async function NewsCategoryPage({ params }: NewsCategoryPageProps
             totalArticles: newsData.length,
           }}
           mainData={mainData}
+          articlesTitleId={1826}
+          likesTitleId={1523}
+          dislikesTitleId={1524}
+          viewsTitleId={1525}
         />
+        
 
         <div className="flex flex-col-reverse lg:flex-row gap-5 px-5">
           <SearchComponent

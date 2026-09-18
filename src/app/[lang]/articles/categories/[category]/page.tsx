@@ -188,19 +188,23 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         </div>
 
         {/* ✅ سینک و بلاک‌کننده مونده — تصویرش LCP element این صفحه‌ست */}
-        <CategoryHeader
-          data={{
-            category: catName,
-            subCategory,
-            categoryImage: categoryImage || "/default.png",
-            categoryDec: categoryDec || "توضیحی برای این دسته موجود نیست.",
-            totalLikes,
-            totalDislikes,
-            totalViews,
-            totalArticles,
-          }}
-          mainData={mainData}
-        />
+<CategoryHeader
+  data={{
+    category: catName,
+    subCategory,
+    categoryImage: categoryImage || "/default.png",
+    categoryDec: categoryDec || "توضیحی برای این دسته موجود نیست.",
+    totalLikes,
+    totalDislikes,
+    totalViews,
+    totalArticles,
+  }}
+  mainData={mainData}
+  articlesTitleId={1828}
+  likesTitleId={1523}
+  dislikesTitleId={1524}
+  viewsTitleId={1525}
+/>
 
         <div className="flex flex-col-reverse justify-center gap-7 lg:gap-5 lg:flex-row lg:justify-between items-start lg:items-center w-full px-5  mt-[-100px] lg:mt-0">
           <SearchComponent searchLevel="articles" params={resolvedParams} mainData={mainData} />
