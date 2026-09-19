@@ -423,7 +423,7 @@ export default async function NewsPage({ params }: NewsPageProps) {
           />
 
           {/* خبرنامه */}
-          <div className="w-full px-5 flex flex-col items-center">
+          <div id="em" className="w-full px-5 flex flex-col items-center">
             <svg xmlns="http://www.w3.org/2000/svg" width="364" height="364" viewBox="0 0 364 364" fill="none" className="mb-[-140px] dark:hidden">
               <path d="M333.666 174.419V235.086C333.666 288.169 303.333 310.919 257.833 310.919H106.166C60.6663 310.919 30.333 288.169 30.333 235.086V128.919C30.333 75.8359 60.6663 53.0859 106.166 53.0859H182" stroke="url(#paint0_linear_4633_15252)" strokeWidth="6" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
               <path d="M106.167 136.5L166.834 174.417C182.728 186.394 211.606 171.228 227.5 159.25" stroke="url(#paint1_linear_4633_15252)" strokeWidth="6" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />

@@ -118,7 +118,7 @@ export default function ProfileDetails({
     {
       id: 6,
       // key: targetData(userProperty, "trainings"),
-      key: findByUniqueId(mainData, 87),
+      key: findByUniqueId(mainData, 1839),
       value: profileData.data?.customs?.education?.slice(0, 25) || "--",
       fValue: profileData.data?.customs?.education,
     },

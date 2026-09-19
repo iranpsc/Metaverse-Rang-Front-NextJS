@@ -17,12 +17,12 @@ const ASSET_ICON_SRC: Record<string, string> = {
 
 // Original per-type dimensions (kept so the swap doesn't shift layout)
 const ASSET_ICON_SIZE: Record<string, { width: number; height: number }> = {
-  trophy: { width: 61, height: 78 },
+  trophy: { width:81, height: 80 },
   flag: { width: 71, height: 73 },
   coin: { width: 74, height: 75 },
   gauge: { width: 70, height: 72 },
   blueGem: { width: 73, height: 73 },
-  yellowSparkle: { width: 74, height: 72 },
+  yellowSparkle: { width: 74, height: 73 },
   diamond: { width: 97, height: 78 },
 };
 
