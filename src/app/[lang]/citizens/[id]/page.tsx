@@ -103,7 +103,7 @@ export default async function CitizenSinglePage({
             {/*                         PROFILE                         */}
             {/* ------------------------------------------------------ */}
 
-            <section className="relative w-full bg-bg-primary flex flex-col lg:flex-row gap-[10px] p-[8px]">
+            <section className="relative w-full bg-bg-primary flex flex-col lg:flex-row gap-[10px] p-[8px] lg:ps-20 xl:ps-2">
               <Suspense
                 fallback={<ProfileSectionSkeleton />}
               >

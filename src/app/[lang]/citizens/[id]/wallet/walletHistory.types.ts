@@ -1,8 +1,3 @@
-
-/* ------------------------------------------------------------------ */
-/*                    WALLET HISTORY — SHARED TYPES                    */
-/* ------------------------------------------------------------------ */
-
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 export type Period = "daily" | "weekly" | "monthly" | "yearly";
@@ -48,6 +43,7 @@ export const ASSET_CONFIG: Record<
     color: string;
     icon: AssetIconType;
     uniqueId: number;
+    href?: string;
   }
 > = {
   blue: {
@@ -55,6 +51,7 @@ export const ASSET_CONFIG: Record<
     color: "#9100D9",
     icon: "blueGem",
     uniqueId: 49,
+    href: "https://dev-nextjs.metarang.com/fa/articles/categories/rang/BL_10002",
   },
 
   red: {
@@ -62,6 +59,7 @@ export const ASSET_CONFIG: Record<
     color: "#EF4444",
     icon: "flag",
     uniqueId: 12,
+    href: "https://dev-nextjs.metarang.com/fa/articles/categories/rang/BL_10003",
   },
 
   yellow: {
@@ -69,6 +67,7 @@ export const ASSET_CONFIG: Record<
     color: "#9100D9",
     icon: "yellowSparkle",
     uniqueId: 11,
+    href: "https://dev-nextjs.metarang.com/fa/articles/categories/rang/BL_10001",
   },
 
   satisfaction: {
@@ -90,6 +89,7 @@ export const ASSET_CONFIG: Record<
     color: "#38BDF8",
     icon: "gauge",
     uniqueId: 723,
+    href: "https://dev-nextjs.metarang.com/fa/articles/categories/digital-governance-and-the-citizen-economy/BL_10014",
   },
 
   psc: {
@@ -128,12 +128,6 @@ export function getAssetLabel(
 /*                         PERIOD OPTIONS                              */
 /* ------------------------------------------------------------------ */
 
-/**
- * Period switch options.
- *
- * این آرایه ثابت است و نباید به mainData وابسته باشد.
- * ترجمه واقعی هنگام render با findByUniqueId گرفته می‌شود.
- */
 export const PERIOD_OPTIONS: {
   key: Period;
   uniqueId: number;
@@ -179,9 +173,6 @@ export const PERIOD_EARNED_FALLBACKS: Record<Period, string> = {
   yearly: "درآمد سالانه",
 };
 
-/**
- * دریافت عنوان درآمد دوره از mainData
- */
 export function getPeriodEarnedLabel(
   mainData: any,
   period: Period,
@@ -199,9 +190,6 @@ export function getPeriodEarnedLabel(
   );
 }
 
-/**
- * دریافت تمام عنوان‌های درآمد دوره
- */
 export function getPeriodEarnedLabels(
   mainData: any,
 ): Record<Period, string> {
@@ -217,6 +205,4 @@ export function getPeriodEarnedLabels(
 /*                              CARD                                   */
 /* ------------------------------------------------------------------ */
 
-/* Same height so the real card and skeleton match pixel-for-pixel. */
 export const CARD_HEIGHT = "h-[220px] lg:h-[240px]";
-

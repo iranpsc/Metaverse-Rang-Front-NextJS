@@ -1,6 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import {
+  memo,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import axios from "axios";
 import dynamic from "next/dynamic";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
@@ -13,31 +20,68 @@ import {
 } from "./featuresShared";
 import type { MapMarkerItem } from "./Map";
 
+/* ------------------------------------------------------------------ */
+/*                              CONSTANTS                              */
+/* ------------------------------------------------------------------ */
+const API_BASE = "https://dev-api.metarang.com/api/citizen";
+const LIST_PER_PAGE = 10;
+const SEARCH_DEBOUNCE_MS = 350;
+const PINNED_PAGE_SIZE = 100; // page size while collecting the properties of one circle
+const PINNED_MAX_PAGES = 40; // safety cap
+const HEADERS = { "Content-Type": "application/json" };
+
+/* ------------------------------------------------------------------ */
+/*                              SKELETONS                              */
+/* ------------------------------------------------------------------ */
+function MapSkeleton() {
+  return (
+    <div className="w-full h-full rounded-xl bg-white dark:bg-gray-1 animate-pulse flex items-center justify-center">
+      <div className="w-2/3 h-2/3 rounded-xl bg-black/5 dark:bg-white/5" />
+    </div>
+  );
+}
+
+function FeatureCardSkeleton() {
+  return (
+    <div className="bg-white dark:bg-[#1a1a1e] rounded-xl p-4 flex flex-col gap-3 animate-pulse">
+      <div className="flex items-center gap-2">
+        <div className="w-8 h-8 rounded-lg bg-black/10 dark:bg-white/10 shrink-0" />
+        <div className="h-3 w-24 rounded bg-black/10 dark:bg-white/10" />
+      </div>
+      <div className="flex flex-col gap-2">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div key={i} className="flex justify-between">
+            <div className="h-2.5 w-20 rounded bg-black/10 dark:bg-white/10" />
+            <div className="h-2.5 w-16 rounded bg-black/10 dark:bg-white/10" />
+          </div>
+        ))}
+      </div>
+      <div className="flex gap-2 mt-1">
+        <div className="flex-1 h-9 rounded-lg bg-black/10 dark:bg-white/10" />
+        <div className="flex-1 h-9 rounded-lg bg-black/10 dark:bg-white/10" />
+        <div className="flex-1 h-9 rounded-lg bg-black/10 dark:bg-white/10" />
+      </div>
+    </div>
+  );
+}
+
+/* the placeholder has the same height as the container (h-full) → no layout jump */
 const MapComponent = dynamic(() => import("./Map"), {
   ssr: false,
-  loading: () => (
-    <div className="w-full h-[420px] flex items-center justify-center text-matn-2 rounded-[20px] bg-white dark:bg-gray-1">
-      &nbsp;
-    </div>
-  ),
+  loading: () => <MapSkeleton />,
 });
 
 /* ------------------------------------------------------------------ */
 /*                                TYPES                                */
 /* ------------------------------------------------------------------ */
-const LIST_PER_PAGE = 10;
-
 interface RawMapMarker {
   id: number;
   karbari: string;
   center: { x: number; y: number };
 }
 
-/* NOTE: the /features endpoint's `data` item schema wasn't provided
-   with real values (the sample response had `data: []`). Field names
-   below are inferred from the property-details screenshot — if the
-   real payload uses different keys, only `normalizeFeature` needs
-   updating; nothing else depends on the raw shape. */
+/* NOTE: field names are inferred; if the real payload differs, only
+   `normalizeFeature` needs updating. */
 interface FeatureDetail {
   id: number;
   code: string;
@@ -51,6 +95,8 @@ interface FeatureDetail {
   longitude?: number;
   latitude?: number;
 }
+
+type IdList = (number | string)[];
 
 function normalizeFeature(raw: any): FeatureDetail {
   return {
@@ -69,7 +115,7 @@ function normalizeFeature(raw: any): FeatureDetail {
 /* ------------------------------------------------------------------ */
 /*                               ICONS                                 */
 /* ------------------------------------------------------------------ */
-function SearchIcon() {
+const SearchIcon = memo(function SearchIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 19 19" fill="none" className="shrink-0">
       <path
@@ -80,24 +126,27 @@ function SearchIcon() {
       />
     </svg>
   );
-}
-function PinIcon() {
+});
+
+const PinIcon = memo(function PinIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
       <path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
       <circle cx="12" cy="9" r="2.3" stroke="currentColor" strokeWidth="2" />
     </svg>
   );
-}
-function OfferIcon() {
+});
+
+const OfferIcon = memo(function OfferIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
       <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" />
       <path d="M9.5 14.5c.4.7 1.3 1.2 2.5 1.2 1.6 0 2.6-.8 2.6-1.9 0-2.6-5-1.2-5-3.8 0-1.1 1-1.9 2.5-1.9 1.1 0 2 .4 2.4 1.1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
     </svg>
   );
-}
-function CartIcon() {
+});
+
+const CartIcon = memo(function CartIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
       <path d="M3 4h2l2.4 12.2a2 2 0 0 0 2 1.6h7.2a2 2 0 0 0 2-1.6L20 8H6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -105,24 +154,23 @@ function CartIcon() {
       <circle cx="17" cy="20.5" r="1.3" fill="currentColor" />
     </svg>
   );
-}
-function BuildingGlyph({ color }: { color: string }) {
+});
+
+const BuildingGlyph = memo(function BuildingGlyph({ color }: { color: string }) {
   return (
-    
-<svg className="size-6" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M2.46191 6.36262C2.46197 3.08782 4.9121 1.6006 7.89941 3.06282L13.4375 5.80012C14.6375 6.38765 15.625 7.95054 15.625 9.26301V26.2503C15.625 26.9377 15.0624 27.5002 14.375 27.5003H5.09961C3.64972 27.5002 2.46191 26.3373 2.46191 24.9124L2.46191 6.36262ZM27.5 24.3753C27.4999 26.1002 26.0999 27.5002 24.375 27.5003H18.7119C18.0371 27.5001 17.5 26.9623 17.5 26.2874V23.5882C18.8374 23.7506 20.2502 23.3626 21.2627 22.5501C22.1127 23.2375 23.2003 23.6507 24.3877 23.6507C25.5501 23.6506 26.6376 23.2376 27.5 22.5501V24.3753ZM17.5 15.0003C17.5 14.2004 18.237 13.6009 19.0244 13.7757L21.2627 14.2757L21.8623 14.4124L24.4121 14.9876C25.0246 15.1126 25.5877 15.3255 26.0752 15.638C26.0754 15.6489 26.0848 15.6506 26.0869 15.6507C26.2119 15.7382 26.3377 15.838 26.4502 15.9505C27.025 16.5255 27.3998 17.3634 27.4873 18.5882C27.4874 18.663 27.5 18.738 27.5 18.8128V18.8255C27.3999 20.4628 26.0624 21.7755 24.3877 21.7757C22.6504 21.7757 21.263 20.363 21.2627 18.6507C21.2624 20.5629 19.4997 22.1005 17.5 21.7132V15.0003ZM6.875 15.3128C6.3625 15.3128 5.9375 15.7378 5.9375 16.2503C5.93754 16.7628 6.36252 17.1878 6.875 17.1878H11.2119C11.7369 17.1878 12.1494 16.7628 12.1494 16.2503C12.1494 15.7378 11.7244 15.3128 11.2119 15.3128H6.875ZM6.875 10.3128C6.3625 10.3128 5.9375 10.7378 5.9375 11.2503C5.93754 11.7628 6.36252 12.1878 6.875 12.1878H11.2119C11.7369 12.1878 12.1494 11.7628 12.1494 11.2503C12.1494 10.7378 11.7244 10.3128 11.2119 10.3128H6.875Z" fill={color}/>
-<defs>
-<linearGradient id="paint0_linear_3471_2880" x1="5.59168" y1="5.93738" x2="24.7395" y2="26.6726" gradientUnits="userSpaceOnUse">
-<stop stop-color={color}/>
-<stop offset="1" stop-color={color}/>
-</linearGradient>
-</defs>
-</svg>
-
+    <svg className="size-6" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M2.46191 6.36262C2.46197 3.08782 4.9121 1.6006 7.89941 3.06282L13.4375 5.80012C14.6375 6.38765 15.625 7.95054 15.625 9.26301V26.2503C15.625 26.9377 15.0624 27.5002 14.375 27.5003H5.09961C3.64972 27.5002 2.46191 26.3373 2.46191 24.9124L2.46191 6.36262ZM27.5 24.3753C27.4999 26.1002 26.0999 27.5002 24.375 27.5003H18.7119C18.0371 27.5001 17.5 26.9623 17.5 26.2874V23.5882C18.8374 23.7506 20.2502 23.3626 21.2627 22.5501C22.1127 23.2375 23.2003 23.6507 24.3877 23.6507C25.5501 23.6506 26.6376 23.2376 27.5 22.5501V24.3753ZM17.5 15.0003C17.5 14.2004 18.237 13.6009 19.0244 13.7757L21.2627 14.2757L21.8623 14.4124L24.4121 14.9876C25.0246 15.1126 25.5877 15.3255 26.0752 15.638C26.0754 15.6489 26.0848 15.6506 26.0869 15.6507C26.2119 15.7382 26.3377 15.838 26.4502 15.9505C27.025 16.5255 27.3998 17.3634 27.4873 18.5882C27.4874 18.663 27.5 18.738 27.5 18.8128V18.8255C27.3999 20.4628 26.0624 21.7755 24.3877 21.7757C22.6504 21.7757 21.263 20.363 21.2627 18.6507C21.2624 20.5629 19.4997 22.1005 17.5 21.7132V15.0003ZM6.875 15.3128C6.3625 15.3128 5.9375 15.7378 5.9375 16.2503C5.93754 16.7628 6.36252 17.1878 6.875 17.1878H11.2119C11.7369 17.1878 12.1494 16.7628 12.1494 16.2503C12.1494 15.7378 11.7244 15.3128 11.2119 15.3128H6.875ZM6.875 10.3128C6.3625 10.3128 5.9375 10.7378 5.9375 11.2503C5.93754 11.7628 6.36252 12.1878 6.875 12.1878H11.2119C11.7369 12.1878 12.1494 11.7628 12.1494 11.2503C12.1494 10.7378 11.7244 10.3128 11.2119 10.3128H6.875Z"
+        fill={color}
+      />
+    </svg>
   );
-}
+});
 
-function FeatureCard({
+/* ------------------------------------------------------------------ */
+/*                           FEATURE CARD                              */
+/* ------------------------------------------------------------------ */
+const FeatureCard = memo(function FeatureCard({
   item,
   isFa,
   color,
@@ -136,12 +184,13 @@ function FeatureCard({
   onFocus: (item: FeatureDetail) => void;
 }) {
   const formatNumber = (n: number) => n.toLocaleString(isFa ? "fa-IR" : "en-US");
+  const hasCoords = item.longitude != null && item.latitude != null;
 
   return (
     <div
       onClick={() => onFocus(item)}
       className={`bg-white dark:bg-[#1a1a1e] rounded-xl p-4 flex flex-col gap-5 cursor-pointer transition-colors ${
-        isFocused ? "ring-2 ring-primary " : ""
+        isFocused ? "ring-2 ring-primary" : ""
       }`}
     >
       <div className="flex items-center gap-2">
@@ -151,7 +200,7 @@ function FeatureCard({
         >
           <BuildingGlyph color={color} />
         </div>
-        <span className=" text-black dark:text-white text-sm font-bold">
+        <span className="text-black dark:text-white text-sm font-bold">
           {isFa ? "شناسه" : "ID"} {item.code}
         </span>
       </div>
@@ -164,44 +213,43 @@ function FeatureCard({
         <div className="flex justify-between text-[#A0A0AB] dark:text-white">
           <span className="text-[#84858F]">{isFa ? "متراژ" : "Area"}</span>
           <span className="text-left text-black dark:text-white">
-            {item.area != null
-              ? `${formatNumber(item.area)} ${isFa ? "متر مربع" : "m²"}`
-              : "—"}
+            {item.area != null ? `${formatNumber(item.area)} ${isFa ? "متر مربع" : "m²"}` : "—"}
           </span>
         </div>
         <div className="flex justify-between text-[#A0A0AB] dark:text-white">
           <span className="text-[#84858F]">{isFa ? "تراکم" : "Floors"}</span>
           <span className="text-left text-black dark:text-white">
-            {item.floors != null
-              ? `${formatNumber(item.floors)} ${isFa ? "طبقه" : ""}`
-              : "—"}
+            {item.floors != null ? `${formatNumber(item.floors)} ${isFa ? "طبقه" : ""}` : "—"}
           </span>
         </div>
         <div className="flex justify-between text-[#A0A0AB] dark:text-white">
           <span className="text-[#84858F]">{isFa ? "شناسه مالک" : "Owner ID"}</span>
-          <span className="text-primary  uppercase">
-            {item.owner_code || "—"}
-          </span>
+          <span className="text-primary uppercase">{item.owner_code || "—"}</span>
         </div>
         <div className="flex justify-between text-[#A0A0AB] dark:text-white">
           <span className="text-[#84858F]">{isFa ? "قیمت‌گذاری فروش" : "Sale price"}</span>
-          <span className="text-left text-black dark:text-white">{item.sale_price != null ? formatNumber(item.sale_price) : "—"}</span>
+          <span className="text-left text-black dark:text-white">
+            {item.sale_price != null ? formatNumber(item.sale_price) : "—"}
+          </span>
         </div>
         <div className="flex justify-between text-[#A0A0AB] dark:text-white">
           <span className="text-[#84858F]">{isFa ? "قیمت‌گذاری اجاره" : "Rent price"}</span>
-          <span className="text-left text-black dark:text-white"> {item.rent_price != null ? formatNumber(item.rent_price) : "—"}</span>
+          <span className="text-left text-black dark:text-white">
+            {item.rent_price != null ? formatNumber(item.rent_price) : "—"}
+          </span>
         </div>
       </div>
 
       <div className="flex gap-2 mt-1">
         <button
+          disabled={!hasCoords}
           onClick={(e) => {
             e.stopPropagation();
-            if (item.longitude != null && item.latitude != null) {
-              window.open(buildFeatureLink(item.id, item.latitude, item.longitude), "_blank");
+            if (hasCoords) {
+              window.open(buildFeatureLink(item.id, item.latitude!, item.longitude!), "_blank");
             }
           }}
-          className="flex-1 flex items-center justify-center gap-1 bg-primary text-white dark:text-black   text-[14px] font-bold rounded-full h-9"
+          className="flex-1 flex items-center justify-center gap-1 bg-primary text-white dark:text-black text-[14px] font-bold rounded-full h-9 disabled:opacity-40 disabled:cursor-not-allowed"
         >
           <PinIcon />
           {isFa ? "لوکیشن" : "Location"}
@@ -212,7 +260,7 @@ function FeatureCard({
             /* TODO: wire to the real "buy" flow */
             console.log("buy clicked for", item.id);
           }}
-          className="flex-1 flex items-center justify-center gap-1 bg-primary text-white dark:text-black   text-[14px] font-bold rounded-full h-9"
+          className="flex-1 flex items-center justify-center gap-1 bg-primary text-white dark:text-black text-[14px] font-bold rounded-full h-9"
         >
           <CartIcon />
           {isFa ? "خرید" : "Buy"}
@@ -223,7 +271,7 @@ function FeatureCard({
             /* TODO: wire to the real "make an offer" flow */
             console.log("offer clicked for", item.id);
           }}
-          className="flex-1 flex items-center justify-center gap-1 bg-primary text-white dark:text-black   text-[14px] font-bold rounded-full h-9"
+          className="flex-1 flex items-center justify-center gap-1 bg-primary text-white dark:text-black text-[14px] font-bold rounded-full h-9"
         >
           <OfferIcon />
           {isFa ? "پیشنهاد" : "Offer"}
@@ -231,42 +279,48 @@ function FeatureCard({
       </div>
     </div>
   );
-}
+});
 
 /* ------------------------------------------------------------------ */
-/*                              SKELETONS                              */
+/*                             SEARCH BAR                              */
 /* ------------------------------------------------------------------ */
-function MapSkeleton() {
+const SearchBar = memo(function SearchBar({
+  value,
+  isFa,
+  autoFocus,
+  onChange,
+  onFocus,
+  onIconClick,
+}: {
+  value: string;
+  isFa: boolean;
+  autoFocus?: boolean;
+  onChange: (v: string) => void;
+  onFocus: () => void;
+  onIconClick: () => void;
+}) {
   return (
-    <div className="w-full h-full bg-white dark:bg-gray-1 animate-pulse flex items-center justify-center">
-      <div className="w-2/3 h-2/3 rounded-xl bg-black/5 dark:bg-white/5" />
+    <div className="flex items-center bg-white dark:bg-gray-1 rounded-xl h-[42px] px-3 gap-2 w-full">
+      <button
+        type="button"
+        onClick={onIconClick}
+        aria-label={isFa ? "نمایش لیست املاک" : "Show property list"}
+        className="shrink-0 bg-transparent"
+      >
+        <SearchIcon />
+      </button>
+      <input
+        type="text"
+        autoFocus={autoFocus}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        onFocus={onFocus}
+        placeholder={isFa ? "شناسه ملک یا آدرس را جستجو کنید" : "Search by property ID or address"}
+        className="bg-transparent border-none outline-none text-sm flex-1 text-black dark:text-white py-4"
+      />
     </div>
   );
-}
-
-function FeatureCardSkeleton() {
-  return (
-    <div className="bg-[#1a1a1e] rounded-xl p-4 flex flex-col gap-3 animate-pulse">
-      <div className="flex items-center gap-2">
-        <div className="w-8 h-8 rounded-lg bg-white/10 shrink-0" />
-        <div className="h-3 w-24 rounded bg-white/10" />
-      </div>
-      <div className="flex flex-col gap-2">
-        {Array.from({ length: 6 }).map((_, i) => (
-          <div key={i} className="flex justify-between">
-            <div className="h-2.5 w-20 rounded bg-white/10" />
-            <div className="h-2.5 w-16 rounded bg-white/10" />
-          </div>
-        ))}
-      </div>
-      <div className="flex gap-2 mt-1">
-        <div className="flex-1 h-9 rounded-lg bg-white/10" />
-        <div className="flex-1 h-9 rounded-lg bg-white/10" />
-        <div className="flex-1 h-9 rounded-lg bg-white/10" />
-      </div>
-    </div>
-  );
-}
+});
 
 /* ------------------------------------------------------------------ */
 /*                          MAIN FEATURES MAP                          */
@@ -280,23 +334,25 @@ export default function FeaturesMap({
 }) {
   const lang: string = params?.lang || "fa";
   const isFa = lang.toLowerCase() === "fa";
+  const citizenId: string = params.id;
 
-  // Discovered once from /features/summary, since the /features (map)
-  // endpoint's marker objects only carry a `karbari` code, no label.
+  /* ---------------------------- karbari ---------------------------- */
   const [knownKarbari, setKnownKarbari] = useState<KarbariOption[]>([]);
   const [selectedKarbari, setSelectedKarbari] = useState<string[]>([]);
   const [initialized, setInitialized] = useState(false);
 
   const isAllSelected =
     knownKarbari.length > 0 && selectedKarbari.length === knownKarbari.length;
+  const selectedKey = selectedKarbari.join(",");
 
-  // map markers (always "all plots" matching the karbari filter — search
-  // does not affect map_markers per the API docs)
-  const [markers, setMarkers] = useState<MapMarkerItem[]>([]);
+  /* ------------------------------ map ------------------------------ */
+  const [rawMarkers, setRawMarkers] = useState<RawMapMarker[]>([]);
   const [mapLoading, setMapLoading] = useState(false);
   const [mapError, setMapError] = useState(false);
+  const [markersReady, setMarkersReady] = useState(false); // first markers fetch finished
+  const markersReqRef = useRef(0);
 
-  // search + list panel
+  /* ------------------------ search + list panel ------------------------ */
   const [searchTerm, setSearchTerm] = useState("");
   const [listOpen, setListOpen] = useState(false);
   const [listItems, setListItems] = useState<FeatureDetail[]>([]);
@@ -305,17 +361,64 @@ export default function FeaturesMap({
   const [listLoading, setListLoading] = useState(false);
   const [listLoadingMore, setListLoadingMore] = useState(false);
   const [listError, setListError] = useState(false);
+  const [autoFocusSearch, setAutoFocusSearch] = useState(false);
 
-  // selected property (detail panel)
+  // ids of the properties inside the clicked circle (null = normal search mode)
+  const [pinnedIds, setPinnedIds] = useState<IdList | null>(null);
+  const pinnedKey = pinnedIds ? pinnedIds.join(",") : "";
+
   const [selectedFeature, setSelectedFeature] = useState<FeatureDetail | null>(null);
+
+  /* cache of every property already fetched (id -> details) */
+  const featureCacheRef = useRef<Map<string, FeatureDetail>>(new Map());
+  /* request counter + abort controller: stale responses never win */
+  const listReqRef = useRef(0);
+  const listAbortRef = useRef<AbortController | null>(null);
+
+  /* ------------------------ derived karbari data ------------------------ */
+  const labelByCode = useMemo(() => {
+    const map = new Map<string, string>();
+    knownKarbari.forEach((k) => map.set(k.code, k.label));
+    return map;
+  }, [knownKarbari]);
+
+  const colorForKarbari = useCallback(
+    (code: string) => ICON_COLORS[resolveIconKey(labelByCode.get(code) || "")],
+    [labelByCode]
+  );
+
+  /* markers get their color at derive-time, so a label/color change never
+     needs a refetch and the fetch itself stays free of stale closures */
+  const markers: MapMarkerItem[] = useMemo(
+    () =>
+      rawMarkers.map((m) => ({
+        id: m.id,
+        longitude: m.center.x,
+        latitude: m.center.y,
+        karbari: m.karbari,
+        color: colorForKarbari(m.karbari),
+      })),
+    [rawMarkers, colorForKarbari]
+  );
+
+  const markersById = useMemo(() => {
+    const map = new Map<string, MapMarkerItem>();
+    markers.forEach((m) => map.set(String(m.id), m));
+    return map;
+  }, [markers]);
+  const markersByIdRef = useRef(markersById);
+  markersByIdRef.current = markersById;
 
   /* ---------------------- discover karbari types ---------------------- */
   useEffect(() => {
-    const discover = async () => {
+    const controller = new AbortController();
+    featureCacheRef.current.clear();
+
+    (async () => {
       try {
         const res = await axios.get(
-          `https://dev-api.metarang.com/api/citizen/${params.id}/features/summary?period=yearly`,
-          { headers: { "Content-Type": "application/json" } }
+          `${API_BASE}/${citizenId}/features/summary?period=yearly`,
+          { headers: HEADERS, signal: controller.signal }
         );
         const data = res.data?.data || [];
         const codes: KarbariOption[] = data.map((d: any) => ({
@@ -325,84 +428,103 @@ export default function FeaturesMap({
         setKnownKarbari(codes);
         setSelectedKarbari(codes.map((c) => c.code));
       } catch (err) {
+        if (axios.isCancel(err)) return;
         console.error("Error discovering karbari types:", err);
       } finally {
-        setInitialized(true);
+        if (!controller.signal.aborted) setInitialized(true);
       }
-    };
-    discover();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params.id]);
+    })();
 
-  const toggleAll = () => {
+    return () => controller.abort();
+  }, [citizenId]);
+
+  const toggleAll = useCallback(() => {
     setSelectedKarbari(isAllSelected ? [] : knownKarbari.map((k) => k.code));
-  };
+  }, [isAllSelected, knownKarbari]);
 
-  const toggleKarbari = (code: string) => {
+  const toggleKarbari = useCallback((code: string) => {
     setSelectedKarbari((prev) =>
       prev.includes(code) ? prev.filter((c) => c !== code) : [...prev, code]
     );
-  };
+  }, []);
 
-  const colorForKarbari = (code: string) =>
-    ICON_COLORS[resolveIconKey(knownKarbari.find((k) => k.code === code)?.label || "")];
-
-  /* karbari code -> display label, resolved through mainData's unique_id
-     first (same pattern as FeaturesSummary/FeatureCard), falling back to
-     the API's raw Persian text only if no unique_id is set/found. */
-  const displayLabelForKarbari = (code: string) => {
-    const rawLabel = knownKarbari.find((k) => k.code === code)?.label || "";
-    return getKarbariLabel(mainData, resolveIconKey(rawLabel));
+  const buildBaseQuery = () => {
+    const qs = new URLSearchParams();
+    if (!isAllSelected) selectedKarbari.forEach((c) => qs.append("karbari", c));
+    return qs;
   };
 
   /* ---------------------- map markers ---------------------- */
-  const fetchMarkers = async () => {
-    if (selectedKarbari.length === 0) {
-      setMarkers([]);
-      return;
-    }
-    try {
-      setMapLoading(true);
-      setMapError(false);
-
-      const qs = new URLSearchParams();
-      if (!isAllSelected) selectedKarbari.forEach((c) => qs.append("karbari", c));
-
-      const res = await axios.get(
-        `https://dev-api.metarang.com/api/citizen/${params.id}/features?${qs.toString()}`,
-        { headers: { "Content-Type": "application/json" } }
-      );
-      console.log("[features] markers response:", res.data);
-
-      const rawMarkers: RawMapMarker[] = res.data?.map_markers || [];
-      const parsed: MapMarkerItem[] = rawMarkers.map((m) => ({
-        id: m.id,
-        longitude: m.center.x,
-        latitude: m.center.y,
-        karbari: m.karbari,
-        color: colorForKarbari(m.karbari),
-      }));
-      setMarkers(parsed);
-    } catch (err) {
-      console.error("Error fetching feature map markers:", err);
-      setMapError(true);
-      setMarkers([]);
-    } finally {
-      setMapLoading(false);
-    }
-  };
-
   useEffect(() => {
     if (!initialized) return;
-    fetchMarkers();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initialized, JSON.stringify(selectedKarbari)]);
 
-  /* ---------------------- paginated list ---------------------- */
-  const fetchList = async (page: number) => {
+    const reqId = ++markersReqRef.current;
+    const controller = new AbortController();
+
+    (async () => {
+      if (selectedKarbari.length === 0) {
+        setRawMarkers([]);
+        setMapLoading(false);
+        setMarkersReady(true);
+        return;
+      }
+
+      try {
+        setMapLoading(true);
+        setMapError(false);
+
+        const res = await axios.get(
+          `${API_BASE}/${citizenId}/features?${buildBaseQuery().toString()}`,
+          { headers: HEADERS, signal: controller.signal }
+        );
+        if (reqId !== markersReqRef.current) return;
+
+        setRawMarkers(res.data?.map_markers || []);
+      } catch (err) {
+        if (axios.isCancel(err) || reqId !== markersReqRef.current) return;
+        console.error("Error fetching feature map markers:", err);
+        setMapError(true);
+        setRawMarkers([]);
+      } finally {
+        if (reqId === markersReqRef.current) {
+          setMapLoading(false);
+          setMarkersReady(true);
+        }
+      }
+    })();
+
+    return () => controller.abort();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialized, selectedKey, citizenId]);
+
+  /* Normalizes + caches raw items of one API response */
+  const ingestItems = (rawItems: any[], markersOfCall: RawMapMarker[]) => {
+    const cache = featureCacheRef.current;
+    const centers = new Map<string, RawMapMarker["center"]>();
+    markersOfCall.forEach((m) => centers.set(String(m.id), m.center));
+
+    return rawItems.map((raw) => {
+      const item = normalizeFeature(raw);
+      const key = String(item.id);
+      const center = centers.get(key);
+      const fallback = markersByIdRef.current.get(key);
+
+      const full: FeatureDetail = {
+        ...item,
+        longitude: center?.x ?? fallback?.longitude,
+        latitude: center?.y ?? fallback?.latitude,
+      };
+      cache.set(key, full);
+      return full;
+    });
+  };
+
+  /* ---------------------- normal paginated list ---------------------- */
+  const fetchList = async (page: number, reqId: number, signal: AbortSignal) => {
     if (selectedKarbari.length === 0) {
       setListItems([]);
       setListHasMore(false);
+      setListLoading(false);
       return;
     }
     try {
@@ -410,31 +532,18 @@ export default function FeaturesMap({
       else setListLoadingMore(true);
       setListError(false);
 
-      const qs = new URLSearchParams();
-      if (!isAllSelected) selectedKarbari.forEach((c) => qs.append("karbari", c));
+      const qs = buildBaseQuery();
       if (searchTerm.trim()) qs.append("search", searchTerm.trim());
       qs.append("page", String(page));
       qs.append("per_page", String(LIST_PER_PAGE));
 
       const res = await axios.get(
-        `https://dev-api.metarang.com/api/citizen/${params.id}/features?${qs.toString()}`,
-        { headers: { "Content-Type": "application/json" } }
+        `${API_BASE}/${citizenId}/features?${qs.toString()}`,
+        { headers: HEADERS, signal }
       );
-      console.log("[features] list response:", res.data);
+      if (reqId !== listReqRef.current) return;
 
-      const rawItems: any[] = res.data?.data || [];
-      const rawMarkersThisCall: RawMapMarker[] = res.data?.map_markers || [];
-
-      const normalized: FeatureDetail[] = rawItems.map((raw) => {
-        const item = normalizeFeature(raw);
-        const rawMatch = rawMarkersThisCall.find((m) => m.id === item.id);
-        const fallbackMatch = markers.find((m) => m.id === item.id);
-        return {
-          ...item,
-          longitude: rawMatch?.center.x ?? fallbackMatch?.longitude,
-          latitude: rawMatch?.center.y ?? fallbackMatch?.latitude,
-        };
-      });
+      const normalized = ingestItems(res.data?.data || [], res.data?.map_markers || []);
 
       setListItems((prev) => (page === 1 ? normalized : [...prev, ...normalized]));
       setListPage(page);
@@ -442,75 +551,202 @@ export default function FeaturesMap({
       const lastPage = res.data?.meta?.last_page ?? page;
       setListHasMore(page < lastPage && normalized.length > 0);
     } catch (err) {
+      if (axios.isCancel(err) || reqId !== listReqRef.current) return;
       console.error("Error fetching feature list:", err);
       setListError(true);
       if (page === 1) setListItems([]);
     } finally {
-      setListLoading(false);
-      setListLoadingMore(false);
+      if (reqId === listReqRef.current) {
+        setListLoading(false);
+        setListLoadingMore(false);
+      }
     }
   };
 
-  // (re)load page 1 whenever the list is open and the search text or
-  // karbari filter changes — debounced so typing doesn't spam requests
+  /* ---------------------- pinned list (clicked circle) ----------------------
+     The backend has no "ids" filter, so pages are walked until every id of
+     the circle is found. Everything seen on the way is cached, so the next
+     circle click is usually instant. */
+  const fetchPinned = async (ids: IdList, reqId: number, signal: AbortSignal) => {
+    try {
+      const cache = featureCacheRef.current;
+      const wanted = ids.map(String);
+      const hasMissing = () => wanted.some((k) => !cache.has(k));
+
+      setListError(false);
+      setListHasMore(false);
+
+      if (hasMissing()) {
+        setListLoading(true);
+
+        for (let page = 1; page <= PINNED_MAX_PAGES && hasMissing(); page++) {
+          const qs = buildBaseQuery();
+          qs.append("page", String(page));
+          qs.append("per_page", String(PINNED_PAGE_SIZE));
+
+          const res = await axios.get(
+            `${API_BASE}/${citizenId}/features?${qs.toString()}`,
+            { headers: HEADERS, signal }
+          );
+          if (reqId !== listReqRef.current) return;
+
+          const rawItems: any[] = res.data?.data || [];
+          ingestItems(rawItems, res.data?.map_markers || []);
+
+          const lastPage = res.data?.meta?.last_page ?? page;
+          if (page >= lastPage || rawItems.length === 0) break;
+        }
+      }
+      if (reqId !== listReqRef.current) return;
+
+      const result: FeatureDetail[] = [];
+      wanted.forEach((k) => {
+        const item = cache.get(k);
+        if (!item) return;
+        const m = markersByIdRef.current.get(k);
+        result.push({
+          ...item,
+          longitude: item.longitude ?? m?.longitude,
+          latitude: item.latitude ?? m?.latitude,
+        });
+      });
+
+      setListItems(result);
+      setListPage(1);
+    } catch (err) {
+      if (axios.isCancel(err) || reqId !== listReqRef.current) return;
+      console.error("Error fetching pinned features:", err);
+      setListError(true);
+      setListItems([]);
+    } finally {
+      if (reqId === listReqRef.current) {
+        setListLoading(false);
+        setListLoadingMore(false);
+      }
+    }
+  };
+
+  /* (re)load whenever the list is open and search / filter / pinned ids change.
+     pinned mode: immediate — normal search: debounced */
   useEffect(() => {
     if (!listOpen) return;
-    const t = setTimeout(() => {
-      fetchList(1);
-    }, 350);
-    return () => clearTimeout(t);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [listOpen, searchTerm, JSON.stringify(selectedKarbari)]);
 
-  const handleToggleList = () => {
+    listAbortRef.current?.abort();
+    const controller = new AbortController();
+    listAbortRef.current = controller;
+    const reqId = ++listReqRef.current;
+
+    let timer: ReturnType<typeof setTimeout> | undefined;
+
+    if (pinnedIds) {
+      fetchPinned(pinnedIds, reqId, controller.signal);
+    } else {
+      timer = setTimeout(
+        () => fetchList(1, reqId, controller.signal),
+        SEARCH_DEBOUNCE_MS
+      );
+    }
+
+    return () => {
+      if (timer) clearTimeout(timer);
+      controller.abort();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [listOpen, searchTerm, selectedKey, pinnedKey]);
+
+  /* ---------------------- panel handlers ---------------------- */
+  const openList = useCallback(() => {
+    setListOpen((open) => {
+      if (!open) {
+        setAutoFocusSearch(true);
+        setListLoading(true);
+      }
+      return true;
+    });
+  }, []);
+
+  const handleToggleList = useCallback(() => {
     setSelectedFeature(null);
-    setListOpen((v) => !v);
-  };
+    setPinnedIds(null);
+    setAutoFocusSearch(false);
+    setListOpen((open) => {
+      if (!open) setListLoading(true);
+      return !open;
+    });
+  }, []);
+
+  /* called when a circle (cluster or single marker) is clicked */
+  const openPanelForIds = useCallback((ids: IdList) => {
+    setSelectedFeature(null);
+    setSearchTerm("");
+    setListItems([]);
+    setListError(false);
+    setListLoading(true);
+    setAutoFocusSearch(false);
+    setPinnedIds(ids);
+    setListOpen(true);
+  }, []);
+
+  const handleMarkerClick = useCallback(
+    (marker: MapMarkerItem) => openPanelForIds([marker.id]),
+    [openPanelForIds]
+  );
+
+  const handleClusterClick = useCallback(
+    (items: MapMarkerItem[]) => openPanelForIds(items.map((i) => i.id)),
+    [openPanelForIds]
+  );
+
+  const clearPinned = useCallback(() => {
+    setListItems([]);
+    setListLoading(true);
+    setPinnedIds(null);
+  }, []);
+
+  const handleSearchChange = useCallback(
+    (value: string) => {
+      setSearchTerm(value);
+      if (pinnedIds) clearPinned(); // typing cancels the "circle" filter
+      openList();
+    },
+    [pinnedIds, clearPinned, openList]
+  );
 
   const handleLoadMore = () => {
-    if (listLoading || listLoadingMore || !listHasMore) return;
-    fetchList(listPage + 1);
+    if (listLoading || listLoadingMore || !listHasMore || pinnedIds) return;
+    const controller = new AbortController();
+    listAbortRef.current = controller;
+    fetchList(listPage + 1, listReqRef.current, controller.signal);
   };
 
-  const handleFocusItem = (item: FeatureDetail) => {
+  const handleFocusItem = useCallback((item: FeatureDetail) => {
     setSelectedFeature(item);
-  };
+  }, []);
 
-  const handleClosePanel = () => {
+  const handleClosePanel = useCallback(() => {
     setSelectedFeature(null);
     setListOpen(false);
     setSearchTerm("");
-  };
+    setPinnedIds(null);
+  }, []);
+
+  /* stable focusTarget object: prevents the map from re-flying on every render */
+  const focusLon = selectedFeature?.longitude;
+  const focusLat = selectedFeature?.latitude;
+  const focusTarget = useMemo(
+    () =>
+      focusLon != null && focusLat != null
+        ? { longitude: focusLon, latitude: focusLat, zoom: 16 }
+        : null,
+    [focusLon, focusLat]
+  );
+
+  const highlightedId =
+    selectedFeature?.id ?? (pinnedIds && pinnedIds.length === 1 ? pinnedIds[0] : null);
 
   const panelOpen = listOpen;
 
-  /* ---------------------- search bar (shared markup) ---------------------- */
-  const SearchBar = (
-    <div className="flex items-center bg-white dark:bg-gray-1 rounded-xl h-[42px] px-3 gap-2 w-full">
-      <button
-        type="button"
-        onClick={handleToggleList}
-        aria-label={isFa ? "نمایش لیست املاک" : "Show property list"}
-        className="shrink-0 bg-transparent"
-      >
-        <SearchIcon />
-      </button>
-      <input
-        type="text"
-        value={searchTerm}
-        onChange={(e) => {
-          setSearchTerm(e.target.value);
-          if (!listOpen) setListOpen(true);
-        }}
-        onFocus={() => setListOpen(true)}
-        placeholder={
-          isFa ? "شناسه ملک یا آدرس را جستجو کنید" : "Search by property ID or address"
-        }
-        className="bg-transparent border-none outline-none text-sm flex-1 text-black dark:text-white py-4"
-      />
-    </div>
-  );
-
+  /* ------------------------------ render ------------------------------ */
   return (
     <div className="w-full pt-7 flex flex-col gap-3 mt-6">
       {/* header */}
@@ -546,7 +782,7 @@ export default function FeaturesMap({
               onChange={() => toggleKarbari(k.code)}
               className="accent-primary dark:accent-primary w-4 h-4"
             />
-            {displayLabelForKarbari(k.code)}
+            {getKarbariLabel(mainData, resolveIconKey(k.label))}
           </label>
         ))}
       </div>
@@ -565,42 +801,48 @@ export default function FeaturesMap({
 
       {!mapError && (!initialized || selectedKarbari.length > 0) && (
         <div className="relative w-full h-[520px] mt-3 rounded-xl overflow-hidden flex flex-col lg:flex-row">
-          {/* ---- panel: in-layout sibling on lg+ (shrinks the map),
-                 fixed modal + blurred backdrop below lg ---- */}
-
-
           {/* ---- map ---- */}
           <div className="relative flex-1 min-w-0 h-full">
             {!panelOpen && (
-              <div className="absolute z-10 top-3 rtl:left-3 ltr:right-3 w-[300px]">{SearchBar}</div>
+              <div className="absolute z-10 top-3 rtl:left-3 ltr:right-3 w-[300px]">
+                <SearchBar
+                  value={searchTerm}
+                  isFa={isFa}
+                  onChange={handleSearchChange}
+                  onFocus={openList}
+                  onIconClick={handleToggleList}
+                />
+              </div>
             )}
 
-            {mapLoading && markers.length === 0 ? (
-              <MapSkeleton />
-            ) : (
-              <MapComponent
-                markers={markers}
-                height="100%"
-                onMarkerClick={(marker) => {
-                  window.open(
-                    buildFeatureLink(marker.id, marker.latitude, marker.longitude),
-                    "_blank"
-                  );
-                }}
-                focusTarget={
-                  selectedFeature?.longitude != null && selectedFeature?.latitude != null
-                    ? {
-                        longitude: selectedFeature.longitude,
-                        latitude: selectedFeature.latitude,
-                        zoom: 16,
-                      }
-                    : null
-                }
-                highlightedId={selectedFeature?.id ?? null}
-              />
+            {/* the map stays mounted at all times: no double WebGL init,
+                no lost position/zoom when filters change */}
+            <MapComponent
+              markers={markers}
+              height="100%"
+              onMarkerClick={handleMarkerClick}
+              onClusterClick={handleClusterClick}
+              focusTarget={focusTarget}
+              highlightedId={highlightedId}
+            />
+
+            {/* skeleton overlay only until the first markers response */}
+            {!markersReady && (
+              <div className="absolute inset-0 z-20">
+                <MapSkeleton />
+              </div>
+            )}
+
+            {/* filter change: keep the map, show a small spinner */}
+            {markersReady && mapLoading && (
+              <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/10 pointer-events-none">
+                <div className="size-8 rounded-full border-2 border-primary border-t-transparent animate-spin" />
+              </div>
             )}
           </div>
-                    {panelOpen && (
+
+          {/* ---- panel: in-layout sibling on lg+, fixed modal + blurred backdrop below lg ---- */}
+          {panelOpen && (
             <>
               <div
                 onClick={handleClosePanel}
@@ -610,7 +852,7 @@ export default function FeaturesMap({
                 className="fixed inset-x-4 inset-y-20 z-40 overflow-y-auto overscroll-contain
                   lg:static lg:inset-auto lg:z-auto lg:w-[400px] lg:shrink-0 h-[70svh] light-scrollbar dark:dark-scrollbar lg:h-full
                   bg-gray-2 dark:bg-[#111114] rounded-xl p-4 pe-2 shadow-xl
-                  flex flex-col gap-4 "
+                  flex flex-col gap-4"
               >
                 <div className="flex items-center justify-between">
                   <h3 className="text-black dark:text-white font-bold text-xl">
@@ -633,7 +875,28 @@ export default function FeaturesMap({
                   </div>
                 </div>
 
-                {SearchBar}
+                <SearchBar
+                  value={searchTerm}
+                  isFa={isFa}
+                  autoFocus={autoFocusSearch}
+                  onChange={handleSearchChange}
+                  onFocus={openList}
+                  onIconClick={handleToggleList}
+                />
+
+                {/* info bar when the list is filtered by a clicked circle */}
+                {pinnedIds && (
+                  <div className="flex items-center justify-between text-sm text-black dark:text-white">
+                    <span>
+                      {isFa
+                        ? `${pinnedIds.length.toLocaleString("fa-IR")} ملک در این نقطه`
+                        : `${pinnedIds.length} properties here`}
+                    </span>
+                    <button onClick={clearPinned} className="text-primary font-bold bg-transparent">
+                      {isFa ? "نمایش همه" : "Show all"}
+                    </button>
+                  </div>
+                )}
 
                 {/* ---- list of full detail cards ---- */}
                 <div className="flex flex-col gap-3">
@@ -645,7 +908,9 @@ export default function FeaturesMap({
 
                   {!listError && listLoading && listItems.length === 0 && (
                     <div className="flex flex-col gap-3">
-                      {Array.from({ length: 3 }).map((_, i) => (
+                      {Array.from({
+                        length: pinnedIds ? Math.min(pinnedIds.length, 3) : 3,
+                      }).map((_, i) => (
                         <FeatureCardSkeleton key={i} />
                       ))}
                     </div>
@@ -669,11 +934,11 @@ export default function FeaturesMap({
                       />
                     ))}
 
-                  {!listError && listHasMore && (
+                  {!listError && listHasMore && !pinnedIds && (
                     <button
                       onClick={handleLoadMore}
                       disabled={listLoadingMore}
-                      className="bg-primary text-white dark:text-black  text-sm font-bold text-center py-3 rounded-xl"
+                      className="bg-primary text-white dark:text-black text-sm font-bold text-center py-3 rounded-xl"
                     >
                       {listLoadingMore
                         ? isFa

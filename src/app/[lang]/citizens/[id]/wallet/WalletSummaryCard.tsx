@@ -1,8 +1,9 @@
+import Link from "next/link";
 import AssetIcon from "./AssetIcon";
 import {
   ASSET_CONFIG,
   CARD_HEIGHT,
- getPeriodEarnedLabel,
+  getPeriodEarnedLabel,
   type Period,
   type SummaryItem,
 } from "./walletHistory.types";
@@ -11,7 +12,7 @@ interface WalletSummaryCardProps {
   item: SummaryItem;
   period: Period;
   lang: string;
-  mainData:any;
+  mainData: any;
 }
 
 const faceBase =
@@ -22,7 +23,7 @@ const faceBase =
  * short description + CTA on hover. Pure/presentational — no data
  * fetching — so it's easy to snapshot-test in isolation.
  */
-export default function WalletSummaryCard({ item, period, lang , mainData }: WalletSummaryCardProps) {
+export default function WalletSummaryCard({ item, period, lang, mainData }: WalletSummaryCardProps) {
   const config = ASSET_CONFIG[item.asset] || {
     label: item.asset,
     color: "#84858F",
@@ -39,8 +40,8 @@ export default function WalletSummaryCard({ item, period, lang , mainData }: Wal
     : item.current_balance.toLocaleString(isFa ? "fa-IR" : "en-US");
 
   const description = isFa
-    ? `این کارت وضعیت دارایی « ${findByUniqueId(mainData, config.uniqueId ) }» را نشان می‌دهد؛ موجودی فعلی، روند رشد و میزان کسب‌شده شما در بازه انتخابی.`
-    : `This card shows the status of your "${findByUniqueId(mainData, config.uniqueId ) }" asset — current balance, growth trend, and what you've earned in the selected period.`;
+    ? `این کارت وضعیت دارایی « ${findByUniqueId(mainData, config.uniqueId)}» را نشان می‌دهد؛ موجودی فعلی، روند رشد و میزان کسب‌شده شما در بازه انتخابی.`
+    : `This card shows the status of your "${findByUniqueId(mainData, config.uniqueId)}" asset — current balance, growth trend, and what you've earned in the selected period.`;
 
   return (
     <div className={`w-full ${CARD_HEIGHT} group [perspective:1200px]`}>
@@ -58,12 +59,12 @@ export default function WalletSummaryCard({ item, period, lang , mainData }: Wal
             </div>
             <div className="text-center flex flex-col w-full items-center mt-8">
               <p className="text-black dark:text-white font-bold text-base lg:text-xl">
-              {findByUniqueId(mainData, config.uniqueId ) }
+                {findByUniqueId(mainData, config.uniqueId)}
               </p>
               <p className="text-matn-2 dark:text-matn-2 text-sm lg:text-2xl font-bold mt-1">
-                {balanceLabel}  {findByUniqueId(mainData, 1582 )}
+                {balanceLabel}  {findByUniqueId(mainData, 1582)}
               </p>
-              <p className="text-sm text-matn-2 text-center"> {findByUniqueId(mainData, 1585 )}</p>
+              <p className="text-sm text-matn-2 text-center"> {findByUniqueId(mainData, 1585)}</p>
             </div>
           </div>
 
@@ -84,7 +85,7 @@ export default function WalletSummaryCard({ item, period, lang , mainData }: Wal
                 {isFa ? "٪" : "%"}
               </span>
               <span className={`text-matn-2 text-[12px] lg:text-sm ${isUp ? "!text-green-500" : "text-red-600"
-                  }` } >
+                }`} >
                 {getPeriodEarnedLabel(mainData, period)}
               </span>
             </div>
@@ -117,7 +118,12 @@ export default function WalletSummaryCard({ item, period, lang , mainData }: Wal
             {description}
           </p>
 
-          <a href="#" className="text-blueLink  text-center text-xs lg:text-sm font-bold">
+
+          <Link
+            href={config.href || "#"}
+            target={config.href ? "_blank" : undefined}
+            className="text-blueLink text-center text-xs lg:text-sm font-bold hover:opacity-80 transition-opacity"
+          >
             {item.asset === "satisfaction"
               ? isFa
                 ? "مشاهده نظرات و توضیحات"
@@ -125,7 +131,8 @@ export default function WalletSummaryCard({ item, period, lang , mainData }: Wal
               : isFa
                 ? "مشاهده جزئیات بیشتر"
                 : "View more details"}
-          </a>
+          </Link>
+
         </div>
       </div>
     </div>

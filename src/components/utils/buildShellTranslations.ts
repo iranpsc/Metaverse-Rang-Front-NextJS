@@ -83,7 +83,7 @@ export function buildFooterSections(
           href: "https://www.linkedin.com/company/metaverse-rang/",
         },
         {
-          label: t(281),
+          label: t(283),
           href: "https://youtube.com/@metargb?si=gdM0aFPk5SCsC7z4",
         },
         {

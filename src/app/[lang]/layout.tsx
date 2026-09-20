@@ -147,7 +147,7 @@ export default async function LangLayout({
           <ToastProvider />
 
           <main
-            className="flex w-full h-screen overflow-hidden"
+            className="flex w-full h-screen overflow-hidden lg:ps-[70px] xl:ps-0"
             dir={langData.direction}
           >
             <Suspense
