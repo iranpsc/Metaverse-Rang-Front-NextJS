@@ -49,27 +49,51 @@ function parse3DSource(value: unknown) {
   }
 
   /**
-   * اگر آبجکت باشد
+   * ==========================================
+   * OBJECT
+   * ==========================================
    */
 
   if (typeof value === "object" && value !== null) {
     const objectValue = value as Record<string, unknown>;
 
-    const gltf = objectValue.gltf;
-    const bin = objectValue.bin;
+    const gltfValue = objectValue.gltf ?? objectValue.GLTF;
+    const binValue = objectValue.bin ?? objectValue.BIN;
 
-    if (typeof gltf === "string") {
+    const gltf =
+      typeof gltfValue === "string"
+        ? gltfValue
+        : gltfValue &&
+            typeof gltfValue === "object" &&
+            "url" in gltfValue &&
+            typeof gltfValue.url === "string"
+          ? gltfValue.url
+          : undefined;
+
+    const bin =
+      typeof binValue === "string"
+        ? binValue
+        : binValue &&
+            typeof binValue === "object" &&
+            "url" in binValue &&
+            typeof binValue.url === "string"
+          ? binValue.url
+          : undefined;
+
+    if (gltf) {
       return {
         gltf,
-        bin: typeof bin === "string" ? bin : undefined,
+        bin,
       };
     }
+
+    return null;
   }
 
   /**
-   * =====================================
+   * ==========================================
    * STRING
-   * =====================================
+   * ==========================================
    */
 
   if (typeof value !== "string") {
@@ -79,11 +103,9 @@ function parse3DSource(value: unknown) {
   const raw = value.trim();
 
   /**
-   * URL مثل:
-   *
-   * https://api.metarang.com/uploads/{"bin":"...","gltf":"..."}
-   *
-   * =====================================
+   * ==========================================
+   * JSON STRING
+   * ==========================================
    */
 
   const jsonStart = raw.indexOf("{");
@@ -94,36 +116,50 @@ function parse3DSource(value: unknown) {
     try {
       const parsed = JSON.parse(possibleJson);
 
-      if (parsed && typeof parsed.gltf === "string") {
-        return {
-          gltf: parsed.gltf,
-          bin: typeof parsed.bin === "string" ? parsed.bin : undefined,
-        };
-      }
+      if (parsed && typeof parsed === "object") {
+        const gltfValue = parsed.gltf ?? parsed.GLTF;
+        const binValue = parsed.bin ?? parsed.BIN;
 
-      /**
-       * بعضی APIها ممکن است
-       * glTF را با کلید GLTF بدهند
-       */
+        const gltf =
+          typeof gltfValue === "string"
+            ? gltfValue
+            : gltfValue &&
+                typeof gltfValue === "object" &&
+                typeof gltfValue.url === "string"
+              ? gltfValue.url
+              : undefined;
 
-      if (parsed && typeof parsed.GLTF === "string") {
-        return {
-          gltf: parsed.GLTF,
-          bin: typeof parsed.bin === "string" ? parsed.bin : undefined,
-        };
+        const bin =
+          typeof binValue === "string"
+            ? binValue
+            : binValue &&
+                typeof binValue === "object" &&
+                typeof binValue.url === "string"
+              ? binValue.url
+              : undefined;
+
+        if (gltf) {
+          return {
+            gltf,
+            bin,
+          };
+        }
       }
     } catch (error) {
-      console.error("ImageBox: failed to parse 3D source JSON:", error);
+      console.error(
+        "ImageBox: failed to parse 3D source JSON:",
+        error,
+      );
     }
   }
 
   /**
-   * =====================================
+   * ==========================================
    * DIRECT GLTF URL
-   * =====================================
+   * ==========================================
    */
 
-  if (raw.toLowerCase().endsWith(".gltf")) {
+  if (raw.toLowerCase().includes(".gltf")) {
     return {
       gltf: raw,
       bin: undefined,
