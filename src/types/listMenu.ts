@@ -1,6 +1,11 @@
+import type { Translations } from "@/types/translations";
+
+export type { Translations };
+
 export interface MenuDataItem {
     id: number;
-    tab_id: number;
+    tab_id?: number;
+    unique_id?: number;
     name: string;
     translation: string;
 }

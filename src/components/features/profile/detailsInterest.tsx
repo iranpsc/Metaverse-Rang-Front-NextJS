@@ -9,11 +9,11 @@ export default function ProfileDetailsInteresting({
             key={item.id}
             className="flex flex-nowrap px-3 py-[3px] xl:mt-3 lg:mt-2 xl:mb-3 lg:mb-3 md:mt-3 md:mb-4 justify-between items-center sm:mb-3 xs:mb-3"
           >
-            <p className="font-azarMehr font-medium  3xl:text-xl3Title lg:text-lgTitle  xl:text-xlTitle  md:text-mdTitle sm:text-smTitle xs:text-smTitle text-[#000] dark:text-white">
+            <p className="font-azarMehr font-medium  3xl:text-xl3Title lg:text-lgTitle  xl:text-xlTitle  md:text-mdTitle sm:text-smTitle xs:text-smTitle text-matn-2 dark:text-white">
               {item.key}
             </p>
             <hr className="flex-grow mx-3 xl:visible lg:visible md:invisible sm:invisible xs:invisible h-[1px] border border-dashed  text-[#ooo] opacity-10 dark:text-[#fff]" />
-            <p className="dark:text-dark-gray font-azarMehr  font-medium 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc md:text-mdDesc sm:text-smDesc xs:text-smDesc text-[#000]">
+            <p className=" font-azarMehr  font-medium 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc md:text-mdDesc sm:text-smDesc xs:text-smDesc text-matn-2">
               {item.value}
             </p>
           </div>

@@ -22,7 +22,7 @@ const LEVEL_ROUTE_MAP: Record<string, string> = {
 
 /* ✅ فانکشن async */
 export async function getTopTrainerUsers() {
-  const codes = ["HM-2000003", "HM-2000001"];
+  const codes = ["HM-2000001","HM-2000003" ];
 
   const usersData = await Promise.all(
     codes.map(async (code) => {
@@ -63,12 +63,32 @@ export async function getTopTrainerUsers() {
   return usersData.filter(Boolean);
 }
 
-/* ✅ کامپوننت sync */
-export default function TopTrainersFirstPage({
-  params,
-  mainData,
-  users,
-}: any) {
+/**
+ * ✅ این کامپوننت الان async شده و خودش getTopTrainerUsers رو صدا می‌زنه
+ * (به‌جای این‌که users از بیرون به‌عنوان prop از قبل fetch‌شده بهش برسه).
+ *
+ * چرا این تغییر لازم بود: تا وقتی این کامپوننت sync بود و users از پدر
+ * (که خودش await کرده بود) می‌اومد، کل صفحه‌ی پدر تا تموم‌شدن fetch (دو
+ * درخواست getUserData) بلاک می‌موند — یعنی اصلاً "لودینگ" یا اسکلتی
+ * قابل نمایش نبود. با async شدن خودِ این کامپوننت، می‌تونید توی صفحه‌ای
+ * که ازش استفاده می‌کنید با Suspense بپیچیدینش تا بقیه‌ی صفحه فوراً
+ * رندر بشه و فقط همین بخش با اسکلت جایگزین بشه تا دیتاش برسه:
+ *
+ *   import { Suspense } from "react";
+ *   import TopTrainersFirstPage from "@/components/.../TopTrainersFirstPage";
+ *   import TopTrainersSkeleton from "@/components/.../TopTrainersSkeleton";
+ *
+ *   <Suspense fallback={<TopTrainersSkeleton />}>
+ *     <TopTrainersFirstPage params={params} mainData={mainData} />
+ *   </Suspense>
+ *
+ * این استاندارد Next.js App Router برای استریم کردن بخش‌های کند صفحه‌ست
+ * و بهترین گزینه برای LCP/PageSpeed هست، چون fallback کاملاً روی سرور
+ * رندر می‌شه و صفر جاوااسکریپت اضافه به کلاینت می‌فرسته.
+ */
+export default async function TopTrainersFirstPage({ params, mainData }: any) {
+  const users = await getTopTrainerUsers();
+
   return (
     <TopTrainersClient
       params={params}

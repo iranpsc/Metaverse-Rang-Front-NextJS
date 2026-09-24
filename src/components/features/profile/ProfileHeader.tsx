@@ -57,7 +57,7 @@ export default function ProfileHeader({
             </p>
           </div>
 
-          <hr className="flex-grow mx-3 h-[1px] xl:visible desktop1024:invisible md:invisible sm:invisible xs:invisible border border-dashed text-[#000] opacity-10 dark:text-[#fff]" />
+          <hr className="flex-grow mx-3 h-[1px] xl:visible desktop1024:invisible md:invisible sm:invisible xs:invisible border border-dashed text-matn-2 opacity-10 dark:text-[#fff]" />
 
           <Image
             src={profileData?.kyc?.nationality || staticImageURL}
@@ -66,7 +66,7 @@ export default function ProfileHeader({
             alt={titleData}
             className="inline-block rounded-full xl:w-9 xl:h-9 desktop1920:w-10 desktop1920:h-10  desktop1024:w-9 desktop1024:h-9 md:w-7 md:h-7 sm:w-12 sm:h-12 xs:w-12 xs:h-12 object-cover"
           />
-          <hr className="flex-grow mx-3 h-[1px] xl:visible desktop1024:invisible md:invisible sm:invisible xs:invisible border border-dashed text-[#000] opacity-10 dark:text-[#fff]" />
+          <hr className="flex-grow mx-3 h-[1px] xl:visible desktop1024:invisible md:invisible sm:invisible xs:invisible border border-dashed text-matn-2 opacity-10 dark:text-[#fff]" />
           <p className=" dark:text-white sm:text-[15px] xs:text-[15px] md:text-[15px] lg:text-[15px] desktop1920:text-[18px] inline-block mx-1 font-bold font-azarMehr text-extraGray">
             {profileData?.level?.name}
           </p>

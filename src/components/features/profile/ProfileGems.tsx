@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { Tooltip as ReactTooltip } from "react-tooltip";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 const ProfileGems = ({ profileData }: any) => {
   return (

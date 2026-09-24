@@ -31,11 +31,11 @@ const AuthorCard = ({ lang, article, mainData }: AuthorCardProps) => {
           </div>
         </div>
       )}
-      <div className="bg-white dark:bg-[#1A1A18] border border-gray-200 dark:border-gray-700 rounded-2xl shadow-md p-6 w-full flex flex-col items-center text-center md:px-12">
+      <div className="bg-white dark:bg-gray-1  border matn-2-200 dark:bmatn-2-700 rounded-2xl shadow-md p-6 w-full flex flex-col items-center text-center md:px-12">
 
         {/* عکس پروفایل */}
         <div className="flex flex-col gap-4 mt-[-85px]">
-          <div className="relative w-[120px] h-[120px] bg-lightGray rounded-full overflow-hidden border shadow-md">
+          <div className="relative w-[120px] h-[120px] bg-matn-2 rounded-full overflow-hidden border shadow-md">
             <Image
               src={author.avatar || "/articles/author/fallback-avatar.jpg"}
               alt={author.name || "نویسنده"}
@@ -53,7 +53,7 @@ const AuthorCard = ({ lang, article, mainData }: AuthorCardProps) => {
         {/* حوزه فعالیت و شبکه‌ها */}
         <div className="flex flex-col lg:flex-row md:flex-row md:justify-between w-full gap-5 items-center mt-5 md:mt-[-34px]">
           <div>
-            <p className="text-sm text-gray-500 dark:text-dark-gray">
+            <p className="text-sm matn-2-500 ">
               {findByUniqueId(mainData, 1508)} {author.field}
             </p>
           </div>
@@ -77,14 +77,14 @@ const AuthorCard = ({ lang, article, mainData }: AuthorCardProps) => {
         </div>
 
         {/* بیوگرافی */}
-        <p className="mt-5 text-sm text-gray-600 dark:text-dark-gray leading-relaxed max-w-2xl">
+        <p className="mt-5 text-sm matn-2-600  leading-relaxed max-w-2xl">
           {author.bio}
         </p>
 
         {/* دکمه دیدن مقالات نویسنده */}
         <Link onClickCapture={() => setLinkLoading(true)}
           href={`/${lang}/citizens/${author.citizenId.toLowerCase()}` || ""}
-          className="mt-6 px-5 py-2 rounded-lg bg-light-primary dark:bg-dark-yellow dark:text-black text-white font-bold text-sm hover:opacity-90 transition u"
+          className="mt-6 px-5 py-2 rounded-lg bg-primary  dark:text-black text-white font-bold text-sm hover:opacity-90 transition u"
         >
           {findByUniqueId(mainData, 1512)}
         </Link>

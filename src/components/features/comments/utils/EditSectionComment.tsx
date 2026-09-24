@@ -54,7 +54,7 @@ const EditSectionComment = ({
               )
             }
           >
-            <p className="font-azarMehr font-normal text-[12px] text-error">
+            <p className="font-azarMehr font-normal text-[12px] text-state-red">
               {checkData(findByUniqueId(mainData, 369))}
             </p>
             <Trash className="size-[24px] stroke-error" />

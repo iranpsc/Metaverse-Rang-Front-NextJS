@@ -45,7 +45,7 @@ const cleanDescription = (html: string, limit = 255): string => {
         <Link
             href={href}
             onClickCapture={() => setActiveLoadingId(article.id)}
-            className={`${isLoading ? "rotating-border-card cursor-not-allowed" : ""} bg-white dark:bg-[#1A1A18] shadow-lg rounded-xl overflow-hidden w-full flex flex-col hover:scale-[1.02] transition-transform`}
+            className={`${isLoading ? "rotating-border-card cursor-not-allowed" : ""} bg-white dark:bg-gray-1  shadow-lg rounded-xl overflow-hidden w-full flex flex-col hover:scale-[1.02] transition-transform`}
         >
             {isLoading && (
                 <div className="absolute inset-0 z-50 flex items-center justify-center">
@@ -74,15 +74,15 @@ const cleanDescription = (html: string, limit = 255): string => {
                     <div className="flex items-center gap-[14px]">
                         <div className="flex gap-1 items-center text-xs">
                             <span className="dark:text-white">{article.stats?.views ?? 0}</span>
-                            <View className="stroke-textGray dark:stroke-white size-[13px]" />
+                            <View className="stroke-matn-2 dark:stroke-white size-[13px]" />
                         </div>
                         <div className="flex gap-1 items-center text-xs">
                             <span className="dark:text-white">{article.stats?.likes ?? 0}</span>
-                            <Like className="stroke-textGray dark:stroke-white size-[13px]" />
+                            <Like className="stroke-matn-2 dark:stroke-white size-[13px]" />
                         </div>
                         <div className="flex gap-1 items-center text-xs">
                             <span className="dark:text-white">{article.stats?.dislikes ?? 0}</span>
-                            <Dislike className="stroke-textGray dark:stroke-white size-[13px]" />
+                            <Dislike className="stroke-matn-2 dark:stroke-white size-[13px]" />
                         </div>
                     </div>
                 </div>

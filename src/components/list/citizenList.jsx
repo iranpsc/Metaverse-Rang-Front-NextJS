@@ -4,9 +4,14 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import UserCard from "@/components/card/UserCard";
-import SyncLoader from "react-spinners/SyncLoader";
+import { UserCardSkeleton } from "@/components/skeleton/UserCardSkeleton";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
+// تعداد کارت اسکلتی که موقع "مشاهده بیشتر" نشون داده می‌شه — چون سایز واقعی
+// صفحه‌ی بعدی (per_page از API) قبل از رسیدن جواب مشخص نیست، یه عدد معقول
+// (۴) گذاشتیم. اگه per_page واقعی API رو می‌دونی (مثلاً ۸ یا ۱۲)، همین عدد
+// رو با SKELETON_COUNT جایگزین کن تا کاملاً منطبق باشه.
+const SKELETON_COUNT = 5;
 
 export default function CitizenList({
   params,
@@ -52,7 +57,7 @@ export default function CitizenList({
       // Increment page AFTER fetching data to avoid incorrect pagination
       const nextPage = currentPage + 1;
 
-      const res = await axios.get(`https://api.metarang.com/api/users?page=${nextPage}`);
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/users?page=${nextPage}`);
 
       setLastPage(res.data.meta.to);
 
@@ -85,22 +90,25 @@ export default function CitizenList({
           setActiveBtnId={setActiveBtnId}
         />
       ))}
+
+      {/* موقع لود صفحه بعدی، به‌جای اسپینر، کارت‌های اسکلت هم‌شکل با
+          UserCard واقعی نشون داده می‌شه تا انگار آیتم‌های بعدی دارن میان */}
+      {loading &&
+        Array.from({ length: SKELETON_COUNT }).map((_, i) => (
+          <UserCardSkeleton key={`skeleton-${i}`} minWidth="280px" />
+        ))}
+
       <div className="w-full flex justify-center mt-[40px]">
-        {!loading ? (
+        {!loading && (
           <button
             disabled={isDisabled}
             title={isDisabled ? "صفحه آخر" : ""}
             className={`${isDisabled ? "cursor-not-allowed" : ""
-              }bg-white dark:bg-darkGray text-light-primary md:text-lg dark:text-dark-yellow rounded-[12px] px-[40px] py-[16px] base-transition-1 border-2 border-transparent hover:border-light-primary hover:text-light-primary hover:dark:border-dark-yellow`}
+              }bg-white dark:bg-gray-1 text-primary md:text-lg  rounded-[12px] px-[40px] py-[16px] base-transition-1 border-2 border-transparent hover:border-primary hover:text-primary hover:`}
             onClick={handleLoadMore}
           >
             {params.lang == "fa" ? "مشاهده بیشتر" : "View More"}
           </button>
-        ) : (
-          <SyncLoader
-            color={`${defaultTheme == "dark" ? "#FFC700" : "#0000FF"}`}
-            size={10}
-          />
         )}
       </div>
     </>

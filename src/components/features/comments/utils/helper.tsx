@@ -13,7 +13,7 @@ export const handlerLikeComments = async (
         data: " ",
       };
        await axios.post(
-        `https://api.metarang.com/api/tutorials/${videoId}/comments/${commentId}/like`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/tutorials/${videoId}/comments/${commentId}/like`,
         requestData,
         {
           headers: {
@@ -45,7 +45,7 @@ export const handlerDisLikeComments = async (
     };
     try {
        await axios.post(
-        `https://api.metarang.com/api/tutorials/${videoId}/comments/${commentId}/dislike`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/tutorials/${videoId}/comments/${commentId}/dislike`,
         requestData,
         {
           headers: {
@@ -73,7 +73,7 @@ export const handlerDeleteComments = async (
   if (token) {
     try {
       await axios.delete(
-        `https://api.metarang.com/api/tutorials/${videoId}/comments/${commentId}`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/tutorials/${videoId}/comments/${commentId}`,
 
         {
           headers: {
@@ -120,7 +120,7 @@ export const handlerReportComments = async ({
 
   try {
     const response = await axios.post(
-      `https://api.metarang.com/api/tutorials/${videoId}/comments/${commentId}/report`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/tutorials/${videoId}/comments/${commentId}/report`,
       requestData,
       {
         headers: {
@@ -190,7 +190,7 @@ export const handleSubmit = async (
 
   try {
     const response = await axios.post(
-      `https://api.metarang.com/api/tutorials/${videoId}/comments/${commentId}`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/tutorials/${videoId}/comments/${commentId}`,
       requestData,
       {
         headers: {

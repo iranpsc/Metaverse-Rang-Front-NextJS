@@ -13,7 +13,7 @@ export default function Accordion({
 
   return (
     <div
-      className={`w-full pb-5 flex flex-wrap flex-col transition-all duration-300 border-b-2 border-solid border-t-0 border-x-0 border-[#ECECEC] dark:border-[#1A1A18] ${open ? "gap-4" : "gap-0"
+      className={`w-full pb-5 flex flex-wrap flex-col transition-all duration-300 border-b-2 border-solid border-t-0 border-x-0 border-[#ECECEC] dark:border-gray-1  ${open ? "gap-4" : "gap-0"
         }`}
     >
       {/* <div
@@ -34,7 +34,7 @@ export default function Accordion({
       </div> */}
 
       <div dir="rtl"
-        className={`transition-all flex flex-col gap-6 duration-300 text-textGray dark:text-lightGray text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] [&_ul]:list-disc [&_ul]:pl-5
+        className={`transition-all flex flex-col gap-6 duration-300 text-matn-2 dark:text-matn-2 text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] [&_ul]:list-disc [&_ul]:pl-5
          [&_ol]:list-decimal [&_ol]:pl-5
          [&_li>p]:inline [&_li>p]:m-0`}
         dangerouslySetInnerHTML={{ __html: value }}

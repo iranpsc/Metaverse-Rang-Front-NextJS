@@ -71,7 +71,7 @@ const RondCard: React.FC<RondCardProps> = ({ item, mainData, params }) => {
     return (
         <>
             {/* --- CARD --- */}
-            <div className="bg-white md:h-[252px] shadow-lg dark:bg-[#1A1A18]  rounded-2xl p-5 dark:text-white text-gray-100 flex flex-col gap-5 md:gap-9">
+            <div className="bg-white md:h-[252px] shadow-lg dark:bg-gray-1   rounded-2xl p-5 dark:text-white text-matn-2 flex flex-col gap-5 md:gap-9">
 
                 {/* header */}
                 <div className="flex justify-between items-start">
@@ -84,7 +84,7 @@ const RondCard: React.FC<RondCardProps> = ({ item, mainData, params }) => {
                 </div>
 
                 {/* price bar */}
-                <div className={`flex flex-col gap-2 bg-[#F8F8F8] dark:bg-black pt-3 rounded-xl px-3 relative          
+                <div className={`flex flex-col gap-2 bg-bg-primary  pt-3 rounded-xl px-3 relative          
                 ${dropdownOpen ? " rounded-b-0 pb-2 " : " "}
                 `}>
                     <div className="flex items-center justify-center lg:justify-between">
@@ -92,7 +92,7 @@ const RondCard: React.FC<RondCardProps> = ({ item, mainData, params }) => {
                         <div className="flex items-center gap-2 justify-between w-full ">
                             <div ref={dropdownRef}>
                                 <div
-                                    className="flex flex-row-reverse items-center rounded-full dark:text-white border border-gray-700 cursor-pointer"
+                                    className="flex flex-row-reverse items-center rounded-full dark:text-white border matn-2-700 cursor-pointer"
                                     onClick={(e) => {
                                         e.stopPropagation();
                                         setDropdownOpen(!dropdownOpen);
@@ -104,14 +104,14 @@ const RondCard: React.FC<RondCardProps> = ({ item, mainData, params }) => {
                                 </div>
 
                                 {dropdownOpen && (
-                                    <div className="absolute pb-5 bg-[#F8F8F8] text-black dark:bg-black mt-2 w-full top-[55px] rounded-b-xl z-30 right-0 border border-gray-700 shadow-lg text-gray-200">
+                                    <div className="absolute pb-5 bg-bg-primary text-black  mt-2 w-full top-[55px] rounded-b-xl z-30 right-0 border matn-2-700 shadow-lg matn-2-200">
 
                                         <div className="p-3">
                                             <input
                                                 value={query}
                                                 onChange={(e) => setQuery(e.target.value)}
                                                 placeholder={findByUniqueId(mainData, 57) + " ..."}
-                                                className="w-full bg-[#FCFCFC] dark:bg-[#1A1A18] dark:text-white border-0 placeholder-gray-500 rounded-xl px-3 py-3 text-[16px] ring-1 ring-[#DEDEE9] dark:ring-[#1A1A18] outline-none"
+                                                className="w-full bg-[#FCFCFC] dark:bg-gray-1  dark:text-white border-0 matn-2-500 rounded-xl px-3 py-3 text-[16px] ring-1 ring-[#DEDEE9] dark:ring-gray-1  outline-none"
                                             />
                                         </div>
 
@@ -126,7 +126,7 @@ const RondCard: React.FC<RondCardProps> = ({ item, mainData, params }) => {
                                                         setDropdownOpen(false);
                                                     }}
                                                     className={`w-full text-right px-4 flex items-center justify-between bg-transparent
-        ${selectedCurrency.key === c.key ? "text-light-primary dark:text-dark-yellow font-semibold" : " text-black dark:text-white"}
+        ${selectedCurrency.key === c.key ? "text-primary  font-semibold" : " text-black dark:text-white"}
     `}
                                                 >
                                                     <div className="flex items-center gap-3">
@@ -141,7 +141,7 @@ const RondCard: React.FC<RondCardProps> = ({ item, mainData, params }) => {
                                             ))}
 
                                             {filteredCurrencies.length === 0 && (
-                                                <div className="px-4 py-3 text-sm text-gray-500">موردی یافت نشد</div>
+                                                <div className="px-4 py-3 text-sm matn-2-500">موردی یافت نشد</div>
                                             )}
                                         </div>
 
@@ -165,7 +165,7 @@ const RondCard: React.FC<RondCardProps> = ({ item, mainData, params }) => {
                                             onClick={() => setSelectedCurrency(currency)}
                                             className={`w-[40px] h-[40px] px-1 pt-6 pb-6 flex items-center justify-center  border-solid border-t-0 border-x-0
                 border-b-[2px] cursor-pointer
-                ${isActive ? "border-light-primary dark:border-dark-yellow" : "border-transparent"}
+                ${isActive ? "border-primary " : "border-transparent"}
             `}
                                         >
                                             <div
@@ -181,7 +181,7 @@ const RondCard: React.FC<RondCardProps> = ({ item, mainData, params }) => {
                                     <div
                                         onClick={() => setSelectedCurrency(selectedCurrency)}
                                         className="w-[40px] h-[40px] px-1 pt-5 pb-7 flex items-center justify-center 
-            border-b-[2px] border-light-primary dark:border-dark-yellow"
+            border-b-[2px] border-primary "
                                     >
                                         <div dangerouslySetInnerHTML={{ __html: selectedCurrency.icon }} />
                                     </div>
@@ -206,7 +206,7 @@ const RondCard: React.FC<RondCardProps> = ({ item, mainData, params }) => {
                         <button
                             aria-label="BUY BUTTON"
                             onClick={() => setModalOpen(true)}
-                            className="bg-[#f5f9ff] dark:bg-black w-max font-semibold text-sm px-5 md:px-10 border dark:hover:border-dark-yellow hover:border-light-primary text-light-primary dark:border-transparent dark:text-dark-yellow py-3 rounded-xl transition"
+                            className="bg-primary-tint-1/15  w-max font-semibold text-sm px-5 md:px-10 border dark:hover:border-primary hover:border-primary text-primary dark:border-transparent  py-3 rounded-xl transition"
                         >
                             {findByUniqueId(mainData, 1488)}
                         </button>

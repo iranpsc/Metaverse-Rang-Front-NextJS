@@ -1,134 +1,163 @@
 /** @type {import('tailwindcss').Config} */
+
 const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
-  mode: "jit", // or 'aot'
-  content: ["./src/**/*.{js,jsx,ts,tsx}"], // path to your application files
-  darkMode: "class",
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+
+  darkMode: ["class", ".dark"],
+
   theme: {
     screens: {
       xs: { max: "639px" },
+
       ...defaultTheme.screens,
+
       "3xl": "1900px",
       "4xl": "2500px",
-      tall0: { raw: "(max-height: 500px)" },
-      tall: { raw: "(min-height: 1000px)" },
-      tall2: { raw: "(min-height: 1200px)" },
+
+      tall0: {
+        raw: "(max-height: 500px)",
+      },
+
+      tall: {
+        raw: "(min-height: 1000px)",
+      },
+
+      tall2: {
+        raw: "(min-height: 1200px)",
+      },
     },
-    // colors: {
-    //   black: "rgba(0, 0, 0, 1)",
-    //   lightGrey: "rgba(0, 0, 0, 0.09)",
-    //   mediumGray: "rgba(116, 116, 116, 0.58)",
-    //   mediumGrayFull: "rgba(116, 116, 116)",
-    //   gray: "#151b30",*
-    //   extraGray: "rgba(86, 89, 89, 1)",
 
-    //   white: "#ffffff",
-
-    //   blueLink: "#0000FF",*
-
-    //   error: "#ff0000",*
-
-    //   defaultButton: "#D4ECFF",
-    //   activeButton: "#008BF8",*
-
-    //   defaultTextButton: "#008BF8",
-    //   activeTextButton: "#D4ECFF",
-
-    //   borderField: "#DADADA",
-    //   Field: "#FCFCFC",
-    //   dark: {
-    //     background: "#1E1E1E",
-    //     backgroundModules: "#000000",
-    //     defaultButton: "#332800",
-    //     activeButton: "#FFC700",
-    //     gray: "#ABABAB",
-    //     yellow: "#FFC700",
-    //     lightWhite: "rgba(255, 255, 255, 0.09)",
-    //     borderField: "#282828",
-    //     Field: "#2C2C2C",
-
-    //     borderFieldError: "#930000",
-    //     bgFieldError: "#380000",
-    //     textFieldError: "#fa2323",
-    //   },
-    //   education: {
-    //     backWhite: "#FFFFFF",
-    //     back: "#F8F8F8",
-    //     blue200: "#0066FF",
-    //     blue100: "#157EFB",
-    //     primary200: "#4C4C4C",
-    //     primary100: "#515151",
-    //     dark: {
-    //       yellow: "#FFC700",
-    //       background: "#1A1A18",
-    //       primary300: "#FFFFFF",
-    //       primary200: "#C9C9C9",
-    //       primary100: "#868B90",
-    //     },
-    //   },
-
-    //   singleVideo: {
-    //     gray: "#414040",
-    //     backgroundInput: "#ECECEC",
-    //     textInput: "#868B90",
-    //     dark: {
-    //       background: "#080807",
-    //       text: "868B90",
-    //     },
-    //   },
-    // },
     extend: {
+      /* =========================
+         Keyframes
+      ========================= */
+
       keyframes: {
         rtlMarquee: {
-          '0%': { transform: 'translateX(0%)' },
-          '100%': { transform: 'translateX(100%)' }, // تغییر به -100% برای حرکت راست به چپ
+          "0%": {
+            transform: "translateX(0%)",
+          },
+          "100%": {
+            transform: "translateX(100%)",
+          },
         },
+
         ltrMarquee: {
-          '0%': { transform: 'translateX(0%)' },
-          '100%': { transform: 'translateX(-100%)' }, // حرکت چپ به راست
+          "0%": {
+            transform: "translateX(0%)",
+          },
+          "100%": {
+            transform: "translateX(-100%)",
+          },
         },
-      },
-      animation: {
-        rtlMarquee: 'rtlMarquee 5s linear infinite',
-        ltrMarquee: 'ltrMarquee 5s linear infinite',
       },
 
+      /* =========================
+         Animations
+      ========================= */
+
+      animation: {
+        rtlMarquee: "rtlMarquee 5s linear infinite",
+        ltrMarquee: "ltrMarquee 5s linear infinite",
+      },
+
+      /* =========================
+         Colors
+      ========================= */
+
       colors: {
-        // *** this project custome START
-        black: "#000000ff",
-        lightGray: "#868B90",
-        bgLightGrey: "#E9E9E9",
-        textGray: '#33353B',
-        bgGray: '#F4F4F4',
-        bgLightGrey2: "#3B3B3B",
-        mediumGray: "rgba(116, 116, 116, 0.58)",
-        mediumGrayFull: "rgba(116, 116, 116)",
-        gray: "#151b30",
-        extraGray: "rgba(86, 89, 89, 1)",
-        white: "#ffffff",
+        // Legacy
         blueLink: "#0066ff",
-        error: "#ff0000",
-        defaultButton: "#D4ECFF",
-        activeButton: "#008BF8",
-        defaultTextButton: "#008BF8",
-        activeTextButton: "#D4ECFF",
-        borderField: "#DADADA",
-        Field: "#FCFCFC",
-        darkGray: "#1A1A18",
-        darkGrey_1: "#10100F",
-        grayLight: "#F8F8F8",
-        activeGrey: "#626262",
-        divider: "#2d2d2a38",
-        // Add flat aliases for placeholder colors
-        'light-placeholder': '#BEBFC9', // Alias for light mode placeholder
-        'dark-placeholder': '#84858F', // Alias for dark mode placeholder
-        // USAGE:placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder
-        // *** this project custome END
+
+        // -------------------------
+        // Design System
+        // -------------------------
+
+        primary:
+          "rgb(var(--color-primary) / <alpha-value>)",
+
+        "primary-tint-1":
+          "rgb(var(--color-primary-tint-1) / <alpha-value>)",
+
+        "primary-tint-2":
+          "rgb(var(--color-primary-tint-2) / <alpha-value>)",
+
+        "primary-shade-1":
+          "rgb(var(--color-primary-shade-1) / <alpha-value>)",
+
+        "primary-shade-2":
+          "rgb(var(--color-primary-shade-2) / <alpha-value>)",
+
+        // Accent
+        "accent-1":
+          "rgb(var(--color-accent-1) / <alpha-value>)",
+
+        "accent-2":
+          "rgb(var(--color-accent-2) / <alpha-value>)",
+
+        // Secondary
+        secondary:
+          "rgb(var(--color-secondary) / <alpha-value>)",
+
+        // Background
+        "bg-primary":
+          "rgb(var(--color-bg) / <alpha-value>)",
+
+        // Gray
+        "gray-1":
+          "rgb(var(--color-gray-1) / <alpha-value>)",
+
+        "gray-2":
+          "rgb(var(--color-gray-2) / <alpha-value>)",
+
+        "gray-3":
+          "rgb(var(--color-gray-3) / <alpha-value>)",
+
+        // Text
+        "matn-1":
+          "rgb(var(--color-text-1) / <alpha-value>)",
+
+        "matn-2":
+          "rgb(var(--color-text-2) / <alpha-value>)",
+
+        "matn-3":
+          "rgb(var(--color-text-3) / <alpha-value>)",
+
+        // Titles
+        "title-1":
+          "rgb(var(--color-title-1) / <alpha-value>)",
+
+        "title-2":
+          "rgb(var(--color-title-2) / <alpha-value>)",
+
+        // Line / Icon
+        "line-color":
+          "rgb(var(--color-line) / <alpha-value>)",
+
+        "icon-color":
+          "rgb(var(--color-icon) / <alpha-value>)",
+
+        // States
+        "state-green":
+          "rgb(var(--color-state-green) / <alpha-value>)",
+
+        "state-red":
+          "rgb(var(--color-state-red) / <alpha-value>)",
+
+        "state-yellow":
+          "rgb(var(--color-state-yellow) / <alpha-value>)",
+
+        // -------------------------
+        // Legacy Light
+        // -------------------------
+
         light: {
           test: "#2503f1",
           primary: "#0066FF",
           placeholder: "#BEBFC9",
+
           shades: {
             100: "#FFFFFF",
             99: "#FDFAFF",
@@ -146,8 +175,10 @@ module.exports = {
             20: "#132768",
             10: "#0C183F",
           },
+
           newColors: {
             primaryText: "#fafbfc",
+
             shades: {
               100: "#FEFEFE",
               bg1: "#FCFCFC",
@@ -164,20 +195,16 @@ module.exports = {
               30: "#2A2B32",
               20: "#191B21",
             },
-            otherColors: {
-              green: "#18C08F",
-              red: "#F03A47",
-              yellow: "#FFC107",
-              menuBg: "#FFFFFF",
-              themeBtn: "#F4F4F4",
-              textBtn: "#868B90",
-            },
           },
         },
+
+        // -------------------------
+        // Legacy Dark
+        // -------------------------
+
         dark: {
           test: "#ff0000",
           primary: "#FFC700",
-          // *** this project custome START
           placeholder: "#84858F",
           background: "#1E1E1E",
           backgroundModules: "#000000",
@@ -185,13 +212,7 @@ module.exports = {
           activeButton: "#FFC700",
           gray: "#ABABAB",
           yellow: "#FFC700",
-          lightWhite: "rgba(255, 255, 255, 0.09)",
-          borderField: "#282828",
-          Field: "#2C2C2C",
-          borderFieldError: "#930000",
-          bgFieldError: "#380000",
-          textFieldError: "#fa2323",
-          // *** this project custome END
+
           shades: {
             100: "#FFFFFF",
             99: "#FEBFFF",
@@ -209,76 +230,65 @@ module.exports = {
             20: "#342A09",
             10: "#201A06",
           },
-          newColors: {
-            primaryText: "#0066FF",
-            shades: {
-              100: "#DEDEE9",
-              bg1: "#BEBFC9",
-              bgOn: "#A0A0AB",
-              bg2: "#84858F",
-              90: "#6A6B74",
-              80: "#52545C",
-              70: "#3E3E46",
-              matn2: "#333538",
-              60: "#2A2B32",
-              50: "#191B21",
-              40: "#141619",
-              title: "#101215",
-              30: "#0C0E11",
-              20: "#08090A",
-            },
-            otherColors: {
-              green: "#18C08F",
-              red: "#F03A47",
-              yellow: "#FFC107",
-              menuBg: "#1A1A18",
-              themeBtn: "#000000",
-            },
-          },
         },
       },
-      spacing: {
-        8: "8px",
-        16: "16px",
-        24: "24px",
-        32: "32px",
-        40: "40px",
-        56: "56px",
-        72: "72px",
-        80: "80px",
-        96: "96px",
-        120: "120px",
-      },
+
+      /* =========================
+         Font Family
+      ========================= */
+
       fontFamily: {
-        azarMehr: ['var(--font-azarMehr)','ui-sans-serif', 'system-ui' ],
-        rokh: ['var(--font-rokh)'],
+        azarMehr: [
+          "var(--font-azarMehr)",
+          "ui-sans-serif",
+          "system-ui",
+        ],
+
+        rokh: ["var(--font-rokh)"],
       },
 
+      /* =========================
+         Shadows
+      ========================= */
+
       boxShadow: {
-        "3xl": "0px 35px 60px 15px rgba(0, 0, 0, 0.6)",
-        dark: "0px 0px 10px rgba(255, 255, 255, 0.1)",
-        darkSearch: "0px 0px 10px 0px rgba(255, 255, 255, 0.07)",
-        left: "-1px 0px 10px 0px rgba(75, 75, 75, 0.1)",
-        leftDark: "-1px 0px 10px 0px rgba(255, 255, 255, 0.1)",
+        "3xl":
+          "0px 35px 60px 15px rgba(0, 0, 0, 0.6)",
+
+        dark:
+          "0px 0px 10px rgba(255, 255, 255, 0.1)",
+
+        darkSearch:
+          "0px 0px 10px 0px rgba(255, 255, 255, 0.07)",
+
+        left:
+          "-1px 0px 10px 0px rgba(75, 75, 75, 0.1)",
+
+        leftDark:
+          "-1px 0px 10px 0px rgba(255, 255, 255, 0.1)",
       },
+
+      /* =========================
+         Font Sizes
+      ========================= */
+
       fontSize: {
-        //sm
         smUser: ["15px"],
         smTitle: ["13px"],
         smDesc: ["13px"],
-        //md
+
         mdUser: ["22px"],
         mdTitle: ["20px"],
         mdDesc: ["20px"],
-        //lg
+
         lgUser: ["15px"],
         lgTitle: ["12px"],
         lgDesc: ["12px"],
-        //xl
+
         xlUser: ["18px"],
         xlTitle: ["14px"],
         xlDesc: ["14px"],
-        //3xl
+
         xl3User: ["24px"],
         xl3Title: ["20px"],
         xl3Desc: ["20px"],
@@ -287,16 +297,29 @@ module.exports = {
         singleVideo_title: ["32px"],
       },
     },
-
   },
+
+  /* =========================
+     Variants
+  ========================= */
+
   variants: {
     extend: {},
   },
+
+  /* =========================
+     Plugins
+  ========================= */
+
   plugins: [
-    require("tailwindcss"), require("autoprefixer"), require('@tailwindcss/typography'),],
+    require("@tailwindcss/typography"),
+  ],
+
+  /* =========================
+     Core Plugins
+  ========================= */
 
   corePlugins: {
     preflight: false,
   },
-
 };

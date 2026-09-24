@@ -39,11 +39,11 @@ export default function NewsStats({
 
 
   return (
-    <div className={`flex flex-col lg:flex-row gap-y-4  justify-between w-full items-center gap-4  text-xs md:text-base text-textGray dark:text-[#888888] ${className}`}>
+    <div className={`flex flex-col lg:flex-row gap-y-4  justify-between w-full items-center gap-4  text-xs md:text-base text-matn-2 dark:text-[#888888] ${className}`}>
       {/* دسته‌بندی */}
       {category && (
         <div className="flex lg:hidden w-full justify-start items-center gap-1.5 ">
-          <Link href={`/${lang}/news/categories/${categorySlug}`} className="font-medium whitespace-nowrap text-light-primary dark:text-dark-yellow md:px-4 px-2 py-1 rounded-full border border-solid ">
+          <Link href={`/${lang}/news/categories/${categorySlug}`} className="font-medium whitespace-nowrap text-primary md:px-4 px-2 py-1 rounded-full border border-solid ">
             {category}
           </Link>
         </div>
@@ -52,7 +52,7 @@ export default function NewsStats({
       <div className="flex flex-wrap  justify-between w-full items-center gap-4 ">
         {category && (
           <div className="hidden lg:flex justify-start items-center gap-1.5 ">
-            <Link href={`/${lang}/news/categories/${categorySlug}`} className="font-medium whitespace-nowrap text-light-primary dark:text-dark-yellow md:px-4 px-2 py-1 rounded-full border border-solid ">
+            <Link href={`/${lang}/news/categories/${categorySlug}`} className="font-medium whitespace-nowrap text-primary md:px-4 px-2 py-1 rounded-full border border-solid ">
               {category}
             </Link>
           </div>
@@ -62,7 +62,7 @@ export default function NewsStats({
           <div className="flex items-center gap-1.5">
             {showIcons && (
               <svg
-                className="stroke-textGray dark:stroke-[#888888] size-[14px] md:size-[20px]"
+                className="stroke-matn-2 dark:stroke-[#888888] size-[14px] md:size-[20px]"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -84,7 +84,7 @@ export default function NewsStats({
         <div className="flex items-center gap-1.5">
           {showIcons && (
             <svg 
-              className="stroke-textGray dark:stroke-[#888888] size-[14px] md:size-[20px]" 
+              className="stroke-matn-2 dark:stroke-[#888888] size-[14px] md:size-[20px]" 
               fill="none" 
               stroke="currentColor" 
               viewBox="0 0 24 24"
@@ -109,14 +109,14 @@ export default function NewsStats({
 
         {/* بازدیدها */}
         <div className=" items-center gap-3 hidden lg:flex">
-          {showIcons && <View className="stroke-textGray dark:stroke-[#888888] size-[14px] md:size-[20px]" />}
+          {showIcons && <View className="stroke-matn-2 dark:stroke-[#888888] size-[14px] md:size-[20px]" />}
           <span>{views.toLocaleString("fa-IR")}</span>
         </div>
 
         {/* لایک‌ها */}
         {likes >= 0 && (
           <div className="flex items-center gap-1.5">
-            {showIcons && <Like className="stroke-textGray dark:stroke-[#888888] size-[14px] md:size-[20px]" />}
+            {showIcons && <Like className="stroke-matn-2 dark:stroke-[#888888] size-[14px] md:size-[20px]" />}
             <span>{likes.toLocaleString("fa-IR")}</span>
           </div>
         )}
@@ -124,7 +124,7 @@ export default function NewsStats({
         {/* دیسلایک‌ها */}
         {dislikes >= 0 && (
           <div className="flex items-center gap-1.5">
-            {showIcons && <Dislike className="stroke-textGray dark:stroke-[#888888] size-[14px] md:size-[20px]" />}
+            {showIcons && <Dislike className="stroke-matn-2 dark:stroke-[#888888] size-[14px] md:size-[20px]" />}
             <span>{dislikes.toLocaleString("fa-IR")}</span>
           </div>
         )}
@@ -132,7 +132,7 @@ export default function NewsStats({
         {/* کامنت‌ها */}
         {comments >= 0 && (
           <div className="flex items-center gap-1.5">
-            {showIcons && <Comment className="stroke-textGray dark:stroke-[#888888] size-[14px] md:size-[20px]" />}
+            {showIcons && <Comment className="stroke-matn-2 dark:stroke-[#888888] size-[14px] md:size-[20px]" />}
             <span>{comments.toLocaleString("fa-IR")}</span>
           </div>
         )}

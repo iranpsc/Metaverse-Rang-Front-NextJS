@@ -244,7 +244,7 @@ export default function AvalancheCTA({ params, mainData }: AvalancheCTAProps) {
     const progressPercent = (step / TOTAL_STEPS) * 100;
 
     return (
-        <section className="w-full rounded-xl lg:rounded-[32px] bg-white dark:bg-[#1A1A18] lg:p-6">
+        <section className="w-full rounded-xl lg:rounded-[32px] bg-white dark:bg-gray-1  lg:p-6">
             <style>{`
                 @keyframes flipForward {
                     0%   { transform: rotateY(90deg); opacity: 0; }

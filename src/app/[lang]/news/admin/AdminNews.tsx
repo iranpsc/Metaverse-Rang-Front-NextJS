@@ -271,12 +271,12 @@ const handleRemoveGalleryImage = (index: number) => {
   }));
 };
   return (
-    <div className="bg-gray-50 dark:bg-gray-950  p-5 lg:p-10 text-gray-900 dark:text-gray-100">
+    <div className="matn-2-50 dark:bmatn-2-950  p-5 lg:p-10 matn-2-900 dark:ttext-matn-2">
       <h1 className="text-3xl font-bold mb-8 mt-4">پنل مدیریت اخبار</h1>
 
-      <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl p-6 md:p-8 mb-12">
+      <div className="bg-white dark:bmatn-2-900 rounded-2xl shadow-xl p-6 md:p-8 mb-12">
         <form onSubmit={handleAddOrUpdate} className="space-y-7">
-          <h2 className="text-2xl font-semibold mb-6 border-b pb-3 dark:border-gray-700">
+          <h2 className="text-2xl font-semibold mb-6 border-b pb-3 dark:bmatn-2-700">
             {editingNews ? "ویرایش خبر" : "افزودن خبر جدید"}
           </h2>
 
@@ -284,15 +284,15 @@ const handleRemoveGalleryImage = (index: number) => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
               <label className="block mb-2 font-medium">عنوان خبر *</label>
-              <input name="title" value={form.title} onChange={handleChange} className="w-full p-3 rounded-lg border dark:bg-gray-800 dark:border-gray-700" required />
+              <input name="title" value={form.title} onChange={handleChange} className="w-full p-3 rounded-lg border dark:bmatn-2-800 dark:bmatn-2-700" required />
             </div>
             <div>
               <label className="block mb-2 font-medium">Slug (لینک یکتا)</label>
-              <input name="slug" value={form.slug} onChange={handleChange} className="w-full p-3 rounded-lg border dark:bg-gray-800 dark:border-gray-700" />
+              <input name="slug" value={form.slug} onChange={handleChange} className="w-full p-3 rounded-lg border dark:bmatn-2-800 dark:bmatn-2-700" />
             </div>
             <div>
               <label className="block mb-2 font-medium">زمان مطالعه</label>
-              <input name="readingTime" value={form.readingTime} onChange={handleChange} placeholder="مثال: ۶ دقیقه" className="w-full p-3 rounded-lg border dark:bg-gray-800 dark:border-gray-700" />
+              <input name="readingTime" value={form.readingTime} onChange={handleChange} placeholder="مثال: ۶ دقیقه" className="w-full p-3 rounded-lg border dark:bmatn-2-800 dark:bmatn-2-700" />
             </div>
           </div>
 
@@ -300,7 +300,7 @@ const handleRemoveGalleryImage = (index: number) => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label className="block mb-2 font-medium">تصویر اصلی خبر</label>
-              <input name="image" value={form.image} onChange={handleChange} placeholder="https://..." className="w-full p-3 rounded-lg border dark:bg-gray-800 dark:border-gray-700" />
+              <input name="image" value={form.image} onChange={handleChange} placeholder="https://..." className="w-full p-3 rounded-lg border dark:bmatn-2-800 dark:bmatn-2-700" />
             </div>
             <div>
               <label className="block mb-2 font-medium">لینک ویدیو خبر</label>
@@ -309,7 +309,7 @@ const handleRemoveGalleryImage = (index: number) => {
                 value={form.video}
                 onChange={handleChange}
                 placeholder="https://www.aparat.com/v/xxxxx  یا یوتیوب / فایل مستقیم"
-                className="w-full p-3 rounded-lg border dark:bg-gray-800 dark:border-gray-700"
+                className="w-full p-3 rounded-lg border dark:bmatn-2-800 dark:bmatn-2-700"
               />
             </div>
           </div>
@@ -321,7 +321,7 @@ const handleRemoveGalleryImage = (index: number) => {
               theme="snow"
               value={form.description}
               onChange={(val) => setForm((p) => ({ ...p, description: val }))}
-              className="bg-white dark:bg-gray-800 rounded-lg"
+              className="bg-white dark:bmatn-2-800 rounded-lg"
             />
           </div>
 
@@ -332,10 +332,10 @@ const handleRemoveGalleryImage = (index: number) => {
               theme="snow"
               value={form.content}
               onChange={(val) => setForm((p) => ({ ...p, content: val }))}
-              className="bg-white dark:bg-gray-800 rounded-lg min-h-[300px]"
+              className="bg-white dark:bmatn-2-800 rounded-lg min-h-[300px]"
             />
           </div>
-<div className="border rounded-xl p-5 dark:border-gray-700">
+<div className="border rounded-xl p-5 dark:bmatn-2-700">
   <h3 className="text-lg font-semibold mb-4">گالری تصاویر</h3>
 
   {form.gallery.map((image, index) => (
@@ -345,7 +345,7 @@ const handleRemoveGalleryImage = (index: number) => {
         value={image}
         onChange={(e) => handleGalleryChange(index, e.target.value)}
         placeholder="آدرس تصویر"
-        className="flex-1 p-3 rounded-lg border dark:bg-gray-800 dark:border-gray-700"
+        className="flex-1 p-3 rounded-lg border dark:bmatn-2-800 dark:bmatn-2-700"
       />
 
       <button
@@ -393,15 +393,15 @@ const handleRemoveGalleryImage = (index: number) => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
               <label className="block mb-2 font-medium">Slug دسته</label>
-              <input name="categorySlug" value={form.categorySlug} onChange={handleChange} className="w-full p-3 rounded-lg border dark:bg-gray-800 dark:border-gray-700" />
+              <input name="categorySlug" value={form.categorySlug} onChange={handleChange} className="w-full p-3 rounded-lg border dark:bmatn-2-800 dark:bmatn-2-700" />
             </div>
             <div>
               <label className="block mb-2 font-medium">تصویر دسته‌بندی</label>
-              <input name="categoryImage" value={form.categoryImage} onChange={handleChange} className="w-full p-3 rounded-lg border dark:bg-gray-800 dark:border-gray-700" />
+              <input name="categoryImage" value={form.categoryImage} onChange={handleChange} className="w-full p-3 rounded-lg border dark:bmatn-2-800 dark:bmatn-2-700" />
             </div>
             <div>
               <label className="block mb-2 font-medium">توضیح کوتاه دسته</label>
-              <input name="categoryDec" value={form.categoryDec} onChange={handleChange} className="w-full p-3 rounded-lg border dark:bg-gray-800 dark:border-gray-700" />
+              <input name="categoryDec" value={form.categoryDec} onChange={handleChange} className="w-full p-3 rounded-lg border dark:bmatn-2-800 dark:bmatn-2-700" />
             </div>
           </div>
 
@@ -414,33 +414,33 @@ const handleRemoveGalleryImage = (index: number) => {
                 name="date"
                 value={form.date.slice(0, 16)}
                 onChange={(e) => setForm((p) => ({ ...p, date: new Date(e.target.value).toISOString() }))}
-                className="w-full p-3 rounded-lg border dark:bg-gray-800 dark:border-gray-700"
+                className="w-full p-3 rounded-lg border dark:bmatn-2-800 dark:bmatn-2-700"
               />
             </div>
             {/* فیلدهای نویسنده در ادامه ... */}
           </div>
 
           {/* نویسنده */}
-          <div className="border-t pt-6 dark:border-gray-700">
+          <div className="border-t pt-6 dark:bmatn-2-700">
             <h3 className="text-xl font-semibold mb-4">اطلاعات نویسنده</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <input placeholder="نام نویسنده" value={form.author.name} onChange={(e) => handleAuthorChange("name", e.target.value)} className="p-3 rounded-lg border dark:bg-gray-800 dark:border-gray-700" />
-              <input placeholder="شناسه شهروندی" value={form.author.citizenId} onChange={(e) => handleAuthorChange("citizenId", e.target.value)} className="p-3 rounded-lg border dark:bg-gray-800 dark:border-gray-700" />
-              <input placeholder="لینک آواتار" value={form.author.avatar} onChange={(e) => handleAuthorChange("avatar", e.target.value)} className="p-3 rounded-lg border dark:bg-gray-800 dark:border-gray-700" />
-              <input placeholder="حوزه فعالیت" value={form.author.field} onChange={(e) => handleAuthorChange("field", e.target.value)} className="p-3 rounded-lg border dark:bg-gray-800 dark:border-gray-700" />
-              <input placeholder="بیوگرافی کوتاه" value={form.author.bio} onChange={(e) => handleAuthorChange("bio", e.target.value)} className="p-3 rounded-lg border dark:bg-gray-800 dark:border-gray-700 md:col-span-2 lg:col-span-1" />
+              <input placeholder="نام نویسنده" value={form.author.name} onChange={(e) => handleAuthorChange("name", e.target.value)} className="p-3 rounded-lg border dark:bmatn-2-800 dark:bmatn-2-700" />
+              <input placeholder="شناسه شهروندی" value={form.author.citizenId} onChange={(e) => handleAuthorChange("citizenId", e.target.value)} className="p-3 rounded-lg border dark:bmatn-2-800 dark:bmatn-2-700" />
+              <input placeholder="لینک آواتار" value={form.author.avatar} onChange={(e) => handleAuthorChange("avatar", e.target.value)} className="p-3 rounded-lg border dark:bmatn-2-800 dark:bmatn-2-700" />
+              <input placeholder="حوزه فعالیت" value={form.author.field} onChange={(e) => handleAuthorChange("field", e.target.value)} className="p-3 rounded-lg border dark:bmatn-2-800 dark:bmatn-2-700" />
+              <input placeholder="بیوگرافی کوتاه" value={form.author.bio} onChange={(e) => handleAuthorChange("bio", e.target.value)} className="p-3 rounded-lg border dark:bmatn-2-800 dark:bmatn-2-700 md:col-span-2 lg:col-span-1" />
             </div>
 
             <h4 className="font-medium mt-6 mb-3">شبکه‌های اجتماعی نویسنده</h4>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <input placeholder="تلگرام" value={form.author.socials.telegram} onChange={(e) => handleAuthorChange("telegram", e.target.value, true)} className="p-3 rounded-lg border dark:bg-gray-800 dark:border-gray-700" />
-              <input placeholder="واتساپ" value={form.author.socials.whatsapp} onChange={(e) => handleAuthorChange("whatsapp", e.target.value, true)} className="p-3 rounded-lg border dark:bg-gray-800 dark:border-gray-700" />
-              <input placeholder="ایمیل" value={form.author.socials.email} onChange={(e) => handleAuthorChange("email", e.target.value, true)} className="p-3 rounded-lg border dark:bg-gray-800 dark:border-gray-700" />
+              <input placeholder="تلگرام" value={form.author.socials.telegram} onChange={(e) => handleAuthorChange("telegram", e.target.value, true)} className="p-3 rounded-lg border dark:bmatn-2-800 dark:bmatn-2-700" />
+              <input placeholder="واتساپ" value={form.author.socials.whatsapp} onChange={(e) => handleAuthorChange("whatsapp", e.target.value, true)} className="p-3 rounded-lg border dark:bmatn-2-800 dark:bmatn-2-700" />
+              <input placeholder="ایمیل" value={form.author.socials.email} onChange={(e) => handleAuthorChange("email", e.target.value, true)} className="p-3 rounded-lg border dark:bmatn-2-800 dark:bmatn-2-700" />
             </div>
           </div>
 
           {/* تگ‌ها */}
-          <div className="border-t pt-6 dark:border-gray-700">
+          <div className="border-t pt-6 dark:bmatn-2-700">
             <h3 className="text-xl font-semibold mb-4">تگ‌ها</h3>
             {form.tags.map((tag, i) => (
               <div key={i} className="flex gap-3 mb-3 items-center">
@@ -448,13 +448,13 @@ const handleRemoveGalleryImage = (index: number) => {
                   placeholder="نام تگ (label)"
                   value={tag.label}
                   onChange={(e) => handleTagChange(i, "label", e.target.value)}
-                  className="flex-1 p-3 rounded-lg border dark:bg-gray-800 dark:border-gray-700"
+                  className="flex-1 p-3 rounded-lg border dark:bmatn-2-800 dark:bmatn-2-700"
                 />
                 <input
                   placeholder="slug تگ"
                   value={tag.slug}
                   onChange={(e) => handleTagChange(i, "slug", e.target.value)}
-                  className="flex-1 p-3 rounded-lg border dark:bg-gray-800 dark:border-gray-700"
+                  className="flex-1 p-3 rounded-lg border dark:bmatn-2-800 dark:bmatn-2-700"
                 />
                 <button type="button" onClick={() => handleRemoveTag(i)} className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg">
                   حذف
@@ -486,17 +486,17 @@ const handleRemoveGalleryImage = (index: number) => {
       {loading ? (
         <p className="text-center py-10">در حال بارگذاری اخبار...</p>
       ) : newsList.length === 0 ? (
-        <p className="text-center py-10 text-gray-500">خبری ثبت نشده است</p>
+        <p className="text-center py-10 matn-2-500">خبری ثبت نشده است</p>
       ) : (
         <div className="grid gap-4">
           {newsList.map((news) => (
             <div
               key={news.id}
-              className="border dark:border-gray-700 rounded-lg p-5 bg-white dark:bg-gray-900 shadow-sm hover:shadow-md transition-shadow"
+              className="border dark:bmatn-2-700 rounded-lg p-5 bg-white dark:bmatn-2-900 shadow-sm hover:shadow-md transition-shadow"
             >
               <h3 className="font-bold text-lg mb-2">{news.title}</h3>
-              <p className="text-gray-600 dark:text-gray-300 mb-3 line-clamp-2">{news.description}</p>
-              <div className="text-sm text-gray-500 dark:text-gray-400 mb-3">
+              <p className="matn-2-600 dark:tmatn-2-300 mb-3 line-clamp-2">{news.description}</p>
+              <div className="text-sm matn-2-500 dark:tmatn-2-400 mb-3">
                 نویسنده: {news.author.name} • دسته: {news.category} {news.subCategory && `- ${news.subCategory}`} • {new Date(news.date).toLocaleDateString("fa-IR")}
               </div>
               <div className="flex gap-3">

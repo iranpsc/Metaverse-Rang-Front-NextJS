@@ -32,6 +32,9 @@ import {
   Citizens,
   Docs,
   WhitePaper,
+  Buildings,
+  Wallet,
+  PropertyS,
 
   
 } from "@/components/svgs";
@@ -73,6 +76,15 @@ export default function SvgIcon({ unique_id, color, name }: any) {
         <Trainings className={`${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
       )}
       {/* with unique_id */}
+       {name === "buildings" && (
+        <Buildings className={`${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
+      )}
+      {name === "summary" && (
+        <PropertyS className={`${color} stroke-[32px] mx-[10px] 3xl:w-7 3xl:h-7`} />
+      )}
+             {name === "wallet" && (
+        <Wallet className={`${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
+      )}
       {unique_id === 1374 && (
         <SingleCitizenMenu className={`${color} stroke-2 mx-[10px] 3xl:w-7 3xl:h-7`} />
       )}

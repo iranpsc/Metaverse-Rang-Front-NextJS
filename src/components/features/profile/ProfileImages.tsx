@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { useTheme } from "next-themes";
 import Head from "next/head";
 
@@ -48,7 +48,7 @@ export default function ProfileImages({
       <figure
         key={i}
         className={`relative rounded-full overflow-hidden !aspect-square ${
-          imgProfiles[i]?.url == mainImageUrl ? "w-[34px] 3xl:w-[53px] border-2 border-dashed border-light-primary dark:border-dark-yellow" : "w-32 3xl:w-[50px]"
+          imgProfiles[i]?.url == mainImageUrl ? "w-[34px] 3xl:w-[53px] border-2 border-dashed border-primary " : "w-12 3xl:w-[50px]"
         }`}
       >
         <Image
@@ -71,7 +71,7 @@ export default function ProfileImages({
         width={100}
         height={100}
         alt={titleData}
-        className="inline-block rounded-full w-32 h-32 3xl:w-[50px] 3xl:h-[50px]"
+        className="inline-block rounded-full w-12 h-12 3xl:w-[50px] 3xl:h-[50px]"
         key={images.length}
       />
     );

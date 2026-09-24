@@ -118,7 +118,7 @@ export default function ProfileDetails({
     {
       id: 6,
       // key: targetData(userProperty, "trainings"),
-      key: findByUniqueId(mainData, 87),
+      key: findByUniqueId(mainData, 1839),
       value: profileData.data?.customs?.education?.slice(0, 25) || "--",
       fValue: profileData.data?.customs?.education,
     },
@@ -148,7 +148,7 @@ export default function ProfileDetails({
   return (
     <div
       ref={iframeContainerRef}
-      className=" 3xl:h-screen xl:h-screen lg:h-screen md:h-fit sm:h-fit xs:h-fit flex flex-col justify-between gap-[10px] items-center dark:bg-black bg-[#e9eef8] "
+      className=" 3xl:h-screen xl:h-screen lg:h-screen md:h-fit sm:h-fit xs:h-fit flex flex-col justify-between gap-[10px] items-center  bg-bg-primary "
     >
       {inView && (
         <>

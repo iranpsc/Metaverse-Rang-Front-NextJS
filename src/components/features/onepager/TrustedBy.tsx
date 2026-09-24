@@ -76,7 +76,7 @@ export default function TrustedBy({ params, mainData }: TrustedByProps) {
             corner={params.lang == "fa" ? "tr" : "tl"}
             radius={isMobile ? 12 : 32}
             cornerSize={isMobile ? 80 : 120}
-            className="py-4 lg:py-12 px-4 2xl:px-10  text-white dark:text-[#1A1A18] rounded-[40px] rtl:rounded-tr-[120px] ltr:rounded-tl-[120px] lg:rtl:rounded-tr-[200px] lg:ltr:rounded-tl-[200px]">
+            className="py-4 lg:py-12 px-4 2xl:px-10  text-white dark:text-gray-1  rounded-[40px] rtl:rounded-tr-[120px] ltr:rounded-tl-[120px] lg:rtl:rounded-tr-[200px] lg:ltr:rounded-tl-[200px]">
             <div className="text-black dark:text-white overflow-hidden w-full">
                 {/* متن اصلی */}
                 <div className='flex flex-col lg:flex-row gap-5 lg:gap-0 gap-y-0 w-full  lg:mt-5 items-center lg:items-start border-b border-solid border-x-0 border-t-0 dark:border-[#434343] border-[#D9D9D9] pb-10'>
@@ -141,7 +141,7 @@ export default function TrustedBy({ params, mainData }: TrustedByProps) {
                                     </div>
                                     {/* عنوان */}
                                     <div className='space-y-4 px-3 pb-2'>
-                                        <h3 className="text-xl 2xl:text-2xl font-semibold text-gray-900 dark:text-white mb-4">
+                                        <h3 className="text-xl 2xl:text-2xl font-semibold matn-2-900 dark:text-white mb-4">
                                             {card.title}
                                         </h3>
 
@@ -151,7 +151,7 @@ export default function TrustedBy({ params, mainData }: TrustedByProps) {
                                         </p>
 
                                         {/* دکمه Learn more */}
-                                        <div className="group cursor-pointer inline-flex items-center gap-3 bg-transparent hover:text-[#9100D9] rounded-3xl rtl:rounded-bl-[100px] ltr:rounded-br-[100px]  text-gray-900 dark:text-white font-medium text-sm transition-all duration-300 px-5 py-3">
+                                        <div className="group cursor-pointer inline-flex items-center gap-3 bg-transparent hover:text-[#9100D9] rounded-3xl rtl:rounded-bl-[100px] ltr:rounded-br-[100px]  matn-2-900 dark:text-white font-medium text-sm transition-all duration-300 px-5 py-3">
                                             <span className='text-base group-hover:text-[#9100D9] font-bold'>{card.buttonText}</span>
                                             <svg className="w-5 h-5 text-[#9100D9] rtl:rotate-180 transition-transform duration-300 group-hover:translate-x-1 rtl:group-hover:translate-x-[-4px]" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path className='stroke-[#9100D9] ' d="M14.4297 5.92969L20.4997 11.9997L14.4297 18.0697" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />

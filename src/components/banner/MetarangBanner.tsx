@@ -8,7 +8,7 @@ interface AvalancheBannerProps {
 export default function AvalancheBanner({ params, mainData }: AvalancheBannerProps) {
 
     return (
-        <section className="relative overflow-hidden  bg-white dark:bg-[#1A1A18] rounded-[40px] px-4 py-10 md:px-0 md:py-14">
+        <section className="relative overflow-hidden  bg-white dark:bg-gray-1  rounded-[40px] px-4 py-10 md:px-0 md:py-14">
             {/* Background Glow */}
             <div className="flex gap-10 items-start justify-center py-4">
                 <div className='flex gap-10  items-start w-[50%] '>
@@ -28,7 +28,7 @@ export default function AvalancheBanner({ params, mainData }: AvalancheBannerPro
 
                 </div>
                 <div className="w-[40%]  ">
-                    <p className="dark:text-[#FFFFFF] text-[#1A1A18] 3xl:text-3xl">
+                    <p className="dark:text-[#FFFFFF] text-gray-1  3xl:text-3xl">
                         {findByUniqueId(mainData, 1682)}
                     </p>
                 </div>

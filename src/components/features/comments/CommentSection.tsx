@@ -26,7 +26,7 @@ const CommentSection = ({
 
     try {
       await axios.get(
-        `https://api.metarang.com/api/tutorials?page=${nextPage}`
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/tutorials?page=${nextPage}`
       );
 
       // const newVideosData = resVideos.data.data;
@@ -41,7 +41,7 @@ const CommentSection = ({
   };
 
   return (
-    <div className="w-full mt-10 pt-5 bg-white dark:bg-[#080807] rounded-[20px] min-h-[220px]">
+    <div className="w-full mt-10 pt-5 bg-white dark:bg-gray-1 rounded-[20px] min-h-[220px]">
       <p className="w-full text-start px-6 text-singleVideo-gray dark:text-white font-azarMehr font-bold text-2xl xl:text-3xl pb-5">
         {checkData(findByUniqueId(mainData, 457))}
       </p>
@@ -65,12 +65,12 @@ const CommentSection = ({
         {/* VIEW ALL BTN */}
         {comments.length > 5 && (
           <button
-            className="text-center rounded-full mb-10 flex items-center justify-center mt-10 py-5 px-10 shadow-sm hover:shadow-md dark:bg-[#1A1A18] text-blueLink dark:text-dark-yellow font-azarMehr font-semibold hover:opacity-90"
+            className="text-center rounded-full mb-10 flex items-center justify-center mt-10 py-5 px-10 shadow-sm hover:shadow-md dark:bg-gray-1  text-primary  font-azarMehr font-semibold hover:opacity-90"
             onClick={loadMore}
           >
             {!loading
               ? findByUniqueId(mainData, 171)
-              : <SyncLoader color={theme === "dark" ? "#FFC700" : "#0000FF"} size={10} />}
+              : <SyncLoader color={theme === "dark" ? "#9100D9" : "#0000FF"} size={10} />}
           </button>
         )}
       </div>

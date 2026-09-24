@@ -55,10 +55,10 @@ const EmailModal: React.FC<EmailModalProps> = ({ open, onClose, mainData, params
                     </svg>
 
                     <svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path className="stroke-light-primary dark:stroke-dark-yellow" d="M23.248 38.6641L26.873 42.2891L34.7272 35.0391" stroke="#FFC700" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                        <path className="stroke-light-primary dark:stroke-dark-yellow" d="M21.2913 4.83594L12.543 13.6084" stroke="#FFC700" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                        <path className="stroke-light-primary dark:stroke-dark-yellow" d="M4.83301 18.974C4.83301 14.5031 7.22551 14.1406 10.198 14.1406H47.8013C50.7738 14.1406 53.1663 14.5031 53.1663 18.974C53.1663 24.1698 50.7738 23.8073 47.8013 23.8073H10.198C7.22551 23.8073 4.83301 24.1698 4.83301 18.974Z" stroke="#FFC700" stroke-width="1.5" />
-                        <path className="stroke-light-primary dark:stroke-dark-yellow" d="M8.45801 24.1641L11.8655 45.0441C12.6388 49.7324 14.4997 53.1641 21.4113 53.1641H35.9838C43.4997 53.1641 44.6113 49.8774 45.4813 45.3341L49.5413 24.1641" stroke="#FFC700" stroke-width="1.5" stroke-linecap="round" />
+                        <path className="stroke-primary dark:stroke-primary" d="M23.248 38.6641L26.873 42.2891L34.7272 35.0391" stroke="#9100D9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        <path className="stroke-primary dark:stroke-primary" d="M21.2913 4.83594L12.543 13.6084" stroke="#9100D9" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                        <path className="stroke-primary dark:stroke-primary" d="M4.83301 18.974C4.83301 14.5031 7.22551 14.1406 10.198 14.1406H47.8013C50.7738 14.1406 53.1663 14.5031 53.1663 18.974C53.1663 24.1698 50.7738 23.8073 47.8013 23.8073H10.198C7.22551 23.8073 4.83301 24.1698 4.83301 18.974Z" stroke="#9100D9" stroke-width="1.5" />
+                        <path className="stroke-primary dark:stroke-primary" d="M8.45801 24.1641L11.8655 45.0441C12.6388 49.7324 14.4997 53.1641 21.4113 53.1641H35.9838C43.4997 53.1641 44.6113 49.8774 45.4813 45.3341L49.5413 24.1641" stroke="#9100D9" stroke-width="1.5" stroke-linecap="round" />
                     </svg>
 
                     {/* TEXT */}
@@ -69,7 +69,7 @@ const EmailModal: React.FC<EmailModalProps> = ({ open, onClose, mainData, params
                     {/* VIEW EMAIL BUTTON */}
                     <button
                         onClick={() => window.open(`mailto:${email}`)}
-                        className="dark:bg-dark-yellow bg-light-primary text-white dark:text-black text  py-3 px-6 rounded-xl flex items-center gap-2"
+                        className=" bg-primary text-white dark:text-black text  py-3 px-6 rounded-xl flex items-center gap-2"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="16" viewBox="0 0 22 16" fill="none">
                             <path d="M1.45419 16.0031H4.84734V7.76264L2.62546 3.88281L0 4.12713V14.5489C0 15.3523 0.650761 16.0031 1.45419 16.0031Z" fill="#0085F7" />
@@ -91,8 +91,8 @@ const EmailModal: React.FC<EmailModalProps> = ({ open, onClose, mainData, params
                     <div className="flex w-full justify-center">
 
                         <svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path className="dark:stroke-dark-yellow" d="M41.084 49.5443H16.9173C9.66732 49.5443 4.83398 45.9193 4.83398 37.4609V20.5443C4.83398 12.0859 9.66732 8.46094 16.9173 8.46094H41.084C48.334 8.46094 53.1673 12.0859 53.1673 20.5443V37.4609C53.1673 45.9193 48.334 49.5443 41.084 49.5443Z" stroke="#0066FF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                            <path className="dark:stroke-dark-yellow" d="M41.0827 21.75L33.5185 27.7917C31.0293 29.7733 26.9452 29.7733 24.456 27.7917L16.916 21.75" stroke="#0066FF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                            <path className="dark:stroke-primary" d="M41.084 49.5443H16.9173C9.66732 49.5443 4.83398 45.9193 4.83398 37.4609V20.5443C4.83398 12.0859 9.66732 8.46094 16.9173 8.46094H41.084C48.334 8.46094 53.1673 12.0859 53.1673 20.5443V37.4609C53.1673 45.9193 48.334 49.5443 41.084 49.5443Z" stroke="#9100D9" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                            <path className="dark:stroke-primary" d="M41.0827 21.75L33.5185 27.7917C31.0293 29.7733 26.9452 29.7733 24.456 27.7917L16.916 21.75" stroke="#9100D9" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
 
                     </div>
@@ -101,7 +101,7 @@ const EmailModal: React.FC<EmailModalProps> = ({ open, onClose, mainData, params
                         {findByUniqueId(mainData, 2)}
                     </p>
                     <p className="text-center text-[#868B90] dark:text-[#F4F4F4] text-lg">
-                        {findByUniqueId(mainData, 1530)} <span className="text-light-primary dark:text-dark-yellow px-1">{id}</span> {findByUniqueId(mainData, 1531)}
+                        {findByUniqueId(mainData, 1530)} <span className="text-primary  px-1">{id}</span> {findByUniqueId(mainData, 1531)}
                     </p>
 
                     {/* INPUT */}
@@ -113,8 +113,8 @@ const EmailModal: React.FC<EmailModalProps> = ({ open, onClose, mainData, params
                                 setError("");
                             }}
                             placeholder={findByUniqueId(mainData, 2) + " ..."}
-                            className={`w-full bg-[#FCFCFC] dark:bg-black mt-3 dark:text-white border-0 rounded-xl px-4 py-3  ring-1 outline-none transition text-base
-                                ${error ? "ring-[#DE5753]" : "ring-[#DEDEE9] dark:ring-[#1A1A18]"}
+                            className={`w-full bg-[#FCFCFC]  mt-3 dark:text-white border-0 rounded-xl px-4 py-3  ring-1 outline-none transition text-base
+                                ${error ? "ring-[#DE5753]" : "ring-[#DEDEE9] dark:ring-gray-1 "}
                             `}
                         />
 
@@ -136,7 +136,7 @@ const EmailModal: React.FC<EmailModalProps> = ({ open, onClose, mainData, params
                     {/* SUBMIT BUTTON */}
                     <button
                         onClick={handleSubmit}
-                        className="mx-auto text-base bg-light-primary dark:bg-dark-yellow text-white dark:text-black py-3 px-10 rounded-xl   mt-3"
+                        className="mx-auto text-base bg-primary  text-white dark:text-black py-3 px-10 rounded-xl   mt-3"
                     >
                         {findByUniqueId(mainData, 34)}
                     </button>

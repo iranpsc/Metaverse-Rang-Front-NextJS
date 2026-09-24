@@ -7,20 +7,13 @@ export default async function Gem({
   levelTabs,
   singleLevel,
   params,
-  concatArrayContent,
 }: any) {
   // function localFind(_name: any) {
   //   return levelsTranslatePage.find((item: any) => item.name == _name)
   //     ?.translation;
   // }
   function localFind2(_slug: any) {
-    // HIN not good
-    //item.name and _slug have fa/en number string
-    //convert
-    let temp = concatArrayContent.find(
-      (item: any) => Number(item.unique_id) == Number(_slug)
-    );
-    return temp?.translation;
+    return findByUniqueId(mainData, _slug);
   }
 
   //to make description less than 200 character
@@ -36,9 +29,9 @@ export default async function Gem({
   const tabLevelSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    // https://api.metarang.com/api/levels/1
+    // ${process.env.NEXT_PUBLIC_API_BASE_URL}/api/levels/1
     name: await localFind2(singleLevel.data.unique_id),
-    // https://api.metarang.com/api/levels/1
+    // ${process.env.NEXT_PUBLIC_API_BASE_URL}/api/levels/1
     description: await makeLessCharacter(
       singleLevel.data.general_info.description
     ),

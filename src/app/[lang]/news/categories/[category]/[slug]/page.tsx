@@ -386,32 +386,32 @@ export default async function NewsPage({ params }: NewsPageProps) {
         name: "متاورس رنگ",
         logo: {
           "@type": "ImageObject",
-          url: "https://metarang.com/logo.png",
+          url: "https://s3.metarang.com/metarang/logo/metarang-logo-512.png",
         },
       },
     };
 
     return (
-      <div className="w-full relative bg-[#f8f8f8] dark:bg-black" dir={langData.direction}>
+      <div className="w-full relative bg-bg-primary " dir={langData.direction}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
         <div className="fixed z-[1000] end-10 bottom-[100px]">
-          <Link aria-label="SocialLink" href={"#em"} className="bg-light-primary dark:bg-dark-yellow rounded-full w-[60px] h-[60px]  flex items-center justify-center">
+          <Link aria-label="SocialLink" href={"#em"} className="bg-primary  rounded-full w-[60px] h-[60px]  flex items-center justify-center">
 
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path className="stroke-white dark:stroke-black" d="M22 11.5V15.5C22 19 20 20.5 17 20.5H7C4 20.5 2 19 2 15.5V8.5C2 5 4 3.5 7 3.5H12" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-              <path className="stroke-white dark:stroke-black" d="M7 9L11 11.5C12.048 12.2897 13.952 11.2897 15 10.5" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+              <path className="stroke-white dark:stroke-black  stroke-2" d="M22 11.5V15.5C22 19 20 20.5 17 20.5H7C4 20.5 2 19 2 15.5V8.5C2 5 4 3.5 7 3.5H12" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+              <path className="stroke-white dark:stroke-black stroke-2" d="M7 9L11 11.5C12.048 12.2897 13.952 11.2897 15 10.5" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
               <path d="M19.0062 1.96875C17.9029 1.96875 17.0062 2.86542 17.0062 3.96875V4.93208C17.0062 5.13542 16.9195 5.44542 16.8162 5.61875L16.4329 6.25542C16.1962 6.64875 16.3595 7.08542 16.7929 7.23208C18.2295 7.71208 19.7795 7.71208 21.2162 7.23208C21.6195 7.09875 21.7962 6.62208 21.5762 6.25542L21.1929 5.61875C21.0929 5.44542 21.0062 5.13542 21.0062 4.93208V3.96875C21.0062 2.86875 20.1062 1.96875 19.0062 1.96875Z" stroke="#18C08F" stroke-miterlimit="10" stroke-linecap="round" />
-              <path className="stroke-white dark:stroke-black" d="M19.623 2.06844C19.5196 2.03844 19.413 2.0151 19.303 2.00177C18.983 1.96177 18.6763 1.9851 18.3896 2.06844C18.4863 1.82177 18.7263 1.64844 19.0063 1.64844C19.2863 1.64844 19.5263 1.82177 19.623 2.06844Z" stroke-width="0.8" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+              <path className="stroke-white dark:stroke-black" d="M19.623 2.06844C19.5196 2.03844 19.413 2.0151 19.303 2.00177C18.983 1.96177 18.6763 1.9851 18.3896 2.06844C18.4863 1.82177 18.7263 1.64844 19.0063 1.64844C19.2863 1.64844 19.5263 1.82177 19.623 2.06844Z" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
               <path className="stroke-white dark:stroke-black" d="M20.0068 7.35156C20.0068 7.90156 19.5568 8.35156 19.0068 8.35156C18.7335 8.35156 18.4802 8.23823 18.3002 8.05823C18.1202 7.87823 18.0068 7.6249 18.0068 7.35156" stroke-miterlimit="10" />
             </svg>
 
           </Link>
         </div>
         <CleanAutoRetryParam />
-        <section className="w-full  bg-[#f8f8f8] dark:bg-black mt-[60px] lg:mt-0">
+        <section className="w-full  bg-bg-primary  mt-[60px] lg:mt-0">
           <div className="px-5 2xl:px-10">
             <BreadCrumb params={resolvedParams} title={news.title} articleCat={news.category || ""} />
           </div>
@@ -419,7 +419,7 @@ export default async function NewsPage({ params }: NewsPageProps) {
           <div className="mainContainer w-full flex flex-col gap-5 items-center lg:flex-row lg:items-start px-5 lg:px-10 ">
             {/* محتوای اصلی */}
             <div className="lg:w-[70%] 3xl:w-[80%]">
-              <div className="flex flex-col gap-10 w-full items-center rounded-xl bg-white dark:bg-[#1A1A18] shadow-lg p-5 xl:p-10">
+              <div className="flex flex-col gap-10 w-full items-center rounded-xl bg-white dark:bg-gray-1  shadow-lg p-5 xl:p-10">
                 <AuthorSection
                   author={news.author}
                   // date={news.date}
@@ -495,23 +495,23 @@ export default async function NewsPage({ params }: NewsPageProps) {
               <defs>
                 <linearGradient id="paint0_linear_4633_15252" x1="182" y1="53.0859" x2="182" y2="310.919" gradientUnits="userSpaceOnUse">
                   <stop stopColor="#00398E" />
-                  <stop offset="1" stopColor="#0066FF" />
+                  <stop offset="1" stopColor="#9100D9" />
                 </linearGradient>
                 <linearGradient id="paint1_linear_4633_15252" x1="166.834" y1="136.5" x2="166.834" y2="178.788" gradientUnits="userSpaceOnUse">
                   <stop stopColor="#00398E" />
-                  <stop offset="1" stopColor="#0066FF" />
+                  <stop offset="1" stopColor="#9100D9" />
                 </linearGradient>
                 <linearGradient id="paint2_linear_4633_15252" x1="279.977" y1="47.0625" x2="279.977" y2="128.601" gradientUnits="userSpaceOnUse">
                   <stop stopColor="#00398E" />
-                  <stop offset="1" stopColor="#0066FF" />
+                  <stop offset="1" stopColor="#9100D9" />
                 </linearGradient>
                 <linearGradient id="paint3_linear_4633_15252" x1="280.097" y1="42.375" x2="280.097" y2="48.465" gradientUnits="userSpaceOnUse">
                   <stop stopColor="#00398E" />
-                  <stop offset="1" stopColor="#0066FF" />
+                  <stop offset="1" stopColor="#9100D9" />
                 </linearGradient>
                 <linearGradient id="paint4_linear_4633_15252" x1="280.097" y1="125.125" x2="280.097" y2="139.625" gradientUnits="userSpaceOnUse">
                   <stop stopColor="#00398E" />
-                  <stop offset="1" stopColor="#0066FF" />
+                  <stop offset="1" stopColor="#9100D9" />
                 </linearGradient>
               </defs>
             </svg>
@@ -524,23 +524,23 @@ export default async function NewsPage({ params }: NewsPageProps) {
               <defs>
                 <linearGradient id="paint0_linear_4633_15270" x1="182.001" y1="53.0859" x2="182.001" y2="310.919" gradientUnits="userSpaceOnUse">
                   <stop stopColor="#997700" />
-                  <stop offset="1" stopColor="#FFC700" />
+                  <stop offset="1" stopColor="#9100D9" />
                 </linearGradient>
                 <linearGradient id="paint1_linear_4633_15270" x1="166.833" y1="136.5" x2="166.833" y2="178.788" gradientUnits="userSpaceOnUse">
                   <stop stopColor="#997700" />
-                  <stop offset="1" stopColor="#FFC700" />
+                  <stop offset="1" stopColor="#9100D9" />
                 </linearGradient>
                 <linearGradient id="paint2_linear_4633_15270" x1="279.976" y1="47.0625" x2="279.976" y2="128.601" gradientUnits="userSpaceOnUse">
                   <stop stopColor="#997700" />
-                  <stop offset="1" stopColor="#FFC700" />
+                  <stop offset="1" stopColor="#9100D9" />
                 </linearGradient>
                 <linearGradient id="paint3_linear_4633_15270" x1="280.096" y1="42.375" x2="280.096" y2="48.465" gradientUnits="userSpaceOnUse">
                   <stop stopColor="#997700" />
-                  <stop offset="1" stopColor="#FFC700" />
+                  <stop offset="1" stopColor="#9100D9" />
                 </linearGradient>
                 <linearGradient id="paint4_linear_4633_15270" x1="280.096" y1="125.125" x2="280.096" y2="139.625" gradientUnits="userSpaceOnUse">
                   <stop stopColor="#997700" />
-                  <stop offset="1" stopColor="#FFC700" />
+                  <stop offset="1" stopColor="#9100D9" />
                 </linearGradient>
               </defs>
             </svg>
@@ -548,8 +548,8 @@ export default async function NewsPage({ params }: NewsPageProps) {
               <p className="text-2xl dark:text-white 2xl:text-[32px] font-rokh dark:text-wrap font-bold">{findByUniqueId(mainData, 1626) || "خبرنامه متاورس"}</p>
               <p className="lg:text-lg dark:text-[#868B90] text-[#656565]">{findByUniqueId(mainData, 1627) || "برای اطلاع از آخرین اخبار، تحلیل ها و مطالب اختصاصی، می توانید در خبرنامه ما عضو شوید.هدف ما ارائه محتوای دقیق، معتبر و به روز است تا همواره از مهم ترین تحولات باخبر باشید. در صورت تمایل، کافی است آدرس ایمیل خود را وارد کنید تا از این پس، به روزترین محتواها و اطلاع رسانی های رسمی را بدون نیاز به مراجعه مداوم به وب سایت، دریافت کنید."}</p>
               <div className="w-full flex flex-col gap-2 gap-y-5 lg:flex-row max-w-3xl">
-                <input type="text" placeholder={findByUniqueId(mainData, 1626) || "آدرس ایمیل"} className="bg-[#F5F5F5] w-full lg:w-[75%] dark:bg-black rounded-xl border-0 ring-1 ring-[#D9D9D9] dark:ring-[#434343] px-4 py-2 focus:outline-none focus:ring-2 focus:ring-light-primary focus:dark:ring-dark-yellow focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-darkGray" />
-                <button className="bg-light-primary font-bold dark:bg-dark-yellow text-white dark:text-black rounded-xl px-5 py-2 lg:w-[25%]">{findByUniqueId(mainData, 2)}</button>
+                <input type="text" placeholder={findByUniqueId(mainData, 1626) || "آدرس ایمیل"} className="bg-[#F5F5F5] w-full lg:w-[75%]  rounded-xl border-0 ring-1 ring-[#D9D9D9] dark:ring-[#434343] px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus: focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-1" />
+                <button className="bg-primary font-bold  text-white dark:text-black rounded-xl px-5 py-2 lg:w-[25%]">{findByUniqueId(mainData, 2)}</button>
               </div>
             </div>
           </div>

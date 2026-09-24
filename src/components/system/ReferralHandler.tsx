@@ -51,7 +51,7 @@ export default function ReferralHandler() {
         localStorage.setItem("isDirectReferral", "true");
 
         axios
-          .post("https://api.metarang.com/api/auth/register", {
+          .post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/register`, {
             referral: referralCode,
             back_url: window.location.href,
           })

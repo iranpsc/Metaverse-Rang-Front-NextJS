@@ -238,7 +238,7 @@ if (!["hm-2000003", "hm-2000007" , "hm-2000001"].includes(loggedInUserData.code.
   };
 
   return (
-    <div className="bg-[#f8f8f8] dark:bg-black w-full px-5 lg:px-10 py-5 dark:text-white">
+    <div className="bg-bg-primary  w-full px-5 lg:px-10 py-5 dark:text-white">
       
       <h1 className="text-2xl font-bold mb-4 mt-20 lg:mt-5  px-2 pb-3">پنل مدیریت مقالات</h1>
       <div className="dark:bg-dark-background  bg-white rounded-3xl">
@@ -246,10 +246,10 @@ if (!["hm-2000003", "hm-2000007" , "hm-2000001"].includes(loggedInUserData.code.
         <form className=" space-y-5" onSubmit={handleAddOrUpdate} style={{ padding: 20,  marginBottom: 40 }}>
           <h2 className="font-semibold mb-2">{editingArticle ? "ویرایش مقاله" : "افزودن مقاله جدید"}</h2>
 
-          <input name="title" placeholder="عنوان" value={form.title} onChange={handleChange} style={{ width: "100%", marginBottom: 10 }} className="rounded-lg py-2 px-3 focus:border-light-primary dark:focus:border-dark-yellow border-lightGray dark:bg-black dark:text-white dark:placeholder:text-white dark:border-dark-gray border focus:border-2 border-solid outline-none" />
-          <input name="slug" placeholder="Slug" value={form.slug} onChange={handleChange} style={{ width: "100%", marginBottom: 10 }} className="rounded-lg py-2 px-3 focus:border-light-primary dark:focus:border-dark-yellow border-lightGray dark:bg-black dark:text-white dark:placeholder:text-white dark:border-dark-gray border focus:border-2 border-solid outline-none" />
-          <input name="readingTime" placeholder="زمان مطالعه" value={form.readingTime} onChange={handleChange} style={{ width: "100%", marginBottom: 10 }} className="rounded-lg py-2 px-3 focus:border-light-primary dark:focus:border-dark-yellow border-lightGray dark:bg-black dark:text-white dark:placeholder:text-white dark:border-dark-gray border focus:border-2 border-solid outline-none" />
-          <input name="image" placeholder="تصویر مقاله" value={form.image} onChange={handleChange} style={{ width: "100%", marginBottom: 10 }} className="rounded-lg py-2 px-3 focus:border-light-primary dark:focus:border-dark-yellow border-lightGray dark:bg-black dark:text-white dark:placeholder:text-white dark:border-dark-gray border focus:border-2 border-solid outline-none" />
+          <input name="title" placeholder="عنوان" value={form.title} onChange={handleChange} style={{ width: "100%", marginBottom: 10 }} className="rounded-lg py-2 px-3 focus:border-primary dark:focus:border-primary border-matn-2  dark:text-white dark:placeholder:text-white  border focus:border-2 border-solid outline-none" />
+          <input name="slug" placeholder="Slug" value={form.slug} onChange={handleChange} style={{ width: "100%", marginBottom: 10 }} className="rounded-lg py-2 px-3 focus:border-primary dark:focus:border-primary border-matn-2  dark:text-white dark:placeholder:text-white  border focus:border-2 border-solid outline-none" />
+          <input name="readingTime" placeholder="زمان مطالعه" value={form.readingTime} onChange={handleChange} style={{ width: "100%", marginBottom: 10 }} className="rounded-lg py-2 px-3 focus:border-primary dark:focus:border-primary border-matn-2  dark:text-white dark:placeholder:text-white  border focus:border-2 border-solid outline-none" />
+          <input name="image" placeholder="تصویر مقاله" value={form.image} onChange={handleChange} style={{ width: "100%", marginBottom: 10 }} className="rounded-lg py-2 px-3 focus:border-primary dark:focus:border-primary border-matn-2  dark:text-white dark:placeholder:text-white  border focus:border-2 border-solid outline-none" />
 
           <h3>توضیحات کوتاه</h3>
           <ReactQuill theme="snow" value={form.description} onChange={(val) => setForm(prev => ({ ...prev, description: val }))} style={{ marginBottom: 10 }} />
@@ -269,7 +269,7 @@ if (!["hm-2000003", "hm-2000007" , "hm-2000001"].includes(loggedInUserData.code.
   placeholder="Category Slug  - اسلاک دسته "
   value={form.categorySlug}
   onChange={handleChange}
-  className="w-full rounded-lg py-2 px-3 mt-2 focus:border-light-primary dark:focus:border-dark-yellow border-lightGray dark:bg-black dark:text-white dark:border-dark-gray border focus:border-2 outline-none"
+  className="w-full rounded-lg py-2 px-3 mt-2 focus:border-primary dark:focus:border-primary border-matn-2  dark:text-white  border focus:border-2 outline-none"
 />
 
           <h3>زیر دسته</h3>
@@ -279,32 +279,32 @@ if (!["hm-2000003", "hm-2000007" , "hm-2000001"].includes(loggedInUserData.code.
             options={allSubCategories.map(c => ({ value: c, label: c }))}
           />
 
-          <input name="categoryImage" placeholder="تصویر دسته" value={form.categoryImage} onChange={handleChange} style={{ width: "100%", marginBottom: 10 }} className="mt-5 rounded-lg py-2 px-3 focus:border-light-primary dark:focus:border-dark-yellow border-lightGray dark:bg-black dark:text-white dark:placeholder:text-white dark:border-dark-gray border focus:border-2 border-solid outline-none" />
-          <input name="categoryDec" placeholder="توضیح دسته" value={form.categoryDec} onChange={handleChange} style={{ width: "100%", marginBottom: 10 }} className="rounded-lg py-2 px-3 focus:border-light-primary dark:focus:border-dark-yellow border-lightGray dark:bg-black dark:text-white dark:placeholder:text-white dark:border-dark-gray border focus:border-2 border-solid outline-none" />
-          <input name="date" placeholder="تاریخ انتشار" value={form.date} onChange={handleChange} style={{ width: "100%", marginBottom: 10 }} className="rounded-lg py-2 px-3 focus:border-light-primary dark:focus:border-dark-yellow border-lightGray dark:bg-black dark:text-white dark:placeholder:text-white dark:border-dark-gray border focus:border-2 border-solid outline-none" />
+          <input name="categoryImage" placeholder="تصویر دسته" value={form.categoryImage} onChange={handleChange} style={{ width: "100%", marginBottom: 10 }} className="mt-5 rounded-lg py-2 px-3 focus:border-primary dark:focus:border-primary border-matn-2  dark:text-white dark:placeholder:text-white  border focus:border-2 border-solid outline-none" />
+          <input name="categoryDec" placeholder="توضیح دسته" value={form.categoryDec} onChange={handleChange} style={{ width: "100%", marginBottom: 10 }} className="rounded-lg py-2 px-3 focus:border-primary dark:focus:border-primary border-matn-2  dark:text-white dark:placeholder:text-white  border focus:border-2 border-solid outline-none" />
+          <input name="date" placeholder="تاریخ انتشار" value={form.date} onChange={handleChange} style={{ width: "100%", marginBottom: 10 }} className="rounded-lg py-2 px-3 focus:border-primary dark:focus:border-primary border-matn-2  dark:text-white dark:placeholder:text-white  border focus:border-2 border-solid outline-none" />
 
           <h3>اطلاعات نویسنده</h3>
-          <input className="rounded-lg py-2 px-3 focus:border-light-primary dark:focus:border-dark-yellow border-lightGray dark:bg-textGray dark:text-white dark:placeholder:text-white dark:border-dark-gray border focus:border-2 border-solid outline-none" placeholder="نام" value={form.author.name} onChange={(e) => handleAuthorChange("name", e.target.value)} style={{ width: "100%", marginBottom: 10 }} />
-          <input placeholder="شناسه" value={form.author.citizenId} onChange={(e) => handleAuthorChange("citizenId", e.target.value)} style={{ width: "100%", marginBottom: 10 }} className="rounded-lg py-2 px-3 focus:border-light-primary dark:focus:border-dark-yellow border-lightGray dark:bg-black dark:text-white dark:placeholder:text-white dark:border-dark-gray border focus:border-2 border-solid outline-none" />
-          <input placeholder="آواتار" value={form.author.avatar} onChange={(e) => handleAuthorChange("avatar", e.target.value)} style={{ width: "100%", marginBottom: 10 }} className="rounded-lg py-2 px-3 focus:border-light-primary dark:focus:border-dark-yellow border-lightGray dark:bg-black dark:text-white dark:placeholder:text-white dark:border-dark-gray border focus:border-2 border-solid outline-none" />
-          <input placeholder="حوزه فعالیت" value={form.author.field} onChange={(e) => handleAuthorChange("field", e.target.value)} style={{ width: "100%", marginBottom: 10 }} className="rounded-lg py-2 px-3 focus:border-light-primary dark:focus:border-dark-yellow border-lightGray dark:bg-black dark:text-white dark:placeholder:text-white dark:border-dark-gray border focus:border-2 border-solid outline-none" />
-          <input placeholder="بیوگرافی" value={form.author.bio} onChange={(e) => handleAuthorChange("bio", e.target.value)} style={{ width: "100%", marginBottom: 10 }} className="rounded-lg py-2 px-3 focus:border-light-primary dark:focus:border-dark-yellow border-lightGray dark:bg-black dark:text-white dark:placeholder:text-white dark:border-dark-gray border focus:border-2 border-solid outline-none" />
-          <input placeholder="تلگرام" value={form.author.socials.telegram} onChange={(e) => handleAuthorChange("telegram", e.target.value, true)} style={{ width: "100%", marginBottom: 10 }} className="rounded-lg py-2 px-3 focus:border-light-primary dark:focus:border-dark-yellow border-lightGray dark:bg-black dark:text-white dark:placeholder:text-white dark:border-dark-gray border focus:border-2 border-solid outline-none" />
-          <input placeholder="واتساپ" value={form.author.socials.whatsapp} onChange={(e) => handleAuthorChange("whatsapp", e.target.value, true)} style={{ width: "100%", marginBottom: 10 }} className="rounded-lg py-2 px-3 focus:border-light-primary dark:focus:border-dark-yellow border-lightGray dark:bg-black dark:text-white dark:placeholder:text-white dark:border-dark-gray border focus:border-2 border-solid outline-none" />
-          <input placeholder="ایمیل" value={form.author.socials.email} onChange={(e) => handleAuthorChange("email", e.target.value, true)} style={{ width: "100%", marginBottom: 10 }} className="rounded-lg py-2 px-3 focus:border-light-primary dark:focus:border-dark-yellow border-lightGray dark:bg-black dark:text-white dark:placeholder:text-white dark:border-dark-gray border focus:border-2 border-solid outline-none" />
+          <input className="rounded-lg py-2 px-3 focus:border-primary dark:focus:border-primary border-matn-2 dark:bg-matn-2 dark:text-white dark:placeholder:text-white  border focus:border-2 border-solid outline-none" placeholder="نام" value={form.author.name} onChange={(e) => handleAuthorChange("name", e.target.value)} style={{ width: "100%", marginBottom: 10 }} />
+          <input placeholder="شناسه" value={form.author.citizenId} onChange={(e) => handleAuthorChange("citizenId", e.target.value)} style={{ width: "100%", marginBottom: 10 }} className="rounded-lg py-2 px-3 focus:border-primary dark:focus:border-primary border-matn-2  dark:text-white dark:placeholder:text-white  border focus:border-2 border-solid outline-none" />
+          <input placeholder="آواتار" value={form.author.avatar} onChange={(e) => handleAuthorChange("avatar", e.target.value)} style={{ width: "100%", marginBottom: 10 }} className="rounded-lg py-2 px-3 focus:border-primary dark:focus:border-primary border-matn-2  dark:text-white dark:placeholder:text-white  border focus:border-2 border-solid outline-none" />
+          <input placeholder="حوزه فعالیت" value={form.author.field} onChange={(e) => handleAuthorChange("field", e.target.value)} style={{ width: "100%", marginBottom: 10 }} className="rounded-lg py-2 px-3 focus:border-primary dark:focus:border-primary border-matn-2  dark:text-white dark:placeholder:text-white  border focus:border-2 border-solid outline-none" />
+          <input placeholder="بیوگرافی" value={form.author.bio} onChange={(e) => handleAuthorChange("bio", e.target.value)} style={{ width: "100%", marginBottom: 10 }} className="rounded-lg py-2 px-3 focus:border-primary dark:focus:border-primary border-matn-2  dark:text-white dark:placeholder:text-white  border focus:border-2 border-solid outline-none" />
+          <input placeholder="تلگرام" value={form.author.socials.telegram} onChange={(e) => handleAuthorChange("telegram", e.target.value, true)} style={{ width: "100%", marginBottom: 10 }} className="rounded-lg py-2 px-3 focus:border-primary dark:focus:border-primary border-matn-2  dark:text-white dark:placeholder:text-white  border focus:border-2 border-solid outline-none" />
+          <input placeholder="واتساپ" value={form.author.socials.whatsapp} onChange={(e) => handleAuthorChange("whatsapp", e.target.value, true)} style={{ width: "100%", marginBottom: 10 }} className="rounded-lg py-2 px-3 focus:border-primary dark:focus:border-primary border-matn-2  dark:text-white dark:placeholder:text-white  border focus:border-2 border-solid outline-none" />
+          <input placeholder="ایمیل" value={form.author.socials.email} onChange={(e) => handleAuthorChange("email", e.target.value, true)} style={{ width: "100%", marginBottom: 10 }} className="rounded-lg py-2 px-3 focus:border-primary dark:focus:border-primary border-matn-2  dark:text-white dark:placeholder:text-white  border focus:border-2 border-solid outline-none" />
 
           <h3>تگ‌ها</h3>
           {form.tags.map((tag, i) => (
             <div key={i} style={{ display: "flex", gap: 10, marginBottom: 10 }}>
-              <input placeholder="Label" value={tag.label} onChange={(e) => handleTagChange(i, "label", e.target.value)} className="rounded-lg py-2 px-3 focus:border-light-primary dark:focus:border-dark-yellow border-lightGray dark:bg-black dark:text-white dark:placeholder:text-white dark:border-dark-gray border focus:border-2 border-solid outline-none" />
-              <input placeholder="Slug" value={tag.slug} onChange={(e) => handleTagChange(i, "slug", e.target.value)} className="rounded-lg py-2 px-3 focus:border-light-primary dark:focus:border-dark-yellow border-lightGray dark:bg-black dark:text-white dark:placeholder:text-white dark:border-dark-gray border focus:border-2 border-solid outline-none" />
+              <input placeholder="Label" value={tag.label} onChange={(e) => handleTagChange(i, "label", e.target.value)} className="rounded-lg py-2 px-3 focus:border-primary dark:focus:border-primary border-matn-2  dark:text-white dark:placeholder:text-white  border focus:border-2 border-solid outline-none" />
+              <input placeholder="Slug" value={tag.slug} onChange={(e) => handleTagChange(i, "slug", e.target.value)} className="rounded-lg py-2 px-3 focus:border-primary dark:focus:border-primary border-matn-2  dark:text-white dark:placeholder:text-white  border focus:border-2 border-solid outline-none" />
               <button type="button" onClick={() => handleRemoveTag(i)} className="bg-red-600 text-white rounded-lg px-2 py-1">حذف</button>
             </div>
           ))}
           <button className="bg-pink-600 text-white rounded-lg px-4 py-1" type="button" onClick={handleAddTag}>افزودن تگ</button>
 
           <div className="flex items-center gap-4 mt-5">
-            <button className="bg-light-primary text-white rounded-lg px-4 py-2" type="submit" >{editingArticle ? "ذخیره تغییرات" : "افزودن مقاله"}</button>
+            <button className="bg-primary text-white rounded-lg px-4 py-2" type="submit" >{editingArticle ? "ذخیره تغییرات" : "افزودن مقاله"}</button>
             {editingArticle && (
               <button
                 type="button"

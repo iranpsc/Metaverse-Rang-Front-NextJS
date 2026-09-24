@@ -14,14 +14,14 @@ const RepeatCommentSection = ({ mainData, type }: any) => {
     }
     `}
     >
-      <span className="text-blueLink dark:text-dark-yellow font-azarMehr text-singleVideo_medium font-normal">
+      <span className="text-primary  font-azarMehr text-singleVideo_medium font-normal">
         {/* {checkData(
           translateSingleVideo.find((item: any) => item.name === "response")
             ?.translation
         )} */}
         {findByUniqueId(mainData, 458)}
       </span>
-      <Repeat className="size-[24px] stroke-blueLink dark:stroke-dark-yellow" />
+      <Repeat className="size-[24px] stroke-primary dark:stroke-primary" />
     </div>
   );
 };

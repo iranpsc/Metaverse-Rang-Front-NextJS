@@ -111,7 +111,7 @@ export default function WhyMetarang({
                             borderClassName="text-white dark:text-neutral-800"
                             borderWidth={1}
                             corner={params.lang == "fa" ? "tl" : "tr"}
-                            className="text-white  dark:text-[#1A1A18] rounded-xl lg:rounded-[32px]  items-center justify-center  lg:p-10 w-full "
+                            className="text-white  dark:text-gray-1  rounded-xl lg:rounded-[32px]  items-center justify-center  lg:p-10 w-full "
                         >
                             <div className=" h-full items-center  px-5 pt-5 lg:pt-0  lg:px-10">
                                 <div className="text-5xl md:text-7xl lg:text-9xl uppercase tracking-[.2em] text-black dark:text-white">
@@ -181,7 +181,7 @@ style={{
                                     </div>
                                 </div>
                                 <Image
-                                    src="/logo.png"
+                                    src="https://s3.metarang.com/metarang/logo/metarang-logo-512.png"
                                     alt="Logo"
                                     width={45}
                                     height={35}
@@ -240,7 +240,7 @@ style={{
                                 </div>
 
                                                                                             <Image
-                                    src="/logo.png"
+                                    src="https://s3.metarang.com/metarang/logo/metarang-logo-512.png"
                                     alt="Logo"
                                     width={25}
                                     height={25}

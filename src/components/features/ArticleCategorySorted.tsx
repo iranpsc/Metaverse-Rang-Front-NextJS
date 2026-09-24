@@ -99,7 +99,7 @@ export default function CategoryClient({ articles, category, params, mainData }:
               setVisibleCount(9);
             }}
             className={`px-4 py-2 rounded-lg transition ${activeSub === null
-              ? "dark:border-dark-yellow border border-solid border-light-primary text-light-primary  dark:text-dark-yellow dark:bg-[#0E0E0E] bg-white"
+              ? " border border-solid border-primary text-primary   dark:bg-[#0E0E0E] bg-white"
               : "bg-white border border-solid border-[#D9D9D9] dark:border-[#434343] dark:bg-[#0E0E0E] text-[#A0A0A0] dark:text-white"
               }`}
           >
@@ -113,7 +113,7 @@ export default function CategoryClient({ articles, category, params, mainData }:
                 setVisibleCount(9);
               }}
               className={`px-4 py-2 rounded-lg transition ${activeSub === sub
-                ? "dark:border-dark-yellow border border-solid border-light-primary text-light-primary  dark:text-dark-yellow dark:bg-[#0E0E0E] bg-white"
+                ? " border border-solid border-primary text-primary   dark:bg-[#0E0E0E] bg-white"
                 : "bg-white border border-solid border-[#D9D9D9] dark:border-[#434343] dark:bg-[#0E0E0E] text-[#A0A0A0] dark:text-white"
                 }`}
             >
@@ -128,7 +128,7 @@ export default function CategoryClient({ articles, category, params, mainData }:
       </p>
 
       {displayedArticles.length === 0 ? (
-        <p className="text-gray-500 dark:text-gray-400">هیچ مقاله‌ای یافت نشد.</p>
+        <p className="matn-2-500 dark:tmatn-2-400">هیچ مقاله‌ای یافت نشد.</p>
       ) : (
         <>
           {/* ✅ استفاده از ArticleCard به جای کد تکراری */}
@@ -148,7 +148,7 @@ export default function CategoryClient({ articles, category, params, mainData }:
             <div className="flex justify-center mt-10">
               <button
                 onClick={handleLoadMore}
-                className="bg-white dark:bg-darkGray text-light-primary md:text-lg dark:text-dark-yellow rounded-[12px] px-[40px] py-[16px] base-transition-1 border-2 border-transparent hover:border-light-primary hover:text-light-primary hover:dark:border-dark-yellow"
+                className="bg-white dark:bg-gray-1 text-primary md:text-lg  rounded-[12px] px-[40px] py-[16px] base-transition-1 border-2 border-transparent hover:border-primary hover:text-primary hover:"
               >
                 {findByUniqueId(mainData, 1456)}
               </button>

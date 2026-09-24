@@ -1,6 +1,6 @@
 "use client";
 
-import Tooltip from "@mui/material/Tooltip";
+import Tooltip from "./SidebarTooltip";
 import ListMenuSvgModule from "./list/ListMenuSvgModule";
 import ListMenuTitleModule from "./list/ListMenuTitleModule";
 import ListMenuArrow from "./list/ListMenuArrow";
@@ -121,32 +121,8 @@ export default function SideBarContent({
               {item.menuItem === true && (
                 <li onMouseDown={(e) => handleItemMouseDown(e, item)}>
                   <Tooltip
-
-                    arrow
-                    placement={
-                      langData.direction === "rtl" ? "left-end" : "right-end"
-                    }
-                    slotProps={{
-                      tooltip: {
-                        className: `
-                        !bg-[#E9E9E9] !text-[#908F95] dark:!bg-[#434343] !font-azarMehr !font-medium  dark:!text-white !text-[14px] 
-                        ${isClosed ? "block" : "hidden"}
-                      `,
-                      },
-                      arrow: {
-                        className: `
-                    !text-[#E9E9E9] dark:!text-[#434343] mt-[-7px]
-                  `,
-                      },
-                    }}
-                    PopperProps={{
-                      modifiers: [
-                        {
-                          name: "offset",
-                          options: { offset: [-20, 0] },
-                        },
-                      ],
-                    }}
+                    title={item.translation || ""}
+                    enabled={isClosed}
                   >
                     {item.route_name && item.route_name !== "language" ? (
                       <div className="px-2 flex cursor-pointer flex-col items-center box-border menu-transition">
@@ -159,7 +135,7 @@ export default function SideBarContent({
                               <ActiveMenuIcon
                                 className={` ${isClosed ? "w-[10px] pr-[17px]" : ""}  ${activeNav === item?.route_name
 
-                                  } visible  h-[35px] absolute start-0 fill-blueLink dark:fill-dark-yellow pr-[20px] w-[25px] rtl:rotate-180 `}
+                                  } visible  h-[35px] absolute start-0 fill-primary dark:fill-primary pr-[20px] w-[25px] rtl:rotate-180 `}
                               />
                               <span className="flex">
                                 <ListMenuSvgModule
@@ -206,7 +182,7 @@ export default function SideBarContent({
                   <div onClick={handleLangBtn} data-tooltip-id={item.name}>
                     <div
                       className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px] px-3
-                    group-hover:text-[#0066FF] dark:group-hover:text-[#FFC700] cursor-pointer menu-transition
+                    group-hover:text-primary dark:group-hover:text-primary cursor-pointer menu-transition
                     ${isClosed ? "justify-start items-center " : "justify-start items-center"
                         }`}
                     >
@@ -232,7 +208,7 @@ export default function SideBarContent({
                   <div
                     className={`${langDropDown ? "h-fit" : "h-0 overflow-hidden"
                       }
-                  base-transition-1 bg-Field dark:bg-darkGray`}
+                  base-transition-1 bg-Field dark:bg-gray-1`}
                   >
                     <DropdownLanguageModule
                       languagesData={langData}

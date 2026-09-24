@@ -16,8 +16,8 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
     return (
         <div>
             <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-10 ">
-                <div className="w-full bg-white dark:bg-[#1A1A18] border border-[#D9D9D9] dark:border-[#434343] border-solid flex flex-col px-[32px] py-6 rounded-lg gap-5">
-                    <div className="w-[60px] h-[60px] rounded-full bg-[#0066FF1A] dark:bg-[#FFC7001A] flex items-center justify-center mx-auto">
+                <div className="w-full bg-white dark:bg-gray-1  border border-[#D9D9D9] dark:border-[#434343] border-solid flex flex-col px-[32px] py-6 rounded-lg gap-5">
+                    <div className="w-[60px] h-[60px] rounded-full bg-[#9100D91A] dark:bg-[#9100D91A] flex items-center justify-center mx-auto">
 
                         <svg className="dark:hidden" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M26.25 10.6875H20.25C19.7375 10.6875 19.3125 10.2625 19.3125 9.75V3.75C19.3125 3.2375 19.7375 2.8125 20.25 2.8125C20.7625 2.8125 21.1875 3.2375 21.1875 3.75V8.8125H26.25C26.7625 8.8125 27.1875 9.2375 27.1875 9.75C27.1875 10.2625 26.7625 10.6875 26.25 10.6875Z" fill="url(#paint0_linear_4474_2611)" />
@@ -25,15 +25,15 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
                             <path d="M27.4625 22.9094C27.4625 23.2594 27.4 23.6219 27.275 23.9719C27.2375 24.0719 27.2 24.1719 27.15 24.2719C26.9375 24.7219 26.6625 25.1469 26.3 25.5469C25.6875 26.2219 25.0125 26.7094 24.25 27.0219C24.2375 27.0219 24.225 27.0344 24.2125 27.0344C23.475 27.3344 22.675 27.4969 21.8125 27.4969C20.5375 27.4969 19.175 27.1969 17.7375 26.5844C16.3 25.9719 14.8625 25.1469 13.4375 24.1094C12.95 23.7469 12.4625 23.3844 12 22.9969L16.0875 18.9094C16.4375 19.1719 16.75 19.3719 17.0125 19.5094C17.075 19.5344 17.15 19.5719 17.2375 19.6094C17.3375 19.6469 17.4375 19.6594 17.55 19.6594C17.7625 19.6594 17.925 19.5844 18.0625 19.4469L19.0125 18.5094C19.325 18.1969 19.625 17.9594 19.9125 17.8094C20.2 17.6344 20.4875 17.5469 20.8 17.5469C21.0375 17.5469 21.2875 17.5969 21.5625 17.7094C21.8375 17.8219 22.125 17.9844 22.4375 18.1969L26.575 21.1344C26.9 21.3594 27.125 21.6219 27.2625 21.9344C27.3875 22.2469 27.4625 22.5594 27.4625 22.9094Z" fill="url(#paint2_linear_4474_2611)" />
                             <defs>
                                 <linearGradient id="paint0_linear_4474_2611" x1="23.25" y1="2.8125" x2="23.25" y2="10.6875" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#0066FF" />
+                                    <stop stop-color="#9100D9" />
                                     <stop offset="1" stop-color="#B8D4FF" />
                                 </linearGradient>
                                 <linearGradient id="paint1_linear_4474_2611" x1="8.34065" y1="2.5" x2="8.34065" y2="21.3672" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#0066FF" />
+                                    <stop stop-color="#9100D9" />
                                     <stop offset="1" stop-color="#B8D4FF" />
                                 </linearGradient>
                                 <linearGradient id="paint2_linear_4474_2611" x1="19.7312" y1="17.5469" x2="19.7312" y2="27.4969" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#0066FF" />
+                                    <stop stop-color="#9100D9" />
                                     <stop offset="1" stop-color="#B8D4FF" />
                                 </linearGradient>
                             </defs>
@@ -45,15 +45,15 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
                             <path d="M27.4625 22.9094C27.4625 23.2594 27.4 23.6219 27.275 23.9719C27.2375 24.0719 27.2 24.1719 27.15 24.2719C26.9375 24.7219 26.6625 25.1469 26.3 25.5469C25.6875 26.2219 25.0125 26.7094 24.25 27.0219C24.2375 27.0219 24.225 27.0344 24.2125 27.0344C23.475 27.3344 22.675 27.4969 21.8125 27.4969C20.5375 27.4969 19.175 27.1969 17.7375 26.5844C16.3 25.9719 14.8625 25.1469 13.4375 24.1094C12.95 23.7469 12.4625 23.3844 12 22.9969L16.0875 18.9094C16.4375 19.1719 16.75 19.3719 17.0125 19.5094C17.075 19.5344 17.15 19.5719 17.2375 19.6094C17.3375 19.6469 17.4375 19.6594 17.55 19.6594C17.7625 19.6594 17.925 19.5844 18.0625 19.4469L19.0125 18.5094C19.325 18.1969 19.625 17.9594 19.9125 17.8094C20.2 17.6344 20.4875 17.5469 20.8 17.5469C21.0375 17.5469 21.2875 17.5969 21.5625 17.7094C21.8375 17.8219 22.125 17.9844 22.4375 18.1969L26.575 21.1344C26.9 21.3594 27.125 21.6219 27.2625 21.9344C27.3875 22.2469 27.4625 22.5594 27.4625 22.9094Z" fill="url(#paint2_linear_4474_8497)" />
                             <defs>
                                 <linearGradient id="paint0_linear_4474_8497" x1="23.25" y1="2.8125" x2="23.25" y2="10.6875" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#FFC700" />
+                                    <stop stop-color="#9100D9" />
                                     <stop offset="1" stop-color="#FFE794" />
                                 </linearGradient>
                                 <linearGradient id="paint1_linear_4474_8497" x1="8.34065" y1="2.5" x2="8.34065" y2="21.3672" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#FFC700" />
+                                    <stop stop-color="#9100D9" />
                                     <stop offset="1" stop-color="#FFE794" />
                                 </linearGradient>
                                 <linearGradient id="paint2_linear_4474_8497" x1="19.7312" y1="17.5469" x2="19.7312" y2="27.4969" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#FFC700" />
+                                    <stop stop-color="#9100D9" />
                                     <stop offset="1" stop-color="#FFE794" />
                                 </linearGradient>
                             </defs>
@@ -62,7 +62,7 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
 
                     </div>
                     <div className="border-b border-solid border-[#D9D9D9] pb-5 dark:border-[#434343] border-x-0 border-t-0 space-y-3 text-center md:px-5">
-                        <p className="text-[#1A1A18] dark:text-white text-base md:text-xl font-bold">{findByUniqueId(mainData, 1536)}</p>
+                        <p className="text-gray-1  dark:text-white text-base md:text-xl font-bold">{findByUniqueId(mainData, 1536)}</p>
                         <p className="text-[#84858F] dark:text-[#84858F] text-base md:text-xl">{findByUniqueId(mainData, 1537)}</p>
                     </div>
                     <div className="flex w-full flex-col-reverse md:flex-row gap-y-5 justify-around items-center">
@@ -73,7 +73,7 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
                                     : "https://t.me/FA_MetarangPath"
                             }
                             target="_blank"
-                            className="bg-light-primary dark:bg-dark-yellow text-white dark:text-black w-[60%] md:w-max text-center px-5 py-3 rounded-[10px] text-sm font-bold"
+                            className="bg-primary  text-white dark:text-black w-[60%] md:w-max text-center px-5 py-3 rounded-[10px] text-sm font-bold"
                         >
                             {findByUniqueId(mainData, 1613)}
                         </a>
@@ -83,24 +83,24 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
                                 params.lang.toLowerCase() === "en"
                                     ? "Https://s3.metarang.com/metarang/pdf/MetaRang_Strategic_Partnership_Guide.pdf"
                                     : "Https://s3.metarang.com/metarang/pdf/Metarang_A_New_Economic_Dimension (1).pdf"
-                            }  className="bg-light-primary dark:bg-dark-yellow text-white dark:text-black w-full text-center px-5 py-3 rounded-[10px] text-sm font-bold">
+                            }  className="bg-primary  text-white dark:text-black w-full text-center px-5 py-3 rounded-[10px] text-sm font-bold">
                                 {findByUniqueId(mainData, 1614)}
                             </a>
                         </div>
                     </div>
                 </div>
-                <div className="w-full bg-white dark:bg-[#1A1A18] border border-[#D9D9D9] dark:border-[#434343] border-solid flex flex-col px-[32px] py-6 rounded-lg gap-5">
-                    <div className="w-[60px] h-[60px] rounded-full bg-[#0066FF1A] dark:bg-[#FFC7001A] flex items-center justify-center mx-auto">
+                <div className="w-full bg-white dark:bg-gray-1  border border-[#D9D9D9] dark:border-[#434343] border-solid flex flex-col px-[32px] py-6 rounded-lg gap-5">
+                    <div className="w-[60px] h-[60px] rounded-full bg-[#9100D91A] dark:bg-[#9100D91A] flex items-center justify-center mx-auto">
                         <svg className="dark:hidden" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M23.8999 18.6719L24.2999 19.4844C24.4999 19.8844 25.0124 20.2594 25.4374 20.3344L25.9749 20.4219C27.6124 20.6969 27.9874 21.8969 26.8249 23.0719L26.3249 23.5719C25.9874 23.9094 25.8124 24.5594 25.9124 25.0344L25.9749 25.3344C26.4249 27.3094 25.3749 28.0719 23.6624 27.0344L23.2999 26.8094C22.8624 26.5469 22.1374 26.5469 21.6999 26.8094L21.3374 27.0344C19.6124 28.0719 18.5749 27.3094 19.0249 25.3344L19.0874 25.0344C19.1874 24.5719 19.0124 23.9094 18.6749 23.5719L18.1749 23.0719C17.0124 21.8844 17.3874 20.6969 19.0249 20.4219L19.5624 20.3344C19.9999 20.2594 20.4999 19.8844 20.6999 19.4844L21.0999 18.6719C21.8749 17.1094 23.1249 17.1094 23.8999 18.6719Z" fill="url(#paint0_linear_4477_2761)" />
                             <path d="M20.2375 2.5H9.7625C5.2125 2.5 2.5 5.2125 2.5 9.7625V20.2375C2.5 24.7875 5.2125 27.5 9.7625 27.5H16.3625C16.8 27.5 17.1125 27.05 17.0625 26.6125C17.0125 26.1375 17.0375 25.575 17.1875 24.925C17.2125 24.8375 17.1875 24.7375 17.1125 24.6625L16.8375 24.3875C15.775 23.3125 15.3875 22.0125 15.7625 20.825C16.15 19.65 17.225 18.825 18.7125 18.575L19.0875 18.5125L19.425 17.8375C20.1125 16.4375 21.2375 15.625 22.5 15.625C23.7625 15.625 24.8875 16.4375 25.575 17.8375L25.7625 18.225C25.85 18.4125 26.025 18.5375 26.225 18.575C26.3375 18.6 26.45 18.625 26.5625 18.65C27 18.7625 27.5 18.4125 27.5 17.95V9.7625C27.5 5.2125 24.7875 2.5 20.2375 2.5ZM20.325 11.2L17.4375 14.925C17.075 15.3875 16.5625 15.6875 15.975 15.75C15.4 15.825 14.8125 15.6625 14.3625 15.3L12.075 13.525C11.9875 13.45 11.8875 13.45 11.8375 13.4625C11.7875 13.4625 11.7 13.4875 11.625 13.5875L8.65 17.45C8.4625 17.6875 8.1875 17.8125 7.9 17.8125C7.7 17.8125 7.5 17.75 7.325 17.6125C6.9125 17.3 6.8375 16.7125 7.15 16.3L10.125 12.4375C10.4875 11.975 11 11.675 11.5875 11.6C12.175 11.525 12.75 11.6875 13.2125 12.05L15.5 13.85C15.5875 13.925 15.675 13.9125 15.7375 13.9125C15.7875 13.9125 15.875 13.8875 15.95 13.7875L18.8375 10.0625C19.15 9.65 19.7375 9.575 20.15 9.9C20.575 10.2125 20.6375 10.8 20.325 11.2Z" fill="url(#paint1_linear_4477_2761)" />
                             <defs>
                                 <linearGradient id="paint0_linear_4477_2761" x1="22.4999" y1="17.5" x2="22.4999" y2="27.498" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#0066FF" />
+                                    <stop stop-color="#9100D9" />
                                     <stop offset="1" stop-color="#B8D4FF" />
                                 </linearGradient>
                                 <linearGradient id="paint1_linear_4477_2761" x1="15" y1="2.5" x2="15" y2="27.5" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#0066FF" />
+                                    <stop stop-color="#9100D9" />
                                     <stop offset="1" stop-color="#B8D4FF" />
                                 </linearGradient>
                             </defs>
@@ -110,18 +110,18 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
                             <path d="M20.2375 2.5H9.7625C5.2125 2.5 2.5 5.2125 2.5 9.7625V20.2375C2.5 24.7875 5.2125 27.5 9.7625 27.5H16.3625C16.8 27.5 17.1125 27.05 17.0625 26.6125C17.0125 26.1375 17.0375 25.575 17.1875 24.925C17.2125 24.8375 17.1875 24.7375 17.1125 24.6625L16.8375 24.3875C15.775 23.3125 15.3875 22.0125 15.7625 20.825C16.15 19.65 17.225 18.825 18.7125 18.575L19.0875 18.5125L19.425 17.8375C20.1125 16.4375 21.2375 15.625 22.5 15.625C23.7625 15.625 24.8875 16.4375 25.575 17.8375L25.7625 18.225C25.85 18.4125 26.025 18.5375 26.225 18.575C26.3375 18.6 26.45 18.625 26.5625 18.65C27 18.7625 27.5 18.4125 27.5 17.95V9.7625C27.5 5.2125 24.7875 2.5 20.2375 2.5ZM20.325 11.2L17.4375 14.925C17.075 15.3875 16.5625 15.6875 15.975 15.75C15.4 15.825 14.8125 15.6625 14.3625 15.3L12.075 13.525C11.9875 13.45 11.8875 13.45 11.8375 13.4625C11.7875 13.4625 11.7 13.4875 11.625 13.5875L8.65 17.45C8.4625 17.6875 8.1875 17.8125 7.9 17.8125C7.7 17.8125 7.5 17.75 7.325 17.6125C6.9125 17.3 6.8375 16.7125 7.15 16.3L10.125 12.4375C10.4875 11.975 11 11.675 11.5875 11.6C12.175 11.525 12.75 11.6875 13.2125 12.05L15.5 13.85C15.5875 13.925 15.675 13.9125 15.7375 13.9125C15.7875 13.9125 15.875 13.8875 15.95 13.7875L18.8375 10.0625C19.15 9.65 19.7375 9.575 20.15 9.9C20.575 10.2125 20.6375 10.8 20.325 11.2Z" fill="url(#paint1_linear_4477_8542)" />
                             <defs>
                                 <linearGradient id="paint0_linear_4477_8542" x1="22.5" y1="17.5" x2="22.5" y2="27.498" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#FFC700" />
+                                    <stop stop-color="#9100D9" />
                                     <stop offset="1" stop-color="#FFE794" />
                                 </linearGradient>
                                 <linearGradient id="paint1_linear_4477_8542" x1="15" y1="2.5" x2="15" y2="27.5" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#FFC700" />
+                                    <stop stop-color="#9100D9" />
                                     <stop offset="1" stop-color="#FFE794" />
                                 </linearGradient>
                             </defs>
                         </svg>
                     </div>
                     <div className="border-b border-solid border-[#D9D9D9] pb-5 dark:border-[#434343] border-x-0 border-t-0 space-y-3 text-center md:px-5">
-                        <p className="text-[#1A1A18] dark:text-white text-base md:text-xl font-bold">{findByUniqueId(mainData, 1538)}</p>
+                        <p className="text-gray-1  dark:text-white text-base md:text-xl font-bold">{findByUniqueId(mainData, 1538)}</p>
                         <p className="text-[#84858F] dark:text-[#84858F] text-base md:text-xl">{findByUniqueId(mainData, 1539)}</p>
                     </div>
                     <div className="flex w-full flex-col-reverse md:flex-row gap-y-5 justify-around items-center">
@@ -132,7 +132,7 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
                                     : "https://t.me/FA_MetarangB2B"
                             }
                             target="_blank"
-                            className="bg-light-primary dark:bg-dark-yellow text-white dark:text-black w-[60%] md:w-max text-center px-5 py-3 rounded-[10px] text-sm font-bold"
+                            className="bg-primary  text-white dark:text-black w-[60%] md:w-max text-center px-5 py-3 rounded-[10px] text-sm font-bold"
                         >
                             {findByUniqueId(mainData, 1613)}
                         </a>
@@ -141,25 +141,25 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
                             <a target="_blank"  href={params.lang.toLowerCase() === "en"
                                     ? "Https://s3.metarang.com/metarang/pdf/Metarange_Enterprise_Future.pdf"
                                     : "Https://s3.metarang.com/metarang/pdf/Metarang_Business_Development_Gateway.pdf"
-                            } className="bg-light-primary dark:bg-dark-yellow text-white dark:text-black  text-center px-5 py-3 rounded-[10px] text-sm font-bold  w-full">
+                            } className="bg-primary  text-white dark:text-black  text-center px-5 py-3 rounded-[10px] text-sm font-bold  w-full">
                                 {findByUniqueId(mainData, 1614)}
                             </a>
                         </div>
                     </div>
                 </div>
-                <div className="w-full bg-white dark:bg-[#1A1A18] border border-[#D9D9D9] dark:border-[#434343] border-solid flex flex-col px-[32px] py-6 rounded-lg gap-5">
-                    <div className="w-[60px] h-[60px] rounded-full bg-[#0066FF1A] dark:bg-[#FFC7001A] flex items-center justify-center mx-auto">
+                <div className="w-full bg-white dark:bg-gray-1  border border-[#D9D9D9] dark:border-[#434343] border-solid flex flex-col px-[32px] py-6 rounded-lg gap-5">
+                    <div className="w-[60px] h-[60px] rounded-full bg-[#9100D91A] dark:bg-[#9100D91A] flex items-center justify-center mx-auto">
 
                         <svg className="dark:hidden" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M9.74981 27.6844C6.4373 27.6844 3.7373 24.9969 3.7373 21.6719V18.1219C3.7373 17.2844 4.5623 16.7219 5.3498 16.9969C5.6748 17.1094 5.9998 17.1844 6.3373 17.2344C6.4873 17.2594 6.6373 17.2844 6.7873 17.2844C6.9748 17.3094 7.1748 17.3219 7.3623 17.3219C8.7498 17.3219 10.1248 16.8094 11.2123 15.9219C12.2498 16.8094 13.5873 17.3219 15.0123 17.3219C16.4373 17.3219 17.7623 16.8344 18.7998 15.9344C19.8748 16.8094 21.2248 17.3219 22.5998 17.3219C22.8123 17.3219 23.0373 17.3094 23.2373 17.2844C23.3873 17.2719 23.5123 17.2594 23.6498 17.2344C24.0248 17.1844 24.3623 17.0844 24.6998 16.9719C25.4748 16.7094 26.2873 17.2844 26.2873 18.0969V21.6719C26.2873 24.9844 23.5998 27.6844 20.2748 27.6844H9.74981Z" fill="url(#paint0_linear_4477_7584)" />
                             <path d="M27.4748 10.7375L27.1248 7.4125C26.6248 3.7875 24.9748 2.3125 21.4498 2.3125H18.6248H16.8498H13.1998H11.4123H8.52482C4.99982 2.3125 3.36232 3.7875 2.84982 7.45L2.52482 10.75C2.39982 12.0375 2.74982 13.2875 3.51232 14.2625C4.42482 15.45 5.82482 16.125 7.38731 16.125C8.89982 16.125 10.3498 15.3625 11.2623 14.15C12.0748 15.3625 13.4748 16.125 15.0248 16.125C16.5748 16.125 17.9373 15.4 18.7623 14.2C19.6873 15.3875 21.1123 16.125 22.6123 16.125C24.2123 16.125 25.6498 15.4125 26.5498 14.1625C27.2748 13.2 27.5998 11.9875 27.4748 10.7375ZM16.8748 9.6625H15.9373V10.6375C15.9373 11.1625 15.5123 11.575 14.9998 11.575C14.4873 11.575 14.0623 11.1625 14.0623 10.6375V9.6625H13.1248C12.6123 9.6625 12.1873 9.25 12.1873 8.725C12.1873 8.2125 12.6123 7.7875 13.1248 7.7875H14.0623V6.9C14.0623 6.3875 14.4873 5.9625 14.9998 5.9625C15.5123 5.9625 15.9373 6.3875 15.9373 6.9V7.7875H16.8748C17.3873 7.7875 17.8123 8.2125 17.8123 8.725C17.8123 9.25 17.3873 9.6625 16.8748 9.6625Z" fill="url(#paint1_linear_4477_7584)" />
                             <defs>
                                 <linearGradient id="paint0_linear_4477_7584" x1="15.0123" y1="15.9219" x2="15.0123" y2="27.6844" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#0066FF" />
+                                    <stop stop-color="#9100D9" />
                                     <stop offset="1" stop-color="#B8D4FF" />
                                 </linearGradient>
                                 <linearGradient id="paint1_linear_4477_7584" x1="15.0005" y1="2.3125" x2="15.0005" y2="16.125" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#0066FF" />
+                                    <stop stop-color="#9100D9" />
                                     <stop offset="1" stop-color="#B8D4FF" />
                                 </linearGradient>
                             </defs>
@@ -180,7 +180,7 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
                         </svg>
                     </div>
                     <div className="border-b border-solid border-[#D9D9D9] pb-5 dark:border-[#434343] border-x-0 border-t-0 space-y-3 text-center md:px-5">
-                        <p className="text-[#1A1A18] dark:text-white text-base md:text-xl font-bold">{findByUniqueId(mainData, 1540)}</p>
+                        <p className="text-gray-1  dark:text-white text-base md:text-xl font-bold">{findByUniqueId(mainData, 1540)}</p>
                         <p className="text-[#84858F] dark:text-[#84858F] text-base md:text-xl">{findByUniqueId(mainData, 1541)}</p>
                     </div>
                     <div className="flex w-full flex-col-reverse md:flex-row gap-y-5 justify-around items-center">
@@ -191,7 +191,7 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
                                     : "https://t.me/FA_MetarangBuild"
                             }
                             target="_blank"
-                            className="bg-light-primary dark:bg-dark-yellow text-white dark:text-black w-[60%] md:w-max text-center px-5 py-3 rounded-[10px] text-sm font-bold"
+                            className="bg-primary  text-white dark:text-black w-[60%] md:w-max text-center px-5 py-3 rounded-[10px] text-sm font-bold"
                         >
                             {findByUniqueId(mainData, 1613)}
                         </a>
@@ -200,14 +200,14 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
                             <a target="_blank"  href={
                                 params.lang.toLowerCase() === "en"
                                     ? "Https://s3.metarang.com/metarang/pdf/MetaRang_Architectural_Solutions.pdf"
-                                    : "Https://s3.metarang.com/metarang/pdf/Metarang_Architecture_and_Global_Commerce.pdf"} className="bg-light-primary dark:bg-dark-yellow text-white  w-full dark:text-black  text-center px-5 py-3 rounded-[10px] text-sm font-bold">
+                                    : "Https://s3.metarang.com/metarang/pdf/Metarang_Architecture_and_Global_Commerce.pdf"} className="bg-primary  text-white  w-full dark:text-black  text-center px-5 py-3 rounded-[10px] text-sm font-bold">
                                 {findByUniqueId(mainData, 1614)}
                             </a>
                         </div>
                     </div>
                 </div>
-                <div className="w-full bg-white dark:bg-[#1A1A18] border border-[#D9D9D9] dark:border-[#434343] border-solid flex flex-col px-[32px] py-6 rounded-lg gap-5">
-                    <div className="w-[60px] h-[60px] rounded-full bg-[#0066FF1A] dark:bg-[#FFC7001A] flex items-center justify-center mx-auto">
+                <div className="w-full bg-white dark:bg-gray-1  border border-[#D9D9D9] dark:border-[#434343] border-solid flex flex-col px-[32px] py-6 rounded-lg gap-5">
+                    <div className="w-[60px] h-[60px] rounded-full bg-[#9100D91A] dark:bg-[#9100D91A] flex items-center justify-center mx-auto">
 
                         <svg className="dark:hidden" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M9.5627 26.1344C9.5252 26.1344 9.4752 26.1594 9.4377 26.1594C7.0127 24.9594 5.0377 22.9719 3.8252 20.5469C3.8252 20.5094 3.8502 20.4594 3.8502 20.4219C5.3752 20.8719 6.9502 21.2094 8.5127 21.4719C8.7877 23.0469 9.1127 24.6094 9.5627 26.1344Z" fill="url(#paint0_linear_4477_8238)" />
@@ -221,39 +221,39 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
                             <path d="M19.7042 19.7042C16.5778 20.0986 13.4222 20.0986 10.2958 19.7042C9.90139 16.5778 9.90139 13.4222 10.2958 10.2958C13.4222 9.90139 16.5778 9.90139 19.7042 10.2958C20.0986 13.4222 20.0986 16.5778 19.7042 19.7042Z" fill="url(#paint8_linear_4477_8238)" />
                             <defs>
                                 <linearGradient id="paint0_linear_4477_8238" x1="6.69395" y1="20.4219" x2="6.69395" y2="26.1594" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#0066FF" />
+                                    <stop stop-color="#9100D9" />
                                     <stop offset="1" stop-color="#B8D4FF" />
                                 </linearGradient>
                                 <linearGradient id="paint1_linear_4477_8238" x1="23.2686" y1="20.4219" x2="23.2686" y2="26.2719" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#0066FF" />
+                                    <stop stop-color="#9100D9" />
                                     <stop offset="1" stop-color="#B8D4FF" />
                                 </linearGradient>
                                 <linearGradient id="paint2_linear_4477_8238" x1="23.3186" y1="3.72656" x2="23.3186" y2="9.63906" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#0066FF" />
+                                    <stop stop-color="#9100D9" />
                                     <stop offset="1" stop-color="#B8D4FF" />
                                 </linearGradient>
                                 <linearGradient id="paint3_linear_4477_8238" x1="6.64336" y1="3.82812" x2="6.64336" y2="9.64062" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#0066FF" />
+                                    <stop stop-color="#9100D9" />
                                     <stop offset="1" stop-color="#B8D4FF" />
                                 </linearGradient>
                                 <linearGradient id="paint4_linear_4477_8238" x1="15.0002" y1="2.5" x2="15.0002" y2="8.2375" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#0066FF" />
+                                    <stop stop-color="#9100D9" />
                                     <stop offset="1" stop-color="#B8D4FF" />
                                 </linearGradient>
                                 <linearGradient id="paint5_linear_4477_8238" x1="5.36875" y1="10.6406" x2="5.36875" y2="19.3656" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#0066FF" />
+                                    <stop stop-color="#9100D9" />
                                     <stop offset="1" stop-color="#B8D4FF" />
                                 </linearGradient>
                                 <linearGradient id="paint6_linear_4477_8238" x1="24.6314" y1="10.6406" x2="24.6314" y2="19.3656" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#0066FF" />
+                                    <stop stop-color="#9100D9" />
                                     <stop offset="1" stop-color="#B8D4FF" />
                                 </linearGradient>
                                 <linearGradient id="paint7_linear_4477_8238" x1="15.0002" y1="21.7656" x2="15.0002" y2="27.5031" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#0066FF" />
+                                    <stop stop-color="#9100D9" />
                                     <stop offset="1" stop-color="#B8D4FF" />
                                 </linearGradient>
                                 <linearGradient id="paint8_linear_4477_8238" x1="15" y1="10" x2="15" y2="20" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#0066FF" />
+                                    <stop stop-color="#9100D9" />
                                     <stop offset="1" stop-color="#B8D4FF" />
                                 </linearGradient>
                             </defs>
@@ -271,39 +271,39 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
                             <path d="M19.7042 19.7042C16.5778 20.0986 13.4222 20.0986 10.2958 19.7042C9.90139 16.5778 9.90139 13.4222 10.2958 10.2958C13.4222 9.90139 16.5778 9.90139 19.7042 10.2958C20.0986 13.4222 20.0986 16.5778 19.7042 19.7042Z" fill="url(#paint8_linear_4477_17655)" />
                             <defs>
                                 <linearGradient id="paint0_linear_4477_17655" x1="6.69376" y1="20.4219" x2="6.69376" y2="26.1594" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#FFC700" />
+                                    <stop stop-color="#9100D9" />
                                     <stop offset="1" stop-color="#FFE794" />
                                 </linearGradient>
                                 <linearGradient id="paint1_linear_4477_17655" x1="23.2687" y1="20.4219" x2="23.2687" y2="26.2719" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#FFC700" />
+                                    <stop stop-color="#9100D9" />
                                     <stop offset="1" stop-color="#FFE794" />
                                 </linearGradient>
                                 <linearGradient id="paint2_linear_4477_17655" x1="23.3187" y1="3.72656" x2="23.3187" y2="9.63906" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#FFC700" />
+                                    <stop stop-color="#9100D9" />
                                     <stop offset="1" stop-color="#FFE794" />
                                 </linearGradient>
                                 <linearGradient id="paint3_linear_4477_17655" x1="6.64376" y1="3.82812" x2="6.64376" y2="9.64062" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#FFC700" />
+                                    <stop stop-color="#9100D9" />
                                     <stop offset="1" stop-color="#FFE794" />
                                 </linearGradient>
                                 <linearGradient id="paint4_linear_4477_17655" x1="15" y1="2.5" x2="15" y2="8.2375" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#FFC700" />
+                                    <stop stop-color="#9100D9" />
                                     <stop offset="1" stop-color="#FFE794" />
                                 </linearGradient>
                                 <linearGradient id="paint5_linear_4477_17655" x1="5.36875" y1="10.6406" x2="5.36875" y2="19.3656" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#FFC700" />
+                                    <stop stop-color="#9100D9" />
                                     <stop offset="1" stop-color="#FFE794" />
                                 </linearGradient>
                                 <linearGradient id="paint6_linear_4477_17655" x1="24.6313" y1="10.6406" x2="24.6313" y2="19.3656" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#FFC700" />
+                                    <stop stop-color="#9100D9" />
                                     <stop offset="1" stop-color="#FFE794" />
                                 </linearGradient>
                                 <linearGradient id="paint7_linear_4477_17655" x1="15" y1="21.7656" x2="15" y2="27.5031" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#FFC700" />
+                                    <stop stop-color="#9100D9" />
                                     <stop offset="1" stop-color="#FFE794" />
                                 </linearGradient>
                                 <linearGradient id="paint8_linear_4477_17655" x1="15" y1="10" x2="15" y2="20" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#FFC700" />
+                                    <stop stop-color="#9100D9" />
                                     <stop offset="1" stop-color="#FFE794" />
                                 </linearGradient>
                             </defs>
@@ -311,7 +311,7 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
 
                     </div>
                     <div className="border-b border-solid border-[#D9D9D9] pb-5 dark:border-[#434343] border-x-0 border-t-0 space-y-3 text-center md:px-5">
-                        <p className="text-[#1A1A18] dark:text-white text-base md:text-xl font-bold">{findByUniqueId(mainData, 1542)}</p>
+                        <p className="text-gray-1  dark:text-white text-base md:text-xl font-bold">{findByUniqueId(mainData, 1542)}</p>
                         <p className="text-[#84858F] dark:text-[#84858F] text-base md:text-xl">{findByUniqueId(mainData, 1543)}</p>
                     </div>
                     <div className="flex w-full flex-col-reverse md:flex-row gap-y-5 justify-around items-center">
@@ -322,7 +322,7 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
                                     : "https://t.me/t.me/FA_MetarangGlobal"
                             }
                             target="_blank"
-                            className="bg-light-primary dark:bg-dark-yellow text-white dark:text-black w-[60%] md:w-max text-center px-5 py-3 rounded-[10px] text-sm font-bold"
+                            className="bg-primary  text-white dark:text-black w-[60%] md:w-max text-center px-5 py-3 rounded-[10px] text-sm font-bold"
                         >
                             {findByUniqueId(mainData, 1613)}
                         </a>
@@ -331,14 +331,14 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
                             <a target="_blank"  href={
                                 params.lang.toLowerCase() === "en"
                                     ? "Https://s3.metarang.com/metarang/pdf/Metarang_Global_Synergy.pdf"
-                                    : "Https://s3.metarang.com/metarang/pdf/Metarang_Digital_Governance_Infrastructure.pdf"} className="bg-light-primary dark:bg-dark-yellow  w-full text-white dark:text-black text-center px-5 py-3 rounded-[10px] text-sm font-bold">
+                                    : "Https://s3.metarang.com/metarang/pdf/Metarang_Digital_Governance_Infrastructure.pdf"} className="bg-primary   w-full text-white dark:text-black text-center px-5 py-3 rounded-[10px] text-sm font-bold">
                                 {findByUniqueId(mainData, 1614)}
                             </a>
                         </div>
                     </div>
                 </div>
-                <div className="w-full bg-white dark:bg-[#1A1A18] border border-[#D9D9D9] dark:border-[#434343] border-solid flex flex-col px-[32px] py-6 rounded-lg gap-5">
-                    <div className="w-[60px] h-[60px] rounded-full bg-[#0066FF1A] dark:bg-[#FFC7001A] flex items-center justify-center mx-auto">
+                <div className="w-full bg-white dark:bg-gray-1  border border-[#D9D9D9] dark:border-[#434343] border-solid flex flex-col px-[32px] py-6 rounded-lg gap-5">
+                    <div className="w-[60px] h-[60px] rounded-full bg-[#9100D91A] dark:bg-[#9100D91A] flex items-center justify-center mx-auto">
 
                         <svg className="dark:hidden" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M26.3628 8.72344C25.3003 7.54844 23.5378 6.96094 20.9503 6.96094H20.6503V6.91094C20.6503 4.81094 20.6503 2.21094 15.9503 2.21094H14.0503C9.35029 2.21094 9.35029 4.81094 9.35029 6.91094V6.96094H9.05029C6.46279 6.96094 4.68779 7.54844 3.63779 8.72344C2.40029 10.1109 2.43779 11.9484 2.56279 13.2109L2.57529 13.2984L2.66687 14.3669C2.68007 14.5209 2.76365 14.6601 2.89333 14.7441C3.26273 14.9834 3.65911 15.2381 4.03779 15.4484C4.21279 15.5609 4.40029 15.6609 4.58779 15.7609C6.00029 16.5359 7.51279 17.1484 9.06279 17.5734C9.10029 20.8109 11.7503 23.4359 15.0003 23.4359C18.2753 23.4359 20.9378 20.7734 20.9378 17.4984V17.4484C22.5128 16.9734 24.0253 16.3109 25.4378 15.4859C25.5128 15.4484 25.5628 15.4109 25.6253 15.3734C26.1347 15.0966 26.6638 14.7314 27.1429 14.391C27.2591 14.3084 27.3341 14.1799 27.3494 14.0382L27.4378 13.2234C27.4503 13.1484 27.4503 13.0859 27.4628 12.9984C27.5628 11.7484 27.5378 10.0234 26.3628 8.72344ZM11.1378 6.91094C11.1378 4.78594 11.1378 3.98594 14.0503 3.98594H15.9503C18.8628 3.98594 18.8628 4.78594 18.8628 6.91094V6.96094H11.1378V6.91094ZM15.0003 21.5609C12.9378 21.5609 11.2253 20.0109 10.9753 18.0109C10.9503 17.8484 10.9378 17.6734 10.9378 17.4984C10.9378 15.2609 12.7628 13.4359 15.0003 13.4359C17.2378 13.4359 19.0628 15.2609 19.0628 17.4984C19.0628 17.6484 19.0503 17.7859 19.0378 17.9234V17.9359C18.8128 19.9734 17.0878 21.5609 15.0003 21.5609Z" fill="url(#paint0_linear_4477_12734)" />
@@ -346,15 +346,15 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
                             <path d="M26.302 17.1609C26.6129 16.9882 27.0162 17.2385 26.9838 17.5927L26.5395 22.4484C26.277 24.9484 25.252 27.4984 19.752 27.4984H10.227C4.72695 27.4984 3.70195 24.9484 3.45195 22.4609L3.01962 17.8318C2.98605 17.4724 3.37044 17.2295 3.68945 17.3984C4.66445 17.9359 5.67695 18.4109 6.71445 18.7859C7.10195 18.9234 7.37695 19.2484 7.48945 19.6484C8.42695 22.8984 11.452 25.3109 15.002 25.3109C18.6145 25.3109 21.6645 22.8484 22.552 19.4734C22.652 19.0734 22.927 18.7484 23.3145 18.5984C24.3645 18.1859 25.3645 17.6984 26.302 17.1609Z" fill="url(#paint2_linear_4477_12734)" />
                             <defs>
                                 <linearGradient id="paint0_linear_4477_12734" x1="15.0018" y1="2.21094" x2="15.0018" y2="23.4359" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#0066FF" />
+                                    <stop stop-color="#9100D9" />
                                     <stop offset="1" stop-color="#A3C8FF" />
                                 </linearGradient>
                                 <linearGradient id="paint1_linear_4477_12734" x1="15.0062" y1="15.7188" x2="15.0062" y2="20.0414" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#0066FF" />
+                                    <stop stop-color="#9100D9" />
                                     <stop offset="1" stop-color="#B8D4FF" />
                                 </linearGradient>
                                 <linearGradient id="paint2_linear_4477_12734" x1="15.002" y1="16.7109" x2="15.002" y2="27.4984" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#0066FF" />
+                                    <stop stop-color="#9100D9" />
                                     <stop offset="1" stop-color="#B8D4FF" />
                                 </linearGradient>
                             </defs>
@@ -366,22 +366,22 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
                             <path d="M26.302 17.1609C26.6129 16.9882 27.0162 17.2385 26.9838 17.5927L26.5395 22.4484C26.277 24.9484 25.252 27.4984 19.752 27.4984H10.227C4.72695 27.4984 3.70195 24.9484 3.45195 22.4609L3.01962 17.8318C2.98605 17.4724 3.37044 17.2295 3.68945 17.3984C4.66445 17.9359 5.67695 18.4109 6.71445 18.7859C7.10195 18.9234 7.37695 19.2484 7.48945 19.6484C8.42695 22.8984 11.452 25.3109 15.002 25.3109C18.6145 25.3109 21.6645 22.8484 22.552 19.4734C22.652 19.0734 22.927 18.7484 23.3145 18.5984C24.3645 18.1859 25.3645 17.6984 26.302 17.1609Z" fill="url(#paint2_linear_4477_16926)" />
                             <defs>
                                 <linearGradient id="paint0_linear_4477_16926" x1="15.0015" y1="2.21094" x2="15.0015" y2="23.4359" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#FFC700" />
+                                    <stop stop-color="#9100D9" />
                                     <stop offset="1" stop-color="#FFE794" />
                                 </linearGradient>
                                 <linearGradient id="paint1_linear_4477_16926" x1="15.0066" y1="15.7188" x2="15.0066" y2="20.0414" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#FFC700" />
+                                    <stop stop-color="#9100D9" />
                                     <stop offset="1" stop-color="#FFE794" />
                                 </linearGradient>
                                 <linearGradient id="paint2_linear_4477_16926" x1="15.002" y1="16.7109" x2="15.002" y2="27.4984" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#FFC700" />
+                                    <stop stop-color="#9100D9" />
                                     <stop offset="1" stop-color="#FFE794" />
                                 </linearGradient>
                             </defs>
                         </svg>
                     </div>
                     <div className="border-b border-solid border-[#D9D9D9] pb-5 dark:border-[#434343] border-x-0 border-t-0 space-y-3 text-center md:px-5">
-                        <p className="text-[#1A1A18] dark:text-white text-base md:text-xl font-bold">{findByUniqueId(mainData, 1544)}</p>
+                        <p className="text-gray-1  dark:text-white text-base md:text-xl font-bold">{findByUniqueId(mainData, 1544)}</p>
                         <p className="text-[#84858F] dark:text-[#84858F] text-base md:text-xl">{findByUniqueId(mainData, 1545)}</p>
                     </div>
                     <div className="flex w-full flex-col-reverse md:flex-row gap-y-5 justify-around items-center">
@@ -392,7 +392,7 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
                                     : "https://t.me/t.me/FA_MetarangGov"
                             }
                             target="_blank"
-                            className="bg-light-primary dark:bg-dark-yellow text-white dark:text-black w-[60%] md:w-max text-center px-5 py-3 rounded-[10px] text-sm font-bold"
+                            className="bg-primary  text-white dark:text-black w-[60%] md:w-max text-center px-5 py-3 rounded-[10px] text-sm font-bold"
                         >
                             {findByUniqueId(mainData, 1613)}
                         </a>
@@ -401,20 +401,20 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
                             <a target="_blank"  href={
                                 params.lang.toLowerCase() === "en"
                                     ? "Https://s3.metarang.com/metarang/pdf/Enterprise_Digital_Governance.pdf"
-                                    : "Https://s3.metarang.com/metarang/pdf/Metarang_The_Global_Gateway.pdf"} className="bg-light-primary dark:bg-dark-yellow text-white dark:text-black w-full text-center px-5 py-3 rounded-[10px] text-sm font-bold">
+                                    : "Https://s3.metarang.com/metarang/pdf/Metarang_The_Global_Gateway.pdf"} className="bg-primary  text-white dark:text-black w-full text-center px-5 py-3 rounded-[10px] text-sm font-bold">
                                 {findByUniqueId(mainData, 1614)}
                             </a>
                         </div>
                     </div>
                 </div>
-                <div className="w-full bg-white dark:bg-[#1A1A18] border border-[#D9D9D9] dark:border-[#434343] border-solid flex flex-col px-[32px] py-6 rounded-lg gap-5">
-                    <div className="w-[60px] h-[60px] rounded-full bg-[#0066FF1A] dark:bg-[#FFC7001A] flex items-center justify-center mx-auto">
+                <div className="w-full bg-white dark:bg-gray-1  border border-[#D9D9D9] dark:border-[#434343] border-solid flex flex-col px-[32px] py-6 rounded-lg gap-5">
+                    <div className="w-[60px] h-[60px] rounded-full bg-[#9100D91A] dark:bg-[#9100D91A] flex items-center justify-center mx-auto">
 
                         <svg className="dark:hidden" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M21.25 4.375H8.75C5 4.375 2.5 6.25 2.5 10.625V19.375C2.5 23.75 5 25.625 8.75 25.625H21.25C25 25.625 27.5 23.75 27.5 19.375V10.625C27.5 6.25 25 4.375 21.25 4.375ZM21.8375 11.9875L17.925 15.1125C17.1 15.775 16.05 16.1 15 16.1C13.95 16.1 12.8875 15.775 12.075 15.1125L8.1625 11.9875C7.7625 11.6625 7.7 11.0625 8.0125 10.6625C8.3375 10.2625 8.925 10.1875 9.325 10.5125L13.2375 13.6375C14.1875 14.4 15.8 14.4 16.75 13.6375L20.6625 10.5125C21.0625 10.1875 21.6625 10.25 21.975 10.6625C22.3 11.0625 22.2375 11.6625 21.8375 11.9875Z" fill="url(#paint0_linear_4350_38570)" />
                             <defs>
                                 <linearGradient id="paint0_linear_4350_38570" x1="15" y1="4.375" x2="15" y2="25.625" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#0066FF" />
+                                    <stop stop-color="#9100D9" />
                                     <stop offset="1" stop-color="#B8D4FF" />
                                 </linearGradient>
                             </defs>
@@ -423,7 +423,7 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
                             <path d="M21.25 4.375H8.75C5 4.375 2.5 6.25 2.5 10.625V19.375C2.5 23.75 5 25.625 8.75 25.625H21.25C25 25.625 27.5 23.75 27.5 19.375V10.625C27.5 6.25 25 4.375 21.25 4.375ZM21.8375 11.9875L17.925 15.1125C17.1 15.775 16.05 16.1 15 16.1C13.95 16.1 12.8875 15.775 12.075 15.1125L8.1625 11.9875C7.7625 11.6625 7.7 11.0625 8.0125 10.6625C8.3375 10.2625 8.925 10.1875 9.325 10.5125L13.2375 13.6375C14.1875 14.4 15.8 14.4 16.75 13.6375L20.6625 10.5125C21.0625 10.1875 21.6625 10.25 21.975 10.6625C22.3 11.0625 22.2375 11.6625 21.8375 11.9875Z" fill="url(#paint0_linear_4477_7461)" />
                             <defs>
                                 <linearGradient id="paint0_linear_4477_7461" x1="15" y1="4.375" x2="15" y2="25.625" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#FFC700" />
+                                    <stop stop-color="#9100D9" />
                                     <stop offset="1" stop-color="#FFE794" />
                                 </linearGradient>
                             </defs>
@@ -431,15 +431,15 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
 
                     </div>
                     <div className="border-b border-solid border-[#D9D9D9] pb-5 dark:border-[#434343] border-x-0 border-t-0 space-y-3 text-center md:px-5">
-                        <p className="text-[#1A1A18] dark:text-white text-base md:text-xl font-bold">{findByUniqueId(mainData, 1546)}</p>
+                        <p className="text-gray-1  dark:text-white text-base md:text-xl font-bold">{findByUniqueId(mainData, 1546)}</p>
                         <p className="text-[#84858F] dark:text-[#84858F] text-base md:text-xl">{findByUniqueId(mainData, 1547)}</p>
                     </div>
                     <div className="flex flex-col-reverse gap-y-5 md:flex-row w-full justify-between items-center ">
-                        <a target="_blank" href="mailto:Hq@irpsc.com" className="bg-light-primary dark:bg-dark-yellow text-white dark:text-black w-[60%] md:w-max text-center px-5 py-3 rounded-[10px] text-sm font-bold">
+                        <a target="_blank" href="mailto:Hq@irpsc.com" className="bg-primary  text-white dark:text-black w-[60%] md:w-max text-center px-5 py-3 rounded-[10px] text-sm font-bold">
                             {findByUniqueId(mainData, 1548)}
                         </a>
                         <div className="flex items-center gap-2">
-                            <a  href="mailto:Hq@irpsc.com" target="_blank" className="text-[#1A1A18] dark:text-white text-lg">Hq@irpsc.com</a>
+                            <a  href="mailto:Hq@irpsc.com" target="_blank" className="text-gray-1  dark:text-white text-lg">Hq@irpsc.com</a>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M17 20.5H7C4 20.5 2 19 2 15.5V8.5C2 5 4 3.5 7 3.5H17C20 3.5 22 5 22 8.5V15.5C22 19 20 20.5 17 20.5Z" stroke="#969696" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
                                 <path d="M17 9L13.87 11.5C12.84 12.32 11.15 12.32 10.12 11.5L7 9" stroke="#969696" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />

@@ -5,7 +5,6 @@ import LevelCard from "@/components/card/LevelCard";
 
 export default function LevelsClient({
   levels,
-  concatArrayContent,
   params,
   mainData,
 }: any) {
@@ -17,7 +16,6 @@ export default function LevelsClient({
         <LevelCard
           key={item.id}
           item={item}
-          allLevelArrayContent={concatArrayContent}
           params={params}
           mainData={mainData}
           activeLoadingId={activeLoadingId}

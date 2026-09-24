@@ -33,7 +33,7 @@ const CategoryPageSection = ({ CategoryData, mainData, params }: any) => {
       setPage(nextPage);
 
       const res = await axios.get(
-        `https://api.metarang.com/api/tutorials?page=${nextPage}`
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/tutorials?page=${nextPage}`
       );
 
       const newSubcategories = res.data.data || [];
@@ -85,21 +85,18 @@ const CategoryPageSection = ({ CategoryData, mainData, params }: any) => {
             <h1 className="md:w-1/2 lg:ms-5 mt-5 font-bold font-azarMehr text-[22px] text-start dark:text-white text-black">
               {findByUniqueId(mainData, 455)} {CategoryData.name}
             </h1>
-              <SearchComponent
-                searchLevel="education"
-                mainData={mainData}
-                params={params}
-              />
-      
+            <SearchComponent
+              searchLevel="education"
+              mainData={mainData}
+              params={params}
+            />
+
           </div>
 
           {/* لیست زیرمجموعه‌ها با Load More */}
           <ListSubCategories
-            CategoryData={{ ...CategoryData, subcategories }}
-            visibleCount={visibleCount}
-            setVisibleCount={setVisibleCount}
-            loadMore={loadMore}
-            loading={loading}
+            categorySlug={CategoryData.slug}
+
             params={params}
             mainData={mainData}
           />

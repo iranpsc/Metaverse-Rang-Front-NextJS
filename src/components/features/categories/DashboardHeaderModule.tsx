@@ -22,7 +22,7 @@ const Description = ({ shortText, fullText }: { shortText: string; fullText: str
               className="bg-transparent  text-sm dark:text-white"
             >
               ...
-              <span className="text-light-primary dark:text-dark-yellow hover:underline">مشاهده بیشتر</span>
+              <span className="text-primary  hover:underline">مشاهده بیشتر</span>
             </button>
           )}
         </>
@@ -31,7 +31,7 @@ const Description = ({ shortText, fullText }: { shortText: string; fullText: str
           <span dangerouslySetInnerHTML={{ __html: fullText }} />
           <button
             onClick={() => setExpanded(false)}
-            className="inline bg-transparent text-light-primary dark:text-dark-yellow hover:underline text-sm"
+            className="inline bg-transparent text-primary  hover:underline text-sm"
           >
             مشاهده کمتر
           </button>
@@ -69,7 +69,7 @@ export const DashboardHeaderModule = ({ categoryData, mainData }: any) => {
                 زیر دسته ها
               </span>
             </div>
-            <span className="whitespace-nowrap font-azarMehr font-medium text-sm lg:text-[20px] text-gray dark:text-white ms-1">
+            <span className="whitespace-nowrap font-azarMehr font-medium text-sm lg:text-[20px] text-matn-2 dark:text-white ms-1">
               {formatNumber(categoryData.videos_count)} عدد  
             </span>
           </div>
@@ -83,7 +83,7 @@ export const DashboardHeaderModule = ({ categoryData, mainData }: any) => {
                 پسندیدند
               </span>
             </div>
-            <span className="whitespace-nowrap font-azarMehr font-medium text-sm lg:text-[20px] text-gray dark:text-white ms-1">
+            <span className="whitespace-nowrap font-azarMehr font-medium text-sm lg:text-[20px] text-matn-2 dark:text-white ms-1">
               {formatNumber(categoryData.likes_count)}
             </span>
           </div>
@@ -94,11 +94,11 @@ export const DashboardHeaderModule = ({ categoryData, mainData }: any) => {
           <div className="flex flex-col gap-1 md:gap-2  w-max">
             <div className="flex flex-row items-center justify-start gap-1 md:gap-3">
               <Dislike className="w-[20px] h-[20px] xs:w-[17px] xs:h-[17px] stroke-[#84858F]" />
-              <span className="whitespace-nowrap font-azarMehr font-normal text-sm lg:text-[20px] text-[#84858F] dark:text-dark-gray">
+              <span className="whitespace-nowrap font-azarMehr font-normal text-sm lg:text-[20px] text-[#84858F] ">
                 نپسندیدند
               </span>
             </div>
-            <span className="whitespace-nowrap font-azarMehr font-medium text-sm lg:text-[20px] text-gray dark:text-white ms-1">
+            <span className="whitespace-nowrap font-azarMehr font-medium text-sm lg:text-[20px] text-matn-2 dark:text-white ms-1">
               {formatNumber(categoryData.dislikes_count)}
             </span>
           </div>
@@ -112,7 +112,7 @@ export const DashboardHeaderModule = ({ categoryData, mainData }: any) => {
                 بازدید
               </span>
             </div>
-            <span className="whitespace-nowrap font-azarMehr font-medium text-sm lg:text-[20px]  text-gray dark:text-white ">{formatNumber(categoryData.views_count)}</span>
+            <span className="whitespace-nowrap font-azarMehr font-medium text-sm lg:text-[20px]  text-matn-2 dark:text-white ">{formatNumber(categoryData.views_count)}</span>
           </div>
         )}
       </div>

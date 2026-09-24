@@ -7,9 +7,11 @@ import { getTranslation, getMainFile } from "@/components/utils/actions";
 import { supabase } from "@/utils/lib/supabaseClient";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
-
+import CategorySortedSkeleton from "@/components/skeleton/CategorySortedSkeleton";
+import NewsSubCategoryContent from "@/components/features/NewsSubCategoryContent"
 // ایمپورت دیتای استاتیک به عنوان fallback
 import fallbackNewsData from "@/components/utils/news.json";
+import { Suspense } from "react";
 
 interface NewsCategoryPageProps {
   params: Promise<{ lang: string; category: string; }>;
@@ -174,7 +176,7 @@ export default async function NewsCategoryPage({ params }: NewsCategoryPageProps
 
     if (!newsData || newsData.length === 0) {
       return (
-        <div className="text-center py-20 text-gray-500">
+        <div className="text-center py-20 matn-2-500">
           <h2 className="text-2xl font-semibold dark:text-white">
             خبری در این دسته پیدا نشد 😕
           </h2>
@@ -305,7 +307,7 @@ export default async function NewsCategoryPage({ params }: NewsCategoryPageProps
     };
 
     return (
-      <section className="w-full bg-[#f8f8f8] dark:bg-black">
+      <section className="w-full bg-bg-primary ">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -329,7 +331,12 @@ export default async function NewsCategoryPage({ params }: NewsCategoryPageProps
             totalArticles: newsData.length,
           }}
           mainData={mainData}
+          articlesTitleId={1826}
+          likesTitleId={1523}
+          dislikesTitleId={1524}
+          viewsTitleId={1525}
         />
+        
 
         <div className="flex flex-col-reverse lg:flex-row gap-5 px-5">
           <SearchComponent
@@ -339,15 +346,15 @@ export default async function NewsCategoryPage({ params }: NewsCategoryPageProps
           />
         </div>
 
-        {/* 🔹 لیست اخبار */}
-        <div className="px-5">
-          <CategoryItemsGrid
-            params={resolvedParams}
-            category={category}
-            articles={newsData  as any}
-            mainData={mainData}
-          />
-        </div>
+
+        <Suspense fallback={<CategorySortedSkeleton />}>
+  <NewsSubCategoryContent
+    categorySlug={categorySlug}
+    category={category}
+    params={resolvedParams}
+    mainData={mainData}
+  />
+</Suspense>
       </section>
     );
   } catch (error) {

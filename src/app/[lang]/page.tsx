@@ -1,31 +1,52 @@
 import { Frame1, Frame2 } from "@/components/svgs";
+import { getImageProps } from "next/image";
 import React, { Suspense } from 'react';
-import { headers } from 'next/headers';
 import { Metadata } from 'next';
 import CustomErrorPage from "@/components/error/CustomErrorPage";
-import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
+import dynamic from "next/dynamic";
 
-// Lazy load components
-const HeaderFirstPage = React.lazy(() => import('@/components/templates/firstpage/HeaderFirstPage'));
-const SectionTimer = React.lazy(() => import('@/components/templates/firstpage/SectionTimer'));
-const SectionTeam = React.lazy(() => import('@/components/templates/firstpage/TeamSection'));
 import TopCitizen from '@/components/templates/firstpage/TopCitizenClient';
-const LastNews = React.lazy(() => import('@/components/templates/firstpage/LastNews'));
-const FristPageVideo = React.lazy(() => import('@/components/templates/firstpage/FristPageVideo'));
-import TopTrainersFirstPage, { getTopTrainerUsers } from "@/components/templates/firstpage/TopTrainersFirstPage";
-const EducationFirstPage = React.lazy(() => import('@/components/templates/firstpage/EducationFirstPage'));
-const DetailsEducationSection = React.lazy(() => import('@/components/templates/firstpage/DetailsEducationSection'));
-const VersionSection = React.lazy(() => import('@/components/templates/firstpage/VersionSection'));
-import LastContent from '@/components/templates/firstpage/LastContent.client';
+import HeroVideo from "@/components/templates/firstpage/HeroVideo";
+import TopTrainersFirstPage from "@/components/templates/firstpage/TopTrainersFirstPage";
+import TopTrainersSkeleton from "@/components/skeleton/TopTrainersSkeleton";
+import LastContent from '@/components/templates/firstpage/LastContent';
 import {
   getTranslation,
   getMainFile,
-  // findByModalName,
-  // findByTabName,
-  // getAllVersions
 } from "@/components/utils/actions";
-import Head from 'next/head';
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import { getHomeVersions } from "@/components/templates/firstpage/homeData";
+import { Skeleton } from "@/components/ui/skeleton";
+import CardsSectionSkeleton from "@/components/skeleton/CardsSectionSkeleton";
+import { UserCardSkeleton } from "@/components/skeleton/UserCardSkeleton";
+import EducationFirstPage from "@/components/templates/firstpage/EducationFirstPage";
+import LatestNews, { LatestNewsSkeleton } from "@/components/templates/firstpage/LastNews";
+const HeaderFirstPage = dynamic(
+  () => import('@/components/templates/firstpage/HeaderFirstPage')
+);
+const SectionTimer = dynamic(
+  () => import('@/components/templates/firstpage/SectionTimer')
+);
+const SectionTeam = dynamic(
+  () => import('@/components/templates/firstpage/TeamSection')
+);
+const FristPageVideo = dynamic(
+  () => import('@/components/templates/firstpage/FristPageVideo')
+);
+
+const DetailsEducationSection = dynamic(
+  () => import('@/components/templates/firstpage/DetailsEducationSection')
+);
+const VersionSection = dynamic(
+  () => import('@/components/templates/firstpage/VersionSection')
+);
+
+const DESKTOP_POSTER = "/firstpage/Untitled-1.webp";
+const MOBILE_POSTER = "/firstpage/metaverse-rang-mobile-app.webp";
+// const DESKTOP_VIDEO =
+//   "https://s3.metarang.com/metarang/firstpage/metaverse-rang.mp4";
+// const MOBILE_VIDEO =
+//   "https://s3.metarang.com/metarang/firstpage/mob2.mp4";
 
 // SEO
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
@@ -37,7 +58,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
 
     const title = findByUniqueId(mainData, 1457) || (lang === 'fa' ? "متاورس رنگ - پلتفرم واقعیت افزوده و متاورس ایرانی" : "Metaverse Rang - Iranian AR/VR & Metaverse Platform");
     const descriptionRaw = findByUniqueId(mainData, 482) || "";
-    const description = descriptionRaw.slice(0, 160); // متا دیسکریپشن بهتر زیر ۱۶۰ کاراکتر
+    const description = descriptionRaw.slice(0, 160);
 
     const canonical = `https://metarang.com/${lang}`;
 
@@ -50,7 +71,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
         languages: {
           'fa-IR': 'https://metarang.com/fa',
           'en-US': 'https://metarang.com/en',
-          'x-default': 'https://metarang.com/fa', // fa به عنوان پیش‌فرض
+          'x-default': 'https://metarang.com/fa',
         },
       },
       openGraph: {
@@ -60,7 +81,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
         siteName: lang === 'fa' ? "متاورس رنگ" : "Metaverse Rang",
         images: [
           {
-            url: "/logo.png", // یا همان teams.jpg قبلی - بهتر است لوگو ۱۲۰۰×۶۳۰ باشد
+            url: "https://s3.metarang.com/metarang/logo/metarang-logo-512.png",
             width: 1200,
             height: 630,
             alt: title,
@@ -73,7 +94,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
         card: 'summary_large_image',
         title,
         description,
-        images: ["/logo.png"],
+        images: ["https://s3.metarang.com/metarang/logo/metarang-logo-512.png"],
       },
       robots: {
         index: true,
@@ -86,8 +107,6 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
           'max-snippet': -1,
         },
       },
-      // keywords اگر دارید اضافه کنید (اختیاری)
-      // keywords: ['متاورس', 'واقعیت افزوده', 'ایران', 'metaverse', 'AR', 'VR'],
     };
   } catch (error) {
     console.error("Metadata error:", error);
@@ -103,96 +122,139 @@ interface LangPageProps {
 }
 export default async function LangPage({ params }: LangPageProps) {
   const resolvedParams = await params;
-  const { lang } = await params;
-  // console.log("Current resolved lang in page:", lang);
+  const { lang } = resolvedParams;
   try {
-  const headersList = await headers();
-  const users = await getTopTrainerUsers();
+    // translation -> mainData یک زنجیره است، ولی versions مستقل است؛
+    // پس موازی می‌گیریم تا TTFB کمتر شود.
+    const [mainData, homeVersions] = await Promise.all([
+      getTranslation(lang).then((langData) => getMainFile(langData)),
+      getHomeVersions(),
+    ]);
 
-  const userAgent = headersList.get('user-agent');
-    const isMobile = /mobile|android|iphone|ipad|phone/i.test(userAgent ?? '');
+    // Art direction: به‌جای دو <Image priority> (که هر دو preload می‌شدند و روی هر دستگاه
+    // یکی‌شان بی‌مصرف بود) یک <picture> می‌سازیم تا مرورگر فقط تصویر مناسب همان اندازه را بگیرد.
+    const heroCommon = {
+      alt: "hero img",
+      fill: true,
+      priority: true,
+      fetchPriority: "high" as const,
+      sizes: "100vw",
+    };
+    const { props: desktopHero } = getImageProps({
+      ...heroCommon,
+      src: DESKTOP_POSTER,
+    });
+    const { props: mobileHero } = getImageProps({
+      ...heroCommon,
+      src: MOBILE_POSTER,
+      
+    });
 
-  const langData = await getTranslation(lang);
-  const mainData = await getMainFile(langData);
-  // const centralPageModal = await findByModalName(mainData, "central-page");
+    async function makeLessCharacter() {
+      let temp = findByUniqueId(mainData, 482);
+      temp = temp.slice(0, 159);
+      return temp;
+    }
 
+    const landingSchema = {
+      "@context": "https://schema.org/",
+      "@type": "ProfessionalService",
+      "name": `${findByUniqueId(mainData, 1457)}`,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "میرداماد، 824H+JG2",
+        "addressCountry": "ایران",
+        "addressRegion": "استان قزوین",
+        "addressLocality": "قزوین"
+      },
+      "image": 'https://s3.metarang.com/metarang/logo/metarang-logo-512.png',
+      "telephone": "09120820120",
+      "url": `https://metarang.com/${lang}`,
+      "logo": `https://s3.metarang.com/metarang/logo/metarang-logo-512.png`,
+      "email": "info@metarang.com",
+      "description": await makeLessCharacter(),
+      "alternateName": "MetaRGB"
+    };
 
+    return (
+      <>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(landingSchema) }}
+        />
+        <section className=" relative  mt-[60px] lg:mt-0 lg:pt-0 bg-bg-primary ">
+          <section className="flex flex-col h-fit tall0:min-h-[600px] min-h-[calc(100vh-60px)] lg:h-screen relative">
+            {/* Desktop hero — CSS-gated so we never call headers() (keeps route cacheable). */}
+            {/* preload فقط برای اندازه‌ی مناسب (media)، نه هر دو تصویر */}
+            <link
+              rel="preload"
+              as="image"
+              href={desktopHero.src}
+              imageSrcSet={desktopHero.srcSet}
+              imageSizes="100vw"
+              media="(min-width: 1024px)"
+              fetchPriority="high"
+            />
+            <link
+              rel="preload"
+              as="image"
+              href={mobileHero.src}
+              imageSrcSet={mobileHero.srcSet}
+              imageSizes="100vw"
+              media="(max-width: 1023px)"
+              fetchPriority="high"
+            />
 
-  async function makeLessCharacter() {
-    let temp = findByUniqueId(mainData, 482);
-    temp = temp.slice(0, 200);
-    return temp;
-  }
+            {/* LCP image (دسکتاپ ≥1024px / موبایل کمتر) */}
+            <picture>
+              <source
+                media="(min-width: 1024px)"
+                srcSet={desktopHero.srcSet}
+                sizes="100vw"
+              />
+              <img
+                {...mobileHero}
+                alt=""
+                aria-hidden="true"
+                className="object-fill"
+              />
+            </picture>
 
-  const landingSchema = {
-    "@context": "https://schema.org/",
-    "@type": "ProfessionalService",
-    "name": `${findByUniqueId(mainData, 1457)}`,
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "میرداماد، 824H+JG2",
-      "addressCountry": "ایران",
-      "addressRegion": "استان قزوین",
-      "addressLocality": "قزوین"
-    },
-    "image": 'https://metarang.com/logo.png',
-    "telephone": "09120820120",
-    "url": `https://metarang.com/${lang}`,
-    "logo": `https://metarang.com/logo.png`,
-    "email": "info@metarang.com",
-    "description": await makeLessCharacter(),
-    "alternateName": "MetaRGB"
-  };
-
-  return (
-    <>
-      <Head>
-        <link rel="preload" href="/firstpage/Untitled-1.webp" as="image" />
-        <link rel="preload" href="/firstpage/metaverse-rang.mp4" as="video" type="video/mp4" />
-      </Head>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(landingSchema) }}
-      />
-      <CleanAutoRetryParam />
-      <section className=" relative  mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity-20">
-        <section className="flex flex-col h-fit tall0:min-h-[600px] min-h-[calc(100vh-60px)] lg:h-screen relative">
-          {!isMobile && (
-            <video
-              poster="/firstpage/Untitled-1.webp"
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="hidden lg:block absolute w-full h-full ltr:rotate-y-180 object-fill  sm:object-left"
-            >
-              <source src="/firstpage/Untitled-1.webp" type="video/webm" />
-              <source src="Https://s3.metarang.com/metarang/firstpage/metaverse-rang.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-          )}
-          {isMobile && (
-            <video
-              poster="/firstpage/metaverse-rang-mobile-app.webp"
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="block lg:hidden absolute w-full h-full object-fill"
-            >
-              <source src="/firstpage/metaverse-rang-mobile-app.webp" type="video/webm" />
-              <source src="Https://s3.metarang.com/metarang/firstpage/mob2.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-          )}
-          <div className="w-full h-full flex flex-col-reverse lg:flex-row px-5 lg:ps-[32px] lg:pe-0 z-[1]">
-            <Suspense fallback={<div>Loading Header...</div>}>
-              <HeaderFirstPage mainData={mainData} params={resolvedParams} />
-            </Suspense>
-          </div>
-          <div className="w-full max-h-[40vh] overflow-y-auto light-scrollbar dark:dark-scrollbar tall0:max-h-[50vh] lg:max-h-[35vh] hidden lg:flex flex-col lg:flex-row gap-4 xl:gap-20 absolute bottom-0 xl:pe-32 lg:pe-32 xs:pe-5 xl:ps-32 lg:ps-32 md:ps-5 sm:ps-5 xs:ps-5 bg-[#151515] bg-opacity-40 pt-4 pb-3 2xl:px-20 3xl:px-[100px] z-[1] mt-4">
+            {/* فقط ویدیوی مناسب همین اندازه، بعد از load (نه هر دو در همان لحظه‌ی اول) */}
+            <HeroVideo lang={lang} />
+            <div className="w-full h-full flex flex-col-reverse lg:flex-row px-5 lg:ps-[32px] lg:pe-0 z-[1]">
+              <Suspense fallback={null}>
+                <HeaderFirstPage mainData={mainData} params={resolvedParams} />
+              </Suspense>
+            </div>
+            <div className="w-full max-h-[40vh] overflow-y-auto light-scrollbar dark:dark-scrollbar tall0:max-h-[50vh] lg:max-h-[35vh] hidden lg:flex flex-col lg:flex-row gap-4 xl:gap-20 absolute bottom-0 xl:pe-8 lg:pe-8 xs:pe-5 xl:ps-8 lg:ps-8 md:ps-5 sm:ps-5 xs:ps-5 bg-[#151515] bg-opacity-40 pt-4 pb-3 2xl:px-20 3xl:px-[100px] z-[1] mt-4">
+              <div className="lg:w-1/2 flex flex-col justify-start items-start gap-4">
+                <div className="flex items-center gap-1">
+                  <Frame1 className="size-[36px]" />
+                  <h3 className="text-white font-bold text-[16px] 2xl:text-[24px] 3xl:text-[28px] ps-2 font-azarMehr">
+                    {findByUniqueId(mainData, 484)}
+                  </h3>
+                </div>
+                <p className="w-full text-justify text-white font-azarMehr font-medium text-[14px] md:text-[16px] 2xl:text-[18px]">
+                  {findByUniqueId(mainData, 485)}
+                </p>
+              </div>
+              <div className="lg:w-1/2 xl:col-span-6 lg:col-span-6 md:col-span-12 sm:col-span-12 xs:col-span-12 flex flex-col justify-start items-start gap-4 mt-10 md:mt-0">
+                <div className="flex items-center gap-1">
+                  <Frame2 className="size-[36px]" />
+                  <h3 className="text-white font-bold text-[16px] 2xl:text-[24px] 3xl:text-[28px] ps-2 font-azarMehr">
+                    {findByUniqueId(mainData, 486)}
+                  </h3>
+                </div>
+                <p className="w-full text-justify text-white font-azarMehr font-medium text-[14px] md:text-[16px] 2xl:text-[18px]">
+                  {findByUniqueId(mainData, 487)}
+                </p>
+              </div>
+            </div>
+          </section>
+          <div className="w-full overflow-y-auto light-scrollbar dark:dark-scrollbar flex flex-col md:flex-row lg:hidden gap-4 xl:gap-10 px-5 lg:px-8 bg-[#151515] bg-opacity-40 py-3 z-[1] mt-4">
             <div className="lg:w-1/2 flex flex-col justify-start items-start gap-4">
-              <div className="flex items-center gap-1">
+              <div className="flex items-center">
                 <Frame1 className="size-[36px]" />
                 <h3 className="text-white font-bold text-[16px] 2xl:text-[24px] 3xl:text-[28px] ps-2 font-azarMehr">
                   {findByUniqueId(mainData, 484)}
@@ -203,7 +265,7 @@ export default async function LangPage({ params }: LangPageProps) {
               </p>
             </div>
             <div className="lg:w-1/2 xl:col-span-6 lg:col-span-6 md:col-span-12 sm:col-span-12 xs:col-span-12 flex flex-col justify-start items-start gap-4 mt-10 md:mt-0">
-              <div className="flex items-center gap-1">
+              <div className="flex items-center">
                 <Frame2 className="size-[36px]" />
                 <h3 className="text-white font-bold text-[16px] 2xl:text-[24px] 3xl:text-[28px] ps-2 font-azarMehr">
                   {findByUniqueId(mainData, 486)}
@@ -214,99 +276,103 @@ export default async function LangPage({ params }: LangPageProps) {
               </p>
             </div>
           </div>
-        </section>
-        <div className="w-full overflow-y-auto light-scrollbar dark:dark-scrollbar flex flex-col md:flex-row lg:hidden gap-4 xl:gap-10 px-5 lg:px-32 bg-[#151515] bg-opacity-40 py-3 z-[1] mt-4">
-          <div className="lg:w-1/2 flex flex-col justify-start items-start gap-4">
-            <div className="flex items-center">
-              <Frame1 className="size-[36px]" />
-              <h3 className="text-white font-bold text-[16px] 2xl:text-[24px] 3xl:text-[28px] ps-2 font-azarMehr">
-                {findByUniqueId(mainData, 484)}
-              </h3>
-            </div>
-            <p className="w-full text-justify text-white font-azarMehr font-medium text-[14px] md:text-[16px] 2xl:text-[18px]">
-              {findByUniqueId(mainData, 485)}
-            </p>
-          </div>
-          <div className="lg:w-1/2 xl:col-span-6 lg:col-span-6 md:col-span-12 sm:col-span-12 xs:col-span-12 flex flex-col justify-start items-start gap-4 mt-10 md:mt-0">
-            <div className="flex items-center">
-              <Frame2 className="size-[36px]" />
-              <h3 className="text-white font-bold text-[16px] 2xl:text-[24px] 3xl:text-[28px] ps-2 font-azarMehr">
-                {findByUniqueId(mainData, 486)}
-              </h3>
-            </div>
-            <p className="w-full text-justify text-white font-azarMehr font-medium text-[14px] md:text-[16px] 2xl:text-[18px]">
-              {findByUniqueId(mainData, 487)}
-            </p>
-          </div>
-        </div>
-        <section className="w-full relative flex no-scrollbar flex-col justify-start overflow-x-clip overflow-y-auto items-center xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
-          <div className="w-full relative lg:h-[350px] 2xl:h-[400px] mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
-            <Suspense fallback={<div>Loading Header...</div>}>
+          <section className="w-full relative flex no-scrollbar flex-col justify-start overflow-x-clip overflow-y-auto items-center xl:px-8 lg:px-8 md:px-5 sm:px-5 xs:px-1">
+            <div className="w-full relative lg:h-[350px] 2xl:h-[400px] mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
               <SectionTimer params={resolvedParams} />
-            </Suspense>
-          </div>
-          <div className="relative w-full h-fit flex mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
-            <Suspense fallback={<div>Loading Header...</div>}>
+            </div>
+            <div className="relative w-full h-fit flex mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
               <SectionTeam mainData={mainData} params={resolvedParams} />
-            </Suspense>
-          </div>
-          <div className="w-[90%] md:w-full h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
-            <Suspense fallback={<div>Loading Header...</div>}>
-              <TopCitizen params={resolvedParams} mainData={mainData} />
-            </Suspense>
-          </div>
-          <div className="w-[90%] h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
-            <Suspense fallback={<div>Loading Header...</div>}>
-              <LastNews mainData={mainData} params={resolvedParams} />
-            </Suspense>
-          </div>
-          <div className="relative w-[90%] h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px] flex items-center justify-center">
-            <Suspense fallback={<div>Loading Header...</div>}>
-              {/* <Section3D params={params} /> */}
-               <FristPageVideo params={resolvedParams} />
-            </Suspense>
-          </div>
-          <div className="w-[90%] h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
-            <TopTrainersFirstPage params={resolvedParams} mainData={mainData}  users={users} />
-          </div>
-          <div className="w-[90%] h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
-            <Suspense fallback={<div>Loading Header...</div>}>
-              <EducationFirstPage params={resolvedParams} mainData={mainData} />
-            </Suspense>
-          </div>
-          <div className="w-[90%] h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
-            <Suspense fallback={<div>Loading Header...</div>}>
-              <LastContent mainData={mainData} params={resolvedParams} />
-            </Suspense>
-          </div>
-          <div className="w-[90%] relative h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
-            <Suspense fallback={<div>Loading Header...</div>}>
-              <DetailsEducationSection mainData={mainData} />
-            </Suspense>
-          </div>
-          <div className="w-[90%] relative h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
-            <Suspense fallback={<div>Loading Header...</div>}>
-            <p className="font-azarMehr font-medium text-[16px] md:text-[20px] lg:text-[28px] xl:text-[32px] dark:text-white ">{findByUniqueId(mainData, 501)}</p>
-              <VersionSection  params={resolvedParams}  />
+            </div>
+            <div className="w-[90%] md:w-full h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
+              <Suspense
+                fallback={
+                  <>
+                    <div className="flex w-full flex-row items-center justify-between px-3">
+                      <Skeleton
+                        tone="standalone"
+                        className="h-6 md:h-7 lg:h-9 xl:h-10 w-40 md:w-56 rounded-md"
+                      />
+                    </div>
 
-            </Suspense>
-          </div>
-
+                    <div className="relative flex w-full flex-row items-start gap-4 overflow-x-auto pb-10">
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <UserCardSkeleton
+                          key={i}
+                          minWidth="290px"
+                        />
+                      ))}
+                    </div>
+                  </>
+                }
+              >
+                <TopCitizen
+                  params={resolvedParams}
+                  mainData={mainData}
+                />
+              </Suspense>
+            </div>
+            <div className="w-[90%] h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
+              <Suspense fallback={<LatestNewsSkeleton />}>
+                <LatestNews
+                  params={resolvedParams}
+                  mainData={mainData}
+                  limit={10}
+                />
+              </Suspense>
+            </div>
+            <div className="relative w-[90%] h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px] flex items-center justify-center">
+              <Suspense fallback={<div>Loading Header...</div>}>
+                <FristPageVideo params={resolvedParams} />
+              </Suspense>
+            </div>
+            <div className="w-[90%] h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
+              <Suspense fallback={<TopTrainersSkeleton />}>
+                <TopTrainersFirstPage params={resolvedParams} mainData={mainData} />
+              </Suspense>
+            </div>
+            <div className="w-[90%] h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
+              <Suspense fallback={<CardsSectionSkeleton />}>
+                <EducationFirstPage
+                  params={resolvedParams}
+                  mainData={mainData}
+                />
+              </Suspense>
+            </div>
+            <div className="w-[90%] h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
+              <Suspense fallback={<CardsSectionSkeleton />}>
+                <LastContent mainData={mainData} params={resolvedParams} />
+              </Suspense>
+            </div>
+            <div className="w-[90%] relative h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
+              <Suspense fallback={<div>Loading Header...</div>}>
+                <DetailsEducationSection mainData={mainData} />
+              </Suspense>
+            </div>
+            <div className="w-[90%] relative h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
+              <p className="font-azarMehr font-medium text-[16px] md:text-[20px] lg:text-[28px] xl:text-[32px] dark:text-white ">
+                {findByUniqueId(mainData, 501)}
+              </p>
+              <VersionSection
+                params={resolvedParams}
+                initialVersions={homeVersions}
+              />
+            </div>
+          </section>
         </section>
-      </section>
-    </>
-  );
-} catch (error) {
-  const serializedError = {
-    message:
-      error instanceof Error ? error.message : "Unknown error",
-    stack:
-      error instanceof Error ? error.stack : null,
-    name:
-      error instanceof Error ? error.name : "Error",
-  };
+      </>
+    );
+  } catch (error) {
+    const serializedError = {
+      message:
+        error instanceof Error ? error.message : "Unknown error",
+      stack:
+        error instanceof Error ? error.stack : null,
+      name:
+        error instanceof Error ? error.name : "Error",
+    };
 
-  console.error("❌ Error in MainPage:", serializedError);
+    console.error("❌ Error in MainPage:", serializedError);
 
-  return <CustomErrorPage error={serializedError} />;
-} }
+    return <CustomErrorPage error={serializedError} />;
+  }
+}

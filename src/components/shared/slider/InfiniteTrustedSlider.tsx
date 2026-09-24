@@ -52,7 +52,7 @@ export default function InfiniteTrustedSlider({
                             shrink-0
                             rounded-[40px]
                             bg-white
-                            dark:bg-[#1A1A18]
+                            dark:bg-gray-1 
                             w-[200px]
                             h-[210px]
                             lg:w-[400px]

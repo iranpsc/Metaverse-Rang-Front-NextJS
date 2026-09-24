@@ -36,10 +36,10 @@ export default async function Permissions({
   const tabLevelSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    // https://api.metarang.com/api/levels/1
+    // ${process.env.NEXT_PUBLIC_API_BASE_URL}/api/levels/1
     // name: await localFind2(singleLevel.data.unique_id),
     name: findByUniqueId(mainData, singleLevel.data.unique_id),
-    // https://api.metarang.com/api/levels/1
+    // ${process.env.NEXT_PUBLIC_API_BASE_URL}/api/levels/1
     description: await makeLessCharacter(
       singleLevel.data.general_info.description
     ),
@@ -189,12 +189,7 @@ export default async function Permissions({
           title={findByUniqueId(mainData, 414)}
           value={levelTabs.data.inter_level_general_points}
         />
-        <DetailItem
-          showCheck={true}
-          // title={localFind("to join the alliance")}
-          title={findByUniqueId(mainData, 415)}
-          value={levelTabs.data.add_memeber_to_union}
-        />
+       
         <DetailItem
           showCheck={true}
           // title={localFind(

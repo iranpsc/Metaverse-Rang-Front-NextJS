@@ -1,3 +1,5 @@
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
+
 export const formatNumber = (likes: string | number): string => {
   const numericLikes = typeof likes === 'string' ? parseInt(likes, 10) : likes;
 
@@ -13,8 +15,5 @@ export const formatNumber = (likes: string | number): string => {
 };
 
 export const translateFooter = (data: any, text: string) => {
-  
-  const foundItem = data.find((item: any) => item.name === text);
-
-  return foundItem ? foundItem.translation : "undefined";
+  return findByUniqueId(data, text);
 };

@@ -41,7 +41,7 @@ export default function TabSelector({ params, mainData }: any ) {
   }, [params.tabs]);
 
   return (
-    <div className="overflow-x-scroll no-scrollbar bg-bgLightGrey dark:bg-darkGray rounded-[12px] font-[700]">
+    <div className="overflow-x-scroll no-scrollbar bg-gray-2 rounded-[12px] font-[700]">
       <ul className="flex justify-between text-sm font-medium list-none px-5 2xl:px-[40px] 2xl:text-base">
         {tabs.map((tab) => {
           const isActive = tab.slug === params.tabs;
@@ -57,8 +57,8 @@ export default function TabSelector({ params, mainData }: any ) {
                 className={`inline-flex items-center justify-center w-full sm:w-auto p-3 pb-2.5 border-b-2  border-x-0 border-t-0 transition-colors bg-transparent ext-sm font-medium list-none  2xl:text-base
                   ${
                     isActive
-                      ? "text-blueLink dark:text-dark-yellow border-dark-active-btn font-bold border-light-primary dark:border-dark-yellow font-bold"
-                      : "dark:text-white font-[400] border-transparent hover:text-blueLink"
+                      ? "text-primary  border-dark-active-btn font-bold border-primary  font-bold"
+                      : "dark:text-white font-[400] border-transparent hover:text-primary"
                   }`}
               >
                 {findByUniqueId(mainData, tab.id)}

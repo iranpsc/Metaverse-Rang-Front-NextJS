@@ -1,10 +1,15 @@
+// app/[lang]/citizens/[id]/referral/page.tsx
+import { Suspense } from "react";
 import SideBar from "@/components/shared/sidebar/SideBar";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import NotFoundPage from "@/components/error/NotFoundPage";
 import DynamicFooter from "@/components/shared/footer/DynamicFooter";
 import InviteBox from "@/components/templates/referral/invite-box";
-import InviteList from "@/components/templates/referral/invite-list";
-import InviteChart from "@/components/templates/referral/invite-chart";
+
+import InviteListLoader from "@/components/templates/referral/InviteListLoader";
+import InviteChartLoader from "@/components/templates/referral/InviteChartLoader";
+import InviteListSkeleton from "@/components/skeleton/InviteListSkeleton";
+import InviteChartSkeleton from "@/components/skeleton/InviteChartSkeleton";
 
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
@@ -12,15 +17,13 @@ import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 import {
   getTranslation,
   getMainFile,
-  findByModalName,
-  findByTabName,
   getLangArray,
-  getAllReferral,
   getUserData,
-  getChartReferral,
 } from "@/components/utils/actions";
+import { buildSidebarLabels } from "@/components/utils/buildShellTranslations";
 
 import { getStaticMenu } from "@/components/utils/constants";
+import { buildTabsMenu } from "@/components/utils/buildTabsMenu";
 import "./style/style.css";
 
 /* ------------------------------------------------------------------ */
@@ -50,49 +53,8 @@ export default async function CitizenReferral({
     ]);
 
     /* ------------------------ build sidebar -------------------------- */
-    async function buildUpdatedTabsMenu(mainData: any) {
-      const staticMenuToShow = getStaticMenu(resolvedParams);
-
-      const citizenModal = await findByModalName(
-        mainData,
-        "Citizenship-profile"
-      );
-      const citizenTabs =
-        (await findByTabName(citizenModal, "menu")) || [];
-
-      const centralModal = await findByModalName(
-        mainData,
-        "central-page"
-      );
-      const mainTabs =
-        (await findByTabName(centralModal, "before-login")) || [];
-
-      const mapMenu = (tabs: any[]) =>
-        tabs.map((tab) => {
-          const staticItem = staticMenuToShow.find(
-            (s) => s.unique_id === tab.unique_id
-          );
-          return staticItem
-            ? {
-                ...tab,
-                url: staticItem.url,
-                order: staticItem.order,
-                toShow: true,
-              }
-            : tab;
-        });
-
-      const merged = [
-        ...mapMenu(citizenTabs),
-        ...mapMenu(mainTabs),
-      ];
-
-      const seen = new Set();
-      return merged.filter((tab) => {
-        if (seen.has(tab.unique_id)) return false;
-        seen.add(tab.unique_id);
-        return true;
-      });
+    function buildUpdatedTabsMenu(mainData: any) {
+      return buildTabsMenu(mainData, getStaticMenu(resolvedParams));
     }
 
     /* ---------------------------- not found -------------------------- */
@@ -114,42 +76,13 @@ export default async function CitizenReferral({
     }
 
     /* ------------------------- page data ----------------------------- */
-    const [
-      mainData,
-      langArray,
-      initInviteList,
-      chartDataFetch,
-    ] = await Promise.all([
+    const [mainData, langArray] = await Promise.all([
       getMainFile(langData),
       getLangArray(),
-      getAllReferral(id),
-      getChartReferral(id, "yearly"),
     ]);
 
-    const updatedTabsMenu = await buildUpdatedTabsMenu(mainData);
-
-    const referralPageArrayContent = await findByTabName(
-      await findByModalName(mainData, "Citizenship-profile"),
-      "referral"
-    );
-
-    /* -------------------------- chart data --------------------------- */
-    const convertToPersianDigits = (str: any) =>
-      str?.toString()?.replace(/\d/g, (d: any) => "۰۱۲۳۴۵۶۷۸۹"[d]);
-
-    let initChartData = { labels: [], data: [[], []] };
-
-    if (chartDataFetch?.chart_data) {
-      initChartData.labels = chartDataFetch.chart_data.map((i: any) =>
-        convertToPersianDigits(i.year)
-      );
-      initChartData.data[0] = chartDataFetch.chart_data.map(
-        (i: any) => i.total_referrals_count
-      );
-      initChartData.data[1] = chartDataFetch.chart_data.map(
-        (i: any) => i.total_referral_orders_amount
-      );
-    }
+    const updatedTabsMenu = buildUpdatedTabsMenu(mainData);
+    const sidebarLabels = buildSidebarLabels(mainData);
 
     /* ----------------------------- schema ---------------------------- */
     const aboutText =
@@ -192,43 +125,41 @@ export default async function CitizenReferral({
             langArray={langArray}
             params={resolvedParams}
             pageSide="citizen"
-            mainData={mainData}
+            sidebarLabels={sidebarLabels}
           />
 
-          <section className="relative w-full overflow-y-auto mt-[60px] lg:mt-0 bg-[#f8f8f8] dark:bg-black px-2 light-scrollbar dark:dark-scrollbar">
+          <section className="relative w-full overflow-y-auto mt-[60px] lg:mt-0 bg-bg-primary  px-2 light-scrollbar dark:dark-scrollbar lg:ps-20 xl:ps-2">
             <div className="px-12">
               <BreadCrumb params={resolvedParams} />
             </div>
 
-            <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
-              {referralPageArrayContent && (
-                <InviteBox
-                  referralPageArrayContent={referralPageArrayContent}
-                  params={resolvedParams}
-                  mainData={mainData}
-                />
-              )}
+            <div className="xl:px-8 lg:px-8 md:px-5 sm:px-5 xs:px-1">
+              <InviteBox
+                referralPageArrayContent={mainData}
+                params={resolvedParams}
+                mainData={mainData}
+              />
 
-              {initInviteList && referralPageArrayContent && (
-                <InviteList
-                  initInviteList={initInviteList}
+              <Suspense fallback={<InviteListSkeleton />}>
+                <InviteListLoader
+                  id={id}
                   params={resolvedParams}
-                  referralPageArrayContent={referralPageArrayContent}
+                  referralPageArrayContent={mainData}
                   mainData={mainData}
                 />
-              )}
+              </Suspense>
 
-              {referralPageArrayContent && (
-                <InviteChart
+              <Suspense fallback={<InviteChartSkeleton />}>
+                <InviteChartLoader
+                  id={id}
                   params={resolvedParams}
-                  referralPageArrayContent={referralPageArrayContent}
-                  initChartData={initChartData}
+                  referralPageArrayContent={mainData}
                   mainData={mainData}
                 />
-              )}
+              </Suspense>
             </div>
 
-            <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
+            <div className="xl:px-8 lg:px-8 md:px-5 sm:px-5 xs:px-1">
               <DynamicFooter
                 mainData={mainData}
                 params={resolvedParams}
@@ -306,7 +237,7 @@ export async function generateMetadata({
         images: [
           {
             url:
-              profileData.data?.profilePhotos?.[0]?.url || "/logo.png",
+              profileData.data?.profilePhotos?.[0]?.url || "https://s3.metarang.com/metarang/logo/metarang-logo-512.png",
             width: 800,
             height: 600,
           },

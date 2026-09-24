@@ -199,7 +199,7 @@ export default function NewsGallerySimple({ gallery, mainImage, params }: NewsGa
 
       {/* مودال اسلایدر اصلی */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-[9999] backdrop-blur-md bg-white/10 dark:bg-black/20">
+        <div className="fixed inset-0 z-[9999] backdrop-blur-md bg-white/10 /20">
           {/* هدر مودال */}
           <div className="absolute top-0 left-0 right-0 z-20 flex justify-between p-4">
             <button

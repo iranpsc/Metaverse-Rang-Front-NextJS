@@ -72,7 +72,7 @@ const DynamicTimer: React.FC<DynamicTimerProps> = ({
 
   if (status === "ended") {
     return (
-      <div className="text-center text-2xl  text-light-primary dark:text-dark-yellow font-bold">
+      <div className="text-center text-2xl  text-primary  font-bold">
         {params?.lang === "fa" ? " تاریخ پایان :" : "End date : "}
 
         {endDate?.split(" ")[0]}
@@ -85,20 +85,20 @@ const DynamicTimer: React.FC<DynamicTimerProps> = ({
   return (
     <div className="flex gap-3 justify-center items-center">
       <div>
-        <div className="text-2xl 2xl:text-3xl 3xl:text-4xl font-bold text-light-primary dark:text-dark-yellow">{time?.seconds.toString().padStart(2, "0")}&nbsp;:</div>
-        <div className="text-light-primary dark:text-dark-yellow">{secondsLabel}</div>
+        <div className="text-2xl 2xl:text-3xl 3xl:text-4xl font-bold text-primary ">{time?.seconds.toString().padStart(2, "0")}&nbsp;:</div>
+        <div className="text-primary ">{secondsLabel}</div>
       </div>
       <div>
-        <div className="text-2xl 2xl:text-3xl 3xl:text-4xl font-bold text-light-primary dark:text-dark-yellow">{time?.minutes.toString().padStart(2, "0")}&nbsp;: </div>
-        <div className="text-light-primary dark:text-dark-yellow">{minutesLabel}</div>
+        <div className="text-2xl 2xl:text-3xl 3xl:text-4xl font-bold text-primary ">{time?.minutes.toString().padStart(2, "0")}&nbsp;: </div>
+        <div className="text-primary ">{minutesLabel}</div>
       </div>
       <div >
-        <div className="text-2xl 2xl:text-3xl 3xl:text-4xl font-bold text-light-primary dark:text-dark-yellow">{time?.hours.toString().padStart(2, "0")}&nbsp;: </div>
-        <div className="text-light-primary dark:text-dark-yellow">{hoursLabel}</div>
+        <div className="text-2xl 2xl:text-3xl 3xl:text-4xl font-bold text-primary ">{time?.hours.toString().padStart(2, "0")}&nbsp;: </div>
+        <div className="text-primary ">{hoursLabel}</div>
       </div>
       <div className="text-center flex flex-col justify-center">
-        <div className="text-2xl 2xl:text-3xl 3xl:text-4xl font-bold text-light-primary dark:text-dark-yellow">{time?.days.toString().padStart(2, "0")} </div>
-        <div className="text-light-primary dark:text-dark-yellow">{daysLabel}</div>
+        <div className="text-2xl 2xl:text-3xl 3xl:text-4xl font-bold text-primary ">{time?.days.toString().padStart(2, "0")} </div>
+        <div className="text-primary ">{daysLabel}</div>
       </div>
 
     </div>

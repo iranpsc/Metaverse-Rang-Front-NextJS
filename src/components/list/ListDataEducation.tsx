@@ -27,7 +27,7 @@ export default function ListDataEducation({ data }: any) {
         data.map((item: any) => (
           <div
             key={item.id}
-            className="w-[100%]  min-h-[240px]  shadow-md hover:shadow-xl hover:dark:shadow-dark  rounded-[10px] bg-white dark:bg-[#1A1A18] flex flex-col justify-start gap-6 items-center"
+            className="w-[100%]  min-h-[240px]  shadow-md hover:shadow-xl hover:dark:shadow-dark  rounded-[10px] bg-white dark:bg-gray-1  flex flex-col justify-start gap-6 items-center"
           >
             <div className=" group w-full h-[266px]   rounded-t-[10px] relative">
               <Image
@@ -43,24 +43,24 @@ export default function ListDataEducation({ data }: any) {
                   className="w-fit"
                   href={`/${safeLang}/education/category/${item.category.slug}/${item.sub_category.slug}/${item.slug}`}
                 >
-                  <Video className="w-[78px] h-[78px] p-3 fill-blueLink dark:fill-dark-yellow  rounded-full bg-white/80" />
+                  <Video className="w-[78px] h-[78px] p-3 fill-primary dark:fill-primary  rounded-full bg-white/80" />
                 </Link>
               </div>
             </div>
 
             <div className=" w-[95%] flex flex-row justify-start items-center gap-1  mt-[-10px] pe-16">
               <p
-                className="text-start text-gray dark:text-dark-gray font-medium font-azarMehr text-[13px]  3xl:text-[16px] cursor-pointer hover:text-blueLink hover:dark:text-dark-yellow"
+                className="text-start text-matn-2  font-medium font-azarMehr text-[13px]  3xl:text-[16px] cursor-pointer hover:text-primary hover:"
                 onClick={() => pusher(item.category.slug)}
               >
                 {item.category.name}
               </p>
-              <span className="font-azarMehr text-start text-gray dark:text-dark-gray font-medium text-[13px] 3xl:text-[16px]">
+              <span className="font-azarMehr text-start text-matn-2  font-medium text-[13px] 3xl:text-[16px]">
                 /
               </span>
 
               <p
-                className=" text-start  text-gray dark:text-dark-gray  whitespace-nowrap font-medium font-azarMehr text-[13px] 3xl:text-[16px] cursor-pointer hover:text-blueLink hover:dark:text-dark-yellow"
+                className=" text-start  text-matn-2   whitespace-nowrap font-medium font-azarMehr text-[13px] 3xl:text-[16px] cursor-pointer hover:text-primary hover:"
                 onClick={() =>
                   pusherSubcategory(item.category.slug, item.sub_category.slug)
                 }
@@ -108,7 +108,7 @@ export default function ListDataEducation({ data }: any) {
                     // onClick={() => pushRgb(item.creator.code)}
                   />
                   <span
-                    className="text-blueLink  cursor-pointer text-[14px] 3xl:text-[18px] whitespace-nowrap font-medium hover:font-bold uppercase "
+                    className="text-primary  cursor-pointer text-[14px] 3xl:text-[18px] whitespace-nowrap font-medium hover:font-bold uppercase "
                     // onClick={() => pushRgb(item.creator.code)}
                   >
                     {item.creator.code}
@@ -116,19 +116,19 @@ export default function ListDataEducation({ data }: any) {
                 </div>
               </Link>
               <div className="flex flex-row justify-start items-center gap-5">
-                <span className=" whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray me-[-13px]">
+                <span className=" whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-matn-2  me-[-13px]">
                   {formatNumber(item.dislikes_count)}
                 </span>
-                <Like className="stroke-gray dark:stroke-dark-gray stroke-2 w-[18px] h-[18px] " />
-                <span className="whitespace-nowrap font-azarMehr font-normal  3xl:text-[18px] text-gray dark:text-dark-gray me-[-10px]">
+                <Like className="stroke-matn-2  stroke-2 w-[18px] h-[18px] " />
+                <span className="whitespace-nowrap font-azarMehr font-normal  3xl:text-[18px] text-matn-2  me-[-10px]">
                   {formatNumber(item.likes_count)}
                 </span>
-                <Dislike className="stroke-gray  dark:stroke-dark-gray stroke-2 " />
+                <Dislike className="stroke-matn-2   stroke-2 " />
 
-                <span className="whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-gray dark:text-dark-gray me-[-13px]">
+                <span className="whitespace-nowrap font-azarMehr font-normal 3xl:text-[18px] text-matn-2  me-[-13px]">
                   {formatNumber(item.views_count)}
                 </span>
-                <View className="stroke-gray dark:stroke-dark-gray stroke-2 " />
+                <View className="stroke-matn-2  stroke-2 " />
               </div>
             </div>
           </div>

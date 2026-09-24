@@ -9,21 +9,17 @@ export default function GeneralInfo({
   levelTabs,
   singleLevel,
   params,
-  concatArrayContent,
 }: any) {
   const { lang, levelName } = params;
 
   function localFind2(_slug: any) {
-    const temp = concatArrayContent.find(
-      (item: any) => Number(item.unique_id) === Number(_slug)
-    );
-    return temp?.translation || "";
+    return findByUniqueId(mainData, _slug);
   }
 
   function makeLessCharacter(desc: any) {
     return desc ? desc.slice(0, 200) : "";
   }
-console.log("زخدفثیبسحنمیب:", concatArrayContent);
+
   const tabLevelSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",

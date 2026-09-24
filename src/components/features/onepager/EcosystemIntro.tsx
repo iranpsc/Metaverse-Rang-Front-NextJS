@@ -10,12 +10,12 @@ export default function EcosystemIntro({ params, mainData }: EcosystemIntroProps
 
 
   return (
-    <div className="flex w-full  lg:flex-col items-center lg:items-start justify-between h-max lg:h-full lg:min-h-[80vh] bg-white dark:bg-[#1A1A18] rounded-xl  p-4 lg:p-0 border border-solid border-[#f5f5f5] dark:border-black">
+    <div className="flex w-full  lg:flex-col items-center lg:items-start justify-between h-max lg:h-full lg:min-h-[80vh] bg-white dark:bg-gray-1  rounded-xl  p-4 lg:p-0 border border-solid border-[#f5f5f5] dark:border-black">
 
       <div className="flex flex-col items-start mx-auto justify-start lg:mt-20 lg:px-5 lg:ps-14 lg:gap-5">
         <div>
           <Image
-            src="/logo.png"
+            src="https://s3.metarang.com/metarang/logo/metarang-logo-512.png"
             alt="Logo"
             width={70}
             height={60}

@@ -6,9 +6,8 @@ import { supabase } from "@/utils/lib/supabaseClient";
 import { ArrowRight } from "@/components/svgs";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import NewsSideCard from "../card/NewsSideCard";
+import { loadNewsFallback } from "@/components/utils/loadNewsFallback";
 
-// ایمپورت دیتای استاتیک به عنوان fallback
-import fallbackNewsData from "@/components/utils/news.json";
 
 interface SideCardProps {
   params: any;
@@ -41,7 +40,7 @@ const SideCard: React.FC<SideCardProps> = ({ params, mainData }) => {
       }
       
       // استفاده از دیتای fallback
-      const fallbackData = fallbackNewsData
+      const fallbackData = (await loadNewsFallback())
         .map((item: any) => ({
           ...item,
           stats: typeof item.stats === 'string' ? JSON.parse(item.stats) : item.stats,
@@ -68,10 +67,10 @@ const SideCard: React.FC<SideCardProps> = ({ params, mainData }) => {
       <section className="flex flex-col gap-5 w-full">
         <div className="flex items-center justify-between">
           <div className="h-6 w-32 bg-neutral-200 dark:bg-neutral-700 rounded relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 dark:from-gray-700 dark:via-gray-600 dark:to-gray-700 animate-pulse" />
+            <div className="absolute inset-0 bg-gradient-to-r matn-2-200 matn-2-300 matn-2-200 dark:fmatn-2-700 dark:vmatn-2-600 dark:tmatn-2-700 animate-pulse" />
           </div>
           <div className="h-5 w-16 bg-neutral-200 dark:bg-neutral-700 rounded relative ">
-            <div className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 dark:from-gray-700 dark:via-gray-600 dark:to-gray-700 animate-pulse" />
+            <div className="absolute inset-0 bg-gradient-to-r matn-2-200 matn-2-300 matn-2-200 dark:fmatn-2-700 dark:vmatn-2-600 dark:tmatn-2-700 animate-pulse" />
           </div>
         </div>
         {[1, 2, 3, 4, 5].map((i) => (

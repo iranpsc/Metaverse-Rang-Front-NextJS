@@ -417,9 +417,9 @@ export default function Calendar({
 
   return (
     <div
-      className="xl:text-xl 2xl:text-2xl relative w-full border-[1px] border-solid  font-azarMehr
+      className="xl:text-xl  2xl:text-2xl relative w-full border-[1px] border-solid  font-azarMehr
     dark:border-[#454545] border-[#BABABA]  sm:pt-4 h-auto p-4 sm:p-5 pt-6 
-    dark:bg-[#080807] text-[#DEDEE9] rounded-3xl flex flex-col sm:min-w-[310px] sm:max-w-[310px]
+    dark:bg-gray-1 text-[#DEDEE9] rounded-3xl flex flex-col sm:min-w-[310px] sm:max-w-[310px]
     md:min-w-[380px] md:max-w-[380px] lg:min-w-[450px] lg:max-w-[450px] xl:min-w-[520px]  2xl:min-w-[580px]"
     >
       <div className="flex justify-between pt-2 pb-5 sm:pb-4 xl:pb-10 flex-row-reverse ">
@@ -502,7 +502,7 @@ export default function Calendar({
       {showMonthList && (
         <div
           ref={monthListRef}
-          className={`absolute text-base  xl:text-lg 2xl:text-xl top-[80px] border border-solid dark:border-[#454545] border-[#BABABA] w-[70%] bg-white dark:bg-[#080807] dark:sm:bg-black text-black dark:text-[#868B90] rounded-3xl p-4 min-w-[160px] ${
+          className={`absolute text-base  xl:text-lg 2xl:text-xl top-[80px] border border-solid dark:border-[#454545] border-[#BABABA] w-[70%] bg-white dark:bg-gray-1 dark:sm:bg-black text-black dark:text-[#868B90] rounded-3xl p-4 min-w-[160px] ${
             isShamsi ? "left-0" : "right-0"
           }`}
           style={{ zIndex: 10 }}
@@ -514,7 +514,7 @@ export default function Calendar({
             {(isShamsi ? persianMonths : englishMonths).map((month, index) => (
               <span
                 key={index}
-                className=" dark:hover:bg-yellow-500 hover:bg-blueLink hover:text-white dark:hover:text-black cursor-pointer rounded-lg py-1 hover:transition-all"
+                className=" dark:hover:bg-yellow-500 hover:bg-primary hover:text-white dark:hover:text-black cursor-pointer rounded-lg py-1 hover:transition-all"
                 onClick={() => selectMonth(index)}
               >
                 {month}
@@ -527,7 +527,7 @@ export default function Calendar({
       {showYearList && (
         <div
           ref={yearListRef}
-          className={`absolute text-base   xl:text-lg 2xl:text-xl top-[80px] w-[70%] border border-solid dark:border-[#454545] border-[#BABABA] dark:bg-[#080807] bg-white dark:sm:bg-black text-black dark:text-[#868B90] z-50 rounded-3xl p-4 min-w-[160px] transition-all ${
+          className={`absolute text-base   xl:text-lg 2xl:text-xl top-[80px] w-[70%] border border-solid dark:border-[#454545] border-[#BABABA] dark:bg-gray-1 bg-white dark:sm:bg-black text-black dark:text-[#868B90] z-50 rounded-3xl p-4 min-w-[160px] transition-all ${
             isShamsi ? "right-0" : "left-0"
           }`}
           style={{ zIndex: 10 }}
@@ -581,7 +581,7 @@ export default function Calendar({
             {getDynamicYears().map((year, index) => (
               <span
                 key={index}
-                className="dark:hover:bg-yellow-500 hover:bg-blueLink hover:text-white dark:hover:text-black cursor-pointer rounded-lg py-1 hover:transition-all"
+                className="dark:hover:bg-yellow-500 hover:bg-primary hover:text-white dark:hover:text-black cursor-pointer rounded-lg py-1 hover:transition-all"
                 onClick={() => {
                   selectYear(year);
                   setYearOffset(0);
@@ -629,8 +629,8 @@ export default function Calendar({
           // استخراج رنگ‌های یکتا
           const colorMap = {
             red: "#ED2E2E",
-            blue: "#0066FF",
-            yellow: "#FFC700",
+            blue: "#9100D9",
+            yellow: "#9100D9",
             green: "#32DA6B",
             pink: "#ff00ff",
           };
@@ -753,11 +753,11 @@ export default function Calendar({
               key={index}
               className={`calendar-day box-border w-full h-full rounded-lg text-black dark:text-white cursor-pointer relative
     flex flex-row-reverse items-center justify-between sm:max-h-[45px] md:max-h-[300px] my-3 md:my-1 lg:my-2 xl:my-[10px]
-    hover:bg-[#0066FF4D] dark:hover:bg-[#FFC70033]
+    hover:bg-[#9100D94D] dark:hover:bg-[#9100D933]
     ${
       selectedDate?.getTime() === currentDay.getTime()
-        ? "bg-[#0066FF4D] outline outline-[2px] outline-blueLink dark:outline-dark-yellow dark:bg-[#FFC70033] font-bold"
-        : "bg-gray-100 hover:bg-gray-200"
+        ? "bg-[#9100D94D] outline outline-[2px] outline-primary dark:outline-primary dark:bg-[#9100D933] font-bold"
+        : "text-matn-2 hover:matn-2-200"
     }`}
               onClick={() => {
                 handleDateClick(currentDay);
@@ -772,9 +772,9 @@ export default function Calendar({
                 className={`w-1/3 flex justify-center items-center
       ${
         selectedDate?.getTime() === currentDay.getTime()
-          ? "text-blueLink dark:text-dark-yellow"
+          ? "text-primary "
           : isToday
-          ? "text-blueLink dark:text-dark-yellow"
+          ? "text-primary "
           : ""
       }`}
               >

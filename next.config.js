@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
-  productionBrowserSourceMaps: true,
+  productionBrowserSourceMaps: false,
 
   output: "standalone",
 
@@ -32,41 +32,64 @@ const nextConfig = {
     ];
   },
 
-  async headers() {
-    return [
-      {
-        source: "/lang/:path*",
-        headers: [
-          {
-            key: "Access-Control-Allow-Origin",
-            value: "*",
-          },
-          {
-            key: "Access-Control-Allow-Methods",
-            value: "GET, OPTIONS",
-          },
-        ],
-      },
-      {
-        source: "/uploads/calendars/:path*",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=31536000, immutable",
-          },
-        ],
-      },
-      {
-        source: "/fonts/:path*",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=31536000, immutable",
-          },
-        ],
-      },
-    ];
-  },
+async headers() {
+  return [
+    {
+      source: "/data/:path*",
+      headers: [
+        {
+          key: "Cache-Control",
+          value: "public, max-age=86400, stale-while-revalidate=604800",
+        },
+      ],
+    },
+
+    {
+      source: "/lang/:path*",
+      headers: [
+        {
+          key: "Access-Control-Allow-Origin",
+          value: "*",
+        },
+        {
+          key: "Access-Control-Allow-Methods",
+          value: "GET, OPTIONS",
+        },
+      ],
+    },
+
+    {
+      source: "/uploads/calendars/:path*",
+      headers: [
+        {
+          key: "Cache-Control",
+          value: "public, max-age=31536000, immutable",
+        },
+      ],
+    },
+
+    {
+      source: "/fonts/:path*",
+      headers: [
+        {
+          key: "Cache-Control",
+          value: "public, max-age=31536000, immutable",
+        },
+      ],
+    },
+
+    // Static first-page assets
+    {
+      source: "/firstpage/:path*",
+      headers: [
+        {
+          key: "Cache-Control",
+          value: "public, max-age=31536000, immutable",
+        },
+      ],
+    },
+  ];
+},
 
   webpack(config) {
     config.module.rules.push({
@@ -97,8 +120,10 @@ const nextConfig = {
       { protocol: "https", hostname: "metarang.com", pathname: "/**" },
       { protocol: "https", hostname: "s3.metarang.com", pathname: "/**" },
       { protocol: "https", hostname: "api.metarang.com", pathname: "/**" },
+      { protocol: "https", hostname: "dev-api.metarang.com", pathname: "/**" },
       { protocol: "http", hostname: "api.metarang.com", pathname: "/**" },
       { protocol: "https", hostname: "admin.metarang.com", pathname: "/**" },
+      { protocol: "https", hostname: "dev-admin.metarang.com", pathname: "/**" },
       { protocol: "http", hostname: "admin.metarang.com", pathname: "/**" },
 
       { protocol: "https", hostname: "**.irpsc.com", pathname: "/**" },
@@ -115,16 +140,20 @@ const nextConfig = {
   },
 };
 
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
+
 const { withSentryConfig } = require("@sentry/nextjs");
 
-module.exports = withSentryConfig(nextConfig, {
+module.exports = withSentryConfig(withBundleAnalyzer(nextConfig), {
   org: "sentry",
   project: "metaverse-rang-front-nextjs",
   sentryUrl: "https://sentry.irpsc.com/",
 
   silent: !process.env.CI,
 
-  widenClientFileUpload: true,
+  widenClientFileUpload: false,
 
   webpack: {
     automaticVercelMonitors: true,

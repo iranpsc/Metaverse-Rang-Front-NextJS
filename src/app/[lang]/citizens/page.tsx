@@ -1,13 +1,12 @@
-
 import {
   getTranslation,
   getMainFile,
-  getAllCitizen,
 } from "@/components/utils/actions";
 import SearchComponent from "@/components/Search/SearchComponent";
 import BreadCrumb from "@/components/shared/BreadCrumb";
-import CitizenList from "@/components/list/citizenList";
-import useServerDarkMode from "src/hooks/use-server-dark-mode";
+import CitizenListLoader from "@/components/list/CitizenListLoader";
+import CitizenListSkeleton from "@/components/skeleton/CitizenListSkeleton";
+import useServerDarkMode from "@/hooks/use-server-dark-mode";
 import React, { Suspense } from 'react';
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
@@ -43,7 +42,7 @@ export async function generateMetadata(
         url: `https://metarang.com/${lang}/citizen`,
         images: [
           {
-            url: "/logo.png",
+            url: "https://s3.metarang.com/metarang/logo/metarang-logo-512.png",
             width: 1200,
             height: 630,
           },
@@ -61,7 +60,7 @@ interface CitizensPageProps {
   params: Promise<{ lang: string }>;
 }
 export default async function CitizensPage({ params }: CitizensPageProps) {
-   const resolvedParams = await params;
+  const resolvedParams = await params;
   const { lang } = resolvedParams;
   try {
     const [langData] = await Promise.all([
@@ -71,17 +70,11 @@ export default async function CitizensPage({ params }: CitizensPageProps) {
     const mainData = await getMainFile(langData);
     const defaultTheme = useServerDarkMode();
 
-    // const Citizenship = await findByModalName(mainData, "Citizenship-profile");
-    // const citizenListArrayContent = await findByTabName(
-    //   Citizenship,
-    //   "list-citizen"
-    // );
-
-    // ****
-    // const levelModals = await findByModalName(mainData, "levels");
-    // const levelListArrayContent = await findByTabName(levelModals, "level-list");
-
-    let allCitizenArray = await getAllCitizen("1");
+    // ❌ قبلاً اینجا بود: let allCitizenArray = await getAllCitizen("1");
+    // این خط باعث می‌شد رندر کل صفحه (نه فقط لیست) منتظر جواب API بمونه؛
+    // پس وقتی نوبت به <Suspense> می‌رسید دیتا از قبل آماده بود و هیچ‌وقت
+    // چیزی سوسپند نمی‌شد. این فچ الان رفته توی CitizenListLoader (async
+    // Server Component) که خودش داخل <Suspense> رندر می‌شه.
 
     //to make description less than 200 character
     async function makeLessCharacter() {
@@ -103,10 +96,10 @@ export default async function CitizensPage({ params }: CitizensPageProps) {
         "addressRegion": "استان قزوین",
         "addressLocality": "قزوین"
       },
-      "image": 'https://metarang.com/logo.png',
+      "image": 'https://s3.metarang.com/metarang/logo/metarang-logo-512.png',
       "telephone": "09120820120",
       "url": `https://metarang.com/${lang}/citizen`,
-      "logo": `https://metarang.com/logo.png`,
+      "logo": `https://s3.metarang.com/metarang/logo/metarang-logo-512.png`,
       "email": "info@metarang.com",
       "description": await makeLessCharacter(),
       "alternateName": "MetaRGB"
@@ -124,32 +117,31 @@ export default async function CitizensPage({ params }: CitizensPageProps) {
         <div className=" w-full" dir={langData.direction}>
           <CleanAutoRetryParam />
           <section
-            className={`w-full mt-[60px] lg:mt-0 lg:pt-0 bg-[#f8f8f8] dark:bg-black bg-opacity20`}
+            className={`w-full mt-[60px] lg:mt-0 lg:pt-0 bg-bg-primary  bg-opacity20`}
           >
             {/* Breadcrumb */}
-            <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
+            <div className="xl:px-8 lg:px-8 md:px-5 sm:px-5 xs:px-1">
               <BreadCrumb params={params} />
             </div>
-            <div className="mt-[60px] lg:mt-[40px] xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1">
+            <div className="mt-[60px] lg:mt-[40px] xl:px-8 lg:px-8 md:px-5 sm:px-5 xs:px-1">
               <h1 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[64px] mb-[16px]">
                 {findByUniqueId(mainData, 593)}
               </h1>
-              <p className="text-lightGray  dark:text-lightGray font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center px-5 lg:px-10">
+              <p className="text-matn-2  dark:text-matn-2 font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center px-5 lg:px-10">
                 {findByUniqueId(mainData, 596)}
               </p>
               <div className="flex justify-center w-full px-5 lg:px-0">
                 <SearchComponent
                   searchLevel='citizen'
                   mainData={mainData}
-                  params={params}
+                  params={resolvedParams}
                 />
               </div>
             </div>
             {/* CITIZEN box Container */}
             <div className="flex flex-row flex-wrap justify-center md:justify-center w-full no-scrollbar overflow-y-auto py-[20px] gap-x-5">
-              <Suspense fallback={<div>Loading citizens...</div>}>
-                <CitizenList
-                  allCitizenArray={allCitizenArray.data}
+              <Suspense fallback={<CitizenListSkeleton />}>
+                <CitizenListLoader
                   params={resolvedParams}
                   mainData={mainData}
                   defaultTheme={defaultTheme}

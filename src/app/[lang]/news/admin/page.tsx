@@ -33,7 +33,7 @@ export default function AdminNewsWrapper() {
 
       try {
         const res = await axios.post(
-          "https://api.metarang.com/api/auth/me",
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/me`,
           null,
           { headers: { Authorization: `Bearer ${token}` } }
         );

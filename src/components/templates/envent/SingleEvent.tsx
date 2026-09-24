@@ -8,6 +8,7 @@ import { Like, Dislike, View } from "@/components/svgs/SvgEducation";
 // import SyncLoader from "react-spinners/SyncLoader";
 import LoginButtonModule from "@/components/features/video/LoginButtonModule";
 import { MappedEventItem } from "@/utils/mapEvents";
+import Image from "next/image";
 
 // تابع برای پارس تاریخ جلالی
 function parseJalaliDatetime(jalaliStr: string): Date {
@@ -89,7 +90,7 @@ const SingleEvent: React.FC<SingleEventProps> = ({
 
     try {
       const response = await fetch(
-        `https://api.metarang.com/api/calendar/events/${event.id}/interact`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar/events/${event.id}/interact`,
         {
           method: "POST",
           headers: {
@@ -124,7 +125,7 @@ const SingleEvent: React.FC<SingleEventProps> = ({
 
     try {
       const response = await fetch(
-        `https://api.metarang.com/api/calendar/events/${event.id}/interact`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar/events/${event.id}/interact`,
         {
           method: "POST",
           headers: {
@@ -163,7 +164,7 @@ const SingleEvent: React.FC<SingleEventProps> = ({
   //     return () => observer.disconnect();
   //   }, []);
 
-  //   return <SyncLoader color={isDark ? "#FFD700" : "#0066ff"} size={8} />;
+  //   return <SyncLoader color={isDark ? "#FFD700" : "#9100D9"} size={8} />;
   // };
 
   // const maxLength = 350;
@@ -179,14 +180,19 @@ const SingleEvent: React.FC<SingleEventProps> = ({
       <div className="items flex flex-col justify-center gap-3 items-center w-full">
         {/* تصویر ایونت */}
         <div className="mt-4 w-[97%] flex justify-center lg:w-[95%] mx-auto rounded-[20px] overflow-hidden shadow-lg lg:mt-6">
-          <img
-            className="w-full"
+          <Image
+            className="w-full h-auto"
             src={
               event.image === "image" || !event.image
                 ? "/firstpage/frame.jpg"
                 : event.image
             }
             alt={event.title}
+            width={960}
+            height={540}
+            sizes="(max-width: 1024px) 97vw, 60vw"
+            priority
+            unoptimized
           />
         </div>
 
@@ -255,7 +261,7 @@ const SingleEvent: React.FC<SingleEventProps> = ({
           {/* {shouldTruncate && (
             <button
               onClick={() => setShowFullDesc(!showFullDesc)}
-              className="dark:text-dark-yellow text-blueLink bg-transparent hover:underline cursor-pointer text-base 2xl:text-xl"
+              className=" text-primary bg-transparent hover:underline cursor-pointer text-base 2xl:text-xl"
             >
               {showFullDesc ? "" : findByUniqueId(mainData, 271)}
             </button>
@@ -266,7 +272,7 @@ const SingleEvent: React.FC<SingleEventProps> = ({
         <div
           className="px-4 mb-2 w-[97%] lg:w-[95%] lg:px-7 font-[AzarMehrFD] 
           bg-gradient-to-r from-[#CFCFCFE5] to-[#D8D8D800]
-          dark:bg-gradient-to-r dark:from-[#ffffff09] dark:to-[#00000000] dark:text-dark-yellow text-blueLink rounded-xl lg:rounded-[32px] border-[1px] border-solid dark:border-[#ffffff25] border-[#CFCFCFE5] shadow-lg p-4 flex flex-col sm:flex-row-reverse sm:h-[250px]"
+          dark:bg-gradient-to-r dark:from-[#ffffff09] dark:to-[#00000000]  text-primary rounded-xl lg:rounded-[32px] border-[1px] border-solid dark:border-[#ffffff25] border-[#CFCFCFE5] shadow-lg p-4 flex flex-col sm:flex-row-reverse sm:h-[250px]"
         >
           <div className="flex flex-col justify-start sm:order-1 sm:content-start sm:w-[30%] sm:min-w-[194px]">
             <h2 className="text-[16px] font-bold lg:px-5 self-center sm:self-start text-black dark:text-white pb-6 sm:mt-4 sm:pb-6 sm:text-start 2xl:text-xl xl:text-lg lg:text-base">
@@ -351,7 +357,7 @@ const SingleEvent: React.FC<SingleEventProps> = ({
               href={event.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="dark:bg-dark-yellow bg-blueLink text-white dark:text-black font-bold py-2 px-4 w-full mb-2 h-11 self-end rounded-[28px] sm:text-lg sm:font-semibold sm:w-[60%] text-center justify-center items-center flex"
+              className=" bg-primary text-white dark:text-black font-bold py-2 px-4 w-full mb-2 h-11 self-end rounded-[28px] sm:text-lg sm:font-semibold sm:w-[60%] text-center justify-center items-center flex"
             >
               <span>{event.btnName}</span>
             </a>
@@ -369,7 +375,7 @@ const SingleEvent: React.FC<SingleEventProps> = ({
               <LoginButtonModule params={mainData} />
               <div className="w-1/2 flex justify-center">
                 <button
-                  className="w-full bg-dark-gray dark:bg-extraGray text-black dark:text-white font-azarMehr py-2 px-2 md:px-4 font-medium text-[15px] rounded-[10px] hover:bg-gray-400 active:scale-105 duration-300"
+                  className="w-full bg-dark-gray dark:bg-extraGray text-black dark:text-white font-azarMehr py-2 px-2 md:px-4 font-medium text-[15px] rounded-[10px] hover:bg-matn-2-400 active:scale-105 duration-300"
                   onClick={() => setShowLoginModal(false)}
                 >
                   {findByUniqueId(mainData, 884)}

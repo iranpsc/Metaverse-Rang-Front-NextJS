@@ -8,10 +8,9 @@ import {
   getMainFile,
   getSingleLevel,
   getLevelTabs,
-  findByModalName,
-  findByTabName,
 } from "@/components/utils/actions";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import { Skeleton } from "@/components/ui/skeleton";
 import TabContentWrapper from "../../../../../../components/ui/Skeleton/TabContentWrapper";
 import TabLoadingProvider from "../../../../../../components/ui/Skeleton/TabLoadingProvider";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
@@ -22,7 +21,7 @@ const Gem = dynamic(() => import('@/components/ui/Gem'));
 const Gift = dynamic(() => import('@/components/ui/Gift'));
 const Permission = dynamic(() => import('@/components/features/levels/Permissions'));
 const Prize = dynamic(() => import('@/components/features/levels/Prize'));
-const Footer = dynamic(() => import('@/components/shared/footer/Footer'));
+const Footer = dynamic(() => import('@/components/shared/footer/DynamicFooter'));
 const BreadCrumb = dynamic(() => import('@/components/shared/BreadCrumb'));
 const ImageBox = dynamic(() => import('@/components/features/levels/ImageBox'));
 import { Features } from "@/components/features/levels/Features";
@@ -49,13 +48,6 @@ async function fetchData(params) {
   const levelMeta = STATIC_ROUTE_NAMES.find(x => x.route_name === params.levelName);
   const levelId = levelMeta?.id;
   const levelUniqueId = levelMeta?.unique_id;
-  // const TAB_TITLE_MAP = {
-  //   "general-info": 387,
-  //   "licenses": 388,
-  //   "gem": 389,
-  //   "gift": 390,
-  //   "prize": 391,
-  // };
 
   const [
     langData,
@@ -78,8 +70,8 @@ async function fetchData(params) {
   };
 }
 
-function getLevelTitle(concatArrayContent, uniqueId) {
-  return concatArrayContent.find(item => Number(item.unique_id) === Number(uniqueId))?.translation || '';
+function getLevelTitle(mainData, uniqueId) {
+  return findByUniqueId(mainData, uniqueId);
 }
 
 function buildBreadcrumbSchema(mainData, params) {
@@ -134,12 +126,6 @@ export default async function LevelSinglePage({ params }) {
       }
     });
 
-    const levels = await findByModalName(mainData, "levels");
-    const [levelPageArrayContent, levelListArrayContent] = await Promise.all([
-      findByTabName(levels, "levels-page"),
-      findByTabName(levels, "level-list"),
-    ]);
-    const concatArrayContent = [...levelPageArrayContent, ...levelListArrayContent];
     const TAB_TITLE_MAP = {
       "general-info": 387,
       "licenses": 388,
@@ -153,7 +139,7 @@ export default async function LevelSinglePage({ params }) {
       ? findByUniqueId(mainData, tabUniqueId)
       : "";
 
-    const levelTitle = getLevelTitle(concatArrayContent, levelUniqueId);
+    const levelTitle = getLevelTitle(mainData, levelUniqueId);
 
     // عنوان نهایی
     const pageTitle = tabTitle
@@ -161,8 +147,6 @@ export default async function LevelSinglePage({ params }) {
       : levelTitle;
 
      const breadcrumbSchema = buildBreadcrumbSchema(mainData, resolvedParams);
-    // console.log("TAB:", params.tabs);
-    // console.log("DATA:", levelTabs.data);
     return (
       <>
         <script
@@ -190,13 +174,13 @@ export default async function LevelSinglePage({ params }) {
           )}
         </Head>
           <CleanAutoRetryParam />
-        <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-3 w-full font-azarMehr ">
+        <div className="xl:px-8 lg:px-8 md:px-5 sm:px-5 xs:px-3 w-full font-azarMehr ">
           <BreadCrumb params={resolvedParams} />
 
-          <div className="grid-container gap-x-7 bg-white dark:bg-[#080807] rounded-[20px] p-5 3xl:p-[30px] relative">
+          <div className="grid-container gap-x-7 bg-white dark:bg-gray-1 rounded-[20px] p-5 3xl:p-[30px] relative">
             <div className="self-start md:order-none w-full md:min-w-[65vw] xl:min-w-[65vw] flex items-center justify-between font-bold pt-[3px] pb-5 dark:text-white text-lg sm:text-xl lg:text-2xl 2xl:text-3xl 3xl:text-4xl">
               <h1 className="text-base  md:text-[28px] lg:text-[30px] xl:text-[32px]">{pageTitle}</h1>
-              <button className="w-max py-[5px] md:py-3 px-5 text-[14px] dark:bg-bgLightGrey2 bg-bgLightGrey dark:text-white font-bold text-textGray rounded-[12px]">
+              <button className="w-max py-[5px] md:py-3 px-5 text-[14px] bg-gray-1 dark:text-white font-bold text-matn-2 rounded-[12px]">
                 {findByUniqueId(mainData, 392)}
               </button>
             </div>
@@ -210,16 +194,18 @@ export default async function LevelSinglePage({ params }) {
                 />
               </div>
 
-              {/* Tab Content (Skeleton می‌شود) */}
+              {/* Tab Content — فقط همین یه خط عوض شد: پراپ tab اضافه شد
+                  تا اسکلت درست هر تب انتخاب بشه. children (که شامل
+                  GeneralInfo/Gem/Gift/... و schema script داخلشونه) عیناً
+                  همون قبلیه، هیچ تغییری نکرده. */}
               <div className="grid-third w-full md:min-w-[65vw] xl:min-w-[65vw] px-1">
-                <TabContentWrapper>
+                <TabContentWrapper tab={resolvedParams.tabs}>
                   {resolvedParams.tabs === "general-info" && (
                     <GeneralInfo
                       mainData={mainData}
                       levelTabs={levelTabs}
                       singleLevel={singleLevel}
                       params={resolvedParams}
-                      concatArrayContent={concatArrayContent}
                     />
                   )}
 
@@ -229,7 +215,6 @@ export default async function LevelSinglePage({ params }) {
                       levelTabs={levelTabs}
                       singleLevel={singleLevel}
                       params={resolvedParams}
-                      concatArrayContent={concatArrayContent}
                     />
                   )}
 
@@ -239,7 +224,6 @@ export default async function LevelSinglePage({ params }) {
                       levelTabs={levelTabs}
                       singleLevel={singleLevel}
                       params={resolvedParams}
-                      concatArrayContent={concatArrayContent}
                     />
                   )}
 
@@ -258,7 +242,6 @@ export default async function LevelSinglePage({ params }) {
                       levelTabs={levelTabs}
                       singleLevel={singleLevel}
                       params={resolvedParams}
-                      concatArrayContent={concatArrayContent}
                     />
                   )}
                 </TabContentWrapper>
@@ -267,8 +250,18 @@ export default async function LevelSinglePage({ params }) {
 
 
               <div className="grid-forth flex-1 relative !mt-[-2px] mb-10 lg:mb-0">
-                <Suspense fallback={<div>image box loading ...</div>}>
-                  <ImageBox item={levelTabs.data} singleLevel={singleLevel} />
+                {/* فقط ظاهر fallback عوض شد (متن ساده -> Skeleton سراسری)،
+                    خود ImageBox و منطق Suspense دست‌نخورده‌ست. */}
+                <Suspense
+                  fallback={
+                    <Skeleton
+                      tone="standalone"
+                      variant="rect"
+                      className="w-full h-[300px] lg:h-[400px] rounded-[20px]"
+                    />
+                  }
+                >
+                  <ImageBox item={levelTabs.data} singleLevel={singleLevel} lang={lang}/>
                 </Suspense>
               </div>
             </TabLoadingProvider>
@@ -277,7 +270,7 @@ export default async function LevelSinglePage({ params }) {
           <Features mainData={mainData} params={resolvedParams} />
         </div>
 
-          <div className="xl:px-32 lg:px-32 md:px-5 sm:px-5 xs:px-1 mt-10">
+          <div className="xl:px-8 lg:px-8 md:px-5 sm:px-5 xs:px-1 mt-10">
             <Footer
               mainData={mainData}
               params={resolvedParams}
@@ -302,7 +295,6 @@ export default async function LevelSinglePage({ params }) {
 }
 export async function generateMetadata({ params }) {
   try {
-    // ✅ الگوی استاندارد پروژه
     const resolvedParams = await params;
     const { lang, levelName, tabs } = resolvedParams;
 
@@ -351,22 +343,7 @@ export async function generateMetadata({ params }) {
 
     const mainData = await getMainFile(langData);
 
-    const levels = await findByModalName(mainData, "levels");
-    const [levelPageArrayContent, levelListArrayContent] = await Promise.all([
-      findByTabName(levels, "levels-page"),
-      findByTabName(levels, "level-list"),
-    ]);
-
-    const concatArrayContent = [
-      ...levelPageArrayContent,
-      ...levelListArrayContent,
-    ];
-
-    const levelTitle =
-      concatArrayContent.find(
-        (item) =>
-          Number(item.unique_id) === Number(levelUniqueId)
-      )?.translation || "";
+    const levelTitle = findByUniqueId(mainData, levelUniqueId);
 
     const TAB_TITLE_MAP = {
       "general-info": 387,
@@ -428,4 +405,3 @@ export async function generateMetadata({ params }) {
     };
   }
 }
-

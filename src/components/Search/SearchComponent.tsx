@@ -5,7 +5,6 @@ import axios from "axios";
 import SectionInputSearch from "@/components/shared/SectionInputSearch";
 import { ItemsSearch } from "@/components/Search/ItemsSearch";
 import { useCookies } from "react-cookie";
-import { supabase } from "@/utils/lib/supabaseClient";
 
 export default function SearchComponent({
   searchLevel = "citizen",
@@ -26,6 +25,9 @@ export default function SearchComponent({
   // === Load Articles from Supabase once ===
   useEffect(() => {
     const fetchArticles = async () => {
+      // dynamic import: کلاینت Supabase (~۴۰KB gzip) فقط برای جستجوی مقالات لود می‌شود،
+      // نه برای همه‌ی صفحات (این کامپوننت از طریق NotFoundPage در bundle همه‌جا بود).
+      const { supabase } = await import("@/utils/lib/supabaseClient");
       const { data, error } = await supabase
         .from("articles")
         .select("*")
@@ -58,9 +60,9 @@ export default function SearchComponent({
 
       let selectedURL = "";
       if (searchLevel === "citizen") {
-        selectedURL = "https://api.metarang.com/api/search/users";
+        selectedURL = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/search/users`;
       } else if (searchLevel === "education") {
-        selectedURL = "https://api.metarang.com/api/tutorials/search";
+        selectedURL = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/tutorials/search`;
       }
 
       axios

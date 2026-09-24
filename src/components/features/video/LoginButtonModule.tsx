@@ -26,7 +26,7 @@ export default function LoginButtonModule({ params }: { params: any }) {
 
       const urlToUse = `${window.location.origin}${pathname.toString()}`;
       const res = await axios.get(
-        `https://api.metarang.com/api/auth/redirect?redirect_to=${urlToUse}&referral=${referral}`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/redirect?redirect_to=${urlToUse}&referral=${referral}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -50,7 +50,7 @@ export default function LoginButtonModule({ params }: { params: any }) {
 
   return (
     <button
-      className="w-1/2 bg-blueLink cursor-pointer dark:bg-dark-yellow rounded-[10px] flex justify-center items-center text-white dark:text-dark-background font-azarMehr font-medium text-center text-[15px] py-2 px-2 md:px-4"
+      className="w-1/2 bg-primary cursor-pointer  rounded-[10px] flex justify-center items-center text-white dark:text-dark-background font-azarMehr font-medium text-center text-[15px] py-2 px-2 md:px-4"
       onClick={handleLogin}
     >
       {findByUniqueId(params, 4)} {/* استفاده از params به جای mainData */}

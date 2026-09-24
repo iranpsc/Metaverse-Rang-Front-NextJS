@@ -21,7 +21,7 @@ const DetailsEducationSection = ({ mainData }: any) => {
               <p className="w-fit text-start text-[10px] sm:text-[13px] md:text-[15px] lg:text-[18px] xl:text-[20px] text-black font-azarMehr font-medium ">
                {findByUniqueId(mainData, 483)}
               </p>
-              <div className="bg-light-primary dark:bg-dark-yellow  size-[30px] sm:size-[32px] md:size-[42px] lg:size-[52px] xl:size-[70px] rounded-full flex justify-center items-center">
+              <div className="bg-primary   size-[30px] sm:size-[32px] md:size-[42px] lg:size-[52px] xl:size-[70px] rounded-full flex justify-center items-center">
                 <Arrow className="size-[9px] sm:size-[12px] md:size-[18px] lg:size-[24px] xl:size-[36px] ltr:rotate-90" />
               </div>
             </div>

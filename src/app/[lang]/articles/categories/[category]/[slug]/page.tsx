@@ -243,6 +243,16 @@ export default async function ArticlePage({ params } :ArticlePageProps) {
       getMainFile(await getTranslation(lang)),
     ]);
 
+    const relatedArticles = (categoryArticles || [])
+      .filter(
+        (a: any) =>
+          a.slug !== article.slug &&
+          (a.category === article.category ||
+            a.subCategory === article.subCategory ||
+            a.categorySlug === article.categorySlug)
+      )
+      .slice(0, 10);
+
     // JSON-LD Schema
     const schema = {
       "@context": "https://schema.org",
@@ -264,19 +274,19 @@ export default async function ArticlePage({ params } :ArticlePageProps) {
         name: "متاورس رنگ",
         logo: {
           "@type": "ImageObject",
-          url: "https://metarang.com/logo.png",
+          url: "https://s3.metarang.com/metarang/logo/metarang-logo-512.png",
         },
       },
     };
 
     return (
-      <div className="w-full  relative bg-[#f8f8f8] dark:bg-black" dir={langData.direction}>
+      <div className="w-full  relative bg-bg-primary " dir={langData.direction}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
         <CleanAutoRetryParam />
-        <section className="w-full overflow-y-auto relative bg-[#f8f8f8] dark:bg-black mt-[60px] lg:mt-0">
+        <section className="w-full overflow-y-auto relative bg-bg-primary  mt-[60px] lg:mt-0">
           <div className="px-5 2xl:px-10">
             <BreadCrumb params={resolvedParams} title={article.title} articleCat={article.category} />
           </div>
@@ -284,7 +294,7 @@ export default async function ArticlePage({ params } :ArticlePageProps) {
           <div className="mainContainer w-full flex flex-col gap-5 items-center lg:flex-row lg:items-start px-5 lg:px-10">
             {/* محتوای اصلی */}
             <div className="lg:w-[70%] 3xl:w-[80%]">
-              <div className="flex flex-col gap-10 w-full items-center rounded-xl bg-white dark:bg-[#1A1A18] shadow-lg p-5 xl:p-10">
+              <div className="flex flex-col gap-10 w-full items-center rounded-xl bg-white dark:bg-gray-1  shadow-lg p-5 xl:p-10">
                 <AuthorSection
                   author={article.author}
                   date={article.date}
@@ -317,14 +327,18 @@ export default async function ArticlePage({ params } :ArticlePageProps) {
 
             {/* سایدبار */}
             <div className="w-full hidden lg:block lg:w-[30%] 3xl:w-[20%] sticky top-5">
-              <SideCard params={params} mainData={mainData} />
+              <SideCard params={resolvedParams} mainData={mainData} />
             </div>
           </div>
 
           {/* اسلایدرها */}
           <div className="ps-5 lg:ps-10 w-full flex items-center mt-14 lg:mt-20 flex-col gap-14">
             <PopularArticlesSlider params={resolvedParams} mainData={mainData} />
-            <RelatedArticlesSlider params={resolvedParams} mainData={mainData} />
+            <RelatedArticlesSlider
+              params={resolvedParams}
+              mainData={mainData}
+              initialArticles={relatedArticles}
+            />
           </div>
         </section>
       </div>

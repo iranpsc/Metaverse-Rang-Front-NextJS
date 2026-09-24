@@ -33,7 +33,7 @@ export default async function ContactLayout({
 
   return (
     <main
-      className="flex "
+      className="flex bg-bg-primary"
       dir={direction}
       lang={lang}
     >

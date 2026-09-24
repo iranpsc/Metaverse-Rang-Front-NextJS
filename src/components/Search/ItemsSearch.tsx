@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 // import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Like } from "../svgs/SvgEducation";
@@ -41,7 +41,7 @@ const [linkLoading, setLinkLoading] = useState(false);
   if (!isDataReady) {
     return (
       <div className="w-full py-5 flex justify-center items-center">
-        <p className="text-gray-400 dark:text-dark-gray text-[15px] font-medium">
+        <p className="text-matn-2-400  text-[15px] font-medium">
           هیچ نتیجه‌ای یافت نشد.
         </p>
       </div>
@@ -90,10 +90,10 @@ const [linkLoading, setLinkLoading] = useState(false);
                 </p>
                 <div className="flex items-center gap-3">
                   <div className="flex flex-col items-end">
-                    <p className="uppercase font-bold text-blueLink text-[14px]">
+                    <p className="uppercase font-bold text-primary text-[14px]">
                       {item?.code}
                     </p>
-                    <span className="text-[13px] text-gray-400">
+                    <span className="text-[13px] text-matn-2-400">
                       {item.level || "--"}
                     </span>
                   </div>
@@ -102,7 +102,7 @@ const [linkLoading, setLinkLoading] = useState(false);
                     alt={item?.name}
                     width={50}
                     height={50}
-                    className="rounded-full shadow-sm"
+                    className="rounded-full shadow-sm aspect-square"
                   />
                 </div>
               </Link>
@@ -142,23 +142,25 @@ const [linkLoading, setLinkLoading] = useState(false);
               </p>
               <div className="flex items-center gap-3">
                 <div className="flex flex-col items-end">
-                  <p className="uppercase font-bold text-blueLink text-[14px]">
+                  <p className="uppercase font-bold text-primary text-[14px]">
                     {item.creator.code}
                   </p>
                   <div className="flex items-center gap-1">
-                    <span className="text-[12px] text-gray-400">
+                    <span className="text-[12px] text-matn-2-400">
                       {item.likes_count}
                     </span>
-                    <Like className="w-[15px] h-[15px] stroke-gray dark:stroke-dark-gray" />
+                    <Like className="w-[15px] h-[15px] stroke-matn-2 " />
                   </div>
                 </div>
-                <Image
+               <div className="w-[100px] h-[100px]">
+                 <Image
                   src={item.creator.image}
                   alt={item.creator.title}
                   width={50}
                   height={50}
-                  className="rounded-full shadow-sm"
+                  className="rounded-full shadow-sm aspect-square"
                 />
+               </div>
               </div>
             </Link>
             
@@ -172,7 +174,7 @@ const [linkLoading, setLinkLoading] = useState(false);
           return (
             <motion.div key={item.id} variants={items}>
               <Link onClickCapture={() => setLinkLoading(true)}
-                href={`/${params.lang}/articles/categories/${params.category}/${item.slug}`}
+                href={`/${params.lang}/articles/categories/${item.categorySlug}/${item.slug}`}
                 className="w-[99%] mt-2 transition-all duration-300 
                 bg-white dark:bg-dark-background border-b border-solid border-x-0 border-t-0 border-mediumGray 
                 flex justify-between items-center py-2 gap-3"
@@ -196,7 +198,7 @@ const [linkLoading, setLinkLoading] = useState(false);
                   <h3 className="text-black dark:text-white text-[16px] font-semibold line-clamp-1">
                     {item.title}
                   </h3>
-                  <p className="dark:text-lightGray text-textGray text-[13px] truncate">
+                  <p className="dark:text-matn-2 text-matn-2 text-[13px] truncate">
                     {item.excerpt || item.category}
                   </p>
                 </div>

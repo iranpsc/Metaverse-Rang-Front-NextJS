@@ -39,7 +39,7 @@ function parseAuthor(author: NewsMetaProps['author']): {
     return {
       name: author.name || "نویسنده",
       citizenId: author.citizenId || "",
-      avatar: author.avatar || "/clogo.png",
+      avatar: author.avatar || "https://s3.metarang.com/metarang/logo/metarang-logo-512.png",
       bio: author.bio,
       field: author.field,
     };
@@ -52,7 +52,7 @@ function parseAuthor(author: NewsMetaProps['author']): {
       return {
         name: parsed.name || "نویسنده",
         citizenId: parsed.citizenId || "",
-        avatar: parsed.avatar || "/clogo.png",
+        avatar: parsed.avatar || "https://s3.metarang.com/metarang/logo/metarang-logo-512.png",
         bio: parsed.bio,
         field: parsed.field,
       };
@@ -65,7 +65,7 @@ function parseAuthor(author: NewsMetaProps['author']): {
   return {
     name: "نویسنده",
     citizenId: "",
-    avatar: "/clogo.png",
+    avatar: "https://s3.metarang.com/metarang/logo/metarang-logo-512.png",
   };
 }
 
@@ -96,10 +96,10 @@ export default function NewsMeta({
   return (
     <div className="flex flex-col gap-5 w-full">
       <div className="flex justify-between w-full">
-        <div className="flex items-center gap-2 text-sm text-gray-600">
+        <div className="flex items-center gap-2 text-sm matn-2-600">
           <div>
             <Image
-              src={parsedAuthor.avatar || "/clogo.png"}
+              src={parsedAuthor.avatar || "https://s3.metarang.com/metarang/logo/metarang-logo-512.png"}
               alt={parsedAuthor.name}
               width={60}
               height={60}
@@ -114,7 +114,7 @@ export default function NewsMeta({
             {parsedAuthor.citizenId && (
               <Link 
                 href={`/${lang}/citizens/${parsedAuthor.citizenId}`} 
-                className="text-xs md:text-base text-blueLink dark:text-blue-500 uppercase"
+                className="text-xs md:text-base text-primary dark:text-blue-500 uppercase"
               >
                 {parsedAuthor.citizenId}
               </Link>
@@ -124,7 +124,7 @@ export default function NewsMeta({
         
         <div className="flex flex-col text-start justify-center">
           <span className="items-center gap-1 flex text-[10px] md:text-sm text-[#868B90] text-start md:hidden">
-            <View className="stroke-textGray dark:stroke-[#888888] size-[16px]" />
+            <View className="stroke-matn-2 dark:stroke-[#888888] size-[16px]" />
             {stats?.views ?? 0}
           </span>
           <span className="text-[10px] md:text-sm text-[#868B90] text-start flex items-center gap-1">

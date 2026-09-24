@@ -186,7 +186,7 @@ export default async function AboutPage({ params }: AboutPageProps) {
               </h1>
               <div className="flex flex-col gap-10 ">
                 <div>
-                  <p className="text-lightGray  dark:text-lightGray font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center px-5 lg:px-10">
+                  <p className="text-matn-2  dark:text-matn-2 font-azarMehr font-normal text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center px-5 lg:px-10">
                     {findByUniqueId(mainData, 1535)}
                   </p>
                 </div>
@@ -195,9 +195,9 @@ export default async function AboutPage({ params }: AboutPageProps) {
                 <div className="w-full mt-[60px] "> <CommunicationRoutes params={resolvedParams} mainData={mainData} /></div>
                 <div className="text-center mx-auto text-xl md:text-2xl space-y-2 mt-7 md:my-14">
                   <p className="font-rokh font-bold dark:text-white text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px]"> {findByUniqueId(mainData, 260)}</p>
-                  <p className="text-lightGray  text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] px-5"> {findByUniqueId(mainData, 1551)}</p>
+                  <p className="text-matn-2  text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] px-5"> {findByUniqueId(mainData, 1551)}</p>
                 </div>
-                <main className="overflow-x-hidden w-full bg-white dark:bg-[#1A1A18] rounded-xl dark:text-white py-5 px-2 md:px-4 lg:p-7 mt-7">
+                <main className="overflow-x-hidden w-full bg-white dark:bg-gray-1  rounded-xl dark:text-white py-5 px-2 md:px-4 lg:p-7 mt-7">
                   <div className="flex-col flex gap-7 lg:flex-row w-full">
                     <div className="flex flex-col gap-2 md:gap-7 w-full lg:w-1/2 justify-center lg:justify-start">
                       <div>
@@ -205,7 +205,7 @@ export default async function AboutPage({ params }: AboutPageProps) {
                           className={`${lang.toLowerCase() == "fa"
                             ? "lg:text-right"
                             : "lg:text-left"
-                            } text-darkGray dark:text-Field py-1 text-center text-sm md:text-base pb-4 md:pb-0`}
+                            } text-gray-1 dark:text-Field py-1 text-center text-sm md:text-base pb-4 md:pb-0`}
                         >
                           {findByUniqueId(mainData, 1552)}
                         </p>
@@ -217,7 +217,7 @@ export default async function AboutPage({ params }: AboutPageProps) {
                     <div className="flex flex-col gap-7 w-full lg:w-1/2 justify-center lg:justify-start w-full mt-5 lg:mt-14">
                       <div className="flex flex-col w-full items-center justify-start  gap-5   px-5 dark:text-white text-start ">
                         <p className="lg:text-xl">آدرس :  قزوین - بخش مرکزی - ملاصدرا - خیابان میرداماد - نبش بن بست پویا - پلاک ۴۵</p>
-                        <p>تلفن پشتیبانی  :  <a href="tel:02833647125" className="text-light-primary dark:text-dark-primary"> 02833647125 </a></p>
+                        <p>تلفن پشتیبانی  :  <a href="tel:02833647125" className="text-blueLink "> 02833647125 </a></p>
                         <p className="">ساعات پاسخگویی شنبه - چهارشنبه 9 تا 13</p>
                       </div>
                       <div className="aspect-[5/3] w-full md:mt-[32px]">

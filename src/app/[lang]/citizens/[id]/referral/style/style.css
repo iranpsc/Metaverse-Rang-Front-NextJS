@@ -238,7 +238,7 @@
     height: 2%;
     background-color: transparent;
     border-radius: 50%;
-    border: 6px solid #FFC700;
+    border: 6px solid #9100D9;
     box-sizing: border-box;
 }
 
@@ -323,7 +323,7 @@
 
     font-weight: 600;
     z-index: 1;
-    color: #FFC700;
+    color: #9100D9;
     font-size: 100%;
 
 }
@@ -349,7 +349,7 @@
     float: left;
     font-size: 90%;
     font-weight: 600;
-    color: #FFC700;
+    color: #9100D9;
 
 
 }
@@ -420,7 +420,7 @@
     padding-bottom: 50px;
     border: none;
     background-color: transparent;
-    color: #FFC700;
+    color: #9100D9;
     cursor: pointer;
 }
 
@@ -557,7 +557,7 @@
         height: 2%;
         background-color: transparent;
         border-radius: 50%;
-        border: 6px solid #FFC700;
+        border: 6px solid #9100D9;
         box-sizing: border-box;
 
     }
@@ -662,7 +662,7 @@
         font-size: 170%;
         font-weight: 700;
         z-index: 2;
-        color: #FFC700;
+        color: #9100D9;
 
 
     }

@@ -78,7 +78,7 @@ export default function ArticleTagsSimple({
                 {displayTags.map((tag, index) => (
                     <span
                         key={index}
-                        className="px-3 py-1 rounded-full shadow-md bg-white dark:bg-[#1A1A18] text-sm md:text-base dark:text-[#868B90] flex gap-1 items-center"
+                        className="px-3 py-1 rounded-full shadow-md bg-white dark:bg-gray-1  text-sm md:text-base dark:text-[#868B90] flex gap-1 items-center"
                     >
                         {showIcon && (
                             <svg
