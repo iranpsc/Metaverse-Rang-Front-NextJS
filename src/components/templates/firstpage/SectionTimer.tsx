@@ -214,7 +214,7 @@ const SectionTimer = ({ params }: { params: Params }) => {
                       <a
                         onClickCapture={() => setLinkLoading(true)}
                         href={`/${params.lang}/calendar/${eventData.id}`}
-                        className="w-full h-full inline-block"
+                        className="w-full h-full inline-block text-black dark:text-white"
                       >
                         {params.lang === "fa" ? "مشاهده جزئیات" : "View Details"}
                       </a>

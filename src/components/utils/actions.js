@@ -108,7 +108,7 @@ export const getTranslation = cache(async function getTranslation(lang) {
       await getAdminApiBaseUrl();
 
     const res = await fetch(
-      `${adminApiBaseUrl}/api/translations`,
+      `${adminApiBaseUrl}/api/translations?active=true`,
       {
         next: {
           revalidate: 3600,
@@ -165,7 +165,7 @@ export const getLangArray = cache(async function getLangArray() {
       await getAdminApiBaseUrl();
 
     const res = await fetch(
-      `${adminApiBaseUrl}/api/translations`,
+      `${adminApiBaseUrl}/api/translations?active=true`,
       {
         headers: {
           "Content-Type": "application/json",
