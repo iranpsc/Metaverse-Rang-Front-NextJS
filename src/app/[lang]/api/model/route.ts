@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 const ALLOWED_HOSTS = new Set([
   "admin.metarang.com",
   "api.metarang.com",
+  "dev-admin.metarang.com",
 ]);
 
 const MAX_RETRIES = 3;
