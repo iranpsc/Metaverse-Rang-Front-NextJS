@@ -1,26 +1,26 @@
 import { Frame1, Frame2 } from "@/components/svgs";
+import { getImageProps } from "next/image";
 import React, { Suspense } from 'react';
 import { Metadata } from 'next';
 import CustomErrorPage from "@/components/error/CustomErrorPage";
-import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 import dynamic from "next/dynamic";
 
 import TopCitizen from '@/components/templates/firstpage/TopCitizenClient';
+import HeroVideo from "@/components/templates/firstpage/HeroVideo";
 import TopTrainersFirstPage from "@/components/templates/firstpage/TopTrainersFirstPage";
 import TopTrainersSkeleton from "@/components/skeleton/TopTrainersSkeleton";
-import LastContent from '@/components/templates/firstpage/LastContent.client';
+import LastContent from '@/components/templates/firstpage/LastContent';
 import {
   getTranslation,
   getMainFile,
 } from "@/components/utils/actions";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import {
-  getHomeCitizens,
-  getHomeNews,
-  getHomeTutorials,
-  getHomeVersions,
-} from "@/components/templates/firstpage/homeData";
-
+import { getHomeVersions } from "@/components/templates/firstpage/homeData";
+import { Skeleton } from "@/components/ui/skeleton";
+import CardsSectionSkeleton from "@/components/skeleton/CardsSectionSkeleton";
+import { UserCardSkeleton } from "@/components/skeleton/UserCardSkeleton";
+import EducationFirstPage from "@/components/templates/firstpage/EducationFirstPage";
+import LatestNews, { LatestNewsSkeleton } from "@/components/templates/firstpage/LastNews";
 const HeaderFirstPage = dynamic(
   () => import('@/components/templates/firstpage/HeaderFirstPage')
 );
@@ -30,15 +30,10 @@ const SectionTimer = dynamic(
 const SectionTeam = dynamic(
   () => import('@/components/templates/firstpage/TeamSection')
 );
-const LastNews = dynamic(
-  () => import('@/components/templates/firstpage/LastNews')
-);
 const FristPageVideo = dynamic(
   () => import('@/components/templates/firstpage/FristPageVideo')
 );
-const EducationFirstPage = dynamic(
-  () => import('@/components/templates/firstpage/EducationFirstPage')
-);
+
 const DetailsEducationSection = dynamic(
   () => import('@/components/templates/firstpage/DetailsEducationSection')
 );
@@ -48,10 +43,10 @@ const VersionSection = dynamic(
 
 const DESKTOP_POSTER = "/firstpage/Untitled-1.webp";
 const MOBILE_POSTER = "/firstpage/metaverse-rang-mobile-app.webp";
-const DESKTOP_VIDEO =
-  "https://s3.metarang.com/metarang/firstpage/metaverse-rang.mp4";
-const MOBILE_VIDEO =
-  "https://s3.metarang.com/metarang/firstpage/mob2.mp4";
+// const DESKTOP_VIDEO =
+//   "https://s3.metarang.com/metarang/firstpage/metaverse-rang.mp4";
+// const MOBILE_VIDEO =
+//   "https://s3.metarang.com/metarang/firstpage/mob2.mp4";
 
 // SEO
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
@@ -127,22 +122,37 @@ interface LangPageProps {
 }
 export default async function LangPage({ params }: LangPageProps) {
   const resolvedParams = await params;
-  const { lang } = await params;
+  const { lang } = resolvedParams;
   try {
-    const langData = await getTranslation(lang);
-    const mainData = await getMainFile(langData);
+    // translation -> mainData یک زنجیره است، ولی versions مستقل است؛
+    // پس موازی می‌گیریم تا TTFB کمتر شود.
+    const [mainData, homeVersions] = await Promise.all([
+      getTranslation(lang).then((langData) => getMainFile(langData)),
+      getHomeVersions(),
+    ]);
 
-    const [homeCitizens, homeVideos, homeNews, homeVersions] =
-      await Promise.all([
-        getHomeCitizens(),
-        getHomeTutorials(),
-        getHomeNews(10),
-        getHomeVersions(),
-      ]);
+    // Art direction: به‌جای دو <Image priority> (که هر دو preload می‌شدند و روی هر دستگاه
+    // یکی‌شان بی‌مصرف بود) یک <picture> می‌سازیم تا مرورگر فقط تصویر مناسب همان اندازه را بگیرد.
+    const heroCommon = {
+      alt: "hero img",
+      fill: true,
+      priority: true,
+      fetchPriority: "high" as const,
+      sizes: "100vw",
+    };
+    const { props: desktopHero } = getImageProps({
+      ...heroCommon,
+      src: DESKTOP_POSTER,
+    });
+    const { props: mobileHero } = getImageProps({
+      ...heroCommon,
+      src: MOBILE_POSTER,
+      
+    });
 
     async function makeLessCharacter() {
       let temp = findByUniqueId(mainData, 482);
-      temp = temp.slice(0, 200);
+      temp = temp.slice(0, 159);
       return temp;
     }
 
@@ -172,35 +182,48 @@ export default async function LangPage({ params }: LangPageProps) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(landingSchema) }}
         />
-        <CleanAutoRetryParam />
         <section className=" relative  mt-[60px] lg:mt-0 lg:pt-0 bg-bg-primary ">
           <section className="flex flex-col h-fit tall0:min-h-[600px] min-h-[calc(100vh-60px)] lg:h-screen relative">
             {/* Desktop hero — CSS-gated so we never call headers() (keeps route cacheable). */}
-            <video
-              poster={DESKTOP_POSTER}
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              className="hidden lg:block absolute w-full h-full ltr:rotate-y-180 object-fill sm:object-left"
-            >
-              <source src={DESKTOP_VIDEO} type="video/mp4" />
-            </video>
-            {/* Mobile hero */}
-            <video
-              poster={MOBILE_POSTER}
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="none"
-              className="block lg:hidden absolute w-full h-full object-fill"
-            >
-              <source src={MOBILE_VIDEO} type="video/mp4" />
-            </video>
+            {/* preload فقط برای اندازه‌ی مناسب (media)، نه هر دو تصویر */}
+            <link
+              rel="preload"
+              as="image"
+              href={desktopHero.src}
+              imageSrcSet={desktopHero.srcSet}
+              imageSizes="100vw"
+              media="(min-width: 1024px)"
+              fetchPriority="high"
+            />
+            <link
+              rel="preload"
+              as="image"
+              href={mobileHero.src}
+              imageSrcSet={mobileHero.srcSet}
+              imageSizes="100vw"
+              media="(max-width: 1023px)"
+              fetchPriority="high"
+            />
+
+            {/* LCP image (دسکتاپ ≥1024px / موبایل کمتر) */}
+            <picture>
+              <source
+                media="(min-width: 1024px)"
+                srcSet={desktopHero.srcSet}
+                sizes="100vw"
+              />
+              <img
+                {...mobileHero}
+                alt=""
+                aria-hidden="true"
+                className="object-fill"
+              />
+            </picture>
+
+            {/* فقط ویدیوی مناسب همین اندازه، بعد از load (نه هر دو در همان لحظه‌ی اول) */}
+            <HeroVideo lang={lang} />
             <div className="w-full h-full flex flex-col-reverse lg:flex-row px-5 lg:ps-[32px] lg:pe-0 z-[1]">
-              <Suspense fallback={<div>Loading Header...</div>}>
+              <Suspense fallback={null}>
                 <HeaderFirstPage mainData={mainData} params={resolvedParams} />
               </Suspense>
             </div>
@@ -261,18 +284,41 @@ export default async function LangPage({ params }: LangPageProps) {
               <SectionTeam mainData={mainData} params={resolvedParams} />
             </div>
             <div className="w-[90%] md:w-full h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
-              <TopCitizen
-                params={resolvedParams}
-                mainData={mainData}
-                initialCitizens={homeCitizens}
-              />
+              <Suspense
+                fallback={
+                  <>
+                    <div className="flex w-full flex-row items-center justify-between px-3">
+                      <Skeleton
+                        tone="standalone"
+                        className="h-6 md:h-7 lg:h-9 xl:h-10 w-40 md:w-56 rounded-md"
+                      />
+                    </div>
+
+                    <div className="relative flex w-full flex-row items-start gap-4 overflow-x-auto pb-10">
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <UserCardSkeleton
+                          key={i}
+                          minWidth="290px"
+                        />
+                      ))}
+                    </div>
+                  </>
+                }
+              >
+                <TopCitizen
+                  params={resolvedParams}
+                  mainData={mainData}
+                />
+              </Suspense>
             </div>
             <div className="w-[90%] h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
-              <LastNews
-                mainData={mainData}
-                params={resolvedParams}
-                initialNews={homeNews}
-              />
+              <Suspense fallback={<LatestNewsSkeleton />}>
+                <LatestNews
+                  params={resolvedParams}
+                  mainData={mainData}
+                  limit={10}
+                />
+              </Suspense>
             </div>
             <div className="relative w-[90%] h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px] flex items-center justify-center">
               <Suspense fallback={<div>Loading Header...</div>}>
@@ -285,16 +331,15 @@ export default async function LangPage({ params }: LangPageProps) {
               </Suspense>
             </div>
             <div className="w-[90%] h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
-              <Suspense fallback={<div>Loading Header...</div>}>
+              <Suspense fallback={<CardsSectionSkeleton />}>
                 <EducationFirstPage
                   params={resolvedParams}
                   mainData={mainData}
-                  initialVideos={homeVideos}
                 />
               </Suspense>
             </div>
             <div className="w-[90%] h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
-              <Suspense fallback={<div>Loading Header...</div>}>
+              <Suspense fallback={<CardsSectionSkeleton />}>
                 <LastContent mainData={mainData} params={resolvedParams} />
               </Suspense>
             </div>

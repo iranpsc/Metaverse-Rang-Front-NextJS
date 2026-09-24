@@ -61,23 +61,47 @@ export default async function AboutPage({ params }: AboutPageProps) {
     const [langData] = await Promise.all([getTranslation(lang)]);
     const mainData = await getMainFile(langData);
 
-    const aboutSchema = {
-      "@context": "https://schema.org/",
-      "@type": "AboutPage",
-      about: {
-        "@type": "Thing",
-        sameAs: "https://www.instagram.com/rgb.irpsc",
-        url: "https://metarang.com/fa/about",
-        image: "https://s3.metarang.com/metarang/logo/metarang-logo-512.png",
-        additionalType: "https://schema.org/WebPage",
-        name: 'متاورس رنگ - متارنگ"',
-        identifier: "https://metarang.com/about",
-        mainEntityOfPage: "https://metarang.com/fa/about",
-        disambiguatingDescription: "صفحه‌ای برای معرفی متاورس رنگ و ماموریت آن",
-        description: findByUniqueId(mainData, 1557),
-        alternateName: "Metaverse Rang - MetaRang About Page",
+const aboutSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://metarang.com/#organization",
+      "name": "متاورس رنگ - متارنگ",
+      "alternateName": "MetaRang",
+      "url": "https://metarang.com/",
+      "logo": {
+        "@type": "ImageObject",
+        "@id": "https://metarang.com/#logo",
+        "url": "https://s3.metarang.com/metarang/logo/metarang-logo-512.png",
+        "contentUrl": "https://s3.metarang.com/metarang/logo/metarang-logo-512.png",
+        "width": 512,
+        "height": 512
       },
-    };
+      "sameAs": [
+        "https://www.instagram.com/rgb.irpsc"
+      ],
+      "description": findByUniqueId(mainData, 1557)
+    },
+    {
+      "@type": "AboutPage",
+      "@id": `https://metarang.com/${lang}/about#aboutpage`,
+      "url": `https://metarang.com/${lang}/about`,
+      "name":
+        lang.toLowerCase() === "fa"
+          ? "درباره ما | متارنگ"
+          : "About Us | MetaRang",
+      "description": findByUniqueId(mainData, 1557),
+      "inLanguage":
+        lang.toLowerCase() === "fa"
+          ? "fa-IR"
+          : "en-US",
+      "mainEntity": {
+        "@id": "https://metarang.com/#organization"
+      }
+    }
+  ]
+};
 
     return (
       <>
@@ -95,7 +119,7 @@ export default async function AboutPage({ params }: AboutPageProps) {
           className={`min-h-[calc(100vh-60px)] relative mt-[60px] lg:mt-0 mx-auto px-4 lg:px-9 !font-azarMehr`}
         >
           <div>
-            <BreadCrumb params={params} />
+            <BreadCrumb params={resolvedParams} />
           </div>
           <h1 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[64px] lg:mt-[40px] mb-[16px]">
             {findByUniqueId(mainData, 259)}

@@ -12,6 +12,12 @@ export const azarMehr = localFont({
   variable: '--font-azarMehr',
   display: 'swap',
   fallback: ['system-ui', 'Tahoma', 'sans-serif'],
+  // These are applied at the [lang] layout/body level, so every route
+  // was preloading all 3 weights (~130KB) whether that page used them
+  // or not, putting them on the render-blocking critical path. swap +
+  // fallback already keep text visible instantly, so preload buys us
+  // nothing but a slower first paint — turn it off.
+  preload: false,
 });
 
 export const rokh = localFont({
@@ -20,4 +26,7 @@ export const rokh = localFont({
   ],
   variable: '--font-rokh',
   display: 'swap',
+  fallback: ['system-ui', 'Tahoma', 'sans-serif'],
+  // Same reasoning as azarMehr above.
+  preload: false,
 });

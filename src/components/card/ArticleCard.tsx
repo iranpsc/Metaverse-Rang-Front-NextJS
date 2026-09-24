@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Like, Dislike, View } from "@/components/svgs/SvgEducation";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import { formatNumber } from "@/components/utils/formatNumber";
+import { stripHtml } from "@/components/utils/stripHtml";
 
 interface ArticleCardProps {
   item: any;
@@ -13,9 +14,11 @@ interface ArticleCardProps {
   theme?: "light" | "dark";
   activeLoadingId?: any;
   setActiveLoadingId?: any;
+  /** پیش‌فرض true (رفتار قبلی). در جاهایی که کارت زیر fold است false بده تا با LCP رقابت نکند. */
+  imagePriority?: boolean;
 }
 
-export default function ArticleCard({ item, params, theme, activeLoadingId, setActiveLoadingId }: ArticleCardProps) {
+export default function ArticleCard({ item, params, theme, activeLoadingId, setActiveLoadingId, imagePriority = true }: ArticleCardProps) {
   const titleRef = useRef<HTMLParagraphElement>(null);
   const [isTruncated, setIsTruncated] = useState(false);
   const [imgLoading, setImgLoading] = useState(true);
@@ -32,21 +35,28 @@ export default function ArticleCard({ item, params, theme, activeLoadingId, setA
     return () => observer.disconnect();
   }, [item.title]);
 
-  const stripHTML = (html: string) => {
-    const tmp = document.createElement("div");
-    tmp.innerHTML = html;
-    return tmp.textContent || tmp.innerText || "";
-  };
   const isLoading = activeLoadingId === item.id;
   return (
-    <Link onClickCapture={() => setActiveLoadingId(item.id)} href={`/${params.lang}/articles/categories/${item.categorySlug}/${item.slug}`} className={`${isLoading ? "rotating-border-card cursor-not-allowed" : ""} w-[100%] min-h-[240px] shadow-md hover:shadow-xl hover:dark:shadow-dark rounded-[10px] overflow-hidden bg-white dark:bg-gray-1  flex flex-col justify-start gap-6 items-center`}>
+    <div onClickCapture={() => setActiveLoadingId?.(item.id)} className={`relative ${isLoading ? "rotating-border-card cursor-not-allowed" : ""} w-[100%] min-h-[240px] shadow-md hover:shadow-xl hover:dark:shadow-dark rounded-[10px] overflow-hidden bg-white dark:bg-gray-1  flex flex-col justify-start gap-6 items-center`}>
+    {/*
+      قبلاً کل کارت یک <Link> بود و داخلش چند <Link> دیگر (دسته‌بندی، نویسنده، ...) قرار داشت.
+      <a> تو در تو در HTML نامعتبر است: وقتی کارت روی سرور رندر می‌شود، مرورگر آن را
+      وسط parse می‌شکند و کارت تا hydration به‌هم‌ریخته دیده می‌شود.
+      حالا کارت یک div است و یک لینک شفاف تمام‌قد (overlay) کلیک روی بقیه‌ی کارت را می‌گیرد.
+    */}
+      <Link
+        href={`/${params.lang}/articles/categories/${item.categorySlug}/${item.slug}`}
+        aria-hidden="true"
+        tabIndex={-1}
+        className="absolute inset-0 z-0"
+      />
       {isLoading && (
         <div className="absolute inset-0 z-50 flex items-center justify-center">
           <div className="absolute inset-0 bg-black/20 " />
         </div>
       )}
       {/* تصویر مقاله */}
-      <div className="group w-full h-[260px] overflow-hidden px-4 pt-4 z-[1]">
+      <div className="group w-full h-[260px] overflow-hidden px-4 pt-4 z-[1] pointer-events-none">
         <div className="relative h-full w-full">
           {imgLoading && (
             <div className="absolute inset-0 h-full w-full bg-dark-gray dark:bg-matn-2 animate-pulse rounded-[10px] z-20" />
@@ -56,9 +66,9 @@ export default function ArticleCard({ item, params, theme, activeLoadingId, setA
             alt={item.title}
             width={400}
             height={260}
-            priority
+            priority={imagePriority}
             quality={70}
-            sizes="(max-width: 640px) 320px, (max-width: 1024px) 473px,"
+            sizes="(max-width: 640px) 320px, (max-width: 1024px) 473px, 400px"
             className="w-[100%] h-full object-cover rounded-[10px]"
             onLoadingComplete={() => setImgLoading(false)}
           />
@@ -67,10 +77,10 @@ export default function ArticleCard({ item, params, theme, activeLoadingId, setA
       </div>
 
       {/* دسته‌بندی */}
-      <div className="w-[95%] flex flex-row justify-start items-center gap-1 mt-[-10px] pe-16 z-[1]">
+      <div className="w-[95%] flex flex-row justify-start items-center gap-1 mt-[-10px] pe-16 z-[1] pointer-events-none">
         <Link
           href={`/${params.lang}/articles/categories/${item.categorySlug}`}
-          className="text-start text-matn-2  font-medium font-azarMehr text-[13px] 3xl:text-[16px] text-nowrap"
+          className="pointer-events-auto text-start text-matn-2  font-medium font-azarMehr text-[13px] 3xl:text-[16px] text-nowrap"
         >
           {item.category}
         </Link>
@@ -79,7 +89,7 @@ export default function ArticleCard({ item, params, theme, activeLoadingId, setA
             <span className="font-azarMehr text-matn-2 ">/</span>
             <Link
               href={`/${params.lang}/articles/categories/${item.categorySlug}/${item.subCategory}`}
-              className="text-start text-matn-2  whitespace-nowrap font-medium font-azarMehr text-[13px] 3xl:text-[16px] truncate"
+              className="pointer-events-auto text-start text-matn-2  whitespace-nowrap font-medium font-azarMehr text-[13px] 3xl:text-[16px] truncate"
               data-tooltip-id={item.subCategory}
             >
               {item.subCategory.length > 30
@@ -123,15 +133,16 @@ export default function ArticleCard({ item, params, theme, activeLoadingId, setA
         className="w-[95%] mt-[-20px] text-matn-2 dark:text-matn-2 z-[1]"
       >
         <p className="text-[12px] 3xl:text-[16px] line-clamp-2 break-words overflow-hidden">
-          {stripHTML(item.excerpt || item.description)}
+          {stripHtml(item.excerpt || item.description)}
         </p>
       </Link>
 
       {/* نویسنده و آمار */}
-      <div className="w-[95%] pb-2 flex flex-row justify-between items-center z-[1]">
+      <div className="w-[95%] pb-2 flex flex-row justify-between items-center z-[1] pointer-events-none">
         <Link
           href={`/${params.lang}/citizens/${item.author.citizenId}`}
           aria-label="Author profile"
+          className="pointer-events-auto"
         >
           <div className="flex flex-row justify-start items-center gap-2">
             <Image
@@ -175,6 +186,6 @@ export default function ArticleCard({ item, params, theme, activeLoadingId, setA
           </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }

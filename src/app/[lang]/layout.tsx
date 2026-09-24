@@ -104,19 +104,6 @@ export default async function LangLayout({
         lang={lang}
         suppressHydrationWarning
       >
-        <head>
-          <link
-            rel="preload"
-            as="image"
-            href="/firstpage/Untitled-1.webp"
-          />
-          <link
-            rel="preload"
-            as="image"
-            href="/firstpage/metaverse-rang-mobile-app.webp"
-          />
-        </head>
-
         <body
           className={`${azarMehr.variable} ${rokh.variable} h-screen light-scrollbar dark:dark-scrollbar`}
         >

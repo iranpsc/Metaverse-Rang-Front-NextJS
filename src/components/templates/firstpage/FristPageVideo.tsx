@@ -33,7 +33,6 @@ const SectionVideo: React.FC<SectionVideoProps> = ({ params }) => {
             fill
             sizes="(max-width: 1024px) 90vw, 80vw"
             className="object-cover rounded-3xl lg:rounded-[72px]"
-            priority
           />
           <div className="w-full h-full absolute top-0 z-10 flex justify-center items-center">
             <button
