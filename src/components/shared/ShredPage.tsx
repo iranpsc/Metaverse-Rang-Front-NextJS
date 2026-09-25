@@ -29,7 +29,7 @@ export default function ShredPage({
 
   const handleCopyClick = async () => {
     try {
-      const textToCopy = `https://metarang.com/${params.lang}/citizen/${params.id}`;
+      const textToCopy = `https://metarang.com/${params.lang}/citizens/${params.id}`;
       await navigator.clipboard.writeText(textToCopy);
 
       setCopied(true);
@@ -40,7 +40,7 @@ export default function ShredPage({
   };
 
   const handleShare = (platform: any) => {
-    const urlToShare = `https://metarang.com/${params.lang}/citizen/${params.id}`;
+    const urlToShare = `https://metarang.com/${params.lang}/citizens/${params.id}`;
     let shareUrl = "";
 
     switch (platform) {
@@ -161,13 +161,13 @@ export default function ShredPage({
                 className="relative flex justify-end items-center mt-8 w-[95%] rounded-[20px] px-4 py-1 shadow-md dark:bg-[#000] border border-matn-2"
               >
                 <p
-                  className="absolute start-2 cursor-pointer xl:w-[75px] lg:w-[75px] md:w-[65px] sm:w-[55px] xs:w-[55px] rounded-[40px] text-center  font-azarMehr text-[16px] sm:text-[14px] xs:text-[14px]  font-bold xl:py-2  lg:py-2 md:py-1 sm:py-2 xs:py-2 text-[#f9f9f9] bg-[#0000ffd9]  dark:text-matn-2  "
+                  className="absolute start-2 cursor-pointer xl:w-[75px] lg:w-[75px] md:w-[65px] sm:w-[55px] xs:w-[55px] rounded-[40px] text-center  font-azarMehr text-[16px] sm:text-[14px] xs:text-[14px]  font-bold xl:py-2  lg:py-2 md:py-1 sm:py-2 xs:py-2 text-matn-1 bg-primary    "
                   onClick={handleCopyClick}
                 >
                   {/* {targetData(userProperty, "copy")} */}
                   {findByUniqueId(mainData, 323)}
                 </p>
-                <p className="py-2 text-matn-2 dark:text-[#fff] font-azarMehr xl:text-[16px] lg:text-[16px] md:text-[10px] sm:text-[12px] xs:text-[12px] font-medium">{`https://metarang.com/${params.lang}/citizen/${params.id}`}</p>
+                <p className="py-2 text-matn-2 font-azarMehr xl:text-[16px] lg:text-[16px] md:text-[10px] sm:text-[12px] xs:text-[12px] font-medium">{`https://metarang.com/${params.lang}/citizens/${params.id}`}</p>
               </div>
               {copied && (
                 <ReactTooltip

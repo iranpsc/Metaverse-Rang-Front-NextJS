@@ -1,7 +1,7 @@
 import { NextRequest } from "next/server";
 
 const ADMIN_FLAG_BASE =
-  "https://dev-admin.metarang.com/assets/images/flags/";
+  "https://admin.metarang.com/assets/images/flags/";
 
 const ALLOWED_FILES = new Set([
   "FA.svg",
