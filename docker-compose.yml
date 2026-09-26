@@ -17,3 +17,6 @@ services:
 
     environment:
       NODE_ENV: production
+
+    volumes:
+      - /opt/metarang/sitemaps:/app/public/sitemaps
