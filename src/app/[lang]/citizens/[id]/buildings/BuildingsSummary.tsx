@@ -139,7 +139,7 @@ export default function BuildingsSummary({
         setError(false);
 
         const res = await axios.get(
-          `https://dev-api.metarang.com/api/citizen/${params.id}/buildings/summary`,
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/citizen/${params.id}/buildings/summary`,
           { headers: { "Content-Type": "application/json" } }
         );
 

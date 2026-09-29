@@ -23,7 +23,7 @@ import type { MapMarkerItem } from "./Map";
 /* ------------------------------------------------------------------ */
 /*                              CONSTANTS                              */
 /* ------------------------------------------------------------------ */
-const API_BASE = "https://dev-api.metarang.com/api/citizen";
+const API_BASE = "${process.env.NEXT_PUBLIC_API_BASE_URL}/api/citizen";
 const LIST_PER_PAGE = 10;
 const SEARCH_DEBOUNCE_MS = 350;
 const PINNED_PAGE_SIZE = 100; // page size while collecting the properties of one circle

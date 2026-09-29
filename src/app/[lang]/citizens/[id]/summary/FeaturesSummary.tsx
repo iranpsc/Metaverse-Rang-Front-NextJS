@@ -89,7 +89,7 @@ export default function FeaturesSummary({
         qs.append("period", period);
 
         const res = await axios.get(
-          `https://dev-api.metarang.com/api/citizen/${params.id}/features/summary?${qs.toString()}`,
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/citizen/${params.id}/features/summary?${qs.toString()}`,
           { headers: { "Content-Type": "application/json" }, signal: controller.signal }
         );
 

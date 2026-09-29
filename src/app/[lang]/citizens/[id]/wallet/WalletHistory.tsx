@@ -72,7 +72,7 @@ export default function WalletHistory({
       const query = buildWalletQuery(period, selectedAssets);
 
       const res = await axios.get(
-        `https://dev-api.metarang.com/api/citizen/${params.id}/wallet/history/summary?${query}`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/citizen/${params.id}/wallet/history/summary?${query}`,
         { headers: { "Content-Type": "application/json" } }
       );
       setSummaryData(res.data?.data || []);
@@ -95,7 +95,7 @@ export default function WalletHistory({
       const query = buildWalletQuery(period, selectedAssets);
 
       const res = await axios.get(
-        `https://dev-api.metarang.com/api/citizen/${params.id}/wallet/history/chart?${query}`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/citizen/${params.id}/wallet/history/chart?${query}`,
         { headers: { "Content-Type": "application/json" } }
       );
       setChartData(res.data?.data || {});

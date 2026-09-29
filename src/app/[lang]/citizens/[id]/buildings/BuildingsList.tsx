@@ -646,7 +646,7 @@ export default function BuildingsList({
       qs.append("page", String(pageNum));
 
       const res = await axios.get(
-        `https://dev-api.metarang.com/api/citizen/${params.id}/buildings?${qs.toString()}`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/citizen/${params.id}/buildings?${qs.toString()}`,
         {
           headers: {
             "Content-Type": "application/json",
