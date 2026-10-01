@@ -27,13 +27,18 @@ export default function InviteList({
   const [loading, setLoading] = useState(false);
 
   // اگر API مقدار has_more / next_page داشته باشد از آن استفاده می‌کنیم.
-  const [hasMore, setHasMore] = useState(
-    initInviteList?.has_more ??
-      initInviteList?.next_page !== null ??
-      false
-  );
+const [hasMore, setHasMore] = useState(() => {
+  if (typeof initInviteList?.has_more === "boolean") {
+    return initInviteList.has_more;
+  }
 
-  const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+  if (initInviteList?.next_page !== undefined) {
+    return initInviteList.next_page !== null;
+  }
+
+  return false;
+});
+  // const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
   /* ---------------- search ---------------- */
 
