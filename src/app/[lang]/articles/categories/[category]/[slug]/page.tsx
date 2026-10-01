@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: ArticlePageProps) {
   const resolvedParams = await params;
   // const { lang } = resolvedParams;
   try {
-    function cleanDescription(html: any, limit = 255) {
+    function cleanDescription(html: any, limit = 155) {
       if (!html) return "";
 
       let text = "";

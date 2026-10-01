@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: CategoriesPageProps) {
     const fullPageUrl = `${baseUrl}${langPrefix}/articles/categories`;
     const langData = await getTranslation(lang);
     const mainData = await getMainFile(langData);
-    const title = findByUniqueId(mainData, 1516);
+    const title = `${findByUniqueId(mainData, 1516)} + " | " ${findByUniqueId(mainData, 148)}`;
     const description =
       "در بخش دسته‌بندی مقالات متاورس رنگ، با موضوعات مختلفی از فناوری متاورس، هوش مصنوعی، بلاک‌چین و دنیای دیجیتال آشنا شوید.";
 

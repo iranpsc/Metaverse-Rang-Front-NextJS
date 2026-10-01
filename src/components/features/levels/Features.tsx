@@ -50,10 +50,10 @@ export const Features = ({ levelsTranslatePage, mainData }: any) => {
       ref={featuresRef}
       className="pt-8 flex flex-wrap justify-center dark:text-white"
     >
-      <div className="flex justify-center items-end px-3 sm:px-4 2xl:px-6 h-[300px] xl:h-[400px] w-full sm:w-1/2 lg:w-1/3 xl:w-1/4">
-        <div className="w-[90%] relative rounded-[20px] cursor-cell p-3 pb-[15%] pt-[95px] xl:pt-[120px] 2xl:pt-[130px] 3xl:pt-[150px] h-[195px] lg:h-[210px] xl:h-[260px] 2xl:h-[280px] 2xl flex flex-col justify-center items-center dark:bg-gray-1 bg-white base-shadow-1 hover:shadow-[0_0px_20px_rgba(0,0,0,0.45)] dark:hover:text-title-2shadow-[0_0px_35px_-12px_rgba(145,0,217,0.9)] border-solid border border-transparent hover:border-solid hover:border-primary hover: hover:scale-110 base-transition-1">
+      <div className="flex justify-center items-end px-3 sm:px-4 2xl:px-6 h-[300px] xl:h-[400px] w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 group">
+        <div className="w-[90%] relative rounded-[20px] cursor-cell p-3 pb-[15%] pt-[95px]  h-[195px] lg:h-[210px] xl:h-[260px] 2xl:h-[280px] 2xl flex flex-col justify-center items-center dark:bg-gray-1 bg-white base-shadow-1 hover:shadow-[0_0px_20px_rgba(0,0,0,0.45)] dark:hover:text-title-2shadow-[0_0px_35px_-12px_rgba(145,0,217,0.9)] border-solid border border-transparent hover:border-solid hover:border-primary hover: hover:scale-110 base-transition-1">
           <div className="absolute bottom-[calc(100%-70px)]">
-            <div className="w-[140px] h-[140px] flex justify-center items-center bg-gray-1 rounded-full">
+            <div className="w-[140px] h-[140px] flex justify-center items-center bg-gray-1 rounded-full border border-solid border-transparent group-hover:border-primary">
               <LevelIncome className="w-[100px] h-[100px]" />
             </div>
           </div>
@@ -63,13 +63,18 @@ export const Features = ({ levelsTranslatePage, mainData }: any) => {
           <p className="text-center text-base 2xl:text-xl font-[400]">
             {findByUniqueId(mainData, 407)}
           </p>
+          <div className="bg-gray-2  text-primary hover:border-primary border-transparent border-solid border rounded-lg px-5 py-2 mt-5">
+            <span>
+               {findByUniqueId(mainData, 1842)}
+            </span>
+          </div>
         </div>
       </div>
 
-      <div className="flex justify-center items-end px-3 sm:px-4 2xl:px-6 h-[300px] xl:h-[400px] w-full sm:w-1/2 lg:w-1/3 xl:w-1/4">
-        <div className="w-[90%] relative rounded-[20px] cursor-cell p-3 pb-[15%] pt-[95px] xl:pt-[120px] 2xl:pt-[130px] 3xl:pt-[150px] h-[195px] lg:h-[210px] xl:h-[260px] 2xl:h-[280px] 2xl flex flex-col justify-center items-center dark:bg-gray-1 bg-white base-shadow-1 hover:shadow-[0_0px_20px_rgba(0,0,0,0.45)] dark:hover:text-title-2shadow-[0_0px_35px_-12px_rgba(145,0,217,0.9)]  border-solid border border-transparent hover:border-solid hover:border-primary hover: hover:scale-110 base-transition-1">
+      <div className="flex justify-center items-end px-3 sm:px-4 2xl:px-6 h-[300px] xl:h-[400px] w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 group">
+        <div className="w-[90%] relative rounded-[20px] cursor-cell p-3 pb-[15%] pt-[95px]  h-[195px] lg:h-[210px] xl:h-[260px] 2xl:h-[280px] 2xl flex flex-col justify-center items-center dark:bg-gray-1 bg-white base-shadow-1 hover:shadow-[0_0px_20px_rgba(0,0,0,0.45)] dark:hover:text-title-2shadow-[0_0px_35px_-12px_rgba(145,0,217,0.9)]  border-solid border border-transparent hover:border-solid hover:border-primary hover: hover:scale-110 base-transition-1">
           <div className="absolute bottom-[calc(100%-70px)]">
-            <div className="w-[140px] h-[140px] flex justify-center items-center bg-gray-1 rounded-full">
+            <div className="w-[140px] h-[140px] flex justify-center items-center bg-gray-1 rounded-full border border-solid border-transparent group-hover:border-primary">
               <LevelOrders className="w-[100px] h-[100px]" />
             </div>
           </div>
@@ -79,13 +84,18 @@ export const Features = ({ levelsTranslatePage, mainData }: any) => {
           <p className="text-center text-base 2xl:text-xl font-[400]">
             {findByUniqueId(mainData, 409)}
           </p>
+           <div className="bg-gray-2  text-primary hover:border-primary border-transparent border-solid border rounded-lg px-5 py-2 mt-5">
+            <span>
+               {findByUniqueId(mainData, 1843)}
+            </span>
+          </div>
         </div>
       </div>
 
-      <div className="flex justify-center items-end px-3 sm:px-4 2xl:px-6 h-[300px] xl:h-[400px] w-full sm:w-1/2 lg:w-1/3 xl:w-1/4">
-        <div className="w-[90%] relative rounded-[20px] cursor-cell p-3 pb-[15%] pt-[95px] xl:pt-[120px] 2xl:pt-[130px] 3xl:pt-[150px] h-[195px] lg:h-[210px] xl:h-[260px] 2xl:h-[280px] 2xl flex flex-col justify-center items-center dark:bg-gray-1 bg-white base-shadow-1 hover:shadow-[0_0px_20px_rgba(0,0,0,0.45)] dark:hover:text-title-2shadow-[0_0px_35px_-12px_rgba(145,0,217,0.9)]  border-solid border border-transparent hover:border-solid hover:border-primary hover: hover:scale-110 base-transition-1">
+      <div className="flex justify-center items-end px-3 sm:px-4 2xl:px-6 h-[300px] xl:h-[400px] w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 group">
+        <div className="w-[90%] relative rounded-[20px] cursor-cell p-3 pb-[15%] pt-[95px]  h-[195px] lg:h-[210px] xl:h-[260px] 2xl:h-[280px] 2xl flex flex-col justify-center items-center dark:bg-gray-1 bg-white base-shadow-1 hover:shadow-[0_0px_20px_rgba(0,0,0,0.45)] dark:hover:text-title-2shadow-[0_0px_35px_-12px_rgba(145,0,217,0.9)]  border-solid border border-transparent hover:border-solid hover:border-primary hover: hover:scale-110 base-transition-1">
           <div className="absolute bottom-[calc(100%-70px)]">
-            <div className="w-[140px] h-[140px] flex justify-center items-center bg-gray-1 rounded-full">
+            <div className="w-[140px] h-[140px] flex justify-center items-center bg-gray-1 rounded-full border border-solid border-transparent group-hover:border-primary">
               <LevelDevelopment className="w-[100px] h-[100px]" />
             </div>
           </div>
@@ -95,13 +105,18 @@ export const Features = ({ levelsTranslatePage, mainData }: any) => {
           <p className="text-center text-base 2xl:text-xl font-[400]">
             {findByUniqueId(mainData, 410)}
           </p>
+           <div className="bg-gray-2  text-primary hover:border-primary border-transparent border-solid border rounded-lg px-5 py-2 mt-5">
+            <span>
+               {findByUniqueId(mainData, 1844)}
+            </span>
+          </div>
         </div>
       </div>
 
-      <div className="flex justify-center items-end px-3 sm:px-4 2xl:px-6 h-[300px] xl:h-[400px] w-full sm:w-1/2 lg:w-1/3 xl:w-1/4">
-        <div className="w-[90%] relative rounded-[20px] cursor-cell p-3 pb-[15%] pt-[95px] xl:pt-[120px] 2xl:pt-[130px] 3xl:pt-[150px] h-[195px] lg:h-[210px] xl:h-[260px] 2xl:h-[280px] 2xl flex flex-col justify-center items-center dark:bg-gray-1 bg-white base-shadow-1 hover:shadow-[0_0px_20px_rgba(0,0,0,0.45)] dark:hover:text-title-2shadow-[0_0px_35px_-12px_rgba(145,0,217,0.9)]  border-solid border border-transparent hover:border-solid hover:border-primary hover: hover:scale-110 base-transition-1">
+      <div className="flex justify-center items-end px-3 sm:px-4 2xl:px-6 h-[300px] xl:h-[400px] w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 group">
+        <div className="w-[90%] relative rounded-[20px] cursor-cell p-3 pb-[15%] pt-[95px]  h-[195px] lg:h-[210px] xl:h-[260px] 2xl:h-[280px] 2xl flex flex-col justify-center items-center dark:bg-gray-1 bg-white base-shadow-1 hover:shadow-[0_0px_20px_rgba(0,0,0,0.45)] dark:hover:text-title-2shadow-[0_0px_35px_-12px_rgba(145,0,217,0.9)]  border-solid border border-transparent hover:border-solid hover:border-primary hover: hover:scale-110 base-transition-1">
           <div className="absolute bottom-[calc(100%-70px)]">
-            <div className="w-[140px] h-[140px] flex justify-center items-center bg-gray-1 rounded-full">
+            <div className="w-[140px] h-[140px] flex justify-center items-center bg-gray-1 rounded-full border border-solid border-transparent group-hover:border-primary">
               <LevelUpdate className="w-[100px] h-[100px]" />
             </div>
           </div>
@@ -111,6 +126,11 @@ export const Features = ({ levelsTranslatePage, mainData }: any) => {
           <p className="text-center text-base 2xl:text-xl font-[400]">
             {findByUniqueId(mainData, 412)}
           </p>
+           <div className="bg-gray-2  text-primary hover:border-primary border-transparent border-solid border rounded-lg px-5 py-2 mt-5">
+            <span>
+               {findByUniqueId(mainData, 1845)}
+            </span>
+          </div>
         </div>
       </div>
     </div>

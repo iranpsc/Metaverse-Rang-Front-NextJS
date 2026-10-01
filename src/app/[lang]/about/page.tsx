@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: AboutPageProps) {
   const { lang } = resolvedParams;
   try {
     return {
-      title: lang.toLowerCase() === "fa" ? "درباره ما" : "About Us",
+      title: lang.toLowerCase() === "fa" ? "درباره ما | متارنگ" : "About Us | Metarang",
       description:
         lang.toLowerCase() === "fa"
           ? "متارنگ با تأکید بر نوآوری و کارآفرینی، بستری را فراهم کرده است که افراد می‌توانند از طریق آن به توسعه‌ی کسب و کارها و اقتصاد بین‌المللی بپردازند."
@@ -67,7 +67,7 @@ const aboutSchema = {
     {
       "@type": "Organization",
       "@id": "https://metarang.com/#organization",
-      "name": "متاورس رنگ - متارنگ",
+      "name": "متاورس رنگ | متارنگ",
       "alternateName": "MetaRang",
       "url": "https://metarang.com/",
       "logo": {
@@ -91,7 +91,7 @@ const aboutSchema = {
         lang.toLowerCase() === "fa"
           ? "درباره ما | متارنگ"
           : "About Us | MetaRang",
-      "description": findByUniqueId(mainData, 1557),
+      "description": findByUniqueId(mainData, 1557).slice(0, 155),
       "inLanguage":
         lang.toLowerCase() === "fa"
           ? "fa-IR"

@@ -1,11 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import dynamic from "next/dynamic";
-
-import { useTabLoading } from "@/components/ui/Skeleton/TabLoadingProvider";
 
 const Sample3D = dynamic(() => import("./Sample3D"), {
   ssr: false,
@@ -14,28 +12,6 @@ const Sample3D = dynamic(() => import("./Sample3D"), {
 const ErrorBoundary = dynamic(
   () => import("@/components/utils/ErrorBoundary"),
 );
-
-/**
- * ==========================================
- * SKELETON
- * ==========================================
- */
-
-function ImageBoxSkeleton() {
-  return (
-    <div className="w-full flex flex-col items-center animate-pulse">
-      <div className="w-[90%] md:w-full aspect-[5/7] bg-gray-2  rounded-lg" />
-
-      <div className="flex gap-3 mt-4">
-        <div className="w-[63px] h-[44px] bg-gray-2 rounded-lg" />
-
-        <div className="w-[63px] h-[44px] bg-gray-2 rounded-lg" />
-
-        <div className="w-[63px] h-[44px] bg-gray-2 rounded-lg" />
-      </div>
-    </div>
-  );
-}
 
 /**
  * ==========================================
@@ -142,8 +118,6 @@ function parse3DSource(value: unknown) {
  */
 
 export default function ImageBox({ item, singleLevel, lang }: any) {
-  const { loading, setLoading } = useTabLoading();
-
   const [mode, setMode] = useState<"png" | "fbx" | "gif">("png");
 
   /**
@@ -181,28 +155,6 @@ export default function ImageBox({ item, singleLevel, lang }: any) {
 
   /**
    * =====================================
-   * NO FILE
-   * =====================================
-   */
-
-  useEffect(() => {
-    if (!srcPng && !srcGif && !modelSource) {
-      setLoading(false);
-    }
-  }, [srcPng, srcGif, modelSource, setLoading]);
-
-  /**
-   * =====================================
-   * SKELETON
-   * =====================================
-   */
-
-  if (loading) {
-    return <ImageBoxSkeleton />;
-  }
-
-  /**
-   * =====================================
    * VIEW
    * =====================================
    */
@@ -210,34 +162,34 @@ export default function ImageBox({ item, singleLevel, lang }: any) {
   return (
     <div className="w-full flex flex-col items-center sticky top-0">
       {mode === "png" && srcPng && (
-        <div className="relative w-[90%] md:w-full aspect-[5/7]">
+        <div className="relative w-[90%] md:w-full aspect-[5/7] rounded-xl">
+          {/* اسکلت پشت تصویر؛ وقتی تصویر پینت شد روی آن را می‌پوشاند */}
+          <div className="absolute inset-0 rounded-xl " />
           <Image
             src={srcPng}
             alt="png"
             fill
             priority
             className="object-cover rounded-xl"
-            onLoad={() => setLoading(false)}
             onError={() => {
               console.error("ImageBox: failed to load PNG:", srcPng);
-              setLoading(false);
             }}
           />
         </div>
       )}
 
       {mode === "gif" && srcGif && (
-        <div className="relative w-full aspect-[5/7]">
+        <div className="relative w-full aspect-[5/7] rounded-xl">
+          {/* اسکلت پشت تصویر؛ وقتی تصویر پینت شد روی آن را می‌پوشاند */}
+          <div className="absolute inset-0 rounded-xl " />
           <Image
             src={srcGif}
             alt="gif"
             fill
             unoptimized
             className="object-cover rounded-xl"
-            onLoad={() => setLoading(false)}
             onError={() => {
               console.error("ImageBox: failed to load GIF:", srcGif);
-              setLoading(false);
             }}
           />
         </div>

@@ -74,11 +74,11 @@
     "src/components/features/levels/TabSelector.tsx",
     ".next/dev/types/**/*.ts",
     "src/app/[lang]/page.tsx",
-    "src/app/[lang]/levels/citizen/[levelName]/[tabs]/page.jsx",
+    "src/app/[lang]/levels/citizen/[levelName]/[tabs]/page.tsx",
     "src/app/[lang]/articles/categories/[category]/[slug]/page.tsx",
     "src/app/[lang]/about/layout.tsx",
     "src/app/layout.jsx"
-  ],
+, "src/app/[lang]/levels/citizen/[levelName]/[tabs]/layoutttt.tttttsx"  ],
   "exclude": [
     "node_modules"
   ]

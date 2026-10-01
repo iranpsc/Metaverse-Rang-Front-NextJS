@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: ArticlesPageProps) {
     const url = `${baseUrl}/${lang}/articles`;
 
     return {
-      title: lang === "fa" ? "مقالات متاورس رنگ" : "Metarangs Metaverse Articles",
+      title: lang === "fa" ? "مقالات متاورس رنگ | متارنگ" : "Metarangs Metaverse Articles | Metarang",
       description: lang === "fa" ? "در این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنید" : "The Metarangs Metaverse articles page is the main gateway to the written content of Metarang — Iran’s first national metaverse. In this section, you can access the latest content on science, technology, virtual commerce, and development news of this parallel world.",
       openGraph: {
         title: lang === "fa" ? "مقالات متاورس رنگ" : "Metarangs Metaverse Articles",
@@ -110,7 +110,7 @@ export default async function ArticlesPage({ params }: ArticlesPageProps) {
           url: fullPageUrl,
           name: "مقالات متاورس رنگ",
           description:
-            "در این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنید",
+            "در این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه ش",
           isPartOf: {
             "@type": "WebSite",
             name: "Metaverse Rang",

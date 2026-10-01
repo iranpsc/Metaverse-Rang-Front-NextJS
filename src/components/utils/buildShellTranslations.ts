@@ -60,7 +60,7 @@ export function buildFooterSections(
         { label: t(1462), href: `/${lang}/education` },
         {
           label: t(1747),
-          href: "http://faqhub.ir/",
+          href: "https://faqhub.ir/",
           targetBlank: true,
         },
         {

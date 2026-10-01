@@ -50,7 +50,7 @@ export default function Footer2({
       cornerRadius={16}
       corner={params.lang == "fa" ? "tl" : "tr"}
       cornerSize={isMobile ? 80 : 120}
-      
+
       className="text-white dark:text-gray-1 ">
       <footer className="  rounded-xl lg:rounded-[32px]  mt-10">
         <div className="overflow-hidden ">
@@ -102,26 +102,26 @@ export default function Footer2({
                             <span className={`${baseClass} ${linkClass}`}>
                               {item.label}
                               <span className="text-[#ccc]  !text-3xl ms-1 rtl:rotate-180"> <svg
-                                                    width="20"
-                                                    height="20"
-                                                    viewBox="0 0 24 24"
-                                                    fill="none"
-                                                    aria-hidden="true"
-                                                >
-                                                    <path
-                                                        d="M5 12H19"
-                                                        stroke="currentColor"
-                                                        strokeWidth="1.8"
-                                                        strokeLinecap="round"
-                                                    />
-                                                    <path
-                                                        d="M13 6L19 12L13 18"
-                                                        stroke="currentColor"
-                                                        strokeWidth="1.8"
-                                                        strokeLinecap="round"
-                                                        strokeLinejoin="round"
-                                                    />
-                                                </svg></span>
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                aria-hidden="true"
+                              >
+                                <path
+                                  d="M5 12H19"
+                                  stroke="currentColor"
+                                  strokeWidth="1.8"
+                                  strokeLinecap="round"
+                                />
+                                <path
+                                  d="M13 6L19 12L13 18"
+                                  stroke="currentColor"
+                                  strokeWidth="1.8"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg></span>
                             </span>
                           ) : (
                             <Link
@@ -140,26 +140,26 @@ export default function Footer2({
                               {/* arrow فقط برای فعال‌ها */}
                               <span className="text-[#8A2BE2] flex items-center rtl:rotate-180 ms-1 !text-3xl transition-transform peer-hover:translate-x-1  rtl:peer-hover:translate-x-[-4px]">
                                 <svg
-                                                    width="20"
-                                                    height="20"
-                                                    viewBox="0 0 24 24"
-                                                    fill="none"
-                                                    aria-hidden="true"
-                                                >
-                                                    <path
-                                                        d="M5 12H19"
-                                                        stroke="currentColor"
-                                                        strokeWidth="1.8"
-                                                        strokeLinecap="round"
-                                                    />
-                                                    <path
-                                                        d="M13 6L19 12L13 18"
-                                                        stroke="currentColor"
-                                                        strokeWidth="1.8"
-                                                        strokeLinecap="round"
-                                                        strokeLinejoin="round"
-                                                    />
-                                                </svg>
+                                  width="20"
+                                  height="20"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  aria-hidden="true"
+                                >
+                                  <path
+                                    d="M5 12H19"
+                                    stroke="currentColor"
+                                    strokeWidth="1.8"
+                                    strokeLinecap="round"
+                                  />
+                                  <path
+                                    d="M13 6L19 12L13 18"
+                                    stroke="currentColor"
+                                    strokeWidth="1.8"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                  />
+                                </svg>
                               </span>
                             </Link>
                           )}
