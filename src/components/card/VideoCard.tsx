@@ -113,7 +113,7 @@ export default function VideoCard({
         <Link
           aria-label="education"
           href={`/${params.lang}/education/category/${item.category.slug}`}
-          className="pointer-events-auto text-start text-matn-2 font-medium font-azarMehr text-[13px] 3xl:text-[16px]"
+          className="pointer-events-auto text-start text-matn-2 font-medium font-azarMehr text-[13px] 3xl:text-[16px] text-nowrap"
         >
           {item.category.name}
         </Link>

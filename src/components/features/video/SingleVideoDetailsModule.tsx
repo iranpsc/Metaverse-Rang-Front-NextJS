@@ -1,4 +1,4 @@
-import {  useState, useEffect } from "react";
+import {  useState, useEffect ,useRef  } from "react";
 import { SendIcon, View } from "@/components/svgs/SvgEducation";
 import { checkData } from "@/components/utils/targetDataName";
 import axios from "axios";
@@ -70,7 +70,21 @@ const handlerCreateComment = async (videoId: any) => {
   }
 };
 
+const MAX_COMMENT_LENGTH =1950;
+const textareaRef = useRef<HTMLTextAreaElement>(null);
 
+// تنظیم خودکار ارتفاع
+const autoResize = () => {
+  const el = textareaRef.current;
+  if (!el) return;
+  el.style.height = "auto";
+  el.style.height = `${el.scrollHeight}px`;
+};
+
+// وقتی comment عوض شد (مثلاً بعد از ارسال خالی شد) ارتفاع دوباره تنظیم شود
+useEffect(() => {
+  autoResize();
+}, [comment]);
   // مدیریت نوار پیشرفت
   useEffect(() => {
     if (showSuccessModal) {
@@ -151,36 +165,48 @@ const handlerCreateComment = async (videoId: any) => {
         </>
       )}
 
-      <div className="relative mt-10 px-3 w-full xs:w-[95%] h-[48px]">
-        <input
-          type="text"
-          className="w-full h-full text-base ps-2 pe-[50px] text-black dark:text-white bg-gray-3  border-none rounded-[12px] placeholder-textInput focus:outline-none focus:shadow-md"
-          placeholder={findByUniqueId(mainData, 457)}
-          value={comment}
-          onChange={(e) => SetComment(e.target.value)}
-        />
-       
-<div
-  className={`absolute end-[20px] top-1/4 size-[24px] flex items-center justify-center ${
-    isSubmittingComment
-      ? "cursor-not-allowed"
-      : "cursor-pointer active:scale-125"
-  } duration-300`}
-  onClick={() => {
-    if (!isSubmittingComment) {
-      handlerCreateComment(DataVideo.id);
-    }
-  }}
->
-  {isSubmittingComment ? (
-    <div className="size-[20px] border-2 border-solid border-matn-1 border-t-transparent rounded-full animate-spin" />
-  ) : (
-    <SendIcon className="size-[24px] ltr:rotate-180" />
-  )}
+ <div className="relative mt-10 px-3 w-full xs:w-[95%]">
+  <textarea
+    ref={textareaRef}
+    rows={1}
+    maxLength={MAX_COMMENT_LENGTH}
+    className="w-full min-h-[48px]  overflow-y-auto resize-none text-base py-3 ps-2 pe-[50px] text-black dark:text-white bg-gray-3 border-none rounded-[12px] placeholder-textInput focus:outline-none focus:shadow-md break-words whitespace-pre-wrap leading-6"
+    placeholder={findByUniqueId(mainData, 457)}
+    value={comment}
+    onChange={(e) => SetComment(e.target.value.slice(0, MAX_COMMENT_LENGTH))}
+  />
+
+  {/* شمارنده کاراکتر */}
+  <div
+    className={`mt-1 px-2 text-xs font-azarMehr text-end ${
+      comment.length >= MAX_COMMENT_LENGTH
+        ? "text-red-500"
+        : "text-singleVideo-gray dark:text-[#868B90]"
+    }`}
+  >
+    {comment.length} / {MAX_COMMENT_LENGTH}
+  </div>
+
+  {/* دکمه ارسال */}
+  <div
+    className={`absolute end-[20px] top-3 size-[24px] flex items-center justify-center ${
+      isSubmittingComment
+        ? "cursor-not-allowed"
+        : "cursor-pointer active:scale-125"
+    } duration-300`}
+    onClick={() => {
+      if (!isSubmittingComment) {
+        handlerCreateComment(DataVideo.id);
+      }
+    }}
+  >
+    {isSubmittingComment ? (
+      <div className="size-[20px] border-2 border-solid border-matn-1 border-t-transparent rounded-full animate-spin" />
+    ) : (
+      <SendIcon className="size-[24px] ltr:rotate-180" />
+    )}
+  </div>
 </div>
-
-
-      </div>
 
       {/* مودال ورود */}
       {showLoginModal && (

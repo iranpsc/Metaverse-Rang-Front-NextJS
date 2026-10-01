@@ -92,7 +92,7 @@ export default function ListVideos({ videos, params, subCategoryData, loadMore, 
                       height={45}
                       className="w-[45px] h-[45px] rounded-full object-cover cursor-pointer"
                     />
-                    <span className="text-primary cursor-pointer text-[14px] 3xl:text-[18px] whitespace-nowrap font-medium hover:font-bold uppercase">
+                    <span className="text-blueLink cursor-pointer text-[14px] 3xl:text-[18px] whitespace-nowrap font-medium hover:font-bold uppercase">
                       {item.creator.code}
                     </span>
                   </div>
