@@ -542,7 +542,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
   return (
     <>
       {visibleEvents.map((event) => {
-        const {  toEnd } = countdowns[event.id] || {
+        const { toEnd } = countdowns[event.id] || {
           toStart: { days: 0, hours: 0, minutes: 0, seconds: 0 },
           toEnd: { days: 0, hours: 0, minutes: 0, seconds: 0 },
         };
@@ -580,7 +580,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
             key={event.id}
             id={`${event.id}`}
             data-event-id={event.id}
-            ref={(el) => {(eventRefs.current[event.id] = el)}}
+            ref={(el) => { (eventRefs.current[event.id] = el) }}
             className="items flex flex-col justify-center gap-3 items-center w-full"
           >
             {linkLoading && (
@@ -627,12 +627,12 @@ const EventList: React.FC<CalendarFilterProps> = ({
                     width="20"
                     height="24"
                     className={`
-                      cursor-pointer size-[15px] md:size-[18px]
-                      ${userLikedMap[event.id]
-                        ? "stroke-[#636363] dark:stroke-[#b3afaf]"
-                        : "stroke-black dark:stroke-white"
+    cursor-pointer size-[15px] md:size-[18px] transition-all duration-200
+    ${userLikedMap[event.id]
+                        ? "fill-red-500 stroke-red-500"
+                        : "fill-none stroke-black dark:stroke-white"
                       }
-                    `}
+  `}
                   />
                   <span className="like-count mt-[2px]">
                     {switchDigits(
@@ -647,12 +647,12 @@ const EventList: React.FC<CalendarFilterProps> = ({
                     width="20"
                     height="24"
                     className={`
-                      cursor-pointer size-[15px] md:size-[18px]
-                      ${userDisLikedMap[event.id]
-                        ? "stroke-slate-500 dark:stroke-slate-300"
-                        : "stroke-black dark:stroke-white"
+    cursor-pointer size-[15px] md:size-[18px] transition-all duration-200
+    ${userDisLikedMap[event.id]
+                        ? "fill-red-500 stroke-red-500"
+                        : "fill-none stroke-black dark:stroke-white"
                       }
-                    `}
+  `}
                   />
                   <span className="dislike-count">
                     {switchDigits(
@@ -661,7 +661,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
                     )}
                   </span>
                 </div>
-                <div className="flex items-center size-7 gap-1 stroke-black dark:stroke-white">
+                <div className="flex items-center  gap-1 stroke-black dark:stroke-white">
                   <View className=" size-[15px] md:size-[18px]" />
                   <span>{switchDigits(event.views, params.lang)}</span>
                 </div>
@@ -675,7 +675,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
                   <Link
                     onClickCapture={() => setLinkLoading(true)}
                     href={`/${params.lang}/calendar/${event.id}`}
-                    ref={(el) => {(titleRefs.current[event.id] = el)}}
+                    ref={(el) => { (titleRefs.current[event.id] = el) }}
                     className={`
                     mx-2 
                     font-bold 

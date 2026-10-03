@@ -1,11 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
-// import htmlTruncate from "html-truncate";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { switchDigits } from "@/components/utils/DigitSwitch";
 import moment from "moment-jalaali";
 import { Like, Dislike, View } from "@/components/svgs/SvgEducation";
-// import SyncLoader from "react-spinners/SyncLoader";
 import LoginButtonModule from "@/components/features/video/LoginButtonModule";
 import { MappedEventItem } from "@/utils/mapEvents";
 import Image from "next/image";
@@ -49,9 +47,10 @@ const SingleEvent: React.FC<SingleEventProps> = ({
   const [likes, setLikes] = useState<number>(event.likes ?? 0);
   const [disLikes, setDisLikes] = useState<number>(event.disLikes ?? 0);
   const [userLiked, setUserLiked] = useState<boolean>(event.userLiked ?? false);
-  const [userDisLiked, setUserDisLiked] = useState<boolean>(event.userDisLiked ?? false);
+  const [userDisLiked, setUserDisLiked] = useState<boolean>(
+    event.userDisLiked ?? false
+  );
   const [showLoginModal, setShowLoginModal] = useState(false);
-  // const [showFullDesc, setShowFullDesc] = useState<boolean>(false);
   const [countdowns, setCountdowns] = useState<{
     toStart: { days: number; hours: number; minutes: number; seconds: number };
     toEnd: { days: number; hours: number; minutes: number; seconds: number };
@@ -59,6 +58,62 @@ const SingleEvent: React.FC<SingleEventProps> = ({
     toStart: { days: 0, hours: 0, minutes: 0, seconds: 0 },
     toEnd: { days: 0, hours: 0, minutes: 0, seconds: 0 },
   });
+
+  // همگام‌سازی state با ایونت جدید (مثلاً بعد از ناوبری کلاینتی)
+  useEffect(() => {
+    setLikes(event.likes ?? 0);
+    setDisLikes(event.disLikes ?? 0);
+    setUserLiked(event.userLiked ?? false);
+    setUserDisLiked(event.userDisLiked ?? false);
+  }, [
+    event.id,
+    event.likes,
+    event.disLikes,
+    event.userLiked,
+    event.userDisLiked,
+  ]);
+
+  // گرفتن وضعیت واکنش کاربر (لایک/دیسلایک) از سرور با توکن
+  // چون ممکن است ایونت در صفحه‌ی سروری بدون توکن دریافت شده باشد
+  useEffect(() => {
+    if (!token) return;
+
+    const controller = new AbortController();
+
+    const loadUserInteraction = async () => {
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar/${event.id}`,
+          {
+            headers: {
+              Accept: "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            cache: "no-store",
+            signal: controller.signal,
+          }
+        );
+        if (!res.ok) return;
+
+        const json = await res.json();
+        const data = json?.data ?? json;
+        const ui = data?.user_interaction;
+        if (!ui) return;
+
+        setUserLiked(ui.has_liked ?? false);
+        setUserDisLiked(ui.has_disliked ?? false);
+        if (typeof data.likes === "number") setLikes(data.likes);
+        if (typeof data.dislikes === "number") setDisLikes(data.dislikes);
+      } catch (error: any) {
+        if (error?.name !== "AbortError") {
+          console.error("خطا در دریافت وضعیت واکنش کاربر:", error);
+        }
+      }
+    };
+
+    loadUserInteraction();
+    return () => controller.abort();
+  }, [event.id, token]);
 
   // تنظیم شمارش معکوس
   useEffect(() => {
@@ -74,19 +129,30 @@ const SingleEvent: React.FC<SingleEventProps> = ({
     return () => clearInterval(interval);
   }, [event.start, event.end]);
 
-  // مدیریت لایک
-  const sendLike = async () => {
+  // مدیریت مشترک لایک (1) و دیسلایک (0)
+  const interact = async (liked: 0 | 1) => {
     if (!token) {
       setShowLoginModal(true);
       return;
     }
 
-    if (userLiked) return;
+    if (liked === 1 && userLiked) return;
+    if (liked === 0 && userDisLiked) return;
 
-    setLikes(likes + 1);
-    setDisLikes(Math.max(disLikes - 1, 0));
-    setUserLiked(true);
-    setUserDisLiked(false);
+    // نگه‌داشتن مقادیر قبلی برای برگرداندن در صورت خطا
+    const prev = { likes, disLikes, userLiked, userDisLiked };
+
+    if (liked === 1) {
+      setLikes((n) => n + 1);
+      if (userDisLiked) setDisLikes((n) => Math.max(n - 1, 0));
+      setUserLiked(true);
+      setUserDisLiked(false);
+    } else {
+      setDisLikes((n) => n + 1);
+      if (userLiked) setLikes((n) => Math.max(n - 1, 0));
+      setUserDisLiked(true);
+      setUserLiked(false);
+    }
 
     try {
       const response = await fetch(
@@ -97,83 +163,31 @@ const SingleEvent: React.FC<SingleEventProps> = ({
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({ liked: 1 }),
+          body: JSON.stringify({ liked }),
         }
       );
 
       if (!response.ok) {
-        throw new Error("خطا در ارسال لایک");
+        throw new Error(`status ${response.status}`);
       }
     } catch (error) {
-      console.error("خطا در ارسال لایک:", error);
+      console.error("خطا در ثبت واکنش:", error);
+      setLikes(prev.likes);
+      setDisLikes(prev.disLikes);
+      setUserLiked(prev.userLiked);
+      setUserDisLiked(prev.userDisLiked);
     }
   };
 
-  // مدیریت دیسلایک
-  const disLike = async () => {
-    if (!token) {
-      setShowLoginModal(true);
-      return;
-    }
+  const sendLike = () => interact(1);
+  const disLike = () => interact(0);
 
-    if (userDisLiked) return;
-
-    setDisLikes(disLikes + 1);
-    setLikes(Math.max(likes - 1, 0));
-    setUserDisLiked(true);
-    setUserLiked(false);
-
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar/events/${event.id}/interact`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({ liked: 0 }),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("خطا در ارسال دیسلایک");
-      }
-    } catch (error) {
-      console.error("خطا در ارسال دیسلایک:", error);
-    }
-  };
-
-  // لودر تم‌دار
-  // const ThemedLoader = () => {
-  //   const [isDark, setIsDark] = useState(false);
-
-  //   useEffect(() => {
-  //     const checkTheme = () => {
-  //       const dark = document.documentElement.classList.contains("dark");
-  //       setIsDark(dark);
-  //     };
-
-  //     checkTheme();
-  //     const observer = new MutationObserver(checkTheme);
-  //     observer.observe(document.documentElement, {
-  //       attributes: true,
-  //       attributeFilter: ["class"],
-  //     });
-
-  //     return () => observer.disconnect();
-  //   }, []);
-
-  //   return <SyncLoader color={isDark ? "#FFD700" : "#9100D9"} size={8} />;
-  // };
-
-  // const maxLength = 350;
-  // const shouldTruncate = event.desc.length > maxLength;
-  // const truncatedHtml = shouldTruncate
-  //   ? htmlTruncate(event.desc, maxLength, { ellipsis: "..." })
-  //   : event.desc;
-  const {toEnd } = countdowns;
-  const isEnded = toEnd.days === 0 && toEnd.hours === 0 && toEnd.minutes === 0 && toEnd.seconds === 0;
+  const { toEnd } = countdowns;
+  const isEnded =
+    toEnd.days === 0 &&
+    toEnd.hours === 0 &&
+    toEnd.minutes === 0 &&
+    toEnd.seconds === 0;
 
   return (
     <>
@@ -199,42 +213,53 @@ const SingleEvent: React.FC<SingleEventProps> = ({
         {/* عنوان و لایک/دیسلایک */}
         <div className="flex flex-col w-[97%] lg:w-[95%] gap-3 sm:gap-0 items-center sm:flex-row-reverse sm:justify-between">
           <div className="w-[96%] flex justify-between text-base font-normal font-[Vazir] sm:w-[350px] sm:ml-2 sm:self-center">
-            <div className="flex items-center gap-1 ">
+            {/* لایک */}
+            <button
+              type="button"
+              onClick={sendLike}
+              aria-label="like"
+              aria-pressed={userLiked}
+              className="flex items-center gap-1 cursor-pointer bg-transparent"
+            >
               <Like
-                onClick={sendLike}
                 width="20"
                 height="24"
-                className={`
-                  cursor-pointer size-[15px] md:size-[18px]
-                  ${userLiked
-                    ? "stroke-[#636363] dark:stroke-[#b3afaf]"
-                    : "stroke-black dark:stroke-white"
-                  }
-                `}
+                className={`size-[15px] md:size-[18px] transition-all duration-200 ${
+                  userLiked
+                    ? "fill-primary stroke-primary dark:fill-[#FFD700] dark:stroke-[#FFD700] scale-110"
+                    : "fill-none stroke-black dark:stroke-white"
+                }`}
               />
               <span className="like-count mt-[2px]">
                 {switchDigits(likes, params.lang)}
               </span>
-            </div>
-            <div className="flex items-center gap-1 ">
+            </button>
+
+            {/* دیسلایک */}
+            <button
+              type="button"
+              onClick={disLike}
+              aria-label="dislike"
+              aria-pressed={userDisLiked}
+              className="flex items-center gap-1 cursor-pointer bg-transparent"
+            >
               <Dislike
-                onClick={disLike}
                 width="20"
                 height="24"
-                className={`
-                  cursor-pointer size-[15px] md:size-[18px]
-                  ${userDisLiked
-                    ? "stroke-slate-500 dark:stroke-slate-300"
-                    : "stroke-black dark:stroke-white"
-                  }
-                `}
+                className={`size-[15px] md:size-[18px] transition-all duration-200 ${
+                  userDisLiked
+                    ? "fill-red-500 stroke-red-500 dark:fill-red-400 dark:stroke-red-400 scale-110"
+                    : "fill-none stroke-black dark:stroke-white"
+                }`}
               />
               <span className="dislike-count">
                 {switchDigits(disLikes, params.lang)}
               </span>
-            </div>
-            <div className="flex items-center size-7 gap-1 stroke-black dark:stroke-white">
-              <View className="size-full size-[15px] md:size-[18px]" />
+            </button>
+
+            {/* بازدید */}
+            <div className="flex items-center  gap-1 stroke-black dark:stroke-white">
+              <View className="size-[15px] md:size-[18px]" />
               <span>{switchDigits(event.views, params.lang)}</span>
             </div>
           </div>
@@ -258,14 +283,6 @@ const SingleEvent: React.FC<SingleEventProps> = ({
               __html: event.desc, // همیشه متن کامل
             }}
           />
-          {/* {shouldTruncate && (
-            <button
-              onClick={() => setShowFullDesc(!showFullDesc)}
-              className=" text-primary bg-transparent hover:underline cursor-pointer text-base 2xl:text-xl"
-            >
-              {showFullDesc ? "" : findByUniqueId(mainData, 271)}
-            </button>
-          )} */}
         </div>
 
         {/* شمارش معکوس */}
@@ -278,12 +295,13 @@ const SingleEvent: React.FC<SingleEventProps> = ({
             <h2 className="text-[16px] font-bold lg:px-5 self-center sm:self-start text-black dark:text-white pb-6 sm:mt-4 sm:pb-6 sm:text-start 2xl:text-xl xl:text-lg lg:text-base">
               {findByUniqueId(mainData, 583)} :
             </h2>
-            <div className="flex justify-center lg:px-5 items-center" style={{ direction: "ltr" }}>
+            <div
+              className="flex justify-center lg:px-5 items-center"
+              style={{ direction: "ltr" }}
+            >
               <div className="text-center">
-                <div
-                  className="hale text-2xl font-bold lg:text-3xl xl:text-4xl 3xl:text-5xl"
-                >
-                  {switchDigits(event.start.split(' ')[0], params.lang)}
+                <div className="hale text-2xl font-bold lg:text-3xl xl:text-4xl 3xl:text-5xl">
+                  {switchDigits(event.start.split(" ")[0], params.lang)}
                 </div>
               </div>
             </div>
@@ -293,23 +311,30 @@ const SingleEvent: React.FC<SingleEventProps> = ({
               {findByUniqueId(mainData, 584)}
             </h2>
             {isEnded ? (
-              <div className="flex justify-center lg:px-5 items-center" style={{ direction: "ltr" }}>
+              <div
+                className="flex justify-center lg:px-5 items-center"
+                style={{ direction: "ltr" }}
+              >
                 <div className="text-center">
-                  <div
-                    className="hale text-2xl font-bold lg:text-3xl xl:text-4xl 3xl:text-5xl"
-                  >
-                    {switchDigits(event.end.split(' ')[0], params.lang)}
+                  <div className="hale text-2xl font-bold lg:text-3xl xl:text-4xl 3xl:text-5xl">
+                    {switchDigits(event.end.split(" ")[0], params.lang)}
                   </div>
                 </div>
               </div>
             ) : (
-              <div className="flex justify-between items-center" style={{ direction: "ltr" }}>
+              <div
+                className="flex justify-between items-center"
+                style={{ direction: "ltr" }}
+              >
                 <div className="text-center">
                   <div
                     id="end-days"
                     className="hale text-2xl font-bold lg:text-3xl xl:text-4xl 2xl:text-5xl"
                   >
-                    {switchDigits(toEnd.days.toString().padStart(2, "0"), params.lang)}
+                    {switchDigits(
+                      toEnd.days.toString().padStart(2, "0"),
+                      params.lang
+                    )}
                   </div>
                   <div className="text-base">{findByUniqueId(mainData, 380)}</div>
                 </div>
@@ -321,7 +346,10 @@ const SingleEvent: React.FC<SingleEventProps> = ({
                     id="end-hours"
                     className="hale text-2xl font-bold w-11 lg:text-3xl xl:text-4xl 2xl:text-5xl"
                   >
-                    {switchDigits(toEnd.hours.toString().padStart(2, "0"), params.lang)}
+                    {switchDigits(
+                      toEnd.hours.toString().padStart(2, "0"),
+                      params.lang
+                    )}
                   </div>
                   <div className="text-base">{findByUniqueId(mainData, 560)}</div>
                 </div>
@@ -333,7 +361,10 @@ const SingleEvent: React.FC<SingleEventProps> = ({
                     id="end-minutes"
                     className="hale text-2xl font-bold w-11 lg:text-3xl xl:text-4xl 2xl:text-5xl"
                   >
-                    {switchDigits(toEnd.minutes.toString().padStart(2, "0"), params.lang)}
+                    {switchDigits(
+                      toEnd.minutes.toString().padStart(2, "0"),
+                      params.lang
+                    )}
                   </div>
                   <div className="text-base">{findByUniqueId(mainData, 33)}</div>
                 </div>
@@ -345,7 +376,10 @@ const SingleEvent: React.FC<SingleEventProps> = ({
                     id="end-seconds"
                     className="hale text-2xl font-bold w-11 lg:text-3xl xl:text-4xl 2xl:text-5xl"
                   >
-                    {switchDigits(toEnd.seconds.toString().padStart(2, "0"), params.lang)}
+                    {switchDigits(
+                      toEnd.seconds.toString().padStart(2, "0"),
+                      params.lang
+                    )}
                   </div>
                   <div className="text-base">{findByUniqueId(mainData, 778)}</div>
                 </div>
@@ -365,6 +399,8 @@ const SingleEvent: React.FC<SingleEventProps> = ({
         </div>
         <div className="mt-6 w-full lg:w-[95%] h-[2px] bg-gradient-to-r from-transparent via-[#DADADA] to-transparent"></div>
       </div>
+
+      {/* مودال ورود */}
       {showLoginModal && (
         <div className="fixed inset-0 backdrop-blur bg-black/30 flex items-center justify-center z-50 p-5">
           <div className="bg-white dark:bg-dark-background p-6 rounded-lg shadow-lg max-w-sm w-full">
