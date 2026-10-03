@@ -57,20 +57,10 @@ const Version: React.FC<VersionBoxProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialVersion, versions, isVersionSelected]);
 
-  /** ✅ اسکرول به آیتم فقط وقتی واقعا اکتیوه (نه صرفا نمایش دیفالت) */
-  useEffect(() => {
-    if (!activeVersion) return;
-
-    const el = versionRefs.current[activeVersion.version];
-    if (el) {
-      setTimeout(() => {
-        el.scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-        });
-      }, 100);
-    }
-  }, [activeVersion]);
+  // ❌ افکت scrollIntoView اینجا حذف شد.
+  // scrollIntoView همه‌ی والدهای قابل اسکرول رو (از جمله خود صفحه) اسکرول می‌کرد و
+  // دلیل اصلی پریدن صفحه بود. اسکرول به آیتم اکتیو الان داخل خود VersionBox (versionList)
+  // و فقط داخل کانتینر لیست انجام میشه.
 
   /** ✅ سینک کردن document.title فقط وقتی یه ورژن واقعا اکتیو میشه
    *  (نه صرفا نمایش دیفالت آخرین ورژن). قبلا به displayVersion وصل بود که

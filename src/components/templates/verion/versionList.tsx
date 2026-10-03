@@ -206,15 +206,34 @@ const VersionBox: React.FC<VersionBoxProps> = ({
     return visibleCount < items.length || hasMore;
   };
 
-  // scroll to active item
+  // اسکرول به آیتم فعال - فقط داخل کانتینر لیست (بدون اسکرول شدن کل صفحه)
   useEffect(() => {
-    if (openIndex !== null && itemRefs.current[openIndex]) {
-      itemRefs.current[openIndex]?.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-      });
-    }
+    if (openIndex === null) return;
+    const container = containerRef.current;
+    const el = itemRefs.current[openIndex];
+    if (!container || !el) return;
+
+    const containerRect = container.getBoundingClientRect();
+    const elRect = el.getBoundingClientRect();
+    const offset =
+      elRect.top - containerRect.top - containerRect.height / 2 + elRect.height / 2;
+
+    container.scrollBy({ top: offset, behavior: "smooth" });
   }, [openIndex]);
+
+  // جلوگیری از رسیدن رویداد wheel/touch به لایه‌های بالاتر (مثلاً کتابخونه‌ی smooth scroll مثل Lenis
+  // یا هندلر اسکرول والد) تا فقط خود لیست اسکرول بشه و صفحه تکون نخوره
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const stop = (e: Event) => e.stopPropagation();
+    el.addEventListener("wheel", stop, { passive: true });
+    el.addEventListener("touchmove", stop, { passive: true });
+    return () => {
+      el.removeEventListener("wheel", stop);
+      el.removeEventListener("touchmove", stop);
+    };
+  }, []);
 
   return (
     <div className="w-full px-2 lg:px-0 lg:mx-[20px] self-center flex flex-col items-center lg:w-[35%] lg:h-full lg:flex-shrink-0 lg:rounded-[20px]">
@@ -240,16 +259,21 @@ const VersionBox: React.FC<VersionBoxProps> = ({
       </div>
 
       {/* version list */}
-      <div className="bg-[#FFFFFF] mt-[20px] rounded-[20px] w-full dark:bg-gray-1  min-h-[770px]">
+      <div className="bg-[#FFFFFF] mt-[20px] rounded-[20px] w-full dark:bg-gray-1 pb-4">
         <p className="historyVersionP font-rokh text-[120%] self-start font-[550] pt-[4%] pb-[4%] p-[6%] dark:text-[#FCF9FE] lg:pt-[30px] lg:text-[140%]">
           {findByUniqueId(mainData, 574)}
         </p>
 
+        {/* کانتینر اسکرول: ارتفاع ثابت + overflow-y-auto + overscroll-contain */}
         <div
           ref={containerRef}
-          className="versionHistoryInfo flex overflow-auto flex-col items-center overflow-x-hidden rounded-[20px] w-full lg:w-full lg:h-full"
+          data-lenis-prevent
+          data-lenis-prevent-wheel
+          data-lenis-prevent-touch
+          style={{ overscrollBehavior: "contain" }}
+          className="versionHistoryInfo flex flex-col items-center overflow-y-auto overflow-x-hidden overscroll-contain rounded-[20px] w-full max-h-[70vh] lg:h-[678px] lg:max-h-[678px]"
         >
-          <div className="historyUpdated pt-4 flex flex-col w-[92%] gap-1 lg:h-[650px]">
+          <div className="historyUpdated pt-4 flex flex-col w-[92%] gap-1">
             {searchLoading ? (
               <div className="flex flex-col gap-5">
                 {Array.from({ length: 5 }).map((_, i) => (
