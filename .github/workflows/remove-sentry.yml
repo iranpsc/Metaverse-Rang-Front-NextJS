@@ -1,24 +1,24 @@
-name: Prepare main (remove Sentry)
+name: Remove Sentry from main
 
 # dev دست نمی‌خورد و Sentry در آن می‌ماند.
-# با هر push روی dev، شاخه‌ی release/main ساخته می‌شود (= dev بدون Sentry)
-# و یک Pull Request از آن به main باز می‌شود. روی main فقط نسخه‌ی بدون Sentry می‌رود.
+# هر بار که PR از dev روی main merge شد، همین‌جا Sentry پاک و روی main کامیت می‌شود.
 on:
   push:
-    branches: [dev]
-  workflow_dispatch:
+    branches: [main]
 
 permissions:
   contents: write
   pull-requests: write
 
 jobs:
-  prepare-main:
+  remove-sentry:
+    # جلوگیری از حلقه: کامیت خود اکشن دوباره اجرا نشود
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: dev
+          ref: main
           fetch-depth: 0
 
       - uses: actions/setup-node@v4
@@ -58,27 +58,14 @@ jobs:
             echo "No Sentry packages found."
           fi
 
-      - name: Commit and push release/main
+      - name: Commit and push to main
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           if [ -n "$(git status --porcelain)" ]; then
             git add -A
-            git commit -m "chore: remove Sentry for main"
-          fi
-          git push --force origin release/main
-
-      - name: Open PR to main (if none exists)
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          EXISTING=$(gh pr list --head release/main --base main --state open --json number --jq 'length')
-          if [ "$EXISTING" = "0" ]; then
-            gh pr create \
-              --base main \
-              --head release/main \
-              --title "Release: dev -> main (without Sentry)" \
-              --body "Auto-generated from dev with Sentry removed."
+            git commit -m "chore: remove Sentry [skip ci]"
+            git push origin main
           else
-            echo "PR already open; branch updated."
+            echo "Nothing to remove."
           fi
