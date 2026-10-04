@@ -1,23 +1,23 @@
-name: Remove Sentry
+name: Remove Sentry from main
 
-# قبل از اینکه چیزی روی main merge بشه، روی شاخه‌ی PR اجرا می‌شه
+# dev دست نمی‌خورد و Sentry در آن می‌ماند.
+# هر بار که PR از dev روی main merge شد، همین‌جا Sentry پاک و روی main کامیت می‌شود.
 on:
-  pull_request:
+  push:
     branches: [main]
-    types: [opened, synchronize, reopened]
 
 permissions:
   contents: write
 
 jobs:
   remove-sentry:
-    # فقط PRهای داخل همین ریپو (روی fork اجازه‌ی push نداریم)
-    if: github.event.pull_request.head.repo.full_name == github.repository
+    # جلوگیری از حلقه: کامیت خود اکشن دوباره اجرا نشود
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.head_ref }}
+          ref: main
           fetch-depth: 0
 
       - uses: actions/setup-node@v4
@@ -54,14 +54,14 @@ jobs:
             echo "No Sentry packages found."
           fi
 
-      - name: Commit and push to the PR branch
+      - name: Commit and push to main
         run: |
           if [ -n "$(git status --porcelain)" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
             git add -A
-            git commit -m "chore: remove Sentry"
-            git push origin HEAD:${{ github.head_ref }}
+            git commit -m "chore: remove Sentry [skip ci]"
+            git push origin main
           else
             echo "Nothing to remove."
           fi
