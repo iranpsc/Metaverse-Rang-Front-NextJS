@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   remove-sentry:
@@ -23,6 +24,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+
+      - name: Create release/main from dev
+        run: git checkout -B release/main
 
       - name: Remove Sentry files
         run: |
@@ -56,9 +60,9 @@ jobs:
 
       - name: Commit and push to main
         run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
           if [ -n "$(git status --porcelain)" ]; then
-            git config user.name "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"
             git add -A
             git commit -m "chore: remove Sentry [skip ci]"
             git push origin main
