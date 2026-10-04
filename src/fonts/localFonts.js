@@ -16,7 +16,7 @@ export const azarMehr = localFont({
   // was preloading all 3 weights (~130KB) whether that page used them
   // or not, putting them on the render-blocking critical path. swap +
   // fallback already keep text visible instantly, so preload buys us
-  // nothing but a slower first paint — turn it off.
+
   preload: false,
 });
 
