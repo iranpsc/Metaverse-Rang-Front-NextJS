@@ -1,24 +1,34 @@
-name: Remove Sentry from main
+name: Prepare main (remove Sentry)
 
 # dev دست نمی‌خورد و Sentry در آن می‌ماند.
-# هر بار که PR از dev روی main merge شد، همین‌جا Sentry پاک و روی main کامیت می‌شود.
+# وقتی PR از dev به main باز شود (یا روی dev push شود)، شاخه‌ی release/main
+# ساخته می‌شود (= dev بدون Sentry) و PR جایگزین از آن به main باز می‌شود.
+# PR اصلی dev -> main بسته می‌شود تا اشتباهی با Sentry merge نشود.
 on:
   push:
+    branches: [dev]
+  pull_request:
     branches: [main]
+    types: [opened, reopened, synchronize]
+  workflow_dispatch:
 
 permissions:
   contents: write
   pull-requests: write
 
+concurrency:
+  group: prepare-main
+  cancel-in-progress: false
+
 jobs:
-  remove-sentry:
-    # جلوگیری از حلقه: کامیت خود اکشن دوباره اجرا نشود
-    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+  prepare-main:
+    # برای رویداد PR فقط وقتی شاخه‌ی مبدا dev است
+    if: github.event_name != 'pull_request' || github.head_ref == 'dev'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: main
+          ref: dev
           fetch-depth: 0
 
       - uses: actions/setup-node@v4
@@ -58,14 +68,35 @@ jobs:
             echo "No Sentry packages found."
           fi
 
-      - name: Commit and push to main
+      - name: Commit and push release/main
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           if [ -n "$(git status --porcelain)" ]; then
             git add -A
-            git commit -m "chore: remove Sentry [skip ci]"
-            git push origin main
-          else
-            echo "Nothing to remove."
+            git commit -m "chore: remove Sentry for main"
           fi
+          git push --force origin release/main
+
+      - name: Open PR release/main -> main (if none exists)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          EXISTING=$(gh pr list --head release/main --base main --state open --json number --jq 'length')
+          if [ "$EXISTING" = "0" ]; then
+            gh pr create \
+              --base main \
+              --head release/main \
+              --title "Release: dev -> main (without Sentry)" \
+              --body "Auto-generated from dev with Sentry removed. Merge this PR instead of dev -> main."
+          else
+            echo "PR already open; branch updated."
+          fi
+
+      - name: Close the original dev -> main PR
+        if: github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr close ${{ github.event.pull_request.number }} \
+            --comment "Closed automatically: this PR still contains Sentry. Merge the PR from release/main instead (same changes, Sentry removed)."
