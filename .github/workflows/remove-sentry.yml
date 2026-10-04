@@ -1,0 +1,67 @@
+name: Remove Sentry
+
+# قبل از اینکه چیزی روی main merge بشه، روی شاخه‌ی PR اجرا می‌شه
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: write
+
+jobs:
+  remove-sentry:
+    # فقط PRهای داخل همین ریپو (روی fork اجازه‌ی push نداریم)
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Remove Sentry files
+        run: |
+          rm -f sentry.client.config.* sentry.server.config.* sentry.edge.config.*
+          rm -f instrumentation-client.* .sentryclirc sentry.properties
+          rm -f src/sentry.* src/instrumentation-client.*
+          rm -rf .sentry
+          # حذف سایر فایل‌هایی که اسمشان sentry دارد (به جز node_modules و .git و .github)
+          find . -type f -iname '*sentry*' \
+            -not -path './node_modules/*' -not -path './.git/*' \
+            -not -path './.github/*' -delete
+
+      - name: Remove Sentry packages
+        run: |
+          PKGS=$(node -e "
+            const p=require('./package.json');
+            const all={...p.dependencies,...p.devDependencies};
+            console.log(Object.keys(all).filter(n=>n.startsWith('@sentry/')||n==='sentry'||n.startsWith('sentry-')).join(' '));
+          ")
+          if [ -n "$PKGS" ]; then
+            if [ -f pnpm-lock.yaml ]; then
+              npm i -g pnpm && pnpm remove $PKGS
+            elif [ -f yarn.lock ]; then
+              yarn remove $PKGS
+            else
+              npm uninstall $PKGS
+            fi
+          else
+            echo "No Sentry packages found."
+          fi
+
+      - name: Commit and push to the PR branch
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add -A
+            git commit -m "chore: remove Sentry"
+            git push origin HEAD:${{ github.head_ref }}
+          else
+            echo "Nothing to remove."
+          fi
