@@ -93,7 +93,6 @@ export default function Footer2({
                   />
                 </Link>
               </div>
-
               {/* Links */}
               {footerLinks.map((section) => (
                 <div key={section.title}>
