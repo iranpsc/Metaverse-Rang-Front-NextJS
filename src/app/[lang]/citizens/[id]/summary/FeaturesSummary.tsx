@@ -35,7 +35,7 @@ export default function FeaturesSummary({
   const lang: string = params?.lang || "fa";
   const isFa = lang.toLowerCase() === "fa";
 
-  const [period, setPeriod] = useState<Period>("weekly");
+  const [period, setPeriod] = useState<Period>("yearly");
 
   // Discovered from the first (unfiltered) API response, since the full
   // list of karbari codes isn't documented ahead of time. Shared with
@@ -147,7 +147,7 @@ export default function FeaturesSummary({
       </div>
 
       {/* karbari filters — shared by cards below AND the chart */}
-      <div className="flex items-center justify-between gap-10 mt-10">
+      <div className="flex flex-col lg:flex-row items-center justify-between gap-10 mt-10">
         {/* period ("sort") switch — same style/markup as the referral page */}
         <div className="flex justify-between gap-4 md:max-w-[50%] lg:max-w-[30%] h-[64px]">
           {PERIOD_OPTIONS.map((opt) => {
@@ -176,7 +176,7 @@ export default function FeaturesSummary({
           })}
         </div>
 
-        <div className="flex flex-wrap items-center gap-x-6 gap-y-3 py-2">
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-3 py-2 px-5 lg:px-0">
           <label className="flex items-center gap-2 cursor-pointer text-sm text-black dark:text-white">
             <input
               type="checkbox"

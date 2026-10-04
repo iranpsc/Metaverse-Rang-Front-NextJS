@@ -96,6 +96,8 @@ export default function ArticleCard({ item, params, theme, activeLoadingId, setA
                 color: theme === "dark" ? "#fff" : "#000",
                 fontSize: "16px",
                 fontWeight: "bold",
+                opacity: 1,
+                zIndex: 99999,
               }}
             />
           </>

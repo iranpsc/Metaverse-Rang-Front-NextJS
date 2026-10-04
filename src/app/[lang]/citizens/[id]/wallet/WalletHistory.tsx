@@ -36,7 +36,7 @@ export default function WalletHistory({
   const [cookies] = useCookies(["theme"]);
   const theme = cookies.theme || "dark";
 
-  const [period, setPeriod] = useState<Period>("weekly");
+  const [period, setPeriod] = useState<Period>("yearly");
   const [selectedAssets, setSelectedAssets] = useState<string[]>(ASSET_ORDER);
 
   const [summaryData, setSummaryData] = useState<SummaryItem[]>([]);
@@ -341,7 +341,7 @@ export default function WalletHistory({
                 }}
               >
                 <div className="w-2 h-2 lg:w-3 lg:h-3 rounded-full" style={{ backgroundColor: config.color }} />
-                <span style={{ color: config.color }}>${findByUniqueId(mainData, config.uniqueId ) }</span>
+                <span style={{ color: config.color }}>{findByUniqueId(mainData, config.uniqueId ) }</span>
               </div>
             );
           })}

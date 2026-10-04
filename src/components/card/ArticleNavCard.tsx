@@ -1,78 +1,126 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Like, Dislike, View } from "@/components/svgs/SvgEducation";
 
 interface ArticleNavCardProps {
-    href: string;
-    article: any;
-    onClickCapture?: () => void;
-    activeLoadingId?: any;
-    setActiveLoadingId?: any;
+  href: string;
+  article: any;
+  onClickCapture?: () => void;
+  activeLoadingId?: any;
+  setActiveLoadingId?: any;
 }
 
-const ArticleNavCard = ({ href, article, activeLoadingId, setActiveLoadingId}: ArticleNavCardProps) => {
-    const isLoading = activeLoadingId === article.id;
-    return (
-        <div className="relative w-full">
-            <Link
-                onClickCapture={() => setActiveLoadingId(article.id)}
-                href={href}
+const ArticleNavCard = ({
+  href,
+  article,
+  activeLoadingId,
+  setActiveLoadingId,
+}: ArticleNavCardProps) => {
+  const isLoading = activeLoadingId === article.id;
 
-                className={`${isLoading ? "rotating-border-card cursor-not-allowed" : ""}  flex flex-col gap-1 bg-white dark:bg-gray-1  shadow-md rounded-2xl overflow-hidden w-full h-[390px]`}
-            >
-                {isLoading && (
-                    <div className="absolute inset-0 z-50 flex items-center justify-center">
-                        {/* بک‌گراند محو */}
-                        <div className="absolute inset-0 bg-black/20 " />
-                    </div>
-                )}
-                {/* IMAGE */}
-                <div className="p-3 w-full z-[1]">
-                    <div className="w-full h-60 overflow-hidden">
-                        <Image
-                            src={article.image}
-                            alt={article.title}
-                            fill
-                            className="object-cover rounded-lg !static"
-                        />
-                    </div>
-                </div>
+  // ref عنوان
+  const titleRef = useRef<HTMLHeadingElement>(null);
 
-                {/* CONTENT */}
-                <div className="p-4 pt-0 flex flex-col justify-between gap-2 z-[1]">
-                    <div className="flex items-center justify-between text-xs matn-2-500 mb-2 dark:text-[#868B90]">
-                        <span>تاریخ انتشار: {article.date}</span>
+  // آیا عنوان از عرض کارت بیشتر است؟
+  const [isTruncated, setIsTruncated] = useState(false);
 
-                        <div className="flex items-center gap-3 text-[#888888]">
-                            <span className="flex items-center gap-1">
-                                <View className="stroke-[#888888] size-[14px]" />
-                                {article.stats?.views ?? 0}
-                            </span>
-                            <span className="flex items-center gap-1">
-                                <Like className="stroke-[#888888] size-[14px]" />
-                                {article.stats?.likes ?? 0}
-                            </span>
-                            <span className="flex items-center gap-1">
-                                <Dislike className="stroke-[#888888] size-[14px]" />
-                                {article.stats?.dislikes ?? 0}
-                            </span>
-                        </div>
-                    </div>
+  const checkTruncation = () => {
+    const el = titleRef.current;
 
-                    <div>
-                        <h4 className="font-semibold text-sm lg:text-xl line-clamp-1 dark:text-white">
-                            {article.title}
-                        </h4>
-                        <p className="text-xs lg:text-sm matn-2-600 mt-1 line-clamp-2 text-[#868B90]">
-                            {article.excerpt}
-                        </p>
-                    </div>
-                </div>
-            </Link>
+    if (el) {
+      setIsTruncated(el.scrollWidth > el.clientWidth);
+    }
+  };
+
+  useEffect(() => {
+    checkTruncation();
+
+    const observer = new ResizeObserver(() => {
+      checkTruncation();
+    });
+
+    if (titleRef.current) {
+      observer.observe(titleRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [article.title]);
+
+  return (
+    <div className="relative w-full">
+      <Link
+        onClickCapture={() => setActiveLoadingId?.(article.id)}
+        href={href}
+        className={`${
+          isLoading ? "rotating-border-card cursor-not-allowed" : ""
+        } flex flex-col gap-1 bg-white dark:bg-gray-1 shadow-md rounded-2xl overflow-hidden w-full h-[390px]`}
+      >
+        {isLoading && (
+          <div className="absolute inset-0 z-50 flex items-center justify-center">
+            <div className="absolute inset-0 bg-black/20" />
+          </div>
+        )}
+
+        {/* IMAGE */}
+        <div className="p-3 w-full z-[1]">
+          <div className="w-full h-60 overflow-hidden">
+            <Image
+              src={article.image}
+              alt={article.title}
+              fill
+              className="object-cover rounded-lg !static"
+            />
+          </div>
         </div>
-    );
+
+        {/* CONTENT */}
+        <div className="p-4 pt-0 flex flex-col justify-between gap-2 z-[1]">
+          <div className="flex items-center justify-between text-xs matn-2-500 mb-2 dark:text-[#868B90]">
+            <span>تاریخ انتشار: {article.date}</span>
+
+            <div className="flex items-center gap-3 text-[#888888]">
+              <span className="flex items-center gap-1">
+                <View className="stroke-[#888888] size-[14px]" />
+                {article.stats?.views ?? 0}
+              </span>
+
+              <span className="flex items-center gap-1">
+                <Like className="stroke-[#888888] size-[14px]" />
+                {article.stats?.likes ?? 0}
+              </span>
+
+              <span className="flex items-center gap-1">
+                <Dislike className="stroke-[#888888] size-[14px]" />
+                {article.stats?.dislikes ?? 0}
+              </span>
+            </div>
+          </div>
+
+          <div>
+            {/* TITLE */}
+            <h4
+              ref={titleRef}
+              className={`font-semibold text-sm lg:text-xl truncate dark:text-white ${
+                isTruncated
+                  ? "hover:overflow-visible hover:animate-rtlMarquee"
+                  : ""
+              }`}
+            >
+              {article.title}
+            </h4>
+
+            {/* EXCERPT */}
+            <p className="text-xs lg:text-sm matn-2-600 mt-1 line-clamp-2 text-[#868B90]">
+              {article.excerpt}
+            </p>
+          </div>
+        </div>
+      </Link>
+    </div>
+  );
 };
 
 export default ArticleNavCard;

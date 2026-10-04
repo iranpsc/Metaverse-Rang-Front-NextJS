@@ -178,7 +178,7 @@ export default function UserCard({
               isTruncated ? "hover:overflow-visible hover:animate-rtlMarquee" : ""
             }`}
           >
-            {item.name}{" "}
+           {item.name || "\u00A0"}{" "}
             {item.code &&
               ["hm-2000001", "hm-2000002"].includes(item.code.trim()) && (
                 <span className="mt-[-2px] mx-1 text-xs font-medium text-primary bg-purple-900/20 px-3 py-[2px] rounded-full">

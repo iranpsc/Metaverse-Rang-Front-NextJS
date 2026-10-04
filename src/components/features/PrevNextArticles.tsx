@@ -58,9 +58,11 @@ const PrevNextArticles = ({ params, mainData }: PrevNextArticlesProps) => {
         {/* 📌 کارت مقاله قبلی */}
         {/* ======================= */}
         <div className="flex flex-col items-center w-full">
+           {prevArticle ? (
           <h3 className="text-center font-bold mb-3 dark:text-white">
             {findByUniqueId(mainData, 1506)}
           </h3>
+          ) : null}
           <div className="w-full">
             {prevArticle ? (
               <ArticleNavCard
@@ -78,9 +80,11 @@ const PrevNextArticles = ({ params, mainData }: PrevNextArticlesProps) => {
         {/* 📌 کارت مقاله بعدی */}
         {/* ======================= */}
         <div className="flex flex-col items-center w-full">
+           {nextArticle ? (
           <h3 className="text-center font-bold mb-3 dark:text-white">
             {findByUniqueId(mainData, 1507)}
           </h3>
+          ): null}
           <div className=" w-full">
             {nextArticle ? (
               <ArticleNavCard

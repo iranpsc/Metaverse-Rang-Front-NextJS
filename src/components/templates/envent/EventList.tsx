@@ -661,7 +661,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
                     )}
                   </span>
                 </div>
-                <div className="flex items-center  gap-1 stroke-black dark:stroke-white">
+                <div className="flex items-center gap-1 stroke-black dark:stroke-white">
                   <View className=" size-[15px] md:size-[18px]" />
                   <span>{switchDigits(event.views, params.lang)}</span>
                 </div>

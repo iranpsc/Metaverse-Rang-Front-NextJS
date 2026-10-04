@@ -286,7 +286,7 @@ export default async function ArticlePage({ params } :ArticlePageProps) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
         <CleanAutoRetryParam />
-        <section className="w-full overflow-y-auto relative bg-bg-primary  mt-[60px] lg:mt-0">
+        <section className="w-full  relative bg-bg-primary  mt-[60px] lg:mt-0">
           <div className="px-5 2xl:px-10">
             <BreadCrumb params={resolvedParams} title={article.title} articleCat={article.category} />
           </div>

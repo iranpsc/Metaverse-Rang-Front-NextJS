@@ -47,13 +47,13 @@ const ProfileMainDetails = ({
           ref={yourElementRef}
         >
           <div className="  bg-primary flex flex-row items-center gap-2  rounded-[10px] 3xl:py-[3px] 3xl:px-4 lg:py-2 lg:px-2 md:py-2 md:px-4 sm:py-2 sm:px-4 xs:py-1 xs:px-2">
-            <span className="font-azarMehr text-matn-1 font-medium 3xl:text-xl3Title xl:text-xlTitle  lg:text-lgTitle md:text-mdTitle  sm:text-smTitle xs:text-smTitle">
+            <span className="font-azarMehr text-matn-1 font-medium 3xl:text-lg xl:text-xlTitle  lg:text-lgTitle md:text-mdTitle  sm:text-smTitle xs:text-smTitle">
               {/* {targetData(userProperty, "share")} */}
               {findByUniqueId(mainData, 244)}
             </span>
             <CopyIcon className="fill-matn-1 3xl:w-[20px] 3xl:h-[20px] md:w-[20px] md:h-[20px] " />
           </div>
-          <p className="font-azarMehr font-bold  xl:text-xlUser 3xl:text-xl3User  lg:text-lgUser md:text-mdUser  sm:text-smUser xs:text-smUser uppercase">
+          <p className="font-azarMehr font-bold  xl:text-xlUser   lg:text-lgUser md:text-mdUser  sm:text-smUser xs:text-smUser uppercase">
             {profileData.data?.code}
           </p>
         </div>

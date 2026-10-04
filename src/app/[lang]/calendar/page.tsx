@@ -215,7 +215,7 @@ export default async function CalendarPage({ params }: CalendarPageProps) {
     const eventSchema = buildEventSchema(publicEvents, lang);
 
     return (
-      <div className="flex flex-col min-w-[340px] w-full" dir={langData.direction}>
+      <div className="flex flex-col  w-full" dir={langData.direction}>
         <FixLinks />
         <script
           type="application/ld+json"
@@ -227,7 +227,7 @@ export default async function CalendarPage({ params }: CalendarPageProps) {
             <BreadCrumb params={resolvedParams} />
           </div>
 
-          <div className="p-5 lg:px-10 space-y-3 mb-5">
+          <div className="space-y-3 mb-5">
             <h1 className="font-rokh font-bold text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] text-center dark:text-white mt-[64px] mb-[16px]">
               {findByUniqueId(mainData, 1463)}
             </h1>
@@ -236,7 +236,7 @@ export default async function CalendarPage({ params }: CalendarPageProps) {
             </p>
           </div>
 
-          <div className="mainContainer w-full h-auto flex flex-col items-center lg:gap-0 font-azarMehr lg:flex-row lg:items-start p-5 lg:px-10">
+          <div className="mainContainer w-full h-auto flex flex-col items-center lg:gap-0 font-azarMehr lg:flex-row lg:items-start lg:px-10">
             <EventsCalendarClient lang={lang} mainData={mainData} params={resolvedParams} />
           </div>
         </section>

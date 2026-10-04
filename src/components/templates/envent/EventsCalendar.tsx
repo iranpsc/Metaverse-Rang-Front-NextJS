@@ -115,7 +115,7 @@ export default function EventsCalendar({
   }
 
   return (
-    <div className="centerItem w-[95%] lg:w-full pt-6 text-black dark:text-white bg-white dark:bg-gray-1 flex flex-col items-center rounded-[20px] gap-2 font-['Montserrat']">
+    <div className="centerItem w-[95%] lg:w-full pt-6 text-black dark:text-white bg-white dark:bg-gray-1 flex flex-col items-center rounded-[20px] gap-2 font-['Montserrat'] px-3">
       <div className="w-[97%] flex flex-col items-start sm:flex-row-reverse lg:w-[95%] lg:gap-4 font-azarMehr">
         <Calendar
           params={params}

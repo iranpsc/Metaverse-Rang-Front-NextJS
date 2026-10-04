@@ -148,7 +148,7 @@ export default function ContactForm({ lang }: Props) {
   ring-1 outline-0 focus:ring-1 outline-none border-none
   ${errors.name
                 ? "ring-red-600 focus:ring-red-600"
-                : "ring-transparent focus:ring-primary dark:focus:ring-dark-primary"
+                : "ring-transparent focus:ring-primary "
               }`}
             name="name"
             value={formData.name}
@@ -168,7 +168,7 @@ export default function ContactForm({ lang }: Props) {
   ring-1 outline-0 focus:ring-1 outline-none border-none
   ${errors.name
                 ? "ring-red-600 focus:ring-red-600"
-                : "ring-transparent focus:ring-primary dark:focus:ring-dark-primary"
+                : "ring-transparent focus:ring-primary "
               }`}
 
             name="phoneNo"
@@ -189,13 +189,13 @@ export default function ContactForm({ lang }: Props) {
   ring-1 outline-0 focus:ring-1 outline-none border-none
   ${errors.name
                 ? "ring-red-600 focus:ring-red-600"
-                : "ring-transparent focus:ring-primary dark:focus:ring-dark-primary"
+                : "ring-transparent focus:ring-primary "
               }`}
             name="email"
             value={formData.email}
-           placeholder={
-                lang.toLowerCase() == "fa" ? "پست الکترونیک" : "E-mail"
-              }
+            placeholder={
+              lang.toLowerCase() == "fa" ? "پست الکترونیک" : "E-mail"
+            }
             onChange={handleChange}
           />
           {errors.email && (
@@ -211,7 +211,7 @@ export default function ContactForm({ lang }: Props) {
   ring-1 outline-0 focus:ring-1 outline-none border-none
   ${errors.name
                 ? "ring-red-600 focus:ring-red-600"
-                : "ring-transparent focus:ring-primary dark:focus:ring-dark-primary"
+                : "ring-transparent focus:ring-primary"
               }`}
             name="title"
             value={formData.title}
@@ -227,10 +227,10 @@ export default function ContactForm({ lang }: Props) {
       {/* message */}
       <div className="mt-4">
         <textarea
-          className={`w-full text-base rtl:text-right placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder  ltr:text-left bg-gray-3 rounded-[10px] p-4 border-0 dark:text-white ring-1 ring-transparent focus:ring-primary dark:focus:ring-dark-primary outline-none
+          className={`w-full text-base rtl:text-right placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder  ltr:text-left bg-gray-3 rounded-[10px] p-4 border-0 dark:text-white ring-1 ring-transparent focus:ring-primary outline-none
   ${errors.name
               ? "ring-red-600 focus:ring-red-600"
-              : "ring-transparent focus:ring-primary dark:focus:ring-dark-primary"
+              : "ring-transparent focus:ring-primary "
             }`}
           rows={7}
           name="message"

@@ -23,7 +23,7 @@ import type { MapMarkerItem } from "./Map";
 /* ------------------------------------------------------------------ */
 /*                              CONSTANTS                              */
 /* ------------------------------------------------------------------ */
-const API_BASE = "${process.env.NEXT_PUBLIC_API_BASE_URL}/api/citizen";
+const API_BASE = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/citizen`;
 const LIST_PER_PAGE = 10;
 const SEARCH_DEBOUNCE_MS = 350;
 const PINNED_PAGE_SIZE = 100; // page size while collecting the properties of one circle
@@ -99,17 +99,74 @@ interface FeatureDetail {
 type IdList = (number | string)[];
 
 function normalizeFeature(raw: any): FeatureDetail {
-  return {
+  // console.log("========== FEATURE RAW API ==========");
+  // console.log("FULL RAW:", raw);
+
+  // console.log("PRICE FIELDS:", {
+  //   price_irr: raw?.price_irr,
+  //   price_psc: raw?.price_psc,
+  //   sale_price: raw?.sale_price,
+  //   rent_price: raw?.rent_price,
+  // });
+
+  const normalized: FeatureDetail = {
     id: raw?.id,
-    code: raw?.code ?? raw?.feature_code ?? raw?.unique_code ?? String(raw?.id ?? ""),
-    address: raw?.address ?? raw?.location_address ?? "",
-    area: raw?.area ?? raw?.meterage ?? raw?.square_meters ?? null,
-    floors: raw?.floors ?? raw?.floor_count ?? raw?.density ?? null,
-    owner_code: raw?.owner_code ?? raw?.owner?.code ?? raw?.citizen_code ?? "",
-    sale_price: raw?.sale_price ?? raw?.price?.sale ?? null,
-    rent_price: raw?.rent_price ?? raw?.price?.rent ?? null,
+
+    code:
+      raw?.code ??
+      raw?.feature_code ??
+      raw?.unique_code ??
+      String(raw?.id ?? ""),
+
+    address:
+      raw?.address ??
+      raw?.location_address ??
+      "",
+
+    area:
+      raw?.area ??
+      raw?.meterage ??
+      raw?.square_meters ??
+      null,
+
+    floors:
+      raw?.floors ??
+      raw?.floor_count ??
+      raw?.density ??
+      null,
+
+    owner_code:
+      raw?.owner_code ??
+      raw?.owner?.code ??
+      raw?.citizen_code ??
+      "",
+
+    // فعلاً فقط برای تست
+    sale_price:
+      raw?.sale_price ??
+      raw?.price_irr ??
+      null,
+
+    // فعلاً فقط برای تست
+    rent_price:
+      raw?.rent_price ??
+      raw?.price_psc ??
+      null,
+
     karbari: raw?.karbari ?? "",
   };
+
+  // console.log("========== FEATURE NORMALIZED ==========");
+  // console.log({
+  //   id: normalized.id,
+  //   area: normalized.area,
+  //   price_irr: raw?.price_irr,
+  //   price_psc: raw?.price_psc,
+  //   sale_price: normalized.sale_price,
+  //   rent_price: normalized.rent_price,
+  // });
+
+  return normalized;
 }
 
 /* ------------------------------------------------------------------ */
@@ -240,43 +297,55 @@ const FeatureCard = memo(function FeatureCard({
         </div>
       </div>
 
-      <div className="flex gap-2 mt-1">
-        <button
-          disabled={!hasCoords}
-          onClick={(e) => {
-            e.stopPropagation();
-            if (hasCoords) {
-              window.open(buildFeatureLink(item.id, item.latitude!, item.longitude!), "_blank");
-            }
-          }}
-          className="flex-1 flex items-center justify-center gap-1 bg-primary text-white dark:text-black text-[14px] font-bold rounded-full h-9 disabled:opacity-40 disabled:cursor-not-allowed"
-        >
-          <PinIcon />
-          {isFa ? "لوکیشن" : "Location"}
-        </button>
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            /* TODO: wire to the real "buy" flow */
-            console.log("buy clicked for", item.id);
-          }}
-          className="flex-1 flex items-center justify-center gap-1 bg-primary text-white dark:text-black text-[14px] font-bold rounded-full h-9"
-        >
-          <CartIcon />
-          {isFa ? "خرید" : "Buy"}
-        </button>
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            /* TODO: wire to the real "make an offer" flow */
-            console.log("offer clicked for", item.id);
-          }}
-          className="flex-1 flex items-center justify-center gap-1 bg-primary text-white dark:text-black text-[14px] font-bold rounded-full h-9"
-        >
-          <OfferIcon />
-          {isFa ? "پیشنهاد" : "Offer"}
-        </button>
-      </div>
+<div className="flex gap-2 mt-1">
+  <button
+    disabled={!hasCoords}
+    onClick={(e) => {
+      e.stopPropagation();
+
+      if (hasCoords) {
+        window.open(
+          buildFeatureLink(item.id, item.latitude!, item.longitude!),
+          "_blank"
+        );
+      }
+    }}
+    className="flex-1 flex items-center justify-center gap-1 bg-primary text-white dark:text-black text-[14px] font-bold rounded-full h-9 disabled:opacity-40 disabled:cursor-not-allowed"
+  >
+    <PinIcon />
+    {isFa ? "لوکیشن" : "Location"}
+  </button>
+
+  <button
+    onClick={(e) => {
+      e.stopPropagation();
+
+      window.open(
+        `https://world.metarang.com/feature/${item.id}/buy/price`,
+        "_blank"
+      );
+    }}
+    className="flex-1 flex items-center justify-center gap-1 bg-primary text-white dark:text-black text-[14px] font-bold rounded-full h-9"
+  >
+    <CartIcon />
+    {isFa ? "خرید" : "Buy"}
+  </button>
+
+  <button
+    onClick={(e) => {
+      e.stopPropagation();
+
+      window.open(
+        `https://world.metarang.com/feature/${item.id}/buy/suggest`,
+        "_blank"
+      );
+    }}
+    className="flex-1 flex items-center justify-center gap-1 bg-primary text-white dark:text-black text-[14px] font-bold rounded-full h-9"
+  >
+    <OfferIcon />
+    {isFa ? "پیشنهاد" : "Offer"}
+  </button>
+</div>
     </div>
   );
 });

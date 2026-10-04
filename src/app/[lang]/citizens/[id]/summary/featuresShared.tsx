@@ -180,5 +180,5 @@ export function buildFeatureLink(
 ): string {
   const lat = latitude.toFixed(6);
   const lng = longitude.toFixed(6);
-  return `https://dev-reactjs.metarang.com/feature/${id}/info?map=${lat},${lng},${zoom.toFixed(2)},${bearing.toFixed(1)},${pitch.toFixed(1)}`;
+  return `https://world.metarang.com/?map=${lat},${lng},${zoom.toFixed(2)},${bearing.toFixed(1)},${pitch.toFixed(1)}`;
 }

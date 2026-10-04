@@ -103,7 +103,7 @@ export default function BuildingsSummary({
   const [error, setError] = useState(false);
 
   // shared with BuildingsChart + BuildingsList
-  const [period, setPeriod] = useState<Period>("weekly");
+  const [period, setPeriod] = useState<Period>("yearly");
   const [knownKarbari, setKnownKarbari] = useState<KarbariOption[]>([]);
   const [selectedKarbari, setSelectedKarbari] = useState<string[]>([]);
   const [initialized, setInitialized] = useState(false);
