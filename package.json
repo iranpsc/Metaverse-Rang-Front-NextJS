@@ -21,7 +21,6 @@
     "@mui/material": "^6.0.2",
     "@next/bundle-analyzer": "^14.1.0",
     "@next/font": "^13.4.19",
-    "@sentry/nextjs": "^10.55.0",
     "@supabase/supabase-js": "^2.81.1",
     "@tailwindcss/typography": "^0.5.16",
     "@types/node": "18.16.3",
