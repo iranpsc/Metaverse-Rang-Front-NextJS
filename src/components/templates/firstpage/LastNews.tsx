@@ -193,8 +193,8 @@ const LatestNews = async ({
         </Link>
       </div>
 
-      <p className="text-[#A0A0AB] lg:text-lg mb-7">
-        {findByUniqueId(mainData, 1639)}
+      <p className="text-[#A0A0AB] lg:text-lg mb-7 max-w-[900px]">
+        {findByUniqueId(mainData, 1629)}
       </p>
 
       <LatestNewsClient
@@ -205,4 +205,4 @@ const LatestNews = async ({
   );
 };
 
-export default LatestNews;
+export default LatestNews;

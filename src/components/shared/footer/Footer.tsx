@@ -39,26 +39,29 @@ export default function Footer2({
 
     return () => media.removeEventListener("change", update);
   }, []);
+
   const isRTL = params.lang === "fa";
+
   const footerLinks: { title: string; links: FooterLink[] }[] =
     footerSections ?? [];
 
   return (
-
     <ClipSection
       radius={isMobile ? 12 : 32}
       cornerRadius={16}
-      corner={params.lang == "fa" ? "tl" : "tr"}
+      corner={params.lang === "fa" ? "tl" : "tr"}
       cornerSize={isMobile ? 80 : 120}
-
-      className="text-white dark:text-gray-1 ">
-      <footer className="  rounded-xl lg:rounded-[32px]  mt-10">
-        <div className="overflow-hidden ">
-          <div className="p-5 xl:p-5 2xl:p-9 3xl:p-14 3xl:px-[76px] 3xl:px  mt-5">
+      className="text-white dark:text-gray-1"
+    >
+      <footer className="rounded-xl lg:rounded-[32px] mt-10">
+        <div className="overflow-hidden">
+          <div className="p-5 xl:p-5 2xl:p-9 3xl:p-14 3xl:px-[76px] mt-5">
             <div className="grid gap-10 gap-y-12 md:grid-cols-[80px_repeat(4,1fr)] 2xl:grid-cols-[350px_repeat(4,1fr)]">
 
               {/* Logo */}
-              <div className="flex items-start justify-start  lg:px-0  gap-5 ">
+              <div className="flex items-start justify-start lg:px-0 gap-5">
+
+                {/* MetaRang Logo */}
                 <Image
                   src="https://s3.metarang.com/metarang/logo/metarang-logo-512.png"
                   alt="logo"
@@ -66,79 +69,97 @@ export default function Footer2({
                   height={isMobile ? 50 : 65}
                   className="w-[50px] h-[50px] inline lg:w-[65px] lg:h-[65px]"
                 />
-                <div className="flex items-center justify-center ">
-                  <div className="w-[50px] h-[50px] lg:w-[65px] lg:h-[65px]"
-                    dangerouslySetInnerHTML={{
-                      __html: `<a referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/?id=721065&Code=fLkLFNhooBCR33C1ntVXIBxJFAj9gf3q'><img referrerpolicy='origin' src='https://trustseal.enamad.ir/logo.aspx?id=721065&Code=fLkLFNhooBCR33C1ntVXIBxJFAj9gf3q' alt='' style='cursor:pointer' code='fLkLFNhooBCR33C1ntVXIBxJFAj9gf3q'></a>`,
-                    }}
+
+                {/* Enamad */}
+                <Link
+                  href={`/${params.lang}/enamad`}
+                  aria-label={
+                    params.lang === "fa"
+                      ? "نماد اعتماد الکترونیکی"
+                      : "Electronic Trust Symbol"
+                  }
+                  className="flex items-center justify-center w-[50px] h-[50px] lg:w-[65px] lg:h-[65px]"
+                >
+                  <Image
+                    src="/enamad.png"
+                    alt={
+                      params.lang === "fa"
+                        ? "نماد اعتماد الکترونیکی"
+                        : "Electronic Trust Symbol"
+                    }
+                    width={65}
+                    height={65}
+                    className="w-full h-full object-contain cursor-pointer"
                   />
-                </div>
+                </Link>
               </div>
 
               {/* Links */}
               {footerLinks.map((section) => (
                 <div key={section.title}>
-                  <p className="mb-5  lg:mt-3  text-xl 3xl:text-2xl font-medium text-[#1B1B1B] dark:text-[#FFFFFF]">
+                  <p className="mb-5 lg:mt-3 text-xl 3xl:text-2xl font-medium text-[#1B1B1B] dark:text-[#FFFFFF]">
                     {section.title}
                   </p>
 
-                  <ul className=" list-none space-y-[9px]">
+                  <ul className="list-none space-y-[9px]">
                     {section.links.map((item) => {
                       const isExternal =
                         item.targetBlank || item.href.startsWith("http");
 
                       const baseClass =
-                        "peer flex items-center  dark:text-[#9A9A9A] hover:text-[#8A2BE2] gap-2 font-bold xl:text-base transition";
+                        "peer flex items-center dark:text-[#9A9A9A] hover:text-[#8A2BE2] gap-2 font-bold xl:text-base transition";
 
                       const isDisabled = item.disabled;
 
                       const linkClass = isDisabled
                         ? "text-[#aaa] pointer-events-none opacity-50"
-                        : "text-[#222] ";
+                        : "text-[#222]";
 
                       return (
                         <li key={item.href}>
                           {isDisabled ? (
                             <span className={`${baseClass} ${linkClass}`}>
                               {item.label}
-                              <span className="text-[#ccc]  !text-3xl ms-1 rtl:rotate-180"> <svg
-                                width="20"
-                                height="20"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                aria-hidden="true"
-                              >
-                                <path
-                                  d="M5 12H19"
-                                  stroke="currentColor"
-                                  strokeWidth="1.8"
-                                  strokeLinecap="round"
-                                />
-                                <path
-                                  d="M13 6L19 12L13 18"
-                                  stroke="currentColor"
-                                  strokeWidth="1.8"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                />
-                              </svg></span>
+
+                              <span className="text-[#ccc] !text-3xl ms-1 rtl:rotate-180">
+                                <svg
+                                  width="20"
+                                  height="20"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  aria-hidden="true"
+                                >
+                                  <path
+                                    d="M5 12H19"
+                                    stroke="currentColor"
+                                    strokeWidth="1.8"
+                                    strokeLinecap="round"
+                                  />
+                                  <path
+                                    d="M13 6L19 12L13 18"
+                                    stroke="currentColor"
+                                    strokeWidth="1.8"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                  />
+                                </svg>
+                              </span>
                             </span>
                           ) : (
                             <Link
                               href={item.href}
-                              aria-label="fotter links"
+                              aria-label="footer links"
                               className={`${baseClass} ${linkClass} hover:!text-[#8A2BE2]`}
                               {...(isExternal
                                 ? {
-                                  target: "_blank",
-                                  rel: "noopener noreferrer",
-                                }
+                                    target: "_blank",
+                                    rel: "noopener noreferrer",
+                                  }
                                 : {})}
                             >
                               {item.label}
 
-                              {/* arrow فقط برای فعال‌ها */}
-                              <span className="text-[#8A2BE2] flex items-center rtl:rotate-180 ms-1 !text-3xl transition-transform peer-hover:translate-x-1  rtl:peer-hover:translate-x-[-4px]">
+                              <span className="text-[#8A2BE2] flex items-center rtl:rotate-180 ms-1 !text-3xl transition-transform peer-hover:translate-x-1 rtl:peer-hover:translate-x-[-4px]">
                                 <svg
                                   width="20"
                                   height="20"
@@ -173,20 +194,31 @@ export default function Footer2({
           </div>
 
           {/* MARQUEE */}
-          <div className="relative mt-10 mb-7 h-[450px]  flex items-center overflow-hidden ">
+          <div className="relative mt-10 mb-7 h-[450px] flex items-center overflow-hidden">
             <div className={`marquee ${isRTL ? "rtl" : "ltr"}`}>
               <div className="track">
                 <div className="group">
-                  <span className="text-neutral-900 dark:text-white text-[180px] lg:text-[400px]">{brandLabel}</span>
+                  <span className="text-neutral-900 dark:text-white text-[180px] lg:text-[400px]">
+                    {brandLabel}
+                  </span>
                 </div>
+
                 <div className="group">
-                  <span className="text-neutral-900 dark:text-white text-[180px] lg:text-[400px]">{brandLabel}</span>
+                  <span className="text-neutral-900 dark:text-white text-[180px] lg:text-[400px]">
+                    {brandLabel}
+                  </span>
                 </div>
+
                 <div className="group">
-                  <span className="text-neutral-900 dark:text-white text-[180px] lg:text-[400px]">{brandLabel}</span>
+                  <span className="text-neutral-900 dark:text-white text-[180px] lg:text-[400px]">
+                    {brandLabel}
+                  </span>
                 </div>
+
                 <div className="group">
-                  <span className="text-neutral-900 dark:text-white text-[180px] lg:text-[400px]">{brandLabel}</span>
+                  <span className="text-neutral-900 dark:text-white text-[180px] lg:text-[400px]">
+                    {brandLabel}
+                  </span>
                 </div>
               </div>
             </div>
@@ -195,59 +227,55 @@ export default function Footer2({
 
         {/* Styles */}
         <style jsx>{`
-.marquee {
-  overflow: hidden;
-  width: 100%;
-}
+          .marquee {
+            overflow: hidden;
+            width: 100%;
+          }
 
-/* base track */
-.track {
-  display: flex;
-  width: max-content;
-}
+          .track {
+            display: flex;
+            width: max-content;
+          }
 
-/* LTR animation (default) */
-.ltr .track {
-  animation: scroll-ltr 18s linear infinite;
-}
+          .ltr .track {
+            animation: scroll-ltr 18s linear infinite;
+          }
 
-/* RTL animation */
-.rtl .track {
-  animation: scroll-rtl 10s linear infinite;
-}
+          .rtl .track {
+            animation: scroll-rtl 10s linear infinite;
+          }
 
-.group {
-  display: flex;
-  flex-shrink: 0;
-}
+          .group {
+            display: flex;
+            flex-shrink: 0;
+          }
 
-.group span {
-  
-  font-weight: 700;
-  white-space: nowrap;
-  padding-right: 80px;
-}
+          .group span {
+            font-weight: 700;
+            white-space: nowrap;
+            padding-right: 80px;
+          }
 
-/* LTR → چپ به راست */
-@keyframes scroll-ltr {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
+          @keyframes scroll-ltr {
+            0% {
+              transform: translateX(0);
+            }
 
-/* RTL → راست به چپ (برعکس) */
-@keyframes scroll-rtl {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(50%);
-  }
-}
-`}</style>
+            100% {
+              transform: translateX(-50%);
+            }
+          }
+
+          @keyframes scroll-rtl {
+            0% {
+              transform: translateX(0);
+            }
+
+            100% {
+              transform: translateX(50%);
+            }
+          }
+        `}</style>
       </footer>
     </ClipSection>
   );
