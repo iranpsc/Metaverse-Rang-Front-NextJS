@@ -1,5 +1,5 @@
 import Link from "next/link";
-import UserCard from "@/components/card/UserCard";
+import TopCitizenCards from "./Topcitizencards";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { getHomeCitizens } from "@/components/templates/firstpage/homeData";
 
@@ -35,22 +35,14 @@ export default async function TopCitizen({
       </div>
 
       <div className="relative flex w-full flex-row items-start gap-4 overflow-x-auto pb-10 sm:no-scrollbar1 lg:show-scrollbar1 dark:dark-scrollbar light-scrollbar">
-        {citizens.map((item, index) => (
-          <UserCard
-            key={item.id}
-            item={item}
-            index={index}
-            params={params}
-            minWidth="290px"
-            mainData={mainData}
-            buttonText={findByUniqueId(mainData, 600)}
-          />
-        ))}
+        <TopCitizenCards
+          citizens={citizens}
+          params={params}
+          mainData={mainData}
+          buttonText={findByUniqueId(mainData, 600)}
+        />
 
-        <Link
-          href={`/${params.lang}/citizens`}
-          className="flex-shrink-0"
-        >
+        <Link href={`/${params.lang}/citizens`} className="flex-shrink-0">
           <div
             className="
               flex min-h-[435px] min-w-[290px] flex-col items-center justify-center

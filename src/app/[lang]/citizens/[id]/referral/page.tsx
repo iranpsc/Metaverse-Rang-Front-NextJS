@@ -94,8 +94,7 @@ export default async function CitizenReferral({
       "@type": "Person",
       name:
         profileData.data?.name ||
-        `${profileData.data?.kyc?.fname || ""} ${
-          profileData.data?.kyc?.lname || "" 
+        `${profileData.data?.kyc?.fname || ""} ${profileData.data?.kyc?.lname || ""
         } | ${findByUniqueId(mainData, 148)}`,
       image:
         profileData.data?.profilePhotos?.map((p: any) => p.url) || [],
@@ -136,9 +135,12 @@ export default async function CitizenReferral({
 
             <div className="xl:px-8 lg:px-8 md:px-5 sm:px-5 xs:px-1">
               <InviteBox
-                referralPageArrayContent={mainData}
                 params={resolvedParams}
                 mainData={mainData}
+                imageLight="/firstpage/referral/invite.svg"
+                imageDark="/firstpage/referral/invite.svg"
+                descriptionId={1420}
+                urlSuffix="referral"
               />
 
               <Suspense fallback={<InviteListSkeleton />}>
@@ -192,7 +194,7 @@ export async function generateMetadata({
   params: Promise<{ lang: string; id: string }>;
 }) {
   const { lang, id } = await params;
-  const [ langData] = await Promise.all([
+  const [langData] = await Promise.all([
     getTranslation(lang),
 
   ]);

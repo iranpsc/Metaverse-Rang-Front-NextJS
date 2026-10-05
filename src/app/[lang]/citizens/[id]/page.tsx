@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
 
-import NotFoundPage from "@/components/error/NotFoundPage";
+// import NotFoundPage from "@/components/error/NotFoundPage";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 

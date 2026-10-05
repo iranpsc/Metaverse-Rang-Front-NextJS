@@ -2,40 +2,33 @@
 
 import Image from "next/image";
 import { useRef, useState } from "react";
-import { usePathname } from "next/navigation";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 export default function InviteBox({
-  referralPageArrayContent,
+  // referralPageArrayContent,
   params,
   mainData,
+  imageLight = "/firstpage/referral/invite.svg", // عکس حالت لایت
+  imageDark = "/firstpage/referral/invite.svg", // عکس حالت دارک
+  descriptionId = 1810, // یونیک آیدی توضیحات (کپشن)
+  urlSuffix = "referral", // آخر URL
 }: {
-  referralPageArrayContent: any;
+  // referralPageArrayContent: any;
   params: any;
   mainData: any;
+  imageLight?: string;
+  imageDark?: string;
+  descriptionId?: number;
+  urlSuffix?: string;
 }) {
-  const pathname = usePathname();
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [copied, setCopied] = useState(false);
-  const [inviteLink] = useState(
-    `metarang.com/${params.lang}/citizens/${params.id}/referral`
-  );
 
-  // function localFind(_name: any): string {
-  //   if (!Array.isArray(referralPageArrayContent) || referralPageArrayContent.length === 0) {
-  //     console.warn('referralPageArrayContent is empty or not an array', { _name });
-  //     return '';
-  //   }
-  //   const item = referralPageArrayContent.find((item: any) => item.name === _name);
-  //   if (!item) {
-  //     console.warn(`No item found for name: ${_name}`, { referralPageArrayContent });
-  //     return '';
-  //   }
-  //   return item.translation || '';
-  // }
+  const inviteLink = `metarang.com/${params.lang}/citizens/${params.id}/${urlSuffix}`;
+  const fullInviteUrl = `https://${inviteLink}`;
 
   const handleShare = (platform: any) => {
-    const urlToShare = `https://metarang.com/${params.lang}/citizen/${params.id}`;
+    const urlToShare = fullInviteUrl;
     let shareUrl = "";
 
     switch (platform) {
@@ -66,28 +59,19 @@ export default function InviteBox({
         break;
     }
 
-    window.open(shareUrl, "_blank");
+    if (shareUrl) window.open(shareUrl, "_blank");
   };
 
   const copyToClipboard = () => {
-    let fullUrl;
-    if (typeof window !== "undefined") {
-      fullUrl = `${window.location.origin}${pathname}`;
-    }
-
-    if (inputRef.current) {
-      navigator.clipboard
-        .writeText(
-          fullUrl ||
-            `https://metarang.com/${params.lang}/citizens/${params.id}/referral`
-        )
-        .then(() => {
-          setCopied(true); // Update button text to "Copied"
-          setTimeout(() => setCopied(false), 5000); // Reset text after 5 seconds
-        })
-        .catch((err) => console.error("Failed to copy text:", err));
-    }
+    navigator.clipboard
+      .writeText(fullInviteUrl)
+      .then(() => {
+        setCopied(true); // Update button text to "Copied"
+        setTimeout(() => setCopied(false), 5000); // Reset text after 5 seconds
+      })
+      .catch((err) => console.error("Failed to copy text:", err));
   };
+
   return (
     <div className="bg-white dark:bg-gray-1 lg:overflow-visible h-auto flex flex-col w-full justify-start items-center text-white rounded-3xl relative overflow-hidden lg:flex-row mt-[64px]">
       <div
@@ -98,11 +82,10 @@ export default function InviteBox({
         }}
       ></div>
 
-
       <div className="flex flex-wrap min-h-[260px] ">
         <div className="w-full lg:w-3/4 p-6">
           <p className="text-black dark:text-white text-lg leading-[36px] text-justify lg:text-[20px] ">
-            {findByUniqueId(mainData, 1420)}
+            {findByUniqueId(mainData, descriptionId)}
           </p>
 
           <div className=" flex flex-col w-full lg:flex-row lg:gap-2 xl:mt-12">
@@ -170,7 +153,7 @@ export default function InviteBox({
               <div className="flex flex-row w-full justify-evenly lg:justify-between  gap-1 sm:px-24 lg:px-0 lg:pe-20">
                 {/* لینک تلگرام */}
                 <a
-                  onClick={(e) => handleShare("Telegram")}
+                  onClick={() => handleShare("Telegram")}
                   id="telegram-share"
                   className="matn-2-400 cursor-pointer"
                 >
@@ -201,7 +184,7 @@ export default function InviteBox({
                 </a>
                 {/* لینک واتساپ */}
                 <a
-                  onClick={(e) => handleShare("Whatsapp")}
+                  onClick={() => handleShare("WhatsApp")}
                   id="whatsApp-share"
                   className="matn-2-400 cursor-pointer"
                 >
@@ -232,7 +215,7 @@ export default function InviteBox({
                 </a>
                 {/* لینک فیس بوک */}
                 <a
-                  onClick={(e) => handleShare("Facebook")}
+                  onClick={() => handleShare("Facebook")}
                   id="faceBook-share"
                   className="matn-2-400 cursor-pointer"
                 >
@@ -263,7 +246,7 @@ export default function InviteBox({
                 </a>
                 {/* لینک لینکدین */}
                 <a
-                  onClick={(e) => handleShare("Linkedin")}
+                  onClick={() => handleShare("Linkedin")}
                   id="linkedin-share"
                   className="matn-2-400 cursor-pointer"
                 >
@@ -290,7 +273,7 @@ export default function InviteBox({
                 </a>
                 {/* لینک ایکس */}
                 <a
-                  onClick={(e) => handleShare("Twitter")}
+                  onClick={() => handleShare("Twitter")}
                   id="x-share"
                   className="matn-2-400 cursor-pointer"
                 >
@@ -318,9 +301,18 @@ export default function InviteBox({
         </div>
 
         <div className="relative lg:absolute lg:top-[-30px] rtl:lg:left-0 ltr:lg:right-0 h-[300px] lg:h-[112%] w-full lg:w-[35%] ltr:rotate-y-180">
+          {/* عکس حالت لایت */}
           <Image
-            className="object-contain"
-            src="/firstpage/referral/invite.svg"
+            className="object-contain block dark:hidden"
+            src={imageLight}
+            fill
+            sizes="320px"
+            alt=""
+          />
+          {/* عکس حالت دارک */}
+          <Image
+            className="object-contain hidden dark:block"
+            src={imageDark}
             fill
             sizes="320px"
             alt=""

@@ -16,7 +16,7 @@ import { buildSidebarLabels } from "@/components/utils/buildShellTranslations";
 
 import { getStaticMenu } from "@/components/utils/constants";
 import { buildTabsMenu } from "@/components/utils/buildTabsMenu";
-import PropertyHeader from "./PropertyHeader";
+import InviteBox from "@/components/templates/referral/invite-box";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 /* ------------------------------------------------------------------ */
@@ -175,7 +175,14 @@ export default async function CitizenWalletHistory({
             </div>
 
             <div className="xl:px-8 lg:px-8 md:px-5 sm:px-5 xs:px-1">
-               <PropertyHeader params={resolvedParams} mainData={mainData} referralPageArrayContent={undefined} />
+                <InviteBox
+                params={resolvedParams}
+                mainData={mainData}
+                imageLight="https://s3.metarang.com/metarang/asset/wallet-light.png"
+                imageDark="https://s3.metarang.com/metarang/asset/wallet-dark.png"
+                descriptionId={1575}
+                urlSuffix="wallet"
+              />
               <WalletHistoryLoader params={resolvedParams} mainData={mainData} />
             </div>
 

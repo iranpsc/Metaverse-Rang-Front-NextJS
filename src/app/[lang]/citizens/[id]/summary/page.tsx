@@ -17,8 +17,8 @@ import { buildSidebarLabels } from "@/components/utils/buildShellTranslations";
 
 import { getStaticMenu } from "@/components/utils/constants";
 import { buildTabsMenu } from "@/components/utils/buildTabsMenu";
-import PropertyHeader from "./PropertyHeader";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import InviteBox from "@/components/templates/referral/invite-box";
 
 /* ------------------------------------------------------------------ */
 /*                                TYPES                               */
@@ -167,14 +167,21 @@ export default async function CitizenFeaturesSummary({
             <div className="px-12">
               <BreadCrumb params={resolvedParams} />
             </div>
-            
+
             <div className="xl:px-8 lg:px-8 md:px-5 sm:px-5 xs:px-1">
-              <PropertyHeader params={resolvedParams} mainData={mainData} referralPageArrayContent={undefined} />
+              <InviteBox
+                params={resolvedParams}
+                mainData={mainData}
+                imageLight="https://s3.metarang.com/metarang/asset/summary-light.png"
+                imageDark="https://s3.metarang.com/metarang/asset/summary-dark.png"
+                descriptionId={1783}
+                urlSuffix="summary"
+              />
               <FeaturesSummary params={resolvedParams} mainData={mainData} />
               <FeaturesMap params={resolvedParams} mainData={mainData} />
             </div>
 
-           <div className="xl:px-8 lg:px-8 md:px-5 sm:px-5 xs:px-1">
+            <div className="xl:px-8 lg:px-8 md:px-5 sm:px-5 xs:px-1">
               <DynamicFooter
                 mainData={mainData}
                 params={resolvedParams}
@@ -205,7 +212,7 @@ export async function generateMetadata({
   params: Promise<{ lang: string; id: string }>;
 }) {
   const { lang, id } = await params;
-  const [ langData] = await Promise.all([
+  const [langData] = await Promise.all([
     getTranslation(lang),
   ]);
   const mainData = await getMainFile(langData);
