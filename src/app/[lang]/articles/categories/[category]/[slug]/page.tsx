@@ -22,8 +22,10 @@ import AuthorCard from "@/components/card/AuthorCard";
 import ShowSocialWrapper from "@/components/shared/ShowSocialWrapper";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 interface ArticlePageProps {
+  
   params: Promise<{
     lang: string; category: string;
     slug: string;
@@ -32,9 +34,14 @@ interface ArticlePageProps {
 // ======================================
 // Metadata (SEO + 404 امن)
 // ======================================
-export async function generateMetadata({ params }: ArticlePageProps) {
+export async function generateMetadata({ params  }: ArticlePageProps) {
   const resolvedParams = await params;
-  // const { lang } = resolvedParams;
+  const { lang } = resolvedParams;
+    const [ langData ] = await Promise.all([
+    getTranslation(lang),
+
+  ]);
+  const mainData = await getMainFile(langData);
   try {
     function cleanDescription(html: any, limit = 155) {
       if (!html) return "";
@@ -85,7 +92,7 @@ export async function generateMetadata({ params }: ArticlePageProps) {
     const canonicalUrl = `https://metarang.com/${lang}/articles/categories/${article.categorySlug}/${article.slug}`;
 
     return {
-      title: article.title,
+      title: `${article.title} | ${findByUniqueId(mainData, 148)}`,
       description: cleanDescription(article.description || "مقالات متاورس رنگ"),
       alternates: { canonical: canonicalUrl },
       openGraph: {
@@ -164,7 +171,7 @@ export default async function ArticlePage({ params } :ArticlePageProps) {
      const resolvedParams = await params;
   // const { lang } = resolvedParams;
   try {
-    function cleanDescription(html: any, limit = 100) {
+    function cleanDescription(html: any, limit = 150) {
       if (!html) return "";
 
       // Normalize to string

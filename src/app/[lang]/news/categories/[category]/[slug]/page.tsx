@@ -178,6 +178,11 @@ async function fetchCategoryNewsWithFallback(categorySlug: string, currentSlug: 
 export async function generateMetadata({ params }: NewsPageProps) {
   const resolvedParams = await params;
   const { lang } = resolvedParams;
+    const [ langData] = await Promise.all([
+    getTranslation(lang),
+
+  ]);
+  const mainData = await getMainFile(langData);
   try {
     function cleanDescription(html: any, limit = 255) {
       if (!html) return "";
@@ -225,7 +230,7 @@ export async function generateMetadata({ params }: NewsPageProps) {
     const canonicalUrl = `https://metarang.com/${lang}/news/categories/${news.categorySlug}/${news.slug}`;
 
     return {
-      title: news.title,
+      title: `${news.title} | ${findByUniqueId(mainData, 148)}`,
       description: cleanDescription(news.description || "اخبار متاورس رنگ"),
       alternates: { canonical: canonicalUrl },
       openGraph: {
@@ -283,7 +288,7 @@ export default async function NewsPage({ params }: NewsPageProps) {
   const resolvedParams = await params;
   const { lang } = resolvedParams;
   try {
-    function cleanDescription(html: any, limit = 100) {
+    function cleanDescription(html: any, limit = 155) {
       if (!html) return "";
 
       // Normalize to string

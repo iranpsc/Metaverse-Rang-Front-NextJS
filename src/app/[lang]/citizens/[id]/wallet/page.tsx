@@ -16,12 +16,14 @@ import { buildSidebarLabels } from "@/components/utils/buildShellTranslations";
 
 import { getStaticMenu } from "@/components/utils/constants";
 import { buildTabsMenu } from "@/components/utils/buildTabsMenu";
-import PropertyHeader from "./PropertyHeader";
+import InviteBox from "@/components/templates/referral/invite-box";
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 /* ------------------------------------------------------------------ */
 /*                                TYPES                               */
 /* ------------------------------------------------------------------ */
 interface CitizenWalletHistoryProps {
+
   params: Promise<{
     lang: string;
     id: string;
@@ -33,6 +35,7 @@ interface CitizenWalletHistoryProps {
 /* ------------------------------------------------------------------ */
 export default async function CitizenWalletHistory({
   params,
+
 }: CitizenWalletHistoryProps) {
   const resolvedParams = await params;
   const { lang, id } = resolvedParams;
@@ -94,8 +97,8 @@ export default async function CitizenWalletHistory({
           "@id": canonicalUrl,
           url: canonicalUrl,
           name: isFa
-            ? `تاریخچه دارایی‌های ${fullName}`
-            : `Wallet history of ${fullName}`,
+            ? `تاریخچه دارایی‌های ${fullName} | ${findByUniqueId(mainData, 148)}`
+            : `Wallet history of ${fullName} | ${findByUniqueId(mainData, 148)}`,
           description: isFa
             ? "جدول و نمودار تاریخچه دارایی‌های کاربر"
             : "Citizen wallet asset history summary and chart",
@@ -172,7 +175,14 @@ export default async function CitizenWalletHistory({
             </div>
 
             <div className="xl:px-8 lg:px-8 md:px-5 sm:px-5 xs:px-1">
-               <PropertyHeader params={resolvedParams} mainData={mainData} referralPageArrayContent={undefined} />
+                <InviteBox
+                params={resolvedParams}
+                mainData={mainData}
+                imageLight="https://s3.metarang.com/metarang/asset/wallet-light.png"
+                imageDark="https://s3.metarang.com/metarang/asset/wallet-dark.png"
+                descriptionId={1575}
+                urlSuffix="wallet"
+              />
               <WalletHistoryLoader params={resolvedParams} mainData={mainData} />
             </div>
 
@@ -201,11 +211,14 @@ export default async function CitizenWalletHistory({
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ lang: string; id: string }>;
+  params: Promise<{ lang: string; id: string  }>;
 }) {
   const { lang, id } = await params;
   const isFa = lang === "fa";
-
+  const [ langData] = await Promise.all([
+    getTranslation(lang),
+  ]);
+  const mainData = await getMainFile(langData);
   try {
     const profileData = await getUserData(id);
 
@@ -224,8 +237,8 @@ export async function generateMetadata({
       : profileData.data.name || (isFa ? "شهروند" : "Citizen");
 
     const title = isFa
-      ? `تاریخچه دارایی‌های ${fullName}`
-      : `Wallet history of ${fullName}`;
+      ? `تاریخچه دارایی‌های ${fullName} | ${findByUniqueId(mainData, 148)}`
+      : `Wallet history of ${fullName} | ${findByUniqueId(mainData, 148)} `;
 
     const description = isFa
       ? "جدول و نمودار تاریخچه دارایی‌های کاربر"

@@ -99,8 +99,8 @@ export async function generateMetadata({ params }: EducationCategoryAllProps) {
       description: findByUniqueId(mainData, 340),
       openGraph: {
         type: "website",
-        title: findByUniqueId(mainData, 340),
-        description: findByUniqueId(mainData, 340),
+        title: `${findByUniqueId(mainData, 340)} | ${findByUniqueId(mainData, 148)}`,
+        description: findByUniqueId(mainData, 340).slice(0,155),
         locale: lang == "fa" ? "fa_IR" : "en_US",
         url: `https://metarang.com/${lang}/education/category`,
         images: [

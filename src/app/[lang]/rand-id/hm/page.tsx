@@ -36,9 +36,9 @@ export async function generateMetadata({
     const mainData = await getMainFile(langData);
 
     return {
-      title: findByUniqueId(mainData, 1484),
+      title: `${findByUniqueId(mainData, 1484)} | ${findByUniqueId(mainData, 148)}`,
       description:
-        "اینجا مجموعه‌ای از شناسه‌های رند و کمیاب قرار گرفته که به دلیل سادگی و ارزش بالای عددی، انتخابی متفاوت نسبت به شناسه‌های معمولی محسوب می‌شوند. هر شناسه با جزئیات دقیق نمایش داده شده تا بتوانید بدون دردسر مناسب‌ترین گزینه را انتخاب و خریداری کنید.",
+       findByUniqueId(mainData, 1527).slice(0,155),
       alternates: {
         canonical: `https://metarang.com/${lang}/citizen/rand-is/hm`,
         languages: {
@@ -49,8 +49,8 @@ export async function generateMetadata({
       },
       openGraph: {
         type: "website",
-        title: findByUniqueId(mainData, 593),
-        description: findByUniqueId(mainData, 1527),
+        title: `${findByUniqueId(mainData, 593)}| ${findByUniqueId(mainData, 148)}`,
+        description: findByUniqueId(mainData, 1527).slice(0,155),
         locale: lang === "fa" ? "fa_IR" : "en_US",
         url: `https://metarang.com/${lang}/citizen/rand-is/hm`,
         images: [

@@ -25,6 +25,7 @@ import { buildSidebarLabels } from "@/components/utils/buildShellTranslations";
 import { getStaticMenu } from "@/components/utils/constants";
 import { buildTabsMenu } from "@/components/utils/buildTabsMenu";
 import "./style/style.css";
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 /* ------------------------------------------------------------------ */
 /*                                TYPES                               */
@@ -86,16 +87,15 @@ export default async function CitizenReferral({
 
     /* ----------------------------- schema ---------------------------- */
     const aboutText =
-      profileData.data?.customs?.about?.slice(0, 200) || "";
+      profileData.data?.customs?.about?.slice(0, 155) || "";
 
     const citizenReferralSchema = {
       "@context": "https://schema.org/",
       "@type": "Person",
       name:
         profileData.data?.name ||
-        `${profileData.data?.kyc?.fname || ""} ${
-          profileData.data?.kyc?.lname || ""
-        }`,
+        `${profileData.data?.kyc?.fname || ""} ${profileData.data?.kyc?.lname || ""
+        } | ${findByUniqueId(mainData, 148)}`,
       image:
         profileData.data?.profilePhotos?.map((p: any) => p.url) || [],
       url: `https://metarang.com/${lang}/citizens/${id}/referral`,
@@ -135,9 +135,12 @@ export default async function CitizenReferral({
 
             <div className="xl:px-8 lg:px-8 md:px-5 sm:px-5 xs:px-1">
               <InviteBox
-                referralPageArrayContent={mainData}
                 params={resolvedParams}
                 mainData={mainData}
+                imageLight="/firstpage/referral/invite.svg"
+                imageDark="/firstpage/referral/invite.svg"
+                descriptionId={1420}
+                urlSuffix="referral"
               />
 
               <Suspense fallback={<InviteListSkeleton />}>
@@ -191,7 +194,11 @@ export async function generateMetadata({
   params: Promise<{ lang: string; id: string }>;
 }) {
   const { lang, id } = await params;
+  const [langData] = await Promise.all([
+    getTranslation(lang),
 
+  ]);
+  const mainData = await getMainFile(langData);
   try {
     const profileData = await getUserData(id);
 
@@ -208,14 +215,14 @@ export async function generateMetadata({
         : profileData.data.name || "Citizen";
 
     const description =
-      profileData.data?.customs?.about?.slice(0, 160) ||
+      profileData.data?.customs?.about?.slice(0, 155) ||
       "Citizen referral page";
 
     return {
       title:
         lang === "fa"
-          ? `دعوتی‌های ${fullName}`
-          : `Invites of ${fullName}`,
+          ? `دعوتی‌های ${fullName}  | ${findByUniqueId(mainData, 148)}`
+          : `Invites of ${fullName} | ${findByUniqueId(mainData, 148)}`,
       description,
       alternates: {
         canonical: `https://metarang.com/${lang}/citizens/${id}/referral`,

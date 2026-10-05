@@ -12,6 +12,7 @@ import NewsSubCategoryContent from "@/components/features/NewsSubCategoryContent
 // ایمپورت دیتای استاتیک به عنوان fallback
 import fallbackNewsData from "@/components/utils/news.json";
 import { Suspense } from "react";
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 interface NewsCategoryPageProps {
   params: Promise<{ lang: string; category: string; }>;
@@ -106,6 +107,11 @@ async function fetchNewsByCategoryWithFallback(categorySlug: string) {
 export async function generateMetadata({ params }: NewsCategoryPageProps) {
   const resolvedParams = await params;
   const { lang } = resolvedParams;
+    const [ langData] = await Promise.all([
+    getTranslation(lang),
+
+  ]);
+  const mainData = await getMainFile(langData);
   try {
     const categorySlug = decodeURIComponent(resolvedParams.category);
     const siteUrl = "https://metarang.com";
@@ -126,7 +132,7 @@ export async function generateMetadata({ params }: NewsCategoryPageProps) {
     const { category, categoryDec, categoryImage } = data[0];
 
     return {
-      title: `${category} | اخبار`,
+      title: `${category} |  ${findByUniqueId(mainData, 148)}`,
       description: categoryDec || `اخبار مرتبط با ${category}`,
       alternates: {
         canonical: `${siteUrl}/${lang}/news/categories/${categorySlug}`,
@@ -237,7 +243,7 @@ export default async function NewsCategoryPage({ params }: NewsCategoryPageProps
           "@type": "CollectionPage",
           "@id": `${categoryUrl}#webpage`,
           "url": categoryUrl,
-          "name": `${category} | اخبار`,
+          "name": `${category} | ${findByUniqueId(mainData, 148)}`,
           "description": categoryDec || `آخرین اخبار مرتبط با ${category}`,
           "isPartOf": {
             "@type": "WebSite",

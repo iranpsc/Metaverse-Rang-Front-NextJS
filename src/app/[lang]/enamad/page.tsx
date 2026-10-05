@@ -9,12 +9,7 @@ interface EnamadPageProps {
   }>;
 }
 
-const ENAMAD_ID = "721065";
-const ENAMAD_CODE = "fLkLFNhooBCR33C1ntVXIBxJFAj9gf3q";
 
-const ENAMAD_URL = `https://trustseal.enamad.ir/?id=${ENAMAD_ID}&Code=${ENAMAD_CODE}`;
-
-const ENAMAD_LOGO_URL = `https://trustseal.enamad.ir/logo.aspx?id=${ENAMAD_ID}&Code=${ENAMAD_CODE}`;
 
 export async function generateMetadata({
   params,
@@ -25,8 +20,8 @@ export async function generateMetadata({
 
   return {
     title: isFa
-      ? "نماد اعتماد الکترونیکی | متاورس رنگ"
-      : "Electronic Trust Symbol | Metaverse Rang",
+      ? "نماد اعتماد الکترونیکی | متارنگ"
+      : "Electronic Trust Symbol | Metarang",
 
     description: isFa
       ? "مشاهده و بررسی نماد اعتماد الکترونیکی متاورس رنگ و اطلاعات اعتبار آن."

@@ -10,7 +10,7 @@ import {
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam  from "@/components/system/CleanAutoRetryParam";
 async function makeLessCharacter(_desc: any) {
-  return _desc ? _desc.slice(0, 200) : "";
+  return _desc ? _desc.slice(0, 155) : "";
 }
 
 
@@ -71,7 +71,7 @@ export default async function EducationSubcategory({ params }:EducationSubcatego
     const subCategorySchema = {
       "@context": "http://schema.org",
       "@type": "WebSite",
-      name: `${subCategoryData.name}`,
+      name: `${subCategoryData.name} | ${findByUniqueId(mainData, 148)}`,
       url: `https://metarang.com/${lang}/education/category/${decodeURIComponent(
         resolvedParams.category
       )}/${resolvedParams.subcategory}`,
@@ -156,7 +156,7 @@ export async function generateMetadata({ params }:EducationSubcategoryProps) {
     const subCategoryData = await getSubcategoryData(resolvedParams.category, resolvedParams.subcategory);
 
     return {
-      title: findByUniqueId(mainData, 455) + " " + subCategoryData.name,
+      title: findByUniqueId(mainData, 455) + " " + subCategoryData.name + " | " + findByUniqueId(mainData, 148),
       description: await makeLessCharacter(subCategoryData.description),
       openGraph: {
         type: "website",

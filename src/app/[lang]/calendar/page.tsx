@@ -153,8 +153,8 @@ export async function generateMetadata({
     const langData = await getTranslation(lang);
     const mainData = await getMainFile(langData);
 
-    const title = findByUniqueId(mainData, 1463);
-    const description = findByUniqueId(mainData, 1464);
+    const title = `${findByUniqueId(mainData, 1463)} | ${findByUniqueId(mainData, 148)}` ;
+    const description = findByUniqueId(mainData, 1464).slice(0, 150);
 
     const canonicalUrl = `https://metarang.com/${lang}/calendar`;
 

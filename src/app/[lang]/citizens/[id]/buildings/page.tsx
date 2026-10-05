@@ -16,7 +16,8 @@ import { buildSidebarLabels } from "@/components/utils/buildShellTranslations";
 
 import { getStaticMenu } from "@/components/utils/constants";
 import { buildTabsMenu } from "@/components/utils/buildTabsMenu";
-import BuildingsHeader from "./BuildingsHeader";
+import InviteBox from "@/components/templates/referral/invite-box";
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 /* ------------------------------------------------------------------ */
 /*                                TYPES                               */
@@ -87,7 +88,7 @@ export default async function CitizenBuildings({ params }: CitizenBuildingsProps
           "@type": "WebPage",
           "@id": canonicalUrl,
           url: canonicalUrl,
-          name: isFa ? `بناهای ${fullName}` : `Buildings of ${fullName}`,
+          name: isFa ? `بناهای ${fullName} | ${findByUniqueId(mainData, 148)}` : `Buildings of ${fullName} | ${findByUniqueId(mainData, 148)}`,
           description: isFa
             ? "خلاصه، نمودار و لیست بناهای تکمیل‌شده"
             : "Completed buildings summary, chart, and list",
@@ -160,7 +161,14 @@ export default async function CitizenBuildings({ params }: CitizenBuildingsProps
             </div>
 
             <div className="xl:px-8 lg:px-8 md:px-5 sm:px-5 xs:px-1">
-              <BuildingsHeader referralPageArrayContent={undefined} params={resolvedParams} mainData={mainData} />
+              <InviteBox
+                params={resolvedParams}
+                mainData={mainData}
+                imageLight="https://s3.metarang.com/metarang/asset/buildings-light.png"
+                imageDark="https://s3.metarang.com/metarang/asset/buildings-dark.png"
+                descriptionId={1810}
+                urlSuffix="buildings"
+              />
               <BuildingsSummary params={resolvedParams} mainData={mainData} />
             </div>
             <DynamicFooter mainData={mainData} params={resolvedParams} />
@@ -193,7 +201,10 @@ export async function generateMetadata({
 }) {
   const { lang, id } = await params;
   const isFa = lang === "fa";
-
+  const [langData] = await Promise.all([
+    getTranslation(lang),
+  ]);
+  const mainData = await getMainFile(langData);
   try {
     const profileData = await getUserData(id);
 
@@ -209,7 +220,7 @@ export async function generateMetadata({
       ? `${profileData.data.kyc.fname} ${profileData.data.kyc.lname}`
       : profileData.data.name || (isFa ? "شهروند" : "Citizen");
 
-    const title = isFa ? `بناهای ${fullName}` : `Buildings of ${fullName}`;
+    const title = isFa ? `بناهای ${fullName} | ${findByUniqueId(mainData, 148)}` : `Buildings of ${fullName} | ${findByUniqueId(mainData, 148)}`;
     const description = isFa
       ? "خلاصه، نمودار و لیست بناهای تکمیل‌شده"
       : "Completed buildings summary, chart, and list";

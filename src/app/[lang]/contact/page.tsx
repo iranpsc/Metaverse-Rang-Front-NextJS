@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: AboutPageProps) {
     const { lang } = resolvedParams;
   try {
     return {
-      title: lang.toLowerCase() == "fa" ? "تماس با ما" : "Contact Us",
+      title: lang.toLowerCase() == "fa" ? "تماس با ما | متارنگ" : "Contact Us| Metarang",
       description:
         lang.toLowerCase() == "fa"
           ? "ما در متاورس رنگ معتقدیم که توسعه این دنیای موازی و مجازی تنها با مشارکت و همفکری عمومی امکان‌پذیر است. زیرساخت‌های این جهان بر پایه‌ی واحد حدتاثیر بنا شده‌اند تا بتوانند نظرات و ایده‌های شما را به بهترین شکل در مسیر توسعه هدایت کنند. ارتباط با انجمن متاورس ایران و دانشگاه متاورس ایران از طریق این پلتفرم به راحتی امکان‌پذیر است."
@@ -65,9 +65,9 @@ export default async function AboutPage({ params }: AboutPageProps) {
     const aboutSchema = {
       "@context": "https://schema.org",
       "@type": "ContactPage",
-      name: findByUniqueId(mainData, 260),
+      name: `${findByUniqueId(mainData, 260)} | ${findByUniqueId(mainData, 148)}`,
       description:
-        findByUniqueId(mainData, 1535),
+        findByUniqueId(mainData, 1535).slice(0, 155),
       url: `https://metarang.com/${lang}/contact`,
 
       contentLocation: {

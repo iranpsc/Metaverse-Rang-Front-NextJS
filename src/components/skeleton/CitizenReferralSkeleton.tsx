@@ -9,14 +9,14 @@ import Skeleton from "@/components/ui/skeleton";
 export default function CitizenReferralSkeleton({
   dir = "rtl",
   params,
-  langData,
-  referralPageArrayContent,
+  // langData,
+  // referralPageArrayContent,
   mainData,
 }: {
   dir?: "rtl" | "ltr";
   params: any;
   langData: any;
-  referralPageArrayContent?: any;
+  // referralPageArrayContent?: any;
   mainData: any;
 }) {
   return (
@@ -29,13 +29,13 @@ export default function CitizenReferralSkeleton({
         </div>
 
         <div className="xl:px-8 lg:px-8 md:px-5 sm:px-5 xs:px-1 flex flex-col gap-6">
-          {referralPageArrayContent && (
+   
             <InviteBox
-              referralPageArrayContent={referralPageArrayContent}
+              // referralPageArrayContent={referralPageArrayContent}
               params={params}
               mainData={mainData}
             />
-          )}
+    
 
           <InviteListSkeleton />
           <InviteChartSkeleton />

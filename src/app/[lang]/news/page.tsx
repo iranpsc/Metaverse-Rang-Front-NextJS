@@ -121,7 +121,7 @@ export async function generateMetadata({ params }: NewsPageProps) {
     const url = `${baseUrl}/${lang}/news`;
 
     return {
-      title: lang === "fa" ? "اخبار متاورس رنگ" : "Metarangs Metaverse News",
+      title: lang === "fa" ? "اخبار متاورس رنگ | متارنگ" : "Metarangs Metaverse News | Matarang",
       description:
         lang === "fa"
           ? "آخرین اخبار و بروزرسانی‌های متاورس رنگ را در این صفحه دنبال کنید."

@@ -8,7 +8,6 @@ import Gift from "@/components/ui/Gift";
 import Permission from "@/components/features/levels/Permissions";
 import Prize from "@/components/features/levels/Prize";
 import ImageBox from "@/components/features/levels/ImageBox";
-import { Skeleton } from "@/components/ui/skeleton";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import {
   getLevelMeta,
@@ -106,7 +105,7 @@ export async function generateMetadata({ params }: Props) {
       levelTabs.data.description ||
       singleLevel.data.general_info?.description ||
       ""
-    ).slice(0, 200);
+    ).slice(0, 155);
 
     const imageUrl =
       levelTabs.data.png_file || singleLevel.data.general_info?.png_file;

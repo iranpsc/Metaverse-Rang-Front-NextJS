@@ -39,10 +39,10 @@ export async function generateMetadata({
     const mainData = await getMainFile(langData);
 
     const description =
-      findByUniqueId(mainData, 1417)?.slice(0, 200) || "";
+      findByUniqueId(mainData, 1417)?.slice(0, 155) || "";
 
     return {
-      title: findByUniqueId(mainData, 587),
+      title: `${findByUniqueId(mainData, 587)} | ${findByUniqueId(mainData, 148)}`,
       description,
       openGraph: {
         type: "website",

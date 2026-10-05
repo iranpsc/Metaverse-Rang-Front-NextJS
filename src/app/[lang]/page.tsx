@@ -5,7 +5,7 @@ import { Metadata } from 'next';
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import dynamic from "next/dynamic";
 
-import TopCitizen from '@/components/templates/firstpage/TopCitizenClient';
+import TopCitizen from '@/components/templates/firstpage/Topcitizen';
 import HeroVideo from "@/components/templates/firstpage/HeroVideo";
 import TopTrainersFirstPage from "@/components/templates/firstpage/TopTrainersFirstPage";
 import TopTrainersSkeleton from "@/components/skeleton/TopTrainersSkeleton";

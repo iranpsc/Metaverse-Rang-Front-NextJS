@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
 
-import NotFoundPage from "@/components/error/NotFoundPage";
+// import NotFoundPage from "@/components/error/NotFoundPage";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 
@@ -17,6 +17,7 @@ import { buildSidebarLabels } from "@/components/utils/buildShellTranslations";
 
 import { getStaticMenu } from "@/components/utils/constants";
 import { buildTabsMenu } from "@/components/utils/buildTabsMenu";
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 // lazy sidebar
 const SideBar = dynamic(
@@ -165,7 +166,11 @@ export async function generateMetadata({
   }>;
 }) {
   const { lang, id } = await params;
+  const [ langData] = await Promise.all([
+    getTranslation(lang),
 
+  ]);
+  const mainData = await getMainFile(langData);
   try {
     /*
      * توجه:
@@ -191,7 +196,7 @@ export async function generateMetadata({
     const description =
       profileData.data?.customs?.about?.slice(
         0,
-        160
+        155
       ) || "";
 
     const fullName =
@@ -202,7 +207,7 @@ export async function generateMetadata({
         : profileData.data.name || "Citizen";
 
     return {
-      title: `${fullName} | ${profileData.data.code}`,
+      title: `${fullName} | ${profileData.data.code} | ${findByUniqueId(mainData, 148)}`,
 
       description,
 
