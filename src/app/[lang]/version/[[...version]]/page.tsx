@@ -126,11 +126,11 @@ export async function generateMetadata({
 
       // برای /version تایتل کلی صفحه، برای /version/xxx تایتل مخصوص همون نسخه
       const title = versionSlug
-        ? `${currentVersion.title} - نسخه ${currentVersion.version}`
-        : findByUniqueId(mainData, 1458);
+        ? `${currentVersion.title} - نسخه ${currentVersion.version} | ${findByUniqueId(mainData, 148)}`
+        : `${findByUniqueId(mainData, 1458)} | ${findByUniqueId(mainData, 148)}`;
       const description = versionSlug
-        ? currentVersion.description
-        : findByUniqueId(mainData, 1452);
+        ? currentVersion.description.slice(0,155)
+        : findByUniqueId(mainData, 1452).slice(0,155);
 
       const siteUrl = process.env.SITE_URL || "https://metarang.com";
       const pageUrl = versionSlug
@@ -214,12 +214,12 @@ export default async function VersionPage({ params }: VersionPageProps) {
     const versionSchema = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-      name: findByUniqueId(mainData, 1458) || "نام نرم‌افزار یا پروژه",
+      name: `${findByUniqueId(mainData, 1458)} | ${findByUniqueId(mainData, 148)}`,
       url: `https://metarang.com/${lang}/version${
         versionSlug ? `/${encodeURIComponent(versionSlug)}` : ""
       }`,
       description: currentVersion
-        ? stripHtmlTags(currentVersion.description)
+        ? stripHtmlTags(currentVersion.description).slice(0,155)
         : "صفحه نسخه‌های نرم‌افزار",
       author: {
         "@type": "Organization",

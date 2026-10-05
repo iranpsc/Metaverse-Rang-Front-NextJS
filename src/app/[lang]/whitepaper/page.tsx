@@ -52,8 +52,8 @@ export async function generateMetadata({
     const langData = await getTranslation(lang);
     const mainData = await getMainFile(langData);
     return {
-      title: findByUniqueId(mainData, 1756),
-      description: findByUniqueId(mainData, 1757),
+      title: `${findByUniqueId(mainData, 1756)} | ${findByUniqueId(mainData, 148)}`,
+      description: findByUniqueId(mainData, 1757).slice(0,155),
         alternates: {
     canonical: url,
   },
@@ -147,9 +147,9 @@ export default async function ArticlesPage({
         {
           "@type": "Cryptocurrency",
           "@id": `${fullPageUrl}#psc-token`,
-          name: "PSC Token",
+          name: "PSC Token | Metarang",
           alternateName: "PSC",
-          description: findByUniqueId(mainData, 1757),
+          description: findByUniqueId(mainData, 1757).slice(0.155),
           issuer: {
             "@id": `${baseUrl}#organization`
           }

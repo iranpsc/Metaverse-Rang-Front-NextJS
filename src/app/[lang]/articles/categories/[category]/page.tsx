@@ -10,6 +10,7 @@ import { getTranslation, getMainFile } from "@/components/utils/actions";
 import { supabase } from "@/utils/lib/supabaseClient";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 interface CategoryPageProps {
   params: Promise<{
@@ -18,9 +19,11 @@ interface CategoryPageProps {
   }>;
 }
 
-export async function generateMetadata({ params }: CategoryPageProps) {
+export async function generateMetadata({ params  }: CategoryPageProps) {
   const resolvedParams = await params;
   const { lang } = resolvedParams;
+    const langData = await getTranslation(lang);
+    const mainData = await getMainFile(langData);
   try {
     const categorySlug = decodeURIComponent(resolvedParams.category);
     const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://metarang.com";
@@ -35,7 +38,7 @@ export async function generateMetadata({ params }: CategoryPageProps) {
 
     if (categoryArticles.length === 0) {
       return {
-        title: `دسته ${categorySlug} | مقالات`,
+        title: `دسته ${categorySlug}  مقالات   |  ${findByUniqueId(mainData, 148)}`,
         description: `هیچ مقاله‌ای در دسته ${categorySlug} یافت نشد.`,
         alternates: {
           canonical: `${siteUrl}/${lang}/articles/categories/${categorySlug}`,
@@ -44,7 +47,7 @@ export async function generateMetadata({ params }: CategoryPageProps) {
     }
 
     const { category: catName, categoryDec, categoryImage } = categoryArticles[0];
-    const title = `${catName} | مقالات`;
+    const title = `${catName} | ${findByUniqueId(mainData, 148)}`;
     const description = categoryDec || `مطالب و مقالات مرتبط با ${catName}`;
     const image = categoryImage?.startsWith("http")
       ? categoryImage

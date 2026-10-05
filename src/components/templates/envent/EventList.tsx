@@ -160,7 +160,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
     document.title = event.title;
 
     // به‌روزرسانی توضیحات
-    const description = htmlTruncate(event.desc, 160);
+    const description = htmlTruncate(event.desc, 150);
     let metaDesc = document.querySelector('meta[name="description"]');
     if (!metaDesc) {
       metaDesc = document.createElement("meta");

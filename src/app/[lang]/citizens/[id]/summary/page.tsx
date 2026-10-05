@@ -18,6 +18,7 @@ import { buildSidebarLabels } from "@/components/utils/buildShellTranslations";
 import { getStaticMenu } from "@/components/utils/constants";
 import { buildTabsMenu } from "@/components/utils/buildTabsMenu";
 import PropertyHeader from "./PropertyHeader";
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 /* ------------------------------------------------------------------ */
 /*                                TYPES                               */
@@ -94,8 +95,8 @@ export default async function CitizenFeaturesSummary({
           "@id": canonicalUrl,
           url: canonicalUrl,
           name: isFa
-            ? `کاربری‌های ${fullName}`
-            : `Feature summary of ${fullName}`,
+            ? `کاربری‌های ${fullName} | ${findByUniqueId(mainData, 148)}`
+            : `Feature summary of ${fullName} | ${findByUniqueId(mainData, 148)}`,
           description: isFa
             ? "خلاصه کاربری‌های ملک به تفکیک نوع"
             : "Citizen property feature (karbari) summary by type",
@@ -204,7 +205,10 @@ export async function generateMetadata({
   params: Promise<{ lang: string; id: string }>;
 }) {
   const { lang, id } = await params;
-
+  const [ langData] = await Promise.all([
+    getTranslation(lang),
+  ]);
+  const mainData = await getMainFile(langData);
   try {
     const profileData = await getUserData(id);
 
@@ -222,8 +226,8 @@ export async function generateMetadata({
     return {
       title:
         lang === "fa"
-          ? `املاک و مستغلات حسین قدیری ${fullName}`
-          : `Feature summary of ${fullName}`,
+          ? `املاک و مستغلات حسین قدیری ${fullName} | ${findByUniqueId(mainData, 148)}`
+          : `Feature summary of ${fullName} | ${findByUniqueId(mainData, 148)}`,
       description:
         lang === "fa"
           ? "  املاک و مستغلات حسین قدیری  "

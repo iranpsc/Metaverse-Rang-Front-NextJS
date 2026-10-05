@@ -23,22 +23,92 @@ export default function SearchComponent({
   const [articlesData, setArticlesData] = useState<any[]>([]);
 
   // === Load Articles from Supabase once ===
-  useEffect(() => {
-    const fetchArticles = async () => {
-      // dynamic import: کلاینت Supabase (~۴۰KB gzip) فقط برای جستجوی مقالات لود می‌شود،
-      // نه برای همه‌ی صفحات (این کامپوننت از طریق NotFoundPage در bundle همه‌جا بود).
-      const { supabase } = await import("@/utils/lib/supabaseClient");
-      const { data, error } = await supabase
-        .from("articles")
-        .select("*")
-        .order("date", { ascending: false });
+useEffect(() => {
+  const search = async () => {
+    if (searchTerm.trim().length < 3) {
+      setSearchData([]);
+      setLoadingSearch(false);
+      return;
+    }
 
-      if (!error && data) setArticlesData(data);
-    };
+    setLoadingSearch(true);
 
-    if (searchLevel === "articles") fetchArticles();
-  }, [searchLevel]);
+    try {
+      // =========================
+      // Articles — مثل قبل
+      // =========================
+      if (searchLevel === "articles") {
+        const filtered = articlesData.filter((a) =>
+          a.title?.toLowerCase().includes(searchTerm.toLowerCase())
+        );
 
+        setSearchData(filtered);
+        setLoadingSearch(false);
+        return;
+      }
+
+      // =========================
+      // Citizen — مثل قبل
+      // =========================
+      if (searchLevel === "citizen") {
+        const formData = new FormData();
+        formData.append("searchTerm", searchTerm);
+
+        const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/search/users`;
+
+        const response = await axios.post(url, formData);
+
+        setSearchData(response.data.data || []);
+        setLoadingSearch(false);
+        return;
+      }
+
+      // =========================
+      // Education — نسخه‌ای که الان درست شد
+      // =========================
+      if (searchLevel === "education") {
+        const url =
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/tutorials/search`;
+
+        const response = await axios.post(
+          url,
+          {
+            searchTerm: searchTerm.trim(),
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        console.log("Education search response:", response.data);
+
+        setSearchData(
+          Array.isArray(response.data?.data)
+            ? response.data.data
+            : []
+        );
+
+        setLoadingSearch(false);
+        return;
+      }
+
+      setSearchData([]);
+    } catch (error: any) {
+      console.error("Search error:", error);
+      console.error("Search response:", error?.response?.data);
+
+      setSearchData([]);
+    } finally {
+      setLoadingSearch(false);
+    }
+  };
+
+  const timer = setTimeout(search, 300);
+
+  return () => clearTimeout(timer);
+}, [searchTerm, searchLevel, articlesData]);
   useEffect(() => {
     if (searchTerm.length >= 3) {
       setLoadingSearch(true);

@@ -10,6 +10,7 @@ import SingleEventCalendarClient from "@/components/templates/envent/SingleEvent
 // import htmlTruncate from "html-truncate";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam  from "@/components/system/CleanAutoRetryParam";
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 interface EventPageProps {
   params: Promise<{
     id: string; lang: string 
@@ -101,14 +102,14 @@ function toISODate(dateString: string | undefined): string {
 }
 
 // 📌 Build Event Schema exactly like sample but fully dynamic
-function buildEventSchema(selectedEvent: MappedEventItem) {
+function buildEventSchema(selectedEvent: MappedEventItem ) {
   return {
     "@context": "https://schema.org",
     "@type": "Event",
-    name: stripHtml(selectedEvent.title),
+    name: `${stripHtml(selectedEvent.title)} `,
     startDate: toISODate(selectedEvent.start),
     endDate: toISODate(selectedEvent.end),
-    description: stripHtml(selectedEvent.desc, 160),
+    description: stripHtml(selectedEvent.desc, 150),
     image: selectedEvent.image || "https://metarang.com/default-image.jpg",
     url: selectedEvent.link || "https://metarang.com",
     location: {
@@ -156,14 +157,18 @@ export async function generateMetadata({ params }: EventPageProps): Promise<Meta
   try {
   const event = await getEvent(resolvedParams.id);
   const cleanTitle = stripHtml(event.title);
-  const cleanDescription = stripHtml(event.desc, 160);
+  const cleanDescription = stripHtml(event.desc, 150);
+    const [ langData] = await Promise.all([
+    getTranslation(lang),
 
+  ]);
+const mainData = await getMainFile(langData);
   return {
-    title: cleanTitle,
+    title: `${cleanTitle} | ${findByUniqueId(mainData, 148)}` ,
     description: cleanDescription,
     keywords: [cleanTitle, "رویداد", "تقویم رویدادها", "برنامه‌های متاورس رنگ", "رویدادهای مهم"],
     openGraph: {
-      title: cleanTitle,
+      title: `${cleanTitle} | ${findByUniqueId(mainData, 148)}`,
       description: cleanDescription,
       url: `https://metarang.com/${lang}/calendar/${resolvedParams.id}`,
       type: "website",

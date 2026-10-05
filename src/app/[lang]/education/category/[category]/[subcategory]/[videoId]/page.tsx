@@ -16,6 +16,7 @@ import ListVideos from "@/components/features/video/listVideos/ListVideos";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 import NotFoundPage from "@/components/error/NotFoundPage"; // فرض کردم صفحه 404 اینجاست
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 // Cache کردن getSingleVideoData برای جلوگیری از درخواست‌های تکراری در generateMetadata و صفحه اصلی
 const getCachedSingleVideoData = cache(async (videoId: string) => {
@@ -85,7 +86,7 @@ export default async function EducationVideo({ params }: EducationVideoProps) {
     const singleVideoSchema = {
       "@context": "http://schema.org",
       "@type": "WebSite",
-      name: DataVideo.title,
+      name: `${DataVideo.title} | ${findByUniqueId(mainData, 148)}`,
       url: `https://metarang.com/${lang}/education/category/${decodeURIComponent(
         resolvedParams.category
       )}/${resolvedParams.subcategory}/${DataVideo.slug}`,
@@ -212,6 +213,10 @@ export default async function EducationVideo({ params }: EducationVideoProps) {
 export async function generateMetadata({ params }:EducationVideoProps) {
        const resolvedParams = await params;
   const { lang } = resolvedParams;
+    const [ langData] = await Promise.all([
+    getTranslation(lang),
+  ]);
+  const mainData = await getMainFile(langData);
   try {
     // استفاده از cached function برای DataVideo
     const DataVideo = await getCachedSingleVideoData(resolvedParams.videoId);
@@ -233,7 +238,7 @@ export async function generateMetadata({ params }:EducationVideoProps) {
 
     async function makeLessCharacter(_desc: any) {
       const clean = stripHtmlTags(_desc);
-      return clean.slice(0, 200);
+      return clean.slice(0, 155);
     }
 
 
@@ -252,7 +257,7 @@ export async function generateMetadata({ params }:EducationVideoProps) {
     }
 
     return {
-      title: DataVideo.title,
+      title: `${DataVideo.title} | ${findByUniqueId(mainData, 148)}`,
       description: await makeLessCharacter(DataVideo.description),
       openGraph: {
         type: "website",

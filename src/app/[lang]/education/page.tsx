@@ -106,12 +106,12 @@ export async function generateMetadata({ params }: CitizensPageProps) {
 
     async function makeLessCharacter() {
       let temp = findByUniqueId(mainData, 164);
-      temp = temp.slice(0, 200);
+      temp = temp.slice(0, 155);
       return temp;
     }
 
     return {
-      title: await findByUniqueId(mainData, 165),
+      title: await `${findByUniqueId(mainData, 165)} |  ${findByUniqueId(mainData, 148)}` ,
       description: await makeLessCharacter(),
       openGraph: {
         type: "website",

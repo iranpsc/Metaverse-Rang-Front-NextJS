@@ -21,7 +21,7 @@ import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 // ✅ تابع ساخت متن کوتاه سمت سرور
-async function makeLessCharacter(_desc: any, limit: number = 200) {
+async function makeLessCharacter(_desc: any, limit: number = 155) {
   return _desc ? _desc.slice(0, limit) : "";
 }
 interface EducationCategoryProps {
@@ -133,7 +133,7 @@ export async function generateMetadata({ params }: EducationCategoryProps) {
     const CategoryData = await getEducationSingleCategory(resolvedParams.category);
 
     return {
-      title: findByUniqueId(mainData, 455) + " " + CategoryData.name,
+      title: findByUniqueId(mainData, 455) + " " + CategoryData.name + " | " + findByUniqueId(mainData, 148) ,
       description: await makeLessCharacter(CategoryData.description),
       openGraph: {
         type: "website",

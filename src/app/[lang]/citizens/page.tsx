@@ -21,10 +21,10 @@ export async function generateMetadata(
     const langData = await getTranslation(lang);
     const mainData = await getMainFile(langData);
 
-    const description = (findByUniqueId(mainData, 596) || "").slice(0, 160);
+    const description = (findByUniqueId(mainData, 596) || "").slice(0, 155);
 
     return {
-      title: findByUniqueId(mainData, 593),
+      title: `${findByUniqueId(mainData, 593)} | ${findByUniqueId(mainData, 148)}`,
       description,
       alternates: {
         canonical: `https://metarang.com/${lang}/citizen`,
@@ -79,7 +79,7 @@ export default async function CitizensPage({ params }: CitizensPageProps) {
     //to make description less than 200 character
     async function makeLessCharacter() {
       let temp = findByUniqueId(mainData, 596)
-      return await temp.slice(0, 200)
+      return await temp.slice(0, 155)
     }
 
 
@@ -88,7 +88,7 @@ export default async function CitizensPage({ params }: CitizensPageProps) {
     const citizenListSchema = {
       "@context": "https://schema.org/",
       "@type": "ProfessionalService",
-      "name": `${await makeLessCharacter()}`,
+      "name": `${await makeLessCharacter()} | ${findByUniqueId(mainData, 148)}`,
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "میرداماد، 824H+JG2",

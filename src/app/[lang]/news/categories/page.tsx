@@ -21,14 +21,13 @@ export async function generateMetadata({
 
   try {
     const baseUrl = "https://metarang.com";
-    const langPrefix = lang ? `/${lang}` : "";
-    const fullPageUrl = `${baseUrl}${langPrefix}/news/categories`;
+    const fullPageUrl = `${baseUrl}/${lang}/news/categories`;
 
     const langData = await getTranslation(lang);
     const mainData = await getMainFile(langData);
 
     const title =
-      findByUniqueId(mainData, 1516) || "دسته‌بندی اخبار متاورس رنگ";
+      `${findByUniqueId(mainData, 1516)} | ${findByUniqueId(mainData, 148)}`;
 
     const description =
       "در بخش دسته‌بندی اخبار متاورس رنگ، جدیدترین اخبار فناوری، متاورس، بلاک‌چین و هوش مصنوعی را دنبال کنید.";
@@ -79,13 +78,66 @@ export default async function NewsCategoriesPage({
   const { lang } = resolvedParams;
 
   try {
-    // فقط اطلاعات مورد نیاز برای ساخت Header صفحه
     const langData = await getTranslation(lang);
     const mainData = await getMainFile(langData);
+
+    const baseUrl = "https://metarang.com";
+    const pageUrl = `${baseUrl}/${lang}/news/categories`;
+
+    const pageTitle =
+      `${findByUniqueId(mainData, 1516)} | ${findByUniqueId(mainData, 148)}`;
+
+    const pageDescription =
+      findByUniqueId(mainData, 1592) ||
+      "دسته‌بندی اخبار متاورس رنگ، فناوری، متاورس، بلاک‌چین و هوش مصنوعی.";
+
+    /*
+     * Schema اصلی صفحه
+     *
+     * CollectionPage:
+     * این صفحه مجموعه‌ای از دسته‌بندی‌های اخبار است.
+     *
+     * ItemList:
+     * برای معرفی آیتم‌های داخل مجموعه استفاده می‌شود.
+     *
+     * توجه:
+     * چون لیست واقعی دسته‌بندی‌ها داخل NewsCategoriesContent ساخته می‌شود،
+     * ItemList را اینجا فقط در صورتی اضافه کن که URL دسته‌بندی‌ها را
+     * از API/داده صفحه در اختیار داشته باشی.
+     */
+    const collectionPageSchema = {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "@id": `${pageUrl}#collectionpage`,
+      url: pageUrl,
+      name: pageTitle,
+      description: pageDescription,
+      inLanguage: lang === "fa" ? "fa-IR" : "en-US",
+
+      isPartOf: {
+        "@type": "WebSite",
+        "@id": `${baseUrl}/#website`,
+        url: baseUrl,
+        name: "MetaRang",
+      },
+
+      about: {
+        "@type": "Thing",
+        name: lang === "fa" ? "اخبار متاورس رنگ" : "MetaRang News",
+      },
+    };
 
     return (
       <section className="w-full bg-bg-primary px-5 3xl:px-10">
         <CleanAutoRetryParam />
+
+        {/* CollectionPage Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(collectionPageSchema),
+          }}
+        />
 
         <div className="mb-6 mt-[60px] lg:mt-0">
           <BreadCrumb params={resolvedParams} />
@@ -93,11 +145,11 @@ export default async function NewsCategoriesPage({
 
         <div className="text-center mt-5">
           <h1 className="font-rokh font-bold text-[30px] dark:text-white">
-            {findByUniqueId(mainData, 1516) || "دسته‌بندی اخبار"}
+            {pageTitle}
           </h1>
 
           <p className="text-matn-2 dark:text-matn-2 text-lg mt-2">
-            {findByUniqueId(mainData, 1592)}
+            {pageDescription}
           </p>
         </div>
 

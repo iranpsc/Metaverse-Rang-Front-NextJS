@@ -120,7 +120,7 @@ const [linkLoading, setLinkLoading] = useState(false);
             
               href={`/${params.lang}/education/category/${item.category.slug}/${item.sub_category.slug}/${item.slug}`}
               key={item.id}
-              className="w-[99%] h-[65px] mt-2 transition-all duration-300 bg-white dark:bg-dark-background border-b border-mediumGray flex justify-between items-center p-3 rounded-lg"
+              className="w-[100%] h-[65px] mt-2 transition-all duration-300 bg-white dark:bg-dark-background border-b border-mediumGray flex justify-between items-center  rounded-lg"
             >
                {linkLoading && (
               <div className="fixed top-0 left-0 bottom-0  w-full  h-screen z-[70] flex items-center justify-center bg-black/60 backdrop-blur-sm" >
@@ -140,7 +140,7 @@ const [linkLoading, setLinkLoading] = useState(false);
               <p className="dark:text-white text-black font-medium truncate text-[16px]">
                 {item.title}
               </p>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 p-3">
                 <div className="flex flex-col items-end">
                   <p className="uppercase font-bold text-primary text-[14px]">
                     {item.creator.code}
@@ -152,7 +152,7 @@ const [linkLoading, setLinkLoading] = useState(false);
                     <Like className="w-[15px] h-[15px] stroke-matn-2 " />
                   </div>
                 </div>
-               <div className="w-[100px] h-[100px]">
+               <div className="w-[50px] h-[50px]">
                  <Image
                   src={item.creator.image}
                   alt={item.creator.title}
