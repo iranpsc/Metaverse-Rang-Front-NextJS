@@ -1,3 +1,4 @@
+
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
@@ -32,64 +33,64 @@ const nextConfig = {
     ];
   },
 
-async headers() {
-  return [
-    {
-      source: "/data/:path*",
-      headers: [
-        {
-          key: "Cache-Control",
-          value: "public, max-age=86400, stale-while-revalidate=604800",
-        },
-      ],
-    },
+  async headers() {
+    return [
+      {
+        source: "/data/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=86400, stale-while-revalidate=604800",
+          },
+        ],
+      },
 
-    {
-      source: "/lang/:path*",
-      headers: [
-        {
-          key: "Access-Control-Allow-Origin",
-          value: "*",
-        },
-        {
-          key: "Access-Control-Allow-Methods",
-          value: "GET, OPTIONS",
-        },
-      ],
-    },
+      {
+        source: "/lang/:path*",
+        headers: [
+          {
+            key: "Access-Control-Allow-Origin",
+            value: "*",
+          },
+          {
+            key: "Access-Control-Allow-Methods",
+            value: "GET, OPTIONS",
+          },
+        ],
+      },
 
-    {
-      source: "/uploads/calendars/:path*",
-      headers: [
-        {
-          key: "Cache-Control",
-          value: "public, max-age=31536000, immutable",
-        },
-      ],
-    },
+      {
+        source: "/uploads/calendars/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
 
-    {
-      source: "/fonts/:path*",
-      headers: [
-        {
-          key: "Cache-Control",
-          value: "public, max-age=31536000, immutable",
-        },
-      ],
-    },
+      {
+        source: "/fonts/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
 
-    // Static first-page assets
-    {
-      source: "/firstpage/:path*",
-      headers: [
-        {
-          key: "Cache-Control",
-          value: "public, max-age=31536000, immutable",
-        },
-      ],
-    },
-  ];
-},
+      // Static first-page assets
+      {
+        source: "/firstpage/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+    ];
+  },
 
   webpack(config) {
     config.module.rules.push({
@@ -144,21 +145,5 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 });
 
-const { withSentryConfig } = require("@sentry/nextjs");
+module.exports = withBundleAnalyzer(nextConfig);
 
-module.exports = withSentryConfig(withBundleAnalyzer(nextConfig), {
-  org: "sentry",
-  project: "metaverse-rang-front-nextjs",
-  sentryUrl: "https://sentry.irpsc.com/",
-
-  silent: !process.env.CI,
-
-  widenClientFileUpload: false,
-
-  webpack: {
-    automaticVercelMonitors: true,
-    treeshake: {
-      removeDebugLogging: true,
-    },
-  },
-});
