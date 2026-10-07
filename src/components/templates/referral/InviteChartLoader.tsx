@@ -9,19 +9,19 @@ export default async function InviteChartLoader({
 }: any) {
   const chartDataFetch = await getChartReferral(id, "yearly");
 
-  console.log("========== REFERRAL CHART DEBUG ==========");
-  console.log("Citizen ID:", id);
-  console.log("Chart range:", "yearly");
-  console.log("Raw chart response:", chartDataFetch);
-  console.log(
-    "chart_data:",
-    chartDataFetch?.chart_data
-  );
-  console.log(
-    "chart_data length:",
-    chartDataFetch?.chart_data?.length
-  );
-  console.log("==========================================");
+  // console.log("========== REFERRAL CHART DEBUG ==========");
+  // console.log("Citizen ID:", id);
+  // console.log("Chart range:", "yearly");
+  // console.log("Raw chart response:", chartDataFetch);
+  // console.log(
+  //   "chart_data:",
+  //   chartDataFetch?.chart_data
+  // );
+  // console.log(
+  //   "chart_data length:",
+  //   chartDataFetch?.chart_data?.length
+  // );
+  // console.log("==========================================");
 
   const convertToPersianDigits = (str: any) =>
     str?.toString()?.replace(/\d/g, (d: any) => "۰۱۲۳۴۵۶۷۸۹"[d]);
@@ -45,12 +45,12 @@ export default async function InviteChartLoader({
     );
   }
 
-  console.log("========== FINAL CHART DATA ==========");
-  console.log("initChartData:", initChartData);
-  console.log("labels:", initChartData.labels);
-  console.log("referrals:", initChartData.data[0]);
-  console.log("orders amount:", initChartData.data[1]);
-  console.log("======================================");
+  // console.log("========== FINAL CHART DATA ==========");
+  // console.log("initChartData:", initChartData);
+  // console.log("labels:", initChartData.labels);
+  // console.log("referrals:", initChartData.data[0]);
+  // console.log("orders amount:", initChartData.data[1]);
+  // console.log("======================================");
 
   return (
     <InviteChart

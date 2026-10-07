@@ -8,7 +8,7 @@ export default async function InviteListLoader({ id, params, referralPageArrayCo
     <InviteList
       initInviteList={initInviteList}
       params={params}
-      referralPageArrayContent={referralPageArrayContent}
+      // referralPageArrayContent={referralPageArrayContent}
       mainData={mainData}
     />
   );
