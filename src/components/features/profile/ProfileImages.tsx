@@ -48,7 +48,7 @@ export default function ProfileImages({
       <figure
         key={i}
         className={`relative rounded-full overflow-hidden !aspect-square ${
-          imgProfiles[i]?.url == mainImageUrl ? "w-[34px] 3xl:w-[53px] border-2 border-dashed border-primary " : "w-12 3xl:w-[50px]"
+          imgProfiles[i]?.url == mainImageUrl ? "w-[48px] h-[48px] 3xl:w-[52px] 3xl:h-[52px] border-2 border-dashed border-primary " : "w-12 3xl:w-[50px]"
         }`}
       >
         <Image

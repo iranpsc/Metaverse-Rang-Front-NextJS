@@ -32,7 +32,7 @@ export default function ProfileTopMobile({
 
   useEffect(() => {
     setStaticImageURL(
-      theme === "dark" ? "/profile/lock-dark.png" : "/profile/lock.png"
+      theme === "dark" ? "/https://admin.metarang.com/assets/images/flags/FA.svg" : "https://admin.metarang.com/assets/images/flags/FA.svg"
     );
   }, [theme]);
 
