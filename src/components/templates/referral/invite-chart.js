@@ -29,30 +29,38 @@ export default function InviteChart({ params, referralPageArrayContent, initChar
       type: "line",
       data: {
         labels: currentData.labels,
-        datasets: [
-          {
-            label: "دعوتی ها",
-            data: currentData.data[0],
-            borderColor: "#9100D9",
-            backgroundColor: "rgba(0, 102, 255, 0.2)",
-            fill: true,
-            pointRadius: 8,
-            pointBackgroundColor: "rgba(0, 102, 255, 0.5)",
-            pointBorderColor: "#9100D9",
-            pointBorderWidth: 2,
-          },
-          {
-            label: "پاداش ها",
-            data: currentData.data[1],
-            borderColor: "#9100D9",
-            backgroundColor: "rgba(255, 199, 0, 0.2)",
-            fill: true,
-            pointRadius: 8,
-            pointBackgroundColor: "rgba(255, 199, 0, 0.5)",
-            pointBorderColor: "#9100D9",
-            pointBorderWidth: 2,
-          },
-        ],
+datasets: [
+  {
+    label: "دعوتی ها",
+    data: currentData.data[0],
+
+    // دعوتی = زرد
+    borderColor: "#FFC700",
+    backgroundColor: "rgba(255, 199, 0, 0.2)",
+
+    fill: true,
+
+    pointRadius: 8,
+    pointBackgroundColor: "rgba(255, 199, 0, 0.5)",
+    pointBorderColor: "#FFC700",
+    pointBorderWidth: 2,
+  },
+  {
+    label: "پاداش ها",
+    data: currentData.data[1],
+
+    // پاداش = آبی
+    borderColor: "#167FFF",
+    backgroundColor: "rgba(22, 127, 255, 0.2)",
+
+    fill: true,
+
+    pointRadius: 8,
+    pointBackgroundColor: "rgba(22, 127, 255, 0.5)",
+    pointBorderColor: "#167FFF",
+    pointBorderWidth: 2,
+  },
+],
       },
       options: {
         responsive: true,
@@ -274,16 +282,16 @@ export default function InviteChart({ params, referralPageArrayContent, initChar
       </div>
       <div className="flex justify-start md:justify-end gap-6 mt-6">
         <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleLegendClick(0)}>
-          <div className="w-2 h-2 lg:w-3 lg:h-3 rounded-full bg-primary"></div>
-          <span className={`text-primary ${invBtn ? "" : "line-through"}`}> {findByUniqueId(mainData, 1419)}</span>
+          <div className="w-2 h-2 lg:w-3 lg:h-3 rounded-full bg-[#FFC700]"></div>
+          <span className={` text-[#FFC700] ${invBtn ? "" : "line-through"}`}> {findByUniqueId(mainData, 1419)}</span>
         </div>
         <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleLegendClick(1)}>
-          <div className="w-2 h-2 lg:w-3 lg:h-3 rounded-full bg-primary"></div>
-          <span className={`text-primary ${giftBtn ? "" : "line-through"}`}> {findByUniqueId(mainData, 1433)}</span>
+          <div className="w-2 h-2 lg:w-3 lg:h-3 rounded-full bg-blueLink"></div>
+          <span className={`text-blueLink ${giftBtn ? "" : "line-through"}`}> {findByUniqueId(mainData, 1433)}</span>
         </div>
       </div>
       <div className="w-full pt-2 text-right flex flex-col gap-3 md:flex-row">
-        <div className="bg-primary dark:bg-[#9100D978] h-[96px] rounded-xl flex justify-between px-6 items-center w-full relative lg:h-44">
+        <div className="bg-blueLink  h-[96px] rounded-xl flex justify-between px-6 items-center w-full relative lg:h-44">
           <div className="absolute top-0 right-0">
             <svg
               className="lg:w-[111px] lg:h-[59px]"

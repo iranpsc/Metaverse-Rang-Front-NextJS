@@ -48,7 +48,7 @@ export const ASSET_CONFIG: Record<
 > = {
   blue: {
     label: "رنگ آبی",
-    color: "#9100D9",
+    color: "#0066ff",
     icon: "blueGem",
     uniqueId: 49,
     href: "https://dev-nextjs.metarang.com/fa/articles/categories/rang/BL_10002",
@@ -64,7 +64,7 @@ export const ASSET_CONFIG: Record<
 
   yellow: {
     label: "رنگ زرد",
-    color: "#9100D9",
+    color: "#EAB600",
     icon: "yellowSparkle",
     uniqueId: 11,
     href: "https://dev-nextjs.metarang.com/fa/articles/categories/rang/BL_10001",
@@ -94,7 +94,7 @@ export const ASSET_CONFIG: Record<
 
   psc: {
     label: "ارز Pcs",
-    color: "#EAB600",
+    color: "#9100D9",
     icon: "coin",
     uniqueId: 1578,
   },

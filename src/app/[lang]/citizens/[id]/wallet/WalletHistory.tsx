@@ -50,7 +50,7 @@ export default function WalletHistory({
 
   // true while a request triggered by the currently-selected period is in flight
   const isPeriodLoading = summaryLoading || chartLoading;
-
+  const [visibleAssets, setVisibleAssets] = useState<Record<string, boolean>>({});
   /* ---------------------- filter toggles ---------------------- */
   const toggleAll = () => {
     setSelectedAssets(isAllSelected ? [] : ASSET_ORDER);
@@ -133,7 +133,7 @@ export default function WalletHistory({
       const spendingSeries = chartData[assetKey]?.spending?.map((p) => p.amount) || [];
 
       datasets.push({
-        label: `${findByUniqueId(mainData, config.uniqueId ) } (${isFa ? "ورودی" : "income"})`,
+        label: `${findByUniqueId(mainData, config.uniqueId)} (${isFa ? "ورودی" : "income"})`,
         data: incomeSeries,
         borderColor: config.color,
         backgroundColor: `${config.color}33`,
@@ -145,7 +145,7 @@ export default function WalletHistory({
       });
 
       datasets.push({
-        label: `${findByUniqueId(mainData, config.uniqueId ) } (${isFa ? "خروجی" : "spending"})`,
+        label: `${findByUniqueId(mainData, config.uniqueId)} (${isFa ? "خروجی" : "spending"})`,
         data: spendingSeries,
         borderColor: config.color,
         backgroundColor: "transparent",
@@ -213,11 +213,24 @@ export default function WalletHistory({
     };
   }, [chartData, theme, isFa]);
 
-  const handleLegendClick = (index: number) => {
+  const handleLegendClick = (assetKey: string, groupIndex: number) => {
     const chart = chartRef.current;
     if (!chart) return;
-    chart.setDatasetVisibility(index, !chart.isDatasetVisible(index));
+
+    const incomeIndex = groupIndex * 2;
+    const spendingIndex = groupIndex * 2 + 1;
+
+    const isCurrentlyVisible = chart.isDatasetVisible(incomeIndex);
+    const nextVisible = !isCurrentlyVisible;
+
+    chart.setDatasetVisibility(incomeIndex, nextVisible);
+    chart.setDatasetVisibility(spendingIndex, nextVisible);
     chart.update();
+
+    setVisibleAssets((prev) => ({
+      ...prev,
+      [assetKey]: nextVisible,
+    }));
   };
 
   /* ---------------------- ordered summary list ---------------------- */
@@ -227,7 +240,19 @@ export default function WalletHistory({
   );
 
   const chartAssetKeys = useMemo(() => Object.keys(chartData).filter((key) => ASSET_CONFIG[key]), [chartData]);
+  useEffect(() => {
+    setVisibleAssets((prev) => {
+      const next = { ...prev };
 
+      chartAssetKeys.forEach((key) => {
+        if (next[key] === undefined) {
+          next[key] = true;
+        }
+      });
+
+      return next;
+    });
+  }, [chartAssetKeys]);
   // How many skeleton placeholders to show while the first request for
   // the current filter set is still in flight.
   const skeletonCount = Math.max(selectedAssets.length, 1);
@@ -237,69 +262,68 @@ export default function WalletHistory({
       {/* header */}
       <div className="flex flex-col gap-4 mt-3">
         <h2 className="text-black dark:text-white text-lg font-black lg:text-2xl">
-          {findByUniqueId(mainData, 1576  )}
+          {findByUniqueId(mainData, 1576)}
         </h2>
         <p className="text-[#A0A0AB] text-base my-1">
-          {findByUniqueId(mainData, 1577 ) }
-          
+          {findByUniqueId(mainData, 1577)}
+
         </p>
       </div>
 
-<div className="flex flex-wrap justify-between gap-5 w-full">
+      <div className="flex flex-wrap justify-between gap-5 w-full">
         {/* asset filters */}
-      <div className="flex flex-wrap items-center gap-x-6 gap-y-3 py-2 mt-1">
-        <label className="flex items-center gap-2 cursor-pointer text-sm text-black dark:text-white">
-          <input
-            type="checkbox"
-            checked={isAllSelected}
-            onChange={toggleAll}
-            className="accent-primary dark:accent-primary w-4 h-4"
-          />
-          {isFa ? "تمام دارایی ها" : "All assets"}
-        </label>
-
-        {ASSET_ORDER.map((key) => (
-          <label key={key} className="flex items-center gap-2 cursor-pointer text-sm text-black dark:text-white">
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-3 py-2 mt-1">
+          <label className="flex items-center gap-2 cursor-pointer text-sm text-black dark:text-white">
             <input
               type="checkbox"
-              checked={selectedAssets.includes(key)}
-              onChange={() => toggleAsset(key)}
+              checked={isAllSelected}
+              onChange={toggleAll}
               className="accent-primary dark:accent-primary w-4 h-4"
             />
-            
-            {findByUniqueId(mainData, ASSET_CONFIG[key].uniqueId ) }
+            {isFa ? "تمام دارایی ها" : "All assets"}
           </label>
-        ))}
-      </div>
 
-      {/* period switch */}
-      <div className="flex justify-between gap-3 md:max-w-[60%] lg:max-w-[40%] h-[56px]">
-        {PERIOD_OPTIONS.map((opt) => {
-          const isActive = period === opt.key;
-          const showLoader = isActive && isPeriodLoading;
-          return (
-            <button
-              key={opt.key}
-              onClick={() => setPeriod(opt.key)}
-              disabled={showLoader}
-              className={`moment relative bg-white dark:bg-gray-1 text-[#84858F] p-2 rounded-xl w-[100px] flex items-center justify-center gap-2 ${
-                isActive
-                  ? "border-2 border-primary  border-solid  text-primary font-bold"
-                  : ""
-              } ${showLoader ? "cursor-wait opacity-90" : ""}`}
-            >
-              {showLoader && (
-                <span
-                  className="inline-block w-4 h-4 border-2 border-primary border-solid border-t-transparent rounded-full animate-spin"
-                  aria-hidden="true"
-                />
-              )}
-              <span>{findByUniqueId(mainData, opt.uniqueId) || opt.fallback}</span>
-            </button>
-          );
-        })}
+          {ASSET_ORDER.map((key) => (
+            <label key={key} className="flex items-center gap-2 cursor-pointer text-sm text-black dark:text-white">
+              <input
+                type="checkbox"
+                checked={selectedAssets.includes(key)}
+                onChange={() => toggleAsset(key)}
+                className="accent-primary dark:accent-primary w-4 h-4"
+              />
+
+              {findByUniqueId(mainData, ASSET_CONFIG[key].uniqueId)}
+            </label>
+          ))}
+        </div>
+
+        {/* period switch */}
+        <div className="flex justify-between gap-3 md:max-w-[60%] lg:max-w-[40%] h-[56px]">
+          {PERIOD_OPTIONS.map((opt) => {
+            const isActive = period === opt.key;
+            const showLoader = isActive && isPeriodLoading;
+            return (
+              <button
+                key={opt.key}
+                onClick={() => setPeriod(opt.key)}
+                disabled={showLoader}
+                className={`moment relative bg-white dark:bg-gray-1 text-[#84858F] p-2 rounded-xl w-[100px] flex items-center justify-center gap-2 ${isActive
+                    ? "border-2 border-primary  border-solid  text-primary font-bold"
+                    : ""
+                  } ${showLoader ? "cursor-wait opacity-90" : ""}`}
+              >
+                {showLoader && (
+                  <span
+                    className="inline-block w-4 h-4 border-2 border-primary border-solid border-t-transparent rounded-full animate-spin"
+                    aria-hidden="true"
+                  />
+                )}
+                <span>{findByUniqueId(mainData, opt.uniqueId) || opt.fallback}</span>
+              </button>
+            );
+          })}
+        </div>
       </div>
-</div>
 
       {/* summary cards */}
       {summaryError && (
@@ -320,7 +344,7 @@ export default function WalletHistory({
             <WalletSummaryGridSkeleton count={skeletonCount} />
           ) : (
             orderedSummary.map((item) => (
-              <WalletSummaryCard key={item.asset} item={item} period={period} lang={lang} mainData={mainData}/>
+              <WalletSummaryCard key={item.asset} item={item} period={period} lang={lang} mainData={mainData} />
             ))
           )}
         </div>
@@ -331,23 +355,37 @@ export default function WalletHistory({
         <div className="flex flex-wrap justify-start md:justify-end gap-6 mt-20">
           {chartAssetKeys.map((key, groupIndex) => {
             const config = ASSET_CONFIG[key];
+            const isVisible = visibleAssets[key] !== false;
+
             return (
               <div
                 key={key}
-                className="flex items-center gap-3 cursor-pointer"
-                onClick={() => {
-                  handleLegendClick(groupIndex * 2);
-                  handleLegendClick(groupIndex * 2 + 1);
-                }}
+                className="flex items-center gap-3 cursor-pointer select-none transition-opacity duration-200"
+                onClick={() => handleLegendClick(key, groupIndex)}
+                aria-pressed={isVisible}
               >
-                <div className="w-2 h-2 lg:w-3 lg:h-3 rounded-full" style={{ backgroundColor: config.color }} />
-                <span style={{ color: config.color }}>{findByUniqueId(mainData, config.uniqueId ) }</span>
+                <div
+                  className="w-2 h-2 lg:w-3 lg:h-3 rounded-full transition-all duration-200"
+                  style={{
+                    backgroundColor: config.color,
+                    opacity: isVisible ? 1 : 0.3,
+                  }}
+                />
+
+                <span
+                  className={`transition-all duration-200 ${isVisible ? "" : "line-through opacity-40"
+                    }`}
+                  style={{
+                    color: config.color,
+                  }}
+                >
+                  {findByUniqueId(mainData, config.uniqueId)}
+                </span>
               </div>
             );
           })}
         </div>
       )}
-
       {/* chart */}
       <div className="overflow-x-auto light-scrollbar dark:dark-scrollbar mt-2">
         <div className="relative flex justify-center md:justify-end gap-6 text-right lg:w-full min-w-[800px]">

@@ -40,7 +40,7 @@ interface KarbariStyle {
 }
 
 export const BUILDING_KARBARI_STYLE: Record<BuildingKarbariCode, KarbariStyle> = {
-  a: { icon: "education", color: "#2E9CE0", labelEn: "Education", uniqueId:1802 /* TODO */, labelFa: "آموزشی" },
+  a: { icon: "education", color: "#0066ff", labelEn: "Education", uniqueId:1802 /* TODO */, labelFa: "آموزشی" },
   m: { icon: "residential", color: "#D4A017", labelEn: "Residential", uniqueId:1803 /* TODO */, labelFa: "مسکونی" },
   t: { icon: "commercial", color: "#E4574F", labelEn: "Commercial", uniqueId: 1804 /* TODO */, labelFa: "تجاری" },
   g: { icon: "tourism", color: "#1F3B57", labelEn: "Tourism", uniqueId:1805 /* TODO */, labelFa: "گردشگری" },
