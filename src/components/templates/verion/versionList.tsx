@@ -25,6 +25,27 @@ interface VersionBoxProps {
   versionRefs: any | null;
 }
 
+const PAGE_STEP = 10;
+const MAX_PAGE_LOOKAHEAD = 20;
+
+const sameVersion = (a?: string | null, b?: string | null) =>
+  String(a ?? "").trim() === String(b ?? "").trim();
+
+/** تعداد آیتم‌هایی که باید اولش نمایش داده بشن تا ورژن انتخاب‌شده هم توی DOM باشه */
+const getInitialVisible = (list: Version[], selected?: Version | null) => {
+  if (!selected) return PAGE_STEP;
+  const idx = list.findIndex((v) => sameVersion(v.version, selected.version));
+  if (idx < 0 || idx < PAGE_STEP) return PAGE_STEP;
+  return Math.ceil((idx + 1) / PAGE_STEP) * PAGE_STEP;};
+
+const mapItem = (item: any): Version => ({
+  id: item.id,
+  title: item.title,
+  description: (item.description || "").trim(),
+  date: item.starts_at.split(" ")[0],
+  version: String(item.version_title ?? "").trim(),
+});
+
 // اسکلت یه آیتم لیست، هم‌شکل آیتم واقعی؛ موقع فچ کردن صفحه‌ی بعدی نشون داده میشه
 const VersionItemSkeleton = () => (
   <div className="flex w-full justify-between py-2 gap-3">
@@ -54,7 +75,10 @@ const VersionBox: React.FC<VersionBoxProps> = ({
   const [, setSelectedItem] = useState<Version | null>(null);
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [visibleCount, setVisibleCount] = useState<number>(10);
+  // مقدار اولیه طوری حساب میشه که ورژن انتخاب‌شده (مثلا بعد رفرش) حتما رندر بشه
+  const [visibleCount, setVisibleCount] = useState<number>(() =>
+    getInitialVisible(versions, selectedVersion)
+  );
   const [page, setPage] = useState<number>(1);
   const [searchLoading, setSearchLoading] = useState<boolean>(false);
   // لودینگ مخصوص "نمایش بیشتر" (فچ صفحه‌ی بعدی) - جدا از سرچ، تا فقط اسکلت آیتم‌های اضافه رو نشون بده
@@ -69,13 +93,17 @@ const VersionBox: React.FC<VersionBoxProps> = ({
   const containerRef = useRef<HTMLDivElement | null>(null);
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
+  // برای اینکه برای هر openIndex فقط یک بار اسکرول انجام بشه (نه با هر نمایش بیشتر)
+  const lastScrolledIndex = useRef<number | null>(null);
 
   const filteredVersions = searchResults ?? items;
 
   // ست کردن ورژن انتخاب‌شده از props (منبع حقیقت: parent، که از URL/آخرین‌ورژن محاسبه می‌کنه)
   useEffect(() => {
     if (selectedVersion && filteredVersions.length > 0) {
-      const index = filteredVersions.findIndex((v) => v.version === selectedVersion.version);
+      const index = filteredVersions.findIndex((v) =>
+        sameVersion(v.version, selectedVersion.version)
+      );
       setOpenIndex(index !== -1 ? index : null);
       setSelectedItem(selectedVersion);
     } else if (!selectedVersion) {
@@ -99,14 +127,29 @@ const VersionBox: React.FC<VersionBoxProps> = ({
     setHasMore(true);
     setSearchResults(null);
     setSearchTerm("");
-    setVisibleCount(10);
+    setVisibleCount(getInitialVisible(versions, selectedVersion));
+    lastScrolledIndex.current = null;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [versions]);
+
+  // اگه ورژن انتخاب‌شده بیرون از بخش نمایش‌داده‌شده بود (مثلا با back/forward)، تعداد نمایشی رو زیاد کن
+  // این افکت باید بعد از افکت ریست بالا باشه
+  useEffect(() => {
+    if (!selectedVersion) return;
+    const idx = filteredVersions.findIndex((v) =>
+      sameVersion(v.version, selectedVersion.version)
+    );
+    if (idx >= 0 && idx >= visibleCount) {
+      setVisibleCount(Math.ceil((idx + 1) / PAGE_STEP) * PAGE_STEP);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedVersion, filteredVersions]);
 
   // اگر کاربر چیزی تایپ نکرده بود، از حالت سرچ خارج شو
   useEffect(() => {
     if (!searchTerm.trim()) {
       setSearchResults(null);
-      setVisibleCount(10);
+      setVisibleCount(PAGE_STEP);
     }
   }, [searchTerm]);
 
@@ -114,7 +157,7 @@ const VersionBox: React.FC<VersionBoxProps> = ({
     const query = searchTerm.trim();
     if (!query) {
       setSearchResults(null);
-      setVisibleCount(10);
+      setVisibleCount(PAGE_STEP);
       return;
     }
 
@@ -126,18 +169,12 @@ const VersionBox: React.FC<VersionBoxProps> = ({
       const data = await response.json();
 
       if (Array.isArray(data.data)) {
-        const mapped = data.data.map((item: any) => ({
-          id: item.id,
-          title: item.title,
-          description: item.description.trim(),
-          date: item.starts_at.split(" ")[0],
-          version: item.version_title,
-        }));
-        setSearchResults(mapped);
+        setSearchResults(data.data.map(mapItem));
       } else {
         setSearchResults([]);
       }
-      setVisibleCount(10);
+      setVisibleCount(PAGE_STEP);
+      lastScrolledIndex.current = null;
     } catch (err) {
       console.error("❌ خطا در جستجو:", err);
     } finally {
@@ -158,30 +195,43 @@ const VersionBox: React.FC<VersionBoxProps> = ({
     sendDataParent(selected); // fromClick=true (پیش‌فرض) → فقط اینجا URL عوض می‌شه
   };
 
+  /**
+   * صفحه‌ی بعدی رو می‌گیره. چون سرور ممکنه چند صفحه‌ی اول رو از قبل داده باشه
+   * (وقتی ورژن انتخاب‌شده توی صفحه‌ی ۲+ بوده)، آیتم‌های تکراری با id حذف میشن
+   * و تا وقتی فقط تکراری برگرده، صفحه‌ی بعدی گرفته میشه.
+   */
   const fetchMoreVersions = async () => {
     if (!hasMore || loadingMore || searchResults) return;
 
     setLoadingMore(true);
     try {
-      const response = await globalThis.fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar?type=version&page=${page + 1}`
-      );
-      const data = await response.json();
+      const knownIds = new Set(items.map((v) => v.id));
+      let currentPage = page;
+      let fresh: Version[] = [];
+      let reachedEnd = false;
 
-      if (Array.isArray(data.data) && data.data.length > 0) {
-        const newItems = data.data.map((item: any) => ({
-          id: item.id,
-          title: item.title,
-          description: item.description.trim(),
-          date: item.starts_at.split(" ")[0],
-          version: item.version_title,
-        }));
-        setItems((prev) => [...prev, ...newItems]);
-        setVisibleCount((prev) => prev + newItems.length);
-        setPage((prev) => prev + 1);
-      } else {
-        setHasMore(false);
+      for (let i = 0; i < MAX_PAGE_LOOKAHEAD; i++) {
+        currentPage += 1;
+        const response = await globalThis.fetch(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar?type=version&page=${currentPage}`
+        );
+        const data = await response.json();
+
+        if (!Array.isArray(data.data) || data.data.length === 0) {
+          reachedEnd = true;
+          break;
+        }
+
+        fresh = data.data.map(mapItem).filter((v: Version) => !knownIds.has(v.id));
+        if (fresh.length > 0) break;
       }
+
+      if (fresh.length > 0) {
+        setItems((prev) => [...prev, ...fresh]);
+        setVisibleCount((prev) => prev + fresh.length);
+      }
+      setPage(currentPage);
+      if (reachedEnd) setHasMore(false);
     } catch (err) {
       console.error("❌ خطا در گرفتن نسخه‌های بیشتر:", err);
     } finally {
@@ -192,7 +242,7 @@ const VersionBox: React.FC<VersionBoxProps> = ({
   const handleShowMore = () => {
     // آیتم‌هایی که از قبل توی حافظه هستن ولی هنوز نمایش داده نشدن
     if (visibleCount < filteredVersions.length) {
-      setVisibleCount((prev) => prev + 10);
+      setVisibleCount((prev) => prev + PAGE_STEP);
       return;
     }
     // در حالت سرچ، همه‌ی نتایج یک‌جا از سرور میان؛ صفحه‌بندی سمت سرور نداریم
@@ -207,19 +257,31 @@ const VersionBox: React.FC<VersionBoxProps> = ({
   };
 
   // اسکرول به آیتم فعال - فقط داخل کانتینر لیست (بدون اسکرول شدن کل صفحه)
+  // به visibleCount هم وابسته‌ست تا اگه آیتم بعدا رندر شد، اسکرول انجام بشه؛
+  // ولی با lastScrolledIndex فقط یک بار برای هر انتخاب.
   useEffect(() => {
-    if (openIndex === null) return;
-    const container = containerRef.current;
-    const el = itemRefs.current[openIndex];
-    if (!container || !el) return;
+    if (openIndex === null) {
+      lastScrolledIndex.current = null;
+      return;
+    }
+    if (lastScrolledIndex.current === openIndex) return;
 
-    const containerRect = container.getBoundingClientRect();
-    const elRect = el.getBoundingClientRect();
-    const offset =
-      elRect.top - containerRect.top - containerRect.height / 2 + elRect.height / 2;
+    const raf = requestAnimationFrame(() => {
+      const container = containerRef.current;
+      const el = itemRefs.current[openIndex];
+      if (!container || !el) return; // آیتم هنوز رندر نشده؛ با تغییر visibleCount دوباره تلاش میشه
 
-    container.scrollBy({ top: offset, behavior: "smooth" });
-  }, [openIndex]);
+      const containerRect = container.getBoundingClientRect();
+      const elRect = el.getBoundingClientRect();
+      const offset =
+        elRect.top - containerRect.top - containerRect.height / 2 + elRect.height / 2;
+
+      container.scrollBy({ top: offset, behavior: "smooth" });
+      lastScrolledIndex.current = openIndex;
+    });
+
+    return () => cancelAnimationFrame(raf);
+  }, [openIndex, visibleCount]);
 
   // جلوگیری از رسیدن رویداد wheel/touch به لایه‌های بالاتر (مثلاً کتابخونه‌ی smooth scroll مثل Lenis
   // یا هندلر اسکرول والد) تا فقط خود لیست اسکرول بشه و صفحه تکون نخوره

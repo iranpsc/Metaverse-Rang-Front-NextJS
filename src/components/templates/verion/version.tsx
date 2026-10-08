@@ -24,6 +24,9 @@ interface VersionBoxProps {
 // یه تاخیر کوچیک صرفا برای اینکه اسکلت دیده بشه (چون خود دیتا از قبل توی حافظه هست)
 const DESCRIPTION_SWITCH_DELAY = 250;
 
+const sameVersion = (a?: string | null, b?: string | null) =>
+  String(a ?? "").trim() === String(b ?? "").trim();
+
 const Version: React.FC<VersionBoxProps> = ({
   versions,
   params,
@@ -31,41 +34,40 @@ const Version: React.FC<VersionBoxProps> = ({
   initialVersion,
   isVersionSelected = false,
 }) => {
+  // مقدار اولیه مستقیم در useState تا رندر اول (SSR) هم خالی نباشه
+  const initial: Version | null =
+    (initialVersion
+      ? versions.find((v) => sameVersion(v.version, initialVersion))
+      : null) ||
+    versions[0] ||
+    null;
+
   // نسخه‌ای که توی DescriptionBox نشون داده میشه؛ دیفالتش همیشه آخرین ورژنه
-  const [displayVersion, setDisplayVersion] = useState<Version | null>(null);
-  // نسخه‌ای که واقعا "انتخاب/اکتیو"‌ه (هایلایت لیست)؛ فقط وقتی از URL اسلاگ داشتیم یا کاربر کلیک کرد
-  const [activeVersion, setActiveVersion] = useState<Version | null>(null);
+  const [displayVersion, setDisplayVersion] = useState<Version | null>(initial);
+  // نسخه‌ای که واقعا "انتخاب/اکتیو"‌ه (هایلایت لیست)
+  const [activeVersion, setActiveVersion] = useState<Version | null>(
+    isVersionSelected ? initial : null
+  );
   const [descLoading, setDescLoading] = useState(false);
 
   const versionRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const switchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  /** 🔹 ست کردن مقدار اولیه بر اساس URL (رندر اول/SSR)
-   *  - displayVersion همیشه پر میشه (اسلاگ یا در نبود اسلاگ، آخرین ورژن)
-   *  - activeVersion فقط وقتی URL واقعا اسلاگ داشته باشه پر میشه
-   */
+  /** 🔹 هماهنگ کردن state با پراپ‌ها (وقتی versions یا URL از سرور عوض بشه) */
   useEffect(() => {
     if (!versions.length) return;
 
     const matched = initialVersion
-      ? versions.find((v) => v.version === initialVersion)
+      ? versions.find((v) => sameVersion(v.version, initialVersion))
       : null;
-    const initial = matched || versions[0];
+    const next = matched || versions[0];
 
-    setDisplayVersion(initial);
-    setActiveVersion(isVersionSelected ? initial : null);
+    setDisplayVersion(next);
+    setActiveVersion(isVersionSelected ? next : null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialVersion, versions, isVersionSelected]);
 
-  // ❌ افکت scrollIntoView اینجا حذف شد.
-  // scrollIntoView همه‌ی والدهای قابل اسکرول رو (از جمله خود صفحه) اسکرول می‌کرد و
-  // دلیل اصلی پریدن صفحه بود. اسکرول به آیتم اکتیو الان داخل خود VersionBox (versionList)
-  // و فقط داخل کانتینر لیست انجام میشه.
-
-  /** ✅ سینک کردن document.title فقط وقتی یه ورژن واقعا اکتیو میشه
-   *  (نه صرفا نمایش دیفالت آخرین ورژن). قبلا به displayVersion وصل بود که
-   *  باعث میشد بلافاصله بعد لود (بدون هیچ انتخابی) تایتل عوض بشه.
-   */
+  /** ✅ سینک کردن document.title فقط وقتی یه ورژن واقعا اکتیو میشه */
   useEffect(() => {
     if (!activeVersion) return;
     document.title = `${activeVersion.title} - نسخه ${activeVersion.version}`;
@@ -75,8 +77,17 @@ const Version: React.FC<VersionBoxProps> = ({
   useEffect(() => {
     const handlePopState = () => {
       const match = window.location.pathname.match(/\/version\/([^/?#]+)/);
-      const slug = match ? decodeURIComponent(match[1]) : null;
-      const found = (slug && versions.find((v) => v.version === slug)) || versions[0];
+      let slug: string | null = null;
+      if (match) {
+        try {
+          slug = decodeURIComponent(match[1]);
+        } catch {
+          slug = match[1];
+        }
+      }
+      const found =
+        (slug && versions.find((v) => sameVersion(v.version, slug))) ||
+        versions[0];
       if (!found) return;
 
       setDescLoading(true);
@@ -100,10 +111,10 @@ const Version: React.FC<VersionBoxProps> = ({
 
   const handleDataFromChild = (data: Version, fromClick: boolean = true) => {
     // اگه همین الان هم اکتیوه، کاری لازم نیست
-    if (activeVersion?.version === data.version) return;
+    if (sameVersion(activeVersion?.version, data.version)) return;
 
     if (fromClick) {
-      // ⚠️ عمدا از router.push استفاده نمیشه چون توی Next.js App Router باعث
+      // عمدا از router.push استفاده نمیشه چون توی Next.js App Router باعث
       // ری‌فچ سرور کامپوننت صفحه (و در نتیجه نمایش loading.tsx کامل، شامل لیست) میشه.
       const url = `/${params.lang}/version/${encodeURIComponent(data.version)}`;
       window.history.pushState(null, "", url);
@@ -113,7 +124,7 @@ const Version: React.FC<VersionBoxProps> = ({
     if (switchTimer.current) clearTimeout(switchTimer.current);
     switchTimer.current = setTimeout(() => {
       setDisplayVersion(data);
-      setActiveVersion(data); // فقط با کلیک/نویگیشن واقعی، اکتیو میشه
+      setActiveVersion(data);
       setDescLoading(false);
     }, DESCRIPTION_SWITCH_DELAY);
   };
