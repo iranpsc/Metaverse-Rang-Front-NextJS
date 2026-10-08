@@ -23,10 +23,98 @@ type ModelSource = {
   bin?: string;
 };
 
+type FileSource = {
+  type?: string;
+  size?: string | number;
+  url?: string;
+};
+
+type ImageBoxProps = {
+  item?: any;
+  singleLevel?: any;
+  lang: string;
+};
+
 /**
  * ==========================================
- * PARSE 3D FILE
+ * GET FILE URL
  * ==========================================
+ *
+ * API ممکن است فایل را به یکی از این شکل‌ها بدهد:
+ *
+ * 1)
+ * "https://....gif"
+ *
+ * 2)
+ * {
+ *   type: "gif",
+ *   size: "...",
+ *   url: "https://....gif"
+ * }
+ *
+ * این تابع هر دو حالت را پشتیبانی می‌کند.
+ */
+
+function getFileUrl(value: unknown): string {
+  if (!value) {
+    return "";
+  }
+
+  /**
+   * مستقیم URL
+   */
+
+  if (typeof value === "string") {
+    return value.trim();
+  }
+
+  /**
+   * Object:
+   *
+   * {
+   *   url: "..."
+   * }
+   */
+
+  if (typeof value === "object" && value !== null) {
+    const objectValue = value as FileSource;
+
+    if (typeof objectValue.url === "string") {
+      return objectValue.url.trim();
+    }
+  }
+
+  return "";
+}
+
+/**
+ * ==========================================
+ * PARSE 3D SOURCE
+ * ==========================================
+ *
+ * پشتیبانی از:
+ *
+ * {
+ *   gltf: {
+ *     type: "gltf",
+ *     size: "3872",
+ *     url: "https://...gltf"
+ *   },
+ *   bin: {
+ *     type: "bin",
+ *     size: "3640",
+ *     url: "https://...bin"
+ *   }
+ * }
+ *
+ * و:
+ *
+ * {
+ *   gltf: "https://...gltf",
+ *   bin: "https://...bin"
+ * }
+ *
+ * و String JSON
  */
 
 function parse3DSource(value: unknown): ModelSource | null {
@@ -38,26 +126,6 @@ function parse3DSource(value: unknown): ModelSource | null {
    * ==========================================
    * OBJECT
    * ==========================================
-   *
-   * API فعلی:
-   *
-   * {
-   *   fbx: {
-   *     type: "fbx",
-   *     size: "0",
-   *     url: "..."
-   *   },
-   *   bin: {
-   *     type: "bin",
-   *     size: "3640",
-   *     url: "..."
-   *   },
-   *   gltf: {
-   *     type: "gltf",
-   *     size: "3872",
-   *     url: "..."
-   *   }
-   * }
    */
 
   if (typeof value === "object" && value !== null) {
@@ -68,7 +136,7 @@ function parse3DSource(value: unknown): ModelSource | null {
 
     /**
      * ----------------------------------------
-     * API format جدید
+     * فرمت جدید API
      * ----------------------------------------
      */
 
@@ -76,40 +144,25 @@ function parse3DSource(value: unknown): ModelSource | null {
       typeof gltfValue === "object" &&
       gltfValue !== null
     ) {
-      const gltfObject = gltfValue as Record<string, unknown>;
+      const gltfObject =
+        gltfValue as Record<string, unknown>;
 
-      const gltfUrl = gltfObject.url;
+      const gltfUrl = getFileUrl(gltfObject);
 
-      let binUrl: string | undefined;
+      const binUrl = getFileUrl(binValue);
 
-      if (
-        typeof binValue === "object" &&
-        binValue !== null
-      ) {
-        const binObject = binValue as Record<string, unknown>;
-
-        if (typeof binObject.url === "string") {
-          binUrl = binObject.url;
-        }
-      }
-
-      if (typeof gltfUrl === "string") {
+      if (gltfUrl) {
         return {
           gltf: gltfUrl,
-          bin: binUrl,
+          bin: binUrl || undefined,
         };
       }
     }
 
     /**
      * ----------------------------------------
-     * API format قدیمی
+     * فرمت ساده
      * ----------------------------------------
-     *
-     * {
-     *   gltf: "...",
-     *   bin: "..."
-     * }
      */
 
     if (typeof gltfValue === "string") {
@@ -118,7 +171,44 @@ function parse3DSource(value: unknown): ModelSource | null {
         bin:
           typeof binValue === "string"
             ? binValue
-            : undefined,
+            : getFileUrl(binValue) || undefined,
+      };
+    }
+
+    /**
+     * ----------------------------------------
+     * GLTF با حروف بزرگ
+     * ----------------------------------------
+     */
+
+    const upperGltf = objectValue.GLTF;
+
+    if (upperGltf) {
+      const gltfUrl = getFileUrl(upperGltf);
+      const binUrl = getFileUrl(binValue);
+
+      if (gltfUrl) {
+        return {
+          gltf: gltfUrl,
+          bin: binUrl || undefined,
+        };
+      }
+    }
+
+    /**
+     * ----------------------------------------
+     * ممکن است خود object فایل GLTF باشد
+     * ----------------------------------------
+     */
+
+    const directUrl = getFileUrl(objectValue);
+
+    if (
+      directUrl &&
+      directUrl.toLowerCase().includes(".gltf")
+    ) {
+      return {
+        gltf: directUrl,
       };
     }
   }
@@ -131,8 +221,8 @@ function parse3DSource(value: unknown): ModelSource | null {
 
   if (typeof value !== "string") {
     console.error(
-      "ImageBox: unsupported 3D source type:",
-      typeof value,
+      "ImageBox: unsupported 3D source:",
+      value,
     );
 
     return null;
@@ -146,7 +236,7 @@ function parse3DSource(value: unknown): ModelSource | null {
 
   /**
    * ==========================================
-   * STRING JSON
+   * JSON STRING
    * ==========================================
    */
 
@@ -177,7 +267,9 @@ function parse3DSource(value: unknown): ModelSource | null {
    * ==========================================
    */
 
-  if (raw.toLowerCase().split("?")[0].endsWith(".gltf")) {
+  const cleanUrl = raw.split("?")[0].toLowerCase();
+
+  if (cleanUrl.endsWith(".gltf")) {
     return {
       gltf: raw,
     };
@@ -189,7 +281,7 @@ function parse3DSource(value: unknown): ModelSource | null {
    * ==========================================
    */
 
-  if (raw.toLowerCase().split("?")[0].endsWith(".glb")) {
+  if (cleanUrl.endsWith(".glb")) {
     return {
       gltf: raw,
     };
@@ -213,37 +305,52 @@ export default function ImageBox({
   item,
   singleLevel,
   lang,
-}: any) {
-  const [mode, setMode] = useState<"png" | "fbx" | "gif">(
-    "png",
-  );
+}: ImageBoxProps) {
+  const [mode, setMode] = useState<
+    "png" | "fbx" | "gif"
+  >("png");
+
+  /**
+   * ==========================================
+   * GENERAL INFO
+   * ==========================================
+   *
+   * اطلاعات اصلی Level
+   *
+   * این قسمت fallback مشترک تمام تب‌هاست.
+   */
+
+  const generalInfo =
+    singleLevel?.data?.general_info || {};
 
   /**
    * ==========================================
    * PNG
    * ==========================================
+   *
+   * اول از تب فعلی
+   * اگر نبود از general_info
    */
 
   const srcPng =
-    item?.png_file ||
-    singleLevel?.data?.general_info?.png_file ||
-    "";
+    getFileUrl(item?.png_file) ||
+    getFileUrl(generalInfo?.png_file);
 
   /**
    * ==========================================
    * 3D
    * ==========================================
+   *
+   * اول از تب فعلی
+   * سپس از general_info
    */
 
-  const raw3D = item?.fbx_file || "";
-
-  /**
-   * ==========================================
-   * GIF
-   * ==========================================
-   */
-
-  const srcGif = item?.gif_file || "";
+  const raw3D =
+    item?.fbx_file ||
+    item?.gltf_file ||
+    generalInfo?.fbx_file ||
+    generalInfo?.gltf_file ||
+    null;
 
   /**
    * ==========================================
@@ -252,6 +359,37 @@ export default function ImageBox({
    */
 
   const modelSource = parse3DSource(raw3D);
+
+  /**
+   * ==========================================
+   * GIF
+   * ==========================================
+   *
+   * اول از تب فعلی
+   * اگر نبود از general_info
+   */
+
+  const srcGif =
+    getFileUrl(item?.gif_file) ||
+    getFileUrl(generalInfo?.gif_file);
+
+  /**
+   * ==========================================
+   * DEBUG
+   * ==========================================
+   *
+   * برای اینکه ببینیم هر تب دقیقاً چه چیزی
+   * در اختیار ImageBox قرار داده است.
+   */
+
+  // console.log("ImageBox sources:", {
+  //   item,
+  //   generalInfo,
+  //   srcPng,
+  //   raw3D,
+  //   modelSource,
+  //   srcGif,
+  // });
 
   /**
    * ==========================================
@@ -310,7 +448,7 @@ export default function ImageBox({
       )}
 
       {/* ======================================
-          3D
+          GLTF
       ====================================== */}
 
       {mode === "fbx" && modelSource && (
@@ -329,6 +467,8 @@ export default function ImageBox({
       ====================================== */}
 
       <div className="flex gap-4 mt-4">
+        {/* PNG */}
+
         {srcPng && (
           <button
             type="button"
@@ -343,6 +483,8 @@ export default function ImageBox({
           </button>
         )}
 
+        {/* GLTF */}
+
         {modelSource && (
           <button
             type="button"
@@ -356,6 +498,8 @@ export default function ImageBox({
             GLTF
           </button>
         )}
+
+        {/* GIF */}
 
         {srcGif && (
           <button
