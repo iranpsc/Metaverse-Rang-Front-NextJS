@@ -60,7 +60,7 @@ export default function ModalCard({
             {dataModal.type === "favorites" ? (
               <div className="  px-5 mt-7 ">
                 <div className="  w-full flex justify-center items-center">
-                  <div className="  grid grid-cols-5 justify-center gap-x-1 gap-y-10 items-center  w-full">
+                  <div className="  flex flex-wrap justify-center gap-x-12 gap-y-5 items-center  w-full">
                     {Object.keys(dataModal.data).map(
                       (item: any, index: any) => (
                         <div
@@ -71,8 +71,9 @@ export default function ModalCard({
                             src={dataModal.data[item]}
                             // alt={translateFavorites(userProperty, item)}
                             alt={findByUniqueId(mainData, item.id)}
-                            width={1000}
-                            height={1000}
+                            width={60}
+                            height={60}
+                            
                             className="size-[50px] md:size-[40px] mx-5 "
                           />
                           <p className="font-azarMehr 3xl:text-xl3Title lg:text-lgTitle  xl:text-xlTitle  md:text-mdTitle sm:text-smTitle xs:text-smTitle font-medium  text-matn-2 dark:text-white ">

@@ -66,33 +66,33 @@ export default async function ProfileData({
   }
 
   return (
-              <section className="relative w-full bg-bg-primary  flex flex-col lg:flex-row gap-[10px] p-[8px]">
-                <section className="lg:w-[35%] flex flex-col lg:overflow-auto light-scrollbar dark:dark-scrollbar">
-                  <Profile
-                    profileData={profileData}
-                    titleData={titleData}
-                    langData={langData}
-                    nameUser={nameUser}
-                    mainData={mainData}
-                    params={params}
-                  />
-                </section>
+    <section className="relative w-full bg-bg-primary  flex flex-col lg:flex-row gap-[10px] p-[8px]">
+      <section className="lg:w-[35%] flex flex-col lg:overflow-y-auto light-scrollbar dark:dark-scrollbar">
+        <Profile
+          profileData={profileData}
+          titleData={titleData}
+          langData={langData}
+          nameUser={nameUser}
+          mainData={mainData}
+          params={params}
+        />
+      </section>
 
-                <section className="lg:w-[35%] flex flex-col lg:overflow-auto light-scrollbar dark:dark-scrollbar">
-                  <ProfileDetails
-                    profileData={profileData}
-                    mainData={mainData}
-                  />
-                </section>
+      <section className="lg:w-[35%] flex flex-col lg:overflow-auto light-scrollbar dark:dark-scrollbar">
+        <ProfileDetails
+          profileData={profileData}
+          mainData={mainData}
+        />
+      </section>
 
-                <section className="lg:w-[30%] flex flex-col lg:overflow-auto light-scrollbar dark:dark-scrollbar">
-                  <ProfileAbout
-                    profileData={profileData}
-                    mainData={mainData}
-                    titleData={titleData}
-                    params={params}
-                  />
-                </section>
-              </section>
+      <section className="lg:w-[30%] flex flex-col lg:overflow-auto light-scrollbar dark:dark-scrollbar">
+        <ProfileAbout
+          profileData={profileData}
+          mainData={mainData}
+          titleData={titleData}
+          params={params}
+        />
+      </section>
+    </section>
   );
 }

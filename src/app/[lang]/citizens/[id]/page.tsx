@@ -75,10 +75,10 @@ export default async function CitizenSinglePage({
 
     return (
       <main
-        className="flex h-screen w-full"
+        className="flex h-screen w-full "
         dir={langData.direction}
       >
-        <div className="relative w-full overflow-y-scroll lg:overflow-hidden mt-[60px] lg:mt-0 xs:px-1">
+        <div className="relative w-full h-full overflow-y-scroll lg:overflow-hidden mt-[60px] lg:mt-0 xs:px-1">
           <CleanAutoRetryParam />
 
           <div

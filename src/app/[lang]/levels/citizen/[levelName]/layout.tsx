@@ -118,14 +118,14 @@ export default async function LevelLayout({
           <div className="xl:px-8 lg:px-8 md:px-5 sm:px-5 xs:px-3 w-full font-azarMehr">
             <BreadCrumb params={layoutParams} />
 
-            <div className="grid-container gap-x-7 bg-white dark:bg-gray-1 rounded-[20px] p-5 3xl:p-[30px] relative">
+            <div className="grid-container  md:grid-cols-[minmax(0,55vw)_repeat(2,minmax(0,1fr))] xl:grid-cols-[minmax(0,57vw)_repeat(2,minmax(0,1fr))] 3xl:grid-cols-[minmax(0,65vw)_repeat(2,minmax(0,1fr))] gap-x-7 bg-white dark:bg-gray-1 rounded-[20px] p-5 3xl:p-[30px] relative w-full">
               <LevelHeader
                 levelTitle={levelTitle}
                 tabTitles={tabTitles}
                 actionLabel={findByUniqueId(mainData, 392)}
               />
 
-              <div className="grid-second overflow-hidden mb-5 self-start w-full md:min-w-[65vw] xl:min-w-[65vw]">
+              <div className="grid-second overflow-hidden mb-5 self-start w-full ">
                 <TabSelector params={layoutParams} mainData={mainData} />
               </div>
 

@@ -77,7 +77,7 @@
       @media (min-width: 768px) {
         .grid-container {
           display: grid;
-          grid-template-columns: minmax(0, 65vw) repeat(2, 1fr); /* First 65vw for first 3 boxes, remaining columns flexible */
+          /* First 65vw for first 3 boxes, remaining columns flexible */
           grid-template-rows: auto auto auto;
         }
       

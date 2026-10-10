@@ -112,7 +112,7 @@ export default function ImageBox({ tabsData, generalInfo, lang }: ImageBoxProps)
       : mode;
 
 const buttonClass = (active: boolean, disabled = false) =>
-  `px-4 py-2 rounded-lg font-bold transition ${
+  `px-4 py-2 md:px-3 lg:px-4 rounded-lg font-bold transition ${
     disabled
       ? "opacity-40 cursor-not-allowed bg-neutral-200 text-neutral-500 dark:bg-neutral-800 dark:text-neutral-500"
       : active
@@ -159,7 +159,7 @@ const buttonClass = (active: boolean, disabled = false) =>
         </div>
       )}
 
-      <div className="flex gap-4 mt-4">
+      <div className="flex gap-4 md:gap-2 xl:gap-4 mt-4">
         <button
           type="button"
           disabled={!srcPng}
