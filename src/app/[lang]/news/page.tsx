@@ -487,7 +487,7 @@ export default async function NewsPage({ params }: NewsPageProps) {
               <p className="lg:text-lg dark:text-[#868B90] text-[#656565]">{findByUniqueId(mainData, 1627) || "برای اطلاع از آخرین اخبار، تحلیل ها و مطالب اختصاصی، می توانید در خبرنامه ما عضو شوید.هدف ما ارائه محتوای دقیق، معتبر و به روز است تا همواره از مهم ترین تحولات باخبر باشید. در صورت تمایل، کافی است آدرس ایمیل خود را وارد کنید تا از این پس، به روزترین محتواها و اطلاع رسانی های رسمی را بدون نیاز به مراجعه مداوم به وب سایت، دریافت کنید."}</p>
               <div className="w-full flex flex-col gap-2 gap-y-5 lg:flex-row max-w-3xl">
                 <input type="text" name="" placeholder={findByUniqueId(mainData, 1626) || "آدرس ایمیل"} className="bg-[#F5F5F5] w-full lg:w-[75%]  rounded-xl border-0 ring-1 ring-[#D9D9D9] dark:ring-[#434343] px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus: focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-1" />
-                <button className="bg-primary font-bold  text-white dark:text-black rounded-xl px-5 py-2 lg:w-[25%]">{findByUniqueId(mainData, 2)}</button>
+                <button className="bg-primary font-bold text-black rounded-xl px-5 py-2 lg:w-[25%]">{findByUniqueId(mainData, 2)}</button>
               </div>
             </div>
           </div>

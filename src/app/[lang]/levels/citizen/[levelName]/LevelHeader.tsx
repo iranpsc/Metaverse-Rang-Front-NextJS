@@ -16,8 +16,8 @@ export default function LevelHeader({
   const pageTitle = tabTitle ? `${tabTitle} ${levelTitle}` : levelTitle;
 
   return (
-    <div className="self-start md:order-none w-full  flex items-center justify-between font-bold pt-[3px] pb-5 dark:text-white text-lg sm:text-xl lg:text-2xl 2xl:text-3xl 3xl:text-4xl">
-      <h1 className="text-base md:text-[28px] lg:text-[30px] xl:text-[32px]">
+    <div className="self-start flex flex-col gap-y-5 lg:flex-row  md:order-none w-full   items-center justify-between font-bold pt-[3px] pb-5 dark:text-white text-lg sm:text-xl lg:text-2xl 2xl:text-3xl 3xl:text-4xl">
+      <h1 className="text-xl md:text-[28px] lg:text-[30px] xl:text-[32px]">
         {pageTitle}
       </h1>
       <button className="w-max py-[5px] md:py-3 px-5 text-[14px] bg-gray-2  font-bold text-matn-1 rounded-[12px]">

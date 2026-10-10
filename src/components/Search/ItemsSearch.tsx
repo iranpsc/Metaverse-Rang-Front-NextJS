@@ -215,6 +215,36 @@ const [linkLoading, setLinkLoading] = useState(false);
             </motion.div>
           );
         }
+        else if (searchLevel === "news") {
+  return (
+    <motion.div key={item.id} variants={items}>
+      <Link
+        onClickCapture={() => setLinkLoading(true)}
+        href={`/${params.lang}/news/categories/${item.categorySlug}/${item.slug}`}
+        className="w-[99%] mt-2 transition-all duration-300 bg-white dark:bg-dark-background border-b border-solid border-x-0 border-t-0 border-mediumGray flex justify-between items-center py-2 gap-3"
+      >
+        {linkLoading && <LoadingOverlay />}
+        <div className="flex flex-col w-[70%] lg:w-[80%]">
+          <h3 className="text-black dark:text-white text-[16px] font-semibold line-clamp-1">
+            {item.title}
+          </h3>
+          <p className="text-matn-2 text-[13px] truncate">
+            {item.excerpt || item.category}
+          </p>
+        </div>
+        <div className="w-[30%] lg:w-[20%]">
+          <Image
+            src={item.image || "/placeholder.png"}
+            alt={item.title}
+            width={70}
+            height={70}
+            className="rounded-md object-cover w-full h-[70px] bg-cover"
+          />
+        </div>
+      </Link>
+    </motion.div>
+  );
+}
 
         return null;
       })}

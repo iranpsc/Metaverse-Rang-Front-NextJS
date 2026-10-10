@@ -420,7 +420,7 @@ export default function SideBarContent({
                       className={subLinkClass(isEducationMain)}
                     >
                       <div className="flex items-center gap-2">
-                        <span className="ps-[15px]">
+                        <span >
                           <ListMenuSvgModule item={{ name: "trainers", active: isTrainingsActive }} />
                         </span>
                         <ListMenuTitleModule
@@ -439,7 +439,7 @@ export default function SideBarContent({
                       className={subLinkClass(pathName.startsWith(`/${params.lang}/education/category`))}
                     >
                       <div className="flex items-center gap-2">
-                        <span className="ps-[15px]">
+                        <span >
                           <ListMenuSvgModule item={{ name: "categories", active: isCategoriesActive }} />
                         </span>
                         <ListMenuTitleModule
@@ -482,7 +482,7 @@ export default function SideBarContent({
                       className={subLinkClass(isWhitePaperMain)}
                     >
                       <div className="flex items-center gap-2">
-                        <span className="ps-[15px]">
+                        <span >
                           <ListMenuSvgModule item={{ name: "whitepaper", active: isWhitePaperSectionActive }} />
                         </span>
                         <ListMenuTitleModule
@@ -530,7 +530,7 @@ export default function SideBarContent({
                       className={subLinkClass(isArticlesMain)}
                     >
                       <div className="flex items-center gap-2">
-                        <span className="ps-[15px]">
+                        <span >
                           <ListMenuSvgModule item={{ unique_id: 258, active: isArticlesMain }} />
                         </span>
                         <ListMenuTitleModule
@@ -549,7 +549,7 @@ export default function SideBarContent({
                       className={subLinkClass(isArticlesCategories)}
                     >
                       <div className="flex items-center gap-2">
-                        <span className="ps-[15px]">
+                        <span >
                           <ListMenuSvgModule item={{ name: "categories", active: isArticlesCategories }} />
                         </span>
                         <ListMenuTitleModule
@@ -597,7 +597,7 @@ export default function SideBarContent({
                       className={subLinkClass(isNewsMainActive)}
                     >
                       <div className="flex items-center gap-2">
-                        <span className="ps-[15px]">
+                        <span >
                           <ListMenuSvgModule item={{ unique_id: 255, active: isNewsMainActive }} />
                         </span>
                         <ListMenuTitleModule
@@ -616,7 +616,7 @@ export default function SideBarContent({
                       className={subLinkClass(isNewsCategoriesActive)}
                     >
                       <div className="flex items-center gap-2">
-                        <span className="ps-[15px]">
+                        <span >
                           <ListMenuSvgModule item={{ name: "categories", active: isNewsCategoriesActive }} />
                         </span>
                         <ListMenuTitleModule
@@ -660,7 +660,7 @@ export default function SideBarContent({
                       className={subLinkClass(isCitizensMain)}
                     >
                       <div className="flex items-center gap-2">
-                        <span className="ps-[15px]">
+                        <span >
                           <ListMenuSvgModule item={{ unique_id: 263, active: isCitizensMain }} />
                         </span>
                         <ListMenuTitleModule
@@ -679,7 +679,7 @@ export default function SideBarContent({
                       className={subLinkClass(isRandId)}
                     >
                       <div className="flex items-center gap-2">
-                        <span className="ps-[15px]">
+                        <span >
                           <ListMenuSvgModule item={{ unique_id: 1490, active: isRandId }} />
                         </span>
                         <ListMenuTitleModule

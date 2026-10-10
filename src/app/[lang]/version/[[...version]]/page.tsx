@@ -307,14 +307,14 @@ export default async function VersionPage({ params }: VersionPageProps) {
         <CleanAutoRetryParam />
         <div className="flex w-full" dir={langData.direction}>
           <section
-            className={`w-full relative mt-[60px] lg:mt-0 lg:pt-0 bg-bg-primary  bg-opacity20`}
+            className={`w-full relative mt-[60px]  lg:mt-0 lg:pt-0 bg-bg-primary  bg-opacity20`}
           >
             {/* Breadcrumb */}
             <div className="px-12">
               <BreadCrumb params={normalizedParams} />
             </div>
 
-            <div className="mainContainer w-full lg:h-auto  flex flex-col gap-[10px] lg:flex-row lg:items-start lg:justify-between">
+            <div className="mainContainer w-full lg:h-auto  flex flex-col gap-[10px] lg:flex-row lg:items-start lg:justify-between px-2 lg:px-0">
               <div className="centerItem w-full   lg:px-7">
                 <div className="self-center justify-between flex pt-8 w-full  gap-8">
                   <Version

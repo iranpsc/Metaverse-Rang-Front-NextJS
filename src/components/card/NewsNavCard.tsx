@@ -45,7 +45,7 @@ const ArticleNavCard = ({ href, news, activeLoadingId, setActiveLoadingId}: News
                 {/* CONTENT */}
                 <div className="p-4 pt-0 flex flex-col justify-between gap-2 z-[1]">
                     <div className="flex items-center justify-between text-xs matn-2-500 mb-2 dark:text-[#868B90]">
-                        <span>تاریخ انتشار: {news.date}</span>
+                        <span>تاریخ انتشار: {news?.date.split("T")[0]}</span>
 
                         <div className="flex items-center gap-3 text-[#888888]">
                             <span className="flex items-center gap-1">

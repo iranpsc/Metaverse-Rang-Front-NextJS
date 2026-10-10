@@ -149,7 +149,7 @@ export default function FeaturesSummary({
       {/* karbari filters — shared by cards below AND the chart */}
       <div className="flex flex-col lg:flex-row items-center justify-between gap-10 mt-10">
         {/* period ("sort") switch — same style/markup as the referral page */}
-        <div className="flex justify-between gap-4 md:max-w-[50%] lg:max-w-[30%] h-[64px]">
+        <div className="flex justify-between gap-4 md:max-w-[50%] lg:max-w-[30%] h-[64px] w-full">
           {PERIOD_OPTIONS.map((opt) => {
             const isActive = period === opt.key;
             const showLoader = isActive && loading;
@@ -158,7 +158,7 @@ export default function FeaturesSummary({
                 key={opt.key}
                 onClick={() => setPeriod(opt.key)}
                 disabled={showLoader}
-                className={`moment relative bg-white dark:bg-gray-1 text-[#84858F] p-2 rounded-xl w-full px-7 flex items-center justify-center gap-2 ${
+                className={`moment relative bg-white dark:bg-gray-1 text-[#84858F] p-2 rounded-xl w-1/4 lg:w-[100px] flex items-center justify-center gap-2 ${
                   isActive
                     ? "border-2 border-primary  border-solid  text-primary font-bold"
                     : ""
@@ -221,7 +221,7 @@ export default function FeaturesSummary({
       )}
 
       {!error && (!initialized || selectedKarbari.length > 0) && (
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-12 gap-y-14 mt-10 w-full py-2">
+        <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-12 gap-y-14 mt-10 w-full py-2">
           {loading && orderedSummary.length === 0
             ? Array.from({ length: 7 }).map((_, i) => <FeatureCardSkeleton key={i} />)
             : orderedSummary.map((item) => (

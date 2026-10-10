@@ -369,7 +369,7 @@ const CommentList = ({
                     </div>
                     <button
                       type="submit"
-                      className="bg-primary px-4 py-2 lg:py-[10px] rounded-xl text-white dark:text-black  "
+                      className="bg-primary px-4 py-2 lg:py-[10px] rounded-xl text-black  "
                     >
                       {checkData(findByUniqueId(mainData, 460))}
                     </button>
@@ -503,7 +503,7 @@ const CommentList = ({
                   </div>
                   <button
                     type="submit"
-                    className="bg-primary px-4 py-2 lg:py-[10px] rounded-xl text-white dark:text-black"
+                    className="bg-primary px-4 py-2 lg:py-[10px] rounded-xl text-black"
                   >
                     {params.lang.toLowerCase() === "fa" ? "ارسال" : "Submit"}
                   </button>
@@ -551,7 +551,7 @@ const CommentList = ({
                     {!showSuccessModal && (
                       <div className="flex gap-2 justify-between items-center w-full">
                         <button
-                          className="w-1/2 bg-primary text-white dark:text-black font-azarMehr py-2 px-4 font-medium text-[15px] rounded-[10px] hover:bg-yellow-600 active:scale-105 duration-300"
+                          className="w-1/2 bg-primary text-black font-azarMehr py-2 px-4 font-medium text-[15px] rounded-[10px] hover:bg-yellow-600 active:scale-105 duration-300"
                           onClick={async () => {
                             try {
                               await handlerReportComments({

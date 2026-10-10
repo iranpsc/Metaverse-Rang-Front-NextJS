@@ -505,7 +505,7 @@ export default function InviteList({
       {!loading &&
         referralList.length ===
           0 && (
-          <p className="w-full text-center text-white">
+          <p className="w-full text-center text-matn-1">
             {isFa
               ? "موردی یافت نشد."
               : "No results found."}

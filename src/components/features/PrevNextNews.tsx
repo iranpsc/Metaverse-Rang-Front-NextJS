@@ -95,7 +95,7 @@ const PrevNextNews = ({ params, news: propNews, mainData }: PrevNextNewsProps) =
         <div className="flex flex-col items-center w-full">
           {prevNews ? (
             <h3 className="text-center font-bold mb-3 dark:text-white">
-              {findByUniqueId(mainData, 1506) || "مطلب قبلی"}
+              {findByUniqueId(mainData, 1856) || "مطلب قبلی"}
             </h3>
           ) : (<div></div>)}
           <div className="w-full">
@@ -120,7 +120,7 @@ const PrevNextNews = ({ params, news: propNews, mainData }: PrevNextNewsProps) =
         <div className="flex flex-col items-center w-full">
           {nextNews ? (
             <h3 className="text-center font-bold mb-3 dark:text-white">
-              {findByUniqueId(mainData, 1507) || "مطلب بعدی"}
+              {findByUniqueId(mainData, 1857) || "مطلب بعدی"}
             </h3>
           ) : (<div></div>)}
           <div className="w-full">

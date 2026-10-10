@@ -138,7 +138,7 @@ const buttonClass = (active: boolean, disabled = false) =>
 
       {/* بدون key؛ تا src عوض نشه GIF دوباره شروع نمی‌شه */}
       {activeMode === "gif" && srcGif && (
-        <div className="relative w-full aspect-[5/7] rounded-xl">
+        <div className="relative  w-[90%] aspect-[5/7] rounded-xl">
           <div className="absolute inset-0 rounded-xl" />
           <Image
             src={srcGif}

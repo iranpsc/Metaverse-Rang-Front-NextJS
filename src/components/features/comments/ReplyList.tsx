@@ -217,7 +217,7 @@ const ReplyList = ({
                   setActiveMenu={() => {}}
                   params={params}
                 />
-                <p className="text-gray-1  dark:text-white text-start font-azarMehr text-[14px] mt-5">
+                <p className="text-matn-1  text-start font-azarMehr text-[14px] mt-5">
                   {checkData(reply.content)}
                 </p>
                 <div className="flex flex-row justify-start items-center gap-5 mt-4">

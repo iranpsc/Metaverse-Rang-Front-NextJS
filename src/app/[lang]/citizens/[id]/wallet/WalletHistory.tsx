@@ -298,7 +298,7 @@ export default function WalletHistory({
         </div>
 
         {/* period switch */}
-        <div className="flex justify-between gap-3 md:max-w-[60%] lg:max-w-[40%] h-[56px]">
+        <div className="flex justify-between gap-3 md:max-w-[60%] lg:max-w-[40%] h-[56px] w-full">
           {PERIOD_OPTIONS.map((opt) => {
             const isActive = period === opt.key;
             const showLoader = isActive && isPeriodLoading;
@@ -307,7 +307,7 @@ export default function WalletHistory({
                 key={opt.key}
                 onClick={() => setPeriod(opt.key)}
                 disabled={showLoader}
-                className={`moment relative bg-white dark:bg-gray-1 text-[#84858F] p-2 rounded-xl w-[100px] flex items-center justify-center gap-2 ${isActive
+                className={`moment relative bg-white dark:bg-gray-1 text-[#84858F] p-2 rounded-xl w-1/4 lg:w-[100px] flex items-center justify-center gap-2 ${isActive
                     ? "border-2 border-primary  border-solid  text-primary font-bold"
                     : ""
                   } ${showLoader ? "cursor-wait opacity-90" : ""}`}

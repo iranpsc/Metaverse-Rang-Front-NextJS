@@ -102,15 +102,16 @@ function SideBarHeader({
       </div>
 
       {/* لوگو و متن */}
-      <Link
-        href={`/${params.lang}`}
+      <div
+        
         className={`${
           isClosed
             ? "mt-3"
             : "flex items-center justify-between"
         } relative overflow-hidden`}
       >
-        <div
+        <Link
+        href={`/${params.lang}`}
           className={`${
             isClosed
               ? "w-full justify-center"
@@ -142,8 +143,8 @@ function SideBarHeader({
               {t.subtitle}
             </p>
           </div>
-        </div>
-      </Link>
+        </Link>
+      </div>
 
       <div
         className={`

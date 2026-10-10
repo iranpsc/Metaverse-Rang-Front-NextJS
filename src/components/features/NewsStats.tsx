@@ -75,7 +75,7 @@ export default function NewsStats({
                 />
               </svg>
             )}
-            <span>{date}</span>
+            <span>{date.split("T")[0]}</span>
           </div>
         )}
 

@@ -62,7 +62,7 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
 
                     </div>
                     <div className="border-b border-solid border-[#D9D9D9] pb-5 dark:border-[#434343] border-x-0 border-t-0 space-y-3 text-center md:px-5">
-                        <p className="text-gray-1  dark:text-white text-base md:text-xl font-bold">{findByUniqueId(mainData, 1536)}</p>
+                        <p className="text-matn-1  text-base md:text-xl font-bold">{findByUniqueId(mainData, 1536)}</p>
                         <p className="text-[#84858F] dark:text-[#84858F] text-base md:text-xl">{findByUniqueId(mainData, 1537)}</p>
                     </div>
                     <div className="flex w-full flex-col-reverse md:flex-row gap-y-5 justify-around items-center">
@@ -121,7 +121,7 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
                         </svg>
                     </div>
                     <div className="border-b border-solid border-[#D9D9D9] pb-5 dark:border-[#434343] border-x-0 border-t-0 space-y-3 text-center md:px-5">
-                        <p className="text-gray-1  dark:text-white text-base md:text-xl font-bold">{findByUniqueId(mainData, 1538)}</p>
+                        <p className="text-matn-1  text-base md:text-xl font-bold">{findByUniqueId(mainData, 1538)}</p>
                         <p className="text-[#84858F] dark:text-[#84858F] text-base md:text-xl">{findByUniqueId(mainData, 1539)}</p>
                     </div>
                     <div className="flex w-full flex-col-reverse md:flex-row gap-y-5 justify-around items-center">
@@ -180,7 +180,7 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
                         </svg>
                     </div>
                     <div className="border-b border-solid border-[#D9D9D9] pb-5 dark:border-[#434343] border-x-0 border-t-0 space-y-3 text-center md:px-5">
-                        <p className="text-gray-1  dark:text-white text-base md:text-xl font-bold">{findByUniqueId(mainData, 1540)}</p>
+                        <p className="text-matn-1  text-base md:text-xl font-bold">{findByUniqueId(mainData, 1540)}</p>
                         <p className="text-[#84858F] dark:text-[#84858F] text-base md:text-xl">{findByUniqueId(mainData, 1541)}</p>
                     </div>
                     <div className="flex w-full flex-col-reverse md:flex-row gap-y-5 justify-around items-center">
@@ -311,7 +311,7 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
 
                     </div>
                     <div className="border-b border-solid border-[#D9D9D9] pb-5 dark:border-[#434343] border-x-0 border-t-0 space-y-3 text-center md:px-5">
-                        <p className="text-gray-1  dark:text-white text-base md:text-xl font-bold">{findByUniqueId(mainData, 1542)}</p>
+                        <p className="text-matn-1  text-base md:text-xl font-bold">{findByUniqueId(mainData, 1542)}</p>
                         <p className="text-[#84858F] dark:text-[#84858F] text-base md:text-xl">{findByUniqueId(mainData, 1543)}</p>
                     </div>
                     <div className="flex w-full flex-col-reverse md:flex-row gap-y-5 justify-around items-center">
@@ -381,7 +381,7 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
                         </svg>
                     </div>
                     <div className="border-b border-solid border-[#D9D9D9] pb-5 dark:border-[#434343] border-x-0 border-t-0 space-y-3 text-center md:px-5">
-                        <p className="text-gray-1  dark:text-white text-base md:text-xl font-bold">{findByUniqueId(mainData, 1544)}</p>
+                        <p className="text-matn-1  text-base md:text-xl font-bold">{findByUniqueId(mainData, 1544)}</p>
                         <p className="text-[#84858F] dark:text-[#84858F] text-base md:text-xl">{findByUniqueId(mainData, 1545)}</p>
                     </div>
                     <div className="flex w-full flex-col-reverse md:flex-row gap-y-5 justify-around items-center">
@@ -431,7 +431,7 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
 
                     </div>
                     <div className="border-b border-solid border-[#D9D9D9] pb-5 dark:border-[#434343] border-x-0 border-t-0 space-y-3 text-center md:px-5">
-                        <p className="text-gray-1  dark:text-white text-base md:text-xl font-bold">{findByUniqueId(mainData, 1546)}</p>
+                        <p className="text-matn-1  text-base md:text-xl font-bold">{findByUniqueId(mainData, 1546)}</p>
                         <p className="text-[#84858F] dark:text-[#84858F] text-base md:text-xl">{findByUniqueId(mainData, 1547)}</p>
                     </div>
                     <div className="flex flex-col-reverse gap-y-5 md:flex-row w-full justify-between items-center ">
@@ -439,7 +439,7 @@ const EmailModal: React.FC<TestProps> = ({ mainData, params }) => {
                             {findByUniqueId(mainData, 1548)}
                         </a>
                         <div className="flex items-center gap-2">
-                            <a  href="mailto:Hq@irpsc.com" target="_blank" className="text-gray-1  dark:text-white text-lg">Hq@irpsc.com</a>
+                            <a  href="mailto:Hq@irpsc.com" target="_blank" className="text-matn-1  text-lg">Hq@irpsc.com</a>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M17 20.5H7C4 20.5 2 19 2 15.5V8.5C2 5 4 3.5 7 3.5H17C20 3.5 22 5 22 8.5V15.5C22 19 20 20.5 17 20.5Z" stroke="#969696" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
                                 <path d="M17 9L13.87 11.5C12.84 12.32 11.15 12.32 10.12 11.5L7 9" stroke="#969696" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />

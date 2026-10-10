@@ -231,13 +231,11 @@ export async function generateMetadata({
       : profileData.data.name || "Citizen";
 
     return {
-      title:
-        lang === "fa"
-          ? `املاک و مستغلات حسین قدیری ${fullName} | ${findByUniqueId(mainData, 148)}`
-          : `Feature summary of ${fullName} | ${findByUniqueId(mainData, 148)}`,
+      title:` ${findByUniqueId(mainData, 58)}  ${fullName} | ${findByUniqueId(mainData, 148)}`,
+   
       description:
         lang === "fa"
-          ? "  املاک و مستغلات حسین قدیری  "
+          ? " خلاصه ویژگی‌های کاربری املاک شهروندان بر اساس نوع "
           : "Citizen property feature (karbari) summary by type",
       alternates: {
         canonical: `https://metarang.com/${lang}/citizens/${id}/features-summary`,

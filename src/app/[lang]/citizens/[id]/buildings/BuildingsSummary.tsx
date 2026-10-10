@@ -173,7 +173,7 @@ export default function BuildingsSummary({
       )}
 
       {!error && (
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-9 w-full py-2">
+        <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-9 w-full py-2">
           {loading && summaryData.length === 0
             ? Array.from({ length: 8 }).map((_, i) => <SummaryCardSkeleton key={i} />)
             : summaryData.map((item) => (
@@ -199,7 +199,7 @@ export default function BuildingsSummary({
       </div>
 
       <div className="flex flex-wrap gap-10 w-full items-center justify-between mt-10">
-        <div className="flex justify-between gap-4 md:max-w-[50%] lg:max-w-[30%] h-[64px]">
+        <div className="flex justify-between gap-4 md:max-w-[50%] lg:max-w-[30%] h-[64px] w-full">
           {PERIOD_OPTIONS.map((opt) => {
             const isActive = period === opt.key;
             const showLoader = isActive && isPeriodLoading;
@@ -208,9 +208,9 @@ export default function BuildingsSummary({
                 key={opt.key}
                 onClick={() => setPeriod(opt.key)}
                 disabled={showLoader}
-                className={`moment relative bg-white dark:bg-gray-1 text-[#84858F] p-2 rounded-xl  w-[100px] flex items-center justify-center gap-2 ${isActive
-                    ? "border-2 border-primary  border-solid  text-primary font-bold"
-                    : ""
+                className={`moment relative bg-white dark:bg-gray-1 text-[#84858F] p-2 rounded-xl w-1/4 lg:w-[100px] flex items-center justify-center gap-2 ${isActive
+                  ? "border-2 border-primary  border-solid  text-primary font-bold"
+                  : ""
                   } ${showLoader ? "cursor-wait opacity-90" : ""}`}
               >
                 {showLoader && (

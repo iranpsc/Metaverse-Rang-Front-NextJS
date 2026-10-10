@@ -53,7 +53,7 @@ const AuthorCard = ({ lang, article, mainData }: AuthorCardProps) => {
         {/* حوزه فعالیت و شبکه‌ها */}
         <div className="flex flex-col lg:flex-row md:flex-row md:justify-between w-full gap-5 items-center mt-5 md:mt-[-34px]">
           <div>
-            <p className="text-sm matn-2-500 ">
+            <p className="text-sm text-matn-2  ">
               {findByUniqueId(mainData, 1508)} {author.field}
             </p>
           </div>
@@ -77,14 +77,14 @@ const AuthorCard = ({ lang, article, mainData }: AuthorCardProps) => {
         </div>
 
         {/* بیوگرافی */}
-        <p className="mt-5 text-sm matn-2-600  leading-relaxed max-w-2xl">
+        <p className="mt-5 text-sm text-matn-2  leading-relaxed max-w-2xl">
           {author.bio}
         </p>
 
         {/* دکمه دیدن مقالات نویسنده */}
         <Link onClickCapture={() => setLinkLoading(true)}
           href={`/${lang}/citizens/${author.citizenId.toLowerCase()}` || ""}
-          className="mt-6 px-5 py-2 rounded-lg bg-primary  dark:text-black text-white font-bold text-sm hover:opacity-90 transition u"
+          className="mt-6 px-5 py-2 rounded-lg bg-primary  text-matn-1 font-bold text-sm hover:opacity-90 transition "
         >
           {findByUniqueId(mainData, 1512)}
         </Link>

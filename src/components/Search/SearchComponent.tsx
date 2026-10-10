@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -6,6 +5,12 @@ import axios from "axios";
 import SectionInputSearch from "@/components/shared/SectionInputSearch";
 import { ItemsSearch } from "@/components/Search/ItemsSearch";
 import { useCookies } from "react-cookie";
+
+// سطوحی که داده‌شان از Supabase می‌آید: { searchLevel: نام جدول }
+const SUPABASE_TABLES: Record<string, string> = {
+  articles: "articles",
+  news: "news",
+};
 
 export default function SearchComponent({
   searchLevel = "citizen",
@@ -20,59 +25,60 @@ export default function SearchComponent({
   const [cookies] = useCookies(["theme"]);
   const theme = cookies.theme || "dark";
 
-  // دیتای مقالات Supabase؛ مطابق نسخه قبلی
-  const [articlesData, setArticlesData] = useState<any[]>([]);
+  // دیتای Supabase (مقالات یا اخبار، بسته به searchLevel)
+  const [supabaseData, setSupabaseData] = useState<any[]>([]);
 
-  // دریافت مقالات از Supabase فقط برای بخش مقالات
+  // دریافت داده از Supabase فقط برای سطح‌های articles و news
   useEffect(() => {
     let cancelled = false;
 
-    const fetchArticles = async () => {
+    const table = SUPABASE_TABLES[searchLevel];
+
+    // با عوض شدن سطح، داده‌ی قبلی پاک شود
+    setSupabaseData([]);
+
+    if (!table) return;
+
+    const fetchFromSupabase = async () => {
       try {
         // کلاینت Supabase فقط در صورت نیاز بارگذاری می‌شود.
         const { supabase } = await import("@/utils/lib/supabaseClient");
 
         const { data, error } = await supabase
-          .from("articles")
+          .from(table)
           .select("*")
           .order("date", { ascending: false });
 
         if (cancelled) return;
 
         if (error) {
-          console.error("Error fetching articles:", error);
-          setArticlesData([]);
+          console.error(`Error fetching ${table}:`, error);
+          setSupabaseData([]);
           return;
         }
 
-        setArticlesData(Array.isArray(data) ? data : []);
+        setSupabaseData(Array.isArray(data) ? data : []);
       } catch (error) {
         if (!cancelled) {
-          console.error("Error loading articles from Supabase:", error);
-          setArticlesData([]);
+          console.error(`Error loading ${table} from Supabase:`, error);
+          setSupabaseData([]);
         }
       }
     };
 
-    if (searchLevel === "articles") {
-      fetchArticles();
-    } else {
-      setArticlesData([]);
-    }
+    fetchFromSupabase();
 
     return () => {
       cancelled = true;
     };
   }, [searchLevel]);
 
-  // جستجوی مقالات، شهروندان و آموزش‌ها
+  // جستجوی مقالات، اخبار، شهروندان و آموزش‌ها
   useEffect(() => {
     const term = searchTerm.trim();
 
     if (term.length < 3) {
-      setSearchData((previous) =>
-        previous.length > 0 ? [] : previous
-      );
+      setSearchData((previous) => (previous.length > 0 ? [] : previous));
       setLoadingSearch(false);
       return;
     }
@@ -84,13 +90,13 @@ export default function SearchComponent({
 
       try {
         // =====================================
-        // Articles: جستجو در داده‌های Supabase
+        // Articles & News: جستجو در داده‌های Supabase
         // =====================================
-        if (searchLevel === "articles") {
+        if (searchLevel === "articles" || searchLevel === "news") {
           const normalizedTerm = term.toLocaleLowerCase();
 
-          const filtered = articlesData.filter((article) =>
-            String(article?.title ?? "")
+          const filtered = supabaseData.filter((item) =>
+            String(item?.title ?? "")
               .toLocaleLowerCase()
               .includes(normalizedTerm)
           );
@@ -117,9 +123,7 @@ export default function SearchComponent({
 
           if (!cancelled) {
             setSearchData(
-              Array.isArray(response.data?.data)
-                ? response.data.data
-                : []
+              Array.isArray(response.data?.data) ? response.data.data : []
             );
           }
 
@@ -134,22 +138,16 @@ export default function SearchComponent({
 
           const response = await axios.post(
             url,
+            { searchTerm: term },
             {
-              searchTerm: term,
-            },
-            {
-              headers: {
-                "Content-Type": "application/json",
-              },
+              headers: { "Content-Type": "application/json" },
               timeout: 15000,
             }
           );
 
           if (!cancelled) {
             setSearchData(
-              Array.isArray(response.data?.data)
-                ? response.data.data
-                : []
+              Array.isArray(response.data?.data) ? response.data.data : []
             );
           }
 
@@ -176,7 +174,7 @@ export default function SearchComponent({
       cancelled = true;
       clearTimeout(timer);
     };
-  }, [searchTerm, searchLevel, articlesData]);
+  }, [searchTerm, searchLevel, supabaseData]);
 
   const removeSearch = () => {
     setSearchData([]);

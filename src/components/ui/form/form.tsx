@@ -144,7 +144,7 @@ export default function ContactForm({ lang }: Props) {
         <div>
           <input
             className={`w-full text-base rtl:text-right ltr:text-left h-[50px] bg-gray-3  rounded-[10px] p-4 border-0 
-  dark:text-white dark-placeholder placeholder:text-light-placeholder dark:placeholder:text-dark-placeholder 
+  dark:text-white dark-placeholder text-matn-1  dark:placeholder:text-dark-placeholder 
   ring-1 outline-0 focus:ring-1 outline-none border-none
   ${errors.name
                 ? "ring-red-600 focus:ring-red-600"
