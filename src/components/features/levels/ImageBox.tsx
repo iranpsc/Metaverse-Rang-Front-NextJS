@@ -2,518 +2,190 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { useParams } from "next/navigation";
 import dynamic from "next/dynamic";
 
-const Sample3D = dynamic(() => import("./Sample3D"), {
-  ssr: false,
-});
-
-const ErrorBoundary = dynamic(
-  () => import("@/components/utils/ErrorBoundary"),
-);
+const Sample3D = dynamic(() => import("./Sample3D"), { ssr: false });
+const ErrorBoundary = dynamic(() => import("@/components/utils/ErrorBoundary"));
 
 /**
- * ==========================================
- * TYPES
- * ==========================================
+ * تب‌هایی که GIF اون‌ها یکیه و از general_info گرفته می‌شه.
+ * بقیه‌ی تب‌ها (gem, gift) فقط GIF خودشون رو نشون می‌دن.
  */
+const SHARED_GIF_TABS = ["general-info", "licenses", "prize"];
 
-type ModelSource = {
-  gltf: string;
-  bin?: string;
-};
-
-type FileSource = {
-  type?: string;
-  size?: string | number;
-  url?: string;
-};
+type ModelSource = { gltf: string; bin?: string };
+type FileSource = { type?: string; size?: string | number; url?: string };
 
 type ImageBoxProps = {
-  item?: any;
-  singleLevel?: any;
+  tabsData: Record<string, any>;
+  generalInfo?: any;
   lang: string;
 };
 
-/**
- * ==========================================
- * GET FILE URL
- * ==========================================
- *
- * API ممکن است فایل را به یکی از این شکل‌ها بدهد:
- *
- * 1)
- * "https://....gif"
- *
- * 2)
- * {
- *   type: "gif",
- *   size: "...",
- *   url: "https://....gif"
- * }
- *
- * این تابع هر دو حالت را پشتیبانی می‌کند.
- */
-
+/** URL فایل: هم رشته‌ی ساده و هم { url } پشتیبانی می‌شه */
 function getFileUrl(value: unknown): string {
-  if (!value) {
-    return "";
-  }
-
-  /**
-   * مستقیم URL
-   */
-
-  if (typeof value === "string") {
-    return value.trim();
-  }
-
-  /**
-   * Object:
-   *
-   * {
-   *   url: "..."
-   * }
-   */
-
+  if (!value) return "";
+  if (typeof value === "string") return value.trim();
   if (typeof value === "object" && value !== null) {
-    const objectValue = value as FileSource;
-
-    if (typeof objectValue.url === "string") {
-      return objectValue.url.trim();
-    }
+    const url = (value as FileSource).url;
+    if (typeof url === "string") return url.trim();
   }
-
   return "";
 }
 
-/**
- * ==========================================
- * PARSE 3D SOURCE
- * ==========================================
- *
- * پشتیبانی از:
- *
- * {
- *   gltf: {
- *     type: "gltf",
- *     size: "3872",
- *     url: "https://...gltf"
- *   },
- *   bin: {
- *     type: "bin",
- *     size: "3640",
- *     url: "https://...bin"
- *   }
- * }
- *
- * و:
- *
- * {
- *   gltf: "https://...gltf",
- *   bin: "https://...bin"
- * }
- *
- * و String JSON
- */
-
+/** پشتیبانی از object جدید API، فرمت ساده، حروف بزرگ، JSON string و URL مستقیم */
 function parse3DSource(value: unknown): ModelSource | null {
-  if (!value) {
-    return null;
-  }
-
-  /**
-   * ==========================================
-   * OBJECT
-   * ==========================================
-   */
+  if (!value) return null;
 
   if (typeof value === "object" && value !== null) {
-    const objectValue = value as Record<string, unknown>;
+    const obj = value as Record<string, unknown>;
+    const binUrl = getFileUrl(obj.bin) || undefined;
 
-    const gltfValue = objectValue.gltf;
-    const binValue = objectValue.bin;
+    const gltfUrl = getFileUrl(obj.gltf) || getFileUrl(obj.GLTF);
+    if (gltfUrl) return { gltf: gltfUrl, bin: binUrl };
 
-    /**
-     * ----------------------------------------
-     * فرمت جدید API
-     * ----------------------------------------
-     */
-
-    if (
-      typeof gltfValue === "object" &&
-      gltfValue !== null
-    ) {
-      const gltfObject =
-        gltfValue as Record<string, unknown>;
-
-      const gltfUrl = getFileUrl(gltfObject);
-
-      const binUrl = getFileUrl(binValue);
-
-      if (gltfUrl) {
-        return {
-          gltf: gltfUrl,
-          bin: binUrl || undefined,
-        };
-      }
-    }
-
-    /**
-     * ----------------------------------------
-     * فرمت ساده
-     * ----------------------------------------
-     */
-
-    if (typeof gltfValue === "string") {
-      return {
-        gltf: gltfValue,
-        bin:
-          typeof binValue === "string"
-            ? binValue
-            : getFileUrl(binValue) || undefined,
-      };
-    }
-
-    /**
-     * ----------------------------------------
-     * GLTF با حروف بزرگ
-     * ----------------------------------------
-     */
-
-    const upperGltf = objectValue.GLTF;
-
-    if (upperGltf) {
-      const gltfUrl = getFileUrl(upperGltf);
-      const binUrl = getFileUrl(binValue);
-
-      if (gltfUrl) {
-        return {
-          gltf: gltfUrl,
-          bin: binUrl || undefined,
-        };
-      }
-    }
-
-    /**
-     * ----------------------------------------
-     * ممکن است خود object فایل GLTF باشد
-     * ----------------------------------------
-     */
-
-    const directUrl = getFileUrl(objectValue);
-
-    if (
-      directUrl &&
-      directUrl.toLowerCase().includes(".gltf")
-    ) {
-      return {
-        gltf: directUrl,
-      };
+    const directUrl = getFileUrl(obj);
+    if (directUrl && directUrl.toLowerCase().includes(".gltf")) {
+      return { gltf: directUrl };
     }
   }
 
-  /**
-   * ==========================================
-   * STRING
-   * ==========================================
-   */
-
   if (typeof value !== "string") {
-    console.error(
-      "ImageBox: unsupported 3D source:",
-      value,
-    );
-
+    console.error("ImageBox: unsupported 3D source:", value);
     return null;
   }
 
   const raw = value.trim();
-
-  if (!raw) {
-    return null;
-  }
-
-  /**
-   * ==========================================
-   * JSON STRING
-   * ==========================================
-   */
+  if (!raw) return null;
 
   const jsonStart = raw.indexOf("{");
-
   if (jsonStart !== -1) {
-    const possibleJson = raw.substring(jsonStart);
-
     try {
-      const parsed = JSON.parse(possibleJson);
-
-      const result = parse3DSource(parsed);
-
-      if (result) {
-        return result;
-      }
+      const result = parse3DSource(JSON.parse(raw.substring(jsonStart)));
+      if (result) return result;
     } catch (error) {
-      console.error(
-        "ImageBox: failed to parse 3D source JSON:",
-        error,
-      );
+      console.error("ImageBox: failed to parse 3D source JSON:", error);
     }
   }
 
-  /**
-   * ==========================================
-   * DIRECT GLTF URL
-   * ==========================================
-   */
-
   const cleanUrl = raw.split("?")[0].toLowerCase();
-
-  if (cleanUrl.endsWith(".gltf")) {
-    return {
-      gltf: raw,
-    };
+  if (cleanUrl.endsWith(".gltf") || cleanUrl.endsWith(".glb")) {
+    return { gltf: raw };
   }
 
-  /**
-   * ==========================================
-   * DIRECT GLB URL
-   * ==========================================
-   */
-
-  if (cleanUrl.endsWith(".glb")) {
-    return {
-      gltf: raw,
-    };
-  }
-
-  console.error(
-    "ImageBox: could not parse 3D source:",
-    value,
-  );
-
+  console.error("ImageBox: could not parse 3D source:", value);
   return null;
 }
 
-/**
- * ==========================================
- * COMPONENT
- * ==========================================
- */
+export default function ImageBox({ tabsData, generalInfo, lang }: ImageBoxProps) {
+  const [mode, setMode] = useState<"png" | "fbx" | "gif">("png");
 
-export default function ImageBox({
-  item,
-  singleLevel,
-  lang,
-}: ImageBoxProps) {
-  const [mode, setMode] = useState<
-    "png" | "fbx" | "gif"
-  >("png");
+  const { tabs } = useParams<{ tabs: string }>();
+  const item = tabsData?.[tabs];
+  const general = generalInfo || {};
 
-  /**
-   * ==========================================
-   * GENERAL INFO
-   * ==========================================
-   *
-   * اطلاعات اصلی Level
-   *
-   * این قسمت fallback مشترک تمام تب‌هاست.
-   */
+  // PNG: اول تب فعلی، بعد general_info
+  const srcPng = getFileUrl(item?.png_file) || getFileUrl(general.png_file);
 
-  const generalInfo =
-    singleLevel?.data?.general_info || {};
-
-  /**
-   * ==========================================
-   * PNG
-   * ==========================================
-   *
-   * اول از تب فعلی
-   * اگر نبود از general_info
-   */
-
-  const srcPng =
-    getFileUrl(item?.png_file) ||
-    getFileUrl(generalInfo?.png_file);
-
-  /**
-   * ==========================================
-   * 3D
-   * ==========================================
-   *
-   * اول از تب فعلی
-   * سپس از general_info
-   */
-
-  const raw3D =
+  // 3D: اول تب فعلی، بعد general_info
+  const modelSource = parse3DSource(
     item?.fbx_file ||
     item?.gltf_file ||
-    generalInfo?.fbx_file ||
-    generalInfo?.gltf_file ||
-    null;
+    general.fbx_file ||
+    general.gltf_file ||
+    null
+  );
 
-  /**
-   * ==========================================
-   * PARSE 3D
-   * ==========================================
-   */
+  // GIF:
+  // - تب‌های مشترک: GIF یکسانِ general_info (همون URL = بدون پرش هنگام عوض شدن تب)
+  // - بقیه‌ی تب‌ها: فقط GIF خودشون، بدون fallback
+  const srcGif = SHARED_GIF_TABS.includes(tabs)
+    ? getFileUrl(general.gif_file) || getFileUrl(item?.gif_file)
+    : getFileUrl(item?.gif_file);
 
-  const modelSource = parse3DSource(raw3D);
+  // اگه تب جدید از حالت انتخاب‌شده پشتیبانی نمی‌کنه، موقتاً PNG نشون بده.
+  // (state تغییر نمی‌کنه، پس برگشت به تب دارای GIF دوباره روی GIF می‌مونه)
+  const activeMode =
+    (mode === "gif" && !srcGif) || (mode === "fbx" && !modelSource)
+      ? "png"
+      : mode;
 
-  /**
-   * ==========================================
-   * GIF
-   * ==========================================
-   *
-   * اول از تب فعلی
-   * اگر نبود از general_info
-   */
-
-  const srcGif =
-    getFileUrl(item?.gif_file) ||
-    getFileUrl(generalInfo?.gif_file);
-
-  /**
-   * ==========================================
-   * DEBUG
-   * ==========================================
-   *
-   * برای اینکه ببینیم هر تب دقیقاً چه چیزی
-   * در اختیار ImageBox قرار داده است.
-   */
-
-  // console.log("ImageBox sources:", {
-  //   item,
-  //   generalInfo,
-  //   srcPng,
-  //   raw3D,
-  //   modelSource,
-  //   srcGif,
-  // });
-
-  /**
-   * ==========================================
-   * VIEW
-   * ==========================================
-   */
+const buttonClass = (active: boolean, disabled = false) =>
+  `px-4 py-2 rounded-lg font-bold transition ${
+    disabled
+      ? "opacity-40 cursor-not-allowed bg-neutral-200 text-neutral-500 dark:bg-neutral-800 dark:text-neutral-500"
+      : active
+        ? "bg-primary text-white dark:text-black"
+        : "dark:bg-neutral-700 dark:text-neutral-200"
+  }`;
 
   return (
     <div className="w-full flex flex-col items-center sticky top-0">
-      {/* ======================================
-          PNG
-      ====================================== */}
-
-      {mode === "png" && srcPng && (
+      {activeMode === "png" && srcPng && (
         <div className="relative w-[90%] md:w-full aspect-[5/7] rounded-xl">
           <div className="absolute inset-0 rounded-xl" />
-
           <Image
             src={srcPng}
             alt="png"
             fill
             priority
             className="object-cover rounded-xl"
-            onError={() => {
-              console.error(
-                "ImageBox: failed to load PNG:",
-                srcPng,
-              );
-            }}
+            onError={() => console.error("ImageBox: failed to load PNG:", srcPng)}
           />
         </div>
       )}
 
-      {/* ======================================
-          GIF
-      ====================================== */}
-
-      {mode === "gif" && srcGif && (
+      {/* بدون key؛ تا src عوض نشه GIF دوباره شروع نمی‌شه */}
+      {activeMode === "gif" && srcGif && (
         <div className="relative w-full aspect-[5/7] rounded-xl">
           <div className="absolute inset-0 rounded-xl" />
-
           <Image
             src={srcGif}
             alt="gif"
             fill
             unoptimized
             className="object-cover rounded-xl"
-            onError={() => {
-              console.error(
-                "ImageBox: failed to load GIF:",
-                srcGif,
-              );
-            }}
+            onError={() => console.error("ImageBox: failed to load GIF:", srcGif)}
           />
         </div>
       )}
 
-      {/* ======================================
-          GLTF
-      ====================================== */}
-
-      {mode === "fbx" && modelSource && (
+      {activeMode === "fbx" && modelSource && (
         <div className="relative w-full aspect-[5/7]">
           <ErrorBoundary>
-            <Sample3D
-              src={modelSource}
-              lang={lang}
-            />
+            <Sample3D src={modelSource} lang={lang} />
           </ErrorBoundary>
         </div>
       )}
 
-      {/* ======================================
-          BUTTONS
-      ====================================== */}
-
       <div className="flex gap-4 mt-4">
-        {/* PNG */}
+        <button
+          type="button"
+          disabled={!srcPng}
+          onClick={() => setMode("png")}
+          className={buttonClass(activeMode === "png", !srcPng)}
+        >
+          PNG
+        </button>
 
-        {srcPng && (
-          <button
-            type="button"
-            onClick={() => setMode("png")}
-            className={`px-4 py-2 rounded-lg font-bold ${
-              mode === "png"
-                ? "bg-primary text-white dark:text-black"
-                : "dark:bg-neutral-700 dark:text-neutral-200"
-            }`}
-          >
-            PNG
-          </button>
-        )}
+        <button
+          type="button"
+          disabled={!modelSource}
+          onClick={() => setMode("fbx")}
+          className={buttonClass(activeMode === "fbx", !modelSource )}
+        >
+          GLTF
+        </button>
 
-        {/* GLTF */}
-
-        {modelSource && (
-          <button
-            type="button"
-            onClick={() => setMode("fbx")}
-            className={`px-4 py-2 rounded-lg font-bold ${
-              mode === "fbx"
-                ? "bg-primary text-white dark:text-black"
-                : "dark:bg-neutral-700 dark:text-neutral-200"
-            }`}
-          >
-            GLTF
-          </button>
-        )}
-
-        {/* GIF */}
-
-        {srcGif && (
-          <button
-            type="button"
-            onClick={() => setMode("gif")}
-            className={`px-4 py-2 rounded-lg font-bold ${
-              mode === "gif"
-                ? "bg-primary text-white dark:text-black"
-                : "dark:bg-neutral-700 dark:text-neutral-200"
-            }`}
-          >
-            GIF
-          </button>
-        )}
+        <button
+          type="button"
+          disabled={!srcGif}
+          onClick={() => setMode("gif")}
+          className={buttonClass(activeMode === "gif", !srcGif)}
+        >
+          GIF
+        </button>
       </div>
     </div>
   );

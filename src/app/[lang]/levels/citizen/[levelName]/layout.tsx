@@ -5,6 +5,7 @@ import TabSelector from "@/components/features/levels/TabSelector";
 import Footer from "@/components/shared/footer/DynamicFooter";
 import { Features } from "@/components/features/levels/Features";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
+import ImageBox from "@/components/features/levels/ImageBox";
 import { getLangArray } from "@/components/utils/actions";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { buildSidebarLabels } from "@/components/utils/buildShellTranslations";
@@ -12,10 +13,25 @@ import { buildLevelTabsMenu } from "@/components/utils/buildTabsMenu";
 import {
   getLangData,
   getLevelMeta,
+  getLevelData,
+  getTabData,
   getMainData,
   TAB_TITLE_MAP,
 } from "@/components/utils/levelData";
 import LevelHeader from "./LevelHeader";
+
+const TABS = Object.keys(TAB_TITLE_MAP);
+
+// فقط فیلدهای لازم برای ImageBox به کلاینت فرستاده می‌شه
+function pickMedia(data: any) {
+  if (!data) return null;
+  return {
+    png_file: data.png_file ?? null,
+    gif_file: data.gif_file ?? null,
+    fbx_file: data.fbx_file ?? null,
+    gltf_file: data.gltf_file ?? null,
+  };
+}
 
 export default async function LevelLayout({
   children,
@@ -29,11 +45,24 @@ export default async function LevelLayout({
   const levelMeta = getLevelMeta(levelName);
   if (!levelMeta) notFound();
 
-  const [langData, mainData, langArray] = await Promise.all([
-    getLangData(lang),
-    getMainData(lang),
-    getLangArray(),
-  ]);
+  const [langData, mainData, langArray, singleLevel, ...tabResults] =
+    await Promise.all([
+      getLangData(lang),
+      getMainData(lang),
+      getLangArray(),
+      getLevelData(levelMeta.id),
+      ...TABS.map((tab) =>
+        getTabData(lang, levelName, tab, levelMeta.id).catch(() => null)
+      ),
+    ]);
+
+  if (!singleLevel?.data) notFound();
+
+  const tabsData = Object.fromEntries(
+    TABS.map((tab, i) => [tab, pickMedia(tabResults[i]?.data)])
+  );
+
+  const generalInfo = pickMedia(singleLevel.data.general_info);
 
   const tabsMenu = buildLevelTabsMenu(mainData);
   const sidebarLabels = buildSidebarLabels(mainData);
@@ -100,7 +129,17 @@ export default async function LevelLayout({
                 <TabSelector params={layoutParams} mainData={mainData} />
               </div>
 
+              {/* محتوای تب (grid-third) */}
               {children}
+
+              {/* ImageBox اینجاست تا با عوض شدن تب remount نشه */}
+              <div className="grid-forth flex-1 relative !mt-[-2px] mb-10 lg:mb-0">
+                <ImageBox
+                  tabsData={tabsData}
+                  generalInfo={generalInfo}
+                  lang={lang}
+                />
+              </div>
             </div>
 
             <Features mainData={mainData} params={layoutParams} />

@@ -1,4 +1,4 @@
-import { Suspense, type ComponentType } from "react";
+import { type ComponentType } from "react";
 import { notFound } from "next/navigation";
 import ReactDOM from "react-dom";
 
@@ -7,7 +7,6 @@ import Gem from "@/components/ui/Gem";
 import Gift from "@/components/ui/Gift";
 import Permission from "@/components/features/levels/Permissions";
 import Prize from "@/components/features/levels/Prize";
-import ImageBox from "@/components/features/levels/ImageBox";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import {
   getLevelMeta,
@@ -45,13 +44,12 @@ async function loadPageData({ lang, levelName, tabs }: Params) {
 
 export default async function LevelTabPage({ params }: Props) {
   const resolvedParams = await params;
-  const { lang, tabs } = resolvedParams;
+  const { tabs } = resolvedParams;
 
   const { mainData, singleLevel, levelTabs } = await loadPageData(resolvedParams);
 
-  // جایگزین next/head (در App Router کار نمی‌کند)
   [singleLevel.data.general_info?.png_file, levelTabs.data?.png_file]
-    .filter(Boolean)
+    .filter((href): href is string => typeof href === "string" && !!href)
     .forEach((href) =>
       ReactDOM.preload(href, { as: "image", crossOrigin: "anonymous" })
     );
@@ -59,23 +57,16 @@ export default async function LevelTabPage({ params }: Props) {
   const TabComponent = TAB_COMPONENTS[tabs];
 
   return (
-    <>
-      <div className="grid-third w-full md:min-w-[65vw] xl:min-w-[65vw] px-1">
-        <div className="relative min-h-[400px]">
-          <TabComponent
-            mainData={mainData}
-            levelTabs={levelTabs}
-            singleLevel={singleLevel}
-            params={resolvedParams}
-          />
-        </div>
+    <div className="grid-third w-full md:min-w-[65vw] xl:min-w-[65vw] px-1">
+      <div className="relative min-h-[400px]">
+        <TabComponent
+          mainData={mainData}
+          levelTabs={levelTabs}
+          singleLevel={singleLevel}
+          params={resolvedParams}
+        />
       </div>
-
-      <div className="grid-forth flex-1 relative !mt-[-2px] mb-10 lg:mb-0">
-       
-          <ImageBox item={levelTabs.data} singleLevel={singleLevel} lang={lang} />
-      </div>
-    </>
+    </div>
   );
 }
 
