@@ -39,7 +39,7 @@
     "js-cookie": "^3.0.5",
     "keen-slider": "^6.8.6",
     "lottie-react": "^2.4.0",
-    "maplibre-gl": "^6.13.0",
+    "maplibre-gl": "^5.6.2",
     "moment-jalaali": "^0.10.4",
     "motion": "^12.43.0",
     "next": "^16.1.6",

@@ -130,7 +130,7 @@ export default function EventsCalendar({
             className="searchBoxContainer my-5 transition-[right,width] duration-300 ease-in-out flex items-center flex-row justify-between border-[1px] border-solid border-[#00000024] dark:bg-gray-1  w-full h-[50px] rounded-[12px] sm:m-0"
           >
             <span className="px-4 flex">
-              <Search className={`fill-gray-1  dark:fill-white font-azarMehr`} />
+              <Search className={`fill-matn-1 dark:fill-white font-azarMehr`} />
             </span>
             <input
               onKeyDown={(e) => {

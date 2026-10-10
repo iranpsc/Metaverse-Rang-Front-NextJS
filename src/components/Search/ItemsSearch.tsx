@@ -137,22 +137,22 @@ const [linkLoading, setLinkLoading] = useState(false);
                 </div>
               </div>
             )}
-              <p className="dark:text-white text-black font-medium truncate text-[16px]">
+              <p className="dark:text-white text-black font-medium truncate text-[16px] max-w-[50%] lg:max-w-[67%]">
                 {item.title}
               </p>
-              <div className="flex items-center gap-3 p-3">
+              <div className="flex items-center gap-3 lg:p-3">
                 <div className="flex flex-col items-end">
                   <p className="uppercase font-bold text-primary text-[14px]">
                     {item.creator.code}
                   </p>
                   <div className="flex items-center gap-1">
-                    <span className="text-[12px] text-matn-2-400">
+                    <span className="text-[12px] text-matn-2">
                       {item.likes_count}
                     </span>
                     <Like className="w-[15px] h-[15px] stroke-matn-2 " />
                   </div>
                 </div>
-               <div className="w-[50px] h-[50px]">
+               <div className="lg:w-[50px] lg:h-[50px] w-[35px] h-[35px]">
                  <Image
                   src={item.creator.image}
                   alt={item.creator.title}

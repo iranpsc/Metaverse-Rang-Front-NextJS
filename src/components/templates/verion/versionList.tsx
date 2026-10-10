@@ -333,7 +333,7 @@ const VersionBox: React.FC<VersionBoxProps> = ({
           data-lenis-prevent-wheel
           data-lenis-prevent-touch
           style={{ overscrollBehavior: "contain" }}
-          className="versionHistoryInfo flex flex-col items-center overflow-y-auto overflow-x-hidden overscroll-contain rounded-[20px] w-full max-h-[70vh] lg:h-[678px] lg:max-h-[678px]"
+          className="versionHistoryInfo flex flex-col items-center overflow-y-auto overflow-x-hidden overscroll-contain rounded-[20px] w-full max-h-[80vh] lg:h-[678px] lg:max-h-[678px]"
         >
           <div className="historyUpdated pt-4 flex flex-col w-[92%] gap-1">
             {searchLoading ? (
@@ -396,7 +396,7 @@ const VersionBox: React.FC<VersionBoxProps> = ({
 
                       <div
                         className={`accordion-content overflow-hidden transition-all duration-300 ease-in-out flex flex-col items-start gap-3 px-2.5 w-full text-sm ${
-                          isMobile && openIndex === index ? "max-h-[1000px]" : "max-h-0"
+                          isMobile && openIndex === index ? "max-h-[2500px]" : "max-h-0"
                         }`}
                       >
                         <p className="description dark:text-white">

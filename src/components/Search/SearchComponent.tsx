@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -13,159 +14,189 @@ export default function SearchComponent({
   fullWidth = false,
 }: any) {
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchData, setSearchData] = useState<any>([]);
-  const [loadingSearch, setLoadingSearch] = useState<boolean>(false);
+  const [searchData, setSearchData] = useState<any[]>([]);
+  const [loadingSearch, setLoadingSearch] = useState(false);
 
   const [cookies] = useCookies(["theme"]);
   const theme = cookies.theme || "dark";
 
-  // 🔥 دیتای مقالات Supabase
+  // دیتای مقالات Supabase؛ مطابق نسخه قبلی
   const [articlesData, setArticlesData] = useState<any[]>([]);
 
-  // === Load Articles from Supabase once ===
-useEffect(() => {
-  const search = async () => {
-    if (searchTerm.trim().length < 3) {
-      setSearchData([]);
+  // دریافت مقالات از Supabase فقط برای بخش مقالات
+  useEffect(() => {
+    let cancelled = false;
+
+    const fetchArticles = async () => {
+      try {
+        // کلاینت Supabase فقط در صورت نیاز بارگذاری می‌شود.
+        const { supabase } = await import("@/utils/lib/supabaseClient");
+
+        const { data, error } = await supabase
+          .from("articles")
+          .select("*")
+          .order("date", { ascending: false });
+
+        if (cancelled) return;
+
+        if (error) {
+          console.error("Error fetching articles:", error);
+          setArticlesData([]);
+          return;
+        }
+
+        setArticlesData(Array.isArray(data) ? data : []);
+      } catch (error) {
+        if (!cancelled) {
+          console.error("Error loading articles from Supabase:", error);
+          setArticlesData([]);
+        }
+      }
+    };
+
+    if (searchLevel === "articles") {
+      fetchArticles();
+    } else {
+      setArticlesData([]);
+    }
+
+    return () => {
+      cancelled = true;
+    };
+  }, [searchLevel]);
+
+  // جستجوی مقالات، شهروندان و آموزش‌ها
+  useEffect(() => {
+    const term = searchTerm.trim();
+
+    if (term.length < 3) {
+      setSearchData((previous) =>
+        previous.length > 0 ? [] : previous
+      );
       setLoadingSearch(false);
       return;
     }
 
-    setLoadingSearch(true);
+    let cancelled = false;
 
-    try {
-      // =========================
-      // Articles — مثل قبل
-      // =========================
-      if (searchLevel === "articles") {
-        const filtered = articlesData.filter((a) =>
-          a.title?.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-
-        setSearchData(filtered);
-        setLoadingSearch(false);
-        return;
-      }
-
-      // =========================
-      // Citizen — مثل قبل
-      // =========================
-      if (searchLevel === "citizen") {
-        const formData = new FormData();
-        formData.append("searchTerm", searchTerm);
-
-        const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/search/users`;
-
-        const response = await axios.post(url, formData);
-
-        setSearchData(response.data.data || []);
-        setLoadingSearch(false);
-        return;
-      }
-
-      // =========================
-      // Education — نسخه‌ای که الان درست شد
-      // =========================
-      if (searchLevel === "education") {
-        const url =
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/tutorials/search`;
-
-        const response = await axios.post(
-          url,
-          {
-            searchTerm: searchTerm.trim(),
-          },
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-
-        console.log("Education search response:", response.data);
-
-        setSearchData(
-          Array.isArray(response.data?.data)
-            ? response.data.data
-            : []
-        );
-
-        setLoadingSearch(false);
-        return;
-      }
-
-      setSearchData([]);
-    } catch (error: any) {
-      console.error("Search error:", error);
-      console.error("Search response:", error?.response?.data);
-
-      setSearchData([]);
-    } finally {
-      setLoadingSearch(false);
-    }
-  };
-
-  const timer = setTimeout(search, 300);
-
-  return () => clearTimeout(timer);
-}, [searchTerm, searchLevel, articlesData]);
-  useEffect(() => {
-    if (searchTerm.length >= 3) {
+    const timer = setTimeout(async () => {
       setLoadingSearch(true);
 
-      // 🔥 سرچ مقالات از Supabase
-      if (searchLevel === "articles") {
-        const filtered = articlesData.filter((a) =>
-          a.title?.toLowerCase().includes(searchTerm.toLowerCase())
-        );
+      try {
+        // =====================================
+        // Articles: جستجو در داده‌های Supabase
+        // =====================================
+        if (searchLevel === "articles") {
+          const normalizedTerm = term.toLocaleLowerCase();
 
-        setSearchData(filtered);
-        setLoadingSearch(false);
-        return;
+          const filtered = articlesData.filter((article) =>
+            String(article?.title ?? "")
+              .toLocaleLowerCase()
+              .includes(normalizedTerm)
+          );
+
+          if (!cancelled) {
+            setSearchData(filtered);
+          }
+
+          return;
+        }
+
+        // =====================================
+        // Citizen: جستجوی شهروندان
+        // =====================================
+        if (searchLevel === "citizen") {
+          const formData = new FormData();
+          formData.append("searchTerm", term);
+
+          const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/search/users`;
+
+          const response = await axios.post(url, formData, {
+            timeout: 15000,
+          });
+
+          if (!cancelled) {
+            setSearchData(
+              Array.isArray(response.data?.data)
+                ? response.data.data
+                : []
+            );
+          }
+
+          return;
+        }
+
+        // =====================================
+        // Education: جستجوی آموزش‌ها با JSON
+        // =====================================
+        if (searchLevel === "education") {
+          const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/tutorials/search`;
+
+          const response = await axios.post(
+            url,
+            {
+              searchTerm: term,
+            },
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+              timeout: 15000,
+            }
+          );
+
+          if (!cancelled) {
+            setSearchData(
+              Array.isArray(response.data?.data)
+                ? response.data.data
+                : []
+            );
+          }
+
+          return;
+        }
+
+        if (!cancelled) {
+          setSearchData([]);
+        }
+      } catch (error: any) {
+        if (!cancelled) {
+          console.error("Search error:", error);
+          console.error("Search response:", error?.response?.data);
+          setSearchData([]);
+        }
+      } finally {
+        if (!cancelled) {
+          setLoadingSearch(false);
+        }
       }
+    }, 300);
 
-      // 🔥 اگر مقالات نبود → سرچ API های دیگر
-      const formData = new FormData();
-      formData.append("searchTerm", searchTerm);
-
-      let selectedURL = "";
-      if (searchLevel === "citizen") {
-        selectedURL = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/search/users`;
-      } else if (searchLevel === "education") {
-        selectedURL = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/tutorials/search`;
-      }
-
-      axios
-        .post(selectedURL, formData)
-        .then((response) => {
-          setSearchData(response.data.data || []);
-        })
-        .catch(() => setSearchData([]))
-        .finally(() => setLoadingSearch(false));
-    } else {
-      setSearchData([]);
-      setLoadingSearch(false);
-    }
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
   }, [searchTerm, searchLevel, articlesData]);
 
   const removeSearch = () => {
     setSearchData([]);
     setSearchTerm("");
+    setLoadingSearch(false);
   };
 
-  const shouldShowBox = searchTerm.length >= 3;
+  const shouldShowBox = searchTerm.trim().length >= 3;
 
   return (
     <>
-      {/* 🔹 بک‌گراند محو */}
+      {/* بک‌گراند محو */}
       {shouldShowBox && (
         <div
           className="w-full h-screen backdrop-blur-sm bg-black/30 absolute right-0 top-0 z-20"
           onClick={removeSearch}
-        ></div>
+        />
       )}
 
-      {/* 🔹 کادر سرچ */}
+      {/* کادر جستجو */}
       <div
         className={`${
           fullWidth ? "w-full" : "w-[100%] md:w-[70%] lg:w-[45%]"
@@ -184,9 +215,9 @@ useEffect(() => {
           params={params}
         />
 
-        {/* 🔹 نتایج سرچ */}
+        {/* نتایج جستجو */}
         <div className="w-full mt-2 bg-white dark:bg-dark-background transition-all duration-300 rounded-xl max-h-[500px] z-[999] pe-[13px] ps-[32px] overflow-y-auto absolute top-[100%] flex flex-col justify-start items-center gap-1 light-scrollbar dark:dark-scrollbar">
-          {searchTerm.length >= 3 && (
+          {shouldShowBox && (
             <ItemsSearch
               searchLevel={searchLevel}
               searchData={searchData}

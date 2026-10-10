@@ -20,13 +20,12 @@ interface BuildingImage {
 
 interface BuildingListItem {
   /**
-   * Internal unique key used by React.
+   * Internal identifier (building_id + karbari).
    *
    * IMPORTANT:
-   * This is NOT necessarily the backend building_id.
-   * The real uniqueness rule for a card is:
-   *
-   *     building_id + karbari
+   * This is NOT guaranteed to be unique anymore, because duplicate
+   * records returned by the API are now displayed as separate cards.
+   * Do NOT use it alone as a React key (the list adds the index).
    */
   id: string;
 
@@ -45,25 +44,8 @@ interface BuildingListItem {
 /* ------------------------------------------------------------------ */
 
 /**
- * Creates the unique identity of a building card.
- *
- * According to the required UI behavior:
- *
- *   same building_id + same karbari = same card
- *
- * Therefore:
- *
- *   10280 + commercial
- *   10280 + commercial
- *
- * must result in ONE card.
- *
- * But:
- *
- *   10280 + commercial
- *   10280 + residential
- *
- * are two different cards.
+ * Builds the identifier of a record (building_id + karbari).
+ * Used only as a base for the React key — no deduplication is done.
  */
 function getBuildingUniqueKey(raw: any): string {
   const buildingId = raw?.building_id;
@@ -78,9 +60,6 @@ function getBuildingUniqueKey(raw: any): string {
 
   /**
    * Fallback for malformed records without building_id.
-   *
-   * We don't want all records with a missing building_id
-   * to collapse into one card.
    */
   return [
     "missing-building-id",
@@ -102,11 +81,6 @@ function normalizeBuilding(
     : [];
 
   return {
-    /**
-     * The key is based on the actual uniqueness rule.
-     * This prevents React from treating the same building
-     * as different cards.
-     */
     id: uniqueKey,
 
     code:
@@ -654,6 +628,8 @@ export default function BuildingsList({
         }
       );
 
+      // console.log("RAW API RESPONSE (page " + pageNum + "):", res.data);
+
       const rawItems: any[] = Array.isArray(
         res.data?.data
       )
@@ -661,40 +637,15 @@ export default function BuildingsList({
         : [];
 
       /* ------------------------------------------------------------ */
-      /*                     DEDUPLICATION                             */
+      /*        NORMALIZATION (NO DEDUPLICATION — show all records)    */
       /* ------------------------------------------------------------ */
 
-      /**
-       * IMPORTANT:
-       *
-       * One building can be returned multiple times by the API.
-       *
-       * Example from the screenshot:
-       *
-       *   building_id = 10280
-       *   karbari     = commercial
-       *
-       * appears twice.
-       *
-       * We consider these records the SAME card.
-       */
-
-      const uniqueRawItems = Array.from(
-        new Map(
-          rawItems.map((raw) => [
-            getBuildingUniqueKey(raw),
-            raw,
-          ])
-        ).values()
+      const normalizedCurrentPage = rawItems.map((raw) =>
+        normalizeBuilding(
+          raw,
+          getBuildingUniqueKey(raw)
+        )
       );
-
-      const normalizedCurrentPage =
-        uniqueRawItems.map((raw) =>
-          normalizeBuilding(
-            raw,
-            getBuildingUniqueKey(raw)
-          )
-        );
 
       /* ------------------------------------------------------------ */
       /*                 MERGE WITH PREVIOUS PAGES                     */
@@ -709,23 +660,9 @@ export default function BuildingsList({
         }
 
         /**
-         * For "load more", merge old + new and deduplicate again.
-         *
-         * This is important because the same building might
-         * accidentally appear on another API page as well.
+         * "Load more" simply appends the new page.
          */
-        const merged = [...prev, ...normalizedCurrentPage];
-
-        const uniqueMerged = Array.from(
-          new Map(
-            merged.map((item) => [
-              item.id,
-              item,
-            ])
-          ).values()
-        );
-
-        return uniqueMerged;
+        return [...prev, ...normalizedCurrentPage];
       });
 
       setPage(pageNum);
@@ -733,10 +670,6 @@ export default function BuildingsList({
       const lastPage =
         res.data?.meta?.last_page ?? pageNum;
 
-      /**
-       * Pagination itself still follows the API.
-       * Deduplication only affects displayed cards.
-       */
       setHasMore(
         pageNum < lastPage &&
           rawItems.length > 0
@@ -817,9 +750,9 @@ export default function BuildingsList({
               )
             )
           ) : (
-            items.map((item) => (
+            items.map((item, index) => (
               <BuildingCard
-                key={item.id}
+                key={`${item.id}-${index}`}
                 item={item}
                 isFa={isFa}
                 mainData={mainData}

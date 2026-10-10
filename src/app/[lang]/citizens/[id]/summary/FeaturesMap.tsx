@@ -85,6 +85,7 @@ interface RawMapMarker {
 interface FeatureDetail {
   id: number;
   code: string;
+  vod_id: string;
   address: string;
   area: number | null;
   floors: number | null;
@@ -108,10 +109,14 @@ function normalizeFeature(raw: any): FeatureDetail {
   //   sale_price: raw?.sale_price,
   //   rent_price: raw?.rent_price,
   // });
-
+  // console.log("========== FEATURE RAW API ==========");
+  // console.log("FULL RAW:", raw);
+  // console.log("FULL RAW (JSON):", JSON.stringify(raw, null, 2));
+  // console.log("ALL KEYS:", Object.keys(raw ?? {}));
   const normalized: FeatureDetail = {
-    id: raw?.id,
 
+    id: raw?.id,
+    vod_id: raw?.vod_id ?? "",
     code:
       raw?.code ??
       raw?.feature_code ??
@@ -165,7 +170,8 @@ function normalizeFeature(raw: any): FeatureDetail {
   //   sale_price: normalized.sale_price,
   //   rent_price: normalized.rent_price,
   // });
-
+  // console.log("========== FEATURE NORMALIZED ==========");
+  // console.log(normalized);
   return normalized;
 }
 
@@ -246,9 +252,8 @@ const FeatureCard = memo(function FeatureCard({
   return (
     <div
       onClick={() => onFocus(item)}
-      className={`bg-white dark:bg-[#1a1a1e] rounded-xl p-4 flex flex-col gap-5 cursor-pointer transition-colors ${
-        isFocused ? "ring-2 ring-primary" : ""
-      }`}
+      className={`bg-white dark:bg-[#1a1a1e] rounded-xl p-4 flex flex-col gap-5 cursor-pointer transition-colors ${isFocused ? "ring-2 ring-primary" : ""
+        }`}
     >
       <div className="flex items-center gap-2">
         <div
@@ -258,7 +263,7 @@ const FeatureCard = memo(function FeatureCard({
           <BuildingGlyph color={color} />
         </div>
         <span className="text-black dark:text-white text-sm font-bold">
-          {isFa ? "شناسه" : "ID"} {item.code}
+         {isFa ? "شناسه" : "ID"} {item.vod_id || item.code}
         </span>
       </div>
 
@@ -297,55 +302,55 @@ const FeatureCard = memo(function FeatureCard({
         </div>
       </div>
 
-<div className="flex gap-2 mt-1">
-  <button
-    disabled={!hasCoords}
-    onClick={(e) => {
-      e.stopPropagation();
+      <div className="flex gap-2 mt-1">
+        <button
+          disabled={!hasCoords}
+          onClick={(e) => {
+            e.stopPropagation();
 
-      if (hasCoords) {
-        window.open(
-          buildFeatureLink(item.id, item.latitude!, item.longitude!),
-          "_blank"
-        );
-      }
-    }}
-    className="flex-1 flex items-center justify-center gap-1 bg-primary text-white dark:text-black text-[14px] font-bold rounded-full h-9 disabled:opacity-40 disabled:cursor-not-allowed"
-  >
-    <PinIcon />
-    {isFa ? "لوکیشن" : "Location"}
-  </button>
+            if (hasCoords) {
+              window.open(
+                buildFeatureLink(item.id, item.latitude!, item.longitude!),
+                "_blank"
+              );
+            }
+          }}
+          className="flex-1 flex items-center justify-center gap-1 bg-primary text-white dark:text-black text-[14px] font-bold rounded-full h-9 disabled:opacity-40 disabled:cursor-not-allowed"
+        >
+          <PinIcon />
+          {isFa ? "لوکیشن" : "Location"}
+        </button>
 
-  <button
-    onClick={(e) => {
-      e.stopPropagation();
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
 
-      window.open(
-        `https://world.metarang.com/feature/${item.id}/buy/price`,
-        "_blank"
-      );
-    }}
-    className="flex-1 flex items-center justify-center gap-1 bg-primary text-white dark:text-black text-[14px] font-bold rounded-full h-9"
-  >
-    <CartIcon />
-    {isFa ? "خرید" : "Buy"}
-  </button>
+            window.open(
+              `https://world.metarang.com/feature/${item.id}/buy/price`,
+              "_blank"
+            );
+          }}
+          className="flex-1 flex items-center justify-center gap-1 bg-primary text-white dark:text-black text-[14px] font-bold rounded-full h-9"
+        >
+          <CartIcon />
+          {isFa ? "خرید" : "Buy"}
+        </button>
 
-  <button
-    onClick={(e) => {
-      e.stopPropagation();
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
 
-      window.open(
-        `https://world.metarang.com/feature/${item.id}/buy/suggest`,
-        "_blank"
-      );
-    }}
-    className="flex-1 flex items-center justify-center gap-1 bg-primary text-white dark:text-black text-[14px] font-bold rounded-full h-9"
-  >
-    <OfferIcon />
-    {isFa ? "پیشنهاد" : "Offer"}
-  </button>
-</div>
+            window.open(
+              `https://world.metarang.com/feature/${item.id}/buy/suggest`,
+              "_blank"
+            );
+          }}
+          className="flex-1 flex items-center justify-center gap-1 bg-primary text-white dark:text-black text-[14px] font-bold rounded-full h-9"
+        >
+          <OfferIcon />
+          {isFa ? "پیشنهاد" : "Offer"}
+        </button>
+      </div>
     </div>
   );
 });
@@ -1014,8 +1019,8 @@ export default function FeaturesMap({
                           ? "در حال بارگذاری..."
                           : "Loading..."
                         : isFa
-                        ? "مشاهده بیشتر"
-                        : "View more"}
+                          ? "مشاهده بیشتر"
+                          : "View more"}
                     </button>
                   )}
                 </div>

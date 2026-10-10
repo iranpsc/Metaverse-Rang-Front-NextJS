@@ -236,7 +236,7 @@ export default function EventCalendarClient({
             "
           >
             <span className="px-4 flex">
-              <Search className="fill-gray-1 dark:fill-white" />
+              <Search className="fill-matn-1 dark:fill-white" />
             </span>
 
             <input
