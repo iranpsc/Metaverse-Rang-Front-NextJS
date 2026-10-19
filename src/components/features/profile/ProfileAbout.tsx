@@ -11,17 +11,30 @@ import { findByUniqueId } from "@/components/utils/findByUniqueId";
 // مرورگره؛ چون این کامپوننت روی سرور هم SSR می‌شه، هر بار صدا زده
 // می‌شد سرور با "document is not defined" کرش می‌کرد. این نسخه به
 // DOM نیازی نداره، پس هم روی سرور هم روی کلاینت یکسان کار می‌کنه.
+
 const stripHtml = (html: string): string => {
   if (!html) return "";
-  return html
-    .replace(/<[^>]*>/g, "")
-    .replace(/&nbsp;/g, " ")
-    .replace(/&amp;/g, "&")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
+
+  let result = html;
+
+  // حذف الگوهای HTML تا زمانی که دیگر تغییری ایجاد نشود.
+  let previous: string;
+
+  do {
+    previous = result;
+    result = result.replace(/<[^>]*>/g, "");
+  } while (result !== previous);
+
+  // حذف باقی‌مانده تگ‌های ناقص
+  result = result.replace(/[<>]/g, "");
+
+  return result
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">")
     .trim();
 };
-
 export default function ProfileAbout({
   titleData,
   mainData,

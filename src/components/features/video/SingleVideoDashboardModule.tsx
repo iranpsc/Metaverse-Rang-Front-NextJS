@@ -161,21 +161,21 @@ const SingleVideoDashboardModule = ({
     }
 
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/tutorials/${DataVideo.id}/interactions?liked=${isLike ? 1 : 0
-        }`,
-        {
-          data: " ",
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        }
-      );
+      // const response = await axios.post(
+      //   `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/tutorials/${DataVideo.id}/interactions?liked=${isLike ? 1 : 0
+      //   }`,
+      //   {
+      //     data: " ",
+      //   },
+      //   {
+      //     headers: {
+      //       Authorization: `Bearer ${token}`,
+      //       Accept: "application/json",
+      //       "Content-Type": "application/json",
+      //     },
+      //     withCredentials: true,
+      //   }
+      // );
 
       // console.log(
       //   "Interaction response:",

@@ -5,7 +5,7 @@ import GeneralInfoSkeleton from "@/components/skeleton/GeneralInfoSkeleton";
 import PermissionsSkeleton from "@/components/skeleton/PermissionsSkeleton";
 import PrizeSkeleton from "@/components/skeleton/PrizeSkeleton";
 import { GemSkeleton, GiftSkeleton } from "@/components/skeleton/GemGiftSkeleton";
-import ImageBoxSkeleton from "@/components/skeleton/ImageBoxSkeleton";
+// import ImageBoxSkeleton from "@/components/skeleton/ImageBoxSkeleton";
 
 const TAB_SKELETON_MAP: Record<string, React.ComponentType> = {
   "general-info": GeneralInfoSkeleton,

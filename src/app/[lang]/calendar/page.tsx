@@ -1,6 +1,5 @@
 // app/[lang]/calendar/page.tsx
 import { Metadata } from "next";
-import { cookies } from "next/headers";
 import {
   getTranslation,
   getMainFile,

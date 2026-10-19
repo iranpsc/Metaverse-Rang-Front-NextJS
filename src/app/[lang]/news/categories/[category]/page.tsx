@@ -1,7 +1,7 @@
 import Link from "next/link";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import CategoryHeader from "../../../../../components/ui/header/ArticleCategoryHeader";
-import CategoryItemsGrid from "../../../../../components/features/CategoryItemsGrid";
+// import CategoryItemsGrid from "../../../../../components/features/CategoryItemsGrid";
 import SearchComponent from "@/components/Search/SearchComponent";
 import { getTranslation, getMainFile } from "@/components/utils/actions";
 import { supabase } from "@/utils/lib/supabaseClient";
