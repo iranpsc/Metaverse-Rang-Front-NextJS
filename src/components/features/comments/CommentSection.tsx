@@ -65,7 +65,7 @@ const CommentSection = ({
         {/* VIEW ALL BTN */}
         {comments.length > 5 && (
           <button
-            className="text-center rounded-full mb-10 flex items-center justify-center mt-10 py-5 px-10 shadow-sm hover:shadow-md dark:bg-gray-1  text-primary  font-azarMehr font-semibold hover:opacity-90"
+            className="text-center rounded-full mb-10 flex items-center justify-center mt-10 py-5 px-10 shadow-xs hover:shadow-md dark:bg-gray-1  text-primary  font-azarMehr font-semibold hover:opacity-90"
             onClick={loadMore}
           >
             {!loading

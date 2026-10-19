@@ -92,7 +92,7 @@ export default async function LevelLayout({
   return (
     <div className="flex w-full h-screen overflow-hidden bg-bg-primary">
       <main
-        className="flex !w-full h-screen light-scrollbar dark:dark-scrollbar"
+        className="flex w-full! h-screen light-scrollbar dark:dark-scrollbar"
         dir={langData.direction}
       >
         <SideBar
@@ -133,7 +133,7 @@ export default async function LevelLayout({
               {children}
 
               {/* ImageBox اینجاست تا با عوض شدن تب remount نشه */}
-              <div className="grid-forth flex-1 relative !mt-[-2px] mb-10 lg:mb-0">
+              <div className="grid-forth flex-1 relative mt-[-2px]! mb-10 lg:mb-0">
                 <ImageBox
                   tabsData={tabsData}
                   generalInfo={generalInfo}

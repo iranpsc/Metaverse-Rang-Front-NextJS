@@ -46,13 +46,13 @@ function FeatureCardSkeleton() {
     <div className="bg-white dark:bg-[#1a1a1e] rounded-xl p-4 flex flex-col gap-3 animate-pulse">
       <div className="flex items-center gap-2">
         <div className="w-8 h-8 rounded-lg bg-black/10 dark:bg-white/10 shrink-0" />
-        <div className="h-3 w-24 rounded bg-black/10 dark:bg-white/10" />
+        <div className="h-3 w-24 rounded-sm bg-black/10 dark:bg-white/10" />
       </div>
       <div className="flex flex-col gap-2">
         {Array.from({ length: 6 }).map((_, i) => (
           <div key={i} className="flex justify-between">
-            <div className="h-2.5 w-20 rounded bg-black/10 dark:bg-white/10" />
-            <div className="h-2.5 w-16 rounded bg-black/10 dark:bg-white/10" />
+            <div className="h-2.5 w-20 rounded-sm bg-black/10 dark:bg-white/10" />
+            <div className="h-2.5 w-16 rounded-sm bg-black/10 dark:bg-white/10" />
           </div>
         ))}
       </div>
@@ -390,7 +390,7 @@ const SearchBar = memo(function SearchBar({
         onChange={(e) => onChange(e.target.value)}
         onFocus={onFocus}
         placeholder={isFa ? "شناسه ملک یا آدرس را جستجو کنید" : "Search by property ID or address"}
-        className="bg-transparent border-none outline-none text-sm flex-1 text-black dark:text-white py-4"
+        className="bg-transparent border-none outline-hidden text-sm flex-1 text-black dark:text-white py-4"
       />
     </div>
   );
@@ -920,7 +920,7 @@ export default function FeaturesMap({
             <>
               <div
                 onClick={handleClosePanel}
-                className="lg:hidden fixed inset-0 z-30 bg-black/50 backdrop-blur-sm"
+                className="lg:hidden fixed inset-0 z-30 bg-black/50 backdrop-blur-xs"
               />
               <div
                 className="fixed inset-x-4 inset-y-20 z-40 overflow-y-auto overscroll-contain

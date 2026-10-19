@@ -86,7 +86,7 @@ export default function ProfileHeaderMobile({
   const t = translations[lang] || translations.fa;
 
   return (
-    <div className="xs:fixed px-5 sm:fixed top-0 dark:bg-dark-background shadow-md xl:hidden lg:hidden md:flex sm:flex xs:flex z-[51] w-full sm:h-[60px] xs:h-[60px] bg-white flex-rows justify-between items-center">
+    <div className="xs:fixed px-5 sm:fixed top-0 dark:bg-dark-background shadow-md xl:hidden lg:hidden md:flex sm:flex xs:flex z-51 w-full sm:h-[60px] xs:h-[60px] bg-white flex-rows justify-between items-center">
       <div className="flex items-center gap-5">
         <div className="mt-2">
           {!isClosed ? (
@@ -121,7 +121,7 @@ export default function ProfileHeaderMobile({
             </div>
 
             {isLangOpen && (
-              <div className="absolute flex flex-col top-full mt-2 w-36 bg-gray-3 rounded-lg shadow-xl border matn-2-200 dark:border-dark-border p-3 z-[101]">
+              <div className="absolute flex flex-col top-full mt-2 w-36 bg-gray-3 rounded-lg shadow-xl border matn-2-200 dark:border-dark-border p-3 z-101">
                 {langArray.map((langItem) => (
                   <DropdownLanguageModule
                     key={langItem.code}

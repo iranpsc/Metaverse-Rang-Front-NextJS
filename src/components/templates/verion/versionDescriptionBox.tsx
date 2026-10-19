@@ -111,23 +111,23 @@ const DescriptionBox: React.FC<DescriptionBoxProps> = ({
     lg:transition-[width,margin-left] lg:duration-300 lg:ease-in-out lg:w-full lg:dark:bg-gray-1  lg:pt-[15px] lg:rounded-[20px]"
     >
       <div className="lineBox flex justify-between items-center w-full min-h-[48px] lg:px-[15px]">
-        <span className="versionP m-0 font-[600] z-[1] text-primary  text-[100%] lg:font-rokh lg:font-[600] lg:text-[200%]">
+        <span className="versionP m-0 font-semibold z-1 text-primary  text-[100%] lg:font-rokh lg:font-semibold lg:text-[200%]">
           {VersionText}
         </span>
-        <hr className="flex-grow border-2 border-dashed h-[2px] border-b-0 my-[2px] mx-1" />
-        <p className="displayVersionDes text-[170%] font-[700] z-[2] text-primary ">
+        <hr className="grow border-2 border-dashed h-[2px] border-b-0 my-[2px] mx-1" />
+        <p className="displayVersionDes text-[170%] font-bold z-2 text-primary ">
           {switchDigits(selectedVersion.version, params.lang)}
         </p>
       </div>
 
       <div className="lineBox flex justify-between items-center w-full truncate min-h-[48px] lg:px-[15px]">
-        <p className="toseVbehbod font-rokh dark:text-[#FCF9FE] z-[1] whitespace-nowrap  text-[140%] ">
+        <p className="toseVbehbod font-rokh dark:text-[#FCF9FE] z-1 whitespace-nowrap  text-[140%] ">
           {trimmedTitle}
         </p>
 
-        <hr className="flex-grow border-2 border-dashed h-[2px] border-b-0 my-[2px] mx-1" />
+        <hr className="grow border-2 border-dashed h-[2px] border-b-0 my-[2px] mx-1" />
 
-        <p className="toseVbehbodDate text-[#868B90] z-[1] whitespace-nowrap text-[120%] ">
+        <p className="toseVbehbodDate text-[#868B90] z-1 whitespace-nowrap text-[120%] ">
           {formatDate(selectedVersion.date, params.lang)}
         </p>
       </div>

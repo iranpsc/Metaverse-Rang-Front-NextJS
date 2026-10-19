@@ -15,7 +15,7 @@ function EducationCategoriesSkeletonBase() {
             key={i}
             className="col-span-1 2xl:w-full xl:w-full lg:w-full md:w-full sm:w-[200px] xs:w-full h-[80px] bg-white dark:bg-gray-1 rounded-[20px] flex flex-row items-center gap-5 xs:gap-2 px-3"
           >
-            <Skeleton variant="rect" className="w-[32px] h-[32px] xs:w-[28px] xs:h-[28px] rounded-md flex-shrink-0" />
+            <Skeleton variant="rect" className="w-[32px] h-[32px] xs:w-[28px] xs:h-[28px] rounded-md shrink-0" />
             <Skeleton className="h-4 w-2/3 rounded-md" />
           </div>
         ))}

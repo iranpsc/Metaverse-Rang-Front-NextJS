@@ -214,7 +214,7 @@ const LatestArticlesSlider: React.FC<LatestArticlesSliderProps> = ({
 
               <div className="flex justify-center gap-2">
                 {sortedArticles.map((_, idx) => (
-                  <button key={idx} onClick={() => swiperRef.current?.slideToLoop(idx)} className={`w-5 h-1 rounded-sm transition ${activeIndex === idx ? "bg-primary " : "bg-dark-gray dark:bg-dark-placeholder"}`} aria-label={`Go to slide ${idx + 1}`} />
+                  <button key={idx} onClick={() => swiperRef.current?.slideToLoop(idx)} className={`w-5 h-1 rounded-xs transition ${activeIndex === idx ? "bg-primary " : "bg-dark-gray dark:bg-dark-placeholder"}`} aria-label={`Go to slide ${idx + 1}`} />
                 ))}
               </div>
 

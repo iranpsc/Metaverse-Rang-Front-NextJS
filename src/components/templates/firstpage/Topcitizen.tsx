@@ -42,7 +42,7 @@ export default async function TopCitizen({
           buttonText={findByUniqueId(mainData, 600)}
         />
 
-        <Link href={`/${params.lang}/citizens`} className="flex-shrink-0">
+        <Link href={`/${params.lang}/citizens`} className="shrink-0">
           <div
             className="
               flex min-h-[435px] min-w-[290px] flex-col items-center justify-center

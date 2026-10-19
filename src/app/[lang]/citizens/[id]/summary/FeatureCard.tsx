@@ -33,11 +33,11 @@ function FeatureCardImpl({ item, isFa, mainData }: FeatureCardProps) {
   const label = getKarbariLabel(mainData, iconKey);
 
   const faceBase =
-    "absolute inset-0 [backface-visibility:hidden] bg-white dark:bg-gray-1 rounded-2xl p-5 flex flex-col";
+    "absolute inset-0 backface-hidden bg-white dark:bg-gray-1 rounded-2xl p-5 flex flex-col";
 
   return (
-    <div className={`w-full ${CARD_HEIGHT} group [perspective:1200px]`}>
-      <div className="relative w-full h-full transition-transform duration-500 ease-out [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+    <div className={`w-full ${CARD_HEIGHT} group perspective-distant`}>
+      <div className="relative w-full h-full transition-transform duration-500 ease-out transform-3d group-hover:rotate-y-180">
         {/* ---- front ---- */}
         <div className={`${faceBase} gap-4`}>
           <div className="flex items-center gap-3">
@@ -64,7 +64,7 @@ function FeatureCardImpl({ item, isFa, mainData }: FeatureCardProps) {
               </span>
               <span className="text-matn-2 text-[12px] lg:text-sm">{findByUniqueId(mainData, 1584)}</span>
             </div>
-            <div className="h-full w-[1px] bg-[#EFEFEF] dark:bg-[#2A2B32]" />
+            <div className="h-full w-px bg-[#EFEFEF] dark:bg-[#2A2B32]" />
             <div className="flex flex-col gap-1 items-center justify-center text-center mx-auto">
               <span className="flex items-center justify-center text-center gap-1 text-[12px] lg:text-sm font-bold text-[#F03A47] text-base">
                 <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -107,19 +107,19 @@ export function FeatureCardSkeleton() {
       <div className="flex items-center gap-3">
         <div className="w-11 h-11 rounded-xl bg-black/5 dark:bg-white/10 shrink-0" />
         <div className="flex-1 flex flex-col gap-2">
-          <div className="h-3 w-2/3 rounded bg-black/5 dark:bg-white/10" />
-          <div className="h-2.5 w-3/4 rounded bg-black/5 dark:bg-white/10" />
+          <div className="h-3 w-2/3 rounded-sm bg-black/5 dark:bg-white/10" />
+          <div className="h-2.5 w-3/4 rounded-sm bg-black/5 dark:bg-white/10" />
         </div>
       </div>
       <div className="flex-1" />
       <div className="flex justify-between pt-3 border-t border-black/5 dark:border-white/10">
         <div className="flex flex-col gap-2">
-          <div className="h-4 w-10 rounded bg-black/5 dark:bg-white/10" />
-          <div className="h-2.5 w-14 rounded bg-black/5 dark:bg-white/10" />
+          <div className="h-4 w-10 rounded-sm bg-black/5 dark:bg-white/10" />
+          <div className="h-2.5 w-14 rounded-sm bg-black/5 dark:bg-white/10" />
         </div>
         <div className="flex flex-col gap-2 items-end">
-          <div className="h-4 w-10 rounded bg-black/5 dark:bg-white/10" />
-          <div className="h-2.5 w-14 rounded bg-black/5 dark:bg-white/10" />
+          <div className="h-4 w-10 rounded-sm bg-black/5 dark:bg-white/10" />
+          <div className="h-2.5 w-14 rounded-sm bg-black/5 dark:bg-white/10" />
         </div>
       </div>
     </div>

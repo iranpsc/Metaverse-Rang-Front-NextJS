@@ -41,7 +41,7 @@ export default function ListVideos({ videos, params, subCategoryData, loadMore, 
             <Link aria-label="video card" href={`/${params.lang}/education/category/${subCategoryData.category.slug}/${subCategoryData.slug}/${item.slug}`}
               onClickCapture={() => setActiveLoadingId(item.id)}
               key={item.id ?? index}
-              className={`${isLoading ? "rotating-border-card cursor-not-allowed" : ""} w-full relative shadow-md hover:shadow-xl hover:dark:shadow-dark rounded-[10px] bg-white dark:bg-gray-1  flex flex-col justify-start  items-center`}
+              className={`${isLoading ? "rotating-border-card cursor-not-allowed" : ""} w-full relative shadow-md hover:shadow-xl dark:hover:shadow-dark rounded-[10px] bg-white dark:bg-gray-1  flex flex-col justify-start  items-center`}
             >
               {isLoading && (
                 <div className="absolute inset-0 z-50 flex items-center justify-center">
@@ -49,7 +49,7 @@ export default function ListVideos({ videos, params, subCategoryData, loadMore, 
                   <div className="absolute inset-0 bg-black/20 " />
                 </div>
               )}
-              <div className="group w-full p-4 rounded-[10px] relative z-[1]">
+              <div className="group w-full p-4 rounded-[10px] relative z-1">
                 <div className="relative w-full h-[250px]">
                   <Image
                     src={item.image_url}
@@ -66,7 +66,7 @@ export default function ListVideos({ videos, params, subCategoryData, loadMore, 
               </div>
 
 
-              <div className="px-5 w-full flex flex-col gap-4  z-[1]">
+              <div className="px-5 w-full flex flex-col gap-4  z-1">
                 {/* عنوان لینک شده — فقط عنوان داخل Link */}
                 <div className="flex flex-col gap-2">
                   <Link

@@ -134,7 +134,7 @@ function Card({
                         mt-3
                         text-[12px]
                         
-                        leading-[1.5]
+                        leading-normal
                         text-[#8B8B8B]
                         md:text-[13px]
                         line-clamp-2
@@ -240,7 +240,7 @@ export default function AvalancheSolutions({ params, mainData }: AvalancheSoluti
                     <div className='w-full lg:w-[300px] '>
 
                         <Reveal
-                            className="!opacity-100 w-full"
+                            className="opacity-100! w-full"
                             direction={params.lang == "fa" ? "right" : "left"}
                             distance={200}
                             duration={1500}
@@ -252,7 +252,7 @@ export default function AvalancheSolutions({ params, mainData }: AvalancheSoluti
                         </Reveal>
                     </div>
                         <div className="text-start max-w-3xl mt-[-24px] lg:mt-0">
-                            <TextScramble className=" text-black dark:text-white text-5xl xl:text-3xl 2xl:text-5xl 3xl:text-6xl 2xl:!leading-[80px]"
+                            <TextScramble className=" text-black dark:text-white text-5xl xl:text-3xl 2xl:text-5xl 3xl:text-6xl 2xl:leading-[80px]!"
                                 text={findByUniqueId(mainData, 1705)}
                                 lang={params.lang} />
 

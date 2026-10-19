@@ -1,18 +1,20 @@
+
 "use client";
 
 import { memo, useCallback, useEffect, useRef, useState } from "react";
-import MapGL, { Marker } from "react-map-gl/maplibre";
-import type { StyleSpecification } from "maplibre-gl";
+
 
 import "maplibre-gl/dist/maplibre-gl.css";
 
 import styleMapLightJson from "./styleMapLight.json";
 import styleMapDarkJson from "./styleMapDark.json";
-
+import MapGL, { Marker } from "react-map-gl/maplibre";
+import { setWorkerUrl } from "maplibre-gl";
+import type { StyleSpecification } from "maplibre-gl";
 const styleMapLight = styleMapLightJson as unknown as StyleSpecification;
 const styleMapDark = styleMapDarkJson as unknown as StyleSpecification;
-
-/* ------------------------------------------------------------------ */
+setWorkerUrl("/maplibre/maplibre-gl-worker.mjs");
+/* -setWorkerUrl("/maplibre/maplibre-gl-worker.mjs");----------------------------------------------------------------- */
 /*                                TYPES                                */
 /* ------------------------------------------------------------------ */
 
@@ -35,151 +37,229 @@ interface ClusterItem {
 interface MapComponentProps {
   markers?: MapMarkerItem[];
   onMarkerClick?: (marker: MapMarkerItem) => void;
+
   /** اگر داده شود، کلیک روی کلاستر زوم نمی‌کند و فقط لیست مارکرها را برمی‌گرداند */
   onClusterClick?: (markers: MapMarkerItem[]) => void;
+
   height?: string;
-  focusTarget?: { longitude: number; latitude: number; zoom?: number } | null;
+  focusTarget?: {
+    longitude: number;
+    latitude: number;
+    zoom?: number;
+  } | null;
   highlightedId?: number | string | null;
 }
 
 /* ------------------------------------------------------------------ */
-/*                         CLUSTER CONFIG                              */
+/*                            CONFIGURATION                            */
 /* ------------------------------------------------------------------ */
 
-// فاصلهٔ (پیکسل) دو مارکر برای کلاستر شدن
 const CLUSTER_RADIUS = 55;
-// از این زوم به بالا کلاستر نمی‌کنیم
 const MAX_CLUSTER_ZOOM = 16;
-// حاشیهٔ رندر بیرون از دید (پیکسل) تا هنگام pan مارکرها ناگهانی ظاهر نشوند
 const VIEWPORT_MARGIN = CLUSTER_RADIUS * 2;
 
-const getMapInstance = (ref: any) =>
-  ref?.getMap ? ref.getMap() : ref ?? null;
+const isValidCoordinate = (
+  longitude: number,
+  latitude: number
+): boolean =>
+  Number.isFinite(longitude) &&
+  Number.isFinite(latitude) &&
+  longitude >= -180 &&
+  longitude <= 180 &&
+  latitude >= -90 &&
+  latitude <= 90;
+
+const getMapInstance = (ref: any): any | null => {
+  if (!ref) return null;
+
+  try {
+    return typeof ref.getMap === "function" ? ref.getMap() : ref;
+  } catch {
+    return null;
+  }
+};
+
+const isMapReady = (map: any): boolean => {
+  if (!map) return false;
+
+  try {
+    if (typeof map.loaded === "function" && !map.loaded()) {
+      return false;
+    }
+
+    const canvas = map.getCanvas?.();
+
+    return Boolean(canvas && canvas.isConnected);
+  } catch {
+    return false;
+  }
+};
 
 /* ------------------------------------------------------------------ */
-/*        BUILD CLUSTERS  (grid-based → O(n) instead of O(n²))         */
+/*                              CLUSTERS                               */
 /* ------------------------------------------------------------------ */
 
-function buildClusters(map: any, markers: MapMarkerItem[]): ClusterItem[] {
+function buildClusters(
+  map: any,
+  markers: MapMarkerItem[]
+): ClusterItem[] {
   if (!map || markers.length === 0) return [];
 
-  const zoom: number = map.getZoom();
-  const canvas: HTMLCanvasElement = map.getCanvas();
-  const width = canvas.clientWidth;
-  const height = canvas.clientHeight;
+  try {
+    const zoom: number = map.getZoom();
+    const canvas: HTMLCanvasElement = map.getCanvas();
+    const width = canvas.clientWidth;
+    const height = canvas.clientHeight;
 
-  const isVisible = (x: number, y: number) =>
-    x >= -VIEWPORT_MARGIN &&
-    x <= width + VIEWPORT_MARGIN &&
-    y >= -VIEWPORT_MARGIN &&
-    y <= height + VIEWPORT_MARGIN;
+    if (width <= 0 || height <= 0) return [];
 
-  const pts = markers.map((marker) => {
-    const p = map.project([marker.longitude, marker.latitude]);
-    return { marker, x: p.x as number, y: p.y as number };
-  });
+    const validMarkers = markers.filter((marker) =>
+      isValidCoordinate(marker.longitude, marker.latitude)
+    );
 
-  /* زوم بالا: بدون کلاستر، فقط مارکرهای داخل دید */
-  if (zoom >= MAX_CLUSTER_ZOOM) {
-    const singles: ClusterItem[] = [];
-    for (const p of pts) {
-      if (!isVisible(p.x, p.y)) continue;
-      singles.push({
-        id: `marker-${p.marker.id}`,
-        longitude: p.marker.longitude,
-        latitude: p.marker.latitude,
-        markers: [p.marker],
-        isCluster: false,
-      });
+    if (validMarkers.length === 0) return [];
+
+    const isVisible = (x: number, y: number) =>
+      x >= -VIEWPORT_MARGIN &&
+      x <= width + VIEWPORT_MARGIN &&
+      y >= -VIEWPORT_MARGIN &&
+      y <= height + VIEWPORT_MARGIN;
+
+    const pts = validMarkers.map((marker) => {
+      const point = map.project([
+        marker.longitude,
+        marker.latitude,
+      ]);
+
+      return {
+        marker,
+        x: point.x,
+        y: point.y,
+      };
+    });
+
+    // زوم بالا: نمایش جداگانه مارکرهای قابل مشاهده
+    if (zoom >= MAX_CLUSTER_ZOOM) {
+      return pts
+        .filter((point) => isVisible(point.x, point.y))
+        .map(({ marker }) => ({
+          id: `marker-${marker.id}`,
+          longitude: marker.longitude,
+          latitude: marker.latitude,
+          markers: [marker],
+          isCluster: false,
+        }));
     }
-    return singles;
-  }
 
-  /* ساخت گرید */
-  const grid = new Map<string, number[]>();
-  const cellOf = (v: number) => Math.floor(v / CLUSTER_RADIUS);
+    // ساخت گرید برای کاهش هزینه محاسبات
+    const grid = new Map<string, number[]>();
+    const cellOf = (value: number) =>
+      Math.floor(value / CLUSTER_RADIUS);
 
-  for (let i = 0; i < pts.length; i++) {
-    const key = `${cellOf(pts[i].x)}:${cellOf(pts[i].y)}`;
-    const cell = grid.get(key);
-    if (cell) cell.push(i);
-    else grid.set(key, [i]);
-  }
+    for (let i = 0; i < pts.length; i++) {
+      const key = `${cellOf(pts[i].x)}:${cellOf(pts[i].y)}`;
+      const cell = grid.get(key);
 
-  const used = new Uint8Array(pts.length);
-  const result: ClusterItem[] = [];
-  const R2 = CLUSTER_RADIUS * CLUSTER_RADIUS;
-
-  for (let i = 0; i < pts.length; i++) {
-    if (used[i]) continue;
-    used[i] = 1;
-
-    const base = pts[i];
-    const groupIdx: number[] = [i];
-    const cx = cellOf(base.x);
-    const cy = cellOf(base.y);
-
-    for (let dx = -1; dx <= 1; dx++) {
-      for (let dy = -1; dy <= 1; dy++) {
-        const cell = grid.get(`${cx + dx}:${cy + dy}`);
-        if (!cell) continue;
-
-        for (const j of cell) {
-          if (used[j]) continue;
-          const ddx = base.x - pts[j].x;
-          const ddy = base.y - pts[j].y;
-          if (ddx * ddx + ddy * ddy <= R2) {
-            used[j] = 1;
-            groupIdx.push(j);
-          }
-        }
+      if (cell) {
+        cell.push(i);
+      } else {
+        grid.set(key, [i]);
       }
     }
 
-    /* مرکز صفحه‌ای گروه (برای فیلتر دید) و مرکز جغرافیایی (برای رندر) */
-    let sx = 0;
-    let sy = 0;
-    let sLon = 0;
-    let sLat = 0;
-    for (const idx of groupIdx) {
-      sx += pts[idx].x;
-      sy += pts[idx].y;
-      sLon += pts[idx].marker.longitude;
-      sLat += pts[idx].marker.latitude;
-    }
-    const n = groupIdx.length;
+    const used = new Uint8Array(pts.length);
+    const result: ClusterItem[] = [];
+    const radiusSquared = CLUSTER_RADIUS * CLUSTER_RADIUS;
 
-    if (!isVisible(sx / n, sy / n)) continue;
+    for (let i = 0; i < pts.length; i++) {
+      if (used[i]) continue;
 
-    if (n === 1) {
-      result.push({
-        id: `marker-${base.marker.id}`,
-        longitude: base.marker.longitude,
-        latitude: base.marker.latitude,
-        markers: [base.marker],
-        isCluster: false,
-      });
-    } else {
-      result.push({
-        id: `cluster-${base.marker.id}-${n}`,
-        longitude: sLon / n,
-        latitude: sLat / n,
-        markers: groupIdx.map((idx) => pts[idx].marker),
-        isCluster: true,
-      });
+      used[i] = 1;
+
+      const base = pts[i];
+      const groupIndices: number[] = [i];
+      const cx = cellOf(base.x);
+      const cy = cellOf(base.y);
+
+      for (let dx = -1; dx <= 1; dx++) {
+        for (let dy = -1; dy <= 1; dy++) {
+          const cell = grid.get(`${cx + dx}:${cy + dy}`);
+
+          if (!cell) continue;
+
+          for (const j of cell) {
+            if (used[j]) continue;
+
+            const deltaX = base.x - pts[j].x;
+            const deltaY = base.y - pts[j].y;
+
+            if (
+              deltaX * deltaX + deltaY * deltaY <=
+              radiusSquared
+            ) {
+              used[j] = 1;
+              groupIndices.push(j);
+            }
+          }
+        }
+      }
+
+      let screenX = 0;
+      let screenY = 0;
+      let sumLongitude = 0;
+      let sumLatitude = 0;
+
+      for (const index of groupIndices) {
+        screenX += pts[index].x;
+        screenY += pts[index].y;
+        sumLongitude += pts[index].marker.longitude;
+        sumLatitude += pts[index].marker.latitude;
+      }
+
+      const count = groupIndices.length;
+
+      if (!isVisible(screenX / count, screenY / count)) {
+        continue;
+      }
+
+      if (count === 1) {
+        result.push({
+          id: `marker-${base.marker.id}`,
+          longitude: base.marker.longitude,
+          latitude: base.marker.latitude,
+          markers: [base.marker],
+          isCluster: false,
+        });
+      } else {
+        result.push({
+          id: `cluster-${base.marker.id}-${count}`,
+          longitude: sumLongitude / count,
+          latitude: sumLatitude / count,
+          markers: groupIndices.map(
+            (index) => pts[index].marker
+          ),
+          isCluster: true,
+        });
+      }
     }
+
+    return result;
+  } catch (error) {
+    console.error("[MapComponent] Failed to build clusters:", error);
+    return [];
   }
-
-  return result;
 }
 
 const clustersSignature = (clusters: ClusterItem[]) =>
   clusters
-    .map((c) => `${c.id}@${c.longitude.toFixed(5)},${c.latitude.toFixed(5)}`)
+    .map(
+      (cluster) =>
+        `${cluster.id}@${cluster.longitude.toFixed(5)},${cluster.latitude.toFixed(5)}`
+    )
     .join("|");
 
 /* ------------------------------------------------------------------ */
-/*                              ICON                                   */
+/*                                ICON                                 */
 /* ------------------------------------------------------------------ */
 
 const LocationIcon = memo(function LocationIcon() {
@@ -192,25 +272,44 @@ const LocationIcon = memo(function LocationIcon() {
   };
 
   return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M10.3082 1.79121L17.8082 4.79119C18.0998 4.90786 18.3332 5.25785 18.3332 5.56618V8.33286C18.3332 8.79119 17.9582 9.16619 17.4998 9.16619H2.49984C2.0415 9.16619 1.6665 8.79119 1.6665 8.33286V5.56618C1.6665 5.25785 1.89984 4.90786 2.19151 4.79119L9.69151 1.79121C9.85817 1.72454 10.1415 1.72454 10.3082 1.79121Z" {...common} />
-      <path d="M18.3332 18.3333H1.6665V15.8333C1.6665 15.375 2.0415 15 2.49984 15H17.4998C17.9582 15 18.3332 15.375 18.3332 15.8333V18.3333Z" {...common} />
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M10.3082 1.79121L17.8082 4.79119C18.0998 4.90786 18.3332 5.25785 18.3332 5.56618V8.33286C18.3332 8.79119 17.9582 9.16619 17.4998 9.16619H2.49984C2.0415 9.16619 1.6665 8.79119 1.6665 8.33286V5.56618C1.6665 5.25785 1.89984 4.90786 2.19151 4.79119L9.69151 1.79121C9.85817 1.72454 10.1415 1.72454 10.3082 1.79121Z"
+        {...common}
+      />
+      <path
+        d="M18.3332 18.3333H1.6665V15.8333C1.6665 15.375 2.0415 15 2.49984 15H17.4998C17.9582 15 18.3332 15.375 18.3332 15.8333V18.3333Z"
+        {...common}
+      />
       <path d="M3.3335 15.0003V9.16699" {...common} />
       <path d="M6.6665 15.0003V9.16699" {...common} />
       <path d="M10 15.0003V9.16699" {...common} />
       <path d="M13.3335 15.0003V9.16699" {...common} />
       <path d="M16.6665 15.0003V9.16699" {...common} />
       <path d="M0.833496 18.333H19.1668" {...common} />
-      <path d="M10 7.08301C10.6904 7.08301 11.25 6.52336 11.25 5.83301C11.25 5.14265 10.6904 4.58301 10 4.58301C9.30964 4.58301 8.75 5.14265 8.75 5.83301C8.75 6.52336 9.30964 7.08301 10 7.08301Z" {...common} />
+      <path
+        d="M10 7.08301C10.6904 7.08301 11.25 6.52336 11.25 5.83301C11.25 5.14265 10.6904 4.58301 10 4.58301C9.30964 4.58301 8.75 5.14265 8.75 5.83301C8.75 6.52336 9.30964 7.08301 10 7.08301Z"
+        {...common}
+      />
     </svg>
   );
 });
 
 /* ------------------------------------------------------------------ */
-/*                  MEMOIZED MARKER VISUALS                            */
+/*                          MARKER COMPONENTS                          */
 /* ------------------------------------------------------------------ */
 
-const ClusterBubble = memo(function ClusterBubble({ count }: { count: number }) {
+const ClusterBubble = memo(function ClusterBubble({
+  count,
+}: {
+  count: number;
+}) {
   return (
     <div
       title={`${count} locations`}
@@ -272,7 +371,7 @@ const PinBubble = memo(function PinBubble({
 });
 
 /* ------------------------------------------------------------------ */
-/*                         MAP COMPONENT                               */
+/*                           MAP COMPONENT                             */
 /* ------------------------------------------------------------------ */
 
 export default function MapComponent({
@@ -284,151 +383,241 @@ export default function MapComponent({
   highlightedId = null,
 }: MapComponentProps) {
   const [isDark, setIsDark] = useState(false);
+  const [isMapLoaded, setIsMapLoaded] = useState(false);
   const [clusters, setClusters] = useState<ClusterItem[]>([]);
 
   const mapRef = useRef<any>(null);
   const signatureRef = useRef("");
   const rafRef = useRef<number | null>(null);
   const markersRef = useRef<MapMarkerItem[]>(markers);
+
   markersRef.current = markers;
 
-  /* ----------------------------- THEME ----------------------------- */
-  useEffect(() => {
-    const check = () =>
-      setIsDark(document.documentElement.classList.contains("dark"));
+  /* ------------------------------ THEME ---------------------------- */
 
-    check();
-    const observer = new MutationObserver(check);
+  useEffect(() => {
+    const checkTheme = () => {
+      setIsDark(
+        document.documentElement.classList.contains("dark")
+      );
+    };
+
+    checkTheme();
+
+    const observer = new MutationObserver(checkTheme);
+
     observer.observe(document.documentElement, {
       attributes: true,
       attributeFilter: ["class"],
     });
+
     return () => observer.disconnect();
   }, []);
 
-  /* ------------------------- UPDATE CLUSTERS ------------------------ */
+  /* ------------------------- UPDATE CLUSTERS ----------------------- */
+
   const updateClusters = useCallback(() => {
     const map = getMapInstance(mapRef.current);
     const list = markersRef.current;
 
-    if (!map || list.length === 0) {
+    if (!map || !isMapReady(map) || list.length === 0) {
       if (signatureRef.current !== "") {
         signatureRef.current = "";
         setClusters([]);
       }
+
       return;
     }
 
     const next = buildClusters(map, list);
-    const sig = clustersSignature(next);
+    const nextSignature = clustersSignature(next);
 
-    // اگر خروجی تغییری نکرده، re-render نمی‌کنیم
-    if (sig === signatureRef.current) return;
+    if (nextSignature === signatureRef.current) return;
 
-    signatureRef.current = sig;
+    signatureRef.current = nextSignature;
     setClusters(next);
   }, []);
 
-  /* حرکت/زوم پیوسته → حداکثر یک بار در هر فریم */
+  const handleMapLoad = useCallback(() => {
+    setIsMapLoaded(true);
+    signatureRef.current = "";
+    updateClusters();
+  }, [updateClusters]);
+
+  /* ------------------------- SCHEDULE UPDATE ----------------------- */
+
   const scheduleUpdate = useCallback(() => {
     if (rafRef.current !== null) return;
+
     rafRef.current = requestAnimationFrame(() => {
       rafRef.current = null;
       updateClusters();
     });
   }, [updateClusters]);
 
-  useEffect(
-    () => () => {
-      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
-    },
-    []
-  );
+  useEffect(() => {
+    return () => {
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
+    };
+  }, []);
 
   useEffect(() => {
     signatureRef.current = "__force__";
     updateClusters();
-  }, [markers, updateClusters]);
+  }, [markers, updateClusters, isMapLoaded]);
 
   /* --------------------------- FOCUS TARGET ------------------------- */
+
   const focusLon = focusTarget?.longitude;
   const focusLat = focusTarget?.latitude;
   const focusZoom = focusTarget?.zoom;
 
-  useEffect(() => {
-    const map = getMapInstance(mapRef.current);
-    if (!map || focusLon == null || focusLat == null) return;
-
-    map.flyTo({
-      center: [focusLon, focusLat],
-      zoom: focusZoom ?? 16,
-      duration: 900,
-    });
-  }, [focusLon, focusLat, focusZoom]);
-
-  /* ----------------------------- AUTO FIT --------------------------- */
-  const hasFocus = focusLon != null && focusLat != null;
+  const hasValidFocus =
+    focusLon != null &&
+    focusLat != null &&
+    isValidCoordinate(focusLon, focusLat);
 
   useEffect(() => {
-    if (hasFocus) return;
+    if (!isMapLoaded || !hasValidFocus) return;
 
     const map = getMapInstance(mapRef.current);
-    if (!map || markers.length === 0) return;
 
-    if (markers.length === 1) {
+    if (!map || !isMapReady(map)) return;
+
+    try {
       map.flyTo({
-        center: [markers[0].longitude, markers[0].latitude],
-        zoom: 14,
-        duration: 800,
+        center: [focusLon!, focusLat!],
+        zoom: Number.isFinite(focusZoom) ? focusZoom : 16,
+        duration: 900,
       });
-      return;
+    } catch (error) {
+      console.error("[MapComponent] Failed to focus map:", error);
     }
+  }, [
+    isMapLoaded,
+    hasValidFocus,
+    focusLon,
+    focusLat,
+    focusZoom,
+  ]);
 
-    let minLon = Infinity;
-    let minLat = Infinity;
-    let maxLon = -Infinity;
-    let maxLat = -Infinity;
-    for (const m of markers) {
-      if (m.longitude < minLon) minLon = m.longitude;
-      if (m.longitude > maxLon) maxLon = m.longitude;
-      if (m.latitude < minLat) minLat = m.latitude;
-      if (m.latitude > maxLat) maxLat = m.latitude;
-    }
+  /* ----------------------------- AUTO FIT -------------------------- */
 
-    map.fitBounds(
-      [
+  useEffect(() => {
+    if (!isMapLoaded || hasValidFocus) return;
+
+    const map = getMapInstance(mapRef.current);
+
+    if (!map || !isMapReady(map)) return;
+
+    const validMarkers = markers.filter((marker) =>
+      isValidCoordinate(marker.longitude, marker.latitude)
+    );
+
+    if (validMarkers.length === 0) return;
+
+    try {
+      if (validMarkers.length === 1) {
+        const marker = validMarkers[0];
+
+        map.flyTo({
+          center: [marker.longitude, marker.latitude],
+          zoom: 14,
+          duration: 800,
+        });
+
+        return;
+      }
+
+      let minLon = Infinity;
+      let minLat = Infinity;
+      let maxLon = -Infinity;
+      let maxLat = -Infinity;
+
+      for (const marker of validMarkers) {
+        minLon = Math.min(minLon, marker.longitude);
+        minLat = Math.min(minLat, marker.latitude);
+        maxLon = Math.max(maxLon, marker.longitude);
+        maxLat = Math.max(maxLat, marker.latitude);
+      }
+
+      // محدودهٔ صفر: fitBounds لازم نیست.
+      if (minLon === maxLon && minLat === maxLat) {
+        map.flyTo({
+          center: [minLon, minLat],
+          zoom: 14,
+          duration: 800,
+        });
+
+        return;
+      }
+
+      // پیش از فراخوانی، bounds را اعتبارسنجی می‌کنیم.
+      const bounds: [
+        [number, number],
+        [number, number],
+      ] = [
         [minLon, minLat],
         [maxLon, maxLat],
-      ],
-      { padding: 60, duration: 800, maxZoom: 17 }
-    );
-  }, [markers, hasFocus]);
+      ];
+
+      if (
+        !bounds.flat().every(Number.isFinite) ||
+        minLon > maxLon ||
+        minLat > maxLat
+      ) {
+        return;
+      }
+
+      map.fitBounds(bounds, {
+        padding: 60,
+        duration: 800,
+        maxZoom: 17,
+      });
+    } catch (error) {
+      console.error("[MapComponent] Failed to fit map bounds:", error);
+    }
+  }, [markers, hasValidFocus, isMapLoaded]);
 
   /* --------------------------- CLUSTER CLICK ------------------------ */
+
   const handleClusterClick = useCallback(
     (cluster: ClusterItem) => {
-      // حالت جدید: بدون زوم، فقط لیست مارکرها به پدر داده می‌شود
       if (onClusterClick) {
         onClusterClick(cluster.markers);
         return;
       }
 
-      // رفتار قدیمی (فقط وقتی onClusterClick داده نشده)
       const map = getMapInstance(mapRef.current);
-      if (!map) return;
 
-      map.flyTo({
-        center: [cluster.longitude, cluster.latitude],
-        zoom: Math.min(map.getZoom() + 2, 17),
-        duration: 500,
-      });
+      if (!map || !isMapReady(map)) return;
+
+      try {
+        map.flyTo({
+          center: [cluster.longitude, cluster.latitude],
+          zoom: Math.min(map.getZoom() + 2, 17),
+          duration: 500,
+        });
+      } catch (error) {
+        console.error("[MapComponent] Failed to zoom to cluster:", error);
+      }
     },
     [onClusterClick]
   );
 
-  /* ------------------------------ RENDER ---------------------------- */
+  /* ------------------------------- RENDER -------------------------- */
+
   return (
-    <div style={{ width: "100%", height, position: "relative" }}>
+    <div
+      style={{
+        width: "100%",
+        height,
+        position: "relative",
+      }}
+    >
       <MapGL
         ref={mapRef}
         initialViewState={{
@@ -438,9 +627,15 @@ export default function MapComponent({
           pitch: 40,
         }}
         mapStyle={isDark ? styleMapDark : styleMapLight}
-        style={{ width: "100%", height: "100%", borderRadius: "0.75rem" }}
-        onLoad={updateClusters}
+        style={{
+          width: "100%",
+          height: "100%",
+          borderRadius: "0.75rem",
+        }}
+        onLoad={handleMapLoad}
         onMove={scheduleUpdate}
+        onMoveEnd={scheduleUpdate}
+        onResize={scheduleUpdate}
       >
         {clusters.map((cluster) => {
           if (cluster.isCluster) {
@@ -450,8 +645,8 @@ export default function MapComponent({
                 longitude={cluster.longitude}
                 latitude={cluster.latitude}
                 anchor="center"
-                onClick={(e: any) => {
-                  e.originalEvent?.stopPropagation();
+                onClick={(event: any) => {
+                  event.originalEvent?.stopPropagation();
                   handleClusterClick(cluster);
                 }}
               >
@@ -462,21 +657,26 @@ export default function MapComponent({
 
           const marker = cluster.markers[0];
 
+          if (!marker) return null;
+
           return (
             <Marker
               key={cluster.id}
               longitude={marker.longitude}
               latitude={marker.latitude}
               anchor="center"
-              onClick={(e: any) => {
-                e.originalEvent?.stopPropagation();
+              onClick={(event: any) => {
+                event.originalEvent?.stopPropagation();
                 onMarkerClick?.(marker);
               }}
             >
               <PinBubble
                 id={marker.id}
                 color={marker.color || "#9100D9"}
-                highlighted={highlightedId != null && marker.id === highlightedId}
+                highlighted={
+                  highlightedId != null &&
+                  marker.id === highlightedId
+                }
                 clickable={!!onMarkerClick}
               />
             </Marker>

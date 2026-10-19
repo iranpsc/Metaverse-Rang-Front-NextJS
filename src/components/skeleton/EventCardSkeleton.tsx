@@ -6,22 +6,22 @@ function EventCardSkeletonBase() {
     <div className="items flex flex-col justify-center gap-3 items-center w-full">
       {/* تصویر ایونت — همون رپر دقیق خود کد */}
       <div className="mt-4 w-[97%] flex justify-center lg:w-[95%] mx-auto rounded-[20px] overflow-hidden shadow-lg lg:mt-6">
-        <Skeleton className="w-full h-[226px] lg:h-[600px] aspect-[16/9] rounded-[20px]" />
+        <Skeleton className="w-full h-[226px] lg:h-[600px] aspect-video rounded-[20px]" />
       </div>
 
       {/* عنوان و لایک/دیسلایک/بازدید — دقیقاً همون دو ردیف اصلی */}
       <div className="flex flex-col w-[97%] lg:w-[95%] gap-3 sm:gap-0 items-center sm:flex-row-reverse sm:justify-between">
         <div className="w-[96%] flex justify-between text-base font-normal font-[Vazir] sm:w-[350px] sm:ml-2 sm:self-center">
           <div className="flex items-center gap-1">
-            <Skeleton variant="circle"  className="!w-[15px] !h-[15px] md:!w-[18px] md:!h-[18px]" />
+            <Skeleton variant="circle"  className="w-[15px]! h-[15px]! md:w-[18px]! md:h-[18px]!" />
             <Skeleton  className="h-3 w-6 rounded-md" />
           </div>
           <div className="flex items-center gap-1">
-            <Skeleton variant="circle"  className="!w-[15px] !h-[15px] md:!w-[18px] md:!h-[18px]" />
+            <Skeleton variant="circle"  className="w-[15px]! h-[15px]! md:w-[18px]! md:h-[18px]!" />
             <Skeleton  className="h-3 w-6 rounded-md" />
           </div>
           <div className="flex items-center size-7 gap-1">
-            <Skeleton variant="circle"  className="!w-[15px] !h-[15px] md:!w-[18px] md:!h-[18px]" />
+            <Skeleton variant="circle"  className="w-[15px]! h-[15px]! md:w-[18px]! md:h-[18px]!" />
             <Skeleton  className="h-3 w-6 rounded-md" />
           </div>
         </div>
@@ -45,8 +45,8 @@ function EventCardSkeletonBase() {
       {/* باکس شمارش معکوس — دقیقاً همون کلاس‌های گرادینت/بوردر/رِیدیوس */}
       <div
         className="px-4 mb-2 w-[97%] lg:w-[95%] lg:px-7 font-[AzarMehrFD]
-        bg-gradient-to-r from-[#CFCFCFE5] to-[#D8D8D800]
-        dark:bg-gradient-to-r dark:from-[#ffffff09] dark:to-[#00000000] rounded-xl lg:rounded-[32px] border-[1px] border-solid dark:border-[#ffffff25] border-[#CFCFCFE5] shadow-lg p-4 flex flex-col sm:flex-row-reverse sm:h-[250px]"
+        bg-linear-to-r from-[#CFCFCFE5] to-[#D8D8D800]
+        dark:bg-linear-to-r dark:from-[#ffffff09] dark:to-[#00000000] rounded-xl lg:rounded-[32px] border border-solid dark:border-[#ffffff25] border-[#CFCFCFE5] shadow-lg p-4 flex flex-col sm:flex-row-reverse sm:h-[250px]"
       >
         {/* شروع */}
         <div className="flex flex-col justify-start sm:order-1 sm:content-start sm:w-[30%] sm:min-w-[194px]">
@@ -75,7 +75,7 @@ function EventCardSkeletonBase() {
         </div>
       </div>
 
-      <div className="mt-6 w-full lg:w-[95%] h-[2px] bg-gradient-to-r from-transparent via-[#DADADA] to-transparent" />
+      <div className="mt-6 w-full lg:w-[95%] h-[2px] bg-linear-to-r from-transparent via-[#DADADA] to-transparent" />
     </div>
   );
 }

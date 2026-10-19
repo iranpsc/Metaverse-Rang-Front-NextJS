@@ -39,7 +39,7 @@ const EditSectionComment = ({
   const token = getAuthData("token");
 
   return (
-    <div className="w-fit h-[50px] absolute bg-[#f5f5f5] dark:bg-dark-background end-5 top-[75px] rounded-[12px] shadow-xl flex flex-row justify-between items-center px-4 gap-5">
+    <div className="w-fit h-[50px] absolute bg-[#f5f5f5] dark:bg-dark-background inset-e-5 top-[75px] rounded-[12px] shadow-xl flex flex-row justify-between items-center px-4 gap-5">
       {itemComment.user.code === code && (
         <>
           <div

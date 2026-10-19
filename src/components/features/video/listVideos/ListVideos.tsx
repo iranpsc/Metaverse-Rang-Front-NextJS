@@ -16,19 +16,14 @@ interface VideoCardProps {
   subCategoryName: string;
 }
 
-const stripHTML = (html: string) => {
+const stripHTML = (html: string): string => {
   if (!html) return "";
-
   return html
-    .replace(/<[^>]*>/g, " ")        // حذف تگ‌های HTML
-    .replace(/&zwnj;/g, "\u200c")    // نیم‌فاصله (خیلی مهم برای فارسی)
+    .replace(/<[^>]*>/g, "")
     .replace(/&nbsp;/g, " ")
     .replace(/&amp;/g, "&")
     .replace(/&lt;/g, "<")
     .replace(/&gt;/g, ">")
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/\s+/g, " ")            // چند space پشت‌سرهم رو یکی کن
     .trim();
 };
 
@@ -50,7 +45,7 @@ const VideoCard = memo(
     const videoUrl = `/${params.lang}/education/category/${categorySlug}/${subCategorySlug}/${item.slug}`;
 
     return (
-      <div className="w-full min-h-[240px] shadow-md hover:shadow-xl duration-300 hover:dark:shadow-dark rounded-[12px] overflow-hidden bg-white dark:bg-gray-1  flex flex-col justify-start gap-6 items-center">
+      <div className="w-full min-h-[240px] shadow-md hover:shadow-xl duration-300 dark:hover:shadow-dark rounded-[12px] overflow-hidden bg-white dark:bg-gray-1  flex flex-col justify-start gap-6 items-center">
         <Link href={videoUrl} className="group w-full h-[260px] overflow-hidden  cursor-pointer relative">
           <div className="px-4 pt-4 w-full h-full ">
              <Image

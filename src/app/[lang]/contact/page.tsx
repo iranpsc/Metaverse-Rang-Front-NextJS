@@ -220,7 +220,7 @@ export default async function AboutPage({ params }: AboutPageProps) {
                         <p>تلفن پشتیبانی  :  <a href="tel:02833647125" className="text-blueLink "> 02833647125 </a></p>
                         <p className="">ساعات پاسخگویی شنبه - چهارشنبه 9 تا 13</p>
                       </div>
-                      <div className="aspect-[5/3] w-full md:mt-[32px]">
+                      <div className="aspect-5/3 w-full md:mt-[32px]">
                         <iframe
                           src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12860.972378290073!2d50.0287883!3d36.3064114!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f8b5551db33af95%3A0xa19dc982418e7204!2sMetaRgb!5e0!3m2!1sen!2s!4v1732341818636!5m2!1sen!2s"
                           style={{ border: "0" }}
@@ -234,7 +234,7 @@ export default async function AboutPage({ params }: AboutPageProps) {
                       </div>
                     </div>
                   </div>
-                  {/* <div className="w-full h-[1px] bg-dark-newColors-shades-100 mt-[38px] mb-[28px]"></div>
+                  {/* <div className="w-full h-px bg-dark-newColors-shades-100 mt-[38px] mb-[28px]"></div>
                 <div className="flex justify-center gap-[5px]">
 
                 </div> */}

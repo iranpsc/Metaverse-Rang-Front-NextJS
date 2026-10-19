@@ -100,7 +100,7 @@ export default function AvalancheTrustedProps({ params, mainData }: AvalancheTru
             <div className='flex w-full'>
                 {/* <div className=' '>
                     <div className=' h-[250px] lg:h-[342px] w-[15vw] rounded-es-[32px] rounded-ee-[10px]  bg-white dark:bg-gray-1  mt-[-20px] relative'>
-                        <div className='absolute top-[-16px] end-[-42px]'>
+                        <div className='absolute top-[-16px] inset-e-[-42px]'>
                             <div className='bg-white dark:bg-gray-1  h-[80px] w-[80px] rounded-full relative ' />
                             <div className='bg-[#f5f5f5]  ltr:-rotate-45 rotate-45 w-[70px] h-[65px] rounded-full absolute ltr:left-[37px] top-[38px] right-[37px] z-10' />
                         </div>

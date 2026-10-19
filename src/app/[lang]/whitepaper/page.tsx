@@ -246,7 +246,7 @@ export default async function ArticlesPage({
       </div>
         <div className="mt-5 space-y-[2px] ">
           <WhyMetarang params={resolvedParams} mainData={mainData} />
-          <div className="!mt-[11px] lg:!mt-[84px] xl:!mt-[90px] 2xl:!mt-[0]">
+          <div className="mt-[11px]! lg:mt-[84px]! xl:mt-[90px]! 2xl:mt-0!">
             <EcosystemFeatures params={resolvedParams} mainData={mainData} />
           </div>
           <TrustedBySimple params={resolvedParams} mainData={mainData} />
@@ -258,7 +258,7 @@ export default async function ArticlesPage({
           </div>
           <AvalancheNetwork params={resolvedParams} mainData={mainData} />
           <NewsStories params={resolvedParams} mainData={mainData} />
-          <div className="!my-5">
+          <div className="my-5!">
             <SectionTeam mainData={mainData} params={resolvedParams} />
           </div>
           <AvalancheSolutions params={resolvedParams} mainData={mainData} />

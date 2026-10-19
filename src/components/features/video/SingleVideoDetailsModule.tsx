@@ -170,7 +170,7 @@ useEffect(() => {
     ref={textareaRef}
     rows={1}
     maxLength={MAX_COMMENT_LENGTH}
-    className="w-full min-h-[48px]  overflow-y-auto resize-none text-base py-3 ps-2 pe-[50px] text-black dark:text-white bg-gray-3 border-none rounded-[12px] placeholder-textInput focus:outline-none focus:shadow-md break-words whitespace-pre-wrap leading-6"
+    className="w-full min-h-[48px]  overflow-y-auto resize-none text-base py-3 ps-2 pe-[50px] text-black dark:text-white bg-gray-3 border-none rounded-[12px] placeholder-textInput focus:outline-hidden focus:shadow-md wrap-break-word whitespace-pre-wrap leading-6"
     placeholder={findByUniqueId(mainData, 457)}
     value={comment}
     onChange={(e) => SetComment(e.target.value.slice(0, MAX_COMMENT_LENGTH))}
@@ -189,7 +189,7 @@ useEffect(() => {
 
   {/* دکمه ارسال */}
   <div
-    className={`absolute end-[20px] top-3 size-[24px] flex items-center justify-center ${
+    className={`absolute inset-e-[20px] top-3 size-[24px] flex items-center justify-center ${
       isSubmittingComment
         ? "cursor-not-allowed"
         : "cursor-pointer active:scale-125"
@@ -210,7 +210,7 @@ useEffect(() => {
 
       {/* مودال ورود */}
       {showLoginModal && (
-        <div className="fixed inset-0 backdrop-blur bg-black/30 flex items-center justify-center z-50 p-5">
+        <div className="fixed inset-0 backdrop-blur-sm bg-black/30 flex items-center justify-center z-50 p-5">
           <div className="bg-white dark:bg-dark-background p-6 rounded-lg shadow-lg max-w-sm w-full">
             <h2 className="text-lg md:text-xl font-azarMehr font-bold text-center dark:text-white mb-4">
               برای ثبت کامنت باید وارد شوید
@@ -231,7 +231,7 @@ useEffect(() => {
       )}
 
       {showSuccessModal && (
-        <div className="fixed inset-0 backdrop-blur bg-black/30 flex items-center justify-center z-50 p-5">
+        <div className="fixed inset-0 backdrop-blur-sm bg-black/30 flex items-center justify-center z-50 p-5">
           <div className="bg-white dark:bg-dark-background p-6 rounded-lg shadow-lg max-w-sm w-full text-center">
             <div className="w-full bg-matn-2-200 dark:bg-matn-2-600 rounded-full h-2.5">
               <div

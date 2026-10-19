@@ -309,7 +309,7 @@ const CommentList = ({
           <div className="flex flex-col  w-full ">
             <div
               key={itemComment.id}
-              className={`relative min-h-fit bg-[#ECECEC] dark:bg-[#333333] rounded-[20px]  md:p-5 sm:p-5 xs:p-4  flex flex-col justify-between items-center shadow-sm
+              className={`relative min-h-fit bg-[#ECECEC] dark:bg-[#333333] rounded-[20px]  md:p-5 sm:p-5 xs:p-4  flex flex-col justify-between items-center shadow-xs
               ${itemComment.user.code == code
                   ? "xl:ms-[50px] lg:ms-[50px] xs:ms-0 w-[95%] xs:w-full"
                   : "ms-0 w-full"
@@ -362,7 +362,7 @@ const CommentList = ({
                         type="text"
                         value={editedText}
                         onChange={(e) => handleChange(e, setEditedText)}
-                        className="w-full p-3 border border-transparent focus:outline-none focus:ring-2 focus:ring-primary  rounded-[10px] text-matn-2 dark:bg-[#222222] "
+                        className="w-full p-3 border border-transparent focus:outline-hidden focus:ring-2 focus:ring-primary  rounded-[10px] text-matn-2 dark:bg-[#222222] "
                         placeholder={params.lang.toLowerCase() === "fa" ? "متن کامنت را وارد کنید" : "Enter comment text"}
                       />
                       {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
@@ -405,7 +405,7 @@ const CommentList = ({
                       {checkData(itemComment?.likes)}
                     </p>
                     <motion.div
-                      className={`size-[15px] md:size-[20px] outline-none border-none  flex items-center justify-center active:!opacity-100 ${interactionLoading[itemComment.id] || !token || userInteractions[itemComment.id] === true
+                      className={`size-[15px] md:size-[20px] outline-hidden border-none  flex items-center justify-center active:opacity-100! ${interactionLoading[itemComment.id] || !token || userInteractions[itemComment.id] === true
                         ? ""
                         : "cursor-pointer"
                         }`}
@@ -426,7 +426,7 @@ const CommentList = ({
                       {checkData(itemComment?.dislikes)}
                     </p>
                     <motion.div
-                      className={`size-[15px] md:size-[20px] outline-none border-none  flex items-center justify-center ${interactionLoading[itemComment.id] || !token || userInteractions[itemComment.id] === false
+                      className={`size-[15px] md:size-[20px] outline-hidden border-none  flex items-center justify-center ${interactionLoading[itemComment.id] || !token || userInteractions[itemComment.id] === false
                         ? ""
                         : "cursor-pointer"
                         }`}
@@ -472,7 +472,7 @@ const CommentList = ({
                       {checkData(findByUniqueId(mainData, 458))} ({repliesData[itemComment.id]?.length || 0})
                     </p>
                     <motion.div
-                      className="xs:size-[20px] outline-none border-none stroke-blue-500 dark:stroke-yellow-400 flex items-center justify-center"
+                      className="xs:size-[20px] outline-hidden border-none stroke-blue-500 dark:stroke-yellow-400 flex items-center justify-center"
                       whileTap={{ scale: 1.2 }}
                     >
                       <Repeat className="size-[24px] stroke-blue-500 dark:stroke-yellow-400" />
@@ -496,7 +496,7 @@ const CommentList = ({
                       onChange={(e) =>
                         setReplyText((prev: { [key: number]: string }) => ({ ...prev, [itemComment.id]: e.target.value }))
                       }
-                      className="w-full p-3 border border-transparent focus:outline-none focus:ring-2 focus:ring-primary  rounded-[10px] text-matn-2 dark:bg-[#222222] "
+                      className="w-full p-3 border border-transparent focus:outline-hidden focus:ring-2 focus:ring-primary  rounded-[10px] text-matn-2 dark:bg-[#222222] "
                       placeholder={params.lang.toLowerCase() === "fa" ? "پاسخ خود را وارد کنید" : "Enter your reply"}
                     />
                     {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
@@ -524,7 +524,7 @@ const CommentList = ({
 
 
               {showReportModal === itemComment.id && (
-                <div className="fixed inset-0 backdrop-blur bg-black/30 flex items-center justify-center z-50 p-5">
+                <div className="fixed inset-0 backdrop-blur-sm bg-black/30 flex items-center justify-center z-50 p-5">
                   <div className="bg-white dark:bg-[#333333] p-6 rounded-lg shadow-lg max-w-sm w-full">
                     <h2 className="text-lg md:text-xl font-azarMehr font-bold text-center dark:text-white mb-4">
                       {params.lang.toLowerCase() === "fa" ? "گزارش کامنت" : "Report Comment"}
@@ -602,7 +602,7 @@ const CommentList = ({
         ))}
 
       {showLoginModal && (
-        <div className="fixed inset-0 backdrop-blur bg-black/30 flex items-center justify-center z-50 p-5">
+        <div className="fixed inset-0 backdrop-blur-sm bg-black/30 flex items-center justify-center z-50 p-5">
           <div className="bg-white dark:bg-[#333333] p-6 rounded-lg shadow-lg max-w-sm w-full">
             <h2 className="text-lg md:text-xl font-azarMehr font-bold text-center dark:text-white mb-4">
               {getMessage("loginRequired")}
@@ -623,7 +623,7 @@ const CommentList = ({
       )}
 
       {showSelfCommentModal && (
-        <div className="fixed inset-0 backdrop-blur bg-black/30 flex items-center justify-center z-50 p-5">
+        <div className="fixed inset-0 backdrop-blur-sm bg-black/30 flex items-center justify-center z-50 p-5">
           <div className="bg-white dark:bg-[#333333] p-6 rounded-lg shadow-lg max-w-sm w-full">
             <h2 className="text-lg md:text-xl font-azarMehr font-bold text-center dark:text-white mb-4">
               {getMessage("selfInteractionError")}
@@ -641,7 +641,7 @@ const CommentList = ({
       )}
 
       {showSuccessModal && showSuccessModal !== "report" && (
-        <div className="fixed inset-0 backdrop-blur bg-black/30 flex items-center justify-center z-50 p-5">
+        <div className="fixed inset-0 backdrop-blur-sm bg-black/30 flex items-center justify-center z-50 p-5">
           <div className="bg-white dark:bg-[#333333] p-6 rounded-lg shadow-lg max-w-sm w-full text-center">
             <div className="w-full matn-2-200 dark:bmatn-2-600 rounded-full h-2.5">
               <div

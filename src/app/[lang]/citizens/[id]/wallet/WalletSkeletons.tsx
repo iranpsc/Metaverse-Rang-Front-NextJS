@@ -1,6 +1,6 @@
 import { CARD_HEIGHT } from "./walletHistory.types";
 
-const pulseBlock = "rounded bg-[#EFEFEF] dark:bg-[#2A2B32]";
+const pulseBlock = "rounded-sm bg-[#EFEFEF] dark:bg-[#2A2B32]";
 
 /** Skeleton matching WalletSummaryCard's front-face layout 1:1. */
 export function WalletSummaryCardSkeleton() {
@@ -25,7 +25,7 @@ export function WalletSummaryCardSkeleton() {
           <div className={`h-4 w-10 ${pulseBlock}`} />
           <div className={`h-3 w-14 ${pulseBlock}`} />
         </div>
-        <div className="h-full w-[1px] bg-[#EFEFEF] dark:bg-[#2A2B32]" />
+        <div className="h-full w-px bg-[#EFEFEF] dark:bg-[#2A2B32]" />
         <div className="flex flex-col items-center gap-2 mx-auto">
           <div className={`h-4 w-10 ${pulseBlock}`} />
           <div className={`h-3 w-14 ${pulseBlock}`} />

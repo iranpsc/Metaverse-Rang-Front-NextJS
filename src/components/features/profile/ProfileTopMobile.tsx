@@ -55,12 +55,12 @@ export default function ProfileTopMobile({
                 className="object-contain  inline-block"
               />
             </div>
-            <p className="sm:bottom-[-25px] xs:bottom-[-25px] sm:start-1 xs:start-1 rounded-sm  w-max p-1 sm:scale-100 xs:scale-100  text-xs  text-black dark:text-white group-hover:scale-100 break-all  inline-block xl:mx-1 lg:mx-1 md:mx-0  font-medium font-azarMehr 3xl:text-xl3Title  xl:text-xlTitle lg:text-lgTitle md:text-mdTitle sm:text-smDesc xs:text-smDesc text-start">
+            <p className="sm:bottom-[-25px] xs:bottom-[-25px] sm:inset-s-1 xs:inset-s-1 rounded-xs  w-max p-1 sm:scale-100 xs:scale-100  text-xs  text-black dark:text-white group-hover:scale-100 break-all  inline-block xl:mx-1 lg:mx-1 md:mx-0  font-medium font-azarMehr 3xl:text-xl3Title  xl:text-xlTitle lg:text-lgTitle md:text-mdTitle sm:text-smDesc xs:text-smDesc text-start">
               {nameUser}
             </p>
           </div>
 
-          <hr className="flex-grow mx-3 h-[1px] hidden sm:block xl:visible lg:visible md:invisible sm:invisible xs:invisible border border-dashed text-matn-2 opacity-10 dark:text-[#fff]" />
+          <hr className="grow mx-3 h-px hidden sm:block xl:visible lg:visible md:invisible sm:invisible xs:invisible border border-dashed text-matn-2 opacity-10 dark:text-white" />
 
           <Image
             src={profileData.data?.kyc?.nationality || staticImageURL}
@@ -69,7 +69,7 @@ export default function ProfileTopMobile({
             alt={titleData}
             className="inline-block rounded-full xl:w-9 xl:h-9 3xl:w-10 3xl:h-10  lg:w-10 lg:h-10 md:w-14 md:h-14 sm:w-10 sm:h-10 xs:w-10 xs:h-10 object-cover"
           />
-          <hr className="flex-grow mx-3 h-[1px] hidden sm:block xl:visible lg:visible md:invisible sm:invisible xs:invisible border border-dashed text-matn-2 opacity-10 dark:text-[#fff]" />
+          <hr className="grow mx-3 h-px hidden sm:block xl:visible lg:visible md:invisible sm:invisible xs:invisible border border-dashed text-matn-2 opacity-10 dark:text-white" />
           <p className=" dark:text-white 3xl:text-[18px] xl:text-xlTitle lg:text-lgTitle md:text-mdDesc  sm:text-smDesc xs:text-smDesc inline-block mx-1 font-medium font-azarMehr text-extraGray">
             {profileData.data?.level?.name}
           </p>

@@ -85,7 +85,7 @@ function SideBarHeader({
   const t = translations[lang] || translations.fa;
 
   return (
-    <div className="relative w-full !z-[101]">
+    <div className="relative w-full z-101!">
       {/* آیکون منو */}
       <div
         className={`${
@@ -132,7 +132,7 @@ function SideBarHeader({
             className={`${
               isClosed
                 ? "w-0 h-0"
-                : "w-[100%] h-[100%] flex flex-col"
+                : "w-full h-full flex flex-col"
             } overflow-hidden`}
           >
             <p className="whitespace-nowrap visible leading-[25px] dark:text-white block font-azarMehr font-bold text-[14px] md:text-[16px] text-black">
@@ -148,7 +148,7 @@ function SideBarHeader({
 
       <div
         className={`
-          flex items-center absolute top-1 md:top-[1px] xl:top-1
+          flex items-center absolute top-1 md:top-px xl:top-1
           rtl:left-[5px] ltr:right-[5px] mx-2 gap-2
           transition-opacity duration-1000
           ${
@@ -179,7 +179,7 @@ function SideBarHeader({
           </div>
 
           {isLangOpen && (
-            <div className="absolute flex flex-col top-full mt-2 ltr:right-0 rtl:left-0 w-36 bg-white dark:bg-gray-2 rounded-lg shadow-xl border border-matn-2-200 dark:border-dark-border p-3 z-[101]">
+            <div className="absolute flex flex-col top-full mt-2 ltr:right-0 rtl:left-0 w-36 bg-white dark:bg-gray-2 rounded-lg shadow-xl border border-matn-2-200 dark:border-dark-border p-3 z-101">
               {langArray.map((langItem: { code: any }) => (
                 <DropdownLanguageModule
                   key={langItem.code}
@@ -220,7 +220,7 @@ function SideBarHeader({
       <hr
         className={`${
           isClosed ? "mx-3 mt-3" : "mx-2"
-        } border-[1px] border-[#00000017] dark:border-[#3F3F3F] my-1`}
+        } border border-[#00000017] dark:border-[#3F3F3F] my-1`}
       />
     </div>
   );

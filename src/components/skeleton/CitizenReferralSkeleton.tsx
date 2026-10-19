@@ -42,7 +42,7 @@ export default function CitizenReferralSkeleton({
         </div>
 
         <div className="xl:px-8 lg:px-8 md:px-5 sm:px-5 xs:px-1 mt-10">
-          <Skeleton variant="rect" tone="surface" className="!h-[120px] !w-full !rounded-2xl" />
+          <Skeleton variant="rect" tone="surface" className="h-[120px]! w-full! rounded-2xl!" />
         </div>
       </section>
     </div>

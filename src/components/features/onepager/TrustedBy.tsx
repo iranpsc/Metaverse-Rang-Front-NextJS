@@ -83,7 +83,7 @@ export default function TrustedBy({ params, mainData }: TrustedByProps) {
                     <div className='w-full lg:w-[300px] ms-5 lg:ms-0'>
 
                         <Reveal
-                            className="!opacity-100 w-full"
+                            className="opacity-100! w-full"
                             direction={params.lang == "fa" ? "right" : "left"}
                             distance={200}
                             duration={1500}
@@ -95,7 +95,7 @@ export default function TrustedBy({ params, mainData }: TrustedByProps) {
                         </Reveal>
                     </div>
                     <div className="text-start max-w-3xl w-full px-3 mt-[-24px] lg:mt-0">
-                        <TextScramble className=" dark:text-white text-5xl xl:text-5xl 2xl:text-5xl 3xl:text-6xl lg:leading-relaxed xl:!leading-[70px]"
+                        <TextScramble className=" dark:text-white text-5xl xl:text-5xl 2xl:text-5xl 3xl:text-6xl lg:leading-relaxed xl:leading-[70px]!"
                             text={findByUniqueId(mainData, 1679)}
                             lang={params.lang}
                         />
@@ -153,7 +153,7 @@ export default function TrustedBy({ params, mainData }: TrustedByProps) {
                                         {/* دکمه Learn more */}
                                         <div className="group cursor-pointer inline-flex items-center gap-3 bg-transparent hover:text-[#9100D9] rounded-3xl rtl:rounded-bl-[100px] ltr:rounded-br-[100px]  matn-2-900 dark:text-white font-medium text-sm transition-all duration-300 px-5 py-3">
                                             <span className='text-base group-hover:text-[#9100D9] font-bold'>{card.buttonText}</span>
-                                            <svg className="w-5 h-5 text-[#9100D9] rtl:rotate-180 transition-transform duration-300 group-hover:translate-x-1 rtl:group-hover:translate-x-[-4px]" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <svg className="w-5 h-5 text-[#9100D9] rtl:rotate-180 transition-transform duration-300 group-hover:translate-x-1 group-hover:rtl:translate-x-[-4px]" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path className='stroke-[#9100D9] ' d="M14.4297 5.92969L20.4997 11.9997L14.4297 18.0697" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
                                                 <path className='stroke-[#9100D9] ' d="M3.5 12H20.33" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
                                             </svg>

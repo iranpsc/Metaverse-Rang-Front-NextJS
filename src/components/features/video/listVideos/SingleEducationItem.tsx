@@ -29,7 +29,7 @@ const SingleEducationItem = ({ item, mainData, params, theme }: any) => {
   return (
     <div className="w-full h-fit flex flex-col gap-5 pt-2 justify-start items-center">
        {linkLoading && (
-        <div className="fixed top-0 left-0 bottom-0  w-full  h-screen z-[70] flex items-center justify-center bg-black/60 backdrop-blur-sm" >
+        <div className="fixed top-0 left-0 bottom-0  w-full  h-screen z-70 flex items-center justify-center bg-black/60 backdrop-blur-xs" >
           <div className="container flex w-full h-screen items-center justify-center md:ms-[25vw] lg:ms-[17vw] xl:ms-[15vw] 3xl:ms-[16vw]">
             <div className="holder">
               <div className="box"></div>
@@ -86,7 +86,7 @@ const SingleEducationItem = ({ item, mainData, params, theme }: any) => {
           <p className="w-full font-azarMehr text-singleVideo-gray dark:text-white font-normal text-[14px]">
             {item.likes_count}
           </p>
-          <Like className="stroke-matn-2 dark:stroke-white !size-[26px]" />
+          <Like className="stroke-matn-2 dark:stroke-white size-[26px]!" />
         </div>
       </div>
       <hr className="h-[2px] w-[90%] text-singleVideo-backgroundInput dark:text-dark-background" />

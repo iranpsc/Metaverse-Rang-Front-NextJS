@@ -66,11 +66,11 @@ const SideCard: React.FC<SideCardProps> = ({ params, mainData }) => {
     return (
       <section className="flex flex-col gap-5 w-full">
         <div className="flex items-center justify-between">
-          <div className="h-6 w-32 bg-neutral-200 dark:bg-neutral-700 rounded relative">
-            <div className="absolute inset-0 bg-gradient-to-r matn-2-200 matn-2-300 matn-2-200 dark:fmatn-2-700 dark:vmatn-2-600 dark:tmatn-2-700 animate-pulse" />
+          <div className="h-6 w-32 bg-neutral-200 dark:bg-neutral-700 rounded-sm relative">
+            <div className="absolute inset-0 bg-linear-to-r matn-2-200 matn-2-300 matn-2-200 dark:fmatn-2-700 dark:vmatn-2-600 dark:tmatn-2-700 animate-pulse" />
           </div>
-          <div className="h-5 w-16 bg-neutral-200 dark:bg-neutral-700 rounded relative ">
-            <div className="absolute inset-0 bg-gradient-to-r matn-2-200 matn-2-300 matn-2-200 dark:fmatn-2-700 dark:vmatn-2-600 dark:tmatn-2-700 animate-pulse" />
+          <div className="h-5 w-16 bg-neutral-200 dark:bg-neutral-700 rounded-sm relative ">
+            <div className="absolute inset-0 bg-linear-to-r matn-2-200 matn-2-300 matn-2-200 dark:fmatn-2-700 dark:vmatn-2-600 dark:tmatn-2-700 animate-pulse" />
           </div>
         </div>
         {[1, 2, 3, 4, 5].map((i) => (

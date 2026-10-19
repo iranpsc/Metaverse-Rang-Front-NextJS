@@ -44,19 +44,19 @@ export default function InviteListSkeleton() {
             <div className="flex-1 mx-4 flex flex-col gap-2">
               <Skeleton
                 tone="surface"
-                className="h-[10px] lg:h-[20px] w-[60%] rounded"
+                className="h-[10px] lg:h-[20px] w-[60%] rounded-sm"
               />
 
               <Skeleton
                 tone="surface"
-                className="h-[10px] lg:h-[16px] w-[35%] rounded"
+                className="h-[10px] lg:h-[16px] w-[35%] rounded-sm"
               />
             </div>
 
             {/* Status / Value */}
             <Skeleton
               tone="surface"
-              className="h-[16px] lg:h-[24px] w-[50px] me-1 rounded"
+              className="h-[16px] lg:h-[24px] w-[50px] me-1 rounded-sm"
             />
 
             {/* Action */}

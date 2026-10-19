@@ -584,7 +584,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
             className="items flex flex-col justify-center gap-3 items-center w-full"
           >
             {linkLoading && (
-              <div className="fixed top-0 left-0 bottom-0  w-full  h-screen z-[70] flex items-center justify-center bg-black/60 backdrop-blur-sm" >
+              <div className="fixed top-0 left-0 bottom-0  w-full  h-screen z-70 flex items-center justify-center bg-black/60 backdrop-blur-xs" >
                 <div className="container flex w-full h-screen items-center justify-center md:ms-[25vw] lg:ms-[17vw] xl:ms-[15vw] 3xl:ms-[16vw]">
                   <div className="holder">
                     <div className="box"></div>
@@ -697,7 +697,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
 
             {/* توضیحات ایونت */}
             <div className="w-[97%] lg:w-[95%]">
-              <div className="text-base w-full break-words whitespace-normal text-[#868B90] dark:text-[#C4C4C4] mb-4 text-justify font-normal font-[Vazir] 2xl:text-xl 2xl:leading-10
+              <div className="text-base w-full wrap-break-word whitespace-normal text-[#868B90] dark:text-[#C4C4C4] mb-4 text-justify font-normal font-[Vazir] 2xl:text-xl 2xl:leading-10
          [&_ul]:list-disc [&_ul]:pl-5
          [&_ol]:list-decimal [&_ol]:pl-5
          [&_li>p]:inline [&_li>p]:m-0 leading-8"
@@ -725,8 +725,8 @@ const EventList: React.FC<CalendarFilterProps> = ({
             {/* شمارش معکوس */}
             <div
               className="px-4 mb-2 w-[97%] lg:w-[95%] lg:px-7 font-[AzarMehrFD] 
-              bg-gradient-to-r from-[#CFCFCFE5] to-[#D8D8D800]
-              dark:bg-gradient-to-r dark:from-[#ffffff09] dark:to-[#00000000]  text-primary rounded-xl lg:rounded-[32px] border-[1px] border-solid dark:border-[#ffffff25] border-[#CFCFCFE5] shadow-lg p-4 flex flex-col sm:flex-row-reverse sm:h-[250px]"
+              bg-linear-to-r from-[#CFCFCFE5] to-[#D8D8D800]
+              dark:bg-linear-to-r dark:from-[#ffffff09] dark:to-[#00000000]  text-primary rounded-xl lg:rounded-[32px] border border-solid dark:border-[#ffffff25] border-[#CFCFCFE5] shadow-lg p-4 flex flex-col sm:flex-row-reverse sm:h-[250px]"
             >
               <div className="flex flex-col justify-start sm:order-1 sm:content-start sm:w-[30%] sm:min-w-[194px]">
                 <h2 className="text-[16px] font-bold lg:px-5 self-center sm:self-start text-black dark:text-white pb-6 sm:mt-4 sm:pb-6 sm:text-start 2xl:text-xl xl:text-lg lg:text-base">
@@ -862,7 +862,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
                 </a>
               </div>
             </div>
-            <div className="mt-6 w-full lg:w-[95%] h-[2px] bg-gradient-to-r from-transparent via-[#DADADA] to-transparent"></div>
+            <div className="mt-6 w-full lg:w-[95%] h-[2px] bg-linear-to-r from-transparent via-[#DADADA] to-transparent"></div>
           </div>
         );
       })}
@@ -884,7 +884,7 @@ const EventList: React.FC<CalendarFilterProps> = ({
 
       {/* مودال ورود */}
       {showLoginModal && (
-        <div className="fixed inset-0 backdrop-blur bg-black/30 flex items-center justify-center z-50 p-5">
+        <div className="fixed inset-0 backdrop-blur-sm bg-black/30 flex items-center justify-center z-50 p-5">
           <div className="bg-white dark:bg-dark-background p-6 rounded-lg shadow-lg max-w-sm w-full">
             <h2 className="text-lg md:text-xl font-azarMehr font-bold text-center dark:text-white mb-4">
               {findByUniqueId(mainData, 1459)}

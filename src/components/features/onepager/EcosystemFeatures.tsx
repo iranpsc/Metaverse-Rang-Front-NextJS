@@ -59,7 +59,7 @@ export default function EcosystemFeatures({ params, mainData }: EcosystemFeature
                         </div>
 
                         {/* عنوان */}
-                        <h3 className="text-3xl md:text-2xl 3xl:text-[31px] font-semibold  !leading-9 line-clamp-1">
+                        <h3 className="text-3xl md:text-2xl 3xl:text-[31px] font-semibold  leading-9! line-clamp-1">
                             {feature.title}
                         </h3>
 

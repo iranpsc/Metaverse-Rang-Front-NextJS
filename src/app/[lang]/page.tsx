@@ -222,12 +222,12 @@ export default async function LangPage({ params }: LangPageProps) {
 
             {/* فقط ویدیوی مناسب همین اندازه، بعد از load (نه هر دو در همان لحظه‌ی اول) */}
             <HeroVideo lang={lang} />
-            <div className="w-full h-full flex flex-col-reverse lg:flex-row px-5 lg:ps-[32px] lg:pe-0 z-[1]">
+            <div className="w-full h-full flex flex-col-reverse lg:flex-row px-5 lg:ps-[32px] lg:pe-0 z-1">
               <Suspense fallback={null}>
                 <HeaderFirstPage mainData={mainData} params={resolvedParams} />
               </Suspense>
             </div>
-            <div className="w-full max-h-[40vh] overflow-y-auto light-scrollbar dark:dark-scrollbar tall0:max-h-[50vh] lg:max-h-[35vh] hidden lg:flex flex-col lg:flex-row gap-4 xl:gap-20 absolute bottom-0 xl:pe-8 lg:pe-8 xs:pe-5 xl:ps-8 lg:ps-8 md:ps-5 sm:ps-5 xs:ps-5 bg-[#151515] bg-opacity-40 pt-4 pb-3 2xl:px-20 3xl:px-[100px] z-[1] mt-4">
+            <div className="w-full  overflow-y-auto light-scrollbar dark:dark-scrollbar  hidden lg:flex flex-col lg:flex-row gap-4 xl:gap-20 absolute bottom-0 xl:pe-8 lg:pe-8 xs:pe-5 xl:ps-8 lg:ps-8 md:ps-5 sm:ps-5 xs:ps-5 bg-[#15151566] [--bg-opacity:40%] pt-4 pb-3 2xl:px-20 3xl:px-25 z-1 mt-4 3xl:py-8">
               <div className="lg:w-1/2 flex flex-col justify-start items-start gap-4">
                 <div className="flex items-center gap-1">
                   <Frame1 className="size-[36px]" />
@@ -252,7 +252,7 @@ export default async function LangPage({ params }: LangPageProps) {
               </div>
             </div>
           </section>
-          <div className="w-full overflow-y-auto light-scrollbar dark:dark-scrollbar flex flex-col md:flex-row lg:hidden gap-4 xl:gap-10 px-5 lg:px-8 bg-[#151515] bg-opacity-40 py-3 z-[1] mt-4">
+          <div className="w-full overflow-y-auto light-scrollbar dark:dark-scrollbar flex flex-col md:flex-row lg:hidden gap-4 xl:gap-10 px-5 lg:px-8 bg-[#151515] bg-opacity-40 py-3 z-1 mt-4">
             <div className="lg:w-1/2 flex flex-col justify-start items-start gap-4">
               <div className="flex items-center">
                 <Frame1 className="size-[36px]" />

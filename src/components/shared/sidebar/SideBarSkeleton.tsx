@@ -41,13 +41,13 @@ interface SideBarSkeletonProps {
 
 function SideBarSkeletonBase({ isClosed  }: SideBarSkeletonProps) {
   return (
-    <div className="z-[1000] h-dvh dark:bg-dark-background fixed top-0 rtl:right-0 ltr:left-0 xl:relative xl:top-0 xl:right-0">
+    <div className="z-1000 h-dvh dark:bg-dark-background fixed top-0 rtl:right-0 ltr:left-0 xl:relative xl:top-0 xl:right-0">
       <div
         className={`shadow-left dark:shadow-leftDark xl:min-h-dvh scroll lg:min-h-dvh md:min-h-dvh relative sm:min-h-dvh xs:min-h-dvh ${
           isClosed
             ? "sm:hidden xs:hidden md:hidden menu-transition xl:block lg:block"
             : "sm:block xs:block"
-        } absolute xl:relative lg:relative xl:w-fit lg:w-fit md:w-full z-[100] sm:w-full xs:w-full no-scrollbar`}
+        } absolute xl:relative lg:relative xl:w-fit lg:w-fit md:w-full z-100 sm:w-full xs:w-full no-scrollbar`}
       >
         <aside
           className={`${
@@ -82,7 +82,7 @@ function SideBarSkeletonBase({ isClosed  }: SideBarSkeletonProps) {
                   isClosed ? "justify-center" : "justify-start gap-3 px-4"
                 }`}
               >
-                <Skeleton tone="standalone" className="w-8 h-8 rounded-md flex-shrink-0" />
+                <Skeleton tone="standalone" className="w-8 h-8 rounded-md shrink-0" />
                 {!isClosed && (
                   <Skeleton
                     tone="standalone"
@@ -98,7 +98,7 @@ function SideBarSkeletonBase({ isClosed  }: SideBarSkeletonProps) {
           <div
             className={`${
               isClosed ? "sm:hidden xs:hidden md:hidden xl:block lg:block" : ""
-            } w-full h-fit z-[100] bg-white dark:bg-dark-background bottom-0 py-5 flex flex-col items-center justify-center gap-3 menu-transition`}
+            } w-full h-fit z-100 bg-white dark:bg-dark-background bottom-0 py-5 flex flex-col items-center justify-center gap-3 menu-transition`}
           >
             <div className={isClosed ? "w-[80%] m-auto" : "w-[80%] m-auto"}>
               <Skeleton tone="standalone" className="w-full h-[40px] rounded-[15px]" />

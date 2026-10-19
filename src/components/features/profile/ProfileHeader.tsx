@@ -52,12 +52,12 @@ export default function ProfileHeader({
               alt={titleData}
               className="  inline-block rounded-full p-1  md:w-10 md:h-10 sm:w-14 sm:h-14 xs:w-14 xs:h-14 object-cover"
             />
-            <p className="sm:bottom-[-25px] xs:bottom-[-25px] sm:start-1 xs:start-1 rounded-sm   w-max p-1 sm:scale-100 xs:scale-100  text-xs  text-black dark:text-white group-hover:scale-100 break-all  inline-block xl:mx-1 lg:mx-1 md:mx-0  font-medium font-azarMehr xl:text-[18px] desktop1920:text-[18px]  desktop1024:text-[12px] md:text-[16px] sm:text-[14px] xs:text-[12px] text-start">
+            <p className="sm:bottom-[-25px] xs:bottom-[-25px] sm:inset-s-1 xs:inset-s-1 rounded-xs   w-max p-1 sm:scale-100 xs:scale-100  text-xs  text-black dark:text-white group-hover:scale-100 break-all  inline-block xl:mx-1 lg:mx-1 md:mx-0  font-medium font-azarMehr xl:text-[18px] desktop1920:text-[18px]  desktop1024:text-[12px] md:text-[16px] sm:text-[14px] xs:text-[12px] text-start">
               {nameUser}
             </p>
           </div>
 
-          <hr className="flex-grow mx-3 h-[1px] xl:visible desktop1024:invisible md:invisible sm:invisible xs:invisible border border-dashed text-matn-2 opacity-10 dark:text-[#fff]" />
+          <hr className="grow mx-3 h-px xl:visible desktop1024:invisible md:invisible sm:invisible xs:invisible border border-dashed text-matn-2 opacity-10 dark:text-white" />
 
           <Image
             src={profileData?.kyc?.nationality || staticImageURL}
@@ -66,7 +66,7 @@ export default function ProfileHeader({
             alt={titleData}
             className="inline-block rounded-full xl:w-9 xl:h-9 desktop1920:w-10 desktop1920:h-10  desktop1024:w-9 desktop1024:h-9 md:w-7 md:h-7 sm:w-12 sm:h-12 xs:w-12 xs:h-12 object-cover"
           />
-          <hr className="flex-grow mx-3 h-[1px] xl:visible desktop1024:invisible md:invisible sm:invisible xs:invisible border border-dashed text-matn-2 opacity-10 dark:text-[#fff]" />
+          <hr className="grow mx-3 h-px xl:visible desktop1024:invisible md:invisible sm:invisible xs:invisible border border-dashed text-matn-2 opacity-10 dark:text-white" />
           <p className=" dark:text-white sm:text-[15px] xs:text-[15px] md:text-[15px] lg:text-[15px] desktop1920:text-[18px] inline-block mx-1 font-bold font-azarMehr text-extraGray">
             {profileData?.level?.name}
           </p>

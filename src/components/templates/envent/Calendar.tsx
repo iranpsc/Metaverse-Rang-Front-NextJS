@@ -417,7 +417,7 @@ export default function Calendar({
 
   return (
     <div
-      className="xl:text-xl  2xl:text-2xl relative w-full border-[1px] border-solid  font-azarMehr
+      className="xl:text-xl  2xl:text-2xl relative w-full border border-solid  font-azarMehr
     dark:border-[#454545] border-[#BABABA]  sm:pt-4 h-auto p-4 sm:p-5 pt-6 
     dark:bg-gray-1 text-[#DEDEE9] rounded-3xl flex flex-col sm:min-w-[310px] sm:max-w-[310px]
     md:min-w-[380px] md:max-w-[380px] lg:min-w-[450px] lg:max-w-[450px] xl:min-w-[520px]  2xl:min-w-[580px]"
@@ -452,9 +452,9 @@ export default function Calendar({
               setShowYearList(false);
             }}
           >
-            <div className="w-4 h-[1px] dark:bg-[#EBEBEB] bg-black  mb-1 xl:w-5 xl:h-[2px] 2xl:w-6 "></div>
-            <div className="w-4 h-[1px] dark:bg-[#EBEBEB]  bg-black mb-1 xl:w-5 xl:h-[2px] 2xl:w-6 "></div>
-            <div className="w-4 h-[1px] dark:bg-[#EBEBEB] bg-black xl:w-5 xl:h-[2px] 2xl:w-6 "></div>
+            <div className="w-4 h-px dark:bg-[#EBEBEB] bg-black  mb-1 xl:w-5 xl:h-[2px] 2xl:w-6 "></div>
+            <div className="w-4 h-px dark:bg-[#EBEBEB]  bg-black mb-1 xl:w-5 xl:h-[2px] 2xl:w-6 "></div>
+            <div className="w-4 h-px dark:bg-[#EBEBEB] bg-black xl:w-5 xl:h-[2px] 2xl:w-6 "></div>
           </button>
           <svg
             onClick={() => changeMonth("next")}
@@ -756,7 +756,7 @@ export default function Calendar({
     hover:bg-[#9100D94D] dark:hover:bg-[#9100D933]
     ${
       selectedDate?.getTime() === currentDay.getTime()
-        ? "bg-[#9100D94D] outline outline-[2px] outline-primary dark:outline-primary dark:bg-[#9100D933] font-bold"
+        ? "bg-[#9100D94D] outline-solid outline-2 outline-primary dark:outline-primary dark:bg-[#9100D933] font-bold"
         : "text-matn-2 hover:matn-2-200"
     }`}
               onClick={() => {

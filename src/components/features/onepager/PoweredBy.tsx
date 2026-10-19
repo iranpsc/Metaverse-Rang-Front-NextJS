@@ -55,7 +55,7 @@ export default function PoweredBy({ mainData, params }: PoweredByProps) {
         ref={textCardRef}
         className="
           bg-white border border-solid border-[#f5f5f5] dark:border-black dark:bg-gray-1 
-          w-full 2xl:!leading-9 h-max flex flex-col justify-start items-center
+          w-full 2xl:leading-9! h-max flex flex-col justify-start items-center
           p-5 lg:pt-7 lg:px-10 rounded-xl lg:rounded-[32px] dark:text-white lg:text-xl leading-9
           lg:absolute lg:inset-x-0 lg:top-0 lg:z-20 lg:h-full
         "
@@ -95,7 +95,7 @@ export default function PoweredBy({ mainData, params }: PoweredByProps) {
         </div>
 
         <div className="w-full p-5 pt-3 lg:px-10 pb-10   text-start ">
-          <h1 className="font-black pb-3 lg:!text-xl">{subtitle}</h1>
+          <h1 className="font-black pb-3 lg:text-xl!">{subtitle}</h1>
           <p className="ltr:leading-5">{description}</p>
           <ClipButton clip={params.lang == "fa" ? "bl" : "br"}
             className="w-[230px]  h-[60px] group mt-3 cursor-pointer duration-300 hover:text-[#9100D9]">

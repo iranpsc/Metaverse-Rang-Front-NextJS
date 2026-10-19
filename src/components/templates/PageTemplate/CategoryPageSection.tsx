@@ -14,36 +14,36 @@ const SearchComponent = dynamic(
 );
 
 const CategoryPageSection = ({ CategoryData, mainData, params }: any) => {
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
-  const [subcategories, setSubcategories] = useState<any[]>(
-    CategoryData.subcategories || []
-  );
-  const [visibleCount, setVisibleCount] = useState(9);
+  // const [page, setPage] = useState(1);
+  // const [loading, setLoading] = useState(false);
+  // const [subcategories, setSubcategories] = useState<any[]>(
+  //   CategoryData.subcategories || []
+  // );
+  // const [visibleCount, setVisibleCount] = useState(9);
   const [shows, setShows] = useState(false);
   const contentRef = useRef<HTMLDivElement | null>(null);
 
   // تابع fetch بیشتر برای Load More
-  const loadMore = async () => {
-    if (loading) return; // جلوگیری از چند کلیک پشت سر هم
-    setLoading(true);
+  // const loadMore = async () => {
+  //   if (loading) return; // جلوگیری از چند کلیک پشت سر هم
+  //   setLoading(true);
 
-    try {
-      const nextPage = page + 1;
-      setPage(nextPage);
+  //   try {
+  //     const nextPage = page + 1;
+  //     setPage(nextPage);
 
-      const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/tutorials?page=${nextPage}`
-      );
+  //     const res = await axios.get(
+  //       `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/tutorials?page=${nextPage}`
+  //     );
 
-      const newSubcategories = res.data.data || [];
-      setSubcategories((prev) => [...prev, ...newSubcategories]);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  //     const newSubcategories = res.data.data || [];
+  //     setSubcategories((prev) => [...prev, ...newSubcategories]);
+  //   } catch (error) {
+  //     console.error(error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   return (
     <section className="w-full h-fit flex flex-col justify-start items-center relative mt-10">

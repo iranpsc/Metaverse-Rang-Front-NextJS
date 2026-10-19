@@ -17,7 +17,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 function VideoCardSkeletonBase() {
   return (
-    <div className="w-[100%] space-y-[2px] min-h-[240px] shadow-md rounded-[10px] overflow-hidden bg-white dark:bg-gray-1 flex flex-col justify-start gap-6 items-center">
+    <div className="w-full space-y-[2px] min-h-[240px] shadow-md rounded-[10px] overflow-hidden bg-white dark:bg-gray-1 flex flex-col justify-start gap-6 items-center">
       {/* تصویر — معادل h-[260px] px-4 pt-4 */}
       <div className="w-full h-[260px] overflow-hidden px-4 pt-4">
         <div className="relative h-full w-full">

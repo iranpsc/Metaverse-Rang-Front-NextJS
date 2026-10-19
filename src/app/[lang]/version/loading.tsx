@@ -20,10 +20,10 @@ export default function Loading() {
           <div className="centerItem w-full lg:px-7">
             <div className="self-center justify-between flex pt-8 w-full gap-8">
               {/* ---------- ستون راست: VersionBox (سرچ + لیست) ---------- */}
-              <div className="w-full px-2 lg:px-0 lg:mx-[20px] self-center flex flex-col items-center lg:w-[35%] lg:h-full lg:flex-shrink-0 lg:rounded-[20px]">
+              <div className="w-full px-2 lg:px-0 lg:mx-[20px] self-center flex flex-col items-center lg:w-[35%] lg:h-full lg:shrink-0 lg:rounded-[20px]">
                 {/* search box */}
-                <div className="w-full flex items-center border-solid border-[#00000024] border-[1px] justify-between bg-white dark:bg-gray-1 lg:w-full h-[50px] rounded-[12px] px-4">
-                  <Skeleton variant="circle" className="!w-5 !h-5 shrink-0" />
+                <div className="w-full flex items-center border-solid border-[#00000024] border justify-between bg-white dark:bg-gray-1 lg:w-full h-[50px] rounded-[12px] px-4">
+                  <Skeleton variant="circle" className="w-5! h-5! shrink-0" />
                   <Skeleton className="h-3 flex-1 mx-3 rounded-md" />
                 </div>
 
@@ -35,7 +35,7 @@ export default function Loading() {
                     {Array.from({ length: 8 }).map((_, i) => (
                       <div key={i} className="flex w-full justify-between py-2 gap-3">
                         <div className="flex flex-col items-center pt-[10px] w-[10px] shrink-0">
-                          <Skeleton variant="circle" className="!w-[10px] !h-[10px]" />
+                          <Skeleton variant="circle" className="w-[10px]! h-[10px]!" />
                           <div className="w-[1.5px] flex-1 bg-[rgb(var(--color-gray-3))] mt-1" />
                         </div>
 

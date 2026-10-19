@@ -1,6 +1,6 @@
 
 import type { Metadata } from "next";
-import Image from "next/image";
+// import Image from "next/image";
 import Link from "next/link";
 
 interface EnamadPageProps {
@@ -80,7 +80,7 @@ export default async function EnamadPage({
         </div>
 
         {/* Main Card */}
-        <section className="mx-auto max-w-2xl rounded-3xl  bg-gray-2 p-6 shadow-sm  lg:p-10">
+        <section className="mx-auto max-w-2xl rounded-3xl  bg-gray-2 p-6 shadow-xs  lg:p-10">
 
           <div className="flex flex-col items-center">
 

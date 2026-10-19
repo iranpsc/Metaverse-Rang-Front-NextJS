@@ -115,7 +115,7 @@ const VPNDetector = () => {
   }
 
   return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60">
+    <div className="fixed inset-0 z-9999 flex items-center justify-center bg-black/60">
       <div
         className="bg-white dark:bg-[#1e1e1e] rounded-2xl p-6 max-w-md w-[90%] text-center shadow-xl"
         dir="rtl"

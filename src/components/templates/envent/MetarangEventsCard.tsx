@@ -42,12 +42,12 @@ export default function AvalancheEventsCard({ params, mainData }: AvalancheEvent
                     </div>
 
                     <ClipButton clip={params.lang == "fa" ? "bl" : "br"}
-                        className="w-[230px] overflow-hidden  h-[64px] group ms-0 m-5 cursor-pointer duration-300 text-black dark:text-white hover:!text-[#9100D9] ">
+                        className="w-[230px] overflow-hidden  h-[64px] group ms-0 m-5 cursor-pointer duration-300 text-black dark:text-white hover:text-[#9100D9]! ">
                         <button
                             type="button"
                             aria-label="btn event"
 
-                            className="bg-transparent flex items-center text-base !ring-0 !border-0 focus-visible:ring-0"
+                            className="bg-transparent flex items-center text-base ring-0! border-0! focus-visible:ring-0"
                         >
                             <span className="text-white dark:text-black font-medium  group-hover:text-white pe-3">{findByUniqueId(mainData, 1711)}</span>
                             <svg className="rtl:rotate-180 stroke-white"
@@ -117,12 +117,12 @@ export default function AvalancheEventsCard({ params, mainData }: AvalancheEvent
                         </div>
 
                         <ClipButton clip={params.lang == "fa" ? "bl" : "br"}
-                            className="w-[180px] lg:w-[230px]  h-[64px] group mt-5 cursor-pointer duration-300 text-black dark:text-white hover:!text-[#9100D9] ">
+                            className="w-[180px] lg:w-[230px]  h-[64px] group mt-5 cursor-pointer duration-300 text-black dark:text-white hover:text-[#9100D9]! ">
                             <button
                                 type="button"
                                 aria-label="btn event"
 
-                                className="bg-transparent flex items-center text-base !ring-0 !border-0 focus-visible:ring-0"
+                                className="bg-transparent flex items-center text-base ring-0! border-0! focus-visible:ring-0"
                             >
                                 <span className="text-white dark:text-black font-medium  group-hover:text-white pe-3">{findByUniqueId(mainData, 1711)}</span>
                                 <svg className="rtl:rotate-180 stroke-white"

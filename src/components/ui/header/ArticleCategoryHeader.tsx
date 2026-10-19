@@ -98,7 +98,7 @@ export default function CategoryHeader({
             </span>
           </div>
 
-          <hr className="h-[50px] mx-auto w-[1px] border border-[#D9D9D9] dark:border-[#434343]" />
+          <hr className="h-[50px] mx-auto w-px border border-[#D9D9D9] dark:border-[#434343]" />
 
           {/* لایک‌ها */}
           <div className="flex flex-col gap-1 md:gap-2 w-max">
@@ -115,7 +115,7 @@ export default function CategoryHeader({
             </span>
           </div>
 
-          <hr className="hidden lg:block h-[50px] mx-auto w-[1px] border border-[#D9D9D9] dark:border-[#434343]" />
+          <hr className="hidden lg:block h-[50px] mx-auto w-px border border-[#D9D9D9] dark:border-[#434343]" />
 
           {/* دیسلایک‌ها */}
           <div className="flex flex-col gap-1 md:gap-2 w-max">
@@ -132,7 +132,7 @@ export default function CategoryHeader({
             </span>
           </div>
 
-          <hr className="h-[50px] mx-auto w-[1px] border border-[#D9D9D9] dark:border-[#434343]" />
+          <hr className="h-[50px] mx-auto w-px border border-[#D9D9D9] dark:border-[#434343]" />
 
           {/* بازدیدها */}
           <div className="flex flex-col gap-1 md:gap-2 w-max">

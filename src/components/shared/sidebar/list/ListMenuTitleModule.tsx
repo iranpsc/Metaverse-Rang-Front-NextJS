@@ -22,7 +22,7 @@ const ListMenuTitleModule = ({ item, isClosed }: any) => {
         : "text-black dark:text-matn-2"
     }
     ${isClosed ? "w-0 h-0 overflow-hidden" : "w-max h-fit"}
-    capitalize 3xl:text-xl3Title xl:text-xlTitle lg:text-lgTitle md:text-mdTitle sm:text-smTitle xs:text-smTitle font-azarMehr font-normal 3xl:text-[22px]`}
+    capitalize 3xl:text-xl xl:text-lg lg:text-lgTitle  md:text-mdTitle sm:text-smTitle xs:text-smTitle font-azarMehr font-normal `}
     >
       {item.translation}
     </div>
