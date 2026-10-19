@@ -123,7 +123,7 @@ const buttonClass = (active: boolean, disabled = false) =>
   return (
     <div className="w-full flex flex-col items-center sticky top-0">
       {activeMode === "png" && srcPng && (
-        <div className="relative w-[90%] md:w-full aspect-[5/7] rounded-xl">
+        <div className="relative w-[90%] md:w-full aspect-5/7 rounded-xl">
           <div className="absolute inset-0 rounded-xl" />
           <Image
             src={srcPng}
@@ -138,7 +138,7 @@ const buttonClass = (active: boolean, disabled = false) =>
 
       {/* بدون key؛ تا src عوض نشه GIF دوباره شروع نمی‌شه */}
       {activeMode === "gif" && srcGif && (
-        <div className="relative  w-[90%] aspect-[5/7] rounded-xl">
+        <div className="relative  w-[90%] aspect-5/7 rounded-xl">
           <div className="absolute inset-0 rounded-xl" />
           <Image
             src={srcGif}
@@ -152,7 +152,7 @@ const buttonClass = (active: boolean, disabled = false) =>
       )}
 
       {activeMode === "fbx" && modelSource && (
-        <div className="relative w-full aspect-[5/7]">
+        <div className="relative w-full aspect-5/7">
           <ErrorBoundary>
             <Sample3D src={modelSource} lang={lang} />
           </ErrorBoundary>

@@ -492,7 +492,7 @@ const handleRemoveGalleryImage = (index: number) => {
           {newsList.map((news) => (
             <div
               key={news.id}
-              className="border dark:bmatn-2-700 rounded-lg p-5 bg-white dark:bmatn-2-900 shadow-sm hover:shadow-md transition-shadow"
+              className="border dark:bmatn-2-700 rounded-lg p-5 bg-white dark:bmatn-2-900 shadow-xs hover:shadow-md transition-shadow"
             >
               <h3 className="font-bold text-lg mb-2">{news.title}</h3>
               <p className="matn-2-600 dark:tmatn-2-300 mb-3 line-clamp-2">{news.description}</p>

@@ -41,7 +41,7 @@ export default function ModalCard({
   mainData,
 }: any) {
   return (
-    <div className="fixed top-0 left-0 backdrop-blur-[15px] bg-black/40 z-[1001] w-screen h-screen text-matn-2">
+    <div className="fixed top-0 left-0 backdrop-blur-[15px] bg-black/40 z-1001 w-screen h-screen text-matn-2">
       <div className="flex flex-col justify-center w-screen h-screen items-center w-full">
         <motion.div
           initial={{ rotate: 0, scale: 0 }}
@@ -57,7 +57,7 @@ export default function ModalCard({
           } items-center relative shadow-md bg-white dark:bg-dark-background`}
         >
           <CLoseIcon
-            className="absolute w-[24px] h-[24px] cursor-pointer stroke-2 stroke-matn-2 top-5 end-5 z-50"
+            className="absolute w-[24px] h-[24px] cursor-pointer stroke-2 stroke-matn-2 top-5 inset-e-5 z-50"
             onClick={() => setShowModal(false)}
             alt={dataModal.title}
           />

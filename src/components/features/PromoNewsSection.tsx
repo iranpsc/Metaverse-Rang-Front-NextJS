@@ -4,11 +4,11 @@ import Image from 'next/image';
 
 const WindowsNews = () => {
     return (
-        <div className=" mx-auto w-full bg-gradient-to-r to-primary from-blue-400 dark:to-primary dark:from-yellow-600 lg:rounded-xl  overflow-hidden  my-10 p-5">
+        <div className=" mx-auto w-full bg-linear-to-r to-primary from-blue-400 dark:to-primary dark:from-yellow-600 lg:rounded-xl  overflow-hidden  my-10 p-5">
             <div className="p-6 flex flex-col md:flex-row justify-between" dir="rtl">
                 <div className='w-[300px] mx-auto lg:mx-0 relative mt-[-60px] lg:mt-0 mb-5 lg:mb-0'>
                     <div className='bg-[#5d9eff80] dark:bg-[#d8a90054] w-[240px] h-[240px] rounded-full relative z-0' />
-                    <Image src={'/adNews.png'} fill unoptimized={true} alt={'ad pic'} className=' w-full max-w-[270px] !h-auto z-10 my-auto lg:ms-[-15px]' />
+                    <Image src={'/adNews.png'} fill unoptimized={true} alt={'ad pic'} className=' w-full max-w-[270px] h-auto! z-10 my-auto lg:ms-[-15px]' />
                 </div>
                 <div className=" flex flex-col gap-4">
                     <p className="text-xl lg:text-3xl font-rokh font-bold text-white dark:text-black">

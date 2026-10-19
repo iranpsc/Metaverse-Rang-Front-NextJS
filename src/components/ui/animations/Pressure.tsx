@@ -58,7 +58,7 @@ export default function PressureCenter() {
             preload="auto"
             onLoadedData={() => setLoaded(true)}
             onEnded={handleEnded}
-            className={`max-w-[600px] transition-all duration-[1500ms] ease-out ${
+            className={`max-w-[600px] transition-all duration-1500 ease-out ${
               loaded ? "scale-100 opacity-100" : "scale-[0.25] opacity-0"
             }`}
           />

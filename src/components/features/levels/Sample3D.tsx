@@ -1062,7 +1062,7 @@ export default function Sample3D({
           </p>
 
           {errorMessage && (
-            <p className="mt-2 break-words text-xs matn-2-400">
+            <p className="mt-2 wrap-break-word text-xs matn-2-400">
               {errorMessage}
             </p>
           )}
@@ -1098,7 +1098,7 @@ export default function Sample3D({
     <div
       className="
         relative
-        aspect-[5/7]
+        aspect-5/7
         w-full
         overflow-hidden
         rounded-xl

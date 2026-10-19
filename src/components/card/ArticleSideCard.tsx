@@ -52,7 +52,7 @@ const cleanDescription = (html: string, limit = 255): string => {
                     <div className="absolute inset-0 bg-black/20 " />
                 </div>
             )}
-            <div className="w-full p-3 z-[1]">
+            <div className="w-full p-3 z-1">
                 <div className="h-36 overflow-hidden aspect-video rounded-[10px] w-full">
                     <Image
                         src={article.image}
@@ -64,7 +64,7 @@ const cleanDescription = (html: string, limit = 255): string => {
                 </div>
             </div>
 
-            <div className="p-4 text-right space-y-2  z-[1]">
+            <div className="p-4 text-right space-y-2  z-1">
                 <div className="flex items-center w-full justify-between">
                     <div className="flex items-center text-xs lg:hidden xl:block">
                         {mainData && <span className="dark:text-white">{mainData} : </span>}

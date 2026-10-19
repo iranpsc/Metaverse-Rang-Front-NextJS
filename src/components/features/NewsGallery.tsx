@@ -199,7 +199,7 @@ export default function NewsGallerySimple({ gallery, mainImage, params }: NewsGa
 
       {/* مودال اسلایدر اصلی */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-[9999] backdrop-blur-md bg-white/10 /20">
+        <div className="fixed inset-0 z-9999 backdrop-blur-md bg-white/10 /20">
           {/* هدر مودال */}
           <div className="absolute top-0 left-0 right-0 z-20 flex justify-between p-4">
             <button
@@ -240,7 +240,7 @@ export default function NewsGallerySimple({ gallery, mainImage, params }: NewsGa
                   src={allImages[currentIndex]}
                   alt={`تصویر ${currentIndex + 1}`}
                   fill
-                  className="p-4 md:p-8 object-contain mx-auto my-auto lg:my-0 rounded-3xl !h-max !w-max !max-h-full !max-w-full"
+                  className="p-4 md:p-8 object-contain mx-auto my-auto lg:my-0 rounded-3xl h-max! w-max! max-h-full! max-w-full!"
                   sizes="100vw"
                   priority
                   unoptimized={true}
@@ -273,14 +273,14 @@ export default function NewsGallerySimple({ gallery, mainImage, params }: NewsGa
 
             {/* thumbnails */}
             {allImages.length > 1 && (
-              <div className="absolute bottom-0 left-0 right-0 z-20 pb-4 md:pb-6 bg-gradient-to-t from-black/70 to-transparent pt-8">
+              <div className="absolute bottom-0 left-0 right-0 z-20 pb-4 md:pb-6 bg-linear-to-t from-black/70 to-transparent pt-8">
                 <div className="flex justify-center items-center px-4">
                   <div className="flex gap-2 md:gap-3 mb-[60px] lg:mb-0 py-5 overflow-x-auto w-full scrollbar-hide justify-center">
                     {allImages.map((img, idx) => (
                       <button
                         key={idx}
                         onClick={(e) => goToSlide(idx, e)}
-                        className={`relative flex-shrink-0 w-14 h-14 md:w-20 md:h-20 rounded-lg overflow-hidden transition-all duration-200 ${
+                        className={`relative shrink-0 w-14 h-14 md:w-20 md:h-20 rounded-lg overflow-hidden transition-all duration-200 ${
                           currentIndex === idx
                             ? "ring-2 ring-white ring-offset-2 ring-offset-black scale-105"
                             : "opacity-60 hover:opacity-100"
@@ -307,7 +307,7 @@ export default function NewsGallerySimple({ gallery, mainImage, params }: NewsGa
       {/* مودال تمام صفحه برای نمایش تصویر به صورت کامل و بدون حاشیه */}
       {isImageFullscreen && (
         <div
-          className="fixed inset-0 z-[10000] bg-black"
+          className="fixed inset-0 z-10000 bg-black"
           onClick={closeImageFullscreen}
         >
           <button

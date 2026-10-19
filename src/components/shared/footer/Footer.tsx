@@ -121,7 +121,7 @@ export default function Footer2({
                             <span className={`${baseClass} ${linkClass}`}>
                               {item.label}
 
-                              <span className="text-[#ccc] !text-3xl ms-1 rtl:rotate-180">
+                              <span className="text-[#ccc] text-3xl! ms-1 rtl:rotate-180">
                                 <svg
                                   width="20"
                                   height="20"
@@ -149,7 +149,7 @@ export default function Footer2({
                             <Link
                               href={item.href}
                               aria-label="footer links"
-                              className={`${baseClass} ${linkClass} hover:!text-[#8A2BE2]`}
+                              className={`${baseClass} ${linkClass} hover:text-[#8A2BE2]!`}
                               {...(isExternal
                                 ? {
                                     target: "_blank",
@@ -159,7 +159,7 @@ export default function Footer2({
                             >
                               {item.label}
 
-                              <span className="text-[#8A2BE2] flex items-center rtl:rotate-180 ms-1 !text-3xl transition-transform peer-hover:translate-x-1 rtl:peer-hover:translate-x-[-4px]">
+                              <span className="text-[#8A2BE2] flex items-center rtl:rotate-180 ms-1 text-3xl! transition-transform peer-hover:translate-x-1 peer-hover:rtl:translate-x-[-4px]">
                                 <svg
                                   width="20"
                                   height="20"

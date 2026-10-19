@@ -89,7 +89,7 @@ export default function ShredPage({
   };
 
   return (
-    <div className="fixed backdrop-blur-sm bg-blackTransparent/30 z-50 top-0 left-0 w-full h-screen ">
+    <div className="fixed backdrop-blur-xs bg-blackTransparent/30 z-50 top-0 left-0 w-full h-screen ">
       <div className="w-full h-full overflow-clip">
         <motion.div
           initial={{ rotate: 0, scale: 0 }}
@@ -107,7 +107,7 @@ export default function ShredPage({
           >
             <div className="w-full h-full overflow-clip flex flex-col justify-start mt-2 items-center  gap-10 top-0 absolute">
               <CLoseIcon
-                className="w-[15px] h-[15px] cursor-pointer stroke-2 m-2 stroke-matn-2  absolute start-3 top-1"
+                className="w-[15px] h-[15px] cursor-pointer stroke-2 m-2 stroke-matn-2  absolute inset-s-3 top-1"
                 onClick={() => setShowSocial(false)}
                 alt="Close"
               />
@@ -120,7 +120,7 @@ export default function ShredPage({
                 className="rounded-full cursor-pointer 3xl:w-[50px] 3xl:h-[50px] xl:w-[50px] xl:h-[50px] lg:w-[50px] lg:h-[50px] md:w-[50px] md:h-[50px] sm:w-[40px] sm:h-[40px] xs:w-[40px] xs:h-[40px] absolute right-1 top-[28%]  z-50 flex justify-center items-center"
                 onClick={scrollRight}
               >
-                <Arrow className="stroke-matn-2  stroke-[5px] w-7 h-7 rotate-[180deg]" />
+                <Arrow className="stroke-matn-2  stroke-[5px] w-7 h-7 rotate-180" />
               </div>
               <div
                 className="rounded-full cursor-pointer 3xl:w-[50px] 3xl:h-[50px] xl:w-[50px] xl:h-[50px] lg:w-[50px] lg:h-[50px] md:w-[50px] md:h-[50px] sm:w-[40px] sm:h-[40px] xs:w-[40px] xs:h-[40px] absolute left-1 top-[28%] z-50 flex justify-center items-center"
@@ -158,10 +158,10 @@ export default function ShredPage({
               </div>
               <div
                 data-tooltip-id="unique-tooltip"
-                className="relative flex justify-end items-center mt-8 w-[95%] rounded-[20px] px-4 py-1 shadow-md dark:bg-[#000] border border-matn-2"
+                className="relative flex justify-end items-center mt-8 w-[95%] rounded-[20px] px-4 py-1 shadow-md dark:bg-black border border-matn-2"
               >
                 <p
-                  className="absolute start-2 cursor-pointer xl:w-[75px] lg:w-[75px] md:w-[65px] sm:w-[55px] xs:w-[55px] rounded-[40px] text-center  font-azarMehr text-[16px] sm:text-[14px] xs:text-[14px]  font-bold xl:py-2  lg:py-2 md:py-1 sm:py-2 xs:py-2 text-matn-1 bg-primary    "
+                  className="absolute inset-s-2 cursor-pointer xl:w-[75px] lg:w-[75px] md:w-[65px] sm:w-[55px] xs:w-[55px] rounded-[40px] text-center  font-azarMehr text-[16px] sm:text-[14px] xs:text-[14px]  font-bold xl:py-2  lg:py-2 md:py-1 sm:py-2 xs:py-2 text-matn-1 bg-primary    "
                   onClick={handleCopyClick}
                 >
                   {/* {targetData(userProperty, "copy")} */}

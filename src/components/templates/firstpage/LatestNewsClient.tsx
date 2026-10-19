@@ -88,9 +88,9 @@ export default function LatestNewsClient({
                 </div>
               )}
 
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/30 to-transparent" />
 
-              <div className="absolute bottom-0 left-0 right-0 z-[2] pointer-events-none p-5 xl:p-[32px] text-white w-full flex flex-col gap-4 items-center">
+              <div className="absolute bottom-0 left-0 right-0 z-2 pointer-events-none p-5 xl:p-[32px] text-white w-full flex flex-col gap-4 items-center">
                 {featured.category && (
                   <div className="border-2 border-solid border-dark-gray py-2 px-5 rounded-full w-max">
                     <Link
@@ -155,7 +155,7 @@ export default function LatestNewsClient({
                 )}/${featured.slug}`}
                 aria-hidden="true"
                 tabIndex={-1}
-                className="absolute inset-0 z-[1]"
+                className="absolute inset-0 z-1"
               />
             </div>
           </div>
@@ -173,7 +173,7 @@ export default function LatestNewsClient({
               onClickCapture={() =>
                 setActiveLoadingId(item.id)
               }
-              className={`relative bg-white dark:bg-gray-1 lg:!bg-bg-primary rounded-lg h-auto p-4 lg:p-1 ${
+              className={`relative bg-white dark:bg-gray-1 lg:bg-bg-primary! rounded-lg h-auto p-4 lg:p-1 ${
                 isLoading
                   ? "rotating-border-card cursor-not-allowed"
                   : ""
@@ -206,7 +206,7 @@ export default function LatestNewsClient({
                   )}
                 </div>
 
-                <div className="flex flex-col items-center lg:items-start gap-4 w-full lg:w-[60%] p-3 lg:ps-5 h-full bg-white lg:!bg-bg-primary dark:bg-gray-1 lg:z-10">
+                <div className="flex flex-col items-center lg:items-start gap-4 w-full lg:w-[60%] p-3 lg:ps-5 h-full bg-white lg:bg-bg-primary! dark:bg-gray-1 lg:z-10">
                   {item.category && (
                     <Link
                       href={`/${params.lang}/news/categories/${getCategorySlug(

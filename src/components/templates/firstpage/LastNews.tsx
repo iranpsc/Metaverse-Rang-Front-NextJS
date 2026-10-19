@@ -50,7 +50,7 @@ export function FeaturedNewsSkeleton() {
         <Skeleton
           tone="standalone"
           variant="rect"
-          className="!w-full !h-full !rounded-md"
+          className="w-full! h-full! rounded-md!"
         />
 
         <div className="absolute bottom-0 left-0 right-0 p-5 xl:p-[32px] w-full flex flex-col gap-4 items-center">
@@ -74,13 +74,13 @@ export function FeaturedNewsSkeleton() {
 
 export function SideNewsItemSkeleton() {
   return (
-    <div className="relative bg-white dark:bg-gray-1 lg:!bg-bg-primary rounded-lg h-auto p-4 lg:p-1">
+    <div className="relative bg-white dark:bg-gray-1 lg:bg-bg-primary! rounded-lg h-auto p-4 lg:p-1">
       <div className="flex lg:flex-row flex-col w-full">
         <div className="relative w-full lg:w-[40%] h-[250px] lg:h-[176px] overflow-hidden">
           <Skeleton
             tone="standalone"
             variant="rect"
-            className="!w-full !h-full !rounded-lg"
+            className="w-full! h-full! rounded-lg!"
           />
         </div>
 
@@ -117,7 +117,7 @@ export function LatestNewsSkeleton() {
           <Skeleton
             tone="standalone"
             variant="circle"
-            className="!w-5 !h-5 md:!w-6 md:!h-6"
+            className="w-5! h-5! md:w-6! md:h-6!"
           />
         </div>
       </div>

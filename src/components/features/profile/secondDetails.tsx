@@ -14,20 +14,20 @@ export default function ProfileDetailsDetails({ itemsProfileDetails }: any) {
           <div
             key={i}
             className="flex flex-row px-3 xl:mt-3 lg:mt-3 md:mt-2 sm:mt-1 xs:mt-1 justify-between w-full items-center
-            xl:py-[0px] lg:py-[4px] md:py-[4px] sm:py-[5px] xs:py-[5px]
+            xl:py-0 lg:py-[4px] md:py-[4px] sm:py-[5px] xs:py-[5px]
             "
           >
             <p className="font-azarMehr 3xl:text-xl3Title lg:text-lgTitle  xl:text-xlTitle  md:text-mdTitle sm:text-smTitle xs:text-smTitle font-medium  text-matn-2 dark:text-white">
               {item.key}
             </p>
-            <hr className="flex-grow mx-3 h-[1px] xl:visible lg:visible md:invisible sm:invisible xs:invisible border border-dashed text-matn-2 opacity-10 dark:text-[#fff]" />
+            <hr className="grow mx-3 h-px xl:visible lg:visible md:invisible sm:invisible xs:invisible border border-dashed text-matn-2 opacity-10 dark:text-white" />
 
             <div className="group relative flex justify-center ">
               <p className=" text-end font-azarMehr font-medium 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc  md:text-mdDesc sm:text-smDesc xs:text-smDesc text-matn-2">
                 {item.value}
               </p>
               {item.fValue && item.fValue.length > 2 && (
-                <span className="absolute end-2  top-7 z-20  !bg-[#E9E9E9] !text-[#908F95] dark:!bg-black !font-azarMehr !font-medium  dark:!text-white !text-[14px]  rounded-md text-center w-max px-2 py-[5px] scale-0   group-hover:scale-100">
+                <span className="absolute inset-e-2  top-7 z-20  bg-[#E9E9E9]! text-[#908F95]! dark:bg-black! !font-azarMehr font-medium!  dark:text-white! text-[14px]!  rounded-md text-center w-max px-2 py-[5px] scale-0   group-hover:scale-100">
                   {item.fValue}
                 </span>
               )}

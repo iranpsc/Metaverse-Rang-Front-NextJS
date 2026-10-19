@@ -177,7 +177,7 @@ const PopularArticlesSlider = ({
                     onClick={() =>
                       swiperRef.current?.slideToLoop(idx)
                     }
-                    className={`w-5 h-1 rounded-sm transition ${
+                    className={`w-5 h-1 rounded-xs transition ${
                       activeIndex === idx
                         ? "bg-primary "
                         : "bg-dark-gray dark:bg-dark-placeholder"

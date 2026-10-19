@@ -52,7 +52,7 @@ export default function SectionInputSearch({
   return (
     <div
       className={`
-        w-full h-[55px] xs:mt-[50px] xs:mb-5 rounded-2xl border-[1px]
+        w-full h-[55px] xs:mt-[50px] xs:mb-5 rounded-2xl border border-transparent
         focus-within:border-primary focus-within:
         transition-all duration-300 bg-white dark:bg-gray-1 
         flex flex-row justify-evenly items-center dark:text-white
@@ -69,7 +69,7 @@ export default function SectionInputSearch({
       <input
         type="text"
         placeholder={getPlaceholder()}
-        className="w-[80%] outline-none border-none 
+        className="w-[80%] outline-hidden border-none 
           placeholder-[#868B90] dark:text-white text-[16px] ms-2
           dark:bg-gray-1  dark:pmatn-2"
         value={searchTerm}

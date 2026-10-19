@@ -373,7 +373,7 @@ const SingleVideoDashboardModule = ({
           </p>
 
           <motion.div
-            className={`size-[15px] md:size-[18px] outline-none border-none stroke-gray-1 dark:stroke-white flex items-center justify-center ${isLiking ||
+            className={`size-[15px] md:size-[18px] outline-hidden border-none stroke-gray-1 dark:stroke-white flex items-center justify-center ${isLiking ||
               userInteraction === true
               ? "cursor-not-allowed"
               : "cursor-pointer"
@@ -415,7 +415,7 @@ const SingleVideoDashboardModule = ({
           </p>
 
           <motion.div
-            className={`size-[15px] md:size-[18px] outline-none border-none stroke-gray-1 dark:stroke-white flex items-center justify-center ${isDisliking ||
+            className={`size-[15px] md:size-[18px] outline-hidden border-none stroke-gray-1 dark:stroke-white flex items-center justify-center ${isDisliking ||
               userInteraction === false
               ? "cursor-not-allowed"
               : "cursor-pointer"
@@ -464,7 +464,7 @@ const SingleVideoDashboardModule = ({
       {/* ================================================= */}
 
       {showLoginModal && (
-        <div className="fixed inset-0 backdrop-blur bg-black/30 flex items-center justify-center z-50 p-5">
+        <div className="fixed inset-0 backdrop-blur-sm bg-black/30 flex items-center justify-center z-50 p-5">
 
           <div className="bg-white dark:bg-dark-background p-6 rounded-lg shadow-lg max-w-sm w-full">
 

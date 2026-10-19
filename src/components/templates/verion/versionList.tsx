@@ -50,7 +50,7 @@ const mapItem = (item: any): Version => ({
 const VersionItemSkeleton = () => (
   <div className="flex w-full justify-between py-2 gap-3">
     <div className="flex flex-col items-center pt-[10px] w-[10px] shrink-0">
-      <Skeleton variant="circle" className="!w-[10px] !h-[10px]" />
+      <Skeleton variant="circle" className="w-[10px]! h-[10px]!" />
       <div className="w-[1.5px] flex-1 bg-[rgb(var(--color-gray-3))] mt-1" />
     </div>
     <div className="flex-1 flex flex-col gap-2">
@@ -298,9 +298,9 @@ const VersionBox: React.FC<VersionBoxProps> = ({
   }, []);
 
   return (
-    <div className="w-full px-2 lg:px-0 lg:mx-[20px] self-center flex flex-col items-center lg:w-[35%] lg:h-full lg:flex-shrink-0 lg:rounded-[20px]">
+    <div className="w-full px-2 lg:px-0 lg:mx-[20px] self-center flex flex-col items-center lg:w-[35%] lg:h-full lg:shrink-0 lg:rounded-[20px]">
       {/* search box */}
-      <div className="w-full flex items-center border-solid border-[#00000024] border-[1px] justify-between bg-[#FFFF] dark:bg-gray-1  lg:w-full h-[50px] rounded-[12px]">
+      <div className="w-full flex items-center border-solid border-[#00000024] border justify-between bg-[#FFFF] dark:bg-gray-1  lg:w-full h-[50px] rounded-[12px]">
         <div className="searchIcon flex justify-center p-2">
           <Search className={`fill-primary dark:fill-primary`} />
         </div>
@@ -308,7 +308,7 @@ const VersionBox: React.FC<VersionBoxProps> = ({
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="dark:text-white pr-2 pl-5 bg-transparent flex-1 border-none outline-none text-sm"
+          className="dark:text-white pr-2 pl-5 bg-transparent flex-1 border-none outline-hidden text-sm"
           placeholder={findByUniqueId(mainData, 573)}
         />
         <button
@@ -357,7 +357,7 @@ const VersionBox: React.FC<VersionBoxProps> = ({
                   key={item.id}
                   onClick={(e) => handleClick(index, e)}
                   className={`versionbox cursor-pointer justify-center flex flex-row w-full rounded-[10px] pt-[2px] ${
-                    openIndex === index ? "bg-primary-shade-1/25 !text-black" : ""
+                    openIndex === index ? "bg-primary-shade-1/25 text-black!" : ""
                   }`}
                 >
                   <div className="flex w-full justify-between py-2">
@@ -370,7 +370,7 @@ const VersionBox: React.FC<VersionBoxProps> = ({
                       <div className="topParagraph flex flex-row justify-between pr-[8px]">
                         <p
                           className={`textName truncate text-[90%] text-wrap lg:text-nowrap dark:text-[#FCF9FE] ${
-                            openIndex === index ? "dark:!text-white font-bold" : ""
+                            openIndex === index ? "dark:text-white! font-bold" : ""
                           }`}
                         >
                           {item.title}
@@ -385,7 +385,7 @@ const VersionBox: React.FC<VersionBoxProps> = ({
                       </div>
 
                       <div
-                        className={`textDate mt-3 font-[600] pr-[8px] text-[100%] ${
+                        className={`textDate mt-3 font-semibold pr-[8px] text-[100%] ${
                           openIndex === index
                             ? "text-[#868B90] dark:text-white"
                             : "text-[#868B90] dark:text-[#868B90]"
@@ -403,7 +403,7 @@ const VersionBox: React.FC<VersionBoxProps> = ({
                           {findByUniqueId(mainData, 1444)}
                         </p>
                         <div
-                          className="descriptionParagraph break-all pb-2 break-words text-[90%] text-[#414040] dark:text-[#C4C4C4]"
+                          className="descriptionParagraph break-all pb-2 wrap-break-word text-[90%] text-[#414040] dark:text-[#C4C4C4]"
                           dangerouslySetInnerHTML={{ __html: item.description }}
                         />
                       </div>

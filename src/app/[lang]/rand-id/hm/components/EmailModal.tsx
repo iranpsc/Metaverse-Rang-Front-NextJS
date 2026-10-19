@@ -42,7 +42,7 @@ const EmailModal: React.FC<EmailModalProps> = ({ open, onClose, mainData, params
             {/* BACKDROP */}
             <div
                 onClick={onClose}
-                className="absolute inset-0  backdrop-blur-sm"
+                className="absolute inset-0  backdrop-blur-xs"
             ></div>
 
             {/* ---------- حالت SUCCESS ---------- */}
@@ -50,7 +50,7 @@ const EmailModal: React.FC<EmailModalProps> = ({ open, onClose, mainData, params
                 <div className="relative py-14 bg-white dark:bg-[#0C0D0F] text-white p-8 rounded-xl w-[90%] max-w-xl z-50 flex flex-col items-center gap-6">
 
                     {/* CLOSE BUTTON */}
-                    <svg onClick={onClose} className="absolute start-[25px] top-[25px] cursor-pointer" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg onClick={onClose} className="absolute inset-s-[25px] top-[25px] cursor-pointer" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M8.74638 7L13.6346 2.11179C13.8666 1.88021 13.9971 1.56595 13.9974 1.23815C13.9977 0.910351 13.8677 0.595863 13.6361 0.36387C13.4045 0.131876 13.0903 0.00138122 12.7625 0.00109174C12.4347 0.000802246 12.1202 0.130742 11.8882 0.362326L7 5.25054L2.11179 0.362326C1.8798 0.130333 1.56515 0 1.23706 0C0.90897 0 0.59432 0.130333 0.362326 0.362326C0.130333 0.59432 0 0.90897 0 1.23706C0 1.56515 0.130333 1.8798 0.362326 2.11179L5.25054 7L0.362326 11.8882C0.130333 12.1202 0 12.4349 0 12.7629C0 13.091 0.130333 13.4057 0.362326 13.6377C0.59432 13.8697 0.90897 14 1.23706 14C1.56515 14 1.8798 13.8697 2.11179 13.6377L7 8.74946L11.8882 13.6377C12.1202 13.8697 12.4349 14 12.7629 14C13.091 14 13.4057 13.8697 13.6377 13.6377C13.8697 13.4057 14 13.091 14 12.7629C14 12.4349 13.8697 12.1202 13.6377 11.8882L8.74638 7Z" fill="#6A6B74" />
                     </svg>
 
@@ -84,7 +84,7 @@ const EmailModal: React.FC<EmailModalProps> = ({ open, onClose, mainData, params
                 /* ---------- حالت FORM ---------- */
                 <div className="relative bg-white dark:bg-[#0C0D0F] rounded-xl p-6 w-[90%] max-w-xl shadow-xl z-50 flex flex-col gap-6">
 
-                    <svg onClick={onClose} className="absolute start-[25px] top-[25px] cursor-pointer" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg onClick={onClose} className="absolute inset-s-[25px] top-[25px] cursor-pointer" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M8.74638 7L13.6346 2.11179C13.8666 1.88021 13.9971 1.56595 13.9974 1.23815C13.9977 0.910351 13.8677 0.595863 13.6361 0.36387C13.4045 0.131876 13.0903 0.00138122 12.7625 0.00109174C12.4347 0.000802246 12.1202 0.130742 11.8882 0.362326L7 5.25054L2.11179 0.362326C1.8798 0.130333 1.56515 0 1.23706 0C0.90897 0 0.59432 0.130333 0.362326 0.362326C0.130333 0.59432 0 0.90897 0 1.23706C0 1.56515 0.130333 1.8798 0.362326 2.11179L5.25054 7L0.362326 11.8882C0.130333 12.1202 0 12.4349 0 12.7629C0 13.091 0.130333 13.4057 0.362326 13.6377C0.59432 13.8697 0.90897 14 1.23706 14C1.56515 14 1.8798 13.8697 2.11179 13.6377L7 8.74946L11.8882 13.6377C12.1202 13.8697 12.4349 14 12.7629 14C13.091 14 13.4057 13.8697 13.6377 13.6377C13.8697 13.4057 14 13.091 14 12.7629C14 12.4349 13.8697 12.1202 13.6377 11.8882L8.74638 7Z" fill="#6A6B74" />
                     </svg>
 
@@ -113,7 +113,7 @@ const EmailModal: React.FC<EmailModalProps> = ({ open, onClose, mainData, params
                                 setError("");
                             }}
                             placeholder={findByUniqueId(mainData, 2) + " ..."}
-                            className={`w-full bg-[#FCFCFC]  mt-3 dark:text-white border-0 rounded-xl px-4 py-3  ring-1 outline-none transition text-base
+                            className={`w-full bg-[#FCFCFC]  mt-3 dark:text-white border-0 rounded-xl px-4 py-3  ring-1 outline-hidden transition text-base
                                 ${error ? "ring-[#DE5753]" : "ring-[#DEDEE9] dark:ring-gray-1 "}
                             `}
                         />

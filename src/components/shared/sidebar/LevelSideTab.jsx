@@ -95,8 +95,8 @@ export default function SideBarContent({
   return (
     <>
       {loading && (
-        <div className={`${isClosed ? "!w-[96.4vw]" : "xl:w-[83vw] 2xl:w-[83.5vw]"}
-          fixed w-full  rtl:left-0 ltr:right-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm`} >
+        <div className={`${isClosed ? "w-[96.4vw]!" : "xl:w-[83vw] 2xl:w-[83.5vw]"}
+          fixed w-full  rtl:left-0 ltr:right-0 z-9999 flex items-center justify-center bg-black/60 backdrop-blur-xs`} >
           <div className="container flex w-full h-screen items-center justify-center">
             <div className="holder">
               <div className="box"></div>
@@ -113,7 +113,7 @@ export default function SideBarContent({
 
       <ul
         id="light-scrollbar"
-        className="h-full z-[1] list-none overflow-y-scroll no-scrollbar relative pt-3 w-full menu-transition max-lg:w-fit"
+        className="h-full z-1 list-none overflow-y-scroll no-scrollbar relative pt-3 w-full menu-transition max-lg:w-fit"
       >
         {tabsMenu &&
           tabsMenu.map((item, i) => (
@@ -135,7 +135,7 @@ export default function SideBarContent({
                               <ActiveMenuIcon
                                 className={` ${isClosed ? "w-[10px] pr-[17px]" : ""}  ${activeNav === item?.route_name
 
-                                  } visible  h-[35px] absolute start-0 fill-primary dark:fill-primary pr-[20px] w-[25px] rtl:rotate-180 `}
+                                  } visible  h-[35px] absolute inset-s-0 fill-primary dark:fill-primary pr-[20px] w-[25px] rtl:rotate-180 `}
                               />
                               <span className="flex">
                                 <ListMenuSvgModule

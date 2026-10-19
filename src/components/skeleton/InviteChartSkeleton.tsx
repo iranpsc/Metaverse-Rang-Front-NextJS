@@ -43,7 +43,7 @@ export default function InviteChartSkeleton() {
 
           <Skeleton
             tone="standalone"
-            className="h-[14px] w-[50px] rounded"
+            className="h-[14px] w-[50px] rounded-sm"
           />
         </div>
 
@@ -56,7 +56,7 @@ export default function InviteChartSkeleton() {
 
           <Skeleton
             tone="standalone"
-            className="h-[14px] w-[50px] rounded"
+            className="h-[14px] w-[50px] rounded-sm"
           />
         </div>
 

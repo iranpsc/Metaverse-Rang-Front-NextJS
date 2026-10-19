@@ -98,7 +98,7 @@ function StoryCard({
             className="
                 news-card
                 snap-start
-                flex-shrink-0
+                shrink-0
                 overflow-hidden
                 rounded-[18px]
                 bg-bg-primary
@@ -164,7 +164,7 @@ function StoryCard({
                         loading={priority ? 'eager' : 'lazy'}
                         quality={70}
                         sizes="280px"
-                        className="!static rounded-xl"
+                        className="static! rounded-xl"
                     />
                 </div>
             )}

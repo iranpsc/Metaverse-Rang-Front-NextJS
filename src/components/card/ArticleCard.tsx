@@ -61,7 +61,7 @@ export default function ArticleCard({
   return (
     <div
       onClickCapture={() => setActiveLoadingId?.(item.id)}
-      className={`relative w-full min-h-[240px] shadow-md hover:shadow-xl hover:dark:shadow-dark rounded-[10px] overflow-hidden bg-white dark:bg-gray-1 flex flex-col justify-start gap-6 items-center ${
+      className={`relative w-full min-h-[240px] shadow-md hover:shadow-xl dark:hover:shadow-dark rounded-[10px] overflow-hidden bg-white dark:bg-gray-1 flex flex-col justify-start gap-6 items-center ${
         isLoading
           ? "rotating-border-card cursor-not-allowed"
           : ""
@@ -83,7 +83,7 @@ export default function ArticleCard({
       )}
 
       {/* تصویر مقاله */}
-      <div className="group w-full h-[260px] overflow-hidden px-4 pt-4 z-[1] pointer-events-none">
+      <div className="group w-full h-[260px] overflow-hidden px-4 pt-4 z-1 pointer-events-none">
         <div className="relative h-full w-full">
           {imgLoading && (
             <div className="absolute inset-0 h-full w-full bg-dark-gray dark:bg-matn-2 animate-pulse rounded-[10px] z-20" />
@@ -104,7 +104,7 @@ export default function ArticleCard({
       </div>
 
       {/* دسته‌بندی */}
-      <div className="relative w-[95%] flex flex-row justify-start items-center gap-1 mt-[-10px] pe-16 z-[10] pointer-events-none">
+      <div className="relative w-[95%] flex flex-row justify-start items-center gap-1 mt-[-10px] pe-16 z-10 pointer-events-none">
         <Link
           href={`/${params.lang}/articles/categories/${item.categorySlug}`}
           className="pointer-events-auto text-start text-matn-2 font-medium font-azarMehr text-[13px] 3xl:text-[16px] text-nowrap"
@@ -147,7 +147,7 @@ export default function ArticleCard({
       {/* عنوان مقاله */}
       <Link
         href={`/${params.lang}/articles/categories/${item.categorySlug}/${item.slug}`}
-        className="relative w-[95%] mt-[-24px] z-[1]"
+        className="relative w-[95%] mt-[-24px] z-1"
       >
         <p
           ref={titleRef}
@@ -164,15 +164,15 @@ export default function ArticleCard({
       {/* توضیح کوتاه */}
       <Link
         href={`/${params.lang}/articles/categories/${item.categorySlug}/${item.slug}`}
-        className="relative w-[95%] mt-[-20px] text-matn-2 dark:text-matn-2 z-[1]"
+        className="relative w-[95%] mt-[-20px] text-matn-2 dark:text-matn-2 z-1"
       >
-        <p className="text-[12px] 3xl:text-[16px] line-clamp-2 break-words overflow-hidden">
+        <p className="text-[12px] 3xl:text-[16px] line-clamp-2 wrap-break-word overflow-hidden">
           {stripHtml(item.excerpt || item.description)}
         </p>
       </Link>
 
       {/* نویسنده و آمار */}
-      <div className="relative w-[95%] pb-2 flex flex-row justify-between items-center z-[1] pointer-events-none">
+      <div className="relative w-[95%] pb-2 flex flex-row justify-between items-center z-1 pointer-events-none">
         <Link
           href={`/${params.lang}/citizens/${item.author.citizenId}`}
           aria-label="Author profile"

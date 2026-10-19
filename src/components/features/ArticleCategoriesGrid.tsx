@@ -97,7 +97,7 @@ export default function CategoriesGrid({ params, mainData }: CategoriesGridProps
                 />
 
                 {/* gradient */}
-                <div className="absolute inset-0 bg-gradient-to-br to-black/90 via-black/60 from-black/5 transition" />
+                <div className="absolute inset-0 bg-linear-to-br to-black/90 via-black/60 from-black/5 transition" />
 
                 {/* overlay لودر */}
                 {isLoading && (
@@ -150,7 +150,7 @@ export default function CategoriesGrid({ params, mainData }: CategoriesGridProps
         {categories.length > 7 && (
           <Link
             href={`/${params.lang}/articles/categories`}
-            className="relative w-full h-[200px] rounded-xl overflow-hidden flex flex-col gap-3 items-center justify-center transition bg-[#fff] dark:bg-gray-1  hover:scale-105 base-transition-1 shadow-lg cursor-pointer"
+            className="relative w-full h-[200px] rounded-xl overflow-hidden flex flex-col gap-3 items-center justify-center transition bg-white dark:bg-gray-1  hover:scale-105 base-transition-1 shadow-lg cursor-pointer"
           >
             <div className="rounded-full bg-[#9100D930] dark:bg-[#483D13] aspect-square h-12 w-12 lg:h-14 lg:w-14 flex items-center justify-center rtl:rotate-180">
               <svg

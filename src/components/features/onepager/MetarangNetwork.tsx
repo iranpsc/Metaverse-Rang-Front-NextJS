@@ -196,7 +196,7 @@ export default function AvalancheNetwork({ params, mainData }: AvalancheNetworkP
                 {/* کارت توضیحات */}
                 <div className="">
                     <div className="rounded-2xl py-0 lg:mb-20 mb-10 lg:p-8">
-                        <p className="text-start dark:text-white text-xl xl:text-3xl 3xl:text-4xl font-bold lg:max-w-[55%] 2xl:!leading-[53px] leading-relaxed">
+                        <p className="text-start dark:text-white text-xl xl:text-3xl 3xl:text-4xl font-bold lg:max-w-[55%] 2xl:leading-[53px]! leading-relaxed">
                             {findByUniqueId(mainData, 1694)}
                         </p>
                     </div>
@@ -213,8 +213,8 @@ export default function AvalancheNetwork({ params, mainData }: AvalancheNetworkP
                             </p>
 
                             <div className="flex items-center justify-center gap-4">
-                                <div className="flex items-center gap-2 !text-sm">
-                                    <span className={`${isActive ? 'bg-red-500 animate-pulse' : 'bg-[#9100D9]'} bg-[#9100D9] px-1 ;g:px-3 py-1 text-white rounded-full !text-xs font-mono`}>
+                                <div className="flex items-center gap-2 text-sm!">
+                                    <span className={`${isActive ? 'bg-red-500 animate-pulse' : 'bg-[#9100D9]'} bg-[#9100D9] px-1 ;g:px-3 py-1 text-white rounded-full text-xs! font-mono`}>
                                         {findByUniqueId(mainData, 1695)}
                                     </span>
                                 </div>

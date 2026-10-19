@@ -65,19 +65,19 @@ const ArticleNavCard = ({
         )}
 
         {/* IMAGE */}
-        <div className="p-3 w-full z-[1]">
+        <div className="p-3 w-full z-1">
           <div className="w-full h-60 overflow-hidden">
             <Image
               src={article.image}
               alt={article.title}
               fill
-              className="object-cover rounded-lg !static"
+              className="object-cover rounded-lg static!"
             />
           </div>
         </div>
 
         {/* CONTENT */}
-        <div className="p-4 pt-0 flex flex-col justify-between gap-2 z-[1]">
+        <div className="p-4 pt-0 flex flex-col justify-between gap-2 z-1">
           <div className="flex items-center justify-between text-xs matn-2-500 mb-2 dark:text-[#868B90]">
             <span>تاریخ انتشار: {article.date}</span>
 

@@ -81,7 +81,7 @@ export default function LevelBadge({
             onClickCapture={() => setLinkLoading(true)}
             href={`/${lang}/levels/citizen/${urlForGem}/general-info`}
            
-            className="w-full h-full flex items-center justify-center text-xs font-azarMehr rtl:ms-1 ltr:me-1 mt-[1px] text-black text-center px-1 overflow-hidden break-words"
+            className="w-full h-full flex items-center justify-center text-xs font-azarMehr rtl:ms-1 ltr:me-1 mt-px text-black text-center px-1 overflow-hidden wrap-break-word"
           >
             {label}
           </Link>
@@ -138,7 +138,7 @@ export default function LevelBadge({
             onClickCapture={() => setLinkLoading(true)}
             href={`/${lang}/levels/citizen/${urlForGem}/general-info`}
             
-            className="w-full h-full flex items-center justify-center text-xs font-azarMehr rtl:ms-1 ltr:me-1 mt-[1px] text-white text-center px-1 overflow-hidden break-words"
+            className="w-full h-full flex items-center justify-center text-xs font-azarMehr rtl:ms-1 ltr:me-1 mt-px text-white text-center px-1 overflow-hidden wrap-break-word"
           >
             {label}
           </Link>
@@ -151,7 +151,7 @@ export default function LevelBadge({
         height={29}
         viewBox="0 0 100 29"
         fill="none"
-        className="relative hidden dark:block group-hover:hidden"
+        className="relative hidden dark:block dark:group-hover:hidden!"
       >
         <g clipPath={`url(#clip-${uid}-dn)`}>
           <path
@@ -195,7 +195,7 @@ export default function LevelBadge({
             onClickCapture={() => setLinkLoading(true)}
             href={`/${lang}/levels/citizen/${urlForGem}/general-info`}
             
-            className="w-full h-full flex items-center justify-center text-xs font-azarMehr text-white rtl:ms-1 ltr:me-1 mt-[1px] text-center px-1 overflow-hidden break-words"
+            className="w-full h-full flex items-center justify-center text-xs font-azarMehr text-white rtl:ms-1 ltr:me-1 mt-px text-center px-1 overflow-hidden wrap-break-word"
           >
             {label}
           </Link>
@@ -252,7 +252,7 @@ export default function LevelBadge({
             onClickCapture={() => setLinkLoading(true)}
             href={`/${lang}/levels/citizen/${urlForGem}/general-info`}
             
-            className="w-full h-full flex items-center justify-center text-xs font-azarMehr text-white dark:text-black text-center rtl:ms-1 ltr:me-1 mt-[1px] overflow-hidden break-words"
+            className="w-full h-full flex items-center justify-center text-xs font-azarMehr text-white dark:text-black text-center rtl:ms-1 ltr:me-1 mt-px overflow-hidden wrap-break-word"
           >
             {label}
           </Link>

@@ -71,7 +71,7 @@ export default function CategoriesGridClient({
                     onError={() => setImgSrc("/default.png")} // ✅ برگشت
                   />
 
-                  <div className="absolute inset-0 bg-gradient-to-br to-black/90 via-black/60 from-black/5 transition" />
+                  <div className="absolute inset-0 bg-linear-to-br to-black/90 via-black/60 from-black/5 transition" />
 
                   <div className="absolute bottom-4 right-4 flex gap-3">
                     <div className="border-r-0 border-solid border-y-0 border-l border-[#969696] pl-3 h-min">

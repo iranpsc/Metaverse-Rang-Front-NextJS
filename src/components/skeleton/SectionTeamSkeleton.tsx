@@ -20,7 +20,7 @@ function SectionTeamSkeletonBase() {
         <Skeleton
           tone="standalone"
           variant="rect"
-          className="!w-full aspect-[500/357] md:!h-auto 3xl:!aspect-square !rounded-3xl lg:!rounded-[32px]"
+          className="w-full! aspect-500/357 md:h-auto! 3xl:aspect-square! rounded-3xl! lg:rounded-[32px]!"
         />
       </div>
 
@@ -49,8 +49,8 @@ function SectionTeamSkeletonBase() {
           tone="standalone"
                 key={i}
                 variant="circle"
-                className={`!xl:size-[60px] xl:!size-[60px] lg:!size-[50px] md:!size-[70px] sm:!size-[50px] !size-[44px] !border-2 !border-white dark:!border-gray-1 ${
-                  i > 0 ? "!ms-[-20px]" : ""
+                className={`!xl:size-[60px] xl:size-[60px]! lg:size-[50px]! md:size-[70px]! sm:size-[50px]! size-[44px]! border-2! border-white! dark:border-gray-1! ${
+                  i > 0 ? "ms-[-20px]!" : ""
                 }`}
                 style={{ zIndex: 50 - i * 10 }}
               />
@@ -60,7 +60,7 @@ function SectionTeamSkeletonBase() {
         </div>
 
         {/* دکمه CTA */}
-        <Skeleton tone="standalone" className="!w-32 h-[42px] md:h-[46px] lg:h-[52px] rounded-[24px] mt-5" />
+        <Skeleton tone="standalone" className="w-32! h-[42px] md:h-[46px] lg:h-[52px] rounded-[24px] mt-5" />
       </div>
     </div>
   );

@@ -66,7 +66,7 @@ function SummaryCard({
             : `${item.count.toLocaleString("en-US")} completed units`}
         </p>
       </div>
-      <div style={{ backgroundColor: `${color}22` }} className="h-[85%] w-[2px] absolute start-[1px]"></div>
+      <div style={{ backgroundColor: `${color}22` }} className="h-[85%] w-[2px] absolute inset-s-[1px]"></div>
     </div>
   );
 }
@@ -78,8 +78,8 @@ function SummaryCardSkeleton() {
     >
       <div className="w-11 h-11 rounded-xl bg-black/5 dark:bg-white/10 shrink-0" />
       <div className="flex-1 flex flex-col gap-2">
-        <div className="h-3 w-1/2 rounded bg-black/5 dark:bg-white/10" />
-        <div className="h-2.5 w-3/4 rounded bg-black/5 dark:bg-white/10" />
+        <div className="h-3 w-1/2 rounded-sm bg-black/5 dark:bg-white/10" />
+        <div className="h-2.5 w-3/4 rounded-sm bg-black/5 dark:bg-white/10" />
       </div>
     </div>
   );

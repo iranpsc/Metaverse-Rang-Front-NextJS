@@ -50,7 +50,7 @@ const VideoCard = memo(
     const videoUrl = `/${params.lang}/education/category/${categorySlug}/${subCategorySlug}/${item.slug}`;
 
     return (
-      <div className="w-full min-h-[240px] shadow-md hover:shadow-xl duration-300 hover:dark:shadow-dark rounded-[12px] overflow-hidden bg-white dark:bg-gray-1  flex flex-col justify-start gap-6 items-center">
+      <div className="w-full min-h-[240px] shadow-md hover:shadow-xl duration-300 dark:hover:shadow-dark rounded-[12px] overflow-hidden bg-white dark:bg-gray-1  flex flex-col justify-start gap-6 items-center">
         <Link href={videoUrl} className="group w-full h-[260px] overflow-hidden  cursor-pointer relative">
           <div className="px-4 pt-4 w-full h-full ">
              <Image

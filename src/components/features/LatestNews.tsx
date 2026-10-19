@@ -70,9 +70,9 @@ const LatestNews: React.FC<LatestNewsProps> = ({
       <div className="aspect-square bg-neutral-300 dark:bg-neutral-800 flex flex-col justify-end" >
         <div className="p-6 flex flex-col gap-4 items-center">
           <div className="h-8 w-32 bg-neutral-400 dark:bg-neutral-700 rounded-full" />
-          <div className="h-7 w-4/5 bg-neutral-400 dark:bg-neutral-700 rounded" />
-          <div className="h-5 w-3/4 bg-neutral-400 dark:bg-neutral-700 rounded" />
-          <div className="h-4 w-1/2 bg-neutral-400 dark:bg-neutral-700 rounded" />
+          <div className="h-7 w-4/5 bg-neutral-400 dark:bg-neutral-700 rounded-sm" />
+          <div className="h-5 w-3/4 bg-neutral-400 dark:bg-neutral-700 rounded-sm" />
+          <div className="h-4 w-1/2 bg-neutral-400 dark:bg-neutral-700 rounded-sm" />
         </div>
       </div>
 
@@ -89,8 +89,8 @@ const LatestNews: React.FC<LatestNewsProps> = ({
           <div className="w-full lg:w-[40%] h-[150px] bg-neutral-400 dark:bg-neutral-700 rounded-lg" />
           <div className="flex flex-col gap-4 w-full lg:w-[60%]">
             <div className="h-6 w-32 bg-neutral-400 dark:bg-neutral-700 rounded-full" />
-            <div className="h-6 w-full bg-neutral-400 dark:bg-neutral-700 rounded" />
-            <div className="h-4 w-3/5 bg-neutral-400 dark:bg-neutral-700 rounded" />
+            <div className="h-6 w-full bg-neutral-400 dark:bg-neutral-700 rounded-sm" />
+            <div className="h-4 w-3/5 bg-neutral-400 dark:bg-neutral-700 rounded-sm" />
           </div>
         </div>
       ))}
@@ -169,7 +169,7 @@ const LatestNews: React.FC<LatestNewsProps> = ({
                 )}
 
                 {/* overlay گرادیان */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/30 to-transparent" />
 
                 {/* اطلاعات روی تصویر */}
                 <div className="absolute bottom-0 left-0 right-0 p-5 xl:p-[32px] text-white w-full flex flex-col gap-4 items-center">
@@ -226,7 +226,7 @@ const LatestNews: React.FC<LatestNewsProps> = ({
                 key={String(item.id)}
                 href={`/${params.lang}/news/categories/${getCategorySlug(item)}/${item.slug}`}
                 onClickCapture={() => setActiveLoadingId(item.id)}
-                className={`relative bg-white dark:bg-gray-1  lg:!bg-bg-primary  rounded-lg h-auto p-4 lg:p-1  ${isLoading ? "rotating-border-card cursor-not-allowed" : ""
+                className={`relative bg-white dark:bg-gray-1  lg:bg-bg-primary!  rounded-lg h-auto p-4 lg:p-1  ${isLoading ? "rotating-border-card cursor-not-allowed" : ""
                   }`}
               >
 
@@ -250,7 +250,7 @@ const LatestNews: React.FC<LatestNewsProps> = ({
                     )}
                   </div>
 
-                  <div className="flex flex-col items-center lg:items-start gap-4 w-full lg:w-[60%] p-3 lg:ps-5 h-full bg-white lg:!bg-bg-primary dark:bg-gray-1  lg: z-10 ">
+                  <div className="flex flex-col items-center lg:items-start gap-4 w-full lg:w-[60%] p-3 lg:ps-5 h-full bg-white lg:bg-bg-primary! dark:bg-gray-1  lg: z-10 ">
                     {item.category && (
                       <Link
                         href={`/${params.lang}/news/categories/${getCategorySlug(item)}`}

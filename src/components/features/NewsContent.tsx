@@ -23,7 +23,7 @@ const GallerySkeleton = () => {
             key={i}
             className="relative aspect-video rounded-xl overflow-hidden bg-neutral-200 dark:bg-neutral-800"
           >
-            <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+            <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.5s_infinite] bg-linear-to-r from-transparent via-white/20 to-transparent" />
           </div>
         ))}
       </div>
@@ -156,7 +156,7 @@ export default function NewsContent({
     return (
       <div className="flex flex-col gap-6">
         <div
-          className="prose  break-all max-w-none prose-strong:dark:text-[#868B90] dark:text-[#868B90] prose-p:leading-9 space-y-5 text-sm prose-h1:text-sm prose-h2:text-sm prose-h3:text-sm prose-h4:text-sm lg:text-xl md:prose-h1:text-2xl md:prose-h2:text-2xl md:prose-h3:text-2xl md:prose-h-4:text-2xl md:prose-p:text-[#484950] dark:prose-p:text-[#868B90] dark:prose-h1:text-white dark:prose-h2:text-white dark:prose-h3:text-white prose-a:text-primary dark:prose-a:text-primary"
+          className="prose  break-all max-w-none dark:prose-strong:text-[#868B90] dark:text-[#868B90] prose-p:leading-9 space-y-5 text-sm prose-h1:text-sm prose-h2:text-sm prose-h3:text-sm prose-h4:text-sm lg:text-xl md:prose-h1:text-2xl md:prose-h2:text-2xl md:prose-h3:text-2xl md:prose-h-4:text-2xl md:prose-p:text-[#484950] dark:prose-p:text-[#868B90] dark:prose-h1:text-white dark:prose-h2:text-white dark:prose-h3:text-white prose-a:text-primary dark:prose-a:text-primary"
           dangerouslySetInnerHTML={{ __html: content }}
         />
       </div>
@@ -167,7 +167,7 @@ export default function NewsContent({
     <div className="flex flex-col gap-6">
       {/* بخش اول محتوا (قبل از گالری) */}
       <div
-        className="prose break-all max-w-none prose-strong:dark:text-[#868B90] dark:text-[#868B90] prose-p:leading-9 space-y-5 text-sm prose-h1:text-sm prose-h2:text-sm prose-h3:text-sm prose-h4:text-sm lg:text-xl md:prose-h1:text-2xl md:prose-h2:text-2xl md:prose-h3:text-2xl md:prose-h-4:text-2xl md:prose-p:text-[#484950] dark:prose-p:text-[#868B90] dark:prose-h1:text-white dark:prose-h2:text-white dark:prose-h3:text-white prose-a:text-primary dark:prose-a:text-primary"
+        className="prose break-all max-w-none dark:prose-strong:text-[#868B90] dark:text-[#868B90] prose-p:leading-9 space-y-5 text-sm prose-h1:text-sm prose-h2:text-sm prose-h3:text-sm prose-h4:text-sm lg:text-xl md:prose-h1:text-2xl md:prose-h2:text-2xl md:prose-h3:text-2xl md:prose-h-4:text-2xl md:prose-p:text-[#484950] dark:prose-p:text-[#868B90] dark:prose-h1:text-white dark:prose-h2:text-white dark:prose-h3:text-white prose-a:text-primary dark:prose-a:text-primary"
         dangerouslySetInnerHTML={{ __html: renderContentWithGallery.before }}
       />
 
@@ -182,7 +182,7 @@ export default function NewsContent({
       {/* بخش دوم محتوا (بعد از گالری) */}
       {renderContentWithGallery.after && (
         <div
-          className="prose  break-all  max-w-none prose-strong:dark:text-[#868B90] dark:text-[#868B90] prose-p:leading-9 space-y-5 text-sm prose-h1:text-sm prose-h2:text-sm prose-h3:text-sm prose-h4:text-sm lg:text-xl md:prose-h1:text-2xl md:prose-h2:text-2xl md:prose-h3:text-2xl md:prose-h-4:text-2xl md:prose-p:text-[#484950] dark:prose-p:text-[#868B90] dark:prose-h1:text-white dark:prose-h2:text-white dark:prose-h3:text-white prose-a:text-primary dark:prose-a:text-primary"
+          className="prose  break-all  max-w-none dark:prose-strong:text-[#868B90] dark:text-[#868B90] prose-p:leading-9 space-y-5 text-sm prose-h1:text-sm prose-h2:text-sm prose-h3:text-sm prose-h4:text-sm lg:text-xl md:prose-h1:text-2xl md:prose-h2:text-2xl md:prose-h3:text-2xl md:prose-h-4:text-2xl md:prose-p:text-[#484950] dark:prose-p:text-[#868B90] dark:prose-h1:text-white dark:prose-h2:text-white dark:prose-h3:text-white prose-a:text-primary dark:prose-a:text-primary"
           dangerouslySetInnerHTML={{ __html: renderContentWithGallery.after }}
         />
       )}

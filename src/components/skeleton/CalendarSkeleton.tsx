@@ -11,24 +11,24 @@ export default function CalendarSkeleton() {
             هدر (ماه/سال + دو فلش) + گرید ۷ ستونی روزها */}
         <div className="w-full sm:w-[45%] flex flex-col gap-3">
           <div className="flex items-center justify-between px-2">
-            <Skeleton variant="circle"  className="!w-6 !h-6" />
+            <Skeleton variant="circle"  className="w-6! h-6!" />
             <Skeleton className="h-4 w-24 rounded-md" />
-            <Skeleton variant="circle"  className="!w-6 !h-6" />
+            <Skeleton variant="circle"  className="w-6! h-6!" />
           </div>
           <div className="grid grid-cols-7 gap-2 px-2">
             {Array.from({ length: 7 }).map((_, i) => (
               <Skeleton key={`h-${i}`}  className="h-3 w-full rounded-md" />
             ))}
             {Array.from({ length: 35 }).map((_, i) => (
-              <Skeleton key={`d-${i}`}  variant="circle" className="!w-full aspect-square !h-auto" />
+              <Skeleton key={`d-${i}`}  variant="circle" className="w-full! aspect-square h-auto!" />
             ))}
           </div>
         </div>
 
         {/* پنل فیلترها — دقیقاً همون searchBoxContainer + بخش legend */}
         <div className="EventFilters w-full sm:w-[90%] mt-4 sm:mt-0 sm:ml-4">
-          <div className="searchBoxContainer my-5 flex items-center flex-row justify-between border-[1px] border-solid border-[#00000024] dark:bg-gray-1 w-full h-[50px] rounded-[12px] sm:m-0 px-4">
-            <Skeleton variant="circle"  className="!w-5 !h-5 shrink-0" />
+          <div className="searchBoxContainer my-5 flex items-center flex-row justify-between border border-solid border-[#00000024] dark:bg-gray-1 w-full h-[50px] rounded-[12px] sm:m-0 px-4">
+            <Skeleton variant="circle"  className="w-5! h-5! shrink-0" />
             <Skeleton  className="h-3 flex-1 mx-3 rounded-md" />
           </div>
 
@@ -60,7 +60,7 @@ export default function CalendarSkeleton() {
         </div>
       </div>
 
-      <div className="line mt-6 w-full lg:w-[95%] h-[2px] bg-gradient-to-r from-transparent via-[#DADADA] to-transparent" />
+      <div className="line mt-6 w-full lg:w-[95%] h-[2px] bg-linear-to-r from-transparent via-[#DADADA] to-transparent" />
 
       {Array.from({ length: INITIAL_COUNT }).map((_, i) => (
         <EventCardSkeleton key={i} />

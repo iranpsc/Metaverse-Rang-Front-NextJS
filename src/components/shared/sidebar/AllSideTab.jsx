@@ -21,11 +21,11 @@ const MenuTooltip = ({ title, langData, isClosed, children }) => (
     arrow
     slotProps={{
       tooltip: {
-        className: `!bg-[#E9E9E9] !text-[#908F95] dark:!bg-[#434343] dark:!text-white !font-azarMehr !font-medium !text-[14px] ${
+        className: `bg-[#E9E9E9]! text-[#908F95]! dark:bg-[#434343]! dark:text-white! !font-azarMehr font-medium! text-[14px]! ${
           isClosed ? "block" : "hidden"
         }`,
       },
-      arrow: { className: "!text-[#E9E9E9] dark:!text-[#434343]" },
+      arrow: { className: "text-[#E9E9E9]! dark:text-[#434343]!" },
     }}
     PopperProps={{
       modifiers: [{ name: "offset", options: { offset: [0, -10] } }],
@@ -342,8 +342,8 @@ export default function SideBarContent({
       {/* لودر تمام صفحه */}
       {loading && (
         <div
-          className={`${isClosed ? "!w-[96.4vw]" : "xl:w-[83vw] 2xl:w-[83.5vw]"}
-          fixed w-full rtl:left-0 ltr:right-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm`}
+          className={`${isClosed ? "w-[96.4vw]!" : "xl:w-[83vw] 2xl:w-[83.5vw]"}
+          fixed w-full rtl:left-0 ltr:right-0 z-9999 flex items-center justify-center bg-black/60 backdrop-blur-xs`}
         >
           <div className="container flex w-full h-screen items-center justify-center">
             <div className="holder"><div className="box"></div></div>
@@ -355,7 +355,7 @@ export default function SideBarContent({
 
       {modalShow && <Modal dataObject={modalData} close={() => setModalShow(false)} />}
 
-      <ul className="h-full flex flex-col list-none overflow-y-scroll relative no-scrollbar pt-3 w-full menu-transition max-lg:w-fit">
+      <ul className="h-full flex gap-2.5 flex-col list-none overflow-y-scroll relative no-scrollbar pt-3 w-full menu-transition max-lg:w-fit lg:text-xl">
         {menuItems.map((item, i) => (
           <React.Fragment key={`menu-item-${item.id}-${i}`}>
             {item.toShow && (

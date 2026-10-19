@@ -17,14 +17,14 @@ function SectionTimerSkeletonBase() {
   return (
     <div
       style={{ background: "linear-gradient(-135deg, transparent, #9898a0, transparent)" }}
-      className="p-[1px] rounded-[48px] lg:rounded-[50px] w-full"
+      className="p-px rounded-[48px] lg:rounded-[50px] w-full"
     >
       <div className="flex flex-col lg:flex-row pb-5 px-5 lg:p-5 w-full bg-[#DEDEE9] dark:bg-[#313131] rounded-[48px] lg:rounded-[50px]">
         {/* عکس و توضیحات */}
-        <div className="lg:h-[250px] 2xl:h-[280px] 3xl:h-[320px] overflow-y-hidden lg:me-5 relative p-[1px] w-full lg:w-1/2 xl:w-2/3 3xl:w-[70%]">
+        <div className="lg:h-[250px] 2xl:h-[280px] 3xl:h-[320px] overflow-y-hidden lg:me-5 relative p-px w-full lg:w-1/2 xl:w-2/3 3xl:w-[70%]">
           <div className="h-full w-full py-5 md:py-0 lg:rounded-[48px] flex flex-col lg:flex-row gap-5 justify-center items-center">
             {/* تصویر */}
-            <div className="w-full h-full flex justify-center max-w-[380px] max-h-[100%] lg:rounded-[32px] overflow-hidden relative">
+            <div className="w-full h-full flex justify-center max-w-[380px] max-h-full lg:rounded-[32px] overflow-hidden relative">
               <Skeleton className="w-full h-[220px] lg:h-full rounded-[38px]" />
             </div>
 
@@ -49,7 +49,7 @@ function SectionTimerSkeletonBase() {
 
         {/* تایمر + دکمه‌ها */}
         <div className="lg:h-[250px] 2xl:h-[280px] 3xl:h-[320px] w-full lg:w-1/2 xl:w-1/3 3xl:w-[30%] rounded-[50px] p-[5px] relative">
-          <div className="p-[20px] h-full rounded-3xl md:rounded-[50px] flex flex-col justify-around items-center relative bg-gradient-to-tl to-[#dfdfdf] from-white dark:to-[#FFFFFF17] dark:from-[#22222291]">
+          <div className="p-[20px] h-full rounded-3xl md:rounded-[50px] flex flex-col justify-around items-center relative bg-linear-to-tl to-[#dfdfdf] from-white dark:to-[#FFFFFF17] dark:from-[#22222291]">
             {/* چهار باکس تایمر (روز/ساعت/دقیقه/ثانیه) */}
             {/* توجه: ابعاد این بخش تخمینی است چون به کد DynamicTimer دسترسی نداشتم.
                 اگر بعد از تست، سایز واقعی DynamicTimer فرق داشت، فایل DynamicTimer.tsx
@@ -68,8 +68,8 @@ function SectionTimerSkeletonBase() {
 
             {/* دکمه‌ها */}
             <div className="w-full flex flex-col">
-              <Skeleton className="!w-full h-[46px] lg:h-[50px] 3xl:h-[54px] rounded-[28px] mt-5" />
-              <Skeleton className="!w-full h-[46px] lg:h-[50px] 3xl:h-[54px] rounded-[28px] mt-5" />
+              <Skeleton className="w-full! h-[46px] lg:h-[50px] 3xl:h-[54px] rounded-[28px] mt-5" />
+              <Skeleton className="w-full! h-[46px] lg:h-[50px] 3xl:h-[54px] rounded-[28px] mt-5" />
             </div>
           </div>
         </div>

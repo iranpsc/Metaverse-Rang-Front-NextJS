@@ -89,7 +89,7 @@ export default function WhyMetarang({
             right-0
             bottom-0
             w-full
-            h-[100lvh]
+            h-lvh
             lg:h-[104lvh]
             xl:h-[112lvh]
             3xl:h-[95lvh]
@@ -116,7 +116,7 @@ export default function WhyMetarang({
                             <div className=" h-full items-center  px-5 pt-5 lg:pt-0  lg:px-10">
                                 <div className="text-5xl md:text-7xl lg:text-9xl uppercase tracking-[.2em] text-black dark:text-white">
                                     <Reveal
-                                        className="!opacity-100"
+                                        className="opacity-100!"
                                         direction={params.lang == "fa" ? "left" : "right"}
                                         distance={isMobile ? 160 : 800}
                                         duration={3000}
@@ -202,7 +202,7 @@ style={{
                                 borderClassName="text-white dark:text-neutral-800"
                                 borderWidth={1}
                                 corner={params.lang == "fa" ? "tl" : "tr"}
-                                className={`${card.gradient} !bg-transparent  items-center justify-center p-10 w-full lg:w-[40%] hidden lg:flex`}>
+                                className={`${card.gradient} bg-transparent!  items-center justify-center p-10 w-full lg:w-[40%] hidden lg:flex`}>
 
                                 <div className="flex flex-col justify-center items-center">
                                     <div className="w-[220px] lg:w-[320px]">
@@ -218,7 +218,7 @@ style={{
                                 borderClassName="text-white dark:text-neutral-800"
                                 borderWidth={1}
                                 corner={params.lang == "fa" ? "tl" : "tr"}
-                                className={`${card.gradient} !bg-transparent h-full  gap-3 items-start  p-3 w-full flex-col justify-between lg:w-[40%] flex lg:hidden`}>
+                                className={`${card.gradient} bg-transparent! h-full  gap-3 items-start  p-3 w-full flex-col justify-between lg:w-[40%] flex lg:hidden`}>
                                 
                                 <div className="flex flex-col gap-5 p-3">
                                     <div className="text-white/50 text-sm font-semibold tracking-[.15em] text-xl">

@@ -72,7 +72,7 @@ const COUNTRY_OPTIONS = [
 
 // Shared input styles
 const inputClass =
-    "h-[58px] w-full rounded-xl bg-white px-5 text-black outline-none border border-transparent focus:border-fuchsia-500 text-[14px] font-medium";
+    "h-[58px] w-full rounded-xl bg-white px-5 text-black outline-hidden border border-transparent focus:border-fuchsia-500 text-[14px] font-medium";
 const selectClass = inputClass + " appearance-none pe-11";
 const labelClass = "text-white/80 text-[13px] mb-2 block";
 
@@ -140,7 +140,7 @@ function StyledSelect({
                 ))}
             </select>
             <svg
-                className="pointer-events-none absolute top-1/2 -translate-y-1/2 end-4 w-4 h-4 text-black/60"
+                className="pointer-events-none absolute top-1/2 -translate-y-1/2 inset-e-4 w-4 h-4 text-black/60"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -281,7 +281,7 @@ export default function AvalancheCTA({ params, mainData }: AvalancheCTAProps) {
                     <div className="absolute inset-0 bg-black/45 z-0" />
 
                     {/* Glow */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-black/40 z-0" />
+                    <div className="absolute inset-0 bg-linear-to-br from-purple-500/10 via-transparent to-black/40 z-0" />
 
                     <div className="relative z-10">
                         <p className="text-white text-4xl lg:text-[52px] lg:leading-[60px] font-semibold max-w-[620px]">
@@ -300,7 +300,7 @@ export default function AvalancheCTA({ params, mainData }: AvalancheCTAProps) {
                                             <button
                                                 type="button"
                                                 aria-label="btn to next"
-                                                className="bg-transparent flex items-center text-base !ring-0 !border-0 focus-visible:ring-0"
+                                                className="bg-transparent flex items-center text-base ring-0! border-0! focus-visible:ring-0"
                                             >
                                                 <span className="text-black font-medium  group-hover:text-white pe-3">{findByUniqueId(mainData, 1725)}</span>
                                                 <svg className="rtl:rotate-180  "
@@ -336,12 +336,12 @@ export default function AvalancheCTA({ params, mainData }: AvalancheCTAProps) {
                     <div className="absolute inset-0 bg-black/50 z-0" />
 
                     {/* Glow */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-violet-500/10 via-transparent to-black/40 z-0" />
+                    <div className="absolute inset-0 bg-linear-to-br from-violet-500/10 via-transparent to-black/40 z-0" />
 
                     <div className="relative z-10 h-full flex flex-col">
                         {/* Header */}
                         <div>
-                            <h2 className="text-white text-4xl lg:text-[50px] lg:leading-[1] font-semibold ">
+                            <h2 className="text-white text-4xl lg:text-[50px] lg:leading-none font-semibold ">
                                 {findByUniqueId(mainData, 1726)}
                             </h2>
 
@@ -572,7 +572,7 @@ export default function AvalancheCTA({ params, mainData }: AvalancheCTAProps) {
                                         {step > 1 && (
                                             <button type="button"
                                                 aria-label="btn back"
-                                                className="text-[#9100D9] flex items-center gap-2 bg-transparent text-base !font-bold transition-colors px-4"
+                                                className="text-[#9100D9] flex items-center gap-2 bg-transparent text-base font-bold! transition-colors px-4"
                                                 onClick={handleBack}>
 
                                                 <svg className="ltr:rotate-180"
@@ -614,7 +614,7 @@ export default function AvalancheCTA({ params, mainData }: AvalancheCTAProps) {
                                                 aria-label="btn next"
                                                 onClick={handleNext}
                                                 disabled={status === "submitting"}
-                                                className="bg-transparent flex items-center text-base !ring-0 !border-0 focus-visible:ring-0"
+                                                className="bg-transparent flex items-center text-base ring-0! border-0! focus-visible:ring-0"
                                             >
                                                 <span className="text-black font-medium  group-hover:text-white pe-3">{findByUniqueId(mainData, 1755)}</span>
                                                 <svg className="rtl:rotate-180 stroke-white"

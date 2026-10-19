@@ -47,7 +47,7 @@ export default function ProfileImages({
     images.push(
       <figure
         key={i}
-        className={`relative rounded-full overflow-hidden !aspect-square ${
+        className={`relative rounded-full overflow-hidden aspect-square! ${
           imgProfiles[i]?.url == mainImageUrl ? "w-[48px] h-[48px] 3xl:w-[52px] 3xl:h-[52px] border-2 border-dashed border-primary " : "w-12 3xl:w-[50px]"
         }`}
       >
@@ -56,7 +56,7 @@ export default function ProfileImages({
           fill
           sizes="50px"
           alt={titleData}
-          className={`cursor-pointer border-2 border-[#b1b1b1] dark:border-[#fff] inline-block object-cover
+          className={`cursor-pointer border-2 border-[#b1b1b1] dark:border-white inline-block object-cover
         `}
           onClick={() => changeMainImage(imgProfiles[i]?.url || staticImageURL)}
         />
@@ -93,7 +93,7 @@ export default function ProfileImages({
         )}
       </Head>
       <section className="dark:bg-dark-background shadow-md  relative bg-white transition-all duration-300 ease-linear rounded-[10px] flex flex-col justify-center items-center lg:flex-row lg:justify-between ">
-        <div className="relative w-[100%] md:w-[77%] aspect-square lg:aspect-auto lg:[height:-webkit-fill-available] lg:[height:-moz-available]  tall0:h-[100vh] dark:bg-dark-background bg-white overflow-clip flex justify-center items-center rounded-[10px] ">
+        <div className="relative w-full md:w-[77%] aspect-square lg:aspect-auto lg:h-[-webkit-fill-available] lg:h-[-moz-available]  tall0:h-screen dark:bg-dark-background bg-white overflow-clip flex justify-center items-center rounded-[10px] ">
           <Image
             src={mainImageUrl || "/firstpage/temp-1.webp"}
             fill
@@ -105,8 +105,8 @@ export default function ProfileImages({
           />
         </div>
 
-        <div className="flex items-center flex-col lg:flex-row w-[100%] lg:w-[23%] justify-center lg:justify-end gap-5 pe-5">
-          <hr className="ms-5 h-[1.5px] w-[35vh] lg:w-[1.5px] lg:h-[35vh] 2xl:h-[40vh] mt-2 border-none xl:bg-gradient-to-b lg:bg-gradient-to-b md:bg-gradient-to-r mb-1 sm:bg-gradient-to-l xs:bg-gradient-to-l from-[#DADADA00] via-[#b3b3b3] to-[#DADADA00]" />
+        <div className="flex items-center flex-col lg:flex-row w-full lg:w-[23%] justify-center lg:justify-end gap-5 pe-5">
+          <hr className="ms-5 h-[1.5px] w-[35vh] lg:w-[1.5px] lg:h-[35vh] 2xl:h-[40vh] mt-2 border-none xl:bg-linear-to-b lg:bg-linear-to-b md:bg-linear-to-r mb-1 sm:bg-linear-to-l xs:bg-linear-to-l from-[#DADADA00] via-[#b3b3b3] to-[#DADADA00]" />
 
         <div className=" flex xl:flex-row lg:flex-row md:flex-col sm:flex-col xs:flex-col max-lg:mb-2  gap-2 justify-center items-center">
           <motion.div

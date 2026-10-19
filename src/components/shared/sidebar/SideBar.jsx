@@ -138,7 +138,7 @@ export default function SideBar({
 
       <div
         className="
-          z-[1000]
+          z-1000
           h-dvh
           dark:bg-dark-background
           fixed
@@ -175,7 +175,7 @@ export default function SideBar({
             md:w-full
             sm:w-full
             xs:w-full
-            z-[100]
+            z-100
             no-scrollbar
           `}
         >
@@ -267,7 +267,7 @@ export default function SideBar({
 
                 w-full
                 h-fit
-                z-[100]
+                z-100
                 transition-all
                 duration-300
                 ease-linear

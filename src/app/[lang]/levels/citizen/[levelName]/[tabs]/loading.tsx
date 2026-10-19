@@ -25,7 +25,7 @@ export default function Loading() {
         <ActiveSkeleton />
       </div>
 
-{/* <div className="grid-forth flex-1 relative !mt-[-2px] mb-10 lg:mb-0">
+{/* <div className="grid-forth flex-1 relative mt-[-2px]! mb-10 lg:mb-0">
   <ImageBoxSkeleton />
 </div> */}
     </>

@@ -12,10 +12,10 @@ const Description = ({ shortText, fullText }: { shortText: string; fullText: str
   if (!shortText) return null; // قبل از Hydration، هیچ چیزی رندر نمی‌کنیم
 
   return (
-    <p className="w-full font-azarMehr font-normal text-[16px] text-justify dark:text-[#84858F] !inline">
+    <p className="w-full font-azarMehr font-normal text-[16px] text-justify dark:text-[#84858F] inline!">
       {!expanded ? (
         <>
-          <span className="!inline  [&>p]:inline ![&>p>ol>li]:inline" dangerouslySetInnerHTML={{ __html: shortText }} />
+          <span className="inline!  [&>p]:inline ![&>p>ol>li]:inline" dangerouslySetInnerHTML={{ __html: shortText }} />
           {fullText.length > shortText.length && (
             <button
               onClick={() => setExpanded(true)}
@@ -74,7 +74,7 @@ export const DashboardHeaderModule = ({ categoryData, mainData }: any) => {
             </span>
           </div>
         )}
-        <hr className="h-[50px] mx-auto w-[1px] border-l-0 border-y-0  border-solid border-[#D9D9D9] dark:border-[#434343]" />
+        <hr className="h-[50px] mx-auto w-px border-l-0 border-y-0  border-solid border-[#D9D9D9] dark:border-[#434343]" />
         {categoryData.likes_count !== undefined && categoryData.likes_count !== null && (
           <div className="flex flex-col gap-1 md:gap-2  w-max">
             <div className="flex flex-row items-center justify-start gap-1 md:gap-3">
@@ -89,7 +89,7 @@ export const DashboardHeaderModule = ({ categoryData, mainData }: any) => {
           </div>
         )}
 
-        <hr className="h-[50px] hidden mx-auto  w-[1px] md:block border-l-0 border-y-0  border-solid border-[#D9D9D9] dark:border-[#434343]" />
+        <hr className="h-[50px] hidden mx-auto  w-px md:block border-l-0 border-y-0  border-solid border-[#D9D9D9] dark:border-[#434343]" />
         {categoryData.dislikes_count !== undefined && categoryData.likes_count !== null && (
           <div className="flex flex-col gap-1 md:gap-2  w-max">
             <div className="flex flex-row items-center justify-start gap-1 md:gap-3">
@@ -103,7 +103,7 @@ export const DashboardHeaderModule = ({ categoryData, mainData }: any) => {
             </span>
           </div>
         )}
-        <hr className="h-[50px] mx-auto  w-[1px] border-l-0 border-y-0  border-solid border-[#D9D9D9] dark:border-[#434343]" />
+        <hr className="h-[50px] mx-auto  w-px border-l-0 border-y-0  border-solid border-[#D9D9D9] dark:border-[#434343]" />
         {categoryData.views_count !== undefined && categoryData.views_count !== null &&(
           <div className="flex flex-col gap-1 md:gap-2  w-max">
             <div className="flex flex-row items-center justify-start gap-1 md:gap-3">

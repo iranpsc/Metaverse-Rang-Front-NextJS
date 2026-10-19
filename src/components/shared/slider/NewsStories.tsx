@@ -184,7 +184,7 @@ export default function NewsStories({ params, mainData }: NewsStoriesProps) {
                 <div className='flex flex-col lg:flex-row lg:mt-5 overflow-hidden text-black dark:text-wrap items-center lg:items-start border-b border-solid border-x-0 border-t-0 dark:border-[#434343] border-[#D9D9D9] pb-10'>
                     <div className='w-full lg:w-[300px] ms-5 '>
                         <Reveal
-                            className="!opacity-100 w-full"
+                            className="opacity-100! w-full"
                             direction={params.lang == "fa" ? "right" : "left"}
                             distance={200}
                             duration={1500}
@@ -196,7 +196,7 @@ export default function NewsStories({ params, mainData }: NewsStoriesProps) {
                         </Reveal>
                     </div>
                     <div className="text-start max-w-3xl px-3 mt-[-24px] lg:mt-0">
-                        <TextScramble className=" dark:text-white text-5xl xl:text-3xl 2xl:text-5xl 3xl:text-6xl lg:leading-relaxed 2xl:!leading-[80px]"
+                        <TextScramble className=" dark:text-white text-5xl xl:text-3xl 2xl:text-5xl 3xl:text-6xl lg:leading-relaxed 2xl:leading-[80px]!"
                             text={findByUniqueId(mainData, 1700)}
                             lang={params.lang}
                         />
@@ -205,8 +205,8 @@ export default function NewsStories({ params, mainData }: NewsStoriesProps) {
                 </div>
                 {/* Navigation buttons */}
                 <div className='mt-10 mb-2 lg:mb-6 flex flex-col w-full'>
-                    <div className='flex-row-reverse md:flex text-black  dark:text-white text-3xl items-center rtl:lg:justify-end justify-end gap-[70%] md:gap-[60%] lg:gap-[40%] xl:gap-[36%] lg:mb-[-12px] '>
-                        <p className='mb-[-55px] lg:mb-0 rtl:lg:ms-[-130px] ltr:lg:ms-[-200px]'>{findByUniqueId(mainData, 255)}</p>
+                    <div className='flex-row-reverse md:flex text-black  dark:text-white text-3xl items-center lg:rtl:justify-end justify-end gap-[70%] md:gap-[60%] lg:gap-[40%] xl:gap-[36%] lg:mb-[-12px] '>
+                        <p className='mb-[-55px] lg:mb-0 lg:rtl:ms-[-130px] lg:ltr:ms-[-200px]'>{findByUniqueId(mainData, 255)}</p>
                         <p className='hidden lg:block'>
                             {findByUniqueId(mainData, 1701)}
                         </p>
@@ -256,7 +256,7 @@ export default function NewsStories({ params, mainData }: NewsStoriesProps) {
                         return (
                             <div
                                 key={item.id}
-                                className={`news-card snap-start flex-shrink-0 transition-all duration-300 ${isFeatured
+                                className={`news-card snap-start shrink-0 transition-all duration-300 ${isFeatured
                                     ? 'w-[90%] md:w-[70%] lg:w-[45%] xl:w-[40%]'
                                     : 'w-[320px] md:w-[320px] lg:w-[360px] 3xl:w-[384px]'
                                     }`}
@@ -295,7 +295,7 @@ export default function NewsStories({ params, mainData }: NewsStoriesProps) {
                                         <div >
                                             <button className="group  text-black dark:text-white bg-transparent hover:bg-[#9100D9] hover:text-white inline-flex items-center gap-1 transition-all mt-3 py-2 px-3 rounded-2xl rounded-ee-[35px]" aria-label="read more">
                                                 {findByUniqueId(mainData, 195)}
-                                                <svg className="w-5 h-5 text-[#9100D9] group-hover:text-white rtl:rotate-180 transition-transform duration-300 rtl:group-hover:translate-x-[-4px] ltr:group-hover:translate-x-1" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                <svg className="w-5 h-5 text-[#9100D9] group-hover:text-white rtl:rotate-180 transition-transform duration-300 group-hover:rtl:translate-x-[-4px] group-hover:ltr:translate-x-1" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                     <path className='stroke-[#9100D9] group-hover:stroke-white' d="M14.4297 5.92969L20.4997 11.9997L14.4297 18.0697" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
                                                     <path className='stroke-[#9100D9] group-hover:stroke-white' d="M3.5 12H20.33" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
                                                 </svg>
@@ -311,9 +311,9 @@ export default function NewsStories({ params, mainData }: NewsStoriesProps) {
             </div>
             <div className='flex justify-end w-full px-5 lg:px-10 pb-2 lg:pb-4'>
                 <ClipButton clip={params.lang == "fa" ? "bl" : "br"}
-                    className="w-[230px]  h-[60px] group mt-3 cursor-pointer duration-300 text-black dark:text-white hover:!text-[#9100D9]">
+                    className="w-[230px]  h-[60px] group mt-3 cursor-pointer duration-300 text-black dark:text-white hover:text-[#9100D9]!">
                     <span className="text-white dark:text-black group-hover:text-white pe-3"> {findByUniqueId(mainData, 195)}</span>
-                    <svg className="w-5 h-5 text-[#9100D9] group-hover:text-white rtl:rotate-180 transition-transform duration-300 rtl:group-hover:translate-x-[-4px] ltr:group-hover:translate-x-1" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <svg className="w-5 h-5 text-[#9100D9] group-hover:text-white rtl:rotate-180 transition-transform duration-300 group-hover:rtl:translate-x-[-4px] group-hover:ltr:translate-x-1" width="24" height="24" viewBox="0 0 24 24" fill="none">
                         <path className='stroke-[#9100D9] group-hover:stroke-white' d="M14.4297 5.92969L20.4997 11.9997L14.4297 18.0697" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
                         <path className='stroke-[#9100D9] group-hover:stroke-white' d="M3.5 12H20.33" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>

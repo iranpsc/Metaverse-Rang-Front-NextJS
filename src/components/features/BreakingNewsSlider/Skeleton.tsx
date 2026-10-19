@@ -6,7 +6,7 @@ export default function BreakingNewsSkeleton() {
         <div className="relative w-full flex justify-center h-[480px] rounded-x-xl">
           <div className="skeleton-slide prev w-[200px] h-[84%] mt-[40px] rounded-xl overflow-hidden bg-neutral-300  dark:bg-neutral-800/70 shimmer shadow-2xl me-[-15px]" />
           {/* کارت مرکزی */}
-          <div className="skeleton-slide z-10 !w-[82%] sm:!w-[75%] md:!w-[65%] lg:!w-[58%] xl:!w-[60%] h-full rounded-xl overflow-hidden bg-neutral-300  dark:bg-neutral-800 shimmer shadow-2xl flex items-end ">
+          <div className="skeleton-slide z-10 w-[82%]! sm:w-[75%]! md:w-[65%]! lg:w-[58%]! xl:w-[60%]! h-full rounded-xl overflow-hidden bg-neutral-300  dark:bg-neutral-800 shimmer shadow-2xl flex items-end ">
             {/* محتوای placeholder همان قبلی */}
             <div className="w-full  z-20 p-5 sm:p-6 md:p-8 lg:p-10 flex flex-col items-center justify-center gap-5">
               {/* بج فوری خبر - سعی کن اندازه واقعی رو بگیری */}
@@ -17,17 +17,17 @@ export default function BreakingNewsSkeleton() {
               <div className="flex flex-wrap justify-center gap-4 md:gap-6 mt-2 text-sm md:text-base opacity-80">
                 <div className="flex items-center gap-2.5">
                   <div className="w-5 h-5 bg-white/35 rounded-full" />
-                  <div className="w-16 h-5 bg-white/25 rounded shimmer" />
+                  <div className="w-16 h-5 bg-white/25 rounded-sm shimmer" />
                 </div>
                 <div className="w-1.5 h-1.5 bg-white/40 rounded-full mt-1" />
                 <div className="flex items-center gap-2.5">
                   <div className="w-5 h-5 bg-white/35 rounded-full" />
-                  <div className="w-24 h-5 bg-white/25 rounded shimmer" />
+                  <div className="w-24 h-5 bg-white/25 rounded-sm shimmer" />
                 </div>
                 <div className="w-1.5 h-1.5 bg-white/40 rounded-full mt-1" />
                 <div className="flex items-center gap-2.5">
                   <div className="w-5 h-5 bg-white/35 rounded-full" />
-                  <div className="w-32 h-5 bg-white/25 rounded shimmer" />
+                  <div className="w-32 h-5 bg-white/25 rounded-sm shimmer" />
                 </div>
               </div>
             </div>

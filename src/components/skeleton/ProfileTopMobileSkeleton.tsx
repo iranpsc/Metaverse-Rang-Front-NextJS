@@ -15,7 +15,7 @@ function ProfileTopMobileSkeletonBase() {
           <Skeleton tone="standalone" variant="circle" className="w-[48px] h-[48px] my-1" />
         </div>
 
-        <hr className="flex-grow mx-3 h-[1px] hidden sm:block border border-dashed text-matn-2 opacity-10 dark:text-[#fff]" />
+        <hr className="grow mx-3 h-px hidden sm:block border border-dashed text-matn-2 opacity-10 dark:text-white" />
 
         {/* آیکون ملیت */}
         <Skeleton
@@ -24,7 +24,7 @@ function ProfileTopMobileSkeletonBase() {
           className="xl:w-9 xl:h-9 3xl:w-10 3xl:h-10 lg:w-10 lg:h-10 md:w-14 md:h-14 sm:w-10 sm:h-10 xs:w-10 xs:h-10"
         />
 
-        <hr className="flex-grow mx-3 h-[1px] hidden sm:block border border-dashed text-matn-2 opacity-10 dark:text-[#fff]" />
+        <hr className="grow mx-3 h-px hidden sm:block border border-dashed text-matn-2 opacity-10 dark:text-white" />
 
         {/* لیبل سطح */}
         <Skeleton tone="standalone" className="h-4 w-14 rounded-md mx-1" />

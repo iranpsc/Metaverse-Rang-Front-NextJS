@@ -76,7 +76,7 @@ export function Skeleton({
         toneClasses[tone],
         // لایه شیمر روی pseudo-element
         "after:absolute after:inset-0 after:-translate-x-full  after:animate-shimmer",
-        "after:bg-gradient-to-r after:from-transparent",
+        "after:bg-linear-to-r after:from-transparent",
         "after:via-[rgb(var(--color-gray-1)/55%)] after:to-transparent",
         "dark:after:via-[rgb(var(--color-text-3)/35%)]",
         // موشن ریدیوس رعایت‌شده

@@ -52,7 +52,7 @@ export default function ContactSection({ params, mainData }: ContactSectionProps
                 <div className="mt-12 grid grid-cols-1 lg:grid-cols-[450px_1fr] gap-12">
                     {/* Left Text */}
                     <div>
-                        <p className="dark:text-white text-2xl lg:text-[36px] lg:leading-[1.25] font-medium px-3 lg:px-0 text-center lg:text-start">
+                        <p className="dark:text-white text-2xl lg:text-[36px] lg:leading-tight font-medium px-3 lg:px-0 text-center lg:text-start">
                             {findByUniqueId(mainData, 1733)}
                         </p>
                     </div>
@@ -63,20 +63,20 @@ export default function ContactSection({ params, mainData }: ContactSectionProps
                             <input
                                 type="text"
                                 placeholder={findByUniqueId(mainData, 79)}
-                                className="h-14 placeholder:text-black rounded-lg bg-bg-primary px-4 dark:text-white dark:placeholder:text-white outline-none border border-solid border-[#D9D9D9]  dark:border-transparent focus:border-purple-500"
+                                className="h-14 placeholder:text-black rounded-lg bg-bg-primary px-4 dark:text-white dark:placeholder:text-white outline-hidden border border-solid border-[#D9D9D9]  dark:border-transparent focus:border-purple-500"
                             />
 
                             <input
                                 type="text"
                                 placeholder={findByUniqueId(mainData, 646)}
-                                className="h-14 placeholder:text-black rounded-lg bg-bg-primary px-4 dark:text-white dark:placeholder:text-white outline-none border border-solid border-[#D9D9D9]  dark:border-transparent focus:border-purple-500"
+                                className="h-14 placeholder:text-black rounded-lg bg-bg-primary px-4 dark:text-white dark:placeholder:text-white outline-hidden border border-solid border-[#D9D9D9]  dark:border-transparent focus:border-purple-500"
                             />
                         </div>
 
                         <input
                             type="email"
                             placeholder={findByUniqueId(mainData, 85)}
-                            className=" placeholder:text-black w-full h-14 rounded-lg bg-bg-primary px-4 dark:text-white dark:placeholder:text-white outline-none border border-solid border-[#D9D9D9] dark:border-transparent focus:border-purple-500"
+                            className=" placeholder:text-black w-full h-14 rounded-lg bg-bg-primary px-4 dark:text-white dark:placeholder:text-white outline-hidden border border-solid border-[#D9D9D9] dark:border-transparent focus:border-purple-500"
                         />
 
                         <div className="relative">
@@ -91,7 +91,7 @@ export default function ContactSection({ params, mainData }: ContactSectionProps
                                     px-4
                                     dark:text-white
                                     appearance-none
-                                    outline-none
+                                    outline-hidden
                                     border
                                     border-solid border-[#D9D9D9]
                                     dark:border-transparent
@@ -133,7 +133,7 @@ export default function ContactSection({ params, mainData }: ContactSectionProps
                                 dark:text-white
                                 placeholder:text-black
                                 dark:placeholder:text-white
-                                outline-none
+                                outline-hidden
                                 resize-none
                                 border-solid border-[#D9D9D9]
                                 border
@@ -161,11 +161,11 @@ export default function ContactSection({ params, mainData }: ContactSectionProps
                             </label>
 
                             <ClipButton clip={params.lang == "fa" ? "bl" : "br"}
-                                className="w-[230px]  h-[64px] group m-5 cursor-pointer duration-300 text-black dark:text-white hover:!text-[#9100D9]">
+                                className="w-[230px]  h-[64px] group m-5 cursor-pointer duration-300 text-black dark:text-white hover:text-[#9100D9]!">
                                 <button
                                     type="button"
                                     aria-label="submit btn"
-                                    className="bg-transparent flex items-center text-base !ring-0 !border-0 focus-visible:ring-0"
+                                    className="bg-transparent flex items-center text-base ring-0! border-0! focus-visible:ring-0"
                                 >
                                     <span className="text-white dark:text-black font-medium  group-hover:text-white pe-3">{findByUniqueId(mainData, 1755)}</span>
                                     <svg className="rtl:rotate-180 stroke-white"

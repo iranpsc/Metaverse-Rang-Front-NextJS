@@ -306,7 +306,7 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
           >
             {isClosed ? "" : loggedInUserData?.code}
             <ArrowMenu
-              className={`${dropDown ? "rotate-[90deg]" : "rotate-[270deg]"
+              className={`${dropDown ? "rotate-90" : "rotate-270"
                 } w-[7px] h-[13px] stroke-white dark:stroke-black font-azarMehr`}
             />
           </button>

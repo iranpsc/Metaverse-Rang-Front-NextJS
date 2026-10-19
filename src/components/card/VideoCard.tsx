@@ -37,7 +37,7 @@ export default function VideoCard({
   return (
     <div
       onClickCapture={() => setActiveLoadingId?.(item.id)}
-      className={`relative w-full min-h-[240px] shadow-md hover:shadow-xl hover:dark:shadow-dark rounded-[10px] overflow-hidden bg-white dark:bg-gray-1 flex flex-col justify-start gap-6 items-center ${
+      className={`relative w-full min-h-[240px] shadow-md hover:shadow-xl dark:hover:shadow-dark rounded-[10px] overflow-hidden bg-white dark:bg-gray-1 flex flex-col justify-start gap-6 items-center ${
         isLoading
           ? "rotating-border-card cursor-not-allowed"
           : ""
@@ -60,7 +60,7 @@ export default function VideoCard({
 
       {/* Image */}
       <div className="group w-full h-[260px] overflow-hidden px-4 pt-4 pointer-events-none">
-        <div className="relative h-full w-full z-[1]">
+        <div className="relative h-full w-full z-1">
           {imgLoading && (
             <div className="absolute inset-0 h-full w-full bg-dark-gray dark:bg-matn-2 animate-pulse rounded-[10px] z-20" />
           )}
@@ -109,7 +109,7 @@ export default function VideoCard({
       </div>
 
       {/* Category / Subcategory */}
-      <div className="relative w-[95%] z-[10] flex flex-row justify-start items-center gap-1 mt-[-10px] pe-16 pointer-events-none">
+      <div className="relative w-[95%] z-10 flex flex-row justify-start items-center gap-1 mt-[-10px] pe-16 pointer-events-none">
         <Link
           aria-label="education"
           href={`/${params.lang}/education/category/${item.category.slug}`}
@@ -149,7 +149,7 @@ export default function VideoCard({
 
       {/* Title */}
       <Link
-        className="relative w-[95%] mt-[-24px] z-[1]"
+        className="relative w-[95%] mt-[-24px] z-1"
         aria-label="education"
         href={`/${params.lang}/education/category/${item.category.slug}/${item.sub_category.slug}/${item.slug}`}
       >
@@ -167,7 +167,7 @@ export default function VideoCard({
 
       {/* Description */}
       <Link
-        className="relative w-[95%] z-[1] mt-[-20px] text-matn-2 dark:text-matn-2"
+        className="relative w-[95%] z-1 mt-[-20px] text-matn-2 dark:text-matn-2"
         aria-label="education"
         href={`/${params.lang}/education/category/${item.category.slug}/${item.sub_category.slug}/${item.slug}`}
       >
@@ -177,7 +177,7 @@ export default function VideoCard({
       </Link>
 
       {/* Footer */}
-      <div className="relative w-[95%] z-[1] pb-2 flex flex-row justify-between items-center pointer-events-none">
+      <div className="relative w-[95%] z-1 pb-2 flex flex-row justify-between items-center pointer-events-none">
         <Link
           aria-label="citizen"
           href={`/${params.lang}/citizen/${item.creator.code}`}
