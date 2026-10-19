@@ -1,0 +1,41 @@
+* [33mfd379cc[m[33m ([m[1;32mchore/tailwind-v4-migration[m[33m)[m fix: code quality and code security warnings
+* [33m51f47c9[m fix map
+* [33m1d77e59[m update tailwind
+* [33m529f541[m bk befor upgrade tailwindcss v4
+[31m|[m * [33m4aacaf4[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mdev[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/dev[m[33m, [m[1;31morigin/HEAD[m[33m)[m Create env.example
+[31m|[m[31m/[m  
+* [33m8edb499[m[33m ([m[1;32mmain[m[33m)[m fix : ui little bugs in pages
+* [33m6b88056[m fix : about me modal
+* [33m93f7606[m fix : levels tabs
+* [33mf430a8b[m fix ui bugs
+* [33m1649d18[m fix node
+* [33ma3609b9[m fix version loadmore
+* [33m908f75b[m fix level ui bugs
+* [33mcc1fd16[m fix 3d model
+* [33mcc9d479[m fix littel bugs
+* [33m823f2a8[m fix charts btn
+* [33m47cb00e[m fix loadmore referral
+* [33m1a7f909[m fix sentry
+* [33m2269829[m fox sentry
+*   [33mc1a3f24[m Merge pull request #106 from iranpsc/dev
+[33m|[m[34m\[m  
+* [34m\[m   [33m5238142[m Merge pull request #104 from iranpsc/release/main
+[35m|[m[36m\[m [34m\[m  
+[35m|[m * [34m|[m [33m388b36d[m chore: remove Sentry for main
+* [36m|[m [34m|[m [33m1d97455[m Update remove-sentry.yml
+* [36m|[m [34m|[m [33ma22864f[m Merge pull request #105 from iranpsc/dev
+[1;31m|[m[36m\[m[36m|[m [34m|[m 
+[1;31m|[m [36m|[m [34m|[m * [33m4ec3501[m[33m ([m[1;31morigin/release/main[m[33m)[m chore: remove Sentry for main
+[1;31m|[m [36m|[m [34m|[m[34m/[m  
+[1;31m|[m [36m|[m * [33m1054eb4[m fix invitebox
+[1;31m|[m [36m|[m * [33mb63d287[m fix seo
+[1;31m|[m [36m|[m[36m/[m  
+[1;31m|[m *   [33m0b209cf[m fix confilict
+[1;31m|[m [1;34m|[m[1;31m\[m  
+[1;31m|[m [1;34m|[m[1;31m/[m  
+[1;31m|[m[1;31m/[m[1;34m|[m   
+* [1;34m|[m   [33m4f41859[m Merge pull request #103 from iranpsc/dev
+[1;36m|[m[31m\[m [1;34m\[m  
+* [31m|[m [1;34m|[m [33m0d3a872[m Update remove-sentry.yml
+[31m|[m [31m|[m * [33ma822cc5[m fix sentry
+[31m|[m [31m|[m[31m/[m  
