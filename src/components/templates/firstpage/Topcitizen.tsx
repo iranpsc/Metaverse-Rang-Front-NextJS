@@ -51,7 +51,7 @@ export default async function TopCitizen({
               md:min-h-[470px] mx-2 mt-10
             "
           >
-            <div className="flex aspect-square h-14 w-14 items-center justify-center rounded-full bg-[#9100D930] dark:bg-[#483D13]">
+            <div className="flex aspect-square h-14 w-14 items-center justify-center rounded-full bg-[#9100D930]">
               <svg
                 width="16"
                 height="24"
@@ -67,7 +67,7 @@ export default async function TopCitizen({
                   strokeWidth="3"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="dark:stroke-dark-primary"
+                  
                 />
               </svg>
             </div>

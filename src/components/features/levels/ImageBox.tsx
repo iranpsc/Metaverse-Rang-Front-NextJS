@@ -1,13 +1,31 @@
-
 "use client";
 
 import Image from "next/image";
 import { useState } from "react";
 import { useParams } from "next/navigation";
 import dynamic from "next/dynamic";
+import ErrorBoundary from "@/components/utils/ErrorBoundary";
 
-const Sample3D = dynamic(() => import("./Sample3D"), { ssr: false });
-const ErrorBoundary = dynamic(() => import("@/components/utils/ErrorBoundary"));
+/**
+ * تغییر ۱:
+ * Sample3D حالا loading اختصاصی دارد که فقط به اندازه‌ی همین باکس است.
+ * بدون loading، هنگام دانلود chunk مربوط به three.js ممکن است
+ * Suspense بالاتر (loading.tsx والد) فعال شود.
+ */
+const Sample3D = dynamic(() => import("./Sample3D"), {
+  ssr: false,
+  loading: () => (
+    <div className="flex aspect-5/7 w-full items-center justify-center rounded-xl bg-neutral-100 dark:bg-neutral-900">
+      <div className="h-8 w-8 animate-spin rounded-full border-2 border-neutral-300 border-t-primary" />
+    </div>
+  ),
+});
+
+/**
+ * تغییر ۲:
+ * ErrorBoundary دیگر با dynamic لود نمی‌شود.
+ * یک Error Boundary باید همیشه آماده باشد؛ lazy بودنش باعث suspend شدن می‌شود.
+ */
 
 /**
  * تب‌هایی که GIF آن‌ها از general_info گرفته می‌شود.
@@ -54,8 +72,7 @@ function parse3DSource(value: unknown): ModelSource | null {
     const obj = value as Record<string, unknown>;
     const binUrl = getFileUrl(obj.bin) || undefined;
 
-    const gltfUrl =
-      getFileUrl(obj.gltf) || getFileUrl(obj.GLTF);
+    const gltfUrl = getFileUrl(obj.gltf) || getFileUrl(obj.GLTF);
 
     if (gltfUrl) {
       return { gltf: gltfUrl, bin: binUrl };
@@ -81,9 +98,7 @@ function parse3DSource(value: unknown): ModelSource | null {
 
   if (jsonStart !== -1) {
     try {
-      const result = parse3DSource(
-        JSON.parse(raw.substring(jsonStart))
-      );
+      const result = parse3DSource(JSON.parse(raw.substring(jsonStart)));
 
       if (result) return result;
     } catch (error) {
@@ -113,9 +128,7 @@ export default function ImageBox({
   const general = generalInfo || {};
 
   // PNG: ابتدا تب فعلی، سپس general_info
-  const srcPng =
-    getFileUrl(item?.png_file) ||
-    getFileUrl(general.png_file);
+  const srcPng = getFileUrl(item?.png_file) || getFileUrl(general.png_file);
 
   // مدل سه‌بعدی: ابتدا تب فعلی، سپس general_info
   const modelSource = parse3DSource(
@@ -123,24 +136,31 @@ export default function ImageBox({
       item?.gltf_file ||
       general.fbx_file ||
       general.gltf_file ||
-      null
+      null,
   );
 
   // GIF مشترک یا اختصاصی هر تب
   const srcGif = SHARED_GIF_TABS.includes(tabs)
-    ? getFileUrl(general.gif_file) ||
-      getFileUrl(item?.gif_file)
+    ? getFileUrl(general.gif_file) || getFileUrl(item?.gif_file)
     : getFileUrl(item?.gif_file);
 
   // در صورت نبود منبع، نمایش موقت PNG
   const activeMode =
-    (mode === "gif" && !srcGif) ||
-    (mode === "fbx" && !modelSource)
+    (mode === "gif" && !srcGif) || (mode === "fbx" && !modelSource)
       ? "png"
       : mode;
 
+  /**
+   * تغییر ۳:
+   * با hover/focus/touch روی دکمه‌ی GLTF، chunk مربوط به three.js
+   * از قبل دانلود می‌شود تا کلیک سریع‌تر باشد.
+   */
+  const preload3D = () => {
+    void import("./Sample3D");
+  };
+
   const buttonClass = (active: boolean, disabled = false) =>
-    `px-4 py-2 md:px-3 lg:px-4 rounded-lg font-bold transition ${
+    `px-4 py-2 md:px-3 lg:px-4 rounded-lg font-bold transition cursor-pointer ${
       disabled
         ? "opacity-40 cursor-not-allowed bg-neutral-200 text-neutral-500 dark:bg-neutral-800 dark:text-neutral-500"
         : active
@@ -149,7 +169,7 @@ export default function ImageBox({
     }`;
 
   return (
-    <div className="sticky top-0 flex w-full flex-col items-center">
+    <div className="sticky top-0 flex w-full flex-col items-center ">
       {activeMode === "png" && srcPng && (
         <div className="relative aspect-5/7 w-[90%] rounded-xl md:w-full">
           <div className="absolute inset-0 rounded-xl" />
@@ -205,6 +225,9 @@ export default function ImageBox({
           type="button"
           disabled={!modelSource}
           onClick={() => setMode("fbx")}
+          onMouseEnter={preload3D}
+          onFocus={preload3D}
+          onTouchStart={preload3D}
           className={buttonClass(activeMode === "fbx", !modelSource)}
         >
           GLTF

@@ -210,7 +210,7 @@ export default function UserCard({
 
         {!hidePreviousLevels && (
           <div className="w-full min-h-[75px] pb-2">
-            <div className="w-full flex flex-wrap justify-center">
+            <div className="w-full flex flex-wrap justify-center gap-y-0.5">
               {displayGems.map((gem: any) => (
                 <GemImage key={`gem-${gem.slug}`} item={gem} params={params} picSize={33} />
               ))}
