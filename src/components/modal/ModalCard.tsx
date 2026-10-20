@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -8,6 +7,16 @@ import { findByUniqueId } from "../utils/findByUniqueId";
 import { motion } from "motion/react";
 
 const DEFAULT_IMAGE = "/defult-alayeg.jpg";
+
+/* استایل محتوای HTML (Tailwind preflight استایل لیست/تیتر را برمی‌دارد) */
+const RICH_TEXT_CLASSES =
+  "[&_b]:font-bold [&_strong]:font-bold [&_i]:italic [&_em]:italic [&_u]:underline " +
+  "[&_s]:line-through [&_del]:line-through " +
+  "[&_p]:min-h-[1em] [&_p]:mb-2 [&_div]:min-h-[1em] " +
+  "[&_ul]:list-disc [&_ol]:list-decimal [&_ul]:ps-6 [&_ol]:ps-6 [&_li]:mb-1 " +
+  "[&_:is(h1,h2,h3,h4,h5,h6)]:font-bold [&_:is(h1,h2,h3,h4,h5,h6)]:mb-2 " +
+  "[&_blockquote]:border-s-4 [&_blockquote]:ps-3 [&_blockquote]:opacity-80 " +
+  "[&_a]:text-primary [&_a]:underline break-words";
 
 function FavoriteImage({
   src,
@@ -40,6 +49,9 @@ export default function ModalCard({
   dataModal,
   mainData,
 }: any) {
+  const bodyClasses =
+    "pb-16 px-4 pt-5 leading-[35px] overflow-y-auto overflow-x-clip font-azarMehr font-medium 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc md:text-mdDesc sm:text-smTitle xs:text-smTitle text-matn-2 text-justify dark:dark-scrollbar light-scrollbar";
+
   return (
     <div className="fixed top-0 left-0 backdrop-blur-[15px] bg-black/40 z-1001 w-screen h-screen text-matn-2">
       <div className="flex flex-col justify-center w-screen h-screen items-center w-full">
@@ -51,7 +63,7 @@ export default function ModalCard({
             duration: 0.5,
             ease: "backInOut",
           }}
-          className={`xl:w-[40%] lg:w-[40%] md:w-[70%] min-h-[350px] max-h-fit rounded-[10px] border-2 border-[#00000096] dark:border-[#898989] border-solid flex relative me-[250px] sm:me-0 sm:w-[90%] xs:me-0 xs:w-[90%] justify-center xl:mt-0 lg:mt-0 md:mt-0 ${
+          className={`xl:w-[40%] lg:w-[40%] md:w-[70%] min-h-100 3xl:min-h-150 max-h-150 rounded-[10px] border-2 border-[#00000096] dark:border-[#898989] border-solid flex relative me-[250px] sm:me-0 sm:w-[90%] xs:me-0 xs:w-[90%] justify-center xl:mt-0 lg:mt-0 md:mt-0 ${
             dataModal.title === "about me" ||
             dataModal.title === "درباره من"
           } items-center relative shadow-md bg-white dark:bg-dark-background`}
@@ -93,10 +105,14 @@ export default function ModalCard({
                   </div>
                 </div>
               </div>
+            ) : dataModal.isHtml ? (
+              /* HTML تمیزشده با sanitizeHtml (bold / اینتر / لیست حفظ می‌شود) */
+              <div
+                className={`${bodyClasses} ${RICH_TEXT_CLASSES}`}
+                dangerouslySetInnerHTML={{ __html: dataModal.data || "" }}
+              />
             ) : (
-              <p className="pb-16 px-4 pt-5 leading-[35px] overflow-y-auto overflow-x-clip font-azarMehr font-medium 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc md:text-mdDesc sm:text-smTitle xs:text-smTitle text-matn-2 text-justify dark:dark-scrollbar light-scrollbar">
-                {dataModal.data}
-              </p>
+              <p className={bodyClasses}>{dataModal.data}</p>
             )}
           </div>
         </motion.div>

@@ -35,6 +35,7 @@ export default function Profile({
           nameUser={nameUser}
           profileData={profileData}
           params={params}
+          mainData={mainData}
         />
       </div>
       {/* MID */}
