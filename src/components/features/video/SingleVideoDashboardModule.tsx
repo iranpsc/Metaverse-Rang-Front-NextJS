@@ -10,7 +10,7 @@ import {
   Comment,
 } from "@/components/svgs/SvgEducation";
 import { checkData } from "@/components/utils/targetDataName";
-import axios from "axios";
+// import axios from "axios";
 import { motion } from "motion/react";
 import { useCookies } from "react-cookie";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
@@ -20,7 +20,7 @@ const SingleVideoDashboardModule = ({
   DataVideo,
   setOpenSharedPage,
   mainData,
-  params,
+  // params,
   dataCommentsVideo,
 }: any) => {
   const [cookies] = useCookies(["auth"]);

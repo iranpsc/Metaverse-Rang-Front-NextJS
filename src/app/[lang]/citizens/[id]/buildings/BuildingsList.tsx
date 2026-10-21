@@ -366,7 +366,7 @@ function BuildingCard({
 }) {
   const {
     icon,
-    color,
+    // color,
     labelFa,
     labelEn,
     uniqueId,

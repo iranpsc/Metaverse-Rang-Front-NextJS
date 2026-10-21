@@ -3,7 +3,7 @@
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import { useRef, useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 
 import ListSubCategories from "../../list/ListSubCategoriesEducation";
 import { DashboardHeaderModule } from "@/components/features/categories/DashboardHeaderModule";
