@@ -33,9 +33,6 @@ const stripHtml = (html: string): string => {
   return html
     .replace(/<[^>]*>/g, "")
     .replace(/&nbsp;/g, " ")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&amp;/g, "&")
     .trim();
 };
 
