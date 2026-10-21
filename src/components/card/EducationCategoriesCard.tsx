@@ -117,7 +117,7 @@ export default function ListData({ nameComponent, data, params, activeLoadingId,
               onClickCapture={() => setActiveLoadingId(item.id)}
               href={href}
               key={item.id}
-              className={`${isLoading ? "rotating-border-card cursor-not-allowed" : ""} w-full min-h-[240px] cursor-pointer shadow-md hover:shadow-xl hover:dark:shadow-dark rounded-[12px] bg-white dark:bg-gray-1  flex flex-col justify-start gap-2 items-center`}
+              className={`${isLoading ? "rotating-border-card cursor-not-allowed" : ""} w-full min-h-[240px] cursor-pointer shadow-md hover:shadow-xl dark:hover:shadow-dark rounded-[12px] bg-white dark:bg-gray-1  flex flex-col justify-start gap-2 items-center`}
             >
               {isLoading && (
                 <div className="absolute inset-0 z-50 flex items-center justify-center">
@@ -126,7 +126,7 @@ export default function ListData({ nameComponent, data, params, activeLoadingId,
                 </div>
               )}
               {/* تصویر */}
-              <div className="group w-full relative px-4 pt-4 overflow-hidden z-[1]">
+              <div className="group w-full relative px-4 pt-4 overflow-hidden z-1">
                 <div className="relative w-full h-[250px]">
                   <SafeImage
                     src={safeImage(item.image)}
@@ -138,7 +138,7 @@ export default function ListData({ nameComponent, data, params, activeLoadingId,
               </div>
 
               {/* متن با انیمیشن */}
-              <div className="w-full overflow-x-hidden pt-3 z-[1]">
+              <div className="w-full overflow-x-hidden pt-3 z-1">
                 <p
                   ref={(el) => {(titleRefs.current[index] = el)}}
                   className={`text-center w-full font-azarMehr truncate cursor-pointer font-bold text-[16px] 2xl:text-xl dark:text-white text-black px-5 whitespace-nowrap ${isTruncated
@@ -152,12 +152,12 @@ export default function ListData({ nameComponent, data, params, activeLoadingId,
 
               {/* توضیحات */}
               <p
-                className="text-center dark:text-[#868B90] line-clamp-2 px-4 text-[#656565] text-xs md:text-sm z-[1]"
+                className="text-center dark:text-[#868B90] line-clamp-2 px-4 text-[#656565] text-xs md:text-sm z-1"
                 dangerouslySetInnerHTML={{ __html: item.description }}
               ></p>
 
               {/* بخش پایین */}
-              <div className="w-full mt-2 flex flex-row justify-between items-center px-5 z-[1]">
+              <div className="w-full mt-2 flex flex-row justify-between items-center px-5 z-1">
                 <div className="flex flex-row justify-evenly items-center w-full h-fit py-3 border border-x-0 border-b-0 border-solid border-[#D9D9D9] dark:border-[#434343]">
                   <div className="flex flex-row items-center justify-center gap-2">
                     <Videos className="w-[18px] h-[18px] stroke-matn-2  " />
@@ -189,7 +189,7 @@ export default function ListData({ nameComponent, data, params, activeLoadingId,
                 </div>
               </div>
 
-              <div className="w-full flex justify-center z-[1]">
+              <div className="w-full flex justify-center z-1">
                 <span className="bg-primary  text-white  px-7 py-3 mb-4 rounded-[10px] dark:text-black font-light hover:cursor-pointer text-sm">
                   مشاهده ویدیو
                 </span>

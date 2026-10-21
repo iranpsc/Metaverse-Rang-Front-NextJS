@@ -57,7 +57,7 @@ export default async function LevelTabPage({ params }: Props) {
   const TabComponent = TAB_COMPONENTS[tabs];
 
   return (
-    <div className="grid-third w-full md:min-w-[65vw] xl:min-w-[65vw] px-1">
+    <div className="grid-third w-full  px-1">
       <div className="relative min-h-[400px]">
         <TabComponent
           mainData={mainData}

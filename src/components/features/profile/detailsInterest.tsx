@@ -12,7 +12,7 @@ export default function ProfileDetailsInteresting({
             <p className="font-azarMehr font-medium  3xl:text-xl3Title lg:text-lgTitle  xl:text-xlTitle  md:text-mdTitle sm:text-smTitle xs:text-smTitle text-matn-2 dark:text-white">
               {item.key}
             </p>
-            <hr className="flex-grow mx-3 xl:visible lg:visible md:invisible sm:invisible xs:invisible h-[1px] border border-dashed  text-[#ooo] opacity-10 dark:text-[#fff]" />
+            <hr className="grow mx-3 xl:visible lg:visible md:invisible sm:invisible xs:invisible h-px border border-dashed  text-[#ooo] opacity-10 dark:text-white" />
             <p className=" font-azarMehr  font-medium 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc md:text-mdDesc sm:text-smDesc xs:text-smDesc text-matn-2">
               {item.value}
             </p>

@@ -45,7 +45,7 @@ const SectionTeam = ({ mainData, params }: any) => {
       ) : (
         <div className="flex flex-column justify-center flex-wrap px-5 lg:px-0 w-full">
           {linkLoading && (
-            <div className="fixed top-0 left-0 bottom-0  w-full  h-screen z-[70] flex items-center justify-center bg-black/60 backdrop-blur-sm">
+            <div className="fixed top-0 left-0 bottom-0  w-full  h-screen z-70 flex items-center justify-center bg-black/60 backdrop-blur-xs">
               <div className="container flex w-full h-screen items-center justify-center md:ms-[25vw] lg:ms-[17vw] xl:ms-[15vw] 3xl:ms-[16vw]">
                 <div className="holder">
                   <div className="box"></div>
@@ -90,42 +90,42 @@ const SectionTeam = ({ mainData, params }: any) => {
             <div className="w-full flex flex-row justify-start items-center pt-5 md:pt-0">
               <div className="relative flex flex-row justify-start items-start ">
                 <Image
-                  className="xl:size-[60px] lg:size-[50px] md:size-[70px] sm:size-[50px] xs:size-[44px] rounded-full border-2 border-white z-50"
+                  className="xl:size-[60px] lg:size-[50px] md:size-[70px] sm:size-[50px] xs:size-[44px] rounded-full  z-50"
                   src="/firstpage/person1.webp"
                   alt="hossein ghadiri"
                   width={64}
                   height={64}
                 />
                 <Image
-                  className="xl:size-[60px] lg:size-[50px] md:size-[70px] sm:size-[50px] xs:size-[44px] rounded-full border-2 border-white ms-[-20px] z-40"
+                  className="xl:size-[60px] lg:size-[50px] md:size-[70px] sm:size-[50px] xs:size-[44px] rounded-full  ms-[-20px] z-40"
                   src="/firstpage/person2.webp"
                   alt="amir madanifar"
                   width={64}
                   height={64}
                 />
                 <Image
-                  className="xl:size-[60px] lg:size-[50px] md:size-[70px] sm:size-[50px] xs:size-[44px] rounded-full border-2 border-white ms-[-20px] z-30"
+                  className="xl:size-[60px] lg:size-[50px] md:size-[70px] sm:size-[50px] xs:size-[44px] rounded-full ms-[-20px] z-30"
                   src="/firstpage/person3.webp"
                   alt="abbas ajorloo"
                   width={64}
                   height={64}
                 />
                 <Image
-                  className="xl:size-[60px] lg:size-[50px] md:size-[70px] sm:size-[50px] xs:size-[44px] rounded-full border-2 border-white ms-[-20px] z-20"
+                  className="xl:size-[60px] lg:size-[50px] md:size-[70px] sm:size-[50px] xs:size-[44px] rounded-full  ms-[-20px] z-20"
                   src="/firstpage/pesrion04.jpg"
                   alt="saqeb"
                   width={64}
                   height={64}
                 />
                 <Image
-                  className="xl:size-[60px] lg:size-[50px] md:size-[70px] sm:size-[50px] xs:size-[44px] rounded-full border-2 border-white ms-[-20px] z-10 object-cover"
+                  className="xl:size-[60px] lg:size-[50px] md:size-[70px] sm:size-[50px] xs:size-[44px] rounded-full  ms-[-20px] z-10 object-cover"
                   src="/firstpage/person05.webp"
                   alt="Amin DehghanNejad"
                   width={64}
                   height={64}
                 />
                 <Image
-                  className="xl:size-[60px] lg:size-[50px] md:size-[70px] sm:size-[50px] xs:size-[44px] rounded-full border-2 border-white ms-[-20px] z-1 object-cover"
+                  className="xl:size-[60px] lg:size-[50px] md:size-[70px] sm:size-[50px] xs:size-[44px] rounded-full  ms-[-20px] z-1 object-cover"
                   src="/firstpage/person6.webp"
                   alt="nazanin heshmati"
                   width={64}

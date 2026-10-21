@@ -1,8 +1,7 @@
-// components/news/NewsContent.tsx
 
 "use client";
 
-import React, { useMemo, useState, useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import NewsGallery from "./NewsGallery";
 
 type NewsContentProps = {
@@ -13,39 +12,156 @@ type NewsContentProps = {
   params: any;
 };
 
-// کامپوننت اسکلت لودینگ گالری با افکت shimmer
-const GallerySkeleton = () => {
-  return (
-    <div className="w-full my-8 relative overflow-hidden">
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-        {[1, 2, 3, 4].map((i) => (
-          <div
-            key={i}
-            className="relative aspect-video rounded-xl overflow-hidden bg-neutral-200 dark:bg-neutral-800"
-          >
-            <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+type ClosingTag = {
+  position: number;
 };
+
+/**
+ * Normalize non-breaking spaces without changing HTML structure.
+ */
+function normalizeHtml(content: string): string {
+  return content.replace(
+    /&nbsp;|&#160;|&#xA0;|&#x0*A0;|&#x0*160;|\u00A0/gi,
+    " ",
+  );
+}
+
+/**
+ * Shared styles for all news content sections.
+ */
+const contentClassName = `
+  prose
+  max-w-none
+  min-w-0
+  break-words
+  [overflow-wrap:anywhere]
+  space-y-5
+  text-sm
+
+  prose-p:leading-9
+
+  prose-h1:text-sm
+  prose-h2:text-sm
+  prose-h3:text-sm
+  prose-h4:text-sm
+
+  md:prose-h1:text-2xl
+  md:prose-h2:text-2xl
+  md:prose-h3:text-2xl
+  md:prose-h4:text-2xl
+
+  lg:text-xl
+
+  prose-p:text-[#484950]
+  prose-a:text-primary
+
+  dark:text-[#868B90]
+  dark:prose-p:text-[#868B90]
+  dark:prose-strong:text-[#868B90]
+
+  dark:prose-h1:text-white
+  dark:prose-h2:text-white
+  dark:prose-h3:text-white
+  dark:prose-h4:text-white
+
+  dark:prose-a:text-primary
+
+  prose-img:max-w-full
+  prose-img:h-auto
+
+  prose-table:block
+  prose-table:max-w-full
+  prose-table:overflow-x-auto
+`;
+
+/**
+ * Find a suitable insertion position after the third paragraph/list,
+ * keeping the original HTML unchanged.
+ */
+function findInsertPosition(htmlContent: string): number {
+  const closingTags: ClosingTag[] = [];
+  const closingTagRegex = /<\/(?:p|ul|ol)\s*>/gi;
+
+  let match: RegExpExecArray | null;
+
+  while ((match = closingTagRegex.exec(htmlContent)) !== null) {
+    closingTags.push({
+      position: match.index + match[0].length,
+    });
+  }
+
+  if (closingTags.length >= 3) {
+    return closingTags[2].position;
+  }
+
+  if (closingTags.length > 0) {
+    return closingTags[closingTags.length - 1].position;
+  }
+
+  return -1;
+}
+
+const GallerySkeleton = () => (
+  <div
+    className="relative my-8 w-full overflow-hidden"
+    aria-hidden="true"
+  >
+    <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
+      {[1, 2, 3, 4].map((item) => (
+        <div
+          key={item}
+          className="
+            relative
+            aspect-video
+            overflow-hidden
+            rounded-xl
+            bg-neutral-200
+            dark:bg-neutral-800
+          "
+        >
+          <div
+            className="
+              absolute
+              inset-0
+              -translate-x-full
+              animate-[shimmer_1.5s_infinite]
+              bg-linear-to-r
+              from-transparent
+              via-white/20
+              to-transparent
+            "
+          />
+        </div>
+      ))}
+    </div>
+  </div>
+);
 
 export default function NewsContent({
   content,
   gallery,
   mainImage,
-  params
+  params,
 }: NewsContentProps) {
   const [isGalleryLoading, setIsGalleryLoading] = useState(true);
   const [showRealGallery, setShowRealGallery] = useState(false);
 
-  // شبیه‌سازی لودینگ گالری
+  const normalizedContent = useMemo(
+    () => normalizeHtml(content),
+    [content],
+  );
+
+  const hasGallery = Boolean(gallery?.length);
+
   useEffect(() => {
-    if (!gallery || gallery.length === 0) {
+    if (!hasGallery) {
       setIsGalleryLoading(false);
+      setShowRealGallery(false);
       return;
     }
+
+    setIsGalleryLoading(true);
+    setShowRealGallery(false);
 
     const timer = setTimeout(() => {
       setIsGalleryLoading(false);
@@ -53,137 +169,68 @@ export default function NewsContent({
     }, 500);
 
     return () => clearTimeout(timer);
-  }, [gallery]);
+  }, [hasGallery, gallery]);
 
-  // تابع برای پیدا کردن موقعیت مناسب بعد از پاراگراف سوم یا لیست دوم
-  const findInsertPosition = (htmlContent: string): number => {
-    const closingTags: { position: number; type: string }[] = [];
-    let searchIndex = 0;
-
-    // پیدا کردن پاراگراف‌ها
-    while (true) {
-      const pClose = htmlContent.indexOf("</p>", searchIndex);
-      if (pClose === -1) break;
-      closingTags.push({ position: pClose + 4, type: "p" });
-      searchIndex = pClose + 4;
-    }
-
-    // پیدا کردن لیست‌های نامرتب (ul)
-    searchIndex = 0;
-    while (true) {
-      const ulClose = htmlContent.indexOf("</ul>", searchIndex);
-      if (ulClose === -1) break;
-      closingTags.push({ position: ulClose + 5, type: "ul" });
-      searchIndex = ulClose + 5;
-    }
-
-    // پیدا کردن لیست‌های مرتب (ol)
-    searchIndex = 0;
-    while (true) {
-      const olClose = htmlContent.indexOf("</ol>", searchIndex);
-      if (olClose === -1) break;
-      closingTags.push({ position: olClose + 5, type: "ol" });
-      searchIndex = olClose + 5;
-    }
-
-    closingTags.sort((a, b) => a.position - b.position);
-
-    // پیدا کردن سومین عنصر (پاراگراف یا لیست)
-    if (closingTags.length >= 3) {
-      const thirdElement = closingTags[2];
-      let insertPos = thirdElement.position;
-
-      const remainingContent = htmlContent.slice(insertPos);
-      const nextListIndex = Math.min(
-        remainingContent.indexOf("<ul>") !== -1
-          ? remainingContent.indexOf("<ul>")
-          : Infinity,
-        remainingContent.indexOf("<ol>") !== -1
-          ? remainingContent.indexOf("<ol>")
-          : Infinity
-      );
-
-      const nextPIndex = remainingContent.indexOf("<p>");
-
-      if (
-        nextListIndex !== Infinity &&
-        (nextListIndex < nextPIndex || nextPIndex === -1)
-      ) {
-        const listTag =
-          remainingContent[nextListIndex] === "<" &&
-          remainingContent[nextListIndex + 1] === "u"
-            ? "ul"
-            : "ol";
-        const listCloseTag = `</${listTag}>`;
-        const listEndIndex = remainingContent.indexOf(listCloseTag);
-
-        if (listEndIndex !== -1) {
-          insertPos = insertPos + listEndIndex + listCloseTag.length;
-        }
-      }
-
-      return insertPos;
-    }
-
-    if (closingTags.length > 0) {
-      return closingTags[closingTags.length - 1].position;
-    }
-
-    return -1;
-  };
-
-  // تابع برای تقسیم محتوا
   const renderContentWithGallery = useMemo(() => {
-    if (!gallery || gallery.length === 0) {
-      return { before: content, after: null, showGallery: false };
-    }
-
-    const insertPosition = findInsertPosition(content);
-
-    if (insertPosition !== -1 && insertPosition < content.length) {
+    if (!hasGallery) {
       return {
-        before: content.slice(0, insertPosition),
-        after: content.slice(insertPosition),
-        showGallery: true,
+        before: normalizedContent,
+        after: null as string | null,
       };
     }
 
-    return { before: content, after: null, showGallery: true };
-  }, [content, gallery]);
+    const insertPosition = findInsertPosition(normalizedContent);
 
-  // اگر گالری وجود ندارد
-  if (!renderContentWithGallery.showGallery || !gallery || gallery.length === 0) {
-    return (
-      <div className="flex flex-col gap-6">
-        <div
-          className="prose  break-all max-w-none prose-strong:dark:text-[#868B90] dark:text-[#868B90] prose-p:leading-9 space-y-5 text-sm prose-h1:text-sm prose-h2:text-sm prose-h3:text-sm prose-h4:text-sm lg:text-xl md:prose-h1:text-2xl md:prose-h2:text-2xl md:prose-h3:text-2xl md:prose-h-4:text-2xl md:prose-p:text-[#484950] dark:prose-p:text-[#868B90] dark:prose-h1:text-white dark:prose-h2:text-white dark:prose-h3:text-white prose-a:text-primary dark:prose-a:text-primary"
-          dangerouslySetInnerHTML={{ __html: content }}
-        />
-      </div>
-    );
-  }
+    if (
+      insertPosition > 0 &&
+      insertPosition < normalizedContent.length
+    ) {
+      return {
+        before: normalizedContent.slice(0, insertPosition),
+        after: normalizedContent.slice(insertPosition),
+      };
+    }
+
+    return {
+      before: normalizedContent,
+      after: null as string | null,
+    };
+  }, [normalizedContent, hasGallery]);
 
   return (
-    <div className="flex flex-col gap-6">
-      {/* بخش اول محتوا (قبل از گالری) */}
+    <div className="flex min-w-0 flex-col gap-6">
+      {/* Content before the gallery */}
       <div
-        className="prose break-all max-w-none prose-strong:dark:text-[#868B90] dark:text-[#868B90] prose-p:leading-9 space-y-5 text-sm prose-h1:text-sm prose-h2:text-sm prose-h3:text-sm prose-h4:text-sm lg:text-xl md:prose-h1:text-2xl md:prose-h2:text-2xl md:prose-h3:text-2xl md:prose-h-4:text-2xl md:prose-p:text-[#484950] dark:prose-p:text-[#868B90] dark:prose-h1:text-white dark:prose-h2:text-white dark:prose-h3:text-white prose-a:text-primary dark:prose-a:text-primary"
-        dangerouslySetInnerHTML={{ __html: renderContentWithGallery.before }}
+        dir="auto"
+        className={contentClassName}
+        dangerouslySetInnerHTML={{
+          __html: renderContentWithGallery.before,
+        }}
       />
 
-      {/* اسکلت لودینگ گالری */}
-      {isGalleryLoading && <GallerySkeleton />}
+      {/* Gallery and loading skeleton */}
+      {hasGallery && (
+        <>
+          {isGalleryLoading && <GallerySkeleton />}
 
-      {/* گالری واقعی */}
-      {!isGalleryLoading && showRealGallery && gallery && (
-        <NewsGallery gallery={gallery} mainImage={mainImage}  params={params.lang}/>
+          {!isGalleryLoading && showRealGallery && (
+            <NewsGallery
+              gallery={gallery!}
+              mainImage={mainImage}
+              params={params.lang}
+            />
+          )}
+        </>
       )}
 
-      {/* بخش دوم محتوا (بعد از گالری) */}
+      {/* Content after the gallery */}
       {renderContentWithGallery.after && (
         <div
-          className="prose  break-all  max-w-none prose-strong:dark:text-[#868B90] dark:text-[#868B90] prose-p:leading-9 space-y-5 text-sm prose-h1:text-sm prose-h2:text-sm prose-h3:text-sm prose-h4:text-sm lg:text-xl md:prose-h1:text-2xl md:prose-h2:text-2xl md:prose-h3:text-2xl md:prose-h-4:text-2xl md:prose-p:text-[#484950] dark:prose-p:text-[#868B90] dark:prose-h1:text-white dark:prose-h2:text-white dark:prose-h3:text-white prose-a:text-primary dark:prose-a:text-primary"
-          dangerouslySetInnerHTML={{ __html: renderContentWithGallery.after }}
+          dir="auto"
+          className={contentClassName}
+          dangerouslySetInnerHTML={{
+            __html: renderContentWithGallery.after,
+          }}
         />
       )}
     </div>

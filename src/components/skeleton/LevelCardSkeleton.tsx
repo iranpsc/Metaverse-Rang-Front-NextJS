@@ -17,7 +17,7 @@ function LevelCardSkeletonBase() {
         {/* تصویر مدال سطح */}
         <Skeleton
          
-          className="z-[2] w-[110px] h-[155px]  translate-y-2 rounded-xl lg:translate-y-6"
+          className="z-2 w-[110px] h-[155px]  translate-y-2 rounded-xl lg:translate-y-6"
         />
 
         {/* کارت اطلاعات پایین */}

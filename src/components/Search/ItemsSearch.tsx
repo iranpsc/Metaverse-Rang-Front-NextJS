@@ -49,7 +49,7 @@ const [linkLoading, setLinkLoading] = useState(false);
   }
 
   const LoadingOverlay = () => (
-    <div className="fixed top-0 left-0 bottom-0  w-full  h-screen z-[70] flex items-center justify-center bg-black/60 backdrop-blur-sm">
+    <div className="fixed top-0 left-0 bottom-0  w-full  h-screen z-70 flex items-center justify-center bg-black/60 backdrop-blur-xs">
       <div className="container flex w-full h-screen items-center justify-center md:ms-[25vw] lg:ms-[17vw] xl:ms-[15vw] 3xl:ms-[16vw]">
         <div className="holder">
           <div className="box"></div>
@@ -102,7 +102,7 @@ const [linkLoading, setLinkLoading] = useState(false);
                     alt={item?.name}
                     width={50}
                     height={50}
-                    className="rounded-full shadow-sm aspect-square"
+                    className="rounded-full shadow-xs aspect-square"
                   />
                 </div>
               </Link>
@@ -120,10 +120,10 @@ const [linkLoading, setLinkLoading] = useState(false);
             
               href={`/${params.lang}/education/category/${item.category.slug}/${item.sub_category.slug}/${item.slug}`}
               key={item.id}
-              className="w-[100%] h-[65px] mt-2 transition-all duration-300 bg-white dark:bg-dark-background border-b border-mediumGray flex justify-between items-center  rounded-lg"
+              className="w-full h-[65px] mt-2 transition-all duration-300 bg-white dark:bg-dark-background border-b border-mediumGray flex justify-between items-center  rounded-lg"
             >
                {linkLoading && (
-              <div className="fixed top-0 left-0 bottom-0  w-full  h-screen z-[70] flex items-center justify-center bg-black/60 backdrop-blur-sm" >
+              <div className="fixed top-0 left-0 bottom-0  w-full  h-screen z-70 flex items-center justify-center bg-black/60 backdrop-blur-xs" >
                 <div className="container flex w-full h-screen items-center justify-center md:ms-[25vw] lg:ms-[17vw] xl:ms-[15vw] 3xl:ms-[16vw]">
                   <div className="holder">
                     <div className="box"></div>
@@ -158,7 +158,7 @@ const [linkLoading, setLinkLoading] = useState(false);
                   alt={item.creator.title}
                   width={50}
                   height={50}
-                  className="rounded-full shadow-sm aspect-square"
+                  className="rounded-full shadow-xs aspect-square"
                 />
                </div>
               </div>
@@ -180,7 +180,7 @@ const [linkLoading, setLinkLoading] = useState(false);
                 flex justify-between items-center py-2 gap-3"
               >
                  {linkLoading && (
-              <div className="fixed top-0 left-0 bottom-0  w-full  h-screen z-[70] flex items-center justify-center bg-black/60 backdrop-blur-sm" >
+              <div className="fixed top-0 left-0 bottom-0  w-full  h-screen z-70 flex items-center justify-center bg-black/60 backdrop-blur-xs" >
                 <div className="container flex w-full h-screen items-center justify-center md:ms-[25vw] lg:ms-[17vw] xl:ms-[15vw] 3xl:ms-[16vw]">
                   <div className="holder">
                     <div className="box"></div>

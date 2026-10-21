@@ -95,7 +95,7 @@ export default function BreakingNewsSliderClient({
           return (
             <SwiperSlide
               key={key}
-              className="!w-[75%] md:!w-[65%] lg:!w-[58%] relative"
+              className="w-[75%]! md:w-[65%]! lg:w-[58%]! relative"
             >
               {/* فقط یک لینک (قبلاً Link تو در تو بود) */}
               <Link href={href} className="block h-full">
@@ -108,7 +108,7 @@ export default function BreakingNewsSliderClient({
                       height="58"
                       viewBox="0 0 334 58"
                       fill="none"
-                      className="!w-[200px] lg:!w-auto"
+                      className="w-[200px]! lg:w-auto!"
                     >
                       <path
                         d="M37.4028 1.17969H333.473L310.473 57.1797H11.9727L37.4028 1.17969Z"
@@ -123,7 +123,7 @@ export default function BreakingNewsSliderClient({
                         <tspan
                           x={isRTL ? 270 : 210}
                           y="36.3237"
-                          className="text-xl lg:text-3xl !font-rokh !font-extrabold"
+                          className="text-xl lg:text-3xl font-rokh! font-extrabold!"
                         >
                           {findByUniqueId(mainData, 1616) || "خبر"}
                         </tspan>
@@ -132,7 +132,7 @@ export default function BreakingNewsSliderClient({
                         <tspan
                           x={isRTL ? 140 : 40}
                           y="36.3237"
-                          className="text-xl lg:text-3xl !font-rokh !font-extrabold"
+                          className="text-xl lg:text-3xl font-rokh! font-extrabold!"
                         >
                           {findByUniqueId(mainData, 1617) || "فوری"}
                         </tspan>
@@ -173,7 +173,7 @@ export default function BreakingNewsSliderClient({
                     priority={index === 0}
                     quality={60}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/50 to-transparent" />
                 </div>
               </Link>
             </SwiperSlide>
@@ -186,9 +186,9 @@ export default function BreakingNewsSliderClient({
           (Swiper بعد از کلیک روی چیزی داخل کانتینرش می‌تونه کلیک‌های بعدی رو بلاک کنه).
           کانتینر pointer-events-none داره و فقط خود دکمه‌ها کلیک‌پذیرن. */}
       <div className="absolute top-[240px] left-0 w-full flex justify-center z-20 pointer-events-none">
-        <div className="flex justify-between items-center !w-[85%] md:!w-[65%] lg:!w-[61%]">
-          <div className="swiper-button-prev pointer-events-auto p-3 !static !text-white dark:!text-black after:!text-xl dark:after:!text-black !text-xl !w-12 !h-12 rounded-full bg-primary z-20 rtl:rotate-180" />
-          <div className="swiper-button-next pointer-events-auto p-3 !static !text-white dark:!text-black after:!text-xl dark:after:!text-black !text-xl !w-12 !h-12 rounded-full bg-primary z-20 rtl:rotate-180" />
+        <div className="flex justify-between items-center w-[85%]! md:w-[65%]! lg:w-[61%]!">
+          <div className="swiper-button-prev pointer-events-auto p-3 static! text-white! dark:text-black! after:text-xl! dark:after:text-black! text-xl! w-12! h-12! rounded-full bg-primary z-20 rtl:rotate-180" />
+          <div className="swiper-button-next pointer-events-auto p-3 static! text-white! dark:text-black! after:text-xl! dark:after:text-black! text-xl! w-12! h-12! rounded-full bg-primary z-20 rtl:rotate-180" />
         </div>
       </div>
     </div>

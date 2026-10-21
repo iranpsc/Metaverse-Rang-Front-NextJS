@@ -21,7 +21,7 @@ export default function Accordion({
         onClick={() => setOpen(!open)}
       >
         <span
-          className="text-ellipsis text-[#414040] dark:text-white font-[500] 2xl:font-[700] 
+          className="text-ellipsis text-[#414040] dark:text-white font-medium 2xl:font-bold 
         text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px]"
         >
           {title}
@@ -44,7 +44,7 @@ export default function Accordion({
 }
 //  ${
 //   open
-//     ? "font-[400]  opacity-1  pb-5"
+//     ? "font-normal  opacity-1  pb-5"
 //     : "max-h-0 overflow-hidden opacity-0"
 // }
 // کد باز بسته شدن درلچ دان 

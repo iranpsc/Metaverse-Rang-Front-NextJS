@@ -346,33 +346,7 @@ function DensityIcon() {
   );
 }
 
-function CalendarIcon() {
-  return (
-    <svg
-      width="14"
-      height="14"
-      viewBox="0 0 24 24"
-      fill="none"
-    >
-      <rect
-        x="3"
-        y="5"
-        width="18"
-        height="16"
-        rx="2"
-        stroke="currentColor"
-        strokeWidth="1.6"
-      />
-
-      <path
-        d="M3 10h18M8 3v4M16 3v4"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
+// enamad/page.tsx:3
 
 /* ------------------------------------------------------------------ */
 /*                              LIST CARD                              */
@@ -452,8 +426,8 @@ function BuildingCard({
             dark:text-white
             shadow-lg
             backdrop-blur-md
-            dark:!bg-gray-1
-            !bg-white
+            dark:bg-gray-1!
+            bg-white!
           "
         >
           <BuildingIcon
@@ -544,15 +518,15 @@ function BuildingCardSkeleton() {
 
       <div className="p-4 flex flex-col gap-3">
         <div className="flex justify-between">
-          <div className="h-2.5 w-20 rounded bg-black/5 dark:bg-white/10" />
-          <div className="h-2.5 w-16 rounded bg-black/5 dark:bg-white/10" />
+          <div className="h-2.5 w-20 rounded-sm bg-black/5 dark:bg-white/10" />
+          <div className="h-2.5 w-16 rounded-sm bg-black/5 dark:bg-white/10" />
         </div>
 
         <div className="grid grid-cols-2 gap-y-2 gap-x-3 pt-3 border-t border-black/5 dark:border-white/10">
           {Array.from({ length: 4 }).map((_, i) => (
             <div
               key={i}
-              className="h-2.5 w-16 rounded bg-black/5 dark:bg-white/10"
+              className="h-2.5 w-16 rounded-sm bg-black/5 dark:bg-white/10"
             />
           ))}
         </div>

@@ -60,7 +60,7 @@ export const Features = ({ levelsTranslatePage, mainData }: any) => {
           <span className="text-xl xl:text-2xl font-bold py-2">
             {findByUniqueId(mainData, 406)}
           </span>
-          <p className="text-center text-base 2xl:text-xl font-[400]">
+          <p className="text-center text-base 2xl:text-xl font-normal">
             {findByUniqueId(mainData, 407)}
           </p>
           <div className="bg-gray-2  text-primary hover:border-primary border-transparent border-solid border rounded-lg px-5 py-2 mt-5">
@@ -81,7 +81,7 @@ export const Features = ({ levelsTranslatePage, mainData }: any) => {
           <span className="text-xl xl:text-2xl font-bold py-2">
             {findByUniqueId(mainData, 408)}
           </span>
-          <p className="text-center text-base 2xl:text-xl font-[400]">
+          <p className="text-center text-base 2xl:text-xl font-normal">
             {findByUniqueId(mainData, 409)}
           </p>
            <div className="bg-gray-2  text-primary hover:border-primary border-transparent border-solid border rounded-lg px-5 py-2 mt-5">
@@ -102,7 +102,7 @@ export const Features = ({ levelsTranslatePage, mainData }: any) => {
           <span className="text-xl xl:text-2xl font-bold py-2">
             {findByUniqueId(mainData, 502)}
           </span>
-          <p className="text-center text-base 2xl:text-xl font-[400]">
+          <p className="text-center text-base 2xl:text-xl font-normal">
             {findByUniqueId(mainData, 410)}
           </p>
            <div className="bg-gray-2  text-primary hover:border-primary border-transparent border-solid border rounded-lg px-5 py-2 mt-5">
@@ -123,7 +123,7 @@ export const Features = ({ levelsTranslatePage, mainData }: any) => {
           <span className="text-xl xl:text-2xl font-bold py-2">
             {findByUniqueId(mainData, 411)}
           </span>
-          <p className="text-center text-base 2xl:text-xl font-[400]">
+          <p className="text-center text-base 2xl:text-xl font-normal">
             {findByUniqueId(mainData, 412)}
           </p>
            <div className="bg-gray-2  text-primary hover:border-primary border-transparent border-solid border rounded-lg px-5 py-2 mt-5">

@@ -103,7 +103,7 @@ const SectionTimer = ({ params }: { params: Params }) => {
       className="w-full h-full flex flex-wrap lg:flex-nowrap justify-evenly gap-5 my-12 md:my-0 items-center relative px-6"
     >
       {linkLoading && (
-        <div className="fixed top-0 left-0 bottom-0 w-full h-screen z-[40] flex items-center justify-center bg-black/60 backdrop-blur-sm">
+        <div className="fixed top-0 left-0 bottom-0 w-full h-screen z-40 flex items-center justify-center bg-black/60 backdrop-blur-xs">
           <div className="container flex w-full h-screen items-center justify-center md:ms-[25vw] lg:ms-[17vw] xl:ms-[15vw] 3xl:ms-[16vw]">
             <div className="holder">
               <div className="box"></div>
@@ -157,13 +157,13 @@ const SectionTimer = ({ params }: { params: Params }) => {
       ) : (
         <div
           style={{ background: "linear-gradient(-135deg, transparent, #9898a0 , transparent)" }}
-          className="p-[1px] rounded-[48px] lg:rounded-[50px]"
+          className="p-px rounded-[48px] lg:rounded-[50px]"
         >
           <div className="flex flex-col lg:flex-row pb-5 px-5 lg:p-5 w-full transition-all duration-500 bg-[#DEDEE9] dark:bg-[#313131] rounded-[48px] lg:rounded-[50px]">
             {/* عکس و توضیحات */}
-            <div className="lg:h-[250px] 2xl:h-[280px] 3xl:h-[320px] overflow-y-hidden lg:me-5 relative p-[1px] w-full lg:w-1/2 xl:w-2/3 3xl:w-[70%]">
+            <div className="lg:h-[250px] 2xl:h-[280px] 3xl:h-[320px] overflow-y-hidden lg:me-5 relative p-px w-full lg:w-1/2 xl:w-2/3 3xl:w-[70%]">
               <div className="h-full w-full py-5 md:py-0 lg:rounded-[48px] flex flex-col lg:flex-row gap-5 justify-center items-center">
-                <div className="w-full h-full flex justify-center max-w-[380px] max-h-[100%] lg:rounded-xl lg:rounded-[32px] overflow-hidden relative">
+                <div className="w-full h-full flex justify-center max-w-[380px] max-h-full lg:rounded-xl lg:rounded-[32px] overflow-hidden relative">
                   <Image
                     className="w-fill h-full rounded-[38px] relative"
                     src={eventData.image || "/firstpage/free.webp"}
@@ -172,10 +172,10 @@ const SectionTimer = ({ params }: { params: Params }) => {
                     height={350}
                     quality={75}
                   />
-                  <div className="w-full h-full bg-gradient-to-b to-[#DEDEE9] via-[#dedee942] from-[#dedee905] md:bg-gradient-to-l md:to-[#DEDEE9] md:via-[#dedee942] md:from-transparent dark:bg-gradient-to-b dark:to-[#313131] dark:via-[#3131315b] dark:from-transparent md:dark:bg-gradient-to-l md:dark:to-[#313131] md:dark:via-[#3131315b] md:dark:from-[#31313100] absolute right-0"></div>
+                  <div className="w-full h-full bg-linear-to-b to-[#DEDEE9] via-[#dedee942] from-[#dedee905] md:bg-linear-to-l md:to-[#DEDEE9] md:via-[#dedee942] md:from-transparent dark:bg-linear-to-b dark:to-[#313131] dark:via-[#3131315b] dark:from-transparent md:dark:bg-linear-to-l md:dark:to-[#313131] md:dark:via-[#3131315b] md:dark:from-[#31313100] absolute right-0"></div>
                 </div>
                 <div className="w-full lg:mt-0 text-justify flex flex-col justify-between h-full md:py-4">
-                  <p className="text-start text-lg lg:text-xl 3xl:text-3xl text-black dark:text-white font-azarMehr font-medium ms-1 md:ms-5 2xl:!leading-[46px]">
+                  <p className="text-start text-lg lg:text-xl 3xl:text-3xl text-black dark:text-white font-azarMehr font-medium ms-1 md:ms-5 2xl:leading-[46px]!">
                     {eventData.title}
                   </p>
                   <p
@@ -188,7 +188,7 @@ const SectionTimer = ({ params }: { params: Params }) => {
 
             {/* تایمر + دکمه‌ها */}
             <div className="lg:h-[250px] 2xl:h-[280px] 3xl:h-[320px] w-full lg:w-1/2 xl:w-1/3 3xl:w-[30%] rounded-[50px] p-[5px] relative">
-              <div className="p-[20px] h-full rounded-3xl md:rounded-[50px] flex flex-col justify-around items-center relative bg-gradient-to-tl to-[#dfdfdf] from-white dark:to-[#FFFFFF17] dark:from-[#22222291]">
+              <div className="p-[20px] h-full rounded-3xl md:rounded-[50px] flex flex-col justify-around items-center relative bg-linear-to-tl to-[#dfdfdf] from-white dark:to-[#FFFFFF17] dark:from-[#22222291]">
                 <DynamicTimer
                   daysLabel={params.lang === "fa" ? "روز" : "Days"}
                   hoursLabel={params.lang === "fa" ? "ساعت" : "Hours"}
@@ -204,7 +204,7 @@ const SectionTimer = ({ params }: { params: Params }) => {
                       target="_blank"
                       aria-label="meta btn"
                       href={eventData.link}
-                      className="!w-full rounded-[28px] py-3 text-center lg:text-lg 3xl:text-[19px] text-white dark:text-black bg-primary font-azarMehr font-medium mt-5"
+                      className="w-full! rounded-[28px] py-3 text-center lg:text-lg 3xl:text-[19px] text-white dark:text-black bg-primary font-azarMehr font-medium mt-5"
                     >
                       {eventData.btnName}
                     </a>

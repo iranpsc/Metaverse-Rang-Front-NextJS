@@ -443,7 +443,7 @@ export default function InviteList({
                 searchFetch();
               }
             }}
-            className="pr-2 ps-5 text-black dark:text-white bg-transparent flex-1 w-[90%] h-[90%] border-none outline-none text-sm text-aliceblue font-azarMehr text-[16px]"
+            className="pr-2 ps-5 text-black dark:text-white bg-transparent flex-1 w-[90%] h-[90%] border-none outline-hidden text-sm text-aliceblue font-azarMehr text-[16px]"
             placeholder={findByUniqueId(
               mainData,
               1426

@@ -1,22 +1,40 @@
 "use client";
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
-import { useTheme } from "next-themes";
 
 import { Shahrvand } from "@/svgs/index";
 import Persian from "persianjs";
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
+
+const DEFAULT_FLAG = "https://admin.metarang.com/assets/images/flags/FA.svg";
+
+/* slug (شمارهٔ سطح) → unique_id عنوان سطح در mainData
+   همان مقادیری که در staticData صفحهٔ levels استفاده می‌شود. */
+const LEVEL_UNIQUE_IDS: Record<string, number> = {
+  "1": 382, // citizen
+  "2": 383, // reporter
+  "3": 589, // participation
+  "4": 68, // developer
+  "5": 69, // inspector
+  "6": 590, // businessman
+  "7": 71, // lawyer
+  "8": 591, // city-council
+  "9": 592, // the-mayor
+  "10": 74, // governor
+  "11": 75, // minister
+  "12": 76, // judge
+  "13": 77, // legislator
+};
 
 export default function ProfileTopMobile({
   profileData,
   params,
   titleData,
   nameUser,
+  mainData,
 }: any) {
   const lang = params.lang;
   const [numberCurrent_level, setNumberCurrent_level] = useState<number>(1);
-  const { theme } = useTheme();
-  const [staticImageURL, setStaticImageURL] =
-    useState<string>("/profile/lock.png");
 
   useEffect(() => {
     if (
@@ -30,17 +48,21 @@ export default function ProfileTopMobile({
     }
   }, [profileData.data]);
 
-  useEffect(() => {
-    setStaticImageURL(
-      theme === "dark" ? "/https://admin.metarang.com/assets/images/flags/FA.svg" : "https://admin.metarang.com/assets/images/flags/FA.svg"
-    );
-  }, [theme]);
-
   const imgs0 =
     profileData.data &&
     profileData.data.profilePhotos &&
     profileData.data.profilePhotos[0] &&
     profileData.data?.profilePhotos[0]?.url;
+
+  /* عنوان سطح از روی unique_id (ترجمه‌شده طبق زبان)؛
+     اگر mainData یا unique_id نبود، همان name خود API نمایش داده می‌شود. */
+  const levelSlug = String(profileData.data?.current_level?.slug ?? "");
+  const levelUniqueId = LEVEL_UNIQUE_IDS[levelSlug];
+  const levelTitle =
+    (levelUniqueId && mainData
+      ? findByUniqueId(mainData, `${levelUniqueId}`)
+      : null) || profileData.data?.current_level?.name;
+
   return (
     <>
       <div className="dark:bg-dark-background px-1 transition-all  lg:mt-0 md:mt-1 duration-300 sm:mt-1 xs:mt-1 ease-linear flex flex-col bg-white justify-center  items-center rounded-[10px] ">
@@ -55,26 +77,26 @@ export default function ProfileTopMobile({
                 className="object-contain  inline-block"
               />
             </div>
-            <p className="sm:bottom-[-25px] xs:bottom-[-25px] sm:start-1 xs:start-1 rounded-sm  w-max p-1 sm:scale-100 xs:scale-100  text-xs  text-black dark:text-white group-hover:scale-100 break-all  inline-block xl:mx-1 lg:mx-1 md:mx-0  font-medium font-azarMehr 3xl:text-xl3Title  xl:text-xlTitle lg:text-lgTitle md:text-mdTitle sm:text-smDesc xs:text-smDesc text-start">
+            <p className="sm:bottom-[-25px] xs:bottom-[-25px] sm:inset-s-1 xs:inset-s-1 rounded-xs  w-max p-1 sm:scale-100 xs:scale-100  text-xs  text-black dark:text-white group-hover:scale-100 break-all  inline-block xl:mx-1 lg:mx-1 md:mx-0  font-medium font-azarMehr 3xl:text-xl3Title  xl:text-xlTitle lg:text-lgTitle md:text-mdTitle sm:text-smDesc xs:text-smDesc text-start">
               {nameUser}
             </p>
           </div>
 
-          <hr className="flex-grow mx-3 h-[1px] hidden sm:block xl:visible lg:visible md:invisible sm:invisible xs:invisible border border-dashed text-matn-2 opacity-10 dark:text-[#fff]" />
+          <hr className="grow mx-3 h-px hidden sm:block xl:visible lg:visible md:invisible sm:invisible xs:invisible border border-dashed text-matn-2 opacity-10 dark:text-white" />
 
           <Image
-            src={profileData.data?.kyc?.nationality || staticImageURL}
+            src={profileData.data?.kyc?.nationality || DEFAULT_FLAG}
             width={100}
             height={100}
             alt={titleData}
             className="inline-block rounded-full xl:w-9 xl:h-9 3xl:w-10 3xl:h-10  lg:w-10 lg:h-10 md:w-14 md:h-14 sm:w-10 sm:h-10 xs:w-10 xs:h-10 object-cover"
           />
-          <hr className="flex-grow mx-3 h-[1px] hidden sm:block xl:visible lg:visible md:invisible sm:invisible xs:invisible border border-dashed text-matn-2 opacity-10 dark:text-[#fff]" />
+          <hr className="grow mx-3 h-px hidden sm:block xl:visible lg:visible md:invisible sm:invisible xs:invisible border border-dashed text-matn-2 opacity-10 dark:text-white" />
           <p className=" dark:text-white 3xl:text-[18px] xl:text-xlTitle lg:text-lgTitle md:text-mdDesc  sm:text-smDesc xs:text-smDesc inline-block mx-1 font-medium font-azarMehr text-extraGray">
             {profileData.data?.level?.name}
           </p>
           <p className="dark:text-white 3xl:text-[18px] sm:text-smDesc xs:text-smDesc flex justify-end sm:justify-center lg:text-lgTitle xl:text-xlTitle md:text-mdTitle inline-block mx-1 font-medium font-azarMehr text-extraGray">
-            {profileData.data?.current_level?.name}
+            {levelTitle}
           </p>
           <div className=" relative text-center flex items-center justify-center">
             <Shahrvand

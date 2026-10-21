@@ -226,7 +226,7 @@ const ReplyList = ({
                       {checkData(reply?.likes)}
                     </p>
                     <motion.div
-                      className={`size-[15px] md:size-[20px] outline-none border-none stroke-singleVideo-gray dark:stroke-white flex items-center justify-center ${
+                      className={`size-[15px] md:size-[20px] outline-hidden border-none stroke-singleVideo-gray dark:stroke-white flex items-center justify-center ${
                         interactionLoading[reply.id] || !token || userInteractions[reply.id] === true
                           ? ""
                           : "cursor-pointer"
@@ -250,7 +250,7 @@ const ReplyList = ({
                       {checkData(reply?.dislikes)}
                     </p>
                     <motion.div
-                      className={`size-[15px] md:size-[20px] outline-none border-none stroke-singleVideo-gray dark:stroke-white flex items-center justify-center ${
+                      className={`size-[15px] md:size-[20px] outline-hidden border-none stroke-singleVideo-gray dark:stroke-white flex items-center justify-center ${
                         interactionLoading[reply.id] || !token || userInteractions[reply.id] === false
                           ? ""
                           : "cursor-pointer"
@@ -291,7 +291,7 @@ const ReplyList = ({
       )}
       {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
       {showSuccessModal && (
-        <div className="fixed inset-0 backdrop-blur bg-black/30 flex items-center justify-center z-50 p-5">
+        <div className="fixed inset-0 backdrop-blur-sm bg-black/30 flex items-center justify-center z-50 p-5">
           <div className="bg-white dark:bg-dark-background p-6 rounded-lg shadow-lg max-w-sm w-full text-center">
             <div className="w-full bg-matn-2-200 dark:bg-matn-2-600 rounded-full h-2.5">
               <div

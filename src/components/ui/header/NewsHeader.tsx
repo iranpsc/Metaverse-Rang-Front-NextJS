@@ -4,12 +4,58 @@ type NewsHeaderProps = {
   description: any ;
   date:any;
 };
-
+function normalizeHtml(content: string): string {
+  return content.replace(
+    /&nbsp;|&#160;|&#xA0;|\u00A0/gi,
+    " "
+  );
+}
 export default function NewsHeader({ description }: NewsHeaderProps) {
+  const normalizedDescription = normalizeHtml(description);
   return (
     <div
-      className="prose max-w-none dark:text-[#868B90] break-all prose-strong:dark:text-[#868B90] prose-p:leading-9 space-y-5 text-sm prose-h1:text-sm prose-h2:text-sm prose-h3:text-sm prose-h4:text-sm lg:text-xl md:prose-h1:text-2xl md:prose-h2:text-2xl md:prose-h3:text-2xl md:prose-h-4:text-2xl md:prose-p:text-[#484950] dark:prose-p:text-[#868B90] dark:prose-h1:text-white  dark:prose-h2:text-white  dark:prose-h3:text-white prose-a:text-primary dark:prose-a:text-primary dark:prose-strong:text-white"
-      dangerouslySetInnerHTML={{ __html: description }}
-    />
-  );
+      dir="auto"
+      className="
+        prose
+        max-w-none
+        min-w-0
+        space-y-5
+        text-sm
+        break-normal
+        whitespace-normal
+
+        prose-p:leading-9
+
+        prose-h1:text-sm
+        prose-h2:text-sm
+        prose-h3:text-sm
+        prose-h4:text-sm
+
+        md:prose-h1:text-2xl
+        md:prose-h2:text-2xl
+        md:prose-h3:text-2xl
+        md:prose-h4:text-2xl
+
+        lg:text-xl
+
+        prose-p:text-[#484950]
+        prose-a:text-primary
+
+        dark:text-[#868B90]
+        dark:prose-p:text-[#868B90]
+
+        dark:prose-strong:text-white
+
+        dark:prose-h1:text-white
+        dark:prose-h2:text-white
+        dark:prose-h3:text-white
+        dark:prose-h4:text-white
+
+        dark:prose-a:text-primary
+      "
+      dangerouslySetInnerHTML={{
+        __html: normalizedDescription,
+      }} 
+       />
+  )
 }

@@ -75,7 +75,7 @@ export default function InviteBox({
   return (
     <div className="bg-white dark:bg-gray-1 lg:overflow-visible h-auto flex flex-col w-full justify-start items-center text-white rounded-3xl relative overflow-hidden lg:flex-row mt-[64px]">
       <div
-        className="absolute inset-20 lg:inset-5 opacity-10 bg-no-repeat  rotate-[25deg] z-10 w-44 h-44 "
+        className="absolute inset-20 lg:inset-5 opacity-10 bg-no-repeat  rotate-25 z-10 w-44 h-44 "
         style={{
           backgroundImage: "url('/firstpage/referral/1.png')",
           backgroundSize: "contain",
@@ -112,7 +112,7 @@ export default function InviteBox({
                   id="invite-link1"
                   type="text"
                   value={inviteLink}
-                  className="text-[#868B90] px-1 bg-transparent w-full overflow-hidden border-none whitespace-nowrap overflow-ellipsis outline-none cursor-pointer"
+                  className="text-[#868B90] px-1 bg-transparent w-full overflow-hidden border-none whitespace-nowrap text-ellipsis outline-hidden cursor-pointer"
                   readOnly
                   onClick={copyToClipboard}
                 />
@@ -147,7 +147,7 @@ export default function InviteBox({
             </div>
 
             <div className=" flex flex-col justify-between lg:w-[50%] items-center lg:justify-center lg:gap-3 lg:ps-2 xl:ps-9">
-              <span className="text-black dark:text-white my-5 self-start lg:my-0 lg:mb-8 lg:ps-[1px]">
+              <span className="text-black dark:text-white my-5 self-start lg:my-0 lg:mb-8 lg:ps-px">
                 {findByUniqueId(mainData, 1423)}
               </span>
               <div className="flex flex-row w-full justify-evenly lg:justify-between  gap-1 sm:px-24 lg:px-0 lg:pe-20">
@@ -300,7 +300,7 @@ export default function InviteBox({
           </div>
         </div>
 
-        <div className="relative lg:absolute lg:top-[-30px] rtl:lg:left-0 ltr:lg:right-0 h-[300px] lg:h-[112%] w-full lg:w-[35%] ltr:rotate-y-180">
+        <div className="relative lg:absolute lg:top-[-30px] lg:rtl:left-0 lg:ltr:right-0 h-[300px] lg:h-[112%] w-full lg:w-[35%] ltr:rotate-y-180">
           {/* عکس حالت لایت */}
           <Image
             className="object-contain block dark:hidden"

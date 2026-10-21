@@ -13,7 +13,7 @@ export default function MenuProfileModule() {
         />
         <p>Test</p>
       </div>
-      <hr className="mx-7 mt-3 w-[80%] border-[1px] border-[#00000017] dark:border-[#3F3F3F]" />
+      <hr className="mx-7 mt-3 w-[80%] border border-[#00000017] dark:border-[#3F3F3F]" />
     </>
   );
 }

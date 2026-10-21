@@ -31,10 +31,10 @@ export default function SingleEventSkeleton() {
 
       {/* Description */}
       <div className="w-[97%] lg:w-[95%] mb-4 space-y-3">
-        <div className="h-4 w-full rounded bg-gray-200 dark:bg-white/10" />
-        <div className="h-4 w-[96%] rounded bg-gray-200 dark:bg-white/10" />
-        <div className="h-4 w-[90%] rounded bg-gray-200 dark:bg-white/10" />
-        <div className="h-4 w-[75%] rounded bg-gray-200 dark:bg-white/10" />
+        <div className="h-4 w-full rounded-sm bg-gray-200 dark:bg-white/10" />
+        <div className="h-4 w-[96%] rounded-sm bg-gray-200 dark:bg-white/10" />
+        <div className="h-4 w-[90%] rounded-sm bg-gray-200 dark:bg-white/10" />
+        <div className="h-4 w-[75%] rounded-sm bg-gray-200 dark:bg-white/10" />
       </div>
 
       {/* Countdown */}
@@ -70,11 +70,11 @@ export default function SingleEventSkeleton() {
               <React.Fragment key={item}>
                 <div className="flex flex-col items-center">
                   <div className="h-10 w-11 lg:h-12 lg:w-14 rounded-md bg-gray-200 dark:bg-white/10" />
-                  <div className="h-3 w-12 mt-2 rounded bg-gray-200 dark:bg-white/10" />
+                  <div className="h-3 w-12 mt-2 rounded-sm bg-gray-200 dark:bg-white/10" />
                 </div>
 
                 {item !== 4 && (
-                  <span className="h-8 w-2 rounded bg-gray-200 dark:bg-white/10" />
+                  <span className="h-8 w-2 rounded-sm bg-gray-200 dark:bg-white/10" />
                 )}
               </React.Fragment>
             ))}

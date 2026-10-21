@@ -21,7 +21,7 @@ function ProfileMainDetailsSkeletonBase() {
       {Array.from({ length: 4 }).map((_, i) => (
         <div key={i} className="flex flex-row justify-between w-full items-center">
           <Skeleton tone="standalone" className="h-4 w-28 rounded-md" />
-          <hr className="flex-grow mx-[10px] xl:block lg:block md:block sm:hidden xs:hidden h-[1px] border border-dashed text-matn-2 opacity-10 dark:text-[#fff]" />
+          <hr className="grow mx-[10px] xl:block lg:block md:block sm:hidden xs:hidden h-px border border-dashed text-matn-2 opacity-10 dark:text-white" />
           <Skeleton tone="standalone" className="h-4 w-24 rounded-md" />
         </div>
       ))}
@@ -29,7 +29,7 @@ function ProfileMainDetailsSkeletonBase() {
       {/* امتیاز کسب‌شده + نوار پیشرفت */}
       <div className="flex flex-row justify-between xl:mt-3 lg:mt-0 w-full items-center">
         <Skeleton tone="standalone" className="h-4 w-28 rounded-md" />
-        <hr className="flex-grow mx-[10px] md:w-[30%] xl:block lg:block md:block sm:hidden xs:hidden h-[1px] border border-dashed text-matn-2 opacity-10 dark:text-[#fff]" />
+        <hr className="grow mx-[10px] md:w-[30%] xl:block lg:block md:block sm:hidden xs:hidden h-px border border-dashed text-matn-2 opacity-10 dark:text-white" />
         <Skeleton
           tone="standalone"
           className="w-[40%] xl:h-[27px] lg:h-[25px] md:h-[26px] h-[24px] rounded-full"

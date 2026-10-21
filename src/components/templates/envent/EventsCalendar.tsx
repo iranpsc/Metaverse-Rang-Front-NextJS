@@ -127,7 +127,7 @@ export default function EventsCalendar({
         />
         <div className="EventFilters w-full sm:w-[90%] mt-4 sm:mt-0 sm:ml-4 font-azarMehr">
           <div
-            className="searchBoxContainer my-5 transition-[right,width] duration-300 ease-in-out flex items-center flex-row justify-between border-[1px] border-solid border-[#00000024] dark:bg-gray-1  w-full h-[50px] rounded-[12px] sm:m-0"
+            className="searchBoxContainer my-5 transition-[right,width] duration-300 ease-in-out flex items-center flex-row justify-between border border-solid border-[#00000024] dark:bg-gray-1  w-full h-[50px] rounded-[12px] sm:m-0"
           >
             <span className="px-4 flex">
               <Search className={`fill-matn-1 dark:fill-white font-azarMehr`} />
@@ -139,7 +139,7 @@ export default function EventsCalendar({
                 }
               }}
               type="text"
-              className="searchWrite pr-2 pl-5 !font-azarMeh bg-transparent flex-1 w-[90%] h-[90%] border-none outline-none text-sm dark:text-white"
+              className="searchWrite pr-2 pl-5 !font-azarMeh bg-transparent flex-1 w-[90%] h-[90%] border-none outline-hidden text-sm dark:text-white"
               placeholder={findByUniqueId(mainData, 575)}
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
@@ -235,7 +235,7 @@ export default function EventsCalendar({
         </div>
       </div>
 
-      <div className="line mt-6 w-full lg:w-[95%] h-[2px] bg-gradient-to-r from-transparent via-[#DADADA] to-transparent !font-azarMeh"></div>
+      <div className="line mt-6 w-full lg:w-[95%] h-[2px] bg-linear-to-r from-transparent via-[#DADADA] to-transparent !font-azarMeh"></div>
       <EventList
         token={token}
         events={

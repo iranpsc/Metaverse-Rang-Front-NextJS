@@ -225,7 +225,7 @@ export default function EventCalendarClient({
               items-center
               flex-row
               justify-between
-              border-[1px]
+              border
               border-solid
               border-[#00000024]
               dark:bg-gray-1
@@ -256,7 +256,7 @@ export default function EventCalendarClient({
                 w-[90%]
                 h-[90%]
                 border-none
-                outline-none
+                outline-hidden
                 text-sm
                 dark:text-white
               "
@@ -421,7 +421,7 @@ export default function EventCalendarClient({
         </div>
       </div>
 
-      <div className="line mt-6 w-full lg:w-[95%] h-[2px] bg-gradient-to-r from-transparent via-[#DADADA] to-transparent" />
+      <div className="line mt-6 w-full lg:w-[95%] h-[2px] bg-linear-to-r from-transparent via-[#DADADA] to-transparent" />
 
       <SingleEvent
         event={selectedEvent}

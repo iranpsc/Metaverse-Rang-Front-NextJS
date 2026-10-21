@@ -102,7 +102,7 @@ const generateValue = () => {
     return (
       <a
         onClick={handleClick}
-        className="text-primary dark:text-blue-500 font-[700]"
+        className="text-primary dark:text-blue-500 font-bold"
         href={href}
         target={isHMFormat ? undefined : "_blank"}
       >
@@ -120,7 +120,7 @@ const generateValue = () => {
   // --------------------------------------------------
   return (
     <span
-      className="text-[#868B90] dark:text-[#C4C4C4] font-[700] text-ellipsis line-clamp-1 overflow-hidden"
+      className="text-[#868B90] dark:text-[#C4C4C4] font-bold text-ellipsis line-clamp-1 overflow-hidden"
       title={String(value ?? "")}
     >
       {String(value ?? "")}
@@ -134,7 +134,7 @@ const generateValue = () => {
     <>
       {/* Overlay لودینگ */}
       {linkLoading && (
-        <div className="fixed top-0 left-0 w-full h-screen z-[70] flex items-center justify-center bg-black/60 backdrop-blur-sm">
+        <div className="fixed top-0 left-0 w-full h-screen z-70 flex items-center justify-center bg-black/60 backdrop-blur-xs">
           <div className="container flex w-full h-screen items-center justify-center md:ms-[25vw] lg:ms-[17vw] xl:ms-[15vw] 3xl:ms-[16vw]">
             <div className="holder">
               <div className="box"></div>
@@ -156,7 +156,7 @@ const generateValue = () => {
         }`}
       >
         <span
-          className="whitespace-nowrap text-ellipsis text-[#414040] dark:text-white font-[500] 2xl:font-[700]"
+          className="whitespace-nowrap text-ellipsis text-[#414040] dark:text-white font-medium 2xl:font-bold"
           title={title}
         >
           {title}

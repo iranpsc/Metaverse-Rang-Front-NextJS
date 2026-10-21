@@ -16,7 +16,7 @@ interface WalletSummaryCardProps {
 }
 
 const faceBase =
-  "absolute inset-0 [backface-visibility:hidden] bg-white dark:bg-gray-1 rounded-2xl p-5 flex flex-col";
+  "absolute inset-0 backface-hidden bg-white dark:bg-gray-1 rounded-2xl p-5 flex flex-col";
 
 /**
  * Same visual language as `FeatureCard`: a 3D flip card that reveals a
@@ -44,8 +44,8 @@ export default function WalletSummaryCard({ item, period, lang, mainData }: Wall
     : `This card shows the status of your "${findByUniqueId(mainData, config.uniqueId)}" asset — current balance, growth trend, and what you've earned in the selected period.`;
 
   return (
-    <div className={`w-full ${CARD_HEIGHT} group [perspective:1200px]`}>
-      <div className="relative w-full h-full transition-transform duration-500 ease-out [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] mt-10">
+    <div className={`w-full ${CARD_HEIGHT} group perspective-distant`}>
+      <div className="relative w-full h-full transition-transform duration-500 ease-out transform-3d group-hover:rotate-y-180 mt-10">
         {/* ---- front ---- */}
         <div className={`${faceBase} gap-4`}>
           <div className="flex items-center gap-3">
@@ -84,12 +84,12 @@ export default function WalletSummaryCard({ item, period, lang, mainData }: Wall
                 {item.growth_percent}
                 {isFa ? "٪" : "%"}
               </span>
-              <span className={`text-matn-2 text-[12px] lg:text-sm ${isUp ? "!text-green-500" : "text-red-600"
+              <span className={`text-matn-2 text-[12px] lg:text-sm ${isUp ? "text-green-500!" : "text-red-600"
                 }`} >
                 {getPeriodEarnedLabel(mainData, period)}
               </span>
             </div>
-            <div className="h-full w-[1px] bg-[#EFEFEF] dark:bg-[#2A2B32]" />
+            <div className="h-full w-px bg-[#EFEFEF] dark:bg-[#2A2B32]" />
             <div className="flex flex-col gap-1 items-center justify-center text-center mx-auto">
               <span className="text-black dark:text-white font-bold text-base">
                 {item.period_income.toLocaleString(isFa ? "fa-IR" : "en-US")}

@@ -39,38 +39,38 @@ const SideCardSkeleton: React.FC = () => {
     return (
         <div className="bg-white dark:bg-gray-1  shadow-lg rounded-xl overflow-hidden w-full flex flex-col relative">
             {/* Shimmer effect overlay */}
-            <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent dark:via-white/10 z-10" />
+            <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.5s_infinite] bg-linear-to-r from-transparent via-white/20 to-transparent dark:via-white/10 z-10" />
             
             <div className="w-full p-3">
                 <div className="h-36 overflow-hidden aspect-video rounded-[10px] w-full bg-neutral-200 dark:bg-neutral-700 relative">
-                    <div className="absolute inset-0 bg-gradient-to-r matn-2-200 matn-2-300 matn-2-200 dark:fmatn-2-700 dark:vmatn-2-600 dark:tmatn-2-700 animate-pulse" />
+                    <div className="absolute inset-0 bg-linear-to-r matn-2-200 matn-2-300 matn-2-200 dark:fmatn-2-700 dark:vmatn-2-600 dark:tmatn-2-700 animate-pulse" />
                 </div>
             </div>
             
             <div className="p-4 text-right space-y-3">
                 <div className="flex items-center w-full justify-between">
-                    <div className="h-4 w-20 bg-neutral-200 dark:bg-neutral-700 rounded relative overflow-hidden">
-                        <div className="absolute inset-0 bg-gradient-to-r matn-2-200 matn-2-300 matn-2-200 dark:fmatn-2-700 dark:vmatn-2-600 dark:tmatn-2-700 animate-pulse" />
+                    <div className="h-4 w-20 bg-neutral-200 dark:bg-neutral-700 rounded-sm relative overflow-hidden">
+                        <div className="absolute inset-0 bg-linear-to-r matn-2-200 matn-2-300 matn-2-200 dark:fmatn-2-700 dark:vmatn-2-600 dark:tmatn-2-700 animate-pulse" />
                     </div>
                     <div className="flex items-center gap-[14px]">
                         {[1, 2, 3].map((i) => (
-                            <div key={i} className="h-4 w-8 bg-neutral-200 dark:bg-neutral-700 rounded relative overflow-hidden">
-                                <div className="absolute inset-0 bg-gradient-to-r matn-2-200 matn-2-300 matn-2-200 dark:fmatn-2-700 dark:vmatn-2-600 dark:tmatn-2-700 animate-pulse" />
+                            <div key={i} className="h-4 w-8 bg-neutral-200 dark:bg-neutral-700 rounded-sm relative overflow-hidden">
+                                <div className="absolute inset-0 bg-linear-to-r matn-2-200 matn-2-300 matn-2-200 dark:fmatn-2-700 dark:vmatn-2-600 dark:tmatn-2-700 animate-pulse" />
                             </div>
                         ))}
                     </div>
                 </div>
                 
-                <div className="h-5 w-full bg-neutral-200 dark:bg-neutral-700 rounded relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-r matn-2-200 matn-2-300 matn-2-200 dark:fmatn-2-700 dark:vmatn-2-600 dark:tmatn-2-700 animate-pulse" />
+                <div className="h-5 w-full bg-neutral-200 dark:bg-neutral-700 rounded-sm relative overflow-hidden">
+                    <div className="absolute inset-0 bg-linear-to-r matn-2-200 matn-2-300 matn-2-200 dark:fmatn-2-700 dark:vmatn-2-600 dark:tmatn-2-700 animate-pulse" />
                 </div>
                 
                 <div className="space-y-2">
-                    <div className="h-4 w-3/4 bg-neutral-200 dark:bg-neutral-700 rounded relative overflow-hidden">
-                        <div className="absolute inset-0 bg-gradient-to-r matn-2-200 matn-2-300 matn-2-200 dark:fmatn-2-700 dark:vmatn-2-600 dark:tmatn-2-700 animate-pulse" />
+                    <div className="h-4 w-3/4 bg-neutral-200 dark:bg-neutral-700 rounded-sm relative overflow-hidden">
+                        <div className="absolute inset-0 bg-linear-to-r matn-2-200 matn-2-300 matn-2-200 dark:fmatn-2-700 dark:vmatn-2-600 dark:tmatn-2-700 animate-pulse" />
                     </div>
-                    <div className="h-4 w-1/2 bg-neutral-200 dark:bg-neutral-700 rounded relative overflow-hidden">
-                        <div className="absolute inset-0 bg-gradient-to-r matn-2-200 matn-2-300 matn-2-200 dark:fmatn-2-700 dark:vmatn-2-600 dark:tmatn-2-700 animate-pulse" />
+                    <div className="h-4 w-1/2 bg-neutral-200 dark:bg-neutral-700 rounded-sm relative overflow-hidden">
+                        <div className="absolute inset-0 bg-linear-to-r matn-2-200 matn-2-300 matn-2-200 dark:fmatn-2-700 dark:vmatn-2-600 dark:tmatn-2-700 animate-pulse" />
                     </div>
                 </div>
             </div>
@@ -81,8 +81,8 @@ if (loading) {
   return (
     <section className="flex flex-col gap-5 w-full">
       <div className="flex items-center justify-between">
-        <div className="h-5 w-32 bg-neutral-200 dark:bg-neutral-700 rounded animate-pulse" />
-        <div className="h-5 w-20 bg-neutral-200 dark:bg-neutral-700 rounded animate-pulse" />
+        <div className="h-5 w-32 bg-neutral-200 dark:bg-neutral-700 rounded-sm animate-pulse" />
+        <div className="h-5 w-20 bg-neutral-200 dark:bg-neutral-700 rounded-sm animate-pulse" />
       </div>
 
       {Array.from({ length: 5 }).map((_, index) => (

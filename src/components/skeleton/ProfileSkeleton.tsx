@@ -17,7 +17,7 @@ function ProfileSkeletonBase() {
         <ProfileImagesSkeleton />
       </div>
 
-      <div className="w-full h-full border shadow-md rounded-[10px] dark:bg-dark-background bg-white px-3 flex flex-col justify-between gap-5">
+      <div className="w-full h-full  shadow-md rounded-[10px] dark:bg-dark-background bg-white px-3 flex flex-col justify-between gap-5">
         <ProfileMainDetailsSkeleton />
 
         <div className="flex justify-evenly">

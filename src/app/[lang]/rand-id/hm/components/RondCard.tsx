@@ -111,7 +111,7 @@ const RondCard: React.FC<RondCardProps> = ({ item, mainData, params }) => {
                                                 value={query}
                                                 onChange={(e) => setQuery(e.target.value)}
                                                 placeholder={findByUniqueId(mainData, 57) + " ..."}
-                                                className="w-full bg-[#FCFCFC] dark:bg-gray-1  dark:text-white border-0 matn-2-500 rounded-xl px-3 py-3 text-[16px] ring-1 ring-[#DEDEE9] dark:ring-gray-1  outline-none"
+                                                className="w-full bg-[#FCFCFC] dark:bg-gray-1  dark:text-white border-0 matn-2-500 rounded-xl px-3 py-3 text-[16px] ring-1 ring-[#DEDEE9] dark:ring-gray-1  outline-hidden"
                                             />
                                         </div>
 
@@ -164,7 +164,7 @@ const RondCard: React.FC<RondCardProps> = ({ item, mainData, params }) => {
                                             key={currency.key}
                                             onClick={() => setSelectedCurrency(currency)}
                                             className={`w-[40px] h-[40px] px-1 pt-6 pb-6 flex items-center justify-center  border-solid border-t-0 border-x-0
-                border-b-[2px] cursor-pointer
+                border-b-2 cursor-pointer
                 ${isActive ? "border-primary " : "border-transparent"}
             `}
                                         >
@@ -181,7 +181,7 @@ const RondCard: React.FC<RondCardProps> = ({ item, mainData, params }) => {
                                     <div
                                         onClick={() => setSelectedCurrency(selectedCurrency)}
                                         className="w-[40px] h-[40px] px-1 pt-5 pb-7 flex items-center justify-center 
-            border-b-[2px] border-primary "
+            border-b-2 border-primary "
                                     >
                                         <div dangerouslySetInnerHTML={{ __html: selectedCurrency.icon }} />
                                     </div>

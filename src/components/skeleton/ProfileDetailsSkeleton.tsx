@@ -29,10 +29,10 @@ function DetailRowsCardSkeleton({
       {Array.from({ length: rows }).map((_, i) => (
         <div
           key={i}
-          className="flex flex-row px-3 xl:mt-3 lg:mt-3 md:mt-2 sm:mt-1 xs:mt-1 justify-between w-full items-center xl:py-[0px] lg:py-[4px] md:py-[4px] sm:py-[5px] xs:py-[5px]"
+          className="flex flex-row px-3 xl:mt-3 lg:mt-3 md:mt-2 sm:mt-1 xs:mt-1 justify-between w-full items-center xl:py-0 lg:py-[4px] md:py-[4px] sm:py-[5px] xs:py-[5px]"
         >
           <Skeleton tone="standalone" className="h-4 w-20 rounded-md" />
-          <hr className="flex-grow mx-3 h-[1px] xl:visible lg:visible md:invisible sm:invisible xs:invisible border border-dashed text-matn-2 opacity-10 dark:text-[#fff]" />
+          <hr className="grow mx-3 h-px xl:visible lg:visible md:invisible sm:invisible xs:invisible border border-dashed text-matn-2 opacity-10 dark:text-white" />
           <Skeleton tone="standalone" className="h-4 w-24 rounded-md" />
         </div>
       ))}

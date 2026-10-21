@@ -35,6 +35,7 @@ export default function Profile({
           nameUser={nameUser}
           profileData={profileData}
           params={params}
+          mainData={mainData}
         />
       </div>
       {/* MID */}
@@ -46,7 +47,7 @@ export default function Profile({
         />
       </div>
       {/* BOT */}
-      <div className="w-full h-full border shadow-md rounded-[10px] dark:bg-dark-background text-matn-2  bg-white px-3 flex flex-col justify-between gap-5  transition-all duration-300 ease-linear">
+      <div className="w-full h-full  shadow-md rounded-[10px] dark:bg-dark-background text-matn-2  bg-white px-3 flex flex-col justify-between gap-5  transition-all duration-300 ease-linear">
         <ProfileMainDetails
           nameUser={nameUser}
           profileData={profileData}

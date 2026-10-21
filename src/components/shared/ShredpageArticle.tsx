@@ -87,7 +87,7 @@ const fullUrl = `https://metarang.com/${params.lang}/articles/categories/${categ
   };
 
   return (
-    <div className="fixed backdrop-blur-sm bg-blackTransparent/30 z-50 top-[-124px] left-0 w-full h-screen">
+    <div className="fixed backdrop-blur-xs bg-blackTransparent/30 z-50 top-[-124px] left-0 w-full h-screen">
       <div className="w-full h-full overflow-clip">
         <motion.div
           initial={{ rotate: 0, scale: 0 }}
@@ -101,7 +101,7 @@ const fullUrl = `https://metarang.com/${params.lang}/articles/categories/${categ
               
               {/* Close Button */}
               <CLoseIcon
-                className="w-[15px] h-[15px] cursor-pointer stroke-2 m-2 stroke-matn-2  absolute start-3 top-1"
+                className="w-[15px] h-[15px] cursor-pointer stroke-2 m-2 stroke-matn-2  absolute inset-s-3 top-1"
                 onClick={() => setShowSocial(false)}
                 alt="Close"
               />
@@ -116,7 +116,7 @@ const fullUrl = `https://metarang.com/${params.lang}/articles/categories/${categ
                 className="rounded-full cursor-pointer absolute right-1 top-[28%] z-50 flex justify-center items-center"
                 onClick={scrollRight}
               >
-                <Arrow className="stroke-matn-2  stroke-[5px] w-7 h-7 rotate-[180deg]" />
+                <Arrow className="stroke-matn-2  stroke-[5px] w-7 h-7 rotate-180" />
               </div>
               <div
                 className="rounded-full cursor-pointer absolute left-1 top-[28%] z-50 flex justify-center items-center"
@@ -150,15 +150,15 @@ const fullUrl = `https://metarang.com/${params.lang}/articles/categories/${categ
               {/* copy link */}
               <div
                 data-tooltip-id="unique-tooltip"
-                className="relative flex justify-end items-center mt-8 w-[95%] rounded-[20px] px-4 py-1 shadow-md dark:bg-[#000] border border-matn-2"
+                className="relative flex justify-end items-center mt-8 w-[95%] rounded-[20px] px-4 py-1 shadow-md dark:bg-black border border-matn-2"
               >
                 <p
-                  className="absolute start-2 cursor-pointer rounded-[18px] w-max text-center font-azarMehr text-[14px] font-bold py-2 px-5 text-[#f9f9f9] bg-[#0000ffd9]  dark:text-matn-2"
+                  className="absolute inset-s-2 cursor-pointer rounded-[18px] w-max text-center font-azarMehr text-[14px] font-bold py-2 px-5 text-[#f9f9f9] bg-[#0000ffd9]  dark:text-matn-2"
                   onClick={handleCopyClick}
                 >
                   {findByUniqueId(mainData, 323)}
                 </p>
-                <p className="py-2 text-matn-2 dark:text-[#fff] font-azarMehr text-[14px] font-medium">{fullUrl}</p>
+                <p className="py-2 text-matn-2 dark:text-white font-azarMehr text-[14px] font-medium">{fullUrl}</p>
               </div>
 
               {copied && (

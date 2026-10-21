@@ -39,7 +39,7 @@ export default function NotFoundPage({
             <h2 className="text-title-2 dark:text-white text-2xl md:text-3xl ">
               صفحه یافت نشد..!
             </h2>
-            <p className="text-[#868B90] text-xl 2xl:text-2xl w-full left-10 !leading-[50px]">
+            <p className="text-[#868B90] text-xl 2xl:text-2xl w-full left-10 leading-[50px]!">
               صفحه‌ای که دنبال آن هستید وجود ندارد. از جستجو کردن کمک بگیرید یا
               به صفحه اصلی بروید.
             </p>

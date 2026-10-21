@@ -18,7 +18,7 @@ export default function ArticlesSliderSkeleton() {
       {/* ردیف کارت‌ها — عرض هر کارت تقریباً معادل breakpoint های Swiper واقعی */}
       <div className="flex flex-nowrap gap-5 overflow-hidden">
         {Array.from({ length: 4 }).map((_, i) => (
-          <div key={i} className="flex-shrink-0 w-[85%] sm:w-1/2 lg:w-[28%]">
+          <div key={i} className="shrink-0 w-[85%] sm:w-1/2 lg:w-[28%]">
             <ArticleCardSkeleton />
           </div>
         ))}
@@ -31,7 +31,7 @@ export default function ArticlesSliderSkeleton() {
           {Array.from({ length: 4 }).map((_, i) => (
             <div
               key={i}
-              className="w-5 h-1 rounded-sm bg-dark-gray dark:bg-dark-placeholder opacity-40"
+              className="w-5 h-1 rounded-xs bg-dark-gray dark:bg-dark-placeholder opacity-40"
             />
           ))}
         </div>

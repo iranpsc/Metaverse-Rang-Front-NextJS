@@ -128,7 +128,7 @@ export default function NewsMeta({
             {stats?.views ?? 0}
           </span>
           <span className="text-[10px] md:text-sm text-[#868B90] text-start flex items-center gap-1">
-            <span className="dark:text-white text-base mt-[4px] ms-[-1px]">
+            <span className="dark:text-white text-base mt-[4px] -ms-px">
               <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path 
                   className="dark:stroke-[#888888] stroke-2" 

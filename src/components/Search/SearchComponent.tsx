@@ -189,7 +189,7 @@ export default function SearchComponent({
       {/* بک‌گراند محو */}
       {shouldShowBox && (
         <div
-          className="w-full h-screen backdrop-blur-sm bg-black/30 absolute right-0 top-0 z-20"
+          className="w-full h-screen backdrop-blur-xs bg-black/30 absolute right-0 top-0 z-20"
           onClick={removeSearch}
         />
       )}
@@ -197,7 +197,7 @@ export default function SearchComponent({
       {/* کادر جستجو */}
       <div
         className={`${
-          fullWidth ? "w-full" : "w-[100%] md:w-[70%] lg:w-[45%]"
+          fullWidth ? "w-full" : "w-full md:w-[70%] lg:w-[45%]"
         } mt-[50px] flex flex-col items-center m-auto relative z-30`}
       >
         <SectionInputSearch
@@ -214,7 +214,7 @@ export default function SearchComponent({
         />
 
         {/* نتایج جستجو */}
-        <div className="w-full mt-2 bg-white dark:bg-dark-background transition-all duration-300 rounded-xl max-h-[500px] z-[999] pe-[13px] ps-[32px] overflow-y-auto absolute top-[100%] flex flex-col justify-start items-center gap-1 light-scrollbar dark:dark-scrollbar">
+        <div className="w-full mt-2 bg-white dark:bg-dark-background transition-all duration-300 rounded-xl max-h-[500px] z-999 pe-[13px] ps-[32px] overflow-y-auto absolute top-full flex flex-col justify-start items-center gap-1 light-scrollbar dark:dark-scrollbar">
           {shouldShowBox && (
             <ItemsSearch
               searchLevel={searchLevel}

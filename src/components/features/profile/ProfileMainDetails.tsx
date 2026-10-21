@@ -71,7 +71,7 @@ const ProfileMainDetails = ({
           {/* {targetData(userProperty, "citizenship name")} */}
           {findByUniqueId(mainData, 79)}
         </p>
-        <hr className="flex-grow mx-[10px] xl:block lg:block md:block sm:hidden xs:hidden h-[1px] border border-dashed  text-matn-2 opacity-10 dark:text-[#fff]" />
+        <hr className="grow mx-[10px] xl:block lg:block md:block sm:hidden xs:hidden h-px border border-dashed  text-matn-2 opacity-10 dark:text-white" />
         <p className=" text-matn-2  font-azarMehr font-medium 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc md:text-mdDesc  sm:text-smTitle xs:text-smTitle break-all ">
           {nameUser}
         </p>
@@ -81,7 +81,7 @@ const ProfileMainDetails = ({
           {/* {targetData(userProperty, "entry date")} */}
           {findByUniqueId(mainData, 80)}
         </p>
-        <hr className="flex-grow mx-[10px] xl:block lg:block md:block sm:hidden xs:hidden h-[1px] border border-dashed  text-matn-2 opacity-10 dark:text-[#fff]" />
+        <hr className="grow mx-[10px] xl:block lg:block md:block sm:hidden xs:hidden h-px border border-dashed  text-matn-2 opacity-10 dark:text-white" />
         <p className=" font-azarMehr font-medium medium 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc  md:text-mdTitle  sm:text-smTitle xs:text-smTitle break-all text-matn-2 ">
           {profileData.data?.registered_at}
         </p>
@@ -91,7 +91,7 @@ const ProfileMainDetails = ({
           {/* {targetData(userProperty, "responsibility")} */}
           {findByUniqueId(mainData, 81)}
         </p>
-        <hr className="flex-grow mx-[10px] md:w-[30%] xl:block lg:block md:block sm:hidden xs:hidden h-[1px] border border-dashed  text-matn-2 opacity-10 dark:text-[#fff]" />
+        <hr className="grow mx-[10px] md:w-[30%] xl:block lg:block md:block sm:hidden xs:hidden h-px border border-dashed  text-matn-2 opacity-10 dark:text-white" />
         <p className="  font-azarMehr font-medium medium 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgTitle  md:text-mdDesc sm:text-smTitle xs:text-smTitle break-all text-matn-2 ">
           {profileData.data?.position}
         </p>
@@ -101,13 +101,13 @@ const ProfileMainDetails = ({
           {/* {targetData(userProperty, "achieved score")} */}
           {findByUniqueId(mainData, 82)}
         </p>
-        <hr className="flex-grow mx-[10px] md:w-[30%] xl:block lg:block md:block sm:hidden xs:hidden h-[1px] border border-dashed  text-matn-2 opacity-10 dark:text-[#fff]" />
+        <hr className="grow mx-[10px] md:w-[30%] xl:block lg:block md:block sm:hidden xs:hidden h-px border border-dashed  text-matn-2 opacity-10 dark:text-white" />
         <div className="w-[40%] relative bg-[#E9EEF8] dark:bg-[#3F3F3F]  xl:h-[27px] lg:h-[25px] md:h-[26px]  rounded-full  flex justify-end">
           <div
             className={`bg-primary flex items-center  p-3  leading-none rounded-full`}
             style={{ width: `${percent}%` }}
           >
-            <span className="  end-[35%] absolute 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgTitle  md:text-mdTitle sm:text-smTitle xs:text-smTitle break-all font-medium text-[#0E0E0E] dark:text-white text-center">
+            <span className="  inset-e-[35%] absolute 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgTitle  md:text-mdTitle sm:text-smTitle xs:text-smTitle break-all font-medium text-[#0E0E0E] dark:text-white text-center">
               {langData?.code && langData?.code !== "fa"
                 ? profileData.data?.score
                 : profileData.data?.score &&

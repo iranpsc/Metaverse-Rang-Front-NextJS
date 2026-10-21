@@ -36,21 +36,41 @@ const getInitialVisible = (list: Version[], selected?: Version | null) => {
   if (!selected) return PAGE_STEP;
   const idx = list.findIndex((v) => sameVersion(v.version, selected.version));
   if (idx < 0 || idx < PAGE_STEP) return PAGE_STEP;
-  return Math.ceil((idx + 1) / PAGE_STEP) * PAGE_STEP;};
+  return Math.ceil((idx + 1) / PAGE_STEP) * PAGE_STEP;
+};
 
+// مقاوم در برابر نبودن فیلدها (مثلاً وقتی API توی حالت سرچ شکل متفاوتی برمی‌گردونه)
 const mapItem = (item: any): Version => ({
   id: item.id,
-  title: item.title,
-  description: (item.description || "").trim(),
-  date: item.starts_at.split(" ")[0],
-  version: String(item.version_title ?? "").trim(),
+  title: item.title ?? "",
+  description: String(item.description ?? "").trim(),
+  date: String(item.starts_at ?? item.date ?? "").split(" ")[0],
+  version: String(item.version_title ?? item.version ?? "").trim(),
 });
+
+// استخراج آرایه از پاسخ API، با پشتیبانی از چند شکل مختلف
+const extractList = (data: any): any[] | null => {
+  if (Array.isArray(data)) return data;
+  if (Array.isArray(data?.data)) return data.data;
+  if (Array.isArray(data?.data?.data)) return data.data.data;
+  if (Array.isArray(data?.results)) return data.results;
+  return null;
+};
+
+// نرمال‌سازی متن ورژن برای مقایسه: حروف کوچک، حذف "v" اول، تبدیل ارقام فارسی/عربی به انگلیسی
+const normalizeVersionText = (s?: string | null) =>
+  String(s ?? "")
+    .trim()
+    .toLowerCase()
+    .replace(/[۰-۹]/g, (d) => String("۰۱۲۳۴۵۶۷۸۹".indexOf(d)))
+    .replace(/[٠-٩]/g, (d) => String("٠١٢٣٤٥٦٧٨٩".indexOf(d)))
+    .replace(/^v\s*/, "");
 
 // اسکلت یه آیتم لیست، هم‌شکل آیتم واقعی؛ موقع فچ کردن صفحه‌ی بعدی نشون داده میشه
 const VersionItemSkeleton = () => (
   <div className="flex w-full justify-between py-2 gap-3">
     <div className="flex flex-col items-center pt-[10px] w-[10px] shrink-0">
-      <Skeleton variant="circle" className="!w-[10px] !h-[10px]" />
+      <Skeleton variant="circle" className="w-[10px]! h-[10px]!" />
       <div className="w-[1.5px] flex-1 bg-[rgb(var(--color-gray-3))] mt-1" />
     </div>
     <div className="flex-1 flex flex-col gap-2">
@@ -81,7 +101,7 @@ const VersionBox: React.FC<VersionBoxProps> = ({
   );
   const [page, setPage] = useState<number>(1);
   const [searchLoading, setSearchLoading] = useState<boolean>(false);
-  // لودینگ مخصوص "نمایش بیشتر" (فچ صفحه‌ی بعدی) - جدا از سرچ، تا فقط اسکلت آیتم‌های اضافه رو نشون بده
+  // لودینگ مخصوص "نمایش بیشتر" (فچ صفحه‌ی بعدی) - جدا از سرچ
   const [loadingMore, setLoadingMore] = useState<boolean>(false);
   const [hasMore, setHasMore] = useState<boolean>(true);
 
@@ -95,8 +115,14 @@ const VersionBox: React.FC<VersionBoxProps> = ({
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
   // برای اینکه برای هر openIndex فقط یک بار اسکرول انجام بشه (نه با هر نمایش بیشتر)
   const lastScrolledIndex = useRef<number | null>(null);
+  // برای جلوگیری از تداخل چند درخواست سرچ پشت سر هم (فقط آخرین جواب اعمال میشه)
+  const searchRequestId = useRef<number>(0);
 
   const filteredVersions = searchResults ?? items;
+
+  // کلید پایدار از محتوای versions؛ اگه والد هر رندر آرایه‌ی جدید بسازه (رفرنس عوض بشه)
+  // ولی محتوا یکی باشه، افکت ریست اجرا نمیشه و نتیجه‌ی سرچ پاک نمیشه
+  const versionsKey = versions.map((v) => `${v.id}:${v.version}`).join(",");
 
   // ست کردن ورژن انتخاب‌شده از props (منبع حقیقت: parent، که از URL/آخرین‌ورژن محاسبه می‌کنه)
   useEffect(() => {
@@ -120,7 +146,7 @@ const VersionBox: React.FC<VersionBoxProps> = ({
     return () => window.removeEventListener("resize", checkScreenWidth);
   }, []);
 
-  // اگه دیتای اولیه از سرور عوض شد (props.versions)، همه چیز رو ریست کن
+  // اگه دیتای اولیه از سرور واقعاً عوض شد (نه فقط رفرنس)، همه چیز رو ریست کن
   useEffect(() => {
     setItems(versions);
     setPage(1);
@@ -130,7 +156,7 @@ const VersionBox: React.FC<VersionBoxProps> = ({
     setVisibleCount(getInitialVisible(versions, selectedVersion));
     lastScrolledIndex.current = null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [versions]);
+  }, [versionsKey]);
 
   // اگه ورژن انتخاب‌شده بیرون از بخش نمایش‌داده‌شده بود (مثلا با back/forward)، تعداد نمایشی رو زیاد کن
   // این افکت باید بعد از افکت ریست بالا باشه
@@ -145,13 +171,26 @@ const VersionBox: React.FC<VersionBoxProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedVersion, filteredVersions]);
 
-  // اگر کاربر چیزی تایپ نکرده بود، از حالت سرچ خارج شو
+  // اگر کاربر چیزی تایپ نکرده بود (یا باکس رو خالی کرد)، از حالت سرچ خارج شو
   useEffect(() => {
     if (!searchTerm.trim()) {
+      searchRequestId.current += 1; // جواب‌های در راه سرچ قبلی نادیده گرفته بشن
       setSearchResults(null);
       setVisibleCount(PAGE_STEP);
     }
   }, [searchTerm]);
+
+  // تطبیق محلی روی نسخه‌هایی که الان توی حافظه داریم (ورژن یا عنوان)
+  const findLocalMatches = (query: string): Version[] => {
+    const q = query.trim().toLowerCase();
+    const nq = normalizeVersionText(query);
+    if (!q) return [];
+    return items.filter(
+      (v) =>
+        normalizeVersionText(v.version).includes(nq) ||
+        String(v.title ?? "").toLowerCase().includes(q)
+    );
+  };
 
   const handleSearch = async () => {
     const query = searchTerm.trim();
@@ -161,24 +200,63 @@ const VersionBox: React.FC<VersionBoxProps> = ({
       return;
     }
 
+    const requestId = ++searchRequestId.current;
     setSearchLoading(true);
     try {
-      const response = await globalThis.fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar?type=version&search=${encodeURIComponent(query)}`
-      );
-      const data = await response.json();
+      // هم با متن اصلی (مثلاً v1.1.1) و هم بدون "v" (1.1.1) از سرور می‌پرسیم؛
+      // چون ممکنه بک‌اند فقط روی عنوان یا فقط روی ورژن بدون پیشوند جستجو کنه
+      const normalizedQuery = normalizeVersionText(query);
+      const queries = Array.from(new Set([query, normalizedQuery].filter(Boolean)));
 
-      if (Array.isArray(data.data)) {
-        setSearchResults(data.data.map(mapItem));
-      } else {
-        setSearchResults([]);
+      const responses = await Promise.allSettled(
+        queries.map(async (q) => {
+          const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar?type=version&search=${encodeURIComponent(q)}`;
+          const response = await globalThis.fetch(url);
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          const data = await response.json();
+          return extractList(data) ?? [];
+        })
+      );
+
+      // اگه همه‌ی درخواست‌ها شکست خوردن، بره توی catch
+      if (responses.every((r) => r.status === "rejected")) {
+        throw (responses[0] as PromiseRejectedResult).reason;
       }
+
+      // اگه بین این‌همه، سرچ جدیدتری زده شده یا باکس خالی شده، این جواب رو دور بریز
+      if (requestId !== searchRequestId.current) return;
+
+      const serverResults = responses
+        .filter((r): r is PromiseFulfilledResult<any[]> => r.status === "fulfilled")
+        .flatMap((r) => r.value)
+        .map(mapItem);
+
+      // ادغام نتیجه‌ی سرور + تطبیق محلی روی ورژن/عنوان، بدون تکرار
+      const merged = new Map<number, Version>();
+      [...serverResults, ...findLocalMatches(query)].forEach((v) => {
+        if (!merged.has(v.id)) merged.set(v.id, v);
+      });
+
+      // ورژن‌هایی که دقیقاً با عبارت جستجو برابرن بیان بالا
+      const sorted = Array.from(merged.values()).sort((a, b) => {
+        const aExact = normalizeVersionText(a.version) === normalizedQuery ? 0 : 1;
+        const bExact = normalizeVersionText(b.version) === normalizedQuery ? 0 : 1;
+        return aExact - bExact;
+      });
+
+      setSearchResults(sorted);
       setVisibleCount(PAGE_STEP);
       lastScrolledIndex.current = null;
     } catch (err) {
       console.error("❌ خطا در جستجو:", err);
+      if (requestId === searchRequestId.current) {
+        // اگه سرور خطا داد، حداقل از نسخه‌هایی که توی حافظه داریم نتیجه نشون بده
+        setSearchResults(findLocalMatches(query));
+      }
     } finally {
-      setSearchLoading(false);
+      if (requestId === searchRequestId.current) {
+        setSearchLoading(false);
+      }
     }
   };
 
@@ -215,14 +293,16 @@ const VersionBox: React.FC<VersionBoxProps> = ({
         const response = await globalThis.fetch(
           `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar?type=version&page=${currentPage}`
         );
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const data = await response.json();
+        const list = extractList(data);
 
-        if (!Array.isArray(data.data) || data.data.length === 0) {
+        if (!list || list.length === 0) {
           reachedEnd = true;
           break;
         }
 
-        fresh = data.data.map(mapItem).filter((v: Version) => !knownIds.has(v.id));
+        fresh = list.map(mapItem).filter((v: Version) => !knownIds.has(v.id));
         if (fresh.length > 0) break;
       }
 
@@ -298,9 +378,9 @@ const VersionBox: React.FC<VersionBoxProps> = ({
   }, []);
 
   return (
-    <div className="w-full px-2 lg:px-0 lg:mx-[20px] self-center flex flex-col items-center lg:w-[35%] lg:h-full lg:flex-shrink-0 lg:rounded-[20px]">
+    <div className="w-full px-2 lg:px-0 lg:mx-[20px] self-center flex flex-col items-center lg:w-[35%] lg:h-full lg:shrink-0 lg:rounded-[20px]">
       {/* search box */}
-      <div className="w-full flex items-center border-solid border-[#00000024] border-[1px] justify-between bg-[#FFFF] dark:bg-gray-1  lg:w-full h-[50px] rounded-[12px]">
+      <div className="w-full flex items-center border-solid border-[#00000024] border justify-between bg-[#FFFF] dark:bg-gray-1  lg:w-full h-[50px] rounded-[12px]">
         <div className="searchIcon flex justify-center p-2">
           <Search className={`fill-primary dark:fill-primary`} />
         </div>
@@ -308,10 +388,14 @@ const VersionBox: React.FC<VersionBoxProps> = ({
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="dark:text-white pr-2 pl-5 bg-transparent flex-1 border-none outline-none text-sm"
+          onKeyDown={(e) => {
+            if (e.key === "Enter") handleSearch();
+          }}
+          className="dark:text-white pr-2 pl-5 bg-transparent flex-1 border-none outline-hidden text-sm"
           placeholder={findByUniqueId(mainData, 573)}
         />
         <button
+          type="button"
           onClick={handleSearch}
           disabled={searchLoading}
           className="searchButton bg-transparent p-2 text-primary  cursor-pointer disabled:opacity-50"
@@ -357,7 +441,7 @@ const VersionBox: React.FC<VersionBoxProps> = ({
                   key={item.id}
                   onClick={(e) => handleClick(index, e)}
                   className={`versionbox cursor-pointer justify-center flex flex-row w-full rounded-[10px] pt-[2px] ${
-                    openIndex === index ? "bg-primary-shade-1/25 !text-black" : ""
+                    openIndex === index ? "bg-primary-shade-1/25 text-black!" : ""
                   }`}
                 >
                   <div className="flex w-full justify-between py-2">
@@ -370,7 +454,7 @@ const VersionBox: React.FC<VersionBoxProps> = ({
                       <div className="topParagraph flex flex-row justify-between pr-[8px]">
                         <p
                           className={`textName truncate text-[90%] text-wrap lg:text-nowrap dark:text-[#FCF9FE] ${
-                            openIndex === index ? "dark:!text-white font-bold" : ""
+                            openIndex === index ? "dark:text-white! font-bold" : ""
                           }`}
                         >
                           {item.title}
@@ -385,7 +469,7 @@ const VersionBox: React.FC<VersionBoxProps> = ({
                       </div>
 
                       <div
-                        className={`textDate mt-3 font-[600] pr-[8px] text-[100%] ${
+                        className={`textDate mt-3 font-semibold pr-[8px] text-[100%] ${
                           openIndex === index
                             ? "text-[#868B90] dark:text-white"
                             : "text-[#868B90] dark:text-[#868B90]"
@@ -403,7 +487,7 @@ const VersionBox: React.FC<VersionBoxProps> = ({
                           {findByUniqueId(mainData, 1444)}
                         </p>
                         <div
-                          className="descriptionParagraph break-all pb-2 break-words text-[90%] text-[#414040] dark:text-[#C4C4C4]"
+                          className="descriptionParagraph break-all pb-2 wrap-break-word text-[90%] text-[#414040] dark:text-[#C4C4C4]"
                           dangerouslySetInnerHTML={{ __html: item.description }}
                         />
                       </div>
@@ -430,6 +514,7 @@ const VersionBox: React.FC<VersionBoxProps> = ({
 
             {!loadingMore && !searchLoading && shouldShowLoadMore() && (
               <button
+                type="button"
                 onClick={handleShowMore}
                 className="mb-5 w-max mx-auto  bg-white dark:bg-gray-1 text-primary md:text-lg  rounded-[12px] px-[40px] py-[16px] base-transition-1 border-2 border-primary hover:text-primary  "
               >

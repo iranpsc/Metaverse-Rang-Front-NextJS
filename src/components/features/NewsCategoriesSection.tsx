@@ -86,7 +86,7 @@ const isLoading = news === null;
             disabled={isPending}
             className={`whitespace-nowrap bg-white dark:bg-gray-1  px-5 py-3 rounded-full border border-solid border-transparent text-sm transition
               ${activeCat === cat.slug
-                ? "dark:!border-primary  text-primary !border-primary shadow-sm"
+                ? "dark:border-primary!  text-primary border-primary! shadow-xs"
                 : "text-[#1F1F1F] dark:text-[#F2F2F2] hover:bg-neutral-100 dark:hover:bg-neutral-800"
               }
               disabled:opacity-50 disabled:cursor-not-allowed
@@ -118,8 +118,8 @@ const isLoading = news === null;
             {Array.from({ length: 4 }).map((_, i) => (
               <div key={i} className="space-y-4">
                 <div className="h-[258px] bg-neutral-200 dark:bg-neutral-800 rounded-xl" />
-                <div className="h-6 bg-neutral-200 dark:bg-neutral-800 rounded w-5/6" />
-                <div className="h-4 bg-neutral-200 dark:bg-neutral-800 rounded w-3/4" />
+                <div className="h-6 bg-neutral-200 dark:bg-neutral-800 rounded-sm w-5/6" />
+                <div className="h-4 bg-neutral-200 dark:bg-neutral-800 rounded-sm w-3/4" />
               </div>
             ))}
           </div>
@@ -129,9 +129,9 @@ const isLoading = news === null;
               <div key={i} className="flex gap-4">
                 <div className="w-1/3 h-[113px] bg-neutral-200 dark:bg-neutral-800 rounded-lg" />
                 <div className="flex-1 space-y-3">
-                  <div className="h-5 bg-neutral-200 dark:bg-neutral-800 rounded w-11/12" />
-                  <div className="h-4 bg-neutral-200 dark:bg-neutral-800 rounded w-3/4" />
-                  <div className="h-4 bg-neutral-200 dark:bg-neutral-800 rounded w-1/2" />
+                  <div className="h-5 bg-neutral-200 dark:bg-neutral-800 rounded-sm w-11/12" />
+                  <div className="h-4 bg-neutral-200 dark:bg-neutral-800 rounded-sm w-3/4" />
+                  <div className="h-4 bg-neutral-200 dark:bg-neutral-800 rounded-sm w-1/2" />
                 </div>
               </div>
             ))}

@@ -39,14 +39,14 @@ export default function ArticleCard({ item, params, theme, activeLoadingId, setA
   };
   const isLoading = activeLoadingId === item.id;
   return (
-    <Link onClickCapture={() => setActiveLoadingId(item.id)} href={`/${params.lang}/news/categories/${item.categorySlug}/${item.slug}`} className={`${isLoading ? "rotating-border-card cursor-not-allowed" : ""} w-[100%] min-h-[240px] shadow-md hover:shadow-xl hover:dark:shadow-dark rounded-[10px] overflow-hidden bg-white dark:bg-gray-1  flex flex-col justify-start gap-6 items-center`}>
+    <Link onClickCapture={() => setActiveLoadingId(item.id)} href={`/${params.lang}/news/categories/${item.categorySlug}/${item.slug}`} className={`${isLoading ? "rotating-border-card cursor-not-allowed" : ""} w-full min-h-[240px] shadow-md hover:shadow-xl dark:hover:shadow-dark rounded-[10px] overflow-hidden bg-white dark:bg-gray-1  flex flex-col justify-start gap-6 items-center`}>
       {isLoading && (
         <div className="absolute inset-0 z-50 flex items-center justify-center">
           <div className="absolute inset-0 bg-black/20 " />
         </div>
       )}
       {/* تصویر مقاله */}
-      <div className="group w-full h-[260px] overflow-hidden px-4 pt-4 z-[1]">
+      <div className="group w-full h-[260px] overflow-hidden px-4 pt-4 z-1">
         <div className="relative h-full w-full">
           {imgLoading && (
             <div className="absolute inset-0 h-full w-full bg-dark-gray dark:bg-matn-2 animate-pulse rounded-[10px] z-20" />
@@ -60,7 +60,7 @@ export default function ArticleCard({ item, params, theme, activeLoadingId, setA
             priority
             quality={70}
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 473px"
-            className="w-[100%] h-full object-cover rounded-[10px]"
+            className="w-full h-full object-cover rounded-[10px]"
             onLoadingComplete={() => setImgLoading(false)}
           />
 
@@ -68,7 +68,7 @@ export default function ArticleCard({ item, params, theme, activeLoadingId, setA
       </div>
 
       {/* دسته‌بندی */}
-      <div className="w-[95%] flex flex-row justify-start items-center gap-1 mt-[-10px] pe-16 z-[1]">
+      <div className="w-[95%] flex flex-row justify-start items-center gap-1 mt-[-10px] pe-16 z-1">
         <Link
           href={`/${params.lang}/news/categories/${item.categorySlug}`}
           className="text-start text-matn-2  font-medium font-azarMehr text-[13px] 3xl:text-[16px] text-nowrap"
@@ -107,7 +107,7 @@ export default function ArticleCard({ item, params, theme, activeLoadingId, setA
       {/* عنوان مقاله */}
       <Link
         href={`/${params.lang}/news/categories/${item.categorySlug}/${item.slug}`}
-        className="w-[95%] mt-[-24px] z-[1]"
+        className="w-[95%] mt-[-24px] z-1"
       >
         <p
           ref={titleRef}
@@ -123,15 +123,15 @@ export default function ArticleCard({ item, params, theme, activeLoadingId, setA
       {/* توضیح کوتاه */}
       <Link
         href={`/${params.lang}/news/categories/${item.categorySlug}/${item.slug}`}
-        className="w-[95%] mt-[-20px] text-matn-2 dark:text-matn-2 z-[1]"
+        className="w-[95%] mt-[-20px] text-matn-2 dark:text-matn-2 z-1"
       >
-        <p className="text-[12px] 3xl:text-[16px] line-clamp-2 break-words overflow-hidden">
+        <p className="text-[12px] 3xl:text-[16px] line-clamp-2 wrap-break-word overflow-hidden">
           {stripHTML(item.excerpt || item.description)}
         </p>
       </Link>
 
       {/* نویسنده و آمار */}
-      <div className="w-[95%] pb-2 flex flex-row justify-between items-center z-[1]">
+      <div className="w-[95%] pb-2 flex flex-row justify-between items-center z-1">
         <Link
           href={`/${params.lang}/citizens/${item.author.citizenId}`}
           aria-label="Author profile"
