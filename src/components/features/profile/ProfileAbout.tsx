@@ -45,7 +45,12 @@ function sanitizeHtml(
 ): { html: string; truncated: boolean } {
   if (!input) return { html: "", truncated: false };
 
-  let src = String(input).replace(DROP_WITH_CONTENT, "");
+  let src = String(input);
+  let prev: string;
+  do {
+    prev = src;
+    src = src.replace(DROP_WITH_CONTENT, "");
+  } while (src !== prev);
 
   // متن ساده (بدون هیچ تگ): خط جدید → <br> تا اینتر حفظ شود
   if (!/<[a-zA-Z!/]/.test(src)) {
