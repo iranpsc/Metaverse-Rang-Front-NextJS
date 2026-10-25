@@ -1,4 +1,3 @@
-
 "use server";
 
 import { cache } from "react";
@@ -103,57 +102,25 @@ function sanitizePathSegment(segment) {
  * React.cache dedupes within a request; revalidate caches across requests.
  */
 export const getTranslation = cache(async function getTranslation(lang) {
-  try {
-    const adminApiBaseUrl =
-      await getAdminApiBaseUrl();
+  // یک fetch مشترک (getLangArray) برای لیست زبان‌ها و زبان فعال.
+  const languages = await getLangArray();
 
-    const res = await fetch(
-      `${adminApiBaseUrl}/api/translations?active=true`,
-      {
-        next: {
-          revalidate: 3600,
-          tags: ["translations"],
-        },
-      }
-    );
-
-    if (!res.ok) {
-      throw new Error(
-        `Translation request failed: ${res.status} ${res.statusText}`
-      );
-    }
-
-    const data = await res.json();
-
-    let temp = data?.data?.find(
-      (item) => item.code === lang
-    );
-
-    if (!temp) {
-      console.warn(
-        `[getTranslation] Lang "${lang}" not found → fallback to "fa"`
-      );
-
-      temp =
-        data?.data?.find(
-          (item) => item.code === "fa"
-        ) ||
-        data?.data?.[0];
-    }
-
-    return temp;
-  } catch (err) {
-    console.error(
-      "[getTranslation] Error:",
-      err
-    );
-
+  if (!languages.length) {
     return {
       code: "fa",
       file_url: "https://rgb.irpsc.com/lang/fa.json",
       direction: "rtl",
     };
   }
+
+  const found = languages.find((item) => item.code === lang);
+  if (found) return found;
+
+  console.warn(
+    `[getTranslation] Lang "${lang}" not found → fallback to "fa"`
+  );
+
+  return languages.find((item) => item.code === "fa") || languages[0];
 });
 
 /**
@@ -1034,4 +1001,3 @@ export async function getVideoComments(
     return null;
   }
 }
-

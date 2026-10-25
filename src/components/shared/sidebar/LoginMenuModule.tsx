@@ -7,7 +7,7 @@ import { useCookies } from "react-cookie";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 
-export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
+export default function LoginMenuModule({ isClosed, tabsMenu, params, sidebarLabels }: any) {
   const [dropDown, setDropDown] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(["auth"]);
   const [isMounted, setIsMounted] = useState(false);
@@ -261,9 +261,7 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
                   href={`/${params.lang}/citizen/${loggedInUserData?.code}`}
                 >
                   <p className="h-[30px] w-full block font-medium">
-                    {localFind("citizen profile page") && params.lang == "fa"
-                      ? "صفحه مشخصات شهروند"
-                      : "Citizen profile page"}
+                    {sidebarLabels?.citizenProfilePage}
                   </p>
                 </Link>
               </li>
@@ -281,9 +279,7 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
                 href="https://world.metarang.com/"
                 className="h-[30px] w-full block font-medium"
               >
-                {localFind("enter the metaverse") && params.lang == "fa"
-                  ? "ورود به متاورس"
-                  : "Enter the Metaverse"}
+                {sidebarLabels?.enterMetaverse}
               </Link>
             </li>
             <li className="border-b border-white dark:border-divider">
@@ -291,7 +287,7 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
                 onClick={handleLogout}
                 className="cursor-pointer h-[30px] w-full block font-medium"
               >
-                {localFind("exit") && params.lang == "fa" ? "خروج" : "Exit"}
+                {sidebarLabels?.logout}
               </span>
             </li>
           </ul>
@@ -360,7 +356,7 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params }: any) {
     />
   </svg>
 ) : (
-  params.lang === "fa" ? "ورود" : "Login"
+  sidebarLabels?.login
 )}
         </button>
       )}

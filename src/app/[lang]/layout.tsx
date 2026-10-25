@@ -1,11 +1,10 @@
-
 // src/app/[lang]/layout.tsx
-
-import "../../styles/colors-auto.css";
+import '../../styles/colors-auto.css'
 import Script from "next/script";
 import { azarMehr, rokh } from "../../fonts/localFonts";
 import ToastProvider from "../../components/shared/toastProvider";
 import { Suspense } from "react";
+import { notFound } from "next/navigation";
 
 import ReferralHandler from "../../components/system/ReferralHandler";
 import VPNDetector from "../../components/system/VPNDetector";
@@ -18,13 +17,11 @@ import {
 
 import { getStaticMenu } from "@/components/utils/constants";
 import { buildTabsMenu } from "@/components/utils/buildTabsMenu";
-
 import {
   buildFooterBrand,
   buildFooterSections,
   buildSidebarLabels,
 } from "@/components/utils/buildShellTranslations";
-
 import ConditionalSidebar from "@/components/shared/sidebar/ConditionalSidebarServer";
 import FooterClient from "@/components/shared/footer/FooterClient";
 import Icon from "../../components/system/Icon";
@@ -41,19 +38,33 @@ export default async function LangLayout({
   const resolvedParams = await params;
   const lang = resolvedParams.lang;
 
-  // Persian and Arabic use RTL; other languages use LTR.
-  const direction =
-    lang === "fa" || lang === "ar" ? "rtl" : "ltr";
+  /*
+   * ============================================================
+   * IMPORTANT:
+   * زبان‌های معتبر از API می‌آیند (fa, en, ar, ...) نه از لیست ثابت.
+   *
+   * این validation باید قبل از try/catch باشد.
+   * چون notFound() نباید توسط catch گرفته شود.
+   * getLangArray کش دارد و getTranslation هم از همین استفاده می‌کند؛
+   * پس درخواست اضافه‌ای ساخته نمی‌شود.
+   * ============================================================
+   */
+  const langArray = await getLangArray();
+  const isKnownLang =
+    langArray.length > 0
+      ? langArray.some((l: { code: string }) => l.code === lang)
+      : lang === "fa" || lang === "en"; // API در دسترس نیست: فقط زبان‌های پیش‌فرض
+  if (!isKnownLang) {
+    notFound();
+  }
 
   try {
     /* ----------------------------------------------------------
      * Language data
      * ---------------------------------------------------------- */
 
-    const [langArray, langData] = await Promise.all([
-      getLangArray(),
-      getTranslation(lang),
-    ]);
+    const langData = await getTranslation(lang);
+
 
     /* ----------------------------------------------------------
      * Validate language data
@@ -76,12 +87,12 @@ export default async function LangLayout({
     }
 
     /* ----------------------------------------------------------
-     * Static menu
+     * Static menu (labels resolved from the flat dictionary)
      * ---------------------------------------------------------- */
 
     const staticMenuToShow = getStaticMenu(lang);
     const updatedTabsMenu = buildTabsMenu(mainData, staticMenuToShow);
-    const sidebarLabels = buildSidebarLabels(mainData);
+    const sidebarLabels = buildSidebarLabels(mainData, langData.code || lang);
     const footerSections = buildFooterSections(mainData, lang);
     const footerBrand = buildFooterBrand(mainData);
 
@@ -93,7 +104,6 @@ export default async function LangLayout({
       <html
         className="dark"
         lang={lang}
-        dir={direction}
         suppressHydrationWarning
       >
         <body
@@ -104,19 +114,16 @@ export default async function LangLayout({
             strategy="beforeInteractive"
             dangerouslySetInnerHTML={{
               __html: `
-                try {
-                  var v = localStorage.getItem('sidebarClosed');
-                  document.documentElement.setAttribute(
-                    'data-sidebar-state',
-                    v === 'false' ? 'open' : 'closed'
-                  );
-                } catch (e) {
-                  document.documentElement.setAttribute(
-                    'data-sidebar-state',
-                    'closed'
-                  );
-                }
-              `,
+              try {
+                var v = localStorage.getItem('sidebarClosed');
+                document.documentElement.setAttribute(
+                  'data-sidebar-state',
+                  v === 'false' ? 'open' : 'closed'
+                );
+              } catch (e) {
+                document.documentElement.setAttribute('data-sidebar-state', 'closed');
+              }
+            `,
             }}
           />
 
@@ -130,7 +137,7 @@ export default async function LangLayout({
 
           <main
             className="flex w-full h-screen overflow-hidden lg:ps-[70px] xl:ps-0"
-            dir={direction}
+            dir={langData.direction}
           >
             <Suspense
               fallback={
@@ -173,7 +180,7 @@ export default async function LangLayout({
               >
                 {children}
 
-                <div className="w-full mb-2 px-5 bg-bg-primary">
+                <div className="w-full mb-2 px-5 bg-bg-primary ">
                   <FooterClient
                     footerSections={footerSections}
                     brandLabel={footerBrand}
@@ -187,7 +194,6 @@ export default async function LangLayout({
               href="https://web.bale.ai/chat?uid=4677411537"
               aria-label="Join us on Telegram"
               target="_blank"
-              rel="noopener noreferrer"
               title="همکاری در توسعه متارنگ"
               className="fixed rtl:left-10 ltr:right-10 bottom-[20px] z-1000"
             >
