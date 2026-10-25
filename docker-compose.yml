@@ -10,8 +10,11 @@ services:
         NEXT_PUBLIC_BASE_URL: ${NEXT_PUBLIC_BASE_URL}
         NEXT_PUBLIC_API_KEY: ${NEXT_PUBLIC_API_KEY}
 
-    ports:
-      - "3000:3000"
+    expose:
+      - "3000"
+
+    networks:
+      - dokploy-network
 
     restart: always
 
@@ -20,3 +23,7 @@ services:
 
     volumes:
       - /opt/metarang/sitemaps:/app/public/sitemaps
+
+networks:
+  dokploy-network:
+    external: true
