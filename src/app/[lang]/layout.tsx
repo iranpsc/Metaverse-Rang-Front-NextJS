@@ -1,10 +1,11 @@
+
 // src/app/[lang]/layout.tsx
-import '../../styles/colors-auto.css'
+
+import "../../styles/colors-auto.css";
 import Script from "next/script";
 import { azarMehr, rokh } from "../../fonts/localFonts";
 import ToastProvider from "../../components/shared/toastProvider";
 import { Suspense } from "react";
-import { notFound } from "next/navigation";
 
 import ReferralHandler from "../../components/system/ReferralHandler";
 import VPNDetector from "../../components/system/VPNDetector";
@@ -17,18 +18,18 @@ import {
 
 import { getStaticMenu } from "@/components/utils/constants";
 import { buildTabsMenu } from "@/components/utils/buildTabsMenu";
+
 import {
   buildFooterBrand,
   buildFooterSections,
   buildSidebarLabels,
 } from "@/components/utils/buildShellTranslations";
+
 import ConditionalSidebar from "@/components/shared/sidebar/ConditionalSidebarServer";
 import FooterClient from "@/components/shared/footer/FooterClient";
 import Icon from "../../components/system/Icon";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
-
-const SUPPORTED_LANGUAGES = ["fa", "en"] as const;
 
 export default async function LangLayout({
   children,
@@ -40,19 +41,6 @@ export default async function LangLayout({
   const resolvedParams = await params;
   const lang = resolvedParams.lang;
 
-  /*
-   * ============================================================
-   * IMPORTANT:
-   * فقط fa و en زبان معتبر هستند.
-   *
-   * این validation باید قبل از try/catch باشد.
-   * چون notFound() نباید توسط catch گرفته شود.
-   * ============================================================
-   */
-  if (!SUPPORTED_LANGUAGES.includes(lang as "fa" | "en")) {
-    notFound();
-  }
-
   try {
     /* ----------------------------------------------------------
      * Language data
@@ -62,7 +50,6 @@ export default async function LangLayout({
       getLangArray(),
       getTranslation(lang),
     ]);
-
 
     /* ----------------------------------------------------------
      * Validate language data
@@ -112,16 +99,19 @@ export default async function LangLayout({
             strategy="beforeInteractive"
             dangerouslySetInnerHTML={{
               __html: `
-              try {
-                var v = localStorage.getItem('sidebarClosed');
-                document.documentElement.setAttribute(
-                  'data-sidebar-state',
-                  v === 'false' ? 'open' : 'closed'
-                );
-              } catch (e) {
-                document.documentElement.setAttribute('data-sidebar-state', 'closed');
-              }
-            `,
+                try {
+                  var v = localStorage.getItem('sidebarClosed');
+                  document.documentElement.setAttribute(
+                    'data-sidebar-state',
+                    v === 'false' ? 'open' : 'closed'
+                  );
+                } catch (e) {
+                  document.documentElement.setAttribute(
+                    'data-sidebar-state',
+                    'closed'
+                  );
+                }
+              `,
             }}
           />
 
@@ -172,13 +162,17 @@ export default async function LangLayout({
                       <div className="holder">
                         <div className="box"></div>
                       </div>
+
+                      <div className="holder">
+                        <div className="box"></div>
+                      </div>
                     </div>
                   </div>
                 }
               >
                 {children}
 
-                <div className="w-full mb-2 px-5 bg-bg-primary ">
+                <div className="w-full mb-2 px-5 bg-bg-primary">
                   <FooterClient
                     footerSections={footerSections}
                     brandLabel={footerBrand}
