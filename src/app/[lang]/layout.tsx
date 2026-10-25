@@ -41,6 +41,10 @@ export default async function LangLayout({
   const resolvedParams = await params;
   const lang = resolvedParams.lang;
 
+  // Persian and Arabic use RTL; other languages use LTR.
+  const direction =
+    lang === "fa" || lang === "ar" ? "rtl" : "ltr";
+
   try {
     /* ----------------------------------------------------------
      * Language data
@@ -72,7 +76,7 @@ export default async function LangLayout({
     }
 
     /* ----------------------------------------------------------
-     * Static menu (labels resolved from the flat dictionary)
+     * Static menu
      * ---------------------------------------------------------- */
 
     const staticMenuToShow = getStaticMenu(lang);
@@ -89,6 +93,7 @@ export default async function LangLayout({
       <html
         className="dark"
         lang={lang}
+        dir={direction}
         suppressHydrationWarning
       >
         <body
@@ -125,7 +130,7 @@ export default async function LangLayout({
 
           <main
             className="flex w-full h-screen overflow-hidden lg:ps-[70px] xl:ps-0"
-            dir={langData.direction}
+            dir={direction}
           >
             <Suspense
               fallback={
@@ -162,10 +167,6 @@ export default async function LangLayout({
                       <div className="holder">
                         <div className="box"></div>
                       </div>
-
-                      <div className="holder">
-                        <div className="box"></div>
-                      </div>
                     </div>
                   </div>
                 }
@@ -186,6 +187,7 @@ export default async function LangLayout({
               href="https://web.bale.ai/chat?uid=4677411537"
               aria-label="Join us on Telegram"
               target="_blank"
+              rel="noopener noreferrer"
               title="همکاری در توسعه متارنگ"
               className="fixed rtl:left-10 ltr:right-10 bottom-[20px] z-1000"
             >
