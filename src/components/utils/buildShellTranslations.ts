@@ -50,7 +50,7 @@ export type SidebarLabels = {
  */
 export const SIDEBAR_LABEL_IDS = {
   // existing IDs already used elsewhere in the project
-  trainings: 1455,
+  trainings: 165,
   articles: 258,
   news: 255,
   // TODO(unique-id): register these in the translation panel, then fill in
@@ -64,14 +64,14 @@ export const SIDEBAR_LABEL_IDS = {
   categoriesNews: 1648,
   comprehensiveGuide: 1455,
   metarangArticles: 1513,
-  metarangNews: null,
+  metarangNews: 1929,
   citizenWallet: 150,
   citizenRealEstate: 58,
-  citizenBuildings: 151,
+  citizenBuildings: 1811,
   citizenProfilePage: 267,
   enterMetaverse: 163,
-  logout: null,
-  login: null,
+  logout: 268,
+  login: 4,
 } as const satisfies Record<string, number | null>;
 
 /** متن جایگزین؛ زبانی که اینجا نیست (مثلاً ar) از en می‌گیرد. */
