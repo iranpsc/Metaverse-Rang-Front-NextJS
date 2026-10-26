@@ -22,7 +22,9 @@ services:
       NODE_ENV: production
 
     volumes:
-      - /opt/metarang/sitemaps:/app/public/sitemaps
+      - type: bind
+        source: ${SITEMAPS_HOST_PATH:-/opt/metarang/sitemaps}
+        target: /app/public/sitemaps
 
 networks:
   dokploy-network:
