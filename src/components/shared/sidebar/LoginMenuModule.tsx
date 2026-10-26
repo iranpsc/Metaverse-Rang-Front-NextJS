@@ -119,9 +119,9 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params, sidebarLab
   }, [isMounted, cookies.auth]);
 
   const handleLogin = async () => {
-     if (isLoading) return;
+    if (isLoading) return;
 
-  setIsLoading(true);
+    setIsLoading(true);
     const token = parsAuthCookieByName("token");
     if (token) {
       // console.log("[ALREADY LOGGED IN]");
@@ -180,7 +180,7 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params, sidebarLab
       }
     } catch (err) {
       // console.error("[LOGIN/REGISTER ERROR]", err);
-       setIsLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -310,8 +310,8 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params, sidebarLab
       ) : (
         <button
           disabled={isLoading}
-  onClick={handleLogin}
-  className={`
+          onClick={handleLogin}
+          className={`
     w-full
     rounded-[15px]
     h-[40px]
@@ -327,37 +327,40 @@ export default function LoginMenuModule({ isClosed, tabsMenu, params, sidebarLab
     font-medium
     text-[15px]
     transition-all
-    ${
-      isLoading
-        ? "opacity-60 cursor-not-allowed pointer-events-none"
-        : "cursor-pointer"
-    }
+    ${isLoading
+              ? "opacity-60 cursor-not-allowed pointer-events-none"
+              : "cursor-pointer"
+            }
   `}
         >
           {isLoading ? (
-  <svg
-    className="h-5 w-5 animate-spin"
-    viewBox="0 0 24 24"
-    fill="none"
-  >
-    <circle
-      cx="12"
-      cy="12"
-      r="10"
-      stroke="currentColor"
-      strokeWidth="3"
-      opacity=".2"
-    />
-    <path
-      d="M22 12a10 10 0 0 1-10 10"
-      stroke="currentColor"
-      strokeWidth="3"
-      strokeLinecap="round"
-    />
-  </svg>
-) : (
-  sidebarLabels?.login
-)}
+            <svg
+              className="h-5 w-5 animate-spin"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="3"
+                opacity=".2"
+              />
+              <path
+                d="M22 12a10 10 0 0 1-10 10"
+                stroke="currentColor"
+                strokeWidth="3"
+                strokeLinecap="round"
+              />
+            </svg>
+          ) : (
+           
+            <div className="flex items-center justify-between w-full">
+               {!isClosed && sidebarLabels?.login }
+              <svg  viewBox="0 0 22 21" fill="none" xmlns="http://www.w3.org/2000/svg" className="size-6 stroke-white"><path d="M7.8999 6.07C8.2099 2.47 10.0599 1 14.1099 1H14.2399C18.7099 1 20.4999 2.79 20.4999 7.26V13.78C20.4999 18.25 18.7099 20.04 14.2399 20.04H14.1099C10.0899 20.04 8.2399 18.59 7.9099 15.05" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M1 10.51H13.88" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M11.6499 7.15991L14.9999 10.5099L11.6499 13.8599" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </div>
+          )}
         </button>
       )}
     </>
