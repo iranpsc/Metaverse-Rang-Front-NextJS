@@ -11,3 +11,6 @@ dist
 .DS_Store
 npm-debug.log*
 *.log
+/Metaverse-Rang-Front-NextJS.zip
+/package*.audit-backup
+.github
