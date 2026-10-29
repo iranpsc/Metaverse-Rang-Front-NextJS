@@ -1,43 +1,69 @@
 import Link from "next/link";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import WorkGroupCard from "./WorkGroupCard";
 import { ArrowRight } from "@/components/svgs";
+import WorkGroupCard from "./WorkGroupCard";
+import MarqueeBoundary from "./MarqueeBoundary";
+import { WorkGroupIconSprite } from "./WorkGroupIcons";
 import {
   WG_IDS,
   WORK_GROUPS,
   WORK_GROUPS_SECTION_TITLE,
   WORK_GROUP_FALLBACK_TEXTS,
-  type Lang,
 } from "./workGroupsData";
 
 interface Props {
-  mainData: any;
-  params: { lang: Lang | string };
+  /** دیکشنری ترجمه‌ی زبان فعال (از API) */
+  mainData: Record<string, string> | null;
+  /** کد زبان فعال از API (fa / en / ar / ...) */
+  lang: string;
+  /** جهت زبان فعال از API */
+  dir: "rtl" | "ltr";
 }
 
-/** متن‌هایی که هنوز Unique ID ندارند */
-const LOCAL_TEXTS = {
+/** متن‌هایی که هنوز Unique ID ندارند. زبانِ بدون متن → انگلیسی */
+const LOCAL_TEXTS: Record<string, { fa: string; en: string }> = {
   viewAll: { fa: "مشاهده همه", en: "View all" },
   figmaVersions: { fa: "نسخه‌های فیگما", en: "Figma versions" },
-} as const;
+};
+
+/** فرمت عدد با locale همان زبان؛ کدِ نامعتبر → بدون خطا */
+function makeNumberFormatter(lang: string) {
+  try {
+    const nf = new Intl.NumberFormat(lang);
+    return (n: number) => nf.format(n);
+  } catch {
+    return (n: number) => String(n);
+  }
+}
 
 /**
- * سکشن کارت‌های گروه‌های کاری (ایشو #119) — قبل از بخش «آخرین نسخه‌ها».
- * متن‌ها: اول Unique ID از فایل ترجمه، در نبود آن متن جایگزین (فا/en).
+ * سکشن کارت‌های گروه‌های کاری (ایشو #119) — قبل از «آخرین نسخه‌ها».
+ * - Server Component، بدون JS کلاینت.
+ * - زبان و جهت از API می‌آیند؛ هیچ شرطِ ثابتِ fa/en در کد نیست.
+ * - متن: Unique ID از دیکشنری زبان → در نبود آن، متن جایگزین (زبان → en).
  */
-export default function WorkGroupsSection({ mainData, params }: Props) {
-  const lang: Lang = params.lang === "en" ? "en" : "fa";
-  const dir = lang === "fa" ? "rtl" : "ltr";
+export default function WorkGroupsSection({ mainData, lang, dir }: Props) {
+  const pick = (o?: { fa?: string; en?: string }): string =>
+    (o as Record<string, string | undefined> | undefined)?.[lang] ??
+    o?.en ??
+    "";
 
-  const t = (id: number): string => {
+  /** متن اختیاری: فقط دیکشنری/متن جایگزین؛ نبودنش = "" (مثلاً توضیح تکمیلی). */
+  const tOpt = (id: number): string => {
     const v = findByUniqueId(mainData, id);
     if (v && v !== String(id)) return v;
-    return WORK_GROUP_FALLBACK_TEXTS[id]?.[lang] ?? "";
+    return pick(WORK_GROUP_FALLBACK_TEXTS[id]);
   };
+
+  /** متن لازم: اگر هیچ‌جا نبود، خودِ Unique ID نمایش داده می‌شود تا کارت خالی/خراب نشود. */
+  const t = (id: number): string => tOpt(id) || String(id);
+
+  const fmt = makeNumberFormatter(lang);
+  const counts1 = fmt(1);
 
   const sectionTitle =
     (WORK_GROUPS_SECTION_TITLE.id && t(WORK_GROUPS_SECTION_TITLE.id)) ||
-    WORK_GROUPS_SECTION_TITLE[lang];
+    pick(WORK_GROUPS_SECTION_TITLE);
 
   const labels = {
     public: t(WG_IDS.public),
@@ -48,7 +74,7 @@ export default function WorkGroupsSection({ mainData, params }: Props) {
     docs: t(WG_IDS.relatedDocs),
     docsShort: t(WG_IDS.docsUnit),
     activeMedia: t(WG_IDS.activeMedia),
-    figmaVersions: LOCAL_TEXTS.figmaVersions[lang],
+    figmaVersions: pick(LOCAL_TEXTS.figmaVersions),
     repoUnit: t(WG_IDS.repositoryUnit),
     mediaUnit: t(WG_IDS.mediaUnit),
     groupUnit: t(WG_IDS.groupUnit),
@@ -58,8 +84,11 @@ export default function WorkGroupsSection({ mainData, params }: Props) {
     <section
       aria-labelledby="work-groups-title"
       dir={dir}
-      className="rounded-[28px] md:rounded-[40px]  "
+      // پرفورمنس: بخش زیر فولد تا نزدیک شدن به ویوپورت رندر/لِی‌اوت نمی‌شود
+      className="rounded-[28px] md:rounded-[40px] bg-linear-to-b [content-visibility:auto] [contain-intrinsic-size:auto_1600px]"
     >
+      <WorkGroupIconSprite />
+
       <div className="flex items-center justify-between gap-4">
         <h2
           id="work-groups-title"
@@ -72,55 +101,64 @@ export default function WorkGroupsSection({ mainData, params }: Props) {
           href="https://github.com/iranpsc"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-3 text-white focus-visible:outline focus-visible:outline-white"
+          className="group/all flex items-center gap-3 text-white/90 transition-colors hover:text-accent-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
         >
           <span className="font-azarMehr font-medium text-[12px] md:text-[16px] lg:text-[18px]">
-            {LOCAL_TEXTS.viewAll[lang]}
+            {pick(LOCAL_TEXTS.viewAll)}
           </span>
-          <ArrowRight
-            className={`w-6 h-full stroke-white rtl:rotate-180 `}
-          />
+          <ArrowRight className="w-[24px] h-full stroke-white ltr:rotate-180 transition-transform duration-200 group-hover/all:ltr:translate-x-1 group-hover/all:rtl:-translate-x-1" />
         </Link>
       </div>
 
-      <div className="mt-6 md:mt-10 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-5">
-        {WORK_GROUPS.map((g, i) => (
-          <WorkGroupCard
-            key={g.key}
-            dir={dir}
-            priority={i < 4}
-            image={g.image}
-            groupName={t(g.titleId)}
-            title={t(g.subtitleEnId)}
-            description={lang === "fa" ? t(g.subtitleFaId) : undefined}
-            labels={labels}
-            groupUrl={g.groupUrl}
-            docsUrl={
-              typeof g.docsUrl === "function" ? g.docsUrl(lang) : g.docsUrl
-            }
-            repos={g.repos?.map((r) => ({ name: t(r.nameId), url: r.url }))}
-            org={
-              g.org
-                ? {
-                    label: t(g.org.labelId),
-                    name: t(lang === "fa" ? g.org.nameFaId : g.org.nameEnId),
-                    url: g.org.url,
-                  }
-                : undefined
-            }
-            media={g.media?.map((m) => ({
-              label: t(m.labelId),
-              url: m.url,
-              icon: m.icon,
-            }))}
-            figma={g.figma?.map((f) => ({
-              label: t(f.labelId),
-              url: f.url,
-              icon: f.icon,
-            }))}
-          />
-        ))}
-      </div>
+      <MarqueeBoundary className="mt-6 md:mt-10 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-5">
+        {WORK_GROUPS.map((g) => {
+          const repoCount = (g.repos?.length ?? 0) + (g.org ? 1 : 0);
+          return (
+            <WorkGroupCard
+              key={g.key}
+              dir={dir}
+              image={g.image}
+              groupName={t(g.titleId)}
+              title={t(g.subtitleEnId)}
+              /* توضیح تکمیلی: از دیکشنریِ همان زبان؛ اگر خالی/تکراری بود نمایش داده نمی‌شود */
+              description={(() => {
+                const d = tOpt(g.subtitleFaId);
+                return d && d !== t(g.subtitleEnId) ? d : undefined;
+              })()}
+              labels={labels}
+              counts={{
+                repo: fmt(repoCount),
+                media: fmt(g.media?.length ?? 0),
+                group: counts1,
+              }}
+              groupUrl={g.groupUrl}
+              docsUrl={
+                typeof g.docsUrl === "function" ? g.docsUrl(lang) : g.docsUrl
+              }
+              repos={g.repos?.map((r) => ({ name: t(r.nameId), url: r.url }))}
+              org={
+                g.org
+                  ? {
+                      label: t(g.org.labelId),
+                      name: tOpt(g.org.nameFaId) || t(g.org.nameEnId),
+                      url: g.org.url,
+                    }
+                  : undefined
+              }
+              media={g.media?.map((m) => ({
+                label: t(m.labelId),
+                url: m.url,
+                icon: m.icon,
+              }))}
+              figma={g.figma?.map((f) => ({
+                label: t(f.labelId),
+                url: f.url,
+                icon: f.icon,
+              }))}
+            />
+          );
+        })}
+      </MarqueeBoundary>
     </section>
   );
 }

@@ -23,7 +23,6 @@ import type { WorkGroupIconKey } from "./workGroupsData";
 
 export interface WorkGroupCardProps {
   dir: "rtl" | "ltr";
-  priority?: boolean;
   image: string;
   /** نام گروه (کنار آیکون زنجیر) */
   groupName: string;
@@ -45,6 +44,8 @@ export interface WorkGroupCardProps {
     mediaUnit: string;
     groupUnit: string;
   };
+  /** اعداد آماده‌ی نمایش (فرمت‌شده با locale زبان فعال) */
+  counts: { repo: string; media: string; group: string };
   groupUrl: string;
   docsUrl: string;
   repos?: { name: string; url: string }[];
@@ -52,6 +53,9 @@ export interface WorkGroupCardProps {
   media?: { label: string; url: string; icon: WorkGroupIconKey }[];
   figma?: { label: string; url: string; icon: WorkGroupIconKey }[];
 }
+
+/** متن تک‌خطی؛ اگر بریده شد، با هاور مثل VideoCard/ArticleCard اسکرول می‌شود (MarqueeBoundary) */
+const MARQUEE = "block min-w-0 max-w-full truncate";
 
 /** ردیف لینک: کادر بنفش، آیکون، متن، فلش خروج. هاور = پر شدن بنفش */
 const rowCls =
@@ -118,12 +122,12 @@ function FooterStat({
 export default function WorkGroupCard(props: WorkGroupCardProps) {
   const {
     dir,
-    priority,
     image,
     groupName,
     title,
     description,
     labels,
+    counts,
     groupUrl,
     docsUrl,
     repos,
@@ -132,8 +136,6 @@ export default function WorkGroupCard(props: WorkGroupCardProps) {
     figma,
   } = props;
 
-  const rtl = dir === "rtl";
-  const num = (n: number) => (rtl ? n.toLocaleString("fa-IR") : String(n));
 
   const repoCount = (repos?.length ?? 0) + (org ? 1 : 0);
   const hasOpenSource = repoCount > 0;
@@ -147,7 +149,7 @@ export default function WorkGroupCard(props: WorkGroupCardProps) {
       className={rowCls}
     >
       <DocIcon className="size-5 shrink-0" />
-      <span className="min-w-0 flex-1 truncate font-azarMehr">{labels.docs}</span>
+      <span data-marquee className={`${MARQUEE} min-w-0 flex-1 font-azarMehr`}>{labels.docsShort}</span>
       <ExternalIcon className="size-4 shrink-0 text-icon-color group-hover/row:text-white rtl:-scale-x-100" />
     </a>
   );
@@ -155,7 +157,7 @@ export default function WorkGroupCard(props: WorkGroupCardProps) {
   return (
     <article
       dir={dir}
-      className="group relative flex h-full flex-col gap-3.5 rounded-[24px] border border-primary/50 bg-gray-1 dark:bg-gray-3 p-2.5 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-primary hover:shadow-[0_14px_36px_-14px_rgb(var(--color-primary)/0.7)] focus-within:border-primary"
+      className="group relative flex h-full flex-col gap-3.5 [content-visibility:auto] [contain-intrinsic-size:auto_560px] rounded-[24px] border border-primary/50 bg-gray-1 dark:bg-gray-3 p-2.5 transition-[transform,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:border-primary hover:shadow-[0_14px_36px_-14px_rgb(var(--color-primary)/0.7)] focus-within:border-primary"
     >
       {/* تصویر */}
       <div className="relative aspect-[2/1] w-full overflow-hidden rounded-[16px] bg-gray-2">
@@ -163,8 +165,8 @@ export default function WorkGroupCard(props: WorkGroupCardProps) {
           src={image}
           alt={groupName}
           fill
-          sizes="(min-width:1280px) 25vw, (min-width:768px) 50vw, 100vw"
-          priority={priority}
+          sizes="(min-width:1280px) 22vw, (min-width:768px) 44vw, 90vw"
+          quality={75}
           className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
         />
       </div>
@@ -187,7 +189,7 @@ export default function WorkGroupCard(props: WorkGroupCardProps) {
           <div className="flex items-center justify-between gap-2">
             <span className="flex min-w-0 items-center gap-1.5 font-azarMehr text-[12px] text-matn-2">
               <ChainIcon className="size-3.5 shrink-0 text-primary dark:text-primary-tint-2" />
-              <span className="truncate">{groupName}</span>
+              <span data-marquee className={MARQUEE}>{groupName}</span>
             </span>
             <ChevronIcon
               className="size-4 shrink-0 text-primary dark:text-primary-tint-2 rtl:-scale-x-100"
@@ -195,12 +197,15 @@ export default function WorkGroupCard(props: WorkGroupCardProps) {
           </div>
           <h3
             dir="ltr"
-            className="font-sans text-[16px] font-bold leading-snug text-title-2 dark:text-matn-1 rtl:text-end ltr:text-start"
+            data-marquee
+            className={`${MARQUEE} cursor-pointer text-left! font-sans text-[16px] font-bold leading-snug text-title-2 dark:text-matn-1 rtl:text-end ltr:text-start`}
           >
             {title}
           </h3>
           {description && (
-            <p className="font-azarMehr text-[13px] text-matn-2">{description}</p>
+            <p data-marquee className={`${MARQUEE} font-azarMehr text-[13px] text-matn-2`}>
+              {description}
+            </p>
           )}
         </header>
 
@@ -210,8 +215,8 @@ export default function WorkGroupCard(props: WorkGroupCardProps) {
             <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-gray-3 dark:bg-gray-1 text-state-green">
               <ShieldCheckIcon className="size-6" />
             </span>
-            <span className="flex min-w-0 flex-col leading-tight">
-              <span className="truncate font-azarMehr text-[13px] font-medium text-matn-1">
+            <span className="flex min-w-0 flex-col leading-tight ">
+              <span data-marquee className={`${MARQUEE} font-azarMehr text-[13px] font-medium text-matn-1`}>
                 {labels.publicGroup}
               </span>
               <span className="text-[11px] text-matn-3">Bale</span>
@@ -221,7 +226,7 @@ export default function WorkGroupCard(props: WorkGroupCardProps) {
             href={groupUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex shrink-0 items-center gap-2 rounded-xl ltr:bg-linear-to-r rtl:bg-linear-to-l from-primary to-primary-tint-2 px-3.5 py-2.5 font-azarMehr text-[13px] font-medium text-white transition-all duration-200 hover:from-primary-shade-2 hover:to-secondary hover:shadow-[0_6px_18px_-6px_rgb(var(--color-primary)/0.8)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-tint-2"
+            className="inline-flex shrink-0 items-center gap-2 rounded-xl ltr:bg-linear-to-r rtl:bg-linear-to-l from-primary to-primary-tint-2 px-3.5 py-2.5 font-azarMehr text-[13px] font-medium text-white transition-[background-image,box-shadow] duration-200 hover:from-primary-shade-2 hover:to-secondary hover:shadow-[0_6px_18px_-6px_rgb(var(--color-primary)/0.8)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-tint-2"
           >
             <UsersIcon className="size-4" />
             {labels.join}
@@ -246,7 +251,7 @@ export default function WorkGroupCard(props: WorkGroupCardProps) {
                     className={rowCls}
                   >
                     <GitHubIcon className="size-5 shrink-0" />
-                    <span className="min-w-0 flex-1 truncate font-sans">{r.name}</span>
+                    <span data-marquee className={`${MARQUEE} min-w-0 flex-1 font-sans`}>{r.name}</span>
                     <ExternalIcon className="size-4 shrink-0 text-icon-color group-hover/row:text-white" />
                   </a>
                 </li>
@@ -266,7 +271,7 @@ export default function WorkGroupCard(props: WorkGroupCardProps) {
               className={rowCls}
             >
               <GitHubIcon className="size-5 shrink-0" />
-              <span className="min-w-0 flex-1 truncate font-sans" dir="ltr">
+              <span data-marquee className={`${MARQUEE} min-w-0 flex-1 font-sans`} dir="ltr">
                 {org.name}
               </span>
               <ExternalIcon className="size-4 shrink-0 text-icon-color group-hover/row:text-white rtl:-scale-x-100" />
@@ -290,7 +295,7 @@ export default function WorkGroupCard(props: WorkGroupCardProps) {
                     className={rowCls}
                   >
                     <WorkGroupLinkIcon name={f.icon} className="size-5 shrink-0" />
-                    <span className="min-w-0 flex-1 truncate font-azarMehr">{f.label}</span>
+                    <span data-marquee className={`${MARQUEE} min-w-0 flex-1 font-azarMehr`}>{f.label}</span>
                     <ExternalIcon className="size-4 shrink-0 text-icon-color group-hover/row:text-white rtl:-scale-x-100" />
                   </a>
                 </li>
@@ -315,7 +320,7 @@ export default function WorkGroupCard(props: WorkGroupCardProps) {
                     className={rowCls}
                   >
                     <WorkGroupLinkIcon name={m.icon} className="size-5 shrink-0" />
-                    <span className="min-w-0 flex-1 truncate font-sans">
+                    <span data-marquee className={`${MARQUEE} min-w-0 flex-1 font-sans`}>
                       {m.icon === "youtube"
                         ? "Youtube"
                         : m.icon === "linkedin"
@@ -334,7 +339,7 @@ export default function WorkGroupCard(props: WorkGroupCardProps) {
                   className={rowCls}
                 >
                   <DocIcon className="size-5 shrink-0" />
-                  <span className="min-w-0 flex-1 truncate font-azarMehr">
+                  <span data-marquee className={`${MARQUEE} min-w-0 flex-1 font-azarMehr`}>
                     {labels.docsShort}
                   </span>
                   <ExternalIcon className="size-4 shrink-0 text-icon-color group-hover/row:text-white rtl:-scale-x-100" />
@@ -344,11 +349,12 @@ export default function WorkGroupCard(props: WorkGroupCardProps) {
           </>
         )}
 
-        {/* مستندات مرتبط (کارت‌های غیررسانه‌ای) */}
+        {/* مستندات مرتبط: کارت‌هایی که سازمان / نسخه‌های فیگما / رسانه ندارند خالی نمی‌مانند */}
         {!(media && media.length > 0) && (
-          <div className={repos?.length || org || figma?.length ? "" : "mt-0.5"}>
+          <>
+            <Divider icon={<DocIcon className="size-4" />}>{labels.docs}</Divider>
             {docsRow}
-          </div>
+          </>
         )}
 
         {/* فوتر آمار */}
@@ -356,18 +362,18 @@ export default function WorkGroupCard(props: WorkGroupCardProps) {
           {repoCount > 0 && (
             <>
               <FooterStat icon={<GitHubIcon className="size-4" />}>
-                {num(repoCount)} {labels.repoUnit}
+                {counts.repo} {labels.repoUnit}
               </FooterStat>
               <span className="size-1 rounded-full bg-line-color" />
             </>
           )}
           {mediaCount > 0 ? (
             <FooterStat icon={<GridIcon className="size-4" />}>
-              {num(mediaCount)} {labels.mediaUnit}
+              {counts.media} {labels.mediaUnit}
             </FooterStat>
           ) : (
             <FooterStat icon={<UsersIcon className="size-4" />}>
-              {num(1)} {labels.groupUnit}
+              {counts.group} {labels.groupUnit}
             </FooterStat>
           )}
           <span className="size-1 rounded-full bg-line-color" />
