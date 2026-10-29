@@ -1,4 +1,3 @@
-
 "use server";
 
 import { cache } from "react";
@@ -42,6 +41,53 @@ export async function getApiBaseUrl() {
 /**
  * Admin API Base URL
  */
+/**
+ * Retry only transient fetch/network failures.
+ * HTTP responses (including 404/5xx) are handled by the caller and are not retried here.
+ */
+function isRetryableNetworkError(error) {
+  const retryableCodes = new Set([
+    "ECONNRESET",
+    "ETIMEDOUT",
+    "UND_ERR_CONNECT_TIMEOUT",
+    "UND_ERR_HEADERS_TIMEOUT",
+    "UND_ERR_SOCKET",
+    "EAI_AGAIN",
+    "ECONNREFUSED",
+  ]);
+
+  let current = error;
+
+  for (let i = 0; current && i < 5; i++) {
+    if (retryableCodes.has(current.code)) return true;
+    current = current.cause;
+  }
+
+  // Node fetch wraps many transport errors in TypeError("fetch failed").
+  return error instanceof TypeError && /fetch failed/i.test(error.message);
+}
+
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+async function fetchWithRetry(url, options = {}, retries = 2) {
+  for (let attempt = 0; ; attempt++) {
+    try {
+      return await fetch(url, options);
+    } catch (error) {
+      if (attempt >= retries || !isRetryableNetworkError(error)) {
+        throw error;
+      }
+
+      const delay = 250 * 2 ** attempt;
+      console.warn(
+        `[fetchWithRetry] Network failure; retry ${attempt + 1}/${retries} in ${delay}ms`,
+        { url, error }
+      );
+      await sleep(delay);
+    }
+  }
+}
+
 export async function getAdminApiBaseUrl() {
   const url = process.env.NEXT_PUBLIC_ADMIN_API_BASE_URL;
 
@@ -103,57 +149,25 @@ function sanitizePathSegment(segment) {
  * React.cache dedupes within a request; revalidate caches across requests.
  */
 export const getTranslation = cache(async function getTranslation(lang) {
-  try {
-    const adminApiBaseUrl =
-      await getAdminApiBaseUrl();
+  // یک fetch مشترک (getLangArray) برای لیست زبان‌ها و زبان فعال.
+  const languages = await getLangArray();
 
-    const res = await fetch(
-      `${adminApiBaseUrl}/api/translations?active=true`,
-      {
-        next: {
-          revalidate: 3600,
-          tags: ["translations"],
-        },
-      }
-    );
-
-    if (!res.ok) {
-      throw new Error(
-        `Translation request failed: ${res.status} ${res.statusText}`
-      );
-    }
-
-    const data = await res.json();
-
-    let temp = data?.data?.find(
-      (item) => item.code === lang
-    );
-
-    if (!temp) {
-      console.warn(
-        `[getTranslation] Lang "${lang}" not found → fallback to "fa"`
-      );
-
-      temp =
-        data?.data?.find(
-          (item) => item.code === "fa"
-        ) ||
-        data?.data?.[0];
-    }
-
-    return temp;
-  } catch (err) {
-    console.error(
-      "[getTranslation] Error:",
-      err
-    );
-
+  if (!languages.length) {
     return {
       code: "fa",
       file_url: "https://rgb.irpsc.com/lang/fa.json",
       direction: "rtl",
     };
   }
+
+  const found = languages.find((item) => item.code === lang);
+  if (found) return found;
+
+  console.warn(
+    `[getTranslation] Lang "${lang}" not found → fallback to "fa"`
+  );
+
+  return languages.find((item) => item.code === "fa") || languages[0];
 });
 
 /**
@@ -370,43 +384,32 @@ export async function getAllLevels() {
 /**
  * Get level tabs
  */
-export async function getLevelTabs(
-  params,
-  levelId
-) {
+export async function getLevelTabs(params, levelId) {
   if (!levelId || !params?.tabs) {
     return null;
   }
 
-  const safeLevelId =
-    encodeURIComponent(
-      String(levelId).trim()
-    );
-
-  const safeTabs =
-    encodeURIComponent(
-      String(params.tabs).trim()
-    );
+  const safeLevelId = encodeURIComponent(String(levelId).trim());
+  const safeTabs = encodeURIComponent(String(params.tabs).trim());
 
   try {
-    const apiBaseUrl =
-      await getApiBaseUrl();
+    const apiBaseUrl = await getApiBaseUrl();
 
-    const res = await fetch(
+    const res = await fetchWithRetry(
       `${apiBaseUrl}/api/levels/${safeLevelId}/${safeTabs}`,
       {
-        headers: {
-          "Content-Type":
-            "application/json",
-          "Cache-Control":
-            "public, max-age=3600",
+        headers: { Accept: "application/json" },
+        next: {
+          revalidate: 300,
+          tags: [
+            `level-${safeLevelId}`,
+            `level-${safeLevelId}-${safeTabs}`,
+          ],
         },
       }
     );
 
-    if (res.status === 404) {
-      return null;
-    }
+    if (res.status === 404) return null;
 
     if (!res.ok) {
       throw new Error(
@@ -416,11 +419,7 @@ export async function getLevelTabs(
 
     return await res.json();
   } catch (error) {
-    console.error(
-      "[getLevelTabs] Error:",
-      error
-    );
-
+    console.error("[getLevelTabs] Error:", error);
     return null;
   }
 }
@@ -476,37 +475,28 @@ export async function getAllVersions() {
 /*                           SINGLE LEVEL                                     */
 /* -------------------------------------------------------------------------- */
 
-export async function getSingleLevel(
-  levelId
-) {
+export async function getSingleLevel(levelId) {
   if (!levelId) {
     return null;
   }
 
-  const safeLevelId =
-    encodeURIComponent(
-      String(levelId).trim()
-    );
+  const safeLevelId = encodeURIComponent(String(levelId).trim());
 
   try {
-    const apiBaseUrl =
-      await getApiBaseUrl();
+    const apiBaseUrl = await getApiBaseUrl();
 
-    const res = await fetch(
+    const res = await fetchWithRetry(
       `${apiBaseUrl}/api/levels/${safeLevelId}`,
       {
-        headers: {
-          "Content-Type":
-            "application/json",
-          "Cache-Control":
-            "no-store",
+        headers: { Accept: "application/json" },
+        next: {
+          revalidate: 300,
+          tags: [`level-${safeLevelId}`],
         },
       }
     );
 
-    if (res.status === 404) {
-      return null;
-    }
+    if (res.status === 404) return null;
 
     if (!res.ok) {
       throw new Error(
@@ -516,11 +506,7 @@ export async function getSingleLevel(
 
     return await res.json();
   } catch (error) {
-    console.error(
-      "[getSingleLevel] Error:",
-      error
-    );
-
+    console.error("[getSingleLevel] Error:", error);
     return null;
   }
 }
@@ -1034,4 +1020,3 @@ export async function getVideoComments(
     return null;
   }
 }
-

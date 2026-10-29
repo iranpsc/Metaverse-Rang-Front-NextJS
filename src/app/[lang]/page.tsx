@@ -21,6 +21,7 @@ import CardsSectionSkeleton from "@/components/skeleton/CardsSectionSkeleton";
 import { UserCardSkeleton } from "@/components/skeleton/UserCardSkeleton";
 import EducationFirstPage from "@/components/templates/firstpage/EducationFirstPage";
 import LatestNews, { LatestNewsSkeleton } from "@/components/templates/firstpage/LastNews";
+import WorkGroupsSection from "@/components/templates/firstpage/WorkGroupsSection";
 const HeaderFirstPage = dynamic(
   () => import('@/components/templates/firstpage/HeaderFirstPage')
 );
@@ -348,6 +349,9 @@ export default async function LangPage({ params }: LangPageProps) {
                 <DetailsEducationSection mainData={mainData} />
               </Suspense>
             </div>
+            <div className=" relative h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
+  <WorkGroupsSection mainData={mainData} params={resolvedParams} />
+</div>
             <div className="w-[90%] relative h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
               <p className="font-azarMehr font-medium text-[16px] md:text-[20px] lg:text-[28px] xl:text-[32px] dark:text-white ">
                 {findByUniqueId(mainData, 501)}

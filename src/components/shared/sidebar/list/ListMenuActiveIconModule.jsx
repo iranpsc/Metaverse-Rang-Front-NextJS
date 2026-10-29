@@ -3,7 +3,6 @@ import { ActiveMenuIcon } from "@/components/svgs";
 
 const ListMenuActiveIconModule = ({
   item,
-  languageSelected,
   isClosed,
   i,
 }) => {
@@ -11,9 +10,7 @@ const ListMenuActiveIconModule = ({
     item.active && (
       <ActiveMenuIcon
         className={` ${isClosed ? "w-[10px] pr-[17px]" : ""}  ${
-          languageSelected === "fa"
-            ? "pr-[20px] w-[25px] rotate-180"
-            : "pr-[20px] w-[25px]"
+          "pr-[20px] w-[25px] rtl:rotate-180"
         } visible  h-[35px] absolute inset-s-0 fill-primary dark:fill-primary `}
       />
     )

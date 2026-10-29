@@ -45,18 +45,24 @@ export default async function LevelLayout({
   const levelMeta = getLevelMeta(levelName);
   if (!levelMeta) notFound();
 
-  const [langData, mainData, langArray, singleLevel, ...tabResults] =
-    await Promise.all([
-      getLangData(lang),
-      getMainData(lang),
-      getLangArray(),
-      getLevelData(levelMeta.id),
-      ...TABS.map((tab) =>
-        getTabData(lang, levelName, tab, levelMeta.id).catch(() => null)
-      ),
-    ]);
+  // Load essential page data first to avoid starting all tab requests
+  // in the same initial burst.
+  const [langData, mainData, langArray, singleLevel] = await Promise.all([
+    getLangData(lang),
+    getMainData(lang),
+    getLangArray(),
+    getLevelData(levelMeta.id),
+  ]);
 
   if (!singleLevel?.data) notFound();
+
+  // ImageBox needs every tab's media data, so preserve the existing behavior.
+  // Start tab requests after the essential level data has resolved.
+  const tabResults = await Promise.all(
+    TABS.map((tab) =>
+      getTabData(lang, levelName, tab, levelMeta.id).catch(() => null)
+    )
+  );
 
   const tabsData = Object.fromEntries(
     TABS.map((tab, i) => [tab, pickMedia(tabResults[i]?.data)])
