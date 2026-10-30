@@ -16,16 +16,27 @@ interface ProfileHeaderMobileProps {
   langArray?: { code: string; icon: string; native_name: string }[];
 }
 
-const ADMIN_FLAG_BASE =
-  "https://dev-admin.metarang.com/assets/images/flags/";
+const getFlagSrc = (icon?: string | null, lang = "fa") => {
+  if (!icon) return `/${lang}/api/flag/fa.svg`;
 
-const getFlagSrc = (icon: string, lang: string) => {
-  if (!icon) return icon;
+  try {
+    const url = new URL(icon);
+    const isAdminHost =
+      url.hostname === "admin.metarang.com" ||
+      url.hostname === "dev-admin.metarang.com";
 
-  if (icon.startsWith(ADMIN_FLAG_BASE)) {
-    const filename = icon.slice(ADMIN_FLAG_BASE.length);
+    if (
+      isAdminHost &&
+      url.pathname.startsWith("/assets/images/flags/")
+    ) {
+      const filename = url.pathname.split("/").pop()?.toLowerCase();
 
-    return `/${lang}/api/flag/${encodeURIComponent(filename)}`;
+      if (filename?.endsWith(".svg")) {
+        return `/${lang}/api/flag/${encodeURIComponent(filename)}`;
+      }
+    }
+  } catch {
+    // Keep existing non-URL icon paths unchanged.
   }
 
   return icon;
