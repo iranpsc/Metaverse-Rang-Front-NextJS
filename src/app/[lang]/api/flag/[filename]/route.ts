@@ -6,6 +6,7 @@ const ADMIN_FLAG_BASE =
 const ALLOWED_FILES = new Set([
   "FA.svg",
   "EN.svg",
+  "AR.svg",
 ]);
 
 export async function GET(

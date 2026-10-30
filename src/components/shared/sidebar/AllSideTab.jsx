@@ -4,7 +4,7 @@ import ListMenuSvgModule from "./list/ListMenuSvgModule";
 import ListMenuTitleModule from "./list/ListMenuTitleModule";
 import ListMenuArrow from "./list/ListMenuArrow";
 import { Modals_fa, Modals_en } from "@/components/utils/modals-content";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Modal from "@/components/modal/modal";
 import ListMenuActiveIconModule from "./list/ListMenuActiveIconModule";
 import { useRouter, usePathname } from "next/navigation";
@@ -87,8 +87,6 @@ export default function SideBarContent({
   const finalTabsMenu =
     pageSide === "level" && levelTabs?.data ? levelTabs.data : tabsMenu;
 
-  const [menuItems, setMenuItems] = useState([]);
-
   // تشخیص بخش‌های فعال
   const isEducationSectionActive = pathName.startsWith(`/${params.lang}/education`);
   const isWhitePaperSectionActive = pathName.startsWith(`/${params.lang}/whitepaper`);
@@ -124,10 +122,9 @@ export default function SideBarContent({
     (pathName.startsWith(`/${params.lang}/news/categories`) &&
       pathName.split("/").length === 5);
 
-  useEffect(() => {
-    if (!finalTabsMenu) return;
-
-    const cleanPath = pathName.endsWith("/") ? pathName.slice(0, -1) : pathName;
+  // مشتق‌شده از props/مسیر: با useMemo محاسبه می‌شود (بدون state + رندر دوباره‌ی اضافه بعد از هر ناوبری)
+  const menuItems = useMemo(() => {
+    if (!finalTabsMenu) return [];
 
     const updatedMenu = finalTabsMenu.map((item) => {
       // زبان هیچوقت active نشود
@@ -225,7 +222,7 @@ export default function SideBarContent({
             name: "wallet",
             unique_id: "STATIC_WALLET",
             url: `citizens/${params.id}/wallet`,
-            translation: params.lang === "fa" ? "دارایی ها" : "property",
+            translation: sidebarLabels?.citizenWallet,
             toShow: true,
             order: -3,
             active: pathName === `/${params.lang}/citizens/${params.id}/wallet`,
@@ -234,7 +231,7 @@ export default function SideBarContent({
             name: "summary",
             unique_id: "STATIC_SUMMARY",
             url: `citizens/${params.id}/summary`,
-            translation: params.lang === "fa" ? "املاک و مستغلات" : "Real Estate",
+            translation: sidebarLabels?.citizenRealEstate,
             toShow: true,
             order: -3,
             active: pathName === `/${params.lang}/citizens/${params.id}/summary`,
@@ -243,7 +240,7 @@ export default function SideBarContent({
             name: "buildings",
             unique_id: "STATIC_BUILDINGS",
             url: `citizens/${params.id}/buildings`,
-            translation: params.lang === "fa" ? "املاک دارای بنا" : "Built Properties",
+            translation: sidebarLabels?.citizenBuildings,
             toShow: true,
             order: -3,
             active: pathName === `/${params.lang}/citizens/${params.id}/buildings`,
@@ -251,12 +248,19 @@ export default function SideBarContent({
         ]
       : [];
 
-    setMenuItems([...updatedMenu, ...staticCitizenItems]);
+    return [...updatedMenu, ...staticCitizenItems];
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [finalTabsMenu, pathName, params.lang, params.id, sidebarLabels]);
+
+  // باز/بسته بودن دراپ‌داون‌ها فقط با تغییر مسیر همگام می‌شود (نه با تغییر props منو)
+  useEffect(() => {
+    const cleanPath = pathName.endsWith("/") ? pathName.slice(0, -1) : pathName;
     setTrainingDropDown(cleanPath.startsWith(`/${params.lang}/education`));
     setArticlesDropDown(cleanPath.startsWith(`/${params.lang}/articles`));
     setNewsDropDown(cleanPath.startsWith(`/${params.lang}/news`));
     setCitizensDropDown(isCitizensSectionActive);
-  }, [finalTabsMenu, pathName, params.lang, params.id]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathName, params.lang]);
 
   // هندلر اصلی کلیک (کلیک چپ + کلیک وسط)
   const handleItemClick = (e, url = null, item = null) => {
@@ -324,7 +328,6 @@ export default function SideBarContent({
     ${active ? "text-primary " : "matn-2-600 dark:tmatn-2-400"}
     hover:text-primary dark:hover:text-primary ${isClosed ? "ps-0" : "ps-3"}`;
 
-  const isFa = params.lang === "fa";
 
   const isEducationMain =
     pathName === `/${params.lang}/education` || pathName === `/${params.lang}/education/`;
@@ -390,7 +393,7 @@ export default function SideBarContent({
             {item.unique_id == 1462 && (
               <li style={{ order: "-2" }}>
                 <MenuTooltip
-                  title={isFa ? "راهنمای جامع" : "Comprehensive guide"}
+                  title={sidebarLabels?.comprehensiveGuide}
                   langData={langData}
                   isClosed={isClosed}
                 >
@@ -402,7 +405,7 @@ export default function SideBarContent({
                       </span>
                       <div className="w-full flex justify-between items-center">
                         <ListMenuTitleModule
-                          item={{ translation: isFa ? "راهنمای جامع" : "Comprehensive guide", active: isEducationSectionActive }}
+                          item={{ translation: sidebarLabels?.comprehensiveGuide, active: isEducationSectionActive }}
                           isClosed={isClosed}
                         />
                         <ListMenuArrow item={{ name: "trainings" }} isOpen={trainingDropDown} isClosed={isClosed} />
@@ -413,7 +416,7 @@ export default function SideBarContent({
 
                 <div ref={dropdownRef2} className={`${trainingDropDown ? "h-fit" : "h-0 overflow-hidden"} base-transition-1 bg-slate-100 dark:bg-gray-1`}>
                   {/* آموزش‌ها */}
-                  <MenuTooltip title={isFa ? "آموزش‌ها" : "Trainings"} langData={langData} isClosed={isClosed}>
+                  <MenuTooltip title={sidebarLabels?.trainings} langData={langData} isClosed={isClosed}>
                     <Link
                       href={`/${params.lang}/education`}
                       onMouseDown={(e) => handleItemClick(e, "/education")}
@@ -424,7 +427,7 @@ export default function SideBarContent({
                           <ListMenuSvgModule item={{ name: "trainers", active: isTrainingsActive }} />
                         </span>
                         <ListMenuTitleModule
-                          item={{ translation: isFa ? "آموزش‌ها" : "Trainings", active: isTrainingsActive }}
+                          item={{ translation: sidebarLabels?.trainings, active: isTrainingsActive }}
                           isClosed={isClosed}
                         />
                       </div>
@@ -432,7 +435,7 @@ export default function SideBarContent({
                   </MenuTooltip>
 
                   {/* دسته‌بندی‌ها */}
-                  <MenuTooltip title={isFa ? "دسته‌بندی‌ها" : "Categories"} langData={langData} isClosed={isClosed}>
+                  <MenuTooltip title={sidebarLabels?.categoriesEducation} langData={langData} isClosed={isClosed}>
                     <Link
                       href={`/${params.lang}/education/category`}
                       onMouseDown={(e) => handleItemClick(e, "/education/category")}
@@ -443,7 +446,7 @@ export default function SideBarContent({
                           <ListMenuSvgModule item={{ name: "categories", active: isCategoriesActive }} />
                         </span>
                         <ListMenuTitleModule
-                          item={{ translation: isFa ? "دسته‌بندی‌ها" : "Categories", active: isCategoriesActive }}
+                          item={{ translation: sidebarLabels?.categoriesEducation, active: isCategoriesActive }}
                           isClosed={isClosed}
                         />
                       </div>
@@ -500,7 +503,7 @@ export default function SideBarContent({
             {item.unique_id == 258 && (
               <li style={{ order: "-1" }}>
                 <MenuTooltip
-                  title={isFa ? "مقالات متارنگ" : "MetaRang Articles"}
+                  title={sidebarLabels?.metarangArticles}
                   langData={langData}
                   isClosed={isClosed}
                 >
@@ -512,7 +515,7 @@ export default function SideBarContent({
                       </span>
                       <div className="w-full flex justify-between items-center">
                         <ListMenuTitleModule
-                          item={{ translation: isFa ? " مقالات متارنگ" : "MetaRang Articles", active: isArticlesSectionActive }}
+                          item={{ translation: sidebarLabels?.metarangArticles, active: isArticlesSectionActive }}
                           isClosed={isClosed}
                         />
                         <ListMenuArrow item={{ name: "trainings" }} isOpen={articleDropDown} isClosed={isClosed} />
@@ -523,7 +526,7 @@ export default function SideBarContent({
 
                 <div ref={dropdownRef3} className={`${articleDropDown ? "h-fit" : "h-0 overflow-hidden"} base-transition-1 bg-slate-100 dark:bg-gray-1`}>
                   {/* مقالات */}
-                  <MenuTooltip title={isFa ? "مقالات" : "Articles"} langData={langData} isClosed={isClosed}>
+                  <MenuTooltip title={sidebarLabels?.articles} langData={langData} isClosed={isClosed}>
                     <Link
                       href={`/${params.lang}/articles`}
                       onMouseDown={(e) => handleItemClick(e, "/articles")}
@@ -534,7 +537,7 @@ export default function SideBarContent({
                           <ListMenuSvgModule item={{ unique_id: 258, active: isArticlesMain }} />
                         </span>
                         <ListMenuTitleModule
-                          item={{ translation: isFa ? "مقالات" : "Articles", active: isArticlesMain }}
+                          item={{ translation: sidebarLabels?.articles, active: isArticlesMain }}
                           isClosed={isClosed}
                         />
                       </div>
@@ -542,7 +545,7 @@ export default function SideBarContent({
                   </MenuTooltip>
 
                   {/* دسته‌بندی‌ها */}
-                  <MenuTooltip title={isFa ? "دسته‌بندی‌ها" : "Categories"} langData={langData} isClosed={isClosed}>
+                  <MenuTooltip title={sidebarLabels?.categoriesArticles} langData={langData} isClosed={isClosed}>
                     <Link
                       href={`/${params.lang}/articles/categories`}
                       onMouseDown={(e) => handleItemClick(e, "/articles/categories")}
@@ -553,7 +556,7 @@ export default function SideBarContent({
                           <ListMenuSvgModule item={{ name: "categories", active: isArticlesCategories }} />
                         </span>
                         <ListMenuTitleModule
-                          item={{ translation: isFa ? "دسته‌بندی‌ها" : "Categories", active: isArticlesCategories }}
+                          item={{ translation: sidebarLabels?.categoriesArticles, active: isArticlesCategories }}
                           isClosed={isClosed}
                         />
                       </div>
@@ -567,7 +570,7 @@ export default function SideBarContent({
             {item.unique_id == 255 && (
               <li style={{ order: "-1" }}>
                 <MenuTooltip
-                  title={isFa ? "اخبار متارنگ" : "MetaRang News"}
+                  title={sidebarLabels?.metarangNews}
                   langData={langData}
                   isClosed={isClosed}
                 >
@@ -579,7 +582,7 @@ export default function SideBarContent({
                       </span>
                       <div className="w-full flex justify-between items-center">
                         <ListMenuTitleModule
-                          item={{ translation: isFa ? "اخبار متارنگ" : "MetaRang News", active: isNewsSectionActive }}
+                          item={{ translation: sidebarLabels?.metarangNews, active: isNewsSectionActive }}
                           isClosed={isClosed}
                         />
                         <ListMenuArrow item={{ name: "trainings" }} isOpen={newsDropDown} isClosed={isClosed} />
@@ -590,7 +593,7 @@ export default function SideBarContent({
 
                 <div ref={dropdownRef5} className={`${newsDropDown ? "h-fit" : "h-0 overflow-hidden"} base-transition-1 bg-slate-100 dark:bg-gray-1`}>
                   {/* لیست اخبار */}
-                  <MenuTooltip title={isFa ? "اخبار" : "News"} langData={langData} isClosed={isClosed}>
+                  <MenuTooltip title={sidebarLabels?.news} langData={langData} isClosed={isClosed}>
                     <Link
                       href={`/${params.lang}/news`}
                       onMouseDown={(e) => handleItemClick(e, "/news")}
@@ -601,7 +604,7 @@ export default function SideBarContent({
                           <ListMenuSvgModule item={{ unique_id: 255, active: isNewsMainActive }} />
                         </span>
                         <ListMenuTitleModule
-                          item={{ translation: isFa ? " اخبار" : "News", active: isNewsMainActive }}
+                          item={{ translation: sidebarLabels?.news, active: isNewsMainActive }}
                           isClosed={isClosed}
                         />
                       </div>
@@ -609,7 +612,7 @@ export default function SideBarContent({
                   </MenuTooltip>
 
                   {/* دسته‌بندی اخبار */}
-                  <MenuTooltip title={isFa ? "دسته‌بندی‌ها" : "Categories"} langData={langData} isClosed={isClosed}>
+                  <MenuTooltip title={sidebarLabels?.categoriesNews} langData={langData} isClosed={isClosed}>
                     <Link
                       href={`/${params.lang}/news/categories`}
                       onMouseDown={(e) => handleItemClick(e, "/news/categories")}
@@ -620,7 +623,7 @@ export default function SideBarContent({
                           <ListMenuSvgModule item={{ name: "categories", active: isNewsCategoriesActive }} />
                         </span>
                         <ListMenuTitleModule
-                          item={{ translation: isFa ? "دسته‌بندی‌ها" : "Categories", active: isNewsCategoriesActive }}
+                          item={{ translation: sidebarLabels?.categoriesNews, active: isNewsCategoriesActive }}
                           isClosed={isClosed}
                         />
                       </div>

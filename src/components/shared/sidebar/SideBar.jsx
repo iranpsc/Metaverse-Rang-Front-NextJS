@@ -288,6 +288,7 @@ export default function SideBar({
                   isClosed={isClosed}
                   tabsMenu={tabsMenu}
                   params={params}
+                  sidebarLabels={sidebarLabels}
                 />
               </div>
             </div>

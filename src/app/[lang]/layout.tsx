@@ -28,8 +28,6 @@ import Icon from "../../components/system/Icon";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 
-const SUPPORTED_LANGUAGES = ["fa", "en"] as const;
-
 export default async function LangLayout({
   children,
   params,
@@ -43,13 +41,20 @@ export default async function LangLayout({
   /*
    * ============================================================
    * IMPORTANT:
-   * فقط fa و en زبان معتبر هستند.
+   * زبان‌های معتبر از API می‌آیند (fa, en, ar, ...) نه از لیست ثابت.
    *
    * این validation باید قبل از try/catch باشد.
    * چون notFound() نباید توسط catch گرفته شود.
+   * getLangArray کش دارد و getTranslation هم از همین استفاده می‌کند؛
+   * پس درخواست اضافه‌ای ساخته نمی‌شود.
    * ============================================================
    */
-  if (!SUPPORTED_LANGUAGES.includes(lang as "fa" | "en")) {
+  const langArray = await getLangArray();
+  const isKnownLang =
+    langArray.length > 0
+      ? langArray.some((l: { code: string }) => l.code === lang)
+      : lang === "fa" || lang === "en"; // API در دسترس نیست: فقط زبان‌های پیش‌فرض
+  if (!isKnownLang) {
     notFound();
   }
 
@@ -58,10 +63,7 @@ export default async function LangLayout({
      * Language data
      * ---------------------------------------------------------- */
 
-    const [langArray, langData] = await Promise.all([
-      getLangArray(),
-      getTranslation(lang),
-    ]);
+    const langData = await getTranslation(lang);
 
 
     /* ----------------------------------------------------------
@@ -90,7 +92,7 @@ export default async function LangLayout({
 
     const staticMenuToShow = getStaticMenu(lang);
     const updatedTabsMenu = buildTabsMenu(mainData, staticMenuToShow);
-    const sidebarLabels = buildSidebarLabels(mainData);
+    const sidebarLabels = buildSidebarLabels(mainData, langData.code || lang);
     const footerSections = buildFooterSections(mainData, lang);
     const footerBrand = buildFooterBrand(mainData);
 
