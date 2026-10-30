@@ -21,6 +21,7 @@ import CardsSectionSkeleton from "@/components/skeleton/CardsSectionSkeleton";
 import { UserCardSkeleton } from "@/components/skeleton/UserCardSkeleton";
 import EducationFirstPage from "@/components/templates/firstpage/EducationFirstPage";
 import LatestNews, { LatestNewsSkeleton } from "@/components/templates/firstpage/LastNews";
+import WorkGroupCardsSection from "@/components/templates/firstpage/work-group-cards/WorkGroupCardsSection";
 const HeaderFirstPage = dynamic(
   () => import('@/components/templates/firstpage/HeaderFirstPage')
 );
@@ -342,6 +343,9 @@ export default async function LangPage({ params }: LangPageProps) {
               <Suspense fallback={<CardsSectionSkeleton />}>
                 <LastContent mainData={mainData} params={resolvedParams} />
               </Suspense>
+            </div>
+            <div className="w-[90%] md:w-full h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
+              <WorkGroupCardsSection lang={lang} mainData={null} />
             </div>
             <div className="w-[90%] relative h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
               <Suspense fallback={<div>Loading Header...</div>}>

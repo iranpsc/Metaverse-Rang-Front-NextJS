@@ -4040,6 +4040,215 @@
                             "unique_id": 1630
                         }
                     ]
+                },
+                {
+                    "name": "work-group-cards",
+                    "fields": [
+                        {
+                            "translation": "ریپازیتوری",
+                            "unique_id": 1810
+                        },
+                        {
+                            "translation": "عمومی",
+                            "unique_id": 1811
+                        },
+                        {
+                            "translation": "متن باز",
+                            "unique_id": 1812
+                        },
+                        {
+                            "translation": "ریپازیتوری های متن باز",
+                            "unique_id": 1813
+                        },
+                        {
+                            "translation": "رسانه های فعال",
+                            "unique_id": 1814
+                        },
+                        {
+                            "translation": "نسخه های فیگما",
+                            "unique_id": 1815
+                        },
+                        {
+                            "translation": "اسناد مرتبط",
+                            "unique_id": 1816
+                        },
+                        {
+                            "translation": "دسترسی به زیرساخت های سازمان",
+                            "unique_id": 1817
+                        },
+                        {
+                            "translation": "گروه پابلیک کاری",
+                            "unique_id": 1818
+                        },
+                        {
+                            "translation": "بله",
+                            "unique_id": 1819
+                        },
+                        {
+                            "translation": "ورود به گروه",
+                            "unique_id": 1820
+                        },
+                        {
+                            "translation": "ریپازیتوری",
+                            "unique_id": 1821
+                        },
+                        {
+                            "translation": "رسانه",
+                            "unique_id": 1822
+                        },
+                        {
+                            "translation": "سند",
+                            "unique_id": 1823
+                        },
+                        {
+                            "translation": "نسخه",
+                            "unique_id": 1824
+                        },
+                        {
+                            "translation": "تصویر کارت",
+                            "unique_id": 1825
+                        },
+                        {
+                            "translation": "باز می\u200cشود در تب جدید",
+                            "unique_id": 1826
+                        },
+                        {
+                            "translation": "توسعه فرانت",
+                            "unique_id": 1827
+                        },
+                        {
+                            "translation": "رسانه متارنگ",
+                            "unique_id": 1828
+                        },
+                        {
+                            "translation": "توسعه بکند",
+                            "unique_id": 1829
+                        },
+                        {
+                            "translation": "توسعه جهان سه بعدی",
+                            "unique_id": 1830
+                        },
+                        {
+                            "translation": "مدیریت مخازن گیت هاب",
+                            "unique_id": 1831
+                        },
+                        {
+                            "translation": "توسعه رابط کاربری",
+                            "unique_id": 1832
+                        },
+                        {
+                            "translation": "توسعه شهری هوشمند",
+                            "unique_id": 1833
+                        },
+                        {
+                            "translation": "توسعه اسناد مالکیتی VOD-NFT",
+                            "unique_id": 1834
+                        },
+                        {
+                            "translation": "مدل سازی سه بعدی",
+                            "unique_id": 1835
+                        },
+                        {
+                            "translation": "توسعه هوش مصنوعی",
+                            "unique_id": 1836
+                        },
+                        {
+                            "translation": "توسعه تونل زمان",
+                            "unique_id": 1837
+                        },
+                        {
+                            "translation": "توسعه جغرافیای مجازی و موازی",
+                            "unique_id": 1838
+                        },
+                        {
+                            "translation": "توسعه بلاکچین و شبکه کوین",
+                            "unique_id": 1839
+                        },
+                        {
+                            "translation": "ریپازیتوری نکست جی اس",
+                            "unique_id": 1840
+                        },
+                        {
+                            "translation": "ریپازیتوری ریکت جی اس",
+                            "unique_id": 1841
+                        },
+                        {
+                            "translation": "ریپازیتوری میکروسرویس",
+                            "unique_id": 1842
+                        },
+                        {
+                            "translation": "ریپازیتوری پنل ادمین متارنگ",
+                            "unique_id": 1843
+                        },
+                        {
+                            "translation": "ریپازیتوری زیرساخت سه بعدی",
+                            "unique_id": 1844
+                        },
+                        {
+                            "translation": "ریپازیتوری زیرساخت سرور",
+                            "unique_id": 1845
+                        },
+                        {
+                            "translation": "ریپازیتوری زیرساخت اسناد VOD",
+                            "unique_id": 1846
+                        },
+                        {
+                            "translation": "ریپازیتوری زیرساخت هوش مصنوعی NPC",
+                            "unique_id": 1847
+                        },
+                        {
+                            "translation": "زیرساخت بکند سامانه تونل زمان بکند",
+                            "unique_id": 1848
+                        },
+                        {
+                            "translation": "زیرساخت بکند سامانه تونل زمان فرانت",
+                            "unique_id": 1849
+                        },
+                        {
+                            "translation": "زیرساخت نقشه های جغرافیایی",
+                            "unique_id": 1850
+                        },
+                        {
+                            "translation": "سکه\u200cی حاکمیتی متاورس رنگ (PSC)",
+                            "unique_id": 1851
+                        },
+                        {
+                            "translation": "توکن حاکمیتی متاورس رنگ (PSD)",
+                            "unique_id": 1852
+                        },
+                        {
+                            "translation": "هلدینگ زنجیره تامین بهشت",
+                            "unique_id": 1853
+                        },
+                        {
+                            "translation": "مدیوم",
+                            "unique_id": 1854
+                        },
+                        {
+                            "translation": "لینکدین",
+                            "unique_id": 1855
+                        },
+                        {
+                            "translation": "یوتوب",
+                            "unique_id": 1856
+                        },
+                        {
+                            "translation": "سابستک",
+                            "unique_id": 1857
+                        },
+                        {
+                            "translation": "اینستاگرام",
+                            "unique_id": 1858
+                        },
+                        {
+                            "translation": "فیگما ایندکس داخلی",
+                            "unique_id": 1859
+                        },
+                        {
+                            "translation": "فیگما ایندکس خارجی",
+                            "unique_id": 1860
+                        }
+                    ]
                 }
             ]
         },
