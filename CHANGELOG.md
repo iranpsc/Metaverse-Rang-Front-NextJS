@@ -5,6 +5,7 @@
 ### Fixed
 - Fixed language-menu flag URLs by normalizing SVG filenames to lowercase and using the matching flag proxy route.
 - Set flag proxy and upstream fetch caching to two days; log only upstream request failures.
+- Cache first-page video API responses for one month, use Next.js Data Cache for full-video requests, and keep byte-range requests out of the server data cache to protect partial-content streaming.
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
