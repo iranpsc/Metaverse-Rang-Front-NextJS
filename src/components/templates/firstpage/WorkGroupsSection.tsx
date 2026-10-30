@@ -14,10 +14,8 @@ import {
 interface Props {
   /** دیکشنری ترجمه‌ی زبان فعال (از API) */
   mainData: Record<string, string> | null;
-  /** کد زبان فعال از API (fa / en / ar / ...) */
-  lang: string;
-  /** جهت زبان فعال از API */
-  dir: "rtl" | "ltr";
+  /** مثل بقیه‌ی سکشن‌ها: params صفحه (lang از آن خوانده می‌شود) */
+  params: { lang: string };
 }
 
 /** متن‌هایی که هنوز Unique ID ندارند. زبانِ بدون متن → انگلیسی */
@@ -39,10 +37,11 @@ function makeNumberFormatter(lang: string) {
 /**
  * سکشن کارت‌های گروه‌های کاری (ایشو #119) — قبل از «آخرین نسخه‌ها».
  * - Server Component، بدون JS کلاینت.
- * - زبان و جهت از API می‌آیند؛ هیچ شرطِ ثابتِ fa/en در کد نیست.
+ * - زبان از API می‌آید؛ جهت (rtl/ltr) را خودِ صفحه روی body می‌گذارد و اینجا ارث‌بری می‌شود؛ هیچ شرطِ ثابتِ fa/en در کد نیست.
  * - متن: Unique ID از دیکشنری زبان → در نبود آن، متن جایگزین (زبان → en).
  */
-export default function WorkGroupsSection({ mainData, lang, dir }: Props) {
+export default function WorkGroupsSection({ mainData, params }: Props) {
+  const lang = params.lang;
   const pick = (o?: { fa?: string; en?: string }): string =>
     (o as Record<string, string | undefined> | undefined)?.[lang] ??
     o?.en ??
@@ -83,16 +82,15 @@ export default function WorkGroupsSection({ mainData, lang, dir }: Props) {
   return (
     <section
       aria-labelledby="work-groups-title"
-      dir={dir}
       // پرفورمنس: بخش زیر فولد تا نزدیک شدن به ویوپورت رندر/لِی‌اوت نمی‌شود
-      className="rounded-[28px] md:rounded-[40px] bg-linear-to-b [content-visibility:auto] [contain-intrinsic-size:auto_1600px]"
+      className="[content-visibility:auto] [contain-intrinsic-size:auto_1600px]"
     >
       <WorkGroupIconSprite />
 
       <div className="flex items-center justify-between gap-4">
         <h2
           id="work-groups-title"
-          className="font-azarMehr font-bold text-[18px] md:text-[24px] lg:text-[32px] text-white"
+          className="font-azarMehr font-bold text-[18px] md:text-[24px] lg:text-[32px] text-matn-1"
         >
           {sectionTitle}
         </h2>
@@ -101,12 +99,12 @@ export default function WorkGroupsSection({ mainData, lang, dir }: Props) {
           href="https://github.com/iranpsc"
           target="_blank"
           rel="noopener noreferrer"
-          className="group/all flex items-center gap-3 text-white/90 transition-colors hover:text-accent-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
+          className="group/all flex items-center gap-3 text-matn-1 transition-colors hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
         >
           <span className="font-azarMehr font-medium text-[12px] md:text-[16px] lg:text-[18px]">
             {pick(LOCAL_TEXTS.viewAll)}
           </span>
-          <ArrowRight className="w-[24px] h-full stroke-white ltr:rotate-180 transition-transform duration-200 group-hover/all:ltr:translate-x-1 group-hover/all:rtl:-translate-x-1" />
+          <ArrowRight className="w-[24px] h-full stroke-matn-1  transition-transform duration-200 group-hover/all:ltr:translate-x-1 group-hover/all:rtl:-translate-x-1 rtl:rotate-180" />
         </Link>
       </div>
 
@@ -116,7 +114,6 @@ export default function WorkGroupsSection({ mainData, lang, dir }: Props) {
           return (
             <WorkGroupCard
               key={g.key}
-              dir={dir}
               image={g.image}
               groupName={t(g.titleId)}
               title={t(g.subtitleEnId)}
