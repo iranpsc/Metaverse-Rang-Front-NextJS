@@ -148,7 +148,7 @@ export default async function LangPage({ params }: LangPageProps) {
     const { props: mobileHero } = getImageProps({
       ...heroCommon,
       src: MOBILE_POSTER,
-      
+
     });
 
     async function makeLessCharacter() {
@@ -350,8 +350,8 @@ export default async function LangPage({ params }: LangPageProps) {
               </Suspense>
             </div>
             <div className=" relative h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
-  <WorkGroupsSection mainData={mainData} params={resolvedParams} />
-</div>
+              <WorkGroupsSection mainData={mainData} params={resolvedParams} />
+            </div>
             <div className="w-[90%] relative h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
               <p className="font-azarMehr font-medium text-[16px] md:text-[20px] lg:text-[28px] xl:text-[32px] dark:text-white ">
                 {findByUniqueId(mainData, 501)}

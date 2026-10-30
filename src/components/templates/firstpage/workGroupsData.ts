@@ -8,7 +8,8 @@
  * - اضافه/حذف کارت = اضافه/حذف یک آبجکت در WORK_GROUPS (بدون کامپوننت جدید).
  */
 
-export type Lang = "fa" | "en";
+/** زبان‌ها از API می‌آیند (fa, en, ar, ...)؛ پس string */
+export type Lang = string;
 
 export type WorkGroupIconKey =
   | "medium"

@@ -22,7 +22,6 @@ import type { WorkGroupIconKey } from "./workGroupsData";
  */
 
 export interface WorkGroupCardProps {
-  dir: "rtl" | "ltr";
   image: string;
   /** نام گروه (کنار آیکون زنجیر) */
   groupName: string;
@@ -121,7 +120,6 @@ function FooterStat({
 
 export default function WorkGroupCard(props: WorkGroupCardProps) {
   const {
-    dir,
     image,
     groupName,
     title,
@@ -156,7 +154,6 @@ export default function WorkGroupCard(props: WorkGroupCardProps) {
 
   return (
     <article
-      dir={dir}
       className="group relative flex h-full flex-col gap-3.5 [content-visibility:auto] [contain-intrinsic-size:auto_560px] rounded-[24px] border border-primary/50 bg-gray-1 dark:bg-gray-3 p-2.5 transition-[transform,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:border-primary hover:shadow-[0_14px_36px_-14px_rgb(var(--color-primary)/0.7)] focus-within:border-primary"
     >
       {/* تصویر */}
@@ -198,7 +195,7 @@ export default function WorkGroupCard(props: WorkGroupCardProps) {
           <h3
             dir="ltr"
             data-marquee
-            className={`${MARQUEE} cursor-pointer text-left! font-sans text-[16px] font-bold leading-snug text-title-2 dark:text-matn-1 rtl:text-end ltr:text-start`}
+            className={`${MARQUEE} cursor-pointer font-sans text-[16px] font-bold leading-snug text-title-2 dark:text-matn-1 rtl:text-end ltr:text-start`}
           >
             {title}
           </h3>
@@ -215,8 +212,8 @@ export default function WorkGroupCard(props: WorkGroupCardProps) {
             <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-gray-3 dark:bg-gray-1 text-state-green">
               <ShieldCheckIcon className="size-6" />
             </span>
-            <span className="flex min-w-0 flex-col leading-tight ">
-              <span data-marquee className={`${MARQUEE} font-azarMehr text-[13px] font-medium text-matn-1`}>
+            <span className="flex min-w-0 flex-col leading-tight">
+              <span data-marquee className={`line-clamp-1 font-azarMehr text-[13px] font-medium text-matn-1`}>
                 {labels.publicGroup}
               </span>
               <span className="text-[11px] text-matn-3">Bale</span>
