@@ -37,6 +37,26 @@ test.describe("isolated mock services", () => {
 });
 
 test.describe("platform entry points", () => {
+  test("default locale renders using only local test services", async ({ page }) => {
+    // Browser-side requests to production/CDN/third-party hosts are blocked.
+    // Only the local Next.js server and the local mock API are allowed.
+    await page.route("**/*", (route) => {
+      const url = new URL(route.request().url());
+      const isLocal =
+        url.hostname === "127.0.0.1" ||
+        url.hostname === "localhost" ||
+        url.protocol === "data:" ||
+        url.protocol === "blob:";
+
+      return isLocal ? route.continue() : route.abort();
+    });
+
+    const response = await page.goto("/fa", { waitUntil: "domcontentloaded" });
+
+    expect(response?.status()).toBe(200);
+    await expect(page.locator("html")).toHaveAttribute("lang", "fa");
+  });
+
   test("root URL permanently or temporarily redirects to the default locale", async ({ request }) => {
     const response = await request.get("/", { maxRedirects: 0 });
 
