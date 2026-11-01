@@ -81,6 +81,10 @@ const server = http.createServer((request, response) => {
     });
   }
 
+  if (url.pathname === "/api/levels") {
+    return json(response, 200, { data: [] });
+  }
+
   if (url.pathname === "/api/calendar" && url.searchParams.get("type") === "version") {
     return json(response, 200, { data: [] });
   }
