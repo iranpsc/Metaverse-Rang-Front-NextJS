@@ -14,6 +14,7 @@ import {
   getAllCitizen,
   getAllLevels,
   getLangArray,
+  getFooterData,
   getLevelTabs,
   getMainFile,
   getSingleLevel,
@@ -447,5 +448,33 @@ describe('API failure handling and boundary cases', () => {
   it('returns the documented fallback when the API base URL is not configured', async () => {
     vi.stubEnv('NEXT_PUBLIC_API_BASE_URL', '');
     await expect(getAllCitizen(1)).resolves.toBeNull();
+  });
+});
+
+
+describe('footer translation action', () => {
+  beforeEach(() => {
+    vi.stubEnv('NEXT_PUBLIC_ADMIN_API_BASE_URL', ADMIN_API_URL);
+  });
+
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
+  it('returns the selected language dictionary for the footer', async () => {
+    await expect(getFooterData({ lang: 'ar' })).resolves.toMatchObject({
+      1457: 'ميتافيرس رنگ',
+      482: 'وصف تجريبي باللغة العربية',
+    });
+  });
+
+  it('returns an empty object when the language dictionary is unavailable', async () => {
+    server.use(
+      http.get(DICTIONARY_URL, () =>
+        HttpResponse.json({ message: 'Unavailable' }, { status: 503 }),
+      ),
+    );
+
+    await expect(getFooterData({ lang: 'ar' })).resolves.toEqual({});
   });
 });
