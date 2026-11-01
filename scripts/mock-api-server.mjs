@@ -43,6 +43,39 @@ const videoFixture = {
   views_count: 10,
 };
 
+const citizenFixture = {
+  id: "hm-123",
+  code: "HM-123",
+  name: "Sandbox Citizen",
+  kyc: { fname: "Sandbox", lname: "Citizen", birth_date: "2000-01-01", phone: "0000000000", email: "citizen@example.test", address: "Sandbox address" },
+  customs: { about: "A deterministic citizen profile used by isolated route tests.", occupation: "Tester", education: "Test data", loved_city: "Sandbox", loved_country: "Test", loved_language: "English" },
+  profilePhotos: [],
+  current_level: { slug: "1", name: "Citizen" },
+  achieved_levels: [],
+  level: { name: "Citizen" },
+  registered_at: "2026-01-01",
+  position: "Sandbox member",
+  score: 10,
+  score_percentage_to_next_level: "90",
+};
+
+const levelFixture = {
+  data: {
+    id: 1,
+    general_info: {
+      description: "Deterministic citizen level information for isolated tests.",
+      png_file: "/team.webp",
+    },
+  },
+};
+
+const levelTabFixture = {
+  data: {
+    description: "General information for the sandbox citizen level.",
+    png_file: "/team.webp",
+  },
+};
+
 const calendarEvents = [
   {
     id: 1,
@@ -112,8 +145,16 @@ const server = http.createServer((request, response) => {
     });
   }
 
+  if (url.pathname === "/api/levels/1") {
+    return json(response, 200, levelFixture);
+  }
+
+  if (url.pathname === "/api/levels/1/general-info") {
+    return json(response, 200, levelTabFixture);
+  }
+
   if (url.pathname === "/api/levels") {
-    return json(response, 200, { data: [] });
+    return json(response, 200, { data: [levelFixture.data] });
   }
 
   if (url.pathname === "/api/calendar") {
