@@ -18,7 +18,7 @@ describe('translation data actions', () => {
   it('returns the active language list from the admin API', async () => {
     const languages = await getLangArray();
 
-    expect(languages.map((language) => language.code)).toEqual(['fa', 'en', 'ar']);
+    expect(languages.map((language: { code: string }) => language.code)).toEqual(['fa', 'en', 'ar']);
   });
 
   it('returns an empty list when the language endpoint responds with an HTTP error', async () => {
