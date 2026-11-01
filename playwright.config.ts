@@ -45,6 +45,7 @@ export default defineConfig({
         env: {
           ...process.env,
           NODE_ENV: "development",
+          PLAYWRIGHT_E2E: "true",
           NEXT_PUBLIC_API_BASE_URL: mockApiURL,
           NEXT_PUBLIC_ADMIN_API_BASE_URL: mockApiURL,
           NEXT_PUBLIC_SUPABASE_URL: mockApiURL,
