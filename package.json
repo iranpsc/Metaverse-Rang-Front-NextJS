@@ -9,7 +9,9 @@
     "lint": "next lint",
     "release": "standard-version",
     "json": "json-server --watch db.json --port 3001",
-    "analyze": "ANALYZE=true next build --webpack"
+    "analyze": "ANALYZE=true next build --webpack",
+    "test:unit": "vitest run",
+    "test:unit:watch": "vitest"
   },
   "overrides": {
     "minimatch": "^9.0.6",
