@@ -23,7 +23,7 @@ const crawlCases = locales.flatMap((locale) =>
   publicRoutes.map((route) => ({
     locale,
     route,
-    url: \`/\${locale}\${route === "/" ? "" : route}\`,
+    url: "/" + locale + (route === "/" ? "" : route),
   })),
 );
 
@@ -88,11 +88,11 @@ test.describe("public platform route crawl @seo", () => {
 
     expect(
       serverErrors,
-      \`Server errors during public route crawl:\\n\${JSON.stringify(serverErrors, null, 2)}\`,
+      "Server errors during public route crawl:\n" + JSON.stringify(serverErrors, null, 2),
     ).toHaveLength(0);
     expect(
       missingTitles,
-      \`Pages without a title during public route crawl:\\n\${JSON.stringify(missingTitles, null, 2)}\`,
+      "Pages without a title during public route crawl:\n" + JSON.stringify(missingTitles, null, 2),
     ).toHaveLength(0);
   });
 });
