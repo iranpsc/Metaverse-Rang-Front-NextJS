@@ -76,6 +76,43 @@ const levelTabFixture = {
   },
 };
 
+const articleFixture = {
+  id: 1,
+  slug: "sample-article",
+  categorySlug: "general",
+  title: "Sandbox article",
+  description: "A deterministic article fixture for public route validation.",
+  content: "<p>Article content used by isolated end-to-end tests.</p>",
+  image: "/team.webp",
+  date: "2026-10-01",
+  category: "general",
+  subCategory: "general",
+  author: "Sandbox Author",
+};
+
+const newsFixture = {
+  id: 1,
+  slug: "sample-news",
+  categorySlug: "general",
+  title: "Sandbox news",
+  description: "A deterministic news fixture for public route validation.",
+  content: "<p>News content used by isolated end-to-end tests.</p>",
+  image: "/team.webp",
+  date: "2026-10-01",
+  category: "general",
+};
+
+const versionFixtures = [
+  {
+    id: 1,
+    title: "Sandbox release",
+    description: "Deterministic version entry for route tests.",
+    starts_at: "1405/08/10 12:00",
+    version_title: "1.0",
+    image_url: "/team.webp",
+  },
+];
+
 const calendarEvents = [
   {
     id: 1,
@@ -136,11 +173,12 @@ const server = http.createServer((request, response) => {
     return json(response, 200, dictionaries[dictionaryMatch[1]]);
   }
 
-  // Supabase/PostgREST is redirected to this local server in E2E mode.
-  // Return deterministic empty collections instead of contacting a real DB.
+  // Supabase/PostgREST receives deterministic published records in E2E mode.
   if (url.pathname === "/rest/v1/news" || url.pathname === "/rest/v1/articles") {
-    return json(response, 200, [], {
-      "content-range": "0-0/0",
+    const records = url.pathname.endsWith("/news") ? [newsFixture] : [articleFixture];
+    const singleRecord = request.headers.accept?.includes("application/vnd.pgrst.object+json");
+    return json(response, 200, singleRecord ? records[0] : records, {
+      "content-range": `0-${records.length - 1}/${records.length}`,
       "access-control-allow-origin": "*",
     });
   }
@@ -159,7 +197,7 @@ const server = http.createServer((request, response) => {
 
   if (url.pathname === "/api/calendar") {
     if (url.searchParams.get("type") === "version") {
-      return json(response, 200, { data: [] });
+      return json(response, 200, { data: versionFixtures });
     }
 
     if (url.searchParams.get("type") === "event") {
