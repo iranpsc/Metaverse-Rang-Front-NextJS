@@ -78,4 +78,19 @@ export const handlers = [
     const page = new URL(request.url).searchParams.get('page');
     return HttpResponse.json({ data: [{ id: 201, page }] });
   }),
+
+
+  http.get('https://dev-api.metarang.com/api/citizen/:id', ({ params }) =>
+    HttpResponse.json({ data: { id: params.id, display_name: 'Test Citizen' } }),
+  ),
+
+  http.get('https://dev-api.metarang.com/api/citizen/:id/referrals', ({ request, params }) => {
+    const search = new URL(request.url).searchParams.get('search');
+    return HttpResponse.json({ data: [{ id: 301, citizenId: params.id, search }] });
+  }),
+
+  http.get('https://dev-api.metarang.com/api/citizen/:id/referrals/chart', ({ request, params }) => {
+    const range = new URL(request.url).searchParams.get('range');
+    return HttpResponse.json({ data: [{ citizenId: params.id, range, count: 4 }] });
+  }),
 ];

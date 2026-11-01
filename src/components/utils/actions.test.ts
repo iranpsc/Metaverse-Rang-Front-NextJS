@@ -10,6 +10,9 @@ import {
   getMainFile,
   getSingleLevel,
   getTranslation,
+  getUserData,
+  getAllReferral,
+  getChartReferral,
 } from './actions';
 import { server } from '../../test/mocks/server';
 
@@ -133,5 +136,49 @@ describe('core API data actions', () => {
     await expect(getAllCategoryVideos(2)).resolves.toEqual([
       { id: 201, page: '2' },
     ]);
+  });
+});
+
+
+describe('citizen and referral API actions', () => {
+  beforeEach(() => {
+    vi.stubEnv('NEXT_PUBLIC_API_BASE_URL', 'https://dev-api.metarang.com');
+  });
+
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
+  it('loads citizen data using a normalized identifier', async () => {
+    await expect(getUserData('AbC-123')).resolves.toMatchObject({
+      data: { id: 'abc-123', display_name: 'Test Citizen' },
+    });
+  });
+
+  it('does not request citizen data for an invalid identifier', async () => {
+    await expect(getUserData('../private')).resolves.toMatchObject({
+      props: { error: expect.any(String) },
+    });
+  });
+
+  it('loads referrals with the requested search term', async () => {
+    await expect(getAllReferral('AbC-123', 'test user')).resolves.toMatchObject({
+      data: [{ id: 301, citizenId: 'AbC-123', search: 'test user' }],
+    });
+  });
+
+  it('loads referral chart data for the selected range', async () => {
+    await expect(getChartReferral('AbC-123', '30d')).resolves.toEqual([
+      { citizenId: 'AbC-123', range: '30d', count: 4 },
+    ]);
+  });
+
+  it('rejects invalid citizen identifiers before referral requests', async () => {
+    await expect(getAllReferral('../private')).resolves.toMatchObject({
+      props: { error: expect.any(String) },
+    });
+    await expect(getChartReferral('../private')).resolves.toMatchObject({
+      props: { error: expect.any(String) },
+    });
   });
 });
