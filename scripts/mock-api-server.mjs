@@ -30,10 +30,11 @@ const dictionaries = {
   ar: { 1457: "ميتافيرس رنگ", 482: "وصف تجريبي باللغة العربية" },
 };
 
-function json(response, status, body) {
+function json(response, status, body, extraHeaders = {}) {
   response.writeHead(status, {
     "content-type": "application/json; charset=utf-8",
     "cache-control": "no-store",
+    ...extraHeaders,
   });
   response.end(JSON.stringify(body));
 }
@@ -41,8 +42,17 @@ function json(response, status, body) {
 const server = http.createServer((request, response) => {
   const url = new URL(request.url || "/", `http://${host}:${port}`);
 
-  if (request.method !== "GET" && request.method !== "HEAD") {
+  if (request.method !== "GET" && request.method !== "HEAD" && request.method !== "OPTIONS") {
     return json(response, 405, { message: "Method not allowed" });
+  }
+
+  if (request.method === "OPTIONS" && url.pathname.startsWith("/rest/v1/")) {
+    response.writeHead(204, {
+      "access-control-allow-origin": "*",
+      "access-control-allow-methods": "GET,HEAD,POST,PATCH,DELETE,OPTIONS",
+      "access-control-allow-headers": "apikey,authorization,content-type,prefer",
+    });
+    return response.end();
   }
 
   if (url.pathname === "/health") {
@@ -60,6 +70,15 @@ const server = http.createServer((request, response) => {
   const dictionaryMatch = url.pathname.match(/^\/lang\/(fa|en|ar)\.json$/);
   if (dictionaryMatch) {
     return json(response, 200, dictionaries[dictionaryMatch[1]]);
+  }
+
+  // Supabase/PostgREST is redirected to this local server in E2E mode.
+  // Return deterministic empty collections instead of contacting a real DB.
+  if (url.pathname === "/rest/v1/news" || url.pathname === "/rest/v1/articles") {
+    return json(response, 200, [], {
+      "content-range": "0-0/0",
+      "access-control-allow-origin": "*",
+    });
   }
 
   if (url.pathname === "/api/calendar" && url.searchParams.get("type") === "version") {
