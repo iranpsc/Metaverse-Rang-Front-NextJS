@@ -106,6 +106,8 @@ test.describe("public platform route crawl @seo", () => {
         "Page must expose a non-empty meta description",
       ).not.toBe("");
       expect(body, "Response must contain rendered page markup").toMatch(/<body[\s>]/i);
+      expect(body, "Page must render a primary heading").toMatch(/<h1\b/i);
+      expect(body, "A fixture-backed public route must not resolve to a not-found state").not.toMatch(/صفحه یافت نشد|ویدئو یافت نشد|Page not found|Video not found/i);
       expect(
         body,
         "Page rendered the generic application error state",
