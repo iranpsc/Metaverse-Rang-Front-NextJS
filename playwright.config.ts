@@ -1,6 +1,7 @@
 import { defineConfig, devices } from "@playwright/test";
 
 const baseURL = process.env.PLAYWRIGHT_BASE_URL || "http://127.0.0.1:5175";
+const mockApiURL = "http://127.0.0.1:9999";
 
 export default defineConfig({
   testDir: "./tests/e2e",
@@ -26,7 +27,14 @@ export default defineConfig({
   ],
   webServer: process.env.PLAYWRIGHT_BASE_URL
     ? undefined
-    : {
+    : [
+      {
+        command: "node scripts/mock-api-server.mjs",
+        url: `${mockApiURL}/health`,
+        reuseExistingServer: !process.env.CI,
+        timeout: 30_000,
+      },
+      {
         command: "npm run dev",
         url: baseURL,
         reuseExistingServer: !process.env.CI,
@@ -34,8 +42,8 @@ export default defineConfig({
         env: {
           ...process.env,
           NODE_ENV: "development",
-          NEXT_PUBLIC_API_BASE_URL: "http://127.0.0.1:9999",
-          NEXT_PUBLIC_ADMIN_API_BASE_URL: "http://127.0.0.1:9999",
+          NEXT_PUBLIC_API_BASE_URL: mockApiURL,
+          NEXT_PUBLIC_ADMIN_API_BASE_URL: mockApiURL,
           INTERNAL_GO_SERVICE_URL: "http://127.0.0.1:9998",
           INTERNAL_SERVICE_KEY: "playwright-local-mock-key",
           CACHE_INVALIDATION_HMAC_SECRET: "playwright-local-mock-hmac-secret",
@@ -46,4 +54,5 @@ export default defineConfig({
           SMTP_PASS: "playwright",
         },
       },
+    ],
 });
