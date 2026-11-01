@@ -52,4 +52,30 @@ export const handlers = [
 
     return HttpResponse.json(dictionaries[language]);
   }),
+
+  http.get('https://dev-api.metarang.com/api/users', ({ request }) => {
+    const page = new URL(request.url).searchParams.get('page');
+    return HttpResponse.json({ data: [{ id: 101, page }] });
+  }),
+
+  http.get('https://dev-api.metarang.com/api/levels', () =>
+    HttpResponse.json({ data: [{ id: 1, name: 'Starter' }] }),
+  ),
+
+  http.get('https://dev-api.metarang.com/api/levels/:levelId/:tab', ({ params }) =>
+    HttpResponse.json({ data: { levelId: params.levelId, tab: params.tab } }),
+  ),
+
+  http.get('https://dev-api.metarang.com/api/levels/:levelId', ({ params }) =>
+    HttpResponse.json({ data: { id: params.levelId, name: 'Starter' } }),
+  ),
+
+  http.get('https://dev-api.metarang.com/api/tutorials/categories', () =>
+    HttpResponse.json({ data: [{ id: 5, slug: 'basics' }] }),
+  ),
+
+  http.get('https://dev-api.metarang.com/api/tutorials', ({ request }) => {
+    const page = new URL(request.url).searchParams.get('page');
+    return HttpResponse.json({ data: [{ id: 201, page }] });
+  }),
 ];

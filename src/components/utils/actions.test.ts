@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { http, HttpResponse } from 'msw';
-import { getLangArray, getTranslation, getMainFile } from './actions';
+import {\n  getAllCategories,\n  getAllCategoryVideos,\n  getAllCitizen,\n  getAllLevels,\n  getLangArray,\n  getLevelTabs,\n  getMainFile,\n  getSingleLevel,\n  getTranslation,\n} from './actions';
 import { server } from '../../test/mocks/server';
 
 const ADMIN_API_URL = 'https://dev-admin.metarang.com';
@@ -75,5 +75,53 @@ describe('translation data actions', () => {
     await expect(
       getMainFile({ code: 'ar', file_url: DICTIONARY_URL }),
     ).resolves.toBeNull();
+  });
+});
+
+
+describe('core API data actions', () => {
+  beforeEach(() => {
+    vi.stubEnv('NEXT_PUBLIC_API_BASE_URL', 'https://dev-api.metarang.com');
+  });
+
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
+  it('requests the requested citizens page', async () => {
+    await expect(getAllCitizen(3)).resolves.toMatchObject({
+      data: [{ id: 101, page: '3' }],
+    });
+  });
+
+  it('returns level data from the main API', async () => {
+    await expect(getAllLevels()).resolves.toEqual([
+      { id: 1, name: 'Starter' },
+    ]);
+  });
+
+  it('loads a single level and its selected tab', async () => {
+    await expect(getSingleLevel(7)).resolves.toMatchObject({
+      data: { id: '7', name: 'Starter' },
+    });
+
+    await expect(getLevelTabs({ tabs: 'general' }, 7)).resolves.toMatchObject({
+      data: { levelId: '7', tab: 'general' },
+    });
+  });
+
+  it('returns null for missing level parameters without making a request', async () => {
+    await expect(getSingleLevel('')).resolves.toBeNull();
+    await expect(getLevelTabs({ tabs: 'general' }, null)).resolves.toBeNull();
+  });
+
+  it('loads tutorial categories and paginated videos', async () => {
+    await expect(getAllCategories()).resolves.toEqual([
+      { id: 5, slug: 'basics' },
+    ]);
+
+    await expect(getAllCategoryVideos(2)).resolves.toEqual([
+      { id: 201, page: '2' },
+    ]);
   });
 });
