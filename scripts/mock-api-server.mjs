@@ -30,6 +30,19 @@ const dictionaries = {
   ar: { 1457: "ميتافيرس رنگ", 482: "وصف تجريبي باللغة العربية" },
 };
 
+const videoFixture = {
+  id: 1,
+  slug: "1",
+  title: "Sandbox tutorial video",
+  description: "Deterministic tutorial content used by isolated end-to-end tests.",
+  image_url: "/team.webp",
+  upload_date: "2026-10-01",
+  creator: { name: "Sandbox Creator", code: "TEST-1" },
+  likes_count: 2,
+  dislikes_count: 0,
+  views_count: 10,
+};
+
 const calendarEvents = [
   {
     id: 1,
@@ -132,7 +145,19 @@ const server = http.createServer((request, response) => {
   }
 
   if (url.pathname === "/api/tutorials") {
+    return json(response, 200, { data: [videoFixture] });
+  }
+
+  if (url.pathname === "/api/tutorials/1") {
+    return json(response, 200, { data: videoFixture });
+  }
+
+  if (url.pathname === "/api/tutorials/1/comments") {
     return json(response, 200, { data: [] });
+  }
+
+  if (url.pathname === "/api/tutorials/categories/general/basics") {
+    return json(response, 200, { data: { videos: [videoFixture] } });
   }
 
   return json(response, 404, { message: "No mock route configured", path: url.pathname });
