@@ -24,9 +24,13 @@ For isolated local setup, copy `.env.example` to `.env.local`. Keep real product
 
 ## Isolation behavior
 
-By default, Playwright starts two local processes: a deterministic mock API on `127.0.0.1:9999` and the Next.js development server on `127.0.0.1:5175`. The mock API serves the language list, local `fa`/`en`/`ar` dictionaries, and the small set of home-page endpoints needed during server rendering. The Next.js test process points both public API base URLs to this mock server and receives mock-only internal credentials. No Go service or production API credentials are required for this setup.
+By default, Playwright starts two dedicated local processes: a deterministic mock API on `127.0.0.1:9999` and the Next.js development server on `127.0.0.1:5175`. It never reuses an already-running process, because that process could have inherited real API credentials or production endpoints.
 
-To test an already-running instance, set `PLAYWRIGHT_BASE_URL` to its base URL. In that mode Playwright does not start another web server.
+The mock API serves the language list, local `fa`/`en`/`ar` dictionaries, the home-page API endpoints, and empty PostgREST responses for the `news` and `articles` tables. In E2E mode, both public API base URLs and the Supabase URL are explicitly redirected to the local mock server; all credentials are dummy values. No Go service, Supabase project, production API, or production credentials are required.
+
+Unknown mock routes return HTTP 404 instead of silently forwarding requests elsewhere. This makes missing fixtures visible during test runs.
+
+To test an already-running instance, set `PLAYWRIGHT_BASE_URL` explicitly. This opt-in mode bypasses the managed local servers and is not an isolated test run; only use it when the target instance is itself a disposable test environment.
 
 ## Current scope and limitations
 
