@@ -10,9 +10,9 @@
     "release": "standard-version",
     "json": "json-server --watch db.json --port 3001",
     "analyze": "ANALYZE=true next build --webpack",
-    "test:unit": "vitest run --reporter=verbose",
+    "test:unit": "vitest run --reporter=./scripts/vitest-checklist-reporter.mjs",
     "test:unit:watch": "vitest",
-    "test:unit:report": "vitest run --reporter=verbose"
+    "test:unit:report": "vitest run --reporter=./scripts/vitest-checklist-reporter.mjs"
   },
   "overrides": {
     "minimatch": "^9.0.6",
