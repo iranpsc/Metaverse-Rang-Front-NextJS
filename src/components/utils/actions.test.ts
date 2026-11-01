@@ -58,6 +58,30 @@ describe('translation data actions', () => {
     await expect(getLangArray()).resolves.toEqual([]);
   });
 
+  it('returns an empty list when the language API payload has no data array', async () => {
+    server.use(
+      http.get(`${ADMIN_API_URL}/api/translations`, () =>
+        HttpResponse.json({ success: true }),
+      ),
+    );
+
+    await expect(getLangArray()).resolves.toEqual([]);
+  });
+
+  it('uses the Persian fallback when the active language list is empty', async () => {
+    server.use(
+      http.get(`${ADMIN_API_URL}/api/translations`, () =>
+        HttpResponse.json({ data: [] }),
+      ),
+    );
+
+    await expect(getTranslation('ar')).resolves.toMatchObject({
+      code: 'fa',
+      file_url: 'https://rgb.irpsc.com/lang/fa.json',
+      direction: 'rtl',
+    });
+  });
+
   it('selects the requested language from the API response', async () => {
     await expect(getTranslation('ar')).resolves.toMatchObject({
       code: 'ar',
