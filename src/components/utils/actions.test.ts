@@ -1,5 +1,13 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { http, HttpResponse } from 'msw';
+
+const { cookiesMock } = vi.hoisted(() => ({
+  cookiesMock: vi.fn(),
+}));
+
+vi.mock('next/headers', () => ({
+  cookies: cookiesMock,
+}));
 import {
   getAllCategories,
   getAllCategoryVideos,
@@ -17,6 +25,7 @@ import {
   getEducationSingleCategory,
   getSubcategoryData,
   getVideoComments,
+  getSingleVideoData,
 } from './actions';
 import { server } from '../../test/mocks/server';
 
@@ -228,5 +237,111 @@ describe('calendar and tutorial detail API actions', () => {
     await expect(getVideoComments('video-123')).resolves.toEqual({
       data: [{ videoId: 'video-123', page: '1' }],
     });
+  });
+});
+
+
+describe('authenticated tutorial video action', () => {
+  beforeEach(() => {
+    vi.stubEnv('NEXT_PUBLIC_API_BASE_URL', 'https://dev-api.metarang.com');
+    cookiesMock.mockResolvedValue({ get: vi.fn().mockReturnValue(undefined) });
+  });
+
+  afterEach(() => {
+    vi.unstubAllEnvs();
+    cookiesMock.mockReset();
+  });
+
+  it('loads video data without an Authorization header when auth cookie is absent', async () => {
+    let authorization: string | null = 'unexpected';
+    server.use(
+      http.get('https://dev-api.metarang.com/api/tutorials/:slug', ({ request }) => {
+        authorization = request.headers.get('authorization');
+        return HttpResponse.json({ data: { slug: 'video-123', likes_count: 4 } });
+      }),
+    );
+
+    await expect(getSingleVideoData('video-123')).resolves.toEqual({
+      slug: 'video-123',
+      likes_count: 4,
+    });
+    expect(authorization).toBeNull();
+  });
+
+  it('extracts a token from the auth cookie and sends a Bearer token', async () => {
+    cookiesMock.mockResolvedValue({
+      get: vi.fn().mockReturnValue({ value: 'session=abc&token=secure-token&other=value' }),
+    });
+    let authorization: string | null = null;
+    server.use(
+      http.get('https://dev-api.metarang.com/api/tutorials/:slug', ({ request }) => {
+        authorization = request.headers.get('authorization');
+        return HttpResponse.json({ data: { slug: 'video-123', user_interaction: 'liked' } });
+      }),
+    );
+
+    await expect(getSingleVideoData('video-123')).resolves.toEqual({
+      slug: 'video-123',
+      user_interaction: 'liked',
+    });
+    expect(authorization).toBe('Bearer secure-token');
+  });
+
+  it('does not send an Authorization header when the auth cookie has no token', async () => {
+    cookiesMock.mockResolvedValue({
+      get: vi.fn().mockReturnValue({ value: 'session=abc&theme=dark' }),
+    });
+    let authorization: string | null = 'unexpected';
+    server.use(
+      http.get('https://dev-api.metarang.com/api/tutorials/:slug', ({ request }) => {
+        authorization = request.headers.get('authorization');
+        return HttpResponse.json({ data: { slug: 'video-123' } });
+      }),
+    );
+
+    await expect(getSingleVideoData('video-123')).resolves.toEqual({ slug: 'video-123' });
+    expect(authorization).toBeNull();
+  });
+
+  it.each(['', '../private', 'video/123', 'video?admin=true', 'video slug'])(
+    'does not make a request for an invalid video slug: %s',
+    async (slug) => {
+      const requestSpy = vi.fn();
+      server.use(
+        http.get('https://dev-api.metarang.com/api/tutorials/:slug', () => {
+          requestSpy();
+          return HttpResponse.json({ data: {} });
+        }),
+      );
+
+      await expect(getSingleVideoData(slug)).resolves.toBeNull();
+      expect(requestSpy).not.toHaveBeenCalled();
+    },
+  );
+
+  it.each([401, 403, 404, 500, 503])(
+    'returns null when the video API responds with HTTP %i',
+    async (status) => {
+      server.use(
+        http.get('https://dev-api.metarang.com/api/tutorials/:slug', () =>
+          HttpResponse.json({ message: 'Request failed' }, { status }),
+        ),
+      );
+
+      await expect(getSingleVideoData('video-123')).resolves.toBeNull();
+    },
+  );
+
+  it('returns null when the video API responds with malformed JSON', async () => {
+    server.use(
+      http.get('https://dev-api.metarang.com/api/tutorials/:slug', () =>
+        new HttpResponse('{invalid-json', {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        }),
+      ),
+    );
+
+    await expect(getSingleVideoData('video-123')).resolves.toBeNull();
   });
 });
