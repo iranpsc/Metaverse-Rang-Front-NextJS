@@ -30,6 +30,24 @@ const dictionaries = {
   ar: { 1457: "ميتافيرس رنگ", 482: "وصف تجريبي باللغة العربية" },
 };
 
+const calendarEvents = [
+  {
+    id: 1,
+    title: "Sandbox calendar event",
+    description: "Deterministic event data used by isolated calendar tests.",
+    starts_at: "1405/08/10 12:00",
+    ends_at: "1405/08/10 13:00",
+    btn_link: "/fa/calendar/1",
+    btn_name: "View event",
+    color: "#336699",
+    dislikes: 0,
+    likes: 3,
+    image: "/team.webp",
+    views: 12,
+    user_interaction: null,
+  },
+];
+
 function json(response, status, body, extraHeaders = {}) {
   response.writeHead(status, {
     "content-type": "application/json; charset=utf-8",
@@ -85,8 +103,24 @@ const server = http.createServer((request, response) => {
     return json(response, 200, { data: [] });
   }
 
-  if (url.pathname === "/api/calendar" && url.searchParams.get("type") === "version") {
-    return json(response, 200, { data: [] });
+  if (url.pathname === "/api/calendar") {
+    if (url.searchParams.get("type") === "version") {
+      return json(response, 200, { data: [] });
+    }
+
+    if (url.searchParams.get("type") === "event") {
+      return json(response, 200, { data: calendarEvents });
+    }
+
+    return json(response, 200, { data: calendarEvents });
+  }
+
+  const calendarEventMatch = url.pathname.match(/^\\/api\\/calendar\\/(\\d+)$/);
+  if (calendarEventMatch) {
+    const event = calendarEvents.find(({ id }) => id === Number(calendarEventMatch[1]));
+    return event
+      ? json(response, 200, { data: event })
+      : json(response, 404, { message: "Calendar event not found" });
   }
 
   if (url.pathname === "/api/users") {
