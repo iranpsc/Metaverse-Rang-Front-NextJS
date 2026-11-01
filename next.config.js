@@ -1,4 +1,3 @@
-
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
@@ -79,7 +78,6 @@ const nextConfig = {
         ],
       },
 
-      // Static first-page assets
       {
         source: "/firstpage/:path*",
         headers: [
@@ -112,6 +110,9 @@ const nextConfig = {
   },
 
   images: {
+    // In E2E mode, avoid Next's server-side image optimizer fetching remote
+    // production assets. The browser test blocks all non-loopback requests.
+    unoptimized: process.env.PLAYWRIGHT_E2E === "true",
     deviceSizes: [320, 480, 640, 768, 1024, 1280, 1536],
     imageSizes: [16, 32, 64, 128, 256, 384, 512, 540, 600],
     qualities: [25, 50, 75],
@@ -146,4 +147,3 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 });
 
 module.exports = withBundleAnalyzer(nextConfig);
-
