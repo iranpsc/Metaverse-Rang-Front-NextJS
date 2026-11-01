@@ -24,6 +24,8 @@ jobs:
       CI: true
       NEXT_PUBLIC_API_BASE_URL: http://127.0.0.1:9999
       NEXT_PUBLIC_ADMIN_API_BASE_URL: http://127.0.0.1:9999
+      NEXT_PUBLIC_SUPABASE_URL: http://127.0.0.1:9999
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: ci-mock-supabase-anon-key
       INTERNAL_GO_SERVICE_URL: http://127.0.0.1:9998
       INTERNAL_SERVICE_KEY: ci-mock-internal-service-key
       CACHE_INVALIDATION_HMAC_SECRET: ci-mock-hmac-secret
