@@ -46,3 +46,8 @@ next-env.d.ts
 
 
 analyze/
+
+# Playwright
+/test-results/
+/playwright-report/
+/playwright/.cache/
