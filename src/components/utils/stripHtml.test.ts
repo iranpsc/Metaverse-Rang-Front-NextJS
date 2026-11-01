@@ -13,7 +13,7 @@ describe('stripHtml', () => {
   });
 
   it('decodes the supported HTML entities', () => {
-    expect(stripHtml('&nbsp;A &lt; B &gt; C &quot;D&quot; &#39;E&#39; &apos;F&apos;')).toBe('A < B > C "D" 'E' 'F'');
+    expect(stripHtml('&nbsp;A &lt; B &gt; C &quot;D&quot; &#39;E&#39; &apos;F&apos;')).toBe("A < B > C \"D\" 'E' 'F'");
   });
 
   it('decodes nested ampersand entities only once', () => {
