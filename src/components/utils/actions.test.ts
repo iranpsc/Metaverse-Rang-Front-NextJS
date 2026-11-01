@@ -13,6 +13,10 @@ import {
   getUserData,
   getAllReferral,
   getChartReferral,
+  getAllVersions,
+  getEducationSingleCategory,
+  getSubcategoryData,
+  getVideoComments,
 } from './actions';
 import { server } from '../../test/mocks/server';
 
@@ -179,6 +183,50 @@ describe('citizen and referral API actions', () => {
     });
     await expect(getChartReferral('../private')).resolves.toMatchObject({
       props: { error: expect.any(String) },
+    });
+  });
+});
+
+
+describe('calendar and tutorial detail API actions', () => {
+  beforeEach(() => {
+    vi.stubEnv('NEXT_PUBLIC_API_BASE_URL', 'https://dev-api.metarang.com');
+  });
+
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
+  it('loads calendar versions', async () => {
+    await expect(getAllVersions()).resolves.toEqual([
+      { id: 401, type: 'version' },
+    ]);
+  });
+
+  it('loads a tutorial category and returns null for an invalid slug', async () => {
+    await expect(getEducationSingleCategory('basics')).resolves.toEqual({
+      slug: 'basics',
+      title: 'Basics',
+    });
+    await expect(getEducationSingleCategory('../private')).resolves.toBeNull();
+  });
+
+  it('loads a tutorial subcategory', async () => {
+    await expect(getSubcategoryData('basics', 'intro')).resolves.toEqual({
+      category: 'basics',
+      subcategory: 'intro',
+    });
+  });
+
+  it('rejects invalid tutorial subcategory parameters', async () => {
+    await expect(getSubcategoryData('../private', 'intro')).rejects.toThrow(
+      'Invalid category or subcategory',
+    );
+  });
+
+  it('loads comments for a video', async () => {
+    await expect(getVideoComments('video-123')).resolves.toEqual({
+      data: [{ videoId: 'video-123', page: '1' }],
     });
   });
 });

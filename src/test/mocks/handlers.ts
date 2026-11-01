@@ -93,4 +93,23 @@ export const handlers = [
     const range = new URL(request.url).searchParams.get('range');
     return HttpResponse.json({ data: [{ citizenId: params.id, range, count: 4 }] });
   }),
+
+
+  http.get('https://dev-api.metarang.com/api/calendar', ({ request }) => {
+    const type = new URL(request.url).searchParams.get('type');
+    return HttpResponse.json({ data: [{ id: 401, type }] });
+  }),
+
+  http.get('https://dev-api.metarang.com/api/tutorials/categories/:category/:subcategory', ({ params }) =>
+    HttpResponse.json({ data: { category: params.category, subcategory: params.subcategory } }),
+  ),
+
+  http.get('https://dev-api.metarang.com/api/tutorials/categories/:category', ({ params }) =>
+    HttpResponse.json({ data: { slug: params.category, title: 'Basics' } }),
+  ),
+
+  http.get('https://dev-api.metarang.com/api/tutorials/:videoId/comments', ({ request, params }) => {
+    const page = new URL(request.url).searchParams.get('page');
+    return HttpResponse.json({ data: [{ videoId: params.videoId, page }] });
+  }),
 ];
