@@ -182,7 +182,7 @@ const server = http.createServer((request, response) => {
   }
 
   if (/^\/api\/citizen\/[^/]+$/.test(url.pathname)) {
-    return json(response, 200, { data: null });
+    return json(response, 200, { data: citizenFixture });
   }
 
   if (url.pathname === "/api/tutorials") {
