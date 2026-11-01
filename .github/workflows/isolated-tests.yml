@@ -1,6 +1,9 @@
 name: Isolated Test Suite
 
 on:
+  push:
+    branches:
+      - feat/phase-1-isolated-test-infrastructure
   pull_request:
     branches:
       - dev
