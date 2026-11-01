@@ -12,7 +12,13 @@
     "analyze": "ANALYZE=true next build --webpack",
     "test:unit": "vitest run --reporter=./scripts/vitest-checklist-reporter.mjs",
     "test:unit:watch": "vitest",
-    "test:unit:report": "vitest run --reporter=./scripts/vitest-checklist-reporter.mjs"
+    "test:unit:report": "vitest run --reporter=./scripts/vitest-checklist-reporter.mjs",
+    "test:integration": "vitest run src/app --reporter=./scripts/vitest-checklist-reporter.mjs",
+    "test:e2e": "playwright test",
+    "test:seo": "playwright test --grep @seo",
+    "test:security": "playwright test --grep @security",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:install": "playwright install chromium"
   },
   "overrides": {
     "minimatch": "^9.0.6",
