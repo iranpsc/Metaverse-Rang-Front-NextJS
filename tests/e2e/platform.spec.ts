@@ -1,5 +1,41 @@
 import { expect, test } from "@playwright/test";
 
+const mockApiURL = "http://127.0.0.1:9999";
+
+test.describe("isolated mock services", () => {
+  test("mock API health endpoint is available", async ({ request }) => {
+    const response = await request.get(`${mockApiURL}/health`);
+
+    expect(response.status()).toBe(200);
+    expect(await response.text()).toBe("ok");
+  });
+
+  test("translation API and dictionaries are served locally", async ({ request }) => {
+    const languagesResponse = await request.get(`${mockApiURL}/api/translations?active=true`);
+
+    expect(languagesResponse.status()).toBe(200);
+    const languages = await languagesResponse.json();
+    expect(languages.data.map((language: { code: string }) => language.code)).toEqual([
+      "fa",
+      "en",
+      "ar",
+    ]);
+
+    const dictionaryResponse = await request.get(`${mockApiURL}/lang/fa.json`);
+    expect(dictionaryResponse.status()).toBe(200);
+    expect((await dictionaryResponse.json())["1457"]).toBe("متاورس رنگ");
+  });
+
+  test("Supabase tables return local deterministic fixtures", async ({ request }) => {
+    for (const table of ["news", "articles"]) {
+      const response = await request.get(`${mockApiURL}/rest/v1/${table}?select=*&limit=1`);
+
+      expect(response.status()).toBe(200);
+      expect(await response.json()).toEqual([]);
+    }
+  });
+});
+
 test.describe("platform entry points", () => {
   test("root URL permanently or temporarily redirects to the default locale", async ({ request }) => {
     const response = await request.get("/", { maxRedirects: 0 });
