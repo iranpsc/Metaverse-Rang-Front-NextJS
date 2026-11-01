@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { http, HttpResponse } from 'msw';
 import { getLangArray, getTranslation, getMainFile } from './actions';
-import { server } from '@/test/mocks/server';
+import { server } from '../../test/mocks/server';
 
 const ADMIN_API_URL = 'https://dev-admin.metarang.com';
 const DICTIONARY_URL = 'https://rgb.irpsc.com/lang/ar.json';
