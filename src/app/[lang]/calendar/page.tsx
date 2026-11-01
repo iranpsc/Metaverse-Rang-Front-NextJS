@@ -6,7 +6,7 @@ import {
 } from "@/components/utils/actions";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import EventsCalendarClient from "@/components/templates/envent/EventCalendarClient";
-import { mapEvents, MappedEventItem } from "@/utils/mapEvents";
+import { mapEvents, MappedEventItem, EventItem } from "@/utils/mapEvents";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
@@ -100,7 +100,7 @@ async function fetchPublicEvents(): Promise<MappedEventItem[]> {
       throw new TypeError("Invalid calendar API response: expected data to be an events array");
     }
 
-    return mapEvents((data as { data: MappedEventItem[] }).data as any);
+    return mapEvents((data as { data: EventItem[] }).data);
   } catch (e) {
     console.error("❌ Error fetching public events for SEO:", e);
     return [];
