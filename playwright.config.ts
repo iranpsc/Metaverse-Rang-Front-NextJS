@@ -8,7 +8,8 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: Boolean(process.env.CI),
   retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 2 : undefined,
+  // Keep the local Next.js server and mock API within a predictable load.
+  workers: 2,
   reporter: process.env.CI ? [["list"], ["html", { open: "never" }]] : "list",
   timeout: 30_000,
   expect: { timeout: 7_500 },
