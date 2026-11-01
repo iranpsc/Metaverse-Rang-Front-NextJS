@@ -137,9 +137,24 @@ function buildEventSchema(selectedEvent: MappedEventItem ) {
 // 📌 Fetch single event
 async function getEvent(id: string): Promise<MappedEventItem> {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/calendar/${id}`, { next: { revalidate: 3600 } });
-  if (!res.ok) throw new Error("Failed to fetch event");
-  const json = await res.json();
-  return mapEvents([json.data])[0];
+  if (!res.ok) {
+    throw new Error(`Calendar event request failed with HTTP ${res.status}`);
+  }
+
+  const json: unknown = await res.json();
+  const event = json && typeof json === "object"
+    ? (json as { data?: unknown }).data
+    : undefined;
+
+  if (!event || typeof event !== "object" || Array.isArray(event)) {
+    throw new TypeError(`Invalid calendar API response for event ${id}: expected an event object`);
+  }
+
+  const mapped = mapEvents([event as MappedEventItem]);
+  if (!mapped[0]) {
+    throw new TypeError(`Calendar API returned no event for id ${id}`);
+  }
+  return mapped[0];
 }
 
 // 📌 Fetch all events
