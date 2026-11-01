@@ -115,7 +115,7 @@ const server = http.createServer((request, response) => {
     return json(response, 200, { data: calendarEvents });
   }
 
-  const calendarEventMatch = url.pathname.match(/^\\/api\\/calendar\\/(\\d+)$/);
+  const calendarEventMatch = url.pathname.match(/^\/api\/calendar\/(\d+)$/);
   if (calendarEventMatch) {
     const event = calendarEvents.find(({ id }) => id === Number(calendarEventMatch[1]));
     return event
