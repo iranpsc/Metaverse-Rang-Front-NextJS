@@ -10,8 +10,10 @@
     "release": "standard-version",
     "json": "json-server --watch db.json --port 3001",
     "analyze": "ANALYZE=true next build --webpack",
-    "test:unit": "vitest run",
-    "test:unit:watch": "vitest"
+    "test:unit": "vitest run --reporter=verbose",
+    "test:unit:watch": "vitest",
+    "test:unit:report": "vitest run --reporter=verbose",
+    "test:unit:coverage": "vitest run --coverage --reporter=verbose"
   },
   "overrides": {
     "minimatch": "^9.0.6",
