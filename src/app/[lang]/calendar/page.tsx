@@ -91,8 +91,16 @@ async function fetchPublicEvents(): Promise<MappedEventItem[]> {
         next: { revalidate: 60 },
       }
     );
-    const data = await res.json();
-    return mapEvents(data.data);
+    if (!res.ok) {
+      throw new Error(`Calendar API request failed with HTTP ${res.status}`);
+    }
+
+    const data: unknown = await res.json();
+    if (!data || typeof data !== "object" || !Array.isArray((data as { data?: unknown }).data)) {
+      throw new TypeError("Invalid calendar API response: expected data to be an events array");
+    }
+
+    return mapEvents((data as { data: MappedEventItem[] }).data as any);
   } catch (e) {
     console.error("❌ Error fetching public events for SEO:", e);
     return [];
