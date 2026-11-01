@@ -5,7 +5,7 @@ import {
   getMainFile,
 } from "@/components/utils/actions";
 import BreadCrumb from "@/components/shared/BreadCrumb";
-import { mapEvents, MappedEventItem } from "@/utils/mapEvents";
+import { mapEvents, MappedEventItem, EventItem } from "@/utils/mapEvents";
 import SingleEventCalendarClient from "@/components/templates/envent/SingleEventCalendarClient";
 // import htmlTruncate from "html-truncate";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
@@ -150,7 +150,7 @@ async function getEvent(id: string): Promise<MappedEventItem> {
     throw new TypeError(`Invalid calendar API response for event ${id}: expected an event object`);
   }
 
-  const mapped = mapEvents([event as MappedEventItem]);
+  const mapped = mapEvents([event as EventItem]);
   if (!mapped[0]) {
     throw new TypeError(`Calendar API returned no event for id ${id}`);
   }
