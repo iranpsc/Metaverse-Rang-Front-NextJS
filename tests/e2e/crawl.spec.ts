@@ -27,7 +27,7 @@ const publicRoutes = [
   "/education/category/general/basics/1",
   "/enamad",
   "/levels/citizen",
-  "/levels/citizen/starter/general-info",
+  "/levels/citizen/citizen-baguette/general-info",
   "/news",
   "/news/categories",
   "/news/categories/general",
