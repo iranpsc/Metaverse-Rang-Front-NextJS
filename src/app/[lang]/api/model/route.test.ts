@@ -79,9 +79,9 @@ describe("GET /api/model", () => {
     const query = new URLSearchParams({ type: "bin", url: BASE + "/model.bin" }).toString();
 
     const response = await GET(makeRequest(query, "bytes=0-6"));
-    const passedHeaders = fetchMock.mock.calls[0][1].headers as Headers;
+    const passedHeaders = new Headers(fetchMock.mock.calls[0][1].headers);
 
-    expect(passedHeaders.Range).toBe("bytes=0-6");
+    expect(passedHeaders.get("Range")).toBe("bytes=0-6");
     expect(response.status).toBe(206);
     expect(response.headers.get("Content-Range")).toBe("bytes 0-6/20");
     expect(response.headers.get("Access-Control-Expose-Headers")).toContain("Content-Range");
