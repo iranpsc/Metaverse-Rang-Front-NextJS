@@ -345,3 +345,107 @@ describe('authenticated tutorial video action', () => {
     await expect(getSingleVideoData('video-123')).resolves.toBeNull();
   });
 });
+
+
+describe('API failure handling and boundary cases', () => {
+  beforeEach(() => {
+    vi.stubEnv('NEXT_PUBLIC_API_BASE_URL', 'https://dev-api.metarang.com');
+  });
+
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
+  it('returns null when the citizens endpoint responds with an HTTP error', async () => {
+    server.use(
+      http.get('https://dev-api.metarang.com/api/users', () =>
+        HttpResponse.json({ message: 'Unavailable' }, { status: 503 }),
+      ),
+    );
+    await expect(getAllCitizen(1)).resolves.toBeNull();
+  });
+
+  it('returns an empty list when the levels endpoint responds with an HTTP error', async () => {
+    server.use(
+      http.get('https://dev-api.metarang.com/api/levels', () =>
+        HttpResponse.json({ message: 'Unavailable' }, { status: 500 }),
+      ),
+    );
+    await expect(getAllLevels()).resolves.toEqual([]);
+  });
+
+  it.each([404, 500, 503])(
+    'returns null for a single-level request that responds with HTTP %i',
+    async (status) => {
+      server.use(
+        http.get('https://dev-api.metarang.com/api/levels/:levelId', () =>
+          HttpResponse.json({ message: 'Unavailable' }, { status }),
+        ),
+      );
+      await expect(getSingleLevel(999)).resolves.toBeNull();
+    },
+  );
+
+  it('returns null for a missing level tab and does not retry an HTTP 503', async () => {
+    let requestCount = 0;
+    server.use(
+      http.get('https://dev-api.metarang.com/api/levels/:levelId/:tab', () => {
+        requestCount += 1;
+        return HttpResponse.json({ message: 'Unavailable' }, { status: 503 });
+      }),
+    );
+
+    await expect(getLevelTabs({ tabs: 'general' }, 7)).resolves.toBeNull();
+    expect(requestCount).toBe(1);
+  });
+
+  it('returns an empty list when the tutorial categories endpoint fails', async () => {
+    server.use(
+      http.get('https://dev-api.metarang.com/api/tutorials/categories', () =>
+        HttpResponse.json({ message: 'Unavailable' }, { status: 502 }),
+      ),
+    );
+    await expect(getAllCategories()).resolves.toEqual([]);
+  });
+
+  it('returns an empty list when the paginated tutorial endpoint fails', async () => {
+    server.use(
+      http.get('https://dev-api.metarang.com/api/tutorials', () =>
+        HttpResponse.json({ message: 'Unavailable' }, { status: 500 }),
+      ),
+    );
+    await expect(getAllCategoryVideos(1)).resolves.toEqual([]);
+  });
+
+  it('returns null when a tutorial category does not exist', async () => {
+    server.use(
+      http.get('https://dev-api.metarang.com/api/tutorials/categories/:category', () =>
+        HttpResponse.json({ message: 'Not found' }, { status: 404 }),
+      ),
+    );
+    await expect(getEducationSingleCategory('missing')).resolves.toBeNull();
+  });
+
+  it('returns null when a tutorial subcategory request fails', async () => {
+    server.use(
+      http.get('https://dev-api.metarang.com/api/tutorials/categories/:category/:subcategory', () =>
+        HttpResponse.json({ message: 'Unavailable' }, { status: 503 }),
+      ),
+    );
+    await expect(getSubcategoryData('basics', 'missing')).resolves.toBeNull();
+  });
+
+  it('returns null when video comments cannot be loaded', async () => {
+    server.use(
+      http.get('https://dev-api.metarang.com/api/tutorials/:videoId/comments', () =>
+        HttpResponse.json({ message: 'Unavailable' }, { status: 500 }),
+      ),
+    );
+    await expect(getVideoComments('video-123')).resolves.toBeNull();
+  });
+
+  it('returns the documented fallback when the API base URL is not configured', async () => {
+    vi.stubEnv('NEXT_PUBLIC_API_BASE_URL', '');
+    await expect(getAllCitizen(1)).resolves.toBeNull();
+  });
+});
