@@ -1,6 +1,16 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { http, HttpResponse } from 'msw';
-import {\n  getAllCategories,\n  getAllCategoryVideos,\n  getAllCitizen,\n  getAllLevels,\n  getLangArray,\n  getLevelTabs,\n  getMainFile,\n  getSingleLevel,\n  getTranslation,\n} from './actions';
+import {
+  getAllCategories,
+  getAllCategoryVideos,
+  getAllCitizen,
+  getAllLevels,
+  getLangArray,
+  getLevelTabs,
+  getMainFile,
+  getSingleLevel,
+  getTranslation,
+} from './actions';
 import { server } from '../../test/mocks/server';
 
 const ADMIN_API_URL = 'https://dev-admin.metarang.com';
