@@ -4,7 +4,7 @@ This repository uses Vitest, React Testing Library, MSW, and Playwright.
 
 ## Prerequisites
 
-- Node.js compatible with the Next.js version declared in `package.json`
+- Node.js 22 or newer (the repository declares `engines.node: >=22.0.0`; `.nvmrc` is set to `22`)
 - npm dependencies installed with `npm ci`
 - Chromium installed for browser tests: `npm run test:e2e:install`
 
@@ -24,7 +24,7 @@ For isolated local setup, copy `.env.example` to `.env.local`. Keep real product
 
 ## Isolation behavior
 
-By default, Playwright starts the Next.js development server on `127.0.0.1:5175`. Its test-server environment points public API URLs to local non-production addresses and supplies mock-only internal credentials. The initial browser checks intentionally target static/public entry points so they do not require a running Go service or production API credentials.
+By default, Playwright starts two local processes: a deterministic mock API on `127.0.0.1:9999` and the Next.js development server on `127.0.0.1:5175`. The mock API serves the language list, local `fa`/`en`/`ar` dictionaries, and the small set of home-page endpoints needed during server rendering. The Next.js test process points both public API base URLs to this mock server and receives mock-only internal credentials. No Go service or production API credentials are required for this setup.
 
 To test an already-running instance, set `PLAYWRIGHT_BASE_URL` to its base URL. In that mode Playwright does not start another web server.
 
