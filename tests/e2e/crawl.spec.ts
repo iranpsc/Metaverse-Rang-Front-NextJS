@@ -4,8 +4,7 @@ const translationAdminApiURL = "https://dev-admin.metarang.com";
 
 /**
  * Static public routes discovered from page.tsx files under src/app/[lang].
- * Dynamic-segment routes (for example [id], [slug], [category]) are
- * intentionally excluded until their API fixtures and scenarios are ready.
+ * Dynamic-segment routes are excluded until their fixtures and scenarios are ready.
  */
 const staticPublicRoutes = [
   "/",
@@ -32,11 +31,16 @@ type ApiLanguage = {
   name?: string;
 };
 
+type CrawlFailure = {
+  locale: string;
+  route: string;
+  stage: "translation-dictionary" | "page-crawl";
+  reason: string;
+};
+
 async function getApiLanguages(request: {
   get: (url: string) => Promise<{
-    ok: () => boolean;
     status: () => number;
-    headers: () => Record<string, string>;
     json: () => Promise<unknown>;
   }>;
 }): Promise<ApiLanguage[]> {
@@ -50,32 +54,75 @@ async function getApiLanguages(request: {
   expect(languages.length, "At least one active language must be available").toBeGreaterThan(0);
 
   for (const language of languages) {
-    expect(language.code, "Every API language must have a code").toMatch(/^[A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*$/);
+    expect(language.code, "Every API language must have a valid code").toMatch(
+      /^[A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*$/,
+    );
     expect(language.file_url, `Language ${language.code} must expose file_url`).toBeTruthy();
-
-    const dictionaryResponse = await request.get(language.file_url);
-    expect(dictionaryResponse.status(), `Translation dictionary for ${language.code} must be reachable`).toBe(200);
-    expect(dictionaryResponse.headers()["content-type"] || "").toContain("application/json");
-    const dictionary = await dictionaryResponse.json();
-    expect(dictionary && typeof dictionary === "object" && !Array.isArray(dictionary)).toBe(true);
   }
 
   return languages;
 }
 
 test.describe("public static route browser crawl @seo", () => {
-  test("crawl every static public route in every language returned by the translations API", async ({
+  test("crawl every static public route in every active language and report all failures", async ({
     page,
     request,
   }) => {
     test.setTimeout(15 * 60_000);
 
     const languages = await getApiLanguages(request);
-    const allowedTranslationFiles = new Set(languages.map(({ file_url }) => new URL(file_url).href));
-    const failures: Array<{ locale: string; route: string; reason: string }> = [];
+    const allowedTranslationFiles = new Set(
+      languages.flatMap(({ file_url }) => {
+        try {
+          return [new URL(file_url).href];
+        } catch {
+          return [];
+        }
+      }),
+    );
+    const failures: CrawlFailure[] = [];
     const checked: Array<{ locale: string; route: string; title: string }> = [];
+    const dictionaryChecks: Array<{ locale: string; url: string; ok: boolean; reason?: string }> = [];
 
-    // Keep the crawl isolated from third-party browser-side requests.
+    // Validate dictionaries independently. A broken dictionary must be reported,
+    // but must never prevent the remaining languages and routes from being crawled.
+    for (const language of languages) {
+      try {
+        const dictionaryResponse = await request.get(language.file_url, { timeout: 20_000 });
+        expect(
+          dictionaryResponse.status(),
+          `Translation dictionary for ${language.code} must return HTTP 200`,
+        ).toBe(200);
+        expect(
+          dictionaryResponse.headers()["content-type"] || "",
+          `Translation dictionary for ${language.code} must be JSON`,
+        ).toContain("application/json");
+
+        const dictionary = await dictionaryResponse.json();
+        expect(
+          dictionary && typeof dictionary === "object" && !Array.isArray(dictionary),
+          `Translation dictionary for ${language.code} must be a JSON object`,
+        ).toBe(true);
+        dictionaryChecks.push({ locale: language.code, url: language.file_url, ok: true });
+      } catch (error) {
+        const reason = error instanceof Error ? error.message : String(error);
+        dictionaryChecks.push({
+          locale: language.code,
+          url: language.file_url,
+          ok: false,
+          reason,
+        });
+        failures.push({
+          locale: language.code,
+          route: language.file_url,
+          stage: "translation-dictionary",
+          reason,
+        });
+      }
+    }
+
+    // Keep browser-side requests isolated from third-party services while allowing
+    // every dictionary URL supplied by the translations API.
     await page.route("**/*", (route) => {
       const url = new URL(route.request().url());
       const isLocal =
@@ -83,16 +130,15 @@ test.describe("public static route browser crawl @seo", () => {
         url.hostname === "localhost" ||
         url.protocol === "data:" ||
         url.protocol === "blob:";
-
       const isTranslationFile = allowedTranslationFiles.has(url.href);
       return isLocal || isTranslationFile ? route.continue() : route.abort();
     });
 
+    // Each locale/route pair is isolated: record its failure and continue to the next.
     for (const language of languages) {
       for (const routePath of staticPublicRoutes) {
         const routeUrl = `/${language.code}${routePath === "/" ? "" : routePath}`;
         const jsErrors: string[] = [];
-
         const onPageError = (error: Error) => jsErrors.push(error.message);
         page.on("pageerror", onPageError);
 
@@ -106,14 +152,9 @@ test.describe("public static route browser crawl @seo", () => {
           expect(response!.status(), `${routeUrl} must return HTTP 200`).toBe(200);
           expect(response!.headers()["content-type"] || "").toContain("text/html");
 
-          // Wait for the actual browser-rendered application content, not raw response HTML.
           const main = page.locator("main").first();
           const heading = page.locator("h1").first();
           await expect(main, `${routeUrl} must render its main content`).toBeVisible();
-
-          // Validate the heading using Playwright's standard visibility semantics.
-          // Opacity and transform are animation/presentation details and must not
-          // make the route crawl depend on a particular entrance-animation implementation.
           await expect(heading, `${routeUrl} must render a visible primary heading`).toBeVisible();
           await expect(heading, `${routeUrl} primary heading must contain text`).not.toBeEmpty();
 
@@ -138,37 +179,43 @@ test.describe("public static route browser crawl @seo", () => {
           }
 
           expect(jsErrors, `${routeUrl} must not throw uncaught JavaScript errors`).toEqual([]);
-
           checked.push({ locale: language.code, route: routePath, title });
         } catch (error) {
           failures.push({
             locale: language.code,
-            route: routePath,
+            route: routeUrl,
+            stage: "page-crawl",
             reason: error instanceof Error ? error.message : String(error),
           });
-          throw error;
         } finally {
           page.off("pageerror", onPageError);
         }
       }
     }
 
+    const summary = {
+      languageCodes: languages.map(({ code }) => code),
+      staticRouteCount: staticPublicRoutes.length,
+      expectedPageCount: languages.length * staticPublicRoutes.length,
+      checkedCount: checked.length,
+      checked,
+      dictionaryChecks,
+      failures,
+      excludedDynamicRoutes: true,
+      translationSource: translationAdminApiURL,
+      translationFiles: languages.map(({ code, file_url }) => ({ code, file_url })),
+    };
+
     await test.info().attach("static-crawl-summary.json", {
-      body: JSON.stringify(
-        {
-          languageCodes: languages.map(({ code }) => code),
-          staticRouteCount: staticPublicRoutes.length,
-          checkedCount: checked.length,
-          checked,
-          failures,
-          excludedDynamicRoutes: true,
-          translationSource: translationAdminApiURL,
-          translationFiles: [...allowedTranslationFiles],
-        },
-        null,
-        2,
-      ),
+      body: JSON.stringify(summary, null, 2),
       contentType: "application/json",
     });
+
+    // Fail only after every language and route has been attempted and the full
+    // diagnostic report has been attached to the Playwright test result.
+    expect(
+      failures,
+      `Crawl completed with ${failures.length} failure(s). See static-crawl-summary.json for every affected locale and URL.`,
+    ).toEqual([]);
   });
 });
