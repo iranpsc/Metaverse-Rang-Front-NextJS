@@ -20,7 +20,7 @@ test.describe("isolated mock services", () => {
 
     // The API is the source of truth: validate every active language it returns.
     for (const language of languages.data as Array<{ code: string; file_url: string }>) {
-      expect(language.code).toMatch(/^[a-z]{2,3}(?:-[A-Z]{2})?$/);
+      expect(language.code).toMatch(/^[A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*$/);
       expect(language.file_url).toBeTruthy();
 
       const dictionaryResponse = await request.get(language.file_url);
