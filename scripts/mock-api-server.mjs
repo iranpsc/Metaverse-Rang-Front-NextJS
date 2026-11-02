@@ -22,12 +22,19 @@ const languages = [
     file_url: `http://${host}:${port}/lang/ar.json`,
     name: "العربية",
   },
+  {
+    code: "zh",
+    direction: "ltr",
+    file_url: `http://${host}:${port}/lang/zh.json`,
+    name: "中文",
+  },
 ];
 
 const dictionaries = {
   fa: { 1457: "متاورس رنگ", 482: "توضیحات نمونه فارسی" },
   en: { 1457: "Metaverse Rang", 482: "Sample English description" },
   ar: { 1457: "ميتافيرس رنگ", 482: "وصف تجريبي باللغة العربية" },
+  zh: { 1457: "元宇宙 Rang", 482: "用于隔离测试的示例中文说明" },
 };
 
 const videoFixture = {
