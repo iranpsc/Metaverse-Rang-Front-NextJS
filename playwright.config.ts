@@ -41,8 +41,8 @@ export default defineConfig({
       {
         command: "npm run dev",
         url: baseURL,
-        // Keep application APIs isolated, but load language metadata and
-        // dictionaries from the real development Admin API.
+        // Keep application APIs, language metadata, and dictionaries isolated
+        // from external services. The real Admin API is checked by crawl.spec.ts.
         reuseExistingServer: false,
         timeout: 180_000,
         env: {
@@ -50,7 +50,7 @@ export default defineConfig({
           NODE_ENV: "development",
           PLAYWRIGHT_E2E: "true",
           NEXT_PUBLIC_API_BASE_URL: mockApiURL,
-          NEXT_PUBLIC_ADMIN_API_BASE_URL: translationAdminApiURL,
+          NEXT_PUBLIC_ADMIN_API_BASE_URL: mockApiURL,
           NEXT_PUBLIC_SUPABASE_URL: mockApiURL,
           NEXT_PUBLIC_SUPABASE_ANON_KEY: "playwright-local-mock-anon-key",
           INTERNAL_GO_SERVICE_URL: "http://127.0.0.1:9998",
