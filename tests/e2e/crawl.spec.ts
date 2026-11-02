@@ -27,14 +27,14 @@ const staticPublicRoutes = [
 type ApiLanguage = {
   code: string;
   direction?: string;
-  file_url: string;
+  file_url?: string | null;
   name?: string;
 };
 
 type CrawlFailure = {
   locale: string;
   route: string;
-  stage: "translation-dictionary" | "page-crawl";
+  stage: "language-api" | "language-metadata" | "translation-dictionary" | "page-crawl";
   reason: string;
 };
 
@@ -48,55 +48,55 @@ type CrawlPageResult = {
 };
 
 async function getApiLanguages(request: {
-  get: (url: string) => Promise<{
-    status: () => number;
-    json: () => Promise<unknown>;
-  }>;
-}): Promise<ApiLanguage[]> {
-  let response;
+  get: (url: string, options?: { timeout?: number }) => Promise<{ status: () => number; json: () => Promise<unknown> }>;
+}): Promise<{ languages: ApiLanguage[]; failures: CrawlFailure[] }> {
+  const failures: CrawlFailure[] = [];
+  let response: Awaited<ReturnType<typeof request.get>> | undefined;
   let lastError: unknown;
-
-  // The language API is a real backend dependency. Retry transient timeouts,
-  // but never replace its response with invented language metadata.
+  const apiUrl = `${translationAdminApiURL}/api/translations?active=true`;
   for (let attempt = 1; attempt <= 3; attempt++) {
+    try { response = await request.get(apiUrl, { timeout: 10_000 }); break; }
+    catch (error) { lastError = error; if (attempt < 3) await new Promise((resolve) => setTimeout(resolve, attempt * 500)); }
+  }
+  let languages: ApiLanguage[] = [];
+  if (!response) {
+    failures.push({ locale: "backend", route: apiUrl, stage: "language-api", reason: `Dev translations API unavailable after 3 attempts: ${lastError instanceof Error ? lastError.message : String(lastError)}` });
+  } else if (response.status() !== 200) {
+    failures.push({ locale: "backend", route: apiUrl, stage: "language-api", reason: `Translations API returned HTTP ${response.status()} (expected 200)` });
+  } else {
     try {
-      response = await request.get(
-        `${translationAdminApiURL}/api/translations?active=true`,
-        { timeout: 20_000 },
-      );
-      break;
-    } catch (error) {
-      lastError = error;
-      if (attempt < 3) {
-        await new Promise((resolve) => setTimeout(resolve, attempt * 1_000));
+      const payload = (await response.json()) as { data?: unknown };
+      if (!Array.isArray(payload?.data)) failures.push({ locale: "backend", route: apiUrl, stage: "language-api", reason: "Translations API response must contain a data array" });
+      else for (const item of payload.data) {
+        const language = item as Partial<ApiLanguage>;
+        const code = typeof language?.code === "string" ? language.code : "";
+        if (!/^[A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*$/.test(code)) {
+          failures.push({ locale: code || "unknown", route: apiUrl, stage: "language-metadata", reason: "Active language has a missing or invalid language code" });
+          continue;
+        }
+        if (!language.file_url || typeof language.file_url !== "string") failures.push({ locale: code, route: "file_url", stage: "language-metadata", reason: `Active language "${code}" does not expose file_url` });
+        // Keep incomplete records so their locale routes are still crawled.
+        languages.push({ code, direction: language.direction, file_url: language.file_url ?? null, name: language.name });
       }
+    } catch (error) {
+      failures.push({ locale: "backend", route: apiUrl, stage: "language-api", reason: `Could not parse translations API response: ${error instanceof Error ? error.message : String(error)}` });
     }
   }
-
-  if (!response) {
-    throw new Error(
-      `Dev translations API remained unavailable after 3 attempts: ${lastError instanceof Error ? lastError.message : String(lastError)}`,
-    );
+  // If real discovery fails, use local fixtures for route coverage but retain the backend failure.
+  if (languages.length === 0) {
+    try {
+      const fixtureResponse = await request.get("http://127.0.0.1:9999/api/translations?active=true", { timeout: 5_000 });
+      if (fixtureResponse.status() === 200) {
+        const fixturePayload = (await fixtureResponse.json()) as { data?: ApiLanguage[] };
+        languages = Array.isArray(fixturePayload.data) ? fixturePayload.data : [];
+      }
+    } catch (error) {
+      failures.push({ locale: "test-fixtures", route: "http://127.0.0.1:9999/api/translations?active=true", stage: "language-api", reason: `Local language fixtures unavailable: ${error instanceof Error ? error.message : String(error)}` });
+    }
   }
-
-  expect(response.status(), "Dev translations API must respond successfully").toBe(200);
-
-  const payload = (await response.json()) as { data?: ApiLanguage[] };
-  expect(Array.isArray(payload.data), "Translations API must return data[]").toBe(true);
-
-  const languages = payload.data ?? [];
-  expect(languages.length, "At least one active language must be available").toBeGreaterThan(0);
-
-  for (const language of languages) {
-    expect(language.code, "Every API language must have a valid code").toMatch(
-      /^[A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*$/,
-    );
-    expect(language.file_url, `Language ${language.code} must expose file_url`).toBeTruthy();
-  }
-
-  return languages;
+  if (languages.length === 0) failures.push({ locale: "all", route: "language-discovery", stage: "language-api", reason: "No language records could be discovered from the real API or local fixtures" });
+  return { languages, failures };
 }
-
 test.describe("public static route browser crawl @seo", () => {
   test("crawl every static public route in every active language and report all failures", async ({
     page,
@@ -104,17 +104,13 @@ test.describe("public static route browser crawl @seo", () => {
   }) => {
     test.setTimeout(15 * 60_000);
 
-    const languages = await getApiLanguages(request);
+    const { languages, failures } = await getApiLanguages(request);
     const allowedTranslationFiles = new Set(
       languages.flatMap(({ file_url }) => {
-        try {
-          return [new URL(file_url).href];
-        } catch {
-          return [];
-        }
+        if (!file_url) return [];
+        try { return [new URL(file_url).href]; } catch { return []; }
       }),
     );
-    const failures: CrawlFailure[] = [];
     const checked: Array<{ locale: string; route: string; title: string }> = [];
     const pageResults: CrawlPageResult[] = [];
     const dictionaryChecks: Array<{ locale: string; url: string; ok: boolean; reason?: string }> = [];
@@ -122,8 +118,12 @@ test.describe("public static route browser crawl @seo", () => {
     // Validate dictionaries independently. A broken dictionary must be reported,
     // but must never prevent the remaining languages and routes from being crawled.
     for (const language of languages) {
+      if (!language.file_url) {
+        dictionaryChecks.push({ locale: language.code, url: "", ok: false, reason: "Active language metadata is missing file_url" });
+        continue;
+      }
       try {
-        const dictionaryResponse = await request.get(language.file_url, { timeout: 20_000 });
+        const dictionaryResponse = await request.get(language.file_url, { timeout: 10_000 });
         expect(
           dictionaryResponse.status(),
           `Translation dictionary for ${language.code} must return HTTP 200`,
