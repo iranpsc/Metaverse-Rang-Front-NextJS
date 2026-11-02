@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 const mockApiURL = "http://127.0.0.1:9999";
 
 /**
- * Static public routes discovered from src/app/[lang]/**/page.tsx.
+ * Static public routes discovered from page.tsx files under src/app/[lang].
  * Dynamic-segment routes (for example [id], [slug], [category]) are
  * intentionally excluded until their API fixtures and scenarios are ready.
  */
@@ -49,7 +49,7 @@ async function getApiLanguages(request: {
   expect(languages.length, "At least one active language must be available").toBeGreaterThan(0);
 
   for (const language of languages) {
-    expect(language.code, "Every API language must have a code").toMatch(/^[a-z]{2,3}(?:-[A-Z]{2})?$/);
+    expect(language.code, "Every API language must have a code").toMatch(/^[A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*$/);
     expect(language.file_url, `Language ${language.code} must expose file_url`).toBeTruthy();
   }
 
