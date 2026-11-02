@@ -250,7 +250,49 @@ const server = http.createServer((request, response) => {
   }
 
   if (url.pathname === "/api/tutorials/categories/general/basics") {
-    return json(response, 200, { data: { videos: [videoFixture] } });
+    return json(response, 200, {
+      data: {
+        id: 11,
+        slug: "basics",
+        name: "Basics",
+        description: "Sandbox tutorial category.",
+        image: "/team.webp",
+        videos: [videoFixture],
+        videos_count: 1,
+      },
+    });
+  }
+
+  if (url.pathname === "/api/tutorials/categories/general") {
+    return json(response, 200, {
+      data: {
+        id: 10,
+        slug: "general",
+        name: "General",
+        icon: "/team.webp",
+        sub_categories: [
+          {
+            id: 11,
+            slug: "basics",
+            name: "Basics",
+            image: "/team.webp",
+          },
+        ],
+      },
+    });
+  }
+
+  if (url.pathname === "/api/tutorials/categories") {
+    return json(response, 200, {
+      data: [
+        {
+          id: 10,
+          slug: "general",
+          name: "General",
+          icon: "/team.webp",
+        },
+      ],
+    });
   }
 
   return json(response, 404, { message: "No mock route configured", path: url.pathname });
