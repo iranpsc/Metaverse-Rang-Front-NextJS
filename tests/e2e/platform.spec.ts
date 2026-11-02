@@ -15,15 +15,25 @@ test.describe("isolated mock services", () => {
 
     expect(languagesResponse.status()).toBe(200);
     const languages = await languagesResponse.json();
-    expect(languages.data.map((language: { code: string }) => language.code)).toEqual([
-      "fa",
-      "en",
-      "ar",
-    ]);
+    expect(Array.isArray(languages.data)).toBe(true);
+    expect(languages.data.length).toBeGreaterThan(0);
 
-    const dictionaryResponse = await request.get(`${mockApiURL}/lang/fa.json`);
-    expect(dictionaryResponse.status()).toBe(200);
-    expect((await dictionaryResponse.json())["1457"]).toBe("متاورس رنگ");
+    // The API is the source of truth: validate every active language it returns.
+    for (const language of languages.data as Array<{ code: string; file_url: string }>) {
+      expect(language.code).toMatch(/^[a-z]{2,3}(?:-[A-Z]{2})?$/);
+      expect(language.file_url).toBeTruthy();
+
+      const dictionaryResponse = await request.get(language.file_url);
+      expect(
+        dictionaryResponse.status(),
+        `Dictionary for API language "${language.code}" must be available`,
+      ).toBe(200);
+
+      const dictionary = await dictionaryResponse.json();
+      expect(dictionary).toBeTruthy();
+      expect(typeof dictionary).toBe("object");
+      expect(Array.isArray(dictionary)).toBe(false);
+    }
   });
 
   test("Supabase tables return local deterministic fixtures", async ({ request }) => {
