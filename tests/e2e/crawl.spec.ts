@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-const mockApiURL = "http://127.0.0.1:9999";
+const translationAdminApiURL = "https://dev-admin.metarang.com";
 
 /**
  * Static public routes discovered from page.tsx files under src/app/[lang].
@@ -36,11 +36,12 @@ async function getApiLanguages(request: {
   get: (url: string) => Promise<{
     ok: () => boolean;
     status: () => number;
+    headers: () => Record<string, string>;
     json: () => Promise<unknown>;
   }>;
 }): Promise<ApiLanguage[]> {
-  const response = await request.get(`${mockApiURL}/api/translations?active=true`);
-  expect(response.status(), "Translations API must respond successfully").toBe(200);
+  const response = await request.get(`${translationAdminApiURL}/api/translations?active=true`);
+  expect(response.status(), "Dev translations API must respond successfully").toBe(200);
 
   const payload = (await response.json()) as { data?: ApiLanguage[] };
   expect(Array.isArray(payload.data), "Translations API must return data[]").toBe(true);
@@ -51,6 +52,12 @@ async function getApiLanguages(request: {
   for (const language of languages) {
     expect(language.code, "Every API language must have a code").toMatch(/^[A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*$/);
     expect(language.file_url, `Language ${language.code} must expose file_url`).toBeTruthy();
+
+    const dictionaryResponse = await request.get(language.file_url);
+    expect(dictionaryResponse.status(), `Translation dictionary for ${language.code} must be reachable`).toBe(200);
+    expect(dictionaryResponse.headers()["content-type"] || "").toContain("application/json");
+    const dictionary = await dictionaryResponse.json();
+    expect(dictionary && typeof dictionary === "object" && !Array.isArray(dictionary)).toBe(true);
   }
 
   return languages;
@@ -64,6 +71,7 @@ test.describe("public static route browser crawl @seo", () => {
     test.setTimeout(15 * 60_000);
 
     const languages = await getApiLanguages(request);
+    const allowedTranslationFiles = new Set(languages.map(({ file_url }) => new URL(file_url).href));
     const failures: Array<{ locale: string; route: string; reason: string }> = [];
     const checked: Array<{ locale: string; route: string; title: string }> = [];
 
@@ -76,7 +84,8 @@ test.describe("public static route browser crawl @seo", () => {
         url.protocol === "data:" ||
         url.protocol === "blob:";
 
-      return isLocal ? route.continue() : route.abort();
+      const isTranslationFile = allowedTranslationFiles.has(url.href);
+      return isLocal || isTranslationFile ? route.continue() : route.abort();
     });
 
     for (const language of languages) {
@@ -153,6 +162,8 @@ test.describe("public static route browser crawl @seo", () => {
           checked,
           failures,
           excludedDynamicRoutes: true,
+          translationSource: translationAdminApiURL,
+          translationFiles: [...allowedTranslationFiles],
         },
         null,
         2,
