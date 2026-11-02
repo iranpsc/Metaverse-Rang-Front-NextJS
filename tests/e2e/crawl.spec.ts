@@ -38,13 +38,47 @@ type CrawlFailure = {
   reason: string;
 };
 
+type CrawlPageResult = {
+  locale: string;
+  route: string;
+  status: number | null;
+  title: string;
+  outcome: "passed" | "failed";
+  reason?: string;
+};
+
 async function getApiLanguages(request: {
   get: (url: string) => Promise<{
     status: () => number;
     json: () => Promise<unknown>;
   }>;
 }): Promise<ApiLanguage[]> {
-  const response = await request.get(`${translationAdminApiURL}/api/translations?active=true`);
+  let response;
+  let lastError: unknown;
+
+  // The language API is a real backend dependency. Retry transient timeouts,
+  // but never replace its response with invented language metadata.
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      response = await request.get(
+        `${translationAdminApiURL}/api/translations?active=true`,
+        { timeout: 20_000 },
+      );
+      break;
+    } catch (error) {
+      lastError = error;
+      if (attempt < 3) {
+        await new Promise((resolve) => setTimeout(resolve, attempt * 1_000));
+      }
+    }
+  }
+
+  if (!response) {
+    throw new Error(
+      `Dev translations API remained unavailable after 3 attempts: ${lastError instanceof Error ? lastError.message : String(lastError)}`,
+    );
+  }
+
   expect(response.status(), "Dev translations API must respond successfully").toBe(200);
 
   const payload = (await response.json()) as { data?: ApiLanguage[] };
@@ -82,6 +116,7 @@ test.describe("public static route browser crawl @seo", () => {
     );
     const failures: CrawlFailure[] = [];
     const checked: Array<{ locale: string; route: string; title: string }> = [];
+    const pageResults: CrawlPageResult[] = [];
     const dictionaryChecks: Array<{ locale: string; url: string; ok: boolean; reason?: string }> = [];
 
     // Validate dictionaries independently. A broken dictionary must be reported,
@@ -139,27 +174,40 @@ test.describe("public static route browser crawl @seo", () => {
       for (const routePath of staticPublicRoutes) {
         const routeUrl = `/${language.code}${routePath === "/" ? "" : routePath}`;
         const jsErrors: string[] = [];
+        const pageResult: CrawlPageResult = {
+          locale: language.code,
+          route: routeUrl,
+          status: null,
+          title: "",
+          outcome: "failed",
+        };
+        pageResults.push(pageResult);
+
         const onPageError = (error: Error) => jsErrors.push(error.message);
         page.on("pageerror", onPageError);
 
         try {
           const response = await page.goto(routeUrl, {
             waitUntil: "domcontentloaded",
-            timeout: 45_000,
+            timeout: 20_000,
           });
 
           expect(response, `${routeUrl} must return a document response`).not.toBeNull();
+          pageResult.status = response!.status();
           expect(response!.status(), `${routeUrl} must return HTTP 200`).toBe(200);
           expect(response!.headers()["content-type"] || "").toContain("text/html");
 
           const main = page.locator("main").first();
           const heading = page.locator("h1").first();
-          await expect(main, `${routeUrl} must render its main content`).toBeVisible();
-          await expect(heading, `${routeUrl} must render a visible primary heading`).toBeVisible();
-          await expect(heading, `${routeUrl} primary heading must contain text`).not.toBeEmpty();
+          // Check immediately: a missing server-rendered layout should not
+          // consume the full assertion timeout for every remaining route.
+          expect(await main.isVisible(), `${routeUrl} must render its main content`).toBe(true);
+          expect(await heading.isVisible(), `${routeUrl} must render a visible primary heading`).toBe(true);
+          expect(await heading.innerText(), `${routeUrl} primary heading must contain text`).toBeTruthy();
 
           const mainText = (await main.innerText()).trim();
           const title = (await page.title()).trim();
+          pageResult.title = title;
           const descriptionLocator = page.locator('meta[name="description"]');
           const description = (await descriptionLocator.count()) > 0
             ? await descriptionLocator.first().getAttribute("content")
@@ -180,12 +228,16 @@ test.describe("public static route browser crawl @seo", () => {
 
           expect(jsErrors, `${routeUrl} must not throw uncaught JavaScript errors`).toEqual([]);
           checked.push({ locale: language.code, route: routePath, title });
+          pageResult.outcome = "passed";
         } catch (error) {
+          const reason = error instanceof Error ? error.message : String(error);
+          pageResult.outcome = "failed";
+          pageResult.reason = reason;
           failures.push({
             locale: language.code,
             route: routeUrl,
             stage: "page-crawl",
-            reason: error instanceof Error ? error.message : String(error),
+            reason,
           });
         } finally {
           page.off("pageerror", onPageError);
@@ -199,6 +251,7 @@ test.describe("public static route browser crawl @seo", () => {
       expectedPageCount: languages.length * staticPublicRoutes.length,
       checkedCount: checked.length,
       checked,
+      pageResults,
       dictionaryChecks,
       failures,
       excludedDynamicRoutes: true,
@@ -210,6 +263,18 @@ test.describe("public static route browser crawl @seo", () => {
       body: JSON.stringify(summary, null, 2),
       contentType: "application/json",
     });
+
+    // Print every attempted URL at the end of the run, not only successful pages.
+    console.log("\\n========== STATIC CRAWL RESULTS ==========");
+    console.log(`Languages: ${languages.map(({ code }) => code).join(", ")} | Routes per language: ${staticPublicRoutes.length} | Attempted: ${pageResults.length} | Passed: ${checked.length} | Failed: ${pageResults.length - checked.length}`);
+    for (const result of pageResults) {
+      const status = result.status === null ? "NO RESPONSE" : String(result.status);
+      const suffix = result.outcome === "passed"
+        ? `PASS | ${status} | ${result.title}`
+        : `FAIL | ${status} | ${(result.reason || "Unknown failure").split("\\n")[0]}`;
+      console.log(`[${result.locale}] ${result.route} — ${suffix}`);
+    }
+    console.log("========== END STATIC CRAWL RESULTS ==========");
 
     // Fail only after every language and route has been attempted and the full
     // diagnostic report has been attached to the Playwright test result.
