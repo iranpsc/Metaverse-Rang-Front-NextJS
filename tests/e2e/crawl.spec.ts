@@ -113,21 +113,31 @@ test.describe("public static route browser crawl @seo", () => {
                 heading.evaluate((element) => {
                   const style = window.getComputedStyle(element);
                   const rect = element.getBoundingClientRect();
+                  const opacity = Number(style.opacity);
 
-                  return (
-                    style.display !== "none" &&
-                    style.visibility === "visible" &&
-                    Number(style.opacity) > 0.95 &&
-                    rect.width > 0 &&
-                    rect.height > 0
-                  );
+                  return {
+                    displayed:
+                      style.display !== "none" &&
+                      style.visibility === "visible" &&
+                      opacity > 0.95 &&
+                      rect.width > 0 &&
+                      rect.height > 0,
+                    opacity,
+                    visibility: style.visibility,
+                    display: style.display,
+                    width: Math.round(rect.width),
+                    height: Math.round(rect.height),
+                    transform: style.transform,
+                    animationName: style.animationName,
+                    text: element.textContent?.trim() ?? "",
+                  };
                 }),
               {
                 message: `${routeUrl} primary heading must become visibly rendered after its animation`,
                 timeout: 10_000,
               },
             )
-            .toBe(true);
+            .toMatchObject({ displayed: true });
 
           const mainText = (await main.innerText()).trim();
           const title = (await page.title()).trim();
