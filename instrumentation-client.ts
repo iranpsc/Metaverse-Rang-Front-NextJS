@@ -4,6 +4,8 @@ const SVG_INVALID_DOM_PROPERTIES = new Set([
   "stroke-width",
   "stroke-linecap",
   "stroke-linejoin",
+  "stop-color",
+  "stroke-miterlimit",
 ]);
 
 const originalConsoleError = console.error;
