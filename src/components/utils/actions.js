@@ -178,7 +178,7 @@ export const getLangArray = cache(async function getLangArray() {
     const adminApiBaseUrl =
       await getAdminApiBaseUrl();
 
-    const res = await fetch(
+    const res = await fetchWithRetry(
       `${adminApiBaseUrl}/api/translations?active=true`,
       {
         headers: {
@@ -223,7 +223,7 @@ export const getMainFile = cache(async function getMainFile(langData) {
       throw new Error("No file_url provided");
     }
 
-    const res = await fetch(langData.file_url, {
+    const res = await fetchWithRetry(langData.file_url, {
       next: {
         revalidate: 3600,
         tags: [
