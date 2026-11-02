@@ -74,27 +74,43 @@ async function getApiLanguages(request: {
           failures.push({ locale: code || "unknown", route: apiUrl, stage: "language-metadata", reason: "Active language has a missing or invalid language code" });
           continue;
         }
-        if (!language.file_url || typeof language.file_url !== "string") failures.push({ locale: code, route: "file_url", stage: "language-metadata", reason: `Active language "${code}" does not expose file_url` });
-        // Keep incomplete records so their locale routes are still crawled.
-        languages.push({ code, direction: language.direction, file_url: language.file_url ?? null, name: language.name });
+        let fileUrl: string | null = null;
+        if (typeof language.file_url !== "string" || !language.file_url.trim()) {
+          failures.push({ locale: code, route: "file_url", stage: "language-metadata", reason: `Active language "${code}" does not expose file_url` });
+        } else {
+          try {
+            const parsedFileUrl = new URL(language.file_url);
+            if (parsedFileUrl.protocol !== "https:" && parsedFileUrl.protocol !== "http:") {
+              throw new Error("Translation file URL must use HTTP or HTTPS");
+            }
+            fileUrl = parsedFileUrl.href;
+          } catch (error) {
+            failures.push({
+              locale: code,
+              route: language.file_url,
+              stage: "language-metadata",
+              reason: `Active language "${code}" has an invalid file_url: ${error instanceof Error ? error.message : String(error)}`,
+            });
+          }
+        }
+        // Keep every valid language code even when its dictionary metadata is
+        // incomplete, so all of its static routes are still attempted.
+        languages.push({ code, direction: language.direction, file_url: fileUrl, name: language.name });
       }
     } catch (error) {
       failures.push({ locale: "backend", route: apiUrl, stage: "language-api", reason: `Could not parse translations API response: ${error instanceof Error ? error.message : String(error)}` });
     }
   }
-  // If real discovery fails, use local fixtures for route coverage but retain the backend failure.
+  // Never substitute fixture languages: the crawl must reflect exactly the
+  // active languages returned by the dev Admin API.
   if (languages.length === 0) {
-    try {
-      const fixtureResponse = await request.get("http://127.0.0.1:9999/api/translations?active=true", { timeout: 5_000 });
-      if (fixtureResponse.status() === 200) {
-        const fixturePayload = (await fixtureResponse.json()) as { data?: ApiLanguage[] };
-        languages = Array.isArray(fixturePayload.data) ? fixturePayload.data : [];
-      }
-    } catch (error) {
-      failures.push({ locale: "test-fixtures", route: "http://127.0.0.1:9999/api/translations?active=true", stage: "language-api", reason: `Local language fixtures unavailable: ${error instanceof Error ? error.message : String(error)}` });
-    }
+    failures.push({
+      locale: "all",
+      route: "language-discovery",
+      stage: "language-api",
+      reason: "No active languages were returned by the dev translations API; no locale routes can be inferred.",
+    });
   }
-  if (languages.length === 0) failures.push({ locale: "all", route: "language-discovery", stage: "language-api", reason: "No language records could be discovered from the real API or local fixtures" });
   return { languages, failures };
 }
 test.describe("public static route browser crawl @seo", () => {
