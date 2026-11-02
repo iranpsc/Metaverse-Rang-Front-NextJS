@@ -189,7 +189,7 @@ const server = http.createServer((request, response) => {
     return json(response, 200, { data: languages });
   }
 
-  const dictionaryMatch = url.pathname.match(/^\\/lang\\/(fa|en|ar|zh)\\.json$/);
+  const dictionaryMatch = url.pathname.match(/^\/lang\/(fa|en|ar|zh)\.json$/);
   if (dictionaryMatch) {
     return json(response, 200, dictionaries[dictionaryMatch[1]]);
   }
