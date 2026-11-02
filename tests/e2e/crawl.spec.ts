@@ -110,8 +110,14 @@ test.describe("public static route browser crawl @seo", () => {
 
           const mainText = (await main.innerText()).trim();
           const title = (await page.title()).trim();
-          const description = await page.locator('meta[name="description"]').getAttribute("content");
-          const canonical = await page.locator('link[rel="canonical"]').getAttribute("href");
+          const descriptionLocator = page.locator('meta[name="description"]');
+          const description = (await descriptionLocator.count()) > 0
+            ? await descriptionLocator.first().getAttribute("content")
+            : null;
+          const canonicalLocator = page.locator('link[rel="canonical"]');
+          const canonical = (await canonicalLocator.count()) > 0
+            ? await canonicalLocator.first().getAttribute("href")
+            : null;
 
           expect(mainText, `${routeUrl} must render non-empty main content`).not.toBe("");
           expect(title, `${routeUrl} must have a document title`).not.toBe("");
