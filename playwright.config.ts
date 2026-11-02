@@ -2,6 +2,7 @@ import { defineConfig, devices } from "@playwright/test";
 
 const baseURL = process.env.PLAYWRIGHT_BASE_URL || "http://127.0.0.1:5175";
 const mockApiURL = "http://127.0.0.1:9999";
+const translationAdminApiURL = "https://dev-admin.metarang.com";
 
 export default defineConfig({
   testDir: "./tests/e2e",
@@ -40,8 +41,8 @@ export default defineConfig({
       {
         command: "npm run dev",
         url: baseURL,
-        // Keep application APIs, language metadata, and dictionaries isolated
-        // from external services. The real Admin API is checked by crawl.spec.ts.
+        // Keep application APIs isolated behind local fixtures, but always load
+        // active languages and their dictionaries from the real dev Admin API.
         reuseExistingServer: false,
         timeout: 180_000,
         env: {
@@ -49,7 +50,7 @@ export default defineConfig({
           NODE_ENV: "development",
           PLAYWRIGHT_E2E: "true",
           NEXT_PUBLIC_API_BASE_URL: mockApiURL,
-          NEXT_PUBLIC_ADMIN_API_BASE_URL: mockApiURL,
+          NEXT_PUBLIC_ADMIN_API_BASE_URL: translationAdminApiURL,
           NEXT_PUBLIC_SUPABASE_URL: mockApiURL,
           NEXT_PUBLIC_SUPABASE_ANON_KEY: "playwright-local-mock-anon-key",
           INTERNAL_GO_SERVICE_URL: "http://127.0.0.1:9998",
