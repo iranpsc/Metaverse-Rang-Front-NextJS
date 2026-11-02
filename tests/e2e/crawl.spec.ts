@@ -265,13 +265,13 @@ test.describe("public static route browser crawl @seo", () => {
     });
 
     // Print every attempted URL at the end of the run, not only successful pages.
-    console.log("\\n========== STATIC CRAWL RESULTS ==========");
+    console.log("\n========== STATIC CRAWL RESULTS ==========");
     console.log(`Languages: ${languages.map(({ code }) => code).join(", ")} | Routes per language: ${staticPublicRoutes.length} | Attempted: ${pageResults.length} | Passed: ${checked.length} | Failed: ${pageResults.length - checked.length}`);
     for (const result of pageResults) {
       const status = result.status === null ? "NO RESPONSE" : String(result.status);
       const suffix = result.outcome === "passed"
         ? `PASS | ${status} | ${result.title}`
-        : `FAIL | ${status} | ${(result.reason || "Unknown failure").split("\\n")[0]}`;
+        : `FAIL | ${status} | ${(result.reason || "Unknown failure").split("\n")[0]}`;
       console.log(`[${result.locale}] ${result.route} — ${suffix}`);
     }
     console.log("========== END STATIC CRAWL RESULTS ==========");
