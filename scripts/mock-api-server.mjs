@@ -37,7 +37,21 @@ const videoFixture = {
   description: "Deterministic tutorial content used by isolated end-to-end tests.",
   image_url: "/team.webp",
   upload_date: "2026-10-01",
-  creator: { name: "Sandbox Creator", code: "TEST-1" },
+  category: {
+    id: 10,
+    slug: "general",
+    name: "General",
+  },
+  sub_category: {
+    id: 11,
+    slug: "basics",
+    name: "Basics",
+  },
+  creator: {
+    name: "Sandbox Creator",
+    code: "TEST-1",
+    image: "/team.webp",
+  },
   likes_count: 2,
   dislikes_count: 0,
   views_count: 10,
