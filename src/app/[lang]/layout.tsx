@@ -10,7 +10,6 @@ import ReferralHandler from "../../components/system/ReferralHandler";
 import VPNDetector from "../../components/system/VPNDetector";
 
 import {
-  getTranslation,
   getMainFile,
   getLangArray,
 } from "@/components/utils/actions";
@@ -42,9 +41,8 @@ export default async function LangLayout({
   const resolvedParams = await params;
   const lang = resolvedParams.lang;
 
-  // The API is the single source of truth for active languages.
-  // An empty list means the language service is unavailable (or misconfigured),
-  // not that only a hard-coded set of languages should be accepted.
+  // The API is authoritative when available. getLangArray supplies only the
+  // bundled fa/en dictionaries when the API is unavailable.
   const langArray = await getLangArray();
 
   if (langArray.length === 0) {
