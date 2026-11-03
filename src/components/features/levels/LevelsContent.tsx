@@ -61,17 +61,24 @@ export default async function LevelsContent({
   }
 
   /* -------------------------- Normalize Levels --------------------------- */
-  staticData.forEach((el2: any) => {
-    levelArray.forEach((el1: any) => {
-      if (el1.id == el2.id) {
-        el1.photo = el2.url;
-        el1.rank = 1;
-        el1.score = el2.score;
-        el1.route_name = el2.route_name;
-        el1.unique_id = el2.unique_id;
-      }
-    });
-  });
+  // API values are authoritative. Static values only fill fields that the
+  // API does not provide (for example route/translation metadata).
+  levelArray = Array.isArray(levelArray)
+    ? levelArray.map((apiLevel: any) => {
+        const fallback = staticData.find(
+          (item: any) => item.id === Number(apiLevel.id)
+        );
+
+        return {
+          ...apiLevel,
+          photo: apiLevel.photo || apiLevel.image || fallback?.url,
+          rank: apiLevel.rank ?? fallback?.rank ?? 1,
+          score: apiLevel.score ?? fallback?.score,
+          route_name: apiLevel.route_name || fallback?.route_name,
+          unique_id: apiLevel.unique_id ?? fallback?.unique_id,
+        };
+      })
+    : [];
 
   /* ------------------------------ Schema --------------------------------- */
   const levelsSchema = {
