@@ -133,44 +133,43 @@ export default function SvgIcon({ unique_id, color, name }: any) {
       )}
 
       {unique_id === 382 && (
-        <Image src={Citizen} alt="Citizen" width={40} height={40} loading="lazy" className="mx-2"/>
+        <Image src="/svg/level/citizen.png" alt="Citizen" width={40} height={40} loading="lazy" className="mx-2" />
+      )}
+      {unique_id === 383 && (
+        <Image src="/svg/level/reporter.png" alt="Reporter" width={40} height={40} loading="lazy" className="mx-2" />
+      )}
+      {unique_id === 589 && (
+        <Image src="/svg/level/participation.png" alt="Participation" width={40} height={40} loading="lazy" className="mx-2" />
       )}
       {unique_id === 68 && (
-        <Image src={Developer} alt="Developer" width={40} height={40} loading="lazy" className="mx-2"/>
-      )}
-
-      {unique_id === 383 && (
-        <Image src={Reporter} alt="Reporter" width={40} height={40} loading="lazy" className="mx-2"/>
-      )}
-      {unique_id === 331 && (
-        <Image src={Participation} alt="Participation" width={40} height={40} loading="lazy" className="mx-2"/>
+        <Image src="/svg/level/developer.png" alt="Developer" width={40} height={40} loading="lazy" className="mx-2" />
       )}
       {unique_id === 69 && (
-        <Image src={Inspector} alt="Inspector" width={40} height={40} loading="lazy" className="mx-2"/>
+        <Image src="/svg/level/inspector.png" alt="Inspector" width={40} height={40} loading="lazy" className="mx-2" />
       )}
-      {unique_id === 70 && (
-        <Image src={Businessman} alt="Businessman" width={40} height={40} loading="lazy" className="mx-2"/>
+      {unique_id === 590 && (
+        <Image src="/svg/level/businessman.png" alt="Businessman" width={40} height={40} loading="lazy" className="mx-2" />
       )}
       {unique_id === 71 && (
-        <Image src={Lawyer} alt="Lawyer" width={40} height={40} loading="lazy" className="mx-2"/>
+        <Image src="/svg/level/lawyer.png" alt="Lawyer" width={40} height={40} loading="lazy" className="mx-2" />
       )}
-      {unique_id === 72 && (
-        <Image src={CityCouncil} alt="CityCouncil" width={40} height={40} loading="lazy" className="mx-2"/>
+      {unique_id === 591 && (
+        <Image src="/svg/level/city-council.png" alt="City Council" width={40} height={40} loading="lazy" className="mx-2" />
       )}
-      {unique_id === 73 && (
-        <Image src={Mayor} alt="Mayor" width={40} height={40} loading="lazy" className="mx-2"/>
+      {unique_id === 592 && (
+        <Image src="/svg/level/the-mayor.png" alt="Mayor" width={40} height={40} loading="lazy" className="mx-2" />
       )}
       {unique_id === 74 && (
-        <Image src={Governor} alt="Governor" width={40} height={40} loading="lazy" className="mx-2"/>
+        <Image src="/svg/level/governor.png" alt="Governor" width={40} height={40} loading="lazy" className="mx-2" />
       )}
       {unique_id === 75 && (
-        <Image src={Minister} alt="Minister" width={40} height={40} loading="lazy" className="mx-2"/>
+        <Image src="/svg/level/minister.png" alt="Minister" width={40} height={40} loading="lazy" className="mx-2" />
       )}
       {unique_id === 76 && (
-        <Image src={Judge} alt="Judge" width={40} height={40} loading="lazy" className="mx-2"/>
+        <Image src="/svg/level/judge.png" alt="Judge" width={40} height={40} loading="lazy" className="mx-2" />
       )}
       {unique_id === 77 && (
-        <Image src={Legislator} alt="Legislator" width={40} height={40} loading="lazy" className="mx-2"/>
+        <Image src="/svg/level/legislator.png" alt="Legislator" width={40} height={40} loading="lazy" className="mx-2" />
       )}
 
     </>
