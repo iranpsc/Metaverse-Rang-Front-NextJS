@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { FlagSatar, StairsUp } from "@/components/svgs";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
@@ -20,6 +21,21 @@ export default function LevelCard({
   function localFind2(_slug: any) {
     return findByUniqueId(mainData, _slug);
   }
+
+  const fallbackPhoto = item.fallbackPhoto || "/svg/level/citizen.png";
+  const [imageSrc, setImageSrc] = useState(item.photo || fallbackPhoto);
+
+  // Reset the image when the card receives updated API data.
+  useEffect(() => {
+    setImageSrc(item.photo || fallbackPhoto);
+  }, [item.photo, fallbackPhoto]);
+
+  const handleImageError = () => {
+    if (imageSrc !== fallbackPhoto) {
+      setImageSrc(fallbackPhoto);
+    }
+  };
+
   const isLoading = activeLoadingId === item.id;
   return (
     <div className="py-[10px] px-[14px] w-full md:w-1/2 lg:w-1/3 2xl:w-1/4 flex justify-center">
@@ -29,10 +45,11 @@ export default function LevelCard({
         href={`/${params.lang}/levels/citizen/${item.route_name}/general-info`}
       >
         <Image
-          src={item.photo}
-          alt={item.name}
+          src={imageSrc}
+          alt={item.name || "Level"}
           width={180}
           height={170}
+          onError={handleImageError}
           className="z-2 w-[147px] h-[147px] lg:w-[180px] lg:h-[180px] translate-y-2 lg:translate-y-6"
         />
         <div className="boxDataLevel w-full h-[216px] lg:h-[239px] rounded-[20px] flex flex-col  justify-end bg-white border border-[rgba(0,0,0,0.14)] dark:bg-gray-1  mt-[-65px]">
