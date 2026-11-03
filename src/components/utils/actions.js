@@ -149,25 +149,10 @@ function sanitizePathSegment(segment) {
  * React.cache dedupes within a request; revalidate caches across requests.
  */
 export const getTranslation = cache(async function getTranslation(lang) {
-  // یک fetch مشترک (getLangArray) برای لیست زبان‌ها و زبان فعال.
   const languages = await getLangArray();
 
-  if (!languages.length) {
-    return {
-      code: "fa",
-      file_url: "https://rgb.irpsc.com/lang/fa.json",
-      direction: "rtl",
-    };
-  }
-
-  const found = languages.find((item) => item.code === lang);
-  if (found) return found;
-
-  console.warn(
-    `[getTranslation] Lang "${lang}" not found → fallback to "fa"`
-  );
-
-  return languages.find((item) => item.code === "fa") || languages[0];
+  // Never silently serve another language for an unknown or unavailable code.
+  return languages.find((item) => item.code === lang) || null;
 });
 
 /**
@@ -198,8 +183,16 @@ export const getLangArray = cache(async function getLangArray() {
     }
 
     const data = await res.json();
+    const languages = Array.isArray(data?.data) ? data.data : [];
 
-    return data?.data || [];
+    // The endpoint is already filtered with active=true. Keep only usable
+    // language records so malformed API entries cannot validate a route.
+    return languages.filter(
+      (item) =>
+        item &&
+        typeof item.code === "string" &&
+        item.code.trim().length > 0
+    );
   } catch (error) {
     console.error(
       "[getLangArray] Error:",

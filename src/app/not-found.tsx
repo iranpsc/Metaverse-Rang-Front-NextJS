@@ -3,22 +3,23 @@ import React from "react";
 import NotFoundPage from "@/components/error/NotFoundPage";
 
 import {
-  getTranslation,
   getMainFile,
   getLangArray,
 } from "@/components/utils/actions";
 
 export default async function NotFound() {
-  const lang = "fa";
-
   try {
-    // ---------------------------------------------------------
-    // Language data
-    // ---------------------------------------------------------
-    const [langData, langArray] = await Promise.all([
-      getTranslation(lang),
-      getLangArray(),
-    ]);
+    // Prefer Persian for the root 404 page, otherwise use the first active
+    // language supplied by the API.
+    const langArray = await getLangArray();
+    const langData =
+      langArray.find((language) => language.code === "fa") || langArray[0];
+
+    if (!langData?.file_url) {
+      throw new Error("No active language is available for the 404 page.");
+    }
+
+    const lang = langData.code;
 
     // ---------------------------------------------------------
     // Main data
