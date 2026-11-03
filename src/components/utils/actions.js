@@ -1,6 +1,8 @@
 "use server";
 
 import { cache } from "react";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { cookies } from "next/headers";
 /* -------------------------------------------------------------------------- */
 /*                           API CONFIGURATION                                */
@@ -149,43 +151,100 @@ function sanitizePathSegment(segment) {
  * React.cache dedupes within a request; revalidate caches across requests.
  */
 export const getTranslation = cache(async function getTranslation(lang) {
-  // یک fetch مشترک (getLangArray) برای لیست زبان‌ها و زبان فعال.
   const languages = await getLangArray();
 
-  if (!languages.length) {
-    return {
-      code: "fa",
-      file_url: "https://rgb.irpsc.com/lang/fa.json",
-      direction: "rtl",
-    };
-  }
-
-  const found = languages.find((item) => item.code === lang);
-  if (found) return found;
-
-  console.warn(
-    `[getTranslation] Lang "${lang}" not found → fallback to "fa"`
-  );
-
-  return languages.find((item) => item.code === "fa") || languages[0];
+  // Never silently serve another language for an unknown or unavailable code.
+  return languages.find((item) => item.code === lang) || null;
 });
 
 /**
- * Return whole language array
+ * Read the checked-in language dictionary as an offline fallback.
+ * Only the two bundled default languages are allowed when the language API
+ * is unavailable; new language codes must still be confirmed by the API.
+ */
+const OFFLINE_LANGUAGE_CODES = ["fa", "en"];
+
+async function readLocalLanguageFile(lang) {
+  if (!OFFLINE_LANGUAGE_CODES.includes(lang)) {
+    return null;
+  }
+
+  const filePath = join(
+    process.cwd(),
+    "public",
+    "lang",
+    `${lang}.json`
+  );
+  const raw = await readFile(filePath, "utf8");
+  const data = JSON.parse(raw);
+
+  if (
+    !data ||
+    typeof data !== "object" ||
+    Array.isArray(data) ||
+    Object.keys(data).length === 0
+  ) {
+    throw new Error(`Invalid local language dictionary for "${lang}".`);
+  }
+
+  return data;
+}
+
+async function getOfflineLanguages() {
+  const languageMetadata = {
+    fa: {
+      id: 1,
+      name: "Persian",
+      native_name: "فارسی",
+      direction: "rtl",
+    },
+    en: {
+      id: 2,
+      name: "English",
+      native_name: "English",
+      direction: "ltr",
+    },
+  };
+
+  const languages = await Promise.all(
+    OFFLINE_LANGUAGE_CODES.map(async (code) => {
+      try {
+        // Validate that the bundled dictionary exists before exposing its route.
+        await readLocalLanguageFile(code);
+
+        return {
+          ...languageMetadata[code],
+          code,
+          icon: `/${code}/api/flag/${code}.svg`,
+          offlineFallback: true,
+        };
+      } catch (error) {
+        console.error(`[getOfflineLanguages] Failed to load ${code}:`, error);
+        return null;
+      }
+    })
+  );
+
+  return languages.filter(Boolean);
+}
+
+/**
+ * Return whole active language array.
+ * Successful API data remains authoritative. Local fa/en files are used only
+ * when the API is unavailable or returns no usable language records.
  */
 export const getLangArray = cache(async function getLangArray() {
   try {
-    const adminApiBaseUrl =
-      await getAdminApiBaseUrl();
-
-    const res = await fetchWithRetry(
+    const adminApiBaseUrl = await getAdminApiBaseUrl();
+    const res = await fetch(
       `${adminApiBaseUrl}/api/translations?active=true`,
       {
         headers: {
           "Content-Type": "application/json",
         },
+        signal: AbortSignal.timeout(4000),
         next: {
-          revalidate: 3600,
+          revalidate: 86400,
           tags: ["translations"],
         },
       }
@@ -199,14 +258,24 @@ export const getLangArray = cache(async function getLangArray() {
 
     const data = await res.json();
 
-    return data?.data || [];
+    if (!Array.isArray(data?.data)) {
+      throw new Error("Invalid languages response: expected data to be an array.");
+    }
+
+    // A successful API response is authoritative, including an empty active list.
+    return data.data.filter(
+      (item) =>
+        item &&
+        typeof item.code === "string" &&
+        item.code.trim().length > 0
+    );
   } catch (error) {
-    console.error(
-      "[getLangArray] Error:",
+    console.warn(
+      "[getLangArray] Language API unavailable; using bundled fa/en dictionaries.",
       error
     );
 
-    return [];
+    return getOfflineLanguages();
   }
 });
 
@@ -219,13 +288,18 @@ export const getLangArray = cache(async function getLangArray() {
  */
 export const getMainFile = cache(async function getMainFile(langData) {
   try {
+    if (langData?.offlineFallback) {
+      return await readLocalLanguageFile(langData.code);
+    }
+
     if (!langData?.file_url) {
       throw new Error("No file_url provided");
     }
 
-    const res = await fetchWithRetry(langData.file_url, {
+    const res = await fetch(langData.file_url, {
+      signal: AbortSignal.timeout(8000),
       next: {
-        revalidate: 3600,
+        revalidate: 86400,
         tags: [
           `main-file-${langData.code || "unknown"}`
         ],
@@ -252,6 +326,25 @@ export const getMainFile = cache(async function getMainFile(langData) {
 
     return data;
   } catch (error) {
+    // If the API's language list was reachable but its fa/en file URL was not,
+    // retain the same offline behavior using the repository's bundled copy.
+    if (OFFLINE_LANGUAGE_CODES.includes(langData?.code)) {
+      try {
+        const localData = await readLocalLanguageFile(langData.code);
+        if (localData) {
+          console.warn(
+            `[getMainFile] Using bundled ${langData.code} dictionary after remote fetch failed.`
+          );
+          return localData;
+        }
+      } catch (fallbackError) {
+        console.error(
+          `[getMainFile] Local fallback failed for ${langData.code}:`,
+          fallbackError
+        );
+      }
+    }
+
     console.error(
       "Error fetching mainData:",
       error,
@@ -317,7 +410,10 @@ export async function getFooterData(params) {
     const langObj =
       await getTranslation(params?.lang);
 
-    if (!langObj?.file_url) {
+    if (
+      !langObj ||
+      (!langObj.file_url && !OFFLINE_LANGUAGE_CODES.includes(langObj.code))
+    ) {
       return {};
     }
 
@@ -358,12 +454,10 @@ export async function getAllLevels() {
       headers: {
         "Content-Type": "application/json",
       },
-      // ❌ قبلاً اینجا "Cache-Control" توی headers بود که فقط یه هدر
-      // HTTP معمولیه و رفتار کش Next.js رو کنترل نمی‌کنه. این‌جا آپشن
-      // واقعی Next.js برای کش هست — دقیقاً معادل همون max-age=3600 که
-      // می‌خواستید، ولی این‌بار واقعاً روی fetch cache خود Next اثر می‌ذاره:
+      // Cache the public levels catalogue for one week.
       next: {
-        revalidate: 3600, // هر ۱ ساعت یک‌بار داده رو دوباره می‌گیره
+        revalidate: 604800,
+        tags: ["levels"],
       },
     });
 
