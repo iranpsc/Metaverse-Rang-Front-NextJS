@@ -132,7 +132,7 @@ export default function ProfileHeaderMobile({
             </div>
 
             {isLangOpen && (
-              <div className="absolute flex flex-col top-full mt-2 w-36 bg-gray-3 rounded-lg shadow-xl border matn-2-200 dark:border-dark-border p-3 z-101">
+              <div className="absolute flex flex-col top-full mt-2 w-max bg-gray-3 rounded-lg shadow-xl border matn-2-200 dark:border-dark-border p-3 z-101 pe-8 rtl:-right-14 ltr:-left-14">
                 {langArray.map((langItem) => (
                   <DropdownLanguageModule
                     key={langItem.code}

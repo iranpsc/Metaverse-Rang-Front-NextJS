@@ -10,7 +10,6 @@ import ReferralHandler from "../../components/system/ReferralHandler";
 import VPNDetector from "../../components/system/VPNDetector";
 
 import {
-  getTranslation,
   getMainFile,
   getLangArray,
 } from "@/components/utils/actions";
@@ -28,17 +27,9 @@ import Icon from "../../components/system/Icon";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 
+// Language routes are resolved on demand so the production build does not
+// depend on the translation API or attempt to prerender every active language.
 export const dynamicParams = true;
-
-export async function generateStaticParams() {
-  const languages = await getLangArray();
-
-  return languages
-    .filter((language: { code?: string }) =>
-      typeof language.code === "string" && language.code.length > 0
-    )
-    .map((language: { code: string }) => ({ lang: language.code }));
-}
 
 export default async function LangLayout({
   children,
@@ -50,20 +41,21 @@ export default async function LangLayout({
   const resolvedParams = await params;
   const lang = resolvedParams.lang;
 
-  // The API is the single source of truth for active languages.
-  // An empty list means the language service is unavailable (or misconfigured),
-  // not that only a hard-coded set of languages should be accepted.
+  // The API is authoritative when available. getLangArray supplies only the
+  // bundled fa/en dictionaries when the API is unavailable.
   const langArray = await getLangArray();
 
   if (langArray.length === 0) {
     return (
-      <CustomErrorPage
-        error={{
-          name: "TranslationServiceUnavailable",
-          message: "Unable to load the active language list from the translation API.",
-          stack: null,
-        }}
-      />
+      <Suspense fallback={<div className="min-h-screen" />}>
+        <CustomErrorPage
+          error={{
+            name: "TranslationServiceUnavailable",
+            message: "Unable to load the active language list from the translation API.",
+            stack: null,
+          }}
+        />
+      </Suspense>
     );
   }
 
@@ -83,7 +75,7 @@ export default async function LangLayout({
      * Validate language data
      * ---------------------------------------------------------- */
 
-    if (!langData?.file_url) {
+    if (!langData?.file_url && !["fa", "en"].includes(lang)) {
       throw new Error(`No file_url in langData for lang: ${lang}`);
     }
 
@@ -243,9 +235,11 @@ export default async function LangLayout({
     );
 
     return (
-      <CustomErrorPage
-        error={serializedError}
-      />
+      <Suspense fallback={<div className="min-h-screen" />}>
+        <CustomErrorPage
+          error={serializedError}
+        />
+      </Suspense>
     );
   }
 }

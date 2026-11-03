@@ -1,6 +1,6 @@
 import type { ReactNode, SVGProps } from "react";
 import type { WorkGroupIconKey } from "./workGroupsData";
-import path from "path";
+// import path from "path";
 
 /**
  * آیکون‌ها به‌صورت SVG sprite: هر شکل فقط یک‌بار در DOM تعریف می‌شود
