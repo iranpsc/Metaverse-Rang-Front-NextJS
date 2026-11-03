@@ -75,7 +75,7 @@ export default async function LangLayout({
      * Validate language data
      * ---------------------------------------------------------- */
 
-    if (!langData?.offlineFallback && !langData?.file_url) {
+    if (!langData?.file_url && !["fa", "en"].includes(lang)) {
       throw new Error(`No file_url in langData for lang: ${lang}`);
     }
 

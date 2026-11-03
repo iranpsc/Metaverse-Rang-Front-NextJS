@@ -410,7 +410,10 @@ export async function getFooterData(params) {
     const langObj =
       await getTranslation(params?.lang);
 
-    if (!langObj || (!langObj.file_url && !langObj.offlineFallback)) {
+    if (
+      !langObj ||
+      (!langObj.file_url && !OFFLINE_LANGUAGE_CODES.includes(langObj.code))
+    ) {
       return {};
     }
 
