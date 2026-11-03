@@ -115,7 +115,7 @@ const nextConfig = {
     unoptimized: process.env.PLAYWRIGHT_E2E === "true",
     deviceSizes: [320, 480, 640, 768, 1024, 1280, 1536],
     imageSizes: [16, 32, 64, 128, 256, 384, 512, 540, 600],
-    qualities: [25, 50, 75],
+    qualities: [25, 50, 70, 75, 100],
     formats: ["image/avif", "image/webp"],
 
     remotePatterns: [
