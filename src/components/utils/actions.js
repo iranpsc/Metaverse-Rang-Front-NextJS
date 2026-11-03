@@ -297,7 +297,7 @@ export const getMainFile = cache(async function getMainFile(langData) {
     }
 
     const res = await fetch(langData.file_url, {
-      signal: AbortSignal.timeout(4000),
+      signal: AbortSignal.timeout(8000),
       next: {
         revalidate: 86400,
         tags: [
