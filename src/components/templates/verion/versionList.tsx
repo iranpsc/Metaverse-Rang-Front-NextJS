@@ -429,7 +429,7 @@ const VersionBox: React.FC<VersionBoxProps> = ({
             ) : filteredVersions.length > 0 ? (
               filteredVersions.slice(0, visibleCount).map((item, index) => (
                 <Link
-                  href={`/${params.lang}/version/${encodeURIComponent(item.version)}`}
+                  href={`/${params.lang}/versions/${encodeURIComponent(item.version)}`}
                   prefetch={false}
                   scroll={false}
                   ref={(el) => {

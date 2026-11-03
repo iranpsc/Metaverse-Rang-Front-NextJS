@@ -258,24 +258,7 @@ export async function generateMetadata({ params }: NewsPageProps) {
   }
 }
 
-// ======================================
-// Static Paths - بر اساس دیتای استاتیک news.json
-// ======================================
-export async function generateStaticParams() {
-  try {
-    if (!fallbackNewsData || fallbackNewsData.length === 0) return [];
-
-    // فقط فارسی (طبق دیتای موجود، همه اخبار فارسی هستند)
-    return fallbackNewsData.map((news: any) => ({
-      lang: "fa",
-      category: news.categorySlug,
-      slug: news.slug,
-    }));
-  } catch (error) {
-    console.error("Error generating static params:", error);
-    return [];
-  }
-}
+// This page is force-dynamic; static params would only add build-time work.
 
 // هر ۱۰ دقیقه یکبار صفحات استاتیک رو به‌روزرسانی کنه (ISR)
 

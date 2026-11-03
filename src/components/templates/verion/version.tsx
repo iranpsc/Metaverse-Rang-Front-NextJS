@@ -76,7 +76,7 @@ const Version: React.FC<VersionBoxProps> = ({
   /** ✅ هماهنگی با دکمه‌ی back/forward مرورگر */
   useEffect(() => {
     const handlePopState = () => {
-      const match = window.location.pathname.match(/\/version\/([^/?#]+)/);
+      const match = window.location.pathname.match(/\/versions\/([^/?#]+)/);
       let slug: string | null = null;
       if (match) {
         try {
@@ -116,7 +116,7 @@ const Version: React.FC<VersionBoxProps> = ({
     if (fromClick) {
       // عمدا از router.push استفاده نمیشه چون توی Next.js App Router باعث
       // ری‌فچ سرور کامپوننت صفحه (و در نتیجه نمایش loading.tsx کامل، شامل لیست) میشه.
-      const url = `/${params.lang}/version/${encodeURIComponent(data.version)}`;
+      const url = `/${params.lang}/versions/${encodeURIComponent(data.version)}`;
       window.history.pushState(null, "", url);
     }
 

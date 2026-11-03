@@ -1,0 +1,851 @@
+# Page snapshot
+
+```yaml
+- main [ref=e2]:
+  - complementary [ref=e5]:
+    - status "در حال بارگذاری" [ref=e8]
+    - list [ref=e9]:
+      - listitem [ref=e10]:
+        - status "در حال بارگذاری" [ref=e11]
+      - listitem [ref=e12]:
+        - status "در حال بارگذاری" [ref=e13]
+      - listitem [ref=e14]:
+        - status "در حال بارگذاری" [ref=e15]
+      - listitem [ref=e16]:
+        - status "در حال بارگذاری" [ref=e17]
+      - listitem [ref=e18]:
+        - status "در حال بارگذاری" [ref=e19]
+      - listitem [ref=e20]:
+        - status "در حال بارگذاری" [ref=e21]
+      - listitem [ref=e22]:
+        - status "در حال بارگذاری" [ref=e23]
+      - listitem [ref=e24]:
+        - status "در حال بارگذاری" [ref=e25]
+    - status "در حال بارگذاری" [ref=e28]
+  - generic [ref=e29]:
+    - generic [ref=e30]:
+      - generic [ref=e32]:
+        - link "صفحه نخست" [ref=e33] [cursor=pointer]:
+          - /url: /fa
+          - text: صفحه نخست
+          - img [ref=e34]
+        - link "وان پیجر" [ref=e36] [cursor=pointer]:
+          - /url: /fa/whitepaper
+      - generic [ref=e38]:
+        - generic [ref=e47]:
+          - generic [ref=e48]:
+            - img "Logo" [ref=e50]
+            - paragraph [ref=e51]: 10:37 PM
+            - paragraph [ref=e52]: Wednesday, February 25, 2026
+          - generic [ref=e54]:
+            - img [ref=e56]
+            - generic [ref=e59]:
+              - generic [ref=e60]: پیمایش
+              - generic [ref=e61]: برای کاوش در صفحه
+        - generic [ref=e63]:
+          - paragraph [ref=e65]: متارنگ انجمن جهانی سازندگان را با بهره‌گیری از دارایی‌های پی‌اس‌سی و پی‌اس‌دی برای کارهای واقعی توانمند می‌سازد. تند و تیز. گسترش‌پذیر در ساختار. پیوسته در ریشه. همه برای ساختن یک زیست‌بوم یکپارچه.
+          - generic [ref=e66]:
+            - img "whitepaper" [ref=e68]
+            - generic [ref=e69]:
+              - heading "نیرو گرفته از شبکه متارنگ و دارایی‌های پی‌اس‌سی و پی‌اس‌دی" [level=1] [ref=e70]
+              - paragraph [ref=e71]: آینده پذیرش این دانش در یک زنجیره نخواهد بود، بلکه در هزاران لایه ویژه رخ می‌دهد. متارنگ جایی است که این اقتصادهای دیجیتال ساخته می‌شوند.
+              - generic [ref=e72] [cursor=pointer]:
+                - img [ref=e73]
+                - generic [ref=e75]:
+                  - generic [ref=e76]: کیف پول را ایجاد کنید
+                  - img [ref=e77]
+      - generic [ref=e79]:
+        - generic [ref=e81]:
+          - generic [ref=e87]:
+            - generic [ref=e89]: چرا
+            - paragraph [ref=e90]: متارنگ
+          - generic [ref=e92]:
+            - generic [ref=e93]:
+              - generic [ref=e94]:
+                - generic [ref=e95]: "01"
+                - generic [ref=e96]:
+                  - heading "سریع. قدرتمند. امن." [level=3] [ref=e97]
+                  - paragraph [ref=e98]: هم‌دلی پیشرو در متارنگ شبکه‌ای از لایه‌های بهینه را نیرو می‌دهد که با پی‌اس‌سی و پی‌اس‌دی تراکنش‌ها را بی‌درنگ نهایی می‌کنند. متارنگ برگزیده پیشگامان آینده است.
+              - img "Logo" [ref=e99]
+            - img [ref=e105]
+          - generic [ref=e108]:
+            - generic [ref=e109]:
+              - generic [ref=e110]:
+                - generic [ref=e111]: "02"
+                - generic [ref=e112]:
+                  - heading "به‌گونه‌ای طراحی شده که بی‌نهایت مقیاس‌پذیر باشد" [level=3] [ref=e113]
+                  - paragraph [ref=e114]: متارنگ جایی است که اندیشه‌های بزرگ با پی‌اس‌سی گسترش می‌یابند. متارنگ بزرگ‌شدن در یک زیست‌بوم مجازی پیوسته را آسان می‌کند.
+              - img "Logo" [ref=e115]
+            - img [ref=e121]
+          - generic [ref=e127]:
+            - generic [ref=e128]:
+              - generic [ref=e129]:
+                - generic [ref=e130]: "03"
+                - generic [ref=e131]:
+                  - heading "لایه‌های متارنگ و دارایی‌های پی‌اس‌دی با توانایی دگرگونی" [level=3] [ref=e132]
+                  - paragraph [ref=e133]: متارنگ راه‌اندازی پروژه‌های بر پایه پی‌اس‌سی و پی‌اس‌دی را شدنی‌تر و تندتر می‌کند. این شبکه با ساختار ریزخدمات به هم پیوسته است.
+              - img "Logo" [ref=e134]
+            - img [ref=e140]
+          - generic [ref=e145]:
+            - generic [ref=e146]:
+              - generic [ref=e147]:
+                - generic [ref=e148]: "04"
+                - generic [ref=e149]:
+                  - heading "انجمن جهانی شهروندان متارنگ" [level=3] [ref=e150]
+                  - paragraph [ref=e151]: متارنگ فراتر از یک شبکه است؛ انجمنی از دارندگان پی‌اس‌سی و پی‌اس‌دی است که اقتصاد دیجیتال را پیش می‌برند تا اندیشه‌ها را به کارهای ماندگار دگرگون کنند.
+              - img "Logo" [ref=e152]
+            - img [ref=e158]
+        - generic [ref=e163]:
+          - generic [ref=e165]:
+            - img [ref=e167]
+            - heading "کیف پولی راه اندازی کنید" [level=3] [ref=e169]
+            - paragraph [ref=e170]: برای پیوستن به متارنگ، کیف پولی برای نگهداری پی‌اس‌سی و پی‌اس‌دی بسازید تا دادوستدها را تایید و کارهای خود را در جهان مجازی دنبال کنید.
+            - generic [ref=e172] [cursor=pointer]:
+              - img [ref=e173]
+              - generic [ref=e175]:
+                - generic [ref=e176]: کیف پول را ایجاد کنید
+                - img [ref=e177]
+          - generic [ref=e180]:
+            - img [ref=e182]
+            - heading "نشان‌های پی‌اس‌سی و پی‌اس‌دی" [level=3] [ref=e187]
+            - paragraph [ref=e188]: ابزارهای پی‌اس‌سی و دارایی‌های پی‌اس‌دی رو به گسترش را در سراسر شبکه متارنگ بیابید.
+            - generic [ref=e190] [cursor=pointer]:
+              - img [ref=e191]
+              - generic [ref=e193]:
+                - generic [ref=e194]: بیشتر بدانید
+                - img [ref=e195]
+          - generic [ref=e198]:
+            - img [ref=e200]
+            - heading "گشت‌ و گذار در زیست‌بوم پی‌اس‌سی و پی‌اس‌دی متارنگ" [level=3] [ref=e204]
+            - paragraph [ref=e205]: ابزارهای پی‌اس‌سی و دارایی‌های پی‌اس‌دی رو به گسترش را در سراسر شبکه متارنگ بیابید.
+            - generic [ref=e207] [cursor=pointer]:
+              - img [ref=e208]
+              - generic [ref=e210]:
+                - generic [ref=e211]: ورود به متارنگ
+                - img [ref=e212]
+        - generic [ref=e214]:
+          - generic [ref=e217]:
+            - img [ref=e220]
+            - paragraph [ref=e226]: پی‌اس‌سی و پی‌اس‌دی به شبکه متارنگ نیرو می‌دهند؛ برای پرداخت کارمزدها، دارندگی زمین و پیشبرد پاداش‌های کشورداری به کار می‌روند.
+          - generic [ref=e229]:
+            - img [ref=e233] [cursor=pointer]
+            - img [ref=e238] [cursor=pointer]
+            - img [ref=e246] [cursor=pointer]
+            - img [ref=e253] [cursor=pointer]
+            - img [ref=e258] [cursor=pointer]
+            - img [ref=e263] [cursor=pointer]
+            - img [ref=e268] [cursor=pointer]
+            - img [ref=e276] [cursor=pointer]
+            - img [ref=e283] [cursor=pointer]
+            - img [ref=e288] [cursor=pointer]
+        - generic [ref=e293]:
+          - img [ref=e297]
+          - generic [ref=e300]:
+            - generic [ref=e302]: متارنگ بستری برای ساخت و گسترش پروژه‌های پی‌اس‌سی و پی‌اس‌دی بدون از دست دادن تندی یا چیرگی است. از امروز ابزارهای ما را بررسی کنید.
+            - generic [ref=e304]:
+              - generic [ref=e305]:
+                - img "آموزشگاه کشورداری متارنگ pic" [ref=e307]
+                - generic [ref=e308]:
+                  - heading "آموزشگاه کشورداری متارنگ" [level=3] [ref=e309]
+                  - paragraph [ref=e310]: Avalanche Academy is a suite of courses for developers of all experience levels to hone their skills, while the Codebase Entrepreneur Academy offers the foundational knowledge needed to launch and grow your Web3 startup on Avalanche....
+                  - generic [ref=e311] [cursor=pointer]:
+                    - generic [ref=e312]: بیشتر بدانید
+                    - img [ref=e313]
+              - generic [ref=e315]:
+                - img "آموزشگاه کشورداری متارنگ pic" [ref=e317]
+                - generic [ref=e318]:
+                  - heading "آموزشگاه کشورداری متارنگ" [level=3] [ref=e319]
+                  - paragraph [ref=e320]: Avalanche Academy is a suite of courses for developers of all experience levels to hone their skills, while the Codebase Entrepreneur Academy offers the foundational knowledge needed to launch and grow your Web3 startup on Avalanche....
+                  - generic [ref=e321] [cursor=pointer]:
+                    - generic [ref=e322]: بیشتر بدانید
+                    - img [ref=e323]
+              - generic [ref=e325]:
+                - img "آموزشگاه کشورداری متارنگ pic" [ref=e327]
+                - generic [ref=e328]:
+                  - heading "آموزشگاه کشورداری متارنگ" [level=3] [ref=e329]
+                  - paragraph [ref=e330]: Avalanche Academy is a suite of courses for developers of all experience levels to hone their skills, while the Codebase Entrepreneur Academy offers the foundational knowledge needed to launch and grow your Web3 startup on Avalanche....
+                  - generic [ref=e331] [cursor=pointer]:
+                    - generic [ref=e332]: بیشتر بدانید
+                    - img [ref=e333]
+              - generic [ref=e335]:
+                - img "آموزشگاه کشورداری متارنگ pic" [ref=e337]
+                - generic [ref=e338]:
+                  - heading "آموزشگاه کشورداری متارنگ" [level=3] [ref=e339]
+                  - paragraph [ref=e340]: Avalanche Academy is a suite of courses for developers of all experience levels to hone their skills, while the Codebase Entrepreneur Academy offers the foundational knowledge needed to launch and grow your Web3 startup on Avalanche....
+                  - generic [ref=e341] [cursor=pointer]:
+                    - generic [ref=e342]: بیشتر بدانید
+                    - img [ref=e343]
+              - generic [ref=e345]:
+                - img "آموزشگاه کشورداری متارنگ pic" [ref=e347]
+                - generic [ref=e348]:
+                  - heading "آموزشگاه کشورداری متارنگ" [level=3] [ref=e349]
+                  - paragraph [ref=e350]: Avalanche Academy is a suite of courses for developers of all experience levels to hone their skills, while the Codebase Entrepreneur Academy offers the foundational knowledge needed to launch and grow your Web3 startup on Avalanche....
+                  - generic [ref=e351] [cursor=pointer]:
+                    - generic [ref=e352]: بیشتر بدانید
+                    - img [ref=e353]
+              - generic [ref=e355]:
+                - img "آموزشگاه کشورداری متارنگ pic" [ref=e357]
+                - generic [ref=e358]:
+                  - heading "آموزشگاه کشورداری متارنگ" [level=3] [ref=e359]
+                  - paragraph [ref=e360]: Avalanche Academy is a suite of courses for developers of all experience levels to hone their skills, while the Codebase Entrepreneur Academy offers the foundational knowledge needed to launch and grow your Web3 startup on Avalanche....
+                  - generic [ref=e361] [cursor=pointer]:
+                    - generic [ref=e362]: بیشتر بدانید
+                    - img [ref=e363]
+        - generic [ref=e365]:
+          - generic [ref=e367]:
+            - img [ref=e370]
+            - paragraph [ref=e374]: متارنگ از سازندگان پی‌اس‌سی با برنامه‌های دهش، خزانه خودگردان و پاداش‌های ساخت‌وساز همکارانه پشتیبانی می‌کند.
+          - generic [ref=e376]:
+            - generic [ref=e377]:
+              - generic [ref=e378]:
+                - paragraph [ref=e379]: ریشه کد و شیوه‌نامه‌های پی‌اس‌سی و پی‌اس‌دی متارنگ
+                - paragraph [ref=e380]: ریشه کد متارنگ برای شهروندان آزمایشگاه‌های نوآوری پی‌اس‌سی و پی‌اس‌دی، شیوه‌نامه‌های خودکار و ابزارهای کاربردی را در تمام سال فراهم می‌کند.
+              - generic [ref=e381] [cursor=pointer]:
+                - generic [ref=e382]: درباره ریشه کد متارنگ و پی‌اس‌سی بیشتر بدانید
+                - img [ref=e383]
+            - generic [ref=e386]:
+              - generic [ref=e388]:
+                - heading "Academy" [level=3] [ref=e389]
+                - paragraph [ref=e390]: Avalanche Academy is a suite of courses for developers of all experience levels to hone their skills, while the Codebase Entrepreneur Academy offers the foundational knowledge needed to launch and grow your Web3 startup on Avalanche....
+              - generic [ref=e392]:
+                - heading "Academy" [level=3] [ref=e393]
+                - paragraph [ref=e394]: Avalanche Academy is a suite of courses for developers of all experience levels to hone their skills, while the Codebase Entrepreneur Academy offers the foundational knowledge needed to launch and grow your Web3 startup on Avalanche....
+              - generic [ref=e396]:
+                - heading "Academy" [level=3] [ref=e397]
+                - paragraph [ref=e398]: Avalanche Academy is a suite of courses for developers of all experience levels to hone their skills, while the Codebase Entrepreneur Academy offers the foundational knowledge needed to launch and grow your Web3 startup on Avalanche....
+          - generic [ref=e400]:
+            - generic [ref=e401]:
+              - generic [ref=e402]:
+                - paragraph [ref=e403]: دهش‌های بنیاد متارنگ برای پی‌اس‌سی و پی‌اس‌دی
+                - paragraph [ref=e404]: نیرو بخشیدن به سازندگان متارنگ برای ساخت ابزارهای بر پایه پی‌اس‌سی و زیرساخت‌های زمین‌های پی‌اس‌دی.
+              - generic [ref=e405] [cursor=pointer]:
+                - generic [ref=e406]: آغاز ساخت دارایی‌ها با پی‌اس‌سی
+                - img [ref=e407]
+            - generic [ref=e410]:
+              - generic [ref=e412]:
+                - heading "آموزشگاه کشورداری متارنگ" [level=3] [ref=e413]
+                - paragraph [ref=e414]: Avalanche Academy is a suite of courses for developers of all experience levels to hone their skills, while the Codebase Entrepreneur Academy offers the foundational knowledge needed to launch and grow your Web3 startup on Avalanche....
+              - generic [ref=e416]:
+                - heading "آموزشگاه کشورداری متارنگ" [level=3] [ref=e417]
+                - paragraph [ref=e418]: Avalanche Academy is a suite of courses for developers of all experience levels to hone their skills, while the Codebase Entrepreneur Academy offers the foundational knowledge needed to launch and grow your Web3 startup on Avalanche....
+              - generic [ref=e420]:
+                - heading "آموزشگاه کشورداری متارنگ" [level=3] [ref=e421]
+                - paragraph [ref=e422]: Avalanche Academy is a suite of courses for developers of all experience levels to hone their skills, while the Codebase Entrepreneur Academy offers the foundational knowledge needed to launch and grow your Web3 startup on Avalanche....
+        - generic [ref=e424]:
+          - generic [ref=e425]:
+            - generic [ref=e427]: متارنگ
+            - generic [ref=e429]: شبکه
+            - generic [ref=e431]: ابزار PSC/PSD
+          - paragraph [ref=e435]: واپسین تراکنش‌های پی‌اس‌سی و داده‌های بلوک پی‌اس‌دی را در شبکه متارنگ بررسی کنید.
+          - generic [ref=e437]:
+            - generic [ref=e439]:
+              - paragraph [ref=e440]: 12,554,178,438
+              - generic [ref=e443]: ایالت های زنده
+            - generic [ref=e445]: دادوستد ها
+          - generic [ref=e446]:
+            - generic [ref=e447]:
+              - heading "واپسین بلوک‌های پی‌اس‌سی متارنگ" [level=3] [ref=e449]
+              - generic [ref=e450]:
+                - generic [ref=e452]:
+                  - generic [ref=e453]:
+                    - generic [ref=e454]: "59005799"
+                    - generic [ref=e455]: 1 ثانیه پیش
+                  - generic [ref=e456]:
+                    - generic [ref=e457]: هش
+                    - generic [ref=e458]: 0x54BA...F43D59
+                    - generic [ref=e459]: 7 TX
+                  - generic [ref=e460]: <0.01 AVAX
+                - generic [ref=e462]:
+                  - generic [ref=e463]:
+                    - generic [ref=e464]: "59005798"
+                    - generic [ref=e465]: 2 ثانیه پیش
+                  - generic [ref=e466]:
+                    - generic [ref=e467]: هش
+                    - generic [ref=e468]: 0x32CF...A872EB
+                    - generic [ref=e469]: 12 TX
+                  - generic [ref=e470]: 0.02 AVAX
+                - generic [ref=e472]:
+                  - generic [ref=e473]:
+                    - generic [ref=e474]: "59005797"
+                    - generic [ref=e475]: 3 ثانیه پیش
+                  - generic [ref=e476]:
+                    - generic [ref=e477]: هش
+                    - generic [ref=e478]: 0x87DE...B4512F
+                    - generic [ref=e479]: 5 TX
+                  - generic [ref=e480]: <0.01 AVAX
+                - generic [ref=e482]:
+                  - generic [ref=e483]:
+                    - generic [ref=e484]: "59005796"
+                    - generic [ref=e485]: 4 ثانیه پیش
+                  - generic [ref=e486]:
+                    - generic [ref=e487]: هش
+                    - generic [ref=e488]: 0x41AC...E9637A
+                    - generic [ref=e489]: 9 TX
+                  - generic [ref=e490]: 0.01 AVAX
+                - generic [ref=e492]:
+                  - generic [ref=e493]:
+                    - generic [ref=e494]: "59005796"
+                    - generic [ref=e495]: 4 ثانیه پیش
+                  - generic [ref=e496]:
+                    - generic [ref=e497]: هش
+                    - generic [ref=e498]: 0x41AC...E9637A
+                    - generic [ref=e499]: 9 TX
+                  - generic [ref=e500]: 0.01 AVAX
+                - generic [ref=e502]:
+                  - generic [ref=e503]:
+                    - generic [ref=e504]: "59005796"
+                    - generic [ref=e505]: 4 ثانیه پیش
+                  - generic [ref=e506]:
+                    - generic [ref=e507]: هش
+                    - generic [ref=e508]: 0x41AC...E9637A
+                    - generic [ref=e509]: 9 TX
+                  - generic [ref=e510]: 0.01 AVAX
+            - generic [ref=e511]:
+              - heading "واپسین گزارش‌های تصمیم‌گیری پی‌اس‌سی و پی‌اس‌دی" [level=3] [ref=e513]
+              - generic [ref=e514]:
+                - generic [ref=e516]:
+                  - generic [ref=e517]:
+                    - generic [ref=e518]: 0x54BA...F43D59
+                    - generic [ref=e519]: 0x54BA...F43D59 ثانیه پیش
+                  - generic [ref=e520]:
+                    - generic [ref=e521]:
+                      - generic [ref=e522]: from
+                      - generic [ref=e523]: 0x54BA...F43D59
+                    - generic [ref=e524]:
+                      - generic [ref=e525]: مبلغ
+                      - generic [ref=e526]: "7"
+                - generic [ref=e528]:
+                  - generic [ref=e529]:
+                    - generic [ref=e530]: 0x32CF...A872EB
+                    - generic [ref=e531]: 0x32CF...A872EB ثانیه پیش
+                  - generic [ref=e532]:
+                    - generic [ref=e533]:
+                      - generic [ref=e534]: from
+                      - generic [ref=e535]: 0x32CF...A872EB
+                    - generic [ref=e536]:
+                      - generic [ref=e537]: مبلغ
+                      - generic [ref=e538]: "12"
+                - generic [ref=e540]:
+                  - generic [ref=e541]:
+                    - generic [ref=e542]: 0x87DE...B4512F
+                    - generic [ref=e543]: 0x87DE...B4512F ثانیه پیش
+                  - generic [ref=e544]:
+                    - generic [ref=e545]:
+                      - generic [ref=e546]: from
+                      - generic [ref=e547]: 0x87DE...B4512F
+                    - generic [ref=e548]:
+                      - generic [ref=e549]: مبلغ
+                      - generic [ref=e550]: "5"
+                - generic [ref=e552]:
+                  - generic [ref=e553]:
+                    - generic [ref=e554]: 0x41AC...E9637A
+                    - generic [ref=e555]: 0x41AC...E9637A ثانیه پیش
+                  - generic [ref=e556]:
+                    - generic [ref=e557]:
+                      - generic [ref=e558]: from
+                      - generic [ref=e559]: 0x41AC...E9637A
+                    - generic [ref=e560]:
+                      - generic [ref=e561]: مبلغ
+                      - generic [ref=e562]: "9"
+                - generic [ref=e564]:
+                  - generic [ref=e565]:
+                    - generic [ref=e566]: 0x41AC...E9637A
+                    - generic [ref=e567]: 0x41AC...E9637A ثانیه پیش
+                  - generic [ref=e568]:
+                    - generic [ref=e569]:
+                      - generic [ref=e570]: from
+                      - generic [ref=e571]: 0x41AC...E9637A
+                    - generic [ref=e572]:
+                      - generic [ref=e573]: مبلغ
+                      - generic [ref=e574]: "9"
+                - generic [ref=e576]:
+                  - generic [ref=e577]:
+                    - generic [ref=e578]: 0x41AC...E9637A
+                    - generic [ref=e579]: 0x41AC...E9637A ثانیه پیش
+                  - generic [ref=e580]:
+                    - generic [ref=e581]:
+                      - generic [ref=e582]: from
+                      - generic [ref=e583]: 0x41AC...E9637A
+                    - generic [ref=e584]:
+                      - generic [ref=e585]: مبلغ
+                      - generic [ref=e586]: "9"
+        - generic [ref=e589]:
+          - generic [ref=e590]:
+            - img [ref=e594]
+            - generic [ref=e597]:
+              - generic [ref=e598]:
+                - paragraph [ref=e599]: اخبار
+                - paragraph [ref=e600]: پیشنهادهای کلیدی
+              - generic [ref=e601]:
+                - button "Previous" [ref=e602]:
+                  - img [ref=e603]
+                - button "Next" [ref=e605]:
+                  - img [ref=e606]
+            - generic [ref=e608]:
+              - generic [ref=e610]:
+                - img "Enterprise and consumer apps are coming together on Avalanche" [ref=e612]
+                - generic [ref=e613]:
+                  - generic [ref=e614]:
+                    - paragraph [ref=e615]: برنامه‌های سازمانی و کاربردی پی‌اس‌سی و پی‌اس‌دی متارنگ
+                    - generic [ref=e616]:
+                      - generic [ref=e617]: NOV 20, 2025
+                      - generic [ref=e618]: •
+                      - generic [ref=e619]: متاورس رنگ
+                      - generic [ref=e620]: •
+                      - generic [ref=e621]: 5 دقیقه خواندن
+                    - paragraph [ref=e622]: Enterprise and consumer apps are coming together on Avalanche
+                    - paragraph [ref=e623]: Major brands and Web3 pioneers are building the next generation of digital experiences on Avalanche's high-performance subnet architecture.
+                  - button "read more" [ref=e625]:
+                    - text: مطالعه بیشتر
+                    - img [ref=e626]
+              - generic [ref=e629]:
+                - 'img "ROYALTIES IN SECONDS, NOT MONTHS: MUSIC GOES ONCHAIN WITH AVALANCHE" [ref=e631]'
+                - generic [ref=e632]:
+                  - generic [ref=e633]:
+                    - paragraph [ref=e634]: اعلامیه
+                    - generic [ref=e635]:
+                      - generic [ref=e636]: NOV 20, 2025
+                      - generic [ref=e637]: •
+                      - generic [ref=e638]: متاورس رنگ
+                      - generic [ref=e639]: •
+                      - generic [ref=e640]: 3 دقیقه خواندن
+                    - paragraph [ref=e641]: "ROYALTIES IN SECONDS, NOT MONTHS: MUSIC GOES ONCHAIN WITH AVALANCHE"
+                    - paragraph [ref=e642]: How Record Financial and 11am, home to artists like Armani White, RealestK, Lil Tjay, ASAP Ferg, Alex Warren, and Maddox, are using Avalanche to pay royalties in seconds.
+                  - button "read more" [ref=e644]:
+                    - text: مطالعه بیشتر
+                    - img [ref=e645]
+              - generic [ref=e648]:
+                - img "HOW RECORD FINANCIAL AND 11AM, HOME TO ARTISTS LIKE ARMANI WHITE" [ref=e650]
+                - generic [ref=e651]:
+                  - generic [ref=e652]:
+                    - paragraph [ref=e653]: اخبار
+                    - generic [ref=e654]:
+                      - generic [ref=e655]: NOV 19, 2025
+                      - generic [ref=e656]: •
+                      - generic [ref=e657]: متاورس رنگ
+                      - generic [ref=e658]: •
+                      - generic [ref=e659]: 2 دقیقه خواندن
+                    - paragraph [ref=e660]: HOW RECORD FINANCIAL AND 11AM, HOME TO ARTISTS LIKE ARMANI WHITE
+                    - paragraph [ref=e661]: "The music industry moves onchain: instant royalty payments, transparent licensing, and new revenue streams for creators."
+                  - button "read more" [ref=e663]:
+                    - text: مطالعه بیشتر
+                    - img [ref=e664]
+              - generic [ref=e667]:
+                - 'img "ROYALTIES IN SECONDS, NOT MONTHS: MUSIC GOES ONCHAIN WITH AVALANCHE" [ref=e669]'
+                - generic [ref=e670]:
+                  - generic [ref=e671]:
+                    - paragraph [ref=e672]: اعلامیه
+                    - generic [ref=e673]:
+                      - generic [ref=e674]: NOV 18, 2025
+                      - generic [ref=e675]: •
+                      - generic [ref=e676]: متاورس رنگ
+                      - generic [ref=e677]: •
+                      - generic [ref=e678]: 4 دقیقه خواندن
+                    - paragraph [ref=e679]: "ROYALTIES IN SECONDS, NOT MONTHS: MUSIC GOES ONCHAIN WITH AVALANCHE"
+                    - paragraph [ref=e680]: Artists like ASAP Ferg, Alex Warren, and Madd0x are now receiving royalties instantly via smart contracts.
+                  - button "read more" [ref=e682]:
+                    - text: مطالعه بیشتر
+                    - img [ref=e683]
+              - generic [ref=e686]:
+                - img "AVALANCHE POWERS NEXT-GEN GAMING ECONOMIES" [ref=e688]
+                - generic [ref=e689]:
+                  - generic [ref=e690]:
+                    - paragraph [ref=e691]: اعلامیه
+                    - generic [ref=e692]:
+                      - generic [ref=e693]: NOV 17, 2025
+                      - generic [ref=e694]: •
+                      - generic [ref=e695]: متاورس رنگ
+                      - generic [ref=e696]: •
+                      - generic [ref=e697]: 5 دقیقه خواندن
+                    - paragraph [ref=e698]: AVALANCHE POWERS NEXT-GEN GAMING ECONOMIES
+                    - paragraph [ref=e699]: Game developers are building player-owned economies with subnets, offering near-zero fees and instant finality.
+                  - button "read more" [ref=e701]:
+                    - text: مطالعه بیشتر
+                    - img [ref=e702]
+              - generic [ref=e705]:
+                - 'img "ENTERPRISE AND CUSTOM APPS: NEW TOOLS FOR BUILDERS" [ref=e707]'
+                - generic [ref=e708]:
+                  - generic [ref=e709]:
+                    - paragraph [ref=e710]: اعلامیه
+                    - generic [ref=e711]:
+                      - generic [ref=e712]: NOV 16, 2025
+                      - generic [ref=e713]: •
+                      - generic [ref=e714]: متاورس رنگ
+                      - generic [ref=e715]: •
+                      - generic [ref=e716]: 2 دقیقه خواندن
+                    - paragraph [ref=e717]: "ENTERPRISE AND CUSTOM APPS: NEW TOOLS FOR BUILDERS"
+                    - paragraph [ref=e718]: Launch your own custom blockchain with Avalanche’s Subnet technology – scalable, sovereign, and interoperable.
+                  - button "read more" [ref=e720]:
+                    - text: مطالعه بیشتر
+                    - img [ref=e721]
+          - generic [ref=e724] [cursor=pointer]:
+            - img [ref=e725]
+            - generic [ref=e727]:
+              - generic [ref=e728]: مطالعه بیشتر
+              - img [ref=e729]
+        - generic [ref=e733]:
+          - status "در حال بارگذاری" [ref=e735]
+          - generic [ref=e736]:
+            - generic [ref=e737]:
+              - status "در حال بارگذاری" [ref=e738]
+              - status "در حال بارگذاری" [ref=e739]
+            - status "در حال بارگذاری" [ref=e740]
+            - generic [ref=e741]:
+              - status "در حال بارگذاری" [ref=e742]
+              - status "در حال بارگذاری" [ref=e743]
+              - status "در حال بارگذاری" [ref=e744]
+            - generic [ref=e745]:
+              - generic [ref=e746]:
+                - status "در حال بارگذاری" [ref=e747]
+                - status "در حال بارگذاری" [ref=e748]
+                - status "در حال بارگذاری" [ref=e749]
+                - status "در حال بارگذاری" [ref=e750]
+                - status "در حال بارگذاری" [ref=e751]
+                - status "در حال بارگذاری" [ref=e752]
+              - status "در حال بارگذاری" [ref=e753]
+            - status "در حال بارگذاری" [ref=e754]
+        - generic [ref=e758]:
+          - img [ref=e763]
+          - generic [ref=e766]:
+            - complementary [ref=e767]:
+              - paragraph [ref=e768]: متارنگ بنیان‌گذاران و نهادها را برای ساخت با نشان‌های پی‌اس‌سی و پی‌اس‌دی نیرو می‌بخشد. با راهکارهای گسترش سفارشی و انجمن متارنگ، مهار کار را به دست بگیرید.
+            - generic [ref=e769]:
+              - article [ref=e770] [cursor=pointer]:
+                - img "Music royalty infrastructure on Avalanche" [ref=e772]
+                - generic [ref=e773]:
+                  - paragraph [ref=e774]: REAL-TIME MUSIC ROYALTIES ON AVALANCHE
+                  - paragraph [ref=e775]: Artists and labels are leveraging Avalanche infrastructure to distribute music royalties globally in seconds instead of months.
+                - button "Read more about REAL-TIME MUSIC ROYALTIES ON AVALANCHE" [ref=e776]:
+                  - img [ref=e777]
+              - article [ref=e779] [cursor=pointer]:
+                - img "Enterprise subnet architecture" [ref=e781]
+                - generic [ref=e782]:
+                  - paragraph [ref=e783]: ENTERPRISE SUBNETS FOR GLOBAL BUSINESSES
+                  - paragraph [ref=e784]: Fortune 500 companies are deploying scalable subnet architectures for secure, compliant and customizable blockchain ecosystems.
+                - button "Read more about ENTERPRISE SUBNETS FOR GLOBAL BUSINESSES" [ref=e785]:
+                  - img [ref=e786]
+              - article [ref=e788] [cursor=pointer]:
+                - img "Blockchain gaming economy" [ref=e790]
+                - generic [ref=e791]:
+                  - paragraph [ref=e792]: NEXT-GEN GAMING ECONOMIES
+                  - paragraph [ref=e793]: Studios are building player-owned gaming economies with instant transactions and near-zero gas fees on Avalanche.
+                - button "Read more about NEXT-GEN GAMING ECONOMIES" [ref=e794]:
+                  - img [ref=e795]
+              - article [ref=e797] [cursor=pointer]:
+                - img "Tokenized real-world assets platform" [ref=e799]
+                - generic [ref=e800]:
+                  - paragraph [ref=e801]: TOKENIZED REAL-WORLD ASSETS
+                  - paragraph [ref=e802]: Institutions are tokenizing real estate, private equity and commodities using Avalanche for transparent ownership systems.
+                - button "Read more about TOKENIZED REAL-WORLD ASSETS" [ref=e803]:
+                  - img [ref=e804]
+              - article [ref=e806] [cursor=pointer]:
+                - img "Web3 payments powered by Avalanche" [ref=e808]
+                - generic [ref=e809]:
+                  - paragraph [ref=e810]: SCALABLE WEB3 PAYMENT NETWORKS
+                  - paragraph [ref=e811]: Payment providers are integrating Avalanche to power instant settlements and borderless financial infrastructure.
+                - button "Read more about SCALABLE WEB3 PAYMENT NETWORKS" [ref=e812]:
+                  - img [ref=e813]
+              - article [ref=e815] [cursor=pointer]:
+                - img "AI and blockchain integration" [ref=e817]
+                - generic [ref=e818]:
+                  - paragraph [ref=e819]: AI + BLOCKCHAIN DATA LAYERS
+                  - paragraph [ref=e820]: AI platforms are using Avalanche to create secure, verifiable and decentralized data coordination layers.
+                - button "Read more about AI + BLOCKCHAIN DATA LAYERS" [ref=e821]:
+                  - img [ref=e822]
+        - generic [ref=e827]:
+          - generic [ref=e828]:
+            - img [ref=e831]
+            - paragraph [ref=e835]: فرهنگ متارنگ فراتر از دارایی‌هاست. با شهروندان، خبرنگاران و دادگذارانی که متارنگ را با پی‌اس‌سی و پی‌اس‌دی خانه خود می‌دانند، بپیوندید.
+          - generic [ref=e836]:
+            - generic [ref=e837]:
+              - button "Youtube" [ref=e838]:
+                - img [ref=e840]
+                - generic [ref=e842]: Youtube
+              - button "Behance" [ref=e843]:
+                - img [ref=e845]
+                - generic [ref=e847]: Behance
+              - button "Adobe" [ref=e848]:
+                - img [ref=e850]
+                - generic [ref=e852]: Adobe
+              - button "Facebook" [ref=e853]:
+                - img [ref=e855]
+                - generic [ref=e857]: Facebook
+              - button "Youtube" [ref=e858]:
+                - img [ref=e860]
+                - generic [ref=e862]: Youtube
+            - generic [ref=e863]:
+              - button "Previous" [ref=e864]:
+                - img [ref=e865]
+              - button "Next" [ref=e867]:
+                - img [ref=e868]
+          - generic [ref=e870]:
+            - article [ref=e871]:
+              - generic [ref=e872]:
+                - generic [ref=e873]:
+                  - img "Logo" [ref=e875]
+                  - generic [ref=e876]:
+                    - paragraph [ref=e877]: متاورس رنگ
+                    - paragraph [ref=e878]: متارنگ
+                - paragraph [ref=e879]: The Avalanche culture goes beyond the chain. Get connected with the founders, investors, artists, gamers, and creators who call Avalanche home…
+              - img "The Avalanche culture goes beyond the chain. Get connected with the founders, investors, artists, gamers, and creators who call Avalanche home…" [ref=e881]
+            - article [ref=e882]:
+              - generic [ref=e883]:
+                - generic [ref=e884]:
+                  - img "Logo" [ref=e886]
+                  - generic [ref=e887]:
+                    - paragraph [ref=e888]: متاورس رنگ
+                    - paragraph [ref=e889]: متارنگ
+                - paragraph [ref=e890]: Avalanche creators are building immersive experiences, decentralized communities and scalable ecosystems for the future.
+            - article [ref=e891]:
+              - generic [ref=e892]:
+                - generic [ref=e893]:
+                  - img "Logo" [ref=e895]
+                  - generic [ref=e896]:
+                    - paragraph [ref=e897]: متاورس رنگ
+                    - paragraph [ref=e898]: متارنگ
+                - paragraph [ref=e899]: Avalanche empowers developers and creators to build performant applications with institutional-grade infrastructure.
+              - generic [ref=e900]:
+                - img "Avalanche empowers developers and creators to build performant applications with institutional-grade infrastructure."
+            - article [ref=e901]:
+              - generic [ref=e902]:
+                - generic [ref=e903]:
+                  - img "Logo" [ref=e905]
+                  - generic [ref=e906]:
+                    - paragraph [ref=e907]: متاورس رنگ
+                    - paragraph [ref=e908]: متارنگ
+                - paragraph [ref=e909]: From gaming to finance and AI infrastructure, Avalanche supports high-throughput decentralized applications.
+            - article [ref=e910]:
+              - generic [ref=e911]:
+                - generic [ref=e912]:
+                  - img "Logo" [ref=e914]
+                  - generic [ref=e915]:
+                    - paragraph [ref=e916]: متاورس رنگ
+                    - paragraph [ref=e917]: متارنگ
+                - paragraph [ref=e918]: Explore stories from founders and communities building scalable products powered by Avalanche technology.
+              - generic [ref=e919]:
+                - img "Explore stories from founders and communities building scalable products powered by Avalanche technology."
+        - generic [ref=e923]:
+          - generic [ref=e924]:
+            - generic [ref=e925]:
+              - heading "رویدادها و جشنواره‌های جهانی پی‌اس‌سی متارنگ" [level=2] [ref=e926]
+              - paragraph [ref=e927]: رویدادهای متارنگ دسترسی ویژه‌ای به سازندگان و پیشروان بهره‌گیر از نشان‌های پی‌اس‌سی و پی‌اس‌دی در فضای دیجیتال فراهم می‌کنند.
+            - generic [ref=e928] [cursor=pointer]:
+              - img [ref=e929]
+              - button "btn event" [ref=e932]:
+                - generic [ref=e933]: مشاهده همه رویدادها
+                - img [ref=e934]
+          - generic [ref=e939]:
+            - generic [ref=e940]:
+              - generic [ref=e941]: اعتبارات خصوصی
+              - generic [ref=e942]: کنفرانس
+            - generic [ref=e943]:
+              - paragraph [ref=e944]: Nov 20, 2025
+              - paragraph [ref=e945]: New York
+              - heading "Credite Reimagined" [level=3] [ref=e946]
+            - generic [ref=e947] [cursor=pointer]:
+              - img [ref=e948]
+              - button "btn event" [ref=e951]:
+                - generic [ref=e952]: مشاهده همه رویدادها
+                - img [ref=e953]
+        - generic [ref=e956]:
+          - generic [ref=e958]:
+            - img [ref=e960]
+            - heading "پرسش‌هایی درباره متارنگ و پی‌اس‌سی؟" [level=3] [ref=e962]
+            - paragraph [ref=e963]: برای پشتیبانی فنی و پیوندهای شهروندی به دیسکورد و انجمن متارنگ بروید.
+            - generic [ref=e964] [cursor=pointer]:
+              - img [ref=e965]
+              - generic [ref=e967]:
+                - generic [ref=e968]: مشاهده همه رویدادها
+                - img [ref=e969]
+          - generic [ref=e972]:
+            - img [ref=e974]
+            - heading "گروه بنیادین و شورای راهبری متارنگ" [level=3] [ref=e979]
+            - paragraph [ref=e980]: متارنگ شبکه‌ای جهانی از سازندگان و شهروندانی است که دارایی‌های پی‌اس‌سی و پی‌اس‌دی را گسترش می‌دهند.
+            - generic [ref=e981] [cursor=pointer]:
+              - img [ref=e982]
+              - generic [ref=e984]:
+                - generic [ref=e985]: مشاهده همه رویدادها
+                - img [ref=e986]
+          - generic [ref=e989]:
+            - img [ref=e991]
+            - heading "کانون مرکزی شهروندان متارنگ" [level=3] [ref=e995]
+            - paragraph [ref=e996]: کانون متارنگ جایی است که سازندگان و کاربران بن‌مایه‌های پی‌اس‌دی را به اشتراک گذاشته و با پی‌اس‌سی پیوند می‌گیرند.
+            - generic [ref=e997] [cursor=pointer]:
+              - img [ref=e998]
+              - generic [ref=e1000]:
+                - generic [ref=e1001]: مشاهده همه رویدادها
+                - img [ref=e1002]
+        - generic [ref=e1005]:
+          - generic [ref=e1006]:
+            - generic [ref=e1009]:
+              - paragraph [ref=e1010]: ساخت‌وساز را در زیست‌بوم متارنگ آغاز کنید
+              - paragraph [ref=e1011]: با زیرساخت‌های نیرومند پیمان‌نامه هوشمند بر پایه پی‌اس‌سی در متارنگ بسازید و نوآوری کنید.
+            - generic [ref=e1013] [cursor=pointer]:
+              - img [ref=e1014]
+              - button "btn to next" [ref=e1017]:
+                - generic [ref=e1018]: شروع کنید
+                - img [ref=e1019]
+          - generic [ref=e1024]:
+            - generic [ref=e1025]:
+              - heading "به لیست ایمیل بپیوندید" [level=2] [ref=e1026]
+              - paragraph [ref=e1027]: امروز نام‌نویسی کنید تا از تازه‌ترین پیشرفت‌های شبکه پی‌اس‌سی و پی‌اس‌دی آگاه شوید.
+            - generic [ref=e1029]:
+              - textbox "نام شهروندی" [ref=e1030]
+              - textbox "شناسه شهروندی" [ref=e1031]
+              - textbox "رایانامه" [ref=e1032]
+              - textbox "دسته توییتر" [ref=e1033]
+            - generic [ref=e1034]:
+              - generic [ref=e1036]: 1 از 5 مراحل
+              - generic [ref=e1040] [cursor=pointer]:
+                - img [ref=e1041]
+                - button "btn next" [ref=e1044]:
+                  - generic [ref=e1045]: ارسال کنید
+                  - img [ref=e1046]
+        - generic [ref=e1051]:
+          - generic [ref=e1052]:
+            - img [ref=e1054]
+            - heading "با ما تماس بگیرید" [level=2] [ref=e1057]
+          - generic [ref=e1059]:
+            - paragraph [ref=e1061]: خواهان ساخت‌وساز با پی‌اس‌سی در متارنگ هستید؟ با سطح دادگذار در پیوند باشید!
+            - generic [ref=e1062]:
+              - generic [ref=e1063]:
+                - textbox "نام شهروندی" [ref=e1064]
+                - textbox "نام خانوادگی" [ref=e1065]
+              - textbox "رایانامه" [ref=e1066]
+              - generic [ref=e1067]:
+                - combobox [ref=e1068]:
+                  - option "contact op" [selected]: در حال گسترش کدام کاربری زمین یا پیمان‌نامه هوشمند هستید؟*
+                - img [ref=e1069]
+              - textbox "پیام یا پیشنهاد خود را برای هسته متارنگ بفرستید" [ref=e1071]
+              - generic [ref=e1072]:
+                - generic [ref=e1073] [cursor=pointer]:
+                  - checkbox "کتاب قانون و قوانین شهروندی متارنگ را خوانده‌ام" [ref=e1074]
+                  - generic [ref=e1075]: کتاب قانون و قوانین شهروندی متارنگ را خوانده‌ام
+                - generic [ref=e1076] [cursor=pointer]:
+                  - img [ref=e1077]
+                  - button "submit btn" [ref=e1080]:
+                    - generic [ref=e1081]: ارسال کنید
+                    - img [ref=e1082]
+    - generic [ref=e1089]:
+      - generic [ref=e1091]:
+        - generic [ref=e1092]:
+          - img "logo" [ref=e1093]
+          - link "نماد اعتماد الکترونیکی":
+            - /url: /fa/enamad
+            - img "نماد اعتماد الکترونیکی"
+        - generic [ref=e1094]:
+          - paragraph [ref=e1095]: ارکان تمدن
+          - list [ref=e1096]:
+            - listitem [ref=e1097]:
+              - link "footer links" [ref=e1098] [cursor=pointer]:
+                - /url: /fa
+                - text: صفحه نخست
+                - img [ref=e1100]
+            - listitem [ref=e1102]:
+              - link "footer links" [ref=e1103] [cursor=pointer]:
+                - /url: /fa/about
+                - text: درباره ما
+                - img [ref=e1105]
+            - listitem [ref=e1107]:
+              - link "footer links" [ref=e1108] [cursor=pointer]:
+                - /url: https://github.com/iranpsc
+                - text: گیت هاب (سورس باز)
+                - img [ref=e1110]
+            - listitem [ref=e1112]:
+              - link "footer links" [ref=e1113] [cursor=pointer]:
+                - /url: /fa/citizens
+                - text: لیست شهروندان
+                - img [ref=e1115]
+            - listitem [ref=e1117]:
+              - link "footer links" [ref=e1118] [cursor=pointer]:
+                - /url: /fa/version
+                - text: ورژن های سیستم
+                - img [ref=e1120]
+        - generic [ref=e1122]:
+          - paragraph [ref=e1123]: نکسوس اقتصادی
+          - list [ref=e1124]:
+            - listitem [ref=e1125]:
+              - generic:
+                - text: فروشگاه مرکزی
+                - generic:
+                  - img
+            - listitem [ref=e1126]:
+              - link "footer links" [ref=e1127] [cursor=pointer]:
+                - /url: /fa/whitepaper
+                - text: توکن PSD , PSC
+                - img [ref=e1129]
+            - listitem [ref=e1131]:
+              - generic:
+                - text: اسناد مالکیت VOD
+                - generic:
+                  - img
+            - listitem [ref=e1132]:
+              - link "footer links" [ref=e1133] [cursor=pointer]:
+                - /url: /fa/rand-id/hm
+                - text: شناسه های رند
+                - img [ref=e1135]
+        - generic [ref=e1137]:
+          - paragraph [ref=e1138]: منشور آگاهی
+          - list [ref=e1139]:
+            - listitem [ref=e1140]:
+              - link "footer links" [ref=e1141] [cursor=pointer]:
+                - /url: /fa/articles
+                - text: مقالات تخصصی
+                - img [ref=e1143]
+            - listitem [ref=e1145]:
+              - link "footer links" [ref=e1146] [cursor=pointer]:
+                - /url: /fa/education
+                - text: آموزشگاه
+                - img [ref=e1148]
+            - listitem [ref=e1150]:
+              - link "footer links" [ref=e1151] [cursor=pointer]:
+                - /url: https://faqhub.ir/
+                - text: انجمن پرسش و پاسخ
+                - img [ref=e1153]
+            - listitem [ref=e1155]:
+              - link "footer links" [ref=e1156] [cursor=pointer]:
+                - /url: http://127.0.0.1:9999
+                - text: دسترسی های API
+                - img [ref=e1158]
+            - listitem [ref=e1160]:
+              - link "footer links" [ref=e1161] [cursor=pointer]:
+                - /url: /fa/calendar
+                - text: تقویم رویداد
+                - img [ref=e1163]
+        - generic [ref=e1165]:
+          - paragraph [ref=e1166]: صدای شهروند
+          - list [ref=e1167]:
+            - listitem [ref=e1168]:
+              - link "footer links" [ref=e1169] [cursor=pointer]:
+                - /url: https://www.instagram.com/metaverse_rang
+                - text: اینستاگرام
+                - img [ref=e1171]
+            - listitem [ref=e1173]:
+              - link "footer links" [ref=e1174] [cursor=pointer]:
+                - /url: https://www.linkedin.com/company/metaverse-rang/
+                - text: لینکدین
+                - img [ref=e1176]
+            - listitem [ref=e1178]:
+              - link "footer links" [ref=e1179] [cursor=pointer]:
+                - /url: https://youtube.com/@metargb?si=gdM0aFPk5SCsC7z4
+                - text: یوتوب
+                - img [ref=e1181]
+            - listitem [ref=e1183]:
+              - link "footer links" [ref=e1184] [cursor=pointer]:
+                - /url: https://substack.com/@metarang
+                - text: سابستک
+                - img [ref=e1186]
+            - listitem [ref=e1188]:
+              - link "footer links" [ref=e1189] [cursor=pointer]:
+                - /url: https://medium.com/@metarang.iran
+                - text: مدیوم
+                - img [ref=e1191]
+      - generic [ref=e1195]:
+        - generic [ref=e1196]: متارنگ
+        - generic [ref=e1197]: متارنگ
+        - generic [ref=e1198]: متارنگ
+        - generic [ref=e1199]: متارنگ
+  - link "Join us on Telegram" [ref=e1200] [cursor=pointer]:
+    - /url: https://web.bale.ai/chat?uid=4677411537
+    - img "کار و پروژه" [ref=e1202]
+```

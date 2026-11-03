@@ -177,8 +177,8 @@ export async function generateMetadata({
 
       const siteUrl = process.env.SITE_URL || "https://metarang.com";
       const pageUrl = versionSlug
-        ? `${siteUrl}/${lang}/version/${encodeURIComponent(versionSlug)}`
-        : `${siteUrl}/${lang}/version`;
+        ? `${siteUrl}/${lang}/versions/${encodeURIComponent(versionSlug)}`
+        : `${siteUrl}/${lang}/versions`;
       const image = currentVersion.image;
 
       return {
@@ -265,7 +265,7 @@ export default async function VersionPage({ params }: VersionPageProps) {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       name: `${findByUniqueId(mainData, 1458)} | ${findByUniqueId(mainData, 148)}`,
-      url: `https://metarang.com/${lang}/version${
+      url: `https://metarang.com/${lang}/versions${
         versionSlug ? `/${encodeURIComponent(versionSlug)}` : ""
       }`,
       description: currentVersion

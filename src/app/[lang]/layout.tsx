@@ -10,7 +10,6 @@ import ReferralHandler from "../../components/system/ReferralHandler";
 import VPNDetector from "../../components/system/VPNDetector";
 
 import {
-  getTranslation,
   getMainFile,
   getLangArray,
 } from "@/components/utils/actions";
@@ -28,6 +27,10 @@ import Icon from "../../components/system/Icon";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 
+// Language routes are resolved on demand so the production build does not
+// depend on the translation API or attempt to prerender every active language.
+export const dynamicParams = true;
+
 export default async function LangLayout({
   children,
   params,
@@ -38,39 +41,41 @@ export default async function LangLayout({
   const resolvedParams = await params;
   const lang = resolvedParams.lang;
 
-  /*
-   * ============================================================
-   * IMPORTANT:
-   * زبان‌های معتبر از API می‌آیند (fa, en, ar, ...) نه از لیست ثابت.
-   *
-   * این validation باید قبل از try/catch باشد.
-   * چون notFound() نباید توسط catch گرفته شود.
-   * getLangArray کش دارد و getTranslation هم از همین استفاده می‌کند؛
-   * پس درخواست اضافه‌ای ساخته نمی‌شود.
-   * ============================================================
-   */
+  // The API is authoritative when available. getLangArray supplies only the
+  // bundled fa/en dictionaries when the API is unavailable.
   const langArray = await getLangArray();
-  const isKnownLang =
-    langArray.length > 0
-      ? langArray.some((l: { code: string }) => l.code === lang)
-      : lang === "fa" || lang === "en"; // API در دسترس نیست: فقط زبان‌های پیش‌فرض
-  if (!isKnownLang) {
+
+  if (langArray.length === 0) {
+    return (
+      <Suspense fallback={<div className="min-h-screen" />}>
+        <CustomErrorPage
+          error={{
+            name: "TranslationServiceUnavailable",
+            message: "Unable to load the active language list from the translation API.",
+            stack: null,
+          }}
+        />
+      </Suspense>
+    );
+  }
+
+  const langData = langArray.find(
+    (language: { code: string }) => language.code === lang
+  );
+
+  // Keep unknown language segments as real 404s; do not fall back to Persian.
+  if (!langData) {
     notFound();
   }
 
   try {
-    /* ----------------------------------------------------------
-     * Language data
-     * ---------------------------------------------------------- */
-
-    const langData = await getTranslation(lang);
 
 
     /* ----------------------------------------------------------
      * Validate language data
      * ---------------------------------------------------------- */
 
-    if (!langData?.file_url) {
+    if (!langData?.file_url && !["fa", "en"].includes(lang)) {
       throw new Error(`No file_url in langData for lang: ${lang}`);
     }
 
@@ -230,9 +235,11 @@ export default async function LangLayout({
     );
 
     return (
-      <CustomErrorPage
-        error={serializedError}
-      />
+      <Suspense fallback={<div className="min-h-screen" />}>
+        <CustomErrorPage
+          error={serializedError}
+        />
+      </Suspense>
     );
   }
 }
