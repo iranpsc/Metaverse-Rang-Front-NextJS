@@ -13,7 +13,7 @@ export default async function NotFound() {
     // language supplied by the API.
     const langArray = await getLangArray();
     const langData =
-      langArray.find((language) => language.code === "fa") || langArray[0];
+      langArray.find((language: { code: string }) => language.code === "fa") || langArray[0];
 
     if (!langData?.file_url) {
       throw new Error("No active language is available for the 404 page.");
