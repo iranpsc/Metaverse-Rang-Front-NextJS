@@ -17,8 +17,8 @@ export default function SideBarContent({
   tabsMenu,
   isClosed,
   params,
-  langData,
-  langArray,
+  // langData,
+  // langArray,
 }) {
   const router = useRouter();
   // const [langDropDown, setLangDropDown] = useState(false);
