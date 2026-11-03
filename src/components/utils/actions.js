@@ -427,12 +427,10 @@ export async function getAllLevels() {
       headers: {
         "Content-Type": "application/json",
       },
-      // ❌ قبلاً اینجا "Cache-Control" توی headers بود که فقط یه هدر
-      // HTTP معمولیه و رفتار کش Next.js رو کنترل نمی‌کنه. این‌جا آپشن
-      // واقعی Next.js برای کش هست — دقیقاً معادل همون max-age=3600 که
-      // می‌خواستید، ولی این‌بار واقعاً روی fetch cache خود Next اثر می‌ذاره:
+      // Cache the public levels catalogue for one week.
       next: {
-        revalidate: 3600, // هر ۱ ساعت یک‌بار داده رو دوباره می‌گیره
+        revalidate: 604800,
+        tags: ["levels"],
       },
     });
 

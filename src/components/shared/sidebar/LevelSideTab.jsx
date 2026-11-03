@@ -17,38 +17,14 @@ export default function SideBarContent({
   tabsMenu,
   isClosed,
   params,
-  langData,
-  langArray,
+  // langData,
+  // langArray,
 }) {
   const router = useRouter();
   // const [langDropDown, setLangDropDown] = useState(false);
   const [activeNav, setActiveNav] = useState(params.levelName);
 
-  const staticRouteNames = [
-    { unique_id: 303, route_name: "home" },
-    { unique_id: 382, route_name: "citizen-baguette" },
-    { unique_id: 383, route_name: "reporter-baguette" },
-    { unique_id: 331, route_name: "participation-baguette" },
-    { unique_id: 68, route_name: "developer-baguette" },
-    { unique_id: 69, route_name: "inspector-baguette" },
-    { unique_id: 70, route_name: "businessman-baguette" },
-    { unique_id: 71, route_name: "lawyer-baguette" },
-    { unique_id: 72, route_name: "city-council-baguette" },
-    { unique_id: 73, route_name: "the-mayor-baguette" },
-    { unique_id: 74, route_name: "governor-baguette" },
-    { unique_id: 75, route_name: "minister-baguette" },
-    { unique_id: 76, route_name: "judge-baguette" },
-    { unique_id: 77, route_name: "legislator-baguette" },
-    { unique_id: 1414, route_name: "language" },
-  ];
-
-  // Match route_name to tabsMenu based on unique_id
-  tabsMenu.forEach((el1) => {
-    const match = staticRouteNames.find(
-      (el2) => el2.unique_id === el1.unique_id
-    );
-    if (match) el1.route_name = match.route_name;
-  });
+  // Level menu items already contain their API-filtered route_name.
   const pathname = usePathname();
   const [loading, setLoading] = useState(false);
 
