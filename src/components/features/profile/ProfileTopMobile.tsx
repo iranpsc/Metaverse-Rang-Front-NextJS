@@ -6,7 +6,7 @@ import { Shahrvand } from "@/svgs/index";
 import Persian from "persianjs";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
-const DEFAULT_FLAG = "https://admin.metarang.com/assets/images/flags/FA.svg";
+const DEFAULT_FLAG = "https://admin.metarang.com/assets/images/flags/fa.svg";
 
 /* slug (شمارهٔ سطح) → unique_id عنوان سطح در mainData
    همان مقادیری که در staticData صفحهٔ levels استفاده می‌شود. */
