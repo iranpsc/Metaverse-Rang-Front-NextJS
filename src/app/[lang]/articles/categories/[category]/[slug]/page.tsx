@@ -120,35 +120,7 @@ export async function generateMetadata({ params  }: ArticlePageProps) {
   }
 }
 
-// ======================================
-// Static Paths - مهم برای رفع ۴۰۴ اولیه
-// ======================================
-export async function generateStaticParams({
-  params,
-}: {
-  params: { lang: string };
-}) {
-  try {
-    const { data: articles } = await supabase
-      .from("articles")
-      .select("categorySlug, slug")
-      // اگر فیلد وضعیت انتشار دارید، حتماً اضافه کنید:
-      // .eq("status", "published")
-      // .eq("is_active", true)
-      .limit(500);
-
-    if (!articles?.length) return [];
-
-    // The parent [lang] layout supplies every active language from the API.
-    return articles.map((article) => ({
-      category: article.categorySlug,
-      slug: article.slug,
-    }));
-  } catch (error) {
-    console.error("Error generating static params:", error);
-    return [];
-  }
-}
+// This page is force-dynamic; static params would only add build-time API work.
 
 
 

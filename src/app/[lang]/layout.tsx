@@ -28,17 +28,9 @@ import Icon from "../../components/system/Icon";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 
+// Language routes are resolved on demand so the production build does not
+// depend on the translation API or attempt to prerender every active language.
 export const dynamicParams = true;
-
-export async function generateStaticParams() {
-  const languages = await getLangArray();
-
-  return languages
-    .filter((language: { code?: string }) =>
-      typeof language.code === "string" && language.code.length > 0
-    )
-    .map((language: { code: string }) => ({ lang: language.code }));
-}
 
 export default async function LangLayout({
   children,

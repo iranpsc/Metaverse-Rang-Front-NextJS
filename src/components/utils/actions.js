@@ -1,6 +1,8 @@
 "use server";
 
 import { cache } from "react";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { cookies } from "next/headers";
 /* -------------------------------------------------------------------------- */
 /*                           API CONFIGURATION                                */
@@ -156,19 +158,69 @@ export const getTranslation = cache(async function getTranslation(lang) {
 });
 
 /**
- * Return whole language array
+ * Read the checked-in language dictionary as an offline fallback.
+ * Only the two bundled default languages are allowed when the language API
+ * is unavailable; new language codes must still be confirmed by the API.
+ */
+const OFFLINE_LANGUAGE_CODES = ["fa", "en"];
+
+async function readLocalLanguageFile(lang) {
+  if (!OFFLINE_LANGUAGE_CODES.includes(lang)) {
+    return null;
+  }
+
+  const filePath = join(
+    process.cwd(),
+    "public",
+    "lang",
+    `${lang}.json`
+  );
+  const raw = await readFile(filePath, "utf8");
+  const data = JSON.parse(raw);
+
+  if (
+    !data ||
+    typeof data !== "object" ||
+    Array.isArray(data) ||
+    data.code !== lang
+  ) {
+    throw new Error(`Invalid local language file for "${lang}".`);
+  }
+
+  return data;
+}
+
+async function getOfflineLanguages() {
+  const languages = await Promise.all(
+    OFFLINE_LANGUAGE_CODES.map(async (code) => {
+      try {
+        const language = await readLocalLanguageFile(code);
+        return language ? { ...language, offlineFallback: true } : null;
+      } catch (error) {
+        console.error(`[getOfflineLanguages] Failed to load ${code}:`, error);
+        return null;
+      }
+    })
+  );
+
+  return languages.filter(Boolean);
+}
+
+/**
+ * Return whole active language array.
+ * Successful API data remains authoritative. Local fa/en files are used only
+ * when the API is unavailable or returns no usable language records.
  */
 export const getLangArray = cache(async function getLangArray() {
   try {
-    const adminApiBaseUrl =
-      await getAdminApiBaseUrl();
-
+    const adminApiBaseUrl = await getAdminApiBaseUrl();
     const res = await fetch(
       `${adminApiBaseUrl}/api/translations?active=true`,
       {
         headers: {
           "Content-Type": "application/json",
         },
+        signal: AbortSignal.timeout(4000),
         next: {
           revalidate: 3600,
           tags: ["translations"],
@@ -183,23 +235,23 @@ export const getLangArray = cache(async function getLangArray() {
     }
 
     const data = await res.json();
-    const languages = Array.isArray(data?.data) ? data.data : [];
+    const languages = Array.isArray(data?.data)
+      ? data.data.filter(
+          (item) =>
+            item &&
+            typeof item.code === "string" &&
+            item.code.trim().length > 0
+        )
+      : [];
 
-    // The endpoint is already filtered with active=true. Keep only usable
-    // language records so malformed API entries cannot validate a route.
-    return languages.filter(
-      (item) =>
-        item &&
-        typeof item.code === "string" &&
-        item.code.trim().length > 0
-    );
+    return languages.length > 0 ? languages : getOfflineLanguages();
   } catch (error) {
-    console.error(
-      "[getLangArray] Error:",
+    console.warn(
+      "[getLangArray] Language API unavailable; using bundled fa/en dictionaries.",
       error
     );
 
-    return [];
+    return getOfflineLanguages();
   }
 });
 
@@ -212,11 +264,16 @@ export const getLangArray = cache(async function getLangArray() {
  */
 export const getMainFile = cache(async function getMainFile(langData) {
   try {
+    if (langData?.offlineFallback) {
+      return await readLocalLanguageFile(langData.code);
+    }
+
     if (!langData?.file_url) {
       throw new Error("No file_url provided");
     }
 
     const res = await fetch(langData.file_url, {
+      signal: AbortSignal.timeout(4000),
       next: {
         revalidate: 3600,
         tags: [
@@ -245,6 +302,25 @@ export const getMainFile = cache(async function getMainFile(langData) {
 
     return data;
   } catch (error) {
+    // If the API's language list was reachable but its fa/en file URL was not,
+    // retain the same offline behavior using the repository's bundled copy.
+    if (OFFLINE_LANGUAGE_CODES.includes(langData?.code)) {
+      try {
+        const localData = await readLocalLanguageFile(langData.code);
+        if (localData) {
+          console.warn(
+            `[getMainFile] Using bundled ${langData.code} dictionary after remote fetch failed.`
+          );
+          return localData;
+        }
+      } catch (fallbackError) {
+        console.error(
+          `[getMainFile] Local fallback failed for ${langData.code}:`,
+          fallbackError
+        );
+      }
+    }
+
     console.error(
       "Error fetching mainData:",
       error,
