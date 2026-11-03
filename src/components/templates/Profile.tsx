@@ -57,11 +57,11 @@ export default function Profile({
           params={params}
         />
         {/* <ProfileGems profileData={concatGems} /> */}
-        <div ref={iframeContainerRef3} className="flex justify-evenly">
+        <div ref={iframeContainerRef3} className="flex justify-evenly gap-4 pb-3">
           {inView &&
             concatGems &&
             concatGems.map((item: any, index: any) => (
-              <GemImage key={index} item={item} params={params} picSize={128} disableHoverScale />
+              <GemImage key={index} item={item} params={params} picSize={100} disableHoverScale />
             ))}
         </div>
       </div>

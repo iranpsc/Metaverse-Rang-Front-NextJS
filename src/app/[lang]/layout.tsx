@@ -28,6 +28,18 @@ import Icon from "../../components/system/Icon";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 
+export const dynamicParams = true;
+
+export async function generateStaticParams() {
+  const languages = await getLangArray();
+
+  return languages
+    .filter((language: { code?: string }) =>
+      typeof language.code === "string" && language.code.length > 0
+    )
+    .map((language: { code: string }) => ({ lang: language.code }));
+}
+
 export default async function LangLayout({
   children,
   params,
@@ -38,32 +50,33 @@ export default async function LangLayout({
   const resolvedParams = await params;
   const lang = resolvedParams.lang;
 
-  /*
-   * ============================================================
-   * IMPORTANT:
-   * زبان‌های معتبر از API می‌آیند (fa, en, ar, ...) نه از لیست ثابت.
-   *
-   * این validation باید قبل از try/catch باشد.
-   * چون notFound() نباید توسط catch گرفته شود.
-   * getLangArray کش دارد و getTranslation هم از همین استفاده می‌کند؛
-   * پس درخواست اضافه‌ای ساخته نمی‌شود.
-   * ============================================================
-   */
+  // The API is the single source of truth for active languages.
+  // An empty list means the language service is unavailable (or misconfigured),
+  // not that only a hard-coded set of languages should be accepted.
   const langArray = await getLangArray();
-  const isKnownLang =
-    langArray.length > 0
-      ? langArray.some((l: { code: string }) => l.code === lang)
-      : lang === "fa" || lang === "en"; // API در دسترس نیست: فقط زبان‌های پیش‌فرض
-  if (!isKnownLang) {
+
+  if (langArray.length === 0) {
+    return (
+      <CustomErrorPage
+        error={{
+          name: "TranslationServiceUnavailable",
+          message: "Unable to load the active language list from the translation API.",
+          stack: null,
+        }}
+      />
+    );
+  }
+
+  const langData = langArray.find(
+    (language: { code: string }) => language.code === lang
+  );
+
+  // Keep unknown language segments as real 404s; do not fall back to Persian.
+  if (!langData) {
     notFound();
   }
 
   try {
-    /* ----------------------------------------------------------
-     * Language data
-     * ---------------------------------------------------------- */
-
-    const langData = await getTranslation(lang);
 
 
     /* ----------------------------------------------------------

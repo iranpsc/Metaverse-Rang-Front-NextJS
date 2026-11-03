@@ -261,13 +261,16 @@ export async function generateMetadata({ params }: NewsPageProps) {
 // ======================================
 // Static Paths - بر اساس دیتای استاتیک news.json
 // ======================================
-export async function generateStaticParams() {
+export async function generateStaticParams({
+  params,
+}: {
+  params: { lang: string };
+}) {
   try {
     if (!fallbackNewsData || fallbackNewsData.length === 0) return [];
 
-    // فقط فارسی (طبق دیتای موجود، همه اخبار فارسی هستند)
+    // The parent [lang] layout supplies every active language from the API.
     return fallbackNewsData.map((news: any) => ({
-      lang: "fa",
       category: news.categorySlug,
       slug: news.slug,
     }));

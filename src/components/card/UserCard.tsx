@@ -5,7 +5,7 @@ import Image from "next/image";
 import GemImage from "@/components/shared/gemImage";
 import Link from "next/link";
 import { Text } from "../svgs/SvgEducation";
-import LockGem from '@/public/Frame1000003193.png';
+import LockGem from '@/public/lock-baguette.png';
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { useId } from "react";
 import LevelBadge from "../shared/LevelBadge";  // فرض می‌کنیم این کامپوننت جداگانه ساخته شده
@@ -210,19 +210,19 @@ export default function UserCard({
 
         {!hidePreviousLevels && (
           <div className="w-full min-h-[75px] pb-2">
-            <div className="w-full flex flex-wrap justify-center gap-y-0.5">
+            <div className="w-full flex flex-wrap justify-center gap-2">
               {displayGems.map((gem: any) => (
-                <GemImage key={`gem-${gem.slug}`} item={gem} params={params} picSize={33} />
+                <GemImage key={`gem-${gem.slug}`} item={gem} params={params} picSize={21} />
               ))}
               {Array.from({ length: remainingGemsCount }).map((_, index) => (
                 <Image
                   key={`lock-${index}`}
                   src={LockGem}
                   alt="Locked Gem"
-                  width={33}
+                  width={20}
                   height={33}
                   loading="lazy"
-                  className="w-[33px] h-[33px]"
+                  className="w-[21] h-[33]"
                 />
               ))}
             </div>

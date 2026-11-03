@@ -156,7 +156,7 @@ export default function SideBarContent({
       }
       // VERSION
       else if (item.unique_id == 1458) {
-        urlThemp = `/${params.lang}/version`;
+        urlThemp = `/${params.lang}/versions`;
       }
       // EDUCATION
       else if (
@@ -193,7 +193,7 @@ export default function SideBarContent({
         isActive = true;
       } else if (
         item.unique_id == 1458 &&
-        pathName.startsWith(`/${params.lang}/version`)
+        pathName.startsWith(`/${params.lang}/versions`)
       ) {
         isActive = true;
       } else if (item.unique_id == "1419") {
@@ -277,7 +277,7 @@ export default function SideBarContent({
     } else if (item?.unique_id == "149") {
       targetUrl = "";
     } else if (item?.unique_id == 1458) {
-      targetUrl = "/version";
+      targetUrl = "/versions";
     } else if (item?.unique_id == "NEWS_UNIQUE_ID") {
       targetUrl = "/news";
     }

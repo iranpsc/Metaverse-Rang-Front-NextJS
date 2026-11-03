@@ -244,7 +244,7 @@ export default function BreadCrumb({ params, eventTitle, title, articleCat }: { 
       en: "metaverse version",
       fa: "ورژن متاورس",
       font: "font-normal",
-      link: `/${params.lang}/version`,
+      link: `/${params.lang}/versions`,
     },
     {
       name: "levels",
