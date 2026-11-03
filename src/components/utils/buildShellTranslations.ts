@@ -119,7 +119,7 @@ export function buildFooterSections(
           targetBlank: true,
         },
         { label: t(1739), href: `/${lang}/citizens` },
-        { label: t(1740), href: `/${lang}/version` },
+        { label: t(1740), href: `/${lang}/versions` },
       ],
     },
     {
