@@ -6,7 +6,7 @@ import Footer from "@/components/shared/footer/DynamicFooter";
 import { Features } from "@/components/features/levels/Features";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 import ImageBox from "@/components/features/levels/ImageBox";
-import { getLangArray } from "@/components/utils/actions";
+import { getLangArray, getAllLevels } from "@/components/utils/actions";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { buildSidebarLabels } from "@/components/utils/buildShellTranslations";
 import { buildLevelTabsMenu } from "@/components/utils/buildTabsMenu";
@@ -47,11 +47,12 @@ export default async function LevelLayout({
 
   // Load essential page data first to avoid starting all tab requests
   // in the same initial burst.
-  const [langData, mainData, langArray, singleLevel] = await Promise.all([
+  const [langData, mainData, langArray, singleLevel, allLevels] = await Promise.all([
     getLangData(lang),
     getMainData(lang),
     getLangArray(),
     getLevelData(levelMeta.id),
+    getAllLevels(),
   ]);
 
   if (!singleLevel?.data) notFound();
@@ -70,7 +71,7 @@ export default async function LevelLayout({
 
   const generalInfo = pickMedia(singleLevel.data.general_info);
 
-  const tabsMenu = buildLevelTabsMenu(mainData);
+  const tabsMenu = buildLevelTabsMenu(mainData, allLevels);
   const sidebarLabels = buildSidebarLabels(mainData);
 
   const levelTitle = findByUniqueId(mainData, levelMeta.unique_id);
