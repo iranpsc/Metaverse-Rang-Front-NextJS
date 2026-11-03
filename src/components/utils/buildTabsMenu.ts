@@ -1,4 +1,5 @@
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import { STATIC_ROUTE_NAMES } from "@/components/utils/levelData";
 
 /**
  * Sidebar dropdowns (education / articles / news / citizens) are keyed
@@ -69,34 +70,29 @@ export function buildTabsMenu(
 }
 
 /**
- * Level sidebar entries. unique_id matches translation keys AND SvgIcon.
- * Kept in sync with LevelSideTab's staticRouteNames (excluding language).
+ * Build the level sidebar from the API catalogue. Static route metadata is
+ * retained only to map stable public URLs and translation/icon IDs.
  */
-export const LEVEL_MENU_ITEMS: Array<{
-  unique_id: number;
-  route_name: string;
-  menuItem: true;
-}> = [
-  { unique_id: 303, route_name: "home", menuItem: true },
-  { unique_id: 382, route_name: "citizen-baguette", menuItem: true },
-  { unique_id: 383, route_name: "reporter-baguette", menuItem: true },
-  { unique_id: 331, route_name: "participation-baguette", menuItem: true },
-  { unique_id: 68, route_name: "developer-baguette", menuItem: true },
-  { unique_id: 69, route_name: "inspector-baguette", menuItem: true },
-  { unique_id: 70, route_name: "businessman-baguette", menuItem: true },
-  { unique_id: 71, route_name: "lawyer-baguette", menuItem: true },
-  { unique_id: 72, route_name: "city-council-baguette", menuItem: true },
-  { unique_id: 73, route_name: "the-mayor-baguette", menuItem: true },
-  { unique_id: 74, route_name: "governor-baguette", menuItem: true },
-  { unique_id: 75, route_name: "minister-baguette", menuItem: true },
-  { unique_id: 76, route_name: "judge-baguette", menuItem: true },
-  { unique_id: 77, route_name: "legislator-baguette", menuItem: true },
-];
-
 export function buildLevelTabsMenu(
-  translations: object | null | undefined
+  translations: object | null | undefined,
+  levels: Array<{ id?: number | string }> = []
 ): TabsMenuItem[] {
-  return LEVEL_MENU_ITEMS.map((item) => ({
+  const availableIds = new Set(
+    levels.map((level) => Number(level.id)).filter(Number.isFinite)
+  );
+
+  const items = [
+    { unique_id: 303, route_name: "home", menuItem: true as const },
+    ...STATIC_ROUTE_NAMES
+      .filter((level) => availableIds.has(level.id))
+      .map((level) => ({
+        unique_id: level.unique_id,
+        route_name: level.route_name,
+        menuItem: true as const,
+      })),
+  ];
+
+  return items.map((item) => ({
     ...item,
     translation: findByUniqueId(translations, item.unique_id),
   }));
