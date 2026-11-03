@@ -57,13 +57,15 @@ export default async function LangLayout({
 
   if (langArray.length === 0) {
     return (
-      <CustomErrorPage
-        error={{
-          name: "TranslationServiceUnavailable",
-          message: "Unable to load the active language list from the translation API.",
-          stack: null,
-        }}
-      />
+      <Suspense fallback={<div className="min-h-screen" />}>
+        <CustomErrorPage
+          error={{
+            name: "TranslationServiceUnavailable",
+            message: "Unable to load the active language list from the translation API.",
+            stack: null,
+          }}
+        />
+      </Suspense>
     );
   }
 
@@ -243,9 +245,11 @@ export default async function LangLayout({
     );
 
     return (
-      <CustomErrorPage
-        error={serializedError}
-      />
+      <Suspense fallback={<div className="min-h-screen" />}>
+        <CustomErrorPage
+          error={serializedError}
+        />
+      </Suspense>
     );
   }
 }
