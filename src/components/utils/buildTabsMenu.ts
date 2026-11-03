@@ -75,25 +75,42 @@ export function buildTabsMenu(
  */
 export function buildLevelTabsMenu(
   translations: object | null | undefined,
-  levels: Array<{ id?: number | string }> = []
+  levels: Array<{
+    id?: number | string;
+    unique_id?: number | string;
+    route_name?: string;
+  }> = []
 ): TabsMenuItem[] {
-  const availableIds = new Set(
-    levels.map((level) => Number(level.id)).filter(Number.isFinite)
-  );
-
   const items = [
     { unique_id: 303, route_name: "home", menuItem: true as const },
-    ...STATIC_ROUTE_NAMES
-      .filter((level) => availableIds.has(level.id))
-      .map((level) => ({
-        unique_id: level.unique_id,
-        route_name: level.route_name,
+    ...levels.flatMap((apiLevel) => {
+      const routeMeta = STATIC_ROUTE_NAMES.find(
+        (level) => level.id === Number(apiLevel.id)
+      );
+      const uniqueId = apiLevel.unique_id ?? routeMeta?.unique_id;
+      const routeName = apiLevel.route_name || routeMeta?.route_name;
+
+      // A menu entry needs both a stable translation/icon ID and a route.
+      if (uniqueId == null || !routeName) return [];
+
+      return [{
+        unique_id: uniqueId,
+        route_name: routeName,
         menuItem: true as const,
-      })),
+      }];
+    }),
   ];
 
-  return items.map((item) => ({
-    ...item,
-    translation: findByUniqueId(translations, item.unique_id),
-  }));
+  const seen = new Set<string>();
+  return items
+    .filter((item) => {
+      const key = String(item.unique_id);
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    })
+    .map((item) => ({
+      ...item,
+      translation: findByUniqueId(translations, item.unique_id),
+    }));
 }
