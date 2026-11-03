@@ -50,7 +50,7 @@ export default function LevelCard({
           width={180}
           height={170}
           onError={handleImageError}
-          className="z-2 w-[147px] h-[147px] lg:w-[180px] lg:h-[180px] translate-y-2 lg:translate-y-6"
+          className="z-2 w-[110px] lg:w-[130px]  translate-y-2 lg:translate-y-6"
         />
         <div className="boxDataLevel w-full h-[216px] lg:h-[239px] rounded-[20px] flex flex-col  justify-end bg-white border border-[rgba(0,0,0,0.14)] dark:bg-gray-1  mt-[-65px]">
           <span className="text-center  dark:text-white font-azarMehr font-medium  text-title-2 mx-2 font-semibold text-[20px] lg:text-[24px]">
