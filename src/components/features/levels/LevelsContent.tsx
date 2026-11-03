@@ -71,7 +71,7 @@ export default async function LevelsContent({
 
         return {
           ...apiLevel,
-          photo: apiLevel.photo || apiLevel.image || fallback?.url,
+          photo: apiLevel.photo || apiLevel.image || fallback?.url || "/svg/level/citizen.png",
           rank: apiLevel.rank ?? fallback?.rank ?? 1,
           score: apiLevel.score ?? fallback?.score,
           route_name: apiLevel.route_name || fallback?.route_name,
