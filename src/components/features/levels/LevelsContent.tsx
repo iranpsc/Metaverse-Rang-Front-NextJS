@@ -69,9 +69,13 @@ export default async function LevelsContent({
           (item: any) => item.id === Number(apiLevel.id)
         );
 
+        const fallbackPhoto = fallback?.url || "/svg/level/citizen.png";
+
         return {
           ...apiLevel,
-          photo: apiLevel.photo || apiLevel.image || fallback?.url || "/svg/level/citizen.png",
+          // Keep the bundled image available for both missing and broken API images.
+          photo: apiLevel.photo || apiLevel.image || fallbackPhoto,
+          fallbackPhoto,
           rank: apiLevel.rank ?? 1,
           score: apiLevel.score ?? fallback?.score,
           route_name: apiLevel.route_name || fallback?.route_name,
