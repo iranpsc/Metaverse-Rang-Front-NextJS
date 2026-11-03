@@ -190,7 +190,7 @@ function SideBarHeader({
           </div>
 
           {isLangOpen && (
-            <div className="absolute flex flex-col top-full mt-2 ltr:right-0 rtl:left-0 w-36 bg-white dark:bg-gray-2 rounded-lg shadow-xl border border-matn-2-200 dark:border-dark-border p-3 z-101">
+            <div className="absolute flex flex-col top-full mt-2 ltr:right-0 rtl:left-0 w-max bg-white dark:bg-gray-2 rounded-lg shadow-xl border border-matn-2-200 dark:border-dark-border p-3 z-101 rtl:right-0 ltr:left-0 pe-12">
               {langArray.map((langItem: { code: any }) => (
                 <DropdownLanguageModule
                   key={langItem.code}
