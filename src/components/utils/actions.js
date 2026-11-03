@@ -182,20 +182,42 @@ async function readLocalLanguageFile(lang) {
     !data ||
     typeof data !== "object" ||
     Array.isArray(data) ||
-    data.code !== lang
+    Object.keys(data).length === 0
   ) {
-    throw new Error(`Invalid local language file for "${lang}".`);
+    throw new Error(`Invalid local language dictionary for "${lang}".`);
   }
 
   return data;
 }
 
 async function getOfflineLanguages() {
+  const languageMetadata = {
+    fa: {
+      id: 1,
+      name: "Persian",
+      native_name: "فارسی",
+      direction: "rtl",
+    },
+    en: {
+      id: 2,
+      name: "English",
+      native_name: "English",
+      direction: "ltr",
+    },
+  };
+
   const languages = await Promise.all(
     OFFLINE_LANGUAGE_CODES.map(async (code) => {
       try {
-        const language = await readLocalLanguageFile(code);
-        return language ? { ...language, offlineFallback: true } : null;
+        // Validate that the bundled dictionary exists before exposing its route.
+        await readLocalLanguageFile(code);
+
+        return {
+          ...languageMetadata[code],
+          code,
+          icon: `/${code}/api/flag/${code}.svg`,
+          offlineFallback: true,
+        };
       } catch (error) {
         console.error(`[getOfflineLanguages] Failed to load ${code}:`, error);
         return null;
@@ -235,16 +257,18 @@ export const getLangArray = cache(async function getLangArray() {
     }
 
     const data = await res.json();
-    const languages = Array.isArray(data?.data)
-      ? data.data.filter(
-          (item) =>
-            item &&
-            typeof item.code === "string" &&
-            item.code.trim().length > 0
-        )
-      : [];
 
-    return languages.length > 0 ? languages : getOfflineLanguages();
+    if (!Array.isArray(data?.data)) {
+      throw new Error("Invalid languages response: expected data to be an array.");
+    }
+
+    // A successful API response is authoritative, including an empty active list.
+    return data.data.filter(
+      (item) =>
+        item &&
+        typeof item.code === "string" &&
+        item.code.trim().length > 0
+    );
   } catch (error) {
     console.warn(
       "[getLangArray] Language API unavailable; using bundled fa/en dictionaries.",
@@ -386,7 +410,7 @@ export async function getFooterData(params) {
     const langObj =
       await getTranslation(params?.lang);
 
-    if (!langObj?.file_url) {
+    if (!langObj || (!langObj.file_url && !langObj.offlineFallback)) {
       return {};
     }
 
