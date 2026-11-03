@@ -244,7 +244,7 @@ export const getLangArray = cache(async function getLangArray() {
         },
         signal: AbortSignal.timeout(4000),
         next: {
-          revalidate: 3600,
+          revalidate: 86400,
           tags: ["translations"],
         },
       }
@@ -299,7 +299,7 @@ export const getMainFile = cache(async function getMainFile(langData) {
     const res = await fetch(langData.file_url, {
       signal: AbortSignal.timeout(4000),
       next: {
-        revalidate: 3600,
+        revalidate: 86400,
         tags: [
           `main-file-${langData.code || "unknown"}`
         ],
