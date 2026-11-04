@@ -11,6 +11,7 @@ services:
         NEXT_PUBLIC_API_KEY: ${NEXT_PUBLIC_API_KEY}
 
     expose:
+      # Keep port 3000 available to Dokploy's reverse proxy without reserving a host port.
       - "3000"
 
     networks:
