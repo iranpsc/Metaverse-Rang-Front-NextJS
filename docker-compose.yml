@@ -21,6 +21,9 @@ services:
 
     environment:
       NODE_ENV: production
+      # Next.js standalone uses HOSTNAME as its bind address. Explicitly bind
+      # to all interfaces so Dokploy's reverse proxy can reach the service.
+      HOSTNAME: 0.0.0.0
 
     volumes:
       - type: bind
