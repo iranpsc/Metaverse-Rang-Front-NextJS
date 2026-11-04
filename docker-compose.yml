@@ -10,7 +10,8 @@ services:
         NEXT_PUBLIC_BASE_URL: ${NEXT_PUBLIC_BASE_URL}
         NEXT_PUBLIC_API_KEY: ${NEXT_PUBLIC_API_KEY}
 
-    expose:
+    ports:
+      # Publish container port 3000 on an automatically assigned host port.
       - "3000"
 
     networks:
