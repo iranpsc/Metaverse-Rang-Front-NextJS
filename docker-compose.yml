@@ -10,8 +10,8 @@ services:
         NEXT_PUBLIC_BASE_URL: ${NEXT_PUBLIC_BASE_URL}
         NEXT_PUBLIC_API_KEY: ${NEXT_PUBLIC_API_KEY}
 
-    ports:
-      # Publish container port 3000 on an automatically assigned host port.
+    expose:
+      # Keep port 3000 available to Dokploy's reverse proxy without reserving a host port.
       - "3000"
 
     networks:
