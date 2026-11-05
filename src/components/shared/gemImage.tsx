@@ -32,6 +32,33 @@ export function getGemGlowColor(item: any): string | undefined {
   return levelId > 0 ? LEVEL_GLOW_COLORS[levelId - 1] : undefined;
 }
 
+const LEVEL_PRIMARY_COLORS = [
+  "#E5FE2B", // Citizen
+  "#FEB34B", // Reporter
+  "#24249B", // Participation
+  "#9C9C9C", // Developer
+  "#D165C8", // Inspector
+  "#8B3DE4", // Businessman
+  "#9806FA", // Lawyer
+  "#99A9DC", // City council
+  "#AD618E", // Mayor
+  "#0A9722", // Governor
+  "#286230", // Minister
+  "#B10000", // Judge
+  "#B0B0B0", // Legislator
+] as const;
+
+export function getGemPrimaryColor(item: any): string | undefined {
+  const levelId =
+    Number(item?.id) ||
+    STATIC_ROUTE_NAMES.find(
+      (route) => route.route_name === (item?.slug || item?.route_name)
+    )?.id ||
+    0;
+
+  return levelId > 0 ? LEVEL_PRIMARY_COLORS[levelId - 1] : undefined;
+}
+
 const LEVEL_GLOW_COLORS = [
   "#F7FF92", "#FF9D2F", "#87CEEB", "#E7E7E7", "#FFB381",
   "#8e00df", "#9942c2", "#70dfff", "#f958ff", "#00ab04",
