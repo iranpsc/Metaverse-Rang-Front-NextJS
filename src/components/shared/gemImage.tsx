@@ -21,6 +21,17 @@ const STATIC_ROUTE_NAMES = [
   { id: 13, route_name: "legislator-baguette" },
 ] as const;
 
+export function getGemGlowColor(item: any): string | undefined {
+  const levelId =
+    Number(item?.id) ||
+    STATIC_ROUTE_NAMES.find(
+      (route) => route.route_name === (item?.slug || item?.route_name)
+    )?.id ||
+    0;
+
+  return levelId > 0 ? LEVEL_GLOW_COLORS[levelId - 1] : undefined;
+}
+
 const LEVEL_GLOW_COLORS = [
   "#F7FF92", "#FF9D2F", "#87CEEB", "#E7E7E7", "#FFB381",
   "#8e00df", "#bbaae1", "#70dfff", "#f958ff", "#00ab04",
@@ -57,11 +68,7 @@ export default function GemImage({
     STATIC_ROUTE_NAMES.find((route) => route.id === Number(item?.id))
       ?.route_name;
 
-  const levelId =
-    Number(item?.id) ||
-    STATIC_ROUTE_NAMES.find((route) => route.route_name === routeName)?.id ||
-    0;
-  const glowColor = showGlow ? LEVEL_GLOW_COLORS[levelId - 1] : undefined;
+  const glowColor = showGlow ? getGemGlowColor(item) : undefined;
   const targetHref = href || `/${params.lang}/levels/citizen/${routeName}/gem`;
 
   const hoverClasses = disableHoverScale
