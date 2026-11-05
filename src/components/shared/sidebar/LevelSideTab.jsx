@@ -4,65 +4,33 @@ import Tooltip from "./SidebarTooltip";
 import ListMenuSvgModule from "./list/ListMenuSvgModule";
 import ListMenuTitleModule from "./list/ListMenuTitleModule";
 import ListMenuArrow from "./list/ListMenuArrow";
-import { useState, useEffect } from "react";
-// import ListMenuActiveIconModule from "./list/ListMenuActiveIconModule";
-// import DropdownLanguageModule from "./list/dropdowns/DropdownLanguageModule";
+import { useEffect, useState } from "react";
 import { ActiveMenuIcon } from "@/components/svgs";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import React from "react";
-// import Link from "next/link";
-import { usePathname } from "next/navigation";
+import GemImage from "@/components/shared/gemImage";
 
-export default function SideBarContent({
-  tabsMenu,
-  isClosed,
-  params,
-  // langData,
-  // langArray,
-}) {
+export default function SideBarContent({ tabsMenu, isClosed, params }) {
   const router = useRouter();
-  // const [langDropDown, setLangDropDown] = useState(false);
-  const [activeNav, setActiveNav] = useState(params.levelName);
-
-  // Level menu items already contain their API-filtered route_name.
   const pathname = usePathname();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(false);
   }, [pathname]);
-  // const onTabClick = (item) => {
-  //   setActiveNav(item.route_name || "");
 
-  //   let href = `/${params.lang}`; // مسیر پیش‌فرض صفحه اصلی
-
-  //   if (item.route_name && item.route_name !== "home") {
-  //     href = `/${params.lang}/levels/citizen/${item.route_name}/general-info`;
-  //   }
-
-  //   router.push(href);
-  // };
-
-  // const handleLangBtn = () => {
-  //   setLangDropDown(!langDropDown);
-  // };
   const handleItemMouseDown = (e, item) => {
     e.stopPropagation();
+    const href = item.route_name && item.route_name !== "home"
+      ? `/${params.lang}/levels/citizen/${item.route_name}/general-info`
+      : `/${params.lang}`;
 
-    let href = `/${params.lang}`;
-    if (item.route_name && item.route_name !== "home") {
-      href = `/${params.lang}/levels/citizen/${item.route_name}/general-info`;
-    }
-
-    // 🟢 کلیک وسط → تب جدید
     if (e.button === 1) {
       window.open(href, "_blank");
       return;
     }
 
-    // 🔵 کلیک چپ → ناوبری + لودر
     if (e.button === 0) {
-      setActiveNav(item.route_name || "");
       setLoading(true);
       router.push(href);
     }
@@ -71,18 +39,14 @@ export default function SideBarContent({
   return (
     <>
       {loading && (
-        <div className={`${isClosed ? "w-[96.4vw]!" : "xl:w-[83vw] 2xl:w-[83.5vw]"}
-          fixed w-full  rtl:left-0 ltr:right-0 z-9999 flex items-center justify-center bg-black/60 backdrop-blur-xs`} >
+        <div
+          className={`${isClosed ? "w-[96.4vw]!" : "xl:w-[83vw] 2xl:w-[83.5vw]"}
+          fixed w-full rtl:left-0 ltr:right-0 z-9999 flex items-center justify-center bg-black/60 backdrop-blur-xs`}
+        >
           <div className="container flex w-full h-screen items-center justify-center">
-            <div className="holder">
-              <div className="box"></div>
-            </div>
-            <div className="holder">
-              <div className="box"></div>
-            </div>
-            <div className="holder">
-              <div className="box"></div>
-            </div>
+            <div className="holder"><div className="box"></div></div>
+            <div className="holder"><div className="box"></div></div>
+            <div className="holder"><div className="box"></div></div>
           </div>
         </div>
       )}
@@ -91,112 +55,55 @@ export default function SideBarContent({
         id="light-scrollbar"
         className="h-full z-1 list-none overflow-y-scroll no-scrollbar relative pt-3 w-full menu-transition max-lg:w-fit"
       >
-        {tabsMenu &&
-          tabsMenu.map((item, i) => (
-            <React.Fragment key={item.unique_id + "-" + i}>
-              {item.menuItem === true && (
-                <li onMouseDown={(e) => handleItemMouseDown(e, item)}>
-                  <Tooltip
-                    title={item.translation || ""}
-                    enabled={isClosed}
-                  >
-                    {item.route_name && item.route_name !== "language" ? (
-                      <div className="px-2 flex cursor-pointer flex-col items-center box-border menu-transition">
-                        <div
-                          className={`w-full flex flex-row items-center group py-2 ${isClosed ? "justify-center" : "justify-start"
-                            } rounded-[10px]`}
-                        >
-                          {activeNav === item?.route_name ? (
-                            <div className="flex items-center">
-                              <ActiveMenuIcon
-                                className={` ${isClosed ? "w-[10px] pr-[17px]" : ""}  ${activeNav === item?.route_name
+        {tabsMenu?.map((item, i) => {
+          if (item.menuItem !== true) return null;
 
-                                  } visible  h-[35px] absolute inset-s-0 fill-primary dark:fill-primary pr-[20px] w-[25px] rtl:rotate-180 `}
-                              />
-                              <span className="flex">
-                                <ListMenuSvgModule
-                                  item={item}
-                                  i={i}
-                                  activeNav={activeNav}
-                                />
-                              </span>
-                              <ListMenuTitleModule
-                                isClosed={isClosed}
-                                item={item}
-                                i={i}
-                                activeNav={activeNav}
-                              />
-                              <ListMenuArrow item={item} />
-                            </div>
-                          ) : (
-                            <>
-                              <span className="flex">
-                                <ListMenuSvgModule
-                                  item={item}
-                                  i={i}
-                                  activeNav={activeNav}
-                                />
-                              </span>
-                              <ListMenuTitleModule
-                                isClosed={isClosed}
-                                item={item}
-                                i={i}
-                                activeNav={activeNav}
-                              />
-                              <ListMenuArrow item={item} />
-                            </>
-                          )}
-                        </div>
-                      </div>
-                    ) : null}
-                  </Tooltip>
-                </li>
-              )}
+          const isHome = item.route_name === "home";
+          const isActive = isHome
+            ? pathname === `/${params.lang}` || pathname === `/${params.lang}/`
+            : pathname.startsWith(`/${params.lang}/levels/citizen/${item.route_name}/`);
 
-              {/* {item.route_name === "language" && (
-                <li key={"language-" + item.unique_id}>
-                  <div onClick={handleLangBtn} data-tooltip-id={item.name}>
+          return (
+            <React.Fragment key={`${item.unique_id}-${i}`}>
+              <li onMouseDown={(e) => handleItemMouseDown(e, item)}>
+                <Tooltip title={item.translation || ""} enabled={isClosed}>
+                  <div className="px-2 flex cursor-pointer flex-col items-center box-border menu-transition">
                     <div
-                      className={`w-full flex flex-row items-center group py-[12px] 3xl:py-[16px] px-3
-                    group-hover:text-primary dark:group-hover:text-primary cursor-pointer menu-transition
-                    ${isClosed ? "justify-start items-center " : "justify-start items-center"
-                        }`}
+                      className={`w-full flex flex-row items-center group py-2 ${isClosed ? "justify-center" : "justify-start"} rounded-[10px]`}
                     >
-                      <ListMenuActiveIconModule
-                        item={item}
-                        languageSelected={langData.code}
+                      {isActive && (
+                        <div className="flex items-center">
+                          <ActiveMenuIcon
+                            className={`${isClosed ? "w-[10px] pr-[17px]" : ""} visible h-[35px] absolute inset-s-0 fill-primary dark:fill-primary pr-[20px] w-[25px] rtl:rotate-180`}
+                          />
+                        </div>
+                      )}
+                      <span className="flex">
+                        {isHome ? (
+                          <ListMenuSvgModule item={{ ...item, active: isActive }} />
+                        ) : (
+                          <GemImage
+                            item={item}
+                            params={params}
+                            picSize={30}
+                            href={`/${params.lang}/levels/citizen/${item.route_name}/general-info`}
+                            showGlow
+                            isActive={isActive}
+                          />
+                        )}
+                      </span>
+                      <ListMenuTitleModule
                         isClosed={isClosed}
+                        item={{ ...item, active: isActive }}
                       />
-                      <div className="flex items-center">
-                        <ListMenuSvgModule item={item} />
-                      </div>
-                      <div className="w-full flex justify-between items-center">
-                        <ListMenuTitleModule item={item} isClosed={isClosed} />
-                        <ListMenuArrow
-                          item={(item = { name: "language" })}
-                          isOpen={langDropDown}
-                          isClosed={isClosed}
-                        />
-                      </div>
+                      <ListMenuArrow item={item} />
                     </div>
                   </div>
-
-                  <div
-                    className={`${langDropDown ? "h-fit" : "h-0 overflow-hidden"
-                      }
-                  base-transition-1 bg-Field dark:bg-gray-1`}
-                  >
-                    <DropdownLanguageModule
-                      languagesData={langData}
-                      langArray={langArray}
-                      params={params}
-                      isClosed={isClosed}
-                    />
-                  </div>
-                </li>
-              )} */}
+                </Tooltip>
+              </li>
             </React.Fragment>
-          ))}
+          );
+        })}
       </ul>
     </>
   );

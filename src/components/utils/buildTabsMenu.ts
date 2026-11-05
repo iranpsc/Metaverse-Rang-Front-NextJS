@@ -1,11 +1,6 @@
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { STATIC_ROUTE_NAMES } from "@/components/utils/levelData";
 
-/**
- * Sidebar dropdowns (education / articles / news / citizens) are keyed
- * off these IDs in AllSideTab. They used to come from nested translation
- * fields; they are now injected so those blocks still mount.
- */
 export const SIDEBAR_DROPDOWN_UNIQUE_IDS = [1462, 258, 255, 263] as const;
 
 export type TabsMenuItem = {
@@ -17,6 +12,8 @@ export type TabsMenuItem = {
   translation: string;
   menuItem?: boolean;
   route_name?: string;
+  id?: number | string;
+  image?: string;
 };
 
 type StaticMenuItem = {
@@ -27,10 +24,6 @@ type StaticMenuItem = {
   toShow?: boolean;
 };
 
-/**
- * Build the sidebar menu from the static route list + flat translations.
- * Labels are looked up with `translations[String(unique_id)]`.
- */
 export function buildTabsMenu(
   translations: object | null | undefined,
   staticMenu: StaticMenuItem[] = [],
@@ -69,16 +62,15 @@ export function buildTabsMenu(
   return items;
 }
 
-/**
- * Build the level sidebar from the API catalogue. Static route metadata is
- * retained only to map stable public URLs and translation/icon IDs.
- */
 export function buildLevelTabsMenu(
   translations: object | null | undefined,
   levels: Array<{
     id?: number | string;
     unique_id?: number | string;
     route_name?: string;
+    photo?: string | null;
+    image?: string | null;
+    fallbackPhoto?: string | null;
   }> = []
 ): TabsMenuItem[] {
   const items = [
@@ -90,13 +82,15 @@ export function buildLevelTabsMenu(
       const uniqueId = apiLevel.unique_id ?? routeMeta?.unique_id;
       const routeName = apiLevel.route_name || routeMeta?.route_name;
 
-      // A menu entry needs both a stable translation/icon ID and a route.
       if (uniqueId == null || !routeName) return [];
 
       return [{
         unique_id: uniqueId,
         route_name: routeName,
         menuItem: true as const,
+        id: apiLevel.id,
+        image: apiLevel.photo || apiLevel.image || apiLevel.fallbackPhoto ||
+          `/svg/level/${routeName.replace("-baguette", "")}.png`,
       }];
     }),
   ];
