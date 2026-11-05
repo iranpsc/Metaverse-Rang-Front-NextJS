@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { ActiveMenuIcon } from "@/components/svgs";
 import { useRouter, usePathname } from "next/navigation";
 import React from "react";
-import GemImage, { getGemGlowColor } from "@/components/shared/gemImage";
+import GemImage, { getGemPrimaryColor } from "@/components/shared/gemImage";
 
 
 export default function SideBarContent({ tabsMenu, isClosed, params }) {
@@ -63,7 +63,7 @@ export default function SideBarContent({ tabsMenu, isClosed, params }) {
           const isActive = isHome
             ? pathname === `/${params.lang}` || pathname === `/${params.lang}/`
             : pathname.startsWith(`/${params.lang}/levels/citizen/${item.route_name}/`);
-          const activeGemColor = isActive && !isHome ? getGemGlowColor(item) : undefined;
+          const activeGemColor = isActive && !isHome ? getGemPrimaryColor(item) : undefined;
 
           return (
             <React.Fragment key={`${item.unique_id}-${i}`}>
