@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useParams } from "next/navigation";
 import dynamic from "next/dynamic";
 import ErrorBoundary from "@/components/utils/ErrorBoundary";
+import { getGemGlowColor } from "@/components/shared/gemImage";
 
 /**
  * تغییر ۱:
@@ -123,7 +124,11 @@ export default function ImageBox({
 }: ImageBoxProps) {
   const [mode, setMode] = useState<"png" | "fbx" | "gif">("png");
 
-  const { tabs } = useParams<{ tabs: string }>();
+  const { tabs, levelName } = useParams<{ tabs: string; levelName: string }>();
+  const gemGlowColor = getGemGlowColor({ route_name: levelName });
+  const gemGlowStyle = gemGlowColor
+    ? { filter: `drop-shadow(0 0 3px ${gemGlowColor}) drop-shadow(0 0 6px ${gemGlowColor})` }
+    : undefined;
   const item = tabsData?.[tabs];
   const general = generalInfo || {};
 
@@ -178,7 +183,8 @@ export default function ImageBox({
             alt="png"
             fill
             priority
-            className="rounded-xl object-cover"
+            className="rounded-xl object-cover transition-[filter] duration-300"
+            style={gemGlowStyle}
             onError={() =>
               console.error("ImageBox: failed to load PNG:", srcPng)
             }
@@ -195,7 +201,8 @@ export default function ImageBox({
             alt="gif"
             fill
             unoptimized
-            className="rounded-xl object-cover"
+            className="rounded-xl object-cover transition-[filter] duration-300"
+            style={gemGlowStyle}
             onError={() =>
               console.error("ImageBox: failed to load GIF:", srcGif)
             }
