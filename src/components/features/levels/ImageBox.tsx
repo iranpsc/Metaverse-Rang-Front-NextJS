@@ -201,8 +201,7 @@ export default function ImageBox({
             alt="gif"
             fill
             unoptimized
-            className="rounded-xl object-cover transition-[filter] duration-300"
-            style={gemGlowStyle}
+            className="rounded-xl object-cover"
             onError={() =>
               console.error("ImageBox: failed to load GIF:", srcGif)
             }
