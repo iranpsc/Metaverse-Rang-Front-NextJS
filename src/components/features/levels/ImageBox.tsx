@@ -125,19 +125,20 @@ export default function ImageBox({
   const [mode, setMode] = useState<"png" | "fbx" | "gif">("png");
 
   const { tabs, levelName } = useParams<{ tabs: string; levelName: string }>();
-  const gemGlowColor = getGemGlowColor({ route_name: levelName });
-  // Glow is reserved for the actual gem tab; other tab images stay unchanged.
-  const gemGlowStyle =
-    tabs === "gem" && gemGlowColor
-      ? {
-          filter: `drop-shadow(0 0 8px ${gemGlowColor}) drop-shadow(0 0 18px ${gemGlowColor})`,
-        }
-      : undefined;
   const item = tabsData?.[tabs];
   const general = generalInfo || {};
+  const gemPng = tabs === "gem" ? getFileUrl(item?.png_file) : "";
 
   // PNG: ابتدا تب فعلی، سپس general_info
-  const srcPng = getFileUrl(item?.png_file) || getFileUrl(general.png_file);
+  const srcPng = gemPng || getFileUrl(general.png_file);
+  const gemGlowColor = gemPng
+    ? getGemGlowColor({ route_name: levelName })
+    : undefined;
+  const gemGlowStyle = gemGlowColor
+    ? {
+        filter: `drop-shadow(0 0 8px ${gemGlowColor}) drop-shadow(0 0 18px ${gemGlowColor})`,
+      }
+    : undefined;
 
   // مدل سه‌بعدی: ابتدا تب فعلی، سپس general_info
   const modelSource = parse3DSource(
@@ -181,13 +182,12 @@ export default function ImageBox({
     <div className="sticky top-0 flex w-full flex-col items-center ">
       {activeMode === "png" && srcPng && (
         <div className="relative aspect-5/7 w-[90%] rounded-xl md:w-full">
-          <div className="absolute inset-0 rounded-xl" />
           <Image
             src={srcPng}
             alt="png"
             fill
             priority
-            className="rounded-xl object-cover transition-[filter] duration-300"
+            className={`rounded-xl object-cover ${gemGlowStyle ? "transition-[filter] duration-300" : ""}`}
             style={gemGlowStyle}
             onError={() =>
               console.error("ImageBox: failed to load PNG:", srcPng)
