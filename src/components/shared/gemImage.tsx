@@ -34,7 +34,7 @@ export function getGemGlowColor(item: any): string | undefined {
 
 const LEVEL_GLOW_COLORS = [
   "#F7FF92", "#FF9D2F", "#87CEEB", "#E7E7E7", "#FFB381",
-  "#8e00df", "#bbaae1", "#70dfff", "#f958ff", "#00ab04",
+  "#8e00df", "#9942c2", "#70dfff", "#f958ff", "#00ab04",
   "#155a17", "#ff0000", "#d9e8eb",
 ] as const;
 

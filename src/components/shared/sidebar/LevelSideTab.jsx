@@ -10,6 +10,7 @@ import { useRouter, usePathname } from "next/navigation";
 import React from "react";
 import GemImage, { getGemGlowColor } from "@/components/shared/gemImage";
 
+
 export default function SideBarContent({ tabsMenu, isClosed, params }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -80,14 +81,15 @@ export default function SideBarContent({ tabsMenu, isClosed, params }) {
                           />
                         </div>
                       )}
-                      <span className="flex w-[30px] shrink-0 items-center justify-center">
+                      <span className="flex  shrink-0 items-center justify-center">
                         {isHome ? (
                           <ListMenuSvgModule item={{ ...item, active: isActive }} />
                         ) : (
-                          <GemImage
+                         <div className={`${isActive ? "ps-0 -ms-0.5" : "ps-2.5" }`}>
+                           <GemImage
                             item={item}
                             params={params}
-                            picSize={30}
+                            picSize={28}
                             href={`/${params.lang}/levels/citizen/${item.route_name}/general-info`}
                             showGlow
                             isActive={isActive}
@@ -95,6 +97,7 @@ export default function SideBarContent({ tabsMenu, isClosed, params }) {
                             unoptimized
                             eager
                           />
+                         </div>
                         )}
                       </span>
                       <ListMenuTitleModule
