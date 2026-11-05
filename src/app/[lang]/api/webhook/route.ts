@@ -18,8 +18,32 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Read backend payload
-    const payload = await request.json();
+    // Read the payload according to the sender's content type.
+    const contentType = request.headers.get("content-type")?.toLowerCase() ?? "";
+    let payload: unknown;
+
+    if (contentType.includes("application/json")) {
+      payload = JSON.parse(await request.text());
+    } else if (contentType.includes("multipart/form-data")) {
+      const formData = await request.formData();
+      payload = Object.fromEntries(
+        Array.from(formData.entries()).map(([key, value]) => [
+          key,
+          typeof value === "string"
+            ? value
+            : {
+                name: value.name,
+                type: value.type,
+                size: value.size,
+                lastModified: value.lastModified,
+              },
+        ])
+      );
+    } else if (contentType.includes("application/x-www-form-urlencoded")) {
+      payload = Object.fromEntries(new URLSearchParams(await request.text()));
+    } else {
+      payload = await request.text();
+    }
 
     console.log("[Webhook] Received:", payload);
 
@@ -28,6 +52,7 @@ export async function POST(request: NextRequest) {
       {
         success: true,
         message: "Webhook received successfully",
+        data: payload,
       },
       { status: 200 }
     );
