@@ -61,7 +61,15 @@ export default function Profile({
           {inView &&
             concatGems &&
             concatGems.map((item: any, index: any) => (
-              <GemImage key={index} item={item} params={params} picSize={100} disableHoverScale />
+              <GemImage
+                key={item.slug || item.id || index}
+                item={item}
+                params={params}
+                picSize={100}
+                disableHoverScale
+                showGlow
+                isActive={item === profileData.data?.current_level}
+              />
             ))}
         </div>
       </div>
