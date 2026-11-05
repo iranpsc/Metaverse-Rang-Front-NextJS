@@ -85,7 +85,7 @@ export default function SideBarContent({ tabsMenu, isClosed, params }) {
                         {isHome ? (
                           <ListMenuSvgModule item={{ ...item, active: isActive }} />
                         ) : (
-                         <div className={`${isActive ? "ps-0 -ms-0.5" : "ps-2.5" }`}>
+                         <div className={`${isActive ? "ps-0 -ms-0.5" : "ps-2.5" } ${isClosed ? "px-0!" : ""}` }>
                            <GemImage
                             item={item}
                             params={params}
