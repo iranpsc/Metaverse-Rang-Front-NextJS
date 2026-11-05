@@ -47,6 +47,8 @@ type GemImageProps = {
   showGlow?: boolean;
   isActive?: boolean;
   preventNavigation?: boolean;
+  unoptimized?: boolean;
+  eager?: boolean;
 };
 
 export default function GemImage({
@@ -58,6 +60,8 @@ export default function GemImage({
   showGlow = false,
   isActive = false,
   preventNavigation = false,
+  unoptimized = false,
+  eager = false,
 }: GemImageProps) {
   const [linkLoading, setLinkLoading] = useState(false);
 
@@ -99,8 +103,8 @@ export default function GemImage({
         width={picSize}
         height={picSize}
         sizes={`${picSize}px`}
-        quality={50}
-        loading="lazy"
+        unoptimized={unoptimized}
+        loading={eager ? "eager" : "lazy"}
         alt={item.name || item.translation || "Level gem"}
         className={`inline object-contain transition-[filter,transform] duration-300 ${showGlow
           ? `group-hover/gem:[filter:drop-shadow(0_0_5px_var(--gem-glow))_drop-shadow(0_0_9px_var(--gem-glow))] ${isActive ? "[filter:drop-shadow(0_0_3px_var(--gem-glow))_drop-shadow(0_0_6px_var(--gem-glow))]" : ""} ${linkLoading ? "animate-pulse cursor-wait [filter:drop-shadow(0_0_5px_var(--gem-glow))_drop-shadow(0_0_9px_var(--gem-glow))]" : ""}`
