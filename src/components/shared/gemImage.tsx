@@ -64,7 +64,7 @@ export default function GemImage({
 
   return (
     <Link
-      onClickCapture={showGlow ? undefined : () => setLinkLoading(true)}
+      onClickCapture={showGlow ? (event) => event.preventDefault() : () => setLinkLoading(true)}
       href={targetHref}
       className={showGlow
         ? "relative inline-flex h-full w-fit shrink-0 items-center justify-center"
