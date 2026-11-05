@@ -22,7 +22,7 @@ const ListMenuTitleModule = ({ item, isClosed, activeColor }: any) => {
         : "text-black dark:text-matn-2"
     }
     ${isClosed ? "w-0 h-0 overflow-hidden" : "min-w-0 flex-1 h-fit whitespace-nowrap"}
-    capitalize 3xl:text-xl xl:text-lg lg:text-lgTitle  md:text-mdTitle sm:text-smTitle xs:text-smTitle font-azarMehr ${item.active ? "font-bold" : "font-normal"} `}
+    capitalize 3xl:text-xl xl:text-lg lg:text-lgTitle  md:text-mdTitle sm:text-smTitle xs:text-smTitle font-azarMehr `}
       style={activeColor ? { color: activeColor } : undefined}
     >
       {item.translation}

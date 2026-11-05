@@ -33,17 +33,17 @@ export function getGemGlowColor(item: any): string | undefined {
 }
 
 const LEVEL_PRIMARY_COLORS = [
-  "#E5FE2B", // Citizen
-  "#FEB34B", // Reporter
-  "#24249B", // Participation
+  "#b9af18", // Citizen
+  "#eea034", // Reporter
+  "#0d0d9e", // Participation
   "#9C9C9C", // Developer
-  "#D165C8", // Inspector
-  "#8B3DE4", // Businessman
-  "#9806FA", // Lawyer
+  "#b63d8d", // Inspector
+  "#8233dd", // Businessman
+  "#a319ff", // Lawyer
   "#99A9DC", // City council
   "#AD618E", // Mayor
-  "#0A9722", // Governor
-  "#286230", // Minister
+  "#008a50", // Governor
+  "#2e7037", // Minister
   "#B10000", // Judge
   "#B0B0B0", // Legislator
 ] as const;
