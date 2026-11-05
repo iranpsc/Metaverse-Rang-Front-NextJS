@@ -199,7 +199,6 @@ export default function ImageBox({
       {/* بدون key تا با تغییر تب، GIF مشترک دوباره شروع نشود */}
       {activeMode === "gif" && srcGif && (
         <div className="relative aspect-5/7 w-[90%] rounded-xl">
-          <div className="absolute inset-0 rounded-xl" />
           <Image
             src={srcGif}
             alt="gif"
