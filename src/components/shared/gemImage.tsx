@@ -92,7 +92,7 @@ export default function GemImage({
         width={picSize}
         height={picSize}
         sizes={`${picSize}px`}
-        quality={60}
+        quality={50}
         loading="lazy"
         alt={item.name || item.translation || "Level gem"}
         className={`inline object-contain transition-[filter,transform] duration-300 ${showGlow
