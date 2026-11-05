@@ -68,6 +68,14 @@ export default function GemImage({
     ? ""
     : "hover:scale-150 hover:drop-shadow-[0_0px_8px_rgba(255,199,0,0.6)]";
 
+  const tooltipContent =
+    params.lang === "fa"
+      ? item.name
+      : routeName
+        ? routeName.split("-baguette")[0].charAt(0).toUpperCase() +
+          routeName.split("-baguette")[0].slice(1)
+        : "Newcomer";
+
   return (
     <Link
       onClickCapture={
@@ -79,39 +87,28 @@ export default function GemImage({
       className={showGlow ? "group/gem inline-flex shrink-0 items-center justify-center" : "inline-flex"}
     >
       <Image
-        data-tooltip-id={showGlow ? undefined : item.name}
+        data-tooltip-id={item.name || undefined}
         src={item.image || item.photo}
         width={picSize}
         height={picSize}
         alt={item.name || item.translation || "Level gem"}
         className={`inline object-contain transition-[filter,transform] duration-300 ${showGlow
-          ? "group-hover/gem:[filter:drop-shadow(0_0_5px_var(--gem-glow))_drop-shadow(0_0_9px_var(--gem-glow))]"
+          ? `group-hover/gem:[filter:drop-shadow(0_0_5px_var(--gem-glow))_drop-shadow(0_0_9px_var(--gem-glow))] ${isActive ? "[filter:drop-shadow(0_0_3px_var(--gem-glow))_drop-shadow(0_0_6px_var(--gem-glow))]" : ""} ${linkLoading ? "animate-pulse cursor-wait [filter:drop-shadow(0_0_5px_var(--gem-glow))_drop-shadow(0_0_9px_var(--gem-glow))]" : ""}`
           : `${linkLoading ? "cursor-wait drop-shadow-[0_0px_8px_rgba(255,199,0,0.6)]" : ""} ${hoverClasses}`}`}
         style={
           showGlow
             ? ({
                 "--gem-glow": glowColor || "transparent",
-                filter:
-                  isActive && glowColor
-                    ? `drop-shadow(0 0 5px ${glowColor}) drop-shadow(0 0 9px ${glowColor})`
-                    : undefined,
               } as CSSProperties)
             : undefined
         }
       />
-      {!showGlow && item.name && (
+      {item.name && (
         <ReactTooltip
           id={item.name}
           place="top"
           className="bg-[#E9E9E9]! text-[#908F95]! dark:bg-[#434343]! dark:text-white! !font-azarMehr font-medium! text-[14px]!"
-          content={
-            params.lang === "fa"
-              ? item.name
-              : routeName
-                ? routeName.split("-baguette")[0].charAt(0).toUpperCase() +
-                  routeName.split("-baguette")[0].slice(1)
-                : "Newcomer"
-          }
+          content={tooltipContent}
         />
       )}
     </Link>
