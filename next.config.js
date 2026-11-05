@@ -112,6 +112,8 @@ const nextConfig = {
   },
 
   images: {
+    // Cache optimized remote gem images for 24 hours.
+    minimumCacheTTL: 86400,
     deviceSizes: [320, 480, 640, 768, 1024, 1280, 1536],
     imageSizes: [16, 32, 64, 128, 256, 384, 512, 540, 600],
     qualities: [25, 50, 75],
