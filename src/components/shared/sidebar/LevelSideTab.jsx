@@ -92,6 +92,8 @@ export default function SideBarContent({ tabsMenu, isClosed, params }) {
                             showGlow
                             isActive={isActive}
                             preventNavigation
+                            unoptimized
+                            eager
                           />
                         )}
                       </span>
