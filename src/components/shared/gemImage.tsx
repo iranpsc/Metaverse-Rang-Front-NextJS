@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 
 const STATIC_ROUTE_NAMES = [
@@ -35,6 +35,7 @@ type GemImageProps = {
   href?: string;
   showGlow?: boolean;
   isActive?: boolean;
+  preventNavigation?: boolean;
 };
 
 export default function GemImage({
@@ -45,6 +46,7 @@ export default function GemImage({
   href,
   showGlow = false,
   isActive = false,
+  preventNavigation = false,
 }: GemImageProps) {
   const [linkLoading, setLinkLoading] = useState(false);
 
@@ -55,8 +57,12 @@ export default function GemImage({
     STATIC_ROUTE_NAMES.find((route) => route.id === Number(item?.id))
       ?.route_name;
 
+  const levelId =
+    Number(item?.id) ||
+    STATIC_ROUTE_NAMES.find((route) => route.route_name === routeName)?.id ||
+    0;
+  const glowColor = showGlow ? LEVEL_GLOW_COLORS[levelId - 1] : undefined;
   const targetHref = href || `/${params.lang}/levels/citizen/${routeName}/gem`;
-  const glowColor = showGlow ? LEVEL_GLOW_COLORS[Number(item?.id) - 1] : undefined;
 
   const hoverClasses = disableHoverScale
     ? ""
@@ -64,59 +70,49 @@ export default function GemImage({
 
   return (
     <Link
-      onClickCapture={showGlow ? (event) => event.preventDefault() : () => setLinkLoading(true)}
+      onClickCapture={
+        preventNavigation
+          ? (event) => event.preventDefault()
+          : () => setLinkLoading(true)
+      }
       href={targetHref}
-      className={showGlow
-        ? "relative inline-flex h-full w-fit shrink-0 items-center justify-center"
-        : "inline-flex"}
+      className={showGlow ? "group/gem inline-flex shrink-0 items-center justify-center" : "inline-flex"}
     >
-      {showGlow ? (
-        <span
-          className="group/gem relative inline-flex shrink-0 items-center justify-center overflow-hidden"
-          style={{ width: picSize, height: Math.round(picSize * 4 / 3) }}
-        >
-          <span
-            aria-hidden="true"
-            className={`pointer-events-none absolute bottom-[3px] left-1/2 h-[7px] w-[62%] -translate-x-1/2 rounded-full blur-[5px] transition-opacity duration-300 ${isActive
-              ? "opacity-100"
-              : "opacity-0 group-hover:opacity-100 group-hover/gem:opacity-100"}`}
-            style={{
-              backgroundColor: glowColor,
-              boxShadow: glowColor ? `0 0 9px 3px ${glowColor}` : undefined,
-            }}
-          />
-          <Image
-            src={item.image || item.photo}
-            width={picSize}
-            height={Math.round(picSize * 4 / 3)}
-            alt={item.name || item.translation || "Level gem"}
-            className="relative z-10 h-full w-full scale-[0.84] object-contain"
-          />
-        </span>
-      ) : (
-        <>
-          <Image
-            data-tooltip-id={item.name}
-            src={item.image}
-            width={picSize}
-            height={picSize}
-            alt={item.name}
-            className={`${linkLoading ? " drop-shadow-[0_0px_8px_rgba(255,199,0,0.6)] cursor-wait" : ""} object-contain inline duration-300 ${hoverClasses}`}
-          />
-          {item.name && (
-            <ReactTooltip
-              id={item.name}
-              place="top"
-              className="bg-[#E9E9E9]! text-[#908F95]! dark:bg-[#434343]! dark:text-white! !font-azarMehr font-medium! text-[14px]!"
-              content={params.lang === "fa"
-                ? item.name
-                : routeName
-                  ? routeName.split("-baguette")[0].charAt(0).toUpperCase() +
-                    routeName.split("-baguette")[0].slice(1)
-                  : "Newcomer"}
-            />
-          )}
-        </>
+      <Image
+        data-tooltip-id={showGlow ? undefined : item.name}
+        src={item.image || item.photo}
+        width={picSize}
+        height={picSize}
+        alt={item.name || item.translation || "Level gem"}
+        className={`inline object-contain transition-[filter,transform] duration-300 ${showGlow
+          ? "group-hover/gem:[filter:drop-shadow(0_0_5px_var(--gem-glow))_drop-shadow(0_0_9px_var(--gem-glow))]"
+          : `${linkLoading ? "cursor-wait drop-shadow-[0_0px_8px_rgba(255,199,0,0.6)]" : ""} ${hoverClasses}`}`}
+        style={
+          showGlow
+            ? ({
+                "--gem-glow": glowColor || "transparent",
+                filter:
+                  isActive && glowColor
+                    ? `drop-shadow(0 0 5px ${glowColor}) drop-shadow(0 0 9px ${glowColor})`
+                    : undefined,
+              } as CSSProperties)
+            : undefined
+        }
+      />
+      {!showGlow && item.name && (
+        <ReactTooltip
+          id={item.name}
+          place="top"
+          className="bg-[#E9E9E9]! text-[#908F95]! dark:bg-[#434343]! dark:text-white! !font-azarMehr font-medium! text-[14px]!"
+          content={
+            params.lang === "fa"
+              ? item.name
+              : routeName
+                ? routeName.split("-baguette")[0].charAt(0).toUpperCase() +
+                  routeName.split("-baguette")[0].slice(1)
+                : "Newcomer"
+          }
+        />
       )}
     </Link>
   );

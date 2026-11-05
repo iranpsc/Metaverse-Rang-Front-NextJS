@@ -89,6 +89,7 @@ export default function SideBarContent({ tabsMenu, isClosed, params }) {
                             href={`/${params.lang}/levels/citizen/${item.route_name}/general-info`}
                             showGlow
                             isActive={isActive}
+                            preventNavigation
                           />
                         )}
                       </span>

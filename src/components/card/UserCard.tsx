@@ -212,7 +212,7 @@ export default function UserCard({
           <div className="w-full min-h-[75px] pb-2">
             <div className="w-full flex flex-wrap justify-center gap-2">
               {displayGems.map((gem: any) => (
-                <GemImage key={`gem-${gem.slug}`} item={gem} params={params} picSize={21} />
+                <GemImage key={`gem-${gem.slug}`} item={gem} params={params} picSize={21} showGlow isActive={gem === currentGem} />
               ))}
               {Array.from({ length: remainingGemsCount }).map((_, index) => (
                 <Image
