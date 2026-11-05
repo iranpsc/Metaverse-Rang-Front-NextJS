@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { ActiveMenuIcon } from "@/components/svgs";
 import { useRouter, usePathname } from "next/navigation";
 import React from "react";
-import GemImage from "@/components/shared/gemImage";
+import GemImage, { getGemGlowColor } from "@/components/shared/gemImage";
 
 export default function SideBarContent({ tabsMenu, isClosed, params }) {
   const router = useRouter();
@@ -62,6 +62,7 @@ export default function SideBarContent({ tabsMenu, isClosed, params }) {
           const isActive = isHome
             ? pathname === `/${params.lang}` || pathname === `/${params.lang}/`
             : pathname.startsWith(`/${params.lang}/levels/citizen/${item.route_name}/`);
+          const activeGemColor = isActive && !isHome ? getGemGlowColor(item) : undefined;
 
           return (
             <React.Fragment key={`${item.unique_id}-${i}`}>
@@ -69,16 +70,17 @@ export default function SideBarContent({ tabsMenu, isClosed, params }) {
                 <Tooltip title={item.translation || ""} enabled={isClosed}>
                   <div className="px-2 flex cursor-pointer flex-col items-center box-border menu-transition">
                     <div
-                      className={`w-full flex flex-row items-center group py-2 ${isClosed ? "justify-center" : "justify-start"} rounded-[10px]`}
+                      className={`w-full flex flex-row items-center group py-2 ${isClosed ? "justify-center gap-0" : "justify-start gap-3"} rounded-[10px]`}
                     >
                       {isActive && (
                         <div className="flex items-center">
                           <ActiveMenuIcon
-                            className={`${isClosed ? "w-[10px] pr-[17px]" : ""} visible h-[35px] absolute inset-s-0 fill-primary dark:fill-primary pr-[20px] w-[25px] rtl:rotate-180`}
+                            className={`${isClosed ? "w-[10px] pr-[17px]" : ""} visible h-[35px] absolute inset-s-0 pr-[20px] w-[25px] rtl:rotate-180`}
+                            style={activeGemColor ? { fill: activeGemColor } : undefined}
                           />
                         </div>
                       )}
-                      <span className="flex">
+                      <span className="flex w-[30px] shrink-0 items-center justify-center">
                         {isHome ? (
                           <ListMenuSvgModule item={{ ...item, active: isActive }} />
                         ) : (
@@ -95,6 +97,7 @@ export default function SideBarContent({ tabsMenu, isClosed, params }) {
                       </span>
                       <ListMenuTitleModule
                         isClosed={isClosed}
+                        activeColor={activeGemColor}
                         item={{ ...item, active: isActive }}
                       />
                       <ListMenuArrow item={item} />
