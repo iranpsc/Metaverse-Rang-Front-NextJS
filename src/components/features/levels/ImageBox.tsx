@@ -126,9 +126,13 @@ export default function ImageBox({
 
   const { tabs, levelName } = useParams<{ tabs: string; levelName: string }>();
   const gemGlowColor = getGemGlowColor({ route_name: levelName });
-  const gemGlowStyle = gemGlowColor
-    ? { filter: `drop-shadow(0 0 3px ${gemGlowColor}) drop-shadow(0 0 6px ${gemGlowColor})` }
-    : undefined;
+  // Glow is reserved for the actual gem tab; other tab images stay unchanged.
+  const gemGlowStyle =
+    tabs === "gem" && gemGlowColor
+      ? {
+          filter: `drop-shadow(0 0 8px ${gemGlowColor}) drop-shadow(0 0 18px ${gemGlowColor})`,
+        }
+      : undefined;
   const item = tabsData?.[tabs];
   const general = generalInfo || {};
 
