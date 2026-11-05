@@ -76,7 +76,7 @@ export default function SideBarContent({ tabsMenu, isClosed, params }) {
                       {isActive && (
                         <div className="flex items-center">
                           <ActiveMenuIcon
-                            className={`${isClosed ? "w-[10px] pr-[17px]" : ""} visible h-[35px] absolute inset-s-0 pr-[20px] w-[25px] rtl:rotate-180`}
+                            className={`${isClosed ? "w-[12px] pr-[17px]" : ""} visible h-[35px] absolute inset-s-0 pr-[20px] w-[30px] rtl:rotate-180`}
                             style={activeGemColor ? { fill: activeGemColor } : undefined}
                           />
                         </div>
