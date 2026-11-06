@@ -1,163 +1,134 @@
 "use client";
+
 import { useRouter } from "next/navigation";
-import { useRef, useState, useEffect } from "react";
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useId,
+  type MouseEvent,
+} from "react";
 import Image from "next/image";
 import GemImage from "@/components/shared/gemImage";
 import Link from "next/link";
 import { Text } from "../svgs/SvgEducation";
-import LockGem from '@/public/lock-baguette.png';
+import LockGem from "@/public/lock-baguette.png";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import { useId } from "react";
-import LevelBadge from "../shared/LevelBadge";  // فرض می‌کنیم این کامپوننت جداگانه ساخته شده
+import LevelBadge from "../shared/LevelBadge";
+import { Tooltip as ReactTooltip } from "react-tooltip";
+
+const TOTAL_GEMS = 13;
+
+const STATIC_ROUTE_NAMES = [
+  { id: 1, route_name: "citizen-baguette" },
+  { id: 2, route_name: "reporter-baguette" },
+  { id: 3, route_name: "participation-baguette" },
+  { id: 4, route_name: "developer-baguette" },
+  { id: 5, route_name: "inspector-baguette" },
+  { id: 6, route_name: "businessman-baguette" },
+  { id: 7, route_name: "lawyer-baguette" },
+  { id: 8, route_name: "city-council-baguette" },
+  { id: 9, route_name: "the-mayor-baguette" },
+  { id: 10, route_name: "governor-baguette" },
+  { id: 11, route_name: "minister-baguette" },
+  { id: 12, route_name: "judge-baguette" },
+  { id: 13, route_name: "legislator-baguette" },
+] as const;
+
+function getGemLevelId(gem: any): number | undefined {
+  const id = Number(gem?.id);
+  if (Number.isInteger(id) && id >= 1 && id <= TOTAL_GEMS) return id;
+
+  const slug = gem?.slug || gem?.route_name;
+  return STATIC_ROUTE_NAMES.find((route) => route.route_name === slug)?.id;
+}
+
+function getGemRouteName(gem: any): string | undefined {
+  const levelId = getGemLevelId(gem);
+  return STATIC_ROUTE_NAMES.find((route) => route.id === levelId)?.route_name;
+}
 
 export default function UserCard({
   item,
   params,
   buttonText,
   minWidth,
-  scoreElement,
   hidePreviousLevels,
   mainData,
   activeBtnId,
   setActiveBtnId,
 }: any) {
-  const [urlForGem, setUrlForGem] = useState<string | undefined>(undefined);
-  const staticRouteNames = [
-    { id: 1, route_name: "citizen-baguette" },
-    { id: 2, route_name: "reporter-baguette" },
-    { id: 3, route_name: "participation-baguette" },
-    { id: 4, route_name: "developer-baguette" },
-    { id: 5, route_name: "inspector-baguette" },
-    { id: 6, route_name: "businessman-baguette" },
-    { id: 7, route_name: "lawyer-baguette" },
-    { id: 8, route_name: "city-council-baguette" },
-    { id: 9, route_name: "the-mayor-baguette" },
-    { id: 10, route_name: "governor-baguette" },
-    { id: 11, route_name: "minister-baguette" },
-    { id: 12, route_name: "judge-baguette" },
-    { id: 13, route_name: "legislator-baguette" },
-  ];
-
   const router = useRouter();
-  const isLoading = activeBtnId === item.code;
+  const uid = useId();
+  const gemTooltipId = "user-card-gem-tooltip-" + uid;
+  const nameRef = useRef<HTMLParagraphElement>(null);
+
+  const [isTruncated, setIsTruncated] = useState(false);
   const [linkLoading, setLinkLoading] = useState(false);
 
-  const handleButtonClick = () => {
-    if (isLoading) return;
-    setActiveBtnId(item.code);
-    router.push(`/${params.lang}/citizens/${item.code.toLowerCase()}`);
-  };
+  const currentGem = item.levels?.current;
+  const isLoading = activeBtnId === item.code;
+  const urlForGem = getGemRouteName(currentGem);
 
-  const uid = useId();
-  const nameRef = useRef<HTMLParagraphElement>(null);
-  const [isTruncated, setIsTruncated] = useState(false);
+  const displayGems = useMemo(() => {
+    const currentLevelId = getGemLevelId(currentGem);
+    const previous = (item.levels?.previous || []).filter(
+      (gem: any) => getGemLevelId(gem) !== currentLevelId
+    );
+
+    previous.sort(
+      (a: any, b: any) =>
+        (getGemLevelId(a) || Number.MAX_SAFE_INTEGER) -
+        (getGemLevelId(b) || Number.MAX_SAFE_INTEGER)
+    );
+
+    return currentGem ? [...previous, currentGem] : previous;
+  }, [item.levels?.previous, currentGem]);
+
+  const remainingGemsCount = Math.max(0, TOTAL_GEMS - displayGems.length);
 
   useEffect(() => {
+    const element = nameRef.current;
+    if (!element) return;
+
     const checkTruncation = () => {
-      if (nameRef.current) {
-        setIsTruncated(nameRef.current.scrollWidth > nameRef.current.clientWidth);
-      }
+      setIsTruncated(element.scrollWidth > element.clientWidth);
     };
+
     checkTruncation();
+    if (typeof ResizeObserver === "undefined") return;
+
     const observer = new ResizeObserver(checkTruncation);
-    if (nameRef.current) observer.observe(nameRef.current);
+    observer.observe(element);
     return () => observer.disconnect();
   }, [item.name]);
 
-  const totalGems = 13;
-  const previousGems = item.levels?.previous || [];
-  const currentGem = item.levels?.current;
+  const handleButtonClick = () => {
+    if (isLoading) return;
+    setActiveBtnId?.(item.code);
+    router.push("/" + params.lang + "/citizens/" + item.code.toLowerCase());
+  };
 
-  // محاسبه urlForGem – پشتیبانی همزمان از slug و id
-  useEffect(() => {
-    if (!currentGem) {
-      setUrlForGem(undefined);
-      return;
-    }
-
-    let matchedRouteName: string | undefined;
-
-    // اولویت ۱: slug رشته‌ای آماده (حالت جدید)
-    if (
-      currentGem.slug &&
-      typeof currentGem.slug === "string" &&
-      currentGem.slug.includes("-baguette")
-    ) {
-      const found = staticRouteNames.find((r) => r.route_name === currentGem.slug);
-      if (found) matchedRouteName = found.route_name;
-    }
-
-    // اولویت ۲: اگر slug نبود → از id استفاده کن (حالت قدیمی)
-    if (!matchedRouteName && currentGem.id != null) {
-      const idNum = Number(currentGem.id);
-      if (!isNaN(idNum)) {
-        const found = staticRouteNames.find((r) => r.id === idNum);
-        if (found) matchedRouteName = found.route_name;
-      }
-    }
-
-    setUrlForGem(matchedRouteName);
-
-
-    // console.log("currentGem در UserCard:", currentGem);
-    // console.log("urlForGem نهایی:", matchedRouteName);
-  }, [currentGem]);
-
-  // فیلتر و مرتب‌سازی جواهرات
-  const uniquePreviousGems = previousGems.filter(
-    (gem: { slug: any }) => gem.slug !== currentGem?.slug
-  );
-
-  const sortedPreviousGems = [...uniquePreviousGems].sort((a, b) => {
-    const indexA = staticRouteNames.findIndex((route) => route.id === a.id);
-    const indexB = staticRouteNames.findIndex((route) => route.id === b.id);
-    return indexA - indexB;
-  });
-
-  const displayGems = currentGem ? [...sortedPreviousGems, currentGem] : sortedPreviousGems;
-  const remainingGemsCount = totalGems - displayGems.length;
-
-  // تابع محاسبه نام لیبل – پشتیبانی همزمان از slug و id
-  // const getRouteName = (gem: any, lang: string) => {
-  //   if (!gem) {
-  //     return lang === "fa" ? "تازه وارد" : "Newcomer";
-  //   }
-
-  //   // فارسی همیشه نام اصلی
-  //   if (lang === "fa") {
-  //     return gem.name || "تازه وارد";
-  //   }
-
-  //   // انگلیسی: اولویت با slug، بعد id
-  //   let base = "";
-
-  //   if (gem.slug && typeof gem.slug === "string" && gem.slug.includes("-baguette")) {
-  //     base = gem.slug.split("-baguette")[0];
-  //   } else if (gem.id != null) {
-  //     const idNum = Number(gem.id);
-  //     if (!isNaN(idNum)) {
-  //       const found = staticRouteNames.find((r) => r.id === idNum);
-  //       if (found) {
-  //         base = found.route_name.split("-")[0];
-  //       }
-  //     }
-  //   }
-
-  //   if (base) {
-  //     return base.charAt(0).toUpperCase() + base.slice(1);
-  //   }
-
-  //   return gem.name || "Newcomer";
-  // };
+  const handleCodeClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    if (linkLoading) return;
+    setLinkLoading(true);
+    router.push("/" + params.lang + "/citizens/" + item.code);
+  };
 
   return (
-    <div className={`px-2 max-w-70.25!`} style={minWidth ? { width: minWidth, minWidth } : {}}>
+    <div
+      className="px-2 max-w-70.25!"
+      style={minWidth ? { width: minWidth, minWidth } : undefined}
+    >
       <div
-        className={`${
-          linkLoading
-            ? "cursor-not-allowed! group scale-105 base-transition-1 bg-white dark:bg-gray-1  border-primary! dark:border-primary! glow-svg pointer-events-none!"
-            : "hover:border-primary hover:bg-white dark:hover:bg-gray-1  dark:hover:border-primary hover:shadow-[0_0px_35px_-12px_rgba(145,0,217,0.9)] "
-        } group hover:scale-105 base-transition-1 shadow-lg mt-10 relative bg-white dark:bg-gray-1  flex flex-col justify-between gap-3 py-3 sm:py-4 md:py-5 items-center rounded-[20px] border-transparent border border-solid`}
+        className={
+          (linkLoading
+            ? "cursor-not-allowed! group scale-105 base-transition-1 bg-white dark:bg-gray-1 border-primary! dark:border-primary! glow-svg pointer-events-none!"
+            : "hover:border-primary hover:bg-white dark:hover:bg-gray-1 dark:hover:border-primary hover:shadow-[0_0px_35px_-12px_rgba(145,0,217,0.9)]") +
+          " group hover:scale-105 base-transition-1 shadow-lg mt-10 relative bg-white dark:bg-gray-1 flex flex-col justify-between gap-3 py-3 sm:py-4 md:py-5 items-center rounded-[20px] border-transparent border border-solid"
+        }
       >
         <figure className="w-30 h-30 relative overflow-hidden rounded-full mt-10">
           <Image
@@ -166,7 +137,7 @@ export default function UserCard({
             fill
             loading="lazy"
             sizes="120px"
-            quality={100}
+            quality={85}
             className="object-cover shadow-md transition-all duration-300 shadow-gray"
           />
         </figure>
@@ -174,11 +145,14 @@ export default function UserCard({
         <div className="w-full overflow-x-hidden">
           <p
             ref={nameRef}
-            className={`font-bold text-[20px] dark:text-white font-azarMehr sm:mt-2 truncate w-full text-center ps-3 ${
-              isTruncated ? "hover:overflow-visible hover:animate-rtlMarquee" : ""
-            }`}
+            className={
+              "font-bold text-[20px] dark:text-white font-azarMehr sm:mt-2 truncate w-full text-center ps-3 " +
+              (isTruncated
+                ? "hover:overflow-visible hover:animate-rtlMarquee"
+                : "")
+            }
           >
-           {item.name || "\u00A0"}{" "}
+            {item.name || "\u00A0"}{" "}
             {item.code &&
               ["hm-2000001", "hm-2000002"].includes(item.code.trim()) && (
                 <span className="mt-[-2px] mx-1 text-xs font-medium text-primary bg-purple-900/20 px-3 py-[2px] rounded-full">
@@ -190,19 +164,14 @@ export default function UserCard({
 
         <div className="flex items-center gap-4 justify-center">
           <Link
-            onClick={(e) => {
-              e.preventDefault();
-              setLinkLoading(true);
-              setTimeout(() => {
-                router.push(`/${params.lang}/citizens/${item.code}`);
-              }, 300);
-            }}
-            className={`min-h-[30px] uppercase text-blueLink accumulating font-azarMehr text-[16px] cursor-pointer ${
-              linkLoading ? "cursor-not-allowed!" : ""
-            }`}
-            href={`/${params.lang}/citizens/${item.code}`}
-            title={`Go to citizen ${item.code}`}
-            aria-label={`Go to citizen ${item.code}`}
+            onClick={handleCodeClick}
+            className={
+              "min-h-[30px] uppercase text-blueLink accumulating font-azarMehr text-[16px] cursor-pointer " +
+              (linkLoading ? "cursor-not-allowed!" : "")
+            }
+            href={"/" + params.lang + "/citizens/" + item.code}
+            title={"Go to citizen " + item.code}
+            aria-label={"Go to citizen " + item.code}
           >
             {item.code}
           </Link>
@@ -212,11 +181,20 @@ export default function UserCard({
           <div className="w-full min-h-[75px] pb-2">
             <div className="w-full flex flex-wrap justify-center gap-2">
               {displayGems.map((gem: any) => (
-                <GemImage key={`gem-${gem.slug}`} item={gem} params={params} picSize={21} showGlow isActive={gem === currentGem} />
+                <GemImage
+                  key={gem.slug || gem.id}
+                  item={gem}
+                  params={params}
+                  picSize={21}
+                  showGlow
+                  isActive={gem === currentGem}
+                  mainData={mainData}
+                  tooltipId={gemTooltipId}
+                />
               ))}
               {Array.from({ length: remainingGemsCount }).map((_, index) => (
                 <Image
-                  key={`lock-${index}`}
+                  key={"lock-" + index}
                   src={LockGem}
                   alt="Locked Gem"
                   width={20}
@@ -226,6 +204,11 @@ export default function UserCard({
                 />
               ))}
             </div>
+            <ReactTooltip
+              id={gemTooltipId}
+              place="top"
+              className="bg-[#E9E9E9]! text-[#908F95]! dark:bg-[#434343]! dark:text-white! !font-azarMehr font-medium! text-[14px]!"
+            />
           </div>
         )}
 
@@ -233,13 +216,18 @@ export default function UserCard({
           aria-label="citizen information"
           onClick={handleButtonClick}
           disabled={isLoading}
-          className={`w-[80%] ${isLoading ? "rotating-border cursor-not-allowed" : ""} p-px bg-transparent`}
+          className={
+            "w-[80%] " +
+            (isLoading ? "rotating-border cursor-not-allowed" : "") +
+            " p-px bg-transparent"
+          }
         >
           <div className="w-full h-[55px] bg-[#f5f9ff] dark:bg-[#000000] px-3 sm:px-6 rounded-[10px] flex flex-row justify-between items-center relative z-10">
             <span
-              className={`transition-opacity text-primary  font-azarMehr font-medium text-[14px] ${
-                isLoading ? "opacity-70" : "opacity-100"
-              }`}
+              className={
+                "transition-opacity text-primary font-azarMehr font-medium text-[14px] " +
+                (isLoading ? "opacity-70" : "opacity-100")
+              }
             >
               {buttonText}
             </span>
@@ -247,7 +235,6 @@ export default function UserCard({
           </div>
         </button>
 
-        {/* کامپوننت جداگانه برای نشانگر سطح */}
         <LevelBadge
           currentGem={currentGem}
           lang={params.lang}
