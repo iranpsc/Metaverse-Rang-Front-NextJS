@@ -61,7 +61,7 @@ export default function UserCard({
 }: any) {
   const router = useRouter();
   const uid = useId();
-  const gemTooltipId = "user-card-gem-tooltip-" + uid;
+  const gemTooltipId = "user-card-gem-tooltip-" + uid.replace(/:/g, "");
   const nameRef = useRef<HTMLParagraphElement>(null);
 
   const [isTruncated, setIsTruncated] = useState(false);
