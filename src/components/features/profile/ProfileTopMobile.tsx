@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+
 import Image from "next/image";
 
 import { Shahrvand } from "@/svgs/index";
@@ -34,19 +34,8 @@ export default function ProfileTopMobile({
   mainData,
 }: any) {
   const lang = params.lang;
-  const [numberCurrent_level, setNumberCurrent_level] = useState<number>(1);
-
-  useEffect(() => {
-    if (
-      profileData.data &&
-      profileData.data?.current_level &&
-      profileData.data?.current_level?.slug
-    ) {
-      setNumberCurrent_level(profileData.data?.current_level?.slug);
-    } else {
-      setNumberCurrent_level(1);
-    }
-  }, [profileData.data]);
+  const numberCurrentLevel =
+    Number(profileData.data?.current_level?.slug) || 1;
 
   const imgs0 =
     profileData.data &&
@@ -58,10 +47,14 @@ export default function ProfileTopMobile({
      اگر mainData یا unique_id نبود، همان name خود API نمایش داده می‌شود. */
   const levelSlug = String(profileData.data?.current_level?.slug ?? "");
   const levelUniqueId = LEVEL_UNIQUE_IDS[levelSlug];
+  const translatedLevelTitle =
+    levelUniqueId && mainData
+      ? findByUniqueId(mainData, levelUniqueId)
+      : "";
   const levelTitle =
-    (levelUniqueId && mainData
-      ? findByUniqueId(mainData, `${levelUniqueId}`)
-      : null) || profileData.data?.current_level?.name;
+    translatedLevelTitle && translatedLevelTitle !== String(levelUniqueId)
+      ? translatedLevelTitle
+      : profileData.data?.current_level?.name;
 
   return (
     <>
@@ -107,8 +100,8 @@ export default function ProfileTopMobile({
             />
             <p className="dark:text-[#212121] absolute md:text-xs text-white font-azarMehr font-black xl:text-[19px] sm:text-smDesc xs:text-smDesc md:text-mdDesc">
               {lang === "fa"
-                ? Persian(numberCurrent_level).englishNumber().toString()
-                : profileData.data?.current_level?.slug}
+                ? Persian(numberCurrentLevel).englishNumber().toString()
+                : numberCurrentLevel}
             </p>
           </div>
         </section>
