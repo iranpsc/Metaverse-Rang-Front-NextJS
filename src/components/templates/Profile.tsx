@@ -15,7 +15,7 @@ export default function Profile({
   langData,
   params,
 }: any) {
-  const gemTooltipId = "profile-gem-tooltip-" + useId();
+  const gemTooltipId = "profile-gem-tooltip-" + useId().replace(/:/g, "");
 
   const concatGems = useMemo(() => {
     const achieved = profileData.data?.achieved_levels || [];
