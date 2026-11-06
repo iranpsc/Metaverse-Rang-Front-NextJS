@@ -137,7 +137,6 @@ export default function UserCard({
             fill
             loading="lazy"
             sizes="120px"
-            quality={85}
             className="object-cover shadow-md transition-all duration-300 shadow-gray"
           />
         </figure>
