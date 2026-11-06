@@ -202,6 +202,14 @@ export default function List({ params, mainData, users }: ListProps) {
     [mappedUsers]
   );
 
+  const cardTranslations = useMemo(
+    () => ({
+      levelText: findByUniqueId(mainData, 68),
+      buttonText: findByUniqueId(mainData, 600),
+    }),
+    [mainData]
+  );
+
   if (!users || users.length === 0) {
     return (
       <div className="text-center p-5 text-red-500">
@@ -223,8 +231,8 @@ export default function List({ params, mainData, users }: ListProps) {
             params={params}
             mainData={mainData}
             minWidth="280px"
-            levelText={findByUniqueId(mainData, 68)}
-            buttonText={findByUniqueId(mainData, 600)}
+            levelText={cardTranslations.levelText}
+            buttonText={cardTranslations.buttonText}
             activeBtnId={activeBtnId}
             setActiveBtnId={setActiveBtnId}
           />
