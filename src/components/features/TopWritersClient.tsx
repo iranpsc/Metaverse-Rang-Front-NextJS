@@ -1,12 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import UserCard from "@/components/card/UserCard";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 // import { string } from "yup";
 export default function TopWritersClient({ params ,users, mainData }: any) {
-   const [activeBtnId, setActiveBtnId] = useState(null);
-  if (users.length === 0) {
+  const [activeBtnId, setActiveBtnId] = useState<string | null>(null);
+  const cardTranslations = useMemo(
+    () => ({
+      buttonText: findByUniqueId(mainData, 600),
+      levelText: findByUniqueId(mainData, 68),
+    }),
+    [mainData]
+  );
+
+  if (!users || users.length === 0) {
     return <div className="text-center p-5 text-red-500">کاربر یافت نشد</div>;
   }
 
@@ -20,8 +28,8 @@ export default function TopWritersClient({ params ,users, mainData }: any) {
             mainData={mainData}
             activeBtnId={activeBtnId}
             setActiveBtnId={setActiveBtnId}
-            buttonText={findByUniqueId(mainData, 600)}
-            levelText= {findByUniqueId(mainData, 68)}
+            buttonText={cardTranslations.buttonText}
+            levelText={cardTranslations.levelText}
           />
         </div>
       ))}
