@@ -2,7 +2,7 @@
 
 import UserCard from "@/components/card/UserCard";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 
 
@@ -18,23 +18,7 @@ interface User {
   };
 }
 
-interface ListProps {
-  params: any;
-  mainData: any;
-  users: User[];
-}
-
-export default function List({ params, mainData, users }: ListProps) {
-  if (!users || users.length === 0) {
-    return (
-      <div className="text-center p-5 text-red-500">
-        کاربر یافت نشد
-      </div>
-    );
-  }
-
-  // 🔒 کاربران استاتیک (همینجا، بدون فایل جدا)
-  const staticUsers: User[] = [
+const STATIC_USERS: User[] = [
     {
       id: 5,
       name: "نازنین حشمتی",
@@ -169,7 +153,7 @@ export default function List({ params, mainData, users }: ListProps) {
     },
   ];
 
-  const staticRouteNames = [
+const STATIC_ROUTE_NAMES = [
     { id: 1, route_name: "citizen-baguette" },
     { id: 2, route_name: "reporter-baguette" },
     { id: 3, route_name: "participation-baguette" },
@@ -177,40 +161,55 @@ export default function List({ params, mainData, users }: ListProps) {
     { id: 5, route_name: "inspector-baguette" },
   ];
 
-  const getRouteName = (id: number, lang: string, name: string) => {
+function getRouteName(id: number, lang: string, name: string) {
     if (lang === "fa") return name;
     const found = staticRouteNames.find(r => r.id === id);
     return found?.route_name.split("-")[0] || name;
-  };
+}
 
-  // 🧠 مپ کاربران داینامیک
-  const mappedUsers = users.map(user => {
+interface ListProps {
+  params: any;
+  mainData: any;
+  users: User[];
+}
+
+export default function List({ params, mainData, users }: ListProps) {
+  const [activeBtnId, setActiveBtnId] = useState<string | number | null>(null);
+
+  const mappedUsers = useMemo(() => users.map((user) => {
     const current = user.levels?.current
       ? {
-        ...user.levels.current,
-        name: getRouteName(
-          user.levels.current.id,
-          params.lang,
-          user.levels.current.name
-        ),
-      }
+          ...user.levels.current,
+          name: getRouteName(
+            user.levels.current.id,
+            params.lang,
+            user.levels.current.name
+          ),
+        }
       : null;
 
     const previous =
-      user.levels?.previous?.map(level => ({
+      user.levels?.previous?.map((level) => ({
         ...level,
         name: getRouteName(level.id, params.lang, level.name),
       })) || [];
 
-    return {
-      ...user,
-      levels: { current, previous },
-    };
-  });
+    return { ...user, levels: { current, previous } };
+  }), [users, params.lang]);
 
-  // 🔥 استاتیک + داینامیک پشت‌سرهم
-  const allUsers: User[] = [...staticUsers, ...mappedUsers];
-const [activeBtnId, setActiveBtnId] = useState<string | number | null>(null);
+  const allUsers = useMemo(
+    () => [...STATIC_USERS, ...mappedUsers],
+    [mappedUsers]
+  );
+
+  if (!users || users.length === 0) {
+    return (
+      <div className="text-center p-5 text-red-500">
+        کاربر یافت نشد
+      </div>
+    );
+  }
+
   return (
     <div className="w-full flex flex-wrap gap-6 justify-center items-start pb-10 lg:px-7">
       {allUsers.map((user, index) => (
