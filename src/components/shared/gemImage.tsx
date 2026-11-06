@@ -87,7 +87,7 @@ export default function GemImage({
 }: GemImageProps) {
   const [linkLoading, setLinkLoading] = useState(false);
   const generatedTooltipId = useId();
-  const activeTooltipId = tooltipId || ("gem-tooltip-" + generatedTooltipId);
+  const activeTooltipId = tooltipId || ("gem-tooltip-" + generatedTooltipId.replace(/:/g, ""));
 
   const levelNumber = getLevelNumber(item);
   const routeName = STATIC_ROUTE_NAMES.find(
@@ -137,10 +137,10 @@ export default function GemImage({
             (showGlow
               ? "group-hover/gem:[filter:drop-shadow(0_0_5px_var(--gem-glow))_drop-shadow(0_0_9px_var(--gem-glow))] " +
                 (isActive
-                  ? "[filter:drop-shadow(0_0_3px_var(--gem-glow))_drop-shadow(0_0_6px(var(--gem-glow)))] "
+                  ? "[filter:drop-shadow(0_0_3px_var(--gem-glow))_drop-shadow(0_0_6px_var(--gem-glow))] "
                   : "") +
                 (linkLoading
-                  ? "animate-pulse cursor-wait [filter:drop-shadow(0_0_5px(var(--gem-glow)))]"
+                  ? "animate-pulse cursor-wait [filter:drop-shadow(0_0_5px(var(--gem-glow))_drop-shadow(0_0_9px(var(--gem-glow)))]"
                   : "")
               : (linkLoading
                   ? "cursor-wait drop-shadow-[0_0px_8px_rgba(255,199,0,0.6)] "
