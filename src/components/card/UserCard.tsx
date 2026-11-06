@@ -7,6 +7,7 @@ import {
   useRef,
   useState,
   useId,
+  memo,
   type MouseEvent,
 } from "react";
 import Image from "next/image";
@@ -36,20 +37,28 @@ const STATIC_ROUTE_NAMES = [
   { id: 13, route_name: "legislator-baguette" },
 ] as const;
 
+const ROUTE_NAME_BY_ID: Record<number, string> = Object.fromEntries(
+  STATIC_ROUTE_NAMES.map(({ id, route_name }) => [id, route_name])
+);
+
+const LEVEL_ID_BY_SLUG: Record<string, number> = Object.fromEntries(
+  STATIC_ROUTE_NAMES.map(({ id, route_name }) => [route_name, id])
+);
+
 function getGemLevelId(gem: any): number | undefined {
   const id = Number(gem?.id);
   if (Number.isInteger(id) && id >= 1 && id <= TOTAL_GEMS) return id;
 
   const slug = gem?.slug || gem?.route_name;
-  return STATIC_ROUTE_NAMES.find((route) => route.route_name === slug)?.id;
+  return typeof slug === "string" ? LEVEL_ID_BY_SLUG[slug] : undefined;
 }
 
 function getGemRouteName(gem: any): string | undefined {
   const levelId = getGemLevelId(gem);
-  return STATIC_ROUTE_NAMES.find((route) => route.id === levelId)?.route_name;
+  return levelId ? ROUTE_NAME_BY_ID[levelId] : undefined;
 }
 
-export default function UserCard({
+function UserCard({
   item,
   params,
   buttonText,
@@ -246,3 +255,21 @@ export default function UserCard({
     </div>
   );
 }
+
+function areUserCardPropsEqual(previous: any, next: any): boolean {
+  const previousIsLoading = previous.activeBtnId === previous.item?.code;
+  const nextIsLoading = next.activeBtnId === next.item?.code;
+
+  return (
+    previous.item === next.item &&
+    previous.params === next.params &&
+    previous.buttonText === next.buttonText &&
+    previous.minWidth === next.minWidth &&
+    previous.hidePreviousLevels === next.hidePreviousLevels &&
+    previous.mainData === next.mainData &&
+    previous.setActiveBtnId === next.setActiveBtnId &&
+    previousIsLoading === nextIsLoading
+  );
+}
+
+export default memo(UserCard, areUserCardPropsEqual);
