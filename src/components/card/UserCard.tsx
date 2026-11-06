@@ -254,6 +254,7 @@ export default function UserCard({
           urlForGem={urlForGem}
           setLinkLoading={setLinkLoading}
           uid={uid}
+          mainData={mainData}
         />
       </div>
     </div>
