@@ -163,7 +163,7 @@ const STATIC_ROUTE_NAMES = [
 
 function getRouteName(id: number, lang: string, name: string) {
     if (lang === "fa") return name;
-    const found = staticRouteNames.find(r => r.id === id);
+    const found = STATIC_ROUTE_NAMES.find((route) => route.id === id);
     return found?.route_name.split("-")[0] || name;
 }
 
@@ -176,7 +176,7 @@ interface ListProps {
 export default function List({ params, mainData, users }: ListProps) {
   const [activeBtnId, setActiveBtnId] = useState<string | number | null>(null);
 
-  const mappedUsers = useMemo(() => users.map((user) => {
+  const mappedUsers = useMemo(() => (users || []).map((user) => {
     const current = user.levels?.current
       ? {
           ...user.levels.current,
