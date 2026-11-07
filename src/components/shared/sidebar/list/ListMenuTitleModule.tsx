@@ -1,7 +1,7 @@
 // import { SideBarContext } from "@/components/context/SidebarContext";
 // import { useContext } from "react";
 
-const ListMenuTitleModule = ({ item, isClosed }: any) => {
+const ListMenuTitleModule = ({ item, isClosed, activeColor }: any) => {
   // const { state } = useContext(SideBarContext);
   return (
     //   ${
@@ -21,8 +21,9 @@ const ListMenuTitleModule = ({ item, isClosed }: any) => {
         ? "text-primary "
         : "text-black dark:text-matn-2"
     }
-    ${isClosed ? "w-0 h-0 overflow-hidden" : "w-max h-fit"}
-    capitalize 3xl:text-xl xl:text-lg lg:text-lgTitle  md:text-mdTitle sm:text-smTitle xs:text-smTitle font-azarMehr font-normal `}
+    ${isClosed ? "w-0 h-0 overflow-hidden" : "min-w-0 flex-1 h-fit whitespace-nowrap"}
+    capitalize 3xl:text-xl xl:text-lg lg:text-lgTitle  md:text-mdTitle sm:text-smTitle xs:text-smTitle font-azarMehr `}
+      style={activeColor ? { color: activeColor } : undefined}
     >
       {item.translation}
     </div>

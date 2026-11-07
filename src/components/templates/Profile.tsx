@@ -1,34 +1,38 @@
 "use client";
+
 import ProfileTopMobile from "@/components/features/profile/ProfileTopMobile";
 import ProfileImages from "@/components/features/profile/ProfileImages";
 import ProfileMainDetails from "../features/profile/ProfileMainDetails";
 import GemImage from "@/components/shared/gemImage";
-import { useRef } from "react";
+import { useId, useMemo } from "react";
+import { Tooltip as ReactTooltip } from "react-tooltip";
 
 export default function Profile({
   profileData,
   titleData,
   nameUser,
-  // userProperty,
   mainData,
   langData,
   params,
 }: any) {
-  const inView = true;
-  const iframeContainerRef3 = useRef<HTMLDivElement | null>(null);
+  const gemTooltipId = "profile-gem-tooltip-" + useId().replace(/:/g, "");
 
-  const concatGems =
-    profileData.data?.current_level && profileData.data?.achieved_levels
-      ? profileData.data.achieved_levels.concat(profileData.data.current_level)
-      : profileData.data?.achieved_levels;
+  const concatGems = useMemo(() => {
+    const achieved = profileData.data?.achieved_levels || [];
+    const current = profileData.data?.current_level;
+    if (!current) return achieved;
 
-  // const numberScore =
-  //   100 - parseInt(profileData?.score_percentage_to_next_level);
-  // const percent = (numberScore / 100) * 100;
-  // console.log(profileData);
+    const currentAlreadyIncluded = achieved.some(
+      (gem: any) =>
+        (gem.id != null && String(gem.id) === String(current.id)) ||
+        (gem.slug && gem.slug === current.slug)
+    );
+
+    return currentAlreadyIncluded ? achieved : [...achieved, current];
+  }, [profileData.data?.achieved_levels, profileData.data?.current_level]);
+
   return (
     <>
-      {/* TOP */}
       <div className="w-full">
         <ProfileTopMobile
           titleData={titleData}
@@ -38,31 +42,44 @@ export default function Profile({
           mainData={mainData}
         />
       </div>
-      {/* MID */}
+
       <div className="w-full my-[5px]">
-        <ProfileImages
-          profileData={profileData}
-          // profileName={profileName}
-          titleData={titleData}
-        />
+        <ProfileImages profileData={profileData} titleData={titleData} />
       </div>
-      {/* BOT */}
-      <div className="w-full h-full  shadow-md rounded-[10px] dark:bg-dark-background text-matn-2  bg-white px-3 flex flex-col justify-between gap-5  transition-all duration-300 ease-linear">
+
+      <div className="w-full h-full shadow-md rounded-[10px] dark:bg-dark-background text-matn-2 bg-white px-3 flex flex-col justify-between gap-5 transition-all duration-300 ease-linear">
         <ProfileMainDetails
           nameUser={nameUser}
           profileData={profileData}
-          // userProperty={userProperty}
           mainData={mainData}
           langData={langData}
           params={params}
         />
-        {/* <ProfileGems profileData={concatGems} /> */}
-        <div ref={iframeContainerRef3} className="flex justify-evenly gap-4 pb-3">
-          {inView &&
-            concatGems &&
-            concatGems.map((item: any, index: any) => (
-              <GemImage key={index} item={item} params={params} picSize={100} disableHoverScale />
-            ))}
+
+        <div className="flex flex-wrap justify-evenly gap-4 pb-3">
+          {concatGems.map((item: any) => (
+            <GemImage
+              key={item.slug || item.id}
+              item={item}
+              params={params}
+              picSize={70}
+              disableHoverScale
+              showGlow
+              isActive={
+                item === profileData.data?.current_level ||
+                (item.id != null &&
+                  String(item.id) ===
+                    String(profileData.data?.current_level?.id))
+              }
+              mainData={mainData}
+              tooltipId={gemTooltipId}
+            />
+          ))}
+          <ReactTooltip
+            id={gemTooltipId}
+            place="top"
+            className="bg-[#E9E9E9]! text-[#908F95]! dark:bg-[#434343]! dark:text-white! !font-azarMehr font-medium! text-[14px]!"
+          />
         </div>
       </div>
     </>
