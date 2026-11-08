@@ -2,40 +2,9 @@ import http from "node:http";
 
 const host = "127.0.0.1";
 const port = Number(process.env.MOCK_API_PORT || 9999);
-
-const languages = [
-  {
-    code: "fa",
-    direction: "rtl",
-    file_url: `http://${host}:${port}/lang/fa.json`,
-    name: "فارسی",
-  },
-  {
-    code: "en",
-    direction: "ltr",
-    file_url: `http://${host}:${port}/lang/en.json`,
-    name: "English",
-  },
-  {
-    code: "ar",
-    direction: "rtl",
-    file_url: `http://${host}:${port}/lang/ar.json`,
-    name: "العربية",
-  },
-  {
-    code: "zh",
-    direction: "ltr",
-    file_url: `http://${host}:${port}/lang/zh.json`,
-    name: "中文",
-  },
-];
-
-const dictionaries = {
-  fa: { 1457: "متاورس رنگ", 482: "توضیحات نمونه فارسی" },
-  en: { 1457: "Metaverse Rang", 482: "Sample English description" },
-  ar: { 1457: "ميتافيرس رنگ", 482: "وصف تجريبي باللغة العربية" },
-  zh: { 1457: "元宇宙 Rang", 482: "用于隔离测试的示例中文说明" },
-};
+const translationApiUrl =
+  process.env.PLAYWRIGHT_TRANSLATION_API_URL ||
+  "https://dev-admin.metarang.com/api/translations?active=true";
 
 const videoFixture = {
   id: 1,
@@ -108,7 +77,10 @@ const articleFixture = {
   date: "2026-10-01",
   category: "general",
   subCategory: "general",
-  author: "Sandbox Author",
+  author: { name: "Sandbox Author", citizenId: "hm-123" },
+  categoryImage: "/team.webp",
+  categoryDec: "A deterministic article category for isolated route validation.",
+  stats: { likes: 2, dislikes: 0, views: 10, comments: 0 },
 };
 
 const newsFixture = {
@@ -121,6 +93,7 @@ const newsFixture = {
   image: "/team.webp",
   date: "2026-10-01",
   category: "general",
+  author: { name: "Sandbox News Author", citizenId: "hm-123" },
 };
 
 const versionFixtures = [
@@ -161,7 +134,7 @@ function json(response, status, body, extraHeaders = {}) {
   response.end(JSON.stringify(body));
 }
 
-const server = http.createServer((request, response) => {
+const server = http.createServer(async (request, response) => {
   const url = new URL(request.url || "/", `http://${host}:${port}`);
 
   if (request.method !== "GET" && request.method !== "HEAD" && request.method !== "OPTIONS") {
@@ -182,16 +155,35 @@ const server = http.createServer((request, response) => {
     return response.end("ok");
   }
 
+  // Translation metadata is the only Admin API request allowed to reach
+  // the real Dev backend. Every other Admin/API endpoint stays on fixtures.
   if (url.pathname === "/api/translations") {
-    if (url.searchParams.get("active") !== "true") {
-      return json(response, 400, { message: "active=true is required" });
+    if (request.method !== "GET" || url.searchParams.get("active") !== "true") {
+      return json(response, 400, { message: "GET with active=true is required" });
     }
-    return json(response, 200, { data: languages });
-  }
 
-  const dictionaryMatch = url.pathname.match(/^\/lang\/(fa|en|ar|zh)\.json$/);
-  if (dictionaryMatch) {
-    return json(response, 200, dictionaries[dictionaryMatch[1]]);
+    try {
+      const upstreamUrl = new URL(translationApiUrl);
+      upstreamUrl.searchParams.set("active", "true");
+      const upstreamResponse = await fetch(upstreamUrl, {
+        headers: { Accept: "application/json" },
+        signal: AbortSignal.timeout(9_000),
+      });
+      const body = await upstreamResponse.text();
+
+      response.writeHead(upstreamResponse.status, {
+        "content-type":
+          upstreamResponse.headers.get("content-type") ||
+          "application/json; charset=utf-8",
+        "cache-control": "no-store",
+      });
+      return response.end(body);
+    } catch (error) {
+      return json(response, 502, {
+        message: "Dev translations API is unavailable",
+        error: error instanceof Error ? error.message : String(error),
+      });
+    }
   }
 
   // Supabase/PostgREST receives deterministic published records in E2E mode.
@@ -208,7 +200,7 @@ const server = http.createServer((request, response) => {
     return json(response, 200, levelFixture);
   }
 
-  if (url.pathname === "/api/levels/1/general-info") {
+  if (/^\\/api\\/levels\\/1\\/(general-info|licenses|gem|gift|prize)$/.test(url.pathname)) {
     return json(response, 200, levelTabFixture);
   }
 
