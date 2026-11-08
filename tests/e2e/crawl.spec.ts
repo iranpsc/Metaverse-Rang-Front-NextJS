@@ -316,6 +316,17 @@ test.describe("public static route browser crawl @seo", () => {
           // forcing a full layout pass for pages containing large maps/charts.
           await main.waitFor({ state: "visible", timeout: 10_000 });
           const mainText = (await main.evaluate((element) => element.textContent || "")).trim();
+
+          // Dynamic generateMetadata() may finish after DOMContentLoaded and
+          // after the page shell becomes visible. Wait for the actual title
+          // instead of reporting a false failure from an early read.
+          await expect
+            .poll(() => page.title(), {
+              timeout: 15_000,
+              message: `${routeUrl} must finish generating its document title`,
+            })
+            .not.toBe("");
+
           const title = (await page.title()).trim();
           pageResult.title = title;
           const descriptionLocator = page.locator('meta[name="description"]');
