@@ -32,7 +32,7 @@ export default defineConfig({
         url: `${mockApiURL}/health`,
         // The mock server proxies only translation metadata to Dev Admin.
         // All other API endpoints remain deterministic local fixtures.
-        reuseExistingServer: false,
+        reuseExistingServer: Boolean(process.env.CI),
         timeout: 30_000,
         env: {
           ...process.env,
