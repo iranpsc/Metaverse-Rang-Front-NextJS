@@ -4,7 +4,7 @@ const translationAdminApiURL = process.env.PLAYWRIGHT_MOCK_API_URL || "http://12
 
 /**
  * Static public routes discovered from page.tsx files under src/app/[lang].
- * Dynamic-segment routes are excluded until their fixtures and scenarios are ready.
+ * Dynamic-segment routes are listed separately with fixture-backed parameters.
  */
 const staticPublicRoutes = [
   "/",
@@ -132,8 +132,8 @@ async function getApiLanguages(request: {
       failures.push({ locale: "backend", route: apiUrl, stage: "language-api", reason: `Could not parse translations API response: ${error instanceof Error ? error.message : String(error)}` });
     }
   }
-  // Never substitute fixture languages: the crawl must reflect exactly the
-  // active languages returned by the isolated local Admin API fixture.
+  // Never substitute fixture languages: the local proxy returns the active
+  // language records from the real Dev Admin translations endpoint.
   if (languages.length === 0) {
     failures.push({
       locale: "all",
@@ -152,6 +152,15 @@ test.describe("public static route browser crawl @seo", () => {
     test.setTimeout(15 * 60_000);
 
     const { languages, failures } = await getApiLanguages(request);
+    const expectedPageCount = languages.length * publicRoutes.length;
+    if (expectedPageCount <= 60) {
+      failures.push({
+        locale: "all",
+        route: "crawl-coverage",
+        stage: "language-api",
+        reason: `Issue #125 requires more than 60 distinct URLs; discovered ${expectedPageCount} from ${languages.length} active language(s) and ${publicRoutes.length} routes.`,
+      });
+    }
     const allowedTranslationFiles = new Set(
       languages.flatMap(({ file_url }) => {
         if (!file_url) return [];
@@ -319,8 +328,11 @@ test.describe("public static route browser crawl @seo", () => {
       pageResults,
       dictionaryChecks,
       failures,
-      excludedDynamicRoutes: false,
-      translationSource: translationAdminApiURL,
+      dynamicRoutesIncluded: true,
+      translationProxy: translationAdminApiURL,
+      translationSource:
+        process.env.PLAYWRIGHT_TRANSLATION_API_URL ||
+        "https://dev-admin.metarang.com/api/translations?active=true",
       translationFiles: languages.map(({ code, file_url }) => ({ code, file_url })),
     };
 
