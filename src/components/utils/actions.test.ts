@@ -48,38 +48,40 @@ describe('translation data actions', () => {
     expect(languages.map((language: { code: string }) => language.code)).toEqual(['fa', 'en', 'ar']);
   });
 
-  it('returns an empty list when the language endpoint responds with an HTTP error', async () => {
+  it('uses bundled fa/en languages when the language endpoint responds with an HTTP error', async () => {
     server.use(
       http.get(`${ADMIN_API_URL}/api/translations`, () =>
         HttpResponse.json({ message: 'Unavailable' }, { status: 503 }),
       ),
     );
 
-    await expect(getLangArray()).resolves.toEqual([]);
+    await expect(getLangArray()).resolves.toMatchObject([
+      { code: 'fa', offlineFallback: true },
+      { code: 'en', offlineFallback: true },
+    ]);
   });
 
-  it('returns an empty list when the language API payload has no data array', async () => {
+  it('uses bundled fa/en languages when the language API payload has no data array', async () => {
     server.use(
       http.get(`${ADMIN_API_URL}/api/translations`, () =>
         HttpResponse.json({ success: true }),
       ),
     );
 
-    await expect(getLangArray()).resolves.toEqual([]);
+    await expect(getLangArray()).resolves.toMatchObject([
+      { code: 'fa', offlineFallback: true },
+      { code: 'en', offlineFallback: true },
+    ]);
   });
 
-  it('uses the Persian fallback when the active language list is empty', async () => {
+  it('treats an empty active language list as authoritative', async () => {
     server.use(
       http.get(`${ADMIN_API_URL}/api/translations`, () =>
         HttpResponse.json({ data: [] }),
       ),
     );
 
-    await expect(getTranslation('ar')).resolves.toMatchObject({
-      code: 'fa',
-      file_url: 'https://rgb.irpsc.com/lang/fa.json',
-      direction: 'rtl',
-    });
+    await expect(getTranslation('ar')).resolves.toBeNull();
   });
 
   it('selects the requested language from the API response', async () => {
@@ -90,11 +92,8 @@ describe('translation data actions', () => {
     });
   });
 
-  it('falls back to Persian when the requested language is not available', async () => {
-    await expect(getTranslation('de')).resolves.toMatchObject({
-      code: 'fa',
-      direction: 'rtl',
-    });
+  it('returns null when the requested language is not available in the API list', async () => {
+    await expect(getTranslation('de')).resolves.toBeNull();
   });
 
   it('loads the selected language dictionary', async () => {
