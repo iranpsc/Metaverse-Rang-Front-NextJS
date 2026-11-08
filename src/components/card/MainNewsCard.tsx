@@ -44,8 +44,8 @@ export default function ArticleCard({ item, params, theme, activeLoadingId, setA
       .replace(/&lt;/gi, "<")
       .replace(/&gt;/gi, ">")
       .replace(/&quot;/gi, '"')
+      .replace(/&#39;|&apos;/gi, "'")
       .replace(/\s+/g, " ")
-      .replace(/\\s+/g, " ")
       .trim();
   const isLoading = activeLoadingId === item.id;
   return (
