@@ -30,16 +30,23 @@ export default defineConfig({
       {
         command: "node scripts/mock-api-server.mjs",
         url: `${mockApiURL}/health`,
-        // Never attach E2E tests to an already-running API process. It may
-        // contain real credentials or point to a non-test environment.
+        // The mock server proxies only translation metadata to Dev Admin.
+        // All other API endpoints remain deterministic local fixtures.
         reuseExistingServer: false,
         timeout: 30_000,
+        env: {
+          ...process.env,
+          PLAYWRIGHT_TRANSLATION_API_URL:
+            process.env.PLAYWRIGHT_TRANSLATION_API_URL ||
+            "https://dev-admin.metarang.com/api/translations?active=true",
+        },
       },
       ...(process.env.PLAYWRIGHT_BASE_URL ? [] : [{
         command: "npm run dev",
         url: baseURL,
-        // Keep application APIs, active-language discovery, and dictionaries
-        // isolated behind deterministic local fixtures.
+        // Keep application APIs on local fixtures. The mock server selectively
+        // proxies only active-language metadata; dictionary file_url values stay
+        // authoritative and are fetched from the translation API's file host.
         reuseExistingServer: false,
         timeout: 180_000,
         env: {
