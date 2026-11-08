@@ -12,6 +12,7 @@ import {
   getMainFile,
   getLangArray,
   getUserData,
+  getMetadataDictionary,
 } from "@/components/utils/actions";
 import { buildSidebarLabels } from "@/components/utils/buildShellTranslations";
 
@@ -216,12 +217,13 @@ export async function generateMetadata({
   // Citizen data and language metadata are independent; fetch them together
   // so metadata generation does not wait for sequential network round trips.
   try {
-    const [langData, profileData] = await Promise.all([
-      getTranslation(lang),
+    // Use bundled dictionaries for fa/en so metadata generation does not
+    // wait for the Admin API or remote dictionary host. Other active languages
+    // retain their API-driven translation behavior.
+    const [profileData, mainData] = await Promise.all([
       getUserData(id, 5000),
+      getMetadataDictionary(lang),
     ]);
-
-    const mainData = await getMainFile(langData);
 
     if (!profileData?.data) {
       return {
