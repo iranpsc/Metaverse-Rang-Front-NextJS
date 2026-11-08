@@ -38,8 +38,8 @@ export default defineConfig({
       ...(process.env.PLAYWRIGHT_BASE_URL ? [] : [{
         command: "npm run dev",
         url: baseURL,
-        // Keep application APIs isolated behind local fixtures, but always load
-        // active languages and their dictionaries from the real dev Admin API.
+        // Keep application APIs, active-language discovery, and dictionaries
+        // isolated behind deterministic local fixtures.
         reuseExistingServer: false,
         timeout: 180_000,
         env: {
