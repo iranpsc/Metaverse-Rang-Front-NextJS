@@ -368,20 +368,6 @@ export const getMainFile = cache(async function getMainFile(langData) {
 });
 
 
-/**
- * Resolve the dictionary needed by page metadata without adding avoidable
- * network latency for the bundled default languages. Additional active
- * languages continue to use the authoritative Admin API metadata and file.
- */
-export async function getMetadataDictionary(lang) {
-  if (OFFLINE_LANGUAGE_CODES.includes(lang)) {
-    return readLocalLanguageFile(lang);
-  }
-
-  const langData = await getTranslation(lang);
-  return getMainFile(langData);
-}
-
 /* -------------------------------------------------------------------------- */
 /*                              CITIZENS                                      */
 /* -------------------------------------------------------------------------- */
