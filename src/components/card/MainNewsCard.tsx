@@ -36,15 +36,15 @@ export default function ArticleCard({ item, params, theme, activeLoadingId, setA
   // stripping environment-independent so SSR never accesses `document`.
   const stripHTML = (html: string) =>
     String(html ?? "")
-      .replace(/<script\\b[^>]*>[\\s\\S]*?<\\/script>/gi, " ")
-      .replace(/<style\\b[^>]*>[\\s\\S]*?<\\/style>/gi, " ")
+      .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, " ")
+      .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, " ")
       .replace(/<[^>]*>/g, " ")
       .replace(/&nbsp;|&#160;/gi, " ")
       .replace(/&amp;/gi, "&")
       .replace(/&lt;/gi, "<")
       .replace(/&gt;/gi, ">")
       .replace(/&quot;/gi, '"')
-      .replace(/&#39;|&apos;/gi, "'")
+      .replace(/\s+/g, " ")
       .replace(/\\s+/g, " ")
       .trim();
   const isLoading = activeLoadingId === item.id;
