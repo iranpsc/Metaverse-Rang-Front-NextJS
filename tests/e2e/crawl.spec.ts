@@ -155,7 +155,7 @@ async function getApiLanguages(request: {
 }
 test.describe("public static route browser crawl @seo", () => {
   test("crawl every static public route in every active language and report all failures", async ({
-    page,
+    browser,
     request,
   }) => {
     test.setTimeout(15 * 60_000);
@@ -251,7 +251,11 @@ test.describe("public static route browser crawl @seo", () => {
     // are the only permitted external data requests; other external API calls
     // are blocked and recorded as real isolation failures.
     const blockedExternalApiRequests = new Set<string>();
-    await page.route("**/*", (route) => {
+    const context = await browser.newContext({
+      baseURL: process.env.PLAYWRIGHT_BASE_URL || "http://127.0.0.1:5175",
+      viewport: { width: 1280, height: 720 },
+    });
+    await context.route("**/*", (route) => {
       const url = new URL(route.request().url());
       const isLocal =
         url.hostname === "127.0.0.1" ||
@@ -276,6 +280,12 @@ test.describe("public static route browser crawl @seo", () => {
       for (const routeCase of publicRoutes) {
         const routePath = routeCase.path;
         const routeUrl = `/${language.code}${routePath === "/" ? "" : routePath}`;
+        // A fresh page per URL prevents one route's client state, event
+        // handlers, or a stalled renderer from contaminating later routes.
+        const page = await context.newPage();
+        page.setDefaultTimeout(10_000);
+        page.setDefaultNavigationTimeout(20_000);
+
         const jsErrors: string[] = [];
         const pageResult: CrawlPageResult = {
           locale: language.code,
@@ -302,10 +312,10 @@ test.describe("public static route browser crawl @seo", () => {
           expect(response!.headers()["content-type"] || "").toContain("text/html");
 
           const main = page.locator("main").first();
-          // Check the shared page shell immediately. Issue #125 requires
-          // meaningful main content, not a hard-coded h1 selector on every route.
-          expect(await main.isVisible(), `${routeUrl} must render its main content`).toBe(true);
-          const mainText = (await main.innerText()).trim();
+          // Check the shared page shell with bounded waits. textContent avoids
+          // forcing a full layout pass for pages containing large maps/charts.
+          await main.waitFor({ state: "visible", timeout: 10_000 });
+          const mainText = (await main.evaluate((element) => element.textContent || "")).trim();
           const title = (await page.title()).trim();
           pageResult.title = title;
           const descriptionLocator = page.locator('meta[name="description"]');
@@ -354,9 +364,12 @@ test.describe("public static route browser crawl @seo", () => {
           });
         } finally {
           page.off("pageerror", onPageError);
+          await page.close().catch(() => undefined);
         }
       }
     }
+
+    await context.close();
 
     for (const url of blockedExternalApiRequests) {
       failures.push({
