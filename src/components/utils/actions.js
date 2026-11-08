@@ -621,8 +621,9 @@ export async function getSingleLevel(levelId) {
 /*                              USER DATA                                     */
 /* -------------------------------------------------------------------------- */
 
-export async function getUserData(
-  _userId
+export const getUserData = cache(async function getUserData(
+  _userId,
+  timeoutMs = 0
 ) {
   const sanitizedId =
     sanitizePathSegment(_userId);
@@ -643,18 +644,22 @@ export async function getUserData(
     const apiBaseUrl =
       await getApiBaseUrl();
 
+    const requestOptions = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      next: {
+        revalidate: 60,
+        tags: [`citizen-${id}`],
+      },
+      ...(Number.isFinite(timeoutMs) && timeoutMs > 0
+        ? { signal: AbortSignal.timeout(timeoutMs) }
+        : {}),
+    };
+
     const res = await fetch(
       `${apiBaseUrl}/api/citizen/${encodeURIComponent(id)}`,
-      {
-        headers: {
-          "Content-Type":
-            "application/json",
-        },
-        next: {
-          revalidate: 60,
-          tags: [`citizen-${id}`],
-        },
-      }
+      requestOptions
     );
 
     if (!res.ok) {
@@ -677,7 +682,7 @@ export async function getUserData(
       },
     };
   }
-}
+});
 
 /* -------------------------------------------------------------------------- */
 /*                              REFERRALS                                     */
