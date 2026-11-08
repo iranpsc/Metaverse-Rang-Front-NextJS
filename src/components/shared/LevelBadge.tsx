@@ -2,6 +2,7 @@
 "use client";
 
 import Link from "next/link";
+import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 interface LevelBadgeProps {
   currentGem: any;
@@ -9,6 +10,7 @@ interface LevelBadgeProps {
   urlForGem?: string;
   setLinkLoading: (loading: boolean) => void;
   uid: string; // برای clipPath منحصر به فرد
+  mainData: any;
 }
 
 export default function LevelBadge({
@@ -17,17 +19,54 @@ export default function LevelBadge({
   urlForGem,
   setLinkLoading,
   uid,
+  mainData,
 }: LevelBadgeProps) {
-  const label = currentGem
-    ? lang === "fa"
-      ? currentGem.name || "تازه وارد"
-      : urlForGem
-        ? urlForGem.split("-baguette")[0].charAt(0).toUpperCase() +
-          urlForGem.split("-baguette")[0].slice(1)
-        : "Newcomer"
-    : lang === "fa"
-      ? "تازه وارد"
-      : "Newcomer";
+  const levelId = Number(currentGem?.id);
+  const levelNumber =
+    Number.isInteger(levelId) && levelId >= 1 && levelId <= 13
+      ? levelId
+      : currentGem?.slug
+        ? ({
+            "citizen-baguette": 1,
+            "reporter-baguette": 2,
+            "participation-baguette": 3,
+            "developer-baguette": 4,
+            "inspector-baguette": 5,
+            "businessman-baguette": 6,
+            "lawyer-baguette": 7,
+            "city-council-baguette": 8,
+            "the-mayor-baguette": 9,
+            "governor-baguette": 10,
+            "minister-baguette": 11,
+            "judge-baguette": 12,
+            "legislator-baguette": 13,
+          } as Record<string, number>)[currentGem.slug]
+        : undefined;
+
+  const levelUniqueId: Record<number, number> = {
+    1: 382,
+    2: 383,
+    3: 589,
+    4: 68,
+    5: 69,
+    6: 590,
+    7: 71,
+    8: 591,
+    9: 592,
+    10: 74,
+    11: 75,
+    12: 76,
+    13: 77,
+  };
+
+  const uniqueId = levelNumber ? levelUniqueId[levelNumber] : undefined;
+  const translatedLabel = uniqueId ? findByUniqueId(mainData, uniqueId) : "";
+  const hasTranslation =
+    Boolean(translatedLabel) && translatedLabel !== String(uniqueId);
+
+  const label =
+    (hasTranslation ? translatedLabel : currentGem?.name) ||
+    (lang === "fa" ? "تازه وارد" : "Newcomer");
 
   return (
     <div className="absolute top-4 left-[-7px] group">

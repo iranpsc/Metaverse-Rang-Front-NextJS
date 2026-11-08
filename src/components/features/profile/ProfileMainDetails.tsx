@@ -1,5 +1,5 @@
 "use client";
-import {useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 
 import Persian from "persianjs";
 import { CopyIcon } from "@/components/svgs/SvgCategories";
@@ -17,20 +17,12 @@ const ProfileMainDetails = ({
 }: any) => {
   const [showSocial, setShowSocial] = useState<Boolean>(false);
 
-  const [numberScore, setNumberScore] = useState<number>(0);
-
-  useEffect(() => {
-    if (profileData.data?.score_percentage_to_next_level) {
-      setNumberScore(
-        100 - parseInt(profileData.data?.score_percentage_to_next_level)
-      );
-    } else {
-      setNumberScore(0);
-    }
-  }, [profileData.data?.score_percentage_to_next_level]);
+  const numberScore = profileData.data?.score_percentage_to_next_level
+    ? 100 - parseInt(profileData.data.score_percentage_to_next_level, 10)
+    : 0;
 
   const yourElementRef = useRef(null);
-  const percent = (numberScore / 100) * 100;
+  const percent = numberScore;
 
   return (
     <div className="h-full flex flex-col justify-between items-center 3xl:gap-4 tall:gap-10 xl:gap-6  lg:gap-4 md:gap-10 sm:gap-5 xs:gap-5">
