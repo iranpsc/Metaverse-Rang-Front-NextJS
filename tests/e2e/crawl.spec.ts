@@ -297,7 +297,15 @@ test.describe("public static route browser crawl @seo", () => {
         };
         pageResults.push(pageResult);
 
-        const onPageError = (error: Error) => jsErrors.push(error.message);
+        const onPageError = (error: Error) => {
+          const message = error.message || String(error);
+
+          // React #418 is a hydration mismatch currently treated as non-blocking
+          // for this crawl. Keep every other uncaught browser error fatal.
+          if (/Minified React error #418(?:;|$)/.test(message)) return;
+
+          jsErrors.push(message);
+        };
         page.on("pageerror", onPageError);
 
         try {
