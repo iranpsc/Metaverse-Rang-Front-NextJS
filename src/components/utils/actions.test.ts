@@ -13,8 +13,6 @@ import {
   getAllCategoryVideos,
   getAllCitizen,
   getAllLevels,
-  getLangArray,
-  getFooterData,
   getLevelTabs,
   getMainFile,
   getSingleLevel,
@@ -33,8 +31,29 @@ import { server } from '../../test/mocks/server';
 const ADMIN_API_URL = 'https://dev-admin.metarang.com';
 const DICTIONARY_URL = 'https://rgb.irpsc.com/lang/ar.json';
 
+type TranslationActions = Pick<
+  typeof import("./actions"),
+  "getLangArray" | "getFooterData" | "getMainFile" | "getTranslation"
+>;
+
+let translationActions: TranslationActions;
+
+async function resetTranslationActions() {
+  // Translation caches are intentionally process-wide in production. Load a
+  // fresh module per test so one test's cached success/failure cannot affect another.
+  vi.resetModules();
+  const actions = await import("./actions");
+  translationActions = {
+    getLangArray: actions.getLangArray,
+    getFooterData: actions.getFooterData,
+    getMainFile: actions.getMainFile,
+    getTranslation: actions.getTranslation,
+  };
+}
+
 describe('translation data actions', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
+    await resetTranslationActions();
     vi.stubEnv('NEXT_PUBLIC_ADMIN_API_BASE_URL', ADMIN_API_URL);
   });
 
@@ -43,7 +62,7 @@ describe('translation data actions', () => {
   });
 
   it('returns the active language list from the admin API', async () => {
-    const languages = await getLangArray();
+    const languages = await translationActions.getLangArray();
 
     expect(languages.map((language: { code: string }) => language.code)).toEqual(['fa', 'en', 'ar']);
   });
@@ -55,7 +74,7 @@ describe('translation data actions', () => {
       ),
     );
 
-    await expect(getLangArray()).resolves.toMatchObject([
+    await expect(translationActions.getLangArray()).resolves.toMatchObject([
       { code: 'fa', offlineFallback: true },
       { code: 'en', offlineFallback: true },
     ]);
@@ -68,7 +87,7 @@ describe('translation data actions', () => {
       ),
     );
 
-    await expect(getLangArray()).resolves.toMatchObject([
+    await expect(translationActions.getLangArray()).resolves.toMatchObject([
       { code: 'fa', offlineFallback: true },
       { code: 'en', offlineFallback: true },
     ]);
@@ -81,11 +100,11 @@ describe('translation data actions', () => {
       ),
     );
 
-    await expect(getTranslation('ar')).resolves.toBeNull();
+    await expect(translationActions.getTranslation('ar')).resolves.toBeNull();
   });
 
   it('selects the requested language from the API response', async () => {
-    await expect(getTranslation('ar')).resolves.toMatchObject({
+    await expect(translationActions.getTranslation('ar')).resolves.toMatchObject({
       code: 'ar',
       direction: 'rtl',
       file_url: DICTIONARY_URL,
@@ -93,11 +112,11 @@ describe('translation data actions', () => {
   });
 
   it('returns null when the requested language is not available in the API list', async () => {
-    await expect(getTranslation('de')).resolves.toBeNull();
+    await expect(translationActions.getTranslation('de')).resolves.toBeNull();
   });
 
   it('loads the selected language dictionary', async () => {
-    const dictionary = await getMainFile({
+    const dictionary = await translationActions.getMainFile({
       code: 'ar',
       file_url: DICTIONARY_URL,
     });
@@ -113,7 +132,7 @@ describe('translation data actions', () => {
     );
 
     await expect(
-      getMainFile({ code: 'ar', file_url: DICTIONARY_URL }),
+      translationActions.getMainFile({ code: 'ar', file_url: DICTIONARY_URL }),
     ).resolves.toBeNull();
   });
 
@@ -123,7 +142,7 @@ describe('translation data actions', () => {
     );
 
     await expect(
-      getMainFile({ code: 'ar', file_url: DICTIONARY_URL }),
+      translationActions.getMainFile({ code: 'ar', file_url: DICTIONARY_URL }),
     ).resolves.toBeNull();
   });
 });
@@ -482,7 +501,8 @@ describe('API failure handling and boundary cases', () => {
 
 
 describe('footer translation action', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
+    await resetTranslationActions();
     vi.stubEnv('NEXT_PUBLIC_ADMIN_API_BASE_URL', ADMIN_API_URL);
   });
 
@@ -491,7 +511,7 @@ describe('footer translation action', () => {
   });
 
   it('returns the selected language dictionary for the footer', async () => {
-    await expect(getFooterData({ lang: 'ar' })).resolves.toMatchObject({
+    await expect(translationActions.getFooterData({ lang: 'ar' })).resolves.toMatchObject({
       1457: 'ميتافيرس رنگ',
       482: 'وصف تجريبي باللغة العربية',
     });
@@ -504,6 +524,6 @@ describe('footer translation action', () => {
       ),
     );
 
-    await expect(getFooterData({ lang: 'ar' })).resolves.toEqual({});
+    await expect(translationActions.getFooterData({ lang: 'ar' })).resolves.toEqual({});
   });
 });
