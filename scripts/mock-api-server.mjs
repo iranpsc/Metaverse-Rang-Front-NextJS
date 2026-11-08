@@ -205,7 +205,13 @@ const referralChartFixture = {
 };
 
 const featureSummaryFixtures = [
-  { karbari: "blue", label: "Blue", count: 3, amount: 3 },
+  {
+    karbari: "blue",
+    label: "Blue",
+    current_count: 3,
+    bought_count: 3,
+    sold_count: 1,
+  },
 ];
 
 const featureChartFixture = {
