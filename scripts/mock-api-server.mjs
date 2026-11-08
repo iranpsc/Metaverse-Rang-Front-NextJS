@@ -200,7 +200,7 @@ const server = http.createServer(async (request, response) => {
     return json(response, 200, levelFixture);
   }
 
-  if (/^\\/api\\/levels\\/1\\/(general-info|licenses|gem|gift|prize)$/.test(url.pathname)) {
+  if (/^\/api\/levels\/1\/(general-info|licenses|gem|gift|prize)$/.test(url.pathname)) {
     return json(response, 200, levelTabFixture);
   }
 
