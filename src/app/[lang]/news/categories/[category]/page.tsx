@@ -123,28 +123,28 @@ export async function generateMetadata({ params }: NewsCategoryPageProps) {
 
     if (!data || data.length === 0) {
       return {
-        title: \`دسته \${categorySlug} | اخبار\`,
-        description: \`خبری در دسته \${categorySlug} یافت نشد\`,
+        title: `دسته ${categorySlug} | اخبار`,
+        description: `خبری در دسته ${categorySlug} یافت نشد`,
         alternates: {
-          canonical: \`\${siteUrl}/\${lang}/news/categories/\${categorySlug}\`,
+          canonical: `${siteUrl}/${lang}/news/categories/${categorySlug}`,
         },
       };
     }
 
     const { category, categoryDec, categoryImage } = data[0];
     const resolvedCategory = category || categorySlug;
-    const description = categoryDec || \`اخبار مرتبط با \${resolvedCategory}\`;
+    const description = categoryDec || `اخبار مرتبط با ${resolvedCategory}`;
 
     return {
-      title: \`\${resolvedCategory} | \${findByUniqueId(mainData, 148)}\`,
+      title: `${resolvedCategory} | ${findByUniqueId(mainData, 148)}`,
       description,
       alternates: {
-        canonical: \`\${siteUrl}/\${lang}/news/categories/\${categorySlug}\`,
+        canonical: `${siteUrl}/${lang}/news/categories/${categorySlug}`,
       },
       openGraph: {
-        title: \`\${resolvedCategory} | اخبار\`,
+        title: `${resolvedCategory} | اخبار`,
         description,
-        url: \`\${siteUrl}/\${lang}/news/categories/\${categorySlug}\`,
+        url: `${siteUrl}/${lang}/news/categories/${categorySlug}`,
         siteName: "MetaRang",
         type: "website",
         locale: lang === "fa" ? "fa_IR" : "en_US",
@@ -161,12 +161,12 @@ export async function generateMetadata({ params }: NewsCategoryPageProps) {
   } catch (error) {
     console.error("[NewsCategory generateMetadata] Failed:", error);
     return {
-      title: \`\${categorySlug} | \${lang === "fa" ? "اخبار متارنگ" : "MetaRang News"}\`,
+      title: `${categorySlug} | ${lang === "fa" ? "اخبار متارنگ" : "MetaRang News"}`,
       description: lang === "fa"
-        ? \`آخرین اخبار دسته \${categorySlug} در متارنگ\`
-        : \`Latest news in the \${categorySlug} category on MetaRang\`,
+        ? `آخرین اخبار دسته ${categorySlug} در متارنگ`
+        : `Latest news in the ${categorySlug} category on MetaRang`,
       alternates: {
-        canonical: \`\${siteUrl}/\${lang}/news/categories/\${categorySlug}\`,
+        canonical: `${siteUrl}/${lang}/news/categories/${categorySlug}`,
       },
     };
   }
