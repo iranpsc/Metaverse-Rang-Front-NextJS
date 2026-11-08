@@ -1,8 +1,7 @@
 import { defineConfig, devices } from "@playwright/test";
 
 const baseURL = process.env.PLAYWRIGHT_BASE_URL || "http://127.0.0.1:5175";
-const mockApiURL = "http://127.0.0.1:9999";
-const translationAdminApiURL = "https://dev-admin.metarang.com";
+const mockApiURL = process.env.PLAYWRIGHT_MOCK_API_URL || "http://127.0.0.1:9999";
 
 export default defineConfig({
   testDir: "./tests/e2e",
@@ -27,9 +26,7 @@ export default defineConfig({
       use: { ...devices["Desktop Chrome"] },
     },
   ],
-  webServer: process.env.PLAYWRIGHT_BASE_URL
-    ? undefined
-    : [
+  webServer: [
       {
         command: "node scripts/mock-api-server.mjs",
         url: `${mockApiURL}/health`,
@@ -38,7 +35,7 @@ export default defineConfig({
         reuseExistingServer: false,
         timeout: 30_000,
       },
-      {
+      ...(process.env.PLAYWRIGHT_BASE_URL ? [] : [{
         command: "npm run dev",
         url: baseURL,
         // Keep application APIs isolated behind local fixtures, but always load
@@ -50,7 +47,7 @@ export default defineConfig({
           NODE_ENV: "development",
           PLAYWRIGHT_E2E: "true",
           NEXT_PUBLIC_API_BASE_URL: mockApiURL,
-          NEXT_PUBLIC_ADMIN_API_BASE_URL: translationAdminApiURL,
+          NEXT_PUBLIC_ADMIN_API_BASE_URL: mockApiURL,
           NEXT_PUBLIC_SUPABASE_URL: mockApiURL,
           NEXT_PUBLIC_SUPABASE_ANON_KEY: "playwright-local-mock-anon-key",
           INTERNAL_GO_SERVICE_URL: "http://127.0.0.1:9998",
@@ -62,6 +59,6 @@ export default defineConfig({
           SMTP_USER: "playwright",
           SMTP_PASS: "playwright",
         },
-      },
+      }]),
     ],
 });
