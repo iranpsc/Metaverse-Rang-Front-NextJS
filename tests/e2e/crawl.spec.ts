@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-const translationAdminApiURL = "https://dev-admin.metarang.com";
+const translationAdminApiURL = process.env.PLAYWRIGHT_MOCK_API_URL || "http://127.0.0.1:9999";
 
 /**
  * Static public routes discovered from page.tsx files under src/app/[lang].
@@ -102,7 +102,7 @@ async function getApiLanguages(request: {
     }
   }
   // Never substitute fixture languages: the crawl must reflect exactly the
-  // active languages returned by the dev Admin API.
+  // active languages returned by the isolated local Admin API fixture.
   if (languages.length === 0) {
     failures.push({
       locale: "all",
