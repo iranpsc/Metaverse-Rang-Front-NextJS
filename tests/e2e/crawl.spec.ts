@@ -24,6 +24,36 @@ const staticPublicRoutes = [
   "/whitepaper",
 ] as const;
 
+/**
+ * Representative valid dynamic URLs. Their IDs/slugs are backed by the local
+ * API fixtures in scripts/mock-api-server.mjs; route patterns are discovered
+ * from page.tsx files under src/app/[lang].
+ */
+const dynamicPublicRoutes = [
+  "/articles/categories/general",
+  "/articles/categories/general/sample-article",
+  "/calendar/1",
+  "/citizens/hm-123",
+  "/citizens/hm-123/buildings",
+  "/citizens/hm-123/referral",
+  "/citizens/hm-123/summary",
+  "/citizens/hm-123/wallet",
+  "/education/category/general",
+  "/education/category/general/basics",
+  "/education/category/general/basics/1",
+  "/levels/citizen/citizen-baguette",
+  "/levels/citizen/citizen-baguette/general-info",
+  "/news/categories/general",
+  "/news/categories/general/sample-news",
+  "/versions",
+  "/versions/1.0",
+] as const;
+
+const publicRoutes = [
+  ...staticPublicRoutes.map((path) => ({ path, type: "static" as const })),
+  ...dynamicPublicRoutes.map((path) => ({ path, type: "dynamic" as const })),
+];
+
 type ApiLanguage = {
   code: string;
   direction?: string;
@@ -41,6 +71,7 @@ type CrawlFailure = {
 type CrawlPageResult = {
   locale: string;
   route: string;
+  routeType: "static" | "dynamic";
   status: number | null;
   title: string;
   outcome: "passed" | "failed";
@@ -127,7 +158,12 @@ test.describe("public static route browser crawl @seo", () => {
         try { return [new URL(file_url).href]; } catch { return []; }
       }),
     );
-    const checked: Array<{ locale: string; route: string; title: string }> = [];
+    const checked: Array<{
+      locale: string;
+      route: string;
+      routeType: "static" | "dynamic";
+      title: string;
+    }> = [];
     const pageResults: CrawlPageResult[] = [];
     const dictionaryChecks: Array<{ locale: string; url: string; ok: boolean; reason?: string }> = [];
 
@@ -187,12 +223,14 @@ test.describe("public static route browser crawl @seo", () => {
 
     // Each locale/route pair is isolated: record its failure and continue to the next.
     for (const language of languages) {
-      for (const routePath of staticPublicRoutes) {
+      for (const routeCase of publicRoutes) {
+        const routePath = routeCase.path;
         const routeUrl = `/${language.code}${routePath === "/" ? "" : routePath}`;
         const jsErrors: string[] = [];
         const pageResult: CrawlPageResult = {
           locale: language.code,
           route: routeUrl,
+          routeType: routeCase.type,
           status: null,
           title: "",
           outcome: "failed",
@@ -214,13 +252,9 @@ test.describe("public static route browser crawl @seo", () => {
           expect(response!.headers()["content-type"] || "").toContain("text/html");
 
           const main = page.locator("main").first();
-          const heading = page.locator("h1").first();
-          // Check immediately: a missing server-rendered layout should not
-          // consume the full assertion timeout for every remaining route.
+          // Check the shared page shell immediately. Issue #125 requires
+          // meaningful main content, not a hard-coded h1 selector on every route.
           expect(await main.isVisible(), `${routeUrl} must render its main content`).toBe(true);
-          expect(await heading.isVisible(), `${routeUrl} must render a visible primary heading`).toBe(true);
-          expect(await heading.innerText(), `${routeUrl} primary heading must contain text`).toBeTruthy();
-
           const mainText = (await main.innerText()).trim();
           const title = (await page.title()).trim();
           pageResult.title = title;
@@ -235,15 +269,28 @@ test.describe("public static route browser crawl @seo", () => {
 
           expect(mainText, `${routeUrl} must render non-empty main content`).not.toBe("");
           expect(title, `${routeUrl} must have a document title`).not.toBe("");
+          expect(title.length, `${routeUrl} title must be at most 70 characters`).toBeLessThanOrEqual(70);
           expect(description?.trim(), `${routeUrl} must have a meta description`).toBeTruthy();
+          expect(
+            description!.trim().length,
+            `${routeUrl} meta description must be at most 160 characters`,
+          ).toBeLessThanOrEqual(160);
           await expect(page.locator("html")).toHaveAttribute("lang", language.code);
+          if (language.direction === "rtl" || language.direction === "ltr") {
+            await expect(main).toHaveAttribute("dir", language.direction);
+          }
 
           if (canonical) {
             expect(canonical, `${routeUrl} canonical URL must be absolute`).toMatch(/^https?:\/\//);
           }
 
           expect(jsErrors, `${routeUrl} must not throw uncaught JavaScript errors`).toEqual([]);
-          checked.push({ locale: language.code, route: routePath, title });
+          checked.push({
+            locale: language.code,
+            route: routePath,
+            routeType: routeCase.type,
+            title,
+          });
           pageResult.outcome = "passed";
         } catch (error) {
           const reason = error instanceof Error ? error.message : String(error);
@@ -264,13 +311,15 @@ test.describe("public static route browser crawl @seo", () => {
     const summary = {
       languageCodes: languages.map(({ code }) => code),
       staticRouteCount: staticPublicRoutes.length,
-      expectedPageCount: languages.length * staticPublicRoutes.length,
+      dynamicRouteCount: dynamicPublicRoutes.length,
+      routeCountPerLanguage: publicRoutes.length,
+      expectedPageCount: languages.length * publicRoutes.length,
       checkedCount: checked.length,
       checked,
       pageResults,
       dictionaryChecks,
       failures,
-      excludedDynamicRoutes: true,
+      excludedDynamicRoutes: false,
       translationSource: translationAdminApiURL,
       translationFiles: languages.map(({ code, file_url }) => ({ code, file_url })),
     };
@@ -282,7 +331,7 @@ test.describe("public static route browser crawl @seo", () => {
 
     // Print every attempted URL at the end of the run, not only successful pages.
     console.log("\n========== STATIC CRAWL RESULTS ==========");
-    console.log(`Languages: ${languages.map(({ code }) => code).join(", ")} | Routes per language: ${staticPublicRoutes.length} | Attempted: ${pageResults.length} | Passed: ${checked.length} | Failed: ${pageResults.length - checked.length}`);
+    console.log(`Languages: ${languages.map(({ code }) => code).join(", ")} | Routes per language: ${publicRoutes.length} (static: ${staticPublicRoutes.length}, dynamic: ${dynamicPublicRoutes.length}) | Attempted: ${pageResults.length} | Passed: ${checked.length} | Failed: ${pageResults.length - checked.length}`);
     for (const result of pageResults) {
       const status = result.status === null ? "NO RESPONSE" : String(result.status);
       const suffix = result.outcome === "passed"
