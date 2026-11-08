@@ -41,7 +41,6 @@ const dynamicPublicRoutes = [
   "/education/category/general",
   "/education/category/general/basics",
   "/education/category/general/basics/1",
-  "/levels/citizen/citizen-baguette",
   "/levels/citizen/citizen-baguette/general-info",
   "/news/categories/general",
   "/news/categories/general/sample-news",
@@ -105,6 +104,16 @@ async function getApiLanguages(request: {
           failures.push({ locale: code || "unknown", route: apiUrl, stage: "language-metadata", reason: "Active language has a missing or invalid language code" });
           continue;
         }
+        if (languages.some((existing) => existing.code === code)) {
+          failures.push({
+            locale: code,
+            route: apiUrl,
+            stage: "language-metadata",
+            reason: `Translations API returned duplicate active language code "${code}".`,
+          });
+          continue;
+        }
+
         let fileUrl: string | null = null;
         if (typeof language.file_url !== "string" || !language.file_url.trim()) {
           failures.push({ locale: code, route: "file_url", stage: "language-metadata", reason: `Active language "${code}" does not expose file_url` });
@@ -152,13 +161,34 @@ test.describe("public static route browser crawl @seo", () => {
     test.setTimeout(15 * 60_000);
 
     const { languages, failures } = await getApiLanguages(request);
-    const expectedPageCount = languages.length * publicRoutes.length;
+    const uniqueRouteCount = new Set(publicRoutes.map(({ path }) => path)).size;
+    if (uniqueRouteCount !== publicRoutes.length) {
+      failures.push({
+        locale: "all",
+        route: "crawl-route-manifest",
+        stage: "language-api",
+        reason: "The crawl route manifest contains duplicate URL paths.",
+      });
+    }
+
+    for (const requiredLocale of ["fa", "en"]) {
+      if (!languages.some(({ code }) => code === requiredLocale)) {
+        failures.push({
+          locale: requiredLocale,
+          route: "required-languages",
+          stage: "language-api",
+          reason: `Issue #125 requires the ${requiredLocale} language to be included in the crawl.`,
+        });
+      }
+    }
+
+    const expectedPageCount = languages.length * uniqueRouteCount;
     if (expectedPageCount <= 60) {
       failures.push({
         locale: "all",
         route: "crawl-coverage",
         stage: "language-api",
-        reason: `Issue #125 requires more than 60 distinct URLs; discovered ${expectedPageCount} from ${languages.length} active language(s) and ${publicRoutes.length} routes.`,
+        reason: `Issue #125 requires more than 60 distinct URLs; discovered ${expectedPageCount} from ${languages.length} unique active language(s) and ${uniqueRouteCount} unique routes.`,
       });
     }
     const allowedTranslationFiles = new Set(
@@ -321,7 +351,7 @@ test.describe("public static route browser crawl @seo", () => {
       languageCodes: languages.map(({ code }) => code),
       staticRouteCount: staticPublicRoutes.length,
       dynamicRouteCount: dynamicPublicRoutes.length,
-      routeCountPerLanguage: publicRoutes.length,
+      routeCountPerLanguage: uniqueRouteCount,
       expectedPageCount: languages.length * publicRoutes.length,
       checkedCount: checked.length,
       checked,
