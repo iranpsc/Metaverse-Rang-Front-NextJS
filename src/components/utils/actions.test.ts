@@ -205,9 +205,15 @@ describe('citizen and referral API actions', () => {
   });
 
   it('loads referral chart data for the selected range', async () => {
-    await expect(getChartReferral('AbC-123', '30d')).resolves.toEqual([
-      { citizenId: 'AbC-123', range: '30d', count: 4 },
-    ]);
+    await expect(getChartReferral('AbC-123', '30d')).resolves.toMatchObject({
+      chart_data: [
+        {
+          year: '2026',
+          total_referrals_count: 4,
+          total_referral_orders_amount: 12,
+        },
+      ],
+    });
   });
 
   it('rejects invalid citizen identifiers before referral requests', async () => {
