@@ -127,6 +127,21 @@ export const handlers = [
     return HttpResponse.json({ data: [{ id: 201, page }] });
   }),
 
+  http.get(/\/api\/tutorials\/[^/]+$/, ({ request }) => {
+    const slug = pathParts(request).at(-1);
+    return HttpResponse.json({
+      data: {
+        id: Number(slug) || 1,
+        slug,
+        title: 'Sandbox tutorial video',
+        description: 'Deterministic tutorial content.',
+        image_url: '/team.webp',
+        likes_count: 2,
+        dislikes_count: 0,
+      },
+    });
+  }),
+
   http.get(/\/api\/citizen\/[^/]+\/referrals\/chart$/, () =>
     HttpResponse.json({
       data: {
@@ -192,6 +207,24 @@ export const handlers = [
   http.get(/\/api\/calendar$/, ({ request }) => {
     const type = new URL(request.url).searchParams.get('type');
     return HttpResponse.json({ data: [{ id: 401, type }] });
+  }),
+
+  http.get(/\/api\/calendar\/[^/]+$/, ({ request }) => {
+    const id = Number(pathParts(request).at(-1));
+    return HttpResponse.json({
+      data: {
+        id,
+        title: 'Sandbox calendar event',
+        description: 'Deterministic event fixture.',
+        starts_at: '2026-10-01 12:00',
+        ends_at: '2026-10-01 13:00',
+        image: '/team.webp',
+        likes: 3,
+        dislikes: 0,
+        views: 12,
+        user_interaction: null,
+      },
+    });
   }),
 
   http.get(/\/api\/tutorials\/categories\/[^/]+\/[^/]+$/, ({ request }) => {
