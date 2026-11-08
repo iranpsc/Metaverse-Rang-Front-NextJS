@@ -57,6 +57,20 @@ jobs:
       - name: Run integration tests
         run: npm run test:integration
 
+      - name: Start translation and application API mock
+        run: |
+          node scripts/mock-api-server.mjs > /tmp/metarang-mock-api.log 2>&1 &
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:9999/health > /dev/null; then
+              echo "Mock API is ready."
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/metarang-mock-api.log
+          echo "Mock API did not become ready."
+          exit 1
+
       - name: Verify production build with mock environment
         run: npm run build
 
