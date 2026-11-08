@@ -42,16 +42,16 @@ export default defineConfig({
         },
       },
       ...(process.env.PLAYWRIGHT_BASE_URL ? [] : [{
-        command: "npm run dev",
+        command: process.env.CI ? "npm run start" : "npm run build && npm run start",
         url: baseURL,
         // Keep application APIs on local fixtures. The mock server selectively
         // proxies only active-language metadata; dictionary file_url values stay
         // authoritative and are fetched from the translation API's file host.
         reuseExistingServer: false,
-        timeout: 180_000,
+        timeout: 300_000,
         env: {
           ...process.env,
-          NODE_ENV: "development",
+          NODE_ENV: "production",
           PLAYWRIGHT_E2E: "true",
           NEXT_PUBLIC_API_BASE_URL: mockApiURL,
           NEXT_PUBLIC_ADMIN_API_BASE_URL: mockApiURL,
