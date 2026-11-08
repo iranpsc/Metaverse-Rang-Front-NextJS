@@ -240,12 +240,18 @@ async function getOfflineLanguages() {
  * Successful API data remains authoritative. Local fa/en files are used only
  * when the API is unavailable or returns no usable language records.
  */
+/**
+ * Always resolves to an array. API failures are handled by the last-known-good
+ * cache or the bundled fa/en fallback, so callers never need a nullable check.
+ *
+ * @returns {Promise<Array<{ code: string, [key: string]: any }>>}
+ */
 export const getLangArray = cache(async function getLangArray() {
   const cached = activeLanguagesMemoryCache;
   if (cached.value && cached.expiresAt > Date.now()) return cached.value;
   if (cached.pending) return cached.pending;
 
-  cached.pending = (async () => {
+  const pending = (async () => {
     try {
       const adminApiBaseUrl = await getAdminApiBaseUrl();
       const res = await fetch(`${adminApiBaseUrl}/api/translations?active=true`, {
@@ -285,7 +291,8 @@ export const getLangArray = cache(async function getLangArray() {
     }
   })();
 
-  return cached.pending;
+  cached.pending = pending;
+  return pending;
 });
 
 /* -------------------------------------------------------------------------- */
