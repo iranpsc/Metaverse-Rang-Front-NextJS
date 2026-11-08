@@ -127,7 +127,7 @@ export const handlers = [
     return HttpResponse.json({ data: [{ id: 201, page }] });
   }),
 
-  http.get(/\\/api\\/citizen\\/[^/]+\\/referrals\\/chart$/, () =>
+  http.get(/\/api\/citizen\/[^/]+\/referrals\/chart$/, () =>
     HttpResponse.json({
       data: {
         chart_data: [
@@ -152,23 +152,23 @@ export const handlers = [
     return HttpResponse.json({ data: [{ id: 301, citizenId: parts.at(-2), search }] });
   }),
 
-  http.get(/\\/api\\/citizen\\/[^/]+\\/features\\/summary$/, () =>
+  http.get(/\/api\/citizen\/[^/]+\/features\/summary$/, () =>
     HttpResponse.json({ data: featureSummaryFixtures }),
   ),
 
-  http.get(/\\/api\\/citizen\\/[^/]+\\/features\\/chart$/, () =>
+  http.get(/\/api\/citizen\/[^/]+\/features\/chart$/, () =>
     HttpResponse.json({ data: featureChartFixture }),
   ),
 
-  http.get(/\\/api\\/citizen\\/[^/]+\\/buildings\\/summary$/, () =>
+  http.get(/\/api\/citizen\/[^/]+\/buildings\/summary$/, () =>
     HttpResponse.json({ data: buildingSummaryFixtures }),
   ),
 
-  http.get(/\\/api\\/citizen\\/[^/]+\\/buildings\\/chart$/, () =>
+  http.get(/\/api\/citizen\/[^/]+\/buildings\/chart$/, () =>
     HttpResponse.json({ data: buildingChartFixtures }),
   ),
 
-  http.get(/\\/api\\/citizen\\/[^/]+\\/buildings$/, ({ request }) => {
+  http.get(/\/api\/citizen\/[^/]+\/buildings$/, ({ request }) => {
     const page = Number(new URL(request.url).searchParams.get('page') || 1);
     return HttpResponse.json({
       data: buildingListFixtures,
@@ -176,15 +176,15 @@ export const handlers = [
     });
   }),
 
-  http.get(/\\/api\\/citizen\\/[^/]+\\/wallet\\/history\\/summary$/, () =>
+  http.get(/\/api\/citizen\/[^/]+\/wallet\/history\/summary$/, () =>
     HttpResponse.json({ data: walletSummaryFixtures }),
   ),
 
-  http.get(/\\/api\\/citizen\\/[^/]+\\/wallet\\/history\\/chart$/, () =>
+  http.get(/\/api\/citizen\/[^/]+\/wallet\/history\/chart$/, () =>
     HttpResponse.json({ data: walletChartFixture }),
   ),
 
-  http.get(/\\/api\\/citizen\\/[^/]+$/, ({ request }) => {
+  http.get(/\/api\/citizen\/[^/]+$/, ({ request }) => {
     const parts = pathParts(request);
     return HttpResponse.json({ data: { id: parts.at(-1), display_name: 'Test Citizen' } });
   }),
