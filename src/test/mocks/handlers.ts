@@ -26,6 +26,49 @@ const dictionaries = {
   en: { 1457: 'Metaverse Rang', 482: 'Sample English description' },
   ar: { 1457: 'ميتافيرس رنگ', 482: 'وصف تجريبي باللغة العربية' },
 };
+const featureSummaryFixtures = [
+  { karbari: 'blue', label: 'Blue', count: 3, amount: 3 },
+];
+const featureChartFixture = {
+  bought: [{ amount: 3, karbari: 'blue', label: '2026' }],
+  sold: [{ amount: 1, karbari: 'blue', label: '2026' }],
+};
+const buildingSummaryFixtures = [
+  { karbari: 'blue', label: 'Blue', count: 2 },
+];
+const buildingChartFixtures = [
+  { amount: 2, karbari: 'blue', label: '2026' },
+];
+const buildingListFixtures = [
+  {
+    building_id: 501,
+    karbari: 'blue',
+    construction_end_date: '2026-12-31',
+    visitors: 10,
+    empty_units: 2,
+    area: 100,
+    density: 5,
+    images: [{ id: 1, url: '/team.webp' }],
+  },
+];
+const walletSummaryFixtures = [
+  {
+    asset: 'blue',
+    current_balance: 10,
+    direction: 'up',
+    growth_percent: 5,
+    period_income: 2,
+    period_spending: 1,
+    privacy_restricted: false,
+  },
+];
+const walletChartFixture = {
+  blue: {
+    income: [{ amount: 2, label: '2026' }],
+    spending: [{ amount: 1, label: '2026' }],
+  },
+};
+
 
 const pathParts = (request: Request) => new URL(request.url).pathname.split('/').filter(Boolean);
 
@@ -84,11 +127,24 @@ export const handlers = [
     return HttpResponse.json({ data: [{ id: 201, page }] });
   }),
 
-  http.get(/\/api\/citizen\/[^/]+\/referrals\/chart$/, ({ request }) => {
-    const parts = pathParts(request);
-    const range = new URL(request.url).searchParams.get('range');
-    return HttpResponse.json({ data: [{ citizenId: parts.at(-3), range, count: 4 }] });
-  }),
+  http.get(/\\/api\\/citizen\\/[^/]+\\/referrals\\/chart$/, () =>
+    HttpResponse.json({
+      data: {
+        chart_data: [
+          {
+            year: '2026',
+            total_referrals_count: 4,
+            total_referral_orders_amount: 12,
+            month: 'October',
+            day: 'Thursday',
+            hour: '12',
+            referrals_count: 4,
+            referral_orders_amount: 12,
+          },
+        ],
+      },
+    }),
+  ),
 
   http.get(/\/api\/citizen\/[^/]+\/referrals$/, ({ request }) => {
     const parts = pathParts(request);
@@ -96,7 +152,39 @@ export const handlers = [
     return HttpResponse.json({ data: [{ id: 301, citizenId: parts.at(-2), search }] });
   }),
 
-  http.get(/\/api\/citizen\/[^/]+$/, ({ request }) => {
+  http.get(/\\/api\\/citizen\\/[^/]+\\/features\\/summary$/, () =>
+    HttpResponse.json({ data: featureSummaryFixtures }),
+  ),
+
+  http.get(/\\/api\\/citizen\\/[^/]+\\/features\\/chart$/, () =>
+    HttpResponse.json({ data: featureChartFixture }),
+  ),
+
+  http.get(/\\/api\\/citizen\\/[^/]+\\/buildings\\/summary$/, () =>
+    HttpResponse.json({ data: buildingSummaryFixtures }),
+  ),
+
+  http.get(/\\/api\\/citizen\\/[^/]+\\/buildings\\/chart$/, () =>
+    HttpResponse.json({ data: buildingChartFixtures }),
+  ),
+
+  http.get(/\\/api\\/citizen\\/[^/]+\\/buildings$/, ({ request }) => {
+    const page = Number(new URL(request.url).searchParams.get('page') || 1);
+    return HttpResponse.json({
+      data: buildingListFixtures,
+      meta: { current_page: page, last_page: 1 },
+    });
+  }),
+
+  http.get(/\\/api\\/citizen\\/[^/]+\\/wallet\\/history\\/summary$/, () =>
+    HttpResponse.json({ data: walletSummaryFixtures }),
+  ),
+
+  http.get(/\\/api\\/citizen\\/[^/]+\\/wallet\\/history\\/chart$/, () =>
+    HttpResponse.json({ data: walletChartFixture }),
+  ),
+
+  http.get(/\\/api\\/citizen\\/[^/]+$/, ({ request }) => {
     const parts = pathParts(request);
     return HttpResponse.json({ data: { id: parts.at(-1), display_name: 'Test Citizen' } });
   }),
