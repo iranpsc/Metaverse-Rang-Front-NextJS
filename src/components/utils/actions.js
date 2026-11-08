@@ -300,7 +300,7 @@ export const getMainFile = cache(async function getMainFile(langData) {
   const cacheKey = `${langCode}:${langData?.file_url || "local"}`;
   const cached = dictionaryMemoryCache.get(cacheKey);
 
-  if (cached?.value && cached.expiresAt > Date.now()) return cached.value;
+  if (cached && cached.expiresAt > Date.now()) return cached.value;
   if (cached?.pending) return cached.pending;
 
   const entry = cached || { value: null, expiresAt: 0, pending: null };
@@ -347,6 +347,9 @@ export const getMainFile = cache(async function getMainFile(langData) {
         }
       }
 
+      // Negative-cache unavailable non-default dictionaries briefly so a broken
+      // language file (for example zh) is not requested again for every page.
+      entry.expiresAt = Date.now() + TRANSLATION_RETRY_COOLDOWN_MS;
       console.error("[getMainFile] Error fetching translation dictionary:", error, { langData });
       return null;
     } finally {
