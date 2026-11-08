@@ -144,6 +144,7 @@ const newsFixture = {
   date: "2026-10-01",
   category: "general",
   author: { name: "Sandbox News Author", citizenId: "hm-123" },
+  stats: { likes: 2, dislikes: 0, views: 10, comments: 0 },
 };
 
 const versionFixtures = [
@@ -434,7 +435,7 @@ const server = http.createServer(async (request, response) => {
         slug: "general",
         name: "General",
         icon: "/team.webp",
-        sub_categories: [
+        subcategories: [
           {
             id: 11,
             slug: "basics",
