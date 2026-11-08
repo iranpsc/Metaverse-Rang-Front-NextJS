@@ -43,7 +43,7 @@ export default async function CitizenFeaturesSummary({
     /* --------------------------- base data --------------------------- */
     const [langData, profileData] = await Promise.all([
       getTranslation(lang),
-      getUserData(id),
+      getUserData(id, 5000),
     ]);
 
     /* ------------------------ build sidebar -------------------------- */
@@ -218,7 +218,7 @@ export async function generateMetadata({
   try {
     const [langData, profileData] = await Promise.all([
       getTranslation(lang),
-      getUserData(id),
+      getUserData(id, 5000),
     ]);
 
     const mainData = await getMainFile(langData);
