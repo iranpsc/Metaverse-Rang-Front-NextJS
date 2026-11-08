@@ -232,7 +232,7 @@ export default async function EventPage({ params }: EventPageProps ) {
 
   const cleanTitle = stripHtml(selectedEvent.title);
   const eventSchema = buildEventSchema(selectedEvent);
-  const filteredEvents = events.filter((e) => e.id !== selectedEvent.id);
+  const filteredEvents = events.filter((event: MappedEventItem) => event.id !== selectedEvent.id);
 
   return (
     <>
