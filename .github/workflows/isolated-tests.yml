@@ -57,14 +57,14 @@ jobs:
       - name: Run integration tests
         run: npm run test:integration
 
+      - name: Verify production build with mock environment
+        run: npm run build
+
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
 
       - name: Run end-to-end, SEO and security tests
         run: npm run test:e2e
-
-      - name: Verify production build with mock environment
-        run: npm run build
 
       - name: Upload Playwright report
         if: always()
