@@ -1,9 +1,9 @@
 /**
  * E2E-only outbound API guard.
  *
- * Application API calls must use the local mock server. The only permitted
- * external fetches are exact translation dictionary URLs returned by the
- * local /api/translations mock proxy.
+ * Application API calls must use the local mock server. External API endpoints
+ * are blocked; the translation dictionaries returned by the local metadata
+ * proxy remain available as external data files. Non-API static assets are unaffected.
  */
 const originalFetch = globalThis.fetch;
 const localHosts = new Set(["127.0.0.1", "localhost", "::1"]);
