@@ -125,10 +125,88 @@ const calendarEvents = [
   },
 ];
 
+const referralFixtures = [
+  {
+    id: 301,
+    code: "HM-124",
+    citizen_id: "hm-123",
+    display_name: "Sandbox Referral",
+    registered_at: "2026-10-01",
+    status: "active",
+  },
+];
+
+const referralChartFixture = {
+  chart_data: [
+    {
+      year: "2026",
+      total_referrals_count: 4,
+      total_referral_orders_amount: 12,
+      month: "October",
+      day: "Thursday",
+      hour: "12",
+      referrals_count: 4,
+      referral_orders_amount: 12,
+    },
+  ],
+};
+
+const featureSummaryFixtures = [
+  { karbari: "blue", label: "Blue", count: 3, amount: 3 },
+];
+
+const featureChartFixture = {
+  bought: [{ amount: 3, karbari: "blue", label: "2026" }],
+  sold: [{ amount: 1, karbari: "blue", label: "2026" }],
+};
+
+const buildingSummaryFixtures = [
+  { karbari: "blue", label: "Blue", count: 2 },
+];
+
+const buildingChartFixtures = [
+  { amount: 2, karbari: "blue", label: "2026" },
+];
+
+const buildingListFixtures = [
+  {
+    building_id: 501,
+    karbari: "blue",
+    construction_end_date: "2026-12-31",
+    visitors: 10,
+    empty_units: 2,
+    area: 100,
+    density: 5,
+    images: [{ id: 1, url: "/team.webp" }],
+  },
+];
+
+const walletSummaryFixtures = [
+  {
+    asset: "blue",
+    current_balance: 10,
+    direction: "up",
+    growth_percent: 5,
+    period_income: 2,
+    period_spending: 1,
+    privacy_restricted: false,
+  },
+];
+
+const walletChartFixture = {
+  blue: {
+    income: [{ amount: 2, label: "2026" }],
+    spending: [{ amount: 1, label: "2026" }],
+  },
+};
+
 function json(response, status, body, extraHeaders = {}) {
   response.writeHead(status, {
     "content-type": "application/json; charset=utf-8",
     "cache-control": "no-store",
+    "access-control-allow-origin": "*",
+    "access-control-allow-methods": "GET,HEAD,OPTIONS",
+    "access-control-allow-headers": "Accept,Authorization,Content-Type",
     ...extraHeaders,
   });
   response.end(JSON.stringify(body));
@@ -141,11 +219,11 @@ const server = http.createServer(async (request, response) => {
     return json(response, 405, { message: "Method not allowed" });
   }
 
-  if (request.method === "OPTIONS" && url.pathname.startsWith("/rest/v1/")) {
+  if (request.method === "OPTIONS") {
     response.writeHead(204, {
       "access-control-allow-origin": "*",
-      "access-control-allow-methods": "GET,HEAD,POST,PATCH,DELETE,OPTIONS",
-      "access-control-allow-headers": "apikey,authorization,content-type,prefer",
+      "access-control-allow-methods": "GET,HEAD,OPTIONS",
+      "access-control-allow-headers": "Accept,Authorization,Content-Type,apikey,prefer",
     });
     return response.end();
   }
@@ -230,6 +308,49 @@ const server = http.createServer(async (request, response) => {
 
   if (url.pathname === "/api/users") {
     return json(response, 200, { data: [], meta: { page: Number(url.searchParams.get("page") || 1) } });
+  }
+
+  if (/^\/api\/citizen\/[^/]+\/referrals\/chart$/.test(url.pathname)) {
+    return json(response, 200, { data: referralChartFixture });
+  }
+
+  if (/^\/api\/citizen\/[^/]+\/referrals$/.test(url.pathname)) {
+    return json(response, 200, {
+      data: referralFixtures,
+      meta: { current_page: 1, last_page: 1 },
+      links: { next: null },
+    });
+  }
+
+  if (/^\/api\/citizen\/[^/]+\/features\/summary$/.test(url.pathname)) {
+    return json(response, 200, { data: featureSummaryFixtures });
+  }
+
+  if (/^\/api\/citizen\/[^/]+\/features\/chart$/.test(url.pathname)) {
+    return json(response, 200, { data: featureChartFixture });
+  }
+
+  if (/^\/api\/citizen\/[^/]+\/buildings\/summary$/.test(url.pathname)) {
+    return json(response, 200, { data: buildingSummaryFixtures });
+  }
+
+  if (/^\/api\/citizen\/[^/]+\/buildings\/chart$/.test(url.pathname)) {
+    return json(response, 200, { data: buildingChartFixtures });
+  }
+
+  if (/^\/api\/citizen\/[^/]+\/buildings$/.test(url.pathname)) {
+    return json(response, 200, {
+      data: buildingListFixtures,
+      meta: { current_page: Number(url.searchParams.get("page") || 1), last_page: 1 },
+    });
+  }
+
+  if (/^\/api\/citizen\/[^/]+\/wallet\/history\/summary$/.test(url.pathname)) {
+    return json(response, 200, { data: walletSummaryFixtures });
+  }
+
+  if (/^\/api\/citizen\/[^/]+\/wallet\/history\/chart$/.test(url.pathname)) {
+    return json(response, 200, { data: walletChartFixture });
   }
 
   if (/^\/api\/citizen\/[^/]+$/.test(url.pathname)) {
