@@ -434,6 +434,8 @@ const server = http.createServer(async (request, response) => {
         id: 10,
         slug: "general",
         name: "General",
+        description: "Deterministic education category description for isolated route validation.",
+        image: "/team.webp",
         icon: "/team.webp",
         subcategories: [
           {
