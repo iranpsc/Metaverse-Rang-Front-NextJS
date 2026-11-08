@@ -53,11 +53,14 @@ export default defineConfig({
           ...process.env,
           NODE_ENV: "production",
           PLAYWRIGHT_E2E: "true",
+          // Guard server-side fetch calls: local mocks and translation dictionary
+          // URLs are allowed; external application APIs are blocked.
+          NODE_OPTIONS: [process.env.NODE_OPTIONS, "--import=./scripts/e2e-network-guard.mjs"].filter(Boolean).join(" "),
           NEXT_PUBLIC_API_BASE_URL: mockApiURL,
           NEXT_PUBLIC_ADMIN_API_BASE_URL: mockApiURL,
           NEXT_PUBLIC_SUPABASE_URL: mockApiURL,
           NEXT_PUBLIC_SUPABASE_ANON_KEY: "playwright-local-mock-anon-key",
-          INTERNAL_GO_SERVICE_URL: "http://127.0.0.1:9998",
+          INTERNAL_GO_SERVICE_URL: mockApiURL,
           INTERNAL_SERVICE_KEY: "playwright-local-mock-key",
           CACHE_INVALIDATION_HMAC_SECRET: "playwright-local-mock-hmac-secret",
           WEBHOOK_SECRET: "playwright-local-mock-webhook-secret",
