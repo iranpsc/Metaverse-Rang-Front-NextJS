@@ -233,24 +233,24 @@ export async function generateMetadata({
     }
 
     const fullName = profileData.data?.kyc?.fname
-      ? \`\${profileData.data.kyc.fname} \${profileData.data.kyc.lname || ""}\`.trim()
+      ? `${profileData.data.kyc.fname} ${profileData.data.kyc.lname || ""}`.trim()
       : profileData.data.name || "Citizen";
 
     const titlePrefix = findByUniqueId(mainData, 58);
     const siteTitle = findByUniqueId(mainData, 148);
 
     return {
-      title: \`\${titlePrefix} \${fullName} | \${siteTitle}\`,
+      title: `${titlePrefix} ${fullName} | ${siteTitle}`,
       description:
         lang === "fa"
           ? "خلاصه ویژگی‌های کاربری املاک شهروندان بر اساس نوع"
           : "Citizen property feature (karbari) summary by type",
       alternates: {
-        canonical: \`https://metarang.com/\${lang}/citizens/\${id}/summary\`,
+        canonical: `https://metarang.com/${lang}/citizens/${id}/summary`,
         languages: {
-          "fa-IR": \`https://metarang.com/fa/citizens/\${id}/summary\`,
-          "en-US": \`https://metarang.com/en/citizens/\${id}/summary\`,
-          "x-default": \`https://metarang.com/fa/citizens/\${id}/summary\`,
+          "fa-IR": `https://metarang.com/fa/citizens/${id}/summary`,
+          "en-US": `https://metarang.com/en/citizens/${id}/summary`,
+          "x-default": `https://metarang.com/fa/citizens/${id}/summary`,
         },
       },
     };
