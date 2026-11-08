@@ -6,6 +6,56 @@ const translationApiUrl =
   process.env.PLAYWRIGHT_TRANSLATION_API_URL ||
   "https://dev-admin.metarang.com/api/translations?active=true";
 
+const TRANSLATION_CACHE_TTL_MS = 24 * 60 * 60 * 1000;
+const TRANSLATION_RETRY_COOLDOWN_MS = 60 * 1000;
+let translationCache = null;
+let translationCacheExpiresAt = 0;
+let translationRequestPending = null;
+
+async function getTranslationMetadata() {
+  if (translationCache && translationCacheExpiresAt > Date.now()) {
+    return { status: 200, body: translationCache, cached: true };
+  }
+
+  if (translationRequestPending) return translationRequestPending;
+
+  translationRequestPending = (async () => {
+    try {
+      const upstreamUrl = new URL(translationApiUrl);
+      upstreamUrl.searchParams.set("active", "true");
+      const upstreamResponse = await fetch(upstreamUrl, {
+        headers: { Accept: "application/json" },
+        signal: AbortSignal.timeout(9_000),
+      });
+      const body = await upstreamResponse.text();
+
+      if (upstreamResponse.ok) {
+        translationCache = body;
+        translationCacheExpiresAt = Date.now() + TRANSLATION_CACHE_TTL_MS;
+        return { status: upstreamResponse.status, body, cached: false };
+      }
+
+      // Keep the last successful language list when the upstream is rate-limited.
+      if (translationCache) {
+        translationCacheExpiresAt = Date.now() + TRANSLATION_RETRY_COOLDOWN_MS;
+        return { status: 200, body: translationCache, cached: true };
+      }
+
+      return { status: upstreamResponse.status, body, cached: false };
+    } catch (error) {
+      if (translationCache) {
+        translationCacheExpiresAt = Date.now() + TRANSLATION_RETRY_COOLDOWN_MS;
+        return { status: 200, body: translationCache, cached: true };
+      }
+      throw error;
+    } finally {
+      translationRequestPending = null;
+    }
+  })();
+
+  return translationRequestPending;
+}
+
 const videoFixture = {
   id: 1,
   slug: "1",
@@ -241,21 +291,13 @@ const server = http.createServer(async (request, response) => {
     }
 
     try {
-      const upstreamUrl = new URL(translationApiUrl);
-      upstreamUrl.searchParams.set("active", "true");
-      const upstreamResponse = await fetch(upstreamUrl, {
-        headers: { Accept: "application/json" },
-        signal: AbortSignal.timeout(9_000),
+      const result = await getTranslationMetadata();
+      response.writeHead(result.status, {
+        "content-type": "application/json; charset=utf-8",
+        "cache-control": "public, s-maxage=86400, stale-while-revalidate=604800",
+        "x-translation-cache": result.cached ? "HIT" : "MISS",
       });
-      const body = await upstreamResponse.text();
-
-      response.writeHead(upstreamResponse.status, {
-        "content-type":
-          upstreamResponse.headers.get("content-type") ||
-          "application/json; charset=utf-8",
-        "cache-control": "no-store",
-      });
-      return response.end(body);
+      return response.end(result.body);
     } catch (error) {
       return json(response, 502, {
         message: "Dev translations API is unavailable",
