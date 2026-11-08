@@ -26,6 +26,27 @@ describe('MSW API fixtures', () => {
     });
   });
 
+  it('mocks every API endpoint consumed by the dynamic citizen routes', async () => {
+    const endpoints = [
+      'https://dev-api.metarang.com/api/citizen/hm-123/referrals?search=&page=1',
+      'https://dev-api.metarang.com/api/citizen/hm-123/referrals/chart?range=yearly',
+      'https://dev-api.metarang.com/api/citizen/hm-123/features/summary?period=yearly',
+      'https://dev-api.metarang.com/api/citizen/hm-123/features/chart?period=yearly',
+      'https://dev-api.metarang.com/api/citizen/hm-123/buildings/summary',
+      'https://dev-api.metarang.com/api/citizen/hm-123/buildings/chart?period=yearly',
+      'https://dev-api.metarang.com/api/citizen/hm-123/buildings?page=1',
+      'https://dev-api.metarang.com/api/citizen/hm-123/wallet/history/summary?period=yearly',
+      'https://dev-api.metarang.com/api/citizen/hm-123/wallet/history/chart?period=yearly',
+    ];
+
+    for (const endpoint of endpoints) {
+      const response = await fetch(endpoint);
+      expect(response.status, endpoint).toBe(200);
+      const payload = await response.json();
+      expect(payload).toHaveProperty('data');
+    }
+  });
+
   it('returns a controlled error for an invalid translations query', async () => {
     const response = await fetch(
       'https://dev-admin.metarang.com/api/translations?active=false',
