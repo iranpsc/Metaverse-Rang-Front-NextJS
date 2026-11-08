@@ -247,8 +247,10 @@ test.describe("public static route browser crawl @seo", () => {
       }
     }
 
-    // Keep browser-side requests isolated from third-party services while allowing
-    // every dictionary URL supplied by the translations API.
+    // Keep browser API traffic on local fixtures. Translation dictionary files
+    // are the only permitted external data requests; other external API calls
+    // are blocked and recorded as real isolation failures.
+    const blockedExternalApiRequests = new Set<string>();
     await page.route("**/*", (route) => {
       const url = new URL(route.request().url());
       const isLocal =
@@ -257,6 +259,15 @@ test.describe("public static route browser crawl @seo", () => {
         url.protocol === "data:" ||
         url.protocol === "blob:";
       const isTranslationFile = allowedTranslationFiles.has(url.href);
+      const isExternalApi =
+        /^\\/(?:api|rest\\/v1|graphql|auth|oauth|sanctum|v\\d+\\/api)(?:\\/|$)/i.test(url.pathname) ||
+        /(^|[-.])(?:api|admin)([-.]|$)/i.test(url.hostname) ||
+        url.hostname.endsWith(".supabase.co");
+
+      if (!isLocal && !isTranslationFile && isExternalApi) {
+        blockedExternalApiRequests.add(url.href);
+      }
+
       return isLocal || isTranslationFile ? route.continue() : route.abort();
     });
 
@@ -347,8 +358,18 @@ test.describe("public static route browser crawl @seo", () => {
       }
     }
 
+    for (const url of blockedExternalApiRequests) {
+      failures.push({
+        locale: "browser",
+        route: url,
+        stage: "page-crawl",
+        reason: "External API request was blocked; all non-translation APIs must use local mocks.",
+      });
+    }
+
     const summary = {
       languageCodes: languages.map(({ code }) => code),
+      blockedExternalApiRequests: [...blockedExternalApiRequests],
       staticRouteCount: staticPublicRoutes.length,
       dynamicRouteCount: dynamicPublicRoutes.length,
       routeCountPerLanguage: uniqueRouteCount,
