@@ -260,7 +260,7 @@ test.describe("public static route browser crawl @seo", () => {
         url.protocol === "blob:";
       const isTranslationFile = allowedTranslationFiles.has(url.href);
       const isExternalApi =
-        /^\/(?:api|rest\/v1|graphql|auth|oauth|sanctum|v\\d+\/api)(?:\/|$)/i.test(url.pathname) ||
+        /^\/(?:api|rest\/v1|graphql|auth|oauth|sanctum|v\d+\/api)(?:\/|$)/i.test(url.pathname) ||
         /(^|[-.])(?:api|admin)([-.]|$)/i.test(url.hostname) ||
         url.hostname.endsWith(".supabase.co");
 
