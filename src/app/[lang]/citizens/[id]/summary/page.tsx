@@ -212,44 +212,55 @@ export async function generateMetadata({
   params: Promise<{ lang: string; id: string }>;
 }) {
   const { lang, id } = await params;
-  const [langData] = await Promise.all([
-    getTranslation(lang),
-  ]);
-  const mainData = await getMainFile(langData);
+
+  // Citizen data and language metadata are independent; fetch them together
+  // so metadata generation does not wait for sequential network round trips.
   try {
-    const profileData = await getUserData(id);
+    const [langData, profileData] = await Promise.all([
+      getTranslation(lang),
+      getUserData(id),
+    ]);
+
+    const mainData = await getMainFile(langData);
 
     if (!profileData?.data) {
       return {
-        title: "404 - پیدا نشد",
-        description: "صفحه مورد نظر یافت نشد",
+        title: lang === "fa" ? "شهروند پیدا نشد | متارنگ" : "Citizen not found | MetaRang",
+        description: lang === "fa"
+          ? "اطلاعات شهروند مورد نظر یافت نشد."
+          : "The requested citizen could not be found.",
       };
     }
 
     const fullName = profileData.data?.kyc?.fname
-      ? `${profileData.data.kyc.fname} ${profileData.data.kyc.lname}`
+      ? \`\${profileData.data.kyc.fname} \${profileData.data.kyc.lname || ""}\`.trim()
       : profileData.data.name || "Citizen";
 
+    const titlePrefix = findByUniqueId(mainData, 58);
+    const siteTitle = findByUniqueId(mainData, 148);
+
     return {
-      title:` ${findByUniqueId(mainData, 58)}  ${fullName} | ${findByUniqueId(mainData, 148)}`,
-   
+      title: \`\${titlePrefix} \${fullName} | \${siteTitle}\`,
       description:
         lang === "fa"
-          ? " خلاصه ویژگی‌های کاربری املاک شهروندان بر اساس نوع "
+          ? "خلاصه ویژگی‌های کاربری املاک شهروندان بر اساس نوع"
           : "Citizen property feature (karbari) summary by type",
       alternates: {
-        canonical: `https://metarang.com/${lang}/citizens/${id}/features-summary`,
+        canonical: \`https://metarang.com/\${lang}/citizens/\${id}/summary\`,
         languages: {
-          "fa-IR": `https://metarang.com/fa/citizens/${id}/features-summary`,
-          "en-US": `https://metarang.com/en/citizens/${id}/features-summary`,
-          "x-default": `https://metarang.com/fa/citizens/${id}/features-summary`,
+          "fa-IR": \`https://metarang.com/fa/citizens/\${id}/summary\`,
+          "en-US": \`https://metarang.com/en/citizens/\${id}/summary\`,
+          "x-default": \`https://metarang.com/fa/citizens/\${id}/summary\`,
         },
       },
     };
-  } catch {
+  } catch (error) {
+    console.error("[Summary generateMetadata] Failed:", error);
     return {
-      title: "خطا",
-      description: "مشکلی در بارگذاری صفحه رخ داده است",
+      title: lang === "fa" ? "خلاصه کاربری‌های شهروند | متارنگ" : "Citizen feature summary | MetaRang",
+      description: lang === "fa"
+        ? "خلاصه ویژگی‌های کاربری املاک شهروندان بر اساس نوع"
+        : "Citizen property feature (karbari) summary by type",
     };
   }
 }
