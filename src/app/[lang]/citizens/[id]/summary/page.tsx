@@ -22,6 +22,11 @@ import InviteBox from "@/components/templates/referral/invite-box";
 /* ------------------------------------------------------------------ */
 /*                                TYPES                               */
 /* ------------------------------------------------------------------ */
+type LanguageData = {
+  code: string;
+  [key: string]: any;
+};
+
 interface CitizenFeaturesSummaryProps {
   params: Promise<{
     lang: string;
@@ -46,7 +51,7 @@ export default async function CitizenFeaturesSummary({
       getLangArray(),
       getUserData(id, 5000),
     ]);
-    const langData = langArray.find((item) => item.code === lang) || null;
+    const langData = langArray.find((item: LanguageData) => item.code === lang) || null;
 
     /* ------------------------ build sidebar -------------------------- */
     function buildUpdatedTabsMenu(mainData: any) {
@@ -219,7 +224,7 @@ export async function generateMetadata({
       getLangArray(),
       getUserData(id, 5000),
     ]);
-    const langData = langArray.find((item) => item.code === lang) || null;
+    const langData = langArray.find((item: LanguageData) => item.code === lang) || null;
     const mainData = await getMainFile(langData);
 
     if (!profileData?.data) {
