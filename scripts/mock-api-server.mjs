@@ -84,17 +84,17 @@ const videoFixture = {
 };
 
 const citizenFixture = {
-  id: "hm-123",
-  code: "HM-123",
-  name: "Sandbox Citizen",
-  kyc: { fname: "Sandbox", lname: "Citizen", birth_date: "2000-01-01", phone: "0000000000", email: "citizen@example.test", address: "Sandbox address" },
-  customs: { about: "A deterministic citizen profile used by isolated route tests.", occupation: "Tester", education: "Test data", loved_city: "Sandbox", loved_country: "Test", loved_language: "English" },
+  id: "hm-2000001",
+  code: "HM-2000001",
+  name: "حسین قدیری",
+  kyc: { fname: "حسین", lname: "قدیری", birth_date: "2000-01-01", phone: "0000000000", email: "citizen@example.test", address: "Sandbox address" },
+  customs: { about: "پروفایل آزمایشی حسین قدیری برای بررسی مسیرهای شهروندی.", occupation: "Tester", education: "Test data", loved_city: "Sandbox", loved_country: "Test", loved_language: "English" },
   profilePhotos: [],
   current_level: { slug: "1", name: "Citizen" },
   achieved_levels: [],
   level: { name: "Citizen" },
   registered_at: "2026-01-01",
-  position: "Sandbox member",
+  position: "Test member",
   score: 10,
   score_percentage_to_next_level: "90",
 };
@@ -127,7 +127,7 @@ const articleFixture = {
   date: "2026-10-01",
   category: "general",
   subCategory: "general",
-  author: { name: "Sandbox Author", citizenId: "hm-123" },
+  author: { name: "Sandbox Author", citizenId: "hm-2000001" },
   categoryImage: "/team.webp",
   categoryDec: "A deterministic article category for isolated route validation.",
   stats: { likes: 2, dislikes: 0, views: 10, comments: 0 },
@@ -143,7 +143,7 @@ const newsFixture = {
   image: "/team.webp",
   date: "2026-10-01",
   category: "general",
-  author: { name: "Sandbox News Author", citizenId: "hm-123" },
+  author: { name: "Sandbox News Author", citizenId: "hm-2000001" },
   stats: { likes: 2, dislikes: 0, views: 10, comments: 0 },
 };
 
@@ -180,7 +180,7 @@ const referralFixtures = [
   {
     id: 301,
     code: "HM-124",
-    citizen_id: "hm-123",
+    citizen_id: "hm-2000001",
     name: "Sandbox Referral",
     image: "/team.webp",
     referrerOrders: [{ amount: 12 }],
