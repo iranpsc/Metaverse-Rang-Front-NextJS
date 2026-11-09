@@ -62,6 +62,9 @@ jobs:
       - name: Run integration tests
         run: npm run test:integration
 
+      - name: Generate application code coverage report
+        run: npm run test:coverage
+
       - name: Start translation and application API mock
         run: |
           node scripts/mock-api-server.mjs > /tmp/metarang-mock-api.log 2>&1 &
@@ -116,5 +119,6 @@ jobs:
           path: |
             playwright-report/
             test-results/
+            coverage/
           if-no-files-found: ignore
           retention-days: 7
