@@ -20,7 +20,8 @@
     "test:security": "playwright test --grep @security",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:install": "playwright install chromium",
-    "test:crawl": "playwright test tests/e2e/crawl.spec.ts"
+    "test:crawl": "playwright test tests/e2e/crawl.spec.ts",
+    "test:ui": "playwright test --grep @ui"
   },
   "overrides": {
     "minimatch": "^9.0.6",
