@@ -26,15 +26,33 @@ export function discoverDictionaryFileCodes(readDirectory = readdirSync) {
 
 const localEnvContent = readLocalEnvContent();
 const localLanguageSetting = localEnvContent.match(/^\s*MOCK_ACTIVE_LANGUAGES\s*=\s*(.*?)\s*$/m)?.[1];
-const configuredLanguageCodes = (process.env.MOCK_ACTIVE_LANGUAGES || localLanguageSetting || 'fa,en,ar,ru,zh')
-  .split(',').map((code) => code.trim()).filter((code) => languageCodePattern.test(code));
+
+export function resolveConfiguredLanguageCodes(
+  processSetting = process.env.MOCK_ACTIVE_LANGUAGES,
+  localSetting = localLanguageSetting,
+) {
+  return (processSetting || localSetting || 'fa,en,ar,ru,zh')
+    .split(',')
+    .map((code) => code.trim())
+    .filter((code) => languageCodePattern.test(code));
+}
+
+export function resolveLanguageName(code: string) {
+  return languageNames[code] || code;
+}
+
+export function resolveDictionary(code: string) {
+  return dictionaries[code] || fallbackDictionary;
+}
+
+const configuredLanguageCodes = resolveConfiguredLanguageCodes();
 const dictionaryFileCodes = discoverDictionaryFileCodes();
 const activeLanguageCodes = [...new Set([...configuredLanguageCodes, ...dictionaryFileCodes])];
 const languages = activeLanguageCodes.map((code) => ({
   code,
   direction: rtlLanguageCodes.has(code.split('-')[0].toLowerCase()) ? 'rtl' : 'ltr',
   file_url: `https://rgb.irpsc.com/lang/${code}.json`,
-  name: languageNames[code] || code,
+  name: resolveLanguageName(code),
 }));
 const fallbackDictionary: Record<string, string> = {
   1457: 'Metaverse Rang',
@@ -112,7 +130,7 @@ export const handlers = [
     if (!language || !activeLanguageCodes.includes(language)) {
       return HttpResponse.json({ message: 'Dictionary not found.' }, { status: 404 });
     }
-    return HttpResponse.json(dictionaries[language] || fallbackDictionary);
+    return HttpResponse.json(resolveDictionary(language));
   }),
 
   // Match API paths independently of host so tests can use loopback-only URLs.
