@@ -226,7 +226,7 @@ export const handlers = [
     return HttpResponse.json({ data: [{ id: 401, type }] });
   }),
 
-  http.get(/\/api\/calendar\/[^/]+$/, ({ request }) => {
+  http.get(/\/api\/calendar\/\d+$/, ({ request }) => {
     const id = Number(pathParts(request).at(-1));
     return HttpResponse.json({
       data: {
