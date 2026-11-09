@@ -1,18 +1,66 @@
-# Phase 1 — MSW baseline
+# Phase 1 — MSW and scoped API coverage
 
 ## Implemented
 
-- MSW Node server is started only by the Vitest setup file. It is not imported by application runtime code and does not alter production requests.
-- The first fixtures model the translation endpoints observed in `src/components/utils/actions.js`:
-  - `GET {ADMIN_API_BASE_URL}/api/translations?active=true`
-  - `GET {file_url}` for language dictionary JSON files.
-- The language fixture includes `fa`, `en`, and `ar` to verify that tests do not assume the API language list is limited to two values.
-- The handler tests verify successful responses and a controlled 400 response.
+- MSW Node server is started by the Vitest setup and is not imported by production application runtime code.
+- `src/test/mocks/handlers.ts` contains handlers for the agreed frontend Go API inventory.
+- `src/test/mocks/go-api-contract.test.ts` defines 44 endpoint contracts (A1–A5, C1–C5, T1–T14, R1–R4, L1–L3, U1–U13).
+- Every contract is exercised in two scenarios:
+  - successful local mock response;
+  - deterministic backend failure response (HTTP 503).
+- The contract suite therefore contains 88 endpoint scenarios: 44 success + 44 failure.
+- The latest recorded CI run passed the 44 success and 44 failure contract cases as part of the unit suite.
 
-## Important limitations
+## Coverage definition for Issue #125
 
-- This is an initial MSW integration check, not the complete API mock inventory.
-- The current handlers intentionally cover only translation requests. Do not interpret this as complete endpoint coverage.
-- MSW Node intercepts requests made in the Vitest process. It does not automatically intercept requests made by a separately spawned Next.js server or build process.
-- Playwright E2E requires a separate strategy for server-side Next.js requests (for example, a local mock API service configured through test-only environment variables). Browser-only `page.route()` interception is not sufficient for those requests.
-- No application layout, production API helper, cache policy, retry policy, or production environment variable has been changed.
+Coverage is scoped to the approved Phase 1 deliverables. It is **not** the percentage of all application source code.
+
+| Scope | Measurement | Latest verified result |
+|---|---|---:|
+| Frontend Go API inventory | Contract entries mapped to MSW handlers | 44/44 (100%) |
+| API success behavior | Successful mock response per endpoint | 44/44 (100%) |
+| API failure behavior | Deterministic 503 response per endpoint | 44/44 (100%) |
+| API contract scenarios | Success + failure cases | 88/88 passed |
+| Static/dynamic crawl manifest | Unique route patterns | 47/47 |
+| Crawl attempts | 47 routes × 2 active locales (fa, en) | 94/94 attempted |
+| Crawl page checks | Successful pages in the latest recorded run | 86/94 (91.5%) |
+| Unit suite | Passed tests in latest recorded run | 208 |
+| Integration suite | Passed tests in latest recorded run | 34 |
+| UI smoke suite | Passed cases in latest recorded run | 32 |
+| Contact form suite | Passed cases in latest recorded run | 1 |
+| Security smoke suite | Passed cases in latest recorded run | 1 |
+| Production build | Isolated mock-environment build | Passed |
+
+The crawl attempted every route/localization pair. Eight page checks failed on existing SEO metadata assertions (title/description length or presence); those application metadata defects are reported, not silently waived or changed by this Phase 1 work.
+
+## Scoped V8 code coverage
+
+Vitest V8 coverage is configured to include only `src/test/mocks/handlers.ts`, the MSW handler implementation under test. It no longer includes all `src/**/*.{ts,tsx}` application source files.
+
+This percentage is reported separately from endpoint coverage:
+- API contract coverage answers whether each of the 44 agreed endpoints has a working mock and success/failure contract tests.
+- Scoped V8 coverage measures executed statements, branches, functions, and lines inside the MSW handler implementation only.
+- Playwright route, UI, form, build, and security checks are reported as behavioral test results; they are not added to a misleading whole-project line-coverage denominator.
+
+The scoped V8 percentage must be taken from the CI run generated after this configuration change. Do not substitute the previous whole-project coverage percentage.
+
+## Known remaining scope gaps
+
+- The isolated mock API currently advertises only `fa` and `en`; its dictionary path map is hardcoded for those two locales. The crawl discovers languages from the API response, but the mock source does not yet prove automatic support for arbitrary future language codes such as `ar`, `ru`, and `zh`.
+- The MSW translation fixture separately lists `fa`, `en`, and `ar`, but that does not establish arbitrary dynamic-language support.
+- The 47-route crawl manifest is explicit. It currently attempts all 47 listed patterns; it does not prove that every public App Router route in the repository has been discovered.
+- Eight crawl assertions remain failing in the latest recorded run. Do not change production SEO metadata under this coverage-only correction.
+
+## Test commands
+
+```bash
+npm run test:unit
+npm run test:integration
+npm run test:coverage
+npm run build
+npm run test:e2e:core
+npm run test:ui
+npm run test:forms
+npm run test:seo
+npm run test:security
+```
