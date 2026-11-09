@@ -9,7 +9,6 @@ const translationAdminApiURL = process.env.PLAYWRIGHT_MOCK_API_URL || "http://12
 const staticPublicRoutes = [
   "/",
   "/about",
-  "/admin",
   "/articles",
   "/articles/categories",
   "/calendar",
@@ -20,7 +19,6 @@ const staticPublicRoutes = [
   "/enamad",
   "/levels/citizen",
   "/news",
-  "/news/admin",
   "/news/categories",
   "/rand-id/hm",
   "/whitepaper",
@@ -180,7 +178,7 @@ test.describe("public static route browser crawl @seo", () => {
 
     const { languages, failures } = await getApiLanguages(request);
     const uniqueRouteCount = new Set(publicRoutes.map(({ path }) => path)).size;
-    expect(uniqueRouteCount, "the crawl inventory must cover all 49 documented route patterns").toBe(49);
+    expect(uniqueRouteCount, "the crawl inventory must cover all 47 documented route patterns").toBe(47);
     if (uniqueRouteCount !== publicRoutes.length) {
       failures.push({
         locale: "all",
