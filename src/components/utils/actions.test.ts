@@ -62,7 +62,17 @@ describe('translation data actions', () => {
   it('returns the active language list from the admin API', async () => {
     const languages = await translationActions.getLangArray();
 
-    expect(languages.map((language: { code: string }) => language.code)).toEqual(['fa', 'en', 'ar']);
+    const codes = languages.map((language: { code: string }) => language.code);
+
+    // The isolated API mock intentionally exposes the configured dynamic locale
+    // set (fa/en/ar/ru/zh plus any dictionaries discovered in public/lang).
+    // Assert the required baseline without freezing the list to three locales.
+    expect(codes).toEqual(expect.arrayContaining(['fa', 'en', 'ar', 'ru', 'zh']));
+    expect(new Set(codes).size).toBe(codes.length);
+    expect(languages.find((language: { code: string }) => language.code === 'ar'))
+      .toMatchObject({ direction: 'rtl', file_url: expect.stringContaining('/ar.json') });
+    expect(languages.find((language: { code: string }) => language.code === 'ru'))
+      .toMatchObject({ direction: 'ltr', file_url: expect.stringContaining('/ru.json') });
   });
 
   it('uses bundled fa/en languages when the language endpoint responds with an HTTP error', async () => {
