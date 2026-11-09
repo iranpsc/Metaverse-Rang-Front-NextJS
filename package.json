@@ -23,6 +23,7 @@
     "test:e2e:install": "playwright install chromium",
     "test:crawl": "playwright test tests/e2e/crawl.spec.ts",
     "test:ui": "playwright test --grep @ui",
+    "test:forms": "playwright test --grep @forms",
     "test:forms": "playwright test --grep @forms"
   },
   "overrides": {
