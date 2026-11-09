@@ -455,8 +455,8 @@ test.describe("public static route browser crawl @seo", () => {
     };
 
     const summaryJson = JSON.stringify(summary, null, 2);
-    mkdirSync("test-results", { recursive: true });
-    writeFileSync("test-results/static-crawl-summary.json", summaryJson, "utf8");
+    mkdirSync("phase-1-results", { recursive: true });
+    writeFileSync("phase-1-results/static-crawl-summary.json", summaryJson, "utf8");
     await test.info().attach("static-crawl-summary.json", {
       body: summaryJson,
       contentType: "application/json",
