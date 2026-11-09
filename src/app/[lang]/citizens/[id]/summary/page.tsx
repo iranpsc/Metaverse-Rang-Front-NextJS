@@ -8,6 +8,7 @@ import FeaturesSummary from "./FeaturesSummary";
 import FeaturesMap from "./FeaturesMap";
 
 import {
+  getTranslation,
   getMainFile,
   getLangArray,
   getUserData,
@@ -22,11 +23,6 @@ import InviteBox from "@/components/templates/referral/invite-box";
 /* ------------------------------------------------------------------ */
 /*                                TYPES                               */
 /* ------------------------------------------------------------------ */
-type LanguageData = {
-  code: string;
-  [key: string]: any;
-};
-
 interface CitizenFeaturesSummaryProps {
   params: Promise<{
     lang: string;
@@ -45,13 +41,10 @@ export default async function CitizenFeaturesSummary({
 
   try {
     /* --------------------------- base data --------------------------- */
-    // Resolve active language metadata and citizen data concurrently.
-    // Both fa and en, like every added language, are sourced from the Admin API.
-    const [langArray, profileData] = await Promise.all([
-      getLangArray(),
-      getUserData(id, 5000),
+    const [langData, profileData] = await Promise.all([
+      getTranslation(lang),
+      getUserData(id),
     ]);
-    const langData = langArray.find((item: LanguageData) => item.code === lang) || null;
 
     /* ------------------------ build sidebar -------------------------- */
     function buildUpdatedTabsMenu(mainData: any) {
@@ -60,7 +53,10 @@ export default async function CitizenFeaturesSummary({
 
     /* ---------------------------- not found -------------------------- */
     if (!profileData?.data) {
-      const mainData = await getMainFile(langData);
+      const [mainData, langArray] = await Promise.all([
+        getMainFile(langData),
+        getLangArray(),
+      ]);
 
       return (
         <NotFoundPage
@@ -74,7 +70,10 @@ export default async function CitizenFeaturesSummary({
     }
 
     /* ------------------------- page data ----------------------------- */
-    const mainData = await getMainFile(langData);
+    const [mainData, langArray] = await Promise.all([
+      getMainFile(langData),
+      getLangArray(),
+    ]);
 
     const updatedTabsMenu = buildUpdatedTabsMenu(mainData);
     const sidebarLabels = buildSidebarLabels(mainData);
@@ -217,14 +216,11 @@ export async function generateMetadata({
   // Citizen data and language metadata are independent; fetch them together
   // so metadata generation does not wait for sequential network round trips.
   try {
-    // Resolve active language metadata from the Admin API for every locale.
-    // Fetch citizen data concurrently; load its dictionary once the active
-    // language record (and its file_url) is known.
-    const [langArray, profileData] = await Promise.all([
-      getLangArray(),
-      getUserData(id, 5000),
+    const [langData, profileData] = await Promise.all([
+      getTranslation(lang),
+      getUserData(id),
     ]);
-    const langData = langArray.find((item: LanguageData) => item.code === lang) || null;
+
     const mainData = await getMainFile(langData);
 
     if (!profileData?.data) {
