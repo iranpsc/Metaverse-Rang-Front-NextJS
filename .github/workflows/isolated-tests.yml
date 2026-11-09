@@ -62,6 +62,9 @@ jobs:
       - name: Run integration tests
         run: npm run test:integration
 
+      - name: Install the matching Vitest V8 coverage provider
+        run: npm install --no-save --package-lock=false @vitest/coverage-v8@4.1.12
+
       - name: Generate application code coverage report
         run: npm run test:coverage
 
