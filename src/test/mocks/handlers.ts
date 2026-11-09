@@ -83,8 +83,8 @@ export const handlers = [
     return HttpResponse.json({ data: languages });
   }),
 
-  http.get(/\\/lang\\/([A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*)\\.json$/, ({ request }) => {
-    const language = new URL(request.url).pathname.match(/\\/([A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*)\\.json$/)?.[1];
+  http.get(/\/lang\/([A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*)\.json$/, ({ request }) => {
+    const language = new URL(request.url).pathname.match(/\/([A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*)\.json$/)?.[1];
     if (!language || !activeLanguageCodes.includes(language)) {
       return HttpResponse.json({ message: 'Dictionary not found.' }, { status: 404 });
     }
