@@ -1,3 +1,4 @@
+import { mkdirSync, writeFileSync } from "node:fs";
 import { expect, test } from "@playwright/test";
 
 const translationAdminApiURL = process.env.PLAYWRIGHT_MOCK_API_URL || "http://127.0.0.1:9999";
@@ -340,19 +341,36 @@ test.describe("public static route browser crawl @seo", () => {
           // Check the shared page shell with bounded waits. textContent avoids
           // forcing a full layout pass for pages containing large maps/charts.
           await main.waitFor({ state: "visible", timeout: 10_000 });
-          const mainText = (await main.evaluate((element) => element.textContent || "")).trim();
+          let mainText = "";
+          await expect
+            .poll(
+              async () => {
+                mainText = (await main.evaluate((element) => element.textContent || "")).trim();
+                return mainText;
+              },
+              {
+                timeout: 10_000,
+                message: `${routeUrl} must finish rendering non-empty main content`,
+              },
+            )
+            .not.toBe("");
 
           // Dynamic generateMetadata() may finish after DOMContentLoaded and
           // after the page shell becomes visible. Wait for the actual title
           // instead of reporting a false failure from an early read.
+          let title = "";
           await expect
-            .poll(() => page.title(), {
-              timeout: 15_000,
-              message: `${routeUrl} must finish generating its document title`,
-            })
+            .poll(
+              async () => {
+                title = (await page.title()).trim();
+                return title;
+              },
+              {
+                timeout: 15_000,
+                message: `${routeUrl} must finish generating its document title`,
+              },
+            )
             .not.toBe("");
-
-          const title = (await page.title()).trim();
           pageResult.title = title;
           const descriptionLocator = page.locator('meta[name="description"]');
           const description = (await descriptionLocator.count()) > 0
@@ -436,8 +454,11 @@ test.describe("public static route browser crawl @seo", () => {
       translationFiles: languages.map(({ code, file_url }) => ({ code, file_url })),
     };
 
+    const summaryJson = JSON.stringify(summary, null, 2);
+    mkdirSync("test-results", { recursive: true });
+    writeFileSync("test-results/static-crawl-summary.json", summaryJson, "utf8");
     await test.info().attach("static-crawl-summary.json", {
-      body: JSON.stringify(summary, null, 2),
+      body: summaryJson,
       contentType: "application/json",
     });
 
