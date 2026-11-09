@@ -82,9 +82,9 @@ jobs:
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
 
-      - name: Run full end-to-end suite
+      - name: Run untagged end-to-end tests
         id: test-e2e
-        run: npm run test:e2e
+        run: npm run test:e2e:core
         continue-on-error: true
 
       - name: Run dedicated UI and form tests
