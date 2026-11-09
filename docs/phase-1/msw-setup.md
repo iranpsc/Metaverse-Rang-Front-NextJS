@@ -4,7 +4,7 @@
 
 - MSW Node server is started by the Vitest setup and is not imported by production application runtime code.
 - `src/test/mocks/handlers.ts` contains handlers for the agreed frontend Go API inventory.
-- `src/test/mocks/go-api-contract.test.ts` defines 44 endpoint contracts (A1–A5, C1–C5, T1–T14, R1–R4, L1–L3, U1–U13).
+- `src/test/mocks/go-api-contract.test.ts` defines 44 endpoint contracts (A1–A5, C1–C5, T1–T14, R1–R4, L1–L3, U1–U13). The complete method/path table is maintained in [api-contract-inventory.md](./api-contract-inventory.md).
 - Every contract is exercised in two scenarios:
   - successful local mock response;
   - deterministic backend failure response (HTTP 503).
@@ -22,16 +22,16 @@ Coverage is scoped to the approved Phase 1 deliverables. It is **not** the perce
 | API failure behavior | Deterministic 503 response per endpoint | 44/44 (100%) |
 | API contract scenarios | Success + failure cases | 88/88 passed |
 | Static/dynamic crawl manifest | Unique route patterns | 47/47 |
-| Crawl attempts | 47 routes × 5 default active locales (fa, en, ar, ru, zh) | 235 expected; CI validation pending |
-| Crawl page checks | Latest run after dynamic-locale change | Pending CI validation |
-| Unit suite | Passed tests in latest recorded run | 208 |
-| Integration suite | Passed tests in latest recorded run | 34 |
-| UI smoke suite | Passed cases in latest recorded run | 32 |
-| Contact form suite | Passed cases in latest recorded run | 1 |
-| Security smoke suite | Passed cases in latest recorded run | 1 |
+| Crawl attempts | 47 routes × 5 active locales (fa, en, ar, ru, zh) | 235/235 attempted |
+| Crawl page checks | Latest verified run (workflow 42641825011) | 212 passed / 23 failed |
+| Unit suite | Passed tests in latest verified run | Passed (see workflow summary) |
+| Integration suite | Latest verified run | Passed (see workflow summary) |
+| UI smoke suite | Latest verified run | Passed |
+| Contact form suite | Latest verified run | 1 passed |
+| Security smoke suite | Latest verified run | 1 passed |
 | Production build | Isolated mock-environment build | Passed |
 
-The crawl attempted every route/localization pair. Eight page checks failed on existing SEO metadata assertions (title/description length or presence); those application metadata defects are reported, not silently waived or changed by this Phase 1 work.
+The latest five-locale crawl attempted all 235 route/locale combinations: 212 passed and 23 failed. All 23 failures are existing title/description length assertions across the fa, en, ar, ru, and zh pages. These are reported rather than waived; changing production SEO metadata is outside the agreed Phase 1 scope.
 
 ## Scoped V8 code coverage
 
@@ -42,7 +42,7 @@ This percentage is reported separately from endpoint coverage:
 - Scoped V8 coverage measures executed statements, branches, functions, and lines inside the MSW handler implementation only.
 - Playwright route, UI, form, build, and security checks are reported as behavioral test results; they are not added to a misleading whole-project line-coverage denominator.
 
-The scoped V8 percentage must be taken from the CI run generated after this configuration change. Do not substitute the previous whole-project coverage percentage.
+Latest verified workflow 42641825011 (commit `061a3c2`) reports 100% for all four metrics: statements 106/106, branches 23/23, functions 58/58, and lines 104/104. These thresholds are enforced by Vitest. This result applies only to `src/test/mocks/handlers.ts`, not the whole application.
 
 ## Known remaining scope gaps
 
@@ -51,7 +51,8 @@ The scoped V8 percentage must be taken from the CI run generated after this conf
 - MSW uses the same configurable locale list and a generic dictionary route. Tests cover `fa`, `en`, `ar`, `ru`, and `zh`, including direction metadata and rejection of inactive locales.
 - To simulate a newly activated language, add its code to `MOCK_ACTIVE_LANGUAGES`; adding `public/lang/<code>.json` also makes that dictionary discoverable automatically.
 - The 47-route crawl manifest is explicit. It currently attempts all 47 listed patterns; it does not prove that every public App Router route in the repository has been discovered.
-- The previous two-locale baseline had eight SEO metadata assertion failures. The five-locale crawl must be rerun before publishing a new pass/fail count; do not change production SEO metadata under this locale-support change.
+- The 47-route crawl manifest is explicit and is not a guarantee that every public App Router route has been discovered.
+- The current SEO suite is red because of 23 existing metadata length assertions. Production metadata was intentionally left unchanged because SEO metadata remediation is outside this test-infrastructure scope.
 
 ## Test commands
 
