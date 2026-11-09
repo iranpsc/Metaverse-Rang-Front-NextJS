@@ -57,15 +57,18 @@ jobs:
           test -s .env.local
 
       - name: Run unit tests
+        id: test-unit
         run: npm run test:unit
 
       - name: Run integration tests
+        id: test-integration
         run: npm run test:integration
 
       - name: Install the matching Vitest V8 coverage provider
         run: npm install --no-save @vitest/coverage-v8@4.1.12
 
       - name: Generate Phase 1 MSW handler coverage report
+        id: test-coverage
         run: npm run test:coverage
 
       - name: Verify and summarize scoped MSW handler coverage
@@ -89,9 +92,11 @@ jobs:
           exit 1
 
       - name: Verify production build with mock environment
+        id: build
         run: npm run build
 
       - name: Install Playwright Chromium
+        id: playwright-install
         run: npx playwright install --with-deps chromium
 
       - name: Run untagged end-to-end tests
@@ -100,20 +105,40 @@ jobs:
         continue-on-error: true
 
       - name: Run dedicated page UI tests
+        id: test-ui
         if: success()
         run: npm run test:ui
 
       - name: Run dedicated contact form tests
+        id: test-forms
         if: success()
         run: npm run test:forms
 
       - name: Run dedicated SEO tests
+        id: test-seo
         if: success()
         run: npm run test:seo
 
       - name: Run dedicated security tests
-        if: success()
+        id: test-security
+        # SEO/UI/form failures must not suppress the independent security suite.
+        # Run only after build and browser installation are available.
+        if: always() && steps.build.outcome == 'success' && steps.playwright-install.outcome == 'success'
         run: npm run test:security
+
+      - name: Write Phase 1 GitHub Actions summary
+        if: always()
+        env:
+          UNIT_STATUS: ${{ steps.test-unit.outcome || 'skipped' }}
+          INTEGRATION_STATUS: ${{ steps.test-integration.outcome || 'skipped' }}
+          COVERAGE_STATUS: ${{ steps.test-coverage.outcome || 'skipped' }}
+          BUILD_STATUS: ${{ steps.build.outcome || 'skipped' }}
+          E2E_STATUS: ${{ steps.test-e2e.outcome || 'skipped' }}
+          UI_STATUS: ${{ steps.test-ui.outcome || 'skipped' }}
+          FORMS_STATUS: ${{ steps.test-forms.outcome || 'skipped' }}
+          SEO_STATUS: ${{ steps.test-seo.outcome || 'skipped' }}
+          SECURITY_STATUS: ${{ steps.test-security.outcome || 'skipped' }}
+        run: node scripts/write-phase-1-summary.mjs
 
       - name: Fail workflow if any test suite failed
         if: always()
