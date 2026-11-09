@@ -1,29 +1,32 @@
 import { describe, expect, it } from 'vitest';
 
 describe('MSW API fixtures', () => {
-  it('mocks the active language list, including API-provided languages', async () => {
-    const response = await fetch(
-      'https://dev-admin.metarang.com/api/translations?active=true',
-    );
-
+  it('discovers configured active locales and serves dictionaries through one generic route', async () => {
+    const response = await fetch('https://dev-admin.metarang.com/api/translations?active=true');
     expect(response.status).toBe(200);
-
     const body = await response.json();
+    const languageCodes = body.data.map((language: { code: string }) => language.code);
+    expect(languageCodes).toEqual(['fa', 'en', 'ar', 'ru', 'zh']);
 
-    expect(body.data.map((language: { code: string }) => language.code)).toEqual([
-      'fa',
-      'en',
-      'ar',
-    ]);
+    for (const code of languageCodes) {
+      const language = body.data.find((item: { code: string }) => item.code === code);
+      expect(language.file_url).toBe(`https://rgb.irpsc.com/lang/${code}.json`);
+      expect(language.direction).toBe(['fa', 'ar'].includes(code) ? 'rtl' : 'ltr');
+      const dictionaryResponse = await fetch(language.file_url);
+      expect(dictionaryResponse.status, `dictionary for ${code}`).toBe(200);
+      await expect(dictionaryResponse.json()).resolves.toHaveProperty('1457');
+    }
   });
 
-  it('mocks the language dictionary file_url used by getMainFile', async () => {
-    const response = await fetch('https://rgb.irpsc.com/lang/ar.json');
-
+  it('serves future locale dictionaries without adding a locale-specific handler', async () => {
+    const response = await fetch('https://rgb.irpsc.com/lang/zh.json');
     expect(response.status).toBe(200);
-    await expect(response.json()).resolves.toMatchObject({
-      1457: 'ميتافيرس رنگ',
-    });
+    await expect(response.json()).resolves.toMatchObject({ 1457: 'Metaverse Rang' });
+  });
+
+  it('rejects dictionaries for locales that are not active', async () => {
+    const response = await fetch('https://rgb.irpsc.com/lang/xx.json');
+    expect(response.status).toBe(404);
   });
 
   it('mocks every API endpoint consumed by the dynamic citizen routes', async () => {
