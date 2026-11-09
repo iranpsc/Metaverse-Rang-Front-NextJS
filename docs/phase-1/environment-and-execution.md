@@ -28,7 +28,7 @@ The CI workflow creates `.env.local` from `.env.example` and overrides service e
 | `NEXT_PUBLIC_SUPABASE_URL` | Browser-visible, CI-only override | CI uses loopback; Supabase functional behavior is excluded from Phase 1. |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Browser-visible, CI-only mock override | Non-production placeholder used to keep the isolated build deterministic. |
 
-The first fourteen entries are represented in `.env.example`. The last two are explicit CI environment overrides. This table is the Phase 1 isolated-test variable inventory, not a claim that every runtime variable used by every deployment has been exhaustively audited.
+The first fifteen entries are represented in `.env.example`. The last two are explicit CI environment overrides. This table is the Phase 1 isolated-test variable inventory, not a claim that every runtime variable used by every deployment has been exhaustively audited.
 
 ## Locale configuration
 
