@@ -161,6 +161,7 @@ jobs:
           name: playwright-report
           path: |
             playwright-report/
-            test-results/\n            phase-1-results/
+            test-results/
+            phase-1-results/
           if-no-files-found: ignore
           retention-days: 7
