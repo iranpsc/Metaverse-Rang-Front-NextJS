@@ -68,6 +68,12 @@ jobs:
       - name: Generate application code coverage report
         run: npm run test:coverage
 
+      - name: Verify and summarize code coverage
+        run: |
+          test -s coverage/coverage-summary.json
+          test -s coverage/index.html
+          node -e "const t=require('./coverage/coverage-summary.json').total; for (const k of ['statements','branches','functions','lines']) console.log(k + ': ' + t[k].covered + '/' + t[k].total + ' (' + t[k].pct + '%)')"
+
       - name: Start translation and application API mock
         run: |
           node scripts/mock-api-server.mjs > /tmp/metarang-mock-api.log 2>&1 &
