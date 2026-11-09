@@ -270,7 +270,7 @@ const server = http.createServer(async (request, response) => {
     return json(response, 200, { data: translationLanguages });
   }
 
-  const dictionaryMatch = url.pathname.match(/^\\/lang\\/(fa|en)\\.json$/);
+  const dictionaryMatch = url.pathname.match(/^\/lang\/(fa|en)\.json$/);
   if (dictionaryMatch) {
     try {
       const dictionary = await readFile(dictionaryPaths[dictionaryMatch[1]], "utf8");
