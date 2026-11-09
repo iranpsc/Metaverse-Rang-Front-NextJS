@@ -10,7 +10,7 @@ const rtlLanguageCodes = new Set(["ar", "fa", "he", "ps", "ur"]);
 const languageNames = { ar: "العربية", en: "English", fa: "فارسی", ru: "Русский", zh: "中文" };
 const dictionaryDirectory = join(process.cwd(), "public", "lang");
 const localEnvContent = await readFile(join(process.cwd(), ".env.local"), "utf8").catch(() => "");
-const localLanguageSetting = localEnvContent.match(/^\\s*MOCK_ACTIVE_LANGUAGES\\s*=\\s*(.*?)\\s*$/m)?.[1];
+const localLanguageSetting = localEnvContent.match(/^\s*MOCK_ACTIVE_LANGUAGES\s*=\s*(.*?)\s*$/m)?.[1];
 const configuredLanguageCodes = (process.env.MOCK_ACTIVE_LANGUAGES || localLanguageSetting || "fa,en,ar,ru,zh")
   .split(",").map((code) => code.trim()).filter((code) => languageCodePattern.test(code));
 let dictionaryFileCodes = [];
@@ -318,7 +318,7 @@ const server = http.createServer(async (request, response) => {
     return json(response, 200, { data: translationLanguages });
   }
 
-  const dictionaryMatch = url.pathname.match(/^\\/lang\\/([A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*)\\.json$/);
+  const dictionaryMatch = url.pathname.match(/^\/lang\/([A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*)\.json$/);
   if (dictionaryMatch) {
     const languageCode = dictionaryMatch[1];
     if (!activeLanguageCodes.includes(languageCode)) {
