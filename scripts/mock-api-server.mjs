@@ -1,60 +1,28 @@
 import http from "node:http";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 
 const host = "127.0.0.1";
 const port = Number(process.env.MOCK_API_PORT || 9999);
-const translationApiUrl =
-  process.env.PLAYWRIGHT_TRANSLATION_API_URL ||
-  "https://dev-admin.metarang.com/api/translations?active=true";
+const translationLanguages = [
+  {
+    code: "fa",
+    direction: "rtl",
+    file_url: `http://${host}:${port}/lang/fa.json`,
+    name: "فارسی",
+  },
+  {
+    code: "en",
+    direction: "ltr",
+    file_url: `http://${host}:${port}/lang/en.json`,
+    name: "English",
+  },
+];
 
-const TRANSLATION_CACHE_TTL_MS = 24 * 60 * 60 * 1000;
-const TRANSLATION_RETRY_COOLDOWN_MS = 60 * 1000;
-let translationCache = null;
-let translationCacheExpiresAt = 0;
-let translationRequestPending = null;
-
-async function getTranslationMetadata() {
-  if (translationCache && translationCacheExpiresAt > Date.now()) {
-    return { status: 200, body: translationCache, cached: true };
-  }
-
-  if (translationRequestPending) return translationRequestPending;
-
-  translationRequestPending = (async () => {
-    try {
-      const upstreamUrl = new URL(translationApiUrl);
-      upstreamUrl.searchParams.set("active", "true");
-      const upstreamResponse = await fetch(upstreamUrl, {
-        headers: { Accept: "application/json" },
-        signal: AbortSignal.timeout(9_000),
-      });
-      const body = await upstreamResponse.text();
-
-      if (upstreamResponse.ok) {
-        translationCache = body;
-        translationCacheExpiresAt = Date.now() + TRANSLATION_CACHE_TTL_MS;
-        return { status: upstreamResponse.status, body, cached: false };
-      }
-
-      // Keep the last successful language list when the upstream is rate-limited.
-      if (translationCache) {
-        translationCacheExpiresAt = Date.now() + TRANSLATION_RETRY_COOLDOWN_MS;
-        return { status: 200, body: translationCache, cached: true };
-      }
-
-      return { status: upstreamResponse.status, body, cached: false };
-    } catch (error) {
-      if (translationCache) {
-        translationCacheExpiresAt = Date.now() + TRANSLATION_RETRY_COOLDOWN_MS;
-        return { status: 200, body: translationCache, cached: true };
-      }
-      throw error;
-    } finally {
-      translationRequestPending = null;
-    }
-  })();
-
-  return translationRequestPending;
-}
+const dictionaryPaths = {
+  fa: join(process.cwd(), "public", "lang", "fa.json"),
+  en: join(process.cwd(), "public", "lang", "en.json"),
+};
 
 const videoFixture = {
   id: 1,
@@ -292,24 +260,28 @@ const server = http.createServer(async (request, response) => {
     return response.end("ok");
   }
 
-  // Translation metadata is the only Admin API request allowed to reach
-  // the real Dev backend. Every other Admin/API endpoint stays on fixtures.
+  // Translation metadata and dictionaries are served from repository fixtures.
+  // The isolated E2E environment never calls Dev Admin or any external service.
   if (url.pathname === "/api/translations") {
     if (request.method !== "GET" || url.searchParams.get("active") !== "true") {
       return json(response, 400, { message: "GET with active=true is required" });
     }
 
+    return json(response, 200, { data: translationLanguages });
+  }
+
+  const dictionaryMatch = url.pathname.match(/^\\/lang\\/(fa|en)\\.json$/);
+  if (dictionaryMatch) {
     try {
-      const result = await getTranslationMetadata();
-      response.writeHead(result.status, {
+      const dictionary = await readFile(dictionaryPaths[dictionaryMatch[1]], "utf8");
+      response.writeHead(200, {
         "content-type": "application/json; charset=utf-8",
-        "cache-control": "public, s-maxage=86400, stale-while-revalidate=604800",
-        "x-translation-cache": result.cached ? "HIT" : "MISS",
+        "cache-control": "public, max-age=86400",
       });
-      return response.end(result.body);
+      return response.end(dictionary);
     } catch (error) {
-      return json(response, 502, {
-        message: "Dev translations API is unavailable",
+      return json(response, 500, {
+        message: "Local translation dictionary could not be read",
         error: error instanceof Error ? error.message : String(error),
       });
     }
