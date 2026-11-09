@@ -3,6 +3,14 @@ import { defineConfig, devices } from "@playwright/test";
 const baseURL = process.env.PLAYWRIGHT_BASE_URL || "http://127.0.0.1:5175";
 const mockApiURL = process.env.PLAYWRIGHT_MOCK_API_URL || "http://127.0.0.1:9999";
 
+// Playwright requires webServer.env to contain strings only. Node's
+// process.env typing permits undefined values, so filter them once here.
+const inheritedEnv: Record<string, string> = Object.fromEntries(
+  Object.entries(process.env).filter(
+    (entry): entry is [string, string] => entry[1] !== undefined,
+  ),
+);
+
 export default defineConfig({
   testDir: "./tests/e2e",
   fullyParallel: true,
@@ -35,7 +43,7 @@ export default defineConfig({
         reuseExistingServer: Boolean(process.env.CI),
         timeout: 30_000,
         env: {
-          ...process.env,
+          ...inheritedEnv,
         },
       },
       ...(process.env.PLAYWRIGHT_BASE_URL ? [] : [{
@@ -45,7 +53,7 @@ export default defineConfig({
         reuseExistingServer: false,
         timeout: 300_000,
         env: {
-          ...process.env,
+          ...inheritedEnv,
           NODE_ENV: "production",
           PLAYWRIGHT_E2E: "true",
           // Guard server-side fetch calls: local mocks and translation dictionary
