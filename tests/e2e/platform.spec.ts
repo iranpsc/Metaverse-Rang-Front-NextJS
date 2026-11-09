@@ -22,6 +22,10 @@ test.describe("isolated mock services", () => {
     for (const language of languages.data as Array<{ code: string; file_url: string }>) {
       expect(language.code).toMatch(/^[A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*$/);
       expect(language.file_url).toBeTruthy();
+      expect(
+        new URL(language.file_url).origin,
+        "Translation dictionaries must be served by the local mock API",
+      ).toBe(mockApiURL);
 
       const dictionaryResponse = await request.get(language.file_url);
       expect(
@@ -41,7 +45,10 @@ test.describe("isolated mock services", () => {
       const response = await request.get(`${mockApiURL}/rest/v1/${table}?select=*&limit=1`);
 
       expect(response.status()).toBe(200);
-      expect(await response.json()).toEqual([]);
+      const records = await response.json();
+      expect(Array.isArray(records)).toBe(true);
+      expect(records).toHaveLength(1);
+      expect(records[0]).toMatchObject({ id: 1 });
     }
   });
 });
