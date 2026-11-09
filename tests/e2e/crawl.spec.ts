@@ -9,6 +9,7 @@ const translationAdminApiURL = process.env.PLAYWRIGHT_MOCK_API_URL || "http://12
 const staticPublicRoutes = [
   "/",
   "/about",
+  "/admin",
   "/articles",
   "/articles/categories",
   "/calendar",
@@ -19,6 +20,7 @@ const staticPublicRoutes = [
   "/enamad",
   "/levels/citizen",
   "/news",
+  "/news/admin",
   "/news/categories",
   "/rand-id/hm",
   "/whitepaper",
@@ -42,6 +44,22 @@ const dynamicPublicRoutes = [
   "/education/category/general/basics",
   "/education/category/general/basics/1",
   "/levels/citizen/citizen-baguette/general-info",
+  "/levels/citizen/reporter-baguette/general-info",
+  "/levels/citizen/participation-baguette/general-info",
+  "/levels/citizen/developer-baguette/general-info",
+  "/levels/citizen/inspector-baguette/general-info",
+  "/levels/citizen/businessman-baguette/general-info",
+  "/levels/citizen/lawyer-baguette/general-info",
+  "/levels/citizen/city-council-baguette/general-info",
+  "/levels/citizen/the-mayor-baguette/general-info",
+  "/levels/citizen/governor-baguette/general-info",
+  "/levels/citizen/minister-baguette/general-info",
+  "/levels/citizen/judge-baguette/general-info",
+  "/levels/citizen/legislator-baguette/general-info",
+  "/levels/citizen/citizen-baguette/licenses",
+  "/levels/citizen/citizen-baguette/gem",
+  "/levels/citizen/citizen-baguette/gift",
+  "/levels/citizen/citizen-baguette/prize",
   "/news/categories/general",
   "/news/categories/general/sample-news",
   "/versions",
@@ -162,6 +180,7 @@ test.describe("public static route browser crawl @seo", () => {
 
     const { languages, failures } = await getApiLanguages(request);
     const uniqueRouteCount = new Set(publicRoutes.map(({ path }) => path)).size;
+    expect(uniqueRouteCount, "the crawl inventory must cover all 49 documented route patterns").toBe(49);
     if (uniqueRouteCount !== publicRoutes.length) {
       failures.push({
         locale: "all",
