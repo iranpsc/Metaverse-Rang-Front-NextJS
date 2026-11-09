@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-test.describe("contact form UI and input validation @ui", () => {
+test.describe("contact form input validation @forms", () => {
   test("validates required fields and rejects malformed email and phone values", async ({ page }) => {
     await page.goto("/fa/contact", { waitUntil: "domcontentloaded" });
 
