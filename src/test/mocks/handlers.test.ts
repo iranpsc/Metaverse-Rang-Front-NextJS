@@ -12,7 +12,7 @@ describe('MSW API fixtures', () => {
     for (const code of languageCodes) {
       const language = body.data.find((item: { code: string }) => item.code === code);
       expect(language.file_url).toBe(`https://rgb.irpsc.com/lang/${code}.json`);
-      expect(language.direction).toBe(['fa', 'ar'].includes(code) ? 'rtl' : 'ltr');
+      expect(language.direction).toBe(['fa', 'ar', 'he', 'ps', 'ur'].includes(code.split('-')[0]) ? 'rtl' : 'ltr');
       const dictionaryResponse = await fetch(language.file_url);
       expect(dictionaryResponse.status, `dictionary for ${code}`).toBe(200);
       await expect(dictionaryResponse.json()).resolves.toHaveProperty('1457');
