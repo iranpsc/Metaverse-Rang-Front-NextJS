@@ -1,28 +1,42 @@
 import http from "node:http";
-import { readFile } from "node:fs/promises";
+import { readFile, readdir } from "node:fs/promises";
 import { join } from "node:path";
 
 const host = "127.0.0.1";
 const port = Number(process.env.MOCK_API_PORT || 9999);
-const translationLanguages = [
-  {
-    code: "fa",
-    direction: "rtl",
-    file_url: `http://${host}:${port}/lang/fa.json`,
-    name: "فارسی",
-  },
-  {
-    code: "en",
-    direction: "ltr",
-    file_url: `http://${host}:${port}/lang/en.json`,
-    name: "English",
-  },
-];
+// Discover dictionaries and merge them with configurable active mock locales.
+const languageCodePattern = /^[A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*$/;
+const rtlLanguageCodes = new Set(["ar", "fa", "he", "ps", "ur"]);
+const languageNames = { ar: "العربية", en: "English", fa: "فارسی", ru: "Русский", zh: "中文" };
+const dictionaryDirectory = join(process.cwd(), "public", "lang");
+const configuredLanguageCodes = (process.env.MOCK_ACTIVE_LANGUAGES || "fa,en,ar,ru,zh")
+  .split(",").map((code) => code.trim()).filter((code) => languageCodePattern.test(code));
+let dictionaryFileCodes = [];
+try {
+  dictionaryFileCodes = (await readdir(dictionaryDirectory))
+    .filter((file) => file.endsWith(".json"))
+    .map((file) => file.slice(0, -5))
+    .filter((code) => languageCodePattern.test(code));
+} catch {
+  // Configured locales still work through the English dictionary fallback.
+}
+const activeLanguageCodes = [...new Set([...configuredLanguageCodes, ...dictionaryFileCodes])];
+const translationLanguages = activeLanguageCodes.map((code) => ({
+  code,
+  direction: rtlLanguageCodes.has(code.split("-")[0].toLowerCase()) ? "rtl" : "ltr",
+  file_url: `http://${host}:${port}/lang/${code}.json`,
+  name: languageNames[code] || code,
+}));
 
-const dictionaryPaths = {
-  fa: join(process.cwd(), "public", "lang", "fa.json"),
-  en: join(process.cwd(), "public", "lang", "en.json"),
-};
+const englishDictionaryPath = join(dictionaryDirectory, "en.json");
+async function readLanguageDictionary(code) {
+  try {
+    return await readFile(join(dictionaryDirectory, `${code}.json`), "utf8");
+  } catch (error) {
+    if (error?.code !== "ENOENT") throw error;
+    return readFile(englishDictionaryPath, "utf8");
+  }
+}
 
 const videoFixture = {
   id: 1,
@@ -305,7 +319,7 @@ const server = http.createServer(async (request, response) => {
   const dictionaryMatch = url.pathname.match(/^\/lang\/(fa|en)\.json$/);
   if (dictionaryMatch) {
     try {
-      const dictionary = await readFile(dictionaryPaths[dictionaryMatch[1]], "utf8");
+      const dictionary = await readLanguageDictionary(dictionaryMatch[1]);
       response.writeHead(200, {
         "content-type": "application/json; charset=utf-8",
         "cache-control": "public, max-age=86400",
