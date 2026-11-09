@@ -79,6 +79,34 @@ http://localhost:5175/en
 http://localhost:5175/fa
 ```
 
+## Testing and isolated development
+
+Phase 1 test infrastructure uses Vitest, MSW, and Playwright. For the isolated setup, copy `.env.example` to `.env.local` and use mock/local credentials only; never use production secrets in tests or disposable sandboxes.
+
+Common test commands:
+
+```bash
+npm run test:unit
+npm run test:integration
+npm run test:coverage
+npm run build
+npm run test:e2e:core
+npm run test:ui
+npm run test:forms
+npm run test:seo
+npm run test:security
+```
+
+The complete setup, environment variables, and command reference are documented in [Phase 1 environment and execution](docs/phase-1/environment-and-execution.md).
+
+Phase 1 reference documents:
+- [Repository and test-infrastructure audit](docs/phase-1/initial-repository-audit.md)
+- [44-endpoint Go API contract inventory](docs/phase-1/api-contract-inventory.md)
+- [MSW setup and scoped coverage results](docs/phase-1/msw-setup.md)
+- [Jules / disposable sandbox instructions](docs/phase-1/jules-sandbox.md)
+
+Coverage percentages refer only to the MSW handler file, not the entire application. The current SEO crawl reports existing page metadata length failures; see the MSW setup report for the verified run and scope notes.
+
 ## Contribution
 
 We welcome your contributions to improve the project. To contribute to the project, follow these steps:
