@@ -2,9 +2,36 @@ import { describe, expect, it } from 'vitest';
 import {
   discoverDictionaryFileCodes,
   readLocalEnvContent,
+  resolveConfiguredLanguageCodes,
+  resolveDictionary,
+  resolveLanguageName,
 } from './handlers';
 
 describe('MSW API fixtures', () => {
+  it('covers environment language precedence and the default locale fallback', () => {
+    expect(resolveConfiguredLanguageCodes('de,es', 'fa,en')).toEqual(['de', 'es']);
+    expect(resolveConfiguredLanguageCodes('', 'fa,en')).toEqual(['fa', 'en']);
+    expect(resolveConfiguredLanguageCodes('', '')).toEqual(['fa', 'en', 'ar', 'ru', 'zh']);
+  });
+
+  it('uses configured names and falls back to the locale code for unknown names', () => {
+    expect(resolveLanguageName('fa')).toBe('فارسی');
+    expect(resolveLanguageName('de')).toBe('de');
+  });
+
+  it('uses a locale dictionary when available and the shared fixture otherwise', () => {
+    expect(resolveDictionary('fa')).toHaveProperty('1457', 'متاورس رنگ');
+    expect(resolveDictionary('de')).toHaveProperty('1457', 'Metaverse Rang');
+  });
+
+  it('defaults pagination to the first page when the page query is omitted', async () => {
+    const response = await fetch('https://dev-api.metarang.com/api/citizen/hm-123/buildings');
+    expect(response.status).toBe(200);
+    await expect(response.json()).resolves.toMatchObject({
+      meta: { current_page: 1, last_page: 1 },
+    });
+  });
+
   it('discovers configured active locales and serves dictionaries through one generic route', async () => {
     const response = await fetch('https://dev-admin.metarang.com/api/translations?active=true');
     expect(response.status).toBe(200);
