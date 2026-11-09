@@ -22,8 +22,8 @@ Coverage is scoped to the approved Phase 1 deliverables. It is **not** the perce
 | API failure behavior | Deterministic 503 response per endpoint | 44/44 (100%) |
 | API contract scenarios | Success + failure cases | 88/88 passed |
 | Static/dynamic crawl manifest | Unique route patterns | 47/47 |
-| Crawl attempts | 47 routes × active locales returned by translations API | Calculated dynamically |
-| Crawl page checks | Successful pages in the latest recorded run | 86/94 (91.5%) |
+| Crawl attempts | 47 routes × 5 default active locales (fa, en, ar, ru, zh) | 235 expected; CI validation pending |
+| Crawl page checks | Latest run after dynamic-locale change | Pending CI validation |
 | Unit suite | Passed tests in latest recorded run | 208 |
 | Integration suite | Passed tests in latest recorded run | 34 |
 | UI smoke suite | Passed cases in latest recorded run | 32 |
@@ -51,7 +51,7 @@ The scoped V8 percentage must be taken from the CI run generated after this conf
 - MSW uses the same configurable locale list and a generic dictionary route. Tests cover `fa`, `en`, `ar`, `ru`, and `zh`, including direction metadata and rejection of inactive locales.
 - To simulate a newly activated language, add its code to `MOCK_ACTIVE_LANGUAGES`; adding `public/lang/<code>.json` also makes that dictionary discoverable automatically.
 - The 47-route crawl manifest is explicit. It currently attempts all 47 listed patterns; it does not prove that every public App Router route in the repository has been discovered.
-- Eight crawl assertions remain failing in the latest recorded run. Do not change production SEO metadata under this coverage-only correction.
+- The previous two-locale baseline had eight SEO metadata assertion failures. The five-locale crawl must be rerun before publishing a new pass/fail count; do not change production SEO metadata under this locale-support change.
 
 ## Test commands
 
