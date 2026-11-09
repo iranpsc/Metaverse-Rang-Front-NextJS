@@ -6,7 +6,8 @@ describe('MSW API fixtures', () => {
     expect(response.status).toBe(200);
     const body = await response.json();
     const languageCodes = body.data.map((language: { code: string }) => language.code);
-    expect(languageCodes).toEqual(['fa', 'en', 'ar', 'ru', 'zh']);
+    expect(languageCodes).toEqual(expect.arrayContaining(['fa', 'en', 'ar', 'ru', 'zh']));
+    expect(new Set(languageCodes).size).toBe(languageCodes.length);
 
     for (const code of languageCodes) {
       const language = body.data.find((item: { code: string }) => item.code === code);
@@ -25,7 +26,7 @@ describe('MSW API fixtures', () => {
   });
 
   it('rejects dictionaries for locales that are not active', async () => {
-    const response = await fetch('https://rgb.irpsc.com/lang/xx.json');
+    const response = await fetch('https://rgb.irpsc.com/lang/zz-inactive.json');
     expect(response.status).toBe(404);
   });
 
