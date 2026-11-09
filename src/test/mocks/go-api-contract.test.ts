@@ -106,7 +106,8 @@ describe('Go backend MSW contract coverage', () => {
   });
 
   test.each(contracts)('$id $method $path can exercise a backend failure response', async (contract) => {
-    const url = new URL(contract.path, apiOrigin).pathname;
+    const parsedUrl = new URL(contract.path, apiOrigin);
+    const url = `${parsedUrl.origin}${parsedUrl.pathname}`;
     server.use(
       http.all(url, () =>
         HttpResponse.json(
