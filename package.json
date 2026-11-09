@@ -16,13 +16,14 @@
     "test:coverage": "vitest run --coverage --reporter=./scripts/vitest-checklist-reporter.mjs",
     "test:integration": "vitest run src/app --reporter=./scripts/vitest-checklist-reporter.mjs",
     "test:e2e": "playwright test",
-    "test:e2e:core": "playwright test --grep-invert \"@(ui|seo|security)\"",
+    "test:e2e:core": "playwright test --grep-invert \"@(ui|forms|seo|security)\"",
     "test:seo": "playwright test --grep @seo",
     "test:security": "playwright test --grep @security",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:install": "playwright install chromium",
     "test:crawl": "playwright test tests/e2e/crawl.spec.ts",
-    "test:ui": "playwright test --grep @ui"
+    "test:ui": "playwright test --grep @ui",
+    "test:forms": "playwright test --grep @forms"
   },
   "overrides": {
     "minimatch": "^9.0.6",
@@ -79,7 +80,7 @@
     "slick-carousel": "^1.8.1",
     "swiper": "12.1.2",
     "tailwind-merge": "^3.6.0",
-    "three": "^0.185.1",
+    "three": "^0.185.0",
     "webpack": "^5.82.0",
     "yup": "^1.2.0"
   },
@@ -101,7 +102,7 @@
     "@types/react-dom": "^19.2.4",
     "@types/react-google-recaptcha": "^2.1.5",
     "@types/react-modal": "^3.16.0",
-    "@types/three": "^0.185.1",
+    "@types/three": "^0.185.0",
     "@vitejs/plugin-react": "4.7.0",
     "eslint": "^9.39.5",
     "eslint-config-next": "^16.3.8",
@@ -114,19 +115,8 @@
     "webpack-bundle-analyzer": "^4.10.2"
   },
   "browserslist": {
-    "production": [
-      ">0.5%",
-      "last 2 versions",
-      "not dead",
-      "not IE 11"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "production": [">0.5%", "last 2 versions", "not dead", "not IE 11"],
+    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
   },
-  "engines": {
-    "node": ">=22.0.0"
-  }
+  "engines": {"node": ">=22.0.0"}
 }
