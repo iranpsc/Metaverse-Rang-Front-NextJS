@@ -22,7 +22,7 @@ Coverage is scoped to the approved Phase 1 deliverables. It is **not** the perce
 | API failure behavior | Deterministic 503 response per endpoint | 44/44 (100%) |
 | API contract scenarios | Success + failure cases | 88/88 passed |
 | Static/dynamic crawl manifest | Unique route patterns | 47/47 |
-| Crawl attempts | 47 routes × 2 active locales (fa, en) | 94/94 attempted |
+| Crawl attempts | 47 routes × active locales returned by translations API | Calculated dynamically |
 | Crawl page checks | Successful pages in the latest recorded run | 86/94 (91.5%) |
 | Unit suite | Passed tests in latest recorded run | 208 |
 | Integration suite | Passed tests in latest recorded run | 34 |
@@ -46,8 +46,10 @@ The scoped V8 percentage must be taken from the CI run generated after this conf
 
 ## Known remaining scope gaps
 
-- The isolated mock API currently advertises only `fa` and `en`; its dictionary path map is hardcoded for those two locales. The crawl discovers languages from the API response, but the mock source does not yet prove automatic support for arbitrary future language codes such as `ar`, `ru`, and `zh`.
-- The MSW translation fixture separately lists `fa`, `en`, and `ar`, but that does not establish arbitrary dynamic-language support.
+- The isolated mock API discovers JSON dictionaries in `public/lang` and merges them with configurable `MOCK_ACTIVE_LANGUAGES`. Metadata and dictionary URLs are generated from those codes; no per-locale route or handler is needed.
+- Any valid active locale code is served by the generic dictionary route. If no local dictionary exists, the mock returns the deterministic English dictionary fixture so isolated page rendering and crawling do not require external services.
+- MSW uses the same configurable locale list and a generic dictionary route. Tests cover `fa`, `en`, `ar`, `ru`, and `zh`, including direction metadata and rejection of inactive locales.
+- To simulate a newly activated language, add its code to `MOCK_ACTIVE_LANGUAGES`; adding `public/lang/<code>.json` also makes that dictionary discoverable automatically.
 - The 47-route crawl manifest is explicit. It currently attempts all 47 listed patterns; it does not prove that every public App Router route in the repository has been discovered.
 - Eight crawl assertions remain failing in the latest recorded run. Do not change production SEO metadata under this coverage-only correction.
 
