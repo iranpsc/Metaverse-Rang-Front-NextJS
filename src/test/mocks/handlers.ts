@@ -9,7 +9,7 @@ const localEnvContent = (() => {
   try { return readFileSync(join(process.cwd(), '.env.local'), 'utf8'); }
   catch { return ''; }
 })();
-const localLanguageSetting = localEnvContent.match(/^\\s*MOCK_ACTIVE_LANGUAGES\\s*=\\s*(.*?)\\s*$/m)?.[1];
+const localLanguageSetting = localEnvContent.match(/^\s*MOCK_ACTIVE_LANGUAGES\s*=\s*(.*?)\s*$/m)?.[1];
 const configuredLanguageCodes = (process.env.MOCK_ACTIVE_LANGUAGES || localLanguageSetting || 'fa,en,ar,ru,zh')
   .split(',').map((code) => code.trim()).filter((code) => languageCodePattern.test(code));
 const dictionaryFileCodes = (() => {
