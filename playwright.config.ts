@@ -30,23 +30,18 @@ export default defineConfig({
       {
         command: "node scripts/mock-api-server.mjs",
         url: `${mockApiURL}/health`,
-        // The mock server proxies only translation metadata to Dev Admin.
-        // All other API endpoints remain deterministic local fixtures.
+        // Translation metadata, dictionaries and application APIs are served
+        // from deterministic local fixtures; no external service is required.
         reuseExistingServer: Boolean(process.env.CI),
         timeout: 30_000,
         env: {
           ...process.env,
-          PLAYWRIGHT_TRANSLATION_API_URL:
-            process.env.PLAYWRIGHT_TRANSLATION_API_URL ||
-            "https://dev-admin.metarang.com/api/translations?active=true",
         },
       },
       ...(process.env.PLAYWRIGHT_BASE_URL ? [] : [{
         command: process.env.CI ? "npm run start" : "npm run build && npm run start",
         url: baseURL,
-        // Keep application APIs on local fixtures. The mock server selectively
-        // proxies only active-language metadata; dictionary file_url values stay
-        // authoritative and are fetched from the translation API's file host.
+        // Keep application APIs and translation dictionaries on local fixtures.
         reuseExistingServer: false,
         timeout: 300_000,
         env: {
