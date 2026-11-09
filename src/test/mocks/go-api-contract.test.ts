@@ -78,7 +78,7 @@ function makeRequestBody(contract: ApiContract): BodyInit | undefined {
 }
 
 async function requestContract(contract: ApiContract): Promise<Response> {
-  const headers: HeadersInit = { Authorization: 'Bearer mock-test-token' };
+  const headers: Record<string, string> = { Authorization: 'Bearer mock-test-token' };
   if (!contract.multipart && contract.method !== 'GET' && contract.method !== 'DELETE') {
     headers['Content-Type'] = 'application/json';
   }
@@ -106,7 +106,7 @@ describe('Go backend MSW contract coverage', () => {
   });
 
   test.each(contracts)('$id $method $path can exercise a backend failure response', async (contract) => {
-    const url = new URL(contract.path, apiOrigin).toString();
+    const url = new URL(contract.path, apiOrigin).pathname;
     server.use(
       http.all(url, () =>
         HttpResponse.json(
