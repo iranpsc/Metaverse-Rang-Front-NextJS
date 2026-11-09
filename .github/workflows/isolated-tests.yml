@@ -83,6 +83,7 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Run full end-to-end suite
+        id: test-e2e
         run: npm run test:e2e
         continue-on-error: true
 
