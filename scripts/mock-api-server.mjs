@@ -67,22 +67,54 @@ const citizenFixture = {
   score_percentage_to_next_level: "90",
 };
 
-const levelFixture = {
+const levelDefinitions = [
+  { id: 1, unique_id: 382, route_name: "citizen-baguette", name: "Citizen", score: 10, image: "/svg/level/citizen.png" },
+  { id: 2, unique_id: 383, route_name: "reporter-baguette", name: "Reporter", score: 990, image: "/svg/level/reporter.png" },
+  { id: 3, unique_id: 589, route_name: "participation-baguette", name: "Participation", score: 3000, image: "/svg/level/participation.png" },
+  { id: 4, unique_id: 68, route_name: "developer-baguette", name: "Developer", score: 8000, image: "/svg/level/developer.png" },
+  { id: 5, unique_id: 69, route_name: "inspector-baguette", name: "Inspector", score: 18000, image: "/svg/level/inspector.png" },
+  { id: 6, unique_id: 590, route_name: "businessman-baguette", name: "Businessman", score: 36000, image: "/svg/level/businessman.png" },
+  { id: 7, unique_id: 71, route_name: "lawyer-baguette", name: "Lawyer", score: 76000, image: "/svg/level/lawyer.png" },
+  { id: 8, unique_id: 591, route_name: "city-council-baguette", name: "City Council", score: 166000, image: "/svg/level/city-council.png" },
+  { id: 9, unique_id: 592, route_name: "the-mayor-baguette", name: "The Mayor", score: 366000, image: "/svg/level/the-mayor.png" },
+  { id: 10, unique_id: 74, route_name: "governor-baguette", name: "Governor", score: 796000, image: "/svg/level/governor.png" },
+  { id: 11, unique_id: 75, route_name: "minister-baguette", name: "Minister", score: 1696000, image: "/svg/level/minister.png" },
+  { id: 12, unique_id: 76, route_name: "judge-baguette", name: "Judge", score: 3696000, image: "/svg/level/judge.png" },
+  { id: 13, unique_id: 77, route_name: "legislator-baguette", name: "Legislator", score: 7896000, image: "/svg/level/legislator.png" },
+];
+
+const levelFixtures = levelDefinitions.map((level) => ({
   data: {
-    id: 1,
+    ...level,
+    photo: level.image,
     general_info: {
-      description: "Deterministic citizen level information for isolated tests.",
+      description: `Deterministic ${level.name.toLowerCase()} level information for isolated tests.`,
       png_file: "/team.webp",
     },
   },
-};
+}));
 
-const levelTabFixture = {
-  data: {
-    description: "General information for the sandbox citizen level.",
-    png_file: "/team.webp",
-  },
-};
+function createLevelTabFixture(level, tab) {
+  return {
+    data: {
+      description: `Sandbox ${tab} content for the ${level.name.toLowerCase()} level.`,
+      png_file: "/team.webp",
+      score: level.score,
+      rank: level.id,
+      points: level.score,
+      file_volume: "1 MB",
+      subcategories: 1,
+      lines: 1,
+      creation_date: "2026-01-01",
+      has_animation: false,
+      persian_font: "Sandbox Persian",
+      designer: "Sandbox Designer",
+      english_font: "Sandbox English",
+      model_designer: "Sandbox Model Designer",
+      used_colors: "#336699",
+    },
+  };
+}
 
 const articleFixture = {
   id: 1,
@@ -297,16 +329,24 @@ const server = http.createServer(async (request, response) => {
     });
   }
 
-  if (url.pathname === "/api/levels/1") {
-    return json(response, 200, levelFixture);
+  const singleLevelMatch = url.pathname.match(/^\/api\/levels\/(\d+)$/);
+  if (singleLevelMatch) {
+    const level = levelFixtures.find(({ data }) => data.id === Number(singleLevelMatch[1]));
+    return level
+      ? json(response, 200, level)
+      : json(response, 404, { message: "Level not found" });
   }
 
-  if (/^\/api\/levels\/1\/(general-info|licenses|gem|gift|prize)$/.test(url.pathname)) {
-    return json(response, 200, levelTabFixture);
+  const levelTabMatch = url.pathname.match(/^\/api\/levels\/(\d+)\/(general-info|licenses|gem|gift|prize)$/);
+  if (levelTabMatch) {
+    const level = levelDefinitions.find(({ id }) => id === Number(levelTabMatch[1]));
+    return level
+      ? json(response, 200, createLevelTabFixture(level, levelTabMatch[2]))
+      : json(response, 404, { message: "Level not found" });
   }
 
   if (url.pathname === "/api/levels") {
-    return json(response, 200, { data: [levelFixture.data] });
+    return json(response, 200, { data: levelFixtures.map(({ data }) => data) });
   }
 
   if (url.pathname === "/api/calendar") {
