@@ -16,6 +16,7 @@
     "test:coverage": "vitest run --coverage --reporter=./scripts/vitest-checklist-reporter.mjs",
     "test:integration": "vitest run src/app --reporter=./scripts/vitest-checklist-reporter.mjs",
     "test:e2e": "playwright test",
+    "test:e2e:core": "playwright test --grep-invert \"@(ui|seo|security)\"",
     "test:seo": "playwright test --grep @seo",
     "test:security": "playwright test --grep @security",
     "test:e2e:ui": "playwright test --ui",
