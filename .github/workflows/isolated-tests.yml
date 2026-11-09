@@ -87,9 +87,13 @@ jobs:
         run: npm run test:e2e:core
         continue-on-error: true
 
-      - name: Run dedicated UI and form tests
+      - name: Run dedicated page UI tests
         if: always()
         run: npm run test:ui
+
+      - name: Run dedicated contact form tests
+        if: always()
+        run: npm run test:forms
 
       - name: Run dedicated SEO tests
         if: always()
