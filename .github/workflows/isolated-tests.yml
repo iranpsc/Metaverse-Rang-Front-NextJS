@@ -82,8 +82,26 @@ jobs:
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
 
-      - name: Run end-to-end, SEO and security tests
+      - name: Run full end-to-end suite
         run: npm run test:e2e
+        continue-on-error: true
+
+      - name: Run dedicated UI and form tests
+        if: always()
+        run: npm run test:ui
+
+      - name: Run dedicated SEO tests
+        if: always()
+        run: npm run test:seo
+
+      - name: Run dedicated security tests
+        if: always()
+        run: npm run test:security
+
+      - name: Fail workflow if any test suite failed
+        if: always()
+        run: |
+          if [ "${{ steps.test-e2e.outcome }}" = "failure" ]; then exit 1; fi
 
       - name: Upload Playwright report
         if: always()
