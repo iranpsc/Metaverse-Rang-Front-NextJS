@@ -1,99 +1,95 @@
-# Phase 1 — Initial Repository Audit
+# Phase 1 — Repository and test-infrastructure audit
 
-> Status: initial inspection only. This document is not the final API, environment-variable, or route inventory. Complete the repository-wide scan before treating coverage as 100%.
+> Status: completed for the agreed Phase 1 isolated test scope. This is not a claim of exhaustive inventory of every production network request, runtime environment variable, or public route in the entire application.
 
 ## Repository baseline
 
 - Repository: `iranpsc/Metaverse-Rang-Front-NextJS`
-- Target branch: `dev`
-- Working branch: `feat/phase-1-isolated-test-infrastructure`
-- Framework: Next.js 16 (Webpack scripts)
-- React: 19
-- Package manager lockfile and dependency installation state must be verified in the working checkout before changing dependencies.
+- Phase 1 working branch: `feat/phase-1-isolated-test-infrastructure`
+- Framework: Next.js 16.4.3 (Webpack build scripts)
+- React: 19.2.8
+- Required Node.js: 22 or newer (`package.json` engines; CI uses Node 22)
+- Package manager: npm with committed lockfile.
 
-## Existing scripts
+## Test infrastructure added
 
-The current `package.json` exposes:
+- Vitest 4.1.12 and React Testing Library.
+- MSW 2.11.5 Node server and deterministic request handlers.
+- Playwright 1.56.1 browser tests.
+- Isolated mock API server at `scripts/mock-api-server.mjs`.
+- Network guard and deterministic environment setup for E2E.
+- GitHub Actions workflow: `.github/workflows/isolated-tests.yml`.
+- Test scripts are listed in [environment-and-execution.md](./environment-and-execution.md).
 
-- `dev`: `next dev --webpack -p 5175`
-- `build`: `next build --webpack`
-- `start`: `next start -p 5175`
-- `lint`: `next lint`
-- `release`: `standard-version`
-- `json`: `json-server --watch db.json --port 3001`
-- `analyze`: `ANALYZE=true next build --webpack`
+## Go API contract inventory
 
-Vitest, React Testing Library, MSW, and Playwright are not currently configured in the inspected package manifest.
+The agreed Phase 1 frontend Go API inventory contains 44 unique contracts, not 44 total HTTP requests across the repository. It is maintained in `src/test/mocks/go-api-contract.test.ts` and mapped to the MSW handlers in `src/test/mocks/handlers.ts`.
 
-## Environment variables identified so far
+- Authentication: 5 contracts.
+- Calendar/events: 5 contracts.
+- Tutorials/video comments: 14 contracts.
+- Comment replies: 4 contracts.
+- Levels: 3 contracts.
+- Users/citizen dashboard: 13 contracts.
+- Total: 44 contracts.
+- Every contract is exercised with one successful fixture and one deterministic HTTP 503 scenario (88 scenarios).
 
-The existing `env.example` and inspected source files indicate at least the following variables. This list is provisional and must be completed by scanning the entire repository, Docker configuration, CI workflows, and runtime code.
+See [api-contract-inventory.md](./api-contract-inventory.md) for the exact method/path list.
 
-### Public/client configuration
-- `NEXT_PUBLIC_API_BASE_URL`
-- `NEXT_PUBLIC_ADMIN_API_BASE_URL`
-- `NEXT_PUBLIC_BASE_URL`
-- `NEXT_PUBLIC_SUPABASE_URL`
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+## Translation and locale behavior
 
-### Server/runtime configuration
-- `WEBHOOK_SECRET`
-- `SMTP_HOST`
-- `SMTP_PORT`
-- `SMTP_USER`
-- `SMTP_PASS`
-- `EMAIL_FROM`
-- `EMAIL_TO`
-- `SITEMAPS_HOST_PATH`
+Production locale discovery remains API-driven through the Admin translations endpoint. The isolated mock environment has its own deterministic locale configuration:
 
-Security note: do not copy existing values from `env.example` into new documentation or fixtures. The Supabase URL and anon key currently appear in that file; their presence and intended public exposure should be reviewed, while Supabase functional testing remains out of scope. No real production secrets should be added to the replacement example file.
+- Default locales: `fa,en,ar,ru,zh`.
+- Additional locale codes can be supplied through `MOCK_ACTIVE_LANGUAGES` or discovered from `public/lang/*.json`.
+- The mock translation metadata and dictionary routes are generic; they do not require a new handler per locale.
+- Missing local dictionaries fall back to the English fixture/file for deterministic isolated rendering.
+- RTL is inferred from the locale's base language code for the configured RTL set.
+- The mock does not query a live Admin API to discover new languages; the isolated test environment must configure them.
 
-## Translation flow confirmed
+This test setup does not alter production locale discovery or production translation request behavior.
 
-The inspected implementation in `src/components/utils/actions.js` uses:
+## Environment inventory
 
-- `getLangArray()` → `GET {ADMIN_API_BASE_URL}/api/translations?active=true`
-- `getTranslation(lang)` → selects a language from the API-provided language array and falls back to Persian when needed
-- `getMainFile(langData)` → fetches the language dictionary from `langData.file_url`
+The Phase 1 isolated-test variables and their scope are documented in [environment-and-execution.md](./environment-and-execution.md). `.env.example` contains safe example values; CI overrides service endpoints and credentials with loopback/mock values. No production secrets are required.
 
-The language layout in `src/app/[lang]/layout.tsx` validates language codes against the API-provided array when available. If the API returns no languages, it currently falls back to `fa` and `en`. Mock handlers and tests must reflect the agreed data-driven language requirement without changing production language behavior as part of test setup.
+The documented variable inventory is intentionally scoped to the isolated test environment. It is not an exhaustive inventory of every deployment's environment variables.
 
-## API endpoints found in the inspected actions.js file
+## Route crawl scope
 
-These are the endpoints found in this file only; direct requests elsewhere in the application are not yet included.
+- Explicit crawl manifest: 47 route patterns.
+- Active locales in the latest verified CI run: `fa`, `en`, `ar`, `ru`, `zh`.
+- Attempts: 47 × 5 = 235.
+- Latest verified result (workflow 42641825011): 212 passed, 23 failed.
+- The 23 failures are existing SEO title/description length assertions. They are recorded in CI and were not changed because production SEO metadata remediation is outside the agreed Phase 1 scope.
 
-| Method | Endpoint |
-|---|---|
-| GET | `/api/translations?active=true` (Admin API) |
-| GET | `/api/users?page={page}` |
-| GET | `/api/levels` |
-| GET | `/api/levels/{levelId}/{tabs}` |
-| GET | `/api/calendar?type=version` |
-| GET | `/api/levels/{levelId}` |
-| GET | `/api/citizen/{id}` |
-| GET | `/api/citizen/{userId}/referrals?search={search}` |
-| GET | `/api/citizen/{userId}/referrals/chart?range={range}` |
-| GET | `/api/tutorials/categories` |
-| GET | `/api/tutorials?page={page}` |
-| GET | `/api/tutorials/categories/{category}` |
-| GET | `/api/tutorials/categories/{category}/{subcategory}` |
-| GET | `/api/tutorials/{videoSlug}` |
-| GET | `/api/tutorials/{videoId}/comments?page=1` |
+The 47-route manifest is not represented as a complete automatic discovery of every App Router route in the repository.
 
-Other inspected files show additional direct API usage, including authentication redirect, education, comments, citizen dashboard, events/calendar, first-page data, and media/model routes. These must be enumerated and deduplicated before finalizing the API inventory.
+## Scoped coverage
 
-## Existing internal API route handlers observed
+V8 coverage is limited to `src/test/mocks/handlers.ts`. Latest verified workflow 42641825011 reports:
 
-- `/api/webhook` — POST
-- `/[lang]/api/webhook` — POST (same handler implementation observed)
-- `/[lang]/api/sendEmail` — POST
-- Additional handlers such as flag, first-page-video, and model routes were found by repository search and require inspection.
+| Metric | Covered | Total | Result |
+|---|---:|---:|---:|
+| Statements | 106 | 106 | 100% |
+| Branches | 23 | 23 | 100% |
+| Functions | 58 | 58 | 100% |
+| Lines | 104 | 104 | 100% |
 
-## Immediate implementation constraints
+Vitest enforces 100% thresholds for all four metrics in this scoped file. This is not whole-application source coverage.
 
-1. Do not add MSW handlers based only on the partial list above.
-2. Complete the repository-wide endpoint inventory, recording HTTP method, host/base URL, path, source file, and whether it is server-side or browser-side.
-3. Derive the Playwright route matrix from actual App Router files and API-provided language data; do not hardcode only `fa` and `en`.
-4. Keep Supabase outside functional test scope; only a minimal build-safe stub/bypass may be added if the actual build proves it necessary.
-5. Ensure server-side requests during Next.js build/render are intercepted without relying on browser-only MSW setup.
-6. Do not change production request behavior, cache policy, retries, or UI behavior merely to make tests pass.
+## Explicit exclusions
+
+- Supabase functional testing and production data access.
+- Changes to production SEO metadata to make existing assertions pass.
+- Backend Go service implementation or contract changes.
+- Exhaustive source-code coverage across the entire Next.js application.
+- Automatic discovery of every public App Router route.
+- Webhook business-flow functional coverage beyond the explicitly implemented test scope.
+- Unrelated application bugs or UI redesign.
+
+## Related documentation
+
+- [API contract inventory](./api-contract-inventory.md)
+- [MSW setup and coverage results](./msw-setup.md)
+- [Isolated environment and test execution](./environment-and-execution.md)
