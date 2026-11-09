@@ -1,11 +1,26 @@
 import { http, HttpResponse } from 'msw';
+import { readFileSync, readdirSync } from 'node:fs';
+import { join } from 'node:path';
 
 const languageCodePattern = /^[A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*$/;
 const rtlLanguageCodes = new Set(['ar', 'fa', 'he', 'ps', 'ur']);
 const languageNames: Record<string, string> = { ar: 'العربية', en: 'English', fa: 'فارسی', ru: 'Русский', zh: '中文' };
-const configuredLanguageCodes = (process.env.MOCK_ACTIVE_LANGUAGES || 'fa,en,ar,ru,zh')
+const localEnvContent = (() => {
+  try { return readFileSync(join(process.cwd(), '.env.local'), 'utf8'); }
+  catch { return ''; }
+})();
+const localLanguageSetting = localEnvContent.match(/^\\s*MOCK_ACTIVE_LANGUAGES\\s*=\\s*(.*?)\\s*$/m)?.[1];
+const configuredLanguageCodes = (process.env.MOCK_ACTIVE_LANGUAGES || localLanguageSetting || 'fa,en,ar,ru,zh')
   .split(',').map((code) => code.trim()).filter((code) => languageCodePattern.test(code));
-const activeLanguageCodes = [...new Set(configuredLanguageCodes)];
+const dictionaryFileCodes = (() => {
+  try {
+    return readdirSync(join(process.cwd(), 'public', 'lang'))
+      .filter((file) => file.endsWith('.json'))
+      .map((file) => file.slice(0, -5))
+      .filter((code) => languageCodePattern.test(code));
+  } catch { return []; }
+})();
+const activeLanguageCodes = [...new Set([...configuredLanguageCodes, ...dictionaryFileCodes])];
 const languages = activeLanguageCodes.map((code) => ({
   code,
   direction: rtlLanguageCodes.has(code.split('-')[0].toLowerCase()) ? 'rtl' : 'ltr',
