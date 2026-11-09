@@ -1,4 +1,8 @@
 import { describe, expect, it } from 'vitest';
+import {
+  discoverDictionaryFileCodes,
+  readLocalEnvContent,
+} from './handlers';
 
 describe('MSW API fixtures', () => {
   it('discovers configured active locales and serves dictionaries through one generic route', async () => {
@@ -49,6 +53,19 @@ describe('MSW API fixtures', () => {
       const payload = await response.json();
       expect(payload).toHaveProperty('data');
     }
+  });
+
+  it('uses safe empty fallbacks when local environment or locale directory cannot be read', () => {
+    expect(readLocalEnvContent(() => { throw new Error('missing env'); })).toBe('');
+    expect(discoverDictionaryFileCodes(() => { throw new Error('missing locale directory'); })).toEqual([]);
+  });
+
+  it('covers the calendar filter mock endpoint', async () => {
+    const response = await fetch('https://dev-api.metarang.com/api/calendar/filter');
+    expect(response.status).toBe(200);
+    await expect(response.json()).resolves.toMatchObject({
+      data: [{ id: 401, title: 'Filtered mock event' }],
+    });
   });
 
   it('returns a controlled error for an invalid translations query', async () => {
