@@ -1,30 +1,27 @@
 import { http, HttpResponse } from 'msw';
 
-const languages = [
-  {
-    code: 'fa',
-    direction: 'rtl',
-    file_url: 'https://rgb.irpsc.com/lang/fa.json',
-    name: 'فارسی',
-  },
-  {
-    code: 'en',
-    direction: 'ltr',
-    file_url: 'https://rgb.irpsc.com/lang/en.json',
-    name: 'English',
-  },
-  {
-    code: 'ar',
-    direction: 'rtl',
-    file_url: 'https://rgb.irpsc.com/lang/ar.json',
-    name: 'العربية',
-  },
-];
-
-const dictionaries = {
+const languageCodePattern = /^[A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*$/;
+const rtlLanguageCodes = new Set(['ar', 'fa', 'he', 'ps', 'ur']);
+const languageNames: Record<string, string> = { ar: 'العربية', en: 'English', fa: 'فارسی', ru: 'Русский', zh: '中文' };
+const configuredLanguageCodes = (process.env.MOCK_ACTIVE_LANGUAGES || 'fa,en,ar,ru,zh')
+  .split(',').map((code) => code.trim()).filter((code) => languageCodePattern.test(code));
+const activeLanguageCodes = [...new Set(configuredLanguageCodes)];
+const languages = activeLanguageCodes.map((code) => ({
+  code,
+  direction: rtlLanguageCodes.has(code.split('-')[0].toLowerCase()) ? 'rtl' : 'ltr',
+  file_url: `https://rgb.irpsc.com/lang/${code}.json`,
+  name: languageNames[code] || code,
+}));
+const fallbackDictionary: Record<string, string> = {
+  1457: 'Metaverse Rang',
+  482: 'Deterministic translation fixture',
+};
+const dictionaries: Record<string, Record<string, string>> = {
   fa: { 1457: 'متاورس رنگ', 482: 'توضیحات نمونه فارسی' },
-  en: { 1457: 'Metaverse Rang', 482: 'Sample English description' },
+  en: fallbackDictionary,
   ar: { 1457: 'ميتافيرس رنگ', 482: 'وصف تجريبي باللغة العربية' },
+  ru: fallbackDictionary,
+  zh: fallbackDictionary,
 };
 const featureSummaryFixtures = [
   { karbari: 'blue', label: 'Blue', count: 3, amount: 3 },
@@ -86,16 +83,12 @@ export const handlers = [
     return HttpResponse.json({ data: languages });
   }),
 
-  http.get(/\/lang\/(fa|en|ar)\.json$/, ({ request }) => {
-    const language = new URL(request.url).pathname.match(/\/(fa|en|ar)\.json$/)?.[1] as
-      | keyof typeof dictionaries
-      | undefined;
-
-    if (!language) {
+  http.get(/\\/lang\\/([A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*)\\.json$/, ({ request }) => {
+    const language = new URL(request.url).pathname.match(/\\/([A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*)\\.json$/)?.[1];
+    if (!language || !activeLanguageCodes.includes(language)) {
       return HttpResponse.json({ message: 'Dictionary not found.' }, { status: 404 });
     }
-
-    return HttpResponse.json(dictionaries[language]);
+    return HttpResponse.json(dictionaries[language] || fallbackDictionary);
   }),
 
   // Match API paths independently of host so tests can use loopback-only URLs.
