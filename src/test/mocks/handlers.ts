@@ -242,4 +242,86 @@ export const handlers = [
     const page = new URL(request.url).searchParams.get('page');
     return HttpResponse.json({ data: [{ videoId: parts.at(-2), page }] });
   }),
+
+  // Authentication contracts (mocked without requiring a real session).
+  http.post(/\/api\/auth\/me$/, () =>
+    HttpResponse.json({ data: { code: 'TEST-CITIZEN', id: 100, display_name: 'Mock Citizen' } }),
+  ),
+  http.post(/\/api\/auth\/register$/, () =>
+    HttpResponse.json({ data: { registered: true, redirect_url: '/fa' } }, { status: 201 }),
+  ),
+  http.get(/\/api\/auth\/redirect$/, () =>
+    HttpResponse.json({ url: 'http://127.0.0.1:5175/fa' }),
+  ),
+  http.post(/\/api\/auth\/referral$/, () =>
+    HttpResponse.json({ data: { referral_applied: true } }),
+  ),
+  http.post(/\/api\/auth\/logout$/, () =>
+    HttpResponse.json({ data: { logged_out: true } }),
+  ),
+
+  // Calendar routes not covered by the list/detail GET handlers above.
+  http.get(/\/api\/calendar\/filter$/, () =>
+    HttpResponse.json({ data: [{ id: 401, title: 'Filtered mock event' }] }),
+  ),
+  http.get(/\/api\/calendar\/events\/[^/]+$/, ({ request }) => {
+    const id = Number(pathParts(request).at(-1));
+    return HttpResponse.json({ data: { id, title: 'Mock event (legacy events route)' } });
+  }),
+  http.post(/\/api\/calendar\/events\/[^/]+\/interact$/, () =>
+    HttpResponse.json({ data: { interacted: true } }),
+  ),
+
+  // Tutorial search and authenticated comment mutations.
+  http.post(/\/api\/tutorials\/search$/, () =>
+    HttpResponse.json({ data: [{ id: 201, slug: 'mock-video', title: 'Mock tutorial' }] }),
+  ),
+  http.post(/\/api\/tutorials\/[^/]+\/comments$/, () =>
+    HttpResponse.json({ data: { id: 701, content: 'Mock comment' } }, { status: 201 }),
+  ),
+  http.post(/\/api\/tutorials\/[^/]+\/comments\/[^/]+$/, () =>
+    HttpResponse.json({ data: { updated: true } }),
+  ),
+  http.delete(/\/api\/tutorials\/[^/]+\/comments\/[^/]+$/, () =>
+    HttpResponse.json({ data: { deleted: true } }),
+  ),
+  http.post(/\/api\/tutorials\/[^/]+\/comments\/[^/]+\/like$/, () =>
+    HttpResponse.json({ data: { liked: true } }),
+  ),
+  http.post(/\/api\/tutorials\/[^/]+\/comments\/[^/]+\/dislike$/, () =>
+    HttpResponse.json({ data: { disliked: true } }),
+  ),
+  http.post(/\/api\/tutorials\/[^/]+\/comments\/[^/]+\/report$/, () =>
+    HttpResponse.json({ data: { reported: true } }),
+  ),
+  http.post(/\/api\/tutorials\/[^/]+\/comments\/[^/]+\/interactions$/, () =>
+    HttpResponse.json({ data: { interaction_saved: true } }),
+  ),
+
+  // Comment replies.
+  http.get(/\/api\/comments\/[^/]+\/replies$/, () =>
+    HttpResponse.json({ data: [{ id: 801, content: 'Mock reply' }] }),
+  ),
+  http.post(/\/api\/comments\/[^/]+\/reply$/, () =>
+    HttpResponse.json({ data: { id: 802, content: 'Created mock reply' } }, { status: 201 }),
+  ),
+  http.post(/\/api\/comments\/[^/]+\/replies\/[^/]+\/interactions$/, () =>
+    HttpResponse.json({ data: { interaction_saved: true } }),
+  ),
+  http.delete(/\/api\/comments\/[^/]+\/replies\/[^/]+$/, () =>
+    HttpResponse.json({ data: { deleted: true } }),
+  ),
+
+  // Remaining citizen APIs.
+  http.post(/\/api\/search\/users$/, () =>
+    HttpResponse.json({ data: [{ id: 101, display_name: 'Mock Citizen' }] }),
+  ),
+  http.get(/\/api\/citizen\/[^/]+\/features$/, () =>
+    HttpResponse.json({
+      data: [{ id: 901, karbari: 'blue', label: 'Mock feature' }],
+      map_markers: [],
+      meta: { last_page: 1 },
+    }),
+  ),
+
 ];
