@@ -44,12 +44,11 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'html', 'json-summary'],
-      include: ['src/**/*.{ts,tsx}'],
-      exclude: [
-        'src/**/*.d.ts',
-        'src/**/*.test.{ts,tsx}',
-        'src/**/*.spec.{ts,tsx}',
-      ],
+      // Phase 1 scope only: measure the MSW handler implementation used to
+      // mock the 44 inventoried Go API contracts. Do not include application
+      // source files; this report is intentionally not whole-project coverage.
+      include: ['src/test/mocks/handlers.ts'],
+      exclude: [],
     },
   },
 });
