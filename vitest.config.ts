@@ -49,6 +49,10 @@ export default defineConfig({
       // source files; this report is intentionally not whole-project coverage.
       include: ['src/test/mocks/handlers.ts'],
       exclude: [],
+      thresholds: {
+        statements: 100,
+        functions: 100,
+      },
     },
   },
 });
