@@ -50,7 +50,7 @@ const lines = [
   "",
 ];
 
-const crawlPath = "test-results/static-crawl-summary.json";
+const crawlPath = "phase-1-results/static-crawl-summary.json";
 if (existsSync(crawlPath)) {
   const crawl = JSON.parse(readFileSync(crawlPath, "utf8"));
   const results = crawl.pageResults || [];
