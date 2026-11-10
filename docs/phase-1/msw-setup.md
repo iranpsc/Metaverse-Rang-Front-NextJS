@@ -23,36 +23,45 @@ Coverage is scoped to the approved Phase 1 deliverables. It is **not** the perce
 | API contract scenarios | Success + failure cases | 88/88 passed |
 | Static/dynamic crawl manifest | Unique route patterns | 47/47 |
 | Crawl attempts | 47 routes × 5 active locales (fa, en, ar, ru, zh) | 235/235 attempted |
-| Crawl page checks | Latest verified run (workflow 42641825011) | 212 passed / 23 failed |
-| Unit suite | Passed tests in latest verified run | Passed (see workflow summary) |
-| Integration suite | Latest verified run | Passed (see workflow summary) |
-| UI smoke suite | Latest verified run | Passed |
-| Contact form suite | Latest verified run | 1 passed |
-| Security smoke suite | Latest verified run | 1 passed |
+| Crawl page checks | Latest CI run (workflow 42645810958, commit `02bb728`) | 211 passed / 24 failed |
+| Unit suite | Latest CI run | Passed |
+| Integration suite | Latest CI run | Passed |
+| UI smoke suite | Latest CI run | 32 passed |
+| Contact form suite | Latest CI run | 1 passed |
+| Security smoke suite | Latest CI run | Passed |
 | Production build | Isolated mock-environment build | Passed |
 
-The latest five-locale crawl attempted all 235 route/locale combinations: 212 passed and 23 failed. All 23 failures are existing title/description length assertions across the fa, en, ar, ru, and zh pages. These are reported rather than waived; changing production SEO metadata is outside the agreed Phase 1 scope.
+The latest CI run attempted all 235 route/locale combinations. The final Playwright retry reported 211 successful page checks and 24 failures. The reported failures are SEO metadata assertions (title length, description length, or missing description); they do not indicate that those routes were skipped. Production SEO metadata was intentionally not changed because metadata remediation is outside the agreed Phase 1 scope.
+
+See [workflow 42645810958](https://github.com/iranpsc/Metaverse-Rang-Front-NextJS/actions/runs/42645810958) for the run-level evidence and failure details.
 
 ## Scoped V8 code coverage
 
-Vitest V8 coverage is configured to include only `src/test/mocks/handlers.ts`, the MSW handler implementation under test. It no longer includes all `src/**/*.{ts,tsx}` application source files.
+Vitest V8 coverage is configured to include only `src/test/mocks/handlers.ts`, the MSW handler implementation under test. It does not include all application source files.
 
 This percentage is reported separately from endpoint coverage:
 - API contract coverage answers whether each of the 44 agreed endpoints has a working mock and success/failure contract tests.
 - Scoped V8 coverage measures executed statements, branches, functions, and lines inside the MSW handler implementation only.
 - Playwright route, UI, form, build, and security checks are reported as behavioral test results; they are not added to a misleading whole-project line-coverage denominator.
 
-Latest verified workflow 42641825011 (commit `061a3c2`) reports 100% for all four metrics: statements 106/106, branches 23/23, functions 58/58, and lines 104/104. These thresholds are enforced by Vitest. This result applies only to `src/test/mocks/handlers.ts`, not the whole application.
+The last run with individually verified V8 metric totals is workflow 42641825011 (commit `061a3c2`): statements 106/106, branches 23/23, functions 58/58, and lines 104/104. These thresholds are enforced by Vitest. This result applies only to `src/test/mocks/handlers.ts`, not the whole application. The latest workflow also passed its unit and coverage steps, but the metric totals above are retained against the run where the exact totals were inspected.
 
-## Known remaining scope gaps
+## Locale discovery in the isolated mock
 
-- The isolated mock API discovers JSON dictionaries in `public/lang` and merges them with configurable `MOCK_ACTIVE_LANGUAGES`. Metadata and dictionary URLs are generated from those codes; no per-locale route or handler is needed.
-- Any valid active locale code is served by the generic dictionary route. If no local dictionary exists, the mock returns the deterministic English dictionary fixture so isolated page rendering and crawling do not require external services.
-- MSW uses the same configurable locale list and a generic dictionary route. Tests cover `fa`, `en`, `ar`, `ru`, and `zh`, including direction metadata and rejection of inactive locales.
-- To simulate a newly activated language, add its code to `MOCK_ACTIVE_LANGUAGES`; adding `public/lang/<code>.json` also makes that dictionary discoverable automatically.
-- The 47-route crawl manifest is explicit. It currently attempts all 47 listed patterns; it does not prove that every public App Router route in the repository has been discovered.
-- The 47-route crawl manifest is explicit and is not a guarantee that every public App Router route has been discovered.
-- The current SEO suite is red because of 23 existing metadata length assertions. Production metadata was intentionally left unchanged because SEO metadata remediation is outside this test-infrastructure scope.
+There are two separate stages; they should not be conflated:
+
+1. **Crawler discovery is API-driven.** `tests/e2e/crawl.spec.ts` requests `/api/translations?active=true`, validates the returned language records, and builds the locale × route crawl from the returned `code` values. It does not hard-code the five locale codes as the crawl source. Therefore, a new valid locale returned by that endpoint is included in the crawl automatically.
+2. **The mock API's language catalogue is fixture/configuration-driven, not synchronized with the live Admin API.** `scripts/mock-api-server.mjs` and `src/test/mocks/handlers.ts` build the mock response from `MOCK_ACTIVE_LANGUAGES` (process environment, then `.env.local`, then the default `fa,en,ar,ru,zh`) and merge in valid JSON filenames found in `public/lang`. They generate the `/api/translations?active=true` records from that list. A language activated only in the real Dev Admin API will **not** appear in the isolated mock unless the mock configuration or local dictionary fixtures are updated.
+
+To simulate a newly activated locale in CI or locally, add its code to `MOCK_ACTIVE_LANGUAGES` (for example `de`) or add `public/lang/de.json`. The mock then publishes the locale in its translations API response and serves its dictionary through the generic `/lang/<code>.json` handler. If no local dictionary file exists, the deterministic English fallback dictionary is returned. Direction is derived from the locale's base language code; unknown display names fall back to the code itself.
+
+**Verification boundary:** existing tests cover configured extra codes, generic dictionary handling, fallback dictionaries, and rejection of inactive codes. They do not prove automatic synchronization from a live Admin API response, because that external service is deliberately not contacted by the isolated test environment. No production API or SEO metadata behavior is changed by this setup.
+
+## Crawl manifest limitations
+
+- The crawl manifest explicitly lists 47 route patterns (15 static and 32 representative dynamic routes). Across five active locales this produces 235 full localized URLs, satisfying the issue's greater-than-60 URL threshold.
+- The manifest is not a guarantee that every public App Router route in the repository has been discovered.
+- The latest SEO suite remains red because of the 24 metadata assertions recorded above. Production metadata was intentionally left unchanged because SEO metadata remediation is outside this test-infrastructure scope.
 
 ## Test commands
 
