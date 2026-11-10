@@ -52,13 +52,13 @@ export async function generateMetadata({
     const langData = await getTranslation(lang);
     const mainData = await getMainFile(langData);
     return {
-      title: `${findByUniqueId(mainData, 1756)} | ${findByUniqueId(mainData, 148)}`,
+      title: `${findByUniqueId(mainData, 1756).slice(0, 145)} | ${findByUniqueId(mainData, 148)}`,
       description: findByUniqueId(mainData, 1757).slice(0,155),
         alternates: {
     canonical: url,
   },
       openGraph: {
-        title: findByUniqueId(mainData, 1756),
+        title: findByUniqueId(mainData, 1756).slice(0, 69),
         description: findByUniqueId(mainData, 1757),
         url,
         siteName: "Metaverse Rang",
