@@ -18,13 +18,12 @@ const webServers = Array.isArray(baseConfig.webServer)
     : [];
 
 const translationWebServers = webServers.map((server) => {
-  const config = server as { command?: string; env?: Record<string, string> };
-  if (!config.command?.includes("npm run start")) return server;
+  if (!server.command.includes("npm run start")) return server;
 
   return {
-    ...config,
+    ...server,
     env: {
-      ...config.env,
+      ...server.env,
       TRANSLATION_ADMIN_API_BASE_URL: translationAdminApiURL,
     },
   };
