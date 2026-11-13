@@ -21,7 +21,6 @@ export default function InteractiveGemImage({
   const sparkleLayerRef = useRef<HTMLDivElement | null>(null);
 
   const handlePointerMove = useCallback((event: PointerEvent<HTMLDivElement>) => {
-    // Touch input has no hover; keep the image static and avoid fighting scroll.
     if (event.pointerType !== "mouse" || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const shell = shellRef.current;
@@ -36,13 +35,10 @@ export default function InteractiveGemImage({
     const tiltY = (0.5 - y) * MAX_TILT_DEGREES * 2;
     const tiltX = (x - 0.5) * MAX_TILT_DEGREES * 2;
 
-    // Update compositor-friendly transforms directly; no React state per pointer event.
     stage.style.transform = `rotateX(${tiltY}deg) rotateY(${tiltX}deg)`;
 
-    const pointerX = `${(x * 100).toFixed(1)}%`;
-    const pointerY = `${(y * 100).toFixed(1)}%`;
-    shell.style.setProperty("--gem-pointer-x", pointerX);
-    shell.style.setProperty("--gem-pointer-y", pointerY);
+    shell.style.setProperty("--gem-pointer-x", `${(x * 100).toFixed(1)}%`);
+    shell.style.setProperty("--gem-pointer-y", `${(y * 100).toFixed(1)}%`);
     shell.style.setProperty("--facet-top", (0.15 + (1 - y) * 0.55).toFixed(2));
     shell.style.setProperty("--facet-bottom", (0.15 + y * 0.55).toFixed(2));
     shell.style.setProperty("--facet-left", (0.15 + (1 - x) * 0.55).toFixed(2));
@@ -50,8 +46,6 @@ export default function InteractiveGemImage({
     shell.style.setProperty("--facet-center", (0.2 + (1 - Math.abs(x - 0.5) * 2) * 0.5).toFixed(2));
     shell.dataset.active = "true";
 
-    // Recreate the reference's cursor-trail diamond stars only where the
-    // pointer moves. Keep the DOM bounded and let CSS handle their fade-out.
     const sparkleLayer = sparkleLayerRef.current;
     if (sparkleLayer && Math.random() > 0.58 && sparkleLayer.childElementCount < 12) {
       const starSize = 18 + Math.random() * 18;
@@ -108,12 +102,12 @@ export default function InteractiveGemImage({
       data-active="false"
       onPointerMove={handlePointerMove}
       onPointerLeave={resetPointer}
-      className="relative aspect-5/7 w-full overflow-visible [perspective:900px] [--gem-pointer-x:50%] [--gem-pointer-y:42%]"
+      className="interactive-gem-image relative aspect-5/7 w-full overflow-visible [perspective:900px] [--gem-pointer-x:50%] [--gem-pointer-y:42%]"
       style={{ "--gem-glow": glowColor || "transparent" } as CSSProperties}
     >
       <div
         ref={stageRef}
-        className="relative h-full w-full overflow-hidden rounded-xl [transform-style:preserve-3d] [will-change:transform]"
+        className="gem-stage relative h-full w-full overflow-hidden rounded-xl [transform-style:preserve-3d] [will-change:transform]"
         style={{ transition: "transform 90ms ease-out" }}
       >
         <Image
@@ -126,7 +120,6 @@ export default function InteractiveGemImage({
           onError={() => console.error("ImageBox: failed to load gem PNG:", src)}
         />
 
-        {/* Moving light highlights the cut facets without repainting the source image. */}
         <div
           aria-hidden="true"
           className="gem-light pointer-events-none absolute inset-0 rounded-xl opacity-0 transition-opacity duration-200 [background:radial-gradient(ellipse_at_var(--gem-pointer-x)_var(--gem-pointer-y),rgba(255,255,235,0.78),rgba(255,255,255,0.28)_20%,rgba(220,255,130,0.16)_38%,transparent_62%)]"
@@ -140,35 +133,35 @@ export default function InteractiveGemImage({
         />
       </div>
 
-      <style jsx>{`
-        .facet-top { opacity: var(--facet-top, 0.22); }
-        .facet-bottom { opacity: var(--facet-bottom, 0.22); }
-        .facet-left { opacity: var(--facet-left, 0.22); }
-        .facet-right { opacity: var(--facet-right, 0.22); }
-        .facet-center { opacity: var(--facet-center, 0.22); }
-
-        [data-active="true"] .gem-light { opacity: 1; }
-
-        .gem-trail-star {
-          position: absolute;
-          display: block;
-          overflow: visible;
-          filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 12px var(--gem-glow)) drop-shadow(0 0 20px var(--gem-glow));
-          animation: diamond-star 700ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      <style jsx global>{`
+        .interactive-gem-image[data-active="true"] .gem-light {
+          opacity: 1;
         }
 
-        [data-active="true"] > div {
+        .interactive-gem-image[data-active="true"] .gem-stage {
           box-shadow: 0 0 28px 5px var(--gem-glow), 0 0 64px 18px var(--gem-glow), 0 22px 52px -10px var(--gem-glow);
         }
 
-        @keyframes diamond-star {
+        .interactive-gem-image .gem-trail-star {
+          position: absolute;
+          display: block;
+          overflow: visible;
+          pointer-events: none;
+          filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 12px var(--gem-glow)) drop-shadow(0 0 20px var(--gem-glow));
+          animation: interactive-gem-diamond-star 700ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes interactive-gem-diamond-star {
           0% { transform: scale(0) rotate(0deg); opacity: 0; }
           50% { transform: scale(1.2) rotate(45deg); opacity: 1; }
           100% { transform: scale(0) rotate(90deg); opacity: 0; }
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .gem-trail-star { animation: none !important; opacity: 0; }
+          .interactive-gem-image .gem-trail-star {
+            animation: none !important;
+            opacity: 0;
+          }
         }
       `}</style>
     </div>
