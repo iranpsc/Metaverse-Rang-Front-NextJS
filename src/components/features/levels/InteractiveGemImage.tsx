@@ -39,12 +39,14 @@ function addSparkle(layer: HTMLDivElement, x: number, y: number, sizes = CURSOR_
     top: `${y - size / 2}px`,
     width: `${size}px`,
     height: `${size}px`,
-    "--star-opacity": opacity,
-    "--star-rotation": `${rotation}deg`,
-    "--star-drift-x": `${driftX}px`,
-    "--star-drift-y": `${driftY}px`,
     animationDuration: `${duration}ms`,
   } as CSSProperties);
+  // CSS custom properties must be written with setProperty; assigning them
+  // through Object.assign does not reliably populate CSSStyleDeclaration.
+  star.style.setProperty("--star-opacity", opacity);
+  star.style.setProperty("--star-rotation", `${rotation}deg`);
+  star.style.setProperty("--star-drift-x", `${driftX}px`);
+  star.style.setProperty("--star-drift-y", `${driftY}px`);
 
   const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
   path.setAttribute("d", "M12 0L14.4 9.6L24 12L14.4 14.4L12 24L9.6 14.4L0 12L9.6 9.6L12 0Z");
