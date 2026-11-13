@@ -17,7 +17,7 @@ const translationWebServers = webServers.map((server) => {
     ...config,
     env: {
       ...config.env,
-      NEXT_PUBLIC_ADMIN_API_BASE_URL: "https://admin.metarang.com",
+      TRANSLATION_ADMIN_API_BASE_URL: "https://admin.metarang.com",
     },
   };
 });
