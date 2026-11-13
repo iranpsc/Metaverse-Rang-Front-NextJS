@@ -9,7 +9,9 @@ const originalFetch = globalThis.fetch;
 const localHosts = new Set(["127.0.0.1", "localhost", "::1"]);
 const allowedTranslationFiles = new Set();
 const translationAdminOrigin = new URL(
-  process.env.NEXT_PUBLIC_ADMIN_API_BASE_URL || "https://admin.metarang.com"
+  process.env.TRANSLATION_ADMIN_API_BASE_URL ||
+    process.env.NEXT_PUBLIC_ADMIN_API_BASE_URL ||
+    "https://admin.metarang.com"
 ).origin;
 
 function isTranslationMetadataUrl(url) {
