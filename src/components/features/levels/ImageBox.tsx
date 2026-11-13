@@ -132,7 +132,7 @@ export default function ImageBox({
 
   // PNG: ابتدا تب فعلی، سپس general_info
   const srcPng = gemPng || getFileUrl(general.png_file);
-  const gemGlowColor = gemPng
+  const gemGlowColor = tabs === "gem"
     ? getGemGlowColor({ route_name: levelName })
     : undefined;
   const gemGlowStyle = gemGlowColor
