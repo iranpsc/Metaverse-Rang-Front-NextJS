@@ -171,6 +171,10 @@ async function getApiLanguages(request: {
   return { languages, failures };
 }
 test.describe("public static route browser crawl @seo", () => {
+  // This suite already retries transient upstream metadata/dictionary requests explicitly.
+  // Re-running all 329+ page checks can hide intermittent SEO failures and multiplies load.
+  test.describe.configure({ retries: 0 });
+
   test("crawl every static public route in every active language and report all failures", async ({
     browser,
     request,
@@ -233,7 +237,37 @@ test.describe("public static route browser crawl @seo", () => {
         continue;
       }
       try {
-        const dictionaryResponse = await request.get(language.file_url, { timeout: 10_000 });
+        let dictionaryResponse:
+          | Awaited<ReturnType<typeof request.get>>
+          | undefined;
+        let lastDictionaryError: unknown;
+
+        // Retry only transient upstream failures. A missing/invalid URL, 4xx
+        // response, invalid JSON, or wrong content type remains a real failure.
+        for (let attempt = 1; attempt <= 3; attempt++) {
+          try {
+            const response = await request.get(language.file_url, { timeout: 10_000 });
+            dictionaryResponse = response;
+
+            if (response.status() !== 429 && response.status() < 500) break;
+            lastDictionaryError = new Error(
+              `Translation dictionary for ${language.code} returned HTTP ${response.status()} (attempt ${attempt}/3)`,
+            );
+          } catch (error) {
+            lastDictionaryError = error;
+          }
+
+          if (attempt < 3) {
+            await new Promise((resolve) => setTimeout(resolve, attempt * 750));
+          }
+        }
+
+        if (!dictionaryResponse) {
+          throw lastDictionaryError instanceof Error
+            ? lastDictionaryError
+            : new Error(`Translation dictionary for ${language.code} could not be reached`);
+        }
+
         expect(
           dictionaryResponse.status(),
           `Translation dictionary for ${language.code} must return HTTP 200`,
