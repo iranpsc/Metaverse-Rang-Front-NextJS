@@ -17,11 +17,11 @@
     "test:integration": "vitest run src/app src/components src/test --reporter=./scripts/vitest-checklist-reporter.mjs",
     "test:e2e": "playwright test",
     "test:e2e:core": "playwright test --grep-invert \"@(ui|forms|seo|security)\"",
-    "test:seo": "playwright test --grep @seo",
+    "test:seo": "playwright test -c playwright.translation.config.ts --grep @seo",
     "test:security": "playwright test --grep @security",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:install": "playwright install chromium",
-    "test:crawl": "playwright test tests/e2e/crawl.spec.ts",
+    "test:crawl": "playwright test -c playwright.translation.config.ts tests/e2e/crawl.spec.ts",
     "test:ui": "playwright test --grep @ui",
     "test:forms": "playwright test --grep @forms"
   },
@@ -115,8 +115,19 @@
     "webpack-bundle-analyzer": "^4.10.2"
   },
   "browserslist": {
-    "production": [">0.5%", "last 2 versions", "not dead", "not IE 11"],
-    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
+    "production": [
+      ">0.5%",
+      "last 2 versions",
+      "not dead",
+      "not IE 11"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
-  "engines": {"node": ">=22.0.0"}
+  "engines": {
+    "node": ">=22.0.0"
+  }
 }
