@@ -13,8 +13,10 @@ const MAX_TILT_DEGREES = 10;
 const MAX_SPARKLES = 16;
 const CURSOR_STAR_SIZES = [8, 12, 17, 23];
 const AMBIENT_STAR_SIZES = [13, 19, 27, 36, 46, 56];
-const STAR_OPACITY_MIN = 0.035;
-const STAR_OPACITY_MAX = 0.085;
+// The visible star strength is applied through the CSS filter, independently
+// from the fade-in/fade-out animation below.
+const STAR_OPACITY_MIN = 0.08;
+const STAR_OPACITY_MAX = 0.18;
 
 function addSparkle(layer: HTMLDivElement, x: number, y: number, sizes = CURSOR_STAR_SIZES) {
   if (layer.childElementCount >= MAX_SPARKLES) return;
@@ -220,7 +222,7 @@ export default function InteractiveGemImage({
           overflow: visible;
           pointer-events: none;
           opacity: 0;
-          filter: drop-shadow(0 0 1px rgba(255,255,255,0.12)) drop-shadow(0 0 3px var(--gem-glow));
+          filter: opacity(var(--star-opacity)) drop-shadow(0 0 1px rgba(255,255,255,0.12)) drop-shadow(0 0 3px var(--gem-glow));
           animation: interactive-gem-sparkle 1100ms ease-out forwards;
           will-change: transform, opacity;
         }
@@ -232,7 +234,7 @@ export default function InteractiveGemImage({
           }
           24% {
             transform: translate3d(0, 0, 0) scale(1) rotate(var(--star-rotation));
-            opacity: var(--star-opacity);
+            opacity: 1;
           }
           100% {
             transform: translate3d(var(--star-drift-x), var(--star-drift-y), 0) scale(0.62) rotate(calc(var(--star-rotation) + 55deg));
