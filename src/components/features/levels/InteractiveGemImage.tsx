@@ -21,7 +21,7 @@ export default function InteractiveGemImage({
 
   const handlePointerMove = useCallback((event: PointerEvent<HTMLDivElement>) => {
     // Touch input has no hover; keep the image static and avoid fighting scroll.
-    if (event.pointerType !== "mouse") return;
+    if (event.pointerType !== "mouse" || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const shell = shellRef.current;
     const stage = stageRef.current;
@@ -42,6 +42,11 @@ export default function InteractiveGemImage({
     const pointerY = `${(y * 100).toFixed(1)}%`;
     shell.style.setProperty("--gem-pointer-x", pointerX);
     shell.style.setProperty("--gem-pointer-y", pointerY);
+    shell.style.setProperty("--facet-top", (0.15 + (1 - y) * 0.55).toFixed(2));
+    shell.style.setProperty("--facet-bottom", (0.15 + y * 0.55).toFixed(2));
+    shell.style.setProperty("--facet-left", (0.15 + (1 - x) * 0.55).toFixed(2));
+    shell.style.setProperty("--facet-right", (0.15 + x * 0.55).toFixed(2));
+    shell.style.setProperty("--facet-center", (0.2 + (1 - Math.abs(x - 0.5) * 2) * 0.5).toFixed(2));
     shell.dataset.active = "true";
   }, []);
 
@@ -79,6 +84,7 @@ export default function InteractiveGemImage({
           priority
           sizes="(max-width: 768px) 90vw, 40vw"
           className="rounded-xl object-cover"
+          onError={() => console.error("ImageBox: failed to load gem PNG:", src)}
         />
 
         {/* Moving light highlights the cut facets without repainting the source image. */}
@@ -96,7 +102,11 @@ export default function InteractiveGemImage({
         >
           <path d="M50 3 8 31 19 104 50 137 81 104 92 31Z" fill="none" stroke="white" strokeOpacity=".5" strokeWidth=".7" />
           <path d="M8 31 50 45 92 31M19 104 50 45 81 104M8 31 50 3 92 31M19 104 50 137 81 104" fill="none" stroke="white" strokeOpacity=".58" strokeWidth=".65" />
-          <path d="M50 3 50 45 8 31Z M50 3 92 31 50 45Z M8 31 19 104 50 45Z M92 31 81 104 50 45Z M19 104 50 137 50 45Z M81 104 50 137 50 45Z" fill="white" fillOpacity=".055" />
+          <path className="facet facet-top" d="M50 3 50 45 8 31Z M50 3 92 31 50 45Z" fill="white" />
+          <path className="facet facet-left" d="M8 31 19 104 50 45Z" fill="white" />
+          <path className="facet facet-right" d="M92 31 81 104 50 45Z" fill="white" />
+          <path className="facet facet-bottom" d="M19 104 50 137 50 45Z M81 104 50 137 50 45Z" fill="white" />
+          <path className="facet facet-center" d="M50 3 50 45 92 31 81 104 50 137 19 104 8 31Z" fill="white" />
         </svg>
 
         <svg
@@ -117,7 +127,15 @@ export default function InteractiveGemImage({
       </div>
 
       <style jsx>{`
-        [data-active="true"] .gem-light { opacity: 1; }\n\n        [data-active="true"] .gem-sparkles {
+        .facet-top { opacity: var(--facet-top, 0.22); }
+        .facet-bottom { opacity: var(--facet-bottom, 0.22); }
+        .facet-left { opacity: var(--facet-left, 0.22); }
+        .facet-right { opacity: var(--facet-right, 0.22); }
+        .facet-center { opacity: var(--facet-center, 0.22); }
+
+        [data-active="true"] .gem-light { opacity: 1; }
+
+        [data-active="true"] .gem-sparkles {
           opacity: 0.9;
           animation: gem-sparkle 850ms ease-in-out infinite alternate;
         }
@@ -132,9 +150,7 @@ export default function InteractiveGemImage({
         }
 
         @media (prefers-reduced-motion: reduce) {
-          [data-active="true"] .gem-sparkles {
-            animation: none;
-          }
+          .gem-sparkles { animation: none !important; }
         }
       `}</style>
     </div>
