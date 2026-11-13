@@ -61,6 +61,11 @@ export default function InteractiveGemImage({
     stage.style.transform = "rotateX(0deg) rotateY(0deg)";
     shell.style.setProperty("--gem-pointer-x", "50%");
     shell.style.setProperty("--gem-pointer-y", "42%");
+    shell.style.setProperty("--facet-top", "0.22");
+    shell.style.setProperty("--facet-bottom", "0.22");
+    shell.style.setProperty("--facet-left", "0.22");
+    shell.style.setProperty("--facet-right", "0.22");
+    shell.style.setProperty("--facet-center", "0.22");
   }, []);
 
   return (
@@ -123,6 +128,9 @@ export default function InteractiveGemImage({
           <path d="M32 2 37 25 62 32 37 37 32 62 26 37 2 32 26 25Z" fill="currentColor" />
           <path d="M8 8 11 17 20 20 11 23 8 32 5 23 0 20 5 17Z" fill="white" opacity=".8" />
           <circle cx="51" cy="11" r="2.5" fill="white" />
+          <circle cx="52" cy="49" r="2" fill="#dfff8a" />
+          <circle cx="13" cy="47" r="1.8" fill="#fff2a6" />
+          <path d="M51 35 53 41 59 43 53 45 51 51 49 45 43 43 49 41Z" fill="#eaff9b" opacity=".9" />
         </svg>
       </div>
 
