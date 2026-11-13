@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useRef, type PointerEvent } from "react";
+import { useCallback, useRef, type CSSProperties, type PointerEvent } from "react";
 
 type InteractiveGemImageProps = {
   src: string;
@@ -18,8 +18,6 @@ export default function InteractiveGemImage({
 }: InteractiveGemImageProps) {
   const shellRef = useRef<HTMLDivElement | null>(null);
   const stageRef = useRef<HTMLDivElement | null>(null);
-  const lightRef = useRef<HTMLDivElement | null>(null);
-  const sparkleRef = useRef<SVGSVGElement | null>(null);
 
   const handlePointerMove = useCallback((event: PointerEvent<HTMLDivElement>) => {
     // Touch input has no hover; keep the image static and avoid fighting scroll.
@@ -67,7 +65,7 @@ export default function InteractiveGemImage({
       onPointerMove={handlePointerMove}
       onPointerLeave={resetPointer}
       className="relative aspect-5/7 w-full overflow-visible [perspective:900px] [--gem-pointer-x:50%] [--gem-pointer-y:42%]"
-      style={{ "--gem-glow": glowColor || "transparent" } as React.CSSProperties}
+      style={{ "--gem-glow": glowColor || "transparent" } as CSSProperties}
     >
       <div
         ref={stageRef}
@@ -85,9 +83,8 @@ export default function InteractiveGemImage({
 
         {/* Moving light highlights the cut facets without repainting the source image. */}
         <div
-          ref={lightRef}
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 rounded-xl opacity-0 transition-opacity duration-200 [background:radial-gradient(ellipse_at_var(--gem-pointer-x)_var(--gem-pointer-y),rgba(255,255,230,0.42),rgba(255,255,255,0.10)_18%,transparent_48%)] group-hover:opacity-100"
+          className="gem-light pointer-events-none absolute inset-0 rounded-xl opacity-0 transition-opacity duration-200 [background:radial-gradient(ellipse_at_var(--gem-pointer-x)_var(--gem-pointer-y),rgba(255,255,230,0.42),rgba(255,255,255,0.10)_18%,transparent_48%)]"
           style={{ mixBlendMode: "screen" }}
         />
 
@@ -103,7 +100,6 @@ export default function InteractiveGemImage({
         </svg>
 
         <svg
-          ref={sparkleRef}
           aria-hidden="true"
           viewBox="0 0 64 64"
           className="gem-sparkles pointer-events-none absolute h-16 w-16 opacity-0"
@@ -121,7 +117,7 @@ export default function InteractiveGemImage({
       </div>
 
       <style jsx>{`
-        [data-active="true"] .gem-sparkles {
+        [data-active="true"] .gem-light { opacity: 1; }\n\n        [data-active="true"] .gem-sparkles {
           opacity: 0.9;
           animation: gem-sparkle 850ms ease-in-out infinite alternate;
         }
