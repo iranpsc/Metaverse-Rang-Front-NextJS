@@ -107,22 +107,24 @@ async function fetchNewsByCategoryWithFallback(categorySlug: string) {
 export async function generateMetadata({ params }: NewsCategoryPageProps) {
   const resolvedParams = await params;
   const { lang } = resolvedParams;
-    const [ langData] = await Promise.all([
-    getTranslation(lang),
+  const categorySlug = decodeURIComponent(resolvedParams.category);
+  const siteUrl = "https://metarang.com";
 
-  ]);
-  const mainData = await getMainFile(langData);
   try {
-    const categorySlug = decodeURIComponent(resolvedParams.category);
-    const siteUrl = "https://metarang.com";
+    // The news query does not depend on translations. Run both concurrently
+    // to avoid serial network waits delaying the document title.
+    const [langData, newsResult] = await Promise.all([
+      getTranslation(lang),
+      fetchNewsByCategoryWithFallback(categorySlug),
+    ]);
 
-    // تلاش برای دریافت از Supabase با fallback
-    const { data } = await fetchNewsByCategoryWithFallback(categorySlug);
+    const mainData = await getMainFile(langData);
+    const { data } = newsResult;
 
     if (!data || data.length === 0) {
       return {
         title: `دسته ${categorySlug} | اخبار`,
-        description: `خبری در این دسته یافت نشد`,
+        description: `خبری در دسته ${categorySlug} یافت نشد`,
         alternates: {
           canonical: `${siteUrl}/${lang}/news/categories/${categorySlug}`,
         },
@@ -130,16 +132,18 @@ export async function generateMetadata({ params }: NewsCategoryPageProps) {
     }
 
     const { category, categoryDec, categoryImage } = data[0];
+    const resolvedCategory = category || categorySlug;
+    const description = categoryDec || `اخبار مرتبط با ${resolvedCategory}`;
 
     return {
-      title: `${category} |  ${findByUniqueId(mainData, 148)}`,
-      description: categoryDec || `اخبار مرتبط با ${category}`,
+      title: `${resolvedCategory} | ${findByUniqueId(mainData, 148)}`,
+      description,
       alternates: {
         canonical: `${siteUrl}/${lang}/news/categories/${categorySlug}`,
       },
       openGraph: {
-        title: `${category} | اخبار`,
-        description: categoryDec,
+        title: `${resolvedCategory} | اخبار`,
+        description,
         url: `${siteUrl}/${lang}/news/categories/${categorySlug}`,
         siteName: "MetaRang",
         type: "website",
@@ -149,15 +153,21 @@ export async function generateMetadata({ params }: NewsCategoryPageProps) {
             url: categoryImage || "/default.png",
             width: 1200,
             height: 630,
-            alt: category,
+            alt: resolvedCategory,
           },
         ],
       },
     };
-  } catch {
+  } catch (error) {
+    console.error("[NewsCategory generateMetadata] Failed:", error);
     return {
-      title: "خطا",
-      description: "مشکلی رخ داده است",
+      title: `${categorySlug} | ${lang === "fa" ? "اخبار متارنگ" : "MetaRang News"}`,
+      description: lang === "fa"
+        ? `آخرین اخبار دسته ${categorySlug} در متارنگ`
+        : `Latest news in the ${categorySlug} category on MetaRang`,
+      alternates: {
+        canonical: `${siteUrl}/${lang}/news/categories/${categorySlug}`,
+      },
     };
   }
 }

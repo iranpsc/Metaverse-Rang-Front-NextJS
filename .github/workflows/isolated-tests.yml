@@ -1,0 +1,167 @@
+name: Isolated Test Suite
+
+on:
+  push:
+    branches:
+      - feat/phase-1-isolated-test-infrastructure
+  pull_request:
+    branches:
+      - dev
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: isolated-tests-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Unit, integration and browser tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+
+    env:
+      CI: true
+      NEXT_PUBLIC_API_BASE_URL: http://127.0.0.1:9999
+      NEXT_PUBLIC_ADMIN_API_BASE_URL: http://127.0.0.1:9999
+      NEXT_PUBLIC_SUPABASE_URL: http://127.0.0.1:9999
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: ci-mock-supabase-anon-key
+      INTERNAL_GO_SERVICE_URL: http://127.0.0.1:9999
+      INTERNAL_SERVICE_KEY: ci-mock-internal-service-key
+      CACHE_INVALIDATION_HMAC_SECRET: ci-mock-hmac-secret
+      WEBHOOK_SECRET: ci-mock-webhook-secret
+      SMTP_HOST: 127.0.0.1
+      SMTP_PORT: 1025
+      SMTP_USER: ci-mock
+      SMTP_PASS: ci-mock-password
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Prepare isolated environment from .env.example
+        run: |
+          cp .env.example .env.local
+          test -s .env.local
+
+      - name: Run unit tests
+        id: test-unit
+        run: npm run test:unit
+
+      - name: Run integration tests
+        id: test-integration
+        run: npm run test:integration
+
+      - name: Install the matching Vitest V8 coverage provider
+        run: npm install --no-save @vitest/coverage-v8@4.1.12
+
+      - name: Generate Phase 1 MSW handler coverage report
+        id: test-coverage
+        run: npm run test:coverage
+
+      - name: Verify and summarize scoped MSW handler coverage
+        run: |
+          test -s coverage/coverage-summary.json
+          test -s coverage/index.html
+          node -e "const t=require('./coverage/coverage-summary.json').total; for (const k of ['statements','branches','functions','lines']) console.log('MSW handlers — ' + k + ': ' + t[k].covered + '/' + t[k].total + ' (' + t[k].pct + '%)')"
+
+      - name: Start translation and application API mock
+        run: |
+          node scripts/mock-api-server.mjs > /tmp/metarang-mock-api.log 2>&1 &
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:9999/health > /dev/null; then
+              echo "Mock API is ready."
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/metarang-mock-api.log
+          echo "Mock API did not become ready."
+          exit 1
+
+      - name: Verify production build with mock environment
+        id: build
+        run: npm run build
+
+      - name: Install Playwright Chromium
+        id: playwright-install
+        run: npx playwright install --with-deps chromium
+
+      - name: Run untagged end-to-end tests
+        id: test-e2e
+        run: npm run test:e2e:core
+        continue-on-error: true
+
+      - name: Run dedicated page UI tests
+        id: test-ui
+        if: success()
+        run: npm run test:ui
+
+      - name: Run dedicated contact form tests
+        id: test-forms
+        if: success()
+        run: npm run test:forms
+
+      - name: Run dedicated SEO tests
+        id: test-seo
+        if: success()
+        run: npm run test:seo
+
+      - name: Run dedicated security tests
+        id: test-security
+        # SEO/UI/form failures must not suppress the independent security suite.
+        # Run only after build and browser installation are available.
+        if: always() && steps.build.outcome == 'success' && steps.playwright-install.outcome == 'success'
+        run: npm run test:security
+
+      - name: Write Phase 1 GitHub Actions summary
+        if: always()
+        env:
+          UNIT_STATUS: ${{ steps.test-unit.outcome || 'skipped' }}
+          INTEGRATION_STATUS: ${{ steps.test-integration.outcome || 'skipped' }}
+          COVERAGE_STATUS: ${{ steps.test-coverage.outcome || 'skipped' }}
+          BUILD_STATUS: ${{ steps.build.outcome || 'skipped' }}
+          E2E_STATUS: ${{ steps.test-e2e.outcome || 'skipped' }}
+          UI_STATUS: ${{ steps.test-ui.outcome || 'skipped' }}
+          FORMS_STATUS: ${{ steps.test-forms.outcome || 'skipped' }}
+          SEO_STATUS: ${{ steps.test-seo.outcome || 'skipped' }}
+          SECURITY_STATUS: ${{ steps.test-security.outcome || 'skipped' }}
+        run: node scripts/write-phase-1-summary.mjs
+
+      - name: Fail workflow if any test suite failed
+        if: always()
+        run: |
+          if [ "${{ steps.test-e2e.outcome }}" = "failure" ]; then exit 1; fi
+
+      - name: Upload code coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: phase-1-msw-handler-coverage-report
+          path: coverage/
+          if-no-files-found: ignore
+          retention-days: 14
+
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+            phase-1-results/
+          if-no-files-found: ignore
+          retention-days: 7

@@ -57,7 +57,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     const langData = await getTranslation(lang);
     const mainData = await getMainFile(langData);
 
-    const title = findByUniqueId(mainData, 1457) || (lang === 'fa' ? "متاورس رنگ - پلتفرم واقعیت افزوده و متاورس ایرانی" : "Metaverse Rang - Iranian AR/VR & Metaverse Platform");
+    const title = findByUniqueId(mainData, 1457).slice(0, 145) || (lang === 'fa' ? "متاورس رنگ - پلتفرم واقعیت افزوده و متاورس ایرانی" : "Metaverse Rang - Iranian AR/VR & Metaverse Platform");
     const descriptionRaw = findByUniqueId(mainData, 482) || "";
     const description = descriptionRaw.slice(0, 155);
 

@@ -22,15 +22,15 @@ export async function generateMetadata({ params }: AboutPageProps) {
       title: lang.toLowerCase() == "fa" ? "تماس با ما | متارنگ" : "Contact Us| Metarang",
       description:
         lang.toLowerCase() == "fa"
-          ? "ما در متاورس رنگ معتقدیم که توسعه این دنیای موازی و مجازی تنها با مشارکت و همفکری عمومی امکان‌پذیر است. زیرساخت‌های این جهان بر پایه‌ی واحد حدتاثیر بنا شده‌اند تا بتوانند نظرات و ایده‌های شما را به بهترین شکل در مسیر توسعه هدایت کنند. ارتباط با انجمن متاورس ایران و دانشگاه متاورس ایران از طریق این پلتفرم به راحتی امکان‌پذیر است."
-          : "We at Metaverse Rang believe that the development of this parallel and virtual world is only possible with public participation and consensus. The infrastructure of this world is built on the basis of the Haddtashtir unit so that it can best guide your opinions and ideas on the path of development. Communication with the Iranian Metaverse Association and the Iranian Metaverse University is easily possible through this platform.",
+         ? "برای توسعه متاورس رنگ، نظرات و پیشنهادهای خود را با انجمن و دانشگاه متاورس ایران در میان بگذارید."
+    : "Contact Metaverse Rang to share your ideas and suggestions with the Iranian Metaverse Association and University.",
       openGraph: {
         type: "website",
         title: lang.toLowerCase() == "fa" ? "تماس با ما" : "Contact Us",
         description:
           lang.toLowerCase() == "fa"
-            ? "ما در متاورس رنگ معتقدیم که توسعه این دنیای موازی و مجازی تنها با مشارکت و همفکری عمومی امکان‌پذیر است. زیرساخت‌های این جهان بر پایه‌ی واحد حدتاثیر بنا شده‌اند تا بتوانند نظرات و ایده‌های شما را به بهترین شکل در مسیر توسعه هدایت کنند. ارتباط با انجمن متاورس ایران و دانشگاه متاورس ایران از طریق این پلتفرم به راحتی امکان‌پذیر است."
-            : "We at Metaverse Rang believe that the development of this parallel and virtual world is only possible with public participation and consensus. The infrastructure of this world is built on the basis of the Haddtashtir unit so that it can best guide your opinions and ideas on the path of development. Communication with the Iranian Metaverse Association and the Iranian Metaverse University is easily possible through this platform.",
+            ? "برای توسعه متاورس رنگ، نظرات و پیشنهادهای خود را با انجمن و دانشگاه متاورس ایران در میان بگذارید."
+    : "Contact Metaverse Rang to share your ideas and suggestions with the Iranian Metaverse Association and University.",
         url: `https://metarang.com/${lang}/contact`,
         images: [
           {

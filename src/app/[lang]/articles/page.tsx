@@ -28,7 +28,10 @@ export async function generateMetadata({ params }: ArticlesPageProps) {
 
     return {
       title: lang === "fa" ? "مقالات متاورس رنگ | متارنگ" : "Metarangs Metaverse Articles | Metarang",
-      description: lang === "fa" ? "در این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنید" : "The Metarangs Metaverse articles page is the main gateway to the written content of Metarang — Iran’s first national metaverse. In this section, you can access the latest content on science, technology, virtual commerce, and development news of this parallel world.",
+      description:
+  lang === "fa"
+    ? "مقالات متاورس رنگ؛ تازه‌ترین مطالب آموزشی و تخصصی درباره فناوری، تجارت مجازی و اخبار توسعه دنیای متارنگ."
+    : "Explore Metarang articles on technology, virtual commerce, science, and the latest developments in Iran’s national metaverse.",
       openGraph: {
         title: lang === "fa" ? "مقالات متاورس رنگ" : "Metarangs Metaverse Articles",
         description: lang === "fa" ? "در این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنید" : "The Metarangs Metaverse articles page is the main gateway to the written content of Metarang — Iran’s first national metaverse. In this section, you can access the latest content on science, technology, virtual commerce, and development news of this parallel world.",
@@ -49,7 +52,9 @@ export async function generateMetadata({ params }: ArticlesPageProps) {
         card: "summary_large_image",
         title: "مقالات متاورس رنگ",
         description:
-          "در این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنید",
+  lang === "fa"
+    ? "مقالات متاورس رنگ؛ تازه‌ترین مطالب آموزشی و تخصصی درباره فناوری، تجارت مجازی و اخبار توسعه دنیای متارنگ."
+    : "Explore Metarang articles on technology, virtual commerce, science, and the latest developments in Iran’s national metaverse.",
         images: [imageUrl],
       },
     };

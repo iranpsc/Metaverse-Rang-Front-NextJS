@@ -9,10 +9,15 @@ export default function InviteListCard({
   item: any;
   params: any;
 }) {
-  const totalAmount = item.referrerOrders?.reduce(
-    (sum: number, order: { amount: number }) => sum + (order.amount || 0),
-    0
-  );
+  // Referral fixtures and older API records may omit referrerOrders.
+  // Keep the total numeric so server rendering never calls toLocaleString on undefined.
+  const totalAmount = Array.isArray(item?.referrerOrders)
+    ? item.referrerOrders.reduce(
+        (sum: number, order: { amount?: number | string | null }) =>
+          sum + (Number(order?.amount) || 0),
+        0
+      )
+    : 0;
   return (
     <div className="dark:bg-gray-1 bg-white p-3 rounded-xl flex  items-center w-full h-[56px] lg:h-[128px]">
       <div className="relative w-[50px] h-[50px] lg:w-[80px] lg:h-[80px] rounded-full overflow-hidden">

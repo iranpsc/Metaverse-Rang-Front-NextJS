@@ -107,9 +107,9 @@ export default async function LevelsPage({ params }: LevelsPageProps) {
           </div>
 
           <div className="mt-[40px] xl:px-8 lg:px-8 px-5 text-center">
-            <h2 className="font-rokh font-bold text-[32px] dark:text-white mb-4 ">
+            <h1 className="font-rokh font-bold text-[32px] dark:text-white mb-4 ">
               {findByUniqueId(mainData, 587)}
-            </h2>
+            </h1>
             <p className="text-lightGrey dark:text-matn-2 text-[20px]">
               {findByUniqueId(mainData, 1417)}
             </p>

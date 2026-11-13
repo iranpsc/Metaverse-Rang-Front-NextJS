@@ -71,6 +71,13 @@ function isRetryableNetworkError(error) {
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+// Process-wide TTL caches prevent repeated translation requests across pages.
+const TRANSLATION_CACHE_TTL_MS = 24 * 60 * 60 * 1000;
+const TRANSLATION_RETRY_COOLDOWN_MS = 60 * 1000;
+const activeLanguagesMemoryCache = { value: null, expiresAt: 0, pending: null };
+const dictionaryMemoryCache = new Map();
+
+
 async function fetchWithRetry(url, options = {}, retries = 2) {
   for (let attempt = 0; ; attempt++) {
     try {
@@ -233,50 +240,59 @@ async function getOfflineLanguages() {
  * Successful API data remains authoritative. Local fa/en files are used only
  * when the API is unavailable or returns no usable language records.
  */
+/**
+ * Always resolves to an array. API failures are handled by the last-known-good
+ * cache or the bundled fa/en fallback, so callers never need a nullable check.
+ *
+ * @returns {Promise<Array<{ code: string, [key: string]: any }>>}
+ */
 export const getLangArray = cache(async function getLangArray() {
-  try {
-    const adminApiBaseUrl = await getAdminApiBaseUrl();
-    const res = await fetch(
-      `${adminApiBaseUrl}/api/translations?active=true`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
+  const cached = activeLanguagesMemoryCache;
+  if (cached.value && cached.expiresAt > Date.now()) return cached.value;
+  if (cached.pending) return cached.pending;
+
+  const pending = (async () => {
+    try {
+      const adminApiBaseUrl = await getAdminApiBaseUrl();
+      const res = await fetch(`${adminApiBaseUrl}/api/translations?active=true`, {
+        headers: { Accept: "application/json" },
         signal: AbortSignal.timeout(4000),
-        next: {
-          revalidate: 86400,
-          tags: ["translations"],
-        },
+        next: { revalidate: 86400, tags: ["translations"] },
+      });
+
+      if (!res.ok) throw new Error(`Languages request failed: ${res.status} ${res.statusText}`);
+
+      const data = await res.json();
+      if (!Array.isArray(data?.data)) {
+        throw new Error("Invalid languages response: expected data to be an array.");
       }
-    );
 
-    if (!res.ok) {
-      throw new Error(
-        `Languages request failed: ${res.status} ${res.statusText}`
+      const languages = data.data.filter(
+        (item) => item && typeof item.code === "string" && item.code.trim().length > 0
       );
+      cached.value = languages;
+      cached.expiresAt = Date.now() + TRANSLATION_CACHE_TTL_MS;
+      return languages;
+    } catch (error) {
+      console.warn("[getLangArray] Language API unavailable; using cached data or bundled fa/en dictionaries.", error);
+
+      // Retain the last known-good API response during 429/network failures.
+      if (cached.value) {
+        cached.expiresAt = Date.now() + TRANSLATION_RETRY_COOLDOWN_MS;
+        return cached.value;
+      }
+
+      const fallback = await getOfflineLanguages();
+      cached.value = fallback;
+      cached.expiresAt = Date.now() + TRANSLATION_RETRY_COOLDOWN_MS;
+      return fallback;
+    } finally {
+      cached.pending = null;
     }
+  })();
 
-    const data = await res.json();
-
-    if (!Array.isArray(data?.data)) {
-      throw new Error("Invalid languages response: expected data to be an array.");
-    }
-
-    // A successful API response is authoritative, including an empty active list.
-    return data.data.filter(
-      (item) =>
-        item &&
-        typeof item.code === "string" &&
-        item.code.trim().length > 0
-    );
-  } catch (error) {
-    console.warn(
-      "[getLangArray] Language API unavailable; using bundled fa/en dictionaries.",
-      error
-    );
-
-    return getOfflineLanguages();
-  }
+  cached.pending = pending;
+  return pending;
 });
 
 /* -------------------------------------------------------------------------- */
@@ -287,73 +303,70 @@ export const getLangArray = cache(async function getLangArray() {
  * Return main language JSON file
  */
 export const getMainFile = cache(async function getMainFile(langData) {
-  try {
-    if (langData?.offlineFallback) {
-      return await readLocalLanguageFile(langData.code);
-    }
+  const langCode = langData?.code || "unknown";
+  const cacheKey = `${langCode}:${langData?.file_url || "local"}`;
+  const cached = dictionaryMemoryCache.get(cacheKey);
 
-    if (!langData?.file_url) {
-      throw new Error("No file_url provided");
-    }
+  if (cached && cached.expiresAt > Date.now()) return cached.value;
+  if (cached?.pending) return cached.pending;
 
-    const res = await fetch(langData.file_url, {
-      signal: AbortSignal.timeout(8000),
-      next: {
-        revalidate: 86400,
-        tags: [
-          `main-file-${langData.code || "unknown"}`
-        ],
-      },
-    });
+  const entry = cached || { value: null, expiresAt: 0, pending: null };
+  dictionaryMemoryCache.set(cacheKey, entry);
 
-    if (!res.ok) {
-      throw new Error(
-        `Fetch main file failed: ${res.status} - ${langData.file_url}`
-      );
-    }
-
-    const data = await res.json();
-
-    if (
-      !data ||
-      typeof data !== "object" ||
-      Array.isArray(data)
-    ) {
-      throw new Error(
-        "Invalid translation file: expected a flat dictionary"
-      );
-    }
-
-    return data;
-  } catch (error) {
-    // If the API's language list was reachable but its fa/en file URL was not,
-    // retain the same offline behavior using the repository's bundled copy.
-    if (OFFLINE_LANGUAGE_CODES.includes(langData?.code)) {
-      try {
-        const localData = await readLocalLanguageFile(langData.code);
-        if (localData) {
-          console.warn(
-            `[getMainFile] Using bundled ${langData.code} dictionary after remote fetch failed.`
-          );
-          return localData;
+  entry.pending = (async () => {
+    try {
+      let data;
+      if (langData?.offlineFallback) {
+        data = await readLocalLanguageFile(langCode);
+      } else {
+        if (!langData?.file_url) throw new Error("No file_url provided");
+        const res = await fetch(langData.file_url, {
+          signal: AbortSignal.timeout(8000),
+          next: { revalidate: 86400, tags: [`main-file-${langCode}`] },
+        });
+        if (!res.ok) throw new Error(`Fetch main file failed: ${res.status} - ${langData.file_url}`);
+        data = await res.json();
+        if (!data || typeof data !== "object" || Array.isArray(data)) {
+          throw new Error("Invalid translation file: expected a flat dictionary");
         }
-      } catch (fallbackError) {
-        console.error(
-          `[getMainFile] Local fallback failed for ${langData.code}:`,
-          fallbackError
-        );
       }
+
+      entry.value = data;
+      entry.expiresAt = Date.now() + TRANSLATION_CACHE_TTL_MS;
+      return data;
+    } catch (error) {
+      // Use the last known-good dictionary during temporary upstream failures.
+      if (entry.value) {
+        entry.expiresAt = Date.now() + TRANSLATION_RETRY_COOLDOWN_MS;
+        console.warn(`[getMainFile] Serving cached ${langCode} dictionary after fetch failure.`, error);
+        return entry.value;
+      }
+
+      if (OFFLINE_LANGUAGE_CODES.includes(langCode)) {
+        try {
+          const localData = await readLocalLanguageFile(langCode);
+          entry.value = localData;
+          entry.expiresAt = Date.now() + TRANSLATION_RETRY_COOLDOWN_MS;
+          console.warn(`[getMainFile] Using bundled ${langCode} dictionary after remote fetch failed.`);
+          return localData;
+        } catch (fallbackError) {
+          console.error(`[getMainFile] Local fallback failed for ${langCode}:`, fallbackError);
+        }
+      }
+
+      // Negative-cache unavailable non-default dictionaries briefly so a broken
+      // language file (for example zh) is not requested again for every page.
+      entry.expiresAt = Date.now() + TRANSLATION_RETRY_COOLDOWN_MS;
+      console.error("[getMainFile] Error fetching translation dictionary:", error, { langData });
+      return null;
+    } finally {
+      entry.pending = null;
     }
+  })();
 
-    console.error(
-      "Error fetching mainData:",
-      error,
-      { langData }
-    );
-
-    return null;
-  }
+  return entry.pending;
 });
+
 
 /* -------------------------------------------------------------------------- */
 /*                              CITIZENS                                      */
@@ -609,8 +622,9 @@ export async function getSingleLevel(levelId) {
 /*                              USER DATA                                     */
 /* -------------------------------------------------------------------------- */
 
-export async function getUserData(
-  _userId
+export const getUserData = cache(async function getUserData(
+  _userId,
+  timeoutMs = 0
 ) {
   const sanitizedId =
     sanitizePathSegment(_userId);
@@ -631,18 +645,22 @@ export async function getUserData(
     const apiBaseUrl =
       await getApiBaseUrl();
 
+    const requestOptions = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      next: {
+        revalidate: 60,
+        tags: [`citizen-${id}`],
+      },
+      ...(Number.isFinite(timeoutMs) && timeoutMs > 0
+        ? { signal: AbortSignal.timeout(timeoutMs) }
+        : {}),
+    };
+
     const res = await fetch(
       `${apiBaseUrl}/api/citizen/${encodeURIComponent(id)}`,
-      {
-        headers: {
-          "Content-Type":
-            "application/json",
-        },
-        next: {
-          revalidate: 60,
-          tags: [`citizen-${id}`],
-        },
-      }
+      requestOptions
     );
 
     if (!res.ok) {
@@ -665,7 +683,7 @@ export async function getUserData(
       },
     };
   }
-}
+});
 
 /* -------------------------------------------------------------------------- */
 /*                              REFERRALS                                     */
