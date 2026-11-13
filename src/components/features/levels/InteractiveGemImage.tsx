@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useRef, type CSSProperties, type PointerEvent } from "react";
+import { useCallback, useEffect, useRef, type CSSProperties, type PointerEvent } from "react";
 
 type InteractiveGemImageProps = {
   src: string;
@@ -10,7 +10,7 @@ type InteractiveGemImageProps = {
 };
 
 const MAX_TILT_DEGREES = 10;
-const MAX_SPARKLES = 28;
+const MAX_SPARKLES = 16;
 const STAR_SIZES = [9, 14, 21, 29];
 
 function addSparkle(layer: HTMLDivElement, x: number, y: number) {
@@ -77,7 +77,7 @@ export default function InteractiveGemImage({
     const bounds = shell.getBoundingClientRect();
 
     // A soft burst is scattered over the gem as soon as it is hovered.
-    for (let i = 0; i < 11; i += 1) {
+    for (let i = 0; i < 3; i += 1) {
       addSparkle(layer, 12 + Math.random() * Math.max(1, bounds.width - 24), 12 + Math.random() * Math.max(1, bounds.height - 24));
     }
 
@@ -112,14 +112,37 @@ export default function InteractiveGemImage({
 
     // Randomly sprinkle tiny-to-large glints close to the moving cursor.
     const layer = sparkleLayerRef.current;
-    if (layer && Math.random() > 0.48) {
-      const spread = 22;
+    if (layer && Math.random() > 0.88) {
+      const spread = 18;
       addSparkle(
         layer,
         event.clientX - bounds.left + (Math.random() * spread * 2 - spread),
         event.clientY - bounds.top + (Math.random() * spread * 2 - spread),
       );
     }
+  }, []);
+
+  // Keep a gentle randomized shimmer running while hovered, even if the pointer stops.
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      const shell = shellRef.current;
+      const layer = sparkleLayerRef.current;
+      if (!shell || !layer || shell.dataset.active !== "true") return;
+
+      const bounds = shell.getBoundingClientRect();
+      if (!bounds.width || !bounds.height) return;
+
+      const count = Math.random() > 0.78 ? 2 : 1;
+      for (let i = 0; i < count; i += 1) {
+        addSparkle(
+          layer,
+          10 + Math.random() * Math.max(1, bounds.width - 20),
+          10 + Math.random() * Math.max(1, bounds.height - 20),
+        );
+      }
+    }, 420);
+
+    return () => window.clearInterval(interval);
   }, []);
 
   const resetPointer = useCallback((event: PointerEvent<HTMLDivElement>) => {
