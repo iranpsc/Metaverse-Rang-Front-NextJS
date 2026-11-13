@@ -99,7 +99,7 @@ describe('Go backend MSW contract coverage', () => {
     const inventoryPath = join(process.cwd(), 'docs/phase-1/api-contract-inventory.md');
     const inventory = readFileSync(inventoryPath, 'utf8');
     const documented = [...inventory.matchAll(
-      /^\\|\\s*([A-Z]\\d+)\\s*\\|\\s*(GET|POST|DELETE)\\s*\\|\\s*`([^`]+)`\\s*\\|/gm,
+      /^\|\s*([A-Z]\d+)\s*\|\s*(GET|POST|DELETE)\s*\|\s*`([^`]+)`\s*\|/gm,
     )].map(([, id, method, path]) => ({ id, method, path }));
 
     expect(documented, 'the documentation must list exactly 44 Go API contracts').toHaveLength(44);
