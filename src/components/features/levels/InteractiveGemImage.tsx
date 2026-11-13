@@ -11,19 +11,20 @@ type InteractiveGemImageProps = {
 
 const MAX_TILT_DEGREES = 10;
 const MAX_SPARKLES = 16;
-const STAR_SIZES = [9, 14, 21, 29];
+const CURSOR_STAR_SIZES = [8, 12, 17, 23];
+const AMBIENT_STAR_SIZES = [13, 19, 27, 36, 46, 56];
 
-function addSparkle(layer: HTMLDivElement, x: number, y: number) {
+function addSparkle(layer: HTMLDivElement, x: number, y: number, sizes = CURSOR_STAR_SIZES) {
   if (layer.childElementCount >= MAX_SPARKLES) return;
 
-  const size = STAR_SIZES[Math.floor(Math.random() * STAR_SIZES.length)];
+  const size = sizes[Math.floor(Math.random() * sizes.length)];
   const star = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   star.setAttribute("viewBox", "0 0 24 24");
   star.setAttribute("aria-hidden", "true");
   star.setAttribute("focusable", "false");
   star.classList.add("gem-trail-star");
 
-  const opacity = (0.28 + Math.random() * 0.28).toFixed(2);
+  const opacity = (0.12 + Math.random() * 0.16).toFixed(2);
   const rotation = Math.round(Math.random() * 90 - 45);
   const driftX = Math.round(Math.random() * 34 - 17);
   const driftY = Math.round(-12 - Math.random() * 30);
@@ -78,7 +79,7 @@ export default function InteractiveGemImage({
 
     // A soft burst is scattered over the gem as soon as it is hovered.
     for (let i = 0; i < 3; i += 1) {
-      addSparkle(layer, 12 + Math.random() * Math.max(1, bounds.width - 24), 12 + Math.random() * Math.max(1, bounds.height - 24));
+      addSparkle(layer, 12 + Math.random() * Math.max(1, bounds.width - 24), 12 + Math.random() * Math.max(1, bounds.height - 24), AMBIENT_STAR_SIZES);
     }
 
     // Add a small random glint right around the pointer on entry.
@@ -138,6 +139,7 @@ export default function InteractiveGemImage({
           layer,
           10 + Math.random() * Math.max(1, bounds.width - 20),
           10 + Math.random() * Math.max(1, bounds.height - 20),
+          AMBIENT_STAR_SIZES,
         );
       }
     }, 420);
@@ -216,7 +218,7 @@ export default function InteractiveGemImage({
           overflow: visible;
           pointer-events: none;
           opacity: 0;
-          filter: drop-shadow(0 0 3px rgba(255,255,255,0.55)) drop-shadow(0 0 8px var(--gem-glow));
+          filter: drop-shadow(0 0 2px rgba(255,255,255,0.28)) drop-shadow(0 0 5px var(--gem-glow));
           animation: interactive-gem-sparkle 1100ms ease-out forwards;
           will-change: transform, opacity;
         }
