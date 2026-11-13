@@ -104,8 +104,11 @@ describe('Go backend MSW contract coverage', () => {
 
     expect(documented, 'the documentation must list exactly 44 Go API contracts').toHaveLength(44);
     expect(new Set(documented.map(({ id }) => id)).size).toBe(44);
+    // The inventory documents endpoint identity (ID, method, path).
+    // Request construction details such as multipart are implementation metadata.
+    const executableInventory = contracts.map(({ id, method, path }) => ({ id, method, path }));
     expect([...documented].sort((a, b) => a.id.localeCompare(b.id))).toEqual(
-      [...contracts].sort((a, b) => a.id.localeCompare(b.id)),
+      executableInventory.sort((a, b) => a.id.localeCompare(b.id)),
     );
   });
 
