@@ -22,7 +22,11 @@ For isolated local setup, copy `.env.example` to `.env.local`. Keep real product
 | `npm run test:security` | Run tests tagged `@security` |
 | `npm run test:e2e:ui` | Open the Playwright UI runner |
 
-## Integration suite scope\n\nThe integration command explicitly includes `src/test`, so the MSW contract suite is not accidentally omitted. It also includes `src/components` for component and utility tests and `src/app` for route-handler tests. The documented Go API inventory is checked against the executable contract list on every integration run. A green contract suite proves the 44 scoped Go API contracts have success and deterministic 503 scenarios; it does not claim that every `use client` component in the repository has an individual RTL test.\n\n## Isolation behavior
+## Integration suite scope
+
+The integration command explicitly includes `src/test`, so the MSW contract suite is not accidentally omitted. It also includes `src/components` for component and utility tests and `src/app` for route-handler tests. The documented Go API inventory is checked against the executable contract list on every integration run. A green contract suite proves the 44 scoped Go API contracts have success and deterministic 503 scenarios; it does not claim that every `use client` component in the repository has an individual RTL test.
+
+## Isolation behavior
 
 By default, Playwright starts two dedicated local processes: a deterministic mock API on `127.0.0.1:9999` and the Next.js development server on `127.0.0.1:5175`. It never reuses an already-running process, because that process could have inherited real API credentials or production endpoints.
 
