@@ -9,7 +9,9 @@
   - successful local mock response;
   - deterministic backend failure response (HTTP 503).
 - The contract suite therefore contains 88 endpoint scenarios: 44 success + 44 failure.
-- The latest recorded CI run passed the 44 success and 44 failure contract cases as part of the unit suite.
+- `npm run test:integration` explicitly runs `src/app`, `src/components`, and `src/test`, so it includes route tests, component/utility tests, and the 44-contract MSW suite. The command previously targeted only `src/app`, which omitted the MSW contract tests.
+- A real `use client` component RTL test now exists for `src/components/ui/Accordion/Accordion.tsx`. This is a starter example, not evidence that every client component has an individual RTL test.
+- MSW Node setup uses `onUnhandledRequest: 'error'`; an unmatched request fails the test instead of being silently accepted as a successful mock.
 
 ## Coverage definition for Issue #125
 
