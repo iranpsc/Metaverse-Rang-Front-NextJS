@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { http, HttpResponse } from 'msw';
 import { describe, expect, test } from 'vitest';
 import { server } from './server';
@@ -91,6 +93,22 @@ async function requestContract(contract: ApiContract): Promise<Response> {
 }
 
 describe('Go backend MSW contract coverage', () => {
+
+
+  test('the 44 executable contracts match the documented API inventory exactly', () => {
+    const inventoryPath = join(process.cwd(), 'docs/phase-1/api-contract-inventory.md');
+    const inventory = readFileSync(inventoryPath, 'utf8');
+    const documented = [...inventory.matchAll(
+      /^\\|\\s*([A-Z]\\d+)\\s*\\|\\s*(GET|POST|DELETE)\\s*\\|\\s*`([^`]+)`\\s*\\|/gm,
+    )].map(([, id, method, path]) => ({ id, method, path }));
+
+    expect(documented, 'the documentation must list exactly 44 Go API contracts').toHaveLength(44);
+    expect(new Set(documented.map(({ id }) => id)).size).toBe(44);
+    expect([...documented].sort((a, b) => a.id.localeCompare(b.id))).toEqual(
+      [...contracts].sort((a, b) => a.id.localeCompare(b.id)),
+    );
+  });
+
   test('the contract inventory contains all 44 documented Go endpoints', () => {
     expect(contracts).toHaveLength(44);
     expect(new Set(contracts.map(({ id }) => id)).size).toBe(44);
