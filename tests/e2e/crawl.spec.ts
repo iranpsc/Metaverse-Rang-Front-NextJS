@@ -1,7 +1,7 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { expect, test } from "@playwright/test";
 
-const translationAdminApiURL = process.env.PLAYWRIGHT_MOCK_API_URL || "http://127.0.0.1:9999";
+const translationAdminApiURL = (process.env.PLAYWRIGHT_TRANSLATION_API_URL || "https://dev-admin.metarang.com").replace(/\/$/, "");
 
 /**
  * Static public routes discovered from page.tsx files under src/app/[lang].
@@ -448,9 +448,7 @@ test.describe("public static route browser crawl @seo", () => {
       failures,
       dynamicRoutesIncluded: true,
       translationProxy: translationAdminApiURL,
-      translationSource:
-        process.env.PLAYWRIGHT_TRANSLATION_API_URL ||
-        "https://dev-admin.metarang.com/api/translations?active=true",
+      translationSource: `${translationAdminApiURL}/api/translations?active=true`,
       translationFiles: languages.map(({ code, file_url }) => ({ code, file_url })),
     };
 
