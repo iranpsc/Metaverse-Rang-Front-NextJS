@@ -6,6 +6,7 @@ import { useParams } from "next/navigation";
 import dynamic from "next/dynamic";
 import ErrorBoundary from "@/components/utils/ErrorBoundary";
 import { getGemGlowColor } from "@/components/shared/gemImage";
+import InteractiveGemImage from "./InteractiveGemImage";
 
 /**
  * تغییر ۱:
@@ -182,17 +183,25 @@ export default function ImageBox({
     <div className="sticky top-0 flex w-full flex-col items-center ">
       {activeMode === "png" && srcPng && (
         <div className="relative aspect-5/7 w-[90%] rounded-xl md:w-full">
-          <Image
-            src={srcPng}
-            alt="png"
-            fill
-            priority
-            className={`rounded-xl object-cover ${gemGlowStyle ? "transition-[filter] duration-300" : ""}`}
-            style={gemGlowStyle}
-            onError={() =>
-              console.error("ImageBox: failed to load PNG:", srcPng)
-            }
-          />
+          {tabs === "gem" ? (
+            <InteractiveGemImage
+              src={srcPng}
+              alt="Gem"
+              glowColor={gemGlowColor}
+            />
+          ) : (
+            <Image
+              src={srcPng}
+              alt="png"
+              fill
+              priority
+              className={`rounded-xl object-cover ${gemGlowStyle ? "transition-[filter] duration-300" : ""}`}
+              style={gemGlowStyle}
+              onError={() =>
+                console.error("ImageBox: failed to load PNG:", srcPng)
+              }
+            />
+          )}
         </div>
       )}
 
