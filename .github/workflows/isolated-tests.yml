@@ -114,17 +114,28 @@ jobs:
         if: success()
         run: npm run test:forms
 
-      - name: Run dedicated SEO tests
-        id: test-seo
-        if: success()
-        run: npm run test:seo
-
       - name: Run dedicated security tests
         id: test-security
-        # SEO/UI/form failures must not suppress the independent security suite.
-        # Run only after build and browser installation are available.
+        # Keep security on the standard mock-backed production build.
+        # Run independently after build and browser installation are available.
         if: always() && steps.build.outcome == 'success' && steps.playwright-install.outcome == 'success'
         run: npm run test:security
+
+      - name: Build SEO app with production translations and mocked application APIs
+        id: build-seo-translations
+        # Locale dictionaries are consumed during Next.js prerendering. Build
+        # this dedicated SEO artifact with the real Admin translation API,
+        # while NEXT_PUBLIC_API_BASE_URL and all other application APIs remain
+        # pointed at the local mock server from the job-level environment.
+        if: always() && steps.build.outcome == 'success' && steps.playwright-install.outcome == 'success'
+        env:
+          TRANSLATION_ADMIN_API_BASE_URL: https://admin.metarang.com
+        run: npm run build
+
+      - name: Run dedicated SEO tests
+        id: test-seo
+        if: always() && steps.build-seo-translations.outcome == 'success'
+        run: npm run test:seo
 
       - name: Write Phase 1 GitHub Actions summary
         if: always()
