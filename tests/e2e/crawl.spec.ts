@@ -1,7 +1,7 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { expect, test } from "@playwright/test";
 
-const translationAdminApiURL = (process.env.PLAYWRIGHT_TRANSLATION_API_URL || "https://dev-admin.metarang.com").replace(/\/$/, "");
+const translationAdminApiURL = (process.env.PLAYWRIGHT_TRANSLATION_API_URL || "https://admin.metarang.com").replace(/\/$/, "");
 
 /**
  * Static public routes discovered from page.tsx files under src/app/[lang].
