@@ -22,6 +22,17 @@ function isTranslationMetadataUrl(url) {
   );
 }
 
+function isTranslationDictionaryUrl(url) {
+  // Next.js may serve cached language metadata without issuing a network
+  // request through this guard, so the in-memory file_url allowlist can be
+  // empty even for a valid active locale. Keep the fallback narrowly scoped
+  // to JSON dictionaries under the configured Admin API's /lang directory.
+  return (
+    url.origin === translationAdminOrigin &&
+    /^\/lang\/[A-Za-z0-9_-]+\.json$/.test(url.pathname)
+  );
+}
+
 async function rememberTranslationFiles(response) {
   if (!response.ok) return;
   try {
@@ -75,7 +86,10 @@ globalThis.fetch = async function guardedFetch(input, init) {
     return response;
   }
 
-  if (allowedTranslationFiles.has(requestUrl.href)) {
+  if (
+    allowedTranslationFiles.has(requestUrl.href) ||
+    isTranslationDictionaryUrl(requestUrl)
+  ) {
     return originalFetch.call(this, input, init);
   }
 
