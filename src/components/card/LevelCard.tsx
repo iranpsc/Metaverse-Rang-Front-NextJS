@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { FlagSatar, StairsUp } from "@/components/svgs";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import { getGemGlowColor } from "@/components/shared/gemImage";
+import type { CSSProperties } from "react";
 
 export default function LevelCard({
   item,
@@ -37,11 +39,15 @@ export default function LevelCard({
   };
 
   const isLoading = activeLoadingId === item.id;
+  const levelGlowColor = getGemGlowColor(item) || "transparent";
+  const levelGlowStyle = { "--level-glow": levelGlowColor } as CSSProperties;
+
   return (
     <div className="py-[10px] px-[14px] w-full md:w-1/2 lg:w-1/3 2xl:w-1/4 flex justify-center">
       <Link
-      onClickCapture={() => setActiveLoadingId(item.id)}
-        className={`${isLoading ? "cursor-not-allowed glow-svg border-solid  border-transparent border border-primary bg-white dark:bg-gray-1  dark:border-primary shadow-[0_0px_35px_-12px_rgba(145,0,217,0.9)]!" : ""}   w-full max-w-[296px] lg:max-w-[333px] py-[25px] base-transition-1 hoverCardLevel  flex flex-col items-center rounded-[20px] box-border border-solid  border-transparent border hover:border-primary hover:bg-white dark:hover:bg-gray-1  dark:hover:border-primary hover:shadow-[0_0px_35px_-12px_rgba(145,0,217,0.9)] `}
+        onClickCapture={() => setActiveLoadingId(item.id)}
+        style={levelGlowStyle}
+        className={`${isLoading ? "cursor-not-allowed border-solid border-transparent border border-primary bg-white dark:bg-gray-1 dark:border-primary shadow-[0_14px_36px_-14px_var(--level-glow)]!" : ""} w-full max-w-[296px] lg:max-w-[333px] py-[25px] base-transition-1 hoverCardLevel flex flex-col items-center rounded-[20px] box-border border-solid border-transparent border hover:border-primary hover:bg-white dark:hover:bg-gray-1 dark:hover:border-primary hover:shadow-[0_14px_36px_-14px_var(--level-glow)]`}
         href={`/${params.lang}/levels/citizen/${item.route_name}/general-info`}
       >
         <Image
