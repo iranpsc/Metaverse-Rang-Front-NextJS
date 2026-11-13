@@ -47,7 +47,7 @@ export default function LevelCard({
       <Link
         onClickCapture={() => setActiveLoadingId(item.id)}
         style={levelGlowStyle}
-        className={`${isLoading ? "cursor-not-allowed border-solid border-[var(--level-glow)] bg-white dark:bg-gray-1 shadow-[0_14px_36px_-14px_var(--level-glow)]!" : ""} w-full max-w-[296px] lg:max-w-[333px] py-[25px] base-transition-1 hoverCardLevel flex flex-col items-center rounded-[20px] box-border border-solid border-transparent border hover:border-[var(--level-glow)] hover:bg-white dark:hover:bg-gray-1 hover:shadow-[0_14px_36px_-14px_var(--level-glow)]`}
+        className={`${isLoading ? "cursor-not-allowed border-solid border-[var(--level-glow)] bg-white dark:bg-gray-1 shadow-[0_14px_36px_-14px_var(--level-glow)]!" : ""} w-full max-w-[296px] lg:max-w-[333px] py-[25px] transition-colors duration-200 hoverCardLevel flex flex-col items-center rounded-[20px] box-border border-solid border-transparent border hover:border-[var(--level-glow)] hover:bg-white dark:hover:bg-gray-1 hover:shadow-[0_14px_36px_-14px_var(--level-glow)]`}
         href={`/${params.lang}/levels/citizen/${item.route_name}/general-info`}
       >
         <Image
