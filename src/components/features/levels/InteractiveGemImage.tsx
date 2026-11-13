@@ -18,6 +18,7 @@ export default function InteractiveGemImage({
 }: InteractiveGemImageProps) {
   const shellRef = useRef<HTMLDivElement | null>(null);
   const stageRef = useRef<HTMLDivElement | null>(null);
+  const sparkleLayerRef = useRef<HTMLDivElement | null>(null);
 
   const handlePointerMove = useCallback((event: PointerEvent<HTMLDivElement>) => {
     // Touch input has no hover; keep the image static and avoid fighting scroll.
@@ -48,6 +49,39 @@ export default function InteractiveGemImage({
     shell.style.setProperty("--facet-right", (0.15 + x * 0.55).toFixed(2));
     shell.style.setProperty("--facet-center", (0.2 + (1 - Math.abs(x - 0.5) * 2) * 0.5).toFixed(2));
     shell.dataset.active = "true";
+
+    // Recreate the reference's cursor-trail diamond stars only where the
+    // pointer moves. Keep the DOM bounded and let CSS handle their fade-out.
+    const sparkleLayer = sparkleLayerRef.current;
+    if (sparkleLayer && Math.random() > 0.58 && sparkleLayer.childElementCount < 12) {
+      const starSize = 18 + Math.random() * 18;
+      const star = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      star.setAttribute("viewBox", "0 0 24 24");
+      star.setAttribute("aria-hidden", "true");
+      star.setAttribute("focusable", "false");
+      star.classList.add("gem-trail-star");
+      Object.assign(star.style, {
+        left: `${event.clientX - bounds.left - starSize / 2}px`,
+        top: `${event.clientY - bounds.top - starSize / 2}px`,
+        width: `${starSize}px`,
+        height: `${starSize}px`,
+      });
+
+      const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      path.setAttribute("d", "M12 0L14.4 9.6L24 12L14.4 14.4L12 24L9.6 14.4L0 12L9.6 9.6L12 0Z");
+      path.setAttribute("fill", "#FEF9C3");
+      star.appendChild(path);
+
+      const core = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      core.setAttribute("cx", "12");
+      core.setAttribute("cy", "12");
+      core.setAttribute("r", "2.2");
+      core.setAttribute("fill", "#FFFFFF");
+      star.appendChild(core);
+
+      star.addEventListener("animationend", () => star.remove(), { once: true });
+      sparkleLayer.appendChild(star);
+    }
   }, []);
 
   const resetPointer = useCallback((event: PointerEvent<HTMLDivElement>) => {
@@ -99,24 +133,11 @@ export default function InteractiveGemImage({
           style={{ mixBlendMode: "screen" }}
         />
 
-        <svg
+        <div
+          ref={sparkleLayerRef}
           aria-hidden="true"
-          viewBox="0 0 64 64"
-          className="gem-sparkles pointer-events-none absolute h-16 w-16 opacity-0 transition-opacity duration-200"
-          style={{
-            left: "var(--gem-pointer-x)",
-            top: "var(--gem-pointer-y)",
-            color: glowColor || "#fff2a6",
-            transform: "translate(-50%, -50%)",
-          }}
-        >
-          <path d="M32 2 37 25 62 32 37 37 32 62 26 37 2 32 26 25Z" fill="currentColor" />
-          <path d="M8 8 11 17 20 20 11 23 8 32 5 23 0 20 5 17Z" fill="white" opacity=".8" />
-          <circle cx="51" cy="11" r="2.5" fill="white" />
-          <circle cx="52" cy="49" r="2" fill="#dfff8a" />
-          <circle cx="13" cy="47" r="1.8" fill="#fff2a6" />
-          <path d="M51 35 53 41 59 43 53 45 51 51 49 45 43 43 49 41Z" fill="#eaff9b" opacity=".9" />
-        </svg>
+          className="gem-sparkle-layer pointer-events-none absolute inset-0 overflow-hidden"
+        />
       </div>
 
       <style jsx>{`
@@ -128,23 +149,26 @@ export default function InteractiveGemImage({
 
         [data-active="true"] .gem-light { opacity: 1; }
 
-        [data-active="true"] .gem-sparkles {
-          opacity: 1;
-          filter: drop-shadow(0 0 8px var(--gem-glow)) drop-shadow(0 0 16px var(--gem-glow));
-          animation: gem-sparkle 850ms ease-in-out infinite alternate;
+        .gem-trail-star {
+          position: absolute;
+          display: block;
+          overflow: visible;
+          filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 12px var(--gem-glow)) drop-shadow(0 0 20px var(--gem-glow));
+          animation: diamond-star 700ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         [data-active="true"] > div {
-          box-shadow: 0 0 18px 2px var(--gem-glow), 0 0 42px 8px var(--gem-glow), 0 18px 48px -12px var(--gem-glow);
+          box-shadow: 0 0 28px 5px var(--gem-glow), 0 0 64px 18px var(--gem-glow), 0 22px 52px -10px var(--gem-glow);
         }
 
-        @keyframes gem-sparkle {
-          from { scale: 0.78; }
-          to { scale: 1.08; }
+        @keyframes diamond-star {
+          0% { transform: scale(0) rotate(0deg); opacity: 0; }
+          50% { transform: scale(1.2) rotate(45deg); opacity: 1; }
+          100% { transform: scale(0) rotate(90deg); opacity: 0; }
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .gem-sparkles { animation: none !important; }
+          .gem-trail-star { animation: none !important; opacity: 0; }
         }
       `}</style>
     </div>
