@@ -107,7 +107,7 @@ async function getApiLanguages(request: {
   }
   let languages: ApiLanguage[] = [];
   if (!response) {
-    failures.push({ locale: "backend", route: apiUrl, stage: "language-api", reason: `Dev translations API unavailable after 3 attempts: ${lastError instanceof Error ? lastError.message : String(lastError)}` });
+    failures.push({ locale: "backend", route: apiUrl, stage: "language-api", reason: `Production translations API unavailable after 3 attempts: ${lastError instanceof Error ? lastError.message : String(lastError)}` });
   } else if (response.status() !== 200) {
     failures.push({ locale: "backend", route: apiUrl, stage: "language-api", reason: `Translations API returned HTTP ${response.status()} (expected 200)` });
   } else {
@@ -158,14 +158,14 @@ async function getApiLanguages(request: {
       failures.push({ locale: "backend", route: apiUrl, stage: "language-api", reason: `Could not parse translations API response: ${error instanceof Error ? error.message : String(error)}` });
     }
   }
-  // Never substitute fixture languages: the local proxy returns the active
-  // language records from the real Dev Admin translations endpoint.
+  // Never substitute fixture languages: active language records must come
+  // directly from the production Admin translations endpoint.
   if (languages.length === 0) {
     failures.push({
       locale: "all",
       route: "language-discovery",
       stage: "language-api",
-      reason: "No active languages were returned by the dev translations API; no locale routes can be inferred.",
+      reason: "No active languages were returned by the production translations API; no locale routes can be inferred.",
     });
   }
   return { languages, failures };
@@ -223,6 +223,7 @@ test.describe("public static route browser crawl @seo", () => {
     }> = [];
     const pageResults: CrawlPageResult[] = [];
     const dictionaryChecks: Array<{ locale: string; url: string; ok: boolean; reason?: string }> = [];
+    const dictionaryContentByLocale = new Map<string, string>();
 
     // Validate dictionaries independently. A broken dictionary must be reported,
     // but must never prevent the remaining languages and routes from being crawled.
@@ -247,6 +248,7 @@ test.describe("public static route browser crawl @seo", () => {
           dictionary && typeof dictionary === "object" && !Array.isArray(dictionary),
           `Translation dictionary for ${language.code} must be a JSON object`,
         ).toBe(true);
+        dictionaryContentByLocale.set(language.code, JSON.stringify(dictionary));
         dictionaryChecks.push({ locale: language.code, url: language.file_url, ok: true });
       } catch (error) {
         const reason = error instanceof Error ? error.message : String(error);
@@ -262,6 +264,31 @@ test.describe("public static route browser crawl @seo", () => {
           stage: "translation-dictionary",
           reason,
         });
+      }
+    }
+
+    // Detect a common silent fallback: a non-English locale pointing to the
+    // exact same dictionary payload as English. HTTP 200 alone is not enough
+    // to prove that the requested locale received its own translations.
+    const englishDictionary = dictionaryContentByLocale.get("en");
+    if (englishDictionary) {
+      for (const language of languages) {
+        if (language.code === "en") continue;
+        const localeDictionary = dictionaryContentByLocale.get(language.code);
+        if (localeDictionary && localeDictionary === englishDictionary) {
+          const reason = `Translation dictionary for "${language.code}" is identical to the English dictionary; possible English fallback.`;
+          const check = dictionaryChecks.find(({ locale }) => locale === language.code);
+          if (check) {
+            check.ok = false;
+            check.reason = reason;
+          }
+          failures.push({
+            locale: language.code,
+            route: language.file_url || "file_url",
+            stage: "translation-dictionary",
+            reason,
+          });
+        }
       }
     }
 
