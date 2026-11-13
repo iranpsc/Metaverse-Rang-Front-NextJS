@@ -95,24 +95,9 @@ export default function InteractiveGemImage({
         {/* Moving light highlights the cut facets without repainting the source image. */}
         <div
           aria-hidden="true"
-          className="gem-light pointer-events-none absolute inset-0 rounded-xl opacity-0 transition-opacity duration-200 [background:radial-gradient(ellipse_at_var(--gem-pointer-x)_var(--gem-pointer-y),rgba(255,255,230,0.42),rgba(255,255,255,0.10)_18%,transparent_48%)]"
+          className="gem-light pointer-events-none absolute inset-0 rounded-xl opacity-0 transition-opacity duration-200 [background:radial-gradient(ellipse_at_var(--gem-pointer-x)_var(--gem-pointer-y),rgba(255,255,235,0.78),rgba(255,255,255,0.28)_20%,rgba(220,255,130,0.16)_38%,transparent_62%)]"
           style={{ mixBlendMode: "screen" }}
         />
-
-        <svg
-          aria-hidden="true"
-          viewBox="0 0 100 140"
-          preserveAspectRatio="none"
-          className="pointer-events-none absolute inset-0 h-full w-full rounded-xl opacity-30 mix-blend-screen"
-        >
-          <path d="M50 3 8 31 19 104 50 137 81 104 92 31Z" fill="none" stroke="white" strokeOpacity=".5" strokeWidth=".7" />
-          <path d="M8 31 50 45 92 31M19 104 50 45 81 104M8 31 50 3 92 31M19 104 50 137 81 104" fill="none" stroke="white" strokeOpacity=".58" strokeWidth=".65" />
-          <path className="facet facet-top" d="M50 3 50 45 8 31Z M50 3 92 31 50 45Z" fill="white" />
-          <path className="facet facet-left" d="M8 31 19 104 50 45Z" fill="white" />
-          <path className="facet facet-right" d="M92 31 81 104 50 45Z" fill="white" />
-          <path className="facet facet-bottom" d="M19 104 50 137 50 45Z M81 104 50 137 50 45Z" fill="white" />
-          <path className="facet facet-center" d="M50 3 50 45 92 31 81 104 50 137 19 104 8 31Z" fill="white" />
-        </svg>
 
         <svg
           aria-hidden="true"
@@ -144,12 +129,13 @@ export default function InteractiveGemImage({
         [data-active="true"] .gem-light { opacity: 1; }
 
         [data-active="true"] .gem-sparkles {
-          opacity: 0.9;
+          opacity: 1;
+          filter: drop-shadow(0 0 8px var(--gem-glow)) drop-shadow(0 0 16px var(--gem-glow));
           animation: gem-sparkle 850ms ease-in-out infinite alternate;
         }
 
         [data-active="true"] > div {
-          box-shadow: 0 12px 32px -16px var(--gem-glow);
+          box-shadow: 0 0 18px 2px var(--gem-glow), 0 0 42px 8px var(--gem-glow), 0 18px 48px -12px var(--gem-glow);
         }
 
         @keyframes gem-sparkle {
