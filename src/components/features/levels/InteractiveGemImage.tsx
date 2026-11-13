@@ -13,6 +13,8 @@ const MAX_TILT_DEGREES = 10;
 const MAX_SPARKLES = 16;
 const CURSOR_STAR_SIZES = [8, 12, 17, 23];
 const AMBIENT_STAR_SIZES = [13, 19, 27, 36, 46, 56];
+const STAR_OPACITY_MIN = 0.035;
+const STAR_OPACITY_MAX = 0.085;
 
 function addSparkle(layer: HTMLDivElement, x: number, y: number, sizes = CURSOR_STAR_SIZES) {
   if (layer.childElementCount >= MAX_SPARKLES) return;
@@ -24,7 +26,7 @@ function addSparkle(layer: HTMLDivElement, x: number, y: number, sizes = CURSOR_
   star.setAttribute("focusable", "false");
   star.classList.add("gem-trail-star");
 
-  const opacity = (0.12 + Math.random() * 0.16).toFixed(2);
+  const opacity = (STAR_OPACITY_MIN + Math.random() * (STAR_OPACITY_MAX - STAR_OPACITY_MIN)).toFixed(3);
   const rotation = Math.round(Math.random() * 90 - 45);
   const driftX = Math.round(Math.random() * 34 - 17);
   const driftY = Math.round(-12 - Math.random() * 30);
@@ -218,7 +220,7 @@ export default function InteractiveGemImage({
           overflow: visible;
           pointer-events: none;
           opacity: 0;
-          filter: drop-shadow(0 0 2px rgba(255,255,255,0.28)) drop-shadow(0 0 5px var(--gem-glow));
+          filter: drop-shadow(0 0 1px rgba(255,255,255,0.12)) drop-shadow(0 0 3px var(--gem-glow));
           animation: interactive-gem-sparkle 1100ms ease-out forwards;
           will-change: transform, opacity;
         }
