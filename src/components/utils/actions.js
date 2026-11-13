@@ -98,7 +98,11 @@ async function fetchWithRetry(url, options = {}, retries = 2) {
 }
 
 export async function getAdminApiBaseUrl() {
-  const url = process.env.NEXT_PUBLIC_ADMIN_API_BASE_URL;
+  // Server-only override lets SEO/Crawl use the production translation API
+  // at runtime without changing the build-time mock configuration.
+  const url =
+    process.env.TRANSLATION_ADMIN_API_BASE_URL ||
+    process.env.NEXT_PUBLIC_ADMIN_API_BASE_URL;
 
   if (!url) {
     throw new Error(
