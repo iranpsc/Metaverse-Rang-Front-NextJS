@@ -112,9 +112,7 @@ const nextConfig = {
   },
 
   images: {
-    // Disable server-side remote image optimization during isolated E2E runs.
-    // The browser crawl blocks third-party requests, so it must not trigger
-    // Next.js server-side fetches to external image hosts either.
+    // Disable server-side remote image optimization during isolated Playwright E2E runs.
     unoptimized: process.env.PLAYWRIGHT_E2E === "true",
 
     // Cache optimized remote gem images for 24 hours.

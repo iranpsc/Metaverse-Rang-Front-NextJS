@@ -62,6 +62,8 @@ function isRetryableNetworkError(error) {
 
   for (let i = 0; current && i < 5; i++) {
     if (retryableCodes.has(current.code)) return true;
+    // AbortSignal.timeout() rejects with a TimeoutError in Node.js.
+    if (current.name === "TimeoutError") return true;
     current = current.cause;
   }
 
@@ -79,9 +81,18 @@ const dictionaryMemoryCache = new Map();
 
 
 async function fetchWithRetry(url, options = {}, retries = 2) {
+  // Create a fresh timeout signal for each attempt; reusing an aborted signal
+  // would make every retry fail immediately.
+  const { timeoutMs, ...fetchOptions } = options;
+
   for (let attempt = 0; ; attempt++) {
     try {
-      return await fetch(url, options);
+      return await fetch(url, {
+        ...fetchOptions,
+        ...(Number.isFinite(timeoutMs) && timeoutMs > 0
+          ? { signal: AbortSignal.timeout(timeoutMs) }
+          : {}),
+      });
     } catch (error) {
       if (attempt >= retries || !isRetryableNetworkError(error)) {
         throw error;
@@ -98,7 +109,11 @@ async function fetchWithRetry(url, options = {}, retries = 2) {
 }
 
 export async function getAdminApiBaseUrl() {
-  const url = process.env.NEXT_PUBLIC_ADMIN_API_BASE_URL;
+  // Server-only override lets SEO/Crawl use the production translation API
+  // at runtime without changing the build-time mock configuration.
+  const url =
+    process.env.TRANSLATION_ADMIN_API_BASE_URL ||
+    process.env.NEXT_PUBLIC_ADMIN_API_BASE_URL;
 
   if (!url) {
     throw new Error(
@@ -161,7 +176,14 @@ export const getTranslation = cache(async function getTranslation(lang) {
   const languages = await getLangArray();
 
   // Never silently serve another language for an unknown or unavailable code.
-  return languages.find((item) => item.code === lang) || null;
+  const language = languages.find((item) => item.code === lang) || null;
+  if (!language) {
+    console.warn("[getTranslation] Requested language is not present in the active language list.", {
+      requestedLanguage: lang,
+      availableLanguages: languages.map((item) => item.code),
+    });
+  }
+  return language;
 });
 
 /**
@@ -254,11 +276,15 @@ export const getLangArray = cache(async function getLangArray() {
   const pending = (async () => {
     try {
       const adminApiBaseUrl = await getAdminApiBaseUrl();
-      const res = await fetch(`${adminApiBaseUrl}/api/translations?active=true`, {
-        headers: { Accept: "application/json" },
-        signal: AbortSignal.timeout(4000),
-        next: { revalidate: 86400, tags: ["translations"] },
-      });
+      const res = await fetchWithRetry(
+        `${adminApiBaseUrl}/api/translations?active=true`,
+        {
+          headers: { Accept: "application/json" },
+          timeoutMs: 4000,
+          next: { revalidate: 86400, tags: ["translations"] },
+        },
+        2
+      );
 
       if (!res.ok) throw new Error(`Languages request failed: ${res.status} ${res.statusText}`);
 
@@ -270,6 +296,11 @@ export const getLangArray = cache(async function getLangArray() {
       const languages = data.data.filter(
         (item) => item && typeof item.code === "string" && item.code.trim().length > 0
       );
+      // Do not cache an empty/fully malformed HTTP 200 response for 24 hours.
+      if (languages.length === 0) {
+        throw new Error("Invalid languages response: no usable active language records.");
+      }
+
       cached.value = languages;
       cached.expiresAt = Date.now() + TRANSLATION_CACHE_TTL_MS;
       return languages;
@@ -320,10 +351,16 @@ export const getMainFile = cache(async function getMainFile(langData) {
         data = await readLocalLanguageFile(langCode);
       } else {
         if (!langData?.file_url) throw new Error("No file_url provided");
-        const res = await fetch(langData.file_url, {
-          signal: AbortSignal.timeout(8000),
-          next: { revalidate: 86400, tags: [`main-file-${langCode}`] },
-        });
+        const res = await fetchWithRetry(
+          langData.file_url,
+          {
+            // Translation assets can be slower than the metadata endpoint.
+            // A fresh timeout is applied per attempt by fetchWithRetry.
+            timeoutMs: 15000,
+            next: { revalidate: 86400, tags: [`main-file-${langCode}`] },
+          },
+          1
+        );
         if (!res.ok) throw new Error(`Fetch main file failed: ${res.status} - ${langData.file_url}`);
         data = await res.json();
         if (!data || typeof data !== "object" || Array.isArray(data)) {
