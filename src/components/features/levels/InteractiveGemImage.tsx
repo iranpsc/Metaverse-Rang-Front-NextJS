@@ -117,7 +117,7 @@ export default function InteractiveGemImage({
         <svg
           aria-hidden="true"
           viewBox="0 0 64 64"
-          className="gem-sparkles pointer-events-none absolute h-16 w-16 opacity-0"
+          className="gem-sparkles pointer-events-none absolute h-16 w-16 opacity-0 transition-opacity duration-200"
           style={{
             left: "var(--gem-pointer-x)",
             top: "var(--gem-pointer-y)",
