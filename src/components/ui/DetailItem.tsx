@@ -21,112 +21,130 @@ export default function DetailItem({
   const [linkLoading, setLinkLoading] = useState(false);
 
 
-const generateValue = () => {
-  const isHMFormat =
-    typeof value === "string" && value.startsWith("HM-");
+  const generateValue = () => {
+    const isHMFormat =
+      typeof value === "string" && value.startsWith("HM-");
 
-  const lang =
-    params?.lang && ["fa", "en"].includes(params.lang)
-      ? params.lang
-      : "fa";
+    const lang =
+      params?.lang && ["fa", "en"].includes(params.lang)
+        ? params.lang
+        : "fa";
 
-  // --------------------------------------------------
-  // Check / Close
-  // Supports:
-  // true / false
-  // 1 / 0
-  // "true" / "false"
-  // "1" / "0"
-  // --------------------------------------------------
-  if (showCheck) {
-    const normalizedValue =
-      typeof value === "string"
-        ? value.toLowerCase().trim()
+    // --------------------------------------------------
+    // Check / Close
+    // Supports:
+    // true / false
+    // 1 / 0
+    // "true" / "false"
+    // "1" / "0"
+    // --------------------------------------------------
+    if (showCheck) {
+      const normalizedValue =
+        typeof value === "string"
+          ? value.toLowerCase().trim()
+          : value;
+
+      const isTrue =
+        normalizedValue === true ||
+        normalizedValue === 1 ||
+        normalizedValue === "true" ||
+        normalizedValue === "1";
+
+      const isFalse =
+        normalizedValue === false ||
+        normalizedValue === 0 ||
+        normalizedValue === "false" ||
+        normalizedValue === "0";
+
+      if (isTrue) {
+        return (
+          <Check
+            width={14}
+            height={14}
+            className="scale-[1.5] text-green-500"
+          />
+        );
+      }
+
+      if (isFalse) {
+        return (
+          <CLoseIcon
+            width={14}
+            height={14}
+            className="stroke-red-500"
+          />
+        );
+      }
+    }
+
+    // --------------------------------------------------
+    // لینک
+    // --------------------------------------------------
+    if (isLink || isHMFormat) {
+      const href = isHMFormat
+        ? `/${lang}/citizens/${value.toLowerCase()}`
         : value;
 
-    const isTrue =
-      normalizedValue === true ||
-      normalizedValue === 1 ||
-      normalizedValue === "true" ||
-      normalizedValue === "1";
+      const handleClick = (
+        e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+      ) => {
+        if (isHMFormat) {
+          e.preventDefault();
 
-    const isFalse =
-      normalizedValue === false ||
-      normalizedValue === 0 ||
-      normalizedValue === "false" ||
-      normalizedValue === "0";
+          setLinkLoading(true);
 
-    if (isTrue) {
+          setTimeout(() => {
+            window.location.href = href;
+          }, 100);
+        }
+      };
+
       return (
-        <Check
-          width={14}
-          height={14}
-          className="scale-[1.5] text-green-500"
-        />
+        <a
+          onClick={handleClick}
+          className="text-primary dark:text-blue-500 font-bold"
+          href={href}
+          target={isHMFormat ? undefined : "_blank"}
+        >
+          {isHMFormat
+            ? value.toUpperCase()
+            : lang === "fa"
+              ? "لینک"
+              : "link"}
+        </a>
       );
     }
 
-    if (isFalse) {
-      return (
-        <CLoseIcon
-          width={14}
-          height={14}
-          className="stroke-red-500"
-        />
-      );
-    }
-  }
+    // --------------------------------------------------
+    // متن ساده
+    // --------------------------------------------------
 
-  // --------------------------------------------------
-  // لینک
-  // --------------------------------------------------
-  if (isLink || isHMFormat) {
-    const href = isHMFormat
-      ? `/${lang}/citizens/${value.toLowerCase()}`
-      : value;
-
-    const handleClick = (
-      e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
-    ) => {
-      if (isHMFormat) {
-        e.preventDefault();
-
-        setLinkLoading(true);
-
-        setTimeout(() => {
-          window.location.href = href;
-        }, 100);
-      }
-    };
-
+    // Simple text / Rich content
     return (
-      <a
-        onClick={handleClick}
-        className="text-primary dark:text-blue-500 font-bold"
-        href={href}
-        target={isHMFormat ? undefined : "_blank"}
+      <div
+        className="
+      w-full min-w-0
+      text-[#868B90] dark:text-[#C4C4C4]
+      font-bold
+      break-words
+      text-start
+ [&_ul]:p-[revert]
+[&_ol]:p-[revert]
+[&_li]:p-[revert]
+[&_menu]:p-[revert]
+[&_dl]:p-[revert]
+      [&_p]:my-2
+      [&_h1]:my-2
+      [&_h2]:my-2
+      [&_h3]:my-2
+    "
+        title={typeof value === "string" ? value : undefined}
       >
-        {isHMFormat
-          ? value.toUpperCase()
-          : lang === "fa"
-            ? "لینک"
-            : "link"}
-      </a>
+        {value ?? ""}
+      </div>
     );
-  }
 
-  // --------------------------------------------------
-  // متن ساده
-  // --------------------------------------------------
-  return (
-    <span
-      className="text-[#868B90] dark:text-[#C4C4C4] font-bold text-ellipsis line-clamp-1 overflow-hidden"
-      title={String(value ?? "")}
-    >
-      {String(value ?? "")}
-    </span>
-  );
-};
+  };
 
 
 
@@ -151,9 +169,8 @@ const generateValue = () => {
 
       {/* Main Item */}
       <div
-        className={`flex flex-wrap flex-row gap-2 justify-between py-3 border-solid border-t-0 border-x-0 border-b-2 border-[#ECECEC] dark:border-gray-1  items-center w-full text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] ${
-          fullBox ? "w-full" : "sm:w-[47%]"
-        }`}
+        className={`flex flex-wrap flex-row gap-2 justify-between py-3 border-solid border-t-0 border-x-0 border-b-2 border-[#ECECEC] dark:border-gray-1  items-center w-full text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] ${fullBox ? "w-full" : "sm:w-[47%]"
+          }`}
       >
         <span
           className="whitespace-nowrap text-ellipsis text-[#414040] dark:text-white font-medium 2xl:font-bold"
