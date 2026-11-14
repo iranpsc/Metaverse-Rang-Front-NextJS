@@ -195,7 +195,7 @@ export default function InteractiveGemImage({
       onPointerEnter={handlePointerEnter}
       onPointerMove={handlePointerMove}
       onPointerLeave={resetPointer}
-      className="interactive-gem-image relative aspect-5/7 bg-transparent p-5 lg:p-3  w-full overflow-visible [perspective:900px] [--gem-pointer-x:50%] [--gem-pointer-y:42%]"
+      className="interactive-gem-image relative aspect-5/7 bg-transparent p-5 lg:p-3 w-full overflow-visible [perspective:900px] [--gem-pointer-x:50%] [--gem-pointer-y:42%]"
       style={{ "--gem-glow": glowColor || "transparent" } as CSSProperties}
     >
       <div
