@@ -57,7 +57,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     const langData = await getTranslation(lang);
     const mainData = await getMainFile(langData);
 
-    const title = findByUniqueId(mainData, 1457) || (lang === 'fa' ? "متاورس رنگ - پلتفرم واقعیت افزوده و متاورس ایرانی" : "Metaverse Rang - Iranian AR/VR & Metaverse Platform");
+    const title = findByUniqueId(mainData, 1457).slice(0, 145) || (lang === 'fa' ? "متاورس رنگ - پلتفرم واقعیت افزوده و متاورس ایرانی" : "Metaverse Rang - Iranian AR/VR & Metaverse Platform");
     const descriptionRaw = findByUniqueId(mainData, 482) || "";
     const description = descriptionRaw.slice(0, 155);
 
@@ -349,7 +349,7 @@ export default async function LangPage({ params }: LangPageProps) {
                 <DetailsEducationSection mainData={mainData} />
               </Suspense>
             </div>
-            <div className=" relative h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
+            <div className=" relative h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px] px-3 lg:px-1">
               <WorkGroupsSection mainData={mainData} params={resolvedParams} />
             </div>
             <div className="w-[90%] relative h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">

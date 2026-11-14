@@ -32,10 +32,28 @@ export default function ArticleCard({ item, params, theme, activeLoadingId, setA
     return () => observer.disconnect();
   }, [item.title]);
 
+  // Client components are also pre-rendered on the server. Keep HTML
+  // stripping environment-independent so SSR never accesses `document`.
   const stripHTML = (html: string) => {
-    const tmp = document.createElement("div");
-    tmp.innerHTML = html;
-    return tmp.textContent || tmp.innerText || "";
+    const entities: Record<string, string> = {
+      "&nbsp;": " ",
+      "&#160;": " ",
+      "&amp;": "&",
+      "&lt;": "<",
+      "&gt;": ">",
+      "&quot;": '"',
+      "&#39;": "'",
+      "&apos;": "'",
+    };
+
+    return String(html ?? "")
+      .replace(/<script\b[^>]*>[\s\S]*?<\/script(?:\s+[^>]*)?>/gi, " ")
+      .replace(/<style\b[^>]*>[\s\S]*?<\/style\s*>/gi, " ")
+      .replace(/<[^>]*>/g, " ")
+      // Decode entities in one pass so nested entities are never decoded twice.
+      .replace(/&(?:nbsp|#160|amp|lt|gt|quot|#39|apos);/gi, (entity) => entities[entity.toLowerCase()] ?? entity)
+      .replace(/\s+/g, " ")
+      .trim();
   };
   const isLoading = activeLoadingId === item.id;
   return (

@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { FlagSatar, StairsUp } from "@/components/svgs";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import { getGemGlowColor } from "@/components/shared/gemColors";
+import type { CSSProperties } from "react";
 
 export default function LevelCard({
   item,
@@ -37,11 +39,14 @@ export default function LevelCard({
   };
 
   const isLoading = activeLoadingId === item.id;
+  const gemGlowColor = getGemGlowColor(item) || "#8e00df";
+  const gemGlowStyle = { "--level-gem-glow": gemGlowColor } as CSSProperties;
+
   return (
     <div className="py-[10px] px-[14px] w-full md:w-1/2 lg:w-1/3 2xl:w-1/4 flex justify-center">
       <Link
-      onClickCapture={() => setActiveLoadingId(item.id)}
-        className={`${isLoading ? "cursor-not-allowed glow-svg border-solid  border-transparent border border-primary bg-white dark:bg-gray-1  dark:border-primary shadow-[0_0px_35px_-12px_rgba(145,0,217,0.9)]!" : ""}   w-full max-w-[296px] lg:max-w-[333px] py-[25px] base-transition-1 hoverCardLevel  flex flex-col items-center rounded-[20px] box-border border-solid  border-transparent border hover:border-primary hover:bg-white dark:hover:bg-gray-1  dark:hover:border-primary hover:shadow-[0_0px_35px_-12px_rgba(145,0,217,0.9)] `}
+        onClickCapture={() => setActiveLoadingId(item.id)}
+        className={`${isLoading ? "level-card-loading cursor-not-allowed border-solid border-primary bg-white dark:bg-gray-1 dark:border-primary" : ""} w-full max-w-[296px] lg:max-w-[333px] py-[25px] transition-colors duration-200 hoverCardLevel flex flex-col items-center rounded-[20px] box-border border-solid border-transparent border hover:border-primary hover:bg-white dark:hover:bg-gray-1 dark:hover:border-primary`}
         href={`/${params.lang}/levels/citizen/${item.route_name}/general-info`}
       >
         <Image
@@ -50,7 +55,8 @@ export default function LevelCard({
           width={180}
           height={170}
           onError={handleImageError}
-          className="z-2 w-[110px] lg:w-[130px]  translate-y-2 lg:translate-y-6"
+          className="level-gem-art z-2 w-[110px] lg:w-[130px] translate-y-2 lg:translate-y-6"
+          style={gemGlowStyle}
         />
         <div className="boxDataLevel w-full h-[216px] lg:h-[239px] rounded-[20px] flex flex-col  justify-end bg-white border border-[rgba(0,0,0,0.14)] dark:bg-gray-1  mt-[-65px]">
           <span className="text-center  dark:text-white font-azarMehr font-medium  text-title-2 mx-2 font-semibold text-[20px] lg:text-[24px]">
@@ -89,6 +95,38 @@ export default function LevelCard({
           </span>
         </div>
       </Link>
+      <style jsx global>{`
+        .hoverCardLevel .level-gem-art {
+          transition: filter 220ms ease;
+          filter: drop-shadow(0 0 0 transparent);
+        }
+
+        .hoverCardLevel:hover .level-gem-art {
+          filter: drop-shadow(0 0 10px var(--level-gem-glow))
+            drop-shadow(0 0 22px color-mix(in srgb, var(--level-gem-glow) 58%, transparent));
+        }
+
+        .level-card-loading .level-gem-art {
+          animation: level-gem-glow-pulse 1.55s ease-in-out infinite;
+        }
+
+        @keyframes level-gem-glow-pulse {
+          0%, 100% {
+            filter: drop-shadow(0 0 6px color-mix(in srgb, var(--level-gem-glow) 45%, transparent))
+              drop-shadow(0 0 13px color-mix(in srgb, var(--level-gem-glow) 28%, transparent));
+          }
+          50% {
+            filter: drop-shadow(0 0 13px color-mix(in srgb, var(--level-gem-glow) 88%, transparent))
+              drop-shadow(0 0 27px color-mix(in srgb, var(--level-gem-glow) 55%, transparent));
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .level-card-loading .level-gem-art {
+            animation: none;
+          }
+        }
+      `}</style>
     </div>
   );
 }

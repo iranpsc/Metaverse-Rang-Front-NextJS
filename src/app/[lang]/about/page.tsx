@@ -14,18 +14,19 @@ import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 
 interface AboutPageProps {
   params: Promise<{ lang: string }>;
+  
 }
 
 export async function generateMetadata({ params }: AboutPageProps) {
   const resolvedParams = await params;
   const { lang } = resolvedParams;
+      const [langData] = await Promise.all([getTranslation(lang)]);
+    const mainData = await getMainFile(langData);
   try {
     return {
       title: lang.toLowerCase() === "fa" ? "درباره ما | متارنگ" : "About Us | Metarang",
       description:
-        lang.toLowerCase() === "fa"
-          ? "متارنگ با تأکید بر نوآوری و کارآفرینی، بستری را فراهم کرده است که افراد می‌توانند از طریق آن به توسعه‌ی کسب و کارها و اقتصاد بین‌المللی بپردازند."
-          : "With a focus on innovation and entrepreneurship, MetaRang provides a foundation for individuals to develop businesses and contribute to the international economy.",
+        findByUniqueId(mainData, 1557).slice(0, 155),
       openGraph: {
         type: "website",
         url: `https://metarang.com/${lang}/about`,
@@ -81,7 +82,7 @@ const aboutSchema = {
       "sameAs": [
         "https://www.instagram.com/rgb.irpsc"
       ],
-      "description": findByUniqueId(mainData, 1557)
+      "description": findByUniqueId(mainData, 1557).slice(0, 155)
     },
     {
       "@type": "AboutPage",

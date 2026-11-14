@@ -112,6 +112,9 @@ const nextConfig = {
   },
 
   images: {
+    // Disable server-side remote image optimization during isolated Playwright E2E runs.
+    unoptimized: process.env.PLAYWRIGHT_E2E === "true",
+
     // Cache optimized remote gem images for 24 hours.
     minimumCacheTTL: 86400,
     deviceSizes: [320, 480, 640, 768, 1024, 1280, 1536],
