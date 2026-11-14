@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { FlagSatar, StairsUp } from "@/components/svgs";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
-import { getGemGlowColor } from "@/components/shared/gemImage";
+import { getGemGlowColor } from "@/components/shared/gemColors";
 import type { CSSProperties } from "react";
 
 export default function LevelCard({
