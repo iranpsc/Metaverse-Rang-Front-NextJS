@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { FlagSatar, StairsUp } from "@/components/svgs";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import { getGemGlowColor } from "@/components/shared/gemImage";
+import type { CSSProperties } from "react";
 
 export default function LevelCard({
   item,
@@ -37,6 +39,8 @@ export default function LevelCard({
   };
 
   const isLoading = activeLoadingId === item.id;
+  const gemGlowColor = getGemGlowColor(item) || "#8e00df";
+  const gemGlowStyle = { "--level-gem-glow": gemGlowColor } as CSSProperties;
 
   return (
     <div className="py-[10px] px-[14px] w-full md:w-1/2 lg:w-1/3 2xl:w-1/4 flex justify-center">
@@ -52,6 +56,7 @@ export default function LevelCard({
           height={170}
           onError={handleImageError}
           className="level-gem-art z-2 w-[110px] lg:w-[130px] translate-y-2 lg:translate-y-6"
+          style={gemGlowStyle}
         />
         <div className="boxDataLevel w-full h-[216px] lg:h-[239px] rounded-[20px] flex flex-col  justify-end bg-white border border-[rgba(0,0,0,0.14)] dark:bg-gray-1  mt-[-65px]">
           <span className="text-center  dark:text-white font-azarMehr font-medium  text-title-2 mx-2 font-semibold text-[20px] lg:text-[24px]">
@@ -93,12 +98,12 @@ export default function LevelCard({
       <style jsx global>{`
         .hoverCardLevel .level-gem-art {
           transition: filter 220ms ease;
-          filter: drop-shadow(0 0 0 rgba(145, 0, 217, 0));
+          filter: drop-shadow(0 0 0 transparent);
         }
 
         .hoverCardLevel:hover .level-gem-art {
-          filter: drop-shadow(0 0 12px rgba(145, 0, 217, 0.72))
-            drop-shadow(0 0 26px rgba(145, 0, 217, 0.42));
+          filter: drop-shadow(0 0 10px var(--level-gem-glow))
+            drop-shadow(0 0 22px color-mix(in srgb, var(--level-gem-glow) 58%, transparent));
         }
 
         .level-card-loading .level-gem-art {
@@ -107,12 +112,12 @@ export default function LevelCard({
 
         @keyframes level-gem-glow-pulse {
           0%, 100% {
-            filter: drop-shadow(0 0 7px rgba(145, 0, 217, 0.38))
-              drop-shadow(0 0 15px rgba(145, 0, 217, 0.2));
+            filter: drop-shadow(0 0 6px color-mix(in srgb, var(--level-gem-glow) 45%, transparent))
+              drop-shadow(0 0 13px color-mix(in srgb, var(--level-gem-glow) 28%, transparent));
           }
           50% {
-            filter: drop-shadow(0 0 15px rgba(145, 0, 217, 0.82))
-              drop-shadow(0 0 32px rgba(145, 0, 217, 0.5));
+            filter: drop-shadow(0 0 13px color-mix(in srgb, var(--level-gem-glow) 88%, transparent))
+              drop-shadow(0 0 27px color-mix(in srgb, var(--level-gem-glow) 55%, transparent));
           }
         }
 
