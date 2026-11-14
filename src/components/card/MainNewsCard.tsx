@@ -34,19 +34,27 @@ export default function ArticleCard({ item, params, theme, activeLoadingId, setA
 
   // Client components are also pre-rendered on the server. Keep HTML
   // stripping environment-independent so SSR never accesses `document`.
-  const stripHTML = (html: string) =>
-    String(html ?? "")
-      .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, " ")
-      .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, " ")
+  const stripHTML = (html: string) => {
+    const entities: Record<string, string> = {
+      "&nbsp;": " ",
+      "&#160;": " ",
+      "&amp;": "&",
+      "&lt;": "<",
+      "&gt;": ">",
+      "&quot;": '"',
+      "&#39;": "'",
+      "&apos;": "'",
+    };
+
+    return String(html ?? "")
+      .replace(/<script\b[^>]*>[\s\S]*?<\/script\s*>/gi, " ")
+      .replace(/<style\b[^>]*>[\s\S]*?<\/style\s*>/gi, " ")
       .replace(/<[^>]*>/g, " ")
-      .replace(/&nbsp;|&#160;/gi, " ")
-      .replace(/&amp;/gi, "&")
-      .replace(/&lt;/gi, "<")
-      .replace(/&gt;/gi, ">")
-      .replace(/&quot;/gi, '"')
-      .replace(/&#39;|&apos;/gi, "'")
+      // Decode entities in one pass so nested entities are never decoded twice.
+      .replace(/&(?:nbsp|#160|amp|lt|gt|quot|#39|apos);/gi, (entity) => entities[entity.toLowerCase()] ?? entity)
       .replace(/\s+/g, " ")
       .trim();
+  };
   const isLoading = activeLoadingId === item.id;
   return (
     <Link onClickCapture={() => setActiveLoadingId(item.id)} href={`/${params.lang}/news/categories/${item.categorySlug}/${item.slug}`} className={`${isLoading ? "rotating-border-card cursor-not-allowed" : ""} w-full min-h-[240px] shadow-md hover:shadow-xl dark:hover:shadow-dark rounded-[10px] overflow-hidden bg-white dark:bg-gray-1  flex flex-col justify-start gap-6 items-center`}>
