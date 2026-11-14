@@ -136,7 +136,7 @@ const aboutSchema = {
             </div>
             <figure className="relative w-full aspect-video lg:h-[650px]">
               <Image
-                src="/team.webp"
+                src="https://s3.metarang.com/metarang/asset/about/metarang-people1405.08.15.jpeg"
                 alt="Metarang Team"
                 fill
                 sizes="(max-width: 1920px)"

@@ -36,7 +36,9 @@ export default function Accordion({
       <div dir="rtl"
         className={`transition-all flex flex-col gap-6 duration-300 text-matn-2 dark:text-matn-2 text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] [&_ul]:list-disc [&_ul]:pl-5
          [&_ol]:list-decimal [&_ol]:pl-5
-         [&_li>p]:inline [&_li>p]:m-0`}
+         [&_li>p]:inline [&_li>p]:m-0  [&_ul]:p-[revert]!
+[&_ol]:p-[revert]!
+[&_li]:p-[revert]!`}
         dangerouslySetInnerHTML={{ __html: value }}
       ></div>
     </div>
