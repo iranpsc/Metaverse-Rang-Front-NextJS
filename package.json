@@ -26,10 +26,16 @@
     "test:forms": "playwright test --grep @forms"
   },
   "overrides": {
-    "minimatch": "^9.0.6",
+    "minimatch": "^11.0.8",
     "postcss": "^8.5.10",
     "postcss-selector-parser": "7.1.6",
-    "quill": "2.0.2"
+    "quill": "2.0.2",
+    "react-player": {
+      "deepmerge": "npm:@stackline/deepmerge@^1.1.2"
+    },
+    "@svgr/webpack": {
+      "deepmerge": "npm:@stackline/deepmerge@^1.1.2"
+    }
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
