@@ -75,7 +75,7 @@ export default function GemImage({
         href={targetHref}
         className={
           showGlow
-            ? "group/gem inline-flex shrink-0 items-center justify-center"
+            ? "group/gem inline-flex shrink-0 items-center justify-center hover:scale-110 duration-300"
             : "inline-flex"
         }
       >

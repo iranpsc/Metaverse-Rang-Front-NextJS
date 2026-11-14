@@ -10,7 +10,7 @@ type InteractiveGemImageProps = {
 };
 
 const MAX_TILT_DEGREES = 12;
-const MAX_SPARKLES = 20;
+const MAX_SPARKLES = 28;
 const CURSOR_STAR_SIZES = [8, 12, 17, 23];
 const AMBIENT_STAR_SIZES = [10, 13, 19, 27, 36, 46,];
 // Peak opacity of every star (cursor stars AND ambient stars).
