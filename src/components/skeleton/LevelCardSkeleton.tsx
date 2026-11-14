@@ -17,7 +17,7 @@ function LevelCardSkeletonBase() {
         {/* تصویر مدال سطح */}
         <Skeleton
          
-          className="z-2 w-[110px] h-[155px]  translate-y-2 rounded-xl lg:translate-y-6"
+          className="level-gem-skeleton-glow z-2 w-[110px] h-[155px] translate-y-2 rounded-xl lg:translate-y-6"
         />
 
         {/* کارت اطلاعات پایین */}
@@ -35,6 +35,28 @@ function LevelCardSkeletonBase() {
           </div>
         </div>
       </div>
+      <style jsx global>{`
+        .level-gem-skeleton-glow {
+          animation: level-gem-skeleton-pulse 1.55s ease-in-out infinite;
+        }
+
+        @keyframes level-gem-skeleton-pulse {
+          0%, 100% {
+            filter: drop-shadow(0 0 7px rgba(145, 0, 217, 0.38))
+              drop-shadow(0 0 15px rgba(145, 0, 217, 0.2));
+          }
+          50% {
+            filter: drop-shadow(0 0 15px rgba(145, 0, 217, 0.82))
+              drop-shadow(0 0 32px rgba(145, 0, 217, 0.5));
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .level-gem-skeleton-glow {
+            animation: none;
+          }
+        }
+      `}</style>
     </div>
   );
 }
