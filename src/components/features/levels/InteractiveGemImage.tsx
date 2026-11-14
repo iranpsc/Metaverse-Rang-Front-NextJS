@@ -9,42 +9,50 @@ type InteractiveGemImageProps = {
   alt?: string;
 };
 
-const MAX_TILT_DEGREES = 10;
-const MAX_SPARKLES = 16;
+const MAX_TILT_DEGREES = 12;
+const MAX_SPARKLES = 20;
 const CURSOR_STAR_SIZES = [8, 12, 17, 23];
-const AMBIENT_STAR_SIZES = [13, 19, 27, 36, 46, 56];
-// The visible star strength is applied through the CSS filter, independently
-// from the fade-in/fade-out animation below.
-const STAR_OPACITY_MIN = 0.22;
-const STAR_OPACITY_MAX = 0.38;
+const AMBIENT_STAR_SIZES = [10, 13, 19, 27, 36, 46,];
+// Peak opacity of every star (cursor stars AND ambient stars).
+// Each star gets its own random value between MIN and MAX.
+const STAR_OPACITY_MIN = 0.20;
+const STAR_OPACITY_MAX = 0.85;
 
-function addSparkle(layer: HTMLDivElement, x: number, y: number, sizes = CURSOR_STAR_SIZES) {
+const rand = (min: number, max: number) => min + Math.random() * (max - min);
+
+type SparkleKind = "cursor" | "ambient";
+
+// One single function builds every star, so cursor stars and ambient stars
+// always get the same random opacity / rotation / drift / timing logic.
+function addSparkle(layer: HTMLDivElement, x: number, y: number, kind: SparkleKind = "cursor") {
   if (layer.childElementCount >= MAX_SPARKLES) return;
 
+  const sizes = kind === "ambient" ? AMBIENT_STAR_SIZES : CURSOR_STAR_SIZES;
   const size = sizes[Math.floor(Math.random() * sizes.length)];
+
   const star = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   star.setAttribute("viewBox", "0 0 24 24");
   star.setAttribute("aria-hidden", "true");
   star.setAttribute("focusable", "false");
   star.classList.add("gem-trail-star");
 
-  const opacity = (STAR_OPACITY_MIN + Math.random() * (STAR_OPACITY_MAX - STAR_OPACITY_MIN)).toFixed(3);
-  const rotation = Math.round(Math.random() * 90 - 45);
-  const driftX = Math.round(Math.random() * 34 - 17);
-  const driftY = Math.round(-12 - Math.random() * 30);
+  // Random opacity per star.
+  const opacity = rand(STAR_OPACITY_MIN, STAR_OPACITY_MAX).toFixed(3);
+
+  // Random fixed angle on the full circle. The star keeps this angle for its whole
+  // life (it appears tilted differently from other stars but does not spin).
+  const rotation = Math.round(rand(-180, 180));
+
   const duration = 900 + Math.round(Math.random() * 650);
 
-  Object.assign(star.style, {
-    left: `${x - size / 2}px`,
-    top: `${y - size / 2}px`,
-    width: `${size}px`,
-    height: `${size}px`,
-    "--star-opacity": opacity,
-    "--star-rotation": `${rotation}deg`,
-    "--star-drift-x": `${driftX}px`,
-    "--star-drift-y": `${driftY}px`,
-    animationDuration: `${duration}ms`,
-  } as CSSProperties);
+  star.style.left = `${x - size / 2}px`;
+  star.style.top = `${y - size / 2}px`;
+  star.style.width = `${size}px`;
+  star.style.height = `${size}px`;
+  star.style.animationDuration = `${duration}ms`;
+  // CSS custom properties must be set with setProperty (Object.assign doesn't work for them).
+  star.style.setProperty("--star-opacity", opacity);
+  star.style.setProperty("--star-rotation", `${rotation}deg`);
 
   const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
   path.setAttribute("d", "M12 0L14.4 9.6L24 12L14.4 14.4L12 24L9.6 14.4L0 12L9.6 9.6L12 0Z");
@@ -82,12 +90,22 @@ export default function InteractiveGemImage({
     const bounds = shell.getBoundingClientRect();
 
     // A soft burst is scattered over the gem as soon as it is hovered.
-    for (let i = 0; i < 3; i += 1) {
-      addSparkle(layer, 12 + Math.random() * Math.max(1, bounds.width - 24), 12 + Math.random() * Math.max(1, bounds.height - 24), AMBIENT_STAR_SIZES);
+    for (let i = 0; i < 4; i += 1) {
+      addSparkle(
+        layer,
+        rand(12, Math.max(13, bounds.width - 12)),
+        rand(12, Math.max(13, bounds.height - 12)),
+        "ambient",
+      );
     }
 
     // Add a small random glint right around the pointer on entry.
-    addSparkle(layer, event.clientX - bounds.left + (Math.random() * 18 - 9), event.clientY - bounds.top + (Math.random() * 18 - 9));
+    addSparkle(
+      layer,
+      event.clientX - bounds.left + rand(-9, 9),
+      event.clientY - bounds.top + rand(-9, 9),
+      "cursor",
+    );
   }, []);
 
   const handlePointerMove = useCallback((event: PointerEvent<HTMLDivElement>) => {
@@ -115,14 +133,15 @@ export default function InteractiveGemImage({
     shell.style.setProperty("--facet-center", (0.2 + (1 - Math.abs(x - 0.5) * 2) * 0.5).toFixed(2));
     shell.dataset.active = "true";
 
-    // Randomly sprinkle tiny-to-large glints close to the moving cursor.
+    // Randomly sprinkle small glints close to the moving cursor.
     const layer = sparkleLayerRef.current;
-    if (layer && Math.random() > 0.88) {
-      const spread = 18;
+    if (layer && Math.random() > 0.85) {
+      const spread = 20;
       addSparkle(
         layer,
-        event.clientX - bounds.left + (Math.random() * spread * 2 - spread),
-        event.clientY - bounds.top + (Math.random() * spread * 2 - spread),
+        event.clientX - bounds.left + rand(-spread, spread),
+        event.clientY - bounds.top + rand(-spread, spread),
+        "cursor",
       );
     }
   }, []);
@@ -137,16 +156,16 @@ export default function InteractiveGemImage({
       const bounds = shell.getBoundingClientRect();
       if (!bounds.width || !bounds.height) return;
 
-      const count = Math.random() > 0.78 ? 2 : 1;
+      const count = Math.random() > 0.7 ? 2 : 1;
       for (let i = 0; i < count; i += 1) {
         addSparkle(
           layer,
-          10 + Math.random() * Math.max(1, bounds.width - 20),
-          10 + Math.random() * Math.max(1, bounds.height - 20),
-          AMBIENT_STAR_SIZES,
+          rand(10, Math.max(11, bounds.width - 10)),
+          rand(10, Math.max(11, bounds.height - 10)),
+          "ambient",
         );
       }
-    }, 420);
+    }, 380);
 
     return () => window.clearInterval(interval);
   }, []);
@@ -176,13 +195,13 @@ export default function InteractiveGemImage({
       onPointerEnter={handlePointerEnter}
       onPointerMove={handlePointerMove}
       onPointerLeave={resetPointer}
-      className="interactive-gem-image relative aspect-5/7 w-full overflow-visible [perspective:900px] [--gem-pointer-x:50%] [--gem-pointer-y:42%]"
+      className="interactive-gem-image relative aspect-5/7 bg-transparent p-5 lg:p-3  w-full overflow-visible [perspective:900px] [--gem-pointer-x:50%] [--gem-pointer-y:42%]"
       style={{ "--gem-glow": glowColor || "transparent" } as CSSProperties}
     >
       <div
         ref={stageRef}
-        className="gem-stage relative h-full w-full overflow-hidden rounded-xl [transform-style:preserve-3d] [will-change:transform]"
-        style={{ transition: "transform 90ms ease-out" }}
+        className="gem-stage relative h-full w-full overflow-hidden bg-transparent rounded-xl  [will-change:transform]"
+        style={{ transition: "transform 90ms ease-out, filter 300ms ease-out" }}
       >
         <Image
           src={src}
@@ -190,7 +209,7 @@ export default function InteractiveGemImage({
           fill
           priority
           sizes="(max-width: 768px) 90vw, 40vw"
-          className="rounded-xl object-cover"
+          className="rounded-xl object-cover "
           onError={() => console.error("ImageBox: failed to load gem PNG:", src)}
         />
 
@@ -212,8 +231,13 @@ export default function InteractiveGemImage({
           opacity: 1;
         }
 
+        /*
+          The glow uses drop-shadow instead of box-shadow: drop-shadow follows the
+          real shape (alpha) of the PNG, so transparent corners/empty areas get no glow
+          and no dark corners appear. Same strength as before, roughly.
+        */
         .interactive-gem-image[data-active="true"] .gem-stage {
-          box-shadow: 0 0 24px 4px var(--gem-glow), 0 0 48px 12px var(--gem-glow), 0 18px 42px -12px var(--gem-glow);
+          filter: drop-shadow(0 0 12px var(--gem-glow)) drop-shadow(0 8px 12px var(--gem-glow));
         }
 
         .interactive-gem-image .gem-trail-star {
@@ -222,14 +246,19 @@ export default function InteractiveGemImage({
           overflow: visible;
           pointer-events: none;
           opacity: 0;
-          filter: drop-shadow(0 0 2px rgba(255,255,255,0.28)) drop-shadow(0 0 5px var(--gem-glow));
-          animation: interactive-gem-sparkle 1100ms ease-out forwards;
+          transform-origin: center center;
+          filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.35)) drop-shadow(0 0 6px var(--gem-glow));
+          animation-name: interactive-gem-sparkle;
+          animation-duration: 1100ms;
+          animation-timing-function: ease-out;
+          animation-fill-mode: forwards;
           will-change: transform, opacity;
         }
 
+        /* Each star keeps its own fixed random angle (--star-rotation); no spinning. */
         @keyframes interactive-gem-sparkle {
           0% {
-            transform: translate3d(0, 0, 0) scale(0.35) rotate(0deg);
+            transform: translate3d(0, 0, 0) scale(0.35) rotate(var(--star-rotation));
             opacity: 0;
           }
           24% {
@@ -237,7 +266,7 @@ export default function InteractiveGemImage({
             opacity: var(--star-opacity);
           }
           100% {
-            transform: translate3d(var(--star-drift-x), var(--star-drift-y), 0) scale(0.62) rotate(calc(var(--star-rotation) + 55deg));
+            transform: translate3d(0, 0, 0) scale(0.62) rotate(var(--star-rotation));
             opacity: 0;
           }
         }
