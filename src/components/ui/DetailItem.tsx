@@ -128,9 +128,9 @@ export default function DetailItem({
       font-bold
       break-words
       text-start
- [&_ul]:p-[revert]
-[&_ol]:p-[revert]
-[&_li]:p-[revert]
+ [&_ul]:p-[revert]!
+[&_ol]:p-[revert]!
+[&_li]:p-[revert]!
 [&_menu]:p-[revert]
 [&_dl]:p-[revert]
       [&_p]:my-2
