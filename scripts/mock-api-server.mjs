@@ -332,9 +332,10 @@ const server = http.createServer(async (request, response) => {
       });
       return response.end(dictionary);
     } catch (error) {
+      // Keep filesystem paths and runtime details in local server logs only.
+      console.error("[mock-api] Failed to read local translation dictionary.", error);
       return json(response, 500, {
         message: "Local translation dictionary could not be read",
-        error: error instanceof Error ? error.message : String(error),
       });
     }
   }
