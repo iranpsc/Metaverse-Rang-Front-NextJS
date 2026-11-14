@@ -56,7 +56,9 @@ if (existsSync(crawlPath)) {
   const results = crawl.pageResults || [];
   const passed = results.filter((item) => item.outcome === "passed").length;
   const failed = results.filter((item) => item.outcome === "failed").length;
-  const safe = (value) => String(value ?? "").replace(/\|/g, "\\|").replace(/[\r\n]+/g, " ");
+  const safe = (value) => String(value ?? "")
+    .replace(/[\\|]/g, (character) => character === "\\" ? "\\\\" : "\\|")
+    .replace(/[\r\n]+/g, " ");
   lines.push(
     "## گزارش Crawl صفحات",
     "",
