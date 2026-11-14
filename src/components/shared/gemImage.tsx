@@ -8,7 +8,6 @@ import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 import {
   getGemGlowColor,
-  getGemPrimaryColor,
   getGemRouteName,
   getGemUniqueId,
   getLevelNumber,
