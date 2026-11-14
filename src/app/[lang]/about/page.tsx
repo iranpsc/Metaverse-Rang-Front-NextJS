@@ -141,7 +141,7 @@ const aboutSchema = {
                 fill
                 sizes="(max-width: 1920px)"
                 quality={100}
-                className="object-cover object-bottom rounded-2xl lg:rounded-3xl"
+                className="object-cover object-center rounded-2xl lg:rounded-3xl"
                 priority
               />
             </figure>
