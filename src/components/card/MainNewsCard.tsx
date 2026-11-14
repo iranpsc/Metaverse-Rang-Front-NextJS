@@ -47,7 +47,7 @@ export default function ArticleCard({ item, params, theme, activeLoadingId, setA
     };
 
     return String(html ?? "")
-      .replace(/<script\b[^>]*>[\s\S]*?<\/script\s*>/gi, " ")
+      .replace(/<script\b[^>]*>[\s\S]*?<\/script(?:\s+[^>]*)?>/gi, " ")
       .replace(/<style\b[^>]*>[\s\S]*?<\/style\s*>/gi, " ")
       .replace(/<[^>]*>/g, " ")
       // Decode entities in one pass so nested entities are never decoded twice.
