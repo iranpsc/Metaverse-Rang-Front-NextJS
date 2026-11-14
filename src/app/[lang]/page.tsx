@@ -349,7 +349,7 @@ export default async function LangPage({ params }: LangPageProps) {
                 <DetailsEducationSection mainData={mainData} />
               </Suspense>
             </div>
-            <div className=" relative h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">
+            <div className=" relative h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px] px-3 lg:px-1">
               <WorkGroupsSection mainData={mainData} params={resolvedParams} />
             </div>
             <div className="w-[90%] relative h-fit mt-[60px] xl:mt-[100px] 2xl:mt-[180px]">

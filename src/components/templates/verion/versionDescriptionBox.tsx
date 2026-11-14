@@ -121,7 +121,7 @@ const DescriptionBox: React.FC<DescriptionBoxProps> = ({
       </div>
 
       <div className="lineBox flex justify-between items-center w-full truncate min-h-[48px] lg:px-[15px]">
-        <p className="toseVbehbod font-rokh dark:text-[#FCF9FE] z-1 whitespace-nowrap  text-[140%] ">
+        <p className="toseVbehbod font-rokh dark:text-[#FCF9FE] z-1  text-[140%] text-wrap max-w-[88%]">
           {trimmedTitle}
         </p>
 
