@@ -106,14 +106,12 @@ export default function ModalCard({
                   </div>
                 </div>
               </div>
-            ) : dataModal.isHtml ? (
-              /* HTML تمیزشده با sanitizeHtml (bold / اینتر / لیست حفظ می‌شود) */
+            ) : (
+              /* همه پاسخ‌های متنی مودال با حفظ قالب‌بندی و پاک‌سازی امن نمایش داده می‌شوند */
               <div
                 className={`${bodyClasses} ${RICH_TEXT_CLASSES}`}
                 dangerouslySetInnerHTML={{ __html: sanitizeHtml(dataModal.data).html }}
               />
-            ) : (
-              <p className={bodyClasses}>{dataModal.data}</p>
             )}
           </div>
         </motion.div>
