@@ -14,17 +14,21 @@ const ProfileReadMore = ({
   const [showModal, setShowModal] = useState<Boolean>(false);
   const [dataModal, setDataModal] = useState({});
   const submitModalCard = (title: any, data: any, type: string, id: number) => {
-    if (data) {
-      setShowModal(true);
-      setDataModal({
-        data: data,
-        type: type,
-        title: title,
-        id: id,
-      });
-    } else {
-    }
+    setShowModal(true);
+    setDataModal({
+      data: data ?? "",
+      type: type,
+      title: title,
+      id: id,
+    });
   };
+
+  const problemAnswer =
+    profileData.data?.customs?.ability_solve_problem ??
+    profileData.data?.customs?.problem ??
+    profileData.data?.customs?.problem_to_solve ??
+    profileData.data?.customs?.solve_problem ??
+    "";
 
   return (
     <>
@@ -38,7 +42,9 @@ const ProfileReadMore = ({
             {findByUniqueId(mainData, 91)}
           </p>
           <span
-            className="text-matn-3 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc  md:text-mdDesc sm:text-smDesc xs:text-smDesc font-azarMehr  cursor-pointer  font-medium "
+            className={` ${
+              problemAnswer ? "text-primary" : "text-matn-3"
+            } 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc md:text-mdDesc sm:text-smDesc xs:text-smDesc font-azarMehr cursor-pointer font-medium`}
             onClick={() =>
               submitModalCard(
                 // targetData(
@@ -46,7 +52,7 @@ const ProfileReadMore = ({
                 //   "if you had the ability to solve a problem, what would it be?"
                 // )
                 findByUniqueId(mainData, 91),
-                profileData.data?.customs?.problem || "",
+                problemAnswer,
                 "problem",
                 91
               )
