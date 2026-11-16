@@ -64,7 +64,18 @@ function findBySlug<T extends { version: string }>(
   const s = slug.trim();
   return list.find((v) => {
     const ver = String(v.version).trim();
-    return ver === s || encodeURIComponent(ver) === s;
+    const normalize = (value: string) =>
+      value
+        .trim()
+        .toLowerCase()
+        .replace(/[۰-۹]/g, (digit) => String("۰۱۲۳۴۵۶۷۸۹".indexOf(digit)))
+        .replace(/[٠-٩]/g, (digit) => String("٠١٢٣٤٥٦٧٨٩".indexOf(digit)))
+        .replace(/^v\s*/, "");
+    return (
+      ver === s ||
+      encodeURIComponent(ver) === s ||
+      normalize(ver) === normalize(s)
+    );
   });
 }
 
