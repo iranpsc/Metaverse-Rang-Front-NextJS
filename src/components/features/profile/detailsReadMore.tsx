@@ -23,12 +23,7 @@ const ProfileReadMore = ({
     });
   };
 
-  const problemAnswer =
-    profileData.data?.customs?.ability_solve_problem ??
-    profileData.data?.customs?.problem ??
-    profileData.data?.customs?.problem_to_solve ??
-    profileData.data?.customs?.solve_problem ??
-    "";
+  const problemAnswer = profileData.data?.customs?.problem_solving ?? "";
 
   useEffect(() => {
     const customs = profileData?.data?.customs;
