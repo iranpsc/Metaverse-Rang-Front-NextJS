@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { CLoseIcon } from "@/svgs/index";
 import { findByUniqueId } from "../utils/findByUniqueId";
+import { sanitizeHtml } from "../utils/sanitizeHtml";
 import { motion } from "motion/react";
 
 const DEFAULT_IMAGE = "/defult-alayeg.jpg";
@@ -109,7 +110,7 @@ export default function ModalCard({
               /* HTML تمیزشده با sanitizeHtml (bold / اینتر / لیست حفظ می‌شود) */
               <div
                 className={`${bodyClasses} ${RICH_TEXT_CLASSES}`}
-                dangerouslySetInnerHTML={{ __html: dataModal.data || "" }}
+                dangerouslySetInnerHTML={{ __html: sanitizeHtml(dataModal.data).html }}
               />
             ) : (
               <p className={bodyClasses}>{dataModal.data}</p>
