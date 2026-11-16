@@ -46,8 +46,8 @@ const ProfileReadMore = ({
                 //   "if you had the ability to solve a problem, what would it be?"
                 // )
                 findByUniqueId(mainData, 91),
-                "",
-                "",
+                profileData.data?.customs?.problem || "",
+                "problem",
                 91
               )
             }
