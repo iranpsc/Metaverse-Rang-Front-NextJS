@@ -28,8 +28,16 @@ interface VersionBoxProps {
 const PAGE_STEP = 10;
 const MAX_PAGE_LOOKAHEAD = 20;
 
+const normalizeVersionText = (value?: string | null) =>
+  String(value ?? "")
+    .trim()
+    .toLowerCase()
+    .replace(/[۰-۹]/g, (digit) => String("۰۱۲۳۴۵۶۷۸۹".indexOf(digit)))
+    .replace(/[٠-٩]/g, (digit) => String("٠١٢٣٤٥٦٧٨٩".indexOf(digit)))
+    .replace(/^v\s*/, "");
+
 const sameVersion = (a?: string | null, b?: string | null) =>
-  String(a ?? "").trim() === String(b ?? "").trim();
+  normalizeVersionText(a) === normalizeVersionText(b);
 
 /** تعداد آیتم‌هایی که باید اولش نمایش داده بشن تا ورژن انتخاب‌شده هم توی DOM باشه */
 const getInitialVisible = (list: Version[], selected?: Version | null) => {
