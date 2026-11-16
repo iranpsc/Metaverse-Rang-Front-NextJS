@@ -65,14 +65,6 @@ const extractList = (data: any): any[] | null => {
   return null;
 };
 
-// نرمال‌سازی متن ورژن برای مقایسه: حروف کوچک، حذف "v" اول، تبدیل ارقام فارسی/عربی به انگلیسی
-const normalizeVersionText = (s?: string | null) =>
-  String(s ?? "")
-    .trim()
-    .toLowerCase()
-    .replace(/[۰-۹]/g, (d) => String("۰۱۲۳۴۵۶۷۸۹".indexOf(d)))
-    .replace(/[٠-٩]/g, (d) => String("٠١٢٣٤٥٦٧٨٩".indexOf(d)))
-    .replace(/^v\s*/, "");
 
 // اسکلت یه آیتم لیست، هم‌شکل آیتم واقعی؛ موقع فچ کردن صفحه‌ی بعدی نشون داده میشه
 const VersionItemSkeleton = () => (
