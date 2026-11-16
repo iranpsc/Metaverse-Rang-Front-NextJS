@@ -1,6 +1,7 @@
 "use client";
 import ModalCard from "@/components/modal/ModalCard";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import { sanitizeHtml } from "@/components/utils/sanitizeHtml";
 import { AnimatePresence } from "motion/react";
 import { useEffect, useState } from "react";
 
@@ -14,16 +15,21 @@ const ProfileReadMore = ({
   const [showModal, setShowModal] = useState<Boolean>(false);
   const [dataModal, setDataModal] = useState({});
   const submitModalCard = (title: any, data: any, type: string, id: number) => {
-    setShowModal(true);
+    if (!data) return;
+
     setDataModal({
-      data: data ?? "",
-      type: type,
-      title: title,
-      id: id,
+      data: type === "problem" ? sanitizeHtml(data).html : data,
+      isHtml: type === "problem",
+      type,
+      title,
+      id,
     });
+    setShowModal(true);
   };
 
   const problemAnswer = profileData.data?.customs?.problem_solving ?? "";
+  const hasProblemAnswer =
+    typeof problemAnswer === "string" && problemAnswer.trim().length > 0;
 
   useEffect(() => {
     const customs = profileData?.data?.customs;
@@ -55,14 +61,19 @@ const ProfileReadMore = ({
             )} */}
             {findByUniqueId(mainData, 91)}
           </p>
-          <span
-            className={` ${
-              problemAnswer ? "text-primary" : "text-matn-3"
-            } 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc md:text-mdDesc sm:text-smDesc xs:text-smDesc font-azarMehr cursor-pointer font-medium`}
+          <button
+            type="button"
+            disabled={!hasProblemAnswer}
+            aria-disabled={!hasProblemAnswer}
+            className={hasProblemAnswer
+              ? "text-primary cursor-pointer 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc md:text-mdDesc sm:text-smDesc xs:text-smDesc font-azarMehr font-medium"
+              : "text-matn-3 cursor-not-allowed opacity-50 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc md:text-mdDesc sm:text-smDesc xs:text-smDesc font-azarMehr font-medium"
+            }
             onClick={() => {
               console.log("[ProfileDetails] Opening problem modal:", {
                 customs: profileData?.data?.customs,
                 problemAnswer,
+                hasProblemAnswer,
               });
               submitModalCard(
                 findByUniqueId(mainData, 91),
@@ -74,7 +85,7 @@ const ProfileReadMore = ({
           >
             {/* {targetData(userProperty, "view")} */}
             {findByUniqueId(mainData, 147)}
-          </span>
+          </button>
         </div>
       </section>
       <section className="dark:bg-dark-background transition-all duration-300 ease-linear shadow-md bg-white w-full rounded-[10px] px-3">
