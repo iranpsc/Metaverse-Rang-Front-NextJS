@@ -931,7 +931,7 @@ export const imageSources = [
   },
   {
     url: "https://irpsc.com/img-icon/map.png",
-    target: "https://map.irpsc.com/",
+    target: "https://api-map.metarang.com/",
     translate: "national map",
   },
   {

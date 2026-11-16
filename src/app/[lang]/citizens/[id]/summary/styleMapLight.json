@@ -9,7 +9,7 @@
     }
   },
   "sprite": "",
-  "glyphs": "https://map.irpsc.com/fonts/{fontstack}/{range}",
+  "glyphs": "https://api-map.metarang.com/fonts/{fontstack}/{range}",
   "layers": [
     {
       "id": "background",
