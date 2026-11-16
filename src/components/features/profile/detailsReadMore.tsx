@@ -3,7 +3,7 @@ import ModalCard from "@/components/modal/ModalCard";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { sanitizeHtml } from "@/components/utils/sanitizeHtml";
 import { AnimatePresence } from "motion/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const ProfileReadMore = ({
   // setShowModal,
@@ -31,25 +31,6 @@ const ProfileReadMore = ({
   const hasProblemAnswer =
     typeof problemAnswer === "string" && problemAnswer.trim().length > 0;
 
-  useEffect(() => {
-    const customs = profileData?.data?.customs;
-
-    console.group("[ProfileDetails] Problem question API data");
-    console.log("profileData.data exists:", Boolean(profileData?.data));
-    console.log("customs payload:", customs);
-    console.log("customs keys:", customs ? Object.keys(customs) : []);
-    console.log("candidate problem fields:", {
-      ability_solve_problem: customs?.ability_solve_problem,
-      problem: customs?.problem,
-      problem_to_solve: customs?.problem_to_solve,
-      solve_problem: customs?.solve_problem,
-      prediction: customs?.prediction,
-      memory: customs?.memory,
-    });
-    console.log("resolved problemAnswer:", problemAnswer);
-    console.groupEnd();
-  }, [profileData?.data?.customs, problemAnswer]);
-
   return (
     <>
       <section className="dark:bg-dark-background transition-all duration-300 ease-linear shadow-md bg-white w-full rounded-[10px]  px-3">
@@ -70,11 +51,6 @@ const ProfileReadMore = ({
               : "text-matn-3 cursor-not-allowed opacity-50 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc md:text-mdDesc sm:text-smDesc xs:text-smDesc font-azarMehr font-medium"
             }
             onClick={() => {
-              console.log("[ProfileDetails] Opening problem modal:", {
-                customs: profileData?.data?.customs,
-                problemAnswer,
-                hasProblemAnswer,
-              });
               submitModalCard(
                 findByUniqueId(mainData, 91),
                 problemAnswer,
