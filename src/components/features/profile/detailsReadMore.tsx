@@ -2,7 +2,7 @@
 import ModalCard from "@/components/modal/ModalCard";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { AnimatePresence } from "motion/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const ProfileReadMore = ({
   // setShowModal,
@@ -30,6 +30,25 @@ const ProfileReadMore = ({
     profileData.data?.customs?.solve_problem ??
     "";
 
+  useEffect(() => {
+    const customs = profileData?.data?.customs;
+
+    console.group("[ProfileDetails] Problem question API data");
+    console.log("profileData.data exists:", Boolean(profileData?.data));
+    console.log("customs payload:", customs);
+    console.log("customs keys:", customs ? Object.keys(customs) : []);
+    console.log("candidate problem fields:", {
+      ability_solve_problem: customs?.ability_solve_problem,
+      problem: customs?.problem,
+      problem_to_solve: customs?.problem_to_solve,
+      solve_problem: customs?.solve_problem,
+      prediction: customs?.prediction,
+      memory: customs?.memory,
+    });
+    console.log("resolved problemAnswer:", problemAnswer);
+    console.groupEnd();
+  }, [profileData?.data?.customs, problemAnswer]);
+
   return (
     <>
       <section className="dark:bg-dark-background transition-all duration-300 ease-linear shadow-md bg-white w-full rounded-[10px]  px-3">
@@ -45,18 +64,18 @@ const ProfileReadMore = ({
             className={` ${
               problemAnswer ? "text-primary" : "text-matn-3"
             } 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc md:text-mdDesc sm:text-smDesc xs:text-smDesc font-azarMehr cursor-pointer font-medium`}
-            onClick={() =>
+            onClick={() => {
+              console.log("[ProfileDetails] Opening problem modal:", {
+                customs: profileData?.data?.customs,
+                problemAnswer,
+              });
               submitModalCard(
-                // targetData(
-                //   userProperty,
-                //   "if you had the ability to solve a problem, what would it be?"
-                // )
                 findByUniqueId(mainData, 91),
                 problemAnswer,
                 "problem",
                 91
-              )
-            }
+              );
+            }}
           >
             {/* {targetData(userProperty, "view")} */}
             {findByUniqueId(mainData, 147)}
