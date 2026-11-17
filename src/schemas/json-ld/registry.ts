@@ -69,7 +69,7 @@ export type JsonLdRouteConfig = {
   indexable: boolean;
 };
 
-const routeEntries = routeManifest.routes as JsonLdRouteConfig[];
+const routeEntries = routeManifest.routes as unknown as JsonLdRouteConfig[];
 
 function escapeRegExp(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -112,8 +112,9 @@ export function getJsonLdRouteConfig(localizedPathname: string): JsonLdRouteConf
   }
 
   const segments = pathname.split("/").filter(Boolean);
-  // A locale segment is mandatory; do not accidentally resolve /about as the homepage.
-  if (segments.length === 0) return undefined;
+  // Locale values remain API-driven, but the first segment must be locale-like.
+  // Without this guard, an unlocalized /about path can resolve as the homepage.
+  if (segments.length === 0 || !/^[a-z]{2,3}(?:-[a-z0-9]{2,8})*$/i.test(segments[0])) return undefined;
 
   const pathWithoutLocale = "/" + segments.slice(1).join("/");
   const normalizedPath =
@@ -137,7 +138,13 @@ function getPathValue(source: JsonLdValues, path: string): JsonLdValue | undefin
 function resolveTemplateValue(value: unknown, values: JsonLdValues): unknown {
   if (typeof value === "string") {
     const exactMatch = value.match(PLACEHOLDER_PATTERN);
-    if (exactMatch) return getPathValue(values, exactMatch[1]);
+    if (exactMatch) {
+      const replacement = getPathValue(values, exactMatch[1]);
+      return replacement === null ||
+        (typeof replacement === "string" && !replacement.trim())
+        ? undefined
+        : replacement;
+    }
 
     return value.replace(INLINE_PLACEHOLDER_PATTERN, (_match, path: string) => {
       const replacement = getPathValue(values, path);
@@ -148,14 +155,25 @@ function resolveTemplateValue(value: unknown, values: JsonLdValues): unknown {
   if (Array.isArray(value)) {
     return value
       .map((item) => resolveTemplateValue(item, values))
-      .filter((item) => item !== undefined);
+      .filter(
+        (item) =>
+          item !== undefined &&
+          item !== null &&
+          !(typeof item === "string" && !item.trim()),
+      );
   }
 
   if (value && typeof value === "object") {
     const resolved: Record<string, unknown> = {};
     for (const [key, nestedValue] of Object.entries(value)) {
       const nextValue = resolveTemplateValue(nestedValue, values);
-      if (nextValue !== undefined) resolved[key] = nextValue;
+      if (
+        nextValue !== undefined &&
+        nextValue !== null &&
+        !(typeof nextValue === "string" && !nextValue.trim())
+      ) {
+        resolved[key] = nextValue;
+      }
     }
     return resolved;
   }
@@ -175,13 +193,17 @@ function getValueAtPath(source: Record<string, unknown>, path: string): unknown 
 function isValidIsoDate(value: unknown): value is string {
   if (typeof value !== "string") return false;
 
-  const match = /^(\d{4})-(\d{2})-(\d{2})(T\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:Z|[+-]\d{2}:\d{2})?)?$/.exec(value);
+  const match =
+    /^(\\d{4})-(\\d{2})-(\\d{2})(?:T(\\d{2}):(\\d{2})(?::(\\d{2})(?:\\.(\\d+))?)?(Z|([+-])(\\d{2}):(\\d{2}))?)?$/.exec(
+      value,
+    );
   if (!match) return false;
 
-  const year = Number(match[1]);
-  const month = Number(match[2]);
-  const day = Number(match[3]);
-  const date = new Date(Date.UTC(year, month - 1, day));
+  const [, yearText, monthText, dayText, hourText, minuteText, secondText, , , , offsetHourText, offsetMinuteText] = match;
+  const year = Number(yearText);
+  const month = Number(monthText);
+  const day = Number(dayText);
+  const date = new Date(`${yearText}-${monthText}-${dayText}T00:00:00.000Z`);
 
   if (
     date.getUTCFullYear() !== year ||
@@ -191,7 +213,32 @@ function isValidIsoDate(value: unknown): value is string {
     return false;
   }
 
-  return !match[4] || !Number.isNaN(Date.parse(value));
+  if (hourText !== undefined) {
+    const hour = Number(hourText);
+    const minute = Number(minuteText);
+    const second = secondText === undefined ? 0 : Number(secondText);
+    if (hour > 23 || minute > 59 || second > 59) return false;
+  }
+
+  if (offsetHourText !== undefined && offsetMinuteText !== undefined) {
+    const offsetHour = Number(offsetHourText);
+    const offsetMinute = Number(offsetMinuteText);
+    if (offsetHour > 14 || offsetMinute > 59 || (offsetHour === 14 && offsetMinute !== 0)) {
+      return false;
+    }
+  }
+
+  return !Number.isNaN(Date.parse(value));
+}
+
+function isHttpUrl(value: unknown): value is string {
+  if (typeof value !== "string" || !value.trim()) return false;
+  try {
+    const parsed = new URL(value);
+    return (parsed.protocol === "https:" || parsed.protocol === "http:") && Boolean(parsed.hostname);
+  } catch {
+    return false;
+  }
 }
 
 function matchesFieldType(value: unknown, fieldType: string): boolean {
@@ -201,13 +248,9 @@ function matchesFieldType(value: unknown, fieldType: string): boolean {
     case "number":
       return typeof value === "number" && Number.isFinite(value);
     case "url":
-      if (typeof value !== "string" || !value.trim()) return false;
-      try {
-        const parsed = new URL(value);
-        return parsed.protocol === "https:" || parsed.protocol === "http:";
-      } catch {
-        return false;
-      }
+      return isHttpUrl(value);
+    case "url-array":
+      return Array.isArray(value) && value.length > 0 && value.every(isHttpUrl);
     case "iso-date":
       return isValidIsoDate(value);
     case "array":
@@ -221,6 +264,53 @@ function matchesFieldType(value: unknown, fieldType: string): boolean {
 
 export function getJsonLdSchemaDefinition(schemaId: JsonLdSchemaId): JsonLdSchemaDefinition {
   return definitions[schemaId];
+}
+
+/**
+ * Static registry audit used by the implementation workflow and Issue #126.
+ * This helper does not perform network requests or replace Google Rich Results Test.
+ */
+export function validateJsonLdRegistry(): string[] {
+  const issues: string[] = [];
+  const seenPatterns = new Set<string>();
+
+  for (const route of routeEntries) {
+    if (seenPatterns.has(route.pattern)) issues.push(`Duplicate route pattern: ${route.pattern}`);
+    seenPatterns.add(route.pattern);
+    for (const schemaId of route.schemaIds) {
+      if (!(schemaId in definitions)) {
+        issues.push(`Unknown schema "${schemaId}" referenced by route "${route.pattern}".`);
+      }
+    }
+  }
+
+  for (const [schemaId, definition] of Object.entries(definitions)) {
+    if (definition.schemaId !== schemaId) {
+      issues.push(`Schema registry key "${schemaId}" does not match schemaId "${definition.schemaId}".`);
+    }
+    if (!definition.version || !definition.expectedType) {
+      issues.push(`Schema "${schemaId}" is missing version or expectedType metadata.`);
+    }
+    const used = new Set<string>();
+    const visit = (value: unknown): void => {
+      if (typeof value === "string") {
+        for (const match of value.matchAll(/\\{\\{([a-zA-Z0-9_.-]+)\\}\\}/g)) used.add(match[1]);
+      } else if (Array.isArray(value)) {
+        value.forEach(visit);
+      } else if (value && typeof value === "object") {
+        Object.values(value).forEach(visit);
+      }
+    };
+    visit(definition.template);
+    const declared = new Set(definition.placeholders);
+    for (const placeholder of used) {
+      if (!declared.has(placeholder)) issues.push(`Schema "${schemaId}" uses undeclared placeholder "${placeholder}".`);
+    }
+    for (const placeholder of declared) {
+      if (!used.has(placeholder)) issues.push(`Schema "${schemaId}" declares unused placeholder "${placeholder}".`);
+    }
+  }
+  return issues;
 }
 
 export function generateJsonLd(
@@ -275,6 +365,31 @@ export function generateJsonLd(
   } else if (generated["@type"] !== definition.expectedType) {
     throw new TypeError(
       'JSON-LD "' + schemaId + '" expected @type "' + definition.expectedType + '".',
+    );
+  }
+
+  if (schemaId === "event") {
+    const location = generated.location as Record<string, unknown> | undefined;
+    const address = location?.address as Record<string, unknown> | undefined;
+    if (
+      location?.["@type"] !== "Place" ||
+      address?.["@type"] !== "PostalAddress" ||
+      !address.addressLocality ||
+      !address.addressCountry
+    ) {
+      throw new TypeError(
+        "Google Event rich results require a physical Place with a complete PostalAddress.",
+      );
+    }
+  }
+
+  if (
+    schemaId === "video-object" &&
+    !isHttpUrl(generated.contentUrl) &&
+    !isHttpUrl(generated.embedUrl)
+  ) {
+    throw new TypeError(
+      "Google Video rich results require a real video contentUrl or embedUrl; a page URL is not a video URL.",
     );
   }
 
