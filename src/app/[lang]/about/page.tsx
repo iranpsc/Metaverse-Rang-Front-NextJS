@@ -4,6 +4,7 @@ import {
   getMainFile,
 } from "@/components/utils/actions";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import JsonLdScript from "../../../schemas/json-ld/JsonLdScript";
 import BreadCrumb from "@/components/shared/BreadCrumb";
 import Image from "next/image";
 import Head from "next/head";
@@ -62,58 +63,28 @@ export default async function AboutPage({ params }: AboutPageProps) {
     const [langData] = await Promise.all([getTranslation(lang)]);
     const mainData = await getMainFile(langData);
 
-const aboutSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Organization",
-      "@id": "https://metarang.com/#organization",
-      "name": "متاورس رنگ | متارنگ",
-      "alternateName": "MetaRang",
-      "url": "https://metarang.com/",
-      "logo": {
-        "@type": "ImageObject",
-        "@id": "https://metarang.com/#logo",
-        "url": "https://s3.metarang.com/metarang/logo/metarang-logo-512.png",
-        "contentUrl": "https://s3.metarang.com/metarang/logo/metarang-logo-512.png",
-        "width": 512,
-        "height": 512
-      },
-      "sameAs": [
-        "https://www.instagram.com/rgb.irpsc"
-      ],
-      "description": findByUniqueId(mainData, 1557).slice(0, 155)
-    },
-    {
-      "@type": "AboutPage",
-      "@id": `https://metarang.com/${lang}/about#aboutpage`,
-      "url": `https://metarang.com/${lang}/about`,
-      "name":
-        lang.toLowerCase() === "fa"
-          ? "درباره ما | متارنگ"
-          : "About Us | MetaRang",
-      "description": findByUniqueId(mainData, 1557).slice(0, 155),
-      "inLanguage":
-        lang.toLowerCase() === "fa"
-          ? "fa-IR"
-          : "en-US",
-      "mainEntity": {
-        "@id": "https://metarang.com/#organization"
-      }
-    }
-  ]
-};
-
     return (
       <>
         <Head>
           <link rel="preload" href="/team.webp" as="image" />
         </Head>
         <CleanAutoRetryParam />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(aboutSchema),
+        <JsonLdScript
+          schemaId="about-page"
+          values={{
+            organizationId: "https://metarang.com/#organization",
+            organizationName: "متاورس رنگ | متارنگ",
+            alternateName: "MetaRang",
+            organizationUrl: "https://metarang.com/",
+            logoId: "https://metarang.com/#logo",
+            logoUrl: "https://s3.metarang.com/metarang/logo/metarang-logo-512.png",
+            sameAs: ["https://www.instagram.com/rgb.irpsc"],
+            organizationDescription: findByUniqueId(mainData, 1557).slice(0, 155),
+            pageId: `https://metarang.com/${lang}/about#aboutpage`,
+            canonicalUrl: `https://metarang.com/${lang}/about`,
+            pageName: lang.toLowerCase() === "fa" ? "درباره ما | متارنگ" : "About Us | MetaRang",
+            pageDescription: findByUniqueId(mainData, 1557).slice(0, 155),
+            language: lang.toLowerCase() === "fa" ? "fa-IR" : "en-US",
           }}
         />
         <section
