@@ -11,6 +11,7 @@ import React, { Suspense } from 'react';
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
+import JsonLdScript from "@/schemas/json-ld/JsonLdScript";
 // SEO**
 export async function generateMetadata(
   { params }: { params: Promise<{ lang: string }> }
@@ -27,11 +28,11 @@ export async function generateMetadata(
       title: `${findByUniqueId(mainData, 593)} | ${findByUniqueId(mainData, 148)}`,
       description,
       alternates: {
-        canonical: `https://metarang.com/${lang}/citizen`,
+        canonical: `https://metarang.com/${lang}/citizens`,
         languages: {
-          'fa-IR': 'https://metarang.com/fa/citizen',
-          'en-US': 'https://metarang.com/en/citizen',
-          'x-default': 'https://metarang.com/fa/citizen',
+          'fa-IR': 'https://metarang.com/fa/citizens',
+          'en-US': 'https://metarang.com/en/citizens',
+          'x-default': 'https://metarang.com/fa/citizens',
         },
       },
       openGraph: {
@@ -39,7 +40,7 @@ export async function generateMetadata(
         title: findByUniqueId(mainData, 593),
         description,
         locale: lang === "fa" ? "fa_IR" : "en_US",
-        url: `https://metarang.com/${lang}/citizen`,
+        url: `https://metarang.com/${lang}/citizens`,
         images: [
           {
             url: "https://s3.metarang.com/metarang/logo/metarang-logo-512.png",
@@ -76,44 +77,17 @@ export default async function CitizensPage({ params }: CitizensPageProps) {
     // چیزی سوسپند نمی‌شد. این فچ الان رفته توی CitizenListLoader (async
     // Server Component) که خودش داخل <Suspense> رندر می‌شه.
 
-    //to make description less than 200 character
-    async function makeLessCharacter() {
-      let temp = findByUniqueId(mainData, 596)
-      return await temp.slice(0, 155)
-    }
-
-
-
-
-    const citizenListSchema = {
-      "@context": "https://schema.org/",
-      "@type": "ProfessionalService",
-      "name": `${await makeLessCharacter()} | ${findByUniqueId(mainData, 148)}`,
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "میرداماد، 824H+JG2",
-        "addressCountry": "ایران",
-        "addressRegion": "استان قزوین",
-        "addressLocality": "قزوین"
-      },
-      "image": 'https://s3.metarang.com/metarang/logo/metarang-logo-512.png',
-      "telephone": "09120820120",
-      "url": `https://metarang.com/${lang}/citizen`,
-      "logo": `https://s3.metarang.com/metarang/logo/metarang-logo-512.png`,
-      "email": "info@metarang.com",
-      "description": await makeLessCharacter(),
-      "alternateName": "MetaRGB"
-    };
+    const citizenPageTitle = findByUniqueId(mainData, 593);
+    const citizenPageDescription = findByUniqueId(mainData, 596);
 
     return (
       <>
-        {/* SCHEMA** */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(citizenListSchema),
-          }}
-        />
+        <JsonLdScript schemaId="collection-page" values={{
+          name: citizenPageTitle,
+          canonicalUrl: `https://metarang.com/${lang}/citizens`,
+          description: citizenPageDescription,
+          lang: lang === "fa" ? "fa-IR" : "en-US",
+        }} />
         <div className=" w-full" dir={langData.direction}>
           <CleanAutoRetryParam />
           <section

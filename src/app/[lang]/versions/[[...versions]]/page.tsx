@@ -9,6 +9,7 @@ import { Metadata } from "next";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
+import JsonLdScript from "@/schemas/json-ld/JsonLdScript";
 
 interface VersionItem {
   id: number;
@@ -271,50 +272,34 @@ export default async function VersionPage({ params }: VersionPageProps) {
         ? versions[0].version
         : null;
 
-    {/* SCHEMA** */}
-    const versionSchema = {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      name: `${findByUniqueId(mainData, 1458)} | ${findByUniqueId(mainData, 148)}`,
-      url: `https://metarang.com/${lang}/versions${
-        versionSlug ? `/${encodeURIComponent(versionSlug)}` : ""
-      }`,
-      description: currentVersion
-        ? stripHtmlTags(currentVersion.description).slice(0, 155)
-        : "صفحه نسخه‌های نرم‌افزار",
-      author: {
-        "@type": "Organization",
-        name: "RGB IRPSC",
-      },
-      datePublished: currentVersion
-        ? currentVersion.date
-        : new Date().toISOString().slice(0, 10),
-      softwareVersion: versionSlug || (versions.length > 0 ? versions[0].version : ""),
-      version: versions.map((v) => ({
-        "@type": "CreativeWork",
-        name: v.title,
-        datePublished: v.date,
-        description: stripHtmlTags(v.description),
-      })),
-      image: currentVersion?.image || DEFAULT_IMAGE,
-      applicationCategory: "GameApplication",
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: "4.5",
-        ratingCount: "15",
-        reviewCount: "27",
-      },
-    };
-    {/*END SCHEMA** */}
+    const versionDescription = currentVersion
+      ? stripHtmlTags(currentVersion.description).slice(0, 155)
+      : undefined;
+    const versionImage = (() => {
+      if (typeof currentVersion?.image !== "string" || !currentVersion.image.trim()) return undefined;
+      try {
+        const parsed = new URL(currentVersion.image, "https://metarang.com");
+        return parsed.protocol === "https:" || parsed.protocol === "http:" ? parsed.toString() : undefined;
+      } catch {
+        return undefined;
+      }
+    })();
+    const softwareVersion = typeof currentVersion?.version === "string"
+      ? currentVersion.version
+      : undefined;
 
     return (
       <>
-        {/* SCHEMA** */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(versionSchema) }}
-        />
-        {/* schema END */}
+        <JsonLdScript schemaId="software-application" values={{
+          name: `${findByUniqueId(mainData, 1458)} | ${findByUniqueId(mainData, 148)}`,
+          canonicalUrl: `https://metarang.com/${lang}/versions${versionSlug ? `/${encodeURIComponent(versionSlug)}` : ""}`,
+          description: versionDescription,
+          applicationCategory: "WebApplication",
+          operatingSystem: "Web",
+          softwareVersion,
+          image: versionImage,
+          author: { "@type": "Organization", name: "RGB IRPSC" },
+        }} />
         <CleanAutoRetryParam />
         <div className="flex w-full" dir={langData.direction}>
           <section

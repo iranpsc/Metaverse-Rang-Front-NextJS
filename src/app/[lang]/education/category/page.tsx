@@ -14,6 +14,7 @@ import ShowAllCategoriesEducationListSkeleton from "@/components/skeleton/ShowAl
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
+import JsonLdScript from "@/schemas/json-ld/JsonLdScript";
 
 interface EducationCategoryAllProps {
   params: Promise<{ lang: string }>;
@@ -32,6 +33,12 @@ export default async function EducationCategoryAll({ params }: EducationCategory
 
     return (
       <>
+        <JsonLdScript schemaId="collection-page" values={{
+          name: findByUniqueId(mainData, 340),
+          canonicalUrl: `https://metarang.com/${lang}/education/category`,
+          description: findByUniqueId(mainData, 1466),
+          lang: lang === "fa" ? "fa-IR" : "en-US",
+        }} />
         <div className="flex w-full" dir={langData.direction}>
           <section
             className={`w-full mt-[60px] lg:mt-0 lg:pt-0 bg-bg-primary  bg-opacity20 xl:px-8 lg:px-8 px-5 `}

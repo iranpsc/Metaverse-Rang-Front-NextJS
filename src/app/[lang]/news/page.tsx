@@ -15,6 +15,7 @@ import { findByUniqueId } from "@/components/utils/findByUniqueId";
 // ایمپورت دیتای استاتیک به عنوان fallback
 import fallbackNewsData from "@/components/utils/news.json";
 import Link from "next/link";
+import JsonLdScript from "@/schemas/json-ld/JsonLdScript";
 
 // ─── Types (اگر در فایل جداگانه نیست، اینجا تعریف کن) ───
 type NewsItem = {
@@ -187,47 +188,20 @@ export default async function NewsPage({ params }: NewsPageProps) {
       // می‌توانید یک آرایه خالی برگردانید یا صفحه خطای سفارشی نشان دهید
       // const emptyNews: NewsItem[] = [];
 
-      const jsonLd = {
-        "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              { "@type": "ListItem", "position": 1, "name": "صفحه اصلی", "item": `${baseUrl}/${lang}` },
-              { "@type": "ListItem", "position": 2, "name": "اخبار", "item": newsUrl },
-            ],
-          },
-          {
-            "@type": "Organization",
-            "@id": `${baseUrl}#organization`,
-            "name": "MetaRang",
-            "url": baseUrl,
-            "logo": { "@type": "ImageObject", "url": imageUrl },
-          },
-          {
-            "@type": "WebSite",
-            "@id": `${baseUrl}#website`,
-            "url": baseUrl,
-            "name": "MetaRang",
-            "publisher": { "@id": `${baseUrl}#organization` },
-            "inLanguage": lang === "fa" ? "fa-IR" : "en-US",
-          },
-          {
-            "@type": "CollectionPage",
-            "@id": `${newsUrl}#webpage`,
-            "url": newsUrl,
-            "name": lang === "fa" ? "اخبار متاورس رنگ" : "Metarang News",
-            "description": lang === "fa" ? "آخرین اخبار و رویدادهای متاورس رنگ" : "Latest news and updates from Metarang Metaverse",
-            "isPartOf": { "@id": `${baseUrl}#website` },
-            "about": { "@type": "Thing", "name": "News" },
-            "inLanguage": lang === "fa" ? "fa-IR" : "en-US",
-          },
-        ],
-      };
+
 
       return (
         <section className="w-full relative lg:pt-0 bg-bg-primary " dir={langData.direction}>
-          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />zz
+          <JsonLdScript schemaId="breadcrumb" values={{ items: [
+            { "@type": "ListItem", position: 1, name: lang === "fa" ? "صفحه اصلی" : "Home", item: `${baseUrl}/${lang}` },
+            { "@type": "ListItem", position: 2, name: lang === "fa" ? "اخبار" : "News", item: newsUrl },
+          ] }} />
+          <JsonLdScript schemaId="collection-page" values={{
+            name: lang === "fa" ? "اخبار متاورس رنگ" : "MetaRang News",
+            canonicalUrl: newsUrl,
+            description: lang === "fa" ? "آخرین اخبار و رویدادهای متاورس رنگ" : "Latest news and updates from MetaRang Metaverse",
+            lang: lang === "fa" ? "fa-IR" : "en-US",
+          }} />
           <div className="px-5 2xl:px-10 mt-[60px] lg:mt-0">
             <BreadCrumb params={params} />
           </div>
@@ -269,76 +243,17 @@ export default async function NewsPage({ params }: NewsPageProps) {
       }
     });
 
-    const jsonLd = {
-      "@context": "https://schema.org",
-      "@graph": [
-        /* ================= Breadcrumb ================= */
-        {
-          "@type": "BreadcrumbList",
-          "itemListElement": [
-            {
-              "@type": "ListItem",
-              "position": 1,
-              "name": "صفحه اصلی",
-              "item": `${baseUrl}/${lang}`,
-            },
-            {
-              "@type": "ListItem",
-              "position": 2,
-              "name": "اخبار",
-              "item": newsUrl,
-            },
-          ],
+    const newsListItems = allNews
+      .filter((news: NewsItem) => Boolean(news?.title && news?.slug))
+      .map((news: NewsItem, index: number) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "WebPage",
+          name: news.title,
+          url: `${newsUrl}/categories/${encodeURIComponent(news.categorySlug || "all")}/${encodeURIComponent(news.slug)}`,
         },
-
-        /* ================= Organization ================= */
-        {
-          "@type": "Organization",
-          "@id": `${baseUrl}#organization`,
-          "name": "MetaRang",
-          "url": baseUrl,
-          "logo": {
-            "@type": "ImageObject",
-            "url": imageUrl,
-          },
-        },
-
-        /* ================= WebSite ================= */
-        {
-          "@type": "WebSite",
-          "@id": `${baseUrl}#website`,
-          "url": baseUrl,
-          "name": "MetaRang",
-          "publisher": {
-            "@id": `${baseUrl}#organization`,
-          },
-          "inLanguage": lang === "fa" ? "fa-IR" : "en-US",
-        },
-
-        /* ================= Collection Page ================= */
-        {
-          "@type": "CollectionPage",
-          "@id": `${newsUrl}#webpage`,
-          "url": newsUrl,
-          "name":
-            lang === "fa"
-              ? "اخبار متاورس رنگ"
-              : "Metarang News",
-          "description":
-            lang === "fa"
-              ? "آخرین اخبار و رویدادهای متاورس رنگ"
-              : "Latest news and updates from Metarang Metaverse",
-          "isPartOf": {
-            "@id": `${baseUrl}#website`,
-          },
-          "about": {
-            "@type": "Thing",
-            "name": "News",
-          },
-          "inLanguage": lang === "fa" ? "fa-IR" : "en-US",
-        },
-      ],
-    };
+      }));
 
     // در صورت استفاده از fallback، می‌توانید یک warning در کنسول نشان دهید (اختیاری)
     if (fromFallback) {
@@ -350,10 +265,22 @@ export default async function NewsPage({ params }: NewsPageProps) {
         className="w-full relative lg:pt-0 bg-bg-primary "
         dir={langData.direction}
       >
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
+        <JsonLdScript schemaId="breadcrumb" values={{ items: [
+          { "@type": "ListItem", position: 1, name: lang === "fa" ? "صفحه اصلی" : "Home", item: `${baseUrl}/${lang}` },
+          { "@type": "ListItem", position: 2, name: lang === "fa" ? "اخبار" : "News", item: newsUrl },
+        ] }} />
+        <JsonLdScript schemaId="collection-page" values={{
+          name: lang === "fa" ? "اخبار متاورس رنگ" : "MetaRang News",
+          canonicalUrl: newsUrl,
+          description: lang === "fa" ? "آخرین اخبار و رویدادهای متاورس رنگ" : "Latest news and updates from MetaRang Metaverse",
+          lang: lang === "fa" ? "fa-IR" : "en-US",
+        }} />
+        {newsListItems.length > 0 ? <JsonLdScript schemaId="item-list" values={{
+          name: lang === "fa" ? "فهرست اخبار متاورس رنگ" : "MetaRang news list",
+          canonicalUrl: newsUrl,
+          numberOfItems: newsListItems.length,
+          items: newsListItems,
+        }} /> : null}
         <div className="fixed z-1000 inset-e-10 bottom-[100px]">
           <Link aria-label="SocialLink" href={"#em"} className="bg-primary  rounded-full w-[60px] h-[60px]  flex items-center justify-center">
 

@@ -11,61 +11,11 @@ import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 import FixLinks from "../../../components/templates/envent/FixLinks";
+import JsonLdScript from "@/schemas/json-ld/JsonLdScript";
 
 interface CalendarPageProps {
   params: Promise<{ lang: string }>;
 }
-
-// 📌 Utility: Jalali → Gregorian
-const JalaliDate = {
-  g_days_in_month: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
-  j_days_in_month: [31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29],
-  jalaliToGregorian(j_y: number, j_m: number, j_d: number) {
-    j_y = parseInt(j_y as any);
-    j_m = parseInt(j_m as any);
-    j_d = parseInt(j_d as any);
-
-    let jy = j_y - 979;
-    let jm = j_m - 1;
-    let jd = j_d - 1;
-
-    let j_day_no = 365 * jy + Math.floor(jy / 33) * 8 + Math.floor(((jy % 33) + 3) / 4);
-    for (let i = 0; i < jm; ++i) j_day_no += this.j_days_in_month[i];
-    j_day_no += jd;
-
-    let g_day_no = j_day_no + 79;
-    let gy = 1600 + 400 * Math.floor(g_day_no / 146097);
-    g_day_no %= 146097;
-
-    let leap = true;
-    if (g_day_no >= 36525) {
-      g_day_no--;
-      gy += 100 * Math.floor(g_day_no / 36524);
-      g_day_no %= 36524;
-
-      if (g_day_no >= 365) g_day_no++;
-      else leap = false;
-    }
-
-    gy += 4 * Math.floor(g_day_no / 1461);
-    g_day_no %= 1461;
-
-    if (g_day_no >= 365) {
-      g_day_no--;
-      gy += Math.floor(g_day_no / 365);
-      g_day_no %= 365;
-    }
-
-    let i = 0;
-    for (; g_day_no >= this.g_days_in_month[i] + (i === 1 && leap ? 1 : 0); i++)
-      g_day_no -= this.g_days_in_month[i] + (i === 1 && leap ? 1 : 0);
-
-    let gm = i + 1;
-    let gd = g_day_no + 1;
-
-    return [gy, gm, gd];
-  },
-};
 
 function cleanDescription(html: string, limit = 200) {
   if (!html) return "";
@@ -73,13 +23,6 @@ function cleanDescription(html: string, limit = 200) {
   return text.length > limit ? text.slice(0, limit).trim() + "…" : text;
 }
 
-function toISODate(dateString: string): string {
-  const [datePart, timePart] = dateString.split(" ");
-  const [j_y, j_m, j_d] = datePart.split("/").map(Number);
-  const [hour = 0, min = 0] = timePart ? timePart.split(":").map(Number) : [0, 0];
-  const [g_y, g_m, g_d] = JalaliDate.jalaliToGregorian(j_y, j_m, j_d);
-  return new Date(g_y, g_m - 1, g_d, hour, min).toISOString();
-}
 
 async function fetchPublicEvents(): Promise<MappedEventItem[]> {
   try {
@@ -105,50 +48,6 @@ async function fetchPublicEvents(): Promise<MappedEventItem[]> {
     console.error("❌ Error fetching public events for SEO:", e);
     return [];
   }
-}
-
-function buildEventSchema(events: MappedEventItem[], paramsLang: string) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "Event",
-    name: "تقویم رویدادهای متاورس رنگ",
-    description: "مشاهده جدیدترین رویدادها و برنامه‌های متاورس رنگ در تقویم ما.",
-    image:
-      events.length > 0
-        ? events[0].image || "https://metarang.com/default-image.jpg"
-        : "https://metarang.com/default-image.jpg",
-    eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
-    eventStatus: "https://schema.org/EventScheduled",
-    organizer: {
-      "@type": "Organization",
-      name: "متاورس رنگ",
-      url: "https://metarang.com",
-    },
-    subEvents: events.map((event) => ({
-      "@type": "Event",
-      name: cleanDescription(event.title),
-      startDate: toISODate(event.start),
-      endDate: toISODate(event.end),
-      description: cleanDescription(event.desc, 160),
-      image: event.image || "https://metarang.com/default-image.jpg",
-      url: event.link || `https://metarang.com/${paramsLang}/calendar/${event.id}`,
-      location: {
-        "@type": "Place",
-        name: cleanDescription(event.title) || "Metaverse Rang",
-        url: event.link || `https://metarang.com/${paramsLang}/calendar/${event.id}`,
-      },
-      offers: event.btnName
-        ? {
-            "@type": "Offer",
-            price: "0",
-            priceCurrency: "IRR",
-            url: event.link || `https://metarang.com/${paramsLang}/calendar/${event.id}`,
-            availability: "https://schema.org/InStock",
-            validFrom: new Date().toISOString(),
-          }
-        : undefined,
-    })),
-  };
 }
 
 export async function generateMetadata({
@@ -219,15 +118,34 @@ export default async function CalendarPage({ params }: CalendarPageProps) {
     // فچ سبک و عمومی فقط برای schema (بدون هدر auth) — این fetch سریع و
     // کش‌شونده‌ست (revalidate: 60) پس بلاک‌کننده‌ی جدی برای LCP نیست
     const publicEvents = await fetchPublicEvents();
-    const eventSchema = buildEventSchema(publicEvents, lang);
+    const calendarUrl = `https://metarang.com/${lang}/calendar`;
+    const calendarItems = publicEvents
+      .filter((event) => Boolean(event?.id && event?.title))
+      .map((event, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "WebPage",
+          name: cleanDescription(event.title, 120),
+          url: `${calendarUrl}/${encodeURIComponent(String(event.id))}`,
+        },
+      }));
 
     return (
       <div className="flex flex-col  w-full" dir={langData.direction}>
         <FixLinks />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(eventSchema, null, 2) }}
-        />
+        <JsonLdScript schemaId="collection-page" values={{
+          name: findByUniqueId(mainData, 1463),
+          canonicalUrl: calendarUrl,
+          description: findByUniqueId(mainData, 1464),
+          lang: lang === "fa" ? "fa-IR" : "en-US",
+        }} />
+        {calendarItems.length > 0 ? <JsonLdScript schemaId="item-list" values={{
+          name: findByUniqueId(mainData, 1463),
+          canonicalUrl: calendarUrl,
+          numberOfItems: calendarItems.length,
+          items: calendarItems,
+        }} /> : null}
         <CleanAutoRetryParam />
         <section className="w-full relative mt-[60px] lg:mt-0 lg:pt-0 bg-bg-primary bg-opacity20">
           <div className="px-12">

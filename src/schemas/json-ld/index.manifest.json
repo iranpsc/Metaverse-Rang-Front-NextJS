@@ -30,7 +30,8 @@
       "page": "articles/page.tsx",
       "schemaIds": [
         "breadcrumb",
-        "collection-page"
+        "collection-page",
+        "item-list"
       ],
       "indexable": true
     },
@@ -38,8 +39,9 @@
       "pattern": "/articles/categories",
       "page": "articles/categories/page.tsx",
       "schemaIds": [
+        "collection-page",
         "breadcrumb",
-        "collection-page"
+        "item-list"
       ],
       "indexable": true
     },
@@ -65,6 +67,7 @@
       "pattern": "/calendar",
       "page": "calendar/page.tsx",
       "schemaIds": [
+        "collection-page",
         "item-list"
       ],
       "indexable": true
@@ -73,7 +76,7 @@
       "pattern": "/calendar/[id]",
       "page": "calendar/[id]/page.tsx",
       "schemaIds": [
-        "event"
+        "webpage"
       ],
       "indexable": true
     },
@@ -81,57 +84,38 @@
       "pattern": "/citizens",
       "page": "citizens/page.tsx",
       "schemaIds": [
-        "professional-service"
+        "collection-page"
       ],
       "indexable": true
     },
     {
       "pattern": "/citizens/[id]",
       "page": "citizens/[id]/page.tsx",
-      "schemaIds": [
-        "profile-page"
-      ],
+      "schemaIds": [],
       "indexable": false
     },
     {
       "pattern": "/citizens/[id]/buildings",
       "page": "citizens/[id]/buildings/page.tsx",
-      "schemaIds": [
-        "webpage",
-        "website",
-        "profile-page",
-        "breadcrumb"
-      ],
+      "schemaIds": [],
       "indexable": false
     },
     {
       "pattern": "/citizens/[id]/referral",
       "page": "citizens/[id]/referral/page.tsx",
-      "schemaIds": [
-        "profile-page"
-      ],
+      "schemaIds": [],
       "indexable": false
     },
     {
       "pattern": "/citizens/[id]/summary",
       "page": "citizens/[id]/summary/page.tsx",
-      "schemaIds": [
-        "webpage",
-        "website",
-        "profile-page",
-        "breadcrumb"
-      ],
+      "schemaIds": [],
       "indexable": false
     },
     {
       "pattern": "/citizens/[id]/wallet",
       "page": "citizens/[id]/wallet/page.tsx",
-      "schemaIds": [
-        "webpage",
-        "website",
-        "profile-page",
-        "breadcrumb"
-      ],
+      "schemaIds": [],
       "indexable": false
     },
     {
@@ -146,7 +130,8 @@
       "pattern": "/education",
       "page": "education/page.tsx",
       "schemaIds": [
-        "collection-page"
+        "collection-page",
+        "item-list"
       ],
       "indexable": true
     },
@@ -154,7 +139,8 @@
       "pattern": "/education/category",
       "page": "education/category/page.tsx",
       "schemaIds": [
-        "collection-page"
+        "collection-page",
+        "item-list"
       ],
       "indexable": true
     },
@@ -162,6 +148,7 @@
       "pattern": "/education/category/[category]",
       "page": "education/category/[category]/page.tsx",
       "schemaIds": [
+        "collection-page",
         "item-list"
       ],
       "indexable": true
@@ -170,7 +157,8 @@
       "pattern": "/education/category/[category]/[subcategory]",
       "page": "education/category/[category]/[subcategory]/page.tsx",
       "schemaIds": [
-        "video-object"
+        "collection-page",
+        "item-list"
       ],
       "indexable": true
     },
@@ -195,7 +183,8 @@
       "pattern": "/levels/citizen",
       "page": "levels/citizen/page.tsx",
       "schemaIds": [
-        "collection-page"
+        "collection-page",
+        "item-list"
       ],
       "indexable": true
     },
@@ -203,7 +192,8 @@
       "pattern": "/levels/citizen/[levelName]/[tabs]",
       "page": "levels/citizen/[levelName]/[tabs]/page.tsx",
       "schemaIds": [
-        "webpage"
+        "webpage",
+        "breadcrumb"
       ],
       "indexable": true
     },
@@ -212,7 +202,8 @@
       "page": "news/page.tsx",
       "schemaIds": [
         "breadcrumb",
-        "collection-page"
+        "collection-page",
+        "item-list"
       ],
       "indexable": true
     },
@@ -227,6 +218,7 @@
       "page": "news/categories/page.tsx",
       "schemaIds": [
         "collection-page",
+        "breadcrumb",
         "item-list"
       ],
       "indexable": true
@@ -237,8 +229,7 @@
       "schemaIds": [
         "breadcrumb",
         "collection-page",
-        "item-list",
-        "article-news"
+        "item-list"
       ],
       "indexable": true
     },
@@ -276,10 +267,10 @@
     }
   ],
   "notes": [
-    "This manifest is the route-to-schema source of truth for the 32 locale-scoped App Router page patterns currently present under src/app/[lang].",
-    "The 32 entries are source route patterns, not a count of concrete URLs. Dynamic route parameters and the active locale list returned by the API expand the runtime URL set.",
-    "Schema IDs identify the templates intended for each route. A route is migrated only when its page renders the central JsonLdScript component; pending routes remain part of the migration inventory.",
+    "This manifest maps the 32 locale-scoped App Router page patterns currently present under src/app/[lang].",
+    "The 32 entries are source route patterns, not concrete URL counts. Dynamic route parameters and the active locale list returned by the API expand the runtime URL set.",
+    "A route is migrated only when its page renders the central JsonLdScript component. Manifest schemaIds describe the schema types that the page may emit; optional lists can be omitted when no source data is available.",
     "The first URL segment is the locale and is resolved dynamically; no active locale list is hardcoded in this manifest.",
-    "Admin and personal citizen workspace routes are marked non-indexable as a conservative default; revisit these flags if product access and indexing policy changes."
+    "Admin routes and personal citizen workspace routes are non-indexable and intentionally emit no public structured data."
   ]
 }

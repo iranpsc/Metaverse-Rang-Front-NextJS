@@ -1,4 +1,4 @@
-// app/[lang]/citizen/rand-is/hm/page.tsx
+// app/[lang]/rand-id/hm/page.tsx
 
 import {
   getTranslation,
@@ -15,6 +15,7 @@ import RondId from "./components/RondId";
 
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
+import JsonLdScript from "@/schemas/json-ld/JsonLdScript";
 
 /* -------------------------------------------------------------------------- */
 /*                                  Metadata                                  */
@@ -40,11 +41,11 @@ export async function generateMetadata({
       description:
        findByUniqueId(mainData, 1527).slice(0,155),
       alternates: {
-        canonical: `https://metarang.com/${lang}/citizen/rand-is/hm`,
+        canonical: `https://metarang.com/${lang}/rand-id/hm`,
         languages: {
-          "fa-IR": "https://metarang.com/fa/citizen/rand-is/hm",
-          "en-US": "https://metarang.com/en/citizen/rand-is/hm",
-          "x-default": "https://metarang.com/fa/citizen/rand-is/hm",
+          "fa-IR": "https://metarang.com/fa/rand-id/hm",
+          "en-US": "https://metarang.com/en/rand-id/hm",
+          "x-default": "https://metarang.com/fa/rand-id/hm",
         },
       },
       openGraph: {
@@ -52,7 +53,7 @@ export async function generateMetadata({
         title: `${findByUniqueId(mainData, 593)}| ${findByUniqueId(mainData, 148)}`,
         description: findByUniqueId(mainData, 1527).slice(0,155),
         locale: lang === "fa" ? "fa_IR" : "en_US",
-        url: `https://metarang.com/${lang}/citizen/rand-is/hm`,
+        url: `https://metarang.com/${lang}/rand-id/hm`,
         images: [
           {
             url: "https://s3.metarang.com/metarang/logo/metarang-logo-512.png",
@@ -364,6 +365,13 @@ export default async function RounPage({ params }: RounPageProps) {
 
     return (
       <div className={`w-full mt-[60px] lg:mt-0 lg:pt-0 bg-bg-primary  bg-opacity20 `}>
+        <JsonLdScript schemaId="webpage" values={{
+          name: title,
+          canonicalUrl: `https://metarang.com/${lang}/rand-id/hm`,
+          description: desc,
+          lang: lang === "fa" ? "fa-IR" : "en-US",
+          websiteUrl: "https://metarang.com",
+        }} />
 
 
         <CleanAutoRetryParam />

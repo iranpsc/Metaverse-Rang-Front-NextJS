@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 // import Image from "next/image";
 import Link from "next/link";
+import JsonLdScript from "@/schemas/json-ld/JsonLdScript";
 
 interface EnamadPageProps {
   params: Promise<{
@@ -62,6 +63,15 @@ export default async function EnamadPage({
       dir={isFa ? "rtl" : "ltr"}
       className="min-h-screen px-5 py-10 lg:px-10 lg:py-16"
     >
+      <JsonLdScript schemaId="webpage" values={{
+        name: isFa ? "نماد اعتماد الکترونیکی | متارنگ" : "Electronic Trust Symbol | MetaRang",
+        canonicalUrl: `https://metarang.com/${lang}/enamad`,
+        description: isFa
+          ? "مشاهده و بررسی نماد اعتماد الکترونیکی متاورس رنگ و اطلاعات اعتبار آن."
+          : "View and verify the Electronic Trust Symbol of MetaRang.",
+        lang: isFa ? "fa-IR" : "en-US",
+        websiteUrl: "https://metarang.com",
+      }} />
       <div className="mx-auto max-w-5xl">
 
         {/* Header */}

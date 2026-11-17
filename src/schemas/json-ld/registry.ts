@@ -98,8 +98,7 @@ function routePatternToRegExp(pattern: string): RegExp {
 
 /**
  * Resolve a localized pathname (for example, /fa/news/my-article)
- * to its route manifest entry. The first path segment is treated as
- * the locale so the active locale list never needs to be hardcoded.
+ * to its route manifest entry. Locale values remain API-driven.
  */
 export function getJsonLdRouteConfig(localizedPathname: string): JsonLdRouteConfig | undefined {
   if (typeof localizedPathname !== "string" || !localizedPathname.trim()) return undefined;
@@ -112,9 +111,10 @@ export function getJsonLdRouteConfig(localizedPathname: string): JsonLdRouteConf
   }
 
   const segments = pathname.split("/").filter(Boolean);
-  // Locale values remain API-driven, but the first segment must be locale-like.
-  // Without this guard, an unlocalized /about path can resolve as the homepage.
-  if (segments.length === 0 || !/^[a-z]{2,3}(?:-[a-z0-9]{2,8})*$/i.test(segments[0])) return undefined;
+  // A locale is dynamic, but must be locale-like; `/about` must not resolve as `/`.
+  if (segments.length === 0 || !/^[a-z]{2,3}(?:-[a-z0-9]{2,8})*$/i.test(segments[0])) {
+    return undefined;
+  }
 
   const pathWithoutLocale = "/" + segments.slice(1).join("/");
   const normalizedPath =
@@ -154,7 +154,7 @@ function resolveTemplateValue(value: unknown, values: JsonLdValues): unknown {
         (typeof replacement === "string" && !replacement.trim()) ||
         typeof replacement === "object"
       ) {
-        throw new Error('JSON-LD template is missing a valid scalar value for placeholder "' + path + '".');
+        throw new Error(`JSON-LD template is missing a valid scalar value for placeholder "${path}".`);
       }
       return String(replacement);
     });
@@ -231,7 +231,11 @@ function isValidIsoDate(value: unknown): value is string {
   if (offsetHourText !== undefined && offsetMinuteText !== undefined) {
     const offsetHour = Number(offsetHourText);
     const offsetMinute = Number(offsetMinuteText);
-    if (offsetHour > 14 || offsetMinute > 59 || (offsetHour === 14 && offsetMinute !== 0)) {
+    if (
+      offsetHour > 14 ||
+      offsetMinute > 59 ||
+      (offsetHour === 14 && offsetMinute !== 0)
+    ) {
       return false;
     }
   }
@@ -262,9 +266,12 @@ function matchesFieldType(value: unknown, fieldType: string): boolean {
     case "iso-date":
       return isValidIsoDate(value);
     case "array":
-      return Array.isArray(value) && value.length > 0 && value.every((item) => item !== null && item !== undefined);
+      return Array.isArray(value) && value.length > 0 &&
+        value.every((item) => item !== null && item !== undefined);
     case "object":
-      return typeof value === "object" && value !== null && !Array.isArray(value);
+      return typeof value === "object" && value !== null &&
+        !Array.isArray(value) &&
+        Object.keys(value as Record<string, unknown>).length > 0;
     default:
       return false;
   }
@@ -275,16 +282,19 @@ export function getJsonLdSchemaDefinition(schemaId: JsonLdSchemaId): JsonLdSchem
 }
 
 /**
- * Static registry audit used by the implementation workflow and Issue #126.
- * This helper does not perform network requests or replace Google Rich Results Test.
+ * Static registry audit used by the implementation workflow and Issue #126
+ * validation pipeline. It intentionally does not perform network requests.
  */
 export function validateJsonLdRegistry(): string[] {
   const issues: string[] = [];
   const seenPatterns = new Set<string>();
 
   for (const route of routeEntries) {
-    if (seenPatterns.has(route.pattern)) issues.push(`Duplicate route pattern: ${route.pattern}`);
+    if (seenPatterns.has(route.pattern)) {
+      issues.push(`Duplicate route pattern: ${route.pattern}`);
+    }
     seenPatterns.add(route.pattern);
+
     for (const schemaId of route.schemaIds) {
       if (!(schemaId in definitions)) {
         issues.push(`Unknown schema "${schemaId}" referenced by route "${route.pattern}".`);
@@ -299,25 +309,35 @@ export function validateJsonLdRegistry(): string[] {
     if (!definition.version || !definition.expectedType) {
       issues.push(`Schema "${schemaId}" is missing version or expectedType metadata.`);
     }
+
     const used = new Set<string>();
-    const visit = (value: unknown): void => {
+    const visit = (value: unknown) => {
       if (typeof value === "string") {
-        for (const match of value.matchAll(/\{\{([a-zA-Z0-9_.-]+)\}\}/g)) used.add(match[1]);
+        for (const match of value.matchAll(/\{\{([a-zA-Z0-9_.-]+)\}\}/g)) {
+          used.add(match[1]);
+        }
       } else if (Array.isArray(value)) {
         value.forEach(visit);
       } else if (value && typeof value === "object") {
         Object.values(value).forEach(visit);
       }
     };
+
     visit(definition.template);
+
     const declared = new Set(definition.placeholders);
     for (const placeholder of used) {
-      if (!declared.has(placeholder)) issues.push(`Schema "${schemaId}" uses undeclared placeholder "${placeholder}".`);
+      if (!declared.has(placeholder)) {
+        issues.push(`Schema "${schemaId}" uses undeclared placeholder "${placeholder}".`);
+      }
     }
     for (const placeholder of declared) {
-      if (!used.has(placeholder)) issues.push(`Schema "${schemaId}" declares unused placeholder "${placeholder}".`);
+      if (!used.has(placeholder)) {
+        issues.push(`Schema "${schemaId}" declares unused placeholder "${placeholder}".`);
+      }
     }
   }
+
   return issues;
 }
 
@@ -329,7 +349,7 @@ export function generateJsonLd(
   const resolved = resolveTemplateValue(definition.template, values);
 
   if (!resolved || typeof resolved !== "object" || Array.isArray(resolved)) {
-    throw new TypeError('JSON-LD "' + schemaId + '" template must resolve to an object.');
+    throw new TypeError(`JSON-LD "${schemaId}" template must resolve to an object.`);
   }
 
   const generated = resolved as Record<string, unknown>;
@@ -337,7 +357,7 @@ export function generateJsonLd(
   for (const field of definition.requiredFields) {
     const value = getValueAtPath(generated, field);
     if (value === undefined || value === null || (typeof value === "string" && !value.trim())) {
-      throw new Error('JSON-LD "' + schemaId + '" is missing required field "' + field + '".');
+      throw new Error(`JSON-LD "${schemaId}" is missing required field "${field}".`);
     }
   }
 
@@ -345,7 +365,7 @@ export function generateJsonLd(
     const value = getValueAtPath(generated, field);
     if (value !== undefined && !matchesFieldType(value, fieldType)) {
       throw new TypeError(
-        'JSON-LD "' + schemaId + '" field "' + field + '" must be "' + fieldType + '".',
+        `JSON-LD "${schemaId}" field "${field}" must be "${fieldType}".`,
       );
     }
   }
@@ -354,7 +374,7 @@ export function generateJsonLd(
     generated["@context"] !== "https://schema.org" &&
     generated["@context"] !== "https://schema.org/"
   ) {
-    throw new TypeError('JSON-LD "' + schemaId + '" must use the Schema.org context.');
+    throw new TypeError(`JSON-LD "${schemaId}" must use the Schema.org context.`);
   }
 
   if (definition.expectedType === "@graph") {
@@ -366,14 +386,15 @@ export function generateJsonLd(
         (node) =>
           !node ||
           typeof node !== "object" ||
+          Array.isArray(node) ||
           typeof (node as Record<string, unknown>)["@type"] !== "string",
       )
     ) {
-      throw new TypeError('JSON-LD "' + schemaId + '" graph must contain typed schema objects.');
+      throw new TypeError(`JSON-LD "${schemaId}" graph must contain typed schema objects.`);
     }
   } else if (generated["@type"] !== definition.expectedType) {
     throw new TypeError(
-      'JSON-LD "' + schemaId + '" expected @type "' + definition.expectedType + '".',
+      `JSON-LD "${schemaId}" expected @type "${definition.expectedType}".`,
     );
   }
 
@@ -382,13 +403,13 @@ export function generateJsonLd(
     const address = location?.address as Record<string, unknown> | undefined;
     if (
       location?.["@type"] !== "Place" ||
-      !location.name ||
       address?.["@type"] !== "PostalAddress" ||
+      !location.name ||
       !address.streetAddress ||
       !address.addressCountry
     ) {
       throw new TypeError(
-        "Google Event rich results require a physical Place with a complete PostalAddress.",
+        'Google Event rich results require a physical Place with a complete PostalAddress.',
       );
     }
   }

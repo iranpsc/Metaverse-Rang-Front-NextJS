@@ -87,70 +87,11 @@ export default async function CitizenFeaturesSummary({
     const isFa = lang === "fa";
     const canonicalUrl = `https://metarang.com/${lang}/citizens/${id}/features-summary`;
 
-    const jsonLd = {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "WebPage",
-          "@id": canonicalUrl,
-          url: canonicalUrl,
-          name: isFa
-            ? `کاربری‌های ${fullName} | ${findByUniqueId(mainData, 148)}`
-            : `Feature summary of ${fullName} | ${findByUniqueId(mainData, 148)}`,
-          description: isFa
-            ? "خلاصه کاربری‌های ملک به تفکیک نوع"
-            : "Citizen property feature (karbari) summary by type",
-          inLanguage: isFa ? "fa-IR" : "en-US",
-          isPartOf: {
-            "@type": "WebSite",
-            name: "Metarang",
-            url: "https://metarang.com",
-          },
-          about: {
-            "@type": "Person",
-            name: fullName,
-          },
-        },
-        {
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            {
-              "@type": "ListItem",
-              position: 1,
-              name: isFa ? "خانه" : "Home",
-              item: `https://metarang.com/${lang}`,
-            },
-            {
-              "@type": "ListItem",
-              position: 2,
-              name: isFa ? "کاربری‌ها" : "Citizens",
-              item: `https://metarang.com/${lang}/citizens`,
-            },
-            {
-              "@type": "ListItem",
-              position: 3,
-              name: isFa
-                ? `کاربری‌های ${fullName}`
-                : `Feature summary of ${fullName}`,
-              item: canonicalUrl,
-            },
-          ],
-        },
-      ],
-    };
-
     /* ----------------------------- render ---------------------------- */
     return (
       <>
         <CleanAutoRetryParam />
-
-        <script
-          type="application/ld+json"
-          // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-
-        <div
+<div
           className="flex h-screen overflow-hidden"
           dir={langData.direction}
         >

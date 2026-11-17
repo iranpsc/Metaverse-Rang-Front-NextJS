@@ -9,6 +9,7 @@ import {
 } from "@/components/utils/actions";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam  from "@/components/system/CleanAutoRetryParam";
+import JsonLdScript from "@/schemas/json-ld/JsonLdScript";
 async function makeLessCharacter(_desc: any) {
   return _desc ? _desc.slice(0, 155) : "";
 }
@@ -68,52 +69,34 @@ export default async function EducationSubcategory({ params }:EducationSubcatego
       );
     }
 
-    const subCategorySchema = {
-      "@context": "http://schema.org",
-      "@type": "WebSite",
-      name: `${subCategoryData.name} | ${findByUniqueId(mainData, 148)}`,
-      url: `https://metarang.com/${lang}/education/category/${decodeURIComponent(
-        resolvedParams.category
-      )}/${resolvedParams.subcategory}`,
-      description: await makeLessCharacter(subCategoryData.description),
-      mainEntity: subCategoryData.videos.map((video: any) => ({
-        "@type": "VideoObject",
-        name: video.title,
-        thumbnailUrl: video.image_url,
-        contentUrl: `https://metarang.com/${lang}/education/category/${decodeURIComponent(
-          resolvedParams.category
-        )}/${resolvedParams.subcategory}/video/${video.slug}`,
-        uploadDate: video.upload_date || "",
-        publisher: {
-          "@type": "Organization",
-          name: video.creator.name || video.creator.code,
+    const subcategoryUrl = `https://metarang.com/${lang}/education/category/${encodeURIComponent(resolvedParams.category)}/${encodeURIComponent(resolvedParams.subcategory)}`;
+    const videoPageItems = (Array.isArray(subCategoryData.videos) ? subCategoryData.videos : [])
+      .filter((video: any) => Boolean(video?.title && video?.slug))
+      .map((video: any, index: number) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "WebPage",
+          name: video.title,
+          url: `${subcategoryUrl}/${encodeURIComponent(video.slug)}`,
         },
-        interactionStatistic: [
-          {
-            "@type": "InteractionCounter",
-            interactionType: "http://schema.org/LikeAction",
-            userInteractionCount: video.likes_count,
-          },
-          {
-            "@type": "InteractionCounter",
-            interactionType: "http://schema.org/DislikeAction",
-            userInteractionCount: video.dislikes_count,
-          },
-          {
-            "@type": "InteractionCounter",
-            interactionType: "http://schema.org/WatchAction",
-            userInteractionCount: video.views_count,
-          },
-        ],
-      })),
-    };
+      }));
+    const subcategoryDescription = await makeLessCharacter(subCategoryData.description);
 
     return (
       <>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(subCategorySchema) }}
-        />
+        <JsonLdScript schemaId="collection-page" values={{
+          name: `${subCategoryData.name} | ${findByUniqueId(mainData, 148)}`,
+          canonicalUrl: subcategoryUrl,
+          description: subcategoryDescription,
+          lang: lang === "fa" ? "fa-IR" : "en-US",
+        }} />
+        {videoPageItems.length > 0 ? <JsonLdScript schemaId="item-list" values={{
+          name: subCategoryData.name,
+          canonicalUrl: subcategoryUrl,
+          numberOfItems: videoPageItems.length,
+          items: videoPageItems,
+        }} /> : null}
         <div className="flex  w-full" dir={langData.direction}>
           <CleanAutoRetryParam />
           <section className="w-full  mt-[60px] lg:mt-0 lg:pt-0 bg-bg-primary  bg-opacity20 xl:px-8 lg:px-8 md:px-5 sm:px-5 xs:px-1">

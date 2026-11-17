@@ -15,6 +15,7 @@ import BreadCrumb from "@/components/shared/BreadCrumb";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
+import JsonLdScript from "@/schemas/json-ld/JsonLdScript";
 
 /* -------------------------------------------------------------------------- */
 /*                                   Metadata                                 */
@@ -96,6 +97,12 @@ export default async function LevelsPage({ params }: LevelsPageProps) {
 
     return (
       <>
+        <JsonLdScript schemaId="collection-page" values={{
+          name: findByUniqueId(mainData, 587),
+          canonicalUrl: `https://metarang.com/${lang}/levels/citizen`,
+          description: findByUniqueId(mainData, 1417),
+          lang: lang === "fa" ? "fa-IR" : "en-US",
+        }} />
         <CleanAutoRetryParam />
 
         <section

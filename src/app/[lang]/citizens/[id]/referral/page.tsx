@@ -109,14 +109,7 @@ export default async function CitizenReferral({
     /* ----------------------------- render ---------------------------- */
     return (
       <>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(citizenReferralSchema),
-          }}
-        />
-
-        <CleanAutoRetryParam />
+<CleanAutoRetryParam />
 
         <div className="flex h-screen overflow-hidden" dir={langData.direction}>
           <SideBar

@@ -8,6 +8,7 @@ import { getTranslation, getMainFile } from "@/components/utils/actions";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
+import JsonLdScript from "@/schemas/json-ld/JsonLdScript";
 
 interface NewsCategoriesPageProps {
   params: Promise<{ lang: string }>;
@@ -91,53 +92,18 @@ export default async function NewsCategoriesPage({
       findByUniqueId(mainData, 1592) ||
       "دسته‌بندی اخبار متاورس رنگ، فناوری، متاورس، بلاک‌چین و هوش مصنوعی.";
 
-    /*
-     * Schema اصلی صفحه
-     *
-     * CollectionPage:
-     * این صفحه مجموعه‌ای از دسته‌بندی‌های اخبار است.
-     *
-     * ItemList:
-     * برای معرفی آیتم‌های داخل مجموعه استفاده می‌شود.
-     *
-     * توجه:
-     * چون لیست واقعی دسته‌بندی‌ها داخل NewsCategoriesContent ساخته می‌شود،
-     * ItemList را اینجا فقط در صورتی اضافه کن که URL دسته‌بندی‌ها را
-     * از API/داده صفحه در اختیار داشته باشی.
-     */
-    const collectionPageSchema = {
-      "@context": "https://schema.org",
-      "@type": "CollectionPage",
-      "@id": `${pageUrl}#collectionpage`,
-      url: pageUrl,
-      name: pageTitle,
-      description: pageDescription,
-      inLanguage: lang === "fa" ? "fa-IR" : "en-US",
 
-      isPartOf: {
-        "@type": "WebSite",
-        "@id": `${baseUrl}/#website`,
-        url: baseUrl,
-        name: "MetaRang",
-      },
-
-      about: {
-        "@type": "Thing",
-        name: lang === "fa" ? "اخبار متاورس رنگ" : "MetaRang News",
-      },
-    };
 
     return (
       <section className="w-full bg-bg-primary px-5 3xl:px-10">
         <CleanAutoRetryParam />
+        <JsonLdScript schemaId="collection-page" values={{
+          name: pageTitle,
+          canonicalUrl: pageUrl,
+          description: pageDescription,
+          lang: lang === "fa" ? "fa-IR" : "en-US",
+        }} />
 
-        {/* CollectionPage Schema */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(collectionPageSchema),
-          }}
-        />
 
         <div className="mb-6 mt-[60px] lg:mt-0">
           <BreadCrumb params={resolvedParams} />

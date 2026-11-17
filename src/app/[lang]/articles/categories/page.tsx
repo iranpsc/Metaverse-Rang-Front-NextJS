@@ -7,6 +7,7 @@ import { getTranslation, getMainFile } from "@/components/utils/actions";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
+import JsonLdScript from "@/schemas/json-ld/JsonLdScript";
 
 interface CategoriesPageProps {
   params: Promise<{ lang: string }>;
@@ -70,6 +71,12 @@ export default async function CategoriesPage({ params }: CategoriesPageProps) {
     return (
       <section className="w-full  bg-bg-primary  px-5 3xl:px-10 ">
         <CleanAutoRetryParam />
+        <JsonLdScript schemaId="collection-page" values={{
+          name: findByUniqueId(mainData, 1516),
+          canonicalUrl: `https://metarang.com/${lang}/articles/categories`,
+          description: findByUniqueId(mainData, 1592),
+          lang: lang === "fa" ? "fa-IR" : "en-US",
+        }} />
         <div className="mb-6 mt-[60px] lg:mt-0">
           <BreadCrumb params={resolvedParams} />
         </div>

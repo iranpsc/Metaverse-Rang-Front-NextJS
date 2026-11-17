@@ -14,6 +14,7 @@ import {
 
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import { articles } from "@/components/utils/articles";
+import JsonLdScript from "@/schemas/json-ld/JsonLdScript";
 const baseUrl = "https://metarang.com";
 const imageUrl = "https://metarang.com/_next/image?url=%2Flogo.png&w=128&q=75";
 interface ArticlesPageProps {
@@ -89,54 +90,17 @@ export default async function ArticlesPage({ params }: ArticlesPageProps) {
     // می‌شه؛ بقیه‌ی صفحه فوراً میاد و فقط همین بخش تا رسیدن دیتا اسکلت
     // نشون می‌ده.
 
-    const schemaData = {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            {
-              "@type": "ListItem",
-              position: 1,
-              name: "صفحه اصلی",
-              item: `${baseUrl}${langPrefix}`,
-            },
-            {
-              "@type": "ListItem",
-              position: 2,
-              name: "مقالات",
-              item: fullPageUrl,
-            },
-          ],
+    const articleListItems = articles
+      .filter((article) => Boolean(article?.title && article?.slug && article?.category))
+      .map((article, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "WebPage",
+          name: article.title,
+          url: `${baseUrl}${langPrefix}/articles/categories/${encodeURIComponent(article.category)}/${encodeURIComponent(article.slug)}`,
         },
-        {
-          "@type": "CollectionPage",
-          "@id": `${fullPageUrl}#webpage`,
-          url: fullPageUrl,
-          name: "مقالات متاورس رنگ",
-          description:
-            "در این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه شما میتوانید مقالات تهیه شده توسط متاورس رنگ را مشاهده کنیددر این صفحه ش",
-          isPartOf: {
-            "@type": "WebSite",
-            name: "Metaverse Rang",
-            url: baseUrl,
-          },
-        },
-        {
-          "@type": "ItemList",
-          name: "لیست مقالات متاورس رنگ",
-          itemListOrder: "Descending",
-          numberOfItems: articles.length,
-          itemListElement: articles.map((a, index) => ({
-            "@type": "ListItem",
-            position: index + 1,
-            url: `${baseUrl}${langPrefix}/articles/categories/${a.category}/${a.slug}`,
-            name: a.title,
-            image: a.image || undefined,
-          })),
-        },
-      ],
-    };
+      }));
 
     return (
       <section
@@ -144,6 +108,22 @@ export default async function ArticlesPage({ params }: ArticlesPageProps) {
         dir={langData.direction}
       >
         <CleanAutoRetryParam />
+        <JsonLdScript schemaId="breadcrumb" values={{ items: [
+          { "@type": "ListItem", position: 1, name: lang === "fa" ? "صفحه اصلی" : "Home", item: `${baseUrl}${langPrefix}` },
+          { "@type": "ListItem", position: 2, name: lang === "fa" ? "مقالات" : "Articles", item: fullPageUrl },
+        ] }} />
+        <JsonLdScript schemaId="collection-page" values={{
+          name: lang === "fa" ? "مقالات متاورس رنگ" : "MetaRang Articles",
+          canonicalUrl: fullPageUrl,
+          description: lang === "fa" ? "مقالات آموزشی و تخصصی متاورس رنگ." : "Educational and specialist articles from MetaRang.",
+          lang: lang === "fa" ? "fa-IR" : "en-US",
+        }} />
+        {articleListItems.length > 0 ? <JsonLdScript schemaId="item-list" values={{
+          name: lang === "fa" ? "فهرست مقالات متاورس رنگ" : "MetaRang article list",
+          canonicalUrl: fullPageUrl,
+          numberOfItems: articleListItems.length,
+          items: articleListItems,
+        }} /> : null}
         <div className="px-5 2xl:px-10 mt-[60px] lg:mt-0">
           <BreadCrumb params={resolvedParams} />
         </div>
@@ -179,10 +159,6 @@ export default async function ArticlesPage({ params }: ArticlesPageProps) {
           <LatestArticlesSlider params={resolvedParams} mainData={mainData} />
         </div>
 
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
-        />
       </section>
     );
   }

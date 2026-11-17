@@ -15,7 +15,9 @@
     "description": "string",
     "applicationCategory": "string",
     "operatingSystem": "string",
-    "author": "object"
+    "author": "object",
+    "softwareVersion": "string",
+    "image": "url"
   },
   "placeholders": [
     "name",
@@ -23,7 +25,9 @@
     "description",
     "applicationCategory",
     "operatingSystem",
-    "author"
+    "author",
+    "softwareVersion",
+    "image"
   ],
   "template": {
     "@context": "https://schema.org",
@@ -33,6 +37,8 @@
     "description": "{{description}}",
     "applicationCategory": "{{applicationCategory}}",
     "operatingSystem": "{{operatingSystem}}",
-    "author": "{{author}}"
+    "author": "{{author}}",
+    "softwareVersion": "{{softwareVersion}}",
+    "image": "{{image}}"
   }
 }

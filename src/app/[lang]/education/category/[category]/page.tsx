@@ -20,6 +20,7 @@ import {
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
+import JsonLdScript from "@/schemas/json-ld/JsonLdScript";
 // ✅ تابع ساخت متن کوتاه سمت سرور
 async function makeLessCharacter(_desc: any, limit: number = 155) {
   return _desc ? _desc.slice(0, limit) : "";
@@ -70,33 +71,34 @@ export default async function EducationCategory({ params }: EducationCategoryPro
       );
     }
 
-    // ✅ اضافه کردن متن کوتاه سمت سرور
-    CategoryData.shortDescription = await makeLessCharacter(CategoryData.description, 200);
-
-    const educationSingleCategorySchema = {
-      "@context": "https://schema.org",
-      "@type": "ItemList",
-      url: `https://metarang.com/${lang}/education/category/${CategoryData.slug}`,
-      name: findByUniqueId(mainData, 455) + " " + CategoryData.name,
-      description: CategoryData.shortDescription,
-      mainEntityOfPage: `https://metarang.com/${lang}/education/category/${CategoryData.slug}`,
-      itemListElement: CategoryData.subcategories.map((item: any, index: number) => ({
+    const categoryDescription = await makeLessCharacter(CategoryData.description, 200);
+    const categoryUrl = `https://metarang.com/${lang}/education/category/${encodeURIComponent(CategoryData.slug || resolvedParams.category)}`;
+    const subcategoryItems = (Array.isArray(CategoryData.subcategories) ? CategoryData.subcategories : [])
+      .filter((item: any) => Boolean(item?.name && item?.slug))
+      .map((item: any, index: number) => ({
         "@type": "ListItem",
         position: index + 1,
-        url: `https://metarang.com/${lang}/education/category/${resolvedParams.category}/${item.slug}`,
-        name: lang.toLowerCase() === "fa" ? item.name : item.slug,
-        description: "",
-      })),
-    };
+        item: {
+          "@type": "WebPage",
+          name: item.name,
+          url: `${categoryUrl}/${encodeURIComponent(item.slug)}`,
+        },
+      }));
 
     return (
       <>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(educationSingleCategorySchema),
-          }}
-        />
+        <JsonLdScript schemaId="collection-page" values={{
+          name: `${findByUniqueId(mainData, 455)} ${CategoryData.name}`,
+          canonicalUrl: categoryUrl,
+          description: categoryDescription,
+          lang: lang === "fa" ? "fa-IR" : "en-US",
+        }} />
+        {subcategoryItems.length > 0 ? <JsonLdScript schemaId="item-list" values={{
+          name: CategoryData.name,
+          canonicalUrl: categoryUrl,
+          numberOfItems: subcategoryItems.length,
+          items: subcategoryItems,
+        }} /> : null}
         <CleanAutoRetryParam />
         <div className="flex  w-full bg-bg-primary  bg-opacity20" dir={langData.direction}>
           <section className="w-full overflow-y-auto relative l mt-[60px] lg:mt-0 lg:pt-0  xl:px-8 lg:px-8 md:px-5 sm:px-5 xs:px-1">

@@ -1,3 +1,4 @@
+import JsonLdScript from "@/schemas/json-ld/JsonLdScript";
 import { notFound } from "next/navigation";
 import SideBar from "@/components/shared/sidebar/SideBar";
 import BreadCrumb from "@/components/shared/BreadCrumb";
@@ -83,16 +84,6 @@ export default async function LevelLayout({
   );
 
   const baseUrl = `https://metarang.com/${lang}/levels/citizen/${levelName}`;
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: Object.entries(TAB_TITLE_MAP).map(([tab, id], i) => ({
-      "@type": "ListItem",
-      position: i + 1,
-      name: findByUniqueId(mainData, id),
-      item: `${baseUrl}/${tab}`,
-    })),
-  };
 
   const layoutParams = { lang, levelName };
 
@@ -117,10 +108,9 @@ export default async function LevelLayout({
         >
           <CleanAutoRetryParam />
 
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-          />
+          <JsonLdScript schemaId="breadcrumb" values={{ items: Object.entries(TAB_TITLE_MAP).map(([tab, id], index) => ({
+            "@type": "ListItem", position: index + 1, name: findByUniqueId(mainData, id), item: `${baseUrl}/${tab}`,
+          })) }} />
 
           <div className="xl:px-8 lg:px-8 md:px-5 sm:px-5 xs:px-3 w-full font-azarMehr">
             <BreadCrumb params={layoutParams} />

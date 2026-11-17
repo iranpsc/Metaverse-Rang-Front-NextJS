@@ -18,7 +18,8 @@
     "thumbnailUrl": "url",
     "uploadDate": "iso-date",
     "contentUrl": "url",
-    "embedUrl": "url"
+    "embedUrl": "url",
+    "creator": "object"
   },
   "placeholders": [
     "name",
@@ -26,7 +27,8 @@
     "thumbnailUrl",
     "uploadDate",
     "contentUrl",
-    "embedUrl"
+    "embedUrl",
+    "creator"
   ],
   "template": {
     "@context": "https://schema.org",
@@ -36,6 +38,7 @@
     "thumbnailUrl": "{{thumbnailUrl}}",
     "uploadDate": "{{uploadDate}}",
     "contentUrl": "{{contentUrl}}",
-    "embedUrl": "{{embedUrl}}"
+    "embedUrl": "{{embedUrl}}",
+    "creator": "{{creator}}"
   }
 }

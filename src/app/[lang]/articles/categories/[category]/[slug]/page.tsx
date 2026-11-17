@@ -136,7 +136,7 @@ export async function generateMetadata({ params  }: ArticlePageProps) {
       alternates: { canonical: canonicalUrl },
       openGraph: {
         title: article.title,
-        description: cleanDescription(article.description || "مقالات متاورس رنگ"),
+        description: article.description ? cleanDescription(article.description) : undefined,
         url: canonicalUrl,
         type: "article",
         images: article.image ? [{ url: article.image }] : [],
@@ -144,7 +144,7 @@ export async function generateMetadata({ params  }: ArticlePageProps) {
       twitter: {
         card: "summary_large_image",
         title: article.title,
-        description: cleanDescription(article.description || "مقالات متاورس رنگ"),
+        description: article.description ? cleanDescription(article.description) : undefined,
         images: article.image ? [article.image] : [],
       },
       robots: { index: true, follow: true },
@@ -270,7 +270,7 @@ export default async function ArticlePage({ params } :ArticlePageProps) {
             headline: article.title,
             canonicalUrl,
             datePublished: toGoogleIsoDate(article.date),
-            description: cleanDescription(article.description || "مقالات متاورس رنگ"),
+            description: article.description ? cleanDescription(article.description) : undefined,
             imageUrl: toPublicImageUrlArray(article.image),
             author: article.author?.name
               ? {

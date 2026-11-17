@@ -15,6 +15,7 @@ import {
   getTabData,
   TAB_TITLE_MAP,
 } from "@/components/utils/levelData";
+import JsonLdScript from "@/schemas/json-ld/JsonLdScript";
 
 type Params = { lang: string; levelName: string; tabs: string };
 type Props = { params: Promise<Params> };
@@ -56,8 +57,25 @@ export default async function LevelTabPage({ params }: Props) {
 
   const TabComponent = TAB_COMPONENTS[tabs];
 
+  const levelTitle = findByUniqueId(mainData, levelMeta.unique_id);
+  const tabTitleId = TAB_TITLE_MAP[tabs];
+  const tabTitle = tabTitleId ? findByUniqueId(mainData, tabTitleId) : "";
+  const pageTitle = tabTitle ? `${tabTitle} ${levelTitle}` : levelTitle;
+  const pageDescription = (
+    levelTabs.data.description || singleLevel.data.general_info?.description || ""
+  ).slice(0, 155);
+  const canonicalUrl = `https://metarang.com/${resolvedParams.lang}/levels/citizen/${encodeURIComponent(resolvedParams.levelName)}/${encodeURIComponent(tabs)}`;
+
   return (
-    <div className="grid-third w-full  px-1">
+    <>
+      <JsonLdScript schemaId="webpage" values={{
+        name: pageTitle,
+        canonicalUrl,
+        description: pageDescription || undefined,
+        lang: resolvedParams.lang === "fa" ? "fa-IR" : "en-US",
+        websiteUrl: "https://metarang.com",
+      }} />
+      <div className="grid-third w-full  px-1">
       <div className="relative min-h-[400px]">
         <TabComponent
           mainData={mainData}
@@ -67,6 +85,7 @@ export default async function LevelTabPage({ params }: Props) {
         />
       </div>
     </div>
+    </>
   );
 }
 

@@ -1,3 +1,4 @@
+import JsonLdScript from "@/schemas/json-ld/JsonLdScript";
 import SearchComponent from "@/components/Search/SearchComponent";
 import CategoriesList from "../../components/features/ArticleCategoriesList";
 import { supabase } from "@/utils/lib/supabaseClient";
@@ -51,43 +52,25 @@ export default async function ArticleCategoriesContent({
   const langPrefix = lang ? `/${lang}` : "";
   const fullPageUrl = `${baseUrl}${langPrefix}/articles/categories`;
 
-  const schemaData = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          { "@type": "ListItem", position: 1, name: "صفحه اصلی", item: `${baseUrl}${langPrefix}` },
-          { "@type": "ListItem", position: 2, name: "مقالات", item: `${baseUrl}${langPrefix}/articles` },
-          { "@type": "ListItem", position: 3, name: "دسته‌بندی مقالات", item: fullPageUrl },
-        ],
-      },
-      {
-        "@type": "CollectionPage",
-        "@id": `${fullPageUrl}#webpage`,
-        url: fullPageUrl,
-        name: "دسته‌بندی مقالات متاورس رنگ",
-        isPartOf: { "@type": "WebSite", name: "Metaverse Rang", url: baseUrl },
-      },
-      {
-        "@type": "ItemList",
-        name: "دسته‌بندی‌های مقالات",
-        itemListOrder: "Ascending",
-        numberOfItems: categories.length,
-        itemListElement: categories.map((cat, index) => ({
-          "@type": "ListItem",
-          position: index + 1,
-          url: `${baseUrl}${langPrefix}/articles/categories/${categorySlugs[cat]}`,
-          name: cat,
-          image: categoryImages[cat] || undefined,
-        })),
-      },
-    ],
-  };
+  const categoryItems = categories
+    .filter((category) => Boolean(category && categorySlugs[category]))
+    .map((category, index) => ({
+      "@type": "ListItem", position: index + 1,
+      item: { "@type": "CollectionPage", name: category,
+        url: `${baseUrl}${langPrefix}/articles/categories/${categorySlugs[category]}` },
+    }));
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
+      <JsonLdScript schemaId="breadcrumb" values={{ items: [
+        { "@type": "ListItem", position: 1, name: lang === "fa" ? "صفحه اصلی" : "Home", item: `${baseUrl}${langPrefix}` },
+        { "@type": "ListItem", position: 2, name: lang === "fa" ? "مقالات" : "Articles", item: `${baseUrl}${langPrefix}/articles` },
+        { "@type": "ListItem", position: 3, name: lang === "fa" ? "دسته‌بندی مقالات" : "Article categories", item: fullPageUrl },
+      ] }} />
+      {categoryItems.length > 0 ? <JsonLdScript schemaId="item-list" values={{
+        name: lang === "fa" ? "دسته‌بندی‌های مقالات" : "Article categories", canonicalUrl: fullPageUrl,
+        numberOfItems: categoryItems.length, items: categoryItems,
+      }} /> : null}
 
       <div className="my-8">
         <SearchComponent searchLevel="articles" articles={articles} params={params} mainData={mainData} />

@@ -1,3 +1,4 @@
+import JsonLdScript from "@/schemas/json-ld/JsonLdScript";
 import ShowAllCategoriesEducationList from "@/components/list/ShowAllCategoriesEducationList";
 import { getAllCategories } from "@/components/utils/actions";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
@@ -22,28 +23,21 @@ export default async function EducationCategoryAllContent({
 }: EducationCategoryAllContentProps) {
   const categoriesData = await getAllCategories();
 
-  const educationAllCategorySchema = {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    url: `https://metarang.com/${lang}/education/category`,
-    name: findByUniqueId(mainData, 340),
-    description: findByUniqueId(mainData, 340),
-    mainEntityOfPage: `https://metarang.com/${lang}/education/category`,
-    itemListElement: categoriesData.map((item: any, index: any) => ({
+  const categoryItems = (Array.isArray(categoriesData) ? categoriesData : [])
+    .filter((item: any) => Boolean(item?.slug && item?.name))
+    .map((item: any, index: number) => ({
       "@type": "ListItem",
       position: index + 1,
-      url: `https://metarang.com/${lang}/education/category/${item.slug}`,
-      name: lang.toLowerCase() === "fa" ? item.name : item.slug,
-      description: "",
-    })),
-  };
+      item: { "@type": "WebPage", name: lang.toLowerCase() === "fa" ? item.name : item.slug,
+        url: `https://metarang.com/${lang}/education/category/${encodeURIComponent(item.slug)}` },
+    }));
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(educationAllCategorySchema) }}
-      />
+      {categoryItems.length > 0 ? <JsonLdScript schemaId="item-list" values={{
+        name: findByUniqueId(mainData, 340), canonicalUrl: `https://metarang.com/${lang}/education/category`,
+        numberOfItems: categoryItems.length, items: categoryItems,
+      }} /> : null}
 
       <ShowAllCategoriesEducationList
         params={params}

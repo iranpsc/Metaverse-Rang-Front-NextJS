@@ -36,6 +36,7 @@ function toGoogleIsoDate(value: unknown): string | undefined {
   ) {
     return undefined;
   }
+
   const [datePart] = value.split("T");
   const [yearText, monthText, dayText] = datePart.split("-");
   const year = Number(yearText);
@@ -124,22 +125,23 @@ export default async function EducationVideo({ params }: EducationVideoProps) {
       resolvedParams.category
     )}/${resolvedParams.subcategory}/${DataVideo.slug}`;
     const videoThumbnailUrl = toAbsoluteHttpUrl(DataVideo.image_url);
+    const videoContentUrl = toAbsoluteHttpUrl(DataVideo.video_url);
     const videoUploadDate = toGoogleIsoDate(DataVideo.upload_date);
     const videoDescription = await makeLessCharacter(DataVideo.description);
 
     const relatedVideoItems = (Array.isArray(DataVideos?.videos) ? DataVideos.videos : [])
       .filter((video: any) => typeof video?.title === "string" && video.title.trim() && video.slug)
       .map((video: any, index: number) => ({
-        "@type": "ListItem",
-        position: index + 1,
-        item: {
-          "@type": "WebPage",
-          name: video.title,
-          url: `https://metarang.com/${lang}/education/category/${decodeURIComponent(
-            resolvedParams.category
-          )}/${resolvedParams.subcategory}/${video.slug}`,
-        },
-      }));
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": "WebPage",
+        name: video.title,
+        url: `https://metarang.com/${lang}/education/category/${decodeURIComponent(
+          resolvedParams.category
+        )}/${resolvedParams.subcategory}/${video.slug}`,
+      },
+    }));
 
     return (
       <>
@@ -151,6 +153,10 @@ export default async function EducationVideo({ params }: EducationVideoProps) {
               description: videoDescription,
               thumbnailUrl: videoThumbnailUrl,
               uploadDate: videoUploadDate,
+              contentUrl: videoContentUrl,
+              creator: DataVideo.creator?.name
+                ? { "@type": "Person", name: DataVideo.creator.name }
+                : undefined,
             }}
           />
         ) : null}

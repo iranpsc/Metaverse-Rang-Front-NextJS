@@ -11,6 +11,7 @@ import { supabase } from "@/utils/lib/supabaseClient";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import JsonLdScript from "@/schemas/json-ld/JsonLdScript";
 
 interface CategoryPageProps {
   params: Promise<{
@@ -127,64 +128,38 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     const totalDislikes = categoryArticles.reduce((sum, a) => sum + (a.stats?.dislikes ?? 0), 0);
     const totalViews = categoryArticles.reduce((sum, a) => sum + (a.stats?.views ?? 0), 0);
     const totalArticles = categoryArticles.length;
-
-    const jsonLd = {
-      "@context": "https://schema.org",
-      "@type": "CollectionPage",
-      "name": catName,
-      "description": categoryDec || `مقالات مرتبط با ${catName}`,
-      "url": `https://metarang.com/${lang}/articles/categories/${categorySlug}`,
-      "image": categoryImage || "/default.png",
-      "mainEntity": {
-        "@type": "ItemList",
-        "name": `مقالات دسته ${catName}`,
-        "itemListOrder": "Descending",
-        "numberOfItems": categoryArticles.length,
-        "itemListElement": categoryArticles.map((a, index) => {
-          const published = a.date ? new Date(a.date).toISOString() : new Date().toISOString();
-          return {
-            "@type": "ListItem",
-            "position": index + 1,
-            "item": {
-              "@type": "BlogPosting",
-              "headline": a.title,
-              "description": a.description || categoryDec || "این یک مقاله آموزشی است",
-              "url": `https://metarang.com/${lang}/articles/categories/${categorySlug}/${a.slug}`,
-              "datePublished": published,
-              "dateModified": published,
-              "image": a.image || "/default.png",
-              "author": {
-                "@type": "Person",
-                "name": a.author?.name || "مدیر سایت",
-                "url": a.author?.citizenId
-                  ? `https://metarang.com/${lang}/citizens/${a.author.citizenId}`
-                  : undefined,
-                "identifier": a.author?.citizenId || "CIT-0000",
-              },
-              "publisher": {
-                "@type": "Organization",
-                "name": "متاورس رنگ",
-                "logo": { "@type": "ImageObject", "url": "https://metarang.com/_next/image?url=%2Flogo.png&w=120&q=75" },
-              },
-              "inLanguage": lang || "fa",
-              "isAccessibleForFree": true,
-              "genre": a.category || "مقاله آموزشی",
-              "keywords": a.tags?.join(", ") || `${catName}, آموزش, مقاله`,
-              "commentCount": a.stats?.comments ?? 0,
-              "interactionStatistic": [
-                { "@type": "InteractionCounter", "interactionType": "https://schema.org/LikeAction", "userInteractionCount": a.stats?.likes ?? 0 },
-                { "@type": "InteractionCounter", "interactionType": "https://schema.org/DislikeAction", "userInteractionCount": a.stats?.dislikes ?? 0 },
-                { "@type": "InteractionCounter", "interactionType": "https://schema.org/ViewAction", "userInteractionCount": a.stats?.views ?? 0 },
-              ],
-            },
-          };
-        }),
-      },
-    };
+    const categoryUrl = `https://metarang.com/${lang}/articles/categories/${encodeURIComponent(categorySlug)}`;
+    const articleListItems = categoryArticles
+      .filter((article: any) => Boolean(article?.title && article?.slug))
+      .map((article: any, index: number) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "WebPage",
+          name: article.title,
+          url: `${categoryUrl}/${encodeURIComponent(article.slug)}`,
+        },
+      }));
 
     return (
       <section className="w-full relative bg-bg-primary ">
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+        <JsonLdScript schemaId="breadcrumb" values={{ items: [
+          { "@type": "ListItem", position: 1, name: lang === "fa" ? "صفحه اصلی" : "Home", item: `https://metarang.com/${lang}` },
+          { "@type": "ListItem", position: 2, name: lang === "fa" ? "مقالات" : "Articles", item: `https://metarang.com/${lang}/articles` },
+          { "@type": "ListItem", position: 3, name: catName, item: categoryUrl },
+        ] }} />
+        <JsonLdScript schemaId="collection-page" values={{
+          name: catName,
+          canonicalUrl: categoryUrl,
+          description: categoryDec,
+          lang: lang === "fa" ? "fa-IR" : "en-US",
+        }} />
+        {articleListItems.length > 0 ? <JsonLdScript schemaId="item-list" values={{
+          name: lang === "fa" ? `مقالات دسته ${catName}` : `${catName} articles`,
+          canonicalUrl: categoryUrl,
+          numberOfItems: articleListItems.length,
+          items: articleListItems,
+        }} /> : null}
         <CleanAutoRetryParam />
         <div className="px-5 2xl:px-10 mt-[60px] lg:mt-0">
           <BreadCrumb params={params} articleCat={catName} />

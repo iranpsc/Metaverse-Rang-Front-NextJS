@@ -14,6 +14,7 @@ import EducationListSkeleton from "@/components/skeleton/EducationListSkeleton";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
+import JsonLdScript from "@/schemas/json-ld/JsonLdScript";
 
 interface CitizensPageProps {
   params: Promise<{ lang: string }>;
@@ -34,6 +35,12 @@ export default async function CitizensPage({ params }: CitizensPageProps) {
 
     return (
       <>
+        <JsonLdScript schemaId="collection-page" values={{
+          name: findByUniqueId(mainData, 165),
+          canonicalUrl: `https://metarang.com/${lang}/education`,
+          description: findByUniqueId(mainData, 164),
+          lang: lang === "fa" ? "fa-IR" : "en-US",
+        }} />
         <div className="flex w-full" dir={langData.direction}>
           <section
             className={`w-full  relative  mt-[60px] lg:mt-0 lg:pt-0 bg-bg-primary  bg-opacity20 xl:px-8 lg:px-8 md:px-5 sm:px-5 xs:px-1`}

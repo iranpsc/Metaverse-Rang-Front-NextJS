@@ -274,7 +274,7 @@ export async function generateMetadata({ params }: NewsPageProps) {
       alternates: { canonical: canonicalUrl },
       openGraph: {
         title: news.title,
-        description: cleanDescription(news.description || "اخبار متاورس رنگ"),
+        description: news.description ? cleanDescription(news.description) : undefined,
         url: canonicalUrl,
         type: "article",
         images: news.image ? [{ url: news.image }] : [],
@@ -282,7 +282,7 @@ export async function generateMetadata({ params }: NewsPageProps) {
       twitter: {
         card: "summary_large_image",
         title: news.title,
-        description: cleanDescription(news.description || "اخبار متاورس رنگ"),
+        description: news.description ? cleanDescription(news.description) : undefined,
         images: news.image ? [news.image] : [],
       },
       robots: { index: true, follow: true },
@@ -400,7 +400,7 @@ export default async function NewsPage({ params }: NewsPageProps) {
             headline: news.title,
             canonicalUrl: `https://metarang.com/${lang}/news/categories/${category}/${slug}`,
             datePublished: toGoogleIsoDate(news.date),
-            description: cleanDescription(news.description || "اخبار متاورس رنگ"),
+            description: news.description ? cleanDescription(news.description) : undefined,
             imageUrl: toPublicImageUrlArray(news.image),
             lang,
             author: news.author?.name

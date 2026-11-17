@@ -89,74 +89,11 @@ export default async function CitizenWalletHistory({
 
     const canonicalUrl = `https://metarang.com/${lang}/citizens/${id}/wallet-history`;
 
-    const jsonLd = {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "WebPage",
-          "@id": canonicalUrl,
-          url: canonicalUrl,
-          name: isFa
-            ? `تاریخچه دارایی‌های ${fullName} | ${findByUniqueId(mainData, 148)}`
-            : `Wallet history of ${fullName} | ${findByUniqueId(mainData, 148)}`,
-          description: isFa
-            ? "جدول و نمودار تاریخچه دارایی‌های کاربر"
-            : "Citizen wallet asset history summary and chart",
-          inLanguage: isFa ? "fa-IR" : "en-US",
-          isPartOf: {
-            "@type": "WebSite",
-            name: "Metarang",
-            url: "https://metarang.com",
-          },
-          about: {
-            "@type": "Person",
-            name: fullName,
-            url: `https://metarang.com/${lang}/citizens/${id}`,
-          },
-        },
-        {
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            {
-              "@type": "ListItem",
-              position: 1,
-              name: isFa ? "خانه" : "Home",
-              item: `https://metarang.com/${lang}`,
-            },
-            {
-              "@type": "ListItem",
-              position: 2,
-              name: isFa ? "کاربران" : "Citizens",
-              item: `https://metarang.com/${lang}/citizens`,
-            },
-            {
-              "@type": "ListItem",
-              position: 3,
-              name: fullName,
-              item: `https://metarang.com/${lang}/citizens/${id}`,
-            },
-            {
-              "@type": "ListItem",
-              position: 4,
-              name: isFa ? "تاریخچه دارایی‌ها" : "Wallet History",
-              item: canonicalUrl,
-            },
-          ],
-        },
-      ],
-    };
-
     /* ----------------------------- render ---------------------------- */
     return (
       <>
         <CleanAutoRetryParam />
-
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-
-        <div
+<div
           className="flex h-screen overflow-hidden"
           dir={langData.direction}
         >

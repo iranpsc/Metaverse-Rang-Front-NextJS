@@ -1,3 +1,4 @@
+import JsonLdScript from "@/schemas/json-ld/JsonLdScript";
 import EducationList from "@/components/list/EducationList";
 import { getAllCategoryVideos } from "@/components/utils/actions";
 
@@ -29,45 +30,19 @@ export default async function EducationListContent({
 }: EducationListContentProps) {
   const allCatVideos = await getAllCategoryVideos("1");
 
-  const educationVideoSchema = {
-    "@context": "http://schema.org",
-    "@type": "WebSite",
-    mainEntity: allCatVideos.map((video: any) => ({
-      "@type": "VideoObject",
-      name: video.title,
-      thumbnailUrl: video.image_url,
-      contentUrl: `https://metarang.com/${lang}/education/category/${video.sub_category.slug}`,
-      uploadDate: "",
-      publisher: {
-        "@type": "Organization",
-        name: video.creator.name || video.creator.code,
-      },
-      interactionStatistic: [
-        {
-          "@type": "InteractionCounter",
-          interactionType: "http://schema.org/LikeAction",
-          userInteractionCount: video.likes_count,
-        },
-        {
-          "@type": "InteractionCounter",
-          interactionType: "http://schema.org/DislikeAction",
-          userInteractionCount: video.dislikes_count,
-        },
-        {
-          "@type": "InteractionCounter",
-          interactionType: "http://schema.org/WatchAction",
-          userInteractionCount: video.views_count,
-        },
-      ],
-    })),
-  };
+  const videoPageItems = (Array.isArray(allCatVideos) ? allCatVideos : [])
+    .filter((video: any) => Boolean(video?.title))
+    .map((video: any, index: number) => ({
+      "@type": "ListItem", position: index + 1,
+      item: { "@type": "WebPage", name: video.title },
+    }));
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(educationVideoSchema) }}
-      />
+      {videoPageItems.length > 0 ? <JsonLdScript schemaId="item-list" values={{
+        name: lang === "fa" ? "فهرست ویدئوهای آموزشی" : "Educational video list",
+        canonicalUrl: `https://metarang.com/${lang}/education`, numberOfItems: videoPageItems.length, items: videoPageItems,
+      }} /> : null}
       <EducationList
         mainData={mainData}
         params={params}

@@ -13,6 +13,7 @@ import NewsSubCategoryContent from "@/components/features/NewsSubCategoryContent
 import fallbackNewsData from "@/components/utils/news.json";
 import { Suspense } from "react";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import JsonLdScript from "@/schemas/json-ld/JsonLdScript";
 
 interface NewsCategoryPageProps {
   params: Promise<{ lang: string; category: string; }>;
@@ -218,116 +219,38 @@ export default async function NewsCategoryPage({ params }: NewsCategoryPageProps
       0
     );
     const baseUrl = "https://metarang.com";
-    const categoryUrl = `${baseUrl}/${lang}/news/categories/${categorySlug}`;
-
-    const jsonLd = {
-      "@context": "https://schema.org",
-      "@graph": [
-        /* ================= Breadcrumb ================= */
-        {
-          "@type": "BreadcrumbList",
-          "itemListElement": [
-            {
-              "@type": "ListItem",
-              "position": 1,
-              "name": "صفحه اصلی",
-              "item": `${baseUrl}/${lang}`,
-            },
-            {
-              "@type": "ListItem",
-              "position": 2,
-              "name": "اخبار",
-              "item": `${baseUrl}/${lang}/news`,
-            },
-            {
-              "@type": "ListItem",
-              "position": 3,
-              "name": category,
-              "item": categoryUrl,
-            },
-          ],
+    const categoryUrl = `${baseUrl}/${lang}/news/categories/${encodeURIComponent(categorySlug)}`;
+    const newsListItems = newsData
+      .filter((item: NormalizedNews) => Boolean(item?.title && item?.slug))
+      .map((item: NormalizedNews, index: number) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "WebPage",
+          name: item.title,
+          url: `${categoryUrl}/${encodeURIComponent(item.slug)}`,
         },
-
-        /* ================= Collection Page ================= */
-        {
-          "@type": "CollectionPage",
-          "@id": `${categoryUrl}#webpage`,
-          "url": categoryUrl,
-          "name": `${category} | ${findByUniqueId(mainData, 148)}`,
-          "description": categoryDec || `آخرین اخبار مرتبط با ${category}`,
-          "isPartOf": {
-            "@type": "WebSite",
-            "name": "MetaRang",
-            "url": baseUrl,
-          },
-          "inLanguage": lang === "fa" ? "fa-IR" : "en-US",
-        },
-
-        /* ================= News List ================= */
-        {
-          "@type": "ItemList",
-          "name": `اخبار دسته ${category}`,
-          "itemListOrder": "Descending",
-          "numberOfItems": newsData.length,
-          "itemListElement": newsData.map((n, index) => {
-            // تبدیل تاریخ شمسی به ISO (اگر تاریخ به فرمت شمسی باشد)
-            let publishedDate = new Date().toISOString();
-            if (n.date) {
-              // اگر تاریخ به فرمت "1404.09.05" باشد
-              const parts = n.date.split(/[-/.]/);
-              if (parts.length === 3) {
-                // تبدیل تقریبی - توجه: این یک تبدیل دقیق نیست، فقط برای جلوگیری از خطا
-                publishedDate = `${parseInt(parts[0]) - 621}/${
-                  parts[1].padStart(2, "0")
-                }/${parts[2].padStart(2, "0")}T00:00:00Z`;
-              } else {
-                publishedDate = n.date;
-              }
-            }
-
-            return {
-              "@type": "ListItem",
-              "position": index + 1,
-              "item": {
-                "@type": "NewsArticle",
-                "headline": n.title,
-                "description":
-                  n.description || categoryDec || "خبر جدید از متاورس رنگ",
-                "url": `${baseUrl}/${lang}/news/${n.slug}`,
-                "datePublished": publishedDate,
-                "dateModified": publishedDate,
-                "image": n.image || `${baseUrl}/default.png`,
-                "author": {
-                  "@type": "Organization",
-                  "name": "MetaRang",
-                },
-                "publisher": {
-                  "@type": "Organization",
-                  "name": "MetaRang",
-                  "logo": {
-                    "@type": "ImageObject",
-                    "url": `${baseUrl}/_next/image?url=%2Flogo.png&w=120&q=75`,
-                  },
-                },
-                "mainEntityOfPage": {
-                  "@type": "WebPage",
-                  "@id": `${baseUrl}/${lang}/news/${n.slug}`,
-                },
-                "inLanguage": lang === "fa" ? "fa-IR" : "en-US",
-                "isAccessibleForFree": true,
-              },
-            };
-          }),
-        },
-      ],
-    };
+      }));
 
     return (
       <section className="w-full bg-bg-primary ">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
+        <JsonLdScript schemaId="breadcrumb" values={{ items: [
+          { "@type": "ListItem", position: 1, name: lang === "fa" ? "صفحه اصلی" : "Home", item: `${baseUrl}/${lang}` },
+          { "@type": "ListItem", position: 2, name: lang === "fa" ? "اخبار" : "News", item: `${baseUrl}/${lang}/news` },
+          { "@type": "ListItem", position: 3, name: category, item: categoryUrl },
+        ] }} />
+        <JsonLdScript schemaId="collection-page" values={{
+          name: `${category} | ${findByUniqueId(mainData, 148)}`,
+          canonicalUrl: categoryUrl,
+          description: categoryDec,
+          lang: lang === "fa" ? "fa-IR" : "en-US",
+        }} />
+        {newsListItems.length > 0 ? <JsonLdScript schemaId="item-list" values={{
+          name: lang === "fa" ? `اخبار دسته ${category}` : `${category} news`,
+          canonicalUrl: categoryUrl,
+          numberOfItems: newsListItems.length,
+          items: newsListItems,
+        }} /> : null}
         <CleanAutoRetryParam />
 
         <div className="px-5 mt-[60px] lg:mt-0">

@@ -1,3 +1,4 @@
+import JsonLdScript from "@/schemas/json-ld/JsonLdScript";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import LevelsClient from "@/components/features/levels/LevelsClient";
 import { getAllLevels } from "@/components/utils/actions";
@@ -85,23 +86,21 @@ export default async function LevelsContent({
     : [];
 
   /* ------------------------------ Schema --------------------------------- */
-  const levelsSchema = {
-    "@context": "https://schema.org/",
-    "@type": "ItemList",
-    itemListElement: levelArray.map((item: any) => ({
-      "@type": "ListItem",
-      position: item.id,
-      name: item.name,
-      url: item.image,
-    })),
-  };
+
+  const levelItems = levelArray
+    .filter((item: any) => Boolean(item?.route_name && item?.name))
+    .map((item: any, index: number) => ({
+      "@type": "ListItem", position: index + 1,
+      item: { "@type": "WebPage", name: item.name,
+        url: `https://metarang.com/${params.lang}/levels/citizen/${encodeURIComponent(item.route_name)}/general-info` },
+    }));
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(levelsSchema) }}
-      />
+      {levelItems.length > 0 ? <JsonLdScript schemaId="item-list" values={{
+        name: "MetaRang citizen levels", canonicalUrl: `https://metarang.com/${params.lang}/levels/citizen`,
+        numberOfItems: levelItems.length, items: levelItems,
+      }} /> : null}
 
       <LevelsClient
         levels={levelArray}
