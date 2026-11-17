@@ -144,7 +144,7 @@ export function generateJsonLd(
   const resolved = resolveTemplateValue(definition.template, values);
 
   if (!resolved || typeof resolved !== "object" || Array.isArray(resolved)) {
-    throw new TypeError(\`JSON-LD "\${schemaId}" template must resolve to an object.\`);
+    throw new TypeError('JSON-LD "' + schemaId + '" template must resolve to an object.');
   }
 
   const generated = resolved as Record<string, unknown>;
@@ -152,7 +152,7 @@ export function generateJsonLd(
   for (const field of definition.requiredFields) {
     const value = getValueAtPath(generated, field);
     if (value === undefined || value === null || value === "") {
-      throw new Error(\`JSON-LD "\${schemaId}" is missing required field "\${field}".\`);
+      throw new Error('JSON-LD "' + schemaId + '" is missing required field "' + field + '".');
     }
   }
 
@@ -160,7 +160,7 @@ export function generateJsonLd(
     const value = getValueAtPath(generated, field);
     if (value !== undefined && !matchesFieldType(value, fieldType)) {
       throw new TypeError(
-        \`JSON-LD "\${schemaId}" field "\${field}" must be "\${fieldType}".\`,
+        'JSON-LD "' + schemaId + '" field "' + field + '" must be "' + fieldType + '".',
       );
     }
   }
@@ -169,12 +169,12 @@ export function generateJsonLd(
     generated["@context"] !== "https://schema.org" &&
     generated["@context"] !== "https://schema.org/"
   ) {
-    throw new TypeError(\`JSON-LD "\${schemaId}" must use the Schema.org context.\`);
+    throw new TypeError('JSON-LD "' + schemaId + '" must use the Schema.org context.');
   }
 
   if (generated["@type"] !== definition.expectedType) {
     throw new TypeError(
-      \`JSON-LD "\${schemaId}" expected @type "\${definition.expectedType}".\`,
+      'JSON-LD "' + schemaId + '" expected @type "' + definition.expectedType + '".',
     );
   }
 
