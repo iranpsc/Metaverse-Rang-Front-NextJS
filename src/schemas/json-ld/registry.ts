@@ -72,24 +72,34 @@ export type JsonLdRouteConfig = {
 const routeEntries = routeManifest.routes as JsonLdRouteConfig[];
 
 function routePatternToRegExp(pattern: string): RegExp {
-  if (pattern === "/") return /^\\/?$/;
+  if (pattern === "/") return new RegExp("^/?$");
 
   const segments = pattern.split("/").filter(Boolean);
   const expression = segments.map((segment) => {
-    if (/^\\[\\[\\.\\.\\..+\\]\\]$/.test(segment)) return "(?:.+)?";
-    if (/^\\[\\.\\.\\..+\\]$/.test(segment)) return ".+";
-    if (/^\\[.+\\]$/.test(segment)) return "[^/]+";
-    return segment.replace(/[.*+?^\\\\{}()|[\\]]/g, "\\\\export type JsonLdValues = Record<string, JsonLdValue | undefined>;
-");
+    if (segment.startsWith("[[...") && segment.endsWith("]]")) {
+      return "(?:[^/]+(?:/[^/]+)*)?";
+    }
+    if (segment.startsWith("[...") && segment.endsWith("]")) {
+      return "[^/]+(?:/[^/]+)*";
+    }
+    if (segment.startsWith("[") && segment.endsWith("]")) {
+      return "[^/]+";
+    }
+    return segment;
   }).join("/");
 
   return new RegExp("^/" + expression + "/?$");
 }
 
+/**
+ * Resolve a localized pathname (for example, /fa/news/my-article)
+ * to its route manifest entry. The first path segment is treated as
+ * the locale so the active locale list never needs to be hardcoded.
+ */
 export function getJsonLdRouteConfig(localizedPathname: string): JsonLdRouteConfig | undefined {
   const segments = localizedPathname.split("/").filter(Boolean);
   const pathWithoutLocale = "/" + segments.slice(1).join("/");
-  const normalizedPath = pathWithoutLocale === "/" ? "/" : pathWithoutLocale.replace(/\\/$/, "");
+  const normalizedPath = pathWithoutLocale === "/" ? "/" : pathWithoutLocale.replace(/\/$/, "");
 
   return routeEntries.find((entry) => routePatternToRegExp(entry.pattern).test(normalizedPath));
 }
@@ -211,7 +221,15 @@ export function generateJsonLd(
 
   if (definition.expectedType === "@graph") {
     const graph = generated["@graph"];
-    if (!Array.isArray(graph) || graph.some((node) => !node || typeof node !== "object" || typeof (node as Record<string, unknown>)["@type"] !== "string")) {
+    if (
+      !Array.isArray(graph) ||
+      graph.some(
+        (node) =>
+          !node ||
+          typeof node !== "object" ||
+          typeof (node as Record<string, unknown>)["@type"] !== "string",
+      )
+    ) {
       throw new TypeError('JSON-LD "' + schemaId + '" graph must contain typed schema objects.');
     }
   } else if (generated["@type"] !== definition.expectedType) {
