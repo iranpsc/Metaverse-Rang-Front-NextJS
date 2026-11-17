@@ -6,7 +6,8 @@
     "@context",
     "@type",
     "name",
-    "startDate"
+    "startDate",
+    "location"
   ],
   "fieldTypes": {
     "@context": "string",
