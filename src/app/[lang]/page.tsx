@@ -171,6 +171,7 @@ export default async function LangPage({ params }: LangPageProps) {
             imageUrl: "https://s3.metarang.com/metarang/logo/metarang-logo-512.png",
             logoUrl: "https://s3.metarang.com/metarang/logo/metarang-logo-512.png",
             email: "info@metarang.com",
+            alternateName: "MetaRGB",
           }}
         />
         <section className=" relative  mt-[60px] lg:mt-0 lg:pt-0 bg-bg-primary ">
