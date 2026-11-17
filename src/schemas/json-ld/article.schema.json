@@ -16,7 +16,7 @@
     "datePublished": "string",
     "dateModified": "string",
     "description": "string",
-    "image": "array",
+    "image": "url-array",
     "author": "object",
     "publisher": "object",
     "mainEntityOfPage": "object"
