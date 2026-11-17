@@ -28,6 +28,44 @@ import WindowsNews from "../../../../../../components/features/PromoNewsSection"
 import Link from "next/link";
 import JsonLdScript from "../../../../../../schemas/json-ld/JsonLdScript";
 
+function toPublicImageUrl(value: unknown): string | undefined {
+  if (typeof value !== "string" || !value.trim()) return undefined;
+  try {
+    const url = new URL(value, "https://metarang.com");
+    return url.protocol === "https:" || url.protocol === "http:" ? url.toString() : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+function toPublicImageUrlArray(value: unknown): string[] | undefined {
+  const url = toPublicImageUrl(value);
+  return url ? [url] : undefined;
+}
+
+function toGoogleIsoDate(value: unknown): string | undefined {
+  if (typeof value !== "string" || !/^(19|20|21)\d{2}-\d{2}-\d{2}(?:T.*)?$/.test(value)) {
+    return undefined;
+  }
+  const [datePart] = value.split("T");
+  const [yearText, monthText, dayText] = datePart.split("-");
+  const year = Number(yearText);
+  const month = Number(monthText);
+  const day = Number(dayText);
+  const calendarDate = new Date(Date.UTC(year, month - 1, day));
+  if (
+    calendarDate.getUTCFullYear() !== year ||
+    calendarDate.getUTCMonth() !== month - 1 ||
+    calendarDate.getUTCDate() !== day
+  ) {
+    return undefined;
+  }
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? undefined : date.toISOString();
+}
+
+
+
 interface NewsPageProps {
   params: Promise<{
     lang: string;
@@ -361,14 +399,16 @@ export default async function NewsPage({ params }: NewsPageProps) {
           values={{
             headline: news.title,
             canonicalUrl: `https://metarang.com/${lang}/news/categories/${category}/${slug}`,
-            datePublished: news.date || undefined,
+            datePublished: toGoogleIsoDate(news.date),
             description: cleanDescription(news.description || "اخبار متاورس رنگ"),
-            imageUrl: news.image ? [news.image] : undefined,
+            imageUrl: toPublicImageUrlArray(news.image),
             lang,
-            author: {
-              "@type": "Person",
-              name: news.author?.name ?? "نویسنده",
-            },
+            author: news.author?.name
+              ? {
+                  "@type": "Person",
+                  name: news.author.name,
+                }
+              : undefined,
             mainEntityOfPage: {
               "@type": "WebPage",
               "@id": `https://metarang.com/${lang}/news/categories/${category}/${slug}`,
