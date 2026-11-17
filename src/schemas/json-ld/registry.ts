@@ -148,7 +148,15 @@ function resolveTemplateValue(value: unknown, values: JsonLdValues): unknown {
 
     return value.replace(INLINE_PLACEHOLDER_PATTERN, (_match, path: string) => {
       const replacement = getPathValue(values, path);
-      return replacement === undefined || replacement === null ? "" : String(replacement);
+      if (
+        replacement === undefined ||
+        replacement === null ||
+        (typeof replacement === "string" && !replacement.trim()) ||
+        typeof replacement === "object"
+      ) {
+        throw new Error('JSON-LD template is missing a valid scalar value for placeholder "' + path + '".');
+      }
+      return String(replacement);
     });
   }
 
@@ -194,7 +202,7 @@ function isValidIsoDate(value: unknown): value is string {
   if (typeof value !== "string") return false;
 
   const match =
-    /^(\\d{4})-(\\d{2})-(\\d{2})(?:T(\\d{2}):(\\d{2})(?::(\\d{2})(?:\\.(\\d+))?)?(Z|([+-])(\\d{2}):(\\d{2}))?)?$/.exec(
+    /^(\d{4})-(\d{2})-(\d{2})(?:T(\d{2}):(\d{2})(?::(\d{2})(?:\.(\d+))?)?(Z|([+-])(\d{2}):(\d{2}))?)?$/.exec(
       value,
     );
   if (!match) return false;
@@ -254,7 +262,7 @@ function matchesFieldType(value: unknown, fieldType: string): boolean {
     case "iso-date":
       return isValidIsoDate(value);
     case "array":
-      return Array.isArray(value);
+      return Array.isArray(value) && value.length > 0 && value.every((item) => item !== null && item !== undefined);
     case "object":
       return typeof value === "object" && value !== null && !Array.isArray(value);
     default:
@@ -294,7 +302,7 @@ export function validateJsonLdRegistry(): string[] {
     const used = new Set<string>();
     const visit = (value: unknown): void => {
       if (typeof value === "string") {
-        for (const match of value.matchAll(/\\{\\{([a-zA-Z0-9_.-]+)\\}\\}/g)) used.add(match[1]);
+        for (const match of value.matchAll(/\{\{([a-zA-Z0-9_.-]+)\}\}/g)) used.add(match[1]);
       } else if (Array.isArray(value)) {
         value.forEach(visit);
       } else if (value && typeof value === "object") {
@@ -353,6 +361,7 @@ export function generateJsonLd(
     const graph = generated["@graph"];
     if (
       !Array.isArray(graph) ||
+      graph.length === 0 ||
       graph.some(
         (node) =>
           !node ||
