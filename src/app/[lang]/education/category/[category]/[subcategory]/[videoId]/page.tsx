@@ -17,6 +17,28 @@ import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 import NotFoundPage from "@/components/error/NotFoundPage"; // فرض کردم صفحه 404 اینجاست
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import JsonLdScript from "../../../../../../../schemas/json-ld/JsonLdScript";
+
+function toAbsoluteHttpUrl(value: unknown): string | undefined {
+  if (typeof value !== "string" || !value.trim()) return undefined;
+  try {
+    const parsed = new URL(value, "https://metarang.com");
+    return parsed.protocol === "https:" || parsed.protocol === "http:" ? parsed.toString() : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+function toGoogleIsoDate(value: unknown): string | undefined {
+  if (
+    typeof value !== "string" ||
+    !/^(19|20|21)\d{2}-\d{2}-\d{2}(?:T.*)?$/.test(value)
+  ) {
+    return undefined;
+  }
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? undefined : date.toISOString();
+}
 
 // Cache کردن getSingleVideoData برای جلوگیری از درخواست‌های تکراری در generateMetadata و صفحه اصلی
 const getCachedSingleVideoData = cache(async (videoId: string) => {
@@ -83,93 +105,51 @@ export default async function EducationVideo({ params }: EducationVideoProps) {
 
 
 
-    const singleVideoSchema = {
-      "@context": "http://schema.org",
-      "@type": "WebSite",
-      name: `${DataVideo.title} | ${findByUniqueId(mainData, 148)}`,
-      url: `https://metarang.com/${lang}/education/category/${decodeURIComponent(
-        resolvedParams.category
-      )}/${resolvedParams.subcategory}/${DataVideo.slug}`,
-      description: await makeLessCharacter(DataVideo.description),
-      mainEntity: {
-        "@type": "VideoObject",
-        name: DataVideo.title,
-        thumbnailUrl: DataVideo.image_url,
-        contentUrl: `https://metarang.com/${lang}/education/category/${decodeURIComponent(
-          resolvedParams.category
-        )}/${resolvedParams.subcategory}/${DataVideo.slug}`,
-        uploadDate: DataVideo.upload_date || "",
-        publisher: {
-          "@type": "Organization",
-          name: DataVideo.creator.name || DataVideo.creator.code,
-        },
-        interactionStatistic: [
-          {
-            "@type": "InteractionCounter",
-            interactionType: "http://schema.org/LikeAction",
-            userInteractionCount: DataVideo.likes_count,
-          },
-          {
-            "@type": "InteractionCounter",
-            interactionType: "http://schema.org/DislikeAction",
-            userInteractionCount: DataVideo.dislikes_count,
-          },
-          {
-            "@type": "InteractionCounter",
-            interactionType: "http://schema.org/WatchAction",
-            userInteractionCount: DataVideo.views_count,
-          },
-        ],
-      },
-    };
+    const videoPageUrl = `https://metarang.com/${lang}/education/category/${decodeURIComponent(
+      resolvedParams.category
+    )}/${resolvedParams.subcategory}/${DataVideo.slug}`;
+    const videoThumbnailUrl = toAbsoluteHttpUrl(DataVideo.image_url);
+    const videoUploadDate = toGoogleIsoDate(DataVideo.upload_date);
+    const videoDescription = await makeLessCharacter(DataVideo.description);
 
-    const relatedVideosSchema = {
-      "@context": "https://schema.org",
-      "@type": "ItemList",
-      name: "Related Videos",
-      itemListElement: DataVideos.videos.map((video: any, index: number) => ({
-        "@type": "VideoObject",
+    const relatedVideoItems = (Array.isArray(DataVideos?.videos) ? DataVideos.videos : [])
+      .filter((video: any) => typeof video?.title === "string" && video.title.trim() && video.slug)
+      .map((video: any, index: number) => ({
+        "@type": "ListItem",
         position: index + 1,
-        name: video.title,
-        thumbnailUrl: video.image_url,
-        contentUrl: `https://metarang.com/${lang}/education/category/${decodeURIComponent(
-          resolvedParams.category
-        )}/${resolvedParams.subcategory}/${video.slug}`,
-        uploadDate: video.upload_date || "",
-        publisher: {
-          "@type": "Organization",
-          name: video.creator.name || video.creator.code,
+        item: {
+          "@type": "WebPage",
+          name: video.title,
+          url: `https://metarang.com/${lang}/education/category/${decodeURIComponent(
+            resolvedParams.category
+          )}/${resolvedParams.subcategory}/${video.slug}`,
         },
-        interactionStatistic: [
-          {
-            "@type": "InteractionCounter",
-            interactionType: "http://schema.org/LikeAction",
-            userInteractionCount: video.likes_count,
-          },
-          {
-            "@type": "InteractionCounter",
-            interactionType: "http://schema.org/DislikeAction",
-            userInteractionCount: video.dislikes_count,
-          },
-          {
-            "@type": "InteractionCounter",
-            interactionType: "http://schema.org/WatchAction",
-            userInteractionCount: video.views_count,
-          },
-        ],
-      })),
-    };
+      }));
 
     return (
       <>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(singleVideoSchema) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(relatedVideosSchema) }}
-        />
+        {DataVideo.title?.trim() && videoDescription && videoThumbnailUrl && videoUploadDate ? (
+          <JsonLdScript
+            schemaId="video-object"
+            values={{
+              name: DataVideo.title,
+              description: videoDescription,
+              thumbnailUrl: videoThumbnailUrl,
+              uploadDate: videoUploadDate,
+            }}
+          />
+        ) : null}
+        {relatedVideoItems.length > 0 ? (
+          <JsonLdScript
+            schemaId="item-list"
+            values={{
+              name: lang === "fa" ? "ویدئوهای مرتبط" : "Related Videos",
+              canonicalUrl: videoPageUrl,
+              numberOfItems: relatedVideoItems.length,
+              items: relatedVideoItems,
+            }}
+          />
+        ) : null}
         <CleanAutoRetryParam />
         <div className="flex w-full" dir={langData.direction}>
 
