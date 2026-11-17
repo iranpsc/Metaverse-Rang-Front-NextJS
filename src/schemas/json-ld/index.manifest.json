@@ -7,9 +7,8 @@
       "pattern": "/",
       "page": "page.tsx",
       "schemaIds": [
-        "organization",
-        "website",
-        "webpage"
+        "professional-service",
+        "website"
       ],
       "indexable": true
     },
@@ -59,8 +58,7 @@
       "pattern": "/articles/categories/[category]/[slug]",
       "page": "articles/categories/[category]/[slug]/page.tsx",
       "schemaIds": [
-        "breadcrumb",
-        "article-news"
+        "article"
       ],
       "indexable": true
     },
@@ -86,8 +84,8 @@
       "pattern": "/citizens",
       "page": "citizens/page.tsx",
       "schemaIds": [
-        "breadcrumb",
-        "collection-page"
+        "professional-service",
+        "item-list"
       ],
       "indexable": true
     },
@@ -128,8 +126,8 @@
       "pattern": "/contact",
       "page": "contact/page.tsx",
       "schemaIds": [
-        "organization",
-        "webpage"
+        "contact-page",
+        "organization"
       ],
       "indexable": true
     },
@@ -155,8 +153,7 @@
       "pattern": "/education/category/[category]",
       "page": "education/category/[category]/page.tsx",
       "schemaIds": [
-        "breadcrumb",
-        "collection-page"
+        "item-list"
       ],
       "indexable": true
     },
@@ -164,8 +161,7 @@
       "pattern": "/education/category/[category]/[subcategory]",
       "page": "education/category/[category]/[subcategory]/page.tsx",
       "schemaIds": [
-        "breadcrumb",
-        "collection-page"
+        "item-list"
       ],
       "indexable": true
     },
@@ -173,8 +169,7 @@
       "pattern": "/education/category/[category]/[subcategory]/[videoId]",
       "page": "education/category/[category]/[subcategory]/[videoId]/page.tsx",
       "schemaIds": [
-        "breadcrumb",
-        "webpage"
+        "video-object"
       ],
       "indexable": true
     },
@@ -199,8 +194,7 @@
       "pattern": "/levels/citizen/[levelName]/[tabs]",
       "page": "levels/citizen/[levelName]/[tabs]/page.tsx",
       "schemaIds": [
-        "breadcrumb",
-        "webpage"
+        "item-list"
       ],
       "indexable": true
     },
@@ -241,7 +235,6 @@
       "pattern": "/news/categories/[category]/[slug]",
       "page": "news/categories/[category]/[slug]/page.tsx",
       "schemaIds": [
-        "breadcrumb",
         "article-news"
       ],
       "indexable": true
@@ -258,8 +251,7 @@
       "pattern": "/versions/[[...versions]]",
       "page": "versions/[[...versions]]/page.tsx",
       "schemaIds": [
-        "breadcrumb",
-        "webpage"
+        "software-application"
       ],
       "indexable": true
     },
