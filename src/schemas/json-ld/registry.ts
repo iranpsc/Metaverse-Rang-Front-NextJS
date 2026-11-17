@@ -3,6 +3,8 @@ import article from "./article.schema.json";
 import articleNews from "./article-news.schema.json";
 import breadcrumb from "./breadcrumb.schema.json";
 import collectionPage from "./collection-page.schema.json";
+import citizenPerson from "./citizen-person.schema.json";
+import citizenWorkspacePage from "./citizen-workspace-page.schema.json";
 import contactPage from "./contact-page.schema.json";
 import event from "./event.schema.json";
 import faqPage from "./faq-page.schema.json";
@@ -43,6 +45,8 @@ const definitions = {
   "article-news": articleNews,
   breadcrumb,
   "collection-page": collectionPage,
+  "citizen-person": citizenPerson,
+  "citizen-workspace-page": citizenWorkspacePage,
   "contact-page": contactPage,
   event,
   "faq-page": faqPage,
