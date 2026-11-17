@@ -1,0 +1,49 @@
+{
+  "schemaId": "article-news",
+  "version": "1.0.0",
+  "expectedType": "NewsArticle",
+  "requiredFields": [
+    "@context",
+    "@type",
+    "headline",
+    "url",
+    "datePublished"
+  ],
+  "fieldTypes": {
+    "@context": "string",
+    "@type": "string",
+    "headline": "string",
+    "url": "url",
+    "datePublished": "iso-date",
+    "dateModified": "iso-date",
+    "description": "string",
+    "image": "url",
+    "inLanguage": "string",
+    "author": "object",
+    "publisher": "object"
+  },
+  "placeholders": [
+    "headline",
+    "canonicalUrl",
+    "datePublished",
+    "dateModified",
+    "description",
+    "imageUrl",
+    "lang",
+    "author",
+    "publisher"
+  ],
+  "template": {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    "headline": "{{headline}}",
+    "url": "{{canonicalUrl}}",
+    "datePublished": "{{datePublished}}",
+    "dateModified": "{{dateModified}}",
+    "description": "{{description}}",
+    "image": "{{imageUrl}}",
+    "inLanguage": "{{lang}}",
+    "author": "{{author}}",
+    "publisher": "{{publisher}}"
+  }
+}
