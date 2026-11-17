@@ -1,0 +1,47 @@
+{
+  "schemaId": "citizen-workspace-page",
+  "version": "1.0.0",
+  "expectedType": "@graph",
+  "requiredFields": ["@context", "@graph"],
+  "fieldTypes": {
+    "@context": "string",
+    "@graph": "array"
+  },
+  "placeholders": [
+    "pageName",
+    "canonicalUrl",
+    "description",
+    "language",
+    "websiteUrl",
+    "citizenName",
+    "citizenUrl",
+    "breadcrumbs"
+  ],
+  "template": {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "{{canonicalUrl}}",
+        "url": "{{canonicalUrl}}",
+        "name": "{{pageName}}",
+        "description": "{{description}}",
+        "inLanguage": "{{language}}",
+        "isPartOf": {
+          "@type": "WebSite",
+          "name": "Metarang",
+          "url": "{{websiteUrl}}"
+        },
+        "about": {
+          "@type": "Person",
+          "name": "{{citizenName}}",
+          "url": "{{citizenUrl}}"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": "{{breadcrumbs}}"
+      }
+    ]
+  }
+}
