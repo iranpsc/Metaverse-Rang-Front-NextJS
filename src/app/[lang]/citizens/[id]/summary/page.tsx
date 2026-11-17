@@ -19,6 +19,7 @@ import { getStaticMenu } from "@/components/utils/constants";
 import { buildTabsMenu } from "@/components/utils/buildTabsMenu";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import InviteBox from "@/components/templates/referral/invite-box";
+import JsonLdScript from "@/schemas/json-ld/JsonLdScript";
 
 /* ------------------------------------------------------------------ */
 /*                                TYPES                               */
@@ -87,10 +88,30 @@ export default async function CitizenFeaturesSummary({
     const isFa = lang === "fa";
     const canonicalUrl = `https://metarang.com/${lang}/citizens/${id}/features-summary`;
 
+    const jsonLdValues = {
+      pageName: isFa
+        ? `کاربری‌های ${fullName} | ${findByUniqueId(mainData, 148)}`
+        : `Feature summary of ${fullName} | ${findByUniqueId(mainData, 148)}`,
+      canonicalUrl,
+      description: isFa
+        ? "خلاصه کاربری‌های ملک به تفکیک نوع"
+        : "Citizen property feature (karbari) summary by type",
+      language: isFa ? "fa-IR" : "en-US",
+      websiteUrl: "https://metarang.com",
+      citizenName: fullName,
+      citizenUrl: `https://metarang.com/${lang}/citizens/${id}`,
+      breadcrumbs: [
+        { "@type": "ListItem", position: 1, name: isFa ? "خانه" : "Home", item: `https://metarang.com/${lang}` },
+        { "@type": "ListItem", position: 2, name: isFa ? "کاربری‌ها" : "Citizens", item: `https://metarang.com/${lang}/citizens` },
+        { "@type": "ListItem", position: 3, name: isFa ? `کاربری‌های ${fullName}` : `Feature summary of ${fullName}`, item: canonicalUrl }
+      ]
+    };
+
     /* ----------------------------- render ---------------------------- */
     return (
       <>
         <CleanAutoRetryParam />
+        <JsonLdScript schemaId="citizen-workspace-page" values={jsonLdValues} />
 <div
           className="flex h-screen overflow-hidden"
           dir={langData.direction}
