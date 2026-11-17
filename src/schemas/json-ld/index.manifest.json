@@ -97,25 +97,33 @@
     {
       "pattern": "/citizens/[id]/buildings",
       "page": "citizens/[id]/buildings/page.tsx",
-      "schemaIds": [],
+      "schemaIds": [
+        "citizen-workspace-page"
+      ],
       "indexable": false
     },
     {
       "pattern": "/citizens/[id]/referral",
       "page": "citizens/[id]/referral/page.tsx",
-      "schemaIds": [],
+      "schemaIds": [
+        "citizen-person"
+      ],
       "indexable": false
     },
     {
       "pattern": "/citizens/[id]/summary",
       "page": "citizens/[id]/summary/page.tsx",
-      "schemaIds": [],
+      "schemaIds": [
+        "citizen-workspace-page"
+      ],
       "indexable": false
     },
     {
       "pattern": "/citizens/[id]/wallet",
       "page": "citizens/[id]/wallet/page.tsx",
-      "schemaIds": [],
+      "schemaIds": [
+        "citizen-workspace-page"
+      ],
       "indexable": false
     },
     {
@@ -271,6 +279,7 @@
     "The 32 entries are source route patterns, not concrete URL counts. Dynamic route parameters and the active locale list returned by the API expand the runtime URL set.",
     "A route is migrated only when its page renders the central JsonLdScript component. Manifest schemaIds describe the schema types that the page may emit; optional lists can be omitted when no source data is available.",
     "The first URL segment is the locale and is resolved dynamically; no active locale list is hardcoded in this manifest.",
-    "Admin routes and personal citizen workspace routes are non-indexable and intentionally emit no public structured data."
+    "Administrative routes remain non-indexable and emit no public structured data.",
+    "Citizen workspace routes remain non-indexable, but retain their existing page/profile JSON-LD through the central registry. The citizen profile route itself had no JSON-LD before migration; buildings, referral, summary, and wallet preserve their previous WebPage/BreadcrumbList or Person markup."
   ]
 }
