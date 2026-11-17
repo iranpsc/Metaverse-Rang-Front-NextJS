@@ -1,0 +1,41 @@
+{
+  "schemaId": "video-object",
+  "version": "1.0.0",
+  "expectedType": "VideoObject",
+  "requiredFields": [
+    "@context",
+    "@type",
+    "name",
+    "description",
+    "thumbnailUrl",
+    "uploadDate"
+  ],
+  "fieldTypes": {
+    "@context": "string",
+    "@type": "string",
+    "name": "string",
+    "description": "string",
+    "thumbnailUrl": "url",
+    "uploadDate": "iso-date",
+    "contentUrl": "url",
+    "embedUrl": "url"
+  },
+  "placeholders": [
+    "name",
+    "description",
+    "thumbnailUrl",
+    "uploadDate",
+    "contentUrl",
+    "embedUrl"
+  ],
+  "template": {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "name": "{{name}}",
+    "description": "{{description}}",
+    "thumbnailUrl": "{{thumbnailUrl}}",
+    "uploadDate": "{{uploadDate}}",
+    "contentUrl": "{{contentUrl}}",
+    "embedUrl": "{{embedUrl}}"
+  }
+}
