@@ -1,0 +1,23 @@
+{
+  "schemaId": "faq-page",
+  "version": "1.0.0",
+  "expectedType": "FAQPage",
+  "requiredFields": [
+    "@context",
+    "@type",
+    "mainEntity"
+  ],
+  "fieldTypes": {
+    "@context": "string",
+    "@type": "string",
+    "mainEntity": "array"
+  },
+  "placeholders": [
+    "questions"
+  ],
+  "template": {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": "{{questions}}"
+  }
+}
