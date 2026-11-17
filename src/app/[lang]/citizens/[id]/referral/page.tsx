@@ -92,7 +92,7 @@ export default async function CitizenReferral({
 
     const profileImages = profileData.data?.profilePhotos
       ?.map((photo: any) => photo.url)
-      .filter((url: unknown): url is string => typeof url === "string" && /^https?:\\/\\//.test(url)) || [];
+      .filter((url: unknown): url is string => typeof url === "string" && (url.startsWith("https://") || url.startsWith("http://"))) || [];
     const citizenName =
       profileData.data?.name ||
       `${profileData.data?.kyc?.fname || ""} ${profileData.data?.kyc?.lname || ""}`.trim() ||
