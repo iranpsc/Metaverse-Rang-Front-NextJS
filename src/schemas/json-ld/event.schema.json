@@ -1,0 +1,45 @@
+{
+  "schemaId": "event",
+  "version": "1.0.0",
+  "expectedType": "Event",
+  "requiredFields": [
+    "@context",
+    "@type",
+    "name",
+    "startDate"
+  ],
+  "fieldTypes": {
+    "@context": "string",
+    "@type": "string",
+    "name": "string",
+    "startDate": "iso-date",
+    "endDate": "iso-date",
+    "url": "url",
+    "description": "string",
+    "image": "url",
+    "location": "object",
+    "organizer": "object"
+  },
+  "placeholders": [
+    "name",
+    "startDate",
+    "endDate",
+    "canonicalUrl",
+    "description",
+    "imageUrl",
+    "location",
+    "organizer"
+  ],
+  "template": {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "{{name}}",
+    "startDate": "{{startDate}}",
+    "endDate": "{{endDate}}",
+    "url": "{{canonicalUrl}}",
+    "description": "{{description}}",
+    "image": "{{imageUrl}}",
+    "location": "{{location}}",
+    "organizer": "{{organizer}}"
+  }
+}
