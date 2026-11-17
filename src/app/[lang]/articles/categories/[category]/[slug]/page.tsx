@@ -25,6 +25,44 @@ import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 import JsonLdScript from "../../../../../../schemas/json-ld/JsonLdScript";
 
+function toPublicImageUrl(value: unknown): string | undefined {
+  if (typeof value !== "string" || !value.trim()) return undefined;
+  try {
+    const url = new URL(value, "https://metarang.com");
+    return url.protocol === "https:" || url.protocol === "http:" ? url.toString() : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+function toPublicImageUrlArray(value: unknown): string[] | undefined {
+  const url = toPublicImageUrl(value);
+  return url ? [url] : undefined;
+}
+
+function toGoogleIsoDate(value: unknown): string | undefined {
+  if (typeof value !== "string" || !/^(19|20|21)\d{2}-\d{2}-\d{2}(?:T.*)?$/.test(value)) {
+    return undefined;
+  }
+  const [datePart] = value.split("T");
+  const [yearText, monthText, dayText] = datePart.split("-");
+  const year = Number(yearText);
+  const month = Number(monthText);
+  const day = Number(dayText);
+  const calendarDate = new Date(Date.UTC(year, month - 1, day));
+  if (
+    calendarDate.getUTCFullYear() !== year ||
+    calendarDate.getUTCMonth() !== month - 1 ||
+    calendarDate.getUTCDate() !== day
+  ) {
+    return undefined;
+  }
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? undefined : date.toISOString();
+}
+
+
+
 interface ArticlePageProps {
   
   params: Promise<{
@@ -231,13 +269,15 @@ export default async function ArticlePage({ params } :ArticlePageProps) {
           values={{
             headline: article.title,
             canonicalUrl,
-            datePublished: article.date || undefined,
+            datePublished: toGoogleIsoDate(article.date),
             description: cleanDescription(article.description || "مقالات متاورس رنگ"),
-            imageUrl: article.image ? [article.image] : undefined,
-            author: {
-              "@type": "Person",
-              name: article.author?.name ?? "نویسنده",
-            },
+            imageUrl: toPublicImageUrlArray(article.image),
+            author: article.author?.name
+              ? {
+                  "@type": "Person",
+                  name: article.author.name,
+                }
+              : undefined,
             mainEntityOfPage: {
               "@type": "WebPage",
               "@id": canonicalUrl,
