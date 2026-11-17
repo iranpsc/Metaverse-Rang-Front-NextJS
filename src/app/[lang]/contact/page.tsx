@@ -8,6 +8,7 @@ import Form from "../../../components/ui/form/form";
 // import Social from "./components/social";
 import CommunicationRoutes from "../../../components/list/ContactCommunicationRoutes";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import JsonLdScript from "../../../schemas/json-ld/JsonLdScript";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 interface AboutPageProps {
@@ -62,110 +63,78 @@ export default async function AboutPage({ params }: AboutPageProps) {
     const mainData = await getMainFile(langData);
 
 
-    const aboutSchema = {
-      "@context": "https://schema.org",
-      "@type": "ContactPage",
-      name: `${findByUniqueId(mainData, 260)} | ${findByUniqueId(mainData, 148)}`,
-      description:
-        findByUniqueId(mainData, 1535).slice(0, 155),
-      url: `https://metarang.com/${lang}/contact`,
-
-      contentLocation: {
-        "@type": "Place",
-        // Name of the location (e.g., Organization name)
-        name: "Metaverse Rang",
-        // Alternate Name (e.g., other business or location name)
-        alternateName: "Metaverse Rang Headquarters",
-        // URL that points to the same entity
-        sameAs: "https://metarang.com",
-        // Global Location Number (use a valid GLN if you have one)
-        // globalLocationNumber: "1234567890", // Replace with actual GLN
-        // Maximum Attendee Capacity (could be used for events or location capacity)
-        maximumAttendeeCapacity: 100, // This is an example; replace with actual number
-        // Map URL for location
-        map: "https://www.google.com/maps?q=میرداماد،+824H+JG2,+قزوین",
-        // Branch Code (if applicable, e.g., for sub-branches)
-        branchCode: "RGB-QV01",
-        // Telephone associated with the content location (branch or office)
-        telephone: "+02833647125",
-        // ISIC V4 code (International Standard Industry Classification)
-        isicV4: "6201", // Example, you can replace with the appropriate ISIC code for your business
-        // Slogan for your company/organization
-        slogan: "Transforming the Virtual World Together",
-        // Maps to (provide a URL pointing to a map, could be a digital map link)
-        maps: "https://maps.app.goo.gl/63ayLgtcRGZEBhmf7",
-        // Fax Number (if applicable)
-        faxNumber: "+02833647125",
-        image: "https://metarang.com/_next/image?url=%2Flogo.png&w=128&q=75",
-        address: {
-          "@type": "PostalAddress",
-          streetAddress: "میرداماد، 824H+JG2",
-          addressLocality: "قزوین",
-          addressRegion: "استان قزوین",
-          addressCountry: "ایران",
-        },
-      },
-
-
-      mainEntity: {
-        "@type": "Organization",
-        // Postal Address
-        address: {
-          "@type": "PostalAddress",
-          streetAddress: "میرداماد، 824H+JG2",
-          addressLocality: "قزوین",
-          addressRegion: "استان قزوین",
-          addressCountry: "ایران",
-        },
-
-        // Contact Point (Customer Service)
-        "contactPoint": [
-          {
-            "@type": "ContactPoint",
-            "telephone": "+989301916023",
-            "contactType": findByUniqueId(mainData, 1536),
-            "availableLanguage": ["Persian", "English"]
-          },
-          {
-            "@type": "ContactPoint",
-            "telephone": "+0989370820120",
-            "contactType": findByUniqueId(mainData, 1538),
-            "availableLanguage": ["Persian", "English"]
-          },
-          {
-            "@type": "ContactPoint",
-            "telephone": "+989337850575",
-            "contactType": findByUniqueId(mainData, 1540),
-            "availableLanguage": ["Persian", "English"]
-          },
-          {
-            "@type": "ContactPoint",
-            "telephone": "+989337850445",
-            "contactType": findByUniqueId(mainData, 1542),
-            "availableLanguage": ["Persian", "English"]
-          },
-          {
-            "@type": "ContactPoint",
-            "telephone": "+989337850435",
-            "contactType": findByUniqueId(mainData, 1544),
-            "availableLanguage": ["Persian", "English"]
-          },
-        ],
-
-
-      },
-
-      // Optional: General contact number
-      telephone: "+02833647125",
-    };
-
     return (
       <>
         {/* SCHEMA** */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(aboutSchema),
+        <JsonLdScript
+          schemaId="contact-page"
+          values={{
+            name: `${findByUniqueId(mainData, 260)} | ${findByUniqueId(mainData, 148)}`,
+            canonicalUrl: `https://metarang.com/${lang}/contact`,
+            description: findByUniqueId(mainData, 1535).slice(0, 155),
+            contentLocation: {
+              "@type": "Place",
+              name: "Metaverse Rang",
+              alternateName: "Metaverse Rang Headquarters",
+              sameAs: "https://metarang.com",
+              map: "https://www.google.com/maps?q=میرداماد،+824H+JG2,+قزوین",
+              branchCode: "RGB-QV01",
+              telephone: "+02833647125",
+              slogan: "Transforming the Virtual World Together",
+              maps: "https://maps.app.goo.gl/63ayLgtcRGZEBhmf7",
+              faxNumber: "+02833647125",
+              image: "https://metarang.com/_next/image?url=%2Flogo.png&w=128&q=75",
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: "میرداماد، 824H+JG2",
+                addressLocality: "قزوین",
+                addressRegion: "استان قزوین",
+                addressCountry: "ایران",
+              },
+            },
+            organization: {
+              "@type": "Organization",
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: "میرداماد، 824H+JG2",
+                addressLocality: "قزوین",
+                addressRegion: "استان قزوین",
+                addressCountry: "ایران",
+              },
+              contactPoint: [
+                {
+                  "@type": "ContactPoint",
+                  telephone: "+989301916023",
+                  contactType: findByUniqueId(mainData, 1536),
+                  availableLanguage: ["Persian", "English"],
+                },
+                {
+                  "@type": "ContactPoint",
+                  telephone: "+0989370820120",
+                  contactType: findByUniqueId(mainData, 1538),
+                  availableLanguage: ["Persian", "English"],
+                },
+                {
+                  "@type": "ContactPoint",
+                  telephone: "+989337850575",
+                  contactType: findByUniqueId(mainData, 1540),
+                  availableLanguage: ["Persian", "English"],
+                },
+                {
+                  "@type": "ContactPoint",
+                  telephone: "+989337850445",
+                  contactType: findByUniqueId(mainData, 1542),
+                  availableLanguage: ["Persian", "English"],
+                },
+                {
+                  "@type": "ContactPoint",
+                  telephone: "+989337850435",
+                  contactType: findByUniqueId(mainData, 1544),
+                  availableLanguage: ["Persian", "English"],
+                },
+              ],
+            },
+            telephone: "+02833647125",
           }}
         />
         <div className={`flex`} dir={langData.direction}>
