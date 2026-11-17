@@ -1,0 +1,34 @@
+{
+  "schemaId": "citizen-person",
+  "version": "1.0.0",
+  "expectedType": "Person",
+  "requiredFields": ["@context", "@type", "name", "url"],
+  "fieldTypes": {
+    "@context": "string",
+    "@type": "string",
+    "name": "string",
+    "url": "url",
+    "image": "url-array",
+    "jobTitle": "string",
+    "description": "string",
+    "alternateName": "string"
+  },
+  "placeholders": [
+    "name",
+    "profileUrl",
+    "images",
+    "jobTitle",
+    "description",
+    "alternateName"
+  ],
+  "template": {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "{{name}}",
+    "url": "{{profileUrl}}",
+    "image": "{{images}}",
+    "jobTitle": "{{jobTitle}}",
+    "description": "{{description}}",
+    "alternateName": "{{alternateName}}"
+  }
+}
