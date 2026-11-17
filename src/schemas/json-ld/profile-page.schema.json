@@ -1,0 +1,33 @@
+{
+  "schemaId": "profile-page",
+  "version": "1.0.0",
+  "expectedType": "ProfilePage",
+  "requiredFields": [
+    "@context",
+    "@type",
+    "name",
+    "url"
+  ],
+  "fieldTypes": {
+    "@context": "string",
+    "@type": "string",
+    "name": "string",
+    "url": "url",
+    "description": "string",
+    "mainEntity": "object"
+  },
+  "placeholders": [
+    "name",
+    "canonicalUrl",
+    "description",
+    "mainEntity"
+  ],
+  "template": {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "name": "{{name}}",
+    "url": "{{canonicalUrl}}",
+    "description": "{{description}}",
+    "mainEntity": "{{mainEntity}}"
+  }
+}
