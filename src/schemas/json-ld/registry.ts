@@ -75,20 +75,21 @@ function routePatternToRegExp(pattern: string): RegExp {
   if (pattern === "/") return new RegExp("^/?$");
 
   const segments = pattern.split("/").filter(Boolean);
-  const expression = segments.map((segment) => {
-    if (segment.startsWith("[[...") && segment.endsWith("]]")) {
-      return "(?:[^/]+(?:/[^/]+)*)?";
-    }
-    if (segment.startsWith("[...") && segment.endsWith("]")) {
-      return "[^/]+(?:/[^/]+)*";
-    }
-    if (segment.startsWith("[") && segment.endsWith("]")) {
-      return "[^/]+";
-    }
-    return segment;
-  }).join("/");
+  let expression = "";
 
-  return new RegExp("^/" + expression + "/?$");
+  for (const segment of segments) {
+    if (segment.startsWith("[[...") && segment.endsWith("]]")) {
+      expression += "(?:/[^/]+(?:/[^/]+)*)?";
+    } else if (segment.startsWith("[...") && segment.endsWith("]")) {
+      expression += "/[^/]+(?:/[^/]+)*";
+    } else if (segment.startsWith("[") && segment.endsWith("]")) {
+      expression += "/[^/]+";
+    } else {
+      expression += "/" + segment;
+    }
+  }
+
+  return new RegExp("^" + expression + "/?$");
 }
 
 /**
