@@ -1,0 +1,30 @@
+{
+  "schemaId": "website",
+  "version": "1.0.0",
+  "expectedType": "WebSite",
+  "requiredFields": [
+    "@context",
+    "@type",
+    "name",
+    "url"
+  ],
+  "fieldTypes": {
+    "@context": "string",
+    "@type": "string",
+    "name": "string",
+    "url": "url",
+    "inLanguage": "string"
+  },
+  "placeholders": [
+    "name",
+    "canonicalUrl",
+    "lang"
+  ],
+  "template": {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "{{name}}",
+    "url": "{{canonicalUrl}}",
+    "inLanguage": "{{lang}}"
+  }
+}
