@@ -107,7 +107,7 @@ export default async function CitizenReferral({
           schemaId="citizen-person"
           values={{
             name: citizenName,
-            profileUrl: `https://metarang.com/${lang}/citizens/${id}`,
+            profileUrl: `https://metarang.com/${lang}/citizens/${id}/referral`,
             images: profileImages.length ? profileImages : undefined,
             jobTitle: profileData.data?.customs?.occupation || undefined,
             description: aboutText || undefined,
