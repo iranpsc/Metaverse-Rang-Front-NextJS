@@ -71,8 +71,12 @@ export type JsonLdRouteConfig = {
 
 const routeEntries = routeManifest.routes as JsonLdRouteConfig[];
 
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 function routePatternToRegExp(pattern: string): RegExp {
-  if (pattern === "/") return new RegExp("^/?$");
+  if (pattern === "/") return /^\/?$/;
 
   const segments = pattern.split("/").filter(Boolean);
   let expression = "";
@@ -85,7 +89,7 @@ function routePatternToRegExp(pattern: string): RegExp {
     } else if (segment.startsWith("[") && segment.endsWith("]")) {
       expression += "/[^/]+";
     } else {
-      expression += "/" + segment;
+      expression += "/" + escapeRegExp(segment);
     }
   }
 
@@ -98,9 +102,22 @@ function routePatternToRegExp(pattern: string): RegExp {
  * the locale so the active locale list never needs to be hardcoded.
  */
 export function getJsonLdRouteConfig(localizedPathname: string): JsonLdRouteConfig | undefined {
-  const segments = localizedPathname.split("/").filter(Boolean);
+  if (typeof localizedPathname !== "string" || !localizedPathname.trim()) return undefined;
+
+  let pathname: string;
+  try {
+    pathname = new URL(localizedPathname, "https://jsonld.invalid").pathname;
+  } catch {
+    return undefined;
+  }
+
+  const segments = pathname.split("/").filter(Boolean);
+  // A locale segment is mandatory; do not accidentally resolve /about as the homepage.
+  if (segments.length === 0) return undefined;
+
   const pathWithoutLocale = "/" + segments.slice(1).join("/");
-  const normalizedPath = pathWithoutLocale === "/" ? "/" : pathWithoutLocale.replace(/\/$/, "");
+  const normalizedPath =
+    pathWithoutLocale === "/" ? "/" : pathWithoutLocale.replace(/\/+$/, "");
 
   return routeEntries.find((entry) => routePatternToRegExp(entry.pattern).test(normalizedPath));
 }
@@ -110,7 +127,9 @@ const INLINE_PLACEHOLDER_PATTERN = /\{\{([a-zA-Z0-9_.-]+)\}\}/g;
 
 function getPathValue(source: JsonLdValues, path: string): JsonLdValue | undefined {
   return path.split(".").reduce<JsonLdValue | undefined>((value, segment) => {
-    if (!value || typeof value !== "object" || Array.isArray(value)) return undefined;
+    if (value === null || value === undefined || typeof value !== "object" || Array.isArray(value)) {
+      return undefined;
+    }
     return (value as Record<string, JsonLdValue | undefined>)[segment];
   }, source);
 }
@@ -146,9 +165,33 @@ function resolveTemplateValue(value: unknown, values: JsonLdValues): unknown {
 
 function getValueAtPath(source: Record<string, unknown>, path: string): unknown {
   return path.split(".").reduce<unknown>((value, segment) => {
-    if (!value || typeof value !== "object" || Array.isArray(value)) return undefined;
+    if (value === null || value === undefined || typeof value !== "object" || Array.isArray(value)) {
+      return undefined;
+    }
     return (value as Record<string, unknown>)[segment];
   }, source);
+}
+
+function isValidIsoDate(value: unknown): value is string {
+  if (typeof value !== "string") return false;
+
+  const match = /^(\d{4})-(\d{2})-(\d{2})(T\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:Z|[+-]\d{2}:\d{2})?)?$/.exec(value);
+  if (!match) return false;
+
+  const year = Number(match[1]);
+  const month = Number(match[2]);
+  const day = Number(match[3]);
+  const date = new Date(Date.UTC(year, month - 1, day));
+
+  if (
+    date.getUTCFullYear() !== year ||
+    date.getUTCMonth() !== month - 1 ||
+    date.getUTCDate() !== day
+  ) {
+    return false;
+  }
+
+  return !match[4] || !Number.isNaN(Date.parse(value));
 }
 
 function matchesFieldType(value: unknown, fieldType: string): boolean {
@@ -166,11 +209,7 @@ function matchesFieldType(value: unknown, fieldType: string): boolean {
         return false;
       }
     case "iso-date":
-      return (
-        typeof value === "string" &&
-        /^\d{4}-\d{2}-\d{2}(T.*)?$/.test(value) &&
-        !Number.isNaN(Date.parse(value))
-      );
+      return isValidIsoDate(value);
     case "array":
       return Array.isArray(value);
     case "object":
@@ -199,7 +238,7 @@ export function generateJsonLd(
 
   for (const field of definition.requiredFields) {
     const value = getValueAtPath(generated, field);
-    if (value === undefined || value === null || value === "") {
+    if (value === undefined || value === null || (typeof value === "string" && !value.trim())) {
       throw new Error('JSON-LD "' + schemaId + '" is missing required field "' + field + '".');
     }
   }
