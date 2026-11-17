@@ -382,24 +382,15 @@ export function generateJsonLd(
     const address = location?.address as Record<string, unknown> | undefined;
     if (
       location?.["@type"] !== "Place" ||
+      !location.name ||
       address?.["@type"] !== "PostalAddress" ||
-      !address.addressLocality ||
+      !address.streetAddress ||
       !address.addressCountry
     ) {
       throw new TypeError(
         "Google Event rich results require a physical Place with a complete PostalAddress.",
       );
     }
-  }
-
-  if (
-    schemaId === "video-object" &&
-    !isHttpUrl(generated.contentUrl) &&
-    !isHttpUrl(generated.embedUrl)
-  ) {
-    throw new TypeError(
-      "Google Video rich results require a real video contentUrl or embedUrl; a page URL is not a video URL.",
-    );
   }
 
   return generated;
