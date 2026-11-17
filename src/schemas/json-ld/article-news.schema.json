@@ -6,21 +6,21 @@
     "@context",
     "@type",
     "headline",
-    "url",
-    "datePublished"
+    "url"
   ],
   "fieldTypes": {
     "@context": "string",
     "@type": "string",
     "headline": "string",
     "url": "url",
-    "datePublished": "iso-date",
-    "dateModified": "iso-date",
+    "datePublished": "string",
+    "dateModified": "string",
     "description": "string",
-    "image": "url",
+    "image": "array",
     "inLanguage": "string",
     "author": "object",
-    "publisher": "object"
+    "publisher": "object",
+    "mainEntityOfPage": "object"
   },
   "placeholders": [
     "headline",
@@ -31,7 +31,8 @@
     "imageUrl",
     "lang",
     "author",
-    "publisher"
+    "publisher",
+    "mainEntityOfPage"
   ],
   "template": {
     "@context": "https://schema.org",
@@ -44,6 +45,7 @@
     "image": "{{imageUrl}}",
     "inLanguage": "{{lang}}",
     "author": "{{author}}",
-    "publisher": "{{publisher}}"
+    "publisher": "{{publisher}}",
+    "mainEntityOfPage": "{{mainEntityOfPage}}"
   }
 }
