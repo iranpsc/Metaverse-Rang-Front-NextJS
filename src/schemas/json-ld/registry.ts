@@ -1,3 +1,4 @@
+import aboutPage from "./about-page.schema.json";
 import article from "./article.schema.json";
 import articleNews from "./article-news.schema.json";
 import breadcrumb from "./breadcrumb.schema.json";
@@ -15,6 +16,7 @@ import softwareApplication from "./software-application.schema.json";
 import videoObject from "./video-object.schema.json";
 import webpage from "./webpage.schema.json";
 import website from "./website.schema.json";
+import whitepaperPage from "./whitepaper-page.schema.json";
 
 export type JsonLdValue =
   | string
@@ -35,6 +37,7 @@ export type JsonLdSchemaDefinition = {
 };
 
 const definitions = {
+  "about-page": aboutPage,
   article,
   "article-news": articleNews,
   breadcrumb,
@@ -52,6 +55,7 @@ const definitions = {
   "video-object": videoObject,
   webpage,
   website,
+  "whitepaper-page": whitepaperPage,
 } satisfies Record<string, JsonLdSchemaDefinition>;
 
 export type JsonLdSchemaId = keyof typeof definitions;
@@ -172,7 +176,12 @@ export function generateJsonLd(
     throw new TypeError('JSON-LD "' + schemaId + '" must use the Schema.org context.');
   }
 
-  if (generated["@type"] !== definition.expectedType) {
+  if (definition.expectedType === "@graph") {
+    const graph = generated["@graph"];
+    if (!Array.isArray(graph) || graph.some((node) => !node || typeof node !== "object" || typeof (node as Record<string, unknown>)["@type"] !== "string")) {
+      throw new TypeError('JSON-LD "' + schemaId + '" graph must contain typed schema objects.');
+    }
+  } else if (generated["@type"] !== definition.expectedType) {
     throw new TypeError(
       'JSON-LD "' + schemaId + '" expected @type "' + definition.expectedType + '".',
     );
