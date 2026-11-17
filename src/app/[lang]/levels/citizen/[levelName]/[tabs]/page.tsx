@@ -47,7 +47,7 @@ export default async function LevelTabPage({ params }: Props) {
   const resolvedParams = await params;
   const { tabs } = resolvedParams;
 
-  const { mainData, singleLevel, levelTabs } = await loadPageData(resolvedParams);
+  const { levelMeta, mainData, singleLevel, levelTabs } = await loadPageData(resolvedParams);
 
   [singleLevel.data.general_info?.png_file, levelTabs.data?.png_file]
     .filter((href): href is string => typeof href === "string" && !!href)
