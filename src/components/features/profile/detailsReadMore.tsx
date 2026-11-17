@@ -1,6 +1,7 @@
 "use client";
 import ModalCard from "@/components/modal/ModalCard";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import { sanitizeHtml } from "@/components/utils/sanitizeHtml";
 import { AnimatePresence } from "motion/react";
 import { useState } from "react";
 
@@ -14,17 +15,21 @@ const ProfileReadMore = ({
   const [showModal, setShowModal] = useState<Boolean>(false);
   const [dataModal, setDataModal] = useState({});
   const submitModalCard = (title: any, data: any, type: string, id: number) => {
-    if (data) {
-      setShowModal(true);
-      setDataModal({
-        data: data,
-        type: type,
-        title: title,
-        id: id,
-      });
-    } else {
-    }
+    if (!data) return;
+
+    setDataModal({
+      data: type === "problem" ? sanitizeHtml(data).html : data,
+      isHtml: type === "problem",
+      type,
+      title,
+      id,
+    });
+    setShowModal(true);
   };
+
+  const problemAnswer = profileData.data?.customs?.problem_solving ?? "";
+  const hasProblemAnswer =
+    typeof problemAnswer === "string" && problemAnswer.trim().length > 0;
 
   return (
     <>
@@ -37,24 +42,26 @@ const ProfileReadMore = ({
             )} */}
             {findByUniqueId(mainData, 91)}
           </p>
-          <span
-            className="text-matn-3 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc  md:text-mdDesc sm:text-smDesc xs:text-smDesc font-azarMehr  cursor-pointer  font-medium "
-            onClick={() =>
-              submitModalCard(
-                // targetData(
-                //   userProperty,
-                //   "if you had the ability to solve a problem, what would it be?"
-                // )
-                findByUniqueId(mainData, 91),
-                "",
-                "",
-                91
-              )
+          <button
+            type="button"
+            disabled={!hasProblemAnswer}
+            aria-disabled={!hasProblemAnswer}
+            className={hasProblemAnswer
+              ? "text-primary cursor-pointer 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc md:text-mdDesc sm:text-smDesc xs:text-smDesc font-azarMehr font-medium"
+              : "text-matn-3 cursor-not-allowed opacity-50 3xl:text-xl3Desc xl:text-xlDesc lg:text-lgDesc md:text-mdDesc sm:text-smDesc xs:text-smDesc font-azarMehr font-medium"
             }
+            onClick={() => {
+              submitModalCard(
+                findByUniqueId(mainData, 91),
+                problemAnswer,
+                "problem",
+                91
+              );
+            }}
           >
             {/* {targetData(userProperty, "view")} */}
             {findByUniqueId(mainData, 147)}
-          </span>
+          </button>
         </div>
       </section>
       <section className="dark:bg-dark-background transition-all duration-300 ease-linear shadow-md bg-white w-full rounded-[10px] px-3">

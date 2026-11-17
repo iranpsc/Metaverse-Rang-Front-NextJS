@@ -28,8 +28,16 @@ interface VersionBoxProps {
 const PAGE_STEP = 10;
 const MAX_PAGE_LOOKAHEAD = 20;
 
+const normalizeVersionText = (value?: string | null) =>
+  String(value ?? "")
+    .trim()
+    .toLowerCase()
+    .replace(/[۰-۹]/g, (digit) => String("۰۱۲۳۴۵۶۷۸۹".indexOf(digit)))
+    .replace(/[٠-٩]/g, (digit) => String("٠١٢٣٤٥٦٧٨٩".indexOf(digit)))
+    .replace(/^v\s*/, "");
+
 const sameVersion = (a?: string | null, b?: string | null) =>
-  String(a ?? "").trim() === String(b ?? "").trim();
+  normalizeVersionText(a) === normalizeVersionText(b);
 
 /** تعداد آیتم‌هایی که باید اولش نمایش داده بشن تا ورژن انتخاب‌شده هم توی DOM باشه */
 const getInitialVisible = (list: Version[], selected?: Version | null) => {
@@ -57,14 +65,6 @@ const extractList = (data: any): any[] | null => {
   return null;
 };
 
-// نرمال‌سازی متن ورژن برای مقایسه: حروف کوچک، حذف "v" اول، تبدیل ارقام فارسی/عربی به انگلیسی
-const normalizeVersionText = (s?: string | null) =>
-  String(s ?? "")
-    .trim()
-    .toLowerCase()
-    .replace(/[۰-۹]/g, (d) => String("۰۱۲۳۴۵۶۷۸۹".indexOf(d)))
-    .replace(/[٠-٩]/g, (d) => String("٠١٢٣٤٥٦٧٨٩".indexOf(d)))
-    .replace(/^v\s*/, "");
 
 // اسکلت یه آیتم لیست، هم‌شکل آیتم واقعی؛ موقع فچ کردن صفحه‌ی بعدی نشون داده میشه
 const VersionItemSkeleton = () => (

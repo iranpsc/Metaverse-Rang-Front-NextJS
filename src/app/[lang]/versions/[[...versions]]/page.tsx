@@ -20,11 +20,11 @@ interface VersionItem {
   image?: string;
 }
 
-// [[...version]] -> params.version یا undefined هست (روت /version)
-// یا آرایه یک‌عضوی هست (روت /version/xxx)
+// [[...versions]] -> params.versions یا undefined هست (روت /versions)
+// یا آرایه یک‌عضوی هست (روت /versions/xxx)
 interface VersionPageProps {
   params: Promise<{
-    version?: string[];
+    versions?: string[];
     lang: string;
   }>;
 }
@@ -40,10 +40,10 @@ function truncateText(text: string, maxLength: number): string {
   return text.slice(0, maxLength).trimEnd() + "...";
 }
 
-function getVersionSlug(params: { version?: string[] }): string | null {
-  if (!params.version || params.version.length === 0) return null;
+function getVersionSlug(params: { versions?: string[] }): string | null {
+  if (!params.versions || params.versions.length === 0) return null;
 
-  const raw = params.version[0];
+  const raw = params.versions[0];
   // اگه سگمنت خالی باشه (مثلا به‌خاطر / اضافه ته آدرس)، معادل نبودن اسلاگه
   if (!raw) return null;
 
@@ -64,7 +64,18 @@ function findBySlug<T extends { version: string }>(
   const s = slug.trim();
   return list.find((v) => {
     const ver = String(v.version).trim();
-    return ver === s || encodeURIComponent(ver) === s;
+    const normalize = (value: string) =>
+      value
+        .trim()
+        .toLowerCase()
+        .replace(/[۰-۹]/g, (digit) => String("۰۱۲۳۴۵۶۷۸۹".indexOf(digit)))
+        .replace(/[٠-٩]/g, (digit) => String("٠١٢٣٤٥٦٧٨٩".indexOf(digit)))
+        .replace(/^v\s*/, "");
+    return (
+      ver === s ||
+      encodeURIComponent(ver) === s ||
+      normalize(ver) === normalize(s)
+    );
   });
 }
 

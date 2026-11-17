@@ -132,8 +132,8 @@ const DescriptionBox: React.FC<DescriptionBoxProps> = ({
         </p>
       </div>
 
-      <div className="lg:px-[15px] descriptionBox flex justify-between items-center  w-full min-h-[48px] ">
-        <span className="mb-2 duration-300 ease-in-out self-start text-bold dark:text-white lg:w-full lg:self-end lg:p-0">
+      <div className="lg:px-[15px] descriptionBox flex justify-between items-start w-full min-h-[48px] shrink-0">
+        <span className="mb-2 duration-300 ease-in-out self-start text-bold dark:text-white lg:w-full lg:p-0">
           {DscriptionText}
         </span>
       </div>

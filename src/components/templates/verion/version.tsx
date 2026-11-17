@@ -24,8 +24,16 @@ interface VersionBoxProps {
 // یه تاخیر کوچیک صرفا برای اینکه اسکلت دیده بشه (چون خود دیتا از قبل توی حافظه هست)
 const DESCRIPTION_SWITCH_DELAY = 250;
 
+const normalizeVersionText = (value?: string | null) =>
+  String(value ?? "")
+    .trim()
+    .toLowerCase()
+    .replace(/[۰-۹]/g, (digit) => String("۰۱۲۳۴۵۶۷۸۹".indexOf(digit)))
+    .replace(/[٠-٩]/g, (digit) => String("٠١٢٣٤٥٦٧٨٩".indexOf(digit)))
+    .replace(/^v\s*/, "");
+
 const sameVersion = (a?: string | null, b?: string | null) =>
-  String(a ?? "").trim() === String(b ?? "").trim();
+  normalizeVersionText(a) === normalizeVersionText(b);
 
 const Version: React.FC<VersionBoxProps> = ({
   versions,
