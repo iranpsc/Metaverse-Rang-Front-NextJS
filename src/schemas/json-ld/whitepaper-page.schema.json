@@ -1,0 +1,92 @@
+{
+  "schemaId": "whitepaper-page",
+  "version": "1.0.0",
+  "expectedType": "@graph",
+  "requiredFields": [
+    "@context",
+    "@graph"
+  ],
+  "fieldTypes": {
+    "@context": "string",
+    "@graph": "array"
+  },
+  "placeholders": [
+    "baseUrl",
+    "organizationId",
+    "organizationName",
+    "logoUrl",
+    "websiteId",
+    "websiteName",
+    "pageId",
+    "canonicalUrl",
+    "pageName",
+    "pageDescription",
+    "tokenId",
+    "tokenName",
+    "tokenAlternateName",
+    "tokenDescription",
+    "breadcrumbHomeName",
+    "breadcrumbTokenName"
+  ],
+  "template": {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "{{organizationId}}",
+        "name": "{{organizationName}}",
+        "url": "{{baseUrl}}",
+        "logo": "{{logoUrl}}"
+      },
+      {
+        "@type": "WebSite",
+        "@id": "{{websiteId}}",
+        "url": "{{baseUrl}}",
+        "name": "{{websiteName}}",
+        "publisher": {
+          "@id": "{{organizationId}}"
+        }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "{{pageId}}",
+        "url": "{{canonicalUrl}}",
+        "name": "{{pageName}}",
+        "description": "{{pageDescription}}",
+        "isPartOf": {
+          "@id": "{{websiteId}}"
+        },
+        "about": {
+          "@id": "{{tokenId}}"
+        }
+      },
+      {
+        "@type": "Cryptocurrency",
+        "@id": "{{tokenId}}",
+        "name": "{{tokenName}}",
+        "alternateName": "{{tokenAlternateName}}",
+        "description": "{{tokenDescription}}",
+        "issuer": {
+          "@id": "{{organizationId}}"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "{{breadcrumbHomeName}}",
+            "item": "{{baseUrl}}"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "{{breadcrumbTokenName}}",
+            "item": "{{canonicalUrl}}"
+          }
+        ]
+      }
+    ]
+  }
+}
