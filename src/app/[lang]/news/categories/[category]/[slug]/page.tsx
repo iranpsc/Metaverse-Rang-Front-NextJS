@@ -270,7 +270,7 @@ export async function generateMetadata({ params }: NewsPageProps) {
 
     return {
       title: `${news.title} | ${findByUniqueId(mainData, 148)}`,
-      description: cleanDescription(news.description || "اخبار متاورس رنگ"),
+      description: news.description ? cleanDescription(news.description) : undefined,
       alternates: { canonical: canonicalUrl },
       openGraph: {
         title: news.title,
