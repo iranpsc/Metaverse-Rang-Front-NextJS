@@ -23,7 +23,7 @@ This directory is the source of truth for JSON-LD schema definitions and route-t
 
 The manifest records 32 locale-scoped App Router page patterns under `src/app/[lang]`. This is a source-file inventory, not a count of concrete URLs.
 
-In the uploaded source snapshot, 6 route pages render the central `JsonLdScript` component, 16 still contain inline JSON-LD, and 10 do not yet emit JSON-LD (including 2 non-indexable admin routes). The manifest is an intended route-to-schema map, not proof that every route has been migrated. Remaining public routes must be migrated before this issue is complete.
+In the uploaded source snapshot, 7 route pages render the central `JsonLdScript` component, 15 still contain inline JSON-LD, and 10 do not yet emit JSON-LD (including 2 non-indexable admin routes). The manifest is an intended route-to-schema map, not proof that every route has been migrated. Remaining public routes must be migrated before this issue is complete.
 
 ## Google Rich Results eligibility
 
