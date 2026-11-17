@@ -26,6 +26,7 @@ import { getStaticMenu } from "@/components/utils/constants";
 import { buildTabsMenu } from "@/components/utils/buildTabsMenu";
 import "./style/style.css";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import JsonLdScript from "@/schemas/json-ld/JsonLdScript";
 
 /* ------------------------------------------------------------------ */
 /*                                TYPES                               */
@@ -89,26 +90,30 @@ export default async function CitizenReferral({
     const aboutText =
       profileData.data?.customs?.about?.slice(0, 155) || "";
 
-    const citizenReferralSchema = {
-      "@context": "https://schema.org/",
-      "@type": "Person",
-      name:
-        profileData.data?.name ||
-        `${profileData.data?.kyc?.fname || ""} ${profileData.data?.kyc?.lname || ""
-        } | ${findByUniqueId(mainData, 148)}`,
-      image:
-        profileData.data?.profilePhotos?.map((p: any) => p.url) || [],
-      url: `https://metarang.com/${lang}/citizens/${id}/referral`,
-      jobTitle: profileData.data?.customs?.occupation || "",
-      description: aboutText,
-      birthDate: profileData.data?.kyc?.birth_date || "",
-      email: profileData.data?.kyc?.email || "",
-      alternateName: profileData.data?.code || "",
-    };
+    const profileImages = profileData.data?.profilePhotos
+      ?.map((photo: any) => photo.url)
+      .filter((url: unknown): url is string => typeof url === "string" && /^https?:\\/\\//.test(url)) || [];
+    const citizenName =
+      profileData.data?.name ||
+      `${profileData.data?.kyc?.fname || ""} ${profileData.data?.kyc?.lname || ""}`.trim() ||
+      (lang === "fa" ? "شهروند" : "Citizen");
+
+
 
     /* ----------------------------- render ---------------------------- */
     return (
       <>
+        <JsonLdScript
+          schemaId="citizen-person"
+          values={{
+            name: citizenName,
+            profileUrl: `https://metarang.com/${lang}/citizens/${id}`,
+            images: profileImages.length ? profileImages : undefined,
+            jobTitle: profileData.data?.customs?.occupation || undefined,
+            description: aboutText || undefined,
+            alternateName: profileData.data?.code || undefined
+          }}
+        />
 <CleanAutoRetryParam />
 
         <div className="flex h-screen overflow-hidden" dir={langData.direction}>
