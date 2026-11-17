@@ -15,6 +15,7 @@ import {
   getMainFile,
 } from "@/components/utils/actions";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import JsonLdScript from "../../schemas/json-ld/JsonLdScript";
 import { getHomeVersions } from "@/components/templates/firstpage/homeData";
 import { Skeleton } from "@/components/ui/skeleton";
 import CardsSectionSkeleton from "@/components/skeleton/CardsSectionSkeleton";
@@ -157,31 +158,26 @@ export default async function LangPage({ params }: LangPageProps) {
       return temp;
     }
 
-    const landingSchema = {
-      "@context": "https://schema.org/",
-      "@type": "ProfessionalService",
-      "name": `${findByUniqueId(mainData, 1457)}`,
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "میرداماد، 824H+JG2",
-        "addressCountry": "ایران",
-        "addressRegion": "استان قزوین",
-        "addressLocality": "قزوین"
-      },
-      "image": 'https://s3.metarang.com/metarang/logo/metarang-logo-512.png',
-      "telephone": "09120820120",
-      "url": `https://metarang.com/${lang}`,
-      "logo": `https://s3.metarang.com/metarang/logo/metarang-logo-512.png`,
-      "email": "info@metarang.com",
-      "description": await makeLessCharacter(),
-      "alternateName": "MetaRGB"
-    };
-
     return (
       <>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(landingSchema) }}
+        <JsonLdScript
+          schemaId="professional-service"
+          values={{
+            name: findByUniqueId(mainData, 1457),
+            canonicalUrl: `https://metarang.com/${lang}`,
+            description: findByUniqueId(mainData, 482).slice(0, 155),
+            address: {
+              "@type": "PostalAddress",
+              streetAddress: "میرداماد، 824H+JG2",
+              addressCountry: "ایران",
+              addressRegion: "استان قزوین",
+              addressLocality: "قزوین",
+            },
+            telephone: "09120820120",
+            imageUrl: "https://s3.metarang.com/metarang/logo/metarang-logo-512.png",
+            logoUrl: "https://s3.metarang.com/metarang/logo/metarang-logo-512.png",
+            email: "info@metarang.com",
+          }}
         />
         <section className=" relative  mt-[60px] lg:mt-0 lg:pt-0 bg-bg-primary ">
           <section className="flex flex-col h-fit tall0:min-h-[600px] min-h-[calc(100vh-60px)] lg:h-screen relative">
