@@ -1,0 +1,39 @@
+{
+  "schemaId": "webpage",
+  "version": "1.0.0",
+  "expectedType": "WebPage",
+  "requiredFields": [
+    "@context",
+    "@type",
+    "name",
+    "url"
+  ],
+  "fieldTypes": {
+    "@context": "string",
+    "@type": "string",
+    "name": "string",
+    "url": "url",
+    "description": "string",
+    "inLanguage": "string",
+    "isPartOf": "object"
+  },
+  "placeholders": [
+    "name",
+    "canonicalUrl",
+    "description",
+    "lang",
+    "websiteUrl"
+  ],
+  "template": {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "{{name}}",
+    "url": "{{canonicalUrl}}",
+    "description": "{{description}}",
+    "inLanguage": "{{lang}}",
+    "isPartOf": {
+      "@type": "WebSite",
+      "url": "{{websiteUrl}}"
+    }
+  }
+}
