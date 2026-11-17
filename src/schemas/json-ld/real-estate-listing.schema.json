@@ -1,0 +1,36 @@
+{
+  "schemaId": "real-estate-listing",
+  "version": "1.0.0",
+  "expectedType": "Offer",
+  "requiredFields": [
+    "@context",
+    "@type",
+    "url",
+    "itemOffered"
+  ],
+  "fieldTypes": {
+    "@context": "string",
+    "@type": "string",
+    "url": "url",
+    "price": "number",
+    "priceCurrency": "string",
+    "availability": "string",
+    "itemOffered": "object"
+  },
+  "placeholders": [
+    "canonicalUrl",
+    "price",
+    "currency",
+    "availability",
+    "property"
+  ],
+  "template": {
+    "@context": "https://schema.org",
+    "@type": "Offer",
+    "url": "{{canonicalUrl}}",
+    "price": "{{price}}",
+    "priceCurrency": "{{currency}}",
+    "availability": "{{availability}}",
+    "itemOffered": "{{property}}"
+  }
+}
