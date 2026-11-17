@@ -1,0 +1,23 @@
+{
+  "schemaId": "breadcrumb",
+  "version": "1.0.0",
+  "expectedType": "BreadcrumbList",
+  "requiredFields": [
+    "@context",
+    "@type",
+    "itemListElement"
+  ],
+  "fieldTypes": {
+    "@context": "string",
+    "@type": "string",
+    "itemListElement": "array"
+  },
+  "placeholders": [
+    "items"
+  ],
+  "template": {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": "{{items}}"
+  }
+}
