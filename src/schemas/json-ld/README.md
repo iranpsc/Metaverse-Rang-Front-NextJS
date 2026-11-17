@@ -30,7 +30,7 @@ In the uploaded source snapshot, 6 route pages render the central `JsonLdScript`
 The Rich Results Test validates Google-supported result features. It is not a general Schema.org validator and cannot guarantee display in Search. A local generator check is not a substitute for testing a deployed, publicly crawlable URL.
 
 - `Event`: Google eligibility requires a physical `Place` with a `PostalAddress`. The current calendar API contract (`src/components/utils/mapEvents.ts`) does not expose a venue/address. Do not invent one; the backend contract must be extended before this page can pass the Event rich-result requirements.
-- `VideoObject`: requires a real video `contentUrl` or `embedUrl`, a crawlable thumbnail, and an ISO 8601 `uploadDate`. A page URL is not a video media URL.
+- `VideoObject`: requires `name`, a crawlable `thumbnailUrl`, and an ISO 8601 `uploadDate`. `contentUrl` or `embedUrl` is recommended; if supplied, it must point to the actual video file or player, never to the page URL.
 - `Article` / `NewsArticle`: use the actual headline, representative crawlable image URLs, ISO 8601 publication date when available, and real author details.
 - `FAQPage` remains a Schema.org type, but Google discontinued FAQ rich results in May 2026; do not count it as a Google rich-result candidate.
 
