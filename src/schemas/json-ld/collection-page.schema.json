@@ -1,0 +1,33 @@
+{
+  "schemaId": "collection-page",
+  "version": "1.0.0",
+  "expectedType": "CollectionPage",
+  "requiredFields": [
+    "@context",
+    "@type",
+    "name",
+    "url"
+  ],
+  "fieldTypes": {
+    "@context": "string",
+    "@type": "string",
+    "name": "string",
+    "url": "url",
+    "description": "string",
+    "inLanguage": "string"
+  },
+  "placeholders": [
+    "name",
+    "canonicalUrl",
+    "description",
+    "lang"
+  ],
+  "template": {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "{{name}}",
+    "url": "{{canonicalUrl}}",
+    "description": "{{description}}",
+    "inLanguage": "{{lang}}"
+  }
+}
