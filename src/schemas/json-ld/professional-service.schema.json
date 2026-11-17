@@ -1,0 +1,45 @@
+{
+  "schemaId": "professional-service",
+  "version": "1.0.0",
+  "expectedType": "ProfessionalService",
+  "requiredFields": [
+    "@context",
+    "@type",
+    "name",
+    "url"
+  ],
+  "fieldTypes": {
+    "@context": "string",
+    "@type": "string",
+    "name": "string",
+    "url": "url",
+    "description": "string",
+    "address": "object",
+    "telephone": "string",
+    "image": "url",
+    "logo": "url",
+    "email": "string"
+  },
+  "placeholders": [
+    "name",
+    "canonicalUrl",
+    "description",
+    "address",
+    "telephone",
+    "imageUrl",
+    "logoUrl",
+    "email"
+  ],
+  "template": {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "{{name}}",
+    "url": "{{canonicalUrl}}",
+    "description": "{{description}}",
+    "address": "{{address}}",
+    "telephone": "{{telephone}}",
+    "image": "{{imageUrl}}",
+    "logo": "{{logoUrl}}",
+    "email": "{{email}}"
+  }
+}
