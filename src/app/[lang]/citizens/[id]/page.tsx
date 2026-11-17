@@ -12,12 +12,14 @@ import {
   getTranslation,
   getMainFile,
   getLangArray,
+  getUserData,
 } from "@/components/utils/actions";
 import { buildSidebarLabels } from "@/components/utils/buildShellTranslations";
 
 import { getStaticMenu } from "@/components/utils/constants";
 import { buildTabsMenu } from "@/components/utils/buildTabsMenu";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import JsonLdScript from "@/schemas/json-ld/JsonLdScript";
 
 // lazy sidebar
 const SideBar = dynamic(
@@ -50,9 +52,10 @@ export default async function CitizenSinglePage({
     /*                         BASIC DATA                             */
     /* -------------------------------------------------------------- */
 
-    const [langData, langArray] = await Promise.all([
+    const [langData, langArray, profileData] = await Promise.all([
       getTranslation(lang),
       getLangArray(),
+      getUserData(id),
     ]);
 
     /* -------------------------------------------------------------- */
@@ -73,11 +76,37 @@ export default async function CitizenSinglePage({
     /*                              RENDER                             */
     /* -------------------------------------------------------------- */
 
+    const citizen = profileData?.data;
+    const citizenName = citizen?.kyc?.fname
+      ? `${citizen.kyc.fname} ${citizen.kyc.lname || ""}`.trim()
+      : citizen?.name || (lang === "fa" ? "شهروند" : "Citizen");
+    const profileImages = citizen?.profilePhotos
+      ?.map((photo: { url?: unknown }) => photo.url)
+      .filter(
+        (url: unknown): url is string =>
+          typeof url === "string" &&
+          (url.startsWith("https://") || url.startsWith("http://")),
+      ) || [];
+
     return (
-      <main
-        className="flex h-screen w-full "
-        dir={langData.direction}
-      >
+      <>
+        {citizen ? (
+          <JsonLdScript
+            schemaId="citizen-person"
+            values={{
+              name: citizenName,
+              profileUrl: `https://metarang.com/${lang}/citizens/${id}`,
+              images: profileImages.length ? profileImages : undefined,
+              jobTitle: citizen.customs?.occupation || undefined,
+              description: citizen.customs?.about?.slice(0, 155) || undefined,
+              alternateName: citizen.code || undefined,
+            }}
+          />
+        ) : null}
+        <main
+          className="flex h-screen w-full "
+          dir={langData.direction}
+        >
         <div className="relative w-full h-full overflow-y-scroll lg:overflow-hidden mt-[60px] lg:mt-0 xs:px-1">
           <CleanAutoRetryParam />
 
@@ -120,7 +149,8 @@ export default async function CitizenSinglePage({
             </section>
           </div>
         </div>
-      </main>
+        </main>
+      </>
     );
   } catch (error) {
     const serializedError = {
