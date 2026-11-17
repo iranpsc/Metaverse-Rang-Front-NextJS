@@ -1,0 +1,282 @@
+{
+  "version": "1.0.0",
+  "localeSegment": "[lang]",
+  "routePatternBase": "src/app/[lang]",
+  "routes": [
+    {
+      "pattern": "/",
+      "page": "page.tsx",
+      "schemaIds": [
+        "organization",
+        "website",
+        "webpage"
+      ],
+      "indexable": true
+    },
+    {
+      "pattern": "/about",
+      "page": "about/page.tsx",
+      "schemaIds": [
+        "organization",
+        "webpage"
+      ],
+      "indexable": true
+    },
+    {
+      "pattern": "/admin",
+      "page": "admin/page.tsx",
+      "schemaIds": [],
+      "indexable": false
+    },
+    {
+      "pattern": "/articles",
+      "page": "articles/page.tsx",
+      "schemaIds": [
+        "breadcrumb",
+        "collection-page"
+      ],
+      "indexable": true
+    },
+    {
+      "pattern": "/articles/categories",
+      "page": "articles/categories/page.tsx",
+      "schemaIds": [
+        "breadcrumb",
+        "collection-page"
+      ],
+      "indexable": true
+    },
+    {
+      "pattern": "/articles/categories/[category]",
+      "page": "articles/categories/[category]/page.tsx",
+      "schemaIds": [
+        "breadcrumb",
+        "collection-page"
+      ],
+      "indexable": true
+    },
+    {
+      "pattern": "/articles/categories/[category]/[slug]",
+      "page": "articles/categories/[category]/[slug]/page.tsx",
+      "schemaIds": [
+        "breadcrumb",
+        "article-news"
+      ],
+      "indexable": true
+    },
+    {
+      "pattern": "/calendar",
+      "page": "calendar/page.tsx",
+      "schemaIds": [
+        "breadcrumb",
+        "event"
+      ],
+      "indexable": true
+    },
+    {
+      "pattern": "/calendar/[id]",
+      "page": "calendar/[id]/page.tsx",
+      "schemaIds": [
+        "breadcrumb",
+        "event"
+      ],
+      "indexable": true
+    },
+    {
+      "pattern": "/citizens",
+      "page": "citizens/page.tsx",
+      "schemaIds": [
+        "breadcrumb",
+        "collection-page"
+      ],
+      "indexable": true
+    },
+    {
+      "pattern": "/citizens/[id]",
+      "page": "citizens/[id]/page.tsx",
+      "schemaIds": [
+        "breadcrumb",
+        "profile-page"
+      ],
+      "indexable": false
+    },
+    {
+      "pattern": "/citizens/[id]/buildings",
+      "page": "citizens/[id]/buildings/page.tsx",
+      "schemaIds": [],
+      "indexable": false
+    },
+    {
+      "pattern": "/citizens/[id]/referral",
+      "page": "citizens/[id]/referral/page.tsx",
+      "schemaIds": [],
+      "indexable": false
+    },
+    {
+      "pattern": "/citizens/[id]/summary",
+      "page": "citizens/[id]/summary/page.tsx",
+      "schemaIds": [],
+      "indexable": false
+    },
+    {
+      "pattern": "/citizens/[id]/wallet",
+      "page": "citizens/[id]/wallet/page.tsx",
+      "schemaIds": [],
+      "indexable": false
+    },
+    {
+      "pattern": "/contact",
+      "page": "contact/page.tsx",
+      "schemaIds": [
+        "organization",
+        "webpage"
+      ],
+      "indexable": true
+    },
+    {
+      "pattern": "/education",
+      "page": "education/page.tsx",
+      "schemaIds": [
+        "breadcrumb",
+        "collection-page"
+      ],
+      "indexable": true
+    },
+    {
+      "pattern": "/education/category",
+      "page": "education/category/page.tsx",
+      "schemaIds": [
+        "breadcrumb",
+        "collection-page"
+      ],
+      "indexable": true
+    },
+    {
+      "pattern": "/education/category/[category]",
+      "page": "education/category/[category]/page.tsx",
+      "schemaIds": [
+        "breadcrumb",
+        "collection-page"
+      ],
+      "indexable": true
+    },
+    {
+      "pattern": "/education/category/[category]/[subcategory]",
+      "page": "education/category/[category]/[subcategory]/page.tsx",
+      "schemaIds": [
+        "breadcrumb",
+        "collection-page"
+      ],
+      "indexable": true
+    },
+    {
+      "pattern": "/education/category/[category]/[subcategory]/[videoId]",
+      "page": "education/category/[category]/[subcategory]/[videoId]/page.tsx",
+      "schemaIds": [
+        "breadcrumb",
+        "webpage"
+      ],
+      "indexable": true
+    },
+    {
+      "pattern": "/enamad",
+      "page": "enamad/page.tsx",
+      "schemaIds": [
+        "webpage"
+      ],
+      "indexable": true
+    },
+    {
+      "pattern": "/levels/citizen",
+      "page": "levels/citizen/page.tsx",
+      "schemaIds": [
+        "breadcrumb",
+        "collection-page"
+      ],
+      "indexable": true
+    },
+    {
+      "pattern": "/levels/citizen/[levelName]/[tabs]",
+      "page": "levels/citizen/[levelName]/[tabs]/page.tsx",
+      "schemaIds": [
+        "breadcrumb",
+        "webpage"
+      ],
+      "indexable": true
+    },
+    {
+      "pattern": "/news",
+      "page": "news/page.tsx",
+      "schemaIds": [
+        "breadcrumb",
+        "collection-page"
+      ],
+      "indexable": true
+    },
+    {
+      "pattern": "/news/admin",
+      "page": "news/admin/page.tsx",
+      "schemaIds": [],
+      "indexable": false
+    },
+    {
+      "pattern": "/news/categories",
+      "page": "news/categories/page.tsx",
+      "schemaIds": [
+        "breadcrumb",
+        "collection-page"
+      ],
+      "indexable": true
+    },
+    {
+      "pattern": "/news/categories/[category]",
+      "page": "news/categories/[category]/page.tsx",
+      "schemaIds": [
+        "breadcrumb",
+        "collection-page"
+      ],
+      "indexable": true
+    },
+    {
+      "pattern": "/news/categories/[category]/[slug]",
+      "page": "news/categories/[category]/[slug]/page.tsx",
+      "schemaIds": [
+        "breadcrumb",
+        "article-news"
+      ],
+      "indexable": true
+    },
+    {
+      "pattern": "/rand-id/hm",
+      "page": "rand-id/hm/page.tsx",
+      "schemaIds": [
+        "webpage"
+      ],
+      "indexable": true
+    },
+    {
+      "pattern": "/versions/[[...versions]]",
+      "page": "versions/[[...versions]]/page.tsx",
+      "schemaIds": [
+        "breadcrumb",
+        "webpage"
+      ],
+      "indexable": true
+    },
+    {
+      "pattern": "/whitepaper",
+      "page": "whitepaper/page.tsx",
+      "schemaIds": [
+        "breadcrumb",
+        "article-news"
+      ],
+      "indexable": true
+    }
+  ],
+  "notes": [
+    "This manifest is an initial source-file inventory of 32 locale-scoped page patterns, not an exhaustive enumeration of concrete URLs.",
+    "Dynamic route parameters and the API-provided active locale list determine the concrete URL coverage.",
+    "Schema assignments must be reconciled against the existing page-level JSON-LD payloads during migration.",
+    "Private citizen routes are intentionally excluded from public structured-data output pending access/indexability review."
+  ]
+}
