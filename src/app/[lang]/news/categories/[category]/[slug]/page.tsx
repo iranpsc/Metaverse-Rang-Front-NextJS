@@ -26,6 +26,7 @@ import NewsTags from "../../../../../../components/features/NewsTags";
 import fallbackNewsData from "@/components/utils/news.json";
 import WindowsNews from "../../../../../../components/features/PromoNewsSection"
 import Link from "next/link";
+import JsonLdScript from "../../../../../../schemas/json-ld/JsonLdScript";
 
 interface NewsPageProps {
   params: Promise<{
@@ -353,37 +354,34 @@ export default async function NewsPage({ params }: NewsPageProps) {
       getMainFile(await getTranslation(lang)),
     ]);
 
-    // JSON-LD Schema
-    const schema = {
-      "@context": "https://schema.org",
-      "@type": "NewsArticle",
-      headline: news.title,
-      description: cleanDescription(news.description || "اخبار متاورس رنگ"),
-      image: news.image ? [news.image] : undefined,
-      author: {
-        "@type": "Person",
-        name: news.author?.name ?? "نویسنده",
-      },
-      datePublished: news.date,
-      mainEntityOfPage: {
-        "@type": "WebPage",
-        "@id": `https://metarang.com/${lang}/news/categories/${category}/${slug}`,
-      },
-      publisher: {
-        "@type": "Organization",
-        name: "متاورس رنگ",
-        logo: {
-          "@type": "ImageObject",
-          url: "https://s3.metarang.com/metarang/logo/metarang-logo-512.png",
-        },
-      },
-    };
-
     return (
       <div className="w-full relative bg-bg-primary " dir={langData.direction}>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        <JsonLdScript
+          schemaId="article-news"
+          values={{
+            headline: news.title,
+            canonicalUrl: `https://metarang.com/${lang}/news/categories/${category}/${slug}`,
+            datePublished: news.date || undefined,
+            description: cleanDescription(news.description || "اخبار متاورس رنگ"),
+            imageUrl: news.image ? [news.image] : undefined,
+            lang,
+            author: {
+              "@type": "Person",
+              name: news.author?.name ?? "نویسنده",
+            },
+            mainEntityOfPage: {
+              "@type": "WebPage",
+              "@id": `https://metarang.com/${lang}/news/categories/${category}/${slug}`,
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "متاورس رنگ",
+              logo: {
+                "@type": "ImageObject",
+                url: "https://s3.metarang.com/metarang/logo/metarang-logo-512.png",
+              },
+            },
+          }}
         />
         <div className="fixed z-1000 inset-e-10 bottom-[100px]">
           <Link aria-label="SocialLink" href={"#em"} className="bg-primary  rounded-full w-[60px] h-[60px]  flex items-center justify-center">
