@@ -23,7 +23,7 @@
       "pattern": "/admin",
       "page": "admin/page.tsx",
       "schemaIds": [],
-      "indexable": true
+      "indexable": false
     },
     {
       "pattern": "/articles",
@@ -221,7 +221,7 @@
       "pattern": "/news/admin",
       "page": "news/admin/page.tsx",
       "schemaIds": [],
-      "indexable": true
+      "indexable": false
     },
     {
       "pattern": "/news/categories",
@@ -281,7 +281,7 @@
     "The 32 entries are source route patterns, not concrete URL counts. Dynamic route parameters and the active locale list returned by the API expand the runtime URL set.",
     "A route is migrated only when its page renders the central JsonLdScript component. Manifest schemaIds describe the schema types that the page may emit; optional lists can be omitted when no source data is available.",
     "The first URL segment is the locale and is resolved dynamically; no active locale list is hardcoded in this manifest.",
-    "All registered route patterns are configured as indexable; actual crawling and indexing still depend on page availability, robots directives, canonical URLs, and access controls.",
+    "All registered route patterns are configured as indexable except /admin and /news/admin, which remain non-indexable.",
     "Citizen workspace routes are configured as indexable and retain their page/profile JSON-LD through the central registry."
   ]
 }
