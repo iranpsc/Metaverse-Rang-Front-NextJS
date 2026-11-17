@@ -36,6 +36,21 @@ function toGoogleIsoDate(value: unknown): string | undefined {
   ) {
     return undefined;
   }
+  const [datePart] = value.split("T");
+  const [yearText, monthText, dayText] = datePart.split("-");
+  const year = Number(yearText);
+  const month = Number(monthText);
+  const day = Number(dayText);
+  const calendarDate = new Date(Date.UTC(year, month - 1, day));
+
+  if (
+    calendarDate.getUTCFullYear() !== year ||
+    calendarDate.getUTCMonth() !== month - 1 ||
+    calendarDate.getUTCDate() !== day
+  ) {
+    return undefined;
+  }
+
   const date = new Date(value);
   return Number.isNaN(date.getTime()) ? undefined : date.toISOString();
 }
