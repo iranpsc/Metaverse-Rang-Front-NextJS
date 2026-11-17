@@ -16,6 +16,7 @@ import softwareApplication from "./software-application.schema.json";
 import videoObject from "./video-object.schema.json";
 import webpage from "./webpage.schema.json";
 import website from "./website.schema.json";
+import routeManifest from "./index.manifest.json";
 import whitepaperPage from "./whitepaper-page.schema.json";
 
 export type JsonLdValue =
@@ -60,6 +61,38 @@ const definitions = {
 
 export type JsonLdSchemaId = keyof typeof definitions;
 export type JsonLdValues = Record<string, JsonLdValue | undefined>;
+
+export type JsonLdRouteConfig = {
+  pattern: string;
+  page: string;
+  schemaIds: JsonLdSchemaId[];
+  indexable: boolean;
+};
+
+const routeEntries = routeManifest.routes as JsonLdRouteConfig[];
+
+function routePatternToRegExp(pattern: string): RegExp {
+  if (pattern === "/") return /^\\/?$/;
+
+  const segments = pattern.split("/").filter(Boolean);
+  const expression = segments.map((segment) => {
+    if (/^\\[\\[\\.\\.\\..+\\]\\]$/.test(segment)) return "(?:.+)?";
+    if (/^\\[\\.\\.\\..+\\]$/.test(segment)) return ".+";
+    if (/^\\[.+\\]$/.test(segment)) return "[^/]+";
+    return segment.replace(/[.*+?^\\\\{}()|[\\]]/g, "\\\\export type JsonLdValues = Record<string, JsonLdValue | undefined>;
+");
+  }).join("/");
+
+  return new RegExp("^/" + expression + "/?$");
+}
+
+export function getJsonLdRouteConfig(localizedPathname: string): JsonLdRouteConfig | undefined {
+  const segments = localizedPathname.split("/").filter(Boolean);
+  const pathWithoutLocale = "/" + segments.slice(1).join("/");
+  const normalizedPath = pathWithoutLocale === "/" ? "/" : pathWithoutLocale.replace(/\\/$/, "");
+
+  return routeEntries.find((entry) => routePatternToRegExp(entry.pattern).test(normalizedPath));
+}
 
 const PLACEHOLDER_PATTERN = /^\{\{([a-zA-Z0-9_.-]+)\}\}$/;
 const INLINE_PLACEHOLDER_PATTERN = /\{\{([a-zA-Z0-9_.-]+)\}\}/g;
