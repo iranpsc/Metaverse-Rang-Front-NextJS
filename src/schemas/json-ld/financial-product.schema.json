@@ -1,0 +1,33 @@
+{
+  "schemaId": "financial-product",
+  "version": "1.0.0",
+  "expectedType": "FinancialProduct",
+  "requiredFields": [
+    "@context",
+    "@type",
+    "name",
+    "url"
+  ],
+  "fieldTypes": {
+    "@context": "string",
+    "@type": "string",
+    "name": "string",
+    "url": "url",
+    "description": "string",
+    "provider": "object"
+  },
+  "placeholders": [
+    "name",
+    "canonicalUrl",
+    "description",
+    "provider"
+  ],
+  "template": {
+    "@context": "https://schema.org",
+    "@type": "FinancialProduct",
+    "name": "{{name}}",
+    "url": "{{canonicalUrl}}",
+    "description": "{{description}}",
+    "provider": "{{provider}}"
+  }
+}
