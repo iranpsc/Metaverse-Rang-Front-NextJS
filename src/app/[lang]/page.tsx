@@ -152,12 +152,6 @@ export default async function LangPage({ params }: LangPageProps) {
 
     });
 
-    async function makeLessCharacter() {
-      let temp = findByUniqueId(mainData, 482);
-      temp = temp.slice(0, 155);
-      return temp;
-    }
-
     return (
       <>
         <JsonLdScript
