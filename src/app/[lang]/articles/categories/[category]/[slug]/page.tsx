@@ -23,6 +23,7 @@ import ShowSocialWrapper from "@/components/shared/ShowSocialWrapper";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import JsonLdScript from "../../../../../../schemas/json-ld/JsonLdScript";
 
 interface ArticlePageProps {
   
@@ -223,37 +224,33 @@ export default async function ArticlePage({ params } :ArticlePageProps) {
       )
       .slice(0, 10);
 
-    // JSON-LD Schema
-    const schema = {
-      "@context": "https://schema.org",
-      "@type": "Article",
-      headline: article.title,
-      description: cleanDescription(article.description || "مقالات متاورس رنگ"),
-      image: article.image ? [article.image] : undefined,
-      author: {
-        "@type": "Person",
-        name: article.author?.name ?? "نویسنده",
-      },
-      datePublished: article.date,
-      mainEntityOfPage: {
-        "@type": "WebPage",
-        "@id": `https://metarang.com/${lang}/articles/categories/${category}/${slug}`,
-      },
-      publisher: {
-        "@type": "Organization",
-        name: "متاورس رنگ",
-        logo: {
-          "@type": "ImageObject",
-          url: "https://s3.metarang.com/metarang/logo/metarang-logo-512.png",
-        },
-      },
-    };
-
     return (
       <div className="w-full  relative bg-bg-primary " dir={langData.direction}>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        <JsonLdScript
+          schemaId="article"
+          values={{
+            headline: article.title,
+            canonicalUrl,
+            datePublished: article.date || undefined,
+            description: cleanDescription(article.description || "مقالات متاورس رنگ"),
+            imageUrl: article.image ? [article.image] : undefined,
+            author: {
+              "@type": "Person",
+              name: article.author?.name ?? "نویسنده",
+            },
+            mainEntityOfPage: {
+              "@type": "WebPage",
+              "@id": canonicalUrl,
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "متاورس رنگ",
+              logo: {
+                "@type": "ImageObject",
+                url: "https://s3.metarang.com/metarang/logo/metarang-logo-512.png",
+              },
+            },
+          }}
         />
         <CleanAutoRetryParam />
         <section className="w-full  relative bg-bg-primary  mt-[60px] lg:mt-0">
