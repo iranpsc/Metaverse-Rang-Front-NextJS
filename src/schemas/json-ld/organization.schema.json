@@ -1,0 +1,33 @@
+{
+  "schemaId": "organization",
+  "version": "1.0.0",
+  "expectedType": "Organization",
+  "requiredFields": [
+    "@context",
+    "@type",
+    "name",
+    "url"
+  ],
+  "fieldTypes": {
+    "@context": "string",
+    "@type": "string",
+    "name": "string",
+    "url": "url",
+    "logo": "url",
+    "description": "string"
+  },
+  "placeholders": [
+    "name",
+    "canonicalUrl",
+    "logoUrl",
+    "description"
+  ],
+  "template": {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "{{name}}",
+    "url": "{{canonicalUrl}}",
+    "logo": "{{logoUrl}}",
+    "description": "{{description}}"
+  }
+}
