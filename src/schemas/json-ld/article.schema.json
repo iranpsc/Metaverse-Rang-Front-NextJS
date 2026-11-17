@@ -13,12 +13,13 @@
     "@type": "string",
     "headline": "string",
     "url": "url",
-    "datePublished": "iso-date",
-    "dateModified": "iso-date",
+    "datePublished": "string",
+    "dateModified": "string",
     "description": "string",
-    "image": "url",
+    "image": "array",
     "author": "object",
-    "publisher": "object"
+    "publisher": "object",
+    "mainEntityOfPage": "object"
   },
   "placeholders": [
     "headline",
@@ -28,7 +29,8 @@
     "description",
     "imageUrl",
     "author",
-    "publisher"
+    "publisher",
+    "mainEntityOfPage"
   ],
   "template": {
     "@context": "https://schema.org",
@@ -40,6 +42,7 @@
     "description": "{{description}}",
     "image": "{{imageUrl}}",
     "author": "{{author}}",
-    "publisher": "{{publisher}}"
+    "publisher": "{{publisher}}",
+    "mainEntityOfPage": "{{mainEntityOfPage}}"
   }
 }
