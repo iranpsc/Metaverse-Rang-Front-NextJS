@@ -1,9 +1,5 @@
-import {
-  generateJsonLd,
-  JsonLdSchemaId,
-  JsonLdValues,
-  serializeJsonLd,
-} from "./registry";
+import { generateJsonLd, serializeJsonLd } from "./registry";
+import type { JsonLdSchemaId, JsonLdValues } from "./registry";
 
 type JsonLdScriptProps = {
   schemaId: JsonLdSchemaId;
