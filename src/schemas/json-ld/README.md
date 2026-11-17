@@ -15,7 +15,7 @@ This directory is the source of truth for JSON-LD schema definitions and route-t
 2. Keep locale-specific content in placeholders. The active language set is runtime-driven and must not be hardcoded in this registry.
 3. Route patterns must match actual App Router page patterns. Dynamic segments use bracket notation.
 4. Do not add test implementations or test execution to this issue. Registry and generator tests belong to Issue #126.
-5. Keep route entries explicit. All registered routes are configured as `indexable: true`. This manifest setting does not override authentication, robots directives, canonical URLs, or other crawl/indexing controls.
+5. Keep route entries explicit. All registered routes are configured as `indexable: true`, except `/admin` and `/news/admin`, which must remain `indexable: false`. This manifest setting does not override authentication, robots directives, canonical URLs, or other crawl/indexing controls.
 6. Missing optional values are omitted. Empty strings, `null`, unresolved placeholders, malformed URLs, and invalid ISO dates must never be serialized as apparently valid data.
 7. A Schema.org-valid object is not automatically eligible for a Google rich result. Only use Google-supported types when the page content satisfies Google's type-specific requirements.
 
@@ -23,7 +23,7 @@ This directory is the source of truth for JSON-LD schema definitions and route-t
 
 The manifest records the 32 locale-scoped App Router page patterns currently present under `src/app/[lang]`. This is a source-file inventory, not a count of concrete URLs; dynamic route values and active locales expand the runtime URL set.
 
-All 32 registered route patterns are configured as indexable in the manifest. This configuration expresses the project's indexing policy; it does not bypass authentication or robots/canonical directives. The 2 administrative patterns currently emit no public structured data. The 5 citizen workspace patterns retain their JSON-LD through the central registry: the citizen profile and referral routes emit dynamic `Person` data; buildings, summary, and wallet emit the `WebPage` + `BreadcrumbList` graph. Sensitive contact and birth-date fields are deliberately not exposed in Person markup.
+Of the 32 registered route patterns, 30 are configured as indexable. Only `/admin` and `/news/admin` remain `indexable: false` and emit no public structured data. All other routes, including the 5 citizen workspace patterns, are configured as indexable. The citizen profile and referral routes emit dynamic `Person` data; buildings, summary, and wallet emit the `WebPage` + `BreadcrumbList` graph. Sensitive contact and birth-date fields are deliberately not exposed in Person markup. This configuration does not bypass authentication or robots/canonical directives.
 
 The manifest is aligned with the schema types a route can actually emit. Optional list markup is omitted when the underlying API returns no valid items. Automated route/language tests, schema parsing tests, and CI execution remain in Issue #126, not this implementation issue.
 
