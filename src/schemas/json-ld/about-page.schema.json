@@ -1,0 +1,61 @@
+{
+  "schemaId": "about-page",
+  "version": "1.0.0",
+  "expectedType": "@graph",
+  "requiredFields": [
+    "@context",
+    "@graph"
+  ],
+  "fieldTypes": {
+    "@context": "string",
+    "@graph": "array"
+  },
+  "placeholders": [
+    "organizationId",
+    "organizationName",
+    "alternateName",
+    "organizationUrl",
+    "logoId",
+    "logoUrl",
+    "sameAs",
+    "organizationDescription",
+    "pageId",
+    "canonicalUrl",
+    "pageName",
+    "pageDescription",
+    "language"
+  ],
+  "template": {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "{{organizationId}}",
+        "name": "{{organizationName}}",
+        "alternateName": "{{alternateName}}",
+        "url": "{{organizationUrl}}",
+        "logo": {
+          "@type": "ImageObject",
+          "@id": "{{logoId}}",
+          "url": "{{logoUrl}}",
+          "contentUrl": "{{logoUrl}}",
+          "width": 512,
+          "height": 512
+        },
+        "sameAs": "{{sameAs}}",
+        "description": "{{organizationDescription}}"
+      },
+      {
+        "@type": "AboutPage",
+        "@id": "{{pageId}}",
+        "url": "{{canonicalUrl}}",
+        "name": "{{pageName}}",
+        "description": "{{pageDescription}}",
+        "inLanguage": "{{language}}",
+        "mainEntity": {
+          "@id": "{{organizationId}}"
+        }
+      }
+    ]
+  }
+}
