@@ -18,6 +18,7 @@ import { getStaticMenu } from "@/components/utils/constants";
 import { buildTabsMenu } from "@/components/utils/buildTabsMenu";
 import InviteBox from "@/components/templates/referral/invite-box";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import JsonLdScript from "@/schemas/json-ld/JsonLdScript";
 
 /* ------------------------------------------------------------------ */
 /*                                TYPES                               */
@@ -81,9 +82,30 @@ export default async function CitizenBuildings({ params }: CitizenBuildingsProps
 
     const canonicalUrl = `https://metarang.com/${lang}/citizens/${id}/buildings`;
 
+    const jsonLdValues = {
+      pageName: isFa
+        ? `بناهای ${fullName} | ${findByUniqueId(mainData, 148)}`
+        : `Buildings of ${fullName} | ${findByUniqueId(mainData, 148)}`,
+      canonicalUrl,
+      description: isFa
+        ? "خلاصه، نمودار و لیست بناهای تکمیل‌شده"
+        : "Completed buildings summary, chart, and list",
+      language: isFa ? "fa-IR" : "en-US",
+      websiteUrl: "https://metarang.com",
+      citizenName: fullName,
+      citizenUrl: `https://metarang.com/${lang}/citizens/${id}`,
+      breadcrumbs: [
+        { "@type": "ListItem", position: 1, name: isFa ? "خانه" : "Home", item: `https://metarang.com/${lang}` },
+        { "@type": "ListItem", position: 2, name: isFa ? "کاربران" : "Citizens", item: `https://metarang.com/${lang}/citizens` },
+        { "@type": "ListItem", position: 3, name: fullName, item: `https://metarang.com/${lang}/citizens/${id}` },
+        { "@type": "ListItem", position: 4, name: isFa ? "بناها" : "Buildings", item: canonicalUrl }
+      ]
+    };
+
     return (
       <>
         <CleanAutoRetryParam />
+        <JsonLdScript schemaId="citizen-workspace-page" values={jsonLdValues} />
 <div className="flex h-screen overflow-hidden" dir={langData.direction}>
           <SideBar
             tabsMenu={updatedTabsMenu}
