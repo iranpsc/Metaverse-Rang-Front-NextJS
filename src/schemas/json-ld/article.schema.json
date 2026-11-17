@@ -1,0 +1,45 @@
+{
+  "schemaId": "article",
+  "version": "1.0.0",
+  "expectedType": "Article",
+  "requiredFields": [
+    "@context",
+    "@type",
+    "headline",
+    "url"
+  ],
+  "fieldTypes": {
+    "@context": "string",
+    "@type": "string",
+    "headline": "string",
+    "url": "url",
+    "datePublished": "iso-date",
+    "dateModified": "iso-date",
+    "description": "string",
+    "image": "url",
+    "author": "object",
+    "publisher": "object"
+  },
+  "placeholders": [
+    "headline",
+    "canonicalUrl",
+    "datePublished",
+    "dateModified",
+    "description",
+    "imageUrl",
+    "author",
+    "publisher"
+  ],
+  "template": {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "{{headline}}",
+    "url": "{{canonicalUrl}}",
+    "datePublished": "{{datePublished}}",
+    "dateModified": "{{dateModified}}",
+    "description": "{{description}}",
+    "image": "{{imageUrl}}",
+    "author": "{{author}}",
+    "publisher": "{{publisher}}"
+  }
+}
