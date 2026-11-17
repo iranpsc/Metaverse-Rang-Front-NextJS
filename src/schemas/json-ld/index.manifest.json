@@ -91,7 +91,9 @@
     {
       "pattern": "/citizens/[id]",
       "page": "citizens/[id]/page.tsx",
-      "schemaIds": [],
+      "schemaIds": [
+        "citizen-person"
+      ],
       "indexable": false
     },
     {
@@ -280,6 +282,6 @@
     "A route is migrated only when its page renders the central JsonLdScript component. Manifest schemaIds describe the schema types that the page may emit; optional lists can be omitted when no source data is available.",
     "The first URL segment is the locale and is resolved dynamically; no active locale list is hardcoded in this manifest.",
     "Administrative routes remain non-indexable and emit no public structured data.",
-    "Citizen workspace routes remain non-indexable, but retain their existing page/profile JSON-LD through the central registry. The citizen profile route itself had no JSON-LD before migration; buildings, referral, summary, and wallet preserve their previous WebPage/BreadcrumbList or Person markup."
+    "Citizen workspace routes remain non-indexable, but retain their existing page/profile JSON-LD through the central registry. The citizen profile route now emits a dynamic Person schema from the citizen API data; buildings, referral, summary, and wallet preserve their previous WebPage/BreadcrumbList or Person markup."
   ]
 }
