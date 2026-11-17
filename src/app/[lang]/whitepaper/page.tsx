@@ -9,6 +9,7 @@ import {
 } from "@/components/utils/actions";
 
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
+import JsonLdScript from "../../../schemas/json-ld/JsonLdScript";
 import PoweredBy from "@/components/features/onepager/PoweredBy";
 import EcosystemIntro from "@/components/features/onepager/EcosystemIntro";
 import WhyMetarang from "@/components/shared/slider/WhyMetarang"
@@ -109,71 +110,7 @@ export default async function ArticlesPage({
     const fullPageUrl = `${baseUrl}${langPrefix}/whitepaper`;
 
 
-    const schemaData = {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "Organization",
-          "@id": `${baseUrl}#organization`,
-          name: "MetaRang",
-          url: baseUrl,
-          logo: imageUrl
-        },
 
-        {
-          "@type": "WebSite",
-          "@id": `${baseUrl}#website`,
-          url: baseUrl,
-          name: "MetaRang",
-          publisher: {
-            "@id": `${baseUrl}#organization`
-          }
-        },
-
-        {
-          "@type": "WebPage",
-          "@id": `${fullPageUrl}#webpage`,
-          url: fullPageUrl,
-          name: "PSC Token by MetaRang",
-          description: findByUniqueId(mainData, 1757),
-          isPartOf: {
-            "@id": `${baseUrl}#website`
-          },
-          about: {
-            "@id": `${fullPageUrl}#psc-token`
-          }
-        },
-
-        {
-          "@type": "Cryptocurrency",
-          "@id": `${fullPageUrl}#psc-token`,
-          name: "PSC Token | Metarang",
-          alternateName: "PSC",
-          description: findByUniqueId(mainData, 1757).slice(0.155),
-          issuer: {
-            "@id": `${baseUrl}#organization`
-          }
-        },
-
-        {
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            {
-              "@type": "ListItem",
-              position: 1,
-              name: "Home",
-              item: baseUrl
-            },
-            {
-              "@type": "ListItem",
-              position: 2,
-              name: "PSC Token",
-              item: fullPageUrl
-            }
-          ]
-        }
-      ]
-    };
     
 
     // ✅ محتوای اصلی (دقیقاً مثل نسخه‌ی خودت)
@@ -271,9 +208,26 @@ export default async function ArticlesPage({
         </div>
 
         {/* ✅ اسکیمای SSR معتبر و داینامیک */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
+        <JsonLdScript
+          schemaId="whitepaper-page"
+          values={{
+            baseUrl,
+            organizationId: `${baseUrl}#organization`,
+            organizationName: "MetaRang",
+            logoUrl: imageUrl,
+            websiteId: `${baseUrl}#website`,
+            websiteName: "MetaRang",
+            pageId: `${fullPageUrl}#webpage`,
+            canonicalUrl: fullPageUrl,
+            pageName: "PSC Token by MetaRang",
+            pageDescription: findByUniqueId(mainData, 1757),
+            tokenId: `${fullPageUrl}#psc-token`,
+            tokenName: "PSC Token | Metarang",
+            tokenAlternateName: "PSC",
+            tokenDescription: findByUniqueId(mainData, 1757).slice(0, 155),
+            breadcrumbHomeName: "Home",
+            breadcrumbTokenName: "PSC Token",
+          }}
         />
       </section>
     );
