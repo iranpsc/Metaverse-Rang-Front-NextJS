@@ -1,0 +1,38 @@
+{
+  "schemaId": "software-application",
+  "version": "1.0.0",
+  "expectedType": "SoftwareApplication",
+  "requiredFields": [
+    "@context",
+    "@type",
+    "name"
+  ],
+  "fieldTypes": {
+    "@context": "string",
+    "@type": "string",
+    "name": "string",
+    "url": "url",
+    "description": "string",
+    "applicationCategory": "string",
+    "operatingSystem": "string",
+    "author": "object"
+  },
+  "placeholders": [
+    "name",
+    "canonicalUrl",
+    "description",
+    "applicationCategory",
+    "operatingSystem",
+    "author"
+  ],
+  "template": {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "{{name}}",
+    "url": "{{canonicalUrl}}",
+    "description": "{{description}}",
+    "applicationCategory": "{{applicationCategory}}",
+    "operatingSystem": "{{operatingSystem}}",
+    "author": "{{author}}"
+  }
+}
