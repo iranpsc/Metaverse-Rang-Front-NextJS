@@ -18,7 +18,8 @@
     "telephone": "string",
     "image": "url",
     "logo": "url",
-    "email": "string"
+    "email": "string",
+    "alternateName": "string"
   },
   "placeholders": [
     "name",
@@ -28,18 +29,20 @@
     "telephone",
     "imageUrl",
     "logoUrl",
-    "email"
+    "email",
+    "alternateName"
   ],
   "template": {
-    "@context": "https://schema.org",
+    "@context": "https://schema.org/",
     "@type": "ProfessionalService",
     "name": "{{name}}",
-    "url": "{{canonicalUrl}}",
-    "description": "{{description}}",
     "address": "{{address}}",
-    "telephone": "{{telephone}}",
     "image": "{{imageUrl}}",
+    "telephone": "{{telephone}}",
+    "url": "{{canonicalUrl}}",
     "logo": "{{logoUrl}}",
-    "email": "{{email}}"
+    "email": "{{email}}",
+    "description": "{{description}}",
+    "alternateName": "{{alternateName}}"
   }
 }
