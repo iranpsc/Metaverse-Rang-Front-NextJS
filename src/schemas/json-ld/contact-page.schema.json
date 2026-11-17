@@ -14,20 +14,26 @@
     "name": "string",
     "url": "url",
     "description": "string",
-    "mainEntity": "object"
+    "contentLocation": "object",
+    "mainEntity": "object",
+    "telephone": "string"
   },
   "placeholders": [
     "name",
     "canonicalUrl",
     "description",
-    "mainEntity"
+    "contentLocation",
+    "organization",
+    "telephone"
   ],
   "template": {
     "@context": "https://schema.org",
     "@type": "ContactPage",
     "name": "{{name}}",
-    "url": "{{canonicalUrl}}",
     "description": "{{description}}",
-    "mainEntity": "{{mainEntity}}"
+    "url": "{{canonicalUrl}}",
+    "contentLocation": "{{contentLocation}}",
+    "mainEntity": "{{organization}}",
+    "telephone": "{{telephone}}"
   }
 }
