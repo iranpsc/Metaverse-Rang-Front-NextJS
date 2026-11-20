@@ -5,6 +5,8 @@ services:
     build:
       context: .
       args:
+        NODE_IMAGE: ${NODE_IMAGE:-mirror-docker.runflare.com/node:22-alpine}
+        NPM_CONFIG_REGISTRY: ${NPM_CONFIG_REGISTRY:-https://package-mirror.liara.ir/repository/npm/}
         NEXT_PUBLIC_SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL}
         NEXT_PUBLIC_SUPABASE_ANON_KEY: ${NEXT_PUBLIC_SUPABASE_ANON_KEY}
         NEXT_PUBLIC_BASE_URL: ${NEXT_PUBLIC_BASE_URL}

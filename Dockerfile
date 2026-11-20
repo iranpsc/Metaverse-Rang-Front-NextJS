@@ -1,8 +1,11 @@
-FROM node:22-alpine AS builder
+ARG NODE_IMAGE=mirror-docker.runflare.com/node:22-alpine
+FROM ${NODE_IMAGE} AS builder
 
 WORKDIR /app
 
-ENV NPM_CONFIG_REGISTRY=https://registry.npmjs.org/
+ARG NPM_CONFIG_REGISTRY=https://package-mirror.liara.ir/repository/npm/
+ENV NPM_CONFIG_REGISTRY=${NPM_CONFIG_REGISTRY} \
+    NPM_CONFIG_REPLACE_REGISTRY_HOST=always
 
 COPY package.json package-lock.json ./
 RUN --mount=type=cache,target=/root/.npm \
@@ -25,7 +28,8 @@ RUN --mount=type=cache,target=/app/.next/cache npm run build
 
 
 # Production stage
-FROM node:22-alpine
+ARG NODE_IMAGE=mirror-docker.runflare.com/node:22-alpine
+FROM ${NODE_IMAGE}
 
 WORKDIR /app
 
