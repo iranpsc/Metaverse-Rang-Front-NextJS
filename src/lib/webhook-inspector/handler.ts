@@ -11,16 +11,18 @@ export async function handleWebhookRequest(request: NextRequest): Promise<NextRe
   let payload: unknown = null;
 
   const respond = (body: Record<string, unknown>, status: number) => {
-    addWebhookLog({
-      method: request.method,
-      path: new URL(request.url).pathname,
-      contentType,
-      headers: safeWebhookHeaders(request.headers),
-      request: sanitizeWebhookPayload(payload),
-      response: sanitizeWebhookPayload(body),
-      status,
-      durationMs: Date.now() - startedAt,
-    });
+    if (process.env.WEBHOOK_INSPECTOR_ENABLED === "true") {
+      addWebhookLog({
+        method: request.method,
+        path: new URL(request.url).pathname,
+        contentType,
+        headers: safeWebhookHeaders(request.headers),
+        request: sanitizeWebhookPayload(payload),
+        response: sanitizeWebhookPayload(body),
+        status,
+        durationMs: Date.now() - startedAt,
+      });
+    }
     return NextResponse.json(body, { status });
   };
 
