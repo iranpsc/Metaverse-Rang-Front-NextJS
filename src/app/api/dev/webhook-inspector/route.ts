@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { isWebhookInspectorAdmin } from "@/lib/webhook-inspector/auth";
-import { clearWebhookLogs, getWebhookLogs } from "@/lib/webhook-inspector/store";
+import { isWebhookInspectorAdmin } from "../../../../lib/webhook-inspector/auth";
+import { clearWebhookLogs, getWebhookLogs } from "../../../../lib/webhook-inspector/store";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
