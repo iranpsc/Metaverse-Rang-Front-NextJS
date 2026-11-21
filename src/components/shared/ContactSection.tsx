@@ -35,9 +35,9 @@ export default function ContactSection({ params, mainData }: ContactSectionProps
                 <div className="flex flex-col lg:flex-row lg:items-center lg:gap-6 px-5 lg:ps-10">
                     <div >
                         <svg className="w-[100px] lg:w-auto" width="221" height="221" viewBox="0 0 221 221" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path className="stroke-black dark:stroke-white" d="M46.042 161.143L174.959 32.2266" stroke-width="12" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                            <path className="stroke-black dark:stroke-white" d="M46.042 66.5703V161.14H140.612" stroke-width="12" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                            <path className="stroke-black dark:stroke-white" d="M32.2295 202.586H188.771" stroke-width="12" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                            <path className="stroke-black dark:stroke-white" d="M46.042 161.143L174.959 32.2266" stroke-width="12" stroke-miterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+                            <path className="stroke-black dark:stroke-white" d="M46.042 66.5703V161.14H140.612" stroke-width="12" stroke-miterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+                            <path className="stroke-black dark:stroke-white" d="M32.2295 202.586H188.771" stroke-width="12" stroke-miterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                     </div>
 

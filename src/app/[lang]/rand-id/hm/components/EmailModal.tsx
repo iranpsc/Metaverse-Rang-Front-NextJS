@@ -55,10 +55,10 @@ const EmailModal: React.FC<EmailModalProps> = ({ open, onClose, mainData, params
                     </svg>
 
                     <svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path className="stroke-primary dark:stroke-primary" d="M23.248 38.6641L26.873 42.2891L34.7272 35.0391" stroke="#9100D9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                        <path className="stroke-primary dark:stroke-primary" d="M21.2913 4.83594L12.543 13.6084" stroke="#9100D9" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                        <path className="stroke-primary dark:stroke-primary" d="M23.248 38.6641L26.873 42.2891L34.7272 35.0391" stroke="#9100D9" stroke-width="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        <path className="stroke-primary dark:stroke-primary" d="M21.2913 4.83594L12.543 13.6084" stroke="#9100D9" stroke-width="1.5" stroke-miterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
                         <path className="stroke-primary dark:stroke-primary" d="M4.83301 18.974C4.83301 14.5031 7.22551 14.1406 10.198 14.1406H47.8013C50.7738 14.1406 53.1663 14.5031 53.1663 18.974C53.1663 24.1698 50.7738 23.8073 47.8013 23.8073H10.198C7.22551 23.8073 4.83301 24.1698 4.83301 18.974Z" stroke="#9100D9" stroke-width="1.5" />
-                        <path className="stroke-primary dark:stroke-primary" d="M8.45801 24.1641L11.8655 45.0441C12.6388 49.7324 14.4997 53.1641 21.4113 53.1641H35.9838C43.4997 53.1641 44.6113 49.8774 45.4813 45.3341L49.5413 24.1641" stroke="#9100D9" stroke-width="1.5" stroke-linecap="round" />
+                        <path className="stroke-primary dark:stroke-primary" d="M8.45801 24.1641L11.8655 45.0441C12.6388 49.7324 14.4997 53.1641 21.4113 53.1641H35.9838C43.4997 53.1641 44.6113 49.8774 45.4813 45.3341L49.5413 24.1641" stroke="#9100D9" stroke-width="1.5" strokeLinecap="round" />
                     </svg>
 
                     {/* TEXT */}
@@ -91,8 +91,8 @@ const EmailModal: React.FC<EmailModalProps> = ({ open, onClose, mainData, params
                     <div className="flex w-full justify-center">
 
                         <svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path className="dark:stroke-primary" d="M41.084 49.5443H16.9173C9.66732 49.5443 4.83398 45.9193 4.83398 37.4609V20.5443C4.83398 12.0859 9.66732 8.46094 16.9173 8.46094H41.084C48.334 8.46094 53.1673 12.0859 53.1673 20.5443V37.4609C53.1673 45.9193 48.334 49.5443 41.084 49.5443Z" stroke="#9100D9" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                            <path className="dark:stroke-primary" d="M41.0827 21.75L33.5185 27.7917C31.0293 29.7733 26.9452 29.7733 24.456 27.7917L16.916 21.75" stroke="#9100D9" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                            <path className="dark:stroke-primary" d="M41.084 49.5443H16.9173C9.66732 49.5443 4.83398 45.9193 4.83398 37.4609V20.5443C4.83398 12.0859 9.66732 8.46094 16.9173 8.46094H41.084C48.334 8.46094 53.1673 12.0859 53.1673 20.5443V37.4609C53.1673 45.9193 48.334 49.5443 41.084 49.5443Z" stroke="#9100D9" stroke-width="1.5" stroke-miterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+                            <path className="dark:stroke-primary" d="M41.0827 21.75L33.5185 27.7917C31.0293 29.7733 26.9452 29.7733 24.456 27.7917L16.916 21.75" stroke="#9100D9" stroke-width="1.5" stroke-miterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
 
                     </div>
@@ -123,9 +123,9 @@ const EmailModal: React.FC<EmailModalProps> = ({ open, onClose, mainData, params
                             <div className="text-[#DE5753]  mt-3 px-1 flex items-center gap-1 text-xs">
 
                                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M7.00033 12.8307C10.2087 12.8307 12.8337 10.2057 12.8337 6.9974C12.8337 3.78906 10.2087 1.16406 7.00033 1.16406C3.79199 1.16406 1.16699 3.78906 1.16699 6.9974C1.16699 10.2057 3.79199 12.8307 7.00033 12.8307Z" stroke="#DE5753" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M7 4.66406V7.58073" stroke="#DE5753" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M6.99707 9.33594H7.00231" stroke="#DE5753" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M7.00033 12.8307C10.2087 12.8307 12.8337 10.2057 12.8337 6.9974C12.8337 3.78906 10.2087 1.16406 7.00033 1.16406C3.79199 1.16406 1.16699 3.78906 1.16699 6.9974C1.16699 10.2057 3.79199 12.8307 7.00033 12.8307Z" stroke="#DE5753" strokeLinecap="round" strokeLinejoin="round" />
+                                    <path d="M7 4.66406V7.58073" stroke="#DE5753" strokeLinecap="round" strokeLinejoin="round" />
+                                    <path d="M6.99707 9.33594H7.00231" stroke="#DE5753" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
 
                                 {error}
