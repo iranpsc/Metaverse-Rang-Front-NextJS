@@ -1,22 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
-import { isWebhookInspectorAdmin } from "../../../../lib/webhook-inspector/auth";
 import { clearWebhookLogs, getWebhookLogs } from "../../../../lib/webhook-inspector/store";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-async function authorize(request: NextRequest) {
+function authorize() {
   if (process.env.WEBHOOK_INSPECTOR_ENABLED !== "true") {
     return NextResponse.json({ message: "Webhook Inspector is disabled" }, { status: 404 });
-  }
-  if (!(await isWebhookInspectorAdmin(request))) {
-    return NextResponse.json({ message: "دسترسی غیرمجاز" }, { status: 403 });
   }
   return null;
 }
 
 export async function GET(request: NextRequest) {
-  const denied = await authorize(request);
+  const denied = authorize();
   if (denied) return denied;
 
   return NextResponse.json(
