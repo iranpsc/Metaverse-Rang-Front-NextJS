@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { clearWebhookLogs, getWebhookLogs } from "../../../../lib/webhook-inspector/store";
 
 export const runtime = "nodejs";
@@ -11,7 +11,7 @@ function authorize() {
   return null;
 }
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   const denied = authorize();
   if (denied) return denied;
 
@@ -21,8 +21,8 @@ export async function GET(request: NextRequest) {
   );
 }
 
-export async function DELETE(request: NextRequest) {
-  const denied = await authorize(request);
+export async function DELETE() {
+  const denied = authorize();
   if (denied) return denied;
 
   clearWebhookLogs();
