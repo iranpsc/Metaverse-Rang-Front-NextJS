@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import { handleWebhookRequest } from "@/lib/webhook-inspector/handler";
+import { handleWebhookRequest } from "../../../../lib/webhook-inspector/handler";
 
 export const runtime = "nodejs";
 
