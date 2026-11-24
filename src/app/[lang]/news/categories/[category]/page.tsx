@@ -109,16 +109,16 @@ export async function generateMetadata({ params }: NewsCategoryPageProps) {
   const { lang } = resolvedParams;
   const categorySlug = decodeURIComponent(resolvedParams.category);
   const siteUrl = "https://metarang.com";
-  const activeLanguages = await getLangArray();
-
-  if (!activeLanguages.some((language: { code: string }) => language.code === lang)) {
-    return {
-      title: "Not Found",
-      robots: { index: false, follow: false },
-    };
-  }
 
   try {
+    const activeLanguages = await getLangArray();
+    if (!activeLanguages.some((language: { code: string }) => language.code === lang)) {
+      return {
+        title: "Not Found",
+        robots: { index: false, follow: false },
+      };
+    }
+
     // The news query does not depend on translations. Run both concurrently
     // to avoid serial network waits delaying the document title.
     const [langData, newsResult] = await Promise.all([
@@ -176,6 +176,7 @@ export async function generateMetadata({ params }: NewsCategoryPageProps) {
       alternates: {
         canonical: `${siteUrl}/${lang}/news/categories/${categorySlug}`,
       },
+      robots: { index: false, follow: false },
     };
   }
 }
