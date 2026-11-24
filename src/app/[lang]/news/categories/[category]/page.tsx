@@ -3,7 +3,7 @@ import BreadCrumb from "@/components/shared/BreadCrumb";
 import CategoryHeader from "../../../../../components/ui/header/ArticleCategoryHeader";
 // import CategoryItemsGrid from "../../../../../components/features/CategoryItemsGrid";
 import SearchComponent from "@/components/Search/SearchComponent";
-import { getTranslation, getMainFile } from "@/components/utils/actions";
+import { getTranslation, getMainFile, getLangArray } from "@/components/utils/actions";
 import { supabase } from "@/utils/lib/supabaseClient";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
@@ -111,6 +111,14 @@ export async function generateMetadata({ params }: NewsCategoryPageProps) {
   const siteUrl = "https://metarang.com";
 
   try {
+    const activeLanguages = await getLangArray();
+    if (!activeLanguages.some((language: { code: string }) => language.code === lang)) {
+      return {
+        title: "Not Found",
+        robots: { index: false, follow: false },
+      };
+    }
+
     // The news query does not depend on translations. Run both concurrently
     // to avoid serial network waits delaying the document title.
     const [langData, newsResult] = await Promise.all([
@@ -168,6 +176,7 @@ export async function generateMetadata({ params }: NewsCategoryPageProps) {
       alternates: {
         canonical: `${siteUrl}/${lang}/news/categories/${categorySlug}`,
       },
+      robots: { index: false, follow: false },
     };
   }
 }
@@ -293,7 +302,7 @@ export default async function NewsCategoryPage({ params }: NewsCategoryPageProps
                 "headline": n.title,
                 "description":
                   n.description || categoryDec || "خبر جدید از متاورس رنگ",
-                "url": `${baseUrl}/${lang}/news/${n.slug}`,
+                "url": `${baseUrl}/${lang}/news/categories/${categorySlug}/${n.slug}`,
                 "datePublished": publishedDate,
                 "dateModified": publishedDate,
                 "image": n.image || `${baseUrl}/default.png`,
@@ -311,7 +320,7 @@ export default async function NewsCategoryPage({ params }: NewsCategoryPageProps
                 },
                 "mainEntityOfPage": {
                   "@type": "WebPage",
-                  "@id": `${baseUrl}/${lang}/news/${n.slug}`,
+                  "@id": `${baseUrl}/${lang}/news/categories/${categorySlug}/${n.slug}`,
                 },
                 "inLanguage": lang === "fa" ? "fa-IR" : "en-US",
                 "isAccessibleForFree": true,
