@@ -302,7 +302,7 @@ export default async function NewsCategoryPage({ params }: NewsCategoryPageProps
                 "headline": n.title,
                 "description":
                   n.description || categoryDec || "خبر جدید از متاورس رنگ",
-                "url": `${baseUrl}/${lang}/news/categories/${n.categorySlug}/${n.slug}`,
+                "url": `${baseUrl}/${lang}/news/categories/${categorySlug}/${n.slug}`,
                 "datePublished": publishedDate,
                 "dateModified": publishedDate,
                 "image": n.image || `${baseUrl}/default.png`,
@@ -320,7 +320,7 @@ export default async function NewsCategoryPage({ params }: NewsCategoryPageProps
                 },
                 "mainEntityOfPage": {
                   "@type": "WebPage",
-                  "@id": `${baseUrl}/${lang}/news/categories/${n.categorySlug}/${n.slug}`,
+                  "@id": `${baseUrl}/${lang}/news/categories/${categorySlug}/${n.slug}`,
                 },
                 "inLanguage": lang === "fa" ? "fa-IR" : "en-US",
                 "isAccessibleForFree": true,
