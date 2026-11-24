@@ -9,7 +9,7 @@ import CustomErrorPage from "@/components/error/CustomErrorPage";
 import NewsCategoriesSection from "../../../components/features/NewsCategoriesSection";
 import VideoNewsList from "../../../components/features/VideoNewsList";
 import { supabase } from "@/utils/lib/supabaseClient";
-import { getTranslation, getMainFile } from "@/components/utils/actions";
+import { getTranslation, getMainFile, getLangArray } from "@/components/utils/actions";
 import { findByUniqueId } from "@/components/utils/findByUniqueId";
 
 // ایمپورت دیتای استاتیک به عنوان fallback
@@ -118,6 +118,14 @@ export async function generateMetadata({ params }: NewsPageProps) {
   const resolvedParams = await params;
   const { lang } = resolvedParams;
   try {
+    const activeLanguages = await getLangArray();
+    if (!activeLanguages.some((language: { code: string }) => language.code === lang)) {
+      return {
+        title: "Not Found",
+        robots: { index: false, follow: false },
+      };
+    }
+
     const url = `${baseUrl}/${lang}/news`;
 
     return {
@@ -166,6 +174,7 @@ export async function generateMetadata({ params }: NewsPageProps) {
     return {
       title: "خطا",
       description: "مشکلی در بارگذاری صفحه رخ داده است",
+      robots: { index: false, follow: false },
     };
   }
 }
