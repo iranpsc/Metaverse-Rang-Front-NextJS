@@ -178,12 +178,18 @@ async function fetchCategoryNewsWithFallback(categorySlug: string, currentSlug: 
 export async function generateMetadata({ params }: NewsPageProps) {
   const resolvedParams = await params;
   const { lang } = resolvedParams;
-    const [ langData] = await Promise.all([
-    getTranslation(lang),
+  const activeLanguages = await getLangArray();
 
-  ]);
-  const mainData = await getMainFile(langData);
+  if (!activeLanguages.some((language: { code: string }) => language.code === lang)) {
+    return {
+      title: "Not Found",
+      robots: { index: false, follow: false },
+    };
+  }
+
   try {
+    const langData = await getTranslation(lang);
+    const mainData = await getMainFile(langData);
     function cleanDescription(html: any, limit = 255) {
       if (!html) return "";
 
@@ -254,6 +260,7 @@ export async function generateMetadata({ params }: NewsPageProps) {
     return {
       title: "خطا",
       description: "مشکلی در بارگذاری صفحه رخ داده است",
+      robots: { index: false, follow: false },
     };
   }
 }
