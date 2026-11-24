@@ -32,6 +32,14 @@ export async function generateMetadata({
   try {
     const { lang } = await params;
 
+    const activeLanguages = await getLangArray();
+    if (!activeLanguages.some((language: { code: string }) => language.code === lang)) {
+      return {
+        title: "Not Found",
+        robots: { index: false, follow: false },
+      };
+    }
+
     const langData = await getTranslation(lang);
     const mainData = await getMainFile(langData);
 
@@ -40,11 +48,11 @@ export async function generateMetadata({
       description:
        findByUniqueId(mainData, 1527).slice(0,155),
       alternates: {
-        canonical: `https://metarang.com/${lang}/citizen/rand-is/hm`,
+        canonical: `https://metarang.com/${lang}/rand-id/hm`,
         languages: {
-          "fa-IR": "https://metarang.com/fa/citizen/rand-is/hm",
-          "en-US": "https://metarang.com/en/citizen/rand-is/hm",
-          "x-default": "https://metarang.com/fa/citizen/rand-is/hm",
+          "fa-IR": "https://metarang.com/fa/rand-id/hm",
+          "en-US": "https://metarang.com/en/rand-id/hm",
+          "x-default": "https://metarang.com/fa/rand-id/hm",
         },
       },
       openGraph: {
@@ -52,7 +60,7 @@ export async function generateMetadata({
         title: `${findByUniqueId(mainData, 593)}| ${findByUniqueId(mainData, 148)}`,
         description: findByUniqueId(mainData, 1527).slice(0,155),
         locale: lang === "fa" ? "fa_IR" : "en_US",
-        url: `https://metarang.com/${lang}/citizen/rand-is/hm`,
+        url: `https://metarang.com/${lang}/rand-id/hm`,
         images: [
           {
             url: "https://s3.metarang.com/metarang/logo/metarang-logo-512.png",
@@ -67,6 +75,7 @@ export async function generateMetadata({
     return {
       title: "خطا",
       description: "مشکلی در بارگذاری اطلاعات صفحه رخ داده است",
+      robots: { index: false, follow: false },
     };
   }
 }
@@ -369,9 +378,8 @@ export default async function RounPage({ params }: RounPageProps) {
         <CleanAutoRetryParam />
         <div className="px-3 lg:px-10">
           <BreadCrumb
-            params={lang}
+            params={resolvedParams}
             title={title}
-
           /></div>
         <SearchComponent params={resolvedParams} mainData={mainData} />
         <RondId
