@@ -3,6 +3,13 @@ import { NextRequest, NextResponse } from "next/server";
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  // News routes are localized under a two-letter language segment.
+  // Reject legacy/malformed prefixes (for example /home-blogs.html/news/...) as real HTTP 404s.
+  const localizedNewsPath = pathname.match(/^\/([^/]+)\/news(?:\/|$)/);
+  if (localizedNewsPath && !/^[a-z]{2}$/.test(localizedNewsPath[1])) {
+    return new NextResponse("Not Found", { status: 404 });
+  }
+
   const match = pathname.match(/^\/([a-z]{2})\/citizens\/(HM-\d+)$/);
 
   if (match) {
@@ -19,5 +26,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/:lang/citizens/:id*"],
+  matcher: ["/:lang/news/:path*", "/:lang/citizens/:id*"],
 };
