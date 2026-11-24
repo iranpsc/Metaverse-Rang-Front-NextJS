@@ -3,7 +3,7 @@ import BreadCrumb from "@/components/shared/BreadCrumb";
 import CategoryHeader from "../../../../../components/ui/header/ArticleCategoryHeader";
 // import CategoryItemsGrid from "../../../../../components/features/CategoryItemsGrid";
 import SearchComponent from "@/components/Search/SearchComponent";
-import { getTranslation, getMainFile } from "@/components/utils/actions";
+import { getTranslation, getMainFile, getLangArray } from "@/components/utils/actions";
 import { supabase } from "@/utils/lib/supabaseClient";
 import CustomErrorPage from "@/components/error/CustomErrorPage";
 import CleanAutoRetryParam from "@/components/system/CleanAutoRetryParam";
@@ -109,6 +109,14 @@ export async function generateMetadata({ params }: NewsCategoryPageProps) {
   const { lang } = resolvedParams;
   const categorySlug = decodeURIComponent(resolvedParams.category);
   const siteUrl = "https://metarang.com";
+  const activeLanguages = await getLangArray();
+
+  if (!activeLanguages.some((language: { code: string }) => language.code === lang)) {
+    return {
+      title: "Not Found",
+      robots: { index: false, follow: false },
+    };
+  }
 
   try {
     // The news query does not depend on translations. Run both concurrently
