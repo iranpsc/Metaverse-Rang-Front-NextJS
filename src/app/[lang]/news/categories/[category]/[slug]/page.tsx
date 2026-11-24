@@ -178,16 +178,16 @@ async function fetchCategoryNewsWithFallback(categorySlug: string, currentSlug: 
 export async function generateMetadata({ params }: NewsPageProps) {
   const resolvedParams = await params;
   const { lang } = resolvedParams;
-  const activeLanguages = await getLangArray();
-
-  if (!activeLanguages.some((language: { code: string }) => language.code === lang)) {
-    return {
-      title: "Not Found",
-      robots: { index: false, follow: false },
-    };
-  }
 
   try {
+    const activeLanguages = await getLangArray();
+    if (!activeLanguages.some((language: { code: string }) => language.code === lang)) {
+      return {
+        title: "Not Found",
+        robots: { index: false, follow: false },
+      };
+    }
+
     const langData = await getTranslation(lang);
     const mainData = await getMainFile(langData);
     function cleanDescription(html: any, limit = 255) {
