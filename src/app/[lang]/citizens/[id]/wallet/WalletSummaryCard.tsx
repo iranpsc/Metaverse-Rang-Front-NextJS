@@ -78,7 +78,7 @@ export default function WalletSummaryCard({ item, period, lang, mainData }: Wall
                 <svg className={` ${isUp ? "stroke-green-500" : "text-red-600 stroke-red-600 rotate-180"
                   }`} width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path className={` ${isUp ? "stroke-green-500" : "text-red-600 stroke-red-600"
-                    }`} d="M6.34042 10.7438H4.00417C1.10792 10.7438 -0.0820825 8.78542 1.37042 6.39375L2.54292 4.46875L3.71542 2.54375C5.16792 0.152083 7.53917 0.152083 8.99167 2.54375L10.1642 4.46875L11.3367 6.39375C12.7892 8.78542 11.5992 10.7438 8.70292 10.7438H6.34042Z" stroke="#14BD06" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                    }`} d="M6.34042 10.7438H4.00417C1.10792 10.7438 -0.0820825 8.78542 1.37042 6.39375L2.54292 4.46875L3.71542 2.54375C5.16792 0.152083 7.53917 0.152083 8.99167 2.54375L10.1642 4.46875L11.3367 6.39375C12.7892 8.78542 11.5992 10.7438 8.70292 10.7438H6.34042Z" stroke="#14BD06" stroke-width="1.5" stroke-miterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
 
                 {item.growth_percent}
